@@ -29,6 +29,11 @@ namespace Cohesity
             queries.Add(key, value.ToString());
         }
 
+        public void Add(string key, long value)
+        {
+            queries.Add(key, value.ToString());
+        }
+
         public void Add(string key, bool value)
         {
             queries.Add(key, value.ToString());
@@ -47,7 +52,7 @@ namespace Cohesity
         public string Build()
         {
             if (queries.Any())
-                return "?" + string.Join("&", queries.Select(q => $"{q.Key}={q.Value}"));
+                return "?" + string.Join("&", queries.Select(q => $"{q.Key}={Uri.EscapeDataString(q.Value)}"));
             else
                 return string.Empty;
         }

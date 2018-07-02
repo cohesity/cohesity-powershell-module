@@ -76,7 +76,11 @@ namespace Cohesity.Models
             /// Enum KWindowsCluster for value: kWindowsCluster
             /// </summary>
             [EnumMember(Value = "kWindowsCluster")]
-            KWindowsCluster = 2
+            KWindowsCluster = 2,
+
+            [EnumMember(Value = "kGroup")]
+            kGroup = 3
+
         }
 
         /// <summary>

@@ -39,7 +39,7 @@ namespace Cohesity
 
 
         [Parameter(Position = 1, Mandatory = true)]
-        public string BaseUri { get; set; }
+        public string ClusterURL { get; set; }
 
         /// <summary>
         /// <para type="description">
@@ -51,8 +51,8 @@ namespace Cohesity
         /// </para>
         /// </summary>
         [Alias("D")]
-        [Parameter(Position = 2, Mandatory = true)]
-        [AllowEmptyString]
+        [Parameter(Position = 2, Mandatory = false)]
+        //[AllowEmptyString]
         public string Domain { get; set; }
 
         /// <summary>
@@ -62,8 +62,8 @@ namespace Cohesity
         /// </para>
         /// </summary>
         [Alias("U")]
-        [Parameter(Position = 3, Mandatory = true)]
-        [ValidateNotNullOrEmpty]
+        [Parameter(Position = 3, Mandatory = false)]
+        //[ValidateNotNullOrEmpty]
         public string Username { get; set; }
 
         /// <summary>
@@ -73,12 +73,17 @@ namespace Cohesity
         /// </para>
         /// </summary>
         [Alias("P")]
-        [Parameter(Position = 4, Mandatory = true)]
-        [ValidateNotNullOrEmpty]
+        [Parameter(Position = 4, Mandatory = false)]
+        //[ValidateNotNullOrEmpty]
         public string Password { get; set; }
 
-        public bool sslIgnore = true;
+        private bool sslIgnore = true;
 
+        /// <summary>
+        /// <para type="description">
+        /// Ignore invalid SSL/TLS connections.
+        /// </para>
+        /// </summary>
         [Parameter]
         public SwitchParameter SslIgnore
         {
@@ -92,8 +97,23 @@ namespace Cohesity
         protected override void BeginProcessing()
         {
             base.BeginProcessing();
-            if (string.IsNullOrWhiteSpace(BaseUri))
-                throw new ParameterBindingException($"{nameof(BaseUri)} must not be empty.");
+
+            if (string.IsNullOrWhiteSpace(ClusterURL))
+                throw new ParameterBindingException($"{nameof(ClusterURL)} must not be empty.");
+
+            if (string.IsNullOrWhiteSpace(Username) && string.IsNullOrWhiteSpace(Password))
+            {
+                var cred = Host.UI.PromptForCredential("Cohesity Cluster Credentials", string.Empty, string.Empty, string.Empty, PSCredentialTypes.Domain, PSCredentialUIOptions.Default);
+
+                if (cred != null)
+                {
+                    var netCreds = cred.GetNetworkCredential();
+
+                    Domain = netCreds.Domain;
+                    Username = netCreds.UserName;
+                    Password = netCreds.Password;
+                }
+            }
 
             preparedDomain = string.IsNullOrWhiteSpace(Domain) ? LocalDomain : Domain;
 
@@ -101,17 +121,17 @@ namespace Cohesity
 
             try
             {
-                if (!BaseUri.StartsWith(Uri.UriSchemeHttp, StringComparison.OrdinalIgnoreCase) && !BaseUri.StartsWith(Uri.UriSchemeHttps, StringComparison.OrdinalIgnoreCase))
+                if (!ClusterURL.StartsWith(Uri.UriSchemeHttp, StringComparison.OrdinalIgnoreCase) && !ClusterURL.StartsWith(Uri.UriSchemeHttps, StringComparison.OrdinalIgnoreCase))
                 {
-                    BaseUri = Uri.UriSchemeHttps + Uri.SchemeDelimiter + BaseUri;
+                    ClusterURL = Uri.UriSchemeHttps + Uri.SchemeDelimiter + ClusterURL;
                 }
 
-                var baseUri = new Uri(BaseUri);
+                var baseUri = new Uri(ClusterURL);
                 Session.NetworkClient.BaseUri = baseUri;
             }
             catch (Exception ex)
             {
-                throw new ParameterBindingException($"{nameof(BaseUri)} is not in a valid format.", ex);
+                throw new ParameterBindingException($"{nameof(ClusterURL)} is not in a valid format.", ex);
             }
 
             preparedUrl = $"{Session.NetworkClient.BaseUri.AbsoluteUri}/public/accessTokens";
@@ -149,11 +169,6 @@ namespace Cohesity
             Session.NetworkClient.AccessToken = JsonConvert.DeserializeObject<AccessTokenObject>(responseContent);
 
             WriteVerbose("Connected to Cohesity Cluster Successfully");
-        }
-
-        protected override void EndProcessing()
-        {
-            base.EndProcessing();
         }
     }
 }

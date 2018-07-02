@@ -82,7 +82,7 @@ namespace Cohesity
         /// </para>
         /// </summary>
         [Parameter(Position = 5, Mandatory = false)]
-        public long ID { get; set; }
+        public long? ID { get; set; }
         
         /// <summary>
         /// <para type="description">
@@ -105,6 +105,9 @@ namespace Cohesity
         {
             var qb = new QuerystringBuilder();
 
+            if (ID.HasValue)
+                qb.Add("id", ID.Value);
+
             if (IncludeDatastores.IsPresent)
                 qb.Add("includeDatastores", true);
 
@@ -115,7 +118,7 @@ namespace Cohesity
                 qb.Add("includeVMFolders", true);
             
             if (Environments != null && Environments.Any())
-                qb.Add("environments", string.Join(",", Environments));
+                qb.Add("environment", string.Join(",", Environments));
 
             if (ExcludeTypes != null && ExcludeTypes.Any())
                 qb.Add("excludeTypes", ExcludeTypes);

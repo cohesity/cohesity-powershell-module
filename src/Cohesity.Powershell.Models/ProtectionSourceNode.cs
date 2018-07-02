@@ -41,7 +41,7 @@ namespace Cohesity.Models
         /// <param name="protectionSource">protectionSource.</param>
         /// <param name="registrationInfo">registrationInfo.</param>
         /// <param name="unprotectedSourcesSummary">Specifies aggregated information about all the child Objects of this node that are not protected by any Protection Jobs. The aggregated information for the Objects hierarchy&#39;s environment will be available at the 0th index of the vector. NOTE: This list includes Objects that were protected at some point in the past but are no longer actively protected. Snapshots containing these Objects may even exist on the Cohesity Cluster and be available to recover from..</param>
-        public ProtectionSourceNode(List<Object> applicationNodes = default(List<Object>), long? logicalSize = default(long?), List<Object> nodes = default(List<Object>), List<AggregatedSubtreeInfo> protectedSourcesSummary = default(List<AggregatedSubtreeInfo>), ProtectionSource_ protectionSource = default(ProtectionSource_), RegisteredSourceInfo_ registrationInfo = default(RegisteredSourceInfo_), List<AggregatedSubtreeInfo> unprotectedSourcesSummary = default(List<AggregatedSubtreeInfo>))
+        public ProtectionSourceNode(List<Object> applicationNodes = default(List<Object>), long? logicalSize = default(long?), List<ProtectionSourceNode> nodes = default(List<ProtectionSourceNode>), List<AggregatedSubtreeInfo> protectedSourcesSummary = default(List<AggregatedSubtreeInfo>), ProtectionSource_ protectionSource = default(ProtectionSource_), RegisteredSourceInfo_ registrationInfo = default(RegisteredSourceInfo_), List<AggregatedSubtreeInfo> unprotectedSourcesSummary = default(List<AggregatedSubtreeInfo>))
         {
             this.ApplicationNodes = applicationNodes;
             this.LogicalSize = logicalSize;
@@ -71,7 +71,7 @@ namespace Cohesity.Models
         /// </summary>
         /// <value>Specifies children of the current node in the Protection Sources hierarchy. When representing Objects in memory, the entire Object subtree hierarchy is represented. You can use this subtree to navigate down the Object hierarchy.</value>
         [DataMember(Name="nodes", EmitDefaultValue=false)]
-        public List<Object> Nodes { get; set; }
+        public List<ProtectionSourceNode> Nodes { get; set; }
 
         /// <summary>
         /// Specifies aggregated information about all the child Objects of this node that are currently protected by a Protection Job. There is one entry for each environment that is being backed up. The aggregated information for the Object hierarchy&#39;s environment will be available at the 0th index of the vector.
@@ -150,7 +150,7 @@ namespace Cohesity.Models
                 ) && 
                 (
                     this.Nodes == input.Nodes ||
-                    this.Nodes != null &&
+                    this.Nodes != null && input.Nodes != null &&
                     this.Nodes.SequenceEqual(input.Nodes)
                 ) && 
                 (

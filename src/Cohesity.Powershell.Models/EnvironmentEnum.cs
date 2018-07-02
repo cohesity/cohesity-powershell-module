@@ -26,72 +26,76 @@ namespace Cohesity.Models
         /// Enum KVMware for value: kVMware
         /// </summary>
         [EnumMember(Value = "kVMware")]
-        KVMware = 1,
+        kVMware = 1, 
 
         /// <summary>
         /// Enum KSQL for value: kSQL
         /// </summary>
         [EnumMember(Value = "kSQL")]
-        KSQL = 2,
+        kSQL = 2,
 
         /// <summary>
         /// Enum KView for value: kView
         /// </summary>
         [EnumMember(Value = "kView")]
-        KView = 3,
+        kView = 3,
 
         /// <summary>
         /// Enum KPuppeteer for value: kPuppeteer
         /// </summary>
         [EnumMember(Value = "kPuppeteer")]
-        KPuppeteer = 4,
+        kPuppeteer = 4,
 
         /// <summary>
         /// Enum KPhysical for value: kPhysical
         /// </summary>
         [EnumMember(Value = "kPhysical")]
-        KPhysical = 5,
+        kPhysical = 5,
 
         /// <summary>
         /// Enum KPure for value: kPure
         /// </summary>
         [EnumMember(Value = "kPure")]
-        KPure = 6,
+        kPure = 6,
 
         /// <summary>
         /// Enum KNetapp for value: kNetapp
         /// </summary>
         [EnumMember(Value = "kNetapp")]
-        KNetapp = 7,
+        kNetapp = 7,
 
         /// <summary>
         /// Enum KGenericNas for value: kGenericNas
         /// </summary>
         [EnumMember(Value = "kGenericNas")]
-        KGenericNas = 8,
+        kGenericNas = 8,
 
         /// <summary>
         /// Enum KHyperV for value: kHyperV
         /// </summary>
         [EnumMember(Value = "kHyperV")]
-        KHyperV = 9,
+        kHyperV = 9,
 
         /// <summary>
         /// Enum KAcropolis for value: kAcropolis
         /// </summary>
         [EnumMember(Value = "kAcropolis")]
-        KAcropolis = 10,
+        kAcropolis = 10,
 
         /// <summary>
         /// Enum KAzure for value: kAzure
         /// </summary>
         [EnumMember(Value = "kAzure")]
-        KAzure = 11,
+        kAzure = 11,
 
         /// <summary>
         /// Enum KPhysical for value: kPhysical
         /// </summary>
         [EnumMember(Value = "kPhysicalFiles")]
-        KPhysicalFiles = 12,
+        kPhysicalFiles = 12,
+
+        [EnumMember(Value = "kAgent")]
+        kAgent = 13,
+        
     }
 }
