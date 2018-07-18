@@ -21,7 +21,7 @@ $ProtectionSourceConfigurations = @(
 
 # Execution
 # ---------------------------------------
-$Environment = 'kPhysicalFiles'
+$Environment = 'kPhysical'
 $protectionPolicies = cohesity-listpolicies -Environments $Environment -Names @($Policy_Name)
 $protectionPolicy = $protectionPolicies[0]
 $policyId = $protectionPolicy.Id

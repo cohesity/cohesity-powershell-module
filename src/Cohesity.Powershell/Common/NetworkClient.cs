@@ -104,6 +104,57 @@ namespace Cohesity
             return request;
         }
 
+        public HttpRequestMessage CreatePostRequest(Uri requestUri, string content)
+        {
+            var request = new HttpRequestMessage()
+            {
+                Method = HttpMethod.Post,
+                RequestUri = requestUri,
+                Content = new StringContent(content, Encoding.UTF8, "application/json")
+            };
+
+            if (AccessToken != null)
+            {
+                request.Headers.Add("Authorization", $"{AccessToken.TokenType} {AccessToken.AccessToken}");
+            }
+
+            return request;
+        }
+
+        public HttpRequestMessage CreateDeleteRequest(Uri requestUri, object content)
+        {
+            var request = new HttpRequestMessage()
+            {
+                Method = HttpMethod.Delete,
+                RequestUri = requestUri,
+                Content = new StringContent(JsonConvert.SerializeObject(content), Encoding.UTF8, "application/json")
+            };
+
+            if (AccessToken != null)
+            {
+                request.Headers.Add("Authorization", $"{AccessToken.TokenType} {AccessToken.AccessToken}");
+            }
+
+            return request;
+        }
+
+        public HttpRequestMessage CreateDeleteRequest(Uri requestUri, string content)
+        {
+            var request = new HttpRequestMessage()
+            {
+                Method = HttpMethod.Delete,
+                RequestUri = requestUri,
+                Content = new StringContent(content, Encoding.UTF8, "application/json")
+            };
+
+            if (AccessToken != null)
+            {
+                request.Headers.Add("Authorization", $"{AccessToken.TokenType} {AccessToken.AccessToken}");
+            }
+
+            return request;
+        }
+
         public AccessTokenObject AccessToken { get; set; }
 
         public bool IsAuthenticated
