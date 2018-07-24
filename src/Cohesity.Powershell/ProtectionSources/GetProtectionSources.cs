@@ -20,7 +20,7 @@ namespace Cohesity
     /// Specifying parameters can alter the results that are returned.
     /// </para>
     /// </summary>
-    [Cmdlet("Cohesity", "ListProtectionSources")]
+    [Cmdlet("Get", "CohesityProtectionSources")]
     [OutputType(typeof(ProtectionSourceNode))]
     public class GetProtectionSources : PSCmdlet
     {

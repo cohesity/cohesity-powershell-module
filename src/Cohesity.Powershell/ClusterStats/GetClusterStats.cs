@@ -17,7 +17,7 @@ namespace Cohesity.ClusterStats
     /// Specifying parameters filters the results that are returned.
     /// </para>
     /// </summary>
-    [Cmdlet("Cohesity", "GetClusterStats")]
+    [Cmdlet("Get", "CohesityClusterStats")]
     [OutputType(typeof(Cluster))]
     public class GetClusterStats : PSCmdlet
     {

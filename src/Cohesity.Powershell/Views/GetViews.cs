@@ -22,7 +22,7 @@ namespace Cohesity
     /// last View returned in viewList from the previous response.
     /// </para>
     /// </summary>
-    [Cmdlet("Cohesity", "ListViews")]
+    [Cmdlet("Get", "CohesityView")]
     [OutputType(typeof(GetViewsResult))]
     public class GetViews : PSCmdlet
     {

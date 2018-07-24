@@ -71,9 +71,10 @@
     <Compile Include="ListCmdlets.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProtectionJobs\DeleteProtectionJob.cs" />
-    <Compile Include="ProtectionJobs\PauseDataProtectionJob.cs" />
+    <Compile Include="ProtectionJobs\PauseProtectionJob.cs" />
     <Compile Include="ProtectionJobs\PostProtectionJobs.cs" />
     <Compile Include="ProtectionJobs\GetProtectionJobs.cs" />
+    <Compile Include="ProtectionJobs\ResumeProtectionJob.cs" />
     <Compile Include="ProtectionPolicies\GetProtectionPolicies.cs" />
     <Compile Include="ProtectionSources\GetProtectionSources.cs" />
     <Compile Include="ViewBoxes\GetViewBoxes.cs" />

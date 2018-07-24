@@ -8,7 +8,7 @@ using System.Net.Http;
 
 namespace Cohesity.ViewBoxes
 {
-    [Cmdlet("Cohesity", "GetViewBoxStats")]
+    [Cmdlet("Get", "CohesityViewBoxStats")]
     [OutputType(typeof(ViewBox))]
     public class GetViewBoxStats : PSCmdlet
     {

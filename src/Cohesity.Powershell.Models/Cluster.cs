@@ -183,10 +183,6 @@ namespace Cohesity.Models
         public Cluster(BondingModeEnum? bondingMode = default(BondingModeEnum?), ClusterAuditLogConfiguration clusterAuditLogConfig = default(ClusterAuditLogConfiguration), string clusterSoftwareVersion = default(string), ClusterTypeEnum? clusterType = default(ClusterTypeEnum?), long? createdTimeMsecs = default(long?), long? currentOpScheduledTimeSecs = default(long?), CurrentOperationEnum? currentOperation = default(CurrentOperationEnum?), long? currentTimeMsecs = default(long?), List<string> dnsServerIps = default(List<string>), List<string> domainNames = default(List<string>), bool? enableActiveMonitoring = default(bool?), bool? enableUpgradePkgPolling = default(bool?), bool? encryptionEnabled = default(bool?), long? encryptionKeyRotationPeriodSecs = default(long?), EULAAcceptanceInformation_ eulaConfig = default(EULAAcceptanceInformation_), FilerAuditLogConfiguration filerAuditLogConfig = default(FilerAuditLogConfiguration), bool? fipsModeEnabled = default(bool?), string gateway = default(string), ClusterHardwareInfo hardwareInfo = default(ClusterHardwareInfo), long? id = default(long?), long? incarnationId = default(long?), bool? isDocumentationLocal = default(bool?), string languageLocale = default(string), int? mtu = default(int?), string name = default(string), long? nodeCount = default(long?), NtpSettingsConfig ntpSettings = default(NtpSettingsConfig), bool? reverseTunnelEnabled = default(bool?), bool? smbAdDisabled = default(bool?), ClusterStats stats = default(ClusterStats), SupportedConfig supportedConfig = default(SupportedConfig), List<SyslogServer> syslogServers = default(List<SyslogServer>), string targetSoftwareVersion = default(string), string timezone = default(string), bool? turboMode = default(bool?))
         {
             this.BondingMode = bondingMode;
-            this.SyslogServers = syslogServers;
-            this.TargetSoftwareVersion = targetSoftwareVersion;
-            this.Timezone = timezone;
-            this.TurboMode = turboMode;
             this.ClusterAuditLogConfig = clusterAuditLogConfig;
             this.ClusterSoftwareVersion = clusterSoftwareVersion;
             this.ClusterType = clusterType;
@@ -196,7 +192,6 @@ namespace Cohesity.Models
             this.CurrentTimeMsecs = currentTimeMsecs;
             this.DnsServerIps = dnsServerIps;
             this.DomainNames = domainNames;
-            this.SupportedConfig = supportedConfig;
             this.EnableActiveMonitoring = enableActiveMonitoring;
             this.EnableUpgradePkgPolling = enableUpgradePkgPolling;
             this.EncryptionEnabled = encryptionEnabled;
@@ -217,8 +212,11 @@ namespace Cohesity.Models
             this.ReverseTunnelEnabled = reverseTunnelEnabled;
             this.SmbAdDisabled = smbAdDisabled;
             this.Stats = stats;
-            //this.SupportedConfig = supportedConfig;
-            
+            this.SupportedConfig = supportedConfig;
+            this.SyslogServers = syslogServers;
+            this.TargetSoftwareVersion = targetSoftwareVersion;
+            this.Timezone = timezone;
+            this.TurboMode = turboMode;
         }
         
 
@@ -228,29 +226,6 @@ namespace Cohesity.Models
         /// <value>Cluster Audit Log Configuration.</value>
         [DataMember(Name="clusterAuditLogConfig", EmitDefaultValue=false)]
         public ClusterAuditLogConfiguration ClusterAuditLogConfig { get; set; }
-
-        public List<SyslogServer> SyslogServers { get; set; }
-
-        /// <summary>
-        /// Specifies the Cohesity release that this Cluster is being upgraded to if an upgrade operation is in progress.
-        /// </summary>
-        /// <value>Specifies the Cohesity release that this Cluster is being upgraded to if an upgrade operation is in progress.</value>
-        [DataMember(Name = "targetSoftwareVersion", EmitDefaultValue = false)]
-        public string TargetSoftwareVersion { get; set; }
-
-        /// <summary>
-        /// Specifies the timezone to use for showing time in emails, reports, filer audit logs, etc.
-        /// </summary>
-        /// <value>Specifies the timezone to use for showing time in emails, reports, filer audit logs, etc.</value>
-        [DataMember(Name = "timezone", EmitDefaultValue = false)]
-        public string Timezone { get; set; }
-
-        /// <summary>
-        /// Specifies if the cluster is in Turbo mode.
-        /// </summary>
-        /// <value>Specifies if the cluster is in Turbo mode.</value>
-        [DataMember(Name = "turboMode", EmitDefaultValue = false)]
-        public bool? TurboMode { get; set; }
 
         /// <summary>
         /// Specifies the current release of the Cohesity software running on this Cohesity Cluster.
@@ -295,13 +270,6 @@ namespace Cohesity.Models
         /// <value>The first domain name specified in the array is the fully qualified domain name assigned to the Cohesity Cluster. Any additional domain names specified are used for the domain search list for hostname look-up.</value>
         [DataMember(Name="domainNames", EmitDefaultValue=false)]
         public List<string> DomainNames { get; set; }
-
-        /// <summary>
-        /// Information about supported configuration. For example, it contains minimum number of nodes supported for the cluster.
-        /// </summary>
-        /// <value>Information about supported configuration. For example, it contains minimum number of nodes supported for the cluster.</value>
-        [DataMember(Name = "supportedConfig", EmitDefaultValue = false)]
-        public SupportedConfig SupportedConfig { get; set; }
 
         /// <summary>
         /// Specifies if Cohesity can receive monitoring information from the Cohesity Cluster. If &#39;true&#39;, remote monitoring of the Cohesity Cluster is allowed.
@@ -442,40 +410,40 @@ namespace Cohesity.Models
         [DataMember(Name="stats", EmitDefaultValue=false)]
         public ClusterStats Stats { get; set; }
 
-        ///// <summary>
-        ///// Information about supported configuration. For example, it contains minimum number of nodes supported for the cluster.
-        ///// </summary>
-        ///// <value>Information about supported configuration. For example, it contains minimum number of nodes supported for the cluster.</value>
-        //[DataMember(Name="supportedConfig", EmitDefaultValue=false)]
-        //public SupportedConfig SupportedConfig { get; set; }
+        /// <summary>
+        /// Information about supported configuration. For example, it contains minimum number of nodes supported for the cluster.
+        /// </summary>
+        /// <value>Information about supported configuration. For example, it contains minimum number of nodes supported for the cluster.</value>
+        [DataMember(Name="supportedConfig", EmitDefaultValue=false)]
+        public SupportedConfig SupportedConfig { get; set; }
 
         /// <summary>
         /// Specifies a list of Syslog servers to send audit logs to.
         /// </summary>
         /// <value>Specifies a list of Syslog servers to send audit logs to.</value>
-        //[DataMember(Name="syslogServers", EmitDefaultValue=false)]
-        //public List<SyslogServer> SyslogServers { get; set; }
+        [DataMember(Name="syslogServers", EmitDefaultValue=false)]
+        public List<SyslogServer> SyslogServers { get; set; }
 
-        ///// <summary>
-        ///// Specifies the Cohesity release that this Cluster is being upgraded to if an upgrade operation is in progress.
-        ///// </summary>
-        ///// <value>Specifies the Cohesity release that this Cluster is being upgraded to if an upgrade operation is in progress.</value>
-        //[DataMember(Name="targetSoftwareVersion", EmitDefaultValue=false)]
-        //public string TargetSoftwareVersion { get; set; }
+        /// <summary>
+        /// Specifies the Cohesity release that this Cluster is being upgraded to if an upgrade operation is in progress.
+        /// </summary>
+        /// <value>Specifies the Cohesity release that this Cluster is being upgraded to if an upgrade operation is in progress.</value>
+        [DataMember(Name="targetSoftwareVersion", EmitDefaultValue=false)]
+        public string TargetSoftwareVersion { get; set; }
 
-        ///// <summary>
-        ///// Specifies the timezone to use for showing time in emails, reports, filer audit logs, etc.
-        ///// </summary>
-        ///// <value>Specifies the timezone to use for showing time in emails, reports, filer audit logs, etc.</value>
-        //[DataMember(Name="timezone", EmitDefaultValue=false)]
-        //public string Timezone { get; set; }
+        /// <summary>
+        /// Specifies the timezone to use for showing time in emails, reports, filer audit logs, etc.
+        /// </summary>
+        /// <value>Specifies the timezone to use for showing time in emails, reports, filer audit logs, etc.</value>
+        [DataMember(Name="timezone", EmitDefaultValue=false)]
+        public string Timezone { get; set; }
 
-        ///// <summary>
-        ///// Specifies if the cluster is in Turbo mode.
-        ///// </summary>
-        ///// <value>Specifies if the cluster is in Turbo mode.</value>
-        //[DataMember(Name="turboMode", EmitDefaultValue=false)]
-        //public bool? TurboMode { get; set; }
+        /// <summary>
+        /// Specifies if the cluster is in Turbo mode.
+        /// </summary>
+        /// <value>Specifies if the cluster is in Turbo mode.</value>
+        [DataMember(Name="turboMode", EmitDefaultValue=false)]
+        public bool? TurboMode { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object

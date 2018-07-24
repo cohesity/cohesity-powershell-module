@@ -18,7 +18,7 @@ namespace Cohesity
     /// A connection is valid for 24 hours.
     /// </para>
     /// </summary>
-    [Cmdlet("Cohesity", "Connect")]
+    [Cmdlet("Connect", "CohesityCluster")]
     public class Connect : PSCmdlet
     {
         private static string LocalDomain = "LOCAL";

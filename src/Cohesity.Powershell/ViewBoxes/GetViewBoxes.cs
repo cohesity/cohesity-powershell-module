@@ -17,7 +17,7 @@ namespace Cohesity
     /// Specifying parameters filters the results that are returned.
     /// </para>
     /// </summary>
-    [Cmdlet("Cohesity", "ListViewBox")]
+    [Cmdlet("Get", "CohesityViewBox")]
     [OutputType(typeof(ViewBox))]
     public class GetViewBoxes : PSCmdlet
     {

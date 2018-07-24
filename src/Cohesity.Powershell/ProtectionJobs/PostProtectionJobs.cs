@@ -24,7 +24,7 @@ namespace Cohesity
     ///   Create a protection job with only required parameters.
     ///   </para>
     /// </example>
-    [Cmdlet("Cohesity", "CreateDataProtectionJobs")]
+    [Cmdlet("New", "CohesityProtectionJob")]
     [OutputType(typeof(ProtectionJob))]
     public class CreateProtectionJobs : PSCmdlet
     {

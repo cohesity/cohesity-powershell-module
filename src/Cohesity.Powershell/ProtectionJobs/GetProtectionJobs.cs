@@ -1,10 +1,7 @@
 ﻿using Cohesity.Models;
-using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Management.Automation;
-using System.Net.Http;
 
 namespace Cohesity
 {
@@ -17,7 +14,7 @@ namespace Cohesity
     /// Specifying parameters filters the results that are returned.
     /// </para>
     /// </summary>
-    [Cmdlet("Cohesity", "ListDataProtectionJobs")]
+    [Cmdlet("Get", "CohesityProtectionJob")]
     [OutputType(typeof(ProtectionJob))]
     public class GetProtectionJobs : PSCmdlet
     {

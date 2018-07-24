@@ -17,7 +17,7 @@ namespace Cohesity.ProtectionPolicies
     /// Specifying parameters filters the results that are returned.
     /// </para>
     /// </summary>
-    [Cmdlet("Cohesity", "ListPolicies")]
+    [Cmdlet("Get", "CohesityPolicy")]
     [OutputType(typeof(ProtectionPolicy))]
     public class GetProtectionPolicies : PSCmdlet
     {

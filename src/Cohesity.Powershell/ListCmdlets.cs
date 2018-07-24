@@ -18,7 +18,7 @@ namespace Cohesity
     ///   Returns an array of cmdlet names.
     ///   </para>
     /// </example>
-    [Cmdlet("Cohesity", "ListCmdlets")]
+    [Cmdlet("Get", "CohesityCmdletsInfo")]
     [OutputType(typeof(string))]
     public class ListCmdlets : PSCmdlet
     {
