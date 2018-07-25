@@ -121,6 +121,23 @@ namespace Cohesity
             return request;
         }
 
+        public HttpRequestMessage CreatePutRequest(Uri requestUri, object content)
+        {
+            var request = new HttpRequestMessage()
+            {
+                Method = HttpMethod.Put,
+                RequestUri = requestUri,
+                Content = new StringContent(JsonConvert.SerializeObject(content), Encoding.UTF8, "application/json")
+            };
+
+            if (AccessToken != null)
+            {
+                request.Headers.Add("Authorization", $"{AccessToken.TokenType} {AccessToken.AccessToken}");
+            }
+
+            return request;
+        }
+
         public HttpRequestMessage CreateDeleteRequest(Uri requestUri, object content)
         {
             var request = new HttpRequestMessage()

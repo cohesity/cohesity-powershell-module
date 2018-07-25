@@ -75,6 +75,8 @@
     <Compile Include="ProtectionJobs\PostProtectionJobs.cs" />
     <Compile Include="ProtectionJobs\GetProtectionJobs.cs" />
     <Compile Include="ProtectionJobs\ResumeProtectionJob.cs" />
+    <Compile Include="ProtectionJobs\SetProtectionJob.cs" />
+    <Compile Include="ProtectionJobs\StartProtectionJob.cs" />
     <Compile Include="ProtectionPolicies\GetProtectionPolicies.cs" />
     <Compile Include="ProtectionSources\GetProtectionSources.cs" />
     <Compile Include="ViewBoxes\GetViewBoxes.cs" />
