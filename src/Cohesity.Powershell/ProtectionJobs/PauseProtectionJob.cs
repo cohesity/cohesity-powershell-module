@@ -15,7 +15,7 @@ namespace Cohesity.ProtectionJobs
     /// <example>
     ///   <para>C:PS&gt;</para>
     ///   <code>
-    ///   Pause-CohesityProtectionJob -ID 1234
+    ///   Suspend-CohesityProtectionJob -ID 1234
     ///   </code>
     ///   <para>
     ///   Pauses a Protection Job with the ID of 1234.
@@ -47,7 +47,7 @@ namespace Cohesity.ProtectionJobs
         /// </summary>
         [Parameter(Position = 1, Mandatory = true)]
         [ValidateRange(1, long.MaxValue)]
-        public long ID { get; set; }
+        public long Id { get; set; }
         
         #endregion
 
@@ -62,9 +62,9 @@ namespace Cohesity.ProtectionJobs
 
             Session.AssertAuthentication();
             
-            if (ID <= 0)
+            if (Id <= 0)
             {
-                throw new ParameterBindingException($"Parameter {nameof(ID)} must be greater than zero.");
+                throw new ParameterBindingException($"Parameter {nameof(Id)} must be greater than zero.");
             }
         }
 
@@ -78,7 +78,7 @@ namespace Cohesity.ProtectionJobs
             };
 
             // POST /public/protectionJobState/{id}
-            var preparedUrl = $"{Session.NetworkClient.BaseUri.AbsoluteUri}/public/protectionJobState/{ID.ToString()}";
+            var preparedUrl = $"{Session.NetworkClient.BaseUri.AbsoluteUri}/public/protectionJobState/{Id.ToString()}";
             Session.NetworkClient.Post(preparedUrl, protectionJobState);
             WriteObject("Protection Job state has been updated.");
         }

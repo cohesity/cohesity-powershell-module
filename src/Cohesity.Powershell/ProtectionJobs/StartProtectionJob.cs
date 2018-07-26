@@ -23,10 +23,10 @@ namespace Cohesity.ProtectionJobs
     /// <example>
     ///   <para>C:PS&gt;</para>
     ///   <code>
-    ///   Cohesity-CreateDataProtectionJobs -Name "My Name" -PolicyID "My PolicyID" -ViewBoxID 1
+    ///   Start-CohesityProtectionJob -ID 1234
     ///   </code>
     ///   <para>
-    ///   Create a protection job with only required parameters.
+    ///   Starts a Protection Job with the ID of 1234.
     ///   </para>
     /// </example>
     [Cmdlet("Start", "CohesityProtectionJob")]
@@ -56,7 +56,7 @@ namespace Cohesity.ProtectionJobs
         /// </summary>
         [Parameter(Position = 1, Mandatory = true)]
         [ValidateRange(1, long.MaxValue)]
-        public long ID { get; set; }
+        public long Id { get; set; }
 
 
         /// <summary>
@@ -96,9 +96,9 @@ namespace Cohesity.ProtectionJobs
 
             Session.AssertAuthentication();
 
-            if (ID <= 0)
+            if (Id <= 0)
             {
-                throw new ParameterBindingException($"Parameter {nameof(ID)} must be greater than zero.");
+                throw new ParameterBindingException($"Parameter {nameof(Id)} must be greater than zero.");
             }
         }
 
@@ -113,7 +113,7 @@ namespace Cohesity.ProtectionJobs
             var content = new RunProtectionJobParam(copyRunTargets, RunType, sourceIDs);
 
             // POST public/protectionJobs/run/{id}
-            var preparedUrl = $"{Session.NetworkClient.BaseUri.AbsoluteUri}/public/protectionJobs/run/{ID.ToString()}";
+            var preparedUrl = $"{Session.NetworkClient.BaseUri.AbsoluteUri}/public/protectionJobs/run/{Id.ToString()}";
             Session.NetworkClient.Post(preparedUrl, content);
             WriteObject("Protection Job run.");
         }
