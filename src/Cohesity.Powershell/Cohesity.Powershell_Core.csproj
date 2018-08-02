@@ -1,0 +1,50 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>Cohesity.Powershell</AssemblyName>
+    <RootNamespace>Cohesity.Powershell</RootNamespace>
+	<RestoreProjectStyle>PackageReference</RestoreProjectStyle>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>bin\Debug\netstandard2.0\Cohesity.Powershell.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>bin\Release\netstandard2.0\Cohesity.Powershell.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Common\CohesityClientHandler.cs" />
+    <Compile Remove="Common\TrustAllCertsPolicy.cs" />
+    <Compile Remove="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Cohesity.psd1" />
+    <None Remove="packages.config" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Cohesity.psd1">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+    <PackageReference Include="PowerShellStandard.Library" Version="5.1.0-preview-05" />
+    <PackageReference Include="System.Net.Http" Version="4.3.3" />
+    <!--<PackageReference Include="XmlDoc2CmdletDoc" Version="0.2.10" />-->
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Cohesity.Powershell.Models\Cohesity.Powershell.Models_Core.csproj" />
+  </ItemGroup>
+
+</Project>

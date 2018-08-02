@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "Cohesity.Powershell_Core": {
+      "commandName": "Executable",
+      "executablePath": "C:\\Program Files\\PowerShell\\6.0.3\\pwsh.exe",
+      "commandLineArgs": "-noexit -command \"&{ import-module .\\Cohesity.psd1 -verbose}\""
+    }
+  }
+}

@@ -39,7 +39,7 @@ namespace Cohesity
 
 
         [Parameter(Position = 1, Mandatory = true)]
-        public string ClusterURL { get; set; }
+        public string ClusterIP { get; set; }
 
         /// <summary>
         /// <para type="description">
@@ -98,8 +98,8 @@ namespace Cohesity
         {
             base.BeginProcessing();
 
-            if (string.IsNullOrWhiteSpace(ClusterURL))
-                throw new ParameterBindingException($"{nameof(ClusterURL)} must not be empty.");
+            if (string.IsNullOrWhiteSpace(ClusterIP))
+                throw new ParameterBindingException($"{nameof(ClusterIP)} must not be empty.");
 
             if (string.IsNullOrWhiteSpace(Username) && string.IsNullOrWhiteSpace(Password))
             {
@@ -121,17 +121,17 @@ namespace Cohesity
 
             try
             {
-                if (!ClusterURL.StartsWith(Uri.UriSchemeHttp, StringComparison.OrdinalIgnoreCase) && !ClusterURL.StartsWith(Uri.UriSchemeHttps, StringComparison.OrdinalIgnoreCase))
+                if (!ClusterIP.StartsWith(Uri.UriSchemeHttp, StringComparison.OrdinalIgnoreCase) && !ClusterIP.StartsWith(Uri.UriSchemeHttps, StringComparison.OrdinalIgnoreCase))
                 {
-                    ClusterURL = Uri.UriSchemeHttps + Uri.SchemeDelimiter + ClusterURL;
+                    ClusterIP = Uri.UriSchemeHttps + Uri.SchemeDelimiter + ClusterIP;
                 }
 
-                var baseUri = new Uri(ClusterURL);
+                var baseUri = new Uri(ClusterIP);
                 Session.NetworkClient.BaseUri = baseUri;
             }
             catch (Exception ex)
             {
-                throw new ParameterBindingException($"{nameof(ClusterURL)} is not in a valid format.", ex);
+                throw new ParameterBindingException($"{nameof(ClusterIP)} is not in a valid format.", ex);
             }
 
             preparedUrl = $"{Session.NetworkClient.BaseUri.AbsoluteUri}/public/accessTokens";

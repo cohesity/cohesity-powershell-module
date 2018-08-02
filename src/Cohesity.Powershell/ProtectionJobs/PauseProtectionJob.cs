@@ -15,7 +15,7 @@ namespace Cohesity.ProtectionJobs
     /// <example>
     ///   <para>C:PS&gt;</para>
     ///   <code>
-    ///   Suspend-CohesityProtectionJob -ID 1234
+    ///   Pause-CohesityProtectionJob -ID 1234
     ///   </code>
     ///   <para>
     ///   Pauses a Protection Job with the ID of 1234.

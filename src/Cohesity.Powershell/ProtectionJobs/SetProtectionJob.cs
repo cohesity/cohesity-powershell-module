@@ -7,7 +7,7 @@ namespace Cohesity.ProtectionJobs
 
     /// <summary>
     /// <para type="synopsis">
-    /// Updates a Protection Job.
+    /// Update a Protection Job.
     /// </para>
     /// <para type="description">
     /// Returns the updated Protection Job.

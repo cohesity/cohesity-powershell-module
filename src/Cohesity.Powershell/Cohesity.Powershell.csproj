@@ -62,7 +62,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccessTokens\GetAccessTokens.cs" />
-    <Compile Include="ClusterStats\GetClusterStats.cs" />
     <Compile Include="Common\NetworkClientExtensions.cs" />
     <Compile Include="Common\NetworkClient.cs" />
     <Compile Include="Common\QuerystringBuilder.cs" />
@@ -80,7 +79,6 @@
     <Compile Include="ProtectionPolicies\GetProtectionPolicies.cs" />
     <Compile Include="ProtectionSources\GetProtectionSources.cs" />
     <Compile Include="ViewBoxes\GetViewBoxes.cs" />
-    <Compile Include="ViewBoxes\GetViewBoxStats.cs" />
     <Compile Include="Views\GetViews.cs" />
   </ItemGroup>
   <ItemGroup>

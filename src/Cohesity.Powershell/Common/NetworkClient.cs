@@ -19,26 +19,27 @@ namespace Cohesity
         private void BuildClient()
         {
 
-            Handler = new WebRequestHandler();
+            var handler = new HttpClientHandler();
 
             if (SslIgnore)
             {
-                Handler.ClientCertificateOptions = ClientCertificateOption.Manual;
-                Handler.ServerCertificateValidationCallback = (sender, cert, chain, sslPolicyErrors) =>
+                handler.ClientCertificateOptions = ClientCertificateOption.Manual;
+                handler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) =>
                     {
                         return true;
                     };
 
-
-                ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
-                ServicePointManager.CertificatePolicy = new TrustAllCertsPolicy();
+                //ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+                // ServicePointManager.CertificatePolicy = new TrustAllCertsPolicy();
+                ServicePointManager.CheckCertificateRevocationList = false;
                 ServicePointManager.ServerCertificateValidationCallback = (sender, cert, chain, sslPolicyErrors) =>
                 {
                     return true;
                 };
             }
 
-            HttpClient = new HttpClient();
+            HttpClient = new HttpClient(handler);
             HttpClient.DefaultRequestHeaders.Accept.Clear();
             HttpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
@@ -73,7 +74,7 @@ namespace Cohesity
             }
         }
 
-        private WebRequestHandler Handler;
+        //private WebRequestHandler Handler;
         public HttpClient HttpClient { get; private set; }
 
         public HttpRequestMessage CreateRequest(HttpMethod method, Uri requestUri)
@@ -185,12 +186,12 @@ namespace Cohesity
         //public string RawAccessToken { get; set; }
     }
 
-    internal class TrustAllCertsPolicy : ICertificatePolicy
-    {
-        public bool CheckValidationResult(ServicePoint srvPoint, X509Certificate certificate, WebRequest request, int certificateProblem)
-        {
-            return true;
-        }
+    //internal class TrustAllCertsPolicy : ICertificatePolicy
+    //{
+    //    public bool CheckValidationResult(ServicePoint srvPoint, X509Certificate certificate, WebRequest request, int certificateProblem)
+    //    {
+    //        return true;
+    //    }
 
-    }
+    //}
 }

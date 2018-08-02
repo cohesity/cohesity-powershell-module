@@ -23,10 +23,10 @@ namespace Cohesity.ProtectionJobs
     /// <example>
     ///   <para>C:PS&gt;</para>
     ///   <code>
-    ///   Start-CohesityProtectionJob -ID 1234
+    ///   Cohesity-CreateDataProtectionJobs -Name "My Name" -PolicyID "My PolicyID" -ViewBoxID 1
     ///   </code>
     ///   <para>
-    ///   Starts a Protection Job with the ID of 1234.
+    ///   Create a protection job with only required parameters.
     ///   </para>
     /// </example>
     [Cmdlet("Start", "CohesityProtectionJob")]
