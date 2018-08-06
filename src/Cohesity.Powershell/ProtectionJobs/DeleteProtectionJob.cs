@@ -11,7 +11,7 @@ namespace Cohesity.ProtectionJobs
     /// </para>
     /// </summary>
     /// <example>
-    ///   <para>C:PS&gt;</para>
+    ///   <para>PS&gt;</para>
     ///   <code>
     ///   Delete-CohesityProtectionJob -ID 1234
     ///   </code>
@@ -20,7 +20,7 @@ namespace Cohesity.ProtectionJobs
     ///   </para>
     /// </example>
     /// <example>
-    ///   <para>C:PS&gt;</para>
+    ///   <para>PS&gt;</para>
     ///   <code>
     ///   Delete-CohesityProtectionJob -ID 1234 -DeleteSnapshots false
     ///   </code>
@@ -94,7 +94,7 @@ namespace Cohesity.ProtectionJobs
                 DeleteSnapshots
             };
 
-            var preparedUrl = $"{Session.NetworkClient.BaseUri.AbsoluteUri}/public/protectionJobs/{Id.ToString()}";
+            var preparedUrl = $"/public/protectionJobs/{Id.ToString()}";
             Session.NetworkClient.Delete(preparedUrl, content);
             WriteObject("Protection Job has been deleted.");
         }

@@ -81,7 +81,7 @@ namespace Cohesity.ProtectionPolicies
             if (Names != null && Names.Any())
                 qb.Add("names", string.Join(",", Names));
 
-            var preparedUrl = $"{Session.NetworkClient.BaseUri.AbsoluteUri}/public/protectionPolicies{qb.Build()}";
+            var preparedUrl = $"/public/protectionPolicies{qb.Build()}";
             var result = Session.NetworkClient.Get<IEnumerable<ProtectionPolicy>>(preparedUrl);
             WriteObject(result, true);
         }

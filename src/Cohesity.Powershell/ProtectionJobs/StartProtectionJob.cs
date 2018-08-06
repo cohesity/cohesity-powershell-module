@@ -21,7 +21,7 @@ namespace Cohesity.ProtectionJobs
     /// </para>
     /// </summary>
     /// <example>
-    ///   <para>C:PS&gt;</para>
+    ///   <para>PS&gt;</para>
     ///   <code>
     ///   Cohesity-CreateDataProtectionJobs -Name "My Name" -PolicyID "My PolicyID" -ViewBoxID 1
     ///   </code>
@@ -113,7 +113,7 @@ namespace Cohesity.ProtectionJobs
             var content = new RunProtectionJobParam(copyRunTargets, RunType, sourceIDs);
 
             // POST public/protectionJobs/run/{id}
-            var preparedUrl = $"{Session.NetworkClient.BaseUri.AbsoluteUri}/public/protectionJobs/run/{Id.ToString()}";
+            var preparedUrl = $"/public/protectionJobs/run/{Id.ToString()}";
             Session.NetworkClient.Post(preparedUrl, content);
             WriteObject("Protection Job run.");
         }

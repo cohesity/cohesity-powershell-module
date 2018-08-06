@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Cohesity.Powershell;
+using Newtonsoft.Json;
 using System;
 using System.Net;
 using System.Net.Http;
@@ -10,76 +11,79 @@ namespace Cohesity
 {
     internal class NetworkClient
     {
+        private const string ApiFragment = "irisservices/api/v1/";
+
+        private UserProfileProvider userProfileProvider;
+        public HttpClient HttpClient { get; private set; }
 
         public NetworkClient()
         {
-            BuildClient();
+            userProfileProvider = ServiceLocator.GetUserProfileProvider();
+
+            var userProfile = userProfileProvider.GetUserProfile();
+            if (userProfile != null)
+            {
+                BuildClient(userProfile.ClusterUri, userProfile.AllowInvalidServerCertificates);
+            }
         }
-
-        private void BuildClient()
+        
+        public HttpClient BuildClient(Uri baseAddress, bool allowInvalidServerCertificates) 
         {
-
             var handler = new HttpClientHandler();
 
-            if (SslIgnore)
+            if (allowInvalidServerCertificates)
             {
+#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1
                 handler.ClientCertificateOptions = ClientCertificateOption.Manual;
                 handler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) =>
-                    {
-                        return true;
-                    };
+                {
+                    return true;
+                };
+#endif
 
-                //ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+#if NET45 || NET451 || NET452 || NET46 || NET461 || NET462 || NET47 || NET471 || NET472
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
-                // ServicePointManager.CertificatePolicy = new TrustAllCertsPolicy();
                 ServicePointManager.CheckCertificateRevocationList = false;
                 ServicePointManager.ServerCertificateValidationCallback = (sender, cert, chain, sslPolicyErrors) =>
                 {
                     return true;
                 };
+#endif
             }
 
             HttpClient = new HttpClient(handler);
+            HttpClient.BaseAddress = new Uri(baseAddress, ApiFragment);
             HttpClient.DefaultRequestHeaders.Accept.Clear();
             HttpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            return HttpClient;
+        }
+        
+        
+        private Uri GetUri(string fragment)
+        {
+            var userProfile = userProfileProvider.GetUserProfile();
+            if (userProfile == null)
+                return null;
+
+            if (userProfile.ClusterUri == null)
+                return null;
+
+            var baseUri = new Uri(userProfile.ClusterUri, ApiFragment);
+
+            if (fragment.StartsWith("/"))
+            {
+                fragment = fragment.TrimStart('/');
+            }
+
+            return new Uri(baseUri, fragment);
         }
 
-        private bool sslIgnore = false;
-        public bool SslIgnore
+
+        public HttpRequestMessage CreateRequest(HttpMethod method, string requestUri)
         {
-            get
-            {
-                return sslIgnore;
-            }
-            set
-            {
-                sslIgnore = value;
-                BuildClient();
-            }
-        }
-
-        private const string ApiFragment = "irisservices/api/v1";
-
-        private Uri baseUri;
-
-        public Uri BaseUri
-        {
-            get
-            {
-                return new Uri(baseUri + ApiFragment);
-            }
-            set
-            {
-                baseUri = value;
-            }
-        }
-
-        //private WebRequestHandler Handler;
-        public HttpClient HttpClient { get; private set; }
-
-        public HttpRequestMessage CreateRequest(HttpMethod method, Uri requestUri)
-        {
-            var request = new HttpRequestMessage(method, requestUri);
+            var uri = GetUri(requestUri);
+            var request = new HttpRequestMessage(method, uri);
             if (AccessToken != null)
             {
                 request.Headers.Add("Authorization", $"{AccessToken.TokenType} {AccessToken.AccessToken}");
@@ -88,12 +92,13 @@ namespace Cohesity
             return request;
         }
 
-        public HttpRequestMessage CreatePostRequest(Uri requestUri, object content)
+        public HttpRequestMessage CreatePostRequest(string requestUri, object content)
         {
+            var uri = GetUri(requestUri);
             var request = new HttpRequestMessage()
             {
                 Method = HttpMethod.Post,
-                RequestUri = requestUri,
+                RequestUri = uri,
                 Content = new StringContent(JsonConvert.SerializeObject(content), Encoding.UTF8, "application/json")
             };
 
@@ -105,12 +110,13 @@ namespace Cohesity
             return request;
         }
 
-        public HttpRequestMessage CreatePostRequest(Uri requestUri, string content)
+        public HttpRequestMessage CreatePostRequest(string requestUri, string content)
         {
+            var uri = GetUri(requestUri);
             var request = new HttpRequestMessage()
             {
                 Method = HttpMethod.Post,
-                RequestUri = requestUri,
+                RequestUri = uri,
                 Content = new StringContent(content, Encoding.UTF8, "application/json")
             };
 
@@ -122,12 +128,13 @@ namespace Cohesity
             return request;
         }
 
-        public HttpRequestMessage CreatePutRequest(Uri requestUri, object content)
+        public HttpRequestMessage CreatePutRequest(string requestUri, object content)
         {
+            var uri = GetUri(requestUri);
             var request = new HttpRequestMessage()
             {
                 Method = HttpMethod.Put,
-                RequestUri = requestUri,
+                RequestUri = uri,
                 Content = new StringContent(JsonConvert.SerializeObject(content), Encoding.UTF8, "application/json")
             };
 
@@ -139,12 +146,13 @@ namespace Cohesity
             return request;
         }
 
-        public HttpRequestMessage CreateDeleteRequest(Uri requestUri, object content)
+        public HttpRequestMessage CreateDeleteRequest(string requestUri, object content)
         {
+            var uri = GetUri(requestUri);
             var request = new HttpRequestMessage()
             {
                 Method = HttpMethod.Delete,
-                RequestUri = requestUri,
+                RequestUri = uri,
                 Content = new StringContent(JsonConvert.SerializeObject(content), Encoding.UTF8, "application/json")
             };
 
@@ -156,12 +164,13 @@ namespace Cohesity
             return request;
         }
 
-        public HttpRequestMessage CreateDeleteRequest(Uri requestUri, string content)
+        public HttpRequestMessage CreateDeleteRequest(string requestUri, string content)
         {
+            var uri = GetUri(requestUri);
             var request = new HttpRequestMessage()
             {
                 Method = HttpMethod.Delete,
-                RequestUri = requestUri,
+                RequestUri = uri,
                 Content = new StringContent(content, Encoding.UTF8, "application/json")
             };
 
@@ -173,25 +182,30 @@ namespace Cohesity
             return request;
         }
 
-        public AccessTokenObject AccessToken { get; set; }
+        public AccessTokenObject AccessToken
+        {
+            get
+            {
+                var userProfile = userProfileProvider.GetUserProfile();
+                if (userProfile == null)
+                    return null;
+
+                return userProfile.AccessToken;
+            }
+        }
 
         public bool IsAuthenticated
         {
             get
             {
-                return AccessToken != null;
+                var userProfile = userProfileProvider.GetUserProfile();
+
+                if (userProfile == null)
+                    return false;
+
+                return userProfile.AccessToken != null;
             }
         }
 
-        //public string RawAccessToken { get; set; }
     }
-
-    //internal class TrustAllCertsPolicy : ICertificatePolicy
-    //{
-    //    public bool CheckValidationResult(ServicePoint srvPoint, X509Certificate certificate, WebRequest request, int certificateProblem)
-    //    {
-    //        return true;
-    //    }
-
-    //}
 }

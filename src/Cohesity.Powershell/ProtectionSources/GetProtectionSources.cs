@@ -123,7 +123,7 @@ namespace Cohesity
             if (ExcludeTypes != null && ExcludeTypes.Any())
                 qb.Add("excludeTypes", ExcludeTypes);
             
-            var url = $"{Session.NetworkClient.BaseUri.AbsoluteUri}/public/protectionSources{qb.Build()}";
+            var url = $"/public/protectionSources{qb.Build()}";
             var result = Session.NetworkClient.Get<IEnumerable<ProtectionSourceNode>>(url);
             WriteObject(result, true);
         }

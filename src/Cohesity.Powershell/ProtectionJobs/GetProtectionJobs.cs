@@ -144,7 +144,7 @@ namespace Cohesity
             if (queries.Any())
                 queryString = "?" + string.Join("&", queries.Select(q => $"{q.Key}={q.Value}"));
 
-            var preparedUrl = $"{Session.NetworkClient.BaseUri.AbsoluteUri}/public/protectionJobs{queryString}";
+            var preparedUrl = $"/public/protectionJobs{queryString}";
             var result = Session.NetworkClient.Get<IEnumerable<ProtectionJob>>(preparedUrl);
             WriteObject(result, true);
         }

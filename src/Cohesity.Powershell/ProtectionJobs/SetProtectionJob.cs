@@ -14,7 +14,7 @@ namespace Cohesity.ProtectionJobs
     /// </para>
     /// </summary>
     /// <example>
-    ///   <para>C:PS&gt;</para>
+    ///   <para>PS&gt;</para>
     ///   <code>
     ///   Cohesity-CreateDataProtectionJobs -Name "My Name" -PolicyID "My PolicyID" -ViewBoxID 1
     ///   </code>
@@ -91,7 +91,7 @@ namespace Cohesity.ProtectionJobs
         protected override void ProcessRecord()
         {
             // PUT public/protectionJobs/{id}
-            var preparedUrl = $"{Session.NetworkClient.BaseUri.AbsoluteUri}/public/protectionJobs/{ID.ToString()}";
+            var preparedUrl = $"/public/protectionJobs/{ID.ToString()}";
             var result = Session.NetworkClient.Put<ProtectionJob>(preparedUrl, ProtectionJob);
             WriteObject(result);
         }

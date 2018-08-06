@@ -1,12 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Management.Automation;
-using System.Net;
 using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Cohesity
 {
@@ -17,7 +11,7 @@ namespace Cohesity
     {
         public static string Get(this NetworkClient networkClient, string url)
         {
-            var httpRequest = networkClient.CreateRequest(HttpMethod.Get, new Uri(url));
+            var httpRequest = networkClient.CreateRequest(HttpMethod.Get, url);
 
             var httpClient = networkClient.HttpClient;
             var response = httpClient.SendAsync(httpRequest).Result;
@@ -40,7 +34,7 @@ namespace Cohesity
 
         public static string Post(this NetworkClient networkClient, string url, string content)
         {
-            var httpRequest = networkClient.CreatePostRequest(new Uri(url), content);
+            var httpRequest = networkClient.CreatePostRequest(url, content);
 
             var httpClient = networkClient.HttpClient;
             var response = httpClient.SendAsync(httpRequest).Result;
@@ -57,7 +51,7 @@ namespace Cohesity
 
         public static string Post(this NetworkClient networkClient, string url, object content)
         {
-            var httpRequest = networkClient.CreatePostRequest(new Uri(url), content);
+            var httpRequest = networkClient.CreatePostRequest(url, content);
 
             var httpClient = networkClient.HttpClient;
             var response = httpClient.SendAsync(httpRequest).Result;
@@ -80,7 +74,7 @@ namespace Cohesity
 
         public static string Put(this NetworkClient networkClient, string url, object content)
         {
-            var httpRequest = networkClient.CreatePutRequest(new Uri(url), content);
+            var httpRequest = networkClient.CreatePutRequest(url, content);
 
             var httpClient = networkClient.HttpClient;
             var response = httpClient.SendAsync(httpRequest).Result;
@@ -103,7 +97,7 @@ namespace Cohesity
 
         public static string Delete(this NetworkClient networkClient, string url, object content)
         {
-            var httpRequest = networkClient.CreateDeleteRequest(new Uri(url), content);
+            var httpRequest = networkClient.CreateDeleteRequest(url, content);
 
             var httpClient = networkClient.HttpClient;
             var response = httpClient.SendAsync(httpRequest).Result;
@@ -120,7 +114,7 @@ namespace Cohesity
 
         public static string Delete(this NetworkClient networkClient, string url, string content)
         {
-            var httpRequest = networkClient.CreateDeleteRequest(new Uri(url), content);
+            var httpRequest = networkClient.CreateDeleteRequest(url, content);
 
             var httpClient = networkClient.HttpClient;
             var response = httpClient.SendAsync(httpRequest).Result;

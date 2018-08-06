@@ -12,7 +12,7 @@ namespace Cohesity.ProtectionJobs
     /// </para>
     /// </summary>
     /// <example>
-    ///   <para>C:PS&gt;</para>
+    ///   <para>PS&gt;</para>
     ///   <code>
     ///   Resume-CohesityProtectionJob -ID 1234
     ///   </code>
@@ -78,7 +78,7 @@ namespace Cohesity.ProtectionJobs
             };
 
             // POST /public/protectionJobState/{id}
-            var preparedUrl = $"{Session.NetworkClient.BaseUri.AbsoluteUri}/public/protectionJobState/{Id.ToString()}";
+            var preparedUrl = $"/public/protectionJobState/{Id.ToString()}";
             Session.NetworkClient.Post(preparedUrl, protectionJobState);
             WriteObject("Protection Job state has been updated.");
         }

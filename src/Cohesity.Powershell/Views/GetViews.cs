@@ -163,7 +163,7 @@ namespace Cohesity
             if (SortByLogicalUsage.HasValue && SortByLogicalUsage.Value)
                 qb.Add("SortByLogicalUsage", SortByLogicalUsage.Value);
 
-            var preparedUrl = $"{Session.NetworkClient.BaseUri.AbsoluteUri}/public/views{qb.Build()}";
+            var preparedUrl = $"/public/views{qb.Build()}";
             var result = Session.NetworkClient.Get<GetViewsResult>(preparedUrl);
             WriteObject(result);
         }

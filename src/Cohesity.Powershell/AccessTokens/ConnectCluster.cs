@@ -1,4 +1,5 @@
 ﻿using Cohesity.Models;
+using Cohesity.Powershell;
 using Newtonsoft.Json;
 using System;
 using System.Management.Automation;
@@ -18,6 +19,15 @@ namespace Cohesity
     /// A connection is valid for 24 hours.
     /// </para>
     /// </summary>
+    /// <example>
+    ///   <para>PS&gt;</para>
+    ///   <code>
+    ///   Connect-CohesityCluster 192.168.1.100
+    ///   </code>
+    ///   <para>
+    ///   Connects to a Cohesity Cluster at the address "https://192.168.1.100".
+    ///   </para>
+    /// </example>
     [Cmdlet("Connect", "CohesityCluster")]
     public class Connect : PSCmdlet
     {
@@ -37,45 +47,31 @@ namespace Cohesity
             }
         }
 
+        private readonly UserProfileProvider userProfileProvider;
 
+        /// <summary>
+        /// Construct the cmdlet.
+        /// </summary>
+        public Connect()
+        {
+            userProfileProvider = ServiceLocator.GetUserProfileProvider();
+        }
+
+        /// <summary>
+        /// <para type="description">
+        /// The address of a Cohesity Cluster to be connected.
+        /// </para>
+        /// </summary>
         [Parameter(Position = 1, Mandatory = true)]
         public string ClusterIP { get; set; }
 
         /// <summary>
         /// <para type="description">
-        /// Specifies the domain the user is logging in to. 
-        /// For a Local user model, the domain is always LOCAL. 
-        /// For LDAP/AD user models, the domain will map to an LDAP connection string. 
-        /// A user is uniquely identified by a combination of username and domain. 
-        /// If this is not set, LOCAL is assumed.
+        /// User credentials for the Cohesity Cluster.
         /// </para>
         /// </summary>
-        [Alias("D")]
-        [Parameter(Position = 2, Mandatory = false)]
-        //[AllowEmptyString]
-        public string Domain { get; set; }
-
-        /// <summary>
-        /// <para type="description">
-        /// Specifies the login name of the Cohesity user. 
-        /// (required).
-        /// </para>
-        /// </summary>
-        [Alias("U")]
-        [Parameter(Position = 3, Mandatory = false)]
-        //[ValidateNotNullOrEmpty]
-        public string Username { get; set; }
-
-        /// <summary>
-        /// <para type="description">
-        /// Specifies the password of the Cohesity user account. 
-        /// (required).
-        /// </para>
-        /// </summary>
-        [Alias("P")]
-        [Parameter(Position = 4, Mandatory = false)]
-        //[ValidateNotNullOrEmpty]
-        public string Password { get; set; }
+        [Parameter(Position = 2, Mandatory = true)]
+        public PSCredential Credential { get; set; } = null;
 
         private bool sslIgnore = true;
 
@@ -91,33 +87,17 @@ namespace Cohesity
             set { sslIgnore = value; }
         }
 
-        private string preparedUrl;
-        private string preparedDomain;
+        private Uri clusterUri;
 
+        /// <summary>
+        /// Begin processing.
+        /// </summary>
         protected override void BeginProcessing()
         {
             base.BeginProcessing();
 
             if (string.IsNullOrWhiteSpace(ClusterIP))
                 throw new ParameterBindingException($"{nameof(ClusterIP)} must not be empty.");
-
-            if (string.IsNullOrWhiteSpace(Username) && string.IsNullOrWhiteSpace(Password))
-            {
-                var cred = Host.UI.PromptForCredential("Cohesity Cluster Credentials", string.Empty, string.Empty, string.Empty, PSCredentialTypes.Domain, PSCredentialUIOptions.Default);
-
-                if (cred != null)
-                {
-                    var netCreds = cred.GetNetworkCredential();
-
-                    Domain = netCreds.Domain;
-                    Username = netCreds.UserName;
-                    Password = netCreds.Password;
-                }
-            }
-
-            preparedDomain = string.IsNullOrWhiteSpace(Domain) ? LocalDomain : Domain;
-
-            Session.NetworkClient.SslIgnore = sslIgnore;
 
             try
             {
@@ -126,49 +106,58 @@ namespace Cohesity
                     ClusterIP = Uri.UriSchemeHttps + Uri.SchemeDelimiter + ClusterIP;
                 }
 
-                var baseUri = new Uri(ClusterIP);
-                Session.NetworkClient.BaseUri = baseUri;
+                clusterUri = new Uri(ClusterIP);
             }
             catch (Exception ex)
             {
                 throw new ParameterBindingException($"{nameof(ClusterIP)} is not in a valid format.", ex);
             }
-
-            preparedUrl = $"{Session.NetworkClient.BaseUri.AbsoluteUri}/public/accessTokens";
         }
 
+        /// <summary>
+        /// Process Records
+        /// </summary>
         protected override void ProcessRecord()
         {
+            var networkCredential = Credential.GetNetworkCredential();
+            var domain = string.IsNullOrWhiteSpace(networkCredential.Domain) ? LocalDomain : networkCredential.Domain;
+
             var credentials = new AccessTokenCredential
             {
-                Domain = preparedDomain,
-                Username = Username,
-                Password = Password
+                Domain = domain,
+                Username = networkCredential.UserName,
+                Password = networkCredential.Password
             };
 
-            var httpRequest = new HttpRequestMessage()
+            var httpRequest = new HttpRequestMessage(HttpMethod.Post, "public/accessTokens")
             {
-                Method = HttpMethod.Post,
-                RequestUri = new Uri(preparedUrl),
                 Content = new StringContent(JsonConvert.SerializeObject(credentials), Encoding.UTF8, "application/json")
             };
 
-            var httpClient = Session.NetworkClient.HttpClient;
+            var httpClient = Session.NetworkClient.BuildClient(clusterUri, sslIgnore);
             var response = httpClient.SendAsync(httpRequest).Result;
             var responseContent = response.Content.ReadAsStringAsync().Result;
 
             if (response.StatusCode != HttpStatusCode.Created)
             {
                 var error = JsonConvert.DeserializeObject<Error>(responseContent);
-                WriteVerbose(error.Message);
+                WriteObject(error.Message);
                 return;
-                //throw new Exception(
-                //    $"Operation returned an invalid status code '{response.StatusCode}' with Exception:{(string.IsNullOrWhiteSpace(responseContent) ? "Not Available" : responseContent)}");
             }
 
-            Session.NetworkClient.AccessToken = JsonConvert.DeserializeObject<AccessTokenObject>(responseContent);
+            var accessToken = JsonConvert.DeserializeObject<AccessTokenObject>(responseContent);
 
-            WriteVerbose("Connected to Cohesity Cluster Successfully");
+            var userProfile = new UserProfile
+            {
+                ClusterUri = clusterUri,
+                Credential = Credential,
+                AccessToken = accessToken,
+                AllowInvalidServerCertificates = sslIgnore
+            };
+
+            userProfileProvider.SetUserProfile(userProfile);
+
+            WriteObject("Connected to Cohesity Cluster Successfully");
         }
     }
 }

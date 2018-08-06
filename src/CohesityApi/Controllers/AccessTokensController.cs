@@ -12,7 +12,7 @@ namespace CohesityApi.Controllers
         public ActionResult Post([FromBody] AccessTokenCredential credential)
         {
             if ("admin".Equals(credential.Username, StringComparison.OrdinalIgnoreCase))
-                if ("password".Equals(credential.Password, StringComparison.OrdinalIgnoreCase))
+                if ("admin".Equals(credential.Password, StringComparison.OrdinalIgnoreCase))
                     return StatusCode(StatusCodes.Status201Created, new
                     {
                         AccessToken = "AT",

@@ -10,7 +10,7 @@ namespace Cohesity
     /// </para>
     /// </summary>
     /// <example>
-    ///   <para>C:PS&gt;</para>
+    ///   <para>PS&gt;</para>
     ///   <code>
     ///   Cohesity-ListCmdlets
     ///   </code>

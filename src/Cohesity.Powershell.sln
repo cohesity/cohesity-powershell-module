@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2026
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cohesity.Powershell.Models", "Cohesity.Powershell.Models\Cohesity.Powershell.Models.csproj", "{73A09A6C-143F-434C-AE70-B0864E30F311}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cohesity.Powershell.Models", "Cohesity.Powershell.Models\Cohesity.Powershell.Models.csproj", "{F17517EE-FD31-416D-A084-C85BB38BC51C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cohesity.Powershell", "Cohesity.Powershell\Cohesity.Powershell.csproj", "{3993875F-BBBE-4181-AFA7-539D27531408}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cohesity.Powershell", "Cohesity.Powershell\Cohesity.Powershell.csproj", "{69E8F09A-EC0E-4767-92D2-F2FC35E78898}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,14 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{73A09A6C-143F-434C-AE70-B0864E30F311}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{73A09A6C-143F-434C-AE70-B0864E30F311}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{73A09A6C-143F-434C-AE70-B0864E30F311}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{73A09A6C-143F-434C-AE70-B0864E30F311}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3993875F-BBBE-4181-AFA7-539D27531408}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3993875F-BBBE-4181-AFA7-539D27531408}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3993875F-BBBE-4181-AFA7-539D27531408}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3993875F-BBBE-4181-AFA7-539D27531408}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F17517EE-FD31-416D-A084-C85BB38BC51C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F17517EE-FD31-416D-A084-C85BB38BC51C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F17517EE-FD31-416D-A084-C85BB38BC51C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F17517EE-FD31-416D-A084-C85BB38BC51C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69E8F09A-EC0E-4767-92D2-F2FC35E78898}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69E8F09A-EC0E-4767-92D2-F2FC35E78898}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69E8F09A-EC0E-4767-92D2-F2FC35E78898}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69E8F09A-EC0E-4767-92D2-F2FC35E78898}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

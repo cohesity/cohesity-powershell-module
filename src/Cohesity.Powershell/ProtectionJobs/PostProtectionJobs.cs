@@ -16,7 +16,7 @@ namespace Cohesity
     /// </para>
     /// </summary>
     /// <example>
-    ///   <para>C:PS&gt;</para>
+    ///   <para>PS&gt;</para>
     ///   <code>
     ///   Cohesity-CreateDataProtectionJobs -Name "My Name" -PolicyID "My PolicyID" -ViewBoxID 1
     ///   </code>
@@ -139,7 +139,7 @@ namespace Cohesity
             }
                 
 
-            var preparedUrl = $"{Session.NetworkClient.BaseUri.AbsoluteUri}/public/protectionJobs";
+            var preparedUrl = $"/public/protectionJobs";
             var result = Session.NetworkClient.Post<ProtectionJob>(preparedUrl, newProtectionJob);
             WriteObject(result);
         }

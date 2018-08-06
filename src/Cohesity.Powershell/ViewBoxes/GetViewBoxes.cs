@@ -93,7 +93,7 @@ namespace Cohesity
             if (FetchStats.HasValue && FetchStats.Value)
                 qb.Add("fetchStats", FetchStats.Value);
 
-            var preparedUrl = $"{Session.NetworkClient.BaseUri.AbsoluteUri}/public/viewBoxes{qb.Build()}";
+            var preparedUrl = $"/public/viewBoxes{qb.Build()}";
             var result = Session.NetworkClient.Get<IEnumerable<ViewBox>>(preparedUrl);            
             WriteObject(result, true);
         }
