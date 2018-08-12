@@ -1,4 +1,4 @@
-### Cohesity Powershell Cmdlets
+# Cohesity Powershell Cmdlets
 
 This project provides a powershell module for interacting with the `Cohesity Data Platform`.
 It is useful for automating common tasks or orchestrating workflows in your environment.
