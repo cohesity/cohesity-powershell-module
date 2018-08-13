@@ -8,9 +8,7 @@ namespace Cohesity.Powershell
         public Uri ClusterUri { get; set; }
 
         public bool AllowInvalidServerCertificates { get; set; } = false;
-
-        public PSCredential Credential { get; set; }
-
+        
         public AccessTokenObject AccessToken { get; set; }
     
     }

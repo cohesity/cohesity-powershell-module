@@ -31,14 +31,13 @@ namespace Cohesity
     [Cmdlet("Connect", "CohesityCluster")]
     public class Connect : PSCmdlet
     {
-        private static string LocalDomain = "LOCAL";
+        private static readonly string LocalDomain = "LOCAL";
 
         private Session Session
         {
             get
             {
-                var result = SessionState.PSVariable.GetValue("Session") as Session;
-                if (result == null)
+                if (!(SessionState.PSVariable.GetValue("Session") is Session result))
                 {
                     result = new Session();
                     SessionState.PSVariable.Set("Session", result);
@@ -150,7 +149,6 @@ namespace Cohesity
             var userProfile = new UserProfile
             {
                 ClusterUri = clusterUri,
-                Credential = Credential,
                 AccessToken = accessToken,
                 AllowInvalidServerCertificates = sslIgnore
             };

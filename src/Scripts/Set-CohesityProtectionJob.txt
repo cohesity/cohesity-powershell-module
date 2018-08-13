@@ -1,0 +1,5 @@
+Connect-CohesityCluster 10.2.45.177 -Verbose
+$protectionjob = Get-CohesityProtectionJob -Names testupdatecmdlet
+$protectionjob.Description = "testing update cmdlet"
+$protectionjob
+set-CohesityProtectionJob -Id 12 -ProtectionJob $protectionjob
