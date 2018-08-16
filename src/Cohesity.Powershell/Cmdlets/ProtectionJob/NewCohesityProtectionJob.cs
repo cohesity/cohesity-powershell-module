@@ -5,11 +5,11 @@ using System.Management.Automation;
 
 namespace Cohesity
 {
-    // Cohesity-CreateDataProtectionJobs -Name "PJName" -PolicyID "PJPolicyID" -ViewBoxID 1
+    // New-CohesityProtectionJob -Name "Test Job" -PolicyID "PJPolicyID" -ViewBoxID 1
 
     /// <summary>
     /// <para type="synopsis">
-    /// Create a Protection Job.
+    /// Creates a new Protection Job.
     /// </para>
     /// <para type="description">
     /// Returns the created Protection Job.
@@ -18,15 +18,15 @@ namespace Cohesity
     /// <example>
     ///   <para>PS&gt;</para>
     ///   <code>
-    ///   Cohesity-CreateDataProtectionJobs -Name "My Name" -PolicyID "My PolicyID" -ViewBoxID 1
+    ///   New-CohesityProtectionJob -Name "Test Job" -PolicyID "My PolicyID" -ViewBoxID 1
     ///   </code>
     ///   <para>
-    ///   Create a protection job with only required parameters.
+    ///   Creates a protection job with only required parameters.
     ///   </para>
     /// </example>
-    [Cmdlet("New", "CohesityProtectionJob")]
+    [Cmdlet(VerbsCommon.New, "CohesityProtectionJob")]
     [OutputType(typeof(ProtectionJob))]
-    public class CreateProtectionJobs : PSCmdlet
+    public class NewCohesityProtectionJob : PSCmdlet
     {
         private Session Session
         {

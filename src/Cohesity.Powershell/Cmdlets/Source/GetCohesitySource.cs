@@ -1,10 +1,7 @@
 ﻿using Cohesity.Models;
-using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Management.Automation;
-using System.Net.Http;
 
 namespace Cohesity
 {
@@ -20,9 +17,9 @@ namespace Cohesity
     /// Specifying parameters can alter the results that are returned.
     /// </para>
     /// </summary>
-    [Cmdlet("Get", "CohesityProtectionSource")]
+    [Cmdlet(VerbsCommon.Get, "CohesitySource")]
     [OutputType(typeof(ProtectionSourceNode))]
-    public class GetProtectionSources : PSCmdlet
+    public class GetCohesitySource : PSCmdlet
     {
         private Session Session
         {

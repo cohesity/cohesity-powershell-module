@@ -1,29 +1,32 @@
-﻿using System.Management.Automation;
+﻿using Cohesity.Models;
+using System.Management.Automation;
 
-namespace Cohesity.ProtectionJobs
+namespace Cohesity
 {
+    // PUT public/protectionJobs/{id}
+
     /// <summary>
     /// <para type="synopsis">
-    /// Pause future Runs of the specified Protection Job.
+    /// Updates a Protection Job.
     /// </para>
     /// <para type="description">
-    /// If the Protection Job is currently running (not paused) and true is passed in, this operation stops any new Runs of this Protection Job from starting and executing. 
-    /// However, any existing Runs that were already executing will continue to run.
-    /// Returns success if the paused state is changed.
+    /// Returns the updated Protection Job.
     /// </para>
     /// </summary>
     /// <example>
     ///   <para>PS&gt;</para>
     ///   <code>
-    ///   Pause-CohesityProtectionJob -ID 1234
+    ///   Set-CohesityProtectionJob -Id 1234 -ProtectionJob $job
     ///   </code>
     ///   <para>
-    ///   Pauses a Protection Job with the ID of 1234.
+    ///   Updates a protection job with given parameters.
     ///   </para>
     /// </example>
-    [Cmdlet("Suspend", "CohesityProtectionJob")]
-    public class PauseProtectionJob: PSCmdlet
+    [Cmdlet(VerbsCommon.Set, "CohesityProtectionJob")]
+    [OutputType(typeof(ProtectionJob))]
+    public class SetCohesityProtectionJob : PSCmdlet
     {
+
         private Session Session
         {
             get
@@ -48,7 +51,16 @@ namespace Cohesity.ProtectionJobs
         [Parameter(Position = 1, Mandatory = true)]
         [ValidateRange(1, long.MaxValue)]
         public long Id { get; set; }
-        
+
+
+        /// <summary>
+        /// <para type="description">
+        /// The updated Protection Job.
+        /// </para>
+        /// </summary>
+        [Parameter(Position = 2, Mandatory = true)]
+        public ProtectionJob ProtectionJob { get; set; } = null;
+
         #endregion
 
         #region Processing
@@ -61,10 +73,15 @@ namespace Cohesity.ProtectionJobs
             base.BeginProcessing();
 
             Session.AssertAuthentication();
-            
+
             if (Id <= 0)
             {
                 throw new ParameterBindingException($"Parameter {nameof(Id)} must be greater than zero.");
+            }
+
+            if (ProtectionJob == null)
+            {
+                throw new ParameterBindingException($"Parameter {nameof(ProtectionJob)} is mandatory.");
             }
         }
 
@@ -73,16 +90,13 @@ namespace Cohesity.ProtectionJobs
         /// </summary>
         protected override void ProcessRecord()
         {
-            var protectionJobState = new {
-                Pause = true
-            };
-
-            // POST /public/protectionJobState/{id}
-            var preparedUrl = $"/public/protectionJobState/{Id.ToString()}";
-            Session.NetworkClient.Post(preparedUrl, protectionJobState);
-            WriteObject("Protection Job state has been updated.");
+            // PUT public/protectionJobs/{id}
+            var preparedUrl = $"/public/protectionJobs/{Id.ToString()}";
+            var result = Session.NetworkClient.Put<ProtectionJob>(preparedUrl, ProtectionJob);
+            WriteObject(result);
         }
 
         #endregion
+
     }
 }

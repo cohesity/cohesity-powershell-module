@@ -1,25 +1,22 @@
 ﻿using Cohesity.Models;
-using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Management.Automation;
-using System.Net.Http;
 
-namespace Cohesity.ProtectionPolicies
+namespace Cohesity
 {
     /// <summary>
     /// <para type="synopsis">
-    /// List Protection Policies filtered by some parameters.
+    /// Gets a list of Protection Policies filtered by some parameters.
     /// </para>
     /// <para type="description">
     /// If no parameters are specified, all Protection Policies currently on the Cohesity Cluster are returned.
     /// Specifying parameters filters the results that are returned.
     /// </para>
     /// </summary>
-    [Cmdlet("Get", "CohesityPolicy")]
+    [Cmdlet(VerbsCommon.Get, "CohesityPolicy")]
     [OutputType(typeof(ProtectionPolicy))]
-    public class GetProtectionPolicies : PSCmdlet
+    public class GetCohesityPolicy : PSCmdlet
     {
         private Session Session
         {

@@ -1,10 +1,10 @@
 ﻿using System.Management.Automation;
 
-namespace Cohesity.ProtectionJobs
+namespace Cohesity
 {
     /// <summary>
     /// <para type="synopsis">
-    /// Resume future Runs of the specified Protection Job.
+    /// Resumes the future Runs of the specified Protection Job.
     /// </para>
     /// <para type="description">
     /// This operation restores the Job to a running state and new Runs are started as defined by the schedule in the Policy associated with the Job.
@@ -14,14 +14,14 @@ namespace Cohesity.ProtectionJobs
     /// <example>
     ///   <para>PS&gt;</para>
     ///   <code>
-    ///   Resume-CohesityProtectionJob -ID 1234
+    ///   Resume-CohesityProtectionJob -Id 1234
     ///   </code>
     ///   <para>
     ///   Resumes a Protection Job with the ID of 1234.
     ///   </para>
     /// </example>
-    [Cmdlet("Resume", "CohesityProtectionJob")]
-    public class ResumeProtectionJob : PSCmdlet
+    [Cmdlet(VerbsLifecycle.Resume, "CohesityProtectionJob")]
+    public class ResumeCohesityProtectionJob : PSCmdlet
     {
         private Session Session
         {

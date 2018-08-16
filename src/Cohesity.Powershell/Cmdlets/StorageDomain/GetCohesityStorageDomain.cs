@@ -1,25 +1,22 @@
 ﻿using Cohesity.Models;
-using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Management.Automation;
-using System.Net.Http;
 
 namespace Cohesity
 {
     /// <summary>
     /// <para type="synopsis">
-    /// List Domains (View Boxes) filtered by the specified parameters.
+    /// Gets a list of Storage Domains (View Boxes) filtered by the specified parameters.
     /// </para>
     /// <para type="description">
-    /// If no parameters are specified, all Domains (View Boxes) currently on the Cohesity Cluster are returned.
+    /// If no parameters are specified, all Storage Domains (View Boxes) on the Cohesity Cluster are returned.
     /// Specifying parameters filters the results that are returned.
     /// </para>
     /// </summary>
-    [Cmdlet("Get", "CohesityViewBox")]
+    [Cmdlet(VerbsCommon.Get, "CohesityStorageDomain")]
     [OutputType(typeof(ViewBox))]
-    public class GetViewBoxes : PSCmdlet
+    public class GetCohesityStorageDomain : PSCmdlet
     {
         private Session Session
         {

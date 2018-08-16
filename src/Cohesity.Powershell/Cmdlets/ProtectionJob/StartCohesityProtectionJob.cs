@@ -3,16 +3,16 @@ using System.Linq;
 using System.Management.Automation;
 using static Cohesity.Models.RunProtectionJobParam;
 
-namespace Cohesity.ProtectionJobs
+namespace Cohesity
 {
     // public/protectionJobs/run/{id}
 
     /// <summary>
     /// <para type="synopsis">
-    /// Immediately execute a single Protection Job Run.
+    /// Immediately executes a single Protection Job Run.
     /// </para>
     /// <para type="description">
-    /// Immediately excute a single Job Run and ignore the schedule defined in the Policy.
+    /// Immediately executes a single Job Run and ignore the schedule defined in the Policy.
     /// A Protection Policy associated with the Job may define up to three backup run types:
     ///     Regular (CBT utilized), 2) Full(CBT not utilized) and 3) Log.
     ///     The passed in run type defines what type of backup is done by the Job Run.
@@ -23,14 +23,14 @@ namespace Cohesity.ProtectionJobs
     /// <example>
     ///   <para>PS&gt;</para>
     ///   <code>
-    ///   Cohesity-CreateDataProtectionJobs -Name "My Name" -PolicyID "My PolicyID" -ViewBoxID 1
+    ///   Start-CohesityProtectionJob -Id 1234
     ///   </code>
     ///   <para>
-    ///   Create a protection job with only required parameters.
+    ///   Immediately executes the given protection job.
     ///   </para>
     /// </example>
-    [Cmdlet("Start", "CohesityProtectionJob")]
-    public class StartProtectionJob : PSCmdlet
+    [Cmdlet(VerbsLifecycle.Start, "CohesityProtectionJob")]
+    public class StartCohesityProtectionJob : PSCmdlet
     {
 
         private Session Session

@@ -8,6 +8,7 @@
 	<Configurations>Debug;Release;</Configurations>
 	<Authors>Cohesity</Authors>
 	<Product>Cohesity Powershell Cmdlets</Product>
+	<Version>6.0.0</Version>
   </PropertyGroup>
 
   <ItemGroup>

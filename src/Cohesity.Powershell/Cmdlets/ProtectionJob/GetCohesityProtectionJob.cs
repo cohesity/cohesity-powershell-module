@@ -7,16 +7,16 @@ namespace Cohesity
 {
     /// <summary>
     /// <para type="synopsis">
-    /// List Protections Jobs filtered by the specified parameters.
+    /// Gets a list of Protection Jobs filtered by the specified parameters.
     /// </para>
     /// <para type="description">
     /// If no parameters are specified, all Protection Jobs currently on the Cohesity Cluster are returned.
     /// Specifying parameters filters the results that are returned.
     /// </para>
     /// </summary>
-    [Cmdlet("Get", "CohesityProtectionJob")]
+    [Cmdlet(VerbsCommon.Get, "CohesityProtectionJob")]
     [OutputType(typeof(ProtectionJob))]
-    public class GetProtectionJobs : PSCmdlet
+    public class GetCohesityProtectionJob : PSCmdlet
     {
         private Session Session
         {

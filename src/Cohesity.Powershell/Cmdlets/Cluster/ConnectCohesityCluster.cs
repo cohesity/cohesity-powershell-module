@@ -11,10 +11,10 @@ namespace Cohesity
 {
     /// <summary>
     /// <para type="synopsis">
-    /// Connect to Cohesity cluster.
+    /// Connects to a Cohesity cluster.
     /// </para>
     /// <para type="description">
-    /// Before executing other Cohesity cmdlets, you must connect with a valid Cohesity username and password.
+    /// Before executing other Cohesity cmdlets, you must first connect using valid Cohesity credentials.
     /// Subsequent Cohesity cmdlets will use this connection.
     /// A connection is valid for 24 hours.
     /// </para>
@@ -22,14 +22,14 @@ namespace Cohesity
     /// <example>
     ///   <para>PS&gt;</para>
     ///   <code>
-    ///   Connect-CohesityCluster 192.168.1.100
+    ///   Connect-CohesityCluster -ClusterIP 192.168.1.100
     ///   </code>
     ///   <para>
-    ///   Connects to a Cohesity Cluster at the address "https://192.168.1.100".
+    ///   Connects to a Cohesity Cluster at the address "192.168.1.100".
     ///   </para>
     /// </example>
-    [Cmdlet("Connect", "CohesityCluster")]
-    public class Connect : PSCmdlet
+    [Cmdlet(VerbsCommunications.Connect, "CohesityCluster")]
+    public class ConnectCohesityCluster : PSCmdlet
     {
         private static readonly string LocalDomain = "LOCAL";
 
@@ -51,7 +51,7 @@ namespace Cohesity
         /// <summary>
         /// Construct the cmdlet.
         /// </summary>
-        public Connect()
+        public ConnectCohesityCluster()
         {
             userProfileProvider = ServiceLocator.GetUserProfileProvider();
         }
