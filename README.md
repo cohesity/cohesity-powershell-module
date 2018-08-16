@@ -1,6 +1,6 @@
-# Cohesity PowerShell Cmdlets
+# Cohesity PowerShell Module
 
-This project provides a PowerShell module for interacting with the `Cohesity Data Platform`.
-It is useful for automating common tasks or orchestrating workflows in your environment.
+This project provides a PowerShell Module with Cmdlets for interacting with the `Cohesity Data Platform`.
+It is quite useful for automating common tasks or orchestrating workflows in your environment.
 
-This is a `cross-platform` PowerShell module that can be used on Windows, Linux or Mac OS using PowerShell Core.
+This PowerShell module is `cross-platform` and can be used on Windows, Linux or Mac OS using PowerShell Core.
