@@ -20,10 +20,10 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
     /// <example>
     ///   <para>PS&gt;</para>
     ///   <code>
-    ///   Connect-CohesityCluster -Server 192.168.1.100
+    ///   Connect-CohesityCluster -Server 192.168.1.100 -Credential (Get-Credential)
     ///   </code>
     ///   <para>
-    ///   Connects to a Cohesity Cluster at the address "192.168.1.100".
+    ///   Connects to a Cohesity Cluster at the address "192.168.1.100" using the provided credentials.
     ///   </para>
     /// </example>
     [Cmdlet(VerbsCommunications.Connect, "CohesityCluster")]
