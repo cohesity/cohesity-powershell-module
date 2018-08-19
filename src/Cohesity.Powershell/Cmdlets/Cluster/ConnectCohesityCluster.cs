@@ -1,28 +1,26 @@
-﻿using Cohesity.Models;
-using Cohesity.Powershell;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Management.Automation;
 using System.Net;
 using System.Net.Http;
 using System.Text;
+using Cohesity.Models;
+using Newtonsoft.Json;
 
-namespace Cohesity
+namespace Cohesity.Powershell.Cmdlets.Cluster
 {
     /// <summary>
     /// <para type="synopsis">
-    /// Connects to a Cohesity cluster.
+    /// Connects to a Cohesity cluster and acquires an authentication token.
     /// </para>
     /// <para type="description">
-    /// Before executing other Cohesity cmdlets, you must first connect using valid Cohesity credentials.
-    /// Subsequent Cohesity cmdlets will use this connection.
-    /// A connection is valid for 24 hours.
+    /// You must run this cmdlet with valid Cohesity credentials before any other Cohesity cmdlets.
+    /// The subsequent Cohesity cmdlets will use this connection. The connection is valid for 24 hours.
     /// </para>
     /// </summary>
     /// <example>
     ///   <para>PS&gt;</para>
     ///   <code>
-    ///   Connect-CohesityCluster -ClusterIP 192.168.1.100
+    ///   Connect-CohesityCluster -Server 192.168.1.100
     ///   </code>
     ///   <para>
     ///   Connects to a Cohesity Cluster at the address "192.168.1.100".
@@ -58,11 +56,11 @@ namespace Cohesity
 
         /// <summary>
         /// <para type="description">
-        /// The address of a Cohesity Cluster to be connected.
+        /// The FQDN or IP address of any node in the Cohesity Cluster or Cluster VIP.
         /// </para>
         /// </summary>
         [Parameter(Position = 1, Mandatory = true)]
-        public string ClusterIP { get; set; }
+        public string Server { get; set; }
 
         /// <summary>
         /// <para type="description">
@@ -71,20 +69,6 @@ namespace Cohesity
         /// </summary>
         [Parameter(Position = 2, Mandatory = true)]
         public PSCredential Credential { get; set; } = null;
-
-        private bool sslIgnore = true;
-
-        /// <summary>
-        /// <para type="description">
-        /// Ignore invalid SSL/TLS connections.
-        /// </para>
-        /// </summary>
-        [Parameter]
-        public SwitchParameter SslIgnore
-        {
-            get { return sslIgnore; }
-            set { sslIgnore = value; }
-        }
 
         private Uri clusterUri;
 
@@ -95,21 +79,21 @@ namespace Cohesity
         {
             base.BeginProcessing();
 
-            if (string.IsNullOrWhiteSpace(ClusterIP))
-                throw new ParameterBindingException($"{nameof(ClusterIP)} must not be empty.");
+            if (string.IsNullOrWhiteSpace(Server))
+                throw new ParameterBindingException($"{nameof(Server)} must not be empty.");
 
             try
             {
-                if (!ClusterIP.StartsWith(Uri.UriSchemeHttp, StringComparison.OrdinalIgnoreCase) && !ClusterIP.StartsWith(Uri.UriSchemeHttps, StringComparison.OrdinalIgnoreCase))
+                if (!Server.StartsWith(Uri.UriSchemeHttp, StringComparison.OrdinalIgnoreCase) && !Server.StartsWith(Uri.UriSchemeHttps, StringComparison.OrdinalIgnoreCase))
                 {
-                    ClusterIP = Uri.UriSchemeHttps + Uri.SchemeDelimiter + ClusterIP;
+                    Server = Uri.UriSchemeHttps + Uri.SchemeDelimiter + Server;
                 }
 
-                clusterUri = new Uri(ClusterIP);
+                clusterUri = new Uri(Server);
             }
             catch (Exception ex)
             {
-                throw new ParameterBindingException($"{nameof(ClusterIP)} is not in a valid format.", ex);
+                throw new ParameterBindingException($"{nameof(Server)} is not in a valid format.", ex);
             }
         }
 
@@ -133,7 +117,7 @@ namespace Cohesity
                 Content = new StringContent(JsonConvert.SerializeObject(credentials), Encoding.UTF8, "application/json")
             };
 
-            var httpClient = Session.NetworkClient.BuildClient(clusterUri, sslIgnore);
+            var httpClient = Session.NetworkClient.BuildClient(clusterUri, true);
             var response = httpClient.SendAsync(httpRequest).Result;
             var responseContent = response.Content.ReadAsStringAsync().Result;
 
@@ -150,7 +134,7 @@ namespace Cohesity
             {
                 ClusterUri = clusterUri,
                 AccessToken = accessToken,
-                AllowInvalidServerCertificates = sslIgnore
+                AllowInvalidServerCertificates = true
             };
 
             userProfileProvider.SetUserProfile(userProfile);
