@@ -26,3 +26,6 @@ This PowerShell module can be used on Windows, Linux or Mac OS.
     ```
 ## Documentation
 * Online reference for the included PowerShell Cmdlets can be found [here]
+
+## Suggestions and Feedback
+We would love to hear from you. Please send your suggestions and feedback to: cohesity-api-sdks@cohesity.com
