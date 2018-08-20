@@ -163,6 +163,14 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
                         exNestedInnerException = exNestedInnerException.InnerException;
                     } while (exNestedInnerException != null);
                 }
+
+                throw new Exception(sb.ToString());
+            }
+            catch (Exception ex)
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.AppendLine("Failed to connect to the Cohesity Cluster");
+                sb.AppendLine(ex.Message);
                 throw new Exception(sb.ToString());
             }
         }
