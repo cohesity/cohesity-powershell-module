@@ -1,0 +1,75 @@
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Management.Automation;
+using Cohesity.Models;
+
+namespace Cohesity.Powershell.Cmdlets.ProtectionSource
+{
+    /// <summary>
+    /// <para type="synopsis">
+    /// Returns the registered Protection Sources.
+    /// </para>
+    /// <para type="description">
+    /// If no parameters are specified, all Protection Sources that are registered on the Cohesity Cluster are returned.
+    /// </para>
+    /// </summary>
+    [Cmdlet(VerbsCommon.Get, "CohesityProtectionSource")]
+    [OutputType(typeof(ProtectionSourceNode))]
+    public class GetCohesityProtectionSource : PSCmdlet
+    {
+        private Session Session
+        {
+            get
+            {
+                var result = SessionState.PSVariable.GetValue("Session") as Session;
+                if (result == null)
+                {
+                    result = new Session();
+                    SessionState.PSVariable.Set("Session", result);
+                }
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// <para type="description">
+        /// Return only Protection Sources that match the passed in environment type.
+        /// For example, set this parameter to ‘kVMware’ to only return the VMware sources.
+        /// NOTE: "kPuppeteer" refers to Cohesity's Remote Adapter.
+        /// </para>
+        /// </summary>
+        [Parameter(Mandatory = false)]
+        //[ValidateSet("kVMware", "kView", "kSQL", "kPuppeteer", "kPhysical", "kPure", "kNetapp", "kGenericNas", "kHyperV", "kAcropolis", "kAzure")]
+        public EnvironmentEnum[] Environments { get; set; }
+
+        /// <summary>
+        /// <para type="description">
+        /// Return only the Protection Source that matches the Id.
+        /// </para>
+        /// </summary>
+        [Parameter(Mandatory = false)]
+        public long? Id { get; set; }
+
+        protected override void BeginProcessing()
+        {
+            base.BeginProcessing();
+
+            Session.AssertAuthentication();
+        }
+
+        protected override void ProcessRecord()
+        {
+            var qb = new QuerystringBuilder();
+
+            if (Id.HasValue)
+                qb.Add("id", Id.Value);
+            
+            if (Environments != null && Environments.Any())
+                qb.Add("environments", string.Join(",", Environments));
+            
+            var url = $"/public/protectionSources/rootNodes{qb.Build()}";
+            var result = Session.NetworkClient.Get<IEnumerable<ProtectionSourceNode>>(url);
+            WriteObject(result, true);
+        }
+    }
+}
