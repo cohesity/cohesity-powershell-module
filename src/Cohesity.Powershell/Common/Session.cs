@@ -29,10 +29,8 @@ namespace Cohesity
         public void AssertAuthentication()
         {
             if (!NetworkClient.IsAuthenticated)
-                throw new Exception("Connection is required, use Cohesity-Connect.");
-        }
-
-        
+                throw new Exception("Failed to authenticate. Please connect to the Cohesity Cluster using 'Connect-CohesityCluster'");
+        }        
 
     }
 }

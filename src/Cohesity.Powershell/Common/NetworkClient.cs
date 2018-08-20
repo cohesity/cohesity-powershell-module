@@ -26,7 +26,19 @@ namespace Cohesity
                 BuildClient(userProfile.ClusterUri, userProfile.AllowInvalidServerCertificates);
             }
         }
-        
+
+        /// <summary>
+        /// When disconnecting from cluster, remove client so that there is no way to connect from current state.
+        /// </summary>
+        public void Disconnect()
+        {
+            if (HttpClient != null)
+            {
+                HttpClient.Dispose();
+                HttpClient = null;
+            }
+        }
+
         public HttpClient BuildClient(Uri baseAddress, bool allowInvalidServerCertificates) 
         {
             var handler = new HttpClientHandler();

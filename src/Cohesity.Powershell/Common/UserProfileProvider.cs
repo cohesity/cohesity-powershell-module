@@ -65,6 +65,16 @@ namespace Cohesity.Powershell
             }
         }
 
+        public void DeleteUserProfile()
+        {
+            var userProfileFilename = GetUserProfileFilename();
+
+            if (File.Exists(userProfileFilename))
+            {
+                File.Delete(userProfileFilename);
+            }
+        }
+
         private string GetUserProfileFilename()
         {
             var userProfilePath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
