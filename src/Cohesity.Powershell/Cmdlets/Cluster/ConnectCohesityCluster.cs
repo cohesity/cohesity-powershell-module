@@ -59,7 +59,7 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
         /// The FQDN or IP address of any node in the Cohesity Cluster or Cluster VIP.
         /// </para>
         /// </summary>
-        [Parameter(Position = 1, Mandatory = true)]
+        [Parameter(Mandatory = true)]
         public string Server { get; set; }
 
         /// <summary>
@@ -67,7 +67,7 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
         /// User credentials for the Cohesity Cluster.
         /// </para>
         /// </summary>
-        [Parameter(Position = 2, Mandatory = true)]
+        [Parameter(Mandatory = true)]
         public PSCredential Credential { get; set; } = null;
 
         private Uri clusterUri;
@@ -117,29 +117,52 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
                 Content = new StringContent(JsonConvert.SerializeObject(credentials), Encoding.UTF8, "application/json")
             };
 
-            var httpClient = Session.NetworkClient.BuildClient(clusterUri, true);
-            var response = httpClient.SendAsync(httpRequest).Result;
-            var responseContent = response.Content.ReadAsStringAsync().Result;
-
-            if (response.StatusCode != HttpStatusCode.Created)
+            try
             {
-                var error = JsonConvert.DeserializeObject<Error>(responseContent);
-                WriteObject(error.Message);
-                return;
+                var httpClient = Session.NetworkClient.BuildClient(clusterUri, true);
+                var response = httpClient.SendAsync(httpRequest).Result;
+                var responseContent = response.Content.ReadAsStringAsync().Result;
+
+                if (response.StatusCode != HttpStatusCode.Created)
+                {
+                    var error = JsonConvert.DeserializeObject<Error>(responseContent);
+                    WriteObject(error.Message);
+                    return;
+                }
+
+                var accessToken = JsonConvert.DeserializeObject<AccessTokenObject>(responseContent);
+
+                var userProfile = new UserProfile
+                {
+                    ClusterUri = clusterUri,
+                    AccessToken = accessToken,
+                    AllowInvalidServerCertificates = true
+                };
+
+                userProfileProvider.SetUserProfile(userProfile);
+
+                WriteObject("Connected to the Cohesity Cluster Successfully");
             }
-
-            var accessToken = JsonConvert.DeserializeObject<AccessTokenObject>(responseContent);
-
-            var userProfile = new UserProfile
+            catch (AggregateException ex)
             {
-                ClusterUri = clusterUri,
-                AccessToken = accessToken,
-                AllowInvalidServerCertificates = true
-            };
+                StringBuilder sb = new StringBuilder();
+                sb.AppendLine("Failed to connect to the Cohesity Cluster");
 
-            userProfileProvider.SetUserProfile(userProfile);
+                foreach (Exception exInnerException in ex.Flatten().InnerExceptions)
+                {
+                    Exception exNestedInnerException = exInnerException;
+                    do
+                    {
+                        if (!string.IsNullOrEmpty(exNestedInnerException.Message))
+                        {
+                            sb.AppendLine(exNestedInnerException.Message);
+                        }
 
-            WriteObject("Connected to Cohesity Cluster Successfully");
+                        exNestedInnerException = exNestedInnerException.InnerException;
+                    } while (exNestedInnerException != null);
+                }
+                throw new Exception(sb.ToString());
+            }
         }
     }
 }
