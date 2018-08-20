@@ -1,23 +1,20 @@
-﻿using Cohesity.Models;
-using System.Linq;
+﻿using System.Linq;
 using System.Management.Automation;
-using static Cohesity.Models.RunProtectionJobParam;
+using Cohesity.Models;
 
-namespace Cohesity
+namespace Cohesity.Powershell.Cmdlets.ProtectionJob
 {
-    // public/protectionJobs/run/{id}
-
     /// <summary>
     /// <para type="synopsis">
-    /// Immediately executes a single Protection Job Run.
+    /// Immediately starts a Protection Job Run.
     /// </para>
     /// <para type="description">
-    /// Immediately executes a single Job Run and ignore the schedule defined in the Policy.
+    /// Immediately starts a Protection Job Run.
     /// A Protection Policy associated with the Job may define up to three backup run types:
-    ///     Regular (CBT utilized), 2) Full(CBT not utilized) and 3) Log.
-    ///     The passed in run type defines what type of backup is done by the Job Run.
-    ///     The schedule defined in the Policy for the backup run type is ignored but other settings such as the snapshot retention and retry settings are used.
-    ///     Returns success if the Job Run starts.
+    /// 1) Regular (CBT utilized), 2) Full(CBT not utilized) and 3) Log.
+    /// The passed in run type defines what type of backup is performed by the Job Run.
+    /// The schedule defined in the Policy for the backup run type is ignored but other settings such as the snapshot retention and retry settings are used.
+    /// Returns success if the Job Run starts.
     /// </para>
     /// </summary>
     /// <example>
@@ -54,7 +51,7 @@ namespace Cohesity
         /// Specifies a unique id of the Protection Job.
         /// </para>
         /// </summary>
-        [Parameter(Position = 1, Mandatory = true)]
+        [Parameter(Mandatory = true, ValueFromPipelineByPropertyName = true)]
         [ValidateRange(1, long.MaxValue)]
         public long Id { get; set; }
 
@@ -64,15 +61,15 @@ namespace Cohesity
         /// Specifies the type of backup. If not specified, "kRegular" is assumed.
         /// </para>
         /// </summary>
-        [Parameter(Position = 2, Mandatory = false)]
-        public RunTypeEnum RunType { get; set; } = RunTypeEnum.KRegular;
+        [Parameter(Mandatory = false)]
+        public RunProtectionJobParam.RunTypeEnum RunType { get; set; } = RunProtectionJobParam.RunTypeEnum.KRegular;
 
         /// <summary>
         /// <para type="description">
         /// If you want to back up only a subset of sources that are protected by the job in this run.
         /// </para>
         /// </summary>
-        [Parameter(Position = 3, Mandatory = false)]
+        [Parameter(Mandatory = false)]
         public long?[] SourceIDs { get; set; } = null;
 
         /// <summary>
@@ -80,7 +77,7 @@ namespace Cohesity
         /// Set if you want specific replication or archival associated with the policy to run.
         /// </para>
         /// </summary>
-        [Parameter(Position = 3, Mandatory = false)]
+        [Parameter(Mandatory = false)]
         public RunJobSnapshotTarget[] CopyRunTargets { get; set; } = null;
 
         #endregion
@@ -95,11 +92,6 @@ namespace Cohesity
             base.BeginProcessing();
 
             Session.AssertAuthentication();
-
-            if (Id <= 0)
-            {
-                throw new ParameterBindingException($"Parameter {nameof(Id)} must be greater than zero.");
-            }
         }
 
         /// <summary>
@@ -115,7 +107,7 @@ namespace Cohesity
             // POST public/protectionJobs/run/{id}
             var preparedUrl = $"/public/protectionJobs/run/{Id.ToString()}";
             Session.NetworkClient.Post(preparedUrl, content);
-            WriteObject("Protection Job run.");
+            WriteObject("Protection job was started successfully.");
         }
 
         #endregion

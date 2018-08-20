@@ -1,7 +1,6 @@
-﻿using Cohesity.Models;
-using System.Management.Automation;
+﻿using System.Management.Automation;
 
-namespace Cohesity
+namespace Cohesity.Powershell.Cmdlets.ProtectionJob
 {
     // PUT public/protectionJobs/{id}
 
@@ -23,7 +22,7 @@ namespace Cohesity
     ///   </para>
     /// </example>
     [Cmdlet(VerbsCommon.Set, "CohesityProtectionJob")]
-    [OutputType(typeof(ProtectionJob))]
+    [OutputType(typeof(Models.ProtectionJob))]
     public class SetCohesityProtectionJob : PSCmdlet
     {
 
@@ -48,7 +47,7 @@ namespace Cohesity
         /// Specifies a unique id of the Protection Job.
         /// </para>
         /// </summary>
-        [Parameter(Position = 1, Mandatory = true)]
+        [Parameter(Mandatory = true)]
         [ValidateRange(1, long.MaxValue)]
         public long Id { get; set; }
 
@@ -58,8 +57,8 @@ namespace Cohesity
         /// The updated Protection Job.
         /// </para>
         /// </summary>
-        [Parameter(Position = 2, Mandatory = true)]
-        public ProtectionJob ProtectionJob { get; set; } = null;
+        [Parameter(Mandatory = true)]
+        public Models.ProtectionJob ProtectionJob { get; set; } = null;
 
         #endregion
 
@@ -73,16 +72,6 @@ namespace Cohesity
             base.BeginProcessing();
 
             Session.AssertAuthentication();
-
-            if (Id <= 0)
-            {
-                throw new ParameterBindingException($"Parameter {nameof(Id)} must be greater than zero.");
-            }
-
-            if (ProtectionJob == null)
-            {
-                throw new ParameterBindingException($"Parameter {nameof(ProtectionJob)} is mandatory.");
-            }
         }
 
         /// <summary>
@@ -92,7 +81,7 @@ namespace Cohesity
         {
             // PUT public/protectionJobs/{id}
             var preparedUrl = $"/public/protectionJobs/{Id.ToString()}";
-            var result = Session.NetworkClient.Put<ProtectionJob>(preparedUrl, ProtectionJob);
+            var result = Session.NetworkClient.Put<Models.ProtectionJob>(preparedUrl, ProtectionJob);
             WriteObject(result);
         }
 
