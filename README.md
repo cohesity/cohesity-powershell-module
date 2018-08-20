@@ -25,8 +25,8 @@ You can install `Cohesity PowerShell Module` directly from the PowerShell Galler
     Install-Module -Name Cohesity.PowerShell.Core
     ```
 ## Documentation
-* Online reference for Cohesity PowerShell Cmdlets can be found [here](docs)
-* You can also use `Get-Help <cmdlet>` for offline help
+* Online reference for Cohesity PowerShell Cmdlets can be found [here](docs).
+* You can also use `Get-Help <cmdlet>` for offline help.
 
 ## Suggestions and Feedback
-We would love to hear from you. Please send your suggestions and feedback to: cohesity-api-sdks@cohesity.com
+We would love to hear from you. Please send your suggestions and feedback to: cohesity-api-sdks@cohesity.com.
