@@ -1,9 +1,9 @@
-﻿using Cohesity.Models;
-using System;
+﻿using System;
 using System.Linq;
 using System.Management.Automation;
+using Cohesity.Models;
 
-namespace Cohesity
+namespace Cohesity.Powershell.Cmdlets.ProtectionJob
 {
     // New-CohesityProtectionJob -Name "Test Job" -PolicyID "PJPolicyID" -ViewBoxID 1
 
@@ -25,7 +25,7 @@ namespace Cohesity
     ///   </para>
     /// </example>
     [Cmdlet(VerbsCommon.New, "CohesityProtectionJob")]
-    [OutputType(typeof(ProtectionJob))]
+    [OutputType(typeof(Models.ProtectionJob))]
     public class NewCohesityProtectionJob : PSCmdlet
     {
         private Session Session
@@ -47,7 +47,7 @@ namespace Cohesity
         /// Specifies the name of the Protection Job.
         /// </para>
         /// </summary>
-        [Parameter(Position = 1, Mandatory = true)]
+        [Parameter(Mandatory = true)]
         [ValidateNotNullOrEmpty()]
         public string Name { get; set; }
 
@@ -56,7 +56,7 @@ namespace Cohesity
         /// Specifies the description of the Protection Job.
         /// </para>
         /// </summary>
-        [Parameter(Position = 2, Mandatory = true)]
+        [Parameter(Mandatory = true)]
         [ValidateNotNullOrEmpty()]
 
         public string Description { get; set; }
@@ -68,7 +68,7 @@ namespace Cohesity
         /// The Job defines the Storage Domain (View Box), the Objects to Protect (if applicable), Start Time, Indexing settings, etc.
         /// </para>
         /// </summary>
-        [Parameter(Position = 2, Mandatory = true)]
+        [Parameter(Mandatory = true)]
         [ValidateNotNullOrEmpty()]
         public string PolicyID { get; set; }
 
@@ -89,7 +89,7 @@ namespace Cohesity
         /// Specifies the Storage Domain (View Box) id where this Job writes data.
         /// </para>
         /// </summary>
-        [Parameter(Position = 3, Mandatory = false)]
+        [Parameter(Mandatory = false)]
         [ValidateNotNullOrEmpty()]
         public long ViewBoxID { get; set; }
 
@@ -110,12 +110,11 @@ namespace Cohesity
 
             if (string.IsNullOrWhiteSpace(Timezone))
                 Timezone = TimeZoneInfoExtensions.GetOlsonTimeZone();
-
         }
 
         protected override void ProcessRecord()
         {
-            var newProtectionJob = new ProtectionJob(name: Name, policyId: PolicyID, viewBoxId: ViewBoxID)
+            var newProtectionJob = new Models.ProtectionJob(name: Name, policyId: PolicyID, viewBoxId: ViewBoxID)
             {
                 Timezone = Timezone,
                 StartTime = new ProtectionScheduleStartTime_(ScheduleStartTime.Hour, ScheduleStartTime.Minute)
@@ -137,10 +136,9 @@ namespace Cohesity
             {
                 newProtectionJob.SourceSpecialParameters = SourceSpecialParameters.ToList();
             }
-                
 
             var preparedUrl = $"/public/protectionJobs";
-            var result = Session.NetworkClient.Post<ProtectionJob>(preparedUrl, newProtectionJob);
+            var result = Session.NetworkClient.Post<Models.ProtectionJob>(preparedUrl, newProtectionJob);
             WriteObject(result);
         }
     }

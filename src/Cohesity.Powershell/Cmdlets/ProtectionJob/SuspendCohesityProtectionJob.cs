@@ -1,6 +1,6 @@
 ﻿using System.Management.Automation;
 
-namespace Cohesity
+namespace Cohesity.Powershell.Cmdlets.ProtectionJob
 {
     /// <summary>
     /// <para type="synopsis">
@@ -18,7 +18,7 @@ namespace Cohesity
     ///   Suspend-CohesityProtectionJob -Id 1234
     ///   </code>
     ///   <para>
-    ///   Pauses a Protection Job with the ID of 1234.
+    ///   Pauses a Protection Job with the Id of 1234.
     ///   </para>
     /// </example>
     [Cmdlet(VerbsLifecycle.Suspend, "CohesityProtectionJob")]
@@ -42,10 +42,10 @@ namespace Cohesity
 
         /// <summary>
         /// <para type="description">
-        /// Specifies a unique id of the Protection Job.
+        /// Specifies the unique id of the Protection Job.
         /// </para>
         /// </summary>
-        [Parameter(Position = 1, Mandatory = true)]
+        [Parameter(Mandatory = true, ValueFromPipelineByPropertyName = true)]
         [ValidateRange(1, long.MaxValue)]
         public long Id { get; set; }
         
@@ -61,11 +61,6 @@ namespace Cohesity
             base.BeginProcessing();
 
             Session.AssertAuthentication();
-            
-            if (Id <= 0)
-            {
-                throw new ParameterBindingException($"Parameter {nameof(Id)} must be greater than zero.");
-            }
         }
 
         /// <summary>
@@ -80,7 +75,7 @@ namespace Cohesity
             // POST /public/protectionJobState/{id}
             var preparedUrl = $"/public/protectionJobState/{Id.ToString()}";
             Session.NetworkClient.Post(preparedUrl, protectionJobState);
-            WriteObject("Protection Job state has been updated.");
+            WriteObject("Protection job was paused successfully.");
         }
 
         #endregion

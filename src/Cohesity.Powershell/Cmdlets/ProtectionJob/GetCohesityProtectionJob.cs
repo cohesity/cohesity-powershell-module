@@ -1,9 +1,9 @@
-﻿using Cohesity.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Management.Automation;
+using Cohesity.Models;
 
-namespace Cohesity
+namespace Cohesity.Powershell.Cmdlets.ProtectionJob
 {
     /// <summary>
     /// <para type="synopsis">
@@ -15,7 +15,7 @@ namespace Cohesity
     /// </para>
     /// </summary>
     [Cmdlet(VerbsCommon.Get, "CohesityProtectionJob")]
-    [OutputType(typeof(ProtectionJob))]
+    [OutputType(typeof(Models.ProtectionJob))]
     public class GetCohesityProtectionJob : PSCmdlet
     {
         private Session Session
@@ -40,7 +40,7 @@ namespace Cohesity
         /// </para>
         /// </summary>
         [Alias("P")]
-        [Parameter(Position = 1, Mandatory = false)]
+        [Parameter(Mandatory = false)]
         public string[] PolicyIds { get; set; }
 
         /// <summary>
@@ -52,7 +52,7 @@ namespace Cohesity
         /// </para>
         /// </summary>
         [Alias("E")]
-        [Parameter(Position = 2, Mandatory = false)]
+        [Parameter(Mandatory = false)]
         public EnvironmentEnum[] Environments { get; set; }
 
         /// <summary>
@@ -64,7 +64,7 @@ namespace Cohesity
         /// In addition, when an Active and running Job is deactivated, the Job becomes Inactive.
         /// </para> 
         /// </summary>
-        [Parameter(Position = 3, Mandatory = false)]
+        [Parameter(Mandatory = false)]
         public bool? IsActive { get; set; }
 
         /// <summary>
@@ -74,7 +74,7 @@ namespace Cohesity
         /// A Job that is deleted with all its Snapshots is not returned for either of these cases.
         /// </para> 
         /// </summary>
-        [Parameter(Position = 4, Mandatory = false)]
+        [Parameter(Mandatory = false)]
         public bool? IsDeleted { get; set; }
 
         private bool includeLastRunAndStats = false;
@@ -84,7 +84,7 @@ namespace Cohesity
         /// If true, return the last Protection Run of the Job and the summary stats.
         /// </para> 
         /// </summary>
-        [Parameter(Position = 5, Mandatory = false)]
+        [Parameter(Mandatory = false)]
         public SwitchParameter IncludeLastRunAndStats
         {
             get { return includeLastRunAndStats; }
@@ -96,7 +96,7 @@ namespace Cohesity
         /// Filter by a list of Protection Job ids.
         /// </para> 
         /// </summary>
-        [Parameter(Position = 6, Mandatory = false)]
+        [Parameter(Mandatory = false)]
         public int[] Ids { get; set; }
 
         /// <summary>
@@ -104,7 +104,7 @@ namespace Cohesity
         /// Filter by a list of Protection Job names.
         /// </para> 
         /// </summary>
-        [Parameter(Position = 7, Mandatory = false)]
+        [Parameter(Mandatory = false)]
         public string[] Names { get; set; }
 
 
@@ -145,7 +145,7 @@ namespace Cohesity
                 queryString = "?" + string.Join("&", queries.Select(q => $"{q.Key}={q.Value}"));
 
             var preparedUrl = $"/public/protectionJobs{queryString}";
-            var result = Session.NetworkClient.Get<IEnumerable<ProtectionJob>>(preparedUrl);
+            var result = Session.NetworkClient.Get<IEnumerable<Models.ProtectionJob>>(preparedUrl);
             WriteObject(result, true);
         }
     }
