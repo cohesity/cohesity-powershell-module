@@ -14,7 +14,7 @@ This PowerShell module can be used on Windows, Linux or Mac OS.
 * On Linux and Mac OS, requires PowerShell Core `6.0` or higher.
 
 ## Installation
-* You can install `Cohesity PowerShell Module` directly from the PowerShell Gallery.
+You can install `Cohesity PowerShell Module` directly from the PowerShell Gallery.
 
 * On Windows:
     ```
@@ -25,7 +25,8 @@ This PowerShell module can be used on Windows, Linux or Mac OS.
     Install-Module -Name Cohesity.PowerShell.Core
     ```
 ## Documentation
-* Online reference for the included PowerShell Cmdlets can be found [here]
+* Online reference for Cohesity PowerShell Cmdlets can be found [here]
+* You can also use `Get-Help <cmdlet>` for offline help
 
 ## Suggestions and Feedback
 We would love to hear from you. Please send your suggestions and feedback to: cohesity-api-sdks@cohesity.com
