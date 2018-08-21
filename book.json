@@ -1,8 +1,4 @@
 {
-    "plugins": [
-        "codeblock-disable-glossary",
-        "collapsible-menu",
-        "anchors"
-    ]
-
+    "title": "Cohesity PowerShell Module",
+    "root": "./docs"
 }

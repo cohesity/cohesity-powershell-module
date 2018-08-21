@@ -13,7 +13,7 @@ Creates a new Protection Job.
 
 ## SYNTAX
 
-```
+```text
 New-CohesityProtectionJob -Name <String> -Description <String> -PolicyID <String> [-ParentSourceID <Int64>]
  [-SourceIDs <Nullable`1[]>] [-Timezone <String>] [-ScheduleStartTime <DateTime>] [-ViewBoxID <Int64>]
  [-ViewName <String>] [-Environment <EnvironmentEnum>] [-SourceSpecialParameters <SourceSpecialParameter[]>]
@@ -135,7 +135,7 @@ Aliases:
 
 Required: False
 Position: Named
-Default value: 8/20/2018 1:18:06 AM
+Default value: 8/21/2018 7:16:12 AM
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -172,7 +172,7 @@ Accept wildcard characters: False
 
 ### -Environment
 
-Possible values: kVMware, kSQL, kView, kPuppeteer, kPhysical, kPure, kNetapp, kGenericNas, kHyperV, kAcropolis, kAzure, kPhysicalFiles, kAgent
+Possible values: kVMware, kSQL, kView, kPuppeteer, kPhysical, kPure, kNetapp, kGenericNas, kHyperV, kAcropolis, kAzure, kPhysicalFiles, kAgent, kIsilon
 
 ```yaml
 Type: EnvironmentEnum
@@ -202,7 +202,8 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about\_CommonParameters \([http://go.microsoft.com/fwlink/?LinkID=113216](http://go.microsoft.com/fwlink/?LinkID=113216)\).
 
 ## INPUTS
 
@@ -213,3 +214,4 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## NOTES
 
 ## RELATED LINKS
+

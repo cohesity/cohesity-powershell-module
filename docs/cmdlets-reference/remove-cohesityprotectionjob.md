@@ -13,7 +13,7 @@ Removes a Protection Job.
 
 ## SYNTAX
 
-```
+```text
 Remove-CohesityProtectionJob -Id <Int64> [-DeleteSnapshots <Boolean>] [<CommonParameters>]
 ```
 
@@ -74,7 +74,8 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about\_CommonParameters \([http://go.microsoft.com/fwlink/?LinkID=113216](http://go.microsoft.com/fwlink/?LinkID=113216)\).
 
 ## INPUTS
 
@@ -87,3 +88,4 @@ Specifies the unique id of the Protection Job.
 ## NOTES
 
 ## RELATED LINKS
+

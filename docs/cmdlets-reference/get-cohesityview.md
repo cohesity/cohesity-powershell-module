@@ -13,7 +13,7 @@ List Views filtered by some parameters.
 
 ## SYNTAX
 
-```
+```text
 Get-CohesityView [[-IncludeInactive] <Boolean>] [[-MatchAliasNames] <Boolean>] [[-ViewNames] <String[]>]
  [[-ViewBoxIDs] <Int32[]>] [[-ViewBoxNames] <String[]>] [[-MatchPartialNames] <Boolean>] [[-MaxCount] <Int32>]
  [[-MaxViewID] <Int32>] [[-JobIDs] <Int32[]>] [[-SortByLogicalUsage] <Boolean>] [<CommonParameters>]
@@ -196,7 +196,8 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about\_CommonParameters \([http://go.microsoft.com/fwlink/?LinkID=113216](http://go.microsoft.com/fwlink/?LinkID=113216)\).
 
 ## INPUTS
 
@@ -207,3 +208,4 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## NOTES
 
 ## RELATED LINKS
+

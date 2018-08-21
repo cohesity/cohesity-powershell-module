@@ -1,0 +1,23 @@
+# Table of contents
+
+* [Cohesity PowerShell Module](README.md)
+* [Introduction](introduction.md)
+* [Pre-requisites](pre-requisites.md)
+* [Installation](installation.md)
+* [Feedback](feedback.md)
+* [Cmdlets Reference](cmdlets-reference/README.md)
+  * [Get-CohesityProtectionSource](cmdlets-reference/get-cohesityprotectionsource.md)
+  * [Start-CohesityProtectionJob](cmdlets-reference/start-cohesityprotectionjob.md)
+  * [Set-CohesityProtectionJob](cmdlets-reference/set-cohesityprotectionjob.md)
+  * [Get-CohesityPolicy](cmdlets-reference/get-cohesitypolicy.md)
+  * [Connect-CohesityCluster](cmdlets-reference/connect-cohesitycluster.md)
+  * [New-CohesityProtectionJob](cmdlets-reference/new-cohesityprotectionjob.md)
+  * [Suspend-CohesityProtectionJob](cmdlets-reference/suspend-cohesityprotectionjob.md)
+  * [Disconnect-CohesityCluster](cmdlets-reference/disconnect-cohesitycluster.md)
+  * [Get-CohesityProtectionJob](cmdlets-reference/get-cohesityprotectionjob.md)
+  * [Resume-CohesityProtectionJob](cmdlets-reference/resume-cohesityprotectionjob.md)
+  * [Get-CohesityView](cmdlets-reference/get-cohesityview.md)
+  * [Get-CohesityStorageDomain](cmdlets-reference/get-cohesitystoragedomain.md)
+  * [Remove-CohesityProtectionJob](cmdlets-reference/remove-cohesityprotectionjob.md)
+  * [Update-CohesityProtectionSource](cmdlets-reference/update-cohesityprotectionsource.md)
+
