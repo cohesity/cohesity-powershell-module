@@ -22,7 +22,7 @@ You can install `Cohesity PowerShell Module` directly from the `PowerShell Galle
   Install-Module -Name Cohesity
 ```
 
-## **Documentation**
+## Documentation
 
 * Online reference for Cohesity PowerShell Cmdlets can be found [here](https://cohesityinc.gitbook.io/cohesity-powershell-module).
 * You can also use `Get-Help <cmdlet>` for offline help.
@@ -31,3 +31,5 @@ You can install `Cohesity PowerShell Module` directly from the `PowerShell Galle
 
 We would love to hear from you. Please send your suggestions and feedback to: <cohesity-api-sdks@cohesity.com>
 
+## License
+Apache 2.0
