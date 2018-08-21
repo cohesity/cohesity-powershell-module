@@ -1,41 +1,39 @@
 ---
 external help file: Cohesity.PowerShell.dll-Help.xml
 Module Name: Cohesity
-online version: null
+online version:
 schema: 2.0.0
 ---
 
-# Set-CohesityProtectionJob
+# Update-CohesityProtectionSource
 
 ## SYNOPSIS
-
-Updates a Protection Job.
+Refreshes the object hierarchy of the specified Protection Source on the Cohesity Cluster.
 
 ## SYNTAX
 
 ```
-Set-CohesityProtectionJob -Id <Int64> -ProtectionJob <ProtectionJob> [<CommonParameters>]
+Update-CohesityProtectionSource -Id <Int64> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-
-Returns the updated Protection Job.
+Forces an immediate refresh of the specified Protection Source on the Cohesity Cluster.
+Returns success if the forced refresh has been started.
+Note that the amount of time to complete a refresh depends on the size of the Object hierarchy.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
-
-```text
-Set-CohesityProtectionJob -Id 1234 -ProtectionJob $job
+```
+Update-CohesityProtectionSource -Id 12
 ```
 
-Updates a protection job with given parameters.
+Immediately refreshes the given protection source.
 
 ## PARAMETERS
 
 ### -Id
-
-Specifies a unique id of the Protection Job.
+Specifies a unique id of the Protection Source.
 
 ```yaml
 Type: Int64
@@ -45,23 +43,7 @@ Aliases:
 Required: True
 Position: Named
 Default value: 0
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -ProtectionJob
-
-The updated Protection Job.
-
-```yaml
-Type: ProtectionJob
-Parameter Sets: (All)
-Aliases:
-
-Required: True
-Position: Named
-Default value: None
-Accept pipeline input: False
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
@@ -70,9 +52,10 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-## OUTPUTS
+### System.Int64
+Specifies a unique id of the Protection Source.
 
-### Cohesity.Models.ProtectionJob
+## OUTPUTS
 
 ## NOTES
 

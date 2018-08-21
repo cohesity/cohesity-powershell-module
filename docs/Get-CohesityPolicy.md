@@ -1,13 +1,14 @@
 ---
 external help file: Cohesity.PowerShell.dll-Help.xml
 Module Name: Cohesity
-online version:
+online version: null
 schema: 2.0.0
 ---
 
 # Get-CohesityPolicy
 
 ## SYNOPSIS
+
 Gets a list of Protection Policies filtered by some parameters.
 
 ## SYNTAX
@@ -18,24 +19,22 @@ Get-CohesityPolicy [[-Environments] <EnvironmentEnum[]>] [[-IDs] <String[]>] [[-
 ```
 
 ## DESCRIPTION
-If no parameters are specified, all Protection Policies currently on the Cohesity Cluster are returned.
-Specifying parameters filters the results that are returned.
+
+If no parameters are specified, all Protection Policies currently on the Cohesity Cluster are returned. Specifying parameters filters the results that are returned.
 
 ## EXAMPLES
 
 ### Example 1
-```powershell
+
+```text
 PS C:\> {{ Add example code here }}
 ```
-
-{{ Add example description here }}
 
 ## PARAMETERS
 
 ### -Environments
-Filter by Environment type.
-Only Policies protecting the specified environment type are returned.
-NOTE: "kPuppeteer" refers to Cohesity's Remote Adapter.
+
+Filter by Environment type. Only Policies protecting the specified environment type are returned. NOTE: "kPuppeteer" refers to Cohesity's Remote Adapter.
 
 ```yaml
 Type: EnvironmentEnum[]
@@ -50,6 +49,7 @@ Accept wildcard characters: False
 ```
 
 ### -IDs
+
 Filter by a list of Protection Policy ids.
 
 ```yaml
@@ -65,6 +65,7 @@ Accept wildcard characters: False
 ```
 
 ### -Names
+
 Filter by a list of Protection Policy names.
 
 ```yaml
@@ -80,14 +81,14 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
-For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
 ## OUTPUTS
 
 ### Cohesity.Models.ProtectionPolicy
+
 ## NOTES
 
 ## RELATED LINKS
