@@ -1,13 +1,14 @@
 ---
 external help file: Cohesity.PowerShell.dll-Help.xml
 Module Name: Cohesity
-online version:
+online version: null
 schema: 2.0.0
 ---
 
 # New-CohesityProtectionJob
 
 ## SYNOPSIS
+
 Creates a new Protection Job.
 
 ## SYNTAX
@@ -20,12 +21,14 @@ New-CohesityProtectionJob -Name <String> -Description <String> -PolicyID <String
 ```
 
 ## DESCRIPTION
+
 Returns the created Protection Job.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
-```
+
+```text
 New-CohesityProtectionJob -Name "Test Job" -PolicyID "My PolicyID" -ViewBoxID 1
 ```
 
@@ -34,6 +37,7 @@ Creates a protection job with only required parameters.
 ## PARAMETERS
 
 ### -Name
+
 Specifies the name of the Protection Job.
 
 ```yaml
@@ -49,6 +53,7 @@ Accept wildcard characters: False
 ```
 
 ### -Description
+
 Specifies the description of the Protection Job.
 
 ```yaml
@@ -64,9 +69,8 @@ Accept wildcard characters: False
 ```
 
 ### -PolicyID
-Specifies the unique id of the Protection Policy associated with the Protection Job.
-The Policy provides retry settings, Protection Schedules, Priority, SLA, etc.
-The Job defines the Storage Domain (View Box), the Objects to Protect (if applicable), Start Time, Indexing settings, etc.
+
+Specifies the unique id of the Protection Policy associated with the Protection Job. The Policy provides retry settings, Protection Schedules, Priority, SLA, etc. The Job defines the Storage Domain \(View Box\), the Objects to Protect \(if applicable\), Start Time, Indexing settings, etc.
 
 ```yaml
 Type: String
@@ -81,7 +85,6 @@ Accept wildcard characters: False
 ```
 
 ### -ParentSourceID
-{{Fill ParentSourceID Description}}
 
 ```yaml
 Type: Int64
@@ -96,7 +99,6 @@ Accept wildcard characters: False
 ```
 
 ### -SourceIDs
-{{Fill SourceIDs Description}}
 
 ```yaml
 Type: Nullable`1[]
@@ -111,7 +113,6 @@ Accept wildcard characters: False
 ```
 
 ### -Timezone
-{{Fill Timezone Description}}
 
 ```yaml
 Type: String
@@ -126,7 +127,6 @@ Accept wildcard characters: False
 ```
 
 ### -ScheduleStartTime
-{{Fill ScheduleStartTime Description}}
 
 ```yaml
 Type: DateTime
@@ -141,7 +141,8 @@ Accept wildcard characters: False
 ```
 
 ### -ViewBoxID
-Specifies the Storage Domain (View Box) id where this Job writes data.
+
+Specifies the Storage Domain \(View Box\) id where this Job writes data.
 
 ```yaml
 Type: Int64
@@ -156,7 +157,6 @@ Accept wildcard characters: False
 ```
 
 ### -ViewName
-{{Fill ViewName Description}}
 
 ```yaml
 Type: String
@@ -171,13 +171,14 @@ Accept wildcard characters: False
 ```
 
 ### -Environment
+
 Possible values: kVMware, kSQL, kView, kPuppeteer, kPhysical, kPure, kNetapp, kGenericNas, kHyperV, kAcropolis, kAzure, kPhysicalFiles, kAgent
 
 ```yaml
 Type: EnvironmentEnum
 Parameter Sets: (All)
 Aliases:
-Accepted values: kVMware, kSQL, kView, kPuppeteer, kPhysical, kPure, kNetapp, kGenericNas, kHyperV, kAcropolis, kAzure, kPhysicalFiles, kAgent
+Accepted values: kVMware, kSQL, kView, kPuppeteer, kPhysical, kPure, kNetapp, kGenericNas, kHyperV, kAcropolis, kAzure, kPhysicalFiles, kAgent, kIsilon
 
 Required: False
 Position: Named
@@ -187,7 +188,6 @@ Accept wildcard characters: False
 ```
 
 ### -SourceSpecialParameters
-{{Fill SourceSpecialParameters Description}}
 
 ```yaml
 Type: SourceSpecialParameter[]
@@ -202,14 +202,14 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
-For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
 ## OUTPUTS
 
 ### Cohesity.Models.ProtectionJob
+
 ## NOTES
 
 ## RELATED LINKS

@@ -34,6 +34,8 @@ namespace Cohesity
 
         public static string Post(this NetworkClient networkClient, string url, string content)
         {
+            if(content == null) content = string.Empty;
+
             var httpRequest = networkClient.CreatePostRequest(url, content);
 
             var httpClient = networkClient.HttpClient;
