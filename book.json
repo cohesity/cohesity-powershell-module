@@ -1,0 +1,8 @@
+{
+    "plugins": [
+        "codeblock-disable-glossary",
+        "collapsible-menu",
+        "anchors"
+    ]
+
+}
