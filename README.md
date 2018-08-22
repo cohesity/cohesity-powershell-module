@@ -22,7 +22,7 @@ You can install `Cohesity PowerShell Module` directly from the `PowerShell Galle
 
 ## Documentation
 
-* Online reference for Cohesity PowerShell Cmdlets can be found [here](https://cohesityinc.gitbook.io/cohesity-powershell-module).
+* [Online reference for Cohesity PowerShell Cmdlets](https://cohesityinc.gitbook.io/cohesity-powershell-module).
 * You can also use `Get-Help <cmdlet>` for offline help.
 
 ## Suggestions and Feedback
