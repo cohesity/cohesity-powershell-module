@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;netcoreapp2.1;net451</TargetFrameworks>
+    <TargetFrameworks>netcoreapp2.0;net451</TargetFrameworks>
     <AssemblyName>Cohesity.Powershell</AssemblyName>
     <RootNamespace>Cohesity.Powershell</RootNamespace>
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
@@ -13,35 +13,34 @@
     </BuildDependsOn>
 
     <Authors>Cohesity</Authors>
-
-    <Product>Cohesity Powershell Cmdlets</Product>
-
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-
+    <Product>Cohesity Powershell Module</Product>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <Version>6.0.0</Version>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$([System.Text.RegularExpressions.Regex]::IsMatch('$(TargetFramework)', '^net\d'))">
+    <DefineConstants>NETFRAMEWORK</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="$([System.Text.RegularExpressions.Regex]::IsMatch('$(TargetFramework)', '^netstandard\d'))">
+    <DefineConstants>NETSTANDARD</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="$([System.Text.RegularExpressions.Regex]::IsMatch('$(TargetFramework)', '^netcoreapp\d'))">
+    <DefineConstants>NETCORE</DefineConstants>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <net451Target>$(BuildDir)bin\Debug\net451\</net451Target>
-    <netstandard20Target>$(BuildDir)bin\Debug\netstandard2.0\</netstandard20Target>
-    <netcoreapp21Target>$(BuildDir)bin\Debug\netcoreapp2.1\</netcoreapp21Target>
-
-    <DocumentationFile>bin\Debug\netstandard2.0\Cohesity.Powershell.xml</DocumentationFile>
-    <DocumentationFile>bin\Debug\netcoreapp2.1\Cohesity.Powershell.xml</DocumentationFile>
+    <netcoreapp20Target>$(BuildDir)bin\Debug\netcoreapp2.0\</netcoreapp20Target>
+    <DocumentationFile>bin\Debug\netcoreapp2.0\Cohesity.Powershell.xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <net451Target>$(BuildDir)bin\Release\net451\</net451Target>
-    <netstandard20Target>$(BuildDir)bin\Release\netstandard2.0\</netstandard20Target>
-    <netcoreapp21Target>$(BuildDir)bin\Release\netcoreapp2.1\</netcoreapp21Target>
-
-    <DocumentationFile>bin\Release\netstandard2.0\Cohesity.Powershell.xml</DocumentationFile>
-    <DocumentationFile>bin\Release\netcoreapp2.1\Cohesity.Powershell.xml</DocumentationFile>
+    <netcoreapp20Target>$(BuildDir)bin\Release\netcoreapp2.0\</netcoreapp20Target>
+    <DocumentationFile>bin\Release\netcoreapp2.0\Cohesity.Powershell.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Common\CohesityClientHandler.cs" />
-    <Compile Remove="Common\TrustAllCertsPolicy.cs" />
     <Compile Remove="Properties\AssemblyInfo.cs" />
   </ItemGroup>
 
@@ -65,11 +64,7 @@
     <PackageReference Include="System.Net.Http" Version="4.3.3" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
-    <PackageReference Include="PowerShellStandard.Library" Version="5.1.0-preview-05" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)'=='netcoreapp2.1'">
+  <ItemGroup Condition="'$(TargetFramework)'=='netcoreapp2.0'">
     <PackageReference Include="PowerShellStandard.Library" Version="5.1.0-preview-05" />
 
   </ItemGroup>
@@ -100,7 +95,6 @@
   </ItemGroup>
 
   <Target Name="CopyCmdletDoc" AfterTargets="Build">
-    <Copy SourceFiles="$(net451Target)\Cohesity.Powershell.dll-Help.xml" DestinationFolder="$(netstandard20Target)" ContinueOnError="false" />
-    <Copy SourceFiles="$(net451Target)\Cohesity.Powershell.dll-Help.xml" DestinationFolder="$(netcoreapp21Target)" ContinueOnError="false" />
+    <Copy SourceFiles="$(net451Target)\Cohesity.Powershell.dll-Help.xml" DestinationFolder="$(netcoreapp20Target)" ContinueOnError="false" />
   </Target>
 </Project>
