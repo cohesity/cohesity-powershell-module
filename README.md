@@ -14,10 +14,16 @@ This project provides a PowerShell Module for interacting with the `Cohesity Dat
 
 ## Installation
 
-You can install `Cohesity PowerShell Module` directly from the `PowerShell Gallery`.
+You can install Cohesity PowerShell Module directly from the PowerShell Gallery.
 
-```text
-  Install-Module -Name Cohesity
+* For Windows PowerShell
+```
+  Install-Module -Name Cohesity.PowerShell
+```
+
+* For PowerShell Core
+```
+  Install-Module -Name Cohesity.PowerShell.Core
 ```
 
 ## Documentation
@@ -32,4 +38,3 @@ We would love to hear from you. Please send your suggestions and feedback to: [c
 ## License
 
 Apache 2.0
-
