@@ -2,5 +2,12 @@
 
 You can install Cohesity PowerShell Module directly from the [PowerShell Gallery](https://www.powershellgallery.com).
 
-`Install-Module -Name Cohesity`
+* For Windows PowerShell
+```
+  Install-Module -Name Cohesity.PowerShell
+```
 
+* For PowerShell Core
+```
+  Install-Module -Name Cohesity.PowerShell.Core
+```
