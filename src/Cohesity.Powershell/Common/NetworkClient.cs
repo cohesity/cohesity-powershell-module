@@ -45,21 +45,13 @@ namespace Cohesity
 
             if (allowInvalidServerCertificates)
             {
-#if NETSTANDARD2_0 || NETCOREAPP2_0 || NETCOREAPP2_1
-                handler.ClientCertificateOptions = ClientCertificateOption.Manual;
-                handler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) =>
-                {
-                    return true;
-                };
+#if NETCORE
+                handler.ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
 #endif
 
-#if NET45 || NET451 || NET452 || NET46 || NET461 || NET462 || NET47 || NET471 || NET472
-                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
-                ServicePointManager.CheckCertificateRevocationList = false;
-                ServicePointManager.ServerCertificateValidationCallback = (sender, cert, chain, sslPolicyErrors) =>
-                {
-                    return true;
-                };
+#if NETFRAMEWORK
+                ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+                ServicePointManager.ServerCertificateValidationCallback = (sender, cert, chain, sslPolicyErrors) => true;
 #endif
             }
 
@@ -67,6 +59,7 @@ namespace Cohesity
             HttpClient.BaseAddress = new Uri(baseAddress, ApiFragment);
             HttpClient.DefaultRequestHeaders.Accept.Clear();
             HttpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            HttpClient.DefaultRequestHeaders.Add("User-Agent", "Cohesity PowerShell Module");
 
             return HttpClient;
         }

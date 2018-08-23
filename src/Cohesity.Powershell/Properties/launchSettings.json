@@ -1,16 +1,16 @@
 {
   "profiles": {
-    "Cohesity.Powershell_PS5": {
+    "Windows.Powershell": {
       "commandName": "Executable",
       "executablePath": "%SystemRoot%\\system32\\WindowsPowerShell\\v1.0\\powershell.exe",
       "commandLineArgs": "-noexit -command \"&{ import-module .\\Cohesity.psd1 -verbose}\""
     },
-    "Cohesity.Powershell_PS6.0.3": {
+    "Powershell.Core.6.0.3": {
       "commandName": "Executable",
       "executablePath": "C:\\Program Files\\PowerShell\\6.0.3\\pwsh.exe",
       "commandLineArgs": "-noexit -command \"&{ import-module .\\Cohesity.psd1 -verbose}\""
     },
-    "Cohesity.Powershell_PS6-Preview": {
+    "Powershell.Core.6-preview": {
       "commandName": "Executable",
       "executablePath": "C:\\Program Files\\PowerShell\\6-preview\\pwsh.exe",
       "commandLineArgs": "-noexit -command \"&{ import-module .\\Cohesity.psd1 -verbose}\""
