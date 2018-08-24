@@ -5,7 +5,7 @@ using System.Linq;
 using System.Management.Automation;
 using System.Text;
 
-namespace Cohesity.Powershell.ProtectionRuns
+namespace Cohesity.Powershell.Cmdlets.ProtectionJobRun
 {
     /// <summary>
     /// <para type="synopsis">
@@ -50,7 +50,7 @@ namespace Cohesity.Powershell.ProtectionRuns
         /// If not specified, all Job Runs for all Protection Jobs are returned.
         /// </para>
         /// </summary>
-        [Parameter(Position = 1, Mandatory = false)]
+        [Parameter(Mandatory = false)]
         public long? JobId { get; set; }
 
         /// <summary>
@@ -60,7 +60,7 @@ namespace Cohesity.Powershell.ProtectionRuns
         /// If this field is specified, jobId must also be specified.
         /// </para>
         /// </summary>
-        [Parameter(Position = 2, Mandatory = false)]
+        [Parameter(Mandatory = false)]
         public long? StartedTimeUsecs { get; set; } = null;
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace Cohesity.Powershell.ProtectionRuns
         /// Only Job Runs that completed before the specified end time are returned.
         /// </para>
         /// </summary>
-        [Parameter(Position = 3, Mandatory = false)]
+        [Parameter(Mandatory = false)]
         public long? EndTimeUsecs { get; set; } = null;
 
         /// <summary>
@@ -78,7 +78,7 @@ namespace Cohesity.Powershell.ProtectionRuns
         /// The newest Job Runs are returned.
         /// </para>
         /// </summary>
-        [Parameter(Position = 4, Mandatory = false)]
+        [Parameter(Mandatory = false)]
         public long? NumRuns { get; set; } = null;
 
         /// <summary>
@@ -87,7 +87,7 @@ namespace Cohesity.Powershell.ProtectionRuns
         /// For example in a VMware environment, the status of backing up each VM associated with a Job is not returned.
         /// </para>
         /// </summary>
-        [Parameter(Position = 5, Mandatory = false)]
+        [Parameter(Mandatory = false)]
         public SwitchParameter ExcludeTasks { get; set; }
 
         /// <summary>
@@ -96,7 +96,7 @@ namespace Cohesity.Powershell.ProtectionRuns
         /// The source id is assigned by the Cohesity Cluster.
         /// </para>
         /// </summary>
-        [Parameter(Position = 6, Mandatory = false)]
+        [Parameter(Mandatory = false)]
         public long? SourceId { get; set; } = null;
 
         /// <summary>
@@ -105,7 +105,7 @@ namespace Cohesity.Powershell.ProtectionRuns
         /// If not set, Job Runs with errors are returned.
         /// </para>
         /// </summary>
-        [Parameter(Position = 7, Mandatory = false)]
+        [Parameter(Mandatory = false)]
         public SwitchParameter ExcludeErrorRuns { get; set; }
 
         /// <summary>
@@ -114,7 +114,7 @@ namespace Cohesity.Powershell.ProtectionRuns
         /// Specify the start time as a Unix epoch Timestamp (in microseconds).
         /// </para>
         /// </summary>
-        [Parameter(Position = 8, Mandatory = false)]
+        [Parameter(Mandatory = false)]
         public long? StartTimeUsecs { get; set; } = 0;
 
         /// <summary>
@@ -123,7 +123,7 @@ namespace Cohesity.Powershell.ProtectionRuns
         /// If not specified, Job Runs of all types are returned.
         /// </para>
         /// </summary>
-        [Parameter(Position = 9, Mandatory = false)]
+        [Parameter(Mandatory = false)]
         [ValidateSet("kRegular", "kFull", "kLog", "kSystem", IgnoreCase = true)]
         public string[] RunTypes { get; set; } = null;
 
@@ -133,7 +133,7 @@ namespace Cohesity.Powershell.ProtectionRuns
         /// If not set, Runs without any successful object will be returned.
         /// </para>
         /// </summary>
-        [Parameter(Position = 10, Mandatory = false)]
+        [Parameter(Mandatory = false)]
         public SwitchParameter ExcludeNonRestoreableRuns { get; set; }
 
         /// <summary>

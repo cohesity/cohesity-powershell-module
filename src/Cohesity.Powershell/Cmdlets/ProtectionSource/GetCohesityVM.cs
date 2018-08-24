@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Management.Automation;
 
-namespace Cohesity.Powershell.ProtectionSources
+namespace Cohesity.Powershell.Cmdlets.ProtectionSource
 {
     /// <summary>
     /// <para type="synopsis">
@@ -26,8 +26,8 @@ namespace Cohesity.Powershell.ProtectionSources
     ///   </para>
     /// </example>
     [Cmdlet(VerbsCommon.Get, "CohesityVM")]
-    [OutputType(typeof(ProtectionSource))]
-    public class GetVirtualMachine : PSCmdlet
+    [OutputType(typeof(ProtectionSource_))]
+    public class GetCohesityVM : PSCmdlet
     {
         private Session Session
         {
@@ -48,7 +48,7 @@ namespace Cohesity.Powershell.ProtectionSources
         /// Limit the VMs returned to the set of VMs found in a specific vCenter Server. Pass in the root Protection Source id for the vCenter Server to search for VMs.
         /// </para>
         /// </summary>
-        [Parameter(Position = 1, Mandatory = false)]
+        [Parameter(Mandatory = false)]
         public long? ParentSourceId { get; set; }
 
         /// <summary>
@@ -58,7 +58,7 @@ namespace Cohesity.Powershell.ProtectionSources
         /// The string must exactly match the passed in VM name and wild cards are not supported.
         /// </para>
         /// </summary>
-        [Parameter(Position = 2, Mandatory = false)]
+        [Parameter(Mandatory = false)]
         public string[] Names { get; set; } = null;
 
         /// <summary>
@@ -66,7 +66,7 @@ namespace Cohesity.Powershell.ProtectionSources
         /// Limit the returned VMs to those that exactly match the passed in UUIDs.
         /// </para>
         /// </summary>
-        [Parameter(Position = 3, Mandatory = false)]
+        [Parameter(Mandatory = false)]
         public string[] UUIDs { get; set; } = null;
 
         /// <summary>
@@ -75,7 +75,7 @@ namespace Cohesity.Powershell.ProtectionSources
         /// By default, both protected and unprotected VMs are returned.
         /// </para>
         /// </summary>
-        [Parameter(Position = 4, Mandatory = false)]
+        [Parameter(Mandatory = false)]
         public SwitchParameter Protected { get; set; } = false;
 
         /// <summary>
@@ -95,7 +95,7 @@ namespace Cohesity.Powershell.ProtectionSources
         {
             var qb = new QuerystringBuilder();
 
-            if (ParentSourceId.HasValue && ParentSourceId != null)
+            if (ParentSourceId != null && ParentSourceId.HasValue)
                 qb.Add("ParentSourceId", ParentSourceId.Value);
 
             if (Names != null && Names.Any())
@@ -108,7 +108,7 @@ namespace Cohesity.Powershell.ProtectionSources
                 qb.Add("protected", true);
 
             var url = $"/public/protectionSources/virtualMachines{ qb.Build()}";
-            var result = Session.NetworkClient.Get<IEnumerable<ProtectionSource>>(url);
+            var result = Session.NetworkClient.Get<IEnumerable<ProtectionSource_>>(url);
             WriteObject(result, true);
         }
     }
