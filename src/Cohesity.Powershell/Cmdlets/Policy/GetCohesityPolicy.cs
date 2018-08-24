@@ -1,9 +1,10 @@
-﻿using Cohesity.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Management.Automation;
+using Cohesity.Models;
+using Cohesity.Powershell.Common;
 
-namespace Cohesity
+namespace Cohesity.Powershell.Cmdlets.Policy
 {
     /// <summary>
     /// <para type="synopsis">

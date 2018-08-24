@@ -1,4 +1,4 @@
-﻿namespace Cohesity.Powershell
+﻿namespace Cohesity.Powershell.Common
 {
     internal class ServiceLocator
     {

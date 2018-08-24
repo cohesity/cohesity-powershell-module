@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Management.Automation;
 
-namespace Cohesity.Powershell
+namespace Cohesity.Powershell.Common
 {
     class UserProfile
     {

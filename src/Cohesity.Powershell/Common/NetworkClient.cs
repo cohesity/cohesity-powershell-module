@@ -1,18 +1,13 @@
-﻿using Cohesity.Powershell;
-using Newtonsoft.Json;
-using System;
-using System.Net;
+﻿using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using Newtonsoft.Json;
 
-namespace Cohesity
+namespace Cohesity.Powershell.Common
 {
     internal class NetworkClient
     {
-        private const string ApiFragment = "irisservices/api/v1/";
-
         private UserProfileProvider userProfileProvider;
         public HttpClient HttpClient { get; private set; }
 
@@ -56,10 +51,10 @@ namespace Cohesity
             }
 
             HttpClient = new HttpClient(handler);
-            HttpClient.BaseAddress = new Uri(baseAddress, ApiFragment);
+            HttpClient.BaseAddress = new Uri(baseAddress, CohesityConstants.ApiBasePath);
             HttpClient.DefaultRequestHeaders.Accept.Clear();
-            HttpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            HttpClient.DefaultRequestHeaders.Add("User-Agent", "Cohesity PowerShell Module");
+            HttpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(CohesityConstants.ContentType));
+            HttpClient.DefaultRequestHeaders.Add(CohesityConstants.HttpHeaderUserAgent, CohesityConstants.ModuleName);
 
             return HttpClient;
         }
@@ -74,7 +69,7 @@ namespace Cohesity
             if (userProfile.ClusterUri == null)
                 return null;
 
-            var baseUri = new Uri(userProfile.ClusterUri, ApiFragment);
+            var baseUri = new Uri(userProfile.ClusterUri, CohesityConstants.ApiBasePath);
 
             if (fragment.StartsWith("/"))
             {
@@ -84,14 +79,15 @@ namespace Cohesity
             return new Uri(baseUri, fragment);
         }
 
-
         public HttpRequestMessage CreateRequest(HttpMethod method, string requestUri)
         {
             var uri = GetUri(requestUri);
             var request = new HttpRequestMessage(method, uri);
             if (AccessToken != null)
             {
-                request.Headers.Add("Authorization", $"{AccessToken.TokenType} {AccessToken.AccessToken}");
+                request.Headers.Add(
+                    CohesityConstants.HttpHeaderAuthorization,
+                    $"{AccessToken.TokenType} {AccessToken.AccessToken}");
             }
 
             return request;
@@ -104,12 +100,14 @@ namespace Cohesity
             {
                 Method = HttpMethod.Post,
                 RequestUri = uri,
-                Content = new StringContent(JsonConvert.SerializeObject(content), Encoding.UTF8, "application/json")
+                Content = new StringContent(JsonConvert.SerializeObject(content), Encoding.UTF8, CohesityConstants.ContentType)
             };
 
             if (AccessToken != null)
             {
-                request.Headers.Add("Authorization", $"{AccessToken.TokenType} {AccessToken.AccessToken}");
+                request.Headers.Add(
+                    CohesityConstants.HttpHeaderAuthorization,
+                    $"{AccessToken.TokenType} {AccessToken.AccessToken}");
             }
 
             return request;
@@ -122,12 +120,14 @@ namespace Cohesity
             {
                 Method = HttpMethod.Post,
                 RequestUri = uri,
-                Content = new StringContent(content, Encoding.UTF8, "application/json")
+                Content = new StringContent(content, Encoding.UTF8, CohesityConstants.ContentType)
             };
 
             if (AccessToken != null)
             {
-                request.Headers.Add("Authorization", $"{AccessToken.TokenType} {AccessToken.AccessToken}");
+                request.Headers.Add(
+                    CohesityConstants.HttpHeaderAuthorization,
+                    $"{AccessToken.TokenType} {AccessToken.AccessToken}");
             }
 
             return request;
@@ -140,12 +140,14 @@ namespace Cohesity
             {
                 Method = HttpMethod.Put,
                 RequestUri = uri,
-                Content = new StringContent(JsonConvert.SerializeObject(content), Encoding.UTF8, "application/json")
+                Content = new StringContent(JsonConvert.SerializeObject(content), Encoding.UTF8, CohesityConstants.ContentType)
             };
 
             if (AccessToken != null)
             {
-                request.Headers.Add("Authorization", $"{AccessToken.TokenType} {AccessToken.AccessToken}");
+                request.Headers.Add(
+                    CohesityConstants.HttpHeaderAuthorization,
+                    $"{AccessToken.TokenType} {AccessToken.AccessToken}");
             }
 
             return request;
@@ -158,12 +160,14 @@ namespace Cohesity
             {
                 Method = HttpMethod.Delete,
                 RequestUri = uri,
-                Content = new StringContent(JsonConvert.SerializeObject(content), Encoding.UTF8, "application/json")
+                Content = new StringContent(JsonConvert.SerializeObject(content), Encoding.UTF8, CohesityConstants.ContentType)
             };
 
             if (AccessToken != null)
             {
-                request.Headers.Add("Authorization", $"{AccessToken.TokenType} {AccessToken.AccessToken}");
+                request.Headers.Add(
+                    CohesityConstants.HttpHeaderAuthorization,
+                    $"{AccessToken.TokenType} {AccessToken.AccessToken}");
             }
 
             return request;
@@ -176,12 +180,14 @@ namespace Cohesity
             {
                 Method = HttpMethod.Delete,
                 RequestUri = uri,
-                Content = new StringContent(content, Encoding.UTF8, "application/json")
+                Content = new StringContent(content, Encoding.UTF8, CohesityConstants.ContentType)
             };
 
             if (AccessToken != null)
             {
-                request.Headers.Add("Authorization", $"{AccessToken.TokenType} {AccessToken.AccessToken}");
+                request.Headers.Add(
+                    CohesityConstants.HttpHeaderAuthorization,
+                    $"{AccessToken.TokenType} {AccessToken.AccessToken}");
             }
 
             return request;

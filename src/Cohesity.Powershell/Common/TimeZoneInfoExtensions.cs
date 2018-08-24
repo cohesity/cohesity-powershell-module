@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Cohesity
+namespace Cohesity.Powershell.Common
 {
     public static class TimeZoneInfoExtensions
     {

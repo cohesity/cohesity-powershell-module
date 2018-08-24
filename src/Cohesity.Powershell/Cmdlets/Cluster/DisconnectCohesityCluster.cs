@@ -1,10 +1,7 @@
-﻿using Cohesity.Powershell;
-using System;
-using System.Collections.Generic;
-using System.Management.Automation;
-using System.Text;
+﻿using System.Management.Automation;
+using Cohesity.Powershell.Common;
 
-namespace Cohesity
+namespace Cohesity.Powershell.Cmdlets.Cluster
 {
     /// <summary>
     /// <para type="synopsis">

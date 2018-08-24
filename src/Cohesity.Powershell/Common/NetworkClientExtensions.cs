@@ -1,8 +1,8 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Net.Http;
+using Newtonsoft.Json;
 
-namespace Cohesity
+namespace Cohesity.Powershell.Common
 {
     /// <summary>
     /// Extends <see cref="NetworkClient"/> with common functions.

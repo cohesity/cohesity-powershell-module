@@ -1,8 +1,8 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.IO;
+using Newtonsoft.Json;
 
-namespace Cohesity.Powershell
+namespace Cohesity.Powershell.Common
 {
     internal class UserProfileProvider
     {

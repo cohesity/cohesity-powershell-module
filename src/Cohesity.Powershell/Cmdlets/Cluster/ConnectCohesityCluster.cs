@@ -4,6 +4,7 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using Cohesity.Models;
+using Cohesity.Powershell.Common;
 using Newtonsoft.Json;
 
 namespace Cohesity.Powershell.Cmdlets.Cluster

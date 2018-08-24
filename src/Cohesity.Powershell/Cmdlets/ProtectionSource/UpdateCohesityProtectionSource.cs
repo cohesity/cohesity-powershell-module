@@ -1,5 +1,5 @@
-﻿using System;
-using System.Management.Automation;
+﻿using System.Management.Automation;
+using Cohesity.Powershell.Common;
 
 namespace Cohesity.Powershell.Cmdlets.ProtectionSource
 {

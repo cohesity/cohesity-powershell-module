@@ -1,4 +1,5 @@
 ﻿using System;
+using Cohesity.Powershell.Common;
 
 namespace Cohesity
 {
