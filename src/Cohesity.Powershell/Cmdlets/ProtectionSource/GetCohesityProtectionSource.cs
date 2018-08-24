@@ -13,6 +13,15 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
     /// If no parameters are specified, all Protection Sources that are registered on the Cohesity Cluster are returned.
     /// </para>
     /// </summary>
+    /// <example>
+    ///   <para>PS&gt;</para>
+    ///   <code>
+    ///   Get-CohesityProtectionSource -environment kVMware
+    ///   </code>
+    ///   <para>
+    ///   Returns registered protection sources that match the environment type'kVMware’ .
+    ///   </para>
+    /// </example>
     [Cmdlet(VerbsCommon.Get, "CohesityProtectionSource")]
     [OutputType(typeof(ProtectionSourceNode))]
     public class GetCohesityProtectionSource : PSCmdlet

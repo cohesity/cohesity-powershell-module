@@ -14,6 +14,15 @@ namespace Cohesity
     /// Specifying parameters filters the results that are returned.
     /// </para>
     /// </summary>
+    /// <example>
+    ///   <para>PS&gt;</para>
+    ///   <code>
+    ///   Get-CohesityPolicy -names TestPolicy
+    ///   </code>
+    ///   <para>
+    ///   Displays the Policy with name TestPolicy
+    ///   </para>
+    /// </example>
     [Cmdlet(VerbsCommon.Get, "CohesityPolicy")]
     [OutputType(typeof(ProtectionPolicy))]
     public class GetCohesityPolicy : PSCmdlet
