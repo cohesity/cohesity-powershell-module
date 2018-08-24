@@ -14,6 +14,15 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
     /// Specifying parameters filters the results that are returned.
     /// </para>
     /// </summary>
+    /// <example>
+    ///   <para>PS&gt;</para>
+    ///   <code>
+    ///   Get-CohesityProtectionJob -Names TestJob
+    ///   </code>
+    ///   <para>
+    ///   Displays the protectionjob with name TestJob.
+    ///   </para>
+    /// </example>
     [Cmdlet(VerbsCommon.Get, "CohesityProtectionJob")]
     [OutputType(typeof(Models.ProtectionJob))]
     public class GetCohesityProtectionJob : PSCmdlet

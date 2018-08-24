@@ -18,6 +18,15 @@ namespace Cohesity
     /// last View returned in viewList from the previous response.
     /// </para>
     /// </summary>
+    /// <example>
+    ///   <para>PS&gt;</para>
+    ///   <code>
+    ///   Get-CohesityView -viewNames Testview
+    ///   </code>
+    ///   <para>
+    ///   Displays the view with name Testview.
+    ///   </para>
+    /// </example>
     [Cmdlet(VerbsCommon.Get, "CohesityView")]
     [OutputType(typeof(GetViewsResult))]
     public class GetCohesityView : PSCmdlet
