@@ -27,11 +27,13 @@ NOTE: If maxCount is set and the number of Views returned exceeds the maxCount, 
 
 ## EXAMPLES
 
-### Example 1
+### EXAMPLE 1
 
 ```text
-PS C:\> {{ Add example code here }}
+Get-CohesityView -viewNames Testview
 ```
+
+Displays the view with name Testview.
 
 ## PARAMETERS
 

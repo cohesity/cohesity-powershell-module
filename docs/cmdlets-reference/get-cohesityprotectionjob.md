@@ -24,11 +24,13 @@ If no parameters are specified, all Protection Jobs currently on the Cohesity Cl
 
 ## EXAMPLES
 
-### Example 1
+### EXAMPLE 1
 
 ```text
-PS C:\> {{ Add example code here }}
+Get-CohesityProtectionJob -Names TestJob
 ```
+
+Displays the protectionjob with name TestJob.
 
 ## PARAMETERS
 

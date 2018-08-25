@@ -23,11 +23,13 @@ If no parameters are specified, all Protection Sources that are registered on th
 
 ## EXAMPLES
 
-### Example 1
+### EXAMPLE 1
 
 ```text
-PS C:\> {{ Add example code here }}
+Get-CohesityProtectionSource -environment kVMware
 ```
+
+Returns registered protection sources that match the environment type'kVMware' .
 
 ## PARAMETERS
 

@@ -24,11 +24,13 @@ If no parameters are specified, all Protection Policies currently on the Cohesit
 
 ## EXAMPLES
 
-### Example 1
+### EXAMPLE 1
 
 ```text
-PS C:\> {{ Add example code here }}
+Get-CohesityPolicy -names TestPolicy
 ```
+
+Displays the Policy with name TestPolicy
 
 ## PARAMETERS
 
