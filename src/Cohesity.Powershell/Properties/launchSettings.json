@@ -3,17 +3,17 @@
     "Windows.Powershell": {
       "commandName": "Executable",
       "executablePath": "%SystemRoot%\\system32\\WindowsPowerShell\\v1.0\\powershell.exe",
-      "commandLineArgs": "-noexit -command \"&{ import-module .\\Cohesity.psd1 -verbose}\""
+      "commandLineArgs": "-noexit -command \"&{ import-module .\\Cohesity.PowerShell.psd1 -verbose}\""
     },
     "Powershell.Core.6.0.3": {
       "commandName": "Executable",
       "executablePath": "C:\\Program Files\\PowerShell\\6.0.3\\pwsh.exe",
-      "commandLineArgs": "-noexit -command \"&{ import-module .\\Cohesity.psd1 -verbose}\""
+      "commandLineArgs": "-noexit -command \"&{ import-module .\\Cohesity.PowerShell.Core.psd1 -verbose}\""
     },
     "Powershell.Core.6-preview": {
       "commandName": "Executable",
       "executablePath": "C:\\Program Files\\PowerShell\\6-preview\\pwsh.exe",
-      "commandLineArgs": "-noexit -command \"&{ import-module .\\Cohesity.psd1 -verbose}\""
+      "commandLineArgs": "-noexit -command \"&{ import-module .\\Cohesity.PowerShell.Core.psd1 -verbose}\""
     }
   }
 }
