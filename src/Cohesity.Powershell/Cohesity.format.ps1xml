@@ -2,7 +2,7 @@
 <Configuration>
     <ViewDefinitions>
         <View>
-            <Name>ProtectionJob</Name>
+            <Name>ProtectionJob.TableView</Name>
             <ViewSelectedBy>
                 <TypeName>Cohesity.Models.ProtectionJob</TypeName>
             </ViewSelectedBy>
@@ -17,28 +17,31 @@
                         <PropertyName>Name</PropertyName>
                       </TableColumnItem>
                       <TableColumnItem>
+                        <PropertyName>Environment</PropertyName>
+                      </TableColumnItem>
+                      <TableColumnItem>
                         <PropertyName>Priority</PropertyName>
                       </TableColumnItem>
                       <TableColumnItem>
                         <PropertyName>ParentSourceId</PropertyName>
                       </TableColumnItem>
                       <TableColumnItem>
-                        <PropertyName>SourceIds</PropertyName>
-                      </TableColumnItem>
-                      <TableColumnItem>
-                        <PropertyName>ExcludeSourceIds</PropertyName>
-                      </TableColumnItem>
-                      <TableColumnItem>
-                        <PropertyName>VmTagIds</PropertyName>
-                      </TableColumnItem>
-                      <TableColumnItem>
-                        <PropertyName>ExcludeVmTagIds</PropertyName>
+                        <PropertyName>ViewBoxId</PropertyName>
                       </TableColumnItem>
                       <TableColumnItem>
                         <PropertyName>PolicyId</PropertyName>
                       </TableColumnItem>
                       <TableColumnItem>
-                        <PropertyName>ViewBoxId</PropertyName>
+                        <PropertyName>SourceIds</PropertyName>
+                      </TableColumnItem>
+                      <TableColumnItem>
+                        <PropertyName>VmTagIds</PropertyName>
+                      </TableColumnItem>
+                      <TableColumnItem>
+                        <PropertyName>ExcludeSourceIds</PropertyName>
+                      </TableColumnItem>
+                      <TableColumnItem>
+                        <PropertyName>ExcludeVmTagIds</PropertyName>
                       </TableColumnItem>
                       <TableColumnItem>
                         <PropertyName>ViewName</PropertyName>
@@ -138,113 +141,127 @@
                     <TableColumnHeader>
                     </TableColumnHeader>
                     <TableColumnHeader>
-                        <Width>10</Width>
                     </TableColumnHeader>
                     <TableColumnHeader>
-                        <Width>10</Width>
                     </TableColumnHeader>
                     <TableColumnHeader>
-                        <Width>10</Width>
                     </TableColumnHeader>
                     <TableColumnHeader>
-                        <Width>40</Width>
                     </TableColumnHeader>
                     <TableColumnHeader>
-                        <Width>40</Width>
                     </TableColumnHeader>
                     <TableColumnHeader>
-                        <Width>40</Width>
                     </TableColumnHeader>
                     <TableColumnHeader>
-                        <Width>40</Width>
                     </TableColumnHeader>
                     <TableColumnHeader>
-                        <Width>40</Width>
                     </TableColumnHeader>
                     <TableColumnHeader>
-                        <Width>40</Width>
                     </TableColumnHeader>
                     <TableColumnHeader>
-                        <Width>40</Width>
                     </TableColumnHeader>
                     <TableColumnHeader>
-                        <Width>40</Width>
                     </TableColumnHeader>
                     <TableColumnHeader>
-                        <Width>40</Width>
                     </TableColumnHeader>
                     <TableColumnHeader>
-                        <Width>40</Width>
                     </TableColumnHeader>
                     <TableColumnHeader>
-                        <Width>40</Width>
                     </TableColumnHeader>
                     <TableColumnHeader>
-                        <Width>40</Width>
                     </TableColumnHeader>
                     <TableColumnHeader>
-                        <Width>40</Width>
                     </TableColumnHeader>
                     <TableColumnHeader>
-                        <Width>40</Width>
                     </TableColumnHeader>
                     <TableColumnHeader>
-                        <Width>40</Width>
                     </TableColumnHeader>
                     <TableColumnHeader>
-                        <Width>40</Width>
                     </TableColumnHeader>
                     <TableColumnHeader>
-                        <Width>40</Width>
                     </TableColumnHeader>
                     <TableColumnHeader>
-                        <Width>40</Width>
                     </TableColumnHeader>
                     <TableColumnHeader>
-                        <Width>40</Width>
                     </TableColumnHeader>
                     <TableColumnHeader>
-                        <Width>40</Width>
                     </TableColumnHeader>
                     <TableColumnHeader>
-                        <Width>40</Width>
                     </TableColumnHeader>
                     <TableColumnHeader>
-                        <Width>40</Width>
                     </TableColumnHeader>
                     <TableColumnHeader>
-                        <Width>40</Width>
                     </TableColumnHeader>
                     <TableColumnHeader>
-                        <Width>40</Width>
                     </TableColumnHeader>
                     <TableColumnHeader>
-                        <Width>40</Width>
                     </TableColumnHeader>
                     <TableColumnHeader>
-                        <Width>40</Width>
                     </TableColumnHeader>
                     <TableColumnHeader>
-                        <Width>40</Width>
                     </TableColumnHeader>
                     <TableColumnHeader>
-                        <Width>40</Width>
                     </TableColumnHeader>
                     <TableColumnHeader>
-                        <Width>40</Width>
                     </TableColumnHeader>
                     <TableColumnHeader>
-                        <Width>40</Width>
                     </TableColumnHeader>
                     <TableColumnHeader>
-                        <Width>40</Width>
                     </TableColumnHeader>
                     <TableColumnHeader>
-                        <Width>40</Width>
+                    </TableColumnHeader>
+                    <TableColumnHeader>
                     </TableColumnHeader>
                     <TableColumnHeader/>
                 </TableHeaders>
             </TableControl>
+        </View>
+        <View>
+          <Name>ProtectionJob.ListView</Name>
+          <ViewSelectedBy>
+            <TypeName>Cohesity.Models.ProtectionJob</TypeName>
+          </ViewSelectedBy>
+          <ListControl>
+            <ListEntries>
+              <ListEntry>
+                <ListItems>
+                  <ListItem>
+                    <PropertyName>Id</PropertyName>
+                  </ListItem>
+                  <ListItem>
+                    <PropertyName>Name</PropertyName>
+                  </ListItem>
+                  <ListItem>
+                    <PropertyName>Environment</PropertyName>
+                  </ListItem>
+                  <ListItem>
+                    <PropertyName>Priority</PropertyName>
+                  </ListItem>
+                  <ListItem>
+                    <PropertyName>ParentSourceId</PropertyName>
+                  </ListItem>
+                  <ListItem>
+                    <PropertyName>ViewBoxId</PropertyName>
+                  </ListItem>
+                  <ListItem>
+                    <PropertyName>PolicyId</PropertyName>
+                  </ListItem>
+                  <ListItem>
+                    <PropertyName>SourceIds</PropertyName>
+                  </ListItem>
+                  <ListItem>
+                    <PropertyName>VmTagIds</PropertyName>
+                  </ListItem>
+                  <ListItem>
+                    <PropertyName>ExcludeSourceIds</PropertyName>
+                  </ListItem>
+                  <ListItem>
+                    <PropertyName>ExcludeVmTagIds</PropertyName>
+                  </ListItem>
+                </ListItems>
+              </ListEntry>
+            </ListEntries>
+          </ListControl>
         </View>
     </ViewDefinitions>
 </Configuration>
