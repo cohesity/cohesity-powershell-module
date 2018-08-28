@@ -12,13 +12,13 @@
   Get-Command -Module Cohesity*
   ```
   
-* To get a brief help for available Cohesity Cmdlets
+* To get brief help for available Cohesity Cmdlets
 
   ```text
   Get-Help *Cohesity*
   ```
 
-* To get a detailed help for a specific Cohesity Cmdlet
+* To get detailed help for a specific Cohesity Cmdlet
   ```text
   Get-Help <cmdlet-name> -Full
   ```
