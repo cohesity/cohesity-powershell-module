@@ -1,6 +1,6 @@
 # How to use
 
-* After installation, you can import `Cohesity PowerShell Module` in your scripts as below:
+* After installation, you can import Cohesity PowerShell Module in your scripts as below:
 
   ```text
   Get-Module -Name Cohesity* | Import-Module
