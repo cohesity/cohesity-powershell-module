@@ -3,7 +3,7 @@
 * After installation, you can import Cohesity PowerShell Module in your scripts as below:
 
   ```text
-  Get-Module -Name Cohesity* | Import-Module
+  Get-Module -ListAvailable -Name Cohesity* | Import-Module
   ```
 
 * To get a list of available Cohesity Cmdlets
