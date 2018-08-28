@@ -3,6 +3,7 @@
 * [Cohesity PowerShell Module](README.md)
 * [Overview](overview.md)
 * [Installation](installation.md)
+* [How to use](how-to-use.md)
 * [Feedback](feedback.md)
 * [Pre-requisites](pre-requisites.md)
 * [Cmdlets Reference](cmdlets-reference/README.md)
