@@ -30,7 +30,8 @@
   ```
   You can also export and persist the credential securely using [PSCredentialTools](https://www.powershellgallery.com/packages/PSCredentialTools/1.0.1)
   and then import it in your scripts.
- 
+  
+  
  * All set! Now try out other Cohesity Cmdlets such as: Getting a list of Protection Jobs
    ```text
    Get-CohesityProtectionJob
