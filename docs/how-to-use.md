@@ -29,7 +29,8 @@
   Connect-CohesityCluster -Server cohesity-cluster.example.com -Credential (Get-Credential)
   ```
   You can also export and persist the credential securely using [PSCredentialTools](https://www.powershellgallery.com/packages/PSCredentialTools/1.0.1) and then import it in your scripts.
-  
+
+
 * You are all set! Now explore other Cohesity Cmdlets such as
   ```text
   Get-CohesityProtectionJob
