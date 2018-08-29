@@ -2,7 +2,6 @@
 
   <PropertyGroup>
     <TargetFrameworks>netcoreapp2.0;net451</TargetFrameworks>
-    <AssemblyName>Cohesity.Powershell</AssemblyName>
     <RootNamespace>Cohesity.Powershell</RootNamespace>
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
     <Configurations>Debug;Release;</Configurations>
@@ -13,9 +12,9 @@
     </BuildDependsOn>
 
     <Authors>Cohesity</Authors>
-    <Product>Cohesity Powershell Module</Product>
+    <Product>Cohesity PowerShell Module</Product>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <Version>6.0.0.100</Version>
+    <Version>6.0.0</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="$([System.Text.RegularExpressions.Regex]::IsMatch('$(TargetFramework)', '^net\d'))">
@@ -26,6 +25,13 @@
   </PropertyGroup>
   <PropertyGroup Condition="$([System.Text.RegularExpressions.Regex]::IsMatch('$(TargetFramework)', '^netcoreapp\d'))">
     <DefineConstants>NETCORE</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(TargetFramework)'=='netcoreapp2.0'">
+    <AssemblyName>Cohesity.PowerShell.Core</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(TargetFramework)'=='net451'">
+    <AssemblyName>Cohesity.PowerShell</AssemblyName>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
