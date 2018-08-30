@@ -8,25 +8,25 @@ namespace Cohesity.Powershell.Cmdlets.Policy
 {
     /// <summary>
     /// <para type="synopsis">
-    /// Gets a list of Protection Policies filtered by some parameters.
+    /// Gets a list of protection policies filtered by specified parameters.
     /// </para>
     /// <para type="description">
-    /// If no parameters are specified, all Protection Policies currently on the Cohesity Cluster are returned.
+    /// If no parameters are specified, all protection policies on the Cohesity Cluster are returned.
     /// Specifying parameters filters the results that are returned.
     /// </para>
     /// </summary>
     /// <example>
     ///   <para>PS&gt;</para>
     ///   <code>
-    ///   Get-CohesityPolicy -names TestPolicy
+    ///   Get-CohesityProtectionPolicy -Names TestPolicy
     ///   </code>
     ///   <para>
-    ///   Displays the Policy with name TestPolicy
+    ///   Displays the protection policy with name "TestPolicy"
     ///   </para>
     /// </example>
-    [Cmdlet(VerbsCommon.Get, "CohesityPolicy")]
+    [Cmdlet(VerbsCommon.Get, "CohesityProtectionPolicy")]
     [OutputType(typeof(ProtectionPolicy))]
-    public class GetCohesityPolicy : PSCmdlet
+    public class GetCohesityProtectionPolicy : PSCmdlet
     {
         private Session Session
         {
@@ -49,23 +49,23 @@ namespace Cohesity.Powershell.Cmdlets.Policy
         /// NOTE: "kPuppeteer" refers to Cohesity’s Remote Adapter.
         /// </para>
         /// </summary>
-        [Parameter(Position = 1, Mandatory = false)]
+        [Parameter(Mandatory = false)]
         public EnvironmentEnum[] Environments { get; set; }
 
         /// <summary>
         /// <para type="description">
-        /// Filter by a list of Protection Policy ids.
+        /// Filter by a list of protection policy ids.
         /// </para>
         /// </summary>
-        [Parameter(Position = 2, Mandatory = false)]
-        public string[] IDs { get; set; }
+        [Parameter(Mandatory = false)]
+        public string[] Ids { get; set; }
 
         /// <summary>
         /// <para type="description">
-        /// Filter by a list of Protection Policy names.
+        /// Filter by a list of protection policy names.
         /// </para>
         /// </summary>
-        [Parameter(Position = 3, Mandatory = false)]
+        [Parameter(Mandatory = false)]
         public string[] Names { get; set; }
 
         protected override void BeginProcessing()
@@ -82,8 +82,8 @@ namespace Cohesity.Powershell.Cmdlets.Policy
             if (Environments != null && Environments.Any())
                 qb.Add("environments", string.Join(",", Environments));
 
-            if (IDs != null && IDs.Any())
-                qb.Add("ids", string.Join(",", IDs));
+            if (Ids != null && Ids.Any())
+                qb.Add("ids", string.Join(",", Ids));
 
             if (Names != null && Names.Any())
                 qb.Add("names", string.Join(",", Names));
