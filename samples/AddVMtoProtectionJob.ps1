@@ -56,19 +56,13 @@ function AddVMtoProtectionJob {
              return
         }
 
-        $protectionSources = Get-CohesityProtectionSource -Environments $protectionJob.Environment
+        $protectionSources = Get-CohesityVM -Names $VMNames
         if ($null -eq $protectionSources -or $protectionSources.Count -eq 0) {
             "No Protection Sources found."
             return
         }
-
-        $filteredProtectionSources = get-Nodes $protectionSources $VMNames
-        if ($null -eq $filteredProtectionSources -or $filteredProtectionSources.Count -eq 0) {
-            "No Protection Sources found with those names."
-            return
-        }
-
-        $protectionSourceIds = $filteredProtectionSources | ForEach-Object{ $_.ProtectionSource.Id }
+		
+        $protectionSourceIds = $protectionSources | ForEach-Object{ $_.Id }
         
         if($Modification -eq "Append") {
             $protectionJob.SourceIds = $protectionJob.SourceIds + $protectionSourceIds    
@@ -87,14 +81,9 @@ function get-Nodes ($Sources, $Names) {
     $results = @()
     
     foreach ($Source in $Sources) {
-        if ($Names -contains $Source.ProtectionSource.Name) {
+        if ($Names -contains $Source.Name) {
             $results += $Source
         }            
-        
-        if ($Source.Nodes -ne $null) {
-            $childResults = Get-Nodes $Source.Nodes $Names 
-            $results = $results + $childResults
-        }
     }
 
     return $results
