@@ -9,6 +9,16 @@ namespace Cohesity.Powershell.Common
     /// </summary>
     internal static class NetworkClientExtensions
     {
+        private static T DeserializeObject<T>(string responseContent)
+        {
+            var settings = new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore,
+                MissingMemberHandling = MissingMemberHandling.Ignore
+            };
+            return JsonConvert.DeserializeObject<T>(responseContent, settings);
+        }
+
         public static string Get(this NetworkClient networkClient, string url)
         {
             var httpRequest = networkClient.CreateRequest(HttpMethod.Get, url);
@@ -29,7 +39,7 @@ namespace Cohesity.Powershell.Common
         public static T Get<T>(this NetworkClient networkClient, string url)
         {
             var responseContent = Get(networkClient, url);
-            return JsonConvert.DeserializeObject<T>(responseContent);
+            return DeserializeObject<T>(responseContent);
         }
 
         public static string Post(this NetworkClient networkClient, string url, string content)
@@ -71,7 +81,7 @@ namespace Cohesity.Powershell.Common
         public static T Post<T>(this NetworkClient networkClient, string url, object content)
         {
             var responseContent = Post(networkClient, url, content);
-            return JsonConvert.DeserializeObject<T>(responseContent);
+            return DeserializeObject<T>(responseContent);
         }
 
         public static string Put(this NetworkClient networkClient, string url, object content)
@@ -94,7 +104,7 @@ namespace Cohesity.Powershell.Common
         public static T Put<T>(this NetworkClient networkClient, string url, object content)
         {
             var responseContent = Put(networkClient, url, content);
-            return JsonConvert.DeserializeObject<T>(responseContent);
+            return DeserializeObject<T>(responseContent);
         }
 
         public static string Delete(this NetworkClient networkClient, string url, object content)
