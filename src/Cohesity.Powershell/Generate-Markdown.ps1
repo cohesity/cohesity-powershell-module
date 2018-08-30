@@ -4,7 +4,7 @@ param (
 )
 
 if (!(Get-Module "PlatyPS")) {
-    Install-Module -Name PlatyPS -Force
+    Install-Module -Name PlatyPS -Force -Scope CurrentUser
 }
 
 Import-Module "PlatyPS"
