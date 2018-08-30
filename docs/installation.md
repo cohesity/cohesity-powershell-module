@@ -14,7 +14,10 @@ You can install Cohesity PowerShell Module directly from the [PowerShell Gallery
   Install-Module -Name Cohesity.PowerShell.Core
   ```
 
+---
+
 * For installing a pre-release version, please use the `-AllowPrerelease` option as below.
+
 
   ```text
   Install-Module -Name Cohesity.PowerShell -AllowPrerelease
@@ -24,7 +27,7 @@ You can install Cohesity PowerShell Module directly from the [PowerShell Gallery
   Install-Module -Name Cohesity.PowerShell.Core -AllowPrerelease
    ```
 
-  Note: If you get this error "A parameter cannot be found that matches parameter name 'AllowPrerelease'" you need to upgrade the version of PowershellGet module on your system by running the command below.
+  Note: If you get this error _"A parameter cannot be found that matches parameter name 'AllowPrerelease'"_, then please upgrade the version of PowershellGet module on your system by running the command below.
   ```text
   Install-Module -Name PowershellGet,PackageManagement -force -confirm:$false -verbose
   ```
