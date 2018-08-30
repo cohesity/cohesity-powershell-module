@@ -8,22 +8,20 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
 {
     /// <summary>
     /// <para type="synopsis">
-    /// Returns the Virtual Machines in a vCenter Server.
+    /// Gets a list of the virtual machines known to the Cohesity Cluster.
     /// </para>
     /// <para type="description">
-    /// Returns all Virtual Machines found in all the vCenter Servers registered on the Cohesity Cluster that match the filter criteria specified using parameters.
-    /// If an id is specified, only VMs found in the specified vCenter Server are returned.
-    /// Only VM Objects are returned.
-    /// Other VMware Objects such as datacenters are not returned.
+    /// Returns all the virtual machines known to the Cohesity Cluster that match the filter criteria specified using parameters.
+    /// If the ParentSourceId is specified, only VMs found in that parent source (such as a vCenter Server) are returned.
     /// </para>
     /// </summary>
     /// <example>
     ///   <para>PS&gt;</para>
     ///   <code>
-    ///   Get-CohesityVM -ParentSourceId 1234
+    ///   Get-CohesityVM -ParentSourceId 2
     ///   </code>
     ///   <para>
-    ///   Get the Virtual Machine Sources belonging to the vCenter Server with the ParentSourceID of 1234.
+    ///   Gets a list of the virtual machines belonging to the vCenter Server with the ParentSourceId of 2.
     ///   </para>
     /// </example>
     [Cmdlet(VerbsCommon.Get, "CohesityVM")]
@@ -46,7 +44,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
 
         /// <summary>
         /// <para type="description">
-        /// Limit the VMs returned to the set of VMs found in a specific vCenter Server. Pass in the root Protection Source id for the vCenter Server to search for VMs.
+        /// Limit the VMs returned to the set of VMs found in a specific parent source (such as vCenter Server).
         /// </para>
         /// </summary>
         [Parameter(Mandatory = false)]
@@ -64,15 +62,15 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
 
         /// <summary>
         /// <para type="description">
-        /// Limit the returned VMs to those that exactly match the passed in UUIDs.
+        /// Limit the returned VMs to those that exactly match the passed in Uuids.
         /// </para>
         /// </summary>
         [Parameter(Mandatory = false)]
-        public string[] UUIDs { get; set; } = null;
+        public string[] Uuids { get; set; } = null;
 
         /// <summary>
         /// <para type="description">
-        /// Limit the returned VMs to those that have been protected by a Protection Job.
+        /// Limit the returned VMs to those that have been protected by a protection job.
         /// By default, both protected and unprotected VMs are returned.
         /// </para>
         /// </summary>
@@ -96,14 +94,14 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
         {
             var qb = new QuerystringBuilder();
 
-            if (ParentSourceId != null && ParentSourceId.HasValue)
+            if (ParentSourceId != null)
                 qb.Add("ParentSourceId", ParentSourceId.Value);
 
             if (Names != null && Names.Any())
                 qb.Add("names", string.Join(",", Names));
 
-            if (UUIDs != null && UUIDs.Any())
-                qb.Add("uuids", string.Join(",", UUIDs));
+            if (Uuids != null && Uuids.Any())
+                qb.Add("uuids", string.Join(",", Uuids));
 
             if (Protected.IsPresent)
                 qb.Add("protected", true);

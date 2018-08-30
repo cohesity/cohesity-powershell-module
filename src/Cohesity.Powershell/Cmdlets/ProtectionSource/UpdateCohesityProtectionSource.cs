@@ -5,12 +5,12 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
 {
     /// <summary>
     /// <para type="synopsis">
-    /// Refreshes the object hierarchy of the specified Protection Source on the Cohesity Cluster.
+    /// Refreshes the object hierarchy of the specified protection source on the Cohesity Cluster.
     /// </para>
     /// <para type="description">
-    /// Forces an immediate refresh of the specified Protection Source on the Cohesity Cluster.
+    /// Forces an immediate refresh of the specified protection source on the Cohesity Cluster.
     /// Returns success if the forced refresh has been started.
-    /// Note that the amount of time to complete a refresh depends on the size of the Object hierarchy.
+    /// Note that the amount of time to complete a refresh depends on the size of the object hierarchy.
     /// </para>
     /// </summary>
     /// <example>
@@ -43,7 +43,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
 
         /// <summary>
         /// <para type="description">
-        /// Specifies a unique id of the Protection Source.
+        /// Specifies a unique id of the protection source.
         /// </para>
         /// </summary>
         [Parameter(Mandatory = true, ValueFromPipelineByPropertyName = true)]

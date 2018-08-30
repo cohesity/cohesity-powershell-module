@@ -1,31 +1,28 @@
 ---
 external help file: Cohesity.PowerShell.dll-Help.xml
-Module Name: Cohesity
-online version: null
+Module Name:
+online version:
 schema: 2.0.0
 ---
 
 # Get-CohesityProtectionSource
 
 ## SYNOPSIS
-
-Returns the registered Protection Sources.
+Returns the registered protection sources.
 
 ## SYNTAX
 
-```text
-Get-CohesityProtectionSource [-Environments <EnvironmentEnum[]>] [-Id <Int64>] [<CommonParameters>]
+```
+Get-CohesityProtectionSource [-Environments <EnvironmentEnum[]>] [-Id <long>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-
-If no parameters are specified, all Protection Sources that are registered on the Cohesity Cluster are returned.
+If no parameters are specified, all protection sources that are registered on the Cohesity Cluster are returned.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
-
-```text
+```
 Get-CohesityProtectionSource -environment kVMware
 ```
 
@@ -34,8 +31,9 @@ Returns registered protection sources that match the environment type'kVMware' .
 ## PARAMETERS
 
 ### -Environments
-
-Return only Protection Sources that match the passed in environment type. For example, set this parameter to 'kVMware' to only return the VMware sources. NOTE: "kPuppeteer" refers to Cohesity's Remote Adapter.
+Return only protection sources that match the passed in environment type.
+For example, set this parameter to 'kVMware' to only return the VMware sources.
+NOTE: "kPuppeteer" refers to Cohesity's Remote Adapter.
 
 ```yaml
 Type: EnvironmentEnum[]
@@ -50,11 +48,10 @@ Accept wildcard characters: False
 ```
 
 ### -Id
-
-Return only the Protection Source that matches the Id.
+Return only the protection source that matches the Id.
 
 ```yaml
-Type: Int64
+Type: long
 Parameter Sets: (All)
 Aliases:
 
@@ -66,16 +63,14 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
-
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about\_CommonParameters \([http://go.microsoft.com/fwlink/?LinkID=113216](http://go.microsoft.com/fwlink/?LinkID=113216)\).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
+For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
 ## OUTPUTS
 
 ### Cohesity.Models.ProtectionSourceNode
-
 ## NOTES
 
 ## RELATED LINKS
-

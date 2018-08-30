@@ -1,112 +1,108 @@
 ---
 external help file: Cohesity.PowerShell.dll-Help.xml
-Module Name: Cohesity
-online version: null
+Module Name:
+online version:
 schema: 2.0.0
 ---
 
 # Get-CohesityStorageDomain
 
 ## SYNOPSIS
-
-Gets a list of Storage Domains \(View Boxes\) filtered by the specified parameters.
+Gets a list of storage domains (view boxes) filtered by the specified parameters.
 
 ## SYNTAX
 
-```text
-Get-CohesityStorageDomain [[-IDs] <Int32[]>] [[-Names] <String[]>] [[-ClusterPartitionIDs] <Int32[]>]
- [[-FetchStats] <Boolean>] [<CommonParameters>]
+```
+Get-CohesityStorageDomain [-ClusterPartitionIds <int[]>] [-FetchStats <bool>] [-Ids <int[]>]
+ [-Names <string[]>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-
-If no parameters are specified, all Storage Domains \(View Boxes\) on the Cohesity Cluster are returned. Specifying parameters filters the results that are returned.
+If no parameters are specified, all storage domains (view boxes) on the Cohesity Cluster are returned.
+Specifying parameters filters the results that are returned.
 
 ## EXAMPLES
 
 ### Example 1
-
-```text
+```powershell
 PS C:\> {{ Add example code here }}
 ```
 
+{{ Add example description here }}
+
 ## PARAMETERS
 
-### -IDs
-
-Filter by a list of Storage Domain \(View Box\) ids. If empty, View Boxes are not filtered by id.
+### -Ids
+Filter by a list of storage domain (view box) ids.
+If empty, view boxes are not filtered by id.
 
 ```yaml
-Type: Int32[]
+Type: int[]
 Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 1
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -Names
-
-Filter by a list of Storage Domain \(View Box\) Names. If empty, Storage Domains\(View Boxes\) are not filtered by Name.
+Filter by a list of storage domain (view box) names.
+If empty, storage domains(view boxes) are not filtered by name.
 
 ```yaml
-Type: String[]
+Type: string[]
 Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 2
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -ClusterPartitionIDs
-
-Filter by a list of Cluster Partition Ids.
+### -ClusterPartitionIds
+Filter by a list of cluster partition Ids.
 
 ```yaml
-Type: Int32[]
+Type: int[]
 Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 3
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -FetchStats
-
 Specifies whether to include usage and performance statistics.
 
 ```yaml
-Type: Boolean
+Type: bool
 Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 4
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### CommonParameters
-
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about\_CommonParameters \([http://go.microsoft.com/fwlink/?LinkID=113216](http://go.microsoft.com/fwlink/?LinkID=113216)\).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
+For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
 ## OUTPUTS
 
 ### Cohesity.Models.ViewBox
-
 ## NOTES
 
 ## RELATED LINKS
-

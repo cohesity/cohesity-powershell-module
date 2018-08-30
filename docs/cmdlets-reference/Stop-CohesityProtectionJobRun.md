@@ -1,5 +1,5 @@
 ---
-external help file: Cohesity.Powershell.dll-Help.xml
+external help file: Cohesity.PowerShell.dll-Help.xml
 Module Name:
 online version:
 schema: 2.0.0
@@ -8,12 +8,12 @@ schema: 2.0.0
 # Stop-CohesityProtectionJobRun
 
 ## SYNOPSIS
-Cancel a Protection Job run.
+Cancels a protection job run.
 
 ## SYNTAX
 
 ```
-Stop-CohesityProtectionJobRun -ID <long> [-CopyTaskUID <UniversalId>] [-JobRunID <long>] [<CommonParameters>]
+Stop-CohesityProtectionJobRun -Id <long> [-CopyTaskUid <UniversalId>] [-JobRunId <long>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -22,15 +22,15 @@ Stop-CohesityProtectionJobRun -ID <long> [-CopyTaskUID <UniversalId>] [-JobRunID
 
 ### EXAMPLE 1
 ```
-Stop-CohesityProtectionJobRun -ID 78773 -JobRunID 85510
+Stop-CohesityProtectionJobRun -Id 78773 -JobRunId 85510
 ```
 
-Stops a running protection job with ID 78773 and JobRunID 85510.
+Cancels a running protection job with Id 78773 and JobRunId 85510.
 
 ## PARAMETERS
 
-### -ID
-Specifies a unique id of the Protection Job.
+### -Id
+Specifies a unique id of the protection job.
 
 ```yaml
 Type: long
@@ -40,11 +40,11 @@ Aliases:
 Required: True
 Position: Named
 Default value: 0
-Accept pipeline input: False
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
-### -CopyTaskUID
+### -CopyTaskUid
 CopyTaskUid is the Uid of a copy task.
 If a particular copy task is to be cancelled, this field should be set to the id of that particular copy task.
 For example, if replication task is to be canceled, CopyTaskUid of the replication task has to be specified.
@@ -61,9 +61,9 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -JobRunID
-Run Id of a Protection Job Run that needs to be cancelled.
-If this Run id does not match the id of an active Run in the Protection job, the job Run is not cancelled and an error will be returned.
+### -JobRunId
+Run Id of a protection job run that needs to be cancelled.
+If this run id does not match the id of an active run in the protection job, the job run is not cancelled and an error will be returned.
 
 ```yaml
 Type: long
@@ -82,6 +82,9 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
+
+### System.Int64
+Specifies a unique id of the protection job.
 
 ## OUTPUTS
 

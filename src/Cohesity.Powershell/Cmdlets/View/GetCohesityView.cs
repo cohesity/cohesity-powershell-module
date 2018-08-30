@@ -8,25 +8,25 @@ namespace Cohesity.Powershell.Cmdlets.View
 {
     /// <summary>
     /// <para type="synopsis">
-    /// List Views filtered by some parameters.
+    /// Gets a list of views filtered by specified parameters.
     /// </para>
     /// <para type="description">
-    /// If no parameters are specified, all Views on the Cohesity Cluster are returned.
+    /// If no parameters are specified, all views on the Cohesity Cluster are returned.
     /// Specifying parameters filters the results that are returned.
     /// </para>
     /// <para type="description">
-    /// NOTE: If maxCount is set and the number of Views returned exceeds the maxCount, there are more Views to return.
-    /// To get the next set of Views, send another request and specify the id of the
-    /// last View returned in viewList from the previous response.
+    /// NOTE: If MaxCount is specified and the number of views returned exceeds the MaxCount, there are more views to return.
+    /// To get the next set of views, send another request and specify the id of the
+    /// last view returned in ViewList from the previous response.
     /// </para>
     /// </summary>
     /// <example>
     ///   <para>PS&gt;</para>
     ///   <code>
-    ///   Get-CohesityView -viewNames Testview
+    ///   Get-CohesityView -ViewNames Testview
     ///   </code>
     ///   <para>
-    ///   Displays the view with name Testview.
+    ///   Displays the view with the name "Testview".
     ///   </para>
     /// </example>
     [Cmdlet(VerbsCommon.Get, "CohesityView")]
@@ -54,7 +54,7 @@ namespace Cohesity.Powershell.Cmdlets.View
         /// By default, this field is set to false. 
         /// </para>
         /// </summary>
-        [Parameter(Position = 1, Mandatory = false)]
+        [Parameter(Mandatory = false)]
         public bool IncludeInactive { get; set; } = false;
 
         /// <summary>
@@ -62,7 +62,7 @@ namespace Cohesity.Powershell.Cmdlets.View
         /// If true, view aliases are also matched with the names in viewNames.
         /// </para>
         /// </summary>
-        [Parameter(Position = 2, Mandatory = false)]
+        [Parameter(Mandatory = false)]
         public bool MatchAliasNames { get; set; } = false;
 
         /// <summary>
@@ -70,7 +70,7 @@ namespace Cohesity.Powershell.Cmdlets.View
         /// Filter by a list of View names.
         /// </para>
         /// </summary>
-        [Parameter(Position = 3, Mandatory = false)]
+        [Parameter(Mandatory = false)]
         public string[] ViewNames { get; set; }
 
         /// <summary>
@@ -78,15 +78,15 @@ namespace Cohesity.Powershell.Cmdlets.View
         /// Filter by a list of Storage Domains (View Boxes) specified by id.
         /// </para>
         /// </summary>
-        [Parameter(Position = 4, Mandatory = false)]
-        public int[] ViewBoxIDs { get; set; }
+        [Parameter(Mandatory = false)]
+        public int[] ViewBoxIds { get; set; }
 
         /// <summary>
         /// <para type="description">
         /// Filter by a list of View Box names.
         /// </para>
         /// </summary>
-        [Parameter(Position = 5, Mandatory = false)]
+        [Parameter(Mandatory = false)]
         public string[] ViewBoxNames { get; set; }
 
         /// <summary>
@@ -94,7 +94,7 @@ namespace Cohesity.Powershell.Cmdlets.View
         /// If true, the names in viewNames are matched by prefix rather than exactly matched.
         /// </para>
         /// </summary>
-        [Parameter(Position = 6, Mandatory = false)]
+        [Parameter(Mandatory = false)]
         public bool? MatchPartialNames { get; set; }
 
         /// <summary>
@@ -102,7 +102,7 @@ namespace Cohesity.Powershell.Cmdlets.View
         /// Specifies a limit on the number of Views returned.
         /// </para>
         /// </summary>
-        [Parameter(Position = 7, Mandatory = false)]
+        [Parameter(Mandatory = false)]
         public int? MaxCount { get; set; }
 
         /// <summary>
@@ -111,22 +111,22 @@ namespace Cohesity.Powershell.Cmdlets.View
         /// </para>
         /// </summary>
         [Parameter(Position = 8, Mandatory = false)]
-        public int? MaxViewID { get; set; }
+        public int? MaxViewId { get; set; }
 
         /// <summary>
         /// <para type="description">
         /// Filter by Protection Job ids. Return Views that are being protected by listed Jobs, which are specified by ids.
         /// </para>
         /// </summary>
-        [Parameter(Position = 9, Mandatory = false)]
-        public int[] JobIDs { get; set; }
+        [Parameter(Mandatory = false)]
+        public int[] JobIds { get; set; }
 
         /// <summary>
         /// <para type="description"> 
         /// If set to true, the list is sorted descending by logical usage.
         /// </para>
         /// </summary>
-        [Parameter(Position = 10, Mandatory = false)]
+        [Parameter(Mandatory = false)]
         public bool? SortByLogicalUsage { get; set; }
 
 
@@ -149,8 +149,8 @@ namespace Cohesity.Powershell.Cmdlets.View
             if (ViewNames != null && ViewNames.Any())
                 qb.Add("viewNames", ViewNames);
 
-            if (ViewBoxIDs != null && ViewBoxIDs.Any())
-                qb.Add("viewBoxIds", ViewBoxIDs);
+            if (ViewBoxIds != null && ViewBoxIds.Any())
+                qb.Add("viewBoxIds", ViewBoxIds);
 
             if (ViewBoxNames != null && ViewBoxNames.Any())
                 qb.Add("viewBoxNames", ViewBoxNames);
@@ -161,11 +161,11 @@ namespace Cohesity.Powershell.Cmdlets.View
             if (MaxCount.HasValue)
                 qb.Add("maxCount", MaxCount.Value);
 
-            if (MaxViewID.HasValue)
-                qb.Add("maxViewId", MaxViewID.Value);
+            if (MaxViewId.HasValue)
+                qb.Add("maxViewId", MaxViewId.Value);
 
-            if (JobIDs != null && JobIDs.Any())
-                qb.Add("jobIds", JobIDs);
+            if (JobIds != null && JobIds.Any())
+                qb.Add("jobIds", JobIds);
 
             if (SortByLogicalUsage.HasValue && SortByLogicalUsage.Value)
                 qb.Add("SortByLogicalUsage", SortByLogicalUsage.Value);

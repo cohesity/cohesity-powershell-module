@@ -1,44 +1,42 @@
 ---
 external help file: Cohesity.PowerShell.dll-Help.xml
-Module Name: Cohesity
-online version: null
+Module Name:
+online version:
 schema: 2.0.0
 ---
 
 # Suspend-CohesityProtectionJob
 
 ## SYNOPSIS
-
-Pauses future Runs of the specified Protection Job.
+Pauses the future runs of the specified protection job.
 
 ## SYNTAX
 
-```text
-Suspend-CohesityProtectionJob -Id <Int64> [<CommonParameters>]
+```
+Suspend-CohesityProtectionJob -Id <long> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-
-If the Protection Job is currently running \(not paused\) and true is passed in, this operation stops any new Runs of this Protection Job from starting and executing. However, any existing Runs that were already executing will continue to run. Returns success if the paused state is changed.
+If the protection job is currently running (not paused) and true is passed in, this operation stops any new runs of this protection job from starting and executing.
+However, any existing runs that were already executing will continue to run.
+Returns success if the paused state is changed.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
-
-```text
+```
 Suspend-CohesityProtectionJob -Id 1234
 ```
 
-Pauses a Protection Job with the Id of 1234.
+Pauses a protection job with the Id of 1234.
 
 ## PARAMETERS
 
 ### -Id
-
-Specifies the unique id of the Protection Job.
+Specifies the unique id of the protection job.
 
 ```yaml
-Type: Int64
+Type: long
 Parameter Sets: (All)
 Aliases:
 
@@ -50,18 +48,16 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
-
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about\_CommonParameters \([http://go.microsoft.com/fwlink/?LinkID=113216](http://go.microsoft.com/fwlink/?LinkID=113216)\).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
+For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
 ### System.Int64
-
-Specifies the unique id of the Protection Job.
+Specifies the unique id of the protection job.
 
 ## OUTPUTS
 
 ## NOTES
 
 ## RELATED LINKS
-

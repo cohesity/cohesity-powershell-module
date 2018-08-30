@@ -8,10 +8,10 @@ namespace Cohesity.Powershell.Cmdlets.StorageDomain
 {
     /// <summary>
     /// <para type="synopsis">
-    /// Gets a list of Storage Domains (View Boxes) filtered by the specified parameters.
+    /// Gets a list of storage domains (view boxes) filtered by the specified parameters.
     /// </para>
     /// <para type="description">
-    /// If no parameters are specified, all Storage Domains (View Boxes) on the Cohesity Cluster are returned.
+    /// If no parameters are specified, all storage domains (view boxes) on the Cohesity Cluster are returned.
     /// Specifying parameters filters the results that are returned.
     /// </para>
     /// </summary>
@@ -35,36 +35,36 @@ namespace Cohesity.Powershell.Cmdlets.StorageDomain
 
         /// <summary>
         /// <para type="description">
-        /// Filter by a list of Storage Domain (View Box) ids.
-        /// If empty, View Boxes are not filtered by id.
+        /// Filter by a list of storage domain (view box) ids.
+        /// If empty, view boxes are not filtered by id.
         /// </para>
         /// </summary>
-        [Parameter(Position = 1, Mandatory = false)]
-        public int[] IDs { get; set; }
+        [Parameter(Mandatory = false)]
+        public int[] Ids { get; set; }
 
         /// <summary>
         /// <para type="description">
-        /// Filter by a list of Storage Domain (View Box) Names.
-        /// If empty, Storage Domains(View Boxes) are not filtered by Name.
+        /// Filter by a list of storage domain (view box) names.
+        /// If empty, storage domains(view boxes) are not filtered by name.
         /// </para> 
         /// </summary>
-        [Parameter(Position = 2, Mandatory = false)]
+        [Parameter(Mandatory = false)]
         public string[] Names { get; set; }
 
         /// <summary>
         /// <para type="description">
-        /// Filter by a list of Cluster Partition Ids.
+        /// Filter by a list of cluster partition Ids.
         /// </para>
         /// </summary>
-        [Parameter(Position = 3, Mandatory = false)]
-        public int[] ClusterPartitionIDs { get; set; }
+        [Parameter(Mandatory = false)]
+        public int[] ClusterPartitionIds { get; set; }
 
         /// <summary>
         /// <para type="description">
         /// Specifies whether to include usage and performance statistics.
         /// </para> 
         /// </summary>
-        [Parameter(Position = 4, Mandatory = false)]
+        [Parameter(Mandatory = false)]
         public bool? FetchStats { get; set; }
 
 
@@ -79,14 +79,14 @@ namespace Cohesity.Powershell.Cmdlets.StorageDomain
         {
             var qb = new QuerystringBuilder();
 
-            if (IDs != null && IDs.Any())
-                qb.Add("ids", IDs);
+            if (Ids != null && Ids.Any())
+                qb.Add("ids", Ids);
 
             if (Names != null && Names.Any())
                 qb.Add("names", Names);
 
-            if (ClusterPartitionIDs != null && ClusterPartitionIDs.Any())
-                qb.Add("clusterPartitionIds", ClusterPartitionIDs);
+            if (ClusterPartitionIds != null && ClusterPartitionIds.Any())
+                qb.Add("clusterPartitionIds", ClusterPartitionIds);
 
             if (FetchStats.HasValue && FetchStats.Value)
                 qb.Add("fetchStats", FetchStats.Value);

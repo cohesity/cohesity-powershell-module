@@ -5,10 +5,10 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
 {
     /// <summary>
     /// <para type="synopsis">
-    /// Resumes the future Runs of the specified Protection Job.
+    /// Resumes the future runs of the specified protection job.
     /// </para>
     /// <para type="description">
-    /// This operation restores the Protection Job to a running state and new runs are started as defined by the schedule in the Policy associated with the Job.
+    /// This operation restores the protection job to a running state and new runs are started as defined by the schedule in the policy associated with the job.
     /// Returns success if the state is changed.
     /// </para>
     /// </summary>
@@ -18,7 +18,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
     ///   Resume-CohesityProtectionJob -Id 1234
     ///   </code>
     ///   <para>
-    ///   Resumes a Protection Job with the Id of 1234.
+    ///   Resumes a protection job with the Id of 1234.
     ///   </para>
     /// </example>
     [Cmdlet(VerbsLifecycle.Resume, "CohesityProtectionJob")]
@@ -42,7 +42,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
 
         /// <summary>
         /// <para type="description">
-        /// Specifies the unique id of the Protection Job.
+        /// Specifies the unique id of the protection job.
         /// </para>
         /// </summary>
         [Parameter(Mandatory = true, ValueFromPipelineByPropertyName = true)]

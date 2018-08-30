@@ -7,15 +7,15 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
 {
     /// <summary>
     /// <para type="synopsis">
-    /// Immediately starts a Protection Job Run.
+    /// Immediately starts a protection job run.
     /// </para>
     /// <para type="description">
-    /// Immediately starts a Protection Job Run.
-    /// A Protection Policy associated with the Job may define up to three backup run types:
+    /// Immediately starts a protection job run.
+    /// A protection policy associated with the job may define up to three backup run types:
     /// 1) Regular (CBT utilized), 2) Full(CBT not utilized) and 3) Log.
-    /// The passed in run type defines what type of backup is performed by the Job Run.
-    /// The schedule defined in the Policy for the backup run type is ignored but other settings such as the snapshot retention and retry settings are used.
-    /// Returns success if the Job Run starts.
+    /// The passed in run type defines what type of backup is performed by the job run.
+    /// The schedule defined in the policy for the backup run type is ignored but other settings such as the snapshot retention and retry settings are used.
+    /// Returns success if the job run starts.
     /// </para>
     /// </summary>
     /// <example>
@@ -24,7 +24,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
     ///   Start-CohesityProtectionJob -Id 1234
     ///   </code>
     ///   <para>
-    ///   Immediately executes the given protection job.
+    ///   Immediately starts a job run for the given protection job.
     ///   </para>
     /// </example>
     [Cmdlet(VerbsLifecycle.Start, "CohesityProtectionJob")]
@@ -49,7 +49,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
 
         /// <summary>
         /// <para type="description">
-        /// Specifies a unique id of the Protection Job.
+        /// Specifies a unique id of the protection job.
         /// </para>
         /// </summary>
         [Parameter(Mandatory = true, ValueFromPipelineByPropertyName = true)]
@@ -112,6 +112,5 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
         }
 
         #endregion
-
     }
 }

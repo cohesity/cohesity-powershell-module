@@ -11,7 +11,7 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
 {
     /// <summary>
     /// <para type="synopsis">
-    /// Connects to a Cohesity cluster and acquires an authentication token.
+    /// Connects to a Cohesity Cluster and acquires an authentication token.
     /// </para>
     /// <para type="description">
     /// You must run this cmdlet with valid Cohesity credentials before any other Cohesity cmdlets.

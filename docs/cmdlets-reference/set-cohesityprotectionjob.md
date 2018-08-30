@@ -1,44 +1,40 @@
 ---
 external help file: Cohesity.PowerShell.dll-Help.xml
-Module Name: Cohesity
-online version: null
+Module Name:
+online version:
 schema: 2.0.0
 ---
 
 # Set-CohesityProtectionJob
 
 ## SYNOPSIS
-
-Updates a Protection Job.
+Updates a protection job.
 
 ## SYNTAX
 
-```text
-Set-CohesityProtectionJob -Id <Int64> -ProtectionJob <ProtectionJob> [<CommonParameters>]
+```
+Set-CohesityProtectionJob -Id <long> -ProtectionJob <ProtectionJob> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-
-Returns the updated Protection Job.
+Returns the updated protection job.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
-
-```text
+```
 Set-CohesityProtectionJob -Id 1234 -ProtectionJob $job
 ```
 
-Updates a protection job with given parameters.
+Updates a protection job with the specified parameters.
 
 ## PARAMETERS
 
 ### -Id
-
-Specifies a unique id of the Protection Job.
+Specifies a unique id of the protection job.
 
 ```yaml
-Type: Int64
+Type: long
 Parameter Sets: (All)
 Aliases:
 
@@ -50,8 +46,7 @@ Accept wildcard characters: False
 ```
 
 ### -ProtectionJob
-
-The updated Protection Job.
+The updated protection job.
 
 ```yaml
 Type: ProtectionJob
@@ -66,16 +61,14 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
-
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about\_CommonParameters \([http://go.microsoft.com/fwlink/?LinkID=113216](http://go.microsoft.com/fwlink/?LinkID=113216)\).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
+For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
 ## OUTPUTS
 
 ### Cohesity.Models.ProtectionJob
-
 ## NOTES
 
 ## RELATED LINKS
-

@@ -1,35 +1,32 @@
 ---
 external help file: Cohesity.PowerShell.dll-Help.xml
-Module Name: Cohesity
-online version: null
+Module Name:
+online version:
 schema: 2.0.0
 ---
 
 # New-CohesityProtectionJob
 
 ## SYNOPSIS
-
-Creates a new Protection Job.
+Creates a new protection job.
 
 ## SYNTAX
 
-```text
-New-CohesityProtectionJob -Name <String> -Description <String> -PolicyID <String> [-ParentSourceID <Int64>]
- [-SourceIDs <Nullable`1[]>] [-Timezone <String>] [-ScheduleStartTime <DateTime>] [-ViewBoxID <Int64>]
- [-ViewName <String>] [-Environment <EnvironmentEnum>] [-SourceSpecialParameters <SourceSpecialParameter[]>]
+```
+New-CohesityProtectionJob -Description <string> -Name <string> -ParentSourceId <long> -PolicyId <string>
+ -SourceIds <Nullable`1[]> -Timezone <string> -ViewBoxId <long> [-Environment <EnvironmentEnum>]
+ [-ScheduleStartTime <DateTime>] [-SourceSpecialParameters <SourceSpecialParameter[]>] [-ViewName <string>]
  [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-
-Returns the created Protection Job.
+Returns the created protection job.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
-
-```text
-New-CohesityProtectionJob -Name "Test Job" -PolicyID "My PolicyID" -ViewBoxID 1
+```
+New-CohesityProtectionJob -Name "Test Job" -PolicyId "7004504288922732:1533243443420:1" -ViewBoxId 5 -ParentSourceID 1 -SourceIDs 1580 -Timezone "America/New_York"
 ```
 
 Creates a protection job with only required parameters.
@@ -37,11 +34,10 @@ Creates a protection job with only required parameters.
 ## PARAMETERS
 
 ### -Name
-
-Specifies the name of the Protection Job.
+Specifies the name of the protection job.
 
 ```yaml
-Type: String
+Type: string
 Parameter Sets: (All)
 Aliases:
 
@@ -53,11 +49,10 @@ Accept wildcard characters: False
 ```
 
 ### -Description
-
-Specifies the description of the Protection Job.
+Specifies the description of the protection job.
 
 ```yaml
-Type: String
+Type: string
 Parameter Sets: (All)
 Aliases:
 
@@ -68,12 +63,11 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -PolicyID
-
-Specifies the unique id of the Protection Policy associated with the Protection Job. The Policy provides retry settings, Protection Schedules, Priority, SLA, etc. The Job defines the Storage Domain \(View Box\), the Objects to Protect \(if applicable\), Start Time, Indexing settings, etc.
+### -PolicyId
+Specifies the unique id of the protection policy associated with the protection job.
 
 ```yaml
-Type: String
+Type: string
 Parameter Sets: (All)
 Aliases:
 
@@ -84,28 +78,26 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -ParentSourceID
-
+### -ParentSourceId
 ```yaml
-Type: Int64
+Type: long
 Parameter Sets: (All)
 Aliases:
 
-Required: False
+Required: True
 Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -SourceIDs
-
+### -SourceIds
 ```yaml
 Type: Nullable`1[]
 Parameter Sets: (All)
 Aliases:
 
-Required: False
+Required: True
 Position: Named
 Default value: None
 Accept pipeline input: False
@@ -113,13 +105,12 @@ Accept wildcard characters: False
 ```
 
 ### -Timezone
-
 ```yaml
-Type: String
+Type: string
 Parameter Sets: (All)
 Aliases:
 
-Required: False
+Required: True
 Position: Named
 Default value: None
 Accept pipeline input: False
@@ -127,7 +118,6 @@ Accept wildcard characters: False
 ```
 
 ### -ScheduleStartTime
-
 ```yaml
 Type: DateTime
 Parameter Sets: (All)
@@ -135,21 +125,20 @@ Aliases:
 
 Required: False
 Position: Named
-Default value: 8/21/2018 7:16:12 AM
+Default value: 8/30/2018 4:34:10 PM
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -ViewBoxID
-
-Specifies the Storage Domain \(View Box\) id where this Job writes data.
+### -ViewBoxId
+Specifies the storage domain (view box) id where this job writes data.
 
 ```yaml
-Type: Int64
+Type: long
 Parameter Sets: (All)
 Aliases:
 
-Required: False
+Required: True
 Position: Named
 Default value: 0
 Accept pipeline input: False
@@ -157,9 +146,8 @@ Accept wildcard characters: False
 ```
 
 ### -ViewName
-
 ```yaml
-Type: String
+Type: string
 Parameter Sets: (All)
 Aliases:
 
@@ -171,7 +159,6 @@ Accept wildcard characters: False
 ```
 
 ### -Environment
-
 Possible values: kVMware, kSQL, kView, kPuppeteer, kPhysical, kPure, kNetapp, kGenericNas, kHyperV, kAcropolis, kAzure, kPhysicalFiles, kAgent, kIsilon
 
 ```yaml
@@ -188,7 +175,6 @@ Accept wildcard characters: False
 ```
 
 ### -SourceSpecialParameters
-
 ```yaml
 Type: SourceSpecialParameter[]
 Parameter Sets: (All)
@@ -202,16 +188,14 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
-
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about\_CommonParameters \([http://go.microsoft.com/fwlink/?LinkID=113216](http://go.microsoft.com/fwlink/?LinkID=113216)\).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
+For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
 ## OUTPUTS
 
 ### Cohesity.Models.ProtectionJob
-
 ## NOTES
 
 ## RELATED LINKS
-

@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Management.Automation;
 using Cohesity.Models;
-using System.Management.Automation;
 using Cohesity.Powershell.Common;
 
-namespace Cohesity.Powershell.Cmdlets.ProtectionJobRuns
+namespace Cohesity.Powershell.Cmdlets.ProtectionJobRun
 {
     /// <summary>
     /// <para type="synopsis">
-    /// Cancel a Protection Job run.
+    /// Cancels a protection job run.
     /// </para>
     /// <para type="description">
     /// </para>
@@ -17,13 +14,13 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJobRuns
     /// <example>
     ///   <para>PS&gt;</para>
     ///   <code>
-    ///   Stop-CohesityProtectionJobRun -ID 78773 -JobRunID 85510
+    ///   Stop-CohesityProtectionJobRun -Id 78773 -JobRunId 85510
     ///   </code>
     ///   <para>
-    ///   Stops a running protection job with ID 78773 and JobRunID 85510. 
+    ///   Cancels a running protection job with Id 78773 and JobRunId 85510.
     ///   </para>
     /// </example>
-    [Cmdlet("Stop", "CohesityProtectionJobRun")]
+    [Cmdlet(VerbsLifecycle.Stop, "CohesityProtectionJobRun")]
     public class StopCohesityProtectionJobRun : PSCmdlet
     {
         private Session Session
@@ -41,12 +38,12 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJobRuns
 
         /// <summary>
         /// <para type="description">
-        /// Specifies a unique id of the Protection Job.
+        /// Specifies a unique id of the protection job.
         /// </para>
         /// </summary>
-        [Parameter(Mandatory = true)]
+        [Parameter(Mandatory = true, ValueFromPipelineByPropertyName = true)]
         [ValidateRange(1, long.MaxValue)]
-        public long ID { get; set; } = 0;
+        public long Id { get; set; } = 0;
 
         /// <summary>
         /// <para type="description">
@@ -56,16 +53,16 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJobRuns
         /// </para>
         /// </summary>
         [Parameter(Mandatory = false)]
-        public UniversalId CopyTaskUID { get; set; } = null;
+        public UniversalId CopyTaskUid { get; set; } = null;
 
         /// <summary>
         /// <para type="description">
-        /// Run Id of a Protection Job Run that needs to be cancelled.
-        /// If this Run id does not match the id of an active Run in the Protection job, the job Run is not cancelled and an error will be returned.
+        /// Run Id of a protection job run that needs to be cancelled.
+        /// If this run id does not match the id of an active run in the protection job, the job run is not cancelled and an error will be returned.
         /// </para>
         /// </summary>
         [Parameter(Mandatory = false)]
-        public long? JobRunID { get; set; }
+        public long? JobRunId { get; set; }
 
         /// <summary>
         /// Begin Processing
@@ -84,13 +81,13 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJobRuns
         {
             CancelProtectionJobRunParam body = null;
 
-            if (CopyTaskUID != null || JobRunID != null)
+            if (CopyTaskUid != null || JobRunId != null)
             {
-                body = new CancelProtectionJobRunParam(CopyTaskUID, JobRunID);
+                body = new CancelProtectionJobRunParam(CopyTaskUid, JobRunId);
             }
 
-            var url = $"/public/protectionRuns/cancel/{ID.ToString()}";
-            var result = Session.NetworkClient.Post(url, body);
+            var url = $"/public/protectionRuns/cancel/{Id.ToString()}";
+            Session.NetworkClient.Post(url, body);
             WriteObject("Protection Job Run cancelled.");
         }
     }

@@ -5,11 +5,11 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
 {
     /// <summary>
     /// <para type="synopsis">
-    /// Pauses future Runs of the specified Protection Job.
+    /// Pauses the future runs of the specified protection job.
     /// </para>
     /// <para type="description">
-    /// If the Protection Job is currently running (not paused) and true is passed in, this operation stops any new Runs of this Protection Job from starting and executing. 
-    /// However, any existing Runs that were already executing will continue to run.
+    /// If the protection job is currently running (not paused) and true is passed in, this operation stops any new runs of this protection job from starting and executing. 
+    /// However, any existing runs that were already executing will continue to run.
     /// Returns success if the paused state is changed.
     /// </para>
     /// </summary>
@@ -19,7 +19,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
     ///   Suspend-CohesityProtectionJob -Id 1234
     ///   </code>
     ///   <para>
-    ///   Pauses a Protection Job with the Id of 1234.
+    ///   Pauses a protection job with the Id of 1234.
     ///   </para>
     /// </example>
     [Cmdlet(VerbsLifecycle.Suspend, "CohesityProtectionJob")]
@@ -43,7 +43,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
 
         /// <summary>
         /// <para type="description">
-        /// Specifies the unique id of the Protection Job.
+        /// Specifies the unique id of the protection job.
         /// </para>
         /// </summary>
         [Parameter(Mandatory = true, ValueFromPipelineByPropertyName = true)]

@@ -8,10 +8,10 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
 {
     /// <summary>
     /// <para type="synopsis">
-    /// Returns the registered Protection Sources.
+    /// Returns the registered protection sources.
     /// </para>
     /// <para type="description">
-    /// If no parameters are specified, all Protection Sources that are registered on the Cohesity Cluster are returned.
+    /// If no parameters are specified, all protection sources that are registered on the Cohesity Cluster are returned.
     /// </para>
     /// </summary>
     /// <example>
@@ -43,7 +43,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
 
         /// <summary>
         /// <para type="description">
-        /// Return only Protection Sources that match the passed in environment type.
+        /// Return only protection sources that match the passed in environment type.
         /// For example, set this parameter to ‘kVMware’ to only return the VMware sources.
         /// NOTE: "kPuppeteer" refers to Cohesity's Remote Adapter.
         /// </para>
@@ -54,7 +54,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
 
         /// <summary>
         /// <para type="description">
-        /// Return only the Protection Source that matches the Id.
+        /// Return only the protection source that matches the Id.
         /// </para>
         /// </summary>
         [Parameter(Mandatory = false)]

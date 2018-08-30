@@ -1,31 +1,30 @@
 ---
-external help file: Cohesity.Powershell.dll-Help.xml
-Module Name: Cohesity
-online version: null
+external help file: Cohesity.PowerShell.dll-Help.xml
+Module Name:
+online version:
 schema: 2.0.0
 ---
 
 # Connect-CohesityCluster
 
 ## SYNOPSIS
-
-Connects to a Cohesity cluster and acquires an authentication token.
+Connects to a Cohesity Cluster and acquires an authentication token.
 
 ## SYNTAX
 
-```text
-Connect-CohesityCluster -Server <String> -Credential <PSCredential> [<CommonParameters>]
+```
+Connect-CohesityCluster -Credential <PSCredential> -Server <string> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-
-You must run this cmdlet with valid Cohesity credentials before any other Cohesity cmdlets. The subsequent Cohesity cmdlets will use this connection. The connection is valid for 24 hours.
+You must run this cmdlet with valid Cohesity credentials before any other Cohesity cmdlets.
+The subsequent Cohesity cmdlets will use this connection.
+The connection is valid for 24 hours.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
-
-```text
+```
 Connect-CohesityCluster -Server 192.168.1.100 -Credential (Get-Credential)
 ```
 
@@ -34,11 +33,10 @@ Connects to a Cohesity Cluster at the address "192.168.1.100" using the provided
 ## PARAMETERS
 
 ### -Server
-
 The FQDN or IP address of any node in the Cohesity Cluster or Cluster VIP.
 
 ```yaml
-Type: String
+Type: string
 Parameter Sets: (All)
 Aliases:
 
@@ -50,7 +48,6 @@ Accept wildcard characters: False
 ```
 
 ### -Credential
-
 User credentials for the Cohesity Cluster.
 
 ```yaml
@@ -66,8 +63,8 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
-
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about\_CommonParameters \([http://go.microsoft.com/fwlink/?LinkID=113216](http://go.microsoft.com/fwlink/?LinkID=113216)\).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
+For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
@@ -76,4 +73,3 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## NOTES
 
 ## RELATED LINKS
-

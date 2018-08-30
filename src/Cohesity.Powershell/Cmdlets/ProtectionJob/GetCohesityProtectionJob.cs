@@ -8,10 +8,10 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
 {
     /// <summary>
     /// <para type="synopsis">
-    /// Gets a list of Protection Jobs filtered by the specified parameters.
+    /// Gets a list of protection jobs filtered by the specified parameters.
     /// </para>
     /// <para type="description">
-    /// If no parameters are specified, all Protection Jobs currently on the Cohesity Cluster are returned.
+    /// If no parameters are specified, all protection jobs currently on the Cohesity Cluster are returned.
     /// Specifying parameters filters the results that are returned.
     /// </para>
     /// </summary>
@@ -21,7 +21,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
     ///   Get-CohesityProtectionJob -Names TestJob
     ///   </code>
     ///   <para>
-    ///   Displays the protectionjob with name TestJob.
+    ///   Displays the protection job with name "TestJob".
     ///   </para>
     /// </example>
     [Cmdlet(VerbsCommon.Get, "CohesityProtectionJob")]
@@ -44,34 +44,30 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
 
         /// <summary>
         /// <para type="description">
-        /// Filter by Policy ids that are associated with Protection Jobs. 
-        /// Only Jobs associated with the specified Policy ids, are returned. 
-        /// (optional)
+        /// Filter by policy ids that are associated with protection jobs. 
+        /// Only jobs associated with the specified policy ids, are returned.
         /// </para>
         /// </summary>
-        [Alias("P")]
         [Parameter(Mandatory = false)]
         public string[] PolicyIds { get; set; }
 
         /// <summary>
         /// <para type="description">
         /// Filter by environment types such as kVMware, kView, kSQL, kPuppeteer, kPhysical, kPure, kNetapp, kGenericNas, kHyperV, kAcropolis, kAzure. 
-        /// Only Jobs protecting the specified environment types are returned. 
-        /// NOTE: kPuppeteer; refers to Cohesity's Remote Adapter. 
-        /// (optional)
+        /// Only jobs protecting the specified environment types are returned. 
+        /// NOTE: kPuppeteer refers to Cohesity's remote adapter.
         /// </para>
         /// </summary>
-        [Alias("E")]
         [Parameter(Mandatory = false)]
         public EnvironmentEnum[] Environments { get; set; }
 
         /// <summary>
         /// <para type="description">
-        /// Filter by Inactive or Active Jobs. If not set, all Inactive and Active Jobs are returned.If true, only Active Jobs are returned.
-        /// If false, only Inactive Jobs are returned.
-        /// When you create a Protection Job on a Primary Cluster with a replication schedule, the Cluster creates an
-        /// Inactive copy of the Job on the Remote Cluster.
-        /// In addition, when an Active and running Job is deactivated, the Job becomes Inactive.
+        /// Filter by inactive or active jobs. If not set, all inactive and active jobs are returned.If true, only active jobs are returned.
+        /// If false, only inactive jobs are returned.
+        /// When you create a protection job on a primary cluster with a replication schedule, the cluster creates an
+        /// inactive copy of the job on the remote cluster.
+        /// In addition, when an active and running job is deactivated, the job becomes inactive.
         /// </para> 
         /// </summary>
         [Parameter(Mandatory = false)]
@@ -79,9 +75,9 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
 
         /// <summary>
         /// <para type="description">
-        /// If true, return only Protection Jobs that have been deleted but still have Snapshots associated with them.
-        /// If false, return all Protection Jobs except those Jobs that have been deleted and still have Snapshots associated with them.
-        /// A Job that is deleted with all its Snapshots is not returned for either of these cases.
+        /// If true, return only protection jobs that have been deleted but still have snapshots associated with them.
+        /// If false, return all protection jobs except those jobs that have been deleted and still have snapshots associated with them.
+        /// A job that is deleted with all its snapshots is not returned for either of these cases.
         /// </para> 
         /// </summary>
         [Parameter(Mandatory = false)]
@@ -91,7 +87,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
 
         /// <summary>
         /// <para type="description">
-        /// If true, return the last Protection Run of the Job and the summary stats.
+        /// If true, return the last protection run of the job and the summary stats.
         /// </para> 
         /// </summary>
         [Parameter(Mandatory = false)]
@@ -103,7 +99,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
 
         /// <summary>
         /// <para type="description">
-        /// Filter by a list of Protection Job ids.
+        /// Filter by a list of protection job ids.
         /// </para> 
         /// </summary>
         [Parameter(Mandatory = false)]
@@ -111,7 +107,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
 
         /// <summary>
         /// <para type="description">
-        /// Filter by a list of Protection Job names.
+        /// Filter by a list of protection job names.
         /// </para> 
         /// </summary>
         [Parameter(Mandatory = false)]

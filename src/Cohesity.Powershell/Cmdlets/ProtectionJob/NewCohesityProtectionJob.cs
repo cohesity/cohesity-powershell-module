@@ -6,20 +6,18 @@ using Cohesity.Powershell.Common;
 
 namespace Cohesity.Powershell.Cmdlets.ProtectionJob
 {
-    // New-CohesityProtectionJob -Name "Test Job" -PolicyID "PJPolicyID" -ViewBoxID 1
-
     /// <summary>
     /// <para type="synopsis">
-    /// Creates a new Protection Job.
+    /// Creates a new protection job.
     /// </para>
     /// <para type="description">
-    /// Returns the created Protection Job.
+    /// Returns the created protection job.
     /// </para>
     /// </summary>
     /// <example>
     ///   <para>PS&gt;</para>
     ///   <code>
-    ///   New-CohesityProtectionJob -Name "Test Job" -PolicyID "My PolicyID" -ViewBoxID 1
+    ///   New-CohesityProtectionJob -Name "Test Job" -PolicyId "7004504288922732:1533243443420:1" -ViewBoxId 5 -ParentSourceID 1 -SourceIDs 1580 -Timezone "America/New_York"
     ///   </code>
     ///   <para>
     ///   Creates a protection job with only required parameters.
@@ -45,7 +43,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
 
         /// <summary>
         /// <para type="description">
-        /// Specifies the name of the Protection Job.
+        /// Specifies the name of the protection job.
         /// </para>
         /// </summary>
         [Parameter(Mandatory = true)]
@@ -54,32 +52,29 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
 
         /// <summary>
         /// <para type="description">
-        /// Specifies the description of the Protection Job.
+        /// Specifies the description of the protection job.
         /// </para>
         /// </summary>
         [Parameter(Mandatory = true)]
         [ValidateNotNullOrEmpty()]
-
         public string Description { get; set; }
 
         /// <summary>
         /// <para type="description">
-        /// Specifies the unique id of the Protection Policy associated with the Protection Job.
-        /// The Policy provides retry settings, Protection Schedules, Priority, SLA, etc. 
-        /// The Job defines the Storage Domain (View Box), the Objects to Protect (if applicable), Start Time, Indexing settings, etc.
+        /// Specifies the unique id of the protection policy associated with the protection job.
         /// </para>
         /// </summary>
         [Parameter(Mandatory = true)]
         [ValidateNotNullOrEmpty()]
-        public string PolicyID { get; set; }
+        public string PolicyId { get; set; }
 
-        [Parameter(Mandatory = false)]
-        public long? ParentSourceID { get; set; }
+        [Parameter(Mandatory = true)]
+        public long? ParentSourceId { get; set; }
 
-        [Parameter(Mandatory = false)]
-        public long?[] SourceIDs { get; set; }
+        [Parameter(Mandatory = true)]
+        public long?[] SourceIds { get; set; }
 
-        [Parameter(Mandatory = false)]
+        [Parameter(Mandatory = true)]
         public string Timezone { get; set; }
 
         [Parameter(Mandatory = false)]
@@ -87,12 +82,12 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
 
         /// <summary>
         /// <para type="description">
-        /// Specifies the Storage Domain (View Box) id where this Job writes data.
+        /// Specifies the storage domain (view box) id where this job writes data.
         /// </para>
         /// </summary>
-        [Parameter(Mandatory = false)]
+        [Parameter(Mandatory = true)]
         [ValidateNotNullOrEmpty()]
-        public long ViewBoxID { get; set; }
+        public long ViewBoxId { get; set; }
 
         [Parameter()]
         public string ViewName { get; set; }
@@ -115,17 +110,17 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
 
         protected override void ProcessRecord()
         {
-            var newProtectionJob = new Models.ProtectionJob(name: Name, policyId: PolicyID, viewBoxId: ViewBoxID)
+            var newProtectionJob = new Models.ProtectionJob(name: Name, policyId: PolicyId, viewBoxId: ViewBoxId)
             {
                 Timezone = Timezone,
                 StartTime = new ProtectionScheduleStartTime_(ScheduleStartTime.Hour, ScheduleStartTime.Minute)
             };
 
-            if (ParentSourceID.HasValue)
-                newProtectionJob.ParentSourceId = ParentSourceID;
+            if (ParentSourceId.HasValue)
+                newProtectionJob.ParentSourceId = ParentSourceId;
 
-            if (SourceIDs != null && SourceIDs.Any())
-                newProtectionJob.SourceIds = SourceIDs.ToList();
+            if (SourceIds != null && SourceIds.Any())
+                newProtectionJob.SourceIds = SourceIds.ToList();
 
             if (!string.IsNullOrWhiteSpace(ViewName))
                 newProtectionJob.ViewName = ViewName;

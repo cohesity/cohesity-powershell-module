@@ -7,10 +7,10 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
 
     /// <summary>
     /// <para type="synopsis">
-    /// Updates a Protection Job.
+    /// Updates a protection job.
     /// </para>
     /// <para type="description">
-    /// Returns the updated Protection Job.
+    /// Returns the updated protection job.
     /// </para>
     /// </summary>
     /// <example>
@@ -19,7 +19,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
     ///   Set-CohesityProtectionJob -Id 1234 -ProtectionJob $job
     ///   </code>
     ///   <para>
-    ///   Updates a protection job with given parameters.
+    ///   Updates a protection job with the specified parameters.
     ///   </para>
     /// </example>
     [Cmdlet(VerbsCommon.Set, "CohesityProtectionJob")]
@@ -45,7 +45,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
 
         /// <summary>
         /// <para type="description">
-        /// Specifies a unique id of the Protection Job.
+        /// Specifies a unique id of the protection job.
         /// </para>
         /// </summary>
         [Parameter(Mandatory = true)]
@@ -55,7 +55,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
 
         /// <summary>
         /// <para type="description">
-        /// The updated Protection Job.
+        /// The updated protection job.
         /// </para>
         /// </summary>
         [Parameter(Mandatory = true)]
