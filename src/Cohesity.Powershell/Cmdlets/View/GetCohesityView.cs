@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Management.Automation;
 using Cohesity.Models;
 using Cohesity.Powershell.Common;
@@ -29,7 +30,7 @@ namespace Cohesity.Powershell.Cmdlets.View
     ///   </para>
     /// </example>
     [Cmdlet(VerbsCommon.Get, "CohesityView")]
-    [OutputType(typeof(GetViewsResult))]
+    [OutputType(typeof(List<Models.View>))]
     public class GetCohesityView : PSCmdlet
     {
         private Session Session
@@ -171,7 +172,7 @@ namespace Cohesity.Powershell.Cmdlets.View
 
             var preparedUrl = $"/public/views{qb.Build()}";
             var result = Session.NetworkClient.Get<GetViewsResult>(preparedUrl);
-            WriteObject(result);
+            WriteObject(result.Views);
         }
     }
 }
