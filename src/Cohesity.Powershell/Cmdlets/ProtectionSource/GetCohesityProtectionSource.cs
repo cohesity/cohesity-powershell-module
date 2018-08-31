@@ -8,7 +8,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
 {
     /// <summary>
     /// <para type="synopsis">
-    /// Returns the registered protection sources.
+    /// Gets a list of the registered protection sources filtered by the specified parameters.
     /// </para>
     /// <para type="description">
     /// If no parameters are specified, all protection sources that are registered on the Cohesity Cluster are returned.
