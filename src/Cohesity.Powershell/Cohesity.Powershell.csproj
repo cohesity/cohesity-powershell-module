@@ -104,6 +104,6 @@
   </ItemGroup>
 
   <Target Name="CopyCmdletDoc" AfterTargets="Build">
-    <Copy SourceFiles="$(net451Target)\Cohesity.Powershell.dll-Help.xml" DestinationFolder="$(netcoreapp20Target)" ContinueOnError="false" />
+    <Copy SourceFiles="$(net451Target)\Cohesity.Powershell.dll-Help.xml" DestinationFiles="$(netcoreapp20Target)\Cohesity.Powershell.Core.dll-Help.xml" ContinueOnError="false" />
   </Target>
 </Project>

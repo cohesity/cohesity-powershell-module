@@ -9,16 +9,17 @@
 * To get a list of available Cohesity Cmdlets
 
   ```text
-  Get-Command -Module Cohesity*
+  Get-Command *Cohesity*
   ```
   
 * To get brief help for available Cohesity Cmdlets
 
   ```text
-  Get-Help *Cohesity*
+  Get-Help *Cohesity* | ft -Property Name, Synopsis
   ```
 
 * To get detailed help for a specific Cohesity Cmdlet
+
   ```text
   Get-Help <cmdlet-name> -Full
   ```
@@ -32,6 +33,7 @@
 
 
 * You are all set! Now explore other Cohesity Cmdlets such as
+
   ```text
   Get-CohesityProtectionJob
   ```
