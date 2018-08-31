@@ -13,7 +13,7 @@
   * [Get-CohesityProtectionSource](cmdlets-reference/get-cohesityprotectionsource.md)
   * [Set-CohesityProtectionJob](cmdlets-reference/set-cohesityprotectionjob.md)
   * [Start-CohesityProtectionJob](cmdlets-reference/start-cohesityprotectionjob.md)
-  * [Get-CohesityPolicy](cmdlets-reference/get-cohesitypolicy.md)
+  * [Get-CohesityProtectionPolicy](cmdlets-reference/get-cohesityprotectionpolicy.md)
   * [New-CohesityProtectionJob](cmdlets-reference/new-cohesityprotectionjob.md)
   * [Suspend-CohesityProtectionJob](cmdlets-reference/suspend-cohesityprotectionjob.md)
   * [Get-CohesityProtectionJob](cmdlets-reference/get-cohesityprotectionjob.md)
