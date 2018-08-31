@@ -6,24 +6,24 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
 {
     /// <summary>
     /// <para type="synopsis">
-    /// Registers a new VMware protection source.
+    /// Registers a new Physical protection source.
     /// </para>
     /// <para type="description">
-    /// Registers a new VMware protection source with the Cohesity Cluster.
+    /// Registers a new Physical protection source with the Cohesity Cluster.
     /// </para>
     /// </summary>
     /// <example>
     /// <para>PS&gt;</para>
     /// <code>
-    /// Register-CohesityProtectionSourceVMware -Server vcenter.example.com -Type KVcenter -Credential (Get-Credential)
+    /// Register-CohesityProtectionSourcePhysical -Server server.example.com -HostType KLinux -PhysicalType KHost
     /// </code>
     /// <para>
-    /// Registers a new vCenter server with hostname "vcenter.example.com" with the Cohesity Cluster.
+    /// Registers a new physical linux server with hostname "server.example.com" with the Cohesity Cluster.
     /// </para>
     /// </example>
-    [Cmdlet(VerbsLifecycle.Register, "CohesityProtectionSourceVMware")]
+    [Cmdlet(VerbsLifecycle.Register, "CohesityProtectionSourcePhysical")]
     [OutputType(typeof(Models.ProtectionSource))]
-    public class RegisterCohesityProtectionSourceVMware : PSCmdlet
+    public class RegisterCohesityProtectionSourcePhysical : PSCmdlet
     {
         private Session Session
         {
@@ -42,7 +42,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
 
         /// <summary>
         /// <para type="description">
-        /// Hostname or IP Address for the vCenter server or ESXi server.
+        /// Hostname or IP Address of the Physical server.
         /// </para>
         /// </summary>
         [Parameter(Mandatory = true)]
@@ -50,19 +50,19 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
 
         /// <summary>
         /// <para type="description">
-        /// Type of VMware server. Must be set to KStandaloneHost or KVcenter.
+        /// Type of host. Must be set to KLinux or KWindows.
         /// </para>
         /// </summary>
         [Parameter(Mandatory = true)]
-        public RegisterProtectionSourceParameters.VmwareTypeEnum? Type { get; set; } = null;
+        public RegisterProtectionSourceParameters.HostTypeEnum? HostType { get; set; } = null;
 
         /// <summary>
         /// <para type="description">
-        /// User credentials for the vCenter server or ESXi host.
+        /// Type of physical host. Must be set to KHost or KWindowsCluster.
         /// </para>
         /// </summary>
         [Parameter(Mandatory = true)]
-        public PSCredential Credential { get; set; } = null;
+        public RegisterProtectionSourceParameters.PhysicalTypeEnum? PhysicalType { get; set; } = null;
 
         #endregion
 
@@ -78,11 +78,10 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
         {
             var param = new RegisterProtectionSourceParameters
             {
-                Environment = EnvironmentEnum.kVMware,
+                Environment = EnvironmentEnum.kPhysical,
                 Endpoint = Server,
-                VmwareType = Type,
-                Username = Credential.UserName,
-                Password = Credential.GetNetworkCredential().Password
+                HostType = HostType,
+                PhysicalType = PhysicalType
             };
 
             // POST /public/protectionSources/register
