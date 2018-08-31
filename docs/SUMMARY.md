@@ -1,12 +1,12 @@
 # Table of contents
 
 * [Cohesity PowerShell Module](README.md)
-* [Overview](overview.md)
-* [Pre-requisites](pre-requisites.md)
-* [Installation](installation.md)
-* [How to use](how-to-use.md)
-* [Feedback](feedback.md)
-* [Cmdlets Reference](cmdlets-reference/README.md)
+* [1. Overview](overview.md)
+* [2. Pre-requisites](pre-requisites.md)
+* [3. Installation](installation.md)
+* [4. How to use](how-to-use.md)
+* [5. Feedback](feedback.md)
+* [6. Cmdlets Reference](cmdlets-reference/README.md)
   * [Connect-CohesityCluster](cmdlets-reference/connect-cohesitycluster.md)
   * [Disconnect-CohesityCluster](cmdlets-reference/disconnect-cohesitycluster.md)
   * [Register-CohesityProtectionSourceVMware](cmdlets-reference/register-cohesityprotectionsourcevmware.md)
