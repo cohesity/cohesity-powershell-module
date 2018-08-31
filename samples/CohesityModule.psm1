@@ -1,1 +1,0 @@
-. $PSScriptRoot\AddVMtoProtectionJob.ps1
