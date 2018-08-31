@@ -43,49 +43,49 @@ namespace Cohesity.Models
             /// Enum KDisk for value: kDisk
             /// </summary>
             [EnumMember(Value = "kDisk")]
-            KDisk = 1,
+            kDisk = 1,
             
             /// <summary>
             /// Enum KNode for value: kNode
             /// </summary>
             [EnumMember(Value = "kNode")]
-            KNode = 2,
+            kNode = 2,
             
             /// <summary>
             /// Enum KCluster for value: kCluster
             /// </summary>
             [EnumMember(Value = "kCluster")]
-            KCluster = 3,
+            kCluster = 3,
             
             /// <summary>
             /// Enum KNodeHealth for value: kNodeHealth
             /// </summary>
             [EnumMember(Value = "kNodeHealth")]
-            KNodeHealth = 4,
+            kNodeHealth = 4,
             
             /// <summary>
             /// Enum KClusterHealth for value: kClusterHealth
             /// </summary>
             [EnumMember(Value = "kClusterHealth")]
-            KClusterHealth = 5,
+            kClusterHealth = 5,
             
             /// <summary>
             /// Enum KBackupRestore for value: kBackupRestore
             /// </summary>
             [EnumMember(Value = "kBackupRestore")]
-            KBackupRestore = 6,
+            kBackupRestore = 6,
             
             /// <summary>
             /// Enum KEncryption for value: kEncryption
             /// </summary>
             [EnumMember(Value = "kEncryption")]
-            KEncryption = 7,
+            kEncryption = 7,
             
             /// <summary>
             /// Enum KArchivalRestore for value: kArchivalRestore
             /// </summary>
             [EnumMember(Value = "kArchivalRestore")]
-            KArchivalRestore = 8
+            kArchivalRestore = 8
         }
 
         /// <summary>
@@ -106,13 +106,13 @@ namespace Cohesity.Models
             /// Enum KOpen for value: kOpen
             /// </summary>
             [EnumMember(Value = "kOpen")]
-            KOpen = 1,
+            kOpen = 1,
             
             /// <summary>
             /// Enum KResolved for value: kResolved
             /// </summary>
             [EnumMember(Value = "kResolved")]
-            KResolved = 2
+            kResolved = 2
         }
 
         /// <summary>
@@ -133,19 +133,19 @@ namespace Cohesity.Models
             /// Enum KCritical for value: kCritical
             /// </summary>
             [EnumMember(Value = "kCritical")]
-            KCritical = 1,
+            kCritical = 1,
             
             /// <summary>
             /// Enum KWarning for value: kWarning
             /// </summary>
             [EnumMember(Value = "kWarning")]
-            KWarning = 2,
+            kWarning = 2,
             
             /// <summary>
             /// Enum KInfo for value: kInfo
             /// </summary>
             [EnumMember(Value = "kInfo")]
-            KInfo = 3
+            kInfo = 3
         }
 
         /// <summary>

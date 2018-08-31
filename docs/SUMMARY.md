@@ -9,6 +9,7 @@
 * [6. Cmdlets Reference](cmdlets-reference/README.md)
   * [Connect-CohesityCluster](cmdlets-reference/connect-cohesitycluster.md)
   * [Disconnect-CohesityCluster](cmdlets-reference/disconnect-cohesitycluster.md)
+  * [Get-CohesityCluster](cmdlets-reference/get-cohesitycluster.md)
   * [Register-CohesityProtectionSourceVMware](cmdlets-reference/register-cohesityprotectionsourcevmware.md)
   * [Register-CohesityProtectionSourceHyperV](cmdlets-reference/register-cohesityprotectionsourcehyperv.md)
   * [Register-CohesityProtectionSourcePhysical](cmdlets-reference/register-cohesityprotectionsourcephysical.md)
@@ -27,3 +28,4 @@
   * [Stop-CohesityProtectionJobRun](cmdlets-reference/stop-cohesityprotectionjobrun.md)
   * [Get-CohesityView](cmdlets-reference/get-cohesityview.md)
   * [Get-CohesityStorageDomain](cmdlets-reference/get-cohesitystoragedomain.md)
+  * [Get-CohesityAlert](cmdlets-reference/get-cohesityalert.md)
