@@ -9,7 +9,9 @@ This project provides a PowerShell Module for interacting with the `Cohesity Dat
 ## Pre-requisites
 
 * Requires a Cohesity Cluster running version `6.0` or higher.
-* On Windows, requires Windows PowerShell version `5.1` or PowerShell Core `6.0` or higher
+* On Windows, both Windows PowerShell and PowerShell Core are supported.
+   * For Windows PowerShell, requires version `5.1` or higher.
+   * For PowerShell Core, requires `6.0` or higher.
 * On Linux and Mac OS, requires PowerShell Core `6.0` or higher.
 
 ## Installation
