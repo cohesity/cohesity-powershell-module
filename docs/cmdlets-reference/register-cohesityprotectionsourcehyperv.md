@@ -5,57 +5,55 @@ online version:
 schema: 2.0.0
 ---
 
-# Get-CohesityProtectionSource
+# Register-CohesityProtectionSourceHyperV
 
 ## SYNOPSIS
-Gets a list of the registered protection sources filtered by the specified parameters.
+Registers a new HyperV protection source.
 
 ## SYNTAX
 
 ```
-Get-CohesityProtectionSource [-Environments <EnvironmentEnum[]>] [-Id <long>] [<CommonParameters>]
+Register-CohesityProtectionSourceHyperV -Credential <PSCredential> -Server <string> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-If no parameters are specified, all protection sources that are registered on the Cohesity Cluster are returned.
+Registers a new HyperV protection source with the Cohesity Cluster.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Get-CohesityProtectionSource -environment kVMware
+Register-CohesityProtectionSourceHyperV -Server scvmm.example.com -Credential (Get-Credential)
 ```
 
-Returns registered protection sources that match the environment type'kVMware' .
+Registers a new SCVMM server with hostname "scvmm.example.com" with the Cohesity Cluster.
 
 ## PARAMETERS
 
-### -Environments
-Return only protection sources that match the passed in environment type.
-For example, set this parameter to 'kVMware' to only return the VMware sources.
-NOTE: "kPuppeteer" refers to Cohesity's Remote Adapter.
+### -Server
+Hostname or IP Address for the SCVMM server.
 
 ```yaml
-Type: EnvironmentEnum[]
+Type: string
 Parameter Sets: (All)
 Aliases:
 
-Required: False
+Required: True
 Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Id
-Return only the protection source that matches the Id.
+### -Credential
+User credentials for the vCenter server or ESXi host.
 
 ```yaml
-Type: long
+Type: PSCredential
 Parameter Sets: (All)
 Aliases:
 
-Required: False
+Required: True
 Position: Named
 Default value: None
 Accept pipeline input: False
@@ -70,7 +68,7 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 
 ## OUTPUTS
 
-### Cohesity.Models.ProtectionSourceNode
+### Cohesity.Models.ProtectionSource
 ## NOTES
 
 ## RELATED LINKS
