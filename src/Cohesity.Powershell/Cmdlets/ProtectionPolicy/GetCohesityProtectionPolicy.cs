@@ -4,7 +4,7 @@ using System.Management.Automation;
 using Cohesity.Models;
 using Cohesity.Powershell.Common;
 
-namespace Cohesity.Powershell.Cmdlets.Policy
+namespace Cohesity.Powershell.Cmdlets.ProtectionPolicy
 {
     /// <summary>
     /// <para type="synopsis">
@@ -25,7 +25,7 @@ namespace Cohesity.Powershell.Cmdlets.Policy
     ///   </para>
     /// </example>
     [Cmdlet(VerbsCommon.Get, "CohesityProtectionPolicy")]
-    [OutputType(typeof(ProtectionPolicy))]
+    [OutputType(typeof(Models.ProtectionPolicy))]
     public class GetCohesityProtectionPolicy : PSCmdlet
     {
         private Session Session
@@ -89,7 +89,7 @@ namespace Cohesity.Powershell.Cmdlets.Policy
                 qb.Add("names", string.Join(",", Names));
 
             var preparedUrl = $"/public/protectionPolicies{qb.Build()}";
-            var result = Session.NetworkClient.Get<IEnumerable<ProtectionPolicy>>(preparedUrl);
+            var result = Session.NetworkClient.Get<IEnumerable<Models.ProtectionPolicy>>(preparedUrl);
             WriteObject(result, true);
         }
 

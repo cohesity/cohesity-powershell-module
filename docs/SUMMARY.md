@@ -17,6 +17,7 @@
   * [Get-CohesityProtectionSource](cmdlets-reference/get-cohesityprotectionsource.md)
   * [Get-CohesityVM](cmdlets-reference/get-cohesityvm.md)
   * [Get-CohesityProtectionPolicy](cmdlets-reference/get-cohesityprotectionpolicy.md)
+  * [Remove-CohesityProtectionPolicy](cmdlets-reference/remove-cohesityprotectionpolicy.md)
   * [New-CohesityProtectionJob](cmdlets-reference/new-cohesityprotectionjob.md)
   * [Get-CohesityProtectionJob](cmdlets-reference/get-cohesityprotectionjob.md)
   * [Set-CohesityProtectionJob](cmdlets-reference/set-cohesityprotectionjob.md)
