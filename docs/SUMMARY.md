@@ -10,6 +10,7 @@
   * [Connect-CohesityCluster](cmdlets-reference/connect-cohesitycluster.md)
   * [Disconnect-CohesityCluster](cmdlets-reference/disconnect-cohesitycluster.md)
   * [Get-CohesityCluster](cmdlets-reference/get-cohesitycluster.md)
+  * [Get-CohesityClusterConfiguration](cmdlets-reference/get-cohesityclusterconfiguration.md)
   * [Register-CohesityProtectionSourceVMware](cmdlets-reference/register-cohesityprotectionsourcevmware.md)
   * [Register-CohesityProtectionSourceHyperV](cmdlets-reference/register-cohesityprotectionsourcehyperv.md)
   * [Register-CohesityProtectionSourcePhysical](cmdlets-reference/register-cohesityprotectionsourcephysical.md)
