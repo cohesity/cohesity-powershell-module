@@ -31,6 +31,12 @@
                 <PropertyName>LatestTimestampUsecs</PropertyName>
               </ListItem>
               <ListItem>
+                <PropertyName>AlertDocument</PropertyName>
+              </ListItem>
+              <ListItem>
+                <PropertyName>DedupCount</PropertyName>
+              </ListItem>
+              <ListItem>
                 <PropertyName>ResolutionDetails</PropertyName>
               </ListItem>
             </ListItems>
