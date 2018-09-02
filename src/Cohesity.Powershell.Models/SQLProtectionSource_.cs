@@ -77,7 +77,25 @@ namespace Cohesity.Models
             /// Enum KDatabase for value: kDatabase
             /// </summary>
             [EnumMember(Value = "kDatabase")]
-            KDatabase = 2
+            KDatabase = 2,
+
+            /// <summary>
+            /// Enum KAAG for value: kAAG
+            /// </summary>
+            [EnumMember(Value = "kAAG")]
+            KAAG = 3,
+
+            /// <summary>
+            /// Enum KAAGRootContainer for value: kAAGRootContainer
+            /// </summary>
+            [EnumMember(Value = "kAAGRootContainer")]
+            KAAGRootContainer = 4,
+
+            /// <summary>
+            /// Enum KRootContainer for value: kRootContainer
+            /// </summary>
+            [EnumMember(Value = "kRootContainer")]
+            KRootContainer = 5
         }
 
         /// <summary>
