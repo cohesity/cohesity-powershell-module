@@ -30,7 +30,7 @@ namespace Cohesity.Powershell.Cmdlets.View
     ///   </para>
     /// </example>
     [Cmdlet(VerbsCommon.Get, "CohesityView")]
-    [OutputType(typeof(List<Models.View>))]
+    [OutputType(typeof(Models.View))]
     public class GetCohesityView : PSCmdlet
     {
         private Session Session
@@ -172,7 +172,7 @@ namespace Cohesity.Powershell.Cmdlets.View
 
             var preparedUrl = $"/public/views{qb.Build()}";
             var result = Session.NetworkClient.Get<GetViewsResult>(preparedUrl);
-            WriteObject(result.Views);
+            WriteObject(result.Views, true);
         }
     }
 }

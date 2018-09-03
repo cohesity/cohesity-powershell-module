@@ -197,7 +197,7 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 
 ## OUTPUTS
 
-### System.Collections.Generic.List`1[[Cohesity.Models.View, Cohesity.PowerShell.Models, Version=6.0.0.0, Culture=neutral, PublicKeyToken=null]]
+### Cohesity.Models.View
 ## NOTES
 
 ## RELATED LINKS
