@@ -8,7 +8,7 @@ if (!(Get-Module "PlatyPS")) {
 }
 
 Import-Module "PlatyPS"
-New-MarkdownHelp -MamlFile $ModuleHelpXmlPath -OutputFolder $MarkdownPath -Force
+New-MarkdownHelp -MamlFile $ModuleHelpXmlPath -OutputFolder $MarkdownPath -Force -NoMetadata
 
 # Rename the file names to lower case. GitBook auto-renames it this way.
 dir $MarkdownPath -r | % { if ($_.Name -cne $_.Name.ToLower()) { ren $_.FullName $_.Name.ToLower() } }

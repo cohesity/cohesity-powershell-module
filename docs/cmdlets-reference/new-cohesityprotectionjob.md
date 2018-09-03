@@ -1,10 +1,3 @@
----
-external help file: Cohesity.PowerShell.dll-Help.xml
-Module Name:
-online version:
-schema: 2.0.0
----
-
 # New-CohesityProtectionJob
 
 ## SYNOPSIS
@@ -125,7 +118,7 @@ Aliases:
 
 Required: False
 Position: Named
-Default value: 8/31/2018 6:25:15 PM
+Default value: 9/3/2018 9:13:46 AM
 Accept pipeline input: False
 Accept wildcard characters: False
 ```

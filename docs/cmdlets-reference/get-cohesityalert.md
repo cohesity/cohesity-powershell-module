@@ -1,10 +1,3 @@
----
-external help file: Cohesity.PowerShell.dll-Help.xml
-Module Name:
-online version:
-schema: 2.0.0
----
-
 # Get-CohesityAlert
 
 ## SYNOPSIS
