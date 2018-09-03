@@ -462,6 +462,91 @@
       </ListControl>
     </View>
 
+    <!-- RestoreTask -->
+    <View>
+      <Name>RestoreTask.ListView</Name>
+      <ViewSelectedBy>
+        <TypeName>Cohesity.Models.RestoreTask</TypeName>
+      </ViewSelectedBy>
+      <ListControl>
+        <ListEntries>
+          <ListEntry>
+            <ListItems>
+              <ListItem>
+                <PropertyName>Id</PropertyName>
+              </ListItem>
+              <ListItem>
+                <PropertyName>Name</PropertyName>
+              </ListItem>
+              <ListItem>
+                <PropertyName>Status</PropertyName>
+              </ListItem>
+              <ListItem>
+                <PropertyName>Type</PropertyName>
+              </ListItem>
+              <ListItem>
+                <PropertyName>ContinueOnError</PropertyName>
+              </ListItem>
+              <ListItem>
+                <PropertyName>StartTimeUSecs</PropertyName>
+              </ListItem>
+              <ListItem>
+                <PropertyName>EndTimeUSecs</PropertyName>
+              </ListItem>
+              <ListItem>
+                <PropertyName>NewParentId</PropertyName>
+              </ListItem>
+              <ListItem>
+                <PropertyName>Username</PropertyName>
+              </ListItem>
+              <ListItem>
+                <PropertyName>Objects</PropertyName>
+              </ListItem>
+              <ListItem>
+                <PropertyName>RestoreObjectState</PropertyName>
+              </ListItem>
+              <ListItem>
+                <PropertyName>Error</PropertyName>
+              </ListItem>
+              <ListItem>
+                <PropertyName>DatastoreId</PropertyName>
+              </ListItem>
+              <ListItem>
+                <PropertyName>TargetViewCreated</PropertyName>
+              </ListItem>
+              <ListItem>
+                <PropertyName>ViewBoxId</PropertyName>
+              </ListItem>
+              <ListItem>
+                <PropertyName>FullViewName</PropertyName>
+              </ListItem>
+              <ListItem>
+                <PropertyName>MountVolumesState</PropertyName>
+              </ListItem>
+              <ListItem>
+                <PropertyName>ArchiveTaskUid</PropertyName>
+              </ListItem>
+              <ListItem>
+                <PropertyName>VlanParameters</PropertyName>
+              </ListItem>
+              <ListItem>
+                <PropertyName>VmwareParameters</PropertyName>
+              </ListItem>
+              <ListItem>
+                <PropertyName>HypervParameters</PropertyName>
+              </ListItem>
+              <ListItem>
+                <PropertyName>AcropolisParameters</PropertyName>
+              </ListItem>
+              <ListItem>
+                <PropertyName>CloneViewParameters</PropertyName>
+              </ListItem>
+            </ListItems>
+          </ListEntry>
+        </ListEntries>
+      </ListControl>
+    </View>
+
     <!-- View -->
     <View>
       <Name>View.ListView</Name>

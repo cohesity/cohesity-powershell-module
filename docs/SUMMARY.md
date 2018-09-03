@@ -31,3 +31,4 @@
   * [Get-CohesityView](cmdlets-reference/get-cohesityview.md)
   * [Get-CohesityStorageDomain](cmdlets-reference/get-cohesitystoragedomain.md)
   * [Get-CohesityAlert](cmdlets-reference/get-cohesityalert.md)
+  * [Get-CohesityRestoreTask](cmdlets-reference/get-cohesityrestoretask.md)

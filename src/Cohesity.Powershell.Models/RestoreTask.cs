@@ -100,31 +100,31 @@ namespace Cohesity.Models
             /// Enum KRecoverVMs for value: kRecoverVMs
             /// </summary>
             [EnumMember(Value = "kRecoverVMs")]
-            KRecoverVMs = 1,
+            kRecoverVMs = 1,
             
             /// <summary>
             /// Enum KCloneVMs for value: kCloneVMs
             /// </summary>
             [EnumMember(Value = "kCloneVMs")]
-            KCloneVMs = 2,
+            kCloneVMs = 2,
             
             /// <summary>
             /// Enum KCloneView for value: kCloneView
             /// </summary>
             [EnumMember(Value = "kCloneView")]
-            KCloneView = 3,
+            kCloneView = 3,
             
             /// <summary>
             /// Enum KMountVolumes for value: kMountVolumes
             /// </summary>
             [EnumMember(Value = "kMountVolumes")]
-            KMountVolumes = 4,
+            kMountVolumes = 4,
             
             /// <summary>
             /// Enum KRestoreFiles for value: kRestoreFiles
             /// </summary>
             [EnumMember(Value = "kRestoreFiles")]
-            KRestoreFiles = 5
+            kRestoreFiles = 5
         }
 
         /// <summary>
