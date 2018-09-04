@@ -16,12 +16,12 @@ Specifying parameters filters the results that are returned.
 
 ## EXAMPLES
 
-### Example 1
-```powershell
-PS C:\> {{ Add example code here }}
+### EXAMPLE 1
+```
+Get-CohesityStorageDomain -Names Test-Domain
 ```
 
-{{ Add example description here }}
+Returns the storage domain that matches the name "Test-Domain".
 
 ## PARAMETERS
 

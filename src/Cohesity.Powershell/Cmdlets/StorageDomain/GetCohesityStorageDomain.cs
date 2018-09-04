@@ -15,6 +15,15 @@ namespace Cohesity.Powershell.Cmdlets.StorageDomain
     /// Specifying parameters filters the results that are returned.
     /// </para>
     /// </summary>
+    /// <example>
+    ///   <para>PS&gt;</para>
+    ///   <code>
+    ///   Get-CohesityStorageDomain -Names Test-Domain
+    ///   </code>
+    ///   <para>
+    ///   Returns the storage domain that matches the name "Test-Domain".
+    ///   </para>
+    /// </example>
     [Cmdlet(VerbsCommon.Get, "CohesityStorageDomain")]
     [OutputType(typeof(ViewBox))]
     public class GetCohesityStorageDomain : PSCmdlet
