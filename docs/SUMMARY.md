@@ -35,5 +35,6 @@
 * [Get-CohesityStorageDomain](cmdlets-reference/get-cohesitystoragedomain.md)
 * [Get-CohesityAlert](cmdlets-reference/get-cohesityalert.md)
 * [Find-CohesityFilesForRestore](cmdlets-reference/find-cohesityfilesforrestore.md)
+* [Restore-CohesityVMwareVM](cmdlets-reference/restore-cohesityvmwarevm.md)
 * [Get-CohesityRestoreTask](cmdlets-reference/get-cohesityrestoretask.md)
 * [Stop-CohesityRestoreTask](cmdlets-reference/stop-cohesityrestoretask.md)

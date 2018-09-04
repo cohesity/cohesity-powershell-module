@@ -4,6 +4,7 @@
 * [Installation](installation.md)
 * [How to use](how-to-use.md)
 * [Feedback](feedback.md)
+
 ## Cmdlets Reference
 * [Connect-CohesityCluster](cmdlets-reference/connect-cohesitycluster.md)
 * [Disconnect-CohesityCluster](cmdlets-reference/disconnect-cohesitycluster.md)
@@ -32,6 +33,7 @@
 * [Get-CohesityStorageDomain](cmdlets-reference/get-cohesitystoragedomain.md)
 * [Get-CohesityAlert](cmdlets-reference/get-cohesityalert.md)
 * [Find-CohesityFilesForRestore](cmdlets-reference/find-cohesityfilesforrestore.md)
+* [Restore-CohesityVMwareVM](cmdlets-reference/restore-cohesityvmwarevm.md)
 * [Get-CohesityRestoreTask](cmdlets-reference/get-cohesityrestoretask.md)
 * [Stop-CohesityRestoreTask](cmdlets-reference/stop-cohesityrestoretask.md)
 ---
