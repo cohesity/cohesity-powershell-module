@@ -1,7 +1,7 @@
 # Register-CohesityProtectionSourceHyperV
 
 ## SYNOPSIS
-Registers a new HyperV protection source.
+Registers a new HyperV protection source with the Cohesity Cluster.
 
 ## SYNTAX
 
@@ -39,7 +39,7 @@ Accept wildcard characters: False
 ```
 
 ### -Credential
-User credentials for the vCenter server or ESXi host.
+User credentials for the SCVMM server.
 
 ```yaml
 Type: PSCredential

@@ -1,7 +1,7 @@
 # Register-CohesityProtectionSourcePhysical
 
 ## SYNOPSIS
-Registers a new Physical protection source.
+Registers a new Physical protection source with the Cohesity Cluster.
 
 ## SYNTAX
 
@@ -20,7 +20,7 @@ Registers a new Physical protection source with the Cohesity Cluster.
 Register-CohesityProtectionSourcePhysical -Server server.example.com -HostType KLinux -PhysicalType KHost
 ```
 
-Registers a new physical linux server with hostname "server.example.com" with the Cohesity Cluster.
+Registers a physical linux server with hostname "server.example.com" with the Cohesity Cluster.
 
 ## PARAMETERS
 

@@ -18,10 +18,10 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
     /// <example>
     ///   <para>PS&gt;</para>
     ///   <code>
-    ///   Get-CohesityProtectionJob -Names TestJob
+    ///   Get-CohesityProtectionJob -Names Test-Job
     ///   </code>
     ///   <para>
-    ///   Displays the protection job with name "TestJob".
+    ///   Gets the protection job with name "Test-Job".
     ///   </para>
     /// </example>
     [Cmdlet(VerbsCommon.Get, "CohesityProtectionJob")]

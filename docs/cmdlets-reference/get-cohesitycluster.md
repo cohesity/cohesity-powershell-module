@@ -1,7 +1,7 @@
 # Get-CohesityCluster
 
 ## SYNOPSIS
-Gets basic information for the Cohesity Cluster.
+Gets basic information about the Cohesity Cluster.
 
 ## SYNTAX
 
@@ -10,7 +10,7 @@ Get-CohesityCluster [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Gets basic information for the Cohesity Cluster.
+Gets basic information about the Cohesity Cluster.
 
 ## EXAMPLES
 
@@ -19,7 +19,7 @@ Gets basic information for the Cohesity Cluster.
 Get-CohesityCluster
 ```
 
-Gets basic information for the Cohesity Cluster.
+Gets basic information about the Cohesity Cluster.
 
 ## PARAMETERS
 

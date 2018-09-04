@@ -5,10 +5,10 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
 {
     /// <summary>
     /// <para type="synopsis">
-    /// Gets basic information for the Cohesity Cluster.
+    /// Gets basic information about the Cohesity Cluster.
     /// </para>
     /// <para type="description">
-    /// Gets basic information for the Cohesity Cluster.
+    /// Gets basic information about the Cohesity Cluster.
     /// </para>
     /// </summary>
     /// <example>
@@ -17,7 +17,7 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
     ///   Get-CohesityCluster
     ///   </code>
     ///   <para>
-    ///   Gets basic information for the Cohesity Cluster.
+    ///   Gets basic information about the Cohesity Cluster.
     ///   </para>
     /// </example>
     [Cmdlet(VerbsCommon.Get, "CohesityCluster")]

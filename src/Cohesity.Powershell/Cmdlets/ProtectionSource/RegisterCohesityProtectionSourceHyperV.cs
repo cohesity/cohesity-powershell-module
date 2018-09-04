@@ -6,7 +6,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
 {
     /// <summary>
     /// <para type="synopsis">
-    /// Registers a new HyperV protection source.
+    /// Registers a new HyperV protection source with the Cohesity Cluster.
     /// </para>
     /// <para type="description">
     /// Registers a new HyperV protection source with the Cohesity Cluster.
@@ -50,7 +50,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
 
         /// <summary>
         /// <para type="description">
-        /// User credentials for the vCenter server or ESXi host.
+        /// User credentials for the SCVMM server.
         /// </para>
         /// </summary>
         [Parameter(Mandatory = true)]

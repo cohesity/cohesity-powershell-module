@@ -18,10 +18,10 @@ Specifying parameters filters the results that are returned.
 
 ### EXAMPLE 1
 ```
-Get-CohesityProtectionJob -Names TestJob
+Get-CohesityProtectionJob -Names Test-Job
 ```
 
-Displays the protection job with name "TestJob".
+Gets the protection job with name "Test-Job".
 
 ## PARAMETERS
 

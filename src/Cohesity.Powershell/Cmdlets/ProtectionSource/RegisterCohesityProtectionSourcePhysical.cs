@@ -6,7 +6,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
 {
     /// <summary>
     /// <para type="synopsis">
-    /// Registers a new Physical protection source.
+    /// Registers a new Physical protection source with the Cohesity Cluster.
     /// </para>
     /// <para type="description">
     /// Registers a new Physical protection source with the Cohesity Cluster.
@@ -18,7 +18,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
     /// Register-CohesityProtectionSourcePhysical -Server server.example.com -HostType KLinux -PhysicalType KHost
     /// </code>
     /// <para>
-    /// Registers a new physical linux server with hostname "server.example.com" with the Cohesity Cluster.
+    /// Registers a physical linux server with hostname "server.example.com" with the Cohesity Cluster.
     /// </para>
     /// </example>
     [Cmdlet(VerbsLifecycle.Register, "CohesityProtectionSourcePhysical")]
