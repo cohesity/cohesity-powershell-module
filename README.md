@@ -30,7 +30,7 @@ You can install Cohesity PowerShell Module directly from the [PowerShell Gallery
 
 ## Documentation
 
-* [Online reference for Cohesity PowerShell Cmdlets](https://cohesityinc.gitbook.io/cohesity-powershell-module).
+* [Online reference for Cohesity PowerShell Cmdlets](https://cohesity.github.io/cohesity-powershell-module).
 * You can also use `Get-Help <cmdlet>` for offline help.
 
 ## Suggestions and Feedback
