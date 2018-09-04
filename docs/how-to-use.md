@@ -2,31 +2,31 @@
 
 * After installation, you can import Cohesity PowerShell Module in your scripts as below
 
-  ```text
+  ```powershell
   Get-Module -ListAvailable -Name Cohesity* | Import-Module
   ```
 
 * To get a list of available Cohesity Cmdlets
 
-  ```text
+  ```powershell
   Get-Command *Cohesity*
   ```
   
 * To get brief help for available Cohesity Cmdlets
 
-  ```text
+  ```powershell
   Get-Help *Cohesity* | ft -Property Name, Synopsis
   ```
 
 * To get detailed help for a specific Cohesity Cmdlet
 
-  ```text
+  ```powershell
   Get-Help <cmdlet-name> -Full
   ```
   
 * Run `Connect-CohesityCluster` cmdlet before using any other Cmdlets
 
-  ```text
+  ```powershell
   Connect-CohesityCluster -Server cohesity-cluster.example.com -Credential (Get-Credential)
   ```
   You can also export and persist the credential securely using [PSCredentialTools](https://www.powershellgallery.com/packages/PSCredentialTools/1.0.1) and then import it in your scripts.
@@ -34,6 +34,6 @@
 
 * You are all set! Now explore other Cohesity Cmdlets such as
 
-  ```text
+  ```powershell
   Get-CohesityProtectionJob
   ```

@@ -7,13 +7,9 @@
   <meta name="description" content="Description">
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <!-- Theme: Defaults -->
-  <link rel="stylesheet" href="https://unpkg.com/docsify-themeable/dist/css/theme-defaults.css"> 
-  <!-- Custom styles -->
-  <style>
-    :root {
-        --cover-background-image : rgb(255, 255, 255);
-    }
-  </style>
+  <link rel="stylesheet" href="https://unpkg.com/docsify-themeable/dist/css/theme-defaults.css">
+  <!-- Custom theme stylesheet -->
+  <link rel="stylesheet" href="cohesity.css">
 </head>
 <body>
   <div id="app"></div>
@@ -25,7 +21,12 @@
       loadSidebar: true,
       coverpage: true,
       subMaxLevel: 2,
-      themeColor: '#94cb3b'
+      themeColor: '#94cb3b',
+      search: {
+        placeholder: 'Type to search',
+        noData: 'No Results Found!',
+        depth: 1
+      }
     }
   </script>
     <!-- Load plugins -->
@@ -33,5 +34,6 @@
   <script src="//unpkg.com/docsify/lib/plugins/search.min.js"></script>
   <script src="//unpkg.com/docsify-copy-code"></script>
   <script src="//unpkg.com/prismjs/components/prism-powershell.min.js"></script>
+  <script src="//unpkg.com/docsify/lib/plugins/emoji.min.js"></script>
 </body>
 </html>
