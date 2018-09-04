@@ -103,6 +103,7 @@
 
 
     /* Sidebar */
+    --sidebar-width                                     : 24rem;
     --sidebar-background                                : var(--mono-tint3);
     --sidebar-border-color                              : var(--mono-tint2);
     --sidebar-border-width                              : 0 1px 0 0;
