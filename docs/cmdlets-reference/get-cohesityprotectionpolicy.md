@@ -18,10 +18,10 @@ Specifying parameters filters the results that are returned.
 
 ### EXAMPLE 1
 ```
-Get-CohesityProtectionPolicy -Names TestPolicy
+Get-CohesityProtectionPolicy -Names Test-Policy
 ```
 
-Displays the protection policy with name "TestPolicy"
+Displays the protection policy with name "Test-Policy".
 
 ## PARAMETERS
 

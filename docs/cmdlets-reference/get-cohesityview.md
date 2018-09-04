@@ -22,10 +22,10 @@ To get the next set of views, send another request and specify the id of the las
 
 ### EXAMPLE 1
 ```
-Get-CohesityView -ViewNames Testview
+Get-CohesityView -ViewNames Test-view
 ```
 
-Displays the view with the name "Testview".
+Displays the view with the name "Test-view".
 
 ## PARAMETERS
 

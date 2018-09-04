@@ -23,10 +23,10 @@ namespace Cohesity.Powershell.Cmdlets.View
     /// <example>
     ///   <para>PS&gt;</para>
     ///   <code>
-    ///   Get-CohesityView -ViewNames Testview
+    ///   Get-CohesityView -ViewNames Test-view
     ///   </code>
     ///   <para>
-    ///   Displays the view with the name "Testview".
+    ///   Displays the view with the name "Test-view".
     ///   </para>
     /// </example>
     [Cmdlet(VerbsCommon.Get, "CohesityView")]

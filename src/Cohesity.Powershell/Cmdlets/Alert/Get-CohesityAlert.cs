@@ -102,7 +102,7 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
         /// </para>
         /// </summary>
         [Parameter(Mandatory = false)]
-        public int? StartDate { get; set; }
+        public int? StartTime { get; set; }
 
         /// <summary>
         /// <para type="description">
@@ -110,7 +110,7 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
         /// </para>
         /// </summary>
         [Parameter(Mandatory = false)]
-        public int? EndDate { get; set; }
+        public int? EndTime { get; set; }
 
         /// <summary>
         /// Process Records
@@ -140,11 +140,11 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
             if (AlertTypeList != null && AlertTypeList.Any())
                 queries.Add("alertTypeList", string.Join(",", AlertTypeList));
 
-            if (StartDate.HasValue)
-                queries.Add("startDateUsecs", StartDate.ToString());
+            if (StartTime.HasValue)
+                queries.Add("startDateUsecs", StartTime.ToString());
 
-            if (EndDate.HasValue)
-                queries.Add("endDateUsecs", EndDate.ToString());
+            if (EndTime.HasValue)
+                queries.Add("endDateUsecs", EndTime.ToString());
 
             var queryString = string.Empty;
             if (queries.Any())

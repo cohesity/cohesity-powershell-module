@@ -53,7 +53,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
         /// <summary>
         /// <para type="description">
         /// Limit the returned VMs to those that exactly match the passed in VM name.
-        /// To match multiple VM names, specify multiple names that each specify a single VM name.
+        /// To match multiple VM names, specify multiple names separated by commas.
         /// The string must exactly match the passed in VM name and wild cards are not supported.
         /// </para>
         /// </summary>

@@ -72,7 +72,7 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
         /// </para>
         /// </summary>
         [Parameter(Mandatory = false)]
-        public int? StartDate { get; set; }
+        public int? StartTime { get; set; }
 
         /// <summary>
         /// <para type="description">
@@ -82,7 +82,7 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
         /// </para>
         /// </summary>
         [Parameter(Mandatory = false)]
-        public int? EndDate { get; set; }
+        public int? EndTime { get; set; }
 
         protected override void ProcessRecord()
         {
@@ -94,11 +94,11 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
             if (Ids != null && Ids.Any())
                 queries.Add("taskIds", string.Join(",", Ids));
 
-            if (StartDate.HasValue)
-                queries.Add("startTimeUsecs", StartDate.ToString());
+            if (StartTime.HasValue)
+                queries.Add("startTimeUsecs", StartTime.ToString());
 
-            if (EndDate.HasValue)
-                queries.Add("endTimeUsecs", EndDate.ToString());
+            if (EndTime.HasValue)
+                queries.Add("endTimeUsecs", EndTime.ToString());
 
             var queryString = string.Empty;
             if (queries.Any())

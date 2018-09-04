@@ -6,7 +6,7 @@ Gets a list of the restore tasks filtered by the specified parameters.
 ## SYNTAX
 
 ```
-Get-CohesityRestoreTask [-EndDate <int>] [-Ids <int[]>] [-StartDate <int>] [-Types <TypeEnum[]>]
+Get-CohesityRestoreTask [-EndTime <int>] [-Ids <int[]>] [-StartTime <int>] [-Types <TypeEnum[]>]
  [<CommonParameters>]
 ```
 
@@ -54,7 +54,7 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -StartDate
+### -StartTime
 Filter by start date and time by specifying a unix epoch time in microseconds.
 All Restore Tasks (both completed and running) on the Cohesity Cluster that started after the specified start time but before the specified end time are returned.
 If not set, the start time is creation time of the Cohesity Cluster.
@@ -71,7 +71,7 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -EndDate
+### -EndTime
 Filter by end date and time by specifying a unix epoch time in microseconds.
 All Restore Tasks (both completed and running) on the Cohesity Cluster that started after the specified start time but before the specified end time are returned.
 If not set, the end time is the current time.

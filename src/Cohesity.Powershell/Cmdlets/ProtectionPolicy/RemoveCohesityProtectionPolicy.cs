@@ -17,7 +17,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionPolicy
     ///   Remove-CohesityProtectionPolicy -Id 7004504288922732:1533243443420:3
     ///   </code>
     ///   <para>
-    ///   Removes a protection policy with the Id of "7004504288922732:1533243443420:3".
+    ///   Removes a protection policy with the specified Id.
     ///   </para>
     /// </example>
     [Cmdlet(VerbsCommon.Remove, "CohesityProtectionPolicy")]

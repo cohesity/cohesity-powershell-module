@@ -18,10 +18,10 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionPolicy
     /// <example>
     ///   <para>PS&gt;</para>
     ///   <code>
-    ///   Get-CohesityProtectionPolicy -Names TestPolicy
+    ///   Get-CohesityProtectionPolicy -Names Test-Policy
     ///   </code>
     ///   <para>
-    ///   Displays the protection policy with name "TestPolicy"
+    ///   Displays the protection policy with name "Test-Policy".
     ///   </para>
     /// </example>
     [Cmdlet(VerbsCommon.Get, "CohesityProtectionPolicy")]

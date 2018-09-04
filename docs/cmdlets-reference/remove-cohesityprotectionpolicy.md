@@ -19,7 +19,7 @@ Returns success if the protection policy is removed.
 Remove-CohesityProtectionPolicy -Id 7004504288922732:1533243443420:3
 ```
 
-Removes a protection policy with the Id of "7004504288922732:1533243443420:3".
+Removes a protection policy with the specified Id.
 
 ## PARAMETERS
 

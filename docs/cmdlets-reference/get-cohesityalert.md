@@ -8,7 +8,7 @@ Gets a list of alerts triggered on the Cohesity Cluster filtered by the specifie
 ```
 Get-CohesityAlert -MaxAlerts <int> [-AlertCategoryList <AlertCategoryEnum[]>] [-AlertIdList <string[]>]
  [-AlertSeverityList <SeverityEnum[]>] [-AlertStateList <AlertStateEnum[]>] [-AlertTypeList <int[]>]
- [-EndDate <int>] [-ResolutionIdList <int[]>] [-StartDate <int>] [<CommonParameters>]
+ [-EndTime <int>] [-ResolutionIdList <int[]>] [-StartTime <int>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -131,7 +131,7 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -StartDate
+### -StartTime
 Filter by start date and time by specifying a unix epoch time in microseconds.
 
 ```yaml
@@ -146,7 +146,7 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -EndDate
+### -EndTime
 Filter by end date and time by specifying a unix epoch time in microseconds.
 
 ```yaml
