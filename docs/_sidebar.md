@@ -1,9 +1,10 @@
+## Getting Started
 * [Overview](overview.md)
 * [Pre-requisites](pre-requisites.md)
 * [Installation](installation.md)
 * [How to use](how-to-use.md)
 * [Feedback](feedback.md)
----
+## Cmdlets Reference
 * [Connect-CohesityCluster](cmdlets-reference/connect-cohesitycluster.md)
 * [Disconnect-CohesityCluster](cmdlets-reference/disconnect-cohesitycluster.md)
 * [Get-CohesityCluster](cmdlets-reference/get-cohesitycluster.md)

@@ -6,5 +6,5 @@
 * Makes it easy to automate common tasks and orchestrate workflows.
 * Cross-platform. Supports Windows, Linux and Mac OS.
 
+[Get Started](#getting-started)
 [GitHub](https://github.com/cohesity/cohesity-powershell-module/)
-[Get Started](#overview)

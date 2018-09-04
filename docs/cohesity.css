@@ -30,8 +30,8 @@
 
     /* Headings */
     --heading-font-weight                : var(--strong-font-weight);
-    --heading-h1-font-weight             : 400;
-    --heading-h2-font-weight             : 400;
+    --heading-h1-font-weight             : 200;
+    --heading-h2-font-weight             : 200;
     --heading-h2-border-color            : var(--mono-tint2);
     --heading-h2-border-width            : 0 0 1px 0;
     --heading-h2-margin                  : 2.5rem 0 1.5rem;
@@ -109,7 +109,7 @@
     --sidebar-border-width                              : 0 1px 0 0;
 
     /* Name */
-    --sidebar-name-color                                : var(--theme-color);
+    --sidebar-name-color                                : black;
     --sidebar-name-font-weight                          : 300;
 
     /* Nav Headings */
