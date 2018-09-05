@@ -16,7 +16,7 @@ You can install Cohesity PowerShell Module directly from the [PowerShell Gallery
 
 ---
 
-* For installing a pre-release version, please use the `-AllowPrerelease` option as below.
+  > **Tip:** For installing a pre-release version, please use the `-AllowPrerelease` option as below.
 
 
   ```powershell
