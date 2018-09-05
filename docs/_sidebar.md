@@ -4,7 +4,11 @@
 - [Installation](installation.md)
 - [How to use](how-to-use.md)
 - [Feedback](feedback.md)
+
+
+- **Workflows**
 - [Example Workflows](example-workflows.md)
+
 
 - **Cmdlets Reference**
 - [Connect-CohesityCluster](cmdlets-reference/connect-cohesitycluster.md)
