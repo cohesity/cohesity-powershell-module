@@ -8,3 +8,5 @@ This project provides a PowerShell Module for interacting with the `Cohesity Dat
 It includes cmdlets useful for automating common tasks and orchestrating workflows in your environment.
 
 This PowerShell module can be used on Windows, Linux or Mac OS.
+
+The Cohesity PowerShell Module leverages Cohesity REST API to interact with the Cohesity Cluster.
