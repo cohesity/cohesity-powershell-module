@@ -1,9 +1,9 @@
-# Example Workflows
+# Sample Workflows
 
 ## Add multiple VMs to a Protection Job
 You can use the powershell function below to add multiple VMs to an existing protection job.
 
-### Example usage
+### Example
 ```powershell
 Add-VmsToProtectionJob.ps1 -JobId 5 -VMNames linux-vm,win2k16-vm -Mode Append
 ```

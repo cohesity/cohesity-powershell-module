@@ -3,11 +3,8 @@
 - [Pre-requisites](pre-requisites.md)
 - [Installation](installation.md)
 - [How to use](how-to-use.md)
+- [Samples](samples.md)
 - [Feedback](feedback.md)
-
-
-- **Workflows**
-- [Example Workflows](example-workflows.md)
 
 
 - **Cmdlets Reference**
