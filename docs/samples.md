@@ -60,3 +60,10 @@ You can simply use `Start-CohesityProtectionJob` cmdlet to achieve this task.
 ```powershell
 Start-CohesityProtectionJob -Id 5 -RunType KRegular
 ```
+
+## See recent unresolved alerts on the Cohesity Cluster
+You can simply use `Get-CohesityAlert` cmdlet to achieve this task.
+
+```powershell
+Get-CohesityAlert -MaxAlerts 100 -AlertStateList kOpen
+```
