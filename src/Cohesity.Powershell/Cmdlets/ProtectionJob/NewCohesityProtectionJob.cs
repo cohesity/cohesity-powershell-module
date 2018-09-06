@@ -17,10 +17,10 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
     /// <example>
     ///   <para>PS&gt;</para>
     ///   <code>
-    ///   New-CohesityProtectionJob -Name "Test Job" -PolicyId "7004504288922732:1533243443420:1" -ViewBoxId 5 -ParentSourceID 1 -SourceIDs 1580 -Timezone "America/New_York"
+    ///   New-CohesityProtectionJob -Name 'TestJobviewenv' -Description 'It protects' -PolicyID 4816026365909361:1530076822448:1 -Environment 'kView' -ViewName 'cohesity_int_19417' -ViewBoxID 3144
     ///   </code>
     ///   <para>
-    ///   Creates a protection job with only required parameters.
+    ///   Creates a protection job in kView environment.
     ///   </para>
     /// </example>
     [Cmdlet(VerbsCommon.New, "CohesityProtectionJob")]
