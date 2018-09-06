@@ -8,7 +8,7 @@ You can use the powershell script below to add multiple VMs to an existing prote
 Add-VmsToProtectionJob.ps1 -JobId 5 -VMNames linux-vm,win2k16-vm -Mode Append
 ```
 
-This function uses a combination of three cmdlets `Get-CohesityProtectionJob`, `Get-CohesityVM` and `Set-CohesityProtectionJob` to achieve this task.
+This script uses a combination of three cmdlets `Get-CohesityProtectionJob`, `Get-CohesityVM` and `Set-CohesityProtectionJob` to achieve this task.
 
 ```powershell
 param(
