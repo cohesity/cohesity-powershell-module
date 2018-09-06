@@ -1,7 +1,7 @@
 # Sample Workflows
 
 ## Add multiple VMs to a Protection Job
-You can use the powershell function below to add multiple VMs to an existing protection job.
+You can use the powershell script below to add multiple VMs to an existing protection job.
 
 ### Example
 ```powershell
