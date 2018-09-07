@@ -68,13 +68,13 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
         [ValidateNotNullOrEmpty()]
         public string PolicyId { get; set; }
 
-        [Parameter(Mandatory = true)]
+        [Parameter(Mandatory = false)]
         public long? ParentSourceId { get; set; }
 
-        [Parameter(Mandatory = true)]
+        [Parameter(Mandatory = false)]
         public long?[] SourceIds { get; set; }
 
-        [Parameter(Mandatory = true)]
+        [Parameter(Mandatory = false)]
         public string Timezone { get; set; }
 
         [Parameter(Mandatory = false)]
