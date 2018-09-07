@@ -1,30 +1,29 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Management.Automation;
 using Cohesity.Powershell.Common;
 
-namespace Cohesity.Powershell.Cmdlets.Audit
+namespace Cohesity.Powershell.Cmdlets.AuditLog
 {
     /// <summary>
     /// <para type="synopsis">
-    /// When actions (such as a login or a Job being paused) occur on the Cohesity Cluster, the Cluster generates Audit Logs. 
+    /// Gets a list of audit logs generated on the Cohesity Cluster. 
     /// </para>
     /// <para type="description">
-    /// If no parameters are specified, all logs currently on the Cohesity Cluster are returned. 
+    /// If no parameters are specified, all audit logs currently on the Cohesity Cluster are returned. 
     /// </para>
     /// </summary>
     /// <example>
     ///   <para>PS&gt;</para>
     ///   <code>
-    ///   Get-CohesityAuditLogs -UserName Admin | ConvertToJson
+    ///   Get-CohesityAuditLog -UserNames Admin
     ///   </code>
     ///   <para>
-    ///   All auditlogs related username admin are displayed
+    ///   All audit logs related to the username admin are displayed.
     ///   </para>
     /// </example>
-    [Cmdlet(VerbsCommon.Get, "CohesityAuditLogs")]
-    [OutputType(typeof(Models.ClusterAuditLogsSearchResult))]
-    public class GetCohesityAuditLogs : PSCmdlet
+    [Cmdlet(VerbsCommon.Get, "CohesityAuditLog")]
+    [OutputType(typeof(Models.ClusterAuditLog))]
+    public class GetCohesityAuditLog : PSCmdlet
     {
         private Session Session
         {
@@ -41,7 +40,7 @@ namespace Cohesity.Powershell.Cmdlets.Audit
 
         /// <summary>
         /// <para type="description">
-        /// Filter by user names who cause the actions that generate Cluster Audit Logs.
+        /// Filter by user names who caused the actions that generate Cluster Audit Logs.
         /// </para> 
         /// </summary>
         [Parameter(Mandatory = false)]
@@ -49,7 +48,7 @@ namespace Cohesity.Powershell.Cmdlets.Audit
 
         /// <summary>
         /// <para type="description">
-        /// Filter by domains of users who cause the actions that trigger Cluster audit logs.
+        /// Filter by domains of users who caused the actions that trigger Cluster audit logs.
         /// </para>
         /// </summary>
         [Parameter(Mandatory = false)]
@@ -89,7 +88,7 @@ namespace Cohesity.Powershell.Cmdlets.Audit
 
         /// <summary>
         /// <para type="description">
-        /// Filter by matching a substring in entity name or details of the Cluster audit log.
+        /// Filter by matching a substring in entity name or details of the Cluster audit logs.
         /// </para>
         /// </summary>
         [Parameter(Mandatory = false)]
@@ -159,7 +158,7 @@ namespace Cohesity.Powershell.Cmdlets.Audit
             var preparedUrl = $"/public/auditLogs/cluster{queries.Build()}";
             WriteDebug(preparedUrl);
             var result = Session.NetworkClient.Get<Models.ClusterAuditLogsSearchResult>(preparedUrl);
-            WriteObject(result);
+            WriteObject(result.ClusterAuditLogs, true);
         }
 
     }
