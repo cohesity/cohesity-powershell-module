@@ -1,6 +1,6 @@
 # Cohesity PowerShell Module
 
-![](.gitbook/assets/cohesity_powershell.png)
+![](assets/cohesity_powershell.png)
 
 ## Overview
 [![License: Apache2](https://img.shields.io/hexpm/l/plug.svg?style=flat-square)](https://github.com/cohesity/cohesity-powershell-module/blob/master/LICENSE)
