@@ -45,6 +45,28 @@
       </ListControl>
     </View>
     
+        <!-- AlertResolution -->
+    <View>
+      <Name>AlertResolution.ListView</Name>
+      <ViewSelectedBy>
+        <TypeName>Cohesity.Models.AlertResolution</TypeName>
+      </ViewSelectedBy>
+      <ListControl>
+        <ListEntries>
+          <ListEntry>
+            <ListItems>
+              <ListItem>
+                <PropertyName>AlertIdList</PropertyName>
+              </ListItem>
+              <ListItem>
+                <PropertyName>ResolutionDetails</PropertyName>
+              </ListItem>
+            </ListItems>
+          </ListEntry>
+        </ListEntries>
+      </ListControl>
+    </View>
+      
     <!-- ProtectionPolicy -->
     <View>
       <Name>ProtectionPolicy.ListView</Name>
