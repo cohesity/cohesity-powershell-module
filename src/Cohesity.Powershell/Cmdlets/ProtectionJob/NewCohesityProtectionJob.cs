@@ -17,10 +17,10 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
     /// <example>
     ///   <para>PS&gt;</para>
     ///   <code>
-    ///   New-CohesityProtectionJob -Name 'TestJobviewenv' -Description 'It protects' -PolicyID 4816026365909361:1530076822448:1 -Environment 'kView' -ViewName 'cohesity_int_19417' -ViewBoxID 3144
+    ///   New-CohesityProtectionJob -Name 'Test-Job-View' -Description 'Protects a View' -PolicyID 4816026365909361:1530076822448:1 -Environment 'kView' -ViewName 'cohesity_int_19417' -ViewBoxID 3144
     ///   </code>
     ///   <para>
-    ///   Creates a protection job in kView environment.
+    ///   Creates a protection job for protecting a View.
     ///   </para>
     /// </example>
     [Cmdlet(VerbsCommon.New, "CohesityProtectionJob")]
@@ -92,7 +92,12 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
         [Parameter()]
         public string ViewName { get; set; }
 
-        [Parameter()]
+        /// <summary>
+        /// <para type="description">
+        /// Specifies the environment that this job is protecting. Default is kView.
+        /// </para>
+        /// </summary>
+        [Parameter(Mandatory = false)]
         public EnvironmentEnum? Environment { get; set; }
 
         [Parameter()]
@@ -125,8 +130,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
             if (!string.IsNullOrWhiteSpace(ViewName))
                 newProtectionJob.ViewName = ViewName;
 
-            if (Environment != null)
-                newProtectionJob.Environment = Environment.ToString();
+            newProtectionJob.Environment = Environment != null ? Environment.ToString() : EnvironmentEnum.kView.ToString();
 
             if (SourceSpecialParameters != null && SourceSpecialParameters.Any())
             {

@@ -11,11 +11,9 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
     /// Gets a list of the registered Protection Sources and their Objects.
     /// </para>
     /// <para type="description">
-    /// If no parameters are specified, all Protection Sources that are registered on the Cohesity Cluster are returned.
-    /// In addition, an Object subtree gathered from each Source is returned.
-    /// For example, the Cohesity Cluster interrogates a Source VMware vCenter Server and creates an hierarchical Object subtree that mirrors the Inventory tree on vCenter Server.
-    /// The contents of the Object tree is returned as a “nodes” hierarchy of "protectionSource"s.
-    /// Specifying parameters can alter the results that are returned.
+    /// If no parameters are specified, all Protection Sources on the Cohesity Cluster are returned.
+    /// In addition, the sub objects for each Source are also returned.
+    /// Specifying the parameters can filter the results that are returned.
     /// </para>
     /// </summary>
     [Cmdlet(VerbsCommon.Get, "CohesityProtectionSourceObject")]
