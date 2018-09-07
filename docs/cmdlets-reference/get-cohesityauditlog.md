@@ -1,77 +1,93 @@
-# New-CohesityProtectionJob
+# Get-CohesityAuditLog
 
 ## SYNOPSIS
-Creates a new protection job.
+Gets a list of audit logs generated on the Cohesity Cluster.
 
 ## SYNTAX
 
 ```
-New-CohesityProtectionJob -Description <string> -Name <string> -PolicyId <string> -ViewBoxId <long>
- [-Environment <EnvironmentEnum>] [-ParentSourceId <long>] [-ScheduleStartTime <DateTime>]
- [-SourceIds <Nullable`1[]>] [-SourceSpecialParameters <SourceSpecialParameter[]>] [-Timezone <string>]
- [-ViewName <string>] [<CommonParameters>]
+Get-CohesityAuditLog [-Actions <string[]>] [-Domains <string[]>] [-EndTime <long>] [-EntityTypes <string[]>]
+ [-OutputFormat <string>] [-PageCount <long>] [-Search <string>] [-StartIndex <long>] [-StartTime <long>]
+ [-UserNames <string[]>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Returns the created protection job.
+If no parameters are specified, all audit logs currently on the Cohesity Cluster are returned.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-New-CohesityProtectionJob -Name 'Test-Job-View' -Description 'Protects a View' -PolicyID 4816026365909361:1530076822448:1 -Environment 'kView' -ViewName 'cohesity_int_19417' -ViewBoxID 3144
+Get-CohesityAuditLog -UserNames Admin
 ```
 
-Creates a protection job for protecting a View.
+All audit logs related to the username admin are displayed.
 
 ## PARAMETERS
 
-### -Name
-Specifies the name of the protection job.
+### -UserNames
+Filter by user names who caused the actions that generate Cluster Audit Logs.
 
 ```yaml
-Type: string
+Type: string[]
 Parameter Sets: (All)
 Aliases:
 
-Required: True
+Required: False
 Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Description
-Specifies the description of the protection job.
+### -Domains
+Filter by domains of users who caused the actions that trigger Cluster audit logs.
 
 ```yaml
-Type: string
+Type: string[]
 Parameter Sets: (All)
 Aliases:
 
-Required: True
+Required: False
 Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -PolicyId
-Specifies the unique id of the protection policy associated with the protection job.
+### -EntityTypes
+Filter by entity types involved in the actions that generate the Cluster audit logs, such as User, Protection Job, View, etc.
 
 ```yaml
-Type: string
+Type: string[]
 Parameter Sets: (All)
 Aliases:
 
-Required: True
+Required: False
 Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -ParentSourceId
+### -Actions
+Filter by the actions that generate Cluster audit logs such as Activate, Cancel, Clone, Create, etc.
+
+```yaml
+Type: string[]
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -StartTime
+Filter by start date and time by specifying a unix epoch time in microseconds.
+
 ```yaml
 Type: long
 Parameter Sets: (All)
@@ -84,61 +100,24 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -SourceIds
-```yaml
-Type: Nullable`1[]
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Timezone
-```yaml
-Type: string
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -ScheduleStartTime
-```yaml
-Type: DateTime
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: 9/7/2018 7:06:10 AM
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -ViewBoxId
-Specifies the storage domain (view box) id where this job writes data.
+### -EndTime
+Filter by end date and time by specifying a unix epoch time in microseconds.
 
 ```yaml
 Type: long
 Parameter Sets: (All)
 Aliases:
 
-Required: True
+Required: False
 Position: Named
-Default value: 0
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -ViewName
+### -Search
+Filter by matching a substring in entity name or details of the Cluster audit logs.
+
 ```yaml
 Type: string
 Parameter Sets: (All)
@@ -151,17 +130,13 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Environment
-Specifies the environment that this job is protecting.
-Default is kView.
-
-Possible values: kVMware, kSQL, kView, kPuppeteer, kPhysical, kPure, kNetapp, kGenericNas, kHyperV, kAcropolis, kAzure, kPhysicalFiles, kAgent, kIsilon
+### -StartIndex
+Specifies an index number that can be used to return subsets of items in multiple requests.
 
 ```yaml
-Type: EnvironmentEnum
+Type: long
 Parameter Sets: (All)
 Aliases:
-Accepted values: kVMware, kSQL, kView, kPuppeteer, kPhysical, kPure, kNetapp, kGenericNas, kHyperV, kAcropolis, kAzure, kPhysicalFiles, kAgent, kIsilon
 
 Required: False
 Position: Named
@@ -170,9 +145,29 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -SourceSpecialParameters
+### -PageCount
+Limit the number of items to return in the response for pagination purposes.
+Default value is 1000.
+
 ```yaml
-Type: SourceSpecialParameter[]
+Type: long
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -OutputFormat
+Specifies the format of the output such as csv and json.
+If not specified, the json format is returned.
+If csv is specified, a comma-separated list with a heading row is returned
+
+```yaml
+Type: string
 Parameter Sets: (All)
 Aliases:
 
@@ -191,7 +186,7 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 
 ## OUTPUTS
 
-### Cohesity.Models.ProtectionJob
+### Cohesity.Models.ClusterAuditLog
 ## NOTES
 
 ## RELATED LINKS
