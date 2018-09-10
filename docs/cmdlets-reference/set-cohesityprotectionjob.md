@@ -34,12 +34,12 @@ Aliases:
 Required: True
 Position: Named
 Default value: 0
-Accept pipeline input: False
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
 ### -ProtectionJob
-The updated protection job.
+The updated protection job object.
 
 ```yaml
 Type: ProtectionJob
@@ -49,7 +49,7 @@ Aliases:
 Required: True
 Position: Named
 Default value: None
-Accept pipeline input: False
+Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
@@ -58,6 +58,12 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
+
+### System.Int64
+Specifies a unique id of the protection job.
+
+### Cohesity.Models.ProtectionJob
+The updated protection job object.
 
 ## OUTPUTS
 

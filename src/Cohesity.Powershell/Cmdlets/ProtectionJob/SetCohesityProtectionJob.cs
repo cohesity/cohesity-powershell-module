@@ -48,17 +48,17 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
         /// Specifies a unique id of the protection job.
         /// </para>
         /// </summary>
-        [Parameter(Mandatory = true)]
+        [Parameter(Mandatory = true, ValueFromPipelineByPropertyName = true)]
         [ValidateRange(1, long.MaxValue)]
         public long Id { get; set; }
 
 
         /// <summary>
         /// <para type="description">
-        /// The updated protection job.
+        /// The updated protection job object.
         /// </para>
         /// </summary>
-        [Parameter(Mandatory = true)]
+        [Parameter(Mandatory = true, ValueFromPipeline = true)]
         public Models.ProtectionJob ProtectionJob { get; set; } = null;
 
         #endregion
