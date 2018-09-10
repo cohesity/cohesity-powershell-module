@@ -20,7 +20,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionPolicy
     ///   Removes a protection policy with the specified Id.
     ///   </para>
     /// </example>
-    [Cmdlet(VerbsCommon.Remove, "CohesityProtectionPolicy")]
+    [Cmdlet(VerbsCommon.Remove, "CohesityProtectionPolicy", SupportsShouldProcess = true)]
     public class RemoveCohesityProtectionPolicy : PSCmdlet
     {
         private Session Session
@@ -66,10 +66,18 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionPolicy
         /// </summary>
         protected override void ProcessRecord()
         {
-            // POST /public/protectionPolicies/{id}
-            var preparedUrl = $"/public/protectionPolicies/{Id}";
-            Session.NetworkClient.Delete(preparedUrl, string.Empty);
-            WriteObject("Protection policy was deleted successfully.");
+            if (ShouldProcess("Cluster"))
+            {
+                // POST /public/protectionPolicies/{id}
+                var preparedUrl = $"/public/protectionPolicies/{Id}";
+                Session.NetworkClient.Delete(preparedUrl, string.Empty);
+                WriteObject("Protection policy was deleted successfully.");
+            }
+
+            else
+            {
+                WriteObject("Protection policy was not deleted");
+            }
         }
 
         #endregion
