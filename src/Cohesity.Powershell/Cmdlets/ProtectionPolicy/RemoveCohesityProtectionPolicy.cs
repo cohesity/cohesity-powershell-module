@@ -71,12 +71,12 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionPolicy
                 // POST /public/protectionPolicies/{id}
                 var preparedUrl = $"/public/protectionPolicies/{Id}";
                 Session.NetworkClient.Delete(preparedUrl, string.Empty);
-                WriteObject("Protection policy was deleted successfully.");
+                WriteObject($"Protection policy with Id {Id} was deleted successfully.");
             }
 
             else
             {
-                WriteObject("Protection policy was not deleted");
+                WriteObject($"Protection policy with ID {Id} was not deleted");
             }
         }
 

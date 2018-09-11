@@ -96,12 +96,12 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
 
                 var preparedUrl = $"/public/protectionJobs/{Id.ToString()}";
                 Session.NetworkClient.Delete(preparedUrl, content);
-                WriteObject("Protection job was deleted successfully.");
+                WriteObject($"Protection job with ID {Id} was deleted successfully.");
             }
 
             else
             {
-                WriteObject("Protection job was not deleted.");
+                WriteObject($"Protection job with ID {Id} was not deleted.");
             }
         }
         #endregion

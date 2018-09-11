@@ -72,12 +72,12 @@ namespace Cohesity.Powershell.Cmdlets.View
                 // DELETE /public/views/{name}
                 var preparedUrl = $"/public/views/{Name}";
                 Session.NetworkClient.Delete(preparedUrl, string.Empty);
-                WriteObject("View was deleted successfully.");
+                WriteObject($"View with name {Name.Trim()} was deleted successfully.");
             }
 
             else
             {
-                WriteObject("View was not deleted.");
+                WriteObject($"View with name {Name.Trim()} was not deleted.");
             }
         }
 
