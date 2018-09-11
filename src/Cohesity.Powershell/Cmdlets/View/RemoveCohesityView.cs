@@ -20,7 +20,7 @@ namespace Cohesity.Powershell.Cmdlets.View
     ///   Removes a view with the name "Test-View".
     ///   </para>
     /// </example>
-    [Cmdlet(VerbsCommon.Remove, "CohesityView")]
+    [Cmdlet(VerbsCommon.Remove, "CohesityView", SupportsShouldProcess = true)]
     public class RemoveCohesityView : PSCmdlet
     {
         private Session Session
@@ -67,10 +67,18 @@ namespace Cohesity.Powershell.Cmdlets.View
         /// </summary>
         protected override void ProcessRecord()
         {
-            // DELETE /public/views/{name}
-            var preparedUrl = $"/public/views/{Name}";
-            Session.NetworkClient.Delete(preparedUrl, string.Empty);
-            WriteObject("View was deleted successfully.");
+            if (ShouldProcess("CohesityCluster"))
+            {
+                // DELETE /public/views/{name}
+                var preparedUrl = $"/public/views/{Name}";
+                Session.NetworkClient.Delete(preparedUrl, string.Empty);
+                WriteObject($"View with name {Name.Trim()} was deleted successfully.");
+            }
+
+            else
+            {
+                WriteObject($"View with name {Name.Trim()} was not deleted.");
+            }
         }
 
         #endregion
