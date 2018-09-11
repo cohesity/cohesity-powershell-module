@@ -86,7 +86,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
         protected override void ProcessRecord()
         {
             // POST /public/protectionJobState/{id}
-            if (ShouldProcess("Cluster"))
+            if (ShouldProcess("CohesityCluster"))
             {
                 var content = new
                 {
@@ -96,12 +96,12 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
 
                 var preparedUrl = $"/public/protectionJobs/{Id.ToString()}";
                 Session.NetworkClient.Delete(preparedUrl, content);
-                WriteObject($"Protection job with ID {Id} was deleted successfully.");
+                WriteObject($"Protection job with Id {Id} was deleted successfully.");
             }
 
             else
             {
-                WriteObject($"Protection job with ID {Id} was not deleted.");
+                WriteObject($"Protection job with Id {Id} was not deleted.");
             }
         }
         #endregion
