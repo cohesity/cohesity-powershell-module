@@ -21,7 +21,7 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
     /// Set-CohesityClusterConfiguration -Cluster $Cluster
     /// </code>
     /// <para>
-    /// Updates the Cohesity Cluster configuration with specified parameters. with.
+    /// Updates the Cohesity Cluster configuration with specified parameters.
     /// </para>
     /// </example>
 
@@ -48,7 +48,7 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
 
         /// <summary>
         /// <para type="description">
-        /// The updated  Cluster Configuration.
+        /// The updated Cohesity Cluster Configuration.
         /// </para>
         /// </summary>
         [Parameter(Mandatory = true, ValueFromPipeline = true)]

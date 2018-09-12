@@ -45,7 +45,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
 
         /// <summary>
         /// <para type="description">
-        /// The updated protection job object.
+        /// The updated protection job.
         /// </para>
         /// </summary>
         [Parameter(Mandatory = true, ValueFromPipeline = true)]

@@ -1,33 +1,33 @@
-# Set-CohesityProtectionJob
+# Set-CohesityClusterConfiguration
 
 ## SYNOPSIS
-Updates a protection job.
+Updates the Cohesity Cluster configuration.
 
 ## SYNTAX
 
 ```
-Set-CohesityProtectionJob -ProtectionJob <ProtectionJob> [<CommonParameters>]
+Set-CohesityClusterConfiguration -Cluster <Cluster> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Returns the updated protection job.
+Returns the Updated Cohesity Cluster configuration.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Set-CohesityProtectionJob -ProtectionJob $protectionjob
+Set-CohesityClusterConfiguration -Cluster $Cluster
 ```
 
-Updates a protection job with the specified parameters.
+Updates the Cohesity Cluster configuration with specified parameters.
 
 ## PARAMETERS
 
-### -ProtectionJob
-The updated protection job.
+### -Cluster
+The updated Cohesity Cluster Configuration.
 
 ```yaml
-Type: ProtectionJob
+Type: Cluster
 Parameter Sets: (All)
 Aliases:
 
@@ -44,12 +44,12 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 
 ## INPUTS
 
-### Cohesity.Models.ProtectionJob
-The updated protection job.
+### Cohesity.Models.Cluster
+The updated Cohesity Cluster Configuration.
 
 ## OUTPUTS
 
-### Cohesity.Models.ProtectionJob
+### Cohesity.Models.Cluster
 ## NOTES
 
 ## RELATED LINKS
