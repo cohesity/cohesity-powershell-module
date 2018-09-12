@@ -1,30 +1,33 @@
-﻿using System.Management.Automation;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Management.Automation;
+using Cohesity.Models;
 using Cohesity.Powershell.Common;
 
-namespace Cohesity.Powershell.Cmdlets.ProtectionJob
+namespace Cohesity.Powershell.Cmdlets.Cluster
 {
-    // PUT public/protectionJobs/{id}
-
     /// <summary>
     /// <para type="synopsis">
-    /// Updates a protection job.
+    /// Updates the Cohesity Cluster configuration.
     /// </para>
     /// <para type="description">
-    /// Returns the updated protection job.
+    /// Returns the Updated Cohesity Cluster configuration.
     /// </para>
     /// </summary>
     /// <example>
-    ///   <para>PS&gt;</para>
-    ///   <code>
-    ///   Set-CohesityProtectionJob -ProtectionJob $protectionjob
-    ///   </code>
-    ///   <para>
-    ///   Updates a protection job with the specified parameters.
-    ///   </para>
+    /// <para>PS&gt;</para>
+    /// <code>
+    /// Set-CohesityClusterConfiguration -Cluster $Cluster
+    /// </code>
+    /// <para>
+    /// Updates the Cohesity Cluster configuration with specified parameters. with.
+    /// </para>
     /// </example>
-    [Cmdlet(VerbsCommon.Set, "CohesityProtectionJob")]
-    [OutputType(typeof(Models.ProtectionJob))]
-    public class SetCohesityProtectionJob : PSCmdlet
+
+    [Cmdlet(VerbsCommon.Set, "CohesityClusterConfiguration")]
+    [OutputType(typeof(Models.Cluster))]
+    public class SetCohesityClusterConfiguration : PSCmdlet
     {
 
         private Session Session
@@ -45,11 +48,11 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
 
         /// <summary>
         /// <para type="description">
-        /// The updated protection job object.
+        /// The updated  Cluster Configuration.
         /// </para>
         /// </summary>
         [Parameter(Mandatory = true, ValueFromPipeline = true)]
-        public Models.ProtectionJob ProtectionJob { get; set; } = null;
+        public Models.Cluster Cluster { get; set; } = null;
 
         #endregion
 
@@ -70,9 +73,9 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
         /// </summary>
         protected override void ProcessRecord()
         {
-            // PUT public/protectionJobs/{id}
-            var preparedUrl = $"/public/protectionJobs/{ProtectionJob.Id.ToString()}";
-            var result = Session.NetworkClient.Put<Models.ProtectionJob>(preparedUrl, ProtectionJob);
+            // PUT public/cluster
+            var preparedUrl = $"/public/cluster";
+            var result = Session.NetworkClient.Put<Models.Cluster>(preparedUrl, Cluster);
             WriteObject(result);
         }
 
@@ -80,3 +83,4 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
 
     }
 }
+

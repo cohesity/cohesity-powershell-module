@@ -1,0 +1,8 @@
+#Set-CohesityClusterConfiguration	
+#Updates the cluster configuration
+
+$clusterDNSServerIpsNew = "172.16.0.4"
+$cluster = Get-CohesityClusterConfiguration
+$cluster.DnsServerIps = $cluster.DnsServerIps + $clusterDNSServerIpsNew
+
+Set-CohesityClusterConfiguration -Cluster $cluster
