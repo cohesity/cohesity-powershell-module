@@ -13,6 +13,7 @@
 - [Get-CohesityCluster](cmdlets-reference/get-cohesitycluster.md)
 - [Get-CohesityClusterPartition](cmdlets-reference/get-cohesityclusterpartition.md)
 - [Get-CohesityClusterConfiguration](cmdlets-reference/get-cohesityclusterconfiguration.md)
+- [Set-CohesityClusterConfiguration](cmdlets-reference/set-cohesityclusterconfiguration.md)
 - [Register-CohesityProtectionSourceVMware](cmdlets-reference/register-cohesityprotectionsourcevmware.md)
 - [Register-CohesityProtectionSourceHyperV](cmdlets-reference/register-cohesityprotectionsourcehyperv.md)
 - [Register-CohesityProtectionSourceAcropolis](cmdlets-reference/register-cohesityprotectionsourceacropolis.md)
