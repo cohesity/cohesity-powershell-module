@@ -1,0 +1,4 @@
+$protectionjob = Get-CohesityProtectionJob -Names "testingset"
+$protectionjob.Description = "testing update cmdlet1"
+$protectionjob
+set-CohesityProtectionJob -ProtectionJob $protectionjob
