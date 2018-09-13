@@ -45,4 +45,5 @@
 - [Restore-CohesityVMwareVM](cmdlets-reference/restore-cohesityvmwarevm.md)
 - [Get-CohesityRestoreTask](cmdlets-reference/get-cohesityrestoretask.md)
 - [Stop-CohesityRestoreTask](cmdlets-reference/stop-cohesityrestoretask.md)
+- [Set-CohesityProtectionPolicy](cmdlets-reference/set-cohesityprotectionpolicy.md)
 ---
