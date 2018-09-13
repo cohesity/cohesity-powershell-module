@@ -8,16 +8,6 @@
 *.md            text
 *.gitattributes text
 
-# Declare files that will always have CRLF line endings on checkout.
-*.ps1    text  eol=crlf
-*.psm1   text  eol=crlf
-*.psd1   text  eol=crlf
-*.psc1   text  eol=crlf
-*.ps1xml text  eol=crlf
-*.clixml text  eol=crlf
-*.xml    text  eol=crlf
-*.txt    text  eol=crlf
-
 # Denote all files that are truly binary and should not be mergeable.
 *.dll binary
 *.exe binary
