@@ -5,10 +5,10 @@ namespace Cohesity.Powershell.Cmdlets.StorageDomain
 {
     /// <summary>
     /// <para type="synopsis">
-    /// Updates a Domain.
+    /// Updates a Storage Domain.
     /// </para>
     /// <para type="description">
-    /// Returns the updated Domain.
+    /// Returns the updated Storage Domain.
     /// </para>
     /// </summary>
     /// <example>
@@ -17,7 +17,7 @@ namespace Cohesity.Powershell.Cmdlets.StorageDomain
     ///   Set-CohesityStorageDomain -Domain $domain
     ///   </code>
     ///   <para>
-    ///   Updates a Domain.
+    ///   Updates a Storage Domain.
     ///   </para>
     /// </example>
     [Cmdlet(VerbsCommon.Set, "CohesityStorageDomain")]
@@ -42,7 +42,7 @@ namespace Cohesity.Powershell.Cmdlets.StorageDomain
 
         /// <summary>
         /// <para type="description">
-        /// The updated ViewBox.
+        /// The updated StorageDomain.
         /// </para>
         /// </summary>
         [Parameter(Mandatory = true, ValueFromPipeline = true)]

@@ -1,7 +1,7 @@
 # Set-CohesityStorageDomain
 
 ## SYNOPSIS
-Updates a Domain.
+Updates a Storage Domain.
 
 ## SYNTAX
 
@@ -10,7 +10,7 @@ Set-CohesityStorageDomain -Domain <ViewBox> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Returns the updated Domain.
+Returns the updated Storage Domain.
 
 ## EXAMPLES
 
@@ -19,12 +19,12 @@ Returns the updated Domain.
 Set-CohesityStorageDomain -Domain $domain
 ```
 
-Updates a Domain.
+Updates a Storage Domain.
 
 ## PARAMETERS
 
 ### -Domain
-The updated ViewBox.
+The updated StorageDomain.
 
 ```yaml
 Type: ViewBox
@@ -45,7 +45,7 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 ## INPUTS
 
 ### Cohesity.Models.ViewBox
-The updated Protection Policy object.
+The updated StorageDomain.
 
 ## OUTPUTS
 
