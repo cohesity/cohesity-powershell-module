@@ -39,6 +39,7 @@
 - [Get-CohesityView](cmdlets-reference/get-cohesityview.md)
 - [Remove-CohesityView](cmdlets-reference/remove-cohesityview.md)
 - [Get-CohesityStorageDomain](cmdlets-reference/get-cohesitystoragedomain.md)
+- [Set-CohesityStorageDomain](cmdlets-reference/set-cohesitystoragedomain.md)
 - [Get-CohesityAlert](cmdlets-reference/get-cohesityalert.md)
 - [Get-CohesityAlertResolution](cmdlets-reference/get-cohesityalertresolution.md)
 - [Get-CohesityAuditLog](cmdlets-reference/get-cohesityauditlog.md)
