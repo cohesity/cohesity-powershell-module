@@ -42,7 +42,7 @@ namespace Cohesity.Powershell.Cmdlets.StorageDomain
 
         /// <summary>
         /// <para type="description">
-        /// The updated Protection Policy object.
+        /// The updated ViewBox.
         /// </para>
         /// </summary>
         [Parameter(Mandatory = true, ValueFromPipeline = true)]
