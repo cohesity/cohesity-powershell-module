@@ -24,7 +24,7 @@ Updates a Domain.
 ## PARAMETERS
 
 ### -Domain
-The updated Protection Policy object.
+The updated ViewBox.
 
 ```yaml
 Type: ViewBox
