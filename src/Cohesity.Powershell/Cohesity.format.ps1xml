@@ -296,6 +296,9 @@
                 <PropertyName>Id</PropertyName>
               </TableColumnItem>
               <TableColumnItem>
+                <PropertyName>Uid</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
                 <PropertyName>Name</PropertyName>
               </TableColumnItem>
               <TableColumnItem>
@@ -330,6 +333,8 @@
         </TableRowEntries>
         <TableHeaders>
         <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
           </TableColumnHeader>
           <TableColumnHeader>
           </TableColumnHeader>
