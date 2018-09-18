@@ -398,6 +398,65 @@
         </ListEntries>
       </ListControl>
     </View>
+    <View>
+      <Name>ProtectionJobRun.TableView</Name>
+      <ViewSelectedBy>
+        <TypeName>Cohesity.Models.ProtectionRunInstance</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <ScriptBlock>$_.BackupRun.JobRunId</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+               <ScriptBlock>$_.BackupRun.RunType</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>JobId</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>JobName</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>JobUid</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>$_.BackupRun.Environment</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+               <ScriptBlock>$_.BackupRun.Status</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>ViewBoxId</PropertyName>
+              </TableColumnItem>
+              </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+        <TableHeaders>
+        <TableColumnHeader>
+          <Label>Id</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>RunType</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Environment</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Status</Label>
+          </TableColumnHeader>
+          <TableColumnHeader/>
+        </TableHeaders>
+      </TableControl>
+    </View>
     
 
     <!-- ProtectionSource -->
@@ -432,6 +491,49 @@
           </ListEntry>
         </ListEntries>
       </ListControl>
+    </View>
+    <View>
+      <Name>ProtectionSource.TableView</Name>
+      <ViewSelectedBy>
+        <TypeName>Cohesity.Models.ProtectionSourceNode</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <ScriptBlock>$_.ProtectionSource.Id</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+              <ScriptBlock>$_.ProtectionSource.Name</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+              <ScriptBlock>$_.ProtectionSource.Environment</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+               <PropertyName>ProtectionSource</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>RegistrationInfo</PropertyName>
+              </TableColumnItem>
+              </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+        <TableHeaders>
+        <TableColumnHeader>
+          <Label>Id</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Name</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Environment</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader/>
+        </TableHeaders>
+      </TableControl>
     </View>
     
 
