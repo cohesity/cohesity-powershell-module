@@ -44,6 +44,66 @@
         </ListEntries>
       </ListControl>
     </View>
+    <View>
+      <Name>Alert.TableView</Name>
+      <ViewSelectedBy>
+        <TypeName>Cohesity.Models.Alert</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>Id</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>AlertCode</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>AlertState</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>AlertCategory</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Severity</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>LatestTimestampUsecs</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>AlertDocument</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>DedupCount</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>ResolutionDetails</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+        <TableHeaders>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader/>
+        </TableHeaders>
+      </TableControl>
+    </View>
     
         <!-- AlertResolution -->
     <View>
@@ -66,7 +126,33 @@
         </ListEntries>
       </ListControl>
     </View>
-      
+    <View>
+      <Name>AlertResolution.TableView</Name>
+      <ViewSelectedBy>
+        <TypeName>Cohesity.Models.AlertResolution</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>AlertIdList</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>ResolutionDetails</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+        <TableHeaders>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader/>
+        </TableHeaders>
+      </TableControl>
+    </View>
+
+
     <!-- ProtectionPolicy -->
     <View>
       <Name>ProtectionPolicy.ListView</Name>
@@ -99,6 +185,51 @@
           </ListEntry>
         </ListEntries>
       </ListControl>
+    </View>
+    <View>
+      <Name>ProtectionPolicy.TableView</Name>
+      <ViewSelectedBy>
+        <TypeName>Cohesity.Models.ProtectionPolicy</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>Id</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Name</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Description</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>DaysToKeep</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>FullSchedulingPolicy</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>IncrementalSchedulingPolicy</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+        <TableHeaders>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader/>
+        </TableHeaders>
+      </TableControl>
     </View>
 
     <!-- ProtectionJob -->
@@ -194,156 +325,11 @@
               <TableColumnItem>
                 <PropertyName>ExcludeVmTagIds</PropertyName>
               </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>ViewName</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>Description</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>IsActive</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>IsDeleted</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>IsPaused</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>LastRun</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>Uid</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>AbortInBlackoutPeriod</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>AlertingPolicy</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>CloudParameters</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>CreationTimeUsecs</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>EndTimeUsecs</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>EnvironmentParameters</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>FullProtectionSlaTimeMins</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>FullProtectionStartTime</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>IncrementalProtectionSlaTimeMins</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>IncrementalProtectionStartTime</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>IndexingPolicy</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>LeverageStorageSnapshots</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>ModificationTimeUsecs</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>ModifiedByUser</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>PolicyAppliedTimeMsecs</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>QosType</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>Quiesce</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>RemoteScript</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>SourceSpecialParameters</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>StartTime</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>SummaryStats</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>Timezone</PropertyName>
-              </TableColumnItem>
-            </TableColumnItems>
+              </TableColumnItems>
           </TableRowEntry>
         </TableRowEntries>
         <TableHeaders>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
+        <TableColumnHeader>
           </TableColumnHeader>
           <TableColumnHeader>
           </TableColumnHeader>
@@ -412,6 +398,7 @@
         </ListEntries>
       </ListControl>
     </View>
+    
 
     <!-- ProtectionSource -->
     <View>
@@ -446,6 +433,7 @@
         </ListEntries>
       </ListControl>
     </View>
+    
 
     <!-- StorageDomain -->
     <View>
@@ -482,6 +470,56 @@
           </ListEntry>
         </ListEntries>
       </ListControl>
+    </View>
+    <View>
+      <Name>StorageDomain.TableView</Name>
+      <ViewSelectedBy>
+        <TypeName>Cohesity.Models.ViewBox</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>Id</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Name</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>ClusterPartitionId</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>ClusterPartitionName</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>AdDomainName</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>S3BucketsAllowed</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>StoragePolicy</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+        <TableHeaders>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader/>
+        </TableHeaders>
+      </TableControl>
     </View>
 
     <!-- RestoreTask -->
@@ -568,6 +606,136 @@
         </ListEntries>
       </ListControl>
     </View>
+    <View>
+      <Name>RestoreTask.TableView</Name>
+      <ViewSelectedBy>
+        <TypeName>Cohesity.Models.RestoreTask</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>Id</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Name</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Status</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Type</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>ContinueOnError</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>StarTimeUSecs</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>EndTimeUSecs</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>NewParentId</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Username</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Objects</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>RestoreObjectState</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Error</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>DatastoreId</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>TargetViewCreated</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>ViewBoxId</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>FullViewName</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>MountVolumesState</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>ArchiveTaskUid</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>VlanParameters</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>VmwareParameters</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>HypervParameters</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>AcroploisParameters</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>CloneViewParameters</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+        <TableHeaders>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader/>
+        </TableHeaders>
+      </TableControl>
+    </View>
 
     <!-- View -->
     <View>
@@ -617,6 +785,76 @@
         </ListEntries>
       </ListControl>
     </View>
+    <View>
+      <Name>View.TableView</Name>
+      <ViewSelectedBy>
+        <TypeName>Cohesity.Models.View</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>ViewId</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Name</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Description</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>ViewBoxId</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>ViewBoxName</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>ProtocolAccess</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>BasicMountPath</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>SmbMountPath</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>NfsMountPath</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>AllsmbMountPaths</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>LogicalUsageByteslogicalUsageBytes</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+        <TableHeaders>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader/>
+        </TableHeaders>
+      </TableControl>
+    </View>
 
     <!-- VirtualMachine -->
     <View>
@@ -644,6 +882,41 @@
           </ListEntry>
         </ListEntries>
       </ListControl>
+    </View>
+    <View>
+      <Name>VirtualMachine.TableView</Name>
+      <ViewSelectedBy>
+        <TypeName>Cohesity.Models.VirtualMachine</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>Id</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Name</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Environment</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>ParentID</PropertyName>
+              </TableColumnItem>
+             </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+        <TableHeaders>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader/>
+        </TableHeaders>
+      </TableControl>
     </View>
   </ViewDefinitions>
 </Configuration>
