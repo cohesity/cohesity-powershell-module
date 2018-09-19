@@ -147,7 +147,19 @@ namespace Cohesity.Models
             /// Enum KOracle for value: kOracle
             /// </summary>
             [EnumMember(Value = "kOracle")]
-            KOracle = 13
+            KOracle = 13,
+
+            /// <summary>
+            /// Enum KAWS for value: kAWS
+            /// </summary>
+            [EnumMember(Value = "kAWS")]
+            KAWS = 14,
+
+            /// <summary>
+            /// Enum KAWSNative for value: kAWSNative
+            /// </summary>
+            [EnumMember(Value = "kAWSNative")]
+            KAWSNative = 15
         }
 
 

@@ -104,7 +104,13 @@ namespace Cohesity.Models
         kKVM = 15,
 
         [EnumMember(Value = "kOracle")]
-        kOracle = 16
+        kOracle = 16,
+
+        [EnumMember(Value = "kAWS")]
+        kAWS = 17,
+
+        [EnumMember(Value = "kAWSNative")]
+        kAWSNative = 18
 
     }
 }
