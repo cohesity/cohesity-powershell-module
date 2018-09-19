@@ -135,7 +135,19 @@ namespace Cohesity.Models
             /// Enum KAzure for value: kAzure
             /// </summary>
             [EnumMember(Value = "kAzure")]
-            KAzure = 11
+            KAzure = 11,
+
+            /// <summary>
+            /// Enum KKVM for value: kKVM
+            /// </summary>
+            [EnumMember(Value = "kKVM")]
+            KKVM = 12,
+
+            /// <summary>
+            /// Enum KOracle for value: kOracle
+            /// </summary>
+            [EnumMember(Value = "kOracle")]
+            KOracle = 13
         }
 
 

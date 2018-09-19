@@ -4,6 +4,84 @@
 
     <!-- Alert -->
     <View>
+      <Name>Alert.TableView</Name>
+      <ViewSelectedBy>
+        <TypeName>Cohesity.Models.Alert</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>Id</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>AlertState</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>AlertCategory</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Severity</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>
+                  [timezone]::CurrentTimeZone.ToLocalTime(([datetime]'1/1/1970').AddSeconds($_.LatestTimestampUsecs/1000000))
+                </ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>$_.AlertDocument.AlertCause</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>AlertCode</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>AlertDocument</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>DedupCount</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>ResolutionDetails</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+        <TableHeaders>
+          <TableColumnHeader>
+            <Label>Id</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>AlertState</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>AlertCategory</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Severity</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>LatestTimestamp</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>AlertCause</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>AlertCode</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>AlertDocument</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>DedupCount</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>ResolutionDetails</Label>
+          </TableColumnHeader>
+        </TableHeaders>
+      </TableControl>
+    </View>
+    <View>
       <Name>Alert.ListView</Name>
       <ViewSelectedBy>
         <TypeName>Cohesity.Models.Alert</TypeName>
@@ -43,66 +121,6 @@
           </ListEntry>
         </ListEntries>
       </ListControl>
-    </View>
-    <View>
-      <Name>Alert.TableView</Name>
-      <ViewSelectedBy>
-        <TypeName>Cohesity.Models.Alert</TypeName>
-      </ViewSelectedBy>
-      <TableControl>
-        <TableRowEntries>
-          <TableRowEntry>
-            <TableColumnItems>
-              <TableColumnItem>
-                <PropertyName>Id</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>AlertCode</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>AlertState</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>AlertCategory</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>Severity</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>LatestTimestampUsecs</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>AlertDocument</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>DedupCount</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>ResolutionDetails</PropertyName>
-              </TableColumnItem>
-            </TableColumnItems>
-          </TableRowEntry>
-        </TableRowEntries>
-        <TableHeaders>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader/>
-        </TableHeaders>
-      </TableControl>
     </View>
     
         <!-- AlertResolution -->
@@ -152,41 +170,8 @@
       </TableControl>
     </View>
 
-
     <!-- ProtectionPolicy -->
-    <View>
-      <Name>ProtectionPolicy.ListView</Name>
-      <ViewSelectedBy>
-        <TypeName>Cohesity.Models.ProtectionPolicy</TypeName>
-      </ViewSelectedBy>
-      <ListControl>
-        <ListEntries>
-          <ListEntry>
-            <ListItems>
-              <ListItem>
-                <PropertyName>Id</PropertyName>
-              </ListItem>
-              <ListItem>
-                <PropertyName>Name</PropertyName>
-              </ListItem>
-              <ListItem>
-                <PropertyName>Description</PropertyName>
-              </ListItem>
-              <ListItem>
-                <PropertyName>DaysToKeep</PropertyName>
-              </ListItem>
-              <ListItem>
-                <PropertyName>FullSchedulingPolicy</PropertyName>
-              </ListItem>
-              <ListItem>
-                <PropertyName>IncrementalSchedulingPolicy</PropertyName>
-              </ListItem>
-            </ListItems>
-          </ListEntry>
-        </ListEntries>
-      </ListControl>
-    </View>
-    <View>
+        <View>
       <Name>ProtectionPolicy.TableView</Name>
       <ViewSelectedBy>
         <TypeName>Cohesity.Models.ProtectionPolicy</TypeName>
@@ -231,8 +216,115 @@
         </TableHeaders>
       </TableControl>
     </View>
+    <View>
+      <Name>ProtectionPolicy.ListView</Name>
+      <ViewSelectedBy>
+        <TypeName>Cohesity.Models.ProtectionPolicy</TypeName>
+      </ViewSelectedBy>
+      <ListControl>
+        <ListEntries>
+          <ListEntry>
+            <ListItems>
+              <ListItem>
+                <PropertyName>Id</PropertyName>
+              </ListItem>
+              <ListItem>
+                <PropertyName>Name</PropertyName>
+              </ListItem>
+              <ListItem>
+                <PropertyName>Description</PropertyName>
+              </ListItem>
+              <ListItem>
+                <PropertyName>DaysToKeep</PropertyName>
+              </ListItem>
+              <ListItem>
+                <PropertyName>FullSchedulingPolicy</PropertyName>
+              </ListItem>
+              <ListItem>
+                <PropertyName>IncrementalSchedulingPolicy</PropertyName>
+              </ListItem>
+            </ListItems>
+          </ListEntry>
+        </ListEntries>
+      </ListControl>
+    </View>
 
     <!-- ProtectionJob -->
+    <View>
+      <Name>ProtectionJob.TableView</Name>
+      <ViewSelectedBy>
+        <TypeName>Cohesity.Models.ProtectionJob</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>Id</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Name</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Environment</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Priority</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>ParentSourceId</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>ViewBoxId</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>PolicyId</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>SourceIds</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>VmTagIds</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>ExcludeSourceIds</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>ExcludeVmTagIds</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Uid</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+        <TableHeaders>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader/>
+        </TableHeaders>
+      </TableControl>
+    </View>
     <View>
       <Name>ProtectionJob.ListView</Name>
       <ViewSelectedBy>
@@ -283,127 +375,9 @@
         </ListEntries>
       </ListControl>
     </View>
-    <View>
-      <Name>ProtectionJob.TableView</Name>
-      <ViewSelectedBy>
-        <TypeName>Cohesity.Models.ProtectionJob</TypeName>
-      </ViewSelectedBy>
-      <TableControl>
-        <TableRowEntries>
-          <TableRowEntry>
-            <TableColumnItems>
-              <TableColumnItem>
-                <PropertyName>Id</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>Uid</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>Name</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>Environment</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>Priority</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>ParentSourceId</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>ViewBoxId</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>PolicyId</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>SourceIds</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>VmTagIds</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>ExcludeSourceIds</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>ExcludeVmTagIds</PropertyName>
-              </TableColumnItem>
-              </TableColumnItems>
-          </TableRowEntry>
-        </TableRowEntries>
-        <TableHeaders>
-        <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader/>
-        </TableHeaders>
-      </TableControl>
-    </View>
 
     <!-- ProtectionJobRun -->
-    <View>
-      <Name>ProtectionJobRun.ListView</Name>
-      <ViewSelectedBy>
-        <TypeName>Cohesity.Models.ProtectionRunInstance</TypeName>
-      </ViewSelectedBy>
-      <ListControl>
-        <ListEntries>
-          <ListEntry>
-            <ListItems>
-              <ListItem>
-                <Label>Id</Label>
-                <ScriptBlock>$_.BackupRun.JobRunId</ScriptBlock>
-              </ListItem>
-              <ListItem>
-                <Label>RunType</Label>
-                <ScriptBlock>$_.BackupRun.RunType</ScriptBlock>
-              </ListItem>
-
-              <ListItem>
-                <PropertyName>JobId</PropertyName>
-              </ListItem>
-              <ListItem>
-                <PropertyName>JobName</PropertyName>
-              </ListItem>
-              <ListItem>
-                <PropertyName>JobUid</PropertyName>
-              </ListItem>
-              <ListItem>
-                <Label>Environment</Label>
-                <ScriptBlock>$_.BackupRun.Environment</ScriptBlock>
-              </ListItem>
-              <ListItem>
-                <Label>Status</Label>
-                <ScriptBlock>$_.BackupRun.Status</ScriptBlock>
-              </ListItem>
-              <ListItem>
-                <PropertyName>ViewBoxId</PropertyName>
-              </ListItem>
-            </ListItems>
-          </ListEntry>
-        </ListEntries>
-      </ListControl>
-    </View>
-    <View>
+        <View>
       <Name>ProtectionJobRun.TableView</Name>
       <ViewSelectedBy>
         <TypeName>Cohesity.Models.ProtectionRunInstance</TypeName>
@@ -462,13 +436,10 @@
         </TableHeaders>
       </TableControl>
     </View>
-    
-
-    <!-- ProtectionSource -->
     <View>
-      <Name>ProtectionSource.ListView</Name>
+      <Name>ProtectionJobRun.ListView</Name>
       <ViewSelectedBy>
-        <TypeName>Cohesity.Models.ProtectionSourceNode</TypeName>
+        <TypeName>Cohesity.Models.ProtectionRunInstance</TypeName>
       </ViewSelectedBy>
       <ListControl>
         <ListEntries>
@@ -476,27 +447,40 @@
             <ListItems>
               <ListItem>
                 <Label>Id</Label>
-                <ScriptBlock>$_.ProtectionSource.Id</ScriptBlock>
+                <ScriptBlock>$_.BackupRun.JobRunId</ScriptBlock>
               </ListItem>
               <ListItem>
-                <Label>Name</Label>
-                <ScriptBlock>$_.ProtectionSource.Name</ScriptBlock>
+                <Label>RunType</Label>
+                <ScriptBlock>$_.BackupRun.RunType</ScriptBlock>
+              </ListItem>
+
+              <ListItem>
+                <PropertyName>JobId</PropertyName>
+              </ListItem>
+              <ListItem>
+                <PropertyName>JobName</PropertyName>
+              </ListItem>
+              <ListItem>
+                <PropertyName>JobUid</PropertyName>
               </ListItem>
               <ListItem>
                 <Label>Environment</Label>
-                <ScriptBlock>$_.ProtectionSource.Environment</ScriptBlock>
+                <ScriptBlock>$_.BackupRun.Environment</ScriptBlock>
               </ListItem>
               <ListItem>
-                <PropertyName>ProtectionSource</PropertyName>
+                <Label>Status</Label>
+                <ScriptBlock>$_.BackupRun.Status</ScriptBlock>
               </ListItem>
               <ListItem>
-                <PropertyName>RegistrationInfo</PropertyName>
+                <PropertyName>ViewBoxId</PropertyName>
               </ListItem>
             </ListItems>
           </ListEntry>
         </ListEntries>
       </ListControl>
     </View>
+
+    <!-- ProtectionSource -->
     <View>
       <Name>ProtectionSource.TableView</Name>
       <ViewSelectedBy>
@@ -540,7 +524,38 @@
         </TableHeaders>
       </TableControl>
     </View>
-    
+    <View>
+      <Name>ProtectionSource.ListView</Name>
+      <ViewSelectedBy>
+        <TypeName>Cohesity.Models.ProtectionSourceNode</TypeName>
+      </ViewSelectedBy>
+      <ListControl>
+        <ListEntries>
+          <ListEntry>
+            <ListItems>
+              <ListItem>
+                <Label>Id</Label>
+                <ScriptBlock>$_.ProtectionSource.Id</ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <Label>Name</Label>
+                <ScriptBlock>$_.ProtectionSource.Name</ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <Label>Environment</Label>
+                <ScriptBlock>$_.ProtectionSource.Environment</ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <PropertyName>ProtectionSource</PropertyName>
+              </ListItem>
+              <ListItem>
+                <PropertyName>RegistrationInfo</PropertyName>
+              </ListItem>
+            </ListItems>
+          </ListEntry>
+        </ListEntries>
+      </ListControl>
+    </View>
 
     <!-- StorageDomain -->
     <View>
@@ -965,35 +980,9 @@
 
     <!-- VirtualMachine -->
     <View>
-      <Name>VirtualMachine.ListView</Name>
-      <ViewSelectedBy>
-        <TypeName>Cohesity.Models.ProtectionSource_</TypeName>
-      </ViewSelectedBy>
-      <ListControl>
-        <ListEntries>
-          <ListEntry>
-            <ListItems>
-              <ListItem>
-                <PropertyName>Id</PropertyName>
-              </ListItem>
-              <ListItem>
-                <PropertyName>Name</PropertyName>
-              </ListItem>
-              <ListItem>
-                <PropertyName>Environment</PropertyName>
-              </ListItem>
-              <ListItem>
-                <PropertyName>ParentId</PropertyName>
-              </ListItem>
-            </ListItems>
-          </ListEntry>
-        </ListEntries>
-      </ListControl>
-    </View>
-    <View>
       <Name>VirtualMachine.TableView</Name>
       <ViewSelectedBy>
-        <TypeName>Cohesity.Models.VirtualMachine</TypeName>
+        <TypeName>Cohesity.Models.ProtectionSource_</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableRowEntries>
@@ -1025,5 +1014,32 @@
         </TableHeaders>
       </TableControl>
     </View>
+    <View>
+      <Name>VirtualMachine.ListView</Name>
+      <ViewSelectedBy>
+        <TypeName>Cohesity.Models.ProtectionSource_</TypeName>
+      </ViewSelectedBy>
+      <ListControl>
+        <ListEntries>
+          <ListEntry>
+            <ListItems>
+              <ListItem>
+                <PropertyName>Id</PropertyName>
+              </ListItem>
+              <ListItem>
+                <PropertyName>Name</PropertyName>
+              </ListItem>
+              <ListItem>
+                <PropertyName>Environment</PropertyName>
+              </ListItem>
+              <ListItem>
+                <PropertyName>ParentId</PropertyName>
+              </ListItem>
+            </ListItems>
+          </ListEntry>
+        </ListEntries>
+      </ListControl>
+    </View>
+
   </ViewDefinitions>
 </Configuration>

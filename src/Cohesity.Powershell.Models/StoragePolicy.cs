@@ -42,7 +42,13 @@ namespace Cohesity.Models
             /// Enum KCompressionLow for value: kCompressionLow
             /// </summary>
             [EnumMember(Value = "kCompressionLow")]
-            KCompressionLow = 2
+            KCompressionLow = 2,
+
+            /// <summary>
+            /// Enum KCompressionHigh for value: kCompressionHigh
+            /// </summary>
+            [EnumMember(Value = "kCompressionHigh")]
+            KCompressionHigh = 3
         }
 
         /// <summary>

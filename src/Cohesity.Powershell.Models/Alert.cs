@@ -85,7 +85,13 @@ namespace Cohesity.Models
             /// Enum KArchivalRestore for value: kArchivalRestore
             /// </summary>
             [EnumMember(Value = "kArchivalRestore")]
-            kArchivalRestore = 8
+            kArchivalRestore = 8,
+
+            /// <summary>
+            /// Enum kQuota for value: kQuota
+            /// </summary>
+            [EnumMember(Value = "kQuota")]
+            kQuota = 9
         }
 
         /// <summary>

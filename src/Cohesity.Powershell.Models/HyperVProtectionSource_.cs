@@ -138,7 +138,13 @@ namespace Cohesity.Models
             /// Enum KDatastore for value: kDatastore
             /// </summary>
             [EnumMember(Value = "kDatastore")]
-            KDatastore = 9
+            KDatastore = 9,
+
+            /// <summary>
+            /// Enum KHypervHost for value: kHypervHost
+            /// </summary>
+            [EnumMember(Value = "kHypervHost")]
+            KHypervHost = 10
         }
 
         /// <summary>

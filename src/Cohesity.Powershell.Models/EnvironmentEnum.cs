@@ -98,7 +98,13 @@ namespace Cohesity.Models
         kAgent = 13,
 
         [EnumMember(Value = "kIsilon")]
-        kIsilon = 14
+        kIsilon = 14,
+
+        [EnumMember(Value = "kKVM")]
+        kKVM = 15,
+
+        [EnumMember(Value = "kOracle")]
+        kOracle = 16
 
     }
 }
