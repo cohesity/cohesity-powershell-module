@@ -52,10 +52,10 @@ namespace Cohesity.Models
             KDisconnected = 2,
             
             /// <summary>
-            /// Enum KInacccessible for value: kInacccessible
+            /// Enum KInacccessible for value: kInaccessible
             /// </summary>
-            [EnumMember(Value = "kInacccessible")]
-            KInacccessible = 3,
+            [EnumMember(Value = "kInaccessible")]
+            KInaccessible = 3,
             
             /// <summary>
             /// Enum KInvalid for value: kInvalid
