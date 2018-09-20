@@ -399,9 +399,6 @@
                 <PropertyName>JobName</PropertyName>
               </TableColumnItem>
               <TableColumnItem>
-                <PropertyName>JobUid</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
                 <ScriptBlock>$_.BackupRun.Environment</ScriptBlock>
               </TableColumnItem>
               <TableColumnItem>
@@ -410,17 +407,18 @@
               <TableColumnItem>
                 <PropertyName>ViewBoxId</PropertyName>
               </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>JobUid</PropertyName>
+              </TableColumnItem>
               </TableColumnItems>
           </TableRowEntry>
         </TableRowEntries>
         <TableHeaders>
-        <TableColumnHeader>
-          <Label>Id</Label>
+          <TableColumnHeader>
+            <Label>Id</Label>
           </TableColumnHeader>
           <TableColumnHeader>
             <Label>RunType</Label>
-          </TableColumnHeader>
-          <TableColumnHeader>
           </TableColumnHeader>
           <TableColumnHeader>
           </TableColumnHeader>
@@ -433,6 +431,8 @@
             <Label>Status</Label>
           </TableColumnHeader>
           <TableColumnHeader/>
+          <TableColumnHeader>
+          </TableColumnHeader>
         </TableHeaders>
       </TableControl>
     </View>
