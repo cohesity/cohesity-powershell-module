@@ -69,7 +69,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionPolicy
         protected override void ProcessRecord()
         {
             var preparedUrl = $"/public/protectionPolicies/{ProtectionPolicy.Id.ToString()}";
-            var result = Session.NetworkClient.Put<Models.ProtectionPolicy>(preparedUrl, ProtectionPolicy);
+            var result = Session.ApiClient.Put<Models.ProtectionPolicy>(preparedUrl, ProtectionPolicy);
             WriteObject(result);
         }
 

@@ -1,18 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Management.Automation;
 using Cohesity.Powershell.Common;
 using System.Linq;
 
-namespace Cohesity.Powershell.Cmdlets.Privileges
+namespace Cohesity.Powershell.Cmdlets.Privilege
 {
     /// <summary>
     /// <para type="synopsis">
     /// Gets all privileges defined on the Cohesity Cluster.
     /// </para>
     /// <para type="description">
-    /// In addition, information about each privilege is returned such as the associated category, description, name, etc..
+    /// In addition, information about each privilege is returned such as the associated category, description, name.
     /// </para>
     /// </summary>
     /// <example>
@@ -68,7 +66,7 @@ namespace Cohesity.Powershell.Cmdlets.Privileges
 
             var preparedUrl = $"/public/privileges{qb.Build()}";
             WriteDebug(preparedUrl);
-            var result = Session.NetworkClient.Get<IEnumerable<Models.PrivilegeInfo>>(preparedUrl);
+            var result = Session.ApiClient.Get<IEnumerable<Models.PrivilegeInfo>>(preparedUrl);
             WriteObject(result, true);
         }
 

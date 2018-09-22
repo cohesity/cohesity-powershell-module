@@ -1,40 +1,38 @@
-# Get-CohesityPrivilege
+# Convert-CohesityUsecsToDateTime
 
 ## SYNOPSIS
-Gets all privileges defined on the Cohesity Cluster.
+Converts the unix timestamp in microseconds to DateTime format.
 
 ## SYNTAX
 
 ```
-Get-CohesityPrivilege [-Name <string[]>] [<CommonParameters>]
+Convert-CohesityUsecsToDateTime -Usecs <long> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-In addition, information about each privilege is returned such as the associated category, description, name.
+Converts the unix timestamp in microseconds to DateTime format.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Get-CohesityPrivilege -Name PRINCIPAL_VIEW
+Convert-CohesityUsecsToDateTime -Usecs 1537272612321018
 ```
 
-Gets details of privilege with name PRINCIPAL_VIEW.
+Converts the unix timestamp in microseconds to its corresponding DateTime value such as: Tuesday, September 18, 2018 5:10:12 AM.
 
 ## PARAMETERS
 
-### -Name
-Specifies the name of the Privilege.
-
+### -Usecs
 ```yaml
-Type: string[]
+Type: long
 Parameter Sets: (All)
 Aliases:
 
-Required: False
+Required: True
 Position: Named
-Default value: None
-Accept pipeline input: False
+Default value: 0
+Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
@@ -44,9 +42,10 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 
 ## INPUTS
 
+### System.Int64
 ## OUTPUTS
 
-### Cohesity.Models.PrivilegeInfo
+### System.DateTime
 ## NOTES
 
 ## RELATED LINKS

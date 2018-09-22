@@ -159,7 +159,7 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
 
             var preparedUrl = $"/public/alerts{queryString}";
             WriteDebug(preparedUrl);
-            var result = Session.NetworkClient.Get<IEnumerable<Models.Alert>>(preparedUrl);
+            var result = Session.ApiClient.Get<IEnumerable<Models.Alert>>(preparedUrl);
             WriteObject(result, true);
         }
 

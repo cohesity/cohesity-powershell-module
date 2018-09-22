@@ -95,7 +95,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
 
 
                 var preparedUrl = $"/public/protectionJobs/{Id.ToString()}";
-                Session.NetworkClient.Delete(preparedUrl, content);
+                Session.ApiClient.Delete(preparedUrl, content);
                 WriteObject($"Protection job with Id {Id} was deleted successfully.");
             }
 

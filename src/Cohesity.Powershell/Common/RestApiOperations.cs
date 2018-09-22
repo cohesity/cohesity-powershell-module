@@ -4,10 +4,7 @@ using Newtonsoft.Json;
 
 namespace Cohesity.Powershell.Common
 {
-    /// <summary>
-    /// Extends <see cref="NetworkClient"/> with common functions.
-    /// </summary>
-    internal static class NetworkClientExtensions
+    internal static class RestApiOperations
     {
         private static T DeserializeObject<T>(string responseContent)
         {
@@ -19,7 +16,7 @@ namespace Cohesity.Powershell.Common
             return JsonConvert.DeserializeObject<T>(responseContent, settings);
         }
 
-        public static string Get(this NetworkClient networkClient, string url)
+        public static string Get(this RestApiClient networkClient, string url)
         {
             var httpRequest = networkClient.CreateRequest(HttpMethod.Get, url);
 
@@ -36,13 +33,13 @@ namespace Cohesity.Powershell.Common
                 $"Operation returned an invalid status code '{response.StatusCode}' with Exception:{(string.IsNullOrWhiteSpace(responseContent) ? "Not Available" : responseContent)}");
         }
 
-        public static T Get<T>(this NetworkClient networkClient, string url)
+        public static T Get<T>(this RestApiClient networkClient, string url)
         {
             var responseContent = Get(networkClient, url);
             return DeserializeObject<T>(responseContent);
         }
 
-        public static string Post(this NetworkClient networkClient, string url, string content)
+        public static string Post(this RestApiClient networkClient, string url, string content)
         {
             if(content == null) content = string.Empty;
 
@@ -61,7 +58,7 @@ namespace Cohesity.Powershell.Common
                 $"Operation returned an invalid status code '{response.StatusCode}' with Exception:{(string.IsNullOrWhiteSpace(responseContent) ? "Not Available" : responseContent)}");
         }
 
-        public static string Post(this NetworkClient networkClient, string url, object content)
+        public static string Post(this RestApiClient networkClient, string url, object content)
         {
             var httpRequest = networkClient.CreatePostRequest(url, content);
 
@@ -78,13 +75,13 @@ namespace Cohesity.Powershell.Common
                 $"Operation returned an invalid status code '{response.StatusCode}' with Exception:{(string.IsNullOrWhiteSpace(responseContent) ? "Not Available" : responseContent)}");
         }
 
-        public static T Post<T>(this NetworkClient networkClient, string url, object content)
+        public static T Post<T>(this RestApiClient networkClient, string url, object content)
         {
             var responseContent = Post(networkClient, url, content);
             return DeserializeObject<T>(responseContent);
         }
 
-        public static string Put(this NetworkClient networkClient, string url, object content)
+        public static string Put(this RestApiClient networkClient, string url, object content)
         {
             var httpRequest = networkClient.CreatePutRequest(url, content);
 
@@ -101,13 +98,13 @@ namespace Cohesity.Powershell.Common
                 $"Operation returned an invalid status code '{response.StatusCode}' with Exception:{(string.IsNullOrWhiteSpace(responseContent) ? "Not Available" : responseContent)}");
         }
 
-        public static T Put<T>(this NetworkClient networkClient, string url, object content)
+        public static T Put<T>(this RestApiClient networkClient, string url, object content)
         {
             var responseContent = Put(networkClient, url, content);
             return DeserializeObject<T>(responseContent);
         }
 
-        public static string Delete(this NetworkClient networkClient, string url, object content)
+        public static string Delete(this RestApiClient networkClient, string url, object content)
         {
             var httpRequest = networkClient.CreateDeleteRequest(url, content);
 
@@ -124,7 +121,7 @@ namespace Cohesity.Powershell.Common
                 $"Operation returned an invalid status code '{response.StatusCode}' with Exception:{(string.IsNullOrWhiteSpace(responseContent) ? "Not Available" : responseContent)}");
         }
 
-        public static string Delete(this NetworkClient networkClient, string url, string content)
+        public static string Delete(this RestApiClient networkClient, string url, string content)
         {
             var httpRequest = networkClient.CreateDeleteRequest(url, content);
 

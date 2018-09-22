@@ -105,7 +105,7 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
                 queryString = "?" + string.Join("&", queries.Select(q => $"{q.Key}={q.Value}"));
 
             var url = $"/public/restore/tasks{queryString}";
-            var result = Session.NetworkClient.Get<IEnumerable<RestoreTask>>(url);
+            var result = Session.ApiClient.Get<IEnumerable<RestoreTask>>(url);
             WriteObject(result, true);
         }
     }

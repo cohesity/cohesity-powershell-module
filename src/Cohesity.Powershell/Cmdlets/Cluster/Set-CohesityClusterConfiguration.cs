@@ -75,7 +75,7 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
         {
             // PUT public/cluster
             var preparedUrl = $"/public/cluster";
-            var result = Session.NetworkClient.Put<Models.Cluster>(preparedUrl, Cluster);
+            var result = Session.ApiClient.Put<Models.Cluster>(preparedUrl, Cluster);
             WriteObject(result);
         }
 

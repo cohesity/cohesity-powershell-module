@@ -72,7 +72,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
         {
             // PUT public/protectionJobs/{id}
             var preparedUrl = $"/public/protectionJobs/{ProtectionJob.Id.ToString()}";
-            var result = Session.NetworkClient.Put<Models.ProtectionJob>(preparedUrl, ProtectionJob);
+            var result = Session.ApiClient.Put<Models.ProtectionJob>(preparedUrl, ProtectionJob);
             WriteObject(result);
         }
 

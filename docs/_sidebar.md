@@ -48,5 +48,5 @@
 - [Restore-CohesityVMwareVM](cmdlets-reference/restore-cohesityvmwarevm.md)
 - [Get-CohesityRestoreTask](cmdlets-reference/get-cohesityrestoretask.md)
 - [Stop-CohesityRestoreTask](cmdlets-reference/stop-cohesityrestoretask.md)
-- [Convert-CohesityUsecToDateTime](cmdlets-reference/convert-cohesityusectodatetime.md)
+- [Convert-CohesityUsecsToDateTime](cmdlets-reference/convert-cohesityusecstodatetime.md)
 ---

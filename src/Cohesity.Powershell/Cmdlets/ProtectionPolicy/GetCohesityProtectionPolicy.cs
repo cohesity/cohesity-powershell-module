@@ -89,7 +89,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionPolicy
                 qb.Add("names", string.Join(",", Names));
 
             var preparedUrl = $"/public/protectionPolicies{qb.Build()}";
-            var result = Session.NetworkClient.Get<IEnumerable<Models.ProtectionPolicy>>(preparedUrl);
+            var result = Session.ApiClient.Get<IEnumerable<Models.ProtectionPolicy>>(preparedUrl);
             WriteObject(result, true);
         }
 

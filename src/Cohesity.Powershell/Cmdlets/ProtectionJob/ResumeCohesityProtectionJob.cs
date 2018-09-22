@@ -75,7 +75,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
 
             // POST /public/protectionJobState/{id}
             var preparedUrl = $"/public/protectionJobState/{Id.ToString()}";
-            Session.NetworkClient.Post(preparedUrl, protectionJobState);
+            Session.ApiClient.Post(preparedUrl, protectionJobState);
             WriteObject("Protection job was resumed successfully.");
         }
 

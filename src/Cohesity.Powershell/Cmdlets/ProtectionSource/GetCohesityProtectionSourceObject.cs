@@ -120,7 +120,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
                 qb.Add("excludeTypes", ExcludeTypes);
 
             var url = $"/public/protectionSources{qb.Build()}";
-            var result = Session.NetworkClient.Get<IEnumerable<ProtectionSourceNode>>(url);
+            var result = Session.ApiClient.Get<IEnumerable<ProtectionSourceNode>>(url);
             result = FlattenNodes(result);
             WriteObject(result, true);
         }

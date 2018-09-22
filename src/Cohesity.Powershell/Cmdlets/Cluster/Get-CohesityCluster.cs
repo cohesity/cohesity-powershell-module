@@ -50,7 +50,7 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
         protected override void ProcessRecord()
         {
             var preparedUrl = $"/public/basicClusterInfo";
-            var result = Session.NetworkClient.Get<Models.BasicClusterInfo>(preparedUrl);
+            var result = Session.ApiClient.Get<Models.BasicClusterInfo>(preparedUrl);
             WriteObject(result, true);
         }
 

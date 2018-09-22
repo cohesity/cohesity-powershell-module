@@ -120,7 +120,7 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
 
             try
             {
-                var httpClient = Session.NetworkClient.BuildClient(clusterUri, true);
+                var httpClient = Session.ApiClient.BuildClient(clusterUri, true);
                 var response = httpClient.SendAsync(httpRequest).Result;
                 var responseContent = response.Content.ReadAsStringAsync().Result;
 

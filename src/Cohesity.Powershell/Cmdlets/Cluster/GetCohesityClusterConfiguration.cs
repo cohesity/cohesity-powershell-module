@@ -64,7 +64,7 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
                 qb.Add("fetchStats", true);
 
             var preparedUrl = $"/public/cluster{qb.Build()}";
-            var result = Session.NetworkClient.Get<Models.Cluster>(preparedUrl);
+            var result = Session.ApiClient.Get<Models.Cluster>(preparedUrl);
             WriteObject(result, true);
         }
 

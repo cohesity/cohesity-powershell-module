@@ -87,7 +87,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJobRun
             }
 
             var url = $"/public/protectionRuns/cancel/{Id.ToString()}";
-            Session.NetworkClient.Post(url, body);
+            Session.ApiClient.Post(url, body);
             WriteObject("Protection Job Run cancelled.");
         }
     }

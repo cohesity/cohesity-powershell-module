@@ -176,7 +176,7 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
 
             // POST /public/restore/recover
             var preparedUrl = $"/public/restore/recover";
-            var result = Session.NetworkClient.Post<Models.RestoreTask>(preparedUrl, restoreRequest);
+            var result = Session.ApiClient.Post<Models.RestoreTask>(preparedUrl, restoreRequest);
             WriteObject(result);
         }
 

@@ -59,7 +59,7 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
         protected override void ProcessRecord()
         {
             userProfileProvider.DeleteUserProfile();
-            Session.NetworkClient.Disconnect();
+            Session.ApiClient.Disconnect();
 
             WriteObject("Disconnected from the Cohesity Cluster");
         }

@@ -164,7 +164,7 @@ namespace Cohesity.Powershell.Cmdlets.AuditLog
 
             var preparedUrl = $"/public/auditLogs/cluster{queries.Build()}";
             WriteDebug(preparedUrl);
-            var result = Session.NetworkClient.Get<Models.ClusterAuditLogsSearchResult>(preparedUrl);
+            var result = Session.ApiClient.Get<Models.ClusterAuditLogsSearchResult>(preparedUrl);
             WriteObject(result.ClusterAuditLogs, true);
         }
 

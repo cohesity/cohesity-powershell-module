@@ -151,7 +151,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
                 queryString = "?" + string.Join("&", queries.Select(q => $"{q.Key}={q.Value}"));
 
             var preparedUrl = $"/public/protectionJobs{queryString}";
-            var result = Session.NetworkClient.Get<IEnumerable<Models.ProtectionJob>>(preparedUrl);
+            var result = Session.ApiClient.Get<IEnumerable<Models.ProtectionJob>>(preparedUrl);
             WriteObject(result, true);
         }
     }

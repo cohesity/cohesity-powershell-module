@@ -101,7 +101,7 @@ namespace Cohesity.Powershell.Cmdlets.StorageDomain
                 qb.Add("fetchStats", FetchStats.Value);
 
             var preparedUrl = $"/public/viewBoxes{qb.Build()}";
-            var result = Session.NetworkClient.Get<IEnumerable<ViewBox>>(preparedUrl);            
+            var result = Session.ApiClient.Get<IEnumerable<ViewBox>>(preparedUrl);            
             WriteObject(result, true);
         }
     }

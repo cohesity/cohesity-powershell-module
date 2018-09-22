@@ -171,7 +171,7 @@ namespace Cohesity.Powershell.Cmdlets.View
                 qb.Add("SortByLogicalUsage", SortByLogicalUsage.Value);
 
             var preparedUrl = $"/public/views{qb.Build()}";
-            var result = Session.NetworkClient.Get<GetViewsResult>(preparedUrl);
+            var result = Session.ApiClient.Get<GetViewsResult>(preparedUrl);
             WriteObject(result.Views, true);
         }
     }

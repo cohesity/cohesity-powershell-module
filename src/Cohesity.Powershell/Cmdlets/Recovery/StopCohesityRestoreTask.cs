@@ -60,7 +60,7 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
         protected override void ProcessRecord()
         {
             var url = $"/public/restore/tasks/cancel/{Id.ToString()}";
-            Session.NetworkClient.Put(url, string.Empty);
+            Session.ApiClient.Put(url, string.Empty);
             WriteObject("Restore Task cancelled.");
         }
     }

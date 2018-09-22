@@ -86,7 +86,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
 
             // POST /public/protectionSources/register
             var preparedUrl = $"/public/protectionSources/register";
-            var result = Session.NetworkClient.Post<Models.ProtectionSource>(preparedUrl, param);
+            var result = Session.ApiClient.Post<Models.ProtectionSource>(preparedUrl, param);
             WriteObject(result);
         }
 

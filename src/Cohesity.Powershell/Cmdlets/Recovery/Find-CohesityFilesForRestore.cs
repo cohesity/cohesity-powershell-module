@@ -168,7 +168,7 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
                 queryString = "?" + string.Join("&", queries.Select(q => $"{q.Key}={q.Value}"));
 
             var url = $"/public/restore/files{queryString}";
-            var result = Session.NetworkClient.Get<FileSearchResults>(url);
+            var result = Session.ApiClient.Get<FileSearchResults>(url);
             WriteObject(result.Files, true);
         }
     }

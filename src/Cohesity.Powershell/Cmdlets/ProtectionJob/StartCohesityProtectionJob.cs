@@ -107,7 +107,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
 
             // POST public/protectionJobs/run/{id}
             var preparedUrl = $"/public/protectionJobs/run/{Id.ToString()}";
-            Session.NetworkClient.Post(preparedUrl, content);
+            Session.ApiClient.Post(preparedUrl, content);
             WriteObject("Protection job was started successfully.");
         }
 

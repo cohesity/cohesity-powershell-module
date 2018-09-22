@@ -71,7 +71,7 @@ namespace Cohesity.Powershell.Cmdlets.View
             {
                 // DELETE /public/views/{name}
                 var preparedUrl = $"/public/views/{Name}";
-                Session.NetworkClient.Delete(preparedUrl, string.Empty);
+                Session.ApiClient.Delete(preparedUrl, string.Empty);
                 WriteObject($"View with name {Name.Trim()} was deleted successfully.");
             }
 

@@ -78,7 +78,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
                 qb.Add("environments", string.Join(",", Environments));
             
             var url = $"/public/protectionSources/rootNodes{qb.Build()}";
-            var result = Session.NetworkClient.Get<IEnumerable<ProtectionSourceNode>>(url);
+            var result = Session.ApiClient.Get<IEnumerable<ProtectionSourceNode>>(url);
             WriteObject(result, true);
         }
     }

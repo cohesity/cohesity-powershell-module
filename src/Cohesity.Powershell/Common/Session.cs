@@ -9,27 +9,27 @@ namespace Cohesity
     internal class Session
     {
 
-        private NetworkClient networkClient = null;
+        private RestApiClient apiClient = null;
 
         /// <summary>
-        /// The network client used for communicating with Cohestiy resources API.
+        /// The network client used for communicating with Cohestiy REST API.
         /// </summary>
-        public NetworkClient NetworkClient
+        public RestApiClient ApiClient
         {
             get
             {
-                if (networkClient == null)
+                if (apiClient == null)
                 {
-                    networkClient = new NetworkClient();
+                    apiClient = new RestApiClient();
                 }
 
-                return networkClient;
+                return apiClient;
             }
         }
 
         public void AssertAuthentication()
         {
-            if (!NetworkClient.IsAuthenticated)
+            if (!ApiClient.IsAuthenticated)
                 throw new Exception("Failed to authenticate. Please connect to the Cohesity Cluster using 'Connect-CohesityCluster'");
         }        
 

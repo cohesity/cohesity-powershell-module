@@ -71,7 +71,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
         {
             // POST /public/protectionSources/refresh/{id}
             var preparedUrl = $"/public/protectionSources/refresh/{Id.ToString()}";
-            Session.NetworkClient.Post(preparedUrl, string.Empty);
+            Session.ApiClient.Post(preparedUrl, string.Empty);
             WriteObject("Protection source was refreshed successfully.");
         }
 

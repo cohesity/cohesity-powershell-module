@@ -70,7 +70,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionPolicy
             {
                 // POST /public/protectionPolicies/{id}
                 var preparedUrl = $"/public/protectionPolicies/{Id}";
-                Session.NetworkClient.Delete(preparedUrl, string.Empty);
+                Session.ApiClient.Delete(preparedUrl, string.Empty);
                 WriteObject($"Protection policy with Id {Id} was deleted successfully.");
             }
 

@@ -182,7 +182,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJobRun
                 qb.Add("excludeNonRestoreableRuns", true);
 
             var url = $"/public/protectionRuns{ qb.Build()}";
-            var result = Session.NetworkClient.Get<IEnumerable<ProtectionRunInstance>>(url);
+            var result = Session.ApiClient.Get<IEnumerable<ProtectionRunInstance>>(url);
             WriteObject(result, true);
         }
     }

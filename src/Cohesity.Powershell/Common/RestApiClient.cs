@@ -7,12 +7,12 @@ using Newtonsoft.Json;
 
 namespace Cohesity.Powershell.Common
 {
-    internal class NetworkClient
+    internal class RestApiClient
     {
         private UserProfileProvider userProfileProvider;
         public HttpClient HttpClient { get; private set; }
 
-        public NetworkClient()
+        public RestApiClient()
         {
             userProfileProvider = ServiceLocator.GetUserProfileProvider();
 

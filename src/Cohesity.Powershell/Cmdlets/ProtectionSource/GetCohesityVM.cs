@@ -107,7 +107,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
                 qb.Add("protected", true);
 
             var url = $"/public/protectionSources/virtualMachines{ qb.Build()}";
-            var result = Session.NetworkClient.Get<IEnumerable<ProtectionSource_>>(url);
+            var result = Session.ApiClient.Get<IEnumerable<ProtectionSource_>>(url);
             WriteObject(result, true);
         }
     }

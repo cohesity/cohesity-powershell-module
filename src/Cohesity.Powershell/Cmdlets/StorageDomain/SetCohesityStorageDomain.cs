@@ -69,7 +69,7 @@ namespace Cohesity.Powershell.Cmdlets.StorageDomain
         protected override void ProcessRecord()
         {
             var preparedUrl = $"/public/viewBoxes/{Domain.Id.ToString()}";
-            var result = Session.NetworkClient.Put<Models.ViewBox>(preparedUrl, Domain);
+            var result = Session.ApiClient.Put<Models.ViewBox>(preparedUrl, Domain);
             WriteObject(result);
         }
 

@@ -80,7 +80,7 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
                 queryString = "?" + string.Join("&", queries.Select(q => $"{q.Key}={q.Value}"));
 
             var preparedUrl = $"/public/clusterPartitions{queryString}";
-            var result = Session.NetworkClient.Get<IEnumerable<Models.ClusterPartition>>(preparedUrl);
+            var result = Session.ApiClient.Get<IEnumerable<Models.ClusterPartition>>(preparedUrl);
             WriteObject(result, true);
         }
 

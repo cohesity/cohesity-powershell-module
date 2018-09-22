@@ -114,7 +114,7 @@ namespace Cohesity.Powershell.Cmdlets.Alert
 
             var preparedUrl = $"/public/alertResolutions{queryString}";
             WriteDebug(preparedUrl);
-            var result = Session.NetworkClient.Get<IEnumerable<Models.AlertResolution>>(preparedUrl);
+            var result = Session.ApiClient.Get<IEnumerable<Models.AlertResolution>>(preparedUrl);
             WriteObject(result, true);
         }
 
