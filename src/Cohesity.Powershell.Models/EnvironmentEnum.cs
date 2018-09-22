@@ -110,7 +110,13 @@ namespace Cohesity.Models
         kAWS = 17,
 
         [EnumMember(Value = "kAWSNative")]
-        kAWSNative = 18
+        kAWSNative = 18,
+
+        /// <summary>
+        /// Enum KHyperVVSS for value: kHyperVVSS
+        /// </summary>
+        [EnumMember(Value = "kHyperVVSS")]
+        kHyperVVSS = 19,
 
     }
 }

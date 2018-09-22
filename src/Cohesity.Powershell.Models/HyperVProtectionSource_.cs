@@ -69,7 +69,13 @@ namespace Cohesity.Models
             /// Enum KWindows for value: kWindows
             /// </summary>
             [EnumMember(Value = "kWindows")]
-            KWindows = 2
+            KWindows = 2,
+
+            /// <summary>
+            /// Enum KOther for value: kOther
+            /// </summary>
+            [EnumMember(Value = "kOther")]
+            KOther = 3
         }
 
         /// <summary>

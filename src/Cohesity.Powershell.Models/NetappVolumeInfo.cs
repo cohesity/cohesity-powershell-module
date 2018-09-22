@@ -128,10 +128,16 @@ namespace Cohesity.Models
             KTmp = 5,
             
             /// <summary>
+            /// Enum KOnline for value: kOnline
+            /// </summary>
+            [EnumMember(Value = "kOnline")]
+            KOnline = 6,
+
+            /// <summary>
             /// Enum KUnknownType for value: kUnknownType
             /// </summary>
             [EnumMember(Value = "kUnknownType")]
-            KUnknownType = 6
+            KUnknownType = 7
         }
 
         /// <summary>
