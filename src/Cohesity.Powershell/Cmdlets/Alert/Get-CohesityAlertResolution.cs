@@ -79,6 +79,13 @@ namespace Cohesity.Powershell.Cmdlets.Alert
         [Parameter(Mandatory = false)]
         public int? EndTime { get; set; }
 
+        protected override void BeginProcessing()
+        {
+            base.BeginProcessing();
+
+            Session.AssertAuthentication();
+        }
+
         /// <summary>
         /// Process Records
         /// </summary>

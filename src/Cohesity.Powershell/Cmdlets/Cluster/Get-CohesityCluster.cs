@@ -37,6 +37,13 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
             }
         }
 
+        protected override void BeginProcessing()
+        {
+            base.BeginProcessing();
+
+            Session.AssertAuthentication();
+        }
+
         /// <summary>
         /// Process Records
         /// </summary>

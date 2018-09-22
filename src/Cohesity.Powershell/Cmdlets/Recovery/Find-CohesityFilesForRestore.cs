@@ -41,13 +41,6 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
             }
         }
 
-        protected override void BeginProcessing()
-        {
-            base.BeginProcessing();
-
-            Session.AssertAuthentication();
-        }
-
         /// <summary>
         /// <para type="description">
         /// Filter by environment types such as kVMware, kView, kSQL, kPuppeteer, kPhysical, kPure, kNetapp, kGenericNas, kHyperV, kAcropolis, kAzure. 
@@ -131,6 +124,13 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
         /// </summary>
         [Parameter(Mandatory = false)]
         public int[] StorageDomainIds { get; set; }
+
+        protected override void BeginProcessing()
+        {
+            base.BeginProcessing();
+
+            Session.AssertAuthentication();
+        }
 
         protected override void ProcessRecord()
         {

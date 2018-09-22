@@ -46,6 +46,13 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
             userProfileProvider = ServiceLocator.GetUserProfileProvider();
         }
 
+        protected override void BeginProcessing()
+        {
+            base.BeginProcessing();
+
+            Session.AssertAuthentication();
+        }
+
         /// <summary>
         /// Process Records
         /// </summary>

@@ -41,13 +41,6 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
             }
         }
 
-        protected override void BeginProcessing()
-        {
-            base.BeginProcessing();
-
-            Session.AssertAuthentication();
-        }
-
         /// <summary>
         /// <para type="description">
         /// Filter by a list of task ids.
@@ -83,6 +76,13 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
         /// </summary>
         [Parameter(Mandatory = false)]
         public int? EndTime { get; set; }
+
+        protected override void BeginProcessing()
+        {
+            base.BeginProcessing();
+
+            Session.AssertAuthentication();
+        }
 
         protected override void ProcessRecord()
         {

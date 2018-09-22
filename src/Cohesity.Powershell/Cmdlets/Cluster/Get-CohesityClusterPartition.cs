@@ -55,6 +55,13 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
         [Parameter(Mandatory = false)]
         public string[] Names { get; set; }
 
+        protected override void BeginProcessing()
+        {
+            base.BeginProcessing();
+
+            Session.AssertAuthentication();
+        }
+
         /// <summary>
         /// Process Records
         /// </summary>

@@ -112,6 +112,13 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
         [Parameter(Mandatory = false)]
         public int? EndTime { get; set; }
 
+        protected override void BeginProcessing()
+        {
+            base.BeginProcessing();
+
+            Session.AssertAuthentication();
+        }
+
         /// <summary>
         /// Process Records
         /// </summary>

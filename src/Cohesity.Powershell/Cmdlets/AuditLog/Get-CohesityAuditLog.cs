@@ -118,6 +118,13 @@ namespace Cohesity.Powershell.Cmdlets.AuditLog
         [Parameter(Mandatory = false)]
         public string OutputFormat { get; set; } = string.Empty;
 
+        protected override void BeginProcessing()
+        {
+            base.BeginProcessing();
+
+            Session.AssertAuthentication();
+        }
+
         /// <summary>
         /// Process Records
         /// </summary>

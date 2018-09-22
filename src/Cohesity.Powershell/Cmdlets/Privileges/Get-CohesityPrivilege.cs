@@ -49,6 +49,13 @@ namespace Cohesity.Powershell.Cmdlets.Privileges
         [Parameter(Mandatory = false)]
         public string[] Name { get; set; }
 
+        protected override void BeginProcessing()
+        {
+            base.BeginProcessing();
+
+            Session.AssertAuthentication();
+        }
+
         /// <summary>
         /// Process Records
         /// </summary>
