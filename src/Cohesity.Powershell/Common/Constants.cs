@@ -1,4 +1,5 @@
-﻿namespace Cohesity.Powershell.Common
+﻿// Copyright 2018 Cohesity Inc.
+namespace Cohesity.Powershell.Common
 {
     public static class CohesityConstants
     {

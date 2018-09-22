@@ -1,4 +1,5 @@
-﻿using Cohesity.Powershell.Common;
+﻿// Copyright 2018 Cohesity Inc.
+using Cohesity.Powershell.Common;
 using System.Management.Automation;
 
 namespace Cohesity.Powershell.Cmdlets.ProtectionPolicy

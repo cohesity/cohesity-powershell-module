@@ -1,4 +1,5 @@
-﻿using System;
+﻿// Copyright 2018 Cohesity Inc.
+using System;
 using System.Net.Http;
 using Newtonsoft.Json;
 

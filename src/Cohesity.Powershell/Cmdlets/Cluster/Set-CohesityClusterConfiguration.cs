@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿// Copyright 2018 Cohesity Inc.
 using System.Management.Automation;
-using Cohesity.Models;
 using Cohesity.Powershell.Common;
 
 namespace Cohesity.Powershell.Cmdlets.Cluster

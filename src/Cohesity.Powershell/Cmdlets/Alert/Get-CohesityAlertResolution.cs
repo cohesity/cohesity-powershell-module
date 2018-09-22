@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿// Copyright 2018 Cohesity Inc.
+using System.Collections.Generic;
 using System.Linq;
 using System.Management.Automation;
 using Cohesity.Powershell.Common;

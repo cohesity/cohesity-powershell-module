@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿// Copyright 2018 Cohesity Inc.
+using System.Linq;
 using System.Management.Automation;
 using Cohesity.Models;
 using Cohesity.Powershell.Common;
