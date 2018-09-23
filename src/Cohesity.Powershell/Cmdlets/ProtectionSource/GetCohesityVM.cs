@@ -26,7 +26,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
     ///   </para>
     /// </example>
     [Cmdlet(VerbsCommon.Get, "CohesityVM")]
-    [OutputType(typeof(ProtectionSource_))]
+    [OutputType(typeof(Models.ProtectionSource))]
     public class GetCohesityVM : PSCmdlet
     {
         private Session Session
@@ -108,7 +108,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
                 qb.Add("protected", true);
 
             var url = $"/public/protectionSources/virtualMachines{ qb.Build()}";
-            var result = Session.ApiClient.Get<IEnumerable<ProtectionSource_>>(url);
+            var result = Session.ApiClient.Get<IEnumerable<Models.ProtectionSource>>(url);
             WriteObject(result, true);
         }
     }

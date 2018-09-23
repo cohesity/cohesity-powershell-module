@@ -22,80 +22,44 @@ namespace Cohesity.Models
     public enum EnvironmentEnum
     {
 
-        /// <summary>
-        /// Enum KVMware for value: kVMware
-        /// </summary>
         [EnumMember(Value = "kVMware")]
-        kVMware = 1, 
+        kVMware = 1,
 
-        /// <summary>
-        /// Enum KSQL for value: kSQL
-        /// </summary>
-        [EnumMember(Value = "kSQL")]
-        kSQL = 2,
-
-        /// <summary>
-        /// Enum KView for value: kView
-        /// </summary>
-        [EnumMember(Value = "kView")]
-        kView = 3,
-
-        /// <summary>
-        /// Enum KPuppeteer for value: kPuppeteer
-        /// </summary>
-        [EnumMember(Value = "kPuppeteer")]
-        kPuppeteer = 4,
-
-        /// <summary>
-        /// Enum KPhysical for value: kPhysical
-        /// </summary>
-        [EnumMember(Value = "kPhysical")]
-        kPhysical = 5,
-
-        /// <summary>
-        /// Enum KPure for value: kPure
-        /// </summary>
-        [EnumMember(Value = "kPure")]
-        kPure = 6,
-
-        /// <summary>
-        /// Enum KNetapp for value: kNetapp
-        /// </summary>
-        [EnumMember(Value = "kNetapp")]
-        kNetapp = 7,
-
-        /// <summary>
-        /// Enum KGenericNas for value: kGenericNas
-        /// </summary>
-        [EnumMember(Value = "kGenericNas")]
-        kGenericNas = 8,
-
-        /// <summary>
-        /// Enum KHyperV for value: kHyperV
-        /// </summary>
         [EnumMember(Value = "kHyperV")]
-        kHyperV = 9,
+        kHyperV = 2,
 
-        /// <summary>
-        /// Enum KAcropolis for value: kAcropolis
-        /// </summary>
-        [EnumMember(Value = "kAcropolis")]
-        kAcropolis = 10,
+        [EnumMember(Value = "kSQL")]
+        kSQL = 3,
 
-        /// <summary>
-        /// Enum KAzure for value: kAzure
-        /// </summary>
+        [EnumMember(Value = "kView")]
+        kView = 4,
+
+        [EnumMember(Value = "kPuppeteer")]
+        kPuppeteer = 5,
+
+        [EnumMember(Value = "kPhysical")]
+        kPhysical = 6,
+
+        [EnumMember(Value = "kPure")]
+        kPure = 7,
+
         [EnumMember(Value = "kAzure")]
-        kAzure = 11,
+        kAzure = 8,
 
-        /// <summary>
-        /// Enum KPhysical for value: kPhysical
-        /// </summary>
-        [EnumMember(Value = "kPhysicalFiles")]
-        kPhysicalFiles = 12,
+        [EnumMember(Value = "kNetapp")]
+        kNetapp = 9,
 
         [EnumMember(Value = "kAgent")]
-        kAgent = 13,
+        kAgent = 10,
+
+        [EnumMember(Value = "kGenericNas")]
+        kGenericNas = 11,
+
+        [EnumMember(Value = "kAcropolis")]
+        kAcropolis = 12,
+
+        [EnumMember(Value = "kPhysicalFiles")]
+        kPhysicalFiles = 13,
 
         [EnumMember(Value = "kIsilon")]
         kIsilon = 14,
@@ -103,20 +67,40 @@ namespace Cohesity.Models
         [EnumMember(Value = "kKVM")]
         kKVM = 15,
 
-        [EnumMember(Value = "kOracle")]
-        kOracle = 16,
-
         [EnumMember(Value = "kAWS")]
-        kAWS = 17,
+        kAWS = 16,
+
+        [EnumMember(Value = "kExchange")]
+        kExchange = 17,
+
+        [EnumMember(Value = "kHyperVVSS")]
+        kHyperVVSS = 18,
+
+        [EnumMember(Value = "kOracle")]
+        kOracle = 19,
+
+        [EnumMember(Value = "kGCP")]
+        kGCP = 20,
+
+        [EnumMember(Value = "kFlashBlade")]
+        kFlashBlade = 21,
 
         [EnumMember(Value = "kAWSNative")]
-        kAWSNative = 18,
+        kAWSNative = 22,
 
-        /// <summary>
-        /// Enum KHyperVVSS for value: kHyperVVSS
-        /// </summary>
-        [EnumMember(Value = "kHyperVVSS")]
-        kHyperVVSS = 19,
+        [EnumMember(Value = "kVCD")]
+        kVCD = 23,
 
+        [EnumMember(Value = "kO365")]
+        kO365 = 24,
+
+        [EnumMember(Value = "kO365Outlook")]
+        kO365Outlook = 25,
+
+        [EnumMember(Value = "kHyperFlex")]
+        kHyperFlex = 26,
+
+        [EnumMember(Value = "kGCPNative")]
+        kGCPNative = 27
     }
 }

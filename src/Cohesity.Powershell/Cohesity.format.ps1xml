@@ -971,7 +971,7 @@
     <View>
       <Name>VirtualMachine.TableView</Name>
       <ViewSelectedBy>
-        <TypeName>Cohesity.Models.ProtectionSource_</TypeName>
+        <TypeName>Cohesity.Models.ProtectionSource</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableRowEntries>
@@ -987,7 +987,7 @@
                 <PropertyName>Environment</PropertyName>
               </TableColumnItem>
               <TableColumnItem>
-                <PropertyName>ParentID</PropertyName>
+                <PropertyName>ParentId</PropertyName>
               </TableColumnItem>
              </TableColumnItems>
           </TableRowEntry>
@@ -1006,7 +1006,7 @@
     <View>
       <Name>VirtualMachine.ListView</Name>
       <ViewSelectedBy>
-        <TypeName>Cohesity.Models.ProtectionSource_</TypeName>
+        <TypeName>Cohesity.Models.ProtectionSource</TypeName>
       </ViewSelectedBy>
       <ListControl>
         <ListEntries>

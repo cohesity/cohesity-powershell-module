@@ -41,7 +41,7 @@ namespace Cohesity.Models
         /// <param name="protectionSource">protectionSource.</param>
         /// <param name="registrationInfo">registrationInfo.</param>
         /// <param name="unprotectedSourcesSummary">Specifies aggregated information about all the child Objects of this node that are not protected by any Protection Jobs. The aggregated information for the Objects hierarchy&#39;s environment will be available at the 0th index of the vector. NOTE: This list includes Objects that were protected at some point in the past but are no longer actively protected. Snapshots containing these Objects may even exist on the Cohesity Cluster and be available to recover from..</param>
-        public ProtectionSourceNode(List<Object> applicationNodes = default(List<Object>), long? logicalSize = default(long?), List<ProtectionSourceNode> nodes = default(List<ProtectionSourceNode>), List<AggregatedSubtreeInfo> protectedSourcesSummary = default(List<AggregatedSubtreeInfo>), ProtectionSource_ protectionSource = default(ProtectionSource_), RegisteredSourceInfo_ registrationInfo = default(RegisteredSourceInfo_), List<AggregatedSubtreeInfo> unprotectedSourcesSummary = default(List<AggregatedSubtreeInfo>))
+        public ProtectionSourceNode(List<Object> applicationNodes = default(List<Object>), long? logicalSize = default(long?), List<ProtectionSourceNode> nodes = default(List<ProtectionSourceNode>), List<AggregatedSubtreeInfo> protectedSourcesSummary = default(List<AggregatedSubtreeInfo>), ProtectionSource protectionSource = default(ProtectionSource), RegisteredSourceInfo_ registrationInfo = default(RegisteredSourceInfo_), List<AggregatedSubtreeInfo> unprotectedSourcesSummary = default(List<AggregatedSubtreeInfo>))
         {
             this.ApplicationNodes = applicationNodes;
             this.LogicalSize = logicalSize;
@@ -84,7 +84,7 @@ namespace Cohesity.Models
         /// Gets or Sets ProtectionSource
         /// </summary>
         [DataMember(Name="protectionSource", EmitDefaultValue=false)]
-        public ProtectionSource_ ProtectionSource { get; set; }
+        public ProtectionSource ProtectionSource { get; set; }
 
         /// <summary>
         /// Gets or Sets RegistrationInfo
