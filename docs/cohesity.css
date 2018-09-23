@@ -145,7 +145,7 @@
     --sidebar-nav-pagelink-transition                   : none;
 
     /* Toggle */
-    --sidebar-toggle-background                         : var(--sidebar-border-color);
+    --sidebar-toggle-background                         : white;
     --sidebar-toggle-border-radius                      : 0 var(--border-radius-s) var(--border-radius-s) 0;
-    --sidebar-toggle-width                              : 32px;
+    --sidebar-toggle-width                              : 30px;
 }
