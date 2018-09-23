@@ -1,14 +1,12 @@
-# Sample Workflows
-
-## Add multiple VMs to a Protection Job
+# Add multiple VMs to a Protection Job
 You can use the powershell script below to add multiple VMs to an existing protection job.
+
+This script uses the cmdlets `Get-CohesityProtectionJob`, `Get-CohesityVM` and `Set-CohesityProtectionJob` to achieve this task.
 
 ### Example
 ```powershell
 Add-VmsToProtectionJob.ps1 -JobId 5 -VMNames linux-vm,win2k16-vm -Mode Append
 ```
-
-This script uses a combination of three cmdlets `Get-CohesityProtectionJob`, `Get-CohesityVM` and `Set-CohesityProtectionJob` to achieve this task.
 
 ```powershell
 param(
@@ -52,18 +50,4 @@ if($Mode -eq "Append") {
 }        
 
 Set-CohesityProtectionJob -Id $JobId -ProtectionJob $protectionJob
-```
-
-## Start an on-demand run of a Protection Job
-You can simply use `Start-CohesityProtectionJob` cmdlet to achieve this task.
-
-```powershell
-Start-CohesityProtectionJob -Id 5 -RunType KRegular
-```
-
-## See recent unresolved alerts on the Cohesity Cluster
-You can simply use `Get-CohesityAlert` cmdlet to achieve this task.
-
-```powershell
-Get-CohesityAlert -MaxAlerts 100 -AlertStateList kOpen
 ```

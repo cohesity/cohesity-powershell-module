@@ -3,13 +3,21 @@
 - [Pre-requisites](pre-requisites.md)
 - [Installation](installation.md)
 - [How to use](how-to-use.md)
-- [Samples](samples.md)
 - [Feedback](feedback.md)
 
 
-- **Platform**
+- **Examples**
+- [Add vms to a protection job](samples/add-vms-protection-job.md)
+- [Start an on-demand backup](samples/on-demand-backup.md)
+- [List most recent unresolved alerts](samples/list-unresolved-alerts.md)
+
+
+- **Authentication**
 - [Connect-CohesityCluster](cmdlets-reference/connect-cohesitycluster.md)
 - [Disconnect-CohesityCluster](cmdlets-reference/disconnect-cohesitycluster.md)
+
+
+- **Platform**
 - [Get-CohesityCluster](cmdlets-reference/get-cohesitycluster.md)
 - [Get-CohesityClusterPartition](cmdlets-reference/get-cohesityclusterpartition.md)
 - [Get-CohesityClusterConfiguration](cmdlets-reference/get-cohesityclusterconfiguration.md)

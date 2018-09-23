@@ -1,7 +1,7 @@
 /* Custom Theme: Cohesity */
 :root {
 
-    --content-max-width                  : 60em;
+    --content-max-width                  : 55em;
     --link-color                         : var(--theme-color);
     --base-font-size                     : 17px;
     --code-font-size                     : 16px;
@@ -39,7 +39,7 @@
     --heading-font-weight                : var(--strong-font-weight);
     --heading-h1-font-weight             : 300;
     --heading-h2-font-weight             : 300;
-    --heading-h2-font-size               : 20px;
+    --heading-h2-font-size               : 22px;
     --heading-h2-border-color            : var(--mono-tint2);
     --heading-h2-border-width            : 0 0 1px 0;
     --heading-h2-margin                  : 2.5rem 0 1.5rem;
@@ -116,8 +116,8 @@
     /* Sidebar */
     --sidebar-width                                     : 24.5rem;
     --sidebar-background                                : var(--theme-color);
-    --sidebar-border-color                              : #d1e99f;
-    --sidebar-border-width                              : 0 1.5px 0 0;
+    --sidebar-border-color                              : #c9d2b6;
+    --sidebar-border-width                              : 0 1px 0 0;
 
     /* Name */
     --sidebar-name-color                                : rgb(255, 255, 255);
@@ -169,4 +169,32 @@
     --sidebar-toggle-width                              : 30px;
     --sidebar-toggle-icon-stroke-width                  : 2px;
     --sidebar-toggle-icon-color                         : var(--theme-color);
+}
+
+.guide-links {
+    margin-top: 50px;
+    border-top: 1px solid #EEE;
+    padding-top: 20px;
+}
+
+.guide-links .guide-link-next {
+    float: right; 
+}
+
+.guide-links .guide-link-prev:before {
+    padding-right: 0.4em;
+    content: '←';
+}
+
+.guide-links .guide-link-next:after {
+    padding-left: 0.4em;
+    content: '→';
+}
+
+.guide-links a {
+    text-decoration: bold;
+}
+
+.guide-links a:hover {
+  text-decoration: none;
 }
