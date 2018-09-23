@@ -135,12 +135,12 @@
 
     /* Nav Links */
     --sidebar-nav-link-border-color                     : transparent;
-    --sidebar-nav-link-border-color--active             : #669803;
-    --sidebar-nav-link-background-color--active         : #669803;
-    --sidebar-nav-link-border-width                     : 0 5px 0 0;
+    --sidebar-nav-link-border-color--active             : rgb(222, 240, 203);
+    --sidebar-nav-link-background-color--active         : var(--sidebar-background);
+    --sidebar-nav-link-border-width                     : 0 6px 0 0;
     --sidebar-nav-link-color                            : rgb(255, 255, 255);
     --sidebar-nav-link-color--active                    : rgb(255, 255, 255);
-    --sidebar-nav-link-font-weight                      : 500;
+    --sidebar-nav-link-font-weight                      : 400;
     --sidebar-nav-link-font-weight--active              : 500;
     --sidebar-nav-link-margin                           : 0 -25px 0 0;
     --sidebar-nav-link-padding                          : 0 0;
