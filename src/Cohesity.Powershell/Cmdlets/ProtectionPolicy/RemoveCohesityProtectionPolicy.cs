@@ -21,7 +21,8 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionPolicy
     ///   Removes a protection policy with the specified Id.
     ///   </para>
     /// </example>
-    [Cmdlet(VerbsCommon.Remove, "CohesityProtectionPolicy", SupportsShouldProcess = true)]
+    [Cmdlet(VerbsCommon.Remove, "CohesityProtectionPolicy",
+        SupportsShouldProcess = true, ConfirmImpact = ConfirmImpact.High)]
     public class RemoveCohesityProtectionPolicy : PSCmdlet
     {
         private Session Session

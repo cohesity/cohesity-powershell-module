@@ -21,7 +21,8 @@ namespace Cohesity.Powershell.Cmdlets.View
     ///   Removes a view with the name "Test-View".
     ///   </para>
     /// </example>
-    [Cmdlet(VerbsCommon.Remove, "CohesityView", SupportsShouldProcess = true)]
+    [Cmdlet(VerbsCommon.Remove, "CohesityView",
+        SupportsShouldProcess = true, ConfirmImpact = ConfirmImpact.High)]
     public class RemoveCohesityView : PSCmdlet
     {
         private Session Session
