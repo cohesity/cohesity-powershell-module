@@ -7,8 +7,8 @@ Gets a list of audit logs generated on the Cohesity Cluster.
 
 ```
 Get-CohesityAuditLog [-Actions <string[]>] [-Domains <string[]>] [-EndTime <long>] [-EntityTypes <string[]>]
- [-OutputFormat <string>] [-PageCount <long>] [-Search <string>] [-StartIndex <long>] [-StartTime <long>]
- [-UserNames <string[]>] [<CommonParameters>]
+ [-PageCount <long>] [-Search <string>] [-StartIndex <long>] [-StartTime <long>] [-UserNames <string[]>]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -151,23 +151,6 @@ Default value is 1000.
 
 ```yaml
 Type: long
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -OutputFormat
-Specifies the format of the output such as csv and json.
-If not specified, the json format is returned.
-If csv is specified, a comma-separated list with a heading row is returned
-
-```yaml
-Type: string
 Parameter Sets: (All)
 Aliases:
 

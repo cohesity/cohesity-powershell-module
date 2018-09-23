@@ -124,7 +124,19 @@ namespace Cohesity.Models
             /// Enum KRestoreFiles for value: kRestoreFiles
             /// </summary>
             [EnumMember(Value = "kRestoreFiles")]
-            kRestoreFiles = 5
+            kRestoreFiles = 5,
+
+            /// <summary>
+            /// Enum KMountFileVolume for value: kMountFileVolume
+            /// </summary>
+            [EnumMember(Value = "kMountFileVolume")]
+            kMountFileVolume = 6,
+
+            /// <summary>
+            /// Enum KDownloadFiles for value: kDownloadFiles
+            /// </summary>
+            [EnumMember(Value = "kDownloadFiles")]
+            kDownloadFiles = 7
         }
 
         /// <summary>

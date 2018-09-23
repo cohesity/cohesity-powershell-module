@@ -118,7 +118,7 @@ Aliases:
 
 Required: False
 Position: Named
-Default value: 9/21/2018 10:23:23 PM
+Default value: 9/22/2018 6:01:17 PM
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -155,13 +155,13 @@ Accept wildcard characters: False
 Specifies the environment that this job is protecting.
 Default is kView.
 
-Possible values: kVMware, kSQL, kView, kPuppeteer, kPhysical, kPure, kNetapp, kGenericNas, kHyperV, kAcropolis, kAzure, kPhysicalFiles, kAgent, kIsilon, kKVM, kOracle, kAWS, kAWSNative
+Possible values: kVMware, kSQL, kView, kPuppeteer, kPhysical, kPure, kNetapp, kGenericNas, kHyperV, kAcropolis, kAzure, kPhysicalFiles, kAgent, kIsilon, kKVM, kOracle, kAWS, kAWSNative, kHyperVVSS
 
 ```yaml
 Type: EnvironmentEnum
 Parameter Sets: (All)
 Aliases:
-Accepted values: kVMware, kSQL, kView, kPuppeteer, kPhysical, kPure, kNetapp, kGenericNas, kHyperV, kAcropolis, kAzure, kPhysicalFiles, kAgent, kIsilon, kKVM, kOracle, kAWS, kAWSNative
+Accepted values: kVMware, kSQL, kView, kPuppeteer, kPhysical, kPure, kNetapp, kGenericNas, kHyperV, kAcropolis, kAzure, kPhysicalFiles, kAgent, kIsilon, kKVM, kOracle, kAWS, kAWSNative, kHyperVVSS
 
 Required: False
 Position: Named

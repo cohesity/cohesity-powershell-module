@@ -111,14 +111,6 @@ namespace Cohesity.Powershell.Cmdlets.AuditLog
         [Parameter(Mandatory = false)]
         public long? PageCount { get; set; }
 
-        /// <summary>
-        /// <para type="description">
-        /// Specifies the format of the output such as csv and json. If not specified, the json format is returned. If csv is specified, a comma-separated list with a heading row is returned
-        /// </para>
-        /// </summary>
-        [Parameter(Mandatory = false)]
-        public string OutputFormat { get; set; } = string.Empty;
-
         protected override void BeginProcessing()
         {
             base.BeginProcessing();
@@ -159,9 +151,6 @@ namespace Cohesity.Powershell.Cmdlets.AuditLog
 
             if (EndTime.HasValue)
                 queries.Add("endTimeUsecs", EndTime.ToString());
-
-            if (!string.IsNullOrWhiteSpace(OutputFormat))
-                queries.Add("outputFormat", OutputFormat.Trim());
 
             var preparedUrl = $"/public/auditLogs/cluster{queries.Build()}";
             WriteDebug(preparedUrl);
