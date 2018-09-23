@@ -7,14 +7,21 @@
 - [Feedback](feedback.md)
 
 
-- **Cmdlets Reference**
+- **Platform**
 - [Connect-CohesityCluster](cmdlets-reference/connect-cohesitycluster.md)
 - [Disconnect-CohesityCluster](cmdlets-reference/disconnect-cohesitycluster.md)
 - [Get-CohesityCluster](cmdlets-reference/get-cohesitycluster.md)
 - [Get-CohesityClusterPartition](cmdlets-reference/get-cohesityclusterpartition.md)
 - [Get-CohesityClusterConfiguration](cmdlets-reference/get-cohesityclusterconfiguration.md)
 - [Set-CohesityClusterConfiguration](cmdlets-reference/set-cohesityclusterconfiguration.md)
+- [Get-CohesityView](cmdlets-reference/get-cohesityview.md)
+- [Remove-CohesityView](cmdlets-reference/remove-cohesityview.md)
+- [Get-CohesityStorageDomain](cmdlets-reference/get-cohesitystoragedomain.md)
+- [Set-CohesityStorageDomain](cmdlets-reference/set-cohesitystoragedomain.md)
 - [Get-CohesityPrivilege](cmdlets-reference/get-cohesityprivilege.md)
+
+
+- **Data Protection**
 - [Register-CohesityProtectionSourceVMware](cmdlets-reference/register-cohesityprotectionsourcevmware.md)
 - [Register-CohesityProtectionSourceHyperV](cmdlets-reference/register-cohesityprotectionsourcehyperv.md)
 - [Register-CohesityProtectionSourceAcropolis](cmdlets-reference/register-cohesityprotectionsourceacropolis.md)
@@ -37,16 +44,21 @@
 - [Resume-CohesityProtectionJob](cmdlets-reference/resume-cohesityprotectionjob.md)
 - [Get-CohesityProtectionJobRun](cmdlets-reference/get-cohesityprotectionjobrun.md)
 - [Stop-CohesityProtectionJobRun](cmdlets-reference/stop-cohesityprotectionjobrun.md)
-- [Get-CohesityView](cmdlets-reference/get-cohesityview.md)
-- [Remove-CohesityView](cmdlets-reference/remove-cohesityview.md)
-- [Get-CohesityStorageDomain](cmdlets-reference/get-cohesitystoragedomain.md)
-- [Set-CohesityStorageDomain](cmdlets-reference/set-cohesitystoragedomain.md)
+
+
+- **Monitoring**
 - [Get-CohesityAlert](cmdlets-reference/get-cohesityalert.md)
 - [Get-CohesityAlertResolution](cmdlets-reference/get-cohesityalertresolution.md)
 - [Get-CohesityAuditLog](cmdlets-reference/get-cohesityauditlog.md)
+
+
+- **Recovery**
 - [Find-CohesityFilesForRestore](cmdlets-reference/find-cohesityfilesforrestore.md)
 - [Restore-CohesityVMwareVM](cmdlets-reference/restore-cohesityvmwarevm.md)
 - [Get-CohesityRestoreTask](cmdlets-reference/get-cohesityrestoretask.md)
 - [Stop-CohesityRestoreTask](cmdlets-reference/stop-cohesityrestoretask.md)
+
+
+- **Utility**
 - [Convert-CohesityUsecsToDateTime](cmdlets-reference/convert-cohesityusecstodatetime.md)
----
+

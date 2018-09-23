@@ -6,6 +6,6 @@ The pre-requisites for using the Cohesity PowerShell Module are as below:
 * On Windows, both [Windows PowerShell](https://docs.microsoft.com/en-us/powershell/scripting/setup/installing-windows-powershell) and [PowerShell Core](https://docs.microsoft.com/en-us/powershell/scripting/setup/installing-powershell) are supported
   * Windows PowerShell version `5.1` or higher.
   * PowerShell Core `6.0` or higher.
-* On Linux and Mac OS
+* On Linux and MacOS
   * PowerShell Core `6.0` or higher.
 
