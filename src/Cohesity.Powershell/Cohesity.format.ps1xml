@@ -2,6 +2,37 @@
 <Configuration>
   <ViewDefinitions>
 
+    <!-- BasicClusterInfo -->
+    <View>
+      <Name>BasicClusterInfo.ListView</Name>
+      <ViewSelectedBy>
+        <TypeName>Cohesity.Models.BasicClusterInfo</TypeName>
+      </ViewSelectedBy>
+      <ListControl>
+        <ListEntries>
+          <ListEntry>
+            <ListItems>
+              <ListItem>
+                <PropertyName>Name</PropertyName>
+              </ListItem>
+              <ListItem>
+                <PropertyName>ClusterSoftwareVersion</PropertyName>
+              </ListItem>
+              <ListItem>
+                <PropertyName>ClusterType</PropertyName>
+              </ListItem>
+              <ListItem>
+                <PropertyName>Domains</PropertyName>
+              </ListItem>
+              <ListItem>
+                <PropertyName>LanguageLocale</PropertyName>
+              </ListItem>
+            </ListItems>
+          </ListEntry>
+        </ListEntries>
+      </ListControl>
+    </View>
+    
     <!-- Alert -->
     <View>
       <Name>Alert.TableView</Name>
@@ -26,7 +57,7 @@
               </TableColumnItem>
               <TableColumnItem>
                 <ScriptBlock>
-                  [timezone]::CurrentTimeZone.ToLocalTime(([datetime]'1/1/1970').AddSeconds($_.LatestTimestampUsecs/1000000))
+                  $_.LatestTimestampUsecs | Convert-CohesityUsecsToDateTime
                 </ScriptBlock>
               </TableColumnItem>
               <TableColumnItem>
@@ -187,16 +218,7 @@
                 <PropertyName>Name</PropertyName>
               </TableColumnItem>
               <TableColumnItem>
-                <PropertyName>Description</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
                 <PropertyName>DaysToKeep</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>FullSchedulingPolicy</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>IncrementalSchedulingPolicy</PropertyName>
               </TableColumnItem>
             </TableColumnItems>
           </TableRowEntry>
@@ -208,11 +230,6 @@
           </TableColumnHeader>
           <TableColumnHeader>
           </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader/>
         </TableHeaders>
       </TableControl>
     </View>
@@ -269,31 +286,13 @@
                 <PropertyName>Environment</PropertyName>
               </TableColumnItem>
               <TableColumnItem>
-                <PropertyName>Priority</PropertyName>
+                <ScriptBlock>$_.LastRun.BackupRun.Stats.StartTimeUsecs | Convert-CohesityUsecsToDateTime</ScriptBlock>
               </TableColumnItem>
               <TableColumnItem>
-                <PropertyName>ParentSourceId</PropertyName>
+                <ScriptBlock>if($_.LastRun.BackupRun.SlaViolated){"Fail"}else{"Pass"}</ScriptBlock>
               </TableColumnItem>
               <TableColumnItem>
-                <PropertyName>ViewBoxId</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>PolicyId</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>SourceIds</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>VmTagIds</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>ExcludeSourceIds</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>ExcludeVmTagIds</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>Uid</PropertyName>
+                <ScriptBlock>if($_.IsPaused){"True"}else{"False"}</ScriptBlock>
               </TableColumnItem>
             </TableColumnItems>
           </TableRowEntry>
@@ -306,22 +305,14 @@
           <TableColumnHeader>
           </TableColumnHeader>
           <TableColumnHeader>
+            <Label>LastRunTime</Label>
           </TableColumnHeader>
           <TableColumnHeader>
+            <Label>SLA</Label>
           </TableColumnHeader>
           <TableColumnHeader>
+            <Label>IsPaused</Label>
           </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader/>
         </TableHeaders>
       </TableControl>
     </View>
@@ -338,25 +329,29 @@
                 <PropertyName>Id</PropertyName>
               </ListItem>
               <ListItem>
-                <PropertyName>Uid</PropertyName>
-              </ListItem>
-              <ListItem>
                 <PropertyName>Name</PropertyName>
               </ListItem>
               <ListItem>
                 <PropertyName>Environment</PropertyName>
               </ListItem>
               <ListItem>
-                <PropertyName>Priority</PropertyName>
+                <Label>LastRunTime</Label>
+                <ScriptBlock>$_.LastRun.BackupRun.Stats.StartTimeUsecs | Convert-CohesityUsecsToDateTime</ScriptBlock>
               </ListItem>
               <ListItem>
-                <PropertyName>ParentSourceId</PropertyName>
+                <PropertyName>IsPaused</PropertyName>
+              </ListItem>
+              <ListItem>
+                <PropertyName>Priority</PropertyName>
               </ListItem>
               <ListItem>
                 <PropertyName>ViewBoxId</PropertyName>
               </ListItem>
               <ListItem>
                 <PropertyName>PolicyId</PropertyName>
+              </ListItem>
+              <ListItem>
+                <PropertyName>ParentSourceId</PropertyName>
               </ListItem>
               <ListItem>
                 <PropertyName>SourceIds</PropertyName>
@@ -369,6 +364,9 @@
               </ListItem>
               <ListItem>
                 <PropertyName>ExcludeVmTagIds</PropertyName>
+              </ListItem>
+              <ListItem>
+                <PropertyName>Uid</PropertyName>
               </ListItem>
             </ListItems>
           </ListEntry>
@@ -404,12 +402,6 @@
               <TableColumnItem>
                <ScriptBlock>$_.BackupRun.Status</ScriptBlock>
               </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>ViewBoxId</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>JobUid</PropertyName>
-              </TableColumnItem>
               </TableColumnItems>
           </TableRowEntry>
         </TableRowEntries>
@@ -429,9 +421,6 @@
           </TableColumnHeader>
           <TableColumnHeader>
             <Label>Status</Label>
-          </TableColumnHeader>
-          <TableColumnHeader/>
-          <TableColumnHeader>
           </TableColumnHeader>
         </TableHeaders>
       </TableControl>

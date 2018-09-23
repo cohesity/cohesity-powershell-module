@@ -6,12 +6,14 @@ Gets a list of protection jobs filtered by the specified parameters.
 ## SYNTAX
 
 ```
-Get-CohesityProtectionJob [-Environments <EnvironmentEnum[]>] [-Ids <int[]>] [-IncludeLastRunAndStats]
- [-IsActive <bool>] [-IsDeleted <bool>] [-Names <string[]>] [-PolicyIds <string[]>] [<CommonParameters>]
+Get-CohesityProtectionJob [-Environments <EnvironmentEnum[]>] [-Ids <int[]>] [-Names <string[]>] [-OnlyActive]
+ [-OnlyDeleted] [-OnlyInactive] [-PolicyIds <string[]>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-If no parameters are specified, all protection jobs currently on the Cohesity Cluster are returned.
+If no parameters are specified, all protection jobs (both active and inactive) on the Cohesity Cluster are returned.
+Note that the deleted protection jobs are not returned, by default.
+You may specify the OnlyDeleted parameter to get the deleted protection jobs.
 Specifying parameters filters the results that are returned.
 
 ## EXAMPLES
@@ -23,7 +25,51 @@ Get-CohesityProtectionJob -Names Test-Job
 
 Gets the protection job with name "Test-Job".
 
+### EXAMPLE 2
+```
+Get-CohesityProtectionJob -OnlyActive
+```
+
+Gets only the active protection jobs on the Cohesity Cluster.
+
+### EXAMPLE 3
+```
+Get-CohesityProtectionJob -OnlyDeleted
+```
+
+Gets only the deleted protection jobs on the Cohesity Cluster.
+
 ## PARAMETERS
+
+### -Ids
+Filter by a list of protection job ids.
+
+```yaml
+Type: int[]
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Names
+Filter by a list of protection job names.
+
+```yaml
+Type: string[]
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
 ### -PolicyIds
 Filter by policy ids that are associated with protection jobs.
@@ -58,44 +104,8 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -IsActive
-Filter by inactive or active jobs.
-If not set, all inactive and active jobs are returned.If true, only active jobs are returned.
-If false, only inactive jobs are returned.
-When you create a protection job on a primary cluster with a replication schedule, the cluster creates an inactive copy of the job on the remote cluster.
-In addition, when an active and running job is deactivated, the job becomes inactive.
-
-```yaml
-Type: bool
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -IsDeleted
-If true, return only protection jobs that have been deleted but still have snapshots associated with them.
-If false, return all protection jobs except those jobs that have been deleted and still have snapshots associated with them.
-A job that is deleted with all its snapshots is not returned for either of these cases.
-
-```yaml
-Type: bool
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -IncludeLastRunAndStats
-If true, return the last protection run of the job and the summary stats.
+### -OnlyActive
+If set, only the active jobs are returned.
 
 ```yaml
 Type: SwitchParameter
@@ -109,32 +119,33 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Ids
-Filter by a list of protection job ids.
+### -OnlyInactive
+If set, only the inactive jobs are returned.
 
 ```yaml
-Type: int[]
+Type: SwitchParameter
 Parameter Sets: (All)
 Aliases:
 
 Required: False
 Position: Named
-Default value: None
+Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Names
-Filter by a list of protection job names.
+### -OnlyDeleted
+If set, return only the deleted jobs that still have snapshots associated with them.
+If not set, the deleted jobs are not returned.
 
 ```yaml
-Type: string[]
+Type: SwitchParameter
 Parameter Sets: (All)
 Aliases:
 
 Required: False
 Position: Named
-Default value: None
+Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
