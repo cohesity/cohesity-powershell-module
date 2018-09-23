@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp2.0;net451</TargetFrameworks>
+    <TargetFrameworks>net451;netcoreapp2.0</TargetFrameworks>
     <AssemblyName>Cohesity.PowerShell.Models</AssemblyName>
     <RootNamespace>Cohesity.Powershell.Models</RootNamespace>
 	<RestoreProjectStyle>PackageReference</RestoreProjectStyle>
