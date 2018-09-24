@@ -483,33 +483,30 @@
                 <ScriptBlock>$_.ProtectionSource.Id</ScriptBlock>
               </TableColumnItem>
               <TableColumnItem>
-              <ScriptBlock>$_.ProtectionSource.Name</ScriptBlock>
+                <ScriptBlock>$_.ProtectionSource.Name</ScriptBlock>
               </TableColumnItem>
               <TableColumnItem>
-              <ScriptBlock>$_.ProtectionSource.Environment</ScriptBlock>
+                <ScriptBlock>$_.ProtectionSource.Environment</ScriptBlock>
               </TableColumnItem>
               <TableColumnItem>
-               <PropertyName>ProtectionSource</PropertyName>
+                <ScriptBlock>$_.RegistrationInfo.RefreshTimeUsecs | Convert-CohesityUsecsToDateTime</ScriptBlock>
               </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>RegistrationInfo</PropertyName>
-              </TableColumnItem>
-              </TableColumnItems>
+            </TableColumnItems>
           </TableRowEntry>
         </TableRowEntries>
         <TableHeaders>
-        <TableColumnHeader>
-          <Label>Id</Label>
+          <TableColumnHeader>
+            <Label>Id</Label>
           </TableColumnHeader>
           <TableColumnHeader>
-            <Label>Name</Label>
+              <Label>Name</Label>
           </TableColumnHeader>
           <TableColumnHeader>
-            <Label>Environment</Label>
+              <Label>Environment</Label>
           </TableColumnHeader>
           <TableColumnHeader>
+            <Label>RefreshedTime</Label>
           </TableColumnHeader>
-          <TableColumnHeader/>
         </TableHeaders>
       </TableControl>
     </View>

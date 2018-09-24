@@ -79,8 +79,16 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
                 qb.Add("environments", string.Join(",", Environments));
             
             var url = $"/public/protectionSources/rootNodes{qb.Build()}";
-            var result = Session.ApiClient.Get<IEnumerable<ProtectionSourceNode>>(url);
-            WriteObject(result, true);
+            var results = Session.ApiClient.Get<IEnumerable<ProtectionSourceNode>>(url);
+
+            // Hide kView, kAgent, kPuppeteer environment types to keep the same behavior as UI
+            results = results.Where(x =>
+                (x.ProtectionSource.Environment != EnvironmentEnum.kAgent) &&
+                (x.ProtectionSource.Environment != EnvironmentEnum.kView) &&
+                (x.ProtectionSource.Environment != EnvironmentEnum.kPuppeteer)
+            ).ToList();
+            
+            WriteObject(results, true);
         }
     }
 }

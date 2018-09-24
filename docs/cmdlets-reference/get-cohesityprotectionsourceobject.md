@@ -6,7 +6,7 @@ Gets a list of the registered Protection Sources and their Objects.
 ## SYNTAX
 
 ```
-Get-CohesityProtectionSourceObject [-Environments <EnvironmentEnum[]>] [-ExcludeTypes <string[]>] [-ID <long>]
+Get-CohesityProtectionSourceObject [-Environments <EnvironmentEnum[]>] [-ExcludeTypes <string[]>] [-Id <long>]
  [-IncludeDatastores] [-IncludeNetworks] [-IncludeVMFolders] [<CommonParameters>]
 ```
 
@@ -91,7 +91,7 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -ID
+### -Id
 Return the Object subtree for the passed in Protection Source id.
 
 ```yaml

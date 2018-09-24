@@ -79,7 +79,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
         /// </para>
         /// </summary>
         [Parameter(Mandatory = false)]
-        public long? ID { get; set; }
+        public long? Id { get; set; }
 
         /// <summary>
         /// <para type="description">
@@ -102,8 +102,8 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
         {
             var qb = new QuerystringBuilder();
 
-            if (ID.HasValue)
-                qb.Add("id", ID.Value);
+            if (Id.HasValue)
+                qb.Add("id", Id.Value);
 
             if (IncludeDatastores.IsPresent)
                 qb.Add("includeDatastores", true);

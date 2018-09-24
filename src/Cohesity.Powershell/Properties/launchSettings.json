@@ -10,9 +10,9 @@
       "executablePath": "C:\\Program Files\\PowerShell\\6.0.3\\pwsh.exe",
       "commandLineArgs": "-noexit -command \"&{ import-module .\\Cohesity.PowerShell.Core.psd1 -verbose}\""
     },
-    "Powershell.Core.6-preview": {
+    "Powershell.Core.6.1.0": {
       "commandName": "Executable",
-      "executablePath": "C:\\Program Files\\PowerShell\\6-preview\\pwsh.exe",
+      "executablePath": "C:\\Program Files\\PowerShell\\6\\pwsh.exe",
       "commandLineArgs": "-noexit -command \"&{ import-module .\\Cohesity.PowerShell.Core.psd1 -verbose}\""
     }
   }
