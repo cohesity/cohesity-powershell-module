@@ -34,7 +34,7 @@ Aliases:
 Required: True
 Position: Named
 Default value: 0
-Accept pipeline input: True (ByValue)
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 

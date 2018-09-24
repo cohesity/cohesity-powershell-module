@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Management.Automation;
 
-namespace Cohesity.Powershell.Cmdlets.ProtectionSource
+namespace Cohesity.Powershell.Cmdlets.Agent
 {
     /// <summary>
     /// <para type="synopsis">

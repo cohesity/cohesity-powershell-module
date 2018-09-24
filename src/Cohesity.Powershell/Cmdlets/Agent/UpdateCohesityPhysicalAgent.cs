@@ -48,7 +48,7 @@ namespace Cohesity.Powershell.Cmdlets.Agent
         /// Specifies a unique id of the physical agent.
         /// </para>
         /// </summary>
-        [Parameter(Mandatory = true, ValueFromPipeline = true)]
+        [Parameter(Mandatory = true, ValueFromPipelineByPropertyName = true)]
         [ValidateRange(1, long.MaxValue)]
         public long Id { get; set; }
 
