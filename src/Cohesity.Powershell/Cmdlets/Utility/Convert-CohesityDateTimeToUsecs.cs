@@ -35,7 +35,6 @@ namespace Cohesity.Powershell.Cmdlets.Utility
         protected override void ProcessRecord()
         {
             DateTime UnixEpoch = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
-            double res = (this.DateTime - UnixEpoch).TotalMilliseconds;
             long microseconds = (this.DateTime.ToUniversalTime() - UnixEpoch).Ticks / (TimeSpan.TicksPerMillisecond / 1000);
             WriteObject(microseconds, true);
         }
