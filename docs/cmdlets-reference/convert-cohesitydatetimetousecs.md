@@ -32,7 +32,7 @@ Aliases:
 Required: True
 Position: Named
 Default value: 1/1/0001 12:00:00 AM
-Accept pipeline input: False
+Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
@@ -42,6 +42,7 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 
 ## INPUTS
 
+### System.DateTime
 ## OUTPUTS
 
 ### System.DateTime

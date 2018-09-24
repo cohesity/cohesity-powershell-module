@@ -24,7 +24,7 @@ namespace Cohesity.Powershell.Cmdlets.Utility
     [OutputType(typeof(DateTime))]
     public class ConvertCohesityDateTimeToUsecs : Cmdlet
     {
-        [Parameter(Mandatory = true)]
+        [Parameter(Mandatory = true, ValueFromPipeline = true)]
         public DateTime DateTime { get; set; }
 
         protected override void BeginProcessing()
@@ -41,9 +41,9 @@ namespace Cohesity.Powershell.Cmdlets.Utility
 
             long microseconds = (this.DateTime.ToUniversalTime() - UnixEpoch).Ticks / (TimeSpan.TicksPerMillisecond / 1000);
 
-            WriteObject(string.Empty);
+            
             WriteObject(microseconds, true);
-            WriteObject(string.Empty);
+           
         }
     }
 }
