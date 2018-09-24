@@ -1,24 +1,24 @@
-# Get-CohesityVM
+# Get-CohesityVMwareVM
 
 ## SYNOPSIS
-Gets a list of the virtual machines known to the Cohesity Cluster.
+Gets a list of the VMware virtual machines known to the Cohesity Cluster.
 
 ## SYNTAX
 
 ```
-Get-CohesityVM [-Names <string[]>] [-ParentSourceId <long>] [-Protected] [-Uuids <string[]>]
+Get-CohesityVMwareVM [-Names <string[]>] [-ParentSourceId <long>] [-Protected] [-Uuids <string[]>]
  [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Returns all the virtual machines known to the Cohesity Cluster that match the filter criteria specified using parameters.
+Returns all the VMware virtual machines known to the Cohesity Cluster that match the filter criteria specified using parameters.
 If the ParentSourceId is specified, only VMs found in that parent source (such as a vCenter Server) are returned.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Get-CohesityVM -ParentSourceId 2
+Get-CohesityVMwareVM -ParentSourceId 2
 ```
 
 Gets a list of the virtual machines belonging to the vCenter Server with the ParentSourceId of 2.

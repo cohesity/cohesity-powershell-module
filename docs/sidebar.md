@@ -40,7 +40,7 @@
 - [Update-CohesityProtectionSource](cmdlets-reference/update-cohesityprotectionsource.md)
 - [Get-CohesityProtectionSource](cmdlets-reference/get-cohesityprotectionsource.md)
 - [Get-CohesityProtectionSourceObject](cmdlets-reference/get-cohesityprotectionsourceobject.md)
-- [Get-CohesityVM](cmdlets-reference/get-cohesityvm.md)
+- [Get-CohesityVMwareVM](cmdlets-reference/get-cohesityvmwarevm.md)
 - [Get-CohesityProtectionPolicy](cmdlets-reference/get-cohesityprotectionpolicy.md)
 - [Set-CohesityProtectionPolicy](cmdlets-reference/set-cohesityprotectionpolicy.md)
 - [Remove-CohesityProtectionPolicy](cmdlets-reference/remove-cohesityprotectionpolicy.md)

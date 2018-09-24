@@ -1,11 +1,11 @@
 # Add multiple VMs to a Protection Job
 You can use the powershell script below to add multiple VMs to an existing protection job.
 
-This script uses the cmdlets `Get-CohesityProtectionJob`, `Get-CohesityVM` and `Set-CohesityProtectionJob` to achieve this task.
+This script uses the cmdlets `Get-CohesityProtectionJob`, `Get-CohesityVMwareVM` and `Set-CohesityProtectionJob` to achieve this task.
 
 ### Example
 ```powershell
-Add-VmsToProtectionJob.ps1 -JobId 5 -VMNames linux-vm,win2k16-vm -Mode Append
+Add-VmsToProtectionJob.ps1 -JobId 5 -VmNames linux-vm,win2k16-vm -Mode Append
 ```
 
 ```powershell
@@ -26,7 +26,7 @@ param(
     [Parameter(Mandatory=$true, Position=2)]
     [ValidateNotNullOrEmpty()]
     [string[]]
-    $VMNames
+    $VmNames
 )
 
 $protectionJob = Get-CohesityProtectionJob -Id $JobId
@@ -35,7 +35,7 @@ if ($null -eq $protectionJob) {
         return
 }
 
-$protectionSources = Get-CohesityVM -Names $VMNames
+$protectionSources = Get-CohesityVMwareVM -Names $VmNames
 if ($null -eq $protectionSources -or $protectionSources.Count -eq 0) {
     "No matching virtual machines found."
     return
@@ -49,5 +49,5 @@ if($Mode -eq "Append") {
     $protectionJob.SourceIds = $protectionSourceIds    
 }        
 
-Set-CohesityProtectionJob -Id $JobId -ProtectionJob $protectionJob
+$protectionJob | Set-CohesityProtectionJob
 ```

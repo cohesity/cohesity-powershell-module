@@ -1,5 +1,4 @@
 ﻿// Copyright 2018 Cohesity Inc.
-using Cohesity.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Management.Automation;
@@ -9,25 +8,25 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
 {
     /// <summary>
     /// <para type="synopsis">
-    /// Gets a list of the virtual machines known to the Cohesity Cluster.
+    /// Gets a list of the VMware virtual machines known to the Cohesity Cluster.
     /// </para>
     /// <para type="description">
-    /// Returns all the virtual machines known to the Cohesity Cluster that match the filter criteria specified using parameters.
+    /// Returns all the VMware virtual machines known to the Cohesity Cluster that match the filter criteria specified using parameters.
     /// If the ParentSourceId is specified, only VMs found in that parent source (such as a vCenter Server) are returned.
     /// </para>
     /// </summary>
     /// <example>
     ///   <para>PS&gt;</para>
     ///   <code>
-    ///   Get-CohesityVM -ParentSourceId 2
+    ///   Get-CohesityVMwareVM -ParentSourceId 2
     ///   </code>
     ///   <para>
     ///   Gets a list of the virtual machines belonging to the vCenter Server with the ParentSourceId of 2.
     ///   </para>
     /// </example>
-    [Cmdlet(VerbsCommon.Get, "CohesityVM")]
+    [Cmdlet(VerbsCommon.Get, "CohesityVMwareVM")]
     [OutputType(typeof(Models.ProtectionSource))]
-    public class GetCohesityVM : PSCmdlet
+    public class GetCohesityVMwareVM : PSCmdlet
     {
         private Session Session
         {
@@ -96,7 +95,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
             var qb = new QuerystringBuilder();
 
             if (ParentSourceId != null)
-                qb.Add("ParentSourceId", ParentSourceId.Value);
+                qb.Add("vCenterId", ParentSourceId.Value);
 
             if (Names != null && Names.Any())
                 qb.Add("names", string.Join(",", Names));
