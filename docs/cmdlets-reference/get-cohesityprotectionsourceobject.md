@@ -17,12 +17,12 @@ Specifying the parameters can filter the results that are returned.
 
 ## EXAMPLES
 
-### Example 1
-```powershell
-PS C:\> {{ Add example code here }}
+### EXAMPLE 1
+```
+Get-CohesityProtectionSourceObject -Environments kPhysical
 ```
 
-{{ Add example description here }}
+Returns registered protection sources that match the environment type 'kPhysical' and all their objects.
 
 ## PARAMETERS
 

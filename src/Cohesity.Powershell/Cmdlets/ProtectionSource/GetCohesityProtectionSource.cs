@@ -18,7 +18,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
     /// <example>
     ///   <para>PS&gt;</para>
     ///   <code>
-    ///   Get-CohesityProtectionSource -environment kVMware
+    ///   Get-CohesityProtectionSource -Environments kVMware
     ///   </code>
     ///   <para>
     ///   Returns registered protection sources that match the environment type 'kVMware’.

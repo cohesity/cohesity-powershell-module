@@ -17,6 +17,15 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
     /// Specifying the parameters can filter the results that are returned.
     /// </para>
     /// </summary>
+    /// <example>
+    ///   <para>PS&gt;</para>
+    ///   <code>
+    ///   Get-CohesityProtectionSourceObject -Environments kPhysical
+    ///   </code>
+    ///   <para>
+    ///   Returns registered protection sources that match the environment type 'kPhysical’ and all their objects.
+    ///   </para>
+    /// </example>
     [Cmdlet(VerbsCommon.Get, "CohesityProtectionSourceObject")]
     [OutputType(typeof(ProtectionSourceNode))]
     public class GetCohesityProtectionSourceObject : PSCmdlet

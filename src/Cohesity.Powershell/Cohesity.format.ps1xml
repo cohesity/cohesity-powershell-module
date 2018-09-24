@@ -2,6 +2,80 @@
 <Configuration>
   <ViewDefinitions>
 
+    <!-- AgentInformation -->
+    <View>
+      <Name>AgentInformation.TableView</Name>
+      <ViewSelectedBy>
+        <TypeName>Cohesity.Models.AgentInformation</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>Id</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Name</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Version</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Status</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Upgradability</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>UpgradeStatus</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+        <TableHeaders>
+          <TableColumnHeader/>
+          <TableColumnHeader/>
+          <TableColumnHeader/>
+          <TableColumnHeader/>
+          <TableColumnHeader/>
+          <TableColumnHeader/>
+        </TableHeaders>
+      </TableControl>
+    </View>
+    <View>
+      <Name>AgentInformation.ListView</Name>
+      <ViewSelectedBy>
+        <TypeName>Cohesity.Models.AgentInformation</TypeName>
+      </ViewSelectedBy>
+      <ListControl>
+        <ListEntries>
+          <ListEntry>
+            <ListItems>
+              <ListItem>
+                <PropertyName>Id</PropertyName>
+              </ListItem>
+              <ListItem>
+                <PropertyName>Name</PropertyName>
+              </ListItem>
+              <ListItem>
+                <PropertyName>Version</PropertyName>
+              </ListItem>
+              <ListItem>
+                <PropertyName>Status</PropertyName>
+              </ListItem>
+              <ListItem>
+                <PropertyName>Upgradability</PropertyName>
+              </ListItem>
+              <ListItem>
+                <PropertyName>UpgradeStatus</PropertyName>
+              </ListItem>
+            </ListItems>
+          </ListEntry>
+        </ListEntries>
+      </ListControl>
+    </View>
+    
     <!-- BasicClusterInfo -->
     <View>
       <Name>BasicClusterInfo.ListView</Name>

@@ -70,6 +70,7 @@
 
 
 - **Physical Agents**
+- [Get-CohesityPhysicalAgent](cmdlets-reference/get-cohesityphysicalagent.md)
 - [Update-CohesityPhysicalAgent](cmdlets-reference/update-cohesityphysicalagent.md)
 
 
