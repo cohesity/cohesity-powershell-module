@@ -17,7 +17,7 @@ function AddVmsToProtectionJob {
         [Parameter(Mandatory=$true, Position=2)]
         [ValidateNotNullOrEmpty()]
         [string[]]
-        $VMNames
+        $VmNames
     )
 
     process {
@@ -27,7 +27,7 @@ function AddVmsToProtectionJob {
              return
         }
 
-        $protectionSources = Get-CohesityVM -Names $VMNames
+        $protectionSources = Get-CohesityVMwareVM -Names $VmNames
         if ($null -eq $protectionSources -or $protectionSources.Count -eq 0) {
             "No matching virtual machines found."
             return
@@ -41,6 +41,6 @@ function AddVmsToProtectionJob {
             $protectionJob.SourceIds = $protectionSourceIds    
         }        
 
-        Set-CohesityProtectionJob -Id $JobId -ProtectionJob $protectionJob
+        $protectionJob | Set-CohesityProtectionJob
     }
 }
