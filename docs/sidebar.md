@@ -35,6 +35,7 @@
 - [Register-CohesityProtectionSourceAcropolis](cmdlets-reference/register-cohesityprotectionsourceacropolis.md)
 - [Register-CohesityProtectionSourcePhysical](cmdlets-reference/register-cohesityprotectionsourcephysical.md)
 - [Register-CohesityProtectionSourceNetApp](cmdlets-reference/register-cohesityprotectionsourcenetapp.md)
+- [Register-CohesityProtectionSourceNFS](cmdlets-reference/register-cohesityprotectionsourcenfs.md)
 - [Register-CohesityProtectionSourceIsilon](cmdlets-reference/register-cohesityprotectionsourceisilon.md)
 - [Update-CohesityProtectionSource](cmdlets-reference/update-cohesityprotectionsource.md)
 - [Get-CohesityProtectionSource](cmdlets-reference/get-cohesityprotectionsource.md)

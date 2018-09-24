@@ -118,7 +118,7 @@ Aliases:
 
 Required: False
 Position: Named
-Default value: 9/22/2018 6:01:17 PM
+Default value: 9/23/2018 5:32:17 PM
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -155,13 +155,13 @@ Accept wildcard characters: False
 Specifies the environment that this job is protecting.
 Default is kView.
 
-Possible values: kVMware, kSQL, kView, kPuppeteer, kPhysical, kPure, kNetapp, kGenericNas, kHyperV, kAcropolis, kAzure, kPhysicalFiles, kAgent, kIsilon, kKVM, kOracle, kAWS, kAWSNative, kHyperVVSS
+Possible values: kVMware, kHyperV, kSQL, kView, kPuppeteer, kPhysical, kPure, kAzure, kNetapp, kAgent, kGenericNas, kAcropolis, kPhysicalFiles, kIsilon, kKVM, kAWS, kExchange, kHyperVVSS, kOracle, kGCP, kFlashBlade, kAWSNative, kVCD, kO365, kO365Outlook, kHyperFlex, kGCPNative
 
 ```yaml
 Type: EnvironmentEnum
 Parameter Sets: (All)
 Aliases:
-Accepted values: kVMware, kSQL, kView, kPuppeteer, kPhysical, kPure, kNetapp, kGenericNas, kHyperV, kAcropolis, kAzure, kPhysicalFiles, kAgent, kIsilon, kKVM, kOracle, kAWS, kAWSNative, kHyperVVSS
+Accepted values: kVMware, kHyperV, kSQL, kView, kPuppeteer, kPhysical, kPure, kAzure, kNetapp, kAgent, kGenericNas, kAcropolis, kPhysicalFiles, kIsilon, kKVM, kAWS, kExchange, kHyperVVSS, kOracle, kGCP, kFlashBlade, kAWSNative, kVCD, kO365, kO365Outlook, kHyperFlex, kGCPNative
 
 Required: False
 Position: Named

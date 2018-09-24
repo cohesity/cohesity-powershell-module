@@ -2,6 +2,7 @@
 using System;
 using System.Net.Http;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Cohesity.Powershell.Common
 {
@@ -17,6 +18,19 @@ namespace Cohesity.Powershell.Common
             return JsonConvert.DeserializeObject<T>(responseContent, settings);
         }
 
+        private static string extractMessageFromErrorResponse(string responseContent)
+        {
+            if (!string.IsNullOrWhiteSpace(responseContent))
+            {
+                JObject errorResponse = JObject.Parse(responseContent);
+                return (string)errorResponse["message"];
+            }
+            else
+            {
+                return "No Error Message";
+            }
+        }
+
         public static string Get(this RestApiClient networkClient, string url)
         {
             var httpRequest = networkClient.CreateRequest(HttpMethod.Get, url);
@@ -30,8 +44,7 @@ namespace Cohesity.Powershell.Common
                 return responseContent;
             }
 
-            throw new Exception(
-                $"Operation returned an invalid status code '{response.StatusCode}' with Exception:{(string.IsNullOrWhiteSpace(responseContent) ? "Not Available" : responseContent)}");
+            throw new Exception(extractMessageFromErrorResponse(responseContent));
         }
 
         public static T Get<T>(this RestApiClient networkClient, string url)
@@ -54,9 +67,8 @@ namespace Cohesity.Powershell.Common
             {
                 return responseContent;
             }
-
-            throw new Exception(
-                $"Operation returned an invalid status code '{response.StatusCode}' with Exception:{(string.IsNullOrWhiteSpace(responseContent) ? "Not Available" : responseContent)}");
+            
+            throw new Exception(extractMessageFromErrorResponse(responseContent));
         }
 
         public static string Post(this RestApiClient networkClient, string url, object content)
@@ -72,8 +84,7 @@ namespace Cohesity.Powershell.Common
                 return responseContent;
             }
 
-            throw new Exception(
-                $"Operation returned an invalid status code '{response.StatusCode}' with Exception:{(string.IsNullOrWhiteSpace(responseContent) ? "Not Available" : responseContent)}");
+            throw new Exception(extractMessageFromErrorResponse(responseContent));
         }
 
         public static T Post<T>(this RestApiClient networkClient, string url, object content)
@@ -95,8 +106,7 @@ namespace Cohesity.Powershell.Common
                 return responseContent;
             }
 
-            throw new Exception(
-                $"Operation returned an invalid status code '{response.StatusCode}' with Exception:{(string.IsNullOrWhiteSpace(responseContent) ? "Not Available" : responseContent)}");
+            throw new Exception(extractMessageFromErrorResponse(responseContent));
         }
 
         public static T Put<T>(this RestApiClient networkClient, string url, object content)
@@ -118,8 +128,7 @@ namespace Cohesity.Powershell.Common
                 return responseContent;
             }
 
-            throw new Exception(
-                $"Operation returned an invalid status code '{response.StatusCode}' with Exception:{(string.IsNullOrWhiteSpace(responseContent) ? "Not Available" : responseContent)}");
+            throw new Exception(extractMessageFromErrorResponse(responseContent));
         }
 
         public static string Delete(this RestApiClient networkClient, string url, string content)
@@ -135,8 +144,7 @@ namespace Cohesity.Powershell.Common
                 return responseContent;
             }
 
-            throw new Exception(
-                $"Operation returned an invalid status code '{response.StatusCode}' with Exception:{(string.IsNullOrWhiteSpace(responseContent) ? "Not Available" : responseContent)}");
+            throw new Exception(extractMessageFromErrorResponse(responseContent));
         }
 
     }
