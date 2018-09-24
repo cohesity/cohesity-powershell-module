@@ -71,4 +71,5 @@
 
 - **Utility**
 - [Convert-CohesityUsecsToDateTime](cmdlets-reference/convert-cohesityusecstodatetime.md)
+- [Convert-CohesityUsecsToDateTime](cmdlets-reference/convert-cohesitydatetimetousecs.md)
 
