@@ -69,6 +69,10 @@
 - [Stop-CohesityRestoreTask](cmdlets-reference/stop-cohesityrestoretask.md)
 
 
+- **Physical Agents**
+- [Update-CohesityPhysicalAgent](cmdlets-reference/update-cohesityphysicalagent.md)
+
+
 - **Utility**
 - [Convert-CohesityUsecsToDateTime](cmdlets-reference/convert-cohesityusecstodatetime.md)
 - [Convert-CohesityDateTimeToUsecs](cmdlets-reference/convert-cohesitydatetimetousecs.md)
