@@ -1,4 +1,6 @@
-# Installation
+#Setup
+
+## Installation
 
 You can install Cohesity PowerShell Module directly from the [PowerShell Gallery](https://www.powershellgallery.com/packages?q=cohesity).
 
