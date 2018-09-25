@@ -159,7 +159,13 @@ namespace Cohesity.Models
             /// Enum KAWSNative for value: kAWSNative
             /// </summary>
             [EnumMember(Value = "kAWSNative")]
-            KAWSNative = 15
+            KAWSNative = 15,
+
+            /// <summary>
+            /// Enum KExchange for value: kExchange
+            /// </summary>
+            [EnumMember(Value = "kExchange")]
+            KExchange = 16
         }
 
 

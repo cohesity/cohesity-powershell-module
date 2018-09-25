@@ -66,7 +66,13 @@ namespace Cohesity.Models
             /// Enum KDataCache for value: kDataCache
             /// </summary>
             [EnumMember(Value = "kDataCache")]
-            KDataCache = 6
+            KDataCache = 6,
+
+            /// <summary>
+            /// Enum KLoadSharing for value: kLoadSharing
+            /// </summary>
+            [EnumMember(Value = "kLoadSharing")]
+            KLoadSharing = 7
         }
 
         /// <summary>
