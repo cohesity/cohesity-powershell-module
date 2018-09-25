@@ -1,7 +1,7 @@
 - **Getting Started**
 - [Introduction](overview.md)
 - [Pre-requisites](pre-requisites.md)
-- [Installation](installation.md)
+- [Setup](setup.md)
 - [How to use](how-to-use.md)
 - [Feedback](feedback.md)
 
