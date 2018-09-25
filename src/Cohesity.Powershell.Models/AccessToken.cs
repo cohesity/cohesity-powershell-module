@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 
 namespace Cohesity
 {
@@ -40,3 +40,4 @@ namespace Cohesity
         public string TokenType { get; set; }
     }
 }
+
