@@ -33,6 +33,7 @@ Alternatively, you can also use the steps below to upgrade to the latest version
 
   ```powershell
   Update-Module -Name Cohesity.PowerShell
+  ```
   
 
 ## Steps to uninstall
