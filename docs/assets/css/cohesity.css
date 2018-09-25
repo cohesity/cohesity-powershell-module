@@ -3,6 +3,7 @@
 
     --content-max-width                  : 55em;
     --link-color                         : var(--theme-color);
+    --strong-color                       : var(--theme-color);
     --base-font-size                     : 17px;
     --code-font-size                     : 16px;
 
@@ -25,7 +26,7 @@
     --code-theme-background              : var(--mono-tint3);
     --code-theme-background              : #f3f3f3;
     --code-theme-comment                 : #6e8090;
-    --code-theme-function                : #a0b555;
+    --code-theme-function                : #6d831b;
     --code-theme-keyword                 : #07a;
     --code-theme-operator                : #a67f59;
     --code-theme-punctuation             : #999;
@@ -87,7 +88,7 @@
 
 
     /* Cover */
-    --cover-background-image             : box-shadow: 0 0 200px rgba(0,0,0,0.9) inset;
+    --cover-background-image             : white;
     --cover-link-color                   : var(--theme-color);
 
 
@@ -120,26 +121,26 @@
     --sidebar-border-width                              : 0 1px 0 0;
 
     /* Name */
-    --sidebar-name-color                                : rgb(255, 255, 255);
+    --sidebar-name-color                                : white;
     --sidebar-name-font-weight                          : 400;
     --sidebar-name-font-size                            : 26px;
 
     /* Nav Headings */
-    --sidebar-nav-strong-color                          : rgb(255, 255, 255);
+    --sidebar-nav-strong-color                          :white;
     --sidebar-nav-strong-border-width                   : 0 0 1px 0;
     --sidebar-nav-strong-font-size                      : medium;
-    --sidebar-nav-strong-font-weight                    : 400;
+    --sidebar-nav-strong-font-weight                    : 500;
     --sidebar-nav-strong-margin                         : 2em -25px 0.75em 0;
     --sidebar-nav-strong-padding                        : 0.25em 0 0.75em 0;
     --sidebar-nav-strong-text-transform                 : uppercase;
 
     /* Nav Links */
     --sidebar-nav-link-border-color                     : transparent;
-    --sidebar-nav-link-border-color--active             : rgb(222, 240, 203);
+    --sidebar-nav-link-border-color--active             : rgb(236, 250, 198);
     --sidebar-nav-link-background-color--active         : var(--sidebar-background);
     --sidebar-nav-link-border-width                     : 0 6px 0 0;
-    --sidebar-nav-link-color                            : rgb(255, 255, 255);
-    --sidebar-nav-link-color--active                    : rgb(255, 255, 255);
+    --sidebar-nav-link-color                            :white;
+    --sidebar-nav-link-color--active                    :white;
     --sidebar-nav-link-font-weight                      : 400;
     --sidebar-nav-link-font-weight--active              : 500;
     --sidebar-nav-link-margin                           : 0 -25px 0 0;
