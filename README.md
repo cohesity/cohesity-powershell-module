@@ -36,7 +36,7 @@ You can install Cohesity PowerShell Module directly from the [PowerShell Gallery
 
 ## Suggestions and Feedback
 
-We would :heart: to hear from you. Please send your suggestions and feedback to: [cohesity-api-sdks@cohesity.com](mailto:cohesity-api-sdks@cohesity.com)
+We would love to hear from you. Please send your suggestions and feedback to: [cohesity-api-sdks@cohesity.com](mailto:cohesity-api-sdks@cohesity.com)
 
 ## License
 
