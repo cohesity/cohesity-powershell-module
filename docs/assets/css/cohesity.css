@@ -109,6 +109,9 @@
     --search-clear-icon-color1           : rgba(0, 0, 0, 0.3);
 
     /* Results */
+    --search-result-heading-color        : white;
+    --search-result-keyword-color        : white;
+    --search-result-keyword-background   : #a7b133;
     --search-result-heading-font-weight  : var(--strong-font-weight);
     --search-result-item-border-color    : var(--sidebar-border-color);
     --search-result-keyword-border-radius: var(--border-radius-s);
@@ -198,4 +201,8 @@
 
 .guide-links a:hover {
   text-decoration: none;
+}
+
+.sidebar .search .matching-post p {
+    color: white;
 }
