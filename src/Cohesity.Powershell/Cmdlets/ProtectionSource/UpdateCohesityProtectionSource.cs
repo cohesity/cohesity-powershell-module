@@ -47,7 +47,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
         /// Specifies a unique id of the protection source.
         /// </para>
         /// </summary>
-        [Parameter(Mandatory = true, ValueFromPipelineByPropertyName = true)]
+        [Parameter(Mandatory = true, ValueFromPipeline = true)]
         [ValidateRange(1, long.MaxValue)]
         public long Id { get; set; }
 
