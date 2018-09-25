@@ -1,4 +1,4 @@
-![](assets/images/cohesity_powershell.svg)
+![](assets/images/cohesity_powershell.png)
 
 # Cohesity PowerShell Module
 
