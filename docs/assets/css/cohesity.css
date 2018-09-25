@@ -118,7 +118,7 @@
 
 
     /* Sidebar */
-    --sidebar-width                                     : 24rem;
+    --sidebar-width                                     : 20rem;
     --sidebar-background                                : var(--theme-color);
     --sidebar-border-color                              : #c9d2b6;
     --sidebar-border-width                              : 0 1px 0 0;
@@ -126,7 +126,7 @@
     /* Name */
     --sidebar-name-color                                : white;
     --sidebar-name-font-weight                          : 400;
-    --sidebar-name-font-size                            : 26px;
+    --sidebar-name-font-size                            : 22px;
 
     /* Nav Headings */
     --sidebar-nav-strong-color                          :white;
@@ -141,7 +141,7 @@
     --sidebar-nav-link-border-color                     : transparent;
     --sidebar-nav-link-border-color--active             : rgb(236, 250, 198);
     --sidebar-nav-link-background-color--active         : var(--sidebar-background);
-    --sidebar-nav-link-border-width                     : 0 6px 0 0;
+    --sidebar-nav-link-border-width                     : 0 3px 0 0;
     --sidebar-nav-link-color                            :white;
     --sidebar-nav-link-color--active                    :white;
     --sidebar-nav-link-font-weight                      : 400;
