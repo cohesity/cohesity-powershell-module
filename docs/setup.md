@@ -18,7 +18,7 @@ You can install Cohesity PowerShell Module directly from the [PowerShell Gallery
 
 ## Steps to upgrade
 
-It's recommended to always use the latest version of the Cohesity PowerShell Module as it will contain new features and bug-fixes.
+It's recommended to always use the latest version of the Cohesity PowerShell Module to get the new features and bug-fixes.
 
 You can uninstall the previous version of the Cohesity PowerShell Module using the uninstall steps mentioned below and then install the new version.
 
