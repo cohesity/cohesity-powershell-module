@@ -50,20 +50,20 @@ namespace Cohesity.Powershell.Cmdlets.View
         /// <summary>
         /// <para type="description">
         /// Specifies if inactive Views on this Remote Cluster (which have Snapshots copied by replication) should also be returned.
-        /// Inactive Views are not counted towards the maxCount.
-        /// By default, this field is set to false. 
+        /// Inactive Views are not counted towards the MaxCount.
+        /// By default, this is not set.
         /// </para>
         /// </summary>
         [Parameter(Mandatory = false)]
-        public bool IncludeInactive { get; set; } = false;
+        public SwitchParameter IncludeInactive { get; set; }
 
         /// <summary>
         /// <para type="description">
-        /// If true, view aliases are also matched with the names in viewNames.
+        /// If set, View aliases are also matched with the names specified by ViewNames parameter.
         /// </para>
         /// </summary>
         [Parameter(Mandatory = false)]
-        public bool MatchAliasNames { get; set; } = false;
+        public SwitchParameter MatchAliasNames { get; set; }
 
         /// <summary>
         /// <para type="description">
@@ -91,11 +91,11 @@ namespace Cohesity.Powershell.Cmdlets.View
 
         /// <summary>
         /// <para type="description">
-        /// If true, the names in viewNames are matched by prefix rather than exactly matched.
+        /// If set, the names in ViewNames are matched by prefix rather than an exact match.
         /// </para>
         /// </summary>
         [Parameter(Mandatory = false)]
-        public bool? MatchPartialNames { get; set; }
+        public SwitchParameter MatchPartialNames { get; set; }
 
         /// <summary>
         /// <para type="description">
@@ -110,7 +110,7 @@ namespace Cohesity.Powershell.Cmdlets.View
         /// If the number of Views to return exceeds the MaxCount specified, specify the id of the last View from the viewList in the previous response to get the next set of Views.
         /// </para>
         /// </summary>
-        [Parameter(Position = 8, Mandatory = false)]
+        [Parameter(Mandatory = false)]
         public int? MaxViewId { get; set; }
 
         /// <summary>
@@ -123,11 +123,11 @@ namespace Cohesity.Powershell.Cmdlets.View
 
         /// <summary>
         /// <para type="description"> 
-        /// If set to true, the list is sorted descending by logical usage.
+        /// If set, the results are sorted in descending order by logical usage.
         /// </para>
         /// </summary>
         [Parameter(Mandatory = false)]
-        public bool? SortByLogicalUsage { get; set; }
+        public SwitchParameter SortByLogicalUsage { get; set; }
 
 
         protected override void BeginProcessing()
@@ -143,8 +143,8 @@ namespace Cohesity.Powershell.Cmdlets.View
 
             qb.Add("includeInactive", IncludeInactive);
 
-            if (MatchAliasNames)
-                qb.Add("matchAliasNames", MatchAliasNames);
+            if (MatchAliasNames.IsPresent)
+                qb.Add("matchAliasNames", true.ToString());
 
             if (ViewNames != null && ViewNames.Any())
                 qb.Add("viewNames", ViewNames);
@@ -155,8 +155,8 @@ namespace Cohesity.Powershell.Cmdlets.View
             if (ViewBoxNames != null && ViewBoxNames.Any())
                 qb.Add("viewBoxNames", ViewBoxNames);
 
-            if (MatchPartialNames.HasValue && MatchPartialNames.Value)
-                qb.Add("matchPartialNames", MatchPartialNames.Value);
+            if (MatchPartialNames.IsPresent)
+                qb.Add("matchPartialNames", true.ToString());
 
             if (MaxCount.HasValue)
                 qb.Add("maxCount", MaxCount.Value);
@@ -167,8 +167,8 @@ namespace Cohesity.Powershell.Cmdlets.View
             if (JobIds != null && JobIds.Any())
                 qb.Add("jobIds", JobIds);
 
-            if (SortByLogicalUsage.HasValue && SortByLogicalUsage.Value)
-                qb.Add("SortByLogicalUsage", SortByLogicalUsage.Value);
+            if (SortByLogicalUsage.IsPresent)
+                qb.Add("SortByLogicalUsage", true.ToString());
 
             var preparedUrl = $"/public/views{qb.Build()}";
             var result = Session.ApiClient.Get<GetViewsResult>(preparedUrl);

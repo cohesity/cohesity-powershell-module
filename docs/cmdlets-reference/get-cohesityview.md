@@ -6,9 +6,9 @@ Gets a list of views filtered by specified parameters.
 ## SYNTAX
 
 ```
-Get-CohesityView [[-MaxViewId] <int>] [-IncludeInactive <bool>] [-JobIds <int[]>] [-MatchAliasNames <bool>]
- [-MatchPartialNames <bool>] [-MaxCount <int>] [-SortByLogicalUsage <bool>] [-ViewBoxIds <int[]>]
- [-ViewBoxNames <string[]>] [-ViewNames <string[]>] [<CommonParameters>]
+Get-CohesityView [-IncludeInactive] [-JobIds <int[]>] [-MatchAliasNames] [-MatchPartialNames] [-MaxCount <int>]
+ [-MaxViewId <int>] [-SortByLogicalUsage] [-ViewBoxIds <int[]>] [-ViewBoxNames <string[]>]
+ [-ViewNames <string[]>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -31,11 +31,11 @@ Displays the view with the name "Test-view".
 
 ### -IncludeInactive
 Specifies if inactive Views on this Remote Cluster (which have Snapshots copied by replication) should also be returned.
-Inactive Views are not counted towards the maxCount.
-By default, this field is set to false.
+Inactive Views are not counted towards the MaxCount.
+By default, this is not set.
 
 ```yaml
-Type: bool
+Type: SwitchParameter
 Parameter Sets: (All)
 Aliases:
 
@@ -47,10 +47,10 @@ Accept wildcard characters: False
 ```
 
 ### -MatchAliasNames
-If true, view aliases are also matched with the names in viewNames.
+If set, View aliases are also matched with the names specified by ViewNames parameter.
 
 ```yaml
-Type: bool
+Type: SwitchParameter
 Parameter Sets: (All)
 Aliases:
 
@@ -107,16 +107,16 @@ Accept wildcard characters: False
 ```
 
 ### -MatchPartialNames
-If true, the names in viewNames are matched by prefix rather than exactly matched.
+If set, the names in ViewNames are matched by prefix rather than an exact match.
 
 ```yaml
-Type: bool
+Type: SwitchParameter
 Parameter Sets: (All)
 Aliases:
 
 Required: False
 Position: Named
-Default value: None
+Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -145,7 +145,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 8
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -168,16 +168,16 @@ Accept wildcard characters: False
 ```
 
 ### -SortByLogicalUsage
-If set to true, the list is sorted descending by logical usage.
+If set, the results are sorted in descending order by logical usage.
 
 ```yaml
-Type: bool
+Type: SwitchParameter
 Parameter Sets: (All)
 Aliases:
 
 Required: False
 Position: Named
-Default value: None
+Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
