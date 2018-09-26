@@ -18,6 +18,15 @@
   <link rel="stylesheet" href="assets/css/cohesity.css">
   <!-- Custom plugins -->
   <script src="assets/js/plugins.js"></script>
+  <!-- Global Site Tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=GA_TRACKING_ID"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-126454318-1');
+  </script>
   <!-- Page favicons -->
   <link rel="icon" href="https://www.cohesity.com/wp-content/uploads/2015/12/cropped-cohesity-favicon-150x150.png" sizes="32x32" />
   <link rel="icon" href="https://www.cohesity.com/wp-content/uploads/2015/12/cropped-cohesity-favicon-300x300.png" sizes="192x192" />
@@ -28,7 +37,6 @@
     window.$docsify = {
       name: 'Cohesity PowerShell Module',
       repo: 'https://github.com/cohesity/cohesity-powershell-module/',
-      ga: 'UA-126454318-1',
       themeColor: '#658D1B',
       homepage: 'overview.md',
       coverpage: 'coverpage.md',
@@ -53,6 +61,5 @@
   <script src="//unpkg.com/docsify-copy-code"></script>
   <script src="//unpkg.com/prismjs/components/prism-powershell.min.js"></script>
   <script src="//unpkg.com/docsify/lib/plugins/emoji.min.js"></script>
-  <script src="//unpkg.com/docsify/lib/plugins/ga.min.js"></script>
 </body>
 </html>
