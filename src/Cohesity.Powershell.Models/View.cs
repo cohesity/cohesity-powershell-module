@@ -53,7 +53,13 @@ namespace Cohesity.Models
             /// Enum KS3Only for value: kS3Only
             /// </summary>
             [EnumMember(Value = "kS3Only")]
-            KS3Only = 4
+            KS3Only = 4,
+
+            /// <summary>
+            /// Enum KUnknown for value: kUnknown
+            /// </summary>
+            [EnumMember(Value = "kUnknown")]
+            KUnknown = 5
         }
 
         /// <summary>
