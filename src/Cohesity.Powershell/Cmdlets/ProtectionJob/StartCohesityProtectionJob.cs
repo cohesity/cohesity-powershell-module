@@ -12,8 +12,8 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
     /// </para>
     /// <para type="description">
     /// Immediately starts a protection job run.
-    /// A protection policy associated with the job may define up to three backup run types:
-    /// 1) Regular (CBT utilized), 2) Full(CBT not utilized) and 3) Log.
+    /// A protection policy associated with the job may define various backup run types:
+    /// Regular (Incremental, CBT utilized), Full (CBT not utilized), Log, System.
     /// The passed in run type defines what type of backup is performed by the job run.
     /// The schedule defined in the policy for the backup run type is ignored but other settings such as the snapshot retention and retry settings are used.
     /// Returns success if the job run starts.
@@ -79,8 +79,8 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
         /// Set if you want specific replication or archival associated with the policy to run.
         /// </para>
         /// </summary>
-        [Parameter(Mandatory = false)]
-        public RunJobSnapshotTarget[] CopyRunTargets { get; set; } = null;
+        //[Parameter(Mandatory = false)]
+        //public RunJobSnapshotTarget[] CopyRunTargets { get; set; } = null;
 
         #endregion
 
@@ -101,10 +101,15 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
         /// </summary>
         protected override void ProcessRecord()
         {
-            var copyRunTargets = CopyRunTargets != null ? CopyRunTargets.ToList() : null;
+            //var copyRunTargets = CopyRunTargets != null ? CopyRunTargets.ToList() : null;
             var sourceIDs = SourceIds != null ? SourceIds.ToList() : null;
 
-            var content = new RunProtectionJobParam(copyRunTargets, RunType, sourceIDs);
+            var content = new RunProtectionJobParam
+            {
+                //CopyRunTargets = copyRunTargets,
+                RunType = RunType,
+                SourceIds = sourceIDs
+            };
 
             // POST public/protectionJobs/run/{id}
             var preparedUrl = $"/public/protectionJobs/run/{Id.ToString()}";

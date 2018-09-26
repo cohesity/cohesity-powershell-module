@@ -6,13 +6,13 @@ Immediately starts a protection job run.
 ## SYNTAX
 
 ```
-Start-CohesityProtectionJob -Id <long> [-CopyRunTargets <RunJobSnapshotTarget[]>] [-RunType <RunTypeEnum>]
- [-SourceIds <Nullable`1[]>] [<CommonParameters>]
+Start-CohesityProtectionJob -Id <long> [-RunType <RunTypeEnum>] [-SourceIds <Nullable`1[]>]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 Immediately starts a protection job run.
-A protection policy associated with the job may define up to three backup run types: 1) Regular (CBT utilized), 2) Full(CBT not utilized) and 3) Log.
+A protection policy associated with the job may define various backup run types: Regular (Incremental, CBT utilized), Full (CBT not utilized), Log, System.
 The passed in run type defines what type of backup is performed by the job run.
 The schedule defined in the policy for the backup run type is ignored but other settings such as the snapshot retention and retry settings are used.
 Returns success if the job run starts.
@@ -67,21 +67,6 @@ If you want to back up only a subset of sources that are protected by the job in
 
 ```yaml
 Type: Nullable`1[]
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -CopyRunTargets
-Set if you want specific replication or archival associated with the policy to run.
-
-```yaml
-Type: RunJobSnapshotTarget[]
 Parameter Sets: (All)
 Aliases:
 
