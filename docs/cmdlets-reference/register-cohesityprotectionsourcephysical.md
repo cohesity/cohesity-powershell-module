@@ -43,13 +43,13 @@ Accept wildcard characters: False
 Type of host.
 Must be set to KLinux or KWindows.
 
-Possible values: KLinux, KWindows
+Possible values: KLinux, KWindows, KAix, KSolaris, KOther
 
 ```yaml
 Type: HostTypeEnum
 Parameter Sets: (All)
 Aliases:
-Accepted values: KLinux, KWindows
+Accepted values: KLinux, KWindows, KAix, KSolaris, KOther
 
 Required: True
 Position: Named
