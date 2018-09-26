@@ -80,10 +80,22 @@ namespace Cohesity.Models
             kArchivalRestore = 8,
 
             /// <summary>
+            /// Enum kRemoteReplication  for value: kRemoteReplication 
+            /// </summary>
+            [EnumMember(Value = "kRemoteReplication")]
+            kRemoteReplication = 9,
+
+            /// <summary>
             /// Enum kQuota for value: kQuota
             /// </summary>
             [EnumMember(Value = "kQuota")]
-            kQuota = 9
+            kQuota = 10,
+
+            /// <summary>
+            /// Enum kLicense for value: kLicense
+            /// </summary>
+            [EnumMember(Value = "kLicense")]
+            kLicense = 10
         }
 
         /// <summary>
@@ -110,7 +122,13 @@ namespace Cohesity.Models
             /// Enum KResolved for value: kResolved
             /// </summary>
             [EnumMember(Value = "kResolved")]
-            kResolved = 2
+            kResolved = 2,
+
+            /// <summary>
+            /// Enum KSuppressed  for value: kSuppressed 
+            /// </summary>
+            [EnumMember(Value = "kSuppressed ")]
+            kSuppressed = 3
         }
 
         /// <summary>
