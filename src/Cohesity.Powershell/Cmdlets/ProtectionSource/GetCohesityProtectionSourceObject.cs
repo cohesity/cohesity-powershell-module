@@ -27,7 +27,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
     ///   </para>
     /// </example>
     [Cmdlet(VerbsCommon.Get, "CohesityProtectionSourceObject")]
-    [OutputType(typeof(ProtectionSourceNode))]
+    [OutputType(typeof(Models.ProtectionSource))]
     public class GetCohesityProtectionSourceObject : PSCmdlet
     {
         private Session Session
@@ -128,9 +128,13 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
                 qb.Add("excludeTypes", ExcludeTypes);
 
             var url = $"/public/protectionSources{qb.Build()}";
-            var result = Session.ApiClient.Get<IEnumerable<ProtectionSourceNode>>(url);
-            result = FlattenNodes(result);
-            WriteObject(result, true);
+            var results = Session.ApiClient.Get<IEnumerable<ProtectionSourceNode>>(url);
+            results = FlattenNodes(results);
+
+            // Extract ProtectionSource objects
+            List<Models.ProtectionSource> sources = results.Select(x => x.ProtectionSource).ToList();
+
+            WriteObject(sources, true);
         }
 
         private IEnumerable<ProtectionSourceNode> FlattenNodes(IEnumerable<ProtectionSourceNode> nodes)
