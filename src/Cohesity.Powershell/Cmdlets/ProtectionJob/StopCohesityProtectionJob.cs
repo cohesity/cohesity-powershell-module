@@ -3,11 +3,11 @@ using System.Management.Automation;
 using Cohesity.Models;
 using Cohesity.Powershell.Common;
 
-namespace Cohesity.Powershell.Cmdlets.ProtectionJobRun
+namespace Cohesity.Powershell.Cmdlets.ProtectionJob
 {
     /// <summary>
     /// <para type="synopsis">
-    /// Cancels a protection job run.
+    /// Cancels a running protection job.
     /// </para>
     /// <para type="description">
     /// </para>
@@ -15,14 +15,14 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJobRun
     /// <example>
     ///   <para>PS&gt;</para>
     ///   <code>
-    ///   Stop-CohesityProtectionJobRun -Id 78773 -JobRunId 85510
+    ///   Stop-CohesityProtectionJob -Id 78773 -JobRunId 85510
     ///   </code>
     ///   <para>
     ///   Cancels a running protection job with Id 78773 and JobRunId 85510.
     ///   </para>
     /// </example>
-    [Cmdlet(VerbsLifecycle.Stop, "CohesityProtectionJobRun")]
-    public class StopCohesityProtectionJobRun : PSCmdlet
+    [Cmdlet(VerbsLifecycle.Stop, "CohesityProtectionJob")]
+    public class StopCohesityProtectionJob : PSCmdlet
     {
         private Session Session
         {
@@ -53,8 +53,8 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJobRun
         /// For example, if replication task is to be canceled, CopyTaskUid of the replication task has to be specified.
         /// </para>
         /// </summary>
-        [Parameter(Mandatory = false)]
-        public UniversalId CopyTaskUid { get; set; } = null;
+        //[Parameter(Mandatory = false)]
+        //public UniversalId CopyTaskUid { get; set; } = null;
 
         /// <summary>
         /// <para type="description">
@@ -82,9 +82,12 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJobRun
         {
             CancelProtectionJobRunParam body = null;
 
-            if (CopyTaskUid != null || JobRunId != null)
+            if (JobRunId != null)
             {
-                body = new CancelProtectionJobRunParam(CopyTaskUid, JobRunId);
+                body = new CancelProtectionJobRunParam {
+                    //CopyTaskUid,
+                    JobRunId = JobRunId
+                };
             }
 
             var url = $"/public/protectionRuns/cancel/{Id.ToString()}";

@@ -50,10 +50,10 @@
 - [Set-CohesityProtectionJob](cmdlets-reference/set-cohesityprotectionjob.md)
 - [Remove-CohesityProtectionJob](cmdlets-reference/remove-cohesityprotectionjob.md)
 - [Start-CohesityProtectionJob](cmdlets-reference/start-cohesityprotectionjob.md)
+- [Stop-CohesityProtectionJob](cmdlets-reference/stop-cohesityprotectionjob.md)
 - [Suspend-CohesityProtectionJob](cmdlets-reference/suspend-cohesityprotectionjob.md)
 - [Resume-CohesityProtectionJob](cmdlets-reference/resume-cohesityprotectionjob.md)
 - [Get-CohesityProtectionJobRun](cmdlets-reference/get-cohesityprotectionjobrun.md)
-- [Stop-CohesityProtectionJobRun](cmdlets-reference/stop-cohesityprotectionjobrun.md)
 
 
 - **Monitoring**

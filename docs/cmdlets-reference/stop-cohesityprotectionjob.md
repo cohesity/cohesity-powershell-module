@@ -1,12 +1,12 @@
-# Stop-CohesityProtectionJobRun
+# Stop-CohesityProtectionJob
 
 ## SYNOPSIS
-Cancels a protection job run.
+Cancels a running protection job.
 
 ## SYNTAX
 
 ```
-Stop-CohesityProtectionJobRun -Id <long> [-CopyTaskUid <UniversalId>] [-JobRunId <long>] [<CommonParameters>]
+Stop-CohesityProtectionJob -Id <long> [-JobRunId <long>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -15,7 +15,7 @@ Stop-CohesityProtectionJobRun -Id <long> [-CopyTaskUid <UniversalId>] [-JobRunId
 
 ### EXAMPLE 1
 ```
-Stop-CohesityProtectionJobRun -Id 78773 -JobRunId 85510
+Stop-CohesityProtectionJob -Id 78773 -JobRunId 85510
 ```
 
 Cancels a running protection job with Id 78773 and JobRunId 85510.
@@ -34,23 +34,6 @@ Required: True
 Position: Named
 Default value: 0
 Accept pipeline input: True (ByPropertyName)
-Accept wildcard characters: False
-```
-
-### -CopyTaskUid
-CopyTaskUid is the Uid of a copy task.
-If a particular copy task is to be cancelled, this field should be set to the id of that particular copy task.
-For example, if replication task is to be canceled, CopyTaskUid of the replication task has to be specified.
-
-```yaml
-Type: UniversalId
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
