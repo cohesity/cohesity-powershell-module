@@ -77,16 +77,58 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
                 qb.Add("environments", string.Join(",", Environments));
             
             var url = $"/public/protectionSources/rootNodes{qb.Build()}";
-            var results = Session.ApiClient.Get<IEnumerable<ProtectionSourceNode>>(url);
+            var results = Session.ApiClient.Get<List<ProtectionSourceNode>>(url);
 
-            // Hide kView, kAgent, kPuppeteer environment types to keep the same behavior as UI
+            // Get the list of all group nodes
+            var groups = results.Where(x => x.RegistrationInfo == null).ToList();
+
+            foreach(var group in groups)
+            {
+                // Get children for each group node
+                qb = new QuerystringBuilder();
+                qb.Add("id", group.ProtectionSource.Id.ToString());
+                url = $"/public/protectionSources{qb.Build()}";
+                var children = Session.ApiClient.Get<List<ProtectionSourceNode>>(url);
+                children = FlattenNodes(children);
+
+                foreach(var child in children)
+                {
+                    if(child.RegistrationInfo != null)
+                    {
+                        results.Add(child);
+                    }
+                }
+            }
+
+            // Skip kView, kAgent, kPuppeteer environment types and group nodes themselves
             results = results.Where(x =>
                 (x.ProtectionSource.Environment != EnvironmentEnum.kAgent) &&
                 (x.ProtectionSource.Environment != EnvironmentEnum.kView) &&
-                (x.ProtectionSource.Environment != EnvironmentEnum.kPuppeteer)
+                (x.ProtectionSource.Environment != EnvironmentEnum.kPuppeteer) &&
+                (x.RegistrationInfo != null)
             ).ToList();
-            
-            WriteObject(results, true);
+
+            // Make sure each source id is only listed once as it might repeat under different environments
+            var sources = results.GroupBy(x => x.ProtectionSource.Id).Select(y => y.FirstOrDefault());
+
+            WriteObject(sources, true);
+        }
+
+        private List<ProtectionSourceNode> FlattenNodes(List<ProtectionSourceNode> nodes)
+        {
+            var result = new List<ProtectionSourceNode>();
+            if (nodes == null || !nodes.Any())
+                return result;
+
+            foreach (var node in nodes)
+            {
+                var childrenNodes = node.Nodes;
+                node.Nodes = null;
+                result.Add(node);
+                result.AddRange(FlattenNodes(childrenNodes));
+            }
+
+            return result;
         }
     }
 }
