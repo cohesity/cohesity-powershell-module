@@ -648,6 +648,9 @@
               <ListItem>
                 <PropertyName>StoragePolicy</PropertyName>
               </ListItem>
+              <ListItem>
+                <PropertyName>Stats</PropertyName>
+              </ListItem>
             </ListItems>
           </ListEntry>
         </ListEntries>
@@ -669,15 +672,6 @@
                 <PropertyName>Name</PropertyName>
               </TableColumnItem>
               <TableColumnItem>
-                <PropertyName>ClusterPartitionId</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>ClusterPartitionName</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>AdDomainName</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
                 <PropertyName>S3BucketsAllowed</PropertyName>
               </TableColumnItem>
               <TableColumnItem>
@@ -687,18 +681,9 @@
           </TableRowEntry>
         </TableRowEntries>
         <TableHeaders>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
+          <TableColumnHeader/>
+          <TableColumnHeader/>
+          <TableColumnHeader/>
           <TableColumnHeader/>
         </TableHeaders>
       </TableControl>

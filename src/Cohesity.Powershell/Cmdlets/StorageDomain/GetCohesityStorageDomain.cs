@@ -75,7 +75,7 @@ namespace Cohesity.Powershell.Cmdlets.StorageDomain
         /// </para> 
         /// </summary>
         [Parameter(Mandatory = false)]
-        public bool? FetchStats { get; set; }
+        public SwitchParameter FetchStats { get; set; }
 
 
         protected override void BeginProcessing()
@@ -98,8 +98,8 @@ namespace Cohesity.Powershell.Cmdlets.StorageDomain
             if (ClusterPartitionIds != null && ClusterPartitionIds.Any())
                 qb.Add("clusterPartitionIds", ClusterPartitionIds);
 
-            if (FetchStats.HasValue && FetchStats.Value)
-                qb.Add("fetchStats", FetchStats.Value);
+            if (FetchStats.IsPresent)
+                qb.Add("fetchStats", true.ToString());
 
             var preparedUrl = $"/public/viewBoxes{qb.Build()}";
             var result = Session.ApiClient.Get<IEnumerable<ViewBox>>(preparedUrl);            

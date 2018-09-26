@@ -6,8 +6,8 @@ Gets a list of storage domains (view boxes) filtered by the specified parameters
 ## SYNTAX
 
 ```
-Get-CohesityStorageDomain [-ClusterPartitionIds <int[]>] [-FetchStats <bool>] [-Ids <int[]>]
- [-Names <string[]>] [<CommonParameters>]
+Get-CohesityStorageDomain [-ClusterPartitionIds <int[]>] [-FetchStats] [-Ids <int[]>] [-Names <string[]>]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -76,13 +76,13 @@ Accept wildcard characters: False
 Specifies whether to include usage and performance statistics.
 
 ```yaml
-Type: bool
+Type: SwitchParameter
 Parameter Sets: (All)
 Aliases:
 
 Required: False
 Position: Named
-Default value: None
+Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
