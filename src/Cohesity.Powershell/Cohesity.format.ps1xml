@@ -691,6 +691,54 @@
 
     <!-- RestoreTask -->
     <View>
+      <Name>RestoreTask.TableView</Name>
+      <ViewSelectedBy>
+        <TypeName>Cohesity.Models.RestoreTask</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>Id</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Name</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Status</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Type</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>$_.StartTimeUSecs | Convert-CohesityUsecsToDateTime</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>$_.EndTimeUsecs | Convert-CohesityUsecsToDateTime</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Username</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+        <TableHeaders>
+          <TableColumnHeader/>
+          <TableColumnHeader/>
+          <TableColumnHeader/>
+          <TableColumnHeader/>
+          <TableColumnHeader>
+            <Label>StartTime</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>EndTime</Label>
+          </TableColumnHeader>
+          <TableColumnHeader/>
+        </TableHeaders>
+      </TableControl>
+    </View>
+    <View>
       <Name>RestoreTask.ListView</Name>
       <ViewSelectedBy>
         <TypeName>Cohesity.Models.RestoreTask</TypeName>
@@ -773,136 +821,6 @@
         </ListEntries>
       </ListControl>
     </View>
-    <View>
-      <Name>RestoreTask.TableView</Name>
-      <ViewSelectedBy>
-        <TypeName>Cohesity.Models.RestoreTask</TypeName>
-      </ViewSelectedBy>
-      <TableControl>
-        <TableRowEntries>
-          <TableRowEntry>
-            <TableColumnItems>
-              <TableColumnItem>
-                <PropertyName>Id</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>Name</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>Status</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>Type</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>ContinueOnError</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>StarTimeUSecs</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>EndTimeUSecs</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>NewParentId</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>Username</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>Objects</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>RestoreObjectState</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>Error</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>DatastoreId</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>TargetViewCreated</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>ViewBoxId</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>FullViewName</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>MountVolumesState</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>ArchiveTaskUid</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>VlanParameters</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>VmwareParameters</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>HypervParameters</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>AcroploisParameters</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>CloneViewParameters</PropertyName>
-              </TableColumnItem>
-            </TableColumnItems>
-          </TableRowEntry>
-        </TableRowEntries>
-        <TableHeaders>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader/>
-        </TableHeaders>
-      </TableControl>
-    </View>
 
     <!-- View -->
     <View>
@@ -945,7 +863,7 @@
                 <PropertyName>AllSmbMountPaths</PropertyName>
               </ListItem>
               <ListItem>
-                <PropertyName>LogicalUsageByteslogicalUsageBytes</PropertyName>
+                <PropertyName>LogicalUsageBytes</PropertyName>
               </ListItem>
             </ListItems>
           </ListEntry>
@@ -992,7 +910,7 @@
                 <PropertyName>AllsmbMountPaths</PropertyName>
               </TableColumnItem>
               <TableColumnItem>
-                <PropertyName>LogicalUsageByteslogicalUsageBytes</PropertyName>
+                <PropertyName>LogicalUsageBytes</PropertyName>
               </TableColumnItem>
             </TableColumnItems>
           </TableRowEntry>
