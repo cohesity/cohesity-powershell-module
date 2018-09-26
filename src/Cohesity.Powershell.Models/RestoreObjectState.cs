@@ -65,7 +65,19 @@ namespace Cohesity.Models
             /// Enum KAborted for value: kAborted
             /// </summary>
             [EnumMember(Value = "kAborted")]
-            KAborted = 6
+            KAborted = 6,
+
+            /// <summary>
+            /// Enum KDataCopyStarted for value: kDataCopyStarted
+            /// </summary>
+            [EnumMember(Value = "kDataCopyStarted")]
+            KDataCopyStarted = 7,
+
+            /// <summary>
+            /// Enum KInProgress for value: kInProgress
+            /// </summary>
+            [EnumMember(Value = "kInProgress")]
+            KInProgress = 8
         }
 
         /// <summary>
