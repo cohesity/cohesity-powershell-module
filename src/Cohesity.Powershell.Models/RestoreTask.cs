@@ -29,8 +29,7 @@ namespace Cohesity.Models
         /// <value>Specifies the overall status of the Restore Task. &#39;kReadyToSchedule&#39; indicates the Restore Task is waiting to be scheduled. &#39;kProgressMonitorCreated&#39; indicates the progress monitor for the Restore Task has been created. &#39;kRetrievedFromArchive&#39; indicates that the objects to restore have been retrieved from the specified archive. A Task will only ever transition to this state if a retrieval is necessary. &#39;kAdmitted&#39; indicates the task has been admitted. After a task has been admitted, its status does not move back to &#39;kReadyToSchedule&#39; state even if it is rescheduled. &#39;kInProgress&#39; indicates that the Restore Task is in progress. &#39;kFinishingProgressMonitor&#39; indicates that the Restore Task is finishing its progress monitoring. &#39;kFinished&#39; indicates that the Restore Task has finished. The status indicating success or failure is found in the error code that is stored with the Restore Task.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum StatusEnum
-        {
-            
+        { 
             /// <summary>
             /// Enum KReadyToSchedule for value: kReadyToSchedule
             /// </summary>
@@ -71,7 +70,25 @@ namespace Cohesity.Models
             /// Enum KFinished for value: kFinished
             /// </summary>
             [EnumMember(Value = "kFinished")]
-            KFinished = 7
+            KFinished = 7,
+
+            /// <summary>
+            /// Enum KInternalViewCreated  for value: kInternalViewCreated 
+            /// </summary>
+            [EnumMember(Value = "kInternalViewCreated")]
+            kInternalViewCreated = 8,
+
+            /// <summary>
+            /// Enum KZipFileRequested  for value: kZipFileRequested 
+            /// </summary>
+            [EnumMember(Value = "kZipFileRequested")]
+            kZipFileRequested = 9,
+
+            /// <summary>
+            /// Enum KCancelled  for value: kCancelled 
+            /// </summary>
+            [EnumMember(Value = "kCancelled")]
+            kCancelled = 10
         }
 
         /// <summary>
@@ -99,36 +116,90 @@ namespace Cohesity.Models
             /// </summary>
             [EnumMember(Value = "kCloneVMs")]
             kCloneVMs = 2,
-            
+
+            /// <summary>
+            /// Enum KRestoreFiles for value: kRestoreFiles
+            /// </summary>
+            [EnumMember(Value = "kRestoreFiles")]
+            kRestoreFiles = 3,
+
+            /// <summary>
+            /// Enum KRecoverApp  for value: kRecoverApp
+            /// </summary>
+            [EnumMember(Value = "kRecoverApp")]
+            kRecoverApp = 4,
+
+            /// <summary>
+            /// Enum KCloneApp  for value: kCloneApp
+            /// </summary>
+            [EnumMember(Value = "kCloneApp")]
+            kCloneApp = 5,
+
             /// <summary>
             /// Enum KCloneView for value: kCloneView
             /// </summary>
             [EnumMember(Value = "kCloneView")]
-            kCloneView = 3,
+            kCloneView = 6,
             
             /// <summary>
             /// Enum KMountVolumes for value: kMountVolumes
             /// </summary>
             [EnumMember(Value = "kMountVolumes")]
-            kMountVolumes = 4,
-            
-            /// <summary>
-            /// Enum KRestoreFiles for value: kRestoreFiles
-            /// </summary>
-            [EnumMember(Value = "kRestoreFiles")]
-            kRestoreFiles = 5,
+            kMountVolumes = 7,
 
             /// <summary>
-            /// Enum KMountFileVolume for value: kMountFileVolume
+            /// Enum KRecoverSanVolume for value: kRecoverSanVolume 
+            /// </summary>
+            [EnumMember(Value = "kRecoverSanVolume")]
+            kRecoverSanVolume = 8,
+
+            /// <summary>
+            /// Enum KConvertAndDeployVMs for value: kConvertAndDeployVMs
+            /// </summary>
+            [EnumMember(Value = "kConvertAndDeployVMs")]
+            kConvertAndDeployVMs = 9,
+
+            /// <summary>
+            /// Enum KMountFileVolume  for value: kMountFileVolume 
             /// </summary>
             [EnumMember(Value = "kMountFileVolume")]
-            kMountFileVolume = 6,
+            kMountFileVolume = 10,
+
+            /// <summary>
+            /// Enum KSystem for value: kSystem 
+            /// </summary>
+            [EnumMember(Value = "kSystem")]
+            kSystem = 11,
+
+            /// <summary>
+            /// Enum KRecoverVolumes for value: kRecoverVolumes 
+            /// </summary>
+            [EnumMember(Value = "kRecoverVolumes")]
+            kRecoverVolumes = 12,
+
+            /// <summary>
+            /// Enum KDeployVMs for value: kDeployVMs 
+            /// </summary>
+            [EnumMember(Value = "kDeployVMs")]
+            kDeployVMs = 13,
 
             /// <summary>
             /// Enum KDownloadFiles for value: kDownloadFiles
             /// </summary>
             [EnumMember(Value = "kDownloadFiles")]
-            kDownloadFiles = 7
+            kDownloadFiles = 14,
+
+            /// <summary>
+            /// Enum KRecoverEmails for value: kRecoverEmails
+            /// </summary>
+            [EnumMember(Value = "kRecoverEmails")]
+            kRecoverEmails = 15,
+
+            /// <summary>
+            /// Enum KRecoverDisks  for value: kRecoverDisks
+            /// </summary>
+            [EnumMember(Value = "kRecoverDisks")]
+            kRecoverDisks = 16
         }
 
         /// <summary>
