@@ -52,7 +52,7 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
         {
             var preparedUrl = $"/public/basicClusterInfo";
             var result = Session.ApiClient.Get<Models.BasicClusterInfo>(preparedUrl);
-            WriteObject(result, true);
+            WriteObject(result);
         }
 
     }

@@ -19,10 +19,10 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJobRun
     /// <example>
     ///   <para>PS&gt;</para>
     ///   <code>
-    ///   Get-CohesityProtectionJobRun -sourceId 2
+    ///   Get-CohesityProtectionJobRun -SourceId 2
     ///   </code>
     ///   <para>
-    ///   Only job runs protecting the specified sourceId 2 (such as a VM or View) are returned. 
+    ///   Only job runs protecting the specified source Id are returned.
     ///   </para>
     /// </example>
     [Cmdlet(VerbsCommon.Get, "CohesityProtectionJobRun")]
@@ -56,11 +56,20 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJobRun
         /// <para type="description">
         /// Return a specific job run by specifying a time and a jobId.
         /// Specify the time when the job run started as a unix epoch timestamp (in microseconds).
-        /// If this field is specified, jobId must also be specified.
+        /// If this field is specified, JobId must also be specified.
         /// </para>
         /// </summary>
         [Parameter(Mandatory = false)]
-        public long? StartedTimeUsecs { get; set; } = null;
+        public long? StartedTime { get; set; } = null;
+
+        /// <summary>
+        /// <para type="description">
+        /// Filter by a start time. Only job runs that started after the specified time are returned.
+        /// Specify the start time as a unix epoch timestamp (in microseconds).
+        /// </para>
+        /// </summary>
+        [Parameter(Mandatory = false)]
+        public long? StartTime { get; set; } = 0;
 
         /// <summary>
         /// <para type="description">
@@ -69,7 +78,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJobRun
         /// </para>
         /// </summary>
         [Parameter(Mandatory = false)]
-        public long? EndTimeUsecs { get; set; } = null;
+        public long? EndTime { get; set; } = null;
 
         /// <summary>
         /// <para type="description">
@@ -109,21 +118,11 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJobRun
 
         /// <summary>
         /// <para type="description">
-        /// Filter by a start time. Only job runs that started after the specified time are returned.
-        /// Specify the start time as a unix epoch timestamp (in microseconds).
-        /// </para>
-        /// </summary>
-        [Parameter(Mandatory = false)]
-        public long? StartTimeUsecs { get; set; } = 0;
-
-        /// <summary>
-        /// <para type="description">
         /// Filter by run type such as "kFull", "kRegular" or "kLog".
         /// If not specified, job runs of all types are returned.
         /// </para>
         /// </summary>
         [Parameter(Mandatory = false)]
-        [ValidateSet("kRegular", "kFull", "kLog", "kSystem", IgnoreCase = true)]
         public string[] RunTypes { get; set; } = null;
 
         /// <summary>
@@ -155,11 +154,11 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJobRun
             if (JobId.HasValue && JobId != null)
                 qb.Add("jobId", JobId.Value);
 
-            if (StartedTimeUsecs.HasValue && StartedTimeUsecs != null)
-                qb.Add("startedTimeUsecs", StartedTimeUsecs.Value);
+            if (StartedTime.HasValue && StartedTime != null)
+                qb.Add("startedTimeUsecs", StartedTime.Value);
 
-            if (EndTimeUsecs.HasValue && EndTimeUsecs != null)
-                qb.Add("endTimeUsecs", EndTimeUsecs.Value);
+            if (EndTime.HasValue && EndTime != null)
+                qb.Add("endTimeUsecs", EndTime.Value);
 
             if (NumRuns.HasValue && NumRuns != null)
                 qb.Add("numRuns", NumRuns.Value);
@@ -173,8 +172,8 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJobRun
             if (ExcludeErrorRuns.IsPresent)
                 qb.Add("excludeErrorRuns", true);
 
-            if (StartTimeUsecs.HasValue && StartTimeUsecs != null)
-                qb.Add("startTimeUsecs", StartTimeUsecs.Value);
+            if (StartTime.HasValue && StartTime != null)
+                qb.Add("startTimeUsecs", StartTime.Value);
 
             if (RunTypes != null && RunTypes.Any())
                 qb.Add("runTypes", string.Join(",", RunTypes));

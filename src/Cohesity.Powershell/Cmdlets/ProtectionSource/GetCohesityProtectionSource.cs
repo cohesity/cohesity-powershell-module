@@ -46,11 +46,9 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
         /// <para type="description">
         /// Return only protection sources that match the passed in environment type.
         /// For example, set this parameter to ‘kVMware’ to only return the VMware sources.
-        /// NOTE: "kPuppeteer" refers to Cohesity's Remote Adapter.
         /// </para>
         /// </summary>
         [Parameter(Mandatory = false)]
-        //[ValidateSet("kVMware", "kView", "kSQL", "kPuppeteer", "kPhysical", "kPure", "kNetapp", "kGenericNas", "kHyperV", "kAcropolis", "kAzure")]
         public EnvironmentEnum[] Environments { get; set; }
 
         /// <summary>

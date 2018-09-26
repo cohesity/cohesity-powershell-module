@@ -1,3 +1,6 @@
+# Copyright 2018 Cohesity Inc.
+#
+# Generate-Markdown.ps1: generates markdown documentation from a module help xml file (MAML)
 param (   
     [string]$ModuleHelpXmlPath = $(throw "-ModuleHelpXmlPath is required. Please provide the path to the PowerShell Module help xml file"),
     [string]$MarkdownPath      = $(throw "-MarkdownPath is required. Please provide the path to the directory where the markdown files should be generated.")

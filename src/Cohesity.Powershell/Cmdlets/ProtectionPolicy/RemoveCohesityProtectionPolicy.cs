@@ -68,7 +68,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionPolicy
         /// </summary>
         protected override void ProcessRecord()
         {
-            if (ShouldProcess("CohesityCluster"))
+            if (ShouldProcess($"Policy Id: {Id}"))
             {
                 // POST /public/protectionPolicies/{id}
                 var preparedUrl = $"/public/protectionPolicies/{Id}";

@@ -21,7 +21,7 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
     ///   Find-CohesityFilesForRestore -Search "*txt"
     ///   </code>
     ///   <para>
-    ///   Returns only the files and folders that match the search pattern.
+    ///   Returns only the files and folders that match the search pattern "txt".
     ///   </para>
     /// </example>
     [Cmdlet(VerbsCommon.Find, "CohesityFilesForRestore")]
@@ -44,9 +44,8 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
 
         /// <summary>
         /// <para type="description">
-        /// Filter by environment types such as kVMware, kView, kSQL, kPuppeteer, kPhysical, kPure, kNetapp, kGenericNas, kHyperV, kAcropolis, kAzure. 
+        /// Filter by environment types such as kVMware, kView, kSQL, etc. 
         /// Only jobs protecting the specified environment types are returned. 
-        /// NOTE: kPuppeteer refers to Cohesity's remote adapter.
         /// </para>
         /// </summary>
         [Parameter(Mandatory = false)]

@@ -7,7 +7,7 @@ Immediately starts a protection job run.
 
 ```
 Start-CohesityProtectionJob -Id <long> [-CopyRunTargets <RunJobSnapshotTarget[]>] [-RunType <RunTypeEnum>]
- [-SourceIDs <Nullable`1[]>] [<CommonParameters>]
+ [-SourceIds <Nullable`1[]>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -45,7 +45,7 @@ Accept wildcard characters: False
 
 ### -RunType
 Specifies the type of backup.
-If not specified, "kRegular" is assumed.
+If not specified, "KRegular" is assumed.
 
 Possible values: KRegular, KFull, KLog, KSystem
 
@@ -62,7 +62,7 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -SourceIDs
+### -SourceIds
 If you want to back up only a subset of sources that are protected by the job in this run.
 
 ```yaml

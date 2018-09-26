@@ -26,7 +26,6 @@ Returns registered protection sources that match the environment type 'kVMware'.
 ### -Environments
 Return only protection sources that match the passed in environment type.
 For example, set this parameter to 'kVMware' to only return the VMware sources.
-NOTE: "kPuppeteer" refers to Cohesity's Remote Adapter.
 
 ```yaml
 Type: EnvironmentEnum[]

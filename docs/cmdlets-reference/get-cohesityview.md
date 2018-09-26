@@ -137,7 +137,7 @@ Accept wildcard characters: False
 ```
 
 ### -MaxViewId
-If the number of Views to return exceeds the maxCount specified in the original request, specify the id of the last View from the viewList in the previous response to get the next set of Views.
+If the number of Views to return exceeds the MaxCount specified, specify the id of the last View from the viewList in the previous response to get the next set of Views.
 
 ```yaml
 Type: int

@@ -6,7 +6,7 @@ Updates a Storage Domain.
 ## SYNTAX
 
 ```
-Set-CohesityStorageDomain -Domain <ViewBox> [<CommonParameters>]
+Set-CohesityStorageDomain -StorageDomain <ViewBox> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -16,14 +16,14 @@ Returns the updated Storage Domain.
 
 ### EXAMPLE 1
 ```
-Set-CohesityStorageDomain -Domain $domain
+Set-CohesityStorageDomain -StorageDomain $domain
 ```
 
 Updates a Storage Domain.
 
 ## PARAMETERS
 
-### -Domain
+### -StorageDomain
 The updated StorageDomain.
 
 ```yaml

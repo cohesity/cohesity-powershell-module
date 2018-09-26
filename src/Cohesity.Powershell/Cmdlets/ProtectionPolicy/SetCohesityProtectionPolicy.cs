@@ -15,7 +15,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionPolicy
     /// <example>
     ///   <para>PS&gt;</para>
     ///   <code>
-    ///   Set-CohesityProtectionPolicy -ProtectionPolicy $protectionPolicy
+    ///   Set-CohesityProtectionPolicy -ProtectionPolicy $policy
     ///   </code>
     ///   <para>
     ///   Updates a Protection Policy with the specified parameters.

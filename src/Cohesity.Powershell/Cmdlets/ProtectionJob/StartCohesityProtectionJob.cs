@@ -60,7 +60,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
 
         /// <summary>
         /// <para type="description">
-        /// Specifies the type of backup. If not specified, "kRegular" is assumed.
+        /// Specifies the type of backup. If not specified, "KRegular" is assumed.
         /// </para>
         /// </summary>
         [Parameter(Mandatory = false)]
@@ -72,7 +72,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
         /// </para>
         /// </summary>
         [Parameter(Mandatory = false)]
-        public long?[] SourceIDs { get; set; } = null;
+        public long?[] SourceIds { get; set; } = null;
 
         /// <summary>
         /// <para type="description">
@@ -102,7 +102,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
         protected override void ProcessRecord()
         {
             var copyRunTargets = CopyRunTargets != null ? CopyRunTargets.ToList() : null;
-            var sourceIDs = SourceIDs != null ? SourceIDs.ToList() : null;
+            var sourceIDs = SourceIds != null ? SourceIds.ToList() : null;
 
             var content = new RunProtectionJobParam(copyRunTargets, RunType, sourceIDs);
 

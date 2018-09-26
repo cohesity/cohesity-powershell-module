@@ -16,7 +16,7 @@ Returns the updated protection job.
 
 ### EXAMPLE 1
 ```
-Set-CohesityProtectionJob -ProtectionJob $protectionjob
+Set-CohesityProtectionJob -ProtectionJob $job
 ```
 
 Updates a protection job with the specified parameters.

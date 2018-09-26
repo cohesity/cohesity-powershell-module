@@ -6,8 +6,8 @@ Returns all Alert Resolution objects found on the Cohesity Cluster that match th
 ## SYNTAX
 
 ```
-Get-CohesityAlertResolution -MaxAlerts <int> [-AlertIdList <string[]>] [-EndTime <int>]
- [-ResolutionIdList <int[]>] [-StartTime <int>] [<CommonParameters>]
+Get-CohesityAlertResolution -MaxAlerts <int> [-AlertIds <string[]>] [-EndTime <long>] [-ResolutionIds <int[]>]
+ [-StartTime <long>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -41,7 +41,7 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -ResolutionIdList
+### -ResolutionIds
 Filter by a list of resolution Ids.
 
 ```yaml
@@ -56,7 +56,7 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -AlertIdList
+### -AlertIds
 Filter by a list of alert Ids.
 
 ```yaml
@@ -75,7 +75,7 @@ Accept wildcard characters: False
 Filter by start date and time by specifying a unix epoch time in microseconds.
 
 ```yaml
-Type: int
+Type: long
 Parameter Sets: (All)
 Aliases:
 
@@ -90,7 +90,7 @@ Accept wildcard characters: False
 Filter by end date and time by specifying a unix epoch time in microseconds.
 
 ```yaml
-Type: int
+Type: long
 Parameter Sets: (All)
 Aliases:
 

@@ -6,7 +6,7 @@ Creates a new protection job.
 ## SYNTAX
 
 ```
-New-CohesityProtectionJob -Description <string> -Name <string> -PolicyId <string> -ViewBoxId <long>
+New-CohesityProtectionJob -Description <string> -Name <string> -PolicyId <string> -StorageDomainId <long>
  [-Environment <EnvironmentEnum>] [-ParentSourceId <long>] [-ScheduleStartTime <DateTime>]
  [-SourceIds <Nullable`1[]>] [-SourceSpecialParameters <SourceSpecialParameter[]>] [-Timezone <string>]
  [-ViewName <string>] [<CommonParameters>]
@@ -19,10 +19,10 @@ Returns the created protection job.
 
 ### EXAMPLE 1
 ```
-New-CohesityProtectionJob -Name 'Test-Job-View' -Description 'Protects a View' -PolicyID 4816026365909361:1530076822448:1 -Environment 'kView' -ViewName 'cohesity_int_19417' -ViewBoxID 3144
+New-CohesityProtectionJob -Name 'Test-Job-View' -Description 'Protects a View' -PolicyId 4816026365909361:1530076822448:1 -Environment kView -ViewName cohesity_int_19417 -StorageDomainId 3144
 ```
 
-Creates a protection job for protecting a View.
+Creates a protection job for protecting a Cohesity View.
 
 ## PARAMETERS
 
@@ -72,6 +72,8 @@ Accept wildcard characters: False
 ```
 
 ### -ParentSourceId
+Specifies the unique id of the parent protection source (such as a vCenter server) protected by this protection job.
+
 ```yaml
 Type: long
 Parameter Sets: (All)
@@ -85,6 +87,8 @@ Accept wildcard characters: False
 ```
 
 ### -SourceIds
+Specifies the unique id of the protection source objects (such as a virtual machines) protected by this protection job.
+
 ```yaml
 Type: Nullable`1[]
 Parameter Sets: (All)
@@ -98,6 +102,9 @@ Accept wildcard characters: False
 ```
 
 ### -Timezone
+Specifies the timezone for this protection job.
+Must be a string in Olson time zone format such as "America/Los_Angeles".
+
 ```yaml
 Type: string
 Parameter Sets: (All)
@@ -111,6 +118,8 @@ Accept wildcard characters: False
 ```
 
 ### -ScheduleStartTime
+Specifies the start date time for this protection job.
+
 ```yaml
 Type: DateTime
 Parameter Sets: (All)
@@ -118,12 +127,12 @@ Aliases:
 
 Required: False
 Position: Named
-Default value: 9/24/2018 5:59:45 PM
+Default value: 9/25/2018 5:42:21 PM
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -ViewBoxId
+### -StorageDomainId
 Specifies the storage domain (view box) id where this job writes data.
 
 ```yaml

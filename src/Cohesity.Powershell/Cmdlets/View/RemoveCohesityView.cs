@@ -69,7 +69,7 @@ namespace Cohesity.Powershell.Cmdlets.View
         /// </summary>
         protected override void ProcessRecord()
         {
-            if (ShouldProcess("CohesityCluster"))
+            if (ShouldProcess($"View Name: {Name.Trim()}"))
             {
                 // DELETE /public/views/{name}
                 var preparedUrl = $"/public/views/{Name}";

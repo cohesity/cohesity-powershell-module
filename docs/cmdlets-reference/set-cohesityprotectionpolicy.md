@@ -16,7 +16,7 @@ Returns the updated Protection Policy.
 
 ### EXAMPLE 1
 ```
-Set-CohesityProtectionPolicy -ProtectionPolicy $protectionPolicy
+Set-CohesityProtectionPolicy -ProtectionPolicy $policy
 ```
 
 Updates a Protection Policy with the specified parameters.

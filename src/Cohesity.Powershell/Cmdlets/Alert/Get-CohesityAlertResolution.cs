@@ -54,7 +54,7 @@ namespace Cohesity.Powershell.Cmdlets.Alert
         /// </para>
         /// </summary>
         [Parameter(Mandatory = false)]
-        public int[] ResolutionIdList { get; set; }
+        public int[] ResolutionIds { get; set; }
 
         /// <summary>
         /// <para type="description">
@@ -62,7 +62,7 @@ namespace Cohesity.Powershell.Cmdlets.Alert
         /// </para>
         /// </summary>
         [Parameter(Mandatory = false)]
-        public string[] AlertIdList { get; set; }
+        public string[] AlertIds { get; set; }
 
         /// <summary>
         /// <para type="description">
@@ -70,7 +70,7 @@ namespace Cohesity.Powershell.Cmdlets.Alert
         /// </para>
         /// </summary>
         [Parameter(Mandatory = false)]
-        public int? StartTime { get; set; }
+        public long? StartTime { get; set; }
 
         /// <summary>
         /// <para type="description">
@@ -78,7 +78,7 @@ namespace Cohesity.Powershell.Cmdlets.Alert
         /// </para>
         /// </summary>
         [Parameter(Mandatory = false)]
-        public int? EndTime { get; set; }
+        public long? EndTime { get; set; }
 
         protected override void BeginProcessing()
         {
@@ -97,11 +97,11 @@ namespace Cohesity.Powershell.Cmdlets.Alert
             if (MaxAlerts.HasValue)
                 queries.Add("maxAlerts", MaxAlerts.ToString());
 
-             if (ResolutionIdList != null && ResolutionIdList.Any())
-                queries.Add("resolutionIdList", string.Join(",", ResolutionIdList));
+             if (ResolutionIds != null && ResolutionIds.Any())
+                queries.Add("resolutionIdList", string.Join(",", ResolutionIds));
 
-            if (AlertIdList != null && AlertIdList.Any())
-                queries.Add("alertIdList", string.Join(",", AlertIdList));
+            if (AlertIds != null && AlertIds.Any())
+                queries.Add("alertIdList", string.Join(",", AlertIds));
 
             if (StartTime.HasValue)
                 queries.Add("startDateUsecs", StartTime.ToString());

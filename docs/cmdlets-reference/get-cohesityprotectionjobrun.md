@@ -6,9 +6,9 @@ Gets a list of protection job runs filtered by the specified parameters.
 ## SYNTAX
 
 ```
-Get-CohesityProtectionJobRun [-EndTimeUsecs <long>] [-ExcludeErrorRuns] [-ExcludeNonRestoreableRuns]
- [-ExcludeTasks] [-JobId <long>] [-NumRuns <long>] [-RunTypes <string[]>] [-SourceId <long>]
- [-StartedTimeUsecs <long>] [-StartTimeUsecs <long>] [<CommonParameters>]
+Get-CohesityProtectionJobRun [-EndTime <long>] [-ExcludeErrorRuns] [-ExcludeNonRestoreableRuns] [-ExcludeTasks]
+ [-JobId <long>] [-NumRuns <long>] [-RunTypes <string[]>] [-SourceId <long>] [-StartedTime <long>]
+ [-StartTime <long>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -19,10 +19,10 @@ Specifying parameters filters the results that are returned.
 
 ### EXAMPLE 1
 ```
-Get-CohesityProtectionJobRun -sourceId 2
+Get-CohesityProtectionJobRun -SourceId 2
 ```
 
-Only job runs protecting the specified sourceId 2 (such as a VM or View) are returned.
+Only job runs protecting the specified source Id are returned.
 
 ## PARAMETERS
 
@@ -42,10 +42,10 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -StartedTimeUsecs
+### -StartedTime
 Return a specific job run by specifying a time and a jobId.
 Specify the time when the job run started as a unix epoch timestamp (in microseconds).
-If this field is specified, jobId must also be specified.
+If this field is specified, JobId must also be specified.
 
 ```yaml
 Type: long
@@ -59,7 +59,24 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -EndTimeUsecs
+### -StartTime
+Filter by a start time.
+Only job runs that started after the specified time are returned.
+Specify the start time as a unix epoch timestamp (in microseconds).
+
+```yaml
+Type: long
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: 0
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -EndTime
 Filter by a end time specified as a unix epoch timestamp (in microseconds).
 Only job runs that completed before the specified end time are returned.
 
@@ -136,23 +153,6 @@ Aliases:
 Required: False
 Position: Named
 Default value: False
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -StartTimeUsecs
-Filter by a start time.
-Only job runs that started after the specified time are returned.
-Specify the start time as a unix epoch timestamp (in microseconds).
-
-```yaml
-Type: long
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: 0
 Accept pipeline input: False
 Accept wildcard characters: False
 ```

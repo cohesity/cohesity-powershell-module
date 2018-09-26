@@ -18,10 +18,10 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
     /// <example>
     ///   <para>PS&gt;</para>
     ///   <code>
-    ///   New-CohesityProtectionJob -Name 'Test-Job-View' -Description 'Protects a View' -PolicyID 4816026365909361:1530076822448:1 -Environment 'kView' -ViewName 'cohesity_int_19417' -ViewBoxID 3144
+    ///   New-CohesityProtectionJob -Name 'Test-Job-View' -Description 'Protects a View' -PolicyId 4816026365909361:1530076822448:1 -Environment kView -ViewName cohesity_int_19417 -StorageDomainId 3144
     ///   </code>
     ///   <para>
-    ///   Creates a protection job for protecting a View.
+    ///   Creates a protection job for protecting a Cohesity View.
     ///   </para>
     /// </example>
     [Cmdlet(VerbsCommon.New, "CohesityProtectionJob")]
@@ -69,15 +69,35 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
         [ValidateNotNullOrEmpty()]
         public string PolicyId { get; set; }
 
+        /// <summary>
+        /// <para type="description">
+        /// Specifies the unique id of the parent protection source (such as a vCenter server) protected by this protection job.
+        /// </para>
+        /// </summary>
         [Parameter(Mandatory = false)]
         public long? ParentSourceId { get; set; }
 
+        /// <summary>
+        /// <para type="description">
+        /// Specifies the unique id of the protection source objects (such as a virtual machines) protected by this protection job.
+        /// </para>
+        /// </summary>
         [Parameter(Mandatory = false)]
         public long?[] SourceIds { get; set; }
 
+        /// <summary>
+        /// <para type="description">
+        /// Specifies the timezone for this protection job. Must be a string in Olson time zone format such as "America/Los_Angeles".
+        /// </para>
+        /// </summary>
         [Parameter(Mandatory = false)]
         public string Timezone { get; set; }
 
+        /// <summary>
+        /// <para type="description">
+        /// Specifies the start date time for this protection job.
+        /// </para>
+        /// </summary>
         [Parameter(Mandatory = false)]
         public DateTime ScheduleStartTime { get; set; } = DateTime.Now;
 
@@ -88,7 +108,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
         /// </summary>
         [Parameter(Mandatory = true)]
         [ValidateNotNullOrEmpty()]
-        public long ViewBoxId { get; set; }
+        public long StorageDomainId { get; set; }
 
         [Parameter()]
         public string ViewName { get; set; }
@@ -116,7 +136,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
 
         protected override void ProcessRecord()
         {
-            var newProtectionJob = new Models.ProtectionJob(name: Name, policyId: PolicyId, viewBoxId: ViewBoxId)
+            var newProtectionJob = new Models.ProtectionJob(name: Name, policyId: PolicyId, viewBoxId: StorageDomainId)
             {
                 Timezone = Timezone,
                 StartTime = new ProtectionScheduleStartTime_(ScheduleStartTime.Hour, ScheduleStartTime.Minute)

@@ -21,7 +21,7 @@ namespace Cohesity.Powershell.Cmdlets.Utility
     ///   </para>
     /// </example>
     [Cmdlet(VerbsData.Convert, "CohesityDateTimeToUsecs")]
-    [OutputType(typeof(DateTime))]
+    [OutputType(typeof(long))]
     public class ConvertCohesityDateTimeToUsecs : Cmdlet
     {
         [Parameter(Mandatory = true, ValueFromPipeline = true)]
@@ -36,7 +36,7 @@ namespace Cohesity.Powershell.Cmdlets.Utility
         {
             DateTime UnixEpoch = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
             long microseconds = (this.DateTime.ToUniversalTime() - UnixEpoch).Ticks / (TimeSpan.TicksPerMillisecond / 1000);
-            WriteObject(microseconds, true);
+            WriteObject(microseconds);
         }
     }
 }

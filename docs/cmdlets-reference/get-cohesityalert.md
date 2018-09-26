@@ -6,9 +6,9 @@ Gets a list of alerts triggered on the Cohesity Cluster filtered by the specifie
 ## SYNTAX
 
 ```
-Get-CohesityAlert -MaxAlerts <int> [-AlertCategoryList <AlertCategoryEnum[]>] [-AlertIdList <string[]>]
- [-AlertSeverityList <SeverityEnum[]>] [-AlertStateList <AlertStateEnum[]>] [-AlertTypeList <int[]>]
- [-EndTime <int>] [-ResolutionIdList <int[]>] [-StartTime <int>] [<CommonParameters>]
+Get-CohesityAlert -MaxAlerts <int> [-AlertCategories <AlertCategoryEnum[]>] [-AlertIds <string[]>]
+ [-AlertSeverities <SeverityEnum[]>] [-AlertStates <AlertStateEnum[]>] [-AlertTypes <int[]>] [-EndTime <long>]
+ [-ResolutionIds <int[]>] [-StartTime <long>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -41,7 +41,7 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -AlertCategoryList
+### -AlertCategories
 Filter by a list of alert categories such as 'kDisk', 'kNode', 'kCluster', 'kNodeHealth', 'kClusterHealth', 'kBackupRestore', 'kEncryption' and 'kArchivalRestore'.
 
 ```yaml
@@ -56,7 +56,7 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -AlertStateList
+### -AlertStates
 Filter by a list of alert states such as 'kOpen' and 'kResolved'.
 
 ```yaml
@@ -71,7 +71,7 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -AlertSeverityList
+### -AlertSeverities
 Filter by a list of alert severities such as 'kCritical', 'kWarning' and 'kInfo'.
 
 ```yaml
@@ -86,7 +86,7 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -ResolutionIdList
+### -ResolutionIds
 Filter by a list of resolution Ids.
 
 ```yaml
@@ -101,7 +101,7 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -AlertIdList
+### -AlertIds
 Filter by a list of alert Ids.
 
 ```yaml
@@ -116,7 +116,7 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -AlertTypeList
+### -AlertTypes
 Filter by a list of alert types.
 
 ```yaml
@@ -135,7 +135,7 @@ Accept wildcard characters: False
 Filter by start date and time by specifying a unix epoch time in microseconds.
 
 ```yaml
-Type: int
+Type: long
 Parameter Sets: (All)
 Aliases:
 
@@ -150,7 +150,7 @@ Accept wildcard characters: False
 Filter by end date and time by specifying a unix epoch time in microseconds.
 
 ```yaml
-Type: int
+Type: long
 Parameter Sets: (All)
 Aliases:
 

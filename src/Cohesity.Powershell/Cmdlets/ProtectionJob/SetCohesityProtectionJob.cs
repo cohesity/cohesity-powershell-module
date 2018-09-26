@@ -17,7 +17,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
     /// <example>
     ///   <para>PS&gt;</para>
     ///   <code>
-    ///   Set-CohesityProtectionJob -ProtectionJob $protectionjob
+    ///   Set-CohesityProtectionJob -ProtectionJob $job
     ///   </code>
     ///   <para>
     ///   Updates a protection job with the specified parameters.

@@ -76,8 +76,7 @@ Accept wildcard characters: False
 
 ### -Environments
 Return only Protection Sources that match the passed in environment type.
-For example, set this parameter to 'kVMware' to only return the Sources (and their Object subtrees) found in the "kVMware" (VMware vCenter Server) environment.
-NOTE: "kPuppeteer" refers to Cohesity's Remote Adapter.
+For example, set this parameter to 'kVMware' to only return the Sources (and their objects) found in the "kVMware" (VMware) environment.
 
 ```yaml
 Type: EnvironmentEnum[]

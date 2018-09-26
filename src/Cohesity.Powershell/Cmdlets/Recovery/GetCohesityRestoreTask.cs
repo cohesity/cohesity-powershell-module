@@ -48,7 +48,7 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
         /// </para>
         /// </summary>
         [Parameter(Mandatory = false)]
-        public int[] Ids { get; set; }
+        public long[] Ids { get; set; }
 
         /// <summary>
         /// <para type="description">
@@ -66,7 +66,7 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
         /// </para>
         /// </summary>
         [Parameter(Mandatory = false)]
-        public int? StartTime { get; set; }
+        public long? StartTime { get; set; }
 
         /// <summary>
         /// <para type="description">
@@ -76,7 +76,7 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
         /// </para>
         /// </summary>
         [Parameter(Mandatory = false)]
-        public int? EndTime { get; set; }
+        public long? EndTime { get; set; }
 
         protected override void BeginProcessing()
         {

@@ -6,7 +6,7 @@ Gets a list of the restore tasks filtered by the specified parameters.
 ## SYNTAX
 
 ```
-Get-CohesityRestoreTask [-EndTime <int>] [-Ids <int[]>] [-StartTime <int>] [-Types <TypeEnum[]>]
+Get-CohesityRestoreTask [-EndTime <long>] [-Ids <long[]>] [-StartTime <long>] [-Types <TypeEnum[]>]
  [<CommonParameters>]
 ```
 
@@ -28,7 +28,7 @@ Returns only the restore tasks that match the type 'kRecoverVMs'.
 Filter by a list of task ids.
 
 ```yaml
-Type: int[]
+Type: long[]
 Parameter Sets: (All)
 Aliases:
 
@@ -60,7 +60,7 @@ All Restore Tasks (both completed and running) on the Cohesity Cluster that star
 If not set, the start time is creation time of the Cohesity Cluster.
 
 ```yaml
-Type: int
+Type: long
 Parameter Sets: (All)
 Aliases:
 
@@ -77,7 +77,7 @@ All Restore Tasks (both completed and running) on the Cohesity Cluster that star
 If not set, the end time is the current time.
 
 ```yaml
-Type: int
+Type: long
 Parameter Sets: (All)
 Aliases:
 

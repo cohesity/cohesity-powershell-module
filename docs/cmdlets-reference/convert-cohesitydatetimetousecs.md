@@ -45,7 +45,7 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 ### System.DateTime
 ## OUTPUTS
 
-### System.DateTime
+### System.Int64
 ## NOTES
 
 ## RELATED LINKS

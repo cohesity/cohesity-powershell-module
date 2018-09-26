@@ -55,7 +55,7 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
         /// </para>
         /// </summary>
         [Parameter(Mandatory = false)]
-        public AlertCategoryEnum[] AlertCategoryList { get; set; }
+        public AlertCategoryEnum[] AlertCategories { get; set; }
 
         /// <summary>
         /// <para type="description">
@@ -63,7 +63,7 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
         /// </para>
         /// </summary>
         [Parameter(Mandatory = false)]
-        public AlertStateEnum[] AlertStateList { get; set; }
+        public AlertStateEnum[] AlertStates { get; set; }
 
         /// <summary>
         /// <para type="description">
@@ -71,7 +71,7 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
         /// </para>
         /// </summary>
         [Parameter(Mandatory = false)]
-        public SeverityEnum[] AlertSeverityList { get; set; }
+        public SeverityEnum[] AlertSeverities { get; set; }
 
         /// <summary>
         /// <para type="description">
@@ -79,7 +79,7 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
         /// </para>
         /// </summary>
         [Parameter(Mandatory = false)]
-        public int[] ResolutionIdList { get; set; }
+        public int[] ResolutionIds { get; set; }
 
         /// <summary>
         /// <para type="description">
@@ -87,7 +87,7 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
         /// </para>
         /// </summary>
         [Parameter(Mandatory = false)]
-        public string[] AlertIdList { get; set; }
+        public string[] AlertIds { get; set; }
 
         /// <summary>
         /// <para type="description">
@@ -95,7 +95,7 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
         /// </para>
         /// </summary>
         [Parameter(Mandatory = false)]
-        public int[] AlertTypeList { get; set; }
+        public int[] AlertTypes { get; set; }
 
         /// <summary>
         /// <para type="description">
@@ -103,7 +103,7 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
         /// </para>
         /// </summary>
         [Parameter(Mandatory = false)]
-        public int? StartTime { get; set; }
+        public long? StartTime { get; set; }
 
         /// <summary>
         /// <para type="description">
@@ -111,7 +111,7 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
         /// </para>
         /// </summary>
         [Parameter(Mandatory = false)]
-        public int? EndTime { get; set; }
+        public long? EndTime { get; set; }
 
         protected override void BeginProcessing()
         {
@@ -130,23 +130,23 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
             if (MaxAlerts.HasValue)
                 queries.Add("maxAlerts", MaxAlerts.ToString());
 
-            if (AlertCategoryList != null && AlertCategoryList.Any())
-                queries.Add("alertCategoryList", string.Join(",", AlertCategoryList));
+            if (AlertCategories != null && AlertCategories.Any())
+                queries.Add("alertCategoryList", string.Join(",", AlertCategories));
 
-            if (AlertStateList != null && AlertStateList.Any())
-                queries.Add("alertStateList", string.Join(",", AlertStateList));
+            if (AlertStates != null && AlertStates.Any())
+                queries.Add("alertStateList", string.Join(",", AlertStates));
 
-            if (AlertSeverityList != null && AlertSeverityList.Any())
-                queries.Add("alertSeverityList", string.Join(",", AlertSeverityList));
+            if (AlertSeverities != null && AlertSeverities.Any())
+                queries.Add("alertSeverityList", string.Join(",", AlertSeverities));
 
-            if (ResolutionIdList != null && ResolutionIdList.Any())
-                queries.Add("resolutionIdList", string.Join(",", ResolutionIdList));
+            if (ResolutionIds != null && ResolutionIds.Any())
+                queries.Add("resolutionIdList", string.Join(",", ResolutionIds));
 
-            if (AlertIdList != null && AlertIdList.Any())
-                queries.Add("alertIdList", string.Join(",", AlertIdList));
+            if (AlertIds != null && AlertIds.Any())
+                queries.Add("alertIdList", string.Join(",", AlertIds));
 
-            if (AlertTypeList != null && AlertTypeList.Any())
-                queries.Add("alertTypeList", string.Join(",", AlertTypeList));
+            if (AlertTypes != null && AlertTypes.Any())
+                queries.Add("alertTypeList", string.Join(",", AlertTypes));
 
             if (StartTime.HasValue)
                 queries.Add("startDateUsecs", StartTime.ToString());

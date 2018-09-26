@@ -9,8 +9,8 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
     /// Pauses the future runs of the specified protection job.
     /// </para>
     /// <para type="description">
-    /// If the protection job is currently running (not paused) and true is passed in, this operation stops any new runs of this protection job from starting and executing. 
-    /// However, any existing runs that were already executing will continue to run.
+    /// If the protection job is currently running this operation stops any future runs of this protection job from starting and executing. 
+    /// However, any existing runs that were already in progress will continue to run.
     /// Returns success if the paused state is changed.
     /// </para>
     /// </summary>

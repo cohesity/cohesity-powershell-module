@@ -21,14 +21,13 @@ If no search pattern or filter parameters are specified, all files and folders c
 Find-CohesityFilesForRestore -Search "*txt"
 ```
 
-Returns only the files and folders that match the search pattern.
+Returns only the files and folders that match the search pattern "txt".
 
 ## PARAMETERS
 
 ### -Environments
-Filter by environment types such as kVMware, kView, kSQL, kPuppeteer, kPhysical, kPure, kNetapp, kGenericNas, kHyperV, kAcropolis, kAzure.
+Filter by environment types such as kVMware, kView, kSQL, etc.
 Only jobs protecting the specified environment types are returned.
-NOTE: kPuppeteer refers to Cohesity's remote adapter.
 
 ```yaml
 Type: EnvironmentEnum[]

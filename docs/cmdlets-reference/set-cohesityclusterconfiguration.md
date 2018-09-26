@@ -6,7 +6,7 @@ Updates the Cohesity Cluster configuration.
 ## SYNTAX
 
 ```
-Set-CohesityClusterConfiguration -Cluster <Cluster> [<CommonParameters>]
+Set-CohesityClusterConfiguration -ClusterConfiguration <Cluster> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -16,14 +16,14 @@ Returns the Updated Cohesity Cluster configuration.
 
 ### EXAMPLE 1
 ```
-Set-CohesityClusterConfiguration -Cluster $Cluster
+Set-CohesityClusterConfiguration -ClusterConfiguration $config
 ```
 
 Updates the Cohesity Cluster configuration with specified parameters.
 
 ## PARAMETERS
 
-### -Cluster
+### -ClusterConfiguration
 The updated Cohesity Cluster Configuration.
 
 ```yaml

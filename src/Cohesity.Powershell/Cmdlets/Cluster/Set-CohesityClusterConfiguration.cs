@@ -15,7 +15,7 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
     /// <example>
     /// <para>PS&gt;</para>
     /// <code>
-    /// Set-CohesityClusterConfiguration -Cluster $Cluster
+    /// Set-CohesityClusterConfiguration -ClusterConfiguration $config
     /// </code>
     /// <para>
     /// Updates the Cohesity Cluster configuration with specified parameters.
@@ -49,7 +49,7 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
         /// </para>
         /// </summary>
         [Parameter(Mandatory = true, ValueFromPipeline = true)]
-        public Models.Cluster Cluster { get; set; } = null;
+        public Models.Cluster ClusterConfiguration { get; set; } = null;
 
         #endregion
 
@@ -72,7 +72,7 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
         {
             // PUT public/cluster
             var preparedUrl = $"/public/cluster";
-            var result = Session.ApiClient.Put<Models.Cluster>(preparedUrl, Cluster);
+            var result = Session.ApiClient.Put<Models.Cluster>(preparedUrl, ClusterConfiguration);
             WriteObject(result);
         }
 

@@ -86,12 +86,7 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
 
             try
             {
-                if (!Server.StartsWith(Uri.UriSchemeHttp, StringComparison.OrdinalIgnoreCase) && !Server.StartsWith(Uri.UriSchemeHttps, StringComparison.OrdinalIgnoreCase))
-                {
-                    Server = Uri.UriSchemeHttps + Uri.SchemeDelimiter + Server;
-                }
-
-                clusterUri = new Uri(Server);
+                clusterUri = new Uri(Uri.UriSchemeHttps + Uri.SchemeDelimiter + Server);
             }
             catch (Exception ex)
             {
@@ -145,7 +140,7 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
 
                 userProfileProvider.SetUserProfile(userProfile);
 
-                WriteObject("Connected to the Cohesity Cluster Successfully");
+                WriteObject($"Connected to the Cohesity Cluster {Server} Successfully");
             }
             catch (AggregateException ex)
             {
