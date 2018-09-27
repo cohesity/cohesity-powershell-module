@@ -7,6 +7,7 @@
 
 
 - **Examples**
+- [List protection job start times](list-protectionJob-start-times.md)
 - [Add vms to a protection job](samples/add-vms-protection-job.md)
 - [Start an on-demand backup](samples/on-demand-backup.md)
 - [Upgrade physical agents](samples/upgrade-physical-agents.md)
