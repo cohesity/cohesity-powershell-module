@@ -16,7 +16,7 @@ namespace Cohesity.Powershell.Cmdlets.AuditLog
     /// <example>
     ///   <para>PS&gt;</para>
     ///   <code>
-    ///   Get-CohesityAuditLog -UserNames Admin
+    ///   Get-CohesityAuditLog -UserNames admin
     ///   </code>
     ///   <para>
     ///   All audit logs related to the username admin are displayed.

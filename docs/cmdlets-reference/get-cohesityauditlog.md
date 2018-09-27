@@ -18,7 +18,7 @@ If no parameters are specified, all audit logs currently on the Cohesity Cluster
 
 ### EXAMPLE 1
 ```
-Get-CohesityAuditLog -UserNames Admin
+Get-CohesityAuditLog -UserNames admin
 ```
 
 All audit logs related to the username admin are displayed.
