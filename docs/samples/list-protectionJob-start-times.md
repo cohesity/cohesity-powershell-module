@@ -3,7 +3,7 @@ You can use `Get-CohesityProtectionJob` cmdlet to achieve this task.
 
 ### Example
 ```powershell
-Get-CohesityProtectionJob | ForEach-Object { "{0:d2}:{1:d2}`t{2}" -f ($_.startTime.Hour, $_.startTime.Minute, $_.Name) }
+Get-CohesityProtectionJob | ForEach-Object { "{0:d2}:{1:d2}`t{2}" -f ($_.StartTime.Hour, $_.StartTime.Minute, $_.Name) }
 ```
 
 ### Example Output
