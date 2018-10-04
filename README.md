@@ -1,3 +1,8 @@
+<!--
+  Title: Cohesity PowerShell Module
+  Description: This project provides a PowerShell Module for interacting with the Cohesity DataPlatform
+  Author: Cohesity Inc
+  -->
 # Cohesity PowerShell Module
 
 ![](docs/assets/images/cohesity_powershell.png)
