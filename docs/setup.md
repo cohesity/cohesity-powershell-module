@@ -4,6 +4,8 @@
 
 You can install Cohesity PowerShell Module directly from the [PowerShell Gallery](https://www.powershellgallery.com/packages?q=cohesity).
 
+  > **Note:** If you are running PowerShell as a user without elevated privileges (non-admin user), you may need to add `-Scope CurrentUser` to the command below. In some cases, you may also need to run `Set-ExecutionPolicy RemoteSigned -Scope CurrentUser` to set the execution policy that allows import of the module.
+
 * For `PowerShell Core` (Windows, Mac OS, Linux)
 
   ```powershell
@@ -14,8 +16,6 @@ You can install Cohesity PowerShell Module directly from the [PowerShell Gallery
   ```powershell
   Install-Module -Name Cohesity.PowerShell
   ```
-  > **Note:** On Windows, if you are running PowerShell without elevated privileges, you may need to add `-Scope CurrentUser` to the above command. You may also need to run `Set-ExecutionPolicy RemoteSigned -Scope CurrentUser` to set execution policy which allows import of the module.
-
 
 ## Steps to upgrade
 
