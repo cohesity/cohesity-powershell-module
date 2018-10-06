@@ -159,7 +159,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
             }
 
             var preparedUrl = $"/public/protectionJobs";
-            var result = Session.ApiClient.Post<Models.ProtectionJob>(preparedUrl, newProtectionJob);
+            var result = Session.ApiClient.Post<Models.ProtectionJob>(preparedUrl, newProtectionJob, WriteDebug);
             WriteObject(result);
         }
     }
