@@ -12,28 +12,6 @@
 
 This project provides a PowerShell Module for interacting with the [Cohesity DataPlatform](https://www.cohesity.com/products/data-platform). It includes cmdlets useful for automating common tasks and orchestrating workflows in your environment. This PowerShell module can be used on Windows, Linux and Mac OS.
 
-## Pre-requisites
-
-* Requires a Cohesity Cluster running version `6.0` or higher.
-* On Windows, both Windows PowerShell and PowerShell Core are supported.
-   * For Windows PowerShell, requires version `5.1` or higher.
-   * For PowerShell Core, requires `6.0` or higher.
-* On Linux and Mac OS, requires PowerShell Core `6.0` or higher.
-
-## Installation
-
-You can install Cohesity PowerShell Module directly from the [PowerShell Gallery](https://www.powershellgallery.com/packages?q=cohesity).
-
-* For [Windows PowerShell](https://docs.microsoft.com/en-us/powershell/scripting/setup/installing-windows-powershell) (Windows only)
-```
-  Install-Module -Name Cohesity.PowerShell
-```
-
-* For [PowerShell Core](https://github.com/powershell/powershell) (Windows, Mac OS and Linux)
-```
-  Install-Module -Name Cohesity.PowerShell.Core
-```
-
 ## Documentation
 
 * [Online reference for Cohesity PowerShell Cmdlets](https://cohesity.github.io/cohesity-powershell-module).
