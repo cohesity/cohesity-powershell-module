@@ -3,6 +3,7 @@
 - [Pre-requisites](pre-requisites.md)
 - [Setup](setup.md)
 - [How to use](how-to-use.md)
+- [FAQ](faq.md)
 - [Feedback](feedback.md)
 
 
