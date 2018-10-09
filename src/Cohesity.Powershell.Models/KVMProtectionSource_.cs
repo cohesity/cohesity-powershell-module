@@ -70,7 +70,13 @@ namespace Cohesity.Models
             /// Enum KStorageDomain for value: kStorageDomain
             /// </summary>
             [EnumMember(Value = "kStorageDomain")]
-            KStorageDomain = 8
+            KStorageDomain = 8,
+
+            /// <summary>
+            /// Enum KVNicProfile for value: kVNicProfile
+            /// </summary>
+            [EnumMember(Value = "kVNicProfile")]
+            KVNicProfile = 9
         }
 
         /// <summary>

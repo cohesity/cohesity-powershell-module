@@ -120,6 +120,59 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
         [Parameter(Mandatory = false)]
         public SwitchParameter PoweredOn { get; set; }
 
+        /// <summary>
+        /// <para type="description">
+        /// Specifies the datastore where the VM should be recovered.
+        /// This field is mandatory when recovering the VM to a different resource pool or to a different parent source such as vCenter.
+        /// If not specified, VM is recovered to its original datastore location in the parent source.
+        /// </para>
+        /// </summary>
+        [Parameter(Mandatory = false)]
+        [ValidateRange(1, long.MaxValue)]
+        public long? DatastoreId { get; set; }
+
+        /// <summary>
+        /// <para type="description">
+        /// Specify this field to override the preserved network configuration or to attach a new network configuration to the recovered VM.
+        /// By default, original network configuration is preserved if the VM is recovered under the same parent source and the same resource pool.
+        /// Original network configuration is detached if the VM is recovered under a different vCenter or a different resource pool.
+        /// </para>
+        /// </summary>
+        [Parameter(Mandatory = false)]
+        [ValidateRange(1, long.MaxValue)]
+        public long? NetworkId { get; set; }
+
+        /// <summary>
+        /// <para type="description">
+        /// Specifies the resource pool where the VM should be recovered.
+        /// This field is mandatory if recovering to a new parent source such as vCenter.
+        /// If this field is not specified, VM is recovered to the original resource pool.
+        /// </para>
+        /// </summary>
+        [Parameter(Mandatory = false)]
+        [ValidateRange(1, long.MaxValue)]
+        public long? ResourcePoolId { get; set; }
+
+        /// <summary>
+        /// <para type="description">
+        /// Specifies the folder where the VM should be restored.
+        /// This is applicable only when the VM is being restored to an alternate location.
+        /// </para>
+        /// </summary>
+        [Parameter(Mandatory = false)]
+        [ValidateRange(1, long.MaxValue)]
+        public long? VmFolderId { get; set; }
+
+        /// <summary>
+        /// <para type="description">
+        /// Specifies a new parent source such as vCenter to recover the VM.
+        /// If not specified, the VM is recovered to its original parent source.
+        /// </para>
+        /// </summary>
+        [Parameter(Mandatory = false)]
+        [ValidateRange(1, long.MaxValue)]
+        public long? NewParentId { get; set; }
+
         #endregion
 
         #region Processing
@@ -154,6 +207,14 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
                 vmwareParams.Prefix = VmNamePrefix;
             if(VmNameSuffix != null)
                 vmwareParams.Suffix = VmNameSuffix;
+            if (DatastoreId.HasValue)
+                vmwareParams.DatastoreId = DatastoreId;
+            if (NetworkId.HasValue)
+                vmwareParams.NetworkId = NetworkId;
+            if (ResourcePoolId.HasValue)
+                vmwareParams.ResourcePoolId = ResourcePoolId;
+            if (VmFolderId.HasValue)
+                vmwareParams.VmFolderId = VmFolderId;
 
             restoreRequest.VmwareParameters = vmwareParams;
 
@@ -165,6 +226,9 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
 
             if (JobRunId.HasValue)
                 restoreObject.JobRunId = JobRunId;
+
+            if (NewParentId.HasValue)
+                restoreRequest.NewParentId = NewParentId;
 
             if (StartTime.HasValue)
                 restoreObject.StartedTimeUsecs = StartTime;
