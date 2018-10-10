@@ -13,6 +13,7 @@
 - [Start an on-demand backup](samples/on-demand-backup.md)
 - [Upgrade physical agents](samples/upgrade-physical-agents.md)
 - [List most recent unresolved alerts](samples/list-unresolved-alerts.md)
+- [VMware protection example workflow](samples/vmware-vm-lifecycle.md)
 
 
 - **Authentication**
