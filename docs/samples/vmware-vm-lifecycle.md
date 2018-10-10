@@ -20,6 +20,7 @@ Get-CohesityVMwareVM -ParentSourceId $vcenter.Id
 If you want to narrow down the selection by matching a pattern, you may do something like:
 ```powershell
 $vms = Get-CohesityVMwareVM | Where-Object {$_.Name -match "linux"}
+$vms
 ```
 
 ## Create a new protection job to protect the selected VMs
