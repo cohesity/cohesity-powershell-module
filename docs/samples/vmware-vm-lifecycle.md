@@ -35,10 +35,15 @@ $job
 ```
 The job would run automatically after it is created, by default.
 
-## Restore the backed up VM to the original location
-After the backup is successful, we can restore a VM to its original location as shown below:
+You can monitor the job run using below:
 ```powershell
-$task = Restore-CohesityVMwareVM -TaskName "restore-task-linux" -SourceId $vms[0].Id -JobId $job.Id -VmNamePrefix "copy-" -DisableNetwork
+Get-CohesityProtectionJobRun -JobId $job.Id
+```
+
+## Restore the backed up VM to the original location
+After the backup run is successful, we can restore a VM to its original location as shown below:
+```powershell
+$task = Restore-CohesityVMwareVM -TaskName "restore-task-linux" -SourceId $vms[0].Id -JobId $job.Id -VmNamePrefix "copy-"
 $task
 ```
 
