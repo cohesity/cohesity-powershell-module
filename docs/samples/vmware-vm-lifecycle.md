@@ -1,4 +1,4 @@
-# VMware protection - Sample Workflow
+# VMware protection - Example Workflow
 
 ## Connect to the Cohesity Cluster
 First make sure that you are connected to a Cohesity Cluster
