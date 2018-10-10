@@ -5,7 +5,7 @@ Creates a new protection job.
 
 ## SYNTAX
 
-### UNNAMED_PARAMETER_SET_1
+### PARAMETER_SET_CREATE_BY_ID
 ```
 New-CohesityProtectionJob -Description <string> -Name <string> -PolicyId <string> -StorageDomainId <long>
  [-Environment <EnvironmentEnum>] [-ParentSourceId <long>] [-ScheduleStartTime <DateTime>]
@@ -13,7 +13,7 @@ New-CohesityProtectionJob -Description <string> -Name <string> -PolicyId <string
  [-ViewName <string>] [<CommonParameters>]
 ```
 
-### UNNAMED_PARAMETER_SET_2
+### PARAMETER_SET_CREATE_BY_NAME
 ```
 New-CohesityProtectionJob -Description <string> -Name <string> -PolicyName <string> -StorageDomainName <string>
  [-Environment <EnvironmentEnum>] [-ParentSourceId <long>] [-ScheduleStartTime <DateTime>]
@@ -70,7 +70,7 @@ Specifies the unique id of the protection policy associated with the protection 
 
 ```yaml
 Type: string
-Parameter Sets: UNNAMED_PARAMETER_SET_1
+Parameter Sets: PARAMETER_SET_CREATE_BY_ID
 Aliases:
 
 Required: True
@@ -85,7 +85,7 @@ Specifies the name of the protection policy associated with the protection job.
 
 ```yaml
 Type: string
-Parameter Sets: UNNAMED_PARAMETER_SET_2
+Parameter Sets: PARAMETER_SET_CREATE_BY_NAME
 Aliases:
 
 Required: True
@@ -161,7 +161,7 @@ Specifies the storage domain (view box) id where this job writes data.
 
 ```yaml
 Type: long
-Parameter Sets: UNNAMED_PARAMETER_SET_1
+Parameter Sets: PARAMETER_SET_CREATE_BY_ID
 Aliases:
 
 Required: True
@@ -176,7 +176,7 @@ Specifies the name of the storage domain associated with the protection job.
 
 ```yaml
 Type: string
-Parameter Sets: UNNAMED_PARAMETER_SET_2
+Parameter Sets: PARAMETER_SET_CREATE_BY_NAME
 Aliases:
 
 Required: True
