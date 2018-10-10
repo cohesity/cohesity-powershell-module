@@ -5,10 +5,19 @@ Creates a new protection job.
 
 ## SYNTAX
 
+### UNNAMED_PARAMETER_SET_1
 ```
 New-CohesityProtectionJob -Description <string> -Name <string> -PolicyId <string> -StorageDomainId <long>
  [-Environment <EnvironmentEnum>] [-ParentSourceId <long>] [-ScheduleStartTime <DateTime>]
- [-SourceIds <Nullable`1[]>] [-SourceSpecialParameters <SourceSpecialParameter[]>] [-Timezone <string>]
+ [-SourceIds <long[]>] [-SourceSpecialParameters <SourceSpecialParameter[]>] [-Timezone <string>]
+ [-ViewName <string>] [<CommonParameters>]
+```
+
+### UNNAMED_PARAMETER_SET_2
+```
+New-CohesityProtectionJob -Description <string> -Name <string> -PolicyName <string> -StorageDomainName <string>
+ [-Environment <EnvironmentEnum>] [-ParentSourceId <long>] [-ScheduleStartTime <DateTime>]
+ [-SourceIds <long[]>] [-SourceSpecialParameters <SourceSpecialParameter[]>] [-Timezone <string>]
  [-ViewName <string>] [<CommonParameters>]
 ```
 
@@ -61,7 +70,22 @@ Specifies the unique id of the protection policy associated with the protection 
 
 ```yaml
 Type: string
-Parameter Sets: (All)
+Parameter Sets: UNNAMED_PARAMETER_SET_1
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -PolicyName
+Specifies the name of the protection policy associated with the protection job.
+
+```yaml
+Type: string
+Parameter Sets: UNNAMED_PARAMETER_SET_2
 Aliases:
 
 Required: True
@@ -90,14 +114,14 @@ Accept wildcard characters: False
 Specifies the unique id of the protection source objects (such as a virtual machines) protected by this protection job.
 
 ```yaml
-Type: Nullable`1[]
+Type: long[]
 Parameter Sets: (All)
 Aliases:
 
 Required: False
 Position: Named
 Default value: None
-Accept pipeline input: False
+Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
@@ -127,7 +151,7 @@ Aliases:
 
 Required: False
 Position: Named
-Default value: 9/25/2018 5:42:21 PM
+Default value: 10/9/2018 11:23:48 PM
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -137,7 +161,7 @@ Specifies the storage domain (view box) id where this job writes data.
 
 ```yaml
 Type: long
-Parameter Sets: (All)
+Parameter Sets: UNNAMED_PARAMETER_SET_1
 Aliases:
 
 Required: True
@@ -147,7 +171,24 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -StorageDomainName
+Specifies the name of the storage domain associated with the protection job.
+
+```yaml
+Type: string
+Parameter Sets: UNNAMED_PARAMETER_SET_2
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -ViewName
+Specifies the name of the View associated with the protection job.
+
 ```yaml
 Type: string
 Parameter Sets: (All)
@@ -197,6 +238,9 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
+
+### System.Int64[]
+Specifies the unique id of the protection source objects (such as a virtual machines) protected by this protection job.
 
 ## OUTPUTS
 

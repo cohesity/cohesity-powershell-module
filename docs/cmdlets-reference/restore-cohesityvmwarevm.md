@@ -6,8 +6,10 @@ Restores the specified VMware virtual machine from a previous backup.
 ## SYNTAX
 
 ```
-Restore-CohesityVMwareVM -JobId <long> -SourceId <long> -TaskName <string> [-DisableNetwork] [-JobRunId <long>]
- [-PoweredOn] [-StartTime <long>] [-VmNamePrefix <string>] [-VmNameSuffix <string>] [<CommonParameters>]
+Restore-CohesityVMwareVM -JobId <long> -SourceId <long> -TaskName <string> [-DatastoreId <long>]
+ [-DisableNetwork] [-JobRunId <long>] [-NetworkId <long>] [-NewParentId <long>] [-PoweredOn]
+ [-ResourcePoolId <long>] [-StartTime <long>] [-VmFolderId <long>] [-VmNamePrefix <string>]
+ [-VmNameSuffix <string>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -161,6 +163,89 @@ Aliases:
 Required: False
 Position: Named
 Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -DatastoreId
+Specifies the datastore where the VM should be recovered.
+This field is mandatory when recovering the VM to a different resource pool or to a different parent source such as vCenter.
+If not specified, VM is recovered to its original datastore location in the parent source.
+
+```yaml
+Type: long
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -NetworkId
+Specify this field to override the preserved network configuration or to attach a new network configuration to the recovered VM.
+By default, original network configuration is preserved if the VM is recovered under the same parent source and the same resource pool.
+Original network configuration is detached if the VM is recovered under a different vCenter or a different resource pool.
+
+```yaml
+Type: long
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ResourcePoolId
+Specifies the resource pool where the VM should be recovered.
+This field is mandatory if recovering to a new parent source such as vCenter.
+If this field is not specified, VM is recovered to the original resource pool.
+
+```yaml
+Type: long
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -VmFolderId
+Specifies the folder where the VM should be restored.
+This is applicable only when the VM is being restored to an alternate location.
+
+```yaml
+Type: long
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -NewParentId
+Specifies a new parent source such as vCenter to recover the VM.
+If not specified, the VM is recovered to its original parent source.
+
+```yaml
+Type: long
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```

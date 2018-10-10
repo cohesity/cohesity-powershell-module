@@ -65,9 +65,18 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
         /// Specifies the unique id of the protection policy associated with the protection job.
         /// </para>
         /// </summary>
-        [Parameter(Mandatory = true)]
+        [Parameter(Mandatory = true, ParameterSetName = "CreateById")]
         [ValidateNotNullOrEmpty()]
         public string PolicyId { get; set; }
+
+        /// <summary>
+        /// <para type="description">
+        /// Specifies the name of the protection policy associated with the protection job.
+        /// </para>
+        /// </summary>
+        [Parameter(Mandatory = true, ParameterSetName = "CreateByName")]
+        [ValidateNotNullOrEmpty()]
+        public string PolicyName { get; set; }
 
         /// <summary>
         /// <para type="description">
@@ -82,8 +91,8 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
         /// Specifies the unique id of the protection source objects (such as a virtual machines) protected by this protection job.
         /// </para>
         /// </summary>
-        [Parameter(Mandatory = false)]
-        public long?[] SourceIds { get; set; }
+        [Parameter(Mandatory = false, ValueFromPipeline = true)]
+        public long[] SourceIds { get; set; }
 
         /// <summary>
         /// <para type="description">
@@ -106,11 +115,25 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
         /// Specifies the storage domain (view box) id where this job writes data.
         /// </para>
         /// </summary>
-        [Parameter(Mandatory = true)]
+        [Parameter(Mandatory = true, ParameterSetName = "CreateById")]
         [ValidateNotNullOrEmpty()]
         public long StorageDomainId { get; set; }
 
-        [Parameter()]
+        /// <summary>
+        /// <para type="description">
+        /// Specifies the name of the storage domain associated with the protection job.
+        /// </para>
+        /// </summary>
+        [Parameter(Mandatory = true, ParameterSetName = "CreateByName")]
+        [ValidateNotNullOrEmpty()]
+        public string StorageDomainName { get; set; }
+
+        /// <summary>
+        /// <para type="description">
+        /// Specifies the name of the View associated with the protection job.
+        /// </para>
+        /// </summary>
+        [Parameter(Mandatory = false)]
         public string ViewName { get; set; }
 
         /// <summary>
@@ -129,13 +152,25 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
             base.BeginProcessing();
 
             Session.AssertAuthentication();
-
-            if (string.IsNullOrWhiteSpace(Timezone))
-                Timezone = TimeZoneInfoExtensions.GetOlsonTimeZone();
         }
 
         protected override void ProcessRecord()
         {
+            if (string.IsNullOrWhiteSpace(Timezone))
+                Timezone = TimeZoneInfoExtensions.GetOlsonTimeZone();
+
+            if (!string.IsNullOrWhiteSpace(PolicyName))
+            {
+                var policy = RestApiCommon.GetPolicyByName(Session.ApiClient, PolicyName);
+                PolicyId = policy.Id;
+            }
+
+            if (!string.IsNullOrWhiteSpace(StorageDomainName))
+            {
+                var domain = RestApiCommon.GetStorageDomainByName(Session.ApiClient, StorageDomainName);
+                StorageDomainId = (long) domain.Id;
+            }
+
             var newProtectionJob = new Models.ProtectionJob(name: Name, policyId: PolicyId, viewBoxId: StorageDomainId)
             {
                 Timezone = Timezone,
@@ -146,7 +181,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
                 newProtectionJob.ParentSourceId = ParentSourceId;
 
             if (SourceIds != null && SourceIds.Any())
-                newProtectionJob.SourceIds = SourceIds.ToList();
+                newProtectionJob.SourceIds = SourceIds.ToList().ConvertAll<long?>(x => x);
 
             if (!string.IsNullOrWhiteSpace(ViewName))
                 newProtectionJob.ViewName = ViewName;

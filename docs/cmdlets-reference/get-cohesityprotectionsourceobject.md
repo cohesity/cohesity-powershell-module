@@ -101,7 +101,7 @@ Aliases:
 Required: False
 Position: Named
 Default value: None
-Accept pipeline input: False
+Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
@@ -126,6 +126,9 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
+
+### System.Int64
+Return the Object subtree for the passed in Protection Source id.
 
 ## OUTPUTS
 

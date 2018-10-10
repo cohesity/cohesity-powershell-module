@@ -85,7 +85,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
         /// Return the Object subtree for the passed in Protection Source id.
         /// </para>
         /// </summary>
-        [Parameter(Mandatory = false)]
+        [Parameter(Mandatory = false, ValueFromPipeline = true)]
         public long? Id { get; set; }
 
         /// <summary>
