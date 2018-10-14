@@ -47,9 +47,17 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
         /// Specifies a unique id of the protection source.
         /// </para>
         /// </summary>
-        [Parameter(Mandatory = true, ValueFromPipeline = true)]
+        [Parameter(Mandatory = true, ValueFromPipeline = true, ParameterSetName = "ById")]
         [ValidateRange(1, long.MaxValue)]
         public long Id { get; set; }
+
+        /// <summary>
+        /// <para type="description">
+        /// Specifies a protection source object.
+        /// </para>
+        /// </summary>
+        [Parameter(Mandatory = true, ValueFromPipeline = true, ParameterSetName = "ByObject")]
+        public Models.ProtectionSourceNode ProtectionSource { get; set; }
 
         #endregion
 
@@ -70,6 +78,10 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
         /// </summary>
         protected override void ProcessRecord()
         {
+            if(ProtectionSource != null)
+            {
+                Id = (long)ProtectionSource.ProtectionSource.Id;
+            }
             // POST /public/protectionSources/refresh/{id}
             var preparedUrl = $"/public/protectionSources/refresh/{Id.ToString()}";
             Session.ApiClient.Post(preparedUrl, string.Empty);
