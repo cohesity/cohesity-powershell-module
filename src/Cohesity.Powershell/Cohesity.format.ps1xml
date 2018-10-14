@@ -462,6 +462,9 @@
                 <ScriptBlock>$_.BackupRun.JobRunId</ScriptBlock>
               </TableColumnItem>
               <TableColumnItem>
+                <ScriptBlock>$_.BackupRun.Stats.StartTimeUsecs | Convert-CohesityUsecsToDateTime</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
                <ScriptBlock>$_.BackupRun.RunType</ScriptBlock>
               </TableColumnItem>
               <TableColumnItem>
@@ -476,7 +479,7 @@
               <TableColumnItem>
                <ScriptBlock>$_.BackupRun.Status</ScriptBlock>
               </TableColumnItem>
-              </TableColumnItems>
+            </TableColumnItems>
           </TableRowEntry>
         </TableRowEntries>
         <TableHeaders>
@@ -484,12 +487,13 @@
             <Label>Id</Label>
           </TableColumnHeader>
           <TableColumnHeader>
+            <Label>Start Time</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
             <Label>RunType</Label>
           </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
+          <TableColumnHeader/>
+          <TableColumnHeader/>
           <TableColumnHeader>
             <Label>Environment</Label>
           </TableColumnHeader>

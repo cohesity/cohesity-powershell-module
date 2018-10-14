@@ -54,6 +54,16 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJobRun
 
         /// <summary>
         /// <para type="description">
+        /// Filter by a protection job that is specified by name.
+        /// If not specified, all job runs for all protection jobs are returned.
+        /// </para>
+        /// </summary>
+        [Parameter(Mandatory = false)]
+        [ValidateNotNullOrEmpty()]
+        public string JobName { get; set; }
+
+        /// <summary>
+        /// <para type="description">
         /// Return a specific job run by specifying a time and a jobId.
         /// Specify the time when the job run started as a unix epoch timestamp (in microseconds).
         /// If this field is specified, JobId must also be specified.
@@ -150,6 +160,12 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJobRun
         protected override void ProcessRecord()
         {
             var qb = new QuerystringBuilder();
+
+            if(!string.IsNullOrWhiteSpace(JobName))
+            {
+                var job = RestApiCommon.GetProtectionJobByName(Session.ApiClient, JobName);
+                JobId = job.Id;
+            }
 
             if (JobId.HasValue && JobId != null)
                 qb.Add("jobId", JobId.Value);

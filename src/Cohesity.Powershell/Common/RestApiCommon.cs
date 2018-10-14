@@ -8,6 +8,22 @@ namespace Cohesity.Powershell.Common
 {
     internal static class RestApiCommon
     {
+        public static ProtectionJob GetProtectionJobByName(RestApiClient client, string name)
+        {
+            var qb = new QuerystringBuilder();
+            qb.Add("names", name);
+
+            var preparedUrl = $"/public/protectionJobs{qb.Build()}";
+            var jobs = client.Get<IEnumerable<ProtectionJob>>(preparedUrl);
+            if (jobs == null || !jobs.Any())
+                throw new Exception("Protection job with matching name not found.");
+
+            if (jobs.Count() > 1)
+                throw new Exception("Found multiple protection jobs with matching name.");
+
+            return jobs.First();
+        }
+
         public static ProtectionPolicy GetPolicyByName(RestApiClient client, string name)
         {
             var qb = new QuerystringBuilder();
