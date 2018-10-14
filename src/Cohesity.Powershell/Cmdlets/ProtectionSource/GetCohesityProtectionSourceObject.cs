@@ -9,12 +9,12 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
 {
     /// <summary>
     /// <para type="synopsis">
-    /// Gets a list of the registered Protection Sources and their Objects.
+    /// Gets a list of the registered Protection Sources and their sub objects.
     /// </para>
     /// <para type="description">
-    /// If no parameters are specified, all Protection Sources on the Cohesity Cluster are returned.
-    /// In addition, the sub objects for each Source are also returned.
-    /// Specifying the parameters can filter the results that are returned.
+    /// If no parameters are specified, all the Protection Sources and their sub objects are returned.
+    /// Specifying additional parameters can filter the results that are returned.
+    /// If you only want to get a specific object you can specify the -Id parameter.
     /// </para>
     /// </summary>
     /// <example>
@@ -23,7 +23,16 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
     ///   Get-CohesityProtectionSourceObject -Environments kPhysical
     ///   </code>
     ///   <para>
-    ///   Returns registered protection sources that match the environment type 'kPhysical’ and all their objects.
+    ///   Returns all the registered protection sources and their sub objects that match the environment type 'kPhysical’.
+    ///   </para>
+    /// </example>
+    /// <example>
+    ///   <para>PS&gt;</para>
+    ///   <code>
+    ///   Get-CohesityProtectionSourceObject -Id 1234
+    ///   </code>
+    ///   <para>
+    ///   Returns only the object that matches the specified id.
     ///   </para>
     /// </example>
     [Cmdlet(VerbsCommon.Get, "CohesityProtectionSourceObject")]
@@ -46,7 +55,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
 
         /// <summary>
         /// <para type="description">
-        /// Set this parameter to true to also return kDatastore object types found in the Source in addition to their Object subtrees.
+        /// Set this parameter to also return kDatastore type of objects.
         /// By default, datastores are not returned.
         /// </para>
         /// </summary>
@@ -55,7 +64,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
 
         /// <summary>
         /// <para type="description">
-        /// Set this parameter to true to also return kNetwork object types found in the Source in addition to their Object subtrees.
+        /// Set this parameter to also return kNetwork type of objects.
         /// By default, network objects are not returned.
         /// </para>
         /// </summary>
@@ -64,7 +73,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
 
         /// <summary>
         /// <para type="description">
-        /// Set this parameter to true to also return kVMFolder object types found in the Source in addition to their Object subtrees.
+        /// Set this parameter to also return kVMFolder type of objects.
         /// By default, VM folder objects are not returned.
         /// </para>
         /// </summary>
@@ -74,7 +83,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
         /// <summary>
         /// <para type="description">
         /// Return only Protection Sources that match the passed in environment type.
-        /// For example, set this parameter to ‘kVMware’ to only return the Sources (and their objects) found in the "kVMware" (VMware) environment.
+        /// For example, set this parameter to ‘kVMware’ to only return the Sources (and their sub objects) found in the VMware environment.
         /// </para>
         /// </summary>
         [Parameter(Mandatory = false)]
@@ -82,7 +91,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
 
         /// <summary>
         /// <para type="description">
-        /// Return the Object subtree for the passed in Protection Source id.
+        /// Returns only the object specified by the id.
         /// </para>
         /// </summary>
         [Parameter(Mandatory = false, ValueFromPipeline = true)]
@@ -90,7 +99,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
 
         /// <summary>
         /// <para type="description">
-        /// Filter out the Object types (and their subtrees) that match the passed in types.
+        /// Filter out the Object types (and their sub objects) that match the passed in types.
         /// For example, set this parameter to "kResourcePool" to exclude Resource Pool Objects from being returned.
         /// </para>
         /// </summary>
@@ -110,31 +119,37 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
             var qb = new QuerystringBuilder();
 
             if (Id.HasValue)
-                qb.Add("id", Id.Value);
+            {
+                var url = $"/public/protectionSources/objects/{Id.ToString()}";
+                var result = Session.ApiClient.Get<Models.ProtectionSource>(url);
+                WriteObject(result);
+            }
+            else
+            {
+                if (IncludeDatastores.IsPresent)
+                    qb.Add("includeDatastores", true);
 
-            if (IncludeDatastores.IsPresent)
-                qb.Add("includeDatastores", true);
+                if (IncludeNetworks.IsPresent)
+                    qb.Add("includeNetworks", true);
 
-            if (IncludeNetworks.IsPresent)
-                qb.Add("includeNetworks", true);
+                if (IncludeVMFolders.IsPresent)
+                    qb.Add("includeVMFolders", true);
 
-            if (IncludeVMFolders.IsPresent)
-                qb.Add("includeVMFolders", true);
+                if (Environments != null && Environments.Any())
+                    qb.Add("environment", string.Join(",", Environments));
 
-            if (Environments != null && Environments.Any())
-                qb.Add("environment", string.Join(",", Environments));
+                if (ExcludeTypes != null && ExcludeTypes.Any())
+                    qb.Add("excludeTypes", ExcludeTypes);
 
-            if (ExcludeTypes != null && ExcludeTypes.Any())
-                qb.Add("excludeTypes", ExcludeTypes);
+                var url = $"/public/protectionSources{qb.Build()}";
+                var results = Session.ApiClient.Get<IEnumerable<ProtectionSourceNode>>(url);
+                results = FlattenNodes(results);
 
-            var url = $"/public/protectionSources{qb.Build()}";
-            var results = Session.ApiClient.Get<IEnumerable<ProtectionSourceNode>>(url);
-            results = FlattenNodes(results);
+                // Extract ProtectionSource objects
+                List<Models.ProtectionSource> sources = results.Select(x => x.ProtectionSource).ToList();
 
-            // Extract ProtectionSource objects
-            List<Models.ProtectionSource> sources = results.Select(x => x.ProtectionSource).ToList();
-
-            WriteObject(sources, true);
+                WriteObject(sources, true);
+            }
         }
 
         private IEnumerable<ProtectionSourceNode> FlattenNodes(IEnumerable<ProtectionSourceNode> nodes)
