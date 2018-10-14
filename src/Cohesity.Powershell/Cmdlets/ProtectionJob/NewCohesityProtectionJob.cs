@@ -56,7 +56,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
         /// Specifies the description of the protection job.
         /// </para>
         /// </summary>
-        [Parameter(Mandatory = true)]
+        [Parameter(Mandatory = false)]
         [ValidateNotNullOrEmpty()]
         public string Description { get; set; }
 

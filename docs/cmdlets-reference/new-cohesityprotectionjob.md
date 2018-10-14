@@ -5,20 +5,20 @@ Creates a new protection job.
 
 ## SYNTAX
 
-### PARAMETER_SET_CREATE_BY_ID
+### UNNAMED_PARAMETER_SET_1
 ```
-New-CohesityProtectionJob -Description <string> -Name <string> -PolicyId <string> -StorageDomainId <long>
+New-CohesityProtectionJob -Name <string> -PolicyId <string> -StorageDomainId <long> [-Description <string>]
  [-Environment <EnvironmentEnum>] [-ParentSourceId <long>] [-ScheduleStartTime <DateTime>]
  [-SourceIds <long[]>] [-SourceSpecialParameters <SourceSpecialParameter[]>] [-Timezone <string>]
  [-ViewName <string>] [<CommonParameters>]
 ```
 
-### PARAMETER_SET_CREATE_BY_NAME
+### UNNAMED_PARAMETER_SET_2
 ```
-New-CohesityProtectionJob -Description <string> -Name <string> -PolicyName <string> -StorageDomainName <string>
- [-Environment <EnvironmentEnum>] [-ParentSourceId <long>] [-ScheduleStartTime <DateTime>]
- [-SourceIds <long[]>] [-SourceSpecialParameters <SourceSpecialParameter[]>] [-Timezone <string>]
- [-ViewName <string>] [<CommonParameters>]
+New-CohesityProtectionJob -Name <string> -PolicyName <string> -StorageDomainName <string>
+ [-Description <string>] [-Environment <EnvironmentEnum>] [-ParentSourceId <long>]
+ [-ScheduleStartTime <DateTime>] [-SourceIds <long[]>] [-SourceSpecialParameters <SourceSpecialParameter[]>]
+ [-Timezone <string>] [-ViewName <string>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -58,7 +58,7 @@ Type: string
 Parameter Sets: (All)
 Aliases:
 
-Required: True
+Required: False
 Position: Named
 Default value: None
 Accept pipeline input: False
@@ -70,7 +70,7 @@ Specifies the unique id of the protection policy associated with the protection 
 
 ```yaml
 Type: string
-Parameter Sets: PARAMETER_SET_CREATE_BY_ID
+Parameter Sets: UNNAMED_PARAMETER_SET_1
 Aliases:
 
 Required: True
@@ -85,7 +85,7 @@ Specifies the name of the protection policy associated with the protection job.
 
 ```yaml
 Type: string
-Parameter Sets: PARAMETER_SET_CREATE_BY_NAME
+Parameter Sets: UNNAMED_PARAMETER_SET_2
 Aliases:
 
 Required: True
@@ -151,7 +151,7 @@ Aliases:
 
 Required: False
 Position: Named
-Default value: 10/9/2018 11:23:48 PM
+Default value: 10/13/2018 6:38:17 PM
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -161,7 +161,7 @@ Specifies the storage domain (view box) id where this job writes data.
 
 ```yaml
 Type: long
-Parameter Sets: PARAMETER_SET_CREATE_BY_ID
+Parameter Sets: UNNAMED_PARAMETER_SET_1
 Aliases:
 
 Required: True
@@ -176,7 +176,7 @@ Specifies the name of the storage domain associated with the protection job.
 
 ```yaml
 Type: string
-Parameter Sets: PARAMETER_SET_CREATE_BY_NAME
+Parameter Sets: UNNAMED_PARAMETER_SET_2
 Aliases:
 
 Required: True
