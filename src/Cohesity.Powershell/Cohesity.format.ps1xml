@@ -543,9 +543,9 @@
       </ListControl>
     </View>
 
-    <!-- ProtectionSource -->
+    <!-- ProtectionSourceNode -->
     <View>
-      <Name>ProtectionSource.TableView</Name>
+      <Name>ProtectionSourceNode.TableView</Name>
       <ViewSelectedBy>
         <TypeName>Cohesity.Models.ProtectionSourceNode</TypeName>
       </ViewSelectedBy>
@@ -585,7 +585,7 @@
       </TableControl>
     </View>
     <View>
-      <Name>ProtectionSource.ListView</Name>
+      <Name>ProtectionSourceNode.ListView</Name>
       <ViewSelectedBy>
         <TypeName>Cohesity.Models.ProtectionSourceNode</TypeName>
       </ViewSelectedBy>
@@ -941,9 +941,9 @@
       </TableControl>
     </View>
 
-    <!-- VirtualMachine -->
+    <!-- ProtectionSource -->
     <View>
-      <Name>VirtualMachine.TableView</Name>
+      <Name>ProtectionSource.TableView</Name>
       <ViewSelectedBy>
         <TypeName>Cohesity.Models.ProtectionSource</TypeName>
       </ViewSelectedBy>
@@ -961,24 +961,23 @@
                 <PropertyName>Environment</PropertyName>
               </TableColumnItem>
               <TableColumnItem>
-                <PropertyName>ParentId</PropertyName>
+                <ScriptBlock>if($_.ParentId){$_.ParentId}else{"-"}</ScriptBlock>
               </TableColumnItem>
              </TableColumnItems>
           </TableRowEntry>
         </TableRowEntries>
         <TableHeaders>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
-          <TableColumnHeader>
-          </TableColumnHeader>
           <TableColumnHeader/>
+          <TableColumnHeader/>
+          <TableColumnHeader/>
+          <TableColumnHeader>
+            <Label>ParentId</Label>
+          </TableColumnHeader>
         </TableHeaders>
       </TableControl>
     </View>
     <View>
-      <Name>VirtualMachine.ListView</Name>
+      <Name>ProtectionSource.ListView</Name>
       <ViewSelectedBy>
         <TypeName>Cohesity.Models.ProtectionSource</TypeName>
       </ViewSelectedBy>
