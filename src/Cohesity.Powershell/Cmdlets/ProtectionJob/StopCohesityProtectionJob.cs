@@ -39,12 +39,21 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
 
         /// <summary>
         /// <para type="description">
-        /// Specifies a unique id of the protection job.
+        /// Specifies the unique id of the protection job.
         /// </para>
         /// </summary>
-        [Parameter(Mandatory = true, ValueFromPipelineByPropertyName = true)]
+        [Parameter(Mandatory = true, ValueFromPipelineByPropertyName = true, ParameterSetName = "ById")]
         [ValidateRange(1, long.MaxValue)]
-        public long Id { get; set; } = 0;
+        public long Id { get; set; }
+
+        /// <summary>
+        /// <para type="description">
+        /// Specifies the name of the protection job.
+        /// </para>
+        /// </summary>
+        [Parameter(Mandatory = true, ParameterSetName = "ByName")]
+        [ValidateNotNullOrEmpty()]
+        public string Name { get; set; }
 
         /// <summary>
         /// <para type="description">
@@ -60,6 +69,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
         /// <para type="description">
         /// Run Id of a protection job run that needs to be cancelled.
         /// If this run id does not match the id of an active run in the protection job, the job run is not cancelled and an error will be returned.
+        /// If this is not specified, the last job run id is used.
         /// </para>
         /// </summary>
         [Parameter(Mandatory = false)]
@@ -80,16 +90,23 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
         /// </summary>
         protected override void ProcessRecord()
         {
-            CancelProtectionJobRunParam body = null;
-
-            if (JobRunId != null)
+            if (!string.IsNullOrWhiteSpace(Name))
             {
-                body = new CancelProtectionJobRunParam {
-                    //CopyTaskUid,
-                    JobRunId = JobRunId
-                };
+                var job = RestApiCommon.GetProtectionJobByName(Session.ApiClient, Name);
+                Id = (long)job.Id;
             }
 
+            if(JobRunId == null)
+            {
+                var job = RestApiCommon.GetProtectionJobById(Session.ApiClient, Id);
+                JobRunId = (long)job.LastRun.BackupRun.JobRunId;
+            }
+
+            var body = new CancelProtectionJobRunParam {
+                //CopyTaskUid,
+                JobRunId = JobRunId
+            };
+            
             var url = $"/public/protectionRuns/cancel/{Id.ToString()}";
             Session.ApiClient.Post(url, body);
             WriteObject("Protection Job Run cancelled.");

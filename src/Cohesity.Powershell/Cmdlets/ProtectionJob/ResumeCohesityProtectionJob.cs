@@ -46,10 +46,19 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
         /// Specifies the unique id of the protection job.
         /// </para>
         /// </summary>
-        [Parameter(Mandatory = true, ValueFromPipelineByPropertyName = true)]
+        [Parameter(Mandatory = true, ValueFromPipelineByPropertyName = true, ParameterSetName = "ById")]
         [ValidateRange(1, long.MaxValue)]
         public long Id { get; set; }
-        
+
+        /// <summary>
+        /// <para type="description">
+        /// Specifies the name of the protection job.
+        /// </para>
+        /// </summary>
+        [Parameter(Mandatory = true, ParameterSetName = "ByName")]
+        [ValidateNotNullOrEmpty()]
+        public string Name { get; set; }
+
         #endregion
 
         #region Processing
@@ -69,6 +78,12 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
         /// </summary>
         protected override void ProcessRecord()
         {
+            if (!string.IsNullOrWhiteSpace(Name))
+            {
+                var job = RestApiCommon.GetProtectionJobByName(Session.ApiClient, Name);
+                Id = (long)job.Id;
+            }
+
             var protectionJobState = new
             {
                 Pause = false

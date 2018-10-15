@@ -5,8 +5,14 @@ Resumes the future runs of the specified protection job.
 
 ## SYNTAX
 
+### UNNAMED_PARAMETER_SET_1
 ```
 Resume-CohesityProtectionJob -Id <long> [<CommonParameters>]
+```
+
+### UNNAMED_PARAMETER_SET_2
+```
+Resume-CohesityProtectionJob -Name <string> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -29,13 +35,28 @@ Specifies the unique id of the protection job.
 
 ```yaml
 Type: long
-Parameter Sets: (All)
+Parameter Sets: UNNAMED_PARAMETER_SET_1
 Aliases:
 
 Required: True
 Position: Named
 Default value: 0
 Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -Name
+Specifies the name of the protection job.
+
+```yaml
+Type: string
+Parameter Sets: UNNAMED_PARAMETER_SET_2
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
