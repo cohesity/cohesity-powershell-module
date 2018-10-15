@@ -1,33 +1,31 @@
-# Update-CohesityProtectionSource
+# Unregister-CohesityProtectionSource
 
 ## SYNOPSIS
-Refreshes the object hierarchy of the specified protection source on the Cohesity Cluster.
+Unregisters the specified protection source from the Cohesity Cluster.
 
 ## SYNTAX
 
 ### UNNAMED_PARAMETER_SET_1
 ```
-Update-CohesityProtectionSource -Id <long> [<CommonParameters>]
+Unregister-CohesityProtectionSource -Id <long> [<CommonParameters>]
 ```
 
 ### UNNAMED_PARAMETER_SET_2
 ```
-Update-CohesityProtectionSource -ProtectionSource <ProtectionSourceNode> [<CommonParameters>]
+Unregister-CohesityProtectionSource -ProtectionSource <ProtectionSourceNode> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Forces an immediate refresh of the specified protection source on the Cohesity Cluster.
-Returns success if the forced refresh has been started.
-Note that the amount of time to complete a refresh depends on the size of the object hierarchy.
+Unregisters the specified protection source from the Cohesity Cluster.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Update-CohesityProtectionSource -Id 12
+Unregister-CohesityProtectionSource -Id 12
 ```
 
-Immediately refreshes the given protection source.
+Unregisters the given protection source.
 
 ## PARAMETERS
 

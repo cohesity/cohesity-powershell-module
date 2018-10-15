@@ -6,25 +6,23 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
 {
     /// <summary>
     /// <para type="synopsis">
-    /// Refreshes the object hierarchy of the specified protection source on the Cohesity Cluster.
+    /// Unregisters the specified protection source from the Cohesity Cluster.
     /// </para>
     /// <para type="description">
-    /// Forces an immediate refresh of the specified protection source on the Cohesity Cluster.
-    /// Returns success if the forced refresh has been started.
-    /// Note that the amount of time to complete a refresh depends on the size of the object hierarchy.
+    /// Unregisters the specified protection source from the Cohesity Cluster.
     /// </para>
     /// </summary>
     /// <example>
     ///   <para>PS&gt;</para>
     ///   <code>
-    ///   Update-CohesityProtectionSource -Id 12
+    ///   Unregister-CohesityProtectionSource -Id 12
     ///   </code>
     ///   <para>
-    ///   Immediately refreshes the given protection source.
+    ///   Unregisters the given protection source.
     ///   </para>
     /// </example>
-    [Cmdlet(VerbsData.Update, "CohesityProtectionSource")]
-    public class UpdateCohesityProtectionSource : PSCmdlet
+    [Cmdlet(VerbsLifecycle.Unregister, "CohesityProtectionSource")]
+    public class UnregisterCohesityProtectionSource : PSCmdlet
     {
         private Session Session
         {
@@ -82,10 +80,10 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
             {
                 Id = (long)ProtectionSource.ProtectionSource.Id;
             }
-            // POST /public/protectionSources/refresh/{id}
-            var preparedUrl = $"/public/protectionSources/refresh/{Id.ToString()}";
-            Session.ApiClient.Post(preparedUrl, string.Empty);
-            WriteObject("Protection source was refreshed successfully.");
+            // DELETE /backupSources/{id}
+            var preparedUrl = $"/backupsources/{Id.ToString()}";
+            Session.ApiClient.Delete(preparedUrl, string.Empty);
+            WriteObject("Protection source was unregistered successfully.");
         }
 
         #endregion
