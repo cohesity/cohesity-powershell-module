@@ -1077,5 +1077,82 @@
       </ListControl>
     </View>
 
+    <!-- Role -->
+    <View>
+      <Name>Role.TableView</Name>
+      <ViewSelectedBy>
+        <TypeName>Cohesity.Models.Role</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>Name</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Label</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>if($_.IsCustomRole){"True"}else{"False"}</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Description</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Privileges</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+        <TableHeaders>
+          <TableColumnHeader/>
+          <TableColumnHeader/>
+          <TableColumnHeader>
+            <Label>IsCustomRole</Label>
+          </TableColumnHeader>
+          <TableColumnHeader/>
+          <TableColumnHeader/>
+        </TableHeaders>
+      </TableControl>
+    </View>
+    <View>
+      <Name>Role.ListView</Name>
+      <ViewSelectedBy>
+        <TypeName>Cohesity.Models.Role</TypeName>
+      </ViewSelectedBy>
+      <ListControl>
+        <ListEntries>
+          <ListEntry>
+            <ListItems>
+              <ListItem>
+                <PropertyName>Name</PropertyName>
+              </ListItem>
+              <ListItem>
+                <PropertyName>Label</PropertyName>
+              </ListItem>
+              <ListItem>
+                <ScriptBlock>if($_.IsCustomRole){"True"}else{"False"}</ScriptBlock>
+                <Label>IsCustomRole</Label>
+              </ListItem>
+              <ListItem>
+                <PropertyName>Description</PropertyName>
+              </ListItem>
+              <ListItem>
+                <PropertyName>Privileges</PropertyName>
+              </ListItem>
+              <ListItem>
+                <ScriptBlock>($_.CreatedTimeMsecs * 1000) | Convert-CohesityUsecsToDateTime</ScriptBlock>
+                <Label>Created</Label>
+              </ListItem>
+              <ListItem>
+                <ScriptBlock>($_.LastUpdatedTimeMsecs * 1000) | Convert-CohesityUsecsToDateTime</ScriptBlock>
+                <Label>Updated</Label>
+              </ListItem>
+            </ListItems>
+          </ListEntry>
+        </ListEntries>
+      </ListControl>
+    </View>
   </ViewDefinitions>
 </Configuration>
