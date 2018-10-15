@@ -25,7 +25,7 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
     ///   </para>
     /// </example>
     [Cmdlet(VerbsCommon.Find, "CohesityFilesForRestore")]
-    [OutputType(typeof(FileSearchResults))]
+    [OutputType(typeof(FileSearchResult))]
     public class FindCohesityFilesForRestore : PSCmdlet
     {
         private Session Session

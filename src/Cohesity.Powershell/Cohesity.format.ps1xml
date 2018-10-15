@@ -1007,5 +1007,75 @@
       </ListControl>
     </View>
 
+    <!-- FileSearchResult -->
+    <View>
+      <Name>FileSearchResult.TableView</Name>
+      <ViewSelectedBy>
+        <TypeName>Cohesity.Models.FileSearchResult</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>SourceId</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>JobId</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>ViewBoxId</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>if($_.IsFolder){"True"}else{"False"}</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Filename</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+        <TableHeaders>
+          <TableColumnHeader/>
+          <TableColumnHeader/>
+          <TableColumnHeader/>
+          <TableColumnHeader>
+            <Label>IsFolder</Label>
+          </TableColumnHeader>
+          <TableColumnHeader/>
+        </TableHeaders>
+      </TableControl>
+    </View>
+    <View>
+      <Name>FileSearchResult.ListView</Name>
+      <ViewSelectedBy>
+        <TypeName>Cohesity.Models.FileSearchResult</TypeName>
+      </ViewSelectedBy>
+      <ListControl>
+        <ListEntries>
+          <ListEntry>
+            <ListItems>
+              <ListItem>
+                <PropertyName>SourceId</PropertyName>
+              </ListItem>
+              <ListItem>
+                <PropertyName>JobId</PropertyName>
+              </ListItem>
+              <ListItem>
+                <PropertyName>ViewBoxId</PropertyName>
+              </ListItem>
+              <ListItem>
+                <ScriptBlock>if($_.IsFolder){"True"}else{"False"}</ScriptBlock>
+                <Label>IsFolder</Label>
+              </ListItem>
+              <ListItem>
+                <PropertyName>Filename</PropertyName>
+              </ListItem>
+            </ListItems>
+          </ListEntry>
+        </ListEntries>
+      </ListControl>
+    </View>
+
   </ViewDefinitions>
 </Configuration>
