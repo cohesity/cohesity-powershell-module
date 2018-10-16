@@ -26,11 +26,16 @@
 - [Get-CohesityClusterPartition](cmdlets-reference/get-cohesityclusterpartition.md)
 - [Get-CohesityClusterConfiguration](cmdlets-reference/get-cohesityclusterconfiguration.md)
 - [Set-CohesityClusterConfiguration](cmdlets-reference/set-cohesityclusterconfiguration.md)
+- [New-CohesityView](cmdlets-reference/new-cohesityview.md)
 - [Get-CohesityView](cmdlets-reference/get-cohesityview.md)
+- [Set-CohesityView](cmdlets-reference/set-cohesityview.md)
 - [Remove-CohesityView](cmdlets-reference/remove-cohesityview.md)
 - [Get-CohesityStorageDomain](cmdlets-reference/get-cohesitystoragedomain.md)
 - [Set-CohesityStorageDomain](cmdlets-reference/set-cohesitystoragedomain.md)
 - [Get-CohesityPrivilege](cmdlets-reference/get-cohesityprivilege.md)
+- [Get-CohesityRole](cmdlets-reference/get-cohesityrole.md)
+- [Get-CohesityUser](cmdlets-reference/get-cohesityuser.md)
+- [New-CohesityUser](cmdlets-reference/new-cohesityuser.md)
 
 
 - **Data Protection**
@@ -42,6 +47,8 @@
 - [Register-CohesityProtectionSourceNFS](cmdlets-reference/register-cohesityprotectionsourcenfs.md)
 - [Register-CohesityProtectionSourceSMB](cmdlets-reference/register-cohesityprotectionsourcesmb.md)
 - [Register-CohesityProtectionSourceIsilon](cmdlets-reference/register-cohesityprotectionsourceisilon.md)
+- [Register-CohesityProtectionSourceMSSQL](cmdlets-reference/register-cohesityprotectionsourcemssql.md)
+- [Register-CohesityProtectionSourcePureStorageArray](cmdlets-reference/register-cohesityprotectionsourcepurestoragearray.md)
 - [Update-CohesityProtectionSource](cmdlets-reference/update-cohesityprotectionsource.md)
 - [Get-CohesityProtectionSource](cmdlets-reference/get-cohesityprotectionsource.md)
 - [Get-CohesityProtectionSourceObject](cmdlets-reference/get-cohesityprotectionsourceobject.md)
