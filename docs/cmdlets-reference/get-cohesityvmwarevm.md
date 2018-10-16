@@ -6,8 +6,8 @@ Gets a list of the VMware virtual machines known to the Cohesity Cluster.
 ## SYNTAX
 
 ```
-Get-CohesityVMwareVM [-Names <string[]>] [-ParentSourceId <long>] [-Protected] [-Uuids <string[]>]
- [<CommonParameters>]
+Get-CohesityVMwareVM [-Names <string[]>] [-ParentSourceId <long>] [-Protected] [-Unprotected]
+ [-Uuids <string[]>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -74,7 +74,21 @@ Accept wildcard characters: False
 
 ### -Protected
 Limit the returned VMs to those that have been protected by a protection job.
-By default, both protected and unprotected VMs are returned.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Unprotected
+Limit the returned VMs to those that are not protected by any protection job.
 
 ```yaml
 Type: SwitchParameter

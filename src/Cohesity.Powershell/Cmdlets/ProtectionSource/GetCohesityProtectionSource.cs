@@ -71,47 +71,52 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
             var qb = new QuerystringBuilder();
 
             if (Id.HasValue)
-                qb.Add("id", Id.Value);
-            
-            if (Environments != null && Environments.Any())
-                qb.Add("environments", string.Join(",", Environments));
-            
-            var url = $"/public/protectionSources/rootNodes{qb.Build()}";
-            var results = Session.ApiClient.Get<List<ProtectionSourceNode>>(url);
-
-            // Get the list of all group nodes
-            var groups = results.Where(x => x.RegistrationInfo == null).ToList();
-
-            foreach(var group in groups)
             {
-                // Get children for each group node
-                qb = new QuerystringBuilder();
-                qb.Add("id", group.ProtectionSource.Id.ToString());
-                url = $"/public/protectionSources{qb.Build()}";
-                var children = Session.ApiClient.Get<List<ProtectionSourceNode>>(url);
-                children = FlattenNodes(children);
+                var url = $"/public/protectionSources/objects/{Id.ToString()}";
+                var result = Session.ApiClient.Get<Models.ProtectionSource>(url);
+                WriteObject(result);
+            }
+            else
+            {
+                if (Environments != null && Environments.Any())
+                    qb.Add("environments", string.Join(",", Environments));
 
-                foreach(var child in children)
+                var url = $"/public/protectionSources/rootNodes{qb.Build()}";
+                var results = Session.ApiClient.Get<List<ProtectionSourceNode>>(url);
+
+                // Get the list of all group nodes
+                var groups = results.Where(x => x.RegistrationInfo == null).ToList();
+
+                foreach (var group in groups)
                 {
-                    if(child.RegistrationInfo != null)
+                    // Get children for each group node
+                    qb = new QuerystringBuilder();
+                    qb.Add("id", group.ProtectionSource.Id.ToString());
+                    url = $"/public/protectionSources{qb.Build()}";
+                    var children = Session.ApiClient.Get<List<ProtectionSourceNode>>(url);
+                    children = FlattenNodes(children);
+
+                    foreach (var child in children)
                     {
-                        results.Add(child);
+                        if (child.RegistrationInfo != null)
+                        {
+                            results.Add(child);
+                        }
                     }
                 }
+
+                // Skip kView, kAgent, kPuppeteer environment types and group nodes themselves
+                results = results.Where(x =>
+                    (x.ProtectionSource.Environment != EnvironmentEnum.kAgent) &&
+                    (x.ProtectionSource.Environment != EnvironmentEnum.kView) &&
+                    (x.ProtectionSource.Environment != EnvironmentEnum.kPuppeteer) &&
+                    (x.RegistrationInfo != null)
+                ).ToList();
+
+                // Make sure each source id is only listed once as it might repeat under different environments
+                var sources = results.GroupBy(x => x.ProtectionSource.Id).Select(y => y.FirstOrDefault());
+                WriteObject(sources, true);
             }
-
-            // Skip kView, kAgent, kPuppeteer environment types and group nodes themselves
-            results = results.Where(x =>
-                (x.ProtectionSource.Environment != EnvironmentEnum.kAgent) &&
-                (x.ProtectionSource.Environment != EnvironmentEnum.kView) &&
-                (x.ProtectionSource.Environment != EnvironmentEnum.kPuppeteer) &&
-                (x.RegistrationInfo != null)
-            ).ToList();
-
-            // Make sure each source id is only listed once as it might repeat under different environments
-            var sources = results.GroupBy(x => x.ProtectionSource.Id).Select(y => y.FirstOrDefault());
-
-            WriteObject(sources, true);
         }
 
         private List<ProtectionSourceNode> FlattenNodes(List<ProtectionSourceNode> nodes)

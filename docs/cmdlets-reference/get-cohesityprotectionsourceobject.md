@@ -1,7 +1,7 @@
 # Get-CohesityProtectionSourceObject
 
 ## SYNOPSIS
-Gets a list of the registered Protection Sources and their Objects.
+Gets a list of the registered Protection Sources and their sub objects.
 
 ## SYNTAX
 
@@ -11,9 +11,9 @@ Get-CohesityProtectionSourceObject [-Environments <EnvironmentEnum[]>] [-Exclude
 ```
 
 ## DESCRIPTION
-If no parameters are specified, all Protection Sources on the Cohesity Cluster are returned.
-In addition, the sub objects for each Source are also returned.
-Specifying the parameters can filter the results that are returned.
+If no parameters are specified, all the Protection Sources and their sub objects are returned.
+Specifying additional parameters can filter the results that are returned.
+If you only want to get a specific object you can specify the -Id parameter.
 
 ## EXAMPLES
 
@@ -22,12 +22,19 @@ Specifying the parameters can filter the results that are returned.
 Get-CohesityProtectionSourceObject -Environments kPhysical
 ```
 
-Returns registered protection sources that match the environment type 'kPhysical' and all their objects.
+Returns all the registered protection sources and their sub objects that match the environment type 'kPhysical'.
+
+### EXAMPLE 2
+```
+Get-CohesityProtectionSourceObject -Id 1234
+```
+
+Returns only the object that matches the specified id.
 
 ## PARAMETERS
 
 ### -IncludeDatastores
-Set this parameter to true to also return kDatastore object types found in the Source in addition to their Object subtrees.
+Set this parameter to also return kDatastore type of objects.
 By default, datastores are not returned.
 
 ```yaml
@@ -43,7 +50,7 @@ Accept wildcard characters: False
 ```
 
 ### -IncludeNetworks
-Set this parameter to true to also return kNetwork object types found in the Source in addition to their Object subtrees.
+Set this parameter to also return kNetwork type of objects.
 By default, network objects are not returned.
 
 ```yaml
@@ -59,7 +66,7 @@ Accept wildcard characters: False
 ```
 
 ### -IncludeVMFolders
-Set this parameter to true to also return kVMFolder object types found in the Source in addition to their Object subtrees.
+Set this parameter to also return kVMFolder type of objects.
 By default, VM folder objects are not returned.
 
 ```yaml
@@ -76,7 +83,7 @@ Accept wildcard characters: False
 
 ### -Environments
 Return only Protection Sources that match the passed in environment type.
-For example, set this parameter to 'kVMware' to only return the Sources (and their objects) found in the "kVMware" (VMware) environment.
+For example, set this parameter to 'kVMware' to only return the Sources (and their sub objects) found in the VMware environment.
 
 ```yaml
 Type: EnvironmentEnum[]
@@ -91,7 +98,7 @@ Accept wildcard characters: False
 ```
 
 ### -Id
-Return the Object subtree for the passed in Protection Source id.
+Returns only the object specified by the id.
 
 ```yaml
 Type: long
@@ -106,7 +113,7 @@ Accept wildcard characters: False
 ```
 
 ### -ExcludeTypes
-Filter out the Object types (and their subtrees) that match the passed in types.
+Filter out the Object types (and their sub objects) that match the passed in types.
 For example, set this parameter to "kResourcePool" to exclude Resource Pool Objects from being returned.
 
 ```yaml
@@ -128,7 +135,7 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 ## INPUTS
 
 ### System.Int64
-Return the Object subtree for the passed in Protection Source id.
+Returns only the object specified by the id.
 
 ## OUTPUTS
 

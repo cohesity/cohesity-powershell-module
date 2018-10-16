@@ -1,4 +1,5 @@
 ﻿// Copyright 2018 Cohesity Inc.
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Management.Automation;
@@ -71,11 +72,18 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
         /// <summary>
         /// <para type="description">
         /// Limit the returned VMs to those that have been protected by a protection job.
-        /// By default, both protected and unprotected VMs are returned.
         /// </para>
         /// </summary>
         [Parameter(Mandatory = false)]
         public SwitchParameter Protected { get; set; } = false;
+
+        /// <summary>
+        /// <para type="description">
+        /// Limit the returned VMs to those that are not protected by any protection job.
+        /// </para>
+        /// </summary>
+        [Parameter(Mandatory = false)]
+        public SwitchParameter Unprotected { get; set; } = false;
 
         /// <summary>
         /// Begin Processing
@@ -103,12 +111,37 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
             if (Uuids != null && Uuids.Any())
                 qb.Add("uuids", string.Join(",", Uuids));
 
-            if (Protected.IsPresent)
-                qb.Add("protected", true);
+            if(Unprotected.IsPresent && Protected.IsPresent)
+            {
+                throw new Exception("The parameters 'Unprotected' and 'Protected' can not be specified together");
+            }
 
-            var url = $"/public/protectionSources/virtualMachines{ qb.Build()}";
-            var result = Session.ApiClient.Get<IEnumerable<Models.ProtectionSource>>(url);
-            WriteObject(result, true);
+            if (Unprotected.IsPresent)
+            {
+                // Get a list of all the vms
+                var url = $"/public/protectionSources/virtualMachines{ qb.Build()}";
+                var vms = Session.ApiClient.Get<IEnumerable<Models.ProtectionSource>>(url);
+
+                // Get a list of protected vms
+                qb.Add("protected", true);
+                url = $"/public/protectionSources/virtualMachines{ qb.Build()}";
+                var protectedVms = Session.ApiClient.Get<IEnumerable<Models.ProtectionSource>>(url);
+
+                // Return the vms that are not in the list of protected vms
+                var result = vms.Where(x => !protectedVms.Any(y => x.Id == y.Id));
+
+                WriteObject(result, true);
+
+            }
+            else
+            {
+                if (Protected.IsPresent)
+                    qb.Add("protected", true);
+
+                var url = $"/public/protectionSources/virtualMachines{ qb.Build()}";
+                var result = Session.ApiClient.Get<IEnumerable<Models.ProtectionSource>>(url);
+                WriteObject(result, true);
+            }
         }
     }
 }

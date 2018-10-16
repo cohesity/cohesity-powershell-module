@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 
 namespace Cohesity.Powershell.Common
 {
@@ -13,15 +14,15 @@ namespace Cohesity.Powershell.Common
         /// </summary>
         /// <param name="olsonTimeZoneId">An Olson time zone ID. See http://unicode.org/repos/cldr-tmp/trunk/diff/supplemental/zone_tzid.html. </param>
         /// <returns>
-        /// The TimeZoneInfo corresponding to the Olson time zone ID, 
-        /// or null if you passed in an invalid Olson time zone ID.
+        /// The string corresponding to the Olson time zone ID, 
+        /// or null if you passed in an invalid time zone ID.
         /// </returns>
         /// <remarks>
         /// See http://unicode.org/repos/cldr-tmp/trunk/diff/supplemental/zone_tzid.html
         /// </remarks>
         public static string GetOlsonTimeZone()
         {
-            var olsonWindowsTimes = new Dictionary<string, string>()
+            var olsonTimeZoneStringMap = new Dictionary<string, string>()
             {
                 { "Africa/Bangui", "W. Central Africa Standard Time" },
                 { "Africa/Cairo", "Egypt Standard Time" },
@@ -149,11 +150,29 @@ namespace Cohesity.Powershell.Common
 
             var localTimeZoneInfo = TimeZoneInfo.Local;
 
-            var result = (from key in olsonWindowsTimes.Keys
-                          where olsonWindowsTimes[key].Equals(localTimeZoneInfo.Id, StringComparison.OrdinalIgnoreCase)
-                          select key).FirstOrDefault();
+#if NETFRAMEWORK
+            return lookupOlsonTimeZoneString(olsonTimeZoneStringMap, localTimeZoneInfo);
+#endif
 
-            return result;
+#if NETCORE
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                return lookupOlsonTimeZoneString(olsonTimeZoneStringMap, localTimeZoneInfo);
+            }
+            else
+            {
+                // On non-windows platforms, the Id is already in Olson time zone format
+                // No lookup is required.
+                return localTimeZoneInfo.Id;
+            }
+#endif
+        }
+
+        private static string lookupOlsonTimeZoneString(Dictionary<string, string> olsonWindowsTimes, TimeZoneInfo localTimeZoneInfo)
+        {
+            return (from key in olsonWindowsTimes.Keys
+                    where olsonWindowsTimes[key].Equals(localTimeZoneInfo.Id, StringComparison.OrdinalIgnoreCase)
+                    select key).FirstOrDefault();
         }
     }
 }

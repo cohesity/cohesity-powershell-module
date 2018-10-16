@@ -2,28 +2,27 @@
 using System.Management.Automation;
 using Cohesity.Powershell.Common;
 
-namespace Cohesity.Powershell.Cmdlets.ProtectionJob
+namespace Cohesity.Powershell.Cmdlets.ProtectionSource
 {
     /// <summary>
     /// <para type="synopsis">
-    /// Resumes the future runs of the specified protection job.
+    /// Unregisters the specified protection source from the Cohesity Cluster.
     /// </para>
     /// <para type="description">
-    /// This operation restores the protection job to a running state and new runs are started as defined by the schedule in the policy associated with the job.
-    /// Returns success if the state is changed.
+    /// Unregisters the specified protection source from the Cohesity Cluster.
     /// </para>
     /// </summary>
     /// <example>
     ///   <para>PS&gt;</para>
     ///   <code>
-    ///   Resume-CohesityProtectionJob -Id 1234
+    ///   Unregister-CohesityProtectionSource -Id 12
     ///   </code>
     ///   <para>
-    ///   Resumes a protection job with the Id of 1234.
+    ///   Unregisters the given protection source.
     ///   </para>
     /// </example>
-    [Cmdlet(VerbsLifecycle.Resume, "CohesityProtectionJob")]
-    public class ResumeCohesityProtectionJob : PSCmdlet
+    [Cmdlet(VerbsLifecycle.Unregister, "CohesityProtectionSource")]
+    public class UnregisterCohesityProtectionSource : PSCmdlet
     {
         private Session Session
         {
@@ -43,7 +42,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
 
         /// <summary>
         /// <para type="description">
-        /// Specifies the unique id of the protection job.
+        /// Specifies a unique id of the protection source.
         /// </para>
         /// </summary>
         [Parameter(Mandatory = true, ValueFromPipelineByPropertyName = true, ParameterSetName = "ById")]
@@ -52,12 +51,11 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
 
         /// <summary>
         /// <para type="description">
-        /// Specifies the name of the protection job.
+        /// Specifies a protection source object.
         /// </para>
         /// </summary>
-        [Parameter(Mandatory = true, ParameterSetName = "ByName")]
-        [ValidateNotNullOrEmpty()]
-        public string Name { get; set; }
+        [Parameter(Mandatory = true, ValueFromPipeline = true, ParameterSetName = "ByObject")]
+        public Models.ProtectionSourceNode ProtectionSource { get; set; }
 
         #endregion
 
@@ -78,24 +76,16 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
         /// </summary>
         protected override void ProcessRecord()
         {
-            if (!string.IsNullOrWhiteSpace(Name))
+            if(ProtectionSource != null)
             {
-                var job = RestApiCommon.GetProtectionJobByName(Session.ApiClient, Name);
-                Id = (long)job.Id;
+                Id = (long)ProtectionSource.ProtectionSource.Id;
             }
-
-            var protectionJobState = new
-            {
-                Pause = false
-            };
-
-            // POST /public/protectionJobState/{id}
-            var preparedUrl = $"/public/protectionJobState/{Id.ToString()}";
-            Session.ApiClient.Post(preparedUrl, protectionJobState);
-            WriteObject("Protection job was resumed successfully.");
+            // DELETE /backupSources/{id}
+            var preparedUrl = $"/backupsources/{Id.ToString()}";
+            Session.ApiClient.Delete(preparedUrl, string.Empty);
+            WriteObject("Protection source was unregistered successfully.");
         }
 
         #endregion
     }
-
 }

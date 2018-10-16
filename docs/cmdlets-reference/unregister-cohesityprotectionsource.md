@@ -1,38 +1,36 @@
-# Suspend-CohesityProtectionJob
+# Unregister-CohesityProtectionSource
 
 ## SYNOPSIS
-Pauses the future runs of the specified protection job.
+Unregisters the specified protection source from the Cohesity Cluster.
 
 ## SYNTAX
 
 ### UNNAMED_PARAMETER_SET_1
 ```
-Suspend-CohesityProtectionJob -Id <long> [<CommonParameters>]
+Unregister-CohesityProtectionSource -Id <long> [<CommonParameters>]
 ```
 
 ### UNNAMED_PARAMETER_SET_2
 ```
-Suspend-CohesityProtectionJob -Name <string> [<CommonParameters>]
+Unregister-CohesityProtectionSource -ProtectionSource <ProtectionSourceNode> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-If the protection job is currently running this operation stops any future runs of this protection job from starting and executing.
-However, any existing runs that were already in progress will continue to run.
-Returns success if the paused state is changed.
+Unregisters the specified protection source from the Cohesity Cluster.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Suspend-CohesityProtectionJob -Id 1234
+Unregister-CohesityProtectionSource -Id 12
 ```
 
-Pauses a protection job with the Id of 1234.
+Unregisters the given protection source.
 
 ## PARAMETERS
 
 ### -Id
-Specifies the unique id of the protection job.
+Specifies a unique id of the protection source.
 
 ```yaml
 Type: long
@@ -46,18 +44,18 @@ Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
-### -Name
-Specifies the name of the protection job.
+### -ProtectionSource
+Specifies a protection source object.
 
 ```yaml
-Type: string
+Type: ProtectionSourceNode
 Parameter Sets: UNNAMED_PARAMETER_SET_2
 Aliases:
 
 Required: True
 Position: Named
 Default value: None
-Accept pipeline input: False
+Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
@@ -68,7 +66,10 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 ## INPUTS
 
 ### System.Int64
-Specifies the unique id of the protection job.
+Specifies a unique id of the protection source.
+
+### Cohesity.Models.ProtectionSourceNode
+Specifies a protection source object.
 
 ## OUTPUTS
 

@@ -7,8 +7,8 @@ Gets a list of protection job runs filtered by the specified parameters.
 
 ```
 Get-CohesityProtectionJobRun [-EndTime <long>] [-ExcludeErrorRuns] [-ExcludeNonRestoreableRuns] [-ExcludeTasks]
- [-JobId <long>] [-NumRuns <long>] [-RunTypes <string[]>] [-SourceId <long>] [-StartedTime <long>]
- [-StartTime <long>] [<CommonParameters>]
+ [-JobId <long>] [-JobName <string>] [-NumRuns <long>] [-RunTypes <string[]>] [-SourceId <long>]
+ [-StartedTime <long>] [-StartTime <long>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -32,6 +32,22 @@ If not specified, all job runs for all protection jobs are returned.
 
 ```yaml
 Type: long
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -JobName
+Filter by a protection job that is specified by name.
+If not specified, all job runs for all protection jobs are returned.
+
+```yaml
+Type: string
 Parameter Sets: (All)
 Aliases:
 
