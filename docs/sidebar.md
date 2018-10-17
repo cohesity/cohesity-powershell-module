@@ -77,8 +77,13 @@
 - **Recovery**
 - [Find-CohesityFilesForRestore](cmdlets-reference/find-cohesityfilesforrestore.md)
 - [Restore-CohesityVMwareVM](cmdlets-reference/restore-cohesityvmwarevm.md)
+- [Restore-CohesityFile](cmdlets-reference/restore-cohesityfile.md)
 - [Get-CohesityRestoreTask](cmdlets-reference/get-cohesityrestoretask.md)
 - [Stop-CohesityRestoreTask](cmdlets-reference/stop-cohesityrestoretask.md)
+
+
+- **Clone**
+- [Copy-CohesityVMwareVM](cmdlets-reference/copy-cohesityvmwarevm.md)
 
 
 - **Agents**

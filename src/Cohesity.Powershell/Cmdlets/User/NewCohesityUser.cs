@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Management.Automation;
 
-namespace Cohesity.Powershell.Cmdlets.View
+namespace Cohesity.Powershell.Cmdlets.User
 {
     /// <summary>
     /// <para type="synopsis">

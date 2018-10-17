@@ -42,6 +42,19 @@ namespace Cohesity.Powershell.Common
             return jobs.First();
         }
 
+        public static IEnumerable<ProtectionRunInstance> GetProtectionJobRunsByJobId(RestApiClient client, long jobId)
+        {
+            var qb = new QuerystringBuilder();
+            qb.Add("jobId", jobId);
+
+            var preparedUrl = $"/public/protectionRuns{qb.Build()}";
+            var jobRuns = client.Get<IEnumerable<ProtectionRunInstance>>(preparedUrl);
+            if (jobRuns == null || !jobRuns.Any())
+                throw new Exception("Protection job runs with matching job id not found.");
+
+            return jobRuns;
+        }
+
         public static ProtectionPolicy GetPolicyByName(RestApiClient client, string name)
         {
             var qb = new QuerystringBuilder();

@@ -724,6 +724,9 @@
               <TableColumnItem>
                 <PropertyName>Username</PropertyName>
               </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>if($_.Error.Message){$_.Error.Message}else{"-"}</ScriptBlock>
+              </TableColumnItem>
             </TableColumnItems>
           </TableRowEntry>
         </TableRowEntries>
@@ -739,6 +742,9 @@
             <Label>EndTime</Label>
           </TableColumnHeader>
           <TableColumnHeader/>
+          <TableColumnHeader>
+            <Label>ErrorMessage</Label>
+          </TableColumnHeader>
         </TableHeaders>
       </TableControl>
     </View>
