@@ -4,7 +4,8 @@
 
 ---
 
-[![License: Apache2](https://img.shields.io/hexpm/l/plug.svg?style=flat-square)](https://github.com/cohesity/cohesity-powershell-module/blob/master/LICENSE)
+[![License: Apache2](https://img.shields.io/hexpm/l/plug.svg?style=popout)](https://github.com/cohesity/cohesity-powershell-module/blob/master/LICENSE)
+[![GitHub release](https://img.shields.io/github/release/cohesity/cohesity-powershell-module.svg?style=popout)](https://github.com/cohesity/cohesity-powershell-module/releases/)
 
 This project provides a PowerShell Module for interacting with the [Cohesity DataPlatform](https://www.cohesity.com/products/data-platform).
 
