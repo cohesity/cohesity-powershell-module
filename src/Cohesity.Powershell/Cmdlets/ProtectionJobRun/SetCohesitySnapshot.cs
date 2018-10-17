@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Management.Automation;
 using Cohesity.Powershell.Common;
 
-namespace Cohesity.Powershell.Cmdlets.ProtectionJob
+namespace Cohesity.Powershell.Cmdlets.ProtectionJobRun
 {
     /// <summary>
     /// <para type="synopsis">

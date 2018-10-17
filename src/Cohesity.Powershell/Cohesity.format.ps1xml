@@ -719,7 +719,7 @@
                 <ScriptBlock>$_.StartTimeUSecs | Convert-CohesityUsecsToDateTime</ScriptBlock>
               </TableColumnItem>
               <TableColumnItem>
-                <ScriptBlock>$_.EndTimeUsecs | Convert-CohesityUsecsToDateTime</ScriptBlock>
+                <ScriptBlock>if($_.EndTimeUsecs){$_.EndTimeUsecs | Convert-CohesityUsecsToDateTime}else{"-"}</ScriptBlock>
               </TableColumnItem>
               <TableColumnItem>
                 <PropertyName>Username</PropertyName>
@@ -1154,6 +1154,89 @@
               <ListItem>
                 <ScriptBlock>($_.LastUpdatedTimeMsecs * 1000) | Convert-CohesityUsecsToDateTime</ScriptBlock>
                 <Label>Updated</Label>
+              </ListItem>
+            </ListItems>
+          </ListEntry>
+        </ListEntries>
+      </ListControl>
+    </View>
+
+    <!-- ObjectSnapshotInfo -->
+    <View>
+      <Name>ObjectSnapshotInfo.TableView</Name>
+      <ViewSelectedBy>
+        <TypeName>Cohesity.Models.ObjectSnapshotInfo</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>ObjectName</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>$_.SnapshottedSource.Id</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>$_.SnapshottedSource.Environment</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>if($_.SnapshottedSource.ParentId){$_.SnapshottedSource.ParentId}else{"-"}</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>JobName</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>JobId</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+        <TableHeaders>
+          <TableColumnHeader/>
+          <TableColumnHeader>
+            <Label>Id</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Environment</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>ParentId</Label>
+          </TableColumnHeader>
+          <TableColumnHeader/>
+          <TableColumnHeader/>
+        </TableHeaders>
+      </TableControl>
+    </View>
+    <View>
+      <Name>ObjectSnapshotInfo.ListView</Name>
+      <ViewSelectedBy>
+        <TypeName>Cohesity.Models.ObjectSnapshotInfo</TypeName>
+      </ViewSelectedBy>
+      <ListControl>
+        <ListEntries>
+          <ListEntry>
+            <ListItems>
+              <ListItem>
+                <PropertyName>ObjectName</PropertyName>
+              </ListItem>
+              <ListItem>
+                <ScriptBlock>$_.SnapshottedSource.Id</ScriptBlock>
+                <Label>Id</Label>
+              </ListItem>
+              <ListItem>
+                <ScriptBlock>$_.SnapshottedSource.Environment</ScriptBlock>
+                <Label>Environment</Label>
+              </ListItem>
+              <ListItem>
+                <ScriptBlock>if($_.SnapshottedSource.ParentId){$_.SnapshottedSource.ParentId}else{"-"}</ScriptBlock>
+                <Label>ParentId</Label>
+              </ListItem>
+              <ListItem>
+                <PropertyName>JobName</PropertyName>
+              </ListItem>
+              <ListItem>
+                <PropertyName>JobId</PropertyName>
               </ListItem>
             </ListItems>
           </ListEntry>
