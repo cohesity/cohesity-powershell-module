@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Cohesity.Powershell.Common;
+using System;
 using System.Management.Automation;
 
 namespace Cohesity.Powershell.Cmdlets.Utility
@@ -34,8 +35,7 @@ namespace Cohesity.Powershell.Cmdlets.Utility
 
         protected override void ProcessRecord()
         {
-            DateTime UnixEpoch = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
-            long microseconds = (this.DateTime.ToUniversalTime() - UnixEpoch).Ticks / (TimeSpan.TicksPerMillisecond / 1000);
+            long microseconds = RestApiCommon.ConvertDateTimeToUsecs(DateTime);
             WriteObject(microseconds);
         }
     }
