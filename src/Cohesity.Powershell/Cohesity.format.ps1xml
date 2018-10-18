@@ -479,6 +479,12 @@
               <TableColumnItem>
                <ScriptBlock>$_.BackupRun.Status</ScriptBlock>
               </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>if($_.BackupRun.SnapshotsDeleted){"True"}else{"False"}</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>$_.CopyRun[0].ExpiryTimeUsecs | Convert-CohesityUsecsToDateTime</ScriptBlock>
+              </TableColumnItem>
             </TableColumnItems>
           </TableRowEntry>
         </TableRowEntries>
@@ -499,6 +505,12 @@
           </TableColumnHeader>
           <TableColumnHeader>
             <Label>Status</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>SnapshotsDeleted</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Expiry Time</Label>
           </TableColumnHeader>
         </TableHeaders>
       </TableControl>
