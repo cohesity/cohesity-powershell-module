@@ -14,11 +14,11 @@ namespace Cohesity.Powershell.Common
             qb.Add("includeInactive", true);
 
             var preparedUrl = $"/public/views{qb.Build()}";
-            var views = client.Get<IEnumerable<View>>(preparedUrl);
-            if (views == null || !views.Any())
+            var result = client.Get<GetViewsResult>(preparedUrl);
+            if (result == null)
                 throw new Exception("View with matching name not found.");
 
-            var view = views.FirstOrDefault(i => i.Name.Equals(name));
+            var view = result.Views.FirstOrDefault(i => i.Name.Equals(name));
             if (view == null)
                 throw new Exception("View with matching name not found.");
 
