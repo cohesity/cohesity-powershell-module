@@ -1,4 +1,5 @@
 ﻿// Copyright 2018 Cohesity Inc.
+using Cohesity.Powershell.Common;
 using System;
 using System.Management.Automation;
 
@@ -41,9 +42,8 @@ namespace Cohesity.Powershell.Cmdlets.Utility
 
         protected override void ProcessRecord()
         {
-            long unixTime = this.Usecs / 1000000;
-            DateTime origin = DateTime.Parse("1970-01-01 00:00:00");
-            WriteObject(origin.AddSeconds(unixTime).ToLocalTime());
+            DateTime result = RestApiCommon.ConvertUsecsToDateTime(Usecs);
+            WriteObject(result);
         }
 
         protected override void StopProcessing()

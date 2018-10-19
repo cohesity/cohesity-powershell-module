@@ -66,6 +66,8 @@
 - [Suspend-CohesityProtectionJob](cmdlets-reference/suspend-cohesityprotectionjob.md)
 - [Resume-CohesityProtectionJob](cmdlets-reference/resume-cohesityprotectionjob.md)
 - [Get-CohesityProtectionJobRun](cmdlets-reference/get-cohesityprotectionjobrun.md)
+- [Set-CohesitySnapshot](cmdlets-reference/set-cohesitysnapshot.md)
+- [Remove-CohesitySnapshot](cmdlets-reference/remove-cohesitysnapshot.md)
 
 
 - **Monitoring**
@@ -76,9 +78,18 @@
 
 - **Recovery**
 - [Find-CohesityFilesForRestore](cmdlets-reference/find-cohesityfilesforrestore.md)
+- [Find-CohesityObjectsForRestore](cmdlets-reference/find-cohesityobjectsforrestore.md)
 - [Restore-CohesityVMwareVM](cmdlets-reference/restore-cohesityvmwarevm.md)
+- [Restore-CohesityHyperVVM](cmdlets-reference/restore-cohesityhypervvm.md)
+- [Restore-CohesityAcropolisVM](cmdlets-reference/restore-cohesityacropolisvm.md)
+- [Restore-CohesityFile](cmdlets-reference/restore-cohesityfile.md)
 - [Get-CohesityRestoreTask](cmdlets-reference/get-cohesityrestoretask.md)
 - [Stop-CohesityRestoreTask](cmdlets-reference/stop-cohesityrestoretask.md)
+
+
+- **Clone**
+- [Copy-CohesityVMwareVM](cmdlets-reference/copy-cohesityvmwarevm.md)
+- [Copy-CohesityView](cmdlets-reference/copy-cohesityview.md)
 
 
 - **Agents**

@@ -8,10 +8,26 @@ namespace Cohesity.Powershell.Common
 {
     internal static class RestApiCommon
     {
+        public static View GetViewByName(RestApiClient client, string name)
+        {
+            var qb = new QuerystringBuilder();
+            qb.Add("includeInactive", true);
+
+            var preparedUrl = $"/public/views{qb.Build()}";
+            var result = client.Get<GetViewsResult>(preparedUrl);
+            if (result == null)
+                throw new Exception("View with matching name not found.");
+
+            var view = result.Views.FirstOrDefault(i => i.Name.Equals(name));
+            if (view == null)
+                throw new Exception("View with matching name not found.");
+
+            return view;
+        }
+
         public static ProtectionJob GetProtectionJobByName(RestApiClient client, string name)
         {
             var qb = new QuerystringBuilder();
-            qb.Add("names", name);
             qb.Add("includeLastRunAndStats", true);
 
             var preparedUrl = $"/public/protectionJobs{qb.Build()}";
@@ -19,10 +35,11 @@ namespace Cohesity.Powershell.Common
             if (jobs == null || !jobs.Any())
                 throw new Exception("Protection job with matching name not found.");
 
-            if (jobs.Count() > 1)
-                throw new Exception("Found multiple protection jobs with matching name.");
+            var job = jobs.FirstOrDefault(i => i.Name.Equals(name));
+            if (job == null)
+                throw new Exception("Protection job with matching name not found.");
 
-            return jobs.First();
+            return job;
         }
 
         public static ProtectionJob GetProtectionJobById(RestApiClient client, long id)
@@ -36,40 +53,65 @@ namespace Cohesity.Powershell.Common
             if (jobs == null || !jobs.Any())
                 throw new Exception("Protection job with matching id not found.");
 
-            if (jobs.Count() > 1)
-                throw new Exception("Found multiple protection jobs with matching id.");
+            var job = jobs.FirstOrDefault(i => i.Id.Equals(id));
+            if (job == null)
+                throw new Exception("Protection job with matching id not found.");
 
-            return jobs.First();
+            return job;
+        }
+
+        public static IEnumerable<ProtectionRunInstance> GetProtectionJobRunsByJobId(RestApiClient client, long jobId)
+        {
+            var qb = new QuerystringBuilder();
+            qb.Add("jobId", jobId);
+
+            var preparedUrl = $"/public/protectionRuns{qb.Build()}";
+            var jobRuns = client.Get<IEnumerable<ProtectionRunInstance>>(preparedUrl);
+            if (jobRuns == null || !jobRuns.Any())
+                throw new Exception("Protection job runs with matching job id not found.");
+
+            return jobRuns;
         }
 
         public static ProtectionPolicy GetPolicyByName(RestApiClient client, string name)
         {
-            var qb = new QuerystringBuilder();
-            qb.Add("names", name);
-
-            var preparedUrl = $"/public/protectionPolicies{qb.Build()}";
+            var preparedUrl = $"/public/protectionPolicies";
             var policies = client.Get<IEnumerable<ProtectionPolicy>>(preparedUrl);
             if (policies == null || !policies.Any())
                 throw new Exception("Policy with matching name not found.");
 
-            if (policies.Count() > 1)
-                throw new Exception("Found multiple policies with matching name.");
+            var policy = policies.FirstOrDefault(i => i.Name.Equals(name));
+            if (policy == null)
+                throw new Exception("Policy with matching name not found.");
 
-            return policies.First();
+            return policy;
         }
 
         public static ViewBox GetStorageDomainByName(RestApiClient client, string name)
         {
-            var qb = new QuerystringBuilder();
-            qb.Add("names", new[] { name });
-
-            var preparedUrl = $"/public/viewBoxes{qb.Build()}";
+            var preparedUrl = $"/public/viewBoxes";
             var domains = client.Get<IEnumerable<ViewBox>>(preparedUrl);
             if (domains == null || !domains.Any())
                 throw new Exception("Storage domain with matching name not found.");
-            if (domains.Count() > 1)
-                throw new Exception("Found multiple storage domains with matching name.");
-            return domains.First();
+            var domain = domains.FirstOrDefault(i => i.Name.Equals(name));
+            if (domain == null)
+                throw new Exception("Storage domain with matching name not found.");
+
+            return domain;
+        }
+
+        public static long ConvertDateTimeToUsecs(DateTime dateTime)
+        {
+            DateTime UnixEpoch = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
+            long microseconds = (dateTime.ToUniversalTime() - UnixEpoch).Ticks / (TimeSpan.TicksPerMillisecond / 1000);
+            return microseconds;
+        }
+
+        public static DateTime ConvertUsecsToDateTime(long usecs)
+        {
+            long unixTime = usecs / 1000000;
+            DateTime origin = DateTime.Parse("1970-01-01 00:00:00");
+            return origin.AddSeconds(unixTime).ToLocalTime();
         }
 
     }

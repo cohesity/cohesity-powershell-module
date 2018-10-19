@@ -145,6 +145,15 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJobRun
         public SwitchParameter ExcludeNonRestoreableRuns { get; set; }
 
         /// <summary>
+        /// <para type="description">
+        /// Include jobs runs for deleted jobs by setting this field.
+        /// If not set, runs for deleted jobs will not be returned.
+        /// </para>
+        /// </summary>
+        [Parameter(Mandatory = false)]
+        public SwitchParameter IncludeDeleted { get; set; }
+
+        /// <summary>
         /// Begin Processing
         /// </summary>
         protected override void BeginProcessing()
@@ -198,8 +207,14 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJobRun
                 qb.Add("excludeNonRestoreableRuns", true);
 
             var url = $"/public/protectionRuns{ qb.Build()}";
-            var result = Session.ApiClient.Get<IEnumerable<ProtectionRunInstance>>(url);
-            WriteObject(result, true);
+            var results = Session.ApiClient.Get<IEnumerable<ProtectionRunInstance>>(url);
+
+            // Hide deleted protection jobs unless explicitly asked for
+            if (!IncludeDeleted.IsPresent)
+            {
+                results = results.Where(x => !(x.JobName.StartsWith("_DELETED"))).ToList();
+            }
+            WriteObject(results, true);
         }
     }
 }
