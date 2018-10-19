@@ -7,8 +7,8 @@ Gets a list of protection job runs filtered by the specified parameters.
 
 ```
 Get-CohesityProtectionJobRun [-EndTime <long>] [-ExcludeErrorRuns] [-ExcludeNonRestoreableRuns] [-ExcludeTasks]
- [-JobId <long>] [-JobName <string>] [-NumRuns <long>] [-RunTypes <string[]>] [-SourceId <long>]
- [-StartedTime <long>] [-StartTime <long>] [<CommonParameters>]
+ [-IncludeDeleted] [-JobId <long>] [-JobName <string>] [-NumRuns <long>] [-RunTypes <string[]>]
+ [-SourceId <long>] [-StartedTime <long>] [-StartTime <long>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -192,6 +192,22 @@ Accept wildcard characters: False
 ### -ExcludeNonRestoreableRuns
 Filter out jobs runs that cannot be restored by setting this field.
 If not set, runs without any successful object will be returned.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -IncludeDeleted
+Include jobs runs for deleted jobs by setting this field.
+If not set, runs for deleted jobs will not be returned.
 
 ```yaml
 Type: SwitchParameter

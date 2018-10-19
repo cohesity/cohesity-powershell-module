@@ -6,8 +6,9 @@ Clones the specified Cohesity View.
 ## SYNTAX
 
 ```
-Copy-CohesityView -CloneViewDescription <string> -CloneViewName <string> -JobId <long> -TaskName <string>
- -ViewName <string> [-JobRunId <long>] [-QoSPolicy <string>] [-StartTime <long>] [<CommonParameters>]
+Copy-CohesityView -JobId <long> -SourceViewName <string> -TargetViewDescription <string>
+ -TargetViewName <string> -TaskName <string> [-JobRunId <long>] [-QoSPolicy <string>] [-StartTime <long>]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -17,7 +18,7 @@ Clones the specified Cohesity View.
 
 ### EXAMPLE 1
 ```
-Copy-CohesityView -TaskName "clone-view-task" -ViewName "test-view" -CloneViewName "clone-of-test-view" -QosPolicy "Backup Target Low" -JobId 49402
+Copy-CohesityView -TaskName "clone-view-task" -SourceViewName "test-view" -TargetViewName "clone-of-test-view" -QosPolicy "Backup Target Low" -JobId 49402
 ```
 
 Clones the Cohesity View called "test-view" with the given source id using the latest run of job id 49402.
@@ -39,7 +40,7 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -ViewName
+### -SourceViewName
 Specifies the name of the View to clone.
 
 ```yaml
@@ -54,7 +55,7 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -CloneViewName
+### -TargetViewName
 Specifies the name of the cloned View.
 
 ```yaml
@@ -85,7 +86,7 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -CloneViewDescription
+### -TargetViewDescription
 Specifies the description of the cloned View.
 
 ```yaml

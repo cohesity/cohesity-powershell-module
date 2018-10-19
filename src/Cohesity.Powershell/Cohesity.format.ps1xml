@@ -483,7 +483,7 @@
                 <ScriptBlock>if($_.BackupRun.SnapshotsDeleted){"True"}else{"False"}</ScriptBlock>
               </TableColumnItem>
               <TableColumnItem>
-                <ScriptBlock>$_.CopyRun[0].ExpiryTimeUsecs | Convert-CohesityUsecsToDateTime</ScriptBlock>
+                <ScriptBlock>if($_.BackupRun.SnapshotsDeleted){"-"}else{$_.CopyRun[0].ExpiryTimeUsecs | Convert-CohesityUsecsToDateTime}</ScriptBlock>
               </TableColumnItem>
             </TableColumnItems>
           </TableRowEntry>

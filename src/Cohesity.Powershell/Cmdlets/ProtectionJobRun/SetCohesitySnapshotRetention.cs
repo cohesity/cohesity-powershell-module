@@ -1,5 +1,4 @@
 ﻿// Copyright 2018 Cohesity Inc.
-using System;
 using System.Collections.Generic;
 using System.Management.Automation;
 using Cohesity.Powershell.Common;
@@ -8,32 +7,41 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJobRun
 {
     /// <summary>
     /// <para type="synopsis">
-    /// Changes the retention of the snapshots associated with a Protection Job or expires them.
+    /// Changes the retention of the snapshots associated with a Protection Job.
     /// </para>
     /// <para type="description">
-    /// Returns success if the snapshots associated with the specified Protection Job are updated successfully.
+    /// Returns success if the retention for snapshots is updated successfully.
     /// </para>
     /// </summary>
     /// <example>
     ///   <para>PS&gt;</para>
     ///   <code>
-    ///   Set-CohesitySnapshot -JobName Test-Job -JobRunStartTime (Get-Date "Oct 10, 2018 6:00am") -ExpireNow
+    ///   Set-CohesitySnapshotRetention -JobName Test-Job -JobRunId 2123 -ExtendByDays 30
     ///   </code>
     ///   <para>
-    ///   Expires the snapshots with the specified start time and associated with the specified Protection Job.
+    ///   Extends the retention of the snapshots associated with the specified Protection Job and Job Run Id by 30 days.
     ///   </para>
     /// </example>
     /// <example>
     ///   <para>PS&gt;</para>
     ///   <code>
-    ///   Set-CohesitySnapshot -JobName Test-Job -JobRunStartTime (Get-Date "Oct 10, 2018 6:00am") -KeepUntil (Get-Date "Oct 10, 2019 6:00am")
+    ///   Set-CohesitySnapshotRetention -JobName Test-Job -JobRunId 2123 -ReduceByDays 30
     ///   </code>
     ///   <para>
-    ///   Changes the retention of the snapshots associated with the specified Protection Job and the specified start time.
+    ///   Reduces the retention of the snapshots associated with the specified Protection Job and Job Run Id by 30 days.
     ///   </para>
     /// </example>
-    [Cmdlet(VerbsCommon.Set, "CohesitySnapshot")]
-    public class SetCohesitySnapshot : PSCmdlet
+    /// <example>
+    ///   <para>PS&gt;</para>
+    ///   <code>
+    ///   Set-CohesitySnapshotRetention -JobName Test-Job -JobRunId 2123 -ExtendByDays 30 -SourceIds 883
+    ///   </code>
+    ///   <para>
+    ///   Extends the retention of the snapshots associated with only the specified Source Id (such as a VM), Protection Job and Job Run Id by 30 days.
+    ///   </para>
+    /// </example>
+    [Cmdlet(VerbsCommon.Set, "CohesitySnapshotRetention")]
+    public class SetCohesitySnapshotRetention : PSCmdlet
     {
 
         private Session Session
@@ -63,15 +71,6 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJobRun
 
         /// <summary>
         /// <para type="description">
-        /// The start time of the Protection Job Run.
-        /// </para>
-        /// </summary>
-        //[Parameter(Mandatory = true)]
-        //[ValidateNotNullOrEmpty()]
-        //public DateTime JobRunStartTime { get; set; }
-
-        /// <summary>
-        /// <para type="description">
         /// The unique id of the Protection Job Run.
         /// </para>
         /// </summary>
@@ -81,19 +80,27 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJobRun
 
         /// <summary>
         /// <para type="description">
-        /// Specifies if the snapshots must be expired.
+        /// Specifies the number of days by which the Snapshot retention will be extended.
         /// </para>
         /// </summary>
-        [Parameter(Mandatory = true, ParameterSetName = "Expire")]
-        public SwitchParameter ExpireNow { get; set; }
+        [Parameter(Mandatory = true, ParameterSetName = "ExtendRetention")]
+        public long? ExtendByDays { get; set; }
 
         /// <summary>
         /// <para type="description">
-        /// Specifies the time until which the snapshots must be retained.
+        /// Specifies the number of days by which the Snapshot retention will be reduced.
         /// </para>
         /// </summary>
-        [Parameter(Mandatory = true, ParameterSetName = "SetRetention")]
-        public DateTime? KeepUntil { get; set; } = null;
+        [Parameter(Mandatory = true, ParameterSetName = "ReduceRetention")]
+        public long? ReduceByDays { get; set; }
+
+        /// <summary>
+        /// <para type="description">
+        /// Specifies the source ids to only select snapshots belonging to these source ids.
+        /// </para>
+        /// </summary>
+        [Parameter(Mandatory = false)]
+        public long?[] SourceIds { get; set; }
 
         #endregion
 
@@ -124,9 +131,26 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJobRun
                 {
                     if (JobRunId == jobRun.BackupRun.JobRunId)
                     {
+                        var copyRunTargets = new List<Models.RunJobSnapshotTarget>();
+                        var target = new Models.RunJobSnapshotTarget
+                        {
+                            Type = Models.RunJobSnapshotTarget.TypeEnum.KLocal
+                        };
+
+                        if (ExtendByDays.HasValue)
+                        {
+                            target.DaysToKeep = ExtendByDays;
+                        }
+                        else if(ReduceByDays.HasValue)
+                        {
+                            target.DaysToKeep = -ReduceByDays;
+                        }
+
+                        copyRunTargets.Add(target);
+
                         var run = new Models.UpdateProtectionJobRun
                         {
-                            ExpiryTimeUsecs = 0,
+                            CopyRunTargets = copyRunTargets,
                             JobUid = new Models.UniqueGlobalId10
                             {
                                 ClusterId = jobRun.JobUid.ClusterId,
@@ -136,18 +160,9 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJobRun
                             RunStartTimeUsecs = (long)jobRun.CopyRun[0].RunStartTimeUsecs
                         };
 
-                        if(ExpireNow.IsPresent)
+                        if(SourceIds != null && SourceIds.Length >= 1)
                         {
-                            run.ExpiryTimeUsecs = 0;
-                        }
-
-                        if (KeepUntil.HasValue)
-                        {
-                            DateTime NewRetentionTime = (DateTime) KeepUntil;
-                            DateTime UnixEpoch = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
-                            long expiryTimeUsecs = 
-                                (NewRetentionTime.ToUniversalTime() - UnixEpoch).Ticks / (TimeSpan.TicksPerMillisecond / 1000);
-                            run.ExpiryTimeUsecs = expiryTimeUsecs;
+                            run.SourceIds = new List<long?>(SourceIds);
                         }
 
                         var runs = new List<Models.UpdateProtectionJobRun>();
@@ -159,9 +174,18 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJobRun
                         };
                         var preparedUrl = $"/public/protectionRuns";
                         var result = Session.ApiClient.Put(preparedUrl, request);
+
+                        if(ExtendByDays.HasValue)
+                        {
+                            WriteObject("Extended the snapshot retention successfully");
+
+                        }
+                        else if(ReduceByDays.HasValue)
+                        {
+                            WriteObject("Reduced the snapshot retention successfully");
+                        }
                     }
                 }
-
             }
         }
 
