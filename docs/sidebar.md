@@ -66,7 +66,7 @@
 - [Suspend-CohesityProtectionJob](cmdlets-reference/suspend-cohesityprotectionjob.md)
 - [Resume-CohesityProtectionJob](cmdlets-reference/resume-cohesityprotectionjob.md)
 - [Get-CohesityProtectionJobRun](cmdlets-reference/get-cohesityprotectionjobrun.md)
-- [Set-CohesitySnapshot](cmdlets-reference/set-cohesitysnapshot.md)
+- [Set-CohesitySnapshotRetention](cmdlets-reference/set-cohesitysnapshotretention.md)
 - [Remove-CohesitySnapshot](cmdlets-reference/remove-cohesitysnapshot.md)
 
 
