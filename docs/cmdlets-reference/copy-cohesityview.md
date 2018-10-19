@@ -18,7 +18,7 @@ Clones the specified Cohesity View.
 
 ### EXAMPLE 1
 ```
-Copy-CohesityView -TaskName "clone-view-task" -SourceViewName "test-view" -TargetViewName "clone-of-test-view" -QosPolicy "Backup Target Low" -JobId 49402
+Copy-CohesityView -TaskName "clone-view-task" -SourceViewName "test-view" -TargetViewName "clone-of-test-view" -TargetViewDescription "cloned view" -QosPolicy "Backup Target Low" -JobId 49402
 ```
 
 Clones the Cohesity View called "test-view" with the given source id using the latest run of job id 49402.
