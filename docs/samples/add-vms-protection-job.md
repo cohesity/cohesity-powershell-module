@@ -1,7 +1,7 @@
 # Add multiple VMs to a Protection Job
 You can use the powershell script below to add multiple VMs to an existing protection job.
 
-This script uses the cmdlets `Get-CohesityProtectionJob`, `Get-CohesityVMwareVM` and `Set-CohesityProtectionJob` to achieve this task.
+This snippet uses the cmdlets `Get-CohesityProtectionJob`, `Get-CohesityVMwareVM` and `Set-CohesityProtectionJob` to achieve this task. It assumes that you are already connected to a Cohesity cluster using `Connect-CohesityCluster` cmdlet.
 
 ### Example
 ```powershell
