@@ -8,17 +8,19 @@ Creates a new protection job.
 ### UNNAMED_PARAMETER_SET_1
 ```
 New-CohesityProtectionJob -Name <string> -PolicyId <string> -StorageDomainId <long> [-Description <string>]
- [-Environment <EnvironmentEnum>] [-ParentSourceId <long>] [-ScheduleStartTime <DateTime>]
- [-SourceIds <long[]>] [-SourceSpecialParameters <SourceSpecialParameter[]>] [-Timezone <string>]
- [-ViewName <string>] [<CommonParameters>]
+ [-Environment <EnvironmentEnum>] [-FullSLATimeInMinutes <long>] [-IncrementalSLATimeInMinutes <long>]
+ [-ParentSourceId <long>] [-ScheduleStartTime <DateTime>] [-SourceIds <long[]>]
+ [-SourceSpecialParameters <SourceSpecialParameter[]>] [-Timezone <string>] [-ViewName <string>]
+ [<CommonParameters>]
 ```
 
 ### UNNAMED_PARAMETER_SET_2
 ```
 New-CohesityProtectionJob -Name <string> -PolicyName <string> -StorageDomainName <string>
- [-Description <string>] [-Environment <EnvironmentEnum>] [-ParentSourceId <long>]
- [-ScheduleStartTime <DateTime>] [-SourceIds <long[]>] [-SourceSpecialParameters <SourceSpecialParameter[]>]
- [-Timezone <string>] [-ViewName <string>] [<CommonParameters>]
+ [-Description <string>] [-Environment <EnvironmentEnum>] [-FullSLATimeInMinutes <long>]
+ [-IncrementalSLATimeInMinutes <long>] [-ParentSourceId <long>] [-ScheduleStartTime <DateTime>]
+ [-SourceIds <long[]>] [-SourceSpecialParameters <SourceSpecialParameter[]>] [-Timezone <string>]
+ [-ViewName <string>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -151,7 +153,7 @@ Aliases:
 
 Required: False
 Position: Named
-Default value: 10/13/2018 6:38:17 PM
+Default value: 11/11/2018 10:59:11 PM
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -191,6 +193,38 @@ Specifies the name of the View associated with the protection job.
 
 ```yaml
 Type: string
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -FullSLATimeInMinutes
+Specifies the number of minutes that a Job Run of a Full (no CBT) backup schedule is expected to complete within, also known as a Service-Level Agreement (SLA).
+A SLA violation is reported when the run time of a Job Run exceeds the SLA time period specified for this backup schedule.
+
+```yaml
+Type: long
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -IncrementalSLATimeInMinutes
+Specifies the number of minutes that a Job Run of a CBT-based backup schedule is expected to complete within, also known as a Service-Level Agreement (SLA).
+A SLA violation is reported when the run time of a Job Run exceeds the SLA time period specified for this backup schedule.
+
+```yaml
+Type: long
 Parameter Sets: (All)
 Aliases:
 

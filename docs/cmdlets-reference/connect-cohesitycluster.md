@@ -6,7 +6,7 @@ Connects to a Cohesity Cluster and acquires an authentication token.
 ## SYNTAX
 
 ```
-Connect-CohesityCluster -Credential <PSCredential> -Server <string> [<CommonParameters>]
+Connect-CohesityCluster -Credential <PSCredential> -Server <string> [-Port <long>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -36,6 +36,21 @@ Aliases:
 Required: True
 Position: Named
 Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Port
+The port to use to connect to Cohesity Cluster.
+
+```yaml
+Type: long
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: 443
 Accept pipeline input: False
 Accept wildcard characters: False
 ```

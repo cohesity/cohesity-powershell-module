@@ -111,7 +111,7 @@ namespace Cohesity.Models
         /// <param name="recoveryModel">Specifies the Recovery Model for the database in SQL environment. Only meaningful for the &#39;kDatabase&#39; SQL Protection Source. Specifies the Recovery Model set for the Microsoft SQL Server. &#39;kSimpleRecoveryModel&#39; indicates the Simple SQL Recovery Model which does not utilize log backups. &#39;kFullRecoveryModel&#39; indicates the Full SQL Recovery Model which requires log backups and allows recovery to a single point in time. &#39;kBulkLoggedRecoveryModel&#39; indicates the Bulk Logged SQL Recovery Model which requires log backups and allows high-performance bulk copy operations..</param>
         /// <param name="sqlServerDbState">The state of the database as returned by SQL Server..</param>
         /// <param name="type">Specifies the type of the managed Object in a SQL Protection Source. Examples of SQL Objects include &#39;kInstance&#39; and &#39;kDatabase&#39;..</param>
-        public SQLProtectionSource_(bool? isAvailableForVssBackup = default(bool?), string createdTimestamp = default(string), string databaseName = default(string), long? dbAagEntityId = default(long?), string dbAagName = default(string), List<DbFileInfo> dbFiles = default(List<DbFileInfo>), SqlSourceId id = default(SqlSourceId), string name = default(string), long? ownerId = default(long?), RecoveryModelEnum? recoveryModel = default(RecoveryModelEnum?), int? sqlServerDbState = default(int?), TypeEnum? type = default(TypeEnum?))
+        public SQLProtectionSource_(bool? isAvailableForVssBackup = default(bool?), string createdTimestamp = default(string), string databaseName = default(string), long? dbAagEntityId = default(long?), string dbAagName = default(string), List<DbFileInfo> dbFiles = default(List<DbFileInfo>), SqlSourceId id = default(SqlSourceId), string name = default(string), long? ownerId = default(long?), RecoveryModelEnum? recoveryModel = default(RecoveryModelEnum?), string sqlServerDbState = default(string), TypeEnum? type = default(TypeEnum?))
         {
             this.IsAvailableForVssBackup = isAvailableForVssBackup;
             this.CreatedTimestamp = createdTimestamp;
@@ -196,7 +196,7 @@ namespace Cohesity.Models
         /// </summary>
         /// <value>The state of the database as returned by SQL Server.</value>
         [DataMember(Name="sqlServerDbState", EmitDefaultValue=false)]
-        public int? SqlServerDbState { get; set; }
+        public string SqlServerDbState { get; set; }
 
 
         /// <summary>
