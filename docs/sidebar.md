@@ -54,6 +54,7 @@
 - [Get-CohesityProtectionSource](cmdlets-reference/get-cohesityprotectionsource.md)
 - [Get-CohesityProtectionSourceObject](cmdlets-reference/get-cohesityprotectionsourceobject.md)
 - [Get-CohesityVMwareVM](cmdlets-reference/get-cohesityvmwarevm.md)
+- [Get-CohesityMSSQLObject](cmdlets-reference/get-cohesitymssqlobject.md)
 - [Get-CohesityProtectionPolicy](cmdlets-reference/get-cohesityprotectionpolicy.md)
 - [Set-CohesityProtectionPolicy](cmdlets-reference/set-cohesityprotectionpolicy.md)
 - [Remove-CohesityProtectionPolicy](cmdlets-reference/remove-cohesityprotectionpolicy.md)
@@ -79,6 +80,7 @@
 - **Recovery**
 - [Find-CohesityFilesForRestore](cmdlets-reference/find-cohesityfilesforrestore.md)
 - [Find-CohesityObjectsForRestore](cmdlets-reference/find-cohesityobjectsforrestore.md)
+- [Restore-CohesityMSSQLObject](cmdlets-reference/restore-cohesitymssqlobject.md)
 - [Restore-CohesityVMwareVM](cmdlets-reference/restore-cohesityvmwarevm.md)
 - [Restore-CohesityHyperVVM](cmdlets-reference/restore-cohesityhypervvm.md)
 - [Restore-CohesityAcropolisVM](cmdlets-reference/restore-cohesityacropolisvm.md)
@@ -90,6 +92,7 @@
 - **Clone**
 - [Copy-CohesityVMwareVM](cmdlets-reference/copy-cohesityvmwarevm.md)
 - [Copy-CohesityView](cmdlets-reference/copy-cohesityview.md)
+- [Copy-CohesityMSSQLObject](cmdlets-reference/copy-cohesitymssqlobject.md)
 
 
 - **Agents**

@@ -29,11 +29,10 @@ namespace Cohesity.Models
         /// <param name="createdDateMsecs">Specifies a unique identifier generated from the date the database is created or renamed. Cohesity uses this identifier in combination with the databaseId to uniquely identify a database..</param>
         /// <param name="databaseId">Specifies a unique id of the database but only for the life of the database. SQL Server may reuse database ids. Cohesity uses the createDateMsecs in combination with this databaseId to uniquely identify a database..</param>
         /// <param name="instanceId">Specifies unique id for the SQL Server instance. This id does not change during the life of the instance..</param>
-        public SqlSourceId(long? createdDateMsecs = default(long?), long? databaseId = default(long?), List<int?> instanceId = default(List<int?>))
+        public SqlSourceId(long? createdDateMsecs = default(long?), long? databaseId = default(long?))
         {
             this.CreatedDateMsecs = createdDateMsecs;
             this.DatabaseId = databaseId;
-            this.InstanceId = instanceId;
         }
         
         /// <summary>
@@ -55,7 +54,7 @@ namespace Cohesity.Models
         /// </summary>
         /// <value>Specifies unique id for the SQL Server instance. This id does not change during the life of the instance.</value>
         [DataMember(Name="instanceId", EmitDefaultValue=false)]
-        public List<int?> InstanceId { get; set; }
+        public string InstanceId { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object

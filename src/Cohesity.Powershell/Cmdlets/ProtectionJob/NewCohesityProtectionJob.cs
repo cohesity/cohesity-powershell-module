@@ -116,7 +116,6 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
         /// </para>
         /// </summary>
         [Parameter(Mandatory = true, ParameterSetName = "CreateById")]
-        [ValidateNotNullOrEmpty()]
         public long StorageDomainId { get; set; }
 
         /// <summary>
@@ -135,6 +134,24 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
         /// </summary>
         [Parameter(Mandatory = false)]
         public string ViewName { get; set; }
+
+        /// <summary>
+        /// <para type="description">
+        /// Specifies the number of minutes that a Job Run of a Full (no CBT) backup schedule is expected to complete within, also known as a Service-Level Agreement (SLA).
+        /// A SLA violation is reported when the run time of a Job Run exceeds the SLA time period specified for this backup schedule.
+        /// </para>
+        /// </summary>
+        [Parameter(Mandatory = false)]
+        public long? FullSLATimeInMinutes { get; set; }
+
+        /// <summary>
+        /// <para type="description">
+        /// Specifies the number of minutes that a Job Run of a CBT-based backup schedule is expected to complete within, also known as a Service-Level Agreement (SLA).
+        /// A SLA violation is reported when the run time of a Job Run exceeds the SLA time period specified for this backup schedule.
+        /// </para>
+        /// </summary>
+        [Parameter(Mandatory = false)]
+        public long? IncrementalSLATimeInMinutes { get; set; }
 
         /// <summary>
         /// <para type="description">
@@ -187,6 +204,12 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
                 newProtectionJob.ViewName = ViewName;
 
             newProtectionJob.Environment = Environment != null ? Environment.ToString() : EnvironmentEnum.kView.ToString();
+
+            if (FullSLATimeInMinutes != null)
+                newProtectionJob.FullProtectionSlaTimeMins = FullSLATimeInMinutes;
+
+            if (IncrementalSLATimeInMinutes != null)
+                newProtectionJob.IncrementalProtectionSlaTimeMins = IncrementalSLATimeInMinutes;
 
             if (SourceSpecialParameters != null && SourceSpecialParameters.Any())
             {

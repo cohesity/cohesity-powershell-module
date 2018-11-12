@@ -66,6 +66,14 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
 
         /// <summary>
         /// <para type="description">
+        /// The port to use to connect to Cohesity Cluster.
+        /// </para>
+        /// </summary>
+        [Parameter(Mandatory = false)]
+        public long Port { get; set; } = 443;
+
+        /// <summary>
+        /// <para type="description">
         /// User credentials for the Cohesity Cluster.
         /// </para>
         /// </summary>
@@ -86,7 +94,7 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
 
             try
             {
-                clusterUri = new Uri(Uri.UriSchemeHttps + Uri.SchemeDelimiter + Server);
+                clusterUri = new Uri(Uri.UriSchemeHttps + Uri.SchemeDelimiter + Server + ":" + Port.ToString());
             }
             catch (Exception ex)
             {

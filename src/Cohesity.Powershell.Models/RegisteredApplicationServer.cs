@@ -28,7 +28,7 @@ namespace Cohesity.Models
         /// </summary>
         /// <param name="applicationServer">applicationServer.</param>
         /// <param name="registeredProtectionSource">registeredProtectionSource.</param>
-        public RegisteredApplicationServer(ApplicationServerAndTheSubtreesBelowThem_ applicationServer = default(ApplicationServerAndTheSubtreesBelowThem_), ProtectionSource4 registeredProtectionSource = default(ProtectionSource4))
+        public RegisteredApplicationServer(ApplicationServerAndTheSubtreesBelowThem_ applicationServer = default(ApplicationServerAndTheSubtreesBelowThem_), ProtectionSource registeredProtectionSource = default(ProtectionSource))
         {
             this.ApplicationServer = applicationServer;
             this.RegisteredProtectionSource = registeredProtectionSource;
@@ -44,7 +44,7 @@ namespace Cohesity.Models
         /// Gets or Sets RegisteredProtectionSource
         /// </summary>
         [DataMember(Name="registeredProtectionSource", EmitDefaultValue=false)]
-        public ProtectionSource4 RegisteredProtectionSource { get; set; }
+        public ProtectionSource RegisteredProtectionSource { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
