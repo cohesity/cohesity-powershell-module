@@ -1,11 +1,14 @@
 /* Custom Theme: Cohesity */
 :root {
 
+    --docsifytabs-border-color           : #ededed;
+    --docsifytabs-tab-highlight-color    : #658d1b;
+
     --content-max-width                  : 55em;
     --link-color                         : var(--theme-color);
     --strong-color                       : var(--theme-color);
-    --base-font-size                     : 17px;
-    --code-font-size                     : 16px;
+    --base-font-size                     : 15px;
+    --code-font-size                     : 13px;
 
     /* Borders */
     --border-radius-s                    : 4px;
@@ -118,7 +121,7 @@
 
 
     /* Sidebar */
-    --sidebar-width                                     : 20rem;
+    --sidebar-width                                     : 25rem;
     --sidebar-background                                : var(--theme-color);
     --sidebar-border-color                              : #c9d2b6;
     --sidebar-border-width                              : 0 1px 0 0;
@@ -126,12 +129,12 @@
     /* Name */
     --sidebar-name-color                                : white;
     --sidebar-name-font-weight                          : 400;
-    --sidebar-name-font-size                            : 22px;
+    --sidebar-name-font-size                            : 20px;
 
     /* Nav Headings */
     --sidebar-nav-strong-color                          :white;
     --sidebar-nav-strong-border-width                   : 0 0 1px 0;
-    --sidebar-nav-strong-font-size                      : medium;
+    --sidebar-nav-strong-font-size                      : small;
     --sidebar-nav-strong-font-weight                    : 500;
     --sidebar-nav-strong-margin                         : 2em -25px 0.75em 0;
     --sidebar-nav-strong-padding                        : 0.25em 0 0.75em 0;
