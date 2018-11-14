@@ -7,6 +7,7 @@ You can install Cohesity PowerShell Module directly using the [PowerShell Galler
   > **Tip:** Please follow the steps based on the flavor of PowerShell that you are running.
   * If installing on `MacOS` and `Linux` you must use the steps for `PowerShell Core`.
   * If installing on `Windows` you should use the steps for `Windows PowerShell`, unless you are running `PowerShell Core`.
+
 <!-- tabs:start -->
 
 #### ** PowerShell Core **
@@ -23,7 +24,7 @@ You can install Cohesity PowerShell Module directly using the [PowerShell Galler
 
 <!-- tabs:end -->
 
-  > **Note:** If you are running PowerShell as a user without elevated privileges (non-admin user), you may need to add `-Scope CurrentUser` to the commands below. In some cases, you may also need to run `Set-ExecutionPolicy RemoteSigned -Scope CurrentUser` to set the execution policy that allows import of the module.
+  If you are running PowerShell as a user without elevated privileges (non-admin user), you may need to add `-Scope CurrentUser` to these commands. In some cases, you may also need to run `Set-ExecutionPolicy RemoteSigned -Scope CurrentUser` to set the execution policy that allows import of the module.
 
 ## Steps to upgrade
 
