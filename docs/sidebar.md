@@ -2,9 +2,9 @@
 - [Introduction](overview.md)
 - [Pre-requisites](pre-requisites.md)
 - [Setup](setup.md)
-- [Troubleshooting](troubleshooting.md)
 - [How to use](how-to-use.md)
 - [FAQ](faq.md)
+- [Troubleshooting](troubleshooting.md)
 - [Feedback](feedback.md)
 
 
