@@ -67,6 +67,8 @@
 - [Stop-CohesityProtectionJob](cmdlets-reference/stop-cohesityprotectionjob.md)
 - [Suspend-CohesityProtectionJob](cmdlets-reference/suspend-cohesityprotectionjob.md)
 - [Resume-CohesityProtectionJob](cmdlets-reference/resume-cohesityprotectionjob.md)
+- [Enable-CohesityProtectionJob](cmdlets-reference/enable-cohesityprotectionjob.md)
+- [Disable-CohesityProtectionJob](cmdlets-reference/disable-cohesityprotectionjob.md)
 - [Get-CohesityProtectionJobRun](cmdlets-reference/get-cohesityprotectionjobrun.md)
 - [Set-CohesitySnapshotRetention](cmdlets-reference/set-cohesitysnapshotretention.md)
 - [Remove-CohesitySnapshot](cmdlets-reference/remove-cohesitysnapshot.md)
@@ -94,6 +96,14 @@
 - [Copy-CohesityVMwareVM](cmdlets-reference/copy-cohesityvmwarevm.md)
 - [Copy-CohesityView](cmdlets-reference/copy-cohesityview.md)
 - [Copy-CohesityMSSQLObject](cmdlets-reference/copy-cohesitymssqlobject.md)
+
+
+- **Remote Cluster**
+- [Register-CohesityRemoteCluster](cmdlets-reference/register-cohesityremotecluster.md)
+- [Unregister-CohesityRemoteCluster](cmdlets-reference/unregister-cohesityremotecluster.md)
+- [Get-CohesityRemoteCluster](cmdlets-reference/get-cohesityremotecluster.md)
+- [Set-CohesityRemoteCluster](cmdlets-reference/set-cohesityremotecluster.md)
+- [New-CohesityReplicationEncryptionKey](cmdlets-reference/new-cohesityreplicationencryptionkey.md)
 
 
 - **Agents**
