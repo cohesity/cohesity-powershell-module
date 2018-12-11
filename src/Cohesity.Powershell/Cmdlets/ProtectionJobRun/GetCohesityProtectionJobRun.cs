@@ -79,7 +79,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJobRun
         /// </para>
         /// </summary>
         [Parameter(Mandatory = false)]
-        public long? StartTime { get; set; } = 0;
+        public long? StartTime { get; set; } = null;
 
         /// <summary>
         /// <para type="description">
@@ -97,7 +97,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJobRun
         /// </para>
         /// </summary>
         [Parameter(Mandatory = false)]
-        public long? NumRuns { get; set; } = null;
+        public long? NumRuns { get; set; } = 1000;
 
         /// <summary>
         /// <para type="description">
