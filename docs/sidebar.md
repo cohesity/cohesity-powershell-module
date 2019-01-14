@@ -22,21 +22,30 @@
 - [Disconnect-CohesityCluster](cmdlets-reference/disconnect-cohesitycluster.md)
 
 
+- **Access Management**
+- [Get-CohesityPrivilege](cmdlets-reference/get-cohesityprivilege.md)
+- [Get-CohesityRole](cmdlets-reference/get-cohesityrole.md)
+- [Get-CohesityUser](cmdlets-reference/get-cohesityuser.md)
+- [New-CohesityUser](cmdlets-reference/new-cohesityuser.md)
+
+
 - **Platform**
 - [Get-CohesityCluster](cmdlets-reference/get-cohesitycluster.md)
 - [Get-CohesityClusterPartition](cmdlets-reference/get-cohesityclusterpartition.md)
 - [Get-CohesityClusterConfiguration](cmdlets-reference/get-cohesityclusterconfiguration.md)
 - [Set-CohesityClusterConfiguration](cmdlets-reference/set-cohesityclusterconfiguration.md)
+- [Get-CohesityStorageDomain](cmdlets-reference/get-cohesitystoragedomain.md)
+- [Set-CohesityStorageDomain](cmdlets-reference/set-cohesitystoragedomain.md)
+
+
+- **View**
 - [New-CohesityView](cmdlets-reference/new-cohesityview.md)
 - [Get-CohesityView](cmdlets-reference/get-cohesityview.md)
 - [Set-CohesityView](cmdlets-reference/set-cohesityview.md)
 - [Remove-CohesityView](cmdlets-reference/remove-cohesityview.md)
-- [Get-CohesityStorageDomain](cmdlets-reference/get-cohesitystoragedomain.md)
-- [Set-CohesityStorageDomain](cmdlets-reference/set-cohesitystoragedomain.md)
-- [Get-CohesityPrivilege](cmdlets-reference/get-cohesityprivilege.md)
-- [Get-CohesityRole](cmdlets-reference/get-cohesityrole.md)
-- [Get-CohesityUser](cmdlets-reference/get-cohesityuser.md)
-- [New-CohesityUser](cmdlets-reference/new-cohesityuser.md)
+- [Get-CohesityViewShare](cmdlets-reference/get-cohesityviewshare.md)
+- [Add-CohesityViewShare](cmdlets-reference/add-cohesityviewshare.md)
+- [Remove-CohesityViewShare](cmdlets-reference/remove-cohesityviewshare.md)
 
 
 - **Data Protection**
@@ -92,10 +101,16 @@
 - [Stop-CohesityRestoreTask](cmdlets-reference/stop-cohesityrestoretask.md)
 
 
+- **Instant Volume Mount**
+- [Mount-CohesityVolume](cmdlets-reference/mount-cohesityvolume.md)
+- [Dismount-CohesityVolume](cmdlets-reference/dismount-cohesityvolume.md)
+
+
 - **Clone**
 - [Copy-CohesityVMwareVM](cmdlets-reference/copy-cohesityvmwarevm.md)
 - [Copy-CohesityView](cmdlets-reference/copy-cohesityview.md)
 - [Copy-CohesityMSSQLObject](cmdlets-reference/copy-cohesitymssqlobject.md)
+- [Remove-CohesityClone](cmdlets-reference/remove-cohesityclone.md)
 
 
 - **Remote Cluster**

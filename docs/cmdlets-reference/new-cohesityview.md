@@ -7,8 +7,9 @@ Creates a new Cohesity View.
 
 ```
 New-CohesityView -Name <string> -StorageDomainName <string> [-AccessProtocol <ProtocolAccessEnum>]
- [-BrowsableShares] [-CaseInsensitiveNames] [-Description <string>] [-DisableInlineDedupAndCompression]
- [-QosPolicy <string>] [-SmbAccessBasedEnumeration] [<CommonParameters>]
+ [-AlertQuotaInBytes <long>] [-BrowsableShares] [-CaseInsensitiveNames] [-Description <string>]
+ [-DisableInlineDedupAndCompression] [-LogicalQuotaInBytes <long>] [-QosPolicy <string>]
+ [-SmbAccessBasedEnumeration] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -99,6 +100,40 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -LogicalQuotaInBytes
+Specifies an optional quota limit on the usage allowed for this view.
+This limit is specified in bytes.
+If no value is specified, there is no limit.
+
+```yaml
+Type: long
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -AlertQuotaInBytes
+Specifies if an alert should be triggered when the usage of this view exceeds this quota limit.
+This limit is optional and is specified in bytes.
+If no value is specified, there is no limit.
+
+```yaml
+Type: long
+Parameter Sets: (All)
+Aliases:
+
+Required: False
 Position: Named
 Default value: None
 Accept pipeline input: False

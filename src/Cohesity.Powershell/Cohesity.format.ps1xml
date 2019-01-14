@@ -1357,7 +1357,7 @@
                 <ScriptBlock>if($_.ClearInterfaces){$_.ClearInterfaces}else{"-"}</ScriptBlock>
                 <Label>ClearInterfaces</Label>
               </ListItem>
-                            <ListItem>
+              <ListItem>
                 <ScriptBlock>if($_.ClearVlanId){$_.ClearVlanId}else{"-"}</ScriptBlock>
                 <Label>ClearVlanId</Label>
               </ListItem>
@@ -1380,6 +1380,114 @@
               <ListItem>
                 <ScriptBlock>if($_.RemoteAccessCredentials){$_.RemoteAccessCredentials}else{"-"}</ScriptBlock>
                 <Label>RemoteAccessCredentials</Label>
+              </ListItem>
+            </ListItems>
+          </ListEntry>
+        </ListEntries>
+      </ListControl>
+    </View>
+
+    <!-- ViewAlias -->
+    <View>
+      <Name>ViewAlias.TableView</Name>
+      <ViewSelectedBy>
+        <TypeName>Cohesity.Models.ViewAlias</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>AliasName</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>ViewName</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>ViewPath</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+        <TableHeaders>
+          <TableColumnHeader>
+            <Label>ShareName</Label>
+          </TableColumnHeader>
+          <TableColumnHeader/>
+          <TableColumnHeader/>
+        </TableHeaders>
+      </TableControl>
+    </View>
+    <View>
+      <Name>ViewAlias.ListView</Name>
+      <ViewSelectedBy>
+        <TypeName>Cohesity.Models.ViewAlias</TypeName>
+      </ViewSelectedBy>
+      <ListControl>
+        <ListEntries>
+          <ListEntry>
+            <ListItems>
+              <ListItem>
+                <ScriptBlock>$_.AliasName</ScriptBlock>
+                <Label>ShareName</Label>
+              </ListItem>
+              <ListItem>
+                <PropertyName>ViewName</PropertyName>
+              </ListItem>
+              <ListItem>
+                <PropertyName>ViewPath</PropertyName>
+              </ListItem>
+            </ListItems>
+          </ListEntry>
+        </ListEntries>
+      </ListControl>
+    </View>
+    
+    <!-- ViewAliasInfo -->
+    <View>
+      <Name>ViewAliasInfo.TableView</Name>
+      <ViewSelectedBy>
+        <TypeName>Cohesity.Models.ViewAliasInfo</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>AliasName</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>"/"+$_.ViewPath</ScriptBlock>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+        <TableHeaders>
+          <TableColumnHeader>
+            <Label>ShareName</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>ViewPath</Label>
+          </TableColumnHeader>
+        </TableHeaders>
+      </TableControl>
+    </View>
+    <View>
+      <Name>ViewAliasInfo.ListView</Name>
+      <ViewSelectedBy>
+        <TypeName>Cohesity.Models.ViewAliasInfo</TypeName>
+      </ViewSelectedBy>
+      <ListControl>
+        <ListEntries>
+          <ListEntry>
+            <ListItems>
+              <ListItem>
+                <ScriptBlock>$_.AliasName</ScriptBlock>
+                <Label>ShareName</Label>
+              </ListItem>
+              <ListItem>
+                <ScriptBlock>"/"+$_.ViewPath</ScriptBlock>
+                <Label>ViewPath</Label>
               </ListItem>
             </ListItems>
           </ListEntry>
