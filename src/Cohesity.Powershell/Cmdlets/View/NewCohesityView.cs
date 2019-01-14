@@ -90,6 +90,23 @@ namespace Cohesity.Powershell.Cmdlets.View
 
         /// <summary>
         /// <para type="description">
+        /// Specifies an optional quota limit on the usage allowed for this view. This limit is specified in bytes. If no value is specified, there is no limit.
+        /// </para> 
+        /// </summary>
+        [Parameter(Mandatory = false)]
+        public long? LogicalQuotaInBytes { get; set; } = null;
+
+        /// <summary>
+        /// <para type="description">
+        /// Specifies if an alert should be triggered when the usage of this view exceeds this quota limit.
+        /// This limit is optional and is specified in bytes. If no value is specified, there is no limit.
+        /// </para>
+        /// </summary>
+        [Parameter(Mandatory = false)]
+        public long? AlertQuotaInBytes { get; set; } = null;
+
+        /// <summary>
+        /// <para type="description">
         /// Specifies whether to support case insensitive file/folder names.
         /// This is not enabled by default.
         /// </para>
@@ -155,6 +172,21 @@ namespace Cohesity.Powershell.Cmdlets.View
                 EnableSmbAccessBasedEnumeration = SmbAccessBasedEnumeration.IsPresent,
                 StoragePolicyOverride = new Models.StoragePolicyOverride(DisableInlineDedupAndCompression.IsPresent)
             };
+
+            if (LogicalQuotaInBytes != null || AlertQuotaInBytes != null)
+            {
+                request.LogicalQuota = new Models.QuotaPolicy();
+
+                if(LogicalQuotaInBytes != null)
+                {
+                    request.LogicalQuota.HardLimitBytes = LogicalQuotaInBytes;
+                }
+
+                if (AlertQuotaInBytes != null)
+                {
+                    request.LogicalQuota.AlertLimitBytes = AlertQuotaInBytes;
+                }
+            }
 
             var preparedUrl = $"/public/views";
             var result = Session.ApiClient.Post<Models.View>(preparedUrl, request);

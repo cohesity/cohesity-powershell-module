@@ -1,5 +1,6 @@
 ﻿// Copyright 2018 Cohesity Inc.
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Management.Automation;
 using Cohesity.Models;
@@ -93,6 +94,32 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
         /// </summary>
         [Parameter(Mandatory = false, ValueFromPipeline = true)]
         public long[] SourceIds { get; set; }
+
+        /// <summary>
+        /// <para type="description">
+        /// Specifies a list of Source ids from a Protection Source that should not be protected by this Protection Job.
+        /// Both leaf and non-leaf Objects may be specified in this list.
+        /// An Object in this list must have its ancestor in the SourceIds list.
+        /// </para>
+        /// </summary>
+        [Parameter(Mandatory = false)]
+        public long[] ExcludeSourceIds { get; set; }
+
+        /// <summary>
+        /// <para type="description">
+        /// Specifies a list of VM tag ids to protect VMs with the corresponding tags.
+        /// </para>
+        /// </summary>
+        [Parameter(Mandatory = false)]
+        public long[] VmTagIds { get; set; }
+
+        /// <summary>
+        /// <para type="description">
+        /// Specifies a list of VM tag ids to exclude VMs with the corresponding tags.
+        /// </para>
+        /// </summary>
+        [Parameter(Mandatory = false)]
+        public long[] ExcludeVmTagIds { get; set; }
 
         /// <summary>
         /// <para type="description">
@@ -199,6 +226,29 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
 
             if (SourceIds != null && SourceIds.Any())
                 newProtectionJob.SourceIds = SourceIds.ToList().ConvertAll<long?>(x => x);
+
+            if (ExcludeSourceIds != null && ExcludeSourceIds.Any())
+                newProtectionJob.ExcludeSourceIds = ExcludeSourceIds.ToList().ConvertAll<long?>(x => x);
+
+            if (VmTagIds != null && VmTagIds.Any())
+            {
+                var vmTagIdsList = VmTagIds.ToList().ConvertAll<long?>(x => x);
+                newProtectionJob.VmTagIds = new List<List<long?>>();
+                foreach (var vmTagIds in vmTagIdsList)
+                {
+                    newProtectionJob.VmTagIds.Add(new List<long?> { vmTagIds });
+                }
+            }  
+
+            if (ExcludeVmTagIds != null && ExcludeVmTagIds.Any())
+            {
+                var excludeVmTagIdsList = ExcludeVmTagIds.ToList().ConvertAll<long?>(x => x);
+                newProtectionJob.ExcludeVmTagIds = new List<List<long?>>();
+                foreach (var excludeVmTagIds in excludeVmTagIdsList)
+                {
+                    newProtectionJob.ExcludeVmTagIds.Add(new List<long?> { excludeVmTagIds });
+                }
+            }
 
             if (!string.IsNullOrWhiteSpace(ViewName))
                 newProtectionJob.ViewName = ViewName;

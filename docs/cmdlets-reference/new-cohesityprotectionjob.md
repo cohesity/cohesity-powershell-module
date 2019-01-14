@@ -8,19 +8,20 @@ Creates a new protection job.
 ### UNNAMED_PARAMETER_SET_1
 ```
 New-CohesityProtectionJob -Name <string> -PolicyId <string> -StorageDomainId <long> [-Description <string>]
- [-Environment <EnvironmentEnum>] [-FullSLATimeInMinutes <long>] [-IncrementalSLATimeInMinutes <long>]
- [-ParentSourceId <long>] [-ScheduleStartTime <DateTime>] [-SourceIds <long[]>]
- [-SourceSpecialParameters <SourceSpecialParameter[]>] [-Timezone <string>] [-ViewName <string>]
- [<CommonParameters>]
+ [-Environment <EnvironmentEnum>] [-ExcludeSourceIds <long[]>] [-ExcludeVmTagIds <long[]>]
+ [-FullSLATimeInMinutes <long>] [-IncrementalSLATimeInMinutes <long>] [-ParentSourceId <long>]
+ [-ScheduleStartTime <DateTime>] [-SourceIds <long[]>] [-SourceSpecialParameters <SourceSpecialParameter[]>]
+ [-Timezone <string>] [-ViewName <string>] [-VmTagIds <long[]>] [<CommonParameters>]
 ```
 
 ### UNNAMED_PARAMETER_SET_2
 ```
 New-CohesityProtectionJob -Name <string> -PolicyName <string> -StorageDomainName <string>
- [-Description <string>] [-Environment <EnvironmentEnum>] [-FullSLATimeInMinutes <long>]
- [-IncrementalSLATimeInMinutes <long>] [-ParentSourceId <long>] [-ScheduleStartTime <DateTime>]
- [-SourceIds <long[]>] [-SourceSpecialParameters <SourceSpecialParameter[]>] [-Timezone <string>]
- [-ViewName <string>] [<CommonParameters>]
+ [-Description <string>] [-Environment <EnvironmentEnum>] [-ExcludeSourceIds <long[]>]
+ [-ExcludeVmTagIds <long[]>] [-FullSLATimeInMinutes <long>] [-IncrementalSLATimeInMinutes <long>]
+ [-ParentSourceId <long>] [-ScheduleStartTime <DateTime>] [-SourceIds <long[]>]
+ [-SourceSpecialParameters <SourceSpecialParameter[]>] [-Timezone <string>] [-ViewName <string>]
+ [-VmTagIds <long[]>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -127,6 +128,53 @@ Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
+### -ExcludeSourceIds
+Specifies a list of Source ids from a Protection Source that should not be protected by this Protection Job.
+Both leaf and non-leaf Objects may be specified in this list.
+An Object in this list must have its ancestor in the SourceIds list.
+
+```yaml
+Type: long[]
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -VmTagIds
+Specifies a list of VM tag ids to protect VMs with the corresponding tags.
+
+```yaml
+Type: long[]
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ExcludeVmTagIds
+Specifies a list of VM tag ids to exclude VMs with the corresponding tags.
+
+```yaml
+Type: long[]
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -Timezone
 Specifies the timezone for this protection job.
 Must be a string in Olson time zone format such as "America/Los_Angeles".
@@ -153,7 +201,7 @@ Aliases:
 
 Required: False
 Position: Named
-Default value: 11/11/2018 10:59:11 PM
+Default value: 1/14/2019 11:34:13 AM
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
