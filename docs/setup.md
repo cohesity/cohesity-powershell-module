@@ -2,6 +2,7 @@
 
 ## Steps to install
 
+### Online installation
 You can install Cohesity PowerShell Module directly using the [PowerShell Gallery](https://www.powershellgallery.com/packages?q=cohesity).
 
   > **Tip:** Please follow the steps based on the flavor of PowerShell that you are running.
@@ -25,6 +26,14 @@ You can install Cohesity PowerShell Module directly using the [PowerShell Galler
 <!-- tabs:end -->
 
   If you are running PowerShell as a user without elevated privileges (non-admin user), you may need to add `-Scope CurrentUser` to these commands. In some cases, you may also need to run `Set-ExecutionPolicy RemoteSigned -Scope CurrentUser` to set the execution policy that allows import of the module.
+  
+### Offline installation
+
+* Download the offline package (.zip) from [GitHub release page](https://github.com/cohesity/cohesity-powershell-module/releases)
+  * For windows, use `Cohesity.PowerShell.zip`
+  * For linux and MacOS, use `Cohesity.PowerShell.Core.zip`
+* Copy over this zip file to the target machine
+* Unzip the contents of the zip file to one of the directory paths mentioned in the output of `$env:PSModulePath` on the target machine.
 
 ## Steps to upgrade
 
