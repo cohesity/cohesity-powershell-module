@@ -85,11 +85,18 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
             JObject protectionSourceObject = JObject.Parse(result);
             string protectionSourceId = (string)protectionSourceObject["id"];
 
-            // GET /protectionSources/{id}
-            var getProtectionSourcesUrl = $"/public/protectionSources/objects/{protectionSourceId}";
-            var response = Session.ApiClient.Get<Models.ProtectionSource>(getProtectionSourcesUrl);
+            if (!string.IsNullOrEmpty(protectionSourceId))
+            {
+                // GET /protectionSources/{id}
+                var getProtectionSourcesUrl = $"/public/protectionSources/objects/{protectionSourceId}";
+                var response = Session.ApiClient.Get<Models.ProtectionSource>(getProtectionSourcesUrl);
 
-            WriteObject(response);
+                WriteObject(response);
+            }
+            else
+            {
+                WriteObject($"Registered {MountPath} Successfully");
+            }
         }
 
         #endregion

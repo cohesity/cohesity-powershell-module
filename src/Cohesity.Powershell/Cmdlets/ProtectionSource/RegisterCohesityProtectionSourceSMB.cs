@@ -84,11 +84,9 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
                     endpoint = MountPath,
                     type = 11,
                     credentials = new {
-                        username = Credential.UserName,
-                        password = networkCredential.Password,
                         nasMountCredentials = new {
                             protocol = 2,
-                            username = Credential.UserName,
+                            username = networkCredential.UserName,
                             password = networkCredential.Password,
                             domainName = domain
                         }
@@ -103,11 +101,20 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
             JObject protectionSourceObject = JObject.Parse(result);
             string protectionSourceId = (string)protectionSourceObject["id"];
 
-            // GET /protectionSources/{id}
-            var getProtectionSourcesUrl = $"/public/protectionSources/objects/{protectionSourceId}";
-            var response = Session.ApiClient.Get<Models.ProtectionSource>(getProtectionSourcesUrl);
+            if(!string.IsNullOrEmpty(protectionSourceId))
+            {
+                // GET /protectionSources/{id}
+                var getProtectionSourcesUrl = $"/public/protectionSources/objects/{protectionSourceId}";
+                var response = Session.ApiClient.Get<Models.ProtectionSource>(getProtectionSourcesUrl);
 
-            WriteObject(response);
+                WriteObject(response);
+            }
+            else
+            {
+                WriteObject($"Registered {MountPath} Successfully");
+            }
+
+
         }
 
         #endregion
