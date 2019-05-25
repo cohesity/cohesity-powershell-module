@@ -1,12 +1,18 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
+using System.Linq;
+using System.IO;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Provides statistics about the Storage Domain (View Box).
@@ -17,14 +23,17 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="ViewBoxStats" /> class.
         /// </summary>
-        /// <param name="cloudUsagePerfStats">Provides the usage statistics for the data stored in the cloud for the Storage Domain (View Box). Performance statistics are not populated..</param>
+        /// <param name="cloudUsagePerfStats">cloudUsagePerfStats.</param>
+        /// <param name="dataUsageStats">dataUsageStats.</param>
         /// <param name="id">Specifies the id of the Storage Domain (View Box)..</param>
-        /// <param name="localUsagePerfStats">Provides usage statistics for the locally stored data on the Storage Domain (View Box). Performance statistics are not populated..</param>
-        /// <param name="logicalStats">Provides the logical usage statistics for the Storage Domain (View Box)..</param>
-        /// <param name="usagePerfStats">Provides usage and performance statistics for the Storage Domain (View Box) (includes both local and cloud data)..</param>
-        public ViewBoxStats(UsageAndPerformanceStats cloudUsagePerfStats = default(UsageAndPerformanceStats), long? id = default(long?), UsageAndPerformanceStats localUsagePerfStats = default(UsageAndPerformanceStats), LogicalStats logicalStats = default(LogicalStats), UsageAndPerformanceStats usagePerfStats = default(UsageAndPerformanceStats))
+        /// <param name="localUsagePerfStats">localUsagePerfStats.</param>
+        /// <param name="logicalStats">logicalStats.</param>
+        /// <param name="usagePerfStats">usagePerfStats.</param>
+        public ViewBoxStats(UsageAndPerformanceStats cloudUsagePerfStats = default(UsageAndPerformanceStats), DataUsageStats dataUsageStats = default(DataUsageStats), long? id = default(long?), UsageAndPerformanceStats localUsagePerfStats = default(UsageAndPerformanceStats), LogicalStats logicalStats = default(LogicalStats), UsageAndPerformanceStats usagePerfStats = default(UsageAndPerformanceStats))
         {
+            this.Id = id;
             this.CloudUsagePerfStats = cloudUsagePerfStats;
+            this.DataUsageStats = dataUsageStats;
             this.Id = id;
             this.LocalUsagePerfStats = localUsagePerfStats;
             this.LogicalStats = logicalStats;
@@ -32,37 +41,39 @@ namespace Cohesity.Models
         }
         
         /// <summary>
-        /// Provides the usage statistics for the data stored in the cloud for the Storage Domain (View Box). Performance statistics are not populated.
+        /// Gets or Sets CloudUsagePerfStats
         /// </summary>
-        /// <value>Provides the usage statistics for the data stored in the cloud for the Storage Domain (View Box). Performance statistics are not populated.</value>
         [DataMember(Name="cloudUsagePerfStats", EmitDefaultValue=false)]
         public UsageAndPerformanceStats CloudUsagePerfStats { get; set; }
+
+        /// <summary>
+        /// Gets or Sets DataUsageStats
+        /// </summary>
+        [DataMember(Name="dataUsageStats", EmitDefaultValue=false)]
+        public DataUsageStats DataUsageStats { get; set; }
 
         /// <summary>
         /// Specifies the id of the Storage Domain (View Box).
         /// </summary>
         /// <value>Specifies the id of the Storage Domain (View Box).</value>
-        [DataMember(Name="id", EmitDefaultValue=false)]
+        [DataMember(Name="id", EmitDefaultValue=true)]
         public long? Id { get; set; }
 
         /// <summary>
-        /// Provides usage statistics for the locally stored data on the Storage Domain (View Box). Performance statistics are not populated.
+        /// Gets or Sets LocalUsagePerfStats
         /// </summary>
-        /// <value>Provides usage statistics for the locally stored data on the Storage Domain (View Box). Performance statistics are not populated.</value>
         [DataMember(Name="localUsagePerfStats", EmitDefaultValue=false)]
         public UsageAndPerformanceStats LocalUsagePerfStats { get; set; }
 
         /// <summary>
-        /// Provides the logical usage statistics for the Storage Domain (View Box).
+        /// Gets or Sets LogicalStats
         /// </summary>
-        /// <value>Provides the logical usage statistics for the Storage Domain (View Box).</value>
         [DataMember(Name="logicalStats", EmitDefaultValue=false)]
         public LogicalStats LogicalStats { get; set; }
 
         /// <summary>
-        /// Provides usage and performance statistics for the Storage Domain (View Box) (includes both local and cloud data).
+        /// Gets or Sets UsagePerfStats
         /// </summary>
-        /// <value>Provides usage and performance statistics for the Storage Domain (View Box) (includes both local and cloud data).</value>
         [DataMember(Name="usagePerfStats", EmitDefaultValue=false)]
         public UsageAndPerformanceStats UsagePerfStats { get; set; }
 
@@ -72,7 +83,16 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class ViewBoxStats {\n");
+            sb.Append("  CloudUsagePerfStats: ").Append(CloudUsagePerfStats).Append("\n");
+            sb.Append("  DataUsageStats: ").Append(DataUsageStats).Append("\n");
+            sb.Append("  Id: ").Append(Id).Append("\n");
+            sb.Append("  LocalUsagePerfStats: ").Append(LocalUsagePerfStats).Append("\n");
+            sb.Append("  LogicalStats: ").Append(LogicalStats).Append("\n");
+            sb.Append("  UsagePerfStats: ").Append(UsagePerfStats).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -111,6 +131,11 @@ namespace Cohesity.Models
                     this.CloudUsagePerfStats.Equals(input.CloudUsagePerfStats))
                 ) && 
                 (
+                    this.DataUsageStats == input.DataUsageStats ||
+                    (this.DataUsageStats != null &&
+                    this.DataUsageStats.Equals(input.DataUsageStats))
+                ) && 
+                (
                     this.Id == input.Id ||
                     (this.Id != null &&
                     this.Id.Equals(input.Id))
@@ -143,6 +168,8 @@ namespace Cohesity.Models
                 int hashCode = 41;
                 if (this.CloudUsagePerfStats != null)
                     hashCode = hashCode * 59 + this.CloudUsagePerfStats.GetHashCode();
+                if (this.DataUsageStats != null)
+                    hashCode = hashCode * 59 + this.DataUsageStats.GetHashCode();
                 if (this.Id != null)
                     hashCode = hashCode * 59 + this.Id.GetHashCode();
                 if (this.LocalUsagePerfStats != null)
@@ -155,8 +182,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

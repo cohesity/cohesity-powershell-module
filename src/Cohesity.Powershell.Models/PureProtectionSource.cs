@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies a Protection Source in a Pure environment.
@@ -24,41 +21,43 @@ namespace Cohesity.Models
     public partial class PureProtectionSource :  IEquatable<PureProtectionSource>
     {
         /// <summary>
-        /// Specifies the type of managed Object in a pure Protection Source like a kStorageArray or kVolume. Examples of Pure Objects include &#39;kStorageArray&#39; and &#39;kVolume&#39;.
+        /// Specifies the type of managed Object in a pure Protection Source like a kStorageArray or kVolume. Examples of Pure Objects include &#39;kStorageArray&#39; and &#39;kVolume&#39;. &#39;kStorageArray&#39; indicates that entire pure storage array is being protected. &#39;kVolume&#39; indicates that volume within the array is being protected.
         /// </summary>
-        /// <value>Specifies the type of managed Object in a pure Protection Source like a kStorageArray or kVolume. Examples of Pure Objects include &#39;kStorageArray&#39; and &#39;kVolume&#39;.</value>
+        /// <value>Specifies the type of managed Object in a pure Protection Source like a kStorageArray or kVolume. Examples of Pure Objects include &#39;kStorageArray&#39; and &#39;kVolume&#39;. &#39;kStorageArray&#39; indicates that entire pure storage array is being protected. &#39;kVolume&#39; indicates that volume within the array is being protected.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum TypeEnum
         {
-            
             /// <summary>
             /// Enum KStorageArray for value: kStorageArray
             /// </summary>
             [EnumMember(Value = "kStorageArray")]
             KStorageArray = 1,
-            
+
             /// <summary>
             /// Enum KVolume for value: kVolume
             /// </summary>
             [EnumMember(Value = "kVolume")]
             KVolume = 2
+
         }
 
         /// <summary>
-        /// Specifies the type of managed Object in a pure Protection Source like a kStorageArray or kVolume. Examples of Pure Objects include &#39;kStorageArray&#39; and &#39;kVolume&#39;.
+        /// Specifies the type of managed Object in a pure Protection Source like a kStorageArray or kVolume. Examples of Pure Objects include &#39;kStorageArray&#39; and &#39;kVolume&#39;. &#39;kStorageArray&#39; indicates that entire pure storage array is being protected. &#39;kVolume&#39; indicates that volume within the array is being protected.
         /// </summary>
-        /// <value>Specifies the type of managed Object in a pure Protection Source like a kStorageArray or kVolume. Examples of Pure Objects include &#39;kStorageArray&#39; and &#39;kVolume&#39;.</value>
-        [DataMember(Name="type", EmitDefaultValue=false)]
+        /// <value>Specifies the type of managed Object in a pure Protection Source like a kStorageArray or kVolume. Examples of Pure Objects include &#39;kStorageArray&#39; and &#39;kVolume&#39;. &#39;kStorageArray&#39; indicates that entire pure storage array is being protected. &#39;kVolume&#39; indicates that volume within the array is being protected.</value>
+        [DataMember(Name="type", EmitDefaultValue=true)]
         public TypeEnum? Type { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="PureProtectionSource" /> class.
         /// </summary>
-        /// <param name="name">Specifies a human readable name of the Protection Source..</param>
-        /// <param name="storageArray">Specifies a Pure Storage Array information. This is set only when the type is kStorageArray..</param>
-        /// <param name="type">Specifies the type of managed Object in a pure Protection Source like a kStorageArray or kVolume. Examples of Pure Objects include &#39;kStorageArray&#39; and &#39;kVolume&#39;..</param>
-        /// <param name="volume">Specifies a Pure Volume information within a storage array. This is set only when the type is kVolume..</param>
+        /// <param name="name">Specifies a unique name of the Protection Source.</param>
+        /// <param name="storageArray">storageArray.</param>
+        /// <param name="type">Specifies the type of managed Object in a pure Protection Source like a kStorageArray or kVolume. Examples of Pure Objects include &#39;kStorageArray&#39; and &#39;kVolume&#39;. &#39;kStorageArray&#39; indicates that entire pure storage array is being protected. &#39;kVolume&#39; indicates that volume within the array is being protected..</param>
+        /// <param name="volume">volume.</param>
         public PureProtectionSource(string name = default(string), PureStorageArray storageArray = default(PureStorageArray), TypeEnum? type = default(TypeEnum?), PureVolume volume = default(PureVolume))
         {
+            this.Name = name;
+            this.Type = type;
             this.Name = name;
             this.StorageArray = storageArray;
             this.Type = type;
@@ -66,24 +65,21 @@ namespace Cohesity.Models
         }
         
         /// <summary>
-        /// Specifies a human readable name of the Protection Source.
+        /// Specifies a unique name of the Protection Source
         /// </summary>
-        /// <value>Specifies a human readable name of the Protection Source.</value>
-        [DataMember(Name="name", EmitDefaultValue=false)]
+        /// <value>Specifies a unique name of the Protection Source</value>
+        [DataMember(Name="name", EmitDefaultValue=true)]
         public string Name { get; set; }
 
         /// <summary>
-        /// Specifies a Pure Storage Array information. This is set only when the type is kStorageArray.
+        /// Gets or Sets StorageArray
         /// </summary>
-        /// <value>Specifies a Pure Storage Array information. This is set only when the type is kStorageArray.</value>
         [DataMember(Name="storageArray", EmitDefaultValue=false)]
         public PureStorageArray StorageArray { get; set; }
 
-
         /// <summary>
-        /// Specifies a Pure Volume information within a storage array. This is set only when the type is kVolume.
+        /// Gets or Sets Volume
         /// </summary>
-        /// <value>Specifies a Pure Volume information within a storage array. This is set only when the type is kVolume.</value>
         [DataMember(Name="volume", EmitDefaultValue=false)]
         public PureVolume Volume { get; set; }
 
@@ -93,7 +89,14 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class PureProtectionSource {\n");
+            sb.Append("  Name: ").Append(Name).Append("\n");
+            sb.Append("  StorageArray: ").Append(StorageArray).Append("\n");
+            sb.Append("  Type: ").Append(Type).Append("\n");
+            sb.Append("  Volume: ").Append(Volume).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -138,8 +141,7 @@ namespace Cohesity.Models
                 ) && 
                 (
                     this.Type == input.Type ||
-                    (this.Type != null &&
-                    this.Type.Equals(input.Type))
+                    this.Type.Equals(input.Type)
                 ) && 
                 (
                     this.Volume == input.Volume ||
@@ -161,16 +163,13 @@ namespace Cohesity.Models
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
                 if (this.StorageArray != null)
                     hashCode = hashCode * 59 + this.StorageArray.GetHashCode();
-                if (this.Type != null)
-                    hashCode = hashCode * 59 + this.Type.GetHashCode();
+                hashCode = hashCode * 59 + this.Type.GetHashCode();
                 if (this.Volume != null)
                     hashCode = hashCode * 59 + this.Volume.GetHashCode();
                 return hashCode;
             }
         }
 
-        
     }
 
 }
-

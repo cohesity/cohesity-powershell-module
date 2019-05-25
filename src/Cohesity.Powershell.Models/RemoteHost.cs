@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies the settings required to connect to a remote host.
@@ -24,39 +21,53 @@ namespace Cohesity.Models
     public partial class RemoteHost :  IEquatable<RemoteHost>
     {
         /// <summary>
-        /// Specifies the OS type of the remote host that will run the script. Currently only &#39;kLinux&#39; is supported. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system.
+        /// Specifies the OS type of the remote host that will run the script. Currently only &#39;kLinux&#39; is supported. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system.
         /// </summary>
-        /// <value>Specifies the OS type of the remote host that will run the script. Currently only &#39;kLinux&#39; is supported. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system.</value>
+        /// <value>Specifies the OS type of the remote host that will run the script. Currently only &#39;kLinux&#39; is supported. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum TypeEnum
         {
-            
             /// <summary>
             /// Enum KLinux for value: kLinux
             /// </summary>
             [EnumMember(Value = "kLinux")]
             KLinux = 1,
-            
+
             /// <summary>
             /// Enum KWindows for value: kWindows
             /// </summary>
             [EnumMember(Value = "kWindows")]
-            KWindows = 2
+            KWindows = 2,
+
+            /// <summary>
+            /// Enum KAix for value: kAix
+            /// </summary>
+            [EnumMember(Value = "kAix")]
+            KAix = 3,
+
+            /// <summary>
+            /// Enum KSolaris for value: kSolaris
+            /// </summary>
+            [EnumMember(Value = "kSolaris")]
+            KSolaris = 4
+
         }
 
         /// <summary>
-        /// Specifies the OS type of the remote host that will run the script. Currently only &#39;kLinux&#39; is supported. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system.
+        /// Specifies the OS type of the remote host that will run the script. Currently only &#39;kLinux&#39; is supported. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system.
         /// </summary>
-        /// <value>Specifies the OS type of the remote host that will run the script. Currently only &#39;kLinux&#39; is supported. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system.</value>
-        [DataMember(Name="type", EmitDefaultValue=false)]
+        /// <value>Specifies the OS type of the remote host that will run the script. Currently only &#39;kLinux&#39; is supported. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system.</value>
+        [DataMember(Name="type", EmitDefaultValue=true)]
         public TypeEnum? Type { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="RemoteHost" /> class.
         /// </summary>
         /// <param name="address">Specifies the address (IP, hostname or FQDN) of the remote host that will run the script..</param>
-        /// <param name="type">Specifies the OS type of the remote host that will run the script. Currently only &#39;kLinux&#39; is supported. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system..</param>
+        /// <param name="type">Specifies the OS type of the remote host that will run the script. Currently only &#39;kLinux&#39; is supported. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system..</param>
         public RemoteHost(string address = default(string), TypeEnum? type = default(TypeEnum?))
         {
+            this.Address = address;
+            this.Type = type;
             this.Address = address;
             this.Type = type;
         }
@@ -65,9 +76,8 @@ namespace Cohesity.Models
         /// Specifies the address (IP, hostname or FQDN) of the remote host that will run the script.
         /// </summary>
         /// <value>Specifies the address (IP, hostname or FQDN) of the remote host that will run the script.</value>
-        [DataMember(Name="address", EmitDefaultValue=false)]
+        [DataMember(Name="address", EmitDefaultValue=true)]
         public string Address { get; set; }
-
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -75,7 +85,12 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class RemoteHost {\n");
+            sb.Append("  Address: ").Append(Address).Append("\n");
+            sb.Append("  Type: ").Append(Type).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -115,8 +130,7 @@ namespace Cohesity.Models
                 ) && 
                 (
                     this.Type == input.Type ||
-                    (this.Type != null &&
-                    this.Type.Equals(input.Type))
+                    this.Type.Equals(input.Type)
                 );
         }
 
@@ -131,14 +145,11 @@ namespace Cohesity.Models
                 int hashCode = 41;
                 if (this.Address != null)
                     hashCode = hashCode * 59 + this.Address.GetHashCode();
-                if (this.Type != null)
-                    hashCode = hashCode * 59 + this.Type.GetHashCode();
+                hashCode = hashCode * 59 + this.Type.GetHashCode();
                 return hashCode;
             }
         }
 
-        
     }
 
 }
-

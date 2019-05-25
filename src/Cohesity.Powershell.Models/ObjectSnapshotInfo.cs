@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies information about an object that has been backed up.
@@ -29,16 +26,25 @@ namespace Cohesity.Models
         /// <param name="clusterPartitionId">Specifies the Cohesity Cluster partition id where this object is stored..</param>
         /// <param name="jobId">Specifies the id for the Protection Job that is currently associated with the object. If the object was backed up on current Cohesity Cluster, this field contains the id for the Job that captured this backup object. If the object was backed up on a Primary Cluster and replicated to this Cohesity Cluster, a new Inactive Job is created, the object is now associated with new Inactive Job, and this field contains the id of the new Inactive Job..</param>
         /// <param name="jobName">Specifies the name of the Protection Job that captured the backup..</param>
-        /// <param name="jobUid">jobUid.</param>
+        /// <param name="jobUid">Specifies the globally unique id of the Protection Job that backed up this object. This id is unique across Cohesity Clusters. Even if this object is replicated to a Remote Cohesity Cluster and the object is associated with a new Job, the value specified in this field does not change..</param>
         /// <param name="objectName">Specifies the primary name of the object..</param>
         /// <param name="osType">Specifies the inferred OS type..</param>
-        /// <param name="registeredSource">Specifies the id of the original root Protection Source tree (such as a vCenter Server) that was accessed by the Protection Job to capture a backup of this object..</param>
-        /// <param name="snapshottedSource">Specifies the Protection Source that represents the original object being backed up. When a root Protection Source is registered, it creates a tree of source Protection Source objects. This field defines the specific Protection Source leaf object (such as a VM) that was backed up..</param>
-        /// <param name="versions">Specifies all snapshot versions of this object. Each time a Job Run of a Job executes, it may create a new snapshot version of an object. This array stores the different snapshots versions of the object..</param>
+        /// <param name="registeredSource">registeredSource.</param>
+        /// <param name="snapshottedSource">snapshottedSource.</param>
+        /// <param name="versions">Array of Snapshots.  Specifies all snapshot versions of this object. Each time a Job Run of a Job executes, it may create a new snapshot version of an object. This array stores the different snapshots versions of the object..</param>
         /// <param name="viewBoxId">Specifies the id of the Domain (View Box) where this object is stored..</param>
         /// <param name="viewName">Specifies the View name where this object is stored..</param>
-        public ObjectSnapshotInfo(long? clusterPartitionId = default(long?), long? jobId = default(long?), string jobName = default(string), UniqueGlobalId3 jobUid = default(UniqueGlobalId3), string objectName = default(string), string osType = default(string), ProtectionSource registeredSource = default(ProtectionSource), ProtectionSource snapshottedSource = default(ProtectionSource), List<SnapshotVersion> versions = default(List<SnapshotVersion>), long? viewBoxId = default(long?), string viewName = default(string))
+        public ObjectSnapshotInfo(long? clusterPartitionId = default(long?), long? jobId = default(long?), string jobName = default(string), UniversalId jobUid = default(UniversalId), string objectName = default(string), string osType = default(string), ProtectionSource registeredSource = default(ProtectionSource), ProtectionSource snapshottedSource = default(ProtectionSource), List<SnapshotVersion> versions = default(List<SnapshotVersion>), long? viewBoxId = default(long?), string viewName = default(string))
         {
+            this.ClusterPartitionId = clusterPartitionId;
+            this.JobId = jobId;
+            this.JobName = jobName;
+            this.JobUid = jobUid;
+            this.ObjectName = objectName;
+            this.OsType = osType;
+            this.Versions = versions;
+            this.ViewBoxId = viewBoxId;
+            this.ViewName = viewName;
             this.ClusterPartitionId = clusterPartitionId;
             this.JobId = jobId;
             this.JobName = jobName;
@@ -56,76 +62,75 @@ namespace Cohesity.Models
         /// Specifies the Cohesity Cluster partition id where this object is stored.
         /// </summary>
         /// <value>Specifies the Cohesity Cluster partition id where this object is stored.</value>
-        [DataMember(Name="clusterPartitionId", EmitDefaultValue=false)]
+        [DataMember(Name="clusterPartitionId", EmitDefaultValue=true)]
         public long? ClusterPartitionId { get; set; }
 
         /// <summary>
         /// Specifies the id for the Protection Job that is currently associated with the object. If the object was backed up on current Cohesity Cluster, this field contains the id for the Job that captured this backup object. If the object was backed up on a Primary Cluster and replicated to this Cohesity Cluster, a new Inactive Job is created, the object is now associated with new Inactive Job, and this field contains the id of the new Inactive Job.
         /// </summary>
         /// <value>Specifies the id for the Protection Job that is currently associated with the object. If the object was backed up on current Cohesity Cluster, this field contains the id for the Job that captured this backup object. If the object was backed up on a Primary Cluster and replicated to this Cohesity Cluster, a new Inactive Job is created, the object is now associated with new Inactive Job, and this field contains the id of the new Inactive Job.</value>
-        [DataMember(Name="jobId", EmitDefaultValue=false)]
+        [DataMember(Name="jobId", EmitDefaultValue=true)]
         public long? JobId { get; set; }
 
         /// <summary>
         /// Specifies the name of the Protection Job that captured the backup.
         /// </summary>
         /// <value>Specifies the name of the Protection Job that captured the backup.</value>
-        [DataMember(Name="jobName", EmitDefaultValue=false)]
+        [DataMember(Name="jobName", EmitDefaultValue=true)]
         public string JobName { get; set; }
 
         /// <summary>
-        /// Gets or Sets JobUid
+        /// Specifies the globally unique id of the Protection Job that backed up this object. This id is unique across Cohesity Clusters. Even if this object is replicated to a Remote Cohesity Cluster and the object is associated with a new Job, the value specified in this field does not change.
         /// </summary>
-        [DataMember(Name="jobUid", EmitDefaultValue=false)]
-        public UniqueGlobalId3 JobUid { get; set; }
+        /// <value>Specifies the globally unique id of the Protection Job that backed up this object. This id is unique across Cohesity Clusters. Even if this object is replicated to a Remote Cohesity Cluster and the object is associated with a new Job, the value specified in this field does not change.</value>
+        [DataMember(Name="jobUid", EmitDefaultValue=true)]
+        public UniversalId JobUid { get; set; }
 
         /// <summary>
         /// Specifies the primary name of the object.
         /// </summary>
         /// <value>Specifies the primary name of the object.</value>
-        [DataMember(Name="objectName", EmitDefaultValue=false)]
+        [DataMember(Name="objectName", EmitDefaultValue=true)]
         public string ObjectName { get; set; }
 
         /// <summary>
         /// Specifies the inferred OS type.
         /// </summary>
         /// <value>Specifies the inferred OS type.</value>
-        [DataMember(Name="osType", EmitDefaultValue=false)]
+        [DataMember(Name="osType", EmitDefaultValue=true)]
         public string OsType { get; set; }
 
         /// <summary>
-        /// Specifies the id of the original root Protection Source tree (such as a vCenter Server) that was accessed by the Protection Job to capture a backup of this object.
+        /// Gets or Sets RegisteredSource
         /// </summary>
-        /// <value>Specifies the id of the original root Protection Source tree (such as a vCenter Server) that was accessed by the Protection Job to capture a backup of this object.</value>
         [DataMember(Name="registeredSource", EmitDefaultValue=false)]
         public ProtectionSource RegisteredSource { get; set; }
 
         /// <summary>
-        /// Specifies the Protection Source that represents the original object being backed up. When a root Protection Source is registered, it creates a tree of source Protection Source objects. This field defines the specific Protection Source leaf object (such as a VM) that was backed up.
+        /// Gets or Sets SnapshottedSource
         /// </summary>
-        /// <value>Specifies the Protection Source that represents the original object being backed up. When a root Protection Source is registered, it creates a tree of source Protection Source objects. This field defines the specific Protection Source leaf object (such as a VM) that was backed up.</value>
         [DataMember(Name="snapshottedSource", EmitDefaultValue=false)]
         public ProtectionSource SnapshottedSource { get; set; }
 
         /// <summary>
-        /// Specifies all snapshot versions of this object. Each time a Job Run of a Job executes, it may create a new snapshot version of an object. This array stores the different snapshots versions of the object.
+        /// Array of Snapshots.  Specifies all snapshot versions of this object. Each time a Job Run of a Job executes, it may create a new snapshot version of an object. This array stores the different snapshots versions of the object.
         /// </summary>
-        /// <value>Specifies all snapshot versions of this object. Each time a Job Run of a Job executes, it may create a new snapshot version of an object. This array stores the different snapshots versions of the object.</value>
-        [DataMember(Name="versions", EmitDefaultValue=false)]
+        /// <value>Array of Snapshots.  Specifies all snapshot versions of this object. Each time a Job Run of a Job executes, it may create a new snapshot version of an object. This array stores the different snapshots versions of the object.</value>
+        [DataMember(Name="versions", EmitDefaultValue=true)]
         public List<SnapshotVersion> Versions { get; set; }
 
         /// <summary>
         /// Specifies the id of the Domain (View Box) where this object is stored.
         /// </summary>
         /// <value>Specifies the id of the Domain (View Box) where this object is stored.</value>
-        [DataMember(Name="viewBoxId", EmitDefaultValue=false)]
+        [DataMember(Name="viewBoxId", EmitDefaultValue=true)]
         public long? ViewBoxId { get; set; }
 
         /// <summary>
         /// Specifies the View name where this object is stored.
         /// </summary>
         /// <value>Specifies the View name where this object is stored.</value>
-        [DataMember(Name="viewName", EmitDefaultValue=false)]
+        [DataMember(Name="viewName", EmitDefaultValue=true)]
         public string ViewName { get; set; }
 
         /// <summary>
@@ -134,7 +139,21 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class ObjectSnapshotInfo {\n");
+            sb.Append("  ClusterPartitionId: ").Append(ClusterPartitionId).Append("\n");
+            sb.Append("  JobId: ").Append(JobId).Append("\n");
+            sb.Append("  JobName: ").Append(JobName).Append("\n");
+            sb.Append("  JobUid: ").Append(JobUid).Append("\n");
+            sb.Append("  ObjectName: ").Append(ObjectName).Append("\n");
+            sb.Append("  OsType: ").Append(OsType).Append("\n");
+            sb.Append("  RegisteredSource: ").Append(RegisteredSource).Append("\n");
+            sb.Append("  SnapshottedSource: ").Append(SnapshottedSource).Append("\n");
+            sb.Append("  Versions: ").Append(Versions).Append("\n");
+            sb.Append("  ViewBoxId: ").Append(ViewBoxId).Append("\n");
+            sb.Append("  ViewName: ").Append(ViewName).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -210,6 +229,7 @@ namespace Cohesity.Models
                 (
                     this.Versions == input.Versions ||
                     this.Versions != null &&
+                    input.Versions != null &&
                     this.Versions.SequenceEqual(input.Versions)
                 ) && 
                 (
@@ -259,8 +279,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

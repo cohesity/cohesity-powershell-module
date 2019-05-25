@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies the information about the snapshot that contains the file or folder. In addition, information about the file or folder is provided.
@@ -31,9 +28,14 @@ namespace Cohesity.Models
         /// <param name="hasRemoteCopy">If true, this snapshot is located on a Remote Cohesity Cluster..</param>
         /// <param name="modifiedTimeUsecs">Specifies the time when the file or folder was last modified. Specified as a Unix epoch Timestamp (in microseconds)..</param>
         /// <param name="sizeBytes">Specifies the size of the file or folder in bytes..</param>
-        /// <param name="snapshot">Specifies the snapshot that contains the specified file or folder..</param>
+        /// <param name="snapshot">snapshot.</param>
         public FileSnapshotInformation(bool? hasArchivalCopy = default(bool?), bool? hasLocalCopy = default(bool?), bool? hasRemoteCopy = default(bool?), long? modifiedTimeUsecs = default(long?), long? sizeBytes = default(long?), SnapshotAttempt snapshot = default(SnapshotAttempt))
         {
+            this.HasArchivalCopy = hasArchivalCopy;
+            this.HasLocalCopy = hasLocalCopy;
+            this.HasRemoteCopy = hasRemoteCopy;
+            this.ModifiedTimeUsecs = modifiedTimeUsecs;
+            this.SizeBytes = sizeBytes;
             this.HasArchivalCopy = hasArchivalCopy;
             this.HasLocalCopy = hasLocalCopy;
             this.HasRemoteCopy = hasRemoteCopy;
@@ -46,41 +48,40 @@ namespace Cohesity.Models
         /// If true, this snapshot is located on an archival target (such as a tape or AWS).
         /// </summary>
         /// <value>If true, this snapshot is located on an archival target (such as a tape or AWS).</value>
-        [DataMember(Name="hasArchivalCopy", EmitDefaultValue=false)]
+        [DataMember(Name="hasArchivalCopy", EmitDefaultValue=true)]
         public bool? HasArchivalCopy { get; set; }
 
         /// <summary>
         /// If true, this snapshot is located on a local Cohesity Cluster.
         /// </summary>
         /// <value>If true, this snapshot is located on a local Cohesity Cluster.</value>
-        [DataMember(Name="hasLocalCopy", EmitDefaultValue=false)]
+        [DataMember(Name="hasLocalCopy", EmitDefaultValue=true)]
         public bool? HasLocalCopy { get; set; }
 
         /// <summary>
         /// If true, this snapshot is located on a Remote Cohesity Cluster.
         /// </summary>
         /// <value>If true, this snapshot is located on a Remote Cohesity Cluster.</value>
-        [DataMember(Name="hasRemoteCopy", EmitDefaultValue=false)]
+        [DataMember(Name="hasRemoteCopy", EmitDefaultValue=true)]
         public bool? HasRemoteCopy { get; set; }
 
         /// <summary>
         /// Specifies the time when the file or folder was last modified. Specified as a Unix epoch Timestamp (in microseconds).
         /// </summary>
         /// <value>Specifies the time when the file or folder was last modified. Specified as a Unix epoch Timestamp (in microseconds).</value>
-        [DataMember(Name="modifiedTimeUsecs", EmitDefaultValue=false)]
+        [DataMember(Name="modifiedTimeUsecs", EmitDefaultValue=true)]
         public long? ModifiedTimeUsecs { get; set; }
 
         /// <summary>
         /// Specifies the size of the file or folder in bytes.
         /// </summary>
         /// <value>Specifies the size of the file or folder in bytes.</value>
-        [DataMember(Name="sizeBytes", EmitDefaultValue=false)]
+        [DataMember(Name="sizeBytes", EmitDefaultValue=true)]
         public long? SizeBytes { get; set; }
 
         /// <summary>
-        /// Specifies the snapshot that contains the specified file or folder.
+        /// Gets or Sets Snapshot
         /// </summary>
-        /// <value>Specifies the snapshot that contains the specified file or folder.</value>
         [DataMember(Name="snapshot", EmitDefaultValue=false)]
         public SnapshotAttempt Snapshot { get; set; }
 
@@ -90,7 +91,16 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class FileSnapshotInformation {\n");
+            sb.Append("  HasArchivalCopy: ").Append(HasArchivalCopy).Append("\n");
+            sb.Append("  HasLocalCopy: ").Append(HasLocalCopy).Append("\n");
+            sb.Append("  HasRemoteCopy: ").Append(HasRemoteCopy).Append("\n");
+            sb.Append("  ModifiedTimeUsecs: ").Append(ModifiedTimeUsecs).Append("\n");
+            sb.Append("  SizeBytes: ").Append(SizeBytes).Append("\n");
+            sb.Append("  Snapshot: ").Append(Snapshot).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -180,8 +190,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

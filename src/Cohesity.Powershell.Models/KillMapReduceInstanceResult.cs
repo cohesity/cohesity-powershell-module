@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// KillMapReduceInstanceResult
@@ -26,16 +23,15 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="KillMapReduceInstanceResult" /> class.
         /// </summary>
-        /// <param name="error">Status code of http rpc..</param>
+        /// <param name="error">error.</param>
         public KillMapReduceInstanceResult(ErrorProto error = default(ErrorProto))
         {
             this.Error = error;
         }
         
         /// <summary>
-        /// Status code of http rpc.
+        /// Gets or Sets Error
         /// </summary>
-        /// <value>Status code of http rpc.</value>
         [DataMember(Name="error", EmitDefaultValue=false)]
         public ErrorProto Error { get; set; }
 
@@ -45,7 +41,11 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class KillMapReduceInstanceResult {\n");
+            sb.Append("  Error: ").Append(Error).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -100,8 +100,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

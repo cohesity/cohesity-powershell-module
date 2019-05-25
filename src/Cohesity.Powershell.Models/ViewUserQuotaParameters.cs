@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies the params to create and edit a user quota policy in a view.
@@ -26,18 +23,18 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="ViewUserQuotaParameters" /> class.
         /// </summary>
-        /// <param name="userQuotaPolicy">The user quota policies that need to be updated..</param>
+        /// <param name="userQuotaPolicy">userQuotaPolicy.</param>
         /// <param name="viewName">View name of input view..</param>
         public ViewUserQuotaParameters(UserQuota userQuotaPolicy = default(UserQuota), string viewName = default(string))
         {
+            this.ViewName = viewName;
             this.UserQuotaPolicy = userQuotaPolicy;
             this.ViewName = viewName;
         }
         
         /// <summary>
-        /// The user quota policies that need to be updated.
+        /// Gets or Sets UserQuotaPolicy
         /// </summary>
-        /// <value>The user quota policies that need to be updated.</value>
         [DataMember(Name="userQuotaPolicy", EmitDefaultValue=false)]
         public UserQuota UserQuotaPolicy { get; set; }
 
@@ -45,7 +42,7 @@ namespace Cohesity.Models
         /// View name of input view.
         /// </summary>
         /// <value>View name of input view.</value>
-        [DataMember(Name="viewName", EmitDefaultValue=false)]
+        [DataMember(Name="viewName", EmitDefaultValue=true)]
         public string ViewName { get; set; }
 
         /// <summary>
@@ -54,7 +51,12 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class ViewUserQuotaParameters {\n");
+            sb.Append("  UserQuotaPolicy: ").Append(UserQuotaPolicy).Append("\n");
+            sb.Append("  ViewName: ").Append(ViewName).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -116,8 +118,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

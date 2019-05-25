@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// NewS3SecretAccessKey
@@ -26,16 +23,18 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="NewS3SecretAccessKey" /> class.
         /// </summary>
-        /// <param name="newKey">newKey.</param>
+        /// <param name="newKey">Specifies the new S3 Secret Access key..</param>
         public NewS3SecretAccessKey(string newKey = default(string))
         {
+            this.NewKey = newKey;
             this.NewKey = newKey;
         }
         
         /// <summary>
-        /// Gets or Sets NewKey
+        /// Specifies the new S3 Secret Access key.
         /// </summary>
-        [DataMember(Name="newKey", EmitDefaultValue=false)]
+        /// <value>Specifies the new S3 Secret Access key.</value>
+        [DataMember(Name="newKey", EmitDefaultValue=true)]
         public string NewKey { get; set; }
 
         /// <summary>
@@ -44,7 +43,11 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class NewS3SecretAccessKey {\n");
+            sb.Append("  NewKey: ").Append(NewKey).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -99,8 +102,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

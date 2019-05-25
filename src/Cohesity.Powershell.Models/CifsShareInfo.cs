@@ -1,15 +1,18 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
+using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies information about a CIFS share of a NetApp volume.
@@ -20,7 +23,7 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="CifsShareInfo" /> class.
         /// </summary>
-        /// <param name="acls">Specifies the ACLs for this share..</param>
+        /// <param name="acls">Array of Access Control Lists.  Specifies the ACLs for this share..</param>
         /// <param name="name">Specifies the name of the CIFS share. This can be different from the volume name that this share belongs to. A single volume can export multiple CIFS shares, each with unique settings such as permissions..</param>
         /// <param name="path">Specifies the path of this share under the Vserver&#39;s root..</param>
         /// <param name="serverName">Specifies the CIFS server name (such as &#39;NETAPP-01&#39;) specified by the system administrator. This name is searchable within the active directory domain..</param>
@@ -30,34 +33,38 @@ namespace Cohesity.Models
             this.Name = name;
             this.Path = path;
             this.ServerName = serverName;
+            this.Acls = acls;
+            this.Name = name;
+            this.Path = path;
+            this.ServerName = serverName;
         }
         
         /// <summary>
-        /// Specifies the ACLs for this share.
+        /// Array of Access Control Lists.  Specifies the ACLs for this share.
         /// </summary>
-        /// <value>Specifies the ACLs for this share.</value>
-        [DataMember(Name="acls", EmitDefaultValue=false)]
+        /// <value>Array of Access Control Lists.  Specifies the ACLs for this share.</value>
+        [DataMember(Name="acls", EmitDefaultValue=true)]
         public List<string> Acls { get; set; }
 
         /// <summary>
         /// Specifies the name of the CIFS share. This can be different from the volume name that this share belongs to. A single volume can export multiple CIFS shares, each with unique settings such as permissions.
         /// </summary>
         /// <value>Specifies the name of the CIFS share. This can be different from the volume name that this share belongs to. A single volume can export multiple CIFS shares, each with unique settings such as permissions.</value>
-        [DataMember(Name="name", EmitDefaultValue=false)]
+        [DataMember(Name="name", EmitDefaultValue=true)]
         public string Name { get; set; }
 
         /// <summary>
         /// Specifies the path of this share under the Vserver&#39;s root.
         /// </summary>
         /// <value>Specifies the path of this share under the Vserver&#39;s root.</value>
-        [DataMember(Name="path", EmitDefaultValue=false)]
+        [DataMember(Name="path", EmitDefaultValue=true)]
         public string Path { get; set; }
 
         /// <summary>
         /// Specifies the CIFS server name (such as &#39;NETAPP-01&#39;) specified by the system administrator. This name is searchable within the active directory domain.
         /// </summary>
         /// <value>Specifies the CIFS server name (such as &#39;NETAPP-01&#39;) specified by the system administrator. This name is searchable within the active directory domain.</value>
-        [DataMember(Name="serverName", EmitDefaultValue=false)]
+        [DataMember(Name="serverName", EmitDefaultValue=true)]
         public string ServerName { get; set; }
 
         /// <summary>
@@ -66,7 +73,14 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class CifsShareInfo {\n");
+            sb.Append("  Acls: ").Append(Acls).Append("\n");
+            sb.Append("  Name: ").Append(Name).Append("\n");
+            sb.Append("  Path: ").Append(Path).Append("\n");
+            sb.Append("  ServerName: ").Append(ServerName).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -102,6 +116,7 @@ namespace Cohesity.Models
                 (
                     this.Acls == input.Acls ||
                     this.Acls != null &&
+                    input.Acls != null &&
                     this.Acls.SequenceEqual(input.Acls)
                 ) && 
                 (
@@ -142,8 +157,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

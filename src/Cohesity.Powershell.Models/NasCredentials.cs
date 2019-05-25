@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies the server credentials to connect to a NetApp server.
@@ -30,25 +27,25 @@ namespace Cohesity.Models
         [JsonConverter(typeof(StringEnumConverter))]
         public enum ShareTypeEnum
         {
-            
             /// <summary>
             /// Enum KNFS for value: kNFS
             /// </summary>
             [EnumMember(Value = "kNFS")]
             KNFS = 1,
-            
+
             /// <summary>
             /// Enum KCIFS for value: kCIFS
             /// </summary>
             [EnumMember(Value = "kCIFS")]
             KCIFS = 2
+
         }
 
         /// <summary>
         /// Specifies the sharing protocol type used to mount the file system. Currently, only NFS is supported. &#39;kNFS&#39; indicates use the NFS protocol to mount the file system. &#39;kCIFS&#39; indicates use the CIFS protocol to mount the file system.
         /// </summary>
         /// <value>Specifies the sharing protocol type used to mount the file system. Currently, only NFS is supported. &#39;kNFS&#39; indicates use the NFS protocol to mount the file system. &#39;kCIFS&#39; indicates use the CIFS protocol to mount the file system.</value>
-        [DataMember(Name="shareType", EmitDefaultValue=false)]
+        [DataMember(Name="shareType", EmitDefaultValue=true)]
         public ShareTypeEnum? ShareType { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="NasCredentials" /> class.
@@ -65,35 +62,39 @@ namespace Cohesity.Models
             this.Password = password;
             this.ShareType = shareType;
             this.Username = username;
+            this.Host = host;
+            this.MountPath = mountPath;
+            this.Password = password;
+            this.ShareType = shareType;
+            this.Username = username;
         }
         
         /// <summary>
         /// Specifies the hostname or IP address of the NAS server.
         /// </summary>
         /// <value>Specifies the hostname or IP address of the NAS server.</value>
-        [DataMember(Name="host", EmitDefaultValue=false)]
+        [DataMember(Name="host", EmitDefaultValue=true)]
         public string Host { get; set; }
 
         /// <summary>
         /// Specifies the mount path to the NAS server.
         /// </summary>
         /// <value>Specifies the mount path to the NAS server.</value>
-        [DataMember(Name="mountPath", EmitDefaultValue=false)]
+        [DataMember(Name="mountPath", EmitDefaultValue=true)]
         public string MountPath { get; set; }
 
         /// <summary>
         /// If using the CIFS protocol and a Username was specified, specify the password for the username.
         /// </summary>
         /// <value>If using the CIFS protocol and a Username was specified, specify the password for the username.</value>
-        [DataMember(Name="password", EmitDefaultValue=false)]
+        [DataMember(Name="password", EmitDefaultValue=true)]
         public string Password { get; set; }
-
 
         /// <summary>
         /// If using the CIFS protocol, you can optional specify a username to use when mounting.
         /// </summary>
         /// <value>If using the CIFS protocol, you can optional specify a username to use when mounting.</value>
-        [DataMember(Name="username", EmitDefaultValue=false)]
+        [DataMember(Name="username", EmitDefaultValue=true)]
         public string Username { get; set; }
 
         /// <summary>
@@ -102,7 +103,15 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class NasCredentials {\n");
+            sb.Append("  Host: ").Append(Host).Append("\n");
+            sb.Append("  MountPath: ").Append(MountPath).Append("\n");
+            sb.Append("  Password: ").Append(Password).Append("\n");
+            sb.Append("  ShareType: ").Append(ShareType).Append("\n");
+            sb.Append("  Username: ").Append(Username).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -152,8 +161,7 @@ namespace Cohesity.Models
                 ) && 
                 (
                     this.ShareType == input.ShareType ||
-                    (this.ShareType != null &&
-                    this.ShareType.Equals(input.ShareType))
+                    this.ShareType.Equals(input.ShareType)
                 ) && 
                 (
                     this.Username == input.Username ||
@@ -177,16 +185,13 @@ namespace Cohesity.Models
                     hashCode = hashCode * 59 + this.MountPath.GetHashCode();
                 if (this.Password != null)
                     hashCode = hashCode * 59 + this.Password.GetHashCode();
-                if (this.ShareType != null)
-                    hashCode = hashCode * 59 + this.ShareType.GetHashCode();
+                hashCode = hashCode * 59 + this.ShareType.GetHashCode();
                 if (this.Username != null)
                     hashCode = hashCode * 59 + this.Username.GetHashCode();
                 return hashCode;
             }
         }
 
-        
     }
 
 }
-

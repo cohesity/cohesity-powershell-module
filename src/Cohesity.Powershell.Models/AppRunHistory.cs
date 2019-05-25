@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// AppRunHistory is the struct containing the run information of the application instances. An application instance can be run only once. Each run of the application creates a new application instance.
@@ -26,18 +23,18 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="AppRunHistory" /> class.
         /// </summary>
-        /// <param name="appInfo">AppInfo is the information about the map reduce application..</param>
+        /// <param name="appInfo">appInfo.</param>
         /// <param name="mrInstances">InstancesWrapper is the slice containing the information about the map reduce application instances..</param>
         public AppRunHistory(MapReduceInfo appInfo = default(MapReduceInfo), List<MapReduceInstanceWrapper> mrInstances = default(List<MapReduceInstanceWrapper>))
         {
+            this.MrInstances = mrInstances;
             this.AppInfo = appInfo;
             this.MrInstances = mrInstances;
         }
         
         /// <summary>
-        /// AppInfo is the information about the map reduce application.
+        /// Gets or Sets AppInfo
         /// </summary>
-        /// <value>AppInfo is the information about the map reduce application.</value>
         [DataMember(Name="appInfo", EmitDefaultValue=false)]
         public MapReduceInfo AppInfo { get; set; }
 
@@ -45,7 +42,7 @@ namespace Cohesity.Models
         /// InstancesWrapper is the slice containing the information about the map reduce application instances.
         /// </summary>
         /// <value>InstancesWrapper is the slice containing the information about the map reduce application instances.</value>
-        [DataMember(Name="mrInstances", EmitDefaultValue=false)]
+        [DataMember(Name="mrInstances", EmitDefaultValue=true)]
         public List<MapReduceInstanceWrapper> MrInstances { get; set; }
 
         /// <summary>
@@ -54,7 +51,12 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class AppRunHistory {\n");
+            sb.Append("  AppInfo: ").Append(AppInfo).Append("\n");
+            sb.Append("  MrInstances: ").Append(MrInstances).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -95,6 +97,7 @@ namespace Cohesity.Models
                 (
                     this.MrInstances == input.MrInstances ||
                     this.MrInstances != null &&
+                    input.MrInstances != null &&
                     this.MrInstances.SequenceEqual(input.MrInstances)
                 );
         }
@@ -116,8 +119,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

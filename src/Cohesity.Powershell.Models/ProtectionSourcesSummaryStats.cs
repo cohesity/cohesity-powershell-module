@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies Job Run (Snapshot) summary statistics about the specified leaf Protection Source Object (such as a VM).
@@ -30,76 +27,82 @@ namespace Cohesity.Models
         [JsonConverter(typeof(StringEnumConverter))]
         public enum LastRunStatusEnum
         {
-            
             /// <summary>
             /// Enum KSuccess for value: kSuccess
             /// </summary>
             [EnumMember(Value = "kSuccess")]
             KSuccess = 1,
-            
+
             /// <summary>
             /// Enum KRunning for value: kRunning
             /// </summary>
             [EnumMember(Value = "kRunning")]
             KRunning = 2,
-            
+
             /// <summary>
             /// Enum KWarning for value: kWarning
             /// </summary>
             [EnumMember(Value = "kWarning")]
             KWarning = 3,
-            
+
             /// <summary>
             /// Enum KCancelled for value: kCancelled
             /// </summary>
             [EnumMember(Value = "kCancelled")]
             KCancelled = 4,
-            
+
             /// <summary>
             /// Enum KError for value: kError
             /// </summary>
             [EnumMember(Value = "kError")]
             KError = 5
+
         }
 
         /// <summary>
         /// Specifies the Job Run status of the last Job Run protecting this Protection Source Object. &#39;kSuccess&#39; indicates that the Job Run was successful. &#39;kRunning&#39; indicates that the Job Run is currently running. &#39;kWarning&#39; indicates that the Job Run was successful but warnings were issued. &#39;kCancelled&#39; indicates that the Job Run was canceled. &#39;kError&#39; indicates the Job Run encountered an error and did not run to completion.
         /// </summary>
         /// <value>Specifies the Job Run status of the last Job Run protecting this Protection Source Object. &#39;kSuccess&#39; indicates that the Job Run was successful. &#39;kRunning&#39; indicates that the Job Run is currently running. &#39;kWarning&#39; indicates that the Job Run was successful but warnings were issued. &#39;kCancelled&#39; indicates that the Job Run was canceled. &#39;kError&#39; indicates the Job Run encountered an error and did not run to completion.</value>
-        [DataMember(Name="lastRunStatus", EmitDefaultValue=false)]
+        [DataMember(Name="lastRunStatus", EmitDefaultValue=true)]
         public LastRunStatusEnum? LastRunStatus { get; set; }
         /// <summary>
-        /// Specifies the Job Run type of the last Job Run protecting this Protection Source Object. &#39;kRegular&#39; indicates an incremental (CBT) backup. Incremental backups utilizing CBT (if supported) are captured of the target protection objects. The first run of a kRegular schedule captures all the blocks. &#39;kFull&#39; indicates a full (no CBT) backup. A complete backup (all blocks) of the target protection objects are always captured and Change Block Tracking (CBT) is not utilized. &#39;kLog&#39; indicates a Database Log backup. Capture the database transaction logs to allow rolling back to a specific point in time.
+        /// Specifies the Job Run type of the last Job Run protecting this Protection Source Object. &#39;kRegular&#39; indicates an incremental (CBT) backup. Incremental backups utilizing CBT (if supported) are captured of the target protection objects. The first run of a kRegular schedule captures all the blocks. &#39;kFull&#39; indicates a full (no CBT) backup. A complete backup (all blocks) of the target protection objects are always captured and Change Block Tracking (CBT) is not utilized. &#39;kLog&#39; indicates a Database Log backup. Capture the database transaction logs to allow rolling back to a specific point in time. &#39;kSystem&#39; indicates system volume backup. It produces an image for bare metal recovery.
         /// </summary>
-        /// <value>Specifies the Job Run type of the last Job Run protecting this Protection Source Object. &#39;kRegular&#39; indicates an incremental (CBT) backup. Incremental backups utilizing CBT (if supported) are captured of the target protection objects. The first run of a kRegular schedule captures all the blocks. &#39;kFull&#39; indicates a full (no CBT) backup. A complete backup (all blocks) of the target protection objects are always captured and Change Block Tracking (CBT) is not utilized. &#39;kLog&#39; indicates a Database Log backup. Capture the database transaction logs to allow rolling back to a specific point in time.</value>
+        /// <value>Specifies the Job Run type of the last Job Run protecting this Protection Source Object. &#39;kRegular&#39; indicates an incremental (CBT) backup. Incremental backups utilizing CBT (if supported) are captured of the target protection objects. The first run of a kRegular schedule captures all the blocks. &#39;kFull&#39; indicates a full (no CBT) backup. A complete backup (all blocks) of the target protection objects are always captured and Change Block Tracking (CBT) is not utilized. &#39;kLog&#39; indicates a Database Log backup. Capture the database transaction logs to allow rolling back to a specific point in time. &#39;kSystem&#39; indicates system volume backup. It produces an image for bare metal recovery.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum LastRunTypeEnum
         {
-            
             /// <summary>
             /// Enum KRegular for value: kRegular
             /// </summary>
             [EnumMember(Value = "kRegular")]
             KRegular = 1,
-            
+
             /// <summary>
             /// Enum KFull for value: kFull
             /// </summary>
             [EnumMember(Value = "kFull")]
             KFull = 2,
-            
+
             /// <summary>
             /// Enum KLog for value: kLog
             /// </summary>
             [EnumMember(Value = "kLog")]
-            KLog = 3
+            KLog = 3,
+
+            /// <summary>
+            /// Enum KSystem for value: kSystem
+            /// </summary>
+            [EnumMember(Value = "kSystem")]
+            KSystem = 4
+
         }
 
         /// <summary>
-        /// Specifies the Job Run type of the last Job Run protecting this Protection Source Object. &#39;kRegular&#39; indicates an incremental (CBT) backup. Incremental backups utilizing CBT (if supported) are captured of the target protection objects. The first run of a kRegular schedule captures all the blocks. &#39;kFull&#39; indicates a full (no CBT) backup. A complete backup (all blocks) of the target protection objects are always captured and Change Block Tracking (CBT) is not utilized. &#39;kLog&#39; indicates a Database Log backup. Capture the database transaction logs to allow rolling back to a specific point in time.
+        /// Specifies the Job Run type of the last Job Run protecting this Protection Source Object. &#39;kRegular&#39; indicates an incremental (CBT) backup. Incremental backups utilizing CBT (if supported) are captured of the target protection objects. The first run of a kRegular schedule captures all the blocks. &#39;kFull&#39; indicates a full (no CBT) backup. A complete backup (all blocks) of the target protection objects are always captured and Change Block Tracking (CBT) is not utilized. &#39;kLog&#39; indicates a Database Log backup. Capture the database transaction logs to allow rolling back to a specific point in time. &#39;kSystem&#39; indicates system volume backup. It produces an image for bare metal recovery.
         /// </summary>
-        /// <value>Specifies the Job Run type of the last Job Run protecting this Protection Source Object. &#39;kRegular&#39; indicates an incremental (CBT) backup. Incremental backups utilizing CBT (if supported) are captured of the target protection objects. The first run of a kRegular schedule captures all the blocks. &#39;kFull&#39; indicates a full (no CBT) backup. A complete backup (all blocks) of the target protection objects are always captured and Change Block Tracking (CBT) is not utilized. &#39;kLog&#39; indicates a Database Log backup. Capture the database transaction logs to allow rolling back to a specific point in time.</value>
-        [DataMember(Name="lastRunType", EmitDefaultValue=false)]
+        /// <value>Specifies the Job Run type of the last Job Run protecting this Protection Source Object. &#39;kRegular&#39; indicates an incremental (CBT) backup. Incremental backups utilizing CBT (if supported) are captured of the target protection objects. The first run of a kRegular schedule captures all the blocks. &#39;kFull&#39; indicates a full (no CBT) backup. A complete backup (all blocks) of the target protection objects are always captured and Change Block Tracking (CBT) is not utilized. &#39;kLog&#39; indicates a Database Log backup. Capture the database transaction logs to allow rolling back to a specific point in time. &#39;kSystem&#39; indicates system volume backup. It produces an image for bare metal recovery.</value>
+        [DataMember(Name="lastRunType", EmitDefaultValue=true)]
         public LastRunTypeEnum? LastRunType { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="ProtectionSourcesSummaryStats" /> class.
@@ -111,7 +114,7 @@ namespace Cohesity.Models
         /// <param name="lastRunErrorMsg">Specifies the error message associated with last run, if the last run has failed..</param>
         /// <param name="lastRunStartTimeUsecs">Specifies the start time of the last Job Run protecting this Protection Source Object. The time is specified as a Unix epoch Timestamp (in microseconds)..</param>
         /// <param name="lastRunStatus">Specifies the Job Run status of the last Job Run protecting this Protection Source Object. &#39;kSuccess&#39; indicates that the Job Run was successful. &#39;kRunning&#39; indicates that the Job Run is currently running. &#39;kWarning&#39; indicates that the Job Run was successful but warnings were issued. &#39;kCancelled&#39; indicates that the Job Run was canceled. &#39;kError&#39; indicates the Job Run encountered an error and did not run to completion..</param>
-        /// <param name="lastRunType">Specifies the Job Run type of the last Job Run protecting this Protection Source Object. &#39;kRegular&#39; indicates an incremental (CBT) backup. Incremental backups utilizing CBT (if supported) are captured of the target protection objects. The first run of a kRegular schedule captures all the blocks. &#39;kFull&#39; indicates a full (no CBT) backup. A complete backup (all blocks) of the target protection objects are always captured and Change Block Tracking (CBT) is not utilized. &#39;kLog&#39; indicates a Database Log backup. Capture the database transaction logs to allow rolling back to a specific point in time..</param>
+        /// <param name="lastRunType">Specifies the Job Run type of the last Job Run protecting this Protection Source Object. &#39;kRegular&#39; indicates an incremental (CBT) backup. Incremental backups utilizing CBT (if supported) are captured of the target protection objects. The first run of a kRegular schedule captures all the blocks. &#39;kFull&#39; indicates a full (no CBT) backup. A complete backup (all blocks) of the target protection objects are always captured and Change Block Tracking (CBT) is not utilized. &#39;kLog&#39; indicates a Database Log backup. Capture the database transaction logs to allow rolling back to a specific point in time. &#39;kSystem&#39; indicates system volume backup. It produces an image for bare metal recovery..</param>
         /// <param name="lastSuccessfulRunTimeUsecs">Specifies the start time of the last successful Job Run protecting this Protection Source Object. The time is specified as a Unix epoch Timestamp (in microseconds)..</param>
         /// <param name="numDataReadBytes">Specifies the total number of bytes read while protecting this Protection Source Object..</param>
         /// <param name="numErrors">Specifies the total number of errors reported during Job Runs of this Protection Source Object..</param>
@@ -119,9 +122,10 @@ namespace Cohesity.Models
         /// <param name="numSnapshots">Specifies the total number of Snapshots that are backing up this Protection Source Object..</param>
         /// <param name="numSuccessRuns">Specifies the total number of successful Job Runs protecting this Protection Source Object..</param>
         /// <param name="numWarnings">Specifies the total number of warnings reported during Job Runs of this Protection Source Object..</param>
-        /// <param name="protectionSource">protectionSource.</param>
+        /// <param name="protectionSource">Specifies the leaf Protection Source Object (such as VM). Snapshot summary statistics are reported for this Protection Source Object..</param>
         /// <param name="registeredSource">Specifies the name of the Registered Source that is the top level parent of the specified Protection Source Object..</param>
-        public ProtectionSourcesSummaryStats(long? firstFailedRunTimeUsecs = default(long?), long? firstSuccessfulRunTimeUsecs = default(long?), long? lastFailedRunTimeUsecs = default(long?), long? lastRunEndTimeUsecs = default(long?), string lastRunErrorMsg = default(string), long? lastRunStartTimeUsecs = default(long?), LastRunStatusEnum? lastRunStatus = default(LastRunStatusEnum?), LastRunTypeEnum? lastRunType = default(LastRunTypeEnum?), long? lastSuccessfulRunTimeUsecs = default(long?), long? numDataReadBytes = default(long?), int? numErrors = default(int?), long? numLogicalBytesProtected = default(long?), int? numSnapshots = default(int?), int? numSuccessRuns = default(int?), int? numWarnings = default(int?), ProtectionSource3 protectionSource = default(ProtectionSource3), string registeredSource = default(string))
+        /// <param name="tenants">Specifies basic information about tenants having access to the protection job..</param>
+        public ProtectionSourcesSummaryStats(long? firstFailedRunTimeUsecs = default(long?), long? firstSuccessfulRunTimeUsecs = default(long?), long? lastFailedRunTimeUsecs = default(long?), long? lastRunEndTimeUsecs = default(long?), string lastRunErrorMsg = default(string), long? lastRunStartTimeUsecs = default(long?), LastRunStatusEnum? lastRunStatus = default(LastRunStatusEnum?), LastRunTypeEnum? lastRunType = default(LastRunTypeEnum?), long? lastSuccessfulRunTimeUsecs = default(long?), long? numDataReadBytes = default(long?), int? numErrors = default(int?), long? numLogicalBytesProtected = default(long?), int? numSnapshots = default(int?), int? numSuccessRuns = default(int?), int? numWarnings = default(int?), ProtectionSource protectionSource = default(ProtectionSource), string registeredSource = default(string), List<TenantInfo> tenants = default(List<TenantInfo>))
         {
             this.FirstFailedRunTimeUsecs = firstFailedRunTimeUsecs;
             this.FirstSuccessfulRunTimeUsecs = firstSuccessfulRunTimeUsecs;
@@ -140,113 +144,138 @@ namespace Cohesity.Models
             this.NumWarnings = numWarnings;
             this.ProtectionSource = protectionSource;
             this.RegisteredSource = registeredSource;
+            this.Tenants = tenants;
+            this.FirstFailedRunTimeUsecs = firstFailedRunTimeUsecs;
+            this.FirstSuccessfulRunTimeUsecs = firstSuccessfulRunTimeUsecs;
+            this.LastFailedRunTimeUsecs = lastFailedRunTimeUsecs;
+            this.LastRunEndTimeUsecs = lastRunEndTimeUsecs;
+            this.LastRunErrorMsg = lastRunErrorMsg;
+            this.LastRunStartTimeUsecs = lastRunStartTimeUsecs;
+            this.LastRunStatus = lastRunStatus;
+            this.LastRunType = lastRunType;
+            this.LastSuccessfulRunTimeUsecs = lastSuccessfulRunTimeUsecs;
+            this.NumDataReadBytes = numDataReadBytes;
+            this.NumErrors = numErrors;
+            this.NumLogicalBytesProtected = numLogicalBytesProtected;
+            this.NumSnapshots = numSnapshots;
+            this.NumSuccessRuns = numSuccessRuns;
+            this.NumWarnings = numWarnings;
+            this.ProtectionSource = protectionSource;
+            this.RegisteredSource = registeredSource;
+            this.Tenants = tenants;
         }
         
         /// <summary>
         /// Specifies the start time of the first failed Job Run protecting this Protection Source Object. The time is specified as a Unix epoch Timestamp (in microseconds).
         /// </summary>
         /// <value>Specifies the start time of the first failed Job Run protecting this Protection Source Object. The time is specified as a Unix epoch Timestamp (in microseconds).</value>
-        [DataMember(Name="firstFailedRunTimeUsecs", EmitDefaultValue=false)]
+        [DataMember(Name="firstFailedRunTimeUsecs", EmitDefaultValue=true)]
         public long? FirstFailedRunTimeUsecs { get; set; }
 
         /// <summary>
         /// Specifies the start time of the first successful Job Run protecting this Protection Source Object. The time is specified as a Unix epoch Timestamp (in microseconds).
         /// </summary>
         /// <value>Specifies the start time of the first successful Job Run protecting this Protection Source Object. The time is specified as a Unix epoch Timestamp (in microseconds).</value>
-        [DataMember(Name="firstSuccessfulRunTimeUsecs", EmitDefaultValue=false)]
+        [DataMember(Name="firstSuccessfulRunTimeUsecs", EmitDefaultValue=true)]
         public long? FirstSuccessfulRunTimeUsecs { get; set; }
 
         /// <summary>
         /// Specifies the start time of the last failed Job Run protecting this Protection Source Object. The time is specified as a Unix epoch Timestamp (in microseconds).
         /// </summary>
         /// <value>Specifies the start time of the last failed Job Run protecting this Protection Source Object. The time is specified as a Unix epoch Timestamp (in microseconds).</value>
-        [DataMember(Name="lastFailedRunTimeUsecs", EmitDefaultValue=false)]
+        [DataMember(Name="lastFailedRunTimeUsecs", EmitDefaultValue=true)]
         public long? LastFailedRunTimeUsecs { get; set; }
 
         /// <summary>
         /// Specifies the end time of the last Job Run protecting this Protection Source Object. The time is specified as a Unix epoch Timestamp (in microseconds).
         /// </summary>
         /// <value>Specifies the end time of the last Job Run protecting this Protection Source Object. The time is specified as a Unix epoch Timestamp (in microseconds).</value>
-        [DataMember(Name="lastRunEndTimeUsecs", EmitDefaultValue=false)]
+        [DataMember(Name="lastRunEndTimeUsecs", EmitDefaultValue=true)]
         public long? LastRunEndTimeUsecs { get; set; }
 
         /// <summary>
         /// Specifies the error message associated with last run, if the last run has failed.
         /// </summary>
         /// <value>Specifies the error message associated with last run, if the last run has failed.</value>
-        [DataMember(Name="lastRunErrorMsg", EmitDefaultValue=false)]
+        [DataMember(Name="lastRunErrorMsg", EmitDefaultValue=true)]
         public string LastRunErrorMsg { get; set; }
 
         /// <summary>
         /// Specifies the start time of the last Job Run protecting this Protection Source Object. The time is specified as a Unix epoch Timestamp (in microseconds).
         /// </summary>
         /// <value>Specifies the start time of the last Job Run protecting this Protection Source Object. The time is specified as a Unix epoch Timestamp (in microseconds).</value>
-        [DataMember(Name="lastRunStartTimeUsecs", EmitDefaultValue=false)]
+        [DataMember(Name="lastRunStartTimeUsecs", EmitDefaultValue=true)]
         public long? LastRunStartTimeUsecs { get; set; }
-
-
 
         /// <summary>
         /// Specifies the start time of the last successful Job Run protecting this Protection Source Object. The time is specified as a Unix epoch Timestamp (in microseconds).
         /// </summary>
         /// <value>Specifies the start time of the last successful Job Run protecting this Protection Source Object. The time is specified as a Unix epoch Timestamp (in microseconds).</value>
-        [DataMember(Name="lastSuccessfulRunTimeUsecs", EmitDefaultValue=false)]
+        [DataMember(Name="lastSuccessfulRunTimeUsecs", EmitDefaultValue=true)]
         public long? LastSuccessfulRunTimeUsecs { get; set; }
 
         /// <summary>
         /// Specifies the total number of bytes read while protecting this Protection Source Object.
         /// </summary>
         /// <value>Specifies the total number of bytes read while protecting this Protection Source Object.</value>
-        [DataMember(Name="numDataReadBytes", EmitDefaultValue=false)]
+        [DataMember(Name="numDataReadBytes", EmitDefaultValue=true)]
         public long? NumDataReadBytes { get; set; }
 
         /// <summary>
         /// Specifies the total number of errors reported during Job Runs of this Protection Source Object.
         /// </summary>
         /// <value>Specifies the total number of errors reported during Job Runs of this Protection Source Object.</value>
-        [DataMember(Name="numErrors", EmitDefaultValue=false)]
+        [DataMember(Name="numErrors", EmitDefaultValue=true)]
         public int? NumErrors { get; set; }
 
         /// <summary>
         /// Specifies the total logical bytes protected for this Protection Source Object. The logical size is when the data is fully hydrated or expanded.
         /// </summary>
         /// <value>Specifies the total logical bytes protected for this Protection Source Object. The logical size is when the data is fully hydrated or expanded.</value>
-        [DataMember(Name="numLogicalBytesProtected", EmitDefaultValue=false)]
+        [DataMember(Name="numLogicalBytesProtected", EmitDefaultValue=true)]
         public long? NumLogicalBytesProtected { get; set; }
 
         /// <summary>
         /// Specifies the total number of Snapshots that are backing up this Protection Source Object.
         /// </summary>
         /// <value>Specifies the total number of Snapshots that are backing up this Protection Source Object.</value>
-        [DataMember(Name="numSnapshots", EmitDefaultValue=false)]
+        [DataMember(Name="numSnapshots", EmitDefaultValue=true)]
         public int? NumSnapshots { get; set; }
 
         /// <summary>
         /// Specifies the total number of successful Job Runs protecting this Protection Source Object.
         /// </summary>
         /// <value>Specifies the total number of successful Job Runs protecting this Protection Source Object.</value>
-        [DataMember(Name="numSuccessRuns", EmitDefaultValue=false)]
+        [DataMember(Name="numSuccessRuns", EmitDefaultValue=true)]
         public int? NumSuccessRuns { get; set; }
 
         /// <summary>
         /// Specifies the total number of warnings reported during Job Runs of this Protection Source Object.
         /// </summary>
         /// <value>Specifies the total number of warnings reported during Job Runs of this Protection Source Object.</value>
-        [DataMember(Name="numWarnings", EmitDefaultValue=false)]
+        [DataMember(Name="numWarnings", EmitDefaultValue=true)]
         public int? NumWarnings { get; set; }
 
         /// <summary>
-        /// Gets or Sets ProtectionSource
+        /// Specifies the leaf Protection Source Object (such as VM). Snapshot summary statistics are reported for this Protection Source Object.
         /// </summary>
-        [DataMember(Name="protectionSource", EmitDefaultValue=false)]
-        public ProtectionSource3 ProtectionSource { get; set; }
+        /// <value>Specifies the leaf Protection Source Object (such as VM). Snapshot summary statistics are reported for this Protection Source Object.</value>
+        [DataMember(Name="protectionSource", EmitDefaultValue=true)]
+        public ProtectionSource ProtectionSource { get; set; }
 
         /// <summary>
         /// Specifies the name of the Registered Source that is the top level parent of the specified Protection Source Object.
         /// </summary>
         /// <value>Specifies the name of the Registered Source that is the top level parent of the specified Protection Source Object.</value>
-        [DataMember(Name="registeredSource", EmitDefaultValue=false)]
+        [DataMember(Name="registeredSource", EmitDefaultValue=true)]
         public string RegisteredSource { get; set; }
+
+        /// <summary>
+        /// Specifies basic information about tenants having access to the protection job.
+        /// </summary>
+        /// <value>Specifies basic information about tenants having access to the protection job.</value>
+        [DataMember(Name="tenants", EmitDefaultValue=true)]
+        public List<TenantInfo> Tenants { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -254,7 +283,28 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class ProtectionSourcesSummaryStats {\n");
+            sb.Append("  FirstFailedRunTimeUsecs: ").Append(FirstFailedRunTimeUsecs).Append("\n");
+            sb.Append("  FirstSuccessfulRunTimeUsecs: ").Append(FirstSuccessfulRunTimeUsecs).Append("\n");
+            sb.Append("  LastFailedRunTimeUsecs: ").Append(LastFailedRunTimeUsecs).Append("\n");
+            sb.Append("  LastRunEndTimeUsecs: ").Append(LastRunEndTimeUsecs).Append("\n");
+            sb.Append("  LastRunErrorMsg: ").Append(LastRunErrorMsg).Append("\n");
+            sb.Append("  LastRunStartTimeUsecs: ").Append(LastRunStartTimeUsecs).Append("\n");
+            sb.Append("  LastRunStatus: ").Append(LastRunStatus).Append("\n");
+            sb.Append("  LastRunType: ").Append(LastRunType).Append("\n");
+            sb.Append("  LastSuccessfulRunTimeUsecs: ").Append(LastSuccessfulRunTimeUsecs).Append("\n");
+            sb.Append("  NumDataReadBytes: ").Append(NumDataReadBytes).Append("\n");
+            sb.Append("  NumErrors: ").Append(NumErrors).Append("\n");
+            sb.Append("  NumLogicalBytesProtected: ").Append(NumLogicalBytesProtected).Append("\n");
+            sb.Append("  NumSnapshots: ").Append(NumSnapshots).Append("\n");
+            sb.Append("  NumSuccessRuns: ").Append(NumSuccessRuns).Append("\n");
+            sb.Append("  NumWarnings: ").Append(NumWarnings).Append("\n");
+            sb.Append("  ProtectionSource: ").Append(ProtectionSource).Append("\n");
+            sb.Append("  RegisteredSource: ").Append(RegisteredSource).Append("\n");
+            sb.Append("  Tenants: ").Append(Tenants).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -319,13 +369,11 @@ namespace Cohesity.Models
                 ) && 
                 (
                     this.LastRunStatus == input.LastRunStatus ||
-                    (this.LastRunStatus != null &&
-                    this.LastRunStatus.Equals(input.LastRunStatus))
+                    this.LastRunStatus.Equals(input.LastRunStatus)
                 ) && 
                 (
                     this.LastRunType == input.LastRunType ||
-                    (this.LastRunType != null &&
-                    this.LastRunType.Equals(input.LastRunType))
+                    this.LastRunType.Equals(input.LastRunType)
                 ) && 
                 (
                     this.LastSuccessfulRunTimeUsecs == input.LastSuccessfulRunTimeUsecs ||
@@ -371,6 +419,12 @@ namespace Cohesity.Models
                     this.RegisteredSource == input.RegisteredSource ||
                     (this.RegisteredSource != null &&
                     this.RegisteredSource.Equals(input.RegisteredSource))
+                ) && 
+                (
+                    this.Tenants == input.Tenants ||
+                    this.Tenants != null &&
+                    input.Tenants != null &&
+                    this.Tenants.SequenceEqual(input.Tenants)
                 );
         }
 
@@ -395,10 +449,8 @@ namespace Cohesity.Models
                     hashCode = hashCode * 59 + this.LastRunErrorMsg.GetHashCode();
                 if (this.LastRunStartTimeUsecs != null)
                     hashCode = hashCode * 59 + this.LastRunStartTimeUsecs.GetHashCode();
-                if (this.LastRunStatus != null)
-                    hashCode = hashCode * 59 + this.LastRunStatus.GetHashCode();
-                if (this.LastRunType != null)
-                    hashCode = hashCode * 59 + this.LastRunType.GetHashCode();
+                hashCode = hashCode * 59 + this.LastRunStatus.GetHashCode();
+                hashCode = hashCode * 59 + this.LastRunType.GetHashCode();
                 if (this.LastSuccessfulRunTimeUsecs != null)
                     hashCode = hashCode * 59 + this.LastSuccessfulRunTimeUsecs.GetHashCode();
                 if (this.NumDataReadBytes != null)
@@ -417,12 +469,12 @@ namespace Cohesity.Models
                     hashCode = hashCode * 59 + this.ProtectionSource.GetHashCode();
                 if (this.RegisteredSource != null)
                     hashCode = hashCode * 59 + this.RegisteredSource.GetHashCode();
+                if (this.Tenants != null)
+                    hashCode = hashCode * 59 + this.Tenants.GetHashCode();
                 return hashCode;
             }
         }
 
-        
     }
 
 }
-

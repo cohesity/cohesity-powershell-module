@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Management.Automation;
 using Cohesity.Powershell.Common;
-using static Cohesity.Models.Alert;
+using static Cohesity.Model.Alert;
 
 namespace Cohesity.Powershell.Cmdlets.Cluster
 {

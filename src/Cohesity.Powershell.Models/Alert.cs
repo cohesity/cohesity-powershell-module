@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies information about an Alert such as the type, id assigned by the Cohesity Cluster, number of duplicates, severity, etc.
@@ -24,178 +21,225 @@ namespace Cohesity.Models
     public partial class Alert :  IEquatable<Alert>
     {
         /// <summary>
-        /// Specifies the category for the Alert such as &#39;kDisk&#39;, &#39;kNode&#39;, &#39;kCluster\&quot;, etc.
+        /// Specifies the category of an Alert. kDisk - Alerts that are related to Disk. kNode - Alerts that are related to Node. kCluster - Alerts that are related to Cluster. kNodeHealth - Alerts that are related to Node Health. kClusterHealth - Alerts that are related to Cluster Health. kBackupRestore - Alerts that are related to Backup/Restore. kEncryption - Alerts that are related to Encryption. kArchivalRestore - Alerts that are related to Archival/Restore. kRemoteReplication - Alerts that are related to Remote Replication. kQuota - Alerts that are related to Quota. kLicense - Alerts that are related to License. kHeliosProActiveWellness - Alerts that are related to Helios ProActive Wellness. kHeliosAnalyticsJobs - Alerts that are related to Helios Analytics Jobs. kHeliosSignatureJobs - Alerts that are related to Helios Signature Jobs. kSecurity - Alerts that are related to Security.
         /// </summary>
-        /// <value>Specifies the category for the Alert such as &#39;kDisk&#39;, &#39;kNode&#39;, &#39;kCluster\&quot;, etc.</value>
+        /// <value>Specifies the category of an Alert. kDisk - Alerts that are related to Disk. kNode - Alerts that are related to Node. kCluster - Alerts that are related to Cluster. kNodeHealth - Alerts that are related to Node Health. kClusterHealth - Alerts that are related to Cluster Health. kBackupRestore - Alerts that are related to Backup/Restore. kEncryption - Alerts that are related to Encryption. kArchivalRestore - Alerts that are related to Archival/Restore. kRemoteReplication - Alerts that are related to Remote Replication. kQuota - Alerts that are related to Quota. kLicense - Alerts that are related to License. kHeliosProActiveWellness - Alerts that are related to Helios ProActive Wellness. kHeliosAnalyticsJobs - Alerts that are related to Helios Analytics Jobs. kHeliosSignatureJobs - Alerts that are related to Helios Signature Jobs. kSecurity - Alerts that are related to Security.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum AlertCategoryEnum
         {
-            
             /// <summary>
             /// Enum KDisk for value: kDisk
             /// </summary>
             [EnumMember(Value = "kDisk")]
-            kDisk = 1,
-            
+            KDisk = 1,
+
             /// <summary>
             /// Enum KNode for value: kNode
             /// </summary>
             [EnumMember(Value = "kNode")]
-            kNode = 2,
-            
+            KNode = 2,
+
             /// <summary>
             /// Enum KCluster for value: kCluster
             /// </summary>
             [EnumMember(Value = "kCluster")]
-            kCluster = 3,
-            
+            KCluster = 3,
+
             /// <summary>
             /// Enum KNodeHealth for value: kNodeHealth
             /// </summary>
             [EnumMember(Value = "kNodeHealth")]
-            kNodeHealth = 4,
-            
+            KNodeHealth = 4,
+
             /// <summary>
             /// Enum KClusterHealth for value: kClusterHealth
             /// </summary>
             [EnumMember(Value = "kClusterHealth")]
-            kClusterHealth = 5,
-            
+            KClusterHealth = 5,
+
             /// <summary>
             /// Enum KBackupRestore for value: kBackupRestore
             /// </summary>
             [EnumMember(Value = "kBackupRestore")]
-            kBackupRestore = 6,
-            
+            KBackupRestore = 6,
+
             /// <summary>
             /// Enum KEncryption for value: kEncryption
             /// </summary>
             [EnumMember(Value = "kEncryption")]
-            kEncryption = 7,
-            
+            KEncryption = 7,
+
             /// <summary>
             /// Enum KArchivalRestore for value: kArchivalRestore
             /// </summary>
             [EnumMember(Value = "kArchivalRestore")]
-            kArchivalRestore = 8,
+            KArchivalRestore = 8,
 
             /// <summary>
-            /// Enum kRemoteReplication  for value: kRemoteReplication 
+            /// Enum KRemoteReplication for value: kRemoteReplication
             /// </summary>
             [EnumMember(Value = "kRemoteReplication")]
-            kRemoteReplication = 9,
+            KRemoteReplication = 9,
 
             /// <summary>
-            /// Enum kQuota for value: kQuota
+            /// Enum KQuota for value: kQuota
             /// </summary>
             [EnumMember(Value = "kQuota")]
-            kQuota = 10,
+            KQuota = 10,
 
             /// <summary>
-            /// Enum kLicense for value: kLicense
+            /// Enum KLicense for value: kLicense
             /// </summary>
             [EnumMember(Value = "kLicense")]
-            kLicense = 10
+            KLicense = 11,
+
+            /// <summary>
+            /// Enum KHeliosProActiveWellness for value: kHeliosProActiveWellness
+            /// </summary>
+            [EnumMember(Value = "kHeliosProActiveWellness")]
+            KHeliosProActiveWellness = 12,
+
+            /// <summary>
+            /// Enum KHeliosAnalyticsJobs for value: kHeliosAnalyticsJobs
+            /// </summary>
+            [EnumMember(Value = "kHeliosAnalyticsJobs")]
+            KHeliosAnalyticsJobs = 13,
+
+            /// <summary>
+            /// Enum KHeliosSignatureJobs for value: kHeliosSignatureJobs
+            /// </summary>
+            [EnumMember(Value = "kHeliosSignatureJobs")]
+            KHeliosSignatureJobs = 14,
+
+            /// <summary>
+            /// Enum KSecurity for value: kSecurity
+            /// </summary>
+            [EnumMember(Value = "kSecurity")]
+            KSecurity = 15
+
         }
 
         /// <summary>
-        /// Specifies the category for the Alert such as &#39;kDisk&#39;, &#39;kNode&#39;, &#39;kCluster\&quot;, etc.
+        /// Specifies the category of an Alert. kDisk - Alerts that are related to Disk. kNode - Alerts that are related to Node. kCluster - Alerts that are related to Cluster. kNodeHealth - Alerts that are related to Node Health. kClusterHealth - Alerts that are related to Cluster Health. kBackupRestore - Alerts that are related to Backup/Restore. kEncryption - Alerts that are related to Encryption. kArchivalRestore - Alerts that are related to Archival/Restore. kRemoteReplication - Alerts that are related to Remote Replication. kQuota - Alerts that are related to Quota. kLicense - Alerts that are related to License. kHeliosProActiveWellness - Alerts that are related to Helios ProActive Wellness. kHeliosAnalyticsJobs - Alerts that are related to Helios Analytics Jobs. kHeliosSignatureJobs - Alerts that are related to Helios Signature Jobs. kSecurity - Alerts that are related to Security.
         /// </summary>
-        /// <value>Specifies the category for the Alert such as &#39;kDisk&#39;, &#39;kNode&#39;, &#39;kCluster\&quot;, etc.</value>
-        [DataMember(Name="alertCategory", EmitDefaultValue=false)]
+        /// <value>Specifies the category of an Alert. kDisk - Alerts that are related to Disk. kNode - Alerts that are related to Node. kCluster - Alerts that are related to Cluster. kNodeHealth - Alerts that are related to Node Health. kClusterHealth - Alerts that are related to Cluster Health. kBackupRestore - Alerts that are related to Backup/Restore. kEncryption - Alerts that are related to Encryption. kArchivalRestore - Alerts that are related to Archival/Restore. kRemoteReplication - Alerts that are related to Remote Replication. kQuota - Alerts that are related to Quota. kLicense - Alerts that are related to License. kHeliosProActiveWellness - Alerts that are related to Helios ProActive Wellness. kHeliosAnalyticsJobs - Alerts that are related to Helios Analytics Jobs. kHeliosSignatureJobs - Alerts that are related to Helios Signature Jobs. kSecurity - Alerts that are related to Security.</value>
+        [DataMember(Name="alertCategory", EmitDefaultValue=true)]
         public AlertCategoryEnum? AlertCategory { get; set; }
         /// <summary>
-        /// Specifies the current state of the Alert: &#39;kOpen&#39; or &#39;kResolved&#39;.
+        /// Specifies the current state of the Alert. kAlertOpen - Alerts that are unresolved. kAlertResolved - Alerts that are already marked as resolved. kAlertSuppressed - Alerts that are suppressed due to snooze settings.
         /// </summary>
-        /// <value>Specifies the current state of the Alert: &#39;kOpen&#39; or &#39;kResolved&#39;.</value>
+        /// <value>Specifies the current state of the Alert. kAlertOpen - Alerts that are unresolved. kAlertResolved - Alerts that are already marked as resolved. kAlertSuppressed - Alerts that are suppressed due to snooze settings.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum AlertStateEnum
         {
-            
             /// <summary>
             /// Enum KOpen for value: kOpen
             /// </summary>
             [EnumMember(Value = "kOpen")]
-            kOpen = 1,
-            
+            KOpen = 1,
+
             /// <summary>
             /// Enum KResolved for value: kResolved
             /// </summary>
             [EnumMember(Value = "kResolved")]
-            kResolved = 2,
+            KResolved = 2,
 
             /// <summary>
-            /// Enum KSuppressed  for value: kSuppressed 
+            /// Enum KSuppressed for value: kSuppressed
             /// </summary>
-            [EnumMember(Value = "kSuppressed ")]
-            kSuppressed = 3
+            [EnumMember(Value = "kSuppressed")]
+            KSuppressed = 3
+
         }
 
         /// <summary>
-        /// Specifies the current state of the Alert: &#39;kOpen&#39; or &#39;kResolved&#39;.
+        /// Specifies the current state of the Alert. kAlertOpen - Alerts that are unresolved. kAlertResolved - Alerts that are already marked as resolved. kAlertSuppressed - Alerts that are suppressed due to snooze settings.
         /// </summary>
-        /// <value>Specifies the current state of the Alert: &#39;kOpen&#39; or &#39;kResolved&#39;.</value>
-        [DataMember(Name="alertState", EmitDefaultValue=false)]
+        /// <value>Specifies the current state of the Alert. kAlertOpen - Alerts that are unresolved. kAlertResolved - Alerts that are already marked as resolved. kAlertSuppressed - Alerts that are suppressed due to snooze settings.</value>
+        [DataMember(Name="alertState", EmitDefaultValue=true)]
         public AlertStateEnum? AlertState { get; set; }
         /// <summary>
-        /// Specifies the severity level of an Alert. &#39;kCritical&#39; means immediate action is required because the system detects a serious problem. &#39;kWarning&#39; means action is required but the affected functionality is still working. &#39;kInfo&#39; means no action is required and the Alert provides an informational message.
+        /// Specifies the severity level of an Alert. kCritical - Alerts whose severity type is Critical. kWarning - Alerts whose severity type is Warning. kInfo - Alerts whose severity type is Info.
         /// </summary>
-        /// <value>Specifies the severity level of an Alert. &#39;kCritical&#39; means immediate action is required because the system detects a serious problem. &#39;kWarning&#39; means action is required but the affected functionality is still working. &#39;kInfo&#39; means no action is required and the Alert provides an informational message.</value>
+        /// <value>Specifies the severity level of an Alert. kCritical - Alerts whose severity type is Critical. kWarning - Alerts whose severity type is Warning. kInfo - Alerts whose severity type is Info.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum SeverityEnum
         {
-            
             /// <summary>
             /// Enum KCritical for value: kCritical
             /// </summary>
             [EnumMember(Value = "kCritical")]
-            kCritical = 1,
-            
+            KCritical = 1,
+
             /// <summary>
             /// Enum KWarning for value: kWarning
             /// </summary>
             [EnumMember(Value = "kWarning")]
-            kWarning = 2,
-            
+            KWarning = 2,
+
             /// <summary>
             /// Enum KInfo for value: kInfo
             /// </summary>
             [EnumMember(Value = "kInfo")]
-            kInfo = 3
+            KInfo = 3
+
         }
 
         /// <summary>
-        /// Specifies the severity level of an Alert. &#39;kCritical&#39; means immediate action is required because the system detects a serious problem. &#39;kWarning&#39; means action is required but the affected functionality is still working. &#39;kInfo&#39; means no action is required and the Alert provides an informational message.
+        /// Specifies the severity level of an Alert. kCritical - Alerts whose severity type is Critical. kWarning - Alerts whose severity type is Warning. kInfo - Alerts whose severity type is Info.
         /// </summary>
-        /// <value>Specifies the severity level of an Alert. &#39;kCritical&#39; means immediate action is required because the system detects a serious problem. &#39;kWarning&#39; means action is required but the affected functionality is still working. &#39;kInfo&#39; means no action is required and the Alert provides an informational message.</value>
-        [DataMember(Name="severity", EmitDefaultValue=false)]
+        /// <value>Specifies the severity level of an Alert. kCritical - Alerts whose severity type is Critical. kWarning - Alerts whose severity type is Warning. kInfo - Alerts whose severity type is Info.</value>
+        [DataMember(Name="severity", EmitDefaultValue=true)]
         public SeverityEnum? Severity { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="Alert" /> class.
         /// </summary>
-        /// <param name="alertCategory">Specifies the category for the Alert such as &#39;kDisk&#39;, &#39;kNode&#39;, &#39;kCluster\&quot;, etc..</param>
-        /// <param name="alertCode">Specifies a unique code that categorizes the Alert, for example: CE00200014, where CE stands for Cohesity Error, the next 3 digits is the id of the Alert Category (e.g. 002 for &#39;kNode&#39;) and the last 5 digits is the id of the Alert Type (e.g. 00014 for &#39;kNodeHighCpuUsage&#39;)..</param>
-        /// <param name="alertDocument">Specifies documentation about the Alert such as name, description, cause and how to resolve the Alert..</param>
-        /// <param name="alertState">Specifies the current state of the Alert: &#39;kOpen&#39; or &#39;kResolved&#39;..</param>
+        /// <param name="alertCategory">Specifies the category of an Alert. kDisk - Alerts that are related to Disk. kNode - Alerts that are related to Node. kCluster - Alerts that are related to Cluster. kNodeHealth - Alerts that are related to Node Health. kClusterHealth - Alerts that are related to Cluster Health. kBackupRestore - Alerts that are related to Backup/Restore. kEncryption - Alerts that are related to Encryption. kArchivalRestore - Alerts that are related to Archival/Restore. kRemoteReplication - Alerts that are related to Remote Replication. kQuota - Alerts that are related to Quota. kLicense - Alerts that are related to License. kHeliosProActiveWellness - Alerts that are related to Helios ProActive Wellness. kHeliosAnalyticsJobs - Alerts that are related to Helios Analytics Jobs. kHeliosSignatureJobs - Alerts that are related to Helios Signature Jobs. kSecurity - Alerts that are related to Security..</param>
+        /// <param name="alertCode">Specifies a unique code that categorizes the Alert, for example: CE00200014, where CE stands for Cohesity Error, the alert state next 3 digits is the id of the Alert Category (e.g. 002 for &#39;kNode&#39;) and the last 5 digits is the id of the Alert Type (e.g. 00014 for &#39;kNodeHighCpuUsage&#39;)..</param>
+        /// <param name="alertDocument">alertDocument.</param>
+        /// <param name="alertState">Specifies the current state of the Alert. kAlertOpen - Alerts that are unresolved. kAlertResolved - Alerts that are already marked as resolved. kAlertSuppressed - Alerts that are suppressed due to snooze settings..</param>
         /// <param name="alertType">Specifies a 5 digit unique digital id for the Alert Type, such as 00014 for &#39;kNodeHighCpuUsage&#39;. This id is used in alertCode..</param>
-        /// <param name="dedupCount">Provides the total count of duplicated Alerts even if there are more than 25 occurrences..</param>
-        /// <param name="dedupTimestamps">Unix epoch Timestamps (in microseconds) for the last 25 occurrences of duplicated Alerts that are stored with the original/primary Alert. Alerts are grouped into one Alert if the Alerts are the same type, are reporting on the same Object and occur within one hour. &#39;dedupCount&#39; always reports the total count of duplicated Alerts even if there are more than 25 occurrences. For example, if there are 100 occurrences of this Alert, dedupTimestamps stores the timestamps of the last 25 occurrences and dedupCount equals 100..</param>
-        /// <param name="firstTimestampUsecs">Creation Unix epoch Timestamp (in microseconds) of the first occurrence of the Alert..</param>
-        /// <param name="id">Unique id of this Alert..</param>
-        /// <param name="latestTimestampUsecs">Creation Unix epoch Timestamp (in microseconds) of the most recent occurrence of the Alert..</param>
-        /// <param name="propertyList">Array of key-value pairs associated with the Alert. The Cohesity Cluster may autogenerate properties depending on the Alert type. This list includes both autogenerated and specified properties..</param>
-        /// <param name="resolutionDetails">Specifies information about the Alert Resolution such as a summary, id assigned by the Cohesity Cluster, user who resolved the Alerts, etc..</param>
-        /// <param name="severity">Specifies the severity level of an Alert. &#39;kCritical&#39; means immediate action is required because the system detects a serious problem. &#39;kWarning&#39; means action is required but the affected functionality is still working. &#39;kInfo&#39; means no action is required and the Alert provides an informational message..</param>
-        /// <param name="suppressionId">Unique id generated when the Alert is suppressed by the admin..</param>
-        public Alert(AlertCategoryEnum? alertCategory = default(AlertCategoryEnum?), string alertCode = default(string), AlertDocument alertDocument = default(AlertDocument), AlertStateEnum? alertState = default(AlertStateEnum?), int? alertType = default(int?), int? dedupCount = default(int?), List<long?> dedupTimestamps = default(List<long?>), long? firstTimestampUsecs = default(long?), string id = default(string), long? latestTimestampUsecs = default(long?), List<AlertProperty> propertyList = default(List<AlertProperty>), AlertResolutionDetails resolutionDetails = default(AlertResolutionDetails), SeverityEnum? severity = default(SeverityEnum?), long? suppressionId = default(long?))
+        /// <param name="clusterId">Specifies id of the cluster where the alert was raised..</param>
+        /// <param name="clusterName">Specifies name of the cluster where the alert was raised..</param>
+        /// <param name="dedupCount">Specifies total count of duplicated Alerts even if there are more than 25 occurrences..</param>
+        /// <param name="dedupTimestamps">Specifies Unix epoch Timestamps (in microseconds) for the last 25 occurrences of duplicated Alerts that are stored with the original/primary Alert. Alerts are grouped into one Alert if the Alerts are the same type, are reporting on the same Object and occur within one hour. &#39;dedupCount&#39; always reports the total count of duplicated Alerts even if there are more than 25 occurrences. For example, if there are 100 occurrences of this Alert, dedupTimestamps stores the timestamps of the last 25 occurrences and dedupCount equals 100..</param>
+        /// <param name="eventSource">Specifies source where the event occurred..</param>
+        /// <param name="firstTimestampUsecs">Specifies Unix epoch Timestamp (in microseconds) of the first occurrence of the Alert..</param>
+        /// <param name="id">Specifies unique id of this Alert..</param>
+        /// <param name="latestTimestampUsecs">Specifies Unix epoch Timestamp (in microseconds) of the most recent occurrence of the Alert..</param>
+        /// <param name="propertyList">Specifies array of key-value pairs associated with the Alert. The Cohesity Cluster may autogenerate properties depending on the Alert type. This list includes both autogenerated and specified properties..</param>
+        /// <param name="resolutionDetails">resolutionDetails.</param>
+        /// <param name="severity">Specifies the severity level of an Alert. kCritical - Alerts whose severity type is Critical. kWarning - Alerts whose severity type is Warning. kInfo - Alerts whose severity type is Info..</param>
+        /// <param name="suppressionId">Specifies unique id generated when the Alert is suppressed by the admin..</param>
+        /// <param name="tenantIds">Specifies the tenants for which this alert has been raised..</param>
+        public Alert(AlertCategoryEnum? alertCategory = default(AlertCategoryEnum?), string alertCode = default(string), AlertDocument alertDocument = default(AlertDocument), AlertStateEnum? alertState = default(AlertStateEnum?), int? alertType = default(int?), long? clusterId = default(long?), string clusterName = default(string), int? dedupCount = default(int?), List<long> dedupTimestamps = default(List<long>), string eventSource = default(string), long? firstTimestampUsecs = default(long?), string id = default(string), long? latestTimestampUsecs = default(long?), List<AlertProperty> propertyList = default(List<AlertProperty>), AlertResolutionDetails resolutionDetails = default(AlertResolutionDetails), SeverityEnum? severity = default(SeverityEnum?), long? suppressionId = default(long?), List<string> tenantIds = default(List<string>))
         {
+            this.AlertCategory = alertCategory;
+            this.AlertCode = alertCode;
+            this.AlertState = alertState;
+            this.AlertType = alertType;
+            this.ClusterId = clusterId;
+            this.ClusterName = clusterName;
+            this.DedupCount = dedupCount;
+            this.DedupTimestamps = dedupTimestamps;
+            this.EventSource = eventSource;
+            this.FirstTimestampUsecs = firstTimestampUsecs;
+            this.Id = id;
+            this.LatestTimestampUsecs = latestTimestampUsecs;
+            this.PropertyList = propertyList;
+            this.Severity = severity;
+            this.SuppressionId = suppressionId;
+            this.TenantIds = tenantIds;
             this.AlertCategory = alertCategory;
             this.AlertCode = alertCode;
             this.AlertDocument = alertDocument;
             this.AlertState = alertState;
             this.AlertType = alertType;
+            this.ClusterId = clusterId;
+            this.ClusterName = clusterName;
             this.DedupCount = dedupCount;
             this.DedupTimestamps = dedupTimestamps;
+            this.EventSource = eventSource;
             this.FirstTimestampUsecs = firstTimestampUsecs;
             this.Id = id;
             this.LatestTimestampUsecs = latestTimestampUsecs;
@@ -203,87 +247,111 @@ namespace Cohesity.Models
             this.ResolutionDetails = resolutionDetails;
             this.Severity = severity;
             this.SuppressionId = suppressionId;
+            this.TenantIds = tenantIds;
         }
         
-
         /// <summary>
-        /// Specifies a unique code that categorizes the Alert, for example: CE00200014, where CE stands for Cohesity Error, the next 3 digits is the id of the Alert Category (e.g. 002 for &#39;kNode&#39;) and the last 5 digits is the id of the Alert Type (e.g. 00014 for &#39;kNodeHighCpuUsage&#39;).
+        /// Specifies a unique code that categorizes the Alert, for example: CE00200014, where CE stands for Cohesity Error, the alert state next 3 digits is the id of the Alert Category (e.g. 002 for &#39;kNode&#39;) and the last 5 digits is the id of the Alert Type (e.g. 00014 for &#39;kNodeHighCpuUsage&#39;).
         /// </summary>
-        /// <value>Specifies a unique code that categorizes the Alert, for example: CE00200014, where CE stands for Cohesity Error, the next 3 digits is the id of the Alert Category (e.g. 002 for &#39;kNode&#39;) and the last 5 digits is the id of the Alert Type (e.g. 00014 for &#39;kNodeHighCpuUsage&#39;).</value>
-        [DataMember(Name="alertCode", EmitDefaultValue=false)]
+        /// <value>Specifies a unique code that categorizes the Alert, for example: CE00200014, where CE stands for Cohesity Error, the alert state next 3 digits is the id of the Alert Category (e.g. 002 for &#39;kNode&#39;) and the last 5 digits is the id of the Alert Type (e.g. 00014 for &#39;kNodeHighCpuUsage&#39;).</value>
+        [DataMember(Name="alertCode", EmitDefaultValue=true)]
         public string AlertCode { get; set; }
 
         /// <summary>
-        /// Specifies documentation about the Alert such as name, description, cause and how to resolve the Alert.
+        /// Gets or Sets AlertDocument
         /// </summary>
-        /// <value>Specifies documentation about the Alert such as name, description, cause and how to resolve the Alert.</value>
         [DataMember(Name="alertDocument", EmitDefaultValue=false)]
         public AlertDocument AlertDocument { get; set; }
-
 
         /// <summary>
         /// Specifies a 5 digit unique digital id for the Alert Type, such as 00014 for &#39;kNodeHighCpuUsage&#39;. This id is used in alertCode.
         /// </summary>
         /// <value>Specifies a 5 digit unique digital id for the Alert Type, such as 00014 for &#39;kNodeHighCpuUsage&#39;. This id is used in alertCode.</value>
-        [DataMember(Name="alertType", EmitDefaultValue=false)]
+        [DataMember(Name="alertType", EmitDefaultValue=true)]
         public int? AlertType { get; set; }
 
         /// <summary>
-        /// Provides the total count of duplicated Alerts even if there are more than 25 occurrences.
+        /// Specifies id of the cluster where the alert was raised.
         /// </summary>
-        /// <value>Provides the total count of duplicated Alerts even if there are more than 25 occurrences.</value>
-        [DataMember(Name="dedupCount", EmitDefaultValue=false)]
+        /// <value>Specifies id of the cluster where the alert was raised.</value>
+        [DataMember(Name="clusterId", EmitDefaultValue=true)]
+        public long? ClusterId { get; set; }
+
+        /// <summary>
+        /// Specifies name of the cluster where the alert was raised.
+        /// </summary>
+        /// <value>Specifies name of the cluster where the alert was raised.</value>
+        [DataMember(Name="clusterName", EmitDefaultValue=true)]
+        public string ClusterName { get; set; }
+
+        /// <summary>
+        /// Specifies total count of duplicated Alerts even if there are more than 25 occurrences.
+        /// </summary>
+        /// <value>Specifies total count of duplicated Alerts even if there are more than 25 occurrences.</value>
+        [DataMember(Name="dedupCount", EmitDefaultValue=true)]
         public int? DedupCount { get; set; }
 
         /// <summary>
-        /// Unix epoch Timestamps (in microseconds) for the last 25 occurrences of duplicated Alerts that are stored with the original/primary Alert. Alerts are grouped into one Alert if the Alerts are the same type, are reporting on the same Object and occur within one hour. &#39;dedupCount&#39; always reports the total count of duplicated Alerts even if there are more than 25 occurrences. For example, if there are 100 occurrences of this Alert, dedupTimestamps stores the timestamps of the last 25 occurrences and dedupCount equals 100.
+        /// Specifies Unix epoch Timestamps (in microseconds) for the last 25 occurrences of duplicated Alerts that are stored with the original/primary Alert. Alerts are grouped into one Alert if the Alerts are the same type, are reporting on the same Object and occur within one hour. &#39;dedupCount&#39; always reports the total count of duplicated Alerts even if there are more than 25 occurrences. For example, if there are 100 occurrences of this Alert, dedupTimestamps stores the timestamps of the last 25 occurrences and dedupCount equals 100.
         /// </summary>
-        /// <value>Unix epoch Timestamps (in microseconds) for the last 25 occurrences of duplicated Alerts that are stored with the original/primary Alert. Alerts are grouped into one Alert if the Alerts are the same type, are reporting on the same Object and occur within one hour. &#39;dedupCount&#39; always reports the total count of duplicated Alerts even if there are more than 25 occurrences. For example, if there are 100 occurrences of this Alert, dedupTimestamps stores the timestamps of the last 25 occurrences and dedupCount equals 100.</value>
-        [DataMember(Name="dedupTimestamps", EmitDefaultValue=false)]
-        public List<long?> DedupTimestamps { get; set; }
+        /// <value>Specifies Unix epoch Timestamps (in microseconds) for the last 25 occurrences of duplicated Alerts that are stored with the original/primary Alert. Alerts are grouped into one Alert if the Alerts are the same type, are reporting on the same Object and occur within one hour. &#39;dedupCount&#39; always reports the total count of duplicated Alerts even if there are more than 25 occurrences. For example, if there are 100 occurrences of this Alert, dedupTimestamps stores the timestamps of the last 25 occurrences and dedupCount equals 100.</value>
+        [DataMember(Name="dedupTimestamps", EmitDefaultValue=true)]
+        public List<long> DedupTimestamps { get; set; }
 
         /// <summary>
-        /// Creation Unix epoch Timestamp (in microseconds) of the first occurrence of the Alert.
+        /// Specifies source where the event occurred.
         /// </summary>
-        /// <value>Creation Unix epoch Timestamp (in microseconds) of the first occurrence of the Alert.</value>
-        [DataMember(Name="firstTimestampUsecs", EmitDefaultValue=false)]
+        /// <value>Specifies source where the event occurred.</value>
+        [DataMember(Name="eventSource", EmitDefaultValue=true)]
+        public string EventSource { get; set; }
+
+        /// <summary>
+        /// Specifies Unix epoch Timestamp (in microseconds) of the first occurrence of the Alert.
+        /// </summary>
+        /// <value>Specifies Unix epoch Timestamp (in microseconds) of the first occurrence of the Alert.</value>
+        [DataMember(Name="firstTimestampUsecs", EmitDefaultValue=true)]
         public long? FirstTimestampUsecs { get; set; }
 
         /// <summary>
-        /// Unique id of this Alert.
+        /// Specifies unique id of this Alert.
         /// </summary>
-        /// <value>Unique id of this Alert.</value>
-        [DataMember(Name="id", EmitDefaultValue=false)]
+        /// <value>Specifies unique id of this Alert.</value>
+        [DataMember(Name="id", EmitDefaultValue=true)]
         public string Id { get; set; }
 
         /// <summary>
-        /// Creation Unix epoch Timestamp (in microseconds) of the most recent occurrence of the Alert.
+        /// Specifies Unix epoch Timestamp (in microseconds) of the most recent occurrence of the Alert.
         /// </summary>
-        /// <value>Creation Unix epoch Timestamp (in microseconds) of the most recent occurrence of the Alert.</value>
-        [DataMember(Name="latestTimestampUsecs", EmitDefaultValue=false)]
+        /// <value>Specifies Unix epoch Timestamp (in microseconds) of the most recent occurrence of the Alert.</value>
+        [DataMember(Name="latestTimestampUsecs", EmitDefaultValue=true)]
         public long? LatestTimestampUsecs { get; set; }
 
         /// <summary>
-        /// Array of key-value pairs associated with the Alert. The Cohesity Cluster may autogenerate properties depending on the Alert type. This list includes both autogenerated and specified properties.
+        /// Specifies array of key-value pairs associated with the Alert. The Cohesity Cluster may autogenerate properties depending on the Alert type. This list includes both autogenerated and specified properties.
         /// </summary>
-        /// <value>Array of key-value pairs associated with the Alert. The Cohesity Cluster may autogenerate properties depending on the Alert type. This list includes both autogenerated and specified properties.</value>
-        [DataMember(Name="propertyList", EmitDefaultValue=false)]
+        /// <value>Specifies array of key-value pairs associated with the Alert. The Cohesity Cluster may autogenerate properties depending on the Alert type. This list includes both autogenerated and specified properties.</value>
+        [DataMember(Name="propertyList", EmitDefaultValue=true)]
         public List<AlertProperty> PropertyList { get; set; }
 
         /// <summary>
-        /// Specifies information about the Alert Resolution such as a summary, id assigned by the Cohesity Cluster, user who resolved the Alerts, etc.
+        /// Gets or Sets ResolutionDetails
         /// </summary>
-        /// <value>Specifies information about the Alert Resolution such as a summary, id assigned by the Cohesity Cluster, user who resolved the Alerts, etc.</value>
         [DataMember(Name="resolutionDetails", EmitDefaultValue=false)]
         public AlertResolutionDetails ResolutionDetails { get; set; }
 
+        /// <summary>
+        /// Specifies unique id generated when the Alert is suppressed by the admin.
+        /// </summary>
+        /// <value>Specifies unique id generated when the Alert is suppressed by the admin.</value>
+        [DataMember(Name="suppressionId", EmitDefaultValue=true)]
+        public long? SuppressionId { get; set; }
 
         /// <summary>
-        /// Unique id generated when the Alert is suppressed by the admin.
+        /// Specifies the tenants for which this alert has been raised.
         /// </summary>
-        /// <value>Unique id generated when the Alert is suppressed by the admin.</value>
-        [DataMember(Name="suppressionId", EmitDefaultValue=false)]
-        public long? SuppressionId { get; set; }
+        /// <value>Specifies the tenants for which this alert has been raised.</value>
+        [DataMember(Name="tenantIds", EmitDefaultValue=true)]
+        public List<string> TenantIds { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -291,7 +359,28 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class Alert {\n");
+            sb.Append("  AlertCategory: ").Append(AlertCategory).Append("\n");
+            sb.Append("  AlertCode: ").Append(AlertCode).Append("\n");
+            sb.Append("  AlertDocument: ").Append(AlertDocument).Append("\n");
+            sb.Append("  AlertState: ").Append(AlertState).Append("\n");
+            sb.Append("  AlertType: ").Append(AlertType).Append("\n");
+            sb.Append("  ClusterId: ").Append(ClusterId).Append("\n");
+            sb.Append("  ClusterName: ").Append(ClusterName).Append("\n");
+            sb.Append("  DedupCount: ").Append(DedupCount).Append("\n");
+            sb.Append("  DedupTimestamps: ").Append(DedupTimestamps).Append("\n");
+            sb.Append("  EventSource: ").Append(EventSource).Append("\n");
+            sb.Append("  FirstTimestampUsecs: ").Append(FirstTimestampUsecs).Append("\n");
+            sb.Append("  Id: ").Append(Id).Append("\n");
+            sb.Append("  LatestTimestampUsecs: ").Append(LatestTimestampUsecs).Append("\n");
+            sb.Append("  PropertyList: ").Append(PropertyList).Append("\n");
+            sb.Append("  ResolutionDetails: ").Append(ResolutionDetails).Append("\n");
+            sb.Append("  Severity: ").Append(Severity).Append("\n");
+            sb.Append("  SuppressionId: ").Append(SuppressionId).Append("\n");
+            sb.Append("  TenantIds: ").Append(TenantIds).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -326,8 +415,7 @@ namespace Cohesity.Models
             return 
                 (
                     this.AlertCategory == input.AlertCategory ||
-                    (this.AlertCategory != null &&
-                    this.AlertCategory.Equals(input.AlertCategory))
+                    this.AlertCategory.Equals(input.AlertCategory)
                 ) && 
                 (
                     this.AlertCode == input.AlertCode ||
@@ -341,13 +429,22 @@ namespace Cohesity.Models
                 ) && 
                 (
                     this.AlertState == input.AlertState ||
-                    (this.AlertState != null &&
-                    this.AlertState.Equals(input.AlertState))
+                    this.AlertState.Equals(input.AlertState)
                 ) && 
                 (
                     this.AlertType == input.AlertType ||
                     (this.AlertType != null &&
                     this.AlertType.Equals(input.AlertType))
+                ) && 
+                (
+                    this.ClusterId == input.ClusterId ||
+                    (this.ClusterId != null &&
+                    this.ClusterId.Equals(input.ClusterId))
+                ) && 
+                (
+                    this.ClusterName == input.ClusterName ||
+                    (this.ClusterName != null &&
+                    this.ClusterName.Equals(input.ClusterName))
                 ) && 
                 (
                     this.DedupCount == input.DedupCount ||
@@ -357,7 +454,13 @@ namespace Cohesity.Models
                 (
                     this.DedupTimestamps == input.DedupTimestamps ||
                     this.DedupTimestamps != null &&
+                    input.DedupTimestamps != null &&
                     this.DedupTimestamps.SequenceEqual(input.DedupTimestamps)
+                ) && 
+                (
+                    this.EventSource == input.EventSource ||
+                    (this.EventSource != null &&
+                    this.EventSource.Equals(input.EventSource))
                 ) && 
                 (
                     this.FirstTimestampUsecs == input.FirstTimestampUsecs ||
@@ -377,6 +480,7 @@ namespace Cohesity.Models
                 (
                     this.PropertyList == input.PropertyList ||
                     this.PropertyList != null &&
+                    input.PropertyList != null &&
                     this.PropertyList.SequenceEqual(input.PropertyList)
                 ) && 
                 (
@@ -386,13 +490,18 @@ namespace Cohesity.Models
                 ) && 
                 (
                     this.Severity == input.Severity ||
-                    (this.Severity != null &&
-                    this.Severity.Equals(input.Severity))
+                    this.Severity.Equals(input.Severity)
                 ) && 
                 (
                     this.SuppressionId == input.SuppressionId ||
                     (this.SuppressionId != null &&
                     this.SuppressionId.Equals(input.SuppressionId))
+                ) && 
+                (
+                    this.TenantIds == input.TenantIds ||
+                    this.TenantIds != null &&
+                    input.TenantIds != null &&
+                    this.TenantIds.SequenceEqual(input.TenantIds)
                 );
         }
 
@@ -405,20 +514,24 @@ namespace Cohesity.Models
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                if (this.AlertCategory != null)
-                    hashCode = hashCode * 59 + this.AlertCategory.GetHashCode();
+                hashCode = hashCode * 59 + this.AlertCategory.GetHashCode();
                 if (this.AlertCode != null)
                     hashCode = hashCode * 59 + this.AlertCode.GetHashCode();
                 if (this.AlertDocument != null)
                     hashCode = hashCode * 59 + this.AlertDocument.GetHashCode();
-                if (this.AlertState != null)
-                    hashCode = hashCode * 59 + this.AlertState.GetHashCode();
+                hashCode = hashCode * 59 + this.AlertState.GetHashCode();
                 if (this.AlertType != null)
                     hashCode = hashCode * 59 + this.AlertType.GetHashCode();
+                if (this.ClusterId != null)
+                    hashCode = hashCode * 59 + this.ClusterId.GetHashCode();
+                if (this.ClusterName != null)
+                    hashCode = hashCode * 59 + this.ClusterName.GetHashCode();
                 if (this.DedupCount != null)
                     hashCode = hashCode * 59 + this.DedupCount.GetHashCode();
                 if (this.DedupTimestamps != null)
                     hashCode = hashCode * 59 + this.DedupTimestamps.GetHashCode();
+                if (this.EventSource != null)
+                    hashCode = hashCode * 59 + this.EventSource.GetHashCode();
                 if (this.FirstTimestampUsecs != null)
                     hashCode = hashCode * 59 + this.FirstTimestampUsecs.GetHashCode();
                 if (this.Id != null)
@@ -429,16 +542,15 @@ namespace Cohesity.Models
                     hashCode = hashCode * 59 + this.PropertyList.GetHashCode();
                 if (this.ResolutionDetails != null)
                     hashCode = hashCode * 59 + this.ResolutionDetails.GetHashCode();
-                if (this.Severity != null)
-                    hashCode = hashCode * 59 + this.Severity.GetHashCode();
+                hashCode = hashCode * 59 + this.Severity.GetHashCode();
                 if (this.SuppressionId != null)
                     hashCode = hashCode * 59 + this.SuppressionId.GetHashCode();
+                if (this.TenantIds != null)
+                    hashCode = hashCode * 59 + this.TenantIds.GetHashCode();
                 return hashCode;
             }
         }
 
-        
     }
 
 }
-

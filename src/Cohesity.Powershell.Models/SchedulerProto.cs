@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,13 +12,10 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
-    /// SchedulerProto
+    /// Specifies the scheduler structure which holds the various schedule jobs.
     /// </summary>
     [DataContract]
     public partial class SchedulerProto :  IEquatable<SchedulerProto>
@@ -26,16 +23,18 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="SchedulerProto" /> class.
         /// </summary>
-        /// <param name="schedulerJobs">schedulerJobs.</param>
+        /// <param name="schedulerJobs">The array of the various scheduler jobs..</param>
         public SchedulerProto(List<SchedulerProtoSchedulerJob> schedulerJobs = default(List<SchedulerProtoSchedulerJob>))
         {
+            this.SchedulerJobs = schedulerJobs;
             this.SchedulerJobs = schedulerJobs;
         }
         
         /// <summary>
-        /// Gets or Sets SchedulerJobs
+        /// The array of the various scheduler jobs.
         /// </summary>
-        [DataMember(Name="schedulerJobs", EmitDefaultValue=false)]
+        /// <value>The array of the various scheduler jobs.</value>
+        [DataMember(Name="schedulerJobs", EmitDefaultValue=true)]
         public List<SchedulerProtoSchedulerJob> SchedulerJobs { get; set; }
 
         /// <summary>
@@ -44,7 +43,11 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class SchedulerProto {\n");
+            sb.Append("  SchedulerJobs: ").Append(SchedulerJobs).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -80,6 +83,7 @@ namespace Cohesity.Models
                 (
                     this.SchedulerJobs == input.SchedulerJobs ||
                     this.SchedulerJobs != null &&
+                    input.SchedulerJobs != null &&
                     this.SchedulerJobs.SequenceEqual(input.SchedulerJobs)
                 );
         }
@@ -99,8 +103,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

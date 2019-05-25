@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies summary statistics about the transfer of data from a Vault to this Cohesity Cluster.
@@ -26,14 +23,20 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="DataTransferFromVaultSummary" /> class.
         /// </summary>
-        /// <param name="dataTransferPerTask">Specifies the transfer of data from this Vault to this Cohesity Cluster for each clone or recover task..</param>
+        /// <param name="dataTransferPerTask">Array of Data Transferred Per Task.  Specifies the transfer of data from this Vault to this Cohesity Cluster for each clone or recover task..</param>
         /// <param name="numLogicalBytesTransferred">Specifies the total number of logical bytes that have been transferred from this Vault (External Target) to this Cohesity Cluster. The logical size is when the data is fully hydrated or expanded..</param>
         /// <param name="numPhysicalBytesTransferred">Specifies the total number of physical bytes that have been transferred from this Vault (External Target) to the Cohesity Cluster..</param>
         /// <param name="numTasks">Specifies the number of recover or clone tasks that have transferred data from this Vault (External Target) to this Cohesity Cluster..</param>
-        /// <param name="physicalDataTransferredBytesDuringTimeRange">Specifies the physical data transferred from this Vault to the Cohesity Cluster during the time period specified using the startTimeMsecs and endTimeMsecs parameters. For each day in the time period, an array element is returned, for example if 7 days are specified, 7 array elements are returned..</param>
+        /// <param name="physicalDataTransferredBytesDuringTimeRange">Array of Physical Data Transferred Per Day.  Specifies the physical data transferred from this Vault to the Cohesity Cluster during the time period specified using the startTimeMsecs and endTimeMsecs parameters. For each day in the time period, an array element is returned, for example if 7 days are specified, 7 array elements are returned..</param>
         /// <param name="vaultName">Specifies the name of the Vault (External Target)..</param>
-        public DataTransferFromVaultSummary(List<DataTransferFromVaultPerTask> dataTransferPerTask = default(List<DataTransferFromVaultPerTask>), long? numLogicalBytesTransferred = default(long?), long? numPhysicalBytesTransferred = default(long?), long? numTasks = default(long?), List<long?> physicalDataTransferredBytesDuringTimeRange = default(List<long?>), string vaultName = default(string))
+        public DataTransferFromVaultSummary(List<DataTransferFromVaultPerTask> dataTransferPerTask = default(List<DataTransferFromVaultPerTask>), long? numLogicalBytesTransferred = default(long?), long? numPhysicalBytesTransferred = default(long?), long? numTasks = default(long?), List<long> physicalDataTransferredBytesDuringTimeRange = default(List<long>), string vaultName = default(string))
         {
+            this.DataTransferPerTask = dataTransferPerTask;
+            this.NumLogicalBytesTransferred = numLogicalBytesTransferred;
+            this.NumPhysicalBytesTransferred = numPhysicalBytesTransferred;
+            this.NumTasks = numTasks;
+            this.PhysicalDataTransferredBytesDuringTimeRange = physicalDataTransferredBytesDuringTimeRange;
+            this.VaultName = vaultName;
             this.DataTransferPerTask = dataTransferPerTask;
             this.NumLogicalBytesTransferred = numLogicalBytesTransferred;
             this.NumPhysicalBytesTransferred = numPhysicalBytesTransferred;
@@ -43,45 +46,45 @@ namespace Cohesity.Models
         }
         
         /// <summary>
-        /// Specifies the transfer of data from this Vault to this Cohesity Cluster for each clone or recover task.
+        /// Array of Data Transferred Per Task.  Specifies the transfer of data from this Vault to this Cohesity Cluster for each clone or recover task.
         /// </summary>
-        /// <value>Specifies the transfer of data from this Vault to this Cohesity Cluster for each clone or recover task.</value>
-        [DataMember(Name="dataTransferPerTask", EmitDefaultValue=false)]
+        /// <value>Array of Data Transferred Per Task.  Specifies the transfer of data from this Vault to this Cohesity Cluster for each clone or recover task.</value>
+        [DataMember(Name="dataTransferPerTask", EmitDefaultValue=true)]
         public List<DataTransferFromVaultPerTask> DataTransferPerTask { get; set; }
 
         /// <summary>
         /// Specifies the total number of logical bytes that have been transferred from this Vault (External Target) to this Cohesity Cluster. The logical size is when the data is fully hydrated or expanded.
         /// </summary>
         /// <value>Specifies the total number of logical bytes that have been transferred from this Vault (External Target) to this Cohesity Cluster. The logical size is when the data is fully hydrated or expanded.</value>
-        [DataMember(Name="numLogicalBytesTransferred", EmitDefaultValue=false)]
+        [DataMember(Name="numLogicalBytesTransferred", EmitDefaultValue=true)]
         public long? NumLogicalBytesTransferred { get; set; }
 
         /// <summary>
         /// Specifies the total number of physical bytes that have been transferred from this Vault (External Target) to the Cohesity Cluster.
         /// </summary>
         /// <value>Specifies the total number of physical bytes that have been transferred from this Vault (External Target) to the Cohesity Cluster.</value>
-        [DataMember(Name="numPhysicalBytesTransferred", EmitDefaultValue=false)]
+        [DataMember(Name="numPhysicalBytesTransferred", EmitDefaultValue=true)]
         public long? NumPhysicalBytesTransferred { get; set; }
 
         /// <summary>
         /// Specifies the number of recover or clone tasks that have transferred data from this Vault (External Target) to this Cohesity Cluster.
         /// </summary>
         /// <value>Specifies the number of recover or clone tasks that have transferred data from this Vault (External Target) to this Cohesity Cluster.</value>
-        [DataMember(Name="numTasks", EmitDefaultValue=false)]
+        [DataMember(Name="numTasks", EmitDefaultValue=true)]
         public long? NumTasks { get; set; }
 
         /// <summary>
-        /// Specifies the physical data transferred from this Vault to the Cohesity Cluster during the time period specified using the startTimeMsecs and endTimeMsecs parameters. For each day in the time period, an array element is returned, for example if 7 days are specified, 7 array elements are returned.
+        /// Array of Physical Data Transferred Per Day.  Specifies the physical data transferred from this Vault to the Cohesity Cluster during the time period specified using the startTimeMsecs and endTimeMsecs parameters. For each day in the time period, an array element is returned, for example if 7 days are specified, 7 array elements are returned.
         /// </summary>
-        /// <value>Specifies the physical data transferred from this Vault to the Cohesity Cluster during the time period specified using the startTimeMsecs and endTimeMsecs parameters. For each day in the time period, an array element is returned, for example if 7 days are specified, 7 array elements are returned.</value>
-        [DataMember(Name="physicalDataTransferredBytesDuringTimeRange", EmitDefaultValue=false)]
-        public List<long?> PhysicalDataTransferredBytesDuringTimeRange { get; set; }
+        /// <value>Array of Physical Data Transferred Per Day.  Specifies the physical data transferred from this Vault to the Cohesity Cluster during the time period specified using the startTimeMsecs and endTimeMsecs parameters. For each day in the time period, an array element is returned, for example if 7 days are specified, 7 array elements are returned.</value>
+        [DataMember(Name="physicalDataTransferredBytesDuringTimeRange", EmitDefaultValue=true)]
+        public List<long> PhysicalDataTransferredBytesDuringTimeRange { get; set; }
 
         /// <summary>
         /// Specifies the name of the Vault (External Target).
         /// </summary>
         /// <value>Specifies the name of the Vault (External Target).</value>
-        [DataMember(Name="vaultName", EmitDefaultValue=false)]
+        [DataMember(Name="vaultName", EmitDefaultValue=true)]
         public string VaultName { get; set; }
 
         /// <summary>
@@ -90,7 +93,16 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class DataTransferFromVaultSummary {\n");
+            sb.Append("  DataTransferPerTask: ").Append(DataTransferPerTask).Append("\n");
+            sb.Append("  NumLogicalBytesTransferred: ").Append(NumLogicalBytesTransferred).Append("\n");
+            sb.Append("  NumPhysicalBytesTransferred: ").Append(NumPhysicalBytesTransferred).Append("\n");
+            sb.Append("  NumTasks: ").Append(NumTasks).Append("\n");
+            sb.Append("  PhysicalDataTransferredBytesDuringTimeRange: ").Append(PhysicalDataTransferredBytesDuringTimeRange).Append("\n");
+            sb.Append("  VaultName: ").Append(VaultName).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -126,6 +138,7 @@ namespace Cohesity.Models
                 (
                     this.DataTransferPerTask == input.DataTransferPerTask ||
                     this.DataTransferPerTask != null &&
+                    input.DataTransferPerTask != null &&
                     this.DataTransferPerTask.SequenceEqual(input.DataTransferPerTask)
                 ) && 
                 (
@@ -146,6 +159,7 @@ namespace Cohesity.Models
                 (
                     this.PhysicalDataTransferredBytesDuringTimeRange == input.PhysicalDataTransferredBytesDuringTimeRange ||
                     this.PhysicalDataTransferredBytesDuringTimeRange != null &&
+                    input.PhysicalDataTransferredBytesDuringTimeRange != null &&
                     this.PhysicalDataTransferredBytesDuringTimeRange.SequenceEqual(input.PhysicalDataTransferredBytesDuringTimeRange)
                 ) && 
                 (
@@ -180,8 +194,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

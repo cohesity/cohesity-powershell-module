@@ -68,7 +68,7 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 ### System.Int64
 Specifies a unique id of the protection source.
 
-### Cohesity.Models.ProtectionSourceNode
+### Cohesity.Model.ProtectionSourceNode
 Specifies a protection source object.
 
 ## OUTPUTS

@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// AnalyseJarResult
@@ -26,33 +23,36 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="AnalyseJarResult" /> class.
         /// </summary>
-        /// <param name="error">Status code of http rpc..</param>
-        /// <param name="mappers">mappers.</param>
-        /// <param name="reducers">reducers.</param>
+        /// <param name="error">error.</param>
+        /// <param name="mappers">Name of all mapper classes found in jar file..</param>
+        /// <param name="reducers">Name of all reducers classes found in jar file..</param>
         public AnalyseJarResult(ErrorProto error = default(ErrorProto), List<string> mappers = default(List<string>), List<string> reducers = default(List<string>))
         {
+            this.Mappers = mappers;
+            this.Reducers = reducers;
             this.Error = error;
             this.Mappers = mappers;
             this.Reducers = reducers;
         }
         
         /// <summary>
-        /// Status code of http rpc.
+        /// Gets or Sets Error
         /// </summary>
-        /// <value>Status code of http rpc.</value>
         [DataMember(Name="error", EmitDefaultValue=false)]
         public ErrorProto Error { get; set; }
 
         /// <summary>
-        /// Gets or Sets Mappers
+        /// Name of all mapper classes found in jar file.
         /// </summary>
-        [DataMember(Name="mappers", EmitDefaultValue=false)]
+        /// <value>Name of all mapper classes found in jar file.</value>
+        [DataMember(Name="mappers", EmitDefaultValue=true)]
         public List<string> Mappers { get; set; }
 
         /// <summary>
-        /// Gets or Sets Reducers
+        /// Name of all reducers classes found in jar file.
         /// </summary>
-        [DataMember(Name="reducers", EmitDefaultValue=false)]
+        /// <value>Name of all reducers classes found in jar file.</value>
+        [DataMember(Name="reducers", EmitDefaultValue=true)]
         public List<string> Reducers { get; set; }
 
         /// <summary>
@@ -61,7 +61,13 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class AnalyseJarResult {\n");
+            sb.Append("  Error: ").Append(Error).Append("\n");
+            sb.Append("  Mappers: ").Append(Mappers).Append("\n");
+            sb.Append("  Reducers: ").Append(Reducers).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -102,11 +108,13 @@ namespace Cohesity.Models
                 (
                     this.Mappers == input.Mappers ||
                     this.Mappers != null &&
+                    input.Mappers != null &&
                     this.Mappers.SequenceEqual(input.Mappers)
                 ) && 
                 (
                     this.Reducers == input.Reducers ||
                     this.Reducers != null &&
+                    input.Reducers != null &&
                     this.Reducers.SequenceEqual(input.Reducers)
                 );
         }
@@ -130,8 +138,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

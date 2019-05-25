@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,13 +12,10 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
-    /// UserQuotaAndUsage
+    /// Specifies the quota override and usage statistics for a particular user.
     /// </summary>
     [DataContract]
     public partial class UserQuotaAndUsage :  IEquatable<UserQuotaAndUsage>
@@ -26,12 +23,15 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="UserQuotaAndUsage" /> class.
         /// </summary>
-        /// <param name="quotaPolicy">User quota policy applied to this user..</param>
+        /// <param name="quotaPolicy">quotaPolicy.</param>
         /// <param name="sid">If interested in a user via smb_client, include SID. Otherwise, If valid unix-id to SID mappings are available (i.e., when mixed mode is enabled) the server will perform the necessary id mapping and return the correct usage irrespective of whether the unix id / SID is provided. The string is of following format - S-1-IdentifierAuthority-SubAuthority1-SubAuthority2-...-SubAuthorityn..</param>
         /// <param name="unixUid">If interested in a user via unix-identifier, include UnixUid. Otherwise, If valid unix-id to SID mappings are available (i.e., when mixed mode is enabled) the server will perform the necessary id mapping and return the correct usage irrespective of whether the unix id / SID is provided..</param>
         /// <param name="usageBytes">Current logical usage of user id in the input view..</param>
         public UserQuotaAndUsage(QuotaPolicy quotaPolicy = default(QuotaPolicy), string sid = default(string), int? unixUid = default(int?), long? usageBytes = default(long?))
         {
+            this.Sid = sid;
+            this.UnixUid = unixUid;
+            this.UsageBytes = usageBytes;
             this.QuotaPolicy = quotaPolicy;
             this.Sid = sid;
             this.UnixUid = unixUid;
@@ -39,9 +39,8 @@ namespace Cohesity.Models
         }
         
         /// <summary>
-        /// User quota policy applied to this user.
+        /// Gets or Sets QuotaPolicy
         /// </summary>
-        /// <value>User quota policy applied to this user.</value>
         [DataMember(Name="quotaPolicy", EmitDefaultValue=false)]
         public QuotaPolicy QuotaPolicy { get; set; }
 
@@ -49,21 +48,21 @@ namespace Cohesity.Models
         /// If interested in a user via smb_client, include SID. Otherwise, If valid unix-id to SID mappings are available (i.e., when mixed mode is enabled) the server will perform the necessary id mapping and return the correct usage irrespective of whether the unix id / SID is provided. The string is of following format - S-1-IdentifierAuthority-SubAuthority1-SubAuthority2-...-SubAuthorityn.
         /// </summary>
         /// <value>If interested in a user via smb_client, include SID. Otherwise, If valid unix-id to SID mappings are available (i.e., when mixed mode is enabled) the server will perform the necessary id mapping and return the correct usage irrespective of whether the unix id / SID is provided. The string is of following format - S-1-IdentifierAuthority-SubAuthority1-SubAuthority2-...-SubAuthorityn.</value>
-        [DataMember(Name="sid", EmitDefaultValue=false)]
+        [DataMember(Name="sid", EmitDefaultValue=true)]
         public string Sid { get; set; }
 
         /// <summary>
         /// If interested in a user via unix-identifier, include UnixUid. Otherwise, If valid unix-id to SID mappings are available (i.e., when mixed mode is enabled) the server will perform the necessary id mapping and return the correct usage irrespective of whether the unix id / SID is provided.
         /// </summary>
         /// <value>If interested in a user via unix-identifier, include UnixUid. Otherwise, If valid unix-id to SID mappings are available (i.e., when mixed mode is enabled) the server will perform the necessary id mapping and return the correct usage irrespective of whether the unix id / SID is provided.</value>
-        [DataMember(Name="unixUid", EmitDefaultValue=false)]
+        [DataMember(Name="unixUid", EmitDefaultValue=true)]
         public int? UnixUid { get; set; }
 
         /// <summary>
         /// Current logical usage of user id in the input view.
         /// </summary>
         /// <value>Current logical usage of user id in the input view.</value>
-        [DataMember(Name="usageBytes", EmitDefaultValue=false)]
+        [DataMember(Name="usageBytes", EmitDefaultValue=true)]
         public long? UsageBytes { get; set; }
 
         /// <summary>
@@ -72,7 +71,14 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class UserQuotaAndUsage {\n");
+            sb.Append("  QuotaPolicy: ").Append(QuotaPolicy).Append("\n");
+            sb.Append("  Sid: ").Append(Sid).Append("\n");
+            sb.Append("  UnixUid: ").Append(UnixUid).Append("\n");
+            sb.Append("  UsageBytes: ").Append(UsageBytes).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -148,8 +154,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

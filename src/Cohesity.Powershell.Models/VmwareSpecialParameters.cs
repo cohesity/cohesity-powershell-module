@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies additional special settings applicable for a Protection Source of &#39;kVMware&#39; type in a Protection Job.
@@ -26,20 +23,21 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="VmwareSpecialParameters" /> class.
         /// </summary>
-        /// <param name="applicationParameters">Specifies parameters that are related to applications running on the Protection Source..</param>
+        /// <param name="applicationParameters">applicationParameters.</param>
         /// <param name="excludedDisks">Specifies the list of Disks to be excluded from backing up. These disks are excluded from all Protection Sources in the Protection Job..</param>
-        /// <param name="vmCredentials">vmCredentials.</param>
-        public VmwareSpecialParameters(ApplicationParameters applicationParameters = default(ApplicationParameters), List<DiskUnit> excludedDisks = default(List<DiskUnit>), VMCredentials1 vmCredentials = default(VMCredentials1))
+        /// <param name="vmCredentials">Specifies the administrator credentials to log in to the guest Windows system of a VM that hosts the Microsoft Exchange Server. If truncateExchangeLog is set to true and the specified source is a VM, administrator credentials to log in to the guest Windows system of the VM must be provided to truncate the logs. This field is only applicable to Sources in the kVMware environment..</param>
+        public VmwareSpecialParameters(ApplicationParameters applicationParameters = default(ApplicationParameters), List<DiskUnit> excludedDisks = default(List<DiskUnit>), Credentials vmCredentials = default(Credentials))
         {
+            this.ExcludedDisks = excludedDisks;
+            this.VmCredentials = vmCredentials;
             this.ApplicationParameters = applicationParameters;
             this.ExcludedDisks = excludedDisks;
             this.VmCredentials = vmCredentials;
         }
         
         /// <summary>
-        /// Specifies parameters that are related to applications running on the Protection Source.
+        /// Gets or Sets ApplicationParameters
         /// </summary>
-        /// <value>Specifies parameters that are related to applications running on the Protection Source.</value>
         [DataMember(Name="applicationParameters", EmitDefaultValue=false)]
         public ApplicationParameters ApplicationParameters { get; set; }
 
@@ -47,29 +45,30 @@ namespace Cohesity.Models
         /// Specifies the list of Disks to be excluded from backing up. These disks are excluded from all Protection Sources in the Protection Job.
         /// </summary>
         /// <value>Specifies the list of Disks to be excluded from backing up. These disks are excluded from all Protection Sources in the Protection Job.</value>
-        [DataMember(Name="excludedDisks", EmitDefaultValue=false)]
+        [DataMember(Name="excludedDisks", EmitDefaultValue=true)]
         public List<DiskUnit> ExcludedDisks { get; set; }
 
         /// <summary>
-        /// Gets or Sets VmCredentials
+        /// Specifies the administrator credentials to log in to the guest Windows system of a VM that hosts the Microsoft Exchange Server. If truncateExchangeLog is set to true and the specified source is a VM, administrator credentials to log in to the guest Windows system of the VM must be provided to truncate the logs. This field is only applicable to Sources in the kVMware environment.
         /// </summary>
-        [DataMember(Name="vmCredentials", EmitDefaultValue=false)]
-        public VMCredentials1 VmCredentials { get; set; }
+        /// <value>Specifies the administrator credentials to log in to the guest Windows system of a VM that hosts the Microsoft Exchange Server. If truncateExchangeLog is set to true and the specified source is a VM, administrator credentials to log in to the guest Windows system of the VM must be provided to truncate the logs. This field is only applicable to Sources in the kVMware environment.</value>
+        [DataMember(Name="vmCredentials", EmitDefaultValue=true)]
+        public Credentials VmCredentials { get; set; }
 
-        ///// <summary>
-        ///// Returns the string presentation of the object
-        ///// </summary>
-        ///// <returns>String presentation of the object</returns>
-        //public override string ToString()
-        //{
-        //    var sb = new StringBuilder();
-        //    sb.Append("class VmwareSpecialParameters {\n");
-        //    sb.Append("  ApplicationParameters: ").Append(ApplicationParameters).Append("\n");
-        //    sb.Append("  ExcludedDisks: ").Append(ExcludedDisks).Append("\n");
-        //    sb.Append("  VmCredentials: ").Append(VmCredentials).Append("\n");
-        //    sb.Append("}\n");
-        //    return sb.ToString();
-        //}
+        /// <summary>
+        /// Returns the string presentation of the object
+        /// </summary>
+        /// <returns>String presentation of the object</returns>
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+            sb.Append("class VmwareSpecialParameters {\n");
+            sb.Append("  ApplicationParameters: ").Append(ApplicationParameters).Append("\n");
+            sb.Append("  ExcludedDisks: ").Append(ExcludedDisks).Append("\n");
+            sb.Append("  VmCredentials: ").Append(VmCredentials).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
+        }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -109,6 +108,7 @@ namespace Cohesity.Models
                 (
                     this.ExcludedDisks == input.ExcludedDisks ||
                     this.ExcludedDisks != null &&
+                    input.ExcludedDisks != null &&
                     this.ExcludedDisks.SequenceEqual(input.ExcludedDisks)
                 ) && 
                 (
@@ -137,8 +137,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies AAGs and databases information on an SQL server. If AAGs exist on the server, specifies information about the AAG and databases in the group for each AAG found on the server.
@@ -26,13 +23,17 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="SqlAagHostAndDatabases" /> class.
         /// </summary>
-        /// <param name="aagDatabases">aagDatabases.</param>
-        /// <param name="applicationNode">Specifies the subtree used to store application-level Objects. Different environments use the subtree to store application-level information. For example for SQL Server, this subtree stores the SQL Server instances running on a VM or Physical hosts..</param>
+        /// <param name="aagDatabases">Specifies a list of AAGs and database members in each AAG..</param>
+        /// <param name="applicationNode">applicationNode.</param>
         /// <param name="databases">Specifies all database entities found on the server. Database may or may not be in an AAG..</param>
         /// <param name="errorMessage">Specifies an error message when the host is not registered as an SQL host..</param>
         /// <param name="unknownHostName">Specifies the name of the host that is not registered as an SQL server on Cohesity Cluser..</param>
         public SqlAagHostAndDatabases(List<AagAndDatabases> aagDatabases = default(List<AagAndDatabases>), ProtectionSourceNode applicationNode = default(ProtectionSourceNode), List<ProtectionSource> databases = default(List<ProtectionSource>), string errorMessage = default(string), string unknownHostName = default(string))
         {
+            this.AagDatabases = aagDatabases;
+            this.Databases = databases;
+            this.ErrorMessage = errorMessage;
+            this.UnknownHostName = unknownHostName;
             this.AagDatabases = aagDatabases;
             this.ApplicationNode = applicationNode;
             this.Databases = databases;
@@ -41,15 +42,15 @@ namespace Cohesity.Models
         }
         
         /// <summary>
-        /// Gets or Sets AagDatabases
+        /// Specifies a list of AAGs and database members in each AAG.
         /// </summary>
-        [DataMember(Name="aagDatabases", EmitDefaultValue=false)]
+        /// <value>Specifies a list of AAGs and database members in each AAG.</value>
+        [DataMember(Name="aagDatabases", EmitDefaultValue=true)]
         public List<AagAndDatabases> AagDatabases { get; set; }
 
         /// <summary>
-        /// Specifies the subtree used to store application-level Objects. Different environments use the subtree to store application-level information. For example for SQL Server, this subtree stores the SQL Server instances running on a VM or Physical hosts.
+        /// Gets or Sets ApplicationNode
         /// </summary>
-        /// <value>Specifies the subtree used to store application-level Objects. Different environments use the subtree to store application-level information. For example for SQL Server, this subtree stores the SQL Server instances running on a VM or Physical hosts.</value>
         [DataMember(Name="applicationNode", EmitDefaultValue=false)]
         public ProtectionSourceNode ApplicationNode { get; set; }
 
@@ -57,21 +58,21 @@ namespace Cohesity.Models
         /// Specifies all database entities found on the server. Database may or may not be in an AAG.
         /// </summary>
         /// <value>Specifies all database entities found on the server. Database may or may not be in an AAG.</value>
-        [DataMember(Name="databases", EmitDefaultValue=false)]
+        [DataMember(Name="databases", EmitDefaultValue=true)]
         public List<ProtectionSource> Databases { get; set; }
 
         /// <summary>
         /// Specifies an error message when the host is not registered as an SQL host.
         /// </summary>
         /// <value>Specifies an error message when the host is not registered as an SQL host.</value>
-        [DataMember(Name="errorMessage", EmitDefaultValue=false)]
+        [DataMember(Name="errorMessage", EmitDefaultValue=true)]
         public string ErrorMessage { get; set; }
 
         /// <summary>
         /// Specifies the name of the host that is not registered as an SQL server on Cohesity Cluser.
         /// </summary>
         /// <value>Specifies the name of the host that is not registered as an SQL server on Cohesity Cluser.</value>
-        [DataMember(Name="unknownHostName", EmitDefaultValue=false)]
+        [DataMember(Name="unknownHostName", EmitDefaultValue=true)]
         public string UnknownHostName { get; set; }
 
         /// <summary>
@@ -80,7 +81,15 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class SqlAagHostAndDatabases {\n");
+            sb.Append("  AagDatabases: ").Append(AagDatabases).Append("\n");
+            sb.Append("  ApplicationNode: ").Append(ApplicationNode).Append("\n");
+            sb.Append("  Databases: ").Append(Databases).Append("\n");
+            sb.Append("  ErrorMessage: ").Append(ErrorMessage).Append("\n");
+            sb.Append("  UnknownHostName: ").Append(UnknownHostName).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -116,6 +125,7 @@ namespace Cohesity.Models
                 (
                     this.AagDatabases == input.AagDatabases ||
                     this.AagDatabases != null &&
+                    input.AagDatabases != null &&
                     this.AagDatabases.SequenceEqual(input.AagDatabases)
                 ) && 
                 (
@@ -126,6 +136,7 @@ namespace Cohesity.Models
                 (
                     this.Databases == input.Databases ||
                     this.Databases != null &&
+                    input.Databases != null &&
                     this.Databases.SequenceEqual(input.Databases)
                 ) && 
                 (
@@ -163,8 +174,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

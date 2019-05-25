@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,13 +12,10 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
-    /// IopsTile
+    /// IOPs information for dashboard.
     /// </summary>
     [DataContract]
     public partial class IopsTile :  IEquatable<IopsTile>
@@ -26,45 +23,49 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="IopsTile" /> class.
         /// </summary>
-        /// <param name="lastDayPeakReadIosPerSec">Peak Read IOs / sec in last 24 hours..</param>
-        /// <param name="lastDayPeakWriteIosPerSec">Peak Write IOs / sec in last 24 hours..</param>
-        /// <param name="lastDayReadIosPerSec">Read IOs per second for every hour of last 24 hours in descending order of time..</param>
-        /// <param name="lastDayWriteIosPerSec">Write IOs per second for every hour of last 24 hours in descending order of time..</param>
-        public IopsTile(long? lastDayPeakReadIosPerSec = default(long?), long? lastDayPeakWriteIosPerSec = default(long?), List<long?> lastDayReadIosPerSec = default(List<long?>), List<long?> lastDayWriteIosPerSec = default(List<long?>))
+        /// <param name="maxReadIops">Maximum Read IOs per second in last 24 hours..</param>
+        /// <param name="maxWriteIops">Maximum number of Write IOs per second in last 24 hours..</param>
+        /// <param name="readIopsSamples">Read IOs per second samples taken for the past 24 hours at 10 minutes interval given in descending order of time..</param>
+        /// <param name="writeIopsSamples">Write IOs per second samples taken for the past 24 hours at 10 minutes interval given in descending order of time..</param>
+        public IopsTile(long? maxReadIops = default(long?), long? maxWriteIops = default(long?), List<Sample> readIopsSamples = default(List<Sample>), List<Sample> writeIopsSamples = default(List<Sample>))
         {
-            this.LastDayPeakReadIosPerSec = lastDayPeakReadIosPerSec;
-            this.LastDayPeakWriteIosPerSec = lastDayPeakWriteIosPerSec;
-            this.LastDayReadIosPerSec = lastDayReadIosPerSec;
-            this.LastDayWriteIosPerSec = lastDayWriteIosPerSec;
+            this.MaxReadIops = maxReadIops;
+            this.MaxWriteIops = maxWriteIops;
+            this.ReadIopsSamples = readIopsSamples;
+            this.WriteIopsSamples = writeIopsSamples;
+            this.MaxReadIops = maxReadIops;
+            this.MaxWriteIops = maxWriteIops;
+            this.ReadIopsSamples = readIopsSamples;
+            this.WriteIopsSamples = writeIopsSamples;
         }
         
         /// <summary>
-        /// Peak Read IOs / sec in last 24 hours.
+        /// Maximum Read IOs per second in last 24 hours.
         /// </summary>
-        /// <value>Peak Read IOs / sec in last 24 hours.</value>
-        [DataMember(Name="lastDayPeakReadIosPerSec", EmitDefaultValue=false)]
-        public long? LastDayPeakReadIosPerSec { get; set; }
+        /// <value>Maximum Read IOs per second in last 24 hours.</value>
+        [DataMember(Name="maxReadIops", EmitDefaultValue=true)]
+        public long? MaxReadIops { get; set; }
 
         /// <summary>
-        /// Peak Write IOs / sec in last 24 hours.
+        /// Maximum number of Write IOs per second in last 24 hours.
         /// </summary>
-        /// <value>Peak Write IOs / sec in last 24 hours.</value>
-        [DataMember(Name="lastDayPeakWriteIosPerSec", EmitDefaultValue=false)]
-        public long? LastDayPeakWriteIosPerSec { get; set; }
+        /// <value>Maximum number of Write IOs per second in last 24 hours.</value>
+        [DataMember(Name="maxWriteIops", EmitDefaultValue=true)]
+        public long? MaxWriteIops { get; set; }
 
         /// <summary>
-        /// Read IOs per second for every hour of last 24 hours in descending order of time.
+        /// Read IOs per second samples taken for the past 24 hours at 10 minutes interval given in descending order of time.
         /// </summary>
-        /// <value>Read IOs per second for every hour of last 24 hours in descending order of time.</value>
-        [DataMember(Name="lastDayReadIosPerSec", EmitDefaultValue=false)]
-        public List<long?> LastDayReadIosPerSec { get; set; }
+        /// <value>Read IOs per second samples taken for the past 24 hours at 10 minutes interval given in descending order of time.</value>
+        [DataMember(Name="readIopsSamples", EmitDefaultValue=true)]
+        public List<Sample> ReadIopsSamples { get; set; }
 
         /// <summary>
-        /// Write IOs per second for every hour of last 24 hours in descending order of time.
+        /// Write IOs per second samples taken for the past 24 hours at 10 minutes interval given in descending order of time.
         /// </summary>
-        /// <value>Write IOs per second for every hour of last 24 hours in descending order of time.</value>
-        [DataMember(Name="lastDayWriteIosPerSec", EmitDefaultValue=false)]
-        public List<long?> LastDayWriteIosPerSec { get; set; }
+        /// <value>Write IOs per second samples taken for the past 24 hours at 10 minutes interval given in descending order of time.</value>
+        [DataMember(Name="writeIopsSamples", EmitDefaultValue=true)]
+        public List<Sample> WriteIopsSamples { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -72,7 +73,14 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class IopsTile {\n");
+            sb.Append("  MaxReadIops: ").Append(MaxReadIops).Append("\n");
+            sb.Append("  MaxWriteIops: ").Append(MaxWriteIops).Append("\n");
+            sb.Append("  ReadIopsSamples: ").Append(ReadIopsSamples).Append("\n");
+            sb.Append("  WriteIopsSamples: ").Append(WriteIopsSamples).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -106,24 +114,26 @@ namespace Cohesity.Models
 
             return 
                 (
-                    this.LastDayPeakReadIosPerSec == input.LastDayPeakReadIosPerSec ||
-                    (this.LastDayPeakReadIosPerSec != null &&
-                    this.LastDayPeakReadIosPerSec.Equals(input.LastDayPeakReadIosPerSec))
+                    this.MaxReadIops == input.MaxReadIops ||
+                    (this.MaxReadIops != null &&
+                    this.MaxReadIops.Equals(input.MaxReadIops))
                 ) && 
                 (
-                    this.LastDayPeakWriteIosPerSec == input.LastDayPeakWriteIosPerSec ||
-                    (this.LastDayPeakWriteIosPerSec != null &&
-                    this.LastDayPeakWriteIosPerSec.Equals(input.LastDayPeakWriteIosPerSec))
+                    this.MaxWriteIops == input.MaxWriteIops ||
+                    (this.MaxWriteIops != null &&
+                    this.MaxWriteIops.Equals(input.MaxWriteIops))
                 ) && 
                 (
-                    this.LastDayReadIosPerSec == input.LastDayReadIosPerSec ||
-                    this.LastDayReadIosPerSec != null &&
-                    this.LastDayReadIosPerSec.SequenceEqual(input.LastDayReadIosPerSec)
+                    this.ReadIopsSamples == input.ReadIopsSamples ||
+                    this.ReadIopsSamples != null &&
+                    input.ReadIopsSamples != null &&
+                    this.ReadIopsSamples.SequenceEqual(input.ReadIopsSamples)
                 ) && 
                 (
-                    this.LastDayWriteIosPerSec == input.LastDayWriteIosPerSec ||
-                    this.LastDayWriteIosPerSec != null &&
-                    this.LastDayWriteIosPerSec.SequenceEqual(input.LastDayWriteIosPerSec)
+                    this.WriteIopsSamples == input.WriteIopsSamples ||
+                    this.WriteIopsSamples != null &&
+                    input.WriteIopsSamples != null &&
+                    this.WriteIopsSamples.SequenceEqual(input.WriteIopsSamples)
                 );
         }
 
@@ -136,20 +146,18 @@ namespace Cohesity.Models
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                if (this.LastDayPeakReadIosPerSec != null)
-                    hashCode = hashCode * 59 + this.LastDayPeakReadIosPerSec.GetHashCode();
-                if (this.LastDayPeakWriteIosPerSec != null)
-                    hashCode = hashCode * 59 + this.LastDayPeakWriteIosPerSec.GetHashCode();
-                if (this.LastDayReadIosPerSec != null)
-                    hashCode = hashCode * 59 + this.LastDayReadIosPerSec.GetHashCode();
-                if (this.LastDayWriteIosPerSec != null)
-                    hashCode = hashCode * 59 + this.LastDayWriteIosPerSec.GetHashCode();
+                if (this.MaxReadIops != null)
+                    hashCode = hashCode * 59 + this.MaxReadIops.GetHashCode();
+                if (this.MaxWriteIops != null)
+                    hashCode = hashCode * 59 + this.MaxWriteIops.GetHashCode();
+                if (this.ReadIopsSamples != null)
+                    hashCode = hashCode * 59 + this.ReadIopsSamples.GetHashCode();
+                if (this.WriteIopsSamples != null)
+                    hashCode = hashCode * 59 + this.WriteIopsSamples.GetHashCode();
                 return hashCode;
             }
         }
 
-        
     }
 
 }
-

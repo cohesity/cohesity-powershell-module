@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies a Protection Source in a Physical environment.
@@ -24,19 +21,18 @@ namespace Cohesity.Models
     public partial class PhysicalProtectionSource :  IEquatable<PhysicalProtectionSource>
     {
         /// <summary>
-        /// Specifies the environment type for the host. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system.
+        /// Specifies the environment type for the host. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system.
         /// </summary>
-        /// <value>Specifies the environment type for the host. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system.</value>
+        /// <value>Specifies the environment type for the host. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum HostTypeEnum
         {
-            
             /// <summary>
             /// Enum KLinux for value: kLinux
             /// </summary>
             [EnumMember(Value = "kLinux")]
             KLinux = 1,
-            
+
             /// <summary>
             /// Enum KWindows for value: kWindows
             /// </summary>
@@ -53,20 +49,15 @@ namespace Cohesity.Models
             /// Enum KSolaris for value: kSolaris
             /// </summary>
             [EnumMember(Value = "kSolaris")]
-            KSolaris = 4,
+            KSolaris = 4
 
-            /// <summary>
-            /// Enum KOther for value: kOther
-            /// </summary>
-            [EnumMember(Value = "kOther")]
-            KOther = 5
         }
 
         /// <summary>
-        /// Specifies the environment type for the host. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system.
+        /// Specifies the environment type for the host. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system.
         /// </summary>
-        /// <value>Specifies the environment type for the host. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system.</value>
-        [DataMember(Name="hostType", EmitDefaultValue=false)]
+        /// <value>Specifies the environment type for the host. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system.</value>
+        [DataMember(Name="hostType", EmitDefaultValue=true)]
         public HostTypeEnum? HostType { get; set; }
         /// <summary>
         /// Specifies the type of managed Object in a Physical Protection Source. &#39;kHost&#39; indicates a single physical server. &#39;kWindowsCluster&#39; indicates a Microsoft Windows cluster.
@@ -75,21 +66,17 @@ namespace Cohesity.Models
         [JsonConverter(typeof(StringEnumConverter))]
         public enum TypeEnum
         {
-            
             /// <summary>
             /// Enum KHost for value: kHost
             /// </summary>
             [EnumMember(Value = "kHost")]
             KHost = 1,
-            
+
             /// <summary>
             /// Enum KWindowsCluster for value: kWindowsCluster
             /// </summary>
             [EnumMember(Value = "kWindowsCluster")]
-            KWindowsCluster = 2,
-
-            [EnumMember(Value = "kGroup")]
-            kGroup = 3
+            KWindowsCluster = 2
 
         }
 
@@ -97,54 +84,97 @@ namespace Cohesity.Models
         /// Specifies the type of managed Object in a Physical Protection Source. &#39;kHost&#39; indicates a single physical server. &#39;kWindowsCluster&#39; indicates a Microsoft Windows cluster.
         /// </summary>
         /// <value>Specifies the type of managed Object in a Physical Protection Source. &#39;kHost&#39; indicates a single physical server. &#39;kWindowsCluster&#39; indicates a Microsoft Windows cluster.</value>
-        [DataMember(Name="type", EmitDefaultValue=false)]
+        [DataMember(Name="type", EmitDefaultValue=true)]
         public TypeEnum? Type { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="PhysicalProtectionSource" /> class.
         /// </summary>
-        /// <param name="agents">Specifiles the agents running on the Physical Protection Source and the status information..</param>
-        /// <param name="hostType">Specifies the environment type for the host. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system..</param>
-        /// <param name="id">id.</param>
+        /// <param name="agents">Array of Agents on the Physical Protection Source.  Specifiles the agents running on the Physical Protection Source and the status information..</param>
+        /// <param name="hostType">Specifies the environment type for the host. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system..</param>
+        /// <param name="id">Specifies a unique id of a Physical Protection Source. The id is unique across Cohesity Clusters..</param>
+        /// <param name="memorySizeBytes">Specifies the total memory ont the host in bytes..</param>
         /// <param name="name">Specifies a human readable name of the Protection Source..</param>
+        /// <param name="networkingInfo">networkingInfo.</param>
+        /// <param name="numProcessors">Specifies the number of processors on the host..</param>
+        /// <param name="osName">Specifies a human readable name of the OS of the Protection Source..</param>
         /// <param name="type">Specifies the type of managed Object in a Physical Protection Source. &#39;kHost&#39; indicates a single physical server. &#39;kWindowsCluster&#39; indicates a Microsoft Windows cluster..</param>
-        /// <param name="volumes">Specifies the volumes available on the physical host. These fields are populated only for the kPhysicalHost type..</param>
-        public PhysicalProtectionSource(List<AgentInformation> agents = default(List<AgentInformation>), HostTypeEnum? hostType = default(HostTypeEnum?), UniqueGlobalId4 id = default(UniqueGlobalId4), string name = default(string), TypeEnum? type = default(TypeEnum?), List<PhysicalVolume> volumes = default(List<PhysicalVolume>))
+        /// <param name="volumes">Array of Physical Volumes.  Specifies the volumes available on the physical host. These fields are populated only for the kPhysicalHost type..</param>
+        public PhysicalProtectionSource(List<AgentInformation> agents = default(List<AgentInformation>), HostTypeEnum? hostType = default(HostTypeEnum?), UniversalId id = default(UniversalId), long? memorySizeBytes = default(long?), string name = default(string), NetworkingInformation networkingInfo = default(NetworkingInformation), long? numProcessors = default(long?), string osName = default(string), TypeEnum? type = default(TypeEnum?), List<PhysicalVolume> volumes = default(List<PhysicalVolume>))
         {
             this.Agents = agents;
             this.HostType = hostType;
             this.Id = id;
+            this.MemorySizeBytes = memorySizeBytes;
             this.Name = name;
+            this.NumProcessors = numProcessors;
+            this.OsName = osName;
+            this.Type = type;
+            this.Volumes = volumes;
+            this.Agents = agents;
+            this.HostType = hostType;
+            this.Id = id;
+            this.MemorySizeBytes = memorySizeBytes;
+            this.Name = name;
+            this.NetworkingInfo = networkingInfo;
+            this.NumProcessors = numProcessors;
+            this.OsName = osName;
             this.Type = type;
             this.Volumes = volumes;
         }
         
         /// <summary>
-        /// Specifiles the agents running on the Physical Protection Source and the status information.
+        /// Array of Agents on the Physical Protection Source.  Specifiles the agents running on the Physical Protection Source and the status information.
         /// </summary>
-        /// <value>Specifiles the agents running on the Physical Protection Source and the status information.</value>
-        [DataMember(Name="agents", EmitDefaultValue=false)]
+        /// <value>Array of Agents on the Physical Protection Source.  Specifiles the agents running on the Physical Protection Source and the status information.</value>
+        [DataMember(Name="agents", EmitDefaultValue=true)]
         public List<AgentInformation> Agents { get; set; }
 
+        /// <summary>
+        /// Specifies a unique id of a Physical Protection Source. The id is unique across Cohesity Clusters.
+        /// </summary>
+        /// <value>Specifies a unique id of a Physical Protection Source. The id is unique across Cohesity Clusters.</value>
+        [DataMember(Name="id", EmitDefaultValue=true)]
+        public UniversalId Id { get; set; }
 
         /// <summary>
-        /// Gets or Sets Id
+        /// Specifies the total memory ont the host in bytes.
         /// </summary>
-        [DataMember(Name="id", EmitDefaultValue=false)]
-        public UniqueGlobalId4 Id { get; set; }
+        /// <value>Specifies the total memory ont the host in bytes.</value>
+        [DataMember(Name="memorySizeBytes", EmitDefaultValue=true)]
+        public long? MemorySizeBytes { get; set; }
 
         /// <summary>
         /// Specifies a human readable name of the Protection Source.
         /// </summary>
         /// <value>Specifies a human readable name of the Protection Source.</value>
-        [DataMember(Name="name", EmitDefaultValue=false)]
+        [DataMember(Name="name", EmitDefaultValue=true)]
         public string Name { get; set; }
 
+        /// <summary>
+        /// Gets or Sets NetworkingInfo
+        /// </summary>
+        [DataMember(Name="networkingInfo", EmitDefaultValue=false)]
+        public NetworkingInformation NetworkingInfo { get; set; }
 
         /// <summary>
-        /// Specifies the volumes available on the physical host. These fields are populated only for the kPhysicalHost type.
+        /// Specifies the number of processors on the host.
         /// </summary>
-        /// <value>Specifies the volumes available on the physical host. These fields are populated only for the kPhysicalHost type.</value>
-        [DataMember(Name="volumes", EmitDefaultValue=false)]
+        /// <value>Specifies the number of processors on the host.</value>
+        [DataMember(Name="numProcessors", EmitDefaultValue=true)]
+        public long? NumProcessors { get; set; }
+
+        /// <summary>
+        /// Specifies a human readable name of the OS of the Protection Source.
+        /// </summary>
+        /// <value>Specifies a human readable name of the OS of the Protection Source.</value>
+        [DataMember(Name="osName", EmitDefaultValue=true)]
+        public string OsName { get; set; }
+
+        /// <summary>
+        /// Array of Physical Volumes.  Specifies the volumes available on the physical host. These fields are populated only for the kPhysicalHost type.
+        /// </summary>
+        /// <value>Array of Physical Volumes.  Specifies the volumes available on the physical host. These fields are populated only for the kPhysicalHost type.</value>
+        [DataMember(Name="volumes", EmitDefaultValue=true)]
         public List<PhysicalVolume> Volumes { get; set; }
 
         /// <summary>
@@ -153,7 +183,20 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class PhysicalProtectionSource {\n");
+            sb.Append("  Agents: ").Append(Agents).Append("\n");
+            sb.Append("  HostType: ").Append(HostType).Append("\n");
+            sb.Append("  Id: ").Append(Id).Append("\n");
+            sb.Append("  MemorySizeBytes: ").Append(MemorySizeBytes).Append("\n");
+            sb.Append("  Name: ").Append(Name).Append("\n");
+            sb.Append("  NetworkingInfo: ").Append(NetworkingInfo).Append("\n");
+            sb.Append("  NumProcessors: ").Append(NumProcessors).Append("\n");
+            sb.Append("  OsName: ").Append(OsName).Append("\n");
+            sb.Append("  Type: ").Append(Type).Append("\n");
+            sb.Append("  Volumes: ").Append(Volumes).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -189,12 +232,12 @@ namespace Cohesity.Models
                 (
                     this.Agents == input.Agents ||
                     this.Agents != null &&
+                    input.Agents != null &&
                     this.Agents.SequenceEqual(input.Agents)
                 ) && 
                 (
                     this.HostType == input.HostType ||
-                    (this.HostType != null &&
-                    this.HostType.Equals(input.HostType))
+                    this.HostType.Equals(input.HostType)
                 ) && 
                 (
                     this.Id == input.Id ||
@@ -202,18 +245,38 @@ namespace Cohesity.Models
                     this.Id.Equals(input.Id))
                 ) && 
                 (
+                    this.MemorySizeBytes == input.MemorySizeBytes ||
+                    (this.MemorySizeBytes != null &&
+                    this.MemorySizeBytes.Equals(input.MemorySizeBytes))
+                ) && 
+                (
                     this.Name == input.Name ||
                     (this.Name != null &&
                     this.Name.Equals(input.Name))
                 ) && 
                 (
+                    this.NetworkingInfo == input.NetworkingInfo ||
+                    (this.NetworkingInfo != null &&
+                    this.NetworkingInfo.Equals(input.NetworkingInfo))
+                ) && 
+                (
+                    this.NumProcessors == input.NumProcessors ||
+                    (this.NumProcessors != null &&
+                    this.NumProcessors.Equals(input.NumProcessors))
+                ) && 
+                (
+                    this.OsName == input.OsName ||
+                    (this.OsName != null &&
+                    this.OsName.Equals(input.OsName))
+                ) && 
+                (
                     this.Type == input.Type ||
-                    (this.Type != null &&
-                    this.Type.Equals(input.Type))
+                    this.Type.Equals(input.Type)
                 ) && 
                 (
                     this.Volumes == input.Volumes ||
                     this.Volumes != null &&
+                    input.Volumes != null &&
                     this.Volumes.SequenceEqual(input.Volumes)
                 );
         }
@@ -229,22 +292,26 @@ namespace Cohesity.Models
                 int hashCode = 41;
                 if (this.Agents != null)
                     hashCode = hashCode * 59 + this.Agents.GetHashCode();
-                if (this.HostType != null)
-                    hashCode = hashCode * 59 + this.HostType.GetHashCode();
+                hashCode = hashCode * 59 + this.HostType.GetHashCode();
                 if (this.Id != null)
                     hashCode = hashCode * 59 + this.Id.GetHashCode();
+                if (this.MemorySizeBytes != null)
+                    hashCode = hashCode * 59 + this.MemorySizeBytes.GetHashCode();
                 if (this.Name != null)
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
-                if (this.Type != null)
-                    hashCode = hashCode * 59 + this.Type.GetHashCode();
+                if (this.NetworkingInfo != null)
+                    hashCode = hashCode * 59 + this.NetworkingInfo.GetHashCode();
+                if (this.NumProcessors != null)
+                    hashCode = hashCode * 59 + this.NumProcessors.GetHashCode();
+                if (this.OsName != null)
+                    hashCode = hashCode * 59 + this.OsName.GetHashCode();
+                hashCode = hashCode * 59 + this.Type.GetHashCode();
                 if (this.Volumes != null)
                     hashCode = hashCode * 59 + this.Volumes.GetHashCode();
                 return hashCode;
             }
         }
 
-        
     }
 
 }
-

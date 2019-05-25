@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies the params required to update the user id mapping info of an Active Directory.
@@ -26,20 +23,20 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="IdMappingInfo" /> class.
         /// </summary>
-        /// <param name="fallbackUserIdMappingInfo">Specifies the fallback id mapping info which is used when an ID mapping for a user is not found via the above IdMappingInfo. Only supported for two types of fallback mapping types - &#39;kRid&#39; and &#39;kFixed&#39;..</param>
+        /// <param name="fallbackUserIdMappingInfo">fallbackUserIdMappingInfo.</param>
         /// <param name="unixRootSid">Specifies the SID of the Active Directory domain user to be mapped to Unix root user..</param>
-        /// <param name="userIdMappingInfo">Specifies the information about how the Unix and Windows users are mapped for this domain..</param>
+        /// <param name="userIdMappingInfo">userIdMappingInfo.</param>
         public IdMappingInfo(UserIdMapping fallbackUserIdMappingInfo = default(UserIdMapping), string unixRootSid = default(string), UserIdMapping userIdMappingInfo = default(UserIdMapping))
         {
+            this.UnixRootSid = unixRootSid;
             this.FallbackUserIdMappingInfo = fallbackUserIdMappingInfo;
             this.UnixRootSid = unixRootSid;
             this.UserIdMappingInfo = userIdMappingInfo;
         }
         
         /// <summary>
-        /// Specifies the fallback id mapping info which is used when an ID mapping for a user is not found via the above IdMappingInfo. Only supported for two types of fallback mapping types - &#39;kRid&#39; and &#39;kFixed&#39;.
+        /// Gets or Sets FallbackUserIdMappingInfo
         /// </summary>
-        /// <value>Specifies the fallback id mapping info which is used when an ID mapping for a user is not found via the above IdMappingInfo. Only supported for two types of fallback mapping types - &#39;kRid&#39; and &#39;kFixed&#39;.</value>
         [DataMember(Name="fallbackUserIdMappingInfo", EmitDefaultValue=false)]
         public UserIdMapping FallbackUserIdMappingInfo { get; set; }
 
@@ -47,13 +44,12 @@ namespace Cohesity.Models
         /// Specifies the SID of the Active Directory domain user to be mapped to Unix root user.
         /// </summary>
         /// <value>Specifies the SID of the Active Directory domain user to be mapped to Unix root user.</value>
-        [DataMember(Name="unixRootSid", EmitDefaultValue=false)]
+        [DataMember(Name="unixRootSid", EmitDefaultValue=true)]
         public string UnixRootSid { get; set; }
 
         /// <summary>
-        /// Specifies the information about how the Unix and Windows users are mapped for this domain.
+        /// Gets or Sets UserIdMappingInfo
         /// </summary>
-        /// <value>Specifies the information about how the Unix and Windows users are mapped for this domain.</value>
         [DataMember(Name="userIdMappingInfo", EmitDefaultValue=false)]
         public UserIdMapping UserIdMappingInfo { get; set; }
 
@@ -63,7 +59,13 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class IdMappingInfo {\n");
+            sb.Append("  FallbackUserIdMappingInfo: ").Append(FallbackUserIdMappingInfo).Append("\n");
+            sb.Append("  UnixRootSid: ").Append(UnixRootSid).Append("\n");
+            sb.Append("  UserIdMappingInfo: ").Append(UserIdMappingInfo).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -132,8 +134,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

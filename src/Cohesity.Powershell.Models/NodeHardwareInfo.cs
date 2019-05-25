@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,13 +12,10 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
-    /// NodeHardwareInfo
+    /// NodeHardwareInfo provides the information regarding the hardware.
     /// </summary>
     [DataContract]
     public partial class NodeHardwareInfo :  IEquatable<NodeHardwareInfo>
@@ -34,27 +31,30 @@ namespace Cohesity.Models
             this.Cpu = cpu;
             this.MemorySizeBytes = memorySizeBytes;
             this.Network = network;
+            this.Cpu = cpu;
+            this.MemorySizeBytes = memorySizeBytes;
+            this.Network = network;
         }
         
         /// <summary>
         /// Cpu provides the information regarding the CPU.
         /// </summary>
         /// <value>Cpu provides the information regarding the CPU.</value>
-        [DataMember(Name="cpu", EmitDefaultValue=false)]
+        [DataMember(Name="cpu", EmitDefaultValue=true)]
         public string Cpu { get; set; }
 
         /// <summary>
         /// MemorySizeBytes provides the memory size in bytes.
         /// </summary>
         /// <value>MemorySizeBytes provides the memory size in bytes.</value>
-        [DataMember(Name="memorySizeBytes", EmitDefaultValue=false)]
+        [DataMember(Name="memorySizeBytes", EmitDefaultValue=true)]
         public long? MemorySizeBytes { get; set; }
 
         /// <summary>
         /// Network provides the information regarding the network cards.
         /// </summary>
         /// <value>Network provides the information regarding the network cards.</value>
-        [DataMember(Name="network", EmitDefaultValue=false)]
+        [DataMember(Name="network", EmitDefaultValue=true)]
         public string Network { get; set; }
 
         /// <summary>
@@ -63,7 +63,13 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class NodeHardwareInfo {\n");
+            sb.Append("  Cpu: ").Append(Cpu).Append("\n");
+            sb.Append("  MemorySizeBytes: ").Append(MemorySizeBytes).Append("\n");
+            sb.Append("  Network: ").Append(Network).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -132,8 +138,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

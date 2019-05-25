@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies information about a remote Cluster that has been registered for replication.
@@ -27,26 +24,47 @@ namespace Cohesity.Models
         /// Initializes a new instance of the <see cref="RemoteCluster" /> class.
         /// </summary>
         /// <param name="allEndpointsReachable">Specifies whether any endpoint (such as a Node) on the remote Cluster is reachable from this local Cluster. If true, a service running on the local Cluster can communicate directly with any of its peers running on the remote Cluster, without using a proxy..</param>
-        /// <param name="bandwidthLimit">Specifies settings for limiting the data transfer rate between the local and remote Clusters..</param>
+        /// <param name="bandwidthLimit">bandwidthLimit.</param>
         /// <param name="clearInterfaces">clearInterfaces.</param>
         /// <param name="clearVlanId">Specifies whether to clear the vlanId field, and thus stop using only the IPs in the VLAN for communicating with the remote Cluster..</param>
         /// <param name="clusterId">Specifies the unique id of the remote Cluster..</param>
         /// <param name="clusterIncarnationId">Specifies the unique incarnation id of the remote Cluster. This id is determined dynamically by contacting the remote Cluster..</param>
         /// <param name="compressionEnabled">Specifies whether to compress the outbound data when transferring the replication data over the network to the remote Cluster..</param>
         /// <param name="encryptionKey">Specifies the encryption key used for encrypting the replication data from a local Cluster to a remote Cluster. If a key is not specified, replication traffic encryption is disabled. When Snapshots are replicated from a local Cluster to a remote Cluster, the encryption key specified on the local Cluster must be the same as the key specified on the remote Cluster..</param>
-        /// <param name="localIps">Specifies the IP addresses of the interfaces in the local Cluster which will be used for communicating with the remote Cluster..</param>
+        /// <param name="ifaceName">Specifies the interface name of the VLAN to use for communicating with the remote Cluster..</param>
+        /// <param name="localIps">Array of Local IP Addresses.  Specifies the IP addresses of the interfaces in the local Cluster which will be used for communicating with the remote Cluster..</param>
         /// <param name="name">Specifies the name of the remote Cluster..</param>
         /// <param name="networkInterfaceGroup">Specifies the group name of the network interfaces to use for communicating with the remote Cluster..</param>
-        /// <param name="networkInterfaceIds">Specifies the ids of the network interfaces to use for communicating with the remote Cluster..</param>
+        /// <param name="networkInterfaceIds">Array of Network Interface Ids.  Specifies the ids of the network interfaces to use for communicating with the remote Cluster..</param>
         /// <param name="purposeRemoteAccess">Whether the remote cluster will be used for remote access for SPOG..</param>
         /// <param name="purposeReplication">Whether the remote cluster will be used for replication..</param>
-        /// <param name="remoteAccessCredentials">Optional field for the user credentials to connect to Iris for remote access for SPOG. If this is not specified, then credentials specified for replication set up will be used for remote access for SPOG. Allowing a different user credentials to be set up for SPOG permits having different roles for remote access for SPOG and replication set up..</param>
-        /// <param name="remoteIps">Specifies the IP addresses of the Nodes on the remote Cluster to connect with. These IP addresses can also be VIPS. Specifying hostnames is not supported..</param>
+        /// <param name="remoteAccessCredentials">remoteAccessCredentials.</param>
+        /// <param name="remoteIps">Array of Remote Node IP Addresses.  Specifies the IP addresses of the Nodes on the remote Cluster to connect with. These IP addresses can also be VIPS. Specifying hostnames is not supported..</param>
+        /// <param name="tenantId">Specifies the tenant Id of the organization that created this remote cluster configuration..</param>
         /// <param name="userName">Specifies the Cohesity user name used to connect to the remote Cluster..</param>
-        /// <param name="viewBoxPairInfo">Specifies pairings between Storage Domains (View Boxes) on the local Cluster with Storage Domains (View Boxes) on a remote Cluster that are used in replication..</param>
+        /// <param name="viewBoxPairInfo">Array of Storage Domain (View Box) Pairs.  Specifies pairings between Storage Domains (View Boxes) on the local Cluster with Storage Domains (View Boxes) on a remote Cluster that are used in replication..</param>
         /// <param name="vlanId">Specifies the id of the VLAN to use when communicating with the remote Cluster..</param>
-        public RemoteCluster(bool? allEndpointsReachable = default(bool?), BandwidthLimit bandwidthLimit = default(BandwidthLimit), bool? clearInterfaces = default(bool?), bool? clearVlanId = default(bool?), long? clusterId = default(long?), long? clusterIncarnationId = default(long?), bool? compressionEnabled = default(bool?), string encryptionKey = default(string), List<string> localIps = default(List<string>), string name = default(string), string networkInterfaceGroup = default(string), List<long?> networkInterfaceIds = default(List<long?>), bool? purposeRemoteAccess = default(bool?), bool? purposeReplication = default(bool?), AccessTokenCredential remoteAccessCredentials = default(AccessTokenCredential), List<string> remoteIps = default(List<string>), string userName = default(string), List<ViewBoxPairInfo> viewBoxPairInfo = default(List<ViewBoxPairInfo>), int? vlanId = default(int?))
+        public RemoteCluster(bool? allEndpointsReachable = default(bool?), BandwidthLimit bandwidthLimit = default(BandwidthLimit), bool? clearInterfaces = default(bool?), bool? clearVlanId = default(bool?), long? clusterId = default(long?), long? clusterIncarnationId = default(long?), bool? compressionEnabled = default(bool?), string encryptionKey = default(string), string ifaceName = default(string), List<string> localIps = default(List<string>), string name = default(string), string networkInterfaceGroup = default(string), List<long> networkInterfaceIds = default(List<long>), bool? purposeRemoteAccess = default(bool?), bool? purposeReplication = default(bool?), AccessTokenCredential remoteAccessCredentials = default(AccessTokenCredential), List<string> remoteIps = default(List<string>), string tenantId = default(string), string userName = default(string), List<ViewBoxPairInfo> viewBoxPairInfo = default(List<ViewBoxPairInfo>), int? vlanId = default(int?))
         {
+            this.AllEndpointsReachable = allEndpointsReachable;
+            this.ClearInterfaces = clearInterfaces;
+            this.ClearVlanId = clearVlanId;
+            this.ClusterId = clusterId;
+            this.ClusterIncarnationId = clusterIncarnationId;
+            this.CompressionEnabled = compressionEnabled;
+            this.EncryptionKey = encryptionKey;
+            this.IfaceName = ifaceName;
+            this.LocalIps = localIps;
+            this.Name = name;
+            this.NetworkInterfaceGroup = networkInterfaceGroup;
+            this.NetworkInterfaceIds = networkInterfaceIds;
+            this.PurposeRemoteAccess = purposeRemoteAccess;
+            this.PurposeReplication = purposeReplication;
+            this.RemoteIps = remoteIps;
+            this.TenantId = tenantId;
+            this.UserName = userName;
+            this.ViewBoxPairInfo = viewBoxPairInfo;
+            this.VlanId = vlanId;
             this.AllEndpointsReachable = allEndpointsReachable;
             this.BandwidthLimit = bandwidthLimit;
             this.ClearInterfaces = clearInterfaces;
@@ -55,6 +73,7 @@ namespace Cohesity.Models
             this.ClusterIncarnationId = clusterIncarnationId;
             this.CompressionEnabled = compressionEnabled;
             this.EncryptionKey = encryptionKey;
+            this.IfaceName = ifaceName;
             this.LocalIps = localIps;
             this.Name = name;
             this.NetworkInterfaceGroup = networkInterfaceGroup;
@@ -63,6 +82,7 @@ namespace Cohesity.Models
             this.PurposeReplication = purposeReplication;
             this.RemoteAccessCredentials = remoteAccessCredentials;
             this.RemoteIps = remoteIps;
+            this.TenantId = tenantId;
             this.UserName = userName;
             this.ViewBoxPairInfo = viewBoxPairInfo;
             this.VlanId = vlanId;
@@ -72,132 +92,144 @@ namespace Cohesity.Models
         /// Specifies whether any endpoint (such as a Node) on the remote Cluster is reachable from this local Cluster. If true, a service running on the local Cluster can communicate directly with any of its peers running on the remote Cluster, without using a proxy.
         /// </summary>
         /// <value>Specifies whether any endpoint (such as a Node) on the remote Cluster is reachable from this local Cluster. If true, a service running on the local Cluster can communicate directly with any of its peers running on the remote Cluster, without using a proxy.</value>
-        [DataMember(Name="allEndpointsReachable", EmitDefaultValue=false)]
+        [DataMember(Name="allEndpointsReachable", EmitDefaultValue=true)]
         public bool? AllEndpointsReachable { get; set; }
 
         /// <summary>
-        /// Specifies settings for limiting the data transfer rate between the local and remote Clusters.
+        /// Gets or Sets BandwidthLimit
         /// </summary>
-        /// <value>Specifies settings for limiting the data transfer rate between the local and remote Clusters.</value>
         [DataMember(Name="bandwidthLimit", EmitDefaultValue=false)]
         public BandwidthLimit BandwidthLimit { get; set; }
 
         /// <summary>
         /// Gets or Sets ClearInterfaces
         /// </summary>
-        [DataMember(Name="clearInterfaces", EmitDefaultValue=false)]
+        [DataMember(Name="clearInterfaces", EmitDefaultValue=true)]
         public bool? ClearInterfaces { get; set; }
 
         /// <summary>
         /// Specifies whether to clear the vlanId field, and thus stop using only the IPs in the VLAN for communicating with the remote Cluster.
         /// </summary>
         /// <value>Specifies whether to clear the vlanId field, and thus stop using only the IPs in the VLAN for communicating with the remote Cluster.</value>
-        [DataMember(Name="clearVlanId", EmitDefaultValue=false)]
+        [DataMember(Name="clearVlanId", EmitDefaultValue=true)]
         public bool? ClearVlanId { get; set; }
 
         /// <summary>
         /// Specifies the unique id of the remote Cluster.
         /// </summary>
         /// <value>Specifies the unique id of the remote Cluster.</value>
-        [DataMember(Name="clusterId", EmitDefaultValue=false)]
+        [DataMember(Name="clusterId", EmitDefaultValue=true)]
         public long? ClusterId { get; set; }
 
         /// <summary>
         /// Specifies the unique incarnation id of the remote Cluster. This id is determined dynamically by contacting the remote Cluster.
         /// </summary>
         /// <value>Specifies the unique incarnation id of the remote Cluster. This id is determined dynamically by contacting the remote Cluster.</value>
-        [DataMember(Name="clusterIncarnationId", EmitDefaultValue=false)]
+        [DataMember(Name="clusterIncarnationId", EmitDefaultValue=true)]
         public long? ClusterIncarnationId { get; set; }
 
         /// <summary>
         /// Specifies whether to compress the outbound data when transferring the replication data over the network to the remote Cluster.
         /// </summary>
         /// <value>Specifies whether to compress the outbound data when transferring the replication data over the network to the remote Cluster.</value>
-        [DataMember(Name="compressionEnabled", EmitDefaultValue=false)]
+        [DataMember(Name="compressionEnabled", EmitDefaultValue=true)]
         public bool? CompressionEnabled { get; set; }
 
         /// <summary>
         /// Specifies the encryption key used for encrypting the replication data from a local Cluster to a remote Cluster. If a key is not specified, replication traffic encryption is disabled. When Snapshots are replicated from a local Cluster to a remote Cluster, the encryption key specified on the local Cluster must be the same as the key specified on the remote Cluster.
         /// </summary>
         /// <value>Specifies the encryption key used for encrypting the replication data from a local Cluster to a remote Cluster. If a key is not specified, replication traffic encryption is disabled. When Snapshots are replicated from a local Cluster to a remote Cluster, the encryption key specified on the local Cluster must be the same as the key specified on the remote Cluster.</value>
-        [DataMember(Name="encryptionKey", EmitDefaultValue=false)]
+        [DataMember(Name="encryptionKey", EmitDefaultValue=true)]
         public string EncryptionKey { get; set; }
 
         /// <summary>
-        /// Specifies the IP addresses of the interfaces in the local Cluster which will be used for communicating with the remote Cluster.
+        /// Specifies the interface name of the VLAN to use for communicating with the remote Cluster.
         /// </summary>
-        /// <value>Specifies the IP addresses of the interfaces in the local Cluster which will be used for communicating with the remote Cluster.</value>
-        [DataMember(Name="localIps", EmitDefaultValue=false)]
+        /// <value>Specifies the interface name of the VLAN to use for communicating with the remote Cluster.</value>
+        [DataMember(Name="ifaceName", EmitDefaultValue=true)]
+        public string IfaceName { get; set; }
+
+        /// <summary>
+        /// Array of Local IP Addresses.  Specifies the IP addresses of the interfaces in the local Cluster which will be used for communicating with the remote Cluster.
+        /// </summary>
+        /// <value>Array of Local IP Addresses.  Specifies the IP addresses of the interfaces in the local Cluster which will be used for communicating with the remote Cluster.</value>
+        [DataMember(Name="localIps", EmitDefaultValue=true)]
         public List<string> LocalIps { get; set; }
 
         /// <summary>
         /// Specifies the name of the remote Cluster.
         /// </summary>
         /// <value>Specifies the name of the remote Cluster.</value>
-        [DataMember(Name="name", EmitDefaultValue=false)]
+        [DataMember(Name="name", EmitDefaultValue=true)]
         public string Name { get; set; }
 
         /// <summary>
         /// Specifies the group name of the network interfaces to use for communicating with the remote Cluster.
         /// </summary>
         /// <value>Specifies the group name of the network interfaces to use for communicating with the remote Cluster.</value>
-        [DataMember(Name="networkInterfaceGroup", EmitDefaultValue=false)]
+        [DataMember(Name="networkInterfaceGroup", EmitDefaultValue=true)]
         public string NetworkInterfaceGroup { get; set; }
 
         /// <summary>
-        /// Specifies the ids of the network interfaces to use for communicating with the remote Cluster.
+        /// Array of Network Interface Ids.  Specifies the ids of the network interfaces to use for communicating with the remote Cluster.
         /// </summary>
-        /// <value>Specifies the ids of the network interfaces to use for communicating with the remote Cluster.</value>
-        [DataMember(Name="networkInterfaceIds", EmitDefaultValue=false)]
-        public List<long?> NetworkInterfaceIds { get; set; }
+        /// <value>Array of Network Interface Ids.  Specifies the ids of the network interfaces to use for communicating with the remote Cluster.</value>
+        [DataMember(Name="networkInterfaceIds", EmitDefaultValue=true)]
+        public List<long> NetworkInterfaceIds { get; set; }
 
         /// <summary>
         /// Whether the remote cluster will be used for remote access for SPOG.
         /// </summary>
         /// <value>Whether the remote cluster will be used for remote access for SPOG.</value>
-        [DataMember(Name="purposeRemoteAccess", EmitDefaultValue=false)]
+        [DataMember(Name="purposeRemoteAccess", EmitDefaultValue=true)]
         public bool? PurposeRemoteAccess { get; set; }
 
         /// <summary>
         /// Whether the remote cluster will be used for replication.
         /// </summary>
         /// <value>Whether the remote cluster will be used for replication.</value>
-        [DataMember(Name="purposeReplication", EmitDefaultValue=false)]
+        [DataMember(Name="purposeReplication", EmitDefaultValue=true)]
         public bool? PurposeReplication { get; set; }
 
         /// <summary>
-        /// Optional field for the user credentials to connect to Iris for remote access for SPOG. If this is not specified, then credentials specified for replication set up will be used for remote access for SPOG. Allowing a different user credentials to be set up for SPOG permits having different roles for remote access for SPOG and replication set up.
+        /// Gets or Sets RemoteAccessCredentials
         /// </summary>
-        /// <value>Optional field for the user credentials to connect to Iris for remote access for SPOG. If this is not specified, then credentials specified for replication set up will be used for remote access for SPOG. Allowing a different user credentials to be set up for SPOG permits having different roles for remote access for SPOG and replication set up.</value>
         [DataMember(Name="remoteAccessCredentials", EmitDefaultValue=false)]
         public AccessTokenCredential RemoteAccessCredentials { get; set; }
 
         /// <summary>
-        /// Specifies the IP addresses of the Nodes on the remote Cluster to connect with. These IP addresses can also be VIPS. Specifying hostnames is not supported.
+        /// Array of Remote Node IP Addresses.  Specifies the IP addresses of the Nodes on the remote Cluster to connect with. These IP addresses can also be VIPS. Specifying hostnames is not supported.
         /// </summary>
-        /// <value>Specifies the IP addresses of the Nodes on the remote Cluster to connect with. These IP addresses can also be VIPS. Specifying hostnames is not supported.</value>
-        [DataMember(Name="remoteIps", EmitDefaultValue=false)]
+        /// <value>Array of Remote Node IP Addresses.  Specifies the IP addresses of the Nodes on the remote Cluster to connect with. These IP addresses can also be VIPS. Specifying hostnames is not supported.</value>
+        [DataMember(Name="remoteIps", EmitDefaultValue=true)]
         public List<string> RemoteIps { get; set; }
+
+        /// <summary>
+        /// Specifies the tenant Id of the organization that created this remote cluster configuration.
+        /// </summary>
+        /// <value>Specifies the tenant Id of the organization that created this remote cluster configuration.</value>
+        [DataMember(Name="tenantId", EmitDefaultValue=true)]
+        public string TenantId { get; set; }
 
         /// <summary>
         /// Specifies the Cohesity user name used to connect to the remote Cluster.
         /// </summary>
         /// <value>Specifies the Cohesity user name used to connect to the remote Cluster.</value>
-        [DataMember(Name="userName", EmitDefaultValue=false)]
+        [DataMember(Name="userName", EmitDefaultValue=true)]
         public string UserName { get; set; }
 
         /// <summary>
-        /// Specifies pairings between Storage Domains (View Boxes) on the local Cluster with Storage Domains (View Boxes) on a remote Cluster that are used in replication.
+        /// Array of Storage Domain (View Box) Pairs.  Specifies pairings between Storage Domains (View Boxes) on the local Cluster with Storage Domains (View Boxes) on a remote Cluster that are used in replication.
         /// </summary>
-        /// <value>Specifies pairings between Storage Domains (View Boxes) on the local Cluster with Storage Domains (View Boxes) on a remote Cluster that are used in replication.</value>
-        [DataMember(Name="viewBoxPairInfo", EmitDefaultValue=false)]
+        /// <value>Array of Storage Domain (View Box) Pairs.  Specifies pairings between Storage Domains (View Boxes) on the local Cluster with Storage Domains (View Boxes) on a remote Cluster that are used in replication.</value>
+        [DataMember(Name="viewBoxPairInfo", EmitDefaultValue=true)]
         public List<ViewBoxPairInfo> ViewBoxPairInfo { get; set; }
 
         /// <summary>
         /// Specifies the id of the VLAN to use when communicating with the remote Cluster.
         /// </summary>
         /// <value>Specifies the id of the VLAN to use when communicating with the remote Cluster.</value>
-        [DataMember(Name="vlanId", EmitDefaultValue=false)]
+        [DataMember(Name="vlanId", EmitDefaultValue=true)]
         public int? VlanId { get; set; }
 
         /// <summary>
@@ -206,7 +238,31 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class RemoteCluster {\n");
+            sb.Append("  AllEndpointsReachable: ").Append(AllEndpointsReachable).Append("\n");
+            sb.Append("  BandwidthLimit: ").Append(BandwidthLimit).Append("\n");
+            sb.Append("  ClearInterfaces: ").Append(ClearInterfaces).Append("\n");
+            sb.Append("  ClearVlanId: ").Append(ClearVlanId).Append("\n");
+            sb.Append("  ClusterId: ").Append(ClusterId).Append("\n");
+            sb.Append("  ClusterIncarnationId: ").Append(ClusterIncarnationId).Append("\n");
+            sb.Append("  CompressionEnabled: ").Append(CompressionEnabled).Append("\n");
+            sb.Append("  EncryptionKey: ").Append(EncryptionKey).Append("\n");
+            sb.Append("  IfaceName: ").Append(IfaceName).Append("\n");
+            sb.Append("  LocalIps: ").Append(LocalIps).Append("\n");
+            sb.Append("  Name: ").Append(Name).Append("\n");
+            sb.Append("  NetworkInterfaceGroup: ").Append(NetworkInterfaceGroup).Append("\n");
+            sb.Append("  NetworkInterfaceIds: ").Append(NetworkInterfaceIds).Append("\n");
+            sb.Append("  PurposeRemoteAccess: ").Append(PurposeRemoteAccess).Append("\n");
+            sb.Append("  PurposeReplication: ").Append(PurposeReplication).Append("\n");
+            sb.Append("  RemoteAccessCredentials: ").Append(RemoteAccessCredentials).Append("\n");
+            sb.Append("  RemoteIps: ").Append(RemoteIps).Append("\n");
+            sb.Append("  TenantId: ").Append(TenantId).Append("\n");
+            sb.Append("  UserName: ").Append(UserName).Append("\n");
+            sb.Append("  ViewBoxPairInfo: ").Append(ViewBoxPairInfo).Append("\n");
+            sb.Append("  VlanId: ").Append(VlanId).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -280,8 +336,14 @@ namespace Cohesity.Models
                     this.EncryptionKey.Equals(input.EncryptionKey))
                 ) && 
                 (
+                    this.IfaceName == input.IfaceName ||
+                    (this.IfaceName != null &&
+                    this.IfaceName.Equals(input.IfaceName))
+                ) && 
+                (
                     this.LocalIps == input.LocalIps ||
                     this.LocalIps != null &&
+                    input.LocalIps != null &&
                     this.LocalIps.SequenceEqual(input.LocalIps)
                 ) && 
                 (
@@ -297,6 +359,7 @@ namespace Cohesity.Models
                 (
                     this.NetworkInterfaceIds == input.NetworkInterfaceIds ||
                     this.NetworkInterfaceIds != null &&
+                    input.NetworkInterfaceIds != null &&
                     this.NetworkInterfaceIds.SequenceEqual(input.NetworkInterfaceIds)
                 ) && 
                 (
@@ -317,7 +380,13 @@ namespace Cohesity.Models
                 (
                     this.RemoteIps == input.RemoteIps ||
                     this.RemoteIps != null &&
+                    input.RemoteIps != null &&
                     this.RemoteIps.SequenceEqual(input.RemoteIps)
+                ) && 
+                (
+                    this.TenantId == input.TenantId ||
+                    (this.TenantId != null &&
+                    this.TenantId.Equals(input.TenantId))
                 ) && 
                 (
                     this.UserName == input.UserName ||
@@ -327,6 +396,7 @@ namespace Cohesity.Models
                 (
                     this.ViewBoxPairInfo == input.ViewBoxPairInfo ||
                     this.ViewBoxPairInfo != null &&
+                    input.ViewBoxPairInfo != null &&
                     this.ViewBoxPairInfo.SequenceEqual(input.ViewBoxPairInfo)
                 ) && 
                 (
@@ -361,6 +431,8 @@ namespace Cohesity.Models
                     hashCode = hashCode * 59 + this.CompressionEnabled.GetHashCode();
                 if (this.EncryptionKey != null)
                     hashCode = hashCode * 59 + this.EncryptionKey.GetHashCode();
+                if (this.IfaceName != null)
+                    hashCode = hashCode * 59 + this.IfaceName.GetHashCode();
                 if (this.LocalIps != null)
                     hashCode = hashCode * 59 + this.LocalIps.GetHashCode();
                 if (this.Name != null)
@@ -377,6 +449,8 @@ namespace Cohesity.Models
                     hashCode = hashCode * 59 + this.RemoteAccessCredentials.GetHashCode();
                 if (this.RemoteIps != null)
                     hashCode = hashCode * 59 + this.RemoteIps.GetHashCode();
+                if (this.TenantId != null)
+                    hashCode = hashCode * 59 + this.TenantId.GetHashCode();
                 if (this.UserName != null)
                     hashCode = hashCode * 59 + this.UserName.GetHashCode();
                 if (this.ViewBoxPairInfo != null)
@@ -387,8 +461,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

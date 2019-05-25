@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies the list of Views returned that matched the specified filter criteria.
@@ -27,9 +24,11 @@ namespace Cohesity.Models
         /// Initializes a new instance of the <see cref="GetViewsResult" /> class.
         /// </summary>
         /// <param name="lastResult">If false, more Views are available to return. If the number of Views to return exceeds the number of Views specified in maxCount (default of 1000) of the original GET /public/views request, the first set of Views are returned and this field returns false. To get the next set of Views, in the next GET /public/views request send the last id from the previous viewList..</param>
-        /// <param name="views">Specifies the list of Views returned in this response. The list is sorted by decreasing View ids..</param>
+        /// <param name="views">Array of Views.  Specifies the list of Views returned in this response. The list is sorted by decreasing View ids..</param>
         public GetViewsResult(bool? lastResult = default(bool?), List<View> views = default(List<View>))
         {
+            this.LastResult = lastResult;
+            this.Views = views;
             this.LastResult = lastResult;
             this.Views = views;
         }
@@ -38,14 +37,14 @@ namespace Cohesity.Models
         /// If false, more Views are available to return. If the number of Views to return exceeds the number of Views specified in maxCount (default of 1000) of the original GET /public/views request, the first set of Views are returned and this field returns false. To get the next set of Views, in the next GET /public/views request send the last id from the previous viewList.
         /// </summary>
         /// <value>If false, more Views are available to return. If the number of Views to return exceeds the number of Views specified in maxCount (default of 1000) of the original GET /public/views request, the first set of Views are returned and this field returns false. To get the next set of Views, in the next GET /public/views request send the last id from the previous viewList.</value>
-        [DataMember(Name="lastResult", EmitDefaultValue=false)]
+        [DataMember(Name="lastResult", EmitDefaultValue=true)]
         public bool? LastResult { get; set; }
 
         /// <summary>
-        /// Specifies the list of Views returned in this response. The list is sorted by decreasing View ids.
+        /// Array of Views.  Specifies the list of Views returned in this response. The list is sorted by decreasing View ids.
         /// </summary>
-        /// <value>Specifies the list of Views returned in this response. The list is sorted by decreasing View ids.</value>
-        [DataMember(Name="views", EmitDefaultValue=false)]
+        /// <value>Array of Views.  Specifies the list of Views returned in this response. The list is sorted by decreasing View ids.</value>
+        [DataMember(Name="views", EmitDefaultValue=true)]
         public List<View> Views { get; set; }
 
         /// <summary>
@@ -54,7 +53,12 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class GetViewsResult {\n");
+            sb.Append("  LastResult: ").Append(LastResult).Append("\n");
+            sb.Append("  Views: ").Append(Views).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -95,6 +99,7 @@ namespace Cohesity.Models
                 (
                     this.Views == input.Views ||
                     this.Views != null &&
+                    input.Views != null &&
                     this.Views.SequenceEqual(input.Views)
                 );
         }
@@ -116,8 +121,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

@@ -44,12 +44,12 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 
 ## INPUTS
 
-### Cohesity.Models.View
+### Cohesity.Model.View
 The updated View.
 
 ## OUTPUTS
 
-### Cohesity.Models.View
+### Cohesity.Model.View
 ## NOTES
 
 ## RELATED LINKS

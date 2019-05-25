@@ -1,11 +1,18 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
+using System.Linq;
+using System.IO;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies Cloud parameters that are applicable to all Protection Sources in a Protection Job in certain scenarios.
@@ -20,13 +27,14 @@ namespace Cohesity.Models
         public CloudParameters(bool? failoverToCloud = default(bool?))
         {
             this.FailoverToCloud = failoverToCloud;
+            this.FailoverToCloud = failoverToCloud;
         }
         
         /// <summary>
         /// Specifies whether the Protection Sources in this Protection Job will be failed over to Cloud. This flag is applicable to backup on-prem Sources.
         /// </summary>
         /// <value>Specifies whether the Protection Sources in this Protection Job will be failed over to Cloud. This flag is applicable to backup on-prem Sources.</value>
-        [DataMember(Name="failoverToCloud", EmitDefaultValue=false)]
+        [DataMember(Name="failoverToCloud", EmitDefaultValue=true)]
         public bool? FailoverToCloud { get; set; }
 
         /// <summary>
@@ -35,16 +43,12 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class CloudParameters {\n");
+            sb.Append("  FailoverToCloud: ").Append(FailoverToCloud).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
-        //public override string ToString()
-        //{
-        //    var sb = new StringBuilder();
-        //    sb.Append("class CloudParameters {\n");
-        //    sb.Append("  FailoverToCloud: ").Append(FailoverToCloud).Append("\n");
-        //    sb.Append("}\n");
-        //    return sb.ToString();
-        //}
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -98,8 +102,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

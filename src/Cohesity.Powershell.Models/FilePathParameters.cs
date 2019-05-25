@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies a file or a directory to protect in a Physical Server. If a directory is specified, all of its descendants are also backed up. Optionally, files or subdirectories can be explicitly excluded.
@@ -27,10 +24,13 @@ namespace Cohesity.Models
         /// Initializes a new instance of the <see cref="FilePathParameters" /> class.
         /// </summary>
         /// <param name="backupFilePath">Specifies absolute path to a file or a directory in a Physical Server to protect..</param>
-        /// <param name="excludedFilePaths">Specifies absolute paths to descendant files or subdirectories of backupFilePath that should not be protected..</param>
+        /// <param name="excludedFilePaths">Array of Excluded File Paths.  Specifies absolute paths to descendant files or subdirectories of backupFilePath that should not be protected..</param>
         /// <param name="skipNestedVolumes">Specifies if any subdirectories under backupFilePath, where local or network volumes are mounted, should be excluded from being protected. If true, the volumes are not protected..</param>
         public FilePathParameters(string backupFilePath = default(string), List<string> excludedFilePaths = default(List<string>), bool? skipNestedVolumes = default(bool?))
         {
+            this.BackupFilePath = backupFilePath;
+            this.ExcludedFilePaths = excludedFilePaths;
+            this.SkipNestedVolumes = skipNestedVolumes;
             this.BackupFilePath = backupFilePath;
             this.ExcludedFilePaths = excludedFilePaths;
             this.SkipNestedVolumes = skipNestedVolumes;
@@ -40,21 +40,21 @@ namespace Cohesity.Models
         /// Specifies absolute path to a file or a directory in a Physical Server to protect.
         /// </summary>
         /// <value>Specifies absolute path to a file or a directory in a Physical Server to protect.</value>
-        [DataMember(Name="backupFilePath", EmitDefaultValue=false)]
+        [DataMember(Name="backupFilePath", EmitDefaultValue=true)]
         public string BackupFilePath { get; set; }
 
         /// <summary>
-        /// Specifies absolute paths to descendant files or subdirectories of backupFilePath that should not be protected.
+        /// Array of Excluded File Paths.  Specifies absolute paths to descendant files or subdirectories of backupFilePath that should not be protected.
         /// </summary>
-        /// <value>Specifies absolute paths to descendant files or subdirectories of backupFilePath that should not be protected.</value>
-        [DataMember(Name="excludedFilePaths", EmitDefaultValue=false)]
+        /// <value>Array of Excluded File Paths.  Specifies absolute paths to descendant files or subdirectories of backupFilePath that should not be protected.</value>
+        [DataMember(Name="excludedFilePaths", EmitDefaultValue=true)]
         public List<string> ExcludedFilePaths { get; set; }
 
         /// <summary>
         /// Specifies if any subdirectories under backupFilePath, where local or network volumes are mounted, should be excluded from being protected. If true, the volumes are not protected.
         /// </summary>
         /// <value>Specifies if any subdirectories under backupFilePath, where local or network volumes are mounted, should be excluded from being protected. If true, the volumes are not protected.</value>
-        [DataMember(Name="skipNestedVolumes", EmitDefaultValue=false)]
+        [DataMember(Name="skipNestedVolumes", EmitDefaultValue=true)]
         public bool? SkipNestedVolumes { get; set; }
 
         /// <summary>
@@ -63,7 +63,13 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class FilePathParameters {\n");
+            sb.Append("  BackupFilePath: ").Append(BackupFilePath).Append("\n");
+            sb.Append("  ExcludedFilePaths: ").Append(ExcludedFilePaths).Append("\n");
+            sb.Append("  SkipNestedVolumes: ").Append(SkipNestedVolumes).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -104,6 +110,7 @@ namespace Cohesity.Models
                 (
                     this.ExcludedFilePaths == input.ExcludedFilePaths ||
                     this.ExcludedFilePaths != null &&
+                    input.ExcludedFilePaths != null &&
                     this.ExcludedFilePaths.SequenceEqual(input.ExcludedFilePaths)
                 ) && 
                 (
@@ -132,8 +139,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

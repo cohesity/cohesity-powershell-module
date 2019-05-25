@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies the parameters required for deleting one or more roles.
@@ -31,25 +28,17 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="RoleDeleteParameters" /> class.
         /// </summary>
-        /// <param name="names">Specifies the list of roles to delete which are specified by role names. (required).</param>
+        /// <param name="names">Array of Role Names.  Specifies the list of roles to delete which are specified by role names. (required).</param>
         public RoleDeleteParameters(List<string> names = default(List<string>))
         {
-            // to ensure "names" is required (not null)
-            if (names == null)
-            {
-                throw new InvalidDataException("names is a required property for RoleDeleteParameters and cannot be null");
-            }
-            else
-            {
-                this.Names = names;
-            }
+            this.Names = names;
         }
         
         /// <summary>
-        /// Specifies the list of roles to delete which are specified by role names.
+        /// Array of Role Names.  Specifies the list of roles to delete which are specified by role names.
         /// </summary>
-        /// <value>Specifies the list of roles to delete which are specified by role names.</value>
-        [DataMember(Name="names", EmitDefaultValue=false)]
+        /// <value>Array of Role Names.  Specifies the list of roles to delete which are specified by role names.</value>
+        [DataMember(Name="names", EmitDefaultValue=true)]
         public List<string> Names { get; set; }
 
         /// <summary>
@@ -58,7 +47,11 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class RoleDeleteParameters {\n");
+            sb.Append("  Names: ").Append(Names).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -94,6 +87,7 @@ namespace Cohesity.Models
                 (
                     this.Names == input.Names ||
                     this.Names != null &&
+                    input.Names != null &&
                     this.Names.SequenceEqual(input.Names)
                 );
         }
@@ -113,8 +107,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

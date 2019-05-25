@@ -95,7 +95,7 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 
 ## OUTPUTS
 
-### Cohesity.Models.ViewBox
+### Cohesity.Model.ViewBox
 ## NOTES
 
 ## RELATED LINKS

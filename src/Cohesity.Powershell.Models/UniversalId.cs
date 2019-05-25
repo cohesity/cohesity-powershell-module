@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies an id for an object that is unique across Cohesity Clusters. The id is composite of all the ids listed below.
@@ -34,27 +31,30 @@ namespace Cohesity.Models
             this.ClusterId = clusterId;
             this.ClusterIncarnationId = clusterIncarnationId;
             this.Id = id;
+            this.ClusterId = clusterId;
+            this.ClusterIncarnationId = clusterIncarnationId;
+            this.Id = id;
         }
         
         /// <summary>
         /// Specifies the Cohesity Cluster id where the object was created.
         /// </summary>
         /// <value>Specifies the Cohesity Cluster id where the object was created.</value>
-        [DataMember(Name="clusterId", EmitDefaultValue=false)]
+        [DataMember(Name="clusterId", EmitDefaultValue=true)]
         public long? ClusterId { get; set; }
 
         /// <summary>
         /// Specifies an id for the Cohesity Cluster that is generated when a Cohesity Cluster is initially created.
         /// </summary>
         /// <value>Specifies an id for the Cohesity Cluster that is generated when a Cohesity Cluster is initially created.</value>
-        [DataMember(Name="clusterIncarnationId", EmitDefaultValue=false)]
+        [DataMember(Name="clusterIncarnationId", EmitDefaultValue=true)]
         public long? ClusterIncarnationId { get; set; }
 
         /// <summary>
         /// Specifies a unique id assigned to an object (such as a Job) by the Cohesity Cluster.
         /// </summary>
         /// <value>Specifies a unique id assigned to an object (such as a Job) by the Cohesity Cluster.</value>
-        [DataMember(Name="id", EmitDefaultValue=false)]
+        [DataMember(Name="id", EmitDefaultValue=true)]
         public long? Id { get; set; }
 
         /// <summary>
@@ -63,7 +63,13 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class UniversalId {\n");
+            sb.Append("  ClusterId: ").Append(ClusterId).Append("\n");
+            sb.Append("  ClusterIncarnationId: ").Append(ClusterIncarnationId).Append("\n");
+            sb.Append("  Id: ").Append(Id).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -132,8 +138,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

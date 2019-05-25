@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,13 +12,10 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
-    /// TapeMediaInformation
+    /// Provides information about a single tape media in a QStar Archive Vault.
     /// </summary>
     [DataContract]
     public partial class TapeMediaInformation :  IEquatable<TapeMediaInformation>
@@ -34,27 +31,30 @@ namespace Cohesity.Models
             this.Barcode = barcode;
             this.Location = location;
             this.Online = online;
+            this.Barcode = barcode;
+            this.Location = location;
+            this.Online = online;
         }
         
         /// <summary>
         /// Specifies a unique identifier for the media.
         /// </summary>
         /// <value>Specifies a unique identifier for the media.</value>
-        [DataMember(Name="barcode", EmitDefaultValue=false)]
+        [DataMember(Name="barcode", EmitDefaultValue=true)]
         public string Barcode { get; set; }
 
         /// <summary>
         /// Specifies the location of the offline media as recorded by the backup administrator using media management software.
         /// </summary>
         /// <value>Specifies the location of the offline media as recorded by the backup administrator using media management software.</value>
-        [DataMember(Name="location", EmitDefaultValue=false)]
+        [DataMember(Name="location", EmitDefaultValue=true)]
         public string Location { get; set; }
 
         /// <summary>
         /// Specifies a flag that indicates if the media is online or offline. Offline media must be manually loaded into the media library before a recovery can occur.
         /// </summary>
         /// <value>Specifies a flag that indicates if the media is online or offline. Offline media must be manually loaded into the media library before a recovery can occur.</value>
-        [DataMember(Name="online", EmitDefaultValue=false)]
+        [DataMember(Name="online", EmitDefaultValue=true)]
         public bool? Online { get; set; }
 
         /// <summary>
@@ -63,7 +63,13 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class TapeMediaInformation {\n");
+            sb.Append("  Barcode: ").Append(Barcode).Append("\n");
+            sb.Append("  Location: ").Append(Location).Append("\n");
+            sb.Append("  Online: ").Append(Online).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -132,8 +138,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

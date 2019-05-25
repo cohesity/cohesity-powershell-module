@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies job parameters applicable for all &#39;kPure&#39; Environment type Protection Sources in a Protection Job.
@@ -30,13 +27,14 @@ namespace Cohesity.Models
         public PureEnvJobParameters(long? maxSnapshotsOnPrimary = default(long?))
         {
             this.MaxSnapshotsOnPrimary = maxSnapshotsOnPrimary;
+            this.MaxSnapshotsOnPrimary = maxSnapshotsOnPrimary;
         }
         
         /// <summary>
         /// Specifies how many recent snapshots of each backed up entity to retain on the primary environment. If not specified, then snapshots will not be be deleted from the primary environment.
         /// </summary>
         /// <value>Specifies how many recent snapshots of each backed up entity to retain on the primary environment. If not specified, then snapshots will not be be deleted from the primary environment.</value>
-        [DataMember(Name="maxSnapshotsOnPrimary", EmitDefaultValue=false)]
+        [DataMember(Name="maxSnapshotsOnPrimary", EmitDefaultValue=true)]
         public long? MaxSnapshotsOnPrimary { get; set; }
 
         /// <summary>
@@ -45,7 +43,11 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class PureEnvJobParameters {\n");
+            sb.Append("  MaxSnapshotsOnPrimary: ").Append(MaxSnapshotsOnPrimary).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -100,8 +102,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

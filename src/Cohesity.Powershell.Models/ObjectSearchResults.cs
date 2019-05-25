@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies an array of backup objects and a count to indicate if additional requests must be made to get the full result.
@@ -26,26 +23,28 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="ObjectSearchResults" /> class.
         /// </summary>
-        /// <param name="objectSnapshotInfo">Specifies the list of backup objects returned by this request that match the specified search and filter criteria. The number of objects returned is limited by the pageCount field..</param>
+        /// <param name="objectSnapshotInfo">Array of Snapshot Objects.  Specifies the list of backup objects returned by this request that match the specified search and filter criteria. The number of objects returned is limited by the pageCount field..</param>
         /// <param name="totalCount">Specifies the total number of backup objects that match the filter and search criteria. Use this value to determine how many additional requests are required to get the full result..</param>
         public ObjectSearchResults(List<ObjectSnapshotInfo> objectSnapshotInfo = default(List<ObjectSnapshotInfo>), long? totalCount = default(long?))
         {
             this.ObjectSnapshotInfo = objectSnapshotInfo;
             this.TotalCount = totalCount;
+            this.ObjectSnapshotInfo = objectSnapshotInfo;
+            this.TotalCount = totalCount;
         }
         
         /// <summary>
-        /// Specifies the list of backup objects returned by this request that match the specified search and filter criteria. The number of objects returned is limited by the pageCount field.
+        /// Array of Snapshot Objects.  Specifies the list of backup objects returned by this request that match the specified search and filter criteria. The number of objects returned is limited by the pageCount field.
         /// </summary>
-        /// <value>Specifies the list of backup objects returned by this request that match the specified search and filter criteria. The number of objects returned is limited by the pageCount field.</value>
-        [DataMember(Name="objectSnapshotInfo", EmitDefaultValue=false)]
+        /// <value>Array of Snapshot Objects.  Specifies the list of backup objects returned by this request that match the specified search and filter criteria. The number of objects returned is limited by the pageCount field.</value>
+        [DataMember(Name="objectSnapshotInfo", EmitDefaultValue=true)]
         public List<ObjectSnapshotInfo> ObjectSnapshotInfo { get; set; }
 
         /// <summary>
         /// Specifies the total number of backup objects that match the filter and search criteria. Use this value to determine how many additional requests are required to get the full result.
         /// </summary>
         /// <value>Specifies the total number of backup objects that match the filter and search criteria. Use this value to determine how many additional requests are required to get the full result.</value>
-        [DataMember(Name="totalCount", EmitDefaultValue=false)]
+        [DataMember(Name="totalCount", EmitDefaultValue=true)]
         public long? TotalCount { get; set; }
 
         /// <summary>
@@ -54,7 +53,12 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class ObjectSearchResults {\n");
+            sb.Append("  ObjectSnapshotInfo: ").Append(ObjectSnapshotInfo).Append("\n");
+            sb.Append("  TotalCount: ").Append(TotalCount).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -90,6 +94,7 @@ namespace Cohesity.Models
                 (
                     this.ObjectSnapshotInfo == input.ObjectSnapshotInfo ||
                     this.ObjectSnapshotInfo != null &&
+                    input.ObjectSnapshotInfo != null &&
                     this.ObjectSnapshotInfo.SequenceEqual(input.ObjectSnapshotInfo)
                 ) && 
                 (
@@ -116,8 +121,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

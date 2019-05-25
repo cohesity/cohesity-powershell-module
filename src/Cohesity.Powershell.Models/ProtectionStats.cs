@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,13 +12,10 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
-    /// ProtectionStats
+    /// Protection Statistics.
     /// </summary>
     [DataContract]
     public partial class ProtectionStats :  IEquatable<ProtectionStats>
@@ -34,27 +31,30 @@ namespace Cohesity.Models
             this.NumFailed = numFailed;
             this.NumObjects = numObjects;
             this.SizeBytes = sizeBytes;
+            this.NumFailed = numFailed;
+            this.NumObjects = numObjects;
+            this.SizeBytes = sizeBytes;
         }
         
         /// <summary>
         /// Number of Failed Objects.
         /// </summary>
         /// <value>Number of Failed Objects.</value>
-        [DataMember(Name="numFailed", EmitDefaultValue=false)]
+        [DataMember(Name="numFailed", EmitDefaultValue=true)]
         public int? NumFailed { get; set; }
 
         /// <summary>
         /// Number of Objects.
         /// </summary>
         /// <value>Number of Objects.</value>
-        [DataMember(Name="numObjects", EmitDefaultValue=false)]
+        [DataMember(Name="numObjects", EmitDefaultValue=true)]
         public int? NumObjects { get; set; }
 
         /// <summary>
         /// Size in Bytes.
         /// </summary>
         /// <value>Size in Bytes.</value>
-        [DataMember(Name="sizeBytes", EmitDefaultValue=false)]
+        [DataMember(Name="sizeBytes", EmitDefaultValue=true)]
         public long? SizeBytes { get; set; }
 
         /// <summary>
@@ -63,7 +63,13 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class ProtectionStats {\n");
+            sb.Append("  NumFailed: ").Append(NumFailed).Append("\n");
+            sb.Append("  NumObjects: ").Append(NumObjects).Append("\n");
+            sb.Append("  SizeBytes: ").Append(SizeBytes).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -132,8 +138,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

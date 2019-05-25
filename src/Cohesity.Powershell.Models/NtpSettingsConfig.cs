@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// NtpSettingsConfig
@@ -26,16 +23,18 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="NtpSettingsConfig" /> class.
         /// </summary>
-        /// <param name="ntpServersInternal">ntpServersInternal.</param>
+        /// <param name="ntpServersInternal">Flag to specify if the NTP servers are on internal network or not..</param>
         public NtpSettingsConfig(bool? ntpServersInternal = default(bool?))
         {
+            this.NtpServersInternal = ntpServersInternal;
             this.NtpServersInternal = ntpServersInternal;
         }
         
         /// <summary>
-        /// Gets or Sets NtpServersInternal
+        /// Flag to specify if the NTP servers are on internal network or not.
         /// </summary>
-        [DataMember(Name="ntpServersInternal", EmitDefaultValue=false)]
+        /// <value>Flag to specify if the NTP servers are on internal network or not.</value>
+        [DataMember(Name="ntpServersInternal", EmitDefaultValue=true)]
         public bool? NtpServersInternal { get; set; }
 
         /// <summary>
@@ -44,7 +43,11 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class NtpSettingsConfig {\n");
+            sb.Append("  NtpServersInternal: ").Append(NtpServersInternal).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -99,8 +102,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

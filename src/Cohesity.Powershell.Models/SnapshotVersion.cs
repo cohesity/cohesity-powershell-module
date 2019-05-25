@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies information about snapshots of a backup object.
@@ -48,76 +45,86 @@ namespace Cohesity.Models
             this.PhysicalSizeBytes = physicalSizeBytes;
             this.PrimaryPhysicalSizeBytes = primaryPhysicalSizeBytes;
             this.StartedTimeUsecs = startedTimeUsecs;
+            this.AttemptNumber = attemptNumber;
+            this.DeltaSizeBytes = deltaSizeBytes;
+            this.IsAppConsistent = isAppConsistent;
+            this.IsFullBackup = isFullBackup;
+            this.JobRunId = jobRunId;
+            this.LocalMountPath = localMountPath;
+            this.LogicalSizeBytes = logicalSizeBytes;
+            this.PhysicalSizeBytes = physicalSizeBytes;
+            this.PrimaryPhysicalSizeBytes = primaryPhysicalSizeBytes;
+            this.StartedTimeUsecs = startedTimeUsecs;
         }
         
         /// <summary>
         /// Specifies the number of the attempts made by the Job Run to capture a snapshot of the object. For example, if an snapshot is successfully captured after three attempts, this field equals 3.
         /// </summary>
         /// <value>Specifies the number of the attempts made by the Job Run to capture a snapshot of the object. For example, if an snapshot is successfully captured after three attempts, this field equals 3.</value>
-        [DataMember(Name="attemptNumber", EmitDefaultValue=false)]
+        [DataMember(Name="attemptNumber", EmitDefaultValue=true)]
         public long? AttemptNumber { get; set; }
 
         /// <summary>
         /// Specifies the size of the data captured from the source object. For a full backup (where Change Block Tracking is not utilized) this field is equal to logicalSizeBytes. For an incremental backup (where Change Block Tracking is utilized), this field specifies the size of the data that has changed since the last backup.
         /// </summary>
         /// <value>Specifies the size of the data captured from the source object. For a full backup (where Change Block Tracking is not utilized) this field is equal to logicalSizeBytes. For an incremental backup (where Change Block Tracking is utilized), this field specifies the size of the data that has changed since the last backup.</value>
-        [DataMember(Name="deltaSizeBytes", EmitDefaultValue=false)]
+        [DataMember(Name="deltaSizeBytes", EmitDefaultValue=true)]
         public long? DeltaSizeBytes { get; set; }
 
         /// <summary>
         /// Specifies if an app-consistent snapshot was captured. For example, was the VM was quiesced before the snapshot was captured.
         /// </summary>
         /// <value>Specifies if an app-consistent snapshot was captured. For example, was the VM was quiesced before the snapshot was captured.</value>
-        [DataMember(Name="isAppConsistent", EmitDefaultValue=false)]
+        [DataMember(Name="isAppConsistent", EmitDefaultValue=true)]
         public bool? IsAppConsistent { get; set; }
 
         /// <summary>
         /// Specifies if the snapshot is a full backup. For example, all blocks of the VM is captured and Change Block Tracking is not utilized.
         /// </summary>
         /// <value>Specifies if the snapshot is a full backup. For example, all blocks of the VM is captured and Change Block Tracking is not utilized.</value>
-        [DataMember(Name="isFullBackup", EmitDefaultValue=false)]
+        [DataMember(Name="isFullBackup", EmitDefaultValue=true)]
         public bool? IsFullBackup { get; set; }
 
         /// <summary>
         /// Specifies the id of the Job Run that captured the snapshot.
         /// </summary>
         /// <value>Specifies the id of the Job Run that captured the snapshot.</value>
-        [DataMember(Name="jobRunId", EmitDefaultValue=false)]
+        [DataMember(Name="jobRunId", EmitDefaultValue=true)]
         public long? JobRunId { get; set; }
 
         /// <summary>
         /// Specifies the local path relative to the View, without the ViewBox/View prefix.
         /// </summary>
         /// <value>Specifies the local path relative to the View, without the ViewBox/View prefix.</value>
-        [DataMember(Name="localMountPath", EmitDefaultValue=false)]
+        [DataMember(Name="localMountPath", EmitDefaultValue=true)]
         public string LocalMountPath { get; set; }
 
         /// <summary>
         /// Specifies the size of the snapshot if the data is fully hydrated or expanded and not reduced by change-block tracking, compression and deduplication. For example if a VMDK of size 100GB is created with thin provisioning and the disk size to store the VMDK is 20GB. The logical size of this object is 100GB and the physical size is 20GB.
         /// </summary>
         /// <value>Specifies the size of the snapshot if the data is fully hydrated or expanded and not reduced by change-block tracking, compression and deduplication. For example if a VMDK of size 100GB is created with thin provisioning and the disk size to store the VMDK is 20GB. The logical size of this object is 100GB and the physical size is 20GB.</value>
-        [DataMember(Name="logicalSizeBytes", EmitDefaultValue=false)]
+        [DataMember(Name="logicalSizeBytes", EmitDefaultValue=true)]
         public long? LogicalSizeBytes { get; set; }
 
         /// <summary>
         /// Specifies the amount of data actually used on the disk to store this object after being reduced by change-block tracking, compression and deduplication.
         /// </summary>
         /// <value>Specifies the amount of data actually used on the disk to store this object after being reduced by change-block tracking, compression and deduplication.</value>
-        [DataMember(Name="physicalSizeBytes", EmitDefaultValue=false)]
+        [DataMember(Name="physicalSizeBytes", EmitDefaultValue=true)]
         public long? PhysicalSizeBytes { get; set; }
 
         /// <summary>
         /// Specifies the total amount of disk space used to store this object on the primary storage. For example the total amount of disk space used to store the VM files (such as the VMDK files) on the primary datastore.
         /// </summary>
         /// <value>Specifies the total amount of disk space used to store this object on the primary storage. For example the total amount of disk space used to store the VM files (such as the VMDK files) on the primary datastore.</value>
-        [DataMember(Name="primaryPhysicalSizeBytes", EmitDefaultValue=false)]
+        [DataMember(Name="primaryPhysicalSizeBytes", EmitDefaultValue=true)]
         public long? PrimaryPhysicalSizeBytes { get; set; }
 
         /// <summary>
         /// Specifies the time when the Job Run starts capturing a snapshot. Specified as a Unix epoch Timestamp (in microseconds).
         /// </summary>
         /// <value>Specifies the time when the Job Run starts capturing a snapshot. Specified as a Unix epoch Timestamp (in microseconds).</value>
-        [DataMember(Name="startedTimeUsecs", EmitDefaultValue=false)]
+        [DataMember(Name="startedTimeUsecs", EmitDefaultValue=true)]
         public long? StartedTimeUsecs { get; set; }
 
         /// <summary>
@@ -126,7 +133,20 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class SnapshotVersion {\n");
+            sb.Append("  AttemptNumber: ").Append(AttemptNumber).Append("\n");
+            sb.Append("  DeltaSizeBytes: ").Append(DeltaSizeBytes).Append("\n");
+            sb.Append("  IsAppConsistent: ").Append(IsAppConsistent).Append("\n");
+            sb.Append("  IsFullBackup: ").Append(IsFullBackup).Append("\n");
+            sb.Append("  JobRunId: ").Append(JobRunId).Append("\n");
+            sb.Append("  LocalMountPath: ").Append(LocalMountPath).Append("\n");
+            sb.Append("  LogicalSizeBytes: ").Append(LogicalSizeBytes).Append("\n");
+            sb.Append("  PhysicalSizeBytes: ").Append(PhysicalSizeBytes).Append("\n");
+            sb.Append("  PrimaryPhysicalSizeBytes: ").Append(PrimaryPhysicalSizeBytes).Append("\n");
+            sb.Append("  StartedTimeUsecs: ").Append(StartedTimeUsecs).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -244,8 +264,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

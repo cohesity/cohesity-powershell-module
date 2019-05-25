@@ -139,7 +139,7 @@ Returns only the object specified by the id.
 
 ## OUTPUTS
 
-### Cohesity.Models.ProtectionSource
+### Cohesity.Model.ProtectionSource
 ## NOTES
 
 ## RELATED LINKS

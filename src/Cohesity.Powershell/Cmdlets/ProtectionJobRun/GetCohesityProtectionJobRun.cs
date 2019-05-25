@@ -1,5 +1,5 @@
 ﻿// Copyright 2018 Cohesity Inc.
-using Cohesity.Models;
+using Cohesity.Model;
 using System.Collections.Generic;
 using System.Linq;
 using System.Management.Automation;

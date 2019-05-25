@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies a Job Run and the expiration time to update. The expiration time defines the retention period for the Job Run and its snapshots.
@@ -28,11 +25,16 @@ namespace Cohesity.Models
         /// </summary>
         /// <param name="copyRunTargets">Specifies the retention for archival, replication or extended local retention..</param>
         /// <param name="expiryTimeUsecs">Specifies a new expiration time as a Unix epoch Timestamp (in microseconds). This expiration time defines the retention period for the snapshot. After an expiration time for a Job Run is reached, the Job Run and the snapshot captured by this Job Run are deleted. If 0 is specified, the Job Run and the snapshot are immediately deleted..</param>
-        /// <param name="jobUid">jobUid.</param>
+        /// <param name="jobUid">Specifies a unique universal id for the Job..</param>
         /// <param name="runStartTimeUsecs">Specifies the start time of the Job Run to update. The start time is specified as a Unix epoch Timestamp (in microseconds). This uniquely identifies a snapshot. This parameter is required..</param>
         /// <param name="sourceIds">Ids of the Protection Sources. If this is specified, retention time will only be updated for the sources specified..</param>
-        public UpdateProtectionJobRun(List<RunJobSnapshotTarget> copyRunTargets = default(List<RunJobSnapshotTarget>), long? expiryTimeUsecs = default(long?), UniqueGlobalId10 jobUid = default(UniqueGlobalId10), long? runStartTimeUsecs = default(long?), List<long?> sourceIds = default(List<long?>))
+        public UpdateProtectionJobRun(List<RunJobSnapshotTarget> copyRunTargets = default(List<RunJobSnapshotTarget>), long? expiryTimeUsecs = default(long?), UniversalId jobUid = default(UniversalId), long? runStartTimeUsecs = default(long?), List<long> sourceIds = default(List<long>))
         {
+            this.CopyRunTargets = copyRunTargets;
+            this.ExpiryTimeUsecs = expiryTimeUsecs;
+            this.JobUid = jobUid;
+            this.RunStartTimeUsecs = runStartTimeUsecs;
+            this.SourceIds = sourceIds;
             this.CopyRunTargets = copyRunTargets;
             this.ExpiryTimeUsecs = expiryTimeUsecs;
             this.JobUid = jobUid;
@@ -44,35 +46,36 @@ namespace Cohesity.Models
         /// Specifies the retention for archival, replication or extended local retention.
         /// </summary>
         /// <value>Specifies the retention for archival, replication or extended local retention.</value>
-        [DataMember(Name="copyRunTargets", EmitDefaultValue=false)]
+        [DataMember(Name="copyRunTargets", EmitDefaultValue=true)]
         public List<RunJobSnapshotTarget> CopyRunTargets { get; set; }
 
         /// <summary>
         /// Specifies a new expiration time as a Unix epoch Timestamp (in microseconds). This expiration time defines the retention period for the snapshot. After an expiration time for a Job Run is reached, the Job Run and the snapshot captured by this Job Run are deleted. If 0 is specified, the Job Run and the snapshot are immediately deleted.
         /// </summary>
         /// <value>Specifies a new expiration time as a Unix epoch Timestamp (in microseconds). This expiration time defines the retention period for the snapshot. After an expiration time for a Job Run is reached, the Job Run and the snapshot captured by this Job Run are deleted. If 0 is specified, the Job Run and the snapshot are immediately deleted.</value>
-        [DataMember(Name="expiryTimeUsecs", EmitDefaultValue=false)]
+        [DataMember(Name="expiryTimeUsecs", EmitDefaultValue=true)]
         public long? ExpiryTimeUsecs { get; set; }
 
         /// <summary>
-        /// Gets or Sets JobUid
+        /// Specifies a unique universal id for the Job.
         /// </summary>
-        [DataMember(Name="jobUid", EmitDefaultValue=false)]
-        public UniqueGlobalId10 JobUid { get; set; }
+        /// <value>Specifies a unique universal id for the Job.</value>
+        [DataMember(Name="jobUid", EmitDefaultValue=true)]
+        public UniversalId JobUid { get; set; }
 
         /// <summary>
         /// Specifies the start time of the Job Run to update. The start time is specified as a Unix epoch Timestamp (in microseconds). This uniquely identifies a snapshot. This parameter is required.
         /// </summary>
         /// <value>Specifies the start time of the Job Run to update. The start time is specified as a Unix epoch Timestamp (in microseconds). This uniquely identifies a snapshot. This parameter is required.</value>
-        [DataMember(Name="runStartTimeUsecs", EmitDefaultValue=false)]
+        [DataMember(Name="runStartTimeUsecs", EmitDefaultValue=true)]
         public long? RunStartTimeUsecs { get; set; }
 
         /// <summary>
         /// Ids of the Protection Sources. If this is specified, retention time will only be updated for the sources specified.
         /// </summary>
         /// <value>Ids of the Protection Sources. If this is specified, retention time will only be updated for the sources specified.</value>
-        [DataMember(Name="sourceIds", EmitDefaultValue=false)]
-        public List<long?> SourceIds { get; set; }
+        [DataMember(Name="sourceIds", EmitDefaultValue=true)]
+        public List<long> SourceIds { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -80,7 +83,15 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class UpdateProtectionJobRun {\n");
+            sb.Append("  CopyRunTargets: ").Append(CopyRunTargets).Append("\n");
+            sb.Append("  ExpiryTimeUsecs: ").Append(ExpiryTimeUsecs).Append("\n");
+            sb.Append("  JobUid: ").Append(JobUid).Append("\n");
+            sb.Append("  RunStartTimeUsecs: ").Append(RunStartTimeUsecs).Append("\n");
+            sb.Append("  SourceIds: ").Append(SourceIds).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -116,6 +127,7 @@ namespace Cohesity.Models
                 (
                     this.CopyRunTargets == input.CopyRunTargets ||
                     this.CopyRunTargets != null &&
+                    input.CopyRunTargets != null &&
                     this.CopyRunTargets.SequenceEqual(input.CopyRunTargets)
                 ) && 
                 (
@@ -136,6 +148,7 @@ namespace Cohesity.Models
                 (
                     this.SourceIds == input.SourceIds ||
                     this.SourceIds != null &&
+                    input.SourceIds != null &&
                     this.SourceIds.SequenceEqual(input.SourceIds)
                 );
         }
@@ -163,8 +176,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

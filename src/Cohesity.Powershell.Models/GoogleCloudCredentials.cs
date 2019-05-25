@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies the cloud credentials to connect to a Google service account.
@@ -24,37 +21,88 @@ namespace Cohesity.Models
     public partial class GoogleCloudCredentials :  IEquatable<GoogleCloudCredentials>
     {
         /// <summary>
+        /// Specifies the storage class of GCP. GoogleTierType specifies the storage class for Google. &#39;kGoogleStandard&#39; indicates a tier type of Google properties. &#39;kGoogleNearline&#39; indicates a tier type of Google properties that is not accessed frequently. &#39;kGoogleColdline&#39; indicates a tier type of Google properties that is rarely accessed. &#39;kGoogleRegional&#39; indicates a tier type of Google properties that stores frequently accessed data in the same region. &#39;kGoogleMultiRegional&#39; indicates a tier type of Google properties that is frequently accessed (\&quot;hot\&quot; objects) around the world.
+        /// </summary>
+        /// <value>Specifies the storage class of GCP. GoogleTierType specifies the storage class for Google. &#39;kGoogleStandard&#39; indicates a tier type of Google properties. &#39;kGoogleNearline&#39; indicates a tier type of Google properties that is not accessed frequently. &#39;kGoogleColdline&#39; indicates a tier type of Google properties that is rarely accessed. &#39;kGoogleRegional&#39; indicates a tier type of Google properties that stores frequently accessed data in the same region. &#39;kGoogleMultiRegional&#39; indicates a tier type of Google properties that is frequently accessed (\&quot;hot\&quot; objects) around the world.</value>
+        [JsonConverter(typeof(StringEnumConverter))]
+        public enum TierTypeEnum
+        {
+            /// <summary>
+            /// Enum KGoogleStandard for value: kGoogleStandard
+            /// </summary>
+            [EnumMember(Value = "kGoogleStandard")]
+            KGoogleStandard = 1,
+
+            /// <summary>
+            /// Enum KGoogleNearline for value: kGoogleNearline
+            /// </summary>
+            [EnumMember(Value = "kGoogleNearline")]
+            KGoogleNearline = 2,
+
+            /// <summary>
+            /// Enum KGoogleColdline for value: kGoogleColdline
+            /// </summary>
+            [EnumMember(Value = "kGoogleColdline")]
+            KGoogleColdline = 3,
+
+            /// <summary>
+            /// Enum KGoogleRegional for value: kGoogleRegional
+            /// </summary>
+            [EnumMember(Value = "kGoogleRegional")]
+            KGoogleRegional = 4,
+
+            /// <summary>
+            /// Enum KGoogleMultiRegional for value: kGoogleMultiRegional
+            /// </summary>
+            [EnumMember(Value = "kGoogleMultiRegional")]
+            KGoogleMultiRegional = 5
+
+        }
+
+        /// <summary>
+        /// Specifies the storage class of GCP. GoogleTierType specifies the storage class for Google. &#39;kGoogleStandard&#39; indicates a tier type of Google properties. &#39;kGoogleNearline&#39; indicates a tier type of Google properties that is not accessed frequently. &#39;kGoogleColdline&#39; indicates a tier type of Google properties that is rarely accessed. &#39;kGoogleRegional&#39; indicates a tier type of Google properties that stores frequently accessed data in the same region. &#39;kGoogleMultiRegional&#39; indicates a tier type of Google properties that is frequently accessed (\&quot;hot\&quot; objects) around the world.
+        /// </summary>
+        /// <value>Specifies the storage class of GCP. GoogleTierType specifies the storage class for Google. &#39;kGoogleStandard&#39; indicates a tier type of Google properties. &#39;kGoogleNearline&#39; indicates a tier type of Google properties that is not accessed frequently. &#39;kGoogleColdline&#39; indicates a tier type of Google properties that is rarely accessed. &#39;kGoogleRegional&#39; indicates a tier type of Google properties that stores frequently accessed data in the same region. &#39;kGoogleMultiRegional&#39; indicates a tier type of Google properties that is frequently accessed (\&quot;hot\&quot; objects) around the world.</value>
+        [DataMember(Name="tierType", EmitDefaultValue=true)]
+        public TierTypeEnum? TierType { get; set; }
+        /// <summary>
         /// Initializes a new instance of the <see cref="GoogleCloudCredentials" /> class.
         /// </summary>
         /// <param name="clientEmailAddress">Specifies the client email address used to access Google Cloud Storage..</param>
         /// <param name="clientPrivateKey">Specifies the private key used to access Google Cloud Storage that is generated when the service account is created..</param>
         /// <param name="projectId">Specifies the project id of an existing Google Cloud project to store objects..</param>
-        public GoogleCloudCredentials(string clientEmailAddress = default(string), string clientPrivateKey = default(string), string projectId = default(string))
+        /// <param name="tierType">Specifies the storage class of GCP. GoogleTierType specifies the storage class for Google. &#39;kGoogleStandard&#39; indicates a tier type of Google properties. &#39;kGoogleNearline&#39; indicates a tier type of Google properties that is not accessed frequently. &#39;kGoogleColdline&#39; indicates a tier type of Google properties that is rarely accessed. &#39;kGoogleRegional&#39; indicates a tier type of Google properties that stores frequently accessed data in the same region. &#39;kGoogleMultiRegional&#39; indicates a tier type of Google properties that is frequently accessed (\&quot;hot\&quot; objects) around the world..</param>
+        public GoogleCloudCredentials(string clientEmailAddress = default(string), string clientPrivateKey = default(string), string projectId = default(string), TierTypeEnum? tierType = default(TierTypeEnum?))
         {
             this.ClientEmailAddress = clientEmailAddress;
             this.ClientPrivateKey = clientPrivateKey;
             this.ProjectId = projectId;
+            this.TierType = tierType;
+            this.ClientEmailAddress = clientEmailAddress;
+            this.ClientPrivateKey = clientPrivateKey;
+            this.ProjectId = projectId;
+            this.TierType = tierType;
         }
         
         /// <summary>
         /// Specifies the client email address used to access Google Cloud Storage.
         /// </summary>
         /// <value>Specifies the client email address used to access Google Cloud Storage.</value>
-        [DataMember(Name="clientEmailAddress", EmitDefaultValue=false)]
+        [DataMember(Name="clientEmailAddress", EmitDefaultValue=true)]
         public string ClientEmailAddress { get; set; }
 
         /// <summary>
         /// Specifies the private key used to access Google Cloud Storage that is generated when the service account is created.
         /// </summary>
         /// <value>Specifies the private key used to access Google Cloud Storage that is generated when the service account is created.</value>
-        [DataMember(Name="clientPrivateKey", EmitDefaultValue=false)]
+        [DataMember(Name="clientPrivateKey", EmitDefaultValue=true)]
         public string ClientPrivateKey { get; set; }
 
         /// <summary>
         /// Specifies the project id of an existing Google Cloud project to store objects.
         /// </summary>
         /// <value>Specifies the project id of an existing Google Cloud project to store objects.</value>
-        [DataMember(Name="projectId", EmitDefaultValue=false)]
+        [DataMember(Name="projectId", EmitDefaultValue=true)]
         public string ProjectId { get; set; }
 
         /// <summary>
@@ -63,7 +111,14 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class GoogleCloudCredentials {\n");
+            sb.Append("  ClientEmailAddress: ").Append(ClientEmailAddress).Append("\n");
+            sb.Append("  ClientPrivateKey: ").Append(ClientPrivateKey).Append("\n");
+            sb.Append("  ProjectId: ").Append(ProjectId).Append("\n");
+            sb.Append("  TierType: ").Append(TierType).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -110,6 +165,10 @@ namespace Cohesity.Models
                     this.ProjectId == input.ProjectId ||
                     (this.ProjectId != null &&
                     this.ProjectId.Equals(input.ProjectId))
+                ) && 
+                (
+                    this.TierType == input.TierType ||
+                    this.TierType.Equals(input.TierType)
                 );
         }
 
@@ -128,12 +187,11 @@ namespace Cohesity.Models
                     hashCode = hashCode * 59 + this.ClientPrivateKey.GetHashCode();
                 if (this.ProjectId != null)
                     hashCode = hashCode * 59 + this.ProjectId.GetHashCode();
+                hashCode = hashCode * 59 + this.TierType.GetHashCode();
                 return hashCode;
             }
         }
 
-        
     }
 
 }
-

@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies the parameters required to reset the S3 secret access key for the specified Cohesity user.
@@ -27,10 +24,15 @@ namespace Cohesity.Models
         /// Initializes a new instance of the <see cref="ResetS3SecretKeyParameters" /> class.
         /// </summary>
         /// <param name="domain">Specifies the fully qualified domain name (FQDN) of an Active Directory or LOCAL for the default LOCAL domain on the Cohesity Cluster. If not specified, it is assumed to be LOCAL..</param>
+        /// <param name="tenantId">Specifies the tenant for which the the users are to be deleted..</param>
         /// <param name="username">Specifies the Cohesity user..</param>
-        public ResetS3SecretKeyParameters(string domain = default(string), string username = default(string))
+        public ResetS3SecretKeyParameters(string domain = default(string), string tenantId = default(string), string username = default(string))
         {
             this.Domain = domain;
+            this.TenantId = tenantId;
+            this.Username = username;
+            this.Domain = domain;
+            this.TenantId = tenantId;
             this.Username = username;
         }
         
@@ -38,14 +40,21 @@ namespace Cohesity.Models
         /// Specifies the fully qualified domain name (FQDN) of an Active Directory or LOCAL for the default LOCAL domain on the Cohesity Cluster. If not specified, it is assumed to be LOCAL.
         /// </summary>
         /// <value>Specifies the fully qualified domain name (FQDN) of an Active Directory or LOCAL for the default LOCAL domain on the Cohesity Cluster. If not specified, it is assumed to be LOCAL.</value>
-        [DataMember(Name="domain", EmitDefaultValue=false)]
+        [DataMember(Name="domain", EmitDefaultValue=true)]
         public string Domain { get; set; }
+
+        /// <summary>
+        /// Specifies the tenant for which the the users are to be deleted.
+        /// </summary>
+        /// <value>Specifies the tenant for which the the users are to be deleted.</value>
+        [DataMember(Name="tenantId", EmitDefaultValue=true)]
+        public string TenantId { get; set; }
 
         /// <summary>
         /// Specifies the Cohesity user.
         /// </summary>
         /// <value>Specifies the Cohesity user.</value>
-        [DataMember(Name="username", EmitDefaultValue=false)]
+        [DataMember(Name="username", EmitDefaultValue=true)]
         public string Username { get; set; }
 
         /// <summary>
@@ -54,7 +63,13 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class ResetS3SecretKeyParameters {\n");
+            sb.Append("  Domain: ").Append(Domain).Append("\n");
+            sb.Append("  TenantId: ").Append(TenantId).Append("\n");
+            sb.Append("  Username: ").Append(Username).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -93,6 +108,11 @@ namespace Cohesity.Models
                     this.Domain.Equals(input.Domain))
                 ) && 
                 (
+                    this.TenantId == input.TenantId ||
+                    (this.TenantId != null &&
+                    this.TenantId.Equals(input.TenantId))
+                ) && 
+                (
                     this.Username == input.Username ||
                     (this.Username != null &&
                     this.Username.Equals(input.Username))
@@ -110,14 +130,14 @@ namespace Cohesity.Models
                 int hashCode = 41;
                 if (this.Domain != null)
                     hashCode = hashCode * 59 + this.Domain.GetHashCode();
+                if (this.TenantId != null)
+                    hashCode = hashCode * 59 + this.TenantId.GetHashCode();
                 if (this.Username != null)
                     hashCode = hashCode * 59 + this.Username.GetHashCode();
                 return hashCode;
             }
         }
 
-        
     }
 
 }
-

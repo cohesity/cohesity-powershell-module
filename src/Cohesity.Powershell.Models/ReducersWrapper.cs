@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,13 +12,10 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
-    /// ReducersWrapper
+    /// ReducersWrapper is the struct to define the list of reducers.
     /// </summary>
     [DataContract]
     public partial class ReducersWrapper :  IEquatable<ReducersWrapper>
@@ -26,16 +23,18 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="ReducersWrapper" /> class.
         /// </summary>
-        /// <param name="reducers">reducers.</param>
+        /// <param name="reducers">Reducers specifies the list of available reducers in analytics workbench..</param>
         public ReducersWrapper(List<ReducerInfo> reducers = default(List<ReducerInfo>))
         {
+            this.Reducers = reducers;
             this.Reducers = reducers;
         }
         
         /// <summary>
-        /// Gets or Sets Reducers
+        /// Reducers specifies the list of available reducers in analytics workbench.
         /// </summary>
-        [DataMember(Name="reducers", EmitDefaultValue=false)]
+        /// <value>Reducers specifies the list of available reducers in analytics workbench.</value>
+        [DataMember(Name="reducers", EmitDefaultValue=true)]
         public List<ReducerInfo> Reducers { get; set; }
 
         /// <summary>
@@ -44,7 +43,11 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class ReducersWrapper {\n");
+            sb.Append("  Reducers: ").Append(Reducers).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -80,6 +83,7 @@ namespace Cohesity.Models
                 (
                     this.Reducers == input.Reducers ||
                     this.Reducers != null &&
+                    input.Reducers != null &&
                     this.Reducers.SequenceEqual(input.Reducers)
                 );
         }
@@ -99,8 +103,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

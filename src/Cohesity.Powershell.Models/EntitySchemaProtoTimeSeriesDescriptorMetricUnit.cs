@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies the unit of measure for the metric. O specifies a unit of space used such as free disk space. 1 specifies a Unix epoch Timestamp (in microseconds). 2 specifies a Unix epoch Timestamp (in milliseconds). 3 specifies a Unix epoch Timestamp (in seconds). 4 specifies a Unix epoch Timestamp (in minutes). 5 specifies a counter such as the read IO metric. 6 specifies the temperature in Centigrade. 7 specifies the temperature in Fahrenheit. 8 specifies revolutions per minute such as a CPU fan speed. 9 specifies a percentage such as CPU or memory usage.
@@ -30,12 +27,13 @@ namespace Cohesity.Models
         public EntitySchemaProtoTimeSeriesDescriptorMetricUnit(int? type = default(int?))
         {
             this.Type = type;
+            this.Type = type;
         }
         
         /// <summary>
         /// Gets or Sets Type
         /// </summary>
-        [DataMember(Name="type", EmitDefaultValue=false)]
+        [DataMember(Name="type", EmitDefaultValue=true)]
         public int? Type { get; set; }
 
         /// <summary>
@@ -44,7 +42,11 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class EntitySchemaProtoTimeSeriesDescriptorMetricUnit {\n");
+            sb.Append("  Type: ").Append(Type).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -99,8 +101,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

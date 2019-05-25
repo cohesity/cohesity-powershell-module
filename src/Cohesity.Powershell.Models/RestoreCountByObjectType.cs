@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,13 +12,10 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
-    /// RestoreCountByObjectType
+    /// Number of restore operations by object type.
     /// </summary>
     [DataContract]
     public partial class RestoreCountByObjectType :  IEquatable<RestoreCountByObjectType>
@@ -32,20 +29,22 @@ namespace Cohesity.Models
         {
             this.ObjectCount = objectCount;
             this.ObjectType = objectType;
+            this.ObjectCount = objectCount;
+            this.ObjectType = objectType;
         }
         
         /// <summary>
         /// Specifies the number of restores of the object type.
         /// </summary>
         /// <value>Specifies the number of restores of the object type.</value>
-        [DataMember(Name="objectCount", EmitDefaultValue=false)]
+        [DataMember(Name="objectCount", EmitDefaultValue=true)]
         public int? ObjectCount { get; set; }
 
         /// <summary>
         /// Specifies the type of the restored object.
         /// </summary>
         /// <value>Specifies the type of the restored object.</value>
-        [DataMember(Name="objectType", EmitDefaultValue=false)]
+        [DataMember(Name="objectType", EmitDefaultValue=true)]
         public string ObjectType { get; set; }
 
         /// <summary>
@@ -54,7 +53,12 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class RestoreCountByObjectType {\n");
+            sb.Append("  ObjectCount: ").Append(ObjectCount).Append("\n");
+            sb.Append("  ObjectType: ").Append(ObjectType).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -116,8 +120,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

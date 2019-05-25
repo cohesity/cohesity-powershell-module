@@ -1,16 +1,21 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
+using System.Linq;
+using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
-    /// IscsiSanPort
+    /// Specifies an iSCSI SAN Port.
     /// </summary>
     [DataContract]
     public partial class IscsiSanPort :  IEquatable<IscsiSanPort>
@@ -26,27 +31,30 @@ namespace Cohesity.Models
             this.IpAddress = ipAddress;
             this.Iqn = iqn;
             this.TcpPort = tcpPort;
+            this.IpAddress = ipAddress;
+            this.Iqn = iqn;
+            this.TcpPort = tcpPort;
         }
         
         /// <summary>
         /// Specifies the IP address of the SAN port.
         /// </summary>
         /// <value>Specifies the IP address of the SAN port.</value>
-        [DataMember(Name="ipAddress", EmitDefaultValue=false)]
+        [DataMember(Name="ipAddress", EmitDefaultValue=true)]
         public string IpAddress { get; set; }
 
         /// <summary>
         /// Specifies the qualified name of the iSCSI port (IQN).
         /// </summary>
         /// <value>Specifies the qualified name of the iSCSI port (IQN).</value>
-        [DataMember(Name="iqn", EmitDefaultValue=false)]
+        [DataMember(Name="iqn", EmitDefaultValue=true)]
         public string Iqn { get; set; }
 
         /// <summary>
         /// Specifies the listening port(tcp) of the SAN port.
         /// </summary>
         /// <value>Specifies the listening port(tcp) of the SAN port.</value>
-        [DataMember(Name="tcpPort", EmitDefaultValue=false)]
+        [DataMember(Name="tcpPort", EmitDefaultValue=true)]
         public int? TcpPort { get; set; }
 
         /// <summary>
@@ -55,7 +63,13 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class IscsiSanPort {\n");
+            sb.Append("  IpAddress: ").Append(IpAddress).Append("\n");
+            sb.Append("  Iqn: ").Append(Iqn).Append("\n");
+            sb.Append("  TcpPort: ").Append(TcpPort).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -124,8 +138,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

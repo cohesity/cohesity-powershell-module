@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// InputSpec
@@ -31,6 +28,7 @@ namespace Cohesity.Models
         /// <param name="vmSelector">vmSelector.</param>
         public InputSpec(InputSpecInputFilesSelector filesSelector = default(InputSpecInputFilesSelector), bool? onNfsFiles = default(bool?), InputSpecInputVMsSelector vmSelector = default(InputSpecInputVMsSelector))
         {
+            this.OnNfsFiles = onNfsFiles;
             this.FilesSelector = filesSelector;
             this.OnNfsFiles = onNfsFiles;
             this.VmSelector = vmSelector;
@@ -46,7 +44,7 @@ namespace Cohesity.Models
         /// Selects whether input is files inside vmdks or files on NFS. One of vm_selector or files_selector will be chosen based on this flag.
         /// </summary>
         /// <value>Selects whether input is files inside vmdks or files on NFS. One of vm_selector or files_selector will be chosen based on this flag.</value>
-        [DataMember(Name="onNfsFiles", EmitDefaultValue=false)]
+        [DataMember(Name="onNfsFiles", EmitDefaultValue=true)]
         public bool? OnNfsFiles { get; set; }
 
         /// <summary>
@@ -61,7 +59,13 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class InputSpec {\n");
+            sb.Append("  FilesSelector: ").Append(FilesSelector).Append("\n");
+            sb.Append("  OnNfsFiles: ").Append(OnNfsFiles).Append("\n");
+            sb.Append("  VmSelector: ").Append(VmSelector).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -130,8 +134,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

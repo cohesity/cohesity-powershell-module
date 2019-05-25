@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,13 +12,10 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
-    /// ThroughputTile
+    /// Throughput information for dashboard.
     /// </summary>
     [DataContract]
     public partial class ThroughputTile :  IEquatable<ThroughputTile>
@@ -26,44 +23,49 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="ThroughputTile" /> class.
         /// </summary>
-        /// <param name="lastDayPeakReadBytesPerSec">Peak Bytes Read / sec in last 24 hours..</param>
-        /// <param name="lastDayPeakWriteBytesPerSec">Peak Bytes Written / sec in last 24 hours..</param>
-        /// <param name="lastDayReadBytesPerSec">lastDayReadBytesPerSec.</param>
-        /// <param name="lastDayWriteBytesPerSec">Bytes Written per second for every hour of last 24 hours in descending order of time..</param>
-        public ThroughputTile(long? lastDayPeakReadBytesPerSec = default(long?), long? lastDayPeakWriteBytesPerSec = default(long?), List<long?> lastDayReadBytesPerSec = default(List<long?>), List<long?> lastDayWriteBytesPerSec = default(List<long?>))
+        /// <param name="maxReadThroughput">Maxium Read throughput in last 24 hours..</param>
+        /// <param name="maxWriteThroughput">Maximum Write throughput in last 24 hours..</param>
+        /// <param name="readThroughputSamples">Read throughput samples taken for the past 24 hours at 10 minutes interval given in descending order of time..</param>
+        /// <param name="writeThroughputSamples">Write throughput samples taken for the past 24 hours at 10 minutes interval given in descending order of time..</param>
+        public ThroughputTile(long? maxReadThroughput = default(long?), long? maxWriteThroughput = default(long?), List<Sample> readThroughputSamples = default(List<Sample>), List<Sample> writeThroughputSamples = default(List<Sample>))
         {
-            this.LastDayPeakReadBytesPerSec = lastDayPeakReadBytesPerSec;
-            this.LastDayPeakWriteBytesPerSec = lastDayPeakWriteBytesPerSec;
-            this.LastDayReadBytesPerSec = lastDayReadBytesPerSec;
-            this.LastDayWriteBytesPerSec = lastDayWriteBytesPerSec;
+            this.MaxReadThroughput = maxReadThroughput;
+            this.MaxWriteThroughput = maxWriteThroughput;
+            this.ReadThroughputSamples = readThroughputSamples;
+            this.WriteThroughputSamples = writeThroughputSamples;
+            this.MaxReadThroughput = maxReadThroughput;
+            this.MaxWriteThroughput = maxWriteThroughput;
+            this.ReadThroughputSamples = readThroughputSamples;
+            this.WriteThroughputSamples = writeThroughputSamples;
         }
         
         /// <summary>
-        /// Peak Bytes Read / sec in last 24 hours.
+        /// Maxium Read throughput in last 24 hours.
         /// </summary>
-        /// <value>Peak Bytes Read / sec in last 24 hours.</value>
-        [DataMember(Name="lastDayPeakReadBytesPerSec", EmitDefaultValue=false)]
-        public long? LastDayPeakReadBytesPerSec { get; set; }
+        /// <value>Maxium Read throughput in last 24 hours.</value>
+        [DataMember(Name="maxReadThroughput", EmitDefaultValue=true)]
+        public long? MaxReadThroughput { get; set; }
 
         /// <summary>
-        /// Peak Bytes Written / sec in last 24 hours.
+        /// Maximum Write throughput in last 24 hours.
         /// </summary>
-        /// <value>Peak Bytes Written / sec in last 24 hours.</value>
-        [DataMember(Name="lastDayPeakWriteBytesPerSec", EmitDefaultValue=false)]
-        public long? LastDayPeakWriteBytesPerSec { get; set; }
+        /// <value>Maximum Write throughput in last 24 hours.</value>
+        [DataMember(Name="maxWriteThroughput", EmitDefaultValue=true)]
+        public long? MaxWriteThroughput { get; set; }
 
         /// <summary>
-        /// Gets or Sets LastDayReadBytesPerSec
+        /// Read throughput samples taken for the past 24 hours at 10 minutes interval given in descending order of time.
         /// </summary>
-        [DataMember(Name="lastDayReadBytesPerSec", EmitDefaultValue=false)]
-        public List<long?> LastDayReadBytesPerSec { get; set; }
+        /// <value>Read throughput samples taken for the past 24 hours at 10 minutes interval given in descending order of time.</value>
+        [DataMember(Name="readThroughputSamples", EmitDefaultValue=true)]
+        public List<Sample> ReadThroughputSamples { get; set; }
 
         /// <summary>
-        /// Bytes Written per second for every hour of last 24 hours in descending order of time.
+        /// Write throughput samples taken for the past 24 hours at 10 minutes interval given in descending order of time.
         /// </summary>
-        /// <value>Bytes Written per second for every hour of last 24 hours in descending order of time.</value>
-        [DataMember(Name="lastDayWriteBytesPerSec", EmitDefaultValue=false)]
-        public List<long?> LastDayWriteBytesPerSec { get; set; }
+        /// <value>Write throughput samples taken for the past 24 hours at 10 minutes interval given in descending order of time.</value>
+        [DataMember(Name="writeThroughputSamples", EmitDefaultValue=true)]
+        public List<Sample> WriteThroughputSamples { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -71,7 +73,14 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class ThroughputTile {\n");
+            sb.Append("  MaxReadThroughput: ").Append(MaxReadThroughput).Append("\n");
+            sb.Append("  MaxWriteThroughput: ").Append(MaxWriteThroughput).Append("\n");
+            sb.Append("  ReadThroughputSamples: ").Append(ReadThroughputSamples).Append("\n");
+            sb.Append("  WriteThroughputSamples: ").Append(WriteThroughputSamples).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -105,24 +114,26 @@ namespace Cohesity.Models
 
             return 
                 (
-                    this.LastDayPeakReadBytesPerSec == input.LastDayPeakReadBytesPerSec ||
-                    (this.LastDayPeakReadBytesPerSec != null &&
-                    this.LastDayPeakReadBytesPerSec.Equals(input.LastDayPeakReadBytesPerSec))
+                    this.MaxReadThroughput == input.MaxReadThroughput ||
+                    (this.MaxReadThroughput != null &&
+                    this.MaxReadThroughput.Equals(input.MaxReadThroughput))
                 ) && 
                 (
-                    this.LastDayPeakWriteBytesPerSec == input.LastDayPeakWriteBytesPerSec ||
-                    (this.LastDayPeakWriteBytesPerSec != null &&
-                    this.LastDayPeakWriteBytesPerSec.Equals(input.LastDayPeakWriteBytesPerSec))
+                    this.MaxWriteThroughput == input.MaxWriteThroughput ||
+                    (this.MaxWriteThroughput != null &&
+                    this.MaxWriteThroughput.Equals(input.MaxWriteThroughput))
                 ) && 
                 (
-                    this.LastDayReadBytesPerSec == input.LastDayReadBytesPerSec ||
-                    this.LastDayReadBytesPerSec != null &&
-                    this.LastDayReadBytesPerSec.SequenceEqual(input.LastDayReadBytesPerSec)
+                    this.ReadThroughputSamples == input.ReadThroughputSamples ||
+                    this.ReadThroughputSamples != null &&
+                    input.ReadThroughputSamples != null &&
+                    this.ReadThroughputSamples.SequenceEqual(input.ReadThroughputSamples)
                 ) && 
                 (
-                    this.LastDayWriteBytesPerSec == input.LastDayWriteBytesPerSec ||
-                    this.LastDayWriteBytesPerSec != null &&
-                    this.LastDayWriteBytesPerSec.SequenceEqual(input.LastDayWriteBytesPerSec)
+                    this.WriteThroughputSamples == input.WriteThroughputSamples ||
+                    this.WriteThroughputSamples != null &&
+                    input.WriteThroughputSamples != null &&
+                    this.WriteThroughputSamples.SequenceEqual(input.WriteThroughputSamples)
                 );
         }
 
@@ -135,20 +146,18 @@ namespace Cohesity.Models
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                if (this.LastDayPeakReadBytesPerSec != null)
-                    hashCode = hashCode * 59 + this.LastDayPeakReadBytesPerSec.GetHashCode();
-                if (this.LastDayPeakWriteBytesPerSec != null)
-                    hashCode = hashCode * 59 + this.LastDayPeakWriteBytesPerSec.GetHashCode();
-                if (this.LastDayReadBytesPerSec != null)
-                    hashCode = hashCode * 59 + this.LastDayReadBytesPerSec.GetHashCode();
-                if (this.LastDayWriteBytesPerSec != null)
-                    hashCode = hashCode * 59 + this.LastDayWriteBytesPerSec.GetHashCode();
+                if (this.MaxReadThroughput != null)
+                    hashCode = hashCode * 59 + this.MaxReadThroughput.GetHashCode();
+                if (this.MaxWriteThroughput != null)
+                    hashCode = hashCode * 59 + this.MaxWriteThroughput.GetHashCode();
+                if (this.ReadThroughputSamples != null)
+                    hashCode = hashCode * 59 + this.ReadThroughputSamples.GetHashCode();
+                if (this.WriteThroughputSamples != null)
+                    hashCode = hashCode * 59 + this.WriteThroughputSamples.GetHashCode();
                 return hashCode;
             }
         }
 
-        
     }
 
 }
-

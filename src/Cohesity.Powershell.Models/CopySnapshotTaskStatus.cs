@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies the status of the copy task that copies the snapshot of a Protection Source object to a target.
@@ -30,61 +27,65 @@ namespace Cohesity.Models
         [JsonConverter(typeof(StringEnumConverter))]
         public enum StatusEnum
         {
-            
             /// <summary>
             /// Enum KAccepted for value: kAccepted
             /// </summary>
             [EnumMember(Value = "kAccepted")]
             KAccepted = 1,
-            
+
             /// <summary>
             /// Enum KRunning for value: kRunning
             /// </summary>
             [EnumMember(Value = "kRunning")]
             KRunning = 2,
-            
+
             /// <summary>
             /// Enum KCanceling for value: kCanceling
             /// </summary>
             [EnumMember(Value = "kCanceling")]
             KCanceling = 3,
-            
+
             /// <summary>
             /// Enum KCanceled for value: kCanceled
             /// </summary>
             [EnumMember(Value = "kCanceled")]
             KCanceled = 4,
-            
+
             /// <summary>
             /// Enum KSuccess for value: kSuccess
             /// </summary>
             [EnumMember(Value = "kSuccess")]
             KSuccess = 5,
-            
+
             /// <summary>
             /// Enum KFailure for value: kFailure
             /// </summary>
             [EnumMember(Value = "kFailure")]
             KFailure = 6
+
         }
 
         /// <summary>
         /// Specifies the status of the source object being protected. &#39;kAccepted&#39; indicates the task is queued to run but not yet running. &#39;kRunning&#39; indicates the task is running. &#39;kCanceling&#39; indicates a request to cancel the task has occurred but the task is not yet canceled. &#39;kCanceled&#39; indicates the task has been canceled. &#39;kSuccess&#39; indicates the task was successful. &#39;kFailure&#39; indicates the task failed.
         /// </summary>
         /// <value>Specifies the status of the source object being protected. &#39;kAccepted&#39; indicates the task is queued to run but not yet running. &#39;kRunning&#39; indicates the task is running. &#39;kCanceling&#39; indicates a request to cancel the task has occurred but the task is not yet canceled. &#39;kCanceled&#39; indicates the task has been canceled. &#39;kSuccess&#39; indicates the task was successful. &#39;kFailure&#39; indicates the task failed.</value>
-        [DataMember(Name="status", EmitDefaultValue=false)]
+        [DataMember(Name="status", EmitDefaultValue=true)]
         public StatusEnum? Status { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="CopySnapshotTaskStatus" /> class.
         /// </summary>
         /// <param name="error">Specifies if an error occurred (if any) while running this task. This field is populated when the status is equal to &#39;kFailure&#39;..</param>
-        /// <param name="source">Specifies the source object whose snapshot is replicated. This is specified for replication targets..</param>
-        /// <param name="stats">Specifies the stats of the replication or the archival task..</param>
+        /// <param name="source">source.</param>
+        /// <param name="stats">stats.</param>
         /// <param name="status">Specifies the status of the source object being protected. &#39;kAccepted&#39; indicates the task is queued to run but not yet running. &#39;kRunning&#39; indicates the task is running. &#39;kCanceling&#39; indicates a request to cancel the task has occurred but the task is not yet canceled. &#39;kCanceled&#39; indicates the task has been canceled. &#39;kSuccess&#39; indicates the task was successful. &#39;kFailure&#39; indicates the task failed..</param>
         /// <param name="taskEndTimeUsecs">Specifies the end time of the copy task. The end time is specified as a Unix epoch Timestamp (in microseconds)..</param>
         /// <param name="taskStartTimeUsecs">Specifies the start time of the copy task. The start time is specified as a Unix epoch Timestamp (in microseconds). Copy run task is started after completing backup tasks. It may spawn sub-tasks to copy or replicate individual snapshots..</param>
         public CopySnapshotTaskStatus(string error = default(string), ProtectionSource source = default(ProtectionSource), CopyRunStats stats = default(CopyRunStats), StatusEnum? status = default(StatusEnum?), long? taskEndTimeUsecs = default(long?), long? taskStartTimeUsecs = default(long?))
         {
+            this.Error = error;
+            this.Status = status;
+            this.TaskEndTimeUsecs = taskEndTimeUsecs;
+            this.TaskStartTimeUsecs = taskStartTimeUsecs;
             this.Error = error;
             this.Source = source;
             this.Stats = stats;
@@ -97,36 +98,33 @@ namespace Cohesity.Models
         /// Specifies if an error occurred (if any) while running this task. This field is populated when the status is equal to &#39;kFailure&#39;.
         /// </summary>
         /// <value>Specifies if an error occurred (if any) while running this task. This field is populated when the status is equal to &#39;kFailure&#39;.</value>
-        [DataMember(Name="error", EmitDefaultValue=false)]
+        [DataMember(Name="error", EmitDefaultValue=true)]
         public string Error { get; set; }
 
         /// <summary>
-        /// Specifies the source object whose snapshot is replicated. This is specified for replication targets.
+        /// Gets or Sets Source
         /// </summary>
-        /// <value>Specifies the source object whose snapshot is replicated. This is specified for replication targets.</value>
         [DataMember(Name="source", EmitDefaultValue=false)]
         public ProtectionSource Source { get; set; }
 
         /// <summary>
-        /// Specifies the stats of the replication or the archival task.
+        /// Gets or Sets Stats
         /// </summary>
-        /// <value>Specifies the stats of the replication or the archival task.</value>
         [DataMember(Name="stats", EmitDefaultValue=false)]
         public CopyRunStats Stats { get; set; }
-
 
         /// <summary>
         /// Specifies the end time of the copy task. The end time is specified as a Unix epoch Timestamp (in microseconds).
         /// </summary>
         /// <value>Specifies the end time of the copy task. The end time is specified as a Unix epoch Timestamp (in microseconds).</value>
-        [DataMember(Name="taskEndTimeUsecs", EmitDefaultValue=false)]
+        [DataMember(Name="taskEndTimeUsecs", EmitDefaultValue=true)]
         public long? TaskEndTimeUsecs { get; set; }
 
         /// <summary>
         /// Specifies the start time of the copy task. The start time is specified as a Unix epoch Timestamp (in microseconds). Copy run task is started after completing backup tasks. It may spawn sub-tasks to copy or replicate individual snapshots.
         /// </summary>
         /// <value>Specifies the start time of the copy task. The start time is specified as a Unix epoch Timestamp (in microseconds). Copy run task is started after completing backup tasks. It may spawn sub-tasks to copy or replicate individual snapshots.</value>
-        [DataMember(Name="taskStartTimeUsecs", EmitDefaultValue=false)]
+        [DataMember(Name="taskStartTimeUsecs", EmitDefaultValue=true)]
         public long? TaskStartTimeUsecs { get; set; }
 
         /// <summary>
@@ -135,7 +133,16 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class CopySnapshotTaskStatus {\n");
+            sb.Append("  Error: ").Append(Error).Append("\n");
+            sb.Append("  Source: ").Append(Source).Append("\n");
+            sb.Append("  Stats: ").Append(Stats).Append("\n");
+            sb.Append("  Status: ").Append(Status).Append("\n");
+            sb.Append("  TaskEndTimeUsecs: ").Append(TaskEndTimeUsecs).Append("\n");
+            sb.Append("  TaskStartTimeUsecs: ").Append(TaskStartTimeUsecs).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -185,8 +192,7 @@ namespace Cohesity.Models
                 ) && 
                 (
                     this.Status == input.Status ||
-                    (this.Status != null &&
-                    this.Status.Equals(input.Status))
+                    this.Status.Equals(input.Status)
                 ) && 
                 (
                     this.TaskEndTimeUsecs == input.TaskEndTimeUsecs ||
@@ -215,8 +221,7 @@ namespace Cohesity.Models
                     hashCode = hashCode * 59 + this.Source.GetHashCode();
                 if (this.Stats != null)
                     hashCode = hashCode * 59 + this.Stats.GetHashCode();
-                if (this.Status != null)
-                    hashCode = hashCode * 59 + this.Status.GetHashCode();
+                hashCode = hashCode * 59 + this.Status.GetHashCode();
                 if (this.TaskEndTimeUsecs != null)
                     hashCode = hashCode * 59 + this.TaskEndTimeUsecs.GetHashCode();
                 if (this.TaskStartTimeUsecs != null)
@@ -225,8 +230,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

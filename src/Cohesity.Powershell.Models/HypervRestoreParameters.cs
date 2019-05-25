@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,13 +12,10 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
-    /// This field defines the HyperV specific params for restore tasks of type kRecoverVMs.
+    /// Specifies information needed when restoring VMs in HyperV enviroment. This field defines the HyperV specific params for restore tasks of type kRecoverVMs.
     /// </summary>
     [DataContract]
     public partial class HypervRestoreParameters :  IEquatable<HypervRestoreParameters>
@@ -42,55 +39,62 @@ namespace Cohesity.Models
             this.Prefix = prefix;
             this.ResourceId = resourceId;
             this.Suffix = suffix;
+            this.DatastoreId = datastoreId;
+            this.DisableNetwork = disableNetwork;
+            this.NetworkId = networkId;
+            this.PoweredOn = poweredOn;
+            this.Prefix = prefix;
+            this.ResourceId = resourceId;
+            this.Suffix = suffix;
         }
         
         /// <summary>
         /// A datastore entity where the object&#39;s files should be restored to. This field is optional if object is being restored to its original parent source. If not specified, the object&#39;s files will be restored to their original datastore locations. This field is mandatory if object is being restored to a different resource entity or to a different parent source.
         /// </summary>
         /// <value>A datastore entity where the object&#39;s files should be restored to. This field is optional if object is being restored to its original parent source. If not specified, the object&#39;s files will be restored to their original datastore locations. This field is mandatory if object is being restored to a different resource entity or to a different parent source.</value>
-        [DataMember(Name="datastoreId", EmitDefaultValue=false)]
+        [DataMember(Name="datastoreId", EmitDefaultValue=true)]
         public long? DatastoreId { get; set; }
 
         /// <summary>
         /// Specifies whether the network should be left in disabled state. Attached network is enabled by default. Set this flag to true to disable it.
         /// </summary>
         /// <value>Specifies whether the network should be left in disabled state. Attached network is enabled by default. Set this flag to true to disable it.</value>
-        [DataMember(Name="disableNetwork", EmitDefaultValue=false)]
+        [DataMember(Name="disableNetwork", EmitDefaultValue=true)]
         public bool? DisableNetwork { get; set; }
 
         /// <summary>
         /// Specifies a network configuration to be attached to the cloned or recovered object. For kCloneVMs and kRecoverVMs tasks, original network configuration is detached if the cloned or recovered object is kept under a different parent Protection Source or a different Resource Pool. By default, for kRecoverVMs task, original network configuration is preserved if the recovered object is kept under the same parent Protection Source and the same Resource Pool. Specify this field to override the preserved network configuration or to attach a new network configuration to the cloned or recovered objects. You can get the networkId of the kNetwork object by setting includeNetworks to &#39;true&#39; in the GET /public/protectionSources operation. In the response, get the id of the desired kNetwork object, the resource pool, and the registered parent Protection Source.
         /// </summary>
         /// <value>Specifies a network configuration to be attached to the cloned or recovered object. For kCloneVMs and kRecoverVMs tasks, original network configuration is detached if the cloned or recovered object is kept under a different parent Protection Source or a different Resource Pool. By default, for kRecoverVMs task, original network configuration is preserved if the recovered object is kept under the same parent Protection Source and the same Resource Pool. Specify this field to override the preserved network configuration or to attach a new network configuration to the cloned or recovered objects. You can get the networkId of the kNetwork object by setting includeNetworks to &#39;true&#39; in the GET /public/protectionSources operation. In the response, get the id of the desired kNetwork object, the resource pool, and the registered parent Protection Source.</value>
-        [DataMember(Name="networkId", EmitDefaultValue=false)]
+        [DataMember(Name="networkId", EmitDefaultValue=true)]
         public long? NetworkId { get; set; }
 
         /// <summary>
         /// Specifies the power state of the cloned or recovered objects. By default, the cloned or recovered objects are powered off.
         /// </summary>
         /// <value>Specifies the power state of the cloned or recovered objects. By default, the cloned or recovered objects are powered off.</value>
-        [DataMember(Name="poweredOn", EmitDefaultValue=false)]
+        [DataMember(Name="poweredOn", EmitDefaultValue=true)]
         public bool? PoweredOn { get; set; }
 
         /// <summary>
         /// Specifies a prefix to prepended to the source object name to derive a new name for the recovered or cloned object. By default, cloned or recovered objects retain their original name. Length of this field is limited to 8 characters.
         /// </summary>
         /// <value>Specifies a prefix to prepended to the source object name to derive a new name for the recovered or cloned object. By default, cloned or recovered objects retain their original name. Length of this field is limited to 8 characters.</value>
-        [DataMember(Name="prefix", EmitDefaultValue=false)]
+        [DataMember(Name="prefix", EmitDefaultValue=true)]
         public string Prefix { get; set; }
 
         /// <summary>
         /// The resource (HyperV host) to which the restored VM will be attached.  This field is optional for a kRecoverVMs task if the VMs are being restored to its original parent source. If not specified, restored VMs will be attached to its original host. This field is mandatory if the VMs are being restored to a different parent source.
         /// </summary>
         /// <value>The resource (HyperV host) to which the restored VM will be attached.  This field is optional for a kRecoverVMs task if the VMs are being restored to its original parent source. If not specified, restored VMs will be attached to its original host. This field is mandatory if the VMs are being restored to a different parent source.</value>
-        [DataMember(Name="resourceId", EmitDefaultValue=false)]
+        [DataMember(Name="resourceId", EmitDefaultValue=true)]
         public long? ResourceId { get; set; }
 
         /// <summary>
         /// Specifies a suffix to appended to the original source object name to derive a new name for the recovered or cloned object. By default, cloned or recovered objects retain their original name. Length of this field is limited to 8 characters.
         /// </summary>
         /// <value>Specifies a suffix to appended to the original source object name to derive a new name for the recovered or cloned object. By default, cloned or recovered objects retain their original name. Length of this field is limited to 8 characters.</value>
-        [DataMember(Name="suffix", EmitDefaultValue=false)]
+        [DataMember(Name="suffix", EmitDefaultValue=true)]
         public string Suffix { get; set; }
 
         /// <summary>
@@ -99,7 +103,17 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class HypervRestoreParameters {\n");
+            sb.Append("  DatastoreId: ").Append(DatastoreId).Append("\n");
+            sb.Append("  DisableNetwork: ").Append(DisableNetwork).Append("\n");
+            sb.Append("  NetworkId: ").Append(NetworkId).Append("\n");
+            sb.Append("  PoweredOn: ").Append(PoweredOn).Append("\n");
+            sb.Append("  Prefix: ").Append(Prefix).Append("\n");
+            sb.Append("  ResourceId: ").Append(ResourceId).Append("\n");
+            sb.Append("  Suffix: ").Append(Suffix).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -196,8 +210,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

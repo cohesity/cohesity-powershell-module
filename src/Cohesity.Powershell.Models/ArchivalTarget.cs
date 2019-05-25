@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,71 +12,50 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
-    /// Specifies settings about the Archival External Target (such as Tape or AWS).
+    /// Message that specifies the details about an archival target (such as cloud or tape) where backup snapshots may be archived to.
     /// </summary>
     [DataContract]
     public partial class ArchivalTarget :  IEquatable<ArchivalTarget>
     {
         /// <summary>
-        /// Specifies the type of the Archival External Target such as &#39;kCloud&#39; or &#39;kTape&#39;.
-        /// </summary>
-        /// <value>Specifies the type of the Archival External Target such as &#39;kCloud&#39; or &#39;kTape&#39;.</value>
-        [JsonConverter(typeof(StringEnumConverter))]
-        public enum VaultTypeEnum
-        {
-            
-            /// <summary>
-            /// Enum KCloud for value: kCloud
-            /// </summary>
-            [EnumMember(Value = "kCloud")]
-            KCloud = 1,
-            
-            /// <summary>
-            /// Enum KTape for value: kTape
-            /// </summary>
-            [EnumMember(Value = "kTape")]
-            KTape = 2
-        }
-
-        /// <summary>
-        /// Specifies the type of the Archival External Target such as &#39;kCloud&#39; or &#39;kTape&#39;.
-        /// </summary>
-        /// <value>Specifies the type of the Archival External Target such as &#39;kCloud&#39; or &#39;kTape&#39;.</value>
-        [DataMember(Name="vaultType", EmitDefaultValue=false)]
-        public VaultTypeEnum? VaultType { get; set; }
-        /// <summary>
         /// Initializes a new instance of the <see cref="ArchivalTarget" /> class.
         /// </summary>
-        /// <param name="vaultId">Specifies the id of Archival Vault assigned by the Cohesity Cluster..</param>
-        /// <param name="vaultName">Name of the Archival Vault..</param>
-        /// <param name="vaultType">Specifies the type of the Archival External Target such as &#39;kCloud&#39; or &#39;kTape&#39;..</param>
-        public ArchivalTarget(long? vaultId = default(long?), string vaultName = default(string), VaultTypeEnum? vaultType = default(VaultTypeEnum?))
+        /// <param name="name">The name of the archival target..</param>
+        /// <param name="type">The type of the archival target..</param>
+        /// <param name="vaultId">The id of the archival vault..</param>
+        public ArchivalTarget(string name = default(string), int? type = default(int?), long? vaultId = default(long?))
         {
+            this.Name = name;
+            this.Type = type;
             this.VaultId = vaultId;
-            this.VaultName = vaultName;
-            this.VaultType = vaultType;
+            this.Name = name;
+            this.Type = type;
+            this.VaultId = vaultId;
         }
         
         /// <summary>
-        /// Specifies the id of Archival Vault assigned by the Cohesity Cluster.
+        /// The name of the archival target.
         /// </summary>
-        /// <value>Specifies the id of Archival Vault assigned by the Cohesity Cluster.</value>
-        [DataMember(Name="vaultId", EmitDefaultValue=false)]
-        public long? VaultId { get; set; }
+        /// <value>The name of the archival target.</value>
+        [DataMember(Name="name", EmitDefaultValue=true)]
+        public string Name { get; set; }
 
         /// <summary>
-        /// Name of the Archival Vault.
+        /// The type of the archival target.
         /// </summary>
-        /// <value>Name of the Archival Vault.</value>
-        [DataMember(Name="vaultName", EmitDefaultValue=false)]
-        public string VaultName { get; set; }
+        /// <value>The type of the archival target.</value>
+        [DataMember(Name="type", EmitDefaultValue=true)]
+        public int? Type { get; set; }
 
+        /// <summary>
+        /// The id of the archival vault.
+        /// </summary>
+        /// <value>The id of the archival vault.</value>
+        [DataMember(Name="vaultId", EmitDefaultValue=true)]
+        public long? VaultId { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -84,7 +63,13 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class ArchivalTarget {\n");
+            sb.Append("  Name: ").Append(Name).Append("\n");
+            sb.Append("  Type: ").Append(Type).Append("\n");
+            sb.Append("  VaultId: ").Append(VaultId).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -118,19 +103,19 @@ namespace Cohesity.Models
 
             return 
                 (
+                    this.Name == input.Name ||
+                    (this.Name != null &&
+                    this.Name.Equals(input.Name))
+                ) && 
+                (
+                    this.Type == input.Type ||
+                    (this.Type != null &&
+                    this.Type.Equals(input.Type))
+                ) && 
+                (
                     this.VaultId == input.VaultId ||
                     (this.VaultId != null &&
                     this.VaultId.Equals(input.VaultId))
-                ) && 
-                (
-                    this.VaultName == input.VaultName ||
-                    (this.VaultName != null &&
-                    this.VaultName.Equals(input.VaultName))
-                ) && 
-                (
-                    this.VaultType == input.VaultType ||
-                    (this.VaultType != null &&
-                    this.VaultType.Equals(input.VaultType))
                 );
         }
 
@@ -143,18 +128,16 @@ namespace Cohesity.Models
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.Name != null)
+                    hashCode = hashCode * 59 + this.Name.GetHashCode();
+                if (this.Type != null)
+                    hashCode = hashCode * 59 + this.Type.GetHashCode();
                 if (this.VaultId != null)
                     hashCode = hashCode * 59 + this.VaultId.GetHashCode();
-                if (this.VaultName != null)
-                    hashCode = hashCode * 59 + this.VaultName.GetHashCode();
-                if (this.VaultType != null)
-                    hashCode = hashCode * 59 + this.VaultType.GetHashCode();
                 return hashCode;
             }
         }
 
-        
     }
 
 }
-

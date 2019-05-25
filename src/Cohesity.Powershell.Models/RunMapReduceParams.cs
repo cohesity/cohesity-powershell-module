@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,13 +12,10 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
-    /// RunMapReduceParams
+    /// RunMapReduceParams specifies the input params to run a map reduce instance.
     /// </summary>
     [DataContract]
     public partial class RunMapReduceParams :  IEquatable<RunMapReduceParams>
@@ -28,10 +25,12 @@ namespace Cohesity.Models
         /// </summary>
         /// <param name="appId">ApplicationId is the Id of the map reduce application to run..</param>
         /// <param name="inputParams">InputParams specifies optional list of key&#x3D;value input params specified for running the map reduce instance..</param>
-        /// <param name="mrInput">InputSpecification specifies the input information to run the specific map reduce instance..</param>
-        /// <param name="mrOutput">OutputSpecification specifies the output information to run the specific map reduce instance..</param>
+        /// <param name="mrInput">mrInput.</param>
+        /// <param name="mrOutput">mrOutput.</param>
         public RunMapReduceParams(long? appId = default(long?), List<MapReduceInstanceInputParam> inputParams = default(List<MapReduceInstanceInputParam>), InputSpec mrInput = default(InputSpec), OutputSpec mrOutput = default(OutputSpec))
         {
+            this.AppId = appId;
+            this.InputParams = inputParams;
             this.AppId = appId;
             this.InputParams = inputParams;
             this.MrInput = mrInput;
@@ -42,27 +41,25 @@ namespace Cohesity.Models
         /// ApplicationId is the Id of the map reduce application to run.
         /// </summary>
         /// <value>ApplicationId is the Id of the map reduce application to run.</value>
-        [DataMember(Name="appId", EmitDefaultValue=false)]
+        [DataMember(Name="appId", EmitDefaultValue=true)]
         public long? AppId { get; set; }
 
         /// <summary>
         /// InputParams specifies optional list of key&#x3D;value input params specified for running the map reduce instance.
         /// </summary>
         /// <value>InputParams specifies optional list of key&#x3D;value input params specified for running the map reduce instance.</value>
-        [DataMember(Name="inputParams", EmitDefaultValue=false)]
+        [DataMember(Name="inputParams", EmitDefaultValue=true)]
         public List<MapReduceInstanceInputParam> InputParams { get; set; }
 
         /// <summary>
-        /// InputSpecification specifies the input information to run the specific map reduce instance.
+        /// Gets or Sets MrInput
         /// </summary>
-        /// <value>InputSpecification specifies the input information to run the specific map reduce instance.</value>
         [DataMember(Name="mrInput", EmitDefaultValue=false)]
         public InputSpec MrInput { get; set; }
 
         /// <summary>
-        /// OutputSpecification specifies the output information to run the specific map reduce instance.
+        /// Gets or Sets MrOutput
         /// </summary>
-        /// <value>OutputSpecification specifies the output information to run the specific map reduce instance.</value>
         [DataMember(Name="mrOutput", EmitDefaultValue=false)]
         public OutputSpec MrOutput { get; set; }
 
@@ -72,7 +69,14 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class RunMapReduceParams {\n");
+            sb.Append("  AppId: ").Append(AppId).Append("\n");
+            sb.Append("  InputParams: ").Append(InputParams).Append("\n");
+            sb.Append("  MrInput: ").Append(MrInput).Append("\n");
+            sb.Append("  MrOutput: ").Append(MrOutput).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -113,6 +117,7 @@ namespace Cohesity.Models
                 (
                     this.InputParams == input.InputParams ||
                     this.InputParams != null &&
+                    input.InputParams != null &&
                     this.InputParams.SequenceEqual(input.InputParams)
                 ) && 
                 (
@@ -148,8 +153,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

@@ -44,12 +44,12 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 
 ## INPUTS
 
-### Cohesity.Models.ProtectionJob
+### Cohesity.Model.ProtectionJob
 The updated protection job.
 
 ## OUTPUTS
 
-### Cohesity.Models.ProtectionJob
+### Cohesity.Model.ProtectionJob
 ## NOTES
 
 ## RELATED LINKS

@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,13 +12,10 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
-    /// For the specified principal, grant access permissions to the the specified Protection Sources and View names.
+    /// Set Access Permissions for a Principal. For the specified principal, grant access permissions to the the specified Protection Sources and View names.
     /// </summary>
     [DataContract]
     public partial class SourceForPrincipalParam :  IEquatable<SourceForPrincipalParam>
@@ -26,35 +23,38 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="SourceForPrincipalParam" /> class.
         /// </summary>
-        /// <param name="protectionSourceIds">For the specified principal, grant access permissions to the Protection Sources listed in this array..</param>
+        /// <param name="protectionSourceIds">Array of Protection Source Ids.  For the specified principal, grant access permissions to the Protection Sources listed in this array..</param>
         /// <param name="sid">Specifies the SID of the principal to grant access permissions to..</param>
-        /// <param name="viewNames">For the specified principal, grant access permissions to the Views names listed in this array..</param>
-        public SourceForPrincipalParam(List<long?> protectionSourceIds = default(List<long?>), string sid = default(string), List<string> viewNames = default(List<string>))
+        /// <param name="viewNames">Array of View names.  For the specified principal, grant access permissions to the Views names listed in this array..</param>
+        public SourceForPrincipalParam(List<long> protectionSourceIds = default(List<long>), string sid = default(string), List<string> viewNames = default(List<string>))
         {
+            this.ProtectionSourceIds = protectionSourceIds;
+            this.Sid = sid;
+            this.ViewNames = viewNames;
             this.ProtectionSourceIds = protectionSourceIds;
             this.Sid = sid;
             this.ViewNames = viewNames;
         }
         
         /// <summary>
-        /// For the specified principal, grant access permissions to the Protection Sources listed in this array.
+        /// Array of Protection Source Ids.  For the specified principal, grant access permissions to the Protection Sources listed in this array.
         /// </summary>
-        /// <value>For the specified principal, grant access permissions to the Protection Sources listed in this array.</value>
-        [DataMember(Name="protectionSourceIds", EmitDefaultValue=false)]
-        public List<long?> ProtectionSourceIds { get; set; }
+        /// <value>Array of Protection Source Ids.  For the specified principal, grant access permissions to the Protection Sources listed in this array.</value>
+        [DataMember(Name="protectionSourceIds", EmitDefaultValue=true)]
+        public List<long> ProtectionSourceIds { get; set; }
 
         /// <summary>
         /// Specifies the SID of the principal to grant access permissions to.
         /// </summary>
         /// <value>Specifies the SID of the principal to grant access permissions to.</value>
-        [DataMember(Name="sid", EmitDefaultValue=false)]
+        [DataMember(Name="sid", EmitDefaultValue=true)]
         public string Sid { get; set; }
 
         /// <summary>
-        /// For the specified principal, grant access permissions to the Views names listed in this array.
+        /// Array of View names.  For the specified principal, grant access permissions to the Views names listed in this array.
         /// </summary>
-        /// <value>For the specified principal, grant access permissions to the Views names listed in this array.</value>
-        [DataMember(Name="viewNames", EmitDefaultValue=false)]
+        /// <value>Array of View names.  For the specified principal, grant access permissions to the Views names listed in this array.</value>
+        [DataMember(Name="viewNames", EmitDefaultValue=true)]
         public List<string> ViewNames { get; set; }
 
         /// <summary>
@@ -63,7 +63,13 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class SourceForPrincipalParam {\n");
+            sb.Append("  ProtectionSourceIds: ").Append(ProtectionSourceIds).Append("\n");
+            sb.Append("  Sid: ").Append(Sid).Append("\n");
+            sb.Append("  ViewNames: ").Append(ViewNames).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -99,6 +105,7 @@ namespace Cohesity.Models
                 (
                     this.ProtectionSourceIds == input.ProtectionSourceIds ||
                     this.ProtectionSourceIds != null &&
+                    input.ProtectionSourceIds != null &&
                     this.ProtectionSourceIds.SequenceEqual(input.ProtectionSourceIds)
                 ) && 
                 (
@@ -109,6 +116,7 @@ namespace Cohesity.Models
                 (
                     this.ViewNames == input.ViewNames ||
                     this.ViewNames != null &&
+                    input.ViewNames != null &&
                     this.ViewNames.SequenceEqual(input.ViewNames)
                 );
         }
@@ -132,8 +140,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

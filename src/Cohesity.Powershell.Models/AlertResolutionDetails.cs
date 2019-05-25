@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies information about the Alert Resolution such as a summary, id assigned by the Cohesity Cluster, user who resolved the Alerts, etc.
@@ -26,13 +23,18 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="AlertResolutionDetails" /> class.
         /// </summary>
-        /// <param name="resolutionDetails">Detailed notes about the Resolution..</param>
-        /// <param name="resolutionId">Unique id assigned by the Cohesity Cluster for this Resolution..</param>
-        /// <param name="resolutionSummary">Short description about the Resolution..</param>
-        /// <param name="timestampUsecs">Unix epoch timestamp (in microseconds) when the Alerts were resolved..</param>
-        /// <param name="userName">Name of the Cohesity Cluster user who resolved the Alerts..</param>
+        /// <param name="resolutionDetails">Specifies detailed notes about the Resolution..</param>
+        /// <param name="resolutionId">Specifies Unique id assigned by the Cohesity Cluster for this Resolution..</param>
+        /// <param name="resolutionSummary">Specifies short description about the Resolution..</param>
+        /// <param name="timestampUsecs">Specifies unix epoch timestamp (in microseconds) when the Alerts were resolved..</param>
+        /// <param name="userName">Specifies name of the Cohesity Cluster user who resolved the Alerts..</param>
         public AlertResolutionDetails(string resolutionDetails = default(string), long? resolutionId = default(long?), string resolutionSummary = default(string), long? timestampUsecs = default(long?), string userName = default(string))
         {
+            this.ResolutionDetails = resolutionDetails;
+            this.ResolutionId = resolutionId;
+            this.ResolutionSummary = resolutionSummary;
+            this.TimestampUsecs = timestampUsecs;
+            this.UserName = userName;
             this.ResolutionDetails = resolutionDetails;
             this.ResolutionId = resolutionId;
             this.ResolutionSummary = resolutionSummary;
@@ -41,38 +43,38 @@ namespace Cohesity.Models
         }
         
         /// <summary>
-        /// Detailed notes about the Resolution.
+        /// Specifies detailed notes about the Resolution.
         /// </summary>
-        /// <value>Detailed notes about the Resolution.</value>
-        [DataMember(Name="resolutionDetails", EmitDefaultValue=false)]
+        /// <value>Specifies detailed notes about the Resolution.</value>
+        [DataMember(Name="resolutionDetails", EmitDefaultValue=true)]
         public string ResolutionDetails { get; set; }
 
         /// <summary>
-        /// Unique id assigned by the Cohesity Cluster for this Resolution.
+        /// Specifies Unique id assigned by the Cohesity Cluster for this Resolution.
         /// </summary>
-        /// <value>Unique id assigned by the Cohesity Cluster for this Resolution.</value>
-        [DataMember(Name="resolutionId", EmitDefaultValue=false)]
+        /// <value>Specifies Unique id assigned by the Cohesity Cluster for this Resolution.</value>
+        [DataMember(Name="resolutionId", EmitDefaultValue=true)]
         public long? ResolutionId { get; set; }
 
         /// <summary>
-        /// Short description about the Resolution.
+        /// Specifies short description about the Resolution.
         /// </summary>
-        /// <value>Short description about the Resolution.</value>
-        [DataMember(Name="resolutionSummary", EmitDefaultValue=false)]
+        /// <value>Specifies short description about the Resolution.</value>
+        [DataMember(Name="resolutionSummary", EmitDefaultValue=true)]
         public string ResolutionSummary { get; set; }
 
         /// <summary>
-        /// Unix epoch timestamp (in microseconds) when the Alerts were resolved.
+        /// Specifies unix epoch timestamp (in microseconds) when the Alerts were resolved.
         /// </summary>
-        /// <value>Unix epoch timestamp (in microseconds) when the Alerts were resolved.</value>
-        [DataMember(Name="timestampUsecs", EmitDefaultValue=false)]
+        /// <value>Specifies unix epoch timestamp (in microseconds) when the Alerts were resolved.</value>
+        [DataMember(Name="timestampUsecs", EmitDefaultValue=true)]
         public long? TimestampUsecs { get; set; }
 
         /// <summary>
-        /// Name of the Cohesity Cluster user who resolved the Alerts.
+        /// Specifies name of the Cohesity Cluster user who resolved the Alerts.
         /// </summary>
-        /// <value>Name of the Cohesity Cluster user who resolved the Alerts.</value>
-        [DataMember(Name="userName", EmitDefaultValue=false)]
+        /// <value>Specifies name of the Cohesity Cluster user who resolved the Alerts.</value>
+        [DataMember(Name="userName", EmitDefaultValue=true)]
         public string UserName { get; set; }
 
         /// <summary>
@@ -81,7 +83,15 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class AlertResolutionDetails {\n");
+            sb.Append("  ResolutionDetails: ").Append(ResolutionDetails).Append("\n");
+            sb.Append("  ResolutionId: ").Append(ResolutionId).Append("\n");
+            sb.Append("  ResolutionSummary: ").Append(ResolutionSummary).Append("\n");
+            sb.Append("  TimestampUsecs: ").Append(TimestampUsecs).Append("\n");
+            sb.Append("  UserName: ").Append(UserName).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -164,8 +174,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

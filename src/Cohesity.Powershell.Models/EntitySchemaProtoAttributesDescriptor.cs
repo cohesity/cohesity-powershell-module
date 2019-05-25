@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies a list of attributes about an entity.
@@ -26,26 +23,28 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="EntitySchemaProtoAttributesDescriptor" /> class.
         /// </summary>
-        /// <param name="attributeVec">List of attributes about an entity..</param>
+        /// <param name="attributeVec">Array of Attributes.  List of attributes about an entity..</param>
         /// <param name="keyAttributeNameIndex">Specifies the attribute to use as a unique identifier for the entity. This value is returned in entityId when the GET public/statistics/entities operation is run..</param>
         public EntitySchemaProtoAttributesDescriptor(List<EntitySchemaProtoKeyValueDescriptor> attributeVec = default(List<EntitySchemaProtoKeyValueDescriptor>), int? keyAttributeNameIndex = default(int?))
         {
             this.AttributeVec = attributeVec;
             this.KeyAttributeNameIndex = keyAttributeNameIndex;
+            this.AttributeVec = attributeVec;
+            this.KeyAttributeNameIndex = keyAttributeNameIndex;
         }
         
         /// <summary>
-        /// List of attributes about an entity.
+        /// Array of Attributes.  List of attributes about an entity.
         /// </summary>
-        /// <value>List of attributes about an entity.</value>
-        [DataMember(Name="attributeVec", EmitDefaultValue=false)]
+        /// <value>Array of Attributes.  List of attributes about an entity.</value>
+        [DataMember(Name="attributeVec", EmitDefaultValue=true)]
         public List<EntitySchemaProtoKeyValueDescriptor> AttributeVec { get; set; }
 
         /// <summary>
         /// Specifies the attribute to use as a unique identifier for the entity. This value is returned in entityId when the GET public/statistics/entities operation is run.
         /// </summary>
         /// <value>Specifies the attribute to use as a unique identifier for the entity. This value is returned in entityId when the GET public/statistics/entities operation is run.</value>
-        [DataMember(Name="keyAttributeNameIndex", EmitDefaultValue=false)]
+        [DataMember(Name="keyAttributeNameIndex", EmitDefaultValue=true)]
         public int? KeyAttributeNameIndex { get; set; }
 
         /// <summary>
@@ -54,7 +53,12 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class EntitySchemaProtoAttributesDescriptor {\n");
+            sb.Append("  AttributeVec: ").Append(AttributeVec).Append("\n");
+            sb.Append("  KeyAttributeNameIndex: ").Append(KeyAttributeNameIndex).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -90,6 +94,7 @@ namespace Cohesity.Models
                 (
                     this.AttributeVec == input.AttributeVec ||
                     this.AttributeVec != null &&
+                    input.AttributeVec != null &&
                     this.AttributeVec.SequenceEqual(input.AttributeVec)
                 ) && 
                 (
@@ -116,8 +121,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

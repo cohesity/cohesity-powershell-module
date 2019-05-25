@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies information about the Protection Jobs that are protecting the View.
@@ -28,9 +25,12 @@ namespace Cohesity.Models
         /// </summary>
         /// <param name="inactive">Specifies if this View is an inactive View that was created on this Remote Cluster to store the Snapshots created by replication. This inactive View cannot be NFS or SMB mounted..</param>
         /// <param name="magnetoEntityId">Specifies the id of the Protection Source that is using this View..</param>
-        /// <param name="protectionJobs">Specifies the Protection Jobs that are protecting the View..</param>
+        /// <param name="protectionJobs">Array of Protection Jobs.  Specifies the Protection Jobs that are protecting the View..</param>
         public ViewProtection(bool? inactive = default(bool?), long? magnetoEntityId = default(long?), List<ProtectionJobInfo> protectionJobs = default(List<ProtectionJobInfo>))
         {
+            this.Inactive = inactive;
+            this.MagnetoEntityId = magnetoEntityId;
+            this.ProtectionJobs = protectionJobs;
             this.Inactive = inactive;
             this.MagnetoEntityId = magnetoEntityId;
             this.ProtectionJobs = protectionJobs;
@@ -40,21 +40,21 @@ namespace Cohesity.Models
         /// Specifies if this View is an inactive View that was created on this Remote Cluster to store the Snapshots created by replication. This inactive View cannot be NFS or SMB mounted.
         /// </summary>
         /// <value>Specifies if this View is an inactive View that was created on this Remote Cluster to store the Snapshots created by replication. This inactive View cannot be NFS or SMB mounted.</value>
-        [DataMember(Name="inactive", EmitDefaultValue=false)]
+        [DataMember(Name="inactive", EmitDefaultValue=true)]
         public bool? Inactive { get; set; }
 
         /// <summary>
         /// Specifies the id of the Protection Source that is using this View.
         /// </summary>
         /// <value>Specifies the id of the Protection Source that is using this View.</value>
-        [DataMember(Name="magnetoEntityId", EmitDefaultValue=false)]
+        [DataMember(Name="magnetoEntityId", EmitDefaultValue=true)]
         public long? MagnetoEntityId { get; set; }
 
         /// <summary>
-        /// Specifies the Protection Jobs that are protecting the View.
+        /// Array of Protection Jobs.  Specifies the Protection Jobs that are protecting the View.
         /// </summary>
-        /// <value>Specifies the Protection Jobs that are protecting the View.</value>
-        [DataMember(Name="protectionJobs", EmitDefaultValue=false)]
+        /// <value>Array of Protection Jobs.  Specifies the Protection Jobs that are protecting the View.</value>
+        [DataMember(Name="protectionJobs", EmitDefaultValue=true)]
         public List<ProtectionJobInfo> ProtectionJobs { get; set; }
 
         /// <summary>
@@ -63,7 +63,13 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class ViewProtection {\n");
+            sb.Append("  Inactive: ").Append(Inactive).Append("\n");
+            sb.Append("  MagnetoEntityId: ").Append(MagnetoEntityId).Append("\n");
+            sb.Append("  ProtectionJobs: ").Append(ProtectionJobs).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -109,6 +115,7 @@ namespace Cohesity.Models
                 (
                     this.ProtectionJobs == input.ProtectionJobs ||
                     this.ProtectionJobs != null &&
+                    input.ProtectionJobs != null &&
                     this.ProtectionJobs.SequenceEqual(input.ProtectionJobs)
                 );
         }
@@ -132,8 +139,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

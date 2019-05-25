@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,13 +12,10 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
-    /// OverwriteViewParam
+    /// Specifies the overwrite parameters for the view.
     /// </summary>
     [DataContract]
     public partial class OverwriteViewParam :  IEquatable<OverwriteViewParam>
@@ -35,38 +32,22 @@ namespace Cohesity.Models
         /// <param name="targetViewName">Specifies the target view name. (required).</param>
         public OverwriteViewParam(string sourceViewName = default(string), string targetViewName = default(string))
         {
-            // to ensure "sourceViewName" is required (not null)
-            if (sourceViewName == null)
-            {
-                throw new InvalidDataException("sourceViewName is a required property for OverwriteViewParam and cannot be null");
-            }
-            else
-            {
-                this.SourceViewName = sourceViewName;
-            }
-            // to ensure "targetViewName" is required (not null)
-            if (targetViewName == null)
-            {
-                throw new InvalidDataException("targetViewName is a required property for OverwriteViewParam and cannot be null");
-            }
-            else
-            {
-                this.TargetViewName = targetViewName;
-            }
+            this.SourceViewName = sourceViewName;
+            this.TargetViewName = targetViewName;
         }
         
         /// <summary>
         /// Specifies the source view name.
         /// </summary>
         /// <value>Specifies the source view name.</value>
-        [DataMember(Name="sourceViewName", EmitDefaultValue=false)]
+        [DataMember(Name="sourceViewName", EmitDefaultValue=true)]
         public string SourceViewName { get; set; }
 
         /// <summary>
         /// Specifies the target view name.
         /// </summary>
         /// <value>Specifies the target view name.</value>
-        [DataMember(Name="targetViewName", EmitDefaultValue=false)]
+        [DataMember(Name="targetViewName", EmitDefaultValue=true)]
         public string TargetViewName { get; set; }
 
         /// <summary>
@@ -75,7 +56,12 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class OverwriteViewParam {\n");
+            sb.Append("  SourceViewName: ").Append(SourceViewName).Append("\n");
+            sb.Append("  TargetViewName: ").Append(TargetViewName).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -137,8 +123,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

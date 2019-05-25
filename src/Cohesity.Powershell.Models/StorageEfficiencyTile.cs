@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,13 +12,10 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
-    /// StorageEfficiencyTile
+    /// StorageEfficiencyTile gives tile information for the storage saved because of compression and dedupe done on the cluster.
     /// </summary>
     [DataContract]
     public partial class StorageEfficiencyTile :  IEquatable<StorageEfficiencyTile>
@@ -26,103 +23,149 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="StorageEfficiencyTile" /> class.
         /// </summary>
-        /// <param name="dataInBytes">Data brought into the cluster. This is the usage before data reduction if we ignore the zeroes and effects of cloning..</param>
-        /// <param name="dataInDedupedBytes">Morphed Usage before data is replicated to other nodes as per RF or Erasure Coding policy..</param>
-        /// <param name="dataReduction">Data Reduction is the ratio of DataInBytes to DataInDedupBytes..</param>
-        /// <param name="lastWeekDataInBytes">lastWeekDataInBytes.</param>
-        /// <param name="lastWeekDataInDedupedBytes">Morphed usage before data is replicated in last 7 days in descening order of time..</param>
-        /// <param name="lastWeekDataReduction">lastWeekDataReduction.</param>
-        /// <param name="lastWeekLogicalUsedBytes">lastWeekLogicalUsedBytes.</param>
-        /// <param name="lastWeekPhysicalUsedBytes">lastWeekPhysicalUsedBytes.</param>
-        /// <param name="lastWeekStorageEfficiency">lastWeekStorageEfficiency.</param>
-        /// <param name="logicalUsedBytes">Logical Data used on the cluster..</param>
-        /// <param name="storageEfficiency">Storage Efficiency is the ratio of LogicalUsedBytes / RawUsedBytes..</param>
-        public StorageEfficiencyTile(long? dataInBytes = default(long?), long? dataInDedupedBytes = default(long?), long? dataReduction = default(long?), List<long?> lastWeekDataInBytes = default(List<long?>), List<long?> lastWeekDataInDedupedBytes = default(List<long?>), List<long?> lastWeekDataReduction = default(List<long?>), List<long?> lastWeekLogicalUsedBytes = default(List<long?>), List<long?> lastWeekPhysicalUsedBytes = default(List<long?>), List<long?> lastWeekStorageEfficiency = default(List<long?>), long? logicalUsedBytes = default(long?), long? storageEfficiency = default(long?))
+        /// <param name="dataInBytes">Specifies the size of data brought into the cluster. This is the usage before data reduction if we ignore the zeroes and effects of cloning..</param>
+        /// <param name="dataInBytesSamples">Specifies the samples taken for Data brought into the cluster in bytes in ascending order of time..</param>
+        /// <param name="dataInDedupedBytes">Specifies the size of data after compression and or dedupe operations just before the data is replicated to other nodes as per RF or Erasure Coding policy..</param>
+        /// <param name="dataInDedupedBytesSamples">Specifies the samples taken for morphed data in bytes in ascending order of time..</param>
+        /// <param name="dedupeRatio">Specifies the current dedupe ratio on the cluster. It is the ratio of DataInBytes to DataInDedupedBytes..</param>
+        /// <param name="dedupeRatioSamples">Specifies the samples for data reduction ratio in ascending order of time..</param>
+        /// <param name="durationDays">Specifies the duration in days in which the samples were taken. For this tile, it is 7 days..</param>
+        /// <param name="intervalSeconds">Specifies the interval between the samples in seconds. For this tile, it is 1 day which is 86400 seconds..</param>
+        /// <param name="logicalUsedBytes">Specifies the size of logical data currently represented on the cluster..</param>
+        /// <param name="logicalUsedBytesSamples">Specifies the samples taken for logical data represented in bytes in ascending order of time..</param>
+        /// <param name="physicalUsedBytes">Specifies the size of physical data currently consumed on the cluster..</param>
+        /// <param name="physicalUsedBytesSamples">Specifies the samples taken for physical data consumed in bytes in ascending order of time..</param>
+        /// <param name="storageReductionRatio">Specifies the current storage reduction ratio on the cluster. It is the ratio of LogicalUsedBytes to PhysicalUsedBytes..</param>
+        /// <param name="storageReductionSamples">Specifies the samples for storage reduction ratio in ascending order of time..</param>
+        public StorageEfficiencyTile(long? dataInBytes = default(long?), List<Sample> dataInBytesSamples = default(List<Sample>), long? dataInDedupedBytes = default(long?), List<Sample> dataInDedupedBytesSamples = default(List<Sample>), double? dedupeRatio = default(double?), List<Sample> dedupeRatioSamples = default(List<Sample>), int? durationDays = default(int?), int? intervalSeconds = default(int?), long? logicalUsedBytes = default(long?), List<Sample> logicalUsedBytesSamples = default(List<Sample>), long? physicalUsedBytes = default(long?), List<Sample> physicalUsedBytesSamples = default(List<Sample>), double? storageReductionRatio = default(double?), List<Sample> storageReductionSamples = default(List<Sample>))
         {
             this.DataInBytes = dataInBytes;
+            this.DataInBytesSamples = dataInBytesSamples;
             this.DataInDedupedBytes = dataInDedupedBytes;
-            this.DataReduction = dataReduction;
-            this.LastWeekDataInBytes = lastWeekDataInBytes;
-            this.LastWeekDataInDedupedBytes = lastWeekDataInDedupedBytes;
-            this.LastWeekDataReduction = lastWeekDataReduction;
-            this.LastWeekLogicalUsedBytes = lastWeekLogicalUsedBytes;
-            this.LastWeekPhysicalUsedBytes = lastWeekPhysicalUsedBytes;
-            this.LastWeekStorageEfficiency = lastWeekStorageEfficiency;
+            this.DataInDedupedBytesSamples = dataInDedupedBytesSamples;
+            this.DedupeRatio = dedupeRatio;
+            this.DedupeRatioSamples = dedupeRatioSamples;
+            this.DurationDays = durationDays;
+            this.IntervalSeconds = intervalSeconds;
             this.LogicalUsedBytes = logicalUsedBytes;
-            this.StorageEfficiency = storageEfficiency;
+            this.LogicalUsedBytesSamples = logicalUsedBytesSamples;
+            this.PhysicalUsedBytes = physicalUsedBytes;
+            this.PhysicalUsedBytesSamples = physicalUsedBytesSamples;
+            this.StorageReductionRatio = storageReductionRatio;
+            this.StorageReductionSamples = storageReductionSamples;
+            this.DataInBytes = dataInBytes;
+            this.DataInBytesSamples = dataInBytesSamples;
+            this.DataInDedupedBytes = dataInDedupedBytes;
+            this.DataInDedupedBytesSamples = dataInDedupedBytesSamples;
+            this.DedupeRatio = dedupeRatio;
+            this.DedupeRatioSamples = dedupeRatioSamples;
+            this.DurationDays = durationDays;
+            this.IntervalSeconds = intervalSeconds;
+            this.LogicalUsedBytes = logicalUsedBytes;
+            this.LogicalUsedBytesSamples = logicalUsedBytesSamples;
+            this.PhysicalUsedBytes = physicalUsedBytes;
+            this.PhysicalUsedBytesSamples = physicalUsedBytesSamples;
+            this.StorageReductionRatio = storageReductionRatio;
+            this.StorageReductionSamples = storageReductionSamples;
         }
         
         /// <summary>
-        /// Data brought into the cluster. This is the usage before data reduction if we ignore the zeroes and effects of cloning.
+        /// Specifies the size of data brought into the cluster. This is the usage before data reduction if we ignore the zeroes and effects of cloning.
         /// </summary>
-        /// <value>Data brought into the cluster. This is the usage before data reduction if we ignore the zeroes and effects of cloning.</value>
-        [DataMember(Name="dataInBytes", EmitDefaultValue=false)]
+        /// <value>Specifies the size of data brought into the cluster. This is the usage before data reduction if we ignore the zeroes and effects of cloning.</value>
+        [DataMember(Name="dataInBytes", EmitDefaultValue=true)]
         public long? DataInBytes { get; set; }
 
         /// <summary>
-        /// Morphed Usage before data is replicated to other nodes as per RF or Erasure Coding policy.
+        /// Specifies the samples taken for Data brought into the cluster in bytes in ascending order of time.
         /// </summary>
-        /// <value>Morphed Usage before data is replicated to other nodes as per RF or Erasure Coding policy.</value>
-        [DataMember(Name="dataInDedupedBytes", EmitDefaultValue=false)]
+        /// <value>Specifies the samples taken for Data brought into the cluster in bytes in ascending order of time.</value>
+        [DataMember(Name="dataInBytesSamples", EmitDefaultValue=true)]
+        public List<Sample> DataInBytesSamples { get; set; }
+
+        /// <summary>
+        /// Specifies the size of data after compression and or dedupe operations just before the data is replicated to other nodes as per RF or Erasure Coding policy.
+        /// </summary>
+        /// <value>Specifies the size of data after compression and or dedupe operations just before the data is replicated to other nodes as per RF or Erasure Coding policy.</value>
+        [DataMember(Name="dataInDedupedBytes", EmitDefaultValue=true)]
         public long? DataInDedupedBytes { get; set; }
 
         /// <summary>
-        /// Data Reduction is the ratio of DataInBytes to DataInDedupBytes.
+        /// Specifies the samples taken for morphed data in bytes in ascending order of time.
         /// </summary>
-        /// <value>Data Reduction is the ratio of DataInBytes to DataInDedupBytes.</value>
-        [DataMember(Name="dataReduction", EmitDefaultValue=false)]
-        public long? DataReduction { get; set; }
+        /// <value>Specifies the samples taken for morphed data in bytes in ascending order of time.</value>
+        [DataMember(Name="dataInDedupedBytesSamples", EmitDefaultValue=true)]
+        public List<Sample> DataInDedupedBytesSamples { get; set; }
 
         /// <summary>
-        /// Gets or Sets LastWeekDataInBytes
+        /// Specifies the current dedupe ratio on the cluster. It is the ratio of DataInBytes to DataInDedupedBytes.
         /// </summary>
-        [DataMember(Name="lastWeekDataInBytes", EmitDefaultValue=false)]
-        public List<long?> LastWeekDataInBytes { get; set; }
+        /// <value>Specifies the current dedupe ratio on the cluster. It is the ratio of DataInBytes to DataInDedupedBytes.</value>
+        [DataMember(Name="dedupeRatio", EmitDefaultValue=true)]
+        public double? DedupeRatio { get; set; }
 
         /// <summary>
-        /// Morphed usage before data is replicated in last 7 days in descening order of time.
+        /// Specifies the samples for data reduction ratio in ascending order of time.
         /// </summary>
-        /// <value>Morphed usage before data is replicated in last 7 days in descening order of time.</value>
-        [DataMember(Name="lastWeekDataInDedupedBytes", EmitDefaultValue=false)]
-        public List<long?> LastWeekDataInDedupedBytes { get; set; }
+        /// <value>Specifies the samples for data reduction ratio in ascending order of time.</value>
+        [DataMember(Name="dedupeRatioSamples", EmitDefaultValue=true)]
+        public List<Sample> DedupeRatioSamples { get; set; }
 
         /// <summary>
-        /// Gets or Sets LastWeekDataReduction
+        /// Specifies the duration in days in which the samples were taken. For this tile, it is 7 days.
         /// </summary>
-        [DataMember(Name="lastWeekDataReduction", EmitDefaultValue=false)]
-        public List<long?> LastWeekDataReduction { get; set; }
+        /// <value>Specifies the duration in days in which the samples were taken. For this tile, it is 7 days.</value>
+        [DataMember(Name="durationDays", EmitDefaultValue=true)]
+        public int? DurationDays { get; set; }
 
         /// <summary>
-        /// Gets or Sets LastWeekLogicalUsedBytes
+        /// Specifies the interval between the samples in seconds. For this tile, it is 1 day which is 86400 seconds.
         /// </summary>
-        [DataMember(Name="lastWeekLogicalUsedBytes", EmitDefaultValue=false)]
-        public List<long?> LastWeekLogicalUsedBytes { get; set; }
+        /// <value>Specifies the interval between the samples in seconds. For this tile, it is 1 day which is 86400 seconds.</value>
+        [DataMember(Name="intervalSeconds", EmitDefaultValue=true)]
+        public int? IntervalSeconds { get; set; }
 
         /// <summary>
-        /// Gets or Sets LastWeekPhysicalUsedBytes
+        /// Specifies the size of logical data currently represented on the cluster.
         /// </summary>
-        [DataMember(Name="lastWeekPhysicalUsedBytes", EmitDefaultValue=false)]
-        public List<long?> LastWeekPhysicalUsedBytes { get; set; }
-
-        /// <summary>
-        /// Gets or Sets LastWeekStorageEfficiency
-        /// </summary>
-        [DataMember(Name="lastWeekStorageEfficiency", EmitDefaultValue=false)]
-        public List<long?> LastWeekStorageEfficiency { get; set; }
-
-        /// <summary>
-        /// Logical Data used on the cluster.
-        /// </summary>
-        /// <value>Logical Data used on the cluster.</value>
-        [DataMember(Name="logicalUsedBytes", EmitDefaultValue=false)]
+        /// <value>Specifies the size of logical data currently represented on the cluster.</value>
+        [DataMember(Name="logicalUsedBytes", EmitDefaultValue=true)]
         public long? LogicalUsedBytes { get; set; }
 
         /// <summary>
-        /// Storage Efficiency is the ratio of LogicalUsedBytes / RawUsedBytes.
+        /// Specifies the samples taken for logical data represented in bytes in ascending order of time.
         /// </summary>
-        /// <value>Storage Efficiency is the ratio of LogicalUsedBytes / RawUsedBytes.</value>
-        [DataMember(Name="storageEfficiency", EmitDefaultValue=false)]
-        public long? StorageEfficiency { get; set; }
+        /// <value>Specifies the samples taken for logical data represented in bytes in ascending order of time.</value>
+        [DataMember(Name="logicalUsedBytesSamples", EmitDefaultValue=true)]
+        public List<Sample> LogicalUsedBytesSamples { get; set; }
+
+        /// <summary>
+        /// Specifies the size of physical data currently consumed on the cluster.
+        /// </summary>
+        /// <value>Specifies the size of physical data currently consumed on the cluster.</value>
+        [DataMember(Name="physicalUsedBytes", EmitDefaultValue=true)]
+        public long? PhysicalUsedBytes { get; set; }
+
+        /// <summary>
+        /// Specifies the samples taken for physical data consumed in bytes in ascending order of time.
+        /// </summary>
+        /// <value>Specifies the samples taken for physical data consumed in bytes in ascending order of time.</value>
+        [DataMember(Name="physicalUsedBytesSamples", EmitDefaultValue=true)]
+        public List<Sample> PhysicalUsedBytesSamples { get; set; }
+
+        /// <summary>
+        /// Specifies the current storage reduction ratio on the cluster. It is the ratio of LogicalUsedBytes to PhysicalUsedBytes.
+        /// </summary>
+        /// <value>Specifies the current storage reduction ratio on the cluster. It is the ratio of LogicalUsedBytes to PhysicalUsedBytes.</value>
+        [DataMember(Name="storageReductionRatio", EmitDefaultValue=true)]
+        public double? StorageReductionRatio { get; set; }
+
+        /// <summary>
+        /// Specifies the samples for storage reduction ratio in ascending order of time.
+        /// </summary>
+        /// <value>Specifies the samples for storage reduction ratio in ascending order of time.</value>
+        [DataMember(Name="storageReductionSamples", EmitDefaultValue=true)]
+        public List<Sample> StorageReductionSamples { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -130,7 +173,24 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class StorageEfficiencyTile {\n");
+            sb.Append("  DataInBytes: ").Append(DataInBytes).Append("\n");
+            sb.Append("  DataInBytesSamples: ").Append(DataInBytesSamples).Append("\n");
+            sb.Append("  DataInDedupedBytes: ").Append(DataInDedupedBytes).Append("\n");
+            sb.Append("  DataInDedupedBytesSamples: ").Append(DataInDedupedBytesSamples).Append("\n");
+            sb.Append("  DedupeRatio: ").Append(DedupeRatio).Append("\n");
+            sb.Append("  DedupeRatioSamples: ").Append(DedupeRatioSamples).Append("\n");
+            sb.Append("  DurationDays: ").Append(DurationDays).Append("\n");
+            sb.Append("  IntervalSeconds: ").Append(IntervalSeconds).Append("\n");
+            sb.Append("  LogicalUsedBytes: ").Append(LogicalUsedBytes).Append("\n");
+            sb.Append("  LogicalUsedBytesSamples: ").Append(LogicalUsedBytesSamples).Append("\n");
+            sb.Append("  PhysicalUsedBytes: ").Append(PhysicalUsedBytes).Append("\n");
+            sb.Append("  PhysicalUsedBytesSamples: ").Append(PhysicalUsedBytesSamples).Append("\n");
+            sb.Append("  StorageReductionRatio: ").Append(StorageReductionRatio).Append("\n");
+            sb.Append("  StorageReductionSamples: ").Append(StorageReductionSamples).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -169,44 +229,42 @@ namespace Cohesity.Models
                     this.DataInBytes.Equals(input.DataInBytes))
                 ) && 
                 (
+                    this.DataInBytesSamples == input.DataInBytesSamples ||
+                    this.DataInBytesSamples != null &&
+                    input.DataInBytesSamples != null &&
+                    this.DataInBytesSamples.SequenceEqual(input.DataInBytesSamples)
+                ) && 
+                (
                     this.DataInDedupedBytes == input.DataInDedupedBytes ||
                     (this.DataInDedupedBytes != null &&
                     this.DataInDedupedBytes.Equals(input.DataInDedupedBytes))
                 ) && 
                 (
-                    this.DataReduction == input.DataReduction ||
-                    (this.DataReduction != null &&
-                    this.DataReduction.Equals(input.DataReduction))
+                    this.DataInDedupedBytesSamples == input.DataInDedupedBytesSamples ||
+                    this.DataInDedupedBytesSamples != null &&
+                    input.DataInDedupedBytesSamples != null &&
+                    this.DataInDedupedBytesSamples.SequenceEqual(input.DataInDedupedBytesSamples)
                 ) && 
                 (
-                    this.LastWeekDataInBytes == input.LastWeekDataInBytes ||
-                    this.LastWeekDataInBytes != null &&
-                    this.LastWeekDataInBytes.SequenceEqual(input.LastWeekDataInBytes)
+                    this.DedupeRatio == input.DedupeRatio ||
+                    (this.DedupeRatio != null &&
+                    this.DedupeRatio.Equals(input.DedupeRatio))
                 ) && 
                 (
-                    this.LastWeekDataInDedupedBytes == input.LastWeekDataInDedupedBytes ||
-                    this.LastWeekDataInDedupedBytes != null &&
-                    this.LastWeekDataInDedupedBytes.SequenceEqual(input.LastWeekDataInDedupedBytes)
+                    this.DedupeRatioSamples == input.DedupeRatioSamples ||
+                    this.DedupeRatioSamples != null &&
+                    input.DedupeRatioSamples != null &&
+                    this.DedupeRatioSamples.SequenceEqual(input.DedupeRatioSamples)
                 ) && 
                 (
-                    this.LastWeekDataReduction == input.LastWeekDataReduction ||
-                    this.LastWeekDataReduction != null &&
-                    this.LastWeekDataReduction.SequenceEqual(input.LastWeekDataReduction)
+                    this.DurationDays == input.DurationDays ||
+                    (this.DurationDays != null &&
+                    this.DurationDays.Equals(input.DurationDays))
                 ) && 
                 (
-                    this.LastWeekLogicalUsedBytes == input.LastWeekLogicalUsedBytes ||
-                    this.LastWeekLogicalUsedBytes != null &&
-                    this.LastWeekLogicalUsedBytes.SequenceEqual(input.LastWeekLogicalUsedBytes)
-                ) && 
-                (
-                    this.LastWeekPhysicalUsedBytes == input.LastWeekPhysicalUsedBytes ||
-                    this.LastWeekPhysicalUsedBytes != null &&
-                    this.LastWeekPhysicalUsedBytes.SequenceEqual(input.LastWeekPhysicalUsedBytes)
-                ) && 
-                (
-                    this.LastWeekStorageEfficiency == input.LastWeekStorageEfficiency ||
-                    this.LastWeekStorageEfficiency != null &&
-                    this.LastWeekStorageEfficiency.SequenceEqual(input.LastWeekStorageEfficiency)
+                    this.IntervalSeconds == input.IntervalSeconds ||
+                    (this.IntervalSeconds != null &&
+                    this.IntervalSeconds.Equals(input.IntervalSeconds))
                 ) && 
                 (
                     this.LogicalUsedBytes == input.LogicalUsedBytes ||
@@ -214,9 +272,32 @@ namespace Cohesity.Models
                     this.LogicalUsedBytes.Equals(input.LogicalUsedBytes))
                 ) && 
                 (
-                    this.StorageEfficiency == input.StorageEfficiency ||
-                    (this.StorageEfficiency != null &&
-                    this.StorageEfficiency.Equals(input.StorageEfficiency))
+                    this.LogicalUsedBytesSamples == input.LogicalUsedBytesSamples ||
+                    this.LogicalUsedBytesSamples != null &&
+                    input.LogicalUsedBytesSamples != null &&
+                    this.LogicalUsedBytesSamples.SequenceEqual(input.LogicalUsedBytesSamples)
+                ) && 
+                (
+                    this.PhysicalUsedBytes == input.PhysicalUsedBytes ||
+                    (this.PhysicalUsedBytes != null &&
+                    this.PhysicalUsedBytes.Equals(input.PhysicalUsedBytes))
+                ) && 
+                (
+                    this.PhysicalUsedBytesSamples == input.PhysicalUsedBytesSamples ||
+                    this.PhysicalUsedBytesSamples != null &&
+                    input.PhysicalUsedBytesSamples != null &&
+                    this.PhysicalUsedBytesSamples.SequenceEqual(input.PhysicalUsedBytesSamples)
+                ) && 
+                (
+                    this.StorageReductionRatio == input.StorageReductionRatio ||
+                    (this.StorageReductionRatio != null &&
+                    this.StorageReductionRatio.Equals(input.StorageReductionRatio))
+                ) && 
+                (
+                    this.StorageReductionSamples == input.StorageReductionSamples ||
+                    this.StorageReductionSamples != null &&
+                    input.StorageReductionSamples != null &&
+                    this.StorageReductionSamples.SequenceEqual(input.StorageReductionSamples)
                 );
         }
 
@@ -231,32 +312,36 @@ namespace Cohesity.Models
                 int hashCode = 41;
                 if (this.DataInBytes != null)
                     hashCode = hashCode * 59 + this.DataInBytes.GetHashCode();
+                if (this.DataInBytesSamples != null)
+                    hashCode = hashCode * 59 + this.DataInBytesSamples.GetHashCode();
                 if (this.DataInDedupedBytes != null)
                     hashCode = hashCode * 59 + this.DataInDedupedBytes.GetHashCode();
-                if (this.DataReduction != null)
-                    hashCode = hashCode * 59 + this.DataReduction.GetHashCode();
-                if (this.LastWeekDataInBytes != null)
-                    hashCode = hashCode * 59 + this.LastWeekDataInBytes.GetHashCode();
-                if (this.LastWeekDataInDedupedBytes != null)
-                    hashCode = hashCode * 59 + this.LastWeekDataInDedupedBytes.GetHashCode();
-                if (this.LastWeekDataReduction != null)
-                    hashCode = hashCode * 59 + this.LastWeekDataReduction.GetHashCode();
-                if (this.LastWeekLogicalUsedBytes != null)
-                    hashCode = hashCode * 59 + this.LastWeekLogicalUsedBytes.GetHashCode();
-                if (this.LastWeekPhysicalUsedBytes != null)
-                    hashCode = hashCode * 59 + this.LastWeekPhysicalUsedBytes.GetHashCode();
-                if (this.LastWeekStorageEfficiency != null)
-                    hashCode = hashCode * 59 + this.LastWeekStorageEfficiency.GetHashCode();
+                if (this.DataInDedupedBytesSamples != null)
+                    hashCode = hashCode * 59 + this.DataInDedupedBytesSamples.GetHashCode();
+                if (this.DedupeRatio != null)
+                    hashCode = hashCode * 59 + this.DedupeRatio.GetHashCode();
+                if (this.DedupeRatioSamples != null)
+                    hashCode = hashCode * 59 + this.DedupeRatioSamples.GetHashCode();
+                if (this.DurationDays != null)
+                    hashCode = hashCode * 59 + this.DurationDays.GetHashCode();
+                if (this.IntervalSeconds != null)
+                    hashCode = hashCode * 59 + this.IntervalSeconds.GetHashCode();
                 if (this.LogicalUsedBytes != null)
                     hashCode = hashCode * 59 + this.LogicalUsedBytes.GetHashCode();
-                if (this.StorageEfficiency != null)
-                    hashCode = hashCode * 59 + this.StorageEfficiency.GetHashCode();
+                if (this.LogicalUsedBytesSamples != null)
+                    hashCode = hashCode * 59 + this.LogicalUsedBytesSamples.GetHashCode();
+                if (this.PhysicalUsedBytes != null)
+                    hashCode = hashCode * 59 + this.PhysicalUsedBytes.GetHashCode();
+                if (this.PhysicalUsedBytesSamples != null)
+                    hashCode = hashCode * 59 + this.PhysicalUsedBytesSamples.GetHashCode();
+                if (this.StorageReductionRatio != null)
+                    hashCode = hashCode * 59 + this.StorageReductionRatio.GetHashCode();
+                if (this.StorageReductionSamples != null)
+                    hashCode = hashCode * 59 + this.StorageReductionSamples.GetHashCode();
                 return hashCode;
             }
         }
 
-        
     }
 
 }
-

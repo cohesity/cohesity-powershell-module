@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// MapReduceInstanceRunInfo
@@ -64,132 +61,150 @@ namespace Cohesity.Models
             this.Status = status;
             this.TotalNumMappers = totalNumMappers;
             this.TotalNumReducers = totalNumReducers;
+            this.EndTime = endTime;
+            this.ErrorMessage = errorMessage;
+            this.ExecutionStartTimeUsecs = executionStartTimeUsecs;
+            this.FilesProcessed = filesProcessed;
+            this.MapDoneTimeUsecs = mapDoneTimeUsecs;
+            this.MapInputBytes = mapInputBytes;
+            this.MappersSpawned = mappersSpawned;
+            this.NumMapOutputs = numMapOutputs;
+            this.NumReduceOutputs = numReduceOutputs;
+            this.PercentageCompletion = percentageCompletion;
+            this.PercentageMapperCompletion = percentageMapperCompletion;
+            this.PercentageReducerCompletion = percentageReducerCompletion;
+            this.ReducersSpawned = reducersSpawned;
+            this.RemainingTimeMins = remainingTimeMins;
+            this.StartTime = startTime;
+            this.Status = status;
+            this.TotalNumMappers = totalNumMappers;
+            this.TotalNumReducers = totalNumReducers;
         }
         
         /// <summary>
         /// Time when map redcue job completed.
         /// </summary>
         /// <value>Time when map redcue job completed.</value>
-        [DataMember(Name="endTime", EmitDefaultValue=false)]
+        [DataMember(Name="endTime", EmitDefaultValue=true)]
         public long? EndTime { get; set; }
 
         /// <summary>
         /// If this run failed, then error message for failure.
         /// </summary>
         /// <value>If this run failed, then error message for failure.</value>
-        [DataMember(Name="errorMessage", EmitDefaultValue=false)]
+        [DataMember(Name="errorMessage", EmitDefaultValue=true)]
         public string ErrorMessage { get; set; }
 
         /// <summary>
         /// Time (in usecs) when job was picked up for execution.
         /// </summary>
         /// <value>Time (in usecs) when job was picked up for execution.</value>
-        [DataMember(Name="executionStartTimeUsecs", EmitDefaultValue=false)]
+        [DataMember(Name="executionStartTimeUsecs", EmitDefaultValue=true)]
         public long? ExecutionStartTimeUsecs { get; set; }
 
         /// <summary>
         /// Number of files processed in this run.
         /// </summary>
         /// <value>Number of files processed in this run.</value>
-        [DataMember(Name="filesProcessed", EmitDefaultValue=false)]
+        [DataMember(Name="filesProcessed", EmitDefaultValue=true)]
         public int? FilesProcessed { get; set; }
 
         /// <summary>
         /// Time (in usecs) when map tasks were done.
         /// </summary>
         /// <value>Time (in usecs) when map tasks were done.</value>
-        [DataMember(Name="mapDoneTimeUsecs", EmitDefaultValue=false)]
+        [DataMember(Name="mapDoneTimeUsecs", EmitDefaultValue=true)]
         public long? MapDoneTimeUsecs { get; set; }
 
         /// <summary>
         /// Total size of data processed by this run in bytes.
         /// </summary>
         /// <value>Total size of data processed by this run in bytes.</value>
-        [DataMember(Name="mapInputBytes", EmitDefaultValue=false)]
+        [DataMember(Name="mapInputBytes", EmitDefaultValue=true)]
         public long? MapInputBytes { get; set; }
 
         /// <summary>
         /// Number of mappers spawned till now.
         /// </summary>
         /// <value>Number of mappers spawned till now.</value>
-        [DataMember(Name="mappersSpawned", EmitDefaultValue=false)]
+        [DataMember(Name="mappersSpawned", EmitDefaultValue=true)]
         public int? MappersSpawned { get; set; }
 
         /// <summary>
         /// Number of outputs from mappers.
         /// </summary>
         /// <value>Number of outputs from mappers.</value>
-        [DataMember(Name="numMapOutputs", EmitDefaultValue=false)]
+        [DataMember(Name="numMapOutputs", EmitDefaultValue=true)]
         public long? NumMapOutputs { get; set; }
 
         /// <summary>
         /// Number of outputs from reducers.
         /// </summary>
         /// <value>Number of outputs from reducers.</value>
-        [DataMember(Name="numReduceOutputs", EmitDefaultValue=false)]
+        [DataMember(Name="numReduceOutputs", EmitDefaultValue=true)]
         public long? NumReduceOutputs { get; set; }
 
         /// <summary>
         /// Percentage completion of this run so far.
         /// </summary>
         /// <value>Percentage completion of this run so far.</value>
-        [DataMember(Name="percentageCompletion", EmitDefaultValue=false)]
+        [DataMember(Name="percentageCompletion", EmitDefaultValue=true)]
         public float? PercentageCompletion { get; set; }
 
         /// <summary>
         /// Percentage of mapper phase completed.
         /// </summary>
         /// <value>Percentage of mapper phase completed.</value>
-        [DataMember(Name="percentageMapperCompletion", EmitDefaultValue=false)]
+        [DataMember(Name="percentageMapperCompletion", EmitDefaultValue=true)]
         public float? PercentageMapperCompletion { get; set; }
 
         /// <summary>
         /// Percentage of reducer phase completed.
         /// </summary>
         /// <value>Percentage of reducer phase completed.</value>
-        [DataMember(Name="percentageReducerCompletion", EmitDefaultValue=false)]
+        [DataMember(Name="percentageReducerCompletion", EmitDefaultValue=true)]
         public float? PercentageReducerCompletion { get; set; }
 
         /// <summary>
         /// Number of reducers spawned till now.
         /// </summary>
         /// <value>Number of reducers spawned till now.</value>
-        [DataMember(Name="reducersSpawned", EmitDefaultValue=false)]
+        [DataMember(Name="reducersSpawned", EmitDefaultValue=true)]
         public int? ReducersSpawned { get; set; }
 
         /// <summary>
         /// Expected remaining time in minutes for completion of this run.
         /// </summary>
         /// <value>Expected remaining time in minutes for completion of this run.</value>
-        [DataMember(Name="remainingTimeMins", EmitDefaultValue=false)]
+        [DataMember(Name="remainingTimeMins", EmitDefaultValue=true)]
         public int? RemainingTimeMins { get; set; }
 
         /// <summary>
         /// Time when map reduce job was started by user.
         /// </summary>
         /// <value>Time when map reduce job was started by user.</value>
-        [DataMember(Name="startTime", EmitDefaultValue=false)]
+        [DataMember(Name="startTime", EmitDefaultValue=true)]
         public long? StartTime { get; set; }
 
         /// <summary>
         /// Status of this run.
         /// </summary>
         /// <value>Status of this run.</value>
-        [DataMember(Name="status", EmitDefaultValue=false)]
+        [DataMember(Name="status", EmitDefaultValue=true)]
         public int? Status { get; set; }
 
         /// <summary>
         /// Total number of mappers to be spawned.
         /// </summary>
         /// <value>Total number of mappers to be spawned.</value>
-        [DataMember(Name="totalNumMappers", EmitDefaultValue=false)]
+        [DataMember(Name="totalNumMappers", EmitDefaultValue=true)]
         public int? TotalNumMappers { get; set; }
 
         /// <summary>
         /// Total number of reducers to be spawned.
         /// </summary>
         /// <value>Total number of reducers to be spawned.</value>
-        [DataMember(Name="totalNumReducers", EmitDefaultValue=false)]
+        [DataMember(Name="totalNumReducers", EmitDefaultValue=true)]
         public int? TotalNumReducers { get; set; }
 
         /// <summary>
@@ -198,7 +213,28 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class MapReduceInstanceRunInfo {\n");
+            sb.Append("  EndTime: ").Append(EndTime).Append("\n");
+            sb.Append("  ErrorMessage: ").Append(ErrorMessage).Append("\n");
+            sb.Append("  ExecutionStartTimeUsecs: ").Append(ExecutionStartTimeUsecs).Append("\n");
+            sb.Append("  FilesProcessed: ").Append(FilesProcessed).Append("\n");
+            sb.Append("  MapDoneTimeUsecs: ").Append(MapDoneTimeUsecs).Append("\n");
+            sb.Append("  MapInputBytes: ").Append(MapInputBytes).Append("\n");
+            sb.Append("  MappersSpawned: ").Append(MappersSpawned).Append("\n");
+            sb.Append("  NumMapOutputs: ").Append(NumMapOutputs).Append("\n");
+            sb.Append("  NumReduceOutputs: ").Append(NumReduceOutputs).Append("\n");
+            sb.Append("  PercentageCompletion: ").Append(PercentageCompletion).Append("\n");
+            sb.Append("  PercentageMapperCompletion: ").Append(PercentageMapperCompletion).Append("\n");
+            sb.Append("  PercentageReducerCompletion: ").Append(PercentageReducerCompletion).Append("\n");
+            sb.Append("  ReducersSpawned: ").Append(ReducersSpawned).Append("\n");
+            sb.Append("  RemainingTimeMins: ").Append(RemainingTimeMins).Append("\n");
+            sb.Append("  StartTime: ").Append(StartTime).Append("\n");
+            sb.Append("  Status: ").Append(Status).Append("\n");
+            sb.Append("  TotalNumMappers: ").Append(TotalNumMappers).Append("\n");
+            sb.Append("  TotalNumReducers: ").Append(TotalNumReducers).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -372,8 +408,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

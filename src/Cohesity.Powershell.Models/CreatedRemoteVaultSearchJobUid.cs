@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,13 +12,10 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
-    /// CreatedRemoteVaultSearchJobUid
+    /// Specifies the Uid of the Job created to search the remote vault.
     /// </summary>
     [DataContract]
     public partial class CreatedRemoteVaultSearchJobUid :  IEquatable<CreatedRemoteVaultSearchJobUid>
@@ -26,17 +23,19 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="CreatedRemoteVaultSearchJobUid" /> class.
         /// </summary>
-        /// <param name="searchJobUid">searchJobUid.</param>
-        public CreatedRemoteVaultSearchJobUid(UniqueGlobalId1 searchJobUid = default(UniqueGlobalId1))
+        /// <param name="searchJobUid">Specifies the unique id assigned for the search Job on the Cluster..</param>
+        public CreatedRemoteVaultSearchJobUid(UniversalId searchJobUid = default(UniversalId))
         {
+            this.SearchJobUid = searchJobUid;
             this.SearchJobUid = searchJobUid;
         }
         
         /// <summary>
-        /// Gets or Sets SearchJobUid
+        /// Specifies the unique id assigned for the search Job on the Cluster.
         /// </summary>
-        [DataMember(Name="searchJobUid", EmitDefaultValue=false)]
-        public UniqueGlobalId1 SearchJobUid { get; set; }
+        /// <value>Specifies the unique id assigned for the search Job on the Cluster.</value>
+        [DataMember(Name="searchJobUid", EmitDefaultValue=true)]
+        public UniversalId SearchJobUid { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -44,7 +43,11 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class CreatedRemoteVaultSearchJobUid {\n");
+            sb.Append("  SearchJobUid: ").Append(SearchJobUid).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -99,8 +102,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

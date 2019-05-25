@@ -6,7 +6,7 @@
     <View>
       <Name>AgentInformation.TableView</Name>
       <ViewSelectedBy>
-        <TypeName>Cohesity.Models.AgentInformation</TypeName>
+        <TypeName>Cohesity.Model.AgentInformation</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableRowEntries>
@@ -46,7 +46,7 @@
     <View>
       <Name>AgentInformation.ListView</Name>
       <ViewSelectedBy>
-        <TypeName>Cohesity.Models.AgentInformation</TypeName>
+        <TypeName>Cohesity.Model.AgentInformation</TypeName>
       </ViewSelectedBy>
       <ListControl>
         <ListEntries>
@@ -80,7 +80,7 @@
     <View>
       <Name>BasicClusterInfo.ListView</Name>
       <ViewSelectedBy>
-        <TypeName>Cohesity.Models.BasicClusterInfo</TypeName>
+        <TypeName>Cohesity.Model.BasicClusterInfo</TypeName>
       </ViewSelectedBy>
       <ListControl>
         <ListEntries>
@@ -111,7 +111,7 @@
     <View>
       <Name>Alert.TableView</Name>
       <ViewSelectedBy>
-        <TypeName>Cohesity.Models.Alert</TypeName>
+        <TypeName>Cohesity.Model.Alert</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableRowEntries>
@@ -189,7 +189,7 @@
     <View>
       <Name>Alert.ListView</Name>
       <ViewSelectedBy>
-        <TypeName>Cohesity.Models.Alert</TypeName>
+        <TypeName>Cohesity.Model.Alert</TypeName>
       </ViewSelectedBy>
       <ListControl>
         <ListEntries>
@@ -232,7 +232,7 @@
     <View>
       <Name>AlertResolution.ListView</Name>
       <ViewSelectedBy>
-        <TypeName>Cohesity.Models.AlertResolution</TypeName>
+        <TypeName>Cohesity.Model.AlertResolution</TypeName>
       </ViewSelectedBy>
       <ListControl>
         <ListEntries>
@@ -252,7 +252,7 @@
     <View>
       <Name>AlertResolution.TableView</Name>
       <ViewSelectedBy>
-        <TypeName>Cohesity.Models.AlertResolution</TypeName>
+        <TypeName>Cohesity.Model.AlertResolution</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableRowEntries>
@@ -279,7 +279,7 @@
         <View>
       <Name>ProtectionPolicy.TableView</Name>
       <ViewSelectedBy>
-        <TypeName>Cohesity.Models.ProtectionPolicy</TypeName>
+        <TypeName>Cohesity.Model.ProtectionPolicy</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableRowEntries>
@@ -310,7 +310,7 @@
     <View>
       <Name>ProtectionPolicy.ListView</Name>
       <ViewSelectedBy>
-        <TypeName>Cohesity.Models.ProtectionPolicy</TypeName>
+        <TypeName>Cohesity.Model.ProtectionPolicy</TypeName>
       </ViewSelectedBy>
       <ListControl>
         <ListEntries>
@@ -344,7 +344,7 @@
     <View>
       <Name>ProtectionJob.TableView</Name>
       <ViewSelectedBy>
-        <TypeName>Cohesity.Models.ProtectionJob</TypeName>
+        <TypeName>Cohesity.Model.ProtectionJob</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableRowEntries>
@@ -393,7 +393,7 @@
     <View>
       <Name>ProtectionJob.ListView</Name>
       <ViewSelectedBy>
-        <TypeName>Cohesity.Models.ProtectionJob</TypeName>
+        <TypeName>Cohesity.Model.ProtectionJob</TypeName>
       </ViewSelectedBy>
       <ListControl>
         <ListEntries>
@@ -452,7 +452,7 @@
         <View>
       <Name>ProtectionJobRun.TableView</Name>
       <ViewSelectedBy>
-        <TypeName>Cohesity.Models.ProtectionRunInstance</TypeName>
+        <TypeName>Cohesity.Model.ProtectionRunInstance</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableRowEntries>
@@ -518,7 +518,7 @@
     <View>
       <Name>ProtectionJobRun.ListView</Name>
       <ViewSelectedBy>
-        <TypeName>Cohesity.Models.ProtectionRunInstance</TypeName>
+        <TypeName>Cohesity.Model.ProtectionRunInstance</TypeName>
       </ViewSelectedBy>
       <ListControl>
         <ListEntries>
@@ -563,7 +563,7 @@
     <View>
       <Name>ProtectionSourceNode.TableView</Name>
       <ViewSelectedBy>
-        <TypeName>Cohesity.Models.ProtectionSourceNode</TypeName>
+        <TypeName>Cohesity.Model.ProtectionSourceNode</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableRowEntries>
@@ -603,7 +603,7 @@
     <View>
       <Name>ProtectionSourceNode.ListView</Name>
       <ViewSelectedBy>
-        <TypeName>Cohesity.Models.ProtectionSourceNode</TypeName>
+        <TypeName>Cohesity.Model.ProtectionSourceNode</TypeName>
       </ViewSelectedBy>
       <ListControl>
         <ListEntries>
@@ -637,7 +637,7 @@
     <View>
       <Name>StorageDomain.ListView</Name>
       <ViewSelectedBy>
-        <TypeName>Cohesity.Models.ViewBox</TypeName>
+        <TypeName>Cohesity.Model.ViewBox</TypeName>
       </ViewSelectedBy>
       <ListControl>
         <ListEntries>
@@ -675,7 +675,7 @@
     <View>
       <Name>StorageDomain.TableView</Name>
       <ViewSelectedBy>
-        <TypeName>Cohesity.Models.ViewBox</TypeName>
+        <TypeName>Cohesity.Model.ViewBox</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableRowEntries>
@@ -709,7 +709,7 @@
     <View>
       <Name>RestoreTask.TableView</Name>
       <ViewSelectedBy>
-        <TypeName>Cohesity.Models.RestoreTask</TypeName>
+        <TypeName>Cohesity.Model.RestoreTask</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableRowEntries>
@@ -763,7 +763,7 @@
     <View>
       <Name>RestoreTask.ListView</Name>
       <ViewSelectedBy>
-        <TypeName>Cohesity.Models.RestoreTask</TypeName>
+        <TypeName>Cohesity.Model.RestoreTask</TypeName>
       </ViewSelectedBy>
       <ListControl>
         <ListEntries>
@@ -848,7 +848,7 @@
     <View>
       <Name>View.ListView</Name>
       <ViewSelectedBy>
-        <TypeName>Cohesity.Models.View</TypeName>
+        <TypeName>Cohesity.Model.View</TypeName>
       </ViewSelectedBy>
       <ListControl>
         <ListEntries>
@@ -895,7 +895,7 @@
     <View>
       <Name>View.TableView</Name>
       <ViewSelectedBy>
-        <TypeName>Cohesity.Models.View</TypeName>
+        <TypeName>Cohesity.Model.View</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableRowEntries>
@@ -967,7 +967,7 @@
     <View>
       <Name>ProtectionSource.TableView</Name>
       <ViewSelectedBy>
-        <TypeName>Cohesity.Models.ProtectionSource</TypeName>
+        <TypeName>Cohesity.Model.ProtectionSource</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableRowEntries>
@@ -1001,7 +1001,7 @@
     <View>
       <Name>ProtectionSource.ListView</Name>
       <ViewSelectedBy>
-        <TypeName>Cohesity.Models.ProtectionSource</TypeName>
+        <TypeName>Cohesity.Model.ProtectionSource</TypeName>
       </ViewSelectedBy>
       <ListControl>
         <ListEntries>
@@ -1029,7 +1029,7 @@
     <View>
       <Name>FileSearchResult.TableView</Name>
       <ViewSelectedBy>
-        <TypeName>Cohesity.Models.FileSearchResult</TypeName>
+        <TypeName>Cohesity.Model.FileSearchResult</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableRowEntries>
@@ -1067,7 +1067,7 @@
     <View>
       <Name>FileSearchResult.ListView</Name>
       <ViewSelectedBy>
-        <TypeName>Cohesity.Models.FileSearchResult</TypeName>
+        <TypeName>Cohesity.Model.FileSearchResult</TypeName>
       </ViewSelectedBy>
       <ListControl>
         <ListEntries>
@@ -1099,7 +1099,7 @@
     <View>
       <Name>Role.TableView</Name>
       <ViewSelectedBy>
-        <TypeName>Cohesity.Models.Role</TypeName>
+        <TypeName>Cohesity.Model.Role</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableRowEntries>
@@ -1137,7 +1137,7 @@
     <View>
       <Name>Role.ListView</Name>
       <ViewSelectedBy>
-        <TypeName>Cohesity.Models.Role</TypeName>
+        <TypeName>Cohesity.Model.Role</TypeName>
       </ViewSelectedBy>
       <ListControl>
         <ListEntries>
@@ -1177,7 +1177,7 @@
     <View>
       <Name>ObjectSnapshotInfo.TableView</Name>
       <ViewSelectedBy>
-        <TypeName>Cohesity.Models.ObjectSnapshotInfo</TypeName>
+        <TypeName>Cohesity.Model.ObjectSnapshotInfo</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableRowEntries>
@@ -1223,7 +1223,7 @@
     <View>
       <Name>ObjectSnapshotInfo.ListView</Name>
       <ViewSelectedBy>
-        <TypeName>Cohesity.Models.ObjectSnapshotInfo</TypeName>
+        <TypeName>Cohesity.Model.ObjectSnapshotInfo</TypeName>
       </ViewSelectedBy>
       <ListControl>
         <ListEntries>
@@ -1260,7 +1260,7 @@
     <View>
       <Name>RemoteCluster.TableView</Name>
       <ViewSelectedBy>
-        <TypeName>Cohesity.Models.RemoteCluster</TypeName>
+        <TypeName>Cohesity.Model.RemoteCluster</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableRowEntries>
@@ -1304,7 +1304,7 @@
     <View>
       <Name>RemoteCluster.ListView</Name>
       <ViewSelectedBy>
-        <TypeName>Cohesity.Models.RemoteCluster</TypeName>
+        <TypeName>Cohesity.Model.RemoteCluster</TypeName>
       </ViewSelectedBy>
       <ListControl>
         <ListEntries>
@@ -1391,7 +1391,7 @@
     <View>
       <Name>ViewAlias.TableView</Name>
       <ViewSelectedBy>
-        <TypeName>Cohesity.Models.ViewAlias</TypeName>
+        <TypeName>Cohesity.Model.ViewAlias</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableRowEntries>
@@ -1421,7 +1421,7 @@
     <View>
       <Name>ViewAlias.ListView</Name>
       <ViewSelectedBy>
-        <TypeName>Cohesity.Models.ViewAlias</TypeName>
+        <TypeName>Cohesity.Model.ViewAlias</TypeName>
       </ViewSelectedBy>
       <ListControl>
         <ListEntries>
@@ -1447,7 +1447,7 @@
     <View>
       <Name>ViewAliasInfo.TableView</Name>
       <ViewSelectedBy>
-        <TypeName>Cohesity.Models.ViewAliasInfo</TypeName>
+        <TypeName>Cohesity.Model.ViewAliasInfo</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableRowEntries>
@@ -1475,7 +1475,7 @@
     <View>
       <Name>ViewAliasInfo.ListView</Name>
       <ViewSelectedBy>
-        <TypeName>Cohesity.Models.ViewAliasInfo</TypeName>
+        <TypeName>Cohesity.Model.ViewAliasInfo</TypeName>
       </ViewSelectedBy>
       <ListControl>
         <ListEntries>

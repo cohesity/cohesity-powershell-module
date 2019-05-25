@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// RunMapReduceInstanceResult
@@ -26,18 +23,18 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="RunMapReduceInstanceResult" /> class.
         /// </summary>
-        /// <param name="error">Status code of http rpc..</param>
+        /// <param name="error">error.</param>
         /// <param name="mapReduceInstanceId">Return the ID of instance..</param>
         public RunMapReduceInstanceResult(ErrorProto error = default(ErrorProto), long? mapReduceInstanceId = default(long?))
         {
+            this.MapReduceInstanceId = mapReduceInstanceId;
             this.Error = error;
             this.MapReduceInstanceId = mapReduceInstanceId;
         }
         
         /// <summary>
-        /// Status code of http rpc.
+        /// Gets or Sets Error
         /// </summary>
-        /// <value>Status code of http rpc.</value>
         [DataMember(Name="error", EmitDefaultValue=false)]
         public ErrorProto Error { get; set; }
 
@@ -45,7 +42,7 @@ namespace Cohesity.Models
         /// Return the ID of instance.
         /// </summary>
         /// <value>Return the ID of instance.</value>
-        [DataMember(Name="mapReduceInstanceId", EmitDefaultValue=false)]
+        [DataMember(Name="mapReduceInstanceId", EmitDefaultValue=true)]
         public long? MapReduceInstanceId { get; set; }
 
         /// <summary>
@@ -54,7 +51,12 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class RunMapReduceInstanceResult {\n");
+            sb.Append("  Error: ").Append(Error).Append("\n");
+            sb.Append("  MapReduceInstanceId: ").Append(MapReduceInstanceId).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -116,8 +118,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

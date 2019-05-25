@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// User can upload jar files containing mappers and reducers. Iris will upload these jar files in Yoda&#39;s internal view. Yoda will mount its internal view and send Iris the mount point.
@@ -26,18 +23,18 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="GetMRJarUploadPathResult" /> class.
         /// </summary>
-        /// <param name="error">Status code for this http rpc..</param>
+        /// <param name="error">error.</param>
         /// <param name="jarUploadPath">Path where Jars can be uploaded by Iris..</param>
         public GetMRJarUploadPathResult(ErrorProto error = default(ErrorProto), string jarUploadPath = default(string))
         {
+            this.JarUploadPath = jarUploadPath;
             this.Error = error;
             this.JarUploadPath = jarUploadPath;
         }
         
         /// <summary>
-        /// Status code for this http rpc.
+        /// Gets or Sets Error
         /// </summary>
-        /// <value>Status code for this http rpc.</value>
         [DataMember(Name="error", EmitDefaultValue=false)]
         public ErrorProto Error { get; set; }
 
@@ -45,7 +42,7 @@ namespace Cohesity.Models
         /// Path where Jars can be uploaded by Iris.
         /// </summary>
         /// <value>Path where Jars can be uploaded by Iris.</value>
-        [DataMember(Name="jarUploadPath", EmitDefaultValue=false)]
+        [DataMember(Name="jarUploadPath", EmitDefaultValue=true)]
         public string JarUploadPath { get; set; }
 
         /// <summary>
@@ -54,7 +51,12 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class GetMRJarUploadPathResult {\n");
+            sb.Append("  Error: ").Append(Error).Append("\n");
+            sb.Append("  JarUploadPath: ").Append(JarUploadPath).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -116,8 +118,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

@@ -68,7 +68,7 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 ### System.Int64
 Specifies a unique id of the remote cluster.
 
-### Cohesity.Models.RemoteCluster
+### Cohesity.Model.RemoteCluster
 Specifies a remote cluster object.
 
 ## OUTPUTS

@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies the Application Server to restore and parameters specific to that application.
@@ -26,12 +23,17 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="ApplicationRestoreObject" /> class.
         /// </summary>
+        /// <param name="adRestoreParameters">adRestoreParameters.</param>
         /// <param name="applicationServerId">Specifies the Application Server to restore (for example, kSQL)..</param>
-        /// <param name="sqlRestoreParameters">Specifies parameters specific to this Application Server..</param>
+        /// <param name="sqlRestoreParameters">sqlRestoreParameters.</param>
         /// <param name="targetHostId">Specifies the target host if the application is to be restored to a different host. If this is empty, then the application is restored to the original host, which is the hosting Protection Source..</param>
         /// <param name="targetRootNodeId">Specifies the registered root node, like vCenter, of targetHost. If this is empty, then it is assumed the root node of the target host is the same as the host Protection Source of the application..</param>
-        public ApplicationRestoreObject(long? applicationServerId = default(long?), SqlRestoreParameters sqlRestoreParameters = default(SqlRestoreParameters), long? targetHostId = default(long?), long? targetRootNodeId = default(long?))
+        public ApplicationRestoreObject(AdRestoreParameters adRestoreParameters = default(AdRestoreParameters), long? applicationServerId = default(long?), SqlRestoreParameters sqlRestoreParameters = default(SqlRestoreParameters), long? targetHostId = default(long?), long? targetRootNodeId = default(long?))
         {
+            this.ApplicationServerId = applicationServerId;
+            this.TargetHostId = targetHostId;
+            this.TargetRootNodeId = targetRootNodeId;
+            this.AdRestoreParameters = adRestoreParameters;
             this.ApplicationServerId = applicationServerId;
             this.SqlRestoreParameters = sqlRestoreParameters;
             this.TargetHostId = targetHostId;
@@ -39,16 +41,21 @@ namespace Cohesity.Models
         }
         
         /// <summary>
+        /// Gets or Sets AdRestoreParameters
+        /// </summary>
+        [DataMember(Name="adRestoreParameters", EmitDefaultValue=false)]
+        public AdRestoreParameters AdRestoreParameters { get; set; }
+
+        /// <summary>
         /// Specifies the Application Server to restore (for example, kSQL).
         /// </summary>
         /// <value>Specifies the Application Server to restore (for example, kSQL).</value>
-        [DataMember(Name="applicationServerId", EmitDefaultValue=false)]
+        [DataMember(Name="applicationServerId", EmitDefaultValue=true)]
         public long? ApplicationServerId { get; set; }
 
         /// <summary>
-        /// Specifies parameters specific to this Application Server.
+        /// Gets or Sets SqlRestoreParameters
         /// </summary>
-        /// <value>Specifies parameters specific to this Application Server.</value>
         [DataMember(Name="sqlRestoreParameters", EmitDefaultValue=false)]
         public SqlRestoreParameters SqlRestoreParameters { get; set; }
 
@@ -56,14 +63,14 @@ namespace Cohesity.Models
         /// Specifies the target host if the application is to be restored to a different host. If this is empty, then the application is restored to the original host, which is the hosting Protection Source.
         /// </summary>
         /// <value>Specifies the target host if the application is to be restored to a different host. If this is empty, then the application is restored to the original host, which is the hosting Protection Source.</value>
-        [DataMember(Name="targetHostId", EmitDefaultValue=false)]
+        [DataMember(Name="targetHostId", EmitDefaultValue=true)]
         public long? TargetHostId { get; set; }
 
         /// <summary>
         /// Specifies the registered root node, like vCenter, of targetHost. If this is empty, then it is assumed the root node of the target host is the same as the host Protection Source of the application.
         /// </summary>
         /// <value>Specifies the registered root node, like vCenter, of targetHost. If this is empty, then it is assumed the root node of the target host is the same as the host Protection Source of the application.</value>
-        [DataMember(Name="targetRootNodeId", EmitDefaultValue=false)]
+        [DataMember(Name="targetRootNodeId", EmitDefaultValue=true)]
         public long? TargetRootNodeId { get; set; }
 
         /// <summary>
@@ -72,7 +79,15 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class ApplicationRestoreObject {\n");
+            sb.Append("  AdRestoreParameters: ").Append(AdRestoreParameters).Append("\n");
+            sb.Append("  ApplicationServerId: ").Append(ApplicationServerId).Append("\n");
+            sb.Append("  SqlRestoreParameters: ").Append(SqlRestoreParameters).Append("\n");
+            sb.Append("  TargetHostId: ").Append(TargetHostId).Append("\n");
+            sb.Append("  TargetRootNodeId: ").Append(TargetRootNodeId).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -106,6 +121,11 @@ namespace Cohesity.Models
 
             return 
                 (
+                    this.AdRestoreParameters == input.AdRestoreParameters ||
+                    (this.AdRestoreParameters != null &&
+                    this.AdRestoreParameters.Equals(input.AdRestoreParameters))
+                ) && 
+                (
                     this.ApplicationServerId == input.ApplicationServerId ||
                     (this.ApplicationServerId != null &&
                     this.ApplicationServerId.Equals(input.ApplicationServerId))
@@ -136,6 +156,8 @@ namespace Cohesity.Models
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.AdRestoreParameters != null)
+                    hashCode = hashCode * 59 + this.AdRestoreParameters.GetHashCode();
                 if (this.ApplicationServerId != null)
                     hashCode = hashCode * 59 + this.ApplicationServerId.GetHashCode();
                 if (this.SqlRestoreParameters != null)
@@ -148,8 +170,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

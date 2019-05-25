@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies the settings required to connect to a specific Vault type. For some Vaults, you must also specify a storage location (bucketName).
@@ -26,33 +23,34 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="VaultConfig" /> class.
         /// </summary>
-        /// <param name="amazon">Specifies the cloud credentials to connect to a Amazon service account. Glacier, S3, and S3-compatible clouds use this credential..</param>
-        /// <param name="azure">Specifies the cloud credentials to connect to a Microsoft Azure service account..</param>
+        /// <param name="amazon">amazon.</param>
+        /// <param name="azure">azure.</param>
         /// <param name="bucketName">Specifies the name of a storage location of the Vault, where objects are stored. For Google and AMS, this storage location is called a bucket. For Microsoft Azure, this storage location is called a container. For QStar and NAS, you do not specify a storage location..</param>
-        /// <param name="google">Specifies the cloud credentials to connect to a Google service account..</param>
-        /// <param name="nas">Specifies the server credentials to connect to a NetApp server..</param>
-        /// <param name="qstar">Specifies the server credentials to connect to a QStar service to manage the media Vault..</param>
-        public VaultConfig(AmazonCloudCredentials amazon = default(AmazonCloudCredentials), AzureCloudCredentials azure = default(AzureCloudCredentials), string bucketName = default(string), GoogleCloudCredentials google = default(GoogleCloudCredentials), NasCredentials nas = default(NasCredentials), QStarServerCredentials qstar = default(QStarServerCredentials))
+        /// <param name="google">google.</param>
+        /// <param name="nas">nas.</param>
+        /// <param name="oracle">oracle.</param>
+        /// <param name="qstar">qstar.</param>
+        public VaultConfig(AmazonCloudCredentials amazon = default(AmazonCloudCredentials), AzureCloudCredentials azure = default(AzureCloudCredentials), string bucketName = default(string), GoogleCloudCredentials google = default(GoogleCloudCredentials), NasCredentials nas = default(NasCredentials), OracleCloudCredentials oracle = default(OracleCloudCredentials), QStarServerCredentials qstar = default(QStarServerCredentials))
         {
+            this.BucketName = bucketName;
             this.Amazon = amazon;
             this.Azure = azure;
             this.BucketName = bucketName;
             this.Google = google;
             this.Nas = nas;
+            this.Oracle = oracle;
             this.Qstar = qstar;
         }
         
         /// <summary>
-        /// Specifies the cloud credentials to connect to a Amazon service account. Glacier, S3, and S3-compatible clouds use this credential.
+        /// Gets or Sets Amazon
         /// </summary>
-        /// <value>Specifies the cloud credentials to connect to a Amazon service account. Glacier, S3, and S3-compatible clouds use this credential.</value>
         [DataMember(Name="amazon", EmitDefaultValue=false)]
         public AmazonCloudCredentials Amazon { get; set; }
 
         /// <summary>
-        /// Specifies the cloud credentials to connect to a Microsoft Azure service account.
+        /// Gets or Sets Azure
         /// </summary>
-        /// <value>Specifies the cloud credentials to connect to a Microsoft Azure service account.</value>
         [DataMember(Name="azure", EmitDefaultValue=false)]
         public AzureCloudCredentials Azure { get; set; }
 
@@ -60,27 +58,30 @@ namespace Cohesity.Models
         /// Specifies the name of a storage location of the Vault, where objects are stored. For Google and AMS, this storage location is called a bucket. For Microsoft Azure, this storage location is called a container. For QStar and NAS, you do not specify a storage location.
         /// </summary>
         /// <value>Specifies the name of a storage location of the Vault, where objects are stored. For Google and AMS, this storage location is called a bucket. For Microsoft Azure, this storage location is called a container. For QStar and NAS, you do not specify a storage location.</value>
-        [DataMember(Name="bucketName", EmitDefaultValue=false)]
+        [DataMember(Name="bucketName", EmitDefaultValue=true)]
         public string BucketName { get; set; }
 
         /// <summary>
-        /// Specifies the cloud credentials to connect to a Google service account.
+        /// Gets or Sets Google
         /// </summary>
-        /// <value>Specifies the cloud credentials to connect to a Google service account.</value>
         [DataMember(Name="google", EmitDefaultValue=false)]
         public GoogleCloudCredentials Google { get; set; }
 
         /// <summary>
-        /// Specifies the server credentials to connect to a NetApp server.
+        /// Gets or Sets Nas
         /// </summary>
-        /// <value>Specifies the server credentials to connect to a NetApp server.</value>
         [DataMember(Name="nas", EmitDefaultValue=false)]
         public NasCredentials Nas { get; set; }
 
         /// <summary>
-        /// Specifies the server credentials to connect to a QStar service to manage the media Vault.
+        /// Gets or Sets Oracle
         /// </summary>
-        /// <value>Specifies the server credentials to connect to a QStar service to manage the media Vault.</value>
+        [DataMember(Name="oracle", EmitDefaultValue=false)]
+        public OracleCloudCredentials Oracle { get; set; }
+
+        /// <summary>
+        /// Gets or Sets Qstar
+        /// </summary>
         [DataMember(Name="qstar", EmitDefaultValue=false)]
         public QStarServerCredentials Qstar { get; set; }
 
@@ -90,7 +91,17 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class VaultConfig {\n");
+            sb.Append("  Amazon: ").Append(Amazon).Append("\n");
+            sb.Append("  Azure: ").Append(Azure).Append("\n");
+            sb.Append("  BucketName: ").Append(BucketName).Append("\n");
+            sb.Append("  Google: ").Append(Google).Append("\n");
+            sb.Append("  Nas: ").Append(Nas).Append("\n");
+            sb.Append("  Oracle: ").Append(Oracle).Append("\n");
+            sb.Append("  Qstar: ").Append(Qstar).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -149,6 +160,11 @@ namespace Cohesity.Models
                     this.Nas.Equals(input.Nas))
                 ) && 
                 (
+                    this.Oracle == input.Oracle ||
+                    (this.Oracle != null &&
+                    this.Oracle.Equals(input.Oracle))
+                ) && 
+                (
                     this.Qstar == input.Qstar ||
                     (this.Qstar != null &&
                     this.Qstar.Equals(input.Qstar))
@@ -174,14 +190,14 @@ namespace Cohesity.Models
                     hashCode = hashCode * 59 + this.Google.GetHashCode();
                 if (this.Nas != null)
                     hashCode = hashCode * 59 + this.Nas.GetHashCode();
+                if (this.Oracle != null)
+                    hashCode = hashCode * 59 + this.Oracle.GetHashCode();
                 if (this.Qstar != null)
                     hashCode = hashCode * 59 + this.Qstar.GetHashCode();
                 return hashCode;
             }
         }
 
-        
     }
 
 }
-

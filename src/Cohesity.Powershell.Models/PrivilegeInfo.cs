@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies details about a privilege such as the category, description, name, etc.
@@ -26,17 +23,30 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="PrivilegeInfo" /> class.
         /// </summary>
+        /// <param name="privilegeId">Specifies unique id for a privilege. This number must be unique when creating a new privilege..</param>
         /// <param name="category">Specifies a category for the privilege such as &#39;Access Management&#39;..</param>
         /// <param name="description">Specifies a description defining what the privilege provides..</param>
+        /// <param name="isAvailableOnHelios">Specifies that this privilege is available for Helios operations..</param>
         /// <param name="isCustomRoleDefault">Specifies if this privilege is automatically assigned to custom roles..</param>
         /// <param name="isSpecial">Specifies if this privilege is automatically assigned to the default System Admin user called &#39;admin&#39;. If true, the privilege is NOT assigned to the default System Admin user called &#39;admin&#39;. By default, privileges are automatically assigned to the default System Admin user called &#39;admin&#39;..</param>
         /// <param name="isViewOnly">Specifies if privilege is view-only privilege that cannot make changes..</param>
         /// <param name="label">Specifies the label for the privilege as displayed on the Cohesity Dashboard such as &#39;Access Management View&#39;..</param>
         /// <param name="name">Specifies the Cluster name for the privilege such as PRINCIPAL_VIEW..</param>
-        public PrivilegeInfo(string category = default(string), string description = default(string), bool? isCustomRoleDefault = default(bool?), bool? isSpecial = default(bool?), bool? isViewOnly = default(bool?), string label = default(string), string name = default(string))
+        public PrivilegeInfo(int? privilegeId = default(int?), string category = default(string), string description = default(string), bool? isAvailableOnHelios = default(bool?), bool? isCustomRoleDefault = default(bool?), bool? isSpecial = default(bool?), bool? isViewOnly = default(bool?), string label = default(string), string name = default(string))
         {
+            this.PrivilegeId = privilegeId;
             this.Category = category;
             this.Description = description;
+            this.IsAvailableOnHelios = isAvailableOnHelios;
+            this.IsCustomRoleDefault = isCustomRoleDefault;
+            this.IsSpecial = isSpecial;
+            this.IsViewOnly = isViewOnly;
+            this.Label = label;
+            this.Name = name;
+            this.PrivilegeId = privilegeId;
+            this.Category = category;
+            this.Description = description;
+            this.IsAvailableOnHelios = isAvailableOnHelios;
             this.IsCustomRoleDefault = isCustomRoleDefault;
             this.IsSpecial = isSpecial;
             this.IsViewOnly = isViewOnly;
@@ -45,52 +55,66 @@ namespace Cohesity.Models
         }
         
         /// <summary>
+        /// Specifies unique id for a privilege. This number must be unique when creating a new privilege.
+        /// </summary>
+        /// <value>Specifies unique id for a privilege. This number must be unique when creating a new privilege.</value>
+        [DataMember(Name="PrivilegeId", EmitDefaultValue=true)]
+        public int? PrivilegeId { get; set; }
+
+        /// <summary>
         /// Specifies a category for the privilege such as &#39;Access Management&#39;.
         /// </summary>
         /// <value>Specifies a category for the privilege such as &#39;Access Management&#39;.</value>
-        [DataMember(Name="category", EmitDefaultValue=false)]
+        [DataMember(Name="category", EmitDefaultValue=true)]
         public string Category { get; set; }
 
         /// <summary>
         /// Specifies a description defining what the privilege provides.
         /// </summary>
         /// <value>Specifies a description defining what the privilege provides.</value>
-        [DataMember(Name="description", EmitDefaultValue=false)]
+        [DataMember(Name="description", EmitDefaultValue=true)]
         public string Description { get; set; }
+
+        /// <summary>
+        /// Specifies that this privilege is available for Helios operations.
+        /// </summary>
+        /// <value>Specifies that this privilege is available for Helios operations.</value>
+        [DataMember(Name="isAvailableOnHelios", EmitDefaultValue=true)]
+        public bool? IsAvailableOnHelios { get; set; }
 
         /// <summary>
         /// Specifies if this privilege is automatically assigned to custom roles.
         /// </summary>
         /// <value>Specifies if this privilege is automatically assigned to custom roles.</value>
-        [DataMember(Name="isCustomRoleDefault", EmitDefaultValue=false)]
+        [DataMember(Name="isCustomRoleDefault", EmitDefaultValue=true)]
         public bool? IsCustomRoleDefault { get; set; }
 
         /// <summary>
         /// Specifies if this privilege is automatically assigned to the default System Admin user called &#39;admin&#39;. If true, the privilege is NOT assigned to the default System Admin user called &#39;admin&#39;. By default, privileges are automatically assigned to the default System Admin user called &#39;admin&#39;.
         /// </summary>
         /// <value>Specifies if this privilege is automatically assigned to the default System Admin user called &#39;admin&#39;. If true, the privilege is NOT assigned to the default System Admin user called &#39;admin&#39;. By default, privileges are automatically assigned to the default System Admin user called &#39;admin&#39;.</value>
-        [DataMember(Name="isSpecial", EmitDefaultValue=false)]
+        [DataMember(Name="isSpecial", EmitDefaultValue=true)]
         public bool? IsSpecial { get; set; }
 
         /// <summary>
         /// Specifies if privilege is view-only privilege that cannot make changes.
         /// </summary>
         /// <value>Specifies if privilege is view-only privilege that cannot make changes.</value>
-        [DataMember(Name="isViewOnly", EmitDefaultValue=false)]
+        [DataMember(Name="isViewOnly", EmitDefaultValue=true)]
         public bool? IsViewOnly { get; set; }
 
         /// <summary>
         /// Specifies the label for the privilege as displayed on the Cohesity Dashboard such as &#39;Access Management View&#39;.
         /// </summary>
         /// <value>Specifies the label for the privilege as displayed on the Cohesity Dashboard such as &#39;Access Management View&#39;.</value>
-        [DataMember(Name="label", EmitDefaultValue=false)]
+        [DataMember(Name="label", EmitDefaultValue=true)]
         public string Label { get; set; }
 
         /// <summary>
         /// Specifies the Cluster name for the privilege such as PRINCIPAL_VIEW.
         /// </summary>
         /// <value>Specifies the Cluster name for the privilege such as PRINCIPAL_VIEW.</value>
-        [DataMember(Name="name", EmitDefaultValue=false)]
+        [DataMember(Name="name", EmitDefaultValue=true)]
         public string Name { get; set; }
 
         /// <summary>
@@ -99,7 +123,19 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class PrivilegeInfo {\n");
+            sb.Append("  PrivilegeId: ").Append(PrivilegeId).Append("\n");
+            sb.Append("  Category: ").Append(Category).Append("\n");
+            sb.Append("  Description: ").Append(Description).Append("\n");
+            sb.Append("  IsAvailableOnHelios: ").Append(IsAvailableOnHelios).Append("\n");
+            sb.Append("  IsCustomRoleDefault: ").Append(IsCustomRoleDefault).Append("\n");
+            sb.Append("  IsSpecial: ").Append(IsSpecial).Append("\n");
+            sb.Append("  IsViewOnly: ").Append(IsViewOnly).Append("\n");
+            sb.Append("  Label: ").Append(Label).Append("\n");
+            sb.Append("  Name: ").Append(Name).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -133,6 +169,11 @@ namespace Cohesity.Models
 
             return 
                 (
+                    this.PrivilegeId == input.PrivilegeId ||
+                    (this.PrivilegeId != null &&
+                    this.PrivilegeId.Equals(input.PrivilegeId))
+                ) && 
+                (
                     this.Category == input.Category ||
                     (this.Category != null &&
                     this.Category.Equals(input.Category))
@@ -141,6 +182,11 @@ namespace Cohesity.Models
                     this.Description == input.Description ||
                     (this.Description != null &&
                     this.Description.Equals(input.Description))
+                ) && 
+                (
+                    this.IsAvailableOnHelios == input.IsAvailableOnHelios ||
+                    (this.IsAvailableOnHelios != null &&
+                    this.IsAvailableOnHelios.Equals(input.IsAvailableOnHelios))
                 ) && 
                 (
                     this.IsCustomRoleDefault == input.IsCustomRoleDefault ||
@@ -178,10 +224,14 @@ namespace Cohesity.Models
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.PrivilegeId != null)
+                    hashCode = hashCode * 59 + this.PrivilegeId.GetHashCode();
                 if (this.Category != null)
                     hashCode = hashCode * 59 + this.Category.GetHashCode();
                 if (this.Description != null)
                     hashCode = hashCode * 59 + this.Description.GetHashCode();
+                if (this.IsAvailableOnHelios != null)
+                    hashCode = hashCode * 59 + this.IsAvailableOnHelios.GetHashCode();
                 if (this.IsCustomRoleDefault != null)
                     hashCode = hashCode * 59 + this.IsCustomRoleDefault.GetHashCode();
                 if (this.IsSpecial != null)
@@ -196,8 +246,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,13 +12,10 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
-    /// This is the form of the request.
+    /// ImportConfigurations struct used for ImportConfig endpoint. This is the form of the request.
     /// </summary>
     [DataContract]
     public partial class ImportConfigurations :  IEquatable<ImportConfigurations>
@@ -26,25 +23,42 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="ImportConfigurations" /> class.
         /// </summary>
-        /// <param name="activeDirectories">activeDirectories.</param>
-        /// <param name="all">all.</param>
-        /// <param name="clusters">clusters.</param>
+        /// <param name="activeDirectories">Selective import of active directories..</param>
+        /// <param name="all">List of which entities to import all..</param>
+        /// <param name="clusters">Selective import certain cluster..</param>
         /// <param name="file">File is the config file..</param>
-        /// <param name="groups">groups.</param>
-        /// <param name="partitions">partitions.</param>
-        /// <param name="principalSources">principalSources.</param>
-        /// <param name="protectionJobs">protectionJobs.</param>
-        /// <param name="protectionPolicies">protectionPolicies.</param>
-        /// <param name="protectionSources">protectionSources.</param>
-        /// <param name="remoteClusters">remoteClusters.</param>
-        /// <param name="roles">roles.</param>
-        /// <param name="sql">sql.</param>
-        /// <param name="users">users.</param>
-        /// <param name="vaults">vaults.</param>
-        /// <param name="viewBoxes">viewBoxes.</param>
-        /// <param name="views">views.</param>
-        public ImportConfigurations(List<string> activeDirectories = default(List<string>), List<string> all = default(List<string>), List<long?> clusters = default(List<long?>), string file = default(string), List<string> groups = default(List<string>), List<long?> partitions = default(List<long?>), List<string> principalSources = default(List<string>), List<long?> protectionJobs = default(List<long?>), List<string> protectionPolicies = default(List<string>), List<long?> protectionSources = default(List<long?>), List<long?> remoteClusters = default(List<long?>), List<string> roles = default(List<string>), List<long?> sql = default(List<long?>), List<string> users = default(List<string>), List<long?> vaults = default(List<long?>), List<long?> viewBoxes = default(List<long?>), List<long?> views = default(List<long?>))
+        /// <param name="groups">Selective import certain groups..</param>
+        /// <param name="partitions">Selective import of Partiton..</param>
+        /// <param name="principalSources">Selective import of principal sources..</param>
+        /// <param name="protectionJobs">Selective import of protection jobs..</param>
+        /// <param name="protectionPolicies">Selective import of protection policies..</param>
+        /// <param name="protectionSources">Selective import of protection sources..</param>
+        /// <param name="remoteClusters">Selective import certain remote clusters..</param>
+        /// <param name="roles">Selective import certain roles (by username)..</param>
+        /// <param name="sql">Selective import of sql..</param>
+        /// <param name="users">Selective import certain users..</param>
+        /// <param name="vaults">Selective import certain vaults..</param>
+        /// <param name="viewBoxes">Selective import certain Storage Domains (View Boxes)..</param>
+        /// <param name="views">Selective import of views..</param>
+        public ImportConfigurations(List<string> activeDirectories = default(List<string>), List<string> all = default(List<string>), List<long> clusters = default(List<long>), string file = default(string), List<string> groups = default(List<string>), List<long> partitions = default(List<long>), List<string> principalSources = default(List<string>), List<long> protectionJobs = default(List<long>), List<string> protectionPolicies = default(List<string>), List<long> protectionSources = default(List<long>), List<long> remoteClusters = default(List<long>), List<string> roles = default(List<string>), List<long> sql = default(List<long>), List<string> users = default(List<string>), List<long> vaults = default(List<long>), List<long> viewBoxes = default(List<long>), List<long> views = default(List<long>))
         {
+            this.ActiveDirectories = activeDirectories;
+            this.All = all;
+            this.Clusters = clusters;
+            this.File = file;
+            this.Groups = groups;
+            this.Partitions = partitions;
+            this.PrincipalSources = principalSources;
+            this.ProtectionJobs = protectionJobs;
+            this.ProtectionPolicies = protectionPolicies;
+            this.ProtectionSources = protectionSources;
+            this.RemoteClusters = remoteClusters;
+            this.Roles = roles;
+            this.Sql = sql;
+            this.Users = users;
+            this.Vaults = vaults;
+            this.ViewBoxes = viewBoxes;
+            this.Views = views;
             this.ActiveDirectories = activeDirectories;
             this.All = all;
             this.Clusters = clusters;
@@ -65,107 +79,123 @@ namespace Cohesity.Models
         }
         
         /// <summary>
-        /// Gets or Sets ActiveDirectories
+        /// Selective import of active directories.
         /// </summary>
-        [DataMember(Name="activeDirectories", EmitDefaultValue=false)]
+        /// <value>Selective import of active directories.</value>
+        [DataMember(Name="activeDirectories", EmitDefaultValue=true)]
         public List<string> ActiveDirectories { get; set; }
 
         /// <summary>
-        /// Gets or Sets All
+        /// List of which entities to import all.
         /// </summary>
-        [DataMember(Name="all", EmitDefaultValue=false)]
+        /// <value>List of which entities to import all.</value>
+        [DataMember(Name="all", EmitDefaultValue=true)]
         public List<string> All { get; set; }
 
         /// <summary>
-        /// Gets or Sets Clusters
+        /// Selective import certain cluster.
         /// </summary>
-        [DataMember(Name="clusters", EmitDefaultValue=false)]
-        public List<long?> Clusters { get; set; }
+        /// <value>Selective import certain cluster.</value>
+        [DataMember(Name="clusters", EmitDefaultValue=true)]
+        public List<long> Clusters { get; set; }
 
         /// <summary>
         /// File is the config file.
         /// </summary>
         /// <value>File is the config file.</value>
-        [DataMember(Name="file", EmitDefaultValue=false)]
+        [DataMember(Name="file", EmitDefaultValue=true)]
         public string File { get; set; }
 
         /// <summary>
-        /// Gets or Sets Groups
+        /// Selective import certain groups.
         /// </summary>
-        [DataMember(Name="groups", EmitDefaultValue=false)]
+        /// <value>Selective import certain groups.</value>
+        [DataMember(Name="groups", EmitDefaultValue=true)]
         public List<string> Groups { get; set; }
 
         /// <summary>
-        /// Gets or Sets Partitions
+        /// Selective import of Partiton.
         /// </summary>
-        [DataMember(Name="partitions", EmitDefaultValue=false)]
-        public List<long?> Partitions { get; set; }
+        /// <value>Selective import of Partiton.</value>
+        [DataMember(Name="partitions", EmitDefaultValue=true)]
+        public List<long> Partitions { get; set; }
 
         /// <summary>
-        /// Gets or Sets PrincipalSources
+        /// Selective import of principal sources.
         /// </summary>
-        [DataMember(Name="principalSources", EmitDefaultValue=false)]
+        /// <value>Selective import of principal sources.</value>
+        [DataMember(Name="principalSources", EmitDefaultValue=true)]
         public List<string> PrincipalSources { get; set; }
 
         /// <summary>
-        /// Gets or Sets ProtectionJobs
+        /// Selective import of protection jobs.
         /// </summary>
-        [DataMember(Name="protectionJobs", EmitDefaultValue=false)]
-        public List<long?> ProtectionJobs { get; set; }
+        /// <value>Selective import of protection jobs.</value>
+        [DataMember(Name="protectionJobs", EmitDefaultValue=true)]
+        public List<long> ProtectionJobs { get; set; }
 
         /// <summary>
-        /// Gets or Sets ProtectionPolicies
+        /// Selective import of protection policies.
         /// </summary>
-        [DataMember(Name="protectionPolicies", EmitDefaultValue=false)]
+        /// <value>Selective import of protection policies.</value>
+        [DataMember(Name="protectionPolicies", EmitDefaultValue=true)]
         public List<string> ProtectionPolicies { get; set; }
 
         /// <summary>
-        /// Gets or Sets ProtectionSources
+        /// Selective import of protection sources.
         /// </summary>
-        [DataMember(Name="protectionSources", EmitDefaultValue=false)]
-        public List<long?> ProtectionSources { get; set; }
+        /// <value>Selective import of protection sources.</value>
+        [DataMember(Name="protectionSources", EmitDefaultValue=true)]
+        public List<long> ProtectionSources { get; set; }
 
         /// <summary>
-        /// Gets or Sets RemoteClusters
+        /// Selective import certain remote clusters.
         /// </summary>
-        [DataMember(Name="remoteClusters", EmitDefaultValue=false)]
-        public List<long?> RemoteClusters { get; set; }
+        /// <value>Selective import certain remote clusters.</value>
+        [DataMember(Name="remoteClusters", EmitDefaultValue=true)]
+        public List<long> RemoteClusters { get; set; }
 
         /// <summary>
-        /// Gets or Sets Roles
+        /// Selective import certain roles (by username).
         /// </summary>
-        [DataMember(Name="roles", EmitDefaultValue=false)]
+        /// <value>Selective import certain roles (by username).</value>
+        [DataMember(Name="roles", EmitDefaultValue=true)]
         public List<string> Roles { get; set; }
 
         /// <summary>
-        /// Gets or Sets Sql
+        /// Selective import of sql.
         /// </summary>
-        [DataMember(Name="sql", EmitDefaultValue=false)]
-        public List<long?> Sql { get; set; }
+        /// <value>Selective import of sql.</value>
+        [DataMember(Name="sql", EmitDefaultValue=true)]
+        public List<long> Sql { get; set; }
 
         /// <summary>
-        /// Gets or Sets Users
+        /// Selective import certain users.
         /// </summary>
-        [DataMember(Name="users", EmitDefaultValue=false)]
+        /// <value>Selective import certain users.</value>
+        [DataMember(Name="users", EmitDefaultValue=true)]
         public List<string> Users { get; set; }
 
         /// <summary>
-        /// Gets or Sets Vaults
+        /// Selective import certain vaults.
         /// </summary>
-        [DataMember(Name="vaults", EmitDefaultValue=false)]
-        public List<long?> Vaults { get; set; }
+        /// <value>Selective import certain vaults.</value>
+        [DataMember(Name="vaults", EmitDefaultValue=true)]
+        public List<long> Vaults { get; set; }
 
         /// <summary>
-        /// Gets or Sets ViewBoxes
+        /// Selective import certain Storage Domains (View Boxes).
         /// </summary>
-        [DataMember(Name="viewBoxes", EmitDefaultValue=false)]
-        public List<long?> ViewBoxes { get; set; }
+        /// <value>Selective import certain Storage Domains (View Boxes).</value>
+        [DataMember(Name="viewBoxes", EmitDefaultValue=true)]
+        public List<long> ViewBoxes { get; set; }
 
         /// <summary>
-        /// Gets or Sets Views
+        /// Selective import of views.
         /// </summary>
-        [DataMember(Name="views", EmitDefaultValue=false)]
-        public List<long?> Views { get; set; }
+        /// <value>Selective import of views.</value>
+        [DataMember(Name="views", EmitDefaultValue=true)]
+        public List<long> Views { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -173,7 +203,27 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class ImportConfigurations {\n");
+            sb.Append("  ActiveDirectories: ").Append(ActiveDirectories).Append("\n");
+            sb.Append("  All: ").Append(All).Append("\n");
+            sb.Append("  Clusters: ").Append(Clusters).Append("\n");
+            sb.Append("  File: ").Append(File).Append("\n");
+            sb.Append("  Groups: ").Append(Groups).Append("\n");
+            sb.Append("  Partitions: ").Append(Partitions).Append("\n");
+            sb.Append("  PrincipalSources: ").Append(PrincipalSources).Append("\n");
+            sb.Append("  ProtectionJobs: ").Append(ProtectionJobs).Append("\n");
+            sb.Append("  ProtectionPolicies: ").Append(ProtectionPolicies).Append("\n");
+            sb.Append("  ProtectionSources: ").Append(ProtectionSources).Append("\n");
+            sb.Append("  RemoteClusters: ").Append(RemoteClusters).Append("\n");
+            sb.Append("  Roles: ").Append(Roles).Append("\n");
+            sb.Append("  Sql: ").Append(Sql).Append("\n");
+            sb.Append("  Users: ").Append(Users).Append("\n");
+            sb.Append("  Vaults: ").Append(Vaults).Append("\n");
+            sb.Append("  ViewBoxes: ").Append(ViewBoxes).Append("\n");
+            sb.Append("  Views: ").Append(Views).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -209,16 +259,19 @@ namespace Cohesity.Models
                 (
                     this.ActiveDirectories == input.ActiveDirectories ||
                     this.ActiveDirectories != null &&
+                    input.ActiveDirectories != null &&
                     this.ActiveDirectories.SequenceEqual(input.ActiveDirectories)
                 ) && 
                 (
                     this.All == input.All ||
                     this.All != null &&
+                    input.All != null &&
                     this.All.SequenceEqual(input.All)
                 ) && 
                 (
                     this.Clusters == input.Clusters ||
                     this.Clusters != null &&
+                    input.Clusters != null &&
                     this.Clusters.SequenceEqual(input.Clusters)
                 ) && 
                 (
@@ -229,66 +282,79 @@ namespace Cohesity.Models
                 (
                     this.Groups == input.Groups ||
                     this.Groups != null &&
+                    input.Groups != null &&
                     this.Groups.SequenceEqual(input.Groups)
                 ) && 
                 (
                     this.Partitions == input.Partitions ||
                     this.Partitions != null &&
+                    input.Partitions != null &&
                     this.Partitions.SequenceEqual(input.Partitions)
                 ) && 
                 (
                     this.PrincipalSources == input.PrincipalSources ||
                     this.PrincipalSources != null &&
+                    input.PrincipalSources != null &&
                     this.PrincipalSources.SequenceEqual(input.PrincipalSources)
                 ) && 
                 (
                     this.ProtectionJobs == input.ProtectionJobs ||
                     this.ProtectionJobs != null &&
+                    input.ProtectionJobs != null &&
                     this.ProtectionJobs.SequenceEqual(input.ProtectionJobs)
                 ) && 
                 (
                     this.ProtectionPolicies == input.ProtectionPolicies ||
                     this.ProtectionPolicies != null &&
+                    input.ProtectionPolicies != null &&
                     this.ProtectionPolicies.SequenceEqual(input.ProtectionPolicies)
                 ) && 
                 (
                     this.ProtectionSources == input.ProtectionSources ||
                     this.ProtectionSources != null &&
+                    input.ProtectionSources != null &&
                     this.ProtectionSources.SequenceEqual(input.ProtectionSources)
                 ) && 
                 (
                     this.RemoteClusters == input.RemoteClusters ||
                     this.RemoteClusters != null &&
+                    input.RemoteClusters != null &&
                     this.RemoteClusters.SequenceEqual(input.RemoteClusters)
                 ) && 
                 (
                     this.Roles == input.Roles ||
                     this.Roles != null &&
+                    input.Roles != null &&
                     this.Roles.SequenceEqual(input.Roles)
                 ) && 
                 (
                     this.Sql == input.Sql ||
                     this.Sql != null &&
+                    input.Sql != null &&
                     this.Sql.SequenceEqual(input.Sql)
                 ) && 
                 (
                     this.Users == input.Users ||
                     this.Users != null &&
+                    input.Users != null &&
                     this.Users.SequenceEqual(input.Users)
                 ) && 
                 (
                     this.Vaults == input.Vaults ||
                     this.Vaults != null &&
+                    input.Vaults != null &&
                     this.Vaults.SequenceEqual(input.Vaults)
                 ) && 
                 (
                     this.ViewBoxes == input.ViewBoxes ||
                     this.ViewBoxes != null &&
+                    input.ViewBoxes != null &&
                     this.ViewBoxes.SequenceEqual(input.ViewBoxes)
                 ) && 
                 (
                     this.Views == input.Views ||
                     this.Views != null &&
+                    input.Views != null &&
                     this.Views.SequenceEqual(input.Views)
                 );
         }
@@ -340,8 +406,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

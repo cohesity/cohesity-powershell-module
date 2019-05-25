@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,13 +12,10 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
-    /// RenameViewParam
+    /// Specifies the rename parameters for the view.
     /// </summary>
     [DataContract]
     public partial class RenameViewParam :  IEquatable<RenameViewParam>
@@ -34,22 +31,14 @@ namespace Cohesity.Models
         /// <param name="newViewName">Specifies the new name of the View. (required).</param>
         public RenameViewParam(string newViewName = default(string))
         {
-            // to ensure "newViewName" is required (not null)
-            if (newViewName == null)
-            {
-                throw new InvalidDataException("newViewName is a required property for RenameViewParam and cannot be null");
-            }
-            else
-            {
-                this.NewViewName = newViewName;
-            }
+            this.NewViewName = newViewName;
         }
         
         /// <summary>
         /// Specifies the new name of the View.
         /// </summary>
         /// <value>Specifies the new name of the View.</value>
-        [DataMember(Name="newViewName", EmitDefaultValue=false)]
+        [DataMember(Name="newViewName", EmitDefaultValue=true)]
         public string NewViewName { get; set; }
 
         /// <summary>
@@ -58,7 +47,11 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class RenameViewParam {\n");
+            sb.Append("  NewViewName: ").Append(NewViewName).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -113,8 +106,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

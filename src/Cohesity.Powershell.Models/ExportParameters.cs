@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,13 +12,10 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
-    /// ExportParameters
+    /// ExportParameters specifies path required to export configuration.
     /// </summary>
     [DataContract]
     public partial class ExportParameters :  IEquatable<ExportParameters>
@@ -30,13 +27,14 @@ namespace Cohesity.Models
         public ExportParameters(string path = default(string))
         {
             this.Path = path;
+            this.Path = path;
         }
         
         /// <summary>
         /// Specifies the directory path where to create a configuration files.
         /// </summary>
         /// <value>Specifies the directory path where to create a configuration files.</value>
-        [DataMember(Name="path", EmitDefaultValue=false)]
+        [DataMember(Name="path", EmitDefaultValue=true)]
         public string Path { get; set; }
 
         /// <summary>
@@ -45,7 +43,11 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class ExportParameters {\n");
+            sb.Append("  Path: ").Append(Path).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -100,8 +102,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

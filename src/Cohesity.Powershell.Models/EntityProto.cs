@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies the attributes and the latest statistics about an entity.
@@ -26,35 +23,36 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="EntityProto" /> class.
         /// </summary>
-        /// <param name="attributeVec">List of attributes of an entity..</param>
-        /// <param name="entityId">Specifies a globally unique identifier of an entity..</param>
-        /// <param name="latestMetricVec">List of the latest statistics for all metrics defined in the schema that this entity belongs to. If statistics for a metric is not available, then that data point is not returned..</param>
+        /// <param name="attributeVec">Array of Attributes.  List of attributes of an entity..</param>
+        /// <param name="entityId">entityId.</param>
+        /// <param name="latestMetricVec">Array of Metric Statistics.  List of the latest statistics for all metrics defined in the schema that this entity belongs to. If statistics for a metric is not available, then that data point is not returned..</param>
         public EntityProto(List<KeyValuePair> attributeVec = default(List<KeyValuePair>), EntityIdentifier entityId = default(EntityIdentifier), List<MetricValue> latestMetricVec = default(List<MetricValue>))
         {
+            this.AttributeVec = attributeVec;
+            this.LatestMetricVec = latestMetricVec;
             this.AttributeVec = attributeVec;
             this.EntityId = entityId;
             this.LatestMetricVec = latestMetricVec;
         }
         
         /// <summary>
-        /// List of attributes of an entity.
+        /// Array of Attributes.  List of attributes of an entity.
         /// </summary>
-        /// <value>List of attributes of an entity.</value>
-        [DataMember(Name="attributeVec", EmitDefaultValue=false)]
+        /// <value>Array of Attributes.  List of attributes of an entity.</value>
+        [DataMember(Name="attributeVec", EmitDefaultValue=true)]
         public List<KeyValuePair> AttributeVec { get; set; }
 
         /// <summary>
-        /// Specifies a globally unique identifier of an entity.
+        /// Gets or Sets EntityId
         /// </summary>
-        /// <value>Specifies a globally unique identifier of an entity.</value>
         [DataMember(Name="entityId", EmitDefaultValue=false)]
         public EntityIdentifier EntityId { get; set; }
 
         /// <summary>
-        /// List of the latest statistics for all metrics defined in the schema that this entity belongs to. If statistics for a metric is not available, then that data point is not returned.
+        /// Array of Metric Statistics.  List of the latest statistics for all metrics defined in the schema that this entity belongs to. If statistics for a metric is not available, then that data point is not returned.
         /// </summary>
-        /// <value>List of the latest statistics for all metrics defined in the schema that this entity belongs to. If statistics for a metric is not available, then that data point is not returned.</value>
-        [DataMember(Name="latestMetricVec", EmitDefaultValue=false)]
+        /// <value>Array of Metric Statistics.  List of the latest statistics for all metrics defined in the schema that this entity belongs to. If statistics for a metric is not available, then that data point is not returned.</value>
+        [DataMember(Name="latestMetricVec", EmitDefaultValue=true)]
         public List<MetricValue> LatestMetricVec { get; set; }
 
         /// <summary>
@@ -63,7 +61,13 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class EntityProto {\n");
+            sb.Append("  AttributeVec: ").Append(AttributeVec).Append("\n");
+            sb.Append("  EntityId: ").Append(EntityId).Append("\n");
+            sb.Append("  LatestMetricVec: ").Append(LatestMetricVec).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -99,6 +103,7 @@ namespace Cohesity.Models
                 (
                     this.AttributeVec == input.AttributeVec ||
                     this.AttributeVec != null &&
+                    input.AttributeVec != null &&
                     this.AttributeVec.SequenceEqual(input.AttributeVec)
                 ) && 
                 (
@@ -109,6 +114,7 @@ namespace Cohesity.Models
                 (
                     this.LatestMetricVec == input.LatestMetricVec ||
                     this.LatestMetricVec != null &&
+                    input.LatestMetricVec != null &&
                     this.LatestMetricVec.SequenceEqual(input.LatestMetricVec)
                 );
         }
@@ -132,8 +138,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// SslCertificateConfig represents the SSL certificate object exposed to the user.
@@ -34,27 +31,30 @@ namespace Cohesity.Models
             this.Certificate = certificate;
             this.LastUpdateTimeMsecs = lastUpdateTimeMsecs;
             this.PrivateKey = privateKey;
+            this.Certificate = certificate;
+            this.LastUpdateTimeMsecs = lastUpdateTimeMsecs;
+            this.PrivateKey = privateKey;
         }
         
         /// <summary>
         /// Certificate is a SSL certificate used by Iris HTTPS webserver. TODO(gaurav): Consider using multipart form for certificate file.
         /// </summary>
         /// <value>Certificate is a SSL certificate used by Iris HTTPS webserver. TODO(gaurav): Consider using multipart form for certificate file.</value>
-        [DataMember(Name="certificate", EmitDefaultValue=false)]
+        [DataMember(Name="certificate", EmitDefaultValue=true)]
         public string Certificate { get; set; }
 
         /// <summary>
         /// LastUpdateTimeMsecs is a time in milliseconds at which certificate was last updated.
         /// </summary>
         /// <value>LastUpdateTimeMsecs is a time in milliseconds at which certificate was last updated.</value>
-        [DataMember(Name="lastUpdateTimeMsecs", EmitDefaultValue=false)]
+        [DataMember(Name="lastUpdateTimeMsecs", EmitDefaultValue=true)]
         public long? LastUpdateTimeMsecs { get; set; }
 
         /// <summary>
         /// PrivateKey is a matching private key of the above certificate.
         /// </summary>
         /// <value>PrivateKey is a matching private key of the above certificate.</value>
-        [DataMember(Name="privateKey", EmitDefaultValue=false)]
+        [DataMember(Name="privateKey", EmitDefaultValue=true)]
         public string PrivateKey { get; set; }
 
         /// <summary>
@@ -63,7 +63,13 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class SslCertificateConfig {\n");
+            sb.Append("  Certificate: ").Append(Certificate).Append("\n");
+            sb.Append("  LastUpdateTimeMsecs: ").Append(LastUpdateTimeMsecs).Append("\n");
+            sb.Append("  PrivateKey: ").Append(PrivateKey).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -132,8 +138,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

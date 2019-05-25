@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,13 +12,10 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
-    /// ChassisInfo
+    /// ChassisInfo is the struct for the Chassis.
     /// </summary>
     [DataContract]
     public partial class ChassisInfo :  IEquatable<ChassisInfo>
@@ -36,34 +33,38 @@ namespace Cohesity.Models
             this.ChassisName = chassisName;
             this.Location = location;
             this.RackId = rackId;
+            this.ChassisId = chassisId;
+            this.ChassisName = chassisName;
+            this.Location = location;
+            this.RackId = rackId;
         }
         
         /// <summary>
         /// ChassisId is a unique id assigned to the chassis.
         /// </summary>
         /// <value>ChassisId is a unique id assigned to the chassis.</value>
-        [DataMember(Name="chassisId", EmitDefaultValue=false)]
+        [DataMember(Name="chassisId", EmitDefaultValue=true)]
         public long? ChassisId { get; set; }
 
         /// <summary>
         /// ChassisName is the name of the chassis. This could be the chassis serial number.
         /// </summary>
         /// <value>ChassisName is the name of the chassis. This could be the chassis serial number.</value>
-        [DataMember(Name="chassisName", EmitDefaultValue=false)]
+        [DataMember(Name="chassisName", EmitDefaultValue=true)]
         public string ChassisName { get; set; }
 
         /// <summary>
         /// Location is the location of the chassis within the rack.
         /// </summary>
         /// <value>Location is the location of the chassis within the rack.</value>
-        [DataMember(Name="location", EmitDefaultValue=false)]
+        [DataMember(Name="location", EmitDefaultValue=true)]
         public string Location { get; set; }
 
         /// <summary>
         /// Rack is the rack within which this chassis lives.
         /// </summary>
         /// <value>Rack is the rack within which this chassis lives.</value>
-        [DataMember(Name="rackId", EmitDefaultValue=false)]
+        [DataMember(Name="rackId", EmitDefaultValue=true)]
         public long? RackId { get; set; }
 
         /// <summary>
@@ -72,7 +73,14 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class ChassisInfo {\n");
+            sb.Append("  ChassisId: ").Append(ChassisId).Append("\n");
+            sb.Append("  ChassisName: ").Append(ChassisName).Append("\n");
+            sb.Append("  Location: ").Append(Location).Append("\n");
+            sb.Append("  RackId: ").Append(RackId).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -148,8 +156,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

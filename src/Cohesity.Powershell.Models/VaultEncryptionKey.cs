@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies the encrytion information needed to restore data.
@@ -28,11 +25,16 @@ namespace Cohesity.Models
         /// </summary>
         /// <param name="clusterName">Specifies the name of the source Cohesity Cluster that archived the data on the Vault..</param>
         /// <param name="encryptionKeyData">Specifies the encryption key data corresponding to the specified keyUid. It contains a Key Encryption Key (KEK) or a Encrypted Data Encryption Key (eDEK)..</param>
-        /// <param name="keyUid">keyUid.</param>
+        /// <param name="keyUid">Specifies the universal id of the Data Encryption Key..</param>
         /// <param name="vaultId">Specifies the id of the Vault whose data is encrypted by this key..</param>
         /// <param name="vaultName">Specifies the name of the Vault whose data is encrypted by this key..</param>
-        public VaultEncryptionKey(string clusterName = default(string), string encryptionKeyData = default(string), UniversalId1 keyUid = default(UniversalId1), long? vaultId = default(long?), string vaultName = default(string))
+        public VaultEncryptionKey(string clusterName = default(string), string encryptionKeyData = default(string), UniversalId keyUid = default(UniversalId), long? vaultId = default(long?), string vaultName = default(string))
         {
+            this.ClusterName = clusterName;
+            this.EncryptionKeyData = encryptionKeyData;
+            this.KeyUid = keyUid;
+            this.VaultId = vaultId;
+            this.VaultName = vaultName;
             this.ClusterName = clusterName;
             this.EncryptionKeyData = encryptionKeyData;
             this.KeyUid = keyUid;
@@ -44,34 +46,35 @@ namespace Cohesity.Models
         /// Specifies the name of the source Cohesity Cluster that archived the data on the Vault.
         /// </summary>
         /// <value>Specifies the name of the source Cohesity Cluster that archived the data on the Vault.</value>
-        [DataMember(Name="clusterName", EmitDefaultValue=false)]
+        [DataMember(Name="clusterName", EmitDefaultValue=true)]
         public string ClusterName { get; set; }
 
         /// <summary>
         /// Specifies the encryption key data corresponding to the specified keyUid. It contains a Key Encryption Key (KEK) or a Encrypted Data Encryption Key (eDEK).
         /// </summary>
         /// <value>Specifies the encryption key data corresponding to the specified keyUid. It contains a Key Encryption Key (KEK) or a Encrypted Data Encryption Key (eDEK).</value>
-        [DataMember(Name="encryptionKeyData", EmitDefaultValue=false)]
+        [DataMember(Name="encryptionKeyData", EmitDefaultValue=true)]
         public string EncryptionKeyData { get; set; }
 
         /// <summary>
-        /// Gets or Sets KeyUid
+        /// Specifies the universal id of the Data Encryption Key.
         /// </summary>
-        [DataMember(Name="keyUid", EmitDefaultValue=false)]
-        public UniversalId1 KeyUid { get; set; }
+        /// <value>Specifies the universal id of the Data Encryption Key.</value>
+        [DataMember(Name="keyUid", EmitDefaultValue=true)]
+        public UniversalId KeyUid { get; set; }
 
         /// <summary>
         /// Specifies the id of the Vault whose data is encrypted by this key.
         /// </summary>
         /// <value>Specifies the id of the Vault whose data is encrypted by this key.</value>
-        [DataMember(Name="vaultId", EmitDefaultValue=false)]
+        [DataMember(Name="vaultId", EmitDefaultValue=true)]
         public long? VaultId { get; set; }
 
         /// <summary>
         /// Specifies the name of the Vault whose data is encrypted by this key.
         /// </summary>
         /// <value>Specifies the name of the Vault whose data is encrypted by this key.</value>
-        [DataMember(Name="vaultName", EmitDefaultValue=false)]
+        [DataMember(Name="vaultName", EmitDefaultValue=true)]
         public string VaultName { get; set; }
 
         /// <summary>
@@ -80,7 +83,15 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class VaultEncryptionKey {\n");
+            sb.Append("  ClusterName: ").Append(ClusterName).Append("\n");
+            sb.Append("  EncryptionKeyData: ").Append(EncryptionKeyData).Append("\n");
+            sb.Append("  KeyUid: ").Append(KeyUid).Append("\n");
+            sb.Append("  VaultId: ").Append(VaultId).Append("\n");
+            sb.Append("  VaultName: ").Append(VaultName).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -163,8 +174,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

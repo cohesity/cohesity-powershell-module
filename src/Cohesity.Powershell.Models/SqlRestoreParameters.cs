@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies the parameters specific the Application Server instance.
@@ -33,9 +30,17 @@ namespace Cohesity.Models
         /// <param name="restoreTimeSecs">Specifies the time in the past to which the SQL database needs to be restored. This allows for granular recovery of SQL databases. If this is not set, the SQL database will be restored from the full/incremental snapshot..</param>
         /// <param name="targetDataFilesDirectory">Specifies the directory where to put the database data files. Missing directory will be automatically created. This field must be set if restoring to a different target host..</param>
         /// <param name="targetLogFilesDirectory">Specifies the directory where to put the database log files. Missing directory will be automatically created. This field must be set if restoring to a different target host..</param>
-        /// <param name="targetSecondaryDataFilesDirectoryList">If this option is specified and the destination folders do not exist they will be automatically created..</param>
+        /// <param name="targetSecondaryDataFilesDirectoryList">Specifies the secondary data filename pattern and corresponding direcories of the DB. Secondary data files are optional and are user defined. The recommended file extention for secondary files is \&quot;.ndf\&quot;.  If this option is specified and the destination folders do not exist they will be automatically created..</param>
         public SqlRestoreParameters(bool? captureTailLogs = default(bool?), bool? keepOffline = default(bool?), string newDatabaseName = default(string), string newInstanceName = default(string), long? restoreTimeSecs = default(long?), string targetDataFilesDirectory = default(string), string targetLogFilesDirectory = default(string), List<FilenamePatternToDirectory> targetSecondaryDataFilesDirectoryList = default(List<FilenamePatternToDirectory>))
         {
+            this.CaptureTailLogs = captureTailLogs;
+            this.KeepOffline = keepOffline;
+            this.NewDatabaseName = newDatabaseName;
+            this.NewInstanceName = newInstanceName;
+            this.RestoreTimeSecs = restoreTimeSecs;
+            this.TargetDataFilesDirectory = targetDataFilesDirectory;
+            this.TargetLogFilesDirectory = targetLogFilesDirectory;
+            this.TargetSecondaryDataFilesDirectoryList = targetSecondaryDataFilesDirectoryList;
             this.CaptureTailLogs = captureTailLogs;
             this.KeepOffline = keepOffline;
             this.NewDatabaseName = newDatabaseName;
@@ -50,56 +55,56 @@ namespace Cohesity.Models
         /// Set this to true if tail logs are to be captured before the restore operation. This is only applicable if we are restoring the SQL database to its hosting Protection Source, and the database is not being renamed.
         /// </summary>
         /// <value>Set this to true if tail logs are to be captured before the restore operation. This is only applicable if we are restoring the SQL database to its hosting Protection Source, and the database is not being renamed.</value>
-        [DataMember(Name="captureTailLogs", EmitDefaultValue=false)]
+        [DataMember(Name="captureTailLogs", EmitDefaultValue=true)]
         public bool? CaptureTailLogs { get; set; }
 
         /// <summary>
         /// Set this to true if we want to restore the database and do not want to bring it online after restore.  This is only applicable if we are restoring the database back to its original location.
         /// </summary>
         /// <value>Set this to true if we want to restore the database and do not want to bring it online after restore.  This is only applicable if we are restoring the database back to its original location.</value>
-        [DataMember(Name="keepOffline", EmitDefaultValue=false)]
+        [DataMember(Name="keepOffline", EmitDefaultValue=true)]
         public bool? KeepOffline { get; set; }
 
         /// <summary>
         /// Specifies optionally a new name for the restored database.
         /// </summary>
         /// <value>Specifies optionally a new name for the restored database.</value>
-        [DataMember(Name="newDatabaseName", EmitDefaultValue=false)]
+        [DataMember(Name="newDatabaseName", EmitDefaultValue=true)]
         public string NewDatabaseName { get; set; }
 
         /// <summary>
         /// Specifies an instance name of the SQL Server that should be restored. SQL application has many instances. Each instance has a unique name. One of the instances that should be restored must be set in this field.
         /// </summary>
         /// <value>Specifies an instance name of the SQL Server that should be restored. SQL application has many instances. Each instance has a unique name. One of the instances that should be restored must be set in this field.</value>
-        [DataMember(Name="newInstanceName", EmitDefaultValue=false)]
+        [DataMember(Name="newInstanceName", EmitDefaultValue=true)]
         public string NewInstanceName { get; set; }
 
         /// <summary>
         /// Specifies the time in the past to which the SQL database needs to be restored. This allows for granular recovery of SQL databases. If this is not set, the SQL database will be restored from the full/incremental snapshot.
         /// </summary>
         /// <value>Specifies the time in the past to which the SQL database needs to be restored. This allows for granular recovery of SQL databases. If this is not set, the SQL database will be restored from the full/incremental snapshot.</value>
-        [DataMember(Name="restoreTimeSecs", EmitDefaultValue=false)]
+        [DataMember(Name="restoreTimeSecs", EmitDefaultValue=true)]
         public long? RestoreTimeSecs { get; set; }
 
         /// <summary>
         /// Specifies the directory where to put the database data files. Missing directory will be automatically created. This field must be set if restoring to a different target host.
         /// </summary>
         /// <value>Specifies the directory where to put the database data files. Missing directory will be automatically created. This field must be set if restoring to a different target host.</value>
-        [DataMember(Name="targetDataFilesDirectory", EmitDefaultValue=false)]
+        [DataMember(Name="targetDataFilesDirectory", EmitDefaultValue=true)]
         public string TargetDataFilesDirectory { get; set; }
 
         /// <summary>
         /// Specifies the directory where to put the database log files. Missing directory will be automatically created. This field must be set if restoring to a different target host.
         /// </summary>
         /// <value>Specifies the directory where to put the database log files. Missing directory will be automatically created. This field must be set if restoring to a different target host.</value>
-        [DataMember(Name="targetLogFilesDirectory", EmitDefaultValue=false)]
+        [DataMember(Name="targetLogFilesDirectory", EmitDefaultValue=true)]
         public string TargetLogFilesDirectory { get; set; }
 
         /// <summary>
-        /// If this option is specified and the destination folders do not exist they will be automatically created.
+        /// Specifies the secondary data filename pattern and corresponding direcories of the DB. Secondary data files are optional and are user defined. The recommended file extention for secondary files is \&quot;.ndf\&quot;.  If this option is specified and the destination folders do not exist they will be automatically created.
         /// </summary>
-        /// <value>If this option is specified and the destination folders do not exist they will be automatically created.</value>
-        [DataMember(Name="targetSecondaryDataFilesDirectoryList", EmitDefaultValue=false)]
+        /// <value>Specifies the secondary data filename pattern and corresponding direcories of the DB. Secondary data files are optional and are user defined. The recommended file extention for secondary files is \&quot;.ndf\&quot;.  If this option is specified and the destination folders do not exist they will be automatically created.</value>
+        [DataMember(Name="targetSecondaryDataFilesDirectoryList", EmitDefaultValue=true)]
         public List<FilenamePatternToDirectory> TargetSecondaryDataFilesDirectoryList { get; set; }
 
         /// <summary>
@@ -108,7 +113,18 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class SqlRestoreParameters {\n");
+            sb.Append("  CaptureTailLogs: ").Append(CaptureTailLogs).Append("\n");
+            sb.Append("  KeepOffline: ").Append(KeepOffline).Append("\n");
+            sb.Append("  NewDatabaseName: ").Append(NewDatabaseName).Append("\n");
+            sb.Append("  NewInstanceName: ").Append(NewInstanceName).Append("\n");
+            sb.Append("  RestoreTimeSecs: ").Append(RestoreTimeSecs).Append("\n");
+            sb.Append("  TargetDataFilesDirectory: ").Append(TargetDataFilesDirectory).Append("\n");
+            sb.Append("  TargetLogFilesDirectory: ").Append(TargetLogFilesDirectory).Append("\n");
+            sb.Append("  TargetSecondaryDataFilesDirectoryList: ").Append(TargetSecondaryDataFilesDirectoryList).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -179,6 +195,7 @@ namespace Cohesity.Models
                 (
                     this.TargetSecondaryDataFilesDirectoryList == input.TargetSecondaryDataFilesDirectoryList ||
                     this.TargetSecondaryDataFilesDirectoryList != null &&
+                    input.TargetSecondaryDataFilesDirectoryList != null &&
                     this.TargetSecondaryDataFilesDirectoryList.SequenceEqual(input.TargetSecondaryDataFilesDirectoryList)
                 );
         }
@@ -212,8 +229,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

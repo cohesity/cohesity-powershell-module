@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Cohesity.Models;
+using Cohesity.Model;
 
 namespace Cohesity.Powershell.Common
 {

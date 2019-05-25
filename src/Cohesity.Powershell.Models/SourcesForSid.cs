@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,13 +12,10 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
-    /// Specifies the Protection Sources objects and Views that the specified principal has permissions to access. The principal is specified using a security identifier (SID).
+    /// Protection Sources and Views With Access Permissions. Specifies the Protection Sources objects and Views that the specified principal has permissions to access. The principal is specified using a security identifier (SID).
     /// </summary>
     [DataContract]
     public partial class SourcesForSid :  IEquatable<SourcesForSid>
@@ -26,35 +23,38 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="SourcesForSid" /> class.
         /// </summary>
-        /// <param name="protectionSources">Specifies the Protection Source objects that the specified principal has permissions to access..</param>
+        /// <param name="protectionSources">Array of Protection Sources.  Specifies the Protection Source objects that the specified principal has permissions to access..</param>
         /// <param name="sid">Specifies the security identifier (SID) of the principal..</param>
-        /// <param name="views">Specifies the names of the Views that the specified principal has permissions to access..</param>
+        /// <param name="views">Array of View Names.  Specifies the names of the Views that the specified principal has permissions to access..</param>
         public SourcesForSid(List<ProtectionSource> protectionSources = default(List<ProtectionSource>), string sid = default(string), List<View> views = default(List<View>))
         {
+            this.ProtectionSources = protectionSources;
+            this.Sid = sid;
+            this.Views = views;
             this.ProtectionSources = protectionSources;
             this.Sid = sid;
             this.Views = views;
         }
         
         /// <summary>
-        /// Specifies the Protection Source objects that the specified principal has permissions to access.
+        /// Array of Protection Sources.  Specifies the Protection Source objects that the specified principal has permissions to access.
         /// </summary>
-        /// <value>Specifies the Protection Source objects that the specified principal has permissions to access.</value>
-        [DataMember(Name="protectionSources", EmitDefaultValue=false)]
+        /// <value>Array of Protection Sources.  Specifies the Protection Source objects that the specified principal has permissions to access.</value>
+        [DataMember(Name="protectionSources", EmitDefaultValue=true)]
         public List<ProtectionSource> ProtectionSources { get; set; }
 
         /// <summary>
         /// Specifies the security identifier (SID) of the principal.
         /// </summary>
         /// <value>Specifies the security identifier (SID) of the principal.</value>
-        [DataMember(Name="sid", EmitDefaultValue=false)]
+        [DataMember(Name="sid", EmitDefaultValue=true)]
         public string Sid { get; set; }
 
         /// <summary>
-        /// Specifies the names of the Views that the specified principal has permissions to access.
+        /// Array of View Names.  Specifies the names of the Views that the specified principal has permissions to access.
         /// </summary>
-        /// <value>Specifies the names of the Views that the specified principal has permissions to access.</value>
-        [DataMember(Name="views", EmitDefaultValue=false)]
+        /// <value>Array of View Names.  Specifies the names of the Views that the specified principal has permissions to access.</value>
+        [DataMember(Name="views", EmitDefaultValue=true)]
         public List<View> Views { get; set; }
 
         /// <summary>
@@ -63,7 +63,13 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class SourcesForSid {\n");
+            sb.Append("  ProtectionSources: ").Append(ProtectionSources).Append("\n");
+            sb.Append("  Sid: ").Append(Sid).Append("\n");
+            sb.Append("  Views: ").Append(Views).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -99,6 +105,7 @@ namespace Cohesity.Models
                 (
                     this.ProtectionSources == input.ProtectionSources ||
                     this.ProtectionSources != null &&
+                    input.ProtectionSources != null &&
                     this.ProtectionSources.SequenceEqual(input.ProtectionSources)
                 ) && 
                 (
@@ -109,6 +116,7 @@ namespace Cohesity.Models
                 (
                     this.Views == input.Views ||
                     this.Views != null &&
+                    input.Views != null &&
                     this.Views.SequenceEqual(input.Views)
                 );
         }
@@ -132,8 +140,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

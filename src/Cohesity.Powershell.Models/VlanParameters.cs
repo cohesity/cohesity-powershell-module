@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,13 +12,10 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
-    /// VlanParameters
+    /// Specifies VLAN parameters for the restore operation.
     /// </summary>
     [DataContract]
     public partial class VlanParameters :  IEquatable<VlanParameters>
@@ -27,10 +24,15 @@ namespace Cohesity.Models
         /// Initializes a new instance of the <see cref="VlanParameters" /> class.
         /// </summary>
         /// <param name="disableVlan">Specifies whether to use the VIPs even when VLANs are configured on the Cluster. If configured, VLAN IP addresses are used by default. If VLANs are not configured, this flag is ignored. Set this flag to true to force using the partition VIPs when VLANs are configured on the Cluster..</param>
+        /// <param name="interfaceName">Specifies the physical interface group name to use for mounting Cohesity&#39;s view on the remote host. If specified, Cohesity hostname or the IP address on this VLAN is used..</param>
         /// <param name="vlan">Specifies the VLAN to use for mounting Cohesity&#39;s view on the remote host. If specified, Cohesity hostname or the IP address on this VLAN is used..</param>
-        public VlanParameters(bool? disableVlan = default(bool?), int? vlan = default(int?))
+        public VlanParameters(bool? disableVlan = default(bool?), string interfaceName = default(string), int? vlan = default(int?))
         {
             this.DisableVlan = disableVlan;
+            this.InterfaceName = interfaceName;
+            this.Vlan = vlan;
+            this.DisableVlan = disableVlan;
+            this.InterfaceName = interfaceName;
             this.Vlan = vlan;
         }
         
@@ -38,14 +40,21 @@ namespace Cohesity.Models
         /// Specifies whether to use the VIPs even when VLANs are configured on the Cluster. If configured, VLAN IP addresses are used by default. If VLANs are not configured, this flag is ignored. Set this flag to true to force using the partition VIPs when VLANs are configured on the Cluster.
         /// </summary>
         /// <value>Specifies whether to use the VIPs even when VLANs are configured on the Cluster. If configured, VLAN IP addresses are used by default. If VLANs are not configured, this flag is ignored. Set this flag to true to force using the partition VIPs when VLANs are configured on the Cluster.</value>
-        [DataMember(Name="disableVlan", EmitDefaultValue=false)]
+        [DataMember(Name="disableVlan", EmitDefaultValue=true)]
         public bool? DisableVlan { get; set; }
+
+        /// <summary>
+        /// Specifies the physical interface group name to use for mounting Cohesity&#39;s view on the remote host. If specified, Cohesity hostname or the IP address on this VLAN is used.
+        /// </summary>
+        /// <value>Specifies the physical interface group name to use for mounting Cohesity&#39;s view on the remote host. If specified, Cohesity hostname or the IP address on this VLAN is used.</value>
+        [DataMember(Name="interfaceName", EmitDefaultValue=true)]
+        public string InterfaceName { get; set; }
 
         /// <summary>
         /// Specifies the VLAN to use for mounting Cohesity&#39;s view on the remote host. If specified, Cohesity hostname or the IP address on this VLAN is used.
         /// </summary>
         /// <value>Specifies the VLAN to use for mounting Cohesity&#39;s view on the remote host. If specified, Cohesity hostname or the IP address on this VLAN is used.</value>
-        [DataMember(Name="vlan", EmitDefaultValue=false)]
+        [DataMember(Name="vlan", EmitDefaultValue=true)]
         public int? Vlan { get; set; }
 
         /// <summary>
@@ -54,7 +63,13 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class VlanParameters {\n");
+            sb.Append("  DisableVlan: ").Append(DisableVlan).Append("\n");
+            sb.Append("  InterfaceName: ").Append(InterfaceName).Append("\n");
+            sb.Append("  Vlan: ").Append(Vlan).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -93,6 +108,11 @@ namespace Cohesity.Models
                     this.DisableVlan.Equals(input.DisableVlan))
                 ) && 
                 (
+                    this.InterfaceName == input.InterfaceName ||
+                    (this.InterfaceName != null &&
+                    this.InterfaceName.Equals(input.InterfaceName))
+                ) && 
+                (
                     this.Vlan == input.Vlan ||
                     (this.Vlan != null &&
                     this.Vlan.Equals(input.Vlan))
@@ -110,14 +130,14 @@ namespace Cohesity.Models
                 int hashCode = 41;
                 if (this.DisableVlan != null)
                     hashCode = hashCode * 59 + this.DisableVlan.GetHashCode();
+                if (this.InterfaceName != null)
+                    hashCode = hashCode * 59 + this.InterfaceName.GetHashCode();
                 if (this.Vlan != null)
                     hashCode = hashCode * 59 + this.Vlan.GetHashCode();
                 return hashCode;
             }
         }
 
-        
     }
 
 }
-

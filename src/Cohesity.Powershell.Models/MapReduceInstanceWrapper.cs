@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// MapReduceInstanceWrapper is the struct containing the map reduce instance information along with the output file path information required to download the results set.
@@ -27,10 +24,12 @@ namespace Cohesity.Models
         /// Initializes a new instance of the <see cref="MapReduceInstanceWrapper" /> class.
         /// </summary>
         /// <param name="logPath">LogPath is the path of the log files for the MR instance run..</param>
-        /// <param name="mrInstance">InstanceInfo is the information about the map reduce application instance..</param>
+        /// <param name="mrInstance">mrInstance.</param>
         /// <param name="outputFilePathList">OutputFilePathList is the list containing the output files path suffix that Yoda uses to build the full path of the MR instance run output files..</param>
         public MapReduceInstanceWrapper(string logPath = default(string), MapReduceInstance mrInstance = default(MapReduceInstance), List<string> outputFilePathList = default(List<string>))
         {
+            this.LogPath = logPath;
+            this.OutputFilePathList = outputFilePathList;
             this.LogPath = logPath;
             this.MrInstance = mrInstance;
             this.OutputFilePathList = outputFilePathList;
@@ -40,13 +39,12 @@ namespace Cohesity.Models
         /// LogPath is the path of the log files for the MR instance run.
         /// </summary>
         /// <value>LogPath is the path of the log files for the MR instance run.</value>
-        [DataMember(Name="logPath", EmitDefaultValue=false)]
+        [DataMember(Name="logPath", EmitDefaultValue=true)]
         public string LogPath { get; set; }
 
         /// <summary>
-        /// InstanceInfo is the information about the map reduce application instance.
+        /// Gets or Sets MrInstance
         /// </summary>
-        /// <value>InstanceInfo is the information about the map reduce application instance.</value>
         [DataMember(Name="mrInstance", EmitDefaultValue=false)]
         public MapReduceInstance MrInstance { get; set; }
 
@@ -54,7 +52,7 @@ namespace Cohesity.Models
         /// OutputFilePathList is the list containing the output files path suffix that Yoda uses to build the full path of the MR instance run output files.
         /// </summary>
         /// <value>OutputFilePathList is the list containing the output files path suffix that Yoda uses to build the full path of the MR instance run output files.</value>
-        [DataMember(Name="outputFilePathList", EmitDefaultValue=false)]
+        [DataMember(Name="outputFilePathList", EmitDefaultValue=true)]
         public List<string> OutputFilePathList { get; set; }
 
         /// <summary>
@@ -63,7 +61,13 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class MapReduceInstanceWrapper {\n");
+            sb.Append("  LogPath: ").Append(LogPath).Append("\n");
+            sb.Append("  MrInstance: ").Append(MrInstance).Append("\n");
+            sb.Append("  OutputFilePathList: ").Append(OutputFilePathList).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -109,6 +113,7 @@ namespace Cohesity.Models
                 (
                     this.OutputFilePathList == input.OutputFilePathList ||
                     this.OutputFilePathList != null &&
+                    input.OutputFilePathList != null &&
                     this.OutputFilePathList.SequenceEqual(input.OutputFilePathList)
                 );
         }
@@ -132,8 +137,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

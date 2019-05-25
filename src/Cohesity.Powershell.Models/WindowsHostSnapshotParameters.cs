@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,13 +12,10 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
-    /// WindowsHostSnapshotParameters
+    /// Specifies settings that are meaningful only on Windows hosts.
     /// </summary>
     [DataContract]
     public partial class WindowsHostSnapshotParameters :  IEquatable<WindowsHostSnapshotParameters>
@@ -29,9 +26,13 @@ namespace Cohesity.Models
         /// <param name="copyOnlyBackup">Specifies whether to backup regardless of the state of each file&#39;s backup history. Backup history will not be updated. Refer Microsoft documentation on VSS_BT_COPY..</param>
         /// <param name="disableMetadata">Specifies whether to disable fetching and storing of some metadata on Cohesity Cluster to save storage space. Otherwise, there will be some metadata fetched and stored on Cohesity Cluster..</param>
         /// <param name="disableNotification">Specifies whether to disable some notification steps when taking snapshots..</param>
-        /// <param name="excludedVssWriters">For example, \&quot;ASR Writer\&quot;, \&quot;System Writer\&quot;. Refer Microsoft documentaion for a complete list..</param>
+        /// <param name="excludedVssWriters">Specifies a list of Windows VSS writers that are excluded from backups. For example, \&quot;ASR Writer\&quot;, \&quot;System Writer\&quot;. Refer Microsoft documentaion for a complete list..</param>
         public WindowsHostSnapshotParameters(bool? copyOnlyBackup = default(bool?), bool? disableMetadata = default(bool?), bool? disableNotification = default(bool?), List<string> excludedVssWriters = default(List<string>))
         {
+            this.CopyOnlyBackup = copyOnlyBackup;
+            this.DisableMetadata = disableMetadata;
+            this.DisableNotification = disableNotification;
+            this.ExcludedVssWriters = excludedVssWriters;
             this.CopyOnlyBackup = copyOnlyBackup;
             this.DisableMetadata = disableMetadata;
             this.DisableNotification = disableNotification;
@@ -42,28 +43,28 @@ namespace Cohesity.Models
         /// Specifies whether to backup regardless of the state of each file&#39;s backup history. Backup history will not be updated. Refer Microsoft documentation on VSS_BT_COPY.
         /// </summary>
         /// <value>Specifies whether to backup regardless of the state of each file&#39;s backup history. Backup history will not be updated. Refer Microsoft documentation on VSS_BT_COPY.</value>
-        [DataMember(Name="copyOnlyBackup", EmitDefaultValue=false)]
+        [DataMember(Name="copyOnlyBackup", EmitDefaultValue=true)]
         public bool? CopyOnlyBackup { get; set; }
 
         /// <summary>
         /// Specifies whether to disable fetching and storing of some metadata on Cohesity Cluster to save storage space. Otherwise, there will be some metadata fetched and stored on Cohesity Cluster.
         /// </summary>
         /// <value>Specifies whether to disable fetching and storing of some metadata on Cohesity Cluster to save storage space. Otherwise, there will be some metadata fetched and stored on Cohesity Cluster.</value>
-        [DataMember(Name="disableMetadata", EmitDefaultValue=false)]
+        [DataMember(Name="disableMetadata", EmitDefaultValue=true)]
         public bool? DisableMetadata { get; set; }
 
         /// <summary>
         /// Specifies whether to disable some notification steps when taking snapshots.
         /// </summary>
         /// <value>Specifies whether to disable some notification steps when taking snapshots.</value>
-        [DataMember(Name="disableNotification", EmitDefaultValue=false)]
+        [DataMember(Name="disableNotification", EmitDefaultValue=true)]
         public bool? DisableNotification { get; set; }
 
         /// <summary>
-        /// For example, \&quot;ASR Writer\&quot;, \&quot;System Writer\&quot;. Refer Microsoft documentaion for a complete list.
+        /// Specifies a list of Windows VSS writers that are excluded from backups. For example, \&quot;ASR Writer\&quot;, \&quot;System Writer\&quot;. Refer Microsoft documentaion for a complete list.
         /// </summary>
-        /// <value>For example, \&quot;ASR Writer\&quot;, \&quot;System Writer\&quot;. Refer Microsoft documentaion for a complete list.</value>
-        [DataMember(Name="excludedVssWriters", EmitDefaultValue=false)]
+        /// <value>Specifies a list of Windows VSS writers that are excluded from backups. For example, \&quot;ASR Writer\&quot;, \&quot;System Writer\&quot;. Refer Microsoft documentaion for a complete list.</value>
+        [DataMember(Name="excludedVssWriters", EmitDefaultValue=true)]
         public List<string> ExcludedVssWriters { get; set; }
 
         /// <summary>
@@ -72,7 +73,14 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class WindowsHostSnapshotParameters {\n");
+            sb.Append("  CopyOnlyBackup: ").Append(CopyOnlyBackup).Append("\n");
+            sb.Append("  DisableMetadata: ").Append(DisableMetadata).Append("\n");
+            sb.Append("  DisableNotification: ").Append(DisableNotification).Append("\n");
+            sb.Append("  ExcludedVssWriters: ").Append(ExcludedVssWriters).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -123,6 +131,7 @@ namespace Cohesity.Models
                 (
                     this.ExcludedVssWriters == input.ExcludedVssWriters ||
                     this.ExcludedVssWriters != null &&
+                    input.ExcludedVssWriters != null &&
                     this.ExcludedVssWriters.SequenceEqual(input.ExcludedVssWriters)
                 );
         }
@@ -148,8 +157,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

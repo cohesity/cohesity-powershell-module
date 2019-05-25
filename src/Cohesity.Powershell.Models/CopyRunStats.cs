@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Stats for one copy task or aggregated stats of a Copy Run in a Protection Job Run.
@@ -42,55 +39,62 @@ namespace Cohesity.Models
             this.LogicalTransferRateBps = logicalTransferRateBps;
             this.PhysicalBytesTransferred = physicalBytesTransferred;
             this.StartTimeUsecs = startTimeUsecs;
+            this.EndTimeUsecs = endTimeUsecs;
+            this.IsIncremental = isIncremental;
+            this.LogicalBytesTransferred = logicalBytesTransferred;
+            this.LogicalSizeBytes = logicalSizeBytes;
+            this.LogicalTransferRateBps = logicalTransferRateBps;
+            this.PhysicalBytesTransferred = physicalBytesTransferred;
+            this.StartTimeUsecs = startTimeUsecs;
         }
         
         /// <summary>
         /// Specifies the time when this replication ended. If not set, then the replication has not ended yet.
         /// </summary>
         /// <value>Specifies the time when this replication ended. If not set, then the replication has not ended yet.</value>
-        [DataMember(Name="endTimeUsecs", EmitDefaultValue=false)]
+        [DataMember(Name="endTimeUsecs", EmitDefaultValue=true)]
         public long? EndTimeUsecs { get; set; }
 
         /// <summary>
         /// Specifies whether this archival is incremental for archival targets.
         /// </summary>
         /// <value>Specifies whether this archival is incremental for archival targets.</value>
-        [DataMember(Name="isIncremental", EmitDefaultValue=false)]
+        [DataMember(Name="isIncremental", EmitDefaultValue=true)]
         public bool? IsIncremental { get; set; }
 
         /// <summary>
         /// Specifies the number of logical bytes transferred for this replication so far. This value can never exceed the total logical size of the replicated view.
         /// </summary>
         /// <value>Specifies the number of logical bytes transferred for this replication so far. This value can never exceed the total logical size of the replicated view.</value>
-        [DataMember(Name="logicalBytesTransferred", EmitDefaultValue=false)]
+        [DataMember(Name="logicalBytesTransferred", EmitDefaultValue=true)]
         public long? LogicalBytesTransferred { get; set; }
 
         /// <summary>
         /// Specifies the total amount of logical data to be transferred for this replication.
         /// </summary>
         /// <value>Specifies the total amount of logical data to be transferred for this replication.</value>
-        [DataMember(Name="logicalSizeBytes", EmitDefaultValue=false)]
+        [DataMember(Name="logicalSizeBytes", EmitDefaultValue=true)]
         public long? LogicalSizeBytes { get; set; }
 
         /// <summary>
         /// Specifies average logical bytes transfer rate in bytes per second for archchival targets.
         /// </summary>
         /// <value>Specifies average logical bytes transfer rate in bytes per second for archchival targets.</value>
-        [DataMember(Name="logicalTransferRateBps", EmitDefaultValue=false)]
+        [DataMember(Name="logicalTransferRateBps", EmitDefaultValue=true)]
         public long? LogicalTransferRateBps { get; set; }
 
         /// <summary>
         /// Specifies the number of physical bytes sent over the wire for replication targets.
         /// </summary>
         /// <value>Specifies the number of physical bytes sent over the wire for replication targets.</value>
-        [DataMember(Name="physicalBytesTransferred", EmitDefaultValue=false)]
+        [DataMember(Name="physicalBytesTransferred", EmitDefaultValue=true)]
         public long? PhysicalBytesTransferred { get; set; }
 
         /// <summary>
         /// Specifies the time when this replication was started. If not set, then replication has not been started yet.
         /// </summary>
         /// <value>Specifies the time when this replication was started. If not set, then replication has not been started yet.</value>
-        [DataMember(Name="startTimeUsecs", EmitDefaultValue=false)]
+        [DataMember(Name="startTimeUsecs", EmitDefaultValue=true)]
         public long? StartTimeUsecs { get; set; }
 
         /// <summary>
@@ -99,7 +103,17 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class CopyRunStats {\n");
+            sb.Append("  EndTimeUsecs: ").Append(EndTimeUsecs).Append("\n");
+            sb.Append("  IsIncremental: ").Append(IsIncremental).Append("\n");
+            sb.Append("  LogicalBytesTransferred: ").Append(LogicalBytesTransferred).Append("\n");
+            sb.Append("  LogicalSizeBytes: ").Append(LogicalSizeBytes).Append("\n");
+            sb.Append("  LogicalTransferRateBps: ").Append(LogicalTransferRateBps).Append("\n");
+            sb.Append("  PhysicalBytesTransferred: ").Append(PhysicalBytesTransferred).Append("\n");
+            sb.Append("  StartTimeUsecs: ").Append(StartTimeUsecs).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -196,8 +210,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

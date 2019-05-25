@@ -1,14 +1,18 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
+using System.Linq;
+using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies settings for copying Snapshots to Cloud. This also specifies the retention policy that should be applied to Snapshots after they have been copied to Cloud.
@@ -23,49 +27,49 @@ namespace Cohesity.Models
         [JsonConverter(typeof(StringEnumConverter))]
         public enum PeriodicityEnum
         {
-            
             /// <summary>
             /// Enum KEvery for value: kEvery
             /// </summary>
             [EnumMember(Value = "kEvery")]
             KEvery = 1,
-            
+
             /// <summary>
             /// Enum KHour for value: kHour
             /// </summary>
             [EnumMember(Value = "kHour")]
             KHour = 2,
-            
+
             /// <summary>
             /// Enum KDay for value: kDay
             /// </summary>
             [EnumMember(Value = "kDay")]
             KDay = 3,
-            
+
             /// <summary>
             /// Enum KWeek for value: kWeek
             /// </summary>
             [EnumMember(Value = "kWeek")]
             KWeek = 4,
-            
+
             /// <summary>
             /// Enum KMonth for value: kMonth
             /// </summary>
             [EnumMember(Value = "kMonth")]
             KMonth = 5,
-            
+
             /// <summary>
             /// Enum KYear for value: kYear
             /// </summary>
             [EnumMember(Value = "kYear")]
             KYear = 6
+
         }
 
         /// <summary>
         /// Specifies the frequency that Snapshots should be copied to the specified target. Used in combination with multipiler. &#39;kEvery&#39; means that the Snapshot copy occurs after the number of Job Runs equals the number specified in the multiplier. &#39;kHour&#39; means that the Snapshot copy occurs hourly at the frequency set in the multiplier, for example if multiplier is 2, the copy occurs every 2 hours. &#39;kDay&#39; means that the Snapshot copy occurs daily at the frequency set in the multiplier. &#39;kWeek&#39; means that the Snapshot copy occurs weekly at the frequency set in the multiplier. &#39;kMonth&#39; means that the Snapshot copy occurs monthly at the frequency set in the multiplier. &#39;kYear&#39; means that the Snapshot copy occurs yearly at the frequency set in the multiplier.
         /// </summary>
         /// <value>Specifies the frequency that Snapshots should be copied to the specified target. Used in combination with multipiler. &#39;kEvery&#39; means that the Snapshot copy occurs after the number of Job Runs equals the number specified in the multiplier. &#39;kHour&#39; means that the Snapshot copy occurs hourly at the frequency set in the multiplier, for example if multiplier is 2, the copy occurs every 2 hours. &#39;kDay&#39; means that the Snapshot copy occurs daily at the frequency set in the multiplier. &#39;kWeek&#39; means that the Snapshot copy occurs weekly at the frequency set in the multiplier. &#39;kMonth&#39; means that the Snapshot copy occurs monthly at the frequency set in the multiplier. &#39;kYear&#39; means that the Snapshot copy occurs yearly at the frequency set in the multiplier.</value>
-        [DataMember(Name="periodicity", EmitDefaultValue=false)]
+        [DataMember(Name="periodicity", EmitDefaultValue=true)]
         public PeriodicityEnum? Periodicity { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="SnapshotCloudCopyPolicy" /> class.
@@ -74,9 +78,13 @@ namespace Cohesity.Models
         /// <param name="daysToKeep">Specifies the number of days to retain copied Snapshots on the target..</param>
         /// <param name="multiplier">Specifies a factor to multiply the periodicity by, to determine the copy schedule. For example if set to 2 and the periodicity is hourly, then Snapshots from the first eligible Job Run for every 2 hour period is copied..</param>
         /// <param name="periodicity">Specifies the frequency that Snapshots should be copied to the specified target. Used in combination with multipiler. &#39;kEvery&#39; means that the Snapshot copy occurs after the number of Job Runs equals the number specified in the multiplier. &#39;kHour&#39; means that the Snapshot copy occurs hourly at the frequency set in the multiplier, for example if multiplier is 2, the copy occurs every 2 hours. &#39;kDay&#39; means that the Snapshot copy occurs daily at the frequency set in the multiplier. &#39;kWeek&#39; means that the Snapshot copy occurs weekly at the frequency set in the multiplier. &#39;kMonth&#39; means that the Snapshot copy occurs monthly at the frequency set in the multiplier. &#39;kYear&#39; means that the Snapshot copy occurs yearly at the frequency set in the multiplier..</param>
-        /// <param name="target">Specifies the details about CloudDeploy target where backup snapshots may be converted and stored..</param>
-        public SnapshotCloudCopyPolicy(bool? copyPartial = default(bool?), long? daysToKeep = default(long?), int? multiplier = default(int?), PeriodicityEnum? periodicity = default(PeriodicityEnum?), CloudDeployTarget target = default(CloudDeployTarget))
+        /// <param name="target">target.</param>
+        public SnapshotCloudCopyPolicy(bool? copyPartial = default(bool?), long? daysToKeep = default(long?), int? multiplier = default(int?), PeriodicityEnum? periodicity = default(PeriodicityEnum?), CloudDeployTargetDetails target = default(CloudDeployTargetDetails))
         {
+            this.CopyPartial = copyPartial;
+            this.DaysToKeep = daysToKeep;
+            this.Multiplier = multiplier;
+            this.Periodicity = periodicity;
             this.CopyPartial = copyPartial;
             this.DaysToKeep = daysToKeep;
             this.Multiplier = multiplier;
@@ -88,30 +96,28 @@ namespace Cohesity.Models
         /// Specifies if Snapshots are copied from the first completely successful Job Run or the first partially successful Job Run occurring at the start of the replication schedule. If true, Snapshots are copied from the first Job Run occurring at the start of the replication schedule, even if first Job Run was not completely successful i.e. Snapshots were not captured for all Objects in the Job. If false, Snapshots are copied from the first Job Run occurring at the start of the replication schedule that was completely successful i.e. Snapshots for all the Objects in the Job were successfully captured.
         /// </summary>
         /// <value>Specifies if Snapshots are copied from the first completely successful Job Run or the first partially successful Job Run occurring at the start of the replication schedule. If true, Snapshots are copied from the first Job Run occurring at the start of the replication schedule, even if first Job Run was not completely successful i.e. Snapshots were not captured for all Objects in the Job. If false, Snapshots are copied from the first Job Run occurring at the start of the replication schedule that was completely successful i.e. Snapshots for all the Objects in the Job were successfully captured.</value>
-        [DataMember(Name="copyPartial", EmitDefaultValue=false)]
+        [DataMember(Name="copyPartial", EmitDefaultValue=true)]
         public bool? CopyPartial { get; set; }
 
         /// <summary>
         /// Specifies the number of days to retain copied Snapshots on the target.
         /// </summary>
         /// <value>Specifies the number of days to retain copied Snapshots on the target.</value>
-        [DataMember(Name="daysToKeep", EmitDefaultValue=false)]
+        [DataMember(Name="daysToKeep", EmitDefaultValue=true)]
         public long? DaysToKeep { get; set; }
 
         /// <summary>
         /// Specifies a factor to multiply the periodicity by, to determine the copy schedule. For example if set to 2 and the periodicity is hourly, then Snapshots from the first eligible Job Run for every 2 hour period is copied.
         /// </summary>
         /// <value>Specifies a factor to multiply the periodicity by, to determine the copy schedule. For example if set to 2 and the periodicity is hourly, then Snapshots from the first eligible Job Run for every 2 hour period is copied.</value>
-        [DataMember(Name="multiplier", EmitDefaultValue=false)]
+        [DataMember(Name="multiplier", EmitDefaultValue=true)]
         public int? Multiplier { get; set; }
 
-
         /// <summary>
-        /// Specifies the details about CloudDeploy target where backup snapshots may be converted and stored.
+        /// Gets or Sets Target
         /// </summary>
-        /// <value>Specifies the details about CloudDeploy target where backup snapshots may be converted and stored.</value>
         [DataMember(Name="target", EmitDefaultValue=false)]
-        public CloudDeployTarget Target { get; set; }
+        public CloudDeployTargetDetails Target { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -119,9 +125,17 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class SnapshotCloudCopyPolicy {\n");
+            sb.Append("  CopyPartial: ").Append(CopyPartial).Append("\n");
+            sb.Append("  DaysToKeep: ").Append(DaysToKeep).Append("\n");
+            sb.Append("  Multiplier: ").Append(Multiplier).Append("\n");
+            sb.Append("  Periodicity: ").Append(Periodicity).Append("\n");
+            sb.Append("  Target: ").Append(Target).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
-
+  
         /// <summary>
         /// Returns the JSON string presentation of the object
         /// </summary>
@@ -169,8 +183,7 @@ namespace Cohesity.Models
                 ) && 
                 (
                     this.Periodicity == input.Periodicity ||
-                    (this.Periodicity != null &&
-                    this.Periodicity.Equals(input.Periodicity))
+                    this.Periodicity.Equals(input.Periodicity)
                 ) && 
                 (
                     this.Target == input.Target ||
@@ -194,16 +207,13 @@ namespace Cohesity.Models
                     hashCode = hashCode * 59 + this.DaysToKeep.GetHashCode();
                 if (this.Multiplier != null)
                     hashCode = hashCode * 59 + this.Multiplier.GetHashCode();
-                if (this.Periodicity != null)
-                    hashCode = hashCode * 59 + this.Periodicity.GetHashCode();
+                hashCode = hashCode * 59 + this.Periodicity.GetHashCode();
                 if (this.Target != null)
                     hashCode = hashCode * 59 + this.Target.GetHashCode();
                 return hashCode;
             }
         }
 
-        
     }
 
 }
-

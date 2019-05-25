@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies the registration and protection information of a registered Protection Source Tree on the Cohesity Cluster.  Many different Protection Source trees are supported such as &#39;kVMware&#39;, &#39;kAcropolis&#39;, &#39;kPhysical&#39; etc.,
@@ -26,33 +23,77 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="ProtectionSourceTreeInfo" /> class.
         /// </summary>
-        /// <param name="registrationInfo">registrationInfo.</param>
-        /// <param name="rootNode">rootNode.</param>
-        /// <param name="stats">stats.</param>
-        public ProtectionSourceTreeInfo(RegisteredSourceInfo_ registrationInfo = default(RegisteredSourceInfo_), ProtectionSource1 rootNode = default(ProtectionSource1), ProtectionSummaryInformationOfARegisteredProtectionSourceTreeOrtheCohesityCluster2 stats = default(ProtectionSummaryInformationOfARegisteredProtectionSourceTreeOrtheCohesityCluster2))
+        /// <param name="applications">Array of applications hierarchy registered on this node.  Specifies the application type and the list of instances of the application objects. For example for SQL Server, this list provides the SQL Server instances running on a VM or a Physical Server..</param>
+        /// <param name="entityPermissionInfo">entityPermissionInfo.</param>
+        /// <param name="logicalSizeBytes">Specifies the logical size of the Protection Source in bytes..</param>
+        /// <param name="registrationInfo">Specifies registration information for a root node in a Protection Sources tree. A root node represents a registered Source on the Cohesity Cluster, such as a vCenter Server..</param>
+        /// <param name="rootNode">Specifies the Protection Source for the root node of the Protection Source tree..</param>
+        /// <param name="stats">Specifies the stats of protection for a Protection Source Tree..</param>
+        /// <param name="statsByEnv">Specifies the breakdown of the stats of protection by environment. overrideDescription: true.</param>
+        public ProtectionSourceTreeInfo(List<ApplicationInfo> applications = default(List<ApplicationInfo>), EntityPermissionInformation entityPermissionInfo = default(EntityPermissionInformation), long? logicalSizeBytes = default(long?), RegisteredSourceInfo registrationInfo = default(RegisteredSourceInfo), ProtectionSource rootNode = default(ProtectionSource), ProtectionSummary stats = default(ProtectionSummary), List<ProtectionSummaryByEnv> statsByEnv = default(List<ProtectionSummaryByEnv>))
         {
+            this.Applications = applications;
+            this.LogicalSizeBytes = logicalSizeBytes;
             this.RegistrationInfo = registrationInfo;
             this.RootNode = rootNode;
             this.Stats = stats;
+            this.StatsByEnv = statsByEnv;
+            this.Applications = applications;
+            this.EntityPermissionInfo = entityPermissionInfo;
+            this.LogicalSizeBytes = logicalSizeBytes;
+            this.RegistrationInfo = registrationInfo;
+            this.RootNode = rootNode;
+            this.Stats = stats;
+            this.StatsByEnv = statsByEnv;
         }
         
         /// <summary>
-        /// Gets or Sets RegistrationInfo
+        /// Array of applications hierarchy registered on this node.  Specifies the application type and the list of instances of the application objects. For example for SQL Server, this list provides the SQL Server instances running on a VM or a Physical Server.
         /// </summary>
-        [DataMember(Name="registrationInfo", EmitDefaultValue=false)]
-        public RegisteredSourceInfo_ RegistrationInfo { get; set; }
+        /// <value>Array of applications hierarchy registered on this node.  Specifies the application type and the list of instances of the application objects. For example for SQL Server, this list provides the SQL Server instances running on a VM or a Physical Server.</value>
+        [DataMember(Name="applications", EmitDefaultValue=true)]
+        public List<ApplicationInfo> Applications { get; set; }
 
         /// <summary>
-        /// Gets or Sets RootNode
+        /// Gets or Sets EntityPermissionInfo
         /// </summary>
-        [DataMember(Name="rootNode", EmitDefaultValue=false)]
-        public ProtectionSource1 RootNode { get; set; }
+        [DataMember(Name="entityPermissionInfo", EmitDefaultValue=false)]
+        public EntityPermissionInformation EntityPermissionInfo { get; set; }
 
         /// <summary>
-        /// Gets or Sets Stats
+        /// Specifies the logical size of the Protection Source in bytes.
         /// </summary>
-        [DataMember(Name="stats", EmitDefaultValue=false)]
-        public ProtectionSummaryInformationOfARegisteredProtectionSourceTreeOrtheCohesityCluster2 Stats { get; set; }
+        /// <value>Specifies the logical size of the Protection Source in bytes.</value>
+        [DataMember(Name="logicalSizeBytes", EmitDefaultValue=true)]
+        public long? LogicalSizeBytes { get; set; }
+
+        /// <summary>
+        /// Specifies registration information for a root node in a Protection Sources tree. A root node represents a registered Source on the Cohesity Cluster, such as a vCenter Server.
+        /// </summary>
+        /// <value>Specifies registration information for a root node in a Protection Sources tree. A root node represents a registered Source on the Cohesity Cluster, such as a vCenter Server.</value>
+        [DataMember(Name="registrationInfo", EmitDefaultValue=true)]
+        public RegisteredSourceInfo RegistrationInfo { get; set; }
+
+        /// <summary>
+        /// Specifies the Protection Source for the root node of the Protection Source tree.
+        /// </summary>
+        /// <value>Specifies the Protection Source for the root node of the Protection Source tree.</value>
+        [DataMember(Name="rootNode", EmitDefaultValue=true)]
+        public ProtectionSource RootNode { get; set; }
+
+        /// <summary>
+        /// Specifies the stats of protection for a Protection Source Tree.
+        /// </summary>
+        /// <value>Specifies the stats of protection for a Protection Source Tree.</value>
+        [DataMember(Name="stats", EmitDefaultValue=true)]
+        public ProtectionSummary Stats { get; set; }
+
+        /// <summary>
+        /// Specifies the breakdown of the stats of protection by environment. overrideDescription: true
+        /// </summary>
+        /// <value>Specifies the breakdown of the stats of protection by environment. overrideDescription: true</value>
+        [DataMember(Name="statsByEnv", EmitDefaultValue=true)]
+        public List<ProtectionSummaryByEnv> StatsByEnv { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -60,7 +101,17 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class ProtectionSourceTreeInfo {\n");
+            sb.Append("  Applications: ").Append(Applications).Append("\n");
+            sb.Append("  EntityPermissionInfo: ").Append(EntityPermissionInfo).Append("\n");
+            sb.Append("  LogicalSizeBytes: ").Append(LogicalSizeBytes).Append("\n");
+            sb.Append("  RegistrationInfo: ").Append(RegistrationInfo).Append("\n");
+            sb.Append("  RootNode: ").Append(RootNode).Append("\n");
+            sb.Append("  Stats: ").Append(Stats).Append("\n");
+            sb.Append("  StatsByEnv: ").Append(StatsByEnv).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -94,6 +145,22 @@ namespace Cohesity.Models
 
             return 
                 (
+                    this.Applications == input.Applications ||
+                    this.Applications != null &&
+                    input.Applications != null &&
+                    this.Applications.SequenceEqual(input.Applications)
+                ) && 
+                (
+                    this.EntityPermissionInfo == input.EntityPermissionInfo ||
+                    (this.EntityPermissionInfo != null &&
+                    this.EntityPermissionInfo.Equals(input.EntityPermissionInfo))
+                ) && 
+                (
+                    this.LogicalSizeBytes == input.LogicalSizeBytes ||
+                    (this.LogicalSizeBytes != null &&
+                    this.LogicalSizeBytes.Equals(input.LogicalSizeBytes))
+                ) && 
+                (
                     this.RegistrationInfo == input.RegistrationInfo ||
                     (this.RegistrationInfo != null &&
                     this.RegistrationInfo.Equals(input.RegistrationInfo))
@@ -107,6 +174,12 @@ namespace Cohesity.Models
                     this.Stats == input.Stats ||
                     (this.Stats != null &&
                     this.Stats.Equals(input.Stats))
+                ) && 
+                (
+                    this.StatsByEnv == input.StatsByEnv ||
+                    this.StatsByEnv != null &&
+                    input.StatsByEnv != null &&
+                    this.StatsByEnv.SequenceEqual(input.StatsByEnv)
                 );
         }
 
@@ -119,18 +192,24 @@ namespace Cohesity.Models
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.Applications != null)
+                    hashCode = hashCode * 59 + this.Applications.GetHashCode();
+                if (this.EntityPermissionInfo != null)
+                    hashCode = hashCode * 59 + this.EntityPermissionInfo.GetHashCode();
+                if (this.LogicalSizeBytes != null)
+                    hashCode = hashCode * 59 + this.LogicalSizeBytes.GetHashCode();
                 if (this.RegistrationInfo != null)
                     hashCode = hashCode * 59 + this.RegistrationInfo.GetHashCode();
                 if (this.RootNode != null)
                     hashCode = hashCode * 59 + this.RootNode.GetHashCode();
                 if (this.Stats != null)
                     hashCode = hashCode * 59 + this.Stats.GetHashCode();
+                if (this.StatsByEnv != null)
+                    hashCode = hashCode * 59 + this.StatsByEnv.GetHashCode();
                 return hashCode;
             }
         }
 
-        
     }
 
 }
-

@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// CancelProtectionJobRunParam
@@ -26,18 +23,18 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="CancelProtectionJobRunParam" /> class.
         /// </summary>
-        /// <param name="copyTaskUid">CopyTaskUid is the Uid of a copy task. If a particular copy task is to be cancelled, this field should be set to the id of that particular copy task. For example, if replication task is to be canceled, CopyTaskUid of the replication task has to be specified..</param>
+        /// <param name="copyTaskUid">copyTaskUid.</param>
         /// <param name="jobRunId">Run Id of a Protection Job Run that needs to be cancelled. If this Run id does not match the id of an active Run in the Protection job, the job Run is not cancelled and an error will be returned..</param>
         public CancelProtectionJobRunParam(UniversalId copyTaskUid = default(UniversalId), long? jobRunId = default(long?))
         {
+            this.JobRunId = jobRunId;
             this.CopyTaskUid = copyTaskUid;
             this.JobRunId = jobRunId;
         }
         
         /// <summary>
-        /// CopyTaskUid is the Uid of a copy task. If a particular copy task is to be cancelled, this field should be set to the id of that particular copy task. For example, if replication task is to be canceled, CopyTaskUid of the replication task has to be specified.
+        /// Gets or Sets CopyTaskUid
         /// </summary>
-        /// <value>CopyTaskUid is the Uid of a copy task. If a particular copy task is to be cancelled, this field should be set to the id of that particular copy task. For example, if replication task is to be canceled, CopyTaskUid of the replication task has to be specified.</value>
         [DataMember(Name="copyTaskUid", EmitDefaultValue=false)]
         public UniversalId CopyTaskUid { get; set; }
 
@@ -45,7 +42,7 @@ namespace Cohesity.Models
         /// Run Id of a Protection Job Run that needs to be cancelled. If this Run id does not match the id of an active Run in the Protection job, the job Run is not cancelled and an error will be returned.
         /// </summary>
         /// <value>Run Id of a Protection Job Run that needs to be cancelled. If this Run id does not match the id of an active Run in the Protection job, the job Run is not cancelled and an error will be returned.</value>
-        [DataMember(Name="jobRunId", EmitDefaultValue=false)]
+        [DataMember(Name="jobRunId", EmitDefaultValue=true)]
         public long? JobRunId { get; set; }
 
         /// <summary>
@@ -54,7 +51,12 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class CancelProtectionJobRunParam {\n");
+            sb.Append("  CopyTaskUid: ").Append(CopyTaskUid).Append("\n");
+            sb.Append("  JobRunId: ").Append(JobRunId).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -116,8 +118,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

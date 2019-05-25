@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,13 +12,10 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
-    /// ViewUserQuotas
+    /// Specifies the Result parameters for all user quotas of a view.
     /// </summary>
     [DataContract]
     public partial class ViewUserQuotas :  IEquatable<ViewUserQuotas>
@@ -27,13 +24,16 @@ namespace Cohesity.Models
         /// Initializes a new instance of the <see cref="ViewUserQuotas" /> class.
         /// </summary>
         /// <param name="cookie">This cookie can be used in the succeeding call to list user quotas and usages to get the next set of user quota overrides. If set to nil, it means that there&#39;s no more results that the server could provide..</param>
-        /// <param name="quotaAndUsageInAllViews">quotaAndUsageInAllViews.</param>
-        /// <param name="summaryForUser">UserQuotaSummaryForUser is the summary for user quotas in all views for a user..</param>
-        /// <param name="summaryForView">UserQuotaSummaryForView is the summary for user quotas in a view..</param>
-        /// <param name="userQuotaSettings">The default user quota policy for this view..</param>
-        /// <param name="usersQuotaAndUsage">usersQuotaAndUsage.</param>
+        /// <param name="quotaAndUsageInAllViews">The quota and usage information for a user in all his views..</param>
+        /// <param name="summaryForUser">summaryForUser.</param>
+        /// <param name="summaryForView">summaryForView.</param>
+        /// <param name="userQuotaSettings">userQuotaSettings.</param>
+        /// <param name="usersQuotaAndUsage">The list of user quota policies/overrides and usages..</param>
         public ViewUserQuotas(string cookie = default(string), List<QuotaAndUsageInView> quotaAndUsageInAllViews = default(List<QuotaAndUsageInView>), UserQuotaSummaryForUser summaryForUser = default(UserQuotaSummaryForUser), UserQuotaSummaryForView summaryForView = default(UserQuotaSummaryForView), UserQuotaSettings userQuotaSettings = default(UserQuotaSettings), List<UserQuotaAndUsage> usersQuotaAndUsage = default(List<UserQuotaAndUsage>))
         {
+            this.Cookie = cookie;
+            this.QuotaAndUsageInAllViews = quotaAndUsageInAllViews;
+            this.UsersQuotaAndUsage = usersQuotaAndUsage;
             this.Cookie = cookie;
             this.QuotaAndUsageInAllViews = quotaAndUsageInAllViews;
             this.SummaryForUser = summaryForUser;
@@ -46,40 +46,39 @@ namespace Cohesity.Models
         /// This cookie can be used in the succeeding call to list user quotas and usages to get the next set of user quota overrides. If set to nil, it means that there&#39;s no more results that the server could provide.
         /// </summary>
         /// <value>This cookie can be used in the succeeding call to list user quotas and usages to get the next set of user quota overrides. If set to nil, it means that there&#39;s no more results that the server could provide.</value>
-        [DataMember(Name="cookie", EmitDefaultValue=false)]
+        [DataMember(Name="cookie", EmitDefaultValue=true)]
         public string Cookie { get; set; }
 
         /// <summary>
-        /// Gets or Sets QuotaAndUsageInAllViews
+        /// The quota and usage information for a user in all his views.
         /// </summary>
-        [DataMember(Name="quotaAndUsageInAllViews", EmitDefaultValue=false)]
+        /// <value>The quota and usage information for a user in all his views.</value>
+        [DataMember(Name="quotaAndUsageInAllViews", EmitDefaultValue=true)]
         public List<QuotaAndUsageInView> QuotaAndUsageInAllViews { get; set; }
 
         /// <summary>
-        /// UserQuotaSummaryForUser is the summary for user quotas in all views for a user.
+        /// Gets or Sets SummaryForUser
         /// </summary>
-        /// <value>UserQuotaSummaryForUser is the summary for user quotas in all views for a user.</value>
         [DataMember(Name="summaryForUser", EmitDefaultValue=false)]
         public UserQuotaSummaryForUser SummaryForUser { get; set; }
 
         /// <summary>
-        /// UserQuotaSummaryForView is the summary for user quotas in a view.
+        /// Gets or Sets SummaryForView
         /// </summary>
-        /// <value>UserQuotaSummaryForView is the summary for user quotas in a view.</value>
         [DataMember(Name="summaryForView", EmitDefaultValue=false)]
         public UserQuotaSummaryForView SummaryForView { get; set; }
 
         /// <summary>
-        /// The default user quota policy for this view.
+        /// Gets or Sets UserQuotaSettings
         /// </summary>
-        /// <value>The default user quota policy for this view.</value>
         [DataMember(Name="userQuotaSettings", EmitDefaultValue=false)]
         public UserQuotaSettings UserQuotaSettings { get; set; }
 
         /// <summary>
-        /// Gets or Sets UsersQuotaAndUsage
+        /// The list of user quota policies/overrides and usages.
         /// </summary>
-        [DataMember(Name="usersQuotaAndUsage", EmitDefaultValue=false)]
+        /// <value>The list of user quota policies/overrides and usages.</value>
+        [DataMember(Name="usersQuotaAndUsage", EmitDefaultValue=true)]
         public List<UserQuotaAndUsage> UsersQuotaAndUsage { get; set; }
 
         /// <summary>
@@ -88,7 +87,16 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class ViewUserQuotas {\n");
+            sb.Append("  Cookie: ").Append(Cookie).Append("\n");
+            sb.Append("  QuotaAndUsageInAllViews: ").Append(QuotaAndUsageInAllViews).Append("\n");
+            sb.Append("  SummaryForUser: ").Append(SummaryForUser).Append("\n");
+            sb.Append("  SummaryForView: ").Append(SummaryForView).Append("\n");
+            sb.Append("  UserQuotaSettings: ").Append(UserQuotaSettings).Append("\n");
+            sb.Append("  UsersQuotaAndUsage: ").Append(UsersQuotaAndUsage).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -129,6 +137,7 @@ namespace Cohesity.Models
                 (
                     this.QuotaAndUsageInAllViews == input.QuotaAndUsageInAllViews ||
                     this.QuotaAndUsageInAllViews != null &&
+                    input.QuotaAndUsageInAllViews != null &&
                     this.QuotaAndUsageInAllViews.SequenceEqual(input.QuotaAndUsageInAllViews)
                 ) && 
                 (
@@ -149,6 +158,7 @@ namespace Cohesity.Models
                 (
                     this.UsersQuotaAndUsage == input.UsersQuotaAndUsage ||
                     this.UsersQuotaAndUsage != null &&
+                    input.UsersQuotaAndUsage != null &&
                     this.UsersQuotaAndUsage.SequenceEqual(input.UsersQuotaAndUsage)
                 );
         }
@@ -178,8 +188,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

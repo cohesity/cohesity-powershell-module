@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies the user ids to remove the corresponding quota overrides in view.
@@ -27,10 +24,13 @@ namespace Cohesity.Models
         /// Initializes a new instance of the <see cref="DeleteViewUsersQuotaParameters" /> class.
         /// </summary>
         /// <param name="deleteAll">Delete all existing user quota override policies..</param>
-        /// <param name="userIds">userIds.</param>
+        /// <param name="userIds">The user ids whose policy needs to be deleted..</param>
         /// <param name="viewName">View name of input view..</param>
         public DeleteViewUsersQuotaParameters(bool? deleteAll = default(bool?), List<UserId> userIds = default(List<UserId>), string viewName = default(string))
         {
+            this.DeleteAll = deleteAll;
+            this.UserIds = userIds;
+            this.ViewName = viewName;
             this.DeleteAll = deleteAll;
             this.UserIds = userIds;
             this.ViewName = viewName;
@@ -40,20 +40,21 @@ namespace Cohesity.Models
         /// Delete all existing user quota override policies.
         /// </summary>
         /// <value>Delete all existing user quota override policies.</value>
-        [DataMember(Name="deleteAll", EmitDefaultValue=false)]
+        [DataMember(Name="deleteAll", EmitDefaultValue=true)]
         public bool? DeleteAll { get; set; }
 
         /// <summary>
-        /// Gets or Sets UserIds
+        /// The user ids whose policy needs to be deleted.
         /// </summary>
-        [DataMember(Name="userIds", EmitDefaultValue=false)]
+        /// <value>The user ids whose policy needs to be deleted.</value>
+        [DataMember(Name="userIds", EmitDefaultValue=true)]
         public List<UserId> UserIds { get; set; }
 
         /// <summary>
         /// View name of input view.
         /// </summary>
         /// <value>View name of input view.</value>
-        [DataMember(Name="viewName", EmitDefaultValue=false)]
+        [DataMember(Name="viewName", EmitDefaultValue=true)]
         public string ViewName { get; set; }
 
         /// <summary>
@@ -62,7 +63,13 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class DeleteViewUsersQuotaParameters {\n");
+            sb.Append("  DeleteAll: ").Append(DeleteAll).Append("\n");
+            sb.Append("  UserIds: ").Append(UserIds).Append("\n");
+            sb.Append("  ViewName: ").Append(ViewName).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -103,6 +110,7 @@ namespace Cohesity.Models
                 (
                     this.UserIds == input.UserIds ||
                     this.UserIds != null &&
+                    input.UserIds != null &&
                     this.UserIds.SequenceEqual(input.UserIds)
                 ) && 
                 (
@@ -131,8 +139,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

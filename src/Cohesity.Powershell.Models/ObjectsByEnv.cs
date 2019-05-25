@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,13 +12,10 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
-    /// ObjectsByEnv
+    /// Number of Objects by Type.
     /// </summary>
     [DataContract]
     public partial class ObjectsByEnv :  IEquatable<ObjectsByEnv>
@@ -32,20 +29,22 @@ namespace Cohesity.Models
         {
             this.EnvType = envType;
             this.NumObjects = numObjects;
+            this.EnvType = envType;
+            this.NumObjects = numObjects;
         }
         
         /// <summary>
         /// Environment Type.
         /// </summary>
         /// <value>Environment Type.</value>
-        [DataMember(Name="envType", EmitDefaultValue=false)]
+        [DataMember(Name="envType", EmitDefaultValue=true)]
         public string EnvType { get; set; }
 
         /// <summary>
         /// Number of Objects.
         /// </summary>
         /// <value>Number of Objects.</value>
-        [DataMember(Name="numObjects", EmitDefaultValue=false)]
+        [DataMember(Name="numObjects", EmitDefaultValue=true)]
         public int? NumObjects { get; set; }
 
         /// <summary>
@@ -54,7 +53,12 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class ObjectsByEnv {\n");
+            sb.Append("  EnvType: ").Append(EnvType).Append("\n");
+            sb.Append("  NumObjects: ").Append(NumObjects).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -116,8 +120,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

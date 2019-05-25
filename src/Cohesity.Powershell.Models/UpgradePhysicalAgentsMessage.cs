@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies the status of an upgrade request.
@@ -30,13 +27,14 @@ namespace Cohesity.Models
         public UpgradePhysicalAgentsMessage(string message = default(string))
         {
             this.Message = message;
+            this.Message = message;
         }
         
         /// <summary>
         /// Specifies the status message returned after initiating an upgrade request. Status of each agent upgrade can be obtained by listing Physical Servers using the GET /public/protectionSources operation.
         /// </summary>
         /// <value>Specifies the status message returned after initiating an upgrade request. Status of each agent upgrade can be obtained by listing Physical Servers using the GET /public/protectionSources operation.</value>
-        [DataMember(Name="message", EmitDefaultValue=false)]
+        [DataMember(Name="message", EmitDefaultValue=true)]
         public string Message { get; set; }
 
         /// <summary>
@@ -45,7 +43,11 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class UpgradePhysicalAgentsMessage {\n");
+            sb.Append("  Message: ").Append(Message).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -100,8 +102,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

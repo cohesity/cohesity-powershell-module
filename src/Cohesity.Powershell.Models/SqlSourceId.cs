@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies a unique id for a SQL Protection Source.
@@ -28,33 +25,37 @@ namespace Cohesity.Models
         /// </summary>
         /// <param name="createdDateMsecs">Specifies a unique identifier generated from the date the database is created or renamed. Cohesity uses this identifier in combination with the databaseId to uniquely identify a database..</param>
         /// <param name="databaseId">Specifies a unique id of the database but only for the life of the database. SQL Server may reuse database ids. Cohesity uses the createDateMsecs in combination with this databaseId to uniquely identify a database..</param>
-        /// <param name="instanceId">Specifies unique id for the SQL Server instance. This id does not change during the life of the instance..</param>
-        public SqlSourceId(long? createdDateMsecs = default(long?), long? databaseId = default(long?))
+        /// <param name="instanceId">Array of bytes that stores the SQL Server Instance id.  Specifies unique id for the SQL Server instance. This id does not change during the life of the instance..</param>
+        public SqlSourceId(long? createdDateMsecs = default(long?), long? databaseId = default(long?), List<int> instanceId = default(List<int>))
         {
             this.CreatedDateMsecs = createdDateMsecs;
             this.DatabaseId = databaseId;
+            this.InstanceId = instanceId;
+            this.CreatedDateMsecs = createdDateMsecs;
+            this.DatabaseId = databaseId;
+            this.InstanceId = instanceId;
         }
         
         /// <summary>
         /// Specifies a unique identifier generated from the date the database is created or renamed. Cohesity uses this identifier in combination with the databaseId to uniquely identify a database.
         /// </summary>
         /// <value>Specifies a unique identifier generated from the date the database is created or renamed. Cohesity uses this identifier in combination with the databaseId to uniquely identify a database.</value>
-        [DataMember(Name="createdDateMsecs", EmitDefaultValue=false)]
+        [DataMember(Name="createdDateMsecs", EmitDefaultValue=true)]
         public long? CreatedDateMsecs { get; set; }
 
         /// <summary>
         /// Specifies a unique id of the database but only for the life of the database. SQL Server may reuse database ids. Cohesity uses the createDateMsecs in combination with this databaseId to uniquely identify a database.
         /// </summary>
         /// <value>Specifies a unique id of the database but only for the life of the database. SQL Server may reuse database ids. Cohesity uses the createDateMsecs in combination with this databaseId to uniquely identify a database.</value>
-        [DataMember(Name="databaseId", EmitDefaultValue=false)]
+        [DataMember(Name="databaseId", EmitDefaultValue=true)]
         public long? DatabaseId { get; set; }
 
         /// <summary>
-        /// Specifies unique id for the SQL Server instance. This id does not change during the life of the instance.
+        /// Array of bytes that stores the SQL Server Instance id.  Specifies unique id for the SQL Server instance. This id does not change during the life of the instance.
         /// </summary>
-        /// <value>Specifies unique id for the SQL Server instance. This id does not change during the life of the instance.</value>
-        [DataMember(Name="instanceId", EmitDefaultValue=false)]
-        public string InstanceId { get; set; }
+        /// <value>Array of bytes that stores the SQL Server Instance id.  Specifies unique id for the SQL Server instance. This id does not change during the life of the instance.</value>
+        [DataMember(Name="instanceId", EmitDefaultValue=true)]
+        public List<int> InstanceId { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -62,7 +63,13 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class SqlSourceId {\n");
+            sb.Append("  CreatedDateMsecs: ").Append(CreatedDateMsecs).Append("\n");
+            sb.Append("  DatabaseId: ").Append(DatabaseId).Append("\n");
+            sb.Append("  InstanceId: ").Append(InstanceId).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -108,6 +115,7 @@ namespace Cohesity.Models
                 (
                     this.InstanceId == input.InstanceId ||
                     this.InstanceId != null &&
+                    input.InstanceId != null &&
                     this.InstanceId.SequenceEqual(input.InstanceId)
                 );
         }
@@ -131,8 +139,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

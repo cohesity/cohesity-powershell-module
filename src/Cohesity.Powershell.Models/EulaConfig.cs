@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,13 +12,10 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
-    /// EulaConfig
+    /// Specifies the End User License Agreement acceptance information.
     /// </summary>
     [DataContract]
     public partial class EulaConfig :  IEquatable<EulaConfig>
@@ -26,8 +23,13 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="EulaConfig" /> class.
         /// </summary>
-        /// <param name="licenseKey">Specifies the license key..</param>
-        /// <param name="signedVersion">Specifies the version of the End User License Agreement that was accepted..</param>
+        [JsonConstructorAttribute]
+        protected EulaConfig() { }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EulaConfig" /> class.
+        /// </summary>
+        /// <param name="licenseKey">Specifies the license key. (required).</param>
+        /// <param name="signedVersion">Specifies the version of the End User License Agreement that was accepted. (required).</param>
         public EulaConfig(string licenseKey = default(string), long? signedVersion = default(long?))
         {
             this.LicenseKey = licenseKey;
@@ -38,28 +40,28 @@ namespace Cohesity.Models
         /// Specifies the license key.
         /// </summary>
         /// <value>Specifies the license key.</value>
-        [DataMember(Name="licenseKey", EmitDefaultValue=false)]
+        [DataMember(Name="licenseKey", EmitDefaultValue=true)]
         public string LicenseKey { get; set; }
 
         /// <summary>
         /// Specifies the login account name for the Cohesity user who accepted the End User License Agreement.
         /// </summary>
         /// <value>Specifies the login account name for the Cohesity user who accepted the End User License Agreement.</value>
-        [DataMember(Name="signedByUser", EmitDefaultValue=false)]
+        [DataMember(Name="signedByUser", EmitDefaultValue=true)]
         public string SignedByUser { get; private set; }
 
         /// <summary>
         /// Specifies the time that the End User License Agreement was accepted.
         /// </summary>
         /// <value>Specifies the time that the End User License Agreement was accepted.</value>
-        [DataMember(Name="signedTime", EmitDefaultValue=false)]
+        [DataMember(Name="signedTime", EmitDefaultValue=true)]
         public long? SignedTime { get; private set; }
 
         /// <summary>
         /// Specifies the version of the End User License Agreement that was accepted.
         /// </summary>
         /// <value>Specifies the version of the End User License Agreement that was accepted.</value>
-        [DataMember(Name="signedVersion", EmitDefaultValue=false)]
+        [DataMember(Name="signedVersion", EmitDefaultValue=true)]
         public long? SignedVersion { get; set; }
 
         /// <summary>
@@ -68,7 +70,14 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class EulaConfig {\n");
+            sb.Append("  LicenseKey: ").Append(LicenseKey).Append("\n");
+            sb.Append("  SignedByUser: ").Append(SignedByUser).Append("\n");
+            sb.Append("  SignedTime: ").Append(SignedTime).Append("\n");
+            sb.Append("  SignedVersion: ").Append(SignedVersion).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -144,8 +153,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

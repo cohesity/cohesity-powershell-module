@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies the list of devices that need to be combined to form the storage space. Only one of the fields is populated with a device node. If the device node is a leaf node, leafNode is populated with details about the partition blocks in the file. If the device node is an intermediate node, intermediateNode is populated with a device sub-tree.
@@ -26,25 +23,23 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="DeviceNode" /> class.
         /// </summary>
-        /// <param name="intermediateNode">Specifies an intermediate node of the logical device tree..</param>
-        /// <param name="leafNode">Specifies the leaf node of the device tree..</param>
-        public DeviceNode(DeviceTree intermediateNode = default(DeviceTree), FilePartitionBlock leafNode = default(FilePartitionBlock))
+        /// <param name="intermediateNode">intermediateNode.</param>
+        /// <param name="leafNode">leafNode.</param>
+        public DeviceNode(DeviceTreeDetails intermediateNode = default(DeviceTreeDetails), FilePartitionBlock leafNode = default(FilePartitionBlock))
         {
             this.IntermediateNode = intermediateNode;
             this.LeafNode = leafNode;
         }
         
         /// <summary>
-        /// Specifies an intermediate node of the logical device tree.
+        /// Gets or Sets IntermediateNode
         /// </summary>
-        /// <value>Specifies an intermediate node of the logical device tree.</value>
         [DataMember(Name="intermediateNode", EmitDefaultValue=false)]
-        public DeviceTree IntermediateNode { get; set; }
+        public DeviceTreeDetails IntermediateNode { get; set; }
 
         /// <summary>
-        /// Specifies the leaf node of the device tree.
+        /// Gets or Sets LeafNode
         /// </summary>
-        /// <value>Specifies the leaf node of the device tree.</value>
         [DataMember(Name="leafNode", EmitDefaultValue=false)]
         public FilePartitionBlock LeafNode { get; set; }
 
@@ -54,7 +49,12 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class DeviceNode {\n");
+            sb.Append("  IntermediateNode: ").Append(IntermediateNode).Append("\n");
+            sb.Append("  LeafNode: ").Append(LeafNode).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -116,8 +116,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

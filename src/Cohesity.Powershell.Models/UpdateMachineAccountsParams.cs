@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies the parameters required to update the machine accounts of an active directory.
@@ -26,7 +23,7 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="UpdateMachineAccountsParams" /> class.
         /// </summary>
-        /// <param name="machineAccounts">Specifies an array of computer names used to identify the Cohesity Cluster on the domain..</param>
+        /// <param name="machineAccounts">Array of Machine Accounts.  Specifies an array of computer names used to identify the Cohesity Cluster on the domain..</param>
         /// <param name="overwriteExistingAccounts">Specifies whether the specified machine accounts should overwrite the existing machine accounts in this domain..</param>
         /// <param name="password">Specifies the password for the specified userName..</param>
         /// <param name="userName">Specifies a userName that has administrative privileges in the domain..</param>
@@ -36,34 +33,38 @@ namespace Cohesity.Models
             this.OverwriteExistingAccounts = overwriteExistingAccounts;
             this.Password = password;
             this.UserName = userName;
+            this.MachineAccounts = machineAccounts;
+            this.OverwriteExistingAccounts = overwriteExistingAccounts;
+            this.Password = password;
+            this.UserName = userName;
         }
         
         /// <summary>
-        /// Specifies an array of computer names used to identify the Cohesity Cluster on the domain.
+        /// Array of Machine Accounts.  Specifies an array of computer names used to identify the Cohesity Cluster on the domain.
         /// </summary>
-        /// <value>Specifies an array of computer names used to identify the Cohesity Cluster on the domain.</value>
-        [DataMember(Name="machineAccounts", EmitDefaultValue=false)]
+        /// <value>Array of Machine Accounts.  Specifies an array of computer names used to identify the Cohesity Cluster on the domain.</value>
+        [DataMember(Name="machineAccounts", EmitDefaultValue=true)]
         public List<string> MachineAccounts { get; set; }
 
         /// <summary>
         /// Specifies whether the specified machine accounts should overwrite the existing machine accounts in this domain.
         /// </summary>
         /// <value>Specifies whether the specified machine accounts should overwrite the existing machine accounts in this domain.</value>
-        [DataMember(Name="overwriteExistingAccounts", EmitDefaultValue=false)]
+        [DataMember(Name="overwriteExistingAccounts", EmitDefaultValue=true)]
         public bool? OverwriteExistingAccounts { get; set; }
 
         /// <summary>
         /// Specifies the password for the specified userName.
         /// </summary>
         /// <value>Specifies the password for the specified userName.</value>
-        [DataMember(Name="password", EmitDefaultValue=false)]
+        [DataMember(Name="password", EmitDefaultValue=true)]
         public string Password { get; set; }
 
         /// <summary>
         /// Specifies a userName that has administrative privileges in the domain.
         /// </summary>
         /// <value>Specifies a userName that has administrative privileges in the domain.</value>
-        [DataMember(Name="userName", EmitDefaultValue=false)]
+        [DataMember(Name="userName", EmitDefaultValue=true)]
         public string UserName { get; set; }
 
         /// <summary>
@@ -72,7 +73,14 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class UpdateMachineAccountsParams {\n");
+            sb.Append("  MachineAccounts: ").Append(MachineAccounts).Append("\n");
+            sb.Append("  OverwriteExistingAccounts: ").Append(OverwriteExistingAccounts).Append("\n");
+            sb.Append("  Password: ").Append(Password).Append("\n");
+            sb.Append("  UserName: ").Append(UserName).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -108,6 +116,7 @@ namespace Cohesity.Models
                 (
                     this.MachineAccounts == input.MachineAccounts ||
                     this.MachineAccounts != null &&
+                    input.MachineAccounts != null &&
                     this.MachineAccounts.SequenceEqual(input.MachineAccounts)
                 ) && 
                 (
@@ -148,8 +157,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

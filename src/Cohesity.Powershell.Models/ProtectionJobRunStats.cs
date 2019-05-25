@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies statistics about a Protection Job Run. This contains the Job Run level statistics.
@@ -29,9 +26,10 @@ namespace Cohesity.Models
         /// <param name="admittedTimeUsecs">Specifies the time the task was unqueued from the queue to start running. This field can be used to determine the following times: initial-wait-time &#x3D; admittedTimeUsecs - startTimeUsecs run-time &#x3D; endTimeUsecs - admittedTimeUsecs If the task ends up waiting in other queues, then actual run-time will be smaller than the run-time computed this way. This field is only populated for Backup tasks currently..</param>
         /// <param name="endTimeUsecs">Specifies the end time of the Protection Run. The end time is specified as a Unix epoch Timestamp (in microseconds)..</param>
         /// <param name="numAppInstances">Specifies the number of application instances backed up by this Run. For example if the environment type is kSQL, this field contains the number of SQL Server instances..</param>
-        /// <param name="numAppObjects">Specifies the number of application objects in total backed up by this Run. For example, if the environment type is kSQL, this number is for all of the SQL server databases.</param>
         /// <param name="numCanceledTasks">Specifies the number of backup tasks that were canceled..</param>
+        /// <param name="numFailedAppObjects">Specifies the number of application objects that were cancelled in this Run..</param>
         /// <param name="numFailedTasks">Specifies the number of backup tasks that failed..</param>
+        /// <param name="numSuccessfulAppObjects">Specifies the number of application objects successfully backed up by this Run. For example, if the environment type is kSQL, this number is for all of the SQL server databases..</param>
         /// <param name="numSuccessfulTasks">Specifies the number of backup tasks that completed successfully..</param>
         /// <param name="startTimeUsecs">Specifies the start time of the Protection Run. The start time is specified as a Unix epoch Timestamp (in microseconds). This time is when the task is queued to an internal queue where tasks are waiting to run..</param>
         /// <param name="timeTakenUsecs">Specifies the actual execution time for the protection run to complete the backup task and the copy tasks. This time will not include the time waited in various internal queues. This field is only populated for Backup tasks currently..</param>
@@ -40,14 +38,30 @@ namespace Cohesity.Models
         /// <param name="totalLogicalBackupSizeBytes">Specifies the size of the source object (such as a VM) protected by this task on the primary storage after the snapshot is taken. The logical size of the data on the source if the data is fully hydrated or expanded and not reduced by change-block tracking, compression and deduplication..</param>
         /// <param name="totalPhysicalBackupSizeBytes">Specifies the total amount of physical space used on the Cohesity Cluster to store the protected object after being reduced by change-block tracking, compression and deduplication. For example, if the logical backup size is 1GB, but only 1MB was used on the Cohesity Cluster to store it, this field be equal to 1MB..</param>
         /// <param name="totalSourceSizeBytes">Specifies the size of the source object (such as a VM) protected by this task on the primary storage before the snapshot is taken. The logical size of the data on the source if the data is fully hydrated or expanded and not reduced by change-block tracking, compression and deduplication..</param>
-        public ProtectionJobRunStats(long? admittedTimeUsecs = default(long?), long? endTimeUsecs = default(long?), int? numAppInstances = default(int?), int? numAppObjects = default(int?), long? numCanceledTasks = default(long?), long? numFailedTasks = default(long?), long? numSuccessfulTasks = default(long?), long? startTimeUsecs = default(long?), long? timeTakenUsecs = default(long?), long? totalBytesReadFromSource = default(long?), long? totalBytesToReadFromSource = default(long?), long? totalLogicalBackupSizeBytes = default(long?), long? totalPhysicalBackupSizeBytes = default(long?), long? totalSourceSizeBytes = default(long?))
+        public ProtectionJobRunStats(long? admittedTimeUsecs = default(long?), long? endTimeUsecs = default(long?), int? numAppInstances = default(int?), long? numCanceledTasks = default(long?), int? numFailedAppObjects = default(int?), long? numFailedTasks = default(long?), int? numSuccessfulAppObjects = default(int?), long? numSuccessfulTasks = default(long?), long? startTimeUsecs = default(long?), long? timeTakenUsecs = default(long?), long? totalBytesReadFromSource = default(long?), long? totalBytesToReadFromSource = default(long?), long? totalLogicalBackupSizeBytes = default(long?), long? totalPhysicalBackupSizeBytes = default(long?), long? totalSourceSizeBytes = default(long?))
         {
             this.AdmittedTimeUsecs = admittedTimeUsecs;
             this.EndTimeUsecs = endTimeUsecs;
             this.NumAppInstances = numAppInstances;
-            this.NumAppObjects = numAppObjects;
             this.NumCanceledTasks = numCanceledTasks;
+            this.NumFailedAppObjects = numFailedAppObjects;
             this.NumFailedTasks = numFailedTasks;
+            this.NumSuccessfulAppObjects = numSuccessfulAppObjects;
+            this.NumSuccessfulTasks = numSuccessfulTasks;
+            this.StartTimeUsecs = startTimeUsecs;
+            this.TimeTakenUsecs = timeTakenUsecs;
+            this.TotalBytesReadFromSource = totalBytesReadFromSource;
+            this.TotalBytesToReadFromSource = totalBytesToReadFromSource;
+            this.TotalLogicalBackupSizeBytes = totalLogicalBackupSizeBytes;
+            this.TotalPhysicalBackupSizeBytes = totalPhysicalBackupSizeBytes;
+            this.TotalSourceSizeBytes = totalSourceSizeBytes;
+            this.AdmittedTimeUsecs = admittedTimeUsecs;
+            this.EndTimeUsecs = endTimeUsecs;
+            this.NumAppInstances = numAppInstances;
+            this.NumCanceledTasks = numCanceledTasks;
+            this.NumFailedAppObjects = numFailedAppObjects;
+            this.NumFailedTasks = numFailedTasks;
+            this.NumSuccessfulAppObjects = numSuccessfulAppObjects;
             this.NumSuccessfulTasks = numSuccessfulTasks;
             this.StartTimeUsecs = startTimeUsecs;
             this.TimeTakenUsecs = timeTakenUsecs;
@@ -62,98 +76,105 @@ namespace Cohesity.Models
         /// Specifies the time the task was unqueued from the queue to start running. This field can be used to determine the following times: initial-wait-time &#x3D; admittedTimeUsecs - startTimeUsecs run-time &#x3D; endTimeUsecs - admittedTimeUsecs If the task ends up waiting in other queues, then actual run-time will be smaller than the run-time computed this way. This field is only populated for Backup tasks currently.
         /// </summary>
         /// <value>Specifies the time the task was unqueued from the queue to start running. This field can be used to determine the following times: initial-wait-time &#x3D; admittedTimeUsecs - startTimeUsecs run-time &#x3D; endTimeUsecs - admittedTimeUsecs If the task ends up waiting in other queues, then actual run-time will be smaller than the run-time computed this way. This field is only populated for Backup tasks currently.</value>
-        [DataMember(Name="admittedTimeUsecs", EmitDefaultValue=false)]
+        [DataMember(Name="admittedTimeUsecs", EmitDefaultValue=true)]
         public long? AdmittedTimeUsecs { get; set; }
 
         /// <summary>
         /// Specifies the end time of the Protection Run. The end time is specified as a Unix epoch Timestamp (in microseconds).
         /// </summary>
         /// <value>Specifies the end time of the Protection Run. The end time is specified as a Unix epoch Timestamp (in microseconds).</value>
-        [DataMember(Name="endTimeUsecs", EmitDefaultValue=false)]
+        [DataMember(Name="endTimeUsecs", EmitDefaultValue=true)]
         public long? EndTimeUsecs { get; set; }
 
         /// <summary>
         /// Specifies the number of application instances backed up by this Run. For example if the environment type is kSQL, this field contains the number of SQL Server instances.
         /// </summary>
         /// <value>Specifies the number of application instances backed up by this Run. For example if the environment type is kSQL, this field contains the number of SQL Server instances.</value>
-        [DataMember(Name="numAppInstances", EmitDefaultValue=false)]
+        [DataMember(Name="numAppInstances", EmitDefaultValue=true)]
         public int? NumAppInstances { get; set; }
-
-        /// <summary>
-        /// Specifies the number of application objects in total backed up by this Run. For example, if the environment type is kSQL, this number is for all of the SQL server databases
-        /// </summary>
-        /// <value>Specifies the number of application objects in total backed up by this Run. For example, if the environment type is kSQL, this number is for all of the SQL server databases</value>
-        [DataMember(Name="numAppObjects", EmitDefaultValue=false)]
-        public int? NumAppObjects { get; set; }
 
         /// <summary>
         /// Specifies the number of backup tasks that were canceled.
         /// </summary>
         /// <value>Specifies the number of backup tasks that were canceled.</value>
-        [DataMember(Name="numCanceledTasks", EmitDefaultValue=false)]
+        [DataMember(Name="numCanceledTasks", EmitDefaultValue=true)]
         public long? NumCanceledTasks { get; set; }
+
+        /// <summary>
+        /// Specifies the number of application objects that were cancelled in this Run.
+        /// </summary>
+        /// <value>Specifies the number of application objects that were cancelled in this Run.</value>
+        [DataMember(Name="numFailedAppObjects", EmitDefaultValue=true)]
+        public int? NumFailedAppObjects { get; set; }
 
         /// <summary>
         /// Specifies the number of backup tasks that failed.
         /// </summary>
         /// <value>Specifies the number of backup tasks that failed.</value>
-        [DataMember(Name="numFailedTasks", EmitDefaultValue=false)]
+        [DataMember(Name="numFailedTasks", EmitDefaultValue=true)]
         public long? NumFailedTasks { get; set; }
+
+        /// <summary>
+        /// Specifies the number of application objects successfully backed up by this Run. For example, if the environment type is kSQL, this number is for all of the SQL server databases.
+        /// </summary>
+        /// <value>Specifies the number of application objects successfully backed up by this Run. For example, if the environment type is kSQL, this number is for all of the SQL server databases.</value>
+        [DataMember(Name="numSuccessfulAppObjects", EmitDefaultValue=true)]
+        public int? NumSuccessfulAppObjects { get; set; }
 
         /// <summary>
         /// Specifies the number of backup tasks that completed successfully.
         /// </summary>
         /// <value>Specifies the number of backup tasks that completed successfully.</value>
-        [DataMember(Name="numSuccessfulTasks", EmitDefaultValue=false)]
+        [DataMember(Name="numSuccessfulTasks", EmitDefaultValue=true)]
         public long? NumSuccessfulTasks { get; set; }
 
         /// <summary>
         /// Specifies the start time of the Protection Run. The start time is specified as a Unix epoch Timestamp (in microseconds). This time is when the task is queued to an internal queue where tasks are waiting to run.
         /// </summary>
         /// <value>Specifies the start time of the Protection Run. The start time is specified as a Unix epoch Timestamp (in microseconds). This time is when the task is queued to an internal queue where tasks are waiting to run.</value>
-        [DataMember(Name="startTimeUsecs", EmitDefaultValue=false)]
+        [DataMember(Name="startTimeUsecs", EmitDefaultValue=true)]
         public long? StartTimeUsecs { get; set; }
 
         /// <summary>
         /// Specifies the actual execution time for the protection run to complete the backup task and the copy tasks. This time will not include the time waited in various internal queues. This field is only populated for Backup tasks currently.
         /// </summary>
         /// <value>Specifies the actual execution time for the protection run to complete the backup task and the copy tasks. This time will not include the time waited in various internal queues. This field is only populated for Backup tasks currently.</value>
-        [DataMember(Name="timeTakenUsecs", EmitDefaultValue=false)]
+        [DataMember(Name="timeTakenUsecs", EmitDefaultValue=true)]
         public long? TimeTakenUsecs { get; set; }
 
         /// <summary>
         /// Specifies the total amount of data read from the source (so far).
         /// </summary>
         /// <value>Specifies the total amount of data read from the source (so far).</value>
-        [DataMember(Name="totalBytesReadFromSource", EmitDefaultValue=false)]
+        [DataMember(Name="totalBytesReadFromSource", EmitDefaultValue=true)]
         public long? TotalBytesReadFromSource { get; set; }
 
         /// <summary>
         /// Specifies the total amount of data expected to be read from the source.
         /// </summary>
         /// <value>Specifies the total amount of data expected to be read from the source.</value>
-        [DataMember(Name="totalBytesToReadFromSource", EmitDefaultValue=false)]
+        [DataMember(Name="totalBytesToReadFromSource", EmitDefaultValue=true)]
         public long? TotalBytesToReadFromSource { get; set; }
 
         /// <summary>
         /// Specifies the size of the source object (such as a VM) protected by this task on the primary storage after the snapshot is taken. The logical size of the data on the source if the data is fully hydrated or expanded and not reduced by change-block tracking, compression and deduplication.
         /// </summary>
         /// <value>Specifies the size of the source object (such as a VM) protected by this task on the primary storage after the snapshot is taken. The logical size of the data on the source if the data is fully hydrated or expanded and not reduced by change-block tracking, compression and deduplication.</value>
-        [DataMember(Name="totalLogicalBackupSizeBytes", EmitDefaultValue=false)]
+        [DataMember(Name="totalLogicalBackupSizeBytes", EmitDefaultValue=true)]
         public long? TotalLogicalBackupSizeBytes { get; set; }
 
         /// <summary>
         /// Specifies the total amount of physical space used on the Cohesity Cluster to store the protected object after being reduced by change-block tracking, compression and deduplication. For example, if the logical backup size is 1GB, but only 1MB was used on the Cohesity Cluster to store it, this field be equal to 1MB.
         /// </summary>
         /// <value>Specifies the total amount of physical space used on the Cohesity Cluster to store the protected object after being reduced by change-block tracking, compression and deduplication. For example, if the logical backup size is 1GB, but only 1MB was used on the Cohesity Cluster to store it, this field be equal to 1MB.</value>
-        [DataMember(Name="totalPhysicalBackupSizeBytes", EmitDefaultValue=false)]
+        [DataMember(Name="totalPhysicalBackupSizeBytes", EmitDefaultValue=true)]
         public long? TotalPhysicalBackupSizeBytes { get; set; }
 
         /// <summary>
         /// Specifies the size of the source object (such as a VM) protected by this task on the primary storage before the snapshot is taken. The logical size of the data on the source if the data is fully hydrated or expanded and not reduced by change-block tracking, compression and deduplication.
         /// </summary>
         /// <value>Specifies the size of the source object (such as a VM) protected by this task on the primary storage before the snapshot is taken. The logical size of the data on the source if the data is fully hydrated or expanded and not reduced by change-block tracking, compression and deduplication.</value>
-        [DataMember(Name="totalSourceSizeBytes", EmitDefaultValue=false)]
+        [DataMember(Name="totalSourceSizeBytes", EmitDefaultValue=true)]
         public long? TotalSourceSizeBytes { get; set; }
 
         /// <summary>
@@ -162,7 +183,25 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class ProtectionJobRunStats {\n");
+            sb.Append("  AdmittedTimeUsecs: ").Append(AdmittedTimeUsecs).Append("\n");
+            sb.Append("  EndTimeUsecs: ").Append(EndTimeUsecs).Append("\n");
+            sb.Append("  NumAppInstances: ").Append(NumAppInstances).Append("\n");
+            sb.Append("  NumCanceledTasks: ").Append(NumCanceledTasks).Append("\n");
+            sb.Append("  NumFailedAppObjects: ").Append(NumFailedAppObjects).Append("\n");
+            sb.Append("  NumFailedTasks: ").Append(NumFailedTasks).Append("\n");
+            sb.Append("  NumSuccessfulAppObjects: ").Append(NumSuccessfulAppObjects).Append("\n");
+            sb.Append("  NumSuccessfulTasks: ").Append(NumSuccessfulTasks).Append("\n");
+            sb.Append("  StartTimeUsecs: ").Append(StartTimeUsecs).Append("\n");
+            sb.Append("  TimeTakenUsecs: ").Append(TimeTakenUsecs).Append("\n");
+            sb.Append("  TotalBytesReadFromSource: ").Append(TotalBytesReadFromSource).Append("\n");
+            sb.Append("  TotalBytesToReadFromSource: ").Append(TotalBytesToReadFromSource).Append("\n");
+            sb.Append("  TotalLogicalBackupSizeBytes: ").Append(TotalLogicalBackupSizeBytes).Append("\n");
+            sb.Append("  TotalPhysicalBackupSizeBytes: ").Append(TotalPhysicalBackupSizeBytes).Append("\n");
+            sb.Append("  TotalSourceSizeBytes: ").Append(TotalSourceSizeBytes).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -211,19 +250,24 @@ namespace Cohesity.Models
                     this.NumAppInstances.Equals(input.NumAppInstances))
                 ) && 
                 (
-                    this.NumAppObjects == input.NumAppObjects ||
-                    (this.NumAppObjects != null &&
-                    this.NumAppObjects.Equals(input.NumAppObjects))
-                ) && 
-                (
                     this.NumCanceledTasks == input.NumCanceledTasks ||
                     (this.NumCanceledTasks != null &&
                     this.NumCanceledTasks.Equals(input.NumCanceledTasks))
                 ) && 
                 (
+                    this.NumFailedAppObjects == input.NumFailedAppObjects ||
+                    (this.NumFailedAppObjects != null &&
+                    this.NumFailedAppObjects.Equals(input.NumFailedAppObjects))
+                ) && 
+                (
                     this.NumFailedTasks == input.NumFailedTasks ||
                     (this.NumFailedTasks != null &&
                     this.NumFailedTasks.Equals(input.NumFailedTasks))
+                ) && 
+                (
+                    this.NumSuccessfulAppObjects == input.NumSuccessfulAppObjects ||
+                    (this.NumSuccessfulAppObjects != null &&
+                    this.NumSuccessfulAppObjects.Equals(input.NumSuccessfulAppObjects))
                 ) && 
                 (
                     this.NumSuccessfulTasks == input.NumSuccessfulTasks ||
@@ -282,12 +326,14 @@ namespace Cohesity.Models
                     hashCode = hashCode * 59 + this.EndTimeUsecs.GetHashCode();
                 if (this.NumAppInstances != null)
                     hashCode = hashCode * 59 + this.NumAppInstances.GetHashCode();
-                if (this.NumAppObjects != null)
-                    hashCode = hashCode * 59 + this.NumAppObjects.GetHashCode();
                 if (this.NumCanceledTasks != null)
                     hashCode = hashCode * 59 + this.NumCanceledTasks.GetHashCode();
+                if (this.NumFailedAppObjects != null)
+                    hashCode = hashCode * 59 + this.NumFailedAppObjects.GetHashCode();
                 if (this.NumFailedTasks != null)
                     hashCode = hashCode * 59 + this.NumFailedTasks.GetHashCode();
+                if (this.NumSuccessfulAppObjects != null)
+                    hashCode = hashCode * 59 + this.NumSuccessfulAppObjects.GetHashCode();
                 if (this.NumSuccessfulTasks != null)
                     hashCode = hashCode * 59 + this.NumSuccessfulTasks.GetHashCode();
                 if (this.StartTimeUsecs != null)
@@ -308,8 +354,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

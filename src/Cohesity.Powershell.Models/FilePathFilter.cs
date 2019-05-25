@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies filters to match files and directories on a Server. Two kinds of filters are supported. a) prefix which always starts with &#39;/&#39;. b) posix which always starts with &#39;*&#39; (cannot be \&quot;*\&quot; only). Regular expressions are not supported. If a directory is matched, the action is applicable to all of its descendants. File paths not matching any protectFilters are not backed up.  An example is: Protect Filters: \&quot;/\&quot; Exclude Filters: \&quot;/tmp\&quot;, \&quot;*.mp4\&quot; Using such a policy will include everything under the root directory except the /tmp directory and all the mp4 files.
@@ -26,26 +23,28 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="FilePathFilter" /> class.
         /// </summary>
-        /// <param name="excludeFilters">Specifies filters to match files or directories that should be removed from the list of objects matching ProtectFilters..</param>
-        /// <param name="protectFilters">Specifies filters to match files or directories that should be protected..</param>
+        /// <param name="excludeFilters">Array of Excluded File Path Filters.  Specifies filters to match files or directories that should be removed from the list of objects matching ProtectFilters..</param>
+        /// <param name="protectFilters">Array of Protected File Path Filters.  Specifies filters to match files or directories that should be protected..</param>
         public FilePathFilter(List<string> excludeFilters = default(List<string>), List<string> protectFilters = default(List<string>))
         {
+            this.ExcludeFilters = excludeFilters;
+            this.ProtectFilters = protectFilters;
             this.ExcludeFilters = excludeFilters;
             this.ProtectFilters = protectFilters;
         }
         
         /// <summary>
-        /// Specifies filters to match files or directories that should be removed from the list of objects matching ProtectFilters.
+        /// Array of Excluded File Path Filters.  Specifies filters to match files or directories that should be removed from the list of objects matching ProtectFilters.
         /// </summary>
-        /// <value>Specifies filters to match files or directories that should be removed from the list of objects matching ProtectFilters.</value>
-        [DataMember(Name="excludeFilters", EmitDefaultValue=false)]
+        /// <value>Array of Excluded File Path Filters.  Specifies filters to match files or directories that should be removed from the list of objects matching ProtectFilters.</value>
+        [DataMember(Name="excludeFilters", EmitDefaultValue=true)]
         public List<string> ExcludeFilters { get; set; }
 
         /// <summary>
-        /// Specifies filters to match files or directories that should be protected.
+        /// Array of Protected File Path Filters.  Specifies filters to match files or directories that should be protected.
         /// </summary>
-        /// <value>Specifies filters to match files or directories that should be protected.</value>
-        [DataMember(Name="protectFilters", EmitDefaultValue=false)]
+        /// <value>Array of Protected File Path Filters.  Specifies filters to match files or directories that should be protected.</value>
+        [DataMember(Name="protectFilters", EmitDefaultValue=true)]
         public List<string> ProtectFilters { get; set; }
 
         /// <summary>
@@ -54,7 +53,12 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class FilePathFilter {\n");
+            sb.Append("  ExcludeFilters: ").Append(ExcludeFilters).Append("\n");
+            sb.Append("  ProtectFilters: ").Append(ProtectFilters).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -90,11 +94,13 @@ namespace Cohesity.Models
                 (
                     this.ExcludeFilters == input.ExcludeFilters ||
                     this.ExcludeFilters != null &&
+                    input.ExcludeFilters != null &&
                     this.ExcludeFilters.SequenceEqual(input.ExcludeFilters)
                 ) && 
                 (
                     this.ProtectFilters == input.ProtectFilters ||
                     this.ProtectFilters != null &&
+                    input.ProtectFilters != null &&
                     this.ProtectFilters.SequenceEqual(input.ProtectFilters)
                 );
         }
@@ -116,8 +122,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

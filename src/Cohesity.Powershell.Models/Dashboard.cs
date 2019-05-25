@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,13 +12,10 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
-    /// Dashboard
+    /// Data shown on Dashboard.
     /// </summary>
     [DataContract]
     public partial class Dashboard :  IEquatable<Dashboard>
@@ -26,18 +23,19 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="Dashboard" /> class.
         /// </summary>
-        /// <param name="auditLogs">Audit Logs..</param>
+        /// <param name="auditLogs">auditLogs.</param>
         /// <param name="clusterId">Id of the cluster for which dashboard is given..</param>
-        /// <param name="health">Cluster Health and alerts..</param>
-        /// <param name="iops">IOPs..</param>
-        /// <param name="jobRuns">Protection Job Runs..</param>
-        /// <param name="protectedObjects">ProtectedObjects related stats..</param>
-        /// <param name="protection">Protection related stats..</param>
-        /// <param name="recoveries">Recoveries related stats..</param>
-        /// <param name="storageEfficiency">Storage efficiency stats..</param>
-        /// <param name="throughput">Throughput..</param>
+        /// <param name="health">health.</param>
+        /// <param name="iops">iops.</param>
+        /// <param name="jobRuns">jobRuns.</param>
+        /// <param name="protectedObjects">protectedObjects.</param>
+        /// <param name="protection">protection.</param>
+        /// <param name="recoveries">recoveries.</param>
+        /// <param name="storageEfficiency">storageEfficiency.</param>
+        /// <param name="throughput">throughput.</param>
         public Dashboard(AuditLogsTile auditLogs = default(AuditLogsTile), long? clusterId = default(long?), HealthTile health = default(HealthTile), IopsTile iops = default(IopsTile), JobRunsTile jobRuns = default(JobRunsTile), ProtectedObjectsTile protectedObjects = default(ProtectedObjectsTile), ProtectionTile protection = default(ProtectionTile), RecoveriesTile recoveries = default(RecoveriesTile), StorageEfficiencyTile storageEfficiency = default(StorageEfficiencyTile), ThroughputTile throughput = default(ThroughputTile))
         {
+            this.ClusterId = clusterId;
             this.AuditLogs = auditLogs;
             this.ClusterId = clusterId;
             this.Health = health;
@@ -51,9 +49,8 @@ namespace Cohesity.Models
         }
         
         /// <summary>
-        /// Audit Logs.
+        /// Gets or Sets AuditLogs
         /// </summary>
-        /// <value>Audit Logs.</value>
         [DataMember(Name="auditLogs", EmitDefaultValue=false)]
         public AuditLogsTile AuditLogs { get; set; }
 
@@ -61,62 +58,54 @@ namespace Cohesity.Models
         /// Id of the cluster for which dashboard is given.
         /// </summary>
         /// <value>Id of the cluster for which dashboard is given.</value>
-        [DataMember(Name="clusterId", EmitDefaultValue=false)]
+        [DataMember(Name="clusterId", EmitDefaultValue=true)]
         public long? ClusterId { get; set; }
 
         /// <summary>
-        /// Cluster Health and alerts.
+        /// Gets or Sets Health
         /// </summary>
-        /// <value>Cluster Health and alerts.</value>
         [DataMember(Name="health", EmitDefaultValue=false)]
         public HealthTile Health { get; set; }
 
         /// <summary>
-        /// IOPs.
+        /// Gets or Sets Iops
         /// </summary>
-        /// <value>IOPs.</value>
         [DataMember(Name="iops", EmitDefaultValue=false)]
         public IopsTile Iops { get; set; }
 
         /// <summary>
-        /// Protection Job Runs.
+        /// Gets or Sets JobRuns
         /// </summary>
-        /// <value>Protection Job Runs.</value>
         [DataMember(Name="jobRuns", EmitDefaultValue=false)]
         public JobRunsTile JobRuns { get; set; }
 
         /// <summary>
-        /// ProtectedObjects related stats.
+        /// Gets or Sets ProtectedObjects
         /// </summary>
-        /// <value>ProtectedObjects related stats.</value>
         [DataMember(Name="protectedObjects", EmitDefaultValue=false)]
         public ProtectedObjectsTile ProtectedObjects { get; set; }
 
         /// <summary>
-        /// Protection related stats.
+        /// Gets or Sets Protection
         /// </summary>
-        /// <value>Protection related stats.</value>
         [DataMember(Name="protection", EmitDefaultValue=false)]
         public ProtectionTile Protection { get; set; }
 
         /// <summary>
-        /// Recoveries related stats.
+        /// Gets or Sets Recoveries
         /// </summary>
-        /// <value>Recoveries related stats.</value>
         [DataMember(Name="recoveries", EmitDefaultValue=false)]
         public RecoveriesTile Recoveries { get; set; }
 
         /// <summary>
-        /// Storage efficiency stats.
+        /// Gets or Sets StorageEfficiency
         /// </summary>
-        /// <value>Storage efficiency stats.</value>
         [DataMember(Name="storageEfficiency", EmitDefaultValue=false)]
         public StorageEfficiencyTile StorageEfficiency { get; set; }
 
         /// <summary>
-        /// Throughput.
+        /// Gets or Sets Throughput
         /// </summary>
-        /// <value>Throughput.</value>
         [DataMember(Name="throughput", EmitDefaultValue=false)]
         public ThroughputTile Throughput { get; set; }
 
@@ -126,7 +115,20 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class Dashboard {\n");
+            sb.Append("  AuditLogs: ").Append(AuditLogs).Append("\n");
+            sb.Append("  ClusterId: ").Append(ClusterId).Append("\n");
+            sb.Append("  Health: ").Append(Health).Append("\n");
+            sb.Append("  Iops: ").Append(Iops).Append("\n");
+            sb.Append("  JobRuns: ").Append(JobRuns).Append("\n");
+            sb.Append("  ProtectedObjects: ").Append(ProtectedObjects).Append("\n");
+            sb.Append("  Protection: ").Append(Protection).Append("\n");
+            sb.Append("  Recoveries: ").Append(Recoveries).Append("\n");
+            sb.Append("  StorageEfficiency: ").Append(StorageEfficiency).Append("\n");
+            sb.Append("  Throughput: ").Append(Throughput).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -244,8 +246,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

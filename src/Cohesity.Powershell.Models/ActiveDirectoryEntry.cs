@@ -1,14 +1,18 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
+using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies the join settings for a Microsoft Active Directory domain.
@@ -20,21 +24,43 @@ namespace Cohesity.Models
         /// Initializes a new instance of the <see cref="ActiveDirectoryEntry" /> class.
         /// </summary>
         /// <param name="domainName">Specifies the fully qualified domain name (FQDN) of an Active Directory..</param>
-        /// <param name="fallbackUserIdMappingInfo">Specifies the fallback id mapping info which is used when an ID mapping for a user is not found via the above IdMappingInfo. Only supported for two types of fallback mapping types - &#39;kRid&#39; and &#39;kFixed&#39;..</param>
-        /// <param name="machineAccounts">Specifies an array of computer names used to identify the Cohesity Cluster on the domain..</param>
+        /// <param name="fallbackUserIdMappingInfo">fallbackUserIdMappingInfo.</param>
+        /// <param name="ignoredTrustedDomains">Specifies the list of trusted domains that were set by the user to be ignored during trusted domain discovery..</param>
+        /// <param name="ldapProviderId">Specifies the LDAP provider id which is map to this Active Directory.</param>
+        /// <param name="machineAccounts">Array of Machine Accounts.  Specifies an array of computer names used to identify the Cohesity Cluster on the domain..</param>
         /// <param name="ouName">Specifies an optional Organizational Unit name..</param>
         /// <param name="password">Specifies the password for the specified userName..</param>
+        /// <param name="preferredDomainControllers">Specifies Map of Active Directory domain names to its preferred domain controllers..</param>
+        /// <param name="tenantId">Specifies the unique id of the tenant..</param>
+        /// <param name="trustedDomainsEnabled">Specifies whether Trusted Domain discovery is disabled..</param>
         /// <param name="unixRootSid">Specifies the SID of the Active Directory domain user to be mapped to Unix root user..</param>
-        /// <param name="userIdMappingInfo">Specifies the information about how the Unix and Windows users are mapped for this domain..</param>
+        /// <param name="userIdMappingInfo">userIdMappingInfo.</param>
         /// <param name="userName">Specifies a userName that has administrative privileges in the domain..</param>
         /// <param name="workgroup">Specifies an optional Workgroup name..</param>
-        public ActiveDirectoryEntry(string domainName = default(string), UserIdMapping fallbackUserIdMappingInfo = default(UserIdMapping), List<string> machineAccounts = default(List<string>), string ouName = default(string), string password = default(string), string unixRootSid = default(string), UserIdMapping userIdMappingInfo = default(UserIdMapping), string userName = default(string), string workgroup = default(string))
+        public ActiveDirectoryEntry(string domainName = default(string), UserIdMapping fallbackUserIdMappingInfo = default(UserIdMapping), List<string> ignoredTrustedDomains = default(List<string>), long? ldapProviderId = default(long?), List<string> machineAccounts = default(List<string>), string ouName = default(string), string password = default(string), List<PreferredDomainController> preferredDomainControllers = default(List<PreferredDomainController>), string tenantId = default(string), bool? trustedDomainsEnabled = default(bool?), string unixRootSid = default(string), UserIdMapping userIdMappingInfo = default(UserIdMapping), string userName = default(string), string workgroup = default(string))
         {
             this.DomainName = domainName;
-            this.FallbackUserIdMappingInfo = fallbackUserIdMappingInfo;
+            this.IgnoredTrustedDomains = ignoredTrustedDomains;
+            this.LdapProviderId = ldapProviderId;
             this.MachineAccounts = machineAccounts;
             this.OuName = ouName;
             this.Password = password;
+            this.PreferredDomainControllers = preferredDomainControllers;
+            this.TenantId = tenantId;
+            this.TrustedDomainsEnabled = trustedDomainsEnabled;
+            this.UnixRootSid = unixRootSid;
+            this.UserName = userName;
+            this.Workgroup = workgroup;
+            this.DomainName = domainName;
+            this.FallbackUserIdMappingInfo = fallbackUserIdMappingInfo;
+            this.IgnoredTrustedDomains = ignoredTrustedDomains;
+            this.LdapProviderId = ldapProviderId;
+            this.MachineAccounts = machineAccounts;
+            this.OuName = ouName;
+            this.Password = password;
+            this.PreferredDomainControllers = preferredDomainControllers;
+            this.TenantId = tenantId;
+            this.TrustedDomainsEnabled = trustedDomainsEnabled;
             this.UnixRootSid = unixRootSid;
             this.UserIdMappingInfo = userIdMappingInfo;
             this.UserName = userName;
@@ -45,54 +71,88 @@ namespace Cohesity.Models
         /// Specifies the fully qualified domain name (FQDN) of an Active Directory.
         /// </summary>
         /// <value>Specifies the fully qualified domain name (FQDN) of an Active Directory.</value>
-        [DataMember(Name="domainName", EmitDefaultValue=false)]
+        [DataMember(Name="domainName", EmitDefaultValue=true)]
         public string DomainName { get; set; }
 
         /// <summary>
-        /// Specifies the fallback id mapping info which is used when an ID mapping for a user is not found via the above IdMappingInfo. Only supported for two types of fallback mapping types - &#39;kRid&#39; and &#39;kFixed&#39;.
+        /// Gets or Sets FallbackUserIdMappingInfo
         /// </summary>
-        /// <value>Specifies the fallback id mapping info which is used when an ID mapping for a user is not found via the above IdMappingInfo. Only supported for two types of fallback mapping types - &#39;kRid&#39; and &#39;kFixed&#39;.</value>
         [DataMember(Name="fallbackUserIdMappingInfo", EmitDefaultValue=false)]
         public UserIdMapping FallbackUserIdMappingInfo { get; set; }
 
         /// <summary>
-        /// Specifies an array of computer names used to identify the Cohesity Cluster on the domain.
+        /// Specifies the list of trusted domains that were set by the user to be ignored during trusted domain discovery.
         /// </summary>
-        /// <value>Specifies an array of computer names used to identify the Cohesity Cluster on the domain.</value>
-        [DataMember(Name="machineAccounts", EmitDefaultValue=false)]
+        /// <value>Specifies the list of trusted domains that were set by the user to be ignored during trusted domain discovery.</value>
+        [DataMember(Name="ignoredTrustedDomains", EmitDefaultValue=true)]
+        public List<string> IgnoredTrustedDomains { get; set; }
+
+        /// <summary>
+        /// Specifies the LDAP provider id which is map to this Active Directory
+        /// </summary>
+        /// <value>Specifies the LDAP provider id which is map to this Active Directory</value>
+        [DataMember(Name="ldapProviderId", EmitDefaultValue=true)]
+        public long? LdapProviderId { get; set; }
+
+        /// <summary>
+        /// Array of Machine Accounts.  Specifies an array of computer names used to identify the Cohesity Cluster on the domain.
+        /// </summary>
+        /// <value>Array of Machine Accounts.  Specifies an array of computer names used to identify the Cohesity Cluster on the domain.</value>
+        [DataMember(Name="machineAccounts", EmitDefaultValue=true)]
         public List<string> MachineAccounts { get; set; }
 
         /// <summary>
         /// Specifies an optional Organizational Unit name.
         /// </summary>
         /// <value>Specifies an optional Organizational Unit name.</value>
-        [DataMember(Name="ouName", EmitDefaultValue=false)]
+        [DataMember(Name="ouName", EmitDefaultValue=true)]
         public string OuName { get; set; }
 
         /// <summary>
         /// Specifies the password for the specified userName.
         /// </summary>
         /// <value>Specifies the password for the specified userName.</value>
-        [DataMember(Name="password", EmitDefaultValue=false)]
+        [DataMember(Name="password", EmitDefaultValue=true)]
         public string Password { get; set; }
 
         /// <summary>
-        /// Gets or Sets TrustedDomains
+        /// Specifies Map of Active Directory domain names to its preferred domain controllers.
         /// </summary>
-        [DataMember(Name="trustedDomains", EmitDefaultValue=false)]
+        /// <value>Specifies Map of Active Directory domain names to its preferred domain controllers.</value>
+        [DataMember(Name="preferredDomainControllers", EmitDefaultValue=true)]
+        public List<PreferredDomainController> PreferredDomainControllers { get; set; }
+
+        /// <summary>
+        /// Specifies the unique id of the tenant.
+        /// </summary>
+        /// <value>Specifies the unique id of the tenant.</value>
+        [DataMember(Name="tenantId", EmitDefaultValue=true)]
+        public string TenantId { get; set; }
+
+        /// <summary>
+        /// Specifies the trusted domains of the Active Directory domain.
+        /// </summary>
+        /// <value>Specifies the trusted domains of the Active Directory domain.</value>
+        [DataMember(Name="trustedDomains", EmitDefaultValue=true)]
         public List<string> TrustedDomains { get; private set; }
+
+        /// <summary>
+        /// Specifies whether Trusted Domain discovery is disabled.
+        /// </summary>
+        /// <value>Specifies whether Trusted Domain discovery is disabled.</value>
+        [DataMember(Name="trustedDomainsEnabled", EmitDefaultValue=true)]
+        public bool? TrustedDomainsEnabled { get; set; }
 
         /// <summary>
         /// Specifies the SID of the Active Directory domain user to be mapped to Unix root user.
         /// </summary>
         /// <value>Specifies the SID of the Active Directory domain user to be mapped to Unix root user.</value>
-        [DataMember(Name="unixRootSid", EmitDefaultValue=false)]
+        [DataMember(Name="unixRootSid", EmitDefaultValue=true)]
         public string UnixRootSid { get; set; }
 
         /// <summary>
-        /// Specifies the information about how the Unix and Windows users are mapped for this domain.
+        /// Gets or Sets UserIdMappingInfo
         /// </summary>
-        /// <value>Specifies the information about how the Unix and Windows users are mapped for this domain.</value>
         [DataMember(Name="userIdMappingInfo", EmitDefaultValue=false)]
         public UserIdMapping UserIdMappingInfo { get; set; }
 
@@ -100,14 +160,14 @@ namespace Cohesity.Models
         /// Specifies a userName that has administrative privileges in the domain.
         /// </summary>
         /// <value>Specifies a userName that has administrative privileges in the domain.</value>
-        [DataMember(Name="userName", EmitDefaultValue=false)]
+        [DataMember(Name="userName", EmitDefaultValue=true)]
         public string UserName { get; set; }
 
         /// <summary>
         /// Specifies an optional Workgroup name.
         /// </summary>
         /// <value>Specifies an optional Workgroup name.</value>
-        [DataMember(Name="workgroup", EmitDefaultValue=false)]
+        [DataMember(Name="workgroup", EmitDefaultValue=true)]
         public string Workgroup { get; set; }
 
         /// <summary>
@@ -116,7 +176,25 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class ActiveDirectoryEntry {\n");
+            sb.Append("  DomainName: ").Append(DomainName).Append("\n");
+            sb.Append("  FallbackUserIdMappingInfo: ").Append(FallbackUserIdMappingInfo).Append("\n");
+            sb.Append("  IgnoredTrustedDomains: ").Append(IgnoredTrustedDomains).Append("\n");
+            sb.Append("  LdapProviderId: ").Append(LdapProviderId).Append("\n");
+            sb.Append("  MachineAccounts: ").Append(MachineAccounts).Append("\n");
+            sb.Append("  OuName: ").Append(OuName).Append("\n");
+            sb.Append("  Password: ").Append(Password).Append("\n");
+            sb.Append("  PreferredDomainControllers: ").Append(PreferredDomainControllers).Append("\n");
+            sb.Append("  TenantId: ").Append(TenantId).Append("\n");
+            sb.Append("  TrustedDomains: ").Append(TrustedDomains).Append("\n");
+            sb.Append("  TrustedDomainsEnabled: ").Append(TrustedDomainsEnabled).Append("\n");
+            sb.Append("  UnixRootSid: ").Append(UnixRootSid).Append("\n");
+            sb.Append("  UserIdMappingInfo: ").Append(UserIdMappingInfo).Append("\n");
+            sb.Append("  UserName: ").Append(UserName).Append("\n");
+            sb.Append("  Workgroup: ").Append(Workgroup).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -160,8 +238,20 @@ namespace Cohesity.Models
                     this.FallbackUserIdMappingInfo.Equals(input.FallbackUserIdMappingInfo))
                 ) && 
                 (
+                    this.IgnoredTrustedDomains == input.IgnoredTrustedDomains ||
+                    this.IgnoredTrustedDomains != null &&
+                    input.IgnoredTrustedDomains != null &&
+                    this.IgnoredTrustedDomains.SequenceEqual(input.IgnoredTrustedDomains)
+                ) && 
+                (
+                    this.LdapProviderId == input.LdapProviderId ||
+                    (this.LdapProviderId != null &&
+                    this.LdapProviderId.Equals(input.LdapProviderId))
+                ) && 
+                (
                     this.MachineAccounts == input.MachineAccounts ||
                     this.MachineAccounts != null &&
+                    input.MachineAccounts != null &&
                     this.MachineAccounts.SequenceEqual(input.MachineAccounts)
                 ) && 
                 (
@@ -175,9 +265,26 @@ namespace Cohesity.Models
                     this.Password.Equals(input.Password))
                 ) && 
                 (
+                    this.PreferredDomainControllers == input.PreferredDomainControllers ||
+                    this.PreferredDomainControllers != null &&
+                    input.PreferredDomainControllers != null &&
+                    this.PreferredDomainControllers.SequenceEqual(input.PreferredDomainControllers)
+                ) && 
+                (
+                    this.TenantId == input.TenantId ||
+                    (this.TenantId != null &&
+                    this.TenantId.Equals(input.TenantId))
+                ) && 
+                (
                     this.TrustedDomains == input.TrustedDomains ||
                     this.TrustedDomains != null &&
+                    input.TrustedDomains != null &&
                     this.TrustedDomains.SequenceEqual(input.TrustedDomains)
+                ) && 
+                (
+                    this.TrustedDomainsEnabled == input.TrustedDomainsEnabled ||
+                    (this.TrustedDomainsEnabled != null &&
+                    this.TrustedDomainsEnabled.Equals(input.TrustedDomainsEnabled))
                 ) && 
                 (
                     this.UnixRootSid == input.UnixRootSid ||
@@ -214,14 +321,24 @@ namespace Cohesity.Models
                     hashCode = hashCode * 59 + this.DomainName.GetHashCode();
                 if (this.FallbackUserIdMappingInfo != null)
                     hashCode = hashCode * 59 + this.FallbackUserIdMappingInfo.GetHashCode();
+                if (this.IgnoredTrustedDomains != null)
+                    hashCode = hashCode * 59 + this.IgnoredTrustedDomains.GetHashCode();
+                if (this.LdapProviderId != null)
+                    hashCode = hashCode * 59 + this.LdapProviderId.GetHashCode();
                 if (this.MachineAccounts != null)
                     hashCode = hashCode * 59 + this.MachineAccounts.GetHashCode();
                 if (this.OuName != null)
                     hashCode = hashCode * 59 + this.OuName.GetHashCode();
                 if (this.Password != null)
                     hashCode = hashCode * 59 + this.Password.GetHashCode();
+                if (this.PreferredDomainControllers != null)
+                    hashCode = hashCode * 59 + this.PreferredDomainControllers.GetHashCode();
+                if (this.TenantId != null)
+                    hashCode = hashCode * 59 + this.TenantId.GetHashCode();
                 if (this.TrustedDomains != null)
                     hashCode = hashCode * 59 + this.TrustedDomains.GetHashCode();
+                if (this.TrustedDomainsEnabled != null)
+                    hashCode = hashCode * 59 + this.TrustedDomainsEnabled.GetHashCode();
                 if (this.UnixRootSid != null)
                     hashCode = hashCode * 59 + this.UnixRootSid.GetHashCode();
                 if (this.UserIdMappingInfo != null)
@@ -237,4 +354,3 @@ namespace Cohesity.Models
     }
 
 }
-

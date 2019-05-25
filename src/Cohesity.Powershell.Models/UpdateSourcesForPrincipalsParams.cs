@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,13 +12,10 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
-    /// Specifies a list of principals to set access permissions for. For each principal, set the Protection Sources and View names that the specified principal has permissions to access.
+    /// Set Access Permissions for Principals. Specifies a list of principals to set access permissions for. For each principal, set the Protection Sources and View names that the specified principal has permissions to access.
     /// </summary>
     [DataContract]
     public partial class UpdateSourcesForPrincipalsParams :  IEquatable<UpdateSourcesForPrincipalsParams>
@@ -26,17 +23,18 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="UpdateSourcesForPrincipalsParams" /> class.
         /// </summary>
-        /// <param name="sourcesForPrincipals">Specifies a list of principals. For each principal, specify the Protection Sources and Views that the principal has permissions to access..</param>
+        /// <param name="sourcesForPrincipals">Array of Principals, Sources and Views.  Specifies a list of principals. For each principal, specify the Protection Sources and Views that the principal has permissions to access..</param>
         public UpdateSourcesForPrincipalsParams(List<SourceForPrincipalParam> sourcesForPrincipals = default(List<SourceForPrincipalParam>))
         {
+            this.SourcesForPrincipals = sourcesForPrincipals;
             this.SourcesForPrincipals = sourcesForPrincipals;
         }
         
         /// <summary>
-        /// Specifies a list of principals. For each principal, specify the Protection Sources and Views that the principal has permissions to access.
+        /// Array of Principals, Sources and Views.  Specifies a list of principals. For each principal, specify the Protection Sources and Views that the principal has permissions to access.
         /// </summary>
-        /// <value>Specifies a list of principals. For each principal, specify the Protection Sources and Views that the principal has permissions to access.</value>
-        [DataMember(Name="sourcesForPrincipals", EmitDefaultValue=false)]
+        /// <value>Array of Principals, Sources and Views.  Specifies a list of principals. For each principal, specify the Protection Sources and Views that the principal has permissions to access.</value>
+        [DataMember(Name="sourcesForPrincipals", EmitDefaultValue=true)]
         public List<SourceForPrincipalParam> SourcesForPrincipals { get; set; }
 
         /// <summary>
@@ -45,7 +43,11 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class UpdateSourcesForPrincipalsParams {\n");
+            sb.Append("  SourcesForPrincipals: ").Append(SourcesForPrincipals).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -81,6 +83,7 @@ namespace Cohesity.Models
                 (
                     this.SourcesForPrincipals == input.SourcesForPrincipals ||
                     this.SourcesForPrincipals != null &&
+                    input.SourcesForPrincipals != null &&
                     this.SourcesForPrincipals.SequenceEqual(input.SourcesForPrincipals)
                 );
         }
@@ -100,8 +103,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

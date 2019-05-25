@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// ApplicationsWrapper is the struct to define the list of map-reduce applications.
@@ -30,13 +27,14 @@ namespace Cohesity.Models
         public ApplicationsWrapper(List<MapReduceInfo> applications = default(List<MapReduceInfo>))
         {
             this.Applications = applications;
+            this.Applications = applications;
         }
         
         /// <summary>
         /// Applications specifies the list of available map-reduce applications in analytics workbench.
         /// </summary>
         /// <value>Applications specifies the list of available map-reduce applications in analytics workbench.</value>
-        [DataMember(Name="applications", EmitDefaultValue=false)]
+        [DataMember(Name="applications", EmitDefaultValue=true)]
         public List<MapReduceInfo> Applications { get; set; }
 
         /// <summary>
@@ -45,7 +43,11 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class ApplicationsWrapper {\n");
+            sb.Append("  Applications: ").Append(Applications).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -81,6 +83,7 @@ namespace Cohesity.Models
                 (
                     this.Applications == input.Applications ||
                     this.Applications != null &&
+                    input.Applications != null &&
                     this.Applications.SequenceEqual(input.Applications)
                 );
         }
@@ -100,8 +103,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

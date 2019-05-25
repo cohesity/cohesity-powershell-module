@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,13 +12,10 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
-    /// Hardware JSON file serves as cache for hardware info to reduce hardware polling which takes time.
+    /// This struct should match the fields in the hardware JSON file. Hardware JSON file serves as cache for hardware info to reduce hardware polling which takes time.
     /// </summary>
     [DataContract]
     public partial class HardwareInfo :  IEquatable<HardwareInfo>
@@ -29,101 +26,113 @@ namespace Cohesity.Models
         /// <param name="chassisModel">chassisModel.</param>
         /// <param name="chassisSerial">chassisSerial.</param>
         /// <param name="chassisType">chassisType.</param>
+        /// <param name="cohesityChassisSerial">cohesityChassisSerial.</param>
+        /// <param name="cohesityNodeSerial">cohesityNodeSerial.</param>
         /// <param name="hbaModel">hbaModel.</param>
         /// <param name="ipmiLanChannel">ipmiLanChannel.</param>
         /// <param name="maxSlots">maxSlots.</param>
         /// <param name="nodeModel">nodeModel.</param>
         /// <param name="nodeSerial">nodeSerial.</param>
-        /// <param name="primaryBondName">primaryBondName.</param>
         /// <param name="productModel">productModel.</param>
-        /// <param name="secondaryBondName">secondaryBondName.</param>
         /// <param name="slotNumber">slotNumber.</param>
-        public HardwareInfo(string chassisModel = default(string), string chassisSerial = default(string), string chassisType = default(string), string hbaModel = default(string), string ipmiLanChannel = default(string), string maxSlots = default(string), string nodeModel = default(string), string nodeSerial = default(string), string primaryBondName = default(string), string productModel = default(string), List<string> secondaryBondName = default(List<string>), string slotNumber = default(string))
+        public HardwareInfo(string chassisModel = default(string), string chassisSerial = default(string), string chassisType = default(string), string cohesityChassisSerial = default(string), string cohesityNodeSerial = default(string), string hbaModel = default(string), string ipmiLanChannel = default(string), string maxSlots = default(string), string nodeModel = default(string), string nodeSerial = default(string), string productModel = default(string), string slotNumber = default(string))
         {
             this.ChassisModel = chassisModel;
             this.ChassisSerial = chassisSerial;
             this.ChassisType = chassisType;
+            this.CohesityChassisSerial = cohesityChassisSerial;
+            this.CohesityNodeSerial = cohesityNodeSerial;
             this.HbaModel = hbaModel;
             this.IpmiLanChannel = ipmiLanChannel;
             this.MaxSlots = maxSlots;
             this.NodeModel = nodeModel;
             this.NodeSerial = nodeSerial;
-            this.PrimaryBondName = primaryBondName;
             this.ProductModel = productModel;
-            this.SecondaryBondName = secondaryBondName;
+            this.SlotNumber = slotNumber;
+            this.ChassisModel = chassisModel;
+            this.ChassisSerial = chassisSerial;
+            this.ChassisType = chassisType;
+            this.CohesityChassisSerial = cohesityChassisSerial;
+            this.CohesityNodeSerial = cohesityNodeSerial;
+            this.HbaModel = hbaModel;
+            this.IpmiLanChannel = ipmiLanChannel;
+            this.MaxSlots = maxSlots;
+            this.NodeModel = nodeModel;
+            this.NodeSerial = nodeSerial;
+            this.ProductModel = productModel;
             this.SlotNumber = slotNumber;
         }
         
         /// <summary>
         /// Gets or Sets ChassisModel
         /// </summary>
-        [DataMember(Name="chassisModel", EmitDefaultValue=false)]
+        [DataMember(Name="chassisModel", EmitDefaultValue=true)]
         public string ChassisModel { get; set; }
 
         /// <summary>
         /// Gets or Sets ChassisSerial
         /// </summary>
-        [DataMember(Name="chassisSerial", EmitDefaultValue=false)]
+        [DataMember(Name="chassisSerial", EmitDefaultValue=true)]
         public string ChassisSerial { get; set; }
 
         /// <summary>
         /// Gets or Sets ChassisType
         /// </summary>
-        [DataMember(Name="chassisType", EmitDefaultValue=false)]
+        [DataMember(Name="chassisType", EmitDefaultValue=true)]
         public string ChassisType { get; set; }
+
+        /// <summary>
+        /// Gets or Sets CohesityChassisSerial
+        /// </summary>
+        [DataMember(Name="cohesityChassisSerial", EmitDefaultValue=true)]
+        public string CohesityChassisSerial { get; set; }
+
+        /// <summary>
+        /// Gets or Sets CohesityNodeSerial
+        /// </summary>
+        [DataMember(Name="cohesityNodeSerial", EmitDefaultValue=true)]
+        public string CohesityNodeSerial { get; set; }
 
         /// <summary>
         /// Gets or Sets HbaModel
         /// </summary>
-        [DataMember(Name="hbaModel", EmitDefaultValue=false)]
+        [DataMember(Name="hbaModel", EmitDefaultValue=true)]
         public string HbaModel { get; set; }
 
         /// <summary>
         /// Gets or Sets IpmiLanChannel
         /// </summary>
-        [DataMember(Name="ipmiLanChannel", EmitDefaultValue=false)]
+        [DataMember(Name="ipmiLanChannel", EmitDefaultValue=true)]
         public string IpmiLanChannel { get; set; }
 
         /// <summary>
         /// Gets or Sets MaxSlots
         /// </summary>
-        [DataMember(Name="maxSlots", EmitDefaultValue=false)]
+        [DataMember(Name="maxSlots", EmitDefaultValue=true)]
         public string MaxSlots { get; set; }
 
         /// <summary>
         /// Gets or Sets NodeModel
         /// </summary>
-        [DataMember(Name="nodeModel", EmitDefaultValue=false)]
+        [DataMember(Name="nodeModel", EmitDefaultValue=true)]
         public string NodeModel { get; set; }
 
         /// <summary>
         /// Gets or Sets NodeSerial
         /// </summary>
-        [DataMember(Name="nodeSerial", EmitDefaultValue=false)]
+        [DataMember(Name="nodeSerial", EmitDefaultValue=true)]
         public string NodeSerial { get; set; }
-
-        /// <summary>
-        /// Gets or Sets PrimaryBondName
-        /// </summary>
-        [DataMember(Name="primaryBondName", EmitDefaultValue=false)]
-        public string PrimaryBondName { get; set; }
 
         /// <summary>
         /// Gets or Sets ProductModel
         /// </summary>
-        [DataMember(Name="productModel", EmitDefaultValue=false)]
+        [DataMember(Name="productModel", EmitDefaultValue=true)]
         public string ProductModel { get; set; }
-
-        /// <summary>
-        /// Gets or Sets SecondaryBondName
-        /// </summary>
-        [DataMember(Name="secondaryBondName", EmitDefaultValue=false)]
-        public List<string> SecondaryBondName { get; set; }
 
         /// <summary>
         /// Gets or Sets SlotNumber
         /// </summary>
-        [DataMember(Name="slotNumber", EmitDefaultValue=false)]
+        [DataMember(Name="slotNumber", EmitDefaultValue=true)]
         public string SlotNumber { get; set; }
 
         /// <summary>
@@ -132,7 +141,22 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class HardwareInfo {\n");
+            sb.Append("  ChassisModel: ").Append(ChassisModel).Append("\n");
+            sb.Append("  ChassisSerial: ").Append(ChassisSerial).Append("\n");
+            sb.Append("  ChassisType: ").Append(ChassisType).Append("\n");
+            sb.Append("  CohesityChassisSerial: ").Append(CohesityChassisSerial).Append("\n");
+            sb.Append("  CohesityNodeSerial: ").Append(CohesityNodeSerial).Append("\n");
+            sb.Append("  HbaModel: ").Append(HbaModel).Append("\n");
+            sb.Append("  IpmiLanChannel: ").Append(IpmiLanChannel).Append("\n");
+            sb.Append("  MaxSlots: ").Append(MaxSlots).Append("\n");
+            sb.Append("  NodeModel: ").Append(NodeModel).Append("\n");
+            sb.Append("  NodeSerial: ").Append(NodeSerial).Append("\n");
+            sb.Append("  ProductModel: ").Append(ProductModel).Append("\n");
+            sb.Append("  SlotNumber: ").Append(SlotNumber).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -181,6 +205,16 @@ namespace Cohesity.Models
                     this.ChassisType.Equals(input.ChassisType))
                 ) && 
                 (
+                    this.CohesityChassisSerial == input.CohesityChassisSerial ||
+                    (this.CohesityChassisSerial != null &&
+                    this.CohesityChassisSerial.Equals(input.CohesityChassisSerial))
+                ) && 
+                (
+                    this.CohesityNodeSerial == input.CohesityNodeSerial ||
+                    (this.CohesityNodeSerial != null &&
+                    this.CohesityNodeSerial.Equals(input.CohesityNodeSerial))
+                ) && 
+                (
                     this.HbaModel == input.HbaModel ||
                     (this.HbaModel != null &&
                     this.HbaModel.Equals(input.HbaModel))
@@ -206,19 +240,9 @@ namespace Cohesity.Models
                     this.NodeSerial.Equals(input.NodeSerial))
                 ) && 
                 (
-                    this.PrimaryBondName == input.PrimaryBondName ||
-                    (this.PrimaryBondName != null &&
-                    this.PrimaryBondName.Equals(input.PrimaryBondName))
-                ) && 
-                (
                     this.ProductModel == input.ProductModel ||
                     (this.ProductModel != null &&
                     this.ProductModel.Equals(input.ProductModel))
-                ) && 
-                (
-                    this.SecondaryBondName == input.SecondaryBondName ||
-                    this.SecondaryBondName != null &&
-                    this.SecondaryBondName.SequenceEqual(input.SecondaryBondName)
                 ) && 
                 (
                     this.SlotNumber == input.SlotNumber ||
@@ -242,6 +266,10 @@ namespace Cohesity.Models
                     hashCode = hashCode * 59 + this.ChassisSerial.GetHashCode();
                 if (this.ChassisType != null)
                     hashCode = hashCode * 59 + this.ChassisType.GetHashCode();
+                if (this.CohesityChassisSerial != null)
+                    hashCode = hashCode * 59 + this.CohesityChassisSerial.GetHashCode();
+                if (this.CohesityNodeSerial != null)
+                    hashCode = hashCode * 59 + this.CohesityNodeSerial.GetHashCode();
                 if (this.HbaModel != null)
                     hashCode = hashCode * 59 + this.HbaModel.GetHashCode();
                 if (this.IpmiLanChannel != null)
@@ -252,20 +280,14 @@ namespace Cohesity.Models
                     hashCode = hashCode * 59 + this.NodeModel.GetHashCode();
                 if (this.NodeSerial != null)
                     hashCode = hashCode * 59 + this.NodeSerial.GetHashCode();
-                if (this.PrimaryBondName != null)
-                    hashCode = hashCode * 59 + this.PrimaryBondName.GetHashCode();
                 if (this.ProductModel != null)
                     hashCode = hashCode * 59 + this.ProductModel.GetHashCode();
-                if (this.SecondaryBondName != null)
-                    hashCode = hashCode * 59 + this.SecondaryBondName.GetHashCode();
                 if (this.SlotNumber != null)
                     hashCode = hashCode * 59 + this.SlotNumber.GetHashCode();
                 return hashCode;
             }
         }
 
-        
     }
 
 }
-

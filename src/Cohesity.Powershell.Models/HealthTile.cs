@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,13 +12,10 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
-    /// HealthTile
+    /// Health for Dashboard.
     /// </summary>
     [DataContract]
     public partial class HealthTile :  IEquatable<HealthTile>
@@ -28,7 +25,7 @@ namespace Cohesity.Models
         /// </summary>
         /// <param name="capacityBytes">Raw Cluster Capacity in Bytes. This is not usable capacity and does not take replication factor into account..</param>
         /// <param name="clusterCloudUsageBytes">Usage in Bytes on the cloud..</param>
-        /// <param name="lastDayAlerts">lastDayAlerts.</param>
+        /// <param name="lastDayAlerts">Alerts in last 24 hours..</param>
         /// <param name="lastDayNumCriticals">Number of Critical Alerts..</param>
         /// <param name="lastDayNumWarnings">Number of Warning Alerts..</param>
         /// <param name="numNodes">Number of nodes in the cluster..</param>
@@ -46,68 +43,78 @@ namespace Cohesity.Models
             this.NumNodesWithIssues = numNodesWithIssues;
             this.PercentFull = percentFull;
             this.RawUsedBytes = rawUsedBytes;
+            this.CapacityBytes = capacityBytes;
+            this.ClusterCloudUsageBytes = clusterCloudUsageBytes;
+            this.LastDayAlerts = lastDayAlerts;
+            this.LastDayNumCriticals = lastDayNumCriticals;
+            this.LastDayNumWarnings = lastDayNumWarnings;
+            this.NumNodes = numNodes;
+            this.NumNodesWithIssues = numNodesWithIssues;
+            this.PercentFull = percentFull;
+            this.RawUsedBytes = rawUsedBytes;
         }
         
         /// <summary>
         /// Raw Cluster Capacity in Bytes. This is not usable capacity and does not take replication factor into account.
         /// </summary>
         /// <value>Raw Cluster Capacity in Bytes. This is not usable capacity and does not take replication factor into account.</value>
-        [DataMember(Name="capacityBytes", EmitDefaultValue=false)]
+        [DataMember(Name="capacityBytes", EmitDefaultValue=true)]
         public long? CapacityBytes { get; set; }
 
         /// <summary>
         /// Usage in Bytes on the cloud.
         /// </summary>
         /// <value>Usage in Bytes on the cloud.</value>
-        [DataMember(Name="clusterCloudUsageBytes", EmitDefaultValue=false)]
+        [DataMember(Name="clusterCloudUsageBytes", EmitDefaultValue=true)]
         public long? ClusterCloudUsageBytes { get; set; }
 
         /// <summary>
-        /// Gets or Sets LastDayAlerts
+        /// Alerts in last 24 hours.
         /// </summary>
-        [DataMember(Name="lastDayAlerts", EmitDefaultValue=false)]
+        /// <value>Alerts in last 24 hours.</value>
+        [DataMember(Name="lastDayAlerts", EmitDefaultValue=true)]
         public List<Alert> LastDayAlerts { get; set; }
 
         /// <summary>
         /// Number of Critical Alerts.
         /// </summary>
         /// <value>Number of Critical Alerts.</value>
-        [DataMember(Name="lastDayNumCriticals", EmitDefaultValue=false)]
+        [DataMember(Name="lastDayNumCriticals", EmitDefaultValue=true)]
         public long? LastDayNumCriticals { get; set; }
 
         /// <summary>
         /// Number of Warning Alerts.
         /// </summary>
         /// <value>Number of Warning Alerts.</value>
-        [DataMember(Name="lastDayNumWarnings", EmitDefaultValue=false)]
+        [DataMember(Name="lastDayNumWarnings", EmitDefaultValue=true)]
         public long? LastDayNumWarnings { get; set; }
 
         /// <summary>
         /// Number of nodes in the cluster.
         /// </summary>
         /// <value>Number of nodes in the cluster.</value>
-        [DataMember(Name="numNodes", EmitDefaultValue=false)]
+        [DataMember(Name="numNodes", EmitDefaultValue=true)]
         public int? NumNodes { get; set; }
 
         /// <summary>
         /// Number of nodes in the cluster that are unhealthy.
         /// </summary>
         /// <value>Number of nodes in the cluster that are unhealthy.</value>
-        [DataMember(Name="numNodesWithIssues", EmitDefaultValue=false)]
+        [DataMember(Name="numNodesWithIssues", EmitDefaultValue=true)]
         public int? NumNodesWithIssues { get; set; }
 
         /// <summary>
         /// Percent the cluster is full.
         /// </summary>
         /// <value>Percent the cluster is full.</value>
-        [DataMember(Name="percentFull", EmitDefaultValue=false)]
+        [DataMember(Name="percentFull", EmitDefaultValue=true)]
         public float? PercentFull { get; set; }
 
         /// <summary>
         /// Raw Bytes used in the cluster.
         /// </summary>
         /// <value>Raw Bytes used in the cluster.</value>
-        [DataMember(Name="rawUsedBytes", EmitDefaultValue=false)]
+        [DataMember(Name="rawUsedBytes", EmitDefaultValue=true)]
         public long? RawUsedBytes { get; set; }
 
         /// <summary>
@@ -116,7 +123,19 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class HealthTile {\n");
+            sb.Append("  CapacityBytes: ").Append(CapacityBytes).Append("\n");
+            sb.Append("  ClusterCloudUsageBytes: ").Append(ClusterCloudUsageBytes).Append("\n");
+            sb.Append("  LastDayAlerts: ").Append(LastDayAlerts).Append("\n");
+            sb.Append("  LastDayNumCriticals: ").Append(LastDayNumCriticals).Append("\n");
+            sb.Append("  LastDayNumWarnings: ").Append(LastDayNumWarnings).Append("\n");
+            sb.Append("  NumNodes: ").Append(NumNodes).Append("\n");
+            sb.Append("  NumNodesWithIssues: ").Append(NumNodesWithIssues).Append("\n");
+            sb.Append("  PercentFull: ").Append(PercentFull).Append("\n");
+            sb.Append("  RawUsedBytes: ").Append(RawUsedBytes).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -162,6 +181,7 @@ namespace Cohesity.Models
                 (
                     this.LastDayAlerts == input.LastDayAlerts ||
                     this.LastDayAlerts != null &&
+                    input.LastDayAlerts != null &&
                     this.LastDayAlerts.SequenceEqual(input.LastDayAlerts)
                 ) && 
                 (
@@ -227,8 +247,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

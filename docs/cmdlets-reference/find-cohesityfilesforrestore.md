@@ -181,7 +181,7 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 
 ## OUTPUTS
 
-### Cohesity.Models.FileSearchResult
+### Cohesity.Model.FileSearchResult
 ## NOTES
 
 ## RELATED LINKS

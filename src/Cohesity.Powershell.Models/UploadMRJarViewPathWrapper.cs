@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// UploadMRJarViewPathWrapper contains jar name and local mount path where the Jars will be uploaded.
@@ -32,20 +29,22 @@ namespace Cohesity.Models
         {
             this.JarName = jarName;
             this.JarPath = jarPath;
+            this.JarName = jarName;
+            this.JarPath = jarPath;
         }
         
         /// <summary>
         /// JarName is the name of the uploaded jar.
         /// </summary>
         /// <value>JarName is the name of the uploaded jar.</value>
-        [DataMember(Name="jarName", EmitDefaultValue=false)]
+        [DataMember(Name="jarName", EmitDefaultValue=true)]
         public string JarName { get; set; }
 
         /// <summary>
         /// JarPath is the path for the directory where uploaded jar is stored.
         /// </summary>
         /// <value>JarPath is the path for the directory where uploaded jar is stored.</value>
-        [DataMember(Name="jarPath", EmitDefaultValue=false)]
+        [DataMember(Name="jarPath", EmitDefaultValue=true)]
         public string JarPath { get; set; }
 
         /// <summary>
@@ -54,7 +53,12 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class UploadMRJarViewPathWrapper {\n");
+            sb.Append("  JarName: ").Append(JarName).Append("\n");
+            sb.Append("  JarPath: ").Append(JarPath).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -116,8 +120,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

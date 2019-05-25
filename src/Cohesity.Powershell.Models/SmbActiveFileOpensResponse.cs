@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,13 +12,10 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
-    /// SmbActiveFileOpensResponse
+    /// Query response to SMB active file opens.
     /// </summary>
     [DataContract]
     public partial class SmbActiveFileOpensResponse :  IEquatable<SmbActiveFileOpensResponse>
@@ -26,25 +23,28 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="SmbActiveFileOpensResponse" /> class.
         /// </summary>
-        /// <param name="activeFilePaths">activeFilePaths.</param>
+        /// <param name="activeFilePaths">Specifies the active opens for an SMB file in a view..</param>
         /// <param name="cookie">Specifies an opaque string to pass to get the next set of active opens. If null is returned, this response is the last set of active opens..</param>
         public SmbActiveFileOpensResponse(List<SmbActiveFilePath> activeFilePaths = default(List<SmbActiveFilePath>), string cookie = default(string))
         {
             this.ActiveFilePaths = activeFilePaths;
             this.Cookie = cookie;
+            this.ActiveFilePaths = activeFilePaths;
+            this.Cookie = cookie;
         }
         
         /// <summary>
-        /// Gets or Sets ActiveFilePaths
+        /// Specifies the active opens for an SMB file in a view.
         /// </summary>
-        [DataMember(Name="activeFilePaths", EmitDefaultValue=false)]
+        /// <value>Specifies the active opens for an SMB file in a view.</value>
+        [DataMember(Name="activeFilePaths", EmitDefaultValue=true)]
         public List<SmbActiveFilePath> ActiveFilePaths { get; set; }
 
         /// <summary>
         /// Specifies an opaque string to pass to get the next set of active opens. If null is returned, this response is the last set of active opens.
         /// </summary>
         /// <value>Specifies an opaque string to pass to get the next set of active opens. If null is returned, this response is the last set of active opens.</value>
-        [DataMember(Name="cookie", EmitDefaultValue=false)]
+        [DataMember(Name="cookie", EmitDefaultValue=true)]
         public string Cookie { get; set; }
 
         /// <summary>
@@ -53,7 +53,12 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class SmbActiveFileOpensResponse {\n");
+            sb.Append("  ActiveFilePaths: ").Append(ActiveFilePaths).Append("\n");
+            sb.Append("  Cookie: ").Append(Cookie).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -89,6 +94,7 @@ namespace Cohesity.Models
                 (
                     this.ActiveFilePaths == input.ActiveFilePaths ||
                     this.ActiveFilePaths != null &&
+                    input.ActiveFilePaths != null &&
                     this.ActiveFilePaths.SequenceEqual(input.ActiveFilePaths)
                 ) && 
                 (
@@ -115,8 +121,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

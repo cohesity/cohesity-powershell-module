@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies the meta-data required to define a time series of data (set of data points) for a metric.
@@ -36,6 +33,11 @@ namespace Cohesity.Models
         {
             this.MetricDescriptiveName = metricDescriptiveName;
             this.MetricName = metricName;
+            this.RawMetricPublishIntervalHintSecs = rawMetricPublishIntervalHintSecs;
+            this.TimeToLiveSecs = timeToLiveSecs;
+            this.ValueType = valueType;
+            this.MetricDescriptiveName = metricDescriptiveName;
+            this.MetricName = metricName;
             this.MetricUnit = metricUnit;
             this.RawMetricPublishIntervalHintSecs = rawMetricPublishIntervalHintSecs;
             this.TimeToLiveSecs = timeToLiveSecs;
@@ -46,14 +48,14 @@ namespace Cohesity.Models
         /// Specifies a descriptive name for the metric that is displayed in the Advanced Diagnostics of the Cohesity Dashboard. For example for the &#39;kUnmorphedUsageBytes&#39; metric, the descriptive name is \&quot;Total Logical Space Used\&quot;.
         /// </summary>
         /// <value>Specifies a descriptive name for the metric that is displayed in the Advanced Diagnostics of the Cohesity Dashboard. For example for the &#39;kUnmorphedUsageBytes&#39; metric, the descriptive name is \&quot;Total Logical Space Used\&quot;.</value>
-        [DataMember(Name="metricDescriptiveName", EmitDefaultValue=false)]
+        [DataMember(Name="metricDescriptiveName", EmitDefaultValue=true)]
         public string MetricDescriptiveName { get; set; }
 
         /// <summary>
         /// Specifies the name of the metric such as &#39;kUnmorphedUsageBytes&#39;. It should be unique in an entity schema.
         /// </summary>
         /// <value>Specifies the name of the metric such as &#39;kUnmorphedUsageBytes&#39;. It should be unique in an entity schema.</value>
-        [DataMember(Name="metricName", EmitDefaultValue=false)]
+        [DataMember(Name="metricName", EmitDefaultValue=true)]
         public string MetricName { get; set; }
 
         /// <summary>
@@ -66,21 +68,21 @@ namespace Cohesity.Models
         /// Specifies a suggestion for the interval to collect raw data points.
         /// </summary>
         /// <value>Specifies a suggestion for the interval to collect raw data points.</value>
-        [DataMember(Name="rawMetricPublishIntervalHintSecs", EmitDefaultValue=false)]
+        [DataMember(Name="rawMetricPublishIntervalHintSecs", EmitDefaultValue=true)]
         public int? RawMetricPublishIntervalHintSecs { get; set; }
 
         /// <summary>
         /// Specifies how long the data point will be stored.
         /// </summary>
         /// <value>Specifies how long the data point will be stored.</value>
-        [DataMember(Name="timeToLiveSecs", EmitDefaultValue=false)]
+        [DataMember(Name="timeToLiveSecs", EmitDefaultValue=true)]
         public long? TimeToLiveSecs { get; set; }
 
         /// <summary>
         /// Specifies the value type for this metric. A metric of type &#39;string\&quot; is not supported, instead use &#39;bytes&#39;. Note that an aggregate metric of type &#39;bytes&#39; is not supported. 0 specifies a value type of Int64. 1 specifies a value type of Double. 2 specifies a value type of String. 3 specifies a value type of Bytes.
         /// </summary>
         /// <value>Specifies the value type for this metric. A metric of type &#39;string\&quot; is not supported, instead use &#39;bytes&#39;. Note that an aggregate metric of type &#39;bytes&#39; is not supported. 0 specifies a value type of Int64. 1 specifies a value type of Double. 2 specifies a value type of String. 3 specifies a value type of Bytes.</value>
-        [DataMember(Name="valueType", EmitDefaultValue=false)]
+        [DataMember(Name="valueType", EmitDefaultValue=true)]
         public int? ValueType { get; set; }
 
         /// <summary>
@@ -89,7 +91,16 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class EntitySchemaProtoTimeSeriesDescriptor {\n");
+            sb.Append("  MetricDescriptiveName: ").Append(MetricDescriptiveName).Append("\n");
+            sb.Append("  MetricName: ").Append(MetricName).Append("\n");
+            sb.Append("  MetricUnit: ").Append(MetricUnit).Append("\n");
+            sb.Append("  RawMetricPublishIntervalHintSecs: ").Append(RawMetricPublishIntervalHintSecs).Append("\n");
+            sb.Append("  TimeToLiveSecs: ").Append(TimeToLiveSecs).Append("\n");
+            sb.Append("  ValueType: ").Append(ValueType).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -179,8 +190,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

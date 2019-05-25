@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,13 +12,10 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
-    /// MapReduceInstance
+    /// Information about a Map reduce instance. An instance can be run only once.
     /// </summary>
     [DataContract]
     public partial class MapReduceInstance :  IEquatable<MapReduceInstance>
@@ -28,12 +25,15 @@ namespace Cohesity.Models
         /// </summary>
         /// <param name="id">System generated ID of map reduce instance..</param>
         /// <param name="inputParams">inputParams.</param>
-        /// <param name="inputSpec">Input spec for the MR..</param>
+        /// <param name="inputSpec">inputSpec.</param>
         /// <param name="mapReduceInfoId">ID of Map reduce info..</param>
-        /// <param name="outputSpec">Output spec for the MR..</param>
-        /// <param name="runInfo">Information about run of this instance. All fields of RunInfo will be populated by yoda/analytics components..</param>
+        /// <param name="outputSpec">outputSpec.</param>
+        /// <param name="runInfo">runInfo.</param>
         public MapReduceInstance(long? id = default(long?), List<MapReduceInstanceInputParam> inputParams = default(List<MapReduceInstanceInputParam>), InputSpec inputSpec = default(InputSpec), long? mapReduceInfoId = default(long?), OutputSpec outputSpec = default(OutputSpec), MapReduceInstanceRunInfo runInfo = default(MapReduceInstanceRunInfo))
         {
+            this.Id = id;
+            this.InputParams = inputParams;
+            this.MapReduceInfoId = mapReduceInfoId;
             this.Id = id;
             this.InputParams = inputParams;
             this.InputSpec = inputSpec;
@@ -46,19 +46,18 @@ namespace Cohesity.Models
         /// System generated ID of map reduce instance.
         /// </summary>
         /// <value>System generated ID of map reduce instance.</value>
-        [DataMember(Name="id", EmitDefaultValue=false)]
+        [DataMember(Name="id", EmitDefaultValue=true)]
         public long? Id { get; set; }
 
         /// <summary>
         /// Gets or Sets InputParams
         /// </summary>
-        [DataMember(Name="inputParams", EmitDefaultValue=false)]
+        [DataMember(Name="inputParams", EmitDefaultValue=true)]
         public List<MapReduceInstanceInputParam> InputParams { get; set; }
 
         /// <summary>
-        /// Input spec for the MR.
+        /// Gets or Sets InputSpec
         /// </summary>
-        /// <value>Input spec for the MR.</value>
         [DataMember(Name="inputSpec", EmitDefaultValue=false)]
         public InputSpec InputSpec { get; set; }
 
@@ -66,20 +65,18 @@ namespace Cohesity.Models
         /// ID of Map reduce info.
         /// </summary>
         /// <value>ID of Map reduce info.</value>
-        [DataMember(Name="mapReduceInfoId", EmitDefaultValue=false)]
+        [DataMember(Name="mapReduceInfoId", EmitDefaultValue=true)]
         public long? MapReduceInfoId { get; set; }
 
         /// <summary>
-        /// Output spec for the MR.
+        /// Gets or Sets OutputSpec
         /// </summary>
-        /// <value>Output spec for the MR.</value>
         [DataMember(Name="outputSpec", EmitDefaultValue=false)]
         public OutputSpec OutputSpec { get; set; }
 
         /// <summary>
-        /// Information about run of this instance. All fields of RunInfo will be populated by yoda/analytics components.
+        /// Gets or Sets RunInfo
         /// </summary>
-        /// <value>Information about run of this instance. All fields of RunInfo will be populated by yoda/analytics components.</value>
         [DataMember(Name="runInfo", EmitDefaultValue=false)]
         public MapReduceInstanceRunInfo RunInfo { get; set; }
 
@@ -89,7 +86,16 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class MapReduceInstance {\n");
+            sb.Append("  Id: ").Append(Id).Append("\n");
+            sb.Append("  InputParams: ").Append(InputParams).Append("\n");
+            sb.Append("  InputSpec: ").Append(InputSpec).Append("\n");
+            sb.Append("  MapReduceInfoId: ").Append(MapReduceInfoId).Append("\n");
+            sb.Append("  OutputSpec: ").Append(OutputSpec).Append("\n");
+            sb.Append("  RunInfo: ").Append(RunInfo).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -130,6 +136,7 @@ namespace Cohesity.Models
                 (
                     this.InputParams == input.InputParams ||
                     this.InputParams != null &&
+                    input.InputParams != null &&
                     this.InputParams.SequenceEqual(input.InputParams)
                 ) && 
                 (
@@ -179,8 +186,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

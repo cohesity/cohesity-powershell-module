@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies documentation about the Alert such as name, description, cause and how to resolve the Alert.
@@ -26,12 +23,16 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="AlertDocument" /> class.
         /// </summary>
-        /// <param name="alertCause">Cause of the Alert that is included in the body of the email or any other type of notification..</param>
-        /// <param name="alertDescription">Brief description about the Alert that is used in the subject line when sending a notification email for an Alert..</param>
-        /// <param name="alertHelpText">Instructions describing how to resolve the Alert that is included in the body of the email or any other type of notification..</param>
-        /// <param name="alertName">Short name that describes the Alert type such as DiskBad, HighCpuUsage, FrequentProcessRestarts, etc..</param>
+        /// <param name="alertCause">Specifies cause of the Alert that is included in the body of the email or any other type of notification..</param>
+        /// <param name="alertDescription">Specifies brief description about the Alert that is used in the subject line when sending a notification email for an Alert..</param>
+        /// <param name="alertHelpText">Specifies instructions describing how to resolve the Alert that is included in the body of the email or any other type of notification..</param>
+        /// <param name="alertName">Specifies short name that describes the Alert type such as DiskBad, HighCpuUsage, FrequentProcessRestarts, etc..</param>
         public AlertDocument(string alertCause = default(string), string alertDescription = default(string), string alertHelpText = default(string), string alertName = default(string))
         {
+            this.AlertCause = alertCause;
+            this.AlertDescription = alertDescription;
+            this.AlertHelpText = alertHelpText;
+            this.AlertName = alertName;
             this.AlertCause = alertCause;
             this.AlertDescription = alertDescription;
             this.AlertHelpText = alertHelpText;
@@ -39,31 +40,31 @@ namespace Cohesity.Models
         }
         
         /// <summary>
-        /// Cause of the Alert that is included in the body of the email or any other type of notification.
+        /// Specifies cause of the Alert that is included in the body of the email or any other type of notification.
         /// </summary>
-        /// <value>Cause of the Alert that is included in the body of the email or any other type of notification.</value>
-        [DataMember(Name="alertCause", EmitDefaultValue=false)]
+        /// <value>Specifies cause of the Alert that is included in the body of the email or any other type of notification.</value>
+        [DataMember(Name="alertCause", EmitDefaultValue=true)]
         public string AlertCause { get; set; }
 
         /// <summary>
-        /// Brief description about the Alert that is used in the subject line when sending a notification email for an Alert.
+        /// Specifies brief description about the Alert that is used in the subject line when sending a notification email for an Alert.
         /// </summary>
-        /// <value>Brief description about the Alert that is used in the subject line when sending a notification email for an Alert.</value>
-        [DataMember(Name="alertDescription", EmitDefaultValue=false)]
+        /// <value>Specifies brief description about the Alert that is used in the subject line when sending a notification email for an Alert.</value>
+        [DataMember(Name="alertDescription", EmitDefaultValue=true)]
         public string AlertDescription { get; set; }
 
         /// <summary>
-        /// Instructions describing how to resolve the Alert that is included in the body of the email or any other type of notification.
+        /// Specifies instructions describing how to resolve the Alert that is included in the body of the email or any other type of notification.
         /// </summary>
-        /// <value>Instructions describing how to resolve the Alert that is included in the body of the email or any other type of notification.</value>
-        [DataMember(Name="alertHelpText", EmitDefaultValue=false)]
+        /// <value>Specifies instructions describing how to resolve the Alert that is included in the body of the email or any other type of notification.</value>
+        [DataMember(Name="alertHelpText", EmitDefaultValue=true)]
         public string AlertHelpText { get; set; }
 
         /// <summary>
-        /// Short name that describes the Alert type such as DiskBad, HighCpuUsage, FrequentProcessRestarts, etc.
+        /// Specifies short name that describes the Alert type such as DiskBad, HighCpuUsage, FrequentProcessRestarts, etc.
         /// </summary>
-        /// <value>Short name that describes the Alert type such as DiskBad, HighCpuUsage, FrequentProcessRestarts, etc.</value>
-        [DataMember(Name="alertName", EmitDefaultValue=false)]
+        /// <value>Specifies short name that describes the Alert type such as DiskBad, HighCpuUsage, FrequentProcessRestarts, etc.</value>
+        [DataMember(Name="alertName", EmitDefaultValue=true)]
         public string AlertName { get; set; }
 
         /// <summary>
@@ -72,7 +73,14 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class AlertDocument {\n");
+            sb.Append("  AlertCause: ").Append(AlertCause).Append("\n");
+            sb.Append("  AlertDescription: ").Append(AlertDescription).Append("\n");
+            sb.Append("  AlertHelpText: ").Append(AlertHelpText).Append("\n");
+            sb.Append("  AlertName: ").Append(AlertName).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -148,8 +156,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

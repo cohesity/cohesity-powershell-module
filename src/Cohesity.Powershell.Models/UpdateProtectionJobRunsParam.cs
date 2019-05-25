@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies the Job Runs to update with a new expiration times.
@@ -26,17 +23,18 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="UpdateProtectionJobRunsParam" /> class.
         /// </summary>
-        /// <param name="jobRuns">Specifies the Job Runs to update with a new expiration times..</param>
+        /// <param name="jobRuns">Array of Job Runs.  Specifies the Job Runs to update with a new expiration times..</param>
         public UpdateProtectionJobRunsParam(List<UpdateProtectionJobRun> jobRuns = default(List<UpdateProtectionJobRun>))
         {
+            this.JobRuns = jobRuns;
             this.JobRuns = jobRuns;
         }
         
         /// <summary>
-        /// Specifies the Job Runs to update with a new expiration times.
+        /// Array of Job Runs.  Specifies the Job Runs to update with a new expiration times.
         /// </summary>
-        /// <value>Specifies the Job Runs to update with a new expiration times.</value>
-        [DataMember(Name="jobRuns", EmitDefaultValue=false)]
+        /// <value>Array of Job Runs.  Specifies the Job Runs to update with a new expiration times.</value>
+        [DataMember(Name="jobRuns", EmitDefaultValue=true)]
         public List<UpdateProtectionJobRun> JobRuns { get; set; }
 
         /// <summary>
@@ -45,7 +43,11 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class UpdateProtectionJobRunsParam {\n");
+            sb.Append("  JobRuns: ").Append(JobRuns).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -81,6 +83,7 @@ namespace Cohesity.Models
                 (
                     this.JobRuns == input.JobRuns ||
                     this.JobRuns != null &&
+                    input.JobRuns != null &&
                     this.JobRuns.SequenceEqual(input.JobRuns)
                 );
         }
@@ -100,8 +103,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

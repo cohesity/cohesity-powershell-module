@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// GetMapReduceAppRunsParams specifies the input params to fetch the map reduce application runs.
@@ -50,83 +47,94 @@ namespace Cohesity.Models
             this.PageSize = pageSize;
             this.RunStatus = runStatus;
             this.StartOffset = startOffset;
+            this.AppId = appId;
+            this.AppInstanceId = appInstanceId;
+            this.IncludeDetails = includeDetails;
+            this.LastNumInstances = lastNumInstances;
+            this.MaxRunEndTimeInSecs = maxRunEndTimeInSecs;
+            this.MaxRunStartTimeInSecs = maxRunStartTimeInSecs;
+            this.MinRunEndTimeInSecs = minRunEndTimeInSecs;
+            this.MinRunStartTimeInSecs = minRunStartTimeInSecs;
+            this.PageSize = pageSize;
+            this.RunStatus = runStatus;
+            this.StartOffset = startOffset;
         }
         
         /// <summary>
         /// ApplicationId is the Id of the map reduce application.
         /// </summary>
         /// <value>ApplicationId is the Id of the map reduce application.</value>
-        [DataMember(Name="appId", EmitDefaultValue=false)]
+        [DataMember(Name="appId", EmitDefaultValue=true)]
         public long? AppId { get; set; }
 
         /// <summary>
         /// ApplicationInstanceId is the Id of the map reduce application instance.
         /// </summary>
         /// <value>ApplicationInstanceId is the Id of the map reduce application instance.</value>
-        [DataMember(Name="appInstanceId", EmitDefaultValue=false)]
+        [DataMember(Name="appInstanceId", EmitDefaultValue=true)]
         public long? AppInstanceId { get; set; }
 
         /// <summary>
         /// If this flag is true, then send details of instance, else send only RunInfo.
         /// </summary>
         /// <value>If this flag is true, then send details of instance, else send only RunInfo.</value>
-        [DataMember(Name="includeDetails", EmitDefaultValue=false)]
+        [DataMember(Name="includeDetails", EmitDefaultValue=true)]
         public bool? IncludeDetails { get; set; }
 
         /// <summary>
         /// Give last N instance of an app based on end time.
         /// </summary>
         /// <value>Give last N instance of an app based on end time.</value>
-        [DataMember(Name="lastNumInstances", EmitDefaultValue=false)]
+        [DataMember(Name="lastNumInstances", EmitDefaultValue=true)]
         public int? LastNumInstances { get; set; }
 
         /// <summary>
         /// MaxRunEndTimestampInSecs specifies the maximum job run end timestamp in seconds. App run instances with end time less than equal to MaxRunEndTimestampInSecs will be selected. Default is LONG_MAX (inf).
         /// </summary>
         /// <value>MaxRunEndTimestampInSecs specifies the maximum job run end timestamp in seconds. App run instances with end time less than equal to MaxRunEndTimestampInSecs will be selected. Default is LONG_MAX (inf).</value>
-        [DataMember(Name="maxRunEndTimeInSecs", EmitDefaultValue=false)]
+        [DataMember(Name="maxRunEndTimeInSecs", EmitDefaultValue=true)]
         public long? MaxRunEndTimeInSecs { get; set; }
 
         /// <summary>
         /// MaxRunStartTimestampInSecs specifies the maximum job run start timestamp in seconds. App run instances with start time less than equal to MaxRunStartTimestampInSecs will be selected. Default is LONG_MAX (inf).
         /// </summary>
         /// <value>MaxRunStartTimestampInSecs specifies the maximum job run start timestamp in seconds. App run instances with start time less than equal to MaxRunStartTimestampInSecs will be selected. Default is LONG_MAX (inf).</value>
-        [DataMember(Name="maxRunStartTimeInSecs", EmitDefaultValue=false)]
+        [DataMember(Name="maxRunStartTimeInSecs", EmitDefaultValue=true)]
         public long? MaxRunStartTimeInSecs { get; set; }
 
         /// <summary>
         /// MinRunEndTimestampInSecs specifies the minimum job run end timestamp in seconds. App run instances with end time greater than equal to MinRunEndTimestampInSecs will be selected. Default is 0, i.e. beginning of time.
         /// </summary>
         /// <value>MinRunEndTimestampInSecs specifies the minimum job run end timestamp in seconds. App run instances with end time greater than equal to MinRunEndTimestampInSecs will be selected. Default is 0, i.e. beginning of time.</value>
-        [DataMember(Name="minRunEndTimeInSecs", EmitDefaultValue=false)]
+        [DataMember(Name="minRunEndTimeInSecs", EmitDefaultValue=true)]
         public long? MinRunEndTimeInSecs { get; set; }
 
         /// <summary>
         /// MinRunStartTimestampInSecs specifies the minimum job run start timestamp in seconds. App run instances with start time greater than equal to MinRunStartTimestampInSecs will be selected. Default is 0, i.e. beginning of time.
         /// </summary>
         /// <value>MinRunStartTimestampInSecs specifies the minimum job run start timestamp in seconds. App run instances with start time greater than equal to MinRunStartTimestampInSecs will be selected. Default is 0, i.e. beginning of time.</value>
-        [DataMember(Name="minRunStartTimeInSecs", EmitDefaultValue=false)]
+        [DataMember(Name="minRunStartTimeInSecs", EmitDefaultValue=true)]
         public long? MinRunStartTimeInSecs { get; set; }
 
         /// <summary>
         /// Number of results to be displayed on a page.
         /// </summary>
         /// <value>Number of results to be displayed on a page.</value>
-        [DataMember(Name="pageSize", EmitDefaultValue=false)]
+        [DataMember(Name="pageSize", EmitDefaultValue=true)]
         public int? PageSize { get; set; }
 
         /// <summary>
         /// Filter instances based on the map reduce application run status.
         /// </summary>
         /// <value>Filter instances based on the map reduce application run status.</value>
-        [DataMember(Name="runStatus", EmitDefaultValue=false)]
+        [DataMember(Name="runStatus", EmitDefaultValue=true)]
         public string RunStatus { get; set; }
 
         /// <summary>
         /// Start offset for pagination from where result needs to be fetched.
         /// </summary>
         /// <value>Start offset for pagination from where result needs to be fetched.</value>
-        [DataMember(Name="startOffset", EmitDefaultValue=false)]
+        [DataMember(Name="startOffset", EmitDefaultValue=true)]
         public int? StartOffset { get; set; }
 
         /// <summary>
@@ -135,7 +143,21 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class GetMapReduceAppRunsParams {\n");
+            sb.Append("  AppId: ").Append(AppId).Append("\n");
+            sb.Append("  AppInstanceId: ").Append(AppInstanceId).Append("\n");
+            sb.Append("  IncludeDetails: ").Append(IncludeDetails).Append("\n");
+            sb.Append("  LastNumInstances: ").Append(LastNumInstances).Append("\n");
+            sb.Append("  MaxRunEndTimeInSecs: ").Append(MaxRunEndTimeInSecs).Append("\n");
+            sb.Append("  MaxRunStartTimeInSecs: ").Append(MaxRunStartTimeInSecs).Append("\n");
+            sb.Append("  MinRunEndTimeInSecs: ").Append(MinRunEndTimeInSecs).Append("\n");
+            sb.Append("  MinRunStartTimeInSecs: ").Append(MinRunStartTimeInSecs).Append("\n");
+            sb.Append("  PageSize: ").Append(PageSize).Append("\n");
+            sb.Append("  RunStatus: ").Append(RunStatus).Append("\n");
+            sb.Append("  StartOffset: ").Append(StartOffset).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -260,8 +282,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

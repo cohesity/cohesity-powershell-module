@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies information about SMB permissions.
@@ -27,9 +24,11 @@ namespace Cohesity.Models
         /// Initializes a new instance of the <see cref="SmbPermissionsInfo" /> class.
         /// </summary>
         /// <param name="ownerSid">Specifies the security identifier (SID) of the owner of the SMB share..</param>
-        /// <param name="permissions">Specifies a list of SMB permissions..</param>
+        /// <param name="permissions">Array of SMB Permissions.  Specifies a list of SMB permissions..</param>
         public SmbPermissionsInfo(string ownerSid = default(string), List<SmbPermission> permissions = default(List<SmbPermission>))
         {
+            this.OwnerSid = ownerSid;
+            this.Permissions = permissions;
             this.OwnerSid = ownerSid;
             this.Permissions = permissions;
         }
@@ -38,14 +37,14 @@ namespace Cohesity.Models
         /// Specifies the security identifier (SID) of the owner of the SMB share.
         /// </summary>
         /// <value>Specifies the security identifier (SID) of the owner of the SMB share.</value>
-        [DataMember(Name="ownerSid", EmitDefaultValue=false)]
+        [DataMember(Name="ownerSid", EmitDefaultValue=true)]
         public string OwnerSid { get; set; }
 
         /// <summary>
-        /// Specifies a list of SMB permissions.
+        /// Array of SMB Permissions.  Specifies a list of SMB permissions.
         /// </summary>
-        /// <value>Specifies a list of SMB permissions.</value>
-        [DataMember(Name="permissions", EmitDefaultValue=false)]
+        /// <value>Array of SMB Permissions.  Specifies a list of SMB permissions.</value>
+        [DataMember(Name="permissions", EmitDefaultValue=true)]
         public List<SmbPermission> Permissions { get; set; }
 
         /// <summary>
@@ -54,7 +53,12 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class SmbPermissionsInfo {\n");
+            sb.Append("  OwnerSid: ").Append(OwnerSid).Append("\n");
+            sb.Append("  Permissions: ").Append(Permissions).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -95,6 +99,7 @@ namespace Cohesity.Models
                 (
                     this.Permissions == input.Permissions ||
                     this.Permissions != null &&
+                    input.Permissions != null &&
                     this.Permissions.SequenceEqual(input.Permissions)
                 );
         }
@@ -116,8 +121,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

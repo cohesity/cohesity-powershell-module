@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,13 +12,10 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
-    /// MappersWrapper
+    /// MappersWrapper is the struct to define the list of mappers.
     /// </summary>
     [DataContract]
     public partial class MappersWrapper :  IEquatable<MappersWrapper>
@@ -26,16 +23,18 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="MappersWrapper" /> class.
         /// </summary>
-        /// <param name="mappers">mappers.</param>
+        /// <param name="mappers">Mappers specifies the list of available mappers in analytics workbench..</param>
         public MappersWrapper(List<MapperInfo> mappers = default(List<MapperInfo>))
         {
+            this.Mappers = mappers;
             this.Mappers = mappers;
         }
         
         /// <summary>
-        /// Gets or Sets Mappers
+        /// Mappers specifies the list of available mappers in analytics workbench.
         /// </summary>
-        [DataMember(Name="mappers", EmitDefaultValue=false)]
+        /// <value>Mappers specifies the list of available mappers in analytics workbench.</value>
+        [DataMember(Name="mappers", EmitDefaultValue=true)]
         public List<MapperInfo> Mappers { get; set; }
 
         /// <summary>
@@ -44,7 +43,11 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class MappersWrapper {\n");
+            sb.Append("  Mappers: ").Append(Mappers).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -80,6 +83,7 @@ namespace Cohesity.Models
                 (
                     this.Mappers == input.Mappers ||
                     this.Mappers != null &&
+                    input.Mappers != null &&
                     this.Mappers.SequenceEqual(input.Mappers)
                 );
         }
@@ -99,8 +103,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

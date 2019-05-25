@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// DashboardResponse
@@ -26,18 +23,18 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="DashboardResponse" /> class.
         /// </summary>
-        /// <param name="dashboard">Specifies the dashboard of the local cluster or a remote cluster whose id is set in clusterId query parameter when the query parameter allClusters is not given or set to false. Otherwise this field is populated with aggregated dashboard values for all the dashboards in the dashboards field..</param>
+        /// <param name="dashboard">dashboard.</param>
         /// <param name="dashboards">Specifies a list of dashboards of all the clusters in the SPOG setup if the query parameter allClusters is set to true. Otherwise this field is not populated. When populated the dashboard field is also populated with aggregated dashboard values..</param>
         public DashboardResponse(Dashboard dashboard = default(Dashboard), List<Dashboard> dashboards = default(List<Dashboard>))
         {
+            this.Dashboards = dashboards;
             this.Dashboard = dashboard;
             this.Dashboards = dashboards;
         }
         
         /// <summary>
-        /// Specifies the dashboard of the local cluster or a remote cluster whose id is set in clusterId query parameter when the query parameter allClusters is not given or set to false. Otherwise this field is populated with aggregated dashboard values for all the dashboards in the dashboards field.
+        /// Gets or Sets Dashboard
         /// </summary>
-        /// <value>Specifies the dashboard of the local cluster or a remote cluster whose id is set in clusterId query parameter when the query parameter allClusters is not given or set to false. Otherwise this field is populated with aggregated dashboard values for all the dashboards in the dashboards field.</value>
         [DataMember(Name="dashboard", EmitDefaultValue=false)]
         public Dashboard Dashboard { get; set; }
 
@@ -45,7 +42,7 @@ namespace Cohesity.Models
         /// Specifies a list of dashboards of all the clusters in the SPOG setup if the query parameter allClusters is set to true. Otherwise this field is not populated. When populated the dashboard field is also populated with aggregated dashboard values.
         /// </summary>
         /// <value>Specifies a list of dashboards of all the clusters in the SPOG setup if the query parameter allClusters is set to true. Otherwise this field is not populated. When populated the dashboard field is also populated with aggregated dashboard values.</value>
-        [DataMember(Name="dashboards", EmitDefaultValue=false)]
+        [DataMember(Name="dashboards", EmitDefaultValue=true)]
         public List<Dashboard> Dashboards { get; set; }
 
         /// <summary>
@@ -54,7 +51,12 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class DashboardResponse {\n");
+            sb.Append("  Dashboard: ").Append(Dashboard).Append("\n");
+            sb.Append("  Dashboards: ").Append(Dashboards).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -95,6 +97,7 @@ namespace Cohesity.Models
                 (
                     this.Dashboards == input.Dashboards ||
                     this.Dashboards != null &&
+                    input.Dashboards != null &&
                     this.Dashboards.SequenceEqual(input.Dashboards)
                 );
         }
@@ -116,8 +119,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

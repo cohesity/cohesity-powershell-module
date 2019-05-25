@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies information about a single Principal.
@@ -24,42 +21,53 @@ namespace Cohesity.Models
     public partial class Principal :  IEquatable<Principal>
     {
         /// <summary>
-        /// Specifies the object class of the principal (either &#39;kGroup&#39; or &#39;kUser&#39;). &#39;kUser&#39; specifies a user object class. &#39;kGroup&#39; specifies a group object class.
+        /// Specifies the object class of the principal (either &#39;kGroup&#39; or &#39;kUser&#39;). &#39;kUser&#39; specifies a user object class. &#39;kGroup&#39; specifies a group object class. &#39;kComputer&#39; specifies a computer object class.
         /// </summary>
-        /// <value>Specifies the object class of the principal (either &#39;kGroup&#39; or &#39;kUser&#39;). &#39;kUser&#39; specifies a user object class. &#39;kGroup&#39; specifies a group object class.</value>
+        /// <value>Specifies the object class of the principal (either &#39;kGroup&#39; or &#39;kUser&#39;). &#39;kUser&#39; specifies a user object class. &#39;kGroup&#39; specifies a group object class. &#39;kComputer&#39; specifies a computer object class.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum ObjectClassEnum
         {
-            
             /// <summary>
             /// Enum KUser for value: kUser
             /// </summary>
             [EnumMember(Value = "kUser")]
             KUser = 1,
-            
+
             /// <summary>
             /// Enum KGroup for value: kGroup
             /// </summary>
             [EnumMember(Value = "kGroup")]
-            KGroup = 2
+            KGroup = 2,
+
+            /// <summary>
+            /// Enum KComputer for value: kComputer
+            /// </summary>
+            [EnumMember(Value = "kComputer")]
+            KComputer = 3
+
         }
 
         /// <summary>
-        /// Specifies the object class of the principal (either &#39;kGroup&#39; or &#39;kUser&#39;). &#39;kUser&#39; specifies a user object class. &#39;kGroup&#39; specifies a group object class.
+        /// Specifies the object class of the principal (either &#39;kGroup&#39; or &#39;kUser&#39;). &#39;kUser&#39; specifies a user object class. &#39;kGroup&#39; specifies a group object class. &#39;kComputer&#39; specifies a computer object class.
         /// </summary>
-        /// <value>Specifies the object class of the principal (either &#39;kGroup&#39; or &#39;kUser&#39;). &#39;kUser&#39; specifies a user object class. &#39;kGroup&#39; specifies a group object class.</value>
-        [DataMember(Name="objectClass", EmitDefaultValue=false)]
+        /// <value>Specifies the object class of the principal (either &#39;kGroup&#39; or &#39;kUser&#39;). &#39;kUser&#39; specifies a user object class. &#39;kGroup&#39; specifies a group object class. &#39;kComputer&#39; specifies a computer object class.</value>
+        [DataMember(Name="objectClass", EmitDefaultValue=true)]
         public ObjectClassEnum? ObjectClass { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="Principal" /> class.
         /// </summary>
         /// <param name="domain">Specifies the domain name of the where the principal&#39; account is maintained..</param>
         /// <param name="fullName">Specifies the full name (first and last names) of the principal..</param>
-        /// <param name="objectClass">Specifies the object class of the principal (either &#39;kGroup&#39; or &#39;kUser&#39;). &#39;kUser&#39; specifies a user object class. &#39;kGroup&#39; specifies a group object class..</param>
+        /// <param name="objectClass">Specifies the object class of the principal (either &#39;kGroup&#39; or &#39;kUser&#39;). &#39;kUser&#39; specifies a user object class. &#39;kGroup&#39; specifies a group object class. &#39;kComputer&#39; specifies a computer object class..</param>
         /// <param name="principalName">Specifies the name of the principal..</param>
         /// <param name="sid">Specifies the unique Security id (SID) of the principal..</param>
         public Principal(string domain = default(string), string fullName = default(string), ObjectClassEnum? objectClass = default(ObjectClassEnum?), string principalName = default(string), string sid = default(string))
         {
+            this.Domain = domain;
+            this.FullName = fullName;
+            this.ObjectClass = objectClass;
+            this.PrincipalName = principalName;
+            this.Sid = sid;
             this.Domain = domain;
             this.FullName = fullName;
             this.ObjectClass = objectClass;
@@ -71,29 +79,28 @@ namespace Cohesity.Models
         /// Specifies the domain name of the where the principal&#39; account is maintained.
         /// </summary>
         /// <value>Specifies the domain name of the where the principal&#39; account is maintained.</value>
-        [DataMember(Name="domain", EmitDefaultValue=false)]
+        [DataMember(Name="domain", EmitDefaultValue=true)]
         public string Domain { get; set; }
 
         /// <summary>
         /// Specifies the full name (first and last names) of the principal.
         /// </summary>
         /// <value>Specifies the full name (first and last names) of the principal.</value>
-        [DataMember(Name="fullName", EmitDefaultValue=false)]
+        [DataMember(Name="fullName", EmitDefaultValue=true)]
         public string FullName { get; set; }
-
 
         /// <summary>
         /// Specifies the name of the principal.
         /// </summary>
         /// <value>Specifies the name of the principal.</value>
-        [DataMember(Name="principalName", EmitDefaultValue=false)]
+        [DataMember(Name="principalName", EmitDefaultValue=true)]
         public string PrincipalName { get; set; }
 
         /// <summary>
         /// Specifies the unique Security id (SID) of the principal.
         /// </summary>
         /// <value>Specifies the unique Security id (SID) of the principal.</value>
-        [DataMember(Name="sid", EmitDefaultValue=false)]
+        [DataMember(Name="sid", EmitDefaultValue=true)]
         public string Sid { get; set; }
 
         /// <summary>
@@ -102,7 +109,15 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class Principal {\n");
+            sb.Append("  Domain: ").Append(Domain).Append("\n");
+            sb.Append("  FullName: ").Append(FullName).Append("\n");
+            sb.Append("  ObjectClass: ").Append(ObjectClass).Append("\n");
+            sb.Append("  PrincipalName: ").Append(PrincipalName).Append("\n");
+            sb.Append("  Sid: ").Append(Sid).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -147,8 +162,7 @@ namespace Cohesity.Models
                 ) && 
                 (
                     this.ObjectClass == input.ObjectClass ||
-                    (this.ObjectClass != null &&
-                    this.ObjectClass.Equals(input.ObjectClass))
+                    this.ObjectClass.Equals(input.ObjectClass)
                 ) && 
                 (
                     this.PrincipalName == input.PrincipalName ||
@@ -175,8 +189,7 @@ namespace Cohesity.Models
                     hashCode = hashCode * 59 + this.Domain.GetHashCode();
                 if (this.FullName != null)
                     hashCode = hashCode * 59 + this.FullName.GetHashCode();
-                if (this.ObjectClass != null)
-                    hashCode = hashCode * 59 + this.ObjectClass.GetHashCode();
+                hashCode = hashCode * 59 + this.ObjectClass.GetHashCode();
                 if (this.PrincipalName != null)
                     hashCode = hashCode * 59 + this.PrincipalName.GetHashCode();
                 if (this.Sid != null)
@@ -185,8 +198,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

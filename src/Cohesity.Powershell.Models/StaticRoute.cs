@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies the settings of a Static Route.
@@ -29,11 +26,17 @@ namespace Cohesity.Models
         /// <param name="description">Specifies a description of the Static Route..</param>
         /// <param name="isUpdate">Specifies if the route is currently being updated on the Cohesity Cluster..</param>
         /// <param name="networkInterfaceGroup">Specifies the group name of the network interfaces to use for communicating with the destination subnet..</param>
-        /// <param name="networkInterfaceIds">Specifies the ids of the network interfaces to use for communicating with the destination subnet..</param>
-        /// <param name="subnet">subnet.</param>
+        /// <param name="networkInterfaceIds">Array of Network Interface Ids.  Specifies the ids of the network interfaces to use for communicating with the destination subnet..</param>
+        /// <param name="subnet">Specifies the destination subnet of the Static Route. The netmask can be specified by setting netmaskBits or netmaskIp4. The netmask can only be set using netmaskIp4 if the IP address is an IPv4 address..</param>
         /// <param name="vlanId">Specifies the ID of the VLAN to use for communication with the destination subnet..</param>
-        public StaticRoute(string description = default(string), bool? isUpdate = default(bool?), string networkInterfaceGroup = default(string), List<long?> networkInterfaceIds = default(List<long?>), DestinationSubnet_ subnet = default(DestinationSubnet_), int? vlanId = default(int?))
+        public StaticRoute(string description = default(string), bool? isUpdate = default(bool?), string networkInterfaceGroup = default(string), List<long> networkInterfaceIds = default(List<long>), Subnet subnet = default(Subnet), int? vlanId = default(int?))
         {
+            this.Description = description;
+            this.IsUpdate = isUpdate;
+            this.NetworkInterfaceGroup = networkInterfaceGroup;
+            this.NetworkInterfaceIds = networkInterfaceIds;
+            this.Subnet = subnet;
+            this.VlanId = vlanId;
             this.Description = description;
             this.IsUpdate = isUpdate;
             this.NetworkInterfaceGroup = networkInterfaceGroup;
@@ -46,41 +49,42 @@ namespace Cohesity.Models
         /// Specifies a description of the Static Route.
         /// </summary>
         /// <value>Specifies a description of the Static Route.</value>
-        [DataMember(Name="description", EmitDefaultValue=false)]
+        [DataMember(Name="description", EmitDefaultValue=true)]
         public string Description { get; set; }
 
         /// <summary>
         /// Specifies if the route is currently being updated on the Cohesity Cluster.
         /// </summary>
         /// <value>Specifies if the route is currently being updated on the Cohesity Cluster.</value>
-        [DataMember(Name="isUpdate", EmitDefaultValue=false)]
+        [DataMember(Name="isUpdate", EmitDefaultValue=true)]
         public bool? IsUpdate { get; set; }
 
         /// <summary>
         /// Specifies the group name of the network interfaces to use for communicating with the destination subnet.
         /// </summary>
         /// <value>Specifies the group name of the network interfaces to use for communicating with the destination subnet.</value>
-        [DataMember(Name="networkInterfaceGroup", EmitDefaultValue=false)]
+        [DataMember(Name="networkInterfaceGroup", EmitDefaultValue=true)]
         public string NetworkInterfaceGroup { get; set; }
 
         /// <summary>
-        /// Specifies the ids of the network interfaces to use for communicating with the destination subnet.
+        /// Array of Network Interface Ids.  Specifies the ids of the network interfaces to use for communicating with the destination subnet.
         /// </summary>
-        /// <value>Specifies the ids of the network interfaces to use for communicating with the destination subnet.</value>
-        [DataMember(Name="networkInterfaceIds", EmitDefaultValue=false)]
-        public List<long?> NetworkInterfaceIds { get; set; }
+        /// <value>Array of Network Interface Ids.  Specifies the ids of the network interfaces to use for communicating with the destination subnet.</value>
+        [DataMember(Name="networkInterfaceIds", EmitDefaultValue=true)]
+        public List<long> NetworkInterfaceIds { get; set; }
 
         /// <summary>
-        /// Gets or Sets Subnet
+        /// Specifies the destination subnet of the Static Route. The netmask can be specified by setting netmaskBits or netmaskIp4. The netmask can only be set using netmaskIp4 if the IP address is an IPv4 address.
         /// </summary>
-        [DataMember(Name="subnet", EmitDefaultValue=false)]
-        public DestinationSubnet_ Subnet { get; set; }
+        /// <value>Specifies the destination subnet of the Static Route. The netmask can be specified by setting netmaskBits or netmaskIp4. The netmask can only be set using netmaskIp4 if the IP address is an IPv4 address.</value>
+        [DataMember(Name="subnet", EmitDefaultValue=true)]
+        public Subnet Subnet { get; set; }
 
         /// <summary>
         /// Specifies the ID of the VLAN to use for communication with the destination subnet.
         /// </summary>
         /// <value>Specifies the ID of the VLAN to use for communication with the destination subnet.</value>
-        [DataMember(Name="vlanId", EmitDefaultValue=false)]
+        [DataMember(Name="vlanId", EmitDefaultValue=true)]
         public int? VlanId { get; set; }
 
         /// <summary>
@@ -89,7 +93,16 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class StaticRoute {\n");
+            sb.Append("  Description: ").Append(Description).Append("\n");
+            sb.Append("  IsUpdate: ").Append(IsUpdate).Append("\n");
+            sb.Append("  NetworkInterfaceGroup: ").Append(NetworkInterfaceGroup).Append("\n");
+            sb.Append("  NetworkInterfaceIds: ").Append(NetworkInterfaceIds).Append("\n");
+            sb.Append("  Subnet: ").Append(Subnet).Append("\n");
+            sb.Append("  VlanId: ").Append(VlanId).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -140,6 +153,7 @@ namespace Cohesity.Models
                 (
                     this.NetworkInterfaceIds == input.NetworkInterfaceIds ||
                     this.NetworkInterfaceIds != null &&
+                    input.NetworkInterfaceIds != null &&
                     this.NetworkInterfaceIds.SequenceEqual(input.NetworkInterfaceIds)
                 ) && 
                 (
@@ -179,8 +193,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

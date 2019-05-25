@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Message that specifies the details about CloudDeploy target where backup snapshots may be converted and stored.
@@ -24,77 +21,37 @@ namespace Cohesity.Models
     public partial class CloudDeployTarget :  IEquatable<CloudDeployTarget>
     {
         /// <summary>
-        /// Specifies the type of the CloudDeploy target.
-        /// </summary>
-        /// <value>Specifies the type of the CloudDeploy target.</value>
-        [JsonConverter(typeof(StringEnumConverter))]
-        public enum TypeEnum
-        {
-            
-            /// <summary>
-            /// Enum KAzure for value: kAzure
-            /// </summary>
-            [EnumMember(Value = "kAzure")]
-            KAzure = 1,
-            
-            /// <summary>
-            /// Enum KAws for value: kAws
-            /// </summary>
-            [EnumMember(Value = "kAws")]
-            KAws = 2
-        }
-
-        /// <summary>
-        /// Specifies the type of the CloudDeploy target.
-        /// </summary>
-        /// <value>Specifies the type of the CloudDeploy target.</value>
-        [DataMember(Name="type", EmitDefaultValue=false)]
-        public TypeEnum? Type { get; set; }
-        /// <summary>
         /// Initializes a new instance of the <see cref="CloudDeployTarget" /> class.
         /// </summary>
-        /// <param name="awsParams">Specifies various resources when converting and deploying a VM to AWS..</param>
-        /// <param name="azureParams">Specifies various resources when converting and deploying a VM to Azure..</param>
-        /// <param name="id">Entity corresponding to the cloud deploy target.  Specifies the id field inside the EntityProto..</param>
-        /// <param name="name">Specifies the inner object&#39;s name or a human-readable string made off the salient attributes. This is only plumbed when Entity objects are exposed to Iris BE or to Yoda..</param>
-        /// <param name="type">Specifies the type of the CloudDeploy target..</param>
-        public CloudDeployTarget(AwsParams awsParams = default(AwsParams), AzureParams azureParams = default(AzureParams), long? id = default(long?), string name = default(string), TypeEnum? type = default(TypeEnum?))
+        /// <param name="deployVmsToCloudParams">deployVmsToCloudParams.</param>
+        /// <param name="targetEntity">targetEntity.</param>
+        /// <param name="type">The type of the CloudDeploy target..</param>
+        public CloudDeployTarget(DeployVMsToCloudParams deployVmsToCloudParams = default(DeployVMsToCloudParams), EntityProto targetEntity = default(EntityProto), int? type = default(int?))
         {
-            this.AwsParams = awsParams;
-            this.AzureParams = azureParams;
-            this.Id = id;
-            this.Name = name;
+            this.Type = type;
+            this.DeployVmsToCloudParams = deployVmsToCloudParams;
+            this.TargetEntity = targetEntity;
             this.Type = type;
         }
         
         /// <summary>
-        /// Specifies various resources when converting and deploying a VM to AWS.
+        /// Gets or Sets DeployVmsToCloudParams
         /// </summary>
-        /// <value>Specifies various resources when converting and deploying a VM to AWS.</value>
-        [DataMember(Name="awsParams", EmitDefaultValue=false)]
-        public AwsParams AwsParams { get; set; }
+        [DataMember(Name="deployVmsToCloudParams", EmitDefaultValue=false)]
+        public DeployVMsToCloudParams DeployVmsToCloudParams { get; set; }
 
         /// <summary>
-        /// Specifies various resources when converting and deploying a VM to Azure.
+        /// Gets or Sets TargetEntity
         /// </summary>
-        /// <value>Specifies various resources when converting and deploying a VM to Azure.</value>
-        [DataMember(Name="azureParams", EmitDefaultValue=false)]
-        public AzureParams AzureParams { get; set; }
+        [DataMember(Name="targetEntity", EmitDefaultValue=false)]
+        public EntityProto TargetEntity { get; set; }
 
         /// <summary>
-        /// Entity corresponding to the cloud deploy target.  Specifies the id field inside the EntityProto.
+        /// The type of the CloudDeploy target.
         /// </summary>
-        /// <value>Entity corresponding to the cloud deploy target.  Specifies the id field inside the EntityProto.</value>
-        [DataMember(Name="id", EmitDefaultValue=false)]
-        public long? Id { get; set; }
-
-        /// <summary>
-        /// Specifies the inner object&#39;s name or a human-readable string made off the salient attributes. This is only plumbed when Entity objects are exposed to Iris BE or to Yoda.
-        /// </summary>
-        /// <value>Specifies the inner object&#39;s name or a human-readable string made off the salient attributes. This is only plumbed when Entity objects are exposed to Iris BE or to Yoda.</value>
-        [DataMember(Name="name", EmitDefaultValue=false)]
-        public string Name { get; set; }
-
+        /// <value>The type of the CloudDeploy target.</value>
+        [DataMember(Name="type", EmitDefaultValue=true)]
+        public int? Type { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -102,7 +59,13 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class CloudDeployTarget {\n");
+            sb.Append("  DeployVmsToCloudParams: ").Append(DeployVmsToCloudParams).Append("\n");
+            sb.Append("  TargetEntity: ").Append(TargetEntity).Append("\n");
+            sb.Append("  Type: ").Append(Type).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -136,24 +99,14 @@ namespace Cohesity.Models
 
             return 
                 (
-                    this.AwsParams == input.AwsParams ||
-                    (this.AwsParams != null &&
-                    this.AwsParams.Equals(input.AwsParams))
+                    this.DeployVmsToCloudParams == input.DeployVmsToCloudParams ||
+                    (this.DeployVmsToCloudParams != null &&
+                    this.DeployVmsToCloudParams.Equals(input.DeployVmsToCloudParams))
                 ) && 
                 (
-                    this.AzureParams == input.AzureParams ||
-                    (this.AzureParams != null &&
-                    this.AzureParams.Equals(input.AzureParams))
-                ) && 
-                (
-                    this.Id == input.Id ||
-                    (this.Id != null &&
-                    this.Id.Equals(input.Id))
-                ) && 
-                (
-                    this.Name == input.Name ||
-                    (this.Name != null &&
-                    this.Name.Equals(input.Name))
+                    this.TargetEntity == input.TargetEntity ||
+                    (this.TargetEntity != null &&
+                    this.TargetEntity.Equals(input.TargetEntity))
                 ) && 
                 (
                     this.Type == input.Type ||
@@ -171,22 +124,16 @@ namespace Cohesity.Models
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                if (this.AwsParams != null)
-                    hashCode = hashCode * 59 + this.AwsParams.GetHashCode();
-                if (this.AzureParams != null)
-                    hashCode = hashCode * 59 + this.AzureParams.GetHashCode();
-                if (this.Id != null)
-                    hashCode = hashCode * 59 + this.Id.GetHashCode();
-                if (this.Name != null)
-                    hashCode = hashCode * 59 + this.Name.GetHashCode();
+                if (this.DeployVmsToCloudParams != null)
+                    hashCode = hashCode * 59 + this.DeployVmsToCloudParams.GetHashCode();
+                if (this.TargetEntity != null)
+                    hashCode = hashCode * 59 + this.TargetEntity.GetHashCode();
                 if (this.Type != null)
                     hashCode = hashCode * 59 + this.Type.GetHashCode();
                 return hashCode;
             }
         }
 
-        
     }
 
 }
-

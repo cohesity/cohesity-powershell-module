@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,13 +12,10 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
-    /// SchedulerProtoSchedulerJobSchedule
+    /// A message which specifies the schedule of execution of the job.
     /// </summary>
     [DataContract]
     public partial class SchedulerProtoSchedulerJobSchedule :  IEquatable<SchedulerProtoSchedulerJobSchedule>
@@ -28,25 +25,37 @@ namespace Cohesity.Models
         /// </summary>
         /// <param name="day">The day of the week when schedule should be executed (0-6)..</param>
         /// <param name="hour">The hour of the day when schedule should be executed (0-23)..</param>
-        public SchedulerProtoSchedulerJobSchedule(int? day = default(int?), int? hour = default(int?))
+        /// <param name="timezone">The timezone for the execution of the schedule..</param>
+        public SchedulerProtoSchedulerJobSchedule(int? day = default(int?), int? hour = default(int?), string timezone = default(string))
         {
             this.Day = day;
             this.Hour = hour;
+            this.Timezone = timezone;
+            this.Day = day;
+            this.Hour = hour;
+            this.Timezone = timezone;
         }
         
         /// <summary>
         /// The day of the week when schedule should be executed (0-6).
         /// </summary>
         /// <value>The day of the week when schedule should be executed (0-6).</value>
-        [DataMember(Name="day", EmitDefaultValue=false)]
+        [DataMember(Name="day", EmitDefaultValue=true)]
         public int? Day { get; set; }
 
         /// <summary>
         /// The hour of the day when schedule should be executed (0-23).
         /// </summary>
         /// <value>The hour of the day when schedule should be executed (0-23).</value>
-        [DataMember(Name="hour", EmitDefaultValue=false)]
+        [DataMember(Name="hour", EmitDefaultValue=true)]
         public int? Hour { get; set; }
+
+        /// <summary>
+        /// The timezone for the execution of the schedule.
+        /// </summary>
+        /// <value>The timezone for the execution of the schedule.</value>
+        [DataMember(Name="timezone", EmitDefaultValue=true)]
+        public string Timezone { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -54,7 +63,13 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class SchedulerProtoSchedulerJobSchedule {\n");
+            sb.Append("  Day: ").Append(Day).Append("\n");
+            sb.Append("  Hour: ").Append(Hour).Append("\n");
+            sb.Append("  Timezone: ").Append(Timezone).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -96,6 +111,11 @@ namespace Cohesity.Models
                     this.Hour == input.Hour ||
                     (this.Hour != null &&
                     this.Hour.Equals(input.Hour))
+                ) && 
+                (
+                    this.Timezone == input.Timezone ||
+                    (this.Timezone != null &&
+                    this.Timezone.Equals(input.Timezone))
                 );
         }
 
@@ -112,12 +132,12 @@ namespace Cohesity.Models
                     hashCode = hashCode * 59 + this.Day.GetHashCode();
                 if (this.Hour != null)
                     hashCode = hashCode * 59 + this.Hour.GetHashCode();
+                if (this.Timezone != null)
+                    hashCode = hashCode * 59 + this.Timezone.GetHashCode();
                 return hashCode;
             }
         }
 
-        
     }
 
 }
-

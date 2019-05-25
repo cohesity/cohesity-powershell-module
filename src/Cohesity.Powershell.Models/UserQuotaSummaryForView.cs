@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,13 +12,10 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
-    /// UserQuotaSummaryForView
+    /// Specifies the user quota summary information/result for a view.
     /// </summary>
     [DataContract]
     public partial class UserQuotaSummaryForView :  IEquatable<UserQuotaSummaryForView>
@@ -26,12 +23,15 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="UserQuotaSummaryForView" /> class.
         /// </summary>
-        /// <param name="defaultUserQuotaPolicy">Default quota policy applied to all the users in the view who doesn&#39;t have a policy override..</param>
+        /// <param name="defaultUserQuotaPolicy">defaultUserQuotaPolicy.</param>
         /// <param name="numUsersAboveAlertThreshold">Number of users who has exceeded their specified alert limit..</param>
         /// <param name="numUsersAboveHardLimit">Number of users who has exceeded their specified quota hard limit..</param>
         /// <param name="totalNumUsers">Total number of users who has either a user quota policy override specified or has non-zero logical usage..</param>
         public UserQuotaSummaryForView(QuotaPolicy defaultUserQuotaPolicy = default(QuotaPolicy), long? numUsersAboveAlertThreshold = default(long?), long? numUsersAboveHardLimit = default(long?), long? totalNumUsers = default(long?))
         {
+            this.NumUsersAboveAlertThreshold = numUsersAboveAlertThreshold;
+            this.NumUsersAboveHardLimit = numUsersAboveHardLimit;
+            this.TotalNumUsers = totalNumUsers;
             this.DefaultUserQuotaPolicy = defaultUserQuotaPolicy;
             this.NumUsersAboveAlertThreshold = numUsersAboveAlertThreshold;
             this.NumUsersAboveHardLimit = numUsersAboveHardLimit;
@@ -39,9 +39,8 @@ namespace Cohesity.Models
         }
         
         /// <summary>
-        /// Default quota policy applied to all the users in the view who doesn&#39;t have a policy override.
+        /// Gets or Sets DefaultUserQuotaPolicy
         /// </summary>
-        /// <value>Default quota policy applied to all the users in the view who doesn&#39;t have a policy override.</value>
         [DataMember(Name="defaultUserQuotaPolicy", EmitDefaultValue=false)]
         public QuotaPolicy DefaultUserQuotaPolicy { get; set; }
 
@@ -49,21 +48,21 @@ namespace Cohesity.Models
         /// Number of users who has exceeded their specified alert limit.
         /// </summary>
         /// <value>Number of users who has exceeded their specified alert limit.</value>
-        [DataMember(Name="numUsersAboveAlertThreshold", EmitDefaultValue=false)]
+        [DataMember(Name="numUsersAboveAlertThreshold", EmitDefaultValue=true)]
         public long? NumUsersAboveAlertThreshold { get; set; }
 
         /// <summary>
         /// Number of users who has exceeded their specified quota hard limit.
         /// </summary>
         /// <value>Number of users who has exceeded their specified quota hard limit.</value>
-        [DataMember(Name="numUsersAboveHardLimit", EmitDefaultValue=false)]
+        [DataMember(Name="numUsersAboveHardLimit", EmitDefaultValue=true)]
         public long? NumUsersAboveHardLimit { get; set; }
 
         /// <summary>
         /// Total number of users who has either a user quota policy override specified or has non-zero logical usage.
         /// </summary>
         /// <value>Total number of users who has either a user quota policy override specified or has non-zero logical usage.</value>
-        [DataMember(Name="totalNumUsers", EmitDefaultValue=false)]
+        [DataMember(Name="totalNumUsers", EmitDefaultValue=true)]
         public long? TotalNumUsers { get; set; }
 
         /// <summary>
@@ -72,7 +71,14 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class UserQuotaSummaryForView {\n");
+            sb.Append("  DefaultUserQuotaPolicy: ").Append(DefaultUserQuotaPolicy).Append("\n");
+            sb.Append("  NumUsersAboveAlertThreshold: ").Append(NumUsersAboveAlertThreshold).Append("\n");
+            sb.Append("  NumUsersAboveHardLimit: ").Append(NumUsersAboveHardLimit).Append("\n");
+            sb.Append("  TotalNumUsers: ").Append(TotalNumUsers).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -148,8 +154,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

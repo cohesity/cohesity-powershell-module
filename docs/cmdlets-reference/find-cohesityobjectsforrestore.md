@@ -148,7 +148,7 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 
 ## OUTPUTS
 
-### Cohesity.Models.ObjectSnapshotInfo
+### Cohesity.Model.ObjectSnapshotInfo
 ## NOTES
 
 ## RELATED LINKS

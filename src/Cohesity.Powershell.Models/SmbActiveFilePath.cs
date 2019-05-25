@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies a file path in an SMB view that has active sessions and opens.
@@ -26,7 +23,7 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="SmbActiveFilePath" /> class.
         /// </summary>
-        /// <param name="activeSessions">activeSessions.</param>
+        /// <param name="activeSessions">Specifies the sessions where the file is open..</param>
         /// <param name="filePath">Specifies the filepath in the view..</param>
         /// <param name="viewId">Specifies the id of the View assigned by the Cohesity Cluster. Either viewName or viewId must be specified..</param>
         /// <param name="viewName">Specifies the name of the View..</param>
@@ -36,33 +33,38 @@ namespace Cohesity.Models
             this.FilePath = filePath;
             this.ViewId = viewId;
             this.ViewName = viewName;
+            this.ActiveSessions = activeSessions;
+            this.FilePath = filePath;
+            this.ViewId = viewId;
+            this.ViewName = viewName;
         }
         
         /// <summary>
-        /// Gets or Sets ActiveSessions
+        /// Specifies the sessions where the file is open.
         /// </summary>
-        [DataMember(Name="activeSessions", EmitDefaultValue=false)]
+        /// <value>Specifies the sessions where the file is open.</value>
+        [DataMember(Name="activeSessions", EmitDefaultValue=true)]
         public List<SmbActiveSession> ActiveSessions { get; set; }
 
         /// <summary>
         /// Specifies the filepath in the view.
         /// </summary>
         /// <value>Specifies the filepath in the view.</value>
-        [DataMember(Name="filePath", EmitDefaultValue=false)]
+        [DataMember(Name="filePath", EmitDefaultValue=true)]
         public string FilePath { get; set; }
 
         /// <summary>
         /// Specifies the id of the View assigned by the Cohesity Cluster. Either viewName or viewId must be specified.
         /// </summary>
         /// <value>Specifies the id of the View assigned by the Cohesity Cluster. Either viewName or viewId must be specified.</value>
-        [DataMember(Name="viewId", EmitDefaultValue=false)]
+        [DataMember(Name="viewId", EmitDefaultValue=true)]
         public long? ViewId { get; set; }
 
         /// <summary>
         /// Specifies the name of the View.
         /// </summary>
         /// <value>Specifies the name of the View.</value>
-        [DataMember(Name="viewName", EmitDefaultValue=false)]
+        [DataMember(Name="viewName", EmitDefaultValue=true)]
         public string ViewName { get; set; }
 
         /// <summary>
@@ -71,7 +73,14 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class SmbActiveFilePath {\n");
+            sb.Append("  ActiveSessions: ").Append(ActiveSessions).Append("\n");
+            sb.Append("  FilePath: ").Append(FilePath).Append("\n");
+            sb.Append("  ViewId: ").Append(ViewId).Append("\n");
+            sb.Append("  ViewName: ").Append(ViewName).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -107,6 +116,7 @@ namespace Cohesity.Models
                 (
                     this.ActiveSessions == input.ActiveSessions ||
                     this.ActiveSessions != null &&
+                    input.ActiveSessions != null &&
                     this.ActiveSessions.SequenceEqual(input.ActiveSessions)
                 ) && 
                 (
@@ -147,8 +157,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFrameworks>net451;netcoreapp2.0</TargetFrameworks>
-    <AssemblyName>Cohesity.PowerShell.Models</AssemblyName>
-    <RootNamespace>Cohesity.Powershell.Models</RootNamespace>
+    <AssemblyName>Cohesity.Models</AssemblyName>
+    <RootNamespace>Cohesity.Models</RootNamespace>
 	<RestoreProjectStyle>PackageReference</RestoreProjectStyle>
 	<Configurations>Debug;Release;</Configurations>
 	<Authors>Cohesity</Authors>

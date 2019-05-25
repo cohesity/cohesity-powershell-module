@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies information about a single SMB permission.
@@ -30,100 +27,100 @@ namespace Cohesity.Models
         [JsonConverter(typeof(StringEnumConverter))]
         public enum AccessEnum
         {
-            
             /// <summary>
             /// Enum KReadOnly for value: kReadOnly
             /// </summary>
             [EnumMember(Value = "kReadOnly")]
             KReadOnly = 1,
-            
+
             /// <summary>
             /// Enum KReadWrite for value: kReadWrite
             /// </summary>
             [EnumMember(Value = "kReadWrite")]
             KReadWrite = 2,
-            
+
             /// <summary>
             /// Enum KModify for value: kModify
             /// </summary>
             [EnumMember(Value = "kModify")]
             KModify = 3,
-            
+
             /// <summary>
             /// Enum KFullControl for value: kFullControl
             /// </summary>
             [EnumMember(Value = "kFullControl")]
             KFullControl = 4,
-            
+
             /// <summary>
             /// Enum KSpecialAccess for value: kSpecialAccess
             /// </summary>
             [EnumMember(Value = "kSpecialAccess")]
             KSpecialAccess = 5
+
         }
 
         /// <summary>
         /// Specifies the read/write access to the SMB share. &#39;kReadyOnly&#39; indicates read only access to the SMB share. &#39;kReadWrite&#39; indicates read and write access to the SMB share. &#39;kFullControl&#39; indicates full administrative control of the SMB share. &#39;kSpecialAccess&#39; indicates custom permissions to the SMB share using access masks structures.
         /// </summary>
         /// <value>Specifies the read/write access to the SMB share. &#39;kReadyOnly&#39; indicates read only access to the SMB share. &#39;kReadWrite&#39; indicates read and write access to the SMB share. &#39;kFullControl&#39; indicates full administrative control of the SMB share. &#39;kSpecialAccess&#39; indicates custom permissions to the SMB share using access masks structures.</value>
-        [DataMember(Name="access", EmitDefaultValue=false)]
+        [DataMember(Name="access", EmitDefaultValue=true)]
         public AccessEnum? Access { get; set; }
         /// <summary>
-        /// Specifies how the permission should be applied to folders and/or files.
+        /// Specifies how the permission should be applied to folders and/or files. &#39;kFolderSubFoldersAndFiles&#39; indicates that permissions are applied to a Folder and it&#39;s sub folders and files. &#39;kFolderAndSubFolders&#39; indicates that permissions are applied to a Folder and it&#39;s sub folders. &#39;kFolderAndSubFiles&#39; indicates that permissions are applied to a Folder and it&#39;s sub files. &#39;kFolderOnly&#39; indicates that permsission are applied to folder only. &#39;kSubFoldersAndFilesOnly&#39; indicates that permissions are applied to sub folders and files only. &#39;kSubFoldersOnly&#39; indicates that permissiona are applied to sub folders only. &#39;kFilesOnly&#39; indicates that permissions are applied to files only.
         /// </summary>
-        /// <value>Specifies how the permission should be applied to folders and/or files.</value>
+        /// <value>Specifies how the permission should be applied to folders and/or files. &#39;kFolderSubFoldersAndFiles&#39; indicates that permissions are applied to a Folder and it&#39;s sub folders and files. &#39;kFolderAndSubFolders&#39; indicates that permissions are applied to a Folder and it&#39;s sub folders. &#39;kFolderAndSubFiles&#39; indicates that permissions are applied to a Folder and it&#39;s sub files. &#39;kFolderOnly&#39; indicates that permsission are applied to folder only. &#39;kSubFoldersAndFilesOnly&#39; indicates that permissions are applied to sub folders and files only. &#39;kSubFoldersOnly&#39; indicates that permissiona are applied to sub folders only. &#39;kFilesOnly&#39; indicates that permissions are applied to files only.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum ModeEnum
         {
-            
             /// <summary>
             /// Enum KFolderSubFoldersAndFiles for value: kFolderSubFoldersAndFiles
             /// </summary>
             [EnumMember(Value = "kFolderSubFoldersAndFiles")]
             KFolderSubFoldersAndFiles = 1,
-            
+
             /// <summary>
             /// Enum KFolderAndSubFolders for value: kFolderAndSubFolders
             /// </summary>
             [EnumMember(Value = "kFolderAndSubFolders")]
             KFolderAndSubFolders = 2,
-            
+
             /// <summary>
             /// Enum KFolderAndFiles for value: kFolderAndFiles
             /// </summary>
             [EnumMember(Value = "kFolderAndFiles")]
             KFolderAndFiles = 3,
-            
+
             /// <summary>
             /// Enum KFolderOnly for value: kFolderOnly
             /// </summary>
             [EnumMember(Value = "kFolderOnly")]
             KFolderOnly = 4,
-            
+
             /// <summary>
             /// Enum KSubFoldersAndFilesOnly for value: kSubFoldersAndFilesOnly
             /// </summary>
             [EnumMember(Value = "kSubFoldersAndFilesOnly")]
             KSubFoldersAndFilesOnly = 5,
-            
+
             /// <summary>
             /// Enum KSubFoldersOnly for value: kSubFoldersOnly
             /// </summary>
             [EnumMember(Value = "kSubFoldersOnly")]
             KSubFoldersOnly = 6,
-            
+
             /// <summary>
             /// Enum KFilesOnly for value: kFilesOnly
             /// </summary>
             [EnumMember(Value = "kFilesOnly")]
             KFilesOnly = 7
+
         }
 
         /// <summary>
-        /// Specifies how the permission should be applied to folders and/or files.
+        /// Specifies how the permission should be applied to folders and/or files. &#39;kFolderSubFoldersAndFiles&#39; indicates that permissions are applied to a Folder and it&#39;s sub folders and files. &#39;kFolderAndSubFolders&#39; indicates that permissions are applied to a Folder and it&#39;s sub folders. &#39;kFolderAndSubFiles&#39; indicates that permissions are applied to a Folder and it&#39;s sub files. &#39;kFolderOnly&#39; indicates that permsission are applied to folder only. &#39;kSubFoldersAndFilesOnly&#39; indicates that permissions are applied to sub folders and files only. &#39;kSubFoldersOnly&#39; indicates that permissiona are applied to sub folders only. &#39;kFilesOnly&#39; indicates that permissions are applied to files only.
         /// </summary>
-        /// <value>Specifies how the permission should be applied to folders and/or files.</value>
-        [DataMember(Name="mode", EmitDefaultValue=false)]
+        /// <value>Specifies how the permission should be applied to folders and/or files. &#39;kFolderSubFoldersAndFiles&#39; indicates that permissions are applied to a Folder and it&#39;s sub folders and files. &#39;kFolderAndSubFolders&#39; indicates that permissions are applied to a Folder and it&#39;s sub folders. &#39;kFolderAndSubFiles&#39; indicates that permissions are applied to a Folder and it&#39;s sub files. &#39;kFolderOnly&#39; indicates that permsission are applied to folder only. &#39;kSubFoldersAndFilesOnly&#39; indicates that permissions are applied to sub folders and files only. &#39;kSubFoldersOnly&#39; indicates that permissiona are applied to sub folders only. &#39;kFilesOnly&#39; indicates that permissions are applied to files only.</value>
+        [DataMember(Name="mode", EmitDefaultValue=true)]
         public ModeEnum? Mode { get; set; }
         /// <summary>
         /// Specifies the type of permission. &#39;kAllow&#39; indicates access is allowed. &#39;kDeny&#39; indicates access is denied. &#39;kSpecialType&#39; indicates a type defined in the Access Control Entry (ACE) does not map to &#39;kAllow&#39; or &#39;kDeny&#39;.
@@ -132,37 +129,37 @@ namespace Cohesity.Models
         [JsonConverter(typeof(StringEnumConverter))]
         public enum TypeEnum
         {
-            
             /// <summary>
             /// Enum KAllow for value: kAllow
             /// </summary>
             [EnumMember(Value = "kAllow")]
             KAllow = 1,
-            
+
             /// <summary>
             /// Enum KDeny for value: kDeny
             /// </summary>
             [EnumMember(Value = "kDeny")]
             KDeny = 2,
-            
+
             /// <summary>
             /// Enum KSpecialType for value: kSpecialType
             /// </summary>
             [EnumMember(Value = "kSpecialType")]
             KSpecialType = 3
+
         }
 
         /// <summary>
         /// Specifies the type of permission. &#39;kAllow&#39; indicates access is allowed. &#39;kDeny&#39; indicates access is denied. &#39;kSpecialType&#39; indicates a type defined in the Access Control Entry (ACE) does not map to &#39;kAllow&#39; or &#39;kDeny&#39;.
         /// </summary>
         /// <value>Specifies the type of permission. &#39;kAllow&#39; indicates access is allowed. &#39;kDeny&#39; indicates access is denied. &#39;kSpecialType&#39; indicates a type defined in the Access Control Entry (ACE) does not map to &#39;kAllow&#39; or &#39;kDeny&#39;.</value>
-        [DataMember(Name="type", EmitDefaultValue=false)]
+        [DataMember(Name="type", EmitDefaultValue=true)]
         public TypeEnum? Type { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="SmbPermission" /> class.
         /// </summary>
         /// <param name="access">Specifies the read/write access to the SMB share. &#39;kReadyOnly&#39; indicates read only access to the SMB share. &#39;kReadWrite&#39; indicates read and write access to the SMB share. &#39;kFullControl&#39; indicates full administrative control of the SMB share. &#39;kSpecialAccess&#39; indicates custom permissions to the SMB share using access masks structures..</param>
-        /// <param name="mode">Specifies how the permission should be applied to folders and/or files..</param>
+        /// <param name="mode">Specifies how the permission should be applied to folders and/or files. &#39;kFolderSubFoldersAndFiles&#39; indicates that permissions are applied to a Folder and it&#39;s sub folders and files. &#39;kFolderAndSubFolders&#39; indicates that permissions are applied to a Folder and it&#39;s sub folders. &#39;kFolderAndSubFiles&#39; indicates that permissions are applied to a Folder and it&#39;s sub files. &#39;kFolderOnly&#39; indicates that permsission are applied to folder only. &#39;kSubFoldersAndFilesOnly&#39; indicates that permissions are applied to sub folders and files only. &#39;kSubFoldersOnly&#39; indicates that permissiona are applied to sub folders only. &#39;kFilesOnly&#39; indicates that permissions are applied to files only..</param>
         /// <param name="sid">Specifies the security identifier (SID) of the principal..</param>
         /// <param name="specialAccessMask">Specifies custom access permissions. When the access mask from the Access Control Entry (ACE) cannot be mapped to one of the enums in &#39;access&#39;, this field is populated with the custom mask derived from the ACE and &#39;access&#39; is set to kSpecialAccess. This is a placeholder for storing an unmapped access permission and should not be set when creating and editing a View..</param>
         /// <param name="specialType">Specifies a custom type. When the type from the Access Control Entry (ACE) cannot be mapped to one of the enums in &#39;type&#39;, this field is populated with the custom type derived from the ACE and &#39;type&#39; is set to kSpecialType. This is a placeholder for storing an unmapped type and should not be set when creating and editing a View..</param>
@@ -175,31 +172,34 @@ namespace Cohesity.Models
             this.SpecialAccessMask = specialAccessMask;
             this.SpecialType = specialType;
             this.Type = type;
+            this.Access = access;
+            this.Mode = mode;
+            this.Sid = sid;
+            this.SpecialAccessMask = specialAccessMask;
+            this.SpecialType = specialType;
+            this.Type = type;
         }
         
-
-
         /// <summary>
         /// Specifies the security identifier (SID) of the principal.
         /// </summary>
         /// <value>Specifies the security identifier (SID) of the principal.</value>
-        [DataMember(Name="sid", EmitDefaultValue=false)]
+        [DataMember(Name="sid", EmitDefaultValue=true)]
         public string Sid { get; set; }
 
         /// <summary>
         /// Specifies custom access permissions. When the access mask from the Access Control Entry (ACE) cannot be mapped to one of the enums in &#39;access&#39;, this field is populated with the custom mask derived from the ACE and &#39;access&#39; is set to kSpecialAccess. This is a placeholder for storing an unmapped access permission and should not be set when creating and editing a View.
         /// </summary>
         /// <value>Specifies custom access permissions. When the access mask from the Access Control Entry (ACE) cannot be mapped to one of the enums in &#39;access&#39;, this field is populated with the custom mask derived from the ACE and &#39;access&#39; is set to kSpecialAccess. This is a placeholder for storing an unmapped access permission and should not be set when creating and editing a View.</value>
-        [DataMember(Name="specialAccessMask", EmitDefaultValue=false)]
+        [DataMember(Name="specialAccessMask", EmitDefaultValue=true)]
         public int? SpecialAccessMask { get; set; }
 
         /// <summary>
         /// Specifies a custom type. When the type from the Access Control Entry (ACE) cannot be mapped to one of the enums in &#39;type&#39;, this field is populated with the custom type derived from the ACE and &#39;type&#39; is set to kSpecialType. This is a placeholder for storing an unmapped type and should not be set when creating and editing a View.
         /// </summary>
         /// <value>Specifies a custom type. When the type from the Access Control Entry (ACE) cannot be mapped to one of the enums in &#39;type&#39;, this field is populated with the custom type derived from the ACE and &#39;type&#39; is set to kSpecialType. This is a placeholder for storing an unmapped type and should not be set when creating and editing a View.</value>
-        [DataMember(Name="specialType", EmitDefaultValue=false)]
+        [DataMember(Name="specialType", EmitDefaultValue=true)]
         public int? SpecialType { get; set; }
-
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -207,7 +207,16 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class SmbPermission {\n");
+            sb.Append("  Access: ").Append(Access).Append("\n");
+            sb.Append("  Mode: ").Append(Mode).Append("\n");
+            sb.Append("  Sid: ").Append(Sid).Append("\n");
+            sb.Append("  SpecialAccessMask: ").Append(SpecialAccessMask).Append("\n");
+            sb.Append("  SpecialType: ").Append(SpecialType).Append("\n");
+            sb.Append("  Type: ").Append(Type).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -242,13 +251,11 @@ namespace Cohesity.Models
             return 
                 (
                     this.Access == input.Access ||
-                    (this.Access != null &&
-                    this.Access.Equals(input.Access))
+                    this.Access.Equals(input.Access)
                 ) && 
                 (
                     this.Mode == input.Mode ||
-                    (this.Mode != null &&
-                    this.Mode.Equals(input.Mode))
+                    this.Mode.Equals(input.Mode)
                 ) && 
                 (
                     this.Sid == input.Sid ||
@@ -267,8 +274,7 @@ namespace Cohesity.Models
                 ) && 
                 (
                     this.Type == input.Type ||
-                    (this.Type != null &&
-                    this.Type.Equals(input.Type))
+                    this.Type.Equals(input.Type)
                 );
         }
 
@@ -281,24 +287,19 @@ namespace Cohesity.Models
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                if (this.Access != null)
-                    hashCode = hashCode * 59 + this.Access.GetHashCode();
-                if (this.Mode != null)
-                    hashCode = hashCode * 59 + this.Mode.GetHashCode();
+                hashCode = hashCode * 59 + this.Access.GetHashCode();
+                hashCode = hashCode * 59 + this.Mode.GetHashCode();
                 if (this.Sid != null)
                     hashCode = hashCode * 59 + this.Sid.GetHashCode();
                 if (this.SpecialAccessMask != null)
                     hashCode = hashCode * 59 + this.SpecialAccessMask.GetHashCode();
                 if (this.SpecialType != null)
                     hashCode = hashCode * 59 + this.SpecialType.GetHashCode();
-                if (this.Type != null)
-                    hashCode = hashCode * 59 + this.Type.GetHashCode();
+                hashCode = hashCode * 59 + this.Type.GetHashCode();
                 return hashCode;
             }
         }
 
-        
     }
 
 }
-

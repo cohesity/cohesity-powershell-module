@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,13 +12,10 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
-    /// QuotaAndUsageInView
+    /// Specifies the usage and quota information for a specific view.
     /// </summary>
     [DataContract]
     public partial class QuotaAndUsageInView :  IEquatable<QuotaAndUsageInView>
@@ -26,12 +23,15 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="QuotaAndUsageInView" /> class.
         /// </summary>
-        /// <param name="quota">User quota policy applied to this user..</param>
+        /// <param name="quota">quota.</param>
         /// <param name="usageBytes">Usage in bytes of this user in this view..</param>
         /// <param name="viewId">The usage and quota policy information of this user for this view..</param>
         /// <param name="viewName">View name..</param>
         public QuotaAndUsageInView(QuotaPolicy quota = default(QuotaPolicy), long? usageBytes = default(long?), long? viewId = default(long?), string viewName = default(string))
         {
+            this.UsageBytes = usageBytes;
+            this.ViewId = viewId;
+            this.ViewName = viewName;
             this.Quota = quota;
             this.UsageBytes = usageBytes;
             this.ViewId = viewId;
@@ -39,9 +39,8 @@ namespace Cohesity.Models
         }
         
         /// <summary>
-        /// User quota policy applied to this user.
+        /// Gets or Sets Quota
         /// </summary>
-        /// <value>User quota policy applied to this user.</value>
         [DataMember(Name="quota", EmitDefaultValue=false)]
         public QuotaPolicy Quota { get; set; }
 
@@ -49,21 +48,21 @@ namespace Cohesity.Models
         /// Usage in bytes of this user in this view.
         /// </summary>
         /// <value>Usage in bytes of this user in this view.</value>
-        [DataMember(Name="usageBytes", EmitDefaultValue=false)]
+        [DataMember(Name="usageBytes", EmitDefaultValue=true)]
         public long? UsageBytes { get; set; }
 
         /// <summary>
         /// The usage and quota policy information of this user for this view.
         /// </summary>
         /// <value>The usage and quota policy information of this user for this view.</value>
-        [DataMember(Name="viewId", EmitDefaultValue=false)]
+        [DataMember(Name="viewId", EmitDefaultValue=true)]
         public long? ViewId { get; set; }
 
         /// <summary>
         /// View name.
         /// </summary>
         /// <value>View name.</value>
-        [DataMember(Name="viewName", EmitDefaultValue=false)]
+        [DataMember(Name="viewName", EmitDefaultValue=true)]
         public string ViewName { get; set; }
 
         /// <summary>
@@ -72,7 +71,14 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class QuotaAndUsageInView {\n");
+            sb.Append("  Quota: ").Append(Quota).Append("\n");
+            sb.Append("  UsageBytes: ").Append(UsageBytes).Append("\n");
+            sb.Append("  ViewId: ").Append(ViewId).Append("\n");
+            sb.Append("  ViewName: ").Append(ViewName).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -148,8 +154,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

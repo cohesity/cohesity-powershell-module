@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,13 +12,10 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
-    /// Specifies job parameters applicable for all &#39;kPhysical&#39; Environment type Protection Sources in a Protection Job.
+    /// Protection Job parameters applicable to &#39;kPhysical&#39; Environment type. Specifies job parameters applicable for all &#39;kPhysical&#39; Environment type Protection Sources in a Protection Job.
     /// </summary>
     [DataContract]
     public partial class PhysicalEnvJobParameters :  IEquatable<PhysicalEnvJobParameters>
@@ -26,17 +23,26 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="PhysicalEnvJobParameters" /> class.
         /// </summary>
+        /// <param name="filePathFilters">filePathFilters.</param>
         /// <param name="incrementalSnapshotUponRestart">If true, performs an incremental backup after server restarts. Otherwise a full backup is done. NOTE: This is applicable only to Windows servers. If not set, default value is false..</param>
-        public PhysicalEnvJobParameters(bool? incrementalSnapshotUponRestart = default(bool?))
+        public PhysicalEnvJobParameters(FilePathFilter filePathFilters = default(FilePathFilter), bool? incrementalSnapshotUponRestart = default(bool?))
         {
+            this.IncrementalSnapshotUponRestart = incrementalSnapshotUponRestart;
+            this.FilePathFilters = filePathFilters;
             this.IncrementalSnapshotUponRestart = incrementalSnapshotUponRestart;
         }
         
         /// <summary>
+        /// Gets or Sets FilePathFilters
+        /// </summary>
+        [DataMember(Name="filePathFilters", EmitDefaultValue=false)]
+        public FilePathFilter FilePathFilters { get; set; }
+
+        /// <summary>
         /// If true, performs an incremental backup after server restarts. Otherwise a full backup is done. NOTE: This is applicable only to Windows servers. If not set, default value is false.
         /// </summary>
         /// <value>If true, performs an incremental backup after server restarts. Otherwise a full backup is done. NOTE: This is applicable only to Windows servers. If not set, default value is false.</value>
-        [DataMember(Name="incrementalSnapshotUponRestart", EmitDefaultValue=false)]
+        [DataMember(Name="incrementalSnapshotUponRestart", EmitDefaultValue=true)]
         public bool? IncrementalSnapshotUponRestart { get; set; }
 
         /// <summary>
@@ -45,7 +51,12 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class PhysicalEnvJobParameters {\n");
+            sb.Append("  FilePathFilters: ").Append(FilePathFilters).Append("\n");
+            sb.Append("  IncrementalSnapshotUponRestart: ").Append(IncrementalSnapshotUponRestart).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -79,6 +90,11 @@ namespace Cohesity.Models
 
             return 
                 (
+                    this.FilePathFilters == input.FilePathFilters ||
+                    (this.FilePathFilters != null &&
+                    this.FilePathFilters.Equals(input.FilePathFilters))
+                ) && 
+                (
                     this.IncrementalSnapshotUponRestart == input.IncrementalSnapshotUponRestart ||
                     (this.IncrementalSnapshotUponRestart != null &&
                     this.IncrementalSnapshotUponRestart.Equals(input.IncrementalSnapshotUponRestart))
@@ -94,14 +110,14 @@ namespace Cohesity.Models
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.FilePathFilters != null)
+                    hashCode = hashCode * 59 + this.FilePathFilters.GetHashCode();
                 if (this.IncrementalSnapshotUponRestart != null)
                     hashCode = hashCode * 59 + this.IncrementalSnapshotUponRestart.GetHashCode();
                 return hashCode;
             }
         }
 
-        
     }
 
 }
-

@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,13 +12,10 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
-    /// Specify data in the appropriate field for the current data type.
+    /// Specifies the fields to store data of a given type. Specify data in the appropriate field for the current data type.
     /// </summary>
     [DataContract]
     public partial class ValueData :  IEquatable<ValueData>
@@ -30,8 +27,12 @@ namespace Cohesity.Models
         /// <param name="doubleValue">Specifies the field to store data if the current data type is a double value. Specify a value for this field when type is equal to 2..</param>
         /// <param name="int64Value">Specifies the field to store data if the current data type is a int64 value. Specify a value for this field when type is equal to 1..</param>
         /// <param name="stringValue">Specifies the field to store data if the current data type is a string value. Specify a value for this field when type is equal to 3..</param>
-        public ValueData(List<int?> bytesValue = default(List<int?>), double? doubleValue = default(double?), long? int64Value = default(long?), string stringValue = default(string))
+        public ValueData(List<int> bytesValue = default(List<int>), double? doubleValue = default(double?), long? int64Value = default(long?), string stringValue = default(string))
         {
+            this.BytesValue = bytesValue;
+            this.DoubleValue = doubleValue;
+            this.Int64Value = int64Value;
+            this.StringValue = stringValue;
             this.BytesValue = bytesValue;
             this.DoubleValue = doubleValue;
             this.Int64Value = int64Value;
@@ -42,28 +43,28 @@ namespace Cohesity.Models
         /// Specifies the field to store an array of bytes if the current data type is bytes. Specify a value for this field when type is equal to 4.
         /// </summary>
         /// <value>Specifies the field to store an array of bytes if the current data type is bytes. Specify a value for this field when type is equal to 4.</value>
-        [DataMember(Name="bytesValue", EmitDefaultValue=false)]
-        public List<int?> BytesValue { get; set; }
+        [DataMember(Name="bytesValue", EmitDefaultValue=true)]
+        public List<int> BytesValue { get; set; }
 
         /// <summary>
         /// Specifies the field to store data if the current data type is a double value. Specify a value for this field when type is equal to 2.
         /// </summary>
         /// <value>Specifies the field to store data if the current data type is a double value. Specify a value for this field when type is equal to 2.</value>
-        [DataMember(Name="doubleValue", EmitDefaultValue=false)]
+        [DataMember(Name="doubleValue", EmitDefaultValue=true)]
         public double? DoubleValue { get; set; }
 
         /// <summary>
         /// Specifies the field to store data if the current data type is a int64 value. Specify a value for this field when type is equal to 1.
         /// </summary>
         /// <value>Specifies the field to store data if the current data type is a int64 value. Specify a value for this field when type is equal to 1.</value>
-        [DataMember(Name="int64Value", EmitDefaultValue=false)]
+        [DataMember(Name="int64Value", EmitDefaultValue=true)]
         public long? Int64Value { get; set; }
 
         /// <summary>
         /// Specifies the field to store data if the current data type is a string value. Specify a value for this field when type is equal to 3.
         /// </summary>
         /// <value>Specifies the field to store data if the current data type is a string value. Specify a value for this field when type is equal to 3.</value>
-        [DataMember(Name="stringValue", EmitDefaultValue=false)]
+        [DataMember(Name="stringValue", EmitDefaultValue=true)]
         public string StringValue { get; set; }
 
         /// <summary>
@@ -72,7 +73,14 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class ValueData {\n");
+            sb.Append("  BytesValue: ").Append(BytesValue).Append("\n");
+            sb.Append("  DoubleValue: ").Append(DoubleValue).Append("\n");
+            sb.Append("  Int64Value: ").Append(Int64Value).Append("\n");
+            sb.Append("  StringValue: ").Append(StringValue).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -108,6 +116,7 @@ namespace Cohesity.Models
                 (
                     this.BytesValue == input.BytesValue ||
                     this.BytesValue != null &&
+                    input.BytesValue != null &&
                     this.BytesValue.SequenceEqual(input.BytesValue)
                 ) && 
                 (
@@ -148,8 +157,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

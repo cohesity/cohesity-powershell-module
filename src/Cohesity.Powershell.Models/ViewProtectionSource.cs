@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies a Protection Source in a View environment.
@@ -24,58 +21,61 @@ namespace Cohesity.Models
     public partial class ViewProtectionSource :  IEquatable<ViewProtectionSource>
     {
         /// <summary>
-        /// Specifies the type of managed Object in a View Protection Source environment. Examples of View Objects include &#39;kViewBox&#39; or &#39;kView&#39;.
+        /// Specifies the type of managed Object in a View Protection Source environment. Examples of View Objects include &#39;kViewBox&#39; or &#39;kView&#39;. &#39;kViewBox&#39; indicates Storage Domain as a Protection Source type. &#39;kView&#39; indicates View as a Protection Source type.
         /// </summary>
-        /// <value>Specifies the type of managed Object in a View Protection Source environment. Examples of View Objects include &#39;kViewBox&#39; or &#39;kView&#39;.</value>
+        /// <value>Specifies the type of managed Object in a View Protection Source environment. Examples of View Objects include &#39;kViewBox&#39; or &#39;kView&#39;. &#39;kViewBox&#39; indicates Storage Domain as a Protection Source type. &#39;kView&#39; indicates View as a Protection Source type.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum TypeEnum
         {
-            
             /// <summary>
             /// Enum KViewBox for value: kViewBox
             /// </summary>
             [EnumMember(Value = "kViewBox")]
             KViewBox = 1,
-            
+
             /// <summary>
             /// Enum KView for value: kView
             /// </summary>
             [EnumMember(Value = "kView")]
             KView = 2
+
         }
 
         /// <summary>
-        /// Specifies the type of managed Object in a View Protection Source environment. Examples of View Objects include &#39;kViewBox&#39; or &#39;kView&#39;.
+        /// Specifies the type of managed Object in a View Protection Source environment. Examples of View Objects include &#39;kViewBox&#39; or &#39;kView&#39;. &#39;kViewBox&#39; indicates Storage Domain as a Protection Source type. &#39;kView&#39; indicates View as a Protection Source type.
         /// </summary>
-        /// <value>Specifies the type of managed Object in a View Protection Source environment. Examples of View Objects include &#39;kViewBox&#39; or &#39;kView&#39;.</value>
-        [DataMember(Name="type", EmitDefaultValue=false)]
+        /// <value>Specifies the type of managed Object in a View Protection Source environment. Examples of View Objects include &#39;kViewBox&#39; or &#39;kView&#39;. &#39;kViewBox&#39; indicates Storage Domain as a Protection Source type. &#39;kView&#39; indicates View as a Protection Source type.</value>
+        [DataMember(Name="type", EmitDefaultValue=true)]
         public TypeEnum? Type { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="ViewProtectionSource" /> class.
         /// </summary>
-        /// <param name="id">id.</param>
+        /// <param name="id">Specifies a unique id of a Protection Source for a View. The id is unique across Cohesity Clusters..</param>
         /// <param name="name">Specifies a human readable name of the Protection Source of a View..</param>
-        /// <param name="type">Specifies the type of managed Object in a View Protection Source environment. Examples of View Objects include &#39;kViewBox&#39; or &#39;kView&#39;..</param>
-        public ViewProtectionSource(UniqueGlobalId7 id = default(UniqueGlobalId7), string name = default(string), TypeEnum? type = default(TypeEnum?))
+        /// <param name="type">Specifies the type of managed Object in a View Protection Source environment. Examples of View Objects include &#39;kViewBox&#39; or &#39;kView&#39;. &#39;kViewBox&#39; indicates Storage Domain as a Protection Source type. &#39;kView&#39; indicates View as a Protection Source type..</param>
+        public ViewProtectionSource(UniversalId id = default(UniversalId), string name = default(string), TypeEnum? type = default(TypeEnum?))
         {
+            this.Id = id;
+            this.Name = name;
+            this.Type = type;
             this.Id = id;
             this.Name = name;
             this.Type = type;
         }
         
         /// <summary>
-        /// Gets or Sets Id
+        /// Specifies a unique id of a Protection Source for a View. The id is unique across Cohesity Clusters.
         /// </summary>
-        [DataMember(Name="id", EmitDefaultValue=false)]
-        public UniqueGlobalId7 Id { get; set; }
+        /// <value>Specifies a unique id of a Protection Source for a View. The id is unique across Cohesity Clusters.</value>
+        [DataMember(Name="id", EmitDefaultValue=true)]
+        public UniversalId Id { get; set; }
 
         /// <summary>
         /// Specifies a human readable name of the Protection Source of a View.
         /// </summary>
         /// <value>Specifies a human readable name of the Protection Source of a View.</value>
-        [DataMember(Name="name", EmitDefaultValue=false)]
+        [DataMember(Name="name", EmitDefaultValue=true)]
         public string Name { get; set; }
-
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -83,7 +83,13 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class ViewProtectionSource {\n");
+            sb.Append("  Id: ").Append(Id).Append("\n");
+            sb.Append("  Name: ").Append(Name).Append("\n");
+            sb.Append("  Type: ").Append(Type).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -128,8 +134,7 @@ namespace Cohesity.Models
                 ) && 
                 (
                     this.Type == input.Type ||
-                    (this.Type != null &&
-                    this.Type.Equals(input.Type))
+                    this.Type.Equals(input.Type)
                 );
         }
 
@@ -146,14 +151,11 @@ namespace Cohesity.Models
                     hashCode = hashCode * 59 + this.Id.GetHashCode();
                 if (this.Name != null)
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
-                if (this.Type != null)
-                    hashCode = hashCode * 59 + this.Type.GetHashCode();
+                hashCode = hashCode * 59 + this.Type.GetHashCode();
                 return hashCode;
             }
         }
 
-        
     }
 
 }
-

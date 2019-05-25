@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies the meta-data associated with entity such as the list of attributes and time series data.
@@ -31,10 +28,16 @@ namespace Cohesity.Models
         /// <param name="name">Specifies a name that uniquely identifies an entity schema such as &#39;kBridgeClusterStats&#39;..</param>
         /// <param name="schemaDescriptiveName">Specifies the name of the Schema as displayed in Advanced Diagnostics of the Cohesity Dashboard. For example for the &#39;kBridgeClusterStats&#39; Schema, the descriptive name is &#39;Cluster Physical Stats&#39;..</param>
         /// <param name="schemaHelpText">Specifies an optional informational description about the schema..</param>
-        /// <param name="timeSeriesDescriptorVec">List of time series of data (set of data points) for metrics..</param>
+        /// <param name="timeSeriesDescriptorVec">Array of Time Series.  List of time series of data (set of data points) for metrics..</param>
         /// <param name="version">Specifies the version of the entity schema..</param>
         public EntitySchemaProto(EntitySchemaProtoAttributesDescriptor attributesDescriptor = default(EntitySchemaProtoAttributesDescriptor), bool? isInternalSchema = default(bool?), string name = default(string), string schemaDescriptiveName = default(string), string schemaHelpText = default(string), List<EntitySchemaProtoTimeSeriesDescriptor> timeSeriesDescriptorVec = default(List<EntitySchemaProtoTimeSeriesDescriptor>), long? version = default(long?))
         {
+            this.IsInternalSchema = isInternalSchema;
+            this.Name = name;
+            this.SchemaDescriptiveName = schemaDescriptiveName;
+            this.SchemaHelpText = schemaHelpText;
+            this.TimeSeriesDescriptorVec = timeSeriesDescriptorVec;
+            this.Version = version;
             this.AttributesDescriptor = attributesDescriptor;
             this.IsInternalSchema = isInternalSchema;
             this.Name = name;
@@ -54,42 +57,42 @@ namespace Cohesity.Models
         /// Specifies if this schema should be displayed in Advanced Diagnostics of the Cohesity Dashboard. If false, the schema is displayed.
         /// </summary>
         /// <value>Specifies if this schema should be displayed in Advanced Diagnostics of the Cohesity Dashboard. If false, the schema is displayed.</value>
-        [DataMember(Name="isInternalSchema", EmitDefaultValue=false)]
+        [DataMember(Name="isInternalSchema", EmitDefaultValue=true)]
         public bool? IsInternalSchema { get; set; }
 
         /// <summary>
         /// Specifies a name that uniquely identifies an entity schema such as &#39;kBridgeClusterStats&#39;.
         /// </summary>
         /// <value>Specifies a name that uniquely identifies an entity schema such as &#39;kBridgeClusterStats&#39;.</value>
-        [DataMember(Name="name", EmitDefaultValue=false)]
+        [DataMember(Name="name", EmitDefaultValue=true)]
         public string Name { get; set; }
 
         /// <summary>
         /// Specifies the name of the Schema as displayed in Advanced Diagnostics of the Cohesity Dashboard. For example for the &#39;kBridgeClusterStats&#39; Schema, the descriptive name is &#39;Cluster Physical Stats&#39;.
         /// </summary>
         /// <value>Specifies the name of the Schema as displayed in Advanced Diagnostics of the Cohesity Dashboard. For example for the &#39;kBridgeClusterStats&#39; Schema, the descriptive name is &#39;Cluster Physical Stats&#39;.</value>
-        [DataMember(Name="schemaDescriptiveName", EmitDefaultValue=false)]
+        [DataMember(Name="schemaDescriptiveName", EmitDefaultValue=true)]
         public string SchemaDescriptiveName { get; set; }
 
         /// <summary>
         /// Specifies an optional informational description about the schema.
         /// </summary>
         /// <value>Specifies an optional informational description about the schema.</value>
-        [DataMember(Name="schemaHelpText", EmitDefaultValue=false)]
+        [DataMember(Name="schemaHelpText", EmitDefaultValue=true)]
         public string SchemaHelpText { get; set; }
 
         /// <summary>
-        /// List of time series of data (set of data points) for metrics.
+        /// Array of Time Series.  List of time series of data (set of data points) for metrics.
         /// </summary>
-        /// <value>List of time series of data (set of data points) for metrics.</value>
-        [DataMember(Name="timeSeriesDescriptorVec", EmitDefaultValue=false)]
+        /// <value>Array of Time Series.  List of time series of data (set of data points) for metrics.</value>
+        [DataMember(Name="timeSeriesDescriptorVec", EmitDefaultValue=true)]
         public List<EntitySchemaProtoTimeSeriesDescriptor> TimeSeriesDescriptorVec { get; set; }
 
         /// <summary>
         /// Specifies the version of the entity schema.
         /// </summary>
         /// <value>Specifies the version of the entity schema.</value>
-        [DataMember(Name="version", EmitDefaultValue=false)]
+        [DataMember(Name="version", EmitDefaultValue=true)]
         public long? Version { get; set; }
 
         /// <summary>
@@ -98,7 +101,17 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class EntitySchemaProto {\n");
+            sb.Append("  AttributesDescriptor: ").Append(AttributesDescriptor).Append("\n");
+            sb.Append("  IsInternalSchema: ").Append(IsInternalSchema).Append("\n");
+            sb.Append("  Name: ").Append(Name).Append("\n");
+            sb.Append("  SchemaDescriptiveName: ").Append(SchemaDescriptiveName).Append("\n");
+            sb.Append("  SchemaHelpText: ").Append(SchemaHelpText).Append("\n");
+            sb.Append("  TimeSeriesDescriptorVec: ").Append(TimeSeriesDescriptorVec).Append("\n");
+            sb.Append("  Version: ").Append(Version).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -159,6 +172,7 @@ namespace Cohesity.Models
                 (
                     this.TimeSeriesDescriptorVec == input.TimeSeriesDescriptorVec ||
                     this.TimeSeriesDescriptorVec != null &&
+                    input.TimeSeriesDescriptorVec != null &&
                     this.TimeSeriesDescriptorVec.SequenceEqual(input.TimeSeriesDescriptorVec)
                 ) && 
                 (
@@ -195,8 +209,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

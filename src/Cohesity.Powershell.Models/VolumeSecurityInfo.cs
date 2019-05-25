@@ -1,14 +1,18 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
+using System.Linq;
+using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies information about NetApp volume security settings.
@@ -23,55 +27,37 @@ namespace Cohesity.Models
         [JsonConverter(typeof(StringEnumConverter))]
         public enum StyleEnum
         {
-            
             /// <summary>
             /// Enum KUnix for value: kUnix
             /// </summary>
             [EnumMember(Value = "kUnix")]
             KUnix = 1,
-            
+
             /// <summary>
             /// Enum KNtfs for value: kNtfs
             /// </summary>
             [EnumMember(Value = "kNtfs")]
             KNtfs = 2,
-            
+
             /// <summary>
             /// Enum KMixed for value: kMixed
             /// </summary>
             [EnumMember(Value = "kMixed")]
             KMixed = 3,
-            
+
             /// <summary>
             /// Enum KUnified for value: kUnified
             /// </summary>
             [EnumMember(Value = "kUnified")]
-            KUnified = 4,
+            KUnified = 4
 
-            /// <summary>
-            /// Enum KDataProtection for value: kDataProtection
-            /// </summary>
-            [EnumMember(Value = "kDataProtection")]
-            kDataProtection = 5,
-
-            /// <summary>
-            /// Enum KDataCache for value: kDataCache
-            /// </summary>
-            [EnumMember(Value = "kDataCache")]
-            KDataCache = 6,
-
-            /// <summary>
-            /// Enum KLoadSharing for value: kLoadSharing
-            /// </summary>
-            [EnumMember(Value = "kLoadSharing")]
-            KLoadSharing = 7
         }
 
         /// <summary>
         /// Specifies the security style associated with this volume. Specifies the type of a NetApp Volume. &#39;kUnix&#39; indicates Unix-style security. &#39;kNtfs&#39; indicates Windows NTFS-style security. &#39;kMixed&#39; indicates mixed-style security. &#39;kUnified&#39; indicates Unified-style security.
         /// </summary>
         /// <value>Specifies the security style associated with this volume. Specifies the type of a NetApp Volume. &#39;kUnix&#39; indicates Unix-style security. &#39;kNtfs&#39; indicates Windows NTFS-style security. &#39;kMixed&#39; indicates mixed-style security. &#39;kUnified&#39; indicates Unified-style security.</value>
-        [DataMember(Name="style", EmitDefaultValue=false)]
+        [DataMember(Name="style", EmitDefaultValue=true)]
         public StyleEnum? Style { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="VolumeSecurityInfo" /> class.
@@ -86,28 +72,31 @@ namespace Cohesity.Models
             this.Permissions = permissions;
             this.Style = style;
             this.UserId = userId;
+            this.GroupId = groupId;
+            this.Permissions = permissions;
+            this.Style = style;
+            this.UserId = userId;
         }
         
         /// <summary>
         /// Specifies the Unix group ID for this volume. 0 indicates the root id.
         /// </summary>
         /// <value>Specifies the Unix group ID for this volume. 0 indicates the root id.</value>
-        [DataMember(Name="groupId", EmitDefaultValue=false)]
+        [DataMember(Name="groupId", EmitDefaultValue=true)]
         public int? GroupId { get; set; }
 
         /// <summary>
         /// Specifies the Unix permission bits in octal string format.
         /// </summary>
         /// <value>Specifies the Unix permission bits in octal string format.</value>
-        [DataMember(Name="permissions", EmitDefaultValue=false)]
+        [DataMember(Name="permissions", EmitDefaultValue=true)]
         public string Permissions { get; set; }
-
 
         /// <summary>
         /// Specifies the Unix user id for this volume. 0 indicates the root id.
         /// </summary>
         /// <value>Specifies the Unix user id for this volume. 0 indicates the root id.</value>
-        [DataMember(Name="userId", EmitDefaultValue=false)]
+        [DataMember(Name="userId", EmitDefaultValue=true)]
         public int? UserId { get; set; }
 
         /// <summary>
@@ -116,7 +105,14 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class VolumeSecurityInfo {\n");
+            sb.Append("  GroupId: ").Append(GroupId).Append("\n");
+            sb.Append("  Permissions: ").Append(Permissions).Append("\n");
+            sb.Append("  Style: ").Append(Style).Append("\n");
+            sb.Append("  UserId: ").Append(UserId).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -161,8 +157,7 @@ namespace Cohesity.Models
                 ) && 
                 (
                     this.Style == input.Style ||
-                    (this.Style != null &&
-                    this.Style.Equals(input.Style))
+                    this.Style.Equals(input.Style)
                 ) && 
                 (
                     this.UserId == input.UserId ||
@@ -184,16 +179,13 @@ namespace Cohesity.Models
                     hashCode = hashCode * 59 + this.GroupId.GetHashCode();
                 if (this.Permissions != null)
                     hashCode = hashCode * 59 + this.Permissions.GetHashCode();
-                if (this.Style != null)
-                    hashCode = hashCode * 59 + this.Style.GetHashCode();
+                hashCode = hashCode * 59 + this.Style.GetHashCode();
                 if (this.UserId != null)
                     hashCode = hashCode * 59 + this.UserId.GetHashCode();
                 return hashCode;
             }
         }
 
-        
     }
 
 }
-

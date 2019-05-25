@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// FileExtensionFilter
@@ -23,21 +20,44 @@ namespace Cohesity.Models
     [DataContract]
     public partial class FileExtensionFilter :  IEquatable<FileExtensionFilter>
     {
+        /// <summary>
+        /// The mode applied to the list of file extensions &#39;kWhitelist&#39; indicates a whitelist extension filter. &#39;kBlacklist&#39; indicates a blacklist extension filter.
+        /// </summary>
+        /// <value>The mode applied to the list of file extensions &#39;kWhitelist&#39; indicates a whitelist extension filter. &#39;kBlacklist&#39; indicates a blacklist extension filter.</value>
+        [JsonConverter(typeof(StringEnumConverter))]
+        public enum ModeEnum
+        {
+            /// <summary>
+            /// Enum KWhitelist for value: kWhitelist
+            /// </summary>
+            [EnumMember(Value = "kWhitelist")]
+            KWhitelist = 1,
+
+            /// <summary>
+            /// Enum KBlacklist for value: kBlacklist
+            /// </summary>
+            [EnumMember(Value = "kBlacklist")]
+            KBlacklist = 2
+
+        }
 
         /// <summary>
-        /// The mode applied to the list of file extensions
+        /// The mode applied to the list of file extensions &#39;kWhitelist&#39; indicates a whitelist extension filter. &#39;kBlacklist&#39; indicates a blacklist extension filter.
         /// </summary>
-        /// <value>The mode applied to the list of file extensions</value>
-        [DataMember(Name="mode", EmitDefaultValue=false)]
-        public string Mode { get; set; }
+        /// <value>The mode applied to the list of file extensions &#39;kWhitelist&#39; indicates a whitelist extension filter. &#39;kBlacklist&#39; indicates a blacklist extension filter.</value>
+        [DataMember(Name="mode", EmitDefaultValue=true)]
+        public ModeEnum? Mode { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="FileExtensionFilter" /> class.
         /// </summary>
         /// <param name="fileExtensionsList">The list of file extensions to apply.</param>
         /// <param name="isEnabled">If set, it enables the file extension filter.</param>
-        /// <param name="mode">The mode applied to the list of file extensions.</param>
-        public FileExtensionFilter(List<string> fileExtensionsList = default(List<string>), bool? isEnabled = default(bool?), string mode = default(string))
+        /// <param name="mode">The mode applied to the list of file extensions &#39;kWhitelist&#39; indicates a whitelist extension filter. &#39;kBlacklist&#39; indicates a blacklist extension filter..</param>
+        public FileExtensionFilter(List<string> fileExtensionsList = default(List<string>), bool? isEnabled = default(bool?), ModeEnum? mode = default(ModeEnum?))
         {
+            this.FileExtensionsList = fileExtensionsList;
+            this.IsEnabled = isEnabled;
+            this.Mode = mode;
             this.FileExtensionsList = fileExtensionsList;
             this.IsEnabled = isEnabled;
             this.Mode = mode;
@@ -47,16 +67,15 @@ namespace Cohesity.Models
         /// The list of file extensions to apply
         /// </summary>
         /// <value>The list of file extensions to apply</value>
-        [DataMember(Name="fileExtensionsList", EmitDefaultValue=false)]
+        [DataMember(Name="fileExtensionsList", EmitDefaultValue=true)]
         public List<string> FileExtensionsList { get; set; }
 
         /// <summary>
         /// If set, it enables the file extension filter
         /// </summary>
         /// <value>If set, it enables the file extension filter</value>
-        [DataMember(Name="isEnabled", EmitDefaultValue=false)]
+        [DataMember(Name="isEnabled", EmitDefaultValue=true)]
         public bool? IsEnabled { get; set; }
-
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -64,7 +83,13 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class FileExtensionFilter {\n");
+            sb.Append("  FileExtensionsList: ").Append(FileExtensionsList).Append("\n");
+            sb.Append("  IsEnabled: ").Append(IsEnabled).Append("\n");
+            sb.Append("  Mode: ").Append(Mode).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -100,6 +125,7 @@ namespace Cohesity.Models
                 (
                     this.FileExtensionsList == input.FileExtensionsList ||
                     this.FileExtensionsList != null &&
+                    input.FileExtensionsList != null &&
                     this.FileExtensionsList.SequenceEqual(input.FileExtensionsList)
                 ) && 
                 (
@@ -109,8 +135,7 @@ namespace Cohesity.Models
                 ) && 
                 (
                     this.Mode == input.Mode ||
-                    (this.Mode != null &&
-                    this.Mode.Equals(input.Mode))
+                    this.Mode.Equals(input.Mode)
                 );
         }
 
@@ -127,14 +152,11 @@ namespace Cohesity.Models
                     hashCode = hashCode * 59 + this.FileExtensionsList.GetHashCode();
                 if (this.IsEnabled != null)
                     hashCode = hashCode * 59 + this.IsEnabled.GetHashCode();
-                if (this.Mode != null)
-                    hashCode = hashCode * 59 + this.Mode.GetHashCode();
+                hashCode = hashCode * 59 + this.Mode.GetHashCode();
                 return hashCode;
             }
         }
 
-        
     }
 
 }
-

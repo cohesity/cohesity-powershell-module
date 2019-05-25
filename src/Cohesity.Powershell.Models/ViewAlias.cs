@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// ViewAlias
@@ -34,27 +31,30 @@ namespace Cohesity.Models
             this.AliasName = aliasName;
             this.ViewName = viewName;
             this.ViewPath = viewPath;
+            this.AliasName = aliasName;
+            this.ViewName = viewName;
+            this.ViewPath = viewPath;
         }
         
         /// <summary>
         /// Alias name.
         /// </summary>
         /// <value>Alias name.</value>
-        [DataMember(Name="aliasName", EmitDefaultValue=false)]
+        [DataMember(Name="aliasName", EmitDefaultValue=true)]
         public string AliasName { get; set; }
 
         /// <summary>
         /// View name.
         /// </summary>
         /// <value>View name.</value>
-        [DataMember(Name="viewName", EmitDefaultValue=false)]
+        [DataMember(Name="viewName", EmitDefaultValue=true)]
         public string ViewName { get; set; }
 
         /// <summary>
         /// View path for the alias.
         /// </summary>
         /// <value>View path for the alias.</value>
-        [DataMember(Name="viewPath", EmitDefaultValue=false)]
+        [DataMember(Name="viewPath", EmitDefaultValue=true)]
         public string ViewPath { get; set; }
 
         /// <summary>
@@ -63,7 +63,13 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class ViewAlias {\n");
+            sb.Append("  AliasName: ").Append(AliasName).Append("\n");
+            sb.Append("  ViewName: ").Append(ViewName).Append("\n");
+            sb.Append("  ViewPath: ").Append(ViewPath).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -132,8 +138,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

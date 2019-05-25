@@ -229,7 +229,7 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 
 ## OUTPUTS
 
-### Cohesity.Models.ProtectionRunInstance
+### Cohesity.Model.ProtectionRunInstance
 ## NOTES
 
 ## RELATED LINKS

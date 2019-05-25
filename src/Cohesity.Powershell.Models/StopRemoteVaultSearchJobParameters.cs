@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Request to stop a remote Vault search Job.
@@ -26,17 +23,19 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="StopRemoteVaultSearchJobParameters" /> class.
         /// </summary>
-        /// <param name="searchJobUid">searchJobUid.</param>
-        public StopRemoteVaultSearchJobParameters(UniqueGlobalId9 searchJobUid = default(UniqueGlobalId9))
+        /// <param name="searchJobUid">Specifies the unique id of the Remote Vault search job in progress..</param>
+        public StopRemoteVaultSearchJobParameters(UniversalId searchJobUid = default(UniversalId))
         {
+            this.SearchJobUid = searchJobUid;
             this.SearchJobUid = searchJobUid;
         }
         
         /// <summary>
-        /// Gets or Sets SearchJobUid
+        /// Specifies the unique id of the Remote Vault search job in progress.
         /// </summary>
-        [DataMember(Name="searchJobUid", EmitDefaultValue=false)]
-        public UniqueGlobalId9 SearchJobUid { get; set; }
+        /// <value>Specifies the unique id of the Remote Vault search job in progress.</value>
+        [DataMember(Name="searchJobUid", EmitDefaultValue=true)]
+        public UniversalId SearchJobUid { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -44,7 +43,11 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class StopRemoteVaultSearchJobParameters {\n");
+            sb.Append("  SearchJobUid: ").Append(SearchJobUid).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -99,8 +102,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

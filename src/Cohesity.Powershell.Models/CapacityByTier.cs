@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// CapacityByTier provides the physical capacity in bytes of each storage tier.
@@ -24,28 +21,62 @@ namespace Cohesity.Models
     public partial class CapacityByTier :  IEquatable<CapacityByTier>
     {
         /// <summary>
+        /// StorageTier is the type of StorageTier. StorageTierType represents the various values for the Storage Tier. &#39;kPCIeSSD&#39; indicates storage tier type of Pci Solid State Drive. &#39;kSATAHDD&#39; indicates storage tier type of SATA Solid State Drive. &#39;kSATAHDD&#39; indicates storage tier type of SATA Hard Disk Drive. &#39;kCLOUD&#39; indicates storage tier type of Cloud.
+        /// </summary>
+        /// <value>StorageTier is the type of StorageTier. StorageTierType represents the various values for the Storage Tier. &#39;kPCIeSSD&#39; indicates storage tier type of Pci Solid State Drive. &#39;kSATAHDD&#39; indicates storage tier type of SATA Solid State Drive. &#39;kSATAHDD&#39; indicates storage tier type of SATA Hard Disk Drive. &#39;kCLOUD&#39; indicates storage tier type of Cloud.</value>
+        [JsonConverter(typeof(StringEnumConverter))]
+        public enum StorageTierEnum
+        {
+            /// <summary>
+            /// Enum KPCIeSSD for value: kPCIeSSD
+            /// </summary>
+            [EnumMember(Value = "kPCIeSSD")]
+            KPCIeSSD = 1,
+
+            /// <summary>
+            /// Enum KSATASSD for value: kSATASSD
+            /// </summary>
+            [EnumMember(Value = "kSATASSD")]
+            KSATASSD = 2,
+
+            /// <summary>
+            /// Enum KSATAHDD for value: kSATAHDD
+            /// </summary>
+            [EnumMember(Value = "kSATAHDD")]
+            KSATAHDD = 3,
+
+            /// <summary>
+            /// Enum KCLOUD for value: kCLOUD
+            /// </summary>
+            [EnumMember(Value = "kCLOUD")]
+            KCLOUD = 4
+
+        }
+
+        /// <summary>
+        /// StorageTier is the type of StorageTier. StorageTierType represents the various values for the Storage Tier. &#39;kPCIeSSD&#39; indicates storage tier type of Pci Solid State Drive. &#39;kSATAHDD&#39; indicates storage tier type of SATA Solid State Drive. &#39;kSATAHDD&#39; indicates storage tier type of SATA Hard Disk Drive. &#39;kCLOUD&#39; indicates storage tier type of Cloud.
+        /// </summary>
+        /// <value>StorageTier is the type of StorageTier. StorageTierType represents the various values for the Storage Tier. &#39;kPCIeSSD&#39; indicates storage tier type of Pci Solid State Drive. &#39;kSATAHDD&#39; indicates storage tier type of SATA Solid State Drive. &#39;kSATAHDD&#39; indicates storage tier type of SATA Hard Disk Drive. &#39;kCLOUD&#39; indicates storage tier type of Cloud.</value>
+        [DataMember(Name="storageTier", EmitDefaultValue=true)]
+        public StorageTierEnum? StorageTier { get; set; }
+        /// <summary>
         /// Initializes a new instance of the <see cref="CapacityByTier" /> class.
         /// </summary>
-        /// <param name="storageTier">StorageTier is the type of StorageTier..</param>
+        /// <param name="storageTier">StorageTier is the type of StorageTier. StorageTierType represents the various values for the Storage Tier. &#39;kPCIeSSD&#39; indicates storage tier type of Pci Solid State Drive. &#39;kSATAHDD&#39; indicates storage tier type of SATA Solid State Drive. &#39;kSATAHDD&#39; indicates storage tier type of SATA Hard Disk Drive. &#39;kCLOUD&#39; indicates storage tier type of Cloud..</param>
         /// <param name="tierMaxPhysicalCapacityBytes">TierMaxPhysicalCapacityBytes is the maximum physical capacity in bytes of the storage tier..</param>
-        public CapacityByTier(long? storageTier = default(long?), long? tierMaxPhysicalCapacityBytes = default(long?))
+        public CapacityByTier(StorageTierEnum? storageTier = default(StorageTierEnum?), long? tierMaxPhysicalCapacityBytes = default(long?))
         {
+            this.StorageTier = storageTier;
+            this.TierMaxPhysicalCapacityBytes = tierMaxPhysicalCapacityBytes;
             this.StorageTier = storageTier;
             this.TierMaxPhysicalCapacityBytes = tierMaxPhysicalCapacityBytes;
         }
         
         /// <summary>
-        /// StorageTier is the type of StorageTier.
-        /// </summary>
-        /// <value>StorageTier is the type of StorageTier.</value>
-        [DataMember(Name="storageTier", EmitDefaultValue=false)]
-        public long? StorageTier { get; set; }
-
-        /// <summary>
         /// TierMaxPhysicalCapacityBytes is the maximum physical capacity in bytes of the storage tier.
         /// </summary>
         /// <value>TierMaxPhysicalCapacityBytes is the maximum physical capacity in bytes of the storage tier.</value>
-        [DataMember(Name="tierMaxPhysicalCapacityBytes", EmitDefaultValue=false)]
+        [DataMember(Name="tierMaxPhysicalCapacityBytes", EmitDefaultValue=true)]
         public long? TierMaxPhysicalCapacityBytes { get; set; }
 
         /// <summary>
@@ -54,7 +85,12 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class CapacityByTier {\n");
+            sb.Append("  StorageTier: ").Append(StorageTier).Append("\n");
+            sb.Append("  TierMaxPhysicalCapacityBytes: ").Append(TierMaxPhysicalCapacityBytes).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -89,8 +125,7 @@ namespace Cohesity.Models
             return 
                 (
                     this.StorageTier == input.StorageTier ||
-                    (this.StorageTier != null &&
-                    this.StorageTier.Equals(input.StorageTier))
+                    this.StorageTier.Equals(input.StorageTier)
                 ) && 
                 (
                     this.TierMaxPhysicalCapacityBytes == input.TierMaxPhysicalCapacityBytes ||
@@ -108,16 +143,13 @@ namespace Cohesity.Models
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                if (this.StorageTier != null)
-                    hashCode = hashCode * 59 + this.StorageTier.GetHashCode();
+                hashCode = hashCode * 59 + this.StorageTier.GetHashCode();
                 if (this.TierMaxPhysicalCapacityBytes != null)
                     hashCode = hashCode * 59 + this.TierMaxPhysicalCapacityBytes.GetHashCode();
                 return hashCode;
             }
         }
 
-        
     }
 
 }
-

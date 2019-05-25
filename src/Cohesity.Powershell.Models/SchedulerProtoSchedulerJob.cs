@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,13 +12,10 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
-    /// SchedulerProtoSchedulerJob
+    /// Specifies the structure of the scheduler job along with its attributes.
     /// </summary>
     [DataContract]
     public partial class SchedulerProtoSchedulerJob :  IEquatable<SchedulerProtoSchedulerJob>
@@ -30,19 +27,19 @@ namespace Cohesity.Models
         [JsonConverter(typeof(StringEnumConverter))]
         public enum TypeEnum
         {
-            
             /// <summary>
-            /// Enum KSCHEDULERJOBREPORT for value: kSCHEDULER_JOB_REPORT
+            /// Enum KSchedulerJobReport for value: kSchedulerJobReport
             /// </summary>
-            [EnumMember(Value = "kSCHEDULER_JOB_REPORT")]
-            KSCHEDULERJOBREPORT = 1
+            [EnumMember(Value = "kSchedulerJobReport")]
+            KSchedulerJobReport = 1
+
         }
 
         /// <summary>
         /// Specifies the type of the job. The enum which defines the Job type of the job.
         /// </summary>
         /// <value>Specifies the type of the job. The enum which defines the Job type of the job.</value>
-        [DataMember(Name="type", EmitDefaultValue=false)]
+        [DataMember(Name="type", EmitDefaultValue=true)]
         public TypeEnum? Type { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="SchedulerProtoSchedulerJob" /> class.
@@ -51,15 +48,23 @@ namespace Cohesity.Models
         /// <param name="id">The unique id for the scheduled job assigned by the cluster..</param>
         /// <param name="name">The name of the scheduled job given by the user..</param>
         /// <param name="scheduleJobParameters">scheduleJobParameters.</param>
-        /// <param name="schedules">schedules.</param>
+        /// <param name="schedules">The frequency of schedule execution..</param>
+        /// <param name="tenantId">Specifies id of tenant who created the scheduler job..</param>
         /// <param name="type">Specifies the type of the job. The enum which defines the Job type of the job..</param>
-        public SchedulerProtoSchedulerJob(bool? enableRecurringEmail = default(bool?), long? id = default(long?), string name = default(string), SchedulerProtoSchedulerJobScheduleJobParameters scheduleJobParameters = default(SchedulerProtoSchedulerJobScheduleJobParameters), List<SchedulerProtoSchedulerJobSchedule> schedules = default(List<SchedulerProtoSchedulerJobSchedule>), TypeEnum? type = default(TypeEnum?))
+        public SchedulerProtoSchedulerJob(bool? enableRecurringEmail = default(bool?), long? id = default(long?), string name = default(string), SchedulerProtoSchedulerJobScheduleJobParameters scheduleJobParameters = default(SchedulerProtoSchedulerJobScheduleJobParameters), List<SchedulerProtoSchedulerJobSchedule> schedules = default(List<SchedulerProtoSchedulerJobSchedule>), string tenantId = default(string), TypeEnum? type = default(TypeEnum?))
         {
+            this.EnableRecurringEmail = enableRecurringEmail;
+            this.Id = id;
+            this.Name = name;
+            this.Schedules = schedules;
+            this.TenantId = tenantId;
+            this.Type = type;
             this.EnableRecurringEmail = enableRecurringEmail;
             this.Id = id;
             this.Name = name;
             this.ScheduleJobParameters = scheduleJobParameters;
             this.Schedules = schedules;
+            this.TenantId = tenantId;
             this.Type = type;
         }
         
@@ -67,21 +72,21 @@ namespace Cohesity.Models
         /// The boolean which specifies if this job is to be scheduled or not.
         /// </summary>
         /// <value>The boolean which specifies if this job is to be scheduled or not.</value>
-        [DataMember(Name="enableRecurringEmail", EmitDefaultValue=false)]
+        [DataMember(Name="enableRecurringEmail", EmitDefaultValue=true)]
         public bool? EnableRecurringEmail { get; set; }
 
         /// <summary>
         /// The unique id for the scheduled job assigned by the cluster.
         /// </summary>
         /// <value>The unique id for the scheduled job assigned by the cluster.</value>
-        [DataMember(Name="id", EmitDefaultValue=false)]
+        [DataMember(Name="id", EmitDefaultValue=true)]
         public long? Id { get; set; }
 
         /// <summary>
         /// The name of the scheduled job given by the user.
         /// </summary>
         /// <value>The name of the scheduled job given by the user.</value>
-        [DataMember(Name="name", EmitDefaultValue=false)]
+        [DataMember(Name="name", EmitDefaultValue=true)]
         public string Name { get; set; }
 
         /// <summary>
@@ -91,11 +96,18 @@ namespace Cohesity.Models
         public SchedulerProtoSchedulerJobScheduleJobParameters ScheduleJobParameters { get; set; }
 
         /// <summary>
-        /// Gets or Sets Schedules
+        /// The frequency of schedule execution.
         /// </summary>
-        [DataMember(Name="schedules", EmitDefaultValue=false)]
+        /// <value>The frequency of schedule execution.</value>
+        [DataMember(Name="schedules", EmitDefaultValue=true)]
         public List<SchedulerProtoSchedulerJobSchedule> Schedules { get; set; }
 
+        /// <summary>
+        /// Specifies id of tenant who created the scheduler job.
+        /// </summary>
+        /// <value>Specifies id of tenant who created the scheduler job.</value>
+        [DataMember(Name="tenantId", EmitDefaultValue=true)]
+        public string TenantId { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -103,7 +115,17 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class SchedulerProtoSchedulerJob {\n");
+            sb.Append("  EnableRecurringEmail: ").Append(EnableRecurringEmail).Append("\n");
+            sb.Append("  Id: ").Append(Id).Append("\n");
+            sb.Append("  Name: ").Append(Name).Append("\n");
+            sb.Append("  ScheduleJobParameters: ").Append(ScheduleJobParameters).Append("\n");
+            sb.Append("  Schedules: ").Append(Schedules).Append("\n");
+            sb.Append("  TenantId: ").Append(TenantId).Append("\n");
+            sb.Append("  Type: ").Append(Type).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -159,12 +181,17 @@ namespace Cohesity.Models
                 (
                     this.Schedules == input.Schedules ||
                     this.Schedules != null &&
+                    input.Schedules != null &&
                     this.Schedules.SequenceEqual(input.Schedules)
                 ) && 
                 (
+                    this.TenantId == input.TenantId ||
+                    (this.TenantId != null &&
+                    this.TenantId.Equals(input.TenantId))
+                ) && 
+                (
                     this.Type == input.Type ||
-                    (this.Type != null &&
-                    this.Type.Equals(input.Type))
+                    this.Type.Equals(input.Type)
                 );
         }
 
@@ -187,14 +214,13 @@ namespace Cohesity.Models
                     hashCode = hashCode * 59 + this.ScheduleJobParameters.GetHashCode();
                 if (this.Schedules != null)
                     hashCode = hashCode * 59 + this.Schedules.GetHashCode();
-                if (this.Type != null)
-                    hashCode = hashCode * 59 + this.Type.GetHashCode();
+                if (this.TenantId != null)
+                    hashCode = hashCode * 59 + this.TenantId.GetHashCode();
+                hashCode = hashCode * 59 + this.Type.GetHashCode();
                 return hashCode;
             }
         }
 
-        
     }
 
 }
-

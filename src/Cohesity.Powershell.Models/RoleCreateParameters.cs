@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies the parameters required to create a new custom role such as the name, description and the privileges to assign to the role.
@@ -28,9 +25,12 @@ namespace Cohesity.Models
         /// </summary>
         /// <param name="description">Specifies a description about the role..</param>
         /// <param name="name">Specifies the name of the custom role..</param>
-        /// <param name="privileges">Specifies the list of privileges to assign to the role..</param>
+        /// <param name="privileges">Array of Privileges.  Specifies the list of privileges to assign to the role..</param>
         public RoleCreateParameters(string description = default(string), string name = default(string), List<string> privileges = default(List<string>))
         {
+            this.Description = description;
+            this.Name = name;
+            this.Privileges = privileges;
             this.Description = description;
             this.Name = name;
             this.Privileges = privileges;
@@ -40,21 +40,21 @@ namespace Cohesity.Models
         /// Specifies a description about the role.
         /// </summary>
         /// <value>Specifies a description about the role.</value>
-        [DataMember(Name="description", EmitDefaultValue=false)]
+        [DataMember(Name="description", EmitDefaultValue=true)]
         public string Description { get; set; }
 
         /// <summary>
         /// Specifies the name of the custom role.
         /// </summary>
         /// <value>Specifies the name of the custom role.</value>
-        [DataMember(Name="name", EmitDefaultValue=false)]
+        [DataMember(Name="name", EmitDefaultValue=true)]
         public string Name { get; set; }
 
         /// <summary>
-        /// Specifies the list of privileges to assign to the role.
+        /// Array of Privileges.  Specifies the list of privileges to assign to the role.
         /// </summary>
-        /// <value>Specifies the list of privileges to assign to the role.</value>
-        [DataMember(Name="privileges", EmitDefaultValue=false)]
+        /// <value>Array of Privileges.  Specifies the list of privileges to assign to the role.</value>
+        [DataMember(Name="privileges", EmitDefaultValue=true)]
         public List<string> Privileges { get; set; }
 
         /// <summary>
@@ -63,7 +63,13 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class RoleCreateParameters {\n");
+            sb.Append("  Description: ").Append(Description).Append("\n");
+            sb.Append("  Name: ").Append(Name).Append("\n");
+            sb.Append("  Privileges: ").Append(Privileges).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -109,6 +115,7 @@ namespace Cohesity.Models
                 (
                     this.Privileges == input.Privileges ||
                     this.Privileges != null &&
+                    input.Privileges != null &&
                     this.Privileges.SequenceEqual(input.Privileges)
                 );
         }
@@ -132,8 +139,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

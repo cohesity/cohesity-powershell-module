@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies a time period by specifying a single daily time period and one or more days of the week, for example 9 AM - 5 PM on Monday, Wednesday or Friday. If different time periods are required on different days, then multiple instances of this Weekly Time Period must be specified.
@@ -29,82 +26,86 @@ namespace Cohesity.Models
         [JsonConverter(typeof(StringEnumConverter))]
         public enum DaysEnum
         {
-            
             /// <summary>
             /// Enum KSunday for value: kSunday
             /// </summary>
             [EnumMember(Value = "kSunday")]
             KSunday = 1,
-            
+
             /// <summary>
             /// Enum KMonday for value: kMonday
             /// </summary>
             [EnumMember(Value = "kMonday")]
             KMonday = 2,
-            
+
             /// <summary>
             /// Enum KTuesday for value: kTuesday
             /// </summary>
             [EnumMember(Value = "kTuesday")]
             KTuesday = 3,
-            
+
             /// <summary>
             /// Enum KWednesday for value: kWednesday
             /// </summary>
             [EnumMember(Value = "kWednesday")]
             KWednesday = 4,
-            
+
             /// <summary>
             /// Enum KThursday for value: kThursday
             /// </summary>
             [EnumMember(Value = "kThursday")]
             KThursday = 5,
-            
+
             /// <summary>
             /// Enum KFriday for value: kFriday
             /// </summary>
             [EnumMember(Value = "kFriday")]
             KFriday = 6,
-            
+
             /// <summary>
             /// Enum KSaturday for value: kSaturday
             /// </summary>
             [EnumMember(Value = "kSaturday")]
             KSaturday = 7
+
         }
 
 
         /// <summary>
-        /// Specifies a list of days of a week (such as &#39;kSunday&#39;) when the time period should be applied. If not set, the time range applies to all days of the week. Specifies a day in a week such as &#39;kSunday&#39;, &#39;kMonday&#39;, etc.
+        /// Array of Week Days.  Specifies a list of days of a week (such as &#39;kSunday&#39;) when the time period should be applied. If not set, the time range applies to all days of the week. Specifies a day in a week such as &#39;kSunday&#39;, &#39;kMonday&#39;, etc.
         /// </summary>
-        /// <value>Specifies a list of days of a week (such as &#39;kSunday&#39;) when the time period should be applied. If not set, the time range applies to all days of the week. Specifies a day in a week such as &#39;kSunday&#39;, &#39;kMonday&#39;, etc.</value>
-        [DataMember(Name="days", EmitDefaultValue=false)]
+        /// <value>Array of Week Days.  Specifies a list of days of a week (such as &#39;kSunday&#39;) when the time period should be applied. If not set, the time range applies to all days of the week. Specifies a day in a week such as &#39;kSunday&#39;, &#39;kMonday&#39;, etc.</value>
+        [DataMember(Name="days", EmitDefaultValue=true)]
         public List<DaysEnum> Days { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="TimeOfAWeek" /> class.
         /// </summary>
-        /// <param name="days">Specifies a list of days of a week (such as &#39;kSunday&#39;) when the time period should be applied. If not set, the time range applies to all days of the week. Specifies a day in a week such as &#39;kSunday&#39;, &#39;kMonday&#39;, etc..</param>
-        /// <param name="endTime">endTime.</param>
-        /// <param name="startTime">startTime.</param>
-        public TimeOfAWeek(List<DaysEnum> days = default(List<DaysEnum>), EndTime_ endTime = default(EndTime_), StartTime_ startTime = default(StartTime_))
+        /// <param name="days">Array of Week Days.  Specifies a list of days of a week (such as &#39;kSunday&#39;) when the time period should be applied. If not set, the time range applies to all days of the week. Specifies a day in a week such as &#39;kSunday&#39;, &#39;kMonday&#39;, etc..</param>
+        /// <param name="endTime">Specifies the end time for the daily time period..</param>
+        /// <param name="startTime">Specifies the start time for the daily time period..</param>
+        public TimeOfAWeek(List<DaysEnum> days = default(List<DaysEnum>), TimeOfDay endTime = default(TimeOfDay), TimeOfDay startTime = default(TimeOfDay))
         {
+            this.Days = days;
+            this.EndTime = endTime;
+            this.StartTime = startTime;
             this.Days = days;
             this.EndTime = endTime;
             this.StartTime = startTime;
         }
         
+        /// <summary>
+        /// Specifies the end time for the daily time period.
+        /// </summary>
+        /// <value>Specifies the end time for the daily time period.</value>
+        [DataMember(Name="endTime", EmitDefaultValue=true)]
+        public TimeOfDay EndTime { get; set; }
 
         /// <summary>
-        /// Gets or Sets EndTime
+        /// Specifies the start time for the daily time period.
         /// </summary>
-        [DataMember(Name="endTime", EmitDefaultValue=false)]
-        public EndTime_ EndTime { get; set; }
-
-        /// <summary>
-        /// Gets or Sets StartTime
-        /// </summary>
-        [DataMember(Name="startTime", EmitDefaultValue=false)]
-        public StartTime_ StartTime { get; set; }
+        /// <value>Specifies the start time for the daily time period.</value>
+        [DataMember(Name="startTime", EmitDefaultValue=true)]
+        public TimeOfDay StartTime { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -112,7 +113,13 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class TimeOfAWeek {\n");
+            sb.Append("  Days: ").Append(Days).Append("\n");
+            sb.Append("  EndTime: ").Append(EndTime).Append("\n");
+            sb.Append("  StartTime: ").Append(StartTime).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -148,6 +155,7 @@ namespace Cohesity.Models
                 (
                     this.Days == input.Days ||
                     this.Days != null &&
+                    input.Days != null &&
                     this.Days.SequenceEqual(input.Days)
                 ) && 
                 (
@@ -171,8 +179,7 @@ namespace Cohesity.Models
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                if (this.Days != null)
-                    hashCode = hashCode * 59 + this.Days.GetHashCode();
+                hashCode = hashCode * 59 + this.Days.GetHashCode();
                 if (this.EndTime != null)
                     hashCode = hashCode * 59 + this.EndTime.GetHashCode();
                 if (this.StartTime != null)
@@ -181,8 +188,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

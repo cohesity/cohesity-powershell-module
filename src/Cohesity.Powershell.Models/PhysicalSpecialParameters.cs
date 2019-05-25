@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies additional special settings applicable for a Protection Source of &#39;kPhysical&#39; type in a Protection Job.
@@ -26,13 +23,16 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="PhysicalSpecialParameters" /> class.
         /// </summary>
-        /// <param name="applicationParameters">Specifies parameters that are related to applications running on the Protection Source..</param>
+        /// <param name="applicationParameters">applicationParameters.</param>
         /// <param name="enableSystemBackup">Specifies whether to allow system backup using 3rd party tools installed on the Protection Host. System backups are used for doing bare metal recovery later. This field is applicable only for System backups..</param>
-        /// <param name="filePaths">Specifies a list of directories or files to protect in a Physical Server..</param>
-        /// <param name="volumeGuid">Specifies the subset of mounted volumes to protect in a Physical Server. If not specified, all mounted volumes on a Physical Server are protected..</param>
-        /// <param name="windowsParameters">Specifies parameters applicable only to Windows hosts..</param>
+        /// <param name="filePaths">Array of File Paths to Back Up.  Specifies a list of directories or files to protect in a Physical Server..</param>
+        /// <param name="volumeGuid">Array of Mounted Volumes to Back Up.  Specifies the subset of mounted volumes to protect in a Physical Server. If not specified, all mounted volumes on a Physical Server are protected..</param>
+        /// <param name="windowsParameters">windowsParameters.</param>
         public PhysicalSpecialParameters(ApplicationParameters applicationParameters = default(ApplicationParameters), bool? enableSystemBackup = default(bool?), List<FilePathParameters> filePaths = default(List<FilePathParameters>), List<string> volumeGuid = default(List<string>), WindowsHostSnapshotParameters windowsParameters = default(WindowsHostSnapshotParameters))
         {
+            this.EnableSystemBackup = enableSystemBackup;
+            this.FilePaths = filePaths;
+            this.VolumeGuid = volumeGuid;
             this.ApplicationParameters = applicationParameters;
             this.EnableSystemBackup = enableSystemBackup;
             this.FilePaths = filePaths;
@@ -41,9 +41,8 @@ namespace Cohesity.Models
         }
         
         /// <summary>
-        /// Specifies parameters that are related to applications running on the Protection Source.
+        /// Gets or Sets ApplicationParameters
         /// </summary>
-        /// <value>Specifies parameters that are related to applications running on the Protection Source.</value>
         [DataMember(Name="applicationParameters", EmitDefaultValue=false)]
         public ApplicationParameters ApplicationParameters { get; set; }
 
@@ -51,27 +50,26 @@ namespace Cohesity.Models
         /// Specifies whether to allow system backup using 3rd party tools installed on the Protection Host. System backups are used for doing bare metal recovery later. This field is applicable only for System backups.
         /// </summary>
         /// <value>Specifies whether to allow system backup using 3rd party tools installed on the Protection Host. System backups are used for doing bare metal recovery later. This field is applicable only for System backups.</value>
-        [DataMember(Name="enableSystemBackup", EmitDefaultValue=false)]
+        [DataMember(Name="enableSystemBackup", EmitDefaultValue=true)]
         public bool? EnableSystemBackup { get; set; }
 
         /// <summary>
-        /// Specifies a list of directories or files to protect in a Physical Server.
+        /// Array of File Paths to Back Up.  Specifies a list of directories or files to protect in a Physical Server.
         /// </summary>
-        /// <value>Specifies a list of directories or files to protect in a Physical Server.</value>
-        [DataMember(Name="filePaths", EmitDefaultValue=false)]
+        /// <value>Array of File Paths to Back Up.  Specifies a list of directories or files to protect in a Physical Server.</value>
+        [DataMember(Name="filePaths", EmitDefaultValue=true)]
         public List<FilePathParameters> FilePaths { get; set; }
 
         /// <summary>
-        /// Specifies the subset of mounted volumes to protect in a Physical Server. If not specified, all mounted volumes on a Physical Server are protected.
+        /// Array of Mounted Volumes to Back Up.  Specifies the subset of mounted volumes to protect in a Physical Server. If not specified, all mounted volumes on a Physical Server are protected.
         /// </summary>
-        /// <value>Specifies the subset of mounted volumes to protect in a Physical Server. If not specified, all mounted volumes on a Physical Server are protected.</value>
-        [DataMember(Name="volumeGuid", EmitDefaultValue=false)]
+        /// <value>Array of Mounted Volumes to Back Up.  Specifies the subset of mounted volumes to protect in a Physical Server. If not specified, all mounted volumes on a Physical Server are protected.</value>
+        [DataMember(Name="volumeGuid", EmitDefaultValue=true)]
         public List<string> VolumeGuid { get; set; }
 
         /// <summary>
-        /// Specifies parameters applicable only to Windows hosts.
+        /// Gets or Sets WindowsParameters
         /// </summary>
-        /// <value>Specifies parameters applicable only to Windows hosts.</value>
         [DataMember(Name="windowsParameters", EmitDefaultValue=false)]
         public WindowsHostSnapshotParameters WindowsParameters { get; set; }
 
@@ -81,7 +79,15 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class PhysicalSpecialParameters {\n");
+            sb.Append("  ApplicationParameters: ").Append(ApplicationParameters).Append("\n");
+            sb.Append("  EnableSystemBackup: ").Append(EnableSystemBackup).Append("\n");
+            sb.Append("  FilePaths: ").Append(FilePaths).Append("\n");
+            sb.Append("  VolumeGuid: ").Append(VolumeGuid).Append("\n");
+            sb.Append("  WindowsParameters: ").Append(WindowsParameters).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -127,11 +133,13 @@ namespace Cohesity.Models
                 (
                     this.FilePaths == input.FilePaths ||
                     this.FilePaths != null &&
+                    input.FilePaths != null &&
                     this.FilePaths.SequenceEqual(input.FilePaths)
                 ) && 
                 (
                     this.VolumeGuid == input.VolumeGuid ||
                     this.VolumeGuid != null &&
+                    input.VolumeGuid != null &&
                     this.VolumeGuid.SequenceEqual(input.VolumeGuid)
                 ) && 
                 (
@@ -164,8 +172,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

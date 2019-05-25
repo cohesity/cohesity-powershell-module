@@ -94,7 +94,7 @@ Specifies the Id of the Protection Source that has MS SQL Application Server run
 
 ## OUTPUTS
 
-### Cohesity.Models.ProtectionSource
+### Cohesity.Model.ProtectionSource
 ## NOTES
 
 ## RELATED LINKS

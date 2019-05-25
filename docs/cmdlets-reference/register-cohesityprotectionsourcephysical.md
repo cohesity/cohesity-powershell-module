@@ -85,7 +85,7 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 
 ## OUTPUTS
 
-### Cohesity.Models.ProtectionSource
+### Cohesity.Model.ProtectionSource
 ## NOTES
 
 ## RELATED LINKS

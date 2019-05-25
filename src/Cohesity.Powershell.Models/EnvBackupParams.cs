@@ -1,0 +1,233 @@
+// Copyright 2019 Cohesity Inc.
+
+using System;
+using System.Linq;
+using System.IO;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Runtime.Serialization;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+
+namespace Cohesity.Model
+{
+    /// <summary>
+    /// Message to capture any additional environment specific backup params at the job level.
+    /// </summary>
+    [DataContract]
+    public partial class EnvBackupParams :  IEquatable<EnvBackupParams>
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EnvBackupParams" /> class.
+        /// </summary>
+        /// <param name="fileStubbingParams">fileStubbingParams.</param>
+        /// <param name="hypervBackupParams">hypervBackupParams.</param>
+        /// <param name="nasBackupParams">nasBackupParams.</param>
+        /// <param name="o365BackupParams">o365BackupParams.</param>
+        /// <param name="outlookBackupParams">outlookBackupParams.</param>
+        /// <param name="physicalBackupParams">physicalBackupParams.</param>
+        /// <param name="snapshotManagerParams">snapshotManagerParams.</param>
+        /// <param name="sqlBackupJobParams">sqlBackupJobParams.</param>
+        /// <param name="vmwareBackupParams">vmwareBackupParams.</param>
+        public EnvBackupParams(FileStubbingParams fileStubbingParams = default(FileStubbingParams), HyperVBackupEnvParams hypervBackupParams = default(HyperVBackupEnvParams), NasBackupParams nasBackupParams = default(NasBackupParams), O365BackupEnvParams o365BackupParams = default(O365BackupEnvParams), OutlookBackupEnvParams outlookBackupParams = default(OutlookBackupEnvParams), PhysicalBackupEnvParams physicalBackupParams = default(PhysicalBackupEnvParams), SnapshotManagerParams snapshotManagerParams = default(SnapshotManagerParams), SqlBackupJobParams sqlBackupJobParams = default(SqlBackupJobParams), VMwareBackupEnvParams vmwareBackupParams = default(VMwareBackupEnvParams))
+        {
+            this.FileStubbingParams = fileStubbingParams;
+            this.HypervBackupParams = hypervBackupParams;
+            this.NasBackupParams = nasBackupParams;
+            this.O365BackupParams = o365BackupParams;
+            this.OutlookBackupParams = outlookBackupParams;
+            this.PhysicalBackupParams = physicalBackupParams;
+            this.SnapshotManagerParams = snapshotManagerParams;
+            this.SqlBackupJobParams = sqlBackupJobParams;
+            this.VmwareBackupParams = vmwareBackupParams;
+        }
+        
+        /// <summary>
+        /// Gets or Sets FileStubbingParams
+        /// </summary>
+        [DataMember(Name="fileStubbingParams", EmitDefaultValue=false)]
+        public FileStubbingParams FileStubbingParams { get; set; }
+
+        /// <summary>
+        /// Gets or Sets HypervBackupParams
+        /// </summary>
+        [DataMember(Name="hypervBackupParams", EmitDefaultValue=false)]
+        public HyperVBackupEnvParams HypervBackupParams { get; set; }
+
+        /// <summary>
+        /// Gets or Sets NasBackupParams
+        /// </summary>
+        [DataMember(Name="nasBackupParams", EmitDefaultValue=false)]
+        public NasBackupParams NasBackupParams { get; set; }
+
+        /// <summary>
+        /// Gets or Sets O365BackupParams
+        /// </summary>
+        [DataMember(Name="o365BackupParams", EmitDefaultValue=false)]
+        public O365BackupEnvParams O365BackupParams { get; set; }
+
+        /// <summary>
+        /// Gets or Sets OutlookBackupParams
+        /// </summary>
+        [DataMember(Name="outlookBackupParams", EmitDefaultValue=false)]
+        public OutlookBackupEnvParams OutlookBackupParams { get; set; }
+
+        /// <summary>
+        /// Gets or Sets PhysicalBackupParams
+        /// </summary>
+        [DataMember(Name="physicalBackupParams", EmitDefaultValue=false)]
+        public PhysicalBackupEnvParams PhysicalBackupParams { get; set; }
+
+        /// <summary>
+        /// Gets or Sets SnapshotManagerParams
+        /// </summary>
+        [DataMember(Name="snapshotManagerParams", EmitDefaultValue=false)]
+        public SnapshotManagerParams SnapshotManagerParams { get; set; }
+
+        /// <summary>
+        /// Gets or Sets SqlBackupJobParams
+        /// </summary>
+        [DataMember(Name="sqlBackupJobParams", EmitDefaultValue=false)]
+        public SqlBackupJobParams SqlBackupJobParams { get; set; }
+
+        /// <summary>
+        /// Gets or Sets VmwareBackupParams
+        /// </summary>
+        [DataMember(Name="vmwareBackupParams", EmitDefaultValue=false)]
+        public VMwareBackupEnvParams VmwareBackupParams { get; set; }
+
+        /// <summary>
+        /// Returns the string presentation of the object
+        /// </summary>
+        /// <returns>String presentation of the object</returns>
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+            sb.Append("class EnvBackupParams {\n");
+            sb.Append("  FileStubbingParams: ").Append(FileStubbingParams).Append("\n");
+            sb.Append("  HypervBackupParams: ").Append(HypervBackupParams).Append("\n");
+            sb.Append("  NasBackupParams: ").Append(NasBackupParams).Append("\n");
+            sb.Append("  O365BackupParams: ").Append(O365BackupParams).Append("\n");
+            sb.Append("  OutlookBackupParams: ").Append(OutlookBackupParams).Append("\n");
+            sb.Append("  PhysicalBackupParams: ").Append(PhysicalBackupParams).Append("\n");
+            sb.Append("  SnapshotManagerParams: ").Append(SnapshotManagerParams).Append("\n");
+            sb.Append("  SqlBackupJobParams: ").Append(SqlBackupJobParams).Append("\n");
+            sb.Append("  VmwareBackupParams: ").Append(VmwareBackupParams).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
+        }
+  
+        /// <summary>
+        /// Returns the JSON string presentation of the object
+        /// </summary>
+        /// <returns>JSON string presentation of the object</returns>
+        public virtual string ToJson()
+        {
+            return JsonConvert.SerializeObject(this, Formatting.Indented);
+        }
+
+        /// <summary>
+        /// Returns true if objects are equal
+        /// </summary>
+        /// <param name="input">Object to be compared</param>
+        /// <returns>Boolean</returns>
+        public override bool Equals(object input)
+        {
+            return this.Equals(input as EnvBackupParams);
+        }
+
+        /// <summary>
+        /// Returns true if EnvBackupParams instances are equal
+        /// </summary>
+        /// <param name="input">Instance of EnvBackupParams to be compared</param>
+        /// <returns>Boolean</returns>
+        public bool Equals(EnvBackupParams input)
+        {
+            if (input == null)
+                return false;
+
+            return 
+                (
+                    this.FileStubbingParams == input.FileStubbingParams ||
+                    (this.FileStubbingParams != null &&
+                    this.FileStubbingParams.Equals(input.FileStubbingParams))
+                ) && 
+                (
+                    this.HypervBackupParams == input.HypervBackupParams ||
+                    (this.HypervBackupParams != null &&
+                    this.HypervBackupParams.Equals(input.HypervBackupParams))
+                ) && 
+                (
+                    this.NasBackupParams == input.NasBackupParams ||
+                    (this.NasBackupParams != null &&
+                    this.NasBackupParams.Equals(input.NasBackupParams))
+                ) && 
+                (
+                    this.O365BackupParams == input.O365BackupParams ||
+                    (this.O365BackupParams != null &&
+                    this.O365BackupParams.Equals(input.O365BackupParams))
+                ) && 
+                (
+                    this.OutlookBackupParams == input.OutlookBackupParams ||
+                    (this.OutlookBackupParams != null &&
+                    this.OutlookBackupParams.Equals(input.OutlookBackupParams))
+                ) && 
+                (
+                    this.PhysicalBackupParams == input.PhysicalBackupParams ||
+                    (this.PhysicalBackupParams != null &&
+                    this.PhysicalBackupParams.Equals(input.PhysicalBackupParams))
+                ) && 
+                (
+                    this.SnapshotManagerParams == input.SnapshotManagerParams ||
+                    (this.SnapshotManagerParams != null &&
+                    this.SnapshotManagerParams.Equals(input.SnapshotManagerParams))
+                ) && 
+                (
+                    this.SqlBackupJobParams == input.SqlBackupJobParams ||
+                    (this.SqlBackupJobParams != null &&
+                    this.SqlBackupJobParams.Equals(input.SqlBackupJobParams))
+                ) && 
+                (
+                    this.VmwareBackupParams == input.VmwareBackupParams ||
+                    (this.VmwareBackupParams != null &&
+                    this.VmwareBackupParams.Equals(input.VmwareBackupParams))
+                );
+        }
+
+        /// <summary>
+        /// Gets the hash code
+        /// </summary>
+        /// <returns>Hash code</returns>
+        public override int GetHashCode()
+        {
+            unchecked // Overflow is fine, just wrap
+            {
+                int hashCode = 41;
+                if (this.FileStubbingParams != null)
+                    hashCode = hashCode * 59 + this.FileStubbingParams.GetHashCode();
+                if (this.HypervBackupParams != null)
+                    hashCode = hashCode * 59 + this.HypervBackupParams.GetHashCode();
+                if (this.NasBackupParams != null)
+                    hashCode = hashCode * 59 + this.NasBackupParams.GetHashCode();
+                if (this.O365BackupParams != null)
+                    hashCode = hashCode * 59 + this.O365BackupParams.GetHashCode();
+                if (this.OutlookBackupParams != null)
+                    hashCode = hashCode * 59 + this.OutlookBackupParams.GetHashCode();
+                if (this.PhysicalBackupParams != null)
+                    hashCode = hashCode * 59 + this.PhysicalBackupParams.GetHashCode();
+                if (this.SnapshotManagerParams != null)
+                    hashCode = hashCode * 59 + this.SnapshotManagerParams.GetHashCode();
+                if (this.SqlBackupJobParams != null)
+                    hashCode = hashCode * 59 + this.SqlBackupJobParams.GetHashCode();
+                if (this.VmwareBackupParams != null)
+                    hashCode = hashCode * 59 + this.VmwareBackupParams.GetHashCode();
+                return hashCode;
+            }
+        }
+
+    }
+
+}

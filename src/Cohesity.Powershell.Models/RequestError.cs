@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Details about the Error.
@@ -32,20 +29,22 @@ namespace Cohesity.Models
         {
             this.ErrorCode = errorCode;
             this.Message = message;
+            this.ErrorCode = errorCode;
+            this.Message = message;
         }
         
         /// <summary>
         /// Operation response error code.
         /// </summary>
         /// <value>Operation response error code.</value>
-        [DataMember(Name="errorCode", EmitDefaultValue=false)]
+        [DataMember(Name="errorCode", EmitDefaultValue=true)]
         public long? ErrorCode { get; set; }
 
         /// <summary>
         /// Description of the error.
         /// </summary>
         /// <value>Description of the error.</value>
-        [DataMember(Name="message", EmitDefaultValue=false)]
+        [DataMember(Name="message", EmitDefaultValue=true)]
         public string Message { get; set; }
 
         /// <summary>
@@ -54,7 +53,12 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class RequestError {\n");
+            sb.Append("  ErrorCode: ").Append(ErrorCode).Append("\n");
+            sb.Append("  Message: ").Append(Message).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -116,8 +120,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies information about a single snapshot.
@@ -34,27 +31,30 @@ namespace Cohesity.Models
             this.AttemptNumber = attemptNumber;
             this.JobRunId = jobRunId;
             this.StartedTimeUsecs = startedTimeUsecs;
+            this.AttemptNumber = attemptNumber;
+            this.JobRunId = jobRunId;
+            this.StartedTimeUsecs = startedTimeUsecs;
         }
         
         /// <summary>
         /// Specifies the number of the attempts made by the Job Run to capture a snapshot of the object. For example, if an snapshot is successfully captured after three attempts, this field equals 3.
         /// </summary>
         /// <value>Specifies the number of the attempts made by the Job Run to capture a snapshot of the object. For example, if an snapshot is successfully captured after three attempts, this field equals 3.</value>
-        [DataMember(Name="attemptNumber", EmitDefaultValue=false)]
+        [DataMember(Name="attemptNumber", EmitDefaultValue=true)]
         public long? AttemptNumber { get; set; }
 
         /// <summary>
         /// Specifies the id of the Job Run that captured the snapshot.
         /// </summary>
         /// <value>Specifies the id of the Job Run that captured the snapshot.</value>
-        [DataMember(Name="jobRunId", EmitDefaultValue=false)]
+        [DataMember(Name="jobRunId", EmitDefaultValue=true)]
         public long? JobRunId { get; set; }
 
         /// <summary>
         /// Specifies the time when the Job Run starts capturing a snapshot. Specified as a Unix epoch Timestamp (in microseconds).
         /// </summary>
         /// <value>Specifies the time when the Job Run starts capturing a snapshot. Specified as a Unix epoch Timestamp (in microseconds).</value>
-        [DataMember(Name="startedTimeUsecs", EmitDefaultValue=false)]
+        [DataMember(Name="startedTimeUsecs", EmitDefaultValue=true)]
         public long? StartedTimeUsecs { get; set; }
 
         /// <summary>
@@ -63,7 +63,13 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class SnapshotAttempt {\n");
+            sb.Append("  AttemptNumber: ").Append(AttemptNumber).Append("\n");
+            sb.Append("  JobRunId: ").Append(JobRunId).Append("\n");
+            sb.Append("  StartedTimeUsecs: ").Append(StartedTimeUsecs).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -132,8 +138,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

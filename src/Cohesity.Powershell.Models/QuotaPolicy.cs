@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,13 +12,10 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
-    /// Specifies an optional logical quota limit (in bytes) for the usage allowed on this View. (Logical data is when the data is fully hydrated and expanded.) This limit overrides the limit inherited from the Storage Domain (View Box) (if set). If logicalQuota is nil, the limit is inherited from the Storage Domain (View Box) (if set). A new write is not allowed if the Storage Domain (View Box) will exceed the specified quota. However, it takes time for the Cohesity Cluster to calculate the usage across Nodes, so the limit may be exceeded by a small amount. In addition, if the limit is increased or data is removed, there may be a delay before the Cohesity Cluster allows more data to be written to the View, as the Cluster is calculating the usage across Nodes.
+    /// Specifies a quota limit that can be optionally applied to Views and View Boxes. At the View level, this quota defines a logical limit for usage on the View. At the View Box level, this quota defines a physical limit or a default logical View limit. If a physical quota is specified for View Box, this quota defines a physical limit for the usage on the View Box. If a default logical View quota is specified for View Box, this limit is inherited by all the Views in that View Box. However, this inherited quota can be overwritten at the View level. A new write is not allowed if the resource will exceed the specified quota. However, it takes time for the Cohesity Cluster to calculate the usage across Nodes, so the limit may be exceeded by a small amount. In addition, if the limit is increased or data is removed, there may be a delay before the Cohesity Cluster allows more data to be written to the resource, as the Cluster calculates the usage across Nodes.
     /// </summary>
     [DataContract]
     public partial class QuotaPolicy :  IEquatable<QuotaPolicy>
@@ -38,41 +35,46 @@ namespace Cohesity.Models
             this.AlertLimitBytes = alertLimitBytes;
             this.AlertThresholdPercentage = alertThresholdPercentage;
             this.HardLimitBytes = hardLimitBytes;
+            this.AlertLimit = alertLimit;
+            this.HardLimit = hardLimit;
+            this.AlertLimitBytes = alertLimitBytes;
+            this.AlertThresholdPercentage = alertThresholdPercentage;
+            this.HardLimitBytes = hardLimitBytes;
         }
         
         /// <summary>
         /// AlertLimitBytes converted to GiB format for report purposes.
         /// </summary>
         /// <value>AlertLimitBytes converted to GiB format for report purposes.</value>
-        [DataMember(Name="AlertLimit", EmitDefaultValue=false)]
+        [DataMember(Name="AlertLimit", EmitDefaultValue=true)]
         public string AlertLimit { get; set; }
 
         /// <summary>
         /// HardLimitBytes converted to GiB format for report purposes.
         /// </summary>
         /// <value>HardLimitBytes converted to GiB format for report purposes.</value>
-        [DataMember(Name="HardLimit", EmitDefaultValue=false)]
+        [DataMember(Name="HardLimit", EmitDefaultValue=true)]
         public string HardLimit { get; set; }
 
         /// <summary>
         /// Specifies if an alert should be triggered when the usage of this resource exceeds this quota limit. This limit is optional and is specified in bytes. If no value is specified, there is no limit.
         /// </summary>
         /// <value>Specifies if an alert should be triggered when the usage of this resource exceeds this quota limit. This limit is optional and is specified in bytes. If no value is specified, there is no limit.</value>
-        [DataMember(Name="alertLimitBytes", EmitDefaultValue=false)]
+        [DataMember(Name="alertLimitBytes", EmitDefaultValue=true)]
         public long? AlertLimitBytes { get; set; }
 
         /// <summary>
         /// Supported only for user quota policy. Specifies when the uage goes above an alert threshold percentage which is: HardLimitBytes * AlertThresholdPercentage, eg: 80% of HardLimitBytes Can only be set if HardLimitBytes is set. Cannot be set if AlertLimitBytes is already set.
         /// </summary>
         /// <value>Supported only for user quota policy. Specifies when the uage goes above an alert threshold percentage which is: HardLimitBytes * AlertThresholdPercentage, eg: 80% of HardLimitBytes Can only be set if HardLimitBytes is set. Cannot be set if AlertLimitBytes is already set.</value>
-        [DataMember(Name="alertThresholdPercentage", EmitDefaultValue=false)]
+        [DataMember(Name="alertThresholdPercentage", EmitDefaultValue=true)]
         public long? AlertThresholdPercentage { get; set; }
 
         /// <summary>
         /// Specifies an optional quota limit on the usage allowed for this resource. This limit is specified in bytes. If no value is specified, there is no limit.
         /// </summary>
         /// <value>Specifies an optional quota limit on the usage allowed for this resource. This limit is specified in bytes. If no value is specified, there is no limit.</value>
-        [DataMember(Name="hardLimitBytes", EmitDefaultValue=false)]
+        [DataMember(Name="hardLimitBytes", EmitDefaultValue=true)]
         public long? HardLimitBytes { get; set; }
 
         /// <summary>
@@ -81,7 +83,15 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class QuotaPolicy {\n");
+            sb.Append("  AlertLimit: ").Append(AlertLimit).Append("\n");
+            sb.Append("  HardLimit: ").Append(HardLimit).Append("\n");
+            sb.Append("  AlertLimitBytes: ").Append(AlertLimitBytes).Append("\n");
+            sb.Append("  AlertThresholdPercentage: ").Append(AlertThresholdPercentage).Append("\n");
+            sb.Append("  HardLimitBytes: ").Append(HardLimitBytes).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -164,8 +174,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

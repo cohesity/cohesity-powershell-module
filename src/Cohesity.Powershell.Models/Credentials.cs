@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies credentials to access a target source.
@@ -32,20 +29,22 @@ namespace Cohesity.Models
         {
             this.Password = password;
             this.Username = username;
+            this.Password = password;
+            this.Username = username;
         }
         
         /// <summary>
         /// Specifies password of the username to access the target source.
         /// </summary>
         /// <value>Specifies password of the username to access the target source.</value>
-        [DataMember(Name="password", EmitDefaultValue=false)]
+        [DataMember(Name="password", EmitDefaultValue=true)]
         public string Password { get; set; }
 
         /// <summary>
         /// Specifies username to access the target source.
         /// </summary>
         /// <value>Specifies username to access the target source.</value>
-        [DataMember(Name="username", EmitDefaultValue=false)]
+        [DataMember(Name="username", EmitDefaultValue=true)]
         public string Username { get; set; }
 
         /// <summary>
@@ -54,7 +53,12 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class Credentials {\n");
+            sb.Append("  Password: ").Append(Password).Append("\n");
+            sb.Append("  Username: ").Append(Username).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -116,8 +120,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

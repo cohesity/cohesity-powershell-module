@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Provides Resolution details and the list of Alerts resolved by a Resolution, which are specified by Alert Ids.
@@ -26,27 +23,37 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="AlertResolution" /> class.
         /// </summary>
-        /// <param name="alertIdList">List of Alerts resolved by a Resolution, which are specified by Alert Ids..</param>
-        /// <param name="resolutionDetails">Specifies information about the Alert Resolution such as a summary, id assigned by the Cohesity Cluster, user who resolved the Alerts, etc..</param>
-        public AlertResolution(List<string> alertIdList = default(List<string>), AlertResolutionDetails resolutionDetails = default(AlertResolutionDetails))
+        /// <param name="alertIdList">Specifies list of Alerts resolved by a Resolution, which are specified by Alert Ids..</param>
+        /// <param name="resolutionDetails">resolutionDetails.</param>
+        /// <param name="tenantIds">Specifies unique tenantIds of the alert contained in this resolution..</param>
+        public AlertResolution(List<string> alertIdList = default(List<string>), AlertResolutionDetails resolutionDetails = default(AlertResolutionDetails), List<string> tenantIds = default(List<string>))
         {
             this.AlertIdList = alertIdList;
+            this.TenantIds = tenantIds;
+            this.AlertIdList = alertIdList;
             this.ResolutionDetails = resolutionDetails;
+            this.TenantIds = tenantIds;
         }
         
         /// <summary>
-        /// List of Alerts resolved by a Resolution, which are specified by Alert Ids.
+        /// Specifies list of Alerts resolved by a Resolution, which are specified by Alert Ids.
         /// </summary>
-        /// <value>List of Alerts resolved by a Resolution, which are specified by Alert Ids.</value>
-        [DataMember(Name="alertIdList", EmitDefaultValue=false)]
+        /// <value>Specifies list of Alerts resolved by a Resolution, which are specified by Alert Ids.</value>
+        [DataMember(Name="alertIdList", EmitDefaultValue=true)]
         public List<string> AlertIdList { get; set; }
 
         /// <summary>
-        /// Specifies information about the Alert Resolution such as a summary, id assigned by the Cohesity Cluster, user who resolved the Alerts, etc.
+        /// Gets or Sets ResolutionDetails
         /// </summary>
-        /// <value>Specifies information about the Alert Resolution such as a summary, id assigned by the Cohesity Cluster, user who resolved the Alerts, etc.</value>
         [DataMember(Name="resolutionDetails", EmitDefaultValue=false)]
         public AlertResolutionDetails ResolutionDetails { get; set; }
+
+        /// <summary>
+        /// Specifies unique tenantIds of the alert contained in this resolution.
+        /// </summary>
+        /// <value>Specifies unique tenantIds of the alert contained in this resolution.</value>
+        [DataMember(Name="tenantIds", EmitDefaultValue=true)]
+        public List<string> TenantIds { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -54,7 +61,13 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class AlertResolution {\n");
+            sb.Append("  AlertIdList: ").Append(AlertIdList).Append("\n");
+            sb.Append("  ResolutionDetails: ").Append(ResolutionDetails).Append("\n");
+            sb.Append("  TenantIds: ").Append(TenantIds).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -90,12 +103,19 @@ namespace Cohesity.Models
                 (
                     this.AlertIdList == input.AlertIdList ||
                     this.AlertIdList != null &&
+                    input.AlertIdList != null &&
                     this.AlertIdList.SequenceEqual(input.AlertIdList)
                 ) && 
                 (
                     this.ResolutionDetails == input.ResolutionDetails ||
                     (this.ResolutionDetails != null &&
                     this.ResolutionDetails.Equals(input.ResolutionDetails))
+                ) && 
+                (
+                    this.TenantIds == input.TenantIds ||
+                    this.TenantIds != null &&
+                    input.TenantIds != null &&
+                    this.TenantIds.SequenceEqual(input.TenantIds)
                 );
         }
 
@@ -112,12 +132,12 @@ namespace Cohesity.Models
                     hashCode = hashCode * 59 + this.AlertIdList.GetHashCode();
                 if (this.ResolutionDetails != null)
                     hashCode = hashCode * 59 + this.ResolutionDetails.GetHashCode();
+                if (this.TenantIds != null)
+                    hashCode = hashCode * 59 + this.TenantIds.GetHashCode();
                 return hashCode;
             }
         }
 
-        
     }
 
 }
-

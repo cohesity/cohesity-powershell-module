@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,13 +12,10 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
-    /// SmbActiveSession
+    /// Specifies an active session and its opens.
     /// </summary>
     [DataContract]
     public partial class SmbActiveSession :  IEquatable<SmbActiveSession>
@@ -26,7 +23,7 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="SmbActiveSession" /> class.
         /// </summary>
-        /// <param name="activeOpens">activeOpens.</param>
+        /// <param name="activeOpens">Specifies the list of active opens of the file in this session..</param>
         /// <param name="clientIp">Specifies the IP address from which the file is still open..</param>
         /// <param name="domain">Specifies the domain of the user..</param>
         /// <param name="serverIp">Specifies the IP address of the server where the file exists..</param>
@@ -40,47 +37,54 @@ namespace Cohesity.Models
             this.ServerIp = serverIp;
             this.SessionId = sessionId;
             this.Username = username;
+            this.ActiveOpens = activeOpens;
+            this.ClientIp = clientIp;
+            this.Domain = domain;
+            this.ServerIp = serverIp;
+            this.SessionId = sessionId;
+            this.Username = username;
         }
         
         /// <summary>
-        /// Gets or Sets ActiveOpens
+        /// Specifies the list of active opens of the file in this session.
         /// </summary>
-        [DataMember(Name="activeOpens", EmitDefaultValue=false)]
+        /// <value>Specifies the list of active opens of the file in this session.</value>
+        [DataMember(Name="activeOpens", EmitDefaultValue=true)]
         public List<SmbActiveOpen> ActiveOpens { get; set; }
 
         /// <summary>
         /// Specifies the IP address from which the file is still open.
         /// </summary>
         /// <value>Specifies the IP address from which the file is still open.</value>
-        [DataMember(Name="clientIp", EmitDefaultValue=false)]
+        [DataMember(Name="clientIp", EmitDefaultValue=true)]
         public string ClientIp { get; set; }
 
         /// <summary>
         /// Specifies the domain of the user.
         /// </summary>
         /// <value>Specifies the domain of the user.</value>
-        [DataMember(Name="domain", EmitDefaultValue=false)]
+        [DataMember(Name="domain", EmitDefaultValue=true)]
         public string Domain { get; set; }
 
         /// <summary>
         /// Specifies the IP address of the server where the file exists.
         /// </summary>
         /// <value>Specifies the IP address of the server where the file exists.</value>
-        [DataMember(Name="serverIp", EmitDefaultValue=false)]
+        [DataMember(Name="serverIp", EmitDefaultValue=true)]
         public string ServerIp { get; set; }
 
         /// <summary>
         /// Specifies the id of the session.
         /// </summary>
         /// <value>Specifies the id of the session.</value>
-        [DataMember(Name="sessionId", EmitDefaultValue=false)]
+        [DataMember(Name="sessionId", EmitDefaultValue=true)]
         public long? SessionId { get; set; }
 
         /// <summary>
         /// Specifies the username who keeps the file open.
         /// </summary>
         /// <value>Specifies the username who keeps the file open.</value>
-        [DataMember(Name="username", EmitDefaultValue=false)]
+        [DataMember(Name="username", EmitDefaultValue=true)]
         public string Username { get; set; }
 
         /// <summary>
@@ -89,7 +93,16 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class SmbActiveSession {\n");
+            sb.Append("  ActiveOpens: ").Append(ActiveOpens).Append("\n");
+            sb.Append("  ClientIp: ").Append(ClientIp).Append("\n");
+            sb.Append("  Domain: ").Append(Domain).Append("\n");
+            sb.Append("  ServerIp: ").Append(ServerIp).Append("\n");
+            sb.Append("  SessionId: ").Append(SessionId).Append("\n");
+            sb.Append("  Username: ").Append(Username).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -125,6 +138,7 @@ namespace Cohesity.Models
                 (
                     this.ActiveOpens == input.ActiveOpens ||
                     this.ActiveOpens != null &&
+                    input.ActiveOpens != null &&
                     this.ActiveOpens.SequenceEqual(input.ActiveOpens)
                 ) && 
                 (
@@ -179,8 +193,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

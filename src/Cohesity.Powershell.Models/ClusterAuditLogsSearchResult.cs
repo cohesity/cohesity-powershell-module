@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Returns the Cluster audit logs that match the specified filter criteria up to the limit specified in pageCount.
@@ -26,26 +23,28 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="ClusterAuditLogsSearchResult" /> class.
         /// </summary>
-        /// <param name="clusterAuditLogs">Specifies a list of Cluster audit logs that match the specified filter criteria up to the limit specified in pageCount..</param>
+        /// <param name="clusterAuditLogs">Array of Cluster Audit Logs.  Specifies a list of Cluster audit logs that match the specified filter criteria up to the limit specified in pageCount..</param>
         /// <param name="totalCount">Specifies the total number of logs that match the specified filter criteria. (This number might be larger than the size of the Cluster Audit Logs array.) This count is provided to indicate if additional requests must be made to get the full result..</param>
         public ClusterAuditLogsSearchResult(List<ClusterAuditLog> clusterAuditLogs = default(List<ClusterAuditLog>), long? totalCount = default(long?))
         {
             this.ClusterAuditLogs = clusterAuditLogs;
             this.TotalCount = totalCount;
+            this.ClusterAuditLogs = clusterAuditLogs;
+            this.TotalCount = totalCount;
         }
         
         /// <summary>
-        /// Specifies a list of Cluster audit logs that match the specified filter criteria up to the limit specified in pageCount.
+        /// Array of Cluster Audit Logs.  Specifies a list of Cluster audit logs that match the specified filter criteria up to the limit specified in pageCount.
         /// </summary>
-        /// <value>Specifies a list of Cluster audit logs that match the specified filter criteria up to the limit specified in pageCount.</value>
-        [DataMember(Name="clusterAuditLogs", EmitDefaultValue=false)]
+        /// <value>Array of Cluster Audit Logs.  Specifies a list of Cluster audit logs that match the specified filter criteria up to the limit specified in pageCount.</value>
+        [DataMember(Name="clusterAuditLogs", EmitDefaultValue=true)]
         public List<ClusterAuditLog> ClusterAuditLogs { get; set; }
 
         /// <summary>
         /// Specifies the total number of logs that match the specified filter criteria. (This number might be larger than the size of the Cluster Audit Logs array.) This count is provided to indicate if additional requests must be made to get the full result.
         /// </summary>
         /// <value>Specifies the total number of logs that match the specified filter criteria. (This number might be larger than the size of the Cluster Audit Logs array.) This count is provided to indicate if additional requests must be made to get the full result.</value>
-        [DataMember(Name="totalCount", EmitDefaultValue=false)]
+        [DataMember(Name="totalCount", EmitDefaultValue=true)]
         public long? TotalCount { get; set; }
 
         /// <summary>
@@ -54,7 +53,12 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class ClusterAuditLogsSearchResult {\n");
+            sb.Append("  ClusterAuditLogs: ").Append(ClusterAuditLogs).Append("\n");
+            sb.Append("  TotalCount: ").Append(TotalCount).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -90,6 +94,7 @@ namespace Cohesity.Models
                 (
                     this.ClusterAuditLogs == input.ClusterAuditLogs ||
                     this.ClusterAuditLogs != null &&
+                    input.ClusterAuditLogs != null &&
                     this.ClusterAuditLogs.SequenceEqual(input.ClusterAuditLogs)
                 ) && 
                 (
@@ -116,8 +121,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

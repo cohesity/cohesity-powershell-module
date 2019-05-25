@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,13 +12,10 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
-    /// ProtectedObjectsByEnv
+    /// Number of Protected Objects by Type.
     /// </summary>
     [DataContract]
     public partial class ProtectedObjectsByEnv :  IEquatable<ProtectedObjectsByEnv>
@@ -38,41 +35,46 @@ namespace Cohesity.Models
             this.ProtectedSizeBytes = protectedSizeBytes;
             this.UnprotectedCount = unprotectedCount;
             this.UnprotectedSizeBytes = unprotectedSizeBytes;
+            this.EnvType = envType;
+            this.ProtectedCount = protectedCount;
+            this.ProtectedSizeBytes = protectedSizeBytes;
+            this.UnprotectedCount = unprotectedCount;
+            this.UnprotectedSizeBytes = unprotectedSizeBytes;
         }
         
         /// <summary>
         /// Environment Type.
         /// </summary>
         /// <value>Environment Type.</value>
-        [DataMember(Name="envType", EmitDefaultValue=false)]
+        [DataMember(Name="envType", EmitDefaultValue=true)]
         public string EnvType { get; set; }
 
         /// <summary>
         /// Number of Protected Objects.
         /// </summary>
         /// <value>Number of Protected Objects.</value>
-        [DataMember(Name="protectedCount", EmitDefaultValue=false)]
+        [DataMember(Name="protectedCount", EmitDefaultValue=true)]
         public int? ProtectedCount { get; set; }
 
         /// <summary>
         /// Size of Protected Objects.
         /// </summary>
         /// <value>Size of Protected Objects.</value>
-        [DataMember(Name="protectedSizeBytes", EmitDefaultValue=false)]
+        [DataMember(Name="protectedSizeBytes", EmitDefaultValue=true)]
         public long? ProtectedSizeBytes { get; set; }
 
         /// <summary>
         /// Number of Unprotected Objects.
         /// </summary>
         /// <value>Number of Unprotected Objects.</value>
-        [DataMember(Name="unprotectedCount", EmitDefaultValue=false)]
+        [DataMember(Name="unprotectedCount", EmitDefaultValue=true)]
         public int? UnprotectedCount { get; set; }
 
         /// <summary>
         /// Size of Unprotected Objects.
         /// </summary>
         /// <value>Size of Unprotected Objects.</value>
-        [DataMember(Name="unprotectedSizeBytes", EmitDefaultValue=false)]
+        [DataMember(Name="unprotectedSizeBytes", EmitDefaultValue=true)]
         public long? UnprotectedSizeBytes { get; set; }
 
         /// <summary>
@@ -81,7 +83,15 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class ProtectedObjectsByEnv {\n");
+            sb.Append("  EnvType: ").Append(EnvType).Append("\n");
+            sb.Append("  ProtectedCount: ").Append(ProtectedCount).Append("\n");
+            sb.Append("  ProtectedSizeBytes: ").Append(ProtectedSizeBytes).Append("\n");
+            sb.Append("  UnprotectedCount: ").Append(UnprotectedCount).Append("\n");
+            sb.Append("  UnprotectedSizeBytes: ").Append(UnprotectedSizeBytes).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -164,8 +174,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

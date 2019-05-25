@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies a hardware type for motherboard of the Nodes that make up this Cohesity Cluster such as S2600WB for Ivy Bridge or S2600TP for Haswell.
@@ -27,16 +24,26 @@ namespace Cohesity.Models
         /// Initializes a new instance of the <see cref="ClusterHardwareInfo" /> class.
         /// </summary>
         /// <param name="hardwareModels">hardwareModels.</param>
-        public ClusterHardwareInfo(List<string> hardwareModels = default(List<string>))
+        /// <param name="hardwareVendors">hardwareVendors.</param>
+        public ClusterHardwareInfo(List<string> hardwareModels = default(List<string>), List<string> hardwareVendors = default(List<string>))
         {
             this.HardwareModels = hardwareModels;
+            this.HardwareVendors = hardwareVendors;
+            this.HardwareModels = hardwareModels;
+            this.HardwareVendors = hardwareVendors;
         }
         
         /// <summary>
         /// Gets or Sets HardwareModels
         /// </summary>
-        [DataMember(Name="hardwareModels", EmitDefaultValue=false)]
+        [DataMember(Name="hardwareModels", EmitDefaultValue=true)]
         public List<string> HardwareModels { get; set; }
+
+        /// <summary>
+        /// Gets or Sets HardwareVendors
+        /// </summary>
+        [DataMember(Name="hardwareVendors", EmitDefaultValue=true)]
+        public List<string> HardwareVendors { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -44,7 +51,12 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class ClusterHardwareInfo {\n");
+            sb.Append("  HardwareModels: ").Append(HardwareModels).Append("\n");
+            sb.Append("  HardwareVendors: ").Append(HardwareVendors).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -80,7 +92,14 @@ namespace Cohesity.Models
                 (
                     this.HardwareModels == input.HardwareModels ||
                     this.HardwareModels != null &&
+                    input.HardwareModels != null &&
                     this.HardwareModels.SequenceEqual(input.HardwareModels)
+                ) && 
+                (
+                    this.HardwareVendors == input.HardwareVendors ||
+                    this.HardwareVendors != null &&
+                    input.HardwareVendors != null &&
+                    this.HardwareVendors.SequenceEqual(input.HardwareVendors)
                 );
         }
 
@@ -95,12 +114,12 @@ namespace Cohesity.Models
                 int hashCode = 41;
                 if (this.HardwareModels != null)
                     hashCode = hashCode * 59 + this.HardwareModels.GetHashCode();
+                if (this.HardwareVendors != null)
+                    hashCode = hashCode * 59 + this.HardwareVendors.GetHashCode();
                 return hashCode;
             }
         }
 
-        
     }
 
 }
-

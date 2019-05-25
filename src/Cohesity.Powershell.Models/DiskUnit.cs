@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies information about a disk unit in a controller.
@@ -34,27 +31,30 @@ namespace Cohesity.Models
             this.BusNumber = busNumber;
             this.ControllerType = controllerType;
             this.UnitNumber = unitNumber;
+            this.BusNumber = busNumber;
+            this.ControllerType = controllerType;
+            this.UnitNumber = unitNumber;
         }
         
         /// <summary>
         /// Specifies the Id of the controller bus that controls the disk.
         /// </summary>
         /// <value>Specifies the Id of the controller bus that controls the disk.</value>
-        [DataMember(Name="busNumber", EmitDefaultValue=false)]
+        [DataMember(Name="busNumber", EmitDefaultValue=true)]
         public long? BusNumber { get; set; }
 
         /// <summary>
         /// Specifies the controller type like SCSI, or IDE etc.
         /// </summary>
         /// <value>Specifies the controller type like SCSI, or IDE etc.</value>
-        [DataMember(Name="controllerType", EmitDefaultValue=false)]
+        [DataMember(Name="controllerType", EmitDefaultValue=true)]
         public string ControllerType { get; set; }
 
         /// <summary>
         /// Specifies the disk file name. This is the VMDK name and not the flat file name.
         /// </summary>
         /// <value>Specifies the disk file name. This is the VMDK name and not the flat file name.</value>
-        [DataMember(Name="unitNumber", EmitDefaultValue=false)]
+        [DataMember(Name="unitNumber", EmitDefaultValue=true)]
         public long? UnitNumber { get; set; }
 
         /// <summary>
@@ -63,7 +63,13 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class DiskUnit {\n");
+            sb.Append("  BusNumber: ").Append(BusNumber).Append("\n");
+            sb.Append("  ControllerType: ").Append(ControllerType).Append("\n");
+            sb.Append("  UnitNumber: ").Append(UnitNumber).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -132,8 +138,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

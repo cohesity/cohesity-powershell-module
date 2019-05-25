@@ -1,16 +1,18 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
+using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies information about a Datastore Object in HyperV environment.
@@ -25,35 +27,39 @@ namespace Cohesity.Models
         [JsonConverter(typeof(StringEnumConverter))]
         public enum TypeEnum
         {
-            
             /// <summary>
             /// Enum KFileShare for value: kFileShare
             /// </summary>
             [EnumMember(Value = "kFileShare")]
             KFileShare = 1,
-            
+
             /// <summary>
             /// Enum KVolume for value: kVolume
             /// </summary>
             [EnumMember(Value = "kVolume")]
             KVolume = 2
+
         }
 
         /// <summary>
         /// Specifies the type of the datastore object like kFileShare or kVolume. overrideDescription: true Specifies the type of a HyperV datastore object. &#39;kFileShare&#39; indicates SMB file share datastore. &#39;kVolume&#39; indicates a volume which can a LUN.
         /// </summary>
         /// <value>Specifies the type of the datastore object like kFileShare or kVolume. overrideDescription: true Specifies the type of a HyperV datastore object. &#39;kFileShare&#39; indicates SMB file share datastore. &#39;kVolume&#39; indicates a volume which can a LUN.</value>
-        [DataMember(Name="type", EmitDefaultValue=false)]
+        [DataMember(Name="type", EmitDefaultValue=true)]
         public TypeEnum? Type { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="HypervDatastore" /> class.
         /// </summary>
         /// <param name="capacity">Specifies the capacity of the datastore in bytes..</param>
         /// <param name="freeSpace">Specifies the available space on the datastore in bytes..</param>
-        /// <param name="mountPoints">mountPoints.</param>
+        /// <param name="mountPoints">Specifies the available mount points on the datastore..</param>
         /// <param name="type">Specifies the type of the datastore object like kFileShare or kVolume. overrideDescription: true Specifies the type of a HyperV datastore object. &#39;kFileShare&#39; indicates SMB file share datastore. &#39;kVolume&#39; indicates a volume which can a LUN..</param>
-        public HypervDatastore(long? capacity = default(long?), long? freeSpace = default(long?), List<string> mountPoints = default(List<string>), TypeEnum? type = default(TypeEnum?))
+        public HypervDatastore(int? capacity = default(int?), int? freeSpace = default(int?), List<string> mountPoints = default(List<string>), TypeEnum? type = default(TypeEnum?))
         {
+            this.Capacity = capacity;
+            this.FreeSpace = freeSpace;
+            this.MountPoints = mountPoints;
+            this.Type = type;
             this.Capacity = capacity;
             this.FreeSpace = freeSpace;
             this.MountPoints = mountPoints;
@@ -64,22 +70,22 @@ namespace Cohesity.Models
         /// Specifies the capacity of the datastore in bytes.
         /// </summary>
         /// <value>Specifies the capacity of the datastore in bytes.</value>
-        [DataMember(Name="capacity", EmitDefaultValue=false)]
-        public long? Capacity { get; set; }
+        [DataMember(Name="capacity", EmitDefaultValue=true)]
+        public int? Capacity { get; set; }
 
         /// <summary>
         /// Specifies the available space on the datastore in bytes.
         /// </summary>
         /// <value>Specifies the available space on the datastore in bytes.</value>
-        [DataMember(Name="freeSpace", EmitDefaultValue=false)]
-        public long? FreeSpace { get; set; }
+        [DataMember(Name="freeSpace", EmitDefaultValue=true)]
+        public int? FreeSpace { get; set; }
 
         /// <summary>
-        /// Gets or Sets MountPoints
+        /// Specifies the available mount points on the datastore.
         /// </summary>
-        [DataMember(Name="mountPoints", EmitDefaultValue=false)]
+        /// <value>Specifies the available mount points on the datastore.</value>
+        [DataMember(Name="mountPoints", EmitDefaultValue=true)]
         public List<string> MountPoints { get; set; }
-
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -87,7 +93,14 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class HypervDatastore {\n");
+            sb.Append("  Capacity: ").Append(Capacity).Append("\n");
+            sb.Append("  FreeSpace: ").Append(FreeSpace).Append("\n");
+            sb.Append("  MountPoints: ").Append(MountPoints).Append("\n");
+            sb.Append("  Type: ").Append(Type).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -133,12 +146,12 @@ namespace Cohesity.Models
                 (
                     this.MountPoints == input.MountPoints ||
                     this.MountPoints != null &&
+                    input.MountPoints != null &&
                     this.MountPoints.SequenceEqual(input.MountPoints)
                 ) && 
                 (
                     this.Type == input.Type ||
-                    (this.Type != null &&
-                    this.Type.Equals(input.Type))
+                    this.Type.Equals(input.Type)
                 );
         }
 
@@ -157,14 +170,11 @@ namespace Cohesity.Models
                     hashCode = hashCode * 59 + this.FreeSpace.GetHashCode();
                 if (this.MountPoints != null)
                     hashCode = hashCode * 59 + this.MountPoints.GetHashCode();
-                if (this.Type != null)
-                    hashCode = hashCode * 59 + this.Type.GetHashCode();
+                hashCode = hashCode * 59 + this.Type.GetHashCode();
                 return hashCode;
             }
         }
 
-        
     }
 
 }
-

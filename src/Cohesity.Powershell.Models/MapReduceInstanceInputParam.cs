@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// User can also pass Input params to run a map reduce. E.g. a grep MR will need input about what to grep.
@@ -32,18 +29,20 @@ namespace Cohesity.Models
         {
             this.Key = key;
             this.Value = value;
+            this.Key = key;
+            this.Value = value;
         }
         
         /// <summary>
         /// Gets or Sets Key
         /// </summary>
-        [DataMember(Name="key", EmitDefaultValue=false)]
+        [DataMember(Name="key", EmitDefaultValue=true)]
         public string Key { get; set; }
 
         /// <summary>
         /// Gets or Sets Value
         /// </summary>
-        [DataMember(Name="value", EmitDefaultValue=false)]
+        [DataMember(Name="value", EmitDefaultValue=true)]
         public string Value { get; set; }
 
         /// <summary>
@@ -52,7 +51,12 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class MapReduceInstanceInputParam {\n");
+            sb.Append("  Key: ").Append(Key).Append("\n");
+            sb.Append("  Value: ").Append(Value).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -114,8 +118,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

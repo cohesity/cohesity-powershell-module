@@ -90,7 +90,7 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 
 ## OUTPUTS
 
-### Cohesity.Models.User
+### Cohesity.Model.User
 ## NOTES
 
 ## RELATED LINKS

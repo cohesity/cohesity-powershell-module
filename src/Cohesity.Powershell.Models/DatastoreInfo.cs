@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// DatastoreInfo
@@ -28,8 +25,10 @@ namespace Cohesity.Models
         /// </summary>
         /// <param name="capacity">Specifies the capacity of the datastore in bytes..</param>
         /// <param name="freeSpace">Specifies the available space on the datastore in bytes..</param>
-        public DatastoreInfo(long? capacity = default(long?), long? freeSpace = default(long?))
+        public DatastoreInfo(int? capacity = default(int?), int? freeSpace = default(int?))
         {
+            this.Capacity = capacity;
+            this.FreeSpace = freeSpace;
             this.Capacity = capacity;
             this.FreeSpace = freeSpace;
         }
@@ -38,15 +37,15 @@ namespace Cohesity.Models
         /// Specifies the capacity of the datastore in bytes.
         /// </summary>
         /// <value>Specifies the capacity of the datastore in bytes.</value>
-        [DataMember(Name="capacity", EmitDefaultValue=false)]
-        public long? Capacity { get; set; }
+        [DataMember(Name="capacity", EmitDefaultValue=true)]
+        public int? Capacity { get; set; }
 
         /// <summary>
         /// Specifies the available space on the datastore in bytes.
         /// </summary>
         /// <value>Specifies the available space on the datastore in bytes.</value>
-        [DataMember(Name="freeSpace", EmitDefaultValue=false)]
-        public long? FreeSpace { get; set; }
+        [DataMember(Name="freeSpace", EmitDefaultValue=true)]
+        public int? FreeSpace { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -54,7 +53,12 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class DatastoreInfo {\n");
+            sb.Append("  Capacity: ").Append(Capacity).Append("\n");
+            sb.Append("  FreeSpace: ").Append(FreeSpace).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -116,8 +120,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,13 +12,10 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
-    /// ObjectsProtectedByPolicy
+    /// Objects (e.g. VMs) protected by Policy.
     /// </summary>
     [DataContract]
     public partial class ObjectsProtectedByPolicy :  IEquatable<ObjectsProtectedByPolicy>
@@ -26,7 +23,7 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="ObjectsProtectedByPolicy" /> class.
         /// </summary>
-        /// <param name="objectsProtected">objectsProtected.</param>
+        /// <param name="objectsProtected">Protected Objects..</param>
         /// <param name="policyId">Id of the policy..</param>
         /// <param name="policyName">Name of the policy..</param>
         public ObjectsProtectedByPolicy(List<ObjectsByEnv> objectsProtected = default(List<ObjectsByEnv>), string policyId = default(string), string policyName = default(string))
@@ -34,26 +31,30 @@ namespace Cohesity.Models
             this.ObjectsProtected = objectsProtected;
             this.PolicyId = policyId;
             this.PolicyName = policyName;
+            this.ObjectsProtected = objectsProtected;
+            this.PolicyId = policyId;
+            this.PolicyName = policyName;
         }
         
         /// <summary>
-        /// Gets or Sets ObjectsProtected
+        /// Protected Objects.
         /// </summary>
-        [DataMember(Name="objectsProtected", EmitDefaultValue=false)]
+        /// <value>Protected Objects.</value>
+        [DataMember(Name="objectsProtected", EmitDefaultValue=true)]
         public List<ObjectsByEnv> ObjectsProtected { get; set; }
 
         /// <summary>
         /// Id of the policy.
         /// </summary>
         /// <value>Id of the policy.</value>
-        [DataMember(Name="policyId", EmitDefaultValue=false)]
+        [DataMember(Name="policyId", EmitDefaultValue=true)]
         public string PolicyId { get; set; }
 
         /// <summary>
         /// Name of the policy.
         /// </summary>
         /// <value>Name of the policy.</value>
-        [DataMember(Name="policyName", EmitDefaultValue=false)]
+        [DataMember(Name="policyName", EmitDefaultValue=true)]
         public string PolicyName { get; set; }
 
         /// <summary>
@@ -62,7 +63,13 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class ObjectsProtectedByPolicy {\n");
+            sb.Append("  ObjectsProtected: ").Append(ObjectsProtected).Append("\n");
+            sb.Append("  PolicyId: ").Append(PolicyId).Append("\n");
+            sb.Append("  PolicyName: ").Append(PolicyName).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -98,6 +105,7 @@ namespace Cohesity.Models
                 (
                     this.ObjectsProtected == input.ObjectsProtected ||
                     this.ObjectsProtected != null &&
+                    input.ObjectsProtected != null &&
                     this.ObjectsProtected.SequenceEqual(input.ObjectsProtected)
                 ) && 
                 (
@@ -131,8 +139,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

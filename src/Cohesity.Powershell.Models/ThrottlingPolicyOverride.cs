@@ -1,16 +1,21 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
+using System.Linq;
+using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
-    /// ThrottlingPolicyOverride
+    /// Specifies throttling policy override for a Datastore in a registered entity.
     /// </summary>
     [DataContract]
     public partial class ThrottlingPolicyOverride :  IEquatable<ThrottlingPolicyOverride>
@@ -20,9 +25,11 @@ namespace Cohesity.Models
         /// </summary>
         /// <param name="datastoreId">Specifies the Protection Source id of the Datastore..</param>
         /// <param name="datastoreName">Specifies the display name of the Datastore..</param>
-        /// <param name="throttlingPolicy">Specifies the throttling policy that should be applied to this Source..</param>
-        public ThrottlingPolicyOverride(long? datastoreId = default(long?), string datastoreName = default(string), ThrottlingPolicy throttlingPolicy = default(ThrottlingPolicy))
+        /// <param name="throttlingPolicy">throttlingPolicy.</param>
+        public ThrottlingPolicyOverride(long? datastoreId = default(long?), string datastoreName = default(string), ThrottlingPolicyParameters throttlingPolicy = default(ThrottlingPolicyParameters))
         {
+            this.DatastoreId = datastoreId;
+            this.DatastoreName = datastoreName;
             this.DatastoreId = datastoreId;
             this.DatastoreName = datastoreName;
             this.ThrottlingPolicy = throttlingPolicy;
@@ -32,22 +39,21 @@ namespace Cohesity.Models
         /// Specifies the Protection Source id of the Datastore.
         /// </summary>
         /// <value>Specifies the Protection Source id of the Datastore.</value>
-        [DataMember(Name="datastoreId", EmitDefaultValue=false)]
+        [DataMember(Name="datastoreId", EmitDefaultValue=true)]
         public long? DatastoreId { get; set; }
 
         /// <summary>
         /// Specifies the display name of the Datastore.
         /// </summary>
         /// <value>Specifies the display name of the Datastore.</value>
-        [DataMember(Name="datastoreName", EmitDefaultValue=false)]
+        [DataMember(Name="datastoreName", EmitDefaultValue=true)]
         public string DatastoreName { get; set; }
 
         /// <summary>
-        /// Specifies the throttling policy that should be applied to this Source.
+        /// Gets or Sets ThrottlingPolicy
         /// </summary>
-        /// <value>Specifies the throttling policy that should be applied to this Source.</value>
         [DataMember(Name="throttlingPolicy", EmitDefaultValue=false)]
-        public ThrottlingPolicy ThrottlingPolicy { get; set; }
+        public ThrottlingPolicyParameters ThrottlingPolicy { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -55,7 +61,13 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class ThrottlingPolicyOverride {\n");
+            sb.Append("  DatastoreId: ").Append(DatastoreId).Append("\n");
+            sb.Append("  DatastoreName: ").Append(DatastoreName).Append("\n");
+            sb.Append("  ThrottlingPolicy: ").Append(ThrottlingPolicy).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -124,8 +136,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

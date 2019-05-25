@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies the states of mounting all the volumes onto a mount target for a &#39;kRecoverVMs&#39; Restore Task.
@@ -27,12 +24,17 @@ namespace Cohesity.Models
         /// Initializes a new instance of the <see cref="MountVolumesState" /> class.
         /// </summary>
         /// <param name="bringDisksOnline">Optional setting that determines if the volumes are brought online on the mount target after attaching the disks. This option is only significant for VMs..</param>
-        /// <param name="mountVolumeResults">Specifies the results of mounting each specified volume..</param>
-        /// <param name="otherError">otherError.</param>
+        /// <param name="mountVolumeResults">Array of Mount Volume Results.  Specifies the results of mounting each specified volume..</param>
+        /// <param name="otherError">Specifies an error that did not occur during the mount operation..</param>
         /// <param name="targetSourceId">Specifies the target Protection Source Id where the volumes will be mounted. NOTE: The source that was backed up and the mount target must be the same type, for example if the source is a VMware VM, then the mount target must also be a VMware VM. The mount target must be registered on the Cohesity Cluster..</param>
         /// <param name="username">Specifies the username to access the mount target..</param>
-        public MountVolumesState(bool? bringDisksOnline = default(bool?), List<MountVolumeResult> mountVolumeResults = default(List<MountVolumeResult>), NonmountError_ otherError = default(NonmountError_), long? targetSourceId = default(long?), string username = default(string))
+        public MountVolumesState(bool? bringDisksOnline = default(bool?), List<MountVolumeResultDetails> mountVolumeResults = default(List<MountVolumeResultDetails>), RequestError otherError = default(RequestError), long? targetSourceId = default(long?), string username = default(string))
         {
+            this.BringDisksOnline = bringDisksOnline;
+            this.MountVolumeResults = mountVolumeResults;
+            this.OtherError = otherError;
+            this.TargetSourceId = targetSourceId;
+            this.Username = username;
             this.BringDisksOnline = bringDisksOnline;
             this.MountVolumeResults = mountVolumeResults;
             this.OtherError = otherError;
@@ -44,34 +46,35 @@ namespace Cohesity.Models
         /// Optional setting that determines if the volumes are brought online on the mount target after attaching the disks. This option is only significant for VMs.
         /// </summary>
         /// <value>Optional setting that determines if the volumes are brought online on the mount target after attaching the disks. This option is only significant for VMs.</value>
-        [DataMember(Name="bringDisksOnline", EmitDefaultValue=false)]
+        [DataMember(Name="bringDisksOnline", EmitDefaultValue=true)]
         public bool? BringDisksOnline { get; set; }
 
         /// <summary>
-        /// Specifies the results of mounting each specified volume.
+        /// Array of Mount Volume Results.  Specifies the results of mounting each specified volume.
         /// </summary>
-        /// <value>Specifies the results of mounting each specified volume.</value>
-        [DataMember(Name="mountVolumeResults", EmitDefaultValue=false)]
-        public List<MountVolumeResult> MountVolumeResults { get; set; }
+        /// <value>Array of Mount Volume Results.  Specifies the results of mounting each specified volume.</value>
+        [DataMember(Name="mountVolumeResults", EmitDefaultValue=true)]
+        public List<MountVolumeResultDetails> MountVolumeResults { get; set; }
 
         /// <summary>
-        /// Gets or Sets OtherError
+        /// Specifies an error that did not occur during the mount operation.
         /// </summary>
-        [DataMember(Name="otherError", EmitDefaultValue=false)]
-        public NonmountError_ OtherError { get; set; }
+        /// <value>Specifies an error that did not occur during the mount operation.</value>
+        [DataMember(Name="otherError", EmitDefaultValue=true)]
+        public RequestError OtherError { get; set; }
 
         /// <summary>
         /// Specifies the target Protection Source Id where the volumes will be mounted. NOTE: The source that was backed up and the mount target must be the same type, for example if the source is a VMware VM, then the mount target must also be a VMware VM. The mount target must be registered on the Cohesity Cluster.
         /// </summary>
         /// <value>Specifies the target Protection Source Id where the volumes will be mounted. NOTE: The source that was backed up and the mount target must be the same type, for example if the source is a VMware VM, then the mount target must also be a VMware VM. The mount target must be registered on the Cohesity Cluster.</value>
-        [DataMember(Name="targetSourceId", EmitDefaultValue=false)]
+        [DataMember(Name="targetSourceId", EmitDefaultValue=true)]
         public long? TargetSourceId { get; set; }
 
         /// <summary>
         /// Specifies the username to access the mount target.
         /// </summary>
         /// <value>Specifies the username to access the mount target.</value>
-        [DataMember(Name="username", EmitDefaultValue=false)]
+        [DataMember(Name="username", EmitDefaultValue=true)]
         public string Username { get; set; }
 
         /// <summary>
@@ -80,7 +83,15 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class MountVolumesState {\n");
+            sb.Append("  BringDisksOnline: ").Append(BringDisksOnline).Append("\n");
+            sb.Append("  MountVolumeResults: ").Append(MountVolumeResults).Append("\n");
+            sb.Append("  OtherError: ").Append(OtherError).Append("\n");
+            sb.Append("  TargetSourceId: ").Append(TargetSourceId).Append("\n");
+            sb.Append("  Username: ").Append(Username).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -121,6 +132,7 @@ namespace Cohesity.Models
                 (
                     this.MountVolumeResults == input.MountVolumeResults ||
                     this.MountVolumeResults != null &&
+                    input.MountVolumeResults != null &&
                     this.MountVolumeResults.SequenceEqual(input.MountVolumeResults)
                 ) && 
                 (
@@ -163,8 +175,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

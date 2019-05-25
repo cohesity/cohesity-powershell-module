@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,13 +12,10 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
-    /// NodeStats
+    /// NodeStats provides various statistics for the node.
     /// </summary>
     [DataContract]
     public partial class NodeStats :  IEquatable<NodeStats>
@@ -27,9 +24,10 @@ namespace Cohesity.Models
         /// Initializes a new instance of the <see cref="NodeStats" /> class.
         /// </summary>
         /// <param name="id">Id is the Id of the Node..</param>
-        /// <param name="usagePerfStats">UsagePerfStats provides the usage and performance stats for the node..</param>
+        /// <param name="usagePerfStats">usagePerfStats.</param>
         public NodeStats(long? id = default(long?), UsageAndPerformanceStats usagePerfStats = default(UsageAndPerformanceStats))
         {
+            this.Id = id;
             this.Id = id;
             this.UsagePerfStats = usagePerfStats;
         }
@@ -38,13 +36,12 @@ namespace Cohesity.Models
         /// Id is the Id of the Node.
         /// </summary>
         /// <value>Id is the Id of the Node.</value>
-        [DataMember(Name="id", EmitDefaultValue=false)]
+        [DataMember(Name="id", EmitDefaultValue=true)]
         public long? Id { get; set; }
 
         /// <summary>
-        /// UsagePerfStats provides the usage and performance stats for the node.
+        /// Gets or Sets UsagePerfStats
         /// </summary>
-        /// <value>UsagePerfStats provides the usage and performance stats for the node.</value>
         [DataMember(Name="usagePerfStats", EmitDefaultValue=false)]
         public UsageAndPerformanceStats UsagePerfStats { get; set; }
 
@@ -54,7 +51,12 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class NodeStats {\n");
+            sb.Append("  Id: ").Append(Id).Append("\n");
+            sb.Append("  UsagePerfStats: ").Append(UsagePerfStats).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -116,8 +118,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

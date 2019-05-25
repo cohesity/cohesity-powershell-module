@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies the list of Views and Aliases by share name that matched the specified filter criteria.
@@ -27,9 +24,11 @@ namespace Cohesity.Models
         /// Initializes a new instance of the <see cref="GetViewsByShareNameResult" /> class.
         /// </summary>
         /// <param name="paginationCookie">If set, i.e. there are more results to display, use this value to get the next set of results, by using this value in paginationCookie param for the next request to GetViewsByShare..</param>
-        /// <param name="sharesList">Specifies the list of Views returned in this response..</param>
+        /// <param name="sharesList">Array of Views and Aliases by Share name. Specifies the list of Views returned in this response..</param>
         public GetViewsByShareNameResult(string paginationCookie = default(string), List<Share> sharesList = default(List<Share>))
         {
+            this.PaginationCookie = paginationCookie;
+            this.SharesList = sharesList;
             this.PaginationCookie = paginationCookie;
             this.SharesList = sharesList;
         }
@@ -38,14 +37,14 @@ namespace Cohesity.Models
         /// If set, i.e. there are more results to display, use this value to get the next set of results, by using this value in paginationCookie param for the next request to GetViewsByShare.
         /// </summary>
         /// <value>If set, i.e. there are more results to display, use this value to get the next set of results, by using this value in paginationCookie param for the next request to GetViewsByShare.</value>
-        [DataMember(Name="paginationCookie", EmitDefaultValue=false)]
+        [DataMember(Name="paginationCookie", EmitDefaultValue=true)]
         public string PaginationCookie { get; set; }
 
         /// <summary>
-        /// Specifies the list of Views returned in this response.
+        /// Array of Views and Aliases by Share name. Specifies the list of Views returned in this response.
         /// </summary>
-        /// <value>Specifies the list of Views returned in this response.</value>
-        [DataMember(Name="sharesList", EmitDefaultValue=false)]
+        /// <value>Array of Views and Aliases by Share name. Specifies the list of Views returned in this response.</value>
+        [DataMember(Name="sharesList", EmitDefaultValue=true)]
         public List<Share> SharesList { get; set; }
 
         /// <summary>
@@ -54,7 +53,12 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class GetViewsByShareNameResult {\n");
+            sb.Append("  PaginationCookie: ").Append(PaginationCookie).Append("\n");
+            sb.Append("  SharesList: ").Append(SharesList).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -95,6 +99,7 @@ namespace Cohesity.Models
                 (
                     this.SharesList == input.SharesList ||
                     this.SharesList != null &&
+                    input.SharesList != null &&
                     this.SharesList.SequenceEqual(input.SharesList)
                 );
         }
@@ -116,8 +121,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

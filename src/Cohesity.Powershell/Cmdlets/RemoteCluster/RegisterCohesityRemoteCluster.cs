@@ -3,7 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Management.Automation;
-using Cohesity.Models;
+using Cohesity.Model;
 using Cohesity.Powershell.Common;
 
 namespace Cohesity.Powershell.Cmdlets.RemoteCluster

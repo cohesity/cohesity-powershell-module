@@ -44,12 +44,12 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 
 ## INPUTS
 
-### Cohesity.Models.ViewBox
+### Cohesity.Model.ViewBox
 The updated StorageDomain.
 
 ## OUTPUTS
 
-### Cohesity.Models.ViewBox
+### Cohesity.Model.ViewBox
 ## NOTES
 
 ## RELATED LINKS

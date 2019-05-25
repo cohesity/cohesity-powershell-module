@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies the number of protected and unprotected objects, and their sizes information of the given entity.
@@ -36,34 +33,38 @@ namespace Cohesity.Models
             this.ProtectedSize = protectedSize;
             this.UnprotectedCount = unprotectedCount;
             this.UnprotectedSize = unprotectedSize;
+            this.ProtectedCount = protectedCount;
+            this.ProtectedSize = protectedSize;
+            this.UnprotectedCount = unprotectedCount;
+            this.UnprotectedSize = unprotectedSize;
         }
         
         /// <summary>
         /// Specifies the number of objects that are protected under the given entity.
         /// </summary>
         /// <value>Specifies the number of objects that are protected under the given entity.</value>
-        [DataMember(Name="protectedCount", EmitDefaultValue=false)]
+        [DataMember(Name="protectedCount", EmitDefaultValue=true)]
         public long? ProtectedCount { get; set; }
 
         /// <summary>
         /// Specifies the total size of the protected objects under the given entity.
         /// </summary>
         /// <value>Specifies the total size of the protected objects under the given entity.</value>
-        [DataMember(Name="protectedSize", EmitDefaultValue=false)]
+        [DataMember(Name="protectedSize", EmitDefaultValue=true)]
         public long? ProtectedSize { get; set; }
 
         /// <summary>
         /// Specifies the number of objects that are not protected under the given entity.
         /// </summary>
         /// <value>Specifies the number of objects that are not protected under the given entity.</value>
-        [DataMember(Name="unprotectedCount", EmitDefaultValue=false)]
+        [DataMember(Name="unprotectedCount", EmitDefaultValue=true)]
         public long? UnprotectedCount { get; set; }
 
         /// <summary>
         /// Specifies the total size of the unprotected objects under the given entity.
         /// </summary>
         /// <value>Specifies the total size of the unprotected objects under the given entity.</value>
-        [DataMember(Name="unprotectedSize", EmitDefaultValue=false)]
+        [DataMember(Name="unprotectedSize", EmitDefaultValue=true)]
         public long? UnprotectedSize { get; set; }
 
         /// <summary>
@@ -72,7 +73,14 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class ProtectionSummary {\n");
+            sb.Append("  ProtectedCount: ").Append(ProtectedCount).Append("\n");
+            sb.Append("  ProtectedSize: ").Append(ProtectedSize).Append("\n");
+            sb.Append("  UnprotectedCount: ").Append(UnprotectedCount).Append("\n");
+            sb.Append("  UnprotectedSize: ").Append(UnprotectedSize).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -148,8 +156,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

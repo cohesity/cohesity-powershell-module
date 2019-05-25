@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies the custom attributes when mapping type is set to &#39;kCustomAttributes&#39;. It defines the attribute names to derive the mapping for a user of an Active Directory domain.
@@ -32,20 +29,22 @@ namespace Cohesity.Models
         {
             this.GidAttrName = gidAttrName;
             this.UidAttrName = uidAttrName;
+            this.GidAttrName = gidAttrName;
+            this.UidAttrName = uidAttrName;
         }
         
         /// <summary>
         /// Specifies the custom field name in Active Directory user properties to get the GID.
         /// </summary>
         /// <value>Specifies the custom field name in Active Directory user properties to get the GID.</value>
-        [DataMember(Name="gidAttrName", EmitDefaultValue=false)]
+        [DataMember(Name="gidAttrName", EmitDefaultValue=true)]
         public string GidAttrName { get; set; }
 
         /// <summary>
         /// Specifies the custom field name in Active Directory user properties to get the UID.
         /// </summary>
         /// <value>Specifies the custom field name in Active Directory user properties to get the UID.</value>
-        [DataMember(Name="uidAttrName", EmitDefaultValue=false)]
+        [DataMember(Name="uidAttrName", EmitDefaultValue=true)]
         public string UidAttrName { get; set; }
 
         /// <summary>
@@ -54,7 +53,12 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class CustomUnixIdAttributes {\n");
+            sb.Append("  GidAttrName: ").Append(GidAttrName).Append("\n");
+            sb.Append("  UidAttrName: ").Append(UidAttrName).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -116,8 +120,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

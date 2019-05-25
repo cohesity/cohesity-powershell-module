@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Provides summary statistics about the transfer of data from Vaults (External Targets) to this Cohesity Cluster.
@@ -26,17 +23,18 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="DataTransferFromVaultsSummaryResponse" /> class.
         /// </summary>
-        /// <param name="dataTransferSummary">Specifies summary statistics about the transfer of data from Vaults to the Cohesity Cluster..</param>
+        /// <param name="dataTransferSummary">Array of Summary Data Transfer Statistics.  Specifies summary statistics about the transfer of data from Vaults to the Cohesity Cluster..</param>
         public DataTransferFromVaultsSummaryResponse(List<DataTransferFromVaultSummary> dataTransferSummary = default(List<DataTransferFromVaultSummary>))
         {
+            this.DataTransferSummary = dataTransferSummary;
             this.DataTransferSummary = dataTransferSummary;
         }
         
         /// <summary>
-        /// Specifies summary statistics about the transfer of data from Vaults to the Cohesity Cluster.
+        /// Array of Summary Data Transfer Statistics.  Specifies summary statistics about the transfer of data from Vaults to the Cohesity Cluster.
         /// </summary>
-        /// <value>Specifies summary statistics about the transfer of data from Vaults to the Cohesity Cluster.</value>
-        [DataMember(Name="dataTransferSummary", EmitDefaultValue=false)]
+        /// <value>Array of Summary Data Transfer Statistics.  Specifies summary statistics about the transfer of data from Vaults to the Cohesity Cluster.</value>
+        [DataMember(Name="dataTransferSummary", EmitDefaultValue=true)]
         public List<DataTransferFromVaultSummary> DataTransferSummary { get; set; }
 
         /// <summary>
@@ -45,7 +43,11 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class DataTransferFromVaultsSummaryResponse {\n");
+            sb.Append("  DataTransferSummary: ").Append(DataTransferSummary).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -81,6 +83,7 @@ namespace Cohesity.Models
                 (
                     this.DataTransferSummary == input.DataTransferSummary ||
                     this.DataTransferSummary != null &&
+                    input.DataTransferSummary != null &&
                     this.DataTransferSummary.SequenceEqual(input.DataTransferSummary)
                 );
         }
@@ -100,8 +103,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

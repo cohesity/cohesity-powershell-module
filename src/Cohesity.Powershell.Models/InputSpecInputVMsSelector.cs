@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// InputSpecInputVMsSelector
@@ -26,19 +23,29 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="InputSpecInputVMsSelector" /> class.
         /// </summary>
-        /// <param name="fileTimeFilter">Time filter for file&#39;s last change time..</param>
+        /// <param name="fileTimeFilter">fileTimeFilter.</param>
         /// <param name="filenameGlob">After VMDKs are selected as above, the files within them can be selected by using these predicates..</param>
         /// <param name="jobIds">jobIds.</param>
         /// <param name="maxSnapshotTimestamp">Exclusive end of snapshot_timestamp range. If missing, inf will be used as the timestamp range..</param>
         /// <param name="minSnapshotTimestamp">Inclusive. If missing, 0 will the default lower end of timestamp range.</param>
-        /// <param name="partitionIds">partitionIds.</param>
+        /// <param name="partitionIds">Filters are AND of ORs..</param>
         /// <param name="processLatestOnly">Boolean flag to indicate if only latest snapshot of each object should be processed..</param>
         /// <param name="rootDir">Within each volume, traversal will be rooted at this directory. A typical value here might be /home.</param>
         /// <param name="sourceEntityIds">sourceEntityIds.</param>
         /// <param name="viewBoxIds">viewBoxIds.</param>
         /// <param name="viewNames">viewNames.</param>
-        public InputSpecInputVMsSelector(InputSpecFileTimeFilter fileTimeFilter = default(InputSpecFileTimeFilter), List<string> filenameGlob = default(List<string>), List<long?> jobIds = default(List<long?>), long? maxSnapshotTimestamp = default(long?), long? minSnapshotTimestamp = default(long?), List<long?> partitionIds = default(List<long?>), bool? processLatestOnly = default(bool?), string rootDir = default(string), List<long?> sourceEntityIds = default(List<long?>), List<long?> viewBoxIds = default(List<long?>), List<string> viewNames = default(List<string>))
+        public InputSpecInputVMsSelector(InputSpecFileTimeFilter fileTimeFilter = default(InputSpecFileTimeFilter), List<string> filenameGlob = default(List<string>), List<long> jobIds = default(List<long>), long? maxSnapshotTimestamp = default(long?), long? minSnapshotTimestamp = default(long?), List<long> partitionIds = default(List<long>), bool? processLatestOnly = default(bool?), string rootDir = default(string), List<long> sourceEntityIds = default(List<long>), List<long> viewBoxIds = default(List<long>), List<string> viewNames = default(List<string>))
         {
+            this.FilenameGlob = filenameGlob;
+            this.JobIds = jobIds;
+            this.MaxSnapshotTimestamp = maxSnapshotTimestamp;
+            this.MinSnapshotTimestamp = minSnapshotTimestamp;
+            this.PartitionIds = partitionIds;
+            this.ProcessLatestOnly = processLatestOnly;
+            this.RootDir = rootDir;
+            this.SourceEntityIds = sourceEntityIds;
+            this.ViewBoxIds = viewBoxIds;
+            this.ViewNames = viewNames;
             this.FileTimeFilter = fileTimeFilter;
             this.FilenameGlob = filenameGlob;
             this.JobIds = jobIds;
@@ -53,9 +60,8 @@ namespace Cohesity.Models
         }
         
         /// <summary>
-        /// Time filter for file&#39;s last change time.
+        /// Gets or Sets FileTimeFilter
         /// </summary>
-        /// <value>Time filter for file&#39;s last change time.</value>
         [DataMember(Name="fileTimeFilter", EmitDefaultValue=false)]
         public InputSpecFileTimeFilter FileTimeFilter { get; set; }
 
@@ -63,65 +69,66 @@ namespace Cohesity.Models
         /// After VMDKs are selected as above, the files within them can be selected by using these predicates.
         /// </summary>
         /// <value>After VMDKs are selected as above, the files within them can be selected by using these predicates.</value>
-        [DataMember(Name="filenameGlob", EmitDefaultValue=false)]
+        [DataMember(Name="filenameGlob", EmitDefaultValue=true)]
         public List<string> FilenameGlob { get; set; }
 
         /// <summary>
         /// Gets or Sets JobIds
         /// </summary>
-        [DataMember(Name="jobIds", EmitDefaultValue=false)]
-        public List<long?> JobIds { get; set; }
+        [DataMember(Name="jobIds", EmitDefaultValue=true)]
+        public List<long> JobIds { get; set; }
 
         /// <summary>
         /// Exclusive end of snapshot_timestamp range. If missing, inf will be used as the timestamp range.
         /// </summary>
         /// <value>Exclusive end of snapshot_timestamp range. If missing, inf will be used as the timestamp range.</value>
-        [DataMember(Name="maxSnapshotTimestamp", EmitDefaultValue=false)]
+        [DataMember(Name="maxSnapshotTimestamp", EmitDefaultValue=true)]
         public long? MaxSnapshotTimestamp { get; set; }
 
         /// <summary>
         /// Inclusive. If missing, 0 will the default lower end of timestamp range
         /// </summary>
         /// <value>Inclusive. If missing, 0 will the default lower end of timestamp range</value>
-        [DataMember(Name="minSnapshotTimestamp", EmitDefaultValue=false)]
+        [DataMember(Name="minSnapshotTimestamp", EmitDefaultValue=true)]
         public long? MinSnapshotTimestamp { get; set; }
 
         /// <summary>
-        /// Gets or Sets PartitionIds
+        /// Filters are AND of ORs.
         /// </summary>
-        [DataMember(Name="partitionIds", EmitDefaultValue=false)]
-        public List<long?> PartitionIds { get; set; }
+        /// <value>Filters are AND of ORs.</value>
+        [DataMember(Name="partitionIds", EmitDefaultValue=true)]
+        public List<long> PartitionIds { get; set; }
 
         /// <summary>
         /// Boolean flag to indicate if only latest snapshot of each object should be processed.
         /// </summary>
         /// <value>Boolean flag to indicate if only latest snapshot of each object should be processed.</value>
-        [DataMember(Name="processLatestOnly", EmitDefaultValue=false)]
+        [DataMember(Name="processLatestOnly", EmitDefaultValue=true)]
         public bool? ProcessLatestOnly { get; set; }
 
         /// <summary>
         /// Within each volume, traversal will be rooted at this directory. A typical value here might be /home
         /// </summary>
         /// <value>Within each volume, traversal will be rooted at this directory. A typical value here might be /home</value>
-        [DataMember(Name="rootDir", EmitDefaultValue=false)]
+        [DataMember(Name="rootDir", EmitDefaultValue=true)]
         public string RootDir { get; set; }
 
         /// <summary>
         /// Gets or Sets SourceEntityIds
         /// </summary>
-        [DataMember(Name="sourceEntityIds", EmitDefaultValue=false)]
-        public List<long?> SourceEntityIds { get; set; }
+        [DataMember(Name="sourceEntityIds", EmitDefaultValue=true)]
+        public List<long> SourceEntityIds { get; set; }
 
         /// <summary>
         /// Gets or Sets ViewBoxIds
         /// </summary>
-        [DataMember(Name="viewBoxIds", EmitDefaultValue=false)]
-        public List<long?> ViewBoxIds { get; set; }
+        [DataMember(Name="viewBoxIds", EmitDefaultValue=true)]
+        public List<long> ViewBoxIds { get; set; }
 
         /// <summary>
         /// Gets or Sets ViewNames
         /// </summary>
-        [DataMember(Name="viewNames", EmitDefaultValue=false)]
+        [DataMember(Name="viewNames", EmitDefaultValue=true)]
         public List<string> ViewNames { get; set; }
 
         /// <summary>
@@ -130,7 +137,21 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class InputSpecInputVMsSelector {\n");
+            sb.Append("  FileTimeFilter: ").Append(FileTimeFilter).Append("\n");
+            sb.Append("  FilenameGlob: ").Append(FilenameGlob).Append("\n");
+            sb.Append("  JobIds: ").Append(JobIds).Append("\n");
+            sb.Append("  MaxSnapshotTimestamp: ").Append(MaxSnapshotTimestamp).Append("\n");
+            sb.Append("  MinSnapshotTimestamp: ").Append(MinSnapshotTimestamp).Append("\n");
+            sb.Append("  PartitionIds: ").Append(PartitionIds).Append("\n");
+            sb.Append("  ProcessLatestOnly: ").Append(ProcessLatestOnly).Append("\n");
+            sb.Append("  RootDir: ").Append(RootDir).Append("\n");
+            sb.Append("  SourceEntityIds: ").Append(SourceEntityIds).Append("\n");
+            sb.Append("  ViewBoxIds: ").Append(ViewBoxIds).Append("\n");
+            sb.Append("  ViewNames: ").Append(ViewNames).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -171,11 +192,13 @@ namespace Cohesity.Models
                 (
                     this.FilenameGlob == input.FilenameGlob ||
                     this.FilenameGlob != null &&
+                    input.FilenameGlob != null &&
                     this.FilenameGlob.SequenceEqual(input.FilenameGlob)
                 ) && 
                 (
                     this.JobIds == input.JobIds ||
                     this.JobIds != null &&
+                    input.JobIds != null &&
                     this.JobIds.SequenceEqual(input.JobIds)
                 ) && 
                 (
@@ -191,6 +214,7 @@ namespace Cohesity.Models
                 (
                     this.PartitionIds == input.PartitionIds ||
                     this.PartitionIds != null &&
+                    input.PartitionIds != null &&
                     this.PartitionIds.SequenceEqual(input.PartitionIds)
                 ) && 
                 (
@@ -206,16 +230,19 @@ namespace Cohesity.Models
                 (
                     this.SourceEntityIds == input.SourceEntityIds ||
                     this.SourceEntityIds != null &&
+                    input.SourceEntityIds != null &&
                     this.SourceEntityIds.SequenceEqual(input.SourceEntityIds)
                 ) && 
                 (
                     this.ViewBoxIds == input.ViewBoxIds ||
                     this.ViewBoxIds != null &&
+                    input.ViewBoxIds != null &&
                     this.ViewBoxIds.SequenceEqual(input.ViewBoxIds)
                 ) && 
                 (
                     this.ViewNames == input.ViewNames ||
                     this.ViewNames != null &&
+                    input.ViewNames != null &&
                     this.ViewNames.SequenceEqual(input.ViewNames)
                 );
         }
@@ -255,8 +282,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

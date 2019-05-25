@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies statistics about the transfer of data from this Cohesity Cluster to this Vault for a Protection Job.
@@ -34,27 +31,30 @@ namespace Cohesity.Models
             this.NumLogicalBytesTransferred = numLogicalBytesTransferred;
             this.NumPhysicalBytesTransferred = numPhysicalBytesTransferred;
             this.ProtectionJobName = protectionJobName;
+            this.NumLogicalBytesTransferred = numLogicalBytesTransferred;
+            this.NumPhysicalBytesTransferred = numPhysicalBytesTransferred;
+            this.ProtectionJobName = protectionJobName;
         }
         
         /// <summary>
         /// Specifies the total number of logical bytes that are transferred from this Cohesity Cluster to this Vault for this Protection Job. The logical size is when the data is fully hydrated or expanded.
         /// </summary>
         /// <value>Specifies the total number of logical bytes that are transferred from this Cohesity Cluster to this Vault for this Protection Job. The logical size is when the data is fully hydrated or expanded.</value>
-        [DataMember(Name="numLogicalBytesTransferred", EmitDefaultValue=false)]
+        [DataMember(Name="numLogicalBytesTransferred", EmitDefaultValue=true)]
         public long? NumLogicalBytesTransferred { get; set; }
 
         /// <summary>
         /// Specifies the total number of physical bytes that are transferred from this Cohesity Cluster to this Vault for this Protection Job.
         /// </summary>
         /// <value>Specifies the total number of physical bytes that are transferred from this Cohesity Cluster to this Vault for this Protection Job.</value>
-        [DataMember(Name="numPhysicalBytesTransferred", EmitDefaultValue=false)]
+        [DataMember(Name="numPhysicalBytesTransferred", EmitDefaultValue=true)]
         public long? NumPhysicalBytesTransferred { get; set; }
 
         /// <summary>
         /// Specifies the name of the Protection Job.
         /// </summary>
         /// <value>Specifies the name of the Protection Job.</value>
-        [DataMember(Name="protectionJobName", EmitDefaultValue=false)]
+        [DataMember(Name="protectionJobName", EmitDefaultValue=true)]
         public string ProtectionJobName { get; set; }
 
         /// <summary>
@@ -63,7 +63,13 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class DataTransferToVaultPerProtectionJob {\n");
+            sb.Append("  NumLogicalBytesTransferred: ").Append(NumLogicalBytesTransferred).Append("\n");
+            sb.Append("  NumPhysicalBytesTransferred: ").Append(NumPhysicalBytesTransferred).Append("\n");
+            sb.Append("  ProtectionJobName: ").Append(ProtectionJobName).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -132,8 +138,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

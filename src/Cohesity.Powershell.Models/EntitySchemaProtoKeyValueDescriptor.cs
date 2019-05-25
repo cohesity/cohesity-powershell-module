@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies a key/value pair.
@@ -32,20 +29,22 @@ namespace Cohesity.Models
         {
             this.KeyName = keyName;
             this.ValueType = valueType;
+            this.KeyName = keyName;
+            this.ValueType = valueType;
         }
         
         /// <summary>
         /// Specifies the name of a key.
         /// </summary>
         /// <value>Specifies the name of a key.</value>
-        [DataMember(Name="keyName", EmitDefaultValue=false)]
+        [DataMember(Name="keyName", EmitDefaultValue=true)]
         public string KeyName { get; set; }
 
         /// <summary>
         /// Specifies the type of the value that is associated with the key. 0 specifies a value type of Int64. 1 specifies a value type of Double. 2 specifies a value type of String. 3 specifies a value type of Bytes.
         /// </summary>
         /// <value>Specifies the type of the value that is associated with the key. 0 specifies a value type of Int64. 1 specifies a value type of Double. 2 specifies a value type of String. 3 specifies a value type of Bytes.</value>
-        [DataMember(Name="valueType", EmitDefaultValue=false)]
+        [DataMember(Name="valueType", EmitDefaultValue=true)]
         public int? ValueType { get; set; }
 
         /// <summary>
@@ -54,7 +53,12 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class EntitySchemaProtoKeyValueDescriptor {\n");
+            sb.Append("  KeyName: ").Append(KeyName).Append("\n");
+            sb.Append("  ValueType: ").Append(ValueType).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -116,8 +120,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

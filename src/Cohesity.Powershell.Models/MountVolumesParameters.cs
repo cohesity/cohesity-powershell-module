@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies the information required for mounting volumes. Only required for Restore Tasks of type &#39;kMountVolumes&#39;. At a minimum, the targetSourceId must be specified for &#39;kMountVolumes&#39; Restore Tasks. If only targetSourceId is specified, all disks are attached but may not be mounted. The mount target must be registered on the Cohesity Cluster. If the mount target is a VM, VMware Tools must be installed. If the mount target is a physical server, a Cohesity Agent must be be installed. See the Cohesity Dashboard help documentation for details. In the username and password fields, specify the credentials to access the mount target.
@@ -30,9 +27,14 @@ namespace Cohesity.Models
         /// <param name="password">Specifies password of the username to access the target source..</param>
         /// <param name="targetSourceId">Specifies the target Protection Source id where the volumes will be mounted. NOTE: The source that was backed up and the mount target must be the same type, for example if the source is a VMware VM, then the mount target must also be a VMware VM. The mount target must be registered on the Cohesity Cluster..</param>
         /// <param name="username">Specifies username to access the target source..</param>
-        /// <param name="volumeNames">Optionally specify the names of volumes to mount. If none are specified, all volumes of the Server are mounted on the target. To get the names of the volumes, call the GET /public/restore/vms/volumesInformation operation..</param>
+        /// <param name="volumeNames">Array of Volume Names.  Optionally specify the names of volumes to mount. If none are specified, all volumes of the Server are mounted on the target. To get the names of the volumes, call the GET /public/restore/vms/volumesInformation operation..</param>
         public MountVolumesParameters(bool? bringDisksOnline = default(bool?), string password = default(string), long? targetSourceId = default(long?), string username = default(string), List<string> volumeNames = default(List<string>))
         {
+            this.BringDisksOnline = bringDisksOnline;
+            this.Password = password;
+            this.TargetSourceId = targetSourceId;
+            this.Username = username;
+            this.VolumeNames = volumeNames;
             this.BringDisksOnline = bringDisksOnline;
             this.Password = password;
             this.TargetSourceId = targetSourceId;
@@ -44,35 +46,35 @@ namespace Cohesity.Models
         /// Optional setting that determines if the volumes are brought online on the mount target after attaching the disks. This field is only set for VMs. The Cohesity Cluster always attempts to mount Physical servers. If true and the mount target is a VM, to mount the volumes VMware Tools must be installed on the guest operating system of the VM and login credentials to the mount target must be specified. NOTE: If automount is configured for a Windows system, the volumes may be automatically brought online.
         /// </summary>
         /// <value>Optional setting that determines if the volumes are brought online on the mount target after attaching the disks. This field is only set for VMs. The Cohesity Cluster always attempts to mount Physical servers. If true and the mount target is a VM, to mount the volumes VMware Tools must be installed on the guest operating system of the VM and login credentials to the mount target must be specified. NOTE: If automount is configured for a Windows system, the volumes may be automatically brought online.</value>
-        [DataMember(Name="bringDisksOnline", EmitDefaultValue=false)]
+        [DataMember(Name="bringDisksOnline", EmitDefaultValue=true)]
         public bool? BringDisksOnline { get; set; }
 
         /// <summary>
         /// Specifies password of the username to access the target source.
         /// </summary>
         /// <value>Specifies password of the username to access the target source.</value>
-        [DataMember(Name="password", EmitDefaultValue=false)]
+        [DataMember(Name="password", EmitDefaultValue=true)]
         public string Password { get; set; }
 
         /// <summary>
         /// Specifies the target Protection Source id where the volumes will be mounted. NOTE: The source that was backed up and the mount target must be the same type, for example if the source is a VMware VM, then the mount target must also be a VMware VM. The mount target must be registered on the Cohesity Cluster.
         /// </summary>
         /// <value>Specifies the target Protection Source id where the volumes will be mounted. NOTE: The source that was backed up and the mount target must be the same type, for example if the source is a VMware VM, then the mount target must also be a VMware VM. The mount target must be registered on the Cohesity Cluster.</value>
-        [DataMember(Name="targetSourceId", EmitDefaultValue=false)]
+        [DataMember(Name="targetSourceId", EmitDefaultValue=true)]
         public long? TargetSourceId { get; set; }
 
         /// <summary>
         /// Specifies username to access the target source.
         /// </summary>
         /// <value>Specifies username to access the target source.</value>
-        [DataMember(Name="username", EmitDefaultValue=false)]
+        [DataMember(Name="username", EmitDefaultValue=true)]
         public string Username { get; set; }
 
         /// <summary>
-        /// Optionally specify the names of volumes to mount. If none are specified, all volumes of the Server are mounted on the target. To get the names of the volumes, call the GET /public/restore/vms/volumesInformation operation.
+        /// Array of Volume Names.  Optionally specify the names of volumes to mount. If none are specified, all volumes of the Server are mounted on the target. To get the names of the volumes, call the GET /public/restore/vms/volumesInformation operation.
         /// </summary>
-        /// <value>Optionally specify the names of volumes to mount. If none are specified, all volumes of the Server are mounted on the target. To get the names of the volumes, call the GET /public/restore/vms/volumesInformation operation.</value>
-        [DataMember(Name="volumeNames", EmitDefaultValue=false)]
+        /// <value>Array of Volume Names.  Optionally specify the names of volumes to mount. If none are specified, all volumes of the Server are mounted on the target. To get the names of the volumes, call the GET /public/restore/vms/volumesInformation operation.</value>
+        [DataMember(Name="volumeNames", EmitDefaultValue=true)]
         public List<string> VolumeNames { get; set; }
 
         /// <summary>
@@ -81,7 +83,15 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class MountVolumesParameters {\n");
+            sb.Append("  BringDisksOnline: ").Append(BringDisksOnline).Append("\n");
+            sb.Append("  Password: ").Append(Password).Append("\n");
+            sb.Append("  TargetSourceId: ").Append(TargetSourceId).Append("\n");
+            sb.Append("  Username: ").Append(Username).Append("\n");
+            sb.Append("  VolumeNames: ").Append(VolumeNames).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -137,6 +147,7 @@ namespace Cohesity.Models
                 (
                     this.VolumeNames == input.VolumeNames ||
                     this.VolumeNames != null &&
+                    input.VolumeNames != null &&
                     this.VolumeNames.SequenceEqual(input.VolumeNames)
                 );
         }
@@ -164,8 +175,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

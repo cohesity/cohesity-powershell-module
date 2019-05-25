@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies the encryption key that is used for encrypting replication data from this Cluster to a remote Cluster.
@@ -30,13 +27,14 @@ namespace Cohesity.Models
         public ReplicationEncryptionKeyReponse(string encryptionKey = default(string))
         {
             this.EncryptionKey = encryptionKey;
+            this.EncryptionKey = encryptionKey;
         }
         
         /// <summary>
         /// Specifies a replication encryption key.
         /// </summary>
         /// <value>Specifies a replication encryption key.</value>
-        [DataMember(Name="encryptionKey", EmitDefaultValue=false)]
+        [DataMember(Name="encryptionKey", EmitDefaultValue=true)]
         public string EncryptionKey { get; set; }
 
         /// <summary>
@@ -45,7 +43,11 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class ReplicationEncryptionKeyReponse {\n");
+            sb.Append("  EncryptionKey: ").Append(EncryptionKey).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -100,8 +102,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

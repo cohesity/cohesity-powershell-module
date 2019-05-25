@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,13 +12,10 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
-    /// ProtectedObjectsTile
+    /// Protected Objects information.
     /// </summary>
     [DataContract]
     public partial class ProtectedObjectsTile :  IEquatable<ProtectedObjectsTile>
@@ -26,7 +23,7 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="ProtectedObjectsTile" /> class.
         /// </summary>
-        /// <param name="objectsProtected">objectsProtected.</param>
+        /// <param name="objectsProtected">Protected Objects breakdown by object type..</param>
         /// <param name="protectedCount">Number of Protected Objects..</param>
         /// <param name="protectedSizeBytes">Size of Protected Objects..</param>
         /// <param name="unprotectedCount">Number of Unprotected Objects..</param>
@@ -38,40 +35,46 @@ namespace Cohesity.Models
             this.ProtectedSizeBytes = protectedSizeBytes;
             this.UnprotectedCount = unprotectedCount;
             this.UnprotectedSizeBytes = unprotectedSizeBytes;
+            this.ObjectsProtected = objectsProtected;
+            this.ProtectedCount = protectedCount;
+            this.ProtectedSizeBytes = protectedSizeBytes;
+            this.UnprotectedCount = unprotectedCount;
+            this.UnprotectedSizeBytes = unprotectedSizeBytes;
         }
         
         /// <summary>
-        /// Gets or Sets ObjectsProtected
+        /// Protected Objects breakdown by object type.
         /// </summary>
-        [DataMember(Name="objectsProtected", EmitDefaultValue=false)]
+        /// <value>Protected Objects breakdown by object type.</value>
+        [DataMember(Name="objectsProtected", EmitDefaultValue=true)]
         public List<ProtectedObjectsByEnv> ObjectsProtected { get; set; }
 
         /// <summary>
         /// Number of Protected Objects.
         /// </summary>
         /// <value>Number of Protected Objects.</value>
-        [DataMember(Name="protectedCount", EmitDefaultValue=false)]
+        [DataMember(Name="protectedCount", EmitDefaultValue=true)]
         public int? ProtectedCount { get; set; }
 
         /// <summary>
         /// Size of Protected Objects.
         /// </summary>
         /// <value>Size of Protected Objects.</value>
-        [DataMember(Name="protectedSizeBytes", EmitDefaultValue=false)]
+        [DataMember(Name="protectedSizeBytes", EmitDefaultValue=true)]
         public long? ProtectedSizeBytes { get; set; }
 
         /// <summary>
         /// Number of Unprotected Objects.
         /// </summary>
         /// <value>Number of Unprotected Objects.</value>
-        [DataMember(Name="unprotectedCount", EmitDefaultValue=false)]
+        [DataMember(Name="unprotectedCount", EmitDefaultValue=true)]
         public int? UnprotectedCount { get; set; }
 
         /// <summary>
         /// Size of Unprotected Objects.
         /// </summary>
         /// <value>Size of Unprotected Objects.</value>
-        [DataMember(Name="unprotectedSizeBytes", EmitDefaultValue=false)]
+        [DataMember(Name="unprotectedSizeBytes", EmitDefaultValue=true)]
         public long? UnprotectedSizeBytes { get; set; }
 
         /// <summary>
@@ -80,7 +83,15 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class ProtectedObjectsTile {\n");
+            sb.Append("  ObjectsProtected: ").Append(ObjectsProtected).Append("\n");
+            sb.Append("  ProtectedCount: ").Append(ProtectedCount).Append("\n");
+            sb.Append("  ProtectedSizeBytes: ").Append(ProtectedSizeBytes).Append("\n");
+            sb.Append("  UnprotectedCount: ").Append(UnprotectedCount).Append("\n");
+            sb.Append("  UnprotectedSizeBytes: ").Append(UnprotectedSizeBytes).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -116,6 +127,7 @@ namespace Cohesity.Models
                 (
                     this.ObjectsProtected == input.ObjectsProtected ||
                     this.ObjectsProtected != null &&
+                    input.ObjectsProtected != null &&
                     this.ObjectsProtected.SequenceEqual(input.ObjectsProtected)
                 ) && 
                 (
@@ -163,8 +175,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

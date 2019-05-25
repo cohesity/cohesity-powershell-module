@@ -326,7 +326,7 @@ Specifies the unique id of the protection source objects (such as a virtual mach
 
 ## OUTPUTS
 
-### Cohesity.Models.ProtectionJob
+### Cohesity.Model.ProtectionJob
 ## NOTES
 
 ## RELATED LINKS

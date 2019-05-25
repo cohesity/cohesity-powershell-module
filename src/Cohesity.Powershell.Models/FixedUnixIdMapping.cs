@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies the fields when mapping type is set to &#39;kFixed&#39;. It maps all Active Directory users of a domain to a fixed Unix uid, and gid.
@@ -32,20 +29,22 @@ namespace Cohesity.Models
         {
             this.Gid = gid;
             this.Uid = uid;
+            this.Gid = gid;
+            this.Uid = uid;
         }
         
         /// <summary>
         /// Specifies the fixed Unix GID, when mapping type is set to kFixed.
         /// </summary>
         /// <value>Specifies the fixed Unix GID, when mapping type is set to kFixed.</value>
-        [DataMember(Name="gid", EmitDefaultValue=false)]
+        [DataMember(Name="gid", EmitDefaultValue=true)]
         public long? Gid { get; set; }
 
         /// <summary>
         /// Specifies the fixed Unix UID, when mapping type is set to kFixed.
         /// </summary>
         /// <value>Specifies the fixed Unix UID, when mapping type is set to kFixed.</value>
-        [DataMember(Name="uid", EmitDefaultValue=false)]
+        [DataMember(Name="uid", EmitDefaultValue=true)]
         public long? Uid { get; set; }
 
         /// <summary>
@@ -54,7 +53,12 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class FixedUnixIdMapping {\n");
+            sb.Append("  Gid: ").Append(Gid).Append("\n");
+            sb.Append("  Uid: ").Append(Uid).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -116,8 +120,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

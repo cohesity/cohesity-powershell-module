@@ -1,13 +1,18 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
+using System.Linq;
+using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies a Protection Source in Acropolis environment.
@@ -22,55 +27,55 @@ namespace Cohesity.Models
         [JsonConverter(typeof(StringEnumConverter))]
         public enum TypeEnum
         {
-            
             /// <summary>
             /// Enum KPrismCentral for value: kPrismCentral
             /// </summary>
             [EnumMember(Value = "kPrismCentral")]
             KPrismCentral = 1,
-            
+
             /// <summary>
             /// Enum KStandaloneCluster for value: kStandaloneCluster
             /// </summary>
             [EnumMember(Value = "kStandaloneCluster")]
             KStandaloneCluster = 2,
-            
+
             /// <summary>
             /// Enum KCluster for value: kCluster
             /// </summary>
             [EnumMember(Value = "kCluster")]
             KCluster = 3,
-            
+
             /// <summary>
             /// Enum KHost for value: kHost
             /// </summary>
             [EnumMember(Value = "kHost")]
             KHost = 4,
-            
+
             /// <summary>
             /// Enum KVirtualMachine for value: kVirtualMachine
             /// </summary>
             [EnumMember(Value = "kVirtualMachine")]
             KVirtualMachine = 5,
-            
+
             /// <summary>
             /// Enum KNetwork for value: kNetwork
             /// </summary>
             [EnumMember(Value = "kNetwork")]
             KNetwork = 6,
-            
+
             /// <summary>
             /// Enum KStorageContainer for value: kStorageContainer
             /// </summary>
             [EnumMember(Value = "kStorageContainer")]
             KStorageContainer = 7
+
         }
 
         /// <summary>
         /// Specifies the type of an Acropolis Protection Source Object such as &#39;kPrismCentral&#39;, &#39;kHost&#39;, &#39;kNetwork&#39;, etc. Specifies the type of an Acropolis source entity. &#39;kPrismCentral&#39; indicates a collection of multiple Nutanix clusters. &#39;kStandaloneCluster&#39; indicates a single Nutanix cluster. &#39;kCluster&#39; indicates a Nutanix cluster manageed by a Prism Central. &#39;kHost&#39; indicates an Acropolis host. &#39;kVirtualMachine&#39; indicates a Virtual Machine. &#39;kNetwork&#39; indicates a Virtual Machine network object. &#39;kStorageContainer&#39; represents a storage container object.
         /// </summary>
         /// <value>Specifies the type of an Acropolis Protection Source Object such as &#39;kPrismCentral&#39;, &#39;kHost&#39;, &#39;kNetwork&#39;, etc. Specifies the type of an Acropolis source entity. &#39;kPrismCentral&#39; indicates a collection of multiple Nutanix clusters. &#39;kStandaloneCluster&#39; indicates a single Nutanix cluster. &#39;kCluster&#39; indicates a Nutanix cluster manageed by a Prism Central. &#39;kHost&#39; indicates an Acropolis host. &#39;kVirtualMachine&#39; indicates a Virtual Machine. &#39;kNetwork&#39; indicates a Virtual Machine network object. &#39;kStorageContainer&#39; represents a storage container object.</value>
-        [DataMember(Name="type", EmitDefaultValue=false)]
+        [DataMember(Name="type", EmitDefaultValue=true)]
         public TypeEnum? Type { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="AcropolisProtectionSource" /> class.
@@ -89,42 +94,47 @@ namespace Cohesity.Models
             this.Name = name;
             this.Type = type;
             this.Uuid = uuid;
+            this.ClusterUuid = clusterUuid;
+            this.Description = description;
+            this.MountPath = mountPath;
+            this.Name = name;
+            this.Type = type;
+            this.Uuid = uuid;
         }
         
         /// <summary>
         /// Specifies the UUID of the Acropolis cluster instance to which this entity belongs to.
         /// </summary>
         /// <value>Specifies the UUID of the Acropolis cluster instance to which this entity belongs to.</value>
-        [DataMember(Name="clusterUuid", EmitDefaultValue=false)]
+        [DataMember(Name="clusterUuid", EmitDefaultValue=true)]
         public string ClusterUuid { get; set; }
 
         /// <summary>
         /// Specifies a description about the Protection Source.
         /// </summary>
         /// <value>Specifies a description about the Protection Source.</value>
-        [DataMember(Name="description", EmitDefaultValue=false)]
+        [DataMember(Name="description", EmitDefaultValue=true)]
         public string Description { get; set; }
 
         /// <summary>
         /// Specifies whether the the VM is an agent VM. This is applicable to acropolis entity of type kVirtualMachine.
         /// </summary>
         /// <value>Specifies whether the the VM is an agent VM. This is applicable to acropolis entity of type kVirtualMachine.</value>
-        [DataMember(Name="mountPath", EmitDefaultValue=false)]
+        [DataMember(Name="mountPath", EmitDefaultValue=true)]
         public bool? MountPath { get; set; }
 
         /// <summary>
         /// Specifies the name of the Acropolis Object.
         /// </summary>
         /// <value>Specifies the name of the Acropolis Object.</value>
-        [DataMember(Name="name", EmitDefaultValue=false)]
+        [DataMember(Name="name", EmitDefaultValue=true)]
         public string Name { get; set; }
-
 
         /// <summary>
         /// Specifies the UUID of the Acropolis Object. This is unique within the cluster instance. Together with clusterUuid, this entity is unique within the Acropolis environment.
         /// </summary>
         /// <value>Specifies the UUID of the Acropolis Object. This is unique within the cluster instance. Together with clusterUuid, this entity is unique within the Acropolis environment.</value>
-        [DataMember(Name="uuid", EmitDefaultValue=false)]
+        [DataMember(Name="uuid", EmitDefaultValue=true)]
         public string Uuid { get; set; }
 
         /// <summary>
@@ -133,7 +143,16 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class AcropolisProtectionSource {\n");
+            sb.Append("  ClusterUuid: ").Append(ClusterUuid).Append("\n");
+            sb.Append("  Description: ").Append(Description).Append("\n");
+            sb.Append("  MountPath: ").Append(MountPath).Append("\n");
+            sb.Append("  Name: ").Append(Name).Append("\n");
+            sb.Append("  Type: ").Append(Type).Append("\n");
+            sb.Append("  Uuid: ").Append(Uuid).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -188,8 +207,7 @@ namespace Cohesity.Models
                 ) && 
                 (
                     this.Type == input.Type ||
-                    (this.Type != null &&
-                    this.Type.Equals(input.Type))
+                    this.Type.Equals(input.Type)
                 ) && 
                 (
                     this.Uuid == input.Uuid ||
@@ -215,8 +233,7 @@ namespace Cohesity.Models
                     hashCode = hashCode * 59 + this.MountPath.GetHashCode();
                 if (this.Name != null)
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
-                if (this.Type != null)
-                    hashCode = hashCode * 59 + this.Type.GetHashCode();
+                hashCode = hashCode * 59 + this.Type.GetHashCode();
                 if (this.Uuid != null)
                     hashCode = hashCode * 59 + this.Uuid.GetHashCode();
                 return hashCode;
@@ -226,4 +243,3 @@ namespace Cohesity.Models
     }
 
 }
-

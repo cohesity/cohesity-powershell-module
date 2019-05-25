@@ -44,12 +44,12 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 
 ## INPUTS
 
-### Cohesity.Models.Cluster
+### Cohesity.Model.Cluster
 The updated Cohesity Cluster Configuration.
 
 ## OUTPUTS
 
-### Cohesity.Models.Cluster
+### Cohesity.Model.Cluster
 ## NOTES
 
 ## RELATED LINKS

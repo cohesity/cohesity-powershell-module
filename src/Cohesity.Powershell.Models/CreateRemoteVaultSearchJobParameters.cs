@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies settings required to create a search of a remote Vault for data that has been archived from other Clusters.
@@ -32,7 +29,7 @@ namespace Cohesity.Models
         /// Initializes a new instance of the <see cref="CreateRemoteVaultSearchJobParameters" /> class.
         /// </summary>
         /// <param name="clusterMatchString">Filter by specifying a Cluster name prefix string. Only Clusters with names that start with this prefix string are returned in the search result. If not set, all Clusters archiving data to the Vault are returned in the search results..</param>
-        /// <param name="encryptionKeys">Specifies an optional list of encryption keys that may be needed to search and restore data that was archived to a remote Vault. Archived data cannot be searched or restored without the corresponding encryption key used by the original Cluster to archive the data. Encryption keys can be uploaded using the REST API public/remoteVaults/encryptionKeys operation. If the key is already uploaded, this field does not need to be specified..</param>
+        /// <param name="encryptionKeys">Array of Encryption Keys.  Specifies an optional list of encryption keys that may be needed to search and restore data that was archived to a remote Vault. Archived data cannot be searched or restored without the corresponding encryption key used by the original Cluster to archive the data. Encryption keys can be uploaded using the REST API public/remoteVaults/encryptionKeys operation. If the key is already uploaded, this field does not need to be specified..</param>
         /// <param name="endTimeUsecs">Filter by a end time specified as a Unix epoch Timestamp (in microseconds). Only Job Runs that completed before the specified end time are included in the search results..</param>
         /// <param name="jobMatchString">Filter by specifying a Protection Job name prefix string. Only Protection Jobs with names that start with this prefix string are returned in the search result. If not set, all Protection Jobs archiving data to the Vault are returned in the search results..</param>
         /// <param name="searchJobName">Specifies the search Job name. (required).</param>
@@ -40,24 +37,13 @@ namespace Cohesity.Models
         /// <param name="vaultId">Specifies the id of the Vault to search. This id was assigned by the local Cohesity Cluster when Vault was registered as an External Target. (required).</param>
         public CreateRemoteVaultSearchJobParameters(string clusterMatchString = default(string), List<VaultEncryptionKey> encryptionKeys = default(List<VaultEncryptionKey>), long? endTimeUsecs = default(long?), string jobMatchString = default(string), string searchJobName = default(string), long? startTimeUsecs = default(long?), long? vaultId = default(long?))
         {
-            // to ensure "searchJobName" is required (not null)
-            if (searchJobName == null)
-            {
-                throw new InvalidDataException("searchJobName is a required property for CreateRemoteVaultSearchJobParameters and cannot be null");
-            }
-            else
-            {
-                this.SearchJobName = searchJobName;
-            }
-            // to ensure "vaultId" is required (not null)
-            if (vaultId == null)
-            {
-                throw new InvalidDataException("vaultId is a required property for CreateRemoteVaultSearchJobParameters and cannot be null");
-            }
-            else
-            {
-                this.VaultId = vaultId;
-            }
+            this.ClusterMatchString = clusterMatchString;
+            this.EncryptionKeys = encryptionKeys;
+            this.EndTimeUsecs = endTimeUsecs;
+            this.JobMatchString = jobMatchString;
+            this.SearchJobName = searchJobName;
+            this.StartTimeUsecs = startTimeUsecs;
+            this.VaultId = vaultId;
             this.ClusterMatchString = clusterMatchString;
             this.EncryptionKeys = encryptionKeys;
             this.EndTimeUsecs = endTimeUsecs;
@@ -69,49 +55,49 @@ namespace Cohesity.Models
         /// Filter by specifying a Cluster name prefix string. Only Clusters with names that start with this prefix string are returned in the search result. If not set, all Clusters archiving data to the Vault are returned in the search results.
         /// </summary>
         /// <value>Filter by specifying a Cluster name prefix string. Only Clusters with names that start with this prefix string are returned in the search result. If not set, all Clusters archiving data to the Vault are returned in the search results.</value>
-        [DataMember(Name="clusterMatchString", EmitDefaultValue=false)]
+        [DataMember(Name="clusterMatchString", EmitDefaultValue=true)]
         public string ClusterMatchString { get; set; }
 
         /// <summary>
-        /// Specifies an optional list of encryption keys that may be needed to search and restore data that was archived to a remote Vault. Archived data cannot be searched or restored without the corresponding encryption key used by the original Cluster to archive the data. Encryption keys can be uploaded using the REST API public/remoteVaults/encryptionKeys operation. If the key is already uploaded, this field does not need to be specified.
+        /// Array of Encryption Keys.  Specifies an optional list of encryption keys that may be needed to search and restore data that was archived to a remote Vault. Archived data cannot be searched or restored without the corresponding encryption key used by the original Cluster to archive the data. Encryption keys can be uploaded using the REST API public/remoteVaults/encryptionKeys operation. If the key is already uploaded, this field does not need to be specified.
         /// </summary>
-        /// <value>Specifies an optional list of encryption keys that may be needed to search and restore data that was archived to a remote Vault. Archived data cannot be searched or restored without the corresponding encryption key used by the original Cluster to archive the data. Encryption keys can be uploaded using the REST API public/remoteVaults/encryptionKeys operation. If the key is already uploaded, this field does not need to be specified.</value>
-        [DataMember(Name="encryptionKeys", EmitDefaultValue=false)]
+        /// <value>Array of Encryption Keys.  Specifies an optional list of encryption keys that may be needed to search and restore data that was archived to a remote Vault. Archived data cannot be searched or restored without the corresponding encryption key used by the original Cluster to archive the data. Encryption keys can be uploaded using the REST API public/remoteVaults/encryptionKeys operation. If the key is already uploaded, this field does not need to be specified.</value>
+        [DataMember(Name="encryptionKeys", EmitDefaultValue=true)]
         public List<VaultEncryptionKey> EncryptionKeys { get; set; }
 
         /// <summary>
         /// Filter by a end time specified as a Unix epoch Timestamp (in microseconds). Only Job Runs that completed before the specified end time are included in the search results.
         /// </summary>
         /// <value>Filter by a end time specified as a Unix epoch Timestamp (in microseconds). Only Job Runs that completed before the specified end time are included in the search results.</value>
-        [DataMember(Name="endTimeUsecs", EmitDefaultValue=false)]
+        [DataMember(Name="endTimeUsecs", EmitDefaultValue=true)]
         public long? EndTimeUsecs { get; set; }
 
         /// <summary>
         /// Filter by specifying a Protection Job name prefix string. Only Protection Jobs with names that start with this prefix string are returned in the search result. If not set, all Protection Jobs archiving data to the Vault are returned in the search results.
         /// </summary>
         /// <value>Filter by specifying a Protection Job name prefix string. Only Protection Jobs with names that start with this prefix string are returned in the search result. If not set, all Protection Jobs archiving data to the Vault are returned in the search results.</value>
-        [DataMember(Name="jobMatchString", EmitDefaultValue=false)]
+        [DataMember(Name="jobMatchString", EmitDefaultValue=true)]
         public string JobMatchString { get; set; }
 
         /// <summary>
         /// Specifies the search Job name.
         /// </summary>
         /// <value>Specifies the search Job name.</value>
-        [DataMember(Name="searchJobName", EmitDefaultValue=false)]
+        [DataMember(Name="searchJobName", EmitDefaultValue=true)]
         public string SearchJobName { get; set; }
 
         /// <summary>
         /// Filter by a start time specified as a Unix epoch Timestamp (in microseconds). Only Job Runs that started after the specified time are included in the search results.
         /// </summary>
         /// <value>Filter by a start time specified as a Unix epoch Timestamp (in microseconds). Only Job Runs that started after the specified time are included in the search results.</value>
-        [DataMember(Name="startTimeUsecs", EmitDefaultValue=false)]
+        [DataMember(Name="startTimeUsecs", EmitDefaultValue=true)]
         public long? StartTimeUsecs { get; set; }
 
         /// <summary>
         /// Specifies the id of the Vault to search. This id was assigned by the local Cohesity Cluster when Vault was registered as an External Target.
         /// </summary>
         /// <value>Specifies the id of the Vault to search. This id was assigned by the local Cohesity Cluster when Vault was registered as an External Target.</value>
-        [DataMember(Name="vaultId", EmitDefaultValue=false)]
+        [DataMember(Name="vaultId", EmitDefaultValue=true)]
         public long? VaultId { get; set; }
 
         /// <summary>
@@ -120,7 +106,17 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class CreateRemoteVaultSearchJobParameters {\n");
+            sb.Append("  ClusterMatchString: ").Append(ClusterMatchString).Append("\n");
+            sb.Append("  EncryptionKeys: ").Append(EncryptionKeys).Append("\n");
+            sb.Append("  EndTimeUsecs: ").Append(EndTimeUsecs).Append("\n");
+            sb.Append("  JobMatchString: ").Append(JobMatchString).Append("\n");
+            sb.Append("  SearchJobName: ").Append(SearchJobName).Append("\n");
+            sb.Append("  StartTimeUsecs: ").Append(StartTimeUsecs).Append("\n");
+            sb.Append("  VaultId: ").Append(VaultId).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -161,6 +157,7 @@ namespace Cohesity.Models
                 (
                     this.EncryptionKeys == input.EncryptionKeys ||
                     this.EncryptionKeys != null &&
+                    input.EncryptionKeys != null &&
                     this.EncryptionKeys.SequenceEqual(input.EncryptionKeys)
                 ) && 
                 (
@@ -217,8 +214,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

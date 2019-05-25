@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies details about one Job Run (Snapshot) archived to a remote Vault that was captured by a Protection Job.
@@ -26,15 +23,22 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="RemoteProtectionJobRunInstance" /> class.
         /// </summary>
-        /// <param name="archiveTaskUid">archiveTaskUid.</param>
+        /// <param name="archiveTaskUid">Specifies the globally unique id of the archival task that archived the Snapshot to the Vault..</param>
         /// <param name="archiveVersion">Specifies the version of the archive..</param>
         /// <param name="expiryTimeUsecs">Specifies the time when the archive expires. This time is recorded as a Unix epoch Timestamp (in microseconds)..</param>
         /// <param name="indexSizeBytes">Specifies the size of the index for the archive..</param>
         /// <param name="jobRunId">Specifies the instance id of the Job Run task capturing the Snapshot..</param>
         /// <param name="metadataComplete">Specifies whether a full set of metadata is available now..</param>
         /// <param name="snapshotTimeUsecs">Specify the time the Snapshot was captured as a Unix epoch Timestamp (in microseconds)..</param>
-        public RemoteProtectionJobRunInstance(ArchiveTaskUid1 archiveTaskUid = default(ArchiveTaskUid1), int? archiveVersion = default(int?), long? expiryTimeUsecs = default(long?), long? indexSizeBytes = default(long?), long? jobRunId = default(long?), bool? metadataComplete = default(bool?), long? snapshotTimeUsecs = default(long?))
+        public RemoteProtectionJobRunInstance(UniversalId archiveTaskUid = default(UniversalId), int? archiveVersion = default(int?), long? expiryTimeUsecs = default(long?), long? indexSizeBytes = default(long?), long? jobRunId = default(long?), bool? metadataComplete = default(bool?), long? snapshotTimeUsecs = default(long?))
         {
+            this.ArchiveTaskUid = archiveTaskUid;
+            this.ArchiveVersion = archiveVersion;
+            this.ExpiryTimeUsecs = expiryTimeUsecs;
+            this.IndexSizeBytes = indexSizeBytes;
+            this.JobRunId = jobRunId;
+            this.MetadataComplete = metadataComplete;
+            this.SnapshotTimeUsecs = snapshotTimeUsecs;
             this.ArchiveTaskUid = archiveTaskUid;
             this.ArchiveVersion = archiveVersion;
             this.ExpiryTimeUsecs = expiryTimeUsecs;
@@ -45,51 +49,52 @@ namespace Cohesity.Models
         }
         
         /// <summary>
-        /// Gets or Sets ArchiveTaskUid
+        /// Specifies the globally unique id of the archival task that archived the Snapshot to the Vault.
         /// </summary>
-        [DataMember(Name="archiveTaskUid", EmitDefaultValue=false)]
-        public ArchiveTaskUid1 ArchiveTaskUid { get; set; }
+        /// <value>Specifies the globally unique id of the archival task that archived the Snapshot to the Vault.</value>
+        [DataMember(Name="archiveTaskUid", EmitDefaultValue=true)]
+        public UniversalId ArchiveTaskUid { get; set; }
 
         /// <summary>
         /// Specifies the version of the archive.
         /// </summary>
         /// <value>Specifies the version of the archive.</value>
-        [DataMember(Name="archiveVersion", EmitDefaultValue=false)]
+        [DataMember(Name="archiveVersion", EmitDefaultValue=true)]
         public int? ArchiveVersion { get; set; }
 
         /// <summary>
         /// Specifies the time when the archive expires. This time is recorded as a Unix epoch Timestamp (in microseconds).
         /// </summary>
         /// <value>Specifies the time when the archive expires. This time is recorded as a Unix epoch Timestamp (in microseconds).</value>
-        [DataMember(Name="expiryTimeUsecs", EmitDefaultValue=false)]
+        [DataMember(Name="expiryTimeUsecs", EmitDefaultValue=true)]
         public long? ExpiryTimeUsecs { get; set; }
 
         /// <summary>
         /// Specifies the size of the index for the archive.
         /// </summary>
         /// <value>Specifies the size of the index for the archive.</value>
-        [DataMember(Name="indexSizeBytes", EmitDefaultValue=false)]
+        [DataMember(Name="indexSizeBytes", EmitDefaultValue=true)]
         public long? IndexSizeBytes { get; set; }
 
         /// <summary>
         /// Specifies the instance id of the Job Run task capturing the Snapshot.
         /// </summary>
         /// <value>Specifies the instance id of the Job Run task capturing the Snapshot.</value>
-        [DataMember(Name="jobRunId", EmitDefaultValue=false)]
+        [DataMember(Name="jobRunId", EmitDefaultValue=true)]
         public long? JobRunId { get; set; }
 
         /// <summary>
         /// Specifies whether a full set of metadata is available now.
         /// </summary>
         /// <value>Specifies whether a full set of metadata is available now.</value>
-        [DataMember(Name="metadataComplete", EmitDefaultValue=false)]
+        [DataMember(Name="metadataComplete", EmitDefaultValue=true)]
         public bool? MetadataComplete { get; set; }
 
         /// <summary>
         /// Specify the time the Snapshot was captured as a Unix epoch Timestamp (in microseconds).
         /// </summary>
         /// <value>Specify the time the Snapshot was captured as a Unix epoch Timestamp (in microseconds).</value>
-        [DataMember(Name="snapshotTimeUsecs", EmitDefaultValue=false)]
+        [DataMember(Name="snapshotTimeUsecs", EmitDefaultValue=true)]
         public long? SnapshotTimeUsecs { get; set; }
 
         /// <summary>
@@ -98,7 +103,17 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class RemoteProtectionJobRunInstance {\n");
+            sb.Append("  ArchiveTaskUid: ").Append(ArchiveTaskUid).Append("\n");
+            sb.Append("  ArchiveVersion: ").Append(ArchiveVersion).Append("\n");
+            sb.Append("  ExpiryTimeUsecs: ").Append(ExpiryTimeUsecs).Append("\n");
+            sb.Append("  IndexSizeBytes: ").Append(IndexSizeBytes).Append("\n");
+            sb.Append("  JobRunId: ").Append(JobRunId).Append("\n");
+            sb.Append("  MetadataComplete: ").Append(MetadataComplete).Append("\n");
+            sb.Append("  SnapshotTimeUsecs: ").Append(SnapshotTimeUsecs).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -195,8 +210,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

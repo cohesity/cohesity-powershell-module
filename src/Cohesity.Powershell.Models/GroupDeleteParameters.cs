@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies the groups to delete on the Cohesity Cluster.
@@ -27,9 +24,11 @@ namespace Cohesity.Models
         /// Initializes a new instance of the <see cref="GroupDeleteParameters" /> class.
         /// </summary>
         /// <param name="domain">Specifies the domain associated with the groups to delete. Only groups associated with the same domain can be deleted by a single request. If no domain is specified, the specified groups are deleted from the LOCAL domain on the Cohesity Cluster. If a non-LOCAL domain is specified, the specified groups are deleted on the Cohesity Cluster. However, the referenced group principals on the Active Directory are not deleted..</param>
-        /// <param name="names">Specifies the list of groups to delete on the Cohesity Cluster. Only groups from the same domain can be deleted by a single request..</param>
+        /// <param name="names">Array of Groups.  Specifies the list of groups to delete on the Cohesity Cluster. Only groups from the same domain can be deleted by a single request..</param>
         public GroupDeleteParameters(string domain = default(string), List<string> names = default(List<string>))
         {
+            this.Domain = domain;
+            this.Names = names;
             this.Domain = domain;
             this.Names = names;
         }
@@ -38,14 +37,14 @@ namespace Cohesity.Models
         /// Specifies the domain associated with the groups to delete. Only groups associated with the same domain can be deleted by a single request. If no domain is specified, the specified groups are deleted from the LOCAL domain on the Cohesity Cluster. If a non-LOCAL domain is specified, the specified groups are deleted on the Cohesity Cluster. However, the referenced group principals on the Active Directory are not deleted.
         /// </summary>
         /// <value>Specifies the domain associated with the groups to delete. Only groups associated with the same domain can be deleted by a single request. If no domain is specified, the specified groups are deleted from the LOCAL domain on the Cohesity Cluster. If a non-LOCAL domain is specified, the specified groups are deleted on the Cohesity Cluster. However, the referenced group principals on the Active Directory are not deleted.</value>
-        [DataMember(Name="domain", EmitDefaultValue=false)]
+        [DataMember(Name="domain", EmitDefaultValue=true)]
         public string Domain { get; set; }
 
         /// <summary>
-        /// Specifies the list of groups to delete on the Cohesity Cluster. Only groups from the same domain can be deleted by a single request.
+        /// Array of Groups.  Specifies the list of groups to delete on the Cohesity Cluster. Only groups from the same domain can be deleted by a single request.
         /// </summary>
-        /// <value>Specifies the list of groups to delete on the Cohesity Cluster. Only groups from the same domain can be deleted by a single request.</value>
-        [DataMember(Name="names", EmitDefaultValue=false)]
+        /// <value>Array of Groups.  Specifies the list of groups to delete on the Cohesity Cluster. Only groups from the same domain can be deleted by a single request.</value>
+        [DataMember(Name="names", EmitDefaultValue=true)]
         public List<string> Names { get; set; }
 
         /// <summary>
@@ -54,7 +53,12 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class GroupDeleteParameters {\n");
+            sb.Append("  Domain: ").Append(Domain).Append("\n");
+            sb.Append("  Names: ").Append(Names).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -95,6 +99,7 @@ namespace Cohesity.Models
                 (
                     this.Names == input.Names ||
                     this.Names != null &&
+                    input.Names != null &&
                     this.Names.SequenceEqual(input.Names)
                 );
         }
@@ -116,8 +121,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

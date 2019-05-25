@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,13 +12,10 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
-    /// Specifies the registration and protection information of all or a subset of the registered Protection Source Trees or Views on the Cohesity Cluster.
+    /// Specifies the registration, protection and permission information of all or a subset of the registered Protection Source Trees or Views on the Cohesity Cluster.
     /// </summary>
     [DataContract]
     public partial class GetRegistrationInfoResponse :  IEquatable<GetRegistrationInfoResponse>
@@ -26,35 +23,39 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="GetRegistrationInfoResponse" /> class.
         /// </summary>
-        /// <param name="rootNodes">Specifies the registration and protection information of either all or a subset of registered Protection Sources matching the filter parameters. overrideDescription: true.</param>
-        /// <param name="stats">stats.</param>
-        /// <param name="views">Specifies the protection information of either all or a subset of Views created on the Cohesity Cluster. overrideDescription: true.</param>
-        public GetRegistrationInfoResponse(List<ProtectionSourceTreeInfo> rootNodes = default(List<ProtectionSourceTreeInfo>), ProtectionSummaryInformationOfARegisteredProtectionSourceTreeOrtheCohesityCluster_ stats = default(ProtectionSummaryInformationOfARegisteredProtectionSourceTreeOrtheCohesityCluster_), List<ViewProtectionInfo> views = default(List<ViewProtectionInfo>))
+        /// <param name="rootNodes">Specifies the registration, protection and permission information of either all or a subset of registered Protection Sources matching the filter parameters. overrideDescription: true.</param>
+        /// <param name="stats">Specifies the sum of all the stats of protection of Protection Sources and views selected by the query parameters..</param>
+        /// <param name="statsByEnv">Specifies the breakdown of the stats by environment overrideDescription: true.</param>
+        public GetRegistrationInfoResponse(List<ProtectionSourceTreeInfo> rootNodes = default(List<ProtectionSourceTreeInfo>), ProtectionSummary stats = default(ProtectionSummary), List<ProtectionSummaryByEnv> statsByEnv = default(List<ProtectionSummaryByEnv>))
         {
             this.RootNodes = rootNodes;
             this.Stats = stats;
-            this.Views = views;
+            this.StatsByEnv = statsByEnv;
+            this.RootNodes = rootNodes;
+            this.Stats = stats;
+            this.StatsByEnv = statsByEnv;
         }
         
         /// <summary>
-        /// Specifies the registration and protection information of either all or a subset of registered Protection Sources matching the filter parameters. overrideDescription: true
+        /// Specifies the registration, protection and permission information of either all or a subset of registered Protection Sources matching the filter parameters. overrideDescription: true
         /// </summary>
-        /// <value>Specifies the registration and protection information of either all or a subset of registered Protection Sources matching the filter parameters. overrideDescription: true</value>
-        [DataMember(Name="rootNodes", EmitDefaultValue=false)]
+        /// <value>Specifies the registration, protection and permission information of either all or a subset of registered Protection Sources matching the filter parameters. overrideDescription: true</value>
+        [DataMember(Name="rootNodes", EmitDefaultValue=true)]
         public List<ProtectionSourceTreeInfo> RootNodes { get; set; }
 
         /// <summary>
-        /// Gets or Sets Stats
+        /// Specifies the sum of all the stats of protection of Protection Sources and views selected by the query parameters.
         /// </summary>
-        [DataMember(Name="stats", EmitDefaultValue=false)]
-        public ProtectionSummaryInformationOfARegisteredProtectionSourceTreeOrtheCohesityCluster_ Stats { get; set; }
+        /// <value>Specifies the sum of all the stats of protection of Protection Sources and views selected by the query parameters.</value>
+        [DataMember(Name="stats", EmitDefaultValue=true)]
+        public ProtectionSummary Stats { get; set; }
 
         /// <summary>
-        /// Specifies the protection information of either all or a subset of Views created on the Cohesity Cluster. overrideDescription: true
+        /// Specifies the breakdown of the stats by environment overrideDescription: true
         /// </summary>
-        /// <value>Specifies the protection information of either all or a subset of Views created on the Cohesity Cluster. overrideDescription: true</value>
-        [DataMember(Name="views", EmitDefaultValue=false)]
-        public List<ViewProtectionInfo> Views { get; set; }
+        /// <value>Specifies the breakdown of the stats by environment overrideDescription: true</value>
+        [DataMember(Name="statsByEnv", EmitDefaultValue=true)]
+        public List<ProtectionSummaryByEnv> StatsByEnv { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -62,7 +63,13 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class GetRegistrationInfoResponse {\n");
+            sb.Append("  RootNodes: ").Append(RootNodes).Append("\n");
+            sb.Append("  Stats: ").Append(Stats).Append("\n");
+            sb.Append("  StatsByEnv: ").Append(StatsByEnv).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -98,6 +105,7 @@ namespace Cohesity.Models
                 (
                     this.RootNodes == input.RootNodes ||
                     this.RootNodes != null &&
+                    input.RootNodes != null &&
                     this.RootNodes.SequenceEqual(input.RootNodes)
                 ) && 
                 (
@@ -106,9 +114,10 @@ namespace Cohesity.Models
                     this.Stats.Equals(input.Stats))
                 ) && 
                 (
-                    this.Views == input.Views ||
-                    this.Views != null &&
-                    this.Views.SequenceEqual(input.Views)
+                    this.StatsByEnv == input.StatsByEnv ||
+                    this.StatsByEnv != null &&
+                    input.StatsByEnv != null &&
+                    this.StatsByEnv.SequenceEqual(input.StatsByEnv)
                 );
         }
 
@@ -125,14 +134,12 @@ namespace Cohesity.Models
                     hashCode = hashCode * 59 + this.RootNodes.GetHashCode();
                 if (this.Stats != null)
                     hashCode = hashCode * 59 + this.Stats.GetHashCode();
-                if (this.Views != null)
-                    hashCode = hashCode * 59 + this.Views.GetHashCode();
+                if (this.StatsByEnv != null)
+                    hashCode = hashCode * 59 + this.StatsByEnv.GetHashCode();
                 return hashCode;
             }
         }
 
-        
     }
 
 }
-

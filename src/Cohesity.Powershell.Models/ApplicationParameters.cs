@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// ApplicationParameters
@@ -30,13 +27,14 @@ namespace Cohesity.Models
         public ApplicationParameters(bool? truncateExchangeLog = default(bool?))
         {
             this.TruncateExchangeLog = truncateExchangeLog;
+            this.TruncateExchangeLog = truncateExchangeLog;
         }
         
         /// <summary>
         /// If true, after the Cohesity Cluster successfully captures a Snapshot during a Job Run, the Cluster truncates the Exchange transaction logs on a Microsoft Exchange Server. The default value is false.
         /// </summary>
         /// <value>If true, after the Cohesity Cluster successfully captures a Snapshot during a Job Run, the Cluster truncates the Exchange transaction logs on a Microsoft Exchange Server. The default value is false.</value>
-        [DataMember(Name="truncateExchangeLog", EmitDefaultValue=false)]
+        [DataMember(Name="truncateExchangeLog", EmitDefaultValue=true)]
         public bool? TruncateExchangeLog { get; set; }
 
         /// <summary>
@@ -45,7 +43,11 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class ApplicationParameters {\n");
+            sb.Append("  TruncateExchangeLog: ").Append(TruncateExchangeLog).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -100,8 +102,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

@@ -1,52 +1,56 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
+using System.Linq;
+using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
-    /// ErasureCodingInfo
+    /// Specifies information for erasure coding.
     /// </summary>
     [DataContract]
     public partial class ErasureCodingInfo :  IEquatable<ErasureCodingInfo>
     {
         /// <summary>
-        /// Algorthm used for erasure coding.
+        /// Algorthm used for erasure coding. REED_SOLOMON indicates the algorithm used for erasure coding. LRC indicates the algorithm used for erasure coding.
         /// </summary>
-        /// <value>Algorthm used for erasure coding.</value>
+        /// <value>Algorthm used for erasure coding. REED_SOLOMON indicates the algorithm used for erasure coding. LRC indicates the algorithm used for erasure coding.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum AlgorithmEnum
         {
-            
             /// <summary>
             /// Enum REEDSOLOMON for value: REED_SOLOMON
             /// </summary>
             [EnumMember(Value = "REED_SOLOMON")]
             REEDSOLOMON = 1,
-            
+
             /// <summary>
             /// Enum LRC for value: LRC
             /// </summary>
             [EnumMember(Value = "LRC")]
             LRC = 2
+
         }
 
         /// <summary>
-        /// Algorthm used for erasure coding.
+        /// Algorthm used for erasure coding. REED_SOLOMON indicates the algorithm used for erasure coding. LRC indicates the algorithm used for erasure coding.
         /// </summary>
-        /// <value>Algorthm used for erasure coding.</value>
-        [DataMember(Name="algorithm", EmitDefaultValue=false)]
+        /// <value>Algorthm used for erasure coding. REED_SOLOMON indicates the algorithm used for erasure coding. LRC indicates the algorithm used for erasure coding.</value>
+        [DataMember(Name="algorithm", EmitDefaultValue=true)]
         public AlgorithmEnum? Algorithm { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="ErasureCodingInfo" /> class.
         /// </summary>
-        /// <param name="algorithm">Algorthm used for erasure coding..</param>
+        /// <param name="algorithm">Algorthm used for erasure coding. REED_SOLOMON indicates the algorithm used for erasure coding. LRC indicates the algorithm used for erasure coding..</param>
         /// <param name="erasureCodingEnabled">Specifies whether Erasure coding is enabled on the Storage Domain (View Box)..</param>
         /// <param name="inlineErasureCoding">Specifies if erasure coding should occur inline (as the data is being written). This field is only relevant if erasure coding is enabled..</param>
         /// <param name="numCodedStripes">The number of coded stripes..</param>
@@ -58,35 +62,39 @@ namespace Cohesity.Models
             this.InlineErasureCoding = inlineErasureCoding;
             this.NumCodedStripes = numCodedStripes;
             this.NumDataStripes = numDataStripes;
+            this.Algorithm = algorithm;
+            this.ErasureCodingEnabled = erasureCodingEnabled;
+            this.InlineErasureCoding = inlineErasureCoding;
+            this.NumCodedStripes = numCodedStripes;
+            this.NumDataStripes = numDataStripes;
         }
         
-
         /// <summary>
         /// Specifies whether Erasure coding is enabled on the Storage Domain (View Box).
         /// </summary>
         /// <value>Specifies whether Erasure coding is enabled on the Storage Domain (View Box).</value>
-        [DataMember(Name="erasureCodingEnabled", EmitDefaultValue=false)]
+        [DataMember(Name="erasureCodingEnabled", EmitDefaultValue=true)]
         public bool? ErasureCodingEnabled { get; set; }
 
         /// <summary>
         /// Specifies if erasure coding should occur inline (as the data is being written). This field is only relevant if erasure coding is enabled.
         /// </summary>
         /// <value>Specifies if erasure coding should occur inline (as the data is being written). This field is only relevant if erasure coding is enabled.</value>
-        [DataMember(Name="inlineErasureCoding", EmitDefaultValue=false)]
+        [DataMember(Name="inlineErasureCoding", EmitDefaultValue=true)]
         public bool? InlineErasureCoding { get; set; }
 
         /// <summary>
         /// The number of coded stripes.
         /// </summary>
         /// <value>The number of coded stripes.</value>
-        [DataMember(Name="numCodedStripes", EmitDefaultValue=false)]
+        [DataMember(Name="numCodedStripes", EmitDefaultValue=true)]
         public int? NumCodedStripes { get; set; }
 
         /// <summary>
         /// The number of stripes containing data.
         /// </summary>
         /// <value>The number of stripes containing data.</value>
-        [DataMember(Name="numDataStripes", EmitDefaultValue=false)]
+        [DataMember(Name="numDataStripes", EmitDefaultValue=true)]
         public int? NumDataStripes { get; set; }
 
         /// <summary>
@@ -95,7 +103,15 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class ErasureCodingInfo {\n");
+            sb.Append("  Algorithm: ").Append(Algorithm).Append("\n");
+            sb.Append("  ErasureCodingEnabled: ").Append(ErasureCodingEnabled).Append("\n");
+            sb.Append("  InlineErasureCoding: ").Append(InlineErasureCoding).Append("\n");
+            sb.Append("  NumCodedStripes: ").Append(NumCodedStripes).Append("\n");
+            sb.Append("  NumDataStripes: ").Append(NumDataStripes).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -130,8 +146,7 @@ namespace Cohesity.Models
             return 
                 (
                     this.Algorithm == input.Algorithm ||
-                    (this.Algorithm != null &&
-                    this.Algorithm.Equals(input.Algorithm))
+                    this.Algorithm.Equals(input.Algorithm)
                 ) && 
                 (
                     this.ErasureCodingEnabled == input.ErasureCodingEnabled ||
@@ -164,8 +179,7 @@ namespace Cohesity.Models
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                if (this.Algorithm != null)
-                    hashCode = hashCode * 59 + this.Algorithm.GetHashCode();
+                hashCode = hashCode * 59 + this.Algorithm.GetHashCode();
                 if (this.ErasureCodingEnabled != null)
                     hashCode = hashCode * 59 + this.ErasureCodingEnabled.GetHashCode();
                 if (this.InlineErasureCoding != null)
@@ -178,8 +192,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

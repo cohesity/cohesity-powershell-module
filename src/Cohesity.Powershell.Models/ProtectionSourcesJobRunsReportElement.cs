@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies a Protection Source and the Snapshots that back it up.
@@ -26,25 +23,28 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="ProtectionSourcesJobRunsReportElement" /> class.
         /// </summary>
-        /// <param name="protectionSource">protectionSource.</param>
-        /// <param name="snapshotsInfo">Specifies the Snapshots that contain backups of the Protection Source Object..</param>
-        public ProtectionSourcesJobRunsReportElement(ProtectionSource2 protectionSource = default(ProtectionSource2), List<ProtectionSourceSnapshotInformation> snapshotsInfo = default(List<ProtectionSourceSnapshotInformation>))
+        /// <param name="protectionSource">Specifies the leaf Protection Source Object such as a VM..</param>
+        /// <param name="snapshotsInfo">Array of Snapshots  Specifies the Snapshots that contain backups of the Protection Source Object..</param>
+        public ProtectionSourcesJobRunsReportElement(ProtectionSource protectionSource = default(ProtectionSource), List<ProtectionSourceSnapshotInformation> snapshotsInfo = default(List<ProtectionSourceSnapshotInformation>))
         {
+            this.ProtectionSource = protectionSource;
+            this.SnapshotsInfo = snapshotsInfo;
             this.ProtectionSource = protectionSource;
             this.SnapshotsInfo = snapshotsInfo;
         }
         
         /// <summary>
-        /// Gets or Sets ProtectionSource
+        /// Specifies the leaf Protection Source Object such as a VM.
         /// </summary>
-        [DataMember(Name="protectionSource", EmitDefaultValue=false)]
-        public ProtectionSource2 ProtectionSource { get; set; }
+        /// <value>Specifies the leaf Protection Source Object such as a VM.</value>
+        [DataMember(Name="protectionSource", EmitDefaultValue=true)]
+        public ProtectionSource ProtectionSource { get; set; }
 
         /// <summary>
-        /// Specifies the Snapshots that contain backups of the Protection Source Object.
+        /// Array of Snapshots  Specifies the Snapshots that contain backups of the Protection Source Object.
         /// </summary>
-        /// <value>Specifies the Snapshots that contain backups of the Protection Source Object.</value>
-        [DataMember(Name="snapshotsInfo", EmitDefaultValue=false)]
+        /// <value>Array of Snapshots  Specifies the Snapshots that contain backups of the Protection Source Object.</value>
+        [DataMember(Name="snapshotsInfo", EmitDefaultValue=true)]
         public List<ProtectionSourceSnapshotInformation> SnapshotsInfo { get; set; }
 
         /// <summary>
@@ -53,7 +53,12 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class ProtectionSourcesJobRunsReportElement {\n");
+            sb.Append("  ProtectionSource: ").Append(ProtectionSource).Append("\n");
+            sb.Append("  SnapshotsInfo: ").Append(SnapshotsInfo).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -94,6 +99,7 @@ namespace Cohesity.Models
                 (
                     this.SnapshotsInfo == input.SnapshotsInfo ||
                     this.SnapshotsInfo != null &&
+                    input.SnapshotsInfo != null &&
                     this.SnapshotsInfo.SequenceEqual(input.SnapshotsInfo)
                 );
         }
@@ -115,8 +121,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

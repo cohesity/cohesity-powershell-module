@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies details about the found file or folder.
@@ -24,18 +21,60 @@ namespace Cohesity.Models
     public partial class FileSearchResult :  IEquatable<FileSearchResult>
     {
         /// <summary>
+        /// Specifies the type of the file document such as KDirectory, kFile, etc.
+        /// </summary>
+        /// <value>Specifies the type of the file document such as KDirectory, kFile, etc.</value>
+        [JsonConverter(typeof(StringEnumConverter))]
+        public enum TypeEnum
+        {
+            /// <summary>
+            /// Enum KDirectory for value: kDirectory
+            /// </summary>
+            [EnumMember(Value = "kDirectory")]
+            KDirectory = 1,
+
+            /// <summary>
+            /// Enum KFile for value: kFile
+            /// </summary>
+            [EnumMember(Value = "kFile")]
+            KFile = 2,
+
+            /// <summary>
+            /// Enum KEmail for value: kEmail
+            /// </summary>
+            [EnumMember(Value = "kEmail")]
+            KEmail = 3,
+
+            /// <summary>
+            /// Enum KSymlink for value: kSymlink
+            /// </summary>
+            [EnumMember(Value = "kSymlink")]
+            KSymlink = 4
+
+        }
+
+        /// <summary>
+        /// Specifies the type of the file document such as KDirectory, kFile, etc.
+        /// </summary>
+        /// <value>Specifies the type of the file document such as KDirectory, kFile, etc.</value>
+        [DataMember(Name="type", EmitDefaultValue=true)]
+        public TypeEnum? Type { get; set; }
+        /// <summary>
         /// Initializes a new instance of the <see cref="FileSearchResult" /> class.
         /// </summary>
         /// <param name="documentType">Specifies the inferred document type..</param>
-        /// <param name="fileVersions">Specifies the different snapshot versions of a file or folder that were captured at different times..</param>
+        /// <param name="emailMetaData">emailMetaData.</param>
+        /// <param name="fileVersions">Array of File Versions.  Specifies the different snapshot versions of a file or folder that were captured at different times..</param>
         /// <param name="filename">Specifies the name of the found file or folder..</param>
         /// <param name="isFolder">Specifies if the found item is a folder. If true, the found item is a folder..</param>
         /// <param name="jobId">Specifies the Job id for the Protection Job that is currently associated with object that contains the backed up file or folder. If the file or folder was backed up on current Cohesity Cluster, this field contains the id for the Job that captured the object that contains the file or folder. If the file or folder was backed up on a Primary Cluster and replicated to this Cohesity Cluster, a new Inactive Job is created, the object that contains the file or folder is now associated with new Inactive Job, and this field contains the id of the new Inactive Job..</param>
-        /// <param name="jobUid">jobUid.</param>
+        /// <param name="jobUid">Specifies the universal id of the Protection Job that backed up the object that contains the file or folder..</param>
+        /// <param name="protectionSource">protectionSource.</param>
         /// <param name="registeredSourceId">Specifies the id of the top-level registered source (such as a vCenter Server) where the source object that contains the the file or folder is stored..</param>
         /// <param name="sourceId">Specifies the source id of the object that contains the file or folder..</param>
+        /// <param name="type">Specifies the type of the file document such as KDirectory, kFile, etc..</param>
         /// <param name="viewBoxId">Specifies the id of the Domain (View Box) where the source object that contains the file or folder is stored..</param>
-        public FileSearchResult(string documentType = default(string), List<FileVersion> fileVersions = default(List<FileVersion>), string filename = default(string), bool? isFolder = default(bool?), long? jobId = default(long?), UniqueGlobalId2 jobUid = default(UniqueGlobalId2), long? registeredSourceId = default(long?), long? sourceId = default(long?), long? viewBoxId = default(long?))
+        public FileSearchResult(string documentType = default(string), EmailMetaData emailMetaData = default(EmailMetaData), List<FileVersion> fileVersions = default(List<FileVersion>), string filename = default(string), bool? isFolder = default(bool?), long? jobId = default(long?), UniversalId jobUid = default(UniversalId), ProtectionSource protectionSource = default(ProtectionSource), long? registeredSourceId = default(long?), long? sourceId = default(long?), TypeEnum? type = default(TypeEnum?), long? viewBoxId = default(long?))
         {
             this.DocumentType = documentType;
             this.FileVersions = fileVersions;
@@ -45,6 +84,19 @@ namespace Cohesity.Models
             this.JobUid = jobUid;
             this.RegisteredSourceId = registeredSourceId;
             this.SourceId = sourceId;
+            this.Type = type;
+            this.ViewBoxId = viewBoxId;
+            this.DocumentType = documentType;
+            this.EmailMetaData = emailMetaData;
+            this.FileVersions = fileVersions;
+            this.Filename = filename;
+            this.IsFolder = isFolder;
+            this.JobId = jobId;
+            this.JobUid = jobUid;
+            this.ProtectionSource = protectionSource;
+            this.RegisteredSourceId = registeredSourceId;
+            this.SourceId = sourceId;
+            this.Type = type;
             this.ViewBoxId = viewBoxId;
         }
         
@@ -52,62 +104,75 @@ namespace Cohesity.Models
         /// Specifies the inferred document type.
         /// </summary>
         /// <value>Specifies the inferred document type.</value>
-        [DataMember(Name="documentType", EmitDefaultValue=false)]
+        [DataMember(Name="documentType", EmitDefaultValue=true)]
         public string DocumentType { get; set; }
 
         /// <summary>
-        /// Specifies the different snapshot versions of a file or folder that were captured at different times.
+        /// Gets or Sets EmailMetaData
         /// </summary>
-        /// <value>Specifies the different snapshot versions of a file or folder that were captured at different times.</value>
-        [DataMember(Name="fileVersions", EmitDefaultValue=false)]
+        [DataMember(Name="emailMetaData", EmitDefaultValue=false)]
+        public EmailMetaData EmailMetaData { get; set; }
+
+        /// <summary>
+        /// Array of File Versions.  Specifies the different snapshot versions of a file or folder that were captured at different times.
+        /// </summary>
+        /// <value>Array of File Versions.  Specifies the different snapshot versions of a file or folder that were captured at different times.</value>
+        [DataMember(Name="fileVersions", EmitDefaultValue=true)]
         public List<FileVersion> FileVersions { get; set; }
 
         /// <summary>
         /// Specifies the name of the found file or folder.
         /// </summary>
         /// <value>Specifies the name of the found file or folder.</value>
-        [DataMember(Name="filename", EmitDefaultValue=false)]
+        [DataMember(Name="filename", EmitDefaultValue=true)]
         public string Filename { get; set; }
 
         /// <summary>
         /// Specifies if the found item is a folder. If true, the found item is a folder.
         /// </summary>
         /// <value>Specifies if the found item is a folder. If true, the found item is a folder.</value>
-        [DataMember(Name="isFolder", EmitDefaultValue=false)]
+        [DataMember(Name="isFolder", EmitDefaultValue=true)]
         public bool? IsFolder { get; set; }
 
         /// <summary>
         /// Specifies the Job id for the Protection Job that is currently associated with object that contains the backed up file or folder. If the file or folder was backed up on current Cohesity Cluster, this field contains the id for the Job that captured the object that contains the file or folder. If the file or folder was backed up on a Primary Cluster and replicated to this Cohesity Cluster, a new Inactive Job is created, the object that contains the file or folder is now associated with new Inactive Job, and this field contains the id of the new Inactive Job.
         /// </summary>
         /// <value>Specifies the Job id for the Protection Job that is currently associated with object that contains the backed up file or folder. If the file or folder was backed up on current Cohesity Cluster, this field contains the id for the Job that captured the object that contains the file or folder. If the file or folder was backed up on a Primary Cluster and replicated to this Cohesity Cluster, a new Inactive Job is created, the object that contains the file or folder is now associated with new Inactive Job, and this field contains the id of the new Inactive Job.</value>
-        [DataMember(Name="jobId", EmitDefaultValue=false)]
+        [DataMember(Name="jobId", EmitDefaultValue=true)]
         public long? JobId { get; set; }
 
         /// <summary>
-        /// Gets or Sets JobUid
+        /// Specifies the universal id of the Protection Job that backed up the object that contains the file or folder.
         /// </summary>
-        [DataMember(Name="jobUid", EmitDefaultValue=false)]
-        public UniqueGlobalId2 JobUid { get; set; }
+        /// <value>Specifies the universal id of the Protection Job that backed up the object that contains the file or folder.</value>
+        [DataMember(Name="jobUid", EmitDefaultValue=true)]
+        public UniversalId JobUid { get; set; }
+
+        /// <summary>
+        /// Gets or Sets ProtectionSource
+        /// </summary>
+        [DataMember(Name="protectionSource", EmitDefaultValue=false)]
+        public ProtectionSource ProtectionSource { get; set; }
 
         /// <summary>
         /// Specifies the id of the top-level registered source (such as a vCenter Server) where the source object that contains the the file or folder is stored.
         /// </summary>
         /// <value>Specifies the id of the top-level registered source (such as a vCenter Server) where the source object that contains the the file or folder is stored.</value>
-        [DataMember(Name="registeredSourceId", EmitDefaultValue=false)]
+        [DataMember(Name="registeredSourceId", EmitDefaultValue=true)]
         public long? RegisteredSourceId { get; set; }
 
         /// <summary>
         /// Specifies the source id of the object that contains the file or folder.
         /// </summary>
         /// <value>Specifies the source id of the object that contains the file or folder.</value>
-        [DataMember(Name="sourceId", EmitDefaultValue=false)]
+        [DataMember(Name="sourceId", EmitDefaultValue=true)]
         public long? SourceId { get; set; }
 
         /// <summary>
         /// Specifies the id of the Domain (View Box) where the source object that contains the file or folder is stored.
         /// </summary>
         /// <value>Specifies the id of the Domain (View Box) where the source object that contains the file or folder is stored.</value>
-        [DataMember(Name="viewBoxId", EmitDefaultValue=false)]
+        [DataMember(Name="viewBoxId", EmitDefaultValue=true)]
         public long? ViewBoxId { get; set; }
 
         /// <summary>
@@ -116,7 +181,22 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class FileSearchResult {\n");
+            sb.Append("  DocumentType: ").Append(DocumentType).Append("\n");
+            sb.Append("  EmailMetaData: ").Append(EmailMetaData).Append("\n");
+            sb.Append("  FileVersions: ").Append(FileVersions).Append("\n");
+            sb.Append("  Filename: ").Append(Filename).Append("\n");
+            sb.Append("  IsFolder: ").Append(IsFolder).Append("\n");
+            sb.Append("  JobId: ").Append(JobId).Append("\n");
+            sb.Append("  JobUid: ").Append(JobUid).Append("\n");
+            sb.Append("  ProtectionSource: ").Append(ProtectionSource).Append("\n");
+            sb.Append("  RegisteredSourceId: ").Append(RegisteredSourceId).Append("\n");
+            sb.Append("  SourceId: ").Append(SourceId).Append("\n");
+            sb.Append("  Type: ").Append(Type).Append("\n");
+            sb.Append("  ViewBoxId: ").Append(ViewBoxId).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -155,8 +235,14 @@ namespace Cohesity.Models
                     this.DocumentType.Equals(input.DocumentType))
                 ) && 
                 (
+                    this.EmailMetaData == input.EmailMetaData ||
+                    (this.EmailMetaData != null &&
+                    this.EmailMetaData.Equals(input.EmailMetaData))
+                ) && 
+                (
                     this.FileVersions == input.FileVersions ||
                     this.FileVersions != null &&
+                    input.FileVersions != null &&
                     this.FileVersions.SequenceEqual(input.FileVersions)
                 ) && 
                 (
@@ -180,6 +266,11 @@ namespace Cohesity.Models
                     this.JobUid.Equals(input.JobUid))
                 ) && 
                 (
+                    this.ProtectionSource == input.ProtectionSource ||
+                    (this.ProtectionSource != null &&
+                    this.ProtectionSource.Equals(input.ProtectionSource))
+                ) && 
+                (
                     this.RegisteredSourceId == input.RegisteredSourceId ||
                     (this.RegisteredSourceId != null &&
                     this.RegisteredSourceId.Equals(input.RegisteredSourceId))
@@ -188,6 +279,10 @@ namespace Cohesity.Models
                     this.SourceId == input.SourceId ||
                     (this.SourceId != null &&
                     this.SourceId.Equals(input.SourceId))
+                ) && 
+                (
+                    this.Type == input.Type ||
+                    this.Type.Equals(input.Type)
                 ) && 
                 (
                     this.ViewBoxId == input.ViewBoxId ||
@@ -207,6 +302,8 @@ namespace Cohesity.Models
                 int hashCode = 41;
                 if (this.DocumentType != null)
                     hashCode = hashCode * 59 + this.DocumentType.GetHashCode();
+                if (this.EmailMetaData != null)
+                    hashCode = hashCode * 59 + this.EmailMetaData.GetHashCode();
                 if (this.FileVersions != null)
                     hashCode = hashCode * 59 + this.FileVersions.GetHashCode();
                 if (this.Filename != null)
@@ -217,18 +314,19 @@ namespace Cohesity.Models
                     hashCode = hashCode * 59 + this.JobId.GetHashCode();
                 if (this.JobUid != null)
                     hashCode = hashCode * 59 + this.JobUid.GetHashCode();
+                if (this.ProtectionSource != null)
+                    hashCode = hashCode * 59 + this.ProtectionSource.GetHashCode();
                 if (this.RegisteredSourceId != null)
                     hashCode = hashCode * 59 + this.RegisteredSourceId.GetHashCode();
                 if (this.SourceId != null)
                     hashCode = hashCode * 59 + this.SourceId.GetHashCode();
+                hashCode = hashCode * 59 + this.Type.GetHashCode();
                 if (this.ViewBoxId != null)
                     hashCode = hashCode * 59 + this.ViewBoxId.GetHashCode();
                 return hashCode;
             }
         }
 
-        
     }
 
 }
-

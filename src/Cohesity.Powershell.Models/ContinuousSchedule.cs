@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies the time interval between two Job Runs of a continuous backup schedule and any blackout periods when new Job Runs should NOT be started.
@@ -30,13 +27,14 @@ namespace Cohesity.Models
         public ContinuousSchedule(long? backupIntervalMins = default(long?))
         {
             this.BackupIntervalMins = backupIntervalMins;
+            this.BackupIntervalMins = backupIntervalMins;
         }
         
         /// <summary>
         /// If specified, this field defines the time interval in minutes when new Job Runs are started.
         /// </summary>
         /// <value>If specified, this field defines the time interval in minutes when new Job Runs are started.</value>
-        [DataMember(Name="backupIntervalMins", EmitDefaultValue=false)]
+        [DataMember(Name="backupIntervalMins", EmitDefaultValue=true)]
         public long? BackupIntervalMins { get; set; }
 
         /// <summary>
@@ -45,7 +43,11 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class ContinuousSchedule {\n");
+            sb.Append("  BackupIntervalMins: ").Append(BackupIntervalMins).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -100,8 +102,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

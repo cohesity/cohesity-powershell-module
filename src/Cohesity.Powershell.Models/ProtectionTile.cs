@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,13 +12,10 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
-    /// ProtectionTile
+    /// Protection information and statistics.
     /// </summary>
     [DataContract]
     public partial class ProtectionTile :  IEquatable<ProtectionTile>
@@ -26,10 +23,10 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="ProtectionTile" /> class.
         /// </summary>
-        /// <param name="lastDayArchival">Statistics related to archival for last 24 hours..</param>
-        /// <param name="lastDayBackup">Statistics related to Back for last 24 hours..</param>
-        /// <param name="lastDayReplicationIn">Statistics related to incoming replication for last 24 hours..</param>
-        /// <param name="lastDayReplicationOut">Statistics related to outgoing replication for last 24 hours..</param>
+        /// <param name="lastDayArchival">lastDayArchival.</param>
+        /// <param name="lastDayBackup">lastDayBackup.</param>
+        /// <param name="lastDayReplicationIn">lastDayReplicationIn.</param>
+        /// <param name="lastDayReplicationOut">lastDayReplicationOut.</param>
         public ProtectionTile(ProtectionStats lastDayArchival = default(ProtectionStats), ProtectionStats lastDayBackup = default(ProtectionStats), ProtectionStats lastDayReplicationIn = default(ProtectionStats), ProtectionStats lastDayReplicationOut = default(ProtectionStats))
         {
             this.LastDayArchival = lastDayArchival;
@@ -39,30 +36,26 @@ namespace Cohesity.Models
         }
         
         /// <summary>
-        /// Statistics related to archival for last 24 hours.
+        /// Gets or Sets LastDayArchival
         /// </summary>
-        /// <value>Statistics related to archival for last 24 hours.</value>
         [DataMember(Name="lastDayArchival", EmitDefaultValue=false)]
         public ProtectionStats LastDayArchival { get; set; }
 
         /// <summary>
-        /// Statistics related to Back for last 24 hours.
+        /// Gets or Sets LastDayBackup
         /// </summary>
-        /// <value>Statistics related to Back for last 24 hours.</value>
         [DataMember(Name="lastDayBackup", EmitDefaultValue=false)]
         public ProtectionStats LastDayBackup { get; set; }
 
         /// <summary>
-        /// Statistics related to incoming replication for last 24 hours.
+        /// Gets or Sets LastDayReplicationIn
         /// </summary>
-        /// <value>Statistics related to incoming replication for last 24 hours.</value>
         [DataMember(Name="lastDayReplicationIn", EmitDefaultValue=false)]
         public ProtectionStats LastDayReplicationIn { get; set; }
 
         /// <summary>
-        /// Statistics related to outgoing replication for last 24 hours.
+        /// Gets or Sets LastDayReplicationOut
         /// </summary>
-        /// <value>Statistics related to outgoing replication for last 24 hours.</value>
         [DataMember(Name="lastDayReplicationOut", EmitDefaultValue=false)]
         public ProtectionStats LastDayReplicationOut { get; set; }
 
@@ -72,7 +65,14 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class ProtectionTile {\n");
+            sb.Append("  LastDayArchival: ").Append(LastDayArchival).Append("\n");
+            sb.Append("  LastDayBackup: ").Append(LastDayBackup).Append("\n");
+            sb.Append("  LastDayReplicationIn: ").Append(LastDayReplicationIn).Append("\n");
+            sb.Append("  LastDayReplicationOut: ").Append(LastDayReplicationOut).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -148,8 +148,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

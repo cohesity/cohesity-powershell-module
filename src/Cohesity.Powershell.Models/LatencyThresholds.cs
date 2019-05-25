@@ -1,13 +1,18 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
+using System.Linq;
+using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies latency thresholds that trigger throttling for all datastores found in the registered Protection Source or specific to one datastore.
@@ -24,20 +29,22 @@ namespace Cohesity.Models
         {
             this.ActiveTaskMsecs = activeTaskMsecs;
             this.NewTaskMsecs = newTaskMsecs;
+            this.ActiveTaskMsecs = activeTaskMsecs;
+            this.NewTaskMsecs = newTaskMsecs;
         }
         
         /// <summary>
         /// If the latency of a datastore is above this value, existing backup tasks using the datastore are throttled.
         /// </summary>
         /// <value>If the latency of a datastore is above this value, existing backup tasks using the datastore are throttled.</value>
-        [DataMember(Name="activeTaskMsecs", EmitDefaultValue=false)]
+        [DataMember(Name="activeTaskMsecs", EmitDefaultValue=true)]
         public long? ActiveTaskMsecs { get; set; }
 
         /// <summary>
         /// If the latency of a datastore is above this value, then new backup tasks using the datastore will not be started.
         /// </summary>
         /// <value>If the latency of a datastore is above this value, then new backup tasks using the datastore will not be started.</value>
-        [DataMember(Name="newTaskMsecs", EmitDefaultValue=false)]
+        [DataMember(Name="newTaskMsecs", EmitDefaultValue=true)]
         public long? NewTaskMsecs { get; set; }
 
         /// <summary>
@@ -46,7 +53,12 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class LatencyThresholds {\n");
+            sb.Append("  ActiveTaskMsecs: ").Append(ActiveTaskMsecs).Append("\n");
+            sb.Append("  NewTaskMsecs: ").Append(NewTaskMsecs).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -108,8 +120,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

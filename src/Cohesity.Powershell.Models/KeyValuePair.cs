@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies a key/value pair.
@@ -27,9 +24,10 @@ namespace Cohesity.Models
         /// Initializes a new instance of the <see cref="KeyValuePair" /> class.
         /// </summary>
         /// <param name="key">Specifies the name of the key..</param>
-        /// <param name="value">Specifies a value for the key..</param>
+        /// <param name="value">value.</param>
         public KeyValuePair(string key = default(string), Value value = default(Value))
         {
+            this.Key = key;
             this.Key = key;
             this.Value = value;
         }
@@ -38,13 +36,12 @@ namespace Cohesity.Models
         /// Specifies the name of the key.
         /// </summary>
         /// <value>Specifies the name of the key.</value>
-        [DataMember(Name="key", EmitDefaultValue=false)]
+        [DataMember(Name="key", EmitDefaultValue=true)]
         public string Key { get; set; }
 
         /// <summary>
-        /// Specifies a value for the key.
+        /// Gets or Sets Value
         /// </summary>
-        /// <value>Specifies a value for the key.</value>
         [DataMember(Name="value", EmitDefaultValue=false)]
         public Value Value { get; set; }
 
@@ -54,7 +51,12 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class KeyValuePair {\n");
+            sb.Append("  Key: ").Append(Key).Append("\n");
+            sb.Append("  Value: ").Append(Value).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -116,8 +118,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

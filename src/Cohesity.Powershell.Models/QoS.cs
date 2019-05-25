@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies the Quality of Service (QoS) Policy for the View.
@@ -30,13 +27,14 @@ namespace Cohesity.Models
         public QoS(string principalName = default(string))
         {
             this.PrincipalName = principalName;
+            this.PrincipalName = principalName;
         }
         
         /// <summary>
         /// Specifies the name of the QoS Policy used for the View such as &#39;TestAndDev High&#39;, &#39;Backup Target SSD&#39;, &#39;Backup Target High&#39; &#39;TestAndDev Low&#39; and &#39;Backup Target Low&#39;. For a complete list and descriptions, see the &#39;Create or Edit Views&#39; topic in the documentation. If not specified, the default is &#39;Backup Target Low&#39;.
         /// </summary>
         /// <value>Specifies the name of the QoS Policy used for the View such as &#39;TestAndDev High&#39;, &#39;Backup Target SSD&#39;, &#39;Backup Target High&#39; &#39;TestAndDev Low&#39; and &#39;Backup Target Low&#39;. For a complete list and descriptions, see the &#39;Create or Edit Views&#39; topic in the documentation. If not specified, the default is &#39;Backup Target Low&#39;.</value>
-        [DataMember(Name="principalName", EmitDefaultValue=false)]
+        [DataMember(Name="principalName", EmitDefaultValue=true)]
         public string PrincipalName { get; set; }
 
         /// <summary>
@@ -45,7 +43,11 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class QoS {\n");
+            sb.Append("  PrincipalName: ").Append(PrincipalName).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -100,8 +102,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

@@ -1,17 +1,21 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
+using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
-    /// AagAndDatabases
+    /// Specifies an AAG and the database members of the AAG.
     /// </summary>
     [DataContract]
     public partial class AagAndDatabases :  IEquatable<AagAndDatabases>
@@ -19,25 +23,26 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="AagAndDatabases" /> class.
         /// </summary>
-        /// <param name="aag">Specifies an AAG Protection Source object on a VM or a Physical host..</param>
-        /// <param name="databases">databases.</param>
+        /// <param name="aag">aag.</param>
+        /// <param name="databases">Specifies databases found that are members of the AAG..</param>
         public AagAndDatabases(ProtectionSource aag = default(ProtectionSource), List<ProtectionSource> databases = default(List<ProtectionSource>))
         {
+            this.Databases = databases;
             this.Aag = aag;
             this.Databases = databases;
         }
         
         /// <summary>
-        /// Specifies an AAG Protection Source object on a VM or a Physical host.
+        /// Gets or Sets Aag
         /// </summary>
-        /// <value>Specifies an AAG Protection Source object on a VM or a Physical host.</value>
         [DataMember(Name="aag", EmitDefaultValue=false)]
         public ProtectionSource Aag { get; set; }
 
         /// <summary>
-        /// Gets or Sets Databases
+        /// Specifies databases found that are members of the AAG.
         /// </summary>
-        [DataMember(Name="databases", EmitDefaultValue=false)]
+        /// <value>Specifies databases found that are members of the AAG.</value>
+        [DataMember(Name="databases", EmitDefaultValue=true)]
         public List<ProtectionSource> Databases { get; set; }
 
         /// <summary>
@@ -46,7 +51,12 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class AagAndDatabases {\n");
+            sb.Append("  Aag: ").Append(Aag).Append("\n");
+            sb.Append("  Databases: ").Append(Databases).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -87,6 +97,7 @@ namespace Cohesity.Models
                 (
                     this.Databases == input.Databases ||
                     this.Databases != null &&
+                    input.Databases != null &&
                     this.Databases.SequenceEqual(input.Databases)
                 );
         }
@@ -107,8 +118,7 @@ namespace Cohesity.Models
                 return hashCode;
             }
         }
-        
+
     }
 
 }
-

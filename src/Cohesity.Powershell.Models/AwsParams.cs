@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,13 +12,10 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
-    /// AwsParams
+    /// Specifies various resources when converting and deploying a VM to AWS.
     /// </summary>
     [DataContract]
     public partial class AwsParams :  IEquatable<AwsParams>
@@ -26,18 +23,59 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="AwsParams" /> class.
         /// </summary>
+        /// <param name="instanceId">Specfies id of the AWS instance type in which to deploy the VM..</param>
+        /// <param name="networkSecurityGroupIds">Specifies ids of the netwrok security groups within above VPC..</param>
         /// <param name="region">Specifies id of the AWS region in which to deploy the VM..</param>
-        public AwsParams(long? region = default(long?))
+        /// <param name="subnetId">Specifies id of the subnet within above VPC..</param>
+        /// <param name="virtualPrivateCloudId">Specifies id of the Virtual Private Cloud to chose for the instance type..</param>
+        public AwsParams(long? instanceId = default(long?), List<long> networkSecurityGroupIds = default(List<long>), long? region = default(long?), long? subnetId = default(long?), long? virtualPrivateCloudId = default(long?))
         {
+            this.InstanceId = instanceId;
+            this.NetworkSecurityGroupIds = networkSecurityGroupIds;
             this.Region = region;
+            this.SubnetId = subnetId;
+            this.VirtualPrivateCloudId = virtualPrivateCloudId;
+            this.InstanceId = instanceId;
+            this.NetworkSecurityGroupIds = networkSecurityGroupIds;
+            this.Region = region;
+            this.SubnetId = subnetId;
+            this.VirtualPrivateCloudId = virtualPrivateCloudId;
         }
         
+        /// <summary>
+        /// Specfies id of the AWS instance type in which to deploy the VM.
+        /// </summary>
+        /// <value>Specfies id of the AWS instance type in which to deploy the VM.</value>
+        [DataMember(Name="instanceId", EmitDefaultValue=true)]
+        public long? InstanceId { get; set; }
+
+        /// <summary>
+        /// Specifies ids of the netwrok security groups within above VPC.
+        /// </summary>
+        /// <value>Specifies ids of the netwrok security groups within above VPC.</value>
+        [DataMember(Name="networkSecurityGroupIds", EmitDefaultValue=true)]
+        public List<long> NetworkSecurityGroupIds { get; set; }
+
         /// <summary>
         /// Specifies id of the AWS region in which to deploy the VM.
         /// </summary>
         /// <value>Specifies id of the AWS region in which to deploy the VM.</value>
-        [DataMember(Name="region", EmitDefaultValue=false)]
+        [DataMember(Name="region", EmitDefaultValue=true)]
         public long? Region { get; set; }
+
+        /// <summary>
+        /// Specifies id of the subnet within above VPC.
+        /// </summary>
+        /// <value>Specifies id of the subnet within above VPC.</value>
+        [DataMember(Name="subnetId", EmitDefaultValue=true)]
+        public long? SubnetId { get; set; }
+
+        /// <summary>
+        /// Specifies id of the Virtual Private Cloud to chose for the instance type.
+        /// </summary>
+        /// <value>Specifies id of the Virtual Private Cloud to chose for the instance type.</value>
+        [DataMember(Name="virtualPrivateCloudId", EmitDefaultValue=true)]
+        public long? VirtualPrivateCloudId { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -45,7 +83,15 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class AwsParams {\n");
+            sb.Append("  InstanceId: ").Append(InstanceId).Append("\n");
+            sb.Append("  NetworkSecurityGroupIds: ").Append(NetworkSecurityGroupIds).Append("\n");
+            sb.Append("  Region: ").Append(Region).Append("\n");
+            sb.Append("  SubnetId: ").Append(SubnetId).Append("\n");
+            sb.Append("  VirtualPrivateCloudId: ").Append(VirtualPrivateCloudId).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -79,9 +125,30 @@ namespace Cohesity.Models
 
             return 
                 (
+                    this.InstanceId == input.InstanceId ||
+                    (this.InstanceId != null &&
+                    this.InstanceId.Equals(input.InstanceId))
+                ) && 
+                (
+                    this.NetworkSecurityGroupIds == input.NetworkSecurityGroupIds ||
+                    this.NetworkSecurityGroupIds != null &&
+                    input.NetworkSecurityGroupIds != null &&
+                    this.NetworkSecurityGroupIds.SequenceEqual(input.NetworkSecurityGroupIds)
+                ) && 
+                (
                     this.Region == input.Region ||
                     (this.Region != null &&
                     this.Region.Equals(input.Region))
+                ) && 
+                (
+                    this.SubnetId == input.SubnetId ||
+                    (this.SubnetId != null &&
+                    this.SubnetId.Equals(input.SubnetId))
+                ) && 
+                (
+                    this.VirtualPrivateCloudId == input.VirtualPrivateCloudId ||
+                    (this.VirtualPrivateCloudId != null &&
+                    this.VirtualPrivateCloudId.Equals(input.VirtualPrivateCloudId))
                 );
         }
 
@@ -94,14 +161,20 @@ namespace Cohesity.Models
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.InstanceId != null)
+                    hashCode = hashCode * 59 + this.InstanceId.GetHashCode();
+                if (this.NetworkSecurityGroupIds != null)
+                    hashCode = hashCode * 59 + this.NetworkSecurityGroupIds.GetHashCode();
                 if (this.Region != null)
                     hashCode = hashCode * 59 + this.Region.GetHashCode();
+                if (this.SubnetId != null)
+                    hashCode = hashCode * 59 + this.SubnetId.GetHashCode();
+                if (this.VirtualPrivateCloudId != null)
+                    hashCode = hashCode * 59 + this.VirtualPrivateCloudId.GetHashCode();
                 return hashCode;
             }
         }
 
-        
     }
 
 }
-

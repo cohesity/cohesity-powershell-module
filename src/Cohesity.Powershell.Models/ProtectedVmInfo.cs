@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,13 +12,10 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
-    /// ProtectedVmInfo
+    /// Specifies the Protection Jobs information of a VM.
     /// </summary>
     [DataContract]
     public partial class ProtectedVmInfo :  IEquatable<ProtectedVmInfo>
@@ -26,12 +23,15 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="ProtectedVmInfo" /> class.
         /// </summary>
-        /// <param name="protectionJobs">protectionJobs.</param>
-        /// <param name="protectionPolicies">protectionPolicies.</param>
-        /// <param name="protectionSource">Specifies a VM that is being protected on the Cohesity Cluster..</param>
-        /// <param name="stats">stats.</param>
-        public ProtectedVmInfo(List<ProtectionJob> protectionJobs = default(List<ProtectionJob>), List<ProtectionPolicy> protectionPolicies = default(List<ProtectionPolicy>), ProtectionSource protectionSource = default(ProtectionSource), ProtectionSummaryInformationOfARegisteredProtectionSourceTreeOrtheCohesityCluster1 stats = default(ProtectionSummaryInformationOfARegisteredProtectionSourceTreeOrtheCohesityCluster1))
+        /// <param name="protectionJobs">Specifies the list of Protection Jobs that protect the VM..</param>
+        /// <param name="protectionPolicies">Specifies the list of Policies that are used by the Protection Jobs..</param>
+        /// <param name="protectionSource">protectionSource.</param>
+        /// <param name="stats">Specifies the protection stats of VM..</param>
+        public ProtectedVmInfo(List<ProtectionJob> protectionJobs = default(List<ProtectionJob>), List<ProtectionPolicy> protectionPolicies = default(List<ProtectionPolicy>), ProtectionSource protectionSource = default(ProtectionSource), ProtectionSummary stats = default(ProtectionSummary))
         {
+            this.ProtectionJobs = protectionJobs;
+            this.ProtectionPolicies = protectionPolicies;
+            this.Stats = stats;
             this.ProtectionJobs = protectionJobs;
             this.ProtectionPolicies = protectionPolicies;
             this.ProtectionSource = protectionSource;
@@ -39,29 +39,31 @@ namespace Cohesity.Models
         }
         
         /// <summary>
-        /// Gets or Sets ProtectionJobs
+        /// Specifies the list of Protection Jobs that protect the VM.
         /// </summary>
-        [DataMember(Name="protectionJobs", EmitDefaultValue=false)]
+        /// <value>Specifies the list of Protection Jobs that protect the VM.</value>
+        [DataMember(Name="protectionJobs", EmitDefaultValue=true)]
         public List<ProtectionJob> ProtectionJobs { get; set; }
 
         /// <summary>
-        /// Gets or Sets ProtectionPolicies
+        /// Specifies the list of Policies that are used by the Protection Jobs.
         /// </summary>
-        [DataMember(Name="protectionPolicies", EmitDefaultValue=false)]
+        /// <value>Specifies the list of Policies that are used by the Protection Jobs.</value>
+        [DataMember(Name="protectionPolicies", EmitDefaultValue=true)]
         public List<ProtectionPolicy> ProtectionPolicies { get; set; }
 
         /// <summary>
-        /// Specifies a VM that is being protected on the Cohesity Cluster.
+        /// Gets or Sets ProtectionSource
         /// </summary>
-        /// <value>Specifies a VM that is being protected on the Cohesity Cluster.</value>
         [DataMember(Name="protectionSource", EmitDefaultValue=false)]
         public ProtectionSource ProtectionSource { get; set; }
 
         /// <summary>
-        /// Gets or Sets Stats
+        /// Specifies the protection stats of VM.
         /// </summary>
-        [DataMember(Name="stats", EmitDefaultValue=false)]
-        public ProtectionSummaryInformationOfARegisteredProtectionSourceTreeOrtheCohesityCluster1 Stats { get; set; }
+        /// <value>Specifies the protection stats of VM.</value>
+        [DataMember(Name="stats", EmitDefaultValue=true)]
+        public ProtectionSummary Stats { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -69,7 +71,14 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class ProtectedVmInfo {\n");
+            sb.Append("  ProtectionJobs: ").Append(ProtectionJobs).Append("\n");
+            sb.Append("  ProtectionPolicies: ").Append(ProtectionPolicies).Append("\n");
+            sb.Append("  ProtectionSource: ").Append(ProtectionSource).Append("\n");
+            sb.Append("  Stats: ").Append(Stats).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -105,11 +114,13 @@ namespace Cohesity.Models
                 (
                     this.ProtectionJobs == input.ProtectionJobs ||
                     this.ProtectionJobs != null &&
+                    input.ProtectionJobs != null &&
                     this.ProtectionJobs.SequenceEqual(input.ProtectionJobs)
                 ) && 
                 (
                     this.ProtectionPolicies == input.ProtectionPolicies ||
                     this.ProtectionPolicies != null &&
+                    input.ProtectionPolicies != null &&
                     this.ProtectionPolicies.SequenceEqual(input.ProtectionPolicies)
                 ) && 
                 (
@@ -145,8 +156,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

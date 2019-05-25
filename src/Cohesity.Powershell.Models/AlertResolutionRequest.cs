@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Request that provides the details of a resolution and the list of Alert Ids to be marked resolved.
@@ -26,25 +23,25 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="AlertResolutionRequest" /> class.
         /// </summary>
-        /// <param name="alertIdList">List of Alerts resolved by a Resolution, which are specified by Alert Ids..</param>
-        /// <param name="resolutionDetails">Short description and detailed notes about the Resolution..</param>
+        /// <param name="alertIdList">Specifies list of alerts resolved by a Resolution, which are specified by Alert Ids..</param>
+        /// <param name="resolutionDetails">resolutionDetails.</param>
         public AlertResolutionRequest(List<string> alertIdList = default(List<string>), AlertResolutionInfo resolutionDetails = default(AlertResolutionInfo))
         {
+            this.AlertIdList = alertIdList;
             this.AlertIdList = alertIdList;
             this.ResolutionDetails = resolutionDetails;
         }
         
         /// <summary>
-        /// List of Alerts resolved by a Resolution, which are specified by Alert Ids.
+        /// Specifies list of alerts resolved by a Resolution, which are specified by Alert Ids.
         /// </summary>
-        /// <value>List of Alerts resolved by a Resolution, which are specified by Alert Ids.</value>
-        [DataMember(Name="alertIdList", EmitDefaultValue=false)]
+        /// <value>Specifies list of alerts resolved by a Resolution, which are specified by Alert Ids.</value>
+        [DataMember(Name="alertIdList", EmitDefaultValue=true)]
         public List<string> AlertIdList { get; set; }
 
         /// <summary>
-        /// Short description and detailed notes about the Resolution.
+        /// Gets or Sets ResolutionDetails
         /// </summary>
-        /// <value>Short description and detailed notes about the Resolution.</value>
         [DataMember(Name="resolutionDetails", EmitDefaultValue=false)]
         public AlertResolutionInfo ResolutionDetails { get; set; }
 
@@ -54,7 +51,12 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class AlertResolutionRequest {\n");
+            sb.Append("  AlertIdList: ").Append(AlertIdList).Append("\n");
+            sb.Append("  ResolutionDetails: ").Append(ResolutionDetails).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -90,6 +92,7 @@ namespace Cohesity.Models
                 (
                     this.AlertIdList == input.AlertIdList ||
                     this.AlertIdList != null &&
+                    input.AlertIdList != null &&
                     this.AlertIdList.SequenceEqual(input.AlertIdList)
                 ) && 
                 (
@@ -116,8 +119,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

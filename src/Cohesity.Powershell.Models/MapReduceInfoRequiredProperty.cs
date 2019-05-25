@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// A required property represents a property that user must set before invoking a mapreduction instance. e.g., SimpleGrepMapper will require a property named searchPattern to be set.
@@ -36,34 +33,38 @@ namespace Cohesity.Models
             this.Description = description;
             this.IsRequired = isRequired;
             this.Name = name;
+            this.DefaultValue = defaultValue;
+            this.Description = description;
+            this.IsRequired = isRequired;
+            this.Name = name;
         }
         
         /// <summary>
         /// Default Value of the property.
         /// </summary>
         /// <value>Default Value of the property.</value>
-        [DataMember(Name="defaultValue", EmitDefaultValue=false)]
+        [DataMember(Name="defaultValue", EmitDefaultValue=true)]
         public string DefaultValue { get; set; }
 
         /// <summary>
         /// Description of this property
         /// </summary>
         /// <value>Description of this property</value>
-        [DataMember(Name="description", EmitDefaultValue=false)]
+        [DataMember(Name="description", EmitDefaultValue=true)]
         public string Description { get; set; }
 
         /// <summary>
         /// Whether the property is required or optional.
         /// </summary>
         /// <value>Whether the property is required or optional.</value>
-        [DataMember(Name="isRequired", EmitDefaultValue=false)]
+        [DataMember(Name="isRequired", EmitDefaultValue=true)]
         public bool? IsRequired { get; set; }
 
         /// <summary>
         /// Name of the property.
         /// </summary>
         /// <value>Name of the property.</value>
-        [DataMember(Name="name", EmitDefaultValue=false)]
+        [DataMember(Name="name", EmitDefaultValue=true)]
         public string Name { get; set; }
 
         /// <summary>
@@ -72,7 +73,14 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class MapReduceInfoRequiredProperty {\n");
+            sb.Append("  DefaultValue: ").Append(DefaultValue).Append("\n");
+            sb.Append("  Description: ").Append(Description).Append("\n");
+            sb.Append("  IsRequired: ").Append(IsRequired).Append("\n");
+            sb.Append("  Name: ").Append(Name).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -148,8 +156,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

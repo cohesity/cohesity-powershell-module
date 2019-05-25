@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies settings for limiting the data transfer rate between the local and remote Clusters.
@@ -26,7 +23,7 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="BandwidthLimit" /> class.
         /// </summary>
-        /// <param name="bandwidthLimitOverrides">Specifies a list of override bandwidth limits and time periods when those limits override the rateLimitBytesPerSec limit. If overlapping time periods are specified, the last one in the array takes precedence..</param>
+        /// <param name="bandwidthLimitOverrides">Array of Override Bandwidth Limits.  Specifies a list of override bandwidth limits and time periods when those limits override the rateLimitBytesPerSec limit. If overlapping time periods are specified, the last one in the array takes precedence..</param>
         /// <param name="rateLimitBytesPerSec">Specifies the maximum allowed data transfer rate between the local Cluster and remote Clusters. The value is specified in bytes per second. If not set, the data transfer rate is not limited..</param>
         /// <param name="timezone">Specifies a time zone for the specified time period. The time zone is defined in the following format: \&quot;Area/Location\&quot;, for example: \&quot;America/New_York\&quot;..</param>
         public BandwidthLimit(List<BandwidthLimitOverride> bandwidthLimitOverrides = default(List<BandwidthLimitOverride>), long? rateLimitBytesPerSec = default(long?), string timezone = default(string))
@@ -34,27 +31,30 @@ namespace Cohesity.Models
             this.BandwidthLimitOverrides = bandwidthLimitOverrides;
             this.RateLimitBytesPerSec = rateLimitBytesPerSec;
             this.Timezone = timezone;
+            this.BandwidthLimitOverrides = bandwidthLimitOverrides;
+            this.RateLimitBytesPerSec = rateLimitBytesPerSec;
+            this.Timezone = timezone;
         }
         
         /// <summary>
-        /// Specifies a list of override bandwidth limits and time periods when those limits override the rateLimitBytesPerSec limit. If overlapping time periods are specified, the last one in the array takes precedence.
+        /// Array of Override Bandwidth Limits.  Specifies a list of override bandwidth limits and time periods when those limits override the rateLimitBytesPerSec limit. If overlapping time periods are specified, the last one in the array takes precedence.
         /// </summary>
-        /// <value>Specifies a list of override bandwidth limits and time periods when those limits override the rateLimitBytesPerSec limit. If overlapping time periods are specified, the last one in the array takes precedence.</value>
-        [DataMember(Name="bandwidthLimitOverrides", EmitDefaultValue=false)]
+        /// <value>Array of Override Bandwidth Limits.  Specifies a list of override bandwidth limits and time periods when those limits override the rateLimitBytesPerSec limit. If overlapping time periods are specified, the last one in the array takes precedence.</value>
+        [DataMember(Name="bandwidthLimitOverrides", EmitDefaultValue=true)]
         public List<BandwidthLimitOverride> BandwidthLimitOverrides { get; set; }
 
         /// <summary>
         /// Specifies the maximum allowed data transfer rate between the local Cluster and remote Clusters. The value is specified in bytes per second. If not set, the data transfer rate is not limited.
         /// </summary>
         /// <value>Specifies the maximum allowed data transfer rate between the local Cluster and remote Clusters. The value is specified in bytes per second. If not set, the data transfer rate is not limited.</value>
-        [DataMember(Name="rateLimitBytesPerSec", EmitDefaultValue=false)]
+        [DataMember(Name="rateLimitBytesPerSec", EmitDefaultValue=true)]
         public long? RateLimitBytesPerSec { get; set; }
 
         /// <summary>
         /// Specifies a time zone for the specified time period. The time zone is defined in the following format: \&quot;Area/Location\&quot;, for example: \&quot;America/New_York\&quot;.
         /// </summary>
         /// <value>Specifies a time zone for the specified time period. The time zone is defined in the following format: \&quot;Area/Location\&quot;, for example: \&quot;America/New_York\&quot;.</value>
-        [DataMember(Name="timezone", EmitDefaultValue=false)]
+        [DataMember(Name="timezone", EmitDefaultValue=true)]
         public string Timezone { get; set; }
 
         /// <summary>
@@ -63,7 +63,13 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class BandwidthLimit {\n");
+            sb.Append("  BandwidthLimitOverrides: ").Append(BandwidthLimitOverrides).Append("\n");
+            sb.Append("  RateLimitBytesPerSec: ").Append(RateLimitBytesPerSec).Append("\n");
+            sb.Append("  Timezone: ").Append(Timezone).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -99,6 +105,7 @@ namespace Cohesity.Models
                 (
                     this.BandwidthLimitOverrides == input.BandwidthLimitOverrides ||
                     this.BandwidthLimitOverrides != null &&
+                    input.BandwidthLimitOverrides != null &&
                     this.BandwidthLimitOverrides.SequenceEqual(input.BandwidthLimitOverrides)
                 ) && 
                 (
@@ -132,8 +139,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

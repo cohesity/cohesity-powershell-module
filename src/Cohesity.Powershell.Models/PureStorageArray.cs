@@ -1,18 +1,21 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
+using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
-    /// PureStorageArray
+    /// Specifies a Pure Storage Array.
     /// </summary>
     [DataContract]
     public partial class PureStorageArray :  IEquatable<PureStorageArray>
@@ -21,11 +24,15 @@ namespace Cohesity.Models
         /// Initializes a new instance of the <see cref="PureStorageArray" /> class.
         /// </summary>
         /// <param name="id">Specifies a unique id of a Pure Storage Array. The id is unique across Cohesity Clusters..</param>
-        /// <param name="ports">ports.</param>
+        /// <param name="ports">Specifies the SAN ports of the Pure Storage Array..</param>
         /// <param name="revision">Specifies the revision of the Pure Storage Array..</param>
         /// <param name="version">Specifies the version of the Pure Storage Array..</param>
         public PureStorageArray(string id = default(string), List<IscsiSanPort> ports = default(List<IscsiSanPort>), string revision = default(string), string version = default(string))
         {
+            this.Id = id;
+            this.Ports = ports;
+            this.Revision = revision;
+            this.Version = version;
             this.Id = id;
             this.Ports = ports;
             this.Revision = revision;
@@ -36,27 +43,28 @@ namespace Cohesity.Models
         /// Specifies a unique id of a Pure Storage Array. The id is unique across Cohesity Clusters.
         /// </summary>
         /// <value>Specifies a unique id of a Pure Storage Array. The id is unique across Cohesity Clusters.</value>
-        [DataMember(Name="id", EmitDefaultValue=false)]
+        [DataMember(Name="id", EmitDefaultValue=true)]
         public string Id { get; set; }
 
         /// <summary>
-        /// Gets or Sets Ports
+        /// Specifies the SAN ports of the Pure Storage Array.
         /// </summary>
-        [DataMember(Name="ports", EmitDefaultValue=false)]
+        /// <value>Specifies the SAN ports of the Pure Storage Array.</value>
+        [DataMember(Name="ports", EmitDefaultValue=true)]
         public List<IscsiSanPort> Ports { get; set; }
 
         /// <summary>
         /// Specifies the revision of the Pure Storage Array.
         /// </summary>
         /// <value>Specifies the revision of the Pure Storage Array.</value>
-        [DataMember(Name="revision", EmitDefaultValue=false)]
+        [DataMember(Name="revision", EmitDefaultValue=true)]
         public string Revision { get; set; }
 
         /// <summary>
         /// Specifies the version of the Pure Storage Array.
         /// </summary>
         /// <value>Specifies the version of the Pure Storage Array.</value>
-        [DataMember(Name="version", EmitDefaultValue=false)]
+        [DataMember(Name="version", EmitDefaultValue=true)]
         public string Version { get; set; }
 
         /// <summary>
@@ -65,7 +73,14 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class PureStorageArray {\n");
+            sb.Append("  Id: ").Append(Id).Append("\n");
+            sb.Append("  Ports: ").Append(Ports).Append("\n");
+            sb.Append("  Revision: ").Append(Revision).Append("\n");
+            sb.Append("  Version: ").Append(Version).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -106,6 +121,7 @@ namespace Cohesity.Models
                 (
                     this.Ports == input.Ports ||
                     this.Ports != null &&
+                    input.Ports != null &&
                     this.Ports.SequenceEqual(input.Ports)
                 ) && 
                 (
@@ -141,8 +157,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

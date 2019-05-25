@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies an Application Server and the Protection Source that registered the Application Server.
@@ -26,24 +23,28 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="RegisteredApplicationServer" /> class.
         /// </summary>
-        /// <param name="applicationServer">applicationServer.</param>
-        /// <param name="registeredProtectionSource">registeredProtectionSource.</param>
-        public RegisteredApplicationServer(ApplicationServerAndTheSubtreesBelowThem_ applicationServer = default(ApplicationServerAndTheSubtreesBelowThem_), ProtectionSource registeredProtectionSource = default(ProtectionSource))
+        /// <param name="applicationServer">Specifies the child subtree used to store additional application-level Objects. Different environments use the subtree to store application-level information. For example for SQL Server, this subtree stores the SQL Server instances running on a VM..</param>
+        /// <param name="registeredProtectionSource">Specifies the Protection Source like a VM or Physical Server that registered the Application Server..</param>
+        public RegisteredApplicationServer(ProtectionSourceNode applicationServer = default(ProtectionSourceNode), ProtectionSource registeredProtectionSource = default(ProtectionSource))
         {
+            this.ApplicationServer = applicationServer;
+            this.RegisteredProtectionSource = registeredProtectionSource;
             this.ApplicationServer = applicationServer;
             this.RegisteredProtectionSource = registeredProtectionSource;
         }
         
         /// <summary>
-        /// Gets or Sets ApplicationServer
+        /// Specifies the child subtree used to store additional application-level Objects. Different environments use the subtree to store application-level information. For example for SQL Server, this subtree stores the SQL Server instances running on a VM.
         /// </summary>
-        [DataMember(Name="applicationServer", EmitDefaultValue=false)]
-        public ApplicationServerAndTheSubtreesBelowThem_ ApplicationServer { get; set; }
+        /// <value>Specifies the child subtree used to store additional application-level Objects. Different environments use the subtree to store application-level information. For example for SQL Server, this subtree stores the SQL Server instances running on a VM.</value>
+        [DataMember(Name="applicationServer", EmitDefaultValue=true)]
+        public ProtectionSourceNode ApplicationServer { get; set; }
 
         /// <summary>
-        /// Gets or Sets RegisteredProtectionSource
+        /// Specifies the Protection Source like a VM or Physical Server that registered the Application Server.
         /// </summary>
-        [DataMember(Name="registeredProtectionSource", EmitDefaultValue=false)]
+        /// <value>Specifies the Protection Source like a VM or Physical Server that registered the Application Server.</value>
+        [DataMember(Name="registeredProtectionSource", EmitDefaultValue=true)]
         public ProtectionSource RegisteredProtectionSource { get; set; }
 
         /// <summary>
@@ -52,7 +53,12 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class RegisteredApplicationServer {\n");
+            sb.Append("  ApplicationServer: ").Append(ApplicationServer).Append("\n");
+            sb.Append("  RegisteredProtectionSource: ").Append(RegisteredProtectionSource).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -114,8 +120,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

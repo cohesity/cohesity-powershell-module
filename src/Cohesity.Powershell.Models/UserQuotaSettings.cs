@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,13 +12,10 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
-    /// UserQuotaSettings
+    /// Specifies the quota settings parameters for a particular user.
     /// </summary>
     [DataContract]
     public partial class UserQuotaSettings :  IEquatable<UserQuotaSettings>
@@ -26,18 +23,18 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="UserQuotaSettings" /> class.
         /// </summary>
-        /// <param name="defaultUserQuotaPolicy">The default user quota policy for this view..</param>
+        /// <param name="defaultUserQuotaPolicy">defaultUserQuotaPolicy.</param>
         /// <param name="enableUserQuota">If set, it enables/disables the user quota overrides for a view. Otherwise, it leaves it at it&#39;s previous state..</param>
         public UserQuotaSettings(QuotaPolicy defaultUserQuotaPolicy = default(QuotaPolicy), bool? enableUserQuota = default(bool?))
         {
+            this.EnableUserQuota = enableUserQuota;
             this.DefaultUserQuotaPolicy = defaultUserQuotaPolicy;
             this.EnableUserQuota = enableUserQuota;
         }
         
         /// <summary>
-        /// The default user quota policy for this view.
+        /// Gets or Sets DefaultUserQuotaPolicy
         /// </summary>
-        /// <value>The default user quota policy for this view.</value>
         [DataMember(Name="defaultUserQuotaPolicy", EmitDefaultValue=false)]
         public QuotaPolicy DefaultUserQuotaPolicy { get; set; }
 
@@ -45,7 +42,7 @@ namespace Cohesity.Models
         /// If set, it enables/disables the user quota overrides for a view. Otherwise, it leaves it at it&#39;s previous state.
         /// </summary>
         /// <value>If set, it enables/disables the user quota overrides for a view. Otherwise, it leaves it at it&#39;s previous state.</value>
-        [DataMember(Name="enableUserQuota", EmitDefaultValue=false)]
+        [DataMember(Name="enableUserQuota", EmitDefaultValue=true)]
         public bool? EnableUserQuota { get; set; }
 
         /// <summary>
@@ -54,7 +51,12 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class UserQuotaSettings {\n");
+            sb.Append("  DefaultUserQuotaPolicy: ").Append(DefaultUserQuotaPolicy).Append("\n");
+            sb.Append("  EnableUserQuota: ").Append(EnableUserQuota).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -116,8 +118,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

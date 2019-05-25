@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies a unique identifier for the entity.
@@ -26,16 +23,15 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="EntityIdentifier" /> class.
         /// </summary>
-        /// <param name="entityId">Specifies the unique identifier for the entity in the source Cluster..</param>
+        /// <param name="entityId">entityId.</param>
         public EntityIdentifier(Value entityId = default(Value))
         {
             this.EntityId = entityId;
         }
         
         /// <summary>
-        /// Specifies the unique identifier for the entity in the source Cluster.
+        /// Gets or Sets EntityId
         /// </summary>
-        /// <value>Specifies the unique identifier for the entity in the source Cluster.</value>
         [DataMember(Name="entityId", EmitDefaultValue=false)]
         public Value EntityId { get; set; }
 
@@ -45,7 +41,11 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class EntityIdentifier {\n");
+            sb.Append("  EntityId: ").Append(EntityId).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -100,8 +100,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

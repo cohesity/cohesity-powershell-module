@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies a filename pattern and the directory path where to keep files matching that pattern.
@@ -32,20 +29,22 @@ namespace Cohesity.Models
         {
             this.Directory = directory;
             this.FilenamePattern = filenamePattern;
+            this.Directory = directory;
+            this.FilenamePattern = filenamePattern;
         }
         
         /// <summary>
         /// Specifies the directory where to keep the files matching the pattern.
         /// </summary>
         /// <value>Specifies the directory where to keep the files matching the pattern.</value>
-        [DataMember(Name="directory", EmitDefaultValue=false)]
+        [DataMember(Name="directory", EmitDefaultValue=true)]
         public string Directory { get; set; }
 
         /// <summary>
         /// Specifies a pattern to be matched with filenames. This can be a regex expression.
         /// </summary>
         /// <value>Specifies a pattern to be matched with filenames. This can be a regex expression.</value>
-        [DataMember(Name="filenamePattern", EmitDefaultValue=false)]
+        [DataMember(Name="filenamePattern", EmitDefaultValue=true)]
         public string FilenamePattern { get; set; }
 
         /// <summary>
@@ -54,7 +53,12 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class FilenamePatternToDirectory {\n");
+            sb.Append("  Directory: ").Append(Directory).Append("\n");
+            sb.Append("  FilenamePattern: ").Append(FilenamePattern).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -116,8 +120,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

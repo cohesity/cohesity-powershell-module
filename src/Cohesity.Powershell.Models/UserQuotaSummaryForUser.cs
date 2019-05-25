@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,13 +12,10 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
-    /// UserQuotaSummaryForUser
+    /// Speifies the summary of quota information for a particular user.
     /// </summary>
     [DataContract]
     public partial class UserQuotaSummaryForUser :  IEquatable<UserQuotaSummaryForUser>
@@ -34,27 +31,30 @@ namespace Cohesity.Models
             this.NumViewsAboveAlertThreshold = numViewsAboveAlertThreshold;
             this.NumViewsAboveHardLimit = numViewsAboveHardLimit;
             this.TotalNumViews = totalNumViews;
+            this.NumViewsAboveAlertThreshold = numViewsAboveAlertThreshold;
+            this.NumViewsAboveHardLimit = numViewsAboveHardLimit;
+            this.TotalNumViews = totalNumViews;
         }
         
         /// <summary>
         /// Number of views in which user has exceeded alert threshold limit.
         /// </summary>
         /// <value>Number of views in which user has exceeded alert threshold limit.</value>
-        [DataMember(Name="numViewsAboveAlertThreshold", EmitDefaultValue=false)]
+        [DataMember(Name="numViewsAboveAlertThreshold", EmitDefaultValue=true)]
         public int? NumViewsAboveAlertThreshold { get; set; }
 
         /// <summary>
         /// Number of views in which the user has exceeded hard limit.
         /// </summary>
         /// <value>Number of views in which the user has exceeded hard limit.</value>
-        [DataMember(Name="numViewsAboveHardLimit", EmitDefaultValue=false)]
+        [DataMember(Name="numViewsAboveHardLimit", EmitDefaultValue=true)]
         public int? NumViewsAboveHardLimit { get; set; }
 
         /// <summary>
         /// Total number of views in which the user has a quota policy specified or has non-zero usage.
         /// </summary>
         /// <value>Total number of views in which the user has a quota policy specified or has non-zero usage.</value>
-        [DataMember(Name="totalNumViews", EmitDefaultValue=false)]
+        [DataMember(Name="totalNumViews", EmitDefaultValue=true)]
         public int? TotalNumViews { get; set; }
 
         /// <summary>
@@ -63,7 +63,13 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class UserQuotaSummaryForUser {\n");
+            sb.Append("  NumViewsAboveAlertThreshold: ").Append(NumViewsAboveAlertThreshold).Append("\n");
+            sb.Append("  NumViewsAboveHardLimit: ").Append(NumViewsAboveHardLimit).Append("\n");
+            sb.Append("  TotalNumViews: ").Append(TotalNumViews).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -132,8 +138,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

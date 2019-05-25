@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies a daily or weekly backup schedule.
@@ -29,74 +26,78 @@ namespace Cohesity.Models
         [JsonConverter(typeof(StringEnumConverter))]
         public enum DaysEnum
         {
-            
             /// <summary>
             /// Enum KSunday for value: kSunday
             /// </summary>
             [EnumMember(Value = "kSunday")]
             KSunday = 1,
-            
+
             /// <summary>
             /// Enum KMonday for value: kMonday
             /// </summary>
             [EnumMember(Value = "kMonday")]
             KMonday = 2,
-            
+
             /// <summary>
             /// Enum KTuesday for value: kTuesday
             /// </summary>
             [EnumMember(Value = "kTuesday")]
             KTuesday = 3,
-            
+
             /// <summary>
             /// Enum KWednesday for value: kWednesday
             /// </summary>
             [EnumMember(Value = "kWednesday")]
             KWednesday = 4,
-            
+
             /// <summary>
             /// Enum KThursday for value: kThursday
             /// </summary>
             [EnumMember(Value = "kThursday")]
             KThursday = 5,
-            
+
             /// <summary>
             /// Enum KFriday for value: kFriday
             /// </summary>
             [EnumMember(Value = "kFriday")]
             KFriday = 6,
-            
+
             /// <summary>
             /// Enum KSaturday for value: kSaturday
             /// </summary>
             [EnumMember(Value = "kSaturday")]
             KSaturday = 7
+
         }
 
 
         /// <summary>
-        /// Specifies a list of days of the week when to start Job Runs. If no days are specified, the Jobs Runs will run every day of the week. Specifies a day in a week such as &#39;kSunday&#39;, &#39;kMonday&#39;, etc.
+        /// Array of Days.  Specifies a list of days of the week when to start Job Runs. If no days are specified, the Jobs Runs will run every day of the week. Specifies a day in a week such as &#39;kSunday&#39;, &#39;kMonday&#39;, etc.
         /// </summary>
-        /// <value>Specifies a list of days of the week when to start Job Runs. If no days are specified, the Jobs Runs will run every day of the week. Specifies a day in a week such as &#39;kSunday&#39;, &#39;kMonday&#39;, etc.</value>
-        [DataMember(Name="days", EmitDefaultValue=false)]
+        /// <value>Array of Days.  Specifies a list of days of the week when to start Job Runs. If no days are specified, the Jobs Runs will run every day of the week. Specifies a day in a week such as &#39;kSunday&#39;, &#39;kMonday&#39;, etc.</value>
+        [DataMember(Name="days", EmitDefaultValue=true)]
         public List<DaysEnum> Days { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="DailySchedule" /> class.
         /// </summary>
-        /// <param name="days">Specifies a list of days of the week when to start Job Runs. If no days are specified, the Jobs Runs will run every day of the week. Specifies a day in a week such as &#39;kSunday&#39;, &#39;kMonday&#39;, etc..</param>
+        /// <param name="days">Array of Days.  Specifies a list of days of the week when to start Job Runs. If no days are specified, the Jobs Runs will run every day of the week. Specifies a day in a week such as &#39;kSunday&#39;, &#39;kMonday&#39;, etc..</param>
         public DailySchedule(List<DaysEnum> days = default(List<DaysEnum>))
         {
             this.Days = days;
+            this.Days = days;
         }
         
-
         /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class DailySchedule {\n");
+            sb.Append("  Days: ").Append(Days).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -132,6 +133,7 @@ namespace Cohesity.Models
                 (
                     this.Days == input.Days ||
                     this.Days != null &&
+                    input.Days != null &&
                     this.Days.SequenceEqual(input.Days)
                 );
         }
@@ -145,14 +147,11 @@ namespace Cohesity.Models
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                if (this.Days != null)
-                    hashCode = hashCode * 59 + this.Days.GetHashCode();
+                hashCode = hashCode * 59 + this.Days.GetHashCode();
                 return hashCode;
             }
         }
 
-        
     }
 
 }
-

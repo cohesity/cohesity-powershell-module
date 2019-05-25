@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies if inline deduplication and compression settings inherited from Storage Domain (View Box) should be disabled for this View.
@@ -30,13 +27,14 @@ namespace Cohesity.Models
         public StoragePolicyOverride(bool? disableInlineDedupAndCompression = default(bool?))
         {
             this.DisableInlineDedupAndCompression = disableInlineDedupAndCompression;
+            this.DisableInlineDedupAndCompression = disableInlineDedupAndCompression;
         }
         
         /// <summary>
         /// If false, the inline deduplication and compression settings inherited from the Storage Domain (View Box) apply to this View. If true, both inline deduplication and compression are disabled for this View. This can only be set to true if inline deduplication is set for the Storage Domain (View Box).
         /// </summary>
         /// <value>If false, the inline deduplication and compression settings inherited from the Storage Domain (View Box) apply to this View. If true, both inline deduplication and compression are disabled for this View. This can only be set to true if inline deduplication is set for the Storage Domain (View Box).</value>
-        [DataMember(Name="disableInlineDedupAndCompression", EmitDefaultValue=false)]
+        [DataMember(Name="disableInlineDedupAndCompression", EmitDefaultValue=true)]
         public bool? DisableInlineDedupAndCompression { get; set; }
 
         /// <summary>
@@ -45,7 +43,11 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class StoragePolicyOverride {\n");
+            sb.Append("  DisableInlineDedupAndCompression: ").Append(DisableInlineDedupAndCompression).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -100,8 +102,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

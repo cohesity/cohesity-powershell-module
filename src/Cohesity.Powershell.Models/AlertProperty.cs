@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies a key-value pair associated with an Alert.
@@ -26,26 +23,28 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="AlertProperty" /> class.
         /// </summary>
-        /// <param name="key">Name of the property..</param>
-        /// <param name="value">Value of the property..</param>
+        /// <param name="key">Specifies name of the property..</param>
+        /// <param name="value">Specifies value of the property..</param>
         public AlertProperty(string key = default(string), string value = default(string))
         {
+            this.Key = key;
+            this.Value = value;
             this.Key = key;
             this.Value = value;
         }
         
         /// <summary>
-        /// Name of the property.
+        /// Specifies name of the property.
         /// </summary>
-        /// <value>Name of the property.</value>
-        [DataMember(Name="key", EmitDefaultValue=false)]
+        /// <value>Specifies name of the property.</value>
+        [DataMember(Name="key", EmitDefaultValue=true)]
         public string Key { get; set; }
 
         /// <summary>
-        /// Value of the property.
+        /// Specifies value of the property.
         /// </summary>
-        /// <value>Value of the property.</value>
-        [DataMember(Name="value", EmitDefaultValue=false)]
+        /// <value>Specifies value of the property.</value>
+        [DataMember(Name="value", EmitDefaultValue=true)]
         public string Value { get; set; }
 
         /// <summary>
@@ -54,7 +53,12 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class AlertProperty {\n");
+            sb.Append("  Key: ").Append(Key).Append("\n");
+            sb.Append("  Value: ").Append(Value).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -116,8 +120,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

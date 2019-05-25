@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies the syslog servers configuration to upload Cluster audit logs and filer audit logs.
@@ -30,25 +27,25 @@ namespace Cohesity.Models
         [JsonConverter(typeof(StringEnumConverter))]
         public enum ProtocolEnum
         {
-            
             /// <summary>
             /// Enum KUDP for value: kUDP
             /// </summary>
             [EnumMember(Value = "kUDP")]
             KUDP = 1,
-            
+
             /// <summary>
             /// Enum KTCP for value: kTCP
             /// </summary>
             [EnumMember(Value = "kTCP")]
             KTCP = 2
+
         }
 
         /// <summary>
         /// Specifies the protocol used to send the logs. Specifies the protocol used to communicate to a server. e.g., kUDP, kTCP.  &#39;kUDP&#39; indicates UDP protocol. &#39;kTCP&#39; indicates TCP protocol.
         /// </summary>
         /// <value>Specifies the protocol used to send the logs. Specifies the protocol used to communicate to a server. e.g., kUDP, kTCP.  &#39;kUDP&#39; indicates UDP protocol. &#39;kTCP&#39; indicates TCP protocol.</value>
-        [DataMember(Name="protocol", EmitDefaultValue=false)]
+        [DataMember(Name="protocol", EmitDefaultValue=true)]
         public ProtocolEnum Protocol { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="SyslogServer" /> class.
@@ -66,33 +63,12 @@ namespace Cohesity.Models
         /// <param name="protocol">Specifies the protocol used to send the logs. Specifies the protocol used to communicate to a server. e.g., kUDP, kTCP.  &#39;kUDP&#39; indicates UDP protocol. &#39;kTCP&#39; indicates TCP protocol. (required).</param>
         public SyslogServer(string address = default(string), bool? isClusterAuditingEnabled = default(bool?), bool? isFilerAuditingEnabled = default(bool?), string name = default(string), int? port = default(int?), ProtocolEnum protocol = default(ProtocolEnum))
         {
-            // to ensure "address" is required (not null)
-            if (address == null)
-            {
-                throw new InvalidDataException("address is a required property for SyslogServer and cannot be null");
-            }
-            else
-            {
-                this.Address = address;
-            }
-            // to ensure "port" is required (not null)
-            if (port == null)
-            {
-                throw new InvalidDataException("port is a required property for SyslogServer and cannot be null");
-            }
-            else
-            {
-                this.Port = port;
-            }
-            // to ensure "protocol" is required (not null)
-            if (protocol == null)
-            {
-                throw new InvalidDataException("protocol is a required property for SyslogServer and cannot be null");
-            }
-            else
-            {
-                this.Protocol = protocol;
-            }
+            this.Address = address;
+            this.IsClusterAuditingEnabled = isClusterAuditingEnabled;
+            this.IsFilerAuditingEnabled = isFilerAuditingEnabled;
+            this.Name = name;
+            this.Port = port;
+            this.Protocol = protocol;
             this.IsClusterAuditingEnabled = isClusterAuditingEnabled;
             this.IsFilerAuditingEnabled = isFilerAuditingEnabled;
             this.Name = name;
@@ -102,37 +78,36 @@ namespace Cohesity.Models
         /// Specifies the IP address or hostname of the syslog server.
         /// </summary>
         /// <value>Specifies the IP address or hostname of the syslog server.</value>
-        [DataMember(Name="address", EmitDefaultValue=false)]
+        [DataMember(Name="address", EmitDefaultValue=true)]
         public string Address { get; set; }
 
         /// <summary>
         /// Specifies if Cluster audit logs should be sent to this syslog server. If &#39;true&#39;, Cluster audit logs are sent to the syslog server. (default) If &#39;false&#39;, Cluster audit logs are not sent to the syslog server. Either cluster audit logs or filer audit logs should be enabled.
         /// </summary>
         /// <value>Specifies if Cluster audit logs should be sent to this syslog server. If &#39;true&#39;, Cluster audit logs are sent to the syslog server. (default) If &#39;false&#39;, Cluster audit logs are not sent to the syslog server. Either cluster audit logs or filer audit logs should be enabled.</value>
-        [DataMember(Name="isClusterAuditingEnabled", EmitDefaultValue=false)]
+        [DataMember(Name="isClusterAuditingEnabled", EmitDefaultValue=true)]
         public bool? IsClusterAuditingEnabled { get; set; }
 
         /// <summary>
         /// Specifies if filer audit logs should be sent to this syslog server. If &#39;true&#39;, filer audit logs are sent to the syslog server. (default) If &#39;false&#39;, filer audit logs are not sent to the syslog server. Either cluster audit logs or filer audit logs should be enabled.
         /// </summary>
         /// <value>Specifies if filer audit logs should be sent to this syslog server. If &#39;true&#39;, filer audit logs are sent to the syslog server. (default) If &#39;false&#39;, filer audit logs are not sent to the syslog server. Either cluster audit logs or filer audit logs should be enabled.</value>
-        [DataMember(Name="isFilerAuditingEnabled", EmitDefaultValue=false)]
+        [DataMember(Name="isFilerAuditingEnabled", EmitDefaultValue=true)]
         public bool? IsFilerAuditingEnabled { get; set; }
 
         /// <summary>
         /// Specifies a unique name for the syslog server on the Cluster.
         /// </summary>
         /// <value>Specifies a unique name for the syslog server on the Cluster.</value>
-        [DataMember(Name="name", EmitDefaultValue=false)]
+        [DataMember(Name="name", EmitDefaultValue=true)]
         public string Name { get; set; }
 
         /// <summary>
         /// Specifies the port where the syslog server listens.
         /// </summary>
         /// <value>Specifies the port where the syslog server listens.</value>
-        [DataMember(Name="port", EmitDefaultValue=false)]
+        [DataMember(Name="port", EmitDefaultValue=true)]
         public int? Port { get; set; }
-
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -140,7 +115,16 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class SyslogServer {\n");
+            sb.Append("  Address: ").Append(Address).Append("\n");
+            sb.Append("  IsClusterAuditingEnabled: ").Append(IsClusterAuditingEnabled).Append("\n");
+            sb.Append("  IsFilerAuditingEnabled: ").Append(IsFilerAuditingEnabled).Append("\n");
+            sb.Append("  Name: ").Append(Name).Append("\n");
+            sb.Append("  Port: ").Append(Port).Append("\n");
+            sb.Append("  Protocol: ").Append(Protocol).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -200,8 +184,7 @@ namespace Cohesity.Models
                 ) && 
                 (
                     this.Protocol == input.Protocol ||
-                    (this.Protocol != null &&
-                    this.Protocol.Equals(input.Protocol))
+                    this.Protocol.Equals(input.Protocol)
                 );
         }
 
@@ -224,14 +207,11 @@ namespace Cohesity.Models
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
                 if (this.Port != null)
                     hashCode = hashCode * 59 + this.Port.GetHashCode();
-                if (this.Protocol != null)
-                    hashCode = hashCode * 59 + this.Protocol.GetHashCode();
+                hashCode = hashCode * 59 + this.Protocol.GetHashCode();
                 return hashCode;
             }
         }
 
-        
     }
 
 }
-

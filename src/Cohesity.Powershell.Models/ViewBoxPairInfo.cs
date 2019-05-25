@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies a pairing between a Storage Domain (View Box) on local Cluster with a Storage Domain (View Box) on a remote Cluster. When replication is configured between a local Cluster and a remote Cluster, the Snapshots are replicated from the specified Storage Domain (View Box) on the local Cluster to the Storage Domain (View Box) on the remote Cluster. See the online help for details about the supported Storage Domains (View Box) pairings between Clusters.
@@ -36,34 +33,38 @@ namespace Cohesity.Models
             this.LocalViewBoxName = localViewBoxName;
             this.RemoteViewBoxId = remoteViewBoxId;
             this.RemoteViewBoxName = remoteViewBoxName;
+            this.LocalViewBoxId = localViewBoxId;
+            this.LocalViewBoxName = localViewBoxName;
+            this.RemoteViewBoxId = remoteViewBoxId;
+            this.RemoteViewBoxName = remoteViewBoxName;
         }
         
         /// <summary>
         /// Specifies the id of the Storage Domain (View Box) on the local Cluster.
         /// </summary>
         /// <value>Specifies the id of the Storage Domain (View Box) on the local Cluster.</value>
-        [DataMember(Name="localViewBoxId", EmitDefaultValue=false)]
+        [DataMember(Name="localViewBoxId", EmitDefaultValue=true)]
         public long? LocalViewBoxId { get; set; }
 
         /// <summary>
         /// Specifies the name of the Storage Domain (View Box) on the local Cluster.
         /// </summary>
         /// <value>Specifies the name of the Storage Domain (View Box) on the local Cluster.</value>
-        [DataMember(Name="localViewBoxName", EmitDefaultValue=false)]
+        [DataMember(Name="localViewBoxName", EmitDefaultValue=true)]
         public string LocalViewBoxName { get; set; }
 
         /// <summary>
         /// Specifies the id of the Storage Domain (View Box) on the remote Cluster.
         /// </summary>
         /// <value>Specifies the id of the Storage Domain (View Box) on the remote Cluster.</value>
-        [DataMember(Name="remoteViewBoxId", EmitDefaultValue=false)]
+        [DataMember(Name="remoteViewBoxId", EmitDefaultValue=true)]
         public long? RemoteViewBoxId { get; set; }
 
         /// <summary>
         /// Specifies the name of the Storage Domain (View Box) on the remote Cluster.
         /// </summary>
         /// <value>Specifies the name of the Storage Domain (View Box) on the remote Cluster.</value>
-        [DataMember(Name="remoteViewBoxName", EmitDefaultValue=false)]
+        [DataMember(Name="remoteViewBoxName", EmitDefaultValue=true)]
         public string RemoteViewBoxName { get; set; }
 
         /// <summary>
@@ -72,7 +73,14 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class ViewBoxPairInfo {\n");
+            sb.Append("  LocalViewBoxId: ").Append(LocalViewBoxId).Append("\n");
+            sb.Append("  LocalViewBoxName: ").Append(LocalViewBoxName).Append("\n");
+            sb.Append("  RemoteViewBoxId: ").Append(RemoteViewBoxId).Append("\n");
+            sb.Append("  RemoteViewBoxName: ").Append(RemoteViewBoxName).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -148,8 +156,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

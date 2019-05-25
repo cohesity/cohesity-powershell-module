@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Lists the supported Erasure Coding options for the number of Nodes in the Cohesity Cluster. In addition, the minimum number of Nodes supported for this Cluster type is defined.
@@ -27,9 +24,11 @@ namespace Cohesity.Models
         /// Initializes a new instance of the <see cref="SupportedConfig" /> class.
         /// </summary>
         /// <param name="minNodesAllowed">Specifies the minimum number of Nodes supported for this Cluster type. For example, a Cohesity Cluster hosted directly on hardware must have at least 3 Nodes..</param>
-        /// <param name="supportedErasureCoding">List the supported Erasure Coding options for the current number of Nodes (nodeCount) in this Cluster. Each string in the array is in the following format: \&quot;NumDataStripes:NumCodedStripes\&quot; For example if there are 3 nodes in the Cluster, the following Erasure Coding mode is returned: 2:1. See the Cohesity Dashboard help documentation for details..</param>
+        /// <param name="supportedErasureCoding">Array of Supported Erasure Coding Options.  List the supported Erasure Coding options for the current number of Nodes (nodeCount) in this Cluster. Each string in the array is in the following format: \&quot;NumDataStripes:NumCodedStripes\&quot; For example if there are 3 nodes in the Cluster, the following Erasure Coding mode is returned: 2:1. See the Cohesity Dashboard help documentation for details..</param>
         public SupportedConfig(int? minNodesAllowed = default(int?), List<string> supportedErasureCoding = default(List<string>))
         {
+            this.MinNodesAllowed = minNodesAllowed;
+            this.SupportedErasureCoding = supportedErasureCoding;
             this.MinNodesAllowed = minNodesAllowed;
             this.SupportedErasureCoding = supportedErasureCoding;
         }
@@ -38,14 +37,14 @@ namespace Cohesity.Models
         /// Specifies the minimum number of Nodes supported for this Cluster type. For example, a Cohesity Cluster hosted directly on hardware must have at least 3 Nodes.
         /// </summary>
         /// <value>Specifies the minimum number of Nodes supported for this Cluster type. For example, a Cohesity Cluster hosted directly on hardware must have at least 3 Nodes.</value>
-        [DataMember(Name="minNodesAllowed", EmitDefaultValue=false)]
+        [DataMember(Name="minNodesAllowed", EmitDefaultValue=true)]
         public int? MinNodesAllowed { get; set; }
 
         /// <summary>
-        /// List the supported Erasure Coding options for the current number of Nodes (nodeCount) in this Cluster. Each string in the array is in the following format: \&quot;NumDataStripes:NumCodedStripes\&quot; For example if there are 3 nodes in the Cluster, the following Erasure Coding mode is returned: 2:1. See the Cohesity Dashboard help documentation for details.
+        /// Array of Supported Erasure Coding Options.  List the supported Erasure Coding options for the current number of Nodes (nodeCount) in this Cluster. Each string in the array is in the following format: \&quot;NumDataStripes:NumCodedStripes\&quot; For example if there are 3 nodes in the Cluster, the following Erasure Coding mode is returned: 2:1. See the Cohesity Dashboard help documentation for details.
         /// </summary>
-        /// <value>List the supported Erasure Coding options for the current number of Nodes (nodeCount) in this Cluster. Each string in the array is in the following format: \&quot;NumDataStripes:NumCodedStripes\&quot; For example if there are 3 nodes in the Cluster, the following Erasure Coding mode is returned: 2:1. See the Cohesity Dashboard help documentation for details.</value>
-        [DataMember(Name="supportedErasureCoding", EmitDefaultValue=false)]
+        /// <value>Array of Supported Erasure Coding Options.  List the supported Erasure Coding options for the current number of Nodes (nodeCount) in this Cluster. Each string in the array is in the following format: \&quot;NumDataStripes:NumCodedStripes\&quot; For example if there are 3 nodes in the Cluster, the following Erasure Coding mode is returned: 2:1. See the Cohesity Dashboard help documentation for details.</value>
+        [DataMember(Name="supportedErasureCoding", EmitDefaultValue=true)]
         public List<string> SupportedErasureCoding { get; set; }
 
         /// <summary>
@@ -54,7 +53,12 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class SupportedConfig {\n");
+            sb.Append("  MinNodesAllowed: ").Append(MinNodesAllowed).Append("\n");
+            sb.Append("  SupportedErasureCoding: ").Append(SupportedErasureCoding).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -95,6 +99,7 @@ namespace Cohesity.Models
                 (
                     this.SupportedErasureCoding == input.SupportedErasureCoding ||
                     this.SupportedErasureCoding != null &&
+                    input.SupportedErasureCoding != null &&
                     this.SupportedErasureCoding.SequenceEqual(input.SupportedErasureCoding)
                 );
         }
@@ -116,8 +121,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

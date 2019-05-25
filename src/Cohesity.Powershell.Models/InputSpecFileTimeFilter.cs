@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// File time filter to filter files based on their last change time. All files whose change time is in the range [change_time_range_start_secs, change_time_range_end_secs) will be processed. Both values are time duration in seconds w.r.t. to current time and not absolute points in time.
@@ -32,20 +29,22 @@ namespace Cohesity.Models
         {
             this.ChangeTimeRangeEndSecs = changeTimeRangeEndSecs;
             this.ChangeTimeRangeStartSecs = changeTimeRangeStartSecs;
+            this.ChangeTimeRangeEndSecs = changeTimeRangeEndSecs;
+            this.ChangeTimeRangeStartSecs = changeTimeRangeStartSecs;
         }
         
         /// <summary>
         /// End of file&#39;s change time range.
         /// </summary>
         /// <value>End of file&#39;s change time range.</value>
-        [DataMember(Name="changeTimeRangeEndSecs", EmitDefaultValue=false)]
+        [DataMember(Name="changeTimeRangeEndSecs", EmitDefaultValue=true)]
         public long? ChangeTimeRangeEndSecs { get; set; }
 
         /// <summary>
         /// Start of file&#39;s change time range.
         /// </summary>
         /// <value>Start of file&#39;s change time range.</value>
-        [DataMember(Name="changeTimeRangeStartSecs", EmitDefaultValue=false)]
+        [DataMember(Name="changeTimeRangeStartSecs", EmitDefaultValue=true)]
         public long? ChangeTimeRangeStartSecs { get; set; }
 
         /// <summary>
@@ -54,7 +53,12 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class InputSpecFileTimeFilter {\n");
+            sb.Append("  ChangeTimeRangeEndSecs: ").Append(ChangeTimeRangeEndSecs).Append("\n");
+            sb.Append("  ChangeTimeRangeStartSecs: ").Append(ChangeTimeRangeStartSecs).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -116,8 +120,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies information about copy tasks such as replication and archival tasks.
@@ -29,9 +26,12 @@ namespace Cohesity.Models
         /// <param name="copyStatus">Specifies the status of the copy task..</param>
         /// <param name="expiryTimeUsecs">Specifies when the Snapshot expires on the target..</param>
         /// <param name="message">Specifies warning or error information when the copy task is not successful..</param>
-        /// <param name="snapshotTarget">Specifies the target location where the Snapshot was copied to..</param>
-        public SnapshotCopyTask(string copyStatus = default(string), long? expiryTimeUsecs = default(long?), string message = default(string), SnapshotTarget snapshotTarget = default(SnapshotTarget))
+        /// <param name="snapshotTarget">snapshotTarget.</param>
+        public SnapshotCopyTask(string copyStatus = default(string), long? expiryTimeUsecs = default(long?), string message = default(string), SnapshotTargetSettings snapshotTarget = default(SnapshotTargetSettings))
         {
+            this.CopyStatus = copyStatus;
+            this.ExpiryTimeUsecs = expiryTimeUsecs;
+            this.Message = message;
             this.CopyStatus = copyStatus;
             this.ExpiryTimeUsecs = expiryTimeUsecs;
             this.Message = message;
@@ -42,29 +42,28 @@ namespace Cohesity.Models
         /// Specifies the status of the copy task.
         /// </summary>
         /// <value>Specifies the status of the copy task.</value>
-        [DataMember(Name="copyStatus", EmitDefaultValue=false)]
+        [DataMember(Name="copyStatus", EmitDefaultValue=true)]
         public string CopyStatus { get; set; }
 
         /// <summary>
         /// Specifies when the Snapshot expires on the target.
         /// </summary>
         /// <value>Specifies when the Snapshot expires on the target.</value>
-        [DataMember(Name="expiryTimeUsecs", EmitDefaultValue=false)]
+        [DataMember(Name="expiryTimeUsecs", EmitDefaultValue=true)]
         public long? ExpiryTimeUsecs { get; set; }
 
         /// <summary>
         /// Specifies warning or error information when the copy task is not successful.
         /// </summary>
         /// <value>Specifies warning or error information when the copy task is not successful.</value>
-        [DataMember(Name="message", EmitDefaultValue=false)]
+        [DataMember(Name="message", EmitDefaultValue=true)]
         public string Message { get; set; }
 
         /// <summary>
-        /// Specifies the target location where the Snapshot was copied to.
+        /// Gets or Sets SnapshotTarget
         /// </summary>
-        /// <value>Specifies the target location where the Snapshot was copied to.</value>
         [DataMember(Name="snapshotTarget", EmitDefaultValue=false)]
-        public SnapshotTarget SnapshotTarget { get; set; }
+        public SnapshotTargetSettings SnapshotTarget { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -72,7 +71,14 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class SnapshotCopyTask {\n");
+            sb.Append("  CopyStatus: ").Append(CopyStatus).Append("\n");
+            sb.Append("  ExpiryTimeUsecs: ").Append(ExpiryTimeUsecs).Append("\n");
+            sb.Append("  Message: ").Append(Message).Append("\n");
+            sb.Append("  SnapshotTarget: ").Append(SnapshotTarget).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -148,8 +154,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

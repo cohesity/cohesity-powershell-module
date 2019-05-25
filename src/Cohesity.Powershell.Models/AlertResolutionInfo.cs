@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Short description and detailed notes about the Resolution.
@@ -26,26 +23,28 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="AlertResolutionInfo" /> class.
         /// </summary>
-        /// <param name="resolutionDetails">Detailed notes about the Resolution..</param>
-        /// <param name="resolutionSummary">Short description about the Resolution..</param>
+        /// <param name="resolutionDetails">Specifies detailed notes about the Resolution..</param>
+        /// <param name="resolutionSummary">Specifies short description about the Resolution..</param>
         public AlertResolutionInfo(string resolutionDetails = default(string), string resolutionSummary = default(string))
         {
+            this.ResolutionDetails = resolutionDetails;
+            this.ResolutionSummary = resolutionSummary;
             this.ResolutionDetails = resolutionDetails;
             this.ResolutionSummary = resolutionSummary;
         }
         
         /// <summary>
-        /// Detailed notes about the Resolution.
+        /// Specifies detailed notes about the Resolution.
         /// </summary>
-        /// <value>Detailed notes about the Resolution.</value>
-        [DataMember(Name="resolutionDetails", EmitDefaultValue=false)]
+        /// <value>Specifies detailed notes about the Resolution.</value>
+        [DataMember(Name="resolutionDetails", EmitDefaultValue=true)]
         public string ResolutionDetails { get; set; }
 
         /// <summary>
-        /// Short description about the Resolution.
+        /// Specifies short description about the Resolution.
         /// </summary>
-        /// <value>Short description about the Resolution.</value>
-        [DataMember(Name="resolutionSummary", EmitDefaultValue=false)]
+        /// <value>Specifies short description about the Resolution.</value>
+        [DataMember(Name="resolutionSummary", EmitDefaultValue=true)]
         public string ResolutionSummary { get; set; }
 
         /// <summary>
@@ -54,7 +53,12 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class AlertResolutionInfo {\n");
+            sb.Append("  ResolutionDetails: ").Append(ResolutionDetails).Append("\n");
+            sb.Append("  ResolutionSummary: ").Append(ResolutionSummary).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -116,8 +120,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

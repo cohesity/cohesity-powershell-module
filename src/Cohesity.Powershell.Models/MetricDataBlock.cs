@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,13 +12,10 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
-    /// MetricDataBlock
+    /// Specifies a series of metric data points for a time series.
     /// </summary>
     [DataContract]
     public partial class MetricDataBlock :  IEquatable<MetricDataBlock>
@@ -26,7 +23,7 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="MetricDataBlock" /> class.
         /// </summary>
-        /// <param name="dataPointVec">Specifies a list of metric data points for a time series..</param>
+        /// <param name="dataPointVec">Array of Data Points.  Specifies a list of metric data points for a time series..</param>
         /// <param name="metricName">Specifies the name of a metric such as &#39;kDiskAwaitTimeMsecs&#39;..</param>
         /// <param name="type">Specifies the data type of the data points. 0 specifies a data point of type Int64. 1 specifies a data point of type Double. 2 specifies a data point of type String. 3 specifies a data point of type Bytes..</param>
         public MetricDataBlock(List<MetricDataPoint> dataPointVec = default(List<MetricDataPoint>), string metricName = default(string), int? type = default(int?))
@@ -34,27 +31,30 @@ namespace Cohesity.Models
             this.DataPointVec = dataPointVec;
             this.MetricName = metricName;
             this.Type = type;
+            this.DataPointVec = dataPointVec;
+            this.MetricName = metricName;
+            this.Type = type;
         }
         
         /// <summary>
-        /// Specifies a list of metric data points for a time series.
+        /// Array of Data Points.  Specifies a list of metric data points for a time series.
         /// </summary>
-        /// <value>Specifies a list of metric data points for a time series.</value>
-        [DataMember(Name="dataPointVec", EmitDefaultValue=false)]
+        /// <value>Array of Data Points.  Specifies a list of metric data points for a time series.</value>
+        [DataMember(Name="dataPointVec", EmitDefaultValue=true)]
         public List<MetricDataPoint> DataPointVec { get; set; }
 
         /// <summary>
         /// Specifies the name of a metric such as &#39;kDiskAwaitTimeMsecs&#39;.
         /// </summary>
         /// <value>Specifies the name of a metric such as &#39;kDiskAwaitTimeMsecs&#39;.</value>
-        [DataMember(Name="metricName", EmitDefaultValue=false)]
+        [DataMember(Name="metricName", EmitDefaultValue=true)]
         public string MetricName { get; set; }
 
         /// <summary>
         /// Specifies the data type of the data points. 0 specifies a data point of type Int64. 1 specifies a data point of type Double. 2 specifies a data point of type String. 3 specifies a data point of type Bytes.
         /// </summary>
         /// <value>Specifies the data type of the data points. 0 specifies a data point of type Int64. 1 specifies a data point of type Double. 2 specifies a data point of type String. 3 specifies a data point of type Bytes.</value>
-        [DataMember(Name="type", EmitDefaultValue=false)]
+        [DataMember(Name="type", EmitDefaultValue=true)]
         public int? Type { get; set; }
 
         /// <summary>
@@ -63,7 +63,13 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class MetricDataBlock {\n");
+            sb.Append("  DataPointVec: ").Append(DataPointVec).Append("\n");
+            sb.Append("  MetricName: ").Append(MetricName).Append("\n");
+            sb.Append("  Type: ").Append(Type).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -99,6 +105,7 @@ namespace Cohesity.Models
                 (
                     this.DataPointVec == input.DataPointVec ||
                     this.DataPointVec != null &&
+                    input.DataPointVec != null &&
                     this.DataPointVec.SequenceEqual(input.DataPointVec)
                 ) && 
                 (
@@ -132,8 +139,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

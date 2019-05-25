@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// SchedulerProtoSchedulerJobScheduleJobParametersReportJobParameter
@@ -26,24 +23,28 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="SchedulerProtoSchedulerJobScheduleJobParametersReportJobParameter" /> class.
         /// </summary>
-        /// <param name="receiverEmails">receiverEmails.</param>
-        /// <param name="reports">reports.</param>
+        /// <param name="receiverEmails">Specifies the list of receiver email addresses..</param>
+        /// <param name="reports">The list of reports to be sent in the mail..</param>
         public SchedulerProtoSchedulerJobScheduleJobParametersReportJobParameter(List<string> receiverEmails = default(List<string>), List<SchedulerProtoSchedulerJobScheduleJobParametersReportJobParameterReport> reports = default(List<SchedulerProtoSchedulerJobScheduleJobParametersReportJobParameterReport>))
         {
+            this.ReceiverEmails = receiverEmails;
+            this.Reports = reports;
             this.ReceiverEmails = receiverEmails;
             this.Reports = reports;
         }
         
         /// <summary>
-        /// Gets or Sets ReceiverEmails
+        /// Specifies the list of receiver email addresses.
         /// </summary>
-        [DataMember(Name="receiverEmails", EmitDefaultValue=false)]
+        /// <value>Specifies the list of receiver email addresses.</value>
+        [DataMember(Name="receiverEmails", EmitDefaultValue=true)]
         public List<string> ReceiverEmails { get; set; }
 
         /// <summary>
-        /// Gets or Sets Reports
+        /// The list of reports to be sent in the mail.
         /// </summary>
-        [DataMember(Name="reports", EmitDefaultValue=false)]
+        /// <value>The list of reports to be sent in the mail.</value>
+        [DataMember(Name="reports", EmitDefaultValue=true)]
         public List<SchedulerProtoSchedulerJobScheduleJobParametersReportJobParameterReport> Reports { get; set; }
 
         /// <summary>
@@ -52,7 +53,12 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class SchedulerProtoSchedulerJobScheduleJobParametersReportJobParameter {\n");
+            sb.Append("  ReceiverEmails: ").Append(ReceiverEmails).Append("\n");
+            sb.Append("  Reports: ").Append(Reports).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -88,11 +94,13 @@ namespace Cohesity.Models
                 (
                     this.ReceiverEmails == input.ReceiverEmails ||
                     this.ReceiverEmails != null &&
+                    input.ReceiverEmails != null &&
                     this.ReceiverEmails.SequenceEqual(input.ReceiverEmails)
                 ) && 
                 (
                     this.Reports == input.Reports ||
                     this.Reports != null &&
+                    input.Reports != null &&
                     this.Reports.SequenceEqual(input.Reports)
                 );
         }
@@ -114,8 +122,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

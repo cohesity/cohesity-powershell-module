@@ -1,16 +1,18 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
+using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies information about a logical network interface on a NetApp Vserver. The interface&#39;s IP address is the mount point for a specific data protocol, such as NFS or CIFS.
@@ -24,67 +26,67 @@ namespace Cohesity.Models
         [JsonConverter(typeof(StringEnumConverter))]
         public enum DataProtocolsEnum
         {
-            
             /// <summary>
             /// Enum KNfs for value: kNfs
             /// </summary>
             [EnumMember(Value = "kNfs")]
             KNfs = 1,
-            
+
             /// <summary>
             /// Enum KCifs for value: kCifs
             /// </summary>
             [EnumMember(Value = "kCifs")]
             KCifs = 2,
-            
+
             /// <summary>
             /// Enum KIscsi for value: kIscsi
             /// </summary>
             [EnumMember(Value = "kIscsi")]
             KIscsi = 3,
-            
+
             /// <summary>
             /// Enum KFc for value: kFc
             /// </summary>
             [EnumMember(Value = "kFc")]
             KFc = 4,
-            
+
             /// <summary>
             /// Enum KFcache for value: kFcache
             /// </summary>
             [EnumMember(Value = "kFcache")]
             KFcache = 5,
-            
+
             /// <summary>
             /// Enum KHttp for value: kHttp
             /// </summary>
             [EnumMember(Value = "kHttp")]
             KHttp = 6,
-            
+
             /// <summary>
             /// Enum KNdmp for value: kNdmp
             /// </summary>
             [EnumMember(Value = "kNdmp")]
             KNdmp = 7,
-            
+
             /// <summary>
             /// Enum KManagement for value: kManagement
             /// </summary>
             [EnumMember(Value = "kManagement")]
             KManagement = 8
+
         }
 
 
         /// <summary>
-        /// Specifies the set of data protocols supported by this interface. &#39;kNfs&#39; indicates NFS connections. &#39;kCifs&#39; indicates SMB (CIFS) connections. &#39;kIscsi&#39; indicates iSCSI connections. &#39;kFc&#39; indicates Fiber Channel connections. &#39;kFcache&#39; indicates Flex Cache connections. &#39;kHttp&#39; indicates HTTP connections. &#39;kNdmp&#39; indicates NDMP connections. &#39;kManagement&#39; indicates non-data connections used for management purposes.
+        /// Array of Data Protocols.  Specifies the set of data protocols supported by this interface. &#39;kNfs&#39; indicates NFS connections. &#39;kCifs&#39; indicates SMB (CIFS) connections. &#39;kIscsi&#39; indicates iSCSI connections. &#39;kFc&#39; indicates Fiber Channel connections. &#39;kFcache&#39; indicates Flex Cache connections. &#39;kHttp&#39; indicates HTTP connections. &#39;kNdmp&#39; indicates NDMP connections. &#39;kManagement&#39; indicates non-data connections used for management purposes.
         /// </summary>
-        /// <value>Specifies the set of data protocols supported by this interface. &#39;kNfs&#39; indicates NFS connections. &#39;kCifs&#39; indicates SMB (CIFS) connections. &#39;kIscsi&#39; indicates iSCSI connections. &#39;kFc&#39; indicates Fiber Channel connections. &#39;kFcache&#39; indicates Flex Cache connections. &#39;kHttp&#39; indicates HTTP connections. &#39;kNdmp&#39; indicates NDMP connections. &#39;kManagement&#39; indicates non-data connections used for management purposes.</value>
-        [DataMember(Name="dataProtocols", EmitDefaultValue=false)]
+        /// <value>Array of Data Protocols.  Specifies the set of data protocols supported by this interface. &#39;kNfs&#39; indicates NFS connections. &#39;kCifs&#39; indicates SMB (CIFS) connections. &#39;kIscsi&#39; indicates iSCSI connections. &#39;kFc&#39; indicates Fiber Channel connections. &#39;kFcache&#39; indicates Flex Cache connections. &#39;kHttp&#39; indicates HTTP connections. &#39;kNdmp&#39; indicates NDMP connections. &#39;kManagement&#39; indicates non-data connections used for management purposes.</value>
+        [DataMember(Name="dataProtocols", EmitDefaultValue=true)]
         public List<DataProtocolsEnum> DataProtocols { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="VserverNetworkInterface" /> class.
         /// </summary>
-        /// <param name="dataProtocols">Specifies the set of data protocols supported by this interface. &#39;kNfs&#39; indicates NFS connections. &#39;kCifs&#39; indicates SMB (CIFS) connections. &#39;kIscsi&#39; indicates iSCSI connections. &#39;kFc&#39; indicates Fiber Channel connections. &#39;kFcache&#39; indicates Flex Cache connections. &#39;kHttp&#39; indicates HTTP connections. &#39;kNdmp&#39; indicates NDMP connections. &#39;kManagement&#39; indicates non-data connections used for management purposes..</param>
+        /// <param name="dataProtocols">Array of Data Protocols.  Specifies the set of data protocols supported by this interface. &#39;kNfs&#39; indicates NFS connections. &#39;kCifs&#39; indicates SMB (CIFS) connections. &#39;kIscsi&#39; indicates iSCSI connections. &#39;kFc&#39; indicates Fiber Channel connections. &#39;kFcache&#39; indicates Flex Cache connections. &#39;kHttp&#39; indicates HTTP connections. &#39;kNdmp&#39; indicates NDMP connections. &#39;kManagement&#39; indicates non-data connections used for management purposes..</param>
         /// <param name="ipAddress">Specifies the IP address of this interface..</param>
         /// <param name="name">Specifies the name of this interface..</param>
         public VserverNetworkInterface(List<DataProtocolsEnum> dataProtocols = default(List<DataProtocolsEnum>), string ipAddress = default(string), string name = default(string))
@@ -92,21 +94,23 @@ namespace Cohesity.Models
             this.DataProtocols = dataProtocols;
             this.IpAddress = ipAddress;
             this.Name = name;
+            this.DataProtocols = dataProtocols;
+            this.IpAddress = ipAddress;
+            this.Name = name;
         }
         
-
         /// <summary>
         /// Specifies the IP address of this interface.
         /// </summary>
         /// <value>Specifies the IP address of this interface.</value>
-        [DataMember(Name="ipAddress", EmitDefaultValue=false)]
+        [DataMember(Name="ipAddress", EmitDefaultValue=true)]
         public string IpAddress { get; set; }
 
         /// <summary>
         /// Specifies the name of this interface.
         /// </summary>
         /// <value>Specifies the name of this interface.</value>
-        [DataMember(Name="name", EmitDefaultValue=false)]
+        [DataMember(Name="name", EmitDefaultValue=true)]
         public string Name { get; set; }
 
         /// <summary>
@@ -115,7 +119,13 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class VserverNetworkInterface {\n");
+            sb.Append("  DataProtocols: ").Append(DataProtocols).Append("\n");
+            sb.Append("  IpAddress: ").Append(IpAddress).Append("\n");
+            sb.Append("  Name: ").Append(Name).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -151,6 +161,7 @@ namespace Cohesity.Models
                 (
                     this.DataProtocols == input.DataProtocols ||
                     this.DataProtocols != null &&
+                    input.DataProtocols != null &&
                     this.DataProtocols.SequenceEqual(input.DataProtocols)
                 ) && 
                 (
@@ -174,8 +185,7 @@ namespace Cohesity.Models
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                if (this.DataProtocols != null)
-                    hashCode = hashCode * 59 + this.DataProtocols.GetHashCode();
+                hashCode = hashCode * 59 + this.DataProtocols.GetHashCode();
                 if (this.IpAddress != null)
                     hashCode = hashCode * 59 + this.IpAddress.GetHashCode();
                 if (this.Name != null)
@@ -184,8 +194,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

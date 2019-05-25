@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Apply an existing Resolution to a new list of Alerts, which are specified by Alert Ids.
@@ -30,13 +27,14 @@ namespace Cohesity.Models
         public UpdateResolutionParams(List<string> alertIdList = default(List<string>))
         {
             this.AlertIdList = alertIdList;
+            this.AlertIdList = alertIdList;
         }
         
         /// <summary>
         /// Specifies the Alerts to resolve, which are specified by Alert Ids.
         /// </summary>
         /// <value>Specifies the Alerts to resolve, which are specified by Alert Ids.</value>
-        [DataMember(Name="alertIdList", EmitDefaultValue=false)]
+        [DataMember(Name="alertIdList", EmitDefaultValue=true)]
         public List<string> AlertIdList { get; set; }
 
         /// <summary>
@@ -45,7 +43,11 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class UpdateResolutionParams {\n");
+            sb.Append("  AlertIdList: ").Append(AlertIdList).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -81,6 +83,7 @@ namespace Cohesity.Models
                 (
                     this.AlertIdList == input.AlertIdList ||
                     this.AlertIdList != null &&
+                    input.AlertIdList != null &&
                     this.AlertIdList.SequenceEqual(input.AlertIdList)
                 );
         }
@@ -100,8 +103,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

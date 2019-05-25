@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies a VMware tag.
@@ -34,27 +31,30 @@ namespace Cohesity.Models
             this.Id = id;
             this.Name = name;
             this.Uuid = uuid;
+            this.Id = id;
+            this.Name = name;
+            this.Uuid = uuid;
         }
         
         /// <summary>
         /// Specifies the Coheisty id of the VM tag.
         /// </summary>
         /// <value>Specifies the Coheisty id of the VM tag.</value>
-        [DataMember(Name="id", EmitDefaultValue=false)]
+        [DataMember(Name="id", EmitDefaultValue=true)]
         public long? Id { get; set; }
 
         /// <summary>
         /// Specifies the VMware name of the VM tag.
         /// </summary>
         /// <value>Specifies the VMware name of the VM tag.</value>
-        [DataMember(Name="name", EmitDefaultValue=false)]
+        [DataMember(Name="name", EmitDefaultValue=true)]
         public string Name { get; set; }
 
         /// <summary>
         /// Specifies the VMware Universally Unique Identifier (UUID) of the VM tag.
         /// </summary>
         /// <value>Specifies the VMware Universally Unique Identifier (UUID) of the VM tag.</value>
-        [DataMember(Name="uuid", EmitDefaultValue=false)]
+        [DataMember(Name="uuid", EmitDefaultValue=true)]
         public string Uuid { get; set; }
 
         /// <summary>
@@ -63,7 +63,13 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class TagAttribute {\n");
+            sb.Append("  Id: ").Append(Id).Append("\n");
+            sb.Append("  Name: ").Append(Name).Append("\n");
+            sb.Append("  Uuid: ").Append(Uuid).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -132,8 +138,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

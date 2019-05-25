@@ -1,12 +1,18 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
+using System.Linq;
+using System.IO;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Provides usage and performance statistics for entities such as a disks, Nodes or Clusters.
@@ -47,104 +53,118 @@ namespace Cohesity.Models
             this.TotalPhysicalUsageBytes = totalPhysicalUsageBytes;
             this.WriteIos = writeIos;
             this.WriteLatencyMsecs = writeLatencyMsecs;
+            this.DataInBytes = dataInBytes;
+            this.DataInBytesAfterReduction = dataInBytesAfterReduction;
+            this.MinUsablePhysicalCapacityBytes = minUsablePhysicalCapacityBytes;
+            this.NumBytesRead = numBytesRead;
+            this.NumBytesWritten = numBytesWritten;
+            this.PhysicalCapacityBytes = physicalCapacityBytes;
+            this.ReadIos = readIos;
+            this.ReadLatencyMsecs = readLatencyMsecs;
+            this.SystemCapacityBytes = systemCapacityBytes;
+            this.SystemUsageBytes = systemUsageBytes;
+            this.TotalPhysicalRawUsageBytes = totalPhysicalRawUsageBytes;
+            this.TotalPhysicalUsageBytes = totalPhysicalUsageBytes;
+            this.WriteIos = writeIos;
+            this.WriteLatencyMsecs = writeLatencyMsecs;
         }
         
         /// <summary>
         /// Data brought into the cluster. This is the usage before data reduction if we ignore the zeroes and effects of cloning.
         /// </summary>
         /// <value>Data brought into the cluster. This is the usage before data reduction if we ignore the zeroes and effects of cloning.</value>
-        [DataMember(Name="dataInBytes", EmitDefaultValue=false)]
+        [DataMember(Name="dataInBytes", EmitDefaultValue=true)]
         public long? DataInBytes { get; set; }
 
         /// <summary>
         /// Morphed Usage before data is replicated to other nodes as per RF or Erasure Coding policy.
         /// </summary>
         /// <value>Morphed Usage before data is replicated to other nodes as per RF or Erasure Coding policy.</value>
-        [DataMember(Name="dataInBytesAfterReduction", EmitDefaultValue=false)]
+        [DataMember(Name="dataInBytesAfterReduction", EmitDefaultValue=true)]
         public long? DataInBytesAfterReduction { get; set; }
 
         /// <summary>
         /// Specifies the minimum usable capacity available after erasure coding or RF. This will only be populated for cluster. If a cluster has multiple Domains (View Boxes) with different RF or erasure coding, this metric will be computed using the scheme that will provide least saving.
         /// </summary>
         /// <value>Specifies the minimum usable capacity available after erasure coding or RF. This will only be populated for cluster. If a cluster has multiple Domains (View Boxes) with different RF or erasure coding, this metric will be computed using the scheme that will provide least saving.</value>
-        [DataMember(Name="minUsablePhysicalCapacityBytes", EmitDefaultValue=false)]
+        [DataMember(Name="minUsablePhysicalCapacityBytes", EmitDefaultValue=true)]
         public long? MinUsablePhysicalCapacityBytes { get; set; }
 
         /// <summary>
         /// Provides the total number of bytes read in the last 30 seconds.
         /// </summary>
         /// <value>Provides the total number of bytes read in the last 30 seconds.</value>
-        [DataMember(Name="numBytesRead", EmitDefaultValue=false)]
+        [DataMember(Name="numBytesRead", EmitDefaultValue=true)]
         public long? NumBytesRead { get; set; }
 
         /// <summary>
         /// Provides the total number of bytes written in the last 30 second.
         /// </summary>
         /// <value>Provides the total number of bytes written in the last 30 second.</value>
-        [DataMember(Name="numBytesWritten", EmitDefaultValue=false)]
+        [DataMember(Name="numBytesWritten", EmitDefaultValue=true)]
         public long? NumBytesWritten { get; set; }
 
         /// <summary>
         /// Provides the total physical capacity in bytes as computed by the Cohesity Cluster.
         /// </summary>
         /// <value>Provides the total physical capacity in bytes as computed by the Cohesity Cluster.</value>
-        [DataMember(Name="physicalCapacityBytes", EmitDefaultValue=false)]
+        [DataMember(Name="physicalCapacityBytes", EmitDefaultValue=true)]
         public long? PhysicalCapacityBytes { get; set; }
 
         /// <summary>
         /// Provides the number of Read IOs that occurred in the last 30 seconds.
         /// </summary>
         /// <value>Provides the number of Read IOs that occurred in the last 30 seconds.</value>
-        [DataMember(Name="readIos", EmitDefaultValue=false)]
+        [DataMember(Name="readIos", EmitDefaultValue=true)]
         public long? ReadIos { get; set; }
 
         /// <summary>
         /// Provides the Read latency in milliseconds for the Read IOs that occurred during the last 30 seconds.
         /// </summary>
         /// <value>Provides the Read latency in milliseconds for the Read IOs that occurred during the last 30 seconds.</value>
-        [DataMember(Name="readLatencyMsecs", EmitDefaultValue=false)]
+        [DataMember(Name="readLatencyMsecs", EmitDefaultValue=true)]
         public double? ReadLatencyMsecs { get; set; }
 
         /// <summary>
         /// Provides the total available capacity as computed by the Linux &#39;statfs&#39; command.
         /// </summary>
         /// <value>Provides the total available capacity as computed by the Linux &#39;statfs&#39; command.</value>
-        [DataMember(Name="systemCapacityBytes", EmitDefaultValue=false)]
+        [DataMember(Name="systemCapacityBytes", EmitDefaultValue=true)]
         public long? SystemCapacityBytes { get; set; }
 
         /// <summary>
         /// Provides the usage of bytes, as computed by the Linux &#39;statfs&#39; command, after the size of the data is reduced by change-block tracking, compression and deduplication.
         /// </summary>
         /// <value>Provides the usage of bytes, as computed by the Linux &#39;statfs&#39; command, after the size of the data is reduced by change-block tracking, compression and deduplication.</value>
-        [DataMember(Name="systemUsageBytes", EmitDefaultValue=false)]
+        [DataMember(Name="systemUsageBytes", EmitDefaultValue=true)]
         public long? SystemUsageBytes { get; set; }
 
         /// <summary>
         /// Provides the usage of bytes, as computed by the Cohesity Cluster, before the size of the data is reduced by change-block tracking, compression and deduplication.
         /// </summary>
         /// <value>Provides the usage of bytes, as computed by the Cohesity Cluster, before the size of the data is reduced by change-block tracking, compression and deduplication.</value>
-        [DataMember(Name="totalPhysicalRawUsageBytes", EmitDefaultValue=false)]
+        [DataMember(Name="totalPhysicalRawUsageBytes", EmitDefaultValue=true)]
         public long? TotalPhysicalRawUsageBytes { get; set; }
 
         /// <summary>
         /// Provides the total capacity, as computed by the Cohesity Cluster, after the size of the data has been reduced by change-block tracking, compression and deduplication.
         /// </summary>
         /// <value>Provides the total capacity, as computed by the Cohesity Cluster, after the size of the data has been reduced by change-block tracking, compression and deduplication.</value>
-        [DataMember(Name="totalPhysicalUsageBytes", EmitDefaultValue=false)]
+        [DataMember(Name="totalPhysicalUsageBytes", EmitDefaultValue=true)]
         public long? TotalPhysicalUsageBytes { get; set; }
 
         /// <summary>
         /// Provides the number of Write IOs that occurred in the last 30 seconds.
         /// </summary>
         /// <value>Provides the number of Write IOs that occurred in the last 30 seconds.</value>
-        [DataMember(Name="writeIos", EmitDefaultValue=false)]
+        [DataMember(Name="writeIos", EmitDefaultValue=true)]
         public long? WriteIos { get; set; }
 
         /// <summary>
         /// Provides the Write latency in milliseconds for the Write IOs that occurred during the last 30 seconds.
         /// </summary>
         /// <value>Provides the Write latency in milliseconds for the Write IOs that occurred during the last 30 seconds.</value>
-        [DataMember(Name="writeLatencyMsecs", EmitDefaultValue=false)]
+        [DataMember(Name="writeLatencyMsecs", EmitDefaultValue=true)]
         public double? WriteLatencyMsecs { get; set; }
 
         /// <summary>
@@ -153,7 +173,24 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class UsageAndPerformanceStats {\n");
+            sb.Append("  DataInBytes: ").Append(DataInBytes).Append("\n");
+            sb.Append("  DataInBytesAfterReduction: ").Append(DataInBytesAfterReduction).Append("\n");
+            sb.Append("  MinUsablePhysicalCapacityBytes: ").Append(MinUsablePhysicalCapacityBytes).Append("\n");
+            sb.Append("  NumBytesRead: ").Append(NumBytesRead).Append("\n");
+            sb.Append("  NumBytesWritten: ").Append(NumBytesWritten).Append("\n");
+            sb.Append("  PhysicalCapacityBytes: ").Append(PhysicalCapacityBytes).Append("\n");
+            sb.Append("  ReadIos: ").Append(ReadIos).Append("\n");
+            sb.Append("  ReadLatencyMsecs: ").Append(ReadLatencyMsecs).Append("\n");
+            sb.Append("  SystemCapacityBytes: ").Append(SystemCapacityBytes).Append("\n");
+            sb.Append("  SystemUsageBytes: ").Append(SystemUsageBytes).Append("\n");
+            sb.Append("  TotalPhysicalRawUsageBytes: ").Append(TotalPhysicalRawUsageBytes).Append("\n");
+            sb.Append("  TotalPhysicalUsageBytes: ").Append(TotalPhysicalUsageBytes).Append("\n");
+            sb.Append("  WriteIos: ").Append(WriteIos).Append("\n");
+            sb.Append("  WriteLatencyMsecs: ").Append(WriteLatencyMsecs).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -299,8 +336,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

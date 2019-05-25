@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,13 +12,10 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
-    /// RecoveriesTile
+    /// Recoveries information.
     /// </summary>
     [DataContract]
     public partial class RecoveriesTile :  IEquatable<RecoveriesTile>
@@ -27,11 +24,15 @@ namespace Cohesity.Models
         /// Initializes a new instance of the <see cref="RecoveriesTile" /> class.
         /// </summary>
         /// <param name="lastMonthNumRecoveries">Number of Recoveries in the last 30 days..</param>
-        /// <param name="lastMonthRecoveriesByType">lastMonthRecoveriesByType.</param>
+        /// <param name="lastMonthRecoveriesByType">Recoveries by Type in the last month..</param>
         /// <param name="lastMonthRecoverySizeBytes">Bytes recovered in the last 30 days..</param>
         /// <param name="recoveryNumRunning">Number of recoveries that are currently running..</param>
         public RecoveriesTile(int? lastMonthNumRecoveries = default(int?), List<RestoreCountByObjectType> lastMonthRecoveriesByType = default(List<RestoreCountByObjectType>), long? lastMonthRecoverySizeBytes = default(long?), int? recoveryNumRunning = default(int?))
         {
+            this.LastMonthNumRecoveries = lastMonthNumRecoveries;
+            this.LastMonthRecoveriesByType = lastMonthRecoveriesByType;
+            this.LastMonthRecoverySizeBytes = lastMonthRecoverySizeBytes;
+            this.RecoveryNumRunning = recoveryNumRunning;
             this.LastMonthNumRecoveries = lastMonthNumRecoveries;
             this.LastMonthRecoveriesByType = lastMonthRecoveriesByType;
             this.LastMonthRecoverySizeBytes = lastMonthRecoverySizeBytes;
@@ -42,27 +43,28 @@ namespace Cohesity.Models
         /// Number of Recoveries in the last 30 days.
         /// </summary>
         /// <value>Number of Recoveries in the last 30 days.</value>
-        [DataMember(Name="lastMonthNumRecoveries", EmitDefaultValue=false)]
+        [DataMember(Name="lastMonthNumRecoveries", EmitDefaultValue=true)]
         public int? LastMonthNumRecoveries { get; set; }
 
         /// <summary>
-        /// Gets or Sets LastMonthRecoveriesByType
+        /// Recoveries by Type in the last month.
         /// </summary>
-        [DataMember(Name="lastMonthRecoveriesByType", EmitDefaultValue=false)]
+        /// <value>Recoveries by Type in the last month.</value>
+        [DataMember(Name="lastMonthRecoveriesByType", EmitDefaultValue=true)]
         public List<RestoreCountByObjectType> LastMonthRecoveriesByType { get; set; }
 
         /// <summary>
         /// Bytes recovered in the last 30 days.
         /// </summary>
         /// <value>Bytes recovered in the last 30 days.</value>
-        [DataMember(Name="lastMonthRecoverySizeBytes", EmitDefaultValue=false)]
+        [DataMember(Name="lastMonthRecoverySizeBytes", EmitDefaultValue=true)]
         public long? LastMonthRecoverySizeBytes { get; set; }
 
         /// <summary>
         /// Number of recoveries that are currently running.
         /// </summary>
         /// <value>Number of recoveries that are currently running.</value>
-        [DataMember(Name="recoveryNumRunning", EmitDefaultValue=false)]
+        [DataMember(Name="recoveryNumRunning", EmitDefaultValue=true)]
         public int? RecoveryNumRunning { get; set; }
 
         /// <summary>
@@ -71,7 +73,14 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class RecoveriesTile {\n");
+            sb.Append("  LastMonthNumRecoveries: ").Append(LastMonthNumRecoveries).Append("\n");
+            sb.Append("  LastMonthRecoveriesByType: ").Append(LastMonthRecoveriesByType).Append("\n");
+            sb.Append("  LastMonthRecoverySizeBytes: ").Append(LastMonthRecoverySizeBytes).Append("\n");
+            sb.Append("  RecoveryNumRunning: ").Append(RecoveryNumRunning).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -112,6 +121,7 @@ namespace Cohesity.Models
                 (
                     this.LastMonthRecoveriesByType == input.LastMonthRecoveriesByType ||
                     this.LastMonthRecoveriesByType != null &&
+                    input.LastMonthRecoveriesByType != null &&
                     this.LastMonthRecoveriesByType.SequenceEqual(input.LastMonthRecoveriesByType)
                 ) && 
                 (
@@ -147,8 +157,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

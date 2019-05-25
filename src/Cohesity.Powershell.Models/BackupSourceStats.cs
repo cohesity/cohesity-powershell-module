@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies statistics about a Backup task in a Protection Job Run. Specifies statistics for one backup task. One backup task is used to backup on Protection Source. This structure is also used to aggregate stats of a Backup tasks in a Protection Job Run.
@@ -46,69 +43,78 @@ namespace Cohesity.Models
             this.TotalLogicalBackupSizeBytes = totalLogicalBackupSizeBytes;
             this.TotalPhysicalBackupSizeBytes = totalPhysicalBackupSizeBytes;
             this.TotalSourceSizeBytes = totalSourceSizeBytes;
+            this.AdmittedTimeUsecs = admittedTimeUsecs;
+            this.EndTimeUsecs = endTimeUsecs;
+            this.StartTimeUsecs = startTimeUsecs;
+            this.TimeTakenUsecs = timeTakenUsecs;
+            this.TotalBytesReadFromSource = totalBytesReadFromSource;
+            this.TotalBytesToReadFromSource = totalBytesToReadFromSource;
+            this.TotalLogicalBackupSizeBytes = totalLogicalBackupSizeBytes;
+            this.TotalPhysicalBackupSizeBytes = totalPhysicalBackupSizeBytes;
+            this.TotalSourceSizeBytes = totalSourceSizeBytes;
         }
         
         /// <summary>
         /// Specifies the time the task was unqueued from the queue to start running. This field can be used to determine the following times: initial-wait-time &#x3D; admittedTimeUsecs - startTimeUsecs run-time &#x3D; endTimeUsecs - admittedTimeUsecs If the task ends up waiting in other queues, then actual run-time will be smaller than the run-time computed this way. This field is only populated for Backup tasks currently.
         /// </summary>
         /// <value>Specifies the time the task was unqueued from the queue to start running. This field can be used to determine the following times: initial-wait-time &#x3D; admittedTimeUsecs - startTimeUsecs run-time &#x3D; endTimeUsecs - admittedTimeUsecs If the task ends up waiting in other queues, then actual run-time will be smaller than the run-time computed this way. This field is only populated for Backup tasks currently.</value>
-        [DataMember(Name="admittedTimeUsecs", EmitDefaultValue=false)]
+        [DataMember(Name="admittedTimeUsecs", EmitDefaultValue=true)]
         public long? AdmittedTimeUsecs { get; set; }
 
         /// <summary>
         /// Specifies the end time of the Protection Run. The end time is specified as a Unix epoch Timestamp (in microseconds).
         /// </summary>
         /// <value>Specifies the end time of the Protection Run. The end time is specified as a Unix epoch Timestamp (in microseconds).</value>
-        [DataMember(Name="endTimeUsecs", EmitDefaultValue=false)]
+        [DataMember(Name="endTimeUsecs", EmitDefaultValue=true)]
         public long? EndTimeUsecs { get; set; }
 
         /// <summary>
         /// Specifies the start time of the Protection Run. The start time is specified as a Unix epoch Timestamp (in microseconds). This time is when the task is queued to an internal queue where tasks are waiting to run.
         /// </summary>
         /// <value>Specifies the start time of the Protection Run. The start time is specified as a Unix epoch Timestamp (in microseconds). This time is when the task is queued to an internal queue where tasks are waiting to run.</value>
-        [DataMember(Name="startTimeUsecs", EmitDefaultValue=false)]
+        [DataMember(Name="startTimeUsecs", EmitDefaultValue=true)]
         public long? StartTimeUsecs { get; set; }
 
         /// <summary>
         /// Specifies the actual execution time for the protection run to complete the backup task and the copy tasks. This time will not include the time waited in various internal queues. This field is only populated for Backup tasks currently.
         /// </summary>
         /// <value>Specifies the actual execution time for the protection run to complete the backup task and the copy tasks. This time will not include the time waited in various internal queues. This field is only populated for Backup tasks currently.</value>
-        [DataMember(Name="timeTakenUsecs", EmitDefaultValue=false)]
+        [DataMember(Name="timeTakenUsecs", EmitDefaultValue=true)]
         public long? TimeTakenUsecs { get; set; }
 
         /// <summary>
         /// Specifies the total amount of data read from the source (so far).
         /// </summary>
         /// <value>Specifies the total amount of data read from the source (so far).</value>
-        [DataMember(Name="totalBytesReadFromSource", EmitDefaultValue=false)]
+        [DataMember(Name="totalBytesReadFromSource", EmitDefaultValue=true)]
         public long? TotalBytesReadFromSource { get; set; }
 
         /// <summary>
         /// Specifies the total amount of data expected to be read from the source.
         /// </summary>
         /// <value>Specifies the total amount of data expected to be read from the source.</value>
-        [DataMember(Name="totalBytesToReadFromSource", EmitDefaultValue=false)]
+        [DataMember(Name="totalBytesToReadFromSource", EmitDefaultValue=true)]
         public long? TotalBytesToReadFromSource { get; set; }
 
         /// <summary>
         /// Specifies the size of the source object (such as a VM) protected by this task on the primary storage after the snapshot is taken. The logical size of the data on the source if the data is fully hydrated or expanded and not reduced by change-block tracking, compression and deduplication.
         /// </summary>
         /// <value>Specifies the size of the source object (such as a VM) protected by this task on the primary storage after the snapshot is taken. The logical size of the data on the source if the data is fully hydrated or expanded and not reduced by change-block tracking, compression and deduplication.</value>
-        [DataMember(Name="totalLogicalBackupSizeBytes", EmitDefaultValue=false)]
+        [DataMember(Name="totalLogicalBackupSizeBytes", EmitDefaultValue=true)]
         public long? TotalLogicalBackupSizeBytes { get; set; }
 
         /// <summary>
         /// Specifies the total amount of physical space used on the Cohesity Cluster to store the protected object after being reduced by change-block tracking, compression and deduplication. For example, if the logical backup size is 1GB, but only 1MB was used on the Cohesity Cluster to store it, this field be equal to 1MB.
         /// </summary>
         /// <value>Specifies the total amount of physical space used on the Cohesity Cluster to store the protected object after being reduced by change-block tracking, compression and deduplication. For example, if the logical backup size is 1GB, but only 1MB was used on the Cohesity Cluster to store it, this field be equal to 1MB.</value>
-        [DataMember(Name="totalPhysicalBackupSizeBytes", EmitDefaultValue=false)]
+        [DataMember(Name="totalPhysicalBackupSizeBytes", EmitDefaultValue=true)]
         public long? TotalPhysicalBackupSizeBytes { get; set; }
 
         /// <summary>
         /// Specifies the size of the source object (such as a VM) protected by this task on the primary storage before the snapshot is taken. The logical size of the data on the source if the data is fully hydrated or expanded and not reduced by change-block tracking, compression and deduplication.
         /// </summary>
         /// <value>Specifies the size of the source object (such as a VM) protected by this task on the primary storage before the snapshot is taken. The logical size of the data on the source if the data is fully hydrated or expanded and not reduced by change-block tracking, compression and deduplication.</value>
-        [DataMember(Name="totalSourceSizeBytes", EmitDefaultValue=false)]
+        [DataMember(Name="totalSourceSizeBytes", EmitDefaultValue=true)]
         public long? TotalSourceSizeBytes { get; set; }
 
         /// <summary>
@@ -117,7 +123,19 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class BackupSourceStats {\n");
+            sb.Append("  AdmittedTimeUsecs: ").Append(AdmittedTimeUsecs).Append("\n");
+            sb.Append("  EndTimeUsecs: ").Append(EndTimeUsecs).Append("\n");
+            sb.Append("  StartTimeUsecs: ").Append(StartTimeUsecs).Append("\n");
+            sb.Append("  TimeTakenUsecs: ").Append(TimeTakenUsecs).Append("\n");
+            sb.Append("  TotalBytesReadFromSource: ").Append(TotalBytesReadFromSource).Append("\n");
+            sb.Append("  TotalBytesToReadFromSource: ").Append(TotalBytesToReadFromSource).Append("\n");
+            sb.Append("  TotalLogicalBackupSizeBytes: ").Append(TotalLogicalBackupSizeBytes).Append("\n");
+            sb.Append("  TotalPhysicalBackupSizeBytes: ").Append(TotalPhysicalBackupSizeBytes).Append("\n");
+            sb.Append("  TotalSourceSizeBytes: ").Append(TotalSourceSizeBytes).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -228,8 +246,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

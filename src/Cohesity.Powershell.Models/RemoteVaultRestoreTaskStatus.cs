@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies the status of a remote Vault restore task.
@@ -26,14 +23,19 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="RemoteVaultRestoreTaskStatus" /> class.
         /// </summary>
-        /// <param name="currentIndexingStatus">currentIndexingStatus.</param>
-        /// <param name="currentSnapshotStatus">currentSnapshotStatus.</param>
-        /// <param name="localProtectionJobUid">localProtectionJobUid.</param>
-        /// <param name="parentJobUid">parentJobUid.</param>
-        /// <param name="remoteProtectionJobInformation">Specifies the details about the original Protection Job that archived data to the remote Vault (External Target)..</param>
-        /// <param name="searchJobUid">searchJobUid.</param>
-        public RemoteVaultRestoreTaskStatus(StatusOfIndexingRestoreTask_ currentIndexingStatus = default(StatusOfIndexingRestoreTask_), StatusOfSnapshotRestoreTask_ currentSnapshotStatus = default(StatusOfSnapshotRestoreTask_), LocalProtectionJobUid_ localProtectionJobUid = default(LocalProtectionJobUid_), ParentJobUid_ parentJobUid = default(ParentJobUid_), RemoteProtectionJobInformation remoteProtectionJobInformation = default(RemoteProtectionJobInformation), SearchJobUid1 searchJobUid = default(SearchJobUid1))
+        /// <param name="currentIndexingStatus">Specifies the status of an indexing task that builds an index from the Protection Job metadata retrieved from the remote Vault. The index contains information about Job Runs (Snapshots) for a Protection Job and is required to restore Snapshots to this local Cluster..</param>
+        /// <param name="currentSnapshotStatus">Specifies the status of the Snapshot restore task. The Snapshot restore task restores the specified archived Snapshots from a remote Vault to this Cluster..</param>
+        /// <param name="localProtectionJobUid">Specifies the globally unique id of the new inactive Protection Job created on the local Cluster as part of the restoration of archived data..</param>
+        /// <param name="parentJobUid">Specifies the unique id of the parent Job/task that spawned the indexing and Snapshot restore tasks..</param>
+        /// <param name="remoteProtectionJobInformation">remoteProtectionJobInformation.</param>
+        /// <param name="searchJobUid">Specifies the unique id of the search Job that searched the remote Vault..</param>
+        public RemoteVaultRestoreTaskStatus(RemoteRestoreIndexingStatus currentIndexingStatus = default(RemoteRestoreIndexingStatus), RemoteRestoreSnapshotStatus currentSnapshotStatus = default(RemoteRestoreSnapshotStatus), UniversalId localProtectionJobUid = default(UniversalId), UniversalId parentJobUid = default(UniversalId), RemoteProtectionJobInformation remoteProtectionJobInformation = default(RemoteProtectionJobInformation), UniversalId searchJobUid = default(UniversalId))
         {
+            this.CurrentIndexingStatus = currentIndexingStatus;
+            this.CurrentSnapshotStatus = currentSnapshotStatus;
+            this.LocalProtectionJobUid = localProtectionJobUid;
+            this.ParentJobUid = parentJobUid;
+            this.SearchJobUid = searchJobUid;
             this.CurrentIndexingStatus = currentIndexingStatus;
             this.CurrentSnapshotStatus = currentSnapshotStatus;
             this.LocalProtectionJobUid = localProtectionJobUid;
@@ -43,41 +45,45 @@ namespace Cohesity.Models
         }
         
         /// <summary>
-        /// Gets or Sets CurrentIndexingStatus
+        /// Specifies the status of an indexing task that builds an index from the Protection Job metadata retrieved from the remote Vault. The index contains information about Job Runs (Snapshots) for a Protection Job and is required to restore Snapshots to this local Cluster.
         /// </summary>
-        [DataMember(Name="currentIndexingStatus", EmitDefaultValue=false)]
-        public StatusOfIndexingRestoreTask_ CurrentIndexingStatus { get; set; }
+        /// <value>Specifies the status of an indexing task that builds an index from the Protection Job metadata retrieved from the remote Vault. The index contains information about Job Runs (Snapshots) for a Protection Job and is required to restore Snapshots to this local Cluster.</value>
+        [DataMember(Name="currentIndexingStatus", EmitDefaultValue=true)]
+        public RemoteRestoreIndexingStatus CurrentIndexingStatus { get; set; }
 
         /// <summary>
-        /// Gets or Sets CurrentSnapshotStatus
+        /// Specifies the status of the Snapshot restore task. The Snapshot restore task restores the specified archived Snapshots from a remote Vault to this Cluster.
         /// </summary>
-        [DataMember(Name="currentSnapshotStatus", EmitDefaultValue=false)]
-        public StatusOfSnapshotRestoreTask_ CurrentSnapshotStatus { get; set; }
+        /// <value>Specifies the status of the Snapshot restore task. The Snapshot restore task restores the specified archived Snapshots from a remote Vault to this Cluster.</value>
+        [DataMember(Name="currentSnapshotStatus", EmitDefaultValue=true)]
+        public RemoteRestoreSnapshotStatus CurrentSnapshotStatus { get; set; }
 
         /// <summary>
-        /// Gets or Sets LocalProtectionJobUid
+        /// Specifies the globally unique id of the new inactive Protection Job created on the local Cluster as part of the restoration of archived data.
         /// </summary>
-        [DataMember(Name="localProtectionJobUid", EmitDefaultValue=false)]
-        public LocalProtectionJobUid_ LocalProtectionJobUid { get; set; }
+        /// <value>Specifies the globally unique id of the new inactive Protection Job created on the local Cluster as part of the restoration of archived data.</value>
+        [DataMember(Name="localProtectionJobUid", EmitDefaultValue=true)]
+        public UniversalId LocalProtectionJobUid { get; set; }
 
         /// <summary>
-        /// Gets or Sets ParentJobUid
+        /// Specifies the unique id of the parent Job/task that spawned the indexing and Snapshot restore tasks.
         /// </summary>
-        [DataMember(Name="parentJobUid", EmitDefaultValue=false)]
-        public ParentJobUid_ ParentJobUid { get; set; }
+        /// <value>Specifies the unique id of the parent Job/task that spawned the indexing and Snapshot restore tasks.</value>
+        [DataMember(Name="parentJobUid", EmitDefaultValue=true)]
+        public UniversalId ParentJobUid { get; set; }
 
         /// <summary>
-        /// Specifies the details about the original Protection Job that archived data to the remote Vault (External Target).
+        /// Gets or Sets RemoteProtectionJobInformation
         /// </summary>
-        /// <value>Specifies the details about the original Protection Job that archived data to the remote Vault (External Target).</value>
         [DataMember(Name="remoteProtectionJobInformation", EmitDefaultValue=false)]
         public RemoteProtectionJobInformation RemoteProtectionJobInformation { get; set; }
 
         /// <summary>
-        /// Gets or Sets SearchJobUid
+        /// Specifies the unique id of the search Job that searched the remote Vault.
         /// </summary>
-        [DataMember(Name="searchJobUid", EmitDefaultValue=false)]
-        public SearchJobUid1 SearchJobUid { get; set; }
+        /// <value>Specifies the unique id of the search Job that searched the remote Vault.</value>
+        [DataMember(Name="searchJobUid", EmitDefaultValue=true)]
+        public UniversalId SearchJobUid { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -85,7 +91,16 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class RemoteVaultRestoreTaskStatus {\n");
+            sb.Append("  CurrentIndexingStatus: ").Append(CurrentIndexingStatus).Append("\n");
+            sb.Append("  CurrentSnapshotStatus: ").Append(CurrentSnapshotStatus).Append("\n");
+            sb.Append("  LocalProtectionJobUid: ").Append(LocalProtectionJobUid).Append("\n");
+            sb.Append("  ParentJobUid: ").Append(ParentJobUid).Append("\n");
+            sb.Append("  RemoteProtectionJobInformation: ").Append(RemoteProtectionJobInformation).Append("\n");
+            sb.Append("  SearchJobUid: ").Append(SearchJobUid).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -175,8 +190,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

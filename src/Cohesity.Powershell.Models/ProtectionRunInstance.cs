@@ -1,17 +1,21 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
+using System.IO;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
-    /// A Job Run can have one Backup Run and zero or more Copy Runs.
+    /// Specifies the status of one Job Run. A Job Run can have one Backup Run and zero or more Copy Runs.
     /// </summary>
     [DataContract]
     public partial class ProtectionRunInstance :  IEquatable<ProtectionRunInstance>
@@ -19,14 +23,19 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="ProtectionRunInstance" /> class.
         /// </summary>
-        /// <param name="backupRun">Specifies details about the Backup task. A Backup task captures the original backup snapshots..</param>
-        /// <param name="copyRun">Specifies details about the Copy tasks of this Job Run. A Copy task copies the captured snapshots to an external target or a Remote Cohesity Cluster..</param>
+        /// <param name="backupRun">backupRun.</param>
+        /// <param name="copyRun">Array of Copy Run Tasks.  Specifies details about the Copy tasks of this Job Run. A Copy task copies the captured snapshots to an external target or a Remote Cohesity Cluster..</param>
         /// <param name="jobId">Specifies the id of the Protection Job that was run..</param>
         /// <param name="jobName">Specifies the name of the Protection Job name that was run..</param>
-        /// <param name="jobUid">jobUid.</param>
+        /// <param name="jobUid">Specifies the globally unique id of the Protection Job that was run..</param>
         /// <param name="viewBoxId">Specifies the Storage Domain (View Box) to store the backed up data. Specify the id of the Storage Domain (View Box)..</param>
-        public ProtectionRunInstance(BackupRun backupRun = default(BackupRun), List<CopyRun> copyRun = default(List<CopyRun>), long? jobId = default(long?), string jobName = default(string), UniqueGlobalId6 jobUid = default(UniqueGlobalId6), long? viewBoxId = default(long?))
+        public ProtectionRunInstance(BackupRun backupRun = default(BackupRun), List<CopyRun> copyRun = default(List<CopyRun>), long? jobId = default(long?), string jobName = default(string), UniversalId jobUid = default(UniversalId), long? viewBoxId = default(long?))
         {
+            this.CopyRun = copyRun;
+            this.JobId = jobId;
+            this.JobName = jobName;
+            this.JobUid = jobUid;
+            this.ViewBoxId = viewBoxId;
             this.BackupRun = backupRun;
             this.CopyRun = copyRun;
             this.JobId = jobId;
@@ -36,68 +45,64 @@ namespace Cohesity.Models
         }
         
         /// <summary>
-        /// Specifies details about the Backup task. A Backup task captures the original backup snapshots.
+        /// Gets or Sets BackupRun
         /// </summary>
-        /// <value>Specifies details about the Backup task. A Backup task captures the original backup snapshots.</value>
         [DataMember(Name="backupRun", EmitDefaultValue=false)]
         public BackupRun BackupRun { get; set; }
 
         /// <summary>
-        /// Specifies details about the Copy tasks of this Job Run. A Copy task copies the captured snapshots to an external target or a Remote Cohesity Cluster.
+        /// Array of Copy Run Tasks.  Specifies details about the Copy tasks of this Job Run. A Copy task copies the captured snapshots to an external target or a Remote Cohesity Cluster.
         /// </summary>
-        /// <value>Specifies details about the Copy tasks of this Job Run. A Copy task copies the captured snapshots to an external target or a Remote Cohesity Cluster.</value>
-        [DataMember(Name="copyRun", EmitDefaultValue=false)]
+        /// <value>Array of Copy Run Tasks.  Specifies details about the Copy tasks of this Job Run. A Copy task copies the captured snapshots to an external target or a Remote Cohesity Cluster.</value>
+        [DataMember(Name="copyRun", EmitDefaultValue=true)]
         public List<CopyRun> CopyRun { get; set; }
 
         /// <summary>
         /// Specifies the id of the Protection Job that was run.
         /// </summary>
         /// <value>Specifies the id of the Protection Job that was run.</value>
-        [DataMember(Name="jobId", EmitDefaultValue=false)]
+        [DataMember(Name="jobId", EmitDefaultValue=true)]
         public long? JobId { get; set; }
 
         /// <summary>
         /// Specifies the name of the Protection Job name that was run.
         /// </summary>
         /// <value>Specifies the name of the Protection Job name that was run.</value>
-        [DataMember(Name="jobName", EmitDefaultValue=false)]
+        [DataMember(Name="jobName", EmitDefaultValue=true)]
         public string JobName { get; set; }
 
         /// <summary>
-        /// Gets or Sets JobUid
+        /// Specifies the globally unique id of the Protection Job that was run.
         /// </summary>
-        [DataMember(Name="jobUid", EmitDefaultValue=false)]
-        public UniqueGlobalId6 JobUid { get; set; }
+        /// <value>Specifies the globally unique id of the Protection Job that was run.</value>
+        [DataMember(Name="jobUid", EmitDefaultValue=true)]
+        public UniversalId JobUid { get; set; }
 
         /// <summary>
         /// Specifies the Storage Domain (View Box) to store the backed up data. Specify the id of the Storage Domain (View Box).
         /// </summary>
         /// <value>Specifies the Storage Domain (View Box) to store the backed up data. Specify the id of the Storage Domain (View Box).</value>
-        [DataMember(Name="viewBoxId", EmitDefaultValue=false)]
+        [DataMember(Name="viewBoxId", EmitDefaultValue=true)]
         public long? ViewBoxId { get; set; }
 
-        ///// <summary>
-        ///// Returns the string presentation of the object
-        ///// </summary>
-        ///// <returns>String presentation of the object</returns>
-        //public override string ToString()
-        //{
-        //    var sb = new StringBuilder();
-        //    sb.Append("class ProtectionRunInstance {\n");
-        //    sb.Append("  BackupRun: ").Append(BackupRun).Append("\n");
-        //    sb.Append("  CopyRun: ").Append(CopyRun).Append("\n");
-        //    sb.Append("  JobId: ").Append(JobId).Append("\n");
-        //    sb.Append("  JobName: ").Append(JobName).Append("\n");
-        //    sb.Append("  JobUid: ").Append(JobUid).Append("\n");
-        //    sb.Append("  ViewBoxId: ").Append(ViewBoxId).Append("\n");
-        //    sb.Append("}\n");
-        //    return sb.ToString();
-        //}
+        /// <summary>
+        /// Returns the string presentation of the object
+        /// </summary>
+        /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class ProtectionRunInstance {\n");
+            sb.Append("  BackupRun: ").Append(BackupRun).Append("\n");
+            sb.Append("  CopyRun: ").Append(CopyRun).Append("\n");
+            sb.Append("  JobId: ").Append(JobId).Append("\n");
+            sb.Append("  JobName: ").Append(JobName).Append("\n");
+            sb.Append("  JobUid: ").Append(JobUid).Append("\n");
+            sb.Append("  ViewBoxId: ").Append(ViewBoxId).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
-
+  
         /// <summary>
         /// Returns the JSON string presentation of the object
         /// </summary>
@@ -136,6 +141,7 @@ namespace Cohesity.Models
                 (
                     this.CopyRun == input.CopyRun ||
                     this.CopyRun != null &&
+                    input.CopyRun != null &&
                     this.CopyRun.SequenceEqual(input.CopyRun)
                 ) && 
                 (
@@ -185,8 +191,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

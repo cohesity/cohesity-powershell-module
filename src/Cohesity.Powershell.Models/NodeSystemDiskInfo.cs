@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// NodeSystemDiskInfo
@@ -34,27 +31,30 @@ namespace Cohesity.Models
             this.DevicePath = devicePath;
             this.Id = id;
             this.Offline = offline;
+            this.DevicePath = devicePath;
+            this.Id = id;
+            this.Offline = offline;
         }
         
         /// <summary>
         /// DevicePath is the device path of the disk.
         /// </summary>
         /// <value>DevicePath is the device path of the disk.</value>
-        [DataMember(Name="devicePath", EmitDefaultValue=false)]
+        [DataMember(Name="devicePath", EmitDefaultValue=true)]
         public string DevicePath { get; set; }
 
         /// <summary>
         /// Id is the id of the disk.
         /// </summary>
         /// <value>Id is the id of the disk.</value>
-        [DataMember(Name="id", EmitDefaultValue=false)]
+        [DataMember(Name="id", EmitDefaultValue=true)]
         public long? Id { get; set; }
 
         /// <summary>
         /// Offline specifies whether a disk is marked offline.
         /// </summary>
         /// <value>Offline specifies whether a disk is marked offline.</value>
-        [DataMember(Name="offline", EmitDefaultValue=false)]
+        [DataMember(Name="offline", EmitDefaultValue=true)]
         public bool? Offline { get; set; }
 
         /// <summary>
@@ -63,7 +63,13 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class NodeSystemDiskInfo {\n");
+            sb.Append("  DevicePath: ").Append(DevicePath).Append("\n");
+            sb.Append("  Id: ").Append(Id).Append("\n");
+            sb.Append("  Offline: ").Append(Offline).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -132,8 +138,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,13 +12,10 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
-    /// LogicalVolume
+    /// Specifies attributes for a kLVM (Linux) or kLDM (Windows) filesystem.
     /// </summary>
     [DataContract]
     public partial class LogicalVolume :  IEquatable<LogicalVolume>
@@ -26,13 +23,17 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="LogicalVolume" /> class.
         /// </summary>
-        /// <param name="deviceRootNode">Specifies the device tree defining how to combine partitions to create this logical volume..</param>
+        /// <param name="deviceRootNode">deviceRootNode.</param>
         /// <param name="groupName">Specifies the group name of the logical volume..</param>
         /// <param name="groupUuid">Specifies the group uuid of the logical volume..</param>
         /// <param name="name">Specifies the name of the logical volume..</param>
         /// <param name="uuid">Specifies the uuid of the logical volume..</param>
-        public LogicalVolume(DeviceTree deviceRootNode = default(DeviceTree), string groupName = default(string), string groupUuid = default(string), string name = default(string), string uuid = default(string))
+        public LogicalVolume(DeviceTreeDetails deviceRootNode = default(DeviceTreeDetails), string groupName = default(string), string groupUuid = default(string), string name = default(string), string uuid = default(string))
         {
+            this.GroupName = groupName;
+            this.GroupUuid = groupUuid;
+            this.Name = name;
+            this.Uuid = uuid;
             this.DeviceRootNode = deviceRootNode;
             this.GroupName = groupName;
             this.GroupUuid = groupUuid;
@@ -41,38 +42,37 @@ namespace Cohesity.Models
         }
         
         /// <summary>
-        /// Specifies the device tree defining how to combine partitions to create this logical volume.
+        /// Gets or Sets DeviceRootNode
         /// </summary>
-        /// <value>Specifies the device tree defining how to combine partitions to create this logical volume.</value>
         [DataMember(Name="deviceRootNode", EmitDefaultValue=false)]
-        public DeviceTree DeviceRootNode { get; set; }
+        public DeviceTreeDetails DeviceRootNode { get; set; }
 
         /// <summary>
         /// Specifies the group name of the logical volume.
         /// </summary>
         /// <value>Specifies the group name of the logical volume.</value>
-        [DataMember(Name="groupName", EmitDefaultValue=false)]
+        [DataMember(Name="groupName", EmitDefaultValue=true)]
         public string GroupName { get; set; }
 
         /// <summary>
         /// Specifies the group uuid of the logical volume.
         /// </summary>
         /// <value>Specifies the group uuid of the logical volume.</value>
-        [DataMember(Name="groupUuid", EmitDefaultValue=false)]
+        [DataMember(Name="groupUuid", EmitDefaultValue=true)]
         public string GroupUuid { get; set; }
 
         /// <summary>
         /// Specifies the name of the logical volume.
         /// </summary>
         /// <value>Specifies the name of the logical volume.</value>
-        [DataMember(Name="name", EmitDefaultValue=false)]
+        [DataMember(Name="name", EmitDefaultValue=true)]
         public string Name { get; set; }
 
         /// <summary>
         /// Specifies the uuid of the logical volume.
         /// </summary>
         /// <value>Specifies the uuid of the logical volume.</value>
-        [DataMember(Name="uuid", EmitDefaultValue=false)]
+        [DataMember(Name="uuid", EmitDefaultValue=true)]
         public string Uuid { get; set; }
 
         /// <summary>
@@ -81,7 +81,15 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class LogicalVolume {\n");
+            sb.Append("  DeviceRootNode: ").Append(DeviceRootNode).Append("\n");
+            sb.Append("  GroupName: ").Append(GroupName).Append("\n");
+            sb.Append("  GroupUuid: ").Append(GroupUuid).Append("\n");
+            sb.Append("  Name: ").Append(Name).Append("\n");
+            sb.Append("  Uuid: ").Append(Uuid).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -164,8 +172,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

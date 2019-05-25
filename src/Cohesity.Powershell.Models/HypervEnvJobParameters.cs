@@ -1,12 +1,18 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
+using System.Linq;
+using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies job parameters applicable for all &#39;kHyperV&#39; Environment type Protection Sources in a Protection Job.
@@ -21,13 +27,14 @@ namespace Cohesity.Models
         public HypervEnvJobParameters(bool? fallbackToCrashConsistent = default(bool?))
         {
             this.FallbackToCrashConsistent = fallbackToCrashConsistent;
+            this.FallbackToCrashConsistent = fallbackToCrashConsistent;
         }
         
         /// <summary>
         /// If true, takes a crash-consistent snapshot when app-consistent snapshot fails. Otherwise, the snapshot attempt is marked failed. By default, this field is set to false.
         /// </summary>
         /// <value>If true, takes a crash-consistent snapshot when app-consistent snapshot fails. Otherwise, the snapshot attempt is marked failed. By default, this field is set to false.</value>
-        [DataMember(Name="fallbackToCrashConsistent", EmitDefaultValue=false)]
+        [DataMember(Name="fallbackToCrashConsistent", EmitDefaultValue=true)]
         public bool? FallbackToCrashConsistent { get; set; }
 
         /// <summary>
@@ -36,7 +43,11 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class HypervEnvJobParameters {\n");
+            sb.Append("  FallbackToCrashConsistent: ").Append(FallbackToCrashConsistent).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -91,8 +102,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

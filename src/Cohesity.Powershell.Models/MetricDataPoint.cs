@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies information about a single data point in a time series.
@@ -26,18 +23,18 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="MetricDataPoint" /> class.
         /// </summary>
-        /// <param name="data">Corresponding value of a metric at the given timestamp. When client adds or pushes the stats, this field must be specified. When Stats module, returns the time series data, this field could be empty if data point is not available for the given timestamp..</param>
+        /// <param name="data">data.</param>
         /// <param name="timestampMsecs">Specifies a timestamp when the metric data point was captured..</param>
         public MetricDataPoint(ValueData data = default(ValueData), long? timestampMsecs = default(long?))
         {
+            this.TimestampMsecs = timestampMsecs;
             this.Data = data;
             this.TimestampMsecs = timestampMsecs;
         }
         
         /// <summary>
-        /// Corresponding value of a metric at the given timestamp. When client adds or pushes the stats, this field must be specified. When Stats module, returns the time series data, this field could be empty if data point is not available for the given timestamp.
+        /// Gets or Sets Data
         /// </summary>
-        /// <value>Corresponding value of a metric at the given timestamp. When client adds or pushes the stats, this field must be specified. When Stats module, returns the time series data, this field could be empty if data point is not available for the given timestamp.</value>
         [DataMember(Name="data", EmitDefaultValue=false)]
         public ValueData Data { get; set; }
 
@@ -45,7 +42,7 @@ namespace Cohesity.Models
         /// Specifies a timestamp when the metric data point was captured.
         /// </summary>
         /// <value>Specifies a timestamp when the metric data point was captured.</value>
-        [DataMember(Name="timestampMsecs", EmitDefaultValue=false)]
+        [DataMember(Name="timestampMsecs", EmitDefaultValue=true)]
         public long? TimestampMsecs { get; set; }
 
         /// <summary>
@@ -54,7 +51,12 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class MetricDataPoint {\n");
+            sb.Append("  Data: ").Append(Data).Append("\n");
+            sb.Append("  TimestampMsecs: ").Append(TimestampMsecs).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -116,8 +118,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

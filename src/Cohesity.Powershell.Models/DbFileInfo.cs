@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,24 +12,71 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
-    /// DbFileInfo
+    /// Specifies information about a database file.
     /// </summary>
     [DataContract]
     public partial class DbFileInfo :  IEquatable<DbFileInfo>
     {
         /// <summary>
+        /// Specifies the format type of the file that SQL database stores the data. Specifies the format type of the file that SQL database stores the data. &#39;kRows&#39; refers to a data file &#39;kLog&#39; refers to a log file &#39;kFileStream&#39; refers to a directory containing FILESTREAM data &#39;kNotSupportedType&#39; is for information purposes only. Not supported. &#39;kFullText&#39; refers to a full-text catalog.
+        /// </summary>
+        /// <value>Specifies the format type of the file that SQL database stores the data. Specifies the format type of the file that SQL database stores the data. &#39;kRows&#39; refers to a data file &#39;kLog&#39; refers to a log file &#39;kFileStream&#39; refers to a directory containing FILESTREAM data &#39;kNotSupportedType&#39; is for information purposes only. Not supported. &#39;kFullText&#39; refers to a full-text catalog.</value>
+        [JsonConverter(typeof(StringEnumConverter))]
+        public enum FileTypeEnum
+        {
+            /// <summary>
+            /// Enum KRows for value: kRows
+            /// </summary>
+            [EnumMember(Value = "kRows")]
+            KRows = 1,
+
+            /// <summary>
+            /// Enum KLog for value: kLog
+            /// </summary>
+            [EnumMember(Value = "kLog")]
+            KLog = 2,
+
+            /// <summary>
+            /// Enum KFileStream for value: kFileStream
+            /// </summary>
+            [EnumMember(Value = "kFileStream")]
+            KFileStream = 3,
+
+            /// <summary>
+            /// Enum KNotSupportedType for value: kNotSupportedType
+            /// </summary>
+            [EnumMember(Value = "kNotSupportedType")]
+            KNotSupportedType = 4,
+
+            /// <summary>
+            /// Enum KFullText for value: kFullText
+            /// </summary>
+            [EnumMember(Value = "kFullText")]
+            KFullText = 5
+
+        }
+
+        /// <summary>
+        /// Specifies the format type of the file that SQL database stores the data. Specifies the format type of the file that SQL database stores the data. &#39;kRows&#39; refers to a data file &#39;kLog&#39; refers to a log file &#39;kFileStream&#39; refers to a directory containing FILESTREAM data &#39;kNotSupportedType&#39; is for information purposes only. Not supported. &#39;kFullText&#39; refers to a full-text catalog.
+        /// </summary>
+        /// <value>Specifies the format type of the file that SQL database stores the data. Specifies the format type of the file that SQL database stores the data. &#39;kRows&#39; refers to a data file &#39;kLog&#39; refers to a log file &#39;kFileStream&#39; refers to a directory containing FILESTREAM data &#39;kNotSupportedType&#39; is for information purposes only. Not supported. &#39;kFullText&#39; refers to a full-text catalog.</value>
+        [DataMember(Name="fileType", EmitDefaultValue=true)]
+        public FileTypeEnum? FileType { get; set; }
+        /// <summary>
         /// Initializes a new instance of the <see cref="DbFileInfo" /> class.
         /// </summary>
+        /// <param name="fileType">Specifies the format type of the file that SQL database stores the data. Specifies the format type of the file that SQL database stores the data. &#39;kRows&#39; refers to a data file &#39;kLog&#39; refers to a log file &#39;kFileStream&#39; refers to a directory containing FILESTREAM data &#39;kNotSupportedType&#39; is for information purposes only. Not supported. &#39;kFullText&#39; refers to a full-text catalog..</param>
         /// <param name="fullPath">Specifies the full path of the database file on the SQL host machine..</param>
         /// <param name="sizeBytes">Specifies the last known size of the database file..</param>
-        public DbFileInfo(string fullPath = default(string), long? sizeBytes = default(long?))
+        public DbFileInfo(FileTypeEnum? fileType = default(FileTypeEnum?), string fullPath = default(string), long? sizeBytes = default(long?))
         {
+            this.FileType = fileType;
+            this.FullPath = fullPath;
+            this.SizeBytes = sizeBytes;
+            this.FileType = fileType;
             this.FullPath = fullPath;
             this.SizeBytes = sizeBytes;
         }
@@ -38,14 +85,14 @@ namespace Cohesity.Models
         /// Specifies the full path of the database file on the SQL host machine.
         /// </summary>
         /// <value>Specifies the full path of the database file on the SQL host machine.</value>
-        [DataMember(Name="fullPath", EmitDefaultValue=false)]
+        [DataMember(Name="fullPath", EmitDefaultValue=true)]
         public string FullPath { get; set; }
 
         /// <summary>
         /// Specifies the last known size of the database file.
         /// </summary>
         /// <value>Specifies the last known size of the database file.</value>
-        [DataMember(Name="sizeBytes", EmitDefaultValue=false)]
+        [DataMember(Name="sizeBytes", EmitDefaultValue=true)]
         public long? SizeBytes { get; set; }
 
         /// <summary>
@@ -54,7 +101,13 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class DbFileInfo {\n");
+            sb.Append("  FileType: ").Append(FileType).Append("\n");
+            sb.Append("  FullPath: ").Append(FullPath).Append("\n");
+            sb.Append("  SizeBytes: ").Append(SizeBytes).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -88,6 +141,10 @@ namespace Cohesity.Models
 
             return 
                 (
+                    this.FileType == input.FileType ||
+                    this.FileType.Equals(input.FileType)
+                ) && 
+                (
                     this.FullPath == input.FullPath ||
                     (this.FullPath != null &&
                     this.FullPath.Equals(input.FullPath))
@@ -108,6 +165,7 @@ namespace Cohesity.Models
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                hashCode = hashCode * 59 + this.FileType.GetHashCode();
                 if (this.FullPath != null)
                     hashCode = hashCode * 59 + this.FullPath.GetHashCode();
                 if (this.SizeBytes != null)
@@ -116,8 +174,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

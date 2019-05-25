@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,13 +12,10 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
-    /// Specifies settings about the Remote Cohesity Cluster where Snapshots are copied to.
+    /// Message that specifies the details about a remote cluster where backup snapshots may be replicated to.
     /// </summary>
     [DataContract]
     public partial class ReplicationTarget :  IEquatable<ReplicationTarget>
@@ -26,26 +23,28 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="ReplicationTarget" /> class.
         /// </summary>
-        /// <param name="clusterId">Specifies the id of the Remote Cluster..</param>
-        /// <param name="clusterName">Specifies the name of the Remote Cluster..</param>
+        /// <param name="clusterId">The id of the remote cluster..</param>
+        /// <param name="clusterName">The name of the remote cluster..</param>
         public ReplicationTarget(long? clusterId = default(long?), string clusterName = default(string))
         {
+            this.ClusterId = clusterId;
+            this.ClusterName = clusterName;
             this.ClusterId = clusterId;
             this.ClusterName = clusterName;
         }
         
         /// <summary>
-        /// Specifies the id of the Remote Cluster.
+        /// The id of the remote cluster.
         /// </summary>
-        /// <value>Specifies the id of the Remote Cluster.</value>
-        [DataMember(Name="clusterId", EmitDefaultValue=false)]
+        /// <value>The id of the remote cluster.</value>
+        [DataMember(Name="clusterId", EmitDefaultValue=true)]
         public long? ClusterId { get; set; }
 
         /// <summary>
-        /// Specifies the name of the Remote Cluster.
+        /// The name of the remote cluster.
         /// </summary>
-        /// <value>Specifies the name of the Remote Cluster.</value>
-        [DataMember(Name="clusterName", EmitDefaultValue=false)]
+        /// <value>The name of the remote cluster.</value>
+        [DataMember(Name="clusterName", EmitDefaultValue=true)]
         public string ClusterName { get; set; }
 
         /// <summary>
@@ -54,7 +53,12 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class ReplicationTarget {\n");
+            sb.Append("  ClusterId: ").Append(ClusterId).Append("\n");
+            sb.Append("  ClusterName: ").Append(ClusterName).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -116,8 +120,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

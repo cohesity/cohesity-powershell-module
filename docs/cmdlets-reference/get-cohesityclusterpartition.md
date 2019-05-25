@@ -61,7 +61,7 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 
 ## OUTPUTS
 
-### Cohesity.Models.ClusterPartition
+### Cohesity.Model.ClusterPartition
 ## NOTES
 
 ## RELATED LINKS

@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies an array of found files and folders. In addition, a count is provided to indicate if additional requests must be made to get the full result.
@@ -26,26 +23,28 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="FileSearchResults" /> class.
         /// </summary>
-        /// <param name="files">Specifies the list of files and folders returned by this request that match the specified search and filter criteria. The number of files returned is limited by the pageCount field..</param>
+        /// <param name="files">Array of Files and Folders.  Specifies the list of files and folders returned by this request that match the specified search and filter criteria. The number of files returned is limited by the pageCount field..</param>
         /// <param name="totalCount">Specifies the total number of files and folders that match the filter and search criteria. Use this value to determine how many additional requests are required to get the full result..</param>
         public FileSearchResults(List<FileSearchResult> files = default(List<FileSearchResult>), long? totalCount = default(long?))
         {
             this.Files = files;
             this.TotalCount = totalCount;
+            this.Files = files;
+            this.TotalCount = totalCount;
         }
         
         /// <summary>
-        /// Specifies the list of files and folders returned by this request that match the specified search and filter criteria. The number of files returned is limited by the pageCount field.
+        /// Array of Files and Folders.  Specifies the list of files and folders returned by this request that match the specified search and filter criteria. The number of files returned is limited by the pageCount field.
         /// </summary>
-        /// <value>Specifies the list of files and folders returned by this request that match the specified search and filter criteria. The number of files returned is limited by the pageCount field.</value>
-        [DataMember(Name="files", EmitDefaultValue=false)]
+        /// <value>Array of Files and Folders.  Specifies the list of files and folders returned by this request that match the specified search and filter criteria. The number of files returned is limited by the pageCount field.</value>
+        [DataMember(Name="files", EmitDefaultValue=true)]
         public List<FileSearchResult> Files { get; set; }
 
         /// <summary>
         /// Specifies the total number of files and folders that match the filter and search criteria. Use this value to determine how many additional requests are required to get the full result.
         /// </summary>
         /// <value>Specifies the total number of files and folders that match the filter and search criteria. Use this value to determine how many additional requests are required to get the full result.</value>
-        [DataMember(Name="totalCount", EmitDefaultValue=false)]
+        [DataMember(Name="totalCount", EmitDefaultValue=true)]
         public long? TotalCount { get; set; }
 
         /// <summary>
@@ -54,7 +53,12 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class FileSearchResults {\n");
+            sb.Append("  Files: ").Append(Files).Append("\n");
+            sb.Append("  TotalCount: ").Append(TotalCount).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -90,6 +94,7 @@ namespace Cohesity.Models
                 (
                     this.Files == input.Files ||
                     this.Files != null &&
+                    input.Files != null &&
                     this.Files.SequenceEqual(input.Files)
                 ) && 
                 (
@@ -116,8 +121,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

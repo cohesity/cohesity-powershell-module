@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies information about a logical volume found a VM.
@@ -26,17 +23,18 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="VmVolumesInformation" /> class.
         /// </summary>
-        /// <param name="filesystemVolumes">Specifies information about the filesystem volumes found in a logical volume..</param>
+        /// <param name="filesystemVolumes">Array of Filesystem Volumes.  Specifies information about the filesystem volumes found in a logical volume..</param>
         public VmVolumesInformation(List<FilesystemVolume> filesystemVolumes = default(List<FilesystemVolume>))
         {
+            this.FilesystemVolumes = filesystemVolumes;
             this.FilesystemVolumes = filesystemVolumes;
         }
         
         /// <summary>
-        /// Specifies information about the filesystem volumes found in a logical volume.
+        /// Array of Filesystem Volumes.  Specifies information about the filesystem volumes found in a logical volume.
         /// </summary>
-        /// <value>Specifies information about the filesystem volumes found in a logical volume.</value>
-        [DataMember(Name="filesystemVolumes", EmitDefaultValue=false)]
+        /// <value>Array of Filesystem Volumes.  Specifies information about the filesystem volumes found in a logical volume.</value>
+        [DataMember(Name="filesystemVolumes", EmitDefaultValue=true)]
         public List<FilesystemVolume> FilesystemVolumes { get; set; }
 
         /// <summary>
@@ -45,7 +43,11 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class VmVolumesInformation {\n");
+            sb.Append("  FilesystemVolumes: ").Append(FilesystemVolumes).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -81,6 +83,7 @@ namespace Cohesity.Models
                 (
                     this.FilesystemVolumes == input.FilesystemVolumes ||
                     this.FilesystemVolumes != null &&
+                    input.FilesystemVolumes != null &&
                     this.FilesystemVolumes.SequenceEqual(input.FilesystemVolumes)
                 );
         }
@@ -100,8 +103,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

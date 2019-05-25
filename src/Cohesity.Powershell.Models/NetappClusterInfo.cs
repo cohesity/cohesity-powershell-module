@@ -1,13 +1,18 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
+using System.Linq;
+using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies information about a NetApp Cluster Protection Source.
@@ -26,27 +31,30 @@ namespace Cohesity.Models
             this.ContactInfo = contactInfo;
             this.Location = location;
             this.SerialNumber = serialNumber;
+            this.ContactInfo = contactInfo;
+            this.Location = location;
+            this.SerialNumber = serialNumber;
         }
         
         /// <summary>
         /// Specifies information about the contact for the NetApp cluster such as a name, phone number, and email address.
         /// </summary>
         /// <value>Specifies information about the contact for the NetApp cluster such as a name, phone number, and email address.</value>
-        [DataMember(Name="contactInfo", EmitDefaultValue=false)]
+        [DataMember(Name="contactInfo", EmitDefaultValue=true)]
         public string ContactInfo { get; set; }
 
         /// <summary>
         /// Specifies where this NetApp cluster is located. This location identification string is configured by the NetApp system administrator. This field does not contain the NetApp cluster hostname or IP address.
         /// </summary>
         /// <value>Specifies where this NetApp cluster is located. This location identification string is configured by the NetApp system administrator. This field does not contain the NetApp cluster hostname or IP address.</value>
-        [DataMember(Name="location", EmitDefaultValue=false)]
+        [DataMember(Name="location", EmitDefaultValue=true)]
         public string Location { get; set; }
 
         /// <summary>
         /// Specifies the serial number of the NetApp cluster in the format: x-xx-xxxxxx.
         /// </summary>
         /// <value>Specifies the serial number of the NetApp cluster in the format: x-xx-xxxxxx.</value>
-        [DataMember(Name="serialNumber", EmitDefaultValue=false)]
+        [DataMember(Name="serialNumber", EmitDefaultValue=true)]
         public string SerialNumber { get; set; }
 
         /// <summary>
@@ -55,7 +63,13 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class NetappClusterInfo {\n");
+            sb.Append("  ContactInfo: ").Append(ContactInfo).Append("\n");
+            sb.Append("  Location: ").Append(Location).Append("\n");
+            sb.Append("  SerialNumber: ").Append(SerialNumber).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -124,8 +138,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

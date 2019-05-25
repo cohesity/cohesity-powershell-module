@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies the server credentials to connect to a QStar service to manage the media Vault.
@@ -27,7 +24,7 @@ namespace Cohesity.Models
         /// Initializes a new instance of the <see cref="QStarServerCredentials" /> class.
         /// </summary>
         /// <param name="host">Specifies the IP address or DNS name of the server where QStar service is running..</param>
-        /// <param name="integralVolumeNames">Specifies a list of existing Integral Volume names available on the QStar server for storing objects..</param>
+        /// <param name="integralVolumeNames">Array of Integral Volume Names.  Specifies a list of existing Integral Volume names available on the QStar server for storing objects..</param>
         /// <param name="password">Specifies the password used to access the QStar host..</param>
         /// <param name="port">Specifies the listening port where QStar WEB API service is running..</param>
         /// <param name="shareType">Specifies the sharing protocol type used by QStar to mount the integral volume. See the Cohesity online help for the recommended protocol for your environment..</param>
@@ -42,55 +39,62 @@ namespace Cohesity.Models
             this.ShareType = shareType;
             this.UseHttps = useHttps;
             this.Username = username;
+            this.Host = host;
+            this.IntegralVolumeNames = integralVolumeNames;
+            this.Password = password;
+            this.Port = port;
+            this.ShareType = shareType;
+            this.UseHttps = useHttps;
+            this.Username = username;
         }
         
         /// <summary>
         /// Specifies the IP address or DNS name of the server where QStar service is running.
         /// </summary>
         /// <value>Specifies the IP address or DNS name of the server where QStar service is running.</value>
-        [DataMember(Name="host", EmitDefaultValue=false)]
+        [DataMember(Name="host", EmitDefaultValue=true)]
         public string Host { get; set; }
 
         /// <summary>
-        /// Specifies a list of existing Integral Volume names available on the QStar server for storing objects.
+        /// Array of Integral Volume Names.  Specifies a list of existing Integral Volume names available on the QStar server for storing objects.
         /// </summary>
-        /// <value>Specifies a list of existing Integral Volume names available on the QStar server for storing objects.</value>
-        [DataMember(Name="integralVolumeNames", EmitDefaultValue=false)]
+        /// <value>Array of Integral Volume Names.  Specifies a list of existing Integral Volume names available on the QStar server for storing objects.</value>
+        [DataMember(Name="integralVolumeNames", EmitDefaultValue=true)]
         public List<string> IntegralVolumeNames { get; set; }
 
         /// <summary>
         /// Specifies the password used to access the QStar host.
         /// </summary>
         /// <value>Specifies the password used to access the QStar host.</value>
-        [DataMember(Name="password", EmitDefaultValue=false)]
+        [DataMember(Name="password", EmitDefaultValue=true)]
         public string Password { get; set; }
 
         /// <summary>
         /// Specifies the listening port where QStar WEB API service is running.
         /// </summary>
         /// <value>Specifies the listening port where QStar WEB API service is running.</value>
-        [DataMember(Name="port", EmitDefaultValue=false)]
+        [DataMember(Name="port", EmitDefaultValue=true)]
         public int? Port { get; set; }
 
         /// <summary>
         /// Specifies the sharing protocol type used by QStar to mount the integral volume. See the Cohesity online help for the recommended protocol for your environment.
         /// </summary>
         /// <value>Specifies the sharing protocol type used by QStar to mount the integral volume. See the Cohesity online help for the recommended protocol for your environment.</value>
-        [DataMember(Name="shareType", EmitDefaultValue=false)]
+        [DataMember(Name="shareType", EmitDefaultValue=true)]
         public string ShareType { get; set; }
 
         /// <summary>
         /// Specifies whether to use http or https to connect to the service. If true, a secure connection (https) is used.
         /// </summary>
         /// <value>Specifies whether to use http or https to connect to the service. If true, a secure connection (https) is used.</value>
-        [DataMember(Name="useHttps", EmitDefaultValue=false)]
+        [DataMember(Name="useHttps", EmitDefaultValue=true)]
         public bool? UseHttps { get; set; }
 
         /// <summary>
         /// Specifies the account name used to access the QStar host.
         /// </summary>
         /// <value>Specifies the account name used to access the QStar host.</value>
-        [DataMember(Name="username", EmitDefaultValue=false)]
+        [DataMember(Name="username", EmitDefaultValue=true)]
         public string Username { get; set; }
 
         /// <summary>
@@ -99,7 +103,17 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class QStarServerCredentials {\n");
+            sb.Append("  Host: ").Append(Host).Append("\n");
+            sb.Append("  IntegralVolumeNames: ").Append(IntegralVolumeNames).Append("\n");
+            sb.Append("  Password: ").Append(Password).Append("\n");
+            sb.Append("  Port: ").Append(Port).Append("\n");
+            sb.Append("  ShareType: ").Append(ShareType).Append("\n");
+            sb.Append("  UseHttps: ").Append(UseHttps).Append("\n");
+            sb.Append("  Username: ").Append(Username).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -140,6 +154,7 @@ namespace Cohesity.Models
                 (
                     this.IntegralVolumeNames == input.IntegralVolumeNames ||
                     this.IntegralVolumeNames != null &&
+                    input.IntegralVolumeNames != null &&
                     this.IntegralVolumeNames.SequenceEqual(input.IntegralVolumeNames)
                 ) && 
                 (
@@ -196,8 +211,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

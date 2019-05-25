@@ -1,16 +1,18 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
+using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies information about a volume in a NetApp cluster.
@@ -24,119 +26,101 @@ namespace Cohesity.Models
         [JsonConverter(typeof(StringEnumConverter))]
         public enum DataProtocolsEnum
         {
-            
             /// <summary>
             /// Enum KNfs for value: kNfs
             /// </summary>
             [EnumMember(Value = "kNfs")]
             KNfs = 1,
-            
+
             /// <summary>
             /// Enum KCifs for value: kCifs
             /// </summary>
             [EnumMember(Value = "kCifs")]
             KCifs = 2,
-            
+
             /// <summary>
             /// Enum KIscsi for value: kIscsi
             /// </summary>
             [EnumMember(Value = "kIscsi")]
             KIscsi = 3,
-            
+
             /// <summary>
             /// Enum KFc for value: kFc
             /// </summary>
             [EnumMember(Value = "kFc")]
             KFc = 4,
-            
+
             /// <summary>
             /// Enum KFcache for value: kFcache
             /// </summary>
             [EnumMember(Value = "kFcache")]
             KFcache = 5,
-            
+
             /// <summary>
             /// Enum KHttp for value: kHttp
             /// </summary>
             [EnumMember(Value = "kHttp")]
             KHttp = 6,
-            
+
             /// <summary>
             /// Enum KNdmp for value: kNdmp
             /// </summary>
             [EnumMember(Value = "kNdmp")]
             KNdmp = 7,
-            
+
             /// <summary>
             /// Enum KManagement for value: kManagement
             /// </summary>
             [EnumMember(Value = "kManagement")]
             KManagement = 8
+
         }
 
 
         /// <summary>
-        /// Specifies the set of data protocols supported by this volume. &#39;kNfs&#39; indicates NFS connections. &#39;kCifs&#39; indicates SMB (CIFS) connections. &#39;kIscsi&#39; indicates iSCSI connections. &#39;kFc&#39; indicates Fiber Channel connections. &#39;kFcache&#39; indicates Flex Cache connections. &#39;kHttp&#39; indicates HTTP connections. &#39;kNdmp&#39; indicates NDMP connections. &#39;kManagement&#39; indicates non-data connections used for management purposes.
+        /// Array of Data Protocols.  Specifies the set of data protocols supported by this volume. &#39;kNfs&#39; indicates NFS connections. &#39;kCifs&#39; indicates SMB (CIFS) connections. &#39;kIscsi&#39; indicates iSCSI connections. &#39;kFc&#39; indicates Fiber Channel connections. &#39;kFcache&#39; indicates Flex Cache connections. &#39;kHttp&#39; indicates HTTP connections. &#39;kNdmp&#39; indicates NDMP connections. &#39;kManagement&#39; indicates non-data connections used for management purposes.
         /// </summary>
-        /// <value>Specifies the set of data protocols supported by this volume. &#39;kNfs&#39; indicates NFS connections. &#39;kCifs&#39; indicates SMB (CIFS) connections. &#39;kIscsi&#39; indicates iSCSI connections. &#39;kFc&#39; indicates Fiber Channel connections. &#39;kFcache&#39; indicates Flex Cache connections. &#39;kHttp&#39; indicates HTTP connections. &#39;kNdmp&#39; indicates NDMP connections. &#39;kManagement&#39; indicates non-data connections used for management purposes.</value>
-        [DataMember(Name="dataProtocols", EmitDefaultValue=false)]
+        /// <value>Array of Data Protocols.  Specifies the set of data protocols supported by this volume. &#39;kNfs&#39; indicates NFS connections. &#39;kCifs&#39; indicates SMB (CIFS) connections. &#39;kIscsi&#39; indicates iSCSI connections. &#39;kFc&#39; indicates Fiber Channel connections. &#39;kFcache&#39; indicates Flex Cache connections. &#39;kHttp&#39; indicates HTTP connections. &#39;kNdmp&#39; indicates NDMP connections. &#39;kManagement&#39; indicates non-data connections used for management purposes.</value>
+        [DataMember(Name="dataProtocols", EmitDefaultValue=true)]
         public List<DataProtocolsEnum> DataProtocols { get; set; }
         /// <summary>
-        /// Specifies the state of this volume. Specifies the state of a NetApp Volume. &#39;kOnline&#39; indicates the volume is online. Read and write access to this volume is allowed. &#39;kRestricted&#39; indicates the volume is restricted. Some operations, such as parity reconstruction, are allowed, but data access is not allowed. &#39;kOffline&#39; indicates the volume is offline. No access to the volume is allowed. &#39;kMixed&#39; indicates the volume is in mixed state, which means its aggregates are not all in the same state. &#39;kUnknownState&#39; indicates the volume is in an unknown state.
+        /// Specifies the state of this volume. Specifies the state of a NetApp Volume. &#39;kOnline&#39; indicates the volume is online. Read and write access to this volume is allowed. &#39;kRestricted&#39; indicates the volume is restricted. Some operations, such as parity reconstruction, are allowed, but data access is not allowed. &#39;kOffline&#39; indicates the volume is offline. No access to the volume is allowed. &#39;kMixed&#39; indicates the volume is in mixed state, which means its aggregates are not all in the same state.
         /// </summary>
-        /// <value>Specifies the state of this volume. Specifies the state of a NetApp Volume. &#39;kOnline&#39; indicates the volume is online. Read and write access to this volume is allowed. &#39;kRestricted&#39; indicates the volume is restricted. Some operations, such as parity reconstruction, are allowed, but data access is not allowed. &#39;kOffline&#39; indicates the volume is offline. No access to the volume is allowed. &#39;kMixed&#39; indicates the volume is in mixed state, which means its aggregates are not all in the same state. &#39;kUnknownState&#39; indicates the volume is in an unknown state.</value>
+        /// <value>Specifies the state of this volume. Specifies the state of a NetApp Volume. &#39;kOnline&#39; indicates the volume is online. Read and write access to this volume is allowed. &#39;kRestricted&#39; indicates the volume is restricted. Some operations, such as parity reconstruction, are allowed, but data access is not allowed. &#39;kOffline&#39; indicates the volume is offline. No access to the volume is allowed. &#39;kMixed&#39; indicates the volume is in mixed state, which means its aggregates are not all in the same state.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum StateEnum
         {
-            
-            /// <summary>
-            /// Enum KReadWrite for value: kReadWrite
-            /// </summary>
-            [EnumMember(Value = "kReadWrite")]
-            KReadWrite = 1,
-            
-            /// <summary>
-            /// Enum KLoadSharing for value: kLoadSharing
-            /// </summary>
-            [EnumMember(Value = "kLoadSharing")]
-            KLoadSharing = 2,
-            
-            /// <summary>
-            /// Enum KDataProtection for value: kDataProtection
-            /// </summary>
-            [EnumMember(Value = "kDataProtection")]
-            KDataProtection = 3,
-            
-            /// <summary>
-            /// Enum KDataCache for value: kDataCache
-            /// </summary>
-            [EnumMember(Value = "kDataCache")]
-            KDataCache = 4,
-            
-            /// <summary>
-            /// Enum KTmp for value: kTmp
-            /// </summary>
-            [EnumMember(Value = "kTmp")]
-            KTmp = 5,
-            
             /// <summary>
             /// Enum KOnline for value: kOnline
             /// </summary>
             [EnumMember(Value = "kOnline")]
-            KOnline = 6,
+            KOnline = 1,
 
             /// <summary>
-            /// Enum KUnknownType for value: kUnknownType
+            /// Enum KRestricted for value: kRestricted
             /// </summary>
-            [EnumMember(Value = "kUnknownType")]
-            KUnknownType = 7
+            [EnumMember(Value = "kRestricted")]
+            KRestricted = 2,
+
+            /// <summary>
+            /// Enum KOffline for value: kOffline
+            /// </summary>
+            [EnumMember(Value = "kOffline")]
+            KOffline = 3,
+
+            /// <summary>
+            /// Enum KMixed for value: kMixed
+            /// </summary>
+            [EnumMember(Value = "kMixed")]
+            KMixed = 4
+
         }
 
         /// <summary>
-        /// Specifies the state of this volume. Specifies the state of a NetApp Volume. &#39;kOnline&#39; indicates the volume is online. Read and write access to this volume is allowed. &#39;kRestricted&#39; indicates the volume is restricted. Some operations, such as parity reconstruction, are allowed, but data access is not allowed. &#39;kOffline&#39; indicates the volume is offline. No access to the volume is allowed. &#39;kMixed&#39; indicates the volume is in mixed state, which means its aggregates are not all in the same state. &#39;kUnknownState&#39; indicates the volume is in an unknown state.
+        /// Specifies the state of this volume. Specifies the state of a NetApp Volume. &#39;kOnline&#39; indicates the volume is online. Read and write access to this volume is allowed. &#39;kRestricted&#39; indicates the volume is restricted. Some operations, such as parity reconstruction, are allowed, but data access is not allowed. &#39;kOffline&#39; indicates the volume is offline. No access to the volume is allowed. &#39;kMixed&#39; indicates the volume is in mixed state, which means its aggregates are not all in the same state.
         /// </summary>
-        /// <value>Specifies the state of this volume. Specifies the state of a NetApp Volume. &#39;kOnline&#39; indicates the volume is online. Read and write access to this volume is allowed. &#39;kRestricted&#39; indicates the volume is restricted. Some operations, such as parity reconstruction, are allowed, but data access is not allowed. &#39;kOffline&#39; indicates the volume is offline. No access to the volume is allowed. &#39;kMixed&#39; indicates the volume is in mixed state, which means its aggregates are not all in the same state. &#39;kUnknownState&#39; indicates the volume is in an unknown state.</value>
-        [DataMember(Name="state", EmitDefaultValue=false)]
+        /// <value>Specifies the state of this volume. Specifies the state of a NetApp Volume. &#39;kOnline&#39; indicates the volume is online. Read and write access to this volume is allowed. &#39;kRestricted&#39; indicates the volume is restricted. Some operations, such as parity reconstruction, are allowed, but data access is not allowed. &#39;kOffline&#39; indicates the volume is offline. No access to the volume is allowed. &#39;kMixed&#39; indicates the volume is in mixed state, which means its aggregates are not all in the same state.</value>
+        [DataMember(Name="state", EmitDefaultValue=true)]
         public StateEnum? State { get; set; }
         /// <summary>
         /// Specifies the NetApp type of this volume. Specifies the type of a NetApp Volume. &#39;kReadWrite&#39; indicates read-write volume. &#39;kLoadSharing&#39; indicates load-sharing volume. &#39;kDataProtection&#39; indicates data-protection volume. &#39;kDataCache&#39; indicates data-cache volume. &#39;kTmp&#39; indicates temporaray purpose. &#39;kUnknownType&#39; indicates unknown type.
@@ -145,67 +129,78 @@ namespace Cohesity.Models
         [JsonConverter(typeof(StringEnumConverter))]
         public enum TypeEnum
         {
-            
             /// <summary>
             /// Enum KReadWrite for value: kReadWrite
             /// </summary>
             [EnumMember(Value = "kReadWrite")]
             KReadWrite = 1,
-            
+
             /// <summary>
             /// Enum KLoadSharing for value: kLoadSharing
             /// </summary>
             [EnumMember(Value = "kLoadSharing")]
             KLoadSharing = 2,
-            
+
             /// <summary>
             /// Enum KDataProtection for value: kDataProtection
             /// </summary>
             [EnumMember(Value = "kDataProtection")]
             KDataProtection = 3,
-            
+
             /// <summary>
             /// Enum KDataCache for value: kDataCache
             /// </summary>
             [EnumMember(Value = "kDataCache")]
             KDataCache = 4,
-            
+
             /// <summary>
             /// Enum KTmp for value: kTmp
             /// </summary>
             [EnumMember(Value = "kTmp")]
             KTmp = 5,
-            
+
             /// <summary>
             /// Enum KUnknownType for value: kUnknownType
             /// </summary>
             [EnumMember(Value = "kUnknownType")]
             KUnknownType = 6
+
         }
 
         /// <summary>
         /// Specifies the NetApp type of this volume. Specifies the type of a NetApp Volume. &#39;kReadWrite&#39; indicates read-write volume. &#39;kLoadSharing&#39; indicates load-sharing volume. &#39;kDataProtection&#39; indicates data-protection volume. &#39;kDataCache&#39; indicates data-cache volume. &#39;kTmp&#39; indicates temporaray purpose. &#39;kUnknownType&#39; indicates unknown type.
         /// </summary>
         /// <value>Specifies the NetApp type of this volume. Specifies the type of a NetApp Volume. &#39;kReadWrite&#39; indicates read-write volume. &#39;kLoadSharing&#39; indicates load-sharing volume. &#39;kDataProtection&#39; indicates data-protection volume. &#39;kDataCache&#39; indicates data-cache volume. &#39;kTmp&#39; indicates temporaray purpose. &#39;kUnknownType&#39; indicates unknown type.</value>
-        [DataMember(Name="type", EmitDefaultValue=false)]
+        [DataMember(Name="type", EmitDefaultValue=true)]
         public TypeEnum? Type { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="NetappVolumeInfo" /> class.
         /// </summary>
         /// <param name="aggregateName">Specifies the containing aggregate name of this volume..</param>
         /// <param name="capacityBytes">Specifies the total capacity in bytes of this volume..</param>
-        /// <param name="cifsShares">Specifies the set of CIFS Shares exported for this volume..</param>
+        /// <param name="cifsShares">Array of CIFS Shares.  Specifies the set of CIFS Shares exported for this volume..</param>
         /// <param name="creationTimeUsecs">Specifies the creation time of the volume specified in Unix epoch time (in microseconds)..</param>
-        /// <param name="dataProtocols">Specifies the set of data protocols supported by this volume. &#39;kNfs&#39; indicates NFS connections. &#39;kCifs&#39; indicates SMB (CIFS) connections. &#39;kIscsi&#39; indicates iSCSI connections. &#39;kFc&#39; indicates Fiber Channel connections. &#39;kFcache&#39; indicates Flex Cache connections. &#39;kHttp&#39; indicates HTTP connections. &#39;kNdmp&#39; indicates NDMP connections. &#39;kManagement&#39; indicates non-data connections used for management purposes..</param>
+        /// <param name="dataProtocols">Array of Data Protocols.  Specifies the set of data protocols supported by this volume. &#39;kNfs&#39; indicates NFS connections. &#39;kCifs&#39; indicates SMB (CIFS) connections. &#39;kIscsi&#39; indicates iSCSI connections. &#39;kFc&#39; indicates Fiber Channel connections. &#39;kFcache&#39; indicates Flex Cache connections. &#39;kHttp&#39; indicates HTTP connections. &#39;kNdmp&#39; indicates NDMP connections. &#39;kManagement&#39; indicates non-data connections used for management purposes..</param>
         /// <param name="exportPolicyName">Specifies the name of the export policy (which defines the access permissions for the mount client) that has been assigned to this volume..</param>
         /// <param name="junctionPath">Specifies the junction path of this volume. This path can be used to mount this volume via protocols such as NFS..</param>
         /// <param name="name">Specifies the name of the NetApp Vserver that this volume belongs to..</param>
-        /// <param name="securityInfo">Specifies the security information of this volume..</param>
-        /// <param name="state">Specifies the state of this volume. Specifies the state of a NetApp Volume. &#39;kOnline&#39; indicates the volume is online. Read and write access to this volume is allowed. &#39;kRestricted&#39; indicates the volume is restricted. Some operations, such as parity reconstruction, are allowed, but data access is not allowed. &#39;kOffline&#39; indicates the volume is offline. No access to the volume is allowed. &#39;kMixed&#39; indicates the volume is in mixed state, which means its aggregates are not all in the same state. &#39;kUnknownState&#39; indicates the volume is in an unknown state..</param>
+        /// <param name="securityInfo">securityInfo.</param>
+        /// <param name="state">Specifies the state of this volume. Specifies the state of a NetApp Volume. &#39;kOnline&#39; indicates the volume is online. Read and write access to this volume is allowed. &#39;kRestricted&#39; indicates the volume is restricted. Some operations, such as parity reconstruction, are allowed, but data access is not allowed. &#39;kOffline&#39; indicates the volume is offline. No access to the volume is allowed. &#39;kMixed&#39; indicates the volume is in mixed state, which means its aggregates are not all in the same state..</param>
         /// <param name="type">Specifies the NetApp type of this volume. Specifies the type of a NetApp Volume. &#39;kReadWrite&#39; indicates read-write volume. &#39;kLoadSharing&#39; indicates load-sharing volume. &#39;kDataProtection&#39; indicates data-protection volume. &#39;kDataCache&#39; indicates data-cache volume. &#39;kTmp&#39; indicates temporaray purpose. &#39;kUnknownType&#39; indicates unknown type..</param>
         /// <param name="usedBytes">Specifies the total space (in bytes) used in this volume..</param>
         public NetappVolumeInfo(string aggregateName = default(string), long? capacityBytes = default(long?), List<CifsShareInfo> cifsShares = default(List<CifsShareInfo>), long? creationTimeUsecs = default(long?), List<DataProtocolsEnum> dataProtocols = default(List<DataProtocolsEnum>), string exportPolicyName = default(string), string junctionPath = default(string), string name = default(string), VolumeSecurityInfo securityInfo = default(VolumeSecurityInfo), StateEnum? state = default(StateEnum?), TypeEnum? type = default(TypeEnum?), long? usedBytes = default(long?))
         {
+            this.AggregateName = aggregateName;
+            this.CapacityBytes = capacityBytes;
+            this.CifsShares = cifsShares;
+            this.CreationTimeUsecs = creationTimeUsecs;
+            this.DataProtocols = dataProtocols;
+            this.ExportPolicyName = exportPolicyName;
+            this.JunctionPath = junctionPath;
+            this.Name = name;
+            this.State = state;
+            this.Type = type;
+            this.UsedBytes = usedBytes;
             this.AggregateName = aggregateName;
             this.CapacityBytes = capacityBytes;
             this.CifsShares = cifsShares;
@@ -224,66 +219,62 @@ namespace Cohesity.Models
         /// Specifies the containing aggregate name of this volume.
         /// </summary>
         /// <value>Specifies the containing aggregate name of this volume.</value>
-        [DataMember(Name="aggregateName", EmitDefaultValue=false)]
+        [DataMember(Name="aggregateName", EmitDefaultValue=true)]
         public string AggregateName { get; set; }
 
         /// <summary>
         /// Specifies the total capacity in bytes of this volume.
         /// </summary>
         /// <value>Specifies the total capacity in bytes of this volume.</value>
-        [DataMember(Name="capacityBytes", EmitDefaultValue=false)]
+        [DataMember(Name="capacityBytes", EmitDefaultValue=true)]
         public long? CapacityBytes { get; set; }
 
         /// <summary>
-        /// Specifies the set of CIFS Shares exported for this volume.
+        /// Array of CIFS Shares.  Specifies the set of CIFS Shares exported for this volume.
         /// </summary>
-        /// <value>Specifies the set of CIFS Shares exported for this volume.</value>
-        [DataMember(Name="cifsShares", EmitDefaultValue=false)]
+        /// <value>Array of CIFS Shares.  Specifies the set of CIFS Shares exported for this volume.</value>
+        [DataMember(Name="cifsShares", EmitDefaultValue=true)]
         public List<CifsShareInfo> CifsShares { get; set; }
 
         /// <summary>
         /// Specifies the creation time of the volume specified in Unix epoch time (in microseconds).
         /// </summary>
         /// <value>Specifies the creation time of the volume specified in Unix epoch time (in microseconds).</value>
-        [DataMember(Name="creationTimeUsecs", EmitDefaultValue=false)]
+        [DataMember(Name="creationTimeUsecs", EmitDefaultValue=true)]
         public long? CreationTimeUsecs { get; set; }
-
 
         /// <summary>
         /// Specifies the name of the export policy (which defines the access permissions for the mount client) that has been assigned to this volume.
         /// </summary>
         /// <value>Specifies the name of the export policy (which defines the access permissions for the mount client) that has been assigned to this volume.</value>
-        [DataMember(Name="exportPolicyName", EmitDefaultValue=false)]
+        [DataMember(Name="exportPolicyName", EmitDefaultValue=true)]
         public string ExportPolicyName { get; set; }
 
         /// <summary>
         /// Specifies the junction path of this volume. This path can be used to mount this volume via protocols such as NFS.
         /// </summary>
         /// <value>Specifies the junction path of this volume. This path can be used to mount this volume via protocols such as NFS.</value>
-        [DataMember(Name="junctionPath", EmitDefaultValue=false)]
+        [DataMember(Name="junctionPath", EmitDefaultValue=true)]
         public string JunctionPath { get; set; }
 
         /// <summary>
         /// Specifies the name of the NetApp Vserver that this volume belongs to.
         /// </summary>
         /// <value>Specifies the name of the NetApp Vserver that this volume belongs to.</value>
-        [DataMember(Name="name", EmitDefaultValue=false)]
+        [DataMember(Name="name", EmitDefaultValue=true)]
         public string Name { get; set; }
 
         /// <summary>
-        /// Specifies the security information of this volume.
+        /// Gets or Sets SecurityInfo
         /// </summary>
-        /// <value>Specifies the security information of this volume.</value>
         [DataMember(Name="securityInfo", EmitDefaultValue=false)]
         public VolumeSecurityInfo SecurityInfo { get; set; }
-
-
 
         /// <summary>
         /// Specifies the total space (in bytes) used in this volume.
         /// </summary>
         /// <value>Specifies the total space (in bytes) used in this volume.</value>
-        [DataMember(Name="usedBytes", EmitDefaultValue=false)]
+        [DataMember(Name="usedBytes", EmitDefaultValue=true)]
         public long? UsedBytes { get; set; }
 
         /// <summary>
@@ -292,7 +283,22 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class NetappVolumeInfo {\n");
+            sb.Append("  AggregateName: ").Append(AggregateName).Append("\n");
+            sb.Append("  CapacityBytes: ").Append(CapacityBytes).Append("\n");
+            sb.Append("  CifsShares: ").Append(CifsShares).Append("\n");
+            sb.Append("  CreationTimeUsecs: ").Append(CreationTimeUsecs).Append("\n");
+            sb.Append("  DataProtocols: ").Append(DataProtocols).Append("\n");
+            sb.Append("  ExportPolicyName: ").Append(ExportPolicyName).Append("\n");
+            sb.Append("  JunctionPath: ").Append(JunctionPath).Append("\n");
+            sb.Append("  Name: ").Append(Name).Append("\n");
+            sb.Append("  SecurityInfo: ").Append(SecurityInfo).Append("\n");
+            sb.Append("  State: ").Append(State).Append("\n");
+            sb.Append("  Type: ").Append(Type).Append("\n");
+            sb.Append("  UsedBytes: ").Append(UsedBytes).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -338,6 +344,7 @@ namespace Cohesity.Models
                 (
                     this.CifsShares == input.CifsShares ||
                     this.CifsShares != null &&
+                    input.CifsShares != null &&
                     this.CifsShares.SequenceEqual(input.CifsShares)
                 ) && 
                 (
@@ -348,6 +355,7 @@ namespace Cohesity.Models
                 (
                     this.DataProtocols == input.DataProtocols ||
                     this.DataProtocols != null &&
+                    input.DataProtocols != null &&
                     this.DataProtocols.SequenceEqual(input.DataProtocols)
                 ) && 
                 (
@@ -372,13 +380,11 @@ namespace Cohesity.Models
                 ) && 
                 (
                     this.State == input.State ||
-                    (this.State != null &&
-                    this.State.Equals(input.State))
+                    this.State.Equals(input.State)
                 ) && 
                 (
                     this.Type == input.Type ||
-                    (this.Type != null &&
-                    this.Type.Equals(input.Type))
+                    this.Type.Equals(input.Type)
                 ) && 
                 (
                     this.UsedBytes == input.UsedBytes ||
@@ -404,8 +410,7 @@ namespace Cohesity.Models
                     hashCode = hashCode * 59 + this.CifsShares.GetHashCode();
                 if (this.CreationTimeUsecs != null)
                     hashCode = hashCode * 59 + this.CreationTimeUsecs.GetHashCode();
-                if (this.DataProtocols != null)
-                    hashCode = hashCode * 59 + this.DataProtocols.GetHashCode();
+                hashCode = hashCode * 59 + this.DataProtocols.GetHashCode();
                 if (this.ExportPolicyName != null)
                     hashCode = hashCode * 59 + this.ExportPolicyName.GetHashCode();
                 if (this.JunctionPath != null)
@@ -414,18 +419,14 @@ namespace Cohesity.Models
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
                 if (this.SecurityInfo != null)
                     hashCode = hashCode * 59 + this.SecurityInfo.GetHashCode();
-                if (this.State != null)
-                    hashCode = hashCode * 59 + this.State.GetHashCode();
-                if (this.Type != null)
-                    hashCode = hashCode * 59 + this.Type.GetHashCode();
+                hashCode = hashCode * 59 + this.State.GetHashCode();
+                hashCode = hashCode * 59 + this.Type.GetHashCode();
                 if (this.UsedBytes != null)
                     hashCode = hashCode * 59 + this.UsedBytes.GetHashCode();
                 return hashCode;
             }
         }
 
-        
     }
 
 }
-

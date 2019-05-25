@@ -44,12 +44,12 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 
 ## INPUTS
 
-### Cohesity.Models.ProtectionPolicy
+### Cohesity.Model.ProtectionPolicy
 The updated Protection Policy object.
 
 ## OUTPUTS
 
-### Cohesity.Models.ProtectionPolicy
+### Cohesity.Model.ProtectionPolicy
 ## NOTES
 
 ## RELATED LINKS

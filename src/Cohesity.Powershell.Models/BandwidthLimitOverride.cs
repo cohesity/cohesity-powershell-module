@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies bandwidth limit override value to be enforced during the specified daily time period for the specified days of the week.
@@ -27,9 +24,10 @@ namespace Cohesity.Models
         /// Initializes a new instance of the <see cref="BandwidthLimitOverride" /> class.
         /// </summary>
         /// <param name="bytesPerSecond">Specifies the value to override the regular maximum bandwidth rate (rateLimitBytesPerSec) for the specified time period. The value is specified in bytes per second..</param>
-        /// <param name="timePeriods">Specifies a daily time period and days of the week when the regular maximum bandwidth rate should be overridden..</param>
+        /// <param name="timePeriods">timePeriods.</param>
         public BandwidthLimitOverride(long? bytesPerSecond = default(long?), TimeOfAWeek timePeriods = default(TimeOfAWeek))
         {
+            this.BytesPerSecond = bytesPerSecond;
             this.BytesPerSecond = bytesPerSecond;
             this.TimePeriods = timePeriods;
         }
@@ -38,13 +36,12 @@ namespace Cohesity.Models
         /// Specifies the value to override the regular maximum bandwidth rate (rateLimitBytesPerSec) for the specified time period. The value is specified in bytes per second.
         /// </summary>
         /// <value>Specifies the value to override the regular maximum bandwidth rate (rateLimitBytesPerSec) for the specified time period. The value is specified in bytes per second.</value>
-        [DataMember(Name="bytesPerSecond", EmitDefaultValue=false)]
+        [DataMember(Name="bytesPerSecond", EmitDefaultValue=true)]
         public long? BytesPerSecond { get; set; }
 
         /// <summary>
-        /// Specifies a daily time period and days of the week when the regular maximum bandwidth rate should be overridden.
+        /// Gets or Sets TimePeriods
         /// </summary>
-        /// <value>Specifies a daily time period and days of the week when the regular maximum bandwidth rate should be overridden.</value>
         [DataMember(Name="timePeriods", EmitDefaultValue=false)]
         public TimeOfAWeek TimePeriods { get; set; }
 
@@ -54,7 +51,12 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class BandwidthLimitOverride {\n");
+            sb.Append("  BytesPerSecond: ").Append(BytesPerSecond).Append("\n");
+            sb.Append("  TimePeriods: ").Append(TimePeriods).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -116,8 +118,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

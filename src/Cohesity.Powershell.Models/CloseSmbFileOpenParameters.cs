@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,13 +12,10 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
-    /// CloseSmbFileOpenParameters
+    /// Specifies parameters required to force close an active SMB file open.
     /// </summary>
     [DataContract]
     public partial class CloseSmbFileOpenParameters :  IEquatable<CloseSmbFileOpenParameters>
@@ -34,27 +31,30 @@ namespace Cohesity.Models
             this.FilePath = filePath;
             this.OpenId = openId;
             this.ViewName = viewName;
+            this.FilePath = filePath;
+            this.OpenId = openId;
+            this.ViewName = viewName;
         }
         
         /// <summary>
         /// Specifies the filepath in the view relative to the root filesystem. If this field is specified, viewName field must also be specified.
         /// </summary>
         /// <value>Specifies the filepath in the view relative to the root filesystem. If this field is specified, viewName field must also be specified.</value>
-        [DataMember(Name="filePath", EmitDefaultValue=false)]
+        [DataMember(Name="filePath", EmitDefaultValue=true)]
         public string FilePath { get; set; }
 
         /// <summary>
         /// Specifies the id of the active open.
         /// </summary>
         /// <value>Specifies the id of the active open.</value>
-        [DataMember(Name="openId", EmitDefaultValue=false)]
+        [DataMember(Name="openId", EmitDefaultValue=true)]
         public long? OpenId { get; set; }
 
         /// <summary>
         /// Specifies the name of the View in which to search. If a view name is not specified, all the views in the Cluster is searched. This field is mandatory if filePath field is specified.
         /// </summary>
         /// <value>Specifies the name of the View in which to search. If a view name is not specified, all the views in the Cluster is searched. This field is mandatory if filePath field is specified.</value>
-        [DataMember(Name="viewName", EmitDefaultValue=false)]
+        [DataMember(Name="viewName", EmitDefaultValue=true)]
         public string ViewName { get; set; }
 
         /// <summary>
@@ -63,7 +63,13 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class CloseSmbFileOpenParameters {\n");
+            sb.Append("  FilePath: ").Append(FilePath).Append("\n");
+            sb.Append("  OpenId: ").Append(OpenId).Append("\n");
+            sb.Append("  ViewName: ").Append(ViewName).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -132,8 +138,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

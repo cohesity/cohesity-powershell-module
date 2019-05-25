@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies a unique Protection Source id across Cohesity Clusters. It is derived from the id of the VMware Protection Source.
@@ -34,27 +31,30 @@ namespace Cohesity.Models
             this.MorItem = morItem;
             this.MorType = morType;
             this.Uuid = uuid;
+            this.MorItem = morItem;
+            this.MorType = morType;
+            this.Uuid = uuid;
         }
         
         /// <summary>
         /// Specifies the Managed Object Reference Item.
         /// </summary>
         /// <value>Specifies the Managed Object Reference Item.</value>
-        [DataMember(Name="morItem", EmitDefaultValue=false)]
+        [DataMember(Name="morItem", EmitDefaultValue=true)]
         public string MorItem { get; set; }
 
         /// <summary>
         /// Specifies the Managed Object Reference Type.
         /// </summary>
         /// <value>Specifies the Managed Object Reference Type.</value>
-        [DataMember(Name="morType", EmitDefaultValue=false)]
+        [DataMember(Name="morType", EmitDefaultValue=true)]
         public string MorType { get; set; }
 
         /// <summary>
         /// Specifies a Universally Unique Identifier (UUID) of a VMware Object.
         /// </summary>
         /// <value>Specifies a Universally Unique Identifier (UUID) of a VMware Object.</value>
-        [DataMember(Name="uuid", EmitDefaultValue=false)]
+        [DataMember(Name="uuid", EmitDefaultValue=true)]
         public string Uuid { get; set; }
 
         /// <summary>
@@ -63,7 +63,13 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class VMwareObjectId {\n");
+            sb.Append("  MorItem: ").Append(MorItem).Append("\n");
+            sb.Append("  MorType: ").Append(MorType).Append("\n");
+            sb.Append("  Uuid: ").Append(Uuid).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -132,8 +138,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

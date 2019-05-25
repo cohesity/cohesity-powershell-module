@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies the settings used to add/create a new group or modify an existing group.
@@ -30,50 +27,85 @@ namespace Cohesity.Models
         /// <param name="domain">Specifies the domain of the group..</param>
         /// <param name="name">Specifies the name of the group..</param>
         /// <param name="restricted">Whether the group is a restricted group. Users belonging to a restricted group can only view objects they have permissions to..</param>
-        /// <param name="roles">Specifies the Cohesity roles to associate with the group such as &#39;Admin&#39;, &#39;Ops&#39; or &#39;View&#39;. The Cohesity roles determine privileges on the Cohesity Cluster for all the users in this group..</param>
-        public GroupParameters(string description = default(string), string domain = default(string), string name = default(string), bool? restricted = default(bool?), List<string> roles = default(List<string>))
+        /// <param name="roles">Array of Roles.  Specifies the Cohesity roles to associate with the group such as &#39;Admin&#39;, &#39;Ops&#39; or &#39;View&#39;. The Cohesity roles determine privileges on the Cohesity Cluster for all the users in this group..</param>
+        /// <param name="smbPrincipals">Specifies the SMB principals. Principals will be added to this group only if IsSmbPrincipalOnly set to true..</param>
+        /// <param name="tenantIds">Specifies the tenants to which the group belongs to. If not specified, session user&#39;s tenant id is assumed..</param>
+        /// <param name="users">Specifies the SID of users who are members of the group. This field is used only for local groups..</param>
+        public GroupParameters(string description = default(string), string domain = default(string), string name = default(string), bool? restricted = default(bool?), List<string> roles = default(List<string>), List<SmbPrincipal> smbPrincipals = default(List<SmbPrincipal>), List<string> tenantIds = default(List<string>), List<string> users = default(List<string>))
         {
             this.Description = description;
             this.Domain = domain;
             this.Name = name;
             this.Restricted = restricted;
             this.Roles = roles;
+            this.SmbPrincipals = smbPrincipals;
+            this.TenantIds = tenantIds;
+            this.Users = users;
+            this.Description = description;
+            this.Domain = domain;
+            this.Name = name;
+            this.Restricted = restricted;
+            this.Roles = roles;
+            this.SmbPrincipals = smbPrincipals;
+            this.TenantIds = tenantIds;
+            this.Users = users;
         }
         
         /// <summary>
         /// Specifies a description of the group.
         /// </summary>
         /// <value>Specifies a description of the group.</value>
-        [DataMember(Name="description", EmitDefaultValue=false)]
+        [DataMember(Name="description", EmitDefaultValue=true)]
         public string Description { get; set; }
 
         /// <summary>
         /// Specifies the domain of the group.
         /// </summary>
         /// <value>Specifies the domain of the group.</value>
-        [DataMember(Name="domain", EmitDefaultValue=false)]
+        [DataMember(Name="domain", EmitDefaultValue=true)]
         public string Domain { get; set; }
 
         /// <summary>
         /// Specifies the name of the group.
         /// </summary>
         /// <value>Specifies the name of the group.</value>
-        [DataMember(Name="name", EmitDefaultValue=false)]
+        [DataMember(Name="name", EmitDefaultValue=true)]
         public string Name { get; set; }
 
         /// <summary>
         /// Whether the group is a restricted group. Users belonging to a restricted group can only view objects they have permissions to.
         /// </summary>
         /// <value>Whether the group is a restricted group. Users belonging to a restricted group can only view objects they have permissions to.</value>
-        [DataMember(Name="restricted", EmitDefaultValue=false)]
+        [DataMember(Name="restricted", EmitDefaultValue=true)]
         public bool? Restricted { get; set; }
 
         /// <summary>
-        /// Specifies the Cohesity roles to associate with the group such as &#39;Admin&#39;, &#39;Ops&#39; or &#39;View&#39;. The Cohesity roles determine privileges on the Cohesity Cluster for all the users in this group.
+        /// Array of Roles.  Specifies the Cohesity roles to associate with the group such as &#39;Admin&#39;, &#39;Ops&#39; or &#39;View&#39;. The Cohesity roles determine privileges on the Cohesity Cluster for all the users in this group.
         /// </summary>
-        /// <value>Specifies the Cohesity roles to associate with the group such as &#39;Admin&#39;, &#39;Ops&#39; or &#39;View&#39;. The Cohesity roles determine privileges on the Cohesity Cluster for all the users in this group.</value>
-        [DataMember(Name="roles", EmitDefaultValue=false)]
+        /// <value>Array of Roles.  Specifies the Cohesity roles to associate with the group such as &#39;Admin&#39;, &#39;Ops&#39; or &#39;View&#39;. The Cohesity roles determine privileges on the Cohesity Cluster for all the users in this group.</value>
+        [DataMember(Name="roles", EmitDefaultValue=true)]
         public List<string> Roles { get; set; }
+
+        /// <summary>
+        /// Specifies the SMB principals. Principals will be added to this group only if IsSmbPrincipalOnly set to true.
+        /// </summary>
+        /// <value>Specifies the SMB principals. Principals will be added to this group only if IsSmbPrincipalOnly set to true.</value>
+        [DataMember(Name="smbPrincipals", EmitDefaultValue=true)]
+        public List<SmbPrincipal> SmbPrincipals { get; set; }
+
+        /// <summary>
+        /// Specifies the tenants to which the group belongs to. If not specified, session user&#39;s tenant id is assumed.
+        /// </summary>
+        /// <value>Specifies the tenants to which the group belongs to. If not specified, session user&#39;s tenant id is assumed.</value>
+        [DataMember(Name="tenantIds", EmitDefaultValue=true)]
+        public List<string> TenantIds { get; set; }
+
+        /// <summary>
+        /// Specifies the SID of users who are members of the group. This field is used only for local groups.
+        /// </summary>
+        /// <value>Specifies the SID of users who are members of the group. This field is used only for local groups.</value>
+        [DataMember(Name="users", EmitDefaultValue=true)]
+        public List<string> Users { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -81,7 +113,18 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class GroupParameters {\n");
+            sb.Append("  Description: ").Append(Description).Append("\n");
+            sb.Append("  Domain: ").Append(Domain).Append("\n");
+            sb.Append("  Name: ").Append(Name).Append("\n");
+            sb.Append("  Restricted: ").Append(Restricted).Append("\n");
+            sb.Append("  Roles: ").Append(Roles).Append("\n");
+            sb.Append("  SmbPrincipals: ").Append(SmbPrincipals).Append("\n");
+            sb.Append("  TenantIds: ").Append(TenantIds).Append("\n");
+            sb.Append("  Users: ").Append(Users).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -137,7 +180,26 @@ namespace Cohesity.Models
                 (
                     this.Roles == input.Roles ||
                     this.Roles != null &&
+                    input.Roles != null &&
                     this.Roles.SequenceEqual(input.Roles)
+                ) && 
+                (
+                    this.SmbPrincipals == input.SmbPrincipals ||
+                    this.SmbPrincipals != null &&
+                    input.SmbPrincipals != null &&
+                    this.SmbPrincipals.SequenceEqual(input.SmbPrincipals)
+                ) && 
+                (
+                    this.TenantIds == input.TenantIds ||
+                    this.TenantIds != null &&
+                    input.TenantIds != null &&
+                    this.TenantIds.SequenceEqual(input.TenantIds)
+                ) && 
+                (
+                    this.Users == input.Users ||
+                    this.Users != null &&
+                    input.Users != null &&
+                    this.Users.SequenceEqual(input.Users)
                 );
         }
 
@@ -160,12 +222,16 @@ namespace Cohesity.Models
                     hashCode = hashCode * 59 + this.Restricted.GetHashCode();
                 if (this.Roles != null)
                     hashCode = hashCode * 59 + this.Roles.GetHashCode();
+                if (this.SmbPrincipals != null)
+                    hashCode = hashCode * 59 + this.SmbPrincipals.GetHashCode();
+                if (this.TenantIds != null)
+                    hashCode = hashCode * 59 + this.TenantIds.GetHashCode();
+                if (this.Users != null)
+                    hashCode = hashCode * 59 + this.Users.GetHashCode();
                 return hashCode;
             }
         }
 
-        
     }
 
 }
-

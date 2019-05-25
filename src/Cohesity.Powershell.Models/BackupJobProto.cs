@@ -1,0 +1,1110 @@
+// Copyright 2019 Cohesity Inc.
+
+using System;
+using System.Linq;
+using System.IO;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Runtime.Serialization;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+
+namespace Cohesity.Model
+{
+    /// <summary>
+    /// BackupJobProto
+    /// </summary>
+    [DataContract]
+    public partial class BackupJobProto :  IEquatable<BackupJobProto>
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BackupJobProto" /> class.
+        /// </summary>
+        /// <param name="abortInExclusionWindow">This field determines whether a backup run should be aborted when it hits an exclusion window (assuming that it was started earlier when it was not in an exclusion window)..</param>
+        /// <param name="alertingPolicy">alertingPolicy.</param>
+        /// <param name="backupQosPrincipal">The backup QoS principal to use for the backup job..</param>
+        /// <param name="backupSourceParams">This contains additional backup params that are applicable to sources that are captured as part of the backup job. NOTE: The sources could point to higher level entities (such as a \&quot;Cluster\&quot; in VMware environment), but the source params captured here will not be for the matching higher level entity, but instead be for leaf-level entities (such as VMs)..</param>
+        /// <param name="continueOnQuiesceFailure">Whether to continue backing up on quiesce failure..</param>
+        /// <param name="dedupDisabledSourceIdVec">List of source ids for which source side dedup is disabled from the backup job..</param>
+        /// <param name="deletionStatus">Determines if the job (and associated backups) should be deleted. Once a job has been deleted, its status cannot be changed..</param>
+        /// <param name="description">Job description (as entered by the user)..</param>
+        /// <param name="drToCloudParams">drToCloudParams.</param>
+        /// <param name="ehParentSource">ehParentSource.</param>
+        /// <param name="endTimeUsecs">The time (in usecs) after which no backup for the job should be scheduled..</param>
+        /// <param name="envBackupParams">envBackupParams.</param>
+        /// <param name="excludeSources">The list of sources to exclude from backups. These can have non-leaf-level entities, but it&#39;s up to the creator to ensure that a child of these sources hasn&#39;t been explicitly added to &#39;sources&#39;..</param>
+        /// <param name="excludeSourcesDEPRECATED">The list of sources to exclude from backups. These can have non-leaf-level entities, but it&#39;s up to the creator to ensure that a child of these sources hasn&#39;t been explicitly added to &#39;sources&#39;. TODO(Chinmaya): Remove after removing references..</param>
+        /// <param name="exclusionRanges">Do not run backups in these time-ranges..</param>
+        /// <param name="fullBackupJobPolicy">fullBackupJobPolicy.</param>
+        /// <param name="fullBackupSlaTimeMins">Same as &#39;sla_time_mins&#39; above, but applies to full backups. NOTE: This value is considered only for full backups that are excepted i.e either scheduled or the first full backup and not for full backups that happen as a result of incremental backup failure..</param>
+        /// <param name="indexingPolicy">indexingPolicy.</param>
+        /// <param name="isActive">Whether the backup job is active or not. Details about what an active job is can be found here: https://goo.gl/1mLvS3..</param>
+        /// <param name="isDeleted">Tracks whether the backup job has actually been deleted..</param>
+        /// <param name="isPaused">Whether the backup job is paused. New backup runs are not scheduled for the paused backup job. Active run of a backup job (if any) is not impacted..</param>
+        /// <param name="isRpoJob">Whether the backup job is an RPO policy job. These jobs are hidden from the user, and are created internally to have a backup schedule for the given source..</param>
+        /// <param name="jobCreationTimeUsecs">Time when this job was first created..</param>
+        /// <param name="jobId">A unique id for locally created jobs. This should only be used to identify jobs created on the local cluster. When Iris communicates with Magneto, Iris can continue to use this job_id field, which will always be assumed to refer to locally created jobs.  For remotely created jobs, the &#39;job_uid&#39; field should be used. The only time Iris should ever need to refer to a remote job is when restoring an object from a remote snapshot. In all such cases, Iris should use the job_uid field..</param>
+        /// <param name="jobPolicy">jobPolicy.</param>
+        /// <param name="jobUid">jobUid.</param>
+        /// <param name="lastModificationTimeUsecs">Time when this job description was last updated..</param>
+        /// <param name="lastPauseModificationTimeUsecs">Time when the job was last paused or unpaused..</param>
+        /// <param name="lastPauseReason">Last reason for pausing the backup job. Capturing the reason will help in resuming only the jobs that were paused because of a reason once the reason for pausing is not applicable..</param>
+        /// <param name="lastUpdatedUsername">The user who modified the job most recently..</param>
+        /// <param name="leverageStorageSnapshots">Whether to leverage the storage array based snapshots for this backup job. To leverage storage snapshots, the storage array has to be registered as a source. If storage based snapshots can not be taken, job will fallback to the default backup method. NOTE: This will be set for Pure snapshots..</param>
+        /// <param name="leverageStorageSnapshotsForHyperflex">This is set to true by the user if hyperflex snapshots are requested NOTE: If this is set to true, then leverage_storage_snapshots above should be false..</param>
+        /// <param name="logBackupJobPolicy">logBackupJobPolicy.</param>
+        /// <param name="name">The name of this backup job. This must be unique across all jobs..</param>
+        /// <param name="numSnapshotsToKeepOnPrimary">Specifies how many recent snapshots of each backed up entity to retain on the primary environment. If not specified, then snapshots will not be be deleted from the primary environment. NOTE: This is only applicable for certain environments like kPure..</param>
+        /// <param name="parentSource">parentSource.</param>
+        /// <param name="performSourceSideDedup">Whether or not to perform source side dedup..</param>
+        /// <param name="policyAppliedTimeMsecs">Epoch time in milliseconds when the policy was last applied to this job. This field will be used to determine whether a policy has changed after it was applied to a particular job..</param>
+        /// <param name="policyId">Id of the policy being applied to the backup job. It is expected to be of the form \&quot;cluster_id:cluster_instance_id:local_identifier\&quot;..</param>
+        /// <param name="policyName">The name of the policy referred to by policy_uid. This field can be stale and should not be relied upon for the latest name..</param>
+        /// <param name="postBackupScript">postBackupScript.</param>
+        /// <param name="preScript">preScript.</param>
+        /// <param name="primaryJobUid">primaryJobUid.</param>
+        /// <param name="priority">The priority for the job. This is used at admission time - all admitted jobs are treated equally. This is also used to determine the Madrox replication priority..</param>
+        /// <param name="quiesce">Whether to take app-consistent snapshots by quiescing apps and the filesystem before taking a backup..</param>
+        /// <param name="remoteJobUids">The globally unique ids of all remote jobs that are linked to this job (because of incoming replications). This field will only be populated for locally created jobs..</param>
+        /// <param name="remoteViewName">A human readable name of the remote view. A remote view is created with name overwriting the latest snapshot..</param>
+        /// <param name="requiredFeatureVec">The features that are strictly required to be supported by the cluster of the backup job. This is currently used in the following cases: 1. Tx cluster looks at the Rx cluster&#39;s supported features and replicates the backup job only if all the features captured here are supported. 2. When performing remote restore of a backup job from an archival, this job will be retrieved only if the cluster supports all the features listed here..</param>
+        /// <param name="slaTimeMins">If specified, this variable determines the amount of time (after backup has started) in which backup is expected to finish for this job. An SLA violation is counted against this job if the amount of time taken exceeds this amount..</param>
+        /// <param name="sources">The list of sources that should be backed up. A source in this list could be a descendant of another source in the list (this will be used when specifying override backup schedules)..</param>
+        /// <param name="startTime">startTime.</param>
+        /// <param name="stubbingPolicy">stubbingPolicy.</param>
+        /// <param name="tagVec">Tags associated with the job. User can specify tags/keywords that can indexed by Yoda and can be later searched in UI. For example, user can create a &#39;kPuppeteer&#39; job to backup Oracle DB for &#39;payroll&#39; department. User can specify following tags: &#39;payroll&#39;, &#39;Oracle_DB&#39;..</param>
+        /// <param name="timezone">Timezone of the backup job. All time fields (i.e., TimeOfDay) in this backup job are stored wrt to this timezone.  The time zones have unique names of the form \&quot;Area/Location\&quot;, e.g. \&quot;America/New_York\&quot;. We are using \&quot;America/Los_Angeles\&quot; as a default value so as to be backward compatible with pre-2.7 code..</param>
+        /// <param name="truncateLogs">Whether to truncate logs after a backup run. This is currently only relevant for full or incremental backups in a SQL environment..</param>
+        /// <param name="type">The type of environment this backup job corresponds to..</param>
+        /// <param name="userInfo">userInfo.</param>
+        /// <param name="viewBoxId">The view box to which data will be written..</param>
+        public BackupJobProto(bool? abortInExclusionWindow = default(bool?), AlertingPolicyProto alertingPolicy = default(AlertingPolicyProto), int? backupQosPrincipal = default(int?), List<BackupSourceParams> backupSourceParams = default(List<BackupSourceParams>), bool? continueOnQuiesceFailure = default(bool?), List<long> dedupDisabledSourceIdVec = default(List<long>), int? deletionStatus = default(int?), string description = default(string), BackupJobProtoDRToCloudParams drToCloudParams = default(BackupJobProtoDRToCloudParams), EntityProto ehParentSource = default(EntityProto), long? endTimeUsecs = default(long?), EnvBackupParams envBackupParams = default(EnvBackupParams), List<BackupJobProtoExcludeSource> excludeSources = default(List<BackupJobProtoExcludeSource>), List<EntityProto> excludeSourcesDEPRECATED = default(List<EntityProto>), List<BackupJobProtoExclusionTimeRange> exclusionRanges = default(List<BackupJobProtoExclusionTimeRange>), JobPolicyProto fullBackupJobPolicy = default(JobPolicyProto), long? fullBackupSlaTimeMins = default(long?), IndexingPolicyProto indexingPolicy = default(IndexingPolicyProto), bool? isActive = default(bool?), bool? isDeleted = default(bool?), bool? isPaused = default(bool?), bool? isRpoJob = default(bool?), long? jobCreationTimeUsecs = default(long?), long? jobId = default(long?), JobPolicyProto jobPolicy = default(JobPolicyProto), UniversalIdProto jobUid = default(UniversalIdProto), long? lastModificationTimeUsecs = default(long?), long? lastPauseModificationTimeUsecs = default(long?), int? lastPauseReason = default(int?), string lastUpdatedUsername = default(string), bool? leverageStorageSnapshots = default(bool?), bool? leverageStorageSnapshotsForHyperflex = default(bool?), JobPolicyProto logBackupJobPolicy = default(JobPolicyProto), string name = default(string), long? numSnapshotsToKeepOnPrimary = default(long?), EntityProto parentSource = default(EntityProto), bool? performSourceSideDedup = default(bool?), long? policyAppliedTimeMsecs = default(long?), string policyId = default(string), string policyName = default(string), BackupJobPreOrPostScript postBackupScript = default(BackupJobPreOrPostScript), BackupJobPreOrPostScript preScript = default(BackupJobPreOrPostScript), UniversalIdProto primaryJobUid = default(UniversalIdProto), int? priority = default(int?), bool? quiesce = default(bool?), List<UniversalIdProto> remoteJobUids = default(List<UniversalIdProto>), string remoteViewName = default(string), List<string> requiredFeatureVec = default(List<string>), long? slaTimeMins = default(long?), List<BackupJobProtoBackupSource> sources = default(List<BackupJobProtoBackupSource>), Time startTime = default(Time), StubbingPolicyProto stubbingPolicy = default(StubbingPolicyProto), List<string> tagVec = default(List<string>), string timezone = default(string), bool? truncateLogs = default(bool?), int? type = default(int?), UserInformation userInfo = default(UserInformation), long? viewBoxId = default(long?))
+        {
+            this.AbortInExclusionWindow = abortInExclusionWindow;
+            this.BackupQosPrincipal = backupQosPrincipal;
+            this.BackupSourceParams = backupSourceParams;
+            this.ContinueOnQuiesceFailure = continueOnQuiesceFailure;
+            this.DedupDisabledSourceIdVec = dedupDisabledSourceIdVec;
+            this.DeletionStatus = deletionStatus;
+            this.Description = description;
+            this.EndTimeUsecs = endTimeUsecs;
+            this.ExcludeSources = excludeSources;
+            this.ExcludeSourcesDEPRECATED = excludeSourcesDEPRECATED;
+            this.ExclusionRanges = exclusionRanges;
+            this.FullBackupSlaTimeMins = fullBackupSlaTimeMins;
+            this.IsActive = isActive;
+            this.IsDeleted = isDeleted;
+            this.IsPaused = isPaused;
+            this.IsRpoJob = isRpoJob;
+            this.JobCreationTimeUsecs = jobCreationTimeUsecs;
+            this.JobId = jobId;
+            this.LastModificationTimeUsecs = lastModificationTimeUsecs;
+            this.LastPauseModificationTimeUsecs = lastPauseModificationTimeUsecs;
+            this.LastPauseReason = lastPauseReason;
+            this.LastUpdatedUsername = lastUpdatedUsername;
+            this.LeverageStorageSnapshots = leverageStorageSnapshots;
+            this.LeverageStorageSnapshotsForHyperflex = leverageStorageSnapshotsForHyperflex;
+            this.Name = name;
+            this.NumSnapshotsToKeepOnPrimary = numSnapshotsToKeepOnPrimary;
+            this.PerformSourceSideDedup = performSourceSideDedup;
+            this.PolicyAppliedTimeMsecs = policyAppliedTimeMsecs;
+            this.PolicyId = policyId;
+            this.PolicyName = policyName;
+            this.Priority = priority;
+            this.Quiesce = quiesce;
+            this.RemoteJobUids = remoteJobUids;
+            this.RemoteViewName = remoteViewName;
+            this.RequiredFeatureVec = requiredFeatureVec;
+            this.SlaTimeMins = slaTimeMins;
+            this.Sources = sources;
+            this.TagVec = tagVec;
+            this.Timezone = timezone;
+            this.TruncateLogs = truncateLogs;
+            this.Type = type;
+            this.ViewBoxId = viewBoxId;
+            this.AbortInExclusionWindow = abortInExclusionWindow;
+            this.AlertingPolicy = alertingPolicy;
+            this.BackupQosPrincipal = backupQosPrincipal;
+            this.BackupSourceParams = backupSourceParams;
+            this.ContinueOnQuiesceFailure = continueOnQuiesceFailure;
+            this.DedupDisabledSourceIdVec = dedupDisabledSourceIdVec;
+            this.DeletionStatus = deletionStatus;
+            this.Description = description;
+            this.DrToCloudParams = drToCloudParams;
+            this.EhParentSource = ehParentSource;
+            this.EndTimeUsecs = endTimeUsecs;
+            this.EnvBackupParams = envBackupParams;
+            this.ExcludeSources = excludeSources;
+            this.ExcludeSourcesDEPRECATED = excludeSourcesDEPRECATED;
+            this.ExclusionRanges = exclusionRanges;
+            this.FullBackupJobPolicy = fullBackupJobPolicy;
+            this.FullBackupSlaTimeMins = fullBackupSlaTimeMins;
+            this.IndexingPolicy = indexingPolicy;
+            this.IsActive = isActive;
+            this.IsDeleted = isDeleted;
+            this.IsPaused = isPaused;
+            this.IsRpoJob = isRpoJob;
+            this.JobCreationTimeUsecs = jobCreationTimeUsecs;
+            this.JobId = jobId;
+            this.JobPolicy = jobPolicy;
+            this.JobUid = jobUid;
+            this.LastModificationTimeUsecs = lastModificationTimeUsecs;
+            this.LastPauseModificationTimeUsecs = lastPauseModificationTimeUsecs;
+            this.LastPauseReason = lastPauseReason;
+            this.LastUpdatedUsername = lastUpdatedUsername;
+            this.LeverageStorageSnapshots = leverageStorageSnapshots;
+            this.LeverageStorageSnapshotsForHyperflex = leverageStorageSnapshotsForHyperflex;
+            this.LogBackupJobPolicy = logBackupJobPolicy;
+            this.Name = name;
+            this.NumSnapshotsToKeepOnPrimary = numSnapshotsToKeepOnPrimary;
+            this.ParentSource = parentSource;
+            this.PerformSourceSideDedup = performSourceSideDedup;
+            this.PolicyAppliedTimeMsecs = policyAppliedTimeMsecs;
+            this.PolicyId = policyId;
+            this.PolicyName = policyName;
+            this.PostBackupScript = postBackupScript;
+            this.PreScript = preScript;
+            this.PrimaryJobUid = primaryJobUid;
+            this.Priority = priority;
+            this.Quiesce = quiesce;
+            this.RemoteJobUids = remoteJobUids;
+            this.RemoteViewName = remoteViewName;
+            this.RequiredFeatureVec = requiredFeatureVec;
+            this.SlaTimeMins = slaTimeMins;
+            this.Sources = sources;
+            this.StartTime = startTime;
+            this.StubbingPolicy = stubbingPolicy;
+            this.TagVec = tagVec;
+            this.Timezone = timezone;
+            this.TruncateLogs = truncateLogs;
+            this.Type = type;
+            this.UserInfo = userInfo;
+            this.ViewBoxId = viewBoxId;
+        }
+        
+        /// <summary>
+        /// This field determines whether a backup run should be aborted when it hits an exclusion window (assuming that it was started earlier when it was not in an exclusion window).
+        /// </summary>
+        /// <value>This field determines whether a backup run should be aborted when it hits an exclusion window (assuming that it was started earlier when it was not in an exclusion window).</value>
+        [DataMember(Name="abortInExclusionWindow", EmitDefaultValue=true)]
+        public bool? AbortInExclusionWindow { get; set; }
+
+        /// <summary>
+        /// Gets or Sets AlertingPolicy
+        /// </summary>
+        [DataMember(Name="alertingPolicy", EmitDefaultValue=false)]
+        public AlertingPolicyProto AlertingPolicy { get; set; }
+
+        /// <summary>
+        /// The backup QoS principal to use for the backup job.
+        /// </summary>
+        /// <value>The backup QoS principal to use for the backup job.</value>
+        [DataMember(Name="backupQosPrincipal", EmitDefaultValue=true)]
+        public int? BackupQosPrincipal { get; set; }
+
+        /// <summary>
+        /// This contains additional backup params that are applicable to sources that are captured as part of the backup job. NOTE: The sources could point to higher level entities (such as a \&quot;Cluster\&quot; in VMware environment), but the source params captured here will not be for the matching higher level entity, but instead be for leaf-level entities (such as VMs).
+        /// </summary>
+        /// <value>This contains additional backup params that are applicable to sources that are captured as part of the backup job. NOTE: The sources could point to higher level entities (such as a \&quot;Cluster\&quot; in VMware environment), but the source params captured here will not be for the matching higher level entity, but instead be for leaf-level entities (such as VMs).</value>
+        [DataMember(Name="backupSourceParams", EmitDefaultValue=true)]
+        public List<BackupSourceParams> BackupSourceParams { get; set; }
+
+        /// <summary>
+        /// Whether to continue backing up on quiesce failure.
+        /// </summary>
+        /// <value>Whether to continue backing up on quiesce failure.</value>
+        [DataMember(Name="continueOnQuiesceFailure", EmitDefaultValue=true)]
+        public bool? ContinueOnQuiesceFailure { get; set; }
+
+        /// <summary>
+        /// List of source ids for which source side dedup is disabled from the backup job.
+        /// </summary>
+        /// <value>List of source ids for which source side dedup is disabled from the backup job.</value>
+        [DataMember(Name="dedupDisabledSourceIdVec", EmitDefaultValue=true)]
+        public List<long> DedupDisabledSourceIdVec { get; set; }
+
+        /// <summary>
+        /// Determines if the job (and associated backups) should be deleted. Once a job has been deleted, its status cannot be changed.
+        /// </summary>
+        /// <value>Determines if the job (and associated backups) should be deleted. Once a job has been deleted, its status cannot be changed.</value>
+        [DataMember(Name="deletionStatus", EmitDefaultValue=true)]
+        public int? DeletionStatus { get; set; }
+
+        /// <summary>
+        /// Job description (as entered by the user).
+        /// </summary>
+        /// <value>Job description (as entered by the user).</value>
+        [DataMember(Name="description", EmitDefaultValue=true)]
+        public string Description { get; set; }
+
+        /// <summary>
+        /// Gets or Sets DrToCloudParams
+        /// </summary>
+        [DataMember(Name="drToCloudParams", EmitDefaultValue=false)]
+        public BackupJobProtoDRToCloudParams DrToCloudParams { get; set; }
+
+        /// <summary>
+        /// Gets or Sets EhParentSource
+        /// </summary>
+        [DataMember(Name="ehParentSource", EmitDefaultValue=false)]
+        public EntityProto EhParentSource { get; set; }
+
+        /// <summary>
+        /// The time (in usecs) after which no backup for the job should be scheduled.
+        /// </summary>
+        /// <value>The time (in usecs) after which no backup for the job should be scheduled.</value>
+        [DataMember(Name="endTimeUsecs", EmitDefaultValue=true)]
+        public long? EndTimeUsecs { get; set; }
+
+        /// <summary>
+        /// Gets or Sets EnvBackupParams
+        /// </summary>
+        [DataMember(Name="envBackupParams", EmitDefaultValue=false)]
+        public EnvBackupParams EnvBackupParams { get; set; }
+
+        /// <summary>
+        /// The list of sources to exclude from backups. These can have non-leaf-level entities, but it&#39;s up to the creator to ensure that a child of these sources hasn&#39;t been explicitly added to &#39;sources&#39;.
+        /// </summary>
+        /// <value>The list of sources to exclude from backups. These can have non-leaf-level entities, but it&#39;s up to the creator to ensure that a child of these sources hasn&#39;t been explicitly added to &#39;sources&#39;.</value>
+        [DataMember(Name="excludeSources", EmitDefaultValue=true)]
+        public List<BackupJobProtoExcludeSource> ExcludeSources { get; set; }
+
+        /// <summary>
+        /// The list of sources to exclude from backups. These can have non-leaf-level entities, but it&#39;s up to the creator to ensure that a child of these sources hasn&#39;t been explicitly added to &#39;sources&#39;. TODO(Chinmaya): Remove after removing references.
+        /// </summary>
+        /// <value>The list of sources to exclude from backups. These can have non-leaf-level entities, but it&#39;s up to the creator to ensure that a child of these sources hasn&#39;t been explicitly added to &#39;sources&#39;. TODO(Chinmaya): Remove after removing references.</value>
+        [DataMember(Name="excludeSources_DEPRECATED", EmitDefaultValue=true)]
+        public List<EntityProto> ExcludeSourcesDEPRECATED { get; set; }
+
+        /// <summary>
+        /// Do not run backups in these time-ranges.
+        /// </summary>
+        /// <value>Do not run backups in these time-ranges.</value>
+        [DataMember(Name="exclusionRanges", EmitDefaultValue=true)]
+        public List<BackupJobProtoExclusionTimeRange> ExclusionRanges { get; set; }
+
+        /// <summary>
+        /// Gets or Sets FullBackupJobPolicy
+        /// </summary>
+        [DataMember(Name="fullBackupJobPolicy", EmitDefaultValue=false)]
+        public JobPolicyProto FullBackupJobPolicy { get; set; }
+
+        /// <summary>
+        /// Same as &#39;sla_time_mins&#39; above, but applies to full backups. NOTE: This value is considered only for full backups that are excepted i.e either scheduled or the first full backup and not for full backups that happen as a result of incremental backup failure.
+        /// </summary>
+        /// <value>Same as &#39;sla_time_mins&#39; above, but applies to full backups. NOTE: This value is considered only for full backups that are excepted i.e either scheduled or the first full backup and not for full backups that happen as a result of incremental backup failure.</value>
+        [DataMember(Name="fullBackupSlaTimeMins", EmitDefaultValue=true)]
+        public long? FullBackupSlaTimeMins { get; set; }
+
+        /// <summary>
+        /// Gets or Sets IndexingPolicy
+        /// </summary>
+        [DataMember(Name="indexingPolicy", EmitDefaultValue=false)]
+        public IndexingPolicyProto IndexingPolicy { get; set; }
+
+        /// <summary>
+        /// Whether the backup job is active or not. Details about what an active job is can be found here: https://goo.gl/1mLvS3.
+        /// </summary>
+        /// <value>Whether the backup job is active or not. Details about what an active job is can be found here: https://goo.gl/1mLvS3.</value>
+        [DataMember(Name="isActive", EmitDefaultValue=true)]
+        public bool? IsActive { get; set; }
+
+        /// <summary>
+        /// Tracks whether the backup job has actually been deleted.
+        /// </summary>
+        /// <value>Tracks whether the backup job has actually been deleted.</value>
+        [DataMember(Name="isDeleted", EmitDefaultValue=true)]
+        public bool? IsDeleted { get; set; }
+
+        /// <summary>
+        /// Whether the backup job is paused. New backup runs are not scheduled for the paused backup job. Active run of a backup job (if any) is not impacted.
+        /// </summary>
+        /// <value>Whether the backup job is paused. New backup runs are not scheduled for the paused backup job. Active run of a backup job (if any) is not impacted.</value>
+        [DataMember(Name="isPaused", EmitDefaultValue=true)]
+        public bool? IsPaused { get; set; }
+
+        /// <summary>
+        /// Whether the backup job is an RPO policy job. These jobs are hidden from the user, and are created internally to have a backup schedule for the given source.
+        /// </summary>
+        /// <value>Whether the backup job is an RPO policy job. These jobs are hidden from the user, and are created internally to have a backup schedule for the given source.</value>
+        [DataMember(Name="isRpoJob", EmitDefaultValue=true)]
+        public bool? IsRpoJob { get; set; }
+
+        /// <summary>
+        /// Time when this job was first created.
+        /// </summary>
+        /// <value>Time when this job was first created.</value>
+        [DataMember(Name="jobCreationTimeUsecs", EmitDefaultValue=true)]
+        public long? JobCreationTimeUsecs { get; set; }
+
+        /// <summary>
+        /// A unique id for locally created jobs. This should only be used to identify jobs created on the local cluster. When Iris communicates with Magneto, Iris can continue to use this job_id field, which will always be assumed to refer to locally created jobs.  For remotely created jobs, the &#39;job_uid&#39; field should be used. The only time Iris should ever need to refer to a remote job is when restoring an object from a remote snapshot. In all such cases, Iris should use the job_uid field.
+        /// </summary>
+        /// <value>A unique id for locally created jobs. This should only be used to identify jobs created on the local cluster. When Iris communicates with Magneto, Iris can continue to use this job_id field, which will always be assumed to refer to locally created jobs.  For remotely created jobs, the &#39;job_uid&#39; field should be used. The only time Iris should ever need to refer to a remote job is when restoring an object from a remote snapshot. In all such cases, Iris should use the job_uid field.</value>
+        [DataMember(Name="jobId", EmitDefaultValue=true)]
+        public long? JobId { get; set; }
+
+        /// <summary>
+        /// Gets or Sets JobPolicy
+        /// </summary>
+        [DataMember(Name="jobPolicy", EmitDefaultValue=false)]
+        public JobPolicyProto JobPolicy { get; set; }
+
+        /// <summary>
+        /// Gets or Sets JobUid
+        /// </summary>
+        [DataMember(Name="jobUid", EmitDefaultValue=false)]
+        public UniversalIdProto JobUid { get; set; }
+
+        /// <summary>
+        /// Time when this job description was last updated.
+        /// </summary>
+        /// <value>Time when this job description was last updated.</value>
+        [DataMember(Name="lastModificationTimeUsecs", EmitDefaultValue=true)]
+        public long? LastModificationTimeUsecs { get; set; }
+
+        /// <summary>
+        /// Time when the job was last paused or unpaused.
+        /// </summary>
+        /// <value>Time when the job was last paused or unpaused.</value>
+        [DataMember(Name="lastPauseModificationTimeUsecs", EmitDefaultValue=true)]
+        public long? LastPauseModificationTimeUsecs { get; set; }
+
+        /// <summary>
+        /// Last reason for pausing the backup job. Capturing the reason will help in resuming only the jobs that were paused because of a reason once the reason for pausing is not applicable.
+        /// </summary>
+        /// <value>Last reason for pausing the backup job. Capturing the reason will help in resuming only the jobs that were paused because of a reason once the reason for pausing is not applicable.</value>
+        [DataMember(Name="lastPauseReason", EmitDefaultValue=true)]
+        public int? LastPauseReason { get; set; }
+
+        /// <summary>
+        /// The user who modified the job most recently.
+        /// </summary>
+        /// <value>The user who modified the job most recently.</value>
+        [DataMember(Name="lastUpdatedUsername", EmitDefaultValue=true)]
+        public string LastUpdatedUsername { get; set; }
+
+        /// <summary>
+        /// Whether to leverage the storage array based snapshots for this backup job. To leverage storage snapshots, the storage array has to be registered as a source. If storage based snapshots can not be taken, job will fallback to the default backup method. NOTE: This will be set for Pure snapshots.
+        /// </summary>
+        /// <value>Whether to leverage the storage array based snapshots for this backup job. To leverage storage snapshots, the storage array has to be registered as a source. If storage based snapshots can not be taken, job will fallback to the default backup method. NOTE: This will be set for Pure snapshots.</value>
+        [DataMember(Name="leverageStorageSnapshots", EmitDefaultValue=true)]
+        public bool? LeverageStorageSnapshots { get; set; }
+
+        /// <summary>
+        /// This is set to true by the user if hyperflex snapshots are requested NOTE: If this is set to true, then leverage_storage_snapshots above should be false.
+        /// </summary>
+        /// <value>This is set to true by the user if hyperflex snapshots are requested NOTE: If this is set to true, then leverage_storage_snapshots above should be false.</value>
+        [DataMember(Name="leverageStorageSnapshotsForHyperflex", EmitDefaultValue=true)]
+        public bool? LeverageStorageSnapshotsForHyperflex { get; set; }
+
+        /// <summary>
+        /// Gets or Sets LogBackupJobPolicy
+        /// </summary>
+        [DataMember(Name="logBackupJobPolicy", EmitDefaultValue=false)]
+        public JobPolicyProto LogBackupJobPolicy { get; set; }
+
+        /// <summary>
+        /// The name of this backup job. This must be unique across all jobs.
+        /// </summary>
+        /// <value>The name of this backup job. This must be unique across all jobs.</value>
+        [DataMember(Name="name", EmitDefaultValue=true)]
+        public string Name { get; set; }
+
+        /// <summary>
+        /// Specifies how many recent snapshots of each backed up entity to retain on the primary environment. If not specified, then snapshots will not be be deleted from the primary environment. NOTE: This is only applicable for certain environments like kPure.
+        /// </summary>
+        /// <value>Specifies how many recent snapshots of each backed up entity to retain on the primary environment. If not specified, then snapshots will not be be deleted from the primary environment. NOTE: This is only applicable for certain environments like kPure.</value>
+        [DataMember(Name="numSnapshotsToKeepOnPrimary", EmitDefaultValue=true)]
+        public long? NumSnapshotsToKeepOnPrimary { get; set; }
+
+        /// <summary>
+        /// Gets or Sets ParentSource
+        /// </summary>
+        [DataMember(Name="parentSource", EmitDefaultValue=false)]
+        public EntityProto ParentSource { get; set; }
+
+        /// <summary>
+        /// Whether or not to perform source side dedup.
+        /// </summary>
+        /// <value>Whether or not to perform source side dedup.</value>
+        [DataMember(Name="performSourceSideDedup", EmitDefaultValue=true)]
+        public bool? PerformSourceSideDedup { get; set; }
+
+        /// <summary>
+        /// Epoch time in milliseconds when the policy was last applied to this job. This field will be used to determine whether a policy has changed after it was applied to a particular job.
+        /// </summary>
+        /// <value>Epoch time in milliseconds when the policy was last applied to this job. This field will be used to determine whether a policy has changed after it was applied to a particular job.</value>
+        [DataMember(Name="policyAppliedTimeMsecs", EmitDefaultValue=true)]
+        public long? PolicyAppliedTimeMsecs { get; set; }
+
+        /// <summary>
+        /// Id of the policy being applied to the backup job. It is expected to be of the form \&quot;cluster_id:cluster_instance_id:local_identifier\&quot;.
+        /// </summary>
+        /// <value>Id of the policy being applied to the backup job. It is expected to be of the form \&quot;cluster_id:cluster_instance_id:local_identifier\&quot;.</value>
+        [DataMember(Name="policyId", EmitDefaultValue=true)]
+        public string PolicyId { get; set; }
+
+        /// <summary>
+        /// The name of the policy referred to by policy_uid. This field can be stale and should not be relied upon for the latest name.
+        /// </summary>
+        /// <value>The name of the policy referred to by policy_uid. This field can be stale and should not be relied upon for the latest name.</value>
+        [DataMember(Name="policyName", EmitDefaultValue=true)]
+        public string PolicyName { get; set; }
+
+        /// <summary>
+        /// Gets or Sets PostBackupScript
+        /// </summary>
+        [DataMember(Name="postBackupScript", EmitDefaultValue=false)]
+        public BackupJobPreOrPostScript PostBackupScript { get; set; }
+
+        /// <summary>
+        /// Gets or Sets PreScript
+        /// </summary>
+        [DataMember(Name="preScript", EmitDefaultValue=false)]
+        public BackupJobPreOrPostScript PreScript { get; set; }
+
+        /// <summary>
+        /// Gets or Sets PrimaryJobUid
+        /// </summary>
+        [DataMember(Name="primaryJobUid", EmitDefaultValue=false)]
+        public UniversalIdProto PrimaryJobUid { get; set; }
+
+        /// <summary>
+        /// The priority for the job. This is used at admission time - all admitted jobs are treated equally. This is also used to determine the Madrox replication priority.
+        /// </summary>
+        /// <value>The priority for the job. This is used at admission time - all admitted jobs are treated equally. This is also used to determine the Madrox replication priority.</value>
+        [DataMember(Name="priority", EmitDefaultValue=true)]
+        public int? Priority { get; set; }
+
+        /// <summary>
+        /// Whether to take app-consistent snapshots by quiescing apps and the filesystem before taking a backup.
+        /// </summary>
+        /// <value>Whether to take app-consistent snapshots by quiescing apps and the filesystem before taking a backup.</value>
+        [DataMember(Name="quiesce", EmitDefaultValue=true)]
+        public bool? Quiesce { get; set; }
+
+        /// <summary>
+        /// The globally unique ids of all remote jobs that are linked to this job (because of incoming replications). This field will only be populated for locally created jobs.
+        /// </summary>
+        /// <value>The globally unique ids of all remote jobs that are linked to this job (because of incoming replications). This field will only be populated for locally created jobs.</value>
+        [DataMember(Name="remoteJobUids", EmitDefaultValue=true)]
+        public List<UniversalIdProto> RemoteJobUids { get; set; }
+
+        /// <summary>
+        /// A human readable name of the remote view. A remote view is created with name overwriting the latest snapshot.
+        /// </summary>
+        /// <value>A human readable name of the remote view. A remote view is created with name overwriting the latest snapshot.</value>
+        [DataMember(Name="remoteViewName", EmitDefaultValue=true)]
+        public string RemoteViewName { get; set; }
+
+        /// <summary>
+        /// The features that are strictly required to be supported by the cluster of the backup job. This is currently used in the following cases: 1. Tx cluster looks at the Rx cluster&#39;s supported features and replicates the backup job only if all the features captured here are supported. 2. When performing remote restore of a backup job from an archival, this job will be retrieved only if the cluster supports all the features listed here.
+        /// </summary>
+        /// <value>The features that are strictly required to be supported by the cluster of the backup job. This is currently used in the following cases: 1. Tx cluster looks at the Rx cluster&#39;s supported features and replicates the backup job only if all the features captured here are supported. 2. When performing remote restore of a backup job from an archival, this job will be retrieved only if the cluster supports all the features listed here.</value>
+        [DataMember(Name="requiredFeatureVec", EmitDefaultValue=true)]
+        public List<string> RequiredFeatureVec { get; set; }
+
+        /// <summary>
+        /// If specified, this variable determines the amount of time (after backup has started) in which backup is expected to finish for this job. An SLA violation is counted against this job if the amount of time taken exceeds this amount.
+        /// </summary>
+        /// <value>If specified, this variable determines the amount of time (after backup has started) in which backup is expected to finish for this job. An SLA violation is counted against this job if the amount of time taken exceeds this amount.</value>
+        [DataMember(Name="slaTimeMins", EmitDefaultValue=true)]
+        public long? SlaTimeMins { get; set; }
+
+        /// <summary>
+        /// The list of sources that should be backed up. A source in this list could be a descendant of another source in the list (this will be used when specifying override backup schedules).
+        /// </summary>
+        /// <value>The list of sources that should be backed up. A source in this list could be a descendant of another source in the list (this will be used when specifying override backup schedules).</value>
+        [DataMember(Name="sources", EmitDefaultValue=true)]
+        public List<BackupJobProtoBackupSource> Sources { get; set; }
+
+        /// <summary>
+        /// Gets or Sets StartTime
+        /// </summary>
+        [DataMember(Name="startTime", EmitDefaultValue=false)]
+        public Time StartTime { get; set; }
+
+        /// <summary>
+        /// Gets or Sets StubbingPolicy
+        /// </summary>
+        [DataMember(Name="stubbingPolicy", EmitDefaultValue=false)]
+        public StubbingPolicyProto StubbingPolicy { get; set; }
+
+        /// <summary>
+        /// Tags associated with the job. User can specify tags/keywords that can indexed by Yoda and can be later searched in UI. For example, user can create a &#39;kPuppeteer&#39; job to backup Oracle DB for &#39;payroll&#39; department. User can specify following tags: &#39;payroll&#39;, &#39;Oracle_DB&#39;.
+        /// </summary>
+        /// <value>Tags associated with the job. User can specify tags/keywords that can indexed by Yoda and can be later searched in UI. For example, user can create a &#39;kPuppeteer&#39; job to backup Oracle DB for &#39;payroll&#39; department. User can specify following tags: &#39;payroll&#39;, &#39;Oracle_DB&#39;.</value>
+        [DataMember(Name="tagVec", EmitDefaultValue=true)]
+        public List<string> TagVec { get; set; }
+
+        /// <summary>
+        /// Timezone of the backup job. All time fields (i.e., TimeOfDay) in this backup job are stored wrt to this timezone.  The time zones have unique names of the form \&quot;Area/Location\&quot;, e.g. \&quot;America/New_York\&quot;. We are using \&quot;America/Los_Angeles\&quot; as a default value so as to be backward compatible with pre-2.7 code.
+        /// </summary>
+        /// <value>Timezone of the backup job. All time fields (i.e., TimeOfDay) in this backup job are stored wrt to this timezone.  The time zones have unique names of the form \&quot;Area/Location\&quot;, e.g. \&quot;America/New_York\&quot;. We are using \&quot;America/Los_Angeles\&quot; as a default value so as to be backward compatible with pre-2.7 code.</value>
+        [DataMember(Name="timezone", EmitDefaultValue=true)]
+        public string Timezone { get; set; }
+
+        /// <summary>
+        /// Whether to truncate logs after a backup run. This is currently only relevant for full or incremental backups in a SQL environment.
+        /// </summary>
+        /// <value>Whether to truncate logs after a backup run. This is currently only relevant for full or incremental backups in a SQL environment.</value>
+        [DataMember(Name="truncateLogs", EmitDefaultValue=true)]
+        public bool? TruncateLogs { get; set; }
+
+        /// <summary>
+        /// The type of environment this backup job corresponds to.
+        /// </summary>
+        /// <value>The type of environment this backup job corresponds to.</value>
+        [DataMember(Name="type", EmitDefaultValue=true)]
+        public int? Type { get; set; }
+
+        /// <summary>
+        /// Gets or Sets UserInfo
+        /// </summary>
+        [DataMember(Name="userInfo", EmitDefaultValue=false)]
+        public UserInformation UserInfo { get; set; }
+
+        /// <summary>
+        /// The view box to which data will be written.
+        /// </summary>
+        /// <value>The view box to which data will be written.</value>
+        [DataMember(Name="viewBoxId", EmitDefaultValue=true)]
+        public long? ViewBoxId { get; set; }
+
+        /// <summary>
+        /// Returns the string presentation of the object
+        /// </summary>
+        /// <returns>String presentation of the object</returns>
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+            sb.Append("class BackupJobProto {\n");
+            sb.Append("  AbortInExclusionWindow: ").Append(AbortInExclusionWindow).Append("\n");
+            sb.Append("  AlertingPolicy: ").Append(AlertingPolicy).Append("\n");
+            sb.Append("  BackupQosPrincipal: ").Append(BackupQosPrincipal).Append("\n");
+            sb.Append("  BackupSourceParams: ").Append(BackupSourceParams).Append("\n");
+            sb.Append("  ContinueOnQuiesceFailure: ").Append(ContinueOnQuiesceFailure).Append("\n");
+            sb.Append("  DedupDisabledSourceIdVec: ").Append(DedupDisabledSourceIdVec).Append("\n");
+            sb.Append("  DeletionStatus: ").Append(DeletionStatus).Append("\n");
+            sb.Append("  Description: ").Append(Description).Append("\n");
+            sb.Append("  DrToCloudParams: ").Append(DrToCloudParams).Append("\n");
+            sb.Append("  EhParentSource: ").Append(EhParentSource).Append("\n");
+            sb.Append("  EndTimeUsecs: ").Append(EndTimeUsecs).Append("\n");
+            sb.Append("  EnvBackupParams: ").Append(EnvBackupParams).Append("\n");
+            sb.Append("  ExcludeSources: ").Append(ExcludeSources).Append("\n");
+            sb.Append("  ExcludeSourcesDEPRECATED: ").Append(ExcludeSourcesDEPRECATED).Append("\n");
+            sb.Append("  ExclusionRanges: ").Append(ExclusionRanges).Append("\n");
+            sb.Append("  FullBackupJobPolicy: ").Append(FullBackupJobPolicy).Append("\n");
+            sb.Append("  FullBackupSlaTimeMins: ").Append(FullBackupSlaTimeMins).Append("\n");
+            sb.Append("  IndexingPolicy: ").Append(IndexingPolicy).Append("\n");
+            sb.Append("  IsActive: ").Append(IsActive).Append("\n");
+            sb.Append("  IsDeleted: ").Append(IsDeleted).Append("\n");
+            sb.Append("  IsPaused: ").Append(IsPaused).Append("\n");
+            sb.Append("  IsRpoJob: ").Append(IsRpoJob).Append("\n");
+            sb.Append("  JobCreationTimeUsecs: ").Append(JobCreationTimeUsecs).Append("\n");
+            sb.Append("  JobId: ").Append(JobId).Append("\n");
+            sb.Append("  JobPolicy: ").Append(JobPolicy).Append("\n");
+            sb.Append("  JobUid: ").Append(JobUid).Append("\n");
+            sb.Append("  LastModificationTimeUsecs: ").Append(LastModificationTimeUsecs).Append("\n");
+            sb.Append("  LastPauseModificationTimeUsecs: ").Append(LastPauseModificationTimeUsecs).Append("\n");
+            sb.Append("  LastPauseReason: ").Append(LastPauseReason).Append("\n");
+            sb.Append("  LastUpdatedUsername: ").Append(LastUpdatedUsername).Append("\n");
+            sb.Append("  LeverageStorageSnapshots: ").Append(LeverageStorageSnapshots).Append("\n");
+            sb.Append("  LeverageStorageSnapshotsForHyperflex: ").Append(LeverageStorageSnapshotsForHyperflex).Append("\n");
+            sb.Append("  LogBackupJobPolicy: ").Append(LogBackupJobPolicy).Append("\n");
+            sb.Append("  Name: ").Append(Name).Append("\n");
+            sb.Append("  NumSnapshotsToKeepOnPrimary: ").Append(NumSnapshotsToKeepOnPrimary).Append("\n");
+            sb.Append("  ParentSource: ").Append(ParentSource).Append("\n");
+            sb.Append("  PerformSourceSideDedup: ").Append(PerformSourceSideDedup).Append("\n");
+            sb.Append("  PolicyAppliedTimeMsecs: ").Append(PolicyAppliedTimeMsecs).Append("\n");
+            sb.Append("  PolicyId: ").Append(PolicyId).Append("\n");
+            sb.Append("  PolicyName: ").Append(PolicyName).Append("\n");
+            sb.Append("  PostBackupScript: ").Append(PostBackupScript).Append("\n");
+            sb.Append("  PreScript: ").Append(PreScript).Append("\n");
+            sb.Append("  PrimaryJobUid: ").Append(PrimaryJobUid).Append("\n");
+            sb.Append("  Priority: ").Append(Priority).Append("\n");
+            sb.Append("  Quiesce: ").Append(Quiesce).Append("\n");
+            sb.Append("  RemoteJobUids: ").Append(RemoteJobUids).Append("\n");
+            sb.Append("  RemoteViewName: ").Append(RemoteViewName).Append("\n");
+            sb.Append("  RequiredFeatureVec: ").Append(RequiredFeatureVec).Append("\n");
+            sb.Append("  SlaTimeMins: ").Append(SlaTimeMins).Append("\n");
+            sb.Append("  Sources: ").Append(Sources).Append("\n");
+            sb.Append("  StartTime: ").Append(StartTime).Append("\n");
+            sb.Append("  StubbingPolicy: ").Append(StubbingPolicy).Append("\n");
+            sb.Append("  TagVec: ").Append(TagVec).Append("\n");
+            sb.Append("  Timezone: ").Append(Timezone).Append("\n");
+            sb.Append("  TruncateLogs: ").Append(TruncateLogs).Append("\n");
+            sb.Append("  Type: ").Append(Type).Append("\n");
+            sb.Append("  UserInfo: ").Append(UserInfo).Append("\n");
+            sb.Append("  ViewBoxId: ").Append(ViewBoxId).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
+        }
+  
+        /// <summary>
+        /// Returns the JSON string presentation of the object
+        /// </summary>
+        /// <returns>JSON string presentation of the object</returns>
+        public virtual string ToJson()
+        {
+            return JsonConvert.SerializeObject(this, Formatting.Indented);
+        }
+
+        /// <summary>
+        /// Returns true if objects are equal
+        /// </summary>
+        /// <param name="input">Object to be compared</param>
+        /// <returns>Boolean</returns>
+        public override bool Equals(object input)
+        {
+            return this.Equals(input as BackupJobProto);
+        }
+
+        /// <summary>
+        /// Returns true if BackupJobProto instances are equal
+        /// </summary>
+        /// <param name="input">Instance of BackupJobProto to be compared</param>
+        /// <returns>Boolean</returns>
+        public bool Equals(BackupJobProto input)
+        {
+            if (input == null)
+                return false;
+
+            return 
+                (
+                    this.AbortInExclusionWindow == input.AbortInExclusionWindow ||
+                    (this.AbortInExclusionWindow != null &&
+                    this.AbortInExclusionWindow.Equals(input.AbortInExclusionWindow))
+                ) && 
+                (
+                    this.AlertingPolicy == input.AlertingPolicy ||
+                    (this.AlertingPolicy != null &&
+                    this.AlertingPolicy.Equals(input.AlertingPolicy))
+                ) && 
+                (
+                    this.BackupQosPrincipal == input.BackupQosPrincipal ||
+                    (this.BackupQosPrincipal != null &&
+                    this.BackupQosPrincipal.Equals(input.BackupQosPrincipal))
+                ) && 
+                (
+                    this.BackupSourceParams == input.BackupSourceParams ||
+                    this.BackupSourceParams != null &&
+                    input.BackupSourceParams != null &&
+                    this.BackupSourceParams.SequenceEqual(input.BackupSourceParams)
+                ) && 
+                (
+                    this.ContinueOnQuiesceFailure == input.ContinueOnQuiesceFailure ||
+                    (this.ContinueOnQuiesceFailure != null &&
+                    this.ContinueOnQuiesceFailure.Equals(input.ContinueOnQuiesceFailure))
+                ) && 
+                (
+                    this.DedupDisabledSourceIdVec == input.DedupDisabledSourceIdVec ||
+                    this.DedupDisabledSourceIdVec != null &&
+                    input.DedupDisabledSourceIdVec != null &&
+                    this.DedupDisabledSourceIdVec.SequenceEqual(input.DedupDisabledSourceIdVec)
+                ) && 
+                (
+                    this.DeletionStatus == input.DeletionStatus ||
+                    (this.DeletionStatus != null &&
+                    this.DeletionStatus.Equals(input.DeletionStatus))
+                ) && 
+                (
+                    this.Description == input.Description ||
+                    (this.Description != null &&
+                    this.Description.Equals(input.Description))
+                ) && 
+                (
+                    this.DrToCloudParams == input.DrToCloudParams ||
+                    (this.DrToCloudParams != null &&
+                    this.DrToCloudParams.Equals(input.DrToCloudParams))
+                ) && 
+                (
+                    this.EhParentSource == input.EhParentSource ||
+                    (this.EhParentSource != null &&
+                    this.EhParentSource.Equals(input.EhParentSource))
+                ) && 
+                (
+                    this.EndTimeUsecs == input.EndTimeUsecs ||
+                    (this.EndTimeUsecs != null &&
+                    this.EndTimeUsecs.Equals(input.EndTimeUsecs))
+                ) && 
+                (
+                    this.EnvBackupParams == input.EnvBackupParams ||
+                    (this.EnvBackupParams != null &&
+                    this.EnvBackupParams.Equals(input.EnvBackupParams))
+                ) && 
+                (
+                    this.ExcludeSources == input.ExcludeSources ||
+                    this.ExcludeSources != null &&
+                    input.ExcludeSources != null &&
+                    this.ExcludeSources.SequenceEqual(input.ExcludeSources)
+                ) && 
+                (
+                    this.ExcludeSourcesDEPRECATED == input.ExcludeSourcesDEPRECATED ||
+                    this.ExcludeSourcesDEPRECATED != null &&
+                    input.ExcludeSourcesDEPRECATED != null &&
+                    this.ExcludeSourcesDEPRECATED.SequenceEqual(input.ExcludeSourcesDEPRECATED)
+                ) && 
+                (
+                    this.ExclusionRanges == input.ExclusionRanges ||
+                    this.ExclusionRanges != null &&
+                    input.ExclusionRanges != null &&
+                    this.ExclusionRanges.SequenceEqual(input.ExclusionRanges)
+                ) && 
+                (
+                    this.FullBackupJobPolicy == input.FullBackupJobPolicy ||
+                    (this.FullBackupJobPolicy != null &&
+                    this.FullBackupJobPolicy.Equals(input.FullBackupJobPolicy))
+                ) && 
+                (
+                    this.FullBackupSlaTimeMins == input.FullBackupSlaTimeMins ||
+                    (this.FullBackupSlaTimeMins != null &&
+                    this.FullBackupSlaTimeMins.Equals(input.FullBackupSlaTimeMins))
+                ) && 
+                (
+                    this.IndexingPolicy == input.IndexingPolicy ||
+                    (this.IndexingPolicy != null &&
+                    this.IndexingPolicy.Equals(input.IndexingPolicy))
+                ) && 
+                (
+                    this.IsActive == input.IsActive ||
+                    (this.IsActive != null &&
+                    this.IsActive.Equals(input.IsActive))
+                ) && 
+                (
+                    this.IsDeleted == input.IsDeleted ||
+                    (this.IsDeleted != null &&
+                    this.IsDeleted.Equals(input.IsDeleted))
+                ) && 
+                (
+                    this.IsPaused == input.IsPaused ||
+                    (this.IsPaused != null &&
+                    this.IsPaused.Equals(input.IsPaused))
+                ) && 
+                (
+                    this.IsRpoJob == input.IsRpoJob ||
+                    (this.IsRpoJob != null &&
+                    this.IsRpoJob.Equals(input.IsRpoJob))
+                ) && 
+                (
+                    this.JobCreationTimeUsecs == input.JobCreationTimeUsecs ||
+                    (this.JobCreationTimeUsecs != null &&
+                    this.JobCreationTimeUsecs.Equals(input.JobCreationTimeUsecs))
+                ) && 
+                (
+                    this.JobId == input.JobId ||
+                    (this.JobId != null &&
+                    this.JobId.Equals(input.JobId))
+                ) && 
+                (
+                    this.JobPolicy == input.JobPolicy ||
+                    (this.JobPolicy != null &&
+                    this.JobPolicy.Equals(input.JobPolicy))
+                ) && 
+                (
+                    this.JobUid == input.JobUid ||
+                    (this.JobUid != null &&
+                    this.JobUid.Equals(input.JobUid))
+                ) && 
+                (
+                    this.LastModificationTimeUsecs == input.LastModificationTimeUsecs ||
+                    (this.LastModificationTimeUsecs != null &&
+                    this.LastModificationTimeUsecs.Equals(input.LastModificationTimeUsecs))
+                ) && 
+                (
+                    this.LastPauseModificationTimeUsecs == input.LastPauseModificationTimeUsecs ||
+                    (this.LastPauseModificationTimeUsecs != null &&
+                    this.LastPauseModificationTimeUsecs.Equals(input.LastPauseModificationTimeUsecs))
+                ) && 
+                (
+                    this.LastPauseReason == input.LastPauseReason ||
+                    (this.LastPauseReason != null &&
+                    this.LastPauseReason.Equals(input.LastPauseReason))
+                ) && 
+                (
+                    this.LastUpdatedUsername == input.LastUpdatedUsername ||
+                    (this.LastUpdatedUsername != null &&
+                    this.LastUpdatedUsername.Equals(input.LastUpdatedUsername))
+                ) && 
+                (
+                    this.LeverageStorageSnapshots == input.LeverageStorageSnapshots ||
+                    (this.LeverageStorageSnapshots != null &&
+                    this.LeverageStorageSnapshots.Equals(input.LeverageStorageSnapshots))
+                ) && 
+                (
+                    this.LeverageStorageSnapshotsForHyperflex == input.LeverageStorageSnapshotsForHyperflex ||
+                    (this.LeverageStorageSnapshotsForHyperflex != null &&
+                    this.LeverageStorageSnapshotsForHyperflex.Equals(input.LeverageStorageSnapshotsForHyperflex))
+                ) && 
+                (
+                    this.LogBackupJobPolicy == input.LogBackupJobPolicy ||
+                    (this.LogBackupJobPolicy != null &&
+                    this.LogBackupJobPolicy.Equals(input.LogBackupJobPolicy))
+                ) && 
+                (
+                    this.Name == input.Name ||
+                    (this.Name != null &&
+                    this.Name.Equals(input.Name))
+                ) && 
+                (
+                    this.NumSnapshotsToKeepOnPrimary == input.NumSnapshotsToKeepOnPrimary ||
+                    (this.NumSnapshotsToKeepOnPrimary != null &&
+                    this.NumSnapshotsToKeepOnPrimary.Equals(input.NumSnapshotsToKeepOnPrimary))
+                ) && 
+                (
+                    this.ParentSource == input.ParentSource ||
+                    (this.ParentSource != null &&
+                    this.ParentSource.Equals(input.ParentSource))
+                ) && 
+                (
+                    this.PerformSourceSideDedup == input.PerformSourceSideDedup ||
+                    (this.PerformSourceSideDedup != null &&
+                    this.PerformSourceSideDedup.Equals(input.PerformSourceSideDedup))
+                ) && 
+                (
+                    this.PolicyAppliedTimeMsecs == input.PolicyAppliedTimeMsecs ||
+                    (this.PolicyAppliedTimeMsecs != null &&
+                    this.PolicyAppliedTimeMsecs.Equals(input.PolicyAppliedTimeMsecs))
+                ) && 
+                (
+                    this.PolicyId == input.PolicyId ||
+                    (this.PolicyId != null &&
+                    this.PolicyId.Equals(input.PolicyId))
+                ) && 
+                (
+                    this.PolicyName == input.PolicyName ||
+                    (this.PolicyName != null &&
+                    this.PolicyName.Equals(input.PolicyName))
+                ) && 
+                (
+                    this.PostBackupScript == input.PostBackupScript ||
+                    (this.PostBackupScript != null &&
+                    this.PostBackupScript.Equals(input.PostBackupScript))
+                ) && 
+                (
+                    this.PreScript == input.PreScript ||
+                    (this.PreScript != null &&
+                    this.PreScript.Equals(input.PreScript))
+                ) && 
+                (
+                    this.PrimaryJobUid == input.PrimaryJobUid ||
+                    (this.PrimaryJobUid != null &&
+                    this.PrimaryJobUid.Equals(input.PrimaryJobUid))
+                ) && 
+                (
+                    this.Priority == input.Priority ||
+                    (this.Priority != null &&
+                    this.Priority.Equals(input.Priority))
+                ) && 
+                (
+                    this.Quiesce == input.Quiesce ||
+                    (this.Quiesce != null &&
+                    this.Quiesce.Equals(input.Quiesce))
+                ) && 
+                (
+                    this.RemoteJobUids == input.RemoteJobUids ||
+                    this.RemoteJobUids != null &&
+                    input.RemoteJobUids != null &&
+                    this.RemoteJobUids.SequenceEqual(input.RemoteJobUids)
+                ) && 
+                (
+                    this.RemoteViewName == input.RemoteViewName ||
+                    (this.RemoteViewName != null &&
+                    this.RemoteViewName.Equals(input.RemoteViewName))
+                ) && 
+                (
+                    this.RequiredFeatureVec == input.RequiredFeatureVec ||
+                    this.RequiredFeatureVec != null &&
+                    input.RequiredFeatureVec != null &&
+                    this.RequiredFeatureVec.SequenceEqual(input.RequiredFeatureVec)
+                ) && 
+                (
+                    this.SlaTimeMins == input.SlaTimeMins ||
+                    (this.SlaTimeMins != null &&
+                    this.SlaTimeMins.Equals(input.SlaTimeMins))
+                ) && 
+                (
+                    this.Sources == input.Sources ||
+                    this.Sources != null &&
+                    input.Sources != null &&
+                    this.Sources.SequenceEqual(input.Sources)
+                ) && 
+                (
+                    this.StartTime == input.StartTime ||
+                    (this.StartTime != null &&
+                    this.StartTime.Equals(input.StartTime))
+                ) && 
+                (
+                    this.StubbingPolicy == input.StubbingPolicy ||
+                    (this.StubbingPolicy != null &&
+                    this.StubbingPolicy.Equals(input.StubbingPolicy))
+                ) && 
+                (
+                    this.TagVec == input.TagVec ||
+                    this.TagVec != null &&
+                    input.TagVec != null &&
+                    this.TagVec.SequenceEqual(input.TagVec)
+                ) && 
+                (
+                    this.Timezone == input.Timezone ||
+                    (this.Timezone != null &&
+                    this.Timezone.Equals(input.Timezone))
+                ) && 
+                (
+                    this.TruncateLogs == input.TruncateLogs ||
+                    (this.TruncateLogs != null &&
+                    this.TruncateLogs.Equals(input.TruncateLogs))
+                ) && 
+                (
+                    this.Type == input.Type ||
+                    (this.Type != null &&
+                    this.Type.Equals(input.Type))
+                ) && 
+                (
+                    this.UserInfo == input.UserInfo ||
+                    (this.UserInfo != null &&
+                    this.UserInfo.Equals(input.UserInfo))
+                ) && 
+                (
+                    this.ViewBoxId == input.ViewBoxId ||
+                    (this.ViewBoxId != null &&
+                    this.ViewBoxId.Equals(input.ViewBoxId))
+                );
+        }
+
+        /// <summary>
+        /// Gets the hash code
+        /// </summary>
+        /// <returns>Hash code</returns>
+        public override int GetHashCode()
+        {
+            unchecked // Overflow is fine, just wrap
+            {
+                int hashCode = 41;
+                if (this.AbortInExclusionWindow != null)
+                    hashCode = hashCode * 59 + this.AbortInExclusionWindow.GetHashCode();
+                if (this.AlertingPolicy != null)
+                    hashCode = hashCode * 59 + this.AlertingPolicy.GetHashCode();
+                if (this.BackupQosPrincipal != null)
+                    hashCode = hashCode * 59 + this.BackupQosPrincipal.GetHashCode();
+                if (this.BackupSourceParams != null)
+                    hashCode = hashCode * 59 + this.BackupSourceParams.GetHashCode();
+                if (this.ContinueOnQuiesceFailure != null)
+                    hashCode = hashCode * 59 + this.ContinueOnQuiesceFailure.GetHashCode();
+                if (this.DedupDisabledSourceIdVec != null)
+                    hashCode = hashCode * 59 + this.DedupDisabledSourceIdVec.GetHashCode();
+                if (this.DeletionStatus != null)
+                    hashCode = hashCode * 59 + this.DeletionStatus.GetHashCode();
+                if (this.Description != null)
+                    hashCode = hashCode * 59 + this.Description.GetHashCode();
+                if (this.DrToCloudParams != null)
+                    hashCode = hashCode * 59 + this.DrToCloudParams.GetHashCode();
+                if (this.EhParentSource != null)
+                    hashCode = hashCode * 59 + this.EhParentSource.GetHashCode();
+                if (this.EndTimeUsecs != null)
+                    hashCode = hashCode * 59 + this.EndTimeUsecs.GetHashCode();
+                if (this.EnvBackupParams != null)
+                    hashCode = hashCode * 59 + this.EnvBackupParams.GetHashCode();
+                if (this.ExcludeSources != null)
+                    hashCode = hashCode * 59 + this.ExcludeSources.GetHashCode();
+                if (this.ExcludeSourcesDEPRECATED != null)
+                    hashCode = hashCode * 59 + this.ExcludeSourcesDEPRECATED.GetHashCode();
+                if (this.ExclusionRanges != null)
+                    hashCode = hashCode * 59 + this.ExclusionRanges.GetHashCode();
+                if (this.FullBackupJobPolicy != null)
+                    hashCode = hashCode * 59 + this.FullBackupJobPolicy.GetHashCode();
+                if (this.FullBackupSlaTimeMins != null)
+                    hashCode = hashCode * 59 + this.FullBackupSlaTimeMins.GetHashCode();
+                if (this.IndexingPolicy != null)
+                    hashCode = hashCode * 59 + this.IndexingPolicy.GetHashCode();
+                if (this.IsActive != null)
+                    hashCode = hashCode * 59 + this.IsActive.GetHashCode();
+                if (this.IsDeleted != null)
+                    hashCode = hashCode * 59 + this.IsDeleted.GetHashCode();
+                if (this.IsPaused != null)
+                    hashCode = hashCode * 59 + this.IsPaused.GetHashCode();
+                if (this.IsRpoJob != null)
+                    hashCode = hashCode * 59 + this.IsRpoJob.GetHashCode();
+                if (this.JobCreationTimeUsecs != null)
+                    hashCode = hashCode * 59 + this.JobCreationTimeUsecs.GetHashCode();
+                if (this.JobId != null)
+                    hashCode = hashCode * 59 + this.JobId.GetHashCode();
+                if (this.JobPolicy != null)
+                    hashCode = hashCode * 59 + this.JobPolicy.GetHashCode();
+                if (this.JobUid != null)
+                    hashCode = hashCode * 59 + this.JobUid.GetHashCode();
+                if (this.LastModificationTimeUsecs != null)
+                    hashCode = hashCode * 59 + this.LastModificationTimeUsecs.GetHashCode();
+                if (this.LastPauseModificationTimeUsecs != null)
+                    hashCode = hashCode * 59 + this.LastPauseModificationTimeUsecs.GetHashCode();
+                if (this.LastPauseReason != null)
+                    hashCode = hashCode * 59 + this.LastPauseReason.GetHashCode();
+                if (this.LastUpdatedUsername != null)
+                    hashCode = hashCode * 59 + this.LastUpdatedUsername.GetHashCode();
+                if (this.LeverageStorageSnapshots != null)
+                    hashCode = hashCode * 59 + this.LeverageStorageSnapshots.GetHashCode();
+                if (this.LeverageStorageSnapshotsForHyperflex != null)
+                    hashCode = hashCode * 59 + this.LeverageStorageSnapshotsForHyperflex.GetHashCode();
+                if (this.LogBackupJobPolicy != null)
+                    hashCode = hashCode * 59 + this.LogBackupJobPolicy.GetHashCode();
+                if (this.Name != null)
+                    hashCode = hashCode * 59 + this.Name.GetHashCode();
+                if (this.NumSnapshotsToKeepOnPrimary != null)
+                    hashCode = hashCode * 59 + this.NumSnapshotsToKeepOnPrimary.GetHashCode();
+                if (this.ParentSource != null)
+                    hashCode = hashCode * 59 + this.ParentSource.GetHashCode();
+                if (this.PerformSourceSideDedup != null)
+                    hashCode = hashCode * 59 + this.PerformSourceSideDedup.GetHashCode();
+                if (this.PolicyAppliedTimeMsecs != null)
+                    hashCode = hashCode * 59 + this.PolicyAppliedTimeMsecs.GetHashCode();
+                if (this.PolicyId != null)
+                    hashCode = hashCode * 59 + this.PolicyId.GetHashCode();
+                if (this.PolicyName != null)
+                    hashCode = hashCode * 59 + this.PolicyName.GetHashCode();
+                if (this.PostBackupScript != null)
+                    hashCode = hashCode * 59 + this.PostBackupScript.GetHashCode();
+                if (this.PreScript != null)
+                    hashCode = hashCode * 59 + this.PreScript.GetHashCode();
+                if (this.PrimaryJobUid != null)
+                    hashCode = hashCode * 59 + this.PrimaryJobUid.GetHashCode();
+                if (this.Priority != null)
+                    hashCode = hashCode * 59 + this.Priority.GetHashCode();
+                if (this.Quiesce != null)
+                    hashCode = hashCode * 59 + this.Quiesce.GetHashCode();
+                if (this.RemoteJobUids != null)
+                    hashCode = hashCode * 59 + this.RemoteJobUids.GetHashCode();
+                if (this.RemoteViewName != null)
+                    hashCode = hashCode * 59 + this.RemoteViewName.GetHashCode();
+                if (this.RequiredFeatureVec != null)
+                    hashCode = hashCode * 59 + this.RequiredFeatureVec.GetHashCode();
+                if (this.SlaTimeMins != null)
+                    hashCode = hashCode * 59 + this.SlaTimeMins.GetHashCode();
+                if (this.Sources != null)
+                    hashCode = hashCode * 59 + this.Sources.GetHashCode();
+                if (this.StartTime != null)
+                    hashCode = hashCode * 59 + this.StartTime.GetHashCode();
+                if (this.StubbingPolicy != null)
+                    hashCode = hashCode * 59 + this.StubbingPolicy.GetHashCode();
+                if (this.TagVec != null)
+                    hashCode = hashCode * 59 + this.TagVec.GetHashCode();
+                if (this.Timezone != null)
+                    hashCode = hashCode * 59 + this.Timezone.GetHashCode();
+                if (this.TruncateLogs != null)
+                    hashCode = hashCode * 59 + this.TruncateLogs.GetHashCode();
+                if (this.Type != null)
+                    hashCode = hashCode * 59 + this.Type.GetHashCode();
+                if (this.UserInfo != null)
+                    hashCode = hashCode * 59 + this.UserInfo.GetHashCode();
+                if (this.ViewBoxId != null)
+                    hashCode = hashCode * 59 + this.ViewBoxId.GetHashCode();
+                return hashCode;
+            }
+        }
+
+    }
+
+}

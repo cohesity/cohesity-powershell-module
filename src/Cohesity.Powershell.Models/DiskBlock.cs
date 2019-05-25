@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies a contiguous block by defining an offset and length of the block.
@@ -32,20 +29,22 @@ namespace Cohesity.Models
         {
             this.LengthBytes = lengthBytes;
             this.OffsetBytes = offsetBytes;
+            this.LengthBytes = lengthBytes;
+            this.OffsetBytes = offsetBytes;
         }
         
         /// <summary>
         /// Specifies the length of the block in bytes.
         /// </summary>
         /// <value>Specifies the length of the block in bytes.</value>
-        [DataMember(Name="lengthBytes", EmitDefaultValue=false)]
+        [DataMember(Name="lengthBytes", EmitDefaultValue=true)]
         public long? LengthBytes { get; set; }
 
         /// <summary>
         /// Specifies the offset of the block (in bytes) from the beginning of the containing object such as a physical disk or a virtual disk file.
         /// </summary>
         /// <value>Specifies the offset of the block (in bytes) from the beginning of the containing object such as a physical disk or a virtual disk file.</value>
-        [DataMember(Name="offsetBytes", EmitDefaultValue=false)]
+        [DataMember(Name="offsetBytes", EmitDefaultValue=true)]
         public long? OffsetBytes { get; set; }
 
         /// <summary>
@@ -54,7 +53,12 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class DiskBlock {\n");
+            sb.Append("  LengthBytes: ").Append(LengthBytes).Append("\n");
+            sb.Append("  OffsetBytes: ").Append(OffsetBytes).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -116,8 +120,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

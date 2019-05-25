@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// SchedulerProtoSchedulerJobScheduleJobParametersReportJobParameterReport
@@ -24,34 +21,15 @@ namespace Cohesity.Models
     public partial class SchedulerProtoSchedulerJobScheduleJobParametersReportJobParameterReport :  IEquatable<SchedulerProtoSchedulerJobScheduleJobParametersReportJobParameterReport>
     {
         /// <summary>
-        /// Specifies the report type. The enum which has all the various report types. kAvailableLocalSnapshotsReport, kBackupSummarySReport, kFailedObjectsReport, kProtectionDetailsPerObjectReport, kProtectionJobsInventoryAndScheduleReport, kProtectionSummaryByObjectTypeReport, kSourceGrowthAndVarianceReport, kStorageConsumedByBackupReport, kStorageConsumedByFileCategoriesReport, kStorageConsumedByServersReport, kStorageConsumedByViewBoxReport, kDataTransferredToExternalTargetsReports,
-        /// </summary>
-        /// <value>Specifies the report type. The enum which has all the various report types. kAvailableLocalSnapshotsReport, kBackupSummarySReport, kFailedObjectsReport, kProtectionDetailsPerObjectReport, kProtectionJobsInventoryAndScheduleReport, kProtectionSummaryByObjectTypeReport, kSourceGrowthAndVarianceReport, kStorageConsumedByBackupReport, kStorageConsumedByFileCategoriesReport, kStorageConsumedByServersReport, kStorageConsumedByViewBoxReport, kDataTransferredToExternalTargetsReports,</value>
-        [JsonConverter(typeof(StringEnumConverter))]
-        public enum TypeEnum
-        {
-            
-            /// <summary>
-            /// Enum KUnprotectedVMsReport for value: kUnprotectedVMsReport
-            /// </summary>
-            [EnumMember(Value = "kUnprotectedVMsReport")]
-            KUnprotectedVMsReport = 1
-        }
-
-        /// <summary>
-        /// Specifies the report type. The enum which has all the various report types. kAvailableLocalSnapshotsReport, kBackupSummarySReport, kFailedObjectsReport, kProtectionDetailsPerObjectReport, kProtectionJobsInventoryAndScheduleReport, kProtectionSummaryByObjectTypeReport, kSourceGrowthAndVarianceReport, kStorageConsumedByBackupReport, kStorageConsumedByFileCategoriesReport, kStorageConsumedByServersReport, kStorageConsumedByViewBoxReport, kDataTransferredToExternalTargetsReports,
-        /// </summary>
-        /// <value>Specifies the report type. The enum which has all the various report types. kAvailableLocalSnapshotsReport, kBackupSummarySReport, kFailedObjectsReport, kProtectionDetailsPerObjectReport, kProtectionJobsInventoryAndScheduleReport, kProtectionSummaryByObjectTypeReport, kSourceGrowthAndVarianceReport, kStorageConsumedByBackupReport, kStorageConsumedByFileCategoriesReport, kStorageConsumedByServersReport, kStorageConsumedByViewBoxReport, kDataTransferredToExternalTargetsReports,</value>
-        [DataMember(Name="type", EmitDefaultValue=false)]
-        public TypeEnum? Type { get; set; }
-        /// <summary>
         /// Initializes a new instance of the <see cref="SchedulerProtoSchedulerJobScheduleJobParametersReportJobParameterReport" /> class.
         /// </summary>
         /// <param name="outputFormat">Specifies the output format of the report..</param>
         /// <param name="parameters">parameters.</param>
-        /// <param name="type">Specifies the report type. The enum which has all the various report types. kAvailableLocalSnapshotsReport, kBackupSummarySReport, kFailedObjectsReport, kProtectionDetailsPerObjectReport, kProtectionJobsInventoryAndScheduleReport, kProtectionSummaryByObjectTypeReport, kSourceGrowthAndVarianceReport, kStorageConsumedByBackupReport, kStorageConsumedByFileCategoriesReport, kStorageConsumedByServersReport, kStorageConsumedByViewBoxReport, kDataTransferredToExternalTargetsReports,.</param>
-        public SchedulerProtoSchedulerJobScheduleJobParametersReportJobParameterReport(string outputFormat = default(string), SchedulerProtoSchedulerJobScheduleJobParametersReportJobParameterReportParameters parameters = default(SchedulerProtoSchedulerJobScheduleJobParametersReportJobParameterReportParameters), TypeEnum? type = default(TypeEnum?))
+        /// <param name="type">Specifies the report type..</param>
+        public SchedulerProtoSchedulerJobScheduleJobParametersReportJobParameterReport(string outputFormat = default(string), SchedulerProtoSchedulerJobScheduleJobParametersReportJobParameterReportParameters parameters = default(SchedulerProtoSchedulerJobScheduleJobParametersReportJobParameterReportParameters), int? type = default(int?))
         {
+            this.OutputFormat = outputFormat;
+            this.Type = type;
             this.OutputFormat = outputFormat;
             this.Parameters = parameters;
             this.Type = type;
@@ -61,7 +39,7 @@ namespace Cohesity.Models
         /// Specifies the output format of the report.
         /// </summary>
         /// <value>Specifies the output format of the report.</value>
-        [DataMember(Name="outputFormat", EmitDefaultValue=false)]
+        [DataMember(Name="outputFormat", EmitDefaultValue=true)]
         public string OutputFormat { get; set; }
 
         /// <summary>
@@ -70,6 +48,12 @@ namespace Cohesity.Models
         [DataMember(Name="parameters", EmitDefaultValue=false)]
         public SchedulerProtoSchedulerJobScheduleJobParametersReportJobParameterReportParameters Parameters { get; set; }
 
+        /// <summary>
+        /// Specifies the report type.
+        /// </summary>
+        /// <value>Specifies the report type.</value>
+        [DataMember(Name="type", EmitDefaultValue=true)]
+        public int? Type { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -77,7 +61,13 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class SchedulerProtoSchedulerJobScheduleJobParametersReportJobParameterReport {\n");
+            sb.Append("  OutputFormat: ").Append(OutputFormat).Append("\n");
+            sb.Append("  Parameters: ").Append(Parameters).Append("\n");
+            sb.Append("  Type: ").Append(Type).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -146,8 +136,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

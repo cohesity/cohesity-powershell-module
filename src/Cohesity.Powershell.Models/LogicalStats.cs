@@ -1,13 +1,18 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
+using System.Linq;
+using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Provides logical statistics for logical entities such as Clusters and Domains (View Boxes). The logical size is the size of the data when it is fully hydrated or expanded. The actual physical data stored on the Cohesity Cluster is reduced by change-block tracking, compression and deduplication.
@@ -22,13 +27,14 @@ namespace Cohesity.Models
         public LogicalStats(long? totalLogicalUsageBytes = default(long?))
         {
             this.TotalLogicalUsageBytes = totalLogicalUsageBytes;
+            this.TotalLogicalUsageBytes = totalLogicalUsageBytes;
         }
         
         /// <summary>
         /// Provides the logical usage as computed by the Cohesity Cluster. The size of the data without reduction by change-block tracking, compression and deduplication.
         /// </summary>
         /// <value>Provides the logical usage as computed by the Cohesity Cluster. The size of the data without reduction by change-block tracking, compression and deduplication.</value>
-        [DataMember(Name="totalLogicalUsageBytes", EmitDefaultValue=false)]
+        [DataMember(Name="totalLogicalUsageBytes", EmitDefaultValue=true)]
         public long? TotalLogicalUsageBytes { get; set; }
 
         /// <summary>
@@ -37,7 +43,11 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class LogicalStats {\n");
+            sb.Append("  TotalLogicalUsageBytes: ").Append(TotalLogicalUsageBytes).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -92,8 +102,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

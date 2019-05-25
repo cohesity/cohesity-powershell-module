@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies statistics about this Cohesity Cluster.
@@ -26,13 +23,14 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="ClusterStats" /> class.
         /// </summary>
-        /// <param name="cloudUsagePerfStats">cloudUsagePerfStats.</param>
+        /// <param name="cloudUsagePerfStats">Provides usage and performance statistics for the remote data stored on a Cloud Tier by the Cohesity Cluster..</param>
         /// <param name="dataReductionRatio">Specifies the ratio of logical bytes (not reduced by change-block tracking, compression and deduplication) to physical bytes (reduced by change-block tracking, compression and deduplication)..</param>
+        /// <param name="dataUsageStats">dataUsageStats.</param>
         /// <param name="id">Specifies the id of the Cohesity Cluster..</param>
-        /// <param name="localUsagePerfStats">localUsagePerfStats.</param>
-        /// <param name="logicalStats">logicalStats.</param>
-        /// <param name="usagePerfStats">usagePerfStats.</param>
-        public ClusterStats(CloudTierStatistics_ cloudUsagePerfStats = default(CloudTierStatistics_), double? dataReductionRatio = default(double?), long? id = default(long?), LocalStatistics_ localUsagePerfStats = default(LocalStatistics_), LogicalStatistics_ logicalStats = default(LogicalStatistics_), LocalAndCloudTierStatistics_ usagePerfStats = default(LocalAndCloudTierStatistics_))
+        /// <param name="localUsagePerfStats">Provides usage and performance statistics for local data stored directly on the Cohesity Cluster..</param>
+        /// <param name="logicalStats">Specifies the total logical data size of all the local and Cloud Tier data stored by the Cohesity Cluster before the data is reduced by change-block tracking, compression and deduplication. The size of the data if the data is fully hydrated or expanded..</param>
+        /// <param name="usagePerfStats">Provides usage and performance statistics about the local data stored directly on the Cohesity Cluster and the remote data stored on a Cloud Tier for the Cohesity Cluster..</param>
+        public ClusterStats(UsageAndPerformanceStats cloudUsagePerfStats = default(UsageAndPerformanceStats), double? dataReductionRatio = default(double?), DataUsageStats dataUsageStats = default(DataUsageStats), long? id = default(long?), UsageAndPerformanceStats localUsagePerfStats = default(UsageAndPerformanceStats), LogicalStats logicalStats = default(LogicalStats), UsageAndPerformanceStats usagePerfStats = default(UsageAndPerformanceStats))
         {
             this.CloudUsagePerfStats = cloudUsagePerfStats;
             this.DataReductionRatio = dataReductionRatio;
@@ -40,45 +38,62 @@ namespace Cohesity.Models
             this.LocalUsagePerfStats = localUsagePerfStats;
             this.LogicalStats = logicalStats;
             this.UsagePerfStats = usagePerfStats;
+            this.CloudUsagePerfStats = cloudUsagePerfStats;
+            this.DataReductionRatio = dataReductionRatio;
+            this.DataUsageStats = dataUsageStats;
+            this.Id = id;
+            this.LocalUsagePerfStats = localUsagePerfStats;
+            this.LogicalStats = logicalStats;
+            this.UsagePerfStats = usagePerfStats;
         }
         
         /// <summary>
-        /// Gets or Sets CloudUsagePerfStats
+        /// Provides usage and performance statistics for the remote data stored on a Cloud Tier by the Cohesity Cluster.
         /// </summary>
-        [DataMember(Name="cloudUsagePerfStats", EmitDefaultValue=false)]
-        public CloudTierStatistics_ CloudUsagePerfStats { get; set; }
+        /// <value>Provides usage and performance statistics for the remote data stored on a Cloud Tier by the Cohesity Cluster.</value>
+        [DataMember(Name="cloudUsagePerfStats", EmitDefaultValue=true)]
+        public UsageAndPerformanceStats CloudUsagePerfStats { get; set; }
 
         /// <summary>
         /// Specifies the ratio of logical bytes (not reduced by change-block tracking, compression and deduplication) to physical bytes (reduced by change-block tracking, compression and deduplication).
         /// </summary>
         /// <value>Specifies the ratio of logical bytes (not reduced by change-block tracking, compression and deduplication) to physical bytes (reduced by change-block tracking, compression and deduplication).</value>
-        [DataMember(Name="dataReductionRatio", EmitDefaultValue=false)]
+        [DataMember(Name="dataReductionRatio", EmitDefaultValue=true)]
         public double? DataReductionRatio { get; set; }
+
+        /// <summary>
+        /// Gets or Sets DataUsageStats
+        /// </summary>
+        [DataMember(Name="dataUsageStats", EmitDefaultValue=false)]
+        public DataUsageStats DataUsageStats { get; set; }
 
         /// <summary>
         /// Specifies the id of the Cohesity Cluster.
         /// </summary>
         /// <value>Specifies the id of the Cohesity Cluster.</value>
-        [DataMember(Name="id", EmitDefaultValue=false)]
+        [DataMember(Name="id", EmitDefaultValue=true)]
         public long? Id { get; set; }
 
         /// <summary>
-        /// Gets or Sets LocalUsagePerfStats
+        /// Provides usage and performance statistics for local data stored directly on the Cohesity Cluster.
         /// </summary>
-        [DataMember(Name="localUsagePerfStats", EmitDefaultValue=false)]
-        public LocalStatistics_ LocalUsagePerfStats { get; set; }
+        /// <value>Provides usage and performance statistics for local data stored directly on the Cohesity Cluster.</value>
+        [DataMember(Name="localUsagePerfStats", EmitDefaultValue=true)]
+        public UsageAndPerformanceStats LocalUsagePerfStats { get; set; }
 
         /// <summary>
-        /// Gets or Sets LogicalStats
+        /// Specifies the total logical data size of all the local and Cloud Tier data stored by the Cohesity Cluster before the data is reduced by change-block tracking, compression and deduplication. The size of the data if the data is fully hydrated or expanded.
         /// </summary>
-        [DataMember(Name="logicalStats", EmitDefaultValue=false)]
-        public LogicalStatistics_ LogicalStats { get; set; }
+        /// <value>Specifies the total logical data size of all the local and Cloud Tier data stored by the Cohesity Cluster before the data is reduced by change-block tracking, compression and deduplication. The size of the data if the data is fully hydrated or expanded.</value>
+        [DataMember(Name="logicalStats", EmitDefaultValue=true)]
+        public LogicalStats LogicalStats { get; set; }
 
         /// <summary>
-        /// Gets or Sets UsagePerfStats
+        /// Provides usage and performance statistics about the local data stored directly on the Cohesity Cluster and the remote data stored on a Cloud Tier for the Cohesity Cluster.
         /// </summary>
-        [DataMember(Name="usagePerfStats", EmitDefaultValue=false)]
-        public LocalAndCloudTierStatistics_ UsagePerfStats { get; set; }
+        /// <value>Provides usage and performance statistics about the local data stored directly on the Cohesity Cluster and the remote data stored on a Cloud Tier for the Cohesity Cluster.</value>
+        [DataMember(Name="usagePerfStats", EmitDefaultValue=true)]
+        public UsageAndPerformanceStats UsagePerfStats { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -86,7 +101,17 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class ClusterStats {\n");
+            sb.Append("  CloudUsagePerfStats: ").Append(CloudUsagePerfStats).Append("\n");
+            sb.Append("  DataReductionRatio: ").Append(DataReductionRatio).Append("\n");
+            sb.Append("  DataUsageStats: ").Append(DataUsageStats).Append("\n");
+            sb.Append("  Id: ").Append(Id).Append("\n");
+            sb.Append("  LocalUsagePerfStats: ").Append(LocalUsagePerfStats).Append("\n");
+            sb.Append("  LogicalStats: ").Append(LogicalStats).Append("\n");
+            sb.Append("  UsagePerfStats: ").Append(UsagePerfStats).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -130,6 +155,11 @@ namespace Cohesity.Models
                     this.DataReductionRatio.Equals(input.DataReductionRatio))
                 ) && 
                 (
+                    this.DataUsageStats == input.DataUsageStats ||
+                    (this.DataUsageStats != null &&
+                    this.DataUsageStats.Equals(input.DataUsageStats))
+                ) && 
+                (
                     this.Id == input.Id ||
                     (this.Id != null &&
                     this.Id.Equals(input.Id))
@@ -164,6 +194,8 @@ namespace Cohesity.Models
                     hashCode = hashCode * 59 + this.CloudUsagePerfStats.GetHashCode();
                 if (this.DataReductionRatio != null)
                     hashCode = hashCode * 59 + this.DataReductionRatio.GetHashCode();
+                if (this.DataUsageStats != null)
+                    hashCode = hashCode * 59 + this.DataUsageStats.GetHashCode();
                 if (this.Id != null)
                     hashCode = hashCode * 59 + this.Id.GetHashCode();
                 if (this.LocalUsagePerfStats != null)
@@ -176,8 +208,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

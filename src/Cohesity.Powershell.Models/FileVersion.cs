@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies information about a single file or folder.
@@ -28,9 +25,12 @@ namespace Cohesity.Models
         /// </summary>
         /// <param name="modifiedTimeUsecs">Specifies the time when the file or folder was last modified. Specified as a Unix epoch Timestamp (in microseconds)..</param>
         /// <param name="sizeBytes">Specifies the size of the file or folder (in bytes) from the most recent snapshot..</param>
-        /// <param name="snapshots">Specifies the available snapshots of the file or folder. When a Job Run executes, it captures a snapshot of object (such as a VM) that contains the file or folder..</param>
+        /// <param name="snapshots">Array of Snapshots.  Specifies the available snapshots of the file or folder. When a Job Run executes, it captures a snapshot of object (such as a VM) that contains the file or folder..</param>
         public FileVersion(long? modifiedTimeUsecs = default(long?), long? sizeBytes = default(long?), List<SnapshotAttempt> snapshots = default(List<SnapshotAttempt>))
         {
+            this.ModifiedTimeUsecs = modifiedTimeUsecs;
+            this.SizeBytes = sizeBytes;
+            this.Snapshots = snapshots;
             this.ModifiedTimeUsecs = modifiedTimeUsecs;
             this.SizeBytes = sizeBytes;
             this.Snapshots = snapshots;
@@ -40,21 +40,21 @@ namespace Cohesity.Models
         /// Specifies the time when the file or folder was last modified. Specified as a Unix epoch Timestamp (in microseconds).
         /// </summary>
         /// <value>Specifies the time when the file or folder was last modified. Specified as a Unix epoch Timestamp (in microseconds).</value>
-        [DataMember(Name="modifiedTimeUsecs", EmitDefaultValue=false)]
+        [DataMember(Name="modifiedTimeUsecs", EmitDefaultValue=true)]
         public long? ModifiedTimeUsecs { get; set; }
 
         /// <summary>
         /// Specifies the size of the file or folder (in bytes) from the most recent snapshot.
         /// </summary>
         /// <value>Specifies the size of the file or folder (in bytes) from the most recent snapshot.</value>
-        [DataMember(Name="sizeBytes", EmitDefaultValue=false)]
+        [DataMember(Name="sizeBytes", EmitDefaultValue=true)]
         public long? SizeBytes { get; set; }
 
         /// <summary>
-        /// Specifies the available snapshots of the file or folder. When a Job Run executes, it captures a snapshot of object (such as a VM) that contains the file or folder.
+        /// Array of Snapshots.  Specifies the available snapshots of the file or folder. When a Job Run executes, it captures a snapshot of object (such as a VM) that contains the file or folder.
         /// </summary>
-        /// <value>Specifies the available snapshots of the file or folder. When a Job Run executes, it captures a snapshot of object (such as a VM) that contains the file or folder.</value>
-        [DataMember(Name="snapshots", EmitDefaultValue=false)]
+        /// <value>Array of Snapshots.  Specifies the available snapshots of the file or folder. When a Job Run executes, it captures a snapshot of object (such as a VM) that contains the file or folder.</value>
+        [DataMember(Name="snapshots", EmitDefaultValue=true)]
         public List<SnapshotAttempt> Snapshots { get; set; }
 
         /// <summary>
@@ -63,7 +63,13 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class FileVersion {\n");
+            sb.Append("  ModifiedTimeUsecs: ").Append(ModifiedTimeUsecs).Append("\n");
+            sb.Append("  SizeBytes: ").Append(SizeBytes).Append("\n");
+            sb.Append("  Snapshots: ").Append(Snapshots).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -109,6 +115,7 @@ namespace Cohesity.Models
                 (
                     this.Snapshots == input.Snapshots ||
                     this.Snapshots != null &&
+                    input.Snapshots != null &&
                     this.Snapshots.SequenceEqual(input.Snapshots)
                 );
         }
@@ -132,8 +139,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

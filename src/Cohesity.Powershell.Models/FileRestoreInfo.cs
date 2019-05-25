@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,13 +12,10 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
-    /// FileRestoreInfo
+    /// Specifies restore information of a file or a folder.
     /// </summary>
     [DataContract]
     public partial class FileRestoreInfo :  IEquatable<FileRestoreInfo>
@@ -26,12 +23,14 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="FileRestoreInfo" /> class.
         /// </summary>
-        /// <param name="error">Specifies any error status for the file. If this error is set, it means we fail to get information for this file or file is not present in this instance id..</param>
+        /// <param name="error">error.</param>
         /// <param name="filename">Specifies the path of the file/directory..</param>
-        /// <param name="filesystemVolume">Specifies the filesystem volume information..</param>
+        /// <param name="filesystemVolume">filesystemVolume.</param>
         /// <param name="isFolder">Specifies whether the file path is a folder..</param>
         public FileRestoreInfo(RequestError error = default(RequestError), string filename = default(string), FilesystemVolume filesystemVolume = default(FilesystemVolume), bool? isFolder = default(bool?))
         {
+            this.Filename = filename;
+            this.IsFolder = isFolder;
             this.Error = error;
             this.Filename = filename;
             this.FilesystemVolume = filesystemVolume;
@@ -39,9 +38,8 @@ namespace Cohesity.Models
         }
         
         /// <summary>
-        /// Specifies any error status for the file. If this error is set, it means we fail to get information for this file or file is not present in this instance id.
+        /// Gets or Sets Error
         /// </summary>
-        /// <value>Specifies any error status for the file. If this error is set, it means we fail to get information for this file or file is not present in this instance id.</value>
         [DataMember(Name="error", EmitDefaultValue=false)]
         public RequestError Error { get; set; }
 
@@ -49,13 +47,12 @@ namespace Cohesity.Models
         /// Specifies the path of the file/directory.
         /// </summary>
         /// <value>Specifies the path of the file/directory.</value>
-        [DataMember(Name="filename", EmitDefaultValue=false)]
+        [DataMember(Name="filename", EmitDefaultValue=true)]
         public string Filename { get; set; }
 
         /// <summary>
-        /// Specifies the filesystem volume information.
+        /// Gets or Sets FilesystemVolume
         /// </summary>
-        /// <value>Specifies the filesystem volume information.</value>
         [DataMember(Name="filesystemVolume", EmitDefaultValue=false)]
         public FilesystemVolume FilesystemVolume { get; set; }
 
@@ -63,7 +60,7 @@ namespace Cohesity.Models
         /// Specifies whether the file path is a folder.
         /// </summary>
         /// <value>Specifies whether the file path is a folder.</value>
-        [DataMember(Name="isFolder", EmitDefaultValue=false)]
+        [DataMember(Name="isFolder", EmitDefaultValue=true)]
         public bool? IsFolder { get; set; }
 
         /// <summary>
@@ -72,7 +69,14 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class FileRestoreInfo {\n");
+            sb.Append("  Error: ").Append(Error).Append("\n");
+            sb.Append("  Filename: ").Append(Filename).Append("\n");
+            sb.Append("  FilesystemVolume: ").Append(FilesystemVolume).Append("\n");
+            sb.Append("  IsFolder: ").Append(IsFolder).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -148,8 +152,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

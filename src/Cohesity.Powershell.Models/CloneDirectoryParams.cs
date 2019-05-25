@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies the params that have to be provided to clone a directory.
@@ -34,27 +31,30 @@ namespace Cohesity.Models
             this.DestinationDirectoryName = destinationDirectoryName;
             this.DestinationParentDirectoryPath = destinationParentDirectoryPath;
             this.SourceDirectoryPath = sourceDirectoryPath;
+            this.DestinationDirectoryName = destinationDirectoryName;
+            this.DestinationParentDirectoryPath = destinationParentDirectoryPath;
+            this.SourceDirectoryPath = sourceDirectoryPath;
         }
         
         /// <summary>
         /// Name of the new directory which will contain the clone contents.
         /// </summary>
         /// <value>Name of the new directory which will contain the clone contents.</value>
-        [DataMember(Name="destinationDirectoryName", EmitDefaultValue=false)]
+        [DataMember(Name="destinationDirectoryName", EmitDefaultValue=true)]
         public string DestinationDirectoryName { get; set; }
 
         /// <summary>
         /// Specifies the path of the destination parent directory. The source dir would be cloned as a child of dest parent dir.
         /// </summary>
         /// <value>Specifies the path of the destination parent directory. The source dir would be cloned as a child of dest parent dir.</value>
-        [DataMember(Name="destinationParentDirectoryPath", EmitDefaultValue=false)]
+        [DataMember(Name="destinationParentDirectoryPath", EmitDefaultValue=true)]
         public string DestinationParentDirectoryPath { get; set; }
 
         /// <summary>
         /// Specifies the path of the source directory
         /// </summary>
         /// <value>Specifies the path of the source directory</value>
-        [DataMember(Name="sourceDirectoryPath", EmitDefaultValue=false)]
+        [DataMember(Name="sourceDirectoryPath", EmitDefaultValue=true)]
         public string SourceDirectoryPath { get; set; }
 
         /// <summary>
@@ -63,7 +63,13 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class CloneDirectoryParams {\n");
+            sb.Append("  DestinationDirectoryName: ").Append(DestinationDirectoryName).Append("\n");
+            sb.Append("  DestinationParentDirectoryPath: ").Append(DestinationParentDirectoryPath).Append("\n");
+            sb.Append("  SourceDirectoryPath: ").Append(SourceDirectoryPath).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -132,8 +138,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-

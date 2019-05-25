@@ -1,4 +1,4 @@
-// Copyright 2018 Cohesity Inc.
+// Copyright 2019 Cohesity Inc.
 
 using System;
 using System.Linq;
@@ -12,10 +12,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
-
-
-namespace Cohesity.Models
+namespace Cohesity.Model
 {
     /// <summary>
     /// Specifies the parameters to update user quota metadata in a view.
@@ -26,12 +23,15 @@ namespace Cohesity.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="UpdateUserQuotaSettingsForView" /> class.
         /// </summary>
-        /// <param name="defaultUserQuotaPolicy">The default user quota policy for this view..</param>
+        /// <param name="defaultUserQuotaPolicy">defaultUserQuotaPolicy.</param>
         /// <param name="enableUserQuota">If set, it enables/disables the user quota overrides for a view. Otherwise, it leaves it at it&#39;s previous state..</param>
         /// <param name="inheritDefaultPolicyFromViewbox">If set to true, the default_policy in view metadata will be cleared and the default policy from viewbox will take effect for all users in the view..</param>
         /// <param name="viewName">View name of input view..</param>
         public UpdateUserQuotaSettingsForView(QuotaPolicy defaultUserQuotaPolicy = default(QuotaPolicy), bool? enableUserQuota = default(bool?), bool? inheritDefaultPolicyFromViewbox = default(bool?), string viewName = default(string))
         {
+            this.EnableUserQuota = enableUserQuota;
+            this.InheritDefaultPolicyFromViewbox = inheritDefaultPolicyFromViewbox;
+            this.ViewName = viewName;
             this.DefaultUserQuotaPolicy = defaultUserQuotaPolicy;
             this.EnableUserQuota = enableUserQuota;
             this.InheritDefaultPolicyFromViewbox = inheritDefaultPolicyFromViewbox;
@@ -39,9 +39,8 @@ namespace Cohesity.Models
         }
         
         /// <summary>
-        /// The default user quota policy for this view.
+        /// Gets or Sets DefaultUserQuotaPolicy
         /// </summary>
-        /// <value>The default user quota policy for this view.</value>
         [DataMember(Name="defaultUserQuotaPolicy", EmitDefaultValue=false)]
         public QuotaPolicy DefaultUserQuotaPolicy { get; set; }
 
@@ -49,21 +48,21 @@ namespace Cohesity.Models
         /// If set, it enables/disables the user quota overrides for a view. Otherwise, it leaves it at it&#39;s previous state.
         /// </summary>
         /// <value>If set, it enables/disables the user quota overrides for a view. Otherwise, it leaves it at it&#39;s previous state.</value>
-        [DataMember(Name="enableUserQuota", EmitDefaultValue=false)]
+        [DataMember(Name="enableUserQuota", EmitDefaultValue=true)]
         public bool? EnableUserQuota { get; set; }
 
         /// <summary>
         /// If set to true, the default_policy in view metadata will be cleared and the default policy from viewbox will take effect for all users in the view.
         /// </summary>
         /// <value>If set to true, the default_policy in view metadata will be cleared and the default policy from viewbox will take effect for all users in the view.</value>
-        [DataMember(Name="inheritDefaultPolicyFromViewbox", EmitDefaultValue=false)]
+        [DataMember(Name="inheritDefaultPolicyFromViewbox", EmitDefaultValue=true)]
         public bool? InheritDefaultPolicyFromViewbox { get; set; }
 
         /// <summary>
         /// View name of input view.
         /// </summary>
         /// <value>View name of input view.</value>
-        [DataMember(Name="viewName", EmitDefaultValue=false)]
+        [DataMember(Name="viewName", EmitDefaultValue=true)]
         public string ViewName { get; set; }
 
         /// <summary>
@@ -72,7 +71,14 @@ namespace Cohesity.Models
         /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
-            return ToJson();
+            var sb = new StringBuilder();
+            sb.Append("class UpdateUserQuotaSettingsForView {\n");
+            sb.Append("  DefaultUserQuotaPolicy: ").Append(DefaultUserQuotaPolicy).Append("\n");
+            sb.Append("  EnableUserQuota: ").Append(EnableUserQuota).Append("\n");
+            sb.Append("  InheritDefaultPolicyFromViewbox: ").Append(InheritDefaultPolicyFromViewbox).Append("\n");
+            sb.Append("  ViewName: ").Append(ViewName).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
         }
   
         /// <summary>
@@ -148,8 +154,6 @@ namespace Cohesity.Models
             }
         }
 
-        
     }
 
 }
-
