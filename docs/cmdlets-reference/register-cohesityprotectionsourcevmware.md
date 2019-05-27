@@ -43,13 +43,13 @@ Accept wildcard characters: False
 Type of VMware server.
 Must be set to KStandaloneHost or KVcenter.
 
-Possible values: KVCenter, KFolder, KDatacenter, KComputeResource, KClusterComputeResource, KResourcePool, KDatastore, KHostSystem, KVirtualMachine, KVirtualApp, KStandaloneHost, KStoragePod, KNetwork, KDistributedVirtualPortgroup, KTagCategory, KTag
+Possible values: KVCenter, KFolder, KDatacenter, KComputeResource, KClusterComputeResource, KResourcePool, KDatastore, KHostSystem, KVirtualMachine, KVirtualApp, KStandaloneHost, KStoragePod, KNetwork, KDistributedVirtualPortgroup, KTagCategory, KTag, KOpaqueNetwork, KVCloudDirector, KOrganization, KVirtualDatacenter, KCatalog, KOrgMetadata, KStoragePolicy
 
 ```yaml
 Type: VmwareTypeEnum
 Parameter Sets: (All)
 Aliases:
-Accepted values: KVCenter, KFolder, KDatacenter, KComputeResource, KClusterComputeResource, KResourcePool, KDatastore, KHostSystem, KVirtualMachine, KVirtualApp, KStandaloneHost, KStoragePod, KNetwork, KDistributedVirtualPortgroup, KTagCategory, KTag
+Accepted values: KVCenter, KFolder, KDatacenter, KComputeResource, KClusterComputeResource, KResourcePool, KDatastore, KHostSystem, KVirtualMachine, KVirtualApp, KStandaloneHost, KStoragePod, KNetwork, KDistributedVirtualPortgroup, KTagCategory, KTag, KOpaqueNetwork, KVCloudDirector, KOrganization, KVirtualDatacenter, KCatalog, KOrgMetadata, KStoragePolicy
 
 Required: True
 Position: Named
@@ -74,8 +74,7 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
-For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 

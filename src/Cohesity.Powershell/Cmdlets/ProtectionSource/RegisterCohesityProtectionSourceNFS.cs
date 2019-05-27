@@ -24,7 +24,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
     /// </para>
     /// </example>
     [Cmdlet(VerbsLifecycle.Register, "CohesityProtectionSourceNFS")]
-    [OutputType(typeof(Models.ProtectionSource))]
+    [OutputType(typeof(Model.ProtectionSource))]
     public class RegisterCohesityProtectionSourceNFS : PSCmdlet
     {
         private Session Session
@@ -89,7 +89,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
             {
                 // GET /protectionSources/{id}
                 var getProtectionSourcesUrl = $"/public/protectionSources/objects/{protectionSourceId}";
-                var response = Session.ApiClient.Get<Models.ProtectionSource>(getProtectionSourcesUrl);
+                var response = Session.ApiClient.Get<Model.ProtectionSource>(getProtectionSourcesUrl);
 
                 WriteObject(response);
             }

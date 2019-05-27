@@ -269,31 +269,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class Node {\n");
-            sb.Append("  CapacityByTier: ").Append(CapacityByTier).Append("\n");
-            sb.Append("  ChassisInfo: ").Append(ChassisInfo).Append("\n");
-            sb.Append("  ClusterPartitionId: ").Append(ClusterPartitionId).Append("\n");
-            sb.Append("  ClusterPartitionName: ").Append(ClusterPartitionName).Append("\n");
-            sb.Append("  DiskCount: ").Append(DiskCount).Append("\n");
-            sb.Append("  DiskCountByTier: ").Append(DiskCountByTier).Append("\n");
-            sb.Append("  Id: ").Append(Id).Append("\n");
-            sb.Append("  Ip: ").Append(Ip).Append("\n");
-            sb.Append("  IsMarkedForRemoval: ").Append(IsMarkedForRemoval).Append("\n");
-            sb.Append("  MaxPhysicalCapacityBytes: ").Append(MaxPhysicalCapacityBytes).Append("\n");
-            sb.Append("  NodeHardwareInfo: ").Append(NodeHardwareInfo).Append("\n");
-            sb.Append("  NodeIncarnationId: ").Append(NodeIncarnationId).Append("\n");
-            sb.Append("  NodeSoftwareVersion: ").Append(NodeSoftwareVersion).Append("\n");
-            sb.Append("  OfflineMountPathsOfDisks: ").Append(OfflineMountPathsOfDisks).Append("\n");
-            sb.Append("  RemovalReason: ").Append(RemovalReason).Append("\n");
-            sb.Append("  RemovalState: ").Append(RemovalState).Append("\n");
-            sb.Append("  Stats: ").Append(Stats).Append("\n");
-            sb.Append("  SystemDisks: ").Append(SystemDisks).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -471,3 +447,4 @@ namespace Cohesity.Model
     }
 
 }
+

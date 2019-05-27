@@ -181,24 +181,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class CopyRun {\n");
-            sb.Append("  CopySnapshotTasks: ").Append(CopySnapshotTasks).Append("\n");
-            sb.Append("  Error: ").Append(Error).Append("\n");
-            sb.Append("  ExpiryTimeUsecs: ").Append(ExpiryTimeUsecs).Append("\n");
-            sb.Append("  HoldForLegalPurpose: ").Append(HoldForLegalPurpose).Append("\n");
-            sb.Append("  LegalHoldings: ").Append(LegalHoldings).Append("\n");
-            sb.Append("  RunStartTimeUsecs: ").Append(RunStartTimeUsecs).Append("\n");
-            sb.Append("  Stats: ").Append(Stats).Append("\n");
-            sb.Append("  Status: ").Append(Status).Append("\n");
-            sb.Append("  Target: ").Append(Target).Append("\n");
-            sb.Append("  TaskUid: ").Append(TaskUid).Append("\n");
-            sb.Append("  UserActionMessage: ").Append(UserActionMessage).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -325,3 +308,4 @@ namespace Cohesity.Model
     }
 
 }
+

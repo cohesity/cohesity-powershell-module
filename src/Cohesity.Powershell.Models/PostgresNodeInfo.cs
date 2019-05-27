@@ -81,18 +81,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class PostgresNodeInfo {\n");
-            sb.Append("  DefaultPassword: ").Append(DefaultPassword).Append("\n");
-            sb.Append("  DefaultUsername: ").Append(DefaultUsername).Append("\n");
-            sb.Append("  NodeId: ").Append(NodeId).Append("\n");
-            sb.Append("  NodeIp: ").Append(NodeIp).Append("\n");
-            sb.Append("  Port: ").Append(Port).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -177,3 +166,4 @@ namespace Cohesity.Model
     }
 
 }
+

@@ -111,21 +111,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class Share {\n");
-            sb.Append("  AllSmbMountPaths: ").Append(AllSmbMountPaths).Append("\n");
-            sb.Append("  NfsMountPath: ").Append(NfsMountPath).Append("\n");
-            sb.Append("  Path: ").Append(Path).Append("\n");
-            sb.Append("  S3AccessPath: ").Append(S3AccessPath).Append("\n");
-            sb.Append("  ShareName: ").Append(ShareName).Append("\n");
-            sb.Append("  SmbMountPath: ").Append(SmbMountPath).Append("\n");
-            sb.Append("  TenantId: ").Append(TenantId).Append("\n");
-            sb.Append("  ViewName: ").Append(ViewName).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -232,3 +218,4 @@ namespace Cohesity.Model
     }
 
 }
+

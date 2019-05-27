@@ -89,19 +89,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class EntitySchemaProtoTimeSeriesDescriptor {\n");
-            sb.Append("  MetricDescriptiveName: ").Append(MetricDescriptiveName).Append("\n");
-            sb.Append("  MetricName: ").Append(MetricName).Append("\n");
-            sb.Append("  MetricUnit: ").Append(MetricUnit).Append("\n");
-            sb.Append("  RawMetricPublishIntervalHintSecs: ").Append(RawMetricPublishIntervalHintSecs).Append("\n");
-            sb.Append("  TimeToLiveSecs: ").Append(TimeToLiveSecs).Append("\n");
-            sb.Append("  ValueType: ").Append(ValueType).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -193,3 +181,4 @@ namespace Cohesity.Model
     }
 
 }
+

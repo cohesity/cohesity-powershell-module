@@ -249,25 +249,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class AlertMetadata {\n");
-            sb.Append("  AlertDocumentList: ").Append(AlertDocumentList).Append("\n");
-            sb.Append("  AlertTypeId: ").Append(AlertTypeId).Append("\n");
-            sb.Append("  Category: ").Append(Category).Append("\n");
-            sb.Append("  DedupIntervalSeconds: ").Append(DedupIntervalSeconds).Append("\n");
-            sb.Append("  DedupUntilResolved: ").Append(DedupUntilResolved).Append("\n");
-            sb.Append("  HideAlertFromUser: ").Append(HideAlertFromUser).Append("\n");
-            sb.Append("  IgnoreDuplicateOccurrences: ").Append(IgnoreDuplicateOccurrences).Append("\n");
-            sb.Append("  PrimaryKeyList: ").Append(PrimaryKeyList).Append("\n");
-            sb.Append("  PropertyList: ").Append(PropertyList).Append("\n");
-            sb.Append("  SendSupportNotification: ").Append(SendSupportNotification).Append("\n");
-            sb.Append("  SnmpNotification: ").Append(SnmpNotification).Append("\n");
-            sb.Append("  Version: ").Append(Version).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -402,3 +384,4 @@ namespace Cohesity.Model
     }
 
 }
+

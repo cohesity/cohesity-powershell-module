@@ -23,7 +23,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
     /// </para>
     /// </example>
     [Cmdlet(VerbsLifecycle.Register, "CohesityProtectionSourceVMware")]
-    [OutputType(typeof(Models.ProtectionSource))]
+    [OutputType(typeof(Model.ProtectionSource))]
     public class RegisterCohesityProtectionSourceVMware : PSCmdlet
     {
         private Session Session
@@ -79,7 +79,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
         {
             var param = new RegisterProtectionSourceParameters
             {
-                Environment = EnvironmentEnum.kVMware,
+                Environment = Model.RegisterProtectionSourceParameters.EnvironmentEnum.KVMware,
                 Endpoint = Server,
                 VmwareType = Type,
                 Username = Credential.UserName,
@@ -88,7 +88,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
 
             // POST /public/protectionSources/register
             var preparedUrl = $"/public/protectionSources/register";
-            var result = Session.ApiClient.Post<Models.ProtectionSource>(preparedUrl, param);
+            var result = Session.ApiClient.Post<Model.ProtectionSource>(preparedUrl, param);
             WriteObject(result);
         }
 

@@ -143,22 +143,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class FlashBladeFileSystem {\n");
-            sb.Append("  BackupEnabled: ").Append(BackupEnabled).Append("\n");
-            sb.Append("  CreatedTimeMsecs: ").Append(CreatedTimeMsecs).Append("\n");
-            sb.Append("  LogicalCapacityBytes: ").Append(LogicalCapacityBytes).Append("\n");
-            sb.Append("  LogicalUsedBytes: ").Append(LogicalUsedBytes).Append("\n");
-            sb.Append("  NfsInfo: ").Append(NfsInfo).Append("\n");
-            sb.Append("  PhysicalUsedBytes: ").Append(PhysicalUsedBytes).Append("\n");
-            sb.Append("  Protocols: ").Append(Protocols).Append("\n");
-            sb.Append("  SmbInfo: ").Append(SmbInfo).Append("\n");
-            sb.Append("  UniqueUsedBytes: ").Append(UniqueUsedBytes).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -271,3 +256,4 @@ namespace Cohesity.Model
     }
 
 }
+

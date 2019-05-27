@@ -101,20 +101,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class NetworkConfiguration {\n");
-            sb.Append("  ClusterGateway: ").Append(ClusterGateway).Append("\n");
-            sb.Append("  ClusterSubnetMask: ").Append(ClusterSubnetMask).Append("\n");
-            sb.Append("  DnsServers: ").Append(DnsServers).Append("\n");
-            sb.Append("  DomainNames: ").Append(DomainNames).Append("\n");
-            sb.Append("  NtpServers: ").Append(NtpServers).Append("\n");
-            sb.Append("  VipHostname: ").Append(VipHostname).Append("\n");
-            sb.Append("  Vips: ").Append(Vips).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -217,3 +204,4 @@ namespace Cohesity.Model
     }
 
 }
+

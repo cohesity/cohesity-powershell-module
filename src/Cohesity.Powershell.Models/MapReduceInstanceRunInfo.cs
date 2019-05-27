@@ -211,31 +211,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class MapReduceInstanceRunInfo {\n");
-            sb.Append("  EndTime: ").Append(EndTime).Append("\n");
-            sb.Append("  ErrorMessage: ").Append(ErrorMessage).Append("\n");
-            sb.Append("  ExecutionStartTimeUsecs: ").Append(ExecutionStartTimeUsecs).Append("\n");
-            sb.Append("  FilesProcessed: ").Append(FilesProcessed).Append("\n");
-            sb.Append("  MapDoneTimeUsecs: ").Append(MapDoneTimeUsecs).Append("\n");
-            sb.Append("  MapInputBytes: ").Append(MapInputBytes).Append("\n");
-            sb.Append("  MappersSpawned: ").Append(MappersSpawned).Append("\n");
-            sb.Append("  NumMapOutputs: ").Append(NumMapOutputs).Append("\n");
-            sb.Append("  NumReduceOutputs: ").Append(NumReduceOutputs).Append("\n");
-            sb.Append("  PercentageCompletion: ").Append(PercentageCompletion).Append("\n");
-            sb.Append("  PercentageMapperCompletion: ").Append(PercentageMapperCompletion).Append("\n");
-            sb.Append("  PercentageReducerCompletion: ").Append(PercentageReducerCompletion).Append("\n");
-            sb.Append("  ReducersSpawned: ").Append(ReducersSpawned).Append("\n");
-            sb.Append("  RemainingTimeMins: ").Append(RemainingTimeMins).Append("\n");
-            sb.Append("  StartTime: ").Append(StartTime).Append("\n");
-            sb.Append("  Status: ").Append(Status).Append("\n");
-            sb.Append("  TotalNumMappers: ").Append(TotalNumMappers).Append("\n");
-            sb.Append("  TotalNumReducers: ").Append(TotalNumReducers).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -411,3 +387,4 @@ namespace Cohesity.Model
     }
 
 }
+

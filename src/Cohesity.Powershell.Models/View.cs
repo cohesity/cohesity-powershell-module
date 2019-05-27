@@ -443,50 +443,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class View {\n");
-            sb.Append("  AccessSids: ").Append(AccessSids).Append("\n");
-            sb.Append("  Aliases: ").Append(Aliases).Append("\n");
-            sb.Append("  AllSmbMountPaths: ").Append(AllSmbMountPaths).Append("\n");
-            sb.Append("  AntivirusScanConfig: ").Append(AntivirusScanConfig).Append("\n");
-            sb.Append("  BasicMountPath: ").Append(BasicMountPath).Append("\n");
-            sb.Append("  CaseInsensitiveNamesEnabled: ").Append(CaseInsensitiveNamesEnabled).Append("\n");
-            sb.Append("  CreateTimeMsecs: ").Append(CreateTimeMsecs).Append("\n");
-            sb.Append("  DataLockExpiryUsecs: ").Append(DataLockExpiryUsecs).Append("\n");
-            sb.Append("  Description: ").Append(Description).Append("\n");
-            sb.Append("  EnableFilerAuditLogging: ").Append(EnableFilerAuditLogging).Append("\n");
-            sb.Append("  EnableMixedModePermissions: ").Append(EnableMixedModePermissions).Append("\n");
-            sb.Append("  EnableNfsViewDiscovery: ").Append(EnableNfsViewDiscovery).Append("\n");
-            sb.Append("  EnableSmbAccessBasedEnumeration: ").Append(EnableSmbAccessBasedEnumeration).Append("\n");
-            sb.Append("  EnableSmbEncryption: ").Append(EnableSmbEncryption).Append("\n");
-            sb.Append("  EnableSmbViewDiscovery: ").Append(EnableSmbViewDiscovery).Append("\n");
-            sb.Append("  EnforceSmbEncryption: ").Append(EnforceSmbEncryption).Append("\n");
-            sb.Append("  FileExtensionFilter: ").Append(FileExtensionFilter).Append("\n");
-            sb.Append("  FileLockConfig: ").Append(FileLockConfig).Append("\n");
-            sb.Append("  IsTargetForMigratedData: ").Append(IsTargetForMigratedData).Append("\n");
-            sb.Append("  LogicalQuota: ").Append(LogicalQuota).Append("\n");
-            sb.Append("  LogicalUsageBytes: ").Append(LogicalUsageBytes).Append("\n");
-            sb.Append("  Name: ").Append(Name).Append("\n");
-            sb.Append("  NfsMountPath: ").Append(NfsMountPath).Append("\n");
-            sb.Append("  ProtocolAccess: ").Append(ProtocolAccess).Append("\n");
-            sb.Append("  Qos: ").Append(Qos).Append("\n");
-            sb.Append("  S3AccessPath: ").Append(S3AccessPath).Append("\n");
-            sb.Append("  SecurityMode: ").Append(SecurityMode).Append("\n");
-            sb.Append("  SmbMountPath: ").Append(SmbMountPath).Append("\n");
-            sb.Append("  SmbPermissionsInfo: ").Append(SmbPermissionsInfo).Append("\n");
-            sb.Append("  Stats: ").Append(Stats).Append("\n");
-            sb.Append("  StoragePolicyOverride: ").Append(StoragePolicyOverride).Append("\n");
-            sb.Append("  SubnetWhitelist: ").Append(SubnetWhitelist).Append("\n");
-            sb.Append("  TenantId: ").Append(TenantId).Append("\n");
-            sb.Append("  ViewBoxId: ").Append(ViewBoxId).Append("\n");
-            sb.Append("  ViewBoxName: ").Append(ViewBoxName).Append("\n");
-            sb.Append("  ViewId: ").Append(ViewId).Append("\n");
-            sb.Append("  ViewProtection: ").Append(ViewProtection).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -795,3 +752,4 @@ namespace Cohesity.Model
     }
 
 }
+

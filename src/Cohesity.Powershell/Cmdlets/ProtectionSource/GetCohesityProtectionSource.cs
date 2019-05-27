@@ -49,7 +49,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
         /// </para>
         /// </summary>
         [Parameter(Mandatory = false)]
-        public EnvironmentEnum[] Environments { get; set; }
+        public Model.ProtectionSource.EnvironmentEnum[] Environments { get; set; }
 
         /// <summary>
         /// <para type="description">
@@ -73,13 +73,17 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
             if (Id.HasValue)
             {
                 var url = $"/public/protectionSources/objects/{Id.ToString()}";
-                var result = Session.ApiClient.Get<Models.ProtectionSource>(url);
+                var result = Session.ApiClient.Get<Model.ProtectionSource>(url);
                 WriteObject(result);
             }
             else
             {
                 if (Environments != null && Environments.Any())
-                    qb.Add("environments", string.Join(",", Environments));
+                {
+                    List<string> environments = 
+                        Environments.ToList().ConvertAll<string>(x => x.ToString().First().ToString().ToLower() + x.ToString().Substring(1));
+                    qb.Add("environments", string.Join(",", environments));
+                }
 
                 var url = $"/public/protectionSources/rootNodes{qb.Build()}";
                 var results = Session.ApiClient.Get<List<ProtectionSourceNode>>(url);
@@ -107,9 +111,9 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
 
                 // Skip kView, kAgent, kPuppeteer environment types and group nodes themselves
                 results = results.Where(x =>
-                    (x.ProtectionSource.Environment != EnvironmentEnum.kAgent) &&
-                    (x.ProtectionSource.Environment != EnvironmentEnum.kView) &&
-                    (x.ProtectionSource.Environment != EnvironmentEnum.kPuppeteer) &&
+                    (x.ProtectionSource.Environment != Model.ProtectionSource.EnvironmentEnum.KAgent) &&
+                    (x.ProtectionSource.Environment != Model.ProtectionSource.EnvironmentEnum.KView) &&
+                    (x.ProtectionSource.Environment != Model.ProtectionSource.EnvironmentEnum.KPuppeteer) &&
                     (x.RegistrationInfo != null)
                 ).ToList();
 
@@ -132,7 +136,6 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
                 result.Add(node);
                 result.AddRange(FlattenNodes(childrenNodes));
             }
-
             return result;
         }
     }

@@ -46,7 +46,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
     ///   </para>
     /// </example>
     [Cmdlet(VerbsCommon.Get, "CohesityProtectionJob")]
-    [OutputType(typeof(Models.ProtectionJob))]
+    [OutputType(typeof(Model.ProtectionJob))]
     public class GetCohesityProtectionJob : PSCmdlet
     {
         private Session Session
@@ -96,7 +96,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
         /// </para>
         /// </summary>
         [Parameter(Mandatory = false)]
-        public EnvironmentEnum[] Environments { get; set; }
+        public Model.ProtectionJob.EnvironmentEnum[] Environments { get; set; }
 
         /// <summary>
         /// <para type="description">
@@ -157,14 +157,17 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
                 queries.Add("policyIds", string.Join(",", PolicyIds));
 
             if (Environments != null && Environments.Any())
-                queries.Add("environments", string.Join(",", Environments));
+            {
+                List<string> envs = Environments.ToList().ConvertAll<string>(x => x.ToString().First().ToString().ToLower() + x.ToString().Substring(1));
+                queries.Add("environments", string.Join(",", envs));
+            }
 
             var queryString = string.Empty;
             if (queries.Any())
                 queryString = "?" + string.Join("&", queries.Select(q => $"{q.Key}={q.Value}"));
 
             var preparedUrl = $"/public/protectionJobs{queryString}";
-            var results = Session.ApiClient.Get<IEnumerable<Models.ProtectionJob>>(preparedUrl);
+            var results = Session.ApiClient.Get<IEnumerable<Model.ProtectionJob>>(preparedUrl);
 
             // Hide deleted protection jobs unless explicitly asked for
             if (!OnlyDeleted.IsPresent)

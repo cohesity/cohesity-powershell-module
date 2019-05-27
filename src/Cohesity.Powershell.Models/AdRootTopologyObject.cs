@@ -111,21 +111,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class AdRootTopologyObject {\n");
-            sb.Append("  ChildObjects: ").Append(ChildObjects).Append("\n");
-            sb.Append("  Description: ").Append(Description).Append("\n");
-            sb.Append("  DestGuid: ").Append(DestGuid).Append("\n");
-            sb.Append("  DisplayName: ").Append(DisplayName).Append("\n");
-            sb.Append("  DistinguishedName: ").Append(DistinguishedName).Append("\n");
-            sb.Append("  ErrorMessage: ").Append(ErrorMessage).Append("\n");
-            sb.Append("  ObjectClass: ").Append(ObjectClass).Append("\n");
-            sb.Append("  SourceGuid: ").Append(SourceGuid).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -232,3 +218,4 @@ namespace Cohesity.Model
     }
 
 }
+

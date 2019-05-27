@@ -99,20 +99,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class AdDomainController {\n");
-            sb.Append("  BackupSupported: ").Append(BackupSupported).Append("\n");
-            sb.Append("  BackupUnsupportedReasons: ").Append(BackupUnsupportedReasons).Append("\n");
-            sb.Append("  Domain: ").Append(Domain).Append("\n");
-            sb.Append("  HostName: ").Append(HostName).Append("\n");
-            sb.Append("  IsGlobalCatalog: ").Append(IsGlobalCatalog).Append("\n");
-            sb.Append("  IsReadOnly: ").Append(IsReadOnly).Append("\n");
-            sb.Append("  UtcOffsetMin: ").Append(UtcOffsetMin).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -212,3 +199,4 @@ namespace Cohesity.Model
     }
 
 }
+

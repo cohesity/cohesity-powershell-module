@@ -209,9 +209,9 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
         /// </summary>
         protected override void ProcessRecord()
         {
-            var applicationRestoreObject = new Models.ApplicationRestoreObject(applicationServerId: SourceId)
+            var applicationRestoreObject = new Model.ApplicationRestoreObject(applicationServerId: SourceId)
             {
-                SqlRestoreParameters = new Models.SqlRestoreParameters
+                SqlRestoreParameters = new Model.SqlRestoreParameters
                 {
                     CaptureTailLogs = CaptureTailLogs.IsPresent,
                     KeepOffline = KeepOffline.IsPresent
@@ -248,15 +248,15 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
                 applicationRestoreObject.TargetRootNodeId = TargetHostParentId;
             }
 
-            var applicationRestoreObjects = new List<Models.ApplicationRestoreObject>();
+            var applicationRestoreObjects = new List<Model.ApplicationRestoreObject>();
             applicationRestoreObjects.Add(applicationRestoreObject);
 
             var job = RestApiCommon.GetProtectionJobById(Session.ApiClient, JobId);
-            var hostingProtectionSource = new Models.RestoreObject
+            var hostingProtectionSource = new Model.RestoreObjectDetails
             {
                 JobId = JobId,
                 ProtectionSourceId = HostSourceId,
-                JobUid = new Models.UniversalId_
+                JobUid = new Model.UniversalId
                 {
                     Id = job.Id,
                     ClusterId = job.Uid.ClusterId,
@@ -270,8 +270,8 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
             if (StartTime.HasValue)
                 hostingProtectionSource.StartedTimeUsecs = StartTime;
 
-            var restoreRequest = new Models.ApplicationsRestoreTaskRequest(name: TaskName,
-                applicationEnvironment: Models.ApplicationsRestoreTaskRequest.ApplicationEnvironmentEnum.KSQL,
+            var restoreRequest = new Model.ApplicationsRestoreTaskRequest(name: TaskName,
+                applicationEnvironment: Model.ApplicationsRestoreTaskRequest.ApplicationEnvironmentEnum.KSQL,
                 applicationRestoreObjects: applicationRestoreObjects,
                 hostingProtectionSource: hostingProtectionSource)
             {
@@ -285,7 +285,7 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
 
             // POST /public/restore/applicationsRecover
             var preparedUrl = $"/public/restore/applicationsRecover";
-            var result = Session.ApiClient.Post<Models.RestoreTask>(preparedUrl, restoreRequest);
+            var result = Session.ApiClient.Post<Model.RestoreTask>(preparedUrl, restoreRequest);
             WriteObject(result);
         }
 

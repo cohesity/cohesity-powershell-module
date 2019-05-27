@@ -161,26 +161,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class UserParameters {\n");
-            sb.Append("  AdditionalGroupNames: ").Append(AdditionalGroupNames).Append("\n");
-            sb.Append("  ClusterIdentifiers: ").Append(ClusterIdentifiers).Append("\n");
-            sb.Append("  Description: ").Append(Description).Append("\n");
-            sb.Append("  Domain: ").Append(Domain).Append("\n");
-            sb.Append("  EffectiveTimeMsecs: ").Append(EffectiveTimeMsecs).Append("\n");
-            sb.Append("  EmailAddress: ").Append(EmailAddress).Append("\n");
-            sb.Append("  ExpiredTimeMsecs: ").Append(ExpiredTimeMsecs).Append("\n");
-            sb.Append("  Password: ").Append(Password).Append("\n");
-            sb.Append("  PrimaryGroupName: ").Append(PrimaryGroupName).Append("\n");
-            sb.Append("  PrivilegeIds: ").Append(PrivilegeIds).Append("\n");
-            sb.Append("  Restricted: ").Append(Restricted).Append("\n");
-            sb.Append("  Roles: ").Append(Roles).Append("\n");
-            sb.Append("  Username: ").Append(Username).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -325,3 +306,4 @@ namespace Cohesity.Model
     }
 
 }
+

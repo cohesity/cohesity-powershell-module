@@ -205,26 +205,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class TaskNotification {\n");
-            sb.Append("  BackupTask: ").Append(BackupTask).Append("\n");
-            sb.Append("  CloneTask: ").Append(CloneTask).Append("\n");
-            sb.Append("  CreatedTimeSecs: ").Append(CreatedTimeSecs).Append("\n");
-            sb.Append("  Description: ").Append(Description).Append("\n");
-            sb.Append("  Dismissed: ").Append(Dismissed).Append("\n");
-            sb.Append("  DismissedTimeSecs: ").Append(DismissedTimeSecs).Append("\n");
-            sb.Append("  FieldMessageTask: ").Append(FieldMessageTask).Append("\n");
-            sb.Append("  Id: ").Append(Id).Append("\n");
-            sb.Append("  RecoveryTask: ").Append(RecoveryTask).Append("\n");
-            sb.Append("  Status: ").Append(Status).Append("\n");
-            sb.Append("  TaskType: ").Append(TaskType).Append("\n");
-            sb.Append("  Visited: ").Append(Visited).Append("\n");
-            sb.Append("  VisitedTimeSecs: ").Append(VisitedTimeSecs).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -361,3 +342,4 @@ namespace Cohesity.Model
     }
 
 }
+

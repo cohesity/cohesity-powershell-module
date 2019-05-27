@@ -81,18 +81,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class QuotaPolicy {\n");
-            sb.Append("  AlertLimit: ").Append(AlertLimit).Append("\n");
-            sb.Append("  HardLimit: ").Append(HardLimit).Append("\n");
-            sb.Append("  AlertLimitBytes: ").Append(AlertLimitBytes).Append("\n");
-            sb.Append("  AlertThresholdPercentage: ").Append(AlertThresholdPercentage).Append("\n");
-            sb.Append("  HardLimitBytes: ").Append(HardLimitBytes).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -177,3 +166,4 @@ namespace Cohesity.Model
     }
 
 }
+

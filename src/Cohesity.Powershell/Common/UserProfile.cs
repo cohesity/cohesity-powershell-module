@@ -1,4 +1,5 @@
 ﻿// Copyright 2018 Cohesity Inc.
+using Cohesity.Model;
 using System;
 
 namespace Cohesity.Powershell.Common
@@ -9,7 +10,7 @@ namespace Cohesity.Powershell.Common
 
         public bool AllowInvalidServerCertificates { get; set; } = false;
         
-        public AccessTokenObject AccessToken { get; set; }
+        public AccessToken AccessToken { get; set; }
     
     }
 }

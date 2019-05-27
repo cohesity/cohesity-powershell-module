@@ -49,7 +49,25 @@ namespace Cohesity.Model
             /// Enum KUnified for value: kUnified
             /// </summary>
             [EnumMember(Value = "kUnified")]
-            KUnified = 4
+            KUnified = 4,
+
+            /// <summary>
+            /// Enum KDataProtection for value: kDataProtection
+            /// </summary>
+            [EnumMember(Value = "kDataProtection")]
+            KDataProtection = 5,
+
+            /// <summary>
+            /// Enum KDataCache for value: kDataCache
+            /// </summary>
+            [EnumMember(Value = "kDataCache")]
+            KDataCache = 6,
+
+            /// <summary>
+            /// Enum KLoadSharing for value: kLoadSharing
+            /// </summary>
+            [EnumMember(Value = "kLoadSharing")]
+            KLoadSharing = 7
 
         }
 
@@ -103,17 +121,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class VolumeSecurityInfo {\n");
-            sb.Append("  GroupId: ").Append(GroupId).Append("\n");
-            sb.Append("  Permissions: ").Append(Permissions).Append("\n");
-            sb.Append("  Style: ").Append(Style).Append("\n");
-            sb.Append("  UserId: ").Append(UserId).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -189,3 +197,4 @@ namespace Cohesity.Model
     }
 
 }
+

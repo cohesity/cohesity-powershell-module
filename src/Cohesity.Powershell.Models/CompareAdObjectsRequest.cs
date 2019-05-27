@@ -111,21 +111,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class CompareAdObjectsRequest {\n");
-            sb.Append("  RestoreTaskId: ").Append(RestoreTaskId).Append("\n");
-            sb.Append("  AllowEmptyDestGuids: ").Append(AllowEmptyDestGuids).Append("\n");
-            sb.Append("  CaseSensitive: ").Append(CaseSensitive).Append("\n");
-            sb.Append("  ExcludeSysAttributes: ").Append(ExcludeSysAttributes).Append("\n");
-            sb.Append("  FilterNullValueAttributes: ").Append(FilterNullValueAttributes).Append("\n");
-            sb.Append("  FilterSameValueAttributes: ").Append(FilterSameValueAttributes).Append("\n");
-            sb.Append("  GuidPairs: ").Append(GuidPairs).Append("\n");
-            sb.Append("  QuickCompare: ").Append(QuickCompare).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -232,3 +218,4 @@ namespace Cohesity.Model
     }
 
 }
+

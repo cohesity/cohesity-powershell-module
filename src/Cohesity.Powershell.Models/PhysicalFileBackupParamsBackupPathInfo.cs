@@ -61,16 +61,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class PhysicalFileBackupParamsBackupPathInfo {\n");
-            sb.Append("  ExcludePaths: ").Append(ExcludePaths).Append("\n");
-            sb.Append("  IncludePath: ").Append(IncludePath).Append("\n");
-            sb.Append("  SkipNestedVolumes: ").Append(SkipNestedVolumes).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -142,3 +133,4 @@ namespace Cohesity.Model
     }
 
 }
+

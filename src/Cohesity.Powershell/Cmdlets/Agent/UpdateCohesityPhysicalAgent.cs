@@ -71,12 +71,12 @@ namespace Cohesity.Powershell.Cmdlets.Agent
         /// </summary>
         protected override void ProcessRecord()
         {
-            var agentIds = new List<long?> { Id };
+            var agentIds = new List<long> { Id };
             var content = new UpgradePhysicalServerAgents(agentIds);
 
             // POST public/physicalAgents/upgrade
             var preparedUrl = $"/public/physicalAgents/upgrade";
-            var response = Session.ApiClient.Post<Models.UpgradePhysicalAgentsMessage>(preparedUrl, content);
+            var response = Session.ApiClient.Post<Model.UpgradePhysicalAgentsMessage>(preparedUrl, content);
             WriteObject("Upgrading physical agents started successfully");
         }
 

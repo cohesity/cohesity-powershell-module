@@ -63,17 +63,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class DeployVMsToCloudParams {\n");
-            sb.Append("  DeployVmsToAwsParams: ").Append(DeployVmsToAwsParams).Append("\n");
-            sb.Append("  DeployVmsToAzureParams: ").Append(DeployVmsToAzureParams).Append("\n");
-            sb.Append("  DeployVmsToGcpParams: ").Append(DeployVmsToGcpParams).Append("\n");
-            sb.Append("  ReplicateSnapshotsToAwsParams: ").Append(ReplicateSnapshotsToAwsParams).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -151,3 +141,4 @@ namespace Cohesity.Model
     }
 
 }
+

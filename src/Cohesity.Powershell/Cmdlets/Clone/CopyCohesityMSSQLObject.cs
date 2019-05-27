@@ -257,7 +257,7 @@ namespace Cohesity.Powershell.Cmdlets.Clone
 
             // GET /public/restore/tasks/{id}
             var getRestoreTaskUrl = $"/public/restore/tasks/{restoreTaskId}";
-            var response = Session.ApiClient.Get<Models.RestoreTask>(getRestoreTaskUrl);
+            var response = Session.ApiClient.Get<Model.RestoreTask>(getRestoreTaskUrl);
             WriteObject(response);
         }
 

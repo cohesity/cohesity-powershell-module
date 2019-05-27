@@ -169,23 +169,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class RemoteVaultSearchJobInformation {\n");
-            sb.Append("  ClusterCount: ").Append(ClusterCount).Append("\n");
-            sb.Append("  EndTimeUsecs: ").Append(EndTimeUsecs).Append("\n");
-            sb.Append("  Error: ").Append(Error).Append("\n");
-            sb.Append("  JobCount: ").Append(JobCount).Append("\n");
-            sb.Append("  Name: ").Append(Name).Append("\n");
-            sb.Append("  SearchJobStatus: ").Append(SearchJobStatus).Append("\n");
-            sb.Append("  SearchJobUid: ").Append(SearchJobUid).Append("\n");
-            sb.Append("  StartTimeUsecs: ").Append(StartTimeUsecs).Append("\n");
-            sb.Append("  VaultId: ").Append(VaultId).Append("\n");
-            sb.Append("  VaultName: ").Append(VaultName).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -303,3 +287,4 @@ namespace Cohesity.Model
     }
 
 }
+

@@ -61,16 +61,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class AWSSnapshotManagerParams {\n");
-            sb.Append("  AmiCreationFrequency: ").Append(AmiCreationFrequency).Append("\n");
-            sb.Append("  CreateAmiForRun: ").Append(CreateAmiForRun).Append("\n");
-            sb.Append("  ShouldCreateAmi: ").Append(ShouldCreateAmi).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -141,3 +132,4 @@ namespace Cohesity.Model
     }
 
 }
+

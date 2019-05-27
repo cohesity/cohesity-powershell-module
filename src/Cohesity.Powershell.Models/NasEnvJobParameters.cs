@@ -97,18 +97,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class NasEnvJobParameters {\n");
-            sb.Append("  ContinueOnError: ").Append(ContinueOnError).Append("\n");
-            sb.Append("  DataMigrationJobParameters: ").Append(DataMigrationJobParameters).Append("\n");
-            sb.Append("  EnableFasterIncrementalBackups: ").Append(EnableFasterIncrementalBackups).Append("\n");
-            sb.Append("  FilePathFilters: ").Append(FilePathFilters).Append("\n");
-            sb.Append("  NasProtocol: ").Append(NasProtocol).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -191,3 +180,4 @@ namespace Cohesity.Model
     }
 
 }
+

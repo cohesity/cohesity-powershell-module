@@ -113,18 +113,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class SchedulingPolicy {\n");
-            sb.Append("  ContinuousSchedule: ").Append(ContinuousSchedule).Append("\n");
-            sb.Append("  DailySchedule: ").Append(DailySchedule).Append("\n");
-            sb.Append("  MonthlySchedule: ").Append(MonthlySchedule).Append("\n");
-            sb.Append("  Periodicity: ").Append(Periodicity).Append("\n");
-            sb.Append("  RpoSchedule: ").Append(RpoSchedule).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -207,3 +196,4 @@ namespace Cohesity.Model
     }
 
 }
+

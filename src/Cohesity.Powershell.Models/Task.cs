@@ -199,26 +199,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class Task {\n");
-            sb.Append("  Attributes: ").Append(Attributes).Append("\n");
-            sb.Append("  EndTimeSeconds: ").Append(EndTimeSeconds).Append("\n");
-            sb.Append("  ErrorMessage: ").Append(ErrorMessage).Append("\n");
-            sb.Append("  Events: ").Append(Events).Append("\n");
-            sb.Append("  ExpectedEndTimeSeconds: ").Append(ExpectedEndTimeSeconds).Append("\n");
-            sb.Append("  ExpectedSecondsRemaining: ").Append(ExpectedSecondsRemaining).Append("\n");
-            sb.Append("  ExpectedTotalWorkCount: ").Append(ExpectedTotalWorkCount).Append("\n");
-            sb.Append("  LastUpdateTimeSeconds: ").Append(LastUpdateTimeSeconds).Append("\n");
-            sb.Append("  PercentFinished: ").Append(PercentFinished).Append("\n");
-            sb.Append("  StartTimeSeconds: ").Append(StartTimeSeconds).Append("\n");
-            sb.Append("  Status: ").Append(Status).Append("\n");
-            sb.Append("  SubTasks: ").Append(SubTasks).Append("\n");
-            sb.Append("  TaskPath: ").Append(TaskPath).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -360,3 +341,4 @@ namespace Cohesity.Model
     }
 
 }
+

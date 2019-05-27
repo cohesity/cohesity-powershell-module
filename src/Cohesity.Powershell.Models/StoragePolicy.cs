@@ -37,7 +37,13 @@ namespace Cohesity.Model
             /// Enum KCompressionLow for value: kCompressionLow
             /// </summary>
             [EnumMember(Value = "kCompressionLow")]
-            KCompressionLow = 2
+            KCompressionLow = 2,
+
+            /// <summary>
+            /// Enum KCompressionHigh for value: kCompressionHigh
+            /// </summary>
+            [EnumMember(Value = "kCompressionHigh")]
+            KCompressionHigh = 3
 
         }
 
@@ -185,24 +191,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class StoragePolicy {\n");
-            sb.Append("  AppMarkerDetection: ").Append(AppMarkerDetection).Append("\n");
-            sb.Append("  CloudSpillVaultId: ").Append(CloudSpillVaultId).Append("\n");
-            sb.Append("  CompressionPolicy: ").Append(CompressionPolicy).Append("\n");
-            sb.Append("  DeduplicateCompressDelaySecs: ").Append(DeduplicateCompressDelaySecs).Append("\n");
-            sb.Append("  DeduplicationEnabled: ").Append(DeduplicationEnabled).Append("\n");
-            sb.Append("  EncryptionPolicy: ").Append(EncryptionPolicy).Append("\n");
-            sb.Append("  ErasureCodingInfo: ").Append(ErasureCodingInfo).Append("\n");
-            sb.Append("  InlineCompress: ").Append(InlineCompress).Append("\n");
-            sb.Append("  InlineDeduplicate: ").Append(InlineDeduplicate).Append("\n");
-            sb.Append("  NumFailuresTolerated: ").Append(NumFailuresTolerated).Append("\n");
-            sb.Append("  NumNodeFailuresTolerated: ").Append(NumNodeFailuresTolerated).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -325,3 +314,4 @@ namespace Cohesity.Model
     }
 
 }
+

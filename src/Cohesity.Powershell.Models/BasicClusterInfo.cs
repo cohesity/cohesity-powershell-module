@@ -205,24 +205,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class BasicClusterInfo {\n");
-            sb.Append("  AuthenticationType: ").Append(AuthenticationType).Append("\n");
-            sb.Append("  BannerEnabled: ").Append(BannerEnabled).Append("\n");
-            sb.Append("  ClusterSoftwareVersion: ").Append(ClusterSoftwareVersion).Append("\n");
-            sb.Append("  ClusterType: ").Append(ClusterType).Append("\n");
-            sb.Append("  Domains: ").Append(Domains).Append("\n");
-            sb.Append("  IdpConfigured: ").Append(IdpConfigured).Append("\n");
-            sb.Append("  IdpTenantExists: ").Append(IdpTenantExists).Append("\n");
-            sb.Append("  LanguageLocale: ").Append(LanguageLocale).Append("\n");
-            sb.Append("  McmMode: ").Append(McmMode).Append("\n");
-            sb.Append("  MultiTenancyEnabled: ").Append(MultiTenancyEnabled).Append("\n");
-            sb.Append("  Name: ").Append(Name).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -346,3 +329,4 @@ namespace Cohesity.Model
     }
 
 }
+

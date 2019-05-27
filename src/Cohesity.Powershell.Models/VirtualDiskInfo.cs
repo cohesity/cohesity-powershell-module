@@ -71,17 +71,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class VirtualDiskInfo {\n");
-            sb.Append("  BusNumber: ").Append(BusNumber).Append("\n");
-            sb.Append("  ControllerType: ").Append(ControllerType).Append("\n");
-            sb.Append("  Filename: ").Append(Filename).Append("\n");
-            sb.Append("  UnitNumber: ").Append(UnitNumber).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -159,3 +149,4 @@ namespace Cohesity.Model
     }
 
 }
+

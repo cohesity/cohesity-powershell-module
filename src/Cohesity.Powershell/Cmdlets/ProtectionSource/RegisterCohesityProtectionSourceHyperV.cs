@@ -23,7 +23,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
     /// </para>
     /// </example>
     [Cmdlet(VerbsLifecycle.Register, "CohesityProtectionSourceHyperV")]
-    [OutputType(typeof(Models.ProtectionSource))]
+    [OutputType(typeof(Model.ProtectionSource))]
     public class RegisterCohesityProtectionSourceHyperV : PSCmdlet
     {
         private Session Session
@@ -71,7 +71,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
         {
             var param = new RegisterProtectionSourceParameters
             {
-                Environment = EnvironmentEnum.kHyperV,
+                Environment = Model.RegisterProtectionSourceParameters.EnvironmentEnum.KHyperV,
                 Endpoint = Server,
                 Username = Credential.UserName,
                 Password = Credential.GetNetworkCredential().Password
@@ -79,7 +79,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
 
             // POST /public/protectionSources/register
             var preparedUrl = $"/public/protectionSources/register";
-            var result = Session.ApiClient.Post<Models.ProtectionSource>(preparedUrl, param);
+            var result = Session.ApiClient.Post<Model.ProtectionSource>(preparedUrl, param);
             WriteObject(result);
         }
 

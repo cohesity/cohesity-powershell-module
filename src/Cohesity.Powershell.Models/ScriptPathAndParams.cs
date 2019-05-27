@@ -81,18 +81,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class ScriptPathAndParams {\n");
-            sb.Append("  ContinueOnError: ").Append(ContinueOnError).Append("\n");
-            sb.Append("  IsActive: ").Append(IsActive).Append("\n");
-            sb.Append("  ScriptParams: ").Append(ScriptParams).Append("\n");
-            sb.Append("  ScriptPath: ").Append(ScriptPath).Append("\n");
-            sb.Append("  TimeoutSecs: ").Append(TimeoutSecs).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -177,3 +166,4 @@ namespace Cohesity.Model
     }
 
 }
+

@@ -166,7 +166,7 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
         /// </para>
         /// </summary>
         [Parameter(Mandatory = false)]
-        public Models.RestoreFilesTaskRequest.TargetHostTypeEnum? TargetHostType { get; set; }
+        public Model.RestoreFilesTaskRequest.TargetHostTypeEnum? TargetHostType { get; set; }
 
         /// <summary>
         /// <para type="description">
@@ -196,7 +196,7 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
         /// </summary>
         protected override void ProcessRecord()
         {
-            var restoreRequest = new Models.RestoreFilesTaskRequest(name: TaskName)
+            var restoreRequest = new Model.RestoreFilesTaskRequest(name: TaskName)
             {
                 Filenames = new List<string>(FileNames),
                 ContinueOnError = ContinueOnError.IsPresent,
@@ -223,11 +223,11 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
                 restoreRequest.TargetHostType = TargetHostType;
 
             var job = RestApiCommon.GetProtectionJobById(Session.ApiClient, JobId);
-            var restoreObject = new Models.RestoreObject_
+            var restoreObject = new Model.RestoreObjectDetails
             {
                 JobId = JobId,
                 ProtectionSourceId = SourceId,
-                JobUid = new Models.UniversalId_
+                JobUid = new Model.UniversalId
                 {
                     Id = job.Id,
                     ClusterId = job.Uid.ClusterId,
@@ -259,7 +259,7 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
            
             // POST /public/restore/files
             var preparedUrl = $"/public/restore/files";
-            var result = Session.ApiClient.Post<Models.RestoreTask>(preparedUrl, restoreRequest);
+            var result = Session.ApiClient.Post<Model.RestoreTask>(preparedUrl, restoreRequest);
             WriteObject(result);
         }
 

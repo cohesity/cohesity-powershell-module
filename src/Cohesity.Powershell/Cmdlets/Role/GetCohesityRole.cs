@@ -32,7 +32,7 @@ namespace Cohesity.Powershell.Cmdlets.Role
     ///   </para>
     /// </example>
     [Cmdlet(VerbsCommon.Get, "CohesityRole")]
-    [OutputType(typeof(Models.Role))]
+    [OutputType(typeof(Model.Role))]
     public class GetCohesityRole : PSCmdlet
     {
         private Session Session
@@ -75,7 +75,7 @@ namespace Cohesity.Powershell.Cmdlets.Role
 
             var preparedUrl = $"/public/roles{qb.Build()}";
             WriteDebug(preparedUrl);
-            var result = Session.ApiClient.Get<IEnumerable<Models.Role>>(preparedUrl);
+            var result = Session.ApiClient.Get<IEnumerable<Model.Role>>(preparedUrl);
             WriteObject(result, true);
         }
 

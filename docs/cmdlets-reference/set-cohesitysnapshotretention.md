@@ -7,14 +7,14 @@ Changes the retention of the snapshots associated with a Protection Job.
 
 ### UNNAMED_PARAMETER_SET_1
 ```
-Set-CohesitySnapshotRetention -ExtendByDays <long> -JobName <string> -JobRunId <long>
- [-SourceIds <Nullable`1[]>] [<CommonParameters>]
+Set-CohesitySnapshotRetention -ExtendByDays <long> -JobName <string> -JobRunId <long> [-SourceIds <long[]>]
+ [<CommonParameters>]
 ```
 
 ### UNNAMED_PARAMETER_SET_2
 ```
-Set-CohesitySnapshotRetention -JobName <string> -JobRunId <long> -ReduceByDays <long>
- [-SourceIds <Nullable`1[]>] [<CommonParameters>]
+Set-CohesitySnapshotRetention -JobName <string> -JobRunId <long> -ReduceByDays <long> [-SourceIds <long[]>]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -109,7 +109,7 @@ Accept wildcard characters: False
 Specifies the source ids to only select snapshots belonging to these source ids.
 
 ```yaml
-Type: Nullable`1[]
+Type: long[]
 Parameter Sets: (All)
 Aliases:
 
@@ -121,8 +121,7 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
-For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 

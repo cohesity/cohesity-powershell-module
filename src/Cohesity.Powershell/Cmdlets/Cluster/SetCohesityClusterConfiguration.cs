@@ -23,7 +23,7 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
     /// </example>
 
     [Cmdlet(VerbsCommon.Set, "CohesityClusterConfiguration")]
-    [OutputType(typeof(Models.Cluster))]
+    [OutputType(typeof(Model.Cluster))]
     public class SetCohesityClusterConfiguration : PSCmdlet
     {
 
@@ -49,7 +49,7 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
         /// </para>
         /// </summary>
         [Parameter(Mandatory = true, ValueFromPipeline = true)]
-        public Models.Cluster ClusterConfiguration { get; set; } = null;
+        public Model.Cluster ClusterConfiguration { get; set; } = null;
 
         #endregion
 
@@ -72,7 +72,7 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
         {
             // PUT public/cluster
             var preparedUrl = $"/public/cluster";
-            var result = Session.ApiClient.Put<Models.Cluster>(preparedUrl, ClusterConfiguration);
+            var result = Session.ApiClient.Put<Model.Cluster>(preparedUrl, ClusterConfiguration);
             WriteObject(result);
         }
 

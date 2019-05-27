@@ -23,7 +23,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
     /// </para>
     /// </example>
     [Cmdlet(VerbsLifecycle.Register, "CohesityProtectionSourcePureStorageArray")]
-    [OutputType(typeof(Models.ProtectionSource))]
+    [OutputType(typeof(Model.ProtectionSource))]
     public class RegisterCohesityProtectionSourcePureStorageArray : PSCmdlet
     {
         private Session Session
@@ -71,7 +71,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
         {
             var param = new RegisterProtectionSourceParameters
             {
-                Environment = EnvironmentEnum.kPure,
+                Environment = RegisterProtectionSourceParameters.EnvironmentEnum.KPure,
                 Endpoint = Server,
                 PureType = RegisterProtectionSourceParameters.PureTypeEnum.KStorageArray,
                 Username = Credential.UserName,
@@ -80,7 +80,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
 
             // POST /public/protectionSources/register
             var preparedUrl = $"/public/protectionSources/register";
-            var result = Session.ApiClient.Post<Models.ProtectionSource>(preparedUrl, param);
+            var result = Session.ApiClient.Post<Model.ProtectionSource>(preparedUrl, param);
             WriteObject(result);
         }
 

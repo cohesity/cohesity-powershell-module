@@ -26,7 +26,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionPolicy
     ///   </para>
     /// </example>
     [Cmdlet(VerbsCommon.Get, "CohesityProtectionPolicy")]
-    [OutputType(typeof(Models.ProtectionPolicy))]
+    [OutputType(typeof(Model.ProtectionPolicy))]
     public class GetCohesityProtectionPolicy : PSCmdlet
     {
         private Session Session
@@ -51,7 +51,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionPolicy
         /// </para>
         /// </summary>
         [Parameter(Mandatory = false)]
-        public EnvironmentEnum[] Environments { get; set; }
+        public Model.ProtectionJob.EnvironmentEnum[] Environments { get; set; }
 
         /// <summary>
         /// <para type="description">
@@ -81,7 +81,10 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionPolicy
             var qb = new QuerystringBuilder();
 
             if (Environments != null && Environments.Any())
-                qb.Add("environments", string.Join(",", Environments));
+            {
+                List<string> envs = Environments.ToList().ConvertAll<string>(x => x.ToString().First().ToString().ToLower() + x.ToString().Substring(1));
+                qb.Add("environments", string.Join(",", envs));
+            }
 
             if (Ids != null && Ids.Any())
                 qb.Add("ids", string.Join(",", Ids));
@@ -90,7 +93,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionPolicy
                 qb.Add("names", string.Join(",", Names));
 
             var preparedUrl = $"/public/protectionPolicies{qb.Build()}";
-            var result = Session.ApiClient.Get<IEnumerable<Models.ProtectionPolicy>>(preparedUrl);
+            var result = Session.ApiClient.Get<IEnumerable<Model.ProtectionPolicy>>(preparedUrl);
             WriteObject(result, true);
         }
 

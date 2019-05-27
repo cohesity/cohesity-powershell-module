@@ -69,17 +69,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class UpdateUserQuotaSettingsForView {\n");
-            sb.Append("  DefaultUserQuotaPolicy: ").Append(DefaultUserQuotaPolicy).Append("\n");
-            sb.Append("  EnableUserQuota: ").Append(EnableUserQuota).Append("\n");
-            sb.Append("  InheritDefaultPolicyFromViewbox: ").Append(InheritDefaultPolicyFromViewbox).Append("\n");
-            sb.Append("  ViewName: ").Append(ViewName).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -157,3 +147,4 @@ namespace Cohesity.Model
     }
 
 }
+

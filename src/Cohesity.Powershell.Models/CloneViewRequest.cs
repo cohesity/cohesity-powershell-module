@@ -307,36 +307,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class CloneViewRequest {\n");
-            sb.Append("  AccessSids: ").Append(AccessSids).Append("\n");
-            sb.Append("  AntivirusScanConfig: ").Append(AntivirusScanConfig).Append("\n");
-            sb.Append("  CloneViewName: ").Append(CloneViewName).Append("\n");
-            sb.Append("  DataLockExpiryUsecs: ").Append(DataLockExpiryUsecs).Append("\n");
-            sb.Append("  Description: ").Append(Description).Append("\n");
-            sb.Append("  EnableFilerAuditLogging: ").Append(EnableFilerAuditLogging).Append("\n");
-            sb.Append("  EnableMixedModePermissions: ").Append(EnableMixedModePermissions).Append("\n");
-            sb.Append("  EnableNfsViewDiscovery: ").Append(EnableNfsViewDiscovery).Append("\n");
-            sb.Append("  EnableSmbAccessBasedEnumeration: ").Append(EnableSmbAccessBasedEnumeration).Append("\n");
-            sb.Append("  EnableSmbEncryption: ").Append(EnableSmbEncryption).Append("\n");
-            sb.Append("  EnableSmbViewDiscovery: ").Append(EnableSmbViewDiscovery).Append("\n");
-            sb.Append("  EnforceSmbEncryption: ").Append(EnforceSmbEncryption).Append("\n");
-            sb.Append("  FileExtensionFilter: ").Append(FileExtensionFilter).Append("\n");
-            sb.Append("  FileLockConfig: ").Append(FileLockConfig).Append("\n");
-            sb.Append("  LogicalQuota: ").Append(LogicalQuota).Append("\n");
-            sb.Append("  ProtocolAccess: ").Append(ProtocolAccess).Append("\n");
-            sb.Append("  Qos: ").Append(Qos).Append("\n");
-            sb.Append("  SecurityMode: ").Append(SecurityMode).Append("\n");
-            sb.Append("  SmbPermissionsInfo: ").Append(SmbPermissionsInfo).Append("\n");
-            sb.Append("  SourceViewName: ").Append(SourceViewName).Append("\n");
-            sb.Append("  StoragePolicyOverride: ").Append(StoragePolicyOverride).Append("\n");
-            sb.Append("  SubnetWhitelist: ").Append(SubnetWhitelist).Append("\n");
-            sb.Append("  TenantId: ").Append(TenantId).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -545,3 +516,4 @@ namespace Cohesity.Model
     }
 
 }
+

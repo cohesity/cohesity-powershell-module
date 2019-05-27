@@ -313,29 +313,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class SqlProtectionSource {\n");
-            sb.Append("  IsAvailableForVssBackup: ").Append(IsAvailableForVssBackup).Append("\n");
-            sb.Append("  CreatedTimestamp: ").Append(CreatedTimestamp).Append("\n");
-            sb.Append("  DatabaseName: ").Append(DatabaseName).Append("\n");
-            sb.Append("  DbAagEntityId: ").Append(DbAagEntityId).Append("\n");
-            sb.Append("  DbAagName: ").Append(DbAagName).Append("\n");
-            sb.Append("  DbCompatibilityLevel: ").Append(DbCompatibilityLevel).Append("\n");
-            sb.Append("  DbFileGroups: ").Append(DbFileGroups).Append("\n");
-            sb.Append("  DbFiles: ").Append(DbFiles).Append("\n");
-            sb.Append("  DbOwnerUsername: ").Append(DbOwnerUsername).Append("\n");
-            sb.Append("  Id: ").Append(Id).Append("\n");
-            sb.Append("  Name: ").Append(Name).Append("\n");
-            sb.Append("  OwnerId: ").Append(OwnerId).Append("\n");
-            sb.Append("  RecoveryModel: ").Append(RecoveryModel).Append("\n");
-            sb.Append("  SqlServerDbState: ").Append(SqlServerDbState).Append("\n");
-            sb.Append("  SqlServerInstanceVersion: ").Append(SqlServerInstanceVersion).Append("\n");
-            sb.Append("  Type: ").Append(Type).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -493,3 +471,4 @@ namespace Cohesity.Model
     }
 
 }
+

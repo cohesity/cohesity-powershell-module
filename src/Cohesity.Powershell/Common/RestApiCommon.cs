@@ -64,6 +64,7 @@ namespace Cohesity.Powershell.Common
         {
             var qb = new QuerystringBuilder();
             qb.Add("jobId", jobId);
+            qb.Add("numRuns", 1000);
 
             var preparedUrl = $"/public/protectionRuns{qb.Build()}";
             var jobRuns = client.Get<IEnumerable<ProtectionRunInstance>>(preparedUrl);

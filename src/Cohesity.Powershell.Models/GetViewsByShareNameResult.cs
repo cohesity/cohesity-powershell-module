@@ -51,15 +51,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class GetViewsByShareNameResult {\n");
-            sb.Append("  PaginationCookie: ").Append(PaginationCookie).Append("\n");
-            sb.Append("  SharesList: ").Append(SharesList).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -124,3 +116,4 @@ namespace Cohesity.Model
     }
 
 }
+

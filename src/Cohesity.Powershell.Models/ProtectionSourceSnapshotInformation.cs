@@ -231,26 +231,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class ProtectionSourceSnapshotInformation {\n");
-            sb.Append("  CopyTasks: ").Append(CopyTasks).Append("\n");
-            sb.Append("  JobId: ").Append(JobId).Append("\n");
-            sb.Append("  JobName: ").Append(JobName).Append("\n");
-            sb.Append("  JobRunId: ").Append(JobRunId).Append("\n");
-            sb.Append("  JobRunStartTimeUsecs: ").Append(JobRunStartTimeUsecs).Append("\n");
-            sb.Append("  LastRunEndTimeUsecs: ").Append(LastRunEndTimeUsecs).Append("\n");
-            sb.Append("  LastRunStartTimeUsecs: ").Append(LastRunStartTimeUsecs).Append("\n");
-            sb.Append("  Message: ").Append(Message).Append("\n");
-            sb.Append("  NumBytesRead: ").Append(NumBytesRead).Append("\n");
-            sb.Append("  NumLogicalBytesProtected: ").Append(NumLogicalBytesProtected).Append("\n");
-            sb.Append("  PaginationCookie: ").Append(PaginationCookie).Append("\n");
-            sb.Append("  RunStatus: ").Append(RunStatus).Append("\n");
-            sb.Append("  RunType: ").Append(RunType).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -388,3 +369,4 @@ namespace Cohesity.Model
     }
 
 }
+

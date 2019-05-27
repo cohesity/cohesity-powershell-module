@@ -137,21 +137,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class KmsConfiguration {\n");
-            sb.Append("  CaCertificate: ").Append(CaCertificate).Append("\n");
-            sb.Append("  ClientCertificate: ").Append(ClientCertificate).Append("\n");
-            sb.Append("  ClientKey: ").Append(ClientKey).Append("\n");
-            sb.Append("  KmipProtocolVersion: ").Append(KmipProtocolVersion).Append("\n");
-            sb.Append("  ServerIp: ").Append(ServerIp).Append("\n");
-            sb.Append("  ServerName: ").Append(ServerName).Append("\n");
-            sb.Append("  ServerPort: ").Append(ServerPort).Append("\n");
-            sb.Append("  ServerType: ").Append(ServerType).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -255,3 +241,4 @@ namespace Cohesity.Model
     }
 
 }
+

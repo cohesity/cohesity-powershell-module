@@ -167,18 +167,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class AzureCredentials {\n");
-            sb.Append("  ApplicationId: ").Append(ApplicationId).Append("\n");
-            sb.Append("  ApplicationKey: ").Append(ApplicationKey).Append("\n");
-            sb.Append("  AzureType: ").Append(AzureType).Append("\n");
-            sb.Append("  SubscriptionId: ").Append(SubscriptionId).Append("\n");
-            sb.Append("  TenantId: ").Append(TenantId).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -261,3 +250,4 @@ namespace Cohesity.Model
     }
 
 }
+

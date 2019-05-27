@@ -91,19 +91,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class DataUsageStats {\n");
-            sb.Append("  DataInBytes: ").Append(DataInBytes).Append("\n");
-            sb.Append("  DataInBytesAfterDedup: ").Append(DataInBytesAfterDedup).Append("\n");
-            sb.Append("  DataWrittenBytes: ").Append(DataWrittenBytes).Append("\n");
-            sb.Append("  LocalDataWrittenBytes: ").Append(LocalDataWrittenBytes).Append("\n");
-            sb.Append("  LocalTierResiliencyImpactBytes: ").Append(LocalTierResiliencyImpactBytes).Append("\n");
-            sb.Append("  StorageConsumedBytes: ").Append(StorageConsumedBytes).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -195,3 +183,4 @@ namespace Cohesity.Model
     }
 
 }
+

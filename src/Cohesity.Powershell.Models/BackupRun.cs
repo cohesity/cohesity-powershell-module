@@ -457,28 +457,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class BackupRun {\n");
-            sb.Append("  Environment: ").Append(Environment).Append("\n");
-            sb.Append("  Error: ").Append(Error).Append("\n");
-            sb.Append("  JobRunId: ").Append(JobRunId).Append("\n");
-            sb.Append("  Message: ").Append(Message).Append("\n");
-            sb.Append("  MetadataDeleted: ").Append(MetadataDeleted).Append("\n");
-            sb.Append("  Quiesced: ").Append(Quiesced).Append("\n");
-            sb.Append("  RunType: ").Append(RunType).Append("\n");
-            sb.Append("  SlaViolated: ").Append(SlaViolated).Append("\n");
-            sb.Append("  SnapshotsDeleted: ").Append(SnapshotsDeleted).Append("\n");
-            sb.Append("  SnapshotsDeletedTimeUsecs: ").Append(SnapshotsDeletedTimeUsecs).Append("\n");
-            sb.Append("  SourceBackupStatus: ").Append(SourceBackupStatus).Append("\n");
-            sb.Append("  Stats: ").Append(Stats).Append("\n");
-            sb.Append("  Status: ").Append(Status).Append("\n");
-            sb.Append("  Warnings: ").Append(Warnings).Append("\n");
-            sb.Append("  WormRetentionType: ").Append(WormRetentionType).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -627,3 +606,4 @@ namespace Cohesity.Model
     }
 
 }
+

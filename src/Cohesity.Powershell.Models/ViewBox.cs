@@ -233,31 +233,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class ViewBox {\n");
-            sb.Append("  AdDomainName: ").Append(AdDomainName).Append("\n");
-            sb.Append("  ClientSubnetWhiteList: ").Append(ClientSubnetWhiteList).Append("\n");
-            sb.Append("  CloudDownWaterfallThresholdPct: ").Append(CloudDownWaterfallThresholdPct).Append("\n");
-            sb.Append("  CloudDownWaterfallThresholdSecs: ").Append(CloudDownWaterfallThresholdSecs).Append("\n");
-            sb.Append("  ClusterPartitionId: ").Append(ClusterPartitionId).Append("\n");
-            sb.Append("  ClusterPartitionName: ").Append(ClusterPartitionName).Append("\n");
-            sb.Append("  DefaultUserQuotaPolicy: ").Append(DefaultUserQuotaPolicy).Append("\n");
-            sb.Append("  DefaultViewQuotaPolicy: ").Append(DefaultViewQuotaPolicy).Append("\n");
-            sb.Append("  Id: ").Append(Id).Append("\n");
-            sb.Append("  LdapProviderId: ").Append(LdapProviderId).Append("\n");
-            sb.Append("  Name: ").Append(Name).Append("\n");
-            sb.Append("  PhysicalQuota: ").Append(PhysicalQuota).Append("\n");
-            sb.Append("  RemovalState: ").Append(RemovalState).Append("\n");
-            sb.Append("  S3BucketsAllowed: ").Append(S3BucketsAllowed).Append("\n");
-            sb.Append("  Stats: ").Append(Stats).Append("\n");
-            sb.Append("  StoragePolicy: ").Append(StoragePolicy).Append("\n");
-            sb.Append("  TenantIdVec: ").Append(TenantIdVec).Append("\n");
-            sb.Append("  TreatFileSyncAsDataSync: ").Append(TreatFileSyncAsDataSync).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -433,3 +409,4 @@ namespace Cohesity.Model
     }
 
 }
+

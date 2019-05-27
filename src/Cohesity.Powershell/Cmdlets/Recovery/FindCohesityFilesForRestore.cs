@@ -49,7 +49,7 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
         /// </para>
         /// </summary>
         [Parameter(Mandatory = false)]
-        public EnvironmentEnum[] Environments { get; set; }
+        public Model.ProtectionJob.EnvironmentEnum[] Environments { get; set; }
 
         /// <summary>
         /// <para type="description">
@@ -149,7 +149,10 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
                 queries.Add("folderOnly", FolderOnly.ToString());
 
             if (Environments != null && Environments.Any())
-                queries.Add("environments", string.Join(",", Environments));
+            {
+                List<string> envs = Environments.ToList().ConvertAll<string>(x => x.ToString().First().ToString().ToLower() + x.ToString().Substring(1));
+                queries.Add("environments", string.Join(",", envs));
+            }
 
             if (JobIds != null && JobIds.Any())
                 queries.Add("jobIds", string.Join(",", JobIds));

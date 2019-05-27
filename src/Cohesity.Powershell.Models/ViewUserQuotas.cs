@@ -85,19 +85,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class ViewUserQuotas {\n");
-            sb.Append("  Cookie: ").Append(Cookie).Append("\n");
-            sb.Append("  QuotaAndUsageInAllViews: ").Append(QuotaAndUsageInAllViews).Append("\n");
-            sb.Append("  SummaryForUser: ").Append(SummaryForUser).Append("\n");
-            sb.Append("  SummaryForView: ").Append(SummaryForView).Append("\n");
-            sb.Append("  UserQuotaSettings: ").Append(UserQuotaSettings).Append("\n");
-            sb.Append("  UsersQuotaAndUsage: ").Append(UsersQuotaAndUsage).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -191,3 +179,4 @@ namespace Cohesity.Model
     }
 
 }
+

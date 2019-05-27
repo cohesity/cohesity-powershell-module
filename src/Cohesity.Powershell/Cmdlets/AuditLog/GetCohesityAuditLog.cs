@@ -23,7 +23,7 @@ namespace Cohesity.Powershell.Cmdlets.AuditLog
     ///   </para>
     /// </example>
     [Cmdlet(VerbsCommon.Get, "CohesityAuditLog")]
-    [OutputType(typeof(Models.ClusterAuditLog))]
+    [OutputType(typeof(Model.ClusterAuditLog))]
     public class GetCohesityAuditLog : PSCmdlet
     {
         private Session Session
@@ -154,7 +154,7 @@ namespace Cohesity.Powershell.Cmdlets.AuditLog
 
             var preparedUrl = $"/public/auditLogs/cluster{queries.Build()}";
             WriteDebug(preparedUrl);
-            var result = Session.ApiClient.Get<Models.ClusterAuditLogsSearchResult>(preparedUrl);
+            var result = Session.ApiClient.Get<Model.ClusterAuditLogsSearchResult>(preparedUrl);
             WriteObject(result.ClusterAuditLogs, true);
         }
 

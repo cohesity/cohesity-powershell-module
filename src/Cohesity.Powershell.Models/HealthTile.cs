@@ -121,22 +121,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class HealthTile {\n");
-            sb.Append("  CapacityBytes: ").Append(CapacityBytes).Append("\n");
-            sb.Append("  ClusterCloudUsageBytes: ").Append(ClusterCloudUsageBytes).Append("\n");
-            sb.Append("  LastDayAlerts: ").Append(LastDayAlerts).Append("\n");
-            sb.Append("  LastDayNumCriticals: ").Append(LastDayNumCriticals).Append("\n");
-            sb.Append("  LastDayNumWarnings: ").Append(LastDayNumWarnings).Append("\n");
-            sb.Append("  NumNodes: ").Append(NumNodes).Append("\n");
-            sb.Append("  NumNodesWithIssues: ").Append(NumNodesWithIssues).Append("\n");
-            sb.Append("  PercentFull: ").Append(PercentFull).Append("\n");
-            sb.Append("  RawUsedBytes: ").Append(RawUsedBytes).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -250,3 +235,4 @@ namespace Cohesity.Model
     }
 
 }
+

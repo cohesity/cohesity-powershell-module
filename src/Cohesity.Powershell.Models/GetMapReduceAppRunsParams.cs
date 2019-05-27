@@ -141,24 +141,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class GetMapReduceAppRunsParams {\n");
-            sb.Append("  AppId: ").Append(AppId).Append("\n");
-            sb.Append("  AppInstanceId: ").Append(AppInstanceId).Append("\n");
-            sb.Append("  IncludeDetails: ").Append(IncludeDetails).Append("\n");
-            sb.Append("  LastNumInstances: ").Append(LastNumInstances).Append("\n");
-            sb.Append("  MaxRunEndTimeInSecs: ").Append(MaxRunEndTimeInSecs).Append("\n");
-            sb.Append("  MaxRunStartTimeInSecs: ").Append(MaxRunStartTimeInSecs).Append("\n");
-            sb.Append("  MinRunEndTimeInSecs: ").Append(MinRunEndTimeInSecs).Append("\n");
-            sb.Append("  MinRunStartTimeInSecs: ").Append(MinRunStartTimeInSecs).Append("\n");
-            sb.Append("  PageSize: ").Append(PageSize).Append("\n");
-            sb.Append("  RunStatus: ").Append(RunStatus).Append("\n");
-            sb.Append("  StartOffset: ").Append(StartOffset).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -285,3 +268,4 @@ namespace Cohesity.Model
     }
 
 }
+

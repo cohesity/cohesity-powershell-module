@@ -26,7 +26,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
     ///   </para>
     /// </example>
     [Cmdlet(VerbsCommon.Get, "CohesityVMwareVM")]
-    [OutputType(typeof(Models.ProtectionSource))]
+    [OutputType(typeof(Model.ProtectionSource))]
     public class GetCohesityVMwareVM : PSCmdlet
     {
         private Session Session
@@ -120,12 +120,12 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
             {
                 // Get a list of all the vms
                 var url = $"/public/protectionSources/virtualMachines{ qb.Build()}";
-                var vms = Session.ApiClient.Get<IEnumerable<Models.ProtectionSource>>(url);
+                var vms = Session.ApiClient.Get<IEnumerable<Model.ProtectionSource>>(url);
 
                 // Get a list of protected vms
                 qb.Add("protected", true);
                 url = $"/public/protectionSources/virtualMachines{ qb.Build()}";
-                var protectedVms = Session.ApiClient.Get<IEnumerable<Models.ProtectionSource>>(url);
+                var protectedVms = Session.ApiClient.Get<IEnumerable<Model.ProtectionSource>>(url);
 
                 // Return the vms that are not in the list of protected vms
                 var result = vms.Where(x => !protectedVms.Any(y => x.Id == y.Id));
@@ -139,7 +139,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
                     qb.Add("protected", true);
 
                 var url = $"/public/protectionSources/virtualMachines{ qb.Build()}";
-                var result = Session.ApiClient.Get<IEnumerable<Models.ProtectionSource>>(url);
+                var result = Session.ApiClient.Get<IEnumerable<Model.ProtectionSource>>(url);
                 WriteObject(result, true);
             }
         }

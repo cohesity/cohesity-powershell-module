@@ -23,7 +23,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
     /// </para>
     /// </example>
     [Cmdlet(VerbsLifecycle.Register, "CohesityProtectionSourcePhysical")]
-    [OutputType(typeof(Models.ProtectionSource))]
+    [OutputType(typeof(Model.ProtectionSource))]
     public class RegisterCohesityProtectionSourcePhysical : PSCmdlet
     {
         private Session Session
@@ -79,7 +79,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
         {
             var param = new RegisterProtectionSourceParameters
             {
-                Environment = EnvironmentEnum.kPhysical,
+                Environment = RegisterProtectionSourceParameters.EnvironmentEnum.KPhysical,
                 Endpoint = Server,
                 HostType = HostType,
                 PhysicalType = PhysicalType
@@ -87,7 +87,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
 
             // POST /public/protectionSources/register
             var preparedUrl = $"/public/protectionSources/register";
-            var result = Session.ApiClient.Post<Models.ProtectionSource>(preparedUrl, param);
+            var result = Session.ApiClient.Post<Model.ProtectionSource>(preparedUrl, param);
             WriteObject(result);
         }
 

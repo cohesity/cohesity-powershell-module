@@ -205,19 +205,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class SmbPermission {\n");
-            sb.Append("  Access: ").Append(Access).Append("\n");
-            sb.Append("  Mode: ").Append(Mode).Append("\n");
-            sb.Append("  Sid: ").Append(Sid).Append("\n");
-            sb.Append("  SpecialAccessMask: ").Append(SpecialAccessMask).Append("\n");
-            sb.Append("  SpecialType: ").Append(SpecialType).Append("\n");
-            sb.Append("  Type: ").Append(Type).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -303,3 +291,4 @@ namespace Cohesity.Model
     }
 
 }
+

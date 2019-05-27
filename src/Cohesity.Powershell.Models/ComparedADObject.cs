@@ -165,22 +165,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class ComparedADObject {\n");
-            sb.Append("  AdAttributes: ").Append(AdAttributes).Append("\n");
-            sb.Append("  AdObjectFlags: ").Append(AdObjectFlags).Append("\n");
-            sb.Append("  DestinationAttrCount: ").Append(DestinationAttrCount).Append("\n");
-            sb.Append("  DestinationGuid: ").Append(DestinationGuid).Append("\n");
-            sb.Append("  ErrorMessage: ").Append(ErrorMessage).Append("\n");
-            sb.Append("  ExcludedAttrCount: ").Append(ExcludedAttrCount).Append("\n");
-            sb.Append("  MismatchAttrCount: ").Append(MismatchAttrCount).Append("\n");
-            sb.Append("  SourceAttrCount: ").Append(SourceAttrCount).Append("\n");
-            sb.Append("  SourceGuid: ").Append(SourceGuid).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -294,3 +279,4 @@ namespace Cohesity.Model
     }
 
 }
+

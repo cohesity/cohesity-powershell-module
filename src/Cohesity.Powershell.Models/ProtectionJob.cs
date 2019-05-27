@@ -777,64 +777,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class ProtectionJob {\n");
-            sb.Append("  AbortInBlackoutPeriod: ").Append(AbortInBlackoutPeriod).Append("\n");
-            sb.Append("  AlertingConfig: ").Append(AlertingConfig).Append("\n");
-            sb.Append("  AlertingPolicy: ").Append(AlertingPolicy).Append("\n");
-            sb.Append("  CloudParameters: ").Append(CloudParameters).Append("\n");
-            sb.Append("  ContinueOnQuiesceFailure: ").Append(ContinueOnQuiesceFailure).Append("\n");
-            sb.Append("  CreationTimeUsecs: ").Append(CreationTimeUsecs).Append("\n");
-            sb.Append("  DataMigrationPolicy: ").Append(DataMigrationPolicy).Append("\n");
-            sb.Append("  DedupDisabledSourceIds: ").Append(DedupDisabledSourceIds).Append("\n");
-            sb.Append("  Description: ").Append(Description).Append("\n");
-            sb.Append("  EndTimeUsecs: ").Append(EndTimeUsecs).Append("\n");
-            sb.Append("  Environment: ").Append(Environment).Append("\n");
-            sb.Append("  EnvironmentParameters: ").Append(EnvironmentParameters).Append("\n");
-            sb.Append("  ExcludeSourceIds: ").Append(ExcludeSourceIds).Append("\n");
-            sb.Append("  ExcludeVmTagIds: ").Append(ExcludeVmTagIds).Append("\n");
-            sb.Append("  FullProtectionSlaTimeMins: ").Append(FullProtectionSlaTimeMins).Append("\n");
-            sb.Append("  FullProtectionStartTime: ").Append(FullProtectionStartTime).Append("\n");
-            sb.Append("  Id: ").Append(Id).Append("\n");
-            sb.Append("  IncrementalProtectionSlaTimeMins: ").Append(IncrementalProtectionSlaTimeMins).Append("\n");
-            sb.Append("  IncrementalProtectionStartTime: ").Append(IncrementalProtectionStartTime).Append("\n");
-            sb.Append("  IndexingPolicy: ").Append(IndexingPolicy).Append("\n");
-            sb.Append("  IsActive: ").Append(IsActive).Append("\n");
-            sb.Append("  IsDeleted: ").Append(IsDeleted).Append("\n");
-            sb.Append("  IsPaused: ").Append(IsPaused).Append("\n");
-            sb.Append("  LastRun: ").Append(LastRun).Append("\n");
-            sb.Append("  LeverageStorageSnapshots: ").Append(LeverageStorageSnapshots).Append("\n");
-            sb.Append("  LeverageStorageSnapshotsForHyperflex: ").Append(LeverageStorageSnapshotsForHyperflex).Append("\n");
-            sb.Append("  ModificationTimeUsecs: ").Append(ModificationTimeUsecs).Append("\n");
-            sb.Append("  ModifiedByUser: ").Append(ModifiedByUser).Append("\n");
-            sb.Append("  Name: ").Append(Name).Append("\n");
-            sb.Append("  ParentSourceId: ").Append(ParentSourceId).Append("\n");
-            sb.Append("  PerformSourceSideDedup: ").Append(PerformSourceSideDedup).Append("\n");
-            sb.Append("  PolicyAppliedTimeMsecs: ").Append(PolicyAppliedTimeMsecs).Append("\n");
-            sb.Append("  PolicyId: ").Append(PolicyId).Append("\n");
-            sb.Append("  PostBackupScript: ").Append(PostBackupScript).Append("\n");
-            sb.Append("  PreBackupScript: ").Append(PreBackupScript).Append("\n");
-            sb.Append("  Priority: ").Append(Priority).Append("\n");
-            sb.Append("  QosType: ").Append(QosType).Append("\n");
-            sb.Append("  Quiesce: ").Append(Quiesce).Append("\n");
-            sb.Append("  RemoteScript: ").Append(RemoteScript).Append("\n");
-            sb.Append("  RemoteViewName: ").Append(RemoteViewName).Append("\n");
-            sb.Append("  SourceIds: ").Append(SourceIds).Append("\n");
-            sb.Append("  SourceSpecialParameters: ").Append(SourceSpecialParameters).Append("\n");
-            sb.Append("  StartTime: ").Append(StartTime).Append("\n");
-            sb.Append("  SummaryStats: ").Append(SummaryStats).Append("\n");
-            sb.Append("  TenantId: ").Append(TenantId).Append("\n");
-            sb.Append("  Timezone: ").Append(Timezone).Append("\n");
-            sb.Append("  Uid: ").Append(Uid).Append("\n");
-            sb.Append("  UserSpecifiedTags: ").Append(UserSpecifiedTags).Append("\n");
-            sb.Append("  ViewBoxId: ").Append(ViewBoxId).Append("\n");
-            sb.Append("  ViewName: ").Append(ViewName).Append("\n");
-            sb.Append("  VmTagIds: ").Append(VmTagIds).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -1242,3 +1185,4 @@ namespace Cohesity.Model
     }
 
 }
+

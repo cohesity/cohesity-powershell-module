@@ -95,20 +95,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class ProtectedSourceSummary {\n");
-            sb.Append("  BackupRun: ").Append(BackupRun).Append("\n");
-            sb.Append("  CopyRuns: ").Append(CopyRuns).Append("\n");
-            sb.Append("  IsPaused: ").Append(IsPaused).Append("\n");
-            sb.Append("  NextProtectionRunTimeUsecs: ").Append(NextProtectionRunTimeUsecs).Append("\n");
-            sb.Append("  ProtectedSourceUid: ").Append(ProtectedSourceUid).Append("\n");
-            sb.Append("  ProtectionSource: ").Append(ProtectionSource).Append("\n");
-            sb.Append("  SourceParameters: ").Append(SourceParameters).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -209,3 +196,4 @@ namespace Cohesity.Model
     }
 
 }
+

@@ -71,17 +71,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class AlertDocument {\n");
-            sb.Append("  AlertCause: ").Append(AlertCause).Append("\n");
-            sb.Append("  AlertDescription: ").Append(AlertDescription).Append("\n");
-            sb.Append("  AlertHelpText: ").Append(AlertHelpText).Append("\n");
-            sb.Append("  AlertName: ").Append(AlertName).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -159,3 +149,4 @@ namespace Cohesity.Model
     }
 
 }
+

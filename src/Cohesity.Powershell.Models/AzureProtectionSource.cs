@@ -385,28 +385,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class AzureProtectionSource {\n");
-            sb.Append("  ApplicationId: ").Append(ApplicationId).Append("\n");
-            sb.Append("  ApplicationKey: ").Append(ApplicationKey).Append("\n");
-            sb.Append("  AzureType: ").Append(AzureType).Append("\n");
-            sb.Append("  HostType: ").Append(HostType).Append("\n");
-            sb.Append("  IpAddresses: ").Append(IpAddresses).Append("\n");
-            sb.Append("  Location: ").Append(Location).Append("\n");
-            sb.Append("  MemoryMbytes: ").Append(MemoryMbytes).Append("\n");
-            sb.Append("  Name: ").Append(Name).Append("\n");
-            sb.Append("  NumCores: ").Append(NumCores).Append("\n");
-            sb.Append("  PhysicalSourceId: ").Append(PhysicalSourceId).Append("\n");
-            sb.Append("  ResourceId: ").Append(ResourceId).Append("\n");
-            sb.Append("  RestoreTaskId: ").Append(RestoreTaskId).Append("\n");
-            sb.Append("  SubscriptionId: ").Append(SubscriptionId).Append("\n");
-            sb.Append("  TenantId: ").Append(TenantId).Append("\n");
-            sb.Append("  Type: ").Append(Type).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -556,3 +535,4 @@ namespace Cohesity.Model
     }
 
 }
+

@@ -289,25 +289,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class AgentInformation {\n");
-            sb.Append("  CbmrVersion: ").Append(CbmrVersion).Append("\n");
-            sb.Append("  HostType: ").Append(HostType).Append("\n");
-            sb.Append("  Id: ").Append(Id).Append("\n");
-            sb.Append("  Name: ").Append(Name).Append("\n");
-            sb.Append("  RegistrationInfo: ").Append(RegistrationInfo).Append("\n");
-            sb.Append("  SourceSideDedupEnabled: ").Append(SourceSideDedupEnabled).Append("\n");
-            sb.Append("  Status: ").Append(Status).Append("\n");
-            sb.Append("  StatusMessage: ").Append(StatusMessage).Append("\n");
-            sb.Append("  Upgradability: ").Append(Upgradability).Append("\n");
-            sb.Append("  UpgradeStatus: ").Append(UpgradeStatus).Append("\n");
-            sb.Append("  UpgradeStatusMessage: ").Append(UpgradeStatusMessage).Append("\n");
-            sb.Append("  Version: ").Append(Version).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -433,3 +415,4 @@ namespace Cohesity.Model
     }
 
 }
+

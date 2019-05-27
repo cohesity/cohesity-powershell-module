@@ -7,14 +7,12 @@ Immediately starts a protection job run.
 
 ### UNNAMED_PARAMETER_SET_1
 ```
-Start-CohesityProtectionJob -Id <long> [-RunType <RunTypeEnum>] [-SourceIds <Nullable`1[]>]
- [<CommonParameters>]
+Start-CohesityProtectionJob -Id <long> [-RunType <RunTypeEnum>] [-SourceIds <long[]>] [<CommonParameters>]
 ```
 
 ### UNNAMED_PARAMETER_SET_2
 ```
-Start-CohesityProtectionJob -Name <string> [-RunType <RunTypeEnum>] [-SourceIds <Nullable`1[]>]
- [<CommonParameters>]
+Start-CohesityProtectionJob -Name <string> [-RunType <RunTypeEnum>] [-SourceIds <long[]>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -88,7 +86,7 @@ Accept wildcard characters: False
 If you want to back up only a subset of sources that are protected by the job in this run.
 
 ```yaml
-Type: Nullable`1[]
+Type: long[]
 Parameter Sets: (All)
 Aliases:
 
@@ -100,8 +98,7 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
-For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 

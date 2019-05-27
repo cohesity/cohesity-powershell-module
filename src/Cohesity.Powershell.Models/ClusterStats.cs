@@ -99,20 +99,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class ClusterStats {\n");
-            sb.Append("  CloudUsagePerfStats: ").Append(CloudUsagePerfStats).Append("\n");
-            sb.Append("  DataReductionRatio: ").Append(DataReductionRatio).Append("\n");
-            sb.Append("  DataUsageStats: ").Append(DataUsageStats).Append("\n");
-            sb.Append("  Id: ").Append(Id).Append("\n");
-            sb.Append("  LocalUsagePerfStats: ").Append(LocalUsagePerfStats).Append("\n");
-            sb.Append("  LogicalStats: ").Append(LogicalStats).Append("\n");
-            sb.Append("  UsagePerfStats: ").Append(UsagePerfStats).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -211,3 +198,4 @@ namespace Cohesity.Model
     }
 
 }
+

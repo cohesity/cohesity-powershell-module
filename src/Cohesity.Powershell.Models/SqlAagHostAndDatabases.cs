@@ -79,18 +79,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class SqlAagHostAndDatabases {\n");
-            sb.Append("  AagDatabases: ").Append(AagDatabases).Append("\n");
-            sb.Append("  ApplicationNode: ").Append(ApplicationNode).Append("\n");
-            sb.Append("  Databases: ").Append(Databases).Append("\n");
-            sb.Append("  ErrorMessage: ").Append(ErrorMessage).Append("\n");
-            sb.Append("  UnknownHostName: ").Append(UnknownHostName).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -177,3 +166,4 @@ namespace Cohesity.Model
     }
 
 }
+

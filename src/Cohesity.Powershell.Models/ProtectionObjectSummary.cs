@@ -129,23 +129,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class ProtectionObjectSummary {\n");
-            sb.Append("  LatestArchivalSnapshotTimeUsecs: ").Append(LatestArchivalSnapshotTimeUsecs).Append("\n");
-            sb.Append("  LatestLocalSnapshotTimeUsecs: ").Append(LatestLocalSnapshotTimeUsecs).Append("\n");
-            sb.Append("  LatestReplicationSnapshotTimeUsecs: ").Append(LatestReplicationSnapshotTimeUsecs).Append("\n");
-            sb.Append("  ParentProtectionSource: ").Append(ParentProtectionSource).Append("\n");
-            sb.Append("  ProtectionJobs: ").Append(ProtectionJobs).Append("\n");
-            sb.Append("  ProtectionSource: ").Append(ProtectionSource).Append("\n");
-            sb.Append("  RpoPolicies: ").Append(RpoPolicies).Append("\n");
-            sb.Append("  TotalArchivalSnapshots: ").Append(TotalArchivalSnapshots).Append("\n");
-            sb.Append("  TotalLocalSnapshots: ").Append(TotalLocalSnapshots).Append("\n");
-            sb.Append("  TotalReplicationSnapshots: ").Append(TotalReplicationSnapshots).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -267,3 +251,4 @@ namespace Cohesity.Model
     }
 
 }
+

@@ -22,7 +22,7 @@ namespace Cohesity.Powershell.Cmdlets.StorageDomain
     ///   </para>
     /// </example>
     [Cmdlet(VerbsCommon.Set, "CohesityStorageDomain")]
-    [OutputType(typeof(Models.ViewBox))]
+    [OutputType(typeof(Model.ViewBox))]
     public class SetCohesityStorageDomain: PSCmdlet
     {
         private Session Session
@@ -48,7 +48,7 @@ namespace Cohesity.Powershell.Cmdlets.StorageDomain
         /// </summary>
         [Parameter(Mandatory = true, ValueFromPipeline = true)]
         [ValidateNotNull()]
-        public Models.ViewBox StorageDomain { get; set; } = null;
+        public Model.ViewBox StorageDomain { get; set; } = null;
 
         #endregion
 
@@ -70,7 +70,7 @@ namespace Cohesity.Powershell.Cmdlets.StorageDomain
         protected override void ProcessRecord()
         {
             var preparedUrl = $"/public/viewBoxes/{StorageDomain.Id.ToString()}";
-            var result = Session.ApiClient.Put<Models.ViewBox>(preparedUrl, StorageDomain);
+            var result = Session.ApiClient.Put<Model.ViewBox>(preparedUrl, StorageDomain);
             WriteObject(result);
         }
 

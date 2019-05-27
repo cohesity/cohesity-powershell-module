@@ -281,31 +281,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class ProtectionSourcesSummaryStats {\n");
-            sb.Append("  FirstFailedRunTimeUsecs: ").Append(FirstFailedRunTimeUsecs).Append("\n");
-            sb.Append("  FirstSuccessfulRunTimeUsecs: ").Append(FirstSuccessfulRunTimeUsecs).Append("\n");
-            sb.Append("  LastFailedRunTimeUsecs: ").Append(LastFailedRunTimeUsecs).Append("\n");
-            sb.Append("  LastRunEndTimeUsecs: ").Append(LastRunEndTimeUsecs).Append("\n");
-            sb.Append("  LastRunErrorMsg: ").Append(LastRunErrorMsg).Append("\n");
-            sb.Append("  LastRunStartTimeUsecs: ").Append(LastRunStartTimeUsecs).Append("\n");
-            sb.Append("  LastRunStatus: ").Append(LastRunStatus).Append("\n");
-            sb.Append("  LastRunType: ").Append(LastRunType).Append("\n");
-            sb.Append("  LastSuccessfulRunTimeUsecs: ").Append(LastSuccessfulRunTimeUsecs).Append("\n");
-            sb.Append("  NumDataReadBytes: ").Append(NumDataReadBytes).Append("\n");
-            sb.Append("  NumErrors: ").Append(NumErrors).Append("\n");
-            sb.Append("  NumLogicalBytesProtected: ").Append(NumLogicalBytesProtected).Append("\n");
-            sb.Append("  NumSnapshots: ").Append(NumSnapshots).Append("\n");
-            sb.Append("  NumSuccessRuns: ").Append(NumSuccessRuns).Append("\n");
-            sb.Append("  NumWarnings: ").Append(NumWarnings).Append("\n");
-            sb.Append("  ProtectionSource: ").Append(ProtectionSource).Append("\n");
-            sb.Append("  RegisteredSource: ").Append(RegisteredSource).Append("\n");
-            sb.Append("  Tenants: ").Append(Tenants).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -478,3 +454,4 @@ namespace Cohesity.Model
     }
 
 }
+

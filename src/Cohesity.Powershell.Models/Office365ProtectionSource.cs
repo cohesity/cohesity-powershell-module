@@ -28,7 +28,7 @@ namespace Cohesity.Model
         /// <param name="primarySMTPAddress">Specifies the SMTP address for the Outlook source..</param>
         /// <param name="type">Specifies the type of the Office 365 entity..</param>
         /// <param name="uuid">Specifies the UUID of the Office 365 entity..</param>
-        public Office365ProtectionSource(string description = default(string), string name = default(string), string primarySMTPAddress = default(string), int? type = default(int?), string uuid = default(string))
+        public Office365ProtectionSource(string description = default(string), string name = default(string), string primarySMTPAddress = default(string), string type = default(string), string uuid = default(string))
         {
             this.Description = description;
             this.Name = name;
@@ -68,7 +68,7 @@ namespace Cohesity.Model
         /// </summary>
         /// <value>Specifies the type of the Office 365 entity.</value>
         [DataMember(Name="type", EmitDefaultValue=true)]
-        public int? Type { get; set; }
+        public string Type { get; set; }
 
         /// <summary>
         /// Specifies the UUID of the Office 365 entity.
@@ -81,18 +81,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class Office365ProtectionSource {\n");
-            sb.Append("  Description: ").Append(Description).Append("\n");
-            sb.Append("  Name: ").Append(Name).Append("\n");
-            sb.Append("  PrimarySMTPAddress: ").Append(PrimarySMTPAddress).Append("\n");
-            sb.Append("  Type: ").Append(Type).Append("\n");
-            sb.Append("  Uuid: ").Append(Uuid).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -177,3 +166,4 @@ namespace Cohesity.Model
     }
 
 }
+

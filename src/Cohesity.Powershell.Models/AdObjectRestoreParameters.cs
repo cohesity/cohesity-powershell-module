@@ -81,18 +81,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class AdObjectRestoreParameters {\n");
-            sb.Append("  ChangePasswordOnNextLogon: ").Append(ChangePasswordOnNextLogon).Append("\n");
-            sb.Append("  LeaveStateDisabled: ").Append(LeaveStateDisabled).Append("\n");
-            sb.Append("  ObjectGuids: ").Append(ObjectGuids).Append("\n");
-            sb.Append("  OrganizationUnitPath: ").Append(OrganizationUnitPath).Append("\n");
-            sb.Append("  Password: ").Append(Password).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -178,3 +167,4 @@ namespace Cohesity.Model
     }
 
 }
+

@@ -437,36 +437,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class ProtectionSource {\n");
-            sb.Append("  AcropolisProtectionSource: ").Append(AcropolisProtectionSource).Append("\n");
-            sb.Append("  AdProtectionSource: ").Append(AdProtectionSource).Append("\n");
-            sb.Append("  AwsProtectionSource: ").Append(AwsProtectionSource).Append("\n");
-            sb.Append("  AzureProtectionSource: ").Append(AzureProtectionSource).Append("\n");
-            sb.Append("  Environment: ").Append(Environment).Append("\n");
-            sb.Append("  FlashBladeProtectionSource: ").Append(FlashBladeProtectionSource).Append("\n");
-            sb.Append("  GcpProtectionSource: ").Append(GcpProtectionSource).Append("\n");
-            sb.Append("  HyperFlexProtectionSource: ").Append(HyperFlexProtectionSource).Append("\n");
-            sb.Append("  HypervProtectionSource: ").Append(HypervProtectionSource).Append("\n");
-            sb.Append("  Id: ").Append(Id).Append("\n");
-            sb.Append("  IsilonProtectionSource: ").Append(IsilonProtectionSource).Append("\n");
-            sb.Append("  KvmProtectionSource: ").Append(KvmProtectionSource).Append("\n");
-            sb.Append("  Name: ").Append(Name).Append("\n");
-            sb.Append("  NasProtectionSource: ").Append(NasProtectionSource).Append("\n");
-            sb.Append("  NetappProtectionSource: ").Append(NetappProtectionSource).Append("\n");
-            sb.Append("  Office365ProtectionSource: ").Append(Office365ProtectionSource).Append("\n");
-            sb.Append("  OracleProtectionSource: ").Append(OracleProtectionSource).Append("\n");
-            sb.Append("  ParentId: ").Append(ParentId).Append("\n");
-            sb.Append("  PhysicalProtectionSource: ").Append(PhysicalProtectionSource).Append("\n");
-            sb.Append("  PureProtectionSource: ").Append(PureProtectionSource).Append("\n");
-            sb.Append("  SqlProtectionSource: ").Append(SqlProtectionSource).Append("\n");
-            sb.Append("  ViewProtectionSource: ").Append(ViewProtectionSource).Append("\n");
-            sb.Append("  VmWareProtectionSource: ").Append(VmWareProtectionSource).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -675,3 +646,4 @@ namespace Cohesity.Model
     }
 
 }
+

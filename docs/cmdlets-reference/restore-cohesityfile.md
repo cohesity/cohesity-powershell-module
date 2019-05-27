@@ -226,13 +226,13 @@ Accept wildcard characters: False
 Specifies the operating system type of the target host.
 This is not required when restoring to a Physical Server but must be specified when restoring to a VM.
 
-Possible values: KLinux, KWindows
+Possible values: KLinux, KWindows, KAix, KSolaris
 
 ```yaml
 Type: TargetHostTypeEnum
 Parameter Sets: (All)
 Aliases:
-Accepted values: KLinux, KWindows
+Accepted values: KLinux, KWindows, KAix, KSolaris
 
 Required: False
 Position: Named
@@ -258,8 +258,7 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
-For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 

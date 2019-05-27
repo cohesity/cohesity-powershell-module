@@ -311,37 +311,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class ProtectionPolicy {\n");
-            sb.Append("  BlackoutPeriods: ").Append(BlackoutPeriods).Append("\n");
-            sb.Append("  CloudDeployPolicies: ").Append(CloudDeployPolicies).Append("\n");
-            sb.Append("  DaysToKeep: ").Append(DaysToKeep).Append("\n");
-            sb.Append("  DaysToKeepLog: ").Append(DaysToKeepLog).Append("\n");
-            sb.Append("  DaysToKeepSystem: ").Append(DaysToKeepSystem).Append("\n");
-            sb.Append("  Description: ").Append(Description).Append("\n");
-            sb.Append("  ExtendedRetentionPolicies: ").Append(ExtendedRetentionPolicies).Append("\n");
-            sb.Append("  FullSchedulingPolicy: ").Append(FullSchedulingPolicy).Append("\n");
-            sb.Append("  Id: ").Append(Id).Append("\n");
-            sb.Append("  IncrementalSchedulingPolicy: ").Append(IncrementalSchedulingPolicy).Append("\n");
-            sb.Append("  LastModifiedTimeMsecs: ").Append(LastModifiedTimeMsecs).Append("\n");
-            sb.Append("  LogSchedulingPolicy: ").Append(LogSchedulingPolicy).Append("\n");
-            sb.Append("  Name: ").Append(Name).Append("\n");
-            sb.Append("  NumLinkedPolicies: ").Append(NumLinkedPolicies).Append("\n");
-            sb.Append("  Retries: ").Append(Retries).Append("\n");
-            sb.Append("  RetryIntervalMins: ").Append(RetryIntervalMins).Append("\n");
-            sb.Append("  RpoPolicySettings: ").Append(RpoPolicySettings).Append("\n");
-            sb.Append("  SkipIntervalMins: ").Append(SkipIntervalMins).Append("\n");
-            sb.Append("  SnapshotArchivalCopyPolicies: ").Append(SnapshotArchivalCopyPolicies).Append("\n");
-            sb.Append("  SnapshotReplicationCopyPolicies: ").Append(SnapshotReplicationCopyPolicies).Append("\n");
-            sb.Append("  SystemSchedulingPolicy: ").Append(SystemSchedulingPolicy).Append("\n");
-            sb.Append("  TenantIds: ").Append(TenantIds).Append("\n");
-            sb.Append("  Type: ").Append(Type).Append("\n");
-            sb.Append("  WormRetentionType: ").Append(WormRetentionType).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -561,3 +531,4 @@ namespace Cohesity.Model
     }
 
 }
+

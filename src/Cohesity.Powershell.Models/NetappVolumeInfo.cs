@@ -281,25 +281,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class NetappVolumeInfo {\n");
-            sb.Append("  AggregateName: ").Append(AggregateName).Append("\n");
-            sb.Append("  CapacityBytes: ").Append(CapacityBytes).Append("\n");
-            sb.Append("  CifsShares: ").Append(CifsShares).Append("\n");
-            sb.Append("  CreationTimeUsecs: ").Append(CreationTimeUsecs).Append("\n");
-            sb.Append("  DataProtocols: ").Append(DataProtocols).Append("\n");
-            sb.Append("  ExportPolicyName: ").Append(ExportPolicyName).Append("\n");
-            sb.Append("  JunctionPath: ").Append(JunctionPath).Append("\n");
-            sb.Append("  Name: ").Append(Name).Append("\n");
-            sb.Append("  SecurityInfo: ").Append(SecurityInfo).Append("\n");
-            sb.Append("  State: ").Append(State).Append("\n");
-            sb.Append("  Type: ").Append(Type).Append("\n");
-            sb.Append("  UsedBytes: ").Append(UsedBytes).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -430,3 +412,4 @@ namespace Cohesity.Model
     }
 
 }
+

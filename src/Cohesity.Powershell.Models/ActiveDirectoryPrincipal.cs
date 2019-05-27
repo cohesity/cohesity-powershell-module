@@ -107,18 +107,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class ActiveDirectoryPrincipal {\n");
-            sb.Append("  Domain: ").Append(Domain).Append("\n");
-            sb.Append("  FullName: ").Append(FullName).Append("\n");
-            sb.Append("  ObjectClass: ").Append(ObjectClass).Append("\n");
-            sb.Append("  PrincipalName: ").Append(PrincipalName).Append("\n");
-            sb.Append("  Sid: ").Append(Sid).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -201,3 +190,4 @@ namespace Cohesity.Model
     }
 
 }
+

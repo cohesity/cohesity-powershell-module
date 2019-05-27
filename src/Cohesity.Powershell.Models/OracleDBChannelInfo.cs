@@ -81,18 +81,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class OracleDBChannelInfo {\n");
-            sb.Append("  DbUniqueName: ").Append(DbUniqueName).Append("\n");
-            sb.Append("  DbUuid: ").Append(DbUuid).Append("\n");
-            sb.Append("  HostInfoVec: ").Append(HostInfoVec).Append("\n");
-            sb.Append("  MaxNumHost: ").Append(MaxNumHost).Append("\n");
-            sb.Append("  NumChannels: ").Append(NumChannels).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -178,3 +167,4 @@ namespace Cohesity.Model
     }
 
 }
+

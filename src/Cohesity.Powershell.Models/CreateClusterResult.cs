@@ -101,20 +101,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class CreateClusterResult {\n");
-            sb.Append("  ClusterId: ").Append(ClusterId).Append("\n");
-            sb.Append("  ClusterName: ").Append(ClusterName).Append("\n");
-            sb.Append("  ClusterSwVersion: ").Append(ClusterSwVersion).Append("\n");
-            sb.Append("  HealthyNodes: ").Append(HealthyNodes).Append("\n");
-            sb.Append("  IncarnationId: ").Append(IncarnationId).Append("\n");
-            sb.Append("  Message: ").Append(Message).Append("\n");
-            sb.Append("  UnhealthyNodes: ").Append(UnhealthyNodes).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -215,3 +202,4 @@ namespace Cohesity.Model
     }
 
 }
+

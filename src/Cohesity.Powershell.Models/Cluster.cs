@@ -605,61 +605,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class Cluster {\n");
-            sb.Append("  AppsSettings: ").Append(AppsSettings).Append("\n");
-            sb.Append("  AvailableMetadataSpace: ").Append(AvailableMetadataSpace).Append("\n");
-            sb.Append("  BannerEnabled: ").Append(BannerEnabled).Append("\n");
-            sb.Append("  BondingMode: ").Append(BondingMode).Append("\n");
-            sb.Append("  ClusterAuditLogConfig: ").Append(ClusterAuditLogConfig).Append("\n");
-            sb.Append("  ClusterSoftwareVersion: ").Append(ClusterSoftwareVersion).Append("\n");
-            sb.Append("  ClusterType: ").Append(ClusterType).Append("\n");
-            sb.Append("  CreatedTimeMsecs: ").Append(CreatedTimeMsecs).Append("\n");
-            sb.Append("  CurrentOpScheduledTimeSecs: ").Append(CurrentOpScheduledTimeSecs).Append("\n");
-            sb.Append("  CurrentOperation: ").Append(CurrentOperation).Append("\n");
-            sb.Append("  CurrentTimeMsecs: ").Append(CurrentTimeMsecs).Append("\n");
-            sb.Append("  DnsServerIps: ").Append(DnsServerIps).Append("\n");
-            sb.Append("  DomainNames: ").Append(DomainNames).Append("\n");
-            sb.Append("  EnableActiveMonitoring: ").Append(EnableActiveMonitoring).Append("\n");
-            sb.Append("  EnableUpgradePkgPolling: ").Append(EnableUpgradePkgPolling).Append("\n");
-            sb.Append("  EncryptionEnabled: ").Append(EncryptionEnabled).Append("\n");
-            sb.Append("  EncryptionKeyRotationPeriodSecs: ").Append(EncryptionKeyRotationPeriodSecs).Append("\n");
-            sb.Append("  EulaConfig: ").Append(EulaConfig).Append("\n");
-            sb.Append("  FilerAuditLogConfig: ").Append(FilerAuditLogConfig).Append("\n");
-            sb.Append("  FipsModeEnabled: ").Append(FipsModeEnabled).Append("\n");
-            sb.Append("  Gateway: ").Append(Gateway).Append("\n");
-            sb.Append("  GoogleAnalyticsEnabled: ").Append(GoogleAnalyticsEnabled).Append("\n");
-            sb.Append("  HardwareInfo: ").Append(HardwareInfo).Append("\n");
-            sb.Append("  Id: ").Append(Id).Append("\n");
-            sb.Append("  IncarnationId: ").Append(IncarnationId).Append("\n");
-            sb.Append("  IsDocumentationLocal: ").Append(IsDocumentationLocal).Append("\n");
-            sb.Append("  LanguageLocale: ").Append(LanguageLocale).Append("\n");
-            sb.Append("  LicenseServerClaimed: ").Append(LicenseServerClaimed).Append("\n");
-            sb.Append("  LocalGroupsEnabled: ").Append(LocalGroupsEnabled).Append("\n");
-            sb.Append("  MetadataFaultToleranceFactor: ").Append(MetadataFaultToleranceFactor).Append("\n");
-            sb.Append("  Mtu: ").Append(Mtu).Append("\n");
-            sb.Append("  MultiTenancyEnabled: ").Append(MultiTenancyEnabled).Append("\n");
-            sb.Append("  Name: ").Append(Name).Append("\n");
-            sb.Append("  NodeCount: ").Append(NodeCount).Append("\n");
-            sb.Append("  NtpSettings: ").Append(NtpSettings).Append("\n");
-            sb.Append("  ProxyVMSubnet: ").Append(ProxyVMSubnet).Append("\n");
-            sb.Append("  ReverseTunnelEnabled: ").Append(ReverseTunnelEnabled).Append("\n");
-            sb.Append("  ReverseTunnelEndTimeMsecs: ").Append(ReverseTunnelEndTimeMsecs).Append("\n");
-            sb.Append("  SmbAdDisabled: ").Append(SmbAdDisabled).Append("\n");
-            sb.Append("  Stats: ").Append(Stats).Append("\n");
-            sb.Append("  StigMode: ").Append(StigMode).Append("\n");
-            sb.Append("  SupportedConfig: ").Append(SupportedConfig).Append("\n");
-            sb.Append("  SyslogServers: ").Append(SyslogServers).Append("\n");
-            sb.Append("  TargetSoftwareVersion: ").Append(TargetSoftwareVersion).Append("\n");
-            sb.Append("  TenantViewboxSharingEnabled: ").Append(TenantViewboxSharingEnabled).Append("\n");
-            sb.Append("  Timezone: ").Append(Timezone).Append("\n");
-            sb.Append("  TurboMode: ").Append(TurboMode).Append("\n");
-            sb.Append("  UsedMetadataSpacePct: ").Append(UsedMetadataSpacePct).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -1042,3 +988,4 @@ namespace Cohesity.Model
     }
 
 }
+

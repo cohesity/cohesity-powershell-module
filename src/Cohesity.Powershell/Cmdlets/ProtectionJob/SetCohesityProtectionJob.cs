@@ -24,7 +24,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
     ///   </para>
     /// </example>
     [Cmdlet(VerbsCommon.Set, "CohesityProtectionJob")]
-    [OutputType(typeof(Models.ProtectionJob))]
+    [OutputType(typeof(Model.ProtectionJob))]
     public class SetCohesityProtectionJob : PSCmdlet
     {
 
@@ -50,7 +50,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
         /// </para>
         /// </summary>
         [Parameter(Mandatory = true, ValueFromPipeline = true)]
-        public Models.ProtectionJob ProtectionJob { get; set; } = null;
+        public Model.ProtectionJob ProtectionJob { get; set; } = null;
 
         #endregion
 
@@ -73,7 +73,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
         {
             // PUT public/protectionJobs/{id}
             var preparedUrl = $"/public/protectionJobs/{ProtectionJob.Id.ToString()}";
-            var result = Session.ApiClient.Put<Models.ProtectionJob>(preparedUrl, ProtectionJob);
+            var result = Session.ApiClient.Put<Model.ProtectionJob>(preparedUrl, ProtectionJob);
             WriteObject(result);
         }
 

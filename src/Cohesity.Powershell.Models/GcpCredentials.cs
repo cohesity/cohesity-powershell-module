@@ -153,19 +153,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class GcpCredentials {\n");
-            sb.Append("  ClientEmailAddress: ").Append(ClientEmailAddress).Append("\n");
-            sb.Append("  ClientPrivateKey: ").Append(ClientPrivateKey).Append("\n");
-            sb.Append("  GcpType: ").Append(GcpType).Append("\n");
-            sb.Append("  ProjectId: ").Append(ProjectId).Append("\n");
-            sb.Append("  VpcNetwork: ").Append(VpcNetwork).Append("\n");
-            sb.Append("  VpcSubnetwork: ").Append(VpcSubnetwork).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -255,3 +243,4 @@ namespace Cohesity.Model
     }
 
 }
+

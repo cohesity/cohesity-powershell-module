@@ -131,19 +131,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class RpoPolicySettings {\n");
-            sb.Append("  AlertingConfig: ").Append(AlertingConfig).Append("\n");
-            sb.Append("  AlertingPolicy: ").Append(AlertingPolicy).Append("\n");
-            sb.Append("  EnvironmentTypeJobParams: ").Append(EnvironmentTypeJobParams).Append("\n");
-            sb.Append("  IndexingPolicy: ").Append(IndexingPolicy).Append("\n");
-            sb.Append("  QosType: ").Append(QosType).Append("\n");
-            sb.Append("  StorageDomainId: ").Append(StorageDomainId).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -233,3 +221,4 @@ namespace Cohesity.Model
     }
 
 }
+

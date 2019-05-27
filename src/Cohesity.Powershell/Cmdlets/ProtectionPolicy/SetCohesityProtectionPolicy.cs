@@ -22,7 +22,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionPolicy
     ///   </para>
     /// </example>
     [Cmdlet(VerbsCommon.Set, "CohesityProtectionPolicy")]
-    [OutputType(typeof(Models.ProtectionPolicy))]
+    [OutputType(typeof(Model.ProtectionPolicy))]
     public class SetCohesityProtectionPolicy : PSCmdlet
     {
         private Session Session
@@ -48,7 +48,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionPolicy
         /// </summary>
         [Parameter(Mandatory = true, ValueFromPipeline = true)]
         [ValidateNotNull()]
-        public Models.ProtectionPolicy ProtectionPolicy { get; set; } = null;
+        public Model.ProtectionPolicy ProtectionPolicy { get; set; } = null;
 
         #endregion
 
@@ -70,7 +70,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionPolicy
         protected override void ProcessRecord()
         {
             var preparedUrl = $"/public/protectionPolicies/{ProtectionPolicy.Id.ToString()}";
-            var result = Session.ApiClient.Put<Models.ProtectionPolicy>(preparedUrl, ProtectionPolicy);
+            var result = Session.ApiClient.Put<Model.ProtectionPolicy>(preparedUrl, ProtectionPolicy);
             WriteObject(result);
         }
 

@@ -179,25 +179,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class FileSearchResult {\n");
-            sb.Append("  DocumentType: ").Append(DocumentType).Append("\n");
-            sb.Append("  EmailMetaData: ").Append(EmailMetaData).Append("\n");
-            sb.Append("  FileVersions: ").Append(FileVersions).Append("\n");
-            sb.Append("  Filename: ").Append(Filename).Append("\n");
-            sb.Append("  IsFolder: ").Append(IsFolder).Append("\n");
-            sb.Append("  JobId: ").Append(JobId).Append("\n");
-            sb.Append("  JobUid: ").Append(JobUid).Append("\n");
-            sb.Append("  ProtectionSource: ").Append(ProtectionSource).Append("\n");
-            sb.Append("  RegisteredSourceId: ").Append(RegisteredSourceId).Append("\n");
-            sb.Append("  SourceId: ").Append(SourceId).Append("\n");
-            sb.Append("  Type: ").Append(Type).Append("\n");
-            sb.Append("  ViewBoxId: ").Append(ViewBoxId).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -330,3 +312,4 @@ namespace Cohesity.Model
     }
 
 }
+

@@ -88,7 +88,7 @@ namespace Cohesity.Model
         /// <param name="type">Specifies the type of the managed Object in Oracle Protection Source. &#39;kRACRootContainer&#39; indicates the entity is a root container to an Oracle Real Application clusters(Oracle RAC). &#39;kRootContainer&#39; indicates the entity is a root container to an Oracle standalone server. &#39;kHost&#39; indicates the entity is an Oracle host. &#39;kDatabase&#39; indicates the entity is an Oracle Database. &#39;kTableSpace&#39; indicates the entity is an Oracle table space. &#39;kTable&#39; indicates the entity is an Oracle table..</param>
         /// <param name="uuid">Specifies the UUID for the Oracle entity..</param>
         /// <param name="version">Specifies the Oracle database instance version..</param>
-        public OracleProtectionSource(bool? archiveLogEnabled = default(bool?), bool? bctEnabled = default(bool?), int? dbType = default(int?), long? fraSize = default(long?), List<OracleHost> hosts = default(List<OracleHost>), string name = default(string), long? ownerId = default(long?), string sgaTargetSize = default(string), string sharedPoolSize = default(string), long? size = default(long?), long? tempFilesCount = default(long?), TypeEnum? type = default(TypeEnum?), string uuid = default(string), string version = default(string))
+        public OracleProtectionSource(bool? archiveLogEnabled = default(bool?), bool? bctEnabled = default(bool?), string dbType = default(string), long? fraSize = default(long?), List<OracleHost> hosts = default(List<OracleHost>), string name = default(string), long? ownerId = default(long?), string sgaTargetSize = default(string), string sharedPoolSize = default(string), long? size = default(long?), long? tempFilesCount = default(long?), TypeEnum? type = default(TypeEnum?), string uuid = default(string), string version = default(string))
         {
             this.ArchiveLogEnabled = archiveLogEnabled;
             this.BctEnabled = bctEnabled;
@@ -139,7 +139,7 @@ namespace Cohesity.Model
         /// </summary>
         /// <value>Specifies the type of the database in Oracle Protection Source.</value>
         [DataMember(Name="dbType", EmitDefaultValue=true)]
-        public int? DbType { get; set; }
+        public string DbType { get; set; }
 
         /// <summary>
         /// Specfies Flash/Fast Recovery area size for the current DB entity.
@@ -215,27 +215,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class OracleProtectionSource {\n");
-            sb.Append("  ArchiveLogEnabled: ").Append(ArchiveLogEnabled).Append("\n");
-            sb.Append("  BctEnabled: ").Append(BctEnabled).Append("\n");
-            sb.Append("  DbType: ").Append(DbType).Append("\n");
-            sb.Append("  FraSize: ").Append(FraSize).Append("\n");
-            sb.Append("  Hosts: ").Append(Hosts).Append("\n");
-            sb.Append("  Name: ").Append(Name).Append("\n");
-            sb.Append("  OwnerId: ").Append(OwnerId).Append("\n");
-            sb.Append("  SgaTargetSize: ").Append(SgaTargetSize).Append("\n");
-            sb.Append("  SharedPoolSize: ").Append(SharedPoolSize).Append("\n");
-            sb.Append("  Size: ").Append(Size).Append("\n");
-            sb.Append("  TempFilesCount: ").Append(TempFilesCount).Append("\n");
-            sb.Append("  Type: ").Append(Type).Append("\n");
-            sb.Append("  Uuid: ").Append(Uuid).Append("\n");
-            sb.Append("  Version: ").Append(Version).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -382,3 +362,4 @@ namespace Cohesity.Model
     }
 
 }
+

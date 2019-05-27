@@ -57,7 +57,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
         /// </para>
         /// </summary>
         [Parameter(Mandatory = true, ValueFromPipeline = true, ParameterSetName = "ByObject")]
-        public Models.ProtectionSourceNode ProtectionSource { get; set; }
+        public Model.ProtectionSourceNode ProtectionSource { get; set; }
 
         #endregion
 

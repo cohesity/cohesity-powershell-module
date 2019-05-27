@@ -105,17 +105,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class VirtualDiskRecoverTaskState {\n");
-            sb.Append("  Error: ").Append(Error).Append("\n");
-            sb.Append("  IsInstantRecoveryFinished: ").Append(IsInstantRecoveryFinished).Append("\n");
-            sb.Append("  TaskState: ").Append(TaskState).Append("\n");
-            sb.Append("  VirtualDiskRestoreResponse: ").Append(VirtualDiskRestoreResponse).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -191,3 +181,4 @@ namespace Cohesity.Model
     }
 
 }
+

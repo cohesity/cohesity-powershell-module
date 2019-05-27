@@ -59,16 +59,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class OutlookRestoreParameters {\n");
-            sb.Append("  OutlookMailboxList: ").Append(OutlookMailboxList).Append("\n");
-            sb.Append("  TargetFolderPath: ").Append(TargetFolderPath).Append("\n");
-            sb.Append("  TargetMailbox: ").Append(TargetMailbox).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -140,3 +131,4 @@ namespace Cohesity.Model
     }
 
 }
+

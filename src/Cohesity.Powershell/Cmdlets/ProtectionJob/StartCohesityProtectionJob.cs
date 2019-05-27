@@ -81,7 +81,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
         /// </para>
         /// </summary>
         [Parameter(Mandatory = false)]
-        public long?[] SourceIds { get; set; } = null;
+        public long[] SourceIds { get; set; } = null;
 
         /// <summary>
         /// <para type="description">

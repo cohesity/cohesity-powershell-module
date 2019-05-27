@@ -149,21 +149,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class RemoteRestoreSnapshotStatus {\n");
-            sb.Append("  ArchiveTaskUid: ").Append(ArchiveTaskUid).Append("\n");
-            sb.Append("  Error: ").Append(Error).Append("\n");
-            sb.Append("  ExpiryTimeUsecs: ").Append(ExpiryTimeUsecs).Append("\n");
-            sb.Append("  JobRunId: ").Append(JobRunId).Append("\n");
-            sb.Append("  ProgressMonitorTask: ").Append(ProgressMonitorTask).Append("\n");
-            sb.Append("  SnapshotTaskStatus: ").Append(SnapshotTaskStatus).Append("\n");
-            sb.Append("  SnapshotTaskUid: ").Append(SnapshotTaskUid).Append("\n");
-            sb.Append("  SnapshotTimeUsecs: ").Append(SnapshotTimeUsecs).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -267,3 +253,4 @@ namespace Cohesity.Model
     }
 
 }
+

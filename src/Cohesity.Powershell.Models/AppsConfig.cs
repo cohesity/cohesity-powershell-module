@@ -115,19 +115,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class AppsConfig {\n");
-            sb.Append("  AllowExternalTraffic: ").Append(AllowExternalTraffic).Append("\n");
-            sb.Append("  AppsMode: ").Append(AppsMode).Append("\n");
-            sb.Append("  AppsSubnet: ").Append(AppsSubnet).Append("\n");
-            sb.Append("  OvercommitMemoryPct: ").Append(OvercommitMemoryPct).Append("\n");
-            sb.Append("  ReservedCpuMillicores: ").Append(ReservedCpuMillicores).Append("\n");
-            sb.Append("  ReservedMemoryPct: ").Append(ReservedMemoryPct).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -217,3 +205,4 @@ namespace Cohesity.Model
     }
 
 }
+

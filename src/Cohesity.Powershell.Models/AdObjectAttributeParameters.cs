@@ -71,17 +71,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class AdObjectAttributeParameters {\n");
-            sb.Append("  AdGuidPairs: ").Append(AdGuidPairs).Append("\n");
-            sb.Append("  ExcludeLdapProperties: ").Append(ExcludeLdapProperties).Append("\n");
-            sb.Append("  LdapProperties: ").Append(LdapProperties).Append("\n");
-            sb.Append("  MergeMultiValProperties: ").Append(MergeMultiValProperties).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -162,3 +152,4 @@ namespace Cohesity.Model
     }
 
 }
+

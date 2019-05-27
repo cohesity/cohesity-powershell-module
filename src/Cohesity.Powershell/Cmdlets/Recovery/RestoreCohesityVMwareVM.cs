@@ -192,13 +192,13 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
         /// </summary>
         protected override void ProcessRecord()
         {
-            var restoreRequest = new Models.RecoverTaskRequest(name: TaskName)
+            var restoreRequest = new Model.RecoverTaskRequest(name: TaskName)
             {
-                Type = Models.RecoverTaskRequest.TypeEnum.KRecoverVMs,
+                Type = Model.RecoverTaskRequest.TypeEnum.KRecoverVMs,
                 ContinueOnError = true
             };
 
-            var vmwareParams = new Models.VmwareRestoreParameters();
+            var vmwareParams = new Model.VmwareRestoreParameters();
             if(PoweredOn.IsPresent)
                 vmwareParams.PoweredOn = PoweredOn;
             if(DisableNetwork.IsPresent)
@@ -218,7 +218,7 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
 
             restoreRequest.VmwareParameters = vmwareParams;
 
-            var restoreObject = new Models.RestoreObject
+            var restoreObject = new Model.RestoreObjectDetails
             {
                 JobId = JobId,
                 ProtectionSourceId = SourceId
@@ -233,14 +233,14 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
             if (StartTime.HasValue)
                 restoreObject.StartedTimeUsecs = StartTime;
 
-            var objects = new List<Models.RestoreObject>();
+            var objects = new List<Model.RestoreObjectDetails>();
             objects.Add(restoreObject);
 
             restoreRequest.Objects = objects;
 
             // POST /public/restore/recover
             var preparedUrl = $"/public/restore/recover";
-            var result = Session.ApiClient.Post<Models.RestoreTask>(preparedUrl, restoreRequest);
+            var result = Session.ApiClient.Post<Model.RestoreTask>(preparedUrl, restoreRequest);
             WriteObject(result);
         }
 

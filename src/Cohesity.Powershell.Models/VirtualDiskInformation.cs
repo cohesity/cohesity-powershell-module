@@ -109,21 +109,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class VirtualDiskInformation {\n");
-            sb.Append("  BusNumber: ").Append(BusNumber).Append("\n");
-            sb.Append("  ControllerType: ").Append(ControllerType).Append("\n");
-            sb.Append("  DiskId: ").Append(DiskId).Append("\n");
-            sb.Append("  DiskLocation: ").Append(DiskLocation).Append("\n");
-            sb.Append("  DiskSizeInBytes: ").Append(DiskSizeInBytes).Append("\n");
-            sb.Append("  FilePath: ").Append(FilePath).Append("\n");
-            sb.Append("  MountPoints: ").Append(MountPoints).Append("\n");
-            sb.Append("  UnitNumber: ").Append(UnitNumber).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -230,3 +216,4 @@ namespace Cohesity.Model
     }
 
 }
+

@@ -135,18 +135,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class RestoreObjectState {\n");
-            sb.Append("  Error: ").Append(Error).Append("\n");
-            sb.Append("  ObjectStatus: ").Append(ObjectStatus).Append("\n");
-            sb.Append("  ResourcePoolId: ").Append(ResourcePoolId).Append("\n");
-            sb.Append("  RestoredObjectId: ").Append(RestoredObjectId).Append("\n");
-            sb.Append("  SourceObjectId: ").Append(SourceObjectId).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -229,3 +218,4 @@ namespace Cohesity.Model
     }
 
 }
+
