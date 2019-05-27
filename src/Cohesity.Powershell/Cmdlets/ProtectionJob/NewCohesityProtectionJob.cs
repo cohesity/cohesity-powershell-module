@@ -26,7 +26,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
     ///   </para>
     /// </example>
     [Cmdlet(VerbsCommon.New, "CohesityProtectionJob")]
-    [OutputType(typeof(Models.ProtectionJob))]
+    [OutputType(typeof(Model.ProtectionJob))]
     public class NewCohesityProtectionJob : PSCmdlet
     {
         private Session Session
@@ -186,7 +186,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
         /// </para>
         /// </summary>
         [Parameter(Mandatory = false)]
-        public EnvironmentEnum? Environment { get; set; }
+        public Model.ProtectionJob.EnvironmentEnum? Environment { get; set; }
 
         [Parameter()]
         public SourceSpecialParameter[] SourceSpecialParameters { get; set; }
@@ -215,45 +215,45 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
                 StorageDomainId = (long) domain.Id;
             }
 
-            var newProtectionJob = new Models.ProtectionJob(name: Name, policyId: PolicyId, viewBoxId: StorageDomainId)
+            var newProtectionJob = new Model.ProtectionJob(name: Name, policyId: PolicyId, viewBoxId: StorageDomainId)
             {
                 Timezone = Timezone,
-                StartTime = new ProtectionScheduleStartTime_(ScheduleStartTime.Hour, ScheduleStartTime.Minute)
+                StartTime = new TimeOfDay(ScheduleStartTime.Hour, ScheduleStartTime.Minute)
             };
 
             if (ParentSourceId.HasValue)
                 newProtectionJob.ParentSourceId = ParentSourceId;
 
             if (SourceIds != null && SourceIds.Any())
-                newProtectionJob.SourceIds = SourceIds.ToList().ConvertAll<long?>(x => x);
+                newProtectionJob.SourceIds = SourceIds.ToList();
 
             if (ExcludeSourceIds != null && ExcludeSourceIds.Any())
-                newProtectionJob.ExcludeSourceIds = ExcludeSourceIds.ToList().ConvertAll<long?>(x => x);
+                newProtectionJob.ExcludeSourceIds = ExcludeSourceIds.ToList();
 
             if (VmTagIds != null && VmTagIds.Any())
             {
-                var vmTagIdsList = VmTagIds.ToList().ConvertAll<long?>(x => x);
-                newProtectionJob.VmTagIds = new List<List<long?>>();
+                var vmTagIdsList = VmTagIds.ToList();
+                newProtectionJob.VmTagIds = new List<List<long>>();
                 foreach (var vmTagIds in vmTagIdsList)
                 {
-                    newProtectionJob.VmTagIds.Add(new List<long?> { vmTagIds });
+                    newProtectionJob.VmTagIds.Add(new List<long> { vmTagIds });
                 }
             }  
 
             if (ExcludeVmTagIds != null && ExcludeVmTagIds.Any())
             {
-                var excludeVmTagIdsList = ExcludeVmTagIds.ToList().ConvertAll<long?>(x => x);
-                newProtectionJob.ExcludeVmTagIds = new List<List<long?>>();
+                var excludeVmTagIdsList = ExcludeVmTagIds.ToList();
+                newProtectionJob.ExcludeVmTagIds = new List<List<long>>();
                 foreach (var excludeVmTagIds in excludeVmTagIdsList)
                 {
-                    newProtectionJob.ExcludeVmTagIds.Add(new List<long?> { excludeVmTagIds });
+                    newProtectionJob.ExcludeVmTagIds.Add(new List<long> { excludeVmTagIds });
                 }
             }
 
             if (!string.IsNullOrWhiteSpace(ViewName))
                 newProtectionJob.ViewName = ViewName;
 
-            newProtectionJob.Environment = Environment != null ? Environment.ToString() : EnvironmentEnum.kView.ToString();
+            newProtectionJob.Environment = Environment != null ? Environment : Model.ProtectionJob.EnvironmentEnum.KView;
 
             if (FullSLATimeInMinutes != null)
                 newProtectionJob.FullProtectionSlaTimeMins = FullSLATimeInMinutes;
@@ -267,7 +267,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
             }
 
             var preparedUrl = $"/public/protectionJobs";
-            var result = Session.ApiClient.Post<Models.ProtectionJob>(preparedUrl, newProtectionJob);
+            var result = Session.ApiClient.Post<Model.ProtectionJob>(preparedUrl, newProtectionJob);
             WriteObject(result);
         }
     }

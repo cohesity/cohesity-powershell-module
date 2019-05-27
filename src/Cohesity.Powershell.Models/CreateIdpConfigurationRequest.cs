@@ -131,23 +131,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class CreateIdpConfigurationRequest {\n");
-            sb.Append("  AllowLocalAuthentication: ").Append(AllowLocalAuthentication).Append("\n");
-            sb.Append("  Certificate: ").Append(Certificate).Append("\n");
-            sb.Append("  CertificateFilename: ").Append(CertificateFilename).Append("\n");
-            sb.Append("  Enable: ").Append(Enable).Append("\n");
-            sb.Append("  IssuerId: ").Append(IssuerId).Append("\n");
-            sb.Append("  Name: ").Append(Name).Append("\n");
-            sb.Append("  Roles: ").Append(Roles).Append("\n");
-            sb.Append("  SamlAttributeName: ").Append(SamlAttributeName).Append("\n");
-            sb.Append("  SsoUrl: ").Append(SsoUrl).Append("\n");
-            sb.Append("  TenantId: ").Append(TenantId).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -268,3 +252,4 @@ namespace Cohesity.Model
     }
 
 }
+

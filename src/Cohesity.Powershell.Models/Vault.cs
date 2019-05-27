@@ -483,34 +483,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class Vault {\n");
-            sb.Append("  CaTrustedCertificate: ").Append(CaTrustedCertificate).Append("\n");
-            sb.Append("  ClientCertificate: ").Append(ClientCertificate).Append("\n");
-            sb.Append("  ClientPrivateKey: ").Append(ClientPrivateKey).Append("\n");
-            sb.Append("  CompressionPolicy: ").Append(CompressionPolicy).Append("\n");
-            sb.Append("  Config: ").Append(Config).Append("\n");
-            sb.Append("  CustomerManagingEncryptionKeys: ").Append(CustomerManagingEncryptionKeys).Append("\n");
-            sb.Append("  DedupEnabled: ").Append(DedupEnabled).Append("\n");
-            sb.Append("  Description: ").Append(Description).Append("\n");
-            sb.Append("  DesiredWalLocation: ").Append(DesiredWalLocation).Append("\n");
-            sb.Append("  EncryptionKeyFileDownloaded: ").Append(EncryptionKeyFileDownloaded).Append("\n");
-            sb.Append("  EncryptionPolicy: ").Append(EncryptionPolicy).Append("\n");
-            sb.Append("  ExternalTargetType: ").Append(ExternalTargetType).Append("\n");
-            sb.Append("  FullArchiveIntervalDays: ").Append(FullArchiveIntervalDays).Append("\n");
-            sb.Append("  Id: ").Append(Id).Append("\n");
-            sb.Append("  IncrementalArchivesEnabled: ").Append(IncrementalArchivesEnabled).Append("\n");
-            sb.Append("  KeyFileDownloadTimeUsecs: ").Append(KeyFileDownloadTimeUsecs).Append("\n");
-            sb.Append("  KeyFileDownloadUser: ").Append(KeyFileDownloadUser).Append("\n");
-            sb.Append("  Name: ").Append(Name).Append("\n");
-            sb.Append("  Type: ").Append(Type).Append("\n");
-            sb.Append("  UsageType: ").Append(UsageType).Append("\n");
-            sb.Append("  VaultBandwidthLimits: ").Append(VaultBandwidthLimits).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -695,3 +668,4 @@ namespace Cohesity.Model
     }
 
 }
+

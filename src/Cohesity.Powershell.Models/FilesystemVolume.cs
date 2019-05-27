@@ -147,22 +147,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class FilesystemVolume {\n");
-            sb.Append("  Disks: ").Append(Disks).Append("\n");
-            sb.Append("  DisplayName: ").Append(DisplayName).Append("\n");
-            sb.Append("  FilesystemType: ").Append(FilesystemType).Append("\n");
-            sb.Append("  FilesystemUuid: ").Append(FilesystemUuid).Append("\n");
-            sb.Append("  IsSupported: ").Append(IsSupported).Append("\n");
-            sb.Append("  LogicalVolume: ").Append(LogicalVolume).Append("\n");
-            sb.Append("  LogicalVolumeType: ").Append(LogicalVolumeType).Append("\n");
-            sb.Append("  Name: ").Append(Name).Append("\n");
-            sb.Append("  VolumeGuid: ").Append(VolumeGuid).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -274,3 +259,4 @@ namespace Cohesity.Model
     }
 
 }
+

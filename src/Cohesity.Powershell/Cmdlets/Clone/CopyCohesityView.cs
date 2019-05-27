@@ -132,18 +132,18 @@ namespace Cohesity.Powershell.Cmdlets.Clone
         {
             var view = RestApiCommon.GetViewByName(Session.ApiClient, SourceViewName);
 
-            var cloneRequest = new Models.CloneTaskRequest(name: TaskName)
+            var cloneRequest = new Model.CloneTaskRequest(name: TaskName)
             {
-                Type = Models.CloneTaskRequest.TypeEnum.KCloneView,
+                Type = Model.CloneTaskRequest.TypeEnum.KCloneView,
                 ContinueOnError = true,
             };
 
-            var cloneViewParams = new Models.CloneView_
+            var cloneViewParams = new Model.CloneViewRequest
             {
                 SourceViewName = SourceViewName,
                 CloneViewName = TargetViewName,
                 Description = TargetViewDescription,
-                Qos = new Models.QoS
+                Qos = new Model.QoS
                 {
                     PrincipalName = QoSPolicy
                 }
@@ -151,7 +151,7 @@ namespace Cohesity.Powershell.Cmdlets.Clone
 
             cloneRequest.CloneViewParameters = cloneViewParams;
 
-            var cloneObject = new Models.RestoreObject
+            var cloneObject = new Model.RestoreObjectDetails
             {
                 JobId = JobId,
                 ProtectionSourceId = view.ViewProtection.MagnetoEntityId
@@ -163,14 +163,14 @@ namespace Cohesity.Powershell.Cmdlets.Clone
             if (StartTime.HasValue)
                 cloneObject.StartedTimeUsecs = StartTime;
 
-            var objects = new List<Models.RestoreObject>();
+            var objects = new List<Model.RestoreObjectDetails>();
             objects.Add(cloneObject);
 
             cloneRequest.Objects = objects;
 
             // POST /public/restore/clone
             var preparedUrl = $"/public/restore/clone";
-            var result = Session.ApiClient.Post<Models.RestoreTask>(preparedUrl, cloneRequest);
+            var result = Session.ApiClient.Post<Model.RestoreTask>(preparedUrl, cloneRequest);
             WriteObject(result);
         }
 

@@ -101,18 +101,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class IsilonProtectionSource {\n");
-            sb.Append("  AccessZone: ").Append(AccessZone).Append("\n");
-            sb.Append("  Cluster: ").Append(Cluster).Append("\n");
-            sb.Append("  MountPoint: ").Append(MountPoint).Append("\n");
-            sb.Append("  Name: ").Append(Name).Append("\n");
-            sb.Append("  Type: ").Append(Type).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -195,3 +184,4 @@ namespace Cohesity.Model
     }
 
 }
+

@@ -261,36 +261,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class SchedulerProtoSchedulerJobScheduleJobParametersReportJobParameterReportParameters {\n");
-            sb.Append("  AllUnderHierarchy: ").Append(AllUnderHierarchy).Append("\n");
-            sb.Append("  CompactVersion: ").Append(CompactVersion).Append("\n");
-            sb.Append("  ConsecutiveFailures: ").Append(ConsecutiveFailures).Append("\n");
-            sb.Append("  Environment: ").Append(Environment).Append("\n");
-            sb.Append("  HealthStatus: ").Append(HealthStatus).Append("\n");
-            sb.Append("  HostOsType: ").Append(HostOsType).Append("\n");
-            sb.Append("  JobId: ").Append(JobId).Append("\n");
-            sb.Append("  JobName: ").Append(JobName).Append("\n");
-            sb.Append("  LastNDays: ").Append(LastNDays).Append("\n");
-            sb.Append("  ObjectIds: ").Append(ObjectIds).Append("\n");
-            sb.Append("  ObjectType: ").Append(ObjectType).Append("\n");
-            sb.Append("  RegisteredSourceId: ").Append(RegisteredSourceId).Append("\n");
-            sb.Append("  RegisteredSourceIds: ").Append(RegisteredSourceIds).Append("\n");
-            sb.Append("  Rollup: ").Append(Rollup).Append("\n");
-            sb.Append("  RunStatus: ").Append(RunStatus).Append("\n");
-            sb.Append("  Sid: ").Append(Sid).Append("\n");
-            sb.Append("  TenantIdVec: ").Append(TenantIdVec).Append("\n");
-            sb.Append("  Timezone: ").Append(Timezone).Append("\n");
-            sb.Append("  UnixUid: ").Append(UnixUid).Append("\n");
-            sb.Append("  VaultIds: ").Append(VaultIds).Append("\n");
-            sb.Append("  ViewBoxId: ").Append(ViewBoxId).Append("\n");
-            sb.Append("  ViewName: ").Append(ViewName).Append("\n");
-            sb.Append("  VmName: ").Append(VmName).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -508,3 +479,4 @@ namespace Cohesity.Model
     }
 
 }
+

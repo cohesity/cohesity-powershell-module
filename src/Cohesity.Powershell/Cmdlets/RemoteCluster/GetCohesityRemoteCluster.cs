@@ -23,7 +23,7 @@ namespace Cohesity.Powershell.Cmdlets.RemoteCluster
     ///   </para>
     /// </example>
     [Cmdlet(VerbsCommon.Get, "CohesityRemoteCluster")]
-    [OutputType(typeof(Models.RemoteCluster))]
+    [OutputType(typeof(Model.RemoteCluster))]
     public class GetCohesityRemoteCluster : PSCmdlet
     {
         private Session Session
@@ -50,7 +50,7 @@ namespace Cohesity.Powershell.Cmdlets.RemoteCluster
         protected override void ProcessRecord()
         {
             var url = $"/public/remoteClusters";
-            var results = Session.ApiClient.Get<List<Models.RemoteCluster>>(url);
+            var results = Session.ApiClient.Get<List<Model.RemoteCluster>>(url);
             WriteObject(results, true);
         }
     }

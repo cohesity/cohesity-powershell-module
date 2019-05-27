@@ -81,18 +81,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class C2SAccessPortal {\n");
-            sb.Append("  Agency: ").Append(Agency).Append("\n");
-            sb.Append("  BaseUrl: ").Append(BaseUrl).Append("\n");
-            sb.Append("  ClientCertificatePassword: ").Append(ClientCertificatePassword).Append("\n");
-            sb.Append("  Mission: ").Append(Mission).Append("\n");
-            sb.Append("  Role: ").Append(Role).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -177,3 +166,4 @@ namespace Cohesity.Model
     }
 
 }
+

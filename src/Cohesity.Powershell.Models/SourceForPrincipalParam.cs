@@ -61,16 +61,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class SourceForPrincipalParam {\n");
-            sb.Append("  ProtectionSourceIds: ").Append(ProtectionSourceIds).Append("\n");
-            sb.Append("  Sid: ").Append(Sid).Append("\n");
-            sb.Append("  ViewNames: ").Append(ViewNames).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -143,3 +134,4 @@ namespace Cohesity.Model
     }
 
 }
+

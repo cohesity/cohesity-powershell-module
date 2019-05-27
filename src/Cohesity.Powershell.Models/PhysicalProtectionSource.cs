@@ -49,8 +49,13 @@ namespace Cohesity.Model
             /// Enum KSolaris for value: kSolaris
             /// </summary>
             [EnumMember(Value = "kSolaris")]
-            KSolaris = 4
+            KSolaris = 4,
 
+            /// <summary>
+            /// Enum KOther for value: kOther
+            /// </summary>
+            [EnumMember(Value = "kOther")]
+            KOther = 5
         }
 
         /// <summary>
@@ -67,6 +72,12 @@ namespace Cohesity.Model
         public enum TypeEnum
         {
             /// <summary>
+            /// Enum KGroup for value: kGroup
+            /// </summary>
+            [EnumMember(Value = "kGroup")]
+            KGroup = 0,
+
+            /// <summary>
             /// Enum KHost for value: kHost
             /// </summary>
             [EnumMember(Value = "kHost")]
@@ -76,7 +87,19 @@ namespace Cohesity.Model
             /// Enum KWindowsCluster for value: kWindowsCluster
             /// </summary>
             [EnumMember(Value = "kWindowsCluster")]
-            KWindowsCluster = 2
+            KWindowsCluster = 2,
+
+            /// <summary>
+            /// Enum KOracleRACCluster for value: kOracleRACCluster
+            /// </summary>
+            [EnumMember(Value = "kOracleRACCluster")]
+            KOracleRACCluster = 3,
+
+            /// <summary>
+            /// Enum KOracleAPCluster for value: kOracleAPCluster
+            /// </summary>
+            [EnumMember(Value = "kOracleAPCluster")]
+            KOracleAPCluster = 4
 
         }
 
@@ -181,23 +204,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class PhysicalProtectionSource {\n");
-            sb.Append("  Agents: ").Append(Agents).Append("\n");
-            sb.Append("  HostType: ").Append(HostType).Append("\n");
-            sb.Append("  Id: ").Append(Id).Append("\n");
-            sb.Append("  MemorySizeBytes: ").Append(MemorySizeBytes).Append("\n");
-            sb.Append("  Name: ").Append(Name).Append("\n");
-            sb.Append("  NetworkingInfo: ").Append(NetworkingInfo).Append("\n");
-            sb.Append("  NumProcessors: ").Append(NumProcessors).Append("\n");
-            sb.Append("  OsName: ").Append(OsName).Append("\n");
-            sb.Append("  Type: ").Append(Type).Append("\n");
-            sb.Append("  Volumes: ").Append(Volumes).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -315,3 +322,4 @@ namespace Cohesity.Model
     }
 
 }
+

@@ -147,21 +147,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class AmazonCloudCredentials {\n");
-            sb.Append("  AccessKeyId: ").Append(AccessKeyId).Append("\n");
-            sb.Append("  C2sAccessPortal: ").Append(C2sAccessPortal).Append("\n");
-            sb.Append("  Region: ").Append(Region).Append("\n");
-            sb.Append("  SecretAccessKey: ").Append(SecretAccessKey).Append("\n");
-            sb.Append("  ServiceUrl: ").Append(ServiceUrl).Append("\n");
-            sb.Append("  SignatureVersion: ").Append(SignatureVersion).Append("\n");
-            sb.Append("  TierType: ").Append(TierType).Append("\n");
-            sb.Append("  UseHttps: ").Append(UseHttps).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -265,3 +251,4 @@ namespace Cohesity.Model
     }
 
 }
+

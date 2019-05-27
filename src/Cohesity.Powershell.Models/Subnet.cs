@@ -173,22 +173,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class Subnet {\n");
-            sb.Append("  Component: ").Append(Component).Append("\n");
-            sb.Append("  Description: ").Append(Description).Append("\n");
-            sb.Append("  Id: ").Append(Id).Append("\n");
-            sb.Append("  Ip: ").Append(Ip).Append("\n");
-            sb.Append("  NetmaskBits: ").Append(NetmaskBits).Append("\n");
-            sb.Append("  NetmaskIp4: ").Append(NetmaskIp4).Append("\n");
-            sb.Append("  NfsAccess: ").Append(NfsAccess).Append("\n");
-            sb.Append("  NfsRootSquash: ").Append(NfsRootSquash).Append("\n");
-            sb.Append("  SmbAccess: ").Append(SmbAccess).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -297,3 +282,4 @@ namespace Cohesity.Model
     }
 
 }
+

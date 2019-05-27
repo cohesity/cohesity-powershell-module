@@ -55,7 +55,7 @@ namespace Cohesity.Powershell.Cmdlets.RemoteCluster
         /// </para>
         /// </summary>
         [Parameter(Mandatory = true, ValueFromPipeline = true, ParameterSetName = "ByObject")]  
-        public Models.RemoteCluster RemoteCluster { get; set; }
+        public Model.RemoteCluster RemoteCluster { get; set; }
 
         #endregion
 

@@ -81,18 +81,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class Banner {\n");
-            sb.Append("  BannerId: ").Append(BannerId).Append("\n");
-            sb.Append("  Content: ").Append(Content).Append("\n");
-            sb.Append("  CreatedTimeMsecs: ").Append(CreatedTimeMsecs).Append("\n");
-            sb.Append("  Description: ").Append(Description).Append("\n");
-            sb.Append("  LastUpdatedTimeMsecs: ").Append(LastUpdatedTimeMsecs).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -177,3 +166,4 @@ namespace Cohesity.Model
     }
 
 }
+

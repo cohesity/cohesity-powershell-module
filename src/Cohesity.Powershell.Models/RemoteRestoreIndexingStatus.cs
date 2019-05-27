@@ -159,22 +159,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class RemoteRestoreIndexingStatus {\n");
-            sb.Append("  EndTimeUsecs: ").Append(EndTimeUsecs).Append("\n");
-            sb.Append("  Error: ").Append(Error).Append("\n");
-            sb.Append("  IndexingTaskEndTimeUsecs: ").Append(IndexingTaskEndTimeUsecs).Append("\n");
-            sb.Append("  IndexingTaskStartTimeUsecs: ").Append(IndexingTaskStartTimeUsecs).Append("\n");
-            sb.Append("  IndexingTaskStatus: ").Append(IndexingTaskStatus).Append("\n");
-            sb.Append("  IndexingTaskUid: ").Append(IndexingTaskUid).Append("\n");
-            sb.Append("  LatestExpiryTimeUsecs: ").Append(LatestExpiryTimeUsecs).Append("\n");
-            sb.Append("  ProgressMonitorTask: ").Append(ProgressMonitorTask).Append("\n");
-            sb.Append("  StartTimeUsecs: ").Append(StartTimeUsecs).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -285,3 +270,4 @@ namespace Cohesity.Model
     }
 
 }
+

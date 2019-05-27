@@ -32,7 +32,7 @@ namespace Cohesity.Model
         /// <param name="mountPoints">Array of Mount Points.  Specifies the mount points where the volume is mounted, for example: &#39;C:\\&#39;, &#39;/mnt/foo&#39; etc..</param>
         /// <param name="networkPath">Specifies the full path to connect to the network attached volume. For example, (IP or hostname):/path/to/share for NFS volumes)..</param>
         /// <param name="usedSizeBytes">Specifies the size used by the volume in bytes..</param>
-        public PhysicalVolume(string devicePath = default(string), string guid = default(string), bool? isExtendedAttributesSupported = default(bool?), bool? isProtected = default(bool?), string label = default(string), int? logicalSizeBytes = default(int?), List<string> mountPoints = default(List<string>), string networkPath = default(string), int? usedSizeBytes = default(int?))
+        public PhysicalVolume(string devicePath = default(string), string guid = default(string), bool? isExtendedAttributesSupported = default(bool?), bool? isProtected = default(bool?), string label = default(string), long? logicalSizeBytes = default(long?), List<string> mountPoints = default(List<string>), string networkPath = default(string), long? usedSizeBytes = default(long?))
         {
             this.DevicePath = devicePath;
             this.Guid = guid;
@@ -94,7 +94,7 @@ namespace Cohesity.Model
         /// </summary>
         /// <value>Specifies the logical size of the volume in bytes that is not reduced by change-block tracking, compression and deduplication.</value>
         [DataMember(Name="logicalSizeBytes", EmitDefaultValue=true)]
-        public int? LogicalSizeBytes { get; set; }
+        public long? LogicalSizeBytes { get; set; }
 
         /// <summary>
         /// Array of Mount Points.  Specifies the mount points where the volume is mounted, for example: &#39;C:\\&#39;, &#39;/mnt/foo&#39; etc.
@@ -115,28 +115,13 @@ namespace Cohesity.Model
         /// </summary>
         /// <value>Specifies the size used by the volume in bytes.</value>
         [DataMember(Name="usedSizeBytes", EmitDefaultValue=true)]
-        public int? UsedSizeBytes { get; set; }
+        public long? UsedSizeBytes { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class PhysicalVolume {\n");
-            sb.Append("  DevicePath: ").Append(DevicePath).Append("\n");
-            sb.Append("  Guid: ").Append(Guid).Append("\n");
-            sb.Append("  IsExtendedAttributesSupported: ").Append(IsExtendedAttributesSupported).Append("\n");
-            sb.Append("  IsProtected: ").Append(IsProtected).Append("\n");
-            sb.Append("  Label: ").Append(Label).Append("\n");
-            sb.Append("  LogicalSizeBytes: ").Append(LogicalSizeBytes).Append("\n");
-            sb.Append("  MountPoints: ").Append(MountPoints).Append("\n");
-            sb.Append("  NetworkPath: ").Append(NetworkPath).Append("\n");
-            sb.Append("  UsedSizeBytes: ").Append(UsedSizeBytes).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -250,3 +235,4 @@ namespace Cohesity.Model
     }
 
 }
+

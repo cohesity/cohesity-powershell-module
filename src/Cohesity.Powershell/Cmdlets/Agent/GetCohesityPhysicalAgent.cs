@@ -54,8 +54,9 @@ namespace Cohesity.Powershell.Cmdlets.Agent
         {
             var qb = new QuerystringBuilder();
 
-            var environments = new EnvironmentEnum[] { EnvironmentEnum.kPhysical };
-            qb.Add("environment", string.Join(",", environments));
+            var environments = new Model.ProtectionSource.EnvironmentEnum[] { Model.ProtectionSource.EnvironmentEnum.KPhysical };
+            List<string> envs = environments.ToList().ConvertAll<string>(x => x.ToString().First().ToString().ToLower() + x.ToString().Substring(1));
+            qb.Add("environment", string.Join(",", envs));
 
             var url = $"/public/protectionSources{qb.Build()}";
             var results = Session.ApiClient.Get<IEnumerable<ProtectionSourceNode>>(url);

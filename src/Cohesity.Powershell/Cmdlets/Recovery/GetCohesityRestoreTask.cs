@@ -90,7 +90,10 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
             var queries = new Dictionary<string, string>();
 
             if (Types != null && Types.Any())
-                queries.Add("taskTypes", string.Join(",", Types));
+            {
+                List<string> types = Types.ToList().ConvertAll<string>(x => x.ToString().First().ToString().ToLower() + x.ToString().Substring(1));
+                queries.Add("taskTypes", string.Join(",", types));
+            }
 
             if (Ids != null && Ids.Any())
                 queries.Add("taskIds", string.Join(",", Ids));

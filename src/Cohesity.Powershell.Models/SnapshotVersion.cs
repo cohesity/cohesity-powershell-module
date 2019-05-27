@@ -131,23 +131,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class SnapshotVersion {\n");
-            sb.Append("  AttemptNumber: ").Append(AttemptNumber).Append("\n");
-            sb.Append("  DeltaSizeBytes: ").Append(DeltaSizeBytes).Append("\n");
-            sb.Append("  IsAppConsistent: ").Append(IsAppConsistent).Append("\n");
-            sb.Append("  IsFullBackup: ").Append(IsFullBackup).Append("\n");
-            sb.Append("  JobRunId: ").Append(JobRunId).Append("\n");
-            sb.Append("  LocalMountPath: ").Append(LocalMountPath).Append("\n");
-            sb.Append("  LogicalSizeBytes: ").Append(LogicalSizeBytes).Append("\n");
-            sb.Append("  PhysicalSizeBytes: ").Append(PhysicalSizeBytes).Append("\n");
-            sb.Append("  PrimaryPhysicalSizeBytes: ").Append(PrimaryPhysicalSizeBytes).Append("\n");
-            sb.Append("  StartedTimeUsecs: ").Append(StartedTimeUsecs).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -267,3 +251,4 @@ namespace Cohesity.Model
     }
 
 }
+

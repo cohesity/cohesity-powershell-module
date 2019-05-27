@@ -89,19 +89,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class AdDomain {\n");
-            sb.Append("  DnsRoot: ").Append(DnsRoot).Append("\n");
-            sb.Append("  Forest: ").Append(Forest).Append("\n");
-            sb.Append("  Identity: ").Append(Identity).Append("\n");
-            sb.Append("  NetbiosName: ").Append(NetbiosName).Append("\n");
-            sb.Append("  ParentDomain: ").Append(ParentDomain).Append("\n");
-            sb.Append("  TombstoneDays: ").Append(TombstoneDays).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -193,3 +181,4 @@ namespace Cohesity.Model
     }
 
 }
+

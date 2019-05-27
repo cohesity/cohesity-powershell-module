@@ -4,6 +4,7 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
+using Cohesity.Model;
 using Newtonsoft.Json;
 
 namespace Cohesity.Powershell.Common
@@ -89,7 +90,7 @@ namespace Cohesity.Powershell.Common
             {
                 request.Headers.Add(
                     CohesityConstants.HttpHeaderAuthorization,
-                    $"{AccessToken.TokenType} {AccessToken.AccessToken}");
+                    $"{AccessToken.TokenType} {AccessToken._AccessToken}");
             }
 
             return request;
@@ -109,7 +110,7 @@ namespace Cohesity.Powershell.Common
             {
                 request.Headers.Add(
                     CohesityConstants.HttpHeaderAuthorization,
-                    $"{AccessToken.TokenType} {AccessToken.AccessToken}");
+                    $"{AccessToken.TokenType} {AccessToken._AccessToken}");
             }
 
             return request;
@@ -129,7 +130,7 @@ namespace Cohesity.Powershell.Common
             {
                 request.Headers.Add(
                     CohesityConstants.HttpHeaderAuthorization,
-                    $"{AccessToken.TokenType} {AccessToken.AccessToken}");
+                    $"{AccessToken.TokenType} {AccessToken._AccessToken}");
             }
 
             return request;
@@ -149,7 +150,7 @@ namespace Cohesity.Powershell.Common
             {
                 request.Headers.Add(
                     CohesityConstants.HttpHeaderAuthorization,
-                    $"{AccessToken.TokenType} {AccessToken.AccessToken}");
+                    $"{AccessToken.TokenType} {AccessToken._AccessToken}");
             }
 
             return request;
@@ -169,7 +170,7 @@ namespace Cohesity.Powershell.Common
             {
                 request.Headers.Add(
                     CohesityConstants.HttpHeaderAuthorization,
-                    $"{AccessToken.TokenType} {AccessToken.AccessToken}");
+                    $"{AccessToken.TokenType} {AccessToken._AccessToken}");
             }
 
             return request;
@@ -189,13 +190,13 @@ namespace Cohesity.Powershell.Common
             {
                 request.Headers.Add(
                     CohesityConstants.HttpHeaderAuthorization,
-                    $"{AccessToken.TokenType} {AccessToken.AccessToken}");
+                    $"{AccessToken.TokenType} {AccessToken._AccessToken}");
             }
 
             return request;
         }
 
-        public AccessTokenObject AccessToken
+        public AccessToken AccessToken
         {
             get
             {

@@ -385,28 +385,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class RegisteredSourceInfo {\n");
-            sb.Append("  AccessInfo: ").Append(AccessInfo).Append("\n");
-            sb.Append("  AuthenticationErrorMessage: ").Append(AuthenticationErrorMessage).Append("\n");
-            sb.Append("  AuthenticationStatus: ").Append(AuthenticationStatus).Append("\n");
-            sb.Append("  Environments: ").Append(Environments).Append("\n");
-            sb.Append("  MinimumFreeSpaceGB: ").Append(MinimumFreeSpaceGB).Append("\n");
-            sb.Append("  NasMountCredentials: ").Append(NasMountCredentials).Append("\n");
-            sb.Append("  Password: ").Append(Password).Append("\n");
-            sb.Append("  RefreshErrorMessage: ").Append(RefreshErrorMessage).Append("\n");
-            sb.Append("  RefreshTimeUsecs: ").Append(RefreshTimeUsecs).Append("\n");
-            sb.Append("  RegistrationTimeUsecs: ").Append(RegistrationTimeUsecs).Append("\n");
-            sb.Append("  ThrottlingPolicy: ").Append(ThrottlingPolicy).Append("\n");
-            sb.Append("  ThrottlingPolicyOverrides: ").Append(ThrottlingPolicyOverrides).Append("\n");
-            sb.Append("  UseVmBiosUuid: ").Append(UseVmBiosUuid).Append("\n");
-            sb.Append("  Username: ").Append(Username).Append("\n");
-            sb.Append("  WarningMessages: ").Append(WarningMessages).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -561,3 +540,4 @@ namespace Cohesity.Model
     }
 
 }
+

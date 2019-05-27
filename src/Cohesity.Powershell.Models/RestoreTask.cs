@@ -443,38 +443,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class RestoreTask {\n");
-            sb.Append("  AcropolisParameters: ").Append(AcropolisParameters).Append("\n");
-            sb.Append("  ArchiveTaskUid: ").Append(ArchiveTaskUid).Append("\n");
-            sb.Append("  CloneViewParameters: ").Append(CloneViewParameters).Append("\n");
-            sb.Append("  ContinueOnError: ").Append(ContinueOnError).Append("\n");
-            sb.Append("  DatastoreId: ").Append(DatastoreId).Append("\n");
-            sb.Append("  EndTimeUsecs: ").Append(EndTimeUsecs).Append("\n");
-            sb.Append("  Error: ").Append(Error).Append("\n");
-            sb.Append("  FullViewName: ").Append(FullViewName).Append("\n");
-            sb.Append("  HypervParameters: ").Append(HypervParameters).Append("\n");
-            sb.Append("  Id: ").Append(Id).Append("\n");
-            sb.Append("  MountVolumesState: ").Append(MountVolumesState).Append("\n");
-            sb.Append("  Name: ").Append(Name).Append("\n");
-            sb.Append("  NewParentId: ").Append(NewParentId).Append("\n");
-            sb.Append("  Objects: ").Append(Objects).Append("\n");
-            sb.Append("  OutlookParameters: ").Append(OutlookParameters).Append("\n");
-            sb.Append("  RestoreObjectState: ").Append(RestoreObjectState).Append("\n");
-            sb.Append("  StartTimeUsecs: ").Append(StartTimeUsecs).Append("\n");
-            sb.Append("  Status: ").Append(Status).Append("\n");
-            sb.Append("  TargetViewCreated: ").Append(TargetViewCreated).Append("\n");
-            sb.Append("  Type: ").Append(Type).Append("\n");
-            sb.Append("  Username: ").Append(Username).Append("\n");
-            sb.Append("  ViewBoxId: ").Append(ViewBoxId).Append("\n");
-            sb.Append("  VirtualDiskRestoreState: ").Append(VirtualDiskRestoreState).Append("\n");
-            sb.Append("  VlanParameters: ").Append(VlanParameters).Append("\n");
-            sb.Append("  VmwareParameters: ").Append(VmwareParameters).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -697,3 +666,4 @@ namespace Cohesity.Model
     }
 
 }
+

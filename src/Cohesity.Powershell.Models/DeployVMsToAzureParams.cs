@@ -119,24 +119,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class DeployVMsToAzureParams {\n");
-            sb.Append("  AzureManagedDiskParams: ").Append(AzureManagedDiskParams).Append("\n");
-            sb.Append("  ComputeOptions: ").Append(ComputeOptions).Append("\n");
-            sb.Append("  NetworkResourceGroup: ").Append(NetworkResourceGroup).Append("\n");
-            sb.Append("  NetworkSecurityGroup: ").Append(NetworkSecurityGroup).Append("\n");
-            sb.Append("  ResourceGroup: ").Append(ResourceGroup).Append("\n");
-            sb.Append("  StorageAccount: ").Append(StorageAccount).Append("\n");
-            sb.Append("  StorageContainer: ").Append(StorageContainer).Append("\n");
-            sb.Append("  StorageKey: ").Append(StorageKey).Append("\n");
-            sb.Append("  StorageResourceGroup: ").Append(StorageResourceGroup).Append("\n");
-            sb.Append("  Subnet: ").Append(Subnet).Append("\n");
-            sb.Append("  VirtualNetwork: ").Append(VirtualNetwork).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -263,3 +246,4 @@ namespace Cohesity.Model
     }
 
 }
+

@@ -49,7 +49,7 @@ namespace Cohesity.Powershell.Cmdlets.RemoteCluster
         protected override void ProcessRecord()
         {
             var url = $"/public/replicationEncryptionKey";
-            var results = Session.ApiClient.Get<Models.ReplicationEncryptionKeyReponse>(url);
+            var results = Session.ApiClient.Get<Model.ReplicationEncryptionKeyReponse>(url);
             WriteObject(results.EncryptionKey);
         }
     }

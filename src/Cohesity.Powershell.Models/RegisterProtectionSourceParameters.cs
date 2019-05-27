@@ -640,33 +640,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class RegisterProtectionSourceParameters {\n");
-            sb.Append("  AwsCredentials: ").Append(AwsCredentials).Append("\n");
-            sb.Append("  AzureCredentials: ").Append(AzureCredentials).Append("\n");
-            sb.Append("  Endpoint: ").Append(Endpoint).Append("\n");
-            sb.Append("  Environment: ").Append(Environment).Append("\n");
-            sb.Append("  ForceRegister: ").Append(ForceRegister).Append("\n");
-            sb.Append("  GcpCredentials: ").Append(GcpCredentials).Append("\n");
-            sb.Append("  HostType: ").Append(HostType).Append("\n");
-            sb.Append("  NasMountCredentials: ").Append(NasMountCredentials).Append("\n");
-            sb.Append("  NetappType: ").Append(NetappType).Append("\n");
-            sb.Append("  Office365Credentials: ").Append(Office365Credentials).Append("\n");
-            sb.Append("  Office365Type: ").Append(Office365Type).Append("\n");
-            sb.Append("  Password: ").Append(Password).Append("\n");
-            sb.Append("  PhysicalType: ").Append(PhysicalType).Append("\n");
-            sb.Append("  PureType: ").Append(PureType).Append("\n");
-            sb.Append("  SourceSideDedupEnabled: ").Append(SourceSideDedupEnabled).Append("\n");
-            sb.Append("  SslVerification: ").Append(SslVerification).Append("\n");
-            sb.Append("  ThrottlingPolicy: ").Append(ThrottlingPolicy).Append("\n");
-            sb.Append("  ThrottlingPolicyOverrides: ").Append(ThrottlingPolicyOverrides).Append("\n");
-            sb.Append("  Username: ").Append(Username).Append("\n");
-            sb.Append("  VmwareType: ").Append(VmwareType).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -845,3 +819,4 @@ namespace Cohesity.Model
     }
 
 }
+

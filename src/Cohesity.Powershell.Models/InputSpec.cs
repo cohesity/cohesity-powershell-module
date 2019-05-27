@@ -57,16 +57,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class InputSpec {\n");
-            sb.Append("  FilesSelector: ").Append(FilesSelector).Append("\n");
-            sb.Append("  OnNfsFiles: ").Append(OnNfsFiles).Append("\n");
-            sb.Append("  VmSelector: ").Append(VmSelector).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -137,3 +128,4 @@ namespace Cohesity.Model
     }
 
 }
+

@@ -22,7 +22,7 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
     ///   </para>
     /// </example>
     [Cmdlet(VerbsCommon.Get, "CohesityClusterConfiguration")]
-    [OutputType(typeof(Models.Cluster))]
+    [OutputType(typeof(Model.Cluster))]
     public class GetCohesityClusterConfiguration : PSCmdlet
     {
         private Session Session
@@ -62,7 +62,7 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
                 qb.Add("fetchStats", true);
 
             var preparedUrl = $"/public/cluster{qb.Build()}";
-            var result = Session.ApiClient.Get<Models.Cluster>(preparedUrl);
+            var result = Session.ApiClient.Get<Model.Cluster>(preparedUrl);
             WriteObject(result);
         }
 

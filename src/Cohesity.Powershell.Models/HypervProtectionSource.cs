@@ -76,7 +76,13 @@ namespace Cohesity.Model
             /// Enum KSolaris for value: kSolaris
             /// </summary>
             [EnumMember(Value = "kSolaris")]
-            KSolaris = 4
+            KSolaris = 4,
+
+            /// <summary>
+            /// Enum KOther for value: kOther
+            /// </summary>
+            [EnumMember(Value = "kOther")]
+            KOther = 5
 
         }
 
@@ -145,8 +151,25 @@ namespace Cohesity.Model
             /// Enum KDatastore for value: kDatastore
             /// </summary>
             [EnumMember(Value = "kDatastore")]
-            KDatastore = 9
+            KDatastore = 9,
 
+            /// <summary>
+            /// Enum KHypervHost for value: kHypervHost
+            /// </summary>
+            [EnumMember(Value = "kHypervHost")]
+            KHypervHost = 10,
+
+            /// <summary>
+            /// Enum KTag for value: kTag
+            /// </summary>
+            [EnumMember(Value = "kTag")]
+            KTag = 11,
+
+            /// <summary>
+            /// Enum KCustomProperty for value: kCustomProperty
+            /// </summary>
+            [EnumMember(Value = "kCustomProperty")]
+            KCustomProperty = 12
         }
 
         /// <summary>
@@ -261,25 +284,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class HypervProtectionSource {\n");
-            sb.Append("  Agents: ").Append(Agents).Append("\n");
-            sb.Append("  BackupType: ").Append(BackupType).Append("\n");
-            sb.Append("  ClusterName: ").Append(ClusterName).Append("\n");
-            sb.Append("  DatastoreInfo: ").Append(DatastoreInfo).Append("\n");
-            sb.Append("  Description: ").Append(Description).Append("\n");
-            sb.Append("  HostType: ").Append(HostType).Append("\n");
-            sb.Append("  HypervUuid: ").Append(HypervUuid).Append("\n");
-            sb.Append("  Name: ").Append(Name).Append("\n");
-            sb.Append("  TagAttributes: ").Append(TagAttributes).Append("\n");
-            sb.Append("  Type: ").Append(Type).Append("\n");
-            sb.Append("  Uuid: ").Append(Uuid).Append("\n");
-            sb.Append("  VmInfo: ").Append(VmInfo).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -409,3 +414,4 @@ namespace Cohesity.Model
     }
 
 }
+

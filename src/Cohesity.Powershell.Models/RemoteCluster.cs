@@ -236,34 +236,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class RemoteCluster {\n");
-            sb.Append("  AllEndpointsReachable: ").Append(AllEndpointsReachable).Append("\n");
-            sb.Append("  BandwidthLimit: ").Append(BandwidthLimit).Append("\n");
-            sb.Append("  ClearInterfaces: ").Append(ClearInterfaces).Append("\n");
-            sb.Append("  ClearVlanId: ").Append(ClearVlanId).Append("\n");
-            sb.Append("  ClusterId: ").Append(ClusterId).Append("\n");
-            sb.Append("  ClusterIncarnationId: ").Append(ClusterIncarnationId).Append("\n");
-            sb.Append("  CompressionEnabled: ").Append(CompressionEnabled).Append("\n");
-            sb.Append("  EncryptionKey: ").Append(EncryptionKey).Append("\n");
-            sb.Append("  IfaceName: ").Append(IfaceName).Append("\n");
-            sb.Append("  LocalIps: ").Append(LocalIps).Append("\n");
-            sb.Append("  Name: ").Append(Name).Append("\n");
-            sb.Append("  NetworkInterfaceGroup: ").Append(NetworkInterfaceGroup).Append("\n");
-            sb.Append("  NetworkInterfaceIds: ").Append(NetworkInterfaceIds).Append("\n");
-            sb.Append("  PurposeRemoteAccess: ").Append(PurposeRemoteAccess).Append("\n");
-            sb.Append("  PurposeReplication: ").Append(PurposeReplication).Append("\n");
-            sb.Append("  RemoteAccessCredentials: ").Append(RemoteAccessCredentials).Append("\n");
-            sb.Append("  RemoteIps: ").Append(RemoteIps).Append("\n");
-            sb.Append("  TenantId: ").Append(TenantId).Append("\n");
-            sb.Append("  UserName: ").Append(UserName).Append("\n");
-            sb.Append("  ViewBoxPairInfo: ").Append(ViewBoxPairInfo).Append("\n");
-            sb.Append("  VlanId: ").Append(VlanId).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -464,3 +437,4 @@ namespace Cohesity.Model
     }
 
 }
+

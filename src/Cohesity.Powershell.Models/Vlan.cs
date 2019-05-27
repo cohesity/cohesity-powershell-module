@@ -141,24 +141,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class Vlan {\n");
-            sb.Append("  AddToClusterPartition: ").Append(AddToClusterPartition).Append("\n");
-            sb.Append("  Description: ").Append(Description).Append("\n");
-            sb.Append("  Gateway: ").Append(Gateway).Append("\n");
-            sb.Append("  Hostname: ").Append(Hostname).Append("\n");
-            sb.Append("  Id: ").Append(Id).Append("\n");
-            sb.Append("  IfaceGroupName: ").Append(IfaceGroupName).Append("\n");
-            sb.Append("  InterfaceName: ").Append(InterfaceName).Append("\n");
-            sb.Append("  Ips: ").Append(Ips).Append("\n");
-            sb.Append("  Subnet: ").Append(Subnet).Append("\n");
-            sb.Append("  TenantId: ").Append(TenantId).Append("\n");
-            sb.Append("  VlanName: ").Append(VlanName).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -286,3 +269,4 @@ namespace Cohesity.Model
     }
 
 }
+

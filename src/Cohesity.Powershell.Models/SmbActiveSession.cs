@@ -91,19 +91,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class SmbActiveSession {\n");
-            sb.Append("  ActiveOpens: ").Append(ActiveOpens).Append("\n");
-            sb.Append("  ClientIp: ").Append(ClientIp).Append("\n");
-            sb.Append("  Domain: ").Append(Domain).Append("\n");
-            sb.Append("  ServerIp: ").Append(ServerIp).Append("\n");
-            sb.Append("  SessionId: ").Append(SessionId).Append("\n");
-            sb.Append("  Username: ").Append(Username).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -196,3 +184,4 @@ namespace Cohesity.Model
     }
 
 }
+

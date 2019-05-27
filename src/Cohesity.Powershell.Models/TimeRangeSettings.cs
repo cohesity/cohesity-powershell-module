@@ -59,16 +59,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class TimeRangeSettings {\n");
-            sb.Append("  EndTimeUsecs: ").Append(EndTimeUsecs).Append("\n");
-            sb.Append("  JobUid: ").Append(JobUid).Append("\n");
-            sb.Append("  StartTimeUsecs: ").Append(StartTimeUsecs).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -139,3 +130,4 @@ namespace Cohesity.Model
     }
 
 }
+

@@ -24,7 +24,7 @@ namespace Cohesity.Powershell.Cmdlets.Privilege
     ///   </para>
     /// </example>
     [Cmdlet(VerbsCommon.Get, "CohesityPrivilege")]
-    [OutputType(typeof(Models.PrivilegeInfo))]
+    [OutputType(typeof(Model.PrivilegeInfo))]
     public class GetCohesityPrivilege : PSCmdlet
     {
         private Session Session
@@ -67,7 +67,7 @@ namespace Cohesity.Powershell.Cmdlets.Privilege
 
             var preparedUrl = $"/public/privileges{qb.Build()}";
             WriteDebug(preparedUrl);
-            var result = Session.ApiClient.Get<IEnumerable<Models.PrivilegeInfo>>(preparedUrl);
+            var result = Session.ApiClient.Get<IEnumerable<Model.PrivilegeInfo>>(preparedUrl);
             WriteObject(result, true);
         }
 

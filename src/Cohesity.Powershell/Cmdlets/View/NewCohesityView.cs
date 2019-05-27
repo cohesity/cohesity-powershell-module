@@ -22,7 +22,7 @@ namespace Cohesity.Powershell.Cmdlets.View
     ///   </para>
     /// </example>
     [Cmdlet(VerbsCommon.New, "CohesityView")]
-    [OutputType(typeof(Models.View))]
+    [OutputType(typeof(Model.View))]
     public class NewCohesityView: PSCmdlet
     {
         private Session Session
@@ -67,8 +67,8 @@ namespace Cohesity.Powershell.Cmdlets.View
         /// </summary>
         [Parameter(Mandatory = false)]
         [ValidateSet("KAll", "KNFSOnly", "KSMBOnly", "KS3Only")]
-        public Models.View.ProtocolAccessEnum AccessProtocol { get; set; }
-            = Models.View.ProtocolAccessEnum.KAll;
+        public Model.View.ProtocolAccessEnum AccessProtocol { get; set; }
+            = Model.View.ProtocolAccessEnum.KAll;
 
         /// <summary>
         /// <para type="description">
@@ -162,20 +162,20 @@ namespace Cohesity.Powershell.Cmdlets.View
             var domain = RestApiCommon.GetStorageDomainByName(Session.ApiClient, StorageDomainName);
             long storageDomainId = (long)domain.Id;
 
-            var request = new Models.CreateViewRequest(name: Name, viewBoxId: storageDomainId)
+            var request = new Model.CreateViewRequest(name: Name, viewBoxId: storageDomainId)
             {
                 Description = Description,
-                ProtocolAccess = (Models.CreateViewRequest.ProtocolAccessEnum)AccessProtocol,
-                Qos = new Models.QoS(principalName: QosPolicy),
+                ProtocolAccess = (Model.CreateViewRequest.ProtocolAccessEnum)AccessProtocol,
+                Qos = new Model.QoS(principalName: QosPolicy),
                 CaseInsensitiveNamesEnabled = CaseInsensitiveNames.IsPresent,
                 EnableSmbViewDiscovery = BrowsableShares.IsPresent,
                 EnableSmbAccessBasedEnumeration = SmbAccessBasedEnumeration.IsPresent,
-                StoragePolicyOverride = new Models.StoragePolicyOverride(DisableInlineDedupAndCompression.IsPresent)
+                StoragePolicyOverride = new Model.StoragePolicyOverride(DisableInlineDedupAndCompression.IsPresent)
             };
 
             if (LogicalQuotaInBytes != null || AlertQuotaInBytes != null)
             {
-                request.LogicalQuota = new Models.QuotaPolicy();
+                request.LogicalQuota = new Model.QuotaPolicy();
 
                 if(LogicalQuotaInBytes != null)
                 {
@@ -189,7 +189,7 @@ namespace Cohesity.Powershell.Cmdlets.View
             }
 
             var preparedUrl = $"/public/views";
-            var result = Session.ApiClient.Post<Models.View>(preparedUrl, request);
+            var result = Session.ApiClient.Post<Model.View>(preparedUrl, request);
             WriteObject(result);
         }
 

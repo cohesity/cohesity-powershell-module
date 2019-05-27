@@ -201,30 +201,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class ImportConfigurations {\n");
-            sb.Append("  ActiveDirectories: ").Append(ActiveDirectories).Append("\n");
-            sb.Append("  All: ").Append(All).Append("\n");
-            sb.Append("  Clusters: ").Append(Clusters).Append("\n");
-            sb.Append("  File: ").Append(File).Append("\n");
-            sb.Append("  Groups: ").Append(Groups).Append("\n");
-            sb.Append("  Partitions: ").Append(Partitions).Append("\n");
-            sb.Append("  PrincipalSources: ").Append(PrincipalSources).Append("\n");
-            sb.Append("  ProtectionJobs: ").Append(ProtectionJobs).Append("\n");
-            sb.Append("  ProtectionPolicies: ").Append(ProtectionPolicies).Append("\n");
-            sb.Append("  ProtectionSources: ").Append(ProtectionSources).Append("\n");
-            sb.Append("  RemoteClusters: ").Append(RemoteClusters).Append("\n");
-            sb.Append("  Roles: ").Append(Roles).Append("\n");
-            sb.Append("  Sql: ").Append(Sql).Append("\n");
-            sb.Append("  Users: ").Append(Users).Append("\n");
-            sb.Append("  Vaults: ").Append(Vaults).Append("\n");
-            sb.Append("  ViewBoxes: ").Append(ViewBoxes).Append("\n");
-            sb.Append("  Views: ").Append(Views).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -409,3 +386,4 @@ namespace Cohesity.Model
     }
 
 }
+

@@ -103,22 +103,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class EnvBackupParams {\n");
-            sb.Append("  FileStubbingParams: ").Append(FileStubbingParams).Append("\n");
-            sb.Append("  HypervBackupParams: ").Append(HypervBackupParams).Append("\n");
-            sb.Append("  NasBackupParams: ").Append(NasBackupParams).Append("\n");
-            sb.Append("  O365BackupParams: ").Append(O365BackupParams).Append("\n");
-            sb.Append("  OutlookBackupParams: ").Append(OutlookBackupParams).Append("\n");
-            sb.Append("  PhysicalBackupParams: ").Append(PhysicalBackupParams).Append("\n");
-            sb.Append("  SnapshotManagerParams: ").Append(SnapshotManagerParams).Append("\n");
-            sb.Append("  SqlBackupJobParams: ").Append(SqlBackupJobParams).Append("\n");
-            sb.Append("  VmwareBackupParams: ").Append(VmwareBackupParams).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -231,3 +216,4 @@ namespace Cohesity.Model
     }
 
 }
+

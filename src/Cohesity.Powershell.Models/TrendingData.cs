@@ -101,20 +101,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class TrendingData {\n");
-            sb.Append("  Cancelled: ").Append(Cancelled).Append("\n");
-            sb.Append("  Failed: ").Append(Failed).Append("\n");
-            sb.Append("  Running: ").Append(Running).Append("\n");
-            sb.Append("  Successful: ").Append(Successful).Append("\n");
-            sb.Append("  Total: ").Append(Total).Append("\n");
-            sb.Append("  TrendName: ").Append(TrendName).Append("\n");
-            sb.Append("  TrendStartTimeUsecs: ").Append(TrendStartTimeUsecs).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -213,3 +200,4 @@ namespace Cohesity.Model
     }
 
 }
+

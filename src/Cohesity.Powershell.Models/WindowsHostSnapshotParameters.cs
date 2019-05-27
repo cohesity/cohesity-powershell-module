@@ -71,17 +71,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class WindowsHostSnapshotParameters {\n");
-            sb.Append("  CopyOnlyBackup: ").Append(CopyOnlyBackup).Append("\n");
-            sb.Append("  DisableMetadata: ").Append(DisableMetadata).Append("\n");
-            sb.Append("  DisableNotification: ").Append(DisableNotification).Append("\n");
-            sb.Append("  ExcludedVssWriters: ").Append(ExcludedVssWriters).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -160,3 +150,4 @@ namespace Cohesity.Model
     }
 
 }
+

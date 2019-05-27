@@ -239,29 +239,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class AppInstance {\n");
-            sb.Append("  AppAccessToken: ").Append(AppAccessToken).Append("\n");
-            sb.Append("  AppInstanceId: ").Append(AppInstanceId).Append("\n");
-            sb.Append("  AppName: ").Append(AppName).Append("\n");
-            sb.Append("  AppUid: ").Append(AppUid).Append("\n");
-            sb.Append("  AppVersion: ").Append(AppVersion).Append("\n");
-            sb.Append("  CreatedTimeUsecs: ").Append(CreatedTimeUsecs).Append("\n");
-            sb.Append("  CreationUid: ").Append(CreationUid).Append("\n");
-            sb.Append("  Description: ").Append(Description).Append("\n");
-            sb.Append("  DurationUsecs: ").Append(DurationUsecs).Append("\n");
-            sb.Append("  HealthDetail: ").Append(HealthDetail).Append("\n");
-            sb.Append("  HealthStatus: ").Append(HealthStatus).Append("\n");
-            sb.Append("  NodeIp: ").Append(NodeIp).Append("\n");
-            sb.Append("  NodePort: ").Append(NodePort).Append("\n");
-            sb.Append("  Settings: ").Append(Settings).Append("\n");
-            sb.Append("  State: ").Append(State).Append("\n");
-            sb.Append("  StateDetail: ").Append(StateDetail).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -421,3 +399,4 @@ namespace Cohesity.Model
     }
 
 }
+

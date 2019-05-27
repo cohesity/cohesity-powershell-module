@@ -77,18 +77,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class PhysicalSpecialParameters {\n");
-            sb.Append("  ApplicationParameters: ").Append(ApplicationParameters).Append("\n");
-            sb.Append("  EnableSystemBackup: ").Append(EnableSystemBackup).Append("\n");
-            sb.Append("  FilePaths: ").Append(FilePaths).Append("\n");
-            sb.Append("  VolumeGuid: ").Append(VolumeGuid).Append("\n");
-            sb.Append("  WindowsParameters: ").Append(WindowsParameters).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -175,3 +164,4 @@ namespace Cohesity.Model
     }
 
 }
+

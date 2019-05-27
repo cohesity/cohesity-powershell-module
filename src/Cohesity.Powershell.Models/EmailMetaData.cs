@@ -201,30 +201,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class EmailMetaData {\n");
-            sb.Append("  BccRecipientAddresses: ").Append(BccRecipientAddresses).Append("\n");
-            sb.Append("  CcRecipientAddresses: ").Append(CcRecipientAddresses).Append("\n");
-            sb.Append("  DomainIds: ").Append(DomainIds).Append("\n");
-            sb.Append("  EmailSubject: ").Append(EmailSubject).Append("\n");
-            sb.Append("  FolderKey: ").Append(FolderKey).Append("\n");
-            sb.Append("  FolderName: ").Append(FolderName).Append("\n");
-            sb.Append("  HasAttachments: ").Append(HasAttachments).Append("\n");
-            sb.Append("  ItemKey: ").Append(ItemKey).Append("\n");
-            sb.Append("  MailboxIds: ").Append(MailboxIds).Append("\n");
-            sb.Append("  ProtectionJobIds: ").Append(ProtectionJobIds).Append("\n");
-            sb.Append("  ReceivedEndTime: ").Append(ReceivedEndTime).Append("\n");
-            sb.Append("  ReceivedStartTime: ").Append(ReceivedStartTime).Append("\n");
-            sb.Append("  ReceivedTimeSeconds: ").Append(ReceivedTimeSeconds).Append("\n");
-            sb.Append("  RecipientAddresses: ").Append(RecipientAddresses).Append("\n");
-            sb.Append("  SenderAddress: ").Append(SenderAddress).Append("\n");
-            sb.Append("  SentTimeSeconds: ").Append(SentTimeSeconds).Append("\n");
-            sb.Append("  ShowOnlyEmailFolders: ").Append(ShowOnlyEmailFolders).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -399,3 +376,4 @@ namespace Cohesity.Model
     }
 
 }
+

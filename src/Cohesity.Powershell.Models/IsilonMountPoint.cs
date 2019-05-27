@@ -99,18 +99,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class IsilonMountPoint {\n");
-            sb.Append("  AccessZoneName: ").Append(AccessZoneName).Append("\n");
-            sb.Append("  NfsMountPoint: ").Append(NfsMountPoint).Append("\n");
-            sb.Append("  Path: ").Append(Path).Append("\n");
-            sb.Append("  Protocols: ").Append(Protocols).Append("\n");
-            sb.Append("  SmbMountPoints: ").Append(SmbMountPoints).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -196,3 +185,4 @@ namespace Cohesity.Model
     }
 
 }
+

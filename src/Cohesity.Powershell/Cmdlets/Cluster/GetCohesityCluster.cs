@@ -22,7 +22,7 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
     ///   </para>
     /// </example>
     [Cmdlet(VerbsCommon.Get, "CohesityCluster")]
-    [OutputType(typeof(Models.BasicClusterInfo))]
+    [OutputType(typeof(Model.BasicClusterInfo))]
     public class GetCohesityCluster: PSCmdlet
     {
         private Session Session
@@ -51,7 +51,7 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
         protected override void ProcessRecord()
         {
             var preparedUrl = $"/public/basicClusterInfo";
-            var result = Session.ApiClient.Get<Models.BasicClusterInfo>(preparedUrl);
+            var result = Session.ApiClient.Get<Model.BasicClusterInfo>(preparedUrl);
             WriteObject(result);
         }
 

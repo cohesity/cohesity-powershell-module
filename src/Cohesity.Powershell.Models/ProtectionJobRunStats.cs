@@ -181,28 +181,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class ProtectionJobRunStats {\n");
-            sb.Append("  AdmittedTimeUsecs: ").Append(AdmittedTimeUsecs).Append("\n");
-            sb.Append("  EndTimeUsecs: ").Append(EndTimeUsecs).Append("\n");
-            sb.Append("  NumAppInstances: ").Append(NumAppInstances).Append("\n");
-            sb.Append("  NumCanceledTasks: ").Append(NumCanceledTasks).Append("\n");
-            sb.Append("  NumFailedAppObjects: ").Append(NumFailedAppObjects).Append("\n");
-            sb.Append("  NumFailedTasks: ").Append(NumFailedTasks).Append("\n");
-            sb.Append("  NumSuccessfulAppObjects: ").Append(NumSuccessfulAppObjects).Append("\n");
-            sb.Append("  NumSuccessfulTasks: ").Append(NumSuccessfulTasks).Append("\n");
-            sb.Append("  StartTimeUsecs: ").Append(StartTimeUsecs).Append("\n");
-            sb.Append("  TimeTakenUsecs: ").Append(TimeTakenUsecs).Append("\n");
-            sb.Append("  TotalBytesReadFromSource: ").Append(TotalBytesReadFromSource).Append("\n");
-            sb.Append("  TotalBytesToReadFromSource: ").Append(TotalBytesToReadFromSource).Append("\n");
-            sb.Append("  TotalLogicalBackupSizeBytes: ").Append(TotalLogicalBackupSizeBytes).Append("\n");
-            sb.Append("  TotalPhysicalBackupSizeBytes: ").Append(TotalPhysicalBackupSizeBytes).Append("\n");
-            sb.Append("  TotalSourceSizeBytes: ").Append(TotalSourceSizeBytes).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -357,3 +336,4 @@ namespace Cohesity.Model
     }
 
 }
+

@@ -111,22 +111,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class SourceSpecialParameter {\n");
-            sb.Append("  AdSpecialParameters: ").Append(AdSpecialParameters).Append("\n");
-            sb.Append("  OracleSpecialParameters: ").Append(OracleSpecialParameters).Append("\n");
-            sb.Append("  PhysicalSpecialParameters: ").Append(PhysicalSpecialParameters).Append("\n");
-            sb.Append("  SkipIndexing: ").Append(SkipIndexing).Append("\n");
-            sb.Append("  SourceId: ").Append(SourceId).Append("\n");
-            sb.Append("  SqlSpecialParameters: ").Append(SqlSpecialParameters).Append("\n");
-            sb.Append("  TruncateExchangeLog: ").Append(TruncateExchangeLog).Append("\n");
-            sb.Append("  VmCredentials: ").Append(VmCredentials).Append("\n");
-            sb.Append("  VmwareSpecialParameters: ").Append(VmwareSpecialParameters).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -239,3 +224,4 @@ namespace Cohesity.Model
     }
 
 }
+

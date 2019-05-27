@@ -141,25 +141,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class BackupPolicyProto {\n");
-            sb.Append("  ContinuousSchedule: ").Append(ContinuousSchedule).Append("\n");
-            sb.Append("  DailySchedule: ").Append(DailySchedule).Append("\n");
-            sb.Append("  MonthlySchedule: ").Append(MonthlySchedule).Append("\n");
-            sb.Append("  Name: ").Append(Name).Append("\n");
-            sb.Append("  NumDaysToKeep: ").Append(NumDaysToKeep).Append("\n");
-            sb.Append("  NumRetries: ").Append(NumRetries).Append("\n");
-            sb.Append("  OneOffSchedule: ").Append(OneOffSchedule).Append("\n");
-            sb.Append("  Periodicity: ").Append(Periodicity).Append("\n");
-            sb.Append("  RetryDelayMins: ").Append(RetryDelayMins).Append("\n");
-            sb.Append("  ScheduleEnd: ").Append(ScheduleEnd).Append("\n");
-            sb.Append("  StartWindowIntervalMins: ").Append(StartWindowIntervalMins).Append("\n");
-            sb.Append("  TruncateLogs: ").Append(TruncateLogs).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -293,3 +275,4 @@ namespace Cohesity.Model
     }
 
 }
+

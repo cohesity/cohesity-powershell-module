@@ -79,18 +79,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class LaunchAppInstance {\n");
-            sb.Append("  AppUid: ").Append(AppUid).Append("\n");
-            sb.Append("  AppVersion: ").Append(AppVersion).Append("\n");
-            sb.Append("  CreationUid: ").Append(CreationUid).Append("\n");
-            sb.Append("  Description: ").Append(Description).Append("\n");
-            sb.Append("  Settings: ").Append(Settings).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -175,3 +164,4 @@ namespace Cohesity.Model
     }
 
 }
+

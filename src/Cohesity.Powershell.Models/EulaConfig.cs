@@ -68,17 +68,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class EulaConfig {\n");
-            sb.Append("  LicenseKey: ").Append(LicenseKey).Append("\n");
-            sb.Append("  SignedByUser: ").Append(SignedByUser).Append("\n");
-            sb.Append("  SignedTime: ").Append(SignedTime).Append("\n");
-            sb.Append("  SignedVersion: ").Append(SignedVersion).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -156,3 +146,4 @@ namespace Cohesity.Model
     }
 
 }
+

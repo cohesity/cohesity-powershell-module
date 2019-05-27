@@ -123,19 +123,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class AdAttribute {\n");
-            sb.Append("  AdAttributeFlags: ").Append(AdAttributeFlags).Append("\n");
-            sb.Append("  DestinationValue: ").Append(DestinationValue).Append("\n");
-            sb.Append("  ErrorMessage: ").Append(ErrorMessage).Append("\n");
-            sb.Append("  Name: ").Append(Name).Append("\n");
-            sb.Append("  SameValue: ").Append(SameValue).Append("\n");
-            sb.Append("  SourceValue: ").Append(SourceValue).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -227,3 +215,4 @@ namespace Cohesity.Model
     }
 
 }
+

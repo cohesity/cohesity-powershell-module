@@ -171,27 +171,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class StorageEfficiencyTile {\n");
-            sb.Append("  DataInBytes: ").Append(DataInBytes).Append("\n");
-            sb.Append("  DataInBytesSamples: ").Append(DataInBytesSamples).Append("\n");
-            sb.Append("  DataInDedupedBytes: ").Append(DataInDedupedBytes).Append("\n");
-            sb.Append("  DataInDedupedBytesSamples: ").Append(DataInDedupedBytesSamples).Append("\n");
-            sb.Append("  DedupeRatio: ").Append(DedupeRatio).Append("\n");
-            sb.Append("  DedupeRatioSamples: ").Append(DedupeRatioSamples).Append("\n");
-            sb.Append("  DurationDays: ").Append(DurationDays).Append("\n");
-            sb.Append("  IntervalSeconds: ").Append(IntervalSeconds).Append("\n");
-            sb.Append("  LogicalUsedBytes: ").Append(LogicalUsedBytes).Append("\n");
-            sb.Append("  LogicalUsedBytesSamples: ").Append(LogicalUsedBytesSamples).Append("\n");
-            sb.Append("  PhysicalUsedBytes: ").Append(PhysicalUsedBytes).Append("\n");
-            sb.Append("  PhysicalUsedBytesSamples: ").Append(PhysicalUsedBytesSamples).Append("\n");
-            sb.Append("  StorageReductionRatio: ").Append(StorageReductionRatio).Append("\n");
-            sb.Append("  StorageReductionSamples: ").Append(StorageReductionSamples).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -345,3 +325,4 @@ namespace Cohesity.Model
     }
 
 }
+

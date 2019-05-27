@@ -261,18 +261,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class RestorePointsForTimeRangeParam {\n");
-            sb.Append("  EndTimeUsecs: ").Append(EndTimeUsecs).Append("\n");
-            sb.Append("  Environment: ").Append(Environment).Append("\n");
-            sb.Append("  JobUids: ").Append(JobUids).Append("\n");
-            sb.Append("  ProtectionSourceId: ").Append(ProtectionSourceId).Append("\n");
-            sb.Append("  StartTimeUsecs: ").Append(StartTimeUsecs).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -356,3 +345,4 @@ namespace Cohesity.Model
     }
 
 }
+

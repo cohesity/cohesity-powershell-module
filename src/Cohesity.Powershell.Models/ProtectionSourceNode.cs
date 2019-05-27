@@ -31,7 +31,7 @@ namespace Cohesity.Model
         /// <param name="protectionSource">Specifies the Protection Source for the current node..</param>
         /// <param name="registrationInfo">Specifies registration information for a root node in a Protection Sources tree. A root node represents a registered Source on the Cohesity Cluster, such as a vCenter Server..</param>
         /// <param name="unprotectedSourcesSummary">Array of Unprotected Sources.  Specifies aggregated information about all the child Objects of this node that are not protected by any Protection Jobs. The aggregated information for the Objects hierarchy&#39;s environment will be available at the 0th index of the vector. NOTE: This list includes Objects that were protected at some point in the past but are no longer actively protected. Snapshots containing these Objects may even exist on the Cohesity Cluster and be available to recover from..</param>
-        public ProtectionSourceNode(List<Object> applicationNodes = default(List<Object>), EntityPermissionInformation entityPermissionInfo = default(EntityPermissionInformation), long? logicalSize = default(long?), List<Object> nodes = default(List<Object>), List<AggregatedSubtreeInfo> protectedSourcesSummary = default(List<AggregatedSubtreeInfo>), ProtectionSource protectionSource = default(ProtectionSource), RegisteredSourceInfo registrationInfo = default(RegisteredSourceInfo), List<AggregatedSubtreeInfo> unprotectedSourcesSummary = default(List<AggregatedSubtreeInfo>))
+        public ProtectionSourceNode(List<ProtectionSourceNode> applicationNodes = default(List<ProtectionSourceNode>), EntityPermissionInformation entityPermissionInfo = default(EntityPermissionInformation), long? logicalSize = default(long?), List<ProtectionSourceNode> nodes = default(List<ProtectionSourceNode>), List<AggregatedSubtreeInfo> protectedSourcesSummary = default(List<AggregatedSubtreeInfo>), ProtectionSource protectionSource = default(ProtectionSource), RegisteredSourceInfo registrationInfo = default(RegisteredSourceInfo), List<AggregatedSubtreeInfo> unprotectedSourcesSummary = default(List<AggregatedSubtreeInfo>))
         {
             this.ApplicationNodes = applicationNodes;
             this.LogicalSize = logicalSize;
@@ -55,7 +55,7 @@ namespace Cohesity.Model
         /// </summary>
         /// <value>Array of Child Subtrees.  Specifies the child subtree used to store additional application-level Objects. Different environments use the subtree to store application-level information. For example for SQL Server, this subtree stores the SQL Server instances running on a VM.</value>
         [DataMember(Name="applicationNodes", EmitDefaultValue=true)]
-        public List<Object> ApplicationNodes { get; set; }
+        public List<ProtectionSourceNode> ApplicationNodes { get; set; }
 
         /// <summary>
         /// Gets or Sets EntityPermissionInfo
@@ -75,7 +75,7 @@ namespace Cohesity.Model
         /// </summary>
         /// <value>Array of Child Nodes.  Specifies children of the current node in the Protection Sources hierarchy. When representing Objects in memory, the entire Object subtree hierarchy is represented. You can use this subtree to navigate down the Object hierarchy.</value>
         [DataMember(Name="nodes", EmitDefaultValue=true)]
-        public List<Object> Nodes { get; set; }
+        public List<ProtectionSourceNode> Nodes { get; set; }
 
         /// <summary>
         /// Array of Protected Objects.  Specifies aggregated information about all the child Objects of this node that are currently protected by a Protection Job. There is one entry for each environment that is being backed up. The aggregated information for the Object hierarchy&#39;s environment will be available at the 0th index of the vector.
@@ -109,21 +109,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class ProtectionSourceNode {\n");
-            sb.Append("  ApplicationNodes: ").Append(ApplicationNodes).Append("\n");
-            sb.Append("  EntityPermissionInfo: ").Append(EntityPermissionInfo).Append("\n");
-            sb.Append("  LogicalSize: ").Append(LogicalSize).Append("\n");
-            sb.Append("  Nodes: ").Append(Nodes).Append("\n");
-            sb.Append("  ProtectedSourcesSummary: ").Append(ProtectedSourcesSummary).Append("\n");
-            sb.Append("  ProtectionSource: ").Append(ProtectionSource).Append("\n");
-            sb.Append("  RegistrationInfo: ").Append(RegistrationInfo).Append("\n");
-            sb.Append("  UnprotectedSourcesSummary: ").Append(UnprotectedSourcesSummary).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -233,3 +219,4 @@ namespace Cohesity.Model
     }
 
 }
+

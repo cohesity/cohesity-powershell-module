@@ -81,18 +81,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class ProtectedObjectsTile {\n");
-            sb.Append("  ObjectsProtected: ").Append(ObjectsProtected).Append("\n");
-            sb.Append("  ProtectedCount: ").Append(ProtectedCount).Append("\n");
-            sb.Append("  ProtectedSizeBytes: ").Append(ProtectedSizeBytes).Append("\n");
-            sb.Append("  UnprotectedCount: ").Append(UnprotectedCount).Append("\n");
-            sb.Append("  UnprotectedSizeBytes: ").Append(UnprotectedSizeBytes).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -178,3 +167,4 @@ namespace Cohesity.Model
     }
 
 }
+

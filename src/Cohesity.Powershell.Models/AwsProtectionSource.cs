@@ -79,8 +79,49 @@ namespace Cohesity.Model
             /// Enum KKeyPair for value: kKeyPair
             /// </summary>
             [EnumMember(Value = "kKeyPair")]
-            KKeyPair = 9
+            KKeyPair = 9,
 
+            /// <summary>
+            /// Enum KTag for value: kTag
+            /// </summary>
+            [EnumMember(Value = "kTag")]
+            KTag = 10,
+
+            /// <summary>
+            /// Enum KRDSOptionGroup for value: kRDSOptionGroup
+            /// </summary>
+            [EnumMember(Value = "kRDSOptionGroup")]
+            KRDSOptionGroup = 11,
+
+            /// <summary>
+            /// Enum KRDSParameterGroup for value: kRDSParameterGroup
+            /// </summary>
+            [EnumMember(Value = "kRDSParameterGroup")]
+            KRDSParameterGroup = 12,
+
+            /// <summary>
+            /// Enum KRDSInstance for value: kRDSInstance
+            /// </summary>
+            [EnumMember(Value = "kRDSInstance")]
+            KRDSInstance = 13,
+
+            /// <summary>
+            /// Enum KRDSSubnet for value: kRDSSubnet
+            /// </summary>
+            [EnumMember(Value = "kRDSSubnet")]
+            KRDSSubnet = 14,
+
+            /// <summary>
+            /// Enum KRDSSecurityGroup for value: kRDSSecurityGroup
+            /// </summary>
+            [EnumMember(Value = "kRDSSecurityGroup")]
+            KRDSSecurityGroup = 15,
+
+            /// <summary>
+            /// Enum KRDSTag for value: kRDSTag
+            /// </summary>
+            [EnumMember(Value = "kRDSTag")]
+            KRDSTag = 16
         }
 
         /// <summary>
@@ -187,8 +228,49 @@ namespace Cohesity.Model
             /// Enum KKeyPair for value: kKeyPair
             /// </summary>
             [EnumMember(Value = "kKeyPair")]
-            KKeyPair = 9
+            KKeyPair = 9,
 
+            /// <summary>
+            /// Enum KTag for value: kTag
+            /// </summary>
+            [EnumMember(Value = "kTag")]
+            KTag = 10,
+
+            /// <summary>
+            /// Enum KRDSOptionGroup for value: kRDSOptionGroup
+            /// </summary>
+            [EnumMember(Value = "kRDSOptionGroup")]
+            KRDSOptionGroup = 11,
+
+            /// <summary>
+            /// Enum KRDSParameterGroup for value: kRDSParameterGroup
+            /// </summary>
+            [EnumMember(Value = "kRDSParameterGroup")]
+            KRDSParameterGroup = 12,
+
+            /// <summary>
+            /// Enum KRDSInstance for value: kRDSInstance
+            /// </summary>
+            [EnumMember(Value = "kRDSInstance")]
+            KRDSInstance = 13,
+
+            /// <summary>
+            /// Enum KRDSSubnet for value: kRDSSubnet
+            /// </summary>
+            [EnumMember(Value = "kRDSSubnet")]
+            KRDSSubnet = 14,
+
+            /// <summary>
+            /// Enum KRDSSecurityGroup for value: kRDSSecurityGroup
+            /// </summary>
+            [EnumMember(Value = "kRDSSecurityGroup")]
+            KRDSSecurityGroup = 15,
+
+            /// <summary>
+            /// Enum KRDSTag for value: kRDSTag
+            /// </summary>
+            [EnumMember(Value = "kRDSTag")]
+            KRDSTag = 16
         }
 
         /// <summary>
@@ -347,29 +429,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class AwsProtectionSource {\n");
-            sb.Append("  AccessKey: ").Append(AccessKey).Append("\n");
-            sb.Append("  AmazonResourceName: ").Append(AmazonResourceName).Append("\n");
-            sb.Append("  AwsType: ").Append(AwsType).Append("\n");
-            sb.Append("  HostType: ").Append(HostType).Append("\n");
-            sb.Append("  IpAddresses: ").Append(IpAddresses).Append("\n");
-            sb.Append("  Name: ").Append(Name).Append("\n");
-            sb.Append("  OwnerId: ").Append(OwnerId).Append("\n");
-            sb.Append("  PhysicalSourceId: ").Append(PhysicalSourceId).Append("\n");
-            sb.Append("  RegionId: ").Append(RegionId).Append("\n");
-            sb.Append("  ResourceId: ").Append(ResourceId).Append("\n");
-            sb.Append("  RestoreTaskId: ").Append(RestoreTaskId).Append("\n");
-            sb.Append("  SecretAccessKey: ").Append(SecretAccessKey).Append("\n");
-            sb.Append("  TagAttributes: ").Append(TagAttributes).Append("\n");
-            sb.Append("  Type: ").Append(Type).Append("\n");
-            sb.Append("  UserAccountId: ").Append(UserAccountId).Append("\n");
-            sb.Append("  UserResourceName: ").Append(UserResourceName).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -526,3 +586,4 @@ namespace Cohesity.Model
     }
 
 }
+

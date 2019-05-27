@@ -71,17 +71,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class FileLockStatus {\n");
-            sb.Append("  ExpiryTimestampMsecs: ").Append(ExpiryTimestampMsecs).Append("\n");
-            sb.Append("  HoldTimestampMsecs: ").Append(HoldTimestampMsecs).Append("\n");
-            sb.Append("  LockTimestampMsecs: ").Append(LockTimestampMsecs).Append("\n");
-            sb.Append("  State: ").Append(State).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -159,3 +149,4 @@ namespace Cohesity.Model
     }
 
 }
+

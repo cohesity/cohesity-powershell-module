@@ -104,20 +104,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class CreateRemoteVaultSearchJobParameters {\n");
-            sb.Append("  ClusterMatchString: ").Append(ClusterMatchString).Append("\n");
-            sb.Append("  EncryptionKeys: ").Append(EncryptionKeys).Append("\n");
-            sb.Append("  EndTimeUsecs: ").Append(EndTimeUsecs).Append("\n");
-            sb.Append("  JobMatchString: ").Append(JobMatchString).Append("\n");
-            sb.Append("  SearchJobName: ").Append(SearchJobName).Append("\n");
-            sb.Append("  StartTimeUsecs: ").Append(StartTimeUsecs).Append("\n");
-            sb.Append("  VaultId: ").Append(VaultId).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -217,3 +204,4 @@ namespace Cohesity.Model
     }
 
 }
+

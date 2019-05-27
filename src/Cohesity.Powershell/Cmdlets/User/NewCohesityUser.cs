@@ -24,7 +24,7 @@ namespace Cohesity.Powershell.Cmdlets.User
     ///   </para>
     /// </example>
     [Cmdlet(VerbsCommon.New, "CohesityUser")]
-    [OutputType(typeof(Models.User))]
+    [OutputType(typeof(Model.User))]
     public class NewCohesityUser: PSCmdlet
     {
         private Session Session
@@ -135,7 +135,7 @@ namespace Cohesity.Powershell.Cmdlets.User
         protected override void ProcessRecord()
         {
 
-            var request = new Models.UserParameters(username: Name, password: Password)
+            var request = new Model.UserParameters(username: Name, password: Password)
             {
                 Roles = new List<string>(Roles),
                 Restricted = Restricted.IsPresent
@@ -158,7 +158,7 @@ namespace Cohesity.Powershell.Cmdlets.User
                 request.Description = Description;
             
             var preparedUrl = $"/public/users";
-            var result = Session.ApiClient.Post<Models.User>(preparedUrl, request);
+            var result = Session.ApiClient.Post<Model.User>(preparedUrl, request);
             WriteObject(result);
         }
 

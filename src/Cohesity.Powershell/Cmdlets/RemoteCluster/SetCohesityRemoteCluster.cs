@@ -22,7 +22,7 @@ namespace Cohesity.Powershell.Cmdlets.RemoteCluster
     ///   </para>
     /// </example>
     [Cmdlet(VerbsCommon.Set, "CohesityRemoteCluster")]
-    [OutputType(typeof(Models.RemoteCluster))]
+    [OutputType(typeof(Model.RemoteCluster))]
     public class SetCohesityRemoteCluster : PSCmdlet
     {
 
@@ -48,7 +48,7 @@ namespace Cohesity.Powershell.Cmdlets.RemoteCluster
         /// </para>
         /// </summary>
         [Parameter(Mandatory = true, ValueFromPipeline = true)]
-        public Models.RemoteCluster RemoteCluster { get; set; } = null;
+        public Model.RemoteCluster RemoteCluster { get; set; } = null;
 
         #endregion
 
@@ -71,7 +71,7 @@ namespace Cohesity.Powershell.Cmdlets.RemoteCluster
         {
             // PUT public/remoteClusters/{id}
             var preparedUrl = $"/public/remoteClusters/{RemoteCluster.ClusterId.ToString()}";
-            var result = Session.ApiClient.Put<Models.RemoteCluster>(preparedUrl, RemoteCluster);
+            var result = Session.ApiClient.Put<Model.RemoteCluster>(preparedUrl, RemoteCluster);
             WriteObject(result);
         }
 

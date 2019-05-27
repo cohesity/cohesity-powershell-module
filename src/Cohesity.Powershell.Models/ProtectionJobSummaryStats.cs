@@ -131,23 +131,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class ProtectionJobSummaryStats {\n");
-            sb.Append("  AverageRunTimeUsecs: ").Append(AverageRunTimeUsecs).Append("\n");
-            sb.Append("  FastestRunTimeUsecs: ").Append(FastestRunTimeUsecs).Append("\n");
-            sb.Append("  NumCanceledRuns: ").Append(NumCanceledRuns).Append("\n");
-            sb.Append("  NumFailedRuns: ").Append(NumFailedRuns).Append("\n");
-            sb.Append("  NumSlaViolations: ").Append(NumSlaViolations).Append("\n");
-            sb.Append("  NumSuccessfulRuns: ").Append(NumSuccessfulRuns).Append("\n");
-            sb.Append("  SlowestRunTimeUsecs: ").Append(SlowestRunTimeUsecs).Append("\n");
-            sb.Append("  TotalBytesReadFromSource: ").Append(TotalBytesReadFromSource).Append("\n");
-            sb.Append("  TotalLogicalBackupSizeBytes: ").Append(TotalLogicalBackupSizeBytes).Append("\n");
-            sb.Append("  TotalPhysicalBackupSizeBytes: ").Append(TotalPhysicalBackupSizeBytes).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -267,3 +251,4 @@ namespace Cohesity.Model
     }
 
 }
+

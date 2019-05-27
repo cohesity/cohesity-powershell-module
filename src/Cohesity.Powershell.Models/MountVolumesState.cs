@@ -81,18 +81,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class MountVolumesState {\n");
-            sb.Append("  BringDisksOnline: ").Append(BringDisksOnline).Append("\n");
-            sb.Append("  MountVolumeResults: ").Append(MountVolumeResults).Append("\n");
-            sb.Append("  OtherError: ").Append(OtherError).Append("\n");
-            sb.Append("  TargetSourceId: ").Append(TargetSourceId).Append("\n");
-            sb.Append("  Username: ").Append(Username).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -178,3 +167,4 @@ namespace Cohesity.Model
     }
 
 }
+

@@ -209,18 +209,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class SmbActiveOpen {\n");
-            sb.Append("  AccessInfoList: ").Append(AccessInfoList).Append("\n");
-            sb.Append("  OpenId: ").Append(OpenId).Append("\n");
-            sb.Append("  OthersCanDelete: ").Append(OthersCanDelete).Append("\n");
-            sb.Append("  OthersCanRead: ").Append(OthersCanRead).Append("\n");
-            sb.Append("  OthersCanWrite: ").Append(OthersCanWrite).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -305,3 +294,4 @@ namespace Cohesity.Model
     }
 
 }
+

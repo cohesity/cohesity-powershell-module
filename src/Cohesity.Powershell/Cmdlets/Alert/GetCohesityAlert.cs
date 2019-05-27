@@ -25,7 +25,7 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
     ///   </para>
     /// </example>
     [Cmdlet(VerbsCommon.Get, "CohesityAlert")]
-    [OutputType(typeof(Models.Alert))]
+    [OutputType(typeof(Model.Alert))]
     public class GetCohesityAlert: PSCmdlet
     {
         private Session Session
@@ -131,13 +131,22 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
                 queries.Add("maxAlerts", MaxAlerts.ToString());
 
             if (AlertCategories != null && AlertCategories.Any())
-                queries.Add("alertCategoryList", string.Join(",", AlertCategories));
+            {
+                List<string> alertCategories = AlertCategories.ToList().ConvertAll<string>(x => x.ToString().First().ToString().ToLower() + x.ToString().Substring(1));
+                queries.Add("alertCategoryList", string.Join(",", alertCategories));
+            }
 
             if (AlertStates != null && AlertStates.Any())
-                queries.Add("alertStateList", string.Join(",", AlertStates));
+            {
+                List<string> alertStates = AlertStates.ToList().ConvertAll<string>(x => x.ToString().First().ToString().ToLower() + x.ToString().Substring(1));
+                queries.Add("alertStateList", string.Join(",", alertStates));
+            }
 
             if (AlertSeverities != null && AlertSeverities.Any())
-                queries.Add("alertSeverityList", string.Join(",", AlertSeverities));
+            {
+                List<string> alertSeverities = AlertSeverities.ToList().ConvertAll<string>(x => x.ToString().First().ToString().ToLower() + x.ToString().Substring(1));
+                queries.Add("alertSeverityList", string.Join(",", alertSeverities));
+            }
 
             if (ResolutionIds != null && ResolutionIds.Any())
                 queries.Add("resolutionIdList", string.Join(",", ResolutionIds));
@@ -160,7 +169,7 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
 
             var preparedUrl = $"/public/alerts{queryString}";
             WriteDebug(preparedUrl);
-            var result = Session.ApiClient.Get<IEnumerable<Models.Alert>>(preparedUrl);
+            var result = Session.ApiClient.Get<IEnumerable<Model.Alert>>(preparedUrl);
             WriteObject(result, true);
         }
 

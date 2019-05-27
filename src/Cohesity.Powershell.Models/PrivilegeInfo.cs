@@ -32,7 +32,7 @@ namespace Cohesity.Model
         /// <param name="isViewOnly">Specifies if privilege is view-only privilege that cannot make changes..</param>
         /// <param name="label">Specifies the label for the privilege as displayed on the Cohesity Dashboard such as &#39;Access Management View&#39;..</param>
         /// <param name="name">Specifies the Cluster name for the privilege such as PRINCIPAL_VIEW..</param>
-        public PrivilegeInfo(int? privilegeId = default(int?), string category = default(string), string description = default(string), bool? isAvailableOnHelios = default(bool?), bool? isCustomRoleDefault = default(bool?), bool? isSpecial = default(bool?), bool? isViewOnly = default(bool?), string label = default(string), string name = default(string))
+        public PrivilegeInfo(string privilegeId = default(string), string category = default(string), string description = default(string), bool? isAvailableOnHelios = default(bool?), bool? isCustomRoleDefault = default(bool?), bool? isSpecial = default(bool?), bool? isViewOnly = default(bool?), string label = default(string), string name = default(string))
         {
             this.PrivilegeId = privilegeId;
             this.Category = category;
@@ -59,7 +59,7 @@ namespace Cohesity.Model
         /// </summary>
         /// <value>Specifies unique id for a privilege. This number must be unique when creating a new privilege.</value>
         [DataMember(Name="PrivilegeId", EmitDefaultValue=true)]
-        public int? PrivilegeId { get; set; }
+        public string PrivilegeId { get; set; }
 
         /// <summary>
         /// Specifies a category for the privilege such as &#39;Access Management&#39;.
@@ -121,22 +121,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class PrivilegeInfo {\n");
-            sb.Append("  PrivilegeId: ").Append(PrivilegeId).Append("\n");
-            sb.Append("  Category: ").Append(Category).Append("\n");
-            sb.Append("  Description: ").Append(Description).Append("\n");
-            sb.Append("  IsAvailableOnHelios: ").Append(IsAvailableOnHelios).Append("\n");
-            sb.Append("  IsCustomRoleDefault: ").Append(IsCustomRoleDefault).Append("\n");
-            sb.Append("  IsSpecial: ").Append(IsSpecial).Append("\n");
-            sb.Append("  IsViewOnly: ").Append(IsViewOnly).Append("\n");
-            sb.Append("  Label: ").Append(Label).Append("\n");
-            sb.Append("  Name: ").Append(Name).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -249,3 +234,4 @@ namespace Cohesity.Model
     }
 
 }
+

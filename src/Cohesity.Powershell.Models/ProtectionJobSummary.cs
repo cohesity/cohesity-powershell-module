@@ -111,21 +111,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class ProtectionJobSummary {\n");
-            sb.Append("  ClusterId: ").Append(ClusterId).Append("\n");
-            sb.Append("  ClusterIncarnationId: ").Append(ClusterIncarnationId).Append("\n");
-            sb.Append("  IsRpoJob: ").Append(IsRpoJob).Append("\n");
-            sb.Append("  JobId: ").Append(JobId).Append("\n");
-            sb.Append("  JobName: ").Append(JobName).Append("\n");
-            sb.Append("  LastProtectionJobRunStatus: ").Append(LastProtectionJobRunStatus).Append("\n");
-            sb.Append("  PolicyId: ").Append(PolicyId).Append("\n");
-            sb.Append("  PolicyName: ").Append(PolicyName).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -231,3 +217,4 @@ namespace Cohesity.Model
     }
 
 }
+

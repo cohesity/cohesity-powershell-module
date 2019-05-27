@@ -325,32 +325,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class NetworkInterface {\n");
-            sb.Append("  BondSlaveSlotTypes: ").Append(BondSlaveSlotTypes).Append("\n");
-            sb.Append("  BondSlaves: ").Append(BondSlaves).Append("\n");
-            sb.Append("  BondingMode: ").Append(BondingMode).Append("\n");
-            sb.Append("  Gateway: ").Append(Gateway).Append("\n");
-            sb.Append("  Group: ").Append(Group).Append("\n");
-            sb.Append("  Id: ").Append(Id).Append("\n");
-            sb.Append("  IsConnected: ").Append(IsConnected).Append("\n");
-            sb.Append("  IsDefaultRoute: ").Append(IsDefaultRoute).Append("\n");
-            sb.Append("  IsUp: ").Append(IsUp).Append("\n");
-            sb.Append("  MacAddress: ").Append(MacAddress).Append("\n");
-            sb.Append("  Mtu: ").Append(Mtu).Append("\n");
-            sb.Append("  Name: ").Append(Name).Append("\n");
-            sb.Append("  Role: ").Append(Role).Append("\n");
-            sb.Append("  Services: ").Append(Services).Append("\n");
-            sb.Append("  Speed: ").Append(Speed).Append("\n");
-            sb.Append("  StaticIp: ").Append(StaticIp).Append("\n");
-            sb.Append("  Subnet: ").Append(Subnet).Append("\n");
-            sb.Append("  Type: ").Append(Type).Append("\n");
-            sb.Append("  VirtualIp: ").Append(VirtualIp).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -529,3 +504,4 @@ namespace Cohesity.Model
     }
 
 }
+

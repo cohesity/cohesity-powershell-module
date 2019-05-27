@@ -137,24 +137,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class ObjectSnapshotInfo {\n");
-            sb.Append("  ClusterPartitionId: ").Append(ClusterPartitionId).Append("\n");
-            sb.Append("  JobId: ").Append(JobId).Append("\n");
-            sb.Append("  JobName: ").Append(JobName).Append("\n");
-            sb.Append("  JobUid: ").Append(JobUid).Append("\n");
-            sb.Append("  ObjectName: ").Append(ObjectName).Append("\n");
-            sb.Append("  OsType: ").Append(OsType).Append("\n");
-            sb.Append("  RegisteredSource: ").Append(RegisteredSource).Append("\n");
-            sb.Append("  SnapshottedSource: ").Append(SnapshottedSource).Append("\n");
-            sb.Append("  Versions: ").Append(Versions).Append("\n");
-            sb.Append("  ViewBoxId: ").Append(ViewBoxId).Append("\n");
-            sb.Append("  ViewName: ").Append(ViewName).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -282,3 +265,4 @@ namespace Cohesity.Model
     }
 
 }
+

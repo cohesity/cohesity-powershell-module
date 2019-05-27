@@ -171,27 +171,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class UsageAndPerformanceStats {\n");
-            sb.Append("  DataInBytes: ").Append(DataInBytes).Append("\n");
-            sb.Append("  DataInBytesAfterReduction: ").Append(DataInBytesAfterReduction).Append("\n");
-            sb.Append("  MinUsablePhysicalCapacityBytes: ").Append(MinUsablePhysicalCapacityBytes).Append("\n");
-            sb.Append("  NumBytesRead: ").Append(NumBytesRead).Append("\n");
-            sb.Append("  NumBytesWritten: ").Append(NumBytesWritten).Append("\n");
-            sb.Append("  PhysicalCapacityBytes: ").Append(PhysicalCapacityBytes).Append("\n");
-            sb.Append("  ReadIos: ").Append(ReadIos).Append("\n");
-            sb.Append("  ReadLatencyMsecs: ").Append(ReadLatencyMsecs).Append("\n");
-            sb.Append("  SystemCapacityBytes: ").Append(SystemCapacityBytes).Append("\n");
-            sb.Append("  SystemUsageBytes: ").Append(SystemUsageBytes).Append("\n");
-            sb.Append("  TotalPhysicalRawUsageBytes: ").Append(TotalPhysicalRawUsageBytes).Append("\n");
-            sb.Append("  TotalPhysicalUsageBytes: ").Append(TotalPhysicalUsageBytes).Append("\n");
-            sb.Append("  WriteIos: ").Append(WriteIos).Append("\n");
-            sb.Append("  WriteLatencyMsecs: ").Append(WriteLatencyMsecs).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -339,3 +319,4 @@ namespace Cohesity.Model
     }
 
 }
+

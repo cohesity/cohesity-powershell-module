@@ -36,7 +36,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
     ///   </para>
     /// </example>
     [Cmdlet(VerbsCommon.Get, "CohesityProtectionSourceObject")]
-    [OutputType(typeof(Models.ProtectionSource))]
+    [OutputType(typeof(Model.ProtectionSource))]
     public class GetCohesityProtectionSourceObject : PSCmdlet
     {
         private Session Session
@@ -87,7 +87,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
         /// </para>
         /// </summary>
         [Parameter(Mandatory = false)]
-        public EnvironmentEnum[] Environments { get; set; }
+        public Model.ProtectionSource.EnvironmentEnum[] Environments { get; set; }
 
         /// <summary>
         /// <para type="description">
@@ -121,7 +121,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
             if (Id.HasValue)
             {
                 var url = $"/public/protectionSources/objects/{Id.ToString()}";
-                var result = Session.ApiClient.Get<Models.ProtectionSource>(url);
+                var result = Session.ApiClient.Get<Model.ProtectionSource>(url);
                 WriteObject(result);
             }
             else
@@ -136,7 +136,10 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
                     qb.Add("includeVMFolders", true);
 
                 if (Environments != null && Environments.Any())
-                    qb.Add("environment", string.Join(",", Environments));
+                {
+                    List<string> envs = Environments.ToList().ConvertAll<string>(x => x.ToString().First().ToString().ToLower() + x.ToString().Substring(1));
+                    qb.Add("environments", string.Join(",", envs));
+                }
 
                 if (ExcludeTypes != null && ExcludeTypes.Any())
                     qb.Add("excludeTypes", ExcludeTypes);
@@ -146,7 +149,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
                 results = FlattenNodes(results);
 
                 // Extract ProtectionSource objects
-                List<Models.ProtectionSource> sources = results.Select(x => x.ProtectionSource).ToList();
+                List<Model.ProtectionSource> sources = results.Select(x => x.ProtectionSource).ToList();
 
                 WriteObject(sources, true);
             }

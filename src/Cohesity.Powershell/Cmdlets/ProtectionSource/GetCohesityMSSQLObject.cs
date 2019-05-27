@@ -24,7 +24,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
     ///   </para>
     /// </example>
     [Cmdlet(VerbsCommon.Get, "CohesityMSSQLObject")]
-    [OutputType(typeof(Models.ProtectionSource))]
+    [OutputType(typeof(Model.ProtectionSource))]
     public class GetCohesityMSSQLObject : PSCmdlet
     {
         private Session Session
@@ -60,9 +60,9 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
             qb.Add("application", "kSQL");
 
             var url = $"/public/protectionSources/applicationServers{ qb.Build()}";
-            var results = Session.ApiClient.Get<IEnumerable<Models.RegisteredApplicationServer>>(url);
+            var results = Session.ApiClient.Get<IEnumerable<Model.RegisteredApplicationServer>>(url);
 
-            var protectionSources = new List<Models.ProtectionSource>();
+            var protectionSources = new List<Model.ProtectionSource>();
 
             if(results != null)
             {
@@ -75,7 +75,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
                     {
                         foreach (var applicationNode in result.ApplicationServer.ApplicationNodes)
                         {
-                            protectionSources.Add(applicationNode.ProtectionSource);
+                           protectionSources.Add(applicationNode.ProtectionSource);
 
                             if(applicationNode.Nodes != null)
                             {
@@ -90,7 +90,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
             }
 
             // Only include kSQL environment type
-            protectionSources = protectionSources.Where(x => x.Environment == Models.EnvironmentEnum.kSQL).ToList();
+            protectionSources = protectionSources.Where(x => x.Environment == Model.ProtectionSource.EnvironmentEnum.KSQL).ToList();
 
             // Make sure each source id is only listed once
             var sources = protectionSources.GroupBy(x => x.Id).Select(y => y.FirstOrDefault());

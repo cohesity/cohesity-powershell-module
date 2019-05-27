@@ -139,25 +139,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class HardwareInfo {\n");
-            sb.Append("  ChassisModel: ").Append(ChassisModel).Append("\n");
-            sb.Append("  ChassisSerial: ").Append(ChassisSerial).Append("\n");
-            sb.Append("  ChassisType: ").Append(ChassisType).Append("\n");
-            sb.Append("  CohesityChassisSerial: ").Append(CohesityChassisSerial).Append("\n");
-            sb.Append("  CohesityNodeSerial: ").Append(CohesityNodeSerial).Append("\n");
-            sb.Append("  HbaModel: ").Append(HbaModel).Append("\n");
-            sb.Append("  IpmiLanChannel: ").Append(IpmiLanChannel).Append("\n");
-            sb.Append("  MaxSlots: ").Append(MaxSlots).Append("\n");
-            sb.Append("  NodeModel: ").Append(NodeModel).Append("\n");
-            sb.Append("  NodeSerial: ").Append(NodeSerial).Append("\n");
-            sb.Append("  ProductModel: ").Append(ProductModel).Append("\n");
-            sb.Append("  SlotNumber: ").Append(SlotNumber).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -291,3 +273,4 @@ namespace Cohesity.Model
     }
 
 }
+

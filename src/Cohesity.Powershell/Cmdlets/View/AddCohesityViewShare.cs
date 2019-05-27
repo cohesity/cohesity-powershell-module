@@ -22,7 +22,7 @@ namespace Cohesity.Powershell.Cmdlets.View
     ///   </para>
     /// </example>
     [Cmdlet(VerbsCommon.Add, "CohesityViewShare")]
-    [OutputType(typeof(Models.ViewAlias))]
+    [OutputType(typeof(Model.ViewAlias))]
     public class AddCohesityViewShare: PSCmdlet
     {
         private Session Session
@@ -88,10 +88,10 @@ namespace Cohesity.Powershell.Cmdlets.View
         /// </summary>
         protected override void ProcessRecord()
         {
-            var request = new Models.ViewAlias(aliasName: ShareName, viewName: ViewName, viewPath: ViewPath) { };
+            var request = new Model.ViewAlias(aliasName: ShareName, viewName: ViewName, viewPath: ViewPath) { };
 
             var preparedUrl = $"/public/viewAliases";
-            var result = Session.ApiClient.Post<Models.ViewAlias>(preparedUrl, request);
+            var result = Session.ApiClient.Post<Model.ViewAlias>(preparedUrl, request);
             WriteObject(result);
         }
 

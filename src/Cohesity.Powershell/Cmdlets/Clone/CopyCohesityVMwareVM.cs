@@ -195,14 +195,14 @@ namespace Cohesity.Powershell.Cmdlets.Clone
         /// </summary>
         protected override void ProcessRecord()
         {
-            var cloneRequest = new Models.CloneTaskRequest(name: TaskName)
+            var cloneRequest = new Model.CloneTaskRequest(name: TaskName)
             {
-                Type = Models.CloneTaskRequest.TypeEnum.KCloneVMs,
+                Type = Model.CloneTaskRequest.TypeEnum.KCloneVMs,
                 ContinueOnError = true,
                 TargetViewName = TargetViewName
             };
 
-            var vmwareParams = new Models.VmwareCloneParameters();
+            var vmwareParams = new Model.VmwareCloneParameters();
             if(PoweredOn.IsPresent)
                 vmwareParams.PoweredOn = PoweredOn;
             if(DisableNetwork.IsPresent)
@@ -222,7 +222,7 @@ namespace Cohesity.Powershell.Cmdlets.Clone
 
             cloneRequest.VmwareParameters = vmwareParams;
 
-            var cloneObject = new Models.RestoreObject
+            var cloneObject = new Model.RestoreObjectDetails
             {
                 JobId = JobId,
                 ProtectionSourceId = SourceId
@@ -237,14 +237,14 @@ namespace Cohesity.Powershell.Cmdlets.Clone
             if (StartTime.HasValue)
                 cloneObject.StartedTimeUsecs = StartTime;
 
-            var objects = new List<Models.RestoreObject>();
+            var objects = new List<Model.RestoreObjectDetails>();
             objects.Add(cloneObject);
 
             cloneRequest.Objects = objects;
 
             // POST /public/restore/clone
             var preparedUrl = $"/public/restore/clone";
-            var result = Session.ApiClient.Post<Models.RestoreTask>(preparedUrl, cloneRequest);
+            var result = Session.ApiClient.Post<Model.RestoreTask>(preparedUrl, cloneRequest);
             WriteObject(result);
         }
 

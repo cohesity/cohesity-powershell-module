@@ -241,34 +241,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class Tenant {\n");
-            sb.Append("  ActiveDirectories: ").Append(ActiveDirectories).Append("\n");
-            sb.Append("  BifrostEnabled: ").Append(BifrostEnabled).Append("\n");
-            sb.Append("  CreatedTimeMsecs: ").Append(CreatedTimeMsecs).Append("\n");
-            sb.Append("  Deleted: ").Append(Deleted).Append("\n");
-            sb.Append("  DeletedTimeMsecs: ").Append(DeletedTimeMsecs).Append("\n");
-            sb.Append("  DeletionFinished: ").Append(DeletionFinished).Append("\n");
-            sb.Append("  DeletionInfoVec: ").Append(DeletionInfoVec).Append("\n");
-            sb.Append("  Description: ").Append(Description).Append("\n");
-            sb.Append("  EntityIds: ").Append(EntityIds).Append("\n");
-            sb.Append("  LastUpdatedTimeMsecs: ").Append(LastUpdatedTimeMsecs).Append("\n");
-            sb.Append("  LdapProviders: ").Append(LdapProviders).Append("\n");
-            sb.Append("  Name: ").Append(Name).Append("\n");
-            sb.Append("  OrgSuffix: ").Append(OrgSuffix).Append("\n");
-            sb.Append("  ParentTenantId: ").Append(ParentTenantId).Append("\n");
-            sb.Append("  PolicyIds: ").Append(PolicyIds).Append("\n");
-            sb.Append("  ProtectionJobs: ").Append(ProtectionJobs).Append("\n");
-            sb.Append("  SubscribeToAlertEmails: ").Append(SubscribeToAlertEmails).Append("\n");
-            sb.Append("  TenantId: ").Append(TenantId).Append("\n");
-            sb.Append("  ViewBoxIds: ").Append(ViewBoxIds).Append("\n");
-            sb.Append("  Views: ").Append(Views).Append("\n");
-            sb.Append("  VlanIfaceNames: ").Append(VlanIfaceNames).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -474,3 +447,4 @@ namespace Cohesity.Model
     }
 
 }
+

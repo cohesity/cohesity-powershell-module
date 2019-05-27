@@ -89,19 +89,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class FileSnapshotInformation {\n");
-            sb.Append("  HasArchivalCopy: ").Append(HasArchivalCopy).Append("\n");
-            sb.Append("  HasLocalCopy: ").Append(HasLocalCopy).Append("\n");
-            sb.Append("  HasRemoteCopy: ").Append(HasRemoteCopy).Append("\n");
-            sb.Append("  ModifiedTimeUsecs: ").Append(ModifiedTimeUsecs).Append("\n");
-            sb.Append("  SizeBytes: ").Append(SizeBytes).Append("\n");
-            sb.Append("  Snapshot: ").Append(Snapshot).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -193,3 +181,4 @@ namespace Cohesity.Model
     }
 
 }
+

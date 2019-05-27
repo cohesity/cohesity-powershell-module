@@ -57,16 +57,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class VMwareBackupSourceParams {\n");
-            sb.Append("  SourceAppParams: ").Append(SourceAppParams).Append("\n");
-            sb.Append("  VmCredentials: ").Append(VmCredentials).Append("\n");
-            sb.Append("  VmwareDiskExclusionInfo: ").Append(VmwareDiskExclusionInfo).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -138,3 +129,4 @@ namespace Cohesity.Model
     }
 
 }
+

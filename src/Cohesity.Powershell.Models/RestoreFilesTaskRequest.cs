@@ -193,26 +193,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class RestoreFilesTaskRequest {\n");
-            sb.Append("  ContinueOnError: ").Append(ContinueOnError).Append("\n");
-            sb.Append("  Filenames: ").Append(Filenames).Append("\n");
-            sb.Append("  IsFileBasedVolumeRestore: ").Append(IsFileBasedVolumeRestore).Append("\n");
-            sb.Append("  Name: ").Append(Name).Append("\n");
-            sb.Append("  NewBaseDirectory: ").Append(NewBaseDirectory).Append("\n");
-            sb.Append("  Overwrite: ").Append(Overwrite).Append("\n");
-            sb.Append("  Password: ").Append(Password).Append("\n");
-            sb.Append("  PreserveAttributes: ").Append(PreserveAttributes).Append("\n");
-            sb.Append("  SourceObjectInfo: ").Append(SourceObjectInfo).Append("\n");
-            sb.Append("  TargetHostType: ").Append(TargetHostType).Append("\n");
-            sb.Append("  TargetParentSourceId: ").Append(TargetParentSourceId).Append("\n");
-            sb.Append("  TargetSourceId: ").Append(TargetSourceId).Append("\n");
-            sb.Append("  Username: ").Append(Username).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -352,3 +333,4 @@ namespace Cohesity.Model
     }
 
 }
+

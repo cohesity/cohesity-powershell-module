@@ -77,7 +77,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJobRun
         /// </para>
         /// </summary>
         [Parameter(Mandatory = false)]
-        public long?[] SourceIds { get; set; }
+        public long[] SourceIds { get; set; }
 
         #endregion
 
@@ -110,19 +110,19 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJobRun
                     {
                         if (JobRunId == jobRun.BackupRun.JobRunId)
                         {
-                            var copyRunTargets = new List<Models.RunJobSnapshotTarget>();
-                            var target = new Models.RunJobSnapshotTarget
+                            var copyRunTargets = new List<Model.RunJobSnapshotTarget>();
+                            var target = new Model.RunJobSnapshotTarget
                             {
-                                Type = Models.RunJobSnapshotTarget.TypeEnum.KLocal,
+                                Type = Model.RunJobSnapshotTarget.TypeEnum.KLocal,
                                 DaysToKeep = 0
                             };
 
                             copyRunTargets.Add(target);
 
-                            var run = new Models.UpdateProtectionJobRun
+                            var run = new Model.UpdateProtectionJobRun
                             {
                                 CopyRunTargets = copyRunTargets,
-                                JobUid = new Models.UniqueGlobalId10
+                                JobUid = new Model.UniversalId
                                 {
                                     ClusterId = jobRun.JobUid.ClusterId,
                                     ClusterIncarnationId = jobRun.JobUid.ClusterIncarnationId,
@@ -133,13 +133,13 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJobRun
 
                             if (SourceIds != null && SourceIds.Length >= 1)
                             {
-                                run.SourceIds = new List<long?>(SourceIds);
+                                run.SourceIds = new List<long>(SourceIds);
                             }
 
-                            var runs = new List<Models.UpdateProtectionJobRun>();
+                            var runs = new List<Model.UpdateProtectionJobRun>();
                             runs.Add(run);
 
-                            var request = new Models.UpdateProtectionJobRunsParam
+                            var request = new Model.UpdateProtectionJobRunsParam
                             {
                                 JobRuns = runs
                             };

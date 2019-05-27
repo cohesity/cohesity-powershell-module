@@ -30,7 +30,7 @@ namespace Cohesity.Powershell.Cmdlets.View
     ///   </para>
     /// </example>
     [Cmdlet(VerbsCommon.Get, "CohesityView")]
-    [OutputType(typeof(Models.View))]
+    [OutputType(typeof(Model.View))]
     public class GetCohesityView : PSCmdlet
     {
         private Session Session

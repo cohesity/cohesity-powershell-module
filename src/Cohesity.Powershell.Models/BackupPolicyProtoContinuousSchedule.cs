@@ -51,15 +51,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class BackupPolicyProtoContinuousSchedule {\n");
-            sb.Append("  BackupIntervalMins: ").Append(BackupIntervalMins).Append("\n");
-            sb.Append("  ExclusionRanges: ").Append(ExclusionRanges).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -124,3 +116,4 @@ namespace Cohesity.Model
     }
 
 }
+

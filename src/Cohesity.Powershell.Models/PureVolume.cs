@@ -81,18 +81,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class PureVolume {\n");
-            sb.Append("  CreatedTime: ").Append(CreatedTime).Append("\n");
-            sb.Append("  ParentVolume: ").Append(ParentVolume).Append("\n");
-            sb.Append("  SerialNumber: ").Append(SerialNumber).Append("\n");
-            sb.Append("  SizeBytes: ").Append(SizeBytes).Append("\n");
-            sb.Append("  UsedBytes: ").Append(UsedBytes).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -177,3 +166,4 @@ namespace Cohesity.Model
     }
 
 }
+

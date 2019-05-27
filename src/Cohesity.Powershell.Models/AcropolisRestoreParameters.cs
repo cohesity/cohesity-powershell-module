@@ -91,19 +91,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class AcropolisRestoreParameters {\n");
-            sb.Append("  DisableNetwork: ").Append(DisableNetwork).Append("\n");
-            sb.Append("  NetworkId: ").Append(NetworkId).Append("\n");
-            sb.Append("  PoweredOn: ").Append(PoweredOn).Append("\n");
-            sb.Append("  Prefix: ").Append(Prefix).Append("\n");
-            sb.Append("  StorageContainerId: ").Append(StorageContainerId).Append("\n");
-            sb.Append("  Suffix: ").Append(Suffix).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -195,3 +183,4 @@ namespace Cohesity.Model
     }
 
 }
+

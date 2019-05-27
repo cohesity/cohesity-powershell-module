@@ -89,18 +89,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class CreateVirtualClusterParameters {\n");
-            sb.Append("  ClusterName: ").Append(ClusterName).Append("\n");
-            sb.Append("  EncryptionConfig: ").Append(EncryptionConfig).Append("\n");
-            sb.Append("  MetadataFaultTolerance: ").Append(MetadataFaultTolerance).Append("\n");
-            sb.Append("  NetworkConfig: ").Append(NetworkConfig).Append("\n");
-            sb.Append("  NodeConfigs: ").Append(NodeConfigs).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -186,3 +175,4 @@ namespace Cohesity.Model
     }
 
 }
+

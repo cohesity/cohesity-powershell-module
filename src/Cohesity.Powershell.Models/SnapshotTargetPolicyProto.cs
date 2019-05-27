@@ -75,18 +75,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class SnapshotTargetPolicyProto {\n");
-            sb.Append("  CopyPartiallySuccessfulRun: ").Append(CopyPartiallySuccessfulRun).Append("\n");
-            sb.Append("  GranularityBucket: ").Append(GranularityBucket).Append("\n");
-            sb.Append("  NumDaysToKeep: ").Append(NumDaysToKeep).Append("\n");
-            sb.Append("  RetentionPolicy: ").Append(RetentionPolicy).Append("\n");
-            sb.Append("  SnapshotTarget: ").Append(SnapshotTarget).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -171,3 +160,4 @@ namespace Cohesity.Model
     }
 
 }
+

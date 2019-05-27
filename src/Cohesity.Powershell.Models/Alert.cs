@@ -357,31 +357,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class Alert {\n");
-            sb.Append("  AlertCategory: ").Append(AlertCategory).Append("\n");
-            sb.Append("  AlertCode: ").Append(AlertCode).Append("\n");
-            sb.Append("  AlertDocument: ").Append(AlertDocument).Append("\n");
-            sb.Append("  AlertState: ").Append(AlertState).Append("\n");
-            sb.Append("  AlertType: ").Append(AlertType).Append("\n");
-            sb.Append("  ClusterId: ").Append(ClusterId).Append("\n");
-            sb.Append("  ClusterName: ").Append(ClusterName).Append("\n");
-            sb.Append("  DedupCount: ").Append(DedupCount).Append("\n");
-            sb.Append("  DedupTimestamps: ").Append(DedupTimestamps).Append("\n");
-            sb.Append("  EventSource: ").Append(EventSource).Append("\n");
-            sb.Append("  FirstTimestampUsecs: ").Append(FirstTimestampUsecs).Append("\n");
-            sb.Append("  Id: ").Append(Id).Append("\n");
-            sb.Append("  LatestTimestampUsecs: ").Append(LatestTimestampUsecs).Append("\n");
-            sb.Append("  PropertyList: ").Append(PropertyList).Append("\n");
-            sb.Append("  ResolutionDetails: ").Append(ResolutionDetails).Append("\n");
-            sb.Append("  Severity: ").Append(Severity).Append("\n");
-            sb.Append("  SuppressionId: ").Append(SuppressionId).Append("\n");
-            sb.Append("  TenantIds: ").Append(TenantIds).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -554,3 +530,4 @@ namespace Cohesity.Model
     }
 
 }
+

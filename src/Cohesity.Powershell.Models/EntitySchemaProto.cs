@@ -99,20 +99,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class EntitySchemaProto {\n");
-            sb.Append("  AttributesDescriptor: ").Append(AttributesDescriptor).Append("\n");
-            sb.Append("  IsInternalSchema: ").Append(IsInternalSchema).Append("\n");
-            sb.Append("  Name: ").Append(Name).Append("\n");
-            sb.Append("  SchemaDescriptiveName: ").Append(SchemaDescriptiveName).Append("\n");
-            sb.Append("  SchemaHelpText: ").Append(SchemaHelpText).Append("\n");
-            sb.Append("  TimeSeriesDescriptorVec: ").Append(TimeSeriesDescriptorVec).Append("\n");
-            sb.Append("  Version: ").Append(Version).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -212,3 +199,4 @@ namespace Cohesity.Model
     }
 
 }
+

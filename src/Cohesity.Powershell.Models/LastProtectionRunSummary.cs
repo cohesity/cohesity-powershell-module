@@ -101,20 +101,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class LastProtectionRunSummary {\n");
-            sb.Append("  NumberOfCancelledProtectionRuns: ").Append(NumberOfCancelledProtectionRuns).Append("\n");
-            sb.Append("  NumberOfFailedProtectionRuns: ").Append(NumberOfFailedProtectionRuns).Append("\n");
-            sb.Append("  NumberOfProtectedSources: ").Append(NumberOfProtectedSources).Append("\n");
-            sb.Append("  NumberOfRunningProtectionRuns: ").Append(NumberOfRunningProtectionRuns).Append("\n");
-            sb.Append("  NumberOfSlaViolations: ").Append(NumberOfSlaViolations).Append("\n");
-            sb.Append("  NumberOfSuccessfulProtectionRuns: ").Append(NumberOfSuccessfulProtectionRuns).Append("\n");
-            sb.Append("  TotalLogicalBackupSizeInBytes: ").Append(TotalLogicalBackupSizeInBytes).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -213,3 +200,4 @@ namespace Cohesity.Model
     }
 
 }
+

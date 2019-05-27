@@ -24,7 +24,7 @@ namespace Cohesity.Powershell.Cmdlets.View
     ///   </para>
     /// </example>
     [Cmdlet(VerbsCommon.Get, "CohesityViewShare")]
-    [OutputType(typeof(Models.View))]
+    [OutputType(typeof(Model.View))]
     public class GetCohesityViewShare : PSCmdlet
     {
         private Session Session

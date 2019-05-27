@@ -130,14 +130,14 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
 
                 if (response.StatusCode != HttpStatusCode.Created)
                 {
-                    var error = JsonConvert.DeserializeObject<Error>(responseContent);
+                    var error = JsonConvert.DeserializeObject<ErrorProto>(responseContent);
                     StringBuilder sb = new StringBuilder();
                     sb.AppendLine("Failed to connect to the Cohesity Cluster");
-                    sb.AppendLine(error.Message);
+                    sb.AppendLine(error.ErrorMsg);
                     throw new Exception(sb.ToString());
                 }
 
-                var accessToken = JsonConvert.DeserializeObject<AccessTokenObject>(responseContent);
+                var accessToken = JsonConvert.DeserializeObject<AccessToken>(responseContent);
 
                 var userProfile = new UserProfile
                 {

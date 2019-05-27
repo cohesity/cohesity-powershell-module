@@ -81,18 +81,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class JobRunsTile {\n");
-            sb.Append("  LastDayNumJobErrors: ").Append(LastDayNumJobErrors).Append("\n");
-            sb.Append("  LastDayNumJobRuns: ").Append(LastDayNumJobRuns).Append("\n");
-            sb.Append("  LastDayNumJobSlaViolations: ").Append(LastDayNumJobSlaViolations).Append("\n");
-            sb.Append("  NumJobRunning: ").Append(NumJobRunning).Append("\n");
-            sb.Append("  ObjectsProtectedByPolicy: ").Append(ObjectsProtectedByPolicy).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -178,3 +167,4 @@ namespace Cohesity.Model
     }
 
 }
+

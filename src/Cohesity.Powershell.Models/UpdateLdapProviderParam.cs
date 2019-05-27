@@ -171,25 +171,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class UpdateLdapProviderParam {\n");
-            sb.Append("  AdDomainName: ").Append(AdDomainName).Append("\n");
-            sb.Append("  AuthType: ").Append(AuthType).Append("\n");
-            sb.Append("  BaseDistinguishedName: ").Append(BaseDistinguishedName).Append("\n");
-            sb.Append("  DomainName: ").Append(DomainName).Append("\n");
-            sb.Append("  Id: ").Append(Id).Append("\n");
-            sb.Append("  Name: ").Append(Name).Append("\n");
-            sb.Append("  Port: ").Append(Port).Append("\n");
-            sb.Append("  PreferredLdapServerList: ").Append(PreferredLdapServerList).Append("\n");
-            sb.Append("  TenantId: ").Append(TenantId).Append("\n");
-            sb.Append("  UseSsl: ").Append(UseSsl).Append("\n");
-            sb.Append("  UserDistinguishedName: ").Append(UserDistinguishedName).Append("\n");
-            sb.Append("  UserPassword: ").Append(UserPassword).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -322,3 +304,4 @@ namespace Cohesity.Model
     }
 
 }
+

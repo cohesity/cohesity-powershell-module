@@ -42,7 +42,7 @@ namespace Cohesity.Powershell.Cmdlets.User
     ///   </para>
     /// </example>
     [Cmdlet(VerbsCommon.Get, "CohesityUser")]
-    [OutputType(typeof(Models.User))]
+    [OutputType(typeof(Model.User))]
     public class GetCohesityUser : PSCmdlet
     {
         private Session Session
@@ -110,7 +110,7 @@ namespace Cohesity.Powershell.Cmdlets.User
 
             var preparedUrl = $"/public/users{qb.Build()}";
             WriteDebug(preparedUrl);
-            var result = Session.ApiClient.Get<IEnumerable<Models.User>>(preparedUrl);
+            var result = Session.ApiClient.Get<IEnumerable<Model.User>>(preparedUrl);
             WriteObject(result, true);
         }
 

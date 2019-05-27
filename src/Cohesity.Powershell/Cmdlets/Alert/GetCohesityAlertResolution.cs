@@ -24,7 +24,7 @@ namespace Cohesity.Powershell.Cmdlets.Alert
     ///   </para>
     /// </example>
     [Cmdlet(VerbsCommon.Get, "CohesityAlertResolution")]
-    [OutputType(typeof(Models.AlertResolution))]
+    [OutputType(typeof(Model.AlertResolution))]
     public class GetCohesityAlertResolution : PSCmdlet
     {
         private Session Session
@@ -115,7 +115,7 @@ namespace Cohesity.Powershell.Cmdlets.Alert
 
             var preparedUrl = $"/public/alertResolutions{queryString}";
             WriteDebug(preparedUrl);
-            var result = Session.ApiClient.Get<IEnumerable<Models.AlertResolution>>(preparedUrl);
+            var result = Session.ApiClient.Get<IEnumerable<Model.AlertResolution>>(preparedUrl);
             WriteObject(result, true);
         }
 

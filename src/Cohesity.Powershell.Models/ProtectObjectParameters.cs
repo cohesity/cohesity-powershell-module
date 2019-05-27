@@ -240,16 +240,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class ProtectObjectParameters {\n");
-            sb.Append("  ProtectionSourceEnvironment: ").Append(ProtectionSourceEnvironment).Append("\n");
-            sb.Append("  ProtectionSourceIds: ").Append(ProtectionSourceIds).Append("\n");
-            sb.Append("  RpoPolicyId: ").Append(RpoPolicyId).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -319,3 +310,4 @@ namespace Cohesity.Model
     }
 
 }
+

@@ -285,20 +285,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class ApplicationsRestoreTaskRequest {\n");
-            sb.Append("  ApplicationEnvironment: ").Append(ApplicationEnvironment).Append("\n");
-            sb.Append("  ApplicationRestoreObjects: ").Append(ApplicationRestoreObjects).Append("\n");
-            sb.Append("  HostingProtectionSource: ").Append(HostingProtectionSource).Append("\n");
-            sb.Append("  Name: ").Append(Name).Append("\n");
-            sb.Append("  Password: ").Append(Password).Append("\n");
-            sb.Append("  Username: ").Append(Username).Append("\n");
-            sb.Append("  VlanParameters: ").Append(VlanParameters).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -396,3 +383,4 @@ namespace Cohesity.Model
     }
 
 }
+

@@ -85,19 +85,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class BackupSourceParams {\n");
-            sb.Append("  AppEntityIdVec: ").Append(AppEntityIdVec).Append("\n");
-            sb.Append("  OracleParams: ").Append(OracleParams).Append("\n");
-            sb.Append("  PhysicalParams: ").Append(PhysicalParams).Append("\n");
-            sb.Append("  SkipIndexing: ").Append(SkipIndexing).Append("\n");
-            sb.Append("  SourceId: ").Append(SourceId).Append("\n");
-            sb.Append("  VmwareParams: ").Append(VmwareParams).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -190,3 +178,4 @@ namespace Cohesity.Model
     }
 
 }
+

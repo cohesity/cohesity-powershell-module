@@ -579,71 +579,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class BackupJobProto {\n");
-            sb.Append("  AbortInExclusionWindow: ").Append(AbortInExclusionWindow).Append("\n");
-            sb.Append("  AlertingPolicy: ").Append(AlertingPolicy).Append("\n");
-            sb.Append("  BackupQosPrincipal: ").Append(BackupQosPrincipal).Append("\n");
-            sb.Append("  BackupSourceParams: ").Append(BackupSourceParams).Append("\n");
-            sb.Append("  ContinueOnQuiesceFailure: ").Append(ContinueOnQuiesceFailure).Append("\n");
-            sb.Append("  DedupDisabledSourceIdVec: ").Append(DedupDisabledSourceIdVec).Append("\n");
-            sb.Append("  DeletionStatus: ").Append(DeletionStatus).Append("\n");
-            sb.Append("  Description: ").Append(Description).Append("\n");
-            sb.Append("  DrToCloudParams: ").Append(DrToCloudParams).Append("\n");
-            sb.Append("  EhParentSource: ").Append(EhParentSource).Append("\n");
-            sb.Append("  EndTimeUsecs: ").Append(EndTimeUsecs).Append("\n");
-            sb.Append("  EnvBackupParams: ").Append(EnvBackupParams).Append("\n");
-            sb.Append("  ExcludeSources: ").Append(ExcludeSources).Append("\n");
-            sb.Append("  ExcludeSourcesDEPRECATED: ").Append(ExcludeSourcesDEPRECATED).Append("\n");
-            sb.Append("  ExclusionRanges: ").Append(ExclusionRanges).Append("\n");
-            sb.Append("  FullBackupJobPolicy: ").Append(FullBackupJobPolicy).Append("\n");
-            sb.Append("  FullBackupSlaTimeMins: ").Append(FullBackupSlaTimeMins).Append("\n");
-            sb.Append("  IndexingPolicy: ").Append(IndexingPolicy).Append("\n");
-            sb.Append("  IsActive: ").Append(IsActive).Append("\n");
-            sb.Append("  IsDeleted: ").Append(IsDeleted).Append("\n");
-            sb.Append("  IsPaused: ").Append(IsPaused).Append("\n");
-            sb.Append("  IsRpoJob: ").Append(IsRpoJob).Append("\n");
-            sb.Append("  JobCreationTimeUsecs: ").Append(JobCreationTimeUsecs).Append("\n");
-            sb.Append("  JobId: ").Append(JobId).Append("\n");
-            sb.Append("  JobPolicy: ").Append(JobPolicy).Append("\n");
-            sb.Append("  JobUid: ").Append(JobUid).Append("\n");
-            sb.Append("  LastModificationTimeUsecs: ").Append(LastModificationTimeUsecs).Append("\n");
-            sb.Append("  LastPauseModificationTimeUsecs: ").Append(LastPauseModificationTimeUsecs).Append("\n");
-            sb.Append("  LastPauseReason: ").Append(LastPauseReason).Append("\n");
-            sb.Append("  LastUpdatedUsername: ").Append(LastUpdatedUsername).Append("\n");
-            sb.Append("  LeverageStorageSnapshots: ").Append(LeverageStorageSnapshots).Append("\n");
-            sb.Append("  LeverageStorageSnapshotsForHyperflex: ").Append(LeverageStorageSnapshotsForHyperflex).Append("\n");
-            sb.Append("  LogBackupJobPolicy: ").Append(LogBackupJobPolicy).Append("\n");
-            sb.Append("  Name: ").Append(Name).Append("\n");
-            sb.Append("  NumSnapshotsToKeepOnPrimary: ").Append(NumSnapshotsToKeepOnPrimary).Append("\n");
-            sb.Append("  ParentSource: ").Append(ParentSource).Append("\n");
-            sb.Append("  PerformSourceSideDedup: ").Append(PerformSourceSideDedup).Append("\n");
-            sb.Append("  PolicyAppliedTimeMsecs: ").Append(PolicyAppliedTimeMsecs).Append("\n");
-            sb.Append("  PolicyId: ").Append(PolicyId).Append("\n");
-            sb.Append("  PolicyName: ").Append(PolicyName).Append("\n");
-            sb.Append("  PostBackupScript: ").Append(PostBackupScript).Append("\n");
-            sb.Append("  PreScript: ").Append(PreScript).Append("\n");
-            sb.Append("  PrimaryJobUid: ").Append(PrimaryJobUid).Append("\n");
-            sb.Append("  Priority: ").Append(Priority).Append("\n");
-            sb.Append("  Quiesce: ").Append(Quiesce).Append("\n");
-            sb.Append("  RemoteJobUids: ").Append(RemoteJobUids).Append("\n");
-            sb.Append("  RemoteViewName: ").Append(RemoteViewName).Append("\n");
-            sb.Append("  RequiredFeatureVec: ").Append(RequiredFeatureVec).Append("\n");
-            sb.Append("  SlaTimeMins: ").Append(SlaTimeMins).Append("\n");
-            sb.Append("  Sources: ").Append(Sources).Append("\n");
-            sb.Append("  StartTime: ").Append(StartTime).Append("\n");
-            sb.Append("  StubbingPolicy: ").Append(StubbingPolicy).Append("\n");
-            sb.Append("  TagVec: ").Append(TagVec).Append("\n");
-            sb.Append("  Timezone: ").Append(Timezone).Append("\n");
-            sb.Append("  TruncateLogs: ").Append(TruncateLogs).Append("\n");
-            sb.Append("  Type: ").Append(Type).Append("\n");
-            sb.Append("  UserInfo: ").Append(UserInfo).Append("\n");
-            sb.Append("  ViewBoxId: ").Append(ViewBoxId).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -1108,3 +1044,4 @@ namespace Cohesity.Model
     }
 
 }
+

@@ -237,16 +237,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class AggregatedSubtreeInfo {\n");
-            sb.Append("  Environment: ").Append(Environment).Append("\n");
-            sb.Append("  LeavesCount: ").Append(LeavesCount).Append("\n");
-            sb.Append("  TotalLogicalSize: ").Append(TotalLogicalSize).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -315,3 +306,4 @@ namespace Cohesity.Model
     }
 
 }
+

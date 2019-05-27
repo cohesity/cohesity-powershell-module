@@ -89,19 +89,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class ProtectionRunInstance {\n");
-            sb.Append("  BackupRun: ").Append(BackupRun).Append("\n");
-            sb.Append("  CopyRun: ").Append(CopyRun).Append("\n");
-            sb.Append("  JobId: ").Append(JobId).Append("\n");
-            sb.Append("  JobName: ").Append(JobName).Append("\n");
-            sb.Append("  JobUid: ").Append(JobUid).Append("\n");
-            sb.Append("  ViewBoxId: ").Append(ViewBoxId).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -194,3 +182,4 @@ namespace Cohesity.Model
     }
 
 }
+

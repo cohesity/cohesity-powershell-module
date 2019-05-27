@@ -95,21 +95,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class EnvironmentTypeJobParameters {\n");
-            sb.Append("  AwsSnapshotParameters: ").Append(AwsSnapshotParameters).Append("\n");
-            sb.Append("  HypervParameters: ").Append(HypervParameters).Append("\n");
-            sb.Append("  NasParameters: ").Append(NasParameters).Append("\n");
-            sb.Append("  OutlookParameters: ").Append(OutlookParameters).Append("\n");
-            sb.Append("  PhysicalParameters: ").Append(PhysicalParameters).Append("\n");
-            sb.Append("  PureParameters: ").Append(PureParameters).Append("\n");
-            sb.Append("  SqlParameters: ").Append(SqlParameters).Append("\n");
-            sb.Append("  VmwareParameters: ").Append(VmwareParameters).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -215,3 +201,4 @@ namespace Cohesity.Model
     }
 
 }
+

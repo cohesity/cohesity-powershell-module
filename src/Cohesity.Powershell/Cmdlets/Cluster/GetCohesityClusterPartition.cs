@@ -24,7 +24,7 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
     ///   </para>
     /// </example>
     [Cmdlet(VerbsCommon.Get, "CohesityClusterPartition")]
-    [OutputType(typeof(Models.ClusterPartition))]
+    [OutputType(typeof(Model.ClusterPartition))]
     public class GetCohesityClusterPartition: PSCmdlet
     {
         private Session Session
@@ -81,7 +81,7 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
                 queryString = "?" + string.Join("&", queries.Select(q => $"{q.Key}={q.Value}"));
 
             var preparedUrl = $"/public/clusterPartitions{queryString}";
-            var result = Session.ApiClient.Get<IEnumerable<Models.ClusterPartition>>(preparedUrl);
+            var result = Session.ApiClient.Get<IEnumerable<Model.ClusterPartition>>(preparedUrl);
             WriteObject(result, true);
         }
 

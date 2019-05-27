@@ -263,37 +263,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class User {\n");
-            sb.Append("  AdditionalGroupNames: ").Append(AdditionalGroupNames).Append("\n");
-            sb.Append("  ClusterIdentifiers: ").Append(ClusterIdentifiers).Append("\n");
-            sb.Append("  CreatedTimeMsecs: ").Append(CreatedTimeMsecs).Append("\n");
-            sb.Append("  Description: ").Append(Description).Append("\n");
-            sb.Append("  Domain: ").Append(Domain).Append("\n");
-            sb.Append("  EffectiveTimeMsecs: ").Append(EffectiveTimeMsecs).Append("\n");
-            sb.Append("  EmailAddress: ").Append(EmailAddress).Append("\n");
-            sb.Append("  ExpiredTimeMsecs: ").Append(ExpiredTimeMsecs).Append("\n");
-            sb.Append("  GoogleAccount: ").Append(GoogleAccount).Append("\n");
-            sb.Append("  IdpUserInfo: ").Append(IdpUserInfo).Append("\n");
-            sb.Append("  LastUpdatedTimeMsecs: ").Append(LastUpdatedTimeMsecs).Append("\n");
-            sb.Append("  Password: ").Append(Password).Append("\n");
-            sb.Append("  Preferences: ").Append(Preferences).Append("\n");
-            sb.Append("  PrimaryGroupName: ").Append(PrimaryGroupName).Append("\n");
-            sb.Append("  PrivilegeIds: ").Append(PrivilegeIds).Append("\n");
-            sb.Append("  Restricted: ").Append(Restricted).Append("\n");
-            sb.Append("  Roles: ").Append(Roles).Append("\n");
-            sb.Append("  S3AccessKeyId: ").Append(S3AccessKeyId).Append("\n");
-            sb.Append("  S3AccountId: ").Append(S3AccountId).Append("\n");
-            sb.Append("  S3SecretKey: ").Append(S3SecretKey).Append("\n");
-            sb.Append("  SalesforceAccount: ").Append(SalesforceAccount).Append("\n");
-            sb.Append("  Sid: ").Append(Sid).Append("\n");
-            sb.Append("  TenantId: ").Append(TenantId).Append("\n");
-            sb.Append("  Username: ").Append(Username).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -515,3 +485,4 @@ namespace Cohesity.Model
     }
 
 }
+

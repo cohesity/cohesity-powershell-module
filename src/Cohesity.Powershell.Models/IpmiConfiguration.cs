@@ -71,17 +71,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class IpmiConfiguration {\n");
-            sb.Append("  IpmiGateway: ").Append(IpmiGateway).Append("\n");
-            sb.Append("  IpmiPassword: ").Append(IpmiPassword).Append("\n");
-            sb.Append("  IpmiSubnetMask: ").Append(IpmiSubnetMask).Append("\n");
-            sb.Append("  IpmiUsername: ").Append(IpmiUsername).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -159,3 +149,4 @@ namespace Cohesity.Model
     }
 
 }
+

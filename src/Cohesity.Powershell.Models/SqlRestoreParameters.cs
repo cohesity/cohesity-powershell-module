@@ -111,21 +111,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class SqlRestoreParameters {\n");
-            sb.Append("  CaptureTailLogs: ").Append(CaptureTailLogs).Append("\n");
-            sb.Append("  KeepOffline: ").Append(KeepOffline).Append("\n");
-            sb.Append("  NewDatabaseName: ").Append(NewDatabaseName).Append("\n");
-            sb.Append("  NewInstanceName: ").Append(NewInstanceName).Append("\n");
-            sb.Append("  RestoreTimeSecs: ").Append(RestoreTimeSecs).Append("\n");
-            sb.Append("  TargetDataFilesDirectory: ").Append(TargetDataFilesDirectory).Append("\n");
-            sb.Append("  TargetLogFilesDirectory: ").Append(TargetLogFilesDirectory).Append("\n");
-            sb.Append("  TargetSecondaryDataFilesDirectoryList: ").Append(TargetSecondaryDataFilesDirectoryList).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -232,3 +218,4 @@ namespace Cohesity.Model
     }
 
 }
+

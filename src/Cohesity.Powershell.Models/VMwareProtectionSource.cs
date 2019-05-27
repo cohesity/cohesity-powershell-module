@@ -40,10 +40,10 @@ namespace Cohesity.Model
             KDisconnected = 2,
 
             /// <summary>
-            /// Enum KInacccessible for value: kInacccessible
+            /// Enum KInaccessible for value: kInaccessible
             /// </summary>
-            [EnumMember(Value = "kInacccessible")]
-            KInacccessible = 3,
+            [EnumMember(Value = "kInaccessible")]
+            KInaccessible = 3,
 
             /// <summary>
             /// Enum KInvalid for value: kInvalid
@@ -469,28 +469,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class VMwareProtectionSource {\n");
-            sb.Append("  AgentId: ").Append(AgentId).Append("\n");
-            sb.Append("  Agents: ").Append(Agents).Append("\n");
-            sb.Append("  ConnectionState: ").Append(ConnectionState).Append("\n");
-            sb.Append("  DatastoreInfo: ").Append(DatastoreInfo).Append("\n");
-            sb.Append("  FolderType: ").Append(FolderType).Append("\n");
-            sb.Append("  HasPersistentAgent: ").Append(HasPersistentAgent).Append("\n");
-            sb.Append("  HostType: ").Append(HostType).Append("\n");
-            sb.Append("  Id: ").Append(Id).Append("\n");
-            sb.Append("  IsVmTemplate: ").Append(IsVmTemplate).Append("\n");
-            sb.Append("  Name: ").Append(Name).Append("\n");
-            sb.Append("  TagAttributes: ").Append(TagAttributes).Append("\n");
-            sb.Append("  ToolsRunningStatus: ").Append(ToolsRunningStatus).Append("\n");
-            sb.Append("  Type: ").Append(Type).Append("\n");
-            sb.Append("  VCloudDirectorInfo: ").Append(VCloudDirectorInfo).Append("\n");
-            sb.Append("  VirtualDisks: ").Append(VirtualDisks).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -639,3 +618,4 @@ namespace Cohesity.Model
     }
 
 }
+

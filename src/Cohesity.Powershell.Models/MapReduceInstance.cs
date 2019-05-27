@@ -84,19 +84,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class MapReduceInstance {\n");
-            sb.Append("  Id: ").Append(Id).Append("\n");
-            sb.Append("  InputParams: ").Append(InputParams).Append("\n");
-            sb.Append("  InputSpec: ").Append(InputSpec).Append("\n");
-            sb.Append("  MapReduceInfoId: ").Append(MapReduceInfoId).Append("\n");
-            sb.Append("  OutputSpec: ").Append(OutputSpec).Append("\n");
-            sb.Append("  RunInfo: ").Append(RunInfo).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -189,3 +177,4 @@ namespace Cohesity.Model
     }
 
 }
+

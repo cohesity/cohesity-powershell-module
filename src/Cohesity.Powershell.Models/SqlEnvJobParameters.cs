@@ -179,20 +179,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class SqlEnvJobParameters {\n");
-            sb.Append("  AagPreference: ").Append(AagPreference).Append("\n");
-            sb.Append("  AagPreferenceFromSqlServer: ").Append(AagPreferenceFromSqlServer).Append("\n");
-            sb.Append("  BackupSystemDatabases: ").Append(BackupSystemDatabases).Append("\n");
-            sb.Append("  BackupType: ").Append(BackupType).Append("\n");
-            sb.Append("  BackupVolumesOnly: ").Append(BackupVolumesOnly).Append("\n");
-            sb.Append("  IsCopyOnlyFull: ").Append(IsCopyOnlyFull).Append("\n");
-            sb.Append("  UserDatabasePreference: ").Append(UserDatabasePreference).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -285,3 +272,4 @@ namespace Cohesity.Model
     }
 
 }
+

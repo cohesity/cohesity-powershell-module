@@ -174,28 +174,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class ActiveDirectoryEntry {\n");
-            sb.Append("  DomainName: ").Append(DomainName).Append("\n");
-            sb.Append("  FallbackUserIdMappingInfo: ").Append(FallbackUserIdMappingInfo).Append("\n");
-            sb.Append("  IgnoredTrustedDomains: ").Append(IgnoredTrustedDomains).Append("\n");
-            sb.Append("  LdapProviderId: ").Append(LdapProviderId).Append("\n");
-            sb.Append("  MachineAccounts: ").Append(MachineAccounts).Append("\n");
-            sb.Append("  OuName: ").Append(OuName).Append("\n");
-            sb.Append("  Password: ").Append(Password).Append("\n");
-            sb.Append("  PreferredDomainControllers: ").Append(PreferredDomainControllers).Append("\n");
-            sb.Append("  TenantId: ").Append(TenantId).Append("\n");
-            sb.Append("  TrustedDomains: ").Append(TrustedDomains).Append("\n");
-            sb.Append("  TrustedDomainsEnabled: ").Append(TrustedDomainsEnabled).Append("\n");
-            sb.Append("  UnixRootSid: ").Append(UnixRootSid).Append("\n");
-            sb.Append("  UserIdMappingInfo: ").Append(UserIdMappingInfo).Append("\n");
-            sb.Append("  UserName: ").Append(UserName).Append("\n");
-            sb.Append("  Workgroup: ").Append(Workgroup).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -354,3 +333,4 @@ namespace Cohesity.Model
     }
 
 }
+

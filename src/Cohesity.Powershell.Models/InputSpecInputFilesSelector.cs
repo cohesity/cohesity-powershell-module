@@ -126,23 +126,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class InputSpecInputFilesSelector {\n");
-            sb.Append("  FileTimeFilter: ").Append(FileTimeFilter).Append("\n");
-            sb.Append("  FilenameGlob: ").Append(FilenameGlob).Append("\n");
-            sb.Append("  JobIds: ").Append(JobIds).Append("\n");
-            sb.Append("  MaxSnapshotTimestamp: ").Append(MaxSnapshotTimestamp).Append("\n");
-            sb.Append("  MinSnapshotTimestamp: ").Append(MinSnapshotTimestamp).Append("\n");
-            sb.Append("  PartitionIds: ").Append(PartitionIds).Append("\n");
-            sb.Append("  ProcessLatestOnly: ").Append(ProcessLatestOnly).Append("\n");
-            sb.Append("  RootDir: ").Append(RootDir).Append("\n");
-            sb.Append("  ViewBoxIds: ").Append(ViewBoxIds).Append("\n");
-            sb.Append("  ViewName: ").Append(ViewName).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -266,3 +250,4 @@ namespace Cohesity.Model
     }
 
 }
+

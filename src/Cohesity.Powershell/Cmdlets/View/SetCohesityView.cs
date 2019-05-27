@@ -22,7 +22,7 @@ namespace Cohesity.Powershell.Cmdlets.View
     ///   </para>
     /// </example>
     [Cmdlet(VerbsCommon.Set, "CohesityView")]
-    [OutputType(typeof(Models.View))]
+    [OutputType(typeof(Model.View))]
     public class SetCohesityView: PSCmdlet
     {
         private Session Session
@@ -48,7 +48,7 @@ namespace Cohesity.Powershell.Cmdlets.View
         /// </summary>
         [Parameter(Mandatory = true, ValueFromPipeline = true)]
         [ValidateNotNull()]
-        public Models.View View { get; set; } = null;
+        public Model.View View { get; set; } = null;
 
         #endregion
 
@@ -70,7 +70,7 @@ namespace Cohesity.Powershell.Cmdlets.View
         protected override void ProcessRecord()
         {
             var preparedUrl = $"/public/views/{View.Name}";
-            var result = Session.ApiClient.Put<Models.View>(preparedUrl, View);
+            var result = Session.ApiClient.Put<Model.View>(preparedUrl, View);
             WriteObject(result);
         }
 

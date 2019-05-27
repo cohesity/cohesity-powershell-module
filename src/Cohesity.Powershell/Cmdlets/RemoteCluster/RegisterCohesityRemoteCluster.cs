@@ -26,7 +26,7 @@ namespace Cohesity.Powershell.Cmdlets.RemoteCluster
     /// </para>
     /// </example>
     [Cmdlet(VerbsLifecycle.Register, "CohesityRemoteCluster")]
-    [OutputType(typeof(Models.RemoteCluster))]
+    [OutputType(typeof(Model.RemoteCluster))]
     public class RegisterCohesityRemoteCluster : PSCmdlet
     {
         private Session Session
@@ -187,7 +187,7 @@ namespace Cohesity.Powershell.Cmdlets.RemoteCluster
 
             // POST /public/remoteClusters
             var preparedUrl = $"/public/remoteClusters";
-            var result = Session.ApiClient.Post<Models.RemoteCluster>(preparedUrl, param);
+            var result = Session.ApiClient.Post<Model.RemoteCluster>(preparedUrl, param);
             WriteObject(result);
         }
 

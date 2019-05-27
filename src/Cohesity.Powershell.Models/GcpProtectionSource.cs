@@ -79,7 +79,31 @@ namespace Cohesity.Model
             /// Enum KInstanceType for value: kInstanceType
             /// </summary>
             [EnumMember(Value = "kInstanceType")]
-            KInstanceType = 9
+            KInstanceType = 9,
+
+            /// <summary>
+            /// Enum KLabel for value: kLabel
+            /// </summary>
+            [EnumMember(Value = "kLabel")]
+            KLabel = 10,
+
+            /// <summary>
+            /// Enum KMetadata for value: kMetadata
+            /// </summary>
+            [EnumMember(Value = "kMetadata")]
+            KMetadata = 11,
+
+            /// <summary>
+            /// Enum KTag for value: kTag
+            /// </summary>
+            [EnumMember(Value = "kTag")]
+            KTag = 12,
+
+            /// <summary>
+            /// Enum KVPCConnector for value: kVPCConnector
+            /// </summary>
+            [EnumMember(Value = "kVPCConnector")]
+            KVPCConnector = 13
 
         }
 
@@ -187,7 +211,31 @@ namespace Cohesity.Model
             /// Enum KInstanceType for value: kInstanceType
             /// </summary>
             [EnumMember(Value = "kInstanceType")]
-            KInstanceType = 9
+            KInstanceType = 9,
+
+            /// <summary>
+            /// Enum KLabel for value: kLabel
+            /// </summary>
+            [EnumMember(Value = "kLabel")]
+            KLabel = 10,
+
+            /// <summary>
+            /// Enum KMetadata for value: kMetadata
+            /// </summary>
+            [EnumMember(Value = "kMetadata")]
+            KMetadata = 11,
+
+            /// <summary>
+            /// Enum KTag for value: kTag
+            /// </summary>
+            [EnumMember(Value = "kTag")]
+            KTag = 12,
+
+            /// <summary>
+            /// Enum KVPCConnector for value: kVPCConnector
+            /// </summary>
+            [EnumMember(Value = "kVPCConnector")]
+            KVPCConnector = 13
 
         }
 
@@ -337,28 +385,7 @@ namespace Cohesity.Model
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class GcpProtectionSource {\n");
-            sb.Append("  ClientEmailAddress: ").Append(ClientEmailAddress).Append("\n");
-            sb.Append("  ClientPrivateKey: ").Append(ClientPrivateKey).Append("\n");
-            sb.Append("  GcpType: ").Append(GcpType).Append("\n");
-            sb.Append("  HostType: ").Append(HostType).Append("\n");
-            sb.Append("  IpAddressesVM: ").Append(IpAddressesVM).Append("\n");
-            sb.Append("  Name: ").Append(Name).Append("\n");
-            sb.Append("  OwnerId: ").Append(OwnerId).Append("\n");
-            sb.Append("  PhysicalSourceId: ").Append(PhysicalSourceId).Append("\n");
-            sb.Append("  ProjectId: ").Append(ProjectId).Append("\n");
-            sb.Append("  RegionId: ").Append(RegionId).Append("\n");
-            sb.Append("  ResourceId: ").Append(ResourceId).Append("\n");
-            sb.Append("  RestoreTaskId: ").Append(RestoreTaskId).Append("\n");
-            sb.Append("  Type: ").Append(Type).Append("\n");
-            sb.Append("  VpcNetwork: ").Append(VpcNetwork).Append("\n");
-            sb.Append("  VpcSubnetwork: ").Append(VpcSubnetwork).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
+        public override string ToString() { return ToJson(); }
   
         /// <summary>
         /// Returns the JSON string presentation of the object
@@ -507,3 +534,4 @@ namespace Cohesity.Model
     }
 
 }
+
