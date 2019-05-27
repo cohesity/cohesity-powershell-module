@@ -6,7 +6,7 @@ Removes the Cohesity snapshots associated with a Protection Job.
 ## SYNTAX
 
 ```
-Remove-CohesitySnapshot -JobName <string> -JobRunId <long> [-SourceIds <Nullable`1[]>] [<CommonParameters>]
+Remove-CohesitySnapshot -JobName <string> -JobRunId <long> [-SourceIds <long[]>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -64,7 +64,7 @@ Accept wildcard characters: False
 Specifies the source ids to only expire snapshots belonging to those source ids.
 
 ```yaml
-Type: Nullable`1[]
+Type: long[]
 Parameter Sets: (All)
 Aliases:
 
@@ -76,8 +76,7 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
-For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 

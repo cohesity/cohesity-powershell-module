@@ -43,13 +43,13 @@ Accept wildcard characters: False
 Type of host.
 Must be set to KLinux or KWindows.
 
-Possible values: KLinux, KWindows, KAix, KSolaris, KOther
+Possible values: KLinux, KWindows, KAix, KSolaris
 
 ```yaml
 Type: HostTypeEnum
 Parameter Sets: (All)
 Aliases:
-Accepted values: KLinux, KWindows, KAix, KSolaris, KOther
+Accepted values: KLinux, KWindows, KAix, KSolaris
 
 Required: True
 Position: Named
@@ -78,8 +78,7 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
-For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
