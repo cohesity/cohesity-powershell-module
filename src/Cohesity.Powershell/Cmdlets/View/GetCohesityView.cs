@@ -79,7 +79,7 @@ namespace Cohesity.Powershell.Cmdlets.View
         /// </para>
         /// </summary>
         [Parameter(Mandatory = false)]
-        public int[] ViewBoxIds { get; set; }
+        public long[] ViewBoxIds { get; set; }
 
         /// <summary>
         /// <para type="description">
@@ -103,7 +103,7 @@ namespace Cohesity.Powershell.Cmdlets.View
         /// </para>
         /// </summary>
         [Parameter(Mandatory = false)]
-        public int? MaxCount { get; set; }
+        public long? MaxCount { get; set; }
 
         /// <summary>
         /// <para type="description">
@@ -111,7 +111,7 @@ namespace Cohesity.Powershell.Cmdlets.View
         /// </para>
         /// </summary>
         [Parameter(Mandatory = false)]
-        public int? MaxViewId { get; set; }
+        public long? MaxViewId { get; set; }
 
         /// <summary>
         /// <para type="description">
@@ -119,7 +119,7 @@ namespace Cohesity.Powershell.Cmdlets.View
         /// </para>
         /// </summary>
         [Parameter(Mandatory = false)]
-        public int[] JobIds { get; set; }
+        public long[] JobIds { get; set; }
 
         /// <summary>
         /// <para type="description"> 

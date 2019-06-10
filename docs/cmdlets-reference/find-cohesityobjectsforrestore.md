@@ -6,8 +6,8 @@ Finds a list of objects (VMs and Databases) for restore based on the specified p
 ## SYNTAX
 
 ```
-Find-CohesityObjectsForRestore [-EndTime <int>] [-Environments <EnvironmentEnum[]>] [-JobIds <int[]>]
- [-RegisteredSourceIds <int[]>] [-Search <string>] [-StartTime <int>] [-StorageDomainIds <int[]>]
+Find-CohesityObjectsForRestore [-EndTime <long>] [-Environments <EnvironmentEnum[]>] [-JobIds <long[]>]
+ [-RegisteredSourceIds <long[]>] [-Search <string>] [-StartTime <long>] [-StorageDomainIds <long[]>]
  [<CommonParameters>]
 ```
 
@@ -64,7 +64,7 @@ Specified as a Unix epoch Timestamp (in microseconds).
 Only items created by backups that completed between the specified start and end times are returned.
 
 ```yaml
-Type: int
+Type: long
 Parameter Sets: (All)
 Aliases:
 
@@ -81,7 +81,7 @@ Specified as a Unix epoch Timestamp (in microseconds).
 Only items created by backups that completed between the specified start and end times are returned.
 
 ```yaml
-Type: int
+Type: long
 Parameter Sets: (All)
 Aliases:
 
@@ -97,7 +97,7 @@ Filter by a list of protection job ids.
 Only objects backed up by the specified jobs are listed.
 
 ```yaml
-Type: int[]
+Type: long[]
 Parameter Sets: (All)
 Aliases:
 
@@ -113,7 +113,7 @@ Filter by a list of registered source ids.
 Only objects from the listed registered sources are returned.
 
 ```yaml
-Type: int[]
+Type: long[]
 Parameter Sets: (All)
 Aliases:
 
@@ -129,7 +129,7 @@ Filter by a list of storage domain (view box) ids.
 Only objects stored in the listed domains (view boxes) are returned.
 
 ```yaml
-Type: int[]
+Type: long[]
 Parameter Sets: (All)
 Aliases:
 

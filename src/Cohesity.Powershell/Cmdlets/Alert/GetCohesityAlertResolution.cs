@@ -46,7 +46,7 @@ namespace Cohesity.Powershell.Cmdlets.Alert
         /// </para> 
         /// </summary>
         [Parameter(Mandatory = true)]
-        public int? MaxAlerts { get; set; }
+        public long? MaxAlerts { get; set; }
 
         /// <summary>
         /// <para type="description">
@@ -54,7 +54,7 @@ namespace Cohesity.Powershell.Cmdlets.Alert
         /// </para>
         /// </summary>
         [Parameter(Mandatory = false)]
-        public int[] ResolutionIds { get; set; }
+        public long[] ResolutionIds { get; set; }
 
         /// <summary>
         /// <para type="description">

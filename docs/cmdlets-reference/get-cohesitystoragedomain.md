@@ -6,7 +6,7 @@ Gets a list of storage domains (view boxes) filtered by the specified parameters
 ## SYNTAX
 
 ```
-Get-CohesityStorageDomain [-ClusterPartitionIds <int[]>] [-FetchStats] [-Ids <int[]>] [-Names <string[]>]
+Get-CohesityStorageDomain [-ClusterPartitionIds <long[]>] [-FetchStats] [-Ids <long[]>] [-Names <string[]>]
  [<CommonParameters>]
 ```
 
@@ -30,7 +30,7 @@ Filter by a list of storage domain (view box) ids.
 If empty, view boxes are not filtered by id.
 
 ```yaml
-Type: int[]
+Type: long[]
 Parameter Sets: (All)
 Aliases:
 
@@ -61,7 +61,7 @@ Accept wildcard characters: False
 Filter by a list of cluster partition Ids.
 
 ```yaml
-Type: int[]
+Type: long[]
 Parameter Sets: (All)
 Aliases:
 

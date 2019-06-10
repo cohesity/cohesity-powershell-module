@@ -6,7 +6,7 @@ Gets a list of protection jobs filtered by the specified parameters.
 ## SYNTAX
 
 ```
-Get-CohesityProtectionJob [-Environments <EnvironmentEnum[]>] [-Ids <int[]>] [-Names <string[]>] [-OnlyActive]
+Get-CohesityProtectionJob [-Environments <EnvironmentEnum[]>] [-Ids <long[]>] [-Names <string[]>] [-OnlyActive]
  [-OnlyDeleted] [-OnlyInactive] [-PolicyIds <string[]>] [<CommonParameters>]
 ```
 
@@ -45,7 +45,7 @@ Gets only the deleted protection jobs on the Cohesity Cluster.
 Filter by a list of protection job ids.
 
 ```yaml
-Type: int[]
+Type: long[]
 Parameter Sets: (All)
 Aliases:
 

@@ -6,9 +6,9 @@ Gets a list of alerts triggered on the Cohesity Cluster filtered by the specifie
 ## SYNTAX
 
 ```
-Get-CohesityAlert -MaxAlerts <int> [-AlertCategories <AlertCategoryEnum[]>] [-AlertIds <string[]>]
+Get-CohesityAlert -MaxAlerts <long> [-AlertCategories <AlertCategoryEnum[]>] [-AlertIds <string[]>]
  [-AlertSeverities <SeverityEnum[]>] [-AlertStates <AlertStateEnum[]>] [-AlertTypes <int[]>] [-EndTime <long>]
- [-ResolutionIds <int[]>] [-StartTime <long>] [<CommonParameters>]
+ [-ResolutionIds <long[]>] [-StartTime <long>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -30,7 +30,7 @@ Limit the number of alerts to the specified value.
 The newest alerts are returned upto the limit specified.
 
 ```yaml
-Type: int
+Type: long
 Parameter Sets: (All)
 Aliases:
 
@@ -90,7 +90,7 @@ Accept wildcard characters: False
 Filter by a list of resolution Ids.
 
 ```yaml
-Type: int[]
+Type: long[]
 Parameter Sets: (All)
 Aliases:
 

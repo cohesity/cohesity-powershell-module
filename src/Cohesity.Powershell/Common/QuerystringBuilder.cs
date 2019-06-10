@@ -50,6 +50,11 @@ namespace Cohesity.Powershell.Common
             queries.Add(key, string.Join(",", value));
         }
 
+        public void Add(string key, long[] value)
+        {
+            queries.Add(key, string.Join(",", value));
+        }
+
         public string Build()
         {
             if (queries.Any())

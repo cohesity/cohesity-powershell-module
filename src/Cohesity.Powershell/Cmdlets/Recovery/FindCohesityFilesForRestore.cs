@@ -81,7 +81,7 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
         /// </para>
         /// </summary>
         [Parameter(Mandatory = false)]
-        public int? StartTime { get; set; }
+        public long? StartTime { get; set; }
 
         /// <summary>
         /// <para type="description">
@@ -91,7 +91,7 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
         /// </para>
         /// </summary>
         [Parameter(Mandatory = false)]
-        public int? EndTime { get; set; }
+        public long? EndTime { get; set; }
 
         /// <summary>
         /// <para type="description">
@@ -99,7 +99,7 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
         /// </para> 
         /// </summary>
         [Parameter(Mandatory = false)]
-        public int[] JobIds { get; set; }
+        public long[] JobIds { get; set; }
 
         /// <summary>
         /// <para type="description">
@@ -107,7 +107,7 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
         /// </para> 
         /// </summary>
         [Parameter(Mandatory = false)]
-        public int[] SourceIds { get; set; }
+        public long[] SourceIds { get; set; }
 
         /// <summary>
         /// <para type="description">
@@ -115,7 +115,7 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
         /// </para> 
         /// </summary>
         [Parameter(Mandatory = false)]
-        public int[] RegisteredSourceIds { get; set; }
+        public long[] RegisteredSourceIds { get; set; }
 
         /// <summary>
         /// <para type="description">
@@ -123,7 +123,7 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
         /// </para> 
         /// </summary>
         [Parameter(Mandatory = false)]
-        public int[] StorageDomainIds { get; set; }
+        public long[] StorageDomainIds { get; set; }
 
         protected override void BeginProcessing()
         {

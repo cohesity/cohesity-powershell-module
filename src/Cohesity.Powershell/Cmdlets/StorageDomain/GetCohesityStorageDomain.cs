@@ -50,7 +50,7 @@ namespace Cohesity.Powershell.Cmdlets.StorageDomain
         /// </para>
         /// </summary>
         [Parameter(Mandatory = false)]
-        public int[] Ids { get; set; }
+        public long[] Ids { get; set; }
 
         /// <summary>
         /// <para type="description">
@@ -67,7 +67,7 @@ namespace Cohesity.Powershell.Cmdlets.StorageDomain
         /// </para>
         /// </summary>
         [Parameter(Mandatory = false)]
-        public int[] ClusterPartitionIds { get; set; }
+        public long[] ClusterPartitionIds { get; set; }
 
         /// <summary>
         /// <para type="description">

@@ -6,9 +6,9 @@ Finds a list of files and folders for restore based on the specified parameters.
 ## SYNTAX
 
 ```
-Find-CohesityFilesForRestore [-EndTime <int>] [-Environments <EnvironmentEnum[]>] [-FolderOnly <bool>]
- [-JobIds <int[]>] [-RegisteredSourceIds <int[]>] [-Search <string>] [-SourceIds <int[]>] [-StartTime <int>]
- [-StorageDomainIds <int[]>] [<CommonParameters>]
+Find-CohesityFilesForRestore [-EndTime <long>] [-Environments <EnvironmentEnum[]>] [-FolderOnly <bool>]
+ [-JobIds <long[]>] [-RegisteredSourceIds <long[]>] [-Search <string>] [-SourceIds <long[]>]
+ [-StartTime <long>] [-StorageDomainIds <long[]>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -82,7 +82,7 @@ Specified as a Unix epoch Timestamp (in microseconds).
 Only items created by backups that completed between the specified start and end times are returned.
 
 ```yaml
-Type: int
+Type: long
 Parameter Sets: (All)
 Aliases:
 
@@ -99,7 +99,7 @@ Specified as a Unix epoch Timestamp (in microseconds).
 Only items created by backups that completed between the specified start and end times are returned.
 
 ```yaml
-Type: int
+Type: long
 Parameter Sets: (All)
 Aliases:
 
@@ -114,7 +114,7 @@ Accept wildcard characters: False
 Filter by a list of protection job ids.Only items backed up by the specified jobs are listed.
 
 ```yaml
-Type: int[]
+Type: long[]
 Parameter Sets: (All)
 Aliases:
 
@@ -130,7 +130,7 @@ Filter by source ids.
 Only files and folders found in the listed sources (such as VMs) are returned.
 
 ```yaml
-Type: int[]
+Type: long[]
 Parameter Sets: (All)
 Aliases:
 
@@ -146,7 +146,7 @@ Filter by a list of registered source ids.
 Only items from the listed registered sources are returned.
 
 ```yaml
-Type: int[]
+Type: long[]
 Parameter Sets: (All)
 Aliases:
 
@@ -162,7 +162,7 @@ Filter by a list of storage domain (view box) ids.
 Only items stored in the listed domains (view boxes) are returned.
 
 ```yaml
-Type: int[]
+Type: long[]
 Parameter Sets: (All)
 Aliases:
 

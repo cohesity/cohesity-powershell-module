@@ -69,7 +69,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
         /// </para> 
         /// </summary>
         [Parameter(Mandatory = false)]
-        public int[] Ids { get; set; }
+        public long[] Ids { get; set; }
 
         /// <summary>
         /// <para type="description">

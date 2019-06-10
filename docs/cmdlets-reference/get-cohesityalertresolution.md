@@ -6,8 +6,8 @@ Returns all Alert Resolution objects found on the Cohesity Cluster that match th
 ## SYNTAX
 
 ```
-Get-CohesityAlertResolution -MaxAlerts <int> [-AlertIds <string[]>] [-EndTime <long>] [-ResolutionIds <int[]>]
- [-StartTime <long>] [<CommonParameters>]
+Get-CohesityAlertResolution -MaxAlerts <long> [-AlertIds <string[]>] [-EndTime <long>]
+ [-ResolutionIds <long[]>] [-StartTime <long>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -30,7 +30,7 @@ Limit the number of alerts to the specified value.
 The newest alerts are returned upto the limit specified.
 
 ```yaml
-Type: int
+Type: long
 Parameter Sets: (All)
 Aliases:
 
@@ -45,7 +45,7 @@ Accept wildcard characters: False
 Filter by a list of resolution Ids.
 
 ```yaml
-Type: int[]
+Type: long[]
 Parameter Sets: (All)
 Aliases:
 
