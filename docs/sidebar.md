@@ -61,6 +61,7 @@
 - [Register-CohesityProtectionSourcePureStorageArray](cmdlets-reference/register-cohesityprotectionsourcepurestoragearray.md)
 - [Update-CohesityProtectionSource](cmdlets-reference/update-cohesityprotectionsource.md)
 - [Unregister-CohesityProtectionSource](cmdlets-reference/unregister-cohesityprotectionsource.md)
+- [Unregister-CohesityApplicationServer](cmdlets-reference/unregister-cohesityapplicationserver.md)
 - [Get-CohesityProtectionSource](cmdlets-reference/get-cohesityprotectionsource.md)
 - [Get-CohesityProtectionSourceObject](cmdlets-reference/get-cohesityprotectionsourceobject.md)
 - [Get-CohesityVMwareVM](cmdlets-reference/get-cohesityvmwarevm.md)
