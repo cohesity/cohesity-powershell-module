@@ -7,12 +7,14 @@ Immediately starts a protection job run.
 
 ### UNNAMED_PARAMETER_SET_1
 ```
-Start-CohesityProtectionJob -Id <long> [-RunType <RunTypeEnum>] [-SourceIds <long[]>] [<CommonParameters>]
+Start-CohesityProtectionJob -Id <long> [-CopyRunTargets <RunJobSnapshotTarget[]>] [-RunType <RunTypeEnum>]
+ [-SourceIds <long[]>] [<CommonParameters>]
 ```
 
 ### UNNAMED_PARAMETER_SET_2
 ```
-Start-CohesityProtectionJob -Name <string> [-RunType <RunTypeEnum>] [-SourceIds <long[]>] [<CommonParameters>]
+Start-CohesityProtectionJob -Name <string> [-CopyRunTargets <RunJobSnapshotTarget[]>] [-RunType <RunTypeEnum>]
+ [-SourceIds <long[]>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -87,6 +89,21 @@ If you want to back up only a subset of sources that are protected by the job in
 
 ```yaml
 Type: long[]
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -CopyRunTargets
+Set if you want specific replication or archival associated with the policy to run.
+
+```yaml
+Type: RunJobSnapshotTarget[]
 Parameter Sets: (All)
 Aliases:
 

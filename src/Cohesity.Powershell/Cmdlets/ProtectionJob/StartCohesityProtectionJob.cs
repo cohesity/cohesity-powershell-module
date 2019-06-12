@@ -88,8 +88,8 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
         /// Set if you want specific replication or archival associated with the policy to run.
         /// </para>
         /// </summary>
-        //[Parameter(Mandatory = false)]
-        //public RunJobSnapshotTarget[] CopyRunTargets { get; set; } = null;
+        [Parameter(Mandatory = false)]
+        public RunJobSnapshotTarget[] CopyRunTargets { get; set; } = null;
 
         #endregion
 
@@ -116,12 +116,12 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
                 Id = (long)job.Id;
             }
 
-            //var copyRunTargets = CopyRunTargets != null ? CopyRunTargets.ToList() : null;
+            var copyRunTargets = CopyRunTargets != null ? CopyRunTargets.ToList() : null;
             var sourceIDs = SourceIds != null ? SourceIds.ToList() : null;
 
             var content = new RunProtectionJobParam
             {
-                //CopyRunTargets = copyRunTargets,
+                CopyRunTargets = copyRunTargets,
                 RunType = RunType,
                 SourceIds = sourceIDs
             };
