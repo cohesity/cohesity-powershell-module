@@ -99,7 +99,13 @@ namespace Cohesity.Model
             /// Enum KOracleAPCluster for value: kOracleAPCluster
             /// </summary>
             [EnumMember(Value = "kOracleAPCluster")]
-            KOracleAPCluster = 4
+            KOracleAPCluster = 4,
+
+            /// <summary>
+            /// Enum KOracleCluster for value: kOracleCluster
+            /// </summary>
+            [EnumMember(Value = "kOracleCluster")]
+            KOracleCluster = 5
 
         }
 

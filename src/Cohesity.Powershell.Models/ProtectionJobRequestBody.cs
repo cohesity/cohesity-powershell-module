@@ -226,7 +226,13 @@ namespace Cohesity.Model
             /// Enum KAzureNative for value: kAzureNative
             /// </summary>
             [EnumMember(Value = "kAzureNative")]
-            KAzureNative = 28
+            KAzureNative = 28,
+
+            /// <summary>
+            /// Enum KAD for value: kAD
+            /// </summary>
+            [EnumMember(Value = "kAD")]
+            KAD = 29
 
         }
 
