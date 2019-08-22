@@ -22,22 +22,20 @@ function Get-CohesityOrganization
   )
 
   Begin {
-    if(-not (Test-Path -Path "$env:USERPROFILE/.cohesity"))
+    if(-not (Test-Path -Path "$HOME/.cohesity"))
     {
       throw "Failed to authenticate. Please connect to the Cohesity Cluster using 'Connect-CohesityCluster'"
     }
-    $session = Get-Content -Path $env:USERPROFILE/.cohesity | ConvertFrom-Json
+    $session = Get-Content -Path $HOME/.cohesity | ConvertFrom-Json
   }
 
   Process {
-    # Allow self signed server certificates
-    Allow-SelfSignedCertificates
 
     $token = 'Bearer ' + $session.AccessToken.AccessToken
     $headers = @{"Authorization"=$token}
     $uri = $session.ClusterUri + '/irisservices/api/v1/public/tenants'
 
-    $results = Invoke-RestMethod -Method Get -Headers $headers -Uri $uri
+    $results = Invoke-RestApi -Method Get -Headers $headers -Uri $uri
 
     if([string]::IsNullOrEmpty($Name))
     {

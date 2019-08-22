@@ -13,16 +13,14 @@ function Register-CohesityProtectionSourceO365
   )
 
   Begin {
-    if(-not (Test-Path -Path "$env:USERPROFILE/.cohesity"))
+    if(-not (Test-Path -Path "$HOME/.cohesity"))
     {
       throw "Failed to authenticate. Please connect to the Cohesity Cluster using 'Connect-CohesityCluster'"
     }
-    $session = Get-Content -Path $env:USERPROFILE/.cohesity | ConvertFrom-Json
+    $session = Get-Content -Path $HOME/.cohesity | ConvertFrom-Json
   }
 
   Process {
-    # Allow self signed server certificates
-    Allow-SelfSignedCertificates
 
     $token = 'Bearer ' + $session.AccessToken.AccessToken
     $headers = @{"Authorization"=$token}
@@ -43,7 +41,7 @@ function Register-CohesityProtectionSourceO365
     }
 
     $request = $o365RegistrationParameters | ConvertTo-Json
-    $result = Invoke-RestMethod -Method Post -Headers $headers -Uri $uri -Body $request
+    $result = Invoke-RestApi -Method Post -Headers $headers -Uri $uri -Body $request
     $result
   } # End of process
 } # End of function
