@@ -199,8 +199,10 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
             };
 
             var vmwareParams = new Model.VmwareRestoreParameters();
+            vmwareParams.PoweredOn = false;
+            vmwareParams.DisableNetwork = false;
             if(PoweredOn.IsPresent)
-                vmwareParams.PoweredOn = PoweredOn;
+                vmwareParams.PoweredOn = true;
             if(DisableNetwork.IsPresent)
                 vmwareParams.DisableNetwork = true;
             if(VmNamePrefix != null)
