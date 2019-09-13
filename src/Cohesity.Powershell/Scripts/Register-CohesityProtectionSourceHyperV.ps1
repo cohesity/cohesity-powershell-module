@@ -50,5 +50,3 @@ function Register-CohesityProtectionSourceHyperV
     $result
   } # End of process
 } # End of function
-
-Register-CohesityProtectionSourceHyperV -Server 10.2.39.68 -HyperVType "KSCVMMServer"
