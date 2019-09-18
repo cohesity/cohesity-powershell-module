@@ -35,8 +35,8 @@ function Get-ProtectionJob-Status {
                 } else {
                     $status = @{
                         Name=$jobIdAndName[$item.backupJobSummary.lastProtectionRun.backupRun.base.jobId]
-                        Start_Time=$null
-                        Estimated_Time=$null
+                        Start_Time=0
+                        Estimated_Time=0
                         Completed=100
                     }
                     $object = New-Object -TypeName PSObject -Property $status
@@ -67,10 +67,11 @@ function Get-ProtectionJob-Status {
         }
 
         $columnWidth = 20
-        $protectionJobStatusList | Format-Table  @{ Label=”PROTECTION JOB”; Expression={$_.Name}; Width=$columnWidth },
+        $protectionJobStatusList | Sort-Object  -Property Start_Time  -Descending | 
+        Format-Table  @{ Label=”PROTECTION JOB”; Expression={$_.Name}; Width=$columnWidth },
         @{ Label=”STARTED AT”; Expression={$_.Start_Time}; Width=$columnWidth },
         @{ Label=”ESTIMATED TIME”; Expression={$_.Estimated_Time};Width=$columnWidth },
-        @{ Label=”COMPLETED(%)”; Expression={$_.Completed}; Width=$columnWidth } 
+        @{ Label=”COMPLETED(%)”; Expression={$_.Completed}; Width=$columnWidth }
 
     }
 
