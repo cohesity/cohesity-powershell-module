@@ -30,11 +30,11 @@ function Get-ProtectionJob-Status {
         $resp = Invoke-RestMethod -Method 'Get' -Uri $url -Headers $headers -SkipCertificateCheck
         ForEach ($item in $resp) {
             if($activeJobIds.Contains($item.backupJobSummary.jobDescription.jobId)) {
-                if($item.backupJobSummary.lastProtectionRun.backupRun.base.publicStatus -notin "kSuccess") {
+                if($item.backupJobSummary.lastProtectionRun.backupRun.base.publicStatus -notin "kSuccess" -AND $null -notlike $item.backupJobSummary.lastProtectionRun.backupRun.activeAttempt.base.progressMonitorTaskPath) {
                     $r = $activeTasks.Add($item.backupJobSummary.lastProtectionRun.backupRun.activeAttempt.base.progressMonitorTaskPath)
                 } else {
                     $status = @{
-                        Name=$jobIdAndName[$item.backupJobSummary.lastProtectionRun.backupRun.base.jobId]
+                        Name=$jobIdAndName[$item.backupJobSummary.jobDescription.jobId]
                         Start_Time=0
                         Estimated_Time=0
                         Completed=100
