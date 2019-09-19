@@ -7,13 +7,12 @@ function Invoke-RestApi
         $Method,
         $Body
     )
-    if ($PSVersionTable.PSVersion.Major -ge 6) {
+    If ($PSVersionTable.PSVersion.Major -ge 6) {
             $result =  Invoke-WebRequest -UseBasicParsing -SkipCertificateCheck @PSBoundParameters
     } else {
         Allow-SelfSignedCertificates
         $result = Invoke-WebRequest -UseBasicParsing @PSBoundParameters
     }
-
     return ($result.Content | ConvertFrom-Json)
 }
 
