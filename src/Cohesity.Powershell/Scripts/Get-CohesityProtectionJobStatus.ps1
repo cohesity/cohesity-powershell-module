@@ -38,7 +38,7 @@ class ProtectionJobStatus {
     }
 }
 
-function Get-ProtectionJob-Status {
+function Get-CohesityProtectionJobStatus {
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory=$false)]
@@ -161,4 +161,4 @@ function Get-ProtectionJob-Status {
     End {
     }
 }
-Get-ProtectionJob-Status
+Get-CohesityProtectionJobStatus
