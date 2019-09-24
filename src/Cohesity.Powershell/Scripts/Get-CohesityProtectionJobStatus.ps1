@@ -33,7 +33,7 @@ class ProtectionJobStatus {
         if($this.startTime -eq 0) {
             return "0"
         }
-        $ret = ([DateTimeOffset]::FromUnixTimeSeconds($this.startTime)).DateTime
+        $ret = ([DateTimeOffset]::FromUnixTimeSeconds($this.startTime)).DateTime.ToLocalTime()
         return $ret.ToString()
     }
 }
