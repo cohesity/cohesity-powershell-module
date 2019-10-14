@@ -5,6 +5,7 @@ class AlertInfo {
     [String]$alertState
     [String]$alertCategory
     [String]$alertCause
+    [String]$resolutionId
 
     AlertInfo() {}
     AlertInfo(
@@ -13,7 +14,8 @@ class AlertInfo {
         [String]$severity,
         [String]$alertState,
         [String]$alertCategory,
-        [String]$alertCause
+        [String]$alertCause,
+        [String]$resolutionId
     ) {
         $this.id = $id
         $this.latestTimestampUsecs = $latestTimestampUsecs
@@ -21,6 +23,7 @@ class AlertInfo {
         $this.alertState = $alertState
         $this.alertCategory = $alertCategory
         $this.alertCause = $alertCause
+        $this.resolutionId = $resolutionId
     }
 
     [string]GetLatestTimestamp() {
@@ -61,14 +64,15 @@ function Get-CohesityAlerts {
 
         $alertList = New-Object System.Collections.ArrayList
         foreach($item in $resp) {
-            [AlertInfo]$alert = [AlertInfo]::new($item.id,$item.latestTimestampUsecs,$item.severity,$item.alertState,$item.alertCategory,$item.alertDocument.alertCause)
+            [AlertInfo]$alert = [AlertInfo]::new($item.id,$item.latestTimestampUsecs,$item.severity,$item.alertState,$item.alertCategory,$item.alertDocument.alertCause,$item.resolutionDetails.resolutionId)
             $alertList += $alert
         }
 
         $columnWidth = 20
         $alertList | Sort-Object  -Property alertState  -Descending |
-        Format-Table @{ Label=”ID”; Expression={$_.id};},  
+        Format-Table @{ Label=”ID”; Expression={$_.id};},
         @{ Label=”ALERT STATE”; Expression={$_.alertState}; Width=$columnWidth; },
+        @{ Label=”RESOLUTION ID”; Expression={$_.resolutionId}; Width=$columnWidth; },
         @{ Label=”ALERT CATEGORY”; Expression={$_.alertCategory}; Width=$columnWidth },
         @{ Label=”SEVERITY”; Expression={$_.severity}; Width=$columnWidth },
         @{ Label=”LATEST TIMESTAMP”; Expression={$_.GetLatestTimestamp()};Width=$columnWidth },

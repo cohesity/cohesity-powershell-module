@@ -1,12 +1,10 @@
-function Add-CohesityAlertResolutions {
+function Set-CohesityAlertResolutions {
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory = $true)]
+        [String]$resolvedAlertId,
+        [Parameter(Mandatory = $true)]
         [String[]]$alertIds,
-        [Parameter(Mandatory = $true)]
-        [String]$resolutionSummary,
-        [Parameter(Mandatory = $true)]
-        [String]$resolutionDetails,
         [Parameter(Mandatory = $false)]
         [String]$server,
         [Parameter(Mandatory = $false)]
@@ -24,18 +22,14 @@ function Add-CohesityAlertResolutions {
     }
 
     Process {
-        $url = $server + '/irisservices/api/v1/public/alertResolutions'
+        $url = $server + '/irisservices/api/v1/public/alertResolutions/'+$resolvedAlertId
 
         $headers = @{'Authorization'='Bearer '+$token}
         $payload = @{
             alertIdList=$alertIds
-            resolutionDetails=@{
-                resolutionDetails=$resolutionDetails
-                resolutionSummary=$resolutionSummary
-            }
         }
         $payloadJson = $payload  | ConvertTo-Json
-        $resp = Invoke-RestMethod -Method 'Post' -Uri $url -Headers $headers -Body $payloadJson -SkipCertificateCheck
+        $resp = Invoke-RestMethod -Method 'Put' -Uri $url -Headers $headers -Body $payloadJson -SkipCertificateCheck
         $json = $resp  | ConvertTo-Json
         Write-Host $json
 
@@ -44,4 +38,4 @@ function Add-CohesityAlertResolutions {
     }
 }
 
-Add-CohesityAlertResolutions
+Set-CohesityAlertResolutions
