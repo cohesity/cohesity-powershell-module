@@ -36,8 +36,8 @@ function Add-CohesityAlertResolutions {
         }
         $payloadJson = $payload  | ConvertTo-Json
         $resp = Invoke-RestMethod -Method 'Post' -Uri $url -Headers $headers -Body $payloadJson -SkipCertificateCheck
-        $json = $resp  | ConvertTo-Json
-        Write-Host $json
+        $resolutionId = $resp.resolutionDetails.resolutionId
+        Write-Host "Successfully created a resolution for the alert with id ="$resolutionId
 
     }
     End {
