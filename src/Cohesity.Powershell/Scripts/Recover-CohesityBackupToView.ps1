@@ -3,11 +3,11 @@ function Recover-CohesityBackupToView {
     Param(
         [Parameter(Mandatory = $false)]
         [String]$SourceName,
-        [Parameter(Mandatory = $false)]
+        [Parameter(Mandatory = $true)]
         [String]$ViewName,
-        [Parameter(Mandatory = $false)]
+        [Parameter(Mandatory = $true)]
         [String]$QOSPolicy,
-        [Parameter(Mandatory = $false)]
+        [Parameter(Mandatory = $true)]
         [String]$ProtectionJobName,
         [Parameter(Mandatory = $false)]
         [String]$server,
@@ -27,9 +27,6 @@ function Recover-CohesityBackupToView {
 
     Process {
         $random = Get-Random -Minimum -100000 -Maximum 1000000
-        $ProtectionJobName = "job-nas"
-        $QOSPolicy = "TestAndDev High"
-        $ViewName = "nas-backup-view-"+$random.ToString()
 
         $url = $server + '/irisservices/api/v1/public/restore/objects?search=' + $ProtectionJobName
 
@@ -45,13 +42,16 @@ function Recover-CohesityBackupToView {
         $protectionSourceId = $null
         $sourceName = $null
         $startedTimeUsecs = $null
+        $errorMeaaage = $null
         foreach ($item in $resp.objectSnapshotInfo) {
             # $json = $item | ConvertTo-Json
             # Write-Host $json
-            if($item.environment -ne "kGenericNas" -AND $item.environment -AND "kNetapp" -AND $item.environment -ne "kIsilon") {
+            if($item.snapshottedSource.environment -ne "kGenericNas" -AND $item.snapshottedSource.environment -ne "kNetapp" -AND $item.snapshottedSource.environment -ne "kIsilon") {
+                $errorMeaaage = "None of the NAS environment found"
                 continue
             }
-            if($item.snapshottedSource.nasProtectionSource.protocol -ne "kNfs3" -AND $item.snapshottedSource.nasProtectionSource.protocol -ne "kCifs1") {
+            if ($item.snapshottedSource.environment -eq "kGenericNas" -AND $item.snapshottedSource.nasProtectionSource.protocol -ne "kNfs3" -AND $item.snapshottedSource.nasProtectionSource.protocol -ne "kCifs1") {
+                $errorMeaaage = "Incompatible protocol for kGenericNas"
                 continue
             }
 
@@ -67,12 +67,12 @@ function Recover-CohesityBackupToView {
             }
         }
         if($searchSuccess -eq $false) {
-            Write-Host "Could not find objects, protected by job " $ProtectionJobName
+            Write-Host "Could not find NAS source, protected by job '$ProtectionJobName', Error : $errorMeaaage"
             return
         }
-        
+
         # Write-Host  "Job id ="$jobId     ",Job run id ="$jobRunId       ",Protection source id ="$protectionSourceId    ",Source name ="$sourceName     ",Start time ="$startedTimeUsecs
-        $object = @{    
+        $object = @{
             environment="kVMware"
             jobId=$jobId
             jobRunId=$jobRunId
@@ -114,4 +114,4 @@ function Recover-CohesityBackupToView {
     }
 }
 
-Recover-CohesityBackupToView
+Recover-CohesityBackupToView -QOSPolicy "TestAndDev High"
