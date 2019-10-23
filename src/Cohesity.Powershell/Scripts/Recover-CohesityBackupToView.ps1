@@ -5,14 +5,10 @@ function Recover-CohesityBackupToView {
         [String]$SourceName,
         [Parameter(Mandatory = $true)]
         [String]$ViewName,
-        [Parameter(Mandatory = $true)]
-        [String]$QOSPolicy,
-        [Parameter(Mandatory = $true)]
-        [String]$ProtectionJobName,
         [Parameter(Mandatory = $false)]
-        [String]$server,
-        [Parameter(Mandatory = $false)]
-        [String]$token
+        [String]$QOSPolicy="TestAndDev High",
+        [Parameter(Mandatory = $true)]
+        [String]$ProtectionJobName
     )
     Begin {
         if (-not (Test-Path -Path "$HOME/.cohesity")) {
@@ -113,5 +109,3 @@ function Recover-CohesityBackupToView {
     End {
     }
 }
-
-Recover-CohesityBackupToView -QOSPolicy "TestAndDev High"
