@@ -477,7 +477,10 @@
                 <ScriptBlock>$_.BackupRun.Environment</ScriptBlock>
               </TableColumnItem>
               <TableColumnItem>
-               <ScriptBlock>$_.BackupRun.Status</ScriptBlock>
+                <ScriptBlock> $_.BackupRun.Stats.numSuccessfulTasks, $_.BackupRun.Stats.numFailedTasks </ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>$_.BackupRun.Status</ScriptBlock>
               </TableColumnItem>
               <TableColumnItem>
                 <ScriptBlock>if($_.BackupRun.SnapshotsDeleted){"True"}else{"False"}</ScriptBlock>
@@ -502,6 +505,9 @@
           <TableColumnHeader/>
           <TableColumnHeader>
             <Label>Environment</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Success/Error</Label>
           </TableColumnHeader>
           <TableColumnHeader>
             <Label>Status</Label>
