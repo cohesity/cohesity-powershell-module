@@ -1,45 +1,14 @@
-function UpdateAlertResolution($alertIds, $resolvedAlertId) {
-    $url = $server + '/irisservices/api/v1/public/alertResolutions/'+$resolvedAlertId
-
-    $headers = @{'Authorization'='Bearer '+$token}
-    $payload = @{
-        alertIdList=@($alertIds)
-    }
-    $payloadJson = $payload  | ConvertTo-Json
-    $resp = Invoke-RestMethod -Method 'Put' -Uri $url -Headers $headers -Body $payloadJson -SkipCertificateCheck
-    $resolutionId = $resp.resolutionDetails.resolutionId
-    Write-Host "Successfully updated the resolution for the alert with id ="$resolutionId
-
-}
-function CreateAlertResolution($alertIds, $resolutionSummary, $resolutionDetails) {
-    $url = $server + '/irisservices/api/v1/public/alertResolutions'
-
-    $headers = @{'Authorization'='Bearer '+$token}
-    $payload = @{
-        alertIdList=@($alertIds)
-        resolutionDetails=@{
-            resolutionDetails=$resolutionDetails
-            resolutionSummary=$resolutionSummary
-        }
-    }
-    $payloadJson = $payload  | ConvertTo-Json
-    # Write-Host $payloadJson
-    $resp = Invoke-RestMethod -Method 'Post' -Uri $url -Headers $headers -Body $payloadJson -SkipCertificateCheck
-    $resolutionId = $resp.resolutionDetails.resolutionId
-    Write-Host "Successfully created a resolution for the alert with id ="$resolutionId
-
-}
 function Set-CohesityAlertResolutions {
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory = $false)]
-        [String]$resolvedAlertId = "",
+        $ResolutionId=$null,
         [Parameter(Mandatory = $true,ValueFromPipelineByPropertyName=$True)]
-        [alias("Id")][string[]]$alertIds,
+        [alias("Id")][string[]]$AlertIds,
         [Parameter(Mandatory = $false)]
-        [string]$resolutionSummary = "",
+        $ResolutionSummary=$null,
         [Parameter(Mandatory = $false)]
-        [string]$resolutionDetails = ""
+        $ResolutionDetails=$null
     )
     Begin {
         if (-not (Test-Path -Path "$HOME/.cohesity")) {
@@ -53,13 +22,34 @@ function Set-CohesityAlertResolutions {
     }
 
     Process {
-        if("" -eq $resolvedAlertId) {
-            if("" -eq $resolutionSummary) {
-                $resolutionSummary = "Resolved alerts through powershell cmdlets" #this is a mandatory field in the payload
+        if($null -eq $ResolutionId) {
+            if($null -eq $ResolutionSummary) {
+                $ResolutionSummary = "Resolved alerts through powershell cmdlets" #this is a mandatory field in the payload
             }
-            CreateAlertResolution $alertIds $resolutionSummary $resolutionDetails
+            $url = $server + '/irisservices/api/v1/public/alertResolutions'
+
+            $headers = @{'Authorization'='Bearer '+$token}
+            $payload = @{
+                alertIdList=@($AlertIds)
+                resolutionDetails=@{
+                    resolutionDetails=$ResolutionDetails
+                    resolutionSummary=$ResolutionSummary
+                }
+            }
+            $payloadJson = $payload  | ConvertTo-Json
+            $resp = Invoke-RestMethod -Method 'Post' -Uri $url -Headers $headers -Body $payloadJson -SkipCertificateCheck
+            Write-Host "Successfully created, the resolution id ="$resp.resolutionDetails.resolutionId
+        
         } else {
-            UpdateAlertResolution $alertIds $resolvedAlertId
+            $url = $server + '/irisservices/api/v1/public/alertResolutions/'+$ResolutionId
+
+            $headers = @{'Authorization'='Bearer '+$token}
+            $payload = @{
+                alertIdList=@($AlertIds)
+            }
+            $payloadJson = $payload  | ConvertTo-Json
+            $resp = Invoke-RestMethod -Method 'Put' -Uri $url -Headers $headers -Body $payloadJson -SkipCertificateCheck
+            Write-Host "Successfully updated, the resolution id ="$resp.resolutionDetails.resolutionId
         }
 
     }

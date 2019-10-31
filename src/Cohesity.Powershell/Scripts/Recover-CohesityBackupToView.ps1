@@ -2,10 +2,11 @@ function Recover-CohesityBackupToView {
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory = $false)]
-        [String]$SourceName,
+        $SourceName=$null,
         [Parameter(Mandatory = $true)]
-        [String]$ViewName,
+        [String]$TargetViewName,
         [Parameter(Mandatory = $false)]
+        [ValidateSet("Backup Target High","Backup Target Low","TestAndDev High","TestAndDev Low","Backup Target SSD","Backup Target Commvault")]
         [String]$QOSPolicy="TestAndDev High",
         [Parameter(Mandatory = $true)]
         [String]$ProtectionJobName
@@ -22,7 +23,7 @@ function Recover-CohesityBackupToView {
     }
 
     Process {
-        $random = Get-Random -Minimum -100000 -Maximum 1000000
+        $random = Get-Date -Format "dddd-MM-dd-yyyy-HH-mm-ss"
 
         $url = $server + '/irisservices/api/v1/public/restore/objects?search=' + $ProtectionJobName
 
@@ -36,44 +37,44 @@ function Recover-CohesityBackupToView {
         $jobId = $null
         $jobRunId = $null
         $protectionSourceId = $null
-        $sourceName = $null
         $startedTimeUsecs = $null
-        $errorMeaaage = $null
+        $errorMessage = $null
         foreach ($item in $resp.objectSnapshotInfo) {
-            # $json = $item | ConvertTo-Json
-            # Write-Host $json
             if($item.snapshottedSource.environment -ne "kGenericNas" -AND $item.snapshottedSource.environment -ne "kNetapp" -AND $item.snapshottedSource.environment -ne "kIsilon") {
-                $errorMeaaage = "None of the NAS environment found"
+                $errorMessage = "None of the NAS environment found"
                 continue
             }
             if ($item.snapshottedSource.environment -eq "kGenericNas" -AND $item.snapshottedSource.nasProtectionSource.protocol -ne "kNfs3" -AND $item.snapshottedSource.nasProtectionSource.protocol -ne "kCifs1") {
-                $errorMeaaage = "Incompatible protocol for kGenericNas"
+                $errorMessage = "Incompatible protocol for kGenericNas"
                 continue
             }
 
             if($item.jobName -eq $ProtectionJobName -AND $item.versions.length -gt 0) {
-                # Write-Host "Found the job name"  $ProtectionJobName
-                $searchSuccess = $true
                 $jobId  = $item.jobId
                 $jobRunId = $item.versions[0].jobRunId
                 $protectionSourceId = $item.snapshottedSource.id
-                $sourceName = $item.snapshottedSource.name
                 $startedTimeUsecs = $item.versions[0].startedTimeUsecs
-                break
+                if($null -eq $SourceName) {
+                    $searchSuccess = $true
+                    break
+                } 
+                if ($item.snapshottedSource.name -eq $SourceName) {
+                    $searchSuccess = $true
+                    break
+                }
+                $errorMessage = "Source name '$SourceName' not found"
             }
         }
         if($searchSuccess -eq $false) {
-            Write-Host "Could not find NAS source, protected by job '$ProtectionJobName', Error : $errorMeaaage"
+            Write-Host "Could not find NAS source, protected by job '$ProtectionJobName', Error : $errorMessage"
             return
         }
 
-        # Write-Host  "Job id ="$jobId     ",Job run id ="$jobRunId       ",Protection source id ="$protectionSourceId    ",Source name ="$sourceName     ",Start time ="$startedTimeUsecs
         $object = @{
-            environment="kVMware"
             jobId=$jobId
             jobRunId=$jobRunId
             protectionSourceId=$protectionSourceId
-            sourceName=$sourceName
+            sourceName=$SourceName
             startedTimeUsecs=$startedTimeUsecs
         }
 
@@ -90,7 +91,7 @@ function Recover-CohesityBackupToView {
                     principalName= $QOSPolicy
                 }
             }
-            viewName=$ViewName
+            viewName=$TargetViewName
         }
         $payloadJson = $payload | ConvertTo-Json
         Write-Host $payloadJson
@@ -99,8 +100,8 @@ function Recover-CohesityBackupToView {
 
         $headers = @{'Authorization'='Bearer '+$token}
         $resp = Invoke-RestMethod -Method 'Post' -Uri $url -Headers $headers -Body $payloadJson -SkipCertificateCheck
-        if($resp.fullViewName -eq $ViewName) {
-            Write-Host "Successfully restored from NAS backup to a view, " $ViewName
+        if($resp.fullViewName -eq $TargetViewName) {
+            Write-Host "Successfully restored from NAS backup to a view, " $TargetViewName
         } else {
             $error = $resp | ConvertTo-Json
             Write-Host "Failed to complete the task " + $error
