@@ -41,10 +41,6 @@ class ProtectionJobStatus {
 function Get-CohesityProtectionJobStatus {
     [CmdletBinding()]
     Param(
-        [Parameter(Mandatory=$false)]
-        [String]$server,
-        [Parameter(Mandatory=$false)]
-        [String]$token
     )
 
     Begin {
@@ -161,4 +157,3 @@ function Get-CohesityProtectionJobStatus {
     End {
     }
 }
-Get-CohesityProtectionJobStatus
