@@ -52,13 +52,14 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJobRun
         }
 
         #region Params
-
-        /// <summary>
-        /// <para type="description">
-        /// The name of the Protection Job.
-        /// </para>
-        /// </summary>
-        [Parameter(Mandatory = true)]
+        [Parameter(Mandatory = true, ValueFromPipeline = true, ParameterSetName = "ObjectModel")]
+        public Cohesity.Model.ProtectionRunInstance JobObject { get; set; }
+    /// <summary>
+    /// <para type="description">
+    /// The name of the Protection Job.
+    /// </para>
+    /// </summary>
+        [Parameter(Mandatory = true, ParameterSetName = "JobName")]
         [ValidateNotNullOrEmpty()]
         public string JobName { get; set; }
 
@@ -67,7 +68,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJobRun
         /// The unique id of the Protection Job Run.
         /// </para>
         /// </summary>
-        [Parameter(Mandatory = true)]
+        [Parameter(Mandatory = true, ParameterSetName = "JobName")]
         [ValidateRange(1, long.MaxValue)]
         public long JobRunId { get; set; }
 
@@ -98,6 +99,12 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJobRun
         /// </summary>
         protected override void ProcessRecord()
         {
+            if (JobObject != null){
+                JobName = JobObject.JobName;
+                JobRunId = (long)JobObject.BackupRun.JobRunId;
+            }
+
+
             if (ShouldProcess($"Job Run Id: {JobRunId} for Protection Job: {JobName}"))
             {
                 var job = RestApiCommon.GetProtectionJobByName(Session.ApiClient, JobName);

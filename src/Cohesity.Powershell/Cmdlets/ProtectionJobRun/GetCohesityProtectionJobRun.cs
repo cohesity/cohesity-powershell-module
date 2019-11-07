@@ -49,7 +49,8 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJobRun
         /// If not specified, all job runs for all protection jobs are returned.
         /// </para>
         /// </summary>
-        [Parameter(Mandatory = false)]
+        [Parameter(Mandatory = false, ValueFromPipelineByPropertyName = true, ParameterSetName = "Id")]
+        [Alias ("Id")]
         public long? JobId { get; set; }
 
         /// <summary>

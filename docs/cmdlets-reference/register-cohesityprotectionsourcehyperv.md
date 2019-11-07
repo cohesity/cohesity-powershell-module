@@ -1,12 +1,12 @@
 # Register-CohesityProtectionSourceHyperV
 
 ## SYNOPSIS
-Registers a new HyperV protection source with the Cohesity Cluster.
+Registers a new HyperV protection source with the Cohesity Cluster. The HyperV type can be a SCVMM server or HyperV Host.
 
 ## SYNTAX
 
 ```
-Register-CohesityProtectionSourceHyperV -Credential <PSCredential> -Server <string> [<CommonParameters>]
+Register-CohesityProtectionSourceHyperV -Credential <PSCredential> -Server <string> -HyperVType <Object> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -16,10 +16,17 @@ Registers a new HyperV protection source with the Cohesity Cluster.
 
 ### EXAMPLE 1
 ```
-Register-CohesityProtectionSourceHyperV -Server scvmm.example.com -Credential (Get-Credential)
+Register-CohesityProtectionSourceHyperV -Server scvmm.example.com -Credential (Get-Credential) -HyperVType KSCVMMServer
 ```
 
 Registers a new SCVMM server with hostname "scvmm.example.com" with the Cohesity Cluster.
+
+### EXAMPLE 2
+```
+Register-CohesityProtectionSourceHyperV -Server hyperV-host.example.com -Credential (Get-Credential) -HyperVType KHyperVHost
+```
+
+Registers a new HyperV host "scvmm.example.com" with the Cohesity Cluster.
 
 ## PARAMETERS
 
