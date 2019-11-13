@@ -37,7 +37,7 @@ function Set-CohesityAlertResolutions {
                 }
             }
             $payloadJson = $payload  | ConvertTo-Json
-            $resp = Invoke-RestMethod -Method 'Post' -Uri $url -Headers $headers -Body $payloadJson -SkipCertificateCheck
+            $resp = Invoke-RestApi -Method 'Post' -Uri $url -Headers $headers -Body $payloadJson 
             Write-Host "Successfully created, the resolution id ="$resp.resolutionDetails.resolutionId
         
         } else {
@@ -48,7 +48,7 @@ function Set-CohesityAlertResolutions {
                 alertIdList=@($AlertIds)
             }
             $payloadJson = $payload  | ConvertTo-Json
-            $resp = Invoke-RestMethod -Method 'Put' -Uri $url -Headers $headers -Body $payloadJson -SkipCertificateCheck
+            $resp = Invoke-RestApi -Method 'Put' -Uri $url -Headers $headers -Body $payloadJson
             Write-Host "Successfully updated, the resolution id ="$resp.resolutionDetails.resolutionId
         }
 

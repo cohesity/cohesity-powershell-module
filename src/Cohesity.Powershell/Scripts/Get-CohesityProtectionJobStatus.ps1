@@ -2,8 +2,8 @@ class ProtectionJobStatus {
     [String]$jobName
     [Boolean]$remoteCopy
     [int]$jobId
-    [ulong]$startTime
-    [ulong]$estimatedTime
+    $startTime
+    $estimatedTime
     [double]$percentCompleted
 
     ProtectionJobStatus(){}
@@ -11,8 +11,8 @@ class ProtectionJobStatus {
         [String]$jobName,
         [Boolean]$remoteCopy,
         [int]$jobId,
-        [ulong]$startTime,
-        [ulong]$estimatedTime,
+        $startTime,
+        $estimatedTime,
         [double]$percentCompleted
     ){
         $this.jobName = $jobName
@@ -59,7 +59,7 @@ function Get-CohesityProtectionJobStatus {
         $url = $server + '/irisservices/api/v1/public/protectionJobs?isDeleted=false'
 
         $headers = @{'Authorization'='Bearer '+$token}
-        $resp = Invoke-RestMethod -Method 'Get' -Uri $url -Headers $headers -SkipCertificateCheck
+        $resp = Invoke-RestApi -Method 'Get' -Uri $url -Headers $headers
         $jobIdAndName = @{}
         $activeJobIds = New-Object System.Collections.ArrayList
         ForEach ($item in $resp) {
@@ -69,7 +69,7 @@ function Get-CohesityProtectionJobStatus {
 
         $jobIdAndRemoteStatus = @{}
         $url = $server + '/irisservices/api/v1/public/protectionRuns'
-        $resp = Invoke-RestMethod -Method 'Get' -Uri $url -Headers $headers -SkipCertificateCheck
+        $resp = Invoke-RestApi -Method 'Get' -Uri $url -Headers $headers
         foreach ($item in $resp) {
             if($item.backupRun.status -eq "kSuccess") {
                 if($false -eq $jobIdAndRemoteStatus.ContainsKey($item.jobId)) {
@@ -90,7 +90,7 @@ function Get-CohesityProtectionJobStatus {
         $protectionJobStatusList = @()
         $activeTasks = New-Object System.Collections.ArrayList
         $url = $server + '/irisservices/api/v1/backupjobssummary?_includeTenantInfo=true&allUnderHierarchy=true&includeJobsWithoutRun=true&isDeleted=false&numRuns=1000&onlyReturnBasicSummary=true&onlyReturnJobDescription=false'
-        $resp = Invoke-RestMethod -Method 'Get' -Uri $url -Headers $headers -SkipCertificateCheck
+        $resp = Invoke-RestApi -Method 'Get' -Uri $url -Headers $headers
         ForEach ($item in $resp) {
             if($activeJobIds.Contains($item.backupJobSummary.jobDescription.jobId)) {
                 if($item.backupJobSummary.lastProtectionRun.backupRun.base.publicStatus -notin "kSuccess" -AND $null -notlike $item.backupJobSummary.lastProtectionRun.backupRun.activeAttempt.base.progressMonitorTaskPath) {
@@ -110,7 +110,7 @@ function Get-CohesityProtectionJobStatus {
         }
         foreach ($item in $activeTasks) {
             $url = $server + '/irisservices/api/v1/progressMonitors?=excludeSubTasks=true&includeFinishedTasks=true&taskPathVec='+$item
-            $resp = Invoke-RestMethod -Method 'Get' -Uri $url -Headers $headers -SkipCertificateCheck
+            $resp = Invoke-RestApi -Method 'Get' -Uri $url -Headers $headers
             $task = $resp.resultGroupVec[0].taskVec[0].progress
             $jobName = ""
             $jobId = 0
@@ -146,12 +146,12 @@ function Get-CohesityProtectionJobStatus {
 
         $columnWidth = 20
         $protectionJobStatusList | Sort-Object  -Property startTime  -Descending |
-        Format-Table @{ Label=”ID”; Expression={$_.jobId};},  
-        @{ Label=”NAME”; Expression={$_.jobName}; Width=$columnWidth; },
-        @{ Label=”REMOTE COPY”; Expression={$_.remoteCopy}; Width=$columnWidth },
-        @{ Label=”STARTED AT”; Expression={$_.GetStartTime()}; Width=$columnWidth },
-        @{ Label=”ESTIMATED TIME”; Expression={$_.GetEstimatedTime()};Width=$columnWidth },
-        @{ Label=”COMPLETED(%)”; Expression={$_.percentCompleted}; Width=$columnWidth }
+        Format-Table @{ Label='ID'; Expression={$_.jobId};},  
+        @{ Label='NAME'; Expression={$_.jobName}; Width=$columnWidth; },
+        @{ Label='REMOTE COPY'; Expression={$_.remoteCopy}; Width=$columnWidth },
+        @{ Label='STARTED AT'; Expression={$_.GetStartTime()}; Width=$columnWidth },
+        @{ Label='ESTIMATED TIME'; Expression={$_.GetEstimatedTime()};Width=$columnWidth },
+        @{ Label='COMPLETED(%)'; Expression={$_.percentCompleted}; Width=$columnWidth }
     }
 
     End {

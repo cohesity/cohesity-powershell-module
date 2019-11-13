@@ -28,7 +28,7 @@ function Recover-CohesityBackupToView {
         $url = $server + '/irisservices/api/v1/public/restore/objects?search=' + $ProtectionJobName
 
         $headers = @{'Authorization'='Bearer '+$token}
-        $resp = Invoke-RestMethod -Method 'Get' -Uri $url -Headers $headers -SkipCertificateCheck
+        $resp = Invoke-RestApi -Method 'Get' -Uri $url -Headers $headers
         if ($resp.objectSnapshotInfo.length -eq 0) {
             Write-Host "There are no objects available for restoration, protected by " $ProtectionJobName
             return
@@ -99,7 +99,7 @@ function Recover-CohesityBackupToView {
         $url = $server + '/irisservices/api/v1/public/restore/recover'
 
         $headers = @{'Authorization'='Bearer '+$token}
-        $resp = Invoke-RestMethod -Method 'Post' -Uri $url -Headers $headers -Body $payloadJson -SkipCertificateCheck
+        $resp = Invoke-RestApi -Method 'Post' -Uri $url -Headers $headers -Body $payloadJson
         if($resp.fullViewName -eq $TargetViewName) {
             Write-Host "Successfully restored from NAS backup to a view, " $TargetViewName
         } else {
