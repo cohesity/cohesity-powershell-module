@@ -112,6 +112,36 @@
     <ProjectReference Include="..\Cohesity.Powershell.Models\Cohesity.Powershell.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Scripts\Alert\Set-CohesityAlertResolutions.ps1">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Scripts\ProtectionJob\Get-CohesityProtectionJobStatus.ps1">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Scripts\ProtectionSource\Register-CohesityProtectionSourceHyperV.ps1">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Scripts\ProtectionSource\Register-CohesityProtectionSourceO365.ps1">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Scripts\Tenant\Get-CohesityOrganization.ps1">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Scripts\User\Remove-CohesityUser.ps1">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Scripts\Utility\Allow-SelfSignedCertificates.ps1">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Scripts\Utility\Invoke-RestApi.ps1">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Scripts\View\Recover-CohesityBackupToView.ps1">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
   <Target Name="CopyCmdletDoc" AfterTargets="Build">
     <Copy SourceFiles="$(net451Target)\Cohesity.Powershell.dll-Help.xml" DestinationFiles="$(netcoreapp20Target)\Cohesity.Powershell.Core.dll-Help.xml" ContinueOnError="false" />
   </Target>
