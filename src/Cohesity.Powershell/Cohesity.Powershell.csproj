@@ -116,6 +116,9 @@
     <None Update="Scripts\Alert\Set-CohesityAlertResolutions.ps1">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Scripts\ProtectionJobRun\Update-CohesityProtectionJobRun.ps1">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Scripts\ProtectionJob\Get-CohesityProtectionJobStatus.ps1">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

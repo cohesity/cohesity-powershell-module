@@ -15,7 +15,7 @@ function Update-CohesityProtectionJobRun {
 	[CmdletBinding()]
 	param(
 		[Parameter(Mandatory = $False)]
-		$ProtectionJobName,
+		$ProtectionJobName = $null,
 		[Parameter(Mandatory = $False)]
 		[string[]]$JobRunIds = $null,
 		[Parameter(Mandatory = $False)]
@@ -25,7 +25,7 @@ function Update-CohesityProtectionJobRun {
 		[Parameter(Mandatory = $True)]
 		[Int64]$ExtendRetention = $null,
 		[Parameter(ValueFromPipeline=$True, DontShow=$True)]
-		[object[]]$BackupJobRuns
+		[object[]]$BackupJobRuns = $null
 	)
 
 	begin {
@@ -44,7 +44,8 @@ function Update-CohesityProtectionJobRun {
 		$token = 'Bearer ' + $session.Accesstoken.Accesstoken
 		$headers = @{ "Authorization" = $token }
 		$jobUpdated = 0
-		$failedJobrunIds = @()
+		$failedJobRunIds = @()
+		$succeedJobRunIds = @()
 
 		#Collect all the job run ids from the backup run details fetched through pipeline, if the user doesn't provide any run ids
 		if($null -ne $BackupJobRuns) {
@@ -133,6 +134,7 @@ function Update-CohesityProtectionJobRun {
 							$updateResp = Invoke-RestApi -Method 'Put' -Uri $url -Headers $headers -Body $payloadJson
 
 							$jobUpdated += 1
+							$succeedJobRunIds += $JobRun.backupRun.jobRunId
 							$global:updatedJobRundIds += $JobRun.backupRun.jobRunId
 						} catch {
 							$failedJobRunIds += $JobRun.backupRun.jobRunId
@@ -142,18 +144,20 @@ function Update-CohesityProtectionJobRun {
 				}
 			}
 
-			if ($jobUpdated -eq $JobRunIds.length) {
-				Write-Host "Updated the snapshot retention for job run id(s) $JobRunIds, successfully for the job '$ProtectionJobName'"
-			} else {
+			if ($failedJobRunIds.length -ne 0) {
 				Write-Warning "Some of the snapshot's retention is not updated, with job run id(s) $failedJobrunIds"
 			}
+			if ($succeedJobRunIds.length -ne 0) {
+				Write-Host "Updated the snapshot retention for job run id(s) $succeedJobRunIds, successfully for the job '$ProtectionJobName'"
+			}
 		} else {
-			Write-Host "Protection job '$ProtectionJobName' doesn't exist."
-			return
+			Write-Host "Backup job run details are unavilable"
 		}
 	}
 
 	End {
-		Get-CohesityProtectionJobRun -JobName $ProtectionJobName | Where-Object {$global:updatedJobRundIds -contains $_.backupRun.jobRunId}
+		if ($ProtectionJobName) {
+			Get-CohesityProtectionJobRun -JobName $ProtectionJobName | Where-Object {$global:updatedJobRundIds -contains $_.backupRun.jobRunId}
+		}
     }
 }
