@@ -110,7 +110,6 @@ function Update-CohesityProtectionJobRun {
 					if ($snapshotDeleted -eq $false) {
 						$copyRunTarget = @{
 							daysToKeep = $ExtendRetention
-							holdForLegalPurpose = $true
 							type = "kLocal"
 						}
 
