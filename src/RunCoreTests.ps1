@@ -1,7 +1,7 @@
 $currentPath=pwd
 #Update the Cohesity Powershell module by reinstalling the module
-UnInstall-Module -Name Cohesity.PowerShell -AllVersions  -Verbose
-Install-Module -Name Cohesity.PowerShell -Repository LocalPSRepo -Verbose
+UnInstall-Module -Name Cohesity.PowerShell.Core -AllVersions  -Verbose
+Install-Module -Name Cohesity.PowerShell.Core
 
 #Navigate to SDK-Generation folder
 $targetTestPath = "..\..\sdk-generation\powershell-tests"
