@@ -37,8 +37,42 @@ namespace Cohesity.Model
         /// Specifies additional email addresses where alert notifications (configured in the AlertingPolicy) must be sent.
         /// </summary>
         /// <value>Specifies additional email addresses where alert notifications (configured in the AlertingPolicy) must be sent.</value>
+        private List<string> __emailAddresses;
         [DataMember(Name="emailAddresses", EmitDefaultValue=true)]
-        public List<string> EmailAddresses { get; set; }
+        public List<string> EmailAddresses
+        {
+            get
+            {
+                return this.__emailAddresses;
+            }
+ 
+            set
+            {
+                this.__emailAddresses = value;
+                SetEmailDeliveryTargets(this.__emailAddresses);
+            }
+        }
+        private void SetEmailDeliveryTargets(List<string> emailAddresses)
+        {
+            if (null != emailAddresses)
+            {
+                if (null == this.EmailDeliveryTargets)
+                {
+                    this.EmailDeliveryTargets = new List<EmailDeliveryTarget>();
+                }
+                this.EmailDeliveryTargets.Clear();
+                foreach (string item in this.__emailAddresses)
+                {
+                    this.EmailDeliveryTargets.Add(new EmailDeliveryTarget(item));
+                }
+            }
+        }
+        /// <summary>
+        /// Specifies additional email addresses where alert notifications (configured in the AlertingPolicy) must be sent.
+        /// </summary>
+        /// <value>Specifies additional email addresses where alert notifications (configured in the AlertingPolicy) must be sent.</value>
+        [DataMember(Name="emailDeliveryTargets", EmitDefaultValue=false)]
+        public List<EmailDeliveryTarget> EmailDeliveryTargets { get; set; }
 
         /// <summary>
         /// Specifies the boolean to raise per object alert for failures.
