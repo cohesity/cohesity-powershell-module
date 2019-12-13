@@ -23,7 +23,7 @@ Registers a new SCVMM server with hostname "scvmm.example.com" with the Cohesity
 
 ### EXAMPLE 2
 ```
-Register-CohesityProtectionSourceHyperV -Server hyperV-host.example.com -Credential (Get-Credential) -HyperVType KHyperVHost
+Register-CohesityProtectionSourceHyperV -Server hyperV-host.example.com -HyperVType KHyperVHost
 ```
 
 Registers a new HyperV host "scvmm.example.com" with the Cohesity Cluster.
