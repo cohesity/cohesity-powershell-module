@@ -1,3 +1,8 @@
+#### USAGE ####
+#	********************** Using Function *********************
+#   New-CohesityActiveDirectoryConfiguration -DomainName cohesity.com -UserName administrator -MachineAccounts "Test"
+#   New-CohesityActiveDirectoryConfiguration -DomainName cohesity.com -UserName administrator -MachineAccounts "Test" -Password (ConvertTo-SecureString "secret" -AsPlainText -Force)
+###############
 function New-CohesityActiveDirectoryConfiguration {
     [CmdletBinding()]
     Param(
@@ -40,12 +45,19 @@ function New-CohesityActiveDirectoryConfiguration {
             password                   = $PlainPassword
         }
         $payloadJson = $payload | ConvertTo-Json
-        $resp = Invoke-RestApi -Method Post -Uri $url -Headers $headers -Body $payloadJson
-        if ($resp) {
-            $resp
-        }
-        else {
-            Write-Host "Failed to create, active directory configuration"
+        try {
+            $resp = Invoke-RestApi -Method Post -Uri $url -Headers $headers -Body $payloadJson
+            if ($resp) {
+                $resp
+            }
+            else {
+                $errorMessage = "Failed to create, active directory configuration"
+                Write-Host $errorMessage
+                CSLog -Message $errorMessage
+            }
+        } catch {
+            Write-Error $_.Exception.Message
+            CSLog -Message $_.Exception.Message -Severity 3
         }
     }
     End {

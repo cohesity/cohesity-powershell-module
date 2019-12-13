@@ -1,3 +1,7 @@
+#### USAGE ####
+#	********************** Using Function *********************
+#   Get-CohesityActiveDirectoryConfiguration -DomainNames "cohesity.com","abc.com"
+###############
 function Get-CohesityActiveDirectoryConfiguration {
     [CmdletBinding()]
     Param(
@@ -24,26 +28,12 @@ function Get-CohesityActiveDirectoryConfiguration {
         }
 
         $headers = @{'Authorization' = 'Bearer ' + $token }
-        $resp = Invoke-RestApi -Method Get -Uri $url -Headers $headers
-        if ($DomainNames) {
-            foreach($domainName in $DomainNames) {
-                $domainDetails = $null
-                $foundDomainName = $false
-                foreach($item in $resp) {
-                    if($item.domainName -eq $domainName) {
-                        $foundDomainName = $true
-                        $domainDetails = $item
-                    }
-                }
-                if($foundDomainName) {
-                    $domainDetails
-                } else {
-                    Write-Host "Active Directory domain name '$domainName' not found"
-                }
-            }
-        }
-        else {
+        try {
+            $resp = Invoke-RestApi -Method Get -Uri $url -Headers $headers
             $resp
+        } catch {
+            Write-Error $_.Exception.Message
+            CSLog -Message $_.Exception.Message -Severity 3
         }
     }
     End {
