@@ -46,6 +46,7 @@
 - [Get-CohesityViewShare](cmdlets-reference/get-cohesityviewshare.md)
 - [Add-CohesityViewShare](cmdlets-reference/add-cohesityviewshare.md)
 - [Remove-CohesityViewShare](cmdlets-reference/remove-cohesityviewshare.md)
+- [Recover-CohesityBackupToView](cmdlets-reference/recover-cohesitybackuptoview.md)
 
 
 - **Data Protection**
@@ -82,12 +83,15 @@
 - [Get-CohesityProtectionJobRun](cmdlets-reference/get-cohesityprotectionjobrun.md)
 - [Set-CohesitySnapshotRetention](cmdlets-reference/set-cohesitysnapshotretention.md)
 - [Remove-CohesitySnapshot](cmdlets-reference/remove-cohesitysnapshot.md)
+- [Get-CohesityProtectionJobStatus](cmdlets-reference/get-cohesityprotectionjobstatus.md)
+- [Update-CohesityProtectionJobRun](cmdlets-reference/update-cohesityprotectionjobrun.md)
 
 
 - **Monitoring**
 - [Get-CohesityAlert](cmdlets-reference/get-cohesityalert.md)
 - [Get-CohesityAlertResolution](cmdlets-reference/get-cohesityalertresolution.md)
 - [Get-CohesityAuditLog](cmdlets-reference/get-cohesityauditlog.md)
+- [Set-CohesityAlertResolutions](cmdlets-reference/set-cohesityalertresolutions.md)
 
 
 - **Recovery**
