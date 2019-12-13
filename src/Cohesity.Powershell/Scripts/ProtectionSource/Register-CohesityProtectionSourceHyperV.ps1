@@ -2,14 +2,14 @@ function Register-CohesityProtectionSourceHyperV
 {
   [CmdletBinding()]
   Param(
-    [Parameter(Mandatory=$true)]
+    [Parameter(Position=0, Mandatory=$true)]
     [ValidateNotNullOrEmpty()]
     [String]$Server,
     [Parameter(Mandatory=$true)]
     [ValidateNotNullOrEmpty()]
     [ValidateSet('KSCVMMServer','KHyperVHost')]
     $HyperVType,
-    [Parameter(Mandatory=$true)]
+    [Parameter(Mandatory=$false)]
     [ValidateNotNullOrEmpty()]
     [System.Management.Automation.PSCredential]$Credentials
   )
@@ -28,7 +28,7 @@ function Register-CohesityProtectionSourceHyperV
     $headers = @{"Authorization"=$token}
     $uri = $session.ClusterUri + '/irisservices/api/v1/public/protectionSources/register'
 
-    if ($HyperVType = 'KSCVMMServer'){
+    if ($HyperVType -eq 'KSCVMMServer'){
       $reqParameters = @{
         environment = "kHyperV"
         username = $Credentials.UserName
@@ -41,12 +41,16 @@ function Register-CohesityProtectionSourceHyperV
       $reqParameters = @{
         environment = "kHyperV"
         endpoint = $Server
-        hyperVType = "kHypervHost"
+        hyperVType = "kStandaloneHost"
       }
     } 
 
+    $columnWidth = 20
     $request = $reqParameters | ConvertTo-Json
-    $result = Invoke-RestApi -Method Post -Headers $headers -Uri $uri -Body $request
-    $result
+    Invoke-RestApi -Method Post -Headers $headers -Uri $uri -Body $request |
+    Format-Table @{ Label='ID'; Expression={$_.id}; },  
+    @{ Label='Name'; Expression={$_.name}; Width=$columnWidth; },
+    @{ Label='Environment'; Expression={$_.environment}; Width=$columnWidth },
+    @{ Label='Type'; Expression={$_.hypervProtectionSource.type}; Width=$columnWidth }
   } # End of process
 } # End of function
