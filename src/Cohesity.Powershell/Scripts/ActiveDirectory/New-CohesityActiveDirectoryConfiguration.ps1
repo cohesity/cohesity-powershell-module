@@ -45,19 +45,14 @@ function New-CohesityActiveDirectoryConfiguration {
             password                   = $PlainPassword
         }
         $payloadJson = $payload | ConvertTo-Json
-        try {
-            $resp = Invoke-RestApi -Method Post -Uri $url -Headers $headers -Body $payloadJson
-            if ($resp) {
-                $resp
-            }
-            else {
-                $errorMessage = "Failed to create, active directory configuration"
-                Write-Host $errorMessage
-                CSLog -Message $errorMessage
-            }
-        } catch {
-            Write-Error $_.Exception.Message
-            CSLog -Message $_.Exception.Message -Severity 3
+        $resp = Invoke-RestApi -Method Post -Uri $url -Headers $headers -Body $payloadJson
+        if ($resp) {
+            $resp
+        }
+        else {
+            $errorMessage = "Failed to create, active directory configuration"
+            Write-Host $errorMessage
+            CSLog -Message $errorMessage
         }
     }
     End {

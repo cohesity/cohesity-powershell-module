@@ -28,13 +28,8 @@ function Get-CohesityActiveDirectoryConfiguration {
         }
 
         $headers = @{'Authorization' = 'Bearer ' + $token }
-        try {
-            $resp = Invoke-RestApi -Method Get -Uri $url -Headers $headers
-            $resp
-        } catch {
-            Write-Error $_.Exception.Message
-            CSLog -Message $_.Exception.Message -Severity 3
-        }
+        $resp = Invoke-RestApi -Method Get -Uri $url -Headers $headers
+        $resp
     }
     End {
     }
