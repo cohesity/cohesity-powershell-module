@@ -1,17 +1,18 @@
 #### USAGE ####
 #	********************** Using Function *********************
-#   Remove-CohesityActiveDirectoryConfiguration -DomainName cohesity.com -UserName administrator
-#   Remove-CohesityActiveDirectoryConfiguration -DomainName cohesity.com -UserName administrator -Password (ConvertTo-SecureString "secret" -AsPlainText -Force)
+#   Remove-CohesityActiveDirectory -DomainName cohesity.com
+#   Remove-CohesityActiveDirectory -DomainName cohesity.com -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList "Administrator", (ConvertTo-SecureString -AsPlainText "secret" -Force)) -Confirm:$false
 ###############
-function Remove-CohesityActiveDirectoryConfiguration {
+function Remove-CohesityActiveDirectory {
     [CmdletBinding(SupportsShouldProcess = $True, ConfirmImpact = "High")]
     Param(
         [Parameter(Mandatory = $true)]
         $DomainName,
         [Parameter(Mandatory = $true)]
-        $UserName,
-        [Parameter(Mandatory = $true)]
-        [SecureString]$Password
+        [ValidateNotNull()]
+        [System.Management.Automation.PSCredential]
+        [System.Management.Automation.Credential()]
+        $Credential
     )
     Begin {
         if (-not (Test-Path -Path "$HOME/.cohesity")) {
@@ -25,18 +26,18 @@ function Remove-CohesityActiveDirectoryConfiguration {
     }
 
     Process {
-        $BSTR = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($Password)
-        $PlainPassword = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($BSTR)
-            
+        $UserName = $Credential.UserName
+        $PlainPassword = $Credential.GetNetworkCredential().Password
+
         $url = $server + '/irisservices/api/v1/public/activeDirectory'
 
-        $headers = @{'Authorization' = 'Bearer ' + $token }
+        $headers = @{'Authorization' = 'Bearer ' + $token}
         if ($PSCmdlet.ShouldProcess($Name)) {
 
             $payload = @{
                 domainName                 = $DomainName
                 machineAccounts            = @($MachineAccounts)
-                preferredDomainControllers = @(@{domainName = $DomainName })
+                preferredDomainControllers = @(@{domainName = $DomainName})
                 trustedDomainsEnabled      = $false
                 userIdMapping              = @{ }
                 userName                   = $UserName
@@ -44,15 +45,16 @@ function Remove-CohesityActiveDirectoryConfiguration {
             }
             $payloadJson = $payload | ConvertTo-Json
             $resp = Invoke-RestApi -Method Delete -Uri $url -Headers $headers -Body $payloadJson
-            # no response for a delete operation 
-            $errorMessage = "Operation was executed for the active directory configuration for domain : " + $DomainName
-            Write-Host $errorMessage
-            CSLog -Message $errorMessage
-        }
-        else {
-            $errorMessage = "Operation did not succeed for active directory configuration"
-            Write-Host $errorMessage
-            CSLog -Message $errorMessage
+            if ($resp) {
+                $errorMsg = "Active Directory : $DomainName deleted."
+                Write-Host $errorMsg
+                CSLog -Message $errorMsg
+            }
+            else {
+                $errorMsg = "Active Directory : $DomainName could not be deleted"
+                Write-Host $errorMsg
+                CSLog -Message $errorMsg
+            }
         }
     }
     End {

@@ -1,8 +1,8 @@
 #### USAGE ####
 #	********************** Using Function *********************
-#   Get-CohesityActiveDirectoryConfiguration -DomainNames "cohesity.com","abc.com"
+#   Get-CohesityActiveDirectory -DomainNames "cohesity.com","abc.com"
 ###############
-function Get-CohesityActiveDirectoryConfiguration {
+function Get-CohesityActiveDirectory {
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory = $false)]

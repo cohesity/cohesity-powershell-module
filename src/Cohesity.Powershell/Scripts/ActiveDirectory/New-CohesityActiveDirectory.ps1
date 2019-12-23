@@ -1,19 +1,19 @@
 #### USAGE ####
 #	********************** Using Function *********************
-#   New-CohesityActiveDirectoryConfiguration -DomainName cohesity.com -UserName administrator -MachineAccounts "Test"
-#   New-CohesityActiveDirectoryConfiguration -DomainName cohesity.com -UserName administrator -MachineAccounts "Test" -Password (ConvertTo-SecureString "secret" -AsPlainText -Force)
+#   New-CohesityActiveDirectory -DomainName cohesity.com -MachineAccounts "Test"
+#   New-CohesityActiveDirectory -DomainName cohesity.com -MachineAccounts "Test" -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList "Administrator", (ConvertTo-SecureString -AsPlainText "secret" -Force))
 ###############
-function New-CohesityActiveDirectoryConfiguration {
+function New-CohesityActiveDirectory {
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
         $DomainName,
         [Parameter(Mandatory = $true)]
-        [ValidateNotNullOrEmpty()]
-        $UserName,
-        [Parameter(Mandatory = $true)]
-        [SecureString]$Password,
+        [ValidateNotNull()]
+        [System.Management.Automation.PSCredential]
+        [System.Management.Automation.Credential()]
+        $Credential,
         [Parameter(Mandatory = $true)]
         [string[]]$MachineAccounts
     )
@@ -29,16 +29,16 @@ function New-CohesityActiveDirectoryConfiguration {
     }
 
     Process {
-        $BSTR = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($Password)
-        $PlainPassword = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($BSTR)
+        $UserName = $Credential.UserName
+        $PlainPassword = $Credential.GetNetworkCredential().Password
 
         $url = $server + '/irisservices/api/v1/public/activeDirectory'
 
-        $headers = @{'Authorization' = 'Bearer ' + $token }
+        $headers = @{'Authorization' = 'Bearer ' + $token}
         $payload = @{
             domainName                 = $DomainName
             machineAccounts            = @($MachineAccounts)
-            preferredDomainControllers = @(@{domainName = $DomainName })
+            preferredDomainControllers = @(@{domainName = $DomainName})
             trustedDomainsEnabled      = $false
             userIdMapping              = @{ }
             userName                   = $UserName
@@ -50,9 +50,9 @@ function New-CohesityActiveDirectoryConfiguration {
             $resp
         }
         else {
-            $errorMessage = "Failed to create, active directory configuration"
-            Write-Host $errorMessage
-            CSLog -Message $errorMessage
+            $errorMsg = "Failed to create, active directory configuration"
+            Write-Host $errorMsg
+            CSLog -Message $errorMsg
         }
     }
     End {
