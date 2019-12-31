@@ -65,13 +65,19 @@ FormatsToProcess = @('Cohesity.format.ps1xml')
 NestedModules = @('Cohesity.PowerShell.psm1')
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-FunctionsToExport = @('Get-CohesityOrganization',
+FunctionsToExport = @(
+                      'Get-CohesityActiveDirectory',
+                      'Get-CohesityCmdletConfig',
+                      'Get-CohesityOrganization',
                       'Get-CohesityProtectionJobStatus',
+                      'New-CohesityActiveDirectory',
                       'Recover-CohesityBackupToView',
                       'Register-CohesityProtectionSourceHyperV',
                       'Register-CohesityProtectionSourceO365',
+                      'Remove-CohesityActiveDirectory'
                       'Remove-CohesityUser',
                       'Set-CohesityAlertResolutions',
+                      'Set-CohesityCmdlet',
                       'Update-CohesityProtectionJobRun'
                       )
 
