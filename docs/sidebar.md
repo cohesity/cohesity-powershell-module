@@ -23,10 +23,14 @@
 
 
 - **Access Management**
+- [Get-CohesityActiveDirectory](cmdlets-reference/get-cohesityactivedirectory.md)
 - [Get-CohesityPrivilege](cmdlets-reference/get-cohesityprivilege.md)
 - [Get-CohesityRole](cmdlets-reference/get-cohesityrole.md)
 - [Get-CohesityUser](cmdlets-reference/get-cohesityuser.md)
+- [New-CohesityActiveDirectory](cmdlets-reference/new-cohesityactivedirectory.md)
 - [New-CohesityUser](cmdlets-reference/new-cohesityuser.md)
+- [Remove-CohesityActiveDirectory](cmdlets-reference/remove-cohesityactivedirectory.md)
+- [Update-CohesityActiveDirectory](cmdlets-reference/update-cohesityactivedirectory.md)
 
 
 - **Platform**
