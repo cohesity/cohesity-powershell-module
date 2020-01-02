@@ -14,7 +14,7 @@ function Get-CohesityCmdletConfig
             $config = Get-Content $cmdletConfigPath | ConvertFrom-Json
             $config
         } else {
-            Write-Host "No configuration found for cohesity cmdlet"
+            Write-Host "No configuration found for cohesity cmdlet, please setup using Set-CohesityCmdletConfig"
         }
     }
     End {

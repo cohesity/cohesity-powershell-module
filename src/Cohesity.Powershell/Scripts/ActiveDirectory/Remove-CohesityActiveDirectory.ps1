@@ -49,6 +49,7 @@ function Remove-CohesityActiveDirectory {
                 $errorMsg = "Active Directory : $DomainName deleted."
                 Write-Host $errorMsg
                 CSLog -Message $errorMsg
+				$resp
             }
             else {
                 $errorMsg = "Active Directory : $DomainName could not be deleted"
