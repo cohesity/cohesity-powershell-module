@@ -113,6 +113,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Scripts\ActiveDirectory\Get-CohesityActiveDirectory.ps1">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Scripts\ActiveDirectory\New-CohesityActiveDirectory.ps1">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Scripts\ActiveDirectory\Remove-CohesityActiveDirectory.ps1">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Scripts\Alert\Set-CohesityAlertResolutions.ps1">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -137,7 +146,16 @@
     <None Update="Scripts\Utility\Allow-SelfSignedCertificates.ps1">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Scripts\Utility\CSLog.ps1">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Scripts\Utility\Get-CohesityCmdletConfig.ps1">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Scripts\Utility\Invoke-RestApi.ps1">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Scripts\Utility\Set-CohesityCmdletConfig.ps1">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Scripts\View\Recover-CohesityBackupToView.ps1">
