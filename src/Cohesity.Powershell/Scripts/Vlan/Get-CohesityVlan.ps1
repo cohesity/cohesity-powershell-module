@@ -13,13 +13,13 @@ function Get-CohesityVlan {
         [Int64]$VlanId,
         # Specifies if objects of all the tenants under the hierarchy of the logged in user’s organization should be returned.
         [Parameter(Mandatory = $false)]
-        $allUnderHierarchy = $null,
+        $AllUnderHierarchy = $null,
         # Filter interfaces entries which are primary interface or bond interfaces.
         [Parameter(Mandatory = $false)]
-        $skipPrimaryAndBondIface = $null,
+        $SkipPrimaryAndBondIface = $null,
         # TenantIds contains ids of the tenants for which objects are to be returned.
         [Parameter(Mandatory = $false)]
-        [string[]]$tenantIds = $null
+        [string[]]$TenantIds = $null
 
     )
     Begin {
@@ -36,14 +36,14 @@ function Get-CohesityVlan {
     Process {
         # Form query parameters
         $Parameters = [ordered]@{}
-        if ($allUnderHierarchy -ne $null) {
-            $Parameters.Add('allUnderHierarchy', $allUnderHierarchy)
+        if ($AllUnderHierarchy -ne $null) {
+            $Parameters.Add('allUnderHierarchy', $AllUnderHierarchy)
         }
-        if ($skipPrimaryAndBondIface -ne $null) {
-            $Parameters.Add('skipPrimaryAndBondIface', $skipPrimaryAndBondIface)
+        if ($SkipPrimaryAndBondIface -ne $null) {
+            $Parameters.Add('skipPrimaryAndBondIface', $SkipPrimaryAndBondIface)
         }
-        if ($tenantIds -ne $null) {
-            $Parameters.Add('tenantIds', $tenantIds)
+        if ($TenantIds -ne $null) {
+            $Parameters.Add('tenantIds', $TenantIds)
         }
 
         $queryString = $null
@@ -60,16 +60,16 @@ function Get-CohesityVlan {
 
         $headers = @{'Authorization' = 'Bearer ' + $token }
 
-        try {
-            $vlanList = Invoke-RestApi -Method 'Get' -Uri $url -Headers $headers
-            $vlanList
-        } catch {
-            if ($_.Exception.Response.StatusCode -eq 'NotFound') {
-                Write-Warning "Vlan doesn't exist"
-                CSLog -Message "Vlan doesn't exist"
+        $vlanList = Invoke-RestApi -Method 'Get' -Uri $url -Headers $headers
+        $vlanList
+
+        if ($Global:CohesityAPIError) {
+            if ($Global:CohesityAPIError.StatusCode -eq 'NotFound') {
+                $errorMsg = "Vlan doesn't exist"
+                Write-Warning $errorMsg
+                CSLog -Message $errorMsg
             } else {
-                Write-Error $_.Exception.Response
-                $errorMsg = "Failed to fetch Vlan information with an error : " + $_.Exception.Response
+                $errorMsg = "Failed to fetch Vlan information with an error : " + $Global:CohesityAPIError
                 CSLog -Message $errorMsg
             }
         }
@@ -78,3 +78,5 @@ function Get-CohesityVlan {
     End {
     }
 }
+
+Get-CohesityVlan -VlanId 1
