@@ -217,7 +217,15 @@ namespace Cohesity.Model
             /// Enum KElastifile for value: kElastifile
             /// </summary>
             [EnumMember(Value = "kElastifile")]
-            KElastifile = 32
+            KElastifile = 32,
+
+            /// <summary>
+            /// Enum KAD for value: kAD
+            /// </summary>
+            [EnumMember(Value = "kAD")]
+            KAD = 33
+
+
 
         }
 

@@ -112,10 +112,16 @@ namespace Cohesity.Model
             KRDSSubnet = 14,
 
             /// <summary>
+            /// Enum KRDSSecurityGroup for value: kRDSSecurityGroup
+            /// </summary>
+            [EnumMember(Value = "kRDSSecurityGroup")]
+            KRDSSecurityGroup = 15,
+
+            /// <summary>
             /// Enum KRDSTag for value: kRDSTag
             /// </summary>
             [EnumMember(Value = "kRDSTag")]
-            KRDSTag = 15
+            KRDSTag = 16
 
         }
 
@@ -295,10 +301,16 @@ namespace Cohesity.Model
             KRDSSubnet = 14,
 
             /// <summary>
+            /// Enum KRDSSecurityGroup for value: kRDSSecurityGroup
+            /// </summary>
+            [EnumMember(Value = "kRDSSecurityGroup")]
+            KRDSSecurityGroup = 15,
+
+            /// <summary>
             /// Enum KRDSTag for value: kRDSTag
             /// </summary>
             [EnumMember(Value = "kRDSTag")]
-            KRDSTag = 15
+            KRDSTag = 16
 
         }
 

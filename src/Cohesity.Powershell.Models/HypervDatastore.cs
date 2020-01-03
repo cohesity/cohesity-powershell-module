@@ -54,7 +54,7 @@ namespace Cohesity.Model
         /// <param name="freeSpace">Specifies the available space on the datastore in bytes..</param>
         /// <param name="mountPoints">Specifies the available mount points on the datastore..</param>
         /// <param name="type">Specifies the type of the datastore object like kFileShare or kVolume. overrideDescription: true Specifies the type of a HyperV datastore object. &#39;kFileShare&#39; indicates SMB file share datastore. &#39;kVolume&#39; indicates a volume which can a LUN..</param>
-        public HypervDatastore(int? capacity = default(int?), int? freeSpace = default(int?), List<string> mountPoints = default(List<string>), TypeEnum? type = default(TypeEnum?))
+        public HypervDatastore(long? capacity = default(long?), long? freeSpace = default(long?), List<string> mountPoints = default(List<string>), TypeEnum? type = default(TypeEnum?))
         {
             this.Capacity = capacity;
             this.FreeSpace = freeSpace;
@@ -71,14 +71,14 @@ namespace Cohesity.Model
         /// </summary>
         /// <value>Specifies the capacity of the datastore in bytes.</value>
         [DataMember(Name="capacity", EmitDefaultValue=true)]
-        public int? Capacity { get; set; }
+        public long? Capacity { get; set; }
 
         /// <summary>
         /// Specifies the available space on the datastore in bytes.
         /// </summary>
         /// <value>Specifies the available space on the datastore in bytes.</value>
         [DataMember(Name="freeSpace", EmitDefaultValue=true)]
-        public int? FreeSpace { get; set; }
+        public long? FreeSpace { get; set; }
 
         /// <summary>
         /// Specifies the available mount points on the datastore.
