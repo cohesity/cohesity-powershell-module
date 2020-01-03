@@ -60,9 +60,9 @@ namespace Cohesity.Model
         [DataMember(Name="healthStatus", EmitDefaultValue=true)]
         public HealthStatusEnum? HealthStatus { get; set; }
         /// <summary>
-        /// Specifies the host type on which the agent is installed. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system.
+        /// Specifies the host type on which the agent is installed. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kOther&#39; indicates the other types of operating system.
         /// </summary>
-        /// <value>Specifies the host type on which the agent is installed. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system.</value>
+        /// <value>Specifies the host type on which the agent is installed. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kOther&#39; indicates the other types of operating system.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum HostOsTypeEnum
         {
@@ -88,14 +88,26 @@ namespace Cohesity.Model
             /// Enum KSolaris for value: kSolaris
             /// </summary>
             [EnumMember(Value = "kSolaris")]
-            KSolaris = 4
+            KSolaris = 4,
+
+            /// <summary>
+            /// Enum KSapHana for value: kSapHana
+            /// </summary>
+            [EnumMember(Value = "kSapHana")]
+            KSapHana = 5,
+
+            /// <summary>
+            /// Enum KOther for value: kOther
+            /// </summary>
+            [EnumMember(Value = "kOther")]
+            KOther = 6
 
         }
 
         /// <summary>
-        /// Specifies the host type on which the agent is installed. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system.
+        /// Specifies the host type on which the agent is installed. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kOther&#39; indicates the other types of operating system.
         /// </summary>
-        /// <value>Specifies the host type on which the agent is installed. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system.</value>
+        /// <value>Specifies the host type on which the agent is installed. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kOther&#39; indicates the other types of operating system.</value>
         [DataMember(Name="hostOsType", EmitDefaultValue=true)]
         public HostOsTypeEnum? HostOsType { get; set; }
         /// <summary>
@@ -194,7 +206,7 @@ namespace Cohesity.Model
         /// <param name="compactVersion">Specifies the compact version of Cohesity agent. For example, 6.0.1..</param>
         /// <param name="healthStatus">Specifies the health status of the Cohesity agent. Specifies the status of the agent running on a physical source. &#39;kUnknown&#39; indicates the Agent is not known. No attempt to connect to the Agent has occurred. &#39;kUnreachable&#39; indicates the Agent is not reachable. &#39;kHealthy&#39; indicates the Agent is healthy. &#39;kDegraded&#39; indicates the Agent is running but in a degraded state..</param>
         /// <param name="hostIp">Specifies the IP of the host on which the agent is installed..</param>
-        /// <param name="hostOsType">Specifies the host type on which the agent is installed. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system..</param>
+        /// <param name="hostOsType">Specifies the host type on which the agent is installed. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kOther&#39; indicates the other types of operating system..</param>
         /// <param name="lastUpgradeStatus">Specifies the status of the last upgrade attempt. Specifies the status of the upgrade of the agent on a physical server. &#39;kIdle&#39; indicates there is no agent upgrade in progress. &#39;kAccepted&#39; indicates the Agent upgrade is accepted. &#39;kStarted&#39; indicates the Agent upgrade is in progress. &#39;kFinished&#39; indicates the Agent upgrade is completed..</param>
         /// <param name="upgradability">Specfies the upgradability of the agent running on the server. Specifies the upgradability of the agent running on the physical server. &#39;kUpgradable&#39; indicates the Agent can be upgraded to the agent software version on the cluster. &#39;kCurrent&#39; indicates the Agent is running the latest version. &#39;kUnknown&#39; indicates the Agent&#39;s version is not known. &#39;kNonUpgradableInvalidVersion&#39; indicates the Agent&#39;s version is invalid. &#39;kNonUpgradableAgentIsNewer&#39; indicates the Agent&#39;s version is newer than the agent software version the cluster. &#39;kNonUpgradableAgentIsOld&#39; indicates the Agent&#39;s version is too old that does not support upgrades..</param>
         /// <param name="upgradeStatusMessage">Specifies detailed message about the agent upgrade failure. This field is not set for successful upgrade..</param>

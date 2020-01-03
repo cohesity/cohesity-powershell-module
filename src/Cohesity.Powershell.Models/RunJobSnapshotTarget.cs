@@ -63,16 +63,18 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="RunJobSnapshotTarget" /> class.
         /// </summary>
         /// <param name="archivalTarget">archivalTarget.</param>
+        /// <param name="cloudReplicationTarget">cloudReplicationTarget.</param>
         /// <param name="daysToKeep">Specifies the number of days to retain copied Snapshots on the target..</param>
         /// <param name="holdForLegalPurpose">Specifies optionally whether to retain the snapshot for legal purpose. If set to true, the run cannot be deleted until the retention period. Note that using this option may cause the Cluster to run out of space. If set to false explicitly, the hold is removed, and the run will expire as specified in the policy of the Protection Job. If this field is not specified, there is no change to the hold of the run. This field can be set only by a User having Data Security Role..</param>
         /// <param name="replicationTarget">replicationTarget.</param>
         /// <param name="type">Specifies the type of a Snapshot target such as &#39;kLocal&#39;, &#39;kRemote&#39; or &#39;kArchival&#39;. &#39;kLocal&#39; means the Snapshot is stored on a local Cohesity Cluster. &#39;kRemote&#39; means the Snapshot is stored on a Remote Cohesity Cluster. (It was copied to the Remote Cohesity Cluster using replication.) &#39;kArchival&#39; means the Snapshot is stored on a Archival External Target (such as Tape or AWS). &#39;kCloudDeploy&#39; means the Snapshot is stored on a Cloud platform..</param>
-        public RunJobSnapshotTarget(ArchivalExternalTarget archivalTarget = default(ArchivalExternalTarget), long? daysToKeep = default(long?), bool? holdForLegalPurpose = default(bool?), ReplicationTargetSettings replicationTarget = default(ReplicationTargetSettings), TypeEnum? type = default(TypeEnum?))
+        public RunJobSnapshotTarget(ArchivalExternalTarget archivalTarget = default(ArchivalExternalTarget), CloudDeployTargetDetails cloudReplicationTarget = default(CloudDeployTargetDetails), long? daysToKeep = default(long?), bool? holdForLegalPurpose = default(bool?), ReplicationTargetSettings replicationTarget = default(ReplicationTargetSettings), TypeEnum? type = default(TypeEnum?))
         {
             this.DaysToKeep = daysToKeep;
             this.HoldForLegalPurpose = holdForLegalPurpose;
             this.Type = type;
             this.ArchivalTarget = archivalTarget;
+            this.CloudReplicationTarget = cloudReplicationTarget;
             this.DaysToKeep = daysToKeep;
             this.HoldForLegalPurpose = holdForLegalPurpose;
             this.ReplicationTarget = replicationTarget;
@@ -84,6 +86,12 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="archivalTarget", EmitDefaultValue=false)]
         public ArchivalExternalTarget ArchivalTarget { get; set; }
+
+        /// <summary>
+        /// Gets or Sets CloudReplicationTarget
+        /// </summary>
+        [DataMember(Name="cloudReplicationTarget", EmitDefaultValue=false)]
+        public CloudDeployTargetDetails CloudReplicationTarget { get; set; }
 
         /// <summary>
         /// Specifies the number of days to retain copied Snapshots on the target.
@@ -147,6 +155,11 @@ namespace Cohesity.Model
                     this.ArchivalTarget.Equals(input.ArchivalTarget))
                 ) && 
                 (
+                    this.CloudReplicationTarget == input.CloudReplicationTarget ||
+                    (this.CloudReplicationTarget != null &&
+                    this.CloudReplicationTarget.Equals(input.CloudReplicationTarget))
+                ) && 
+                (
                     this.DaysToKeep == input.DaysToKeep ||
                     (this.DaysToKeep != null &&
                     this.DaysToKeep.Equals(input.DaysToKeep))
@@ -178,6 +191,8 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.ArchivalTarget != null)
                     hashCode = hashCode * 59 + this.ArchivalTarget.GetHashCode();
+                if (this.CloudReplicationTarget != null)
+                    hashCode = hashCode * 59 + this.CloudReplicationTarget.GetHashCode();
                 if (this.DaysToKeep != null)
                     hashCode = hashCode * 59 + this.DaysToKeep.GetHashCode();
                 if (this.HoldForLegalPurpose != null)

@@ -98,8 +98,13 @@ namespace Cohesity.Model
         /// <param name="storageContainer">Specifies id of the storage container within the above storage account..</param>
         /// <param name="storageResourceGroupId">Specifies id of the resource group for the selected storage account..</param>
         /// <param name="subnetId">Specifies Id of the subnet within the above virtual network..</param>
+        /// <param name="tempVmResourceGroupId">Specifies the resource group where temporary VM needs to be created..</param>
+        /// <param name="tempVmStorageAccountId">Specifies the Storage account where temporary VM needs to be created..</param>
+        /// <param name="tempVmStorageContainerId">Specifies the Storage container where temporary VM needs to be created..</param>
+        /// <param name="tempVmSubnetId">Specifies the Subnet where temporary VM needs to be created..</param>
+        /// <param name="tempVmVirtualNetworkId">Specifies the Virtual network where temporary VM needs to be created..</param>
         /// <param name="virtualNetworkId">Specifies Id of the Virtual Network..</param>
-        public AzureParams(DataDiskTypeEnum? dataDiskType = default(DataDiskTypeEnum?), long? instanceId = default(long?), long? networkResourceGroupId = default(long?), OsDiskTypeEnum? osDiskType = default(OsDiskTypeEnum?), long? resourceGroup = default(long?), long? storageAccount = default(long?), long? storageContainer = default(long?), long? storageResourceGroupId = default(long?), long? subnetId = default(long?), long? virtualNetworkId = default(long?))
+        public AzureParams(DataDiskTypeEnum? dataDiskType = default(DataDiskTypeEnum?), long? instanceId = default(long?), long? networkResourceGroupId = default(long?), OsDiskTypeEnum? osDiskType = default(OsDiskTypeEnum?), long? resourceGroup = default(long?), long? storageAccount = default(long?), long? storageContainer = default(long?), long? storageResourceGroupId = default(long?), long? subnetId = default(long?), long? tempVmResourceGroupId = default(long?), long? tempVmStorageAccountId = default(long?), long? tempVmStorageContainerId = default(long?), long? tempVmSubnetId = default(long?), long? tempVmVirtualNetworkId = default(long?), long? virtualNetworkId = default(long?))
         {
             this.DataDiskType = dataDiskType;
             this.InstanceId = instanceId;
@@ -110,6 +115,11 @@ namespace Cohesity.Model
             this.StorageContainer = storageContainer;
             this.StorageResourceGroupId = storageResourceGroupId;
             this.SubnetId = subnetId;
+            this.TempVmResourceGroupId = tempVmResourceGroupId;
+            this.TempVmStorageAccountId = tempVmStorageAccountId;
+            this.TempVmStorageContainerId = tempVmStorageContainerId;
+            this.TempVmSubnetId = tempVmSubnetId;
+            this.TempVmVirtualNetworkId = tempVmVirtualNetworkId;
             this.VirtualNetworkId = virtualNetworkId;
             this.DataDiskType = dataDiskType;
             this.InstanceId = instanceId;
@@ -120,6 +130,11 @@ namespace Cohesity.Model
             this.StorageContainer = storageContainer;
             this.StorageResourceGroupId = storageResourceGroupId;
             this.SubnetId = subnetId;
+            this.TempVmResourceGroupId = tempVmResourceGroupId;
+            this.TempVmStorageAccountId = tempVmStorageAccountId;
+            this.TempVmStorageContainerId = tempVmStorageContainerId;
+            this.TempVmSubnetId = tempVmSubnetId;
+            this.TempVmVirtualNetworkId = tempVmVirtualNetworkId;
             this.VirtualNetworkId = virtualNetworkId;
         }
         
@@ -171,6 +186,41 @@ namespace Cohesity.Model
         /// <value>Specifies Id of the subnet within the above virtual network.</value>
         [DataMember(Name="subnetId", EmitDefaultValue=true)]
         public long? SubnetId { get; set; }
+
+        /// <summary>
+        /// Specifies the resource group where temporary VM needs to be created.
+        /// </summary>
+        /// <value>Specifies the resource group where temporary VM needs to be created.</value>
+        [DataMember(Name="tempVmResourceGroupId", EmitDefaultValue=true)]
+        public long? TempVmResourceGroupId { get; set; }
+
+        /// <summary>
+        /// Specifies the Storage account where temporary VM needs to be created.
+        /// </summary>
+        /// <value>Specifies the Storage account where temporary VM needs to be created.</value>
+        [DataMember(Name="tempVmStorageAccountId", EmitDefaultValue=true)]
+        public long? TempVmStorageAccountId { get; set; }
+
+        /// <summary>
+        /// Specifies the Storage container where temporary VM needs to be created.
+        /// </summary>
+        /// <value>Specifies the Storage container where temporary VM needs to be created.</value>
+        [DataMember(Name="tempVmStorageContainerId", EmitDefaultValue=true)]
+        public long? TempVmStorageContainerId { get; set; }
+
+        /// <summary>
+        /// Specifies the Subnet where temporary VM needs to be created.
+        /// </summary>
+        /// <value>Specifies the Subnet where temporary VM needs to be created.</value>
+        [DataMember(Name="tempVmSubnetId", EmitDefaultValue=true)]
+        public long? TempVmSubnetId { get; set; }
+
+        /// <summary>
+        /// Specifies the Virtual network where temporary VM needs to be created.
+        /// </summary>
+        /// <value>Specifies the Virtual network where temporary VM needs to be created.</value>
+        [DataMember(Name="tempVmVirtualNetworkId", EmitDefaultValue=true)]
+        public long? TempVmVirtualNetworkId { get; set; }
 
         /// <summary>
         /// Specifies Id of the Virtual Network.
@@ -259,6 +309,31 @@ namespace Cohesity.Model
                     this.SubnetId.Equals(input.SubnetId))
                 ) && 
                 (
+                    this.TempVmResourceGroupId == input.TempVmResourceGroupId ||
+                    (this.TempVmResourceGroupId != null &&
+                    this.TempVmResourceGroupId.Equals(input.TempVmResourceGroupId))
+                ) && 
+                (
+                    this.TempVmStorageAccountId == input.TempVmStorageAccountId ||
+                    (this.TempVmStorageAccountId != null &&
+                    this.TempVmStorageAccountId.Equals(input.TempVmStorageAccountId))
+                ) && 
+                (
+                    this.TempVmStorageContainerId == input.TempVmStorageContainerId ||
+                    (this.TempVmStorageContainerId != null &&
+                    this.TempVmStorageContainerId.Equals(input.TempVmStorageContainerId))
+                ) && 
+                (
+                    this.TempVmSubnetId == input.TempVmSubnetId ||
+                    (this.TempVmSubnetId != null &&
+                    this.TempVmSubnetId.Equals(input.TempVmSubnetId))
+                ) && 
+                (
+                    this.TempVmVirtualNetworkId == input.TempVmVirtualNetworkId ||
+                    (this.TempVmVirtualNetworkId != null &&
+                    this.TempVmVirtualNetworkId.Equals(input.TempVmVirtualNetworkId))
+                ) && 
+                (
                     this.VirtualNetworkId == input.VirtualNetworkId ||
                     (this.VirtualNetworkId != null &&
                     this.VirtualNetworkId.Equals(input.VirtualNetworkId))
@@ -290,6 +365,16 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.StorageResourceGroupId.GetHashCode();
                 if (this.SubnetId != null)
                     hashCode = hashCode * 59 + this.SubnetId.GetHashCode();
+                if (this.TempVmResourceGroupId != null)
+                    hashCode = hashCode * 59 + this.TempVmResourceGroupId.GetHashCode();
+                if (this.TempVmStorageAccountId != null)
+                    hashCode = hashCode * 59 + this.TempVmStorageAccountId.GetHashCode();
+                if (this.TempVmStorageContainerId != null)
+                    hashCode = hashCode * 59 + this.TempVmStorageContainerId.GetHashCode();
+                if (this.TempVmSubnetId != null)
+                    hashCode = hashCode * 59 + this.TempVmSubnetId.GetHashCode();
+                if (this.TempVmVirtualNetworkId != null)
+                    hashCode = hashCode * 59 + this.TempVmVirtualNetworkId.GetHashCode();
                 if (this.VirtualNetworkId != null)
                     hashCode = hashCode * 59 + this.VirtualNetworkId.GetHashCode();
                 return hashCode;

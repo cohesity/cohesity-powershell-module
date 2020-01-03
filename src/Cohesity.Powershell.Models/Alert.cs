@@ -115,13 +115,7 @@ namespace Cohesity.Model
             /// Enum KSecurity for value: kSecurity
             /// </summary>
             [EnumMember(Value = "kSecurity")]
-            KSecurity = 15,
-
-            /// <summary>
-            /// Enum KArchivalCopy for value: kArchivalCopy
-            /// </summary>
-            [EnumMember(Value = "kArchivalCopy")]
-            KArchivalCopy = 16
+            KSecurity = 15
 
         }
 
@@ -165,6 +159,45 @@ namespace Cohesity.Model
         [DataMember(Name="alertState", EmitDefaultValue=true)]
         public AlertStateEnum? AlertState { get; set; }
         /// <summary>
+        /// Specifies the Alert type bucket. Specifies the Alert type bucket. kSoftware - Alerts which are related to Cohesity services. kHardware - Alerts related to hardware on which Cohesity software is running. kService - Alerts related to other external services. kOther - Alerts not of one of above categories.
+        /// </summary>
+        /// <value>Specifies the Alert type bucket. Specifies the Alert type bucket. kSoftware - Alerts which are related to Cohesity services. kHardware - Alerts related to hardware on which Cohesity software is running. kService - Alerts related to other external services. kOther - Alerts not of one of above categories.</value>
+        [JsonConverter(typeof(StringEnumConverter))]
+        public enum AlertTypeBucketEnum
+        {
+            /// <summary>
+            /// Enum KSoftware for value: kSoftware
+            /// </summary>
+            [EnumMember(Value = "kSoftware")]
+            KSoftware = 1,
+
+            /// <summary>
+            /// Enum KHardware for value: kHardware
+            /// </summary>
+            [EnumMember(Value = "kHardware")]
+            KHardware = 2,
+
+            /// <summary>
+            /// Enum KService for value: kService
+            /// </summary>
+            [EnumMember(Value = "kService")]
+            KService = 3,
+
+            /// <summary>
+            /// Enum KOther for value: kOther
+            /// </summary>
+            [EnumMember(Value = "kOther")]
+            KOther = 4
+
+        }
+
+        /// <summary>
+        /// Specifies the Alert type bucket. Specifies the Alert type bucket. kSoftware - Alerts which are related to Cohesity services. kHardware - Alerts related to hardware on which Cohesity software is running. kService - Alerts related to other external services. kOther - Alerts not of one of above categories.
+        /// </summary>
+        /// <value>Specifies the Alert type bucket. Specifies the Alert type bucket. kSoftware - Alerts which are related to Cohesity services. kHardware - Alerts related to hardware on which Cohesity software is running. kService - Alerts related to other external services. kOther - Alerts not of one of above categories.</value>
+        [DataMember(Name="alertTypeBucket", EmitDefaultValue=true)]
+        public AlertTypeBucketEnum? AlertTypeBucket { get; set; }
+        /// <summary>
         /// Specifies the severity level of an Alert. kCritical - Alerts whose severity type is Critical. kWarning - Alerts whose severity type is Warning. kInfo - Alerts whose severity type is Info.
         /// </summary>
         /// <value>Specifies the severity level of an Alert. kCritical - Alerts whose severity type is Critical. kWarning - Alerts whose severity type is Warning. kInfo - Alerts whose severity type is Info.</value>
@@ -205,6 +238,7 @@ namespace Cohesity.Model
         /// <param name="alertDocument">alertDocument.</param>
         /// <param name="alertState">Specifies the current state of the Alert. kAlertOpen - Alerts that are unresolved. kAlertResolved - Alerts that are already marked as resolved. kAlertSuppressed - Alerts that are suppressed due to snooze settings..</param>
         /// <param name="alertType">Specifies a 5 digit unique digital id for the Alert Type, such as 00014 for &#39;kNodeHighCpuUsage&#39;. This id is used in alertCode..</param>
+        /// <param name="alertTypeBucket">Specifies the Alert type bucket. Specifies the Alert type bucket. kSoftware - Alerts which are related to Cohesity services. kHardware - Alerts related to hardware on which Cohesity software is running. kService - Alerts related to other external services. kOther - Alerts not of one of above categories..</param>
         /// <param name="clusterId">Specifies id of the cluster where the alert was raised..</param>
         /// <param name="clusterName">Specifies name of the cluster where the alert was raised..</param>
         /// <param name="dedupCount">Specifies total count of duplicated Alerts even if there are more than 25 occurrences..</param>
@@ -218,12 +252,13 @@ namespace Cohesity.Model
         /// <param name="severity">Specifies the severity level of an Alert. kCritical - Alerts whose severity type is Critical. kWarning - Alerts whose severity type is Warning. kInfo - Alerts whose severity type is Info..</param>
         /// <param name="suppressionId">Specifies unique id generated when the Alert is suppressed by the admin..</param>
         /// <param name="tenantIds">Specifies the tenants for which this alert has been raised..</param>
-        public Alert(AlertCategoryEnum? alertCategory = default(AlertCategoryEnum?), string alertCode = default(string), AlertDocument alertDocument = default(AlertDocument), AlertStateEnum? alertState = default(AlertStateEnum?), int? alertType = default(int?), long? clusterId = default(long?), string clusterName = default(string), int? dedupCount = default(int?), List<long> dedupTimestamps = default(List<long>), string eventSource = default(string), long? firstTimestampUsecs = default(long?), string id = default(string), long? latestTimestampUsecs = default(long?), List<AlertProperty> propertyList = default(List<AlertProperty>), AlertResolutionDetails resolutionDetails = default(AlertResolutionDetails), SeverityEnum? severity = default(SeverityEnum?), long? suppressionId = default(long?), List<string> tenantIds = default(List<string>))
+        public Alert(AlertCategoryEnum? alertCategory = default(AlertCategoryEnum?), string alertCode = default(string), AlertDocument alertDocument = default(AlertDocument), AlertStateEnum? alertState = default(AlertStateEnum?), int? alertType = default(int?), AlertTypeBucketEnum? alertTypeBucket = default(AlertTypeBucketEnum?), long? clusterId = default(long?), string clusterName = default(string), int? dedupCount = default(int?), List<long> dedupTimestamps = default(List<long>), string eventSource = default(string), long? firstTimestampUsecs = default(long?), string id = default(string), long? latestTimestampUsecs = default(long?), List<AlertProperty> propertyList = default(List<AlertProperty>), AlertResolutionDetails resolutionDetails = default(AlertResolutionDetails), SeverityEnum? severity = default(SeverityEnum?), long? suppressionId = default(long?), List<string> tenantIds = default(List<string>))
         {
             this.AlertCategory = alertCategory;
             this.AlertCode = alertCode;
             this.AlertState = alertState;
             this.AlertType = alertType;
+            this.AlertTypeBucket = alertTypeBucket;
             this.ClusterId = clusterId;
             this.ClusterName = clusterName;
             this.DedupCount = dedupCount;
@@ -241,6 +276,7 @@ namespace Cohesity.Model
             this.AlertDocument = alertDocument;
             this.AlertState = alertState;
             this.AlertType = alertType;
+            this.AlertTypeBucket = alertTypeBucket;
             this.ClusterId = clusterId;
             this.ClusterName = clusterName;
             this.DedupCount = dedupCount;
@@ -419,6 +455,10 @@ namespace Cohesity.Model
                     this.AlertType.Equals(input.AlertType))
                 ) && 
                 (
+                    this.AlertTypeBucket == input.AlertTypeBucket ||
+                    this.AlertTypeBucket.Equals(input.AlertTypeBucket)
+                ) && 
+                (
                     this.ClusterId == input.ClusterId ||
                     (this.ClusterId != null &&
                     this.ClusterId.Equals(input.ClusterId))
@@ -504,6 +544,7 @@ namespace Cohesity.Model
                 hashCode = hashCode * 59 + this.AlertState.GetHashCode();
                 if (this.AlertType != null)
                     hashCode = hashCode * 59 + this.AlertType.GetHashCode();
+                hashCode = hashCode * 59 + this.AlertTypeBucket.GetHashCode();
                 if (this.ClusterId != null)
                     hashCode = hashCode * 59 + this.ClusterId.GetHashCode();
                 if (this.ClusterName != null)

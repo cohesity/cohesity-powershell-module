@@ -24,6 +24,7 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="Vlan" /> class.
         /// </summary>
         /// <param name="addToClusterPartition">Specifies whether to add the VLAN IPs to the cluster partition that already has one or more IPs from this VLAN..</param>
+        /// <param name="allTenantAccess">Specifies if this VLAN can be used by all tenants without explicit assignment to them. This option can only be set true for VLANs that are not assigned to any tenant..</param>
         /// <param name="description">Specifies a description of the VLAN..</param>
         /// <param name="gateway">Specifies the Gateway of the VLAN..</param>
         /// <param name="hostname">Specifies the hostname of the VLAN..</param>
@@ -31,12 +32,14 @@ namespace Cohesity.Model
         /// <param name="ifaceGroupName">Specifies the interface group name of the VLAN. It is in the format of &lt;base_interface_group_name&gt;.&lt;vlan_id&gt;..</param>
         /// <param name="interfaceName">Specifies the interface name of the VLAN..</param>
         /// <param name="ips">Array of IPs.  Specifies a list of IPs in the VLAN..</param>
+        /// <param name="mtu">mtu.</param>
         /// <param name="subnet">Specifies the subnet of the VLAN. The netmask can be specified by setting netmaskBits or netmaskIp4. The netmask can only be set using netmaskIp4 if the IP address is an IPv4 address..</param>
         /// <param name="tenantId">Optional tenant id that this vlan belongs to..</param>
         /// <param name="vlanName">Specifies the VLAN name of the vlanId..</param>
-        public Vlan(bool? addToClusterPartition = default(bool?), string description = default(string), string gateway = default(string), string hostname = default(string), int? id = default(int?), string ifaceGroupName = default(string), string interfaceName = default(string), List<string> ips = default(List<string>), Subnet subnet = default(Subnet), string tenantId = default(string), string vlanName = default(string))
+        public Vlan(bool? addToClusterPartition = default(bool?), bool? allTenantAccess = default(bool?), string description = default(string), string gateway = default(string), string hostname = default(string), int? id = default(int?), string ifaceGroupName = default(string), string interfaceName = default(string), List<string> ips = default(List<string>), int? mtu = default(int?), Subnet subnet = default(Subnet), string tenantId = default(string), string vlanName = default(string))
         {
             this.AddToClusterPartition = addToClusterPartition;
+            this.AllTenantAccess = allTenantAccess;
             this.Description = description;
             this.Gateway = gateway;
             this.Hostname = hostname;
@@ -44,10 +47,12 @@ namespace Cohesity.Model
             this.IfaceGroupName = ifaceGroupName;
             this.InterfaceName = interfaceName;
             this.Ips = ips;
+            this.Mtu = mtu;
             this.Subnet = subnet;
             this.TenantId = tenantId;
             this.VlanName = vlanName;
             this.AddToClusterPartition = addToClusterPartition;
+            this.AllTenantAccess = allTenantAccess;
             this.Description = description;
             this.Gateway = gateway;
             this.Hostname = hostname;
@@ -55,6 +60,7 @@ namespace Cohesity.Model
             this.IfaceGroupName = ifaceGroupName;
             this.InterfaceName = interfaceName;
             this.Ips = ips;
+            this.Mtu = mtu;
             this.Subnet = subnet;
             this.TenantId = tenantId;
             this.VlanName = vlanName;
@@ -66,6 +72,13 @@ namespace Cohesity.Model
         /// <value>Specifies whether to add the VLAN IPs to the cluster partition that already has one or more IPs from this VLAN.</value>
         [DataMember(Name="addToClusterPartition", EmitDefaultValue=true)]
         public bool? AddToClusterPartition { get; set; }
+
+        /// <summary>
+        /// Specifies if this VLAN can be used by all tenants without explicit assignment to them. This option can only be set true for VLANs that are not assigned to any tenant.
+        /// </summary>
+        /// <value>Specifies if this VLAN can be used by all tenants without explicit assignment to them. This option can only be set true for VLANs that are not assigned to any tenant.</value>
+        [DataMember(Name="allTenantAccess", EmitDefaultValue=true)]
+        public bool? AllTenantAccess { get; set; }
 
         /// <summary>
         /// Specifies a description of the VLAN.
@@ -115,6 +128,12 @@ namespace Cohesity.Model
         /// <value>Array of IPs.  Specifies a list of IPs in the VLAN.</value>
         [DataMember(Name="ips", EmitDefaultValue=true)]
         public List<string> Ips { get; set; }
+
+        /// <summary>
+        /// Gets or Sets Mtu
+        /// </summary>
+        [DataMember(Name="mtu", EmitDefaultValue=true)]
+        public int? Mtu { get; set; }
 
         /// <summary>
         /// Specifies the subnet of the VLAN. The netmask can be specified by setting netmaskBits or netmaskIp4. The netmask can only be set using netmaskIp4 if the IP address is an IPv4 address.
@@ -179,6 +198,11 @@ namespace Cohesity.Model
                     this.AddToClusterPartition.Equals(input.AddToClusterPartition))
                 ) && 
                 (
+                    this.AllTenantAccess == input.AllTenantAccess ||
+                    (this.AllTenantAccess != null &&
+                    this.AllTenantAccess.Equals(input.AllTenantAccess))
+                ) && 
+                (
                     this.Description == input.Description ||
                     (this.Description != null &&
                     this.Description.Equals(input.Description))
@@ -215,6 +239,11 @@ namespace Cohesity.Model
                     this.Ips.SequenceEqual(input.Ips)
                 ) && 
                 (
+                    this.Mtu == input.Mtu ||
+                    (this.Mtu != null &&
+                    this.Mtu.Equals(input.Mtu))
+                ) && 
+                (
                     this.Subnet == input.Subnet ||
                     (this.Subnet != null &&
                     this.Subnet.Equals(input.Subnet))
@@ -242,6 +271,8 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.AddToClusterPartition != null)
                     hashCode = hashCode * 59 + this.AddToClusterPartition.GetHashCode();
+                if (this.AllTenantAccess != null)
+                    hashCode = hashCode * 59 + this.AllTenantAccess.GetHashCode();
                 if (this.Description != null)
                     hashCode = hashCode * 59 + this.Description.GetHashCode();
                 if (this.Gateway != null)
@@ -256,6 +287,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.InterfaceName.GetHashCode();
                 if (this.Ips != null)
                     hashCode = hashCode * 59 + this.Ips.GetHashCode();
+                if (this.Mtu != null)
+                    hashCode = hashCode * 59 + this.Mtu.GetHashCode();
                 if (this.Subnet != null)
                     hashCode = hashCode * 59 + this.Subnet.GetHashCode();
                 if (this.TenantId != null)

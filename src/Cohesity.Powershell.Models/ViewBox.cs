@@ -68,17 +68,19 @@ namespace Cohesity.Model
         /// <param name="clusterPartitionId">Specifies the Cluster Partition id where the Storage Domain (View Box) is located. (required).</param>
         /// <param name="defaultUserQuotaPolicy">Specifies an optional quota policy/limits that are inherited by all users within the views in this viewbox..</param>
         /// <param name="defaultViewQuotaPolicy">Specifies an optional default logical quota limit (in bytes) for the Views in this Storage Domain (View Box). (Logical data is when the data is fully hydrated and expanded.) However, this inherited quota can be overwritten at the View level. A new write is not allowed if the Storage Domain (View Box) will exceed the specified quota. However, it takes time for the Cohesity Cluster to calculate the usage across Nodes, so the limit may be exceeded by a small amount. In addition, if the limit is increased or data is removed, there may be delay before the Cohesity Cluster allows more data to be written to the Storage Domain (View Box), as the Cluster is calculating the usage across Nodes..</param>
+        /// <param name="directArchiveEnabled">Specifies whether this viewbox can be used as a staging area while copying a largedataset that can&#39;t fit on the cluster to an external target. The amount of data that can be stored on the viewbox can be specified using &#39;physical_quota&#39;..</param>
         /// <param name="id">Specifies the Id of the Storage Domain (View Box)..</param>
         /// <param name="ldapProviderId">When set, the following provides the LDAP provider the view box is mapped to. For any view from this view box, when accessed via NFS the following LDAP provider is looked up for getting Unix IDs of the corresponding user. Similarly, when a view is accessed via SMB and if the AD user&#39;s domain matches with the view box&#39;s AD, the following LDAP provider will be used to lookup Unix IDs for the corresponding AD user. Additionally there is also a mapping between LDAP provider and AD domain that is stored in AD provider config. It will be used if AD is not set on the view box..</param>
         /// <param name="name">Specifies the name of the Storage Domain (View Box). (required).</param>
         /// <param name="physicalQuota">Specifies an optional quota limit (in bytes) for the physical usage of this Storage Domain (View Box). This quota limit defines a physical limit for size of the data that can be physically stored on the Storage Domain (View Box), after the data has been reduced by change block tracking, compression and deduplication. The physical usage is the aggregate sum of the data stored for this Storage Domain (View Box) on all disks in the Cluster. (The usage includes Cloud Tier data and user data.) A new write is not allowed if the Storage Domain (View Box) will exceed the specified quota. However, it takes time for the Cohesity Cluster to calculate the usage across Nodes, so the limit may be exceeded by a small amount. In addition, if the limit is increased or data is removed, there may be a delay before the Cohesity Cluster allows more data to be written to the Storage Domain (View Box), as the Cluster is calculating the usage across Nodes..</param>
         /// <param name="removalState">Specifies the current removal state of the Storage Domain (View Box). &#39;kDontRemove&#39; means the state of object is functional and it is not being removed. &#39;kMarkedForRemoval&#39; means the object is being removed. &#39;kOkToRemove&#39; means the object has been removed on the Cohesity Cluster and if the object is physical, it can be removed from the Cohesity Cluster..</param>
         /// <param name="s3BucketsAllowed">Specifies whether creation of a S3 bucket is allowed in this Storage Domain (View Box). When a new S3 bucket creation request arrives, we&#39;ll look at all the View Boxes and the first Storage Domain (View Box) that allows creating S3 buckets in it will be the one where the bucket will be placed..</param>
+        /// <param name="schemaInfoList">Specifies the time series schema info of the view box..</param>
         /// <param name="stats">stats.</param>
         /// <param name="storagePolicy">storagePolicy.</param>
         /// <param name="tenantIdVec">Optional ids for the tenants that this view box belongs. This must be checked before granting access to users. Unless the cluster enables view box sharing between tenants is allowed, there shall be at most one item in this list. Note that if all tenant may be deleted - such viewboxes must be garbage collected. This is currently done by a background thread in iris..</param>
         /// <param name="treatFileSyncAsDataSync">If &#39;true&#39;, when the Cohesity Cluster is writing to a file, the file modification time is not persisted synchronously during the file write, so the modification time may not be accurate. (Typically the file modification time is off by 30 seconds but it can be longer.) Only set to &#39;false&#39; if your environment requires a very accurate modification time. The default value is &#39;true&#39; which provides the best Cohesity Cluster performance..</param>
-        public ViewBox(string adDomainName = default(string), List<Subnet> clientSubnetWhiteList = default(List<Subnet>), int? cloudDownWaterfallThresholdPct = default(int?), int? cloudDownWaterfallThresholdSecs = default(int?), long? clusterPartitionId = default(long?), QuotaPolicy defaultUserQuotaPolicy = default(QuotaPolicy), QuotaPolicy defaultViewQuotaPolicy = default(QuotaPolicy), long? id = default(long?), long? ldapProviderId = default(long?), string name = default(string), QuotaPolicy physicalQuota = default(QuotaPolicy), RemovalStateEnum? removalState = default(RemovalStateEnum?), bool? s3BucketsAllowed = default(bool?), ViewBoxStats stats = default(ViewBoxStats), StoragePolicy storagePolicy = default(StoragePolicy), List<string> tenantIdVec = default(List<string>), bool? treatFileSyncAsDataSync = default(bool?))
+        public ViewBox(string adDomainName = default(string), List<Subnet> clientSubnetWhiteList = default(List<Subnet>), int? cloudDownWaterfallThresholdPct = default(int?), int? cloudDownWaterfallThresholdSecs = default(int?), long? clusterPartitionId = default(long?), QuotaPolicy defaultUserQuotaPolicy = default(QuotaPolicy), QuotaPolicy defaultViewQuotaPolicy = default(QuotaPolicy), bool? directArchiveEnabled = default(bool?), long? id = default(long?), long? ldapProviderId = default(long?), string name = default(string), QuotaPolicy physicalQuota = default(QuotaPolicy), RemovalStateEnum? removalState = default(RemovalStateEnum?), bool? s3BucketsAllowed = default(bool?), List<SchemaInfo> schemaInfoList = default(List<SchemaInfo>), ViewBoxStats stats = default(ViewBoxStats), StoragePolicy storagePolicy = default(StoragePolicy), List<string> tenantIdVec = default(List<string>), bool? treatFileSyncAsDataSync = default(bool?))
         {
             this.AdDomainName = adDomainName;
             this.ClientSubnetWhiteList = clientSubnetWhiteList;
@@ -87,12 +89,14 @@ namespace Cohesity.Model
             this.ClusterPartitionId = clusterPartitionId;
             this.DefaultUserQuotaPolicy = defaultUserQuotaPolicy;
             this.DefaultViewQuotaPolicy = defaultViewQuotaPolicy;
+            this.DirectArchiveEnabled = directArchiveEnabled;
             this.Id = id;
             this.LdapProviderId = ldapProviderId;
             this.Name = name;
             this.PhysicalQuota = physicalQuota;
             this.RemovalState = removalState;
             this.S3BucketsAllowed = s3BucketsAllowed;
+            this.SchemaInfoList = schemaInfoList;
             this.TenantIdVec = tenantIdVec;
             this.TreatFileSyncAsDataSync = treatFileSyncAsDataSync;
             this.AdDomainName = adDomainName;
@@ -101,11 +105,13 @@ namespace Cohesity.Model
             this.CloudDownWaterfallThresholdSecs = cloudDownWaterfallThresholdSecs;
             this.DefaultUserQuotaPolicy = defaultUserQuotaPolicy;
             this.DefaultViewQuotaPolicy = defaultViewQuotaPolicy;
+            this.DirectArchiveEnabled = directArchiveEnabled;
             this.Id = id;
             this.LdapProviderId = ldapProviderId;
             this.PhysicalQuota = physicalQuota;
             this.RemovalState = removalState;
             this.S3BucketsAllowed = s3BucketsAllowed;
+            this.SchemaInfoList = schemaInfoList;
             this.Stats = stats;
             this.StoragePolicy = storagePolicy;
             this.TenantIdVec = tenantIdVec;
@@ -169,6 +175,13 @@ namespace Cohesity.Model
         public QuotaPolicy DefaultViewQuotaPolicy { get; set; }
 
         /// <summary>
+        /// Specifies whether this viewbox can be used as a staging area while copying a largedataset that can&#39;t fit on the cluster to an external target. The amount of data that can be stored on the viewbox can be specified using &#39;physical_quota&#39;.
+        /// </summary>
+        /// <value>Specifies whether this viewbox can be used as a staging area while copying a largedataset that can&#39;t fit on the cluster to an external target. The amount of data that can be stored on the viewbox can be specified using &#39;physical_quota&#39;.</value>
+        [DataMember(Name="directArchiveEnabled", EmitDefaultValue=true)]
+        public bool? DirectArchiveEnabled { get; set; }
+
+        /// <summary>
         /// Specifies the Id of the Storage Domain (View Box).
         /// </summary>
         /// <value>Specifies the Id of the Storage Domain (View Box).</value>
@@ -202,6 +215,13 @@ namespace Cohesity.Model
         /// <value>Specifies whether creation of a S3 bucket is allowed in this Storage Domain (View Box). When a new S3 bucket creation request arrives, we&#39;ll look at all the View Boxes and the first Storage Domain (View Box) that allows creating S3 buckets in it will be the one where the bucket will be placed.</value>
         [DataMember(Name="s3BucketsAllowed", EmitDefaultValue=true)]
         public bool? S3BucketsAllowed { get; set; }
+
+        /// <summary>
+        /// Specifies the time series schema info of the view box.
+        /// </summary>
+        /// <value>Specifies the time series schema info of the view box.</value>
+        [DataMember(Name="schemaInfoList", EmitDefaultValue=true)]
+        public List<SchemaInfo> SchemaInfoList { get; set; }
 
         /// <summary>
         /// Gets or Sets Stats
@@ -307,6 +327,11 @@ namespace Cohesity.Model
                     this.DefaultViewQuotaPolicy.Equals(input.DefaultViewQuotaPolicy))
                 ) && 
                 (
+                    this.DirectArchiveEnabled == input.DirectArchiveEnabled ||
+                    (this.DirectArchiveEnabled != null &&
+                    this.DirectArchiveEnabled.Equals(input.DirectArchiveEnabled))
+                ) && 
+                (
                     this.Id == input.Id ||
                     (this.Id != null &&
                     this.Id.Equals(input.Id))
@@ -334,6 +359,12 @@ namespace Cohesity.Model
                     this.S3BucketsAllowed == input.S3BucketsAllowed ||
                     (this.S3BucketsAllowed != null &&
                     this.S3BucketsAllowed.Equals(input.S3BucketsAllowed))
+                ) && 
+                (
+                    this.SchemaInfoList == input.SchemaInfoList ||
+                    this.SchemaInfoList != null &&
+                    input.SchemaInfoList != null &&
+                    this.SchemaInfoList.SequenceEqual(input.SchemaInfoList)
                 ) && 
                 (
                     this.Stats == input.Stats ||
@@ -383,6 +414,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.DefaultUserQuotaPolicy.GetHashCode();
                 if (this.DefaultViewQuotaPolicy != null)
                     hashCode = hashCode * 59 + this.DefaultViewQuotaPolicy.GetHashCode();
+                if (this.DirectArchiveEnabled != null)
+                    hashCode = hashCode * 59 + this.DirectArchiveEnabled.GetHashCode();
                 if (this.Id != null)
                     hashCode = hashCode * 59 + this.Id.GetHashCode();
                 if (this.LdapProviderId != null)
@@ -394,6 +427,8 @@ namespace Cohesity.Model
                 hashCode = hashCode * 59 + this.RemovalState.GetHashCode();
                 if (this.S3BucketsAllowed != null)
                     hashCode = hashCode * 59 + this.S3BucketsAllowed.GetHashCode();
+                if (this.SchemaInfoList != null)
+                    hashCode = hashCode * 59 + this.SchemaInfoList.GetHashCode();
                 if (this.Stats != null)
                     hashCode = hashCode * 59 + this.Stats.GetHashCode();
                 if (this.StoragePolicy != null)

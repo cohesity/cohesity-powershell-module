@@ -76,7 +76,13 @@ namespace Cohesity.Model
             /// Enum KSqlVSSFile for value: kSqlVSSFile
             /// </summary>
             [EnumMember(Value = "kSqlVSSFile")]
-            KSqlVSSFile = 2
+            KSqlVSSFile = 2,
+
+            /// <summary>
+            /// Enum KSqlNative for value: kSqlNative
+            /// </summary>
+            [EnumMember(Value = "kSqlNative")]
+            KSqlNative = 3
 
         }
 
@@ -127,24 +133,33 @@ namespace Cohesity.Model
         /// <param name="backupSystemDatabases">If true, system databases are backed up. If this is set to false, system databases are not backed up. If this field is not specified, default value is true..</param>
         /// <param name="backupType">Specifies the type of the &#39;kFull&#39; backup job. Specifies whether it is Volume level backup or individual files level backup. kSqlVSSVolume implies volume based VSS full backup. kSqlVSSFile implies file based VSS full backup..</param>
         /// <param name="backupVolumesOnly">If set to true, only the volumes associated with databases should be backed up. The user cannot select additional volumes at host level for backup.  If set to false, all the volumes on the host machine will be backed up. In this case, the user can further select the exact set of volumes using host level params.  Note that the volumes associated with selected databases will always be included in the backup..</param>
+        /// <param name="incrementalSnapshotUponRestart">If true, the backup of type kSqlVssVolume will be incremental after restart.</param>
         /// <param name="isCopyOnlyFull">If true, the backup is a full backup with the copy-only option specified..</param>
+        /// <param name="numStreams">Number of streams to be used in native sql backup..</param>
         /// <param name="userDatabasePreference">Specifies the preference for backing up user databases on the host. kBackupAllDatabases implies to backup all databases. kBackupAllExceptAAGDatabases implies not to backup AAG databases. kBackupOnlyAAGDatabases implies to backup only AAG databases..</param>
-        public SqlEnvJobParameters(AagPreferenceEnum? aagPreference = default(AagPreferenceEnum?), bool? aagPreferenceFromSqlServer = default(bool?), bool? backupSystemDatabases = default(bool?), BackupTypeEnum? backupType = default(BackupTypeEnum?), bool? backupVolumesOnly = default(bool?), bool? isCopyOnlyFull = default(bool?), UserDatabasePreferenceEnum? userDatabasePreference = default(UserDatabasePreferenceEnum?))
+        /// <param name="withClause">With clause is used for setting clauese in native sql backup..</param>
+        public SqlEnvJobParameters(AagPreferenceEnum? aagPreference = default(AagPreferenceEnum?), bool? aagPreferenceFromSqlServer = default(bool?), bool? backupSystemDatabases = default(bool?), BackupTypeEnum? backupType = default(BackupTypeEnum?), bool? backupVolumesOnly = default(bool?), bool? incrementalSnapshotUponRestart = default(bool?), bool? isCopyOnlyFull = default(bool?), int? numStreams = default(int?), UserDatabasePreferenceEnum? userDatabasePreference = default(UserDatabasePreferenceEnum?), string withClause = default(string))
         {
             this.AagPreference = aagPreference;
             this.AagPreferenceFromSqlServer = aagPreferenceFromSqlServer;
             this.BackupSystemDatabases = backupSystemDatabases;
             this.BackupType = backupType;
             this.BackupVolumesOnly = backupVolumesOnly;
+            this.IncrementalSnapshotUponRestart = incrementalSnapshotUponRestart;
             this.IsCopyOnlyFull = isCopyOnlyFull;
+            this.NumStreams = numStreams;
             this.UserDatabasePreference = userDatabasePreference;
+            this.WithClause = withClause;
             this.AagPreference = aagPreference;
             this.AagPreferenceFromSqlServer = aagPreferenceFromSqlServer;
             this.BackupSystemDatabases = backupSystemDatabases;
             this.BackupType = backupType;
             this.BackupVolumesOnly = backupVolumesOnly;
+            this.IncrementalSnapshotUponRestart = incrementalSnapshotUponRestart;
             this.IsCopyOnlyFull = isCopyOnlyFull;
+            this.NumStreams = numStreams;
             this.UserDatabasePreference = userDatabasePreference;
+            this.WithClause = withClause;
         }
         
         /// <summary>
@@ -169,11 +184,32 @@ namespace Cohesity.Model
         public bool? BackupVolumesOnly { get; set; }
 
         /// <summary>
+        /// If true, the backup of type kSqlVssVolume will be incremental after restart
+        /// </summary>
+        /// <value>If true, the backup of type kSqlVssVolume will be incremental after restart</value>
+        [DataMember(Name="incrementalSnapshotUponRestart", EmitDefaultValue=true)]
+        public bool? IncrementalSnapshotUponRestart { get; set; }
+
+        /// <summary>
         /// If true, the backup is a full backup with the copy-only option specified.
         /// </summary>
         /// <value>If true, the backup is a full backup with the copy-only option specified.</value>
         [DataMember(Name="isCopyOnlyFull", EmitDefaultValue=true)]
         public bool? IsCopyOnlyFull { get; set; }
+
+        /// <summary>
+        /// Number of streams to be used in native sql backup.
+        /// </summary>
+        /// <value>Number of streams to be used in native sql backup.</value>
+        [DataMember(Name="numStreams", EmitDefaultValue=true)]
+        public int? NumStreams { get; set; }
+
+        /// <summary>
+        /// With clause is used for setting clauese in native sql backup.
+        /// </summary>
+        /// <value>With clause is used for setting clauese in native sql backup.</value>
+        [DataMember(Name="withClause", EmitDefaultValue=true)]
+        public string WithClause { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -235,13 +271,28 @@ namespace Cohesity.Model
                     this.BackupVolumesOnly.Equals(input.BackupVolumesOnly))
                 ) && 
                 (
+                    this.IncrementalSnapshotUponRestart == input.IncrementalSnapshotUponRestart ||
+                    (this.IncrementalSnapshotUponRestart != null &&
+                    this.IncrementalSnapshotUponRestart.Equals(input.IncrementalSnapshotUponRestart))
+                ) && 
+                (
                     this.IsCopyOnlyFull == input.IsCopyOnlyFull ||
                     (this.IsCopyOnlyFull != null &&
                     this.IsCopyOnlyFull.Equals(input.IsCopyOnlyFull))
                 ) && 
                 (
+                    this.NumStreams == input.NumStreams ||
+                    (this.NumStreams != null &&
+                    this.NumStreams.Equals(input.NumStreams))
+                ) && 
+                (
                     this.UserDatabasePreference == input.UserDatabasePreference ||
                     this.UserDatabasePreference.Equals(input.UserDatabasePreference)
+                ) && 
+                (
+                    this.WithClause == input.WithClause ||
+                    (this.WithClause != null &&
+                    this.WithClause.Equals(input.WithClause))
                 );
         }
 
@@ -262,9 +313,15 @@ namespace Cohesity.Model
                 hashCode = hashCode * 59 + this.BackupType.GetHashCode();
                 if (this.BackupVolumesOnly != null)
                     hashCode = hashCode * 59 + this.BackupVolumesOnly.GetHashCode();
+                if (this.IncrementalSnapshotUponRestart != null)
+                    hashCode = hashCode * 59 + this.IncrementalSnapshotUponRestart.GetHashCode();
                 if (this.IsCopyOnlyFull != null)
                     hashCode = hashCode * 59 + this.IsCopyOnlyFull.GetHashCode();
+                if (this.NumStreams != null)
+                    hashCode = hashCode * 59 + this.NumStreams.GetHashCode();
                 hashCode = hashCode * 59 + this.UserDatabasePreference.GetHashCode();
+                if (this.WithClause != null)
+                    hashCode = hashCode * 59 + this.WithClause.GetHashCode();
                 return hashCode;
             }
         }

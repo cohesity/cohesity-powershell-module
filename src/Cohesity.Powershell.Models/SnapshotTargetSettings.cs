@@ -63,12 +63,14 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="SnapshotTargetSettings" /> class.
         /// </summary>
         /// <param name="archivalTarget">archivalTarget.</param>
+        /// <param name="cloudReplicationTarget">cloudReplicationTarget.</param>
         /// <param name="replicationTarget">replicationTarget.</param>
         /// <param name="type">Specifies the type of a Snapshot target such as &#39;kLocal&#39;, &#39;kRemote&#39; or &#39;kArchival&#39;. &#39;kLocal&#39; means the Snapshot is stored on a local Cohesity Cluster. &#39;kRemote&#39; means the Snapshot is stored on a Remote Cohesity Cluster. (It was copied to the Remote Cohesity Cluster using replication.) &#39;kArchival&#39; means the Snapshot is stored on a Archival External Target (such as Tape or AWS). &#39;kCloudDeploy&#39; means the Snapshot is stored on a Cloud platform..</param>
-        public SnapshotTargetSettings(ArchivalExternalTarget archivalTarget = default(ArchivalExternalTarget), ReplicationTargetSettings replicationTarget = default(ReplicationTargetSettings), TypeEnum? type = default(TypeEnum?))
+        public SnapshotTargetSettings(ArchivalExternalTarget archivalTarget = default(ArchivalExternalTarget), CloudDeployTargetDetails cloudReplicationTarget = default(CloudDeployTargetDetails), ReplicationTargetSettings replicationTarget = default(ReplicationTargetSettings), TypeEnum? type = default(TypeEnum?))
         {
             this.Type = type;
             this.ArchivalTarget = archivalTarget;
+            this.CloudReplicationTarget = cloudReplicationTarget;
             this.ReplicationTarget = replicationTarget;
             this.Type = type;
         }
@@ -78,6 +80,12 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="archivalTarget", EmitDefaultValue=false)]
         public ArchivalExternalTarget ArchivalTarget { get; set; }
+
+        /// <summary>
+        /// Gets or Sets CloudReplicationTarget
+        /// </summary>
+        [DataMember(Name="cloudReplicationTarget", EmitDefaultValue=false)]
+        public CloudDeployTargetDetails CloudReplicationTarget { get; set; }
 
         /// <summary>
         /// Gets or Sets ReplicationTarget
@@ -127,6 +135,11 @@ namespace Cohesity.Model
                     this.ArchivalTarget.Equals(input.ArchivalTarget))
                 ) && 
                 (
+                    this.CloudReplicationTarget == input.CloudReplicationTarget ||
+                    (this.CloudReplicationTarget != null &&
+                    this.CloudReplicationTarget.Equals(input.CloudReplicationTarget))
+                ) && 
+                (
                     this.ReplicationTarget == input.ReplicationTarget ||
                     (this.ReplicationTarget != null &&
                     this.ReplicationTarget.Equals(input.ReplicationTarget))
@@ -148,6 +161,8 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.ArchivalTarget != null)
                     hashCode = hashCode * 59 + this.ArchivalTarget.GetHashCode();
+                if (this.CloudReplicationTarget != null)
+                    hashCode = hashCode * 59 + this.CloudReplicationTarget.GetHashCode();
                 if (this.ReplicationTarget != null)
                     hashCode = hashCode * 59 + this.ReplicationTarget.GetHashCode();
                 hashCode = hashCode * 59 + this.Type.GetHashCode();

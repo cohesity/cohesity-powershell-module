@@ -15,7 +15,7 @@ using Newtonsoft.Json.Converters;
 namespace Cohesity.Model
 {
     /// <summary>
-    /// O365BackupEnvParams
+    /// Message to capture any additional backup params for Office365 environment. This encapsulates both Outlook &amp; OneDrive backup parameters.
     /// </summary>
     [DataContract]
     public partial class O365BackupEnvParams :  IEquatable<O365BackupEnvParams>
@@ -24,9 +24,13 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="O365BackupEnvParams" /> class.
         /// </summary>
         /// <param name="filteringPolicy">filteringPolicy.</param>
-        public O365BackupEnvParams(FilteringPolicyProto filteringPolicy = default(FilteringPolicyProto))
+        /// <param name="onedriveBackupParams">onedriveBackupParams.</param>
+        /// <param name="outlookBackupParams">outlookBackupParams.</param>
+        public O365BackupEnvParams(FilteringPolicyProto filteringPolicy = default(FilteringPolicyProto), OneDriveBackupEnvParams onedriveBackupParams = default(OneDriveBackupEnvParams), OutlookBackupEnvParams outlookBackupParams = default(OutlookBackupEnvParams))
         {
             this.FilteringPolicy = filteringPolicy;
+            this.OnedriveBackupParams = onedriveBackupParams;
+            this.OutlookBackupParams = outlookBackupParams;
         }
         
         /// <summary>
@@ -34,6 +38,18 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="filteringPolicy", EmitDefaultValue=false)]
         public FilteringPolicyProto FilteringPolicy { get; set; }
+
+        /// <summary>
+        /// Gets or Sets OnedriveBackupParams
+        /// </summary>
+        [DataMember(Name="onedriveBackupParams", EmitDefaultValue=false)]
+        public OneDriveBackupEnvParams OnedriveBackupParams { get; set; }
+
+        /// <summary>
+        /// Gets or Sets OutlookBackupParams
+        /// </summary>
+        [DataMember(Name="outlookBackupParams", EmitDefaultValue=false)]
+        public OutlookBackupEnvParams OutlookBackupParams { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -75,6 +91,16 @@ namespace Cohesity.Model
                     this.FilteringPolicy == input.FilteringPolicy ||
                     (this.FilteringPolicy != null &&
                     this.FilteringPolicy.Equals(input.FilteringPolicy))
+                ) && 
+                (
+                    this.OnedriveBackupParams == input.OnedriveBackupParams ||
+                    (this.OnedriveBackupParams != null &&
+                    this.OnedriveBackupParams.Equals(input.OnedriveBackupParams))
+                ) && 
+                (
+                    this.OutlookBackupParams == input.OutlookBackupParams ||
+                    (this.OutlookBackupParams != null &&
+                    this.OutlookBackupParams.Equals(input.OutlookBackupParams))
                 );
         }
 
@@ -89,6 +115,10 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.FilteringPolicy != null)
                     hashCode = hashCode * 59 + this.FilteringPolicy.GetHashCode();
+                if (this.OnedriveBackupParams != null)
+                    hashCode = hashCode * 59 + this.OnedriveBackupParams.GetHashCode();
+                if (this.OutlookBackupParams != null)
+                    hashCode = hashCode * 59 + this.OutlookBackupParams.GetHashCode();
                 return hashCode;
             }
         }

@@ -24,18 +24,24 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="ThrottlingPolicyParameters" /> class.
         /// </summary>
         /// <param name="enforceMaxStreams">Specifies whether datastore streams are configured for all datastores that are part of the registered entity. If set to true, number of streams from Cohesity cluster to the registered entity will be limited to the value set for maxConcurrentStreams. If not set or set to false, there is no max limit for the number of concurrent streams..</param>
+        /// <param name="enforceRegisteredSourceMaxBackups">Specifies whether no. of backups are configured for the registered entity. If set to true, number of backups made by Cohesity cluster in the registered entity will be limited to the value set for RegisteredSourceMaxConcurrentBackups. If not set or set to false, there is no max limit for the number of concurrent backups..</param>
         /// <param name="isEnabled">Indicates whether read operations to the datastores, which are part of the registered Protection Source, are throttled..</param>
         /// <param name="latencyThresholds">latencyThresholds.</param>
         /// <param name="maxConcurrentStreams">Specifies the limit on the number of streams Cohesity cluster will make concurrently to the datastores of the registered entity. This limit is enforced only when the flag enforceMaxStreams is set to true..</param>
-        public ThrottlingPolicyParameters(bool? enforceMaxStreams = default(bool?), bool? isEnabled = default(bool?), LatencyThresholds latencyThresholds = default(LatencyThresholds), int? maxConcurrentStreams = default(int?))
+        /// <param name="registeredSourceMaxConcurrentBackups">Specifies the limit on the number of backups Cohesity cluster will make concurrently to the registered entity. This limit is enforced only when the flag enforceRegisteredSourceMaxBackups is set to true..</param>
+        public ThrottlingPolicyParameters(bool? enforceMaxStreams = default(bool?), bool? enforceRegisteredSourceMaxBackups = default(bool?), bool? isEnabled = default(bool?), LatencyThresholds latencyThresholds = default(LatencyThresholds), int? maxConcurrentStreams = default(int?), int? registeredSourceMaxConcurrentBackups = default(int?))
         {
             this.EnforceMaxStreams = enforceMaxStreams;
+            this.EnforceRegisteredSourceMaxBackups = enforceRegisteredSourceMaxBackups;
             this.IsEnabled = isEnabled;
             this.MaxConcurrentStreams = maxConcurrentStreams;
+            this.RegisteredSourceMaxConcurrentBackups = registeredSourceMaxConcurrentBackups;
             this.EnforceMaxStreams = enforceMaxStreams;
+            this.EnforceRegisteredSourceMaxBackups = enforceRegisteredSourceMaxBackups;
             this.IsEnabled = isEnabled;
             this.LatencyThresholds = latencyThresholds;
             this.MaxConcurrentStreams = maxConcurrentStreams;
+            this.RegisteredSourceMaxConcurrentBackups = registeredSourceMaxConcurrentBackups;
         }
         
         /// <summary>
@@ -44,6 +50,13 @@ namespace Cohesity.Model
         /// <value>Specifies whether datastore streams are configured for all datastores that are part of the registered entity. If set to true, number of streams from Cohesity cluster to the registered entity will be limited to the value set for maxConcurrentStreams. If not set or set to false, there is no max limit for the number of concurrent streams.</value>
         [DataMember(Name="enforceMaxStreams", EmitDefaultValue=true)]
         public bool? EnforceMaxStreams { get; set; }
+
+        /// <summary>
+        /// Specifies whether no. of backups are configured for the registered entity. If set to true, number of backups made by Cohesity cluster in the registered entity will be limited to the value set for RegisteredSourceMaxConcurrentBackups. If not set or set to false, there is no max limit for the number of concurrent backups.
+        /// </summary>
+        /// <value>Specifies whether no. of backups are configured for the registered entity. If set to true, number of backups made by Cohesity cluster in the registered entity will be limited to the value set for RegisteredSourceMaxConcurrentBackups. If not set or set to false, there is no max limit for the number of concurrent backups.</value>
+        [DataMember(Name="enforceRegisteredSourceMaxBackups", EmitDefaultValue=true)]
+        public bool? EnforceRegisteredSourceMaxBackups { get; set; }
 
         /// <summary>
         /// Indicates whether read operations to the datastores, which are part of the registered Protection Source, are throttled.
@@ -64,6 +77,13 @@ namespace Cohesity.Model
         /// <value>Specifies the limit on the number of streams Cohesity cluster will make concurrently to the datastores of the registered entity. This limit is enforced only when the flag enforceMaxStreams is set to true.</value>
         [DataMember(Name="maxConcurrentStreams", EmitDefaultValue=true)]
         public int? MaxConcurrentStreams { get; set; }
+
+        /// <summary>
+        /// Specifies the limit on the number of backups Cohesity cluster will make concurrently to the registered entity. This limit is enforced only when the flag enforceRegisteredSourceMaxBackups is set to true.
+        /// </summary>
+        /// <value>Specifies the limit on the number of backups Cohesity cluster will make concurrently to the registered entity. This limit is enforced only when the flag enforceRegisteredSourceMaxBackups is set to true.</value>
+        [DataMember(Name="registeredSourceMaxConcurrentBackups", EmitDefaultValue=true)]
+        public int? RegisteredSourceMaxConcurrentBackups { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -107,6 +127,11 @@ namespace Cohesity.Model
                     this.EnforceMaxStreams.Equals(input.EnforceMaxStreams))
                 ) && 
                 (
+                    this.EnforceRegisteredSourceMaxBackups == input.EnforceRegisteredSourceMaxBackups ||
+                    (this.EnforceRegisteredSourceMaxBackups != null &&
+                    this.EnforceRegisteredSourceMaxBackups.Equals(input.EnforceRegisteredSourceMaxBackups))
+                ) && 
+                (
                     this.IsEnabled == input.IsEnabled ||
                     (this.IsEnabled != null &&
                     this.IsEnabled.Equals(input.IsEnabled))
@@ -120,6 +145,11 @@ namespace Cohesity.Model
                     this.MaxConcurrentStreams == input.MaxConcurrentStreams ||
                     (this.MaxConcurrentStreams != null &&
                     this.MaxConcurrentStreams.Equals(input.MaxConcurrentStreams))
+                ) && 
+                (
+                    this.RegisteredSourceMaxConcurrentBackups == input.RegisteredSourceMaxConcurrentBackups ||
+                    (this.RegisteredSourceMaxConcurrentBackups != null &&
+                    this.RegisteredSourceMaxConcurrentBackups.Equals(input.RegisteredSourceMaxConcurrentBackups))
                 );
         }
 
@@ -134,12 +164,16 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.EnforceMaxStreams != null)
                     hashCode = hashCode * 59 + this.EnforceMaxStreams.GetHashCode();
+                if (this.EnforceRegisteredSourceMaxBackups != null)
+                    hashCode = hashCode * 59 + this.EnforceRegisteredSourceMaxBackups.GetHashCode();
                 if (this.IsEnabled != null)
                     hashCode = hashCode * 59 + this.IsEnabled.GetHashCode();
                 if (this.LatencyThresholds != null)
                     hashCode = hashCode * 59 + this.LatencyThresholds.GetHashCode();
                 if (this.MaxConcurrentStreams != null)
                     hashCode = hashCode * 59 + this.MaxConcurrentStreams.GetHashCode();
+                if (this.RegisteredSourceMaxConcurrentBackups != null)
+                    hashCode = hashCode * 59 + this.RegisteredSourceMaxConcurrentBackups.GetHashCode();
                 return hashCode;
             }
         }

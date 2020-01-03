@@ -26,17 +26,17 @@ namespace Cohesity.Model
         /// <param name="awsSnapshotParameters">awsSnapshotParameters.</param>
         /// <param name="hypervParameters">hypervParameters.</param>
         /// <param name="nasParameters">nasParameters.</param>
-        /// <param name="outlookParameters">outlookParameters.</param>
+        /// <param name="office365Parameters">office365Parameters.</param>
         /// <param name="physicalParameters">physicalParameters.</param>
         /// <param name="pureParameters">pureParameters.</param>
         /// <param name="sqlParameters">sqlParameters.</param>
         /// <param name="vmwareParameters">vmwareParameters.</param>
-        public EnvironmentTypeJobParameters(AwsSnapshotManagerParameters awsSnapshotParameters = default(AwsSnapshotManagerParameters), HypervEnvJobParameters hypervParameters = default(HypervEnvJobParameters), NasEnvJobParameters nasParameters = default(NasEnvJobParameters), OutlookEnvJobParameters outlookParameters = default(OutlookEnvJobParameters), PhysicalEnvJobParameters physicalParameters = default(PhysicalEnvJobParameters), PureEnvJobParameters pureParameters = default(PureEnvJobParameters), SqlEnvJobParameters sqlParameters = default(SqlEnvJobParameters), VmwareEnvJobParameters vmwareParameters = default(VmwareEnvJobParameters))
+        public EnvironmentTypeJobParameters(AwsSnapshotManagerParameters awsSnapshotParameters = default(AwsSnapshotManagerParameters), HypervEnvJobParameters hypervParameters = default(HypervEnvJobParameters), NasEnvJobParameters nasParameters = default(NasEnvJobParameters), Office365EnvJobParameters office365Parameters = default(Office365EnvJobParameters), PhysicalEnvJobParameters physicalParameters = default(PhysicalEnvJobParameters), SanEnvJobParameters pureParameters = default(SanEnvJobParameters), SqlEnvJobParameters sqlParameters = default(SqlEnvJobParameters), VmwareEnvJobParameters vmwareParameters = default(VmwareEnvJobParameters))
         {
             this.AwsSnapshotParameters = awsSnapshotParameters;
             this.HypervParameters = hypervParameters;
             this.NasParameters = nasParameters;
-            this.OutlookParameters = outlookParameters;
+            this.Office365Parameters = office365Parameters;
             this.PhysicalParameters = physicalParameters;
             this.PureParameters = pureParameters;
             this.SqlParameters = sqlParameters;
@@ -62,10 +62,10 @@ namespace Cohesity.Model
         public NasEnvJobParameters NasParameters { get; set; }
 
         /// <summary>
-        /// Gets or Sets OutlookParameters
+        /// Gets or Sets Office365Parameters
         /// </summary>
-        [DataMember(Name="outlookParameters", EmitDefaultValue=false)]
-        public OutlookEnvJobParameters OutlookParameters { get; set; }
+        [DataMember(Name="office365Parameters", EmitDefaultValue=false)]
+        public Office365EnvJobParameters Office365Parameters { get; set; }
 
         /// <summary>
         /// Gets or Sets PhysicalParameters
@@ -77,7 +77,7 @@ namespace Cohesity.Model
         /// Gets or Sets PureParameters
         /// </summary>
         [DataMember(Name="pureParameters", EmitDefaultValue=false)]
-        public PureEnvJobParameters PureParameters { get; set; }
+        public SanEnvJobParameters PureParameters { get; set; }
 
         /// <summary>
         /// Gets or Sets SqlParameters
@@ -143,9 +143,9 @@ namespace Cohesity.Model
                     this.NasParameters.Equals(input.NasParameters))
                 ) && 
                 (
-                    this.OutlookParameters == input.OutlookParameters ||
-                    (this.OutlookParameters != null &&
-                    this.OutlookParameters.Equals(input.OutlookParameters))
+                    this.Office365Parameters == input.Office365Parameters ||
+                    (this.Office365Parameters != null &&
+                    this.Office365Parameters.Equals(input.Office365Parameters))
                 ) && 
                 (
                     this.PhysicalParameters == input.PhysicalParameters ||
@@ -184,8 +184,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.HypervParameters.GetHashCode();
                 if (this.NasParameters != null)
                     hashCode = hashCode * 59 + this.NasParameters.GetHashCode();
-                if (this.OutlookParameters != null)
-                    hashCode = hashCode * 59 + this.OutlookParameters.GetHashCode();
+                if (this.Office365Parameters != null)
+                    hashCode = hashCode * 59 + this.Office365Parameters.GetHashCode();
                 if (this.PhysicalParameters != null)
                     hashCode = hashCode * 59 + this.PhysicalParameters.GetHashCode();
                 if (this.PureParameters != null)

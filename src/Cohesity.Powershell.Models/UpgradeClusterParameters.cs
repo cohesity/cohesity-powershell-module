@@ -23,10 +23,14 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="UpgradeClusterParameters" /> class.
         /// </summary>
-        /// <param name="targetSwVersion">Specifies the target software version. If specified, all Nodes on the Cluster will be searched to see if they have had the specified software package uploaded to them. If the specified package is found, then it will be used for the upgrade..</param>
+        [JsonConstructorAttribute]
+        protected UpgradeClusterParameters() { }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UpgradeClusterParameters" /> class.
+        /// </summary>
+        /// <param name="targetSwVersion">Specifies the target software version. If specified, all Nodes on the Cluster will be searched to see if they have had the specified software package uploaded to them. If the specified package is found, then it will be used for the upgrade. (required).</param>
         public UpgradeClusterParameters(string targetSwVersion = default(string))
         {
-            this.TargetSwVersion = targetSwVersion;
             this.TargetSwVersion = targetSwVersion;
         }
         

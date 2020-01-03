@@ -49,25 +49,7 @@ namespace Cohesity.Model
             /// Enum KUnified for value: kUnified
             /// </summary>
             [EnumMember(Value = "kUnified")]
-            KUnified = 4,
-
-            /// <summary>
-            /// Enum KDataProtection for value: kDataProtection
-            /// </summary>
-            [EnumMember(Value = "kDataProtection")]
-            KDataProtection = 5,
-
-            /// <summary>
-            /// Enum KDataCache for value: kDataCache
-            /// </summary>
-            [EnumMember(Value = "kDataCache")]
-            KDataCache = 6,
-
-            /// <summary>
-            /// Enum KLoadSharing for value: kLoadSharing
-            /// </summary>
-            [EnumMember(Value = "kLoadSharing")]
-            KLoadSharing = 7
+            KUnified = 4
 
         }
 

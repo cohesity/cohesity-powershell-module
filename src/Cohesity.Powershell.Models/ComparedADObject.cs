@@ -76,32 +76,23 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="adAttributes">Specifies the list of AD attributes for the AD object..</param>
         /// <param name="adObjectFlags">Specifies the flags related to this AD Object. &#39;kEqual&#39; indicates all the attributes of the AD Object on the Snapshot and Production are equal. &#39;kNotEqual&#39; indicates atleast one of the attribute of the AD Object on the Snapshot and Production AD are not equal. &#39;kRestorePasswordRequired&#39; indicates the AD Object is of &#39;User&#39; object class type. when restoring this object from Snapshot AD to Priduction AD, a password is required. &#39;kMovedOnDestination&#39; indicates the the object has moved to another container or OU in production AD compared to AD snapshot. In this case, the distinguishedName will be different for these objects &#39;kDestinationNotFound&#39; indicates the object corresponding to dest_guid specified is missing from Production AD. Caller should check this flag and empty &#39;dest_guid&#39; first to find out destination is missing. &#39;kDisableSupported&#39; indicates the enable and disable is supported on the AD Object. AD Objects of type &#39;User&#39; and &#39;Computers&#39; support this operation..</param>
-        /// <param name="destinationAttrCount">Specifies the number of attributes of AD Object in the Production AD..</param>
         /// <param name="destinationGuid">Specifies the guid of the object in the Production AD which is equivalent to the one in the Snapshot AD..</param>
         /// <param name="errorMessage">Specifies the error message while fetching the AD object..</param>
-        /// <param name="excludedAttrCount">Specifies the number of attributes in AD Object which are excluded from comparison..</param>
         /// <param name="mismatchAttrCount">Specifies the number of attributes of AD Object mismatched on the Snapshot and Production AD..</param>
-        /// <param name="sourceAttrCount">Specifies the number of properties of AD Object in the Snapshot AD..</param>
         /// <param name="sourceGuid">Specifies the guid of the AD object in the Snapshot AD..</param>
-        public ComparedADObject(List<AdAttribute> adAttributes = default(List<AdAttribute>), List<AdObjectFlagsEnum> adObjectFlags = default(List<AdObjectFlagsEnum>), int? destinationAttrCount = default(int?), string destinationGuid = default(string), string errorMessage = default(string), int? excludedAttrCount = default(int?), int? mismatchAttrCount = default(int?), int? sourceAttrCount = default(int?), string sourceGuid = default(string))
+        public ComparedADObject(List<AdAttribute> adAttributes = default(List<AdAttribute>), List<AdObjectFlagsEnum> adObjectFlags = default(List<AdObjectFlagsEnum>), string destinationGuid = default(string), string errorMessage = default(string), int? mismatchAttrCount = default(int?), string sourceGuid = default(string))
         {
             this.AdAttributes = adAttributes;
             this.AdObjectFlags = adObjectFlags;
-            this.DestinationAttrCount = destinationAttrCount;
             this.DestinationGuid = destinationGuid;
             this.ErrorMessage = errorMessage;
-            this.ExcludedAttrCount = excludedAttrCount;
             this.MismatchAttrCount = mismatchAttrCount;
-            this.SourceAttrCount = sourceAttrCount;
             this.SourceGuid = sourceGuid;
             this.AdAttributes = adAttributes;
             this.AdObjectFlags = adObjectFlags;
-            this.DestinationAttrCount = destinationAttrCount;
             this.DestinationGuid = destinationGuid;
             this.ErrorMessage = errorMessage;
-            this.ExcludedAttrCount = excludedAttrCount;
             this.MismatchAttrCount = mismatchAttrCount;
-            this.SourceAttrCount = sourceAttrCount;
             this.SourceGuid = sourceGuid;
         }
         
@@ -111,13 +102,6 @@ namespace Cohesity.Model
         /// <value>Specifies the list of AD attributes for the AD object.</value>
         [DataMember(Name="adAttributes", EmitDefaultValue=true)]
         public List<AdAttribute> AdAttributes { get; set; }
-
-        /// <summary>
-        /// Specifies the number of attributes of AD Object in the Production AD.
-        /// </summary>
-        /// <value>Specifies the number of attributes of AD Object in the Production AD.</value>
-        [DataMember(Name="destinationAttrCount", EmitDefaultValue=true)]
-        public int? DestinationAttrCount { get; set; }
 
         /// <summary>
         /// Specifies the guid of the object in the Production AD which is equivalent to the one in the Snapshot AD.
@@ -134,25 +118,11 @@ namespace Cohesity.Model
         public string ErrorMessage { get; set; }
 
         /// <summary>
-        /// Specifies the number of attributes in AD Object which are excluded from comparison.
-        /// </summary>
-        /// <value>Specifies the number of attributes in AD Object which are excluded from comparison.</value>
-        [DataMember(Name="excludedAttrCount", EmitDefaultValue=true)]
-        public int? ExcludedAttrCount { get; set; }
-
-        /// <summary>
         /// Specifies the number of attributes of AD Object mismatched on the Snapshot and Production AD.
         /// </summary>
         /// <value>Specifies the number of attributes of AD Object mismatched on the Snapshot and Production AD.</value>
         [DataMember(Name="mismatchAttrCount", EmitDefaultValue=true)]
         public int? MismatchAttrCount { get; set; }
-
-        /// <summary>
-        /// Specifies the number of properties of AD Object in the Snapshot AD.
-        /// </summary>
-        /// <value>Specifies the number of properties of AD Object in the Snapshot AD.</value>
-        [DataMember(Name="sourceAttrCount", EmitDefaultValue=true)]
-        public int? SourceAttrCount { get; set; }
 
         /// <summary>
         /// Specifies the guid of the AD object in the Snapshot AD.
@@ -205,14 +175,7 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.AdObjectFlags == input.AdObjectFlags ||
-                    this.AdObjectFlags != null &&
-                    input.AdObjectFlags != null &&
                     this.AdObjectFlags.SequenceEqual(input.AdObjectFlags)
-                ) && 
-                (
-                    this.DestinationAttrCount == input.DestinationAttrCount ||
-                    (this.DestinationAttrCount != null &&
-                    this.DestinationAttrCount.Equals(input.DestinationAttrCount))
                 ) && 
                 (
                     this.DestinationGuid == input.DestinationGuid ||
@@ -225,19 +188,9 @@ namespace Cohesity.Model
                     this.ErrorMessage.Equals(input.ErrorMessage))
                 ) && 
                 (
-                    this.ExcludedAttrCount == input.ExcludedAttrCount ||
-                    (this.ExcludedAttrCount != null &&
-                    this.ExcludedAttrCount.Equals(input.ExcludedAttrCount))
-                ) && 
-                (
                     this.MismatchAttrCount == input.MismatchAttrCount ||
                     (this.MismatchAttrCount != null &&
                     this.MismatchAttrCount.Equals(input.MismatchAttrCount))
-                ) && 
-                (
-                    this.SourceAttrCount == input.SourceAttrCount ||
-                    (this.SourceAttrCount != null &&
-                    this.SourceAttrCount.Equals(input.SourceAttrCount))
                 ) && 
                 (
                     this.SourceGuid == input.SourceGuid ||
@@ -258,18 +211,12 @@ namespace Cohesity.Model
                 if (this.AdAttributes != null)
                     hashCode = hashCode * 59 + this.AdAttributes.GetHashCode();
                 hashCode = hashCode * 59 + this.AdObjectFlags.GetHashCode();
-                if (this.DestinationAttrCount != null)
-                    hashCode = hashCode * 59 + this.DestinationAttrCount.GetHashCode();
                 if (this.DestinationGuid != null)
                     hashCode = hashCode * 59 + this.DestinationGuid.GetHashCode();
                 if (this.ErrorMessage != null)
                     hashCode = hashCode * 59 + this.ErrorMessage.GetHashCode();
-                if (this.ExcludedAttrCount != null)
-                    hashCode = hashCode * 59 + this.ExcludedAttrCount.GetHashCode();
                 if (this.MismatchAttrCount != null)
                     hashCode = hashCode * 59 + this.MismatchAttrCount.GetHashCode();
-                if (this.SourceAttrCount != null)
-                    hashCode = hashCode * 59 + this.SourceAttrCount.GetHashCode();
                 if (this.SourceGuid != null)
                     hashCode = hashCode * 59 + this.SourceGuid.GetHashCode();
                 return hashCode;

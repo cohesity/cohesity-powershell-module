@@ -23,7 +23,7 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="OracleSourceParams" /> class.
         /// </summary>
-        /// <param name="additionalOracleDbParamsVec">Backup channel information for each Oracle database. NOTE: Size of this vector will be 1 for DG..</param>
+        /// <param name="additionalOracleDbParamsVec">A vector of unique Oracle databases. Each vector entry represents the backup/restore parameters for one unique Oracle database. Uniqueness is determined by the database unique name..</param>
         public OracleSourceParams(List<AdditionalOracleDBParams> additionalOracleDbParamsVec = default(List<AdditionalOracleDBParams>))
         {
             this.AdditionalOracleDbParamsVec = additionalOracleDbParamsVec;
@@ -31,9 +31,9 @@ namespace Cohesity.Model
         }
         
         /// <summary>
-        /// Backup channel information for each Oracle database. NOTE: Size of this vector will be 1 for DG.
+        /// A vector of unique Oracle databases. Each vector entry represents the backup/restore parameters for one unique Oracle database. Uniqueness is determined by the database unique name.
         /// </summary>
-        /// <value>Backup channel information for each Oracle database. NOTE: Size of this vector will be 1 for DG.</value>
+        /// <value>A vector of unique Oracle databases. Each vector entry represents the backup/restore parameters for one unique Oracle database. Uniqueness is determined by the database unique name.</value>
         [DataMember(Name="additionalOracleDbParamsVec", EmitDefaultValue=true)]
         public List<AdditionalOracleDBParams> AdditionalOracleDbParamsVec { get; set; }
 

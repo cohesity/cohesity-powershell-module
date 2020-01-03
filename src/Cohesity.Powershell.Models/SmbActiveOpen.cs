@@ -243,8 +243,6 @@ namespace Cohesity.Model
             return 
                 (
                     this.AccessInfoList == input.AccessInfoList ||
-                    this.AccessInfoList != null &&
-                    input.AccessInfoList != null &&
                     this.AccessInfoList.SequenceEqual(input.AccessInfoList)
                 ) && 
                 (

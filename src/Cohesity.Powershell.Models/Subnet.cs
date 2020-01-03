@@ -96,9 +96,10 @@ namespace Cohesity.Model
         /// <param name="netmaskBits">Specifies the netmask using bits..</param>
         /// <param name="netmaskIp4">Specifies the netmask using an IP4 address. The netmask can only be set using netmaskIp4 if the IP address is an IPv4 address..</param>
         /// <param name="nfsAccess">Specifies whether clients from this subnet can mount using NFS protocol. Protocol access level. &#39;kDisabled&#39; indicates Protocol access level &#39;Disabled&#39; &#39;kReadOnly&#39; indicates Protocol access level &#39;ReadOnly&#39; &#39;kReadWrite&#39; indicates Protocol access level &#39;ReadWrite&#39;.</param>
+        /// <param name="nfsAllSquash">Specifies whether all clients from this subnet can map view with view_all_squash_uid/view_all_squash_gid configured in the view..</param>
         /// <param name="nfsRootSquash">Specifies whether clients from this subnet can mount as root on NFS..</param>
         /// <param name="smbAccess">Specifies whether clients from this subnet can mount using SMB protocol. Protocol access level. &#39;kDisabled&#39; indicates Protocol access level &#39;Disabled&#39; &#39;kReadOnly&#39; indicates Protocol access level &#39;ReadOnly&#39; &#39;kReadWrite&#39; indicates Protocol access level &#39;ReadWrite&#39;.</param>
-        public Subnet(string component = default(string), string description = default(string), int? id = default(int?), string ip = default(string), int? netmaskBits = default(int?), string netmaskIp4 = default(string), NfsAccessEnum? nfsAccess = default(NfsAccessEnum?), bool? nfsRootSquash = default(bool?), SmbAccessEnum? smbAccess = default(SmbAccessEnum?))
+        public Subnet(string component = default(string), string description = default(string), int? id = default(int?), string ip = default(string), int? netmaskBits = default(int?), string netmaskIp4 = default(string), NfsAccessEnum? nfsAccess = default(NfsAccessEnum?), bool? nfsAllSquash = default(bool?), bool? nfsRootSquash = default(bool?), SmbAccessEnum? smbAccess = default(SmbAccessEnum?))
         {
             this.Component = component;
             this.Description = description;
@@ -107,6 +108,7 @@ namespace Cohesity.Model
             this.NetmaskBits = netmaskBits;
             this.NetmaskIp4 = netmaskIp4;
             this.NfsAccess = nfsAccess;
+            this.NfsAllSquash = nfsAllSquash;
             this.NfsRootSquash = nfsRootSquash;
             this.SmbAccess = smbAccess;
             this.Component = component;
@@ -116,6 +118,7 @@ namespace Cohesity.Model
             this.NetmaskBits = netmaskBits;
             this.NetmaskIp4 = netmaskIp4;
             this.NfsAccess = nfsAccess;
+            this.NfsAllSquash = nfsAllSquash;
             this.NfsRootSquash = nfsRootSquash;
             this.SmbAccess = smbAccess;
         }
@@ -161,6 +164,13 @@ namespace Cohesity.Model
         /// <value>Specifies the netmask using an IP4 address. The netmask can only be set using netmaskIp4 if the IP address is an IPv4 address.</value>
         [DataMember(Name="netmaskIp4", EmitDefaultValue=true)]
         public string NetmaskIp4 { get; set; }
+
+        /// <summary>
+        /// Specifies whether all clients from this subnet can map view with view_all_squash_uid/view_all_squash_gid configured in the view.
+        /// </summary>
+        /// <value>Specifies whether all clients from this subnet can map view with view_all_squash_uid/view_all_squash_gid configured in the view.</value>
+        [DataMember(Name="nfsAllSquash", EmitDefaultValue=true)]
+        public bool? NfsAllSquash { get; set; }
 
         /// <summary>
         /// Specifies whether clients from this subnet can mount as root on NFS.
@@ -240,6 +250,11 @@ namespace Cohesity.Model
                     this.NfsAccess.Equals(input.NfsAccess)
                 ) && 
                 (
+                    this.NfsAllSquash == input.NfsAllSquash ||
+                    (this.NfsAllSquash != null &&
+                    this.NfsAllSquash.Equals(input.NfsAllSquash))
+                ) && 
+                (
                     this.NfsRootSquash == input.NfsRootSquash ||
                     (this.NfsRootSquash != null &&
                     this.NfsRootSquash.Equals(input.NfsRootSquash))
@@ -272,6 +287,8 @@ namespace Cohesity.Model
                 if (this.NetmaskIp4 != null)
                     hashCode = hashCode * 59 + this.NetmaskIp4.GetHashCode();
                 hashCode = hashCode * 59 + this.NfsAccess.GetHashCode();
+                if (this.NfsAllSquash != null)
+                    hashCode = hashCode * 59 + this.NfsAllSquash.GetHashCode();
                 if (this.NfsRootSquash != null)
                     hashCode = hashCode * 59 + this.NfsRootSquash.GetHashCode();
                 hashCode = hashCode * 59 + this.SmbAccess.GetHashCode();

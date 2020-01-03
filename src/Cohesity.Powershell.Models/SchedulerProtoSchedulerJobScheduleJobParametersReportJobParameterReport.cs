@@ -23,18 +23,31 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="SchedulerProtoSchedulerJobScheduleJobParametersReportJobParameterReport" /> class.
         /// </summary>
+        /// <param name="name">Specifies the report name..</param>
         /// <param name="outputFormat">Specifies the output format of the report..</param>
         /// <param name="parameters">parameters.</param>
+        /// <param name="subjectLine">Specifies the subject line for report..</param>
         /// <param name="type">Specifies the report type..</param>
-        public SchedulerProtoSchedulerJobScheduleJobParametersReportJobParameterReport(string outputFormat = default(string), SchedulerProtoSchedulerJobScheduleJobParametersReportJobParameterReportParameters parameters = default(SchedulerProtoSchedulerJobScheduleJobParametersReportJobParameterReportParameters), int? type = default(int?))
+        public SchedulerProtoSchedulerJobScheduleJobParametersReportJobParameterReport(string name = default(string), string outputFormat = default(string), SchedulerProtoSchedulerJobScheduleJobParametersReportJobParameterReportParameters parameters = default(SchedulerProtoSchedulerJobScheduleJobParametersReportJobParameterReportParameters), string subjectLine = default(string), int? type = default(int?))
         {
+            this.Name = name;
             this.OutputFormat = outputFormat;
+            this.SubjectLine = subjectLine;
             this.Type = type;
+            this.Name = name;
             this.OutputFormat = outputFormat;
             this.Parameters = parameters;
+            this.SubjectLine = subjectLine;
             this.Type = type;
         }
         
+        /// <summary>
+        /// Specifies the report name.
+        /// </summary>
+        /// <value>Specifies the report name.</value>
+        [DataMember(Name="name", EmitDefaultValue=true)]
+        public string Name { get; set; }
+
         /// <summary>
         /// Specifies the output format of the report.
         /// </summary>
@@ -47,6 +60,13 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="parameters", EmitDefaultValue=false)]
         public SchedulerProtoSchedulerJobScheduleJobParametersReportJobParameterReportParameters Parameters { get; set; }
+
+        /// <summary>
+        /// Specifies the subject line for report.
+        /// </summary>
+        /// <value>Specifies the subject line for report.</value>
+        [DataMember(Name="subjectLine", EmitDefaultValue=true)]
+        public string SubjectLine { get; set; }
 
         /// <summary>
         /// Specifies the report type.
@@ -92,6 +112,11 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.Name == input.Name ||
+                    (this.Name != null &&
+                    this.Name.Equals(input.Name))
+                ) && 
+                (
                     this.OutputFormat == input.OutputFormat ||
                     (this.OutputFormat != null &&
                     this.OutputFormat.Equals(input.OutputFormat))
@@ -100,6 +125,11 @@ namespace Cohesity.Model
                     this.Parameters == input.Parameters ||
                     (this.Parameters != null &&
                     this.Parameters.Equals(input.Parameters))
+                ) && 
+                (
+                    this.SubjectLine == input.SubjectLine ||
+                    (this.SubjectLine != null &&
+                    this.SubjectLine.Equals(input.SubjectLine))
                 ) && 
                 (
                     this.Type == input.Type ||
@@ -117,10 +147,14 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.Name != null)
+                    hashCode = hashCode * 59 + this.Name.GetHashCode();
                 if (this.OutputFormat != null)
                     hashCode = hashCode * 59 + this.OutputFormat.GetHashCode();
                 if (this.Parameters != null)
                     hashCode = hashCode * 59 + this.Parameters.GetHashCode();
+                if (this.SubjectLine != null)
+                    hashCode = hashCode * 59 + this.SubjectLine.GetHashCode();
                 if (this.Type != null)
                     hashCode = hashCode * 59 + this.Type.GetHashCode();
                 return hashCode;

@@ -23,6 +23,7 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="EmailMetaData" /> class.
         /// </summary>
+        /// <param name="allUnderHierarchy">AllUnderHierarchy specifies if logs of all the tenants under the hierarchy of tenant with id TenantId should be returned..</param>
         /// <param name="bccRecipientAddresses">Specifies the email addresses of the bcc recipients..</param>
         /// <param name="ccRecipientAddresses">Specifies the email addresses of the cc recipients..</param>
         /// <param name="domainIds">Specifies the domain Ids in which mailboxes are registered..</param>
@@ -40,8 +41,10 @@ namespace Cohesity.Model
         /// <param name="senderAddress">Specifies the email address of the sender..</param>
         /// <param name="sentTimeSeconds">Specifies the unix time when the email was sent..</param>
         /// <param name="showOnlyEmailFolders">Specifies whether the query result should include only Email folders..</param>
-        public EmailMetaData(List<string> bccRecipientAddresses = default(List<string>), List<string> ccRecipientAddresses = default(List<string>), List<long> domainIds = default(List<long>), string emailSubject = default(string), long? folderKey = default(long?), string folderName = default(string), bool? hasAttachments = default(bool?), string itemKey = default(string), List<long> mailboxIds = default(List<long>), List<long> protectionJobIds = default(List<long>), long? receivedEndTime = default(long?), long? receivedStartTime = default(long?), long? receivedTimeSeconds = default(long?), List<string> recipientAddresses = default(List<string>), string senderAddress = default(string), long? sentTimeSeconds = default(long?), bool? showOnlyEmailFolders = default(bool?))
+        /// <param name="tenantId">TenantId specifies the tenant whose action resulted in the audit log..</param>
+        public EmailMetaData(bool? allUnderHierarchy = default(bool?), List<string> bccRecipientAddresses = default(List<string>), List<string> ccRecipientAddresses = default(List<string>), List<long> domainIds = default(List<long>), string emailSubject = default(string), long? folderKey = default(long?), string folderName = default(string), bool? hasAttachments = default(bool?), string itemKey = default(string), List<long> mailboxIds = default(List<long>), List<long> protectionJobIds = default(List<long>), long? receivedEndTime = default(long?), long? receivedStartTime = default(long?), long? receivedTimeSeconds = default(long?), List<string> recipientAddresses = default(List<string>), string senderAddress = default(string), long? sentTimeSeconds = default(long?), bool? showOnlyEmailFolders = default(bool?), string tenantId = default(string))
         {
+            this.AllUnderHierarchy = allUnderHierarchy;
             this.BccRecipientAddresses = bccRecipientAddresses;
             this.CcRecipientAddresses = ccRecipientAddresses;
             this.DomainIds = domainIds;
@@ -59,6 +62,8 @@ namespace Cohesity.Model
             this.SenderAddress = senderAddress;
             this.SentTimeSeconds = sentTimeSeconds;
             this.ShowOnlyEmailFolders = showOnlyEmailFolders;
+            this.TenantId = tenantId;
+            this.AllUnderHierarchy = allUnderHierarchy;
             this.BccRecipientAddresses = bccRecipientAddresses;
             this.CcRecipientAddresses = ccRecipientAddresses;
             this.DomainIds = domainIds;
@@ -76,8 +81,16 @@ namespace Cohesity.Model
             this.SenderAddress = senderAddress;
             this.SentTimeSeconds = sentTimeSeconds;
             this.ShowOnlyEmailFolders = showOnlyEmailFolders;
+            this.TenantId = tenantId;
         }
         
+        /// <summary>
+        /// AllUnderHierarchy specifies if logs of all the tenants under the hierarchy of tenant with id TenantId should be returned.
+        /// </summary>
+        /// <value>AllUnderHierarchy specifies if logs of all the tenants under the hierarchy of tenant with id TenantId should be returned.</value>
+        [DataMember(Name="allUnderHierarchy", EmitDefaultValue=true)]
+        public bool? AllUnderHierarchy { get; set; }
+
         /// <summary>
         /// Specifies the email addresses of the bcc recipients.
         /// </summary>
@@ -198,6 +211,13 @@ namespace Cohesity.Model
         public bool? ShowOnlyEmailFolders { get; set; }
 
         /// <summary>
+        /// TenantId specifies the tenant whose action resulted in the audit log.
+        /// </summary>
+        /// <value>TenantId specifies the tenant whose action resulted in the audit log.</value>
+        [DataMember(Name="tenantId", EmitDefaultValue=true)]
+        public string TenantId { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -233,6 +253,11 @@ namespace Cohesity.Model
                 return false;
 
             return 
+                (
+                    this.AllUnderHierarchy == input.AllUnderHierarchy ||
+                    (this.AllUnderHierarchy != null &&
+                    this.AllUnderHierarchy.Equals(input.AllUnderHierarchy))
+                ) && 
                 (
                     this.BccRecipientAddresses == input.BccRecipientAddresses ||
                     this.BccRecipientAddresses != null &&
@@ -323,6 +348,11 @@ namespace Cohesity.Model
                     this.ShowOnlyEmailFolders == input.ShowOnlyEmailFolders ||
                     (this.ShowOnlyEmailFolders != null &&
                     this.ShowOnlyEmailFolders.Equals(input.ShowOnlyEmailFolders))
+                ) && 
+                (
+                    this.TenantId == input.TenantId ||
+                    (this.TenantId != null &&
+                    this.TenantId.Equals(input.TenantId))
                 );
         }
 
@@ -335,6 +365,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.AllUnderHierarchy != null)
+                    hashCode = hashCode * 59 + this.AllUnderHierarchy.GetHashCode();
                 if (this.BccRecipientAddresses != null)
                     hashCode = hashCode * 59 + this.BccRecipientAddresses.GetHashCode();
                 if (this.CcRecipientAddresses != null)
@@ -369,6 +401,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.SentTimeSeconds.GetHashCode();
                 if (this.ShowOnlyEmailFolders != null)
                     hashCode = hashCode * 59 + this.ShowOnlyEmailFolders.GetHashCode();
+                if (this.TenantId != null)
+                    hashCode = hashCode * 59 + this.TenantId.GetHashCode();
                 return hashCode;
             }
         }

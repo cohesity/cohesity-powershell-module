@@ -23,22 +23,32 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="IdpUserInfo" /> class.
         /// </summary>
+        /// <param name="groups">Specifies the Idp groups that the user is part of. As the user may not be registered on the cluster, we may have to capture the idp group membership. This way, if a group is created on the cluster later, users will instantly have access to tenantIds from that group as well..</param>
         /// <param name="idpId">Specifies the unique Id assigned by the Cluster for the IdP..</param>
         /// <param name="issuerId">Specifies the unique identifier assigned by the vendor for this Cluster..</param>
         /// <param name="userId">Specifies the unique identifier assigned by the vendor for the user..</param>
         /// <param name="vendor">Specifies the vendor providing the IdP service..</param>
-        public IdpUserInfo(long? idpId = default(long?), string issuerId = default(string), string userId = default(string), string vendor = default(string))
+        public IdpUserInfo(List<string> groups = default(List<string>), long? idpId = default(long?), string issuerId = default(string), string userId = default(string), string vendor = default(string))
         {
+            this.Groups = groups;
             this.IdpId = idpId;
             this.IssuerId = issuerId;
             this.UserId = userId;
             this.Vendor = vendor;
+            this.Groups = groups;
             this.IdpId = idpId;
             this.IssuerId = issuerId;
             this.UserId = userId;
             this.Vendor = vendor;
         }
         
+        /// <summary>
+        /// Specifies the Idp groups that the user is part of. As the user may not be registered on the cluster, we may have to capture the idp group membership. This way, if a group is created on the cluster later, users will instantly have access to tenantIds from that group as well.
+        /// </summary>
+        /// <value>Specifies the Idp groups that the user is part of. As the user may not be registered on the cluster, we may have to capture the idp group membership. This way, if a group is created on the cluster later, users will instantly have access to tenantIds from that group as well.</value>
+        [DataMember(Name="groups", EmitDefaultValue=true)]
+        public List<string> Groups { get; set; }
+
         /// <summary>
         /// Specifies the unique Id assigned by the Cluster for the IdP.
         /// </summary>
@@ -104,6 +114,12 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.Groups == input.Groups ||
+                    this.Groups != null &&
+                    input.Groups != null &&
+                    this.Groups.SequenceEqual(input.Groups)
+                ) && 
+                (
                     this.IdpId == input.IdpId ||
                     (this.IdpId != null &&
                     this.IdpId.Equals(input.IdpId))
@@ -134,6 +150,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.Groups != null)
+                    hashCode = hashCode * 59 + this.Groups.GetHashCode();
                 if (this.IdpId != null)
                     hashCode = hashCode * 59 + this.IdpId.GetHashCode();
                 if (this.IssuerId != null)

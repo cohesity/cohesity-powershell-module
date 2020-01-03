@@ -25,10 +25,11 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="instanceId">Specfies id of the AWS instance type in which to deploy the VM..</param>
         /// <param name="networkSecurityGroupIds">Specifies ids of the netwrok security groups within above VPC..</param>
+        /// <param name="rdsParams">rdsParams.</param>
         /// <param name="region">Specifies id of the AWS region in which to deploy the VM..</param>
         /// <param name="subnetId">Specifies id of the subnet within above VPC..</param>
         /// <param name="virtualPrivateCloudId">Specifies id of the Virtual Private Cloud to chose for the instance type..</param>
-        public AwsParams(long? instanceId = default(long?), List<long> networkSecurityGroupIds = default(List<long>), long? region = default(long?), long? subnetId = default(long?), long? virtualPrivateCloudId = default(long?))
+        public AwsParams(long? instanceId = default(long?), List<long> networkSecurityGroupIds = default(List<long>), RdsParams rdsParams = default(RdsParams), long? region = default(long?), long? subnetId = default(long?), long? virtualPrivateCloudId = default(long?))
         {
             this.InstanceId = instanceId;
             this.NetworkSecurityGroupIds = networkSecurityGroupIds;
@@ -37,6 +38,7 @@ namespace Cohesity.Model
             this.VirtualPrivateCloudId = virtualPrivateCloudId;
             this.InstanceId = instanceId;
             this.NetworkSecurityGroupIds = networkSecurityGroupIds;
+            this.RdsParams = rdsParams;
             this.Region = region;
             this.SubnetId = subnetId;
             this.VirtualPrivateCloudId = virtualPrivateCloudId;
@@ -55,6 +57,12 @@ namespace Cohesity.Model
         /// <value>Specifies ids of the netwrok security groups within above VPC.</value>
         [DataMember(Name="networkSecurityGroupIds", EmitDefaultValue=true)]
         public List<long> NetworkSecurityGroupIds { get; set; }
+
+        /// <summary>
+        /// Gets or Sets RdsParams
+        /// </summary>
+        [DataMember(Name="rdsParams", EmitDefaultValue=false)]
+        public RdsParams RdsParams { get; set; }
 
         /// <summary>
         /// Specifies id of the AWS region in which to deploy the VM.
@@ -125,6 +133,11 @@ namespace Cohesity.Model
                     this.NetworkSecurityGroupIds.SequenceEqual(input.NetworkSecurityGroupIds)
                 ) && 
                 (
+                    this.RdsParams == input.RdsParams ||
+                    (this.RdsParams != null &&
+                    this.RdsParams.Equals(input.RdsParams))
+                ) && 
+                (
                     this.Region == input.Region ||
                     (this.Region != null &&
                     this.Region.Equals(input.Region))
@@ -154,6 +167,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.InstanceId.GetHashCode();
                 if (this.NetworkSecurityGroupIds != null)
                     hashCode = hashCode * 59 + this.NetworkSecurityGroupIds.GetHashCode();
+                if (this.RdsParams != null)
+                    hashCode = hashCode * 59 + this.RdsParams.GetHashCode();
                 if (this.Region != null)
                     hashCode = hashCode * 59 + this.Region.GetHashCode();
                 if (this.SubnetId != null)

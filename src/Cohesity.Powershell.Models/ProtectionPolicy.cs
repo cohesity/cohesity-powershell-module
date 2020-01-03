@@ -93,10 +93,12 @@ namespace Cohesity.Model
         /// <param name="fullSchedulingPolicy">Specifies the Full (no CBT) backup schedule of a Protection Job and how long Snapshots captured by this schedule are retained on the Cohesity Cluster..</param>
         /// <param name="id">Specifies a unique Policy id assigned by the Cohesity Cluster..</param>
         /// <param name="incrementalSchedulingPolicy">Specifies the CBT-based backup schedule of a Protection Job and how long Snapshots captured by this schedule are retained on the Cohesity Cluster..</param>
+        /// <param name="isUsable">Specifies if the policy can be used to create a job..</param>
         /// <param name="lastModifiedTimeMsecs">Specifies the epoch time (in milliseconds) when the Protection Policy was last modified..</param>
         /// <param name="logSchedulingPolicy">logSchedulingPolicy.</param>
         /// <param name="name">Specifies the name of the Protection Policy..</param>
         /// <param name="numLinkedPolicies">Species the number of policies linked to a global policy..</param>
+        /// <param name="parentPolicyId">Specifies the parent global policy Id. This must be specified when creating a policy from global policy template..</param>
         /// <param name="retries">Specifies the number of times to retry capturing Snapshots before the Job Run fails..</param>
         /// <param name="retryIntervalMins">Specifies the number of minutes before retrying a failed Protection Job..</param>
         /// <param name="rpoPolicySettings">rpoPolicySettings.</param>
@@ -107,7 +109,7 @@ namespace Cohesity.Model
         /// <param name="tenantIds">Specifies which organizations have been assigned this policy. This value is only populated for the cluster admin for now..</param>
         /// <param name="type">Specifies the type of the protection policy. &#39;kRegular&#39; means a regular Protection Policy. &#39;kRPO&#39; means an RPO Protection Policy..</param>
         /// <param name="wormRetentionType">Specifies WORM retention type for the snapshots. When a WORM retention type is specified, the snapshots of the Protection Jobs using this policy will be kept until the maximum of the snapshot retention time. During that time, the snapshots cannot be deleted. &#39;kNone&#39; implies there is no WORM retention set. &#39;kCompliance&#39; implies WORM retention is set for compliance reason. &#39;kAdministrative&#39; implies WORM retention is set for administrative purposes..</param>
-        public ProtectionPolicy(List<BlackoutPeriod> blackoutPeriods = default(List<BlackoutPeriod>), List<SnapshotCloudCopyPolicy> cloudDeployPolicies = default(List<SnapshotCloudCopyPolicy>), long? daysToKeep = default(long?), long? daysToKeepLog = default(long?), long? daysToKeepSystem = default(long?), string description = default(string), List<ExtendedRetentionPolicy> extendedRetentionPolicies = default(List<ExtendedRetentionPolicy>), SchedulingPolicy fullSchedulingPolicy = default(SchedulingPolicy), string id = default(string), SchedulingPolicy incrementalSchedulingPolicy = default(SchedulingPolicy), long? lastModifiedTimeMsecs = default(long?), SchedulingPolicy logSchedulingPolicy = default(SchedulingPolicy), string name = default(string), long? numLinkedPolicies = default(long?), int? retries = default(int?), int? retryIntervalMins = default(int?), RpoPolicySettings rpoPolicySettings = default(RpoPolicySettings), int? skipIntervalMins = default(int?), List<SnapshotArchivalCopyPolicy> snapshotArchivalCopyPolicies = default(List<SnapshotArchivalCopyPolicy>), List<SnapshotReplicationCopyPolicy> snapshotReplicationCopyPolicies = default(List<SnapshotReplicationCopyPolicy>), SchedulingPolicy systemSchedulingPolicy = default(SchedulingPolicy), List<string> tenantIds = default(List<string>), TypeEnum? type = default(TypeEnum?), WormRetentionTypeEnum? wormRetentionType = default(WormRetentionTypeEnum?))
+        public ProtectionPolicy(List<BlackoutPeriod> blackoutPeriods = default(List<BlackoutPeriod>), List<SnapshotCloudCopyPolicy> cloudDeployPolicies = default(List<SnapshotCloudCopyPolicy>), long? daysToKeep = default(long?), long? daysToKeepLog = default(long?), long? daysToKeepSystem = default(long?), string description = default(string), List<ExtendedRetentionPolicy> extendedRetentionPolicies = default(List<ExtendedRetentionPolicy>), SchedulingPolicy fullSchedulingPolicy = default(SchedulingPolicy), string id = default(string), SchedulingPolicy incrementalSchedulingPolicy = default(SchedulingPolicy), bool? isUsable = default(bool?), long? lastModifiedTimeMsecs = default(long?), SchedulingPolicy logSchedulingPolicy = default(SchedulingPolicy), string name = default(string), long? numLinkedPolicies = default(long?), string parentPolicyId = default(string), int? retries = default(int?), int? retryIntervalMins = default(int?), RpoPolicySettings rpoPolicySettings = default(RpoPolicySettings), int? skipIntervalMins = default(int?), List<SnapshotArchivalCopyPolicy> snapshotArchivalCopyPolicies = default(List<SnapshotArchivalCopyPolicy>), List<SnapshotReplicationCopyPolicy> snapshotReplicationCopyPolicies = default(List<SnapshotReplicationCopyPolicy>), SchedulingPolicy systemSchedulingPolicy = default(SchedulingPolicy), List<string> tenantIds = default(List<string>), TypeEnum? type = default(TypeEnum?), WormRetentionTypeEnum? wormRetentionType = default(WormRetentionTypeEnum?))
         {
             this.BlackoutPeriods = blackoutPeriods;
             this.CloudDeployPolicies = cloudDeployPolicies;
@@ -119,9 +121,11 @@ namespace Cohesity.Model
             this.FullSchedulingPolicy = fullSchedulingPolicy;
             this.Id = id;
             this.IncrementalSchedulingPolicy = incrementalSchedulingPolicy;
+            this.IsUsable = isUsable;
             this.LastModifiedTimeMsecs = lastModifiedTimeMsecs;
             this.Name = name;
             this.NumLinkedPolicies = numLinkedPolicies;
+            this.ParentPolicyId = parentPolicyId;
             this.Retries = retries;
             this.RetryIntervalMins = retryIntervalMins;
             this.SkipIntervalMins = skipIntervalMins;
@@ -140,10 +144,12 @@ namespace Cohesity.Model
             this.FullSchedulingPolicy = fullSchedulingPolicy;
             this.Id = id;
             this.IncrementalSchedulingPolicy = incrementalSchedulingPolicy;
+            this.IsUsable = isUsable;
             this.LastModifiedTimeMsecs = lastModifiedTimeMsecs;
             this.LogSchedulingPolicy = logSchedulingPolicy;
             this.Name = name;
             this.NumLinkedPolicies = numLinkedPolicies;
+            this.ParentPolicyId = parentPolicyId;
             this.Retries = retries;
             this.RetryIntervalMins = retryIntervalMins;
             this.RpoPolicySettings = rpoPolicySettings;
@@ -227,6 +233,13 @@ namespace Cohesity.Model
         public SchedulingPolicy IncrementalSchedulingPolicy { get; set; }
 
         /// <summary>
+        /// Specifies if the policy can be used to create a job.
+        /// </summary>
+        /// <value>Specifies if the policy can be used to create a job.</value>
+        [DataMember(Name="isUsable", EmitDefaultValue=true)]
+        public bool? IsUsable { get; set; }
+
+        /// <summary>
         /// Specifies the epoch time (in milliseconds) when the Protection Policy was last modified.
         /// </summary>
         /// <value>Specifies the epoch time (in milliseconds) when the Protection Policy was last modified.</value>
@@ -252,6 +265,13 @@ namespace Cohesity.Model
         /// <value>Species the number of policies linked to a global policy.</value>
         [DataMember(Name="numLinkedPolicies", EmitDefaultValue=true)]
         public long? NumLinkedPolicies { get; set; }
+
+        /// <summary>
+        /// Specifies the parent global policy Id. This must be specified when creating a policy from global policy template.
+        /// </summary>
+        /// <value>Specifies the parent global policy Id. This must be specified when creating a policy from global policy template.</value>
+        [DataMember(Name="parentPolicyId", EmitDefaultValue=true)]
+        public string ParentPolicyId { get; set; }
 
         /// <summary>
         /// Specifies the number of times to retry capturing Snapshots before the Job Run fails.
@@ -397,6 +417,11 @@ namespace Cohesity.Model
                     this.IncrementalSchedulingPolicy.Equals(input.IncrementalSchedulingPolicy))
                 ) && 
                 (
+                    this.IsUsable == input.IsUsable ||
+                    (this.IsUsable != null &&
+                    this.IsUsable.Equals(input.IsUsable))
+                ) && 
+                (
                     this.LastModifiedTimeMsecs == input.LastModifiedTimeMsecs ||
                     (this.LastModifiedTimeMsecs != null &&
                     this.LastModifiedTimeMsecs.Equals(input.LastModifiedTimeMsecs))
@@ -415,6 +440,11 @@ namespace Cohesity.Model
                     this.NumLinkedPolicies == input.NumLinkedPolicies ||
                     (this.NumLinkedPolicies != null &&
                     this.NumLinkedPolicies.Equals(input.NumLinkedPolicies))
+                ) && 
+                (
+                    this.ParentPolicyId == input.ParentPolicyId ||
+                    (this.ParentPolicyId != null &&
+                    this.ParentPolicyId.Equals(input.ParentPolicyId))
                 ) && 
                 (
                     this.Retries == input.Retries ||
@@ -498,6 +528,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Id.GetHashCode();
                 if (this.IncrementalSchedulingPolicy != null)
                     hashCode = hashCode * 59 + this.IncrementalSchedulingPolicy.GetHashCode();
+                if (this.IsUsable != null)
+                    hashCode = hashCode * 59 + this.IsUsable.GetHashCode();
                 if (this.LastModifiedTimeMsecs != null)
                     hashCode = hashCode * 59 + this.LastModifiedTimeMsecs.GetHashCode();
                 if (this.LogSchedulingPolicy != null)
@@ -506,6 +538,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
                 if (this.NumLinkedPolicies != null)
                     hashCode = hashCode * 59 + this.NumLinkedPolicies.GetHashCode();
+                if (this.ParentPolicyId != null)
+                    hashCode = hashCode * 59 + this.ParentPolicyId.GetHashCode();
                 if (this.Retries != null)
                     hashCode = hashCode * 59 + this.Retries.GetHashCode();
                 if (this.RetryIntervalMins != null)

@@ -21,9 +21,9 @@ namespace Cohesity.Model
     public partial class PureProtectionSource :  IEquatable<PureProtectionSource>
     {
         /// <summary>
-        /// Specifies the type of managed Object in a pure Protection Source like a kStorageArray or kVolume. Examples of Pure Objects include &#39;kStorageArray&#39; and &#39;kVolume&#39;. &#39;kStorageArray&#39; indicates that entire pure storage array is being protected. &#39;kVolume&#39; indicates that volume within the array is being protected.
+        /// Specifies the type of managed Object in a SAN/Pure Protection Source like a kStorageArray or kVolume. Examples of SAN Objects include &#39;kStorageArray&#39; and &#39;kVolume&#39;. &#39;kStorageArray&#39; indicates that entire SAN storage array is being protected. &#39;kVolume&#39; indicates that volume within the array is being protected.
         /// </summary>
-        /// <value>Specifies the type of managed Object in a pure Protection Source like a kStorageArray or kVolume. Examples of Pure Objects include &#39;kStorageArray&#39; and &#39;kVolume&#39;. &#39;kStorageArray&#39; indicates that entire pure storage array is being protected. &#39;kVolume&#39; indicates that volume within the array is being protected.</value>
+        /// <value>Specifies the type of managed Object in a SAN/Pure Protection Source like a kStorageArray or kVolume. Examples of SAN Objects include &#39;kStorageArray&#39; and &#39;kVolume&#39;. &#39;kStorageArray&#39; indicates that entire SAN storage array is being protected. &#39;kVolume&#39; indicates that volume within the array is being protected.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum TypeEnum
         {
@@ -42,9 +42,9 @@ namespace Cohesity.Model
         }
 
         /// <summary>
-        /// Specifies the type of managed Object in a pure Protection Source like a kStorageArray or kVolume. Examples of Pure Objects include &#39;kStorageArray&#39; and &#39;kVolume&#39;. &#39;kStorageArray&#39; indicates that entire pure storage array is being protected. &#39;kVolume&#39; indicates that volume within the array is being protected.
+        /// Specifies the type of managed Object in a SAN/Pure Protection Source like a kStorageArray or kVolume. Examples of SAN Objects include &#39;kStorageArray&#39; and &#39;kVolume&#39;. &#39;kStorageArray&#39; indicates that entire SAN storage array is being protected. &#39;kVolume&#39; indicates that volume within the array is being protected.
         /// </summary>
-        /// <value>Specifies the type of managed Object in a pure Protection Source like a kStorageArray or kVolume. Examples of Pure Objects include &#39;kStorageArray&#39; and &#39;kVolume&#39;. &#39;kStorageArray&#39; indicates that entire pure storage array is being protected. &#39;kVolume&#39; indicates that volume within the array is being protected.</value>
+        /// <value>Specifies the type of managed Object in a SAN/Pure Protection Source like a kStorageArray or kVolume. Examples of SAN Objects include &#39;kStorageArray&#39; and &#39;kVolume&#39;. &#39;kStorageArray&#39; indicates that entire SAN storage array is being protected. &#39;kVolume&#39; indicates that volume within the array is being protected.</value>
         [DataMember(Name="type", EmitDefaultValue=true)]
         public TypeEnum? Type { get; set; }
         /// <summary>
@@ -52,9 +52,9 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="name">Specifies a unique name of the Protection Source.</param>
         /// <param name="storageArray">storageArray.</param>
-        /// <param name="type">Specifies the type of managed Object in a pure Protection Source like a kStorageArray or kVolume. Examples of Pure Objects include &#39;kStorageArray&#39; and &#39;kVolume&#39;. &#39;kStorageArray&#39; indicates that entire pure storage array is being protected. &#39;kVolume&#39; indicates that volume within the array is being protected..</param>
+        /// <param name="type">Specifies the type of managed Object in a SAN/Pure Protection Source like a kStorageArray or kVolume. Examples of SAN Objects include &#39;kStorageArray&#39; and &#39;kVolume&#39;. &#39;kStorageArray&#39; indicates that entire SAN storage array is being protected. &#39;kVolume&#39; indicates that volume within the array is being protected..</param>
         /// <param name="volume">volume.</param>
-        public PureProtectionSource(string name = default(string), PureStorageArray storageArray = default(PureStorageArray), TypeEnum? type = default(TypeEnum?), PureVolume volume = default(PureVolume))
+        public PureProtectionSource(string name = default(string), SanStorageArray storageArray = default(SanStorageArray), TypeEnum? type = default(TypeEnum?), SanVolume volume = default(SanVolume))
         {
             this.Name = name;
             this.Type = type;
@@ -75,13 +75,13 @@ namespace Cohesity.Model
         /// Gets or Sets StorageArray
         /// </summary>
         [DataMember(Name="storageArray", EmitDefaultValue=false)]
-        public PureStorageArray StorageArray { get; set; }
+        public SanStorageArray StorageArray { get; set; }
 
         /// <summary>
         /// Gets or Sets Volume
         /// </summary>
         [DataMember(Name="volume", EmitDefaultValue=false)]
-        public PureVolume Volume { get; set; }
+        public SanVolume Volume { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object

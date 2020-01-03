@@ -117,31 +117,56 @@ namespace Cohesity.Model
             /// Enum KManagementAccess for value: kManagementAccess
             /// </summary>
             [EnumMember(Value = "kManagementAccess")]
-            KManagementAccess = 3
+            KManagementAccess = 3,
+
+            /// <summary>
+            /// Enum KAutoMountAccess for value: kAutoMountAccess
+            /// </summary>
+            [EnumMember(Value = "kAutoMountAccess")]
+            KAutoMountAccess = 4,
+
+            /// <summary>
+            /// Enum KUnrestrictedAppUIAccess for value: kUnrestrictedAppUIAccess
+            /// </summary>
+            [EnumMember(Value = "kUnrestrictedAppUIAccess")]
+            KUnrestrictedAppUIAccess = 5,
+
+            /// <summary>
+            /// Enum KAuditLogViewReadAccess for value: kAuditLogViewReadAccess
+            /// </summary>
+            [EnumMember(Value = "kAuditLogViewReadAccess")]
+            KAuditLogViewReadAccess = 6,
+
+            /// <summary>
+            /// Enum KProtectedObjectAccess for value: kProtectedObjectAccess
+            /// </summary>
+            [EnumMember(Value = "kProtectedObjectAccess")]
+            KProtectedObjectAccess = 7
 
         }
 
 
         /// <summary>
-        /// Specifies privileges that are required for this app. App privilege information.  Specifies privileges that are required for this app. kReadAccess - App needs views for read access. kReadWriteAccess - App needs views for Read/write access. kManagementAccess - App needs management access via iris API.
+        /// Specifies privileges that are required for this app. App privilege information.  Specifies privileges that are required for this app. kReadAccess - App needs views for read access. kReadWriteAccess - App needs views for Read/write access. kManagementAccess - App needs management access via iris API. kAutoMountAccess - Whether to allow auto-mounting all the views. kUnrestrictedAppUIAccess - Whether app requires unrestricted UI access (i.e. without passing app access token in URL). kAuditLogViewReadAccess - Whether app requires read access to the internal audit log view. kProtectedObjectAccess - Whether app requires read access to protected objects.
         /// </summary>
-        /// <value>Specifies privileges that are required for this app. App privilege information.  Specifies privileges that are required for this app. kReadAccess - App needs views for read access. kReadWriteAccess - App needs views for Read/write access. kManagementAccess - App needs management access via iris API.</value>
+        /// <value>Specifies privileges that are required for this app. App privilege information.  Specifies privileges that are required for this app. kReadAccess - App needs views for read access. kReadWriteAccess - App needs views for Read/write access. kManagementAccess - App needs management access via iris API. kAutoMountAccess - Whether to allow auto-mounting all the views. kUnrestrictedAppUIAccess - Whether app requires unrestricted UI access (i.e. without passing app access token in URL). kAuditLogViewReadAccess - Whether app requires read access to the internal audit log view. kProtectedObjectAccess - Whether app requires read access to protected objects.</value>
         [DataMember(Name="requiredPrivileges", EmitDefaultValue=true)]
         public List<RequiredPrivilegesEnum> RequiredPrivileges { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="App" /> class.
         /// </summary>
-        /// <param name="appId">TODO: Bhargava - Change it to AppUid Specifies unique id allocated by the AppStore..</param>
+        /// <param name="appId">Specifies unique id allocated by the AppStore..</param>
         /// <param name="clusters">Specifies the list of clusters on which the app is installed for a particular account Id..</param>
         /// <param name="downloadProgressPct">Specifies app download progress percentage..</param>
         /// <param name="installState">Specifies app installation status. Specifies status of the app installation. kNotInstalled - App yet to be installed. kInstallInProgress - App installation is in progress. kInstalled - App is installed successfully and can be launched. kInstallFailed - App installation failed. kUninstallInProgress - App uninstallation is in progress. kUninstallFailed - App uninstallation failed. kDownloadNotStarted - App download has not started. kDownloadInProgress - App download in progress. kDownloadComplete - App download completed. kDownloadFailed - App download failed..</param>
         /// <param name="installTime">Specifies timestamp when the app was installed..</param>
         /// <param name="isLatest">Specifies whether the app currently installed on all clusters is the latest version or not..</param>
+        /// <param name="latestVersion">Specifies application version assigned by the AppStore for the latest version of an app..</param>
         /// <param name="metadata">metadata.</param>
-        /// <param name="requiredPrivileges">Specifies privileges that are required for this app. App privilege information.  Specifies privileges that are required for this app. kReadAccess - App needs views for read access. kReadWriteAccess - App needs views for Read/write access. kManagementAccess - App needs management access via iris API..</param>
+        /// <param name="requiredPrivileges">Specifies privileges that are required for this app. App privilege information.  Specifies privileges that are required for this app. kReadAccess - App needs views for read access. kReadWriteAccess - App needs views for Read/write access. kManagementAccess - App needs management access via iris API. kAutoMountAccess - Whether to allow auto-mounting all the views. kUnrestrictedAppUIAccess - Whether app requires unrestricted UI access (i.e. without passing app access token in URL). kAuditLogViewReadAccess - Whether app requires read access to the internal audit log view. kProtectedObjectAccess - Whether app requires read access to protected objects..</param>
         /// <param name="uninstallTime">Specifies timestamp when the app was uninstalled..</param>
         /// <param name="version">Specifies application version assigned by the AppStore..</param>
-        public App(long? appId = default(long?), List<ClusterInfo> clusters = default(List<ClusterInfo>), double? downloadProgressPct = default(double?), InstallStateEnum? installState = default(InstallStateEnum?), long? installTime = default(long?), bool? isLatest = default(bool?), AppMetadata metadata = default(AppMetadata), List<RequiredPrivilegesEnum> requiredPrivileges = default(List<RequiredPrivilegesEnum>), long? uninstallTime = default(long?), long? version = default(long?))
+        public App(long? appId = default(long?), List<ClusterInfo> clusters = default(List<ClusterInfo>), double? downloadProgressPct = default(double?), InstallStateEnum? installState = default(InstallStateEnum?), long? installTime = default(long?), bool? isLatest = default(bool?), long? latestVersion = default(long?), AppMetadata metadata = default(AppMetadata), List<RequiredPrivilegesEnum> requiredPrivileges = default(List<RequiredPrivilegesEnum>), long? uninstallTime = default(long?), long? version = default(long?))
         {
             this.AppId = appId;
             this.Clusters = clusters;
@@ -149,6 +174,7 @@ namespace Cohesity.Model
             this.InstallState = installState;
             this.InstallTime = installTime;
             this.IsLatest = isLatest;
+            this.LatestVersion = latestVersion;
             this.RequiredPrivileges = requiredPrivileges;
             this.UninstallTime = uninstallTime;
             this.Version = version;
@@ -158,6 +184,7 @@ namespace Cohesity.Model
             this.InstallState = installState;
             this.InstallTime = installTime;
             this.IsLatest = isLatest;
+            this.LatestVersion = latestVersion;
             this.Metadata = metadata;
             this.RequiredPrivileges = requiredPrivileges;
             this.UninstallTime = uninstallTime;
@@ -165,9 +192,9 @@ namespace Cohesity.Model
         }
         
         /// <summary>
-        /// TODO: Bhargava - Change it to AppUid Specifies unique id allocated by the AppStore.
+        /// Specifies unique id allocated by the AppStore.
         /// </summary>
-        /// <value>TODO: Bhargava - Change it to AppUid Specifies unique id allocated by the AppStore.</value>
+        /// <value>Specifies unique id allocated by the AppStore.</value>
         [DataMember(Name="appId", EmitDefaultValue=true)]
         public long? AppId { get; set; }
 
@@ -198,6 +225,13 @@ namespace Cohesity.Model
         /// <value>Specifies whether the app currently installed on all clusters is the latest version or not.</value>
         [DataMember(Name="isLatest", EmitDefaultValue=true)]
         public bool? IsLatest { get; set; }
+
+        /// <summary>
+        /// Specifies application version assigned by the AppStore for the latest version of an app.
+        /// </summary>
+        /// <value>Specifies application version assigned by the AppStore for the latest version of an app.</value>
+        [DataMember(Name="latestVersion", EmitDefaultValue=true)]
+        public long? LatestVersion { get; set; }
 
         /// <summary>
         /// Gets or Sets Metadata
@@ -286,14 +320,17 @@ namespace Cohesity.Model
                     this.IsLatest.Equals(input.IsLatest))
                 ) && 
                 (
+                    this.LatestVersion == input.LatestVersion ||
+                    (this.LatestVersion != null &&
+                    this.LatestVersion.Equals(input.LatestVersion))
+                ) && 
+                (
                     this.Metadata == input.Metadata ||
                     (this.Metadata != null &&
                     this.Metadata.Equals(input.Metadata))
                 ) && 
                 (
                     this.RequiredPrivileges == input.RequiredPrivileges ||
-                    this.RequiredPrivileges != null &&
-                    input.RequiredPrivileges != null &&
                     this.RequiredPrivileges.SequenceEqual(input.RequiredPrivileges)
                 ) && 
                 (
@@ -328,6 +365,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.InstallTime.GetHashCode();
                 if (this.IsLatest != null)
                     hashCode = hashCode * 59 + this.IsLatest.GetHashCode();
+                if (this.LatestVersion != null)
+                    hashCode = hashCode * 59 + this.LatestVersion.GetHashCode();
                 if (this.Metadata != null)
                     hashCode = hashCode * 59 + this.Metadata.GetHashCode();
                 hashCode = hashCode * 59 + this.RequiredPrivileges.GetHashCode();

@@ -23,7 +23,7 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="SslCertificateConfig" /> class.
         /// </summary>
-        /// <param name="certificate">Certificate is a SSL certificate used by Iris HTTPS webserver. TODO(gaurav): Consider using multipart form for certificate file..</param>
+        /// <param name="certificate">Certificate is a SSL certificate used by Iris HTTPS webserver..</param>
         /// <param name="lastUpdateTimeMsecs">LastUpdateTimeMsecs is a time in milliseconds at which certificate was last updated..</param>
         /// <param name="privateKey">PrivateKey is a matching private key of the above certificate..</param>
         public SslCertificateConfig(string certificate = default(string), long? lastUpdateTimeMsecs = default(long?), string privateKey = default(string))
@@ -37,9 +37,9 @@ namespace Cohesity.Model
         }
         
         /// <summary>
-        /// Certificate is a SSL certificate used by Iris HTTPS webserver. TODO(gaurav): Consider using multipart form for certificate file.
+        /// Certificate is a SSL certificate used by Iris HTTPS webserver.
         /// </summary>
-        /// <value>Certificate is a SSL certificate used by Iris HTTPS webserver. TODO(gaurav): Consider using multipart form for certificate file.</value>
+        /// <value>Certificate is a SSL certificate used by Iris HTTPS webserver.</value>
         [DataMember(Name="certificate", EmitDefaultValue=true)]
         public string Certificate { get; set; }
 

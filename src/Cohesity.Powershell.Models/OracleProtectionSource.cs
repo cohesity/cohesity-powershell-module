@@ -21,6 +21,33 @@ namespace Cohesity.Model
     public partial class OracleProtectionSource :  IEquatable<OracleProtectionSource>
     {
         /// <summary>
+        /// Specifies the type of the database in Oracle Protection Source. &#39;kRACDatabase&#39; indicates the database is a RAC DB. &#39;kSingleInstance&#39; indicates that the databse is single instance.
+        /// </summary>
+        /// <value>Specifies the type of the database in Oracle Protection Source. &#39;kRACDatabase&#39; indicates the database is a RAC DB. &#39;kSingleInstance&#39; indicates that the databse is single instance.</value>
+        [JsonConverter(typeof(StringEnumConverter))]
+        public enum DbTypeEnum
+        {
+            /// <summary>
+            /// Enum KSingleInstance for value: kSingleInstance
+            /// </summary>
+            [EnumMember(Value = "kSingleInstance")]
+            KSingleInstance = 1,
+
+            /// <summary>
+            /// Enum KRACDatabase for value: kRACDatabase
+            /// </summary>
+            [EnumMember(Value = "kRACDatabase")]
+            KRACDatabase = 2
+
+        }
+
+        /// <summary>
+        /// Specifies the type of the database in Oracle Protection Source. &#39;kRACDatabase&#39; indicates the database is a RAC DB. &#39;kSingleInstance&#39; indicates that the databse is single instance.
+        /// </summary>
+        /// <value>Specifies the type of the database in Oracle Protection Source. &#39;kRACDatabase&#39; indicates the database is a RAC DB. &#39;kSingleInstance&#39; indicates that the databse is single instance.</value>
+        [DataMember(Name="dbType", EmitDefaultValue=true)]
+        public DbTypeEnum? DbType { get; set; }
+        /// <summary>
         /// Specifies the type of the managed Object in Oracle Protection Source. &#39;kRACRootContainer&#39; indicates the entity is a root container to an Oracle Real Application clusters(Oracle RAC). &#39;kRootContainer&#39; indicates the entity is a root container to an Oracle standalone server. &#39;kHost&#39; indicates the entity is an Oracle host. &#39;kDatabase&#39; indicates the entity is an Oracle Database. &#39;kTableSpace&#39; indicates the entity is an Oracle table space. &#39;kTable&#39; indicates the entity is an Oracle table.
         /// </summary>
         /// <value>Specifies the type of the managed Object in Oracle Protection Source. &#39;kRACRootContainer&#39; indicates the entity is a root container to an Oracle Real Application clusters(Oracle RAC). &#39;kRootContainer&#39; indicates the entity is a root container to an Oracle standalone server. &#39;kHost&#39; indicates the entity is an Oracle host. &#39;kDatabase&#39; indicates the entity is an Oracle Database. &#39;kTableSpace&#39; indicates the entity is an Oracle table space. &#39;kTable&#39; indicates the entity is an Oracle table.</value>
@@ -76,7 +103,7 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="archiveLogEnabled">Specifies whether the database is running in ARCHIVELOG mode. It enables the redo of log files into archived redo log files..</param>
         /// <param name="bctEnabled">Specifies whether the Block Change Tracking is enabled. BCT improves the performance of incremental backups by recording changed blocks into the block change tracking file. RMAN then uses this file to identify changed blocks to be backed up..</param>
-        /// <param name="dbType">Specifies the type of the database in Oracle Protection Source..</param>
+        /// <param name="dbType">Specifies the type of the database in Oracle Protection Source. &#39;kRACDatabase&#39; indicates the database is a RAC DB. &#39;kSingleInstance&#39; indicates that the databse is single instance..</param>
         /// <param name="fraSize">Specfies Flash/Fast Recovery area size for the current DB entity..</param>
         /// <param name="hosts">Specifies the list of hosts for the current DB entity..</param>
         /// <param name="name">Specifies the instance name of the Oracle entity..</param>
@@ -88,7 +115,7 @@ namespace Cohesity.Model
         /// <param name="type">Specifies the type of the managed Object in Oracle Protection Source. &#39;kRACRootContainer&#39; indicates the entity is a root container to an Oracle Real Application clusters(Oracle RAC). &#39;kRootContainer&#39; indicates the entity is a root container to an Oracle standalone server. &#39;kHost&#39; indicates the entity is an Oracle host. &#39;kDatabase&#39; indicates the entity is an Oracle Database. &#39;kTableSpace&#39; indicates the entity is an Oracle table space. &#39;kTable&#39; indicates the entity is an Oracle table..</param>
         /// <param name="uuid">Specifies the UUID for the Oracle entity..</param>
         /// <param name="version">Specifies the Oracle database instance version..</param>
-        public OracleProtectionSource(bool? archiveLogEnabled = default(bool?), bool? bctEnabled = default(bool?), string dbType = default(string), long? fraSize = default(long?), List<OracleHost> hosts = default(List<OracleHost>), string name = default(string), long? ownerId = default(long?), string sgaTargetSize = default(string), string sharedPoolSize = default(string), long? size = default(long?), long? tempFilesCount = default(long?), TypeEnum? type = default(TypeEnum?), string uuid = default(string), string version = default(string))
+        public OracleProtectionSource(bool? archiveLogEnabled = default(bool?), bool? bctEnabled = default(bool?), DbTypeEnum? dbType = default(DbTypeEnum?), long? fraSize = default(long?), List<OracleHost> hosts = default(List<OracleHost>), string name = default(string), long? ownerId = default(long?), string sgaTargetSize = default(string), string sharedPoolSize = default(string), long? size = default(long?), long? tempFilesCount = default(long?), TypeEnum? type = default(TypeEnum?), string uuid = default(string), string version = default(string))
         {
             this.ArchiveLogEnabled = archiveLogEnabled;
             this.BctEnabled = bctEnabled;
@@ -133,13 +160,6 @@ namespace Cohesity.Model
         /// <value>Specifies whether the Block Change Tracking is enabled. BCT improves the performance of incremental backups by recording changed blocks into the block change tracking file. RMAN then uses this file to identify changed blocks to be backed up.</value>
         [DataMember(Name="bctEnabled", EmitDefaultValue=true)]
         public bool? BctEnabled { get; set; }
-
-        /// <summary>
-        /// Specifies the type of the database in Oracle Protection Source.
-        /// </summary>
-        /// <value>Specifies the type of the database in Oracle Protection Source.</value>
-        [DataMember(Name="dbType", EmitDefaultValue=true)]
-        public string DbType { get; set; }
 
         /// <summary>
         /// Specfies Flash/Fast Recovery area size for the current DB entity.
@@ -259,8 +279,7 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.DbType == input.DbType ||
-                    (this.DbType != null &&
-                    this.DbType.Equals(input.DbType))
+                    this.DbType.Equals(input.DbType)
                 ) && 
                 (
                     this.FraSize == input.FraSize ||
@@ -332,8 +351,7 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ArchiveLogEnabled.GetHashCode();
                 if (this.BctEnabled != null)
                     hashCode = hashCode * 59 + this.BctEnabled.GetHashCode();
-                if (this.DbType != null)
-                    hashCode = hashCode * 59 + this.DbType.GetHashCode();
+                hashCode = hashCode * 59 + this.DbType.GetHashCode();
                 if (this.FraSize != null)
                     hashCode = hashCode * 59 + this.FraSize.GetHashCode();
                 if (this.Hosts != null)

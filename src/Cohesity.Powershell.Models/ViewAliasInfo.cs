@@ -24,12 +24,17 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="ViewAliasInfo" /> class.
         /// </summary>
         /// <param name="aliasName">Alias name..</param>
+        /// <param name="clientSubnetWhitelist">List of external client subnet IPs that are allowed to access the share..</param>
+        /// <param name="smbConfig">smbConfig.</param>
         /// <param name="viewPath">View path for the alias..</param>
-        public ViewAliasInfo(string aliasName = default(string), string viewPath = default(string))
+        public ViewAliasInfo(string aliasName = default(string), List<ClusterConfigProtoSubnet> clientSubnetWhitelist = default(List<ClusterConfigProtoSubnet>), AliasSmbConfig smbConfig = default(AliasSmbConfig), string viewPath = default(string))
         {
             this.AliasName = aliasName;
+            this.ClientSubnetWhitelist = clientSubnetWhitelist;
             this.ViewPath = viewPath;
             this.AliasName = aliasName;
+            this.ClientSubnetWhitelist = clientSubnetWhitelist;
+            this.SmbConfig = smbConfig;
             this.ViewPath = viewPath;
         }
         
@@ -39,6 +44,19 @@ namespace Cohesity.Model
         /// <value>Alias name.</value>
         [DataMember(Name="aliasName", EmitDefaultValue=true)]
         public string AliasName { get; set; }
+
+        /// <summary>
+        /// List of external client subnet IPs that are allowed to access the share.
+        /// </summary>
+        /// <value>List of external client subnet IPs that are allowed to access the share.</value>
+        [DataMember(Name="clientSubnetWhitelist", EmitDefaultValue=true)]
+        public List<ClusterConfigProtoSubnet> ClientSubnetWhitelist { get; set; }
+
+        /// <summary>
+        /// Gets or Sets SmbConfig
+        /// </summary>
+        [DataMember(Name="smbConfig", EmitDefaultValue=false)]
+        public AliasSmbConfig SmbConfig { get; set; }
 
         /// <summary>
         /// View path for the alias.
@@ -89,6 +107,17 @@ namespace Cohesity.Model
                     this.AliasName.Equals(input.AliasName))
                 ) && 
                 (
+                    this.ClientSubnetWhitelist == input.ClientSubnetWhitelist ||
+                    this.ClientSubnetWhitelist != null &&
+                    input.ClientSubnetWhitelist != null &&
+                    this.ClientSubnetWhitelist.SequenceEqual(input.ClientSubnetWhitelist)
+                ) && 
+                (
+                    this.SmbConfig == input.SmbConfig ||
+                    (this.SmbConfig != null &&
+                    this.SmbConfig.Equals(input.SmbConfig))
+                ) && 
+                (
                     this.ViewPath == input.ViewPath ||
                     (this.ViewPath != null &&
                     this.ViewPath.Equals(input.ViewPath))
@@ -106,6 +135,10 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.AliasName != null)
                     hashCode = hashCode * 59 + this.AliasName.GetHashCode();
+                if (this.ClientSubnetWhitelist != null)
+                    hashCode = hashCode * 59 + this.ClientSubnetWhitelist.GetHashCode();
+                if (this.SmbConfig != null)
+                    hashCode = hashCode * 59 + this.SmbConfig.GetHashCode();
                 if (this.ViewPath != null)
                     hashCode = hashCode * 59 + this.ViewPath.GetHashCode();
                 return hashCode;

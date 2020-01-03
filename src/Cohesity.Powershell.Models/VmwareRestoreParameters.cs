@@ -23,6 +23,7 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="VmwareRestoreParameters" /> class.
         /// </summary>
+        /// <param name="additionalDatastoreIds">Specifies additional datastores where the object should be recovered to..</param>
         /// <param name="datastoreFolderId">Specifies the folder where the restore datastore should be created. This is applicable only when the VMs are being cloned..</param>
         /// <param name="datastoreId">Specifies the datastore where the object&#39;s files should be recovered to. This field is mandatory to recover objects to a different resource pool or to a different parent source. If not specified, objects are recovered to their original datastore locations in the parent source..</param>
         /// <param name="detachNetwork">Specifies whether the network should be detached from the recovered or cloned VMs..</param>
@@ -34,8 +35,9 @@ namespace Cohesity.Model
         /// <param name="resourcePoolId">Specifies the resource pool where the cloned or recovered objects are attached. This field is mandatory for kCloneVMs Restore Tasks always. For kRecoverVMs Restore Tasks, this field is mandatory only if newParentId field is specified. If this field is not specified, recovered objects are attached to the original resource pool under the original parent..</param>
         /// <param name="suffix">Specifies a suffix to appended to the original source object name to derive a new name for the recovered or cloned object. By default, cloned or recovered objects retain their original name. Length of this field is limited to 8 characters..</param>
         /// <param name="vmFolderId">Specifies a folder where the VMs should be restored. This is applicable only when the VMs are being restored to an alternate location or if clone is being performed..</param>
-        public VmwareRestoreParameters(long? datastoreFolderId = default(long?), long? datastoreId = default(long?), bool? detachNetwork = default(bool?), bool? disableNetwork = default(bool?), long? networkId = default(long?), List<NetworkMapping> networkMappings = default(List<NetworkMapping>), bool? poweredOn = default(bool?), string prefix = default(string), long? resourcePoolId = default(long?), string suffix = default(string), long? vmFolderId = default(long?))
+        public VmwareRestoreParameters(List<long> additionalDatastoreIds = default(List<long>), long? datastoreFolderId = default(long?), long? datastoreId = default(long?), bool? detachNetwork = default(bool?), bool? disableNetwork = default(bool?), long? networkId = default(long?), List<NetworkMapping> networkMappings = default(List<NetworkMapping>), bool? poweredOn = default(bool?), string prefix = default(string), long? resourcePoolId = default(long?), string suffix = default(string), long? vmFolderId = default(long?))
         {
+            this.AdditionalDatastoreIds = additionalDatastoreIds;
             this.DatastoreFolderId = datastoreFolderId;
             this.DatastoreId = datastoreId;
             this.DetachNetwork = detachNetwork;
@@ -47,6 +49,7 @@ namespace Cohesity.Model
             this.ResourcePoolId = resourcePoolId;
             this.Suffix = suffix;
             this.VmFolderId = vmFolderId;
+            this.AdditionalDatastoreIds = additionalDatastoreIds;
             this.DatastoreFolderId = datastoreFolderId;
             this.DatastoreId = datastoreId;
             this.DetachNetwork = detachNetwork;
@@ -60,6 +63,13 @@ namespace Cohesity.Model
             this.VmFolderId = vmFolderId;
         }
         
+        /// <summary>
+        /// Specifies additional datastores where the object should be recovered to.
+        /// </summary>
+        /// <value>Specifies additional datastores where the object should be recovered to.</value>
+        [DataMember(Name="additionalDatastoreIds", EmitDefaultValue=true)]
+        public List<long> AdditionalDatastoreIds { get; set; }
+
         /// <summary>
         /// Specifies the folder where the restore datastore should be created. This is applicable only when the VMs are being cloned.
         /// </summary>
@@ -174,6 +184,12 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.AdditionalDatastoreIds == input.AdditionalDatastoreIds ||
+                    this.AdditionalDatastoreIds != null &&
+                    input.AdditionalDatastoreIds != null &&
+                    this.AdditionalDatastoreIds.SequenceEqual(input.AdditionalDatastoreIds)
+                ) && 
+                (
                     this.DatastoreFolderId == input.DatastoreFolderId ||
                     (this.DatastoreFolderId != null &&
                     this.DatastoreFolderId.Equals(input.DatastoreFolderId))
@@ -240,6 +256,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.AdditionalDatastoreIds != null)
+                    hashCode = hashCode * 59 + this.AdditionalDatastoreIds.GetHashCode();
                 if (this.DatastoreFolderId != null)
                     hashCode = hashCode * 59 + this.DatastoreFolderId.GetHashCode();
                 if (this.DatastoreId != null)

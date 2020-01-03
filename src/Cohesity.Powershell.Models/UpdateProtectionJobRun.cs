@@ -24,19 +24,16 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="UpdateProtectionJobRun" /> class.
         /// </summary>
         /// <param name="copyRunTargets">Specifies the retention for archival, replication or extended local retention..</param>
-        /// <param name="expiryTimeUsecs">Specifies a new expiration time as a Unix epoch Timestamp (in microseconds). This expiration time defines the retention period for the snapshot. After an expiration time for a Job Run is reached, the Job Run and the snapshot captured by this Job Run are deleted. If 0 is specified, the Job Run and the snapshot are immediately deleted..</param>
         /// <param name="jobUid">Specifies a unique universal id for the Job..</param>
         /// <param name="runStartTimeUsecs">Specifies the start time of the Job Run to update. The start time is specified as a Unix epoch Timestamp (in microseconds). This uniquely identifies a snapshot. This parameter is required..</param>
         /// <param name="sourceIds">Ids of the Protection Sources. If this is specified, retention time will only be updated for the sources specified..</param>
-        public UpdateProtectionJobRun(List<RunJobSnapshotTarget> copyRunTargets = default(List<RunJobSnapshotTarget>), long? expiryTimeUsecs = default(long?), UniversalId jobUid = default(UniversalId), long? runStartTimeUsecs = default(long?), List<long> sourceIds = default(List<long>))
+        public UpdateProtectionJobRun(List<RunJobSnapshotTarget> copyRunTargets = default(List<RunJobSnapshotTarget>), UniversalId jobUid = default(UniversalId), long? runStartTimeUsecs = default(long?), List<long> sourceIds = default(List<long>))
         {
             this.CopyRunTargets = copyRunTargets;
-            this.ExpiryTimeUsecs = expiryTimeUsecs;
             this.JobUid = jobUid;
             this.RunStartTimeUsecs = runStartTimeUsecs;
             this.SourceIds = sourceIds;
             this.CopyRunTargets = copyRunTargets;
-            this.ExpiryTimeUsecs = expiryTimeUsecs;
             this.JobUid = jobUid;
             this.RunStartTimeUsecs = runStartTimeUsecs;
             this.SourceIds = sourceIds;
@@ -48,13 +45,6 @@ namespace Cohesity.Model
         /// <value>Specifies the retention for archival, replication or extended local retention.</value>
         [DataMember(Name="copyRunTargets", EmitDefaultValue=true)]
         public List<RunJobSnapshotTarget> CopyRunTargets { get; set; }
-
-        /// <summary>
-        /// Specifies a new expiration time as a Unix epoch Timestamp (in microseconds). This expiration time defines the retention period for the snapshot. After an expiration time for a Job Run is reached, the Job Run and the snapshot captured by this Job Run are deleted. If 0 is specified, the Job Run and the snapshot are immediately deleted.
-        /// </summary>
-        /// <value>Specifies a new expiration time as a Unix epoch Timestamp (in microseconds). This expiration time defines the retention period for the snapshot. After an expiration time for a Job Run is reached, the Job Run and the snapshot captured by this Job Run are deleted. If 0 is specified, the Job Run and the snapshot are immediately deleted.</value>
-        [DataMember(Name="expiryTimeUsecs", EmitDefaultValue=true)]
-        public long? ExpiryTimeUsecs { get; set; }
 
         /// <summary>
         /// Specifies a unique universal id for the Job.
@@ -120,11 +110,6 @@ namespace Cohesity.Model
                     this.CopyRunTargets.SequenceEqual(input.CopyRunTargets)
                 ) && 
                 (
-                    this.ExpiryTimeUsecs == input.ExpiryTimeUsecs ||
-                    (this.ExpiryTimeUsecs != null &&
-                    this.ExpiryTimeUsecs.Equals(input.ExpiryTimeUsecs))
-                ) && 
-                (
                     this.JobUid == input.JobUid ||
                     (this.JobUid != null &&
                     this.JobUid.Equals(input.JobUid))
@@ -153,8 +138,6 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.CopyRunTargets != null)
                     hashCode = hashCode * 59 + this.CopyRunTargets.GetHashCode();
-                if (this.ExpiryTimeUsecs != null)
-                    hashCode = hashCode * 59 + this.ExpiryTimeUsecs.GetHashCode();
                 if (this.JobUid != null)
                     hashCode = hashCode * 59 + this.JobUid.GetHashCode();
                 if (this.RunStartTimeUsecs != null)

@@ -50,6 +50,7 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="InfectedFile" /> class.
         /// </summary>
+        /// <param name="antivirusProviderName">Specifies the name of antivirus service provider..</param>
         /// <param name="entityId">Specifies the entity id of the infected file..</param>
         /// <param name="filePath">Specifies file path of the infected file..</param>
         /// <param name="infectionDetectionTimestamp">Specifies unix epoch timestamp (in microseconds) at which these threats were detected..</param>
@@ -61,8 +62,9 @@ namespace Cohesity.Model
         /// <param name="threatDescriptions">Specifies the list of virus threat descriptions found in the file..</param>
         /// <param name="viewId">Specifies the id of the View the infected file belongs to..</param>
         /// <param name="viewName">Specifies the View name corresponding to above view id..</param>
-        public InfectedFile(long? entityId = default(long?), string filePath = default(string), long? infectionDetectionTimestamp = default(long?), long? modifiedTimestampUsecs = default(long?), RemediationStateEnum? remediationState = default(RemediationStateEnum?), long? rootInodeId = default(long?), long? scanTimestampUsecs = default(long?), string serviceIcapUri = default(string), List<string> threatDescriptions = default(List<string>), long? viewId = default(long?), string viewName = default(string))
+        public InfectedFile(string antivirusProviderName = default(string), long? entityId = default(long?), string filePath = default(string), long? infectionDetectionTimestamp = default(long?), long? modifiedTimestampUsecs = default(long?), RemediationStateEnum? remediationState = default(RemediationStateEnum?), long? rootInodeId = default(long?), long? scanTimestampUsecs = default(long?), string serviceIcapUri = default(string), List<string> threatDescriptions = default(List<string>), long? viewId = default(long?), string viewName = default(string))
         {
+            this.AntivirusProviderName = antivirusProviderName;
             this.EntityId = entityId;
             this.FilePath = filePath;
             this.InfectionDetectionTimestamp = infectionDetectionTimestamp;
@@ -74,6 +76,7 @@ namespace Cohesity.Model
             this.ThreatDescriptions = threatDescriptions;
             this.ViewId = viewId;
             this.ViewName = viewName;
+            this.AntivirusProviderName = antivirusProviderName;
             this.EntityId = entityId;
             this.FilePath = filePath;
             this.InfectionDetectionTimestamp = infectionDetectionTimestamp;
@@ -87,6 +90,13 @@ namespace Cohesity.Model
             this.ViewName = viewName;
         }
         
+        /// <summary>
+        /// Specifies the name of antivirus service provider.
+        /// </summary>
+        /// <value>Specifies the name of antivirus service provider.</value>
+        [DataMember(Name="antivirusProviderName", EmitDefaultValue=true)]
+        public string AntivirusProviderName { get; set; }
+
         /// <summary>
         /// Specifies the entity id of the infected file.
         /// </summary>
@@ -194,6 +204,11 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.AntivirusProviderName == input.AntivirusProviderName ||
+                    (this.AntivirusProviderName != null &&
+                    this.AntivirusProviderName.Equals(input.AntivirusProviderName))
+                ) && 
+                (
                     this.EntityId == input.EntityId ||
                     (this.EntityId != null &&
                     this.EntityId.Equals(input.EntityId))
@@ -259,6 +274,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.AntivirusProviderName != null)
+                    hashCode = hashCode * 59 + this.AntivirusProviderName.GetHashCode();
                 if (this.EntityId != null)
                     hashCode = hashCode * 59 + this.EntityId.GetHashCode();
                 if (this.FilePath != null)

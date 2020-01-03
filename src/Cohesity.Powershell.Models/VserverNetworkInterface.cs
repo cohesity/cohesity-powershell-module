@@ -151,8 +151,6 @@ namespace Cohesity.Model
             return 
                 (
                     this.DataProtocols == input.DataProtocols ||
-                    this.DataProtocols != null &&
-                    input.DataProtocols != null &&
                     this.DataProtocols.SequenceEqual(input.DataProtocols)
                 ) && 
                 (

@@ -21,9 +21,9 @@ namespace Cohesity.Model
     public partial class StoragePolicy :  IEquatable<StoragePolicy>
     {
         /// <summary>
-        /// Specifies the compression setting to be applied to a Storage Domain (View Box). &#39;kCompressionNone&#39; indicates that data is not compressed. &#39;kCompressionLow&#39; indicates that data is compressed.
+        /// Specifies the compression setting to be applied to a Storage Domain (View Box). &#39;kCompressionNone&#39; indicates that data is not compressed. &#39;kCompressionLow&#39; indicates that data is compressed using LZ4 or Snappy. &#39;kCompressionHigh&#39; indicates that data is compressed in Gzip.
         /// </summary>
-        /// <value>Specifies the compression setting to be applied to a Storage Domain (View Box). &#39;kCompressionNone&#39; indicates that data is not compressed. &#39;kCompressionLow&#39; indicates that data is compressed.</value>
+        /// <value>Specifies the compression setting to be applied to a Storage Domain (View Box). &#39;kCompressionNone&#39; indicates that data is not compressed. &#39;kCompressionLow&#39; indicates that data is compressed using LZ4 or Snappy. &#39;kCompressionHigh&#39; indicates that data is compressed in Gzip.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum CompressionPolicyEnum
         {
@@ -48,9 +48,9 @@ namespace Cohesity.Model
         }
 
         /// <summary>
-        /// Specifies the compression setting to be applied to a Storage Domain (View Box). &#39;kCompressionNone&#39; indicates that data is not compressed. &#39;kCompressionLow&#39; indicates that data is compressed.
+        /// Specifies the compression setting to be applied to a Storage Domain (View Box). &#39;kCompressionNone&#39; indicates that data is not compressed. &#39;kCompressionLow&#39; indicates that data is compressed using LZ4 or Snappy. &#39;kCompressionHigh&#39; indicates that data is compressed in Gzip.
         /// </summary>
-        /// <value>Specifies the compression setting to be applied to a Storage Domain (View Box). &#39;kCompressionNone&#39; indicates that data is not compressed. &#39;kCompressionLow&#39; indicates that data is compressed.</value>
+        /// <value>Specifies the compression setting to be applied to a Storage Domain (View Box). &#39;kCompressionNone&#39; indicates that data is not compressed. &#39;kCompressionLow&#39; indicates that data is compressed using LZ4 or Snappy. &#39;kCompressionHigh&#39; indicates that data is compressed in Gzip.</value>
         [DataMember(Name="compressionPolicy", EmitDefaultValue=true)]
         public CompressionPolicyEnum? CompressionPolicy { get; set; }
         /// <summary>
@@ -91,7 +91,7 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="appMarkerDetection">Specifies Whether to support app marker detection. When this is set to true, app markers (like commvault markers) will be removed from data and put in separate chunks. This way deduplication is improved as it is done on data that has no app markers..</param>
         /// <param name="cloudSpillVaultId">Specifies the vault id assigned for an external Storage Target to facilitate cloud spill..</param>
-        /// <param name="compressionPolicy">Specifies the compression setting to be applied to a Storage Domain (View Box). &#39;kCompressionNone&#39; indicates that data is not compressed. &#39;kCompressionLow&#39; indicates that data is compressed..</param>
+        /// <param name="compressionPolicy">Specifies the compression setting to be applied to a Storage Domain (View Box). &#39;kCompressionNone&#39; indicates that data is not compressed. &#39;kCompressionLow&#39; indicates that data is compressed using LZ4 or Snappy. &#39;kCompressionHigh&#39; indicates that data is compressed in Gzip..</param>
         /// <param name="deduplicateCompressDelaySecs">Specifies the time in seconds when deduplication and compression of data on the Storage Domain (View Box) starts. If set to 0, deduplication and compression is done inline (as the data is being written). Otherwise, post-process deduplication and compression is done after the specified delay..</param>
         /// <param name="deduplicationEnabled">Specifies if deduplication is enabled for the Storage Domain (View Box). If deduplication is enabled, the Cohesity Cluster eliminates duplicate blocks of repeating data stored on the Cluster thus reducing the amount of storage space needed to store data..</param>
         /// <param name="encryptionPolicy">Specifies the encryption setting for the Storage Domain (View Box). &#39;kEncryptionNone&#39; indicates the data is not encrypted. &#39;kEncryptionStrong&#39; indicates the data is encrypted..</param>
