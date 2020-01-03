@@ -78,6 +78,7 @@ FunctionsToExport = @(
                       'Remove-CohesityUser',
                       'Set-CohesityAlertResolutions',
                       'Set-CohesityCmdletConfig',
+                      'Update-CohesityActiveDirectory',
                       'Update-CohesityProtectionJobRun'
                       )
 
