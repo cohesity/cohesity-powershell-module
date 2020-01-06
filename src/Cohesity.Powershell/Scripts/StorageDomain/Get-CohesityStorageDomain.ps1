@@ -14,8 +14,6 @@ function Get-CohesityStorageDomain {
         [Parameter(Mandatory = $false)]
         [string[]]$Names = $null,
         [Parameter(Mandatory = $false)]
-        [string[]]$ClusterPartitionIds = $null,
-        [Parameter(Mandatory = $false)]
         [switch]$FetchStats
     )
     Begin {
@@ -28,7 +26,6 @@ function Get-CohesityStorageDomain {
 
         $token = $session.Accesstoken.Accesstoken
     }
-
     Process {
         # Form query parameters
         $Parameters = [ordered]@{}
@@ -37,9 +34,6 @@ function Get-CohesityStorageDomain {
         }
         if ($Names -ne $null) {
             $Parameters.Add('names', $Names -join ',')
-        }
-        if ($ClusterPartitionIds -ne $null) {
-            $Parameters.Add('clusterPartitionIds', $ClusterPartitionIds -join ',')
         }
         if ($FetchStats) {
             $Parameters.Add('fetchStats', $true)

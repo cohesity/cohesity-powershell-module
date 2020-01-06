@@ -1,8 +1,8 @@
 # Request to fetch all Vlan configuration filtered by specified parameters.
 #### USAGE ####
 #   Get-CohesityVlan
-#   Get-CohesityVlan -allUnderHierarchy false -skipPrimaryAndBondIface false -tenantIds testOrg/
-#   Get-CohesityVlan -allUnderHierarchy false -skipPrimaryAndBondIface true
+#   Get-CohesityVlan -skipPrimaryAndBondIface false -tenantIds testOrg/
+#   Get-CohesityVlan -skipPrimaryAndBondIface true
 #   Get-CohesityVlan -VlanId 0
 ###############
 
@@ -11,16 +11,12 @@ function Get-CohesityVlan {
     Param(
         [Parameter(Mandatory = $false)]
         [Int64]$VlanId,
-        # Specifies if objects of all the tenants under the hierarchy of the logged in user’s organization should be returned.
-        [Parameter(Mandatory = $false)]
-        $AllUnderHierarchy = $null,
         # Filter interfaces entries which are primary interface or bond interfaces.
         [Parameter(Mandatory = $false)]
         $SkipPrimaryAndBondIface = $null,
         # TenantIds contains ids of the tenants for which objects are to be returned.
         [Parameter(Mandatory = $false)]
         [string[]]$TenantIds = $null
-
     )
     Begin {
         if (-not (Test-Path -Path "$HOME/.cohesity")) {
@@ -32,13 +28,10 @@ function Get-CohesityVlan {
 
         $token = $session.Accesstoken.Accesstoken
     }
-
     Process {
         # Form query parameters
         $Parameters = [ordered]@{}
-        if ($AllUnderHierarchy -ne $null) {
-            $Parameters.Add('allUnderHierarchy', $AllUnderHierarchy)
-        }
+        $Parameters.Add('allUnderHierarchy', $true)
         if ($SkipPrimaryAndBondIface -ne $null) {
             $Parameters.Add('skipPrimaryAndBondIface', $SkipPrimaryAndBondIface)
         }
@@ -74,7 +67,6 @@ function Get-CohesityVlan {
             }
         }
     }
-
     End {
     }
 }
