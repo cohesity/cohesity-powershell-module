@@ -1,3 +1,4 @@
+# Request to update Storage Domain (View Box) configuration.
 #### USAGE ####
 #   Set-CohesityStorageDomain -Name newmanStorage
 #   Get-CohesityStorageDomain | Set-CohesityStorageDomain -Name newmanStorage

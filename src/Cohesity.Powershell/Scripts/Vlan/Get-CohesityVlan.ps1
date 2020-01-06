@@ -1,3 +1,4 @@
+# Request to fetch all Vlan configuration filtered by specified parameters.
 #### USAGE ####
 #   Get-CohesityVlan
 #   Get-CohesityVlan -allUnderHierarchy false -skipPrimaryAndBondIface false -tenantIds testOrg/
@@ -77,5 +78,3 @@ function Get-CohesityVlan {
     End {
     }
 }
-
-Get-CohesityVlan -VlanId 1

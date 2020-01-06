@@ -70,7 +70,10 @@ FunctionsToExport = @(
                       'Get-CohesityCmdletConfig',
                       'Get-CohesityOrganization',
                       'Get-CohesityProtectionJobStatus',
+                      'Get-CohesityStorageDomain',
+                      'Get-CohesityVlan',
                       'New-CohesityActiveDirectory',
+                      'New-CohesityStorageDomain',
                       'Recover-CohesityBackupToView',
                       'Register-CohesityProtectionSourceHyperV',
                       'Register-CohesityProtectionSourceO365',
@@ -78,6 +81,7 @@ FunctionsToExport = @(
                       'Remove-CohesityUser',
                       'Set-CohesityAlertResolutions',
                       'Set-CohesityCmdletConfig',
+                      'Set-CohesityStorageDomain',
                       'Update-CohesityActiveDirectory',
                       'Update-CohesityProtectionJobRun'
                       )

@@ -1,7 +1,7 @@
-# Request to create a Storage Domain (View Box) configuration.
+# Request to create a Storage Domain (View Box).
 #### USAGE ####
-#New-CohesityStorageDomain -Name sample
-#New-CohesityStorageDomain -Name sampleS -Deduplication -InlineDeduplication -InlineCompress -Encryption -ClusterPartitionName DefaultPartition
+#   New-CohesityStorageDomain -Name sample
+#   New-CohesityStorageDomain -Name sampleS -Deduplication -InlineDeduplication -InlineCompress -Encryption -ClusterPartitionName DefaultPartition
 ###############
 
 function New-CohesityStorageDomain {

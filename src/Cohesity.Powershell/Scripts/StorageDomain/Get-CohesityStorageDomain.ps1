@@ -1,3 +1,4 @@
+# Request to fetch all Storage Domain (View Box) configuration filtered by specified parameters.
 #### USAGE ####
 #   Get-CohesityStorageDomain
 #   Get-CohesityStorageDomain -Ids 37640784
