@@ -1,23 +1,34 @@
-# Request to fetch all Vlan configuration filtered by specified parameters.
-#### USAGE ####
-#   Get-CohesityVlan
-#   Get-CohesityVlan -skipPrimaryAndBondIface false -tenantIds testOrg/
-#   Get-CohesityVlan -skipPrimaryAndBondIface true
-#   Get-CohesityVlan -VlanId 0
-###############
-
 function Get-CohesityVlan {
+    <#
+        .SYNOPSIS
+        Request to fetch all Vlan configuration filtered by specified parameters.
+        .DESCRIPTION
+        The Get-CohesityVlan function is used to fetch list of all configured Vlan information using REST API or specific Vlan information based on specified parameters.
+        .EXAMPLE
+        Get-CohesityVlan
+        List all configured Vlans
+        .EXAMPLE
+        Get-CohesityVlan -SkipPrimaryAndBondIface true
+        SkipPrimaryAndBondIface is to filter interfaces entries which are primary interface or bond interfaces
+        .EXAMPLE
+        Get-CohesityVlan -VlanId 0
+        Returns the VLAN corresponding to the specified VLAN ID or a specified vlan interface group name.
+        .EXAMPLE
+        Get-CohesityVlan -TenantIds [<TenantIds>]
+        Retuns the Vlan that are configured for the specific tenant. TenantIds contains list of/specific id(s) of the tenants for which configured Vlans are to be returned.
+    #>
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory = $false)]
         [Int64]$VlanId,
         # Filter interfaces entries which are primary interface or bond interfaces.
-        [Parameter(Mandatory = $false)]
-        $SkipPrimaryAndBondIface = $null,
+        [Parameter(Mandatory = $false)][ValidateSet("true", "false")]
+        [String]$SkipPrimaryAndBondIface,
         # TenantIds contains ids of the tenants for which objects are to be returned.
         [Parameter(Mandatory = $false)]
-        [string[]]$TenantIds = $null
+        [String[]]$TenantIds = $null
     )
+
     Begin {
         if (-not (Test-Path -Path "$HOME/.cohesity")) {
             throw "Failed to authenticate. Please connect to the Cohesity Cluster using 'Connect-CohesityCluster'"
@@ -28,6 +39,7 @@ function Get-CohesityVlan {
 
         $token = $session.Accesstoken.Accesstoken
     }
+
     Process {
         # Form query parameters
         $Parameters = [ordered]@{}
@@ -66,7 +78,5 @@ function Get-CohesityVlan {
                 CSLog -Message $errorMsg
             }
         }
-    }
-    End {
-    }
-}
+    } # End of process
+} # End of function
