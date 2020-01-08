@@ -80,7 +80,7 @@ function New-CohesityStorageDomain {
         $GibToBytes = (1024 * 1024 * 1024)
 
         if ($PhysicalQuota) {
-            [Int64]$PhysicalQuota_bytes = $PhysicalQuota * $GibToBytes
+            [Int64]$PhysicalQuota_bytes = ($PhysicalQuota * $GibToBytes)
             $PhysicalQuotaObj = @{hardLimitBytes = $PhysicalQuota_bytes}
         }
 

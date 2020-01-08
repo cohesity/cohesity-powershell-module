@@ -115,7 +115,8 @@ function Set-CohesityStorageDomain {
                             if ($Compression -eq $false) { $payload.storagePolicy.inlineCompress = [System.Convert]::ToBoolean($Compression) }
                         }
                         'PhysicalQuota' {
-                            [Int64]$PhysicalQuota_bytes = ($PhysicalQuota * 1024 * 1024 * 1024)
+                            $GibToBytes = (1024 * 1024 * 1024)
+                            [Int64]$PhysicalQuota_bytes = ($PhysicalQuota * $GibToBytes)
                             $physicalQuotaObj = @{}
                             $physicalQuotaObj = $payload.physicalQuota
                             $physicalQuotaObj.hardLimitBytes = $PhysicalQuota_bytes
