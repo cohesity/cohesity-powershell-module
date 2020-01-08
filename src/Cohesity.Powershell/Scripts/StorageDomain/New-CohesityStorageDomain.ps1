@@ -77,8 +77,10 @@ function New-CohesityStorageDomain {
 
         # Convert Physical quota value to bytes, if physical quota is specified by user
         $PhysicalQuotaObj = @{}
+        $GibToBytes = (1024 * 1024 * 1024)
+
         if ($PhysicalQuota) {
-            [Int64]$PhysicalQuota_bytes = ($PhysicalQuota * 1024 * 1024 * 1024)
+            [Int64]$PhysicalQuota_bytes = $PhysicalQuota * $GibToBytes
             $PhysicalQuotaObj = @{hardLimitBytes = $PhysicalQuota_bytes}
         }
 

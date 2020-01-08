@@ -1,17 +1,20 @@
-function Download-CohesityFilesAndFolders {
+function Download-CohesityFile {
     <#
         .SYNOPSIS
-        Request to download the specified file/folder from the specified server.
+        Request to download the specified file from the specified server.
         .DESCRIPTION
-        The Download-CohesityFilesAndFolders function is used to download specific file/folder using REST API from the specified server under tthe specified target folder.
+        The Download-CohesityFile function is used to download specific file using REST API from the specified server under tthe specified target folder.
         .NOTES
-        If target path is not specified, then file/folder will be downloaded under home folder
+        If target path is not specified, then file will be downloaded under home folder
         .EXAMPLE
-        Download-CohesityFilesAndFolders -FileName <FileFolderName> -ServerName <ServerName> -OutFile <TargetPath>
-        Download the specified file/folder from the server under specified target path
+        Download-CohesityFile -FileName <FileName> -ServerName <ServerName> -OutFile <TargetPath>
+        Download the specified file from the server under specified target path
         .EXAMPLE
-        Download-CohesityFilesAndFolders -FileName <FileFolderName> -ServerName <ServerName>
-        Download the specified file/folder from the server under home path
+        Download-CohesityFile -FileName <FileName> -ServerName <ServerName>
+        Download the specified file from the server under home path
+        .NOTES
+        *** If multiple files found for the specified file search, then the first occured file of the specified server (in search result) will be downloaded
+        *** The latest snapshot will be used for downloading the file
     #>
     [CmdletBinding()]
     Param(
@@ -43,7 +46,7 @@ function Download-CohesityFilesAndFolders {
         
         $entityInfo = $null
         if ($rfObj.files) {
-            $entityInfo = $rfObj.files | Where-Object {$_.protectionSource.name -eq $ServerName}
+            $entityInfo = $rfObj.files | Where-Object {$_.protectionSource.name -eq $ServerName -and !$_.isFolder}
 
             if ($entityInfo) {
                 $AbsolutePath = $entityInfo[0].filename
