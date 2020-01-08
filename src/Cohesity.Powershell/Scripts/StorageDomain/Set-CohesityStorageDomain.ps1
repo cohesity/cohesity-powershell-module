@@ -22,33 +22,33 @@ function Set-CohesityStorageDomain {
     #>
     [CmdletBinding()]
     Param(
-        [Parameter(Mandatory=$False)]
+        [Parameter(Mandatory = $false)]
         [string]$Name = $null,
         # New domain name to be update
-        [Parameter(Mandatory=$False, ParameterSetName = 'UpdateField')]
+        [Parameter(Mandatory = $false, ParameterSetName = 'UpdateField')]
         [string]$NewDomainName = $null,
         # If deduplication is enabled, the Cohesity Cluster eliminates duplicate blocks of repeating data stored on the Cluster,
         # thus reducing the amount of storage space needed to store data.
-        [Parameter(Mandatory = $False, ParameterSetName = 'UpdateField')][ValidateSet("true", "false")]
+        [Parameter(Mandatory = $false, ParameterSetName = 'UpdateField')][ValidateSet("true", "false")]
         [String]$Deduplication = $true,
         # Specifies if deduplication should occur inline (as the data is being written). This field is only relevant if deduplication is enabled.
         # If on, deduplication occurs as the Cluster saves blocks to the Partition. If off, deduplication occurs after the Cluster writes data to the Partition.
-        [Parameter(Mandatory = $False, ParameterSetName = 'UpdateField')][ValidateSet("true", "false")]
+        [Parameter(Mandatory = $false, ParameterSetName = 'UpdateField')][ValidateSet("true", "false")]
         [String]$InlineDeduplication,
         # Determines whether the compression policy should be ‘kCompressionNone’ (disabled case) or ‘kCompressionLow’ (enabled case)
         # ‘kCompressionNone’ indicates that data is not compressed. ‘kCompressionLow’ indicates that data is compressed.
-        [Parameter(Mandatory = $False, ParameterSetName = 'UpdateField')][ValidateSet("true", "false")]
+        [Parameter(Mandatory = $false, ParameterSetName = 'UpdateField')][ValidateSet("true", "false")]
         [String]$Compression,
         # Specifies if compression should occur inline (as the data is being written). This field is only relevant if compression is enabled.
         # If on, compression occurs as the Cluster saves blocks to the Partition. If off, compression occurs after the Cluster writes data to the Partition.
-        [Parameter(Mandatory = $False, ParameterSetName = 'UpdateField')][ValidateSet("true", "false")]
+        [Parameter(Mandatory = $false, ParameterSetName = 'UpdateField')][ValidateSet("true", "false")]
         [String]$InlineCompression,
         # Specifies an optional quota limit on the usage allowed for this resource. This limit is specified in GiB.
         # If no value is specified,there is no limit.
-        [Parameter(Mandatory = $False, ParameterSetName = 'UpdateField')]
+        [Parameter(Mandatory = $false, ParameterSetName = 'UpdateField')]
         [Int]$PhysicalQuota = $null,
         # List of storage domain (view box), returned from 'Get-CohesityStorageDomain' commandlet
-        [Parameter(ValueFromPipeline=$True, DontShow=$True)]
+        [Parameter(ValueFromPipeline = $true, DontShow = $true)]
 		[object[]]$StorageDomain = $null
     )
 
@@ -65,14 +65,25 @@ function Set-CohesityStorageDomain {
 
     Process {
         $payload = $null
+        if (!$Name -and $NewDomainName) {
+            Write-Warning 'Cannot update entire storage domain with same domain name. Please specify any single storage domain to update with new domain name.'
+            return
+        }
 
-        if ($StorageDomain -ne $null) {
-            $payload = $StorageDomain
+        if ($NewDomainName) {
+            # Check if the storage domain with specified name already exist
+            $isDomainExist = Get-CohesityStorageDomain -Name $NewDomainName -WarningAction SilentlyContinue
+
+            if ($isDomainExist) {
+                Write-Warning "Storage Domain with name '$NewDomainName' already exists."
+                return
+            }
+        }
+
+        if ($null -ne $StorageDomain) {
+            $domainObj = $StorageDomain
             if ($Name) {
-                $payload = $StorageDomain | Where-Object {$_.name -eq $Name}
-            } elseif ($NewDomainName) {
-                Write-Warning 'Cannot update entire storage domain with same domain name. Please specify any single storage domain to update'
-                exit
+                $domainObj = $StorageDomain | Where-Object {$_.name -eq $Name}
             }
         }
 
@@ -80,61 +91,64 @@ function Set-CohesityStorageDomain {
         $StorageDomainUrl = $server + '/irisservices/api/v1/public/viewBoxes'
         $headers = @{'Authorization' = 'Bearer ' + $token }
 
-        if ($StorageDomain -eq $null) {
-            if (!$Name) {
-                Write-Warning 'Please provide the Storage domain name that to be updated'
-                return
+        if ($null -eq $StorageDomain) {
+            $getUrl = $StorageDomainUrl
+            if ($Name) {
+                $getUrl = $getUrl + '?names=' + $Name
             }
-            $getUrl = $StorageDomainUrl + '?names=' + $Name
-            $payload = Invoke-RestApi -Method 'Get' -Uri $getUrl -Headers $headers
+            $domainObj = Invoke-RestApi -Method 'Get' -Uri $getUrl -Headers $headers
         }
 
         # Update the specified Storage domain
-        if ($payload -ne $null) {
-            # Update the payload with specified parameter values
-            if ('UpdateField' -eq $PsCmdlet.ParameterSetName) {
-                $PsBoundParameters.keys | ForEach-Object {
-                    switch ($_) {
-                        'NewDomainName' {
-                            $payload.name = $NewDomainName
-                        }
-                        'Deduplication' {
-                            $payload.storagePolicy.deduplicationEnabled = [System.Convert]::ToBoolean($Deduplication)
-                            if ($Deduplication -eq $false) { $payload.storagePolicy.inlineDeduplicate = [System.Convert]::ToBoolean($Deduplication) }
-                        }
-                        'InlineDeduplication' {
-                            $payload.storagePolicy.inlineDeduplicate = [System.Convert]::ToBoolean($InlineDeduplicate)
-                            if ($Deduplication -eq $false) { $payload.storagePolicy.inlineDeduplicate = [System.Convert]::ToBoolean($Deduplication) }
-                        }
-                        'Compression' {
-                            $payload.storagePolicy.compressionPolicy = $(if ($Compression -eq $true) {'kCompressionLow'} else {'kCompressionNone'})
-                            if ($Compression -eq $false) { $payload.storagePolicy.inlineCompress = [System.Convert]::ToBoolean($Compression) }
-                        }
-                        'InlineCompression' {
-                            $payload.storagePolicy.inlineCompress = [System.Convert]::ToBoolean($InlineCompression)
-                            if ($Compression -eq $false) { $payload.storagePolicy.inlineCompress = [System.Convert]::ToBoolean($Compression) }
-                        }
-                        'PhysicalQuota' {
-                            $GibToBytes = (1024 * 1024 * 1024)
-                            [Int64]$PhysicalQuota_bytes = ($PhysicalQuota * $GibToBytes)
-                            $physicalQuotaObj = @{}
-                            $physicalQuotaObj = $payload.physicalQuota
-                            $physicalQuotaObj.hardLimitBytes = $PhysicalQuota_bytes
-                            $payload.physicalQuota = $physicalQuotaObj
+        if ($null -ne $domainObj) {
+            $domainObj | ForEach-Object {
+                $payload = $_
+                # Update the payload with specified parameter values
+                if ('UpdateField' -eq $PsCmdlet.ParameterSetName) {
+                    $PsBoundParameters.keys | ForEach-Object {
+                        switch ($_) {
+                            'NewDomainName' {
+                                $payload.name = $NewDomainName
+                            }
+                            'Deduplication' {
+                                $payload.storagePolicy.deduplicationEnabled = [System.Convert]::ToBoolean($Deduplication)
+                                if ($Deduplication -eq $false) { $payload.storagePolicy.inlineDeduplicate = [System.Convert]::ToBoolean($Deduplication) }
+                            }
+                            'InlineDeduplication' {
+                                $payload.storagePolicy.inlineDeduplicate = [System.Convert]::ToBoolean($InlineDeduplicate)
+                                if ($Deduplication -eq $false) { $payload.storagePolicy.inlineDeduplicate = [System.Convert]::ToBoolean($Deduplication) }
+                            }
+                            'Compression' {
+                                $payload.storagePolicy.compressionPolicy = $(if ($Compression -eq $true) {'kCompressionLow'} else {'kCompressionNone'})
+                                if ($Compression -eq $false) { $payload.storagePolicy.inlineCompress = [System.Convert]::ToBoolean($Compression) }
+                            }
+                            'InlineCompression' {
+                                $payload.storagePolicy.inlineCompress = [System.Convert]::ToBoolean($InlineCompression)
+                                if ($Compression -eq $false) { $payload.storagePolicy.inlineCompress = [System.Convert]::ToBoolean($Compression) }
+                            }
+                            'PhysicalQuota' {
+                                $GibToBytes = (1024 * 1024 * 1024)
+                                [Int64]$PhysicalQuota_bytes = ($PhysicalQuota * $GibToBytes)
+                                if ($null -ne $payload.physicalQuota.hardLimitBytes) {
+                                    $payload.physicalQuota.hardLimitBytes = $PhysicalQuota_bytes
+                                } else {
+                                    $payload.physicalQuota | Add-Member -MemberType NoteProperty -Name hardLimitBytes -Value $PhysicalQuota_bytes
+                                }
+                            }
                         }
                     }
                 }
-            }
 
-            $StorageDomainId = $payload.id
-            $payloadJson = $payload | ConvertTo-Json
+                $StorageDomainId = $payload.id
+                $payloadJson = $payload | ConvertTo-Json
 
-            $updateUrl = $StorageDomainUrl + "/" + $StorageDomainId
-            $StorageDomainObj = Invoke-RestApi -Method 'Put' -Uri $updateUrl -Headers $headers -Body $payloadJson
+                $updateUrl = $StorageDomainUrl + "/" + $StorageDomainId
+                $StorageDomainObj = Invoke-RestApi -Method 'Put' -Uri $updateUrl -Headers $headers -Body $payloadJson
 
-            if ($StorageDomainObj) {
-                Write-Host "Updated '$Name' Storage Domain Successfully"
-                $StorageDomainObj
+                if ($StorageDomainObj) {
+                    Write-Host "Updated '$Name' Storage Domain Successfully." -ForegroundColor Green
+                    $StorageDomainObj
+                }
             }
         }
     } # End of process

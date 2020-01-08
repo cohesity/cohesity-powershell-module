@@ -41,10 +41,10 @@ function Get-CohesityStorageDomain {
     Process {
         # Form query parameters
         $Parameters = [ordered]@{}
-        if ($Ids -ne $null) {
+        if ($null -ne $Ids) {
             $Parameters.Add('ids', $Ids -join ',')
         }
-        if ($Name -ne $null) {
+        if ($null -ne $Name) {
             $Parameters.Add('names', $Name -join ',')
         }
         if ($FetchStats) {
@@ -52,7 +52,7 @@ function Get-CohesityStorageDomain {
         }
 
         $queryString = $null
-        if ($Parameters.Keys -ne $null) {
+        if ($null -ne $Parameters.Keys) {
             $queryString = '?' + ($Parameters.Keys.ForEach({"$_=$($Parameters.$_)"}) -join '&')
         }
 
@@ -64,8 +64,8 @@ function Get-CohesityStorageDomain {
         $StorageDomainList = Invoke-RestApi -Method 'Get' -Uri $url -Headers $headers
         $StorageDomainList
 
-        if ($StorageDomainList -eq $null) {
-            $msg = "Storage domain doesn't exist"
+        if ($null -eq $StorageDomainList) {
+            $msg = "Storage domain doesn't exist."
             Write-Warning $msg
             CSLog -Message $msg
         }

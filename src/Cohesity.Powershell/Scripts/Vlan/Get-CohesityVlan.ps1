@@ -44,15 +44,15 @@ function Get-CohesityVlan {
         # Form query parameters
         $Parameters = [ordered]@{}
         $Parameters.Add('allUnderHierarchy', $true)
-        if ($SkipPrimaryAndBondIface -ne $null) {
-            $Parameters.Add('skipPrimaryAndBondIface', $SkipPrimaryAndBondIface)
+        if ($SkipPrimaryAndBondIface) {
+            $Parameters.Add('skipPrimaryAndBondIface', [System.Convert]::ToBoolean($SkipPrimaryAndBondIface))
         }
-        if ($TenantIds -ne $null) {
+        if ($null -ne $TenantIds) {
             $Parameters.Add('tenantIds', $TenantIds -join ',')
         }
 
         $queryString = $null
-        if ($Parameters.Keys -ne $null) {
+        if ($null -ne $Parameters.Keys) {
             $queryString = '?' + ($Parameters.Keys.ForEach({"$_=$($Parameters.$_)"}) -join '&')
         }
 
@@ -70,7 +70,7 @@ function Get-CohesityVlan {
 
         if ($Global:CohesityAPIError) {
             if ($Global:CohesityAPIError.StatusCode -eq 'NotFound') {
-                $errorMsg = "Vlan doesn't exist"
+                $errorMsg = "Vlan doesn't exist."
                 Write-Warning $errorMsg
                 CSLog -Message $errorMsg
             } else {

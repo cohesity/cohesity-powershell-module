@@ -18,12 +18,12 @@ function Download-CohesityFile {
     #>
     [CmdletBinding()]
     Param(
-        [Parameter(Mandatory = $True)]
-        $FileName=$null,
-        [Parameter(Mandatory = $True)]
-        $ServerName=$null,
-        [Parameter(Mandatory = $False)]
-        $OutFile=$null
+        [Parameter(Mandatory = $true)]
+        $FileName,
+        [Parameter(Mandatory = $true)]
+        $ServerName,
+        [Parameter(Mandatory = $false)]
+        $OutFile = $null
     )
 
     Begin {
@@ -55,7 +55,6 @@ function Download-CohesityFile {
                 $JobId = $entityInfo[0].jobId
                 $ClusterId = $entityInfo[0].jobUid.clusterId
                 $ClusterIncarnationId = $entityInfo[0].jobUid.clusterIncarnationId
-                $IsDirectory = $entityInfo[0].isFolder
                 $ViewBoxId = $entityInfo[0].viewBoxId
 
                 # Get the information about snapshots that contain the specified file or folder. 
@@ -93,7 +92,7 @@ function Download-CohesityFile {
                 $resp = Invoke-RestApi -Method 'Get' -Uri $downloadUrl -Headers $headers -OutFile "$OutFile"
 
                 if ($resp) {
-                    Write-Host "Successfully downloaded the file in '$OutFile'" -ForegroundColor Green
+                    Write-Host "Successfully downloaded the file in '$OutFile'." -ForegroundColor Green
                 }
             } else {
                 $warnMsg = "Server '$ServerName' not found."

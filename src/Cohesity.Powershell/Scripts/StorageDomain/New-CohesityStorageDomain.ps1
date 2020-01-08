@@ -19,30 +19,30 @@ function New-CohesityStorageDomain {
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory = $True)]
-        [String]$Name = $null,
+        [String]$Name,
         # If deduplication is enabled, the Cohesity Cluster eliminates duplicate blocks of repeating data stored on the Cluster,
         # thus reducing the amount of storage space needed to store data.
-        [Parameter(Mandatory = $False)][ValidateSet("true", "false")]
+        [Parameter(Mandatory = $false)][ValidateSet("true", "false")]
         [String]$Deduplication = $true,
         # Specifies if deduplication should occur inline (as the data is being written). This field is only relevant if deduplication is enabled.
         # If on, deduplication occurs as the Cluster saves blocks to the Partition. If off, deduplication occurs after the Cluster writes data to the Partition.
-        [Parameter(Mandatory = $False)][ValidateSet("true", "false")]
+        [Parameter(Mandatory = $false)][ValidateSet("true", "false")]
         [String]$InlineDeduplication = $true,
         # Determines whether the compression policy should be ‘kCompressionNone’ (disabled case) or ‘kCompressionLow’ (enabled case)
         # ‘kCompressionNone’ indicates that data is not compressed. ‘kCompressionLow’ indicates that data is compressed.
-        [Parameter(Mandatory = $False)][ValidateSet("true", "false")]
+        [Parameter(Mandatory = $false)][ValidateSet("true", "false")]
         [String]$Compression = $true,
         # Specifies if compression should occur inline (as the data is being written). This field is only relevant if compression is enabled.
         # If on, compression occurs as the Cluster saves blocks to the Partition. If off, compression occurs after the Cluster writes data to the Partition.
-        [Parameter(Mandatory = $False)][ValidateSet("true", "false")]
+        [Parameter(Mandatory = $false)][ValidateSet("true", "false")]
         [String]$InlineCompression = $true,
         # Specifies the encryption setting for the Storage Domain (View Box).
         # ‘kEncryptionNone’ (disabled case) indicates the data is not encrypted. ‘kEncryptionStrong’ (enabled case) indicates the data is encrypted.
-        [Parameter(Mandatory = $False)][ValidateSet("true", "false")]
+        [Parameter(Mandatory = $false)][ValidateSet("true", "false")]
         [String]$Encryption = $false,
         # Specifies an optional quota limit on the usage allowed for this resource. This limit is specified in GiB.
         # If no value is specified,there is no limit.
-        [Parameter(Mandatory = $False)]
+        [Parameter(Mandatory = $false)]
         [Int]$PhysicalQuota = $null
     )
     
@@ -58,6 +58,14 @@ function New-CohesityStorageDomain {
     }
 
     Process {
+        # Check if the storage domain with specified name already exist
+        $isDomainExist = Get-CohesityStorageDomain -Name $Name -WarningAction SilentlyContinue
+
+        if ($isDomainExist) {
+            Write-Warning "Storage Domain with name '$Name' already exists."
+            return
+        }
+
         # Get the cluster partion ID
         $clusterUrl = $server + '/irisservices/api/v1/public/clusterPartitions'
         $headers = @{'Authorization' = 'Bearer ' + $token }
@@ -105,12 +113,12 @@ function New-CohesityStorageDomain {
         $StorageDomain = Invoke-RestApi -Method 'Post' -Uri $domainUrl -Headers $headers -Body $payloadJson
 
         if ($StorageDomain) {
-            Write-Host "Created '$Name' Storage Domain Successfully" -ForegroundColor Green
-            Get-CohesityStorageDomain -Names $Name
+            Write-Host "Created '$Name' Storage Domain Successfully." -ForegroundColor Green
+            Get-CohesityStorageDomain -Name $Name
             $successMsg = "Created '$Name' Storage Domain Successfully `n $StorageDomain"
             CSLog -Message $successMsg
         } else {
-            $errorMsg = "Failed to create storage domain '$Name'"
+            $errorMsg = "Failed to create storage domain '$Name'."
             Write-Error $errorMsg
             CSLog -Message $errorMsg
         }
