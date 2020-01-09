@@ -13,6 +13,7 @@ function Download-CohesityFile {
         Download-CohesityFile -FileName <FileName> -ServerName <ServerName>
         Download the specified file from the server under home path
         .NOTES
+        *** Only files can be downloaded
         *** If multiple files found for the specified file search, then the first occured file of the specified server (in search result) will be downloaded
         *** The latest snapshot will be used for downloading the file
     #>
@@ -43,9 +44,11 @@ function Download-CohesityFile {
         $searchUrl = $server + '/irisservices/api/v1/public/restore/files?search=' + $EncodedFileName
         $headers = @{'Authorization' = 'Bearer ' + $token }
         $rfObj = Invoke-RestApi -Method 'Get' -Uri $searchUrl -Headers $headers
-        
+
         $entityInfo = $null
         if ($rfObj.files) {
+            # Fetch the first appeared file in the response for the specified server
+            # Note: Only file can be downloaded
             $entityInfo = $rfObj.files | Where-Object {$_.protectionSource.name -eq $ServerName -and !$_.isFolder}
 
             if ($entityInfo) {
@@ -57,8 +60,8 @@ function Download-CohesityFile {
                 $ClusterIncarnationId = $entityInfo[0].jobUid.clusterIncarnationId
                 $ViewBoxId = $entityInfo[0].viewBoxId
 
-                # Get the information about snapshots that contain the specified file or folder. 
-                #   In addition, information about the file or folder is provided.
+                # Get the information for fetching the snapshots info of the specified file
+                #   In addition, information about the specified file for downloading workflow
                 $queryParam = [ordered]@{}
                 $queryParam.Add('jobId', $JobId)
                 $queryParam.Add('clusterId', $clusterId)
@@ -71,6 +74,7 @@ function Download-CohesityFile {
                 $snapshotObj = Invoke-RestApi -Method 'Get' -Uri $snapshotUrl -Headers $headers
 
                 # Get the required information for downloading the file
+                # By default, the latest snapshot will be considered for downloading the file
                 $latestSnapshot = $snapshotObj[0]
                 $dwldParam = [ordered]@{}
                 $dwldParam.Add('attemptNum', $latestSnapshot.snapshot.attemptNumber)
