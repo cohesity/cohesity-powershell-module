@@ -41,6 +41,7 @@ function Get-CohesityStorageDomain {
     Process {
         # Form query parameters
         $Parameters = [ordered]@{}
+        $Parameters.Add('allUnderHierarchy', $true)
         if ($null -ne $Ids) {
             $Parameters.Add('ids', $Ids -join ',')
         }

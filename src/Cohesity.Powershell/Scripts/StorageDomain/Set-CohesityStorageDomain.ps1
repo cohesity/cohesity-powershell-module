@@ -92,9 +92,9 @@ function Set-CohesityStorageDomain {
         $headers = @{'Authorization' = 'Bearer ' + $token }
 
         if ($null -eq $StorageDomain) {
-            $getUrl = $StorageDomainUrl
+            $getUrl = $StorageDomainUrl + '?allUnderHierarchy=true'
             if ($Name) {
-                $getUrl = $getUrl + '?names=' + $Name
+                $getUrl = $getUrl + '&names=' + $Name
             }
             $domainObj = Invoke-RestApi -Method 'Get' -Uri $getUrl -Headers $headers
         }
@@ -103,6 +103,7 @@ function Set-CohesityStorageDomain {
         if ($null -ne $domainObj) {
             $domainObj | ForEach-Object {
                 $payload = $_
+                $domainName = $payload.name
                 # Update the payload with specified parameter values
                 if ('UpdateField' -eq $PsCmdlet.ParameterSetName) {
                     $PsBoundParameters.keys | ForEach-Object {
@@ -146,7 +147,7 @@ function Set-CohesityStorageDomain {
                 $StorageDomainObj = Invoke-RestApi -Method 'Put' -Uri $updateUrl -Headers $headers -Body $payloadJson
 
                 if ($StorageDomainObj) {
-                    Write-Host "Updated '$Name' Storage Domain Successfully." -ForegroundColor Green
+                    Write-Host "Updated '$domainName' Storage Domain Successfully." -ForegroundColor Green
                     $StorageDomainObj
                 }
             }
