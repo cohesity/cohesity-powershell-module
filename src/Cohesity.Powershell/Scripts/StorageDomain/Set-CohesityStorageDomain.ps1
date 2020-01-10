@@ -6,11 +6,8 @@ function Set-CohesityStorageDomain {
         The Set-CohesityStorageDomain function is used to update storage domain (view box) using REST API with given parameters and returns the updated storage domain (view box).
         If name of the storage domain (view box) that to be updated is not specified, then update all the storage domain (view box) with the given parameters.
         .EXAMPLE
-        Set-CohesityStorageDomain -Name <DomainName> -NewDomainName <NewDomainName>
-        Update the specified storage domain (view box) with the user provided name.
-        .EXAMPLE
-        Set-CohesityStorageDomain -Name <DomainName> -PhysicalQuota 20
-        Update the physical quota for the specified storage domain (view box).
+        Set-CohesityStorageDomain -Name <DomainName> -NewDomainName <NewDomainName> -PhysicalQuota 20
+        Update the specified storage domain (view box) with the user provided parameter values.
         .NOTES
         Mention PhysicalQuota value in GiB unit.
         .EXAMPLE
@@ -19,10 +16,13 @@ function Set-CohesityStorageDomain {
         .EXAMPLE
         Get-CohesityStorageDomain | Set-CohesityStorageDomain -Name <DomainName> -PhysicalQuota 20
         Get the list of storage domain through pipeline and fetch the specified storage domain domain. Update the physical quota for the specified storage domain (view box).
+        .EXAMPLE
+        Get-CohesityStorageDomain | Set-CohesityStorageDomain -PhysicalQuota 20
+        Update all the available storage domain (view box) with the specified parameter values.
     #>
     [CmdletBinding()]
     Param(
-        [Parameter(Mandatory = $false)]
+        [Parameter(Mandatory = $true, ValueFromPipelineByPropertyName = $true)]
         [string]$Name = $null,
         # New domain name to be update
         [Parameter(Mandatory = $false, ParameterSetName = 'UpdateField')]
@@ -65,26 +65,18 @@ function Set-CohesityStorageDomain {
 
     Process {
         $payload = $null
-        if (!$Name -and $NewDomainName) {
-            Write-Warning 'Cannot update entire storage domain with same domain name. Please specify any single storage domain to update with new domain name.'
-            return
-        }
 
+        # Check if the storage domain with specified name already exist
         if ($NewDomainName) {
-            # Check if the storage domain with specified name already exist
             $isDomainExist = Get-CohesityStorageDomain -Name $NewDomainName -WarningAction SilentlyContinue
 
             if ($isDomainExist) {
-                Write-Warning "Storage Domain with name '$NewDomainName' already exists."
-                return
+                throw "Storage Domain with name '$NewDomainName' already exists."
             }
         }
 
         if ($null -ne $StorageDomain) {
-            $domainObj = $StorageDomain
-            if ($Name) {
-                $domainObj = $StorageDomain | Where-Object {$_.name -eq $Name}
-            }
+            $domainObj = $StorageDomain | Where-Object {$_.name -eq $Name}
         }
 
         # Construct URL & header
@@ -92,11 +84,12 @@ function Set-CohesityStorageDomain {
         $headers = @{'Authorization' = 'Bearer ' + $token }
 
         if ($null -eq $StorageDomain) {
-            $getUrl = $StorageDomainUrl + '?allUnderHierarchy=true'
-            if ($Name) {
-                $getUrl = $getUrl + '&names=' + $Name
-            }
+            $getUrl = $StorageDomainUrl + '?names=' + $Name + '&allUnderHierarchy=true'
             $domainObj = Invoke-RestApi -Method 'Get' -Uri $getUrl -Headers $headers
+
+            if ($null -eq $domainObj) {
+                Write-Warning "Storage Domain '$Name' doesn't exists."
+            }
         }
 
         # Update the specified Storage domain
@@ -104,6 +97,7 @@ function Set-CohesityStorageDomain {
             $domainObj | ForEach-Object {
                 $payload = $_
                 $domainName = $payload.name
+
                 # Update the payload with specified parameter values
                 if ('UpdateField' -eq $PsCmdlet.ParameterSetName) {
                     $PsBoundParameters.keys | ForEach-Object {
