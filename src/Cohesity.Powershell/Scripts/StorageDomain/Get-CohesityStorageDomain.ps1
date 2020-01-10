@@ -8,23 +8,28 @@ function Get-CohesityStorageDomain {
         Get-CohesityStorageDomain
         List all storage domain (view box).
         .EXAMPLE
-        Get-CohesityStorageDomain -Ids [<DomainIds]
-        Returns the storage domain (view box) that are filtered out by specified id.
-        .EXAMPLE
-        Get-CohesityStorageDomain -Name [<DomainName>]
+        Get-CohesityStorageDomain -Names [<string>]
         Returns the storage domain (view box) that are filtered out by specified name.
         .EXAMPLE
-        Get-CohesityStorageDomain -FetchStats true
-        Specifies whether to include usage and performance statistics information along with the list of storage domain (view box).
+        Get-CohesityStorageDomain -Ids [<long>]
+        Returns the storage domain (view box) that are filtered out by specified ids.
+        .EXAMPLE
+        Get-CohesityStorageDomain -ClusterPartitionIds [<long>]
+        Returns the storage domain (view box) that are filtered out by specified cluster partition ids.
+        .EXAMPLE
+        Get-CohesityStorageDomain -FetchStats
+        Specifies whether to include usage and performance statistics information along with the list of storage domain (view box). If parameter is not mentioned, statistics information won't be fetched.
     #>
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory = $false)]
-        [string[]]$Ids = $null,
+        [long[]]$ClusterPartitionIds = $null,
         [Parameter(Mandatory = $false)]
-        [string[]]$Name = $null,
-        [Parameter(Mandatory = $false)][ValidateSet("true", "false")]
-        [string]$FetchStats
+        [switch]$FetchStats,
+        [Parameter(Mandatory = $false)]
+        [long[]]$Ids = $null,
+        [Parameter(Mandatory = $false)]
+        [string[]]$Names = $null
     )
 
     Begin {
@@ -41,15 +46,19 @@ function Get-CohesityStorageDomain {
     Process {
         # Form query parameters
         $Parameters = [ordered]@{}
+
         $Parameters.Add('allUnderHierarchy', $true)
+        if ($null -ne $ClusterPartitionIds) {
+            $Parameters.Add('clusterPartitionIds', $ClusterPartitionIds -join ',')
+        }
         if ($null -ne $Ids) {
             $Parameters.Add('ids', $Ids -join ',')
         }
-        if ($null -ne $Name) {
-            $Parameters.Add('names', $Name -join ',')
+        if ($null -ne $Names) {
+            $Parameters.Add('names', $Names -join ',')
         }
-        if ($FetchStats) {
-            $Parameters.Add('fetchStats', $FetchStats)
+        if ($FetchStats.IsPresent) {
+            $Parameters.Add('fetchStats', $true)
         }
 
         $queryString = $null
@@ -66,9 +75,18 @@ function Get-CohesityStorageDomain {
         $StorageDomainList
 
         if ($null -eq $StorageDomainList) {
-            $msg = "Storage domain doesn't exist."
-            Write-Warning $msg
-            CSLog -Message $msg
+            if ($Global:CohesityAPIError) {
+                if ($Global:CohesityAPIError.StatusCode -eq 'NotFound') {
+                    $errorMsg = "Storage domain (View Box) doesn't exist."
+                    Write-Warning $errorMsg
+                } else {
+                    $errorMsg = "Failed to fetch Storage Domain (View Box) information with an error : " + $Global:CohesityAPIError
+                }
+            } else {
+                $errorMsg = "Storage domain (View Box) doesn't exist."
+                Write-Warning $errorMsg
+            }
+            CSLog -Message $errorMsg
         }
     } # End of process
 } # End of function

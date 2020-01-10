@@ -7,10 +7,10 @@ function Download-CohesityFile {
         .NOTES
         If target path is not specified, then file will be downloaded under home folder
         .EXAMPLE
-        Download-CohesityFile -FileName <FileName> -ServerName <ServerName> -OutFile <TargetPath>
+        Download-CohesityFile -FileName <string> -ServerName <string> -OutFile <string>
         Download the specified file from the server under specified target path
         .EXAMPLE
-        Download-CohesityFile -FileName <FileName> -ServerName <ServerName>
+        Download-CohesityFile -FileName <string> -ServerName <string>
         Download the specified file from the server under home path
         .NOTES
         *** Only files can be downloaded
@@ -21,10 +21,10 @@ function Download-CohesityFile {
     Param(
         [Parameter(Mandatory = $true)]
         $FileName,
-        [Parameter(Mandatory = $true)]
-        $ServerName,
         [Parameter(Mandatory = $false)]
-        $OutFile = $null
+        $OutFile = $null,
+        [Parameter(Mandatory = $true)]
+        $ServerName
     )
 
     Begin {
@@ -104,9 +104,17 @@ function Download-CohesityFile {
                 CSLog -Message $warnMsg
             }
         } else {
-            $warnMsg = "No files found with specified name."
-            Write-Warning $warnMsg
-            CSLog -Message $warnMsg
+            if ($Global:CohesityAPIError) {
+                if ($Global:CohesityAPIError.StatusCode -ne 'Unauthorized') {
+                    $errorMsg = "Failed to fetch information for the file '$FileName'."
+                    Write-Error $errorMsg
+                    CSLog -Message $errorMsg
+                }
+            } else {
+                $warnMsg = "No files found with specified name."
+                Write-Warning $warnMsg
+                CSLog -Message $warnMsg
+            }
         }
     } # End of process
 } # End of function

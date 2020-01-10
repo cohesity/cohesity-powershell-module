@@ -8,25 +8,25 @@ function Get-CohesityVlan {
         Get-CohesityVlan
         List all configured Vlans
         .EXAMPLE
-        Get-CohesityVlan -SkipPrimaryAndBondIface true
+        Get-CohesityVlan -SkipPrimaryAndBondIface <boolean>
         SkipPrimaryAndBondIface is to filter interfaces entries which are primary interface or bond interfaces
         .EXAMPLE
-        Get-CohesityVlan -VlanId 0
+        Get-CohesityVlan -VlanId <integer>
         Returns the VLAN corresponding to the specified VLAN ID or a specified vlan interface group name.
         .EXAMPLE
-        Get-CohesityVlan -TenantIds [<TenantIds>]
+        Get-CohesityVlan -TenantIds [<string>]
         Retuns the Vlan that are configured for the specific tenant. TenantIds contains list of/specific id(s) of the tenants for which configured Vlans are to be returned.
     #>
     [CmdletBinding()]
     Param(
-        [Parameter(Mandatory = $false)]
-        [Int64]$VlanId,
         # Filter interfaces entries which are primary interface or bond interfaces.
         [Parameter(Mandatory = $false)][ValidateSet("true", "false")]
         [String]$SkipPrimaryAndBondIface,
         # TenantIds contains ids of the tenants for which objects are to be returned.
         [Parameter(Mandatory = $false)]
-        [String[]]$TenantIds = $null
+        [String[]]$TenantIds = $null,
+        [Parameter(Mandatory = $false)]
+        [Int64]$VlanId
     )
 
     Begin {
@@ -68,15 +68,19 @@ function Get-CohesityVlan {
         $vlanList = Invoke-RestApi -Method 'Get' -Uri $url -Headers $headers
         $vlanList
 
-        if ($Global:CohesityAPIError) {
-            if ($Global:CohesityAPIError.StatusCode -eq 'NotFound') {
+        if ($null -eq $vlanList) {
+            if ($Global:CohesityAPIError) {
+                if ($Global:CohesityAPIError.StatusCode -eq 'NotFound') {
+                    $errorMsg = "Vlan doesn't exist."
+                    Write-Warning $errorMsg
+                } else {
+                    $errorMsg = "Failed to fetch Vlan information with an error : " + $Global:CohesityAPIError
+                }
+            } else {
                 $errorMsg = "Vlan doesn't exist."
                 Write-Warning $errorMsg
-                CSLog -Message $errorMsg
-            } else {
-                $errorMsg = "Failed to fetch Vlan information with an error : " + $Global:CohesityAPIError
-                CSLog -Message $errorMsg
             }
+            CSLog -Message $errorMsg
         }
     } # End of process
 } # End of function

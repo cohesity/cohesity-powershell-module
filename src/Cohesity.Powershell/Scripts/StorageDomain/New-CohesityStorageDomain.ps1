@@ -5,41 +5,41 @@ function New-CohesityStorageDomain {
         .DESCRIPTION
         The New-CohesityStorageDomain function is used to create storage domain (view box) using REST API with given parameters. If no parameters are specified, storage domain (view box) will be cretaed with default settings.
         .EXAMPLE
-        New-CohesityStorageDomain -Name <DomainName>
+        New-CohesityStorageDomain -Name <string>
         Create storage domain (view box) with default settings.
         .EXAMPLE
-        New-CohesityStorageDomain -Name <DomainName> -PhysicalQuota 20
+        New-CohesityStorageDomain -Name <string> -PhysicalQuota <integer>
         Create storage domain (view box) with specific physical quota.
         .NOTES
         Mention PhysicalQuota value in GiB unit.
         .EXAMPLE
-        New-CohesityStorageDomain -Name <DomainName> -Deduplication true -InlineDeduplication false -Compression true -InlineCompression true -Encryption true
+        New-CohesityStorageDomain -Name <string> -Deduplication <boolean> -InlineDeduplication <boolean> -Compression <boolean> -InlineCompression <boolean> -Encryption <boolean>
         Create storage domain (view box) with deduplication, Compression disabled and Encryption enabled. Based on enable/disable state of compression and encryption parameter, compression and encryption policy will be decided respectively.
     #>
     [CmdletBinding()]
     Param(
-        [Parameter(Mandatory = $True)]
-        [String]$Name,
-        # If deduplication is enabled, the Cohesity Cluster eliminates duplicate blocks of repeating data stored on the Cluster,
-        # thus reducing the amount of storage space needed to store data.
-        [Parameter(Mandatory = $false)][ValidateSet("true", "false")]
-        [String]$Deduplication = $true,
-        # Specifies if deduplication should occur inline (as the data is being written). This field is only relevant if deduplication is enabled.
-        # If on, deduplication occurs as the Cluster saves blocks to the Partition. If off, deduplication occurs after the Cluster writes data to the Partition.
-        [Parameter(Mandatory = $false)][ValidateSet("true", "false")]
-        [String]$InlineDeduplication = $true,
         # Determines whether the compression policy should be ‘kCompressionNone’ (disabled case) or ‘kCompressionLow’ (enabled case)
         # ‘kCompressionNone’ indicates that data is not compressed. ‘kCompressionLow’ indicates that data is compressed.
         [Parameter(Mandatory = $false)][ValidateSet("true", "false")]
         [String]$Compression = $true,
-        # Specifies if compression should occur inline (as the data is being written). This field is only relevant if compression is enabled.
-        # If on, compression occurs as the Cluster saves blocks to the Partition. If off, compression occurs after the Cluster writes data to the Partition.
+        # If deduplication is enabled, the Cohesity Cluster eliminates duplicate blocks of repeating data stored on the Cluster,
+        # thus reducing the amount of storage space needed to store data.
         [Parameter(Mandatory = $false)][ValidateSet("true", "false")]
-        [String]$InlineCompression = $true,
+        [String]$Deduplication = $true,
         # Specifies the encryption setting for the Storage Domain (View Box).
         # ‘kEncryptionNone’ (disabled case) indicates the data is not encrypted. ‘kEncryptionStrong’ (enabled case) indicates the data is encrypted.
         [Parameter(Mandatory = $false)][ValidateSet("true", "false")]
         [String]$Encryption = $false,
+        # Specifies if compression should occur inline (as the data is being written). This field is only relevant if compression is enabled.
+        # If on, compression occurs as the Cluster saves blocks to the Partition. If off, compression occurs after the Cluster writes data to the Partition.
+        [Parameter(Mandatory = $false)][ValidateSet("true", "false")]
+        [String]$InlineCompression = $true,
+        # Specifies if deduplication should occur inline (as the data is being written). This field is only relevant if deduplication is enabled.
+        # If on, deduplication occurs as the Cluster saves blocks to the Partition. If off, deduplication occurs after the Cluster writes data to the Partition.
+        [Parameter(Mandatory = $false)][ValidateSet("true", "false")]
+        [String]$InlineDeduplication = $true,
+        [Parameter(Mandatory = $True)]
+        [String]$Name,
         # Specifies an optional quota limit on the usage allowed for this resource. This limit is specified in GiB.
         # If no value is specified,there is no limit.
         [Parameter(Mandatory = $false)]
@@ -59,16 +59,21 @@ function New-CohesityStorageDomain {
 
     Process {
         # Check if the storage domain with specified name already exist
-        $isDomainExist = Get-CohesityStorageDomain -Name $Name -WarningAction SilentlyContinue
+        $domainUrl = $server + '/irisservices/api/v1/public/viewBoxes'
+        $headers = @{'Authorization' = 'Bearer ' + $token }
+
+        $url = $domainUrl + '?names=' + $Name + '&allUnderHierarchy=true'
+        $isDomainExist = Invoke-RestApi -Method 'Get' -Uri $url -Headers $headers
 
         if ($isDomainExist) {
             Write-Warning "Storage Domain with name '$Name' already exists."
+            return
+        } elseif ($Global:CohesityAPIError.StatusCode -eq 'Unauthorized'){
             return
         }
 
         # Get the cluster partion ID
         $clusterUrl = $server + '/irisservices/api/v1/public/clusterPartitions'
-        $headers = @{'Authorization' = 'Bearer ' + $token }
         $clusterPartition = Invoke-RestApi -Method 'Get' -Uri $clusterUrl -Headers $headers
 
         if ($clusterPartition) {
@@ -108,13 +113,11 @@ function New-CohesityStorageDomain {
         $payloadJson = $payload | ConvertTo-Json
 
         # Construct URL & header
-        $domainUrl = $server + '/irisservices/api/v1/public/viewBoxes'
-        $headers = @{'Authorization' = 'Bearer ' + $token }
         $StorageDomain = Invoke-RestApi -Method 'Post' -Uri $domainUrl -Headers $headers -Body $payloadJson
 
         if ($StorageDomain) {
             Write-Host "Created '$Name' Storage Domain Successfully." -ForegroundColor Green
-            Get-CohesityStorageDomain -Name $Name
+            Get-CohesityStorageDomain -Names $Name
             $successMsg = "Created '$Name' Storage Domain Successfully `n $StorageDomain"
             CSLog -Message $successMsg
         } else {

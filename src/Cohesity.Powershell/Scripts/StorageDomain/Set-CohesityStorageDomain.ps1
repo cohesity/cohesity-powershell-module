@@ -6,50 +6,53 @@ function Set-CohesityStorageDomain {
         The Set-CohesityStorageDomain function is used to update storage domain (view box) using REST API with given parameters and returns the updated storage domain (view box).
         If name of the storage domain (view box) that to be updated is not specified, then update all the storage domain (view box) with the given parameters.
         .EXAMPLE
-        Set-CohesityStorageDomain -Name <DomainName> -NewDomainName <NewDomainName> -PhysicalQuota 20
+        Set-CohesityStorageDomain -Name <string> -NewDomainName <string> -PhysicalQuota <integer>
         Update the specified storage domain (view box) with the user provided parameter values.
         .NOTES
         Mention PhysicalQuota value in GiB unit.
         .EXAMPLE
-        Set-CohesityStorageDomain -Name <DomainName> -Deduplication true -InlineDeduplication false -Compression true -InlineCompression true
+        Set-CohesityStorageDomain -Name <string> -Deduplication <boolean> -InlineDeduplication <boolean> -Compression <boolean> -InlineCompression <boolean>
         Update storage domain (view box) with user specified deduplication, Compression disabled. Based on enable/disable state of compression parameter, compression policy will be decided.
         .EXAMPLE
-        Get-CohesityStorageDomain -Name <DomainName> | Set-CohesityStorageDomain -PhysicalQuota 20
+        Get-CohesityStorageDomain -Names <string> | Set-CohesityStorageDomain -PhysicalQuota <integer>
         Get the list of storage domain filtered out by storage domain name through pipeline. Update the physical quota for the fetched storage domain (view box).
         .EXAMPLE
-        Get-CohesityStorageDomain | Set-CohesityStorageDomain -PhysicalQuota 20
+        Get-CohesityStorageDomain | Set-CohesityStorageDomain -PhysicalQuota <integer>
         Update all the available storage domain (view box) with the specified parameter values.
+        .EXAMPLE
+        Set-CohesityStorageDomain -StorageDomain <object>
+        Update the specified storage domain (view box) object.
     #>
     [CmdletBinding()]
     Param(
-        [Parameter(Mandatory = $true, ValueFromPipelineByPropertyName = $true)]
-        [string]$Name = $null,
-        # New domain name to be update
-        [Parameter(Mandatory = $false, ParameterSetName = 'UpdateField')]
-        [string]$NewDomainName = $null,
-        # If deduplication is enabled, the Cohesity Cluster eliminates duplicate blocks of repeating data stored on the Cluster,
-        # thus reducing the amount of storage space needed to store data.
-        [Parameter(Mandatory = $false, ParameterSetName = 'UpdateField')][ValidateSet("true", "false")]
-        [String]$Deduplication = $true,
-        # Specifies if deduplication should occur inline (as the data is being written). This field is only relevant if deduplication is enabled.
-        # If on, deduplication occurs as the Cluster saves blocks to the Partition. If off, deduplication occurs after the Cluster writes data to the Partition.
-        [Parameter(Mandatory = $false, ParameterSetName = 'UpdateField')][ValidateSet("true", "false")]
-        [String]$InlineDeduplication,
         # Determines whether the compression policy should be ‘kCompressionNone’ (disabled case) or ‘kCompressionLow’ (enabled case)
         # ‘kCompressionNone’ indicates that data is not compressed. ‘kCompressionLow’ indicates that data is compressed.
         [Parameter(Mandatory = $false, ParameterSetName = 'UpdateField')][ValidateSet("true", "false")]
         [String]$Compression,
+        # If deduplication is enabled, the Cohesity Cluster eliminates duplicate blocks of repeating data stored on the Cluster,
+        # thus reducing the amount of storage space needed to store data.
+        [Parameter(Mandatory = $false, ParameterSetName = 'UpdateField')][ValidateSet("true", "false")]
+        [String]$Deduplication,
+        # Specifies if deduplication should occur inline (as the data is being written). This field is only relevant if deduplication is enabled.
+        # If on, deduplication occurs as the Cluster saves blocks to the Partition. If off, deduplication occurs after the Cluster writes data to the Partition.
+        [Parameter(Mandatory = $false, ParameterSetName = 'UpdateField')][ValidateSet("true", "false")]
+        [String]$InlineDeduplication,
         # Specifies if compression should occur inline (as the data is being written). This field is only relevant if compression is enabled.
         # If on, compression occurs as the Cluster saves blocks to the Partition. If off, compression occurs after the Cluster writes data to the Partition.
         [Parameter(Mandatory = $false, ParameterSetName = 'UpdateField')][ValidateSet("true", "false")]
         [String]$InlineCompression,
+        [Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
+        [string]$Name = $null,
+        # New domain name to be update
+        [Parameter(Mandatory = $false, ParameterSetName = 'UpdateField')]
+        [string]$NewDomainName = $null,
         # Specifies an optional quota limit on the usage allowed for this resource. This limit is specified in GiB.
         # If no value is specified,there is no limit.
         [Parameter(Mandatory = $false, ParameterSetName = 'UpdateField')]
         [Int]$PhysicalQuota = $null,
         # List of storage domain (view box), returned from 'Get-CohesityStorageDomain' commandlet
-        [Parameter(ValueFromPipeline = $true, DontShow = $true)]
-		[object[]]$StorageDomain = $null
+        [Parameter(ValueFromPipeline = $true)]
+        [object[]]$StorageDomain = $null
     )
 
     Begin {
@@ -65,30 +68,55 @@ function Set-CohesityStorageDomain {
 
     Process {
         $payload = $null
+        $domainUrl = $server + '/irisservices/api/v1/public/viewBoxes'
+        $headers = @{'Authorization' = 'Bearer ' + $token }
 
         # Check if the storage domain with specified name already exist
         if ($NewDomainName) {
-            $isDomainExist = Get-CohesityStorageDomain -Name $NewDomainName -WarningAction SilentlyContinue
+            $url = $domainUrl + '?names=' + $NewDomainName + '&allUnderHierarchy=true'
+            $isDomainExist = Invoke-RestApi -Method 'Get' -Uri $url -Headers $headers
 
             if ($isDomainExist) {
                 throw "Storage Domain with name '$NewDomainName' already exists."
+            } elseif ($Global:CohesityAPIError.StatusCode -eq 'Unauthorized'){
+                return
             }
         }
 
         if ($null -ne $StorageDomain) {
-            $domainObj = $StorageDomain | Where-Object {$_.name -eq $Name}
+            $domainObj = $StorageDomain
+            if ($Name) {
+                $domainObj = $StorageDomain | Where-Object {$_.name -eq $Name}
+            } else {
+                $Name = $StorageDomain.name
+            }
+        }
+
+        if (!$Name) {
+            Write-Warning "Please provide atleast one Storage Domain (View Box) name to update."
+            return
         }
 
         # Construct URL & header
         $StorageDomainUrl = $server + '/irisservices/api/v1/public/viewBoxes'
-        $headers = @{'Authorization' = 'Bearer ' + $token }
 
         if ($null -eq $StorageDomain) {
             $getUrl = $StorageDomainUrl + '?names=' + $Name + '&allUnderHierarchy=true'
             $domainObj = Invoke-RestApi -Method 'Get' -Uri $getUrl -Headers $headers
 
             if ($null -eq $domainObj) {
-                Write-Warning "Storage Domain '$Name' doesn't exists."
+                if ($Global:CohesityAPIError) {
+                    if ($Global:CohesityAPIError.StatusCode -eq 'NotFound') {
+                        $errorMsg = "Storage domain (View Box) '$Name' doesn't exists."
+                        Write-Warning $errorMsg
+                    } else {
+                        $errorMsg = "Failed to fetch Storage Domain (View Box) information with an error : " + $Global:CohesityAPIError
+                    }
+                } else {
+                    $errorMsg = "Storage domain (View Box) '$Name' doesn't exist."
+                    Write-Warning $errorMsg
+                }
+                CSLog -Message $errorMsg
             }
         }
 
@@ -124,6 +152,9 @@ function Set-CohesityStorageDomain {
                             'PhysicalQuota' {
                                 $GibToBytes = (1024 * 1024 * 1024)
                                 [Int64]$PhysicalQuota_bytes = ($PhysicalQuota * $GibToBytes)
+                                if ($null -eq $payload.physicalQuota) {
+                                    $payload | Add-Member -MemberType NoteProperty -Name physicalQuota -Value @{}
+                                }
                                 if ($null -ne $payload.physicalQuota.hardLimitBytes) {
                                     $payload.physicalQuota.hardLimitBytes = $PhysicalQuota_bytes
                                 } else {
