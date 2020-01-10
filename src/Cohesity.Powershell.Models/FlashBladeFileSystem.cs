@@ -207,8 +207,6 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.Protocols == input.Protocols ||
-                    this.Protocols != null &&
-                    input.Protocols != null &&
                     this.Protocols.SequenceEqual(input.Protocols)
                 ) && 
                 (

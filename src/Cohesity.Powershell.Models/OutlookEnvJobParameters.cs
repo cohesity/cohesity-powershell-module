@@ -15,7 +15,7 @@ using Newtonsoft.Json.Converters;
 namespace Cohesity.Model
 {
     /// <summary>
-    /// Specifies job parameters applicable for all &#39;kO365Outlook&#39; Environment type Protection Sources in a Protection Job.
+    /// Specifies Outlook job parameters applicable for all Office365 Environment type Protection Sources in a Protection Job.
     /// </summary>
     [DataContract]
     public partial class OutlookEnvJobParameters :  IEquatable<OutlookEnvJobParameters>
@@ -24,9 +24,12 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="OutlookEnvJobParameters" /> class.
         /// </summary>
         /// <param name="filePathFilter">filePathFilter.</param>
-        public OutlookEnvJobParameters(FilePathFilter filePathFilter = default(FilePathFilter))
+        /// <param name="shouldBackupMailbox">Specifies whether mailbox of each Office365 Users/Groups within the job, should be backed up or not..</param>
+        public OutlookEnvJobParameters(FilePathFilter filePathFilter = default(FilePathFilter), bool? shouldBackupMailbox = default(bool?))
         {
+            this.ShouldBackupMailbox = shouldBackupMailbox;
             this.FilePathFilter = filePathFilter;
+            this.ShouldBackupMailbox = shouldBackupMailbox;
         }
         
         /// <summary>
@@ -34,6 +37,13 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="filePathFilter", EmitDefaultValue=false)]
         public FilePathFilter FilePathFilter { get; set; }
+
+        /// <summary>
+        /// Specifies whether mailbox of each Office365 Users/Groups within the job, should be backed up or not.
+        /// </summary>
+        /// <value>Specifies whether mailbox of each Office365 Users/Groups within the job, should be backed up or not.</value>
+        [DataMember(Name="shouldBackupMailbox", EmitDefaultValue=true)]
+        public bool? ShouldBackupMailbox { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -75,6 +85,11 @@ namespace Cohesity.Model
                     this.FilePathFilter == input.FilePathFilter ||
                     (this.FilePathFilter != null &&
                     this.FilePathFilter.Equals(input.FilePathFilter))
+                ) && 
+                (
+                    this.ShouldBackupMailbox == input.ShouldBackupMailbox ||
+                    (this.ShouldBackupMailbox != null &&
+                    this.ShouldBackupMailbox.Equals(input.ShouldBackupMailbox))
                 );
         }
 
@@ -89,6 +104,8 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.FilePathFilter != null)
                     hashCode = hashCode * 59 + this.FilePathFilter.GetHashCode();
+                if (this.ShouldBackupMailbox != null)
+                    hashCode = hashCode * 59 + this.ShouldBackupMailbox.GetHashCode();
                 return hashCode;
             }
         }

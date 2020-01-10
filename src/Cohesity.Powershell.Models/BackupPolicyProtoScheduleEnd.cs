@@ -23,7 +23,7 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="BackupPolicyProtoScheduleEnd" /> class.
         /// </summary>
-        /// <param name="endAfterNumBackups">The following field has been deprecated. TODO(mark): Append \&quot;_DEPRECATED\&quot; to this field name once iris has stopped referring to it.  If specified, the backup job will no longer be run after it has been run these many times..</param>
+        /// <param name="endAfterNumBackups">If specified, the backup job will no longer be run after it has been run these many times..</param>
         /// <param name="endTimeUsecs">If specified, the backup job will no longer be run after this time..</param>
         public BackupPolicyProtoScheduleEnd(long? endAfterNumBackups = default(long?), long? endTimeUsecs = default(long?))
         {
@@ -34,9 +34,9 @@ namespace Cohesity.Model
         }
         
         /// <summary>
-        /// The following field has been deprecated. TODO(mark): Append \&quot;_DEPRECATED\&quot; to this field name once iris has stopped referring to it.  If specified, the backup job will no longer be run after it has been run these many times.
+        /// If specified, the backup job will no longer be run after it has been run these many times.
         /// </summary>
-        /// <value>The following field has been deprecated. TODO(mark): Append \&quot;_DEPRECATED\&quot; to this field name once iris has stopped referring to it.  If specified, the backup job will no longer be run after it has been run these many times.</value>
+        /// <value>If specified, the backup job will no longer be run after it has been run these many times.</value>
         [DataMember(Name="endAfterNumBackups", EmitDefaultValue=true)]
         public long? EndAfterNumBackups { get; set; }
 

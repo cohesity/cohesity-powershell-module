@@ -30,8 +30,9 @@ namespace Cohesity.Model
         /// <param name="issuerId">Specifies the IdP provided Issuer ID for the app. For example, exkh1aov1nhHrgFhN0h7..</param>
         /// <param name="roles">Specifies a list roles assigned to an IdP user if samlAttributeName is not given..</param>
         /// <param name="samlAttributeName">Specifies the SAML attribute name that contains a comma separated list of Cluster roles. Either this field or roles must be set. This field takes higher precedence than the roles field..</param>
+        /// <param name="signRequest">Specifies whether to sign the SAML request or not. When it is set to true, SAML request will be signed. When it is set to false, SAML request is not signed. Default is false. Set this flag to true if the IdP site is configured to expect the SAML request from the Cluster signed. If this is set to true, users must get the Cluster&#39;s certificate and upload it on the IdP site..</param>
         /// <param name="ssoUrl">Specifies the SSO URL of the IdP service for the customer. This is the URL given by IdP when the customer created an account. Customers may use this for several clusters that are registered with on IdP site. For example, dev-332534.oktapreview.com.</param>
-        public UpdateIdpConfigurationRequest(bool? allowLocalAuthentication = default(bool?), string certificate = default(string), string certificateFilename = default(string), bool? enable = default(bool?), string issuerId = default(string), List<string> roles = default(List<string>), string samlAttributeName = default(string), string ssoUrl = default(string))
+        public UpdateIdpConfigurationRequest(bool? allowLocalAuthentication = default(bool?), string certificate = default(string), string certificateFilename = default(string), bool? enable = default(bool?), string issuerId = default(string), List<string> roles = default(List<string>), string samlAttributeName = default(string), bool? signRequest = default(bool?), string ssoUrl = default(string))
         {
             this.AllowLocalAuthentication = allowLocalAuthentication;
             this.Certificate = certificate;
@@ -40,6 +41,7 @@ namespace Cohesity.Model
             this.IssuerId = issuerId;
             this.Roles = roles;
             this.SamlAttributeName = samlAttributeName;
+            this.SignRequest = signRequest;
             this.SsoUrl = ssoUrl;
             this.AllowLocalAuthentication = allowLocalAuthentication;
             this.Certificate = certificate;
@@ -48,6 +50,7 @@ namespace Cohesity.Model
             this.IssuerId = issuerId;
             this.Roles = roles;
             this.SamlAttributeName = samlAttributeName;
+            this.SignRequest = signRequest;
             this.SsoUrl = ssoUrl;
         }
         
@@ -99,6 +102,13 @@ namespace Cohesity.Model
         /// <value>Specifies the SAML attribute name that contains a comma separated list of Cluster roles. Either this field or roles must be set. This field takes higher precedence than the roles field.</value>
         [DataMember(Name="samlAttributeName", EmitDefaultValue=true)]
         public string SamlAttributeName { get; set; }
+
+        /// <summary>
+        /// Specifies whether to sign the SAML request or not. When it is set to true, SAML request will be signed. When it is set to false, SAML request is not signed. Default is false. Set this flag to true if the IdP site is configured to expect the SAML request from the Cluster signed. If this is set to true, users must get the Cluster&#39;s certificate and upload it on the IdP site.
+        /// </summary>
+        /// <value>Specifies whether to sign the SAML request or not. When it is set to true, SAML request will be signed. When it is set to false, SAML request is not signed. Default is false. Set this flag to true if the IdP site is configured to expect the SAML request from the Cluster signed. If this is set to true, users must get the Cluster&#39;s certificate and upload it on the IdP site.</value>
+        [DataMember(Name="signRequest", EmitDefaultValue=true)]
+        public bool? SignRequest { get; set; }
 
         /// <summary>
         /// Specifies the SSO URL of the IdP service for the customer. This is the URL given by IdP when the customer created an account. Customers may use this for several clusters that are registered with on IdP site. For example, dev-332534.oktapreview.com
@@ -180,6 +190,11 @@ namespace Cohesity.Model
                     this.SamlAttributeName.Equals(input.SamlAttributeName))
                 ) && 
                 (
+                    this.SignRequest == input.SignRequest ||
+                    (this.SignRequest != null &&
+                    this.SignRequest.Equals(input.SignRequest))
+                ) && 
+                (
                     this.SsoUrl == input.SsoUrl ||
                     (this.SsoUrl != null &&
                     this.SsoUrl.Equals(input.SsoUrl))
@@ -209,6 +224,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Roles.GetHashCode();
                 if (this.SamlAttributeName != null)
                     hashCode = hashCode * 59 + this.SamlAttributeName.GetHashCode();
+                if (this.SignRequest != null)
+                    hashCode = hashCode * 59 + this.SignRequest.GetHashCode();
                 if (this.SsoUrl != null)
                     hashCode = hashCode * 59 + this.SsoUrl.GetHashCode();
                 return hashCode;

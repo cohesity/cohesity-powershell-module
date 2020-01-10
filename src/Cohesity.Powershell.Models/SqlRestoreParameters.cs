@@ -24,6 +24,7 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="SqlRestoreParameters" /> class.
         /// </summary>
         /// <param name="captureTailLogs">Set this to true if tail logs are to be captured before the restore operation. This is only applicable if we are restoring the SQL database to its hosting Protection Source, and the database is not being renamed..</param>
+        /// <param name="keepCdc">This field prevents \&quot;change data capture\&quot; settings from being reomved when a database or log backup is restored on another server and database is recovered..</param>
         /// <param name="keepOffline">Set this to true if we want to restore the database and do not want to bring it online after restore.  This is only applicable if we are restoring the database back to its original location..</param>
         /// <param name="newDatabaseName">Specifies optionally a new name for the restored database..</param>
         /// <param name="newInstanceName">Specifies an instance name of the SQL Server that should be restored. SQL application has many instances. Each instance has a unique name. One of the instances that should be restored must be set in this field..</param>
@@ -31,9 +32,11 @@ namespace Cohesity.Model
         /// <param name="targetDataFilesDirectory">Specifies the directory where to put the database data files. Missing directory will be automatically created. This field must be set if restoring to a different target host..</param>
         /// <param name="targetLogFilesDirectory">Specifies the directory where to put the database log files. Missing directory will be automatically created. This field must be set if restoring to a different target host..</param>
         /// <param name="targetSecondaryDataFilesDirectoryList">Specifies the secondary data filename pattern and corresponding direcories of the DB. Secondary data files are optional and are user defined. The recommended file extention for secondary files is \&quot;.ndf\&quot;.  If this option is specified and the destination folders do not exist they will be automatically created..</param>
-        public SqlRestoreParameters(bool? captureTailLogs = default(bool?), bool? keepOffline = default(bool?), string newDatabaseName = default(string), string newInstanceName = default(string), long? restoreTimeSecs = default(long?), string targetDataFilesDirectory = default(string), string targetLogFilesDirectory = default(string), List<FilenamePatternToDirectory> targetSecondaryDataFilesDirectoryList = default(List<FilenamePatternToDirectory>))
+        /// <param name="withClause">WithClause allows you to specify clauses to be used in native sql restore task..</param>
+        public SqlRestoreParameters(bool? captureTailLogs = default(bool?), bool? keepCdc = default(bool?), bool? keepOffline = default(bool?), string newDatabaseName = default(string), string newInstanceName = default(string), long? restoreTimeSecs = default(long?), string targetDataFilesDirectory = default(string), string targetLogFilesDirectory = default(string), List<FilenamePatternToDirectory> targetSecondaryDataFilesDirectoryList = default(List<FilenamePatternToDirectory>), string withClause = default(string))
         {
             this.CaptureTailLogs = captureTailLogs;
+            this.KeepCdc = keepCdc;
             this.KeepOffline = keepOffline;
             this.NewDatabaseName = newDatabaseName;
             this.NewInstanceName = newInstanceName;
@@ -41,7 +44,9 @@ namespace Cohesity.Model
             this.TargetDataFilesDirectory = targetDataFilesDirectory;
             this.TargetLogFilesDirectory = targetLogFilesDirectory;
             this.TargetSecondaryDataFilesDirectoryList = targetSecondaryDataFilesDirectoryList;
+            this.WithClause = withClause;
             this.CaptureTailLogs = captureTailLogs;
+            this.KeepCdc = keepCdc;
             this.KeepOffline = keepOffline;
             this.NewDatabaseName = newDatabaseName;
             this.NewInstanceName = newInstanceName;
@@ -49,6 +54,7 @@ namespace Cohesity.Model
             this.TargetDataFilesDirectory = targetDataFilesDirectory;
             this.TargetLogFilesDirectory = targetLogFilesDirectory;
             this.TargetSecondaryDataFilesDirectoryList = targetSecondaryDataFilesDirectoryList;
+            this.WithClause = withClause;
         }
         
         /// <summary>
@@ -57,6 +63,13 @@ namespace Cohesity.Model
         /// <value>Set this to true if tail logs are to be captured before the restore operation. This is only applicable if we are restoring the SQL database to its hosting Protection Source, and the database is not being renamed.</value>
         [DataMember(Name="captureTailLogs", EmitDefaultValue=true)]
         public bool? CaptureTailLogs { get; set; }
+
+        /// <summary>
+        /// This field prevents \&quot;change data capture\&quot; settings from being reomved when a database or log backup is restored on another server and database is recovered.
+        /// </summary>
+        /// <value>This field prevents \&quot;change data capture\&quot; settings from being reomved when a database or log backup is restored on another server and database is recovered.</value>
+        [DataMember(Name="keepCdc", EmitDefaultValue=true)]
+        public bool? KeepCdc { get; set; }
 
         /// <summary>
         /// Set this to true if we want to restore the database and do not want to bring it online after restore.  This is only applicable if we are restoring the database back to its original location.
@@ -108,6 +121,13 @@ namespace Cohesity.Model
         public List<FilenamePatternToDirectory> TargetSecondaryDataFilesDirectoryList { get; set; }
 
         /// <summary>
+        /// WithClause allows you to specify clauses to be used in native sql restore task.
+        /// </summary>
+        /// <value>WithClause allows you to specify clauses to be used in native sql restore task.</value>
+        [DataMember(Name="withClause", EmitDefaultValue=true)]
+        public string WithClause { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -149,6 +169,11 @@ namespace Cohesity.Model
                     this.CaptureTailLogs.Equals(input.CaptureTailLogs))
                 ) && 
                 (
+                    this.KeepCdc == input.KeepCdc ||
+                    (this.KeepCdc != null &&
+                    this.KeepCdc.Equals(input.KeepCdc))
+                ) && 
+                (
                     this.KeepOffline == input.KeepOffline ||
                     (this.KeepOffline != null &&
                     this.KeepOffline.Equals(input.KeepOffline))
@@ -183,6 +208,11 @@ namespace Cohesity.Model
                     this.TargetSecondaryDataFilesDirectoryList != null &&
                     input.TargetSecondaryDataFilesDirectoryList != null &&
                     this.TargetSecondaryDataFilesDirectoryList.SequenceEqual(input.TargetSecondaryDataFilesDirectoryList)
+                ) && 
+                (
+                    this.WithClause == input.WithClause ||
+                    (this.WithClause != null &&
+                    this.WithClause.Equals(input.WithClause))
                 );
         }
 
@@ -197,6 +227,8 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.CaptureTailLogs != null)
                     hashCode = hashCode * 59 + this.CaptureTailLogs.GetHashCode();
+                if (this.KeepCdc != null)
+                    hashCode = hashCode * 59 + this.KeepCdc.GetHashCode();
                 if (this.KeepOffline != null)
                     hashCode = hashCode * 59 + this.KeepOffline.GetHashCode();
                 if (this.NewDatabaseName != null)
@@ -211,6 +243,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.TargetLogFilesDirectory.GetHashCode();
                 if (this.TargetSecondaryDataFilesDirectoryList != null)
                     hashCode = hashCode * 59 + this.TargetSecondaryDataFilesDirectoryList.GetHashCode();
+                if (this.WithClause != null)
+                    hashCode = hashCode * 59 + this.WithClause.GetHashCode();
                 return hashCode;
             }
         }

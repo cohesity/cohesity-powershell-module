@@ -125,8 +125,6 @@ namespace Cohesity.Model
             return 
                 (
                     this.Days == input.Days ||
-                    this.Days != null &&
-                    input.Days != null &&
                     this.Days.SequenceEqual(input.Days)
                 );
         }

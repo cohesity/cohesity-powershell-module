@@ -21,20 +21,50 @@ namespace Cohesity.Model
     public partial class AdProtectionSource :  IEquatable<AdProtectionSource>
     {
         /// <summary>
+        /// Specifies the type of the managed object in AD Protection Source. Specifies the kind of AD protection source. &#39;kRootContainer&#39; indicates the entity is a root container to an AD domain controller. &#39;kDomainController&#39; indicates the domain controller hosted in this physical server.
+        /// </summary>
+        /// <value>Specifies the type of the managed object in AD Protection Source. Specifies the kind of AD protection source. &#39;kRootContainer&#39; indicates the entity is a root container to an AD domain controller. &#39;kDomainController&#39; indicates the domain controller hosted in this physical server.</value>
+        [JsonConverter(typeof(StringEnumConverter))]
+        public enum TypeEnum
+        {
+            /// <summary>
+            /// Enum KRootContainer for value: kRootContainer
+            /// </summary>
+            [EnumMember(Value = "kRootContainer")]
+            KRootContainer = 1,
+
+            /// <summary>
+            /// Enum KDomainController for value: kDomainController
+            /// </summary>
+            [EnumMember(Value = "kDomainController")]
+            KDomainController = 2
+
+        }
+
+        /// <summary>
+        /// Specifies the type of the managed object in AD Protection Source. Specifies the kind of AD protection source. &#39;kRootContainer&#39; indicates the entity is a root container to an AD domain controller. &#39;kDomainController&#39; indicates the domain controller hosted in this physical server.
+        /// </summary>
+        /// <value>Specifies the type of the managed object in AD Protection Source. Specifies the kind of AD protection source. &#39;kRootContainer&#39; indicates the entity is a root container to an AD domain controller. &#39;kDomainController&#39; indicates the domain controller hosted in this physical server.</value>
+        [DataMember(Name="type", EmitDefaultValue=true)]
+        public TypeEnum? Type { get; set; }
+        /// <summary>
         /// Initializes a new instance of the <see cref="AdProtectionSource" /> class.
         /// </summary>
         /// <param name="domainController">domainController.</param>
+        /// <param name="domainName">Specifies the domain name corresponding to the domain controller..</param>
         /// <param name="name">Specifies the domain name of the AD entity..</param>
         /// <param name="ownerId">Specifies the entity id of the owner entity..</param>
-        /// <param name="type">Specifies the type of the managed object in AD Protection Source..</param>
+        /// <param name="type">Specifies the type of the managed object in AD Protection Source. Specifies the kind of AD protection source. &#39;kRootContainer&#39; indicates the entity is a root container to an AD domain controller. &#39;kDomainController&#39; indicates the domain controller hosted in this physical server..</param>
         /// <param name="uuid">Specifies the UUID for the AD entity..</param>
-        public AdProtectionSource(AdDomainController domainController = default(AdDomainController), string name = default(string), long? ownerId = default(long?), int? type = default(int?), string uuid = default(string))
+        public AdProtectionSource(AdDomainController domainController = default(AdDomainController), string domainName = default(string), string name = default(string), long? ownerId = default(long?), TypeEnum? type = default(TypeEnum?), string uuid = default(string))
         {
+            this.DomainName = domainName;
             this.Name = name;
             this.OwnerId = ownerId;
             this.Type = type;
             this.Uuid = uuid;
             this.DomainController = domainController;
+            this.DomainName = domainName;
             this.Name = name;
             this.OwnerId = ownerId;
             this.Type = type;
@@ -46,6 +76,13 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="domainController", EmitDefaultValue=false)]
         public AdDomainController DomainController { get; set; }
+
+        /// <summary>
+        /// Specifies the domain name corresponding to the domain controller.
+        /// </summary>
+        /// <value>Specifies the domain name corresponding to the domain controller.</value>
+        [DataMember(Name="domainName", EmitDefaultValue=true)]
+        public string DomainName { get; set; }
 
         /// <summary>
         /// Specifies the domain name of the AD entity.
@@ -60,13 +97,6 @@ namespace Cohesity.Model
         /// <value>Specifies the entity id of the owner entity.</value>
         [DataMember(Name="ownerId", EmitDefaultValue=true)]
         public long? OwnerId { get; set; }
-
-        /// <summary>
-        /// Specifies the type of the managed object in AD Protection Source.
-        /// </summary>
-        /// <value>Specifies the type of the managed object in AD Protection Source.</value>
-        [DataMember(Name="type", EmitDefaultValue=true)]
-        public int? Type { get; set; }
 
         /// <summary>
         /// Specifies the UUID for the AD entity.
@@ -117,6 +147,11 @@ namespace Cohesity.Model
                     this.DomainController.Equals(input.DomainController))
                 ) && 
                 (
+                    this.DomainName == input.DomainName ||
+                    (this.DomainName != null &&
+                    this.DomainName.Equals(input.DomainName))
+                ) && 
+                (
                     this.Name == input.Name ||
                     (this.Name != null &&
                     this.Name.Equals(input.Name))
@@ -128,8 +163,7 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.Type == input.Type ||
-                    (this.Type != null &&
-                    this.Type.Equals(input.Type))
+                    this.Type.Equals(input.Type)
                 ) && 
                 (
                     this.Uuid == input.Uuid ||
@@ -149,12 +183,13 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.DomainController != null)
                     hashCode = hashCode * 59 + this.DomainController.GetHashCode();
+                if (this.DomainName != null)
+                    hashCode = hashCode * 59 + this.DomainName.GetHashCode();
                 if (this.Name != null)
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
                 if (this.OwnerId != null)
                     hashCode = hashCode * 59 + this.OwnerId.GetHashCode();
-                if (this.Type != null)
-                    hashCode = hashCode * 59 + this.Type.GetHashCode();
+                hashCode = hashCode * 59 + this.Type.GetHashCode();
                 if (this.Uuid != null)
                     hashCode = hashCode * 59 + this.Uuid.GetHashCode();
                 return hashCode;

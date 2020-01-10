@@ -170,8 +170,6 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.AlertingPolicy == input.AlertingPolicy ||
-                    this.AlertingPolicy != null &&
-                    input.AlertingPolicy != null &&
                     this.AlertingPolicy.SequenceEqual(input.AlertingPolicy)
                 ) && 
                 (

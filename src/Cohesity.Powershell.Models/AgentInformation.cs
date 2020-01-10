@@ -21,9 +21,9 @@ namespace Cohesity.Model
     public partial class AgentInformation :  IEquatable<AgentInformation>
     {
         /// <summary>
-        /// Specifies the host type where the agent is running. This is only set for persistent agents. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system.
+        /// Specifies the host type where the agent is running. This is only set for persistent agents. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kOther&#39; indicates the other types of operating system.
         /// </summary>
-        /// <value>Specifies the host type where the agent is running. This is only set for persistent agents. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system.</value>
+        /// <value>Specifies the host type where the agent is running. This is only set for persistent agents. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kOther&#39; indicates the other types of operating system.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum HostTypeEnum
         {
@@ -49,14 +49,26 @@ namespace Cohesity.Model
             /// Enum KSolaris for value: kSolaris
             /// </summary>
             [EnumMember(Value = "kSolaris")]
-            KSolaris = 4
+            KSolaris = 4,
+
+            /// <summary>
+            /// Enum KSapHana for value: kSapHana
+            /// </summary>
+            [EnumMember(Value = "kSapHana")]
+            KSapHana = 5,
+
+            /// <summary>
+            /// Enum KOther for value: kOther
+            /// </summary>
+            [EnumMember(Value = "kOther")]
+            KOther = 6
 
         }
 
         /// <summary>
-        /// Specifies the host type where the agent is running. This is only set for persistent agents. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system.
+        /// Specifies the host type where the agent is running. This is only set for persistent agents. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kOther&#39; indicates the other types of operating system.
         /// </summary>
-        /// <value>Specifies the host type where the agent is running. This is only set for persistent agents. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system.</value>
+        /// <value>Specifies the host type where the agent is running. This is only set for persistent agents. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kOther&#39; indicates the other types of operating system.</value>
         [DataMember(Name="hostType", EmitDefaultValue=true)]
         public HostTypeEnum? HostType { get; set; }
         /// <summary>
@@ -192,9 +204,10 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="AgentInformation" /> class.
         /// </summary>
         /// <param name="cbmrVersion">Specifies the version if Cristie BMR product is installed on the host..</param>
-        /// <param name="hostType">Specifies the host type where the agent is running. This is only set for persistent agents. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system..</param>
+        /// <param name="hostType">Specifies the host type where the agent is running. This is only set for persistent agents. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kOther&#39; indicates the other types of operating system..</param>
         /// <param name="id">Specifies the agent&#39;s id..</param>
         /// <param name="name">Specifies the agent&#39;s name..</param>
+        /// <param name="oracleMultiNodeChannelSupported">Specifies whether oracle multi node multi channel is supported or not..</param>
         /// <param name="registrationInfo">registrationInfo.</param>
         /// <param name="sourceSideDedupEnabled">Specifies whether source side dedup is enabled or not..</param>
         /// <param name="status">Specifies the agent status. Specifies the status of the agent running on a physical source. &#39;kUnknown&#39; indicates the Agent is not known. No attempt to connect to the Agent has occurred. &#39;kUnreachable&#39; indicates the Agent is not reachable. &#39;kHealthy&#39; indicates the Agent is healthy. &#39;kDegraded&#39; indicates the Agent is running but in a degraded state..</param>
@@ -203,12 +216,13 @@ namespace Cohesity.Model
         /// <param name="upgradeStatus">Specifies the status of the upgrade of the agent on a physical server. Specifies the status of the upgrade of the agent on a physical server. &#39;kIdle&#39; indicates there is no agent upgrade in progress. &#39;kAccepted&#39; indicates the Agent upgrade is accepted. &#39;kStarted&#39; indicates the Agent upgrade is in progress. &#39;kFinished&#39; indicates the Agent upgrade is completed..</param>
         /// <param name="upgradeStatusMessage">Specifies detailed message about the agent upgrade failure. This field is not set for successful upgrade..</param>
         /// <param name="version">Specifies the version of the Agent software..</param>
-        public AgentInformation(string cbmrVersion = default(string), HostTypeEnum? hostType = default(HostTypeEnum?), long? id = default(long?), string name = default(string), RegisteredSourceInfo registrationInfo = default(RegisteredSourceInfo), bool? sourceSideDedupEnabled = default(bool?), StatusEnum? status = default(StatusEnum?), string statusMessage = default(string), UpgradabilityEnum? upgradability = default(UpgradabilityEnum?), UpgradeStatusEnum? upgradeStatus = default(UpgradeStatusEnum?), string upgradeStatusMessage = default(string), string version = default(string))
+        public AgentInformation(string cbmrVersion = default(string), HostTypeEnum? hostType = default(HostTypeEnum?), long? id = default(long?), string name = default(string), bool? oracleMultiNodeChannelSupported = default(bool?), RegisteredSourceInfo registrationInfo = default(RegisteredSourceInfo), bool? sourceSideDedupEnabled = default(bool?), StatusEnum? status = default(StatusEnum?), string statusMessage = default(string), UpgradabilityEnum? upgradability = default(UpgradabilityEnum?), UpgradeStatusEnum? upgradeStatus = default(UpgradeStatusEnum?), string upgradeStatusMessage = default(string), string version = default(string))
         {
             this.CbmrVersion = cbmrVersion;
             this.HostType = hostType;
             this.Id = id;
             this.Name = name;
+            this.OracleMultiNodeChannelSupported = oracleMultiNodeChannelSupported;
             this.SourceSideDedupEnabled = sourceSideDedupEnabled;
             this.Status = status;
             this.StatusMessage = statusMessage;
@@ -220,6 +234,7 @@ namespace Cohesity.Model
             this.HostType = hostType;
             this.Id = id;
             this.Name = name;
+            this.OracleMultiNodeChannelSupported = oracleMultiNodeChannelSupported;
             this.RegistrationInfo = registrationInfo;
             this.SourceSideDedupEnabled = sourceSideDedupEnabled;
             this.Status = status;
@@ -250,6 +265,13 @@ namespace Cohesity.Model
         /// <value>Specifies the agent&#39;s name.</value>
         [DataMember(Name="name", EmitDefaultValue=true)]
         public string Name { get; set; }
+
+        /// <summary>
+        /// Specifies whether oracle multi node multi channel is supported or not.
+        /// </summary>
+        /// <value>Specifies whether oracle multi node multi channel is supported or not.</value>
+        [DataMember(Name="oracleMultiNodeChannelSupported", EmitDefaultValue=true)]
+        public bool? OracleMultiNodeChannelSupported { get; set; }
 
         /// <summary>
         /// Gets or Sets RegistrationInfo
@@ -341,6 +363,11 @@ namespace Cohesity.Model
                     this.Name.Equals(input.Name))
                 ) && 
                 (
+                    this.OracleMultiNodeChannelSupported == input.OracleMultiNodeChannelSupported ||
+                    (this.OracleMultiNodeChannelSupported != null &&
+                    this.OracleMultiNodeChannelSupported.Equals(input.OracleMultiNodeChannelSupported))
+                ) && 
+                (
                     this.RegistrationInfo == input.RegistrationInfo ||
                     (this.RegistrationInfo != null &&
                     this.RegistrationInfo.Equals(input.RegistrationInfo))
@@ -395,6 +422,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Id.GetHashCode();
                 if (this.Name != null)
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
+                if (this.OracleMultiNodeChannelSupported != null)
+                    hashCode = hashCode * 59 + this.OracleMultiNodeChannelSupported.GetHashCode();
                 if (this.RegistrationInfo != null)
                     hashCode = hashCode * 59 + this.RegistrationInfo.GetHashCode();
                 if (this.SourceSideDedupEnabled != null)

@@ -15,7 +15,7 @@ using Newtonsoft.Json.Converters;
 namespace Cohesity.Model
 {
     /// <summary>
-    /// OracleDBChannelInfoHostInfo
+    /// The name of this proto message is out-dated. This proto should generally be used to represent parameters needed for each Oracle &#39;cluster&#39; node. &#39;cluster&#39; here is a loose term used to include more than Oracle RAC cluster, e.g. &#39;active-passive&#39; cluster is also considered here as &#39;cluster&#39; and its &#39;cluster node will also be represented by the following proto.
     /// </summary>
     [DataContract]
     public partial class OracleDBChannelInfoHostInfo :  IEquatable<OracleDBChannelInfoHostInfo>

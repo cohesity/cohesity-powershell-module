@@ -173,8 +173,6 @@ namespace Cohesity.Model
             return 
                 (
                     this.AlertCategoryList == input.AlertCategoryList ||
-                    this.AlertCategoryList != null &&
-                    input.AlertCategoryList != null &&
                     this.AlertCategoryList.SequenceEqual(input.AlertCategoryList)
                 );
         }

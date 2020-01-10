@@ -23,13 +23,23 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="QoS" /> class.
         /// </summary>
+        /// <param name="principalId">Specifies the name of the QoS Policy used for the View..</param>
         /// <param name="principalName">Specifies the name of the QoS Policy used for the View such as &#39;TestAndDev High&#39;, &#39;Backup Target SSD&#39;, &#39;Backup Target High&#39; &#39;TestAndDev Low&#39; and &#39;Backup Target Low&#39;. For a complete list and descriptions, see the &#39;Create or Edit Views&#39; topic in the documentation. If not specified, the default is &#39;Backup Target Low&#39;..</param>
-        public QoS(string principalName = default(string))
+        public QoS(long? principalId = default(long?), string principalName = default(string))
         {
+            this.PrincipalId = principalId;
             this.PrincipalName = principalName;
+            this.PrincipalId = principalId;
             this.PrincipalName = principalName;
         }
         
+        /// <summary>
+        /// Specifies the name of the QoS Policy used for the View.
+        /// </summary>
+        /// <value>Specifies the name of the QoS Policy used for the View.</value>
+        [DataMember(Name="principalId", EmitDefaultValue=true)]
+        public long? PrincipalId { get; set; }
+
         /// <summary>
         /// Specifies the name of the QoS Policy used for the View such as &#39;TestAndDev High&#39;, &#39;Backup Target SSD&#39;, &#39;Backup Target High&#39; &#39;TestAndDev Low&#39; and &#39;Backup Target Low&#39;. For a complete list and descriptions, see the &#39;Create or Edit Views&#39; topic in the documentation. If not specified, the default is &#39;Backup Target Low&#39;.
         /// </summary>
@@ -74,6 +84,11 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.PrincipalId == input.PrincipalId ||
+                    (this.PrincipalId != null &&
+                    this.PrincipalId.Equals(input.PrincipalId))
+                ) && 
+                (
                     this.PrincipalName == input.PrincipalName ||
                     (this.PrincipalName != null &&
                     this.PrincipalName.Equals(input.PrincipalName))
@@ -89,6 +104,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.PrincipalId != null)
+                    hashCode = hashCode * 59 + this.PrincipalId.GetHashCode();
                 if (this.PrincipalName != null)
                     hashCode = hashCode * 59 + this.PrincipalName.GetHashCode();
                 return hashCode;

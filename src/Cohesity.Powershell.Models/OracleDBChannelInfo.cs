@@ -15,7 +15,7 @@ using Newtonsoft.Json.Converters;
 namespace Cohesity.Model
 {
     /// <summary>
-    /// Message to capture channel information for Oracle database backup or restore information.
+    /// Note: The name of this proto message is out-dated. This proto can represent more than just the database channel information. It should be renamed in the future.
     /// </summary>
     [DataContract]
     public partial class OracleDBChannelInfo :  IEquatable<OracleDBChannelInfo>
@@ -23,18 +23,21 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="OracleDBChannelInfo" /> class.
         /// </summary>
+        /// <param name="archivelogKeepDays">Archived log deletion policy for this unique Oracle database. 1: keep archived log forever 0: delete archived log immediately n&gt;0: delete archived log after n days.</param>
         /// <param name="dbUniqueName">The unique name of the database..</param>
         /// <param name="dbUuid">Database id, internal field, is filled by magneto master based on corresponding app entity id..</param>
         /// <param name="hostInfoVec">Vector of Oracle hosts from which we are allowed to take the backup/restore. In case of RAC database it may be more than one..</param>
         /// <param name="maxNumHost">Maximum number of hosts from which we are allowed to take backup/restore parallely. This will be less than or equal to host_info_vec_size. If this is less than host_info_vec_size we will choose max_num_host from host_info_vec and take backup/restore from this number of host..</param>
         /// <param name="numChannels">The default number of channels to use per host per db. This value is used on all hosts unless host_info_vec.num_channels is specified for that host. Default value for num_channels will be calculated as minimum number of nodes in cohesity cluster, and 2 * number of cpu on Oracle host. Preference order for number of channels per host for given db is: 1. If user has specified host_info_vec.num_channels for host we will use that. 2. If user has not specified host_info_vec.num_channels but specified num_channels we will use this. 3. If user has neither specified host_info_vec.num_channels nor num_channels we will calculate default channels with above formula..</param>
-        public OracleDBChannelInfo(string dbUniqueName = default(string), string dbUuid = default(string), List<OracleDBChannelInfoHostInfo> hostInfoVec = default(List<OracleDBChannelInfoHostInfo>), int? maxNumHost = default(int?), int? numChannels = default(int?))
+        public OracleDBChannelInfo(int? archivelogKeepDays = default(int?), string dbUniqueName = default(string), string dbUuid = default(string), List<OracleDBChannelInfoHostInfo> hostInfoVec = default(List<OracleDBChannelInfoHostInfo>), int? maxNumHost = default(int?), int? numChannels = default(int?))
         {
+            this.ArchivelogKeepDays = archivelogKeepDays;
             this.DbUniqueName = dbUniqueName;
             this.DbUuid = dbUuid;
             this.HostInfoVec = hostInfoVec;
             this.MaxNumHost = maxNumHost;
             this.NumChannels = numChannels;
+            this.ArchivelogKeepDays = archivelogKeepDays;
             this.DbUniqueName = dbUniqueName;
             this.DbUuid = dbUuid;
             this.HostInfoVec = hostInfoVec;
@@ -42,6 +45,13 @@ namespace Cohesity.Model
             this.NumChannels = numChannels;
         }
         
+        /// <summary>
+        /// Archived log deletion policy for this unique Oracle database. 1: keep archived log forever 0: delete archived log immediately n&gt;0: delete archived log after n days
+        /// </summary>
+        /// <value>Archived log deletion policy for this unique Oracle database. 1: keep archived log forever 0: delete archived log immediately n&gt;0: delete archived log after n days</value>
+        [DataMember(Name="archivelogKeepDays", EmitDefaultValue=true)]
+        public int? ArchivelogKeepDays { get; set; }
+
         /// <summary>
         /// The unique name of the database.
         /// </summary>
@@ -114,6 +124,11 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.ArchivelogKeepDays == input.ArchivelogKeepDays ||
+                    (this.ArchivelogKeepDays != null &&
+                    this.ArchivelogKeepDays.Equals(input.ArchivelogKeepDays))
+                ) && 
+                (
                     this.DbUniqueName == input.DbUniqueName ||
                     (this.DbUniqueName != null &&
                     this.DbUniqueName.Equals(input.DbUniqueName))
@@ -150,6 +165,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.ArchivelogKeepDays != null)
+                    hashCode = hashCode * 59 + this.ArchivelogKeepDays.GetHashCode();
                 if (this.DbUniqueName != null)
                     hashCode = hashCode * 59 + this.DbUniqueName.GetHashCode();
                 if (this.DbUuid != null)

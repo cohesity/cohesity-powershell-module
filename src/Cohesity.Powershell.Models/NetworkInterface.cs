@@ -424,8 +424,6 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.Services == input.Services ||
-                    this.Services != null &&
-                    input.Services != null &&
                     this.Services.SequenceEqual(input.Services)
                 ) && 
                 (

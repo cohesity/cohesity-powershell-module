@@ -58,16 +58,18 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="awsParams">awsParams.</param>
         /// <param name="azureParams">azureParams.</param>
+        /// <param name="gcpParams">gcpParams.</param>
         /// <param name="id">Entity corresponding to the cloud deploy target.  Specifies the id field inside the EntityProto..</param>
         /// <param name="name">Specifies the inner object&#39;s name or a human-readable string made off the salient attributes. This is only plumbed when Entity objects are exposed to Iris BE or to Yoda..</param>
         /// <param name="type">Specifies the type of the CloudDeploy target. &#39;kAzure&#39; indicates that Azure as a cloud deploy target type. &#39;kAws&#39; indicates that AWS as a cloud deploy target type. &#39;kGcp&#39; indicates that GCP as a cloud deploy target type..</param>
-        public CloudDeployTargetDetails(AwsParams awsParams = default(AwsParams), AzureParams azureParams = default(AzureParams), long? id = default(long?), string name = default(string), TypeEnum? type = default(TypeEnum?))
+        public CloudDeployTargetDetails(AwsParams awsParams = default(AwsParams), AzureParams azureParams = default(AzureParams), GcpParams gcpParams = default(GcpParams), long? id = default(long?), string name = default(string), TypeEnum? type = default(TypeEnum?))
         {
             this.Id = id;
             this.Name = name;
             this.Type = type;
             this.AwsParams = awsParams;
             this.AzureParams = azureParams;
+            this.GcpParams = gcpParams;
             this.Id = id;
             this.Name = name;
             this.Type = type;
@@ -84,6 +86,12 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="azureParams", EmitDefaultValue=false)]
         public AzureParams AzureParams { get; set; }
+
+        /// <summary>
+        /// Gets or Sets GcpParams
+        /// </summary>
+        [DataMember(Name="gcpParams", EmitDefaultValue=false)]
+        public GcpParams GcpParams { get; set; }
 
         /// <summary>
         /// Entity corresponding to the cloud deploy target.  Specifies the id field inside the EntityProto.
@@ -146,6 +154,11 @@ namespace Cohesity.Model
                     this.AzureParams.Equals(input.AzureParams))
                 ) && 
                 (
+                    this.GcpParams == input.GcpParams ||
+                    (this.GcpParams != null &&
+                    this.GcpParams.Equals(input.GcpParams))
+                ) && 
+                (
                     this.Id == input.Id ||
                     (this.Id != null &&
                     this.Id.Equals(input.Id))
@@ -174,6 +187,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.AwsParams.GetHashCode();
                 if (this.AzureParams != null)
                     hashCode = hashCode * 59 + this.AzureParams.GetHashCode();
+                if (this.GcpParams != null)
+                    hashCode = hashCode * 59 + this.GcpParams.GetHashCode();
                 if (this.Id != null)
                     hashCode = hashCode * 59 + this.Id.GetHashCode();
                 if (this.Name != null)

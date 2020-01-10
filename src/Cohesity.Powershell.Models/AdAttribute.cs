@@ -157,8 +157,6 @@ namespace Cohesity.Model
             return 
                 (
                     this.AdAttributeFlags == input.AdAttributeFlags ||
-                    this.AdAttributeFlags != null &&
-                    input.AdAttributeFlags != null &&
                     this.AdAttributeFlags.SequenceEqual(input.AdAttributeFlags)
                 ) && 
                 (

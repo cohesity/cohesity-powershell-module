@@ -56,17 +56,25 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="AppInstanceSettings" /> class.
         /// </summary>
+        /// <param name="protectedObjectPrivileges">protectedObjectPrivileges.</param>
         /// <param name="qosTier">Specifies QoSTier of the app instance. Specifies QoS Tier for an app instance. App instances are allocated resources such as memory, CPU and IO based on their QoS Tier. kLow - Low QoS Tier. kMedium - Medium QoS Tier. kHigh - High QoS Tier..</param>
         /// <param name="readViewPrivileges">readViewPrivileges.</param>
         /// <param name="readWriteViewPrivileges">readWriteViewPrivileges.</param>
-        public AppInstanceSettings(QosTierEnum? qosTier = default(QosTierEnum?), ViewPrivileges readViewPrivileges = default(ViewPrivileges), ViewPrivileges readWriteViewPrivileges = default(ViewPrivileges))
+        public AppInstanceSettings(ProtectedObjectPrivileges protectedObjectPrivileges = default(ProtectedObjectPrivileges), QosTierEnum? qosTier = default(QosTierEnum?), ViewPrivileges readViewPrivileges = default(ViewPrivileges), ViewPrivileges readWriteViewPrivileges = default(ViewPrivileges))
         {
             this.QosTier = qosTier;
+            this.ProtectedObjectPrivileges = protectedObjectPrivileges;
             this.QosTier = qosTier;
             this.ReadViewPrivileges = readViewPrivileges;
             this.ReadWriteViewPrivileges = readWriteViewPrivileges;
         }
         
+        /// <summary>
+        /// Gets or Sets ProtectedObjectPrivileges
+        /// </summary>
+        [DataMember(Name="protectedObjectPrivileges", EmitDefaultValue=false)]
+        public ProtectedObjectPrivileges ProtectedObjectPrivileges { get; set; }
+
         /// <summary>
         /// Gets or Sets ReadViewPrivileges
         /// </summary>
@@ -116,6 +124,11 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.ProtectedObjectPrivileges == input.ProtectedObjectPrivileges ||
+                    (this.ProtectedObjectPrivileges != null &&
+                    this.ProtectedObjectPrivileges.Equals(input.ProtectedObjectPrivileges))
+                ) && 
+                (
                     this.QosTier == input.QosTier ||
                     this.QosTier.Equals(input.QosTier)
                 ) && 
@@ -140,6 +153,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.ProtectedObjectPrivileges != null)
+                    hashCode = hashCode * 59 + this.ProtectedObjectPrivileges.GetHashCode();
                 hashCode = hashCode * 59 + this.QosTier.GetHashCode();
                 if (this.ReadViewPrivileges != null)
                     hashCode = hashCode * 59 + this.ReadViewPrivileges.GetHashCode();

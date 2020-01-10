@@ -34,8 +34,9 @@ namespace Cohesity.Model
         /// <param name="nodeModel">nodeModel.</param>
         /// <param name="nodeSerial">nodeSerial.</param>
         /// <param name="productModel">productModel.</param>
+        /// <param name="productModelType">productModelType.</param>
         /// <param name="slotNumber">slotNumber.</param>
-        public HardwareInfo(string chassisModel = default(string), string chassisSerial = default(string), string chassisType = default(string), string cohesityChassisSerial = default(string), string cohesityNodeSerial = default(string), string hbaModel = default(string), string ipmiLanChannel = default(string), string maxSlots = default(string), string nodeModel = default(string), string nodeSerial = default(string), string productModel = default(string), string slotNumber = default(string))
+        public HardwareInfo(string chassisModel = default(string), string chassisSerial = default(string), string chassisType = default(string), string cohesityChassisSerial = default(string), string cohesityNodeSerial = default(string), string hbaModel = default(string), string ipmiLanChannel = default(string), string maxSlots = default(string), string nodeModel = default(string), string nodeSerial = default(string), string productModel = default(string), string productModelType = default(string), string slotNumber = default(string))
         {
             this.ChassisModel = chassisModel;
             this.ChassisSerial = chassisSerial;
@@ -48,6 +49,7 @@ namespace Cohesity.Model
             this.NodeModel = nodeModel;
             this.NodeSerial = nodeSerial;
             this.ProductModel = productModel;
+            this.ProductModelType = productModelType;
             this.SlotNumber = slotNumber;
             this.ChassisModel = chassisModel;
             this.ChassisSerial = chassisSerial;
@@ -60,6 +62,7 @@ namespace Cohesity.Model
             this.NodeModel = nodeModel;
             this.NodeSerial = nodeSerial;
             this.ProductModel = productModel;
+            this.ProductModelType = productModelType;
             this.SlotNumber = slotNumber;
         }
         
@@ -128,6 +131,12 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="productModel", EmitDefaultValue=true)]
         public string ProductModel { get; set; }
+
+        /// <summary>
+        /// Gets or Sets ProductModelType
+        /// </summary>
+        [DataMember(Name="productModelType", EmitDefaultValue=true)]
+        public string ProductModelType { get; set; }
 
         /// <summary>
         /// Gets or Sets SlotNumber
@@ -227,6 +236,11 @@ namespace Cohesity.Model
                     this.ProductModel.Equals(input.ProductModel))
                 ) && 
                 (
+                    this.ProductModelType == input.ProductModelType ||
+                    (this.ProductModelType != null &&
+                    this.ProductModelType.Equals(input.ProductModelType))
+                ) && 
+                (
                     this.SlotNumber == input.SlotNumber ||
                     (this.SlotNumber != null &&
                     this.SlotNumber.Equals(input.SlotNumber))
@@ -264,6 +278,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.NodeSerial.GetHashCode();
                 if (this.ProductModel != null)
                     hashCode = hashCode * 59 + this.ProductModel.GetHashCode();
+                if (this.ProductModelType != null)
+                    hashCode = hashCode * 59 + this.ProductModelType.GetHashCode();
                 if (this.SlotNumber != null)
                     hashCode = hashCode * 59 + this.SlotNumber.GetHashCode();
                 return hashCode;

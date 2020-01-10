@@ -24,11 +24,14 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="RetentionPolicyProto" /> class.
         /// </summary>
         /// <param name="numDaysToKeep">The number of days to keep the snapshots for a backup run..</param>
+        /// <param name="numSecsToKeep">The number of seconds to keep the snapshots for a backup run..</param>
         /// <param name="wormRetention">wormRetention.</param>
-        public RetentionPolicyProto(long? numDaysToKeep = default(long?), WormRetentionProto wormRetention = default(WormRetentionProto))
+        public RetentionPolicyProto(long? numDaysToKeep = default(long?), int? numSecsToKeep = default(int?), WormRetentionProto wormRetention = default(WormRetentionProto))
         {
             this.NumDaysToKeep = numDaysToKeep;
+            this.NumSecsToKeep = numSecsToKeep;
             this.NumDaysToKeep = numDaysToKeep;
+            this.NumSecsToKeep = numSecsToKeep;
             this.WormRetention = wormRetention;
         }
         
@@ -38,6 +41,13 @@ namespace Cohesity.Model
         /// <value>The number of days to keep the snapshots for a backup run.</value>
         [DataMember(Name="numDaysToKeep", EmitDefaultValue=true)]
         public long? NumDaysToKeep { get; set; }
+
+        /// <summary>
+        /// The number of seconds to keep the snapshots for a backup run.
+        /// </summary>
+        /// <value>The number of seconds to keep the snapshots for a backup run.</value>
+        [DataMember(Name="numSecsToKeep", EmitDefaultValue=true)]
+        public int? NumSecsToKeep { get; set; }
 
         /// <summary>
         /// Gets or Sets WormRetention
@@ -87,6 +97,11 @@ namespace Cohesity.Model
                     this.NumDaysToKeep.Equals(input.NumDaysToKeep))
                 ) && 
                 (
+                    this.NumSecsToKeep == input.NumSecsToKeep ||
+                    (this.NumSecsToKeep != null &&
+                    this.NumSecsToKeep.Equals(input.NumSecsToKeep))
+                ) && 
+                (
                     this.WormRetention == input.WormRetention ||
                     (this.WormRetention != null &&
                     this.WormRetention.Equals(input.WormRetention))
@@ -104,6 +119,8 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.NumDaysToKeep != null)
                     hashCode = hashCode * 59 + this.NumDaysToKeep.GetHashCode();
+                if (this.NumSecsToKeep != null)
+                    hashCode = hashCode * 59 + this.NumSecsToKeep.GetHashCode();
                 if (this.WormRetention != null)
                     hashCode = hashCode * 59 + this.WormRetention.GetHashCode();
                 return hashCode;

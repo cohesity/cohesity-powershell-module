@@ -114,12 +114,14 @@ namespace Cohesity.Model
         /// <param name="nodeHardwareInfo">nodeHardwareInfo.</param>
         /// <param name="nodeIncarnationId">NodeIncarnationId is the incarnation id  of this node. The incarnation id is changed every time the data is wiped from the node. Various services on a node is only run if incarnation id of the node matches the incarnation id of the cluster. Whenever a mismatch is detected, Nexus will stop all services and clean the data from the node. After clean operation is completed, Nexus will set the node incarnation id to cluster incarnation id and start the services..</param>
         /// <param name="nodeSoftwareVersion">NodeSoftwareVersion is the current version of Cohesity software installed on a node..</param>
+        /// <param name="nodeType">Node type: StorageNode, AllFlashNode, RoboNode, AppNode, etc..</param>
         /// <param name="offlineMountPathsOfDisks">OfflineMountPathsOfDisks provides the corresponding mount paths for direct attached disks that are currently offline - access to these were detected to hang sometime in the past. After these disks have been fixed, their mount paths needs to be removed from the following list before these will be accessed again..</param>
         /// <param name="removalReason">RemovalReason specifies the removal reason of the node. &#39;kAutoHealthCheck&#39; means the entity health is bad. &#39;kUserGracefulRemoval&#39; means user initiated a graceful removal. &#39;kUserAvoidAccess&#39; means user initiated a mark offline. &#39;kUserGracefulNodeRemoval&#39; mean users initiated graceful node removal. &#39;kUserRemoveDownNode&#39; mean user initiated graceful removal of down node..</param>
         /// <param name="removalState">RemovalState specifies the removal state of the node. &#39;kDontRemove&#39; means the state of object is functional and it is not being removed. &#39;kMarkedForRemoval&#39; means the object is being removed. &#39;kOkToRemove&#39; means the object has been removed on the Cohesity Cluster and if the object is physical, it can be removed from the Cohesity Cluster..</param>
+        /// <param name="slotNumber">Slot number occupied by this node within the chassis..</param>
         /// <param name="stats">stats.</param>
         /// <param name="systemDisks">SystemDisk describes the node system disks..</param>
-        public Node(List<CapacityByTier> capacityByTier = default(List<CapacityByTier>), ChassisInfo chassisInfo = default(ChassisInfo), long? clusterPartitionId = default(long?), string clusterPartitionName = default(string), long? diskCount = default(long?), List<CountByTier> diskCountByTier = default(List<CountByTier>), long? id = default(long?), string ip = default(string), bool? isMarkedForRemoval = default(bool?), long? maxPhysicalCapacityBytes = default(long?), NodeHardwareInfo nodeHardwareInfo = default(NodeHardwareInfo), long? nodeIncarnationId = default(long?), string nodeSoftwareVersion = default(string), List<string> offlineMountPathsOfDisks = default(List<string>), List<RemovalReasonEnum> removalReason = default(List<RemovalReasonEnum>), RemovalStateEnum? removalState = default(RemovalStateEnum?), NodeStats stats = default(NodeStats), List<NodeSystemDiskInfo> systemDisks = default(List<NodeSystemDiskInfo>))
+        public Node(List<CapacityByTier> capacityByTier = default(List<CapacityByTier>), ChassisInfo chassisInfo = default(ChassisInfo), long? clusterPartitionId = default(long?), string clusterPartitionName = default(string), long? diskCount = default(long?), List<CountByTier> diskCountByTier = default(List<CountByTier>), long? id = default(long?), string ip = default(string), bool? isMarkedForRemoval = default(bool?), long? maxPhysicalCapacityBytes = default(long?), NodeHardwareInfo nodeHardwareInfo = default(NodeHardwareInfo), long? nodeIncarnationId = default(long?), string nodeSoftwareVersion = default(string), string nodeType = default(string), List<string> offlineMountPathsOfDisks = default(List<string>), List<RemovalReasonEnum> removalReason = default(List<RemovalReasonEnum>), RemovalStateEnum? removalState = default(RemovalStateEnum?), int? slotNumber = default(int?), NodeStats stats = default(NodeStats), List<NodeSystemDiskInfo> systemDisks = default(List<NodeSystemDiskInfo>))
         {
             this.CapacityByTier = capacityByTier;
             this.ClusterPartitionId = clusterPartitionId;
@@ -132,9 +134,11 @@ namespace Cohesity.Model
             this.MaxPhysicalCapacityBytes = maxPhysicalCapacityBytes;
             this.NodeIncarnationId = nodeIncarnationId;
             this.NodeSoftwareVersion = nodeSoftwareVersion;
+            this.NodeType = nodeType;
             this.OfflineMountPathsOfDisks = offlineMountPathsOfDisks;
             this.RemovalReason = removalReason;
             this.RemovalState = removalState;
+            this.SlotNumber = slotNumber;
             this.SystemDisks = systemDisks;
             this.CapacityByTier = capacityByTier;
             this.ChassisInfo = chassisInfo;
@@ -149,9 +153,11 @@ namespace Cohesity.Model
             this.NodeHardwareInfo = nodeHardwareInfo;
             this.NodeIncarnationId = nodeIncarnationId;
             this.NodeSoftwareVersion = nodeSoftwareVersion;
+            this.NodeType = nodeType;
             this.OfflineMountPathsOfDisks = offlineMountPathsOfDisks;
             this.RemovalReason = removalReason;
             this.RemovalState = removalState;
+            this.SlotNumber = slotNumber;
             this.Stats = stats;
             this.SystemDisks = systemDisks;
         }
@@ -246,11 +252,25 @@ namespace Cohesity.Model
         public string NodeSoftwareVersion { get; set; }
 
         /// <summary>
+        /// Node type: StorageNode, AllFlashNode, RoboNode, AppNode, etc.
+        /// </summary>
+        /// <value>Node type: StorageNode, AllFlashNode, RoboNode, AppNode, etc.</value>
+        [DataMember(Name="nodeType", EmitDefaultValue=true)]
+        public string NodeType { get; set; }
+
+        /// <summary>
         /// OfflineMountPathsOfDisks provides the corresponding mount paths for direct attached disks that are currently offline - access to these were detected to hang sometime in the past. After these disks have been fixed, their mount paths needs to be removed from the following list before these will be accessed again.
         /// </summary>
         /// <value>OfflineMountPathsOfDisks provides the corresponding mount paths for direct attached disks that are currently offline - access to these were detected to hang sometime in the past. After these disks have been fixed, their mount paths needs to be removed from the following list before these will be accessed again.</value>
         [DataMember(Name="offlineMountPathsOfDisks", EmitDefaultValue=true)]
         public List<string> OfflineMountPathsOfDisks { get; set; }
+
+        /// <summary>
+        /// Slot number occupied by this node within the chassis.
+        /// </summary>
+        /// <value>Slot number occupied by this node within the chassis.</value>
+        [DataMember(Name="slotNumber", EmitDefaultValue=true)]
+        public int? SlotNumber { get; set; }
 
         /// <summary>
         /// Gets or Sets Stats
@@ -369,6 +389,11 @@ namespace Cohesity.Model
                     this.NodeSoftwareVersion.Equals(input.NodeSoftwareVersion))
                 ) && 
                 (
+                    this.NodeType == input.NodeType ||
+                    (this.NodeType != null &&
+                    this.NodeType.Equals(input.NodeType))
+                ) && 
+                (
                     this.OfflineMountPathsOfDisks == input.OfflineMountPathsOfDisks ||
                     this.OfflineMountPathsOfDisks != null &&
                     input.OfflineMountPathsOfDisks != null &&
@@ -376,13 +401,16 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.RemovalReason == input.RemovalReason ||
-                    this.RemovalReason != null &&
-                    input.RemovalReason != null &&
                     this.RemovalReason.SequenceEqual(input.RemovalReason)
                 ) && 
                 (
                     this.RemovalState == input.RemovalState ||
                     this.RemovalState.Equals(input.RemovalState)
+                ) && 
+                (
+                    this.SlotNumber == input.SlotNumber ||
+                    (this.SlotNumber != null &&
+                    this.SlotNumber.Equals(input.SlotNumber))
                 ) && 
                 (
                     this.Stats == input.Stats ||
@@ -432,10 +460,14 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.NodeIncarnationId.GetHashCode();
                 if (this.NodeSoftwareVersion != null)
                     hashCode = hashCode * 59 + this.NodeSoftwareVersion.GetHashCode();
+                if (this.NodeType != null)
+                    hashCode = hashCode * 59 + this.NodeType.GetHashCode();
                 if (this.OfflineMountPathsOfDisks != null)
                     hashCode = hashCode * 59 + this.OfflineMountPathsOfDisks.GetHashCode();
                 hashCode = hashCode * 59 + this.RemovalReason.GetHashCode();
                 hashCode = hashCode * 59 + this.RemovalState.GetHashCode();
+                if (this.SlotNumber != null)
+                    hashCode = hashCode * 59 + this.SlotNumber.GetHashCode();
                 if (this.Stats != null)
                     hashCode = hashCode * 59 + this.Stats.GetHashCode();
                 if (this.SystemDisks != null)

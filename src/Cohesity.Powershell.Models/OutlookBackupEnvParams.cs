@@ -15,7 +15,7 @@ using Newtonsoft.Json.Converters;
 namespace Cohesity.Model
 {
     /// <summary>
-    /// Message to capture any additional backup params for an Outlook environment.
+    /// Message to capture any additional backup params for Outlook within Office365 environment.
     /// </summary>
     [DataContract]
     public partial class OutlookBackupEnvParams :  IEquatable<OutlookBackupEnvParams>
@@ -24,9 +24,12 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="OutlookBackupEnvParams" /> class.
         /// </summary>
         /// <param name="filteringPolicy">filteringPolicy.</param>
-        public OutlookBackupEnvParams(FilteringPolicyProto filteringPolicy = default(FilteringPolicyProto))
+        /// <param name="shouldBackupMailbox">Specifies whether the mailbox for all the Office365 Users present in the protection job should be backed up..</param>
+        public OutlookBackupEnvParams(FilteringPolicyProto filteringPolicy = default(FilteringPolicyProto), bool? shouldBackupMailbox = default(bool?))
         {
+            this.ShouldBackupMailbox = shouldBackupMailbox;
             this.FilteringPolicy = filteringPolicy;
+            this.ShouldBackupMailbox = shouldBackupMailbox;
         }
         
         /// <summary>
@@ -34,6 +37,13 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="filteringPolicy", EmitDefaultValue=false)]
         public FilteringPolicyProto FilteringPolicy { get; set; }
+
+        /// <summary>
+        /// Specifies whether the mailbox for all the Office365 Users present in the protection job should be backed up.
+        /// </summary>
+        /// <value>Specifies whether the mailbox for all the Office365 Users present in the protection job should be backed up.</value>
+        [DataMember(Name="shouldBackupMailbox", EmitDefaultValue=true)]
+        public bool? ShouldBackupMailbox { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -75,6 +85,11 @@ namespace Cohesity.Model
                     this.FilteringPolicy == input.FilteringPolicy ||
                     (this.FilteringPolicy != null &&
                     this.FilteringPolicy.Equals(input.FilteringPolicy))
+                ) && 
+                (
+                    this.ShouldBackupMailbox == input.ShouldBackupMailbox ||
+                    (this.ShouldBackupMailbox != null &&
+                    this.ShouldBackupMailbox.Equals(input.ShouldBackupMailbox))
                 );
         }
 
@@ -89,6 +104,8 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.FilteringPolicy != null)
                     hashCode = hashCode * 59 + this.FilteringPolicy.GetHashCode();
+                if (this.ShouldBackupMailbox != null)
+                    hashCode = hashCode * 59 + this.ShouldBackupMailbox.GetHashCode();
                 return hashCode;
             }
         }

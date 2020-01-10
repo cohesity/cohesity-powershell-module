@@ -31,13 +31,14 @@ namespace Cohesity.Model
         /// <param name="ouName">Specifies an optional Organizational Unit name..</param>
         /// <param name="password">Specifies the password for the specified userName..</param>
         /// <param name="preferredDomainControllers">Specifies Map of Active Directory domain names to its preferred domain controllers..</param>
+        /// <param name="taskPath">Specifies the task path for AD joining task..</param>
         /// <param name="tenantId">Specifies the unique id of the tenant..</param>
         /// <param name="trustedDomainsEnabled">Specifies whether Trusted Domain discovery is disabled..</param>
         /// <param name="unixRootSid">Specifies the SID of the Active Directory domain user to be mapped to Unix root user..</param>
         /// <param name="userIdMappingInfo">userIdMappingInfo.</param>
         /// <param name="userName">Specifies a userName that has administrative privileges in the domain..</param>
         /// <param name="workgroup">Specifies an optional Workgroup name..</param>
-        public ActiveDirectoryEntry(string domainName = default(string), UserIdMapping fallbackUserIdMappingInfo = default(UserIdMapping), List<string> ignoredTrustedDomains = default(List<string>), long? ldapProviderId = default(long?), List<string> machineAccounts = default(List<string>), string ouName = default(string), string password = default(string), List<PreferredDomainController> preferredDomainControllers = default(List<PreferredDomainController>), string tenantId = default(string), bool? trustedDomainsEnabled = default(bool?), string unixRootSid = default(string), UserIdMapping userIdMappingInfo = default(UserIdMapping), string userName = default(string), string workgroup = default(string))
+        public ActiveDirectoryEntry(string domainName = default(string), UserIdMapping fallbackUserIdMappingInfo = default(UserIdMapping), List<string> ignoredTrustedDomains = default(List<string>), long? ldapProviderId = default(long?), List<string> machineAccounts = default(List<string>), string ouName = default(string), string password = default(string), List<PreferredDomainController> preferredDomainControllers = default(List<PreferredDomainController>), string taskPath = default(string), string tenantId = default(string), bool? trustedDomainsEnabled = default(bool?), string unixRootSid = default(string), UserIdMapping userIdMappingInfo = default(UserIdMapping), string userName = default(string), string workgroup = default(string))
         {
             this.DomainName = domainName;
             this.IgnoredTrustedDomains = ignoredTrustedDomains;
@@ -46,6 +47,7 @@ namespace Cohesity.Model
             this.OuName = ouName;
             this.Password = password;
             this.PreferredDomainControllers = preferredDomainControllers;
+            this.TaskPath = taskPath;
             this.TenantId = tenantId;
             this.TrustedDomainsEnabled = trustedDomainsEnabled;
             this.UnixRootSid = unixRootSid;
@@ -59,6 +61,7 @@ namespace Cohesity.Model
             this.OuName = ouName;
             this.Password = password;
             this.PreferredDomainControllers = preferredDomainControllers;
+            this.TaskPath = taskPath;
             this.TenantId = tenantId;
             this.TrustedDomainsEnabled = trustedDomainsEnabled;
             this.UnixRootSid = unixRootSid;
@@ -121,6 +124,13 @@ namespace Cohesity.Model
         /// <value>Specifies Map of Active Directory domain names to its preferred domain controllers.</value>
         [DataMember(Name="preferredDomainControllers", EmitDefaultValue=true)]
         public List<PreferredDomainController> PreferredDomainControllers { get; set; }
+
+        /// <summary>
+        /// Specifies the task path for AD joining task.
+        /// </summary>
+        /// <value>Specifies the task path for AD joining task.</value>
+        [DataMember(Name="taskPath", EmitDefaultValue=true)]
+        public string TaskPath { get; set; }
 
         /// <summary>
         /// Specifies the unique id of the tenant.
@@ -250,6 +260,11 @@ namespace Cohesity.Model
                     this.PreferredDomainControllers.SequenceEqual(input.PreferredDomainControllers)
                 ) && 
                 (
+                    this.TaskPath == input.TaskPath ||
+                    (this.TaskPath != null &&
+                    this.TaskPath.Equals(input.TaskPath))
+                ) && 
+                (
                     this.TenantId == input.TenantId ||
                     (this.TenantId != null &&
                     this.TenantId.Equals(input.TenantId))
@@ -312,6 +327,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Password.GetHashCode();
                 if (this.PreferredDomainControllers != null)
                     hashCode = hashCode * 59 + this.PreferredDomainControllers.GetHashCode();
+                if (this.TaskPath != null)
+                    hashCode = hashCode * 59 + this.TaskPath.GetHashCode();
                 if (this.TenantId != null)
                     hashCode = hashCode * 59 + this.TenantId.GetHashCode();
                 if (this.TrustedDomains != null)

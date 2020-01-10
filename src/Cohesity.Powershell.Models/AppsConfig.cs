@@ -57,19 +57,22 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="AppsConfig" /> class.
         /// </summary>
         /// <param name="allowExternalTraffic">Whether to allow pod external traffic..</param>
+        /// <param name="allowUnrestictedViewAccess">Whether to allow apps unrestricted view access..</param>
         /// <param name="appsMode">Specifies the various modes for running apps. &#39;kDisabled&#39; specifies that apps are disabled. &#39;kBareMetal&#39; specifies that apps could only run in containers on the node (no VM). &#39;kVmOnly&#39; specifies that apps could only run in containers on a VM hosted by the node..</param>
         /// <param name="appsSubnet">appsSubnet.</param>
         /// <param name="overcommitMemoryPct">The system memory to overcommit for apps..</param>
         /// <param name="reservedCpuMillicores">The CPU millicores to reserve for apps..</param>
         /// <param name="reservedMemoryPct">The system memory to reserve for apps..</param>
-        public AppsConfig(bool? allowExternalTraffic = default(bool?), AppsModeEnum? appsMode = default(AppsModeEnum?), Subnet appsSubnet = default(Subnet), int? overcommitMemoryPct = default(int?), int? reservedCpuMillicores = default(int?), int? reservedMemoryPct = default(int?))
+        public AppsConfig(bool? allowExternalTraffic = default(bool?), bool? allowUnrestictedViewAccess = default(bool?), AppsModeEnum? appsMode = default(AppsModeEnum?), Subnet appsSubnet = default(Subnet), int? overcommitMemoryPct = default(int?), int? reservedCpuMillicores = default(int?), int? reservedMemoryPct = default(int?))
         {
             this.AllowExternalTraffic = allowExternalTraffic;
+            this.AllowUnrestictedViewAccess = allowUnrestictedViewAccess;
             this.AppsMode = appsMode;
             this.OvercommitMemoryPct = overcommitMemoryPct;
             this.ReservedCpuMillicores = reservedCpuMillicores;
             this.ReservedMemoryPct = reservedMemoryPct;
             this.AllowExternalTraffic = allowExternalTraffic;
+            this.AllowUnrestictedViewAccess = allowUnrestictedViewAccess;
             this.AppsMode = appsMode;
             this.AppsSubnet = appsSubnet;
             this.OvercommitMemoryPct = overcommitMemoryPct;
@@ -83,6 +86,13 @@ namespace Cohesity.Model
         /// <value>Whether to allow pod external traffic.</value>
         [DataMember(Name="allowExternalTraffic", EmitDefaultValue=true)]
         public bool? AllowExternalTraffic { get; set; }
+
+        /// <summary>
+        /// Whether to allow apps unrestricted view access.
+        /// </summary>
+        /// <value>Whether to allow apps unrestricted view access.</value>
+        [DataMember(Name="allowUnrestictedViewAccess", EmitDefaultValue=true)]
+        public bool? AllowUnrestictedViewAccess { get; set; }
 
         /// <summary>
         /// Gets or Sets AppsSubnet
@@ -153,6 +163,11 @@ namespace Cohesity.Model
                     this.AllowExternalTraffic.Equals(input.AllowExternalTraffic))
                 ) && 
                 (
+                    this.AllowUnrestictedViewAccess == input.AllowUnrestictedViewAccess ||
+                    (this.AllowUnrestictedViewAccess != null &&
+                    this.AllowUnrestictedViewAccess.Equals(input.AllowUnrestictedViewAccess))
+                ) && 
+                (
                     this.AppsMode == input.AppsMode ||
                     this.AppsMode.Equals(input.AppsMode)
                 ) && 
@@ -189,6 +204,8 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.AllowExternalTraffic != null)
                     hashCode = hashCode * 59 + this.AllowExternalTraffic.GetHashCode();
+                if (this.AllowUnrestictedViewAccess != null)
+                    hashCode = hashCode * 59 + this.AllowUnrestictedViewAccess.GetHashCode();
                 hashCode = hashCode * 59 + this.AppsMode.GetHashCode();
                 if (this.AppsSubnet != null)
                     hashCode = hashCode * 59 + this.AppsSubnet.GetHashCode();

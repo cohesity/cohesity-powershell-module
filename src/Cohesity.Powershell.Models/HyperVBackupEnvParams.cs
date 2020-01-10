@@ -24,10 +24,13 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="HyperVBackupEnvParams" /> class.
         /// </summary>
         /// <param name="allowCrashConsistentSnapshot">Whether to fallback to take a crash-consistent snapshot incase taking an app-consistent snapshot fails..</param>
-        public HyperVBackupEnvParams(bool? allowCrashConsistentSnapshot = default(bool?))
+        /// <param name="backupJobType">The type of backup job to use. Default is to auto-detect the best type to use based on the VMs to backup. End user may select RCT or VSS also..</param>
+        public HyperVBackupEnvParams(bool? allowCrashConsistentSnapshot = default(bool?), int? backupJobType = default(int?))
         {
             this.AllowCrashConsistentSnapshot = allowCrashConsistentSnapshot;
+            this.BackupJobType = backupJobType;
             this.AllowCrashConsistentSnapshot = allowCrashConsistentSnapshot;
+            this.BackupJobType = backupJobType;
         }
         
         /// <summary>
@@ -36,6 +39,13 @@ namespace Cohesity.Model
         /// <value>Whether to fallback to take a crash-consistent snapshot incase taking an app-consistent snapshot fails.</value>
         [DataMember(Name="allowCrashConsistentSnapshot", EmitDefaultValue=true)]
         public bool? AllowCrashConsistentSnapshot { get; set; }
+
+        /// <summary>
+        /// The type of backup job to use. Default is to auto-detect the best type to use based on the VMs to backup. End user may select RCT or VSS also.
+        /// </summary>
+        /// <value>The type of backup job to use. Default is to auto-detect the best type to use based on the VMs to backup. End user may select RCT or VSS also.</value>
+        [DataMember(Name="backupJobType", EmitDefaultValue=true)]
+        public int? BackupJobType { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -77,6 +87,11 @@ namespace Cohesity.Model
                     this.AllowCrashConsistentSnapshot == input.AllowCrashConsistentSnapshot ||
                     (this.AllowCrashConsistentSnapshot != null &&
                     this.AllowCrashConsistentSnapshot.Equals(input.AllowCrashConsistentSnapshot))
+                ) && 
+                (
+                    this.BackupJobType == input.BackupJobType ||
+                    (this.BackupJobType != null &&
+                    this.BackupJobType.Equals(input.BackupJobType))
                 );
         }
 
@@ -91,6 +106,8 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.AllowCrashConsistentSnapshot != null)
                     hashCode = hashCode * 59 + this.AllowCrashConsistentSnapshot.GetHashCode();
+                if (this.BackupJobType != null)
+                    hashCode = hashCode * 59 + this.BackupJobType.GetHashCode();
                 return hashCode;
             }
         }

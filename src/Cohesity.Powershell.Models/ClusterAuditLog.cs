@@ -24,6 +24,7 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="ClusterAuditLog" /> class.
         /// </summary>
         /// <param name="action">Specifies the action that caused the log to be generated..</param>
+        /// <param name="clusterInfo">Specifies the information of the cluster..</param>
         /// <param name="details">Specifies more information about the action..</param>
         /// <param name="domain">Specifies the domain of the user who caused the action that generated the log..</param>
         /// <param name="entityId">Specifies the id of the entity (object) that the action is invoked on..</param>
@@ -31,15 +32,17 @@ namespace Cohesity.Model
         /// <param name="entityType">Specifies the type of the entity (object) that the action is invoked on. For example, if a Job called BackupEng is paused, this field returns &#39;Protection Job&#39;..</param>
         /// <param name="humanTimestamp">Specifies the time when the log was generated. The time is specified using a human readable timestamp..</param>
         /// <param name="impersonation">Specifies if the log was generated during impersonation..</param>
+        /// <param name="ip">Specifies the IP address of the user making this action..</param>
         /// <param name="newRecord">Specifies the record after the action is invoked..</param>
         /// <param name="originalTenant">originalTenant.</param>
         /// <param name="previousRecord">Specifies the record before the action is invoked..</param>
         /// <param name="tenant">tenant.</param>
         /// <param name="timestampUsecs">Specifies the time when the log was generated. The time is specified using a Unix epoch Timestamp (in microseconds)..</param>
         /// <param name="userName">Specifies the user who caused the action that generated the log..</param>
-        public ClusterAuditLog(string action = default(string), string details = default(string), string domain = default(string), string entityId = default(string), string entityName = default(string), string entityType = default(string), string humanTimestamp = default(string), bool? impersonation = default(bool?), string newRecord = default(string), Tenant originalTenant = default(Tenant), string previousRecord = default(string), Tenant tenant = default(Tenant), long? timestampUsecs = default(long?), string userName = default(string))
+        public ClusterAuditLog(string action = default(string), string clusterInfo = default(string), string details = default(string), string domain = default(string), string entityId = default(string), string entityName = default(string), string entityType = default(string), string humanTimestamp = default(string), bool? impersonation = default(bool?), string ip = default(string), string newRecord = default(string), Tenant originalTenant = default(Tenant), string previousRecord = default(string), Tenant tenant = default(Tenant), long? timestampUsecs = default(long?), string userName = default(string))
         {
             this.Action = action;
+            this.ClusterInfo = clusterInfo;
             this.Details = details;
             this.Domain = domain;
             this.EntityId = entityId;
@@ -47,11 +50,13 @@ namespace Cohesity.Model
             this.EntityType = entityType;
             this.HumanTimestamp = humanTimestamp;
             this.Impersonation = impersonation;
+            this.Ip = ip;
             this.NewRecord = newRecord;
             this.PreviousRecord = previousRecord;
             this.TimestampUsecs = timestampUsecs;
             this.UserName = userName;
             this.Action = action;
+            this.ClusterInfo = clusterInfo;
             this.Details = details;
             this.Domain = domain;
             this.EntityId = entityId;
@@ -59,6 +64,7 @@ namespace Cohesity.Model
             this.EntityType = entityType;
             this.HumanTimestamp = humanTimestamp;
             this.Impersonation = impersonation;
+            this.Ip = ip;
             this.NewRecord = newRecord;
             this.OriginalTenant = originalTenant;
             this.PreviousRecord = previousRecord;
@@ -73,6 +79,13 @@ namespace Cohesity.Model
         /// <value>Specifies the action that caused the log to be generated.</value>
         [DataMember(Name="action", EmitDefaultValue=true)]
         public string Action { get; set; }
+
+        /// <summary>
+        /// Specifies the information of the cluster.
+        /// </summary>
+        /// <value>Specifies the information of the cluster.</value>
+        [DataMember(Name="clusterInfo", EmitDefaultValue=true)]
+        public string ClusterInfo { get; set; }
 
         /// <summary>
         /// Specifies more information about the action.
@@ -122,6 +135,13 @@ namespace Cohesity.Model
         /// <value>Specifies if the log was generated during impersonation.</value>
         [DataMember(Name="impersonation", EmitDefaultValue=true)]
         public bool? Impersonation { get; set; }
+
+        /// <summary>
+        /// Specifies the IP address of the user making this action.
+        /// </summary>
+        /// <value>Specifies the IP address of the user making this action.</value>
+        [DataMember(Name="ip", EmitDefaultValue=true)]
+        public string Ip { get; set; }
 
         /// <summary>
         /// Specifies the record after the action is invoked.
@@ -205,6 +225,11 @@ namespace Cohesity.Model
                     this.Action.Equals(input.Action))
                 ) && 
                 (
+                    this.ClusterInfo == input.ClusterInfo ||
+                    (this.ClusterInfo != null &&
+                    this.ClusterInfo.Equals(input.ClusterInfo))
+                ) && 
+                (
                     this.Details == input.Details ||
                     (this.Details != null &&
                     this.Details.Equals(input.Details))
@@ -238,6 +263,11 @@ namespace Cohesity.Model
                     this.Impersonation == input.Impersonation ||
                     (this.Impersonation != null &&
                     this.Impersonation.Equals(input.Impersonation))
+                ) && 
+                (
+                    this.Ip == input.Ip ||
+                    (this.Ip != null &&
+                    this.Ip.Equals(input.Ip))
                 ) && 
                 (
                     this.NewRecord == input.NewRecord ||
@@ -282,6 +312,8 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.Action != null)
                     hashCode = hashCode * 59 + this.Action.GetHashCode();
+                if (this.ClusterInfo != null)
+                    hashCode = hashCode * 59 + this.ClusterInfo.GetHashCode();
                 if (this.Details != null)
                     hashCode = hashCode * 59 + this.Details.GetHashCode();
                 if (this.Domain != null)
@@ -296,6 +328,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.HumanTimestamp.GetHashCode();
                 if (this.Impersonation != null)
                     hashCode = hashCode * 59 + this.Impersonation.GetHashCode();
+                if (this.Ip != null)
+                    hashCode = hashCode * 59 + this.Ip.GetHashCode();
                 if (this.NewRecord != null)
                     hashCode = hashCode * 59 + this.NewRecord.GetHashCode();
                 if (this.OriginalTenant != null)

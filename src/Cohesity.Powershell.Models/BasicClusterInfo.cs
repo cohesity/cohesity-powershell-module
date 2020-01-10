@@ -110,9 +110,10 @@ namespace Cohesity.Model
         /// <param name="idpTenantExists">Specifies Idp is configured for a Tenant..</param>
         /// <param name="languageLocale">Specifies the language and locale for the Cohesity Cluster..</param>
         /// <param name="mcmMode">Specifies whether server is running in mcm-mode. If set to true, it is in mcm-mode..</param>
+        /// <param name="mcmOnPremMode">Specifies whether server is running in mcm-on-prem-mode. If set to true, it is in mcm on prem mode. This need mcm-mode to be true..</param>
         /// <param name="multiTenancyEnabled">Specifies if multi-tenancy is enabled on the cluster..</param>
         /// <param name="name">Specifies the name of the Cohesity Cluster..</param>
-        public BasicClusterInfo(AuthenticationTypeEnum? authenticationType = default(AuthenticationTypeEnum?), bool? bannerEnabled = default(bool?), string clusterSoftwareVersion = default(string), ClusterTypeEnum? clusterType = default(ClusterTypeEnum?), List<string> domains = default(List<string>), bool? idpConfigured = default(bool?), bool? idpTenantExists = default(bool?), string languageLocale = default(string), bool? mcmMode = default(bool?), bool? multiTenancyEnabled = default(bool?), string name = default(string))
+        public BasicClusterInfo(AuthenticationTypeEnum? authenticationType = default(AuthenticationTypeEnum?), bool? bannerEnabled = default(bool?), string clusterSoftwareVersion = default(string), ClusterTypeEnum? clusterType = default(ClusterTypeEnum?), List<string> domains = default(List<string>), bool? idpConfigured = default(bool?), bool? idpTenantExists = default(bool?), string languageLocale = default(string), bool? mcmMode = default(bool?), bool? mcmOnPremMode = default(bool?), bool? multiTenancyEnabled = default(bool?), string name = default(string))
         {
             this.AuthenticationType = authenticationType;
             this.BannerEnabled = bannerEnabled;
@@ -123,6 +124,7 @@ namespace Cohesity.Model
             this.IdpTenantExists = idpTenantExists;
             this.LanguageLocale = languageLocale;
             this.McmMode = mcmMode;
+            this.McmOnPremMode = mcmOnPremMode;
             this.MultiTenancyEnabled = multiTenancyEnabled;
             this.Name = name;
             this.AuthenticationType = authenticationType;
@@ -134,6 +136,7 @@ namespace Cohesity.Model
             this.IdpTenantExists = idpTenantExists;
             this.LanguageLocale = languageLocale;
             this.McmMode = mcmMode;
+            this.McmOnPremMode = mcmOnPremMode;
             this.MultiTenancyEnabled = multiTenancyEnabled;
             this.Name = name;
         }
@@ -186,6 +189,13 @@ namespace Cohesity.Model
         /// <value>Specifies whether server is running in mcm-mode. If set to true, it is in mcm-mode.</value>
         [DataMember(Name="mcmMode", EmitDefaultValue=true)]
         public bool? McmMode { get; set; }
+
+        /// <summary>
+        /// Specifies whether server is running in mcm-on-prem-mode. If set to true, it is in mcm on prem mode. This need mcm-mode to be true.
+        /// </summary>
+        /// <value>Specifies whether server is running in mcm-on-prem-mode. If set to true, it is in mcm on prem mode. This need mcm-mode to be true.</value>
+        [DataMember(Name="mcmOnPremMode", EmitDefaultValue=true)]
+        public bool? McmOnPremMode { get; set; }
 
         /// <summary>
         /// Specifies if multi-tenancy is enabled on the cluster.
@@ -282,6 +292,11 @@ namespace Cohesity.Model
                     this.McmMode.Equals(input.McmMode))
                 ) && 
                 (
+                    this.McmOnPremMode == input.McmOnPremMode ||
+                    (this.McmOnPremMode != null &&
+                    this.McmOnPremMode.Equals(input.McmOnPremMode))
+                ) && 
+                (
                     this.MultiTenancyEnabled == input.MultiTenancyEnabled ||
                     (this.MultiTenancyEnabled != null &&
                     this.MultiTenancyEnabled.Equals(input.MultiTenancyEnabled))
@@ -318,6 +333,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.LanguageLocale.GetHashCode();
                 if (this.McmMode != null)
                     hashCode = hashCode * 59 + this.McmMode.GetHashCode();
+                if (this.McmOnPremMode != null)
+                    hashCode = hashCode * 59 + this.McmOnPremMode.GetHashCode();
                 if (this.MultiTenancyEnabled != null)
                     hashCode = hashCode * 59 + this.MultiTenancyEnabled.GetHashCode();
                 if (this.Name != null)

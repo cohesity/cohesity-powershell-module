@@ -62,6 +62,7 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="FileSearchResult" /> class.
         /// </summary>
+        /// <param name="adObjectMetaData">adObjectMetaData.</param>
         /// <param name="documentType">Specifies the inferred document type..</param>
         /// <param name="emailMetaData">emailMetaData.</param>
         /// <param name="fileVersions">Array of File Versions.  Specifies the different snapshot versions of a file or folder that were captured at different times..</param>
@@ -74,7 +75,7 @@ namespace Cohesity.Model
         /// <param name="sourceId">Specifies the source id of the object that contains the file or folder..</param>
         /// <param name="type">Specifies the type of the file document such as KDirectory, kFile, etc..</param>
         /// <param name="viewBoxId">Specifies the id of the Domain (View Box) where the source object that contains the file or folder is stored..</param>
-        public FileSearchResult(string documentType = default(string), EmailMetaData emailMetaData = default(EmailMetaData), List<FileVersion> fileVersions = default(List<FileVersion>), string filename = default(string), bool? isFolder = default(bool?), long? jobId = default(long?), UniversalId jobUid = default(UniversalId), ProtectionSource protectionSource = default(ProtectionSource), long? registeredSourceId = default(long?), long? sourceId = default(long?), TypeEnum? type = default(TypeEnum?), long? viewBoxId = default(long?))
+        public FileSearchResult(AdObjectMetaData adObjectMetaData = default(AdObjectMetaData), string documentType = default(string), EmailMetaData emailMetaData = default(EmailMetaData), List<FileVersion> fileVersions = default(List<FileVersion>), string filename = default(string), bool? isFolder = default(bool?), long? jobId = default(long?), UniversalId jobUid = default(UniversalId), ProtectionSource protectionSource = default(ProtectionSource), long? registeredSourceId = default(long?), long? sourceId = default(long?), TypeEnum? type = default(TypeEnum?), long? viewBoxId = default(long?))
         {
             this.DocumentType = documentType;
             this.FileVersions = fileVersions;
@@ -86,6 +87,7 @@ namespace Cohesity.Model
             this.SourceId = sourceId;
             this.Type = type;
             this.ViewBoxId = viewBoxId;
+            this.AdObjectMetaData = adObjectMetaData;
             this.DocumentType = documentType;
             this.EmailMetaData = emailMetaData;
             this.FileVersions = fileVersions;
@@ -100,6 +102,12 @@ namespace Cohesity.Model
             this.ViewBoxId = viewBoxId;
         }
         
+        /// <summary>
+        /// Gets or Sets AdObjectMetaData
+        /// </summary>
+        [DataMember(Name="adObjectMetaData", EmitDefaultValue=false)]
+        public AdObjectMetaData AdObjectMetaData { get; set; }
+
         /// <summary>
         /// Specifies the inferred document type.
         /// </summary>
@@ -212,6 +220,11 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.AdObjectMetaData == input.AdObjectMetaData ||
+                    (this.AdObjectMetaData != null &&
+                    this.AdObjectMetaData.Equals(input.AdObjectMetaData))
+                ) && 
+                (
                     this.DocumentType == input.DocumentType ||
                     (this.DocumentType != null &&
                     this.DocumentType.Equals(input.DocumentType))
@@ -282,6 +295,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.AdObjectMetaData != null)
+                    hashCode = hashCode * 59 + this.AdObjectMetaData.GetHashCode();
                 if (this.DocumentType != null)
                     hashCode = hashCode * 59 + this.DocumentType.GetHashCode();
                 if (this.EmailMetaData != null)

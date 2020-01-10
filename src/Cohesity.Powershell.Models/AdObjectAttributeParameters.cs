@@ -27,7 +27,7 @@ namespace Cohesity.Model
         /// <param name="excludeLdapProperties">Specifies the array of LDAP property names to excluded from &#39;property_vec&#39;. Excluded property name cannot contain wildcard character &#39;*&#39;.  Property names are case insensitive..</param>
         /// <param name="ldapProperties">Specifies the array of LDAP property(attribute) names. The name can be standard or custom property defined in AD schema partition. The property can contain wildcard character &#39;*&#39;. If this array is empty, then &#39;*&#39; is assigned, means restore all properties except default system excluded properties. Wildcards will be expanded. If &#39;memberOf&#39; property is included, group membership of the objects specified in &#39;guid_vec&#39; will be restored. Property that does not exist for an object is ignored and no error info is returned for that property. Property names are case insensitive..</param>
         /// <param name="mergeMultiValProperties">Specifies the Option to merge multi-valued values vs clearing and setting values from the AD snapshot. Defaults is to overwrite production AD values from the source AD snapshot. When updating group membership (using &#39;memberOf&#39; property), setting this option to true will result in group membership merge. This is useful in cases where production AD has later updates that should not be overridden while restoring an attribute..</param>
-        public AdObjectAttributeParameters(List<AdGuidPair> adGuidPairs = default(List<AdGuidPair>), List<string> excludeLdapProperties = default(List<string>), List<string> ldapProperties = default(List<string>), bool? mergeMultiValProperties = default(bool?))
+        public AdObjectAttributeParameters(List<ADGuidPair> adGuidPairs = default(List<ADGuidPair>), List<string> excludeLdapProperties = default(List<string>), List<string> ldapProperties = default(List<string>), bool? mergeMultiValProperties = default(bool?))
         {
             this.AdGuidPairs = adGuidPairs;
             this.ExcludeLdapProperties = excludeLdapProperties;
@@ -44,7 +44,7 @@ namespace Cohesity.Model
         /// </summary>
         /// <value>Specifies the array of source and destination object guid pairs to restore attributes.</value>
         [DataMember(Name="adGuidPairs", EmitDefaultValue=true)]
-        public List<AdGuidPair> AdGuidPairs { get; set; }
+        public List<ADGuidPair> AdGuidPairs { get; set; }
 
         /// <summary>
         /// Specifies the array of LDAP property names to excluded from &#39;property_vec&#39;. Excluded property name cannot contain wildcard character &#39;*&#39;.  Property names are case insensitive.

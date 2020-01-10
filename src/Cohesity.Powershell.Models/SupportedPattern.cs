@@ -21,9 +21,9 @@ namespace Cohesity.Model
     public partial class SupportedPattern :  IEquatable<SupportedPattern>
     {
         /// <summary>
-        /// Specifies the Pattern type. TODO(Tauseef): Amend the PatternType to be kRegular &amp; KTemplate. Future Pattern Types to be added here. &#39;REGULAR&#39; indicates that the pattern contains a regular expression. &#39;TEMPLATE&#39; indicates that the pattern has a pre defined input pattern such as date of the form &#39;DD-MM-YYYY&#39;.
+        /// Specifies the Pattern type. &#39;REGULAR&#39; indicates that the pattern contains a regular expression. &#39;TEMPLATE&#39; indicates that the pattern has a pre defined input pattern such as date of the form &#39;DD-MM-YYYY&#39;.
         /// </summary>
-        /// <value>Specifies the Pattern type. TODO(Tauseef): Amend the PatternType to be kRegular &amp; KTemplate. Future Pattern Types to be added here. &#39;REGULAR&#39; indicates that the pattern contains a regular expression. &#39;TEMPLATE&#39; indicates that the pattern has a pre defined input pattern such as date of the form &#39;DD-MM-YYYY&#39;.</value>
+        /// <value>Specifies the Pattern type. &#39;REGULAR&#39; indicates that the pattern contains a regular expression. &#39;TEMPLATE&#39; indicates that the pattern has a pre defined input pattern such as date of the form &#39;DD-MM-YYYY&#39;.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum PatternTypeEnum
         {
@@ -42,9 +42,9 @@ namespace Cohesity.Model
         }
 
         /// <summary>
-        /// Specifies the Pattern type. TODO(Tauseef): Amend the PatternType to be kRegular &amp; KTemplate. Future Pattern Types to be added here. &#39;REGULAR&#39; indicates that the pattern contains a regular expression. &#39;TEMPLATE&#39; indicates that the pattern has a pre defined input pattern such as date of the form &#39;DD-MM-YYYY&#39;.
+        /// Specifies the Pattern type. &#39;REGULAR&#39; indicates that the pattern contains a regular expression. &#39;TEMPLATE&#39; indicates that the pattern has a pre defined input pattern such as date of the form &#39;DD-MM-YYYY&#39;.
         /// </summary>
-        /// <value>Specifies the Pattern type. TODO(Tauseef): Amend the PatternType to be kRegular &amp; KTemplate. Future Pattern Types to be added here. &#39;REGULAR&#39; indicates that the pattern contains a regular expression. &#39;TEMPLATE&#39; indicates that the pattern has a pre defined input pattern such as date of the form &#39;DD-MM-YYYY&#39;.</value>
+        /// <value>Specifies the Pattern type. &#39;REGULAR&#39; indicates that the pattern contains a regular expression. &#39;TEMPLATE&#39; indicates that the pattern has a pre defined input pattern such as date of the form &#39;DD-MM-YYYY&#39;.</value>
         [DataMember(Name="patternType", EmitDefaultValue=true)]
         public PatternTypeEnum? PatternType { get; set; }
         /// <summary>
@@ -53,7 +53,7 @@ namespace Cohesity.Model
         /// <param name="isSystemDefined">Specifies whether the pattern has been defined by the system or the user..</param>
         /// <param name="name">Specifies the name of the Pattern..</param>
         /// <param name="pattern">Specifies the value of the pattern(Regex)..</param>
-        /// <param name="patternType">Specifies the Pattern type. TODO(Tauseef): Amend the PatternType to be kRegular &amp; KTemplate. Future Pattern Types to be added here. &#39;REGULAR&#39; indicates that the pattern contains a regular expression. &#39;TEMPLATE&#39; indicates that the pattern has a pre defined input pattern such as date of the form &#39;DD-MM-YYYY&#39;..</param>
+        /// <param name="patternType">Specifies the Pattern type. &#39;REGULAR&#39; indicates that the pattern contains a regular expression. &#39;TEMPLATE&#39; indicates that the pattern has a pre defined input pattern such as date of the form &#39;DD-MM-YYYY&#39;..</param>
         public SupportedPattern(bool? isSystemDefined = default(bool?), string name = default(string), string pattern = default(string), PatternTypeEnum? patternType = default(PatternTypeEnum?))
         {
             this.IsSystemDefined = isSystemDefined;

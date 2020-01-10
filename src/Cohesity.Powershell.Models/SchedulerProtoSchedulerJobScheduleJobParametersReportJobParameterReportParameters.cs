@@ -27,6 +27,7 @@ namespace Cohesity.Model
         /// <param name="compactVersion">Specifies the Cohesity Agent software version..</param>
         /// <param name="consecutiveFailures">Specifies the number of consecutive failures..</param>
         /// <param name="environment">Specifies the Environment for the entity being protected..</param>
+        /// <param name="groupBy">Specifies if the report should be grouped by any field..</param>
         /// <param name="healthStatus">Specifies the Cohesity Agent health status..</param>
         /// <param name="hostOsType">Specifies the OS type on which Cohesity Agent is installed..</param>
         /// <param name="jobId">Specifies the id of the job for which to get the report data..</param>
@@ -45,13 +46,15 @@ namespace Cohesity.Model
         /// <param name="vaultIds">Specifies the vault ids for which to get the report data..</param>
         /// <param name="viewBoxId">Specifies the view box for which to get the report data..</param>
         /// <param name="viewName">Specifies the view name for which the report is required..</param>
+        /// <param name="viewboxIds">Specifies the viewbox ids to filter by..</param>
         /// <param name="vmName">Specifies the VM name for which to get the report data..</param>
-        public SchedulerProtoSchedulerJobScheduleJobParametersReportJobParameterReportParameters(bool? allUnderHierarchy = default(bool?), string compactVersion = default(string), int? consecutiveFailures = default(int?), string environment = default(string), List<string> healthStatus = default(List<string>), List<string> hostOsType = default(List<string>), long? jobId = default(long?), string jobName = default(string), int? lastNDays = default(int?), List<long> objectIds = default(List<long>), string objectType = default(string), long? registeredSourceId = default(long?), List<long> registeredSourceIds = default(List<long>), string rollup = default(string), List<string> runStatus = default(List<string>), string sid = default(string), List<string> tenantIdVec = default(List<string>), string timezone = default(string), int? unixUid = default(int?), List<long> vaultIds = default(List<long>), long? viewBoxId = default(long?), string viewName = default(string), string vmName = default(string))
+        public SchedulerProtoSchedulerJobScheduleJobParametersReportJobParameterReportParameters(bool? allUnderHierarchy = default(bool?), string compactVersion = default(string), int? consecutiveFailures = default(int?), string environment = default(string), int? groupBy = default(int?), List<string> healthStatus = default(List<string>), List<string> hostOsType = default(List<string>), long? jobId = default(long?), string jobName = default(string), int? lastNDays = default(int?), List<long> objectIds = default(List<long>), string objectType = default(string), long? registeredSourceId = default(long?), List<long> registeredSourceIds = default(List<long>), string rollup = default(string), List<string> runStatus = default(List<string>), string sid = default(string), List<string> tenantIdVec = default(List<string>), string timezone = default(string), int? unixUid = default(int?), List<long> vaultIds = default(List<long>), long? viewBoxId = default(long?), string viewName = default(string), List<long> viewboxIds = default(List<long>), string vmName = default(string))
         {
             this.AllUnderHierarchy = allUnderHierarchy;
             this.CompactVersion = compactVersion;
             this.ConsecutiveFailures = consecutiveFailures;
             this.Environment = environment;
+            this.GroupBy = groupBy;
             this.HealthStatus = healthStatus;
             this.HostOsType = hostOsType;
             this.JobId = jobId;
@@ -70,11 +73,13 @@ namespace Cohesity.Model
             this.VaultIds = vaultIds;
             this.ViewBoxId = viewBoxId;
             this.ViewName = viewName;
+            this.ViewboxIds = viewboxIds;
             this.VmName = vmName;
             this.AllUnderHierarchy = allUnderHierarchy;
             this.CompactVersion = compactVersion;
             this.ConsecutiveFailures = consecutiveFailures;
             this.Environment = environment;
+            this.GroupBy = groupBy;
             this.HealthStatus = healthStatus;
             this.HostOsType = hostOsType;
             this.JobId = jobId;
@@ -93,6 +98,7 @@ namespace Cohesity.Model
             this.VaultIds = vaultIds;
             this.ViewBoxId = viewBoxId;
             this.ViewName = viewName;
+            this.ViewboxIds = viewboxIds;
             this.VmName = vmName;
         }
         
@@ -123,6 +129,13 @@ namespace Cohesity.Model
         /// <value>Specifies the Environment for the entity being protected.</value>
         [DataMember(Name="environment", EmitDefaultValue=true)]
         public string Environment { get; set; }
+
+        /// <summary>
+        /// Specifies if the report should be grouped by any field.
+        /// </summary>
+        /// <value>Specifies if the report should be grouped by any field.</value>
+        [DataMember(Name="groupBy", EmitDefaultValue=true)]
+        public int? GroupBy { get; set; }
 
         /// <summary>
         /// Specifies the Cohesity Agent health status.
@@ -251,6 +264,13 @@ namespace Cohesity.Model
         public string ViewName { get; set; }
 
         /// <summary>
+        /// Specifies the viewbox ids to filter by.
+        /// </summary>
+        /// <value>Specifies the viewbox ids to filter by.</value>
+        [DataMember(Name="viewboxIds", EmitDefaultValue=true)]
+        public List<long> ViewboxIds { get; set; }
+
+        /// <summary>
         /// Specifies the VM name for which to get the report data.
         /// </summary>
         /// <value>Specifies the VM name for which to get the report data.</value>
@@ -312,6 +332,11 @@ namespace Cohesity.Model
                     this.Environment == input.Environment ||
                     (this.Environment != null &&
                     this.Environment.Equals(input.Environment))
+                ) && 
+                (
+                    this.GroupBy == input.GroupBy ||
+                    (this.GroupBy != null &&
+                    this.GroupBy.Equals(input.GroupBy))
                 ) && 
                 (
                     this.HealthStatus == input.HealthStatus ||
@@ -411,6 +436,12 @@ namespace Cohesity.Model
                     this.ViewName.Equals(input.ViewName))
                 ) && 
                 (
+                    this.ViewboxIds == input.ViewboxIds ||
+                    this.ViewboxIds != null &&
+                    input.ViewboxIds != null &&
+                    this.ViewboxIds.SequenceEqual(input.ViewboxIds)
+                ) && 
+                (
                     this.VmName == input.VmName ||
                     (this.VmName != null &&
                     this.VmName.Equals(input.VmName))
@@ -434,6 +465,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ConsecutiveFailures.GetHashCode();
                 if (this.Environment != null)
                     hashCode = hashCode * 59 + this.Environment.GetHashCode();
+                if (this.GroupBy != null)
+                    hashCode = hashCode * 59 + this.GroupBy.GetHashCode();
                 if (this.HealthStatus != null)
                     hashCode = hashCode * 59 + this.HealthStatus.GetHashCode();
                 if (this.HostOsType != null)
@@ -470,6 +503,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ViewBoxId.GetHashCode();
                 if (this.ViewName != null)
                     hashCode = hashCode * 59 + this.ViewName.GetHashCode();
+                if (this.ViewboxIds != null)
+                    hashCode = hashCode * 59 + this.ViewboxIds.GetHashCode();
                 if (this.VmName != null)
                     hashCode = hashCode * 59 + this.VmName.GetHashCode();
                 return hashCode;

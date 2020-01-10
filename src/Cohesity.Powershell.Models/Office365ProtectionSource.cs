@@ -21,14 +21,48 @@ namespace Cohesity.Model
     public partial class Office365ProtectionSource :  IEquatable<Office365ProtectionSource>
     {
         /// <summary>
+        /// Specifies the type of the Office 365 entity. Specifies the type of Office 365 entity &#39;kDomain&#39; indicates the O365 domain through which authentication occurs. &#39;kOutlook&#39; indicates the Exchange online entities. &#39;kMailbox&#39; indicates the user&#39;s mailbox account.
+        /// </summary>
+        /// <value>Specifies the type of the Office 365 entity. Specifies the type of Office 365 entity &#39;kDomain&#39; indicates the O365 domain through which authentication occurs. &#39;kOutlook&#39; indicates the Exchange online entities. &#39;kMailbox&#39; indicates the user&#39;s mailbox account.</value>
+        [JsonConverter(typeof(StringEnumConverter))]
+        public enum TypeEnum
+        {
+            /// <summary>
+            /// Enum KDomain for value: kDomain
+            /// </summary>
+            [EnumMember(Value = "kDomain")]
+            KDomain = 1,
+
+            /// <summary>
+            /// Enum KOutlook for value: kOutlook
+            /// </summary>
+            [EnumMember(Value = "kOutlook")]
+            KOutlook = 2,
+
+            /// <summary>
+            /// Enum KMailbox for value: kMailbox
+            /// </summary>
+            [EnumMember(Value = "kMailbox")]
+            KMailbox = 3
+
+        }
+
+        /// <summary>
+        /// Specifies the type of the Office 365 entity. Specifies the type of Office 365 entity &#39;kDomain&#39; indicates the O365 domain through which authentication occurs. &#39;kOutlook&#39; indicates the Exchange online entities. &#39;kMailbox&#39; indicates the user&#39;s mailbox account.
+        /// </summary>
+        /// <value>Specifies the type of the Office 365 entity. Specifies the type of Office 365 entity &#39;kDomain&#39; indicates the O365 domain through which authentication occurs. &#39;kOutlook&#39; indicates the Exchange online entities. &#39;kMailbox&#39; indicates the user&#39;s mailbox account.</value>
+        [DataMember(Name="type", EmitDefaultValue=true)]
+        public TypeEnum? Type { get; set; }
+        /// <summary>
         /// Initializes a new instance of the <see cref="Office365ProtectionSource" /> class.
         /// </summary>
         /// <param name="description">Specifies the description of the Office 365 entity..</param>
         /// <param name="name">Specifies the name of the office 365 entity..</param>
         /// <param name="primarySMTPAddress">Specifies the SMTP address for the Outlook source..</param>
-        /// <param name="type">Specifies the type of the Office 365 entity..</param>
+        /// <param name="type">Specifies the type of the Office 365 entity. Specifies the type of Office 365 entity &#39;kDomain&#39; indicates the O365 domain through which authentication occurs. &#39;kOutlook&#39; indicates the Exchange online entities. &#39;kMailbox&#39; indicates the user&#39;s mailbox account..</param>
+        /// <param name="userInfo">userInfo.</param>
         /// <param name="uuid">Specifies the UUID of the Office 365 entity..</param>
-        public Office365ProtectionSource(string description = default(string), string name = default(string), string primarySMTPAddress = default(string), string type = default(string), string uuid = default(string))
+        public Office365ProtectionSource(string description = default(string), string name = default(string), string primarySMTPAddress = default(string), TypeEnum? type = default(TypeEnum?), Office365UserInfo userInfo = default(Office365UserInfo), string uuid = default(string))
         {
             this.Description = description;
             this.Name = name;
@@ -39,6 +73,7 @@ namespace Cohesity.Model
             this.Name = name;
             this.PrimarySMTPAddress = primarySMTPAddress;
             this.Type = type;
+            this.UserInfo = userInfo;
             this.Uuid = uuid;
         }
         
@@ -64,11 +99,10 @@ namespace Cohesity.Model
         public string PrimarySMTPAddress { get; set; }
 
         /// <summary>
-        /// Specifies the type of the Office 365 entity.
+        /// Gets or Sets UserInfo
         /// </summary>
-        /// <value>Specifies the type of the Office 365 entity.</value>
-        [DataMember(Name="type", EmitDefaultValue=true)]
-        public string Type { get; set; }
+        [DataMember(Name="userInfo", EmitDefaultValue=false)]
+        public Office365UserInfo UserInfo { get; set; }
 
         /// <summary>
         /// Specifies the UUID of the Office 365 entity.
@@ -130,8 +164,12 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.Type == input.Type ||
-                    (this.Type != null &&
-                    this.Type.Equals(input.Type))
+                    this.Type.Equals(input.Type)
+                ) && 
+                (
+                    this.UserInfo == input.UserInfo ||
+                    (this.UserInfo != null &&
+                    this.UserInfo.Equals(input.UserInfo))
                 ) && 
                 (
                     this.Uuid == input.Uuid ||
@@ -155,8 +193,9 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
                 if (this.PrimarySMTPAddress != null)
                     hashCode = hashCode * 59 + this.PrimarySMTPAddress.GetHashCode();
-                if (this.Type != null)
-                    hashCode = hashCode * 59 + this.Type.GetHashCode();
+                hashCode = hashCode * 59 + this.Type.GetHashCode();
+                if (this.UserInfo != null)
+                    hashCode = hashCode * 59 + this.UserInfo.GetHashCode();
                 if (this.Uuid != null)
                     hashCode = hashCode * 59 + this.Uuid.GetHashCode();
                 return hashCode;

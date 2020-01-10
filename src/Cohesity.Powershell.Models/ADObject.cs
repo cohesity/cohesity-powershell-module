@@ -70,39 +70,30 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="description">Specifies the &#39;description&#39; of an AD object..</param>
         /// <param name="destinationGuid">Specifies the guid of object in the Production AD which is equivalent to the object in the Snapshot AD..</param>
-        /// <param name="destinationPropCount">Specifies the number of properties in AD Object in the Production AD..</param>
         /// <param name="displayName">Specifies the display name of the AD object..</param>
         /// <param name="distinguishedName">Specifies the distinguished name of the AD object. Eg: CN&#x3D;Jone Doe,OU&#x3D;Users,DC&#x3D;corp,DC&#x3D;cohesity,DC&#x3D;com.</param>
         /// <param name="errorMessage">Specifies the error message while fetching the AD object..</param>
-        /// <param name="mismatchPropName">Specifies the name of the first property which differs in the AD Object fetched from both Snapshot and Production AD..</param>
         /// <param name="objectClass">Specifies the class name of an AD Object such as &#39;user&#39;,&#39;computer&#39;, &#39;organizationalUnit&#39;..</param>
         /// <param name="searchResultFlags">Specifies the SearchResultFlags of the AD object. &#39;kEqual&#39; indicates the AD Object from Snapshot and Production AD are equal. &#39;kNotEqual&#39; indicates the AD Object from snapshot and production AD are not equal. &#39;kRestorePasswordRequired&#39; indicates when restoring this AD Object from Snapshot AD to Production AD, a password is required. &#39;kMovedOnDestination&#39; indicates the object has moved to another container or OU in Production AD compared to  Snapshot AD. &#39;kDisableSupported&#39; indicates the enable and disable is supported on the AD Object. AD Objects of type &#39;User&#39; and &#39;Computers&#39; support this operation..</param>
         /// <param name="sourceGuid">Specifies the guid of the AD object in Snapshot AD..</param>
-        /// <param name="sourcePropCount">Specifies the number of properties in AD Object in the Snapshot AD..</param>
-        public ADObject(string description = default(string), string destinationGuid = default(string), int? destinationPropCount = default(int?), string displayName = default(string), string distinguishedName = default(string), string errorMessage = default(string), string mismatchPropName = default(string), string objectClass = default(string), List<SearchResultFlagsEnum> searchResultFlags = default(List<SearchResultFlagsEnum>), string sourceGuid = default(string), int? sourcePropCount = default(int?))
+        public ADObject(string description = default(string), string destinationGuid = default(string), string displayName = default(string), string distinguishedName = default(string), string errorMessage = default(string), string objectClass = default(string), List<SearchResultFlagsEnum> searchResultFlags = default(List<SearchResultFlagsEnum>), string sourceGuid = default(string))
         {
             this.Description = description;
             this.DestinationGuid = destinationGuid;
-            this.DestinationPropCount = destinationPropCount;
             this.DisplayName = displayName;
             this.DistinguishedName = distinguishedName;
             this.ErrorMessage = errorMessage;
-            this.MismatchPropName = mismatchPropName;
             this.ObjectClass = objectClass;
             this.SearchResultFlags = searchResultFlags;
             this.SourceGuid = sourceGuid;
-            this.SourcePropCount = sourcePropCount;
             this.Description = description;
             this.DestinationGuid = destinationGuid;
-            this.DestinationPropCount = destinationPropCount;
             this.DisplayName = displayName;
             this.DistinguishedName = distinguishedName;
             this.ErrorMessage = errorMessage;
-            this.MismatchPropName = mismatchPropName;
             this.ObjectClass = objectClass;
             this.SearchResultFlags = searchResultFlags;
             this.SourceGuid = sourceGuid;
-            this.SourcePropCount = sourcePropCount;
         }
         
         /// <summary>
@@ -118,13 +109,6 @@ namespace Cohesity.Model
         /// <value>Specifies the guid of object in the Production AD which is equivalent to the object in the Snapshot AD.</value>
         [DataMember(Name="destinationGuid", EmitDefaultValue=true)]
         public string DestinationGuid { get; set; }
-
-        /// <summary>
-        /// Specifies the number of properties in AD Object in the Production AD.
-        /// </summary>
-        /// <value>Specifies the number of properties in AD Object in the Production AD.</value>
-        [DataMember(Name="destinationPropCount", EmitDefaultValue=true)]
-        public int? DestinationPropCount { get; set; }
 
         /// <summary>
         /// Specifies the display name of the AD object.
@@ -148,13 +132,6 @@ namespace Cohesity.Model
         public string ErrorMessage { get; set; }
 
         /// <summary>
-        /// Specifies the name of the first property which differs in the AD Object fetched from both Snapshot and Production AD.
-        /// </summary>
-        /// <value>Specifies the name of the first property which differs in the AD Object fetched from both Snapshot and Production AD.</value>
-        [DataMember(Name="mismatchPropName", EmitDefaultValue=true)]
-        public string MismatchPropName { get; set; }
-
-        /// <summary>
         /// Specifies the class name of an AD Object such as &#39;user&#39;,&#39;computer&#39;, &#39;organizationalUnit&#39;.
         /// </summary>
         /// <value>Specifies the class name of an AD Object such as &#39;user&#39;,&#39;computer&#39;, &#39;organizationalUnit&#39;.</value>
@@ -167,13 +144,6 @@ namespace Cohesity.Model
         /// <value>Specifies the guid of the AD object in Snapshot AD.</value>
         [DataMember(Name="sourceGuid", EmitDefaultValue=true)]
         public string SourceGuid { get; set; }
-
-        /// <summary>
-        /// Specifies the number of properties in AD Object in the Snapshot AD.
-        /// </summary>
-        /// <value>Specifies the number of properties in AD Object in the Snapshot AD.</value>
-        [DataMember(Name="sourcePropCount", EmitDefaultValue=true)]
-        public int? SourcePropCount { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -222,11 +192,6 @@ namespace Cohesity.Model
                     this.DestinationGuid.Equals(input.DestinationGuid))
                 ) && 
                 (
-                    this.DestinationPropCount == input.DestinationPropCount ||
-                    (this.DestinationPropCount != null &&
-                    this.DestinationPropCount.Equals(input.DestinationPropCount))
-                ) && 
-                (
                     this.DisplayName == input.DisplayName ||
                     (this.DisplayName != null &&
                     this.DisplayName.Equals(input.DisplayName))
@@ -242,30 +207,18 @@ namespace Cohesity.Model
                     this.ErrorMessage.Equals(input.ErrorMessage))
                 ) && 
                 (
-                    this.MismatchPropName == input.MismatchPropName ||
-                    (this.MismatchPropName != null &&
-                    this.MismatchPropName.Equals(input.MismatchPropName))
-                ) && 
-                (
                     this.ObjectClass == input.ObjectClass ||
                     (this.ObjectClass != null &&
                     this.ObjectClass.Equals(input.ObjectClass))
                 ) && 
                 (
                     this.SearchResultFlags == input.SearchResultFlags ||
-                    this.SearchResultFlags != null &&
-                    input.SearchResultFlags != null &&
                     this.SearchResultFlags.SequenceEqual(input.SearchResultFlags)
                 ) && 
                 (
                     this.SourceGuid == input.SourceGuid ||
                     (this.SourceGuid != null &&
                     this.SourceGuid.Equals(input.SourceGuid))
-                ) && 
-                (
-                    this.SourcePropCount == input.SourcePropCount ||
-                    (this.SourcePropCount != null &&
-                    this.SourcePropCount.Equals(input.SourcePropCount))
                 );
         }
 
@@ -282,23 +235,17 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Description.GetHashCode();
                 if (this.DestinationGuid != null)
                     hashCode = hashCode * 59 + this.DestinationGuid.GetHashCode();
-                if (this.DestinationPropCount != null)
-                    hashCode = hashCode * 59 + this.DestinationPropCount.GetHashCode();
                 if (this.DisplayName != null)
                     hashCode = hashCode * 59 + this.DisplayName.GetHashCode();
                 if (this.DistinguishedName != null)
                     hashCode = hashCode * 59 + this.DistinguishedName.GetHashCode();
                 if (this.ErrorMessage != null)
                     hashCode = hashCode * 59 + this.ErrorMessage.GetHashCode();
-                if (this.MismatchPropName != null)
-                    hashCode = hashCode * 59 + this.MismatchPropName.GetHashCode();
                 if (this.ObjectClass != null)
                     hashCode = hashCode * 59 + this.ObjectClass.GetHashCode();
                 hashCode = hashCode * 59 + this.SearchResultFlags.GetHashCode();
                 if (this.SourceGuid != null)
                     hashCode = hashCode * 59 + this.SourceGuid.GetHashCode();
-                if (this.SourcePropCount != null)
-                    hashCode = hashCode * 59 + this.SourcePropCount.GetHashCode();
                 return hashCode;
             }
         }

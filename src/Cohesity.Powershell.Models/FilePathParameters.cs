@@ -25,7 +25,7 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="backupFilePath">Specifies absolute path to a file or a directory in a Physical Server to protect..</param>
         /// <param name="excludedFilePaths">Array of Excluded File Paths.  Specifies absolute paths to descendant files or subdirectories of backupFilePath that should not be protected..</param>
-        /// <param name="skipNestedVolumes">Specifies if any subdirectories under backupFilePath, where local or network volumes are mounted, should be excluded from being protected. If true, the volumes are not protected..</param>
+        /// <param name="skipNestedVolumes">Specifies if any subdirectories under backupFilePath, where local or network volumes are mounted, should be excluded from being protected. If true, the volumes are not protected. deprecated: true.</param>
         public FilePathParameters(string backupFilePath = default(string), List<string> excludedFilePaths = default(List<string>), bool? skipNestedVolumes = default(bool?))
         {
             this.BackupFilePath = backupFilePath;
@@ -51,9 +51,9 @@ namespace Cohesity.Model
         public List<string> ExcludedFilePaths { get; set; }
 
         /// <summary>
-        /// Specifies if any subdirectories under backupFilePath, where local or network volumes are mounted, should be excluded from being protected. If true, the volumes are not protected.
+        /// Specifies if any subdirectories under backupFilePath, where local or network volumes are mounted, should be excluded from being protected. If true, the volumes are not protected. deprecated: true
         /// </summary>
-        /// <value>Specifies if any subdirectories under backupFilePath, where local or network volumes are mounted, should be excluded from being protected. If true, the volumes are not protected.</value>
+        /// <value>Specifies if any subdirectories under backupFilePath, where local or network volumes are mounted, should be excluded from being protected. If true, the volumes are not protected. deprecated: true</value>
         [DataMember(Name="skipNestedVolumes", EmitDefaultValue=true)]
         public bool? SkipNestedVolumes { get; set; }
 

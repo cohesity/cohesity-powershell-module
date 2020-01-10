@@ -24,10 +24,16 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="PhysicalFileBackupParams" /> class.
         /// </summary>
         /// <param name="backupPathInfoVec">Specifies the paths to backup on the Physical source..</param>
-        public PhysicalFileBackupParams(List<PhysicalFileBackupParamsBackupPathInfo> backupPathInfoVec = default(List<PhysicalFileBackupParamsBackupPathInfo>))
+        /// <param name="skipNestedVolumesVec">Mount types of nested volumes to be skipped..</param>
+        /// <param name="usesSkipNestedVolumesVec">Specifies whether to use skip_nested_volumes_vec to skip nested mounts. Before 6.4, BackupPathInfo.skip_nested_volumes boolean was used to skip nested volumes. So we use this boolean to support older jobs..</param>
+        public PhysicalFileBackupParams(List<PhysicalFileBackupParamsBackupPathInfo> backupPathInfoVec = default(List<PhysicalFileBackupParamsBackupPathInfo>), List<string> skipNestedVolumesVec = default(List<string>), bool? usesSkipNestedVolumesVec = default(bool?))
         {
             this.BackupPathInfoVec = backupPathInfoVec;
+            this.SkipNestedVolumesVec = skipNestedVolumesVec;
+            this.UsesSkipNestedVolumesVec = usesSkipNestedVolumesVec;
             this.BackupPathInfoVec = backupPathInfoVec;
+            this.SkipNestedVolumesVec = skipNestedVolumesVec;
+            this.UsesSkipNestedVolumesVec = usesSkipNestedVolumesVec;
         }
         
         /// <summary>
@@ -36,6 +42,20 @@ namespace Cohesity.Model
         /// <value>Specifies the paths to backup on the Physical source.</value>
         [DataMember(Name="backupPathInfoVec", EmitDefaultValue=true)]
         public List<PhysicalFileBackupParamsBackupPathInfo> BackupPathInfoVec { get; set; }
+
+        /// <summary>
+        /// Mount types of nested volumes to be skipped.
+        /// </summary>
+        /// <value>Mount types of nested volumes to be skipped.</value>
+        [DataMember(Name="skipNestedVolumesVec", EmitDefaultValue=true)]
+        public List<string> SkipNestedVolumesVec { get; set; }
+
+        /// <summary>
+        /// Specifies whether to use skip_nested_volumes_vec to skip nested mounts. Before 6.4, BackupPathInfo.skip_nested_volumes boolean was used to skip nested volumes. So we use this boolean to support older jobs.
+        /// </summary>
+        /// <value>Specifies whether to use skip_nested_volumes_vec to skip nested mounts. Before 6.4, BackupPathInfo.skip_nested_volumes boolean was used to skip nested volumes. So we use this boolean to support older jobs.</value>
+        [DataMember(Name="usesSkipNestedVolumesVec", EmitDefaultValue=true)]
+        public bool? UsesSkipNestedVolumesVec { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -78,6 +98,17 @@ namespace Cohesity.Model
                     this.BackupPathInfoVec != null &&
                     input.BackupPathInfoVec != null &&
                     this.BackupPathInfoVec.SequenceEqual(input.BackupPathInfoVec)
+                ) && 
+                (
+                    this.SkipNestedVolumesVec == input.SkipNestedVolumesVec ||
+                    this.SkipNestedVolumesVec != null &&
+                    input.SkipNestedVolumesVec != null &&
+                    this.SkipNestedVolumesVec.SequenceEqual(input.SkipNestedVolumesVec)
+                ) && 
+                (
+                    this.UsesSkipNestedVolumesVec == input.UsesSkipNestedVolumesVec ||
+                    (this.UsesSkipNestedVolumesVec != null &&
+                    this.UsesSkipNestedVolumesVec.Equals(input.UsesSkipNestedVolumesVec))
                 );
         }
 
@@ -92,6 +123,10 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.BackupPathInfoVec != null)
                     hashCode = hashCode * 59 + this.BackupPathInfoVec.GetHashCode();
+                if (this.SkipNestedVolumesVec != null)
+                    hashCode = hashCode * 59 + this.SkipNestedVolumesVec.GetHashCode();
+                if (this.UsesSkipNestedVolumesVec != null)
+                    hashCode = hashCode * 59 + this.UsesSkipNestedVolumesVec.GetHashCode();
                 return hashCode;
             }
         }

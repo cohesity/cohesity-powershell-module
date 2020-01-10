@@ -82,14 +82,17 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="days">Array of Week Days.  Specifies a list of days of a week (such as &#39;kSunday&#39;) when the time period should be applied. If not set, the time range applies to all days of the week. Specifies a day in a week such as &#39;kSunday&#39;, &#39;kMonday&#39;, etc..</param>
         /// <param name="endTime">Specifies the end time for the daily time period..</param>
+        /// <param name="isAllDay">All Day.  Specifies that time range is applied for entire day..</param>
         /// <param name="startTime">Specifies the start time for the daily time period..</param>
-        public TimeOfAWeek(List<DaysEnum> days = default(List<DaysEnum>), TimeOfDay endTime = default(TimeOfDay), TimeOfDay startTime = default(TimeOfDay))
+        public TimeOfAWeek(List<DaysEnum> days = default(List<DaysEnum>), TimeOfDay endTime = default(TimeOfDay), bool? isAllDay = default(bool?), TimeOfDay startTime = default(TimeOfDay))
         {
             this.Days = days;
             this.EndTime = endTime;
+            this.IsAllDay = isAllDay;
             this.StartTime = startTime;
             this.Days = days;
             this.EndTime = endTime;
+            this.IsAllDay = isAllDay;
             this.StartTime = startTime;
         }
         
@@ -99,6 +102,13 @@ namespace Cohesity.Model
         /// <value>Specifies the end time for the daily time period.</value>
         [DataMember(Name="endTime", EmitDefaultValue=true)]
         public TimeOfDay EndTime { get; set; }
+
+        /// <summary>
+        /// All Day.  Specifies that time range is applied for entire day.
+        /// </summary>
+        /// <value>All Day.  Specifies that time range is applied for entire day.</value>
+        [DataMember(Name="isAllDay", EmitDefaultValue=true)]
+        public bool? IsAllDay { get; set; }
 
         /// <summary>
         /// Specifies the start time for the daily time period.
@@ -145,14 +155,17 @@ namespace Cohesity.Model
             return 
                 (
                     this.Days == input.Days ||
-                    this.Days != null &&
-                    input.Days != null &&
                     this.Days.SequenceEqual(input.Days)
                 ) && 
                 (
                     this.EndTime == input.EndTime ||
                     (this.EndTime != null &&
                     this.EndTime.Equals(input.EndTime))
+                ) && 
+                (
+                    this.IsAllDay == input.IsAllDay ||
+                    (this.IsAllDay != null &&
+                    this.IsAllDay.Equals(input.IsAllDay))
                 ) && 
                 (
                     this.StartTime == input.StartTime ||
@@ -173,6 +186,8 @@ namespace Cohesity.Model
                 hashCode = hashCode * 59 + this.Days.GetHashCode();
                 if (this.EndTime != null)
                     hashCode = hashCode * 59 + this.EndTime.GetHashCode();
+                if (this.IsAllDay != null)
+                    hashCode = hashCode * 59 + this.IsAllDay.GetHashCode();
                 if (this.StartTime != null)
                     hashCode = hashCode * 59 + this.StartTime.GetHashCode();
                 return hashCode;

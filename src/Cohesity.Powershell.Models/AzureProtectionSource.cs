@@ -114,9 +114,9 @@ namespace Cohesity.Model
         [DataMember(Name="azureType", EmitDefaultValue=true)]
         public AzureTypeEnum? AzureType { get; set; }
         /// <summary>
-        /// Specifies the OS type of the Protection Source of type &#39;kVirtualMachine&#39; such as &#39;kWindows&#39; or &#39;kLinux&#39;. overrideDescription: true &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system.
+        /// Specifies the OS type of the Protection Source of type &#39;kVirtualMachine&#39; such as &#39;kWindows&#39; or &#39;kLinux&#39;. overrideDescription: true &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kOther&#39; indicates the other types of operating system.
         /// </summary>
-        /// <value>Specifies the OS type of the Protection Source of type &#39;kVirtualMachine&#39; such as &#39;kWindows&#39; or &#39;kLinux&#39;. overrideDescription: true &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system.</value>
+        /// <value>Specifies the OS type of the Protection Source of type &#39;kVirtualMachine&#39; such as &#39;kWindows&#39; or &#39;kLinux&#39;. overrideDescription: true &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kOther&#39; indicates the other types of operating system.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum HostTypeEnum
         {
@@ -142,16 +142,55 @@ namespace Cohesity.Model
             /// Enum KSolaris for value: kSolaris
             /// </summary>
             [EnumMember(Value = "kSolaris")]
-            KSolaris = 4
+            KSolaris = 4,
+
+            /// <summary>
+            /// Enum KSapHana for value: kSapHana
+            /// </summary>
+            [EnumMember(Value = "kSapHana")]
+            KSapHana = 5,
+
+            /// <summary>
+            /// Enum KOther for value: kOther
+            /// </summary>
+            [EnumMember(Value = "kOther")]
+            KOther = 6
 
         }
 
         /// <summary>
-        /// Specifies the OS type of the Protection Source of type &#39;kVirtualMachine&#39; such as &#39;kWindows&#39; or &#39;kLinux&#39;. overrideDescription: true &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system.
+        /// Specifies the OS type of the Protection Source of type &#39;kVirtualMachine&#39; such as &#39;kWindows&#39; or &#39;kLinux&#39;. overrideDescription: true &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kOther&#39; indicates the other types of operating system.
         /// </summary>
-        /// <value>Specifies the OS type of the Protection Source of type &#39;kVirtualMachine&#39; such as &#39;kWindows&#39; or &#39;kLinux&#39;. overrideDescription: true &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system.</value>
+        /// <value>Specifies the OS type of the Protection Source of type &#39;kVirtualMachine&#39; such as &#39;kWindows&#39; or &#39;kLinux&#39;. overrideDescription: true &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kOther&#39; indicates the other types of operating system.</value>
         [DataMember(Name="hostType", EmitDefaultValue=true)]
         public HostTypeEnum? HostType { get; set; }
+        /// <summary>
+        /// Specifies the subscription type of Azure such as &#39;kAzureCommercial&#39; or &#39;kAzureGovCloud&#39;. Specifies the subscription type of an Azure source entity. &#39;kAzureCommercial&#39; indicates a standard Azure subscription. &#39;kAzureGovCloud&#39; indicates a govt Azure subscription.
+        /// </summary>
+        /// <value>Specifies the subscription type of Azure such as &#39;kAzureCommercial&#39; or &#39;kAzureGovCloud&#39;. Specifies the subscription type of an Azure source entity. &#39;kAzureCommercial&#39; indicates a standard Azure subscription. &#39;kAzureGovCloud&#39; indicates a govt Azure subscription.</value>
+        [JsonConverter(typeof(StringEnumConverter))]
+        public enum SubscriptionTypeEnum
+        {
+            /// <summary>
+            /// Enum KAzureCommercial for value: kAzureCommercial
+            /// </summary>
+            [EnumMember(Value = "kAzureCommercial")]
+            KAzureCommercial = 1,
+
+            /// <summary>
+            /// Enum KAzureGovCloud for value: kAzureGovCloud
+            /// </summary>
+            [EnumMember(Value = "kAzureGovCloud")]
+            KAzureGovCloud = 2
+
+        }
+
+        /// <summary>
+        /// Specifies the subscription type of Azure such as &#39;kAzureCommercial&#39; or &#39;kAzureGovCloud&#39;. Specifies the subscription type of an Azure source entity. &#39;kAzureCommercial&#39; indicates a standard Azure subscription. &#39;kAzureGovCloud&#39; indicates a govt Azure subscription.
+        /// </summary>
+        /// <value>Specifies the subscription type of Azure such as &#39;kAzureCommercial&#39; or &#39;kAzureGovCloud&#39;. Specifies the subscription type of an Azure source entity. &#39;kAzureCommercial&#39; indicates a standard Azure subscription. &#39;kAzureGovCloud&#39; indicates a govt Azure subscription.</value>
+        [DataMember(Name="subscriptionType", EmitDefaultValue=true)]
+        public SubscriptionTypeEnum? SubscriptionType { get; set; }
         /// <summary>
         /// Specifies the type of an Azure Protection Source Object such as &#39;kStorageContainer&#39;, &#39;kVirtualMachine&#39;, &#39;kVirtualNetwork&#39;, etc. Specifies the type of an Azure source entity. &#39;kSubscription&#39; indicates a billing unit within Azure account. &#39;kResourceGroup&#39; indicates a container that holds related resources. &#39;kVirtualMachine&#39; indicates a Virtual Machine in Azure environment. &#39;kStorageAccount&#39; represents a collection of storage containers. &#39;kStorageKey&#39; indicates a key required to access the storage account. &#39;kStorageContainer&#39; represents a storage container within a storage account. &#39;kStorageBlob&#39; represents a storage blog within a storage container. &#39;kStorageResourceGroup&#39; indicates a container that holds related storage resources. &#39;kNetworkSecurityGroup&#39; represents a network security group. &#39;kVirtualNetwork&#39; represents a virtual network. &#39;kNetworkResourceGroup&#39; indicates a container that holds related network resources. &#39;kSubnet&#39; represents a subnet within the virtual network. &#39;kComputeOptions&#39; indicates the number of CPU cores and memory size available for a type of a Virtual Machine.
         /// </summary>
@@ -251,8 +290,9 @@ namespace Cohesity.Model
         /// <param name="applicationId">Specifies Application Id of the active directory of Azure account..</param>
         /// <param name="applicationKey">Specifies Application key of the active directory of Azure account..</param>
         /// <param name="azureType">Specifies the entity type such as &#39;kSubscription&#39; if the environment is kAzure. Specifies the type of an Azure source entity. &#39;kSubscription&#39; indicates a billing unit within Azure account. &#39;kResourceGroup&#39; indicates a container that holds related resources. &#39;kVirtualMachine&#39; indicates a Virtual Machine in Azure environment. &#39;kStorageAccount&#39; represents a collection of storage containers. &#39;kStorageKey&#39; indicates a key required to access the storage account. &#39;kStorageContainer&#39; represents a storage container within a storage account. &#39;kStorageBlob&#39; represents a storage blog within a storage container. &#39;kStorageResourceGroup&#39; indicates a container that holds related storage resources. &#39;kNetworkSecurityGroup&#39; represents a network security group. &#39;kVirtualNetwork&#39; represents a virtual network. &#39;kNetworkResourceGroup&#39; indicates a container that holds related network resources. &#39;kSubnet&#39; represents a subnet within the virtual network. &#39;kComputeOptions&#39; indicates the number of CPU cores and memory size available for a type of a Virtual Machine..</param>
-        /// <param name="hostType">Specifies the OS type of the Protection Source of type &#39;kVirtualMachine&#39; such as &#39;kWindows&#39; or &#39;kLinux&#39;. overrideDescription: true &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system..</param>
+        /// <param name="hostType">Specifies the OS type of the Protection Source of type &#39;kVirtualMachine&#39; such as &#39;kWindows&#39; or &#39;kLinux&#39;. overrideDescription: true &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kOther&#39; indicates the other types of operating system..</param>
         /// <param name="ipAddresses">Specifies a list of IP addresses for entities of type &#39;kVirtualMachine&#39;..</param>
+        /// <param name="isManagedVm">Specifies whether VM is managed or not for entities of type &#39;kVirtualMachine&#39;..</param>
         /// <param name="location">Specifies the physical location of the resource group..</param>
         /// <param name="memoryMbytes">Specifies the amount of memory in MegaBytes of the Azure resource of type &#39;kComputeOptions&#39;..</param>
         /// <param name="name">Specifies the name of the Object set by the Cloud Provider. If the provider did not set a name for the object, this field is not set..</param>
@@ -261,15 +301,17 @@ namespace Cohesity.Model
         /// <param name="resourceId">Specifies the unique Id of the resource given by the cloud provider..</param>
         /// <param name="restoreTaskId">Specifies the id of the \&quot;convert and deploy\&quot; restore task that created the entity in the cloud.  It is required to support the DR-to-cloud usecase where we replicate an on-prem entity to a cluster running in cloud, bring it up using \&quot;convert and deploy\&quot; mechanism, protect it using a cloud job that uses physical adapter, and convert it back to the on-prem format before replication.  Before replicating, we need to update the backup task state of the backed up entity using the on-prem entity and on-prem entity&#39;s parent. The id is used to lookup the restore entity that contains details about the on-prem entity.  It is set at the time of refreshing the cloud entity hierarchy if all the following conditions are met: Name of the current entity matches with name of any cloud entity deployed using the \&quot;convert and deploy\&quot; restore task. Restore entity associated with the above matched cloud entity has &#39;failed_over&#39; flag set to true in its cloud extension..</param>
         /// <param name="subscriptionId">Specifies Subscription id inside a customer&#39;s Azure account. It represents sub-section within the Azure account where a customer allows us to create VMs, storage account etc..</param>
+        /// <param name="subscriptionType">Specifies the subscription type of Azure such as &#39;kAzureCommercial&#39; or &#39;kAzureGovCloud&#39;. Specifies the subscription type of an Azure source entity. &#39;kAzureCommercial&#39; indicates a standard Azure subscription. &#39;kAzureGovCloud&#39; indicates a govt Azure subscription..</param>
         /// <param name="tenantId">Specifies Tenant Id of the active directory of Azure account..</param>
         /// <param name="type">Specifies the type of an Azure Protection Source Object such as &#39;kStorageContainer&#39;, &#39;kVirtualMachine&#39;, &#39;kVirtualNetwork&#39;, etc. Specifies the type of an Azure source entity. &#39;kSubscription&#39; indicates a billing unit within Azure account. &#39;kResourceGroup&#39; indicates a container that holds related resources. &#39;kVirtualMachine&#39; indicates a Virtual Machine in Azure environment. &#39;kStorageAccount&#39; represents a collection of storage containers. &#39;kStorageKey&#39; indicates a key required to access the storage account. &#39;kStorageContainer&#39; represents a storage container within a storage account. &#39;kStorageBlob&#39; represents a storage blog within a storage container. &#39;kStorageResourceGroup&#39; indicates a container that holds related storage resources. &#39;kNetworkSecurityGroup&#39; represents a network security group. &#39;kVirtualNetwork&#39; represents a virtual network. &#39;kNetworkResourceGroup&#39; indicates a container that holds related network resources. &#39;kSubnet&#39; represents a subnet within the virtual network. &#39;kComputeOptions&#39; indicates the number of CPU cores and memory size available for a type of a Virtual Machine..</param>
-        public AzureProtectionSource(string applicationId = default(string), string applicationKey = default(string), AzureTypeEnum? azureType = default(AzureTypeEnum?), HostTypeEnum? hostType = default(HostTypeEnum?), List<string> ipAddresses = default(List<string>), string location = default(string), long? memoryMbytes = default(long?), string name = default(string), int? numCores = default(int?), long? physicalSourceId = default(long?), string resourceId = default(string), long? restoreTaskId = default(long?), string subscriptionId = default(string), string tenantId = default(string), TypeEnum? type = default(TypeEnum?))
+        public AzureProtectionSource(string applicationId = default(string), string applicationKey = default(string), AzureTypeEnum? azureType = default(AzureTypeEnum?), HostTypeEnum? hostType = default(HostTypeEnum?), List<string> ipAddresses = default(List<string>), bool? isManagedVm = default(bool?), string location = default(string), long? memoryMbytes = default(long?), string name = default(string), int? numCores = default(int?), long? physicalSourceId = default(long?), string resourceId = default(string), long? restoreTaskId = default(long?), string subscriptionId = default(string), SubscriptionTypeEnum? subscriptionType = default(SubscriptionTypeEnum?), string tenantId = default(string), TypeEnum? type = default(TypeEnum?))
         {
             this.ApplicationId = applicationId;
             this.ApplicationKey = applicationKey;
             this.AzureType = azureType;
             this.HostType = hostType;
             this.IpAddresses = ipAddresses;
+            this.IsManagedVm = isManagedVm;
             this.Location = location;
             this.MemoryMbytes = memoryMbytes;
             this.Name = name;
@@ -278,6 +320,7 @@ namespace Cohesity.Model
             this.ResourceId = resourceId;
             this.RestoreTaskId = restoreTaskId;
             this.SubscriptionId = subscriptionId;
+            this.SubscriptionType = subscriptionType;
             this.TenantId = tenantId;
             this.Type = type;
             this.ApplicationId = applicationId;
@@ -285,6 +328,7 @@ namespace Cohesity.Model
             this.AzureType = azureType;
             this.HostType = hostType;
             this.IpAddresses = ipAddresses;
+            this.IsManagedVm = isManagedVm;
             this.Location = location;
             this.MemoryMbytes = memoryMbytes;
             this.Name = name;
@@ -293,6 +337,7 @@ namespace Cohesity.Model
             this.ResourceId = resourceId;
             this.RestoreTaskId = restoreTaskId;
             this.SubscriptionId = subscriptionId;
+            this.SubscriptionType = subscriptionType;
             this.TenantId = tenantId;
             this.Type = type;
         }
@@ -317,6 +362,13 @@ namespace Cohesity.Model
         /// <value>Specifies a list of IP addresses for entities of type &#39;kVirtualMachine&#39;.</value>
         [DataMember(Name="ipAddresses", EmitDefaultValue=true)]
         public List<string> IpAddresses { get; set; }
+
+        /// <summary>
+        /// Specifies whether VM is managed or not for entities of type &#39;kVirtualMachine&#39;.
+        /// </summary>
+        /// <value>Specifies whether VM is managed or not for entities of type &#39;kVirtualMachine&#39;.</value>
+        [DataMember(Name="isManagedVm", EmitDefaultValue=true)]
+        public bool? IsManagedVm { get; set; }
 
         /// <summary>
         /// Specifies the physical location of the resource group.
@@ -442,6 +494,11 @@ namespace Cohesity.Model
                     this.IpAddresses.SequenceEqual(input.IpAddresses)
                 ) && 
                 (
+                    this.IsManagedVm == input.IsManagedVm ||
+                    (this.IsManagedVm != null &&
+                    this.IsManagedVm.Equals(input.IsManagedVm))
+                ) && 
+                (
                     this.Location == input.Location ||
                     (this.Location != null &&
                     this.Location.Equals(input.Location))
@@ -482,6 +539,10 @@ namespace Cohesity.Model
                     this.SubscriptionId.Equals(input.SubscriptionId))
                 ) && 
                 (
+                    this.SubscriptionType == input.SubscriptionType ||
+                    this.SubscriptionType.Equals(input.SubscriptionType)
+                ) && 
+                (
                     this.TenantId == input.TenantId ||
                     (this.TenantId != null &&
                     this.TenantId.Equals(input.TenantId))
@@ -509,6 +570,8 @@ namespace Cohesity.Model
                 hashCode = hashCode * 59 + this.HostType.GetHashCode();
                 if (this.IpAddresses != null)
                     hashCode = hashCode * 59 + this.IpAddresses.GetHashCode();
+                if (this.IsManagedVm != null)
+                    hashCode = hashCode * 59 + this.IsManagedVm.GetHashCode();
                 if (this.Location != null)
                     hashCode = hashCode * 59 + this.Location.GetHashCode();
                 if (this.MemoryMbytes != null)
@@ -525,6 +588,7 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.RestoreTaskId.GetHashCode();
                 if (this.SubscriptionId != null)
                     hashCode = hashCode * 59 + this.SubscriptionId.GetHashCode();
+                hashCode = hashCode * 59 + this.SubscriptionType.GetHashCode();
                 if (this.TenantId != null)
                     hashCode = hashCode * 59 + this.TenantId.GetHashCode();
                 hashCode = hashCode * 59 + this.Type.GetHashCode();

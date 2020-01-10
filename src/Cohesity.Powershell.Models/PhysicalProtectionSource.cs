@@ -21,9 +21,9 @@ namespace Cohesity.Model
     public partial class PhysicalProtectionSource :  IEquatable<PhysicalProtectionSource>
     {
         /// <summary>
-        /// Specifies the environment type for the host. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system.
+        /// Specifies the environment type for the host. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kOther&#39; indicates the other types of operating system.
         /// </summary>
-        /// <value>Specifies the environment type for the host. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system.</value>
+        /// <value>Specifies the environment type for the host. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kOther&#39; indicates the other types of operating system.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum HostTypeEnum
         {
@@ -52,22 +52,29 @@ namespace Cohesity.Model
             KSolaris = 4,
 
             /// <summary>
+            /// Enum KSapHana for value: kSapHana
+            /// </summary>
+            [EnumMember(Value = "kSapHana")]
+            KSapHana = 5,
+
+            /// <summary>
             /// Enum KOther for value: kOther
             /// </summary>
             [EnumMember(Value = "kOther")]
-            KOther = 5
+            KOther = 6
+
         }
 
         /// <summary>
-        /// Specifies the environment type for the host. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system.
+        /// Specifies the environment type for the host. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kOther&#39; indicates the other types of operating system.
         /// </summary>
-        /// <value>Specifies the environment type for the host. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system.</value>
+        /// <value>Specifies the environment type for the host. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kOther&#39; indicates the other types of operating system.</value>
         [DataMember(Name="hostType", EmitDefaultValue=true)]
         public HostTypeEnum? HostType { get; set; }
         /// <summary>
-        /// Specifies the type of managed Object in a Physical Protection Source. &#39;kHost&#39; indicates a single physical server. &#39;kWindowsCluster&#39; indicates a Microsoft Windows cluster.
+        /// Specifies the type of managed Object in a Physical Protection Source. &#39;kGroup&#39; indicates the EH container. &#39;kHost&#39; indicates a single physical server. &#39;kWindowsCluster&#39; indicates a Microsoft Windows cluster. &#39;kOracleRACCluster&#39; indicates an Oracle Real Application Cluster(RAC). &#39;kOracleAPCluster&#39; indicates an Oracle Active-Passive Cluster.
         /// </summary>
-        /// <value>Specifies the type of managed Object in a Physical Protection Source. &#39;kHost&#39; indicates a single physical server. &#39;kWindowsCluster&#39; indicates a Microsoft Windows cluster.</value>
+        /// <value>Specifies the type of managed Object in a Physical Protection Source. &#39;kGroup&#39; indicates the EH container. &#39;kHost&#39; indicates a single physical server. &#39;kWindowsCluster&#39; indicates a Microsoft Windows cluster. &#39;kOracleRACCluster&#39; indicates an Oracle Real Application Cluster(RAC). &#39;kOracleAPCluster&#39; indicates an Oracle Active-Passive Cluster.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum TypeEnum
         {
@@ -75,62 +82,65 @@ namespace Cohesity.Model
             /// Enum KGroup for value: kGroup
             /// </summary>
             [EnumMember(Value = "kGroup")]
-            KGroup = 0,
+            KGroup = 1,
 
             /// <summary>
             /// Enum KHost for value: kHost
             /// </summary>
             [EnumMember(Value = "kHost")]
-            KHost = 1,
+            KHost = 2,
 
             /// <summary>
             /// Enum KWindowsCluster for value: kWindowsCluster
             /// </summary>
             [EnumMember(Value = "kWindowsCluster")]
-            KWindowsCluster = 2,
+            KWindowsCluster = 3,
 
             /// <summary>
             /// Enum KOracleRACCluster for value: kOracleRACCluster
             /// </summary>
             [EnumMember(Value = "kOracleRACCluster")]
-            KOracleRACCluster = 3,
+            KOracleRACCluster = 4,
 
             /// <summary>
             /// Enum KOracleAPCluster for value: kOracleAPCluster
             /// </summary>
             [EnumMember(Value = "kOracleAPCluster")]
-            KOracleAPCluster = 4,
+            KOracleAPCluster = 5,
 
             /// <summary>
             /// Enum KOracleCluster for value: kOracleCluster
             /// </summary>
             [EnumMember(Value = "kOracleCluster")]
-            KOracleCluster = 5
+            KOracleCluster = 6
 
         }
 
         /// <summary>
-        /// Specifies the type of managed Object in a Physical Protection Source. &#39;kHost&#39; indicates a single physical server. &#39;kWindowsCluster&#39; indicates a Microsoft Windows cluster.
+        /// Specifies the type of managed Object in a Physical Protection Source. &#39;kGroup&#39; indicates the EH container. &#39;kHost&#39; indicates a single physical server. &#39;kWindowsCluster&#39; indicates a Microsoft Windows cluster. &#39;kOracleRACCluster&#39; indicates an Oracle Real Application Cluster(RAC). &#39;kOracleAPCluster&#39; indicates an Oracle Active-Passive Cluster.
         /// </summary>
-        /// <value>Specifies the type of managed Object in a Physical Protection Source. &#39;kHost&#39; indicates a single physical server. &#39;kWindowsCluster&#39; indicates a Microsoft Windows cluster.</value>
+        /// <value>Specifies the type of managed Object in a Physical Protection Source. &#39;kGroup&#39; indicates the EH container. &#39;kHost&#39; indicates a single physical server. &#39;kWindowsCluster&#39; indicates a Microsoft Windows cluster. &#39;kOracleRACCluster&#39; indicates an Oracle Real Application Cluster(RAC). &#39;kOracleAPCluster&#39; indicates an Oracle Active-Passive Cluster.</value>
         [DataMember(Name="type", EmitDefaultValue=true)]
         public TypeEnum? Type { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="PhysicalProtectionSource" /> class.
         /// </summary>
         /// <param name="agents">Array of Agents on the Physical Protection Source.  Specifiles the agents running on the Physical Protection Source and the status information..</param>
-        /// <param name="hostType">Specifies the environment type for the host. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system..</param>
+        /// <param name="hostName">Specifies the hostname..</param>
+        /// <param name="hostType">Specifies the environment type for the host. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kOther&#39; indicates the other types of operating system..</param>
         /// <param name="id">Specifies a unique id of a Physical Protection Source. The id is unique across Cohesity Clusters..</param>
         /// <param name="memorySizeBytes">Specifies the total memory ont the host in bytes..</param>
         /// <param name="name">Specifies a human readable name of the Protection Source..</param>
         /// <param name="networkingInfo">networkingInfo.</param>
         /// <param name="numProcessors">Specifies the number of processors on the host..</param>
         /// <param name="osName">Specifies a human readable name of the OS of the Protection Source..</param>
-        /// <param name="type">Specifies the type of managed Object in a Physical Protection Source. &#39;kHost&#39; indicates a single physical server. &#39;kWindowsCluster&#39; indicates a Microsoft Windows cluster..</param>
+        /// <param name="type">Specifies the type of managed Object in a Physical Protection Source. &#39;kGroup&#39; indicates the EH container. &#39;kHost&#39; indicates a single physical server. &#39;kWindowsCluster&#39; indicates a Microsoft Windows cluster. &#39;kOracleRACCluster&#39; indicates an Oracle Real Application Cluster(RAC). &#39;kOracleAPCluster&#39; indicates an Oracle Active-Passive Cluster..</param>
+        /// <param name="vcsVersion">Specifies cluster version for VCS host..</param>
         /// <param name="volumes">Array of Physical Volumes.  Specifies the volumes available on the physical host. These fields are populated only for the kPhysicalHost type..</param>
-        public PhysicalProtectionSource(List<AgentInformation> agents = default(List<AgentInformation>), HostTypeEnum? hostType = default(HostTypeEnum?), UniversalId id = default(UniversalId), long? memorySizeBytes = default(long?), string name = default(string), NetworkingInformation networkingInfo = default(NetworkingInformation), long? numProcessors = default(long?), string osName = default(string), TypeEnum? type = default(TypeEnum?), List<PhysicalVolume> volumes = default(List<PhysicalVolume>))
+        public PhysicalProtectionSource(List<AgentInformation> agents = default(List<AgentInformation>), string hostName = default(string), HostTypeEnum? hostType = default(HostTypeEnum?), UniversalId id = default(UniversalId), long? memorySizeBytes = default(long?), string name = default(string), NetworkingInformation networkingInfo = default(NetworkingInformation), long? numProcessors = default(long?), string osName = default(string), TypeEnum? type = default(TypeEnum?), string vcsVersion = default(string), List<PhysicalVolume> volumes = default(List<PhysicalVolume>))
         {
             this.Agents = agents;
+            this.HostName = hostName;
             this.HostType = hostType;
             this.Id = id;
             this.MemorySizeBytes = memorySizeBytes;
@@ -138,8 +148,10 @@ namespace Cohesity.Model
             this.NumProcessors = numProcessors;
             this.OsName = osName;
             this.Type = type;
+            this.VcsVersion = vcsVersion;
             this.Volumes = volumes;
             this.Agents = agents;
+            this.HostName = hostName;
             this.HostType = hostType;
             this.Id = id;
             this.MemorySizeBytes = memorySizeBytes;
@@ -148,6 +160,7 @@ namespace Cohesity.Model
             this.NumProcessors = numProcessors;
             this.OsName = osName;
             this.Type = type;
+            this.VcsVersion = vcsVersion;
             this.Volumes = volumes;
         }
         
@@ -157,6 +170,13 @@ namespace Cohesity.Model
         /// <value>Array of Agents on the Physical Protection Source.  Specifiles the agents running on the Physical Protection Source and the status information.</value>
         [DataMember(Name="agents", EmitDefaultValue=true)]
         public List<AgentInformation> Agents { get; set; }
+
+        /// <summary>
+        /// Specifies the hostname.
+        /// </summary>
+        /// <value>Specifies the hostname.</value>
+        [DataMember(Name="hostName", EmitDefaultValue=true)]
+        public string HostName { get; set; }
 
         /// <summary>
         /// Specifies a unique id of a Physical Protection Source. The id is unique across Cohesity Clusters.
@@ -198,6 +218,13 @@ namespace Cohesity.Model
         /// <value>Specifies a human readable name of the OS of the Protection Source.</value>
         [DataMember(Name="osName", EmitDefaultValue=true)]
         public string OsName { get; set; }
+
+        /// <summary>
+        /// Specifies cluster version for VCS host.
+        /// </summary>
+        /// <value>Specifies cluster version for VCS host.</value>
+        [DataMember(Name="vcsVersion", EmitDefaultValue=true)]
+        public string VcsVersion { get; set; }
 
         /// <summary>
         /// Array of Physical Volumes.  Specifies the volumes available on the physical host. These fields are populated only for the kPhysicalHost type.
@@ -249,6 +276,11 @@ namespace Cohesity.Model
                     this.Agents.SequenceEqual(input.Agents)
                 ) && 
                 (
+                    this.HostName == input.HostName ||
+                    (this.HostName != null &&
+                    this.HostName.Equals(input.HostName))
+                ) && 
+                (
                     this.HostType == input.HostType ||
                     this.HostType.Equals(input.HostType)
                 ) && 
@@ -287,6 +319,11 @@ namespace Cohesity.Model
                     this.Type.Equals(input.Type)
                 ) && 
                 (
+                    this.VcsVersion == input.VcsVersion ||
+                    (this.VcsVersion != null &&
+                    this.VcsVersion.Equals(input.VcsVersion))
+                ) && 
+                (
                     this.Volumes == input.Volumes ||
                     this.Volumes != null &&
                     input.Volumes != null &&
@@ -305,6 +342,8 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.Agents != null)
                     hashCode = hashCode * 59 + this.Agents.GetHashCode();
+                if (this.HostName != null)
+                    hashCode = hashCode * 59 + this.HostName.GetHashCode();
                 hashCode = hashCode * 59 + this.HostType.GetHashCode();
                 if (this.Id != null)
                     hashCode = hashCode * 59 + this.Id.GetHashCode();
@@ -319,6 +358,8 @@ namespace Cohesity.Model
                 if (this.OsName != null)
                     hashCode = hashCode * 59 + this.OsName.GetHashCode();
                 hashCode = hashCode * 59 + this.Type.GetHashCode();
+                if (this.VcsVersion != null)
+                    hashCode = hashCode * 59 + this.VcsVersion.GetHashCode();
                 if (this.Volumes != null)
                     hashCode = hashCode * 59 + this.Volumes.GetHashCode();
                 return hashCode;
