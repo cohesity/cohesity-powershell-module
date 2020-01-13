@@ -5,6 +5,12 @@ Removes the Cohesity snapshots associated with a Protection Job.
 
 ## SYNTAX
 
+### UNNAMED_PARAMETER_SET_1
+```
+Remove-CohesitySnapshot -JobObject <ProtectionRunInstance> [-SourceIds <long[]>] [<CommonParameters>]
+```
+
+### UNNAMED_PARAMETER_SET_2
 ```
 Remove-CohesitySnapshot -JobName <string> -JobRunId <long> [-SourceIds <long[]>] [<CommonParameters>]
 ```
@@ -30,12 +36,25 @@ Expires the snapshots associated with only the specified Source Id (such as a VM
 
 ## PARAMETERS
 
+### -JobObject
+```yaml
+Type: ProtectionRunInstance
+Parameter Sets: UNNAMED_PARAMETER_SET_1
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: True (ByValue)
+Accept wildcard characters: False
+```
+
 ### -JobName
 The name of the Protection Job.
 
 ```yaml
 Type: string
-Parameter Sets: (All)
+Parameter Sets: UNNAMED_PARAMETER_SET_2
 Aliases:
 
 Required: True
@@ -50,7 +69,7 @@ The unique id of the Protection Job Run.
 
 ```yaml
 Type: long
-Parameter Sets: (All)
+Parameter Sets: UNNAMED_PARAMETER_SET_2
 Aliases:
 
 Required: True
@@ -80,6 +99,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
+### Cohesity.Model.ProtectionRunInstance
 ## OUTPUTS
 
 ## NOTES

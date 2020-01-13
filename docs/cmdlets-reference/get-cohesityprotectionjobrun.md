@@ -33,12 +33,12 @@ If not specified, all job runs for all protection jobs are returned.
 ```yaml
 Type: long
 Parameter Sets: (All)
-Aliases:
+Aliases: Id
 
 Required: False
 Position: Named
 Default value: None
-Accept pipeline input: False
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
@@ -225,6 +225,10 @@ Accept wildcard characters: False
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
+
+### System.Int64
+Filter by a protection job that is specified by id.
+If not specified, all job runs for all protection jobs are returned.
 
 ## OUTPUTS
 
