@@ -70,6 +70,7 @@ FunctionsToExport = @(
                       'Get-CohesityCmdletConfig',
                       'Get-CohesityOrganization',
                       'Get-CohesityProtectionJobStatus',
+                      'Get-CohesityVault',
                       'New-CohesityActiveDirectory',
                       'New-CohesityHypervProtectionJob'
                       'New-CohesityProtectionPolicy',

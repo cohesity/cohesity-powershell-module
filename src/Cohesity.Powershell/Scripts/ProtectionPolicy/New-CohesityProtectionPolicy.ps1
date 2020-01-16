@@ -12,6 +12,8 @@ function New-CohesityProtectionPolicy {
         New-CohesityProtectionPolicy -PolicyName <string> -BackupInHours 14 -RetainInDays 25 -IncrementalSchedule INCREMENTAL-ONLY
         .EXAMPLE
         New-CohesityProtectionPolicy -PolicyName <string> -BackupInHours 14 -RetainInDays 25 -IncrementalSchedule INCREMENTAL-FULL
+        .EXAMPLE
+        New-CohesityProtectionPolicy -PolicyName <string> -BackupInHours 14 -RetainInDays 25 -VaultName <string>
     #>
     [CmdletBinding()]
     Param(
@@ -27,7 +29,10 @@ function New-CohesityProtectionPolicy {
         [Parameter(Mandatory = $false)]
         [ValidateNotNullOrEmpty()]
         [ValidateSet("INCREMENTAL-ONLY", "INCREMENTAL-FULL")]
-        [string]$IncrementalSchedule = "INCREMENTAL-ONLY"
+        [string]$IncrementalSchedule = "INCREMENTAL-ONLY",
+        [Parameter(Mandatory = $false)]
+        $VaultName = $null
+        
     )
     Begin {
         if (-not (Test-Path -Path "$HOME/.cohesity")) {
@@ -45,6 +50,28 @@ function New-CohesityProtectionPolicy {
 
         $headers = @{'Authorization' = 'Bearer ' + $token }
 
+        $snapshotArchivalCopyPolicies = $null
+        if ($VaultName) {
+            $resp = Get-CohesityVault -VaultName $VaultName
+            if ($null -eq $resp) {
+                Write-Host "Vault (external target) name '$VaultName' does not exists"
+                return
+            }
+            # Except the vault info all the default values referenced from cohesity UI
+            $snapshotArchivalCopyPolicies = @(
+                @{
+                    copyPartial = $true
+                    daysToKeep  = 90
+                    multiplier  = 1
+                    periodicity = "kDay"
+                    target      = @{
+                        vaultId   = $resp.Id
+                        vaultName = $resp.Name
+                        vaultType = "kCloud"
+                    }
+                }
+            )
+        }
         $fullSchedule = $null
         if ("INCREMENTAL-FULL" -eq $IncrementalSchedule) {
             $fullSchedule = @{
@@ -55,16 +82,17 @@ function New-CohesityProtectionPolicy {
             }
         }
         $payload = @{
-            name                        = $PolicyName
-            incrementalSchedulingPolicy = @{
+            name                         = $PolicyName
+            incrementalSchedulingPolicy  = @{
                 periodicity        = "kContinuous"
                 continuousSchedule = @{
                     # convert to minutes
                     backupIntervalMins = $BackupInHours * 60
                 }
             }
-            daysToKeep                  = $RetainInDays
-            fullSchedulingPolicy        = $fullSchedule
+            daysToKeep                   = $RetainInDays
+            fullSchedulingPolicy         = $fullSchedule
+            snapshotArchivalCopyPolicies = $snapshotArchivalCopyPolicies
         }
         $payloadJson = $payload | ConvertTo-Json -Depth 100
         $resp = Invoke-RestApi -Method Post -Uri $url -Headers $headers -Body $payloadJson
