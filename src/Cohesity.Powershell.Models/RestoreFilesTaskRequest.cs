@@ -21,9 +21,9 @@ namespace Cohesity.Model
     public partial class RestoreFilesTaskRequest :  IEquatable<RestoreFilesTaskRequest>
     {
         /// <summary>
-        /// Specifies the target host types to be restored. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system.
+        /// Specifies the target host types to be restored. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kOther&#39; indicates the other types of operating system.
         /// </summary>
-        /// <value>Specifies the target host types to be restored. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system.</value>
+        /// <value>Specifies the target host types to be restored. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kOther&#39; indicates the other types of operating system.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum TargetHostTypeEnum
         {
@@ -49,14 +49,26 @@ namespace Cohesity.Model
             /// Enum KSolaris for value: kSolaris
             /// </summary>
             [EnumMember(Value = "kSolaris")]
-            KSolaris = 4
+            KSolaris = 4,
+
+            /// <summary>
+            /// Enum KSapHana for value: kSapHana
+            /// </summary>
+            [EnumMember(Value = "kSapHana")]
+            KSapHana = 5,
+
+            /// <summary>
+            /// Enum KOther for value: kOther
+            /// </summary>
+            [EnumMember(Value = "kOther")]
+            KOther = 6
 
         }
 
         /// <summary>
-        /// Specifies the target host types to be restored. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system.
+        /// Specifies the target host types to be restored. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kOther&#39; indicates the other types of operating system.
         /// </summary>
-        /// <value>Specifies the target host types to be restored. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system.</value>
+        /// <value>Specifies the target host types to be restored. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kOther&#39; indicates the other types of operating system.</value>
         [DataMember(Name="targetHostType", EmitDefaultValue=true)]
         public TargetHostTypeEnum? TargetHostType { get; set; }
         /// <summary>
@@ -70,12 +82,13 @@ namespace Cohesity.Model
         /// <param name="overwrite">If true, any existing files and folders on the operating system are overwritten by the recovered files or folders. This is the default. If false, existing files and folders are not overwritten..</param>
         /// <param name="password">Specifies password of the username to access the target source..</param>
         /// <param name="preserveAttributes">If true, the Restore Tasks preserves the original file and folder attributes. This is the default..</param>
+        /// <param name="restoredFileInfoList">Specifies information regarding files and directories..</param>
         /// <param name="sourceObjectInfo">Specifies information about the source object (such as a VM) that contains the files and folders to recover. In addition, it contains information about the Protection Job and Job Run that captured the snapshot to recover from. To specify a particular snapshot, you must specify a jobRunId and a startTimeUsecs. If jobRunId and startTimeUsecs are not specified, the last Job Run of the specified Job is used..</param>
-        /// <param name="targetHostType">Specifies the target host types to be restored. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system..</param>
+        /// <param name="targetHostType">Specifies the target host types to be restored. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kOther&#39; indicates the other types of operating system..</param>
         /// <param name="targetParentSourceId">Specifies the registered source (such as a vCenter Server) that contains the target protection source (such as a VM) where the files and folders are recovered to. This field is not required for a Physical Server..</param>
         /// <param name="targetSourceId">Specifies the id of the target protection source (such as a VM) where the files and folders are recovered to..</param>
         /// <param name="username">Specifies username to access the target source..</param>
-        public RestoreFilesTaskRequest(bool? continueOnError = default(bool?), List<string> filenames = default(List<string>), bool? isFileBasedVolumeRestore = default(bool?), string name = default(string), string newBaseDirectory = default(string), bool? overwrite = default(bool?), string password = default(string), bool? preserveAttributes = default(bool?), RestoreObjectDetails sourceObjectInfo = default(RestoreObjectDetails), TargetHostTypeEnum? targetHostType = default(TargetHostTypeEnum?), long? targetParentSourceId = default(long?), long? targetSourceId = default(long?), string username = default(string))
+        public RestoreFilesTaskRequest(bool? continueOnError = default(bool?), List<string> filenames = default(List<string>), bool? isFileBasedVolumeRestore = default(bool?), string name = default(string), string newBaseDirectory = default(string), bool? overwrite = default(bool?), string password = default(string), bool? preserveAttributes = default(bool?), List<RestoredFileInfoList> restoredFileInfoList = default(List<RestoredFileInfoList>), RestoreObjectDetails sourceObjectInfo = default(RestoreObjectDetails), TargetHostTypeEnum? targetHostType = default(TargetHostTypeEnum?), long? targetParentSourceId = default(long?), long? targetSourceId = default(long?), string username = default(string))
         {
             this.ContinueOnError = continueOnError;
             this.Filenames = filenames;
@@ -85,6 +98,7 @@ namespace Cohesity.Model
             this.Overwrite = overwrite;
             this.Password = password;
             this.PreserveAttributes = preserveAttributes;
+            this.RestoredFileInfoList = restoredFileInfoList;
             this.SourceObjectInfo = sourceObjectInfo;
             this.TargetHostType = targetHostType;
             this.TargetParentSourceId = targetParentSourceId;
@@ -98,6 +112,7 @@ namespace Cohesity.Model
             this.Overwrite = overwrite;
             this.Password = password;
             this.PreserveAttributes = preserveAttributes;
+            this.RestoredFileInfoList = restoredFileInfoList;
             this.SourceObjectInfo = sourceObjectInfo;
             this.TargetHostType = targetHostType;
             this.TargetParentSourceId = targetParentSourceId;
@@ -160,6 +175,13 @@ namespace Cohesity.Model
         /// <value>If true, the Restore Tasks preserves the original file and folder attributes. This is the default.</value>
         [DataMember(Name="preserveAttributes", EmitDefaultValue=true)]
         public bool? PreserveAttributes { get; set; }
+
+        /// <summary>
+        /// Specifies information regarding files and directories.
+        /// </summary>
+        /// <value>Specifies information regarding files and directories.</value>
+        [DataMember(Name="restoredFileInfoList", EmitDefaultValue=true)]
+        public List<RestoredFileInfoList> RestoredFileInfoList { get; set; }
 
         /// <summary>
         /// Specifies information about the source object (such as a VM) that contains the files and folders to recover. In addition, it contains information about the Protection Job and Job Run that captured the snapshot to recover from. To specify a particular snapshot, you must specify a jobRunId and a startTimeUsecs. If jobRunId and startTimeUsecs are not specified, the last Job Run of the specified Job is used.
@@ -267,6 +289,12 @@ namespace Cohesity.Model
                     this.PreserveAttributes.Equals(input.PreserveAttributes))
                 ) && 
                 (
+                    this.RestoredFileInfoList == input.RestoredFileInfoList ||
+                    this.RestoredFileInfoList != null &&
+                    input.RestoredFileInfoList != null &&
+                    this.RestoredFileInfoList.SequenceEqual(input.RestoredFileInfoList)
+                ) && 
+                (
                     this.SourceObjectInfo == input.SourceObjectInfo ||
                     (this.SourceObjectInfo != null &&
                     this.SourceObjectInfo.Equals(input.SourceObjectInfo))
@@ -317,6 +345,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Password.GetHashCode();
                 if (this.PreserveAttributes != null)
                     hashCode = hashCode * 59 + this.PreserveAttributes.GetHashCode();
+                if (this.RestoredFileInfoList != null)
+                    hashCode = hashCode * 59 + this.RestoredFileInfoList.GetHashCode();
                 if (this.SourceObjectInfo != null)
                     hashCode = hashCode * 59 + this.SourceObjectInfo.GetHashCode();
                 hashCode = hashCode * 59 + this.TargetHostType.GetHashCode();

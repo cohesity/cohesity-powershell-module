@@ -96,9 +96,9 @@ namespace Cohesity.Model
         [DataMember(Name="status", EmitDefaultValue=true)]
         public StatusEnum? Status { get; set; }
         /// <summary>
-        /// Specifies the type of Restore Task.  &#39;kRecoverVMs&#39; specifies a Restore Task that recovers VMs. &#39;kCloneVMs&#39; specifies a Restore Task that clones VMs. &#39;kCloneView&#39; specifies a Restore Task that clones a View. &#39;kMountVolumes&#39; specifies a Restore Task that mounts volumes. &#39;kRestoreFiles&#39; specifies a Restore Task that recovers files and folders. &#39;kRecoverApp&#39; specifies a Restore Task that recovers app. &#39;kCloneApp&#39; specifies a Restore Task that clone app. &#39;kRecoverSanVolume&#39; specifies a Restore Task that recovers SAN volumes. &#39;kConvertAndDeployVMs&#39; specifies a Restore Task that converts and deploy VMs to a target environment. &#39;kMountFileVolume&#39; specifies a Restore Task that mounts a file volume. &#39;kSystem&#39; specifies a Restore Task that recovers a system. &#39;kRecoverVolumes&#39; specifies a Restore Task that recovers volumes via the physical agent. &#39;kDeployVolumes&#39; specifies a Restore Task that deployes volumes to a target environment. &#39;kDownloadFiles&#39; specifies a Restore Task that downloads the requested files and folders in zip format. &#39;kRecoverEmails&#39; specifies a Restore Task that recovers the mailbox/email items. &#39;kRecoverDisks&#39; specifies a Restore Task that recovers the virtual disks.
+        /// Specifies the type of Restore Task.  &#39;kRecoverVMs&#39; specifies a Restore Task that recovers VMs. &#39;kCloneVMs&#39; specifies a Restore Task that clones VMs. &#39;kCloneView&#39; specifies a Restore Task that clones a View. &#39;kMountVolumes&#39; specifies a Restore Task that mounts volumes. &#39;kRestoreFiles&#39; specifies a Restore Task that recovers files and folders. &#39;kRecoverApp&#39; specifies a Restore Task that recovers app. &#39;kCloneApp&#39; specifies a Restore Task that clone app. &#39;kRecoverSanVolume&#39; specifies a Restore Task that recovers SAN volumes. &#39;kConvertAndDeployVMs&#39; specifies a Restore Task that converts and deploy VMs to a target environment. &#39;kMountFileVolume&#39; specifies a Restore Task that mounts a file volume. &#39;kSystem&#39; specifies a Restore Task that recovers a system. &#39;kRecoverVolumes&#39; specifies a Restore Task that recovers volumes via the physical agent. &#39;kDeployVolumes&#39; specifies a Restore Task that deployes volumes to a target environment. &#39;kDownloadFiles&#39; specifies a Restore Task that downloads the requested files and folders in zip format. &#39;kRecoverEmails&#39; specifies a Restore Task that recovers the mailbox/email items. &#39;kRecoverDisks&#39; specifies a Restore Task that recovers the virtual disks. &#39;kRecoverNamespaces&#39; specifies a Restore Task that recovers Kubernetes namespaces. &#39;kCloneVMsToView&#39; specifies a Restore Task that clones VMs into a View.
         /// </summary>
-        /// <value>Specifies the type of Restore Task.  &#39;kRecoverVMs&#39; specifies a Restore Task that recovers VMs. &#39;kCloneVMs&#39; specifies a Restore Task that clones VMs. &#39;kCloneView&#39; specifies a Restore Task that clones a View. &#39;kMountVolumes&#39; specifies a Restore Task that mounts volumes. &#39;kRestoreFiles&#39; specifies a Restore Task that recovers files and folders. &#39;kRecoverApp&#39; specifies a Restore Task that recovers app. &#39;kCloneApp&#39; specifies a Restore Task that clone app. &#39;kRecoverSanVolume&#39; specifies a Restore Task that recovers SAN volumes. &#39;kConvertAndDeployVMs&#39; specifies a Restore Task that converts and deploy VMs to a target environment. &#39;kMountFileVolume&#39; specifies a Restore Task that mounts a file volume. &#39;kSystem&#39; specifies a Restore Task that recovers a system. &#39;kRecoverVolumes&#39; specifies a Restore Task that recovers volumes via the physical agent. &#39;kDeployVolumes&#39; specifies a Restore Task that deployes volumes to a target environment. &#39;kDownloadFiles&#39; specifies a Restore Task that downloads the requested files and folders in zip format. &#39;kRecoverEmails&#39; specifies a Restore Task that recovers the mailbox/email items. &#39;kRecoverDisks&#39; specifies a Restore Task that recovers the virtual disks.</value>
+        /// <value>Specifies the type of Restore Task.  &#39;kRecoverVMs&#39; specifies a Restore Task that recovers VMs. &#39;kCloneVMs&#39; specifies a Restore Task that clones VMs. &#39;kCloneView&#39; specifies a Restore Task that clones a View. &#39;kMountVolumes&#39; specifies a Restore Task that mounts volumes. &#39;kRestoreFiles&#39; specifies a Restore Task that recovers files and folders. &#39;kRecoverApp&#39; specifies a Restore Task that recovers app. &#39;kCloneApp&#39; specifies a Restore Task that clone app. &#39;kRecoverSanVolume&#39; specifies a Restore Task that recovers SAN volumes. &#39;kConvertAndDeployVMs&#39; specifies a Restore Task that converts and deploy VMs to a target environment. &#39;kMountFileVolume&#39; specifies a Restore Task that mounts a file volume. &#39;kSystem&#39; specifies a Restore Task that recovers a system. &#39;kRecoverVolumes&#39; specifies a Restore Task that recovers volumes via the physical agent. &#39;kDeployVolumes&#39; specifies a Restore Task that deployes volumes to a target environment. &#39;kDownloadFiles&#39; specifies a Restore Task that downloads the requested files and folders in zip format. &#39;kRecoverEmails&#39; specifies a Restore Task that recovers the mailbox/email items. &#39;kRecoverDisks&#39; specifies a Restore Task that recovers the virtual disks. &#39;kRecoverNamespaces&#39; specifies a Restore Task that recovers Kubernetes namespaces. &#39;kCloneVMsToView&#39; specifies a Restore Task that clones VMs into a View.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum TypeEnum
         {
@@ -196,14 +196,26 @@ namespace Cohesity.Model
             /// Enum KRecoverDisks for value: kRecoverDisks
             /// </summary>
             [EnumMember(Value = "kRecoverDisks")]
-            KRecoverDisks = 16
+            KRecoverDisks = 16,
+
+            /// <summary>
+            /// Enum KRecoverNamespaces for value: kRecoverNamespaces
+            /// </summary>
+            [EnumMember(Value = "kRecoverNamespaces")]
+            KRecoverNamespaces = 17,
+
+            /// <summary>
+            /// Enum KCloneVMsToView for value: kCloneVMsToView
+            /// </summary>
+            [EnumMember(Value = "kCloneVMsToView")]
+            KCloneVMsToView = 18
 
         }
 
         /// <summary>
-        /// Specifies the type of Restore Task.  &#39;kRecoverVMs&#39; specifies a Restore Task that recovers VMs. &#39;kCloneVMs&#39; specifies a Restore Task that clones VMs. &#39;kCloneView&#39; specifies a Restore Task that clones a View. &#39;kMountVolumes&#39; specifies a Restore Task that mounts volumes. &#39;kRestoreFiles&#39; specifies a Restore Task that recovers files and folders. &#39;kRecoverApp&#39; specifies a Restore Task that recovers app. &#39;kCloneApp&#39; specifies a Restore Task that clone app. &#39;kRecoverSanVolume&#39; specifies a Restore Task that recovers SAN volumes. &#39;kConvertAndDeployVMs&#39; specifies a Restore Task that converts and deploy VMs to a target environment. &#39;kMountFileVolume&#39; specifies a Restore Task that mounts a file volume. &#39;kSystem&#39; specifies a Restore Task that recovers a system. &#39;kRecoverVolumes&#39; specifies a Restore Task that recovers volumes via the physical agent. &#39;kDeployVolumes&#39; specifies a Restore Task that deployes volumes to a target environment. &#39;kDownloadFiles&#39; specifies a Restore Task that downloads the requested files and folders in zip format. &#39;kRecoverEmails&#39; specifies a Restore Task that recovers the mailbox/email items. &#39;kRecoverDisks&#39; specifies a Restore Task that recovers the virtual disks.
+        /// Specifies the type of Restore Task.  &#39;kRecoverVMs&#39; specifies a Restore Task that recovers VMs. &#39;kCloneVMs&#39; specifies a Restore Task that clones VMs. &#39;kCloneView&#39; specifies a Restore Task that clones a View. &#39;kMountVolumes&#39; specifies a Restore Task that mounts volumes. &#39;kRestoreFiles&#39; specifies a Restore Task that recovers files and folders. &#39;kRecoverApp&#39; specifies a Restore Task that recovers app. &#39;kCloneApp&#39; specifies a Restore Task that clone app. &#39;kRecoverSanVolume&#39; specifies a Restore Task that recovers SAN volumes. &#39;kConvertAndDeployVMs&#39; specifies a Restore Task that converts and deploy VMs to a target environment. &#39;kMountFileVolume&#39; specifies a Restore Task that mounts a file volume. &#39;kSystem&#39; specifies a Restore Task that recovers a system. &#39;kRecoverVolumes&#39; specifies a Restore Task that recovers volumes via the physical agent. &#39;kDeployVolumes&#39; specifies a Restore Task that deployes volumes to a target environment. &#39;kDownloadFiles&#39; specifies a Restore Task that downloads the requested files and folders in zip format. &#39;kRecoverEmails&#39; specifies a Restore Task that recovers the mailbox/email items. &#39;kRecoverDisks&#39; specifies a Restore Task that recovers the virtual disks. &#39;kRecoverNamespaces&#39; specifies a Restore Task that recovers Kubernetes namespaces. &#39;kCloneVMsToView&#39; specifies a Restore Task that clones VMs into a View.
         /// </summary>
-        /// <value>Specifies the type of Restore Task.  &#39;kRecoverVMs&#39; specifies a Restore Task that recovers VMs. &#39;kCloneVMs&#39; specifies a Restore Task that clones VMs. &#39;kCloneView&#39; specifies a Restore Task that clones a View. &#39;kMountVolumes&#39; specifies a Restore Task that mounts volumes. &#39;kRestoreFiles&#39; specifies a Restore Task that recovers files and folders. &#39;kRecoverApp&#39; specifies a Restore Task that recovers app. &#39;kCloneApp&#39; specifies a Restore Task that clone app. &#39;kRecoverSanVolume&#39; specifies a Restore Task that recovers SAN volumes. &#39;kConvertAndDeployVMs&#39; specifies a Restore Task that converts and deploy VMs to a target environment. &#39;kMountFileVolume&#39; specifies a Restore Task that mounts a file volume. &#39;kSystem&#39; specifies a Restore Task that recovers a system. &#39;kRecoverVolumes&#39; specifies a Restore Task that recovers volumes via the physical agent. &#39;kDeployVolumes&#39; specifies a Restore Task that deployes volumes to a target environment. &#39;kDownloadFiles&#39; specifies a Restore Task that downloads the requested files and folders in zip format. &#39;kRecoverEmails&#39; specifies a Restore Task that recovers the mailbox/email items. &#39;kRecoverDisks&#39; specifies a Restore Task that recovers the virtual disks.</value>
+        /// <value>Specifies the type of Restore Task.  &#39;kRecoverVMs&#39; specifies a Restore Task that recovers VMs. &#39;kCloneVMs&#39; specifies a Restore Task that clones VMs. &#39;kCloneView&#39; specifies a Restore Task that clones a View. &#39;kMountVolumes&#39; specifies a Restore Task that mounts volumes. &#39;kRestoreFiles&#39; specifies a Restore Task that recovers files and folders. &#39;kRecoverApp&#39; specifies a Restore Task that recovers app. &#39;kCloneApp&#39; specifies a Restore Task that clone app. &#39;kRecoverSanVolume&#39; specifies a Restore Task that recovers SAN volumes. &#39;kConvertAndDeployVMs&#39; specifies a Restore Task that converts and deploy VMs to a target environment. &#39;kMountFileVolume&#39; specifies a Restore Task that mounts a file volume. &#39;kSystem&#39; specifies a Restore Task that recovers a system. &#39;kRecoverVolumes&#39; specifies a Restore Task that recovers volumes via the physical agent. &#39;kDeployVolumes&#39; specifies a Restore Task that deployes volumes to a target environment. &#39;kDownloadFiles&#39; specifies a Restore Task that downloads the requested files and folders in zip format. &#39;kRecoverEmails&#39; specifies a Restore Task that recovers the mailbox/email items. &#39;kRecoverDisks&#39; specifies a Restore Task that recovers the virtual disks. &#39;kRecoverNamespaces&#39; specifies a Restore Task that recovers Kubernetes namespaces. &#39;kCloneVMsToView&#39; specifies a Restore Task that clones VMs into a View.</value>
         [DataMember(Name="type", EmitDefaultValue=true)]
         public TypeEnum? Type { get; set; }
         /// <summary>
@@ -215,10 +227,13 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="RestoreTask" /> class.
         /// </summary>
         /// <param name="acropolisParameters">acropolisParameters.</param>
-        /// <param name="archiveTaskUid">Specifies the uid of the Restore Task that retrieves objects from an archive. This field is only populated when objects must be retrieved from an archive before being restored..</param>
+        /// <param name="applicationParameters">applicationParameters.</param>
+        /// <param name="archiveTaskUid">Specifies the uid of the Restore Task that retrieves objects from an archive. This field is only populated when objects must be retrieved from an archive before being restored. This field is deprecated. deprecated:true.</param>
+        /// <param name="archiveTaskUids">Specifies the uids of the Restore Task that retrieves objects from an archive. This field is only populated when objects must be retrieved from an archive before being restored. overrideDescription:true.</param>
         /// <param name="cloneViewParameters">Specifies the View settings used when cloning a View..</param>
         /// <param name="continueOnError">Specifies if the Restore Task should continue when some operations on some objects fail. If true, the Cohesity Cluster ignores intermittent errors and restores as many objects as possible..</param>
         /// <param name="datastoreId">Specifies the datastore where the object&#39;s files are recovered to. This field is populated when objects are recovered to a different resource pool or to a different parent source. This field is not populated when objects are recovered to their original datastore locations in the original parent source..</param>
+        /// <param name="deployVmsToCloud">deployVmsToCloud.</param>
         /// <param name="endTimeUsecs">Specifies the end time of the Restore Task as a Unix epoch Timestamp (in microseconds). This field is only populated if the Restore Task completes..</param>
         /// <param name="error">Specifies the error reported by the Restore Task (if any) after the Task has finished..</param>
         /// <param name="fullViewName">Specifies the full name of a View..</param>
@@ -228,20 +243,22 @@ namespace Cohesity.Model
         /// <param name="name">Specifies the name of the Restore Task. This field must be set and must be a unique name. (required).</param>
         /// <param name="newParentId">Specify a new registered parent Protection Source. If specified the selected objects are cloned or recovered to this new Protection Source. If not specified, objects are cloned or recovered to the original Protection Source that was managing them..</param>
         /// <param name="objects">Array of Objects.  Specifies a list of Protection Source objects or Protection Job objects (with specified Protection Source objects)..</param>
+        /// <param name="oneDriveParameters">oneDriveParameters.</param>
         /// <param name="outlookParameters">outlookParameters.</param>
         /// <param name="restoreObjectState">Array of Object States.  Specifies the states of all the objects for the &#39;kRecoverVMs&#39; and &#39;kCloneVMs&#39; Restore Tasks..</param>
         /// <param name="startTimeUsecs">Specifies the start time for the Restore Task as a Unix epoch Timestamp (in microseconds)..</param>
         /// <param name="status">Specifies the overall status of the Restore Task. &#39;kReadyToSchedule&#39; indicates the Restore Task is waiting to be scheduled. &#39;kProgressMonitorCreated&#39; indicates the progress monitor for the Restore Task has been created. &#39;kRetrievedFromArchive&#39; indicates that the objects to restore have been retrieved from the specified archive. A Task will only ever transition to this state if a retrieval is necessary. &#39;kAdmitted&#39; indicates the task has been admitted. After a task has been admitted, its status does not move back to &#39;kReadyToSchedule&#39; state even if it is rescheduled. &#39;kInProgress&#39; indicates that the Restore Task is in progress. &#39;kFinishingProgressMonitor&#39; indicates that the Restore Task is finishing its progress monitoring. &#39;kFinished&#39; indicates that the Restore Task has finished. The status indicating success or failure is found in the error code that is stored with the Restore Task. &#39;kInternalViewCreated&#39; indicates that internal view for the task has been created. &#39;kZipFileRequested&#39; indicates that request has been sent to create zip files for the files to be downloaded. This state is only going to be present for kDownloadFiles Task. &#39;kCancelled&#39; indicates that task or jb has been cancelled..</param>
         /// <param name="targetViewCreated">Is true if a new View was created by a &#39;kCloneVMs&#39; Restore Task. This field is only set for a &#39;kCloneVMs&#39; Restore Task..</param>
-        /// <param name="type">Specifies the type of Restore Task.  &#39;kRecoverVMs&#39; specifies a Restore Task that recovers VMs. &#39;kCloneVMs&#39; specifies a Restore Task that clones VMs. &#39;kCloneView&#39; specifies a Restore Task that clones a View. &#39;kMountVolumes&#39; specifies a Restore Task that mounts volumes. &#39;kRestoreFiles&#39; specifies a Restore Task that recovers files and folders. &#39;kRecoverApp&#39; specifies a Restore Task that recovers app. &#39;kCloneApp&#39; specifies a Restore Task that clone app. &#39;kRecoverSanVolume&#39; specifies a Restore Task that recovers SAN volumes. &#39;kConvertAndDeployVMs&#39; specifies a Restore Task that converts and deploy VMs to a target environment. &#39;kMountFileVolume&#39; specifies a Restore Task that mounts a file volume. &#39;kSystem&#39; specifies a Restore Task that recovers a system. &#39;kRecoverVolumes&#39; specifies a Restore Task that recovers volumes via the physical agent. &#39;kDeployVolumes&#39; specifies a Restore Task that deployes volumes to a target environment. &#39;kDownloadFiles&#39; specifies a Restore Task that downloads the requested files and folders in zip format. &#39;kRecoverEmails&#39; specifies a Restore Task that recovers the mailbox/email items. &#39;kRecoverDisks&#39; specifies a Restore Task that recovers the virtual disks..</param>
+        /// <param name="type">Specifies the type of Restore Task.  &#39;kRecoverVMs&#39; specifies a Restore Task that recovers VMs. &#39;kCloneVMs&#39; specifies a Restore Task that clones VMs. &#39;kCloneView&#39; specifies a Restore Task that clones a View. &#39;kMountVolumes&#39; specifies a Restore Task that mounts volumes. &#39;kRestoreFiles&#39; specifies a Restore Task that recovers files and folders. &#39;kRecoverApp&#39; specifies a Restore Task that recovers app. &#39;kCloneApp&#39; specifies a Restore Task that clone app. &#39;kRecoverSanVolume&#39; specifies a Restore Task that recovers SAN volumes. &#39;kConvertAndDeployVMs&#39; specifies a Restore Task that converts and deploy VMs to a target environment. &#39;kMountFileVolume&#39; specifies a Restore Task that mounts a file volume. &#39;kSystem&#39; specifies a Restore Task that recovers a system. &#39;kRecoverVolumes&#39; specifies a Restore Task that recovers volumes via the physical agent. &#39;kDeployVolumes&#39; specifies a Restore Task that deployes volumes to a target environment. &#39;kDownloadFiles&#39; specifies a Restore Task that downloads the requested files and folders in zip format. &#39;kRecoverEmails&#39; specifies a Restore Task that recovers the mailbox/email items. &#39;kRecoverDisks&#39; specifies a Restore Task that recovers the virtual disks. &#39;kRecoverNamespaces&#39; specifies a Restore Task that recovers Kubernetes namespaces. &#39;kCloneVMsToView&#39; specifies a Restore Task that clones VMs into a View..</param>
         /// <param name="username">Specifies the Cohesity user who requested this Restore Task..</param>
         /// <param name="viewBoxId">Specifies the id of the Domain (View Box) where the View is stored..</param>
         /// <param name="virtualDiskRestoreState">virtualDiskRestoreState.</param>
         /// <param name="vlanParameters">vlanParameters.</param>
         /// <param name="vmwareParameters">vmwareParameters.</param>
-        public RestoreTask(AcropolisRestoreParameters acropolisParameters = default(AcropolisRestoreParameters), UniversalId archiveTaskUid = default(UniversalId), UpdateViewParam cloneViewParameters = default(UpdateViewParam), bool? continueOnError = default(bool?), long? datastoreId = default(long?), long? endTimeUsecs = default(long?), RequestError error = default(RequestError), string fullViewName = default(string), HypervRestoreParameters hypervParameters = default(HypervRestoreParameters), long? id = default(long?), MountVolumesState mountVolumesState = default(MountVolumesState), string name = default(string), long? newParentId = default(long?), List<RestoreObjectDetails> objects = default(List<RestoreObjectDetails>), OutlookRestoreParameters outlookParameters = default(OutlookRestoreParameters), List<RestoreObjectState> restoreObjectState = default(List<RestoreObjectState>), long? startTimeUsecs = default(long?), StatusEnum? status = default(StatusEnum?), bool? targetViewCreated = default(bool?), TypeEnum? type = default(TypeEnum?), string username = default(string), long? viewBoxId = default(long?), VirtualDiskRecoverTaskState virtualDiskRestoreState = default(VirtualDiskRecoverTaskState), VlanParameters vlanParameters = default(VlanParameters), VmwareRestoreParameters vmwareParameters = default(VmwareRestoreParameters))
+        public RestoreTask(AcropolisRestoreParameters acropolisParameters = default(AcropolisRestoreParameters), ApplicationRestoreParameters applicationParameters = default(ApplicationRestoreParameters), UniversalId archiveTaskUid = default(UniversalId), List<UniversalId> archiveTaskUids = default(List<UniversalId>), UpdateViewParam cloneViewParameters = default(UpdateViewParam), bool? continueOnError = default(bool?), long? datastoreId = default(long?), DeployVmsToCloud deployVmsToCloud = default(DeployVmsToCloud), long? endTimeUsecs = default(long?), RequestError error = default(RequestError), string fullViewName = default(string), HypervRestoreParameters hypervParameters = default(HypervRestoreParameters), long? id = default(long?), MountVolumesState mountVolumesState = default(MountVolumesState), string name = default(string), long? newParentId = default(long?), List<RestoreObjectDetails> objects = default(List<RestoreObjectDetails>), OneDriveRestoreParameters oneDriveParameters = default(OneDriveRestoreParameters), OutlookRestoreParameters outlookParameters = default(OutlookRestoreParameters), List<RestoreObjectState> restoreObjectState = default(List<RestoreObjectState>), long? startTimeUsecs = default(long?), StatusEnum? status = default(StatusEnum?), bool? targetViewCreated = default(bool?), TypeEnum? type = default(TypeEnum?), string username = default(string), long? viewBoxId = default(long?), VirtualDiskRecoverTaskState virtualDiskRestoreState = default(VirtualDiskRecoverTaskState), VlanParameters vlanParameters = default(VlanParameters), VmwareRestoreParameters vmwareParameters = default(VmwareRestoreParameters))
         {
             this.ArchiveTaskUid = archiveTaskUid;
+            this.ArchiveTaskUids = archiveTaskUids;
             this.CloneViewParameters = cloneViewParameters;
             this.ContinueOnError = continueOnError;
             this.DatastoreId = datastoreId;
@@ -260,10 +277,13 @@ namespace Cohesity.Model
             this.Username = username;
             this.ViewBoxId = viewBoxId;
             this.AcropolisParameters = acropolisParameters;
+            this.ApplicationParameters = applicationParameters;
             this.ArchiveTaskUid = archiveTaskUid;
+            this.ArchiveTaskUids = archiveTaskUids;
             this.CloneViewParameters = cloneViewParameters;
             this.ContinueOnError = continueOnError;
             this.DatastoreId = datastoreId;
+            this.DeployVmsToCloud = deployVmsToCloud;
             this.EndTimeUsecs = endTimeUsecs;
             this.Error = error;
             this.FullViewName = fullViewName;
@@ -272,6 +292,7 @@ namespace Cohesity.Model
             this.MountVolumesState = mountVolumesState;
             this.NewParentId = newParentId;
             this.Objects = objects;
+            this.OneDriveParameters = oneDriveParameters;
             this.OutlookParameters = outlookParameters;
             this.RestoreObjectState = restoreObjectState;
             this.StartTimeUsecs = startTimeUsecs;
@@ -292,11 +313,24 @@ namespace Cohesity.Model
         public AcropolisRestoreParameters AcropolisParameters { get; set; }
 
         /// <summary>
-        /// Specifies the uid of the Restore Task that retrieves objects from an archive. This field is only populated when objects must be retrieved from an archive before being restored.
+        /// Gets or Sets ApplicationParameters
         /// </summary>
-        /// <value>Specifies the uid of the Restore Task that retrieves objects from an archive. This field is only populated when objects must be retrieved from an archive before being restored.</value>
+        [DataMember(Name="applicationParameters", EmitDefaultValue=false)]
+        public ApplicationRestoreParameters ApplicationParameters { get; set; }
+
+        /// <summary>
+        /// Specifies the uid of the Restore Task that retrieves objects from an archive. This field is only populated when objects must be retrieved from an archive before being restored. This field is deprecated. deprecated:true
+        /// </summary>
+        /// <value>Specifies the uid of the Restore Task that retrieves objects from an archive. This field is only populated when objects must be retrieved from an archive before being restored. This field is deprecated. deprecated:true</value>
         [DataMember(Name="archiveTaskUid", EmitDefaultValue=true)]
         public UniversalId ArchiveTaskUid { get; set; }
+
+        /// <summary>
+        /// Specifies the uids of the Restore Task that retrieves objects from an archive. This field is only populated when objects must be retrieved from an archive before being restored. overrideDescription:true
+        /// </summary>
+        /// <value>Specifies the uids of the Restore Task that retrieves objects from an archive. This field is only populated when objects must be retrieved from an archive before being restored. overrideDescription:true</value>
+        [DataMember(Name="archiveTaskUids", EmitDefaultValue=true)]
+        public List<UniversalId> ArchiveTaskUids { get; set; }
 
         /// <summary>
         /// Specifies the View settings used when cloning a View.
@@ -318,6 +352,12 @@ namespace Cohesity.Model
         /// <value>Specifies the datastore where the object&#39;s files are recovered to. This field is populated when objects are recovered to a different resource pool or to a different parent source. This field is not populated when objects are recovered to their original datastore locations in the original parent source.</value>
         [DataMember(Name="datastoreId", EmitDefaultValue=true)]
         public long? DatastoreId { get; set; }
+
+        /// <summary>
+        /// Gets or Sets DeployVmsToCloud
+        /// </summary>
+        [DataMember(Name="deployVmsToCloud", EmitDefaultValue=false)]
+        public DeployVmsToCloud DeployVmsToCloud { get; set; }
 
         /// <summary>
         /// Specifies the end time of the Restore Task as a Unix epoch Timestamp (in microseconds). This field is only populated if the Restore Task completes.
@@ -379,6 +419,12 @@ namespace Cohesity.Model
         /// <value>Array of Objects.  Specifies a list of Protection Source objects or Protection Job objects (with specified Protection Source objects).</value>
         [DataMember(Name="objects", EmitDefaultValue=true)]
         public List<RestoreObjectDetails> Objects { get; set; }
+
+        /// <summary>
+        /// Gets or Sets OneDriveParameters
+        /// </summary>
+        [DataMember(Name="oneDriveParameters", EmitDefaultValue=false)]
+        public OneDriveRestoreParameters OneDriveParameters { get; set; }
 
         /// <summary>
         /// Gets or Sets OutlookParameters
@@ -481,9 +527,20 @@ namespace Cohesity.Model
                     this.AcropolisParameters.Equals(input.AcropolisParameters))
                 ) && 
                 (
+                    this.ApplicationParameters == input.ApplicationParameters ||
+                    (this.ApplicationParameters != null &&
+                    this.ApplicationParameters.Equals(input.ApplicationParameters))
+                ) && 
+                (
                     this.ArchiveTaskUid == input.ArchiveTaskUid ||
                     (this.ArchiveTaskUid != null &&
                     this.ArchiveTaskUid.Equals(input.ArchiveTaskUid))
+                ) && 
+                (
+                    this.ArchiveTaskUids == input.ArchiveTaskUids ||
+                    this.ArchiveTaskUids != null &&
+                    input.ArchiveTaskUids != null &&
+                    this.ArchiveTaskUids.SequenceEqual(input.ArchiveTaskUids)
                 ) && 
                 (
                     this.CloneViewParameters == input.CloneViewParameters ||
@@ -499,6 +556,11 @@ namespace Cohesity.Model
                     this.DatastoreId == input.DatastoreId ||
                     (this.DatastoreId != null &&
                     this.DatastoreId.Equals(input.DatastoreId))
+                ) && 
+                (
+                    this.DeployVmsToCloud == input.DeployVmsToCloud ||
+                    (this.DeployVmsToCloud != null &&
+                    this.DeployVmsToCloud.Equals(input.DeployVmsToCloud))
                 ) && 
                 (
                     this.EndTimeUsecs == input.EndTimeUsecs ||
@@ -545,6 +607,11 @@ namespace Cohesity.Model
                     this.Objects != null &&
                     input.Objects != null &&
                     this.Objects.SequenceEqual(input.Objects)
+                ) && 
+                (
+                    this.OneDriveParameters == input.OneDriveParameters ||
+                    (this.OneDriveParameters != null &&
+                    this.OneDriveParameters.Equals(input.OneDriveParameters))
                 ) && 
                 (
                     this.OutlookParameters == input.OutlookParameters ||
@@ -613,14 +680,20 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.AcropolisParameters != null)
                     hashCode = hashCode * 59 + this.AcropolisParameters.GetHashCode();
+                if (this.ApplicationParameters != null)
+                    hashCode = hashCode * 59 + this.ApplicationParameters.GetHashCode();
                 if (this.ArchiveTaskUid != null)
                     hashCode = hashCode * 59 + this.ArchiveTaskUid.GetHashCode();
+                if (this.ArchiveTaskUids != null)
+                    hashCode = hashCode * 59 + this.ArchiveTaskUids.GetHashCode();
                 if (this.CloneViewParameters != null)
                     hashCode = hashCode * 59 + this.CloneViewParameters.GetHashCode();
                 if (this.ContinueOnError != null)
                     hashCode = hashCode * 59 + this.ContinueOnError.GetHashCode();
                 if (this.DatastoreId != null)
                     hashCode = hashCode * 59 + this.DatastoreId.GetHashCode();
+                if (this.DeployVmsToCloud != null)
+                    hashCode = hashCode * 59 + this.DeployVmsToCloud.GetHashCode();
                 if (this.EndTimeUsecs != null)
                     hashCode = hashCode * 59 + this.EndTimeUsecs.GetHashCode();
                 if (this.Error != null)
@@ -639,6 +712,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.NewParentId.GetHashCode();
                 if (this.Objects != null)
                     hashCode = hashCode * 59 + this.Objects.GetHashCode();
+                if (this.OneDriveParameters != null)
+                    hashCode = hashCode * 59 + this.OneDriveParameters.GetHashCode();
                 if (this.OutlookParameters != null)
                     hashCode = hashCode * 59 + this.OutlookParameters.GetHashCode();
                 if (this.RestoreObjectState != null)

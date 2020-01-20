@@ -15,7 +15,7 @@ using Newtonsoft.Json.Converters;
 namespace Cohesity.Model
 {
     /// <summary>
-    /// A proto to specify a time range within a single day when backups are not permitted to run. TODO(mark): Remove this when iris stops referring to this.
+    /// A proto to specify a time range within a single day when backups are not permitted to run.
     /// </summary>
     [DataContract]
     public partial class BackupPolicyProtoExclusionTimeRange :  IEquatable<BackupPolicyProtoExclusionTimeRange>

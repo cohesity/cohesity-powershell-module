@@ -28,19 +28,22 @@ namespace Cohesity.Model
         /// <param name="fileSize">Gives the size criteria to be used for selecting the files to be migrated. The cold files that are equal and greater than file_size or smaller than file_size are migrated..</param>
         /// <param name="fileSizePolicy">File size policy for selecting files to migrate..</param>
         /// <param name="filteringPolicy">filteringPolicy.</param>
+        /// <param name="nfsMountPath">Mount path where the Cohesity target view must be mounted on all NFS clients for accessing the migrated data..</param>
         /// <param name="targetViewName">The target view name to which the data will be migrated..</param>
-        public FileStubbingParams(long? coldFileWindow = default(long?), int? fileSelectPolicy = default(int?), long? fileSize = default(long?), int? fileSizePolicy = default(int?), FilteringPolicyProto filteringPolicy = default(FilteringPolicyProto), string targetViewName = default(string))
+        public FileStubbingParams(long? coldFileWindow = default(long?), int? fileSelectPolicy = default(int?), long? fileSize = default(long?), int? fileSizePolicy = default(int?), FilteringPolicyProto filteringPolicy = default(FilteringPolicyProto), string nfsMountPath = default(string), string targetViewName = default(string))
         {
             this.ColdFileWindow = coldFileWindow;
             this.FileSelectPolicy = fileSelectPolicy;
             this.FileSize = fileSize;
             this.FileSizePolicy = fileSizePolicy;
+            this.NfsMountPath = nfsMountPath;
             this.TargetViewName = targetViewName;
             this.ColdFileWindow = coldFileWindow;
             this.FileSelectPolicy = fileSelectPolicy;
             this.FileSize = fileSize;
             this.FileSizePolicy = fileSizePolicy;
             this.FilteringPolicy = filteringPolicy;
+            this.NfsMountPath = nfsMountPath;
             this.TargetViewName = targetViewName;
         }
         
@@ -77,6 +80,13 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="filteringPolicy", EmitDefaultValue=false)]
         public FilteringPolicyProto FilteringPolicy { get; set; }
+
+        /// <summary>
+        /// Mount path where the Cohesity target view must be mounted on all NFS clients for accessing the migrated data.
+        /// </summary>
+        /// <value>Mount path where the Cohesity target view must be mounted on all NFS clients for accessing the migrated data.</value>
+        [DataMember(Name="nfsMountPath", EmitDefaultValue=true)]
+        public string NfsMountPath { get; set; }
 
         /// <summary>
         /// The target view name to which the data will be migrated.
@@ -147,6 +157,11 @@ namespace Cohesity.Model
                     this.FilteringPolicy.Equals(input.FilteringPolicy))
                 ) && 
                 (
+                    this.NfsMountPath == input.NfsMountPath ||
+                    (this.NfsMountPath != null &&
+                    this.NfsMountPath.Equals(input.NfsMountPath))
+                ) && 
+                (
                     this.TargetViewName == input.TargetViewName ||
                     (this.TargetViewName != null &&
                     this.TargetViewName.Equals(input.TargetViewName))
@@ -172,6 +187,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.FileSizePolicy.GetHashCode();
                 if (this.FilteringPolicy != null)
                     hashCode = hashCode * 59 + this.FilteringPolicy.GetHashCode();
+                if (this.NfsMountPath != null)
+                    hashCode = hashCode * 59 + this.NfsMountPath.GetHashCode();
                 if (this.TargetViewName != null)
                     hashCode = hashCode * 59 + this.TargetViewName.GetHashCode();
                 return hashCode;

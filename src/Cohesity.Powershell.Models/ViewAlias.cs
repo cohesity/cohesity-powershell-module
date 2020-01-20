@@ -15,7 +15,7 @@ using Newtonsoft.Json.Converters;
 namespace Cohesity.Model
 {
     /// <summary>
-    /// ViewAlias
+    /// Specifies the parameters of a view alias.
     /// </summary>
     [DataContract]
     public partial class ViewAlias :  IEquatable<ViewAlias>
@@ -24,14 +24,29 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="ViewAlias" /> class.
         /// </summary>
         /// <param name="aliasName">Alias name..</param>
+        /// <param name="enableSmbEncryption">Specifies the SMB encryption for the View Alias. If set, it enables the SMB encryption for the View Alias. Encryption is supported only by SMB 3.x dialects. Dialects that do not support would still access data in unencrypted format..</param>
+        /// <param name="enableSmbViewDiscovery">If set, it enables discovery of view alias for SMB..</param>
+        /// <param name="enforceSmbEncryption">Specifies the SMB encryption for all the sessions for the View Alias. If set, encryption is enforced for all the sessions for the View Alias. When enabled all future and existing unencrypted sessions are disallowed..</param>
+        /// <param name="sharePermissions">Specifies a list of share level permissions..</param>
+        /// <param name="subnetWhitelist">Specifies a list of Subnets with IP addresses that have permissions to access the View Alias. (Overrides the Subnets specified at the global Cohesity Cluster level and View level.).</param>
         /// <param name="viewName">View name..</param>
         /// <param name="viewPath">View path for the alias..</param>
-        public ViewAlias(string aliasName = default(string), string viewName = default(string), string viewPath = default(string))
+        public ViewAlias(string aliasName = default(string), bool? enableSmbEncryption = default(bool?), bool? enableSmbViewDiscovery = default(bool?), bool? enforceSmbEncryption = default(bool?), List<SmbPermission> sharePermissions = default(List<SmbPermission>), List<Subnet> subnetWhitelist = default(List<Subnet>), string viewName = default(string), string viewPath = default(string))
         {
             this.AliasName = aliasName;
+            this.EnableSmbEncryption = enableSmbEncryption;
+            this.EnableSmbViewDiscovery = enableSmbViewDiscovery;
+            this.EnforceSmbEncryption = enforceSmbEncryption;
+            this.SharePermissions = sharePermissions;
+            this.SubnetWhitelist = subnetWhitelist;
             this.ViewName = viewName;
             this.ViewPath = viewPath;
             this.AliasName = aliasName;
+            this.EnableSmbEncryption = enableSmbEncryption;
+            this.EnableSmbViewDiscovery = enableSmbViewDiscovery;
+            this.EnforceSmbEncryption = enforceSmbEncryption;
+            this.SharePermissions = sharePermissions;
+            this.SubnetWhitelist = subnetWhitelist;
             this.ViewName = viewName;
             this.ViewPath = viewPath;
         }
@@ -42,6 +57,41 @@ namespace Cohesity.Model
         /// <value>Alias name.</value>
         [DataMember(Name="aliasName", EmitDefaultValue=true)]
         public string AliasName { get; set; }
+
+        /// <summary>
+        /// Specifies the SMB encryption for the View Alias. If set, it enables the SMB encryption for the View Alias. Encryption is supported only by SMB 3.x dialects. Dialects that do not support would still access data in unencrypted format.
+        /// </summary>
+        /// <value>Specifies the SMB encryption for the View Alias. If set, it enables the SMB encryption for the View Alias. Encryption is supported only by SMB 3.x dialects. Dialects that do not support would still access data in unencrypted format.</value>
+        [DataMember(Name="enableSmbEncryption", EmitDefaultValue=true)]
+        public bool? EnableSmbEncryption { get; set; }
+
+        /// <summary>
+        /// If set, it enables discovery of view alias for SMB.
+        /// </summary>
+        /// <value>If set, it enables discovery of view alias for SMB.</value>
+        [DataMember(Name="enableSmbViewDiscovery", EmitDefaultValue=true)]
+        public bool? EnableSmbViewDiscovery { get; set; }
+
+        /// <summary>
+        /// Specifies the SMB encryption for all the sessions for the View Alias. If set, encryption is enforced for all the sessions for the View Alias. When enabled all future and existing unencrypted sessions are disallowed.
+        /// </summary>
+        /// <value>Specifies the SMB encryption for all the sessions for the View Alias. If set, encryption is enforced for all the sessions for the View Alias. When enabled all future and existing unencrypted sessions are disallowed.</value>
+        [DataMember(Name="enforceSmbEncryption", EmitDefaultValue=true)]
+        public bool? EnforceSmbEncryption { get; set; }
+
+        /// <summary>
+        /// Specifies a list of share level permissions.
+        /// </summary>
+        /// <value>Specifies a list of share level permissions.</value>
+        [DataMember(Name="sharePermissions", EmitDefaultValue=true)]
+        public List<SmbPermission> SharePermissions { get; set; }
+
+        /// <summary>
+        /// Specifies a list of Subnets with IP addresses that have permissions to access the View Alias. (Overrides the Subnets specified at the global Cohesity Cluster level and View level.)
+        /// </summary>
+        /// <value>Specifies a list of Subnets with IP addresses that have permissions to access the View Alias. (Overrides the Subnets specified at the global Cohesity Cluster level and View level.)</value>
+        [DataMember(Name="subnetWhitelist", EmitDefaultValue=true)]
+        public List<Subnet> SubnetWhitelist { get; set; }
 
         /// <summary>
         /// View name.
@@ -99,6 +149,33 @@ namespace Cohesity.Model
                     this.AliasName.Equals(input.AliasName))
                 ) && 
                 (
+                    this.EnableSmbEncryption == input.EnableSmbEncryption ||
+                    (this.EnableSmbEncryption != null &&
+                    this.EnableSmbEncryption.Equals(input.EnableSmbEncryption))
+                ) && 
+                (
+                    this.EnableSmbViewDiscovery == input.EnableSmbViewDiscovery ||
+                    (this.EnableSmbViewDiscovery != null &&
+                    this.EnableSmbViewDiscovery.Equals(input.EnableSmbViewDiscovery))
+                ) && 
+                (
+                    this.EnforceSmbEncryption == input.EnforceSmbEncryption ||
+                    (this.EnforceSmbEncryption != null &&
+                    this.EnforceSmbEncryption.Equals(input.EnforceSmbEncryption))
+                ) && 
+                (
+                    this.SharePermissions == input.SharePermissions ||
+                    this.SharePermissions != null &&
+                    input.SharePermissions != null &&
+                    this.SharePermissions.SequenceEqual(input.SharePermissions)
+                ) && 
+                (
+                    this.SubnetWhitelist == input.SubnetWhitelist ||
+                    this.SubnetWhitelist != null &&
+                    input.SubnetWhitelist != null &&
+                    this.SubnetWhitelist.SequenceEqual(input.SubnetWhitelist)
+                ) && 
+                (
                     this.ViewName == input.ViewName ||
                     (this.ViewName != null &&
                     this.ViewName.Equals(input.ViewName))
@@ -121,6 +198,16 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.AliasName != null)
                     hashCode = hashCode * 59 + this.AliasName.GetHashCode();
+                if (this.EnableSmbEncryption != null)
+                    hashCode = hashCode * 59 + this.EnableSmbEncryption.GetHashCode();
+                if (this.EnableSmbViewDiscovery != null)
+                    hashCode = hashCode * 59 + this.EnableSmbViewDiscovery.GetHashCode();
+                if (this.EnforceSmbEncryption != null)
+                    hashCode = hashCode * 59 + this.EnforceSmbEncryption.GetHashCode();
+                if (this.SharePermissions != null)
+                    hashCode = hashCode * 59 + this.SharePermissions.GetHashCode();
+                if (this.SubnetWhitelist != null)
+                    hashCode = hashCode * 59 + this.SubnetWhitelist.GetHashCode();
                 if (this.ViewName != null)
                     hashCode = hashCode * 59 + this.ViewName.GetHashCode();
                 if (this.ViewPath != null)

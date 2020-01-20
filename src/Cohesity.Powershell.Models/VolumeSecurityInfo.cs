@@ -52,22 +52,22 @@ namespace Cohesity.Model
             KUnified = 4,
 
             /// <summary>
-            /// Enum KDataProtection for value: kDataProtection
+            /// Enum kDataProtection for value: kDataProtection
             /// </summary>
             [EnumMember(Value = "kDataProtection")]
-            KDataProtection = 5,
+            kDataProtection = 5,
 
             /// <summary>
-            /// Enum KDataCache for value: kDataCache
+            /// Enum kDataCache for value: kDataCache
             /// </summary>
             [EnumMember(Value = "kDataCache")]
-            KDataCache = 6,
+            kDataCache = 6,
 
             /// <summary>
-            /// Enum KLoadSharing for value: kLoadSharing
+            /// Enum kLoadSharing for value: kLoadSharing
             /// </summary>
             [EnumMember(Value = "kLoadSharing")]
-            KLoadSharing = 7
+            kLoadSharing = 7
 
         }
 

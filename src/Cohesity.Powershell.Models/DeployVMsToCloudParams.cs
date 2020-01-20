@@ -27,12 +27,14 @@ namespace Cohesity.Model
         /// <param name="deployVmsToAzureParams">deployVmsToAzureParams.</param>
         /// <param name="deployVmsToGcpParams">deployVmsToGcpParams.</param>
         /// <param name="replicateSnapshotsToAwsParams">replicateSnapshotsToAwsParams.</param>
-        public DeployVMsToCloudParams(DeployVMsToAWSParams deployVmsToAwsParams = default(DeployVMsToAWSParams), DeployVMsToAzureParams deployVmsToAzureParams = default(DeployVMsToAzureParams), DeployVMsToGCPParams deployVmsToGcpParams = default(DeployVMsToGCPParams), ReplicateSnapshotsToAWSParams replicateSnapshotsToAwsParams = default(ReplicateSnapshotsToAWSParams))
+        /// <param name="replicateSnapshotsToAzureParams">replicateSnapshotsToAzureParams.</param>
+        public DeployVMsToCloudParams(DeployVMsToAWSParams deployVmsToAwsParams = default(DeployVMsToAWSParams), DeployVMsToAzureParams deployVmsToAzureParams = default(DeployVMsToAzureParams), DeployVMsToGCPParams deployVmsToGcpParams = default(DeployVMsToGCPParams), ReplicateSnapshotsToAWSParams replicateSnapshotsToAwsParams = default(ReplicateSnapshotsToAWSParams), ReplicateSnapshotsToAzureParams replicateSnapshotsToAzureParams = default(ReplicateSnapshotsToAzureParams))
         {
             this.DeployVmsToAwsParams = deployVmsToAwsParams;
             this.DeployVmsToAzureParams = deployVmsToAzureParams;
             this.DeployVmsToGcpParams = deployVmsToGcpParams;
             this.ReplicateSnapshotsToAwsParams = replicateSnapshotsToAwsParams;
+            this.ReplicateSnapshotsToAzureParams = replicateSnapshotsToAzureParams;
         }
         
         /// <summary>
@@ -58,6 +60,12 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="replicateSnapshotsToAwsParams", EmitDefaultValue=false)]
         public ReplicateSnapshotsToAWSParams ReplicateSnapshotsToAwsParams { get; set; }
+
+        /// <summary>
+        /// Gets or Sets ReplicateSnapshotsToAzureParams
+        /// </summary>
+        [DataMember(Name="replicateSnapshotsToAzureParams", EmitDefaultValue=false)]
+        public ReplicateSnapshotsToAzureParams ReplicateSnapshotsToAzureParams { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -114,6 +122,11 @@ namespace Cohesity.Model
                     this.ReplicateSnapshotsToAwsParams == input.ReplicateSnapshotsToAwsParams ||
                     (this.ReplicateSnapshotsToAwsParams != null &&
                     this.ReplicateSnapshotsToAwsParams.Equals(input.ReplicateSnapshotsToAwsParams))
+                ) && 
+                (
+                    this.ReplicateSnapshotsToAzureParams == input.ReplicateSnapshotsToAzureParams ||
+                    (this.ReplicateSnapshotsToAzureParams != null &&
+                    this.ReplicateSnapshotsToAzureParams.Equals(input.ReplicateSnapshotsToAzureParams))
                 );
         }
 
@@ -134,6 +147,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.DeployVmsToGcpParams.GetHashCode();
                 if (this.ReplicateSnapshotsToAwsParams != null)
                     hashCode = hashCode * 59 + this.ReplicateSnapshotsToAwsParams.GetHashCode();
+                if (this.ReplicateSnapshotsToAzureParams != null)
+                    hashCode = hashCode * 59 + this.ReplicateSnapshotsToAzureParams.GetHashCode();
                 return hashCode;
             }
         }

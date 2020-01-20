@@ -23,7 +23,7 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="BackupJobProtoExcludeSource" /> class.
         /// </summary>
-        /// <param name="entities">An intersection of leaf-level entities will be obtained after expanding the following entities. TODO(Chinmaya): Add some more comments..</param>
+        /// <param name="entities">An intersection of leaf-level entities will be obtained after expanding the following entities..</param>
         public BackupJobProtoExcludeSource(List<EntityProto> entities = default(List<EntityProto>))
         {
             this.Entities = entities;
@@ -31,9 +31,9 @@ namespace Cohesity.Model
         }
         
         /// <summary>
-        /// An intersection of leaf-level entities will be obtained after expanding the following entities. TODO(Chinmaya): Add some more comments.
+        /// An intersection of leaf-level entities will be obtained after expanding the following entities.
         /// </summary>
-        /// <value>An intersection of leaf-level entities will be obtained after expanding the following entities. TODO(Chinmaya): Add some more comments.</value>
+        /// <value>An intersection of leaf-level entities will be obtained after expanding the following entities.</value>
         [DataMember(Name="entities", EmitDefaultValue=true)]
         public List<EntityProto> Entities { get; set; }
 

@@ -111,8 +111,6 @@ namespace Cohesity.Model
             return 
                 (
                     this.Flags == input.Flags ||
-                    this.Flags != null &&
-                    input.Flags != null &&
                     this.Flags.SequenceEqual(input.Flags)
                 ) && 
                 (

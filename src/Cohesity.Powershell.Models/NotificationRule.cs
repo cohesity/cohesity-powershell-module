@@ -275,8 +275,6 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.Categories == input.Categories ||
-                    this.Categories != null &&
-                    input.Categories != null &&
                     this.Categories.SequenceEqual(input.Categories)
                 ) && 
                 (
@@ -297,8 +295,6 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.Severities == input.Severities ||
-                    this.Severities != null &&
-                    input.Severities != null &&
                     this.Severities.SequenceEqual(input.Severities)
                 ) && 
                 (

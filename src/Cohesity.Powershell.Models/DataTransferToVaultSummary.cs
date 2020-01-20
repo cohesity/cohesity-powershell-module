@@ -21,9 +21,9 @@ namespace Cohesity.Model
     public partial class DataTransferToVaultSummary :  IEquatable<DataTransferToVaultSummary>
     {
         /// <summary>
-        /// Specifies the type of Vault. &#39;kNearline&#39; indicates a Google Nearline Vault. &#39;kColdline&#39; indicates a Google Coldline Vault. &#39;kGlacier&#39; indicates a AWS Glacier Vault. &#39;kS3&#39; indicates a AWS S3 Vault. &#39;kAzureStandard&#39; indicates a Microsoft Azure Standard Vault. &#39;kS3Compatible&#39; indicates a AWS S3 Compatible Vault. (See the online help for supported types.) &#39;kQStarTape&#39; indicates a QStar Tape Vault. &#39;kGoogleStandard&#39; indicates a Google Standard Vault. &#39;kGoogleDRA&#39; indicates a Google DRA Vault. &#39;kAWSGovCloud&#39; indicates a AWS Gov Cloud Vault. &#39;kNAS&#39; indicates a NAS Vault. &#39;kAzureGovCloud&#39; indicates an Microsoft Azure Gov Cloud Vault.
+        /// Specifies the type of Vault. &#39;kNearline&#39; indicates a Google Nearline Vault. &#39;kGlacier&#39; indicates an AWS Glacier Vault. &#39;kS3&#39; indicates an AWS S3 Vault. &#39;kAzureStandard&#39; indicates a Microsoft Azure Standard Vault. &#39;kS3Compatible&#39; indicates an S3 Compatible Vault. (See the online help for supported types.) &#39;kQStarTape&#39; indicates a QStar Tape Vault. &#39;kGoogleStandard&#39; indicates a Google Standard Vault. &#39;kGoogleDRA&#39; indicates a Google DRA Vault. &#39;kAmazonS3StandardIA&#39; indicates an Amazon S3 Standard-IA Vault. &#39;kAWSGovCloud&#39; indicates an AWS Gov Cloud Vault. &#39;kNAS&#39; indicates a NAS Vault. &#39;kColdline&#39; indicates a Google Coldline Vault. &#39;kAzureGovCloud&#39; indicates a Microsoft Azure Gov Cloud Vault. &#39;kAzureArchive&#39; indicates an Azure Archive Vault. &#39;kAzure&#39; indicates an Azure Vault. &#39;kGoogle&#39; indicates a Google Vault. &#39;kAmazon&#39; indicates an Amazon Vault. &#39;kOracle&#39; indicates an Oracle Vault. &#39;kOracleTierStandard&#39; indicates an Oracle Tier Standard Vault. &#39;kOracleTierArchive&#39; indicates an Oracle Tier Archive Vault. &#39;kAmazonC2S&#39; indicates an Amazon Commercial Cloud Services Vault.
         /// </summary>
-        /// <value>Specifies the type of Vault. &#39;kNearline&#39; indicates a Google Nearline Vault. &#39;kColdline&#39; indicates a Google Coldline Vault. &#39;kGlacier&#39; indicates a AWS Glacier Vault. &#39;kS3&#39; indicates a AWS S3 Vault. &#39;kAzureStandard&#39; indicates a Microsoft Azure Standard Vault. &#39;kS3Compatible&#39; indicates a AWS S3 Compatible Vault. (See the online help for supported types.) &#39;kQStarTape&#39; indicates a QStar Tape Vault. &#39;kGoogleStandard&#39; indicates a Google Standard Vault. &#39;kGoogleDRA&#39; indicates a Google DRA Vault. &#39;kAWSGovCloud&#39; indicates a AWS Gov Cloud Vault. &#39;kNAS&#39; indicates a NAS Vault. &#39;kAzureGovCloud&#39; indicates an Microsoft Azure Gov Cloud Vault.</value>
+        /// <value>Specifies the type of Vault. &#39;kNearline&#39; indicates a Google Nearline Vault. &#39;kGlacier&#39; indicates an AWS Glacier Vault. &#39;kS3&#39; indicates an AWS S3 Vault. &#39;kAzureStandard&#39; indicates a Microsoft Azure Standard Vault. &#39;kS3Compatible&#39; indicates an S3 Compatible Vault. (See the online help for supported types.) &#39;kQStarTape&#39; indicates a QStar Tape Vault. &#39;kGoogleStandard&#39; indicates a Google Standard Vault. &#39;kGoogleDRA&#39; indicates a Google DRA Vault. &#39;kAmazonS3StandardIA&#39; indicates an Amazon S3 Standard-IA Vault. &#39;kAWSGovCloud&#39; indicates an AWS Gov Cloud Vault. &#39;kNAS&#39; indicates a NAS Vault. &#39;kColdline&#39; indicates a Google Coldline Vault. &#39;kAzureGovCloud&#39; indicates a Microsoft Azure Gov Cloud Vault. &#39;kAzureArchive&#39; indicates an Azure Archive Vault. &#39;kAzure&#39; indicates an Azure Vault. &#39;kGoogle&#39; indicates a Google Vault. &#39;kAmazon&#39; indicates an Amazon Vault. &#39;kOracle&#39; indicates an Oracle Vault. &#39;kOracleTierStandard&#39; indicates an Oracle Tier Standard Vault. &#39;kOracleTierArchive&#39; indicates an Oracle Tier Archive Vault. &#39;kAmazonC2S&#39; indicates an Amazon Commercial Cloud Services Vault.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum VaultTypeEnum
         {
@@ -34,52 +34,52 @@ namespace Cohesity.Model
             KNearline = 1,
 
             /// <summary>
-            /// Enum KColdline for value: kColdline
-            /// </summary>
-            [EnumMember(Value = "kColdline")]
-            KColdline = 2,
-
-            /// <summary>
             /// Enum KGlacier for value: kGlacier
             /// </summary>
             [EnumMember(Value = "kGlacier")]
-            KGlacier = 3,
+            KGlacier = 2,
 
             /// <summary>
             /// Enum KS3 for value: kS3
             /// </summary>
             [EnumMember(Value = "kS3")]
-            KS3 = 4,
+            KS3 = 3,
 
             /// <summary>
             /// Enum KAzureStandard for value: kAzureStandard
             /// </summary>
             [EnumMember(Value = "kAzureStandard")]
-            KAzureStandard = 5,
+            KAzureStandard = 4,
 
             /// <summary>
             /// Enum KS3Compatible for value: kS3Compatible
             /// </summary>
             [EnumMember(Value = "kS3Compatible")]
-            KS3Compatible = 6,
+            KS3Compatible = 5,
 
             /// <summary>
             /// Enum KQStarTape for value: kQStarTape
             /// </summary>
             [EnumMember(Value = "kQStarTape")]
-            KQStarTape = 7,
+            KQStarTape = 6,
 
             /// <summary>
             /// Enum KGoogleStandard for value: kGoogleStandard
             /// </summary>
             [EnumMember(Value = "kGoogleStandard")]
-            KGoogleStandard = 8,
+            KGoogleStandard = 7,
 
             /// <summary>
             /// Enum KGoogleDRA for value: kGoogleDRA
             /// </summary>
             [EnumMember(Value = "kGoogleDRA")]
-            KGoogleDRA = 9,
+            KGoogleDRA = 8,
+
+            /// <summary>
+            /// Enum KAmazonS3StandardIA for value: kAmazonS3StandardIA
+            /// </summary>
+            [EnumMember(Value = "kAmazonS3StandardIA")]
+            KAmazonS3StandardIA = 9,
 
             /// <summary>
             /// Enum KAWSGovCloud for value: kAWSGovCloud
@@ -94,17 +94,71 @@ namespace Cohesity.Model
             KNAS = 11,
 
             /// <summary>
+            /// Enum KColdline for value: kColdline
+            /// </summary>
+            [EnumMember(Value = "kColdline")]
+            KColdline = 12,
+
+            /// <summary>
             /// Enum KAzureGovCloud for value: kAzureGovCloud
             /// </summary>
             [EnumMember(Value = "kAzureGovCloud")]
-            KAzureGovCloud = 12
+            KAzureGovCloud = 13,
+
+            /// <summary>
+            /// Enum KAzureArchive for value: kAzureArchive
+            /// </summary>
+            [EnumMember(Value = "kAzureArchive")]
+            KAzureArchive = 14,
+
+            /// <summary>
+            /// Enum KAzure for value: kAzure
+            /// </summary>
+            [EnumMember(Value = "kAzure")]
+            KAzure = 15,
+
+            /// <summary>
+            /// Enum KGoogle for value: kGoogle
+            /// </summary>
+            [EnumMember(Value = "kGoogle")]
+            KGoogle = 16,
+
+            /// <summary>
+            /// Enum KAmazon for value: kAmazon
+            /// </summary>
+            [EnumMember(Value = "kAmazon")]
+            KAmazon = 17,
+
+            /// <summary>
+            /// Enum KOracle for value: kOracle
+            /// </summary>
+            [EnumMember(Value = "kOracle")]
+            KOracle = 18,
+
+            /// <summary>
+            /// Enum KOracleTierStandard for value: kOracleTierStandard
+            /// </summary>
+            [EnumMember(Value = "kOracleTierStandard")]
+            KOracleTierStandard = 19,
+
+            /// <summary>
+            /// Enum KOracleTierArchive for value: kOracleTierArchive
+            /// </summary>
+            [EnumMember(Value = "kOracleTierArchive")]
+            KOracleTierArchive = 20,
+
+            /// <summary>
+            /// Enum KAmazonC2S for value: kAmazonC2S
+            /// </summary>
+            [EnumMember(Value = "kAmazonC2S")]
+            KAmazonC2S = 21
 
         }
 
         /// <summary>
-        /// Specifies the type of Vault. &#39;kNearline&#39; indicates a Google Nearline Vault. &#39;kColdline&#39; indicates a Google Coldline Vault. &#39;kGlacier&#39; indicates a AWS Glacier Vault. &#39;kS3&#39; indicates a AWS S3 Vault. &#39;kAzureStandard&#39; indicates a Microsoft Azure Standard Vault. &#39;kS3Compatible&#39; indicates a AWS S3 Compatible Vault. (See the online help for supported types.) &#39;kQStarTape&#39; indicates a QStar Tape Vault. &#39;kGoogleStandard&#39; indicates a Google Standard Vault. &#39;kGoogleDRA&#39; indicates a Google DRA Vault. &#39;kAWSGovCloud&#39; indicates a AWS Gov Cloud Vault. &#39;kNAS&#39; indicates a NAS Vault. &#39;kAzureGovCloud&#39; indicates an Microsoft Azure Gov Cloud Vault.
+        /// Specifies the type of Vault. &#39;kNearline&#39; indicates a Google Nearline Vault. &#39;kGlacier&#39; indicates an AWS Glacier Vault. &#39;kS3&#39; indicates an AWS S3 Vault. &#39;kAzureStandard&#39; indicates a Microsoft Azure Standard Vault. &#39;kS3Compatible&#39; indicates an S3 Compatible Vault. (See the online help for supported types.) &#39;kQStarTape&#39; indicates a QStar Tape Vault. &#39;kGoogleStandard&#39; indicates a Google Standard Vault. &#39;kGoogleDRA&#39; indicates a Google DRA Vault. &#39;kAmazonS3StandardIA&#39; indicates an Amazon S3 Standard-IA Vault. &#39;kAWSGovCloud&#39; indicates an AWS Gov Cloud Vault. &#39;kNAS&#39; indicates a NAS Vault. &#39;kColdline&#39; indicates a Google Coldline Vault. &#39;kAzureGovCloud&#39; indicates a Microsoft Azure Gov Cloud Vault. &#39;kAzureArchive&#39; indicates an Azure Archive Vault. &#39;kAzure&#39; indicates an Azure Vault. &#39;kGoogle&#39; indicates a Google Vault. &#39;kAmazon&#39; indicates an Amazon Vault. &#39;kOracle&#39; indicates an Oracle Vault. &#39;kOracleTierStandard&#39; indicates an Oracle Tier Standard Vault. &#39;kOracleTierArchive&#39; indicates an Oracle Tier Archive Vault. &#39;kAmazonC2S&#39; indicates an Amazon Commercial Cloud Services Vault.
         /// </summary>
-        /// <value>Specifies the type of Vault. &#39;kNearline&#39; indicates a Google Nearline Vault. &#39;kColdline&#39; indicates a Google Coldline Vault. &#39;kGlacier&#39; indicates a AWS Glacier Vault. &#39;kS3&#39; indicates a AWS S3 Vault. &#39;kAzureStandard&#39; indicates a Microsoft Azure Standard Vault. &#39;kS3Compatible&#39; indicates a AWS S3 Compatible Vault. (See the online help for supported types.) &#39;kQStarTape&#39; indicates a QStar Tape Vault. &#39;kGoogleStandard&#39; indicates a Google Standard Vault. &#39;kGoogleDRA&#39; indicates a Google DRA Vault. &#39;kAWSGovCloud&#39; indicates a AWS Gov Cloud Vault. &#39;kNAS&#39; indicates a NAS Vault. &#39;kAzureGovCloud&#39; indicates an Microsoft Azure Gov Cloud Vault.</value>
+        /// <value>Specifies the type of Vault. &#39;kNearline&#39; indicates a Google Nearline Vault. &#39;kGlacier&#39; indicates an AWS Glacier Vault. &#39;kS3&#39; indicates an AWS S3 Vault. &#39;kAzureStandard&#39; indicates a Microsoft Azure Standard Vault. &#39;kS3Compatible&#39; indicates an S3 Compatible Vault. (See the online help for supported types.) &#39;kQStarTape&#39; indicates a QStar Tape Vault. &#39;kGoogleStandard&#39; indicates a Google Standard Vault. &#39;kGoogleDRA&#39; indicates a Google DRA Vault. &#39;kAmazonS3StandardIA&#39; indicates an Amazon S3 Standard-IA Vault. &#39;kAWSGovCloud&#39; indicates an AWS Gov Cloud Vault. &#39;kNAS&#39; indicates a NAS Vault. &#39;kColdline&#39; indicates a Google Coldline Vault. &#39;kAzureGovCloud&#39; indicates a Microsoft Azure Gov Cloud Vault. &#39;kAzureArchive&#39; indicates an Azure Archive Vault. &#39;kAzure&#39; indicates an Azure Vault. &#39;kGoogle&#39; indicates a Google Vault. &#39;kAmazon&#39; indicates an Amazon Vault. &#39;kOracle&#39; indicates an Oracle Vault. &#39;kOracleTierStandard&#39; indicates an Oracle Tier Standard Vault. &#39;kOracleTierArchive&#39; indicates an Oracle Tier Archive Vault. &#39;kAmazonC2S&#39; indicates an Amazon Commercial Cloud Services Vault.</value>
         [DataMember(Name="vaultType", EmitDefaultValue=true)]
         public VaultTypeEnum? VaultType { get; set; }
         /// <summary>
@@ -119,7 +173,7 @@ namespace Cohesity.Model
         /// <param name="storageConsumedBytes">Specifies the storage consumed on the Vault as of last day in the specified time range..</param>
         /// <param name="vaultId">The vault Id associated with the vault..</param>
         /// <param name="vaultName">Specifies the name of the Vault (External Target)..</param>
-        /// <param name="vaultType">Specifies the type of Vault. &#39;kNearline&#39; indicates a Google Nearline Vault. &#39;kColdline&#39; indicates a Google Coldline Vault. &#39;kGlacier&#39; indicates a AWS Glacier Vault. &#39;kS3&#39; indicates a AWS S3 Vault. &#39;kAzureStandard&#39; indicates a Microsoft Azure Standard Vault. &#39;kS3Compatible&#39; indicates a AWS S3 Compatible Vault. (See the online help for supported types.) &#39;kQStarTape&#39; indicates a QStar Tape Vault. &#39;kGoogleStandard&#39; indicates a Google Standard Vault. &#39;kGoogleDRA&#39; indicates a Google DRA Vault. &#39;kAWSGovCloud&#39; indicates a AWS Gov Cloud Vault. &#39;kNAS&#39; indicates a NAS Vault. &#39;kAzureGovCloud&#39; indicates an Microsoft Azure Gov Cloud Vault..</param>
+        /// <param name="vaultType">Specifies the type of Vault. &#39;kNearline&#39; indicates a Google Nearline Vault. &#39;kGlacier&#39; indicates an AWS Glacier Vault. &#39;kS3&#39; indicates an AWS S3 Vault. &#39;kAzureStandard&#39; indicates a Microsoft Azure Standard Vault. &#39;kS3Compatible&#39; indicates an S3 Compatible Vault. (See the online help for supported types.) &#39;kQStarTape&#39; indicates a QStar Tape Vault. &#39;kGoogleStandard&#39; indicates a Google Standard Vault. &#39;kGoogleDRA&#39; indicates a Google DRA Vault. &#39;kAmazonS3StandardIA&#39; indicates an Amazon S3 Standard-IA Vault. &#39;kAWSGovCloud&#39; indicates an AWS Gov Cloud Vault. &#39;kNAS&#39; indicates a NAS Vault. &#39;kColdline&#39; indicates a Google Coldline Vault. &#39;kAzureGovCloud&#39; indicates a Microsoft Azure Gov Cloud Vault. &#39;kAzureArchive&#39; indicates an Azure Archive Vault. &#39;kAzure&#39; indicates an Azure Vault. &#39;kGoogle&#39; indicates a Google Vault. &#39;kAmazon&#39; indicates an Amazon Vault. &#39;kOracle&#39; indicates an Oracle Vault. &#39;kOracleTierStandard&#39; indicates an Oracle Tier Standard Vault. &#39;kOracleTierArchive&#39; indicates an Oracle Tier Archive Vault. &#39;kAmazonC2S&#39; indicates an Amazon Commercial Cloud Services Vault..</param>
         public DataTransferToVaultSummary(List<DataTransferToVaultPerProtectionJob> dataTransferPerProtectionJob = default(List<DataTransferToVaultPerProtectionJob>), List<long> logicalDataTransferredBytesDuringTimeRange = default(List<long>), long? numLogicalBytesTransferred = default(long?), long? numPhysicalBytesTransferred = default(long?), long? numProtectionJobs = default(long?), List<long> physicalDataTransferredBytesDuringTimeRange = default(List<long>), long? storageConsumedBytes = default(long?), long? vaultId = default(long?), string vaultName = default(string), VaultTypeEnum? vaultType = default(VaultTypeEnum?))
         {
             this.DataTransferPerProtectionJob = dataTransferPerProtectionJob;

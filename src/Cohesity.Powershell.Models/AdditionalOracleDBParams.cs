@@ -24,7 +24,7 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="AdditionalOracleDBParams" /> class.
         /// </summary>
         /// <param name="appEntityId">Database app id..</param>
-        /// <param name="dbInfoChannelVec">Contains the information for each database and the corresponding hosts configured for each. NOTE: Size of this vector will be 1 for RAC and Standalone setups..</param>
+        /// <param name="dbInfoChannelVec">The following proto message should be renamed to a more general message to represent parameters pertaining to a single unique Oracle database. Uniqueness of an Oracle database should be strictly determined by its database unique name. i.e. all backup parameters needed for a unique Oracle database should be expressed in the following proto.  It is a vector for future support of backing up Data Guard sources. We may or may not need this to be vector to support Data Guard sources. For now, the size of this vector is always 1. When we rename this proto in the future, if we determine there is no need to use a vector for Data Guard support, we can choose to remove &#39;repeated&#39;..</param>
         public AdditionalOracleDBParams(long? appEntityId = default(long?), List<OracleDBChannelInfo> dbInfoChannelVec = default(List<OracleDBChannelInfo>))
         {
             this.AppEntityId = appEntityId;
@@ -41,9 +41,9 @@ namespace Cohesity.Model
         public long? AppEntityId { get; set; }
 
         /// <summary>
-        /// Contains the information for each database and the corresponding hosts configured for each. NOTE: Size of this vector will be 1 for RAC and Standalone setups.
+        /// The following proto message should be renamed to a more general message to represent parameters pertaining to a single unique Oracle database. Uniqueness of an Oracle database should be strictly determined by its database unique name. i.e. all backup parameters needed for a unique Oracle database should be expressed in the following proto.  It is a vector for future support of backing up Data Guard sources. We may or may not need this to be vector to support Data Guard sources. For now, the size of this vector is always 1. When we rename this proto in the future, if we determine there is no need to use a vector for Data Guard support, we can choose to remove &#39;repeated&#39;.
         /// </summary>
-        /// <value>Contains the information for each database and the corresponding hosts configured for each. NOTE: Size of this vector will be 1 for RAC and Standalone setups.</value>
+        /// <value>The following proto message should be renamed to a more general message to represent parameters pertaining to a single unique Oracle database. Uniqueness of an Oracle database should be strictly determined by its database unique name. i.e. all backup parameters needed for a unique Oracle database should be expressed in the following proto.  It is a vector for future support of backing up Data Guard sources. We may or may not need this to be vector to support Data Guard sources. For now, the size of this vector is always 1. When we rename this proto in the future, if we determine there is no need to use a vector for Data Guard support, we can choose to remove &#39;repeated&#39;.</value>
         [DataMember(Name="dbInfoChannelVec", EmitDefaultValue=true)]
         public List<OracleDBChannelInfo> DbInfoChannelVec { get; set; }
 

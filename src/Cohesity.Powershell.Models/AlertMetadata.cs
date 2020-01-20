@@ -21,6 +21,45 @@ namespace Cohesity.Model
     public partial class AlertMetadata :  IEquatable<AlertMetadata>
     {
         /// <summary>
+        /// Specifies the Alert type bucket. Specifies the Alert type bucket. kSoftware - Alerts which are related to Cohesity services. kHardware - Alerts related to hardware on which Cohesity software is running. kService - Alerts related to other external services. kOther - Alerts not of one of above categories.
+        /// </summary>
+        /// <value>Specifies the Alert type bucket. Specifies the Alert type bucket. kSoftware - Alerts which are related to Cohesity services. kHardware - Alerts related to hardware on which Cohesity software is running. kService - Alerts related to other external services. kOther - Alerts not of one of above categories.</value>
+        [JsonConverter(typeof(StringEnumConverter))]
+        public enum AlertTypeBucketEnum
+        {
+            /// <summary>
+            /// Enum KSoftware for value: kSoftware
+            /// </summary>
+            [EnumMember(Value = "kSoftware")]
+            KSoftware = 1,
+
+            /// <summary>
+            /// Enum KHardware for value: kHardware
+            /// </summary>
+            [EnumMember(Value = "kHardware")]
+            KHardware = 2,
+
+            /// <summary>
+            /// Enum KService for value: kService
+            /// </summary>
+            [EnumMember(Value = "kService")]
+            KService = 3,
+
+            /// <summary>
+            /// Enum KOther for value: kOther
+            /// </summary>
+            [EnumMember(Value = "kOther")]
+            KOther = 4
+
+        }
+
+        /// <summary>
+        /// Specifies the Alert type bucket. Specifies the Alert type bucket. kSoftware - Alerts which are related to Cohesity services. kHardware - Alerts related to hardware on which Cohesity software is running. kService - Alerts related to other external services. kOther - Alerts not of one of above categories.
+        /// </summary>
+        /// <value>Specifies the Alert type bucket. Specifies the Alert type bucket. kSoftware - Alerts which are related to Cohesity services. kHardware - Alerts related to hardware on which Cohesity software is running. kService - Alerts related to other external services. kOther - Alerts not of one of above categories.</value>
+        [DataMember(Name="alertTypeBucket", EmitDefaultValue=true)]
+        public AlertTypeBucketEnum? AlertTypeBucket { get; set; }
+        /// <summary>
         /// Specifies category of the alert type. Specifies the category of an Alert. kDisk - Alerts that are related to Disk. kNode - Alerts that are related to Node. kCluster - Alerts that are related to Cluster. kNodeHealth - Alerts that are related to Node Health. kClusterHealth - Alerts that are related to Cluster Health. kBackupRestore - Alerts that are related to Backup/Restore. kEncryption - Alerts that are related to Encryption. kArchivalRestore - Alerts that are related to Archival/Restore. kRemoteReplication - Alerts that are related to Remote Replication. kQuota - Alerts that are related to Quota. kLicense - Alerts that are related to License. kHeliosProActiveWellness - Alerts that are related to Helios ProActive Wellness. kHeliosAnalyticsJobs - Alerts that are related to Helios Analytics Jobs. kHeliosSignatureJobs - Alerts that are related to Helios Signature Jobs. kSecurity - Alerts that are related to Security.
         /// </summary>
         /// <value>Specifies category of the alert type. Specifies the category of an Alert. kDisk - Alerts that are related to Disk. kNode - Alerts that are related to Node. kCluster - Alerts that are related to Cluster. kNodeHealth - Alerts that are related to Node Health. kClusterHealth - Alerts that are related to Cluster Health. kBackupRestore - Alerts that are related to Backup/Restore. kEncryption - Alerts that are related to Encryption. kArchivalRestore - Alerts that are related to Archival/Restore. kRemoteReplication - Alerts that are related to Remote Replication. kQuota - Alerts that are related to Quota. kLicense - Alerts that are related to License. kHeliosProActiveWellness - Alerts that are related to Helios ProActive Wellness. kHeliosAnalyticsJobs - Alerts that are related to Helios Analytics Jobs. kHeliosSignatureJobs - Alerts that are related to Helios Signature Jobs. kSecurity - Alerts that are related to Security.</value>
@@ -129,6 +168,7 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="AlertMetadata" /> class.
         /// </summary>
         /// <param name="alertDocumentList">Specifies alert documentation one per each language supported..</param>
+        /// <param name="alertTypeBucket">Specifies the Alert type bucket. Specifies the Alert type bucket. kSoftware - Alerts which are related to Cohesity services. kHardware - Alerts related to hardware on which Cohesity software is running. kService - Alerts related to other external services. kOther - Alerts not of one of above categories..</param>
         /// <param name="alertTypeId">Specifies unique id for the alert type..</param>
         /// <param name="category">Specifies category of the alert type. Specifies the category of an Alert. kDisk - Alerts that are related to Disk. kNode - Alerts that are related to Node. kCluster - Alerts that are related to Cluster. kNodeHealth - Alerts that are related to Node Health. kClusterHealth - Alerts that are related to Cluster Health. kBackupRestore - Alerts that are related to Backup/Restore. kEncryption - Alerts that are related to Encryption. kArchivalRestore - Alerts that are related to Archival/Restore. kRemoteReplication - Alerts that are related to Remote Replication. kQuota - Alerts that are related to Quota. kLicense - Alerts that are related to License. kHeliosProActiveWellness - Alerts that are related to Helios ProActive Wellness. kHeliosAnalyticsJobs - Alerts that are related to Helios Analytics Jobs. kHeliosSignatureJobs - Alerts that are related to Helios Signature Jobs. kSecurity - Alerts that are related to Security..</param>
         /// <param name="dedupIntervalSeconds">Specifies dedup interval in seconds. If the same alert is raised multiple times by any client in this duration, only one of them will be reported..</param>
@@ -140,9 +180,10 @@ namespace Cohesity.Model
         /// <param name="sendSupportNotification">Specifies whether to send support notification for the alert..</param>
         /// <param name="snmpNotification">Specifies whether an SNMP notification is sent when an alert is raised..</param>
         /// <param name="version">Specifies version of the metadata..</param>
-        public AlertMetadata(List<AlertDocument> alertDocumentList = default(List<AlertDocument>), int? alertTypeId = default(int?), CategoryEnum? category = default(CategoryEnum?), int? dedupIntervalSeconds = default(int?), bool? dedupUntilResolved = default(bool?), bool? hideAlertFromUser = default(bool?), bool? ignoreDuplicateOccurrences = default(bool?), List<string> primaryKeyList = default(List<string>), List<string> propertyList = default(List<string>), bool? sendSupportNotification = default(bool?), bool? snmpNotification = default(bool?), int? version = default(int?))
+        public AlertMetadata(List<AlertDocument> alertDocumentList = default(List<AlertDocument>), AlertTypeBucketEnum? alertTypeBucket = default(AlertTypeBucketEnum?), int? alertTypeId = default(int?), CategoryEnum? category = default(CategoryEnum?), int? dedupIntervalSeconds = default(int?), bool? dedupUntilResolved = default(bool?), bool? hideAlertFromUser = default(bool?), bool? ignoreDuplicateOccurrences = default(bool?), List<string> primaryKeyList = default(List<string>), List<string> propertyList = default(List<string>), bool? sendSupportNotification = default(bool?), bool? snmpNotification = default(bool?), int? version = default(int?))
         {
             this.AlertDocumentList = alertDocumentList;
+            this.AlertTypeBucket = alertTypeBucket;
             this.AlertTypeId = alertTypeId;
             this.Category = category;
             this.DedupIntervalSeconds = dedupIntervalSeconds;
@@ -155,6 +196,7 @@ namespace Cohesity.Model
             this.SnmpNotification = snmpNotification;
             this.Version = version;
             this.AlertDocumentList = alertDocumentList;
+            this.AlertTypeBucket = alertTypeBucket;
             this.AlertTypeId = alertTypeId;
             this.Category = category;
             this.DedupIntervalSeconds = dedupIntervalSeconds;
@@ -288,6 +330,10 @@ namespace Cohesity.Model
                     this.AlertDocumentList.SequenceEqual(input.AlertDocumentList)
                 ) && 
                 (
+                    this.AlertTypeBucket == input.AlertTypeBucket ||
+                    this.AlertTypeBucket.Equals(input.AlertTypeBucket)
+                ) && 
+                (
                     this.AlertTypeId == input.AlertTypeId ||
                     (this.AlertTypeId != null &&
                     this.AlertTypeId.Equals(input.AlertTypeId))
@@ -356,6 +402,7 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.AlertDocumentList != null)
                     hashCode = hashCode * 59 + this.AlertDocumentList.GetHashCode();
+                hashCode = hashCode * 59 + this.AlertTypeBucket.GetHashCode();
                 if (this.AlertTypeId != null)
                     hashCode = hashCode * 59 + this.AlertTypeId.GetHashCode();
                 hashCode = hashCode * 59 + this.Category.GetHashCode();

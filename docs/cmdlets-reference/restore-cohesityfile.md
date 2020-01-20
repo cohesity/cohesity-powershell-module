@@ -226,13 +226,13 @@ Accept wildcard characters: False
 Specifies the operating system type of the target host.
 This is not required when restoring to a Physical Server but must be specified when restoring to a VM.
 
-Possible values: KLinux, KWindows, KAix, KSolaris
+Possible values: KLinux, KWindows, KAix, KSolaris, KSapHana, KOther
 
 ```yaml
 Type: TargetHostTypeEnum
 Parameter Sets: (All)
 Aliases:
-Accepted values: KLinux, KWindows, KAix, KSolaris
+Accepted values: KLinux, KWindows, KAix, KSolaris, KSapHana, KOther
 
 Required: False
 Position: Named

@@ -79,18 +79,20 @@ namespace Cohesity.Model
         /// <param name="isFullBackup">Specifies whether this is a &#39;kFull&#39; or &#39;kRegular&#39; backup of the Run. This may be true even if the scheduled backup type is &#39;kRegular&#39;. This will happen when this run corresponds to the first backup run of the Job or if no previous snapshot information is found..</param>
         /// <param name="numRestarts">Specifies the number of times the the task was restarted because of the changes on the backup source host..</param>
         /// <param name="parentSourceId">Specifies the id of the registered Protection Source that is the parent of the Objects that are protected by this Job Run..</param>
+        /// <param name="progressMonitorTaskPath">Specifies the yoda progress monitor task path which is used to get pulse information about the source that is being backed up..</param>
         /// <param name="quiesced">Specifies if app-consistent snapshot was captured. This field is set to true, if an app-consistent snapshot was taken by quiescing applications and the file system before taking a backup..</param>
         /// <param name="slaViolated">Specifies if the SLA was violated for the Job Run. This field is set to true, if time to complete the Job Run is longer than the SLA specified. This field is populated when the status is set to &#39;kSuccess&#39; or &#39;kFailure&#39;..</param>
         /// <param name="source">source.</param>
         /// <param name="stats">stats.</param>
         /// <param name="status">Specifies the status of the source object being protected. &#39;kAccepted&#39; indicates the task is queued to run but not yet running. &#39;kRunning&#39; indicates the task is running. &#39;kCanceling&#39; indicates a request to cancel the task has occurred but the task is not yet canceled. &#39;kCanceled&#39; indicates the task has been canceled. &#39;kSuccess&#39; indicates the task was successful. &#39;kFailure&#39; indicates the task failed..</param>
         /// <param name="warnings">Array of Warnings.  Specifies the warnings that occurred (if any) while running this task..</param>
-        public SourceBackupStatus(SnapshotInfo currentSnapshotInfo = default(SnapshotInfo), string error = default(string), bool? isFullBackup = default(bool?), int? numRestarts = default(int?), long? parentSourceId = default(long?), bool? quiesced = default(bool?), bool? slaViolated = default(bool?), ProtectionSource source = default(ProtectionSource), BackupSourceStats stats = default(BackupSourceStats), StatusEnum? status = default(StatusEnum?), List<string> warnings = default(List<string>))
+        public SourceBackupStatus(SnapshotInfo currentSnapshotInfo = default(SnapshotInfo), string error = default(string), bool? isFullBackup = default(bool?), int? numRestarts = default(int?), long? parentSourceId = default(long?), string progressMonitorTaskPath = default(string), bool? quiesced = default(bool?), bool? slaViolated = default(bool?), ProtectionSource source = default(ProtectionSource), BackupSourceStats stats = default(BackupSourceStats), StatusEnum? status = default(StatusEnum?), List<string> warnings = default(List<string>))
         {
             this.Error = error;
             this.IsFullBackup = isFullBackup;
             this.NumRestarts = numRestarts;
             this.ParentSourceId = parentSourceId;
+            this.ProgressMonitorTaskPath = progressMonitorTaskPath;
             this.Quiesced = quiesced;
             this.SlaViolated = slaViolated;
             this.Status = status;
@@ -100,6 +102,7 @@ namespace Cohesity.Model
             this.IsFullBackup = isFullBackup;
             this.NumRestarts = numRestarts;
             this.ParentSourceId = parentSourceId;
+            this.ProgressMonitorTaskPath = progressMonitorTaskPath;
             this.Quiesced = quiesced;
             this.SlaViolated = slaViolated;
             this.Source = source;
@@ -141,6 +144,13 @@ namespace Cohesity.Model
         /// <value>Specifies the id of the registered Protection Source that is the parent of the Objects that are protected by this Job Run.</value>
         [DataMember(Name="parentSourceId", EmitDefaultValue=true)]
         public long? ParentSourceId { get; set; }
+
+        /// <summary>
+        /// Specifies the yoda progress monitor task path which is used to get pulse information about the source that is being backed up.
+        /// </summary>
+        /// <value>Specifies the yoda progress monitor task path which is used to get pulse information about the source that is being backed up.</value>
+        [DataMember(Name="progressMonitorTaskPath", EmitDefaultValue=true)]
+        public string ProgressMonitorTaskPath { get; set; }
 
         /// <summary>
         /// Specifies if app-consistent snapshot was captured. This field is set to true, if an app-consistent snapshot was taken by quiescing applications and the file system before taking a backup.
@@ -237,6 +247,11 @@ namespace Cohesity.Model
                     this.ParentSourceId.Equals(input.ParentSourceId))
                 ) && 
                 (
+                    this.ProgressMonitorTaskPath == input.ProgressMonitorTaskPath ||
+                    (this.ProgressMonitorTaskPath != null &&
+                    this.ProgressMonitorTaskPath.Equals(input.ProgressMonitorTaskPath))
+                ) && 
+                (
                     this.Quiesced == input.Quiesced ||
                     (this.Quiesced != null &&
                     this.Quiesced.Equals(input.Quiesced))
@@ -287,6 +302,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.NumRestarts.GetHashCode();
                 if (this.ParentSourceId != null)
                     hashCode = hashCode * 59 + this.ParentSourceId.GetHashCode();
+                if (this.ProgressMonitorTaskPath != null)
+                    hashCode = hashCode * 59 + this.ProgressMonitorTaskPath.GetHashCode();
                 if (this.Quiesced != null)
                     hashCode = hashCode * 59 + this.Quiesced.GetHashCode();
                 if (this.SlaViolated != null)

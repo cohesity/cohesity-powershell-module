@@ -23,39 +23,19 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="QuotaPolicy" /> class.
         /// </summary>
-        /// <param name="alertLimit">AlertLimitBytes converted to GiB format for report purposes..</param>
-        /// <param name="hardLimit">HardLimitBytes converted to GiB format for report purposes..</param>
         /// <param name="alertLimitBytes">Specifies if an alert should be triggered when the usage of this resource exceeds this quota limit. This limit is optional and is specified in bytes. If no value is specified, there is no limit..</param>
         /// <param name="alertThresholdPercentage">Supported only for user quota policy. Specifies when the uage goes above an alert threshold percentage which is: HardLimitBytes * AlertThresholdPercentage, eg: 80% of HardLimitBytes Can only be set if HardLimitBytes is set. Cannot be set if AlertLimitBytes is already set..</param>
         /// <param name="hardLimitBytes">Specifies an optional quota limit on the usage allowed for this resource. This limit is specified in bytes. If no value is specified, there is no limit..</param>
-        public QuotaPolicy(string alertLimit = default(string), string hardLimit = default(string), long? alertLimitBytes = default(long?), long? alertThresholdPercentage = default(long?), long? hardLimitBytes = default(long?))
+        public QuotaPolicy(long? alertLimitBytes = default(long?), long? alertThresholdPercentage = default(long?), long? hardLimitBytes = default(long?))
         {
-            this.AlertLimit = alertLimit;
-            this.HardLimit = hardLimit;
             this.AlertLimitBytes = alertLimitBytes;
             this.AlertThresholdPercentage = alertThresholdPercentage;
             this.HardLimitBytes = hardLimitBytes;
-            this.AlertLimit = alertLimit;
-            this.HardLimit = hardLimit;
             this.AlertLimitBytes = alertLimitBytes;
             this.AlertThresholdPercentage = alertThresholdPercentage;
             this.HardLimitBytes = hardLimitBytes;
         }
         
-        /// <summary>
-        /// AlertLimitBytes converted to GiB format for report purposes.
-        /// </summary>
-        /// <value>AlertLimitBytes converted to GiB format for report purposes.</value>
-        [DataMember(Name="AlertLimit", EmitDefaultValue=true)]
-        public string AlertLimit { get; set; }
-
-        /// <summary>
-        /// HardLimitBytes converted to GiB format for report purposes.
-        /// </summary>
-        /// <value>HardLimitBytes converted to GiB format for report purposes.</value>
-        [DataMember(Name="HardLimit", EmitDefaultValue=true)]
-        public string HardLimit { get; set; }
-
         /// <summary>
         /// Specifies if an alert should be triggered when the usage of this resource exceeds this quota limit. This limit is optional and is specified in bytes. If no value is specified, there is no limit.
         /// </summary>
@@ -114,16 +94,6 @@ namespace Cohesity.Model
 
             return 
                 (
-                    this.AlertLimit == input.AlertLimit ||
-                    (this.AlertLimit != null &&
-                    this.AlertLimit.Equals(input.AlertLimit))
-                ) && 
-                (
-                    this.HardLimit == input.HardLimit ||
-                    (this.HardLimit != null &&
-                    this.HardLimit.Equals(input.HardLimit))
-                ) && 
-                (
                     this.AlertLimitBytes == input.AlertLimitBytes ||
                     (this.AlertLimitBytes != null &&
                     this.AlertLimitBytes.Equals(input.AlertLimitBytes))
@@ -149,10 +119,6 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                if (this.AlertLimit != null)
-                    hashCode = hashCode * 59 + this.AlertLimit.GetHashCode();
-                if (this.HardLimit != null)
-                    hashCode = hashCode * 59 + this.HardLimit.GetHashCode();
                 if (this.AlertLimitBytes != null)
                     hashCode = hashCode * 59 + this.AlertLimitBytes.GetHashCode();
                 if (this.AlertThresholdPercentage != null)

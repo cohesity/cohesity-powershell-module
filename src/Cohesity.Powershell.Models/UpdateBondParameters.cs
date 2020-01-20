@@ -56,19 +56,39 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="UpdateBondParameters" /> class.
         /// </summary>
         /// <param name="bondingMode">Specifies the new bonding mode. &#39;kActiveBackup&#39; indicates active backup bonding mode. &#39;k802_3ad&#39; indicates 802.3ad bonding mode. (required).</param>
+        /// <param name="lacpRate">Specifies the LACP rate. If not specified, This value will default to 0 (slow)..</param>
         /// <param name="name">Specifies the name of the bond being updated. (required).</param>
-        public UpdateBondParameters(BondingModeEnum bondingMode = default(BondingModeEnum), string name = default(string))
+        /// <param name="xmitHashPolicy">Specifies the xmit hash policy. If not specified, This value will default to 1 (layer3+4)..</param>
+        public UpdateBondParameters(BondingModeEnum bondingMode = default(BondingModeEnum), string lacpRate = default(string), string name = default(string), string xmitHashPolicy = default(string))
         {
             this.BondingMode = bondingMode;
+            this.LacpRate = lacpRate;
             this.Name = name;
+            this.XmitHashPolicy = xmitHashPolicy;
+            this.LacpRate = lacpRate;
+            this.XmitHashPolicy = xmitHashPolicy;
         }
         
+        /// <summary>
+        /// Specifies the LACP rate. If not specified, This value will default to 0 (slow).
+        /// </summary>
+        /// <value>Specifies the LACP rate. If not specified, This value will default to 0 (slow).</value>
+        [DataMember(Name="lacpRate", EmitDefaultValue=true)]
+        public string LacpRate { get; set; }
+
         /// <summary>
         /// Specifies the name of the bond being updated.
         /// </summary>
         /// <value>Specifies the name of the bond being updated.</value>
         [DataMember(Name="name", EmitDefaultValue=true)]
         public string Name { get; set; }
+
+        /// <summary>
+        /// Specifies the xmit hash policy. If not specified, This value will default to 1 (layer3+4).
+        /// </summary>
+        /// <value>Specifies the xmit hash policy. If not specified, This value will default to 1 (layer3+4).</value>
+        [DataMember(Name="xmitHashPolicy", EmitDefaultValue=true)]
+        public string XmitHashPolicy { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -111,9 +131,19 @@ namespace Cohesity.Model
                     this.BondingMode.Equals(input.BondingMode)
                 ) && 
                 (
+                    this.LacpRate == input.LacpRate ||
+                    (this.LacpRate != null &&
+                    this.LacpRate.Equals(input.LacpRate))
+                ) && 
+                (
                     this.Name == input.Name ||
                     (this.Name != null &&
                     this.Name.Equals(input.Name))
+                ) && 
+                (
+                    this.XmitHashPolicy == input.XmitHashPolicy ||
+                    (this.XmitHashPolicy != null &&
+                    this.XmitHashPolicy.Equals(input.XmitHashPolicy))
                 );
         }
 
@@ -127,8 +157,12 @@ namespace Cohesity.Model
             {
                 int hashCode = 41;
                 hashCode = hashCode * 59 + this.BondingMode.GetHashCode();
+                if (this.LacpRate != null)
+                    hashCode = hashCode * 59 + this.LacpRate.GetHashCode();
                 if (this.Name != null)
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
+                if (this.XmitHashPolicy != null)
+                    hashCode = hashCode * 59 + this.XmitHashPolicy.GetHashCode();
                 return hashCode;
             }
         }

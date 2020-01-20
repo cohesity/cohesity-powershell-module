@@ -23,31 +23,31 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="CompareAdObjectsRequest" /> class.
         /// </summary>
-        /// <param name="restoreTaskId">Specifies the Restore Task Id corresponding to which we need to compare the AD objects..</param>
+        [JsonConstructorAttribute]
+        protected CompareAdObjectsRequest() { }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CompareAdObjectsRequest" /> class.
+        /// </summary>
+        /// <param name="restoreTaskId">Specifies the Restore Task Id corresponding to which we need to compare the AD objects. (required).</param>
         /// <param name="allowEmptyDestGuids">Specifies the option to get object attributes from Snapshot AD when destination guid is missing in GuidPair. This helps to show attributes of AD object from Snapshot AD when the object is missing in Production AD..</param>
-        /// <param name="caseSensitive">Specifies the option to make comparison of attribute values case sensitive. Default is case insensitive..</param>
         /// <param name="excludeSysAttributes">Specifies the option to exclude AD system attributes when comparing two AD object attributes. If the objects have same guid, most of the system attributes would match.If the AD object was recovered through a restore, then many system attributes will be different. Default compares all attributes..</param>
         /// <param name="filterNullValueAttributes">Specifies the option to not return attributes where source and destination values are null values. This reduces noise of the properties in the objects returned..</param>
         /// <param name="filterSameValueAttributes">Specifies the option to not return attributes where source and destination values are same. Use this flag to return only values that are different..</param>
-        /// <param name="guidPairs">Specifies the GuidPair of the AD Objects which we want to compare from both Snapshot and Production AD..</param>
+        /// <param name="guidPairs">Specifies the GuidPair of the AD Objects which we want to compare from both Snapshot and Production AD. (required).</param>
         /// <param name="quickCompare">Specifies the option to do quick compare of specified guid between Snapshot AD and Production AD. If at least one attribute mismatch is found, comparison stops and returns with AdObjectFlag kNotEqual..</param>
-        public CompareAdObjectsRequest(long? restoreTaskId = default(long?), bool? allowEmptyDestGuids = default(bool?), bool? caseSensitive = default(bool?), bool? excludeSysAttributes = default(bool?), bool? filterNullValueAttributes = default(bool?), bool? filterSameValueAttributes = default(bool?), List<GuidPair> guidPairs = default(List<GuidPair>), bool? quickCompare = default(bool?))
+        public CompareAdObjectsRequest(long? restoreTaskId = default(long?), bool? allowEmptyDestGuids = default(bool?), bool? excludeSysAttributes = default(bool?), bool? filterNullValueAttributes = default(bool?), bool? filterSameValueAttributes = default(bool?), List<GuidPair> guidPairs = default(List<GuidPair>), bool? quickCompare = default(bool?))
         {
             this.RestoreTaskId = restoreTaskId;
             this.AllowEmptyDestGuids = allowEmptyDestGuids;
-            this.CaseSensitive = caseSensitive;
             this.ExcludeSysAttributes = excludeSysAttributes;
             this.FilterNullValueAttributes = filterNullValueAttributes;
             this.FilterSameValueAttributes = filterSameValueAttributes;
             this.GuidPairs = guidPairs;
             this.QuickCompare = quickCompare;
-            this.RestoreTaskId = restoreTaskId;
             this.AllowEmptyDestGuids = allowEmptyDestGuids;
-            this.CaseSensitive = caseSensitive;
             this.ExcludeSysAttributes = excludeSysAttributes;
             this.FilterNullValueAttributes = filterNullValueAttributes;
             this.FilterSameValueAttributes = filterSameValueAttributes;
-            this.GuidPairs = guidPairs;
             this.QuickCompare = quickCompare;
         }
         
@@ -64,13 +64,6 @@ namespace Cohesity.Model
         /// <value>Specifies the option to get object attributes from Snapshot AD when destination guid is missing in GuidPair. This helps to show attributes of AD object from Snapshot AD when the object is missing in Production AD.</value>
         [DataMember(Name="allowEmptyDestGuids", EmitDefaultValue=true)]
         public bool? AllowEmptyDestGuids { get; set; }
-
-        /// <summary>
-        /// Specifies the option to make comparison of attribute values case sensitive. Default is case insensitive.
-        /// </summary>
-        /// <value>Specifies the option to make comparison of attribute values case sensitive. Default is case insensitive.</value>
-        [DataMember(Name="caseSensitive", EmitDefaultValue=true)]
-        public bool? CaseSensitive { get; set; }
 
         /// <summary>
         /// Specifies the option to exclude AD system attributes when comparing two AD object attributes. If the objects have same guid, most of the system attributes would match.If the AD object was recovered through a restore, then many system attributes will be different. Default compares all attributes.
@@ -154,11 +147,6 @@ namespace Cohesity.Model
                     this.AllowEmptyDestGuids.Equals(input.AllowEmptyDestGuids))
                 ) && 
                 (
-                    this.CaseSensitive == input.CaseSensitive ||
-                    (this.CaseSensitive != null &&
-                    this.CaseSensitive.Equals(input.CaseSensitive))
-                ) && 
-                (
                     this.ExcludeSysAttributes == input.ExcludeSysAttributes ||
                     (this.ExcludeSysAttributes != null &&
                     this.ExcludeSysAttributes.Equals(input.ExcludeSysAttributes))
@@ -199,8 +187,6 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.RestoreTaskId.GetHashCode();
                 if (this.AllowEmptyDestGuids != null)
                     hashCode = hashCode * 59 + this.AllowEmptyDestGuids.GetHashCode();
-                if (this.CaseSensitive != null)
-                    hashCode = hashCode * 59 + this.CaseSensitive.GetHashCode();
                 if (this.ExcludeSysAttributes != null)
                     hashCode = hashCode * 59 + this.ExcludeSysAttributes.GetHashCode();
                 if (this.FilterNullValueAttributes != null)

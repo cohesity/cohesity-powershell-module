@@ -60,6 +60,45 @@ namespace Cohesity.Model
         [DataMember(Name="protocolAccess", EmitDefaultValue=true)]
         public ProtocolAccessEnum? ProtocolAccess { get; set; }
         /// <summary>
+        /// Specifies key mapping config of S3 storage. Configuration of S3 key mapping.  Specifies the type of S3 key mapping config.
+        /// </summary>
+        /// <value>Specifies key mapping config of S3 storage. Configuration of S3 key mapping.  Specifies the type of S3 key mapping config.</value>
+        [JsonConverter(typeof(StringEnumConverter))]
+        public enum S3KeyMappingConfigEnum
+        {
+            /// <summary>
+            /// Enum KRandom for value: kRandom
+            /// </summary>
+            [EnumMember(Value = "kRandom")]
+            KRandom = 1,
+
+            /// <summary>
+            /// Enum KShort for value: kShort
+            /// </summary>
+            [EnumMember(Value = "kShort")]
+            KShort = 2,
+
+            /// <summary>
+            /// Enum KLong for value: kLong
+            /// </summary>
+            [EnumMember(Value = "kLong")]
+            KLong = 3,
+
+            /// <summary>
+            /// Enum KHierarchical for value: kHierarchical
+            /// </summary>
+            [EnumMember(Value = "kHierarchical")]
+            KHierarchical = 4
+
+        }
+
+        /// <summary>
+        /// Specifies key mapping config of S3 storage. Configuration of S3 key mapping.  Specifies the type of S3 key mapping config.
+        /// </summary>
+        /// <value>Specifies key mapping config of S3 storage. Configuration of S3 key mapping.  Specifies the type of S3 key mapping config.</value>
+        [DataMember(Name="s3KeyMappingConfig", EmitDefaultValue=true)]
+        public S3KeyMappingConfigEnum? S3KeyMappingConfig { get; set; }
+        /// <summary>
         /// Specifies the security mode used for this view. Currently we support the following modes: Native, Unified and NTFS style. &#39;kNativeMode&#39; indicates a native security mode. &#39;kUnifiedMode&#39; indicates a unified security mode. &#39;kNtfsMode&#39; indicates a NTFS style security mode.
         /// </summary>
         /// <value>Specifies the security mode used for this view. Currently we support the following modes: Native, Unified and NTFS style. &#39;kNativeMode&#39; indicates a native security mode. &#39;kUnifiedMode&#39; indicates a unified security mode. &#39;kNtfsMode&#39; indicates a NTFS style security mode.</value>
@@ -107,6 +146,7 @@ namespace Cohesity.Model
         /// <param name="enableFilerAuditLogging">Specifies if Filer Audit Logging is enabled for this view..</param>
         /// <param name="enableMixedModePermissions">If set, mixed mode (NFS and SMB) access is enabled for this view. This field is deprecated. Use the field SecurityMode. deprecated: true.</param>
         /// <param name="enableNfsViewDiscovery">If set, it enables discovery of view for NFS..</param>
+        /// <param name="enableOfflineCaching">Specifies whether to enable offline file caching of the view..</param>
         /// <param name="enableSmbAccessBasedEnumeration">Specifies if access-based enumeration should be enabled. If &#39;true&#39;, only files and folders that the user has permissions to access are visible on the SMB share for that user..</param>
         /// <param name="enableSmbEncryption">Specifies the SMB encryption for the View. If set, it enables the SMB encryption for the View. Encryption is supported only by SMB 3.x dialects. Dialects that do not support would still access data in unencrypted format..</param>
         /// <param name="enableSmbViewDiscovery">If set, it enables discovery of view for SMB..</param>
@@ -115,15 +155,21 @@ namespace Cohesity.Model
         /// <param name="fileLockConfig">fileLockConfig.</param>
         /// <param name="logicalQuota">Specifies an optional logical quota limit (in bytes) for the usage allowed on this View. (Logical data is when the data is fully hydrated and expanded.) This limit overrides the limit inherited from the Storage Domain (View Box) (if set). If logicalQuota is nil, the limit is inherited from the Storage Domain (View Box) (if set). A new write is not allowed if the Storage Domain (View Box) will exceed the specified quota. However, it takes time for the Cohesity Cluster to calculate the usage across Nodes, so the limit may be exceeded by a small amount. In addition, if the limit is increased or data is removed, there may be a delay before the Cohesity Cluster allows more data to be written to the View, as the Cluster is calculating the usage across Nodes..</param>
         /// <param name="name">Specifies the name of the new View to create. (required).</param>
+        /// <param name="nfsAllSquash">nfsAllSquash.</param>
+        /// <param name="nfsRootPermissions">nfsRootPermissions.</param>
+        /// <param name="nfsRootSquash">nfsRootSquash.</param>
+        /// <param name="overrideGlobalWhitelist">Specifies whether view level client subnet whitelist overrides cluster and global setting..</param>
         /// <param name="protocolAccess">Specifies the supported Protocols for the View. &#39;kAll&#39; enables protocol access to all three views: NFS, SMB and S3. &#39;kNFSOnly&#39; enables protocol access to NFS only. &#39;kSMBOnly&#39; enables protocol access to SMB only. &#39;kS3Only&#39; enables protocol access to S3 only..</param>
         /// <param name="qos">qos.</param>
+        /// <param name="s3KeyMappingConfig">Specifies key mapping config of S3 storage. Configuration of S3 key mapping.  Specifies the type of S3 key mapping config..</param>
         /// <param name="securityMode">Specifies the security mode used for this view. Currently we support the following modes: Native, Unified and NTFS style. &#39;kNativeMode&#39; indicates a native security mode. &#39;kUnifiedMode&#39; indicates a unified security mode. &#39;kNtfsMode&#39; indicates a NTFS style security mode..</param>
+        /// <param name="sharePermissions">Specifies a list of share level permissions..</param>
         /// <param name="smbPermissionsInfo">smbPermissionsInfo.</param>
         /// <param name="storagePolicyOverride">storagePolicyOverride.</param>
         /// <param name="subnetWhitelist">Array of Subnets.  Specifies a list of Subnets with IP addresses that have permissions to access the View. (Overrides the Subnets specified at the global Cohesity Cluster level.).</param>
         /// <param name="tenantId">Optional tenant id who has access to this View..</param>
         /// <param name="viewBoxId">Specifies the id of the Storage Domain (View Box) where the View will be created. (required).</param>
-        public CreateViewRequest(List<string> accessSids = default(List<string>), AntivirusScanConfig antivirusScanConfig = default(AntivirusScanConfig), bool? caseInsensitiveNamesEnabled = default(bool?), string description = default(string), bool? enableFilerAuditLogging = default(bool?), bool? enableMixedModePermissions = default(bool?), bool? enableNfsViewDiscovery = default(bool?), bool? enableSmbAccessBasedEnumeration = default(bool?), bool? enableSmbEncryption = default(bool?), bool? enableSmbViewDiscovery = default(bool?), bool? enforceSmbEncryption = default(bool?), FileExtensionFilter fileExtensionFilter = default(FileExtensionFilter), FileLevelDataLockConfig fileLockConfig = default(FileLevelDataLockConfig), QuotaPolicy logicalQuota = default(QuotaPolicy), string name = default(string), ProtocolAccessEnum? protocolAccess = default(ProtocolAccessEnum?), QoS qos = default(QoS), SecurityModeEnum? securityMode = default(SecurityModeEnum?), SmbPermissionsInfo smbPermissionsInfo = default(SmbPermissionsInfo), StoragePolicyOverride storagePolicyOverride = default(StoragePolicyOverride), List<Subnet> subnetWhitelist = default(List<Subnet>), string tenantId = default(string), long? viewBoxId = default(long?))
+        public CreateViewRequest(List<string> accessSids = default(List<string>), AntivirusScanConfig antivirusScanConfig = default(AntivirusScanConfig), bool? caseInsensitiveNamesEnabled = default(bool?), string description = default(string), bool? enableFilerAuditLogging = default(bool?), bool? enableMixedModePermissions = default(bool?), bool? enableNfsViewDiscovery = default(bool?), bool? enableOfflineCaching = default(bool?), bool? enableSmbAccessBasedEnumeration = default(bool?), bool? enableSmbEncryption = default(bool?), bool? enableSmbViewDiscovery = default(bool?), bool? enforceSmbEncryption = default(bool?), FileExtensionFilter fileExtensionFilter = default(FileExtensionFilter), FileLevelDataLockConfig fileLockConfig = default(FileLevelDataLockConfig), QuotaPolicy logicalQuota = default(QuotaPolicy), string name = default(string), NfsSquash nfsAllSquash = default(NfsSquash), NfsRootPermissions nfsRootPermissions = default(NfsRootPermissions), NfsSquash nfsRootSquash = default(NfsSquash), bool? overrideGlobalWhitelist = default(bool?), ProtocolAccessEnum? protocolAccess = default(ProtocolAccessEnum?), QoS qos = default(QoS), S3KeyMappingConfigEnum? s3KeyMappingConfig = default(S3KeyMappingConfigEnum?), SecurityModeEnum? securityMode = default(SecurityModeEnum?), List<SmbPermission> sharePermissions = default(List<SmbPermission>), SmbPermissionsInfo smbPermissionsInfo = default(SmbPermissionsInfo), StoragePolicyOverride storagePolicyOverride = default(StoragePolicyOverride), List<Subnet> subnetWhitelist = default(List<Subnet>), string tenantId = default(string), long? viewBoxId = default(long?))
         {
             this.AccessSids = accessSids;
             this.CaseInsensitiveNamesEnabled = caseInsensitiveNamesEnabled;
@@ -131,14 +177,18 @@ namespace Cohesity.Model
             this.EnableFilerAuditLogging = enableFilerAuditLogging;
             this.EnableMixedModePermissions = enableMixedModePermissions;
             this.EnableNfsViewDiscovery = enableNfsViewDiscovery;
+            this.EnableOfflineCaching = enableOfflineCaching;
             this.EnableSmbAccessBasedEnumeration = enableSmbAccessBasedEnumeration;
             this.EnableSmbEncryption = enableSmbEncryption;
             this.EnableSmbViewDiscovery = enableSmbViewDiscovery;
             this.EnforceSmbEncryption = enforceSmbEncryption;
             this.LogicalQuota = logicalQuota;
             this.Name = name;
+            this.OverrideGlobalWhitelist = overrideGlobalWhitelist;
             this.ProtocolAccess = protocolAccess;
+            this.S3KeyMappingConfig = s3KeyMappingConfig;
             this.SecurityMode = securityMode;
+            this.SharePermissions = sharePermissions;
             this.SubnetWhitelist = subnetWhitelist;
             this.TenantId = tenantId;
             this.ViewBoxId = viewBoxId;
@@ -149,6 +199,7 @@ namespace Cohesity.Model
             this.EnableFilerAuditLogging = enableFilerAuditLogging;
             this.EnableMixedModePermissions = enableMixedModePermissions;
             this.EnableNfsViewDiscovery = enableNfsViewDiscovery;
+            this.EnableOfflineCaching = enableOfflineCaching;
             this.EnableSmbAccessBasedEnumeration = enableSmbAccessBasedEnumeration;
             this.EnableSmbEncryption = enableSmbEncryption;
             this.EnableSmbViewDiscovery = enableSmbViewDiscovery;
@@ -156,9 +207,15 @@ namespace Cohesity.Model
             this.FileExtensionFilter = fileExtensionFilter;
             this.FileLockConfig = fileLockConfig;
             this.LogicalQuota = logicalQuota;
+            this.NfsAllSquash = nfsAllSquash;
+            this.NfsRootPermissions = nfsRootPermissions;
+            this.NfsRootSquash = nfsRootSquash;
+            this.OverrideGlobalWhitelist = overrideGlobalWhitelist;
             this.ProtocolAccess = protocolAccess;
             this.Qos = qos;
+            this.S3KeyMappingConfig = s3KeyMappingConfig;
             this.SecurityMode = securityMode;
+            this.SharePermissions = sharePermissions;
             this.SmbPermissionsInfo = smbPermissionsInfo;
             this.StoragePolicyOverride = storagePolicyOverride;
             this.SubnetWhitelist = subnetWhitelist;
@@ -212,6 +269,13 @@ namespace Cohesity.Model
         /// <value>If set, it enables discovery of view for NFS.</value>
         [DataMember(Name="enableNfsViewDiscovery", EmitDefaultValue=true)]
         public bool? EnableNfsViewDiscovery { get; set; }
+
+        /// <summary>
+        /// Specifies whether to enable offline file caching of the view.
+        /// </summary>
+        /// <value>Specifies whether to enable offline file caching of the view.</value>
+        [DataMember(Name="enableOfflineCaching", EmitDefaultValue=true)]
+        public bool? EnableOfflineCaching { get; set; }
 
         /// <summary>
         /// Specifies if access-based enumeration should be enabled. If &#39;true&#39;, only files and folders that the user has permissions to access are visible on the SMB share for that user.
@@ -268,10 +332,42 @@ namespace Cohesity.Model
         public string Name { get; set; }
 
         /// <summary>
+        /// Gets or Sets NfsAllSquash
+        /// </summary>
+        [DataMember(Name="nfsAllSquash", EmitDefaultValue=false)]
+        public NfsSquash NfsAllSquash { get; set; }
+
+        /// <summary>
+        /// Gets or Sets NfsRootPermissions
+        /// </summary>
+        [DataMember(Name="nfsRootPermissions", EmitDefaultValue=false)]
+        public NfsRootPermissions NfsRootPermissions { get; set; }
+
+        /// <summary>
+        /// Gets or Sets NfsRootSquash
+        /// </summary>
+        [DataMember(Name="nfsRootSquash", EmitDefaultValue=false)]
+        public NfsSquash NfsRootSquash { get; set; }
+
+        /// <summary>
+        /// Specifies whether view level client subnet whitelist overrides cluster and global setting.
+        /// </summary>
+        /// <value>Specifies whether view level client subnet whitelist overrides cluster and global setting.</value>
+        [DataMember(Name="overrideGlobalWhitelist", EmitDefaultValue=true)]
+        public bool? OverrideGlobalWhitelist { get; set; }
+
+        /// <summary>
         /// Gets or Sets Qos
         /// </summary>
         [DataMember(Name="qos", EmitDefaultValue=false)]
         public QoS Qos { get; set; }
+
+        /// <summary>
+        /// Specifies a list of share level permissions.
+        /// </summary>
+        /// <value>Specifies a list of share level permissions.</value>
+        [DataMember(Name="sharePermissions", EmitDefaultValue=true)]
+        public List<SmbPermission> SharePermissions { get; set; }
 
         /// <summary>
         /// Gets or Sets SmbPermissionsInfo
@@ -379,6 +475,11 @@ namespace Cohesity.Model
                     this.EnableNfsViewDiscovery.Equals(input.EnableNfsViewDiscovery))
                 ) && 
                 (
+                    this.EnableOfflineCaching == input.EnableOfflineCaching ||
+                    (this.EnableOfflineCaching != null &&
+                    this.EnableOfflineCaching.Equals(input.EnableOfflineCaching))
+                ) && 
+                (
                     this.EnableSmbAccessBasedEnumeration == input.EnableSmbAccessBasedEnumeration ||
                     (this.EnableSmbAccessBasedEnumeration != null &&
                     this.EnableSmbAccessBasedEnumeration.Equals(input.EnableSmbAccessBasedEnumeration))
@@ -419,6 +520,26 @@ namespace Cohesity.Model
                     this.Name.Equals(input.Name))
                 ) && 
                 (
+                    this.NfsAllSquash == input.NfsAllSquash ||
+                    (this.NfsAllSquash != null &&
+                    this.NfsAllSquash.Equals(input.NfsAllSquash))
+                ) && 
+                (
+                    this.NfsRootPermissions == input.NfsRootPermissions ||
+                    (this.NfsRootPermissions != null &&
+                    this.NfsRootPermissions.Equals(input.NfsRootPermissions))
+                ) && 
+                (
+                    this.NfsRootSquash == input.NfsRootSquash ||
+                    (this.NfsRootSquash != null &&
+                    this.NfsRootSquash.Equals(input.NfsRootSquash))
+                ) && 
+                (
+                    this.OverrideGlobalWhitelist == input.OverrideGlobalWhitelist ||
+                    (this.OverrideGlobalWhitelist != null &&
+                    this.OverrideGlobalWhitelist.Equals(input.OverrideGlobalWhitelist))
+                ) && 
+                (
                     this.ProtocolAccess == input.ProtocolAccess ||
                     this.ProtocolAccess.Equals(input.ProtocolAccess)
                 ) && 
@@ -428,8 +549,18 @@ namespace Cohesity.Model
                     this.Qos.Equals(input.Qos))
                 ) && 
                 (
+                    this.S3KeyMappingConfig == input.S3KeyMappingConfig ||
+                    this.S3KeyMappingConfig.Equals(input.S3KeyMappingConfig)
+                ) && 
+                (
                     this.SecurityMode == input.SecurityMode ||
                     this.SecurityMode.Equals(input.SecurityMode)
+                ) && 
+                (
+                    this.SharePermissions == input.SharePermissions ||
+                    this.SharePermissions != null &&
+                    input.SharePermissions != null &&
+                    this.SharePermissions.SequenceEqual(input.SharePermissions)
                 ) && 
                 (
                     this.SmbPermissionsInfo == input.SmbPermissionsInfo ||
@@ -482,6 +613,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.EnableMixedModePermissions.GetHashCode();
                 if (this.EnableNfsViewDiscovery != null)
                     hashCode = hashCode * 59 + this.EnableNfsViewDiscovery.GetHashCode();
+                if (this.EnableOfflineCaching != null)
+                    hashCode = hashCode * 59 + this.EnableOfflineCaching.GetHashCode();
                 if (this.EnableSmbAccessBasedEnumeration != null)
                     hashCode = hashCode * 59 + this.EnableSmbAccessBasedEnumeration.GetHashCode();
                 if (this.EnableSmbEncryption != null)
@@ -498,10 +631,21 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.LogicalQuota.GetHashCode();
                 if (this.Name != null)
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
+                if (this.NfsAllSquash != null)
+                    hashCode = hashCode * 59 + this.NfsAllSquash.GetHashCode();
+                if (this.NfsRootPermissions != null)
+                    hashCode = hashCode * 59 + this.NfsRootPermissions.GetHashCode();
+                if (this.NfsRootSquash != null)
+                    hashCode = hashCode * 59 + this.NfsRootSquash.GetHashCode();
+                if (this.OverrideGlobalWhitelist != null)
+                    hashCode = hashCode * 59 + this.OverrideGlobalWhitelist.GetHashCode();
                 hashCode = hashCode * 59 + this.ProtocolAccess.GetHashCode();
                 if (this.Qos != null)
                     hashCode = hashCode * 59 + this.Qos.GetHashCode();
+                hashCode = hashCode * 59 + this.S3KeyMappingConfig.GetHashCode();
                 hashCode = hashCode * 59 + this.SecurityMode.GetHashCode();
+                if (this.SharePermissions != null)
+                    hashCode = hashCode * 59 + this.SharePermissions.GetHashCode();
                 if (this.SmbPermissionsInfo != null)
                     hashCode = hashCode * 59 + this.SmbPermissionsInfo.GetHashCode();
                 if (this.StoragePolicyOverride != null)

@@ -32,7 +32,7 @@ namespace Cohesity.Model
         /// <param name="truncateExchangeLog">If true, after the Cohesity Cluster successfully captures a Snapshot during a Job Run, the Cluster truncates the Exchange transaction logs on a Microsoft Exchange Server. The default value is false. This field is deprecated. Use the field in ApplicationParameters inside source specific parameter. deprecated: true.</param>
         /// <param name="vmCredentials">Specifies the administrator credentials to log in to the guest Windows system of a VM that hosts the Microsoft Exchange Server. If truncateExchangeLog is set to true and the specified source is a VM, administrator credentials to log in to the guest Windows system of the VM must be provided to truncate the logs. This field is only applicable to Sources in the kVMware environment. This field is deprecated. Use the field in VmCredentials inside source specific parameter. deprecated: true.</param>
         /// <param name="vmwareSpecialParameters">vmwareSpecialParameters.</param>
-        public SourceSpecialParameter(ApplicationSpecialParameters adSpecialParameters = default(ApplicationSpecialParameters), ApplicationSpecialParameters oracleSpecialParameters = default(ApplicationSpecialParameters), PhysicalSpecialParameters physicalSpecialParameters = default(PhysicalSpecialParameters), bool? skipIndexing = default(bool?), long? sourceId = default(long?), ApplicationSpecialParameters sqlSpecialParameters = default(ApplicationSpecialParameters), bool? truncateExchangeLog = default(bool?), Credentials vmCredentials = default(Credentials), VmwareSpecialParameters vmwareSpecialParameters = default(VmwareSpecialParameters))
+        public SourceSpecialParameter(ApplicationSpecialParameters adSpecialParameters = default(ApplicationSpecialParameters), OracleSpecialParameters oracleSpecialParameters = default(OracleSpecialParameters), PhysicalSpecialParameters physicalSpecialParameters = default(PhysicalSpecialParameters), bool? skipIndexing = default(bool?), long? sourceId = default(long?), ApplicationSpecialParameters sqlSpecialParameters = default(ApplicationSpecialParameters), bool? truncateExchangeLog = default(bool?), Credentials vmCredentials = default(Credentials), VmwareSpecialParameters vmwareSpecialParameters = default(VmwareSpecialParameters))
         {
             this.SkipIndexing = skipIndexing;
             this.SourceId = sourceId;
@@ -59,7 +59,7 @@ namespace Cohesity.Model
         /// Gets or Sets OracleSpecialParameters
         /// </summary>
         [DataMember(Name="oracleSpecialParameters", EmitDefaultValue=false)]
-        public ApplicationSpecialParameters OracleSpecialParameters { get; set; }
+        public OracleSpecialParameters OracleSpecialParameters { get; set; }
 
         /// <summary>
         /// Gets or Sets PhysicalSpecialParameters

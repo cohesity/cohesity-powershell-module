@@ -26,16 +26,22 @@ namespace Cohesity.Model
         /// <param name="applicationParameters">applicationParameters.</param>
         /// <param name="enableSystemBackup">Specifies whether to allow system backup using 3rd party tools installed on the Protection Host. System backups are used for doing bare metal recovery later. This field is applicable only for System backups..</param>
         /// <param name="filePaths">Array of File Paths to Back Up.  Specifies a list of directories or files to protect in a Physical Server..</param>
+        /// <param name="skipNestedVolumesVec">Specifies mounttypes of nested volumes to be skipped..</param>
+        /// <param name="usesSkipNestedVolumesVec">Specifies whether to use SkipNestedVolumes vec to skip nested mounts..</param>
         /// <param name="volumeGuid">Array of Mounted Volumes to Back Up.  Specifies the subset of mounted volumes to protect in a Physical Server. If not specified, all mounted volumes on a Physical Server are protected..</param>
         /// <param name="windowsParameters">windowsParameters.</param>
-        public PhysicalSpecialParameters(ApplicationParameters applicationParameters = default(ApplicationParameters), bool? enableSystemBackup = default(bool?), List<FilePathParameters> filePaths = default(List<FilePathParameters>), List<string> volumeGuid = default(List<string>), WindowsHostSnapshotParameters windowsParameters = default(WindowsHostSnapshotParameters))
+        public PhysicalSpecialParameters(ApplicationParameters applicationParameters = default(ApplicationParameters), bool? enableSystemBackup = default(bool?), List<FilePathParameters> filePaths = default(List<FilePathParameters>), List<string> skipNestedVolumesVec = default(List<string>), bool? usesSkipNestedVolumesVec = default(bool?), List<string> volumeGuid = default(List<string>), WindowsHostSnapshotParameters windowsParameters = default(WindowsHostSnapshotParameters))
         {
             this.EnableSystemBackup = enableSystemBackup;
             this.FilePaths = filePaths;
+            this.SkipNestedVolumesVec = skipNestedVolumesVec;
+            this.UsesSkipNestedVolumesVec = usesSkipNestedVolumesVec;
             this.VolumeGuid = volumeGuid;
             this.ApplicationParameters = applicationParameters;
             this.EnableSystemBackup = enableSystemBackup;
             this.FilePaths = filePaths;
+            this.SkipNestedVolumesVec = skipNestedVolumesVec;
+            this.UsesSkipNestedVolumesVec = usesSkipNestedVolumesVec;
             this.VolumeGuid = volumeGuid;
             this.WindowsParameters = windowsParameters;
         }
@@ -59,6 +65,20 @@ namespace Cohesity.Model
         /// <value>Array of File Paths to Back Up.  Specifies a list of directories or files to protect in a Physical Server.</value>
         [DataMember(Name="filePaths", EmitDefaultValue=true)]
         public List<FilePathParameters> FilePaths { get; set; }
+
+        /// <summary>
+        /// Specifies mounttypes of nested volumes to be skipped.
+        /// </summary>
+        /// <value>Specifies mounttypes of nested volumes to be skipped.</value>
+        [DataMember(Name="skipNestedVolumesVec", EmitDefaultValue=true)]
+        public List<string> SkipNestedVolumesVec { get; set; }
+
+        /// <summary>
+        /// Specifies whether to use SkipNestedVolumes vec to skip nested mounts.
+        /// </summary>
+        /// <value>Specifies whether to use SkipNestedVolumes vec to skip nested mounts.</value>
+        [DataMember(Name="usesSkipNestedVolumesVec", EmitDefaultValue=true)]
+        public bool? UsesSkipNestedVolumesVec { get; set; }
 
         /// <summary>
         /// Array of Mounted Volumes to Back Up.  Specifies the subset of mounted volumes to protect in a Physical Server. If not specified, all mounted volumes on a Physical Server are protected.
@@ -126,6 +146,17 @@ namespace Cohesity.Model
                     this.FilePaths.SequenceEqual(input.FilePaths)
                 ) && 
                 (
+                    this.SkipNestedVolumesVec == input.SkipNestedVolumesVec ||
+                    this.SkipNestedVolumesVec != null &&
+                    input.SkipNestedVolumesVec != null &&
+                    this.SkipNestedVolumesVec.SequenceEqual(input.SkipNestedVolumesVec)
+                ) && 
+                (
+                    this.UsesSkipNestedVolumesVec == input.UsesSkipNestedVolumesVec ||
+                    (this.UsesSkipNestedVolumesVec != null &&
+                    this.UsesSkipNestedVolumesVec.Equals(input.UsesSkipNestedVolumesVec))
+                ) && 
+                (
                     this.VolumeGuid == input.VolumeGuid ||
                     this.VolumeGuid != null &&
                     input.VolumeGuid != null &&
@@ -153,6 +184,10 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.EnableSystemBackup.GetHashCode();
                 if (this.FilePaths != null)
                     hashCode = hashCode * 59 + this.FilePaths.GetHashCode();
+                if (this.SkipNestedVolumesVec != null)
+                    hashCode = hashCode * 59 + this.SkipNestedVolumesVec.GetHashCode();
+                if (this.UsesSkipNestedVolumesVec != null)
+                    hashCode = hashCode * 59 + this.UsesSkipNestedVolumesVec.GetHashCode();
                 if (this.VolumeGuid != null)
                     hashCode = hashCode * 59 + this.VolumeGuid.GetHashCode();
                 if (this.WindowsParameters != null)

@@ -57,20 +57,26 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="address">Specifies the IP address or hostname of the syslog server. (required).</param>
         /// <param name="isClusterAuditingEnabled">Specifies if Cluster audit logs should be sent to this syslog server. If &#39;true&#39;, Cluster audit logs are sent to the syslog server. (default) If &#39;false&#39;, Cluster audit logs are not sent to the syslog server. Either cluster audit logs or filer audit logs should be enabled..</param>
+        /// <param name="isDataProtectionEnabled">Specifies if dataprotection  logs should be sent to syslog server If &#39;true&#39;, dataprotection  logs are sent to the server. If &#39;false&#39;, dataprotection  logs are not sent to the server.(default).</param>
         /// <param name="isFilerAuditingEnabled">Specifies if filer audit logs should be sent to this syslog server. If &#39;true&#39;, filer audit logs are sent to the syslog server. (default) If &#39;false&#39;, filer audit logs are not sent to the syslog server. Either cluster audit logs or filer audit logs should be enabled..</param>
+        /// <param name="isSshLogEnabled">Specifies if ssh login logs should be sent to syslog server If &#39;true&#39;, ssh login logs are sent to the server. If &#39;false&#39;, ssh login logs are not sent to the server.(default).</param>
         /// <param name="name">Specifies a unique name for the syslog server on the Cluster..</param>
         /// <param name="port">Specifies the port where the syslog server listens. (required).</param>
         /// <param name="protocol">Specifies the protocol used to send the logs. Specifies the protocol used to communicate to a server. e.g., kUDP, kTCP.  &#39;kUDP&#39; indicates UDP protocol. &#39;kTCP&#39; indicates TCP protocol. (required).</param>
-        public SyslogServer(string address = default(string), bool? isClusterAuditingEnabled = default(bool?), bool? isFilerAuditingEnabled = default(bool?), string name = default(string), int? port = default(int?), ProtocolEnum protocol = default(ProtocolEnum))
+        public SyslogServer(string address = default(string), bool? isClusterAuditingEnabled = default(bool?), bool? isDataProtectionEnabled = default(bool?), bool? isFilerAuditingEnabled = default(bool?), bool? isSshLogEnabled = default(bool?), string name = default(string), int? port = default(int?), ProtocolEnum protocol = default(ProtocolEnum))
         {
             this.Address = address;
             this.IsClusterAuditingEnabled = isClusterAuditingEnabled;
+            this.IsDataProtectionEnabled = isDataProtectionEnabled;
             this.IsFilerAuditingEnabled = isFilerAuditingEnabled;
+            this.IsSshLogEnabled = isSshLogEnabled;
             this.Name = name;
             this.Port = port;
             this.Protocol = protocol;
             this.IsClusterAuditingEnabled = isClusterAuditingEnabled;
+            this.IsDataProtectionEnabled = isDataProtectionEnabled;
             this.IsFilerAuditingEnabled = isFilerAuditingEnabled;
+            this.IsSshLogEnabled = isSshLogEnabled;
             this.Name = name;
         }
         
@@ -89,11 +95,25 @@ namespace Cohesity.Model
         public bool? IsClusterAuditingEnabled { get; set; }
 
         /// <summary>
+        /// Specifies if dataprotection  logs should be sent to syslog server If &#39;true&#39;, dataprotection  logs are sent to the server. If &#39;false&#39;, dataprotection  logs are not sent to the server.(default)
+        /// </summary>
+        /// <value>Specifies if dataprotection  logs should be sent to syslog server If &#39;true&#39;, dataprotection  logs are sent to the server. If &#39;false&#39;, dataprotection  logs are not sent to the server.(default)</value>
+        [DataMember(Name="isDataProtectionEnabled", EmitDefaultValue=true)]
+        public bool? IsDataProtectionEnabled { get; set; }
+
+        /// <summary>
         /// Specifies if filer audit logs should be sent to this syslog server. If &#39;true&#39;, filer audit logs are sent to the syslog server. (default) If &#39;false&#39;, filer audit logs are not sent to the syslog server. Either cluster audit logs or filer audit logs should be enabled.
         /// </summary>
         /// <value>Specifies if filer audit logs should be sent to this syslog server. If &#39;true&#39;, filer audit logs are sent to the syslog server. (default) If &#39;false&#39;, filer audit logs are not sent to the syslog server. Either cluster audit logs or filer audit logs should be enabled.</value>
         [DataMember(Name="isFilerAuditingEnabled", EmitDefaultValue=true)]
         public bool? IsFilerAuditingEnabled { get; set; }
+
+        /// <summary>
+        /// Specifies if ssh login logs should be sent to syslog server If &#39;true&#39;, ssh login logs are sent to the server. If &#39;false&#39;, ssh login logs are not sent to the server.(default)
+        /// </summary>
+        /// <value>Specifies if ssh login logs should be sent to syslog server If &#39;true&#39;, ssh login logs are sent to the server. If &#39;false&#39;, ssh login logs are not sent to the server.(default)</value>
+        [DataMember(Name="isSshLogEnabled", EmitDefaultValue=true)]
+        public bool? IsSshLogEnabled { get; set; }
 
         /// <summary>
         /// Specifies a unique name for the syslog server on the Cluster.
@@ -156,9 +176,19 @@ namespace Cohesity.Model
                     this.IsClusterAuditingEnabled.Equals(input.IsClusterAuditingEnabled))
                 ) && 
                 (
+                    this.IsDataProtectionEnabled == input.IsDataProtectionEnabled ||
+                    (this.IsDataProtectionEnabled != null &&
+                    this.IsDataProtectionEnabled.Equals(input.IsDataProtectionEnabled))
+                ) && 
+                (
                     this.IsFilerAuditingEnabled == input.IsFilerAuditingEnabled ||
                     (this.IsFilerAuditingEnabled != null &&
                     this.IsFilerAuditingEnabled.Equals(input.IsFilerAuditingEnabled))
+                ) && 
+                (
+                    this.IsSshLogEnabled == input.IsSshLogEnabled ||
+                    (this.IsSshLogEnabled != null &&
+                    this.IsSshLogEnabled.Equals(input.IsSshLogEnabled))
                 ) && 
                 (
                     this.Name == input.Name ||
@@ -189,8 +219,12 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Address.GetHashCode();
                 if (this.IsClusterAuditingEnabled != null)
                     hashCode = hashCode * 59 + this.IsClusterAuditingEnabled.GetHashCode();
+                if (this.IsDataProtectionEnabled != null)
+                    hashCode = hashCode * 59 + this.IsDataProtectionEnabled.GetHashCode();
                 if (this.IsFilerAuditingEnabled != null)
                     hashCode = hashCode * 59 + this.IsFilerAuditingEnabled.GetHashCode();
+                if (this.IsSshLogEnabled != null)
+                    hashCode = hashCode * 59 + this.IsSshLogEnabled.GetHashCode();
                 if (this.Name != null)
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
                 if (this.Port != null)

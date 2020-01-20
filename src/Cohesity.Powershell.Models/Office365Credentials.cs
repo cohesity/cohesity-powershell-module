@@ -27,16 +27,19 @@ namespace Cohesity.Model
         /// <param name="clientSecret">Specifies the application secret that was created in app registration portal..</param>
         /// <param name="grantType">Specifies the application grant type. eg: For client credentials flow, set this to \&quot;client_credentials\&quot;; For refreshing access-token, set this to \&quot;refresh_token\&quot;..</param>
         /// <param name="scope">Specifies a space separated list of scopes/permissions for the user. eg: Incase of MS Graph APIs for Office365, scope is set to default: https://graph.microsoft.com/.default.</param>
-        public Office365Credentials(string clientId = default(string), string clientSecret = default(string), string grantType = default(string), string scope = default(string))
+        /// <param name="useOAuthForExchangeOnline">Specifies whether OAuth should be used for authentication in case of Exchange Online..</param>
+        public Office365Credentials(string clientId = default(string), string clientSecret = default(string), string grantType = default(string), string scope = default(string), bool? useOAuthForExchangeOnline = default(bool?))
         {
             this.ClientId = clientId;
             this.ClientSecret = clientSecret;
             this.GrantType = grantType;
             this.Scope = scope;
+            this.UseOAuthForExchangeOnline = useOAuthForExchangeOnline;
             this.ClientId = clientId;
             this.ClientSecret = clientSecret;
             this.GrantType = grantType;
             this.Scope = scope;
+            this.UseOAuthForExchangeOnline = useOAuthForExchangeOnline;
         }
         
         /// <summary>
@@ -66,6 +69,13 @@ namespace Cohesity.Model
         /// <value>Specifies a space separated list of scopes/permissions for the user. eg: Incase of MS Graph APIs for Office365, scope is set to default: https://graph.microsoft.com/.default</value>
         [DataMember(Name="scope", EmitDefaultValue=true)]
         public string Scope { get; set; }
+
+        /// <summary>
+        /// Specifies whether OAuth should be used for authentication in case of Exchange Online.
+        /// </summary>
+        /// <value>Specifies whether OAuth should be used for authentication in case of Exchange Online.</value>
+        [DataMember(Name="useOAuthForExchangeOnline", EmitDefaultValue=true)]
+        public bool? UseOAuthForExchangeOnline { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -122,6 +132,11 @@ namespace Cohesity.Model
                     this.Scope == input.Scope ||
                     (this.Scope != null &&
                     this.Scope.Equals(input.Scope))
+                ) && 
+                (
+                    this.UseOAuthForExchangeOnline == input.UseOAuthForExchangeOnline ||
+                    (this.UseOAuthForExchangeOnline != null &&
+                    this.UseOAuthForExchangeOnline.Equals(input.UseOAuthForExchangeOnline))
                 );
         }
 
@@ -142,6 +157,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.GrantType.GetHashCode();
                 if (this.Scope != null)
                     hashCode = hashCode * 59 + this.Scope.GetHashCode();
+                if (this.UseOAuthForExchangeOnline != null)
+                    hashCode = hashCode * 59 + this.UseOAuthForExchangeOnline.GetHashCode();
                 return hashCode;
             }
         }

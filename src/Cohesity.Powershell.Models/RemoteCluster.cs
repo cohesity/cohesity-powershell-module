@@ -25,17 +25,13 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="allEndpointsReachable">Specifies whether any endpoint (such as a Node) on the remote Cluster is reachable from this local Cluster. If true, a service running on the local Cluster can communicate directly with any of its peers running on the remote Cluster, without using a proxy..</param>
         /// <param name="bandwidthLimit">bandwidthLimit.</param>
-        /// <param name="clearInterfaces">clearInterfaces.</param>
-        /// <param name="clearVlanId">Specifies whether to clear the vlanId field, and thus stop using only the IPs in the VLAN for communicating with the remote Cluster..</param>
         /// <param name="clusterId">Specifies the unique id of the remote Cluster..</param>
         /// <param name="clusterIncarnationId">Specifies the unique incarnation id of the remote Cluster. This id is determined dynamically by contacting the remote Cluster..</param>
         /// <param name="compressionEnabled">Specifies whether to compress the outbound data when transferring the replication data over the network to the remote Cluster..</param>
         /// <param name="encryptionKey">Specifies the encryption key used for encrypting the replication data from a local Cluster to a remote Cluster. If a key is not specified, replication traffic encryption is disabled. When Snapshots are replicated from a local Cluster to a remote Cluster, the encryption key specified on the local Cluster must be the same as the key specified on the remote Cluster..</param>
-        /// <param name="ifaceName">Specifies the interface name of the VLAN to use for communicating with the remote Cluster..</param>
         /// <param name="localIps">Array of Local IP Addresses.  Specifies the IP addresses of the interfaces in the local Cluster which will be used for communicating with the remote Cluster..</param>
         /// <param name="name">Specifies the name of the remote Cluster..</param>
         /// <param name="networkInterfaceGroup">Specifies the group name of the network interfaces to use for communicating with the remote Cluster..</param>
-        /// <param name="networkInterfaceIds">Array of Network Interface Ids.  Specifies the ids of the network interfaces to use for communicating with the remote Cluster..</param>
         /// <param name="purposeRemoteAccess">Whether the remote cluster will be used for remote access for SPOG..</param>
         /// <param name="purposeReplication">Whether the remote cluster will be used for replication..</param>
         /// <param name="remoteAccessCredentials">remoteAccessCredentials.</param>
@@ -43,41 +39,31 @@ namespace Cohesity.Model
         /// <param name="tenantId">Specifies the tenant Id of the organization that created this remote cluster configuration..</param>
         /// <param name="userName">Specifies the Cohesity user name used to connect to the remote Cluster..</param>
         /// <param name="viewBoxPairInfo">Array of Storage Domain (View Box) Pairs.  Specifies pairings between Storage Domains (View Boxes) on the local Cluster with Storage Domains (View Boxes) on a remote Cluster that are used in replication..</param>
-        /// <param name="vlanId">Specifies the id of the VLAN to use when communicating with the remote Cluster..</param>
-        public RemoteCluster(bool? allEndpointsReachable = default(bool?), BandwidthLimit bandwidthLimit = default(BandwidthLimit), bool? clearInterfaces = default(bool?), bool? clearVlanId = default(bool?), long? clusterId = default(long?), long? clusterIncarnationId = default(long?), bool? compressionEnabled = default(bool?), string encryptionKey = default(string), string ifaceName = default(string), List<string> localIps = default(List<string>), string name = default(string), string networkInterfaceGroup = default(string), List<long> networkInterfaceIds = default(List<long>), bool? purposeRemoteAccess = default(bool?), bool? purposeReplication = default(bool?), AccessTokenCredential remoteAccessCredentials = default(AccessTokenCredential), List<string> remoteIps = default(List<string>), string tenantId = default(string), string userName = default(string), List<ViewBoxPairInfo> viewBoxPairInfo = default(List<ViewBoxPairInfo>), int? vlanId = default(int?))
+        public RemoteCluster(bool? allEndpointsReachable = default(bool?), BandwidthLimit bandwidthLimit = default(BandwidthLimit), long? clusterId = default(long?), long? clusterIncarnationId = default(long?), bool? compressionEnabled = default(bool?), string encryptionKey = default(string), List<string> localIps = default(List<string>), string name = default(string), string networkInterfaceGroup = default(string), bool? purposeRemoteAccess = default(bool?), bool? purposeReplication = default(bool?), AccessTokenCredential remoteAccessCredentials = default(AccessTokenCredential), List<string> remoteIps = default(List<string>), string tenantId = default(string), string userName = default(string), List<ViewBoxPairInfo> viewBoxPairInfo = default(List<ViewBoxPairInfo>))
         {
             this.AllEndpointsReachable = allEndpointsReachable;
-            this.ClearInterfaces = clearInterfaces;
-            this.ClearVlanId = clearVlanId;
             this.ClusterId = clusterId;
             this.ClusterIncarnationId = clusterIncarnationId;
             this.CompressionEnabled = compressionEnabled;
             this.EncryptionKey = encryptionKey;
-            this.IfaceName = ifaceName;
             this.LocalIps = localIps;
             this.Name = name;
             this.NetworkInterfaceGroup = networkInterfaceGroup;
-            this.NetworkInterfaceIds = networkInterfaceIds;
             this.PurposeRemoteAccess = purposeRemoteAccess;
             this.PurposeReplication = purposeReplication;
             this.RemoteIps = remoteIps;
             this.TenantId = tenantId;
             this.UserName = userName;
             this.ViewBoxPairInfo = viewBoxPairInfo;
-            this.VlanId = vlanId;
             this.AllEndpointsReachable = allEndpointsReachable;
             this.BandwidthLimit = bandwidthLimit;
-            this.ClearInterfaces = clearInterfaces;
-            this.ClearVlanId = clearVlanId;
             this.ClusterId = clusterId;
             this.ClusterIncarnationId = clusterIncarnationId;
             this.CompressionEnabled = compressionEnabled;
             this.EncryptionKey = encryptionKey;
-            this.IfaceName = ifaceName;
             this.LocalIps = localIps;
             this.Name = name;
             this.NetworkInterfaceGroup = networkInterfaceGroup;
-            this.NetworkInterfaceIds = networkInterfaceIds;
             this.PurposeRemoteAccess = purposeRemoteAccess;
             this.PurposeReplication = purposeReplication;
             this.RemoteAccessCredentials = remoteAccessCredentials;
@@ -85,7 +71,6 @@ namespace Cohesity.Model
             this.TenantId = tenantId;
             this.UserName = userName;
             this.ViewBoxPairInfo = viewBoxPairInfo;
-            this.VlanId = vlanId;
         }
         
         /// <summary>
@@ -100,19 +85,6 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="bandwidthLimit", EmitDefaultValue=false)]
         public BandwidthLimit BandwidthLimit { get; set; }
-
-        /// <summary>
-        /// Gets or Sets ClearInterfaces
-        /// </summary>
-        [DataMember(Name="clearInterfaces", EmitDefaultValue=true)]
-        public bool? ClearInterfaces { get; set; }
-
-        /// <summary>
-        /// Specifies whether to clear the vlanId field, and thus stop using only the IPs in the VLAN for communicating with the remote Cluster.
-        /// </summary>
-        /// <value>Specifies whether to clear the vlanId field, and thus stop using only the IPs in the VLAN for communicating with the remote Cluster.</value>
-        [DataMember(Name="clearVlanId", EmitDefaultValue=true)]
-        public bool? ClearVlanId { get; set; }
 
         /// <summary>
         /// Specifies the unique id of the remote Cluster.
@@ -143,13 +115,6 @@ namespace Cohesity.Model
         public string EncryptionKey { get; set; }
 
         /// <summary>
-        /// Specifies the interface name of the VLAN to use for communicating with the remote Cluster.
-        /// </summary>
-        /// <value>Specifies the interface name of the VLAN to use for communicating with the remote Cluster.</value>
-        [DataMember(Name="ifaceName", EmitDefaultValue=true)]
-        public string IfaceName { get; set; }
-
-        /// <summary>
         /// Array of Local IP Addresses.  Specifies the IP addresses of the interfaces in the local Cluster which will be used for communicating with the remote Cluster.
         /// </summary>
         /// <value>Array of Local IP Addresses.  Specifies the IP addresses of the interfaces in the local Cluster which will be used for communicating with the remote Cluster.</value>
@@ -169,13 +134,6 @@ namespace Cohesity.Model
         /// <value>Specifies the group name of the network interfaces to use for communicating with the remote Cluster.</value>
         [DataMember(Name="networkInterfaceGroup", EmitDefaultValue=true)]
         public string NetworkInterfaceGroup { get; set; }
-
-        /// <summary>
-        /// Array of Network Interface Ids.  Specifies the ids of the network interfaces to use for communicating with the remote Cluster.
-        /// </summary>
-        /// <value>Array of Network Interface Ids.  Specifies the ids of the network interfaces to use for communicating with the remote Cluster.</value>
-        [DataMember(Name="networkInterfaceIds", EmitDefaultValue=true)]
-        public List<long> NetworkInterfaceIds { get; set; }
 
         /// <summary>
         /// Whether the remote cluster will be used for remote access for SPOG.
@@ -226,13 +184,6 @@ namespace Cohesity.Model
         public List<ViewBoxPairInfo> ViewBoxPairInfo { get; set; }
 
         /// <summary>
-        /// Specifies the id of the VLAN to use when communicating with the remote Cluster.
-        /// </summary>
-        /// <value>Specifies the id of the VLAN to use when communicating with the remote Cluster.</value>
-        [DataMember(Name="vlanId", EmitDefaultValue=true)]
-        public int? VlanId { get; set; }
-
-        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -279,16 +230,6 @@ namespace Cohesity.Model
                     this.BandwidthLimit.Equals(input.BandwidthLimit))
                 ) && 
                 (
-                    this.ClearInterfaces == input.ClearInterfaces ||
-                    (this.ClearInterfaces != null &&
-                    this.ClearInterfaces.Equals(input.ClearInterfaces))
-                ) && 
-                (
-                    this.ClearVlanId == input.ClearVlanId ||
-                    (this.ClearVlanId != null &&
-                    this.ClearVlanId.Equals(input.ClearVlanId))
-                ) && 
-                (
                     this.ClusterId == input.ClusterId ||
                     (this.ClusterId != null &&
                     this.ClusterId.Equals(input.ClusterId))
@@ -309,11 +250,6 @@ namespace Cohesity.Model
                     this.EncryptionKey.Equals(input.EncryptionKey))
                 ) && 
                 (
-                    this.IfaceName == input.IfaceName ||
-                    (this.IfaceName != null &&
-                    this.IfaceName.Equals(input.IfaceName))
-                ) && 
-                (
                     this.LocalIps == input.LocalIps ||
                     this.LocalIps != null &&
                     input.LocalIps != null &&
@@ -328,12 +264,6 @@ namespace Cohesity.Model
                     this.NetworkInterfaceGroup == input.NetworkInterfaceGroup ||
                     (this.NetworkInterfaceGroup != null &&
                     this.NetworkInterfaceGroup.Equals(input.NetworkInterfaceGroup))
-                ) && 
-                (
-                    this.NetworkInterfaceIds == input.NetworkInterfaceIds ||
-                    this.NetworkInterfaceIds != null &&
-                    input.NetworkInterfaceIds != null &&
-                    this.NetworkInterfaceIds.SequenceEqual(input.NetworkInterfaceIds)
                 ) && 
                 (
                     this.PurposeRemoteAccess == input.PurposeRemoteAccess ||
@@ -371,11 +301,6 @@ namespace Cohesity.Model
                     this.ViewBoxPairInfo != null &&
                     input.ViewBoxPairInfo != null &&
                     this.ViewBoxPairInfo.SequenceEqual(input.ViewBoxPairInfo)
-                ) && 
-                (
-                    this.VlanId == input.VlanId ||
-                    (this.VlanId != null &&
-                    this.VlanId.Equals(input.VlanId))
                 );
         }
 
@@ -392,10 +317,6 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.AllEndpointsReachable.GetHashCode();
                 if (this.BandwidthLimit != null)
                     hashCode = hashCode * 59 + this.BandwidthLimit.GetHashCode();
-                if (this.ClearInterfaces != null)
-                    hashCode = hashCode * 59 + this.ClearInterfaces.GetHashCode();
-                if (this.ClearVlanId != null)
-                    hashCode = hashCode * 59 + this.ClearVlanId.GetHashCode();
                 if (this.ClusterId != null)
                     hashCode = hashCode * 59 + this.ClusterId.GetHashCode();
                 if (this.ClusterIncarnationId != null)
@@ -404,16 +325,12 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.CompressionEnabled.GetHashCode();
                 if (this.EncryptionKey != null)
                     hashCode = hashCode * 59 + this.EncryptionKey.GetHashCode();
-                if (this.IfaceName != null)
-                    hashCode = hashCode * 59 + this.IfaceName.GetHashCode();
                 if (this.LocalIps != null)
                     hashCode = hashCode * 59 + this.LocalIps.GetHashCode();
                 if (this.Name != null)
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
                 if (this.NetworkInterfaceGroup != null)
                     hashCode = hashCode * 59 + this.NetworkInterfaceGroup.GetHashCode();
-                if (this.NetworkInterfaceIds != null)
-                    hashCode = hashCode * 59 + this.NetworkInterfaceIds.GetHashCode();
                 if (this.PurposeRemoteAccess != null)
                     hashCode = hashCode * 59 + this.PurposeRemoteAccess.GetHashCode();
                 if (this.PurposeReplication != null)
@@ -428,8 +345,6 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.UserName.GetHashCode();
                 if (this.ViewBoxPairInfo != null)
                     hashCode = hashCode * 59 + this.ViewBoxPairInfo.GetHashCode();
-                if (this.VlanId != null)
-                    hashCode = hashCode * 59 + this.VlanId.GetHashCode();
                 return hashCode;
             }
         }

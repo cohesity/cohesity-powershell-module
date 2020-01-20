@@ -25,14 +25,17 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="cpuCount">Specifies the count of CPU available on the host..</param>
         /// <param name="ipAddresses">Specifies the IP address of the host..</param>
+        /// <param name="ports">Specifies ports available for this host..</param>
         /// <param name="sessions">Specifies multiple session configurations available for this host..</param>
-        public OracleHost(int? cpuCount = default(int?), List<string> ipAddresses = default(List<string>), List<OracleSession> sessions = default(List<OracleSession>))
+        public OracleHost(int? cpuCount = default(int?), List<string> ipAddresses = default(List<string>), List<long> ports = default(List<long>), List<OracleSession> sessions = default(List<OracleSession>))
         {
             this.CpuCount = cpuCount;
             this.IpAddresses = ipAddresses;
+            this.Ports = ports;
             this.Sessions = sessions;
             this.CpuCount = cpuCount;
             this.IpAddresses = ipAddresses;
+            this.Ports = ports;
             this.Sessions = sessions;
         }
         
@@ -49,6 +52,13 @@ namespace Cohesity.Model
         /// <value>Specifies the IP address of the host.</value>
         [DataMember(Name="ipAddresses", EmitDefaultValue=true)]
         public List<string> IpAddresses { get; set; }
+
+        /// <summary>
+        /// Specifies ports available for this host.
+        /// </summary>
+        /// <value>Specifies ports available for this host.</value>
+        [DataMember(Name="ports", EmitDefaultValue=true)]
+        public List<long> Ports { get; set; }
 
         /// <summary>
         /// Specifies multiple session configurations available for this host.
@@ -105,6 +115,12 @@ namespace Cohesity.Model
                     this.IpAddresses.SequenceEqual(input.IpAddresses)
                 ) && 
                 (
+                    this.Ports == input.Ports ||
+                    this.Ports != null &&
+                    input.Ports != null &&
+                    this.Ports.SequenceEqual(input.Ports)
+                ) && 
+                (
                     this.Sessions == input.Sessions ||
                     this.Sessions != null &&
                     input.Sessions != null &&
@@ -125,6 +141,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.CpuCount.GetHashCode();
                 if (this.IpAddresses != null)
                     hashCode = hashCode * 59 + this.IpAddresses.GetHashCode();
+                if (this.Ports != null)
+                    hashCode = hashCode * 59 + this.Ports.GetHashCode();
                 if (this.Sessions != null)
                     hashCode = hashCode * 59 + this.Sessions.GetHashCode();
                 return hashCode;

@@ -26,7 +26,8 @@ namespace Cohesity.Model
         /// <param name="id">Interface group Id.  Specifies the id of the interface group..</param>
         /// <param name="modelInterfaceLists">Specifies the product model and interface lists..</param>
         /// <param name="name">Specifies the name of the interface group..</param>
-        public InterfaceGroup(int? id = default(int?), List<ProductModelInterfaceTuple> modelInterfaceLists = default(List<ProductModelInterfaceTuple>), string name = default(string))
+        /// <param name="networkParams">networkParams.</param>
+        public InterfaceGroup(int? id = default(int?), List<ProductModelInterfaceTuple> modelInterfaceLists = default(List<ProductModelInterfaceTuple>), string name = default(string), NetworkParams networkParams = default(NetworkParams))
         {
             this.Id = id;
             this.ModelInterfaceLists = modelInterfaceLists;
@@ -34,6 +35,7 @@ namespace Cohesity.Model
             this.Id = id;
             this.ModelInterfaceLists = modelInterfaceLists;
             this.Name = name;
+            this.NetworkParams = networkParams;
         }
         
         /// <summary>
@@ -56,6 +58,12 @@ namespace Cohesity.Model
         /// <value>Specifies the name of the interface group.</value>
         [DataMember(Name="name", EmitDefaultValue=true)]
         public string Name { get; set; }
+
+        /// <summary>
+        /// Gets or Sets NetworkParams
+        /// </summary>
+        [DataMember(Name="networkParams", EmitDefaultValue=false)]
+        public NetworkParams NetworkParams { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -108,6 +116,11 @@ namespace Cohesity.Model
                     this.Name == input.Name ||
                     (this.Name != null &&
                     this.Name.Equals(input.Name))
+                ) && 
+                (
+                    this.NetworkParams == input.NetworkParams ||
+                    (this.NetworkParams != null &&
+                    this.NetworkParams.Equals(input.NetworkParams))
                 );
         }
 
@@ -126,6 +139,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ModelInterfaceLists.GetHashCode();
                 if (this.Name != null)
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
+                if (this.NetworkParams != null)
+                    hashCode = hashCode * 59 + this.NetworkParams.GetHashCode();
                 return hashCode;
             }
         }

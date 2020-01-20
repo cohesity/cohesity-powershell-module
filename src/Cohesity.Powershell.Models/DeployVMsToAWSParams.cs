@@ -26,15 +26,17 @@ namespace Cohesity.Model
         /// <param name="instanceType">instanceType.</param>
         /// <param name="keyPairName">keyPairName.</param>
         /// <param name="networkSecurityGroups">Names of the network security groups within the above VPC. At least one entry should be present..</param>
+        /// <param name="rdsParams">rdsParams.</param>
         /// <param name="region">region.</param>
         /// <param name="subnet">subnet.</param>
         /// <param name="vpc">vpc.</param>
-        public DeployVMsToAWSParams(EntityProto instanceType = default(EntityProto), EntityProto keyPairName = default(EntityProto), List<EntityProto> networkSecurityGroups = default(List<EntityProto>), EntityProto region = default(EntityProto), EntityProto subnet = default(EntityProto), EntityProto vpc = default(EntityProto))
+        public DeployVMsToAWSParams(EntityProto instanceType = default(EntityProto), EntityProto keyPairName = default(EntityProto), List<EntityProto> networkSecurityGroups = default(List<EntityProto>), DeployDBInstancesToRDSParams rdsParams = default(DeployDBInstancesToRDSParams), EntityProto region = default(EntityProto), EntityProto subnet = default(EntityProto), EntityProto vpc = default(EntityProto))
         {
             this.NetworkSecurityGroups = networkSecurityGroups;
             this.InstanceType = instanceType;
             this.KeyPairName = keyPairName;
             this.NetworkSecurityGroups = networkSecurityGroups;
+            this.RdsParams = rdsParams;
             this.Region = region;
             this.Subnet = subnet;
             this.Vpc = vpc;
@@ -58,6 +60,12 @@ namespace Cohesity.Model
         /// <value>Names of the network security groups within the above VPC. At least one entry should be present.</value>
         [DataMember(Name="networkSecurityGroups", EmitDefaultValue=true)]
         public List<EntityProto> NetworkSecurityGroups { get; set; }
+
+        /// <summary>
+        /// Gets or Sets RdsParams
+        /// </summary>
+        [DataMember(Name="rdsParams", EmitDefaultValue=false)]
+        public DeployDBInstancesToRDSParams RdsParams { get; set; }
 
         /// <summary>
         /// Gets or Sets Region
@@ -130,6 +138,11 @@ namespace Cohesity.Model
                     this.NetworkSecurityGroups.SequenceEqual(input.NetworkSecurityGroups)
                 ) && 
                 (
+                    this.RdsParams == input.RdsParams ||
+                    (this.RdsParams != null &&
+                    this.RdsParams.Equals(input.RdsParams))
+                ) && 
+                (
                     this.Region == input.Region ||
                     (this.Region != null &&
                     this.Region.Equals(input.Region))
@@ -161,6 +174,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.KeyPairName.GetHashCode();
                 if (this.NetworkSecurityGroups != null)
                     hashCode = hashCode * 59 + this.NetworkSecurityGroups.GetHashCode();
+                if (this.RdsParams != null)
+                    hashCode = hashCode * 59 + this.RdsParams.GetHashCode();
                 if (this.Region != null)
                     hashCode = hashCode * 59 + this.Region.GetHashCode();
                 if (this.Subnet != null)

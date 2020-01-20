@@ -33,8 +33,13 @@ namespace Cohesity.Model
         /// <param name="storageKey">storageKey.</param>
         /// <param name="storageResourceGroup">storageResourceGroup.</param>
         /// <param name="subnet">subnet.</param>
+        /// <param name="tempVmResourceGroup">tempVmResourceGroup.</param>
+        /// <param name="tempVmStorageAccount">tempVmStorageAccount.</param>
+        /// <param name="tempVmStorageContainer">tempVmStorageContainer.</param>
+        /// <param name="tempVmSubnet">tempVmSubnet.</param>
+        /// <param name="tempVmVirtualNetwork">tempVmVirtualNetwork.</param>
         /// <param name="virtualNetwork">virtualNetwork.</param>
-        public DeployVMsToAzureParams(AzureManagedDiskParams azureManagedDiskParams = default(AzureManagedDiskParams), EntityProto computeOptions = default(EntityProto), EntityProto networkResourceGroup = default(EntityProto), EntityProto networkSecurityGroup = default(EntityProto), EntityProto resourceGroup = default(EntityProto), EntityProto storageAccount = default(EntityProto), EntityProto storageContainer = default(EntityProto), EntityProto storageKey = default(EntityProto), EntityProto storageResourceGroup = default(EntityProto), EntityProto subnet = default(EntityProto), EntityProto virtualNetwork = default(EntityProto))
+        public DeployVMsToAzureParams(AzureManagedDiskParams azureManagedDiskParams = default(AzureManagedDiskParams), EntityProto computeOptions = default(EntityProto), EntityProto networkResourceGroup = default(EntityProto), EntityProto networkSecurityGroup = default(EntityProto), EntityProto resourceGroup = default(EntityProto), EntityProto storageAccount = default(EntityProto), EntityProto storageContainer = default(EntityProto), EntityProto storageKey = default(EntityProto), EntityProto storageResourceGroup = default(EntityProto), EntityProto subnet = default(EntityProto), EntityProto tempVmResourceGroup = default(EntityProto), EntityProto tempVmStorageAccount = default(EntityProto), EntityProto tempVmStorageContainer = default(EntityProto), EntityProto tempVmSubnet = default(EntityProto), EntityProto tempVmVirtualNetwork = default(EntityProto), EntityProto virtualNetwork = default(EntityProto))
         {
             this.AzureManagedDiskParams = azureManagedDiskParams;
             this.ComputeOptions = computeOptions;
@@ -46,6 +51,11 @@ namespace Cohesity.Model
             this.StorageKey = storageKey;
             this.StorageResourceGroup = storageResourceGroup;
             this.Subnet = subnet;
+            this.TempVmResourceGroup = tempVmResourceGroup;
+            this.TempVmStorageAccount = tempVmStorageAccount;
+            this.TempVmStorageContainer = tempVmStorageContainer;
+            this.TempVmSubnet = tempVmSubnet;
+            this.TempVmVirtualNetwork = tempVmVirtualNetwork;
             this.VirtualNetwork = virtualNetwork;
         }
         
@@ -108,6 +118,36 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="subnet", EmitDefaultValue=false)]
         public EntityProto Subnet { get; set; }
+
+        /// <summary>
+        /// Gets or Sets TempVmResourceGroup
+        /// </summary>
+        [DataMember(Name="tempVmResourceGroup", EmitDefaultValue=false)]
+        public EntityProto TempVmResourceGroup { get; set; }
+
+        /// <summary>
+        /// Gets or Sets TempVmStorageAccount
+        /// </summary>
+        [DataMember(Name="tempVmStorageAccount", EmitDefaultValue=false)]
+        public EntityProto TempVmStorageAccount { get; set; }
+
+        /// <summary>
+        /// Gets or Sets TempVmStorageContainer
+        /// </summary>
+        [DataMember(Name="tempVmStorageContainer", EmitDefaultValue=false)]
+        public EntityProto TempVmStorageContainer { get; set; }
+
+        /// <summary>
+        /// Gets or Sets TempVmSubnet
+        /// </summary>
+        [DataMember(Name="tempVmSubnet", EmitDefaultValue=false)]
+        public EntityProto TempVmSubnet { get; set; }
+
+        /// <summary>
+        /// Gets or Sets TempVmVirtualNetwork
+        /// </summary>
+        [DataMember(Name="tempVmVirtualNetwork", EmitDefaultValue=false)]
+        public EntityProto TempVmVirtualNetwork { get; set; }
 
         /// <summary>
         /// Gets or Sets VirtualNetwork
@@ -202,6 +242,31 @@ namespace Cohesity.Model
                     this.Subnet.Equals(input.Subnet))
                 ) && 
                 (
+                    this.TempVmResourceGroup == input.TempVmResourceGroup ||
+                    (this.TempVmResourceGroup != null &&
+                    this.TempVmResourceGroup.Equals(input.TempVmResourceGroup))
+                ) && 
+                (
+                    this.TempVmStorageAccount == input.TempVmStorageAccount ||
+                    (this.TempVmStorageAccount != null &&
+                    this.TempVmStorageAccount.Equals(input.TempVmStorageAccount))
+                ) && 
+                (
+                    this.TempVmStorageContainer == input.TempVmStorageContainer ||
+                    (this.TempVmStorageContainer != null &&
+                    this.TempVmStorageContainer.Equals(input.TempVmStorageContainer))
+                ) && 
+                (
+                    this.TempVmSubnet == input.TempVmSubnet ||
+                    (this.TempVmSubnet != null &&
+                    this.TempVmSubnet.Equals(input.TempVmSubnet))
+                ) && 
+                (
+                    this.TempVmVirtualNetwork == input.TempVmVirtualNetwork ||
+                    (this.TempVmVirtualNetwork != null &&
+                    this.TempVmVirtualNetwork.Equals(input.TempVmVirtualNetwork))
+                ) && 
+                (
                     this.VirtualNetwork == input.VirtualNetwork ||
                     (this.VirtualNetwork != null &&
                     this.VirtualNetwork.Equals(input.VirtualNetwork))
@@ -237,6 +302,16 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.StorageResourceGroup.GetHashCode();
                 if (this.Subnet != null)
                     hashCode = hashCode * 59 + this.Subnet.GetHashCode();
+                if (this.TempVmResourceGroup != null)
+                    hashCode = hashCode * 59 + this.TempVmResourceGroup.GetHashCode();
+                if (this.TempVmStorageAccount != null)
+                    hashCode = hashCode * 59 + this.TempVmStorageAccount.GetHashCode();
+                if (this.TempVmStorageContainer != null)
+                    hashCode = hashCode * 59 + this.TempVmStorageContainer.GetHashCode();
+                if (this.TempVmSubnet != null)
+                    hashCode = hashCode * 59 + this.TempVmSubnet.GetHashCode();
+                if (this.TempVmVirtualNetwork != null)
+                    hashCode = hashCode * 59 + this.TempVmVirtualNetwork.GetHashCode();
                 if (this.VirtualNetwork != null)
                     hashCode = hashCode * 59 + this.VirtualNetwork.GetHashCode();
                 return hashCode;

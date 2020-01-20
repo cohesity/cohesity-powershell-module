@@ -23,29 +23,30 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="AlertingConfig" /> class.
         /// </summary>
-        /// <param name="emailAddresses">Specifies additional email addresses where alert notifications (configured in the AlertingPolicy) must be sent..</param>
+        /// <param name="emailDeliveryTargets">Specifies additional email addresses where alert notifications (configured in the AlertingPolicy) must be sent..</param>
         /// <param name="raiseObjectLevelFailureAlert">Specifies the boolean to raise per object alert for failures..</param>
-        public AlertingConfig(List<string> emailAddresses = default(List<string>), bool? raiseObjectLevelFailureAlert = default(bool?))
+        public AlertingConfig(List<EmailDeliveryTarget> emailDeliveryTargets = default(List<EmailDeliveryTarget>), bool? raiseObjectLevelFailureAlert = default(bool?))
         {
-            this.EmailAddresses = emailAddresses;
+            this.EmailDeliveryTargets = emailDeliveryTargets;
             this.RaiseObjectLevelFailureAlert = raiseObjectLevelFailureAlert;
-            this.EmailAddresses = emailAddresses;
+            this.EmailDeliveryTargets = emailDeliveryTargets;
             this.RaiseObjectLevelFailureAlert = raiseObjectLevelFailureAlert;
         }
-        
+
+        // Bug fix : Support for email configuration for older versions 6.1.1 and 6.3.1
         /// <summary>
         /// Specifies additional email addresses where alert notifications (configured in the AlertingPolicy) must be sent.
         /// </summary>
         /// <value>Specifies additional email addresses where alert notifications (configured in the AlertingPolicy) must be sent.</value>
         private List<string> __emailAddresses;
-        [DataMember(Name="emailAddresses", EmitDefaultValue=true)]
+        [DataMember(Name = "emailAddresses", EmitDefaultValue = true)]
         public List<string> EmailAddresses
         {
             get
             {
                 return this.__emailAddresses;
             }
- 
+
             set
             {
                 this.__emailAddresses = value;
@@ -71,7 +72,7 @@ namespace Cohesity.Model
         /// Specifies additional email addresses where alert notifications (configured in the AlertingPolicy) must be sent.
         /// </summary>
         /// <value>Specifies additional email addresses where alert notifications (configured in the AlertingPolicy) must be sent.</value>
-        [DataMember(Name="emailDeliveryTargets", EmitDefaultValue=false)]
+        [DataMember(Name="emailDeliveryTargets", EmitDefaultValue=true)]
         public List<EmailDeliveryTarget> EmailDeliveryTargets { get; set; }
 
         /// <summary>
@@ -118,10 +119,10 @@ namespace Cohesity.Model
 
             return 
                 (
-                    this.EmailAddresses == input.EmailAddresses ||
-                    this.EmailAddresses != null &&
-                    input.EmailAddresses != null &&
-                    this.EmailAddresses.SequenceEqual(input.EmailAddresses)
+                    this.EmailDeliveryTargets == input.EmailDeliveryTargets ||
+                    this.EmailDeliveryTargets != null &&
+                    input.EmailDeliveryTargets != null &&
+                    this.EmailDeliveryTargets.SequenceEqual(input.EmailDeliveryTargets)
                 ) && 
                 (
                     this.RaiseObjectLevelFailureAlert == input.RaiseObjectLevelFailureAlert ||
@@ -139,8 +140,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                if (this.EmailAddresses != null)
-                    hashCode = hashCode * 59 + this.EmailAddresses.GetHashCode();
+                if (this.EmailDeliveryTargets != null)
+                    hashCode = hashCode * 59 + this.EmailDeliveryTargets.GetHashCode();
                 if (this.RaiseObjectLevelFailureAlert != null)
                     hashCode = hashCode * 59 + this.RaiseObjectLevelFailureAlert.GetHashCode();
                 return hashCode;

@@ -24,22 +24,28 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="EntitySchemaProto" /> class.
         /// </summary>
         /// <param name="attributesDescriptor">attributesDescriptor.</param>
+        /// <param name="flushIntervalSecs">Defines the interval used to flush in memory stats to scribe table. During this time if the stats server is down before flushing, it could loose some of the stats. Modules can flush any critical stats via AddEntitiesStats API. But this  should be used very judiciously as it causes lot of overhead for stats..</param>
         /// <param name="isInternalSchema">Specifies if this schema should be displayed in Advanced Diagnostics of the Cohesity Dashboard. If false, the schema is displayed..</param>
+        /// <param name="largestFlushIntervalSecs">Use can change the flush interval secs via gflag and this store the largest interval seconds set. This is used to round up the timestamp to this flush interval secs during range scan..</param>
         /// <param name="name">Specifies a name that uniquely identifies an entity schema such as &#39;kBridgeClusterStats&#39;..</param>
         /// <param name="schemaDescriptiveName">Specifies the name of the Schema as displayed in Advanced Diagnostics of the Cohesity Dashboard. For example for the &#39;kBridgeClusterStats&#39; Schema, the descriptive name is &#39;Cluster Physical Stats&#39;..</param>
         /// <param name="schemaHelpText">Specifies an optional informational description about the schema..</param>
         /// <param name="timeSeriesDescriptorVec">Array of Time Series.  List of time series of data (set of data points) for metrics..</param>
         /// <param name="version">Specifies the version of the entity schema..</param>
-        public EntitySchemaProto(EntitySchemaProtoAttributesDescriptor attributesDescriptor = default(EntitySchemaProtoAttributesDescriptor), bool? isInternalSchema = default(bool?), string name = default(string), string schemaDescriptiveName = default(string), string schemaHelpText = default(string), List<EntitySchemaProtoTimeSeriesDescriptor> timeSeriesDescriptorVec = default(List<EntitySchemaProtoTimeSeriesDescriptor>), long? version = default(long?))
+        public EntitySchemaProto(EntitySchemaProtoAttributesDescriptor attributesDescriptor = default(EntitySchemaProtoAttributesDescriptor), int? flushIntervalSecs = default(int?), bool? isInternalSchema = default(bool?), int? largestFlushIntervalSecs = default(int?), string name = default(string), string schemaDescriptiveName = default(string), string schemaHelpText = default(string), List<EntitySchemaProtoTimeSeriesDescriptor> timeSeriesDescriptorVec = default(List<EntitySchemaProtoTimeSeriesDescriptor>), long? version = default(long?))
         {
+            this.FlushIntervalSecs = flushIntervalSecs;
             this.IsInternalSchema = isInternalSchema;
+            this.LargestFlushIntervalSecs = largestFlushIntervalSecs;
             this.Name = name;
             this.SchemaDescriptiveName = schemaDescriptiveName;
             this.SchemaHelpText = schemaHelpText;
             this.TimeSeriesDescriptorVec = timeSeriesDescriptorVec;
             this.Version = version;
             this.AttributesDescriptor = attributesDescriptor;
+            this.FlushIntervalSecs = flushIntervalSecs;
             this.IsInternalSchema = isInternalSchema;
+            this.LargestFlushIntervalSecs = largestFlushIntervalSecs;
             this.Name = name;
             this.SchemaDescriptiveName = schemaDescriptiveName;
             this.SchemaHelpText = schemaHelpText;
@@ -54,11 +60,25 @@ namespace Cohesity.Model
         public EntitySchemaProtoAttributesDescriptor AttributesDescriptor { get; set; }
 
         /// <summary>
+        /// Defines the interval used to flush in memory stats to scribe table. During this time if the stats server is down before flushing, it could loose some of the stats. Modules can flush any critical stats via AddEntitiesStats API. But this  should be used very judiciously as it causes lot of overhead for stats.
+        /// </summary>
+        /// <value>Defines the interval used to flush in memory stats to scribe table. During this time if the stats server is down before flushing, it could loose some of the stats. Modules can flush any critical stats via AddEntitiesStats API. But this  should be used very judiciously as it causes lot of overhead for stats.</value>
+        [DataMember(Name="flushIntervalSecs", EmitDefaultValue=true)]
+        public int? FlushIntervalSecs { get; set; }
+
+        /// <summary>
         /// Specifies if this schema should be displayed in Advanced Diagnostics of the Cohesity Dashboard. If false, the schema is displayed.
         /// </summary>
         /// <value>Specifies if this schema should be displayed in Advanced Diagnostics of the Cohesity Dashboard. If false, the schema is displayed.</value>
         [DataMember(Name="isInternalSchema", EmitDefaultValue=true)]
         public bool? IsInternalSchema { get; set; }
+
+        /// <summary>
+        /// Use can change the flush interval secs via gflag and this store the largest interval seconds set. This is used to round up the timestamp to this flush interval secs during range scan.
+        /// </summary>
+        /// <value>Use can change the flush interval secs via gflag and this store the largest interval seconds set. This is used to round up the timestamp to this flush interval secs during range scan.</value>
+        [DataMember(Name="largestFlushIntervalSecs", EmitDefaultValue=true)]
+        public int? LargestFlushIntervalSecs { get; set; }
 
         /// <summary>
         /// Specifies a name that uniquely identifies an entity schema such as &#39;kBridgeClusterStats&#39;.
@@ -137,9 +157,19 @@ namespace Cohesity.Model
                     this.AttributesDescriptor.Equals(input.AttributesDescriptor))
                 ) && 
                 (
+                    this.FlushIntervalSecs == input.FlushIntervalSecs ||
+                    (this.FlushIntervalSecs != null &&
+                    this.FlushIntervalSecs.Equals(input.FlushIntervalSecs))
+                ) && 
+                (
                     this.IsInternalSchema == input.IsInternalSchema ||
                     (this.IsInternalSchema != null &&
                     this.IsInternalSchema.Equals(input.IsInternalSchema))
+                ) && 
+                (
+                    this.LargestFlushIntervalSecs == input.LargestFlushIntervalSecs ||
+                    (this.LargestFlushIntervalSecs != null &&
+                    this.LargestFlushIntervalSecs.Equals(input.LargestFlushIntervalSecs))
                 ) && 
                 (
                     this.Name == input.Name ||
@@ -180,8 +210,12 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.AttributesDescriptor != null)
                     hashCode = hashCode * 59 + this.AttributesDescriptor.GetHashCode();
+                if (this.FlushIntervalSecs != null)
+                    hashCode = hashCode * 59 + this.FlushIntervalSecs.GetHashCode();
                 if (this.IsInternalSchema != null)
                     hashCode = hashCode * 59 + this.IsInternalSchema.GetHashCode();
+                if (this.LargestFlushIntervalSecs != null)
+                    hashCode = hashCode * 59 + this.LargestFlushIntervalSecs.GetHashCode();
                 if (this.Name != null)
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
                 if (this.SchemaDescriptiveName != null)

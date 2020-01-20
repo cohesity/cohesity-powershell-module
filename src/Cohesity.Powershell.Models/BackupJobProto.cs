@@ -28,6 +28,7 @@ namespace Cohesity.Model
         /// <param name="backupQosPrincipal">The backup QoS principal to use for the backup job..</param>
         /// <param name="backupSourceParams">This contains additional backup params that are applicable to sources that are captured as part of the backup job. NOTE: The sources could point to higher level entities (such as a \&quot;Cluster\&quot; in VMware environment), but the source params captured here will not be for the matching higher level entity, but instead be for leaf-level entities (such as VMs)..</param>
         /// <param name="continueOnQuiesceFailure">Whether to continue backing up on quiesce failure..</param>
+        /// <param name="createRemoteView">If set to false, a remote view will not be created. If set to true and: 1) Remote view name is not provided by the user, a remote view is created with the same name as source view name. 2) Remote view name is provided by the user, a remote view is created with the given name..</param>
         /// <param name="dedupDisabledSourceIdVec">List of source ids for which source side dedup is disabled from the backup job..</param>
         /// <param name="deletionStatus">Determines if the job (and associated backups) should be deleted. Once a job has been deleted, its status cannot be changed..</param>
         /// <param name="description">Job description (as entered by the user)..</param>
@@ -36,13 +37,15 @@ namespace Cohesity.Model
         /// <param name="endTimeUsecs">The time (in usecs) after which no backup for the job should be scheduled..</param>
         /// <param name="envBackupParams">envBackupParams.</param>
         /// <param name="excludeSources">The list of sources to exclude from backups. These can have non-leaf-level entities, but it&#39;s up to the creator to ensure that a child of these sources hasn&#39;t been explicitly added to &#39;sources&#39;..</param>
-        /// <param name="excludeSourcesDEPRECATED">The list of sources to exclude from backups. These can have non-leaf-level entities, but it&#39;s up to the creator to ensure that a child of these sources hasn&#39;t been explicitly added to &#39;sources&#39;. TODO(Chinmaya): Remove after removing references..</param>
+        /// <param name="excludeSourcesDEPRECATED">The list of sources to exclude from backups. These can have non-leaf-level entities, but it&#39;s up to the creator to ensure that a child of these sources hasn&#39;t been explicitly added to &#39;sources&#39;..</param>
         /// <param name="exclusionRanges">Do not run backups in these time-ranges..</param>
         /// <param name="fullBackupJobPolicy">fullBackupJobPolicy.</param>
         /// <param name="fullBackupSlaTimeMins">Same as &#39;sla_time_mins&#39; above, but applies to full backups. NOTE: This value is considered only for full backups that are excepted i.e either scheduled or the first full backup and not for full backups that happen as a result of incremental backup failure..</param>
         /// <param name="indexingPolicy">indexingPolicy.</param>
         /// <param name="isActive">Whether the backup job is active or not. Details about what an active job is can be found here: https://goo.gl/1mLvS3..</param>
         /// <param name="isDeleted">Tracks whether the backup job has actually been deleted..</param>
+        /// <param name="isDirectArchiveEnabled">This field is set to true if this is a direct archive backup job..</param>
+        /// <param name="isDirectArchiveNativeFormatEnabled">This field is set to true if native format should be used for archiving. Applicable for only direct archive jobs..</param>
         /// <param name="isPaused">Whether the backup job is paused. New backup runs are not scheduled for the paused backup job. Active run of a backup job (if any) is not impacted..</param>
         /// <param name="isRpoJob">Whether the backup job is an RPO policy job. These jobs are hidden from the user, and are created internally to have a backup schedule for the given source..</param>
         /// <param name="jobCreationTimeUsecs">Time when this job was first created..</param>
@@ -68,7 +71,7 @@ namespace Cohesity.Model
         /// <param name="primaryJobUid">primaryJobUid.</param>
         /// <param name="priority">The priority for the job. This is used at admission time - all admitted jobs are treated equally. This is also used to determine the Madrox replication priority..</param>
         /// <param name="quiesce">Whether to take app-consistent snapshots by quiescing apps and the filesystem before taking a backup..</param>
-        /// <param name="remoteJobUids">The globally unique ids of all remote jobs that are linked to this job (because of incoming replications). This field will only be populated for locally created jobs..</param>
+        /// <param name="remoteJobUids">The globally unique ids of all remote jobs that are linked to this job (because of incoming replications). This field will only be populated for locally created jobs. This field is populated only for the local(stub) job during incoming replications. In the most common case of one cluster replicating to another, this field will only have one entry (which is the id of the job on Tx side) and matches the primary_job_uid. This will have multiple entries in the following situation: A-&gt;B, A-&gt;C replication. The backup is failed over to B, and B now starts replicating to C. In this case, the stub job at C will have two entries. One is the job id from cluster A, and another is the local(stub) job uid from B. Also note that since the job originated from A, primary_job_uid for all the replicated instances of this job across multiple clusters will remain the same (which is equal to the job id from the original cluster A)..</param>
         /// <param name="remoteViewName">A human readable name of the remote view. A remote view is created with name overwriting the latest snapshot..</param>
         /// <param name="requiredFeatureVec">The features that are strictly required to be supported by the cluster of the backup job. This is currently used in the following cases: 1. Tx cluster looks at the Rx cluster&#39;s supported features and replicates the backup job only if all the features captured here are supported. 2. When performing remote restore of a backup job from an archival, this job will be retrieved only if the cluster supports all the features listed here..</param>
         /// <param name="slaTimeMins">If specified, this variable determines the amount of time (after backup has started) in which backup is expected to finish for this job. An SLA violation is counted against this job if the amount of time taken exceeds this amount..</param>
@@ -81,12 +84,13 @@ namespace Cohesity.Model
         /// <param name="type">The type of environment this backup job corresponds to..</param>
         /// <param name="userInfo">userInfo.</param>
         /// <param name="viewBoxId">The view box to which data will be written..</param>
-        public BackupJobProto(bool? abortInExclusionWindow = default(bool?), AlertingPolicyProto alertingPolicy = default(AlertingPolicyProto), int? backupQosPrincipal = default(int?), List<BackupSourceParams> backupSourceParams = default(List<BackupSourceParams>), bool? continueOnQuiesceFailure = default(bool?), List<long> dedupDisabledSourceIdVec = default(List<long>), int? deletionStatus = default(int?), string description = default(string), BackupJobProtoDRToCloudParams drToCloudParams = default(BackupJobProtoDRToCloudParams), EntityProto ehParentSource = default(EntityProto), long? endTimeUsecs = default(long?), EnvBackupParams envBackupParams = default(EnvBackupParams), List<BackupJobProtoExcludeSource> excludeSources = default(List<BackupJobProtoExcludeSource>), List<EntityProto> excludeSourcesDEPRECATED = default(List<EntityProto>), List<BackupJobProtoExclusionTimeRange> exclusionRanges = default(List<BackupJobProtoExclusionTimeRange>), JobPolicyProto fullBackupJobPolicy = default(JobPolicyProto), long? fullBackupSlaTimeMins = default(long?), IndexingPolicyProto indexingPolicy = default(IndexingPolicyProto), bool? isActive = default(bool?), bool? isDeleted = default(bool?), bool? isPaused = default(bool?), bool? isRpoJob = default(bool?), long? jobCreationTimeUsecs = default(long?), long? jobId = default(long?), JobPolicyProto jobPolicy = default(JobPolicyProto), UniversalIdProto jobUid = default(UniversalIdProto), long? lastModificationTimeUsecs = default(long?), long? lastPauseModificationTimeUsecs = default(long?), int? lastPauseReason = default(int?), string lastUpdatedUsername = default(string), bool? leverageStorageSnapshots = default(bool?), bool? leverageStorageSnapshotsForHyperflex = default(bool?), JobPolicyProto logBackupJobPolicy = default(JobPolicyProto), string name = default(string), long? numSnapshotsToKeepOnPrimary = default(long?), EntityProto parentSource = default(EntityProto), bool? performSourceSideDedup = default(bool?), long? policyAppliedTimeMsecs = default(long?), string policyId = default(string), string policyName = default(string), BackupJobPreOrPostScript postBackupScript = default(BackupJobPreOrPostScript), BackupJobPreOrPostScript preScript = default(BackupJobPreOrPostScript), UniversalIdProto primaryJobUid = default(UniversalIdProto), int? priority = default(int?), bool? quiesce = default(bool?), List<UniversalIdProto> remoteJobUids = default(List<UniversalIdProto>), string remoteViewName = default(string), List<string> requiredFeatureVec = default(List<string>), long? slaTimeMins = default(long?), List<BackupJobProtoBackupSource> sources = default(List<BackupJobProtoBackupSource>), Time startTime = default(Time), StubbingPolicyProto stubbingPolicy = default(StubbingPolicyProto), List<string> tagVec = default(List<string>), string timezone = default(string), bool? truncateLogs = default(bool?), int? type = default(int?), UserInformation userInfo = default(UserInformation), long? viewBoxId = default(long?))
+        public BackupJobProto(bool? abortInExclusionWindow = default(bool?), AlertingPolicyProto alertingPolicy = default(AlertingPolicyProto), int? backupQosPrincipal = default(int?), List<BackupSourceParams> backupSourceParams = default(List<BackupSourceParams>), bool? continueOnQuiesceFailure = default(bool?), bool? createRemoteView = default(bool?), List<long> dedupDisabledSourceIdVec = default(List<long>), int? deletionStatus = default(int?), string description = default(string), BackupJobProtoDRToCloudParams drToCloudParams = default(BackupJobProtoDRToCloudParams), EntityProto ehParentSource = default(EntityProto), long? endTimeUsecs = default(long?), EnvBackupParams envBackupParams = default(EnvBackupParams), List<BackupJobProtoExcludeSource> excludeSources = default(List<BackupJobProtoExcludeSource>), List<EntityProto> excludeSourcesDEPRECATED = default(List<EntityProto>), List<BackupJobProtoExclusionTimeRange> exclusionRanges = default(List<BackupJobProtoExclusionTimeRange>), JobPolicyProto fullBackupJobPolicy = default(JobPolicyProto), long? fullBackupSlaTimeMins = default(long?), IndexingPolicyProto indexingPolicy = default(IndexingPolicyProto), bool? isActive = default(bool?), bool? isDeleted = default(bool?), bool? isDirectArchiveEnabled = default(bool?), bool? isDirectArchiveNativeFormatEnabled = default(bool?), bool? isPaused = default(bool?), bool? isRpoJob = default(bool?), long? jobCreationTimeUsecs = default(long?), long? jobId = default(long?), JobPolicyProto jobPolicy = default(JobPolicyProto), UniversalIdProto jobUid = default(UniversalIdProto), long? lastModificationTimeUsecs = default(long?), long? lastPauseModificationTimeUsecs = default(long?), int? lastPauseReason = default(int?), string lastUpdatedUsername = default(string), bool? leverageStorageSnapshots = default(bool?), bool? leverageStorageSnapshotsForHyperflex = default(bool?), JobPolicyProto logBackupJobPolicy = default(JobPolicyProto), string name = default(string), long? numSnapshotsToKeepOnPrimary = default(long?), EntityProto parentSource = default(EntityProto), bool? performSourceSideDedup = default(bool?), long? policyAppliedTimeMsecs = default(long?), string policyId = default(string), string policyName = default(string), BackupJobPreOrPostScript postBackupScript = default(BackupJobPreOrPostScript), BackupJobPreOrPostScript preScript = default(BackupJobPreOrPostScript), UniversalIdProto primaryJobUid = default(UniversalIdProto), int? priority = default(int?), bool? quiesce = default(bool?), List<UniversalIdProto> remoteJobUids = default(List<UniversalIdProto>), string remoteViewName = default(string), List<string> requiredFeatureVec = default(List<string>), long? slaTimeMins = default(long?), List<BackupJobProtoBackupSource> sources = default(List<BackupJobProtoBackupSource>), Time startTime = default(Time), StubbingPolicyProto stubbingPolicy = default(StubbingPolicyProto), List<string> tagVec = default(List<string>), string timezone = default(string), bool? truncateLogs = default(bool?), int? type = default(int?), UserInformation userInfo = default(UserInformation), long? viewBoxId = default(long?))
         {
             this.AbortInExclusionWindow = abortInExclusionWindow;
             this.BackupQosPrincipal = backupQosPrincipal;
             this.BackupSourceParams = backupSourceParams;
             this.ContinueOnQuiesceFailure = continueOnQuiesceFailure;
+            this.CreateRemoteView = createRemoteView;
             this.DedupDisabledSourceIdVec = dedupDisabledSourceIdVec;
             this.DeletionStatus = deletionStatus;
             this.Description = description;
@@ -97,6 +101,8 @@ namespace Cohesity.Model
             this.FullBackupSlaTimeMins = fullBackupSlaTimeMins;
             this.IsActive = isActive;
             this.IsDeleted = isDeleted;
+            this.IsDirectArchiveEnabled = isDirectArchiveEnabled;
+            this.IsDirectArchiveNativeFormatEnabled = isDirectArchiveNativeFormatEnabled;
             this.IsPaused = isPaused;
             this.IsRpoJob = isRpoJob;
             this.JobCreationTimeUsecs = jobCreationTimeUsecs;
@@ -130,6 +136,7 @@ namespace Cohesity.Model
             this.BackupQosPrincipal = backupQosPrincipal;
             this.BackupSourceParams = backupSourceParams;
             this.ContinueOnQuiesceFailure = continueOnQuiesceFailure;
+            this.CreateRemoteView = createRemoteView;
             this.DedupDisabledSourceIdVec = dedupDisabledSourceIdVec;
             this.DeletionStatus = deletionStatus;
             this.Description = description;
@@ -145,6 +152,8 @@ namespace Cohesity.Model
             this.IndexingPolicy = indexingPolicy;
             this.IsActive = isActive;
             this.IsDeleted = isDeleted;
+            this.IsDirectArchiveEnabled = isDirectArchiveEnabled;
+            this.IsDirectArchiveNativeFormatEnabled = isDirectArchiveNativeFormatEnabled;
             this.IsPaused = isPaused;
             this.IsRpoJob = isRpoJob;
             this.JobCreationTimeUsecs = jobCreationTimeUsecs;
@@ -220,6 +229,13 @@ namespace Cohesity.Model
         public bool? ContinueOnQuiesceFailure { get; set; }
 
         /// <summary>
+        /// If set to false, a remote view will not be created. If set to true and: 1) Remote view name is not provided by the user, a remote view is created with the same name as source view name. 2) Remote view name is provided by the user, a remote view is created with the given name.
+        /// </summary>
+        /// <value>If set to false, a remote view will not be created. If set to true and: 1) Remote view name is not provided by the user, a remote view is created with the same name as source view name. 2) Remote view name is provided by the user, a remote view is created with the given name.</value>
+        [DataMember(Name="createRemoteView", EmitDefaultValue=true)]
+        public bool? CreateRemoteView { get; set; }
+
+        /// <summary>
         /// List of source ids for which source side dedup is disabled from the backup job.
         /// </summary>
         /// <value>List of source ids for which source side dedup is disabled from the backup job.</value>
@@ -273,9 +289,9 @@ namespace Cohesity.Model
         public List<BackupJobProtoExcludeSource> ExcludeSources { get; set; }
 
         /// <summary>
-        /// The list of sources to exclude from backups. These can have non-leaf-level entities, but it&#39;s up to the creator to ensure that a child of these sources hasn&#39;t been explicitly added to &#39;sources&#39;. TODO(Chinmaya): Remove after removing references.
+        /// The list of sources to exclude from backups. These can have non-leaf-level entities, but it&#39;s up to the creator to ensure that a child of these sources hasn&#39;t been explicitly added to &#39;sources&#39;.
         /// </summary>
-        /// <value>The list of sources to exclude from backups. These can have non-leaf-level entities, but it&#39;s up to the creator to ensure that a child of these sources hasn&#39;t been explicitly added to &#39;sources&#39;. TODO(Chinmaya): Remove after removing references.</value>
+        /// <value>The list of sources to exclude from backups. These can have non-leaf-level entities, but it&#39;s up to the creator to ensure that a child of these sources hasn&#39;t been explicitly added to &#39;sources&#39;.</value>
         [DataMember(Name="excludeSources_DEPRECATED", EmitDefaultValue=true)]
         public List<EntityProto> ExcludeSourcesDEPRECATED { get; set; }
 
@@ -318,6 +334,20 @@ namespace Cohesity.Model
         /// <value>Tracks whether the backup job has actually been deleted.</value>
         [DataMember(Name="isDeleted", EmitDefaultValue=true)]
         public bool? IsDeleted { get; set; }
+
+        /// <summary>
+        /// This field is set to true if this is a direct archive backup job.
+        /// </summary>
+        /// <value>This field is set to true if this is a direct archive backup job.</value>
+        [DataMember(Name="isDirectArchiveEnabled", EmitDefaultValue=true)]
+        public bool? IsDirectArchiveEnabled { get; set; }
+
+        /// <summary>
+        /// This field is set to true if native format should be used for archiving. Applicable for only direct archive jobs.
+        /// </summary>
+        /// <value>This field is set to true if native format should be used for archiving. Applicable for only direct archive jobs.</value>
+        [DataMember(Name="isDirectArchiveNativeFormatEnabled", EmitDefaultValue=true)]
+        public bool? IsDirectArchiveNativeFormatEnabled { get; set; }
 
         /// <summary>
         /// Whether the backup job is paused. New backup runs are not scheduled for the paused backup job. Active run of a backup job (if any) is not impacted.
@@ -488,9 +518,9 @@ namespace Cohesity.Model
         public bool? Quiesce { get; set; }
 
         /// <summary>
-        /// The globally unique ids of all remote jobs that are linked to this job (because of incoming replications). This field will only be populated for locally created jobs.
+        /// The globally unique ids of all remote jobs that are linked to this job (because of incoming replications). This field will only be populated for locally created jobs. This field is populated only for the local(stub) job during incoming replications. In the most common case of one cluster replicating to another, this field will only have one entry (which is the id of the job on Tx side) and matches the primary_job_uid. This will have multiple entries in the following situation: A-&gt;B, A-&gt;C replication. The backup is failed over to B, and B now starts replicating to C. In this case, the stub job at C will have two entries. One is the job id from cluster A, and another is the local(stub) job uid from B. Also note that since the job originated from A, primary_job_uid for all the replicated instances of this job across multiple clusters will remain the same (which is equal to the job id from the original cluster A).
         /// </summary>
-        /// <value>The globally unique ids of all remote jobs that are linked to this job (because of incoming replications). This field will only be populated for locally created jobs.</value>
+        /// <value>The globally unique ids of all remote jobs that are linked to this job (because of incoming replications). This field will only be populated for locally created jobs. This field is populated only for the local(stub) job during incoming replications. In the most common case of one cluster replicating to another, this field will only have one entry (which is the id of the job on Tx side) and matches the primary_job_uid. This will have multiple entries in the following situation: A-&gt;B, A-&gt;C replication. The backup is failed over to B, and B now starts replicating to C. In this case, the stub job at C will have two entries. One is the job id from cluster A, and another is the local(stub) job uid from B. Also note that since the job originated from A, primary_job_uid for all the replicated instances of this job across multiple clusters will remain the same (which is equal to the job id from the original cluster A).</value>
         [DataMember(Name="remoteJobUids", EmitDefaultValue=true)]
         public List<UniversalIdProto> RemoteJobUids { get; set; }
 
@@ -638,6 +668,11 @@ namespace Cohesity.Model
                     this.ContinueOnQuiesceFailure.Equals(input.ContinueOnQuiesceFailure))
                 ) && 
                 (
+                    this.CreateRemoteView == input.CreateRemoteView ||
+                    (this.CreateRemoteView != null &&
+                    this.CreateRemoteView.Equals(input.CreateRemoteView))
+                ) && 
+                (
                     this.DedupDisabledSourceIdVec == input.DedupDisabledSourceIdVec ||
                     this.DedupDisabledSourceIdVec != null &&
                     input.DedupDisabledSourceIdVec != null &&
@@ -715,6 +750,16 @@ namespace Cohesity.Model
                     this.IsDeleted == input.IsDeleted ||
                     (this.IsDeleted != null &&
                     this.IsDeleted.Equals(input.IsDeleted))
+                ) && 
+                (
+                    this.IsDirectArchiveEnabled == input.IsDirectArchiveEnabled ||
+                    (this.IsDirectArchiveEnabled != null &&
+                    this.IsDirectArchiveEnabled.Equals(input.IsDirectArchiveEnabled))
+                ) && 
+                (
+                    this.IsDirectArchiveNativeFormatEnabled == input.IsDirectArchiveNativeFormatEnabled ||
+                    (this.IsDirectArchiveNativeFormatEnabled != null &&
+                    this.IsDirectArchiveNativeFormatEnabled.Equals(input.IsDirectArchiveNativeFormatEnabled))
                 ) && 
                 (
                     this.IsPaused == input.IsPaused ||
@@ -931,6 +976,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.BackupSourceParams.GetHashCode();
                 if (this.ContinueOnQuiesceFailure != null)
                     hashCode = hashCode * 59 + this.ContinueOnQuiesceFailure.GetHashCode();
+                if (this.CreateRemoteView != null)
+                    hashCode = hashCode * 59 + this.CreateRemoteView.GetHashCode();
                 if (this.DedupDisabledSourceIdVec != null)
                     hashCode = hashCode * 59 + this.DedupDisabledSourceIdVec.GetHashCode();
                 if (this.DeletionStatus != null)
@@ -961,6 +1008,10 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.IsActive.GetHashCode();
                 if (this.IsDeleted != null)
                     hashCode = hashCode * 59 + this.IsDeleted.GetHashCode();
+                if (this.IsDirectArchiveEnabled != null)
+                    hashCode = hashCode * 59 + this.IsDirectArchiveEnabled.GetHashCode();
+                if (this.IsDirectArchiveNativeFormatEnabled != null)
+                    hashCode = hashCode * 59 + this.IsDirectArchiveNativeFormatEnabled.GetHashCode();
                 if (this.IsPaused != null)
                     hashCode = hashCode * 59 + this.IsPaused.GetHashCode();
                 if (this.IsRpoJob != null)
