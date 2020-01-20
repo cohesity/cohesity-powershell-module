@@ -7,7 +7,8 @@ function Invoke-RestApi
         $Uri,
         $Headers,
         $Method,
-        $Body
+        $Body,
+        $OutFile
     )
     if($null -eq $Global:CohesityCmdletConfig) {
         $Global:CohesityCmdletConfig = Get-CohesityCmdletConfig
@@ -59,6 +60,13 @@ function Invoke-RestApi
                 return $ret
             }
         }
+
+        if ($PSBoundParameters.ContainsKey('OutFile')) {
+            # there is no response object from the backend for a successful download file/folder operation, hence constructing a new one
+            $ret = @{Response = "Success"; Method = "Get"; }
+            return $ret
+        }
+
         if ($Global:CohesityCmdletConfig) {
             if ($Global:CohesityCmdletConfig.LogHeaderDetail -eq $true) {
                 if ($PSBoundParameters.ContainsKey('Uri')) {
