@@ -22,7 +22,7 @@ If you find a bug in the source code, you can help us by
 [submit a Pull Request](#submit-pr) with a fix.
 
 ## <a name="doc"></a> Have any suggestions for the Documentation? :bulb:
-If you find any discrepancies in our Documentation or you any awesome suggestions for us, report it to us by opening a new issue using the  [Documentation template](https://github.com) provided in our GitHub repo.
+If you find any discrepancies in our Documentation or you any awesome suggestions for us, report it to us by opening a new issue using the  [Documentation template](https://github.com/chandrashekar-cohesity/cohesity-powershell-module/issues/new/choose) provided in our GitHub repo.
 
 
 ## <a name="feature"></a> Missing a Feature? :star:	
@@ -37,7 +37,7 @@ and help you to craft the change so that it is successfully accepted into the pr
 * **Small Features** can be crafted and directly [submitted as a Pull Request](#submit-pr).
 
 ## <a name="example"></a> Need more code examples and samples?
-Reach out to us [here](http://github.com) if you have any questions or if you want to request more examples and sample code. We would love to help you out!!
+Reach out to us [here](https://github.com/chandrashekar-cohesity/cohesity-powershell-module/issues/new/choose) if you have any questions or if you want to request more examples and sample code. We would love to help you out!!
 
 ## <a name="submit"></a> Submission Guidelines
 
@@ -49,9 +49,7 @@ We want to fix all the issues as soon as possible, but before fixing a bug we ne
 
 A minimal reproduction allows us to quickly confirm a bug (or point out a coding problem) as well as confirm that we are fixing the right problem.
 
-You can file new issues [here](https://github.com/cohesity/cohesity-powershell-module/issues/new)
-
-You can file new issues by selecting from our [new issue templates](https://github.com/Cohesity PowerShell Module/Cohesity PowerShell Module/issues/new/choose) and filling out the issue template.
+You can file new issues by selecting from our [new issue templates](https://github.com/chandrashekar-cohesity/cohesity-powershell-module/issues/new/choose) and filling out the issue template.
 
 
 ### <a name="submit-pr"></a> Submitting a Pull Request (PR)
