@@ -55,7 +55,7 @@ This project provides a PowerShell Module for interacting with the [Cohesity Dat
 
 ## <a name="about"></a> Contribute
 
-* [Refer our contribution guideline](https://cohesity.github.io/cohesity-powershell-module).
+* [Refer our contribution guideline](https://github.com/chandrashekar-cohesity/cohesity-powershell-module/blob/contribution-guide/CONTRIBUTING.md).
 
 ## <a name="suggest"></a> Suggestions and Feedback
 
