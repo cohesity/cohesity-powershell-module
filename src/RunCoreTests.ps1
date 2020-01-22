@@ -8,5 +8,5 @@ $targetTestPath = "..\..\sdk-generation\powershell-tests"
 cd $targetTestPath
 
 #Invoke the pester and navigate back to powershell module
-Invoke-Pester -Script .\Access.Management.Tests.ps1 , .\Monitoring.Tests.ps1 , .\Remote.Cluster.Tests.ps1, .\Update.Protection.Job.Run.Tests.ps1
+Invoke-Pester -Tag UnitTest
 cd $currentPath
