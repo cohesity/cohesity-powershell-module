@@ -112,7 +112,7 @@ Alternatively, you can also use the steps below to upgrade to the latest version
 
 [//]: <> (## <a name="resources"></a> Want to learn more?)
 
-## <a name="contribute"></a> Documentation 
+## <a name="contribute"></a> Documentation :books:
 
 * [Online reference for Cohesity PowerShell Cmdlets](https://cohesity.github.io/cohesity-powershell-module/#/cmdlets-reference/connect-cohesitycluster).
 * All the commands have an inline example on how to use the command
