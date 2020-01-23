@@ -112,13 +112,13 @@ Alternatively, you can also use the steps below to upgrade to the latest version
 
 [//]: <> (## <a name="resources"></a> Want to learn more?)
 
-## <a name="contribute"></a> Documentation :books:
+## <a name="doc"></a> Documentation 
 
 * [Online reference for Cohesity PowerShell Cmdlets](https://cohesity.github.io/cohesity-powershell-module/#/cmdlets-reference/connect-cohesitycluster).
 * All the commands have an inline example on how to use the command
 
 
-## <a name="about"></a> Contribute :muscle:
+## <a name="contribute"></a> Contribute :muscle:
 
 * [Refer our contribution guideline](https://github.com/chandrashekar-cohesity/cohesity-powershell-module/blob/contribution-guide/CONTRIBUTING.md).
 
