@@ -22,7 +22,7 @@ If you find a bug in the source code, you can help us by
 [submit a Pull Request](#submit-pr) with a fix.
 
 ## <a name="doc"></a> Have any suggestions for the Documentation? :bulb:
-If you find any discrepancies in our Documentation or you any awesome suggestions for us, report it to us by opening a new issue using the  [Documentation template](https://github.com/chandrashekar-cohesity/cohesity-powershell-module/issues/new/choose) provided in our GitHub repo.
+If you find any discrepancies in our Documentation or you any awesome suggestions for us, report it to us by opening a new issue using the  [Documentation template](https://github.com/chandrashekar-cohesity/cohesity-powershell-module/issues/new?assignees=&labels=&template=---documentation.md&title=) provided in our GitHub repo.
 
 
 ## <a name="feature"></a> Missing a Feature? :star:	
@@ -37,7 +37,7 @@ and help you to craft the change so that it is successfully accepted into the pr
 * **Small Features** can be crafted and directly [submitted as a Pull Request](#submit-pr).
 
 ## <a name="example"></a> Need more code examples and samples?
-Reach out to us [here](https://github.com/chandrashekar-cohesity/cohesity-powershell-module/issues/new/choose) if you have any questions or if you want to request more examples and sample code. We would love to help you out!!
+Reach out to us [here](https://github.com/chandrashekar-cohesity/cohesity-powershell-module/issues/new?assignees=&labels=&template=issues---sample-requests---questions--.md&title=) if you have any questions or if you want to request more examples and sample code. We would love to help you out!!
 
 ## <a name="submit"></a> Submission Guidelines
 
@@ -49,7 +49,7 @@ We want to fix all the issues as soon as possible, but before fixing a bug we ne
 
 A minimal reproduction allows us to quickly confirm a bug (or point out a coding problem) as well as confirm that we are fixing the right problem.
 
-You can file new issues by selecting from our [new issue templates](https://github.com/chandrashekar-cohesity/cohesity-powershell-module/issues/new/choose) and filling out the issue template.
+You can file new issues [here](https://github.com/chandrashekar-cohesity/cohesity-powershell-module/issues/new?assignees=&labels=&template=---bug-report.md&title=).
 
 
 ### <a name="submit-pr"></a> Submitting a Pull Request (PR)
@@ -136,7 +136,7 @@ Isn't this just how it works already? Yep. This is widely accepted as the norm i
 
 As contributors and maintainers of the Cohesity PowerShell Module project, we pledge to respect everyone who contributes by posting issues, updating documentation, submitting pull requests, providing feedback in comments, and any other activities.
 
-Communication through any of Cohesity PowerShell Modules's channels (GitHub, [mailing list](mailto:cohesity-api-sdks@cohesity.com) , Twitter, etc.) must be constructive and never resort to personal attacks, trolling, public or private harassment, insults, or other unprofessional conduct.
+Communication through any of Cohesity PowerShell Modules's channels (GitHub, [mailing-list](mailto:cohesity-api-sdks@cohesity.com), Twitter, etc.) must be constructive and never resort to personal attacks, trolling, public or private harassment, insults, or other unprofessional conduct.
 
 We promise to extend courtesy and respect to everyone involved in this project regardless of gender, gender identity, sexual orientation, disability, age, race, ethnicity, religion, or level of experience. We expect anyone contributing to the Cohesity PowerShell Modules project to do the same.
 
