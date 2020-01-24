@@ -1,0 +1,12 @@
+{
+    "vCenterServer":"vc-67.eco.eng.cohesity.com",
+    "vCenterUserName":"administrator@eco.eng.cohesity.com",
+    "vCenterFolderName": "chandra-pwsh",
+    "CohesityCluster":"chandu-ve-01-vip.pm.cohesity.com",
+    "VMPrefix": "chandra-pwsh",
+    "SourceVMName": "Cirros-VM",
+    "ProtectionJobName": "pwsh-job01",
+    "ProtectionPolicyName": "pwsh-policy",
+    "StorageDomainName": "DefaultStorageDomain"
+
+}
