@@ -1,8 +1,10 @@
 
 $ErrorActionPreference = "Stop"
 
-### source the cohesity-api helper code
-. ./cohesity-api
+### Get cohesity module directory
+$cohesityPath = $env:PSModulePath.split(':')[0] + '/Cohesity.PowerShell.Core/1.1.2/Scripts/Utility/'
+### Import all script under utility folder
+Get-ChildItem ($cohesityPath + "*.ps1")| ForEach-Object {. (Join-Path $cohesityPath $_.Name)} | Out-Null
 
 ### Read the var.json file for all the params
 $filepath = Resolve-Path "vars.json"
@@ -80,19 +82,34 @@ if (([string]::IsNullOrEmpty($parameters.CohesityCluster)))
     $CohesityCluster = $parameters.CohesityCluster
 }
 
+
+if(-not (Test-Path -Path "$HOME/.cohesity"))
+{
+    throw "Failed to authenticate. Please connect to the Cohesity Cluster using 'Connect-CohesityCluster'"
+}
+$session = Get-Content -Path $HOME/.cohesity | ConvertFrom-Json
+
+$server = $session.ClusterUri
+
+$token = $session.Accesstoken.Accesstoken
+
 ### Connect to Cohesity Cluster.
 Connect-CohesityCluster -Server $CohesityCluster -Credential (Get-Credential -Message "Enter your Cohesity Cluster details")  
 
-### Get token to make Refresh API call
-apiauth -vip $CohesityCluster -username "admin" -domain "local"
+$uri = $server + '/irisservices/api/v1/public/protectionSources/rootNodes'
+$headers = @{'Authorization'='Bearer '+$token}
+
+### Invoke API request to Get all sources present in Cohesity Cluster
+$rootnodes = Invoke-RestApi -Method 'Get' -Uri $uri -Headers $headers
 
 ### Get all sources present in Cohesity Cluster
-$rootnodes = api get protectionSources/rootNodes
+#$rootnodes = api get protectionSources/rootNodes
 
 ### Find the source ID for this VCenter in Cohesity Cluster
 foreach($node in $rootnodes){
     if($node.protectionSource.name -eq $vCenterServer){
         $vCenterSourceID = $node.protectionSource.id
+        break
     }
 }
 
@@ -107,7 +124,8 @@ if($LASTEXITCODE -eq 1){
 }
 
 ### Make a refresh API call
-api post protectionSources/refresh/$vCenterSourceID
+$uri = $server + '/irisservices/api/v1/public/protectionSources/refresh/'+ $vCenterSourceID
+Invoke-RestApi -Method 'Post' -Uri $uri -Headers $headers
 
 ### Collect the newly created VMs SourceID to use in New Protection Job creation
 $CohesityVMwareObjects = Get-CohesityVMwareVM -Names $ProtectionVM # Collect objects by names first
@@ -139,7 +157,7 @@ if (([string]::IsNullOrEmpty($parameters.StorageDomainName)))
    $StorageDomainName = $parameters.StorageDomainName
 }
 
-### Create a Job using CohesityVMwareObjectsIds as SourceIDs
+## Create a Job using CohesityVMwareObjectsIds as SourceIDs
 $OriginalJob = New-CohesityProtectionJob -Name $ProtectionJobName `
 -Description $ProtectionPolicyName -PolicyName $ProtectionPolicyName -StorageDomainName $StorageDomainName `
 -ParentSourceId $CohesityVMwareObjects[0].ParentId -Environment kVMware `
@@ -157,7 +175,7 @@ $OriginalJob = New-CohesityProtectionJob -Name $ProtectionJobName `
 }
 
 ### Make a refresh API call
-api post protectionSources/refresh/$vCenterSourceID
+Invoke-RestApi -Method 'Post' -Uri $uri -Headers $headers
 
 ### Update the protection object list with the newly created VMs
 $CohesityVMwareObjects = Get-CohesityVMwareVM -Names $ProtectionVM

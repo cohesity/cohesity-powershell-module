@@ -1,24 +1,21 @@
-# Workflow 01
+# VMWare workflow
 
 ## Overview
 
-This workflow uses the Cohesity powershell modules along with [powercli](https://www.vmware.com/support/developer/PowerCLI/) to interact with a Cohesity and VMWare cluster to Register a vCenter as a protection source and protect VMs in it. If you want to know all teh steps in the workflow, refer to [steps](#steps) section.
+This workflow uses the Cohesity powershell modules along with [PowerCLI](https://www.vmware.com/support/developer/PowerCLI/) to interact with a Cohesity and VMWare cluster to Register a vCenter as a protection source and protect VMs in it. If you want to know all teh steps in the workflow, refer to [steps](#steps) section.
 
 ## Table of contents :scroll:
 
  - [Components](#components)
  - [How to run](#howto)
  - [Steps](#steps)
- - [How can you contribute](#contribute)
  - [Suggestions and Feedback](#suggest)
  
 ## <a name="components"></a> Brief summary of all components used here  :mag:
 
 * `vars.json`: This file contains all the variables that this workflow needs to execute. In case you forget to update any variable here, the workflow will prompt you to enter the parameters.
 
-* `cohesity-api.ps1`: This is a module used to make API requests to Cohesity cluster in case where we don't have the corresponding cmdlets present in the Cohesity Powershell Module
-
-* `workflow01.ps1`: This file contains the script that executes the workflow using `vars.json`, `Cohesity Powershell Module` and the `cohesity-api.ps1`
+* `workflow01.ps1`: This file contains the script that executes the workflow using `vars.json` and `Cohesity Powershell Module`.
 
 
 ## <a name="howto"></a> Instructions for executing this workflow :hammer_and_pick:
@@ -42,7 +39,7 @@ This workflow uses the Cohesity powershell modules along with [powercli](https:/
 
 The workflow execution includes the following sub taks
 
-1. Import the cohesity-api module
+1. Import the API cmdlet from utility folder in Cohesity module
 2. Read the `vars.json` file
 3. Connect to vCenter
 4. Connect to Cohesity Cluster
@@ -54,13 +51,6 @@ The workflow execution includes the following sub taks
 10. Update the Protection Group by adding the 2 VMs created in step 9
 
 	> Note: You need to run the protection group again on Cohesity cluster after adding the 2 new VMs from step 9 to take backup of these VMs
-
-
-
-## <a name="contribute"></a> Contribute :muscle:
-
-* [Refer our contribution guideline](https://github.com/chandrashekar-cohesity/cohesity-powershell-module/blob/contribution-guide/CONTRIBUTING.md).
-
 
 ## <a name ="suggest"></a> Questions or Feedback :hand:
 
