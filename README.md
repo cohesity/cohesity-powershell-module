@@ -19,8 +19,14 @@ This project provides a PowerShell Module for interacting with the [Cohesity Dat
 
 ## Documentation
 
-* [Online reference for Cohesity PowerShell Cmdlets](https://cohesity.github.io/cohesity-powershell-module).
-* You can also use `Get-Help <cmdlet>` for offline help.
+ - [Getting Started](#get-started)
+ - [Samples](#examples)
+ - [Documentation](#doc)
+ - [How can you contribute](#contribute)
+ - [Installation tips](#tips)
+ - [Suggestions and Feedback](#suggest)
+ 
+ 
 
 ## <a name="get-started"></a> Let's get started :hammer_and_pick:
 
@@ -44,6 +50,23 @@ You can install Cohesity PowerShell Module directly using the [PowerShell Galler
   ```powershell
   Install-Module -Name Cohesity.PowerShell
   ```
+
+## <a name="examples"></a> Some samples to get you going :bulb:
+
+* Refer `samples` folder to find more examples.
+* More examples can be found [here](https://cohesity.github.io/cohesity-powershell-module/#/cmdlets-reference/connect-cohesitycluster) under Examples section
+
+## <a name="doc"></a> Documentation :book:
+
+* [Online reference for Cohesity PowerShell Cmdlets](https://cohesity.github.io/cohesity-powershell-module/#/cmdlets-reference/connect-cohesitycluster).
+* All the commands have an inline example on how to use the command
+
+
+## <a name="contribute"></a> Contribute :handshake:
+
+* [Refer our contribution guideline](https://github.com/chandrashekar-cohesity/cohesity-powershell-module/blob/contribution-guide/CONTRIBUTING.md).
+
+## <a name="tips"></a> Installation tips 
 
 <!-- tabs:end -->
 
@@ -100,28 +123,10 @@ Alternatively, you can also use the steps below to upgrade to the latest version
 <!-- tabs:end -->
 
 
-## <a name="examples"></a> Some samples to get you going :bulb:
-
-* Refer `samples` folder to find more examples.
-* More examples can be found [here](https://cohesity.github.io/cohesity-powershell-module/#/cmdlets-reference/connect-cohesitycluster) under Examples section
-
-
-[//]: <> (## <a name="resources"></a> Want to learn more?)
-
-## <a name="doc"></a> Documentation 
-
-* [Online reference for Cohesity PowerShell Cmdlets](https://cohesity.github.io/cohesity-powershell-module/#/cmdlets-reference/connect-cohesitycluster).
-* All the commands have an inline example on how to use the command
-
-
-## <a name="contribute"></a> Contribute :muscle:
-
-* [Refer our contribution guideline](https://github.com/chandrashekar-cohesity/cohesity-powershell-module/blob/contribution-guide/CONTRIBUTING.md).
-
 ## <a name="suggest"></a> Suggestions and Feedback :raised_hand:
 
 We would love to hear from you. Please send your suggestions and feedback to: [cohesity-api-sdks@cohesity.com](mailto:cohesity-api-sdks@cohesity.com)
 
-## License
+## License :shield:
 
 Apache 2.0
