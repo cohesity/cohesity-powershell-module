@@ -102,7 +102,7 @@ Alternatively, you can also use the steps below to upgrade to the latest version
 
 ## <a name="examples"></a> Some samples to get you going :bulb:
 
-* Refer `sample-workflows` folder to find more examples.
+* Refer `samples` folder to find more examples.
 * More examples can be found [here](https://cohesity.github.io/cohesity-powershell-module/#/cmdlets-reference/connect-cohesitycluster) under Examples section
 
 
