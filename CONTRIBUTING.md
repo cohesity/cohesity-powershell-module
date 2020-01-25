@@ -1,4 +1,4 @@
-# Contributing to Cohesity PowerShell Module :muscle:
+# Contributing to Cohesity PowerShell Module :handshake:
 
 We would love for you to contribute to Cohesity PowerShell Module and help make it even better than it is
 today! As a contributor, here are the guidelines we would like you to follow:
