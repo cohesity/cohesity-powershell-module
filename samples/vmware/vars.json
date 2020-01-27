@@ -1,12 +1,12 @@
 {
-    "vCenterServer":"vc-67.eco.eng.cohesity.com",
-    "vCenterUserName":"administrator@eco.eng.cohesity.com",
-    "vCenterFolderName": "chandra-pwsh",
-    "CohesityCluster":"chandu-ve-01-vip.pm.cohesity.com",
-    "VMPrefix": "chandra-pwsh",
-    "SourceVMName": "Cirros-VM",
-    "ProtectionJobName": "pwsh-job02",
-    "ProtectionPolicyName": "pwsh-policy",
-    "StorageDomainName": "DefaultStorageDomain"
+    "vCenterServer":"YOUR_VCENTER_CLUSTER_IP_OR_FQDN",
+    "vCenterUserName":"VCENTER_USERNAME",
+    "vCenterFolderName": "VCENTER_FOLDER_NAME",
+    "CohesityCluster":"YOUR_COHESITY_CLUSTER_IP_OR_FQDN",
+    "VMPrefix": "VM_NAME_PREFIX",
+    "SourceVMName": "SOURCE_VM_TO_BE_CLONED",
+    "ProtectionJobName": "PROTECTION_JOB_NAME",
+    "ProtectionPolicyName": "EXISTING_POLICY_NAME",
+    "StorageDomainName": "COHESITY_STORAGE_DOMAIN_NAME"
 
 }
