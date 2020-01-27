@@ -1,8 +1,9 @@
 
 $ErrorActionPreference = "Stop"
-
+$VMCOUNT = 4 # Number of VMs that will be cloned from SourceVMName
 ### Get cohesity module directory
-$cohesityPath = $env:PSModulePath.split(':')[0] + '/Cohesity.PowerShell.Core/1.1.2/Scripts/Utility/'
+$PowerShellModuleVersion = Get-InstalledModule -Name Cohesity* | ForEach-Object{ $_.Version }
+$cohesityPath = $env:PSModulePath.split(':')[0] + '/Cohesity.PowerShell.Core/' + $PowerShellModuleVersion +'/Scripts/Utility/'
 ### Import all script under utility folder
 Get-ChildItem ($cohesityPath + "*.ps1")| ForEach-Object {. (Join-Path $cohesityPath $_.Name)} | Out-Null
 
@@ -35,7 +36,7 @@ $vc = Connect-VIServer -Server $vCenterServer -Credential $credentials
 
 Write-Host "*************Connected to the vCenter**************************`n" -ForegroundColor Green
 
-Write-Host "*************Let's clone 3 VMs from an existing VM*************`n" -ForegroundColor Green
+Write-Host "*************Let's clone some VMs from an existing VM*************`n" -ForegroundColor Green
 
 ### Check if VM details are present in vars.json. If not, collect it from the user
 if (([string]::IsNullOrEmpty($parameters.VMPrefix)))
@@ -63,13 +64,15 @@ if (([string]::IsNullOrEmpty($parameters.vCenterFolderName)))
 ### Array to store all VM names
 $ProtectionVM = @()
 
-### Create 3 VMs
-1..3 | foreach {
-    $VMName = $VMPrefix + "0" + $_ # Create unique VM name
+### Create half the VMs
+$i = 1    
+$i..($VMCOUNT/2) | foreach {
+    $VMName = $VMPrefix + "0" + $i # Create unique VM name
     $ProtectionVM += $VMName # Add VM to array
     Write-Host "*************Creating VM $($VMName). It might take some time*************`n" -ForegroundColor Green
     New-VM -Name $VMName -Location $vCenterFolderName -VM $SourceVM -VMHost $SourceVM.VMHost -Server $vc # Create VM
     $VMName ="" # Set this to empty so that all names are not appended
+    $i+=1
 }
 
 Write-Host "*************Let's connect to a Cohesity Cluster*************`n" -ForegroundColor Green
@@ -82,28 +85,25 @@ if (([string]::IsNullOrEmpty($parameters.CohesityCluster)))
     $CohesityCluster = $parameters.CohesityCluster
 }
 
-
+### Check if API token is already present
 if(-not (Test-Path -Path "$HOME/.cohesity"))
 {
     throw "Failed to authenticate. Please connect to the Cohesity Cluster using 'Connect-CohesityCluster'"
 }
 $session = Get-Content -Path $HOME/.cohesity | ConvertFrom-Json
 
-$server = $session.ClusterUri
+$server = $session.ClusterUri # API URL
 
-$token = $session.Accesstoken.Accesstoken
+$token = $session.Accesstoken.Accesstoken # API TOKEN
 
 ### Connect to Cohesity Cluster.
 Connect-CohesityCluster -Server $CohesityCluster -Credential (Get-Credential -Message "Enter your Cohesity Cluster details")  
 
-$uri = $server + '/irisservices/api/v1/public/protectionSources/rootNodes'
+$uri = $server + '/irisservices/api/v1/public/protectionSources/rootNodes' # GET all sources
 $headers = @{'Authorization'='Bearer '+$token}
 
 ### Invoke API request to Get all sources present in Cohesity Cluster
 $rootnodes = Invoke-RestApi -Method 'Get' -Uri $uri -Headers $headers
-
-### Get all sources present in Cohesity Cluster
-#$rootnodes = api get protectionSources/rootNodes
 
 ### Find the source ID for this VCenter in Cohesity Cluster
 foreach($node in $rootnodes){
@@ -124,8 +124,8 @@ if($LASTEXITCODE -eq 1){
 }
 
 ### Make a refresh API call
-$uri = $server + '/irisservices/api/v1/public/protectionSources/refresh/'+ $vCenterSourceID
-Invoke-RestApi -Method 'Post' -Uri $uri -Headers $headers
+$uri = $server + '/irisservices/api/v1/public/protectionSources/refresh/'+ $vCenterSourceID # Generate Refresh API endpoint
+Invoke-RestApi -Method 'Post' -Uri $uri -Headers $headers #Refresh the source to get updated VM list
 
 ### Collect the newly created VMs SourceID to use in New Protection Job creation
 $CohesityVMwareObjects = Get-CohesityVMwareVM -Names $ProtectionVM # Collect objects by names first
@@ -159,23 +159,27 @@ if (([string]::IsNullOrEmpty($parameters.StorageDomainName)))
 
 ## Create a Job using CohesityVMwareObjectsIds as SourceIDs
 $OriginalJob = New-CohesityProtectionJob -Name $ProtectionJobName `
--Description $ProtectionPolicyName -PolicyName $ProtectionPolicyName -StorageDomainName $StorageDomainName `
--ParentSourceId $CohesityVMwareObjects[0].ParentId -Environment kVMware `
--SourceIds $CohesityVMwareObjectsIds
+                                         -Description $ProtectionPolicyName `
+                                         -PolicyName $ProtectionPolicyName `
+                                         -StorageDomainName $StorageDomainName `
+                                         -ParentSourceId $CohesityVMwareObjects[0].ParentId `
+                                         -Environment kVMware `
+                                         -SourceIds $CohesityVMwareObjectsIds
 
-### Now we will create 2 more VMs and Add it to the protection job
+### Now we will create remaining VMs and Add it to the protection job
 
-### Create 2 VMs
-4..5 | foreach {
-    $VMName = $VMPrefix + "0" + $_ # Create unique VM name
+### Create remaining VMs
+$i..$VMCOUNT | foreach {
+    $VMName = $VMPrefix + "0" + $i # Create unique VM name
     $ProtectionVM += $VMName # Add VM to array
     Write-Host "*************Creating VM $($VMName). It might take some time*************`n" -ForegroundColor Green
     New-VM -Name $VMName -Location $vCenterFolderName -VM $SourceVM -VMHost $SourceVM.VMHost -Server $vc # Create VM
     $VMName ="" # Set this to empty so that all names are not appended
+    $i+=1
 }
 
 ### Make a refresh API call
-Invoke-RestApi -Method 'Post' -Uri $uri -Headers $headers
+Invoke-RestApi -Method 'Post' -Uri $uri -Headers $headers #Refresh the source to get updated VM list
 
 ### Update the protection object list with the newly created VMs
 $CohesityVMwareObjects = Get-CohesityVMwareVM -Names $ProtectionVM

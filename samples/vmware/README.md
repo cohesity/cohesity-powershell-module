@@ -52,6 +52,3 @@ The workflow execution includes the following sub taks
 
 	> Note: You need to run the protection group again on Cohesity cluster after adding the 2 new VMs from step 9 to take backup of these VMs
 
-## <a name ="suggest"></a> Questions or Feedback :hand:
-
-We would love to hear from you. Please send your questions and feedback to: *cohesity-api-sdks@cohesity.com*
