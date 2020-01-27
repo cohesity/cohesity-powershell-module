@@ -13,6 +13,4 @@ assignees: ''
 
 ## Example or reference 
 
-(Write your answer here)
-
 (Write your answer here.)
