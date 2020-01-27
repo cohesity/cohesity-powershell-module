@@ -54,8 +54,8 @@ You can install Cohesity PowerShell Module directly using the [PowerShell Galler
 
 ## <a name="examples"></a> Some samples to get you going :bulb:
 
-* Refer [`samples`](./samples/README.md) folder to find more examples.
-* More examples can be found [here](https://cohesity.github.io/cohesity-powershell-module/#/cmdlets-reference/connect-cohesitycluster) under Examples section
+* Refer [`samples`](./samples) folder to find more examples.
+* More samples can be found [here](https://cohesity.github.io/cohesity-powershell-module/#/samples/list-protectionJob-start-times) under Examples section
 
 ## <a name="doc"></a> Documentation :book:
 
