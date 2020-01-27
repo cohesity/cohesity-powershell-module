@@ -30,22 +30,23 @@ This project provides a PowerShell Module for interacting with the [Cohesity Dat
 
 ## <a name="get-started"></a> Let's get started :hammer_and_pick:
 
+### Pre-req
+
+The pre-requisites for using the Cohesity PowerShell Module are as below:
+
+* Cohesity Cluster running software version `6.0` or higher and Powershell 5.1 or higher. For more details refer [this](./docs/pre-requisites.md) link
+
 ### Online installation
+
 You can install Cohesity PowerShell Module directly using the [PowerShell Gallery](https://www.powershellgallery.com/packages?q=cohesity).
 
-  > **Tip:** Please follow the steps based on the flavor of PowerShell that you are running.
-  * If installing on `MacOS` and `Linux` you must use the steps for `PowerShell Core`.
-  * If installing on `Windows` you should use the steps for `Windows PowerShell`, unless you are running `PowerShell Core`.
-
-<!-- tabs:start -->
-
-#### ** PowerShell Core **
+#### ** PowerShell Core (`MacOS` and `Linux`) **
 
   ```powershell
   Install-Module -Name Cohesity.PowerShell.Core
   ```
 
-#### ** Windows PowerShell **
+#### ** Windows PowerShell (`Windows`) **
 
   ```powershell
   Install-Module -Name Cohesity.PowerShell
@@ -53,7 +54,7 @@ You can install Cohesity PowerShell Module directly using the [PowerShell Galler
 
 ## <a name="examples"></a> Some samples to get you going :bulb:
 
-* Refer `samples` folder to find more examples.
+* Refer [`samples`](./samples/README.md) folder to find more examples.
 * More examples can be found [here](https://cohesity.github.io/cohesity-powershell-module/#/cmdlets-reference/connect-cohesitycluster) under Examples section
 
 ## <a name="doc"></a> Documentation :book:
@@ -64,7 +65,7 @@ You can install Cohesity PowerShell Module directly using the [PowerShell Galler
 
 ## <a name="contribute"></a> Contribute :handshake:
 
-* [Refer our contribution guideline](https://github.com/chandrashekar-cohesity/cohesity-powershell-module/blob/contribution-guide/CONTRIBUTING.md).
+* [Refer our contribution guideline](./CONTRIBUTING.md).
 
 ## <a name="tips"></a> Installation tips 
 
