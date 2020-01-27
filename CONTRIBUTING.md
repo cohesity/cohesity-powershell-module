@@ -132,7 +132,7 @@ Whenever you make a contribution to a repository containing notice of a license,
 Isn't this just how it works already? Yep. This is widely accepted as the norm in the open-source community; it's commonly referred to by the shorthand "inbound=outbound". We're just making it explicit.
 
 
-## <a name="coc-details"></a> Code of Conduct
+## <a name="coc-details"></a> Code of Conduct :cop:
 
 As contributors and maintainers of the Cohesity PowerShell Module project, we pledge to respect everyone who contributes by posting issues, updating documentation, submitting pull requests, providing feedback in comments, and any other activities.
 
