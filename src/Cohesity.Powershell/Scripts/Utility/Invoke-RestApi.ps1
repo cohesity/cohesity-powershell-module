@@ -45,6 +45,22 @@ function Invoke-RestApi
     $Global:CohesityAPIError = $null
     # to ensure, for every success execution of REST API, the function must return a non null object
     try {
+        if ($Global:CohesityCmdletConfig) {
+            if ($Global:CohesityCmdletConfig.LogHeaderDetail -eq $true) {
+                if ($PSBoundParameters.ContainsKey('Uri')) {
+                    CSLog -Message ($PSBoundParameters.Uri | ConvertTo-Json) -Severity 1
+                }
+                if ($PSBoundParameters.ContainsKey('Headers')) {
+                    CSLog -Message ($PSBoundParameters.Headers | ConvertTo-Json) -Severity 1
+                }
+            }
+            if ($Global:CohesityCmdletConfig.LogRequestedPayload -eq $true) {
+                if ($PSBoundParameters.ContainsKey('Body')) {
+                    CSLog -Message ($PSBoundParameters.Body | ConvertTo-Json) -Severity 1
+                }
+            }
+        }
+
         If ($PSVersionTable.PSVersion.Major -ge 6) {
             $result = Invoke-WebRequest -UseBasicParsing -SkipCertificateCheck @PSBoundParameters -UserAgent $Global:CohesityUserAgentName
         }
@@ -68,19 +84,6 @@ function Invoke-RestApi
         }
 
         if ($Global:CohesityCmdletConfig) {
-            if ($Global:CohesityCmdletConfig.LogHeaderDetail -eq $true) {
-                if ($PSBoundParameters.ContainsKey('Uri')) {
-                    CSLog -Message ($PSBoundParameters.Uri | ConvertTo-Json) -Severity 1
-                }
-                if ($PSBoundParameters.ContainsKey('Headers')) {
-                    CSLog -Message ($PSBoundParameters.Headers | ConvertTo-Json) -Severity 1
-                }
-            }
-            if ($Global:CohesityCmdletConfig.LogRequestedPayload -eq $true) {
-                if ($PSBoundParameters.ContainsKey('Body')) {
-                    CSLog -Message ($PSBoundParameters.Body | ConvertTo-Json) -Severity 1
-                }
-            }
             if ($Global:CohesityCmdletConfig.LogResponseData -eq $true) {
                 CSLog -Message ($result.Content) -Severity 1
             }

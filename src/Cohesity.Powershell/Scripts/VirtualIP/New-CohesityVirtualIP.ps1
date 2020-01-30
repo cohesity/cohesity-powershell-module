@@ -9,26 +9,21 @@ function New-CohesityVirtualIP {
         .LINK
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
-        New-CohesityVirtualIP -VlanName "intf_group2.0" -Subnet "10.3.144.0" -NetmaskBitsForSubnet 20 -Gateway "10.3.144.1" -VirtualIPs "10.3.144.14", "10.3.144.15"
+        New-CohesityVirtualIP -InterfaceGroupName "intf_group2" -VlanId 11 -VirtualIPs "1.3.4.14", "1.3.4.15"
     #>
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
-        [string]$VlanName,
+        [string]$InterfaceGroupName,
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
-        [string]$Subnet,
-        [Parameter(Mandatory = $true)]
-        [ValidateNotNullOrEmpty()]
-        [int]$NetmaskBitsForSubnet,
-        [Parameter(Mandatory = $true)]
-        [ValidateNotNullOrEmpty()]
-        [string]$Gateway,
+        [string]$VlanId,
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
         [string[]]$VirtualIPs
     )
+
     Begin {
         if (-not (Test-Path -Path "$HOME/.cohesity")) {
             throw "Failed to authenticate. Please connect to the Cohesity Cluster using 'Connect-CohesityCluster'"
@@ -39,9 +34,11 @@ function New-CohesityVirtualIP {
     }
 
     Process {
-        $vlanObject = Get-CohesityVlan | Where-Object { $_.vlanName -eq $VlanName }
+        # Please see the documentation how to construct the below attribute
+        $virtualInterfaceGroupName = $InterfaceGroupName + "." + $VlanId
+        $vlanObject = Get-CohesityVlan | Where-Object { $_.id -eq $VlanId -and $_.ifaceGroupName -eq $virtualInterfaceGroupName}
         if ($null -eq $vlanObject) {
-            Write-Host "VLAN name  '$VlanName' does not exists"
+            Write-Host "VLAN id '$VlanId' on interface group '$InterfaceGroupName' does not exists"
             return
         }
         $cohesityClusterURL = $cohesityCluster + '/irisservices/api/v1/public/vlans/' + $vlanObject.id
@@ -52,10 +49,10 @@ function New-CohesityVirtualIP {
         $payload = @{
             addToClusterPartition = $true
             id                    = $vlanObject.id
-            gateway               = $Gateway
+            gateway               = $vlanObject.gateway
             subnet                = @{
-                ip          = $Subnet
-                netmaskBits = $NetmaskBitsForSubnet
+                ip          = $vlanObject.subnet.ip
+                netmaskBits = $vlanObject.subnet.netmaskBits
             }
             ifaceGroupName        = $vlanObject.ifaceGroupName
             ips                   = $VirtualIPs
@@ -73,6 +70,7 @@ function New-CohesityVirtualIP {
             CSLog -Message $errorMsg
         }
     }
+
     End {
     }
 }

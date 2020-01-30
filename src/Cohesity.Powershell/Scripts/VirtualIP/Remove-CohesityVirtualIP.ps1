@@ -9,17 +9,21 @@ function Remove-CohesityVirtualIP {
         .LINK
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
-        Remove-CohesityVirtualIP -VlanName "intf_group2.0" -VirtualIPs "10.3.144.14", "10.3.144.15"
+        Remove-CohesityVirtualIP -InterfaceGroupName "intf_group2" -VlanId 11 -VirtualIPs "1.3.4.14", "1.3.4.15"
     #>
     [CmdletBinding(SupportsShouldProcess = $True, ConfirmImpact = "High")]
     Param(
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
-        [string]$VlanName,
+        [string]$InterfaceGroupName,
+        [Parameter(Mandatory = $true)]
+        [ValidateNotNullOrEmpty()]
+        [string]$VlanId,
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
         [string[]]$VirtualIPs
     )
+
     Begin {
         if (-not (Test-Path -Path "$HOME/.cohesity")) {
             throw "Failed to authenticate. Please connect to the Cohesity Cluster using 'Connect-CohesityCluster'"
@@ -30,13 +34,15 @@ function Remove-CohesityVirtualIP {
     }
 
     Process {
-        $vlanObject = Get-CohesityVlan | Where-Object { $_.vlanName -eq $VlanName }
+        # Please see the documentation how to construct the below attribute
+        $virtualInterfaceGroupName = $InterfaceGroupName + "." + $VlanId
+        $vlanObject = Get-CohesityVlan | Where-Object { $_.id -eq $VlanId -and $_.ifaceGroupName -eq $virtualInterfaceGroupName}
         if ($null -eq $vlanObject) {
-            Write-Host "VLAN name  '$VlanName' does not exists"
+            Write-Host "VLAN id '$VlanId' on interface group '$InterfaceGroupName' does not exists"
             return
         }
         if ($null -eq $vlanObject.ips) {
-            Write-Host "No virtual IP(s) exists with the VLAN '$VlanName'"
+            Write-Host "No virtual IP(s) exists with the VLAN '$VlanId' on interface group '$InterfaceGroupName' does not exists"
             return
         }
         if ($PSCmdlet.ShouldProcess($VirtualIPs)) {
@@ -69,6 +75,7 @@ function Remove-CohesityVirtualIP {
             }
         }
     }
+
     End {
     }
 }

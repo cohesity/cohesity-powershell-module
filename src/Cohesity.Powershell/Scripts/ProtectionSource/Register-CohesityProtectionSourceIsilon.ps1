@@ -33,6 +33,7 @@ function Register-CohesityProtectionSourceIsilon {
   }
 
   Process {
+    $ISILON_TYPE = 14
     # Using a private API for the registration, public API will be used in the upcoming release
     $cohesityClusterURL = $cohesityCluster + '/irisservices/api/v1/backupsources'
     $cohesityHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
@@ -41,14 +42,14 @@ function Register-CohesityProtectionSourceIsilon {
     $plainPassword = $Credential.GetNetworkCredential().Password
     $payload = @{
       entity     = @{
-        type         = 14
+        type         = $ISILON_TYPE
         isilonEntity = @{
           type = 0
         }
       }
       entityInfo = @{
         endpoint    = $Server
-        type        = 14
+        type        = $ISILON_TYPE
         credentials = @{
           username = $userName
           password = $plainPassword
@@ -67,7 +68,7 @@ function Register-CohesityProtectionSourceIsilon {
       CSLog -Message $errorMsg
     }
   }
-  End {
 
+  End {
   }
 }

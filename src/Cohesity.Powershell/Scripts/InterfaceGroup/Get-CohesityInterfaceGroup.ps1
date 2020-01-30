@@ -13,6 +13,7 @@ function Get-CohesityInterfaceGroup {
     #>
     [CmdletBinding()]
     Param()
+
     Begin {
         if (-not (Test-Path -Path "$HOME/.cohesity")) {
             throw "Failed to authenticate. Please connect to the Cohesity Cluster using 'Connect-CohesityCluster'"
@@ -28,6 +29,7 @@ function Get-CohesityInterfaceGroup {
         $resp = Invoke-RestApi -Method Get -Uri $cohesityClusterURL -Headers $cohesityHeaders
         $resp
     }
+
     End {
     }
 }

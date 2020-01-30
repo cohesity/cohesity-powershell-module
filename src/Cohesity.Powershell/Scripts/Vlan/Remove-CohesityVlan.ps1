@@ -10,13 +10,19 @@ function Remove-CohesityVlan {
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
         Remove-CohesityVlan  -VlanId 18
+        .EXAMPLE
+        Get-CohesityVlan -VlanId 11 | Remove-CohesityVlan
     #>
     [CmdletBinding(SupportsShouldProcess = $True, ConfirmImpact = "High")]
     Param(
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true, ParameterSetName = 'VlanId')]
+        [Parameter(Mandatory = $false, ParameterSetName = 'PipedVlanInfo')]
         [ValidateNotNullOrEmpty()]
-        [int]$VlanId
+        [int]$VlanId,
+        [Parameter(Mandatory = $false, ParameterSetName = 'PipedVlanInfo', ValueFromPipeline = $True, DontShow = $True)]
+        $VlanInfo = $null
     )
+
     Begin {
         if (-not (Test-Path -Path "$HOME/.cohesity")) {
             throw "Failed to authenticate. Please connect to the Cohesity Cluster using 'Connect-CohesityCluster'"
@@ -27,15 +33,23 @@ function Remove-CohesityVlan {
     }
 
     Process {
-        if ($PSCmdlet.ShouldProcess($VlanId)) {
+        $vlanObject = $null
+        if ($VlanInfo) {
+            # Object sailing through the pipe 
+            $VlanId = $VlanInfo.id
+            $vlanObject = $VlanInfo
+        }
+        else {
             $vlanObject = Get-CohesityVlan | Where-Object { $_.id -eq $VlanId }
             if ($null -eq $vlanObject) {
                 Write-Host "VLAN id  '$VlanId' does not exists"
                 return
             }
+        }
+        if ($PSCmdlet.ShouldProcess($VlanId)) {
             $cohesityClusterURL = $cohesityCluster + '/irisservices/api/v1/public/vlans/' + $vlanObject.id
             $cohesityHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
-    
+
             $payload = @{
                 ifaceGroupName = $vlanObject.ifaceGroupName
             }
@@ -51,6 +65,7 @@ function Remove-CohesityVlan {
             }
         }
     }
+
     End {
     }
 }
