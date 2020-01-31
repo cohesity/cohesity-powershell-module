@@ -28,6 +28,12 @@ namespace Cohesity.Model
         public enum ConnectionStateEnum
         {
             /// <summary>
+            /// Enum KInaccessible for value: kInacccessible
+            /// </summary>
+            [EnumMember(Value = "kInacccessible")]
+            KInacccessible = 0,
+
+            /// <summary>
             /// Enum KConnected for value: kConnected
             /// </summary>
             [EnumMember(Value = "kConnected")]
