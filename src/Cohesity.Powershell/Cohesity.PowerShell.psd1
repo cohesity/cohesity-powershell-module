@@ -69,25 +69,33 @@ FunctionsToExport = @(
                       'Download-CohesityFile',
                       'Get-CohesityActiveDirectory',
                       'Get-CohesityCmdletConfig',
+                      'Get-CohesityInterfaceGroup',
                       'Get-CohesityOrganization',
                       'Get-CohesityProtectionJobStatus',
                       'Get-CohesityStorageDomain',
                       'Get-CohesityVault',
+                      'Get-CohesityVirtualIP',
                       'Get-CohesityVlan',
                       'New-CohesityActiveDirectory',
                       'New-CohesityHypervProtectionJob'
                       'New-CohesityProtectionPolicy',
                       'New-CohesityStorageDomain',
+                      'New-CohesityVirtualIP',
+                      'New-CohesityVlan',
                       'Recover-CohesityBackupToView',
                       'Register-CohesityProtectionSourceHyperV',
+                      'Register-CohesityProtectionSourceIsilon',
                       'Register-CohesityProtectionSourceO365',
                       'Remove-CohesityActiveDirectory'
                       'Remove-CohesityUser',
+                      'Remove-CohesityVirtualIP',
+                      'Remove-CohesityVlan',
                       'Set-CohesityAlertResolutions',
                       'Set-CohesityCmdletConfig',
                       'Set-CohesityStorageDomain',
                       'Update-CohesityActiveDirectory',
-                      'Update-CohesityProtectionJobRun'
+                      'Update-CohesityProtectionJobRun',
+                      'Update-CohesityVlan'
                       )
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
@@ -133,7 +141,6 @@ CmdletsToExport = @('Add-CohesityViewShare',
                     'New-CohesityView',
                     'Register-CohesityProtectionSourceAcropolis',
                     'Register-CohesityProtectionSourceHyperV',
-                    'Register-CohesityProtectionSourceIsilon',
                     'Register-CohesityProtectionSourceMSSQL',
                     'Register-CohesityProtectionSourceNetApp',
                     'Register-CohesityProtectionSourceNFS',
