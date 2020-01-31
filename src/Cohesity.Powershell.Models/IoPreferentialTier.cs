@@ -27,10 +27,10 @@ namespace Cohesity.Model
         public enum ApolloIOPreferentialTierEnum
         {
             /// <summary>
-            /// Enum KSataSsd for value: kSataSsd
+            /// Enum KCloud for value: kCloud
             /// </summary>
-            [EnumMember(Value = "kSataSsd")]
-            KSataSsd = 1,
+            [EnumMember(Value = "kCloud")]
+            KCloud = 1,
 
             /// <summary>
             /// Enum KSataHdd for value: kSataHdd
@@ -39,16 +39,16 @@ namespace Cohesity.Model
             KSataHdd = 2,
 
             /// <summary>
-            /// Enum KCloud for value: kCloud
-            /// </summary>
-            [EnumMember(Value = "kCloud")]
-            KCloud = 3,
-
-            /// <summary>
             /// Enum KPcieSsd for value: kPcieSsd
             /// </summary>
             [EnumMember(Value = "kPcieSsd")]
-            KPcieSsd = 4
+            KPcieSsd = 3,
+
+            /// <summary>
+            /// Enum KSataSsd for value: kSataSsd
+            /// </summary>
+            [EnumMember(Value = "kSataSsd")]
+            KSataSsd = 4
 
         }
 
@@ -66,10 +66,10 @@ namespace Cohesity.Model
         public enum ApolloWalIOPreferentialTierEnum
         {
             /// <summary>
-            /// Enum KSataSsd for value: kSataSsd
+            /// Enum KCloud for value: kCloud
             /// </summary>
-            [EnumMember(Value = "kSataSsd")]
-            KSataSsd = 1,
+            [EnumMember(Value = "kCloud")]
+            KCloud = 1,
 
             /// <summary>
             /// Enum KSataHdd for value: kSataHdd
@@ -78,16 +78,16 @@ namespace Cohesity.Model
             KSataHdd = 2,
 
             /// <summary>
-            /// Enum KCloud for value: kCloud
-            /// </summary>
-            [EnumMember(Value = "kCloud")]
-            KCloud = 3,
-
-            /// <summary>
             /// Enum KPcieSsd for value: kPcieSsd
             /// </summary>
             [EnumMember(Value = "kPcieSsd")]
-            KPcieSsd = 4
+            KPcieSsd = 3,
+
+            /// <summary>
+            /// Enum KSataSsd for value: kSataSsd
+            /// </summary>
+            [EnumMember(Value = "kSataSsd")]
+            KSataSsd = 4
 
         }
 
@@ -105,10 +105,10 @@ namespace Cohesity.Model
         public enum AthenaIOPreferentialTierEnum
         {
             /// <summary>
-            /// Enum KSataSsd for value: kSataSsd
+            /// Enum KCloud for value: kCloud
             /// </summary>
-            [EnumMember(Value = "kSataSsd")]
-            KSataSsd = 1,
+            [EnumMember(Value = "kCloud")]
+            KCloud = 1,
 
             /// <summary>
             /// Enum KSataHdd for value: kSataHdd
@@ -117,16 +117,16 @@ namespace Cohesity.Model
             KSataHdd = 2,
 
             /// <summary>
-            /// Enum KCloud for value: kCloud
-            /// </summary>
-            [EnumMember(Value = "kCloud")]
-            KCloud = 3,
-
-            /// <summary>
             /// Enum KPcieSsd for value: kPcieSsd
             /// </summary>
             [EnumMember(Value = "kPcieSsd")]
-            KPcieSsd = 4
+            KPcieSsd = 3,
+
+            /// <summary>
+            /// Enum KSataSsd for value: kSataSsd
+            /// </summary>
+            [EnumMember(Value = "kSataSsd")]
+            KSataSsd = 4
 
         }
 
@@ -144,10 +144,10 @@ namespace Cohesity.Model
         public enum AthenaSlowerIOPreferentialTierEnum
         {
             /// <summary>
-            /// Enum KSataSsd for value: kSataSsd
+            /// Enum KCloud for value: kCloud
             /// </summary>
-            [EnumMember(Value = "kSataSsd")]
-            KSataSsd = 1,
+            [EnumMember(Value = "kCloud")]
+            KCloud = 1,
 
             /// <summary>
             /// Enum KSataHdd for value: kSataHdd
@@ -156,16 +156,16 @@ namespace Cohesity.Model
             KSataHdd = 2,
 
             /// <summary>
-            /// Enum KCloud for value: kCloud
-            /// </summary>
-            [EnumMember(Value = "kCloud")]
-            KCloud = 3,
-
-            /// <summary>
             /// Enum KPcieSsd for value: kPcieSsd
             /// </summary>
             [EnumMember(Value = "kPcieSsd")]
-            KPcieSsd = 4
+            KPcieSsd = 3,
+
+            /// <summary>
+            /// Enum KSataSsd for value: kSataSsd
+            /// </summary>
+            [EnumMember(Value = "kSataSsd")]
+            KSataSsd = 4
 
         }
 
@@ -183,10 +183,10 @@ namespace Cohesity.Model
         public enum GrootIOPreferentialTierEnum
         {
             /// <summary>
-            /// Enum KSataSsd for value: kSataSsd
+            /// Enum KCloud for value: kCloud
             /// </summary>
-            [EnumMember(Value = "kSataSsd")]
-            KSataSsd = 1,
+            [EnumMember(Value = "kCloud")]
+            KCloud = 1,
 
             /// <summary>
             /// Enum KSataHdd for value: kSataHdd
@@ -195,16 +195,16 @@ namespace Cohesity.Model
             KSataHdd = 2,
 
             /// <summary>
-            /// Enum KCloud for value: kCloud
-            /// </summary>
-            [EnumMember(Value = "kCloud")]
-            KCloud = 3,
-
-            /// <summary>
             /// Enum KPcieSsd for value: kPcieSsd
             /// </summary>
             [EnumMember(Value = "kPcieSsd")]
-            KPcieSsd = 4
+            KPcieSsd = 3,
+
+            /// <summary>
+            /// Enum KSataSsd for value: kSataSsd
+            /// </summary>
+            [EnumMember(Value = "kSataSsd")]
+            KSataSsd = 4
 
         }
 
@@ -222,10 +222,10 @@ namespace Cohesity.Model
         public enum HydraDowntierIOPreferentialTierEnum
         {
             /// <summary>
-            /// Enum KSataSsd for value: kSataSsd
+            /// Enum KCloud for value: kCloud
             /// </summary>
-            [EnumMember(Value = "kSataSsd")]
-            KSataSsd = 1,
+            [EnumMember(Value = "kCloud")]
+            KCloud = 1,
 
             /// <summary>
             /// Enum KSataHdd for value: kSataHdd
@@ -234,16 +234,16 @@ namespace Cohesity.Model
             KSataHdd = 2,
 
             /// <summary>
-            /// Enum KCloud for value: kCloud
-            /// </summary>
-            [EnumMember(Value = "kCloud")]
-            KCloud = 3,
-
-            /// <summary>
             /// Enum KPcieSsd for value: kPcieSsd
             /// </summary>
             [EnumMember(Value = "kPcieSsd")]
-            KPcieSsd = 4
+            KPcieSsd = 3,
+
+            /// <summary>
+            /// Enum KSataSsd for value: kSataSsd
+            /// </summary>
+            [EnumMember(Value = "kSataSsd")]
+            KSataSsd = 4
 
         }
 
@@ -261,10 +261,10 @@ namespace Cohesity.Model
         public enum HydraIOPreferentialTierEnum
         {
             /// <summary>
-            /// Enum KSataSsd for value: kSataSsd
+            /// Enum KCloud for value: kCloud
             /// </summary>
-            [EnumMember(Value = "kSataSsd")]
-            KSataSsd = 1,
+            [EnumMember(Value = "kCloud")]
+            KCloud = 1,
 
             /// <summary>
             /// Enum KSataHdd for value: kSataHdd
@@ -273,16 +273,16 @@ namespace Cohesity.Model
             KSataHdd = 2,
 
             /// <summary>
-            /// Enum KCloud for value: kCloud
-            /// </summary>
-            [EnumMember(Value = "kCloud")]
-            KCloud = 3,
-
-            /// <summary>
             /// Enum KPcieSsd for value: kPcieSsd
             /// </summary>
             [EnumMember(Value = "kPcieSsd")]
-            KPcieSsd = 4
+            KPcieSsd = 3,
+
+            /// <summary>
+            /// Enum KSataSsd for value: kSataSsd
+            /// </summary>
+            [EnumMember(Value = "kSataSsd")]
+            KSataSsd = 4
 
         }
 
@@ -300,10 +300,10 @@ namespace Cohesity.Model
         public enum LibrarianIOPreferentialTierEnum
         {
             /// <summary>
-            /// Enum KSataSsd for value: kSataSsd
+            /// Enum KCloud for value: kCloud
             /// </summary>
-            [EnumMember(Value = "kSataSsd")]
-            KSataSsd = 1,
+            [EnumMember(Value = "kCloud")]
+            KCloud = 1,
 
             /// <summary>
             /// Enum KSataHdd for value: kSataHdd
@@ -312,16 +312,16 @@ namespace Cohesity.Model
             KSataHdd = 2,
 
             /// <summary>
-            /// Enum KCloud for value: kCloud
-            /// </summary>
-            [EnumMember(Value = "kCloud")]
-            KCloud = 3,
-
-            /// <summary>
             /// Enum KPcieSsd for value: kPcieSsd
             /// </summary>
             [EnumMember(Value = "kPcieSsd")]
-            KPcieSsd = 4
+            KPcieSsd = 3,
+
+            /// <summary>
+            /// Enum KSataSsd for value: kSataSsd
+            /// </summary>
+            [EnumMember(Value = "kSataSsd")]
+            KSataSsd = 4
 
         }
 
@@ -339,10 +339,10 @@ namespace Cohesity.Model
         public enum RandomIOPreferentialTierEnum
         {
             /// <summary>
-            /// Enum KSataSsd for value: kSataSsd
+            /// Enum KCloud for value: kCloud
             /// </summary>
-            [EnumMember(Value = "kSataSsd")]
-            KSataSsd = 1,
+            [EnumMember(Value = "kCloud")]
+            KCloud = 1,
 
             /// <summary>
             /// Enum KSataHdd for value: kSataHdd
@@ -351,16 +351,16 @@ namespace Cohesity.Model
             KSataHdd = 2,
 
             /// <summary>
-            /// Enum KCloud for value: kCloud
-            /// </summary>
-            [EnumMember(Value = "kCloud")]
-            KCloud = 3,
-
-            /// <summary>
             /// Enum KPcieSsd for value: kPcieSsd
             /// </summary>
             [EnumMember(Value = "kPcieSsd")]
-            KPcieSsd = 4
+            KPcieSsd = 3,
+
+            /// <summary>
+            /// Enum KSataSsd for value: kSataSsd
+            /// </summary>
+            [EnumMember(Value = "kSataSsd")]
+            KSataSsd = 4
 
         }
 
@@ -378,10 +378,10 @@ namespace Cohesity.Model
         public enum ScribeIOPreferentialTierEnum
         {
             /// <summary>
-            /// Enum KSataSsd for value: kSataSsd
+            /// Enum KCloud for value: kCloud
             /// </summary>
-            [EnumMember(Value = "kSataSsd")]
-            KSataSsd = 1,
+            [EnumMember(Value = "kCloud")]
+            KCloud = 1,
 
             /// <summary>
             /// Enum KSataHdd for value: kSataHdd
@@ -390,16 +390,16 @@ namespace Cohesity.Model
             KSataHdd = 2,
 
             /// <summary>
-            /// Enum KCloud for value: kCloud
-            /// </summary>
-            [EnumMember(Value = "kCloud")]
-            KCloud = 3,
-
-            /// <summary>
             /// Enum KPcieSsd for value: kPcieSsd
             /// </summary>
             [EnumMember(Value = "kPcieSsd")]
-            KPcieSsd = 4
+            KPcieSsd = 3,
+
+            /// <summary>
+            /// Enum KSataSsd for value: kSataSsd
+            /// </summary>
+            [EnumMember(Value = "kSataSsd")]
+            KSataSsd = 4
 
         }
 
@@ -417,10 +417,10 @@ namespace Cohesity.Model
         public enum SequentialIOPreferentialTierEnum
         {
             /// <summary>
-            /// Enum KSataSsd for value: kSataSsd
+            /// Enum KCloud for value: kCloud
             /// </summary>
-            [EnumMember(Value = "kSataSsd")]
-            KSataSsd = 1,
+            [EnumMember(Value = "kCloud")]
+            KCloud = 1,
 
             /// <summary>
             /// Enum KSataHdd for value: kSataHdd
@@ -429,16 +429,16 @@ namespace Cohesity.Model
             KSataHdd = 2,
 
             /// <summary>
-            /// Enum KCloud for value: kCloud
-            /// </summary>
-            [EnumMember(Value = "kCloud")]
-            KCloud = 3,
-
-            /// <summary>
             /// Enum KPcieSsd for value: kPcieSsd
             /// </summary>
             [EnumMember(Value = "kPcieSsd")]
-            KPcieSsd = 4
+            KPcieSsd = 3,
+
+            /// <summary>
+            /// Enum KSataSsd for value: kSataSsd
+            /// </summary>
+            [EnumMember(Value = "kSataSsd")]
+            KSataSsd = 4
 
         }
 
@@ -456,10 +456,10 @@ namespace Cohesity.Model
         public enum YodaIOPreferentialTierEnum
         {
             /// <summary>
-            /// Enum KSataSsd for value: kSataSsd
+            /// Enum KCloud for value: kCloud
             /// </summary>
-            [EnumMember(Value = "kSataSsd")]
-            KSataSsd = 1,
+            [EnumMember(Value = "kCloud")]
+            KCloud = 1,
 
             /// <summary>
             /// Enum KSataHdd for value: kSataHdd
@@ -468,16 +468,16 @@ namespace Cohesity.Model
             KSataHdd = 2,
 
             /// <summary>
-            /// Enum KCloud for value: kCloud
-            /// </summary>
-            [EnumMember(Value = "kCloud")]
-            KCloud = 3,
-
-            /// <summary>
             /// Enum KPcieSsd for value: kPcieSsd
             /// </summary>
             [EnumMember(Value = "kPcieSsd")]
-            KPcieSsd = 4
+            KPcieSsd = 3,
+
+            /// <summary>
+            /// Enum KSataSsd for value: kSataSsd
+            /// </summary>
+            [EnumMember(Value = "kSataSsd")]
+            KSataSsd = 4
 
         }
 

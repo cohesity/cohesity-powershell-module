@@ -77,6 +77,7 @@ namespace Cohesity.Model
         /// <param name="continueOnError">Specifies if the Restore Task should continue even if the copy operation of some files and folders fails. If true, the Cohesity Cluster ignores intermittent errors and recovers as many files and folders as possible. If false, the Restore Task stops recovering when a copy operation fails..</param>
         /// <param name="filenames">Array of Files or Folders.  Specifies the files and folders to recover from the snapshot..</param>
         /// <param name="isFileBasedVolumeRestore">Specifies whether this is a file based volume restore..</param>
+        /// <param name="mountDisksOnVm">Sepcifies whether this will attach disks or mount disks on the VM side OR use Storage Proxy RPCs to stream data.</param>
         /// <param name="name">Specifies the name of the Restore Task. This field must be set and must be a unique name..</param>
         /// <param name="newBaseDirectory">Specifies an optional root folder where to recover the selected files and folders. By default, files and folders are restored to their original path..</param>
         /// <param name="overwrite">If true, any existing files and folders on the operating system are overwritten by the recovered files or folders. This is the default. If false, existing files and folders are not overwritten..</param>
@@ -87,12 +88,14 @@ namespace Cohesity.Model
         /// <param name="targetHostType">Specifies the target host types to be restored. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kOther&#39; indicates the other types of operating system..</param>
         /// <param name="targetParentSourceId">Specifies the registered source (such as a vCenter Server) that contains the target protection source (such as a VM) where the files and folders are recovered to. This field is not required for a Physical Server..</param>
         /// <param name="targetSourceId">Specifies the id of the target protection source (such as a VM) where the files and folders are recovered to..</param>
+        /// <param name="useExistingAgent">Specifies whether this will use an existing agent on the target vm to do restore..</param>
         /// <param name="username">Specifies username to access the target source..</param>
-        public RestoreFilesTaskRequest(bool? continueOnError = default(bool?), List<string> filenames = default(List<string>), bool? isFileBasedVolumeRestore = default(bool?), string name = default(string), string newBaseDirectory = default(string), bool? overwrite = default(bool?), string password = default(string), bool? preserveAttributes = default(bool?), List<RestoredFileInfoList> restoredFileInfoList = default(List<RestoredFileInfoList>), RestoreObjectDetails sourceObjectInfo = default(RestoreObjectDetails), TargetHostTypeEnum? targetHostType = default(TargetHostTypeEnum?), long? targetParentSourceId = default(long?), long? targetSourceId = default(long?), string username = default(string))
+        public RestoreFilesTaskRequest(bool? continueOnError = default(bool?), List<string> filenames = default(List<string>), bool? isFileBasedVolumeRestore = default(bool?), bool? mountDisksOnVm = default(bool?), string name = default(string), string newBaseDirectory = default(string), bool? overwrite = default(bool?), string password = default(string), bool? preserveAttributes = default(bool?), List<RestoredFileInfoList> restoredFileInfoList = default(List<RestoredFileInfoList>), RestoreObjectDetails sourceObjectInfo = default(RestoreObjectDetails), TargetHostTypeEnum? targetHostType = default(TargetHostTypeEnum?), long? targetParentSourceId = default(long?), long? targetSourceId = default(long?), bool? useExistingAgent = default(bool?), string username = default(string))
         {
             this.ContinueOnError = continueOnError;
             this.Filenames = filenames;
             this.IsFileBasedVolumeRestore = isFileBasedVolumeRestore;
+            this.MountDisksOnVm = mountDisksOnVm;
             this.Name = name;
             this.NewBaseDirectory = newBaseDirectory;
             this.Overwrite = overwrite;
@@ -103,10 +106,12 @@ namespace Cohesity.Model
             this.TargetHostType = targetHostType;
             this.TargetParentSourceId = targetParentSourceId;
             this.TargetSourceId = targetSourceId;
+            this.UseExistingAgent = useExistingAgent;
             this.Username = username;
             this.ContinueOnError = continueOnError;
             this.Filenames = filenames;
             this.IsFileBasedVolumeRestore = isFileBasedVolumeRestore;
+            this.MountDisksOnVm = mountDisksOnVm;
             this.Name = name;
             this.NewBaseDirectory = newBaseDirectory;
             this.Overwrite = overwrite;
@@ -117,6 +122,7 @@ namespace Cohesity.Model
             this.TargetHostType = targetHostType;
             this.TargetParentSourceId = targetParentSourceId;
             this.TargetSourceId = targetSourceId;
+            this.UseExistingAgent = useExistingAgent;
             this.Username = username;
         }
         
@@ -140,6 +146,13 @@ namespace Cohesity.Model
         /// <value>Specifies whether this is a file based volume restore.</value>
         [DataMember(Name="isFileBasedVolumeRestore", EmitDefaultValue=true)]
         public bool? IsFileBasedVolumeRestore { get; set; }
+
+        /// <summary>
+        /// Sepcifies whether this will attach disks or mount disks on the VM side OR use Storage Proxy RPCs to stream data
+        /// </summary>
+        /// <value>Sepcifies whether this will attach disks or mount disks on the VM side OR use Storage Proxy RPCs to stream data</value>
+        [DataMember(Name="mountDisksOnVm", EmitDefaultValue=true)]
+        public bool? MountDisksOnVm { get; set; }
 
         /// <summary>
         /// Specifies the name of the Restore Task. This field must be set and must be a unique name.
@@ -205,6 +218,13 @@ namespace Cohesity.Model
         public long? TargetSourceId { get; set; }
 
         /// <summary>
+        /// Specifies whether this will use an existing agent on the target vm to do restore.
+        /// </summary>
+        /// <value>Specifies whether this will use an existing agent on the target vm to do restore.</value>
+        [DataMember(Name="useExistingAgent", EmitDefaultValue=true)]
+        public bool? UseExistingAgent { get; set; }
+
+        /// <summary>
         /// Specifies username to access the target source.
         /// </summary>
         /// <value>Specifies username to access the target source.</value>
@@ -264,6 +284,11 @@ namespace Cohesity.Model
                     this.IsFileBasedVolumeRestore.Equals(input.IsFileBasedVolumeRestore))
                 ) && 
                 (
+                    this.MountDisksOnVm == input.MountDisksOnVm ||
+                    (this.MountDisksOnVm != null &&
+                    this.MountDisksOnVm.Equals(input.MountDisksOnVm))
+                ) && 
+                (
                     this.Name == input.Name ||
                     (this.Name != null &&
                     this.Name.Equals(input.Name))
@@ -314,6 +339,11 @@ namespace Cohesity.Model
                     this.TargetSourceId.Equals(input.TargetSourceId))
                 ) && 
                 (
+                    this.UseExistingAgent == input.UseExistingAgent ||
+                    (this.UseExistingAgent != null &&
+                    this.UseExistingAgent.Equals(input.UseExistingAgent))
+                ) && 
+                (
                     this.Username == input.Username ||
                     (this.Username != null &&
                     this.Username.Equals(input.Username))
@@ -335,6 +365,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Filenames.GetHashCode();
                 if (this.IsFileBasedVolumeRestore != null)
                     hashCode = hashCode * 59 + this.IsFileBasedVolumeRestore.GetHashCode();
+                if (this.MountDisksOnVm != null)
+                    hashCode = hashCode * 59 + this.MountDisksOnVm.GetHashCode();
                 if (this.Name != null)
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
                 if (this.NewBaseDirectory != null)
@@ -354,6 +386,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.TargetParentSourceId.GetHashCode();
                 if (this.TargetSourceId != null)
                     hashCode = hashCode * 59 + this.TargetSourceId.GetHashCode();
+                if (this.UseExistingAgent != null)
+                    hashCode = hashCode * 59 + this.UseExistingAgent.GetHashCode();
                 if (this.Username != null)
                     hashCode = hashCode * 59 + this.Username.GetHashCode();
                 return hashCode;

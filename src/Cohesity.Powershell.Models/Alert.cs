@@ -115,13 +115,7 @@ namespace Cohesity.Model
             /// Enum KSecurity for value: kSecurity
             /// </summary>
             [EnumMember(Value = "kSecurity")]
-            KSecurity = 15,
-
-            /// <summary>
-            /// Enum KArchivalCopy for value: kArchivalCopy
-            /// </summary>
-            [EnumMember(Value = "kArchivalCopy")]
-            KArchivalCopy = 16
+            KSecurity = 15
 
         }
 

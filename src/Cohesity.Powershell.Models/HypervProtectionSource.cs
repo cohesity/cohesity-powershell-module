@@ -169,13 +169,7 @@ namespace Cohesity.Model
             /// Enum KCustomProperty for value: kCustomProperty
             /// </summary>
             [EnumMember(Value = "kCustomProperty")]
-            KCustomProperty = 11,
-
-            /// <summary>
-            /// Enum KHost for value: kHost
-            /// </summary>
-            [EnumMember(Value = "kHost")]
-            KHost = 12
+            KCustomProperty = 11
 
         }
 

@@ -28,196 +28,196 @@ namespace Cohesity.Model
         public enum EnvironmentEnum
         {
             /// <summary>
-            /// Enum KPhysicalFiles for value: kPhysicalFiles
+            /// Enum KHyperFlex for value: kHyperFlex
             /// </summary>
-            [EnumMember(Value = "kPhysicalFiles")]
-            KPhysicalFiles = 1,
-
-            /// <summary>
-            /// Enum KPuppeteer for value: kPuppeteer
-            /// </summary>
-            [EnumMember(Value = "kPuppeteer")]
-            KPuppeteer = 2,
-
-            /// <summary>
-            /// Enum KO365 for value: kO365
-            /// </summary>
-            [EnumMember(Value = "kO365")]
-            KO365 = 3,
-
-            /// <summary>
-            /// Enum KHyperV for value: kHyperV
-            /// </summary>
-            [EnumMember(Value = "kHyperV")]
-            KHyperV = 4,
-
-            /// <summary>
-            /// Enum KKVM for value: kKVM
-            /// </summary>
-            [EnumMember(Value = "kKVM")]
-            KKVM = 5,
-
-            /// <summary>
-            /// Enum KGCP for value: kGCP
-            /// </summary>
-            [EnumMember(Value = "kGCP")]
-            KGCP = 6,
-
-            /// <summary>
-            /// Enum KAWSSnapshotManager for value: kAWSSnapshotManager
-            /// </summary>
-            [EnumMember(Value = "kAWSSnapshotManager")]
-            KAWSSnapshotManager = 7,
-
-            /// <summary>
-            /// Enum KAgent for value: kAgent
-            /// </summary>
-            [EnumMember(Value = "kAgent")]
-            KAgent = 8,
-
-            /// <summary>
-            /// Enum KAzure for value: kAzure
-            /// </summary>
-            [EnumMember(Value = "kAzure")]
-            KAzure = 9,
-
-            /// <summary>
-            /// Enum KAcropolis for value: kAcropolis
-            /// </summary>
-            [EnumMember(Value = "kAcropolis")]
-            KAcropolis = 10,
-
-            /// <summary>
-            /// Enum KView for value: kView
-            /// </summary>
-            [EnumMember(Value = "kView")]
-            KView = 11,
-
-            /// <summary>
-            /// Enum KGPFS for value: kGPFS
-            /// </summary>
-            [EnumMember(Value = "kGPFS")]
-            KGPFS = 12,
-
-            /// <summary>
-            /// Enum KOracle for value: kOracle
-            /// </summary>
-            [EnumMember(Value = "kOracle")]
-            KOracle = 13,
-
-            /// <summary>
-            /// Enum KVMware for value: kVMware
-            /// </summary>
-            [EnumMember(Value = "kVMware")]
-            KVMware = 14,
-
-            /// <summary>
-            /// Enum KO365Outlook for value: kO365Outlook
-            /// </summary>
-            [EnumMember(Value = "kO365Outlook")]
-            KO365Outlook = 15,
+            [EnumMember(Value = "kHyperFlex")]
+            KHyperFlex = 1,
 
             /// <summary>
             /// Enum KFlashBlade for value: kFlashBlade
             /// </summary>
             [EnumMember(Value = "kFlashBlade")]
-            KFlashBlade = 16,
+            KFlashBlade = 2,
 
             /// <summary>
-            /// Enum KAD for value: kAD
+            /// Enum KKVM for value: kKVM
             /// </summary>
-            [EnumMember(Value = "kAD")]
-            KAD = 17,
+            [EnumMember(Value = "kKVM")]
+            KKVM = 3,
 
             /// <summary>
-            /// Enum KSQL for value: kSQL
+            /// Enum KO365 for value: kO365
             /// </summary>
-            [EnumMember(Value = "kSQL")]
-            KSQL = 18,
-
-            /// <summary>
-            /// Enum KVCD for value: kVCD
-            /// </summary>
-            [EnumMember(Value = "kVCD")]
-            KVCD = 19,
-
-            /// <summary>
-            /// Enum KGenericNas for value: kGenericNas
-            /// </summary>
-            [EnumMember(Value = "kGenericNas")]
-            KGenericNas = 20,
-
-            /// <summary>
-            /// Enum KIsilon for value: kIsilon
-            /// </summary>
-            [EnumMember(Value = "kIsilon")]
-            KIsilon = 21,
-
-            /// <summary>
-            /// Enum KExchange for value: kExchange
-            /// </summary>
-            [EnumMember(Value = "kExchange")]
-            KExchange = 22,
-
-            /// <summary>
-            /// Enum KAWSNative for value: kAWSNative
-            /// </summary>
-            [EnumMember(Value = "kAWSNative")]
-            KAWSNative = 23,
-
-            /// <summary>
-            /// Enum KPure for value: kPure
-            /// </summary>
-            [EnumMember(Value = "kPure")]
-            KPure = 24,
-
-            /// <summary>
-            /// Enum KHyperFlex for value: kHyperFlex
-            /// </summary>
-            [EnumMember(Value = "kHyperFlex")]
-            KHyperFlex = 25,
-
-            /// <summary>
-            /// Enum KHyperVVSS for value: kHyperVVSS
-            /// </summary>
-            [EnumMember(Value = "kHyperVVSS")]
-            KHyperVVSS = 26,
-
-            /// <summary>
-            /// Enum KGCPNative for value: kGCPNative
-            /// </summary>
-            [EnumMember(Value = "kGCPNative")]
-            KGCPNative = 27,
-
-            /// <summary>
-            /// Enum KAWS for value: kAWS
-            /// </summary>
-            [EnumMember(Value = "kAWS")]
-            KAWS = 28,
-
-            /// <summary>
-            /// Enum KNimble for value: kNimble
-            /// </summary>
-            [EnumMember(Value = "kNimble")]
-            KNimble = 29,
-
-            /// <summary>
-            /// Enum KPhysical for value: kPhysical
-            /// </summary>
-            [EnumMember(Value = "kPhysical")]
-            KPhysical = 30,
-
-            /// <summary>
-            /// Enum KNetapp for value: kNetapp
-            /// </summary>
-            [EnumMember(Value = "kNetapp")]
-            KNetapp = 31,
+            [EnumMember(Value = "kO365")]
+            KO365 = 4,
 
             /// <summary>
             /// Enum KAzureNative for value: kAzureNative
             /// </summary>
             [EnumMember(Value = "kAzureNative")]
-            KAzureNative = 32
+            KAzureNative = 5,
+
+            /// <summary>
+            /// Enum KGPFS for value: kGPFS
+            /// </summary>
+            [EnumMember(Value = "kGPFS")]
+            KGPFS = 6,
+
+            /// <summary>
+            /// Enum KView for value: kView
+            /// </summary>
+            [EnumMember(Value = "kView")]
+            KView = 7,
+
+            /// <summary>
+            /// Enum KVMware for value: kVMware
+            /// </summary>
+            [EnumMember(Value = "kVMware")]
+            KVMware = 8,
+
+            /// <summary>
+            /// Enum KVCD for value: kVCD
+            /// </summary>
+            [EnumMember(Value = "kVCD")]
+            KVCD = 9,
+
+            /// <summary>
+            /// Enum KAzure for value: kAzure
+            /// </summary>
+            [EnumMember(Value = "kAzure")]
+            KAzure = 10,
+
+            /// <summary>
+            /// Enum KExchange for value: kExchange
+            /// </summary>
+            [EnumMember(Value = "kExchange")]
+            KExchange = 11,
+
+            /// <summary>
+            /// Enum KAWSSnapshotManager for value: kAWSSnapshotManager
+            /// </summary>
+            [EnumMember(Value = "kAWSSnapshotManager")]
+            KAWSSnapshotManager = 12,
+
+            /// <summary>
+            /// Enum KAgent for value: kAgent
+            /// </summary>
+            [EnumMember(Value = "kAgent")]
+            KAgent = 13,
+
+            /// <summary>
+            /// Enum KHyperVVSS for value: kHyperVVSS
+            /// </summary>
+            [EnumMember(Value = "kHyperVVSS")]
+            KHyperVVSS = 14,
+
+            /// <summary>
+            /// Enum KIsilon for value: kIsilon
+            /// </summary>
+            [EnumMember(Value = "kIsilon")]
+            KIsilon = 15,
+
+            /// <summary>
+            /// Enum KSQL for value: kSQL
+            /// </summary>
+            [EnumMember(Value = "kSQL")]
+            KSQL = 16,
+
+            /// <summary>
+            /// Enum KAWSNative for value: kAWSNative
+            /// </summary>
+            [EnumMember(Value = "kAWSNative")]
+            KAWSNative = 17,
+
+            /// <summary>
+            /// Enum KO365Outlook for value: kO365Outlook
+            /// </summary>
+            [EnumMember(Value = "kO365Outlook")]
+            KO365Outlook = 18,
+
+            /// <summary>
+            /// Enum KAcropolis for value: kAcropolis
+            /// </summary>
+            [EnumMember(Value = "kAcropolis")]
+            KAcropolis = 19,
+
+            /// <summary>
+            /// Enum KOracle for value: kOracle
+            /// </summary>
+            [EnumMember(Value = "kOracle")]
+            KOracle = 20,
+
+            /// <summary>
+            /// Enum KAWS for value: kAWS
+            /// </summary>
+            [EnumMember(Value = "kAWS")]
+            KAWS = 21,
+
+            /// <summary>
+            /// Enum KAD for value: kAD
+            /// </summary>
+            [EnumMember(Value = "kAD")]
+            KAD = 22,
+
+            /// <summary>
+            /// Enum KGCP for value: kGCP
+            /// </summary>
+            [EnumMember(Value = "kGCP")]
+            KGCP = 23,
+
+            /// <summary>
+            /// Enum KGenericNas for value: kGenericNas
+            /// </summary>
+            [EnumMember(Value = "kGenericNas")]
+            KGenericNas = 24,
+
+            /// <summary>
+            /// Enum KHyperV for value: kHyperV
+            /// </summary>
+            [EnumMember(Value = "kHyperV")]
+            KHyperV = 25,
+
+            /// <summary>
+            /// Enum KPuppeteer for value: kPuppeteer
+            /// </summary>
+            [EnumMember(Value = "kPuppeteer")]
+            KPuppeteer = 26,
+
+            /// <summary>
+            /// Enum KNetapp for value: kNetapp
+            /// </summary>
+            [EnumMember(Value = "kNetapp")]
+            KNetapp = 27,
+
+            /// <summary>
+            /// Enum KPhysical for value: kPhysical
+            /// </summary>
+            [EnumMember(Value = "kPhysical")]
+            KPhysical = 28,
+
+            /// <summary>
+            /// Enum KPure for value: kPure
+            /// </summary>
+            [EnumMember(Value = "kPure")]
+            KPure = 29,
+
+            /// <summary>
+            /// Enum KNimble for value: kNimble
+            /// </summary>
+            [EnumMember(Value = "kNimble")]
+            KNimble = 30,
+
+            /// <summary>
+            /// Enum KPhysicalFiles for value: kPhysicalFiles
+            /// </summary>
+            [EnumMember(Value = "kPhysicalFiles")]
+            KPhysicalFiles = 31,
+
+            /// <summary>
+            /// Enum KGCPNative for value: kGCPNative
+            /// </summary>
+            [EnumMember(Value = "kGCPNative")]
+            KGCPNative = 32
 
         }
 

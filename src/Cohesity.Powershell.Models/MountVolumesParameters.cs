@@ -26,18 +26,21 @@ namespace Cohesity.Model
         /// <param name="bringDisksOnline">Optional setting that determines if the volumes are brought online on the mount target after attaching the disks. This field is only set for VMs. The Cohesity Cluster always attempts to mount Physical servers. If true and the mount target is a VM, to mount the volumes VMware Tools must be installed on the guest operating system of the VM and login credentials to the mount target must be specified. NOTE: If automount is configured for a Windows system, the volumes may be automatically brought online..</param>
         /// <param name="password">Specifies password of the username to access the target source..</param>
         /// <param name="targetSourceId">Specifies the target Protection Source id where the volumes will be mounted. NOTE: The source that was backed up and the mount target must be the same type, for example if the source is a VMware VM, then the mount target must also be a VMware VM. The mount target must be registered on the Cohesity Cluster..</param>
+        /// <param name="useExistingAgent">Optional setting that determines if this will use an existing agent on the target vm to bring disks online..</param>
         /// <param name="username">Specifies username to access the target source..</param>
         /// <param name="volumeNames">Array of Volume Names.  Optionally specify the names of volumes to mount. If none are specified, all volumes of the Server are mounted on the target. To get the names of the volumes, call the GET /public/restore/vms/volumesInformation operation..</param>
-        public MountVolumesParameters(bool? bringDisksOnline = default(bool?), string password = default(string), long? targetSourceId = default(long?), string username = default(string), List<string> volumeNames = default(List<string>))
+        public MountVolumesParameters(bool? bringDisksOnline = default(bool?), string password = default(string), long? targetSourceId = default(long?), bool? useExistingAgent = default(bool?), string username = default(string), List<string> volumeNames = default(List<string>))
         {
             this.BringDisksOnline = bringDisksOnline;
             this.Password = password;
             this.TargetSourceId = targetSourceId;
+            this.UseExistingAgent = useExistingAgent;
             this.Username = username;
             this.VolumeNames = volumeNames;
             this.BringDisksOnline = bringDisksOnline;
             this.Password = password;
             this.TargetSourceId = targetSourceId;
+            this.UseExistingAgent = useExistingAgent;
             this.Username = username;
             this.VolumeNames = volumeNames;
         }
@@ -62,6 +65,13 @@ namespace Cohesity.Model
         /// <value>Specifies the target Protection Source id where the volumes will be mounted. NOTE: The source that was backed up and the mount target must be the same type, for example if the source is a VMware VM, then the mount target must also be a VMware VM. The mount target must be registered on the Cohesity Cluster.</value>
         [DataMember(Name="targetSourceId", EmitDefaultValue=true)]
         public long? TargetSourceId { get; set; }
+
+        /// <summary>
+        /// Optional setting that determines if this will use an existing agent on the target vm to bring disks online.
+        /// </summary>
+        /// <value>Optional setting that determines if this will use an existing agent on the target vm to bring disks online.</value>
+        [DataMember(Name="useExistingAgent", EmitDefaultValue=true)]
+        public bool? UseExistingAgent { get; set; }
 
         /// <summary>
         /// Specifies username to access the target source.
@@ -129,6 +139,11 @@ namespace Cohesity.Model
                     this.TargetSourceId.Equals(input.TargetSourceId))
                 ) && 
                 (
+                    this.UseExistingAgent == input.UseExistingAgent ||
+                    (this.UseExistingAgent != null &&
+                    this.UseExistingAgent.Equals(input.UseExistingAgent))
+                ) && 
+                (
                     this.Username == input.Username ||
                     (this.Username != null &&
                     this.Username.Equals(input.Username))
@@ -156,6 +171,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Password.GetHashCode();
                 if (this.TargetSourceId != null)
                     hashCode = hashCode * 59 + this.TargetSourceId.GetHashCode();
+                if (this.UseExistingAgent != null)
+                    hashCode = hashCode * 59 + this.UseExistingAgent.GetHashCode();
                 if (this.Username != null)
                     hashCode = hashCode * 59 + this.Username.GetHashCode();
                 if (this.VolumeNames != null)
