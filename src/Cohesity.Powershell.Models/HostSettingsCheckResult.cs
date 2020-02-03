@@ -21,9 +21,9 @@ namespace Cohesity.Model
     public partial class HostSettingsCheckResult :  IEquatable<HostSettingsCheckResult>
     {
         /// <summary>
-        /// Specifies the type of the check internally performed. Specifies the type of the host check performed internally. &#39;kIsAgentPortAccessible&#39; indicates the check for agent port access. &#39;kIsAgentRunning&#39; indicates the status for the Cohesity agent service. &#39;kIsSQLWriterRunningCheck&#39; indicates the status for SQLWriter service. &#39;kAreSQLInstancesRunning&#39; indicates the run status for for all the SQL instances in the host. &#39;kCheckServiceLoginsConfig&#39; checks the privileges and sysadmin status of the logins used by the SQL instance services, Cohesity agent service and the SQLWriter service.
+        /// Specifies the type of the check internally performed. Specifies the type of the host check performed internally. &#39;kIsAgentPortAccessible&#39; indicates the check for agent port access. &#39;kIsAgentRunning&#39; indicates the status for the Cohesity agent service. &#39;kIsSQLWriterRunningCheck&#39; indicates the status for SQLWriter service. &#39;kAreSQLInstancesRunning&#39; indicates the run status for for all the SQL instances in the host. &#39;kCheckServiceLoginsConfig&#39; checks the privileges and sysadmin status of the logins used by the SQL instance services, Cohesity agent service and the SQLWriter service. &#39;kCheckSQLFCIVIP&#39; checks whether the SQL FCI is registered with a valid VIP or FQDN.
         /// </summary>
-        /// <value>Specifies the type of the check internally performed. Specifies the type of the host check performed internally. &#39;kIsAgentPortAccessible&#39; indicates the check for agent port access. &#39;kIsAgentRunning&#39; indicates the status for the Cohesity agent service. &#39;kIsSQLWriterRunningCheck&#39; indicates the status for SQLWriter service. &#39;kAreSQLInstancesRunning&#39; indicates the run status for for all the SQL instances in the host. &#39;kCheckServiceLoginsConfig&#39; checks the privileges and sysadmin status of the logins used by the SQL instance services, Cohesity agent service and the SQLWriter service.</value>
+        /// <value>Specifies the type of the check internally performed. Specifies the type of the host check performed internally. &#39;kIsAgentPortAccessible&#39; indicates the check for agent port access. &#39;kIsAgentRunning&#39; indicates the status for the Cohesity agent service. &#39;kIsSQLWriterRunningCheck&#39; indicates the status for SQLWriter service. &#39;kAreSQLInstancesRunning&#39; indicates the run status for for all the SQL instances in the host. &#39;kCheckServiceLoginsConfig&#39; checks the privileges and sysadmin status of the logins used by the SQL instance services, Cohesity agent service and the SQLWriter service. &#39;kCheckSQLFCIVIP&#39; checks whether the SQL FCI is registered with a valid VIP or FQDN.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum CheckTypeEnum
         {
@@ -55,14 +55,20 @@ namespace Cohesity.Model
             /// Enum KCheckServiceLoginsConfig for value: kCheckServiceLoginsConfig
             /// </summary>
             [EnumMember(Value = "kCheckServiceLoginsConfig")]
-            KCheckServiceLoginsConfig = 5
+            KCheckServiceLoginsConfig = 5,
+
+            /// <summary>
+            /// Enum KCheckSQLFCIVIP for value: kCheckSQLFCIVIP
+            /// </summary>
+            [EnumMember(Value = "kCheckSQLFCIVIP")]
+            KCheckSQLFCIVIP = 6
 
         }
 
         /// <summary>
-        /// Specifies the type of the check internally performed. Specifies the type of the host check performed internally. &#39;kIsAgentPortAccessible&#39; indicates the check for agent port access. &#39;kIsAgentRunning&#39; indicates the status for the Cohesity agent service. &#39;kIsSQLWriterRunningCheck&#39; indicates the status for SQLWriter service. &#39;kAreSQLInstancesRunning&#39; indicates the run status for for all the SQL instances in the host. &#39;kCheckServiceLoginsConfig&#39; checks the privileges and sysadmin status of the logins used by the SQL instance services, Cohesity agent service and the SQLWriter service.
+        /// Specifies the type of the check internally performed. Specifies the type of the host check performed internally. &#39;kIsAgentPortAccessible&#39; indicates the check for agent port access. &#39;kIsAgentRunning&#39; indicates the status for the Cohesity agent service. &#39;kIsSQLWriterRunningCheck&#39; indicates the status for SQLWriter service. &#39;kAreSQLInstancesRunning&#39; indicates the run status for for all the SQL instances in the host. &#39;kCheckServiceLoginsConfig&#39; checks the privileges and sysadmin status of the logins used by the SQL instance services, Cohesity agent service and the SQLWriter service. &#39;kCheckSQLFCIVIP&#39; checks whether the SQL FCI is registered with a valid VIP or FQDN.
         /// </summary>
-        /// <value>Specifies the type of the check internally performed. Specifies the type of the host check performed internally. &#39;kIsAgentPortAccessible&#39; indicates the check for agent port access. &#39;kIsAgentRunning&#39; indicates the status for the Cohesity agent service. &#39;kIsSQLWriterRunningCheck&#39; indicates the status for SQLWriter service. &#39;kAreSQLInstancesRunning&#39; indicates the run status for for all the SQL instances in the host. &#39;kCheckServiceLoginsConfig&#39; checks the privileges and sysadmin status of the logins used by the SQL instance services, Cohesity agent service and the SQLWriter service.</value>
+        /// <value>Specifies the type of the check internally performed. Specifies the type of the host check performed internally. &#39;kIsAgentPortAccessible&#39; indicates the check for agent port access. &#39;kIsAgentRunning&#39; indicates the status for the Cohesity agent service. &#39;kIsSQLWriterRunningCheck&#39; indicates the status for SQLWriter service. &#39;kAreSQLInstancesRunning&#39; indicates the run status for for all the SQL instances in the host. &#39;kCheckServiceLoginsConfig&#39; checks the privileges and sysadmin status of the logins used by the SQL instance services, Cohesity agent service and the SQLWriter service. &#39;kCheckSQLFCIVIP&#39; checks whether the SQL FCI is registered with a valid VIP or FQDN.</value>
         [DataMember(Name="checkType", EmitDefaultValue=true)]
         public CheckTypeEnum? CheckType { get; set; }
         /// <summary>
@@ -101,7 +107,7 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="HostSettingsCheckResult" /> class.
         /// </summary>
-        /// <param name="checkType">Specifies the type of the check internally performed. Specifies the type of the host check performed internally. &#39;kIsAgentPortAccessible&#39; indicates the check for agent port access. &#39;kIsAgentRunning&#39; indicates the status for the Cohesity agent service. &#39;kIsSQLWriterRunningCheck&#39; indicates the status for SQLWriter service. &#39;kAreSQLInstancesRunning&#39; indicates the run status for for all the SQL instances in the host. &#39;kCheckServiceLoginsConfig&#39; checks the privileges and sysadmin status of the logins used by the SQL instance services, Cohesity agent service and the SQLWriter service..</param>
+        /// <param name="checkType">Specifies the type of the check internally performed. Specifies the type of the host check performed internally. &#39;kIsAgentPortAccessible&#39; indicates the check for agent port access. &#39;kIsAgentRunning&#39; indicates the status for the Cohesity agent service. &#39;kIsSQLWriterRunningCheck&#39; indicates the status for SQLWriter service. &#39;kAreSQLInstancesRunning&#39; indicates the run status for for all the SQL instances in the host. &#39;kCheckServiceLoginsConfig&#39; checks the privileges and sysadmin status of the logins used by the SQL instance services, Cohesity agent service and the SQLWriter service. &#39;kCheckSQLFCIVIP&#39; checks whether the SQL FCI is registered with a valid VIP or FQDN..</param>
         /// <param name="resultType">Specifies the type of the result returned after performing the internal host check. Specifies the type of the host check result performed internally. &#39;kPass&#39; indicates that the respective check was successful. &#39;kFail&#39; indicates that the respective check failed as some mandatory setting is not met &#39;kWarning&#39; indicates that the respective check has warning as certain non-mandatory setting is not met..</param>
         /// <param name="userMessage">Specifies a descriptive message for failed/warning types..</param>
         public HostSettingsCheckResult(CheckTypeEnum? checkType = default(CheckTypeEnum?), ResultTypeEnum? resultType = default(ResultTypeEnum?), string userMessage = default(string))

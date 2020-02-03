@@ -29,17 +29,20 @@ namespace Cohesity.Model
         /// <param name="mountVolumesInfoProto">mountVolumesInfoProto.</param>
         /// <param name="slaveTaskStartTimeUsecs">This is the timestamp at which the slave task started..</param>
         /// <param name="targetEntity">targetEntity.</param>
-        public DestroyMountVolumesTaskInfoProto(ErrorProto error = default(ErrorProto), bool? finished = default(bool?), string hostName = default(string), MountVolumesInfoProto mountVolumesInfoProto = default(MountVolumesInfoProto), long? slaveTaskStartTimeUsecs = default(long?), EntityProto targetEntity = default(EntityProto))
+        /// <param name="useExistingAgent">This will be set to true in two cases: 1. If persistent agent was used for IVM. 2. If user chose ephemeral agent during IVM but the host already had persistent agent installed..</param>
+        public DestroyMountVolumesTaskInfoProto(ErrorProto error = default(ErrorProto), bool? finished = default(bool?), string hostName = default(string), MountVolumesInfoProto mountVolumesInfoProto = default(MountVolumesInfoProto), long? slaveTaskStartTimeUsecs = default(long?), EntityProto targetEntity = default(EntityProto), bool? useExistingAgent = default(bool?))
         {
             this.Finished = finished;
             this.HostName = hostName;
             this.SlaveTaskStartTimeUsecs = slaveTaskStartTimeUsecs;
+            this.UseExistingAgent = useExistingAgent;
             this.Error = error;
             this.Finished = finished;
             this.HostName = hostName;
             this.MountVolumesInfoProto = mountVolumesInfoProto;
             this.SlaveTaskStartTimeUsecs = slaveTaskStartTimeUsecs;
             this.TargetEntity = targetEntity;
+            this.UseExistingAgent = useExistingAgent;
         }
         
         /// <summary>
@@ -80,6 +83,13 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="targetEntity", EmitDefaultValue=false)]
         public EntityProto TargetEntity { get; set; }
+
+        /// <summary>
+        /// This will be set to true in two cases: 1. If persistent agent was used for IVM. 2. If user chose ephemeral agent during IVM but the host already had persistent agent installed.
+        /// </summary>
+        /// <value>This will be set to true in two cases: 1. If persistent agent was used for IVM. 2. If user chose ephemeral agent during IVM but the host already had persistent agent installed.</value>
+        [DataMember(Name="useExistingAgent", EmitDefaultValue=true)]
+        public bool? UseExistingAgent { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -146,6 +156,11 @@ namespace Cohesity.Model
                     this.TargetEntity == input.TargetEntity ||
                     (this.TargetEntity != null &&
                     this.TargetEntity.Equals(input.TargetEntity))
+                ) && 
+                (
+                    this.UseExistingAgent == input.UseExistingAgent ||
+                    (this.UseExistingAgent != null &&
+                    this.UseExistingAgent.Equals(input.UseExistingAgent))
                 );
         }
 
@@ -170,6 +185,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.SlaveTaskStartTimeUsecs.GetHashCode();
                 if (this.TargetEntity != null)
                     hashCode = hashCode * 59 + this.TargetEntity.GetHashCode();
+                if (this.UseExistingAgent != null)
+                    hashCode = hashCode * 59 + this.UseExistingAgent.GetHashCode();
                 return hashCode;
             }
         }

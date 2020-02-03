@@ -26,15 +26,18 @@ namespace Cohesity.Model
         /// <param name="hypervParams">hypervParams.</param>
         /// <param name="readonlyMount">Allows the caller to force the Agent to perform a read-only mount. This is not usually required and we want to give customers the ability to mutate this mount for test/dev purposes..</param>
         /// <param name="targetEntity">targetEntity.</param>
+        /// <param name="useExistingAgent">Whether this will use an existing agent on the target vm to do a restore operation..</param>
         /// <param name="vmwareParams">vmwareParams.</param>
         /// <param name="volumeNameVec">Optional names of volumes that need to be mounted. The names here correspond to the volume names obtained by Iris from Yoda as part of VMVolumeInfo call. NOTE: If this is not specified then all volumes that are part of the server will be mounted on the target entity..</param>
-        public MountVolumesParams(MountVolumesHyperVParams hypervParams = default(MountVolumesHyperVParams), bool? readonlyMount = default(bool?), EntityProto targetEntity = default(EntityProto), MountVolumesVMwareParams vmwareParams = default(MountVolumesVMwareParams), List<string> volumeNameVec = default(List<string>))
+        public MountVolumesParams(MountVolumesHyperVParams hypervParams = default(MountVolumesHyperVParams), bool? readonlyMount = default(bool?), EntityProto targetEntity = default(EntityProto), bool? useExistingAgent = default(bool?), MountVolumesVMwareParams vmwareParams = default(MountVolumesVMwareParams), List<string> volumeNameVec = default(List<string>))
         {
             this.ReadonlyMount = readonlyMount;
+            this.UseExistingAgent = useExistingAgent;
             this.VolumeNameVec = volumeNameVec;
             this.HypervParams = hypervParams;
             this.ReadonlyMount = readonlyMount;
             this.TargetEntity = targetEntity;
+            this.UseExistingAgent = useExistingAgent;
             this.VmwareParams = vmwareParams;
             this.VolumeNameVec = volumeNameVec;
         }
@@ -57,6 +60,13 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="targetEntity", EmitDefaultValue=false)]
         public EntityProto TargetEntity { get; set; }
+
+        /// <summary>
+        /// Whether this will use an existing agent on the target vm to do a restore operation.
+        /// </summary>
+        /// <value>Whether this will use an existing agent on the target vm to do a restore operation.</value>
+        [DataMember(Name="useExistingAgent", EmitDefaultValue=true)]
+        public bool? UseExistingAgent { get; set; }
 
         /// <summary>
         /// Gets or Sets VmwareParams
@@ -123,6 +133,11 @@ namespace Cohesity.Model
                     this.TargetEntity.Equals(input.TargetEntity))
                 ) && 
                 (
+                    this.UseExistingAgent == input.UseExistingAgent ||
+                    (this.UseExistingAgent != null &&
+                    this.UseExistingAgent.Equals(input.UseExistingAgent))
+                ) && 
+                (
                     this.VmwareParams == input.VmwareParams ||
                     (this.VmwareParams != null &&
                     this.VmwareParams.Equals(input.VmwareParams))
@@ -150,6 +165,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ReadonlyMount.GetHashCode();
                 if (this.TargetEntity != null)
                     hashCode = hashCode * 59 + this.TargetEntity.GetHashCode();
+                if (this.UseExistingAgent != null)
+                    hashCode = hashCode * 59 + this.UseExistingAgent.GetHashCode();
                 if (this.VmwareParams != null)
                     hashCode = hashCode * 59 + this.VmwareParams.GetHashCode();
                 if (this.VolumeNameVec != null)

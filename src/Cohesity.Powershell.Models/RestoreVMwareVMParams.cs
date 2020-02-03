@@ -25,17 +25,20 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="copyRecovery">Whether to perform copy recovery instead of instant recovery..</param>
         /// <param name="datastoreEntityVec">Datastore entities if the restore is to alternate location..</param>
+        /// <param name="preserveCustomAttributesDuringClone">Whether to preserve custom attributes for the clone op..</param>
         /// <param name="preserveTagsDuringClone">Whether to preserve tags for the clone op..</param>
         /// <param name="resourcePoolEntity">resourcePoolEntity.</param>
         /// <param name="targetDatastoreFolder">targetDatastoreFolder.</param>
         /// <param name="targetVmFolder">targetVmFolder.</param>
-        public RestoreVMwareVMParams(bool? copyRecovery = default(bool?), List<EntityProto> datastoreEntityVec = default(List<EntityProto>), bool? preserveTagsDuringClone = default(bool?), EntityProto resourcePoolEntity = default(EntityProto), EntityProto targetDatastoreFolder = default(EntityProto), EntityProto targetVmFolder = default(EntityProto))
+        public RestoreVMwareVMParams(bool? copyRecovery = default(bool?), List<EntityProto> datastoreEntityVec = default(List<EntityProto>), bool? preserveCustomAttributesDuringClone = default(bool?), bool? preserveTagsDuringClone = default(bool?), EntityProto resourcePoolEntity = default(EntityProto), EntityProto targetDatastoreFolder = default(EntityProto), EntityProto targetVmFolder = default(EntityProto))
         {
             this.CopyRecovery = copyRecovery;
             this.DatastoreEntityVec = datastoreEntityVec;
+            this.PreserveCustomAttributesDuringClone = preserveCustomAttributesDuringClone;
             this.PreserveTagsDuringClone = preserveTagsDuringClone;
             this.CopyRecovery = copyRecovery;
             this.DatastoreEntityVec = datastoreEntityVec;
+            this.PreserveCustomAttributesDuringClone = preserveCustomAttributesDuringClone;
             this.PreserveTagsDuringClone = preserveTagsDuringClone;
             this.ResourcePoolEntity = resourcePoolEntity;
             this.TargetDatastoreFolder = targetDatastoreFolder;
@@ -55,6 +58,13 @@ namespace Cohesity.Model
         /// <value>Datastore entities if the restore is to alternate location.</value>
         [DataMember(Name="datastoreEntityVec", EmitDefaultValue=true)]
         public List<EntityProto> DatastoreEntityVec { get; set; }
+
+        /// <summary>
+        /// Whether to preserve custom attributes for the clone op.
+        /// </summary>
+        /// <value>Whether to preserve custom attributes for the clone op.</value>
+        [DataMember(Name="preserveCustomAttributesDuringClone", EmitDefaultValue=true)]
+        public bool? PreserveCustomAttributesDuringClone { get; set; }
 
         /// <summary>
         /// Whether to preserve tags for the clone op.
@@ -129,6 +139,11 @@ namespace Cohesity.Model
                     this.DatastoreEntityVec.SequenceEqual(input.DatastoreEntityVec)
                 ) && 
                 (
+                    this.PreserveCustomAttributesDuringClone == input.PreserveCustomAttributesDuringClone ||
+                    (this.PreserveCustomAttributesDuringClone != null &&
+                    this.PreserveCustomAttributesDuringClone.Equals(input.PreserveCustomAttributesDuringClone))
+                ) && 
+                (
                     this.PreserveTagsDuringClone == input.PreserveTagsDuringClone ||
                     (this.PreserveTagsDuringClone != null &&
                     this.PreserveTagsDuringClone.Equals(input.PreserveTagsDuringClone))
@@ -163,6 +178,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.CopyRecovery.GetHashCode();
                 if (this.DatastoreEntityVec != null)
                     hashCode = hashCode * 59 + this.DatastoreEntityVec.GetHashCode();
+                if (this.PreserveCustomAttributesDuringClone != null)
+                    hashCode = hashCode * 59 + this.PreserveCustomAttributesDuringClone.GetHashCode();
                 if (this.PreserveTagsDuringClone != null)
                     hashCode = hashCode * 59 + this.PreserveTagsDuringClone.GetHashCode();
                 if (this.ResourcePoolEntity != null)

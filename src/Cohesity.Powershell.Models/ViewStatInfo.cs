@@ -27,28 +27,28 @@ namespace Cohesity.Model
         public enum ProtocolsEnum
         {
             /// <summary>
-            /// Enum KS3 for value: kS3
-            /// </summary>
-            [EnumMember(Value = "kS3")]
-            KS3 = 1,
-
-            /// <summary>
             /// Enum KIscsi for value: kIscsi
             /// </summary>
             [EnumMember(Value = "kIscsi")]
-            KIscsi = 2,
+            KIscsi = 1,
 
             /// <summary>
-            /// Enum KNfs for value: kNfs
+            /// Enum KS3 for value: kS3
             /// </summary>
-            [EnumMember(Value = "kNfs")]
-            KNfs = 3,
+            [EnumMember(Value = "kS3")]
+            KS3 = 2,
 
             /// <summary>
             /// Enum KSmb for value: kSmb
             /// </summary>
             [EnumMember(Value = "kSmb")]
-            KSmb = 4
+            KSmb = 3,
+
+            /// <summary>
+            /// Enum KNfs for value: kNfs
+            /// </summary>
+            [EnumMember(Value = "kNfs")]
+            KNfs = 4
 
         }
 
