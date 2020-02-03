@@ -1,10 +1,11 @@
 function Get-CohesityCmdletConfig
 {
     [CmdletBinding()]
-    param(
-    )
+    param()
+
     Begin {
     }
+
     Process {
         [CohesityConfig]$config = [CohesityConfig]::New()
         $configFileName = $config.ConfigFileName
@@ -13,12 +14,10 @@ function Get-CohesityCmdletConfig
         if ([System.IO.File]::Exists($cmdletConfigPath)) {
             $config = Get-Content $cmdletConfigPath | ConvertFrom-Json
             $config
-        } else {
-            Write-Host "No configuration found for cohesity cmdlet, please setup using Set-CohesityCmdletConfig"
         }
     }
+
     End {
-        
     }
 }
 

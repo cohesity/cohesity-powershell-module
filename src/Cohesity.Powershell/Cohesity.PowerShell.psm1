@@ -13,3 +13,8 @@ Foreach($script in @($scripts))
         Write-Error -Message "Failed to import function $($script.fullname): $_"
     }
 }
+# Post module installation initialize the cmdlet configuration
+$config = Get-CohesityCmdletConfig
+if($null -eq $config) {
+    $resp = Set-CohesityCmdletConfig -LogSeverity 3
+}
