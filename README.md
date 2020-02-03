@@ -6,8 +6,8 @@
 # Cohesity PowerShell Module
 [![License: Apache2](https://img.shields.io/hexpm/l/plug.svg)](https://github.com/cohesity/cohesity-powershell-module/blob/master/LICENSE)
 [![GitHub release](https://img.shields.io/github/release/cohesity/cohesity-powershell-module.svg)](https://github.com/cohesity/cohesity-powershell-module/releases/)
-{ ![PowerShell](https://img.shields.io/powershellgallery/dt/cohesity.powershell) + 
-![PowerShell Core](https://img.shields.io/powershellgallery/dt/cohesity.powershell.core) }
+![PowerShell](https://img.shields.io/powershellgallery/dt/cohesity.powershell?label=Powershell%20Download) 
+![PowerShell Core](https://img.shields.io/powershellgallery/dt/cohesity.powershell.core?label=Powershell%20Core%20Download)
 ![Maintenance](https://img.shields.io/maintenance/yes/2020)
 
 
