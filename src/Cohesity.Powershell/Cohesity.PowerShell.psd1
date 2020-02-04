@@ -72,6 +72,7 @@ FunctionsToExport = @(
                       'Get-CohesityInterfaceGroup',
                       'Get-CohesityOrganization',
                       'Get-CohesityProtectionJobStatus',
+                      'Get-CohesityRoutes',
                       'Get-CohesityStorageDomain',
                       'Get-CohesityVault',
                       'Get-CohesityVirtualIP',
@@ -79,6 +80,7 @@ FunctionsToExport = @(
                       'New-CohesityActiveDirectory',
                       'New-CohesityHypervProtectionJob'
                       'New-CohesityProtectionPolicy',
+                      'New-CohesityRoutes',
                       'New-CohesityStorageDomain',
                       'New-CohesityVirtualIP',
                       'New-CohesityVlan',
@@ -86,7 +88,8 @@ FunctionsToExport = @(
                       'Register-CohesityProtectionSourceHyperV',
                       'Register-CohesityProtectionSourceIsilon',
                       'Register-CohesityProtectionSourceO365',
-                      'Remove-CohesityActiveDirectory'
+                      'Remove-CohesityActiveDirectory',
+                      'Remove-CohesityRoutes',
                       'Remove-CohesityUser',
                       'Remove-CohesityVirtualIP',
                       'Remove-CohesityVlan',
