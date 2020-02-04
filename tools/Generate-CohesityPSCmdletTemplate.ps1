@@ -42,7 +42,7 @@ function Generate-CohesityPSCmdletTemplate {
             }
             "put" {
                 $filePrefix = "Update"
-                $httpMethod = "Update"
+                $httpMethod = "Put"
                 $errorMessage = "`"$Feature : Failed to update.`""
                 break
             }
@@ -52,9 +52,9 @@ function Generate-CohesityPSCmdletTemplate {
                 $errorMessage = "`"$Feature : Failed to create.`""
                 break
             }
-            "delete" {  
+            "delete" {
                 $filePrefix = "Remove"
-                $httpMethod = "Remove"
+                $httpMethod = "Delete"
                 $errorMessage = "`"$Feature : Failed to remove.`""
                 break
             }
@@ -80,11 +80,12 @@ function Generate-CohesityPSCmdletTemplate {
         # Creating the new file.
         New-item $fileLoc
         $processBlock = $null
+        $deleteBlock = $null
 
         if($ActionType -eq "post" -OR $ActionType -eq "put" -OR $ActionType -eq "register"){
             # Creating Process block for template file with body payload part for Post, Put, Register operation
             $processBlock = @"
-
+        
         #       `$payload = @{}
         #       `$payloadJson = $payload | ConvertTo-Json -Depth 100
         #       `$resp = Invoke-RestApi -Method $httpMethod -Uri `$cohesityUrl -Headers `$cohesityHeaders -Body `$payloadJson
@@ -92,10 +93,23 @@ function Generate-CohesityPSCmdletTemplate {
         }
 
         if($ActionType -eq "get" -OR $ActionType -eq "delete"){
+            if ($ActionType -eq "delete") {
+                $processBlock = @"
+
+        #       if(`$PSCmdlet.ShouldProcess(`$Param1)){
+"@
+                $deleteBlock = @"
+        
+        #       } else {
+        #            return
+        #       }
+"@      
+            }
+
             # Creating Process block for template file without body payload part for Get and Delete operation
             $processBlock = @"
-
-        #       `$resp = "Invoke-RestApi -Method $httpMethod -Uri `$cohesityUrl -Headers `$cohesityHeaders"
+                $processBlock
+        #       `$resp = Invoke-RestApi -Method $httpMethod -Uri `$cohesityUrl -Headers `$cohesityHeaders
 "@
         }
 
@@ -121,10 +135,10 @@ function $filePrefix-Cohesity$Feature {
         `$Param1
     )
     Begin {
-        if (-not (Test-Path -Path "$HOME/.cohesity")) {
+        if (-not (Test-Path -Path "`$HOME/.cohesity")) {
             throw "Failed to authenticate. Please connect to the Cohesity Cluster using 'Connect-CohesityCluster'"
         }
-        `$cohesitySession = Get-Content -Path $HOME/.cohesity | ConvertFrom-Json
+        `$cohesitySession = Get-Content -Path `$HOME/.cohesity | ConvertFrom-Json
         `$cohesityServer = `$cohesitySession.ClusterUri
         `$cohesityToken = `$cohesitySession.Accesstoken.Accesstoken
     }
@@ -135,9 +149,6 @@ function $filePrefix-Cohesity$Feature {
         #       Append the url with your ActionType accordingly.
         #       `$cohesityUrl = `$cohesityServer + '/irisservices/api/v1/public/'
         #       `$cohesityHeaders = @{'Authorization' = 'Bearer ' + `$cohesityToken }
-                $(if($ActionType -eq "delete") {             
-        '#      if($PSCmdlet.ShouldProcess($Param1)){'
-                })
                 $processBlock
 
         #       if (`$resp) {
@@ -148,14 +159,7 @@ function $filePrefix-Cohesity$Feature {
         #           Write-Host `$errorMsg
         #           CSLog -Message `$errorMsg
         #       }
-
-                $(if($ActionType -eq "delete") {                
-
-        '#      }
-        #       else {
-        #              return
-        #       }'
-                })
+                $deleteBlock
     }
 
     End {
@@ -167,4 +171,4 @@ function $filePrefix-Cohesity$Feature {
     End {
     }
 }
-Generate-CohesityPSCmdletTemplate
+Generate-CohesityPSCmdletTemplate 
