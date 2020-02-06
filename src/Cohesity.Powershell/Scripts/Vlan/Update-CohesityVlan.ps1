@@ -9,9 +9,9 @@ function Update-CohesityVlan {
         .LINK
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
-        Update-CohesityVlan  -VlanId 18 -Subnet 1.18.4.0 -NetmaskBitsForSubnet 20 -Gateway 1.18.4.1
+        Update-CohesityVlan -InterfaceGroupName intf_group1 -VlanId 18 -Subnet 1.18.4.0 -NetmaskBitsForSubnet 20 -Gateway 1.18.4.1
         .EXAMPLE
-        Get-CohesityVlan -VlanId 11 |  Update-CohesityVlan -Subnet 1.2.1.1
+        Get-CohesityVlan -VlanId 11 |  Update-CohesityVlan -InterfaceGroupName intf_group1 -Subnet 1.2.1.1
     #>
     [CmdletBinding()]
     Param(
