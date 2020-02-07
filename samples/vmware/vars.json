@@ -1,0 +1,12 @@
+{
+    "vCenterServer":"YOUR_VCENTER_CLUSTER_IP_OR_FQDN",
+    "vCenterUserName":"VCENTER_USERNAME",
+    "vCenterFolderName": "VCENTER_FOLDER_NAME",
+    "CohesityCluster":"YOUR_COHESITY_CLUSTER_IP_OR_FQDN",
+    "VMPrefix": "VM_NAME_PREFIX",
+    "SourceVMName": "SOURCE_VM_TO_BE_CLONED",
+    "ProtectionJobName": "PROTECTION_JOB_NAME",
+    "ProtectionPolicyName": "EXISTING_POLICY_NAME",
+    "StorageDomainName": "COHESITY_STORAGE_DOMAIN_NAME"
+
+}
