@@ -61,8 +61,13 @@ namespace Cohesity.Model
             /// Enum KCheckSQLFCIVIP for value: kCheckSQLFCIVIP
             /// </summary>
             [EnumMember(Value = "kCheckSQLFCIVIP")]
-            KCheckSQLFCIVIP = 6
+            KCheckSQLFCIVIP = 6,
 
+            /// <summary>
+            /// Enum KIsSQLWriterRunning for value: kIsSQLWriterRunning
+            /// </summary>
+            [EnumMember(Value = "kIsSQLWriterRunning")]
+            KIsSQLWriterRunning = 7
         }
 
         /// <summary>
