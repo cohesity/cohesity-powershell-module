@@ -17,4 +17,6 @@ Foreach($script in @($scripts))
 $config = Get-CohesityCmdletConfig
 if($null -eq $config) {
     $resp = Set-CohesityCmdletConfig -LogSeverity 3
+} else {
+    $resp = Update-CohesityCmdletConfig -CurrentVersion $config.Version
 }

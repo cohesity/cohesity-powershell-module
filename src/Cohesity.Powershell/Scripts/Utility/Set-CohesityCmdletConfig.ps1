@@ -1,11 +1,12 @@
 # the configuration structure for cohesity cmdlet
 class CohesityConfig {
     # the version will be helpful while upgrading the configuration
-    [int]$Version = 1
+    [int]$Version = 2
     [int]$LogSeverity = 0
     $LogRequestedPayload = $false
     $LogResponseData = $false
     $LogHeaderDetail = $false
+	$RefreshToken = $false
     # following values are read only, not for configuration purpose
     [string]$ConfigFolder = "cohesity"
     [string]$ConfigFileName = "config.json"
@@ -27,7 +28,10 @@ function Set-CohesityCmdletConfig {
         $LogResponseData = $false,
         [Parameter(Mandatory = $false, ParameterSetName = 'LogHeaderDetail')]
         [ValidateSet($true, $false)]
-        $LogHeaderDetail = $false
+        $LogHeaderDetail = $false,
+        [Parameter(Mandatory = $false, ParameterSetName = 'RefreshToken')]
+        [ValidateSet($true, $false)]
+        $RefreshToken = $false
     )
     Begin {
         [CohesityConfig]$config = [CohesityConfig]::New()
@@ -56,6 +60,9 @@ function Set-CohesityCmdletConfig {
             }
             'LogHeaderDetail' {
                 $config.LogHeaderDetail = $LogHeaderDetail
+            }
+            'RefreshToken' {
+                $config.RefreshToken = $RefreshToken
             }
         }
         $config | ConvertTo-Json -depth 100 | Out-File $cmdletConfigPath

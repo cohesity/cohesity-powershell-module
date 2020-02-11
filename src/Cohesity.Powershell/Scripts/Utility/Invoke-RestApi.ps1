@@ -1,7 +1,6 @@
 $Global:CohesityUserAgentName = $null
 $Global:CohesityAPIError = $null
-function Invoke-RestApi
-{
+function Invoke-RestApi {
     [CmdletBinding()]
     param(
         $Uri,
@@ -10,10 +9,41 @@ function Invoke-RestApi
         $Body,
         $OutFile
     )
-    if($null -eq $Global:CohesityCmdletConfig) {
+    if ($null -eq $Global:CohesityCmdletConfig) {
         $Global:CohesityCmdletConfig = Get-CohesityCmdletConfig
     }
-    if($null -eq $Global:CohesityUserAgentName) {
+
+    if ($Global:CohesityCmdletConfig) {
+        if ($true -eq $Global:CohesityCmdletConfig.RefreshToken) {
+            $cohesitySession = Get-Content -Path $HOME/.cohesity | ConvertFrom-Json
+            # The system saves the utc time in nano seconds
+            $timeDiff = New-TimeSpan $cohesitySession.TimestampUTC (Get-Date).ToFileTimeUtc()
+            if ( $timeDiff.TotalHours -ge 24) {
+                try {
+                    Write-Host "The session token has expired, attempting to refresh."
+                    CSLog -Message ("Token session : Time elapsed "+$timeDiff) -Severity 3
+                    $userName = $cohesitySession.Credentials.domain + "\" + $cohesitySession.Credentials.username
+                    $password = $cohesitySession.Credentials.password
+                    $resp = Connect-CohesityCluster -Server $cohesitySession.ServerName -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $userName, (ConvertTo-SecureString -AsPlainText $password -Force))
+                    Write-Host "The session token has been refreshed"
+                    if($PSBoundParameters.ContainsKey('Headers')) {
+                        $cohesitySession = Get-Content -Path $HOME/.cohesity | ConvertFrom-Json
+                        if($PSBoundParameters['Headers'].ContainsKey('Authorization')) {
+                            $PSBoundParameters['Headers'].Remove('Authorization')
+                            $PSBoundParameters['Headers'].Add('Authorization', 'Bearer ' + $cohesitySession.Accesstoken.Accesstoken)
+                        }
+                    }
+                }
+                catch {
+                    $errorMsg = "Exception : Refreshing the token, " + $_.Exception.Message
+                    CSLog -Message $errorMsg -Severity 3
+                    return
+                }
+            }
+        }
+    }
+
+    if ($null -eq $Global:CohesityUserAgentName) {
         try {
             $userAgent = "cohesity-powershell"
             $moduleName = $null
@@ -99,4 +129,3 @@ function Invoke-RestApi
         CSLog -Message $errorMsg -Severity 3
     }
 }
-

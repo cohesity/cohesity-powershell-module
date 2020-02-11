@@ -143,7 +143,10 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
                 {
                     ClusterUri = clusterUri,
                     AccessToken = accessToken,
-                    AllowInvalidServerCertificates = true
+                    AllowInvalidServerCertificates = true,
+                    Credentials = credentials,
+                    TimestampUTC = DateTime.UtcNow.ToFileTimeUtc(),
+                    ServerName = Server
                 };
 
                 userProfileProvider.SetUserProfile(userProfile);

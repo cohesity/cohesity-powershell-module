@@ -32,6 +32,11 @@ namespace Cohesity
         {
             if (!ApiClient.IsAuthenticated)
                 throw new Exception("Failed to authenticate. Please connect to the Cohesity Cluster using 'Connect-CohesityCluster'");
+
+            if(ApiClient.ShallRefreshToken())
+            {
+                ApiClient.InitiateTokenRefresh();
+            }
         }        
 
     }
