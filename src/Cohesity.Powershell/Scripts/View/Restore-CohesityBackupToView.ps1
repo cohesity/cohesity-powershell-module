@@ -1,4 +1,4 @@
-function Recover-CohesityBackupToView {
+function Restore-CohesityBackupToView {
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory = $false)]

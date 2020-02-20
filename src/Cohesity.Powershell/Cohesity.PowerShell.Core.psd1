@@ -66,7 +66,6 @@ NestedModules = @('Cohesity.PowerShell.psm1')
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
 FunctionsToExport = @(
-                      'Download-CohesityFile',
                       'Get-CohesityActiveDirectory',
                       'Get-CohesityCmdletConfig',
                       'Get-CohesityInterfaceGroup',
@@ -84,7 +83,6 @@ FunctionsToExport = @(
                       'New-CohesityStorageDomain',
                       'New-CohesityVirtualIP',
                       'New-CohesityVlan',
-                      'Recover-CohesityBackupToView',
                       'Register-CohesityProtectionSourceHyperV',
                       'Register-CohesityProtectionSourceIsilon',
                       'Register-CohesityProtectionSourceO365',
@@ -93,6 +91,8 @@ FunctionsToExport = @(
                       'Remove-CohesityUser',
                       'Remove-CohesityVirtualIP',
                       'Remove-CohesityVlan',
+                      'Restore-CohesityBackupToView',
+                      'Save-CohesityFile',
                       'Set-CohesityAlertResolutions',
                       'Set-CohesityCmdletConfig',
                       'Set-CohesityStorageDomain',
