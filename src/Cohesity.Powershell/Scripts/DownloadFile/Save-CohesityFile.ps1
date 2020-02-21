@@ -1,16 +1,16 @@
-function Download-CohesityFile {
+function Save-CohesityFile {
     <#
         .SYNOPSIS
         Request to download the specified file from the specified server.
         .DESCRIPTION
-        The Download-CohesityFile function is used to download specific file using REST API from the specified server under tthe specified target folder.
+        The Save-CohesityFile function is used to download specific file using REST API from the specified server under tthe specified target folder.
         .NOTES
         If target path is not specified, then file will be downloaded under home folder
         .EXAMPLE
-        Download-CohesityFile -FileName <string> -ServerName <string> -OutFile <string>
+        Save-CohesityFile -FileName <string> -ServerName <string> -OutFile <string>
         Download the specified file from the server under specified target path
         .EXAMPLE
-        Download-CohesityFile -FileName <string> -ServerName <string>
+        Save-CohesityFile -FileName <string> -ServerName <string>
         Download the specified file from the server under home path
         .NOTES
         *** Only files can be downloaded

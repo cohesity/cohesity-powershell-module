@@ -65,7 +65,7 @@ function Invoke-RestApi
             $result = Invoke-WebRequest -UseBasicParsing -SkipCertificateCheck @PSBoundParameters -UserAgent $Global:CohesityUserAgentName
         }
         else {
-            Allow-SelfSignedCertificates
+            Enable-SelfSignedCertificates
             $result = Invoke-WebRequest -UseBasicParsing @PSBoundParameters -UserAgent $Global:CohesityUserAgentName
         }
         

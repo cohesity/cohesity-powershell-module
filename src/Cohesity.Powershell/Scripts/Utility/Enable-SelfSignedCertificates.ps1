@@ -1,4 +1,4 @@
-function Allow-SelfSignedCertificates
+function Enable-SelfSignedCertificates
 {
     # ignore self-signed server certificates
     $client = New-Object System.Net.WebClient;
