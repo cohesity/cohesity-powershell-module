@@ -83,7 +83,7 @@ function Get-CohesityProtectionJobStatus {
                         break
                     }
                 }
-                $r = $jobIdAndRemoteStatus.Add($item.jobId, $remoteStatus)
+                $jobIdAndRemoteStatus[$item.jobId] = $remoteStatus
             }
         }
 
