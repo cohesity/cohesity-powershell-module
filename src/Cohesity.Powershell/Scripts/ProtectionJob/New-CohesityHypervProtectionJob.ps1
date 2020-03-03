@@ -76,6 +76,7 @@ function New-CohesityHypervProtectionJob {
         $payloadJson = $payload | ConvertTo-Json -Depth 100
         $resp = Invoke-RestApi -Method Post -Uri $url -Headers $headers -Body $payloadJson
         if ($resp) {
+            $ret = Start-CohesityProtectionJob -Id $resp.Id
             $resp
         }
         else {
