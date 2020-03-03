@@ -63,7 +63,7 @@ function New-CohesityHypervProtectionJob {
 
         $headers = @{'Authorization' = 'Bearer ' + $token }
         $payload = @{
-            name           = $PolicyName
+            name           = $Name
             policyId       = $protectionPolicyObject.Id
             _policyName    = $protectionPolicyObject.Name
             viewBoxId      = $storageDomainObject.Id
