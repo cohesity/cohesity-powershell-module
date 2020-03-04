@@ -15,17 +15,17 @@ using Newtonsoft.Json.Converters;
 namespace Cohesity.Model
 {
     /// <summary>
-    /// AdGuidPair is the AD object guid string pair.
+    /// ADGuidPair
     /// </summary>
     [DataContract]
-    public partial class AdGuidPair :  IEquatable<AdGuidPair>
+    public partial class ADGuidPair :  IEquatable<ADGuidPair>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="AdGuidPair" /> class.
+        /// Initializes a new instance of the <see cref="ADGuidPair" /> class.
         /// </summary>
-        /// <param name="destination">Specifies the destination guid in production AD object corresponding to source. If empty, it assumed to be &#39;source&#39; guid..</param>
-        /// <param name="source">Specifies the source guid string of an AD object in mounted AD snapshot. This cannot be empty..</param>
-        public AdGuidPair(string destination = default(string), string source = default(string))
+        /// <param name="destination">Destination guid in production AD object corresponding to source. If empty, it assumed to be &#39;source&#39; guid..</param>
+        /// <param name="source">Source guid string of an AD object in mounted AD snapshot. This cannot be empty..</param>
+        public ADGuidPair(string destination = default(string), string source = default(string))
         {
             this.Destination = destination;
             this.Source = source;
@@ -34,16 +34,16 @@ namespace Cohesity.Model
         }
         
         /// <summary>
-        /// Specifies the destination guid in production AD object corresponding to source. If empty, it assumed to be &#39;source&#39; guid.
+        /// Destination guid in production AD object corresponding to source. If empty, it assumed to be &#39;source&#39; guid.
         /// </summary>
-        /// <value>Specifies the destination guid in production AD object corresponding to source. If empty, it assumed to be &#39;source&#39; guid.</value>
+        /// <value>Destination guid in production AD object corresponding to source. If empty, it assumed to be &#39;source&#39; guid.</value>
         [DataMember(Name="destination", EmitDefaultValue=true)]
         public string Destination { get; set; }
 
         /// <summary>
-        /// Specifies the source guid string of an AD object in mounted AD snapshot. This cannot be empty.
+        /// Source guid string of an AD object in mounted AD snapshot. This cannot be empty.
         /// </summary>
-        /// <value>Specifies the source guid string of an AD object in mounted AD snapshot. This cannot be empty.</value>
+        /// <value>Source guid string of an AD object in mounted AD snapshot. This cannot be empty.</value>
         [DataMember(Name="source", EmitDefaultValue=true)]
         public string Source { get; set; }
 
@@ -69,15 +69,15 @@ namespace Cohesity.Model
         /// <returns>Boolean</returns>
         public override bool Equals(object input)
         {
-            return this.Equals(input as AdGuidPair);
+            return this.Equals(input as ADGuidPair);
         }
 
         /// <summary>
-        /// Returns true if AdGuidPair instances are equal
+        /// Returns true if ADGuidPair instances are equal
         /// </summary>
-        /// <param name="input">Instance of AdGuidPair to be compared</param>
+        /// <param name="input">Instance of ADGuidPair to be compared</param>
         /// <returns>Boolean</returns>
-        public bool Equals(AdGuidPair input)
+        public bool Equals(ADGuidPair input)
         {
             if (input == null)
                 return false;

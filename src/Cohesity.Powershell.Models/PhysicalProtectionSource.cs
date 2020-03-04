@@ -106,7 +106,13 @@ namespace Cohesity.Model
             /// Enum KOracleAPCluster for value: kOracleAPCluster
             /// </summary>
             [EnumMember(Value = "kOracleAPCluster")]
-            KOracleAPCluster = 5
+            KOracleAPCluster = 5,
+
+            /// <summary>
+            /// Enum KOracleCluster for value: kOracleCluster
+            /// </summary>
+            [EnumMember(Value = "kOracleCluster")]
+            KOracleCluster = 6
 
         }
 
@@ -123,7 +129,7 @@ namespace Cohesity.Model
         /// <param name="hostName">Specifies the hostname..</param>
         /// <param name="hostType">Specifies the environment type for the host. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kOther&#39; indicates the other types of operating system..</param>
         /// <param name="id">Specifies a unique id of a Physical Protection Source. The id is unique across Cohesity Clusters..</param>
-        /// <param name="memorySizeBytes">Specifies the total memory on the host in bytes..</param>
+        /// <param name="memorySizeBytes">Specifies the total memory ont the host in bytes..</param>
         /// <param name="name">Specifies a human readable name of the Protection Source..</param>
         /// <param name="networkingInfo">networkingInfo.</param>
         /// <param name="numProcessors">Specifies the number of processors on the host..</param>
@@ -180,9 +186,9 @@ namespace Cohesity.Model
         public UniversalId Id { get; set; }
 
         /// <summary>
-        /// Specifies the total memory on the host in bytes.
+        /// Specifies the total memory ont the host in bytes.
         /// </summary>
-        /// <value>Specifies the total memory on the host in bytes.</value>
+        /// <value>Specifies the total memory ont the host in bytes.</value>
         [DataMember(Name="memorySizeBytes", EmitDefaultValue=true)]
         public long? MemorySizeBytes { get; set; }
 
