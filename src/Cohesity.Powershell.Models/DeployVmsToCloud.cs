@@ -25,10 +25,12 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="awsParams">awsParams.</param>
         /// <param name="azureParams">azureParams.</param>
-        public DeployVmsToCloud(AwsParams awsParams = default(AwsParams), AzureParams azureParams = default(AzureParams))
+        /// <param name="fleetParams">fleetParams.</param>
+        public DeployVmsToCloud(AwsParams awsParams = default(AwsParams), AzureParams azureParams = default(AzureParams), FleetParams fleetParams = default(FleetParams))
         {
             this.AwsParams = awsParams;
             this.AzureParams = azureParams;
+            this.FleetParams = fleetParams;
         }
         
         /// <summary>
@@ -42,6 +44,12 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="azureParams", EmitDefaultValue=false)]
         public AzureParams AzureParams { get; set; }
+
+        /// <summary>
+        /// Gets or Sets FleetParams
+        /// </summary>
+        [DataMember(Name="fleetParams", EmitDefaultValue=false)]
+        public FleetParams FleetParams { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -88,6 +96,11 @@ namespace Cohesity.Model
                     this.AzureParams == input.AzureParams ||
                     (this.AzureParams != null &&
                     this.AzureParams.Equals(input.AzureParams))
+                ) && 
+                (
+                    this.FleetParams == input.FleetParams ||
+                    (this.FleetParams != null &&
+                    this.FleetParams.Equals(input.FleetParams))
                 );
         }
 
@@ -104,6 +117,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.AwsParams.GetHashCode();
                 if (this.AzureParams != null)
                     hashCode = hashCode * 59 + this.AzureParams.GetHashCode();
+                if (this.FleetParams != null)
+                    hashCode = hashCode * 59 + this.FleetParams.GetHashCode();
                 return hashCode;
             }
         }

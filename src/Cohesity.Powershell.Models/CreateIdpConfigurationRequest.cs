@@ -24,13 +24,13 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="CreateIdpConfigurationRequest" /> class.
         /// </summary>
         /// <param name="allowLocalAuthentication">Specifies whether to allow local authentication. When IdP is configured, only IdP users are allowed to login to the Cluster. Local login is disabled except for users with admin role. If this flag is set to true, local (non-IdP) logins are allowed for all local and AD users. Local or AD users with admin role can login always independent of this flag&#39;s setting..</param>
-        /// <param name="certificate">Specifies the certificate generated for the app by the IdP service when the Cluster is registerd as an app. This is required to verify the SAML response..</param>
+        /// <param name="certificate">Specifies the certificate generated for the app by the IdP service when the Cluster is registered as an app. This is required to verify the SAML response..</param>
         /// <param name="certificateFilename">Specifies the filename used to upload the certificate..</param>
         /// <param name="domain">Specifies a unique name for this IdP configuration..</param>
         /// <param name="enable">Specifies a flag to enable or disable this IdP service. When it is set to true, IdP service is enabled. When it is set to false, IdP service is disabled. When an IdP service is created, it is set to true..</param>
         /// <param name="issuerId">Specifies the IdP provided Issuer ID for the app. For example, exkh1aov1nhHrgFhN0h7..</param>
         /// <param name="name">Specifies the name of the vendor providing IdP service..</param>
-        /// <param name="roles">Specifies a list roles assigned to an IdP user if samlAttributeName is not given..</param>
+        /// <param name="roles">Specifies a list of roles assigned to an IdP user if samlAttributeName is not given..</param>
         /// <param name="samlAttributeName">Specifies the SAML attribute name that contains a comma separated list of Cluster roles. Either this field or roles must be set. This field takes higher precedence than the roles field..</param>
         /// <param name="signRequest">Specifies whether to sign the SAML request or not. When it is set to true, SAML request will be signed. When it is set to false, SAML request is not signed. Default is false. Set this flag to true if the IdP site is configured to expect the SAML request from the Cluster signed. If this is set to true, users must get the Cluster&#39;s certificate and upload it on the IdP site..</param>
         /// <param name="ssoUrl">Specifies the SSO URL of the IdP service for the customer. This is the URL given by IdP when the customer created an account. Customers may use this for several clusters that are registered with on IdP site. For example, dev-332534.oktapreview.com.</param>
@@ -71,9 +71,9 @@ namespace Cohesity.Model
         public bool? AllowLocalAuthentication { get; set; }
 
         /// <summary>
-        /// Specifies the certificate generated for the app by the IdP service when the Cluster is registerd as an app. This is required to verify the SAML response.
+        /// Specifies the certificate generated for the app by the IdP service when the Cluster is registered as an app. This is required to verify the SAML response.
         /// </summary>
-        /// <value>Specifies the certificate generated for the app by the IdP service when the Cluster is registerd as an app. This is required to verify the SAML response.</value>
+        /// <value>Specifies the certificate generated for the app by the IdP service when the Cluster is registered as an app. This is required to verify the SAML response.</value>
         [DataMember(Name="certificate", EmitDefaultValue=true)]
         public string Certificate { get; set; }
 
@@ -113,9 +113,9 @@ namespace Cohesity.Model
         public string Name { get; set; }
 
         /// <summary>
-        /// Specifies a list roles assigned to an IdP user if samlAttributeName is not given.
+        /// Specifies a list of roles assigned to an IdP user if samlAttributeName is not given.
         /// </summary>
-        /// <value>Specifies a list roles assigned to an IdP user if samlAttributeName is not given.</value>
+        /// <value>Specifies a list of roles assigned to an IdP user if samlAttributeName is not given.</value>
         [DataMember(Name="roles", EmitDefaultValue=true)]
         public List<string> Roles { get; set; }
 

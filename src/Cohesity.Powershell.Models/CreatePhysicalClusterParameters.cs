@@ -30,13 +30,15 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="clusterName">Specifies the name of the new Cluster. (required).</param>
         /// <param name="encryptionConfig">encryptionConfig.</param>
+        /// <param name="ipPreference">Specifies IP preference..</param>
         /// <param name="ipmiConfig">ipmiConfig (required).</param>
         /// <param name="metadataFaultTolerance">Specifies the metadata fault tolerance..</param>
         /// <param name="networkConfig">networkConfig (required).</param>
         /// <param name="nodeConfigs">Specifies the configuration for the nodes in the new cluster. (required).</param>
-        public CreatePhysicalClusterParameters(string clusterName = default(string), EncryptionConfiguration encryptionConfig = default(EncryptionConfiguration), IpmiConfiguration ipmiConfig = default(IpmiConfiguration), int? metadataFaultTolerance = default(int?), NetworkConfiguration networkConfig = default(NetworkConfiguration), List<PhysicalNodeConfiguration> nodeConfigs = default(List<PhysicalNodeConfiguration>))
+        public CreatePhysicalClusterParameters(string clusterName = default(string), EncryptionConfiguration encryptionConfig = default(EncryptionConfiguration), int? ipPreference = default(int?), IpmiConfiguration ipmiConfig = default(IpmiConfiguration), int? metadataFaultTolerance = default(int?), NetworkConfiguration networkConfig = default(NetworkConfiguration), List<PhysicalNodeConfiguration> nodeConfigs = default(List<PhysicalNodeConfiguration>))
         {
             this.ClusterName = clusterName;
+            this.IpPreference = ipPreference;
             // to ensure "ipmiConfig" is required (not null)
             if (ipmiConfig == null)
             {
@@ -60,6 +62,7 @@ namespace Cohesity.Model
 
             this.NodeConfigs = nodeConfigs;
             this.EncryptionConfig = encryptionConfig;
+            this.IpPreference = ipPreference;
             this.MetadataFaultTolerance = metadataFaultTolerance;
         }
         
@@ -75,6 +78,13 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="encryptionConfig", EmitDefaultValue=false)]
         public EncryptionConfiguration EncryptionConfig { get; set; }
+
+        /// <summary>
+        /// Specifies IP preference.
+        /// </summary>
+        /// <value>Specifies IP preference.</value>
+        [DataMember(Name="ipPreference", EmitDefaultValue=true)]
+        public int? IpPreference { get; set; }
 
         /// <summary>
         /// Gets or Sets IpmiConfig
@@ -149,6 +159,11 @@ namespace Cohesity.Model
                     this.EncryptionConfig.Equals(input.EncryptionConfig))
                 ) && 
                 (
+                    this.IpPreference == input.IpPreference ||
+                    (this.IpPreference != null &&
+                    this.IpPreference.Equals(input.IpPreference))
+                ) && 
+                (
                     this.IpmiConfig == input.IpmiConfig ||
                     (this.IpmiConfig != null &&
                     this.IpmiConfig.Equals(input.IpmiConfig))
@@ -184,6 +199,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ClusterName.GetHashCode();
                 if (this.EncryptionConfig != null)
                     hashCode = hashCode * 59 + this.EncryptionConfig.GetHashCode();
+                if (this.IpPreference != null)
+                    hashCode = hashCode * 59 + this.IpPreference.GetHashCode();
                 if (this.IpmiConfig != null)
                     hashCode = hashCode * 59 + this.IpmiConfig.GetHashCode();
                 if (this.MetadataFaultTolerance != null)

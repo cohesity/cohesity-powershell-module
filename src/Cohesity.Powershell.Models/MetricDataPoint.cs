@@ -24,11 +24,14 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="MetricDataPoint" /> class.
         /// </summary>
         /// <param name="data">data.</param>
+        /// <param name="rollupFunction">If this is a rolled up data point, following enum denotes the rollup function used for rolling up. For a raw point this enum is not set..</param>
         /// <param name="timestampMsecs">Specifies a timestamp when the metric data point was captured..</param>
-        public MetricDataPoint(ValueData data = default(ValueData), long? timestampMsecs = default(long?))
+        public MetricDataPoint(ValueData data = default(ValueData), int? rollupFunction = default(int?), long? timestampMsecs = default(long?))
         {
+            this.RollupFunction = rollupFunction;
             this.TimestampMsecs = timestampMsecs;
             this.Data = data;
+            this.RollupFunction = rollupFunction;
             this.TimestampMsecs = timestampMsecs;
         }
         
@@ -37,6 +40,13 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="data", EmitDefaultValue=false)]
         public ValueData Data { get; set; }
+
+        /// <summary>
+        /// If this is a rolled up data point, following enum denotes the rollup function used for rolling up. For a raw point this enum is not set.
+        /// </summary>
+        /// <value>If this is a rolled up data point, following enum denotes the rollup function used for rolling up. For a raw point this enum is not set.</value>
+        [DataMember(Name="rollupFunction", EmitDefaultValue=true)]
+        public int? RollupFunction { get; set; }
 
         /// <summary>
         /// Specifies a timestamp when the metric data point was captured.
@@ -87,6 +97,11 @@ namespace Cohesity.Model
                     this.Data.Equals(input.Data))
                 ) && 
                 (
+                    this.RollupFunction == input.RollupFunction ||
+                    (this.RollupFunction != null &&
+                    this.RollupFunction.Equals(input.RollupFunction))
+                ) && 
+                (
                     this.TimestampMsecs == input.TimestampMsecs ||
                     (this.TimestampMsecs != null &&
                     this.TimestampMsecs.Equals(input.TimestampMsecs))
@@ -104,6 +119,8 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.Data != null)
                     hashCode = hashCode * 59 + this.Data.GetHashCode();
+                if (this.RollupFunction != null)
+                    hashCode = hashCode * 59 + this.RollupFunction.GetHashCode();
                 if (this.TimestampMsecs != null)
                     hashCode = hashCode * 59 + this.TimestampMsecs.GetHashCode();
                 return hashCode;

@@ -21,9 +21,9 @@ namespace Cohesity.Model
     public partial class AcropolisProtectionSource :  IEquatable<AcropolisProtectionSource>
     {
         /// <summary>
-        /// Specifies the type of an Acropolis Protection Source Object such as &#39;kPrismCentral&#39;, &#39;kHost&#39;, &#39;kNetwork&#39;, etc. Specifies the type of an Acropolis source entity. &#39;kPrismCentral&#39; indicates a collection of multiple Nutanix clusters. &#39;kStandaloneCluster&#39; indicates a single Nutanix cluster. &#39;kCluster&#39; indicates a Nutanix cluster manageed by a Prism Central. &#39;kHost&#39; indicates an Acropolis host. &#39;kVirtualMachine&#39; indicates a Virtual Machine. &#39;kNetwork&#39; indicates a Virtual Machine network object. &#39;kStorageContainer&#39; represents a storage container object.
+        /// Specifies the type of an Acropolis Protection Source Object such as &#39;kPrismCentral&#39;, &#39;kHost&#39;, &#39;kNetwork&#39;, etc. Specifies the type of an Acropolis source entity. &#39;kPrismCentral&#39; indicates a collection of multiple Nutanix clusters. &#39;kStandaloneCluster&#39; indicates a single Nutanix cluster. &#39;kCluster&#39; indicates a Nutanix cluster managed by a Prism Central. &#39;kHost&#39; indicates an Acropolis host. &#39;kVirtualMachine&#39; indicates a Virtual Machine. &#39;kNetwork&#39; indicates a Virtual Machine network object. &#39;kStorageContainer&#39; represents a storage container object.
         /// </summary>
-        /// <value>Specifies the type of an Acropolis Protection Source Object such as &#39;kPrismCentral&#39;, &#39;kHost&#39;, &#39;kNetwork&#39;, etc. Specifies the type of an Acropolis source entity. &#39;kPrismCentral&#39; indicates a collection of multiple Nutanix clusters. &#39;kStandaloneCluster&#39; indicates a single Nutanix cluster. &#39;kCluster&#39; indicates a Nutanix cluster manageed by a Prism Central. &#39;kHost&#39; indicates an Acropolis host. &#39;kVirtualMachine&#39; indicates a Virtual Machine. &#39;kNetwork&#39; indicates a Virtual Machine network object. &#39;kStorageContainer&#39; represents a storage container object.</value>
+        /// <value>Specifies the type of an Acropolis Protection Source Object such as &#39;kPrismCentral&#39;, &#39;kHost&#39;, &#39;kNetwork&#39;, etc. Specifies the type of an Acropolis source entity. &#39;kPrismCentral&#39; indicates a collection of multiple Nutanix clusters. &#39;kStandaloneCluster&#39; indicates a single Nutanix cluster. &#39;kCluster&#39; indicates a Nutanix cluster managed by a Prism Central. &#39;kHost&#39; indicates an Acropolis host. &#39;kVirtualMachine&#39; indicates a Virtual Machine. &#39;kNetwork&#39; indicates a Virtual Machine network object. &#39;kStorageContainer&#39; represents a storage container object.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum TypeEnum
         {
@@ -72,9 +72,9 @@ namespace Cohesity.Model
         }
 
         /// <summary>
-        /// Specifies the type of an Acropolis Protection Source Object such as &#39;kPrismCentral&#39;, &#39;kHost&#39;, &#39;kNetwork&#39;, etc. Specifies the type of an Acropolis source entity. &#39;kPrismCentral&#39; indicates a collection of multiple Nutanix clusters. &#39;kStandaloneCluster&#39; indicates a single Nutanix cluster. &#39;kCluster&#39; indicates a Nutanix cluster manageed by a Prism Central. &#39;kHost&#39; indicates an Acropolis host. &#39;kVirtualMachine&#39; indicates a Virtual Machine. &#39;kNetwork&#39; indicates a Virtual Machine network object. &#39;kStorageContainer&#39; represents a storage container object.
+        /// Specifies the type of an Acropolis Protection Source Object such as &#39;kPrismCentral&#39;, &#39;kHost&#39;, &#39;kNetwork&#39;, etc. Specifies the type of an Acropolis source entity. &#39;kPrismCentral&#39; indicates a collection of multiple Nutanix clusters. &#39;kStandaloneCluster&#39; indicates a single Nutanix cluster. &#39;kCluster&#39; indicates a Nutanix cluster managed by a Prism Central. &#39;kHost&#39; indicates an Acropolis host. &#39;kVirtualMachine&#39; indicates a Virtual Machine. &#39;kNetwork&#39; indicates a Virtual Machine network object. &#39;kStorageContainer&#39; represents a storage container object.
         /// </summary>
-        /// <value>Specifies the type of an Acropolis Protection Source Object such as &#39;kPrismCentral&#39;, &#39;kHost&#39;, &#39;kNetwork&#39;, etc. Specifies the type of an Acropolis source entity. &#39;kPrismCentral&#39; indicates a collection of multiple Nutanix clusters. &#39;kStandaloneCluster&#39; indicates a single Nutanix cluster. &#39;kCluster&#39; indicates a Nutanix cluster manageed by a Prism Central. &#39;kHost&#39; indicates an Acropolis host. &#39;kVirtualMachine&#39; indicates a Virtual Machine. &#39;kNetwork&#39; indicates a Virtual Machine network object. &#39;kStorageContainer&#39; represents a storage container object.</value>
+        /// <value>Specifies the type of an Acropolis Protection Source Object such as &#39;kPrismCentral&#39;, &#39;kHost&#39;, &#39;kNetwork&#39;, etc. Specifies the type of an Acropolis source entity. &#39;kPrismCentral&#39; indicates a collection of multiple Nutanix clusters. &#39;kStandaloneCluster&#39; indicates a single Nutanix cluster. &#39;kCluster&#39; indicates a Nutanix cluster managed by a Prism Central. &#39;kHost&#39; indicates an Acropolis host. &#39;kVirtualMachine&#39; indicates a Virtual Machine. &#39;kNetwork&#39; indicates a Virtual Machine network object. &#39;kStorageContainer&#39; represents a storage container object.</value>
         [DataMember(Name="type", EmitDefaultValue=true)]
         public TypeEnum? Type { get; set; }
         /// <summary>
@@ -82,11 +82,12 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="clusterUuid">Specifies the UUID of the Acropolis cluster instance to which this entity belongs to..</param>
         /// <param name="description">Specifies a description about the Protection Source..</param>
-        /// <param name="mountPath">Specifies whether the the VM is an agent VM. This is applicable to acropolis entity of type kVirtualMachine..</param>
+        /// <param name="mountPath">Specifies whether the VM is an agent VM. This is applicable to acropolis entity of type kVirtualMachine..</param>
         /// <param name="name">Specifies the name of the Acropolis Object..</param>
-        /// <param name="type">Specifies the type of an Acropolis Protection Source Object such as &#39;kPrismCentral&#39;, &#39;kHost&#39;, &#39;kNetwork&#39;, etc. Specifies the type of an Acropolis source entity. &#39;kPrismCentral&#39; indicates a collection of multiple Nutanix clusters. &#39;kStandaloneCluster&#39; indicates a single Nutanix cluster. &#39;kCluster&#39; indicates a Nutanix cluster manageed by a Prism Central. &#39;kHost&#39; indicates an Acropolis host. &#39;kVirtualMachine&#39; indicates a Virtual Machine. &#39;kNetwork&#39; indicates a Virtual Machine network object. &#39;kStorageContainer&#39; represents a storage container object..</param>
+        /// <param name="type">Specifies the type of an Acropolis Protection Source Object such as &#39;kPrismCentral&#39;, &#39;kHost&#39;, &#39;kNetwork&#39;, etc. Specifies the type of an Acropolis source entity. &#39;kPrismCentral&#39; indicates a collection of multiple Nutanix clusters. &#39;kStandaloneCluster&#39; indicates a single Nutanix cluster. &#39;kCluster&#39; indicates a Nutanix cluster managed by a Prism Central. &#39;kHost&#39; indicates an Acropolis host. &#39;kVirtualMachine&#39; indicates a Virtual Machine. &#39;kNetwork&#39; indicates a Virtual Machine network object. &#39;kStorageContainer&#39; represents a storage container object..</param>
         /// <param name="uuid">Specifies the UUID of the Acropolis Object. This is unique within the cluster instance. Together with clusterUuid, this entity is unique within the Acropolis environment..</param>
-        public AcropolisProtectionSource(string clusterUuid = default(string), string description = default(string), bool? mountPath = default(bool?), string name = default(string), TypeEnum? type = default(TypeEnum?), string uuid = default(string))
+        /// <param name="version">Specifies the version of an Acropolis cluster or standalone cluster..</param>
+        public AcropolisProtectionSource(string clusterUuid = default(string), string description = default(string), bool? mountPath = default(bool?), string name = default(string), TypeEnum? type = default(TypeEnum?), string uuid = default(string), string version = default(string))
         {
             this.ClusterUuid = clusterUuid;
             this.Description = description;
@@ -94,12 +95,14 @@ namespace Cohesity.Model
             this.Name = name;
             this.Type = type;
             this.Uuid = uuid;
+            this.Version = version;
             this.ClusterUuid = clusterUuid;
             this.Description = description;
             this.MountPath = mountPath;
             this.Name = name;
             this.Type = type;
             this.Uuid = uuid;
+            this.Version = version;
         }
         
         /// <summary>
@@ -117,9 +120,9 @@ namespace Cohesity.Model
         public string Description { get; set; }
 
         /// <summary>
-        /// Specifies whether the the VM is an agent VM. This is applicable to acropolis entity of type kVirtualMachine.
+        /// Specifies whether the VM is an agent VM. This is applicable to acropolis entity of type kVirtualMachine.
         /// </summary>
-        /// <value>Specifies whether the the VM is an agent VM. This is applicable to acropolis entity of type kVirtualMachine.</value>
+        /// <value>Specifies whether the VM is an agent VM. This is applicable to acropolis entity of type kVirtualMachine.</value>
         [DataMember(Name="mountPath", EmitDefaultValue=true)]
         public bool? MountPath { get; set; }
 
@@ -136,6 +139,13 @@ namespace Cohesity.Model
         /// <value>Specifies the UUID of the Acropolis Object. This is unique within the cluster instance. Together with clusterUuid, this entity is unique within the Acropolis environment.</value>
         [DataMember(Name="uuid", EmitDefaultValue=true)]
         public string Uuid { get; set; }
+
+        /// <summary>
+        /// Specifies the version of an Acropolis cluster or standalone cluster.
+        /// </summary>
+        /// <value>Specifies the version of an Acropolis cluster or standalone cluster.</value>
+        [DataMember(Name="version", EmitDefaultValue=true)]
+        public string Version { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -201,6 +211,11 @@ namespace Cohesity.Model
                     this.Uuid == input.Uuid ||
                     (this.Uuid != null &&
                     this.Uuid.Equals(input.Uuid))
+                ) && 
+                (
+                    this.Version == input.Version ||
+                    (this.Version != null &&
+                    this.Version.Equals(input.Version))
                 );
         }
 
@@ -224,6 +239,8 @@ namespace Cohesity.Model
                 hashCode = hashCode * 59 + this.Type.GetHashCode();
                 if (this.Uuid != null)
                     hashCode = hashCode * 59 + this.Uuid.GetHashCode();
+                if (this.Version != null)
+                    hashCode = hashCode * 59 + this.Version.GetHashCode();
                 return hashCode;
             }
         }

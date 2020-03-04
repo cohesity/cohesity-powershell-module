@@ -24,10 +24,13 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="DeviceTreeChildDevice" /> class.
         /// </summary>
         /// <param name="device">device.</param>
+        /// <param name="deviceType">This specifies how the parent device is using this child device..</param>
         /// <param name="partitionSlice">partitionSlice.</param>
-        public DeviceTreeChildDevice(DeviceTree device = default(DeviceTree), DeviceTreePartitionSlice partitionSlice = default(DeviceTreePartitionSlice))
+        public DeviceTreeChildDevice(DeviceTree device = default(DeviceTree), int? deviceType = default(int?), DeviceTreePartitionSlice partitionSlice = default(DeviceTreePartitionSlice))
         {
+            this.DeviceType = deviceType;
             this.Device = device;
+            this.DeviceType = deviceType;
             this.PartitionSlice = partitionSlice;
         }
         
@@ -36,6 +39,13 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="device", EmitDefaultValue=false)]
         public DeviceTree Device { get; set; }
+
+        /// <summary>
+        /// This specifies how the parent device is using this child device.
+        /// </summary>
+        /// <value>This specifies how the parent device is using this child device.</value>
+        [DataMember(Name="deviceType", EmitDefaultValue=true)]
+        public int? DeviceType { get; set; }
 
         /// <summary>
         /// Gets or Sets PartitionSlice
@@ -85,6 +95,11 @@ namespace Cohesity.Model
                     this.Device.Equals(input.Device))
                 ) && 
                 (
+                    this.DeviceType == input.DeviceType ||
+                    (this.DeviceType != null &&
+                    this.DeviceType.Equals(input.DeviceType))
+                ) && 
+                (
                     this.PartitionSlice == input.PartitionSlice ||
                     (this.PartitionSlice != null &&
                     this.PartitionSlice.Equals(input.PartitionSlice))
@@ -102,6 +117,8 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.Device != null)
                     hashCode = hashCode * 59 + this.Device.GetHashCode();
+                if (this.DeviceType != null)
+                    hashCode = hashCode * 59 + this.DeviceType.GetHashCode();
                 if (this.PartitionSlice != null)
                     hashCode = hashCode * 59 + this.PartitionSlice.GetHashCode();
                 return hashCode;

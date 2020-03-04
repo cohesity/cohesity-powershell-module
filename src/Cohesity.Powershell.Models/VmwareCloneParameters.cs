@@ -31,11 +31,11 @@ namespace Cohesity.Model
         /// <param name="poweredOn">Specifies the power state of the cloned or recovered objects. By default, the cloned or recovered objects are powered off..</param>
         /// <param name="prefix">Specifies a prefix to prepended to the source object name to derive a new name for the recovered or cloned object. By default, cloned or recovered objects retain their original name. Length of this field is limited to 8 characters..</param>
         /// <param name="preserveCustomAttributesDuringClone">Specifies whether or not to preserve the custom attributes during the clone operation. The default behavior is &#39;true&#39;..</param>
-        /// <param name="preserveTagsDuringClone">Specifies whether or not to preserve tags during the clone operation. The default behavior is &#39;true&#39;..</param>
+        /// <param name="preserveTags">Specifies whether or not to preserve tags during the clone operation. The default behavior is &#39;true&#39;..</param>
         /// <param name="resourcePoolId">Specifies the resource pool where the cloned or recovered objects are attached. This field is mandatory for kCloneVMs Restore Tasks always. For kRecoverVMs Restore Tasks, this field is mandatory only if newParentId field is specified. If this field is not specified, recovered objects are attached to the original resource pool under the original parent..</param>
         /// <param name="suffix">Specifies a suffix to appended to the original source object name to derive a new name for the recovered or cloned object. By default, cloned or recovered objects retain their original name. Length of this field is limited to 8 characters..</param>
         /// <param name="vmFolderId">Specifies a folder where the VMs should be restored. This is applicable only when the VMs are being restored to an alternate location or if clone is being performed..</param>
-        public VmwareCloneParameters(long? datastoreFolderId = default(long?), bool? detachNetwork = default(bool?), bool? disableNetwork = default(bool?), long? networkId = default(long?), List<NetworkMapping> networkMappings = default(List<NetworkMapping>), bool? poweredOn = default(bool?), string prefix = default(string), bool? preserveCustomAttributesDuringClone = default(bool?), bool? preserveTagsDuringClone = default(bool?), long? resourcePoolId = default(long?), string suffix = default(string), long? vmFolderId = default(long?))
+        public VmwareCloneParameters(long? datastoreFolderId = default(long?), bool? detachNetwork = default(bool?), bool? disableNetwork = default(bool?), long? networkId = default(long?), List<NetworkMapping> networkMappings = default(List<NetworkMapping>), bool? poweredOn = default(bool?), string prefix = default(string), bool? preserveCustomAttributesDuringClone = default(bool?), bool? preserveTags = default(bool?), long? resourcePoolId = default(long?), string suffix = default(string), long? vmFolderId = default(long?))
         {
             this.DatastoreFolderId = datastoreFolderId;
             this.DetachNetwork = detachNetwork;
@@ -45,7 +45,7 @@ namespace Cohesity.Model
             this.PoweredOn = poweredOn;
             this.Prefix = prefix;
             this.PreserveCustomAttributesDuringClone = preserveCustomAttributesDuringClone;
-            this.PreserveTagsDuringClone = preserveTagsDuringClone;
+            this.PreserveTags = preserveTags;
             this.ResourcePoolId = resourcePoolId;
             this.Suffix = suffix;
             this.VmFolderId = vmFolderId;
@@ -57,7 +57,7 @@ namespace Cohesity.Model
             this.PoweredOn = poweredOn;
             this.Prefix = prefix;
             this.PreserveCustomAttributesDuringClone = preserveCustomAttributesDuringClone;
-            this.PreserveTagsDuringClone = preserveTagsDuringClone;
+            this.PreserveTags = preserveTags;
             this.ResourcePoolId = resourcePoolId;
             this.Suffix = suffix;
             this.VmFolderId = vmFolderId;
@@ -123,8 +123,8 @@ namespace Cohesity.Model
         /// Specifies whether or not to preserve tags during the clone operation. The default behavior is &#39;true&#39;.
         /// </summary>
         /// <value>Specifies whether or not to preserve tags during the clone operation. The default behavior is &#39;true&#39;.</value>
-        [DataMember(Name="preserveTagsDuringClone", EmitDefaultValue=true)]
-        public bool? PreserveTagsDuringClone { get; set; }
+        [DataMember(Name="preserveTags", EmitDefaultValue=true)]
+        public bool? PreserveTags { get; set; }
 
         /// <summary>
         /// Specifies the resource pool where the cloned or recovered objects are attached. This field is mandatory for kCloneVMs Restore Tasks always. For kRecoverVMs Restore Tasks, this field is mandatory only if newParentId field is specified. If this field is not specified, recovered objects are attached to the original resource pool under the original parent.
@@ -225,9 +225,9 @@ namespace Cohesity.Model
                     this.PreserveCustomAttributesDuringClone.Equals(input.PreserveCustomAttributesDuringClone))
                 ) && 
                 (
-                    this.PreserveTagsDuringClone == input.PreserveTagsDuringClone ||
-                    (this.PreserveTagsDuringClone != null &&
-                    this.PreserveTagsDuringClone.Equals(input.PreserveTagsDuringClone))
+                    this.PreserveTags == input.PreserveTags ||
+                    (this.PreserveTags != null &&
+                    this.PreserveTags.Equals(input.PreserveTags))
                 ) && 
                 (
                     this.ResourcePoolId == input.ResourcePoolId ||
@@ -271,8 +271,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Prefix.GetHashCode();
                 if (this.PreserveCustomAttributesDuringClone != null)
                     hashCode = hashCode * 59 + this.PreserveCustomAttributesDuringClone.GetHashCode();
-                if (this.PreserveTagsDuringClone != null)
-                    hashCode = hashCode * 59 + this.PreserveTagsDuringClone.GetHashCode();
+                if (this.PreserveTags != null)
+                    hashCode = hashCode * 59 + this.PreserveTags.GetHashCode();
                 if (this.ResourcePoolId != null)
                     hashCode = hashCode * 59 + this.ResourcePoolId.GetHashCode();
                 if (this.Suffix != null)

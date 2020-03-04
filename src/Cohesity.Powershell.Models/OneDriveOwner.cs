@@ -15,7 +15,7 @@ using Newtonsoft.Json.Converters;
 namespace Cohesity.Model
 {
     /// <summary>
-    /// Specfies OneDrive owner details.
+    /// Specifies OneDrive owner details.
     /// </summary>
     [DataContract]
     public partial class OneDriveOwner :  IEquatable<OneDriveOwner>

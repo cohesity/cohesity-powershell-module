@@ -27,16 +27,19 @@ namespace Cohesity.Model
         /// <param name="nfsAccess">Access control for NFS protocol for this view..</param>
         /// <param name="s3Access">Access control for S3 protocol for this view..</param>
         /// <param name="smbAccess">Access control for SMB protocol for this view..</param>
-        public ViewIdMappingProtoProtocolAccessInfo(int? iscsiAccess = default(int?), int? nfsAccess = default(int?), int? s3Access = default(int?), int? smbAccess = default(int?))
+        /// <param name="swiftAccess">Access control for Swift protocol for this view..</param>
+        public ViewIdMappingProtoProtocolAccessInfo(int? iscsiAccess = default(int?), int? nfsAccess = default(int?), int? s3Access = default(int?), int? smbAccess = default(int?), int? swiftAccess = default(int?))
         {
             this.IscsiAccess = iscsiAccess;
             this.NfsAccess = nfsAccess;
             this.S3Access = s3Access;
             this.SmbAccess = smbAccess;
+            this.SwiftAccess = swiftAccess;
             this.IscsiAccess = iscsiAccess;
             this.NfsAccess = nfsAccess;
             this.S3Access = s3Access;
             this.SmbAccess = smbAccess;
+            this.SwiftAccess = swiftAccess;
         }
         
         /// <summary>
@@ -66,6 +69,13 @@ namespace Cohesity.Model
         /// <value>Access control for SMB protocol for this view.</value>
         [DataMember(Name="smbAccess", EmitDefaultValue=true)]
         public int? SmbAccess { get; set; }
+
+        /// <summary>
+        /// Access control for Swift protocol for this view.
+        /// </summary>
+        /// <value>Access control for Swift protocol for this view.</value>
+        [DataMember(Name="swiftAccess", EmitDefaultValue=true)]
+        public int? SwiftAccess { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -122,6 +132,11 @@ namespace Cohesity.Model
                     this.SmbAccess == input.SmbAccess ||
                     (this.SmbAccess != null &&
                     this.SmbAccess.Equals(input.SmbAccess))
+                ) && 
+                (
+                    this.SwiftAccess == input.SwiftAccess ||
+                    (this.SwiftAccess != null &&
+                    this.SwiftAccess.Equals(input.SwiftAccess))
                 );
         }
 
@@ -142,6 +157,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.S3Access.GetHashCode();
                 if (this.SmbAccess != null)
                     hashCode = hashCode * 59 + this.SmbAccess.GetHashCode();
+                if (this.SwiftAccess != null)
+                    hashCode = hashCode * 59 + this.SwiftAccess.GetHashCode();
                 return hashCode;
             }
         }

@@ -25,7 +25,7 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="capacity">Specifies the capacity of the datastore in bytes..</param>
         /// <param name="freeSpace">Specifies the available space on the datastore in bytes..</param>
-        public DatastoreInfo(long? capacity = default(long?), long? freeSpace = default(long?))
+        public DatastoreInfo(int? capacity = default(int?), int? freeSpace = default(int?))
         {
             this.Capacity = capacity;
             this.FreeSpace = freeSpace;
@@ -38,14 +38,14 @@ namespace Cohesity.Model
         /// </summary>
         /// <value>Specifies the capacity of the datastore in bytes.</value>
         [DataMember(Name="capacity", EmitDefaultValue=true)]
-        public long? Capacity { get; set; }
+        public int? Capacity { get; set; }
 
         /// <summary>
         /// Specifies the available space on the datastore in bytes.
         /// </summary>
         /// <value>Specifies the available space on the datastore in bytes.</value>
         [DataMember(Name="freeSpace", EmitDefaultValue=true)]
-        public long? FreeSpace { get; set; }
+        public int? FreeSpace { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object

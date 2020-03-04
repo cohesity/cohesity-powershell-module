@@ -123,9 +123,9 @@ namespace Cohesity.Model
         [DataMember(Name="state", EmitDefaultValue=true)]
         public StateEnum? State { get; set; }
         /// <summary>
-        /// Specifies the NetApp type of this volume. Specifies the type of a NetApp Volume. &#39;kReadWrite&#39; indicates read-write volume. &#39;kLoadSharing&#39; indicates load-sharing volume. &#39;kDataProtection&#39; indicates data-protection volume. &#39;kDataCache&#39; indicates data-cache volume. &#39;kTmp&#39; indicates temporaray purpose. &#39;kUnknownType&#39; indicates unknown type.
+        /// Specifies the NetApp type of this volume. Specifies the type of a NetApp Volume. &#39;kReadWrite&#39; indicates read-write volume. &#39;kLoadSharing&#39; indicates load-sharing volume. &#39;kDataProtection&#39; indicates data-protection volume. &#39;kDataCache&#39; indicates data-cache volume. &#39;kTmp&#39; indicates temporary purpose. &#39;kUnknownType&#39; indicates unknown type.
         /// </summary>
-        /// <value>Specifies the NetApp type of this volume. Specifies the type of a NetApp Volume. &#39;kReadWrite&#39; indicates read-write volume. &#39;kLoadSharing&#39; indicates load-sharing volume. &#39;kDataProtection&#39; indicates data-protection volume. &#39;kDataCache&#39; indicates data-cache volume. &#39;kTmp&#39; indicates temporaray purpose. &#39;kUnknownType&#39; indicates unknown type.</value>
+        /// <value>Specifies the NetApp type of this volume. Specifies the type of a NetApp Volume. &#39;kReadWrite&#39; indicates read-write volume. &#39;kLoadSharing&#39; indicates load-sharing volume. &#39;kDataProtection&#39; indicates data-protection volume. &#39;kDataCache&#39; indicates data-cache volume. &#39;kTmp&#39; indicates temporary purpose. &#39;kUnknownType&#39; indicates unknown type.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum TypeEnum
         {
@@ -168,9 +168,9 @@ namespace Cohesity.Model
         }
 
         /// <summary>
-        /// Specifies the NetApp type of this volume. Specifies the type of a NetApp Volume. &#39;kReadWrite&#39; indicates read-write volume. &#39;kLoadSharing&#39; indicates load-sharing volume. &#39;kDataProtection&#39; indicates data-protection volume. &#39;kDataCache&#39; indicates data-cache volume. &#39;kTmp&#39; indicates temporaray purpose. &#39;kUnknownType&#39; indicates unknown type.
+        /// Specifies the NetApp type of this volume. Specifies the type of a NetApp Volume. &#39;kReadWrite&#39; indicates read-write volume. &#39;kLoadSharing&#39; indicates load-sharing volume. &#39;kDataProtection&#39; indicates data-protection volume. &#39;kDataCache&#39; indicates data-cache volume. &#39;kTmp&#39; indicates temporary purpose. &#39;kUnknownType&#39; indicates unknown type.
         /// </summary>
-        /// <value>Specifies the NetApp type of this volume. Specifies the type of a NetApp Volume. &#39;kReadWrite&#39; indicates read-write volume. &#39;kLoadSharing&#39; indicates load-sharing volume. &#39;kDataProtection&#39; indicates data-protection volume. &#39;kDataCache&#39; indicates data-cache volume. &#39;kTmp&#39; indicates temporaray purpose. &#39;kUnknownType&#39; indicates unknown type.</value>
+        /// <value>Specifies the NetApp type of this volume. Specifies the type of a NetApp Volume. &#39;kReadWrite&#39; indicates read-write volume. &#39;kLoadSharing&#39; indicates load-sharing volume. &#39;kDataProtection&#39; indicates data-protection volume. &#39;kDataCache&#39; indicates data-cache volume. &#39;kTmp&#39; indicates temporary purpose. &#39;kUnknownType&#39; indicates unknown type.</value>
         [DataMember(Name="type", EmitDefaultValue=true)]
         public TypeEnum? Type { get; set; }
         /// <summary>
@@ -186,7 +186,7 @@ namespace Cohesity.Model
         /// <param name="name">Specifies the name of the NetApp Vserver that this volume belongs to..</param>
         /// <param name="securityInfo">securityInfo.</param>
         /// <param name="state">Specifies the state of this volume. Specifies the state of a NetApp Volume. &#39;kOnline&#39; indicates the volume is online. Read and write access to this volume is allowed. &#39;kRestricted&#39; indicates the volume is restricted. Some operations, such as parity reconstruction, are allowed, but data access is not allowed. &#39;kOffline&#39; indicates the volume is offline. No access to the volume is allowed. &#39;kMixed&#39; indicates the volume is in mixed state, which means its aggregates are not all in the same state..</param>
-        /// <param name="type">Specifies the NetApp type of this volume. Specifies the type of a NetApp Volume. &#39;kReadWrite&#39; indicates read-write volume. &#39;kLoadSharing&#39; indicates load-sharing volume. &#39;kDataProtection&#39; indicates data-protection volume. &#39;kDataCache&#39; indicates data-cache volume. &#39;kTmp&#39; indicates temporaray purpose. &#39;kUnknownType&#39; indicates unknown type..</param>
+        /// <param name="type">Specifies the NetApp type of this volume. Specifies the type of a NetApp Volume. &#39;kReadWrite&#39; indicates read-write volume. &#39;kLoadSharing&#39; indicates load-sharing volume. &#39;kDataProtection&#39; indicates data-protection volume. &#39;kDataCache&#39; indicates data-cache volume. &#39;kTmp&#39; indicates temporary purpose. &#39;kUnknownType&#39; indicates unknown type..</param>
         /// <param name="usedBytes">Specifies the total space (in bytes) used in this volume..</param>
         public NetappVolumeInfo(string aggregateName = default(string), long? capacityBytes = default(long?), List<CifsShareInfo> cifsShares = default(List<CifsShareInfo>), long? creationTimeUsecs = default(long?), List<DataProtocolsEnum> dataProtocols = default(List<DataProtocolsEnum>), string exportPolicyName = default(string), string junctionPath = default(string), string name = default(string), VolumeSecurityInfo securityInfo = default(VolumeSecurityInfo), StateEnum? state = default(StateEnum?), TypeEnum? type = default(TypeEnum?), long? usedBytes = default(long?))
         {

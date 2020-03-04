@@ -25,7 +25,7 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="mailboxObject">mailboxObject.</param>
         /// <param name="outlookFolderList">Specifies the list of folders to be restored incase user wishes not to restore entire mailbox..</param>
-        /// <param name="restoreEntireMailbox">Specifies whether the enitre mailbox is to be restored..</param>
+        /// <param name="restoreEntireMailbox">Specifies whether the entire mailbox is to be restored..</param>
         public OutlookMailbox(RestoreObjectDetails mailboxObject = default(RestoreObjectDetails), List<OutlookFolder> outlookFolderList = default(List<OutlookFolder>), bool? restoreEntireMailbox = default(bool?))
         {
             this.OutlookFolderList = outlookFolderList;
@@ -49,9 +49,9 @@ namespace Cohesity.Model
         public List<OutlookFolder> OutlookFolderList { get; set; }
 
         /// <summary>
-        /// Specifies whether the enitre mailbox is to be restored.
+        /// Specifies whether the entire mailbox is to be restored.
         /// </summary>
-        /// <value>Specifies whether the enitre mailbox is to be restored.</value>
+        /// <value>Specifies whether the entire mailbox is to be restored.</value>
         [DataMember(Name="restoreEntireMailbox", EmitDefaultValue=true)]
         public bool? RestoreEntireMailbox { get; set; }
 

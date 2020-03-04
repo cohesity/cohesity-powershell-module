@@ -21,9 +21,9 @@ namespace Cohesity.Model
     public partial class UpdateProtectionJobsStateRequestBody :  IEquatable<UpdateProtectionJobsStateRequestBody>
     {
         /// <summary>
-        /// Specifies the action to be performed on all the specfied Protection Jobs. Specifies the type of action to be performed on Protection Job. &#39;kActivate&#39; specifies that Protection Job should be activated. &#39;kDeactivate&#39; sepcifies that Protection Job should be deactivated. &#39;kPause&#39; specifies that Protection Job should be paused. &#39;kResume&#39; specifies that Protection Job should be resumed.
+        /// Specifies the action to be performed on all the specified Protection Jobs. Specifies the type of action to be performed on Protection Job. &#39;kActivate&#39; specifies that Protection Job should be activated. &#39;kDeactivate&#39; specifies that Protection Job should be deactivated. &#39;kPause&#39; specifies that Protection Job should be paused. &#39;kResume&#39; specifies that Protection Job should be resumed.
         /// </summary>
-        /// <value>Specifies the action to be performed on all the specfied Protection Jobs. Specifies the type of action to be performed on Protection Job. &#39;kActivate&#39; specifies that Protection Job should be activated. &#39;kDeactivate&#39; sepcifies that Protection Job should be deactivated. &#39;kPause&#39; specifies that Protection Job should be paused. &#39;kResume&#39; specifies that Protection Job should be resumed.</value>
+        /// <value>Specifies the action to be performed on all the specified Protection Jobs. Specifies the type of action to be performed on Protection Job. &#39;kActivate&#39; specifies that Protection Job should be activated. &#39;kDeactivate&#39; specifies that Protection Job should be deactivated. &#39;kPause&#39; specifies that Protection Job should be paused. &#39;kResume&#39; specifies that Protection Job should be resumed.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum ActionEnum
         {
@@ -54,15 +54,15 @@ namespace Cohesity.Model
         }
 
         /// <summary>
-        /// Specifies the action to be performed on all the specfied Protection Jobs. Specifies the type of action to be performed on Protection Job. &#39;kActivate&#39; specifies that Protection Job should be activated. &#39;kDeactivate&#39; sepcifies that Protection Job should be deactivated. &#39;kPause&#39; specifies that Protection Job should be paused. &#39;kResume&#39; specifies that Protection Job should be resumed.
+        /// Specifies the action to be performed on all the specified Protection Jobs. Specifies the type of action to be performed on Protection Job. &#39;kActivate&#39; specifies that Protection Job should be activated. &#39;kDeactivate&#39; specifies that Protection Job should be deactivated. &#39;kPause&#39; specifies that Protection Job should be paused. &#39;kResume&#39; specifies that Protection Job should be resumed.
         /// </summary>
-        /// <value>Specifies the action to be performed on all the specfied Protection Jobs. Specifies the type of action to be performed on Protection Job. &#39;kActivate&#39; specifies that Protection Job should be activated. &#39;kDeactivate&#39; sepcifies that Protection Job should be deactivated. &#39;kPause&#39; specifies that Protection Job should be paused. &#39;kResume&#39; specifies that Protection Job should be resumed.</value>
+        /// <value>Specifies the action to be performed on all the specified Protection Jobs. Specifies the type of action to be performed on Protection Job. &#39;kActivate&#39; specifies that Protection Job should be activated. &#39;kDeactivate&#39; specifies that Protection Job should be deactivated. &#39;kPause&#39; specifies that Protection Job should be paused. &#39;kResume&#39; specifies that Protection Job should be resumed.</value>
         [DataMember(Name="action", EmitDefaultValue=true)]
         public ActionEnum? Action { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="UpdateProtectionJobsStateRequestBody" /> class.
         /// </summary>
-        /// <param name="action">Specifies the action to be performed on all the specfied Protection Jobs. Specifies the type of action to be performed on Protection Job. &#39;kActivate&#39; specifies that Protection Job should be activated. &#39;kDeactivate&#39; sepcifies that Protection Job should be deactivated. &#39;kPause&#39; specifies that Protection Job should be paused. &#39;kResume&#39; specifies that Protection Job should be resumed..</param>
+        /// <param name="action">Specifies the action to be performed on all the specified Protection Jobs. Specifies the type of action to be performed on Protection Job. &#39;kActivate&#39; specifies that Protection Job should be activated. &#39;kDeactivate&#39; specifies that Protection Job should be deactivated. &#39;kPause&#39; specifies that Protection Job should be paused. &#39;kResume&#39; specifies that Protection Job should be resumed..</param>
         /// <param name="jobIds">Specifies a list of Protection Job ids for which the state should change..</param>
         public UpdateProtectionJobsStateRequestBody(ActionEnum? action = default(ActionEnum?), List<long> jobIds = default(List<long>))
         {

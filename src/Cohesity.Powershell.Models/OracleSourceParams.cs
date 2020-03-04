@@ -24,10 +24,13 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="OracleSourceParams" /> class.
         /// </summary>
         /// <param name="additionalOracleDbParamsVec">A vector of unique Oracle databases. Each vector entry represents the backup/restore parameters for one unique Oracle database. Uniqueness is determined by the database unique name..</param>
-        public OracleSourceParams(List<AdditionalOracleDBParams> additionalOracleDbParamsVec = default(List<AdditionalOracleDBParams>))
+        /// <param name="persistMountpoints">This parameter indicates whether or not to persist mountpoints. Default is set to true, which was the behavior before this option..</param>
+        public OracleSourceParams(List<AdditionalOracleDBParams> additionalOracleDbParamsVec = default(List<AdditionalOracleDBParams>), bool? persistMountpoints = default(bool?))
         {
             this.AdditionalOracleDbParamsVec = additionalOracleDbParamsVec;
+            this.PersistMountpoints = persistMountpoints;
             this.AdditionalOracleDbParamsVec = additionalOracleDbParamsVec;
+            this.PersistMountpoints = persistMountpoints;
         }
         
         /// <summary>
@@ -36,6 +39,13 @@ namespace Cohesity.Model
         /// <value>A vector of unique Oracle databases. Each vector entry represents the backup/restore parameters for one unique Oracle database. Uniqueness is determined by the database unique name.</value>
         [DataMember(Name="additionalOracleDbParamsVec", EmitDefaultValue=true)]
         public List<AdditionalOracleDBParams> AdditionalOracleDbParamsVec { get; set; }
+
+        /// <summary>
+        /// This parameter indicates whether or not to persist mountpoints. Default is set to true, which was the behavior before this option.
+        /// </summary>
+        /// <value>This parameter indicates whether or not to persist mountpoints. Default is set to true, which was the behavior before this option.</value>
+        [DataMember(Name="persistMountpoints", EmitDefaultValue=true)]
+        public bool? PersistMountpoints { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -78,6 +88,11 @@ namespace Cohesity.Model
                     this.AdditionalOracleDbParamsVec != null &&
                     input.AdditionalOracleDbParamsVec != null &&
                     this.AdditionalOracleDbParamsVec.SequenceEqual(input.AdditionalOracleDbParamsVec)
+                ) && 
+                (
+                    this.PersistMountpoints == input.PersistMountpoints ||
+                    (this.PersistMountpoints != null &&
+                    this.PersistMountpoints.Equals(input.PersistMountpoints))
                 );
         }
 
@@ -92,6 +107,8 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.AdditionalOracleDbParamsVec != null)
                     hashCode = hashCode * 59 + this.AdditionalOracleDbParamsVec.GetHashCode();
+                if (this.PersistMountpoints != null)
+                    hashCode = hashCode * 59 + this.PersistMountpoints.GetHashCode();
                 return hashCode;
             }
         }

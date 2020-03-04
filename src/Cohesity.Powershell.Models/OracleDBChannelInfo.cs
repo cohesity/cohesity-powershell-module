@@ -26,20 +26,23 @@ namespace Cohesity.Model
         /// <param name="archivelogKeepDays">Archived log deletion policy for this unique Oracle database. 1: keep archived log forever 0: delete archived log immediately n&gt;0: delete archived log after n days.</param>
         /// <param name="dbUniqueName">The unique name of the database..</param>
         /// <param name="dbUuid">Database id, internal field, is filled by magneto master based on corresponding app entity id..</param>
+        /// <param name="enableDgPrimaryBackup">If set to false, and if the DG database role is primary, we will not allow the backup of that database..</param>
         /// <param name="hostInfoVec">Vector of Oracle hosts from which we are allowed to take the backup/restore. In case of RAC database it may be more than one..</param>
         /// <param name="maxNumHost">Maximum number of hosts from which we are allowed to take backup/restore parallely. This will be less than or equal to host_info_vec_size. If this is less than host_info_vec_size we will choose max_num_host from host_info_vec and take backup/restore from this number of host..</param>
         /// <param name="numChannels">The default number of channels to use per host per db. This value is used on all hosts unless host_info_vec.num_channels is specified for that host. Default value for num_channels will be calculated as minimum number of nodes in cohesity cluster, and 2 * number of cpu on Oracle host. Preference order for number of channels per host for given db is: 1. If user has specified host_info_vec.num_channels for host we will use that. 2. If user has not specified host_info_vec.num_channels but specified num_channels we will use this. 3. If user has neither specified host_info_vec.num_channels nor num_channels we will calculate default channels with above formula..</param>
-        public OracleDBChannelInfo(int? archivelogKeepDays = default(int?), string dbUniqueName = default(string), string dbUuid = default(string), List<OracleDBChannelInfoHostInfo> hostInfoVec = default(List<OracleDBChannelInfoHostInfo>), int? maxNumHost = default(int?), int? numChannels = default(int?))
+        public OracleDBChannelInfo(int? archivelogKeepDays = default(int?), string dbUniqueName = default(string), string dbUuid = default(string), bool? enableDgPrimaryBackup = default(bool?), List<OracleDBChannelInfoHostInfo> hostInfoVec = default(List<OracleDBChannelInfoHostInfo>), int? maxNumHost = default(int?), int? numChannels = default(int?))
         {
             this.ArchivelogKeepDays = archivelogKeepDays;
             this.DbUniqueName = dbUniqueName;
             this.DbUuid = dbUuid;
+            this.EnableDgPrimaryBackup = enableDgPrimaryBackup;
             this.HostInfoVec = hostInfoVec;
             this.MaxNumHost = maxNumHost;
             this.NumChannels = numChannels;
             this.ArchivelogKeepDays = archivelogKeepDays;
             this.DbUniqueName = dbUniqueName;
             this.DbUuid = dbUuid;
+            this.EnableDgPrimaryBackup = enableDgPrimaryBackup;
             this.HostInfoVec = hostInfoVec;
             this.MaxNumHost = maxNumHost;
             this.NumChannels = numChannels;
@@ -65,6 +68,13 @@ namespace Cohesity.Model
         /// <value>Database id, internal field, is filled by magneto master based on corresponding app entity id.</value>
         [DataMember(Name="dbUuid", EmitDefaultValue=true)]
         public string DbUuid { get; set; }
+
+        /// <summary>
+        /// If set to false, and if the DG database role is primary, we will not allow the backup of that database.
+        /// </summary>
+        /// <value>If set to false, and if the DG database role is primary, we will not allow the backup of that database.</value>
+        [DataMember(Name="enableDgPrimaryBackup", EmitDefaultValue=true)]
+        public bool? EnableDgPrimaryBackup { get; set; }
 
         /// <summary>
         /// Vector of Oracle hosts from which we are allowed to take the backup/restore. In case of RAC database it may be more than one.
@@ -139,6 +149,11 @@ namespace Cohesity.Model
                     this.DbUuid.Equals(input.DbUuid))
                 ) && 
                 (
+                    this.EnableDgPrimaryBackup == input.EnableDgPrimaryBackup ||
+                    (this.EnableDgPrimaryBackup != null &&
+                    this.EnableDgPrimaryBackup.Equals(input.EnableDgPrimaryBackup))
+                ) && 
+                (
                     this.HostInfoVec == input.HostInfoVec ||
                     this.HostInfoVec != null &&
                     input.HostInfoVec != null &&
@@ -171,6 +186,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.DbUniqueName.GetHashCode();
                 if (this.DbUuid != null)
                     hashCode = hashCode * 59 + this.DbUuid.GetHashCode();
+                if (this.EnableDgPrimaryBackup != null)
+                    hashCode = hashCode * 59 + this.EnableDgPrimaryBackup.GetHashCode();
                 if (this.HostInfoVec != null)
                     hashCode = hashCode * 59 + this.HostInfoVec.GetHashCode();
                 if (this.MaxNumHost != null)

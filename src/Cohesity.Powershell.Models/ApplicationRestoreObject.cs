@@ -25,16 +25,18 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="adRestoreParameters">adRestoreParameters.</param>
         /// <param name="applicationServerId">Specifies the Application Server to restore (for example, kSQL)..</param>
+        /// <param name="exchangeRestoreParameters">exchangeRestoreParameters.</param>
         /// <param name="sqlRestoreParameters">sqlRestoreParameters.</param>
         /// <param name="targetHostId">Specifies the target host if the application is to be restored to a different host. If this is empty, then the application is restored to the original host, which is the hosting Protection Source..</param>
         /// <param name="targetRootNodeId">Specifies the registered root node, like vCenter, of targetHost. If this is empty, then it is assumed the root node of the target host is the same as the host Protection Source of the application..</param>
-        public ApplicationRestoreObject(AdRestoreParameters adRestoreParameters = default(AdRestoreParameters), long? applicationServerId = default(long?), SqlRestoreParameters sqlRestoreParameters = default(SqlRestoreParameters), long? targetHostId = default(long?), long? targetRootNodeId = default(long?))
+        public ApplicationRestoreObject(AdRestoreParameters adRestoreParameters = default(AdRestoreParameters), long? applicationServerId = default(long?), ExchangeRestoreParameters exchangeRestoreParameters = default(ExchangeRestoreParameters), SqlRestoreParameters sqlRestoreParameters = default(SqlRestoreParameters), long? targetHostId = default(long?), long? targetRootNodeId = default(long?))
         {
             this.ApplicationServerId = applicationServerId;
             this.TargetHostId = targetHostId;
             this.TargetRootNodeId = targetRootNodeId;
             this.AdRestoreParameters = adRestoreParameters;
             this.ApplicationServerId = applicationServerId;
+            this.ExchangeRestoreParameters = exchangeRestoreParameters;
             this.SqlRestoreParameters = sqlRestoreParameters;
             this.TargetHostId = targetHostId;
             this.TargetRootNodeId = targetRootNodeId;
@@ -52,6 +54,12 @@ namespace Cohesity.Model
         /// <value>Specifies the Application Server to restore (for example, kSQL).</value>
         [DataMember(Name="applicationServerId", EmitDefaultValue=true)]
         public long? ApplicationServerId { get; set; }
+
+        /// <summary>
+        /// Gets or Sets ExchangeRestoreParameters
+        /// </summary>
+        [DataMember(Name="exchangeRestoreParameters", EmitDefaultValue=false)]
+        public ExchangeRestoreParameters ExchangeRestoreParameters { get; set; }
 
         /// <summary>
         /// Gets or Sets SqlRestoreParameters
@@ -120,6 +128,11 @@ namespace Cohesity.Model
                     this.ApplicationServerId.Equals(input.ApplicationServerId))
                 ) && 
                 (
+                    this.ExchangeRestoreParameters == input.ExchangeRestoreParameters ||
+                    (this.ExchangeRestoreParameters != null &&
+                    this.ExchangeRestoreParameters.Equals(input.ExchangeRestoreParameters))
+                ) && 
+                (
                     this.SqlRestoreParameters == input.SqlRestoreParameters ||
                     (this.SqlRestoreParameters != null &&
                     this.SqlRestoreParameters.Equals(input.SqlRestoreParameters))
@@ -149,6 +162,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.AdRestoreParameters.GetHashCode();
                 if (this.ApplicationServerId != null)
                     hashCode = hashCode * 59 + this.ApplicationServerId.GetHashCode();
+                if (this.ExchangeRestoreParameters != null)
+                    hashCode = hashCode * 59 + this.ExchangeRestoreParameters.GetHashCode();
                 if (this.SqlRestoreParameters != null)
                     hashCode = hashCode * 59 + this.SqlRestoreParameters.GetHashCode();
                 if (this.TargetHostId != null)

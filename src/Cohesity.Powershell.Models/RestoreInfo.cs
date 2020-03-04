@@ -29,15 +29,17 @@ namespace Cohesity.Model
         /// <param name="jobRunId">Specifies the id of the job run..</param>
         /// <param name="jobUid">jobUid.</param>
         /// <param name="parentSource">parentSource.</param>
+        /// <param name="restoreTimeUsecs">This field specifies the time in to which the object needs to be restored. This filed is only applicable when object is being backeup using CDP feature..</param>
         /// <param name="snapshotRelativeDirPath">Specifies the relative path of the snapshot directory..</param>
         /// <param name="source">source.</param>
         /// <param name="startTimeUsecs">Specifies the start time specified as a Unix epoch Timestamp (in microseconds)..</param>
         /// <param name="viewName">Specifies the name of the view..</param>
         /// <param name="vmHadIndependentDisks">Specifies if the VM had independent disks..</param>
-        public RestoreInfo(ArchivalExternalTarget archivalTarget = default(ArchivalExternalTarget), int? attemptNumber = default(int?), CloudDeployTargetDetails cloudDeployTarget = default(CloudDeployTargetDetails), long? jobRunId = default(long?), UniversalId jobUid = default(UniversalId), ProtectionSource parentSource = default(ProtectionSource), string snapshotRelativeDirPath = default(string), ProtectionSource source = default(ProtectionSource), long? startTimeUsecs = default(long?), string viewName = default(string), bool? vmHadIndependentDisks = default(bool?))
+        public RestoreInfo(ArchivalExternalTarget archivalTarget = default(ArchivalExternalTarget), int? attemptNumber = default(int?), CloudDeployTargetDetails cloudDeployTarget = default(CloudDeployTargetDetails), long? jobRunId = default(long?), UniversalId jobUid = default(UniversalId), ProtectionSource parentSource = default(ProtectionSource), long? restoreTimeUsecs = default(long?), string snapshotRelativeDirPath = default(string), ProtectionSource source = default(ProtectionSource), long? startTimeUsecs = default(long?), string viewName = default(string), bool? vmHadIndependentDisks = default(bool?))
         {
             this.AttemptNumber = attemptNumber;
             this.JobRunId = jobRunId;
+            this.RestoreTimeUsecs = restoreTimeUsecs;
             this.SnapshotRelativeDirPath = snapshotRelativeDirPath;
             this.StartTimeUsecs = startTimeUsecs;
             this.ViewName = viewName;
@@ -48,6 +50,7 @@ namespace Cohesity.Model
             this.JobRunId = jobRunId;
             this.JobUid = jobUid;
             this.ParentSource = parentSource;
+            this.RestoreTimeUsecs = restoreTimeUsecs;
             this.SnapshotRelativeDirPath = snapshotRelativeDirPath;
             this.Source = source;
             this.StartTimeUsecs = startTimeUsecs;
@@ -92,6 +95,13 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="parentSource", EmitDefaultValue=false)]
         public ProtectionSource ParentSource { get; set; }
+
+        /// <summary>
+        /// This field specifies the time in to which the object needs to be restored. This filed is only applicable when object is being backeup using CDP feature.
+        /// </summary>
+        /// <value>This field specifies the time in to which the object needs to be restored. This filed is only applicable when object is being backeup using CDP feature.</value>
+        [DataMember(Name="restoreTimeUsecs", EmitDefaultValue=true)]
+        public long? RestoreTimeUsecs { get; set; }
 
         /// <summary>
         /// Specifies the relative path of the snapshot directory.
@@ -194,6 +204,11 @@ namespace Cohesity.Model
                     this.ParentSource.Equals(input.ParentSource))
                 ) && 
                 (
+                    this.RestoreTimeUsecs == input.RestoreTimeUsecs ||
+                    (this.RestoreTimeUsecs != null &&
+                    this.RestoreTimeUsecs.Equals(input.RestoreTimeUsecs))
+                ) && 
+                (
                     this.SnapshotRelativeDirPath == input.SnapshotRelativeDirPath ||
                     (this.SnapshotRelativeDirPath != null &&
                     this.SnapshotRelativeDirPath.Equals(input.SnapshotRelativeDirPath))
@@ -241,6 +256,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.JobUid.GetHashCode();
                 if (this.ParentSource != null)
                     hashCode = hashCode * 59 + this.ParentSource.GetHashCode();
+                if (this.RestoreTimeUsecs != null)
+                    hashCode = hashCode * 59 + this.RestoreTimeUsecs.GetHashCode();
                 if (this.SnapshotRelativeDirPath != null)
                     hashCode = hashCode * 59 + this.SnapshotRelativeDirPath.GetHashCode();
                 if (this.Source != null)

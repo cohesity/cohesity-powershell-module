@@ -23,17 +23,25 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="RestoreAppObject" /> class.
         /// </summary>
+        /// <param name="additionalParams">additionalParams.</param>
         /// <param name="appEntity">appEntity.</param>
         /// <param name="displayName">The proper display name of this object in the UI, if app_entity is not empty. For example, for SQL databases the name should also include the instance name..</param>
         /// <param name="restoreParams">restoreParams.</param>
-        public RestoreAppObject(EntityProto appEntity = default(EntityProto), string displayName = default(string), RestoreAppObjectParams restoreParams = default(RestoreAppObjectParams))
+        public RestoreAppObject(RestoreTaskAdditionalParams additionalParams = default(RestoreTaskAdditionalParams), EntityProto appEntity = default(EntityProto), string displayName = default(string), RestoreAppObjectParams restoreParams = default(RestoreAppObjectParams))
         {
             this.DisplayName = displayName;
+            this.AdditionalParams = additionalParams;
             this.AppEntity = appEntity;
             this.DisplayName = displayName;
             this.RestoreParams = restoreParams;
         }
         
+        /// <summary>
+        /// Gets or Sets AdditionalParams
+        /// </summary>
+        [DataMember(Name="additionalParams", EmitDefaultValue=false)]
+        public RestoreTaskAdditionalParams AdditionalParams { get; set; }
+
         /// <summary>
         /// Gets or Sets AppEntity
         /// </summary>
@@ -90,6 +98,11 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.AdditionalParams == input.AdditionalParams ||
+                    (this.AdditionalParams != null &&
+                    this.AdditionalParams.Equals(input.AdditionalParams))
+                ) && 
+                (
                     this.AppEntity == input.AppEntity ||
                     (this.AppEntity != null &&
                     this.AppEntity.Equals(input.AppEntity))
@@ -115,6 +128,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.AdditionalParams != null)
+                    hashCode = hashCode * 59 + this.AdditionalParams.GetHashCode();
                 if (this.AppEntity != null)
                     hashCode = hashCode * 59 + this.AppEntity.GetHashCode();
                 if (this.DisplayName != null)

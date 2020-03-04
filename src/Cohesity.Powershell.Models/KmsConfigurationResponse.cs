@@ -21,36 +21,66 @@ namespace Cohesity.Model
     public partial class KmsConfigurationResponse :  IEquatable<KmsConfigurationResponse>
     {
         /// <summary>
+        /// Specifies the type of key mangement system. &#39;kInternalKms&#39; indicates an internal KMS object. &#39;kAwsKms&#39; indicates an Aws KMS object. &#39;kCryptsoftKms&#39; indicates a Cryptsoft KMS object.
+        /// </summary>
+        /// <value>Specifies the type of key mangement system. &#39;kInternalKms&#39; indicates an internal KMS object. &#39;kAwsKms&#39; indicates an Aws KMS object. &#39;kCryptsoftKms&#39; indicates a Cryptsoft KMS object.</value>
+        [JsonConverter(typeof(StringEnumConverter))]
+        public enum ServerTypeEnum
+        {
+            /// <summary>
+            /// Enum KInternalKms for value: kInternalKms
+            /// </summary>
+            [EnumMember(Value = "kInternalKms")]
+            KInternalKms = 1,
+
+            /// <summary>
+            /// Enum KAwsKms for value: kAwsKms
+            /// </summary>
+            [EnumMember(Value = "kAwsKms")]
+            KAwsKms = 2,
+
+            /// <summary>
+            /// Enum KCryptsoftKms for value: kCryptsoftKms
+            /// </summary>
+            [EnumMember(Value = "kCryptsoftKms")]
+            KCryptsoftKms = 3
+
+        }
+
+        /// <summary>
+        /// Specifies the type of key mangement system. &#39;kInternalKms&#39; indicates an internal KMS object. &#39;kAwsKms&#39; indicates an Aws KMS object. &#39;kCryptsoftKms&#39; indicates a Cryptsoft KMS object.
+        /// </summary>
+        /// <value>Specifies the type of key mangement system. &#39;kInternalKms&#39; indicates an internal KMS object. &#39;kAwsKms&#39; indicates an Aws KMS object. &#39;kCryptsoftKms&#39; indicates a Cryptsoft KMS object.</value>
+        [DataMember(Name="serverType", EmitDefaultValue=true)]
+        public ServerTypeEnum? ServerType { get; set; }
+        /// <summary>
         /// Initializes a new instance of the <see cref="KmsConfigurationResponse" /> class.
         /// </summary>
-        /// <param name="clientCertificateExpiryDate">Specifies expiry date of client certificate..</param>
+        /// <param name="awsKms">awsKms.</param>
         /// <param name="connectionStatus">Specifies if connection to this KMS exists..</param>
-        /// <param name="kmipProtocolVersion">Specifies protocol version used to communicate with the KMS..</param>
-        /// <param name="serverIp">Specifies the KMS IP address..</param>
+        /// <param name="cryptsoftKms">cryptsoftKms.</param>
+        /// <param name="id">The Id of a KMS server..</param>
         /// <param name="serverName">Specifies the name given to the KMS Server..</param>
-        /// <param name="serverPort">Specifies port on which the server is listening. Default port is 5696..</param>
-        public KmsConfigurationResponse(long? clientCertificateExpiryDate = default(long?), bool? connectionStatus = default(bool?), string kmipProtocolVersion = default(string), string serverIp = default(string), string serverName = default(string), int? serverPort = default(int?))
+        /// <param name="serverType">Specifies the type of key mangement system. &#39;kInternalKms&#39; indicates an internal KMS object. &#39;kAwsKms&#39; indicates an Aws KMS object. &#39;kCryptsoftKms&#39; indicates a Cryptsoft KMS object..</param>
+        public KmsConfigurationResponse(AwsKmsConfiguration awsKms = default(AwsKmsConfiguration), bool? connectionStatus = default(bool?), CryptsoftKmsConfigResponse cryptsoftKms = default(CryptsoftKmsConfigResponse), long? id = default(long?), string serverName = default(string), ServerTypeEnum? serverType = default(ServerTypeEnum?))
         {
-            this.ClientCertificateExpiryDate = clientCertificateExpiryDate;
             this.ConnectionStatus = connectionStatus;
-            this.KmipProtocolVersion = kmipProtocolVersion;
-            this.ServerIp = serverIp;
+            this.Id = id;
             this.ServerName = serverName;
-            this.ServerPort = serverPort;
-            this.ClientCertificateExpiryDate = clientCertificateExpiryDate;
+            this.ServerType = serverType;
+            this.AwsKms = awsKms;
             this.ConnectionStatus = connectionStatus;
-            this.KmipProtocolVersion = kmipProtocolVersion;
-            this.ServerIp = serverIp;
+            this.CryptsoftKms = cryptsoftKms;
+            this.Id = id;
             this.ServerName = serverName;
-            this.ServerPort = serverPort;
+            this.ServerType = serverType;
         }
         
         /// <summary>
-        /// Specifies expiry date of client certificate.
+        /// Gets or Sets AwsKms
         /// </summary>
-        /// <value>Specifies expiry date of client certificate.</value>
-        [DataMember(Name="clientCertificateExpiryDate", EmitDefaultValue=true)]
-        public long? ClientCertificateExpiryDate { get; set; }
+        [DataMember(Name="awsKms", EmitDefaultValue=false)]
+        public AwsKmsConfiguration AwsKms { get; set; }
 
         /// <summary>
         /// Specifies if connection to this KMS exists.
@@ -60,18 +90,17 @@ namespace Cohesity.Model
         public bool? ConnectionStatus { get; set; }
 
         /// <summary>
-        /// Specifies protocol version used to communicate with the KMS.
+        /// Gets or Sets CryptsoftKms
         /// </summary>
-        /// <value>Specifies protocol version used to communicate with the KMS.</value>
-        [DataMember(Name="kmipProtocolVersion", EmitDefaultValue=true)]
-        public string KmipProtocolVersion { get; set; }
+        [DataMember(Name="cryptsoftKms", EmitDefaultValue=false)]
+        public CryptsoftKmsConfigResponse CryptsoftKms { get; set; }
 
         /// <summary>
-        /// Specifies the KMS IP address.
+        /// The Id of a KMS server.
         /// </summary>
-        /// <value>Specifies the KMS IP address.</value>
-        [DataMember(Name="serverIp", EmitDefaultValue=true)]
-        public string ServerIp { get; set; }
+        /// <value>The Id of a KMS server.</value>
+        [DataMember(Name="id", EmitDefaultValue=true)]
+        public long? Id { get; set; }
 
         /// <summary>
         /// Specifies the name given to the KMS Server.
@@ -79,13 +108,6 @@ namespace Cohesity.Model
         /// <value>Specifies the name given to the KMS Server.</value>
         [DataMember(Name="serverName", EmitDefaultValue=true)]
         public string ServerName { get; set; }
-
-        /// <summary>
-        /// Specifies port on which the server is listening. Default port is 5696.
-        /// </summary>
-        /// <value>Specifies port on which the server is listening. Default port is 5696.</value>
-        [DataMember(Name="serverPort", EmitDefaultValue=true)]
-        public int? ServerPort { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -124,9 +146,9 @@ namespace Cohesity.Model
 
             return 
                 (
-                    this.ClientCertificateExpiryDate == input.ClientCertificateExpiryDate ||
-                    (this.ClientCertificateExpiryDate != null &&
-                    this.ClientCertificateExpiryDate.Equals(input.ClientCertificateExpiryDate))
+                    this.AwsKms == input.AwsKms ||
+                    (this.AwsKms != null &&
+                    this.AwsKms.Equals(input.AwsKms))
                 ) && 
                 (
                     this.ConnectionStatus == input.ConnectionStatus ||
@@ -134,14 +156,14 @@ namespace Cohesity.Model
                     this.ConnectionStatus.Equals(input.ConnectionStatus))
                 ) && 
                 (
-                    this.KmipProtocolVersion == input.KmipProtocolVersion ||
-                    (this.KmipProtocolVersion != null &&
-                    this.KmipProtocolVersion.Equals(input.KmipProtocolVersion))
+                    this.CryptsoftKms == input.CryptsoftKms ||
+                    (this.CryptsoftKms != null &&
+                    this.CryptsoftKms.Equals(input.CryptsoftKms))
                 ) && 
                 (
-                    this.ServerIp == input.ServerIp ||
-                    (this.ServerIp != null &&
-                    this.ServerIp.Equals(input.ServerIp))
+                    this.Id == input.Id ||
+                    (this.Id != null &&
+                    this.Id.Equals(input.Id))
                 ) && 
                 (
                     this.ServerName == input.ServerName ||
@@ -149,9 +171,8 @@ namespace Cohesity.Model
                     this.ServerName.Equals(input.ServerName))
                 ) && 
                 (
-                    this.ServerPort == input.ServerPort ||
-                    (this.ServerPort != null &&
-                    this.ServerPort.Equals(input.ServerPort))
+                    this.ServerType == input.ServerType ||
+                    this.ServerType.Equals(input.ServerType)
                 );
         }
 
@@ -164,18 +185,17 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                if (this.ClientCertificateExpiryDate != null)
-                    hashCode = hashCode * 59 + this.ClientCertificateExpiryDate.GetHashCode();
+                if (this.AwsKms != null)
+                    hashCode = hashCode * 59 + this.AwsKms.GetHashCode();
                 if (this.ConnectionStatus != null)
                     hashCode = hashCode * 59 + this.ConnectionStatus.GetHashCode();
-                if (this.KmipProtocolVersion != null)
-                    hashCode = hashCode * 59 + this.KmipProtocolVersion.GetHashCode();
-                if (this.ServerIp != null)
-                    hashCode = hashCode * 59 + this.ServerIp.GetHashCode();
+                if (this.CryptsoftKms != null)
+                    hashCode = hashCode * 59 + this.CryptsoftKms.GetHashCode();
+                if (this.Id != null)
+                    hashCode = hashCode * 59 + this.Id.GetHashCode();
                 if (this.ServerName != null)
                     hashCode = hashCode * 59 + this.ServerName.GetHashCode();
-                if (this.ServerPort != null)
-                    hashCode = hashCode * 59 + this.ServerPort.GetHashCode();
+                hashCode = hashCode * 59 + this.ServerType.GetHashCode();
                 return hashCode;
             }
         }

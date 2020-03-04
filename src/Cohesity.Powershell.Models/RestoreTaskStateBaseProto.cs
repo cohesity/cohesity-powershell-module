@@ -43,7 +43,7 @@ namespace Cohesity.Model
         /// <param name="userInfo">userInfo.</param>
         /// <param name="userMessages">Messages displayed to the user for this task (if any). Only valid if the status of the task is kFinished. This is used for informing the user with additional details when there is not an error..</param>
         /// <param name="warnings">The warnings encountered by this task (if any) during its execution..</param>
-        public RestoreTaskStateBaseProto(bool? cancellationRequested = default(bool?), long? endTimeUsecs = default(long?), ErrorProto error = default(ErrorProto), string name = default(string), ConnectorParams parentSourceConnectionParams = default(ConnectorParams), int? publicStatus = default(int?), int? refreshStatus = default(int?), RestoreVlanParams restoreVlanParams = default(RestoreVlanParams), long? scheduledConstituentId = default(long?), long? scheduledGandalfSessionId = default(long?), long? startTimeUsecs = default(long?), int? status = default(int?), long? taskId = default(long?), long? totalLogicalSizeBytes = default(long?), long? totalPhysicalSizeBytes = default(long?), int? type = default(int?), string user = default(string), UserInformation userInfo = default(UserInformation), List<string> userMessages = default(List<string>), List<ErrorProto> warnings = default(List<ErrorProto>))
+        public RestoreTaskStateBaseProto(bool? cancellationRequested = default(bool?), long? endTimeUsecs = default(long?), ErrorProto error = default(ErrorProto), string name = default(string), ConnectorParams parentSourceConnectionParams = default(ConnectorParams), int? publicStatus = default(int?), int? refreshStatus = default(int?), VlanParams restoreVlanParams = default(VlanParams), long? scheduledConstituentId = default(long?), long? scheduledGandalfSessionId = default(long?), long? startTimeUsecs = default(long?), int? status = default(int?), long? taskId = default(long?), long? totalLogicalSizeBytes = default(long?), long? totalPhysicalSizeBytes = default(long?), int? type = default(int?), string user = default(string), UserInformation userInfo = default(UserInformation), List<string> userMessages = default(List<string>), List<ErrorProto> warnings = default(List<ErrorProto>))
         {
             this.CancellationRequested = cancellationRequested;
             this.EndTimeUsecs = endTimeUsecs;
@@ -134,7 +134,7 @@ namespace Cohesity.Model
         /// Gets or Sets RestoreVlanParams
         /// </summary>
         [DataMember(Name="restoreVlanParams", EmitDefaultValue=false)]
-        public RestoreVlanParams RestoreVlanParams { get; set; }
+        public VlanParams RestoreVlanParams { get; set; }
 
         /// <summary>
         /// Constituent id (and the gandalf session id) where this task has been scheduled. If -1, the task is not running at any slave. It&#39;s possible that the task was previously scheduled, but is now being re-scheduled.

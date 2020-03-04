@@ -70,12 +70,16 @@ namespace Cohesity.Model
         /// <param name="isFolder">Specifies if the found item is a folder. If true, the found item is a folder..</param>
         /// <param name="jobId">Specifies the Job id for the Protection Job that is currently associated with object that contains the backed up file or folder. If the file or folder was backed up on current Cohesity Cluster, this field contains the id for the Job that captured the object that contains the file or folder. If the file or folder was backed up on a Primary Cluster and replicated to this Cohesity Cluster, a new Inactive Job is created, the object that contains the file or folder is now associated with new Inactive Job, and this field contains the id of the new Inactive Job..</param>
         /// <param name="jobUid">Specifies the universal id of the Protection Job that backed up the object that contains the file or folder..</param>
+        /// <param name="oneDriveDocumentMetadata">oneDriveDocumentMetadata.</param>
         /// <param name="protectionSource">protectionSource.</param>
         /// <param name="registeredSourceId">Specifies the id of the top-level registered source (such as a vCenter Server) where the source object that contains the the file or folder is stored..</param>
+        /// <param name="snapshotTags">Snapshot tags present on this document.</param>
         /// <param name="sourceId">Specifies the source id of the object that contains the file or folder..</param>
+        /// <param name="tags">Tags present on this document..</param>
+        /// <param name="tagsToSnapshotsMap">Mapping from snapshot tags to..</param>
         /// <param name="type">Specifies the type of the file document such as KDirectory, kFile, etc..</param>
         /// <param name="viewBoxId">Specifies the id of the Domain (View Box) where the source object that contains the file or folder is stored..</param>
-        public FileSearchResult(AdObjectMetaData adObjectMetaData = default(AdObjectMetaData), string documentType = default(string), EmailMetaData emailMetaData = default(EmailMetaData), List<FileVersion> fileVersions = default(List<FileVersion>), string filename = default(string), bool? isFolder = default(bool?), long? jobId = default(long?), UniversalId jobUid = default(UniversalId), ProtectionSource protectionSource = default(ProtectionSource), long? registeredSourceId = default(long?), long? sourceId = default(long?), TypeEnum? type = default(TypeEnum?), long? viewBoxId = default(long?))
+        public FileSearchResult(AdObjectMetaData adObjectMetaData = default(AdObjectMetaData), string documentType = default(string), EmailMetaData emailMetaData = default(EmailMetaData), List<FileVersion> fileVersions = default(List<FileVersion>), string filename = default(string), bool? isFolder = default(bool?), long? jobId = default(long?), UniversalId jobUid = default(UniversalId), OneDriveDocumentMetadata oneDriveDocumentMetadata = default(OneDriveDocumentMetadata), ProtectionSource protectionSource = default(ProtectionSource), long? registeredSourceId = default(long?), List<string> snapshotTags = default(List<string>), long? sourceId = default(long?), List<string> tags = default(List<string>), Dictionary<string, List<long>> tagsToSnapshotsMap = default(Dictionary<string, List<long>>), TypeEnum? type = default(TypeEnum?), long? viewBoxId = default(long?))
         {
             this.DocumentType = documentType;
             this.FileVersions = fileVersions;
@@ -84,7 +88,10 @@ namespace Cohesity.Model
             this.JobId = jobId;
             this.JobUid = jobUid;
             this.RegisteredSourceId = registeredSourceId;
+            this.SnapshotTags = snapshotTags;
             this.SourceId = sourceId;
+            this.Tags = tags;
+            this.TagsToSnapshotsMap = tagsToSnapshotsMap;
             this.Type = type;
             this.ViewBoxId = viewBoxId;
             this.AdObjectMetaData = adObjectMetaData;
@@ -95,9 +102,13 @@ namespace Cohesity.Model
             this.IsFolder = isFolder;
             this.JobId = jobId;
             this.JobUid = jobUid;
+            this.OneDriveDocumentMetadata = oneDriveDocumentMetadata;
             this.ProtectionSource = protectionSource;
             this.RegisteredSourceId = registeredSourceId;
+            this.SnapshotTags = snapshotTags;
             this.SourceId = sourceId;
+            this.Tags = tags;
+            this.TagsToSnapshotsMap = tagsToSnapshotsMap;
             this.Type = type;
             this.ViewBoxId = viewBoxId;
         }
@@ -157,6 +168,12 @@ namespace Cohesity.Model
         public UniversalId JobUid { get; set; }
 
         /// <summary>
+        /// Gets or Sets OneDriveDocumentMetadata
+        /// </summary>
+        [DataMember(Name="oneDriveDocumentMetadata", EmitDefaultValue=false)]
+        public OneDriveDocumentMetadata OneDriveDocumentMetadata { get; set; }
+
+        /// <summary>
         /// Gets or Sets ProtectionSource
         /// </summary>
         [DataMember(Name="protectionSource", EmitDefaultValue=false)]
@@ -170,11 +187,32 @@ namespace Cohesity.Model
         public long? RegisteredSourceId { get; set; }
 
         /// <summary>
+        /// Snapshot tags present on this document
+        /// </summary>
+        /// <value>Snapshot tags present on this document</value>
+        [DataMember(Name="snapshotTags", EmitDefaultValue=true)]
+        public List<string> SnapshotTags { get; set; }
+
+        /// <summary>
         /// Specifies the source id of the object that contains the file or folder.
         /// </summary>
         /// <value>Specifies the source id of the object that contains the file or folder.</value>
         [DataMember(Name="sourceId", EmitDefaultValue=true)]
         public long? SourceId { get; set; }
+
+        /// <summary>
+        /// Tags present on this document.
+        /// </summary>
+        /// <value>Tags present on this document.</value>
+        [DataMember(Name="tags", EmitDefaultValue=true)]
+        public List<string> Tags { get; set; }
+
+        /// <summary>
+        /// Mapping from snapshot tags to.
+        /// </summary>
+        /// <value>Mapping from snapshot tags to.</value>
+        [DataMember(Name="tagsToSnapshotsMap", EmitDefaultValue=true)]
+        public Dictionary<string, List<long>> TagsToSnapshotsMap { get; set; }
 
         /// <summary>
         /// Specifies the id of the Domain (View Box) where the source object that contains the file or folder is stored.
@@ -261,6 +299,11 @@ namespace Cohesity.Model
                     this.JobUid.Equals(input.JobUid))
                 ) && 
                 (
+                    this.OneDriveDocumentMetadata == input.OneDriveDocumentMetadata ||
+                    (this.OneDriveDocumentMetadata != null &&
+                    this.OneDriveDocumentMetadata.Equals(input.OneDriveDocumentMetadata))
+                ) && 
+                (
                     this.ProtectionSource == input.ProtectionSource ||
                     (this.ProtectionSource != null &&
                     this.ProtectionSource.Equals(input.ProtectionSource))
@@ -271,9 +314,27 @@ namespace Cohesity.Model
                     this.RegisteredSourceId.Equals(input.RegisteredSourceId))
                 ) && 
                 (
+                    this.SnapshotTags == input.SnapshotTags ||
+                    this.SnapshotTags != null &&
+                    input.SnapshotTags != null &&
+                    this.SnapshotTags.SequenceEqual(input.SnapshotTags)
+                ) && 
+                (
                     this.SourceId == input.SourceId ||
                     (this.SourceId != null &&
                     this.SourceId.Equals(input.SourceId))
+                ) && 
+                (
+                    this.Tags == input.Tags ||
+                    this.Tags != null &&
+                    input.Tags != null &&
+                    this.Tags.SequenceEqual(input.Tags)
+                ) && 
+                (
+                    this.TagsToSnapshotsMap == input.TagsToSnapshotsMap ||
+                    this.TagsToSnapshotsMap != null &&
+                    input.TagsToSnapshotsMap != null &&
+                    this.TagsToSnapshotsMap.SequenceEqual(input.TagsToSnapshotsMap)
                 ) && 
                 (
                     this.Type == input.Type ||
@@ -311,12 +372,20 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.JobId.GetHashCode();
                 if (this.JobUid != null)
                     hashCode = hashCode * 59 + this.JobUid.GetHashCode();
+                if (this.OneDriveDocumentMetadata != null)
+                    hashCode = hashCode * 59 + this.OneDriveDocumentMetadata.GetHashCode();
                 if (this.ProtectionSource != null)
                     hashCode = hashCode * 59 + this.ProtectionSource.GetHashCode();
                 if (this.RegisteredSourceId != null)
                     hashCode = hashCode * 59 + this.RegisteredSourceId.GetHashCode();
+                if (this.SnapshotTags != null)
+                    hashCode = hashCode * 59 + this.SnapshotTags.GetHashCode();
                 if (this.SourceId != null)
                     hashCode = hashCode * 59 + this.SourceId.GetHashCode();
+                if (this.Tags != null)
+                    hashCode = hashCode * 59 + this.Tags.GetHashCode();
+                if (this.TagsToSnapshotsMap != null)
+                    hashCode = hashCode * 59 + this.TagsToSnapshotsMap.GetHashCode();
                 hashCode = hashCode * 59 + this.Type.GetHashCode();
                 if (this.ViewBoxId != null)
                     hashCode = hashCode * 59 + this.ViewBoxId.GetHashCode();

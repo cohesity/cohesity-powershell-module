@@ -31,9 +31,10 @@ namespace Cohesity.Model
         /// <param name="nodeSerial">Specifies the serial number of the Node..</param>
         /// <param name="nodeUiSlot">Specifies the postition for the UI to display the Node in the Cluster creation page..</param>
         /// <param name="numSlotsInChassis">Specifies the number of Node slots present in the Chassis where this Node is installed..</param>
+        /// <param name="productModel">Specifies the product model of the node..</param>
         /// <param name="slotNumber">Specifies the number of the slot the Node is installed in..</param>
         /// <param name="softwareVersion">Specifies the version of the software installed on the Node..</param>
-        public FreeNodeInformation(string chassisSerial = default(string), bool? connectedTo = default(bool?), long? id = default(long?), string ip = default(string), string ipmiIp = default(string), string nodeSerial = default(string), string nodeUiSlot = default(string), int? numSlotsInChassis = default(int?), string slotNumber = default(string), string softwareVersion = default(string))
+        public FreeNodeInformation(string chassisSerial = default(string), bool? connectedTo = default(bool?), long? id = default(long?), string ip = default(string), string ipmiIp = default(string), string nodeSerial = default(string), string nodeUiSlot = default(string), int? numSlotsInChassis = default(int?), string productModel = default(string), string slotNumber = default(string), string softwareVersion = default(string))
         {
             this.ChassisSerial = chassisSerial;
             this.ConnectedTo = connectedTo;
@@ -43,6 +44,7 @@ namespace Cohesity.Model
             this.NodeSerial = nodeSerial;
             this.NodeUiSlot = nodeUiSlot;
             this.NumSlotsInChassis = numSlotsInChassis;
+            this.ProductModel = productModel;
             this.SlotNumber = slotNumber;
             this.SoftwareVersion = softwareVersion;
             this.ChassisSerial = chassisSerial;
@@ -53,6 +55,7 @@ namespace Cohesity.Model
             this.NodeSerial = nodeSerial;
             this.NodeUiSlot = nodeUiSlot;
             this.NumSlotsInChassis = numSlotsInChassis;
+            this.ProductModel = productModel;
             this.SlotNumber = slotNumber;
             this.SoftwareVersion = softwareVersion;
         }
@@ -112,6 +115,13 @@ namespace Cohesity.Model
         /// <value>Specifies the number of Node slots present in the Chassis where this Node is installed.</value>
         [DataMember(Name="numSlotsInChassis", EmitDefaultValue=true)]
         public int? NumSlotsInChassis { get; set; }
+
+        /// <summary>
+        /// Specifies the product model of the node.
+        /// </summary>
+        /// <value>Specifies the product model of the node.</value>
+        [DataMember(Name="productModel", EmitDefaultValue=true)]
+        public string ProductModel { get; set; }
 
         /// <summary>
         /// Specifies the number of the slot the Node is installed in.
@@ -204,6 +214,11 @@ namespace Cohesity.Model
                     this.NumSlotsInChassis.Equals(input.NumSlotsInChassis))
                 ) && 
                 (
+                    this.ProductModel == input.ProductModel ||
+                    (this.ProductModel != null &&
+                    this.ProductModel.Equals(input.ProductModel))
+                ) && 
+                (
                     this.SlotNumber == input.SlotNumber ||
                     (this.SlotNumber != null &&
                     this.SlotNumber.Equals(input.SlotNumber))
@@ -240,6 +255,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.NodeUiSlot.GetHashCode();
                 if (this.NumSlotsInChassis != null)
                     hashCode = hashCode * 59 + this.NumSlotsInChassis.GetHashCode();
+                if (this.ProductModel != null)
+                    hashCode = hashCode * 59 + this.ProductModel.GetHashCode();
                 if (this.SlotNumber != null)
                     hashCode = hashCode * 59 + this.SlotNumber.GetHashCode();
                 if (this.SoftwareVersion != null)

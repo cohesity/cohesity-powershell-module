@@ -41,6 +41,7 @@ namespace Cohesity.Model
         /// <param name="exclusionRanges">Do not run backups in these time-ranges..</param>
         /// <param name="fullBackupJobPolicy">fullBackupJobPolicy.</param>
         /// <param name="fullBackupSlaTimeMins">Same as &#39;sla_time_mins&#39; above, but applies to full backups. NOTE: This value is considered only for full backups that are excepted i.e either scheduled or the first full backup and not for full backups that happen as a result of incremental backup failure..</param>
+        /// <param name="globalIncludeExclude">globalIncludeExclude.</param>
         /// <param name="indexingPolicy">indexingPolicy.</param>
         /// <param name="isActive">Whether the backup job is active or not. Details about what an active job is can be found here: https://goo.gl/1mLvS3..</param>
         /// <param name="isDeleted">Tracks whether the backup job has actually been deleted..</param>
@@ -84,7 +85,7 @@ namespace Cohesity.Model
         /// <param name="type">The type of environment this backup job corresponds to..</param>
         /// <param name="userInfo">userInfo.</param>
         /// <param name="viewBoxId">The view box to which data will be written..</param>
-        public BackupJobProto(bool? abortInExclusionWindow = default(bool?), AlertingPolicyProto alertingPolicy = default(AlertingPolicyProto), int? backupQosPrincipal = default(int?), List<BackupSourceParams> backupSourceParams = default(List<BackupSourceParams>), bool? continueOnQuiesceFailure = default(bool?), bool? createRemoteView = default(bool?), List<long> dedupDisabledSourceIdVec = default(List<long>), int? deletionStatus = default(int?), string description = default(string), BackupJobProtoDRToCloudParams drToCloudParams = default(BackupJobProtoDRToCloudParams), EntityProto ehParentSource = default(EntityProto), long? endTimeUsecs = default(long?), EnvBackupParams envBackupParams = default(EnvBackupParams), List<BackupJobProtoExcludeSource> excludeSources = default(List<BackupJobProtoExcludeSource>), List<EntityProto> excludeSourcesDEPRECATED = default(List<EntityProto>), List<BackupJobProtoExclusionTimeRange> exclusionRanges = default(List<BackupJobProtoExclusionTimeRange>), JobPolicyProto fullBackupJobPolicy = default(JobPolicyProto), long? fullBackupSlaTimeMins = default(long?), IndexingPolicyProto indexingPolicy = default(IndexingPolicyProto), bool? isActive = default(bool?), bool? isDeleted = default(bool?), bool? isDirectArchiveEnabled = default(bool?), bool? isDirectArchiveNativeFormatEnabled = default(bool?), bool? isPaused = default(bool?), bool? isRpoJob = default(bool?), long? jobCreationTimeUsecs = default(long?), long? jobId = default(long?), JobPolicyProto jobPolicy = default(JobPolicyProto), UniversalIdProto jobUid = default(UniversalIdProto), long? lastModificationTimeUsecs = default(long?), long? lastPauseModificationTimeUsecs = default(long?), int? lastPauseReason = default(int?), string lastUpdatedUsername = default(string), bool? leverageStorageSnapshots = default(bool?), bool? leverageStorageSnapshotsForHyperflex = default(bool?), JobPolicyProto logBackupJobPolicy = default(JobPolicyProto), string name = default(string), long? numSnapshotsToKeepOnPrimary = default(long?), EntityProto parentSource = default(EntityProto), bool? performSourceSideDedup = default(bool?), long? policyAppliedTimeMsecs = default(long?), string policyId = default(string), string policyName = default(string), BackupJobPreOrPostScript postBackupScript = default(BackupJobPreOrPostScript), BackupJobPreOrPostScript preScript = default(BackupJobPreOrPostScript), UniversalIdProto primaryJobUid = default(UniversalIdProto), int? priority = default(int?), bool? quiesce = default(bool?), List<UniversalIdProto> remoteJobUids = default(List<UniversalIdProto>), string remoteViewName = default(string), List<string> requiredFeatureVec = default(List<string>), long? slaTimeMins = default(long?), List<BackupJobProtoBackupSource> sources = default(List<BackupJobProtoBackupSource>), Time startTime = default(Time), StubbingPolicyProto stubbingPolicy = default(StubbingPolicyProto), List<string> tagVec = default(List<string>), string timezone = default(string), bool? truncateLogs = default(bool?), int? type = default(int?), UserInformation userInfo = default(UserInformation), long? viewBoxId = default(long?))
+        public BackupJobProto(bool? abortInExclusionWindow = default(bool?), AlertingPolicyProto alertingPolicy = default(AlertingPolicyProto), int? backupQosPrincipal = default(int?), List<BackupSourceParams> backupSourceParams = default(List<BackupSourceParams>), bool? continueOnQuiesceFailure = default(bool?), bool? createRemoteView = default(bool?), List<long> dedupDisabledSourceIdVec = default(List<long>), int? deletionStatus = default(int?), string description = default(string), BackupJobProtoDRToCloudParams drToCloudParams = default(BackupJobProtoDRToCloudParams), EntityProto ehParentSource = default(EntityProto), long? endTimeUsecs = default(long?), EnvBackupParams envBackupParams = default(EnvBackupParams), List<BackupJobProtoExcludeSource> excludeSources = default(List<BackupJobProtoExcludeSource>), List<EntityProto> excludeSourcesDEPRECATED = default(List<EntityProto>), List<BackupJobProtoExclusionTimeRange> exclusionRanges = default(List<BackupJobProtoExclusionTimeRange>), JobPolicyProto fullBackupJobPolicy = default(JobPolicyProto), long? fullBackupSlaTimeMins = default(long?), PhysicalFileBackupParamsGlobalIncludeExclude globalIncludeExclude = default(PhysicalFileBackupParamsGlobalIncludeExclude), IndexingPolicyProto indexingPolicy = default(IndexingPolicyProto), bool? isActive = default(bool?), bool? isDeleted = default(bool?), bool? isDirectArchiveEnabled = default(bool?), bool? isDirectArchiveNativeFormatEnabled = default(bool?), bool? isPaused = default(bool?), bool? isRpoJob = default(bool?), long? jobCreationTimeUsecs = default(long?), long? jobId = default(long?), JobPolicyProto jobPolicy = default(JobPolicyProto), UniversalIdProto jobUid = default(UniversalIdProto), long? lastModificationTimeUsecs = default(long?), long? lastPauseModificationTimeUsecs = default(long?), int? lastPauseReason = default(int?), string lastUpdatedUsername = default(string), bool? leverageStorageSnapshots = default(bool?), bool? leverageStorageSnapshotsForHyperflex = default(bool?), JobPolicyProto logBackupJobPolicy = default(JobPolicyProto), string name = default(string), long? numSnapshotsToKeepOnPrimary = default(long?), EntityProto parentSource = default(EntityProto), bool? performSourceSideDedup = default(bool?), long? policyAppliedTimeMsecs = default(long?), string policyId = default(string), string policyName = default(string), BackupJobPreOrPostScript postBackupScript = default(BackupJobPreOrPostScript), BackupJobPreOrPostScript preScript = default(BackupJobPreOrPostScript), UniversalIdProto primaryJobUid = default(UniversalIdProto), int? priority = default(int?), bool? quiesce = default(bool?), List<UniversalIdProto> remoteJobUids = default(List<UniversalIdProto>), string remoteViewName = default(string), List<string> requiredFeatureVec = default(List<string>), long? slaTimeMins = default(long?), List<BackupJobProtoBackupSource> sources = default(List<BackupJobProtoBackupSource>), Time startTime = default(Time), StubbingPolicyProto stubbingPolicy = default(StubbingPolicyProto), List<string> tagVec = default(List<string>), string timezone = default(string), bool? truncateLogs = default(bool?), int? type = default(int?), UserInformation userInfo = default(UserInformation), long? viewBoxId = default(long?))
         {
             this.AbortInExclusionWindow = abortInExclusionWindow;
             this.BackupQosPrincipal = backupQosPrincipal;
@@ -149,6 +150,7 @@ namespace Cohesity.Model
             this.ExclusionRanges = exclusionRanges;
             this.FullBackupJobPolicy = fullBackupJobPolicy;
             this.FullBackupSlaTimeMins = fullBackupSlaTimeMins;
+            this.GlobalIncludeExclude = globalIncludeExclude;
             this.IndexingPolicy = indexingPolicy;
             this.IsActive = isActive;
             this.IsDeleted = isDeleted;
@@ -314,6 +316,12 @@ namespace Cohesity.Model
         /// <value>Same as &#39;sla_time_mins&#39; above, but applies to full backups. NOTE: This value is considered only for full backups that are excepted i.e either scheduled or the first full backup and not for full backups that happen as a result of incremental backup failure.</value>
         [DataMember(Name="fullBackupSlaTimeMins", EmitDefaultValue=true)]
         public long? FullBackupSlaTimeMins { get; set; }
+
+        /// <summary>
+        /// Gets or Sets GlobalIncludeExclude
+        /// </summary>
+        [DataMember(Name="globalIncludeExclude", EmitDefaultValue=false)]
+        public PhysicalFileBackupParamsGlobalIncludeExclude GlobalIncludeExclude { get; set; }
 
         /// <summary>
         /// Gets or Sets IndexingPolicy
@@ -737,6 +745,11 @@ namespace Cohesity.Model
                     this.FullBackupSlaTimeMins.Equals(input.FullBackupSlaTimeMins))
                 ) && 
                 (
+                    this.GlobalIncludeExclude == input.GlobalIncludeExclude ||
+                    (this.GlobalIncludeExclude != null &&
+                    this.GlobalIncludeExclude.Equals(input.GlobalIncludeExclude))
+                ) && 
+                (
                     this.IndexingPolicy == input.IndexingPolicy ||
                     (this.IndexingPolicy != null &&
                     this.IndexingPolicy.Equals(input.IndexingPolicy))
@@ -1002,6 +1015,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.FullBackupJobPolicy.GetHashCode();
                 if (this.FullBackupSlaTimeMins != null)
                     hashCode = hashCode * 59 + this.FullBackupSlaTimeMins.GetHashCode();
+                if (this.GlobalIncludeExclude != null)
+                    hashCode = hashCode * 59 + this.GlobalIncludeExclude.GetHashCode();
                 if (this.IndexingPolicy != null)
                     hashCode = hashCode * 59 + this.IndexingPolicy.GetHashCode();
                 if (this.IsActive != null)

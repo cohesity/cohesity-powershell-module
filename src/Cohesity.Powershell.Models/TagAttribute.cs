@@ -21,16 +21,52 @@ namespace Cohesity.Model
     public partial class TagAttribute :  IEquatable<TagAttribute>
     {
         /// <summary>
+        /// Specifies the tag attribute type of GCP. Going forward, there will be an additional TagTypes for AWS as well. Specifies the type of the tag GCP entity refers to. &#39;kNetworkTag&#39; indicates a network tag present on instances. &#39;kLabel&#39; indicates a label (key-value pair) present on instances. &#39;kCustomMetadata&#39; indicates custom Metadata (key-value pair) present on instances.
+        /// </summary>
+        /// <value>Specifies the tag attribute type of GCP. Going forward, there will be an additional TagTypes for AWS as well. Specifies the type of the tag GCP entity refers to. &#39;kNetworkTag&#39; indicates a network tag present on instances. &#39;kLabel&#39; indicates a label (key-value pair) present on instances. &#39;kCustomMetadata&#39; indicates custom Metadata (key-value pair) present on instances.</value>
+        [JsonConverter(typeof(StringEnumConverter))]
+        public enum GcpTagTypeEnum
+        {
+            /// <summary>
+            /// Enum KNetworkTag for value: kNetworkTag
+            /// </summary>
+            [EnumMember(Value = "kNetworkTag")]
+            KNetworkTag = 1,
+
+            /// <summary>
+            /// Enum KLabel for value: kLabel
+            /// </summary>
+            [EnumMember(Value = "kLabel")]
+            KLabel = 2,
+
+            /// <summary>
+            /// Enum KCustomMetadata for value: kCustomMetadata
+            /// </summary>
+            [EnumMember(Value = "kCustomMetadata")]
+            KCustomMetadata = 3
+
+        }
+
+        /// <summary>
+        /// Specifies the tag attribute type of GCP. Going forward, there will be an additional TagTypes for AWS as well. Specifies the type of the tag GCP entity refers to. &#39;kNetworkTag&#39; indicates a network tag present on instances. &#39;kLabel&#39; indicates a label (key-value pair) present on instances. &#39;kCustomMetadata&#39; indicates custom Metadata (key-value pair) present on instances.
+        /// </summary>
+        /// <value>Specifies the tag attribute type of GCP. Going forward, there will be an additional TagTypes for AWS as well. Specifies the type of the tag GCP entity refers to. &#39;kNetworkTag&#39; indicates a network tag present on instances. &#39;kLabel&#39; indicates a label (key-value pair) present on instances. &#39;kCustomMetadata&#39; indicates custom Metadata (key-value pair) present on instances.</value>
+        [DataMember(Name="gcpTagType", EmitDefaultValue=true)]
+        public GcpTagTypeEnum? GcpTagType { get; set; }
+        /// <summary>
         /// Initializes a new instance of the <see cref="TagAttribute" /> class.
         /// </summary>
+        /// <param name="gcpTagType">Specifies the tag attribute type of GCP. Going forward, there will be an additional TagTypes for AWS as well. Specifies the type of the tag GCP entity refers to. &#39;kNetworkTag&#39; indicates a network tag present on instances. &#39;kLabel&#39; indicates a label (key-value pair) present on instances. &#39;kCustomMetadata&#39; indicates custom Metadata (key-value pair) present on instances..</param>
         /// <param name="id">Specifies the Coheisty id of the VM tag..</param>
         /// <param name="name">Specifies the VMware name of the VM tag..</param>
         /// <param name="uuid">Specifies the VMware Universally Unique Identifier (UUID) of the VM tag..</param>
-        public TagAttribute(long? id = default(long?), string name = default(string), string uuid = default(string))
+        public TagAttribute(GcpTagTypeEnum? gcpTagType = default(GcpTagTypeEnum?), long? id = default(long?), string name = default(string), string uuid = default(string))
         {
+            this.GcpTagType = gcpTagType;
             this.Id = id;
             this.Name = name;
             this.Uuid = uuid;
+            this.GcpTagType = gcpTagType;
             this.Id = id;
             this.Name = name;
             this.Uuid = uuid;
@@ -94,6 +130,10 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.GcpTagType == input.GcpTagType ||
+                    this.GcpTagType.Equals(input.GcpTagType)
+                ) && 
+                (
                     this.Id == input.Id ||
                     (this.Id != null &&
                     this.Id.Equals(input.Id))
@@ -119,6 +159,7 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                hashCode = hashCode * 59 + this.GcpTagType.GetHashCode();
                 if (this.Id != null)
                     hashCode = hashCode * 59 + this.Id.GetHashCode();
                 if (this.Name != null)

@@ -28,88 +28,88 @@ namespace Cohesity.Model
         public enum TypeEnum
         {
             /// <summary>
+            /// Enum KNearline for value: kNearline
+            /// </summary>
+            [EnumMember(Value = "kNearline")]
+            KNearline = 1,
+
+            /// <summary>
+            /// Enum KGlacier for value: kGlacier
+            /// </summary>
+            [EnumMember(Value = "kGlacier")]
+            KGlacier = 2,
+
+            /// <summary>
+            /// Enum KS3 for value: kS3
+            /// </summary>
+            [EnumMember(Value = "kS3")]
+            KS3 = 3,
+
+            /// <summary>
             /// Enum KAzureStandard for value: kAzureStandard
             /// </summary>
             [EnumMember(Value = "kAzureStandard")]
-            KAzureStandard = 1,
+            KAzureStandard = 4,
 
             /// <summary>
             /// Enum KS3Compatible for value: kS3Compatible
             /// </summary>
             [EnumMember(Value = "kS3Compatible")]
-            KS3Compatible = 2,
+            KS3Compatible = 5,
 
             /// <summary>
             /// Enum KQStarTape for value: kQStarTape
             /// </summary>
             [EnumMember(Value = "kQStarTape")]
-            KQStarTape = 3,
+            KQStarTape = 6,
 
             /// <summary>
-            /// Enum KAWSGovCloud for value: kAWSGovCloud
+            /// Enum KGoogleStandard for value: kGoogleStandard
             /// </summary>
-            [EnumMember(Value = "kAWSGovCloud")]
-            KAWSGovCloud = 4,
+            [EnumMember(Value = "kGoogleStandard")]
+            KGoogleStandard = 7,
 
             /// <summary>
-            /// Enum KNearline for value: kNearline
+            /// Enum KGoogleDRA for value: kGoogleDRA
             /// </summary>
-            [EnumMember(Value = "kNearline")]
-            KNearline = 5,
+            [EnumMember(Value = "kGoogleDRA")]
+            KGoogleDRA = 8,
 
             /// <summary>
             /// Enum KAmazonS3StandardIA for value: kAmazonS3StandardIA
             /// </summary>
             [EnumMember(Value = "kAmazonS3StandardIA")]
-            KAmazonS3StandardIA = 6,
+            KAmazonS3StandardIA = 9,
+
+            /// <summary>
+            /// Enum KAWSGovCloud for value: kAWSGovCloud
+            /// </summary>
+            [EnumMember(Value = "kAWSGovCloud")]
+            KAWSGovCloud = 10,
 
             /// <summary>
             /// Enum KNAS for value: kNAS
             /// </summary>
             [EnumMember(Value = "kNAS")]
-            KNAS = 7,
+            KNAS = 11,
 
             /// <summary>
-            /// Enum KAmazonC2S for value: kAmazonC2S
+            /// Enum KColdline for value: kColdline
             /// </summary>
-            [EnumMember(Value = "kAmazonC2S")]
-            KAmazonC2S = 8,
-
-            /// <summary>
-            /// Enum KGoogle for value: kGoogle
-            /// </summary>
-            [EnumMember(Value = "kGoogle")]
-            KGoogle = 9,
-
-            /// <summary>
-            /// Enum KAmazon for value: kAmazon
-            /// </summary>
-            [EnumMember(Value = "kAmazon")]
-            KAmazon = 10,
-
-            /// <summary>
-            /// Enum KOracleTierStandard for value: kOracleTierStandard
-            /// </summary>
-            [EnumMember(Value = "kOracleTierStandard")]
-            KOracleTierStandard = 11,
+            [EnumMember(Value = "kColdline")]
+            KColdline = 12,
 
             /// <summary>
             /// Enum KAzureGovCloud for value: kAzureGovCloud
             /// </summary>
             [EnumMember(Value = "kAzureGovCloud")]
-            KAzureGovCloud = 12,
+            KAzureGovCloud = 13,
 
             /// <summary>
-            /// Enum KOracle for value: kOracle
+            /// Enum KAzureArchive for value: kAzureArchive
             /// </summary>
-            [EnumMember(Value = "kOracle")]
-            KOracle = 13,
-
-            /// <summary>
-            /// Enum KOracleTierArchive for value: kOracleTierArchive
-            /// </summary>
-            [EnumMember(Value = "kOracleTierArchive")]
-            KOracleTierArchive = 14,
+            [EnumMember(Value = "kAzureArchive")]
+            KAzureArchive = 14,
 
             /// <summary>
             /// Enum KAzure for value: kAzure
@@ -118,40 +118,40 @@ namespace Cohesity.Model
             KAzure = 15,
 
             /// <summary>
-            /// Enum KGoogleStandard for value: kGoogleStandard
+            /// Enum KGoogle for value: kGoogle
             /// </summary>
-            [EnumMember(Value = "kGoogleStandard")]
-            KGoogleStandard = 16,
+            [EnumMember(Value = "kGoogle")]
+            KGoogle = 16,
 
             /// <summary>
-            /// Enum KGlacier for value: kGlacier
+            /// Enum KAmazon for value: kAmazon
             /// </summary>
-            [EnumMember(Value = "kGlacier")]
-            KGlacier = 17,
+            [EnumMember(Value = "kAmazon")]
+            KAmazon = 17,
 
             /// <summary>
-            /// Enum KAzureArchive for value: kAzureArchive
+            /// Enum KOracle for value: kOracle
             /// </summary>
-            [EnumMember(Value = "kAzureArchive")]
-            KAzureArchive = 18,
+            [EnumMember(Value = "kOracle")]
+            KOracle = 18,
 
             /// <summary>
-            /// Enum KColdline for value: kColdline
+            /// Enum KOracleTierStandard for value: kOracleTierStandard
             /// </summary>
-            [EnumMember(Value = "kColdline")]
-            KColdline = 19,
+            [EnumMember(Value = "kOracleTierStandard")]
+            KOracleTierStandard = 19,
 
             /// <summary>
-            /// Enum KGoogleDRA for value: kGoogleDRA
+            /// Enum KOracleTierArchive for value: kOracleTierArchive
             /// </summary>
-            [EnumMember(Value = "kGoogleDRA")]
-            KGoogleDRA = 20,
+            [EnumMember(Value = "kOracleTierArchive")]
+            KOracleTierArchive = 20,
 
             /// <summary>
-            /// Enum KS3 for value: kS3
+            /// Enum KAmazonC2S for value: kAmazonC2S
             /// </summary>
-            [EnumMember(Value = "kS3")]
-            KS3 = 21
+            [EnumMember(Value = "kAmazonC2S")]
+            KAmazonC2S = 21
 
         }
 

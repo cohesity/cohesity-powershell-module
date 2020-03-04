@@ -23,6 +23,7 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="ConnectorParams" /> class.
         /// </summary>
+        /// <param name="additionalParams">additionalParams.</param>
         /// <param name="agentEndpoint">For some of the environments connection to endpoint is done through an agent. This captures the agent endpoint information..</param>
         /// <param name="agentPort">Optional agent port to use when connecting to the server. If this is not specified, then environment specific default port will be used..</param>
         /// <param name="credentials">credentials.</param>
@@ -30,21 +31,24 @@ namespace Cohesity.Model
         /// <param name="entity">entity.</param>
         /// <param name="hostType">The host environment type. This is set for kPhysical type environment..</param>
         /// <param name="id">A unique id associated with this connector params. This is a convenience field and is used to maintain an index to different connection params. This is generated at the time when the source is registered with Magneto..</param>
+        /// <param name="populateSubnetForAllClusterNodes">If set to true, inter agent communcation will be enabled and for every GetAgentInfo call we will fill subnet information of all the nodes in clustered entity..</param>
         /// <param name="port">Optional port to use when connecting to the server. If this is not specified, then environment specific default port will be used..</param>
         /// <param name="tenantId">The tenant_id for the environment. This is used to remotely access connectors and executors via bifrost..</param>
         /// <param name="type">The type of environment to connect to..</param>
         /// <param name="version">A version that is associated with the params. This is updated anytime any of the params change. This is used to discard older connector params..</param>
-        public ConnectorParams(string agentEndpoint = default(string), int? agentPort = default(int?), Credentials credentials = default(Credentials), string endpoint = default(string), EntityProto entity = default(EntityProto), int? hostType = default(int?), long? id = default(long?), int? port = default(int?), string tenantId = default(string), int? type = default(int?), long? version = default(long?))
+        public ConnectorParams(AdditionalConnectorParams additionalParams = default(AdditionalConnectorParams), string agentEndpoint = default(string), int? agentPort = default(int?), Credentials credentials = default(Credentials), string endpoint = default(string), EntityProto entity = default(EntityProto), int? hostType = default(int?), long? id = default(long?), bool? populateSubnetForAllClusterNodes = default(bool?), int? port = default(int?), string tenantId = default(string), int? type = default(int?), long? version = default(long?))
         {
             this.AgentEndpoint = agentEndpoint;
             this.AgentPort = agentPort;
             this.Endpoint = endpoint;
             this.HostType = hostType;
             this.Id = id;
+            this.PopulateSubnetForAllClusterNodes = populateSubnetForAllClusterNodes;
             this.Port = port;
             this.TenantId = tenantId;
             this.Type = type;
             this.Version = version;
+            this.AdditionalParams = additionalParams;
             this.AgentEndpoint = agentEndpoint;
             this.AgentPort = agentPort;
             this.Credentials = credentials;
@@ -52,12 +56,19 @@ namespace Cohesity.Model
             this.Entity = entity;
             this.HostType = hostType;
             this.Id = id;
+            this.PopulateSubnetForAllClusterNodes = populateSubnetForAllClusterNodes;
             this.Port = port;
             this.TenantId = tenantId;
             this.Type = type;
             this.Version = version;
         }
         
+        /// <summary>
+        /// Gets or Sets AdditionalParams
+        /// </summary>
+        [DataMember(Name="additionalParams", EmitDefaultValue=false)]
+        public AdditionalConnectorParams AdditionalParams { get; set; }
+
         /// <summary>
         /// For some of the environments connection to endpoint is done through an agent. This captures the agent endpoint information.
         /// </summary>
@@ -104,6 +115,13 @@ namespace Cohesity.Model
         /// <value>A unique id associated with this connector params. This is a convenience field and is used to maintain an index to different connection params. This is generated at the time when the source is registered with Magneto.</value>
         [DataMember(Name="id", EmitDefaultValue=true)]
         public long? Id { get; set; }
+
+        /// <summary>
+        /// If set to true, inter agent communcation will be enabled and for every GetAgentInfo call we will fill subnet information of all the nodes in clustered entity.
+        /// </summary>
+        /// <value>If set to true, inter agent communcation will be enabled and for every GetAgentInfo call we will fill subnet information of all the nodes in clustered entity.</value>
+        [DataMember(Name="populateSubnetForAllClusterNodes", EmitDefaultValue=true)]
+        public bool? PopulateSubnetForAllClusterNodes { get; set; }
 
         /// <summary>
         /// Optional port to use when connecting to the server. If this is not specified, then environment specific default port will be used.
@@ -170,6 +188,11 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.AdditionalParams == input.AdditionalParams ||
+                    (this.AdditionalParams != null &&
+                    this.AdditionalParams.Equals(input.AdditionalParams))
+                ) && 
+                (
                     this.AgentEndpoint == input.AgentEndpoint ||
                     (this.AgentEndpoint != null &&
                     this.AgentEndpoint.Equals(input.AgentEndpoint))
@@ -205,6 +228,11 @@ namespace Cohesity.Model
                     this.Id.Equals(input.Id))
                 ) && 
                 (
+                    this.PopulateSubnetForAllClusterNodes == input.PopulateSubnetForAllClusterNodes ||
+                    (this.PopulateSubnetForAllClusterNodes != null &&
+                    this.PopulateSubnetForAllClusterNodes.Equals(input.PopulateSubnetForAllClusterNodes))
+                ) && 
+                (
                     this.Port == input.Port ||
                     (this.Port != null &&
                     this.Port.Equals(input.Port))
@@ -235,6 +263,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.AdditionalParams != null)
+                    hashCode = hashCode * 59 + this.AdditionalParams.GetHashCode();
                 if (this.AgentEndpoint != null)
                     hashCode = hashCode * 59 + this.AgentEndpoint.GetHashCode();
                 if (this.AgentPort != null)
@@ -249,6 +279,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.HostType.GetHashCode();
                 if (this.Id != null)
                     hashCode = hashCode * 59 + this.Id.GetHashCode();
+                if (this.PopulateSubnetForAllClusterNodes != null)
+                    hashCode = hashCode * 59 + this.PopulateSubnetForAllClusterNodes.GetHashCode();
                 if (this.Port != null)
                     hashCode = hashCode * 59 + this.Port.GetHashCode();
                 if (this.TenantId != null)

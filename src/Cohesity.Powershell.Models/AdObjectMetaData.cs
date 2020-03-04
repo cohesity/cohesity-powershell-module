@@ -24,20 +24,23 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="AdObjectMetaData" /> class.
         /// </summary>
         /// <param name="distinguishedName">Specifies the Distinguished name of the AD object..</param>
+        /// <param name="domain">Domain of the AD object..</param>
         /// <param name="email">Specifies the email of the AD object of type user or group..</param>
         /// <param name="guid">Specifies the Guid of the AD object..</param>
         /// <param name="name">Specifies the name of the AD object..</param>
         /// <param name="objectType">Specifies the type of the AD Object. The type may be user, computer, group or ou..</param>
         /// <param name="samAccountName">Specifies the sam account name of the AD object..</param>
-        public AdObjectMetaData(string distinguishedName = default(string), string email = default(string), string guid = default(string), string name = default(string), string objectType = default(string), string samAccountName = default(string))
+        public AdObjectMetaData(string distinguishedName = default(string), string domain = default(string), string email = default(string), string guid = default(string), string name = default(string), string objectType = default(string), string samAccountName = default(string))
         {
             this.DistinguishedName = distinguishedName;
+            this.Domain = domain;
             this.Email = email;
             this.Guid = guid;
             this.Name = name;
             this.ObjectType = objectType;
             this.SamAccountName = samAccountName;
             this.DistinguishedName = distinguishedName;
+            this.Domain = domain;
             this.Email = email;
             this.Guid = guid;
             this.Name = name;
@@ -51,6 +54,13 @@ namespace Cohesity.Model
         /// <value>Specifies the Distinguished name of the AD object.</value>
         [DataMember(Name="distinguishedName", EmitDefaultValue=true)]
         public string DistinguishedName { get; set; }
+
+        /// <summary>
+        /// Domain of the AD object.
+        /// </summary>
+        /// <value>Domain of the AD object.</value>
+        [DataMember(Name="domain", EmitDefaultValue=true)]
+        public string Domain { get; set; }
 
         /// <summary>
         /// Specifies the email of the AD object of type user or group.
@@ -129,6 +139,11 @@ namespace Cohesity.Model
                     this.DistinguishedName.Equals(input.DistinguishedName))
                 ) && 
                 (
+                    this.Domain == input.Domain ||
+                    (this.Domain != null &&
+                    this.Domain.Equals(input.Domain))
+                ) && 
+                (
                     this.Email == input.Email ||
                     (this.Email != null &&
                     this.Email.Equals(input.Email))
@@ -166,6 +181,8 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.DistinguishedName != null)
                     hashCode = hashCode * 59 + this.DistinguishedName.GetHashCode();
+                if (this.Domain != null)
+                    hashCode = hashCode * 59 + this.Domain.GetHashCode();
                 if (this.Email != null)
                     hashCode = hashCode * 59 + this.Email.GetHashCode();
                 if (this.Guid != null)

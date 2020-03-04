@@ -23,7 +23,7 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="NetworkingInformation" /> class.
         /// </summary>
-        /// <param name="resourceVec">The list of resources on the the system that are accessible by an IP address..</param>
+        /// <param name="resourceVec">The list of resources on the system that are accessible by an IP address..</param>
         public NetworkingInformation(List<ClusterNetworkingResourceInformation> resourceVec = default(List<ClusterNetworkingResourceInformation>))
         {
             this.ResourceVec = resourceVec;
@@ -31,9 +31,9 @@ namespace Cohesity.Model
         }
         
         /// <summary>
-        /// The list of resources on the the system that are accessible by an IP address.
+        /// The list of resources on the system that are accessible by an IP address.
         /// </summary>
-        /// <value>The list of resources on the the system that are accessible by an IP address.</value>
+        /// <value>The list of resources on the system that are accessible by an IP address.</value>
         [DataMember(Name="resourceVec", EmitDefaultValue=true)]
         public List<ClusterNetworkingResourceInformation> ResourceVec { get; set; }
 

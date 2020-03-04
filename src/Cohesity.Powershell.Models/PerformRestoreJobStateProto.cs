@@ -32,6 +32,7 @@ namespace Cohesity.Model
         /// <param name="name">The name of the restore job..</param>
         /// <param name="parentSourceConnectionParams">parentSourceConnectionParams.</param>
         /// <param name="powerStateConfig">powerStateConfig.</param>
+        /// <param name="preserveTags">Whether to preserve tags for the clone op. This field is currently used by HyperV and VMWare..</param>
         /// <param name="progressMonitorTaskPath">Root path of a Pulse task tracking the progress of the restore job..</param>
         /// <param name="renameRestoredObjectParam">renameRestoredObjectParam.</param>
         /// <param name="restoreAcropolisVmsParams">restoreAcropolisVmsParams.</param>
@@ -39,6 +40,7 @@ namespace Cohesity.Model
         /// <param name="restoreKubernetesNamespacesParams">restoreKubernetesNamespacesParams.</param>
         /// <param name="restoreKvmVmsParams">restoreKvmVmsParams.</param>
         /// <param name="restoreParentSource">restoreParentSource.</param>
+        /// <param name="restoreTaskStateProtoTmpl">restoreTaskStateProtoTmpl.</param>
         /// <param name="restoreTaskVec">Even if the user wanted to restore an entire job from the latest snapshot, this will have info of all the individual objects..</param>
         /// <param name="restoreVmwareVmParams">restoreVmwareVmParams.</param>
         /// <param name="restoredObjectsNetworkConfig">restoredObjectsNetworkConfig.</param>
@@ -49,13 +51,14 @@ namespace Cohesity.Model
         /// <param name="user">The user who requested this restore job..</param>
         /// <param name="userInfo">userInfo.</param>
         /// <param name="viewBoxId">The view box id to which the restore job belongs to..</param>
-        public PerformRestoreJobStateProto(long? admittedTimeUsecs = default(long?), bool? cancellationRequested = default(bool?), bool? continueRestoreOnError = default(bool?), DeployVMsToCloudTaskStateProto deployVmsToCloudTaskState = default(DeployVMsToCloudTaskStateProto), long? endTimeUsecs = default(long?), ErrorProto error = default(ErrorProto), string name = default(string), ConnectorParams parentSourceConnectionParams = default(ConnectorParams), PowerStateConfigProto powerStateConfig = default(PowerStateConfigProto), string progressMonitorTaskPath = default(string), RenameObjectParamProto renameRestoredObjectParam = default(RenameObjectParamProto), RestoreAcropolisVMsParams restoreAcropolisVmsParams = default(RestoreAcropolisVMsParams), long? restoreJobId = default(long?), RestoreKubernetesNamespacesParams restoreKubernetesNamespacesParams = default(RestoreKubernetesNamespacesParams), RestoreKVMVMsParams restoreKvmVmsParams = default(RestoreKVMVMsParams), EntityProto restoreParentSource = default(EntityProto), List<PerformRestoreJobStateProtoRestoreTask> restoreTaskVec = default(List<PerformRestoreJobStateProtoRestoreTask>), RestoreVMwareVMParams restoreVmwareVmParams = default(RestoreVMwareVMParams), RestoredObjectNetworkConfigProto restoredObjectsNetworkConfig = default(RestoredObjectNetworkConfigProto), bool? restoredToDifferentSource = default(bool?), long? startTimeUsecs = default(long?), int? status = default(int?), int? type = default(int?), string user = default(string), UserInformation userInfo = default(UserInformation), long? viewBoxId = default(long?))
+        public PerformRestoreJobStateProto(long? admittedTimeUsecs = default(long?), bool? cancellationRequested = default(bool?), bool? continueRestoreOnError = default(bool?), DeployVMsToCloudTaskStateProto deployVmsToCloudTaskState = default(DeployVMsToCloudTaskStateProto), long? endTimeUsecs = default(long?), ErrorProto error = default(ErrorProto), string name = default(string), ConnectorParams parentSourceConnectionParams = default(ConnectorParams), PowerStateConfigProto powerStateConfig = default(PowerStateConfigProto), bool? preserveTags = default(bool?), string progressMonitorTaskPath = default(string), RenameObjectParamProto renameRestoredObjectParam = default(RenameObjectParamProto), RestoreAcropolisVMsParams restoreAcropolisVmsParams = default(RestoreAcropolisVMsParams), long? restoreJobId = default(long?), RestoreKubernetesNamespacesParams restoreKubernetesNamespacesParams = default(RestoreKubernetesNamespacesParams), RestoreKVMVMsParams restoreKvmVmsParams = default(RestoreKVMVMsParams), EntityProto restoreParentSource = default(EntityProto), PerformRestoreTaskStateProto restoreTaskStateProtoTmpl = default(PerformRestoreTaskStateProto), List<PerformRestoreJobStateProtoRestoreTask> restoreTaskVec = default(List<PerformRestoreJobStateProtoRestoreTask>), RestoreVMwareVMParams restoreVmwareVmParams = default(RestoreVMwareVMParams), RestoredObjectNetworkConfigProto restoredObjectsNetworkConfig = default(RestoredObjectNetworkConfigProto), bool? restoredToDifferentSource = default(bool?), long? startTimeUsecs = default(long?), int? status = default(int?), int? type = default(int?), string user = default(string), UserInformation userInfo = default(UserInformation), long? viewBoxId = default(long?))
         {
             this.AdmittedTimeUsecs = admittedTimeUsecs;
             this.CancellationRequested = cancellationRequested;
             this.ContinueRestoreOnError = continueRestoreOnError;
             this.EndTimeUsecs = endTimeUsecs;
             this.Name = name;
+            this.PreserveTags = preserveTags;
             this.ProgressMonitorTaskPath = progressMonitorTaskPath;
             this.RestoreJobId = restoreJobId;
             this.RestoreTaskVec = restoreTaskVec;
@@ -74,6 +77,7 @@ namespace Cohesity.Model
             this.Name = name;
             this.ParentSourceConnectionParams = parentSourceConnectionParams;
             this.PowerStateConfig = powerStateConfig;
+            this.PreserveTags = preserveTags;
             this.ProgressMonitorTaskPath = progressMonitorTaskPath;
             this.RenameRestoredObjectParam = renameRestoredObjectParam;
             this.RestoreAcropolisVmsParams = restoreAcropolisVmsParams;
@@ -81,6 +85,7 @@ namespace Cohesity.Model
             this.RestoreKubernetesNamespacesParams = restoreKubernetesNamespacesParams;
             this.RestoreKvmVmsParams = restoreKvmVmsParams;
             this.RestoreParentSource = restoreParentSource;
+            this.RestoreTaskStateProtoTmpl = restoreTaskStateProtoTmpl;
             this.RestoreTaskVec = restoreTaskVec;
             this.RestoreVmwareVmParams = restoreVmwareVmParams;
             this.RestoredObjectsNetworkConfig = restoredObjectsNetworkConfig;
@@ -153,6 +158,13 @@ namespace Cohesity.Model
         public PowerStateConfigProto PowerStateConfig { get; set; }
 
         /// <summary>
+        /// Whether to preserve tags for the clone op. This field is currently used by HyperV and VMWare.
+        /// </summary>
+        /// <value>Whether to preserve tags for the clone op. This field is currently used by HyperV and VMWare.</value>
+        [DataMember(Name="preserveTags", EmitDefaultValue=true)]
+        public bool? PreserveTags { get; set; }
+
+        /// <summary>
         /// Root path of a Pulse task tracking the progress of the restore job.
         /// </summary>
         /// <value>Root path of a Pulse task tracking the progress of the restore job.</value>
@@ -195,6 +207,12 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="restoreParentSource", EmitDefaultValue=false)]
         public EntityProto RestoreParentSource { get; set; }
+
+        /// <summary>
+        /// Gets or Sets RestoreTaskStateProtoTmpl
+        /// </summary>
+        [DataMember(Name="restoreTaskStateProtoTmpl", EmitDefaultValue=false)]
+        public PerformRestoreTaskStateProto RestoreTaskStateProtoTmpl { get; set; }
 
         /// <summary>
         /// Even if the user wanted to restore an entire job from the latest snapshot, this will have info of all the individual objects.
@@ -345,6 +363,11 @@ namespace Cohesity.Model
                     this.PowerStateConfig.Equals(input.PowerStateConfig))
                 ) && 
                 (
+                    this.PreserveTags == input.PreserveTags ||
+                    (this.PreserveTags != null &&
+                    this.PreserveTags.Equals(input.PreserveTags))
+                ) && 
+                (
                     this.ProgressMonitorTaskPath == input.ProgressMonitorTaskPath ||
                     (this.ProgressMonitorTaskPath != null &&
                     this.ProgressMonitorTaskPath.Equals(input.ProgressMonitorTaskPath))
@@ -378,6 +401,11 @@ namespace Cohesity.Model
                     this.RestoreParentSource == input.RestoreParentSource ||
                     (this.RestoreParentSource != null &&
                     this.RestoreParentSource.Equals(input.RestoreParentSource))
+                ) && 
+                (
+                    this.RestoreTaskStateProtoTmpl == input.RestoreTaskStateProtoTmpl ||
+                    (this.RestoreTaskStateProtoTmpl != null &&
+                    this.RestoreTaskStateProtoTmpl.Equals(input.RestoreTaskStateProtoTmpl))
                 ) && 
                 (
                     this.RestoreTaskVec == input.RestoreTaskVec ||
@@ -459,6 +487,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ParentSourceConnectionParams.GetHashCode();
                 if (this.PowerStateConfig != null)
                     hashCode = hashCode * 59 + this.PowerStateConfig.GetHashCode();
+                if (this.PreserveTags != null)
+                    hashCode = hashCode * 59 + this.PreserveTags.GetHashCode();
                 if (this.ProgressMonitorTaskPath != null)
                     hashCode = hashCode * 59 + this.ProgressMonitorTaskPath.GetHashCode();
                 if (this.RenameRestoredObjectParam != null)
@@ -473,6 +503,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.RestoreKvmVmsParams.GetHashCode();
                 if (this.RestoreParentSource != null)
                     hashCode = hashCode * 59 + this.RestoreParentSource.GetHashCode();
+                if (this.RestoreTaskStateProtoTmpl != null)
+                    hashCode = hashCode * 59 + this.RestoreTaskStateProtoTmpl.GetHashCode();
                 if (this.RestoreTaskVec != null)
                     hashCode = hashCode * 59 + this.RestoreTaskVec.GetHashCode();
                 if (this.RestoreVmwareVmParams != null)

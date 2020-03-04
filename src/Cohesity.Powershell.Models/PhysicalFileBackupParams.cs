@@ -25,14 +25,17 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="backupPathInfoVec">Specifies the paths to backup on the Physical source..</param>
         /// <param name="skipNestedVolumesVec">Mount types of nested volumes to be skipped..</param>
+        /// <param name="symlinkFollowNasTarget">Specifies whether to follow nas target pointed by symlink. Set to true only for windows physical file based job..</param>
         /// <param name="usesSkipNestedVolumesVec">Specifies whether to use skip_nested_volumes_vec to skip nested mounts. Before 6.4, BackupPathInfo.skip_nested_volumes boolean was used to skip nested volumes. So we use this boolean to support older jobs..</param>
-        public PhysicalFileBackupParams(List<PhysicalFileBackupParamsBackupPathInfo> backupPathInfoVec = default(List<PhysicalFileBackupParamsBackupPathInfo>), List<string> skipNestedVolumesVec = default(List<string>), bool? usesSkipNestedVolumesVec = default(bool?))
+        public PhysicalFileBackupParams(List<PhysicalFileBackupParamsBackupPathInfo> backupPathInfoVec = default(List<PhysicalFileBackupParamsBackupPathInfo>), List<string> skipNestedVolumesVec = default(List<string>), bool? symlinkFollowNasTarget = default(bool?), bool? usesSkipNestedVolumesVec = default(bool?))
         {
             this.BackupPathInfoVec = backupPathInfoVec;
             this.SkipNestedVolumesVec = skipNestedVolumesVec;
+            this.SymlinkFollowNasTarget = symlinkFollowNasTarget;
             this.UsesSkipNestedVolumesVec = usesSkipNestedVolumesVec;
             this.BackupPathInfoVec = backupPathInfoVec;
             this.SkipNestedVolumesVec = skipNestedVolumesVec;
+            this.SymlinkFollowNasTarget = symlinkFollowNasTarget;
             this.UsesSkipNestedVolumesVec = usesSkipNestedVolumesVec;
         }
         
@@ -49,6 +52,13 @@ namespace Cohesity.Model
         /// <value>Mount types of nested volumes to be skipped.</value>
         [DataMember(Name="skipNestedVolumesVec", EmitDefaultValue=true)]
         public List<string> SkipNestedVolumesVec { get; set; }
+
+        /// <summary>
+        /// Specifies whether to follow nas target pointed by symlink. Set to true only for windows physical file based job.
+        /// </summary>
+        /// <value>Specifies whether to follow nas target pointed by symlink. Set to true only for windows physical file based job.</value>
+        [DataMember(Name="symlinkFollowNasTarget", EmitDefaultValue=true)]
+        public bool? SymlinkFollowNasTarget { get; set; }
 
         /// <summary>
         /// Specifies whether to use skip_nested_volumes_vec to skip nested mounts. Before 6.4, BackupPathInfo.skip_nested_volumes boolean was used to skip nested volumes. So we use this boolean to support older jobs.
@@ -106,6 +116,11 @@ namespace Cohesity.Model
                     this.SkipNestedVolumesVec.SequenceEqual(input.SkipNestedVolumesVec)
                 ) && 
                 (
+                    this.SymlinkFollowNasTarget == input.SymlinkFollowNasTarget ||
+                    (this.SymlinkFollowNasTarget != null &&
+                    this.SymlinkFollowNasTarget.Equals(input.SymlinkFollowNasTarget))
+                ) && 
+                (
                     this.UsesSkipNestedVolumesVec == input.UsesSkipNestedVolumesVec ||
                     (this.UsesSkipNestedVolumesVec != null &&
                     this.UsesSkipNestedVolumesVec.Equals(input.UsesSkipNestedVolumesVec))
@@ -125,6 +140,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.BackupPathInfoVec.GetHashCode();
                 if (this.SkipNestedVolumesVec != null)
                     hashCode = hashCode * 59 + this.SkipNestedVolumesVec.GetHashCode();
+                if (this.SymlinkFollowNasTarget != null)
+                    hashCode = hashCode * 59 + this.SymlinkFollowNasTarget.GetHashCode();
                 if (this.UsesSkipNestedVolumesVec != null)
                     hashCode = hashCode * 59 + this.UsesSkipNestedVolumesVec.GetHashCode();
                 return hashCode;

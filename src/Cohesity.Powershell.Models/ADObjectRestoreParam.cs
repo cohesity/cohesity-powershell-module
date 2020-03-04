@@ -27,15 +27,18 @@ namespace Cohesity.Model
         /// <param name="guidVec">Array of AD object guids to restore either from recycle bin or from AD snapshot. The guid should not exist in production AD. If it exits, then kDuplicate error is output in status..</param>
         /// <param name="optionFlags">Restore option flags of type ADObjectRestoreOptionFlags..</param>
         /// <param name="ouPath">Distinguished name(DN) of the target Organization Unit (OU) to restore non-OU object. This can be empty, in which case objects are restored to their original OU. The &#39;credential&#39; specified must have privileges to add objects to this OU. Example: &#39;OU&#x3D;SJC,OU&#x3D;EngOU,DC&#x3D;contoso,DC&#x3D;com&#39;. This parameter is ignored for OU objects..</param>
-        public ADObjectRestoreParam(Credentials credentials = default(Credentials), List<string> guidVec = default(List<string>), int? optionFlags = default(int?), string ouPath = default(string))
+        /// <param name="srcSysvolFolder">When restoring a GPO, need to know the absolute path for SYSVOL folder..</param>
+        public ADObjectRestoreParam(Credentials credentials = default(Credentials), List<string> guidVec = default(List<string>), int? optionFlags = default(int?), string ouPath = default(string), string srcSysvolFolder = default(string))
         {
             this.GuidVec = guidVec;
             this.OptionFlags = optionFlags;
             this.OuPath = ouPath;
+            this.SrcSysvolFolder = srcSysvolFolder;
             this.Credentials = credentials;
             this.GuidVec = guidVec;
             this.OptionFlags = optionFlags;
             this.OuPath = ouPath;
+            this.SrcSysvolFolder = srcSysvolFolder;
         }
         
         /// <summary>
@@ -64,6 +67,13 @@ namespace Cohesity.Model
         /// <value>Distinguished name(DN) of the target Organization Unit (OU) to restore non-OU object. This can be empty, in which case objects are restored to their original OU. The &#39;credential&#39; specified must have privileges to add objects to this OU. Example: &#39;OU&#x3D;SJC,OU&#x3D;EngOU,DC&#x3D;contoso,DC&#x3D;com&#39;. This parameter is ignored for OU objects.</value>
         [DataMember(Name="ouPath", EmitDefaultValue=true)]
         public string OuPath { get; set; }
+
+        /// <summary>
+        /// When restoring a GPO, need to know the absolute path for SYSVOL folder.
+        /// </summary>
+        /// <value>When restoring a GPO, need to know the absolute path for SYSVOL folder.</value>
+        [DataMember(Name="srcSysvolFolder", EmitDefaultValue=true)]
+        public string SrcSysvolFolder { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -121,6 +131,11 @@ namespace Cohesity.Model
                     this.OuPath == input.OuPath ||
                     (this.OuPath != null &&
                     this.OuPath.Equals(input.OuPath))
+                ) && 
+                (
+                    this.SrcSysvolFolder == input.SrcSysvolFolder ||
+                    (this.SrcSysvolFolder != null &&
+                    this.SrcSysvolFolder.Equals(input.SrcSysvolFolder))
                 );
         }
 
@@ -141,6 +156,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.OptionFlags.GetHashCode();
                 if (this.OuPath != null)
                     hashCode = hashCode * 59 + this.OuPath.GetHashCode();
+                if (this.SrcSysvolFolder != null)
+                    hashCode = hashCode * 59 + this.SrcSysvolFolder.GetHashCode();
                 return hashCode;
             }
         }

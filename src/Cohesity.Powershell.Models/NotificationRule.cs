@@ -167,9 +167,11 @@ namespace Cohesity.Model
         /// <param name="ruleId">Specifies id of the alert delivery rule..</param>
         /// <param name="ruleName">Specifies name of the alert delivery rule..</param>
         /// <param name="severities">Specifies alert severity types this rule is applicable to. Specifies the severity level of an Alert. kCritical - Alerts whose severity type is Critical. kWarning - Alerts whose severity type is Warning. kInfo - Alerts whose severity type is Info..</param>
+        /// <param name="snmpEnabled">Specifies whether SNMP notification to be invoked when an alert matching this rule is generated..</param>
+        /// <param name="syslogEnabled">Specifies whether syslog notification to be invoked when an alert matching this rule is generated..</param>
         /// <param name="tenantId">Specifies tenant id this rule is applicable to..</param>
         /// <param name="webHookDeliveryTargets">Specifies external api urls to be invoked when an alert matching this rule is generated..</param>
-        public NotificationRule(List<int> alertTypeList = default(List<int>), List<CategoriesEnum> categories = default(List<CategoriesEnum>), List<EmailDeliveryTarget> emailDeliveryTargets = default(List<EmailDeliveryTarget>), long? ruleId = default(long?), string ruleName = default(string), List<SeveritiesEnum> severities = default(List<SeveritiesEnum>), string tenantId = default(string), List<WebHookDeliveryTarget> webHookDeliveryTargets = default(List<WebHookDeliveryTarget>))
+        public NotificationRule(List<int> alertTypeList = default(List<int>), List<CategoriesEnum> categories = default(List<CategoriesEnum>), List<EmailDeliveryTarget> emailDeliveryTargets = default(List<EmailDeliveryTarget>), long? ruleId = default(long?), string ruleName = default(string), List<SeveritiesEnum> severities = default(List<SeveritiesEnum>), bool? snmpEnabled = default(bool?), bool? syslogEnabled = default(bool?), string tenantId = default(string), List<WebHookDeliveryTarget> webHookDeliveryTargets = default(List<WebHookDeliveryTarget>))
         {
             this.AlertTypeList = alertTypeList;
             this.Categories = categories;
@@ -177,6 +179,8 @@ namespace Cohesity.Model
             this.RuleId = ruleId;
             this.RuleName = ruleName;
             this.Severities = severities;
+            this.SnmpEnabled = snmpEnabled;
+            this.SyslogEnabled = syslogEnabled;
             this.TenantId = tenantId;
             this.WebHookDeliveryTargets = webHookDeliveryTargets;
             this.AlertTypeList = alertTypeList;
@@ -185,6 +189,8 @@ namespace Cohesity.Model
             this.RuleId = ruleId;
             this.RuleName = ruleName;
             this.Severities = severities;
+            this.SnmpEnabled = snmpEnabled;
+            this.SyslogEnabled = syslogEnabled;
             this.TenantId = tenantId;
             this.WebHookDeliveryTargets = webHookDeliveryTargets;
         }
@@ -216,6 +222,20 @@ namespace Cohesity.Model
         /// <value>Specifies name of the alert delivery rule.</value>
         [DataMember(Name="ruleName", EmitDefaultValue=true)]
         public string RuleName { get; set; }
+
+        /// <summary>
+        /// Specifies whether SNMP notification to be invoked when an alert matching this rule is generated.
+        /// </summary>
+        /// <value>Specifies whether SNMP notification to be invoked when an alert matching this rule is generated.</value>
+        [DataMember(Name="snmpEnabled", EmitDefaultValue=true)]
+        public bool? SnmpEnabled { get; set; }
+
+        /// <summary>
+        /// Specifies whether syslog notification to be invoked when an alert matching this rule is generated.
+        /// </summary>
+        /// <value>Specifies whether syslog notification to be invoked when an alert matching this rule is generated.</value>
+        [DataMember(Name="syslogEnabled", EmitDefaultValue=true)]
+        public bool? SyslogEnabled { get; set; }
 
         /// <summary>
         /// Specifies tenant id this rule is applicable to.
@@ -298,6 +318,16 @@ namespace Cohesity.Model
                     this.Severities.SequenceEqual(input.Severities)
                 ) && 
                 (
+                    this.SnmpEnabled == input.SnmpEnabled ||
+                    (this.SnmpEnabled != null &&
+                    this.SnmpEnabled.Equals(input.SnmpEnabled))
+                ) && 
+                (
+                    this.SyslogEnabled == input.SyslogEnabled ||
+                    (this.SyslogEnabled != null &&
+                    this.SyslogEnabled.Equals(input.SyslogEnabled))
+                ) && 
+                (
                     this.TenantId == input.TenantId ||
                     (this.TenantId != null &&
                     this.TenantId.Equals(input.TenantId))
@@ -329,6 +359,10 @@ namespace Cohesity.Model
                 if (this.RuleName != null)
                     hashCode = hashCode * 59 + this.RuleName.GetHashCode();
                 hashCode = hashCode * 59 + this.Severities.GetHashCode();
+                if (this.SnmpEnabled != null)
+                    hashCode = hashCode * 59 + this.SnmpEnabled.GetHashCode();
+                if (this.SyslogEnabled != null)
+                    hashCode = hashCode * 59 + this.SyslogEnabled.GetHashCode();
                 if (this.TenantId != null)
                     hashCode = hashCode * 59 + this.TenantId.GetHashCode();
                 if (this.WebHookDeliveryTargets != null)

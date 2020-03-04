@@ -24,25 +24,31 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="FileStubbingParams" /> class.
         /// </summary>
         /// <param name="coldFileWindow">Identifies the cold files in the NAS source. Files that haven&#39;t been accessed/modified in the last cold_file_window msecs or are older than cold_window_msecs are migrated..</param>
+        /// <param name="deleteOrphanData">Delete migrated data if no symlink at source is pointing to it..</param>
         /// <param name="fileSelectPolicy">File migrate policy based on file access/modify time and age..</param>
         /// <param name="fileSize">Gives the size criteria to be used for selecting the files to be migrated. The cold files that are equal and greater than file_size or smaller than file_size are migrated..</param>
         /// <param name="fileSizePolicy">File size policy for selecting files to migrate..</param>
         /// <param name="filteringPolicy">filteringPolicy.</param>
+        /// <param name="migrateWithoutStub">Migrate data without stub..</param>
         /// <param name="nfsMountPath">Mount path where the Cohesity target view must be mounted on all NFS clients for accessing the migrated data..</param>
         /// <param name="targetViewName">The target view name to which the data will be migrated..</param>
-        public FileStubbingParams(long? coldFileWindow = default(long?), int? fileSelectPolicy = default(int?), long? fileSize = default(long?), int? fileSizePolicy = default(int?), FilteringPolicyProto filteringPolicy = default(FilteringPolicyProto), string nfsMountPath = default(string), string targetViewName = default(string))
+        public FileStubbingParams(long? coldFileWindow = default(long?), bool? deleteOrphanData = default(bool?), int? fileSelectPolicy = default(int?), long? fileSize = default(long?), int? fileSizePolicy = default(int?), FilteringPolicyProto filteringPolicy = default(FilteringPolicyProto), bool? migrateWithoutStub = default(bool?), string nfsMountPath = default(string), string targetViewName = default(string))
         {
             this.ColdFileWindow = coldFileWindow;
+            this.DeleteOrphanData = deleteOrphanData;
             this.FileSelectPolicy = fileSelectPolicy;
             this.FileSize = fileSize;
             this.FileSizePolicy = fileSizePolicy;
+            this.MigrateWithoutStub = migrateWithoutStub;
             this.NfsMountPath = nfsMountPath;
             this.TargetViewName = targetViewName;
             this.ColdFileWindow = coldFileWindow;
+            this.DeleteOrphanData = deleteOrphanData;
             this.FileSelectPolicy = fileSelectPolicy;
             this.FileSize = fileSize;
             this.FileSizePolicy = fileSizePolicy;
             this.FilteringPolicy = filteringPolicy;
+            this.MigrateWithoutStub = migrateWithoutStub;
             this.NfsMountPath = nfsMountPath;
             this.TargetViewName = targetViewName;
         }
@@ -53,6 +59,13 @@ namespace Cohesity.Model
         /// <value>Identifies the cold files in the NAS source. Files that haven&#39;t been accessed/modified in the last cold_file_window msecs or are older than cold_window_msecs are migrated.</value>
         [DataMember(Name="coldFileWindow", EmitDefaultValue=true)]
         public long? ColdFileWindow { get; set; }
+
+        /// <summary>
+        /// Delete migrated data if no symlink at source is pointing to it.
+        /// </summary>
+        /// <value>Delete migrated data if no symlink at source is pointing to it.</value>
+        [DataMember(Name="deleteOrphanData", EmitDefaultValue=true)]
+        public bool? DeleteOrphanData { get; set; }
 
         /// <summary>
         /// File migrate policy based on file access/modify time and age.
@@ -80,6 +93,13 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="filteringPolicy", EmitDefaultValue=false)]
         public FilteringPolicyProto FilteringPolicy { get; set; }
+
+        /// <summary>
+        /// Migrate data without stub.
+        /// </summary>
+        /// <value>Migrate data without stub.</value>
+        [DataMember(Name="migrateWithoutStub", EmitDefaultValue=true)]
+        public bool? MigrateWithoutStub { get; set; }
 
         /// <summary>
         /// Mount path where the Cohesity target view must be mounted on all NFS clients for accessing the migrated data.
@@ -137,6 +157,11 @@ namespace Cohesity.Model
                     this.ColdFileWindow.Equals(input.ColdFileWindow))
                 ) && 
                 (
+                    this.DeleteOrphanData == input.DeleteOrphanData ||
+                    (this.DeleteOrphanData != null &&
+                    this.DeleteOrphanData.Equals(input.DeleteOrphanData))
+                ) && 
+                (
                     this.FileSelectPolicy == input.FileSelectPolicy ||
                     (this.FileSelectPolicy != null &&
                     this.FileSelectPolicy.Equals(input.FileSelectPolicy))
@@ -155,6 +180,11 @@ namespace Cohesity.Model
                     this.FilteringPolicy == input.FilteringPolicy ||
                     (this.FilteringPolicy != null &&
                     this.FilteringPolicy.Equals(input.FilteringPolicy))
+                ) && 
+                (
+                    this.MigrateWithoutStub == input.MigrateWithoutStub ||
+                    (this.MigrateWithoutStub != null &&
+                    this.MigrateWithoutStub.Equals(input.MigrateWithoutStub))
                 ) && 
                 (
                     this.NfsMountPath == input.NfsMountPath ||
@@ -179,6 +209,8 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.ColdFileWindow != null)
                     hashCode = hashCode * 59 + this.ColdFileWindow.GetHashCode();
+                if (this.DeleteOrphanData != null)
+                    hashCode = hashCode * 59 + this.DeleteOrphanData.GetHashCode();
                 if (this.FileSelectPolicy != null)
                     hashCode = hashCode * 59 + this.FileSelectPolicy.GetHashCode();
                 if (this.FileSize != null)
@@ -187,6 +219,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.FileSizePolicy.GetHashCode();
                 if (this.FilteringPolicy != null)
                     hashCode = hashCode * 59 + this.FilteringPolicy.GetHashCode();
+                if (this.MigrateWithoutStub != null)
+                    hashCode = hashCode * 59 + this.MigrateWithoutStub.GetHashCode();
                 if (this.NfsMountPath != null)
                     hashCode = hashCode * 59 + this.NfsMountPath.GetHashCode();
                 if (this.TargetViewName != null)

@@ -23,8 +23,8 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="AwsParams" /> class.
         /// </summary>
-        /// <param name="instanceId">Specfies id of the AWS instance type in which to deploy the VM..</param>
-        /// <param name="networkSecurityGroupIds">Specifies ids of the netwrok security groups within above VPC..</param>
+        /// <param name="instanceId">Specifies id of the AWS instance type in which to deploy the VM..</param>
+        /// <param name="networkSecurityGroupIds">Specifies ids of the network security groups within above VPC..</param>
         /// <param name="rdsParams">rdsParams.</param>
         /// <param name="region">Specifies id of the AWS region in which to deploy the VM..</param>
         /// <param name="subnetId">Specifies id of the subnet within above VPC..</param>
@@ -45,16 +45,16 @@ namespace Cohesity.Model
         }
         
         /// <summary>
-        /// Specfies id of the AWS instance type in which to deploy the VM.
+        /// Specifies id of the AWS instance type in which to deploy the VM.
         /// </summary>
-        /// <value>Specfies id of the AWS instance type in which to deploy the VM.</value>
+        /// <value>Specifies id of the AWS instance type in which to deploy the VM.</value>
         [DataMember(Name="instanceId", EmitDefaultValue=true)]
         public long? InstanceId { get; set; }
 
         /// <summary>
-        /// Specifies ids of the netwrok security groups within above VPC.
+        /// Specifies ids of the network security groups within above VPC.
         /// </summary>
-        /// <value>Specifies ids of the netwrok security groups within above VPC.</value>
+        /// <value>Specifies ids of the network security groups within above VPC.</value>
         [DataMember(Name="networkSecurityGroupIds", EmitDefaultValue=true)]
         public List<long> NetworkSecurityGroupIds { get; set; }
 

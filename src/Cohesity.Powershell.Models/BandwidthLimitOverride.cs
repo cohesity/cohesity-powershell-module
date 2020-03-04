@@ -24,11 +24,14 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="BandwidthLimitOverride" /> class.
         /// </summary>
         /// <param name="bytesPerSecond">Specifies the value to override the regular maximum bandwidth rate (rateLimitBytesPerSec) for the specified time period. The value is specified in bytes per second..</param>
+        /// <param name="ioRate">Specifies the value to override the default IO rate for the specified time period..</param>
         /// <param name="timePeriods">timePeriods.</param>
-        public BandwidthLimitOverride(long? bytesPerSecond = default(long?), TimeOfAWeek timePeriods = default(TimeOfAWeek))
+        public BandwidthLimitOverride(long? bytesPerSecond = default(long?), int? ioRate = default(int?), TimeOfAWeek timePeriods = default(TimeOfAWeek))
         {
             this.BytesPerSecond = bytesPerSecond;
+            this.IoRate = ioRate;
             this.BytesPerSecond = bytesPerSecond;
+            this.IoRate = ioRate;
             this.TimePeriods = timePeriods;
         }
         
@@ -38,6 +41,13 @@ namespace Cohesity.Model
         /// <value>Specifies the value to override the regular maximum bandwidth rate (rateLimitBytesPerSec) for the specified time period. The value is specified in bytes per second.</value>
         [DataMember(Name="bytesPerSecond", EmitDefaultValue=true)]
         public long? BytesPerSecond { get; set; }
+
+        /// <summary>
+        /// Specifies the value to override the default IO rate for the specified time period.
+        /// </summary>
+        /// <value>Specifies the value to override the default IO rate for the specified time period.</value>
+        [DataMember(Name="ioRate", EmitDefaultValue=true)]
+        public int? IoRate { get; set; }
 
         /// <summary>
         /// Gets or Sets TimePeriods
@@ -87,6 +97,11 @@ namespace Cohesity.Model
                     this.BytesPerSecond.Equals(input.BytesPerSecond))
                 ) && 
                 (
+                    this.IoRate == input.IoRate ||
+                    (this.IoRate != null &&
+                    this.IoRate.Equals(input.IoRate))
+                ) && 
+                (
                     this.TimePeriods == input.TimePeriods ||
                     (this.TimePeriods != null &&
                     this.TimePeriods.Equals(input.TimePeriods))
@@ -104,6 +119,8 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.BytesPerSecond != null)
                     hashCode = hashCode * 59 + this.BytesPerSecond.GetHashCode();
+                if (this.IoRate != null)
+                    hashCode = hashCode * 59 + this.IoRate.GetHashCode();
                 if (this.TimePeriods != null)
                     hashCode = hashCode * 59 + this.TimePeriods.GetHashCode();
                 return hashCode;

@@ -83,7 +83,7 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="HypervVirtualMachine" /> class.
         /// </summary>
-        /// <param name="isHighlyAvailable">Specifies whether the VM is Highly Availabile or not..</param>
+        /// <param name="isHighlyAvailable">Specifies whether the VM is Highly Available or not..</param>
         /// <param name="version">Specifies the version of the VM. For example, 8.0, 5.0 etc..</param>
         /// <param name="vmBackupStatus">Specifies the status of the VM for backup purpose. overrideDescription: true Specifies the backup status of a HyperV Virtual Machine object. &#39;kSupported&#39; indicates the agent on the VM can do backup. &#39;kUnsupportedConfig&#39; indicates the agent on the VM cannot do backup. &#39;kMissing&#39; indicates the VM is not found in SCVMM..</param>
         /// <param name="vmBackupType">Specifies the type of backup supported by the VM. overrideDescription: true Specifies the type of an HyperV datastore object. &#39;kRctBackup&#39; indicates backup is done using RCT/checkpoints. &#39;kVssBackup&#39; indicates backup is done using VSS..</param>
@@ -100,9 +100,9 @@ namespace Cohesity.Model
         }
         
         /// <summary>
-        /// Specifies whether the VM is Highly Availabile or not.
+        /// Specifies whether the VM is Highly Available or not.
         /// </summary>
-        /// <value>Specifies whether the VM is Highly Availabile or not.</value>
+        /// <value>Specifies whether the VM is Highly Available or not.</value>
         [DataMember(Name="isHighlyAvailable", EmitDefaultValue=true)]
         public bool? IsHighlyAvailable { get; set; }
 

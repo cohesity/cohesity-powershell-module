@@ -24,13 +24,16 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="RestoreAppTaskStateProto" /> class.
         /// </summary>
         /// <param name="appRestoreProgressMonitorSubtaskPath">The Pulse task path to the application restore task sub tree. If the application restore has to wait on other tasks (for example, a SQL db restore may wait for a tail log backup or a VM restore), then this would represent a sub-tree of &#39;progress_monitor_task_path&#39; in PerformRestoreTaskStateProto..</param>
+        /// <param name="childRestoreAppParamsVec">This has list of the restore app params for all the child restore tasks. This is populated iff the &#39;is_parent_task&#39; is set to true..</param>
         /// <param name="lastFinishedLogBackupStartTimeUsecs">The start time of the last finished log backup run. For SQL application, this is set iff we need to take a tail log backup..</param>
         /// <param name="restoreAppParams">restoreAppParams.</param>
-        public RestoreAppTaskStateProto(string appRestoreProgressMonitorSubtaskPath = default(string), long? lastFinishedLogBackupStartTimeUsecs = default(long?), RestoreAppParams restoreAppParams = default(RestoreAppParams))
+        public RestoreAppTaskStateProto(string appRestoreProgressMonitorSubtaskPath = default(string), List<RestoreAppParams> childRestoreAppParamsVec = default(List<RestoreAppParams>), long? lastFinishedLogBackupStartTimeUsecs = default(long?), RestoreAppParams restoreAppParams = default(RestoreAppParams))
         {
             this.AppRestoreProgressMonitorSubtaskPath = appRestoreProgressMonitorSubtaskPath;
+            this.ChildRestoreAppParamsVec = childRestoreAppParamsVec;
             this.LastFinishedLogBackupStartTimeUsecs = lastFinishedLogBackupStartTimeUsecs;
             this.AppRestoreProgressMonitorSubtaskPath = appRestoreProgressMonitorSubtaskPath;
+            this.ChildRestoreAppParamsVec = childRestoreAppParamsVec;
             this.LastFinishedLogBackupStartTimeUsecs = lastFinishedLogBackupStartTimeUsecs;
             this.RestoreAppParams = restoreAppParams;
         }
@@ -41,6 +44,13 @@ namespace Cohesity.Model
         /// <value>The Pulse task path to the application restore task sub tree. If the application restore has to wait on other tasks (for example, a SQL db restore may wait for a tail log backup or a VM restore), then this would represent a sub-tree of &#39;progress_monitor_task_path&#39; in PerformRestoreTaskStateProto.</value>
         [DataMember(Name="appRestoreProgressMonitorSubtaskPath", EmitDefaultValue=true)]
         public string AppRestoreProgressMonitorSubtaskPath { get; set; }
+
+        /// <summary>
+        /// This has list of the restore app params for all the child restore tasks. This is populated iff the &#39;is_parent_task&#39; is set to true.
+        /// </summary>
+        /// <value>This has list of the restore app params for all the child restore tasks. This is populated iff the &#39;is_parent_task&#39; is set to true.</value>
+        [DataMember(Name="childRestoreAppParamsVec", EmitDefaultValue=true)]
+        public List<RestoreAppParams> ChildRestoreAppParamsVec { get; set; }
 
         /// <summary>
         /// The start time of the last finished log backup run. For SQL application, this is set iff we need to take a tail log backup.
@@ -97,6 +107,12 @@ namespace Cohesity.Model
                     this.AppRestoreProgressMonitorSubtaskPath.Equals(input.AppRestoreProgressMonitorSubtaskPath))
                 ) && 
                 (
+                    this.ChildRestoreAppParamsVec == input.ChildRestoreAppParamsVec ||
+                    this.ChildRestoreAppParamsVec != null &&
+                    input.ChildRestoreAppParamsVec != null &&
+                    this.ChildRestoreAppParamsVec.SequenceEqual(input.ChildRestoreAppParamsVec)
+                ) && 
+                (
                     this.LastFinishedLogBackupStartTimeUsecs == input.LastFinishedLogBackupStartTimeUsecs ||
                     (this.LastFinishedLogBackupStartTimeUsecs != null &&
                     this.LastFinishedLogBackupStartTimeUsecs.Equals(input.LastFinishedLogBackupStartTimeUsecs))
@@ -119,6 +135,8 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.AppRestoreProgressMonitorSubtaskPath != null)
                     hashCode = hashCode * 59 + this.AppRestoreProgressMonitorSubtaskPath.GetHashCode();
+                if (this.ChildRestoreAppParamsVec != null)
+                    hashCode = hashCode * 59 + this.ChildRestoreAppParamsVec.GetHashCode();
                 if (this.LastFinishedLogBackupStartTimeUsecs != null)
                     hashCode = hashCode * 59 + this.LastFinishedLogBackupStartTimeUsecs.GetHashCode();
                 if (this.RestoreAppParams != null)

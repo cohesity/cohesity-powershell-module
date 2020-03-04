@@ -23,20 +23,38 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="AdRestoreParameters" /> class.
         /// </summary>
+        /// <param name="adOptions">adOptions.</param>
         /// <param name="credentials">credentials.</param>
+        /// <param name="mountAndRestore">Specifies the option to mount the AD snapshot database and restore the AD objects in a single restore task. AdOptions must be set if this is set to true..</param>
         /// <param name="port">Specifies the port on which the AD domain controller&#39;s NTDS database will be mounted..</param>
-        public AdRestoreParameters(Credentials credentials = default(Credentials), int? port = default(int?))
+        public AdRestoreParameters(AdRestoreOptions adOptions = default(AdRestoreOptions), Credentials credentials = default(Credentials), bool? mountAndRestore = default(bool?), int? port = default(int?))
         {
+            this.MountAndRestore = mountAndRestore;
             this.Port = port;
+            this.AdOptions = adOptions;
             this.Credentials = credentials;
+            this.MountAndRestore = mountAndRestore;
             this.Port = port;
         }
         
+        /// <summary>
+        /// Gets or Sets AdOptions
+        /// </summary>
+        [DataMember(Name="adOptions", EmitDefaultValue=false)]
+        public AdRestoreOptions AdOptions { get; set; }
+
         /// <summary>
         /// Gets or Sets Credentials
         /// </summary>
         [DataMember(Name="credentials", EmitDefaultValue=false)]
         public Credentials Credentials { get; set; }
+
+        /// <summary>
+        /// Specifies the option to mount the AD snapshot database and restore the AD objects in a single restore task. AdOptions must be set if this is set to true.
+        /// </summary>
+        /// <value>Specifies the option to mount the AD snapshot database and restore the AD objects in a single restore task. AdOptions must be set if this is set to true.</value>
+        [DataMember(Name="mountAndRestore", EmitDefaultValue=true)]
+        public bool? MountAndRestore { get; set; }
 
         /// <summary>
         /// Specifies the port on which the AD domain controller&#39;s NTDS database will be mounted.
@@ -82,9 +100,19 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.AdOptions == input.AdOptions ||
+                    (this.AdOptions != null &&
+                    this.AdOptions.Equals(input.AdOptions))
+                ) && 
+                (
                     this.Credentials == input.Credentials ||
                     (this.Credentials != null &&
                     this.Credentials.Equals(input.Credentials))
+                ) && 
+                (
+                    this.MountAndRestore == input.MountAndRestore ||
+                    (this.MountAndRestore != null &&
+                    this.MountAndRestore.Equals(input.MountAndRestore))
                 ) && 
                 (
                     this.Port == input.Port ||
@@ -102,8 +130,12 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.AdOptions != null)
+                    hashCode = hashCode * 59 + this.AdOptions.GetHashCode();
                 if (this.Credentials != null)
                     hashCode = hashCode * 59 + this.Credentials.GetHashCode();
+                if (this.MountAndRestore != null)
+                    hashCode = hashCode * 59 + this.MountAndRestore.GetHashCode();
                 if (this.Port != null)
                     hashCode = hashCode * 59 + this.Port.GetHashCode();
                 return hashCode;

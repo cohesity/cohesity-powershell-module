@@ -99,9 +99,9 @@ namespace Cohesity.Model
         [DataMember(Name="hostType", EmitDefaultValue=true)]
         public HostTypeEnum? HostType { get; set; }
         /// <summary>
-        /// Specifies the type of an HyperV Protection Source Object such as &#39;kSCVMMServer&#39;, &#39;kStandaloneHost&#39;, &#39;kNetwork&#39;, etc. overrideDescription: true Specifies the type of an HyperV Protection Source. &#39;kSCVMMServer&#39; indicates a collection of root folders clusters. &#39;kStandaloneHost&#39; indicates a single Nutanix cluster. &#39;kStandaloneCluster&#39; indicates a single Nutanix cluster. &#39;kHostGroup&#39; indicates a Nutanix cluster manageed by a Prism Central. &#39;kHypervHost&#39; indicates an HyperV host. &#39;kHostCluster&#39; indicates a Nutanix cluster manageed by a Prism Central. &#39;kVirtualMachine&#39; indicates a Virtual Machine. &#39;kNetwork&#39; indicates a Virtual Machine network object. &#39;kDatastore&#39; represents a storage container object. &#39;kTag&#39; indicates a tag type object. &#39;kCustomProperty&#39; indciates a custom property including tag type.
+        /// Specifies the type of an HyperV Protection Source Object such as &#39;kSCVMMServer&#39;, &#39;kStandaloneHost&#39;, &#39;kNetwork&#39;, etc. overrideDescription: true Specifies the type of an HyperV Protection Source. &#39;kSCVMMServer&#39; indicates a collection of root folders clusters. &#39;kStandaloneHost&#39; indicates a single Nutanix cluster. &#39;kStandaloneCluster&#39; indicates a single Nutanix cluster. &#39;kHostGroup&#39; indicates a Nutanix cluster managed by a Prism Central. &#39;kHypervHost&#39; indicates an HyperV host. &#39;kHostCluster&#39; indicates a Nutanix cluster managed by a Prism Central. &#39;kVirtualMachine&#39; indicates a Virtual Machine. &#39;kNetwork&#39; indicates a Virtual Machine network object. &#39;kDatastore&#39; represents a storage container object. &#39;kTag&#39; indicates a tag type object. &#39;kCustomProperty&#39; indicates a custom property including tag type.
         /// </summary>
-        /// <value>Specifies the type of an HyperV Protection Source Object such as &#39;kSCVMMServer&#39;, &#39;kStandaloneHost&#39;, &#39;kNetwork&#39;, etc. overrideDescription: true Specifies the type of an HyperV Protection Source. &#39;kSCVMMServer&#39; indicates a collection of root folders clusters. &#39;kStandaloneHost&#39; indicates a single Nutanix cluster. &#39;kStandaloneCluster&#39; indicates a single Nutanix cluster. &#39;kHostGroup&#39; indicates a Nutanix cluster manageed by a Prism Central. &#39;kHypervHost&#39; indicates an HyperV host. &#39;kHostCluster&#39; indicates a Nutanix cluster manageed by a Prism Central. &#39;kVirtualMachine&#39; indicates a Virtual Machine. &#39;kNetwork&#39; indicates a Virtual Machine network object. &#39;kDatastore&#39; represents a storage container object. &#39;kTag&#39; indicates a tag type object. &#39;kCustomProperty&#39; indciates a custom property including tag type.</value>
+        /// <value>Specifies the type of an HyperV Protection Source Object such as &#39;kSCVMMServer&#39;, &#39;kStandaloneHost&#39;, &#39;kNetwork&#39;, etc. overrideDescription: true Specifies the type of an HyperV Protection Source. &#39;kSCVMMServer&#39; indicates a collection of root folders clusters. &#39;kStandaloneHost&#39; indicates a single Nutanix cluster. &#39;kStandaloneCluster&#39; indicates a single Nutanix cluster. &#39;kHostGroup&#39; indicates a Nutanix cluster managed by a Prism Central. &#39;kHypervHost&#39; indicates an HyperV host. &#39;kHostCluster&#39; indicates a Nutanix cluster managed by a Prism Central. &#39;kVirtualMachine&#39; indicates a Virtual Machine. &#39;kNetwork&#39; indicates a Virtual Machine network object. &#39;kDatastore&#39; represents a storage container object. &#39;kTag&#39; indicates a tag type object. &#39;kCustomProperty&#39; indicates a custom property including tag type.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum TypeEnum
         {
@@ -169,20 +169,14 @@ namespace Cohesity.Model
             /// Enum KCustomProperty for value: kCustomProperty
             /// </summary>
             [EnumMember(Value = "kCustomProperty")]
-            KCustomProperty = 11,
-
-            /// <summary>
-            /// Enum KHost for value: kHost
-            /// </summary>
-            [EnumMember(Value = "kHost")]
-            KHost = 12
+            KCustomProperty = 11
 
         }
 
         /// <summary>
-        /// Specifies the type of an HyperV Protection Source Object such as &#39;kSCVMMServer&#39;, &#39;kStandaloneHost&#39;, &#39;kNetwork&#39;, etc. overrideDescription: true Specifies the type of an HyperV Protection Source. &#39;kSCVMMServer&#39; indicates a collection of root folders clusters. &#39;kStandaloneHost&#39; indicates a single Nutanix cluster. &#39;kStandaloneCluster&#39; indicates a single Nutanix cluster. &#39;kHostGroup&#39; indicates a Nutanix cluster manageed by a Prism Central. &#39;kHypervHost&#39; indicates an HyperV host. &#39;kHostCluster&#39; indicates a Nutanix cluster manageed by a Prism Central. &#39;kVirtualMachine&#39; indicates a Virtual Machine. &#39;kNetwork&#39; indicates a Virtual Machine network object. &#39;kDatastore&#39; represents a storage container object. &#39;kTag&#39; indicates a tag type object. &#39;kCustomProperty&#39; indciates a custom property including tag type.
+        /// Specifies the type of an HyperV Protection Source Object such as &#39;kSCVMMServer&#39;, &#39;kStandaloneHost&#39;, &#39;kNetwork&#39;, etc. overrideDescription: true Specifies the type of an HyperV Protection Source. &#39;kSCVMMServer&#39; indicates a collection of root folders clusters. &#39;kStandaloneHost&#39; indicates a single Nutanix cluster. &#39;kStandaloneCluster&#39; indicates a single Nutanix cluster. &#39;kHostGroup&#39; indicates a Nutanix cluster managed by a Prism Central. &#39;kHypervHost&#39; indicates an HyperV host. &#39;kHostCluster&#39; indicates a Nutanix cluster managed by a Prism Central. &#39;kVirtualMachine&#39; indicates a Virtual Machine. &#39;kNetwork&#39; indicates a Virtual Machine network object. &#39;kDatastore&#39; represents a storage container object. &#39;kTag&#39; indicates a tag type object. &#39;kCustomProperty&#39; indicates a custom property including tag type.
         /// </summary>
-        /// <value>Specifies the type of an HyperV Protection Source Object such as &#39;kSCVMMServer&#39;, &#39;kStandaloneHost&#39;, &#39;kNetwork&#39;, etc. overrideDescription: true Specifies the type of an HyperV Protection Source. &#39;kSCVMMServer&#39; indicates a collection of root folders clusters. &#39;kStandaloneHost&#39; indicates a single Nutanix cluster. &#39;kStandaloneCluster&#39; indicates a single Nutanix cluster. &#39;kHostGroup&#39; indicates a Nutanix cluster manageed by a Prism Central. &#39;kHypervHost&#39; indicates an HyperV host. &#39;kHostCluster&#39; indicates a Nutanix cluster manageed by a Prism Central. &#39;kVirtualMachine&#39; indicates a Virtual Machine. &#39;kNetwork&#39; indicates a Virtual Machine network object. &#39;kDatastore&#39; represents a storage container object. &#39;kTag&#39; indicates a tag type object. &#39;kCustomProperty&#39; indciates a custom property including tag type.</value>
+        /// <value>Specifies the type of an HyperV Protection Source Object such as &#39;kSCVMMServer&#39;, &#39;kStandaloneHost&#39;, &#39;kNetwork&#39;, etc. overrideDescription: true Specifies the type of an HyperV Protection Source. &#39;kSCVMMServer&#39; indicates a collection of root folders clusters. &#39;kStandaloneHost&#39; indicates a single Nutanix cluster. &#39;kStandaloneCluster&#39; indicates a single Nutanix cluster. &#39;kHostGroup&#39; indicates a Nutanix cluster managed by a Prism Central. &#39;kHypervHost&#39; indicates an HyperV host. &#39;kHostCluster&#39; indicates a Nutanix cluster managed by a Prism Central. &#39;kVirtualMachine&#39; indicates a Virtual Machine. &#39;kNetwork&#39; indicates a Virtual Machine network object. &#39;kDatastore&#39; represents a storage container object. &#39;kTag&#39; indicates a tag type object. &#39;kCustomProperty&#39; indicates a custom property including tag type.</value>
         [DataMember(Name="type", EmitDefaultValue=true)]
         public TypeEnum? Type { get; set; }
         /// <summary>
@@ -190,6 +184,7 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="agents">Array of Agents on the Physical Protection Source.  Specifiles the agents running on the HyperV Protection Source and the status information..</param>
         /// <param name="backupType">Specifies the type of backup supported by the VM. &#39;kRctBackup&#39;, &#39;kVssBackup&#39; Specifies the type of an HyperV datastore object. &#39;kRctBackup&#39; indicates backup is done using RCT/checkpoints. &#39;kVssBackup&#39; indicates backup is done using VSS..</param>
+        /// <param name="buildNumber">Specifies the build number for HyperV SCVMM Servers..</param>
         /// <param name="clusterName">Specifies the cluster name for &#39;kHostCluster&#39; objects..</param>
         /// <param name="datastoreInfo">datastoreInfo.</param>
         /// <param name="description">Specifies a description about the Protection Source..</param>
@@ -197,13 +192,15 @@ namespace Cohesity.Model
         /// <param name="hypervUuid">Specifies the UUID for &#39;kVirtualMachine&#39; HyperV objects..</param>
         /// <param name="name">Specifies the name of the HyperV Object..</param>
         /// <param name="tagAttributes">Specifies the list of VM Tag attributes associated with this Object..</param>
-        /// <param name="type">Specifies the type of an HyperV Protection Source Object such as &#39;kSCVMMServer&#39;, &#39;kStandaloneHost&#39;, &#39;kNetwork&#39;, etc. overrideDescription: true Specifies the type of an HyperV Protection Source. &#39;kSCVMMServer&#39; indicates a collection of root folders clusters. &#39;kStandaloneHost&#39; indicates a single Nutanix cluster. &#39;kStandaloneCluster&#39; indicates a single Nutanix cluster. &#39;kHostGroup&#39; indicates a Nutanix cluster manageed by a Prism Central. &#39;kHypervHost&#39; indicates an HyperV host. &#39;kHostCluster&#39; indicates a Nutanix cluster manageed by a Prism Central. &#39;kVirtualMachine&#39; indicates a Virtual Machine. &#39;kNetwork&#39; indicates a Virtual Machine network object. &#39;kDatastore&#39; represents a storage container object. &#39;kTag&#39; indicates a tag type object. &#39;kCustomProperty&#39; indciates a custom property including tag type..</param>
+        /// <param name="type">Specifies the type of an HyperV Protection Source Object such as &#39;kSCVMMServer&#39;, &#39;kStandaloneHost&#39;, &#39;kNetwork&#39;, etc. overrideDescription: true Specifies the type of an HyperV Protection Source. &#39;kSCVMMServer&#39; indicates a collection of root folders clusters. &#39;kStandaloneHost&#39; indicates a single Nutanix cluster. &#39;kStandaloneCluster&#39; indicates a single Nutanix cluster. &#39;kHostGroup&#39; indicates a Nutanix cluster managed by a Prism Central. &#39;kHypervHost&#39; indicates an HyperV host. &#39;kHostCluster&#39; indicates a Nutanix cluster managed by a Prism Central. &#39;kVirtualMachine&#39; indicates a Virtual Machine. &#39;kNetwork&#39; indicates a Virtual Machine network object. &#39;kDatastore&#39; represents a storage container object. &#39;kTag&#39; indicates a tag type object. &#39;kCustomProperty&#39; indicates a custom property including tag type..</param>
         /// <param name="uuid">Specifies the UUID of the Object. This is unique within the HyperV environment..</param>
         /// <param name="vmInfo">vmInfo.</param>
-        public HypervProtectionSource(List<AgentInformation> agents = default(List<AgentInformation>), BackupTypeEnum? backupType = default(BackupTypeEnum?), string clusterName = default(string), HypervDatastore datastoreInfo = default(HypervDatastore), string description = default(string), HostTypeEnum? hostType = default(HostTypeEnum?), string hypervUuid = default(string), string name = default(string), List<TagAttribute> tagAttributes = default(List<TagAttribute>), TypeEnum? type = default(TypeEnum?), string uuid = default(string), HypervVirtualMachine vmInfo = default(HypervVirtualMachine))
+        /// <param name="windowsVersion">Specifies the windows version for HyperV hosts..</param>
+        public HypervProtectionSource(List<AgentInformation> agents = default(List<AgentInformation>), BackupTypeEnum? backupType = default(BackupTypeEnum?), string buildNumber = default(string), string clusterName = default(string), HypervDatastore datastoreInfo = default(HypervDatastore), string description = default(string), HostTypeEnum? hostType = default(HostTypeEnum?), string hypervUuid = default(string), string name = default(string), List<TagAttribute> tagAttributes = default(List<TagAttribute>), TypeEnum? type = default(TypeEnum?), string uuid = default(string), HypervVirtualMachine vmInfo = default(HypervVirtualMachine), string windowsVersion = default(string))
         {
             this.Agents = agents;
             this.BackupType = backupType;
+            this.BuildNumber = buildNumber;
             this.ClusterName = clusterName;
             this.Description = description;
             this.HostType = hostType;
@@ -212,8 +209,10 @@ namespace Cohesity.Model
             this.TagAttributes = tagAttributes;
             this.Type = type;
             this.Uuid = uuid;
+            this.WindowsVersion = windowsVersion;
             this.Agents = agents;
             this.BackupType = backupType;
+            this.BuildNumber = buildNumber;
             this.ClusterName = clusterName;
             this.DatastoreInfo = datastoreInfo;
             this.Description = description;
@@ -224,6 +223,7 @@ namespace Cohesity.Model
             this.Type = type;
             this.Uuid = uuid;
             this.VmInfo = vmInfo;
+            this.WindowsVersion = windowsVersion;
         }
         
         /// <summary>
@@ -232,6 +232,13 @@ namespace Cohesity.Model
         /// <value>Array of Agents on the Physical Protection Source.  Specifiles the agents running on the HyperV Protection Source and the status information.</value>
         [DataMember(Name="agents", EmitDefaultValue=true)]
         public List<AgentInformation> Agents { get; set; }
+
+        /// <summary>
+        /// Specifies the build number for HyperV SCVMM Servers.
+        /// </summary>
+        /// <value>Specifies the build number for HyperV SCVMM Servers.</value>
+        [DataMember(Name="buildNumber", EmitDefaultValue=true)]
+        public string BuildNumber { get; set; }
 
         /// <summary>
         /// Specifies the cluster name for &#39;kHostCluster&#39; objects.
@@ -288,6 +295,13 @@ namespace Cohesity.Model
         public HypervVirtualMachine VmInfo { get; set; }
 
         /// <summary>
+        /// Specifies the windows version for HyperV hosts.
+        /// </summary>
+        /// <value>Specifies the windows version for HyperV hosts.</value>
+        [DataMember(Name="windowsVersion", EmitDefaultValue=true)]
+        public string WindowsVersion { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -332,6 +346,11 @@ namespace Cohesity.Model
                 (
                     this.BackupType == input.BackupType ||
                     this.BackupType.Equals(input.BackupType)
+                ) && 
+                (
+                    this.BuildNumber == input.BuildNumber ||
+                    (this.BuildNumber != null &&
+                    this.BuildNumber.Equals(input.BuildNumber))
                 ) && 
                 (
                     this.ClusterName == input.ClusterName ||
@@ -381,6 +400,11 @@ namespace Cohesity.Model
                     this.VmInfo == input.VmInfo ||
                     (this.VmInfo != null &&
                     this.VmInfo.Equals(input.VmInfo))
+                ) && 
+                (
+                    this.WindowsVersion == input.WindowsVersion ||
+                    (this.WindowsVersion != null &&
+                    this.WindowsVersion.Equals(input.WindowsVersion))
                 );
         }
 
@@ -396,6 +420,8 @@ namespace Cohesity.Model
                 if (this.Agents != null)
                     hashCode = hashCode * 59 + this.Agents.GetHashCode();
                 hashCode = hashCode * 59 + this.BackupType.GetHashCode();
+                if (this.BuildNumber != null)
+                    hashCode = hashCode * 59 + this.BuildNumber.GetHashCode();
                 if (this.ClusterName != null)
                     hashCode = hashCode * 59 + this.ClusterName.GetHashCode();
                 if (this.DatastoreInfo != null)
@@ -414,6 +440,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Uuid.GetHashCode();
                 if (this.VmInfo != null)
                     hashCode = hashCode * 59 + this.VmInfo.GetHashCode();
+                if (this.WindowsVersion != null)
+                    hashCode = hashCode * 59 + this.WindowsVersion.GetHashCode();
                 return hashCode;
             }
         }

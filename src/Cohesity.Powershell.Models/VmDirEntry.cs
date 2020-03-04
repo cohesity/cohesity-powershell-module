@@ -15,7 +15,7 @@ using Newtonsoft.Json.Converters;
 namespace Cohesity.Model
 {
     /// <summary>
-    /// VmDirEntry is the struct to respresent a file or a folder on a VM.
+    /// VmDirEntry is the struct to represent a file or a folder on a VM.
     /// </summary>
     [DataContract]
     public partial class VmDirEntry :  IEquatable<VmDirEntry>

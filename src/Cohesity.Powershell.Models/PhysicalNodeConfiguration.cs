@@ -26,14 +26,17 @@ namespace Cohesity.Model
         /// <param name="nodeId">Specifies the Node ID for this node..</param>
         /// <param name="nodeIp">Specifies the Node IP address for this node..</param>
         /// <param name="nodeIpmiIp">Specifies IPMI IP for this node..</param>
-        public PhysicalNodeConfiguration(long? nodeId = default(long?), string nodeIp = default(string), string nodeIpmiIp = default(string))
+        /// <param name="useAsComputeNode">Specifies whether to use the Node for compute only..</param>
+        public PhysicalNodeConfiguration(long? nodeId = default(long?), string nodeIp = default(string), string nodeIpmiIp = default(string), bool? useAsComputeNode = default(bool?))
         {
             this.NodeId = nodeId;
             this.NodeIp = nodeIp;
             this.NodeIpmiIp = nodeIpmiIp;
+            this.UseAsComputeNode = useAsComputeNode;
             this.NodeId = nodeId;
             this.NodeIp = nodeIp;
             this.NodeIpmiIp = nodeIpmiIp;
+            this.UseAsComputeNode = useAsComputeNode;
         }
         
         /// <summary>
@@ -56,6 +59,13 @@ namespace Cohesity.Model
         /// <value>Specifies IPMI IP for this node.</value>
         [DataMember(Name="nodeIpmiIp", EmitDefaultValue=true)]
         public string NodeIpmiIp { get; set; }
+
+        /// <summary>
+        /// Specifies whether to use the Node for compute only.
+        /// </summary>
+        /// <value>Specifies whether to use the Node for compute only.</value>
+        [DataMember(Name="useAsComputeNode", EmitDefaultValue=true)]
+        public bool? UseAsComputeNode { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -107,6 +117,11 @@ namespace Cohesity.Model
                     this.NodeIpmiIp == input.NodeIpmiIp ||
                     (this.NodeIpmiIp != null &&
                     this.NodeIpmiIp.Equals(input.NodeIpmiIp))
+                ) && 
+                (
+                    this.UseAsComputeNode == input.UseAsComputeNode ||
+                    (this.UseAsComputeNode != null &&
+                    this.UseAsComputeNode.Equals(input.UseAsComputeNode))
                 );
         }
 
@@ -125,6 +140,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.NodeIp.GetHashCode();
                 if (this.NodeIpmiIp != null)
                     hashCode = hashCode * 59 + this.NodeIpmiIp.GetHashCode();
+                if (this.UseAsComputeNode != null)
+                    hashCode = hashCode * 59 + this.UseAsComputeNode.GetHashCode();
                 return hashCode;
             }
         }

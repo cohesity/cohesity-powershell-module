@@ -28,7 +28,7 @@ namespace Cohesity.Model
         /// <param name="cloudTotalPhysicalUsageBytes">Specifies the total cloud capacity, as computed by the Cohesity Cluster, after the size of the data has been reduced by change-block tracking, compression and deduplication..</param>
         /// <param name="cloudTotalPhysicalUsageBytesTimestampUsec">Specifies Timestamp of CloudTotalPhysicalUsageBytes..</param>
         /// <param name="dataInBytes">Specifies the data brought into the cluster. This is the usage before data reduction..</param>
-        /// <param name="dataInBytesAfterDedup">Specifies the the the size of the data has been reduced by change-block tracking and deduplication but before compression or data is replicated to other nodes as per RF or Erasure Coding policy..</param>
+        /// <param name="dataInBytesAfterDedup">Specifies the size of the data has been reduced by change-block tracking and deduplication but before compression or data is replicated to other nodes as per RF or Erasure Coding policy..</param>
         /// <param name="dataInBytesAfterDedupTimestampUsec">Specifies Timestamp of DataInBytesAfterDedup..</param>
         /// <param name="dataInBytesTimestampUsec">Specifies Timestamp of DataInBytes..</param>
         /// <param name="dataProtectLogicalUsageBytes">Specifies the logical data used by Data Protect on Cohesity cluster..</param>
@@ -52,7 +52,8 @@ namespace Cohesity.Model
         /// <param name="storageConsumedBytesTimestampUsec">Specifies Timestamp of StorageConsumedBytes..</param>
         /// <param name="totalLogicalUsageBytes">Specifies the logical usage as computed by the Cohesity Cluster. The size of the data without reduction by change-block tracking, compression and deduplication..</param>
         /// <param name="totalLogicalUsageBytesTimestampUsec">Specifies Timestamp of TotalLogicalUsageBytes..</param>
-        public DataUsageStats(long? cloudDataWrittenBytes = default(long?), long? cloudDataWrittenBytesTimestampUsec = default(long?), long? cloudTotalPhysicalUsageBytes = default(long?), long? cloudTotalPhysicalUsageBytesTimestampUsec = default(long?), long? dataInBytes = default(long?), long? dataInBytesAfterDedup = default(long?), long? dataInBytesAfterDedupTimestampUsec = default(long?), long? dataInBytesTimestampUsec = default(long?), long? dataProtectLogicalUsageBytes = default(long?), long? dataProtectLogicalUsageBytesTimestampUsec = default(long?), long? dataProtectPhysicalUsageBytes = default(long?), long? dataProtectPhysicalUsageBytesTimestampUsec = default(long?), long? dataWrittenBytes = default(long?), long? dataWrittenBytesTimestampUsec = default(long?), long? fileServicesLogicalUsageBytes = default(long?), long? fileServicesLogicalUsageBytesTimestampUsec = default(long?), long? fileServicesPhysicalUsageBytes = default(long?), long? fileServicesPhysicalUsageBytesTimestampUsec = default(long?), long? localDataWrittenBytes = default(long?), long? localDataWrittenBytesTimestampUsec = default(long?), long? localTierResiliencyImpactBytes = default(long?), long? localTierResiliencyImpactBytesTimestampUsec = default(long?), long? localTotalPhysicalUsageBytes = default(long?), long? localTotalPhysicalUsageBytesTimestampUsec = default(long?), long? outdatedLogicalUsageBytesTimestampUsec = default(long?), long? storageConsumedBytes = default(long?), long? storageConsumedBytesTimestampUsec = default(long?), long? totalLogicalUsageBytes = default(long?), long? totalLogicalUsageBytesTimestampUsec = default(long?))
+        /// <param name="uniquePhysicalDataBytes">Specifies the unique physical data usage in bytes..</param>
+        public DataUsageStats(long? cloudDataWrittenBytes = default(long?), long? cloudDataWrittenBytesTimestampUsec = default(long?), long? cloudTotalPhysicalUsageBytes = default(long?), long? cloudTotalPhysicalUsageBytesTimestampUsec = default(long?), long? dataInBytes = default(long?), long? dataInBytesAfterDedup = default(long?), long? dataInBytesAfterDedupTimestampUsec = default(long?), long? dataInBytesTimestampUsec = default(long?), long? dataProtectLogicalUsageBytes = default(long?), long? dataProtectLogicalUsageBytesTimestampUsec = default(long?), long? dataProtectPhysicalUsageBytes = default(long?), long? dataProtectPhysicalUsageBytesTimestampUsec = default(long?), long? dataWrittenBytes = default(long?), long? dataWrittenBytesTimestampUsec = default(long?), long? fileServicesLogicalUsageBytes = default(long?), long? fileServicesLogicalUsageBytesTimestampUsec = default(long?), long? fileServicesPhysicalUsageBytes = default(long?), long? fileServicesPhysicalUsageBytesTimestampUsec = default(long?), long? localDataWrittenBytes = default(long?), long? localDataWrittenBytesTimestampUsec = default(long?), long? localTierResiliencyImpactBytes = default(long?), long? localTierResiliencyImpactBytesTimestampUsec = default(long?), long? localTotalPhysicalUsageBytes = default(long?), long? localTotalPhysicalUsageBytesTimestampUsec = default(long?), long? outdatedLogicalUsageBytesTimestampUsec = default(long?), long? storageConsumedBytes = default(long?), long? storageConsumedBytesTimestampUsec = default(long?), long? totalLogicalUsageBytes = default(long?), long? totalLogicalUsageBytesTimestampUsec = default(long?), long? uniquePhysicalDataBytes = default(long?))
         {
             this.CloudDataWrittenBytes = cloudDataWrittenBytes;
             this.CloudDataWrittenBytesTimestampUsec = cloudDataWrittenBytesTimestampUsec;
@@ -83,6 +84,7 @@ namespace Cohesity.Model
             this.StorageConsumedBytesTimestampUsec = storageConsumedBytesTimestampUsec;
             this.TotalLogicalUsageBytes = totalLogicalUsageBytes;
             this.TotalLogicalUsageBytesTimestampUsec = totalLogicalUsageBytesTimestampUsec;
+            this.UniquePhysicalDataBytes = uniquePhysicalDataBytes;
             this.CloudDataWrittenBytes = cloudDataWrittenBytes;
             this.CloudDataWrittenBytesTimestampUsec = cloudDataWrittenBytesTimestampUsec;
             this.CloudTotalPhysicalUsageBytes = cloudTotalPhysicalUsageBytes;
@@ -112,6 +114,7 @@ namespace Cohesity.Model
             this.StorageConsumedBytesTimestampUsec = storageConsumedBytesTimestampUsec;
             this.TotalLogicalUsageBytes = totalLogicalUsageBytes;
             this.TotalLogicalUsageBytesTimestampUsec = totalLogicalUsageBytesTimestampUsec;
+            this.UniquePhysicalDataBytes = uniquePhysicalDataBytes;
         }
         
         /// <summary>
@@ -150,9 +153,9 @@ namespace Cohesity.Model
         public long? DataInBytes { get; set; }
 
         /// <summary>
-        /// Specifies the the the size of the data has been reduced by change-block tracking and deduplication but before compression or data is replicated to other nodes as per RF or Erasure Coding policy.
+        /// Specifies the size of the data has been reduced by change-block tracking and deduplication but before compression or data is replicated to other nodes as per RF or Erasure Coding policy.
         /// </summary>
-        /// <value>Specifies the the the size of the data has been reduced by change-block tracking and deduplication but before compression or data is replicated to other nodes as per RF or Erasure Coding policy.</value>
+        /// <value>Specifies the size of the data has been reduced by change-block tracking and deduplication but before compression or data is replicated to other nodes as per RF or Erasure Coding policy.</value>
         [DataMember(Name="dataInBytesAfterDedup", EmitDefaultValue=true)]
         public long? DataInBytesAfterDedup { get; set; }
 
@@ -316,6 +319,13 @@ namespace Cohesity.Model
         /// <value>Specifies Timestamp of TotalLogicalUsageBytes.</value>
         [DataMember(Name="totalLogicalUsageBytesTimestampUsec", EmitDefaultValue=true)]
         public long? TotalLogicalUsageBytesTimestampUsec { get; set; }
+
+        /// <summary>
+        /// Specifies the unique physical data usage in bytes.
+        /// </summary>
+        /// <value>Specifies the unique physical data usage in bytes.</value>
+        [DataMember(Name="uniquePhysicalDataBytes", EmitDefaultValue=true)]
+        public long? UniquePhysicalDataBytes { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -497,6 +507,11 @@ namespace Cohesity.Model
                     this.TotalLogicalUsageBytesTimestampUsec == input.TotalLogicalUsageBytesTimestampUsec ||
                     (this.TotalLogicalUsageBytesTimestampUsec != null &&
                     this.TotalLogicalUsageBytesTimestampUsec.Equals(input.TotalLogicalUsageBytesTimestampUsec))
+                ) && 
+                (
+                    this.UniquePhysicalDataBytes == input.UniquePhysicalDataBytes ||
+                    (this.UniquePhysicalDataBytes != null &&
+                    this.UniquePhysicalDataBytes.Equals(input.UniquePhysicalDataBytes))
                 );
         }
 
@@ -567,6 +582,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.TotalLogicalUsageBytes.GetHashCode();
                 if (this.TotalLogicalUsageBytesTimestampUsec != null)
                     hashCode = hashCode * 59 + this.TotalLogicalUsageBytesTimestampUsec.GetHashCode();
+                if (this.UniquePhysicalDataBytes != null)
+                    hashCode = hashCode * 59 + this.UniquePhysicalDataBytes.GetHashCode();
                 return hashCode;
             }
         }

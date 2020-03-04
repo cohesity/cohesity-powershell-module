@@ -24,32 +24,41 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="EntitySchemaProto" /> class.
         /// </summary>
         /// <param name="attributesDescriptor">attributesDescriptor.</param>
+        /// <param name="enableRollup">Timeseries for an entity schema is rolled up based on this setting. Rollup is disabled by default. Rollups cannot be done for metrics with value_type other than kInt64 or kDouble..</param>
         /// <param name="flushIntervalSecs">Defines the interval used to flush in memory stats to scribe table. During this time if the stats server is down before flushing, it could loose some of the stats. Modules can flush any critical stats via AddEntitiesStats API. But this  should be used very judiciously as it causes lot of overhead for stats..</param>
         /// <param name="isInternalSchema">Specifies if this schema should be displayed in Advanced Diagnostics of the Cohesity Dashboard. If false, the schema is displayed..</param>
         /// <param name="largestFlushIntervalSecs">Use can change the flush interval secs via gflag and this store the largest interval seconds set. This is used to round up the timestamp to this flush interval secs during range scan..</param>
         /// <param name="name">Specifies a name that uniquely identifies an entity schema such as &#39;kBridgeClusterStats&#39;..</param>
+        /// <param name="rollupGranularityVec">rollupGranularityVec.</param>
         /// <param name="schemaDescriptiveName">Specifies the name of the Schema as displayed in Advanced Diagnostics of the Cohesity Dashboard. For example for the &#39;kBridgeClusterStats&#39; Schema, the descriptive name is &#39;Cluster Physical Stats&#39;..</param>
         /// <param name="schemaHelpText">Specifies an optional informational description about the schema..</param>
         /// <param name="timeSeriesDescriptorVec">Array of Time Series.  List of time series of data (set of data points) for metrics..</param>
+        /// <param name="timeToLiveSecs">Specifies how long the timeseries data of this schema will be stored. After expiry the entire data point(all metrics) is garbage collected..</param>
         /// <param name="version">Specifies the version of the entity schema..</param>
-        public EntitySchemaProto(EntitySchemaProtoAttributesDescriptor attributesDescriptor = default(EntitySchemaProtoAttributesDescriptor), int? flushIntervalSecs = default(int?), bool? isInternalSchema = default(bool?), int? largestFlushIntervalSecs = default(int?), string name = default(string), string schemaDescriptiveName = default(string), string schemaHelpText = default(string), List<EntitySchemaProtoTimeSeriesDescriptor> timeSeriesDescriptorVec = default(List<EntitySchemaProtoTimeSeriesDescriptor>), long? version = default(long?))
+        public EntitySchemaProto(EntitySchemaProtoAttributesDescriptor attributesDescriptor = default(EntitySchemaProtoAttributesDescriptor), bool? enableRollup = default(bool?), int? flushIntervalSecs = default(int?), bool? isInternalSchema = default(bool?), int? largestFlushIntervalSecs = default(int?), string name = default(string), List<EntitySchemaProtoGranularity> rollupGranularityVec = default(List<EntitySchemaProtoGranularity>), string schemaDescriptiveName = default(string), string schemaHelpText = default(string), List<EntitySchemaProtoTimeSeriesDescriptor> timeSeriesDescriptorVec = default(List<EntitySchemaProtoTimeSeriesDescriptor>), long? timeToLiveSecs = default(long?), long? version = default(long?))
         {
+            this.EnableRollup = enableRollup;
             this.FlushIntervalSecs = flushIntervalSecs;
             this.IsInternalSchema = isInternalSchema;
             this.LargestFlushIntervalSecs = largestFlushIntervalSecs;
             this.Name = name;
+            this.RollupGranularityVec = rollupGranularityVec;
             this.SchemaDescriptiveName = schemaDescriptiveName;
             this.SchemaHelpText = schemaHelpText;
             this.TimeSeriesDescriptorVec = timeSeriesDescriptorVec;
+            this.TimeToLiveSecs = timeToLiveSecs;
             this.Version = version;
             this.AttributesDescriptor = attributesDescriptor;
+            this.EnableRollup = enableRollup;
             this.FlushIntervalSecs = flushIntervalSecs;
             this.IsInternalSchema = isInternalSchema;
             this.LargestFlushIntervalSecs = largestFlushIntervalSecs;
             this.Name = name;
+            this.RollupGranularityVec = rollupGranularityVec;
             this.SchemaDescriptiveName = schemaDescriptiveName;
             this.SchemaHelpText = schemaHelpText;
             this.TimeSeriesDescriptorVec = timeSeriesDescriptorVec;
+            this.TimeToLiveSecs = timeToLiveSecs;
             this.Version = version;
         }
         
@@ -58,6 +67,13 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="attributesDescriptor", EmitDefaultValue=false)]
         public EntitySchemaProtoAttributesDescriptor AttributesDescriptor { get; set; }
+
+        /// <summary>
+        /// Timeseries for an entity schema is rolled up based on this setting. Rollup is disabled by default. Rollups cannot be done for metrics with value_type other than kInt64 or kDouble.
+        /// </summary>
+        /// <value>Timeseries for an entity schema is rolled up based on this setting. Rollup is disabled by default. Rollups cannot be done for metrics with value_type other than kInt64 or kDouble.</value>
+        [DataMember(Name="enableRollup", EmitDefaultValue=true)]
+        public bool? EnableRollup { get; set; }
 
         /// <summary>
         /// Defines the interval used to flush in memory stats to scribe table. During this time if the stats server is down before flushing, it could loose some of the stats. Modules can flush any critical stats via AddEntitiesStats API. But this  should be used very judiciously as it causes lot of overhead for stats.
@@ -88,6 +104,12 @@ namespace Cohesity.Model
         public string Name { get; set; }
 
         /// <summary>
+        /// Gets or Sets RollupGranularityVec
+        /// </summary>
+        [DataMember(Name="rollupGranularityVec", EmitDefaultValue=true)]
+        public List<EntitySchemaProtoGranularity> RollupGranularityVec { get; set; }
+
+        /// <summary>
         /// Specifies the name of the Schema as displayed in Advanced Diagnostics of the Cohesity Dashboard. For example for the &#39;kBridgeClusterStats&#39; Schema, the descriptive name is &#39;Cluster Physical Stats&#39;.
         /// </summary>
         /// <value>Specifies the name of the Schema as displayed in Advanced Diagnostics of the Cohesity Dashboard. For example for the &#39;kBridgeClusterStats&#39; Schema, the descriptive name is &#39;Cluster Physical Stats&#39;.</value>
@@ -107,6 +129,13 @@ namespace Cohesity.Model
         /// <value>Array of Time Series.  List of time series of data (set of data points) for metrics.</value>
         [DataMember(Name="timeSeriesDescriptorVec", EmitDefaultValue=true)]
         public List<EntitySchemaProtoTimeSeriesDescriptor> TimeSeriesDescriptorVec { get; set; }
+
+        /// <summary>
+        /// Specifies how long the timeseries data of this schema will be stored. After expiry the entire data point(all metrics) is garbage collected.
+        /// </summary>
+        /// <value>Specifies how long the timeseries data of this schema will be stored. After expiry the entire data point(all metrics) is garbage collected.</value>
+        [DataMember(Name="timeToLiveSecs", EmitDefaultValue=true)]
+        public long? TimeToLiveSecs { get; set; }
 
         /// <summary>
         /// Specifies the version of the entity schema.
@@ -157,6 +186,11 @@ namespace Cohesity.Model
                     this.AttributesDescriptor.Equals(input.AttributesDescriptor))
                 ) && 
                 (
+                    this.EnableRollup == input.EnableRollup ||
+                    (this.EnableRollup != null &&
+                    this.EnableRollup.Equals(input.EnableRollup))
+                ) && 
+                (
                     this.FlushIntervalSecs == input.FlushIntervalSecs ||
                     (this.FlushIntervalSecs != null &&
                     this.FlushIntervalSecs.Equals(input.FlushIntervalSecs))
@@ -177,6 +211,12 @@ namespace Cohesity.Model
                     this.Name.Equals(input.Name))
                 ) && 
                 (
+                    this.RollupGranularityVec == input.RollupGranularityVec ||
+                    this.RollupGranularityVec != null &&
+                    input.RollupGranularityVec != null &&
+                    this.RollupGranularityVec.SequenceEqual(input.RollupGranularityVec)
+                ) && 
+                (
                     this.SchemaDescriptiveName == input.SchemaDescriptiveName ||
                     (this.SchemaDescriptiveName != null &&
                     this.SchemaDescriptiveName.Equals(input.SchemaDescriptiveName))
@@ -191,6 +231,11 @@ namespace Cohesity.Model
                     this.TimeSeriesDescriptorVec != null &&
                     input.TimeSeriesDescriptorVec != null &&
                     this.TimeSeriesDescriptorVec.SequenceEqual(input.TimeSeriesDescriptorVec)
+                ) && 
+                (
+                    this.TimeToLiveSecs == input.TimeToLiveSecs ||
+                    (this.TimeToLiveSecs != null &&
+                    this.TimeToLiveSecs.Equals(input.TimeToLiveSecs))
                 ) && 
                 (
                     this.Version == input.Version ||
@@ -210,6 +255,8 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.AttributesDescriptor != null)
                     hashCode = hashCode * 59 + this.AttributesDescriptor.GetHashCode();
+                if (this.EnableRollup != null)
+                    hashCode = hashCode * 59 + this.EnableRollup.GetHashCode();
                 if (this.FlushIntervalSecs != null)
                     hashCode = hashCode * 59 + this.FlushIntervalSecs.GetHashCode();
                 if (this.IsInternalSchema != null)
@@ -218,12 +265,16 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.LargestFlushIntervalSecs.GetHashCode();
                 if (this.Name != null)
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
+                if (this.RollupGranularityVec != null)
+                    hashCode = hashCode * 59 + this.RollupGranularityVec.GetHashCode();
                 if (this.SchemaDescriptiveName != null)
                     hashCode = hashCode * 59 + this.SchemaDescriptiveName.GetHashCode();
                 if (this.SchemaHelpText != null)
                     hashCode = hashCode * 59 + this.SchemaHelpText.GetHashCode();
                 if (this.TimeSeriesDescriptorVec != null)
                     hashCode = hashCode * 59 + this.TimeSeriesDescriptorVec.GetHashCode();
+                if (this.TimeToLiveSecs != null)
+                    hashCode = hashCode * 59 + this.TimeToLiveSecs.GetHashCode();
                 if (this.Version != null)
                     hashCode = hashCode * 59 + this.Version.GetHashCode();
                 return hashCode;

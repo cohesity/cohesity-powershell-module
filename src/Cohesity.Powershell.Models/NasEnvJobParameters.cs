@@ -52,16 +52,18 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="continueOnError">Specifies if the backup should continue on with other Protection Sources even if the backup operation of some Protection Source fails. If true, the Cohesity Cluster ignores the errors and continues with remaining Protection Sources in the job. If false, the backup operation stops when an error occurs. This does not apply to non-snapshot based generic NAS backup jobs. If not set, default value is true..</param>
         /// <param name="dataMigrationJobParameters">dataMigrationJobParameters.</param>
+        /// <param name="dataUptierJobParameters">dataUptierJobParameters.</param>
         /// <param name="enableFasterIncrementalBackups">Specifies whether this job will enable faster incremental backups using change list or similar APIs.</param>
         /// <param name="filePathFilters">filePathFilters.</param>
         /// <param name="nasProtocol">Specifies the preferred protocol to use for backup. This does not apply to generic NAS and will be ignored. Specifies the protocol used by a NAS server. &#39;kNfs3&#39; indicates NFS v3 protocol. &#39;kCifs1&#39; indicates CIFS v1.0 protocol..</param>
-        public NasEnvJobParameters(bool? continueOnError = default(bool?), DataMigrationJobParameters dataMigrationJobParameters = default(DataMigrationJobParameters), bool? enableFasterIncrementalBackups = default(bool?), FilePathFilter filePathFilters = default(FilePathFilter), NasProtocolEnum? nasProtocol = default(NasProtocolEnum?))
+        public NasEnvJobParameters(bool? continueOnError = default(bool?), DataMigrationJobParameters dataMigrationJobParameters = default(DataMigrationJobParameters), DataUptierJobParameters dataUptierJobParameters = default(DataUptierJobParameters), bool? enableFasterIncrementalBackups = default(bool?), FilePathFilter filePathFilters = default(FilePathFilter), NasProtocolEnum? nasProtocol = default(NasProtocolEnum?))
         {
             this.ContinueOnError = continueOnError;
             this.EnableFasterIncrementalBackups = enableFasterIncrementalBackups;
             this.NasProtocol = nasProtocol;
             this.ContinueOnError = continueOnError;
             this.DataMigrationJobParameters = dataMigrationJobParameters;
+            this.DataUptierJobParameters = dataUptierJobParameters;
             this.EnableFasterIncrementalBackups = enableFasterIncrementalBackups;
             this.FilePathFilters = filePathFilters;
             this.NasProtocol = nasProtocol;
@@ -79,6 +81,12 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="dataMigrationJobParameters", EmitDefaultValue=false)]
         public DataMigrationJobParameters DataMigrationJobParameters { get; set; }
+
+        /// <summary>
+        /// Gets or Sets DataUptierJobParameters
+        /// </summary>
+        [DataMember(Name="dataUptierJobParameters", EmitDefaultValue=false)]
+        public DataUptierJobParameters DataUptierJobParameters { get; set; }
 
         /// <summary>
         /// Specifies whether this job will enable faster incremental backups using change list or similar APIs
@@ -140,6 +148,11 @@ namespace Cohesity.Model
                     this.DataMigrationJobParameters.Equals(input.DataMigrationJobParameters))
                 ) && 
                 (
+                    this.DataUptierJobParameters == input.DataUptierJobParameters ||
+                    (this.DataUptierJobParameters != null &&
+                    this.DataUptierJobParameters.Equals(input.DataUptierJobParameters))
+                ) && 
+                (
                     this.EnableFasterIncrementalBackups == input.EnableFasterIncrementalBackups ||
                     (this.EnableFasterIncrementalBackups != null &&
                     this.EnableFasterIncrementalBackups.Equals(input.EnableFasterIncrementalBackups))
@@ -168,6 +181,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ContinueOnError.GetHashCode();
                 if (this.DataMigrationJobParameters != null)
                     hashCode = hashCode * 59 + this.DataMigrationJobParameters.GetHashCode();
+                if (this.DataUptierJobParameters != null)
+                    hashCode = hashCode * 59 + this.DataUptierJobParameters.GetHashCode();
                 if (this.EnableFasterIncrementalBackups != null)
                     hashCode = hashCode * 59 + this.EnableFasterIncrementalBackups.GetHashCode();
                 if (this.FilePathFilters != null)

@@ -24,7 +24,7 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="ResetS3SecretKeyParameters" /> class.
         /// </summary>
         /// <param name="domain">Specifies the fully qualified domain name (FQDN) of an Active Directory or LOCAL for the default LOCAL domain on the Cohesity Cluster. If not specified, it is assumed to be LOCAL..</param>
-        /// <param name="tenantId">Specifies the tenant for which the the users are to be deleted..</param>
+        /// <param name="tenantId">Specifies the tenant for which the users are to be deleted..</param>
         /// <param name="username">Specifies the Cohesity user..</param>
         public ResetS3SecretKeyParameters(string domain = default(string), string tenantId = default(string), string username = default(string))
         {
@@ -44,9 +44,9 @@ namespace Cohesity.Model
         public string Domain { get; set; }
 
         /// <summary>
-        /// Specifies the tenant for which the the users are to be deleted.
+        /// Specifies the tenant for which the users are to be deleted.
         /// </summary>
-        /// <value>Specifies the tenant for which the the users are to be deleted.</value>
+        /// <value>Specifies the tenant for which the users are to be deleted.</value>
         [DataMember(Name="tenantId", EmitDefaultValue=true)]
         public string TenantId { get; set; }
 

@@ -28,7 +28,7 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="PatternRequestBody" /> class.
         /// </summary>
-        /// <param name="applicationDataType">Specifies the data type for which suppprted patterns can be fetched. (required).</param>
+        /// <param name="applicationDataType">Specifies the data type for which supported patterns can be fetched. (required).</param>
         /// <param name="applicationId">Specifies AWB Application ID. (required).</param>
         /// <param name="userPattern">userPattern (required).</param>
         public PatternRequestBody(int? applicationDataType = default(int?), long? applicationId = default(long?), SupportedPattern userPattern = default(SupportedPattern))
@@ -48,9 +48,9 @@ namespace Cohesity.Model
         }
         
         /// <summary>
-        /// Specifies the data type for which suppprted patterns can be fetched.
+        /// Specifies the data type for which supported patterns can be fetched.
         /// </summary>
-        /// <value>Specifies the data type for which suppprted patterns can be fetched.</value>
+        /// <value>Specifies the data type for which supported patterns can be fetched.</value>
         [DataMember(Name="applicationDataType", EmitDefaultValue=true)]
         public int? ApplicationDataType { get; set; }
 

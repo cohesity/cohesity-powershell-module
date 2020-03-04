@@ -15,7 +15,7 @@ using Newtonsoft.Json.Converters;
 namespace Cohesity.Model
 {
     /// <summary>
-    /// All the Notification events generated for a given user. This is used for for trasferring notifications over wire.
+    /// All the Notification events generated for a given user. This is used for for transferring notifications over wire.
     /// </summary>
     [DataContract]
     public partial class Notifications :  IEquatable<Notifications>

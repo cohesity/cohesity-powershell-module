@@ -27,7 +27,7 @@ namespace Cohesity.Model
         /// <param name="clientSecret">Specifies the application secret that was created in app registration portal..</param>
         /// <param name="grantType">Specifies the application grant type. eg: For client credentials flow, set this to \&quot;client_credentials\&quot;; For refreshing access-token, set this to \&quot;refresh_token\&quot;..</param>
         /// <param name="scope">Specifies a space separated list of scopes/permissions for the user. eg: Incase of MS Graph APIs for Office365, scope is set to default: https://graph.microsoft.com/.default.</param>
-        /// <param name="useOAuthForExchangeOnline">Specifies whether OAuth should be used for authentication in case of Exchange Online..</param>
+        /// <param name="useOAuthForExchangeOnline">This field is deprecated from here and placed in RegisteredSourceInfo and ProtectionSourceParameters. deprecated: true.</param>
         public Office365Credentials(string clientId = default(string), string clientSecret = default(string), string grantType = default(string), string scope = default(string), bool? useOAuthForExchangeOnline = default(bool?))
         {
             this.ClientId = clientId;
@@ -71,9 +71,9 @@ namespace Cohesity.Model
         public string Scope { get; set; }
 
         /// <summary>
-        /// Specifies whether OAuth should be used for authentication in case of Exchange Online.
+        /// This field is deprecated from here and placed in RegisteredSourceInfo and ProtectionSourceParameters. deprecated: true
         /// </summary>
-        /// <value>Specifies whether OAuth should be used for authentication in case of Exchange Online.</value>
+        /// <value>This field is deprecated from here and placed in RegisteredSourceInfo and ProtectionSourceParameters. deprecated: true</value>
         [DataMember(Name="useOAuthForExchangeOnline", EmitDefaultValue=true)]
         public bool? UseOAuthForExchangeOnline { get; set; }
 
