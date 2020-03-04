@@ -190,8 +190,26 @@ namespace Cohesity.Powershell.Cmdlets.Clone
             if (JobRunId.HasValue)
                 ownerObject["jobInstanceId"] = JobRunId;
 
+            // If the parameter is not passed, identify the latest snapshot and start cloning
             if (StartTime.HasValue)
+            {
                 ownerObject["startTimeUsecs"] = StartTime;
+            }
+            else
+            {
+                List<Model.ProtectionRunInstance> jobRuns = new List< Model.ProtectionRunInstance >( RestApiCommon.GetProtectionJobRunsByJobId(Session.ApiClient, JobId));
+                if(null != jobRuns && jobRuns.Count > 0)
+                {
+                    Model.ProtectionRunInstance jobRun = jobRuns[0];
+                    if (null != jobRun.CopyRun && jobRun.CopyRun.Count > 0)
+                    {
+                        if (null != jobRun.CopyRun[0].RunStartTimeUsecs)
+                        {
+                            ownerObject["startTimeUsecs"] = jobRun.CopyRun[0].RunStartTimeUsecs;
+                        }
+                    }
+                }
+            }
 
             var entity = new Dictionary<string, object>();
             entity["id"] = HostSourceId;
