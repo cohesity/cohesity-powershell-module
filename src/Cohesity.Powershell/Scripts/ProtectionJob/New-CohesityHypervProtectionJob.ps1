@@ -10,6 +10,8 @@ function New-CohesityHypervProtectionJob {
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
         New-CohesityHypervProtectionJob -Name <string> -PolicyName <string> -StorageDomainName <string> -SourceName <string>
+        .EXAMPLE
+        New-CohesityHypervProtectionJob -Name test-hyperv -PolicyName Bronze -StorageDomainName DefaultStorageDomain -SourceName test-vm1
     #>
     [CmdletBinding()]
     Param(
@@ -72,6 +74,7 @@ function New-CohesityHypervProtectionJob {
             environment    = "kHyperVVSS"
             sourceIds      = @($protectionSourceObject.Id)
             parentSourceId = $protectionSourceObject.ParentId
+            startTime      = @{hour=(Get-Date).Hour;minute=(Get-Date).Minute}
         }
         $payloadJson = $payload | ConvertTo-Json -Depth 100
         $resp = Invoke-RestApi -Method Post -Uri $url -Headers $headers -Body $payloadJson

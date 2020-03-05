@@ -74,6 +74,7 @@
 - [Get-CohesityProtectionPolicy](cmdlets-reference/get-cohesityprotectionpolicy.md)
 - [Set-CohesityProtectionPolicy](cmdlets-reference/set-cohesityprotectionpolicy.md)
 - [Remove-CohesityProtectionPolicy](cmdlets-reference/remove-cohesityprotectionpolicy.md)
+- [New-CohesityHypervProtectionJob](cmdlets-reference/new-cohesityhypervprotectionjob.md)
 - [New-CohesityProtectionJob](cmdlets-reference/new-cohesityprotectionjob.md)
 - [Get-CohesityProtectionJob](cmdlets-reference/get-cohesityprotectionjob.md)
 - [Set-CohesityProtectionJob](cmdlets-reference/set-cohesityprotectionjob.md)
