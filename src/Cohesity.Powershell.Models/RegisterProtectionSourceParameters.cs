@@ -28,10 +28,46 @@ namespace Cohesity.Model
         public enum AcropolisTypeEnum
         {
             /// <summary>
+            /// Enum KPrismCentral for value: kPrismCentral
+            /// </summary>
+            [EnumMember(Value = "kPrismCentral")]
+            KPrismCentral = 1,
+
+            /// <summary>
             /// Enum KStandaloneCluster for value: kStandaloneCluster
             /// </summary>
             [EnumMember(Value = "kStandaloneCluster")]
-            KStandaloneCluster = 1
+            KStandaloneCluster = 2,
+
+            /// <summary>
+            /// Enum KCluster for value: kCluster
+            /// </summary>
+            [EnumMember(Value = "kCluster")]
+            KCluster = 3,
+
+            /// <summary>
+            /// Enum KHost for value: kHost
+            /// </summary>
+            [EnumMember(Value = "kHost")]
+            KHost = 4,
+
+            /// <summary>
+            /// Enum KVirtualMachine for value: kVirtualMachine
+            /// </summary>
+            [EnumMember(Value = "kVirtualMachine")]
+            KVirtualMachine = 5,
+
+            /// <summary>
+            /// Enum KNetwork for value: kNetwork
+            /// </summary>
+            [EnumMember(Value = "kNetwork")]
+            KNetwork = 6,
+
+            /// <summary>
+            /// Enum KStorageContainer for value: kStorageContainer
+            /// </summary>
+            [EnumMember(Value = "kStorageContainer")]
+            KStorageContainer = 7
 
         }
 
@@ -244,8 +280,13 @@ namespace Cohesity.Model
             /// Enum KRDSSnapshotManager for value: kRDSSnapshotManager
             /// </summary>
             [EnumMember(Value = "kRDSSnapshotManager")]
-            KRDSSnapshotManager = 33
+            KRDSSnapshotManager = 33,
 
+            /// <summary>
+            /// Enum KVCD for value: kVCD
+            /// </summary>
+            [EnumMember(Value = "kVCD")]
+            KVCD = 34
         }
 
         /// <summary>
@@ -328,7 +369,55 @@ namespace Cohesity.Model
             /// Enum KStandaloneCluster for value: kStandaloneCluster
             /// </summary>
             [EnumMember(Value = "kStandaloneCluster")]
-            KStandaloneCluster = 3
+            KStandaloneCluster = 3,
+
+            /// <summary>
+            /// Enum KHostGroup for value: kHostGroup
+            /// </summary>
+            [EnumMember(Value = "kHostGroup")]
+            KHostGroup = 4,
+
+            /// <summary>
+            /// Enum KHypervHost for value: kHypervHost
+            /// </summary>
+            [EnumMember(Value = "kHypervHost")]
+            KHypervHost = 5,
+
+            /// <summary>
+            /// Enum KHostCluster for value: kHostCluster
+            /// </summary>
+            [EnumMember(Value = "kHostCluster")]
+            KHostCluster = 6,
+
+            /// <summary>
+            /// Enum KVirtualMachine for value: kVirtualMachine
+            /// </summary>
+            [EnumMember(Value = "kVirtualMachine")]
+            KVirtualMachine = 7,
+
+            /// <summary>
+            /// Enum KNetwork for value: kNetwork
+            /// </summary>
+            [EnumMember(Value = "kNetwork")]
+            KNetwork = 8,
+
+            /// <summary>
+            /// Enum KDatastore for value: kDatastore
+            /// </summary>
+            [EnumMember(Value = "kDatastore")]
+            KDatastore = 9,
+
+            /// <summary>
+            /// Enum KTag for value: kTag
+            /// </summary>
+            [EnumMember(Value = "kTag")]
+            KTag = 10,
+
+            /// <summary>
+            /// Enum KCustomProperty for value: kCustomProperty
+            /// </summary>
+            [EnumMember(Value = "kCustomProperty")]
+            KCustomProperty = 11
 
         }
 
@@ -349,7 +438,19 @@ namespace Cohesity.Model
             /// Enum KCluster for value: kCluster
             /// </summary>
             [EnumMember(Value = "kCluster")]
-            KCluster = 1
+            KCluster = 1,
+
+            /// <summary>
+            /// Enum KNamespace for value: kNamespace
+            /// </summary>
+            [EnumMember(Value = "kNamespace")]
+            KNamespace = 2,
+
+            /// <summary>
+            /// Enum KService for value: kService
+            /// </summary>
+            [EnumMember(Value = "kService")]
+            KService = 3
 
         }
 
@@ -370,7 +471,55 @@ namespace Cohesity.Model
             /// Enum KOVirtManager for value: kOVirtManager
             /// </summary>
             [EnumMember(Value = "kOVirtManager")]
-            KOVirtManager = 1
+            KOVirtManager = 1,
+
+            /// <summary>
+            /// Enum KStandaloneHost for value: kStandaloneHost
+            /// </summary>
+            [EnumMember(Value = "kStandaloneHost")]
+            KStandaloneHost = 2,
+
+            /// <summary>
+            /// Enum KDatacenter for value: kDatacenter
+            /// </summary>
+            [EnumMember(Value = "kDatacenter")]
+            KDatacenter = 3,
+
+            /// <summary>
+            /// Enum KCluster for value: kCluster
+            /// </summary>
+            [EnumMember(Value = "kCluster")]
+            KCluster = 4,
+
+            /// <summary>
+            /// Enum KHost for value: kHost
+            /// </summary>
+            [EnumMember(Value = "kHost")]
+            KHost = 5,
+
+            /// <summary>
+            /// Enum KVirtualMachine for value: kVirtualMachine
+            /// </summary>
+            [EnumMember(Value = "kVirtualMachine")]
+            KVirtualMachine = 6,
+
+            /// <summary>
+            /// Enum KNetwork for value: kNetwork
+            /// </summary>
+            [EnumMember(Value = "kNetwork")]
+            KNetwork = 7,
+
+            /// <summary>
+            /// Enum KStorageDomain for value: kStorageDomain
+            /// </summary>
+            [EnumMember(Value = "kStorageDomain")]
+            KStorageDomain = 8,
+
+            /// <summary>
+            /// Enum KVNicProfile for value: kVNicProfile
+            /// </summary>
+            [EnumMember(Value = "kVNicProfile")]
+            KVNicProfile = 9
 
         }
 
@@ -397,7 +546,13 @@ namespace Cohesity.Model
             /// Enum KVserver for value: kVserver
             /// </summary>
             [EnumMember(Value = "kVserver")]
-            KVserver = 2
+            KVserver = 2,
+
+            /// <summary>
+            /// Enum KVolume for value: kVolume
+            /// </summary>
+            [EnumMember(Value = "kVolume")]
+            KVolume = 3
 
         }
 
@@ -418,7 +573,13 @@ namespace Cohesity.Model
             /// Enum KStorageArray for value: kStorageArray
             /// </summary>
             [EnumMember(Value = "kStorageArray")]
-            KStorageArray = 1
+            KStorageArray = 1,
+
+            /// <summary>
+            /// Enum KVolume for value: kVolume
+            /// </summary>
+            [EnumMember(Value = "kVolume")]
+            KVolume = 2
 
         }
 
@@ -439,7 +600,19 @@ namespace Cohesity.Model
             /// Enum KDomain for value: kDomain
             /// </summary>
             [EnumMember(Value = "kDomain")]
-            KDomain = 1
+            KDomain = 1,
+
+            /// <summary>
+            /// Enum KOutlook for value: kOutlook
+            /// </summary>
+            [EnumMember(Value = "kOutlook")]
+            KOutlook = 2,
+
+            /// <summary>
+            /// Enum KMailbox for value: kMailbox
+            /// </summary>
+            [EnumMember(Value = "kMailbox")]
+            KMailbox = 3
 
         }
 
@@ -457,10 +630,34 @@ namespace Cohesity.Model
         public enum PhysicalTypeEnum
         {
             /// <summary>
+            /// Enum KGroup for value: kGroup
+            /// </summary>
+            [EnumMember(Value = "kGroup")]
+            KGroup = 1,
+
+            /// <summary>
             /// Enum KHost for value: kHost
             /// </summary>
             [EnumMember(Value = "kHost")]
-            KHost = 1
+            KHost = 2,
+
+            /// <summary>
+            /// Enum KWindowsCluster for value: kWindowsCluster
+            /// </summary>
+            [EnumMember(Value = "kWindowsCluster")]
+            KWindowsCluster = 3,
+
+            /// <summary>
+            /// Enum KOracleRACCluster for value: kOracleRACCluster
+            /// </summary>
+            [EnumMember(Value = "kOracleRACCluster")]
+            KOracleRACCluster = 4,
+
+            /// <summary>
+            /// Enum KOracleAPCluster for value: kOracleAPCluster
+            /// </summary>
+            [EnumMember(Value = "kOracleAPCluster")]
+            KOracleAPCluster = 5
 
         }
 
@@ -481,7 +678,13 @@ namespace Cohesity.Model
             /// Enum KStorageArray for value: kStorageArray
             /// </summary>
             [EnumMember(Value = "kStorageArray")]
-            KStorageArray = 1
+            KStorageArray = 1,
+
+            /// <summary>
+            /// Enum KVolume for value: kVolume
+            /// </summary>
+            [EnumMember(Value = "kVolume")]
+            KVolume = 2
 
         }
 
@@ -505,16 +708,136 @@ namespace Cohesity.Model
             KVCenter = 1,
 
             /// <summary>
+            /// Enum KFolder for value: kFolder
+            /// </summary>
+            [EnumMember(Value = "kFolder")]
+            KFolder = 2,
+
+            /// <summary>
+            /// Enum KDatacenter for value: kDatacenter
+            /// </summary>
+            [EnumMember(Value = "kDatacenter")]
+            KDatacenter = 3,
+
+            /// <summary>
+            /// Enum KComputeResource for value: kComputeResource
+            /// </summary>
+            [EnumMember(Value = "kComputeResource")]
+            KComputeResource = 4,
+
+            /// <summary>
+            /// Enum KClusterComputeResource for value: kClusterComputeResource
+            /// </summary>
+            [EnumMember(Value = "kClusterComputeResource")]
+            KClusterComputeResource = 5,
+
+            /// <summary>
+            /// Enum KResourcePool for value: kResourcePool
+            /// </summary>
+            [EnumMember(Value = "kResourcePool")]
+            KResourcePool = 6,
+
+            /// <summary>
+            /// Enum KDatastore for value: kDatastore
+            /// </summary>
+            [EnumMember(Value = "kDatastore")]
+            KDatastore = 7,
+
+            /// <summary>
+            /// Enum KHostSystem for value: kHostSystem
+            /// </summary>
+            [EnumMember(Value = "kHostSystem")]
+            KHostSystem = 8,
+
+            /// <summary>
+            /// Enum KVirtualMachine for value: kVirtualMachine
+            /// </summary>
+            [EnumMember(Value = "kVirtualMachine")]
+            KVirtualMachine = 9,
+
+            /// <summary>
+            /// Enum KVirtualApp for value: kVirtualApp
+            /// </summary>
+            [EnumMember(Value = "kVirtualApp")]
+            KVirtualApp = 10,
+
+            /// <summary>
             /// Enum KStandaloneHost for value: kStandaloneHost
             /// </summary>
             [EnumMember(Value = "kStandaloneHost")]
-            KStandaloneHost = 2,
+            KStandaloneHost = 11,
+
+            /// <summary>
+            /// Enum KStoragePod for value: kStoragePod
+            /// </summary>
+            [EnumMember(Value = "kStoragePod")]
+            KStoragePod = 12,
+
+            /// <summary>
+            /// Enum KNetwork for value: kNetwork
+            /// </summary>
+            [EnumMember(Value = "kNetwork")]
+            KNetwork = 13,
+
+            /// <summary>
+            /// Enum KDistributedVirtualPortgroup for value: kDistributedVirtualPortgroup
+            /// </summary>
+            [EnumMember(Value = "kDistributedVirtualPortgroup")]
+            KDistributedVirtualPortgroup = 14,
+
+            /// <summary>
+            /// Enum KTagCategory for value: kTagCategory
+            /// </summary>
+            [EnumMember(Value = "kTagCategory")]
+            KTagCategory = 15,
+
+            /// <summary>
+            /// Enum KTag for value: kTag
+            /// </summary>
+            [EnumMember(Value = "kTag")]
+            KTag = 16,
+
+            /// <summary>
+            /// Enum KOpaqueNetwork for value: kOpaqueNetwork
+            /// </summary>
+            [EnumMember(Value = "kOpaqueNetwork")]
+            KOpaqueNetwork = 17,
 
             /// <summary>
             /// Enum KvCloudDirector for value: kvCloudDirector
             /// </summary>
             [EnumMember(Value = "kvCloudDirector")]
-            KvCloudDirector = 3
+            KvCloudDirector = 18,
+
+            /// <summary>
+            /// Enum KOrganization for value: kOrganization
+            /// </summary>
+            [EnumMember(Value = "kOrganization")]
+            KOrganization = 19,
+
+            /// <summary>
+            /// Enum KVirtualDatacenter for value: kVirtualDatacenter
+            /// </summary>
+            [EnumMember(Value = "kVirtualDatacenter")]
+            KVirtualDatacenter = 20,
+
+            /// <summary>
+            /// Enum KCatalog for value: kCatalog
+            /// </summary>
+            [EnumMember(Value = "kCatalog")]
+            KCatalog = 21,
+
+            /// <summary>
+            /// Enum KOrgMetadata for value: kOrgMetadata
+            /// </summary>
+            [EnumMember(Value = "kOrgMetadata")]
+            KOrgMetadata = 22,
+
+            /// <summary>
+            /// Enum KStoragePolicy for value: kStoragePolicy
+            /// </summary>
+            [EnumMember(Value = "kStoragePolicy")]
+            KStoragePolicy = 23
 
         }
 

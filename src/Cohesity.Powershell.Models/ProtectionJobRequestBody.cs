@@ -256,7 +256,13 @@ namespace Cohesity.Model
             /// Enum KRDSSnapshotManager for value: kRDSSnapshotManager
             /// </summary>
             [EnumMember(Value = "kRDSSnapshotManager")]
-            KRDSSnapshotManager = 33
+            KRDSSnapshotManager = 33,
+
+            /// <summary>
+            /// Enum KVCD for value: kVCD
+            /// </summary>
+            [EnumMember(Value = "kVCD")]
+            KVCD = 34
 
         }
 
