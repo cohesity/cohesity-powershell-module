@@ -13,9 +13,5 @@ namespace Cohesity.Powershell.Common
         public AccessToken AccessToken { get; set; }
     
         public AccessTokenCredential Credentials { get; set; }
-
-        public long TimestampUTC { get; set; }
-
-        public string ServerName { get; set; }
     }
 }

@@ -1,7 +1,5 @@
 # the configuration structure for cohesity cmdlet
 class CohesityConfig {
-    # the version will be helpful while upgrading the configuration
-    [int]$Version = 2
     [int]$LogSeverity = 0
     $LogRequestedPayload = $false
     $LogResponseData = $false
@@ -34,20 +32,20 @@ function Set-CohesityCmdletConfig {
         $RefreshToken = $false
     )
     Begin {
-        [CohesityConfig]$config = [CohesityConfig]::New()
-        $configFileName = $config.ConfigFileName
-        $cohesityFolder = $config.ConfigFolder
+        [CohesityConfig]$configObject = [CohesityConfig]::New()
+        $configFileName = $configObject.ConfigFileName
+        $cohesityFolder = $configObject.ConfigFolder
         # check if the folder exists
         if ($false -eq [System.IO.Directory]::Exists("$HOME/" + $cohesityFolder)) {
             $newFolder = New-Item -Path "$HOME/" -Name $cohesityFolder -ItemType "directory"
         }
         $cmdletConfigPath = "$HOME/" + $cohesityFolder + "/" + $configFileName
         if ($false -eq [System.IO.File]::Exists($cmdletConfigPath)) {
-            $config | ConvertTo-Json -depth 100 | Out-File $cmdletConfigPath
+            $configObject | ConvertTo-Json -depth 100 | Out-File $cmdletConfigPath
         }
     }
     Process {
-        [CohesityConfig]$config = Get-Content $cmdletConfigPath | ConvertFrom-Json
+        $config = Get-Content $cmdletConfigPath | ConvertFrom-Json
         switch ($PsCmdlet.ParameterSetName) {
             'LogSeverity' {
                 $config.LogSeverity = $LogSeverity

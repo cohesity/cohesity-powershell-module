@@ -2,7 +2,7 @@ function Update-CohesityCmdletConfig {
     [CmdletBinding()]
     param(
         [Parameter(Mandatory = $true)]
-        $CurrentVersion
+        $CurrentConfig
     )
     Begin {
             [CohesityConfig]$configObject = [CohesityConfig]::New()
@@ -11,15 +11,11 @@ function Update-CohesityCmdletConfig {
             $cmdletConfigPath = "$HOME/" + $cohesityFolder + "/" + $configFileName
         }
     Process {
-        # Upgrade for changes in version 2 of cmdlet config
-        if($CurrentVersion -eq 1) {
-            $CurrentVersion = 2
-            $config = Get-Content $cmdletConfigPath | ConvertFrom-Json
-            $config.Version = $CurrentVersion
-            $config | Add-Member -NotePropertyName RefreshToken -NotePropertyValue $false
-            $config | ConvertTo-Json -depth 100 | Out-File $cmdletConfigPath
-        }
-        # Follow the pattern for the subsequent upgrade for cmdlet config
+		$resp = $CurrentConfig | Get-Member -Name RefreshToken
+		if($null -eq $resp) {
+            $CurrentConfig | Add-Member -NotePropertyName RefreshToken -NotePropertyValue $false
+            $CurrentConfig | ConvertTo-Json -depth 100 | Out-File $cmdletConfigPath
+		}
     }
     End {
     }

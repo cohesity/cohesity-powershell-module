@@ -18,5 +18,5 @@ $config = Get-CohesityCmdletConfig
 if($null -eq $config) {
     $resp = Set-CohesityCmdletConfig -LogSeverity 3
 } else {
-    $resp = Update-CohesityCmdletConfig -CurrentVersion $config.Version
+    $resp = Update-CohesityCmdletConfig -CurrentConfig $config
 }

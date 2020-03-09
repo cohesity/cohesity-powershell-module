@@ -43,6 +43,16 @@ namespace Cohesity.Powershell.Common
             {
                 return responseContent;
             }
+            else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+            {
+                if (networkClient.ShallRefreshToken())
+                {
+                    if (networkClient.InitiateTokenRefresh())
+                    {
+                        return Get(networkClient, url);
+                    }
+                }
+            }
 
             throw new Exception(extractMessageFromErrorResponse(responseContent));
         }
@@ -67,7 +77,17 @@ namespace Cohesity.Powershell.Common
             {
                 return responseContent;
             }
-            
+            else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+            {
+                if (networkClient.ShallRefreshToken())
+                {
+                    if(networkClient.InitiateTokenRefresh())
+                    {
+                        return Post(networkClient, url, content);
+                    }
+                }
+            }
+
             throw new Exception(extractMessageFromErrorResponse(responseContent));
         }
 
@@ -82,6 +102,16 @@ namespace Cohesity.Powershell.Common
             if (response.IsSuccessStatusCode)
             {
                 return responseContent;
+            }
+            else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+            {
+                if (networkClient.ShallRefreshToken())
+                {
+                    if (networkClient.InitiateTokenRefresh())
+                    {
+                        return Post(networkClient, url, content);
+                    }
+                }
             }
 
             throw new Exception(extractMessageFromErrorResponse(responseContent));
@@ -105,6 +135,16 @@ namespace Cohesity.Powershell.Common
             {
                 return responseContent;
             }
+            else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+            {
+                if (networkClient.ShallRefreshToken())
+                {
+                    if (networkClient.InitiateTokenRefresh())
+                    {
+                        return Put(networkClient, url, content);
+                    }
+                }
+            }
 
             throw new Exception(extractMessageFromErrorResponse(responseContent));
         }
@@ -127,6 +167,16 @@ namespace Cohesity.Powershell.Common
             {
                 return responseContent;
             }
+            else if(response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+            {
+                if(networkClient.ShallRefreshToken())
+                {
+                    if (networkClient.InitiateTokenRefresh())
+                    {
+                        return Delete(networkClient, url, content);
+                    }
+                }
+            }
 
             throw new Exception(extractMessageFromErrorResponse(responseContent));
         }
@@ -142,6 +192,16 @@ namespace Cohesity.Powershell.Common
             if (response.IsSuccessStatusCode)
             {
                 return responseContent;
+            }
+            else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+            {
+                if (networkClient.ShallRefreshToken())
+                {
+                    if (networkClient.InitiateTokenRefresh())
+                    {
+                        return Delete(networkClient, url, content);
+                    }
+                }
             }
 
             throw new Exception(extractMessageFromErrorResponse(responseContent));

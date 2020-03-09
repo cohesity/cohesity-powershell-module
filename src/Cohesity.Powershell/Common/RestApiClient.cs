@@ -222,16 +222,7 @@ namespace Cohesity.Powershell.Common
         }
         public bool ShallRefreshToken()
         {
-            if(CmdletConfiguration.Instance.IsRefreshToken)
-            {
-                var userProfile = userProfileProvider.GetUserProfile();
-                TimeSpan timeDiff = TimeSpan.FromTicks(DateTime.UtcNow.ToFileTimeUtc() - userProfile.TimestampUTC);
-                if(timeDiff.TotalHours >= 24)
-                {
-                    return true;
-                }
-            }
-            return false;
+            return CmdletConfiguration.Instance.IsRefreshToken;
         }
         public bool InitiateTokenRefresh()
         {
@@ -241,7 +232,11 @@ namespace Cohesity.Powershell.Common
                 return false;
             }
             Console.WriteLine("The session token has expired, attempting to refresh.");
-
+            if(null == userProfile.Credentials)
+            {
+                Console.WriteLine("No credentials available to implictly connect the cluster.");
+                return false;
+            }
             var credentials = new AccessTokenCredential
             {
                 Domain = userProfile.Credentials.Domain,
@@ -273,9 +268,8 @@ namespace Cohesity.Powershell.Common
                 var accessToken = JsonConvert.DeserializeObject<AccessToken>(responseContent);
 
                 userProfile.AccessToken = accessToken;
-                userProfile.TimestampUTC = DateTime.UtcNow.ToFileTimeUtc();
                 userProfileProvider.SetUserProfile(userProfile);
-                Console.WriteLine("The session token has been refreshed");
+                Console.WriteLine("The session token has been refreshed.");
             }
             catch(Exception ex)
             {
