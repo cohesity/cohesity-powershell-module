@@ -21,6 +21,39 @@ namespace Cohesity.Model
     public partial class UpdateClusterParams :  IEquatable<UpdateClusterParams>
     {
         /// <summary>
+        /// Specifies the level which &#39;MetadataFaultToleranceFactor&#39; applies to. &#39;kNode&#39; indicates &#39;MetadataFaultToleranceFactor&#39; applies to Node level. &#39;kChassis&#39; indicates &#39;MetadataFaultToleranceFactor&#39; applies to Chassis level. &#39;kRack&#39; indicates &#39;MetadataFaultToleranceFactor&#39; applies to Rack level.
+        /// </summary>
+        /// <value>Specifies the level which &#39;MetadataFaultToleranceFactor&#39; applies to. &#39;kNode&#39; indicates &#39;MetadataFaultToleranceFactor&#39; applies to Node level. &#39;kChassis&#39; indicates &#39;MetadataFaultToleranceFactor&#39; applies to Chassis level. &#39;kRack&#39; indicates &#39;MetadataFaultToleranceFactor&#39; applies to Rack level.</value>
+        [JsonConverter(typeof(StringEnumConverter))]
+        public enum FaultToleranceLevelEnum
+        {
+            /// <summary>
+            /// Enum KNode for value: kNode
+            /// </summary>
+            [EnumMember(Value = "kNode")]
+            KNode = 1,
+
+            /// <summary>
+            /// Enum KChassis for value: kChassis
+            /// </summary>
+            [EnumMember(Value = "kChassis")]
+            KChassis = 2,
+
+            /// <summary>
+            /// Enum KRack for value: kRack
+            /// </summary>
+            [EnumMember(Value = "kRack")]
+            KRack = 3
+
+        }
+
+        /// <summary>
+        /// Specifies the level which &#39;MetadataFaultToleranceFactor&#39; applies to. &#39;kNode&#39; indicates &#39;MetadataFaultToleranceFactor&#39; applies to Node level. &#39;kChassis&#39; indicates &#39;MetadataFaultToleranceFactor&#39; applies to Chassis level. &#39;kRack&#39; indicates &#39;MetadataFaultToleranceFactor&#39; applies to Rack level.
+        /// </summary>
+        /// <value>Specifies the level which &#39;MetadataFaultToleranceFactor&#39; applies to. &#39;kNode&#39; indicates &#39;MetadataFaultToleranceFactor&#39; applies to Node level. &#39;kChassis&#39; indicates &#39;MetadataFaultToleranceFactor&#39; applies to Chassis level. &#39;kRack&#39; indicates &#39;MetadataFaultToleranceFactor&#39; applies to Rack level.</value>
+        [DataMember(Name="faultToleranceLevel", EmitDefaultValue=true)]
+        public FaultToleranceLevelEnum? FaultToleranceLevel { get; set; }
+        /// <summary>
         /// Initializes a new instance of the <see cref="UpdateClusterParams" /> class.
         /// </summary>
         /// <param name="appsSettings">appsSettings.</param>
@@ -31,6 +64,7 @@ namespace Cohesity.Model
         /// <param name="enableActiveMonitoring">Specifies if Cohesity can receive monitoring information from the Cohesity Cluster. If &#39;true&#39;, remote monitoring of the Cohesity Cluster is allowed..</param>
         /// <param name="enableUpgradePkgPolling">If &#39;true&#39;, Cohesity&#39;s upgrade server is polled for new releases..</param>
         /// <param name="encryptionKeyRotationPeriodSecs">Specifies the period of time (in seconds) when encryption keys are rotated. By default, the encryption keys are rotated every 77760000 seconds (30 days)..</param>
+        /// <param name="faultToleranceLevel">Specifies the level which &#39;MetadataFaultToleranceFactor&#39; applies to. &#39;kNode&#39; indicates &#39;MetadataFaultToleranceFactor&#39; applies to Node level. &#39;kChassis&#39; indicates &#39;MetadataFaultToleranceFactor&#39; applies to Chassis level. &#39;kRack&#39; indicates &#39;MetadataFaultToleranceFactor&#39; applies to Rack level..</param>
         /// <param name="filerAuditLogConfig">filerAuditLogConfig.</param>
         /// <param name="gateway">Specifies the gateway IP address..</param>
         /// <param name="googleAnalyticsEnabled">Specifies whether Google Analytics is enabled..</param>
@@ -42,15 +76,15 @@ namespace Cohesity.Model
         /// <param name="multiTenancyEnabled">Specifies if multi tenancy is enabled in the cluster. Authentication &amp; Authorization will always use tenant_id, however, some UI elements may be disabled when multi tenancy is disabled..</param>
         /// <param name="name">Specifies the name of the Cohesity Cluster..</param>
         /// <param name="ntpSettings">ntpSettings.</param>
+        /// <param name="pcieSsdTierRebalanceDelaySecs">Specifies the rebalance delay in seconds for cluster PcieSSD storage tier..</param>
         /// <param name="reverseTunnelEnabled">If &#39;true&#39;, Cohesity&#39;s Remote Tunnel is enabled. Cohesity can access the Cluster and provide remote assistance via a Remote Tunnel..</param>
         /// <param name="reverseTunnelEndTimeMsecs">ReverseTunnelEndTimeMsecs specifies the end time in milliseconds since epoch until when the reverse tunnel will stay enabled..</param>
         /// <param name="smbAdDisabled">Specifies if Active Directory should be disabled for authentication of SMB shares. If &#39;true&#39;, Active Directory is disabled..</param>
         /// <param name="stigMode">Specifies if STIG mode is enabled or not..</param>
-        /// <param name="syslogServers">Array of Syslog Servers.  Specifies a list of Syslog servers to send audit logs to..</param>
         /// <param name="tenantViewboxSharingEnabled">In case multi tenancy is enabled, this flag controls whether multiple tenants can be placed on the same viewbox. Once set to true, this flag should never become false..</param>
         /// <param name="timezone">Specifies the timezone to use for showing time in emails, reports, filer audit logs, etc..</param>
         /// <param name="turboMode">Specifies if the cluster is in Turbo mode..</param>
-        public UpdateClusterParams(AppsConfig appsSettings = default(AppsConfig), bool? bannerEnabled = default(bool?), ClusterAuditLogConfiguration clusterAuditLogConfig = default(ClusterAuditLogConfiguration), List<string> dnsServerIps = default(List<string>), List<string> domainNames = default(List<string>), bool? enableActiveMonitoring = default(bool?), bool? enableUpgradePkgPolling = default(bool?), long? encryptionKeyRotationPeriodSecs = default(long?), FilerAuditLogConfiguration filerAuditLogConfig = default(FilerAuditLogConfiguration), string gateway = default(string), bool? googleAnalyticsEnabled = default(bool?), bool? isDocumentationLocal = default(bool?), string languageLocale = default(string), string localAuthDomainName = default(string), bool? localGroupsEnabled = default(bool?), int? metadataFaultToleranceFactor = default(int?), bool? multiTenancyEnabled = default(bool?), string name = default(string), NtpSettingsConfig ntpSettings = default(NtpSettingsConfig), bool? reverseTunnelEnabled = default(bool?), long? reverseTunnelEndTimeMsecs = default(long?), bool? smbAdDisabled = default(bool?), bool? stigMode = default(bool?), List<SyslogServer> syslogServers = default(List<SyslogServer>), bool? tenantViewboxSharingEnabled = default(bool?), string timezone = default(string), bool? turboMode = default(bool?))
+        public UpdateClusterParams(AppsConfig appsSettings = default(AppsConfig), bool? bannerEnabled = default(bool?), ClusterAuditLogConfiguration clusterAuditLogConfig = default(ClusterAuditLogConfiguration), List<string> dnsServerIps = default(List<string>), List<string> domainNames = default(List<string>), bool? enableActiveMonitoring = default(bool?), bool? enableUpgradePkgPolling = default(bool?), long? encryptionKeyRotationPeriodSecs = default(long?), FaultToleranceLevelEnum? faultToleranceLevel = default(FaultToleranceLevelEnum?), FilerAuditLogConfiguration filerAuditLogConfig = default(FilerAuditLogConfiguration), string gateway = default(string), bool? googleAnalyticsEnabled = default(bool?), bool? isDocumentationLocal = default(bool?), string languageLocale = default(string), string localAuthDomainName = default(string), bool? localGroupsEnabled = default(bool?), int? metadataFaultToleranceFactor = default(int?), bool? multiTenancyEnabled = default(bool?), string name = default(string), NtpSettingsConfig ntpSettings = default(NtpSettingsConfig), int? pcieSsdTierRebalanceDelaySecs = default(int?), bool? reverseTunnelEnabled = default(bool?), long? reverseTunnelEndTimeMsecs = default(long?), bool? smbAdDisabled = default(bool?), bool? stigMode = default(bool?), bool? tenantViewboxSharingEnabled = default(bool?), string timezone = default(string), bool? turboMode = default(bool?))
         {
             this.BannerEnabled = bannerEnabled;
             this.DnsServerIps = dnsServerIps;
@@ -58,6 +92,7 @@ namespace Cohesity.Model
             this.EnableActiveMonitoring = enableActiveMonitoring;
             this.EnableUpgradePkgPolling = enableUpgradePkgPolling;
             this.EncryptionKeyRotationPeriodSecs = encryptionKeyRotationPeriodSecs;
+            this.FaultToleranceLevel = faultToleranceLevel;
             this.Gateway = gateway;
             this.GoogleAnalyticsEnabled = googleAnalyticsEnabled;
             this.IsDocumentationLocal = isDocumentationLocal;
@@ -67,11 +102,11 @@ namespace Cohesity.Model
             this.MetadataFaultToleranceFactor = metadataFaultToleranceFactor;
             this.MultiTenancyEnabled = multiTenancyEnabled;
             this.Name = name;
+            this.PcieSsdTierRebalanceDelaySecs = pcieSsdTierRebalanceDelaySecs;
             this.ReverseTunnelEnabled = reverseTunnelEnabled;
             this.ReverseTunnelEndTimeMsecs = reverseTunnelEndTimeMsecs;
             this.SmbAdDisabled = smbAdDisabled;
             this.StigMode = stigMode;
-            this.SyslogServers = syslogServers;
             this.TenantViewboxSharingEnabled = tenantViewboxSharingEnabled;
             this.Timezone = timezone;
             this.TurboMode = turboMode;
@@ -83,6 +118,7 @@ namespace Cohesity.Model
             this.EnableActiveMonitoring = enableActiveMonitoring;
             this.EnableUpgradePkgPolling = enableUpgradePkgPolling;
             this.EncryptionKeyRotationPeriodSecs = encryptionKeyRotationPeriodSecs;
+            this.FaultToleranceLevel = faultToleranceLevel;
             this.FilerAuditLogConfig = filerAuditLogConfig;
             this.Gateway = gateway;
             this.GoogleAnalyticsEnabled = googleAnalyticsEnabled;
@@ -94,11 +130,11 @@ namespace Cohesity.Model
             this.MultiTenancyEnabled = multiTenancyEnabled;
             this.Name = name;
             this.NtpSettings = ntpSettings;
+            this.PcieSsdTierRebalanceDelaySecs = pcieSsdTierRebalanceDelaySecs;
             this.ReverseTunnelEnabled = reverseTunnelEnabled;
             this.ReverseTunnelEndTimeMsecs = reverseTunnelEndTimeMsecs;
             this.SmbAdDisabled = smbAdDisabled;
             this.StigMode = stigMode;
-            this.SyslogServers = syslogServers;
             this.TenantViewboxSharingEnabled = tenantViewboxSharingEnabled;
             this.Timezone = timezone;
             this.TurboMode = turboMode;
@@ -234,6 +270,13 @@ namespace Cohesity.Model
         public NtpSettingsConfig NtpSettings { get; set; }
 
         /// <summary>
+        /// Specifies the rebalance delay in seconds for cluster PcieSSD storage tier.
+        /// </summary>
+        /// <value>Specifies the rebalance delay in seconds for cluster PcieSSD storage tier.</value>
+        [DataMember(Name="pcieSsdTierRebalanceDelaySecs", EmitDefaultValue=true)]
+        public int? PcieSsdTierRebalanceDelaySecs { get; set; }
+
+        /// <summary>
         /// If &#39;true&#39;, Cohesity&#39;s Remote Tunnel is enabled. Cohesity can access the Cluster and provide remote assistance via a Remote Tunnel.
         /// </summary>
         /// <value>If &#39;true&#39;, Cohesity&#39;s Remote Tunnel is enabled. Cohesity can access the Cluster and provide remote assistance via a Remote Tunnel.</value>
@@ -260,13 +303,6 @@ namespace Cohesity.Model
         /// <value>Specifies if STIG mode is enabled or not.</value>
         [DataMember(Name="stigMode", EmitDefaultValue=true)]
         public bool? StigMode { get; set; }
-
-        /// <summary>
-        /// Array of Syslog Servers.  Specifies a list of Syslog servers to send audit logs to.
-        /// </summary>
-        /// <value>Array of Syslog Servers.  Specifies a list of Syslog servers to send audit logs to.</value>
-        [DataMember(Name="syslogServers", EmitDefaultValue=true)]
-        public List<SyslogServer> SyslogServers { get; set; }
 
         /// <summary>
         /// In case multi tenancy is enabled, this flag controls whether multiple tenants can be placed on the same viewbox. Once set to true, this flag should never become false.
@@ -368,6 +404,10 @@ namespace Cohesity.Model
                     this.EncryptionKeyRotationPeriodSecs.Equals(input.EncryptionKeyRotationPeriodSecs))
                 ) && 
                 (
+                    this.FaultToleranceLevel == input.FaultToleranceLevel ||
+                    this.FaultToleranceLevel.Equals(input.FaultToleranceLevel)
+                ) && 
+                (
                     this.FilerAuditLogConfig == input.FilerAuditLogConfig ||
                     (this.FilerAuditLogConfig != null &&
                     this.FilerAuditLogConfig.Equals(input.FilerAuditLogConfig))
@@ -423,6 +463,11 @@ namespace Cohesity.Model
                     this.NtpSettings.Equals(input.NtpSettings))
                 ) && 
                 (
+                    this.PcieSsdTierRebalanceDelaySecs == input.PcieSsdTierRebalanceDelaySecs ||
+                    (this.PcieSsdTierRebalanceDelaySecs != null &&
+                    this.PcieSsdTierRebalanceDelaySecs.Equals(input.PcieSsdTierRebalanceDelaySecs))
+                ) && 
+                (
                     this.ReverseTunnelEnabled == input.ReverseTunnelEnabled ||
                     (this.ReverseTunnelEnabled != null &&
                     this.ReverseTunnelEnabled.Equals(input.ReverseTunnelEnabled))
@@ -441,12 +486,6 @@ namespace Cohesity.Model
                     this.StigMode == input.StigMode ||
                     (this.StigMode != null &&
                     this.StigMode.Equals(input.StigMode))
-                ) && 
-                (
-                    this.SyslogServers == input.SyslogServers ||
-                    this.SyslogServers != null &&
-                    input.SyslogServers != null &&
-                    this.SyslogServers.SequenceEqual(input.SyslogServers)
                 ) && 
                 (
                     this.TenantViewboxSharingEnabled == input.TenantViewboxSharingEnabled ||
@@ -490,6 +529,7 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.EnableUpgradePkgPolling.GetHashCode();
                 if (this.EncryptionKeyRotationPeriodSecs != null)
                     hashCode = hashCode * 59 + this.EncryptionKeyRotationPeriodSecs.GetHashCode();
+                hashCode = hashCode * 59 + this.FaultToleranceLevel.GetHashCode();
                 if (this.FilerAuditLogConfig != null)
                     hashCode = hashCode * 59 + this.FilerAuditLogConfig.GetHashCode();
                 if (this.Gateway != null)
@@ -512,6 +552,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
                 if (this.NtpSettings != null)
                     hashCode = hashCode * 59 + this.NtpSettings.GetHashCode();
+                if (this.PcieSsdTierRebalanceDelaySecs != null)
+                    hashCode = hashCode * 59 + this.PcieSsdTierRebalanceDelaySecs.GetHashCode();
                 if (this.ReverseTunnelEnabled != null)
                     hashCode = hashCode * 59 + this.ReverseTunnelEnabled.GetHashCode();
                 if (this.ReverseTunnelEndTimeMsecs != null)
@@ -520,8 +562,6 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.SmbAdDisabled.GetHashCode();
                 if (this.StigMode != null)
                     hashCode = hashCode * 59 + this.StigMode.GetHashCode();
-                if (this.SyslogServers != null)
-                    hashCode = hashCode * 59 + this.SyslogServers.GetHashCode();
                 if (this.TenantViewboxSharingEnabled != null)
                     hashCode = hashCode * 59 + this.TenantViewboxSharingEnabled.GetHashCode();
                 if (this.Timezone != null)

@@ -30,12 +30,14 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="clusterName">Specifies the name of the new Cluster. (required).</param>
         /// <param name="encryptionConfig">encryptionConfig.</param>
+        /// <param name="ipPreference">Specifies IP preference..</param>
         /// <param name="metadataFaultTolerance">Specifies the metadata fault tolerance..</param>
         /// <param name="networkConfig">networkConfig (required).</param>
         /// <param name="nodeIps">Specifies the configuration for the nodes in the new cluster. (required).</param>
-        public CreateCloudClusterParameters(string clusterName = default(string), EncryptionConfiguration encryptionConfig = default(EncryptionConfiguration), int? metadataFaultTolerance = default(int?), CloudNetworkConfiguration networkConfig = default(CloudNetworkConfiguration), List<string> nodeIps = default(List<string>))
+        public CreateCloudClusterParameters(string clusterName = default(string), EncryptionConfiguration encryptionConfig = default(EncryptionConfiguration), int? ipPreference = default(int?), int? metadataFaultTolerance = default(int?), CloudNetworkConfiguration networkConfig = default(CloudNetworkConfiguration), List<string> nodeIps = default(List<string>))
         {
             this.ClusterName = clusterName;
+            this.IpPreference = ipPreference;
             this.MetadataFaultTolerance = metadataFaultTolerance;
             // to ensure "networkConfig" is required (not null)
             if (networkConfig == null)
@@ -49,6 +51,7 @@ namespace Cohesity.Model
 
             this.NodeIps = nodeIps;
             this.EncryptionConfig = encryptionConfig;
+            this.IpPreference = ipPreference;
             this.MetadataFaultTolerance = metadataFaultTolerance;
         }
         
@@ -64,6 +67,13 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="encryptionConfig", EmitDefaultValue=false)]
         public EncryptionConfiguration EncryptionConfig { get; set; }
+
+        /// <summary>
+        /// Specifies IP preference.
+        /// </summary>
+        /// <value>Specifies IP preference.</value>
+        [DataMember(Name="ipPreference", EmitDefaultValue=true)]
+        public int? IpPreference { get; set; }
 
         /// <summary>
         /// Specifies the metadata fault tolerance.
@@ -132,6 +142,11 @@ namespace Cohesity.Model
                     this.EncryptionConfig.Equals(input.EncryptionConfig))
                 ) && 
                 (
+                    this.IpPreference == input.IpPreference ||
+                    (this.IpPreference != null &&
+                    this.IpPreference.Equals(input.IpPreference))
+                ) && 
+                (
                     this.MetadataFaultTolerance == input.MetadataFaultTolerance ||
                     (this.MetadataFaultTolerance != null &&
                     this.MetadataFaultTolerance.Equals(input.MetadataFaultTolerance))
@@ -162,6 +177,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ClusterName.GetHashCode();
                 if (this.EncryptionConfig != null)
                     hashCode = hashCode * 59 + this.EncryptionConfig.GetHashCode();
+                if (this.IpPreference != null)
+                    hashCode = hashCode * 59 + this.IpPreference.GetHashCode();
                 if (this.MetadataFaultTolerance != null)
                     hashCode = hashCode * 59 + this.MetadataFaultTolerance.GetHashCode();
                 if (this.NetworkConfig != null)

@@ -21,9 +21,9 @@ namespace Cohesity.Model
     public partial class Cluster :  IEquatable<Cluster>
     {
         /// <summary>
-        /// Specifies the type of Cluster such as kPhysical. &#39;kPhysical&#39; indicates the Cohesity Cluster is hosted directly on hardware. &#39;kVirtualRobo&#39; indicates the Cohesity Cluster is hosted in a VM on a ESXi Host of a VMware vCenter Server using Cohesity&#39;s Virtual Edition. &#39;kMicrosoftCloud&#39; indicates the Cohesity Cluster is hosed in a VM on Microsoft Azure using Cohesity&#39;s Cloud Edition. &#39;kAmazonCloud&#39; indicates the Cohesity Cluster is hosed in a VM on Amazon S3 using Cohesity&#39;s Cloud Edition. &#39;kGoogleCloud&#39; indicates the Cohesity Cluster is hosed in a VM on Google Cloud Platform using Cohesity&#39;s Cloud Edition.
+        /// Specifies the type of Cluster such as kPhysical. &#39;kPhysical&#39; indicates the Cohesity Cluster is hosted directly on hardware. &#39;kVirtualRobo&#39; indicates the Cohesity Cluster is hosted in a VM on a ESXi Host of a VMware vCenter Server using Cohesity&#39;s Virtual Edition. &#39;kMicrosoftCloud&#39; indicates the Cohesity Cluster is hosted in a VM on Microsoft Azure using Cohesity&#39;s Cloud Edition. &#39;kAmazonCloud&#39; indicates the Cohesity Cluster is hosted in a VM on Amazon S3 using Cohesity&#39;s Cloud Edition. &#39;kGoogleCloud&#39; indicates the Cohesity Cluster is hosted in a VM on Google Cloud Platform using Cohesity&#39;s Cloud Edition.
         /// </summary>
-        /// <value>Specifies the type of Cluster such as kPhysical. &#39;kPhysical&#39; indicates the Cohesity Cluster is hosted directly on hardware. &#39;kVirtualRobo&#39; indicates the Cohesity Cluster is hosted in a VM on a ESXi Host of a VMware vCenter Server using Cohesity&#39;s Virtual Edition. &#39;kMicrosoftCloud&#39; indicates the Cohesity Cluster is hosed in a VM on Microsoft Azure using Cohesity&#39;s Cloud Edition. &#39;kAmazonCloud&#39; indicates the Cohesity Cluster is hosed in a VM on Amazon S3 using Cohesity&#39;s Cloud Edition. &#39;kGoogleCloud&#39; indicates the Cohesity Cluster is hosed in a VM on Google Cloud Platform using Cohesity&#39;s Cloud Edition.</value>
+        /// <value>Specifies the type of Cluster such as kPhysical. &#39;kPhysical&#39; indicates the Cohesity Cluster is hosted directly on hardware. &#39;kVirtualRobo&#39; indicates the Cohesity Cluster is hosted in a VM on a ESXi Host of a VMware vCenter Server using Cohesity&#39;s Virtual Edition. &#39;kMicrosoftCloud&#39; indicates the Cohesity Cluster is hosted in a VM on Microsoft Azure using Cohesity&#39;s Cloud Edition. &#39;kAmazonCloud&#39; indicates the Cohesity Cluster is hosted in a VM on Amazon S3 using Cohesity&#39;s Cloud Edition. &#39;kGoogleCloud&#39; indicates the Cohesity Cluster is hosted in a VM on Google Cloud Platform using Cohesity&#39;s Cloud Edition.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum ClusterTypeEnum
         {
@@ -60,9 +60,9 @@ namespace Cohesity.Model
         }
 
         /// <summary>
-        /// Specifies the type of Cluster such as kPhysical. &#39;kPhysical&#39; indicates the Cohesity Cluster is hosted directly on hardware. &#39;kVirtualRobo&#39; indicates the Cohesity Cluster is hosted in a VM on a ESXi Host of a VMware vCenter Server using Cohesity&#39;s Virtual Edition. &#39;kMicrosoftCloud&#39; indicates the Cohesity Cluster is hosed in a VM on Microsoft Azure using Cohesity&#39;s Cloud Edition. &#39;kAmazonCloud&#39; indicates the Cohesity Cluster is hosed in a VM on Amazon S3 using Cohesity&#39;s Cloud Edition. &#39;kGoogleCloud&#39; indicates the Cohesity Cluster is hosed in a VM on Google Cloud Platform using Cohesity&#39;s Cloud Edition.
+        /// Specifies the type of Cluster such as kPhysical. &#39;kPhysical&#39; indicates the Cohesity Cluster is hosted directly on hardware. &#39;kVirtualRobo&#39; indicates the Cohesity Cluster is hosted in a VM on a ESXi Host of a VMware vCenter Server using Cohesity&#39;s Virtual Edition. &#39;kMicrosoftCloud&#39; indicates the Cohesity Cluster is hosted in a VM on Microsoft Azure using Cohesity&#39;s Cloud Edition. &#39;kAmazonCloud&#39; indicates the Cohesity Cluster is hosted in a VM on Amazon S3 using Cohesity&#39;s Cloud Edition. &#39;kGoogleCloud&#39; indicates the Cohesity Cluster is hosted in a VM on Google Cloud Platform using Cohesity&#39;s Cloud Edition.
         /// </summary>
-        /// <value>Specifies the type of Cluster such as kPhysical. &#39;kPhysical&#39; indicates the Cohesity Cluster is hosted directly on hardware. &#39;kVirtualRobo&#39; indicates the Cohesity Cluster is hosted in a VM on a ESXi Host of a VMware vCenter Server using Cohesity&#39;s Virtual Edition. &#39;kMicrosoftCloud&#39; indicates the Cohesity Cluster is hosed in a VM on Microsoft Azure using Cohesity&#39;s Cloud Edition. &#39;kAmazonCloud&#39; indicates the Cohesity Cluster is hosed in a VM on Amazon S3 using Cohesity&#39;s Cloud Edition. &#39;kGoogleCloud&#39; indicates the Cohesity Cluster is hosed in a VM on Google Cloud Platform using Cohesity&#39;s Cloud Edition.</value>
+        /// <value>Specifies the type of Cluster such as kPhysical. &#39;kPhysical&#39; indicates the Cohesity Cluster is hosted directly on hardware. &#39;kVirtualRobo&#39; indicates the Cohesity Cluster is hosted in a VM on a ESXi Host of a VMware vCenter Server using Cohesity&#39;s Virtual Edition. &#39;kMicrosoftCloud&#39; indicates the Cohesity Cluster is hosted in a VM on Microsoft Azure using Cohesity&#39;s Cloud Edition. &#39;kAmazonCloud&#39; indicates the Cohesity Cluster is hosted in a VM on Amazon S3 using Cohesity&#39;s Cloud Edition. &#39;kGoogleCloud&#39; indicates the Cohesity Cluster is hosted in a VM on Google Cloud Platform using Cohesity&#39;s Cloud Edition.</value>
         [DataMember(Name="clusterType", EmitDefaultValue=true)]
         public ClusterTypeEnum? ClusterType { get; set; }
         /// <summary>
@@ -117,6 +117,39 @@ namespace Cohesity.Model
         [DataMember(Name="currentOperation", EmitDefaultValue=true)]
         public CurrentOperationEnum? CurrentOperation { get; set; }
         /// <summary>
+        /// Specifies the level which &#39;MetadataFaultToleranceFactor&#39; applies to. &#39;kNode&#39; indicates &#39;MetadataFaultToleranceFactor&#39; applies to Node level. &#39;kChassis&#39; indicates &#39;MetadataFaultToleranceFactor&#39; applies to Chassis level. &#39;kRack&#39; indicates &#39;MetadataFaultToleranceFactor&#39; applies to Rack level.
+        /// </summary>
+        /// <value>Specifies the level which &#39;MetadataFaultToleranceFactor&#39; applies to. &#39;kNode&#39; indicates &#39;MetadataFaultToleranceFactor&#39; applies to Node level. &#39;kChassis&#39; indicates &#39;MetadataFaultToleranceFactor&#39; applies to Chassis level. &#39;kRack&#39; indicates &#39;MetadataFaultToleranceFactor&#39; applies to Rack level.</value>
+        [JsonConverter(typeof(StringEnumConverter))]
+        public enum FaultToleranceLevelEnum
+        {
+            /// <summary>
+            /// Enum KNode for value: kNode
+            /// </summary>
+            [EnumMember(Value = "kNode")]
+            KNode = 1,
+
+            /// <summary>
+            /// Enum KChassis for value: kChassis
+            /// </summary>
+            [EnumMember(Value = "kChassis")]
+            KChassis = 2,
+
+            /// <summary>
+            /// Enum KRack for value: kRack
+            /// </summary>
+            [EnumMember(Value = "kRack")]
+            KRack = 3
+
+        }
+
+        /// <summary>
+        /// Specifies the level which &#39;MetadataFaultToleranceFactor&#39; applies to. &#39;kNode&#39; indicates &#39;MetadataFaultToleranceFactor&#39; applies to Node level. &#39;kChassis&#39; indicates &#39;MetadataFaultToleranceFactor&#39; applies to Chassis level. &#39;kRack&#39; indicates &#39;MetadataFaultToleranceFactor&#39; applies to Rack level.
+        /// </summary>
+        /// <value>Specifies the level which &#39;MetadataFaultToleranceFactor&#39; applies to. &#39;kNode&#39; indicates &#39;MetadataFaultToleranceFactor&#39; applies to Node level. &#39;kChassis&#39; indicates &#39;MetadataFaultToleranceFactor&#39; applies to Chassis level. &#39;kRack&#39; indicates &#39;MetadataFaultToleranceFactor&#39; applies to Rack level.</value>
+        [DataMember(Name="faultToleranceLevel", EmitDefaultValue=true)]
+        public FaultToleranceLevelEnum? FaultToleranceLevel { get; set; }
+        /// <summary>
         /// Initializes a new instance of the <see cref="Cluster" /> class.
         /// </summary>
         /// <param name="appsSettings">appsSettings.</param>
@@ -124,7 +157,7 @@ namespace Cohesity.Model
         /// <param name="bannerEnabled">Specifies whether UI banner is enabled on the cluster or not. When banner is enabled, UI will make an additional API call to fetch the banner and show at the login page..</param>
         /// <param name="clusterAuditLogConfig">clusterAuditLogConfig.</param>
         /// <param name="clusterSoftwareVersion">Specifies the current release of the Cohesity software running on this Cohesity Cluster..</param>
-        /// <param name="clusterType">Specifies the type of Cluster such as kPhysical. &#39;kPhysical&#39; indicates the Cohesity Cluster is hosted directly on hardware. &#39;kVirtualRobo&#39; indicates the Cohesity Cluster is hosted in a VM on a ESXi Host of a VMware vCenter Server using Cohesity&#39;s Virtual Edition. &#39;kMicrosoftCloud&#39; indicates the Cohesity Cluster is hosed in a VM on Microsoft Azure using Cohesity&#39;s Cloud Edition. &#39;kAmazonCloud&#39; indicates the Cohesity Cluster is hosed in a VM on Amazon S3 using Cohesity&#39;s Cloud Edition. &#39;kGoogleCloud&#39; indicates the Cohesity Cluster is hosed in a VM on Google Cloud Platform using Cohesity&#39;s Cloud Edition..</param>
+        /// <param name="clusterType">Specifies the type of Cluster such as kPhysical. &#39;kPhysical&#39; indicates the Cohesity Cluster is hosted directly on hardware. &#39;kVirtualRobo&#39; indicates the Cohesity Cluster is hosted in a VM on a ESXi Host of a VMware vCenter Server using Cohesity&#39;s Virtual Edition. &#39;kMicrosoftCloud&#39; indicates the Cohesity Cluster is hosted in a VM on Microsoft Azure using Cohesity&#39;s Cloud Edition. &#39;kAmazonCloud&#39; indicates the Cohesity Cluster is hosted in a VM on Amazon S3 using Cohesity&#39;s Cloud Edition. &#39;kGoogleCloud&#39; indicates the Cohesity Cluster is hosted in a VM on Google Cloud Platform using Cohesity&#39;s Cloud Edition..</param>
         /// <param name="createdTimeMsecs">Specifies the time when the Cohesity Cluster was created. This value is specified as a Unix epoch Timestamp (in microseconds)..</param>
         /// <param name="currentOpScheduledTimeSecs">Specifies the time scheduled by the Cohesity Cluster to start the current running operation..</param>
         /// <param name="currentOperation">Specifies the current Cluster-level operation in progress. &#39;kUpgrade&#39; indicates the Cohesity Cluster is upgrading to a new release. &#39;kRemoveNode&#39; indicates the Cohesity Cluster is removing a Node from the Cluster. &#39;kNone&#39; indicates no action is occurring on the Cohesity Cluster. &#39;kDestroy&#39; indicates the Cohesity Cluster is getting destoryed. &#39;kClean&#39; indicates the Cohesity Cluster is getting cleaned. &#39;kRestartServices&#39; indicates the Cohesity Cluster is restarting the services..</param>
@@ -136,6 +169,7 @@ namespace Cohesity.Model
         /// <param name="encryptionEnabled">If &#39;true&#39;, the entire Cohesity Cluster is encrypted including all View Boxes..</param>
         /// <param name="encryptionKeyRotationPeriodSecs">Specifies the period of time (in seconds) when encryption keys are rotated. By default, the encryption keys are rotated every 77760000 seconds (30 days)..</param>
         /// <param name="eulaConfig">Specifies the End User License Agreement (EULA) acceptance information..</param>
+        /// <param name="faultToleranceLevel">Specifies the level which &#39;MetadataFaultToleranceFactor&#39; applies to. &#39;kNode&#39; indicates &#39;MetadataFaultToleranceFactor&#39; applies to Node level. &#39;kChassis&#39; indicates &#39;MetadataFaultToleranceFactor&#39; applies to Chassis level. &#39;kRack&#39; indicates &#39;MetadataFaultToleranceFactor&#39; applies to Rack level..</param>
         /// <param name="filerAuditLogConfig">filerAuditLogConfig.</param>
         /// <param name="fipsModeEnabled">Specifies if the Cohesity Cluster should operate in the FIPS mode, which is compliant with the Federal Information Processing Standard 140-2 certification..</param>
         /// <param name="gateway">Specifies the gateway IP address..</param>
@@ -143,6 +177,7 @@ namespace Cohesity.Model
         /// <param name="hardwareInfo">hardwareInfo.</param>
         /// <param name="id">Specifies the unique id of Cohesity Cluster..</param>
         /// <param name="incarnationId">Specifies the unique incarnation id of the Cohesity Cluster..</param>
+        /// <param name="ipPreference">IP preference.</param>
         /// <param name="isDocumentationLocal">Specifies what version of the documentation is used. If &#39;true&#39;, the version of documentation stored locally on the Cohesity Cluster is used. If &#39;false&#39;, the documentation stored on a Cohesity Web Server is used. The default is &#39;false&#39;. Cohesity recommends accessing the Help from the Cohesity Web site which provides the newest and most complete version of Help..</param>
         /// <param name="languageLocale">Specifies the language and locale for this Cohesity Cluster..</param>
         /// <param name="licenseState">Specifies the Licensing State information..</param>
@@ -154,6 +189,7 @@ namespace Cohesity.Model
         /// <param name="nodeCount">Specifies the number of Nodes in the Cohesity Cluster..</param>
         /// <param name="nodeIps">IP addresses of nodes in the cluster.</param>
         /// <param name="ntpSettings">ntpSettings.</param>
+        /// <param name="pcieSsdTierRebalanceDelaySecs">Specifies the rebalance delay in seconds for cluster PcieSSD storage tier..</param>
         /// <param name="proxyVMSubnet">The subnet reserved for ProxyVM.</param>
         /// <param name="reverseTunnelEnabled">If &#39;true&#39;, Cohesity&#39;s Remote Tunnel is enabled. Cohesity can access the Cluster and provide remote assistance via a Remote Tunnel..</param>
         /// <param name="reverseTunnelEndTimeMsecs">ReverseTunnelEndTimeMsecs specifies the end time in milliseconds since epoch until when the reverse tunnel will stay enabled..</param>
@@ -162,13 +198,12 @@ namespace Cohesity.Model
         /// <param name="stats">stats.</param>
         /// <param name="stigMode">Specifies if STIG mode is enabled or not..</param>
         /// <param name="supportedConfig">supportedConfig.</param>
-        /// <param name="syslogServers">Array of Syslog Servers.  Specifies a list of Syslog servers to send audit logs to..</param>
         /// <param name="targetSoftwareVersion">Specifies the Cohesity release that this Cluster is being upgraded to if an upgrade operation is in progress..</param>
         /// <param name="tenantViewboxSharingEnabled">In case multi tenancy is enabled, this flag controls whether multiple tenants can be placed on the same viewbox. Once set to true, this flag should never become false..</param>
         /// <param name="timezone">Specifies the timezone to use for showing time in emails, reports, filer audit logs, etc..</param>
         /// <param name="turboMode">Specifies if the cluster is in Turbo mode..</param>
         /// <param name="usedMetadataSpacePct">UsedMetadataSpacePct measures the percentage about storage used for metadata over the total storage available for metadata.</param>
-        public Cluster(AppsConfig appsSettings = default(AppsConfig), long? availableMetadataSpace = default(long?), bool? bannerEnabled = default(bool?), ClusterAuditLogConfiguration clusterAuditLogConfig = default(ClusterAuditLogConfiguration), string clusterSoftwareVersion = default(string), ClusterTypeEnum? clusterType = default(ClusterTypeEnum?), long? createdTimeMsecs = default(long?), long? currentOpScheduledTimeSecs = default(long?), CurrentOperationEnum? currentOperation = default(CurrentOperationEnum?), long? currentTimeMsecs = default(long?), List<string> dnsServerIps = default(List<string>), List<string> domainNames = default(List<string>), bool? enableActiveMonitoring = default(bool?), bool? enableUpgradePkgPolling = default(bool?), bool? encryptionEnabled = default(bool?), long? encryptionKeyRotationPeriodSecs = default(long?), EulaConfig eulaConfig = default(EulaConfig), FilerAuditLogConfiguration filerAuditLogConfig = default(FilerAuditLogConfiguration), bool? fipsModeEnabled = default(bool?), string gateway = default(string), bool? googleAnalyticsEnabled = default(bool?), ClusterHardwareInfo hardwareInfo = default(ClusterHardwareInfo), long? id = default(long?), long? incarnationId = default(long?), bool? isDocumentationLocal = default(bool?), string languageLocale = default(string), LicenseState licenseState = default(LicenseState), string localAuthDomainName = default(string), bool? localGroupsEnabled = default(bool?), int? metadataFaultToleranceFactor = default(int?), bool? multiTenancyEnabled = default(bool?), string name = default(string), long? nodeCount = default(long?), string nodeIps = default(string), NtpSettingsConfig ntpSettings = default(NtpSettingsConfig), string proxyVMSubnet = default(string), bool? reverseTunnelEnabled = default(bool?), long? reverseTunnelEndTimeMsecs = default(long?), List<SchemaInfo> schemaInfoList = default(List<SchemaInfo>), bool? smbAdDisabled = default(bool?), ClusterStats stats = default(ClusterStats), bool? stigMode = default(bool?), SupportedConfig supportedConfig = default(SupportedConfig), List<SyslogServer> syslogServers = default(List<SyslogServer>), string targetSoftwareVersion = default(string), bool? tenantViewboxSharingEnabled = default(bool?), string timezone = default(string), bool? turboMode = default(bool?), double? usedMetadataSpacePct = default(double?))
+        public Cluster(AppsConfig appsSettings = default(AppsConfig), long? availableMetadataSpace = default(long?), bool? bannerEnabled = default(bool?), ClusterAuditLogConfiguration clusterAuditLogConfig = default(ClusterAuditLogConfiguration), string clusterSoftwareVersion = default(string), ClusterTypeEnum? clusterType = default(ClusterTypeEnum?), long? createdTimeMsecs = default(long?), long? currentOpScheduledTimeSecs = default(long?), CurrentOperationEnum? currentOperation = default(CurrentOperationEnum?), long? currentTimeMsecs = default(long?), List<string> dnsServerIps = default(List<string>), List<string> domainNames = default(List<string>), bool? enableActiveMonitoring = default(bool?), bool? enableUpgradePkgPolling = default(bool?), bool? encryptionEnabled = default(bool?), long? encryptionKeyRotationPeriodSecs = default(long?), EulaConfig eulaConfig = default(EulaConfig), FaultToleranceLevelEnum? faultToleranceLevel = default(FaultToleranceLevelEnum?), FilerAuditLogConfiguration filerAuditLogConfig = default(FilerAuditLogConfiguration), bool? fipsModeEnabled = default(bool?), string gateway = default(string), bool? googleAnalyticsEnabled = default(bool?), ClusterHardwareInfo hardwareInfo = default(ClusterHardwareInfo), long? id = default(long?), long? incarnationId = default(long?), int? ipPreference = default(int?), bool? isDocumentationLocal = default(bool?), string languageLocale = default(string), LicenseState licenseState = default(LicenseState), string localAuthDomainName = default(string), bool? localGroupsEnabled = default(bool?), int? metadataFaultToleranceFactor = default(int?), bool? multiTenancyEnabled = default(bool?), string name = default(string), long? nodeCount = default(long?), string nodeIps = default(string), NtpSettingsConfig ntpSettings = default(NtpSettingsConfig), int? pcieSsdTierRebalanceDelaySecs = default(int?), string proxyVMSubnet = default(string), bool? reverseTunnelEnabled = default(bool?), long? reverseTunnelEndTimeMsecs = default(long?), List<SchemaInfo> schemaInfoList = default(List<SchemaInfo>), bool? smbAdDisabled = default(bool?), ClusterStats stats = default(ClusterStats), bool? stigMode = default(bool?), SupportedConfig supportedConfig = default(SupportedConfig), string targetSoftwareVersion = default(string), bool? tenantViewboxSharingEnabled = default(bool?), string timezone = default(string), bool? turboMode = default(bool?), double? usedMetadataSpacePct = default(double?))
         {
             this.AvailableMetadataSpace = availableMetadataSpace;
             this.BannerEnabled = bannerEnabled;
@@ -185,11 +220,13 @@ namespace Cohesity.Model
             this.EncryptionEnabled = encryptionEnabled;
             this.EncryptionKeyRotationPeriodSecs = encryptionKeyRotationPeriodSecs;
             this.EulaConfig = eulaConfig;
+            this.FaultToleranceLevel = faultToleranceLevel;
             this.FipsModeEnabled = fipsModeEnabled;
             this.Gateway = gateway;
             this.GoogleAnalyticsEnabled = googleAnalyticsEnabled;
             this.Id = id;
             this.IncarnationId = incarnationId;
+            this.IpPreference = ipPreference;
             this.IsDocumentationLocal = isDocumentationLocal;
             this.LanguageLocale = languageLocale;
             this.LicenseState = licenseState;
@@ -200,13 +237,13 @@ namespace Cohesity.Model
             this.Name = name;
             this.NodeCount = nodeCount;
             this.NodeIps = nodeIps;
+            this.PcieSsdTierRebalanceDelaySecs = pcieSsdTierRebalanceDelaySecs;
             this.ProxyVMSubnet = proxyVMSubnet;
             this.ReverseTunnelEnabled = reverseTunnelEnabled;
             this.ReverseTunnelEndTimeMsecs = reverseTunnelEndTimeMsecs;
             this.SchemaInfoList = schemaInfoList;
             this.SmbAdDisabled = smbAdDisabled;
             this.StigMode = stigMode;
-            this.SyslogServers = syslogServers;
             this.TargetSoftwareVersion = targetSoftwareVersion;
             this.TenantViewboxSharingEnabled = tenantViewboxSharingEnabled;
             this.Timezone = timezone;
@@ -229,6 +266,7 @@ namespace Cohesity.Model
             this.EncryptionEnabled = encryptionEnabled;
             this.EncryptionKeyRotationPeriodSecs = encryptionKeyRotationPeriodSecs;
             this.EulaConfig = eulaConfig;
+            this.FaultToleranceLevel = faultToleranceLevel;
             this.FilerAuditLogConfig = filerAuditLogConfig;
             this.FipsModeEnabled = fipsModeEnabled;
             this.Gateway = gateway;
@@ -236,6 +274,7 @@ namespace Cohesity.Model
             this.HardwareInfo = hardwareInfo;
             this.Id = id;
             this.IncarnationId = incarnationId;
+            this.IpPreference = ipPreference;
             this.IsDocumentationLocal = isDocumentationLocal;
             this.LanguageLocale = languageLocale;
             this.LicenseState = licenseState;
@@ -247,6 +286,7 @@ namespace Cohesity.Model
             this.NodeCount = nodeCount;
             this.NodeIps = nodeIps;
             this.NtpSettings = ntpSettings;
+            this.PcieSsdTierRebalanceDelaySecs = pcieSsdTierRebalanceDelaySecs;
             this.ProxyVMSubnet = proxyVMSubnet;
             this.ReverseTunnelEnabled = reverseTunnelEnabled;
             this.ReverseTunnelEndTimeMsecs = reverseTunnelEndTimeMsecs;
@@ -255,7 +295,6 @@ namespace Cohesity.Model
             this.Stats = stats;
             this.StigMode = stigMode;
             this.SupportedConfig = supportedConfig;
-            this.SyslogServers = syslogServers;
             this.TargetSoftwareVersion = targetSoftwareVersion;
             this.TenantViewboxSharingEnabled = tenantViewboxSharingEnabled;
             this.Timezone = timezone;
@@ -414,6 +453,13 @@ namespace Cohesity.Model
         public long? IncarnationId { get; set; }
 
         /// <summary>
+        /// IP preference
+        /// </summary>
+        /// <value>IP preference</value>
+        [DataMember(Name="ipPreference", EmitDefaultValue=true)]
+        public int? IpPreference { get; set; }
+
+        /// <summary>
         /// Specifies what version of the documentation is used. If &#39;true&#39;, the version of documentation stored locally on the Cohesity Cluster is used. If &#39;false&#39;, the documentation stored on a Cohesity Web Server is used. The default is &#39;false&#39;. Cohesity recommends accessing the Help from the Cohesity Web site which provides the newest and most complete version of Help.
         /// </summary>
         /// <value>Specifies what version of the documentation is used. If &#39;true&#39;, the version of documentation stored locally on the Cohesity Cluster is used. If &#39;false&#39;, the documentation stored on a Cohesity Web Server is used. The default is &#39;false&#39;. Cohesity recommends accessing the Help from the Cohesity Web site which provides the newest and most complete version of Help.</value>
@@ -490,6 +536,13 @@ namespace Cohesity.Model
         public NtpSettingsConfig NtpSettings { get; set; }
 
         /// <summary>
+        /// Specifies the rebalance delay in seconds for cluster PcieSSD storage tier.
+        /// </summary>
+        /// <value>Specifies the rebalance delay in seconds for cluster PcieSSD storage tier.</value>
+        [DataMember(Name="pcieSsdTierRebalanceDelaySecs", EmitDefaultValue=true)]
+        public int? PcieSsdTierRebalanceDelaySecs { get; set; }
+
+        /// <summary>
         /// The subnet reserved for ProxyVM
         /// </summary>
         /// <value>The subnet reserved for ProxyVM</value>
@@ -542,13 +595,6 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="supportedConfig", EmitDefaultValue=false)]
         public SupportedConfig SupportedConfig { get; set; }
-
-        /// <summary>
-        /// Array of Syslog Servers.  Specifies a list of Syslog servers to send audit logs to.
-        /// </summary>
-        /// <value>Array of Syslog Servers.  Specifies a list of Syslog servers to send audit logs to.</value>
-        [DataMember(Name="syslogServers", EmitDefaultValue=true)]
-        public List<SyslogServer> SyslogServers { get; set; }
 
         /// <summary>
         /// Specifies the Cohesity release that this Cluster is being upgraded to if an upgrade operation is in progress.
@@ -707,6 +753,10 @@ namespace Cohesity.Model
                     this.EulaConfig.Equals(input.EulaConfig))
                 ) && 
                 (
+                    this.FaultToleranceLevel == input.FaultToleranceLevel ||
+                    this.FaultToleranceLevel.Equals(input.FaultToleranceLevel)
+                ) && 
+                (
                     this.FilerAuditLogConfig == input.FilerAuditLogConfig ||
                     (this.FilerAuditLogConfig != null &&
                     this.FilerAuditLogConfig.Equals(input.FilerAuditLogConfig))
@@ -740,6 +790,11 @@ namespace Cohesity.Model
                     this.IncarnationId == input.IncarnationId ||
                     (this.IncarnationId != null &&
                     this.IncarnationId.Equals(input.IncarnationId))
+                ) && 
+                (
+                    this.IpPreference == input.IpPreference ||
+                    (this.IpPreference != null &&
+                    this.IpPreference.Equals(input.IpPreference))
                 ) && 
                 (
                     this.IsDocumentationLocal == input.IsDocumentationLocal ||
@@ -797,6 +852,11 @@ namespace Cohesity.Model
                     this.NtpSettings.Equals(input.NtpSettings))
                 ) && 
                 (
+                    this.PcieSsdTierRebalanceDelaySecs == input.PcieSsdTierRebalanceDelaySecs ||
+                    (this.PcieSsdTierRebalanceDelaySecs != null &&
+                    this.PcieSsdTierRebalanceDelaySecs.Equals(input.PcieSsdTierRebalanceDelaySecs))
+                ) && 
+                (
                     this.ProxyVMSubnet == input.ProxyVMSubnet ||
                     (this.ProxyVMSubnet != null &&
                     this.ProxyVMSubnet.Equals(input.ProxyVMSubnet))
@@ -836,12 +896,6 @@ namespace Cohesity.Model
                     this.SupportedConfig == input.SupportedConfig ||
                     (this.SupportedConfig != null &&
                     this.SupportedConfig.Equals(input.SupportedConfig))
-                ) && 
-                (
-                    this.SyslogServers == input.SyslogServers ||
-                    this.SyslogServers != null &&
-                    input.SyslogServers != null &&
-                    this.SyslogServers.SequenceEqual(input.SyslogServers)
                 ) && 
                 (
                     this.TargetSoftwareVersion == input.TargetSoftwareVersion ||
@@ -911,6 +965,7 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.EncryptionKeyRotationPeriodSecs.GetHashCode();
                 if (this.EulaConfig != null)
                     hashCode = hashCode * 59 + this.EulaConfig.GetHashCode();
+                hashCode = hashCode * 59 + this.FaultToleranceLevel.GetHashCode();
                 if (this.FilerAuditLogConfig != null)
                     hashCode = hashCode * 59 + this.FilerAuditLogConfig.GetHashCode();
                 if (this.FipsModeEnabled != null)
@@ -925,6 +980,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Id.GetHashCode();
                 if (this.IncarnationId != null)
                     hashCode = hashCode * 59 + this.IncarnationId.GetHashCode();
+                if (this.IpPreference != null)
+                    hashCode = hashCode * 59 + this.IpPreference.GetHashCode();
                 if (this.IsDocumentationLocal != null)
                     hashCode = hashCode * 59 + this.IsDocumentationLocal.GetHashCode();
                 if (this.LanguageLocale != null)
@@ -947,6 +1004,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.NodeIps.GetHashCode();
                 if (this.NtpSettings != null)
                     hashCode = hashCode * 59 + this.NtpSettings.GetHashCode();
+                if (this.PcieSsdTierRebalanceDelaySecs != null)
+                    hashCode = hashCode * 59 + this.PcieSsdTierRebalanceDelaySecs.GetHashCode();
                 if (this.ProxyVMSubnet != null)
                     hashCode = hashCode * 59 + this.ProxyVMSubnet.GetHashCode();
                 if (this.ReverseTunnelEnabled != null)
@@ -963,8 +1022,6 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.StigMode.GetHashCode();
                 if (this.SupportedConfig != null)
                     hashCode = hashCode * 59 + this.SupportedConfig.GetHashCode();
-                if (this.SyslogServers != null)
-                    hashCode = hashCode * 59 + this.SyslogServers.GetHashCode();
                 if (this.TargetSoftwareVersion != null)
                     hashCode = hashCode * 59 + this.TargetSoftwareVersion.GetHashCode();
                 if (this.TenantViewboxSharingEnabled != null)

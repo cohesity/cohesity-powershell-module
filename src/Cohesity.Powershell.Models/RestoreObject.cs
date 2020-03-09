@@ -32,16 +32,18 @@ namespace Cohesity.Model
         /// <param name="jobInstanceId">Id identifying a specific run to restore from. If this is not specified, and we need to restore from a run, the latest run is used. NOTE: This must be specified for RestoreFiles, RecoverDisks and GetVirtualDisks APIs..</param>
         /// <param name="jobUid">jobUid.</param>
         /// <param name="parentSource">parentSource.</param>
+        /// <param name="pointInTimeRestoreTimeUsecs">The time to which the object needs to be restored. If this is not set, then the object will be restored to the full/incremental snapshot. This is applicable only if the object is protected using CDP..</param>
         /// <param name="restoreAcropolisVmParam">restoreAcropolisVmParam.</param>
         /// <param name="snapshotRelativeDirPath">The relative path to the directory containing the entity&#39;s snapshot..</param>
         /// <param name="startTimeUsecs">The start time of the specific job run. Iff &#39;job_instance_id&#39; is set, this field must be set. In-memory indices on the Magneto master are laid-out by the start time of the job, and this is how the master pulls up a specific run. NOTE: This must be specified for RestoreFiles, RecoverDisks and GetVirtualDisks APIs.</param>
         /// <param name="viewName">The name of the view where the object&#39;s snapshot is located..</param>
         /// <param name="vmHadIndependentDisks">This is applicable only to VMs and is set to true when the VM being recovered or cloned contained independent disks when it was backed up..</param>
-        public RestoreObject(ArchivalTarget archivalTarget = default(ArchivalTarget), int? attemptNum = default(int?), CloudDeployTarget cloudDeployTarget = default(CloudDeployTarget), CloudDeployTarget cloudReplicationTarget = default(CloudDeployTarget), EntityProto entity = default(EntityProto), long? jobId = default(long?), long? jobInstanceId = default(long?), UniversalIdProto jobUid = default(UniversalIdProto), EntityProto parentSource = default(EntityProto), RestoreAcropolisVMParam restoreAcropolisVmParam = default(RestoreAcropolisVMParam), string snapshotRelativeDirPath = default(string), long? startTimeUsecs = default(long?), string viewName = default(string), bool? vmHadIndependentDisks = default(bool?))
+        public RestoreObject(ArchivalTarget archivalTarget = default(ArchivalTarget), int? attemptNum = default(int?), CloudDeployTarget cloudDeployTarget = default(CloudDeployTarget), CloudDeployTarget cloudReplicationTarget = default(CloudDeployTarget), EntityProto entity = default(EntityProto), long? jobId = default(long?), long? jobInstanceId = default(long?), UniversalIdProto jobUid = default(UniversalIdProto), EntityProto parentSource = default(EntityProto), long? pointInTimeRestoreTimeUsecs = default(long?), RestoreAcropolisVMParam restoreAcropolisVmParam = default(RestoreAcropolisVMParam), string snapshotRelativeDirPath = default(string), long? startTimeUsecs = default(long?), string viewName = default(string), bool? vmHadIndependentDisks = default(bool?))
         {
             this.AttemptNum = attemptNum;
             this.JobId = jobId;
             this.JobInstanceId = jobInstanceId;
+            this.PointInTimeRestoreTimeUsecs = pointInTimeRestoreTimeUsecs;
             this.SnapshotRelativeDirPath = snapshotRelativeDirPath;
             this.StartTimeUsecs = startTimeUsecs;
             this.ViewName = viewName;
@@ -55,6 +57,7 @@ namespace Cohesity.Model
             this.JobInstanceId = jobInstanceId;
             this.JobUid = jobUid;
             this.ParentSource = parentSource;
+            this.PointInTimeRestoreTimeUsecs = pointInTimeRestoreTimeUsecs;
             this.RestoreAcropolisVmParam = restoreAcropolisVmParam;
             this.SnapshotRelativeDirPath = snapshotRelativeDirPath;
             this.StartTimeUsecs = startTimeUsecs;
@@ -118,6 +121,13 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="parentSource", EmitDefaultValue=false)]
         public EntityProto ParentSource { get; set; }
+
+        /// <summary>
+        /// The time to which the object needs to be restored. If this is not set, then the object will be restored to the full/incremental snapshot. This is applicable only if the object is protected using CDP.
+        /// </summary>
+        /// <value>The time to which the object needs to be restored. If this is not set, then the object will be restored to the full/incremental snapshot. This is applicable only if the object is protected using CDP.</value>
+        [DataMember(Name="pointInTimeRestoreTimeUsecs", EmitDefaultValue=true)]
+        public long? PointInTimeRestoreTimeUsecs { get; set; }
 
         /// <summary>
         /// Gets or Sets RestoreAcropolisVmParam
@@ -235,6 +245,11 @@ namespace Cohesity.Model
                     this.ParentSource.Equals(input.ParentSource))
                 ) && 
                 (
+                    this.PointInTimeRestoreTimeUsecs == input.PointInTimeRestoreTimeUsecs ||
+                    (this.PointInTimeRestoreTimeUsecs != null &&
+                    this.PointInTimeRestoreTimeUsecs.Equals(input.PointInTimeRestoreTimeUsecs))
+                ) && 
+                (
                     this.RestoreAcropolisVmParam == input.RestoreAcropolisVmParam ||
                     (this.RestoreAcropolisVmParam != null &&
                     this.RestoreAcropolisVmParam.Equals(input.RestoreAcropolisVmParam))
@@ -288,6 +303,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.JobUid.GetHashCode();
                 if (this.ParentSource != null)
                     hashCode = hashCode * 59 + this.ParentSource.GetHashCode();
+                if (this.PointInTimeRestoreTimeUsecs != null)
+                    hashCode = hashCode * 59 + this.PointInTimeRestoreTimeUsecs.GetHashCode();
                 if (this.RestoreAcropolisVmParam != null)
                     hashCode = hashCode * 59 + this.RestoreAcropolisVmParam.GetHashCode();
                 if (this.SnapshotRelativeDirPath != null)

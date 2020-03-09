@@ -46,9 +46,10 @@ namespace Cohesity.Model
         /// <param name="type">The type of environment that is being operated on..</param>
         /// <param name="user">The user who requested this destroy clone task..</param>
         /// <param name="userInfo">userInfo.</param>
+        /// <param name="vcdConfig">vcdConfig.</param>
         /// <param name="viewBoxId">The view box id to which &#39;view_name&#39; belongs to..</param>
         /// <param name="viewNameDEPRECATED">The view name as provided by the user for the clone operation..</param>
-        public DestroyClonedTaskStateProto(string cloneTaskName = default(string), EntityProto datastoreEntity = default(EntityProto), DeployVMsToCloudTaskStateProto deployVmsToCloudTaskState = default(DeployVMsToCloudTaskStateProto), DestroyCloneAppTaskInfoProto destroyCloneAppTaskInfo = default(DestroyCloneAppTaskInfoProto), DestroyClonedVMTaskInfoProto destroyCloneVmTaskInfo = default(DestroyClonedVMTaskInfoProto), DestroyMountVolumesTaskInfoProto destroyMountVolumesTaskInfo = default(DestroyMountVolumesTaskInfoProto), long? endTimeUsecs = default(long?), ErrorProto error = default(ErrorProto), EntityProto folderEntity = default(EntityProto), bool? forceDelete = default(bool?), string fullViewName = default(string), ConnectorParams parentSourceConnectionParams = default(ConnectorParams), long? parentTaskId = default(long?), long? performCloneTaskId = default(long?), int? restoreType = default(int?), long? scheduledConstituentId = default(long?), long? scheduledGandalfSessionId = default(long?), long? startTimeUsecs = default(long?), int? status = default(int?), long? taskId = default(long?), int? type = default(int?), string user = default(string), UserInformation userInfo = default(UserInformation), long? viewBoxId = default(long?), string viewNameDEPRECATED = default(string))
+        public DestroyClonedTaskStateProto(string cloneTaskName = default(string), EntityProto datastoreEntity = default(EntityProto), DeployVMsToCloudTaskStateProto deployVmsToCloudTaskState = default(DeployVMsToCloudTaskStateProto), DestroyCloneAppTaskInfoProto destroyCloneAppTaskInfo = default(DestroyCloneAppTaskInfoProto), DestroyClonedVMTaskInfoProto destroyCloneVmTaskInfo = default(DestroyClonedVMTaskInfoProto), DestroyMountVolumesTaskInfoProto destroyMountVolumesTaskInfo = default(DestroyMountVolumesTaskInfoProto), long? endTimeUsecs = default(long?), ErrorProto error = default(ErrorProto), EntityProto folderEntity = default(EntityProto), bool? forceDelete = default(bool?), string fullViewName = default(string), ConnectorParams parentSourceConnectionParams = default(ConnectorParams), long? parentTaskId = default(long?), long? performCloneTaskId = default(long?), int? restoreType = default(int?), long? scheduledConstituentId = default(long?), long? scheduledGandalfSessionId = default(long?), long? startTimeUsecs = default(long?), int? status = default(int?), long? taskId = default(long?), int? type = default(int?), string user = default(string), UserInformation userInfo = default(UserInformation), RestoredObjectVCDConfigProto vcdConfig = default(RestoredObjectVCDConfigProto), long? viewBoxId = default(long?), string viewNameDEPRECATED = default(string))
         {
             this.CloneTaskName = cloneTaskName;
             this.EndTimeUsecs = endTimeUsecs;
@@ -89,6 +90,7 @@ namespace Cohesity.Model
             this.Type = type;
             this.User = user;
             this.UserInfo = userInfo;
+            this.VcdConfig = vcdConfig;
             this.ViewBoxId = viewBoxId;
             this.ViewNameDEPRECATED = viewNameDEPRECATED;
         }
@@ -243,6 +245,12 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="userInfo", EmitDefaultValue=false)]
         public UserInformation UserInfo { get; set; }
+
+        /// <summary>
+        /// Gets or Sets VcdConfig
+        /// </summary>
+        [DataMember(Name="vcdConfig", EmitDefaultValue=false)]
+        public RestoredObjectVCDConfigProto VcdConfig { get; set; }
 
         /// <summary>
         /// The view box id to which &#39;view_name&#39; belongs to.
@@ -410,6 +418,11 @@ namespace Cohesity.Model
                     this.UserInfo.Equals(input.UserInfo))
                 ) && 
                 (
+                    this.VcdConfig == input.VcdConfig ||
+                    (this.VcdConfig != null &&
+                    this.VcdConfig.Equals(input.VcdConfig))
+                ) && 
+                (
                     this.ViewBoxId == input.ViewBoxId ||
                     (this.ViewBoxId != null &&
                     this.ViewBoxId.Equals(input.ViewBoxId))
@@ -476,6 +489,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.User.GetHashCode();
                 if (this.UserInfo != null)
                     hashCode = hashCode * 59 + this.UserInfo.GetHashCode();
+                if (this.VcdConfig != null)
+                    hashCode = hashCode * 59 + this.VcdConfig.GetHashCode();
                 if (this.ViewBoxId != null)
                     hashCode = hashCode * 59 + this.ViewBoxId.GetHashCode();
                 if (this.ViewNameDEPRECATED != null)

@@ -28,7 +28,7 @@ namespace Cohesity.Model
         /// <param name="clusters">Selective import certain cluster..</param>
         /// <param name="file">File is the config file..</param>
         /// <param name="groups">Selective import certain groups..</param>
-        /// <param name="partitions">Selective import of Partiton..</param>
+        /// <param name="partitions">Selective import of Partition..</param>
         /// <param name="principalSources">Selective import of principal sources..</param>
         /// <param name="protectionJobs">Selective import of protection jobs..</param>
         /// <param name="protectionPolicies">Selective import of protection policies..</param>
@@ -114,9 +114,9 @@ namespace Cohesity.Model
         public List<string> Groups { get; set; }
 
         /// <summary>
-        /// Selective import of Partiton.
+        /// Selective import of Partition.
         /// </summary>
-        /// <value>Selective import of Partiton.</value>
+        /// <value>Selective import of Partition.</value>
         [DataMember(Name="partitions", EmitDefaultValue=true)]
         public List<long> Partitions { get; set; }
 

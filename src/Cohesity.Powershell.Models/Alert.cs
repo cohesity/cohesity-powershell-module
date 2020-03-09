@@ -132,36 +132,42 @@ namespace Cohesity.Model
         [DataMember(Name="alertCategory", EmitDefaultValue=true)]
         public AlertCategoryEnum? AlertCategory { get; set; }
         /// <summary>
-        /// Specifies the current state of the Alert. kAlertOpen - Alerts that are unresolved. kAlertResolved - Alerts that are already marked as resolved. kAlertSuppressed - Alerts that are suppressed due to snooze settings.
+        /// Specifies the current state of the Alert. kAlertNote - Alerts that are just for note. kAlertOpen - Alerts that are unresolved. kAlertResolved - Alerts that are already marked as resolved. kAlertSuppressed - Alerts that are suppressed due to snooze settings.
         /// </summary>
-        /// <value>Specifies the current state of the Alert. kAlertOpen - Alerts that are unresolved. kAlertResolved - Alerts that are already marked as resolved. kAlertSuppressed - Alerts that are suppressed due to snooze settings.</value>
+        /// <value>Specifies the current state of the Alert. kAlertNote - Alerts that are just for note. kAlertOpen - Alerts that are unresolved. kAlertResolved - Alerts that are already marked as resolved. kAlertSuppressed - Alerts that are suppressed due to snooze settings.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum AlertStateEnum
         {
             /// <summary>
+            /// Enum KNote for value: kNote
+            /// </summary>
+            [EnumMember(Value = "kNote")]
+            KNote = 1,
+
+            /// <summary>
             /// Enum KOpen for value: kOpen
             /// </summary>
             [EnumMember(Value = "kOpen")]
-            KOpen = 1,
+            KOpen = 2,
 
             /// <summary>
             /// Enum KResolved for value: kResolved
             /// </summary>
             [EnumMember(Value = "kResolved")]
-            KResolved = 2,
+            KResolved = 3,
 
             /// <summary>
             /// Enum KSuppressed for value: kSuppressed
             /// </summary>
             [EnumMember(Value = "kSuppressed")]
-            KSuppressed = 3
+            KSuppressed = 4
 
         }
 
         /// <summary>
-        /// Specifies the current state of the Alert. kAlertOpen - Alerts that are unresolved. kAlertResolved - Alerts that are already marked as resolved. kAlertSuppressed - Alerts that are suppressed due to snooze settings.
+        /// Specifies the current state of the Alert. kAlertNote - Alerts that are just for note. kAlertOpen - Alerts that are unresolved. kAlertResolved - Alerts that are already marked as resolved. kAlertSuppressed - Alerts that are suppressed due to snooze settings.
         /// </summary>
-        /// <value>Specifies the current state of the Alert. kAlertOpen - Alerts that are unresolved. kAlertResolved - Alerts that are already marked as resolved. kAlertSuppressed - Alerts that are suppressed due to snooze settings.</value>
+        /// <value>Specifies the current state of the Alert. kAlertNote - Alerts that are just for note. kAlertOpen - Alerts that are unresolved. kAlertResolved - Alerts that are already marked as resolved. kAlertSuppressed - Alerts that are suppressed due to snooze settings.</value>
         [DataMember(Name="alertState", EmitDefaultValue=true)]
         public AlertStateEnum? AlertState { get; set; }
         /// <summary>
@@ -242,7 +248,7 @@ namespace Cohesity.Model
         /// <param name="alertCategory">Specifies the category of an Alert. kDisk - Alerts that are related to Disk. kNode - Alerts that are related to Node. kCluster - Alerts that are related to Cluster. kNodeHealth - Alerts that are related to Node Health. kClusterHealth - Alerts that are related to Cluster Health. kBackupRestore - Alerts that are related to Backup/Restore. kEncryption - Alerts that are related to Encryption. kArchivalRestore - Alerts that are related to Archival/Restore. kRemoteReplication - Alerts that are related to Remote Replication. kQuota - Alerts that are related to Quota. kLicense - Alerts that are related to License. kHeliosProActiveWellness - Alerts that are related to Helios ProActive Wellness. kHeliosAnalyticsJobs - Alerts that are related to Helios Analytics Jobs. kHeliosSignatureJobs - Alerts that are related to Helios Signature Jobs. kSecurity - Alerts that are related to Security..</param>
         /// <param name="alertCode">Specifies a unique code that categorizes the Alert, for example: CE00200014, where CE stands for Cohesity Error, the alert state next 3 digits is the id of the Alert Category (e.g. 002 for &#39;kNode&#39;) and the last 5 digits is the id of the Alert Type (e.g. 00014 for &#39;kNodeHighCpuUsage&#39;)..</param>
         /// <param name="alertDocument">alertDocument.</param>
-        /// <param name="alertState">Specifies the current state of the Alert. kAlertOpen - Alerts that are unresolved. kAlertResolved - Alerts that are already marked as resolved. kAlertSuppressed - Alerts that are suppressed due to snooze settings..</param>
+        /// <param name="alertState">Specifies the current state of the Alert. kAlertNote - Alerts that are just for note. kAlertOpen - Alerts that are unresolved. kAlertResolved - Alerts that are already marked as resolved. kAlertSuppressed - Alerts that are suppressed due to snooze settings..</param>
         /// <param name="alertType">Specifies a 5 digit unique digital id for the Alert Type, such as 00014 for &#39;kNodeHighCpuUsage&#39;. This id is used in alertCode..</param>
         /// <param name="alertTypeBucket">Specifies the Alert type bucket. Specifies the Alert type bucket. kSoftware - Alerts which are related to Cohesity services. kHardware - Alerts related to hardware on which Cohesity software is running. kService - Alerts related to other external services. kOther - Alerts not of one of above categories..</param>
         /// <param name="clusterId">Specifies id of the cluster where the alert was raised..</param>

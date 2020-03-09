@@ -27,16 +27,19 @@ namespace Cohesity.Model
         /// <param name="guidpairVec">Array of source and destination object guid pairs to restore attributes. Pair source guid refers to guid in AD snapshot in source_server endpoint. Destination guid refers to guid in production AD. If destination guid is empty, then source guid in AD snapshot should exist in production AD..</param>
         /// <param name="optionFlags">Attribute restore option flags of type ADAttributeOptionFlags..</param>
         /// <param name="propertyVec">Array of LDAP property(attribute) names. The name can be standard or custom property defined in AD schema partition. The property can contain wildcard character &#39;*&#39;. If this array is empty, then &#39;*&#39; is assigned, means restore all properties except default system excluded properties. Wildcards will be expanded. If &#39;memberOf&#39; property is included, group membership of the objects specified in &#39;guid_vec&#39; will be restored. Property that does not exist for an object is ignored and no error info is returned for that property. Property names are case insensitive. Caller may check the ADAttributeFlags.kSystem obtained during object compare to exclude system properties..</param>
-        public ADAttributeRestoreParam(List<string> excludedPropertyVec = default(List<string>), List<ADGuidPair> guidpairVec = default(List<ADGuidPair>), int? optionFlags = default(int?), List<string> propertyVec = default(List<string>))
+        /// <param name="srcSysvolFolder">When restoring a GPO, need to know the absolute path for SYSVOL folder..</param>
+        public ADAttributeRestoreParam(List<string> excludedPropertyVec = default(List<string>), List<ADGuidPair> guidpairVec = default(List<ADGuidPair>), int? optionFlags = default(int?), List<string> propertyVec = default(List<string>), string srcSysvolFolder = default(string))
         {
             this.ExcludedPropertyVec = excludedPropertyVec;
             this.GuidpairVec = guidpairVec;
             this.OptionFlags = optionFlags;
             this.PropertyVec = propertyVec;
+            this.SrcSysvolFolder = srcSysvolFolder;
             this.ExcludedPropertyVec = excludedPropertyVec;
             this.GuidpairVec = guidpairVec;
             this.OptionFlags = optionFlags;
             this.PropertyVec = propertyVec;
+            this.SrcSysvolFolder = srcSysvolFolder;
         }
         
         /// <summary>
@@ -66,6 +69,13 @@ namespace Cohesity.Model
         /// <value>Array of LDAP property(attribute) names. The name can be standard or custom property defined in AD schema partition. The property can contain wildcard character &#39;*&#39;. If this array is empty, then &#39;*&#39; is assigned, means restore all properties except default system excluded properties. Wildcards will be expanded. If &#39;memberOf&#39; property is included, group membership of the objects specified in &#39;guid_vec&#39; will be restored. Property that does not exist for an object is ignored and no error info is returned for that property. Property names are case insensitive. Caller may check the ADAttributeFlags.kSystem obtained during object compare to exclude system properties.</value>
         [DataMember(Name="propertyVec", EmitDefaultValue=true)]
         public List<string> PropertyVec { get; set; }
+
+        /// <summary>
+        /// When restoring a GPO, need to know the absolute path for SYSVOL folder.
+        /// </summary>
+        /// <value>When restoring a GPO, need to know the absolute path for SYSVOL folder.</value>
+        [DataMember(Name="srcSysvolFolder", EmitDefaultValue=true)]
+        public string SrcSysvolFolder { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -125,6 +135,11 @@ namespace Cohesity.Model
                     this.PropertyVec != null &&
                     input.PropertyVec != null &&
                     this.PropertyVec.SequenceEqual(input.PropertyVec)
+                ) && 
+                (
+                    this.SrcSysvolFolder == input.SrcSysvolFolder ||
+                    (this.SrcSysvolFolder != null &&
+                    this.SrcSysvolFolder.Equals(input.SrcSysvolFolder))
                 );
         }
 
@@ -145,6 +160,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.OptionFlags.GetHashCode();
                 if (this.PropertyVec != null)
                     hashCode = hashCode * 59 + this.PropertyVec.GetHashCode();
+                if (this.SrcSysvolFolder != null)
+                    hashCode = hashCode * 59 + this.SrcSysvolFolder.GetHashCode();
                 return hashCode;
             }
         }

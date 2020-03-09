@@ -78,20 +78,23 @@ namespace Cohesity.Model
         /// <param name="awsCredentials">awsCredentials.</param>
         /// <param name="azureCredentials">azureCredentials.</param>
         /// <param name="endpoint">Specifies the network endpoint of the Protection Source where it is reachable. It could be an URL or hostname or an IP address of the Protection Source..</param>
+        /// <param name="exchangeDagProtectionPreference">exchangeDagProtectionPreference.</param>
         /// <param name="forceRegister">ForceRegister is applicable to Physical Environment. By default, the agent running on a physical host will fail the registration, if it is already registered as part of another cluster. By setting this option to true, agent can be forced to register with the current cluster. This is a hidden parameter and should not be documented externally..</param>
         /// <param name="gcpCredentials">gcpCredentials.</param>
         /// <param name="hostType">Specifies the optional OS type of the Protection Source (such as kWindows or kLinux). overrideDescription: true &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kOther&#39; indicates the other types of operating system..</param>
         /// <param name="kubernetesCredentials">kubernetesCredentials.</param>
         /// <param name="minimumFreeSpaceGB">Specifies the minimum space in GB after which backup jobs will be canceled due to low space..</param>
         /// <param name="nasMountCredentials">Specifies the server credentials to connect to a NetApp server. This field is required for mounting SMB volumes on NetApp servers..</param>
-        /// <param name="office365Credentials">office365Credentials.</param>
+        /// <param name="office365CredentialsList">Office365 Source Credentials.  Specifies credentials needed to authenticate &amp; authorize user for Office365 using MS Graph APIs..</param>
         /// <param name="password">Specifies password of the username to access the target source..</param>
         /// <param name="sourceSideDedupEnabled">This controls whether to use source side dedup on the source or not. This is only applicable to sources which support source side dedup (e.g., Linux physical servers)..</param>
         /// <param name="sslVerification">sslVerification.</param>
         /// <param name="throttlingPolicy">Specifies the throttling policy that should be applied to this Source..</param>
         /// <param name="throttlingPolicyOverrides">Array of Throttling Policy Overrides for Datastores.  Specifies a list of Throttling Policy for datastores that override the common throttling policy specified for the registered Protection Source. For datastores not in this list, common policy will still apply..</param>
+        /// <param name="useOAuthForExchangeOnline">Specifies whether OAuth should be used for authentication in case of Exchange Online..</param>
         /// <param name="username">Specifies username to access the target source..</param>
-        public UpdateProtectionSourceParameters(string agentEndpoint = default(string), AwsCredentials awsCredentials = default(AwsCredentials), AzureCredentials azureCredentials = default(AzureCredentials), string endpoint = default(string), bool? forceRegister = default(bool?), GcpCredentials gcpCredentials = default(GcpCredentials), HostTypeEnum? hostType = default(HostTypeEnum?), KubernetesCredentials kubernetesCredentials = default(KubernetesCredentials), long? minimumFreeSpaceGB = default(long?), NasMountCredentialParams nasMountCredentials = default(NasMountCredentialParams), Office365Credentials office365Credentials = default(Office365Credentials), string password = default(string), bool? sourceSideDedupEnabled = default(bool?), SslVerification sslVerification = default(SslVerification), ThrottlingPolicyParameters throttlingPolicy = default(ThrottlingPolicyParameters), List<ThrottlingPolicyOverride> throttlingPolicyOverrides = default(List<ThrottlingPolicyOverride>), string username = default(string))
+        /// <param name="vlanParams">vlanParams.</param>
+        public UpdateProtectionSourceParameters(string agentEndpoint = default(string), AwsCredentials awsCredentials = default(AwsCredentials), AzureCredentials azureCredentials = default(AzureCredentials), string endpoint = default(string), ExchangeDAGProtectionPreference exchangeDagProtectionPreference = default(ExchangeDAGProtectionPreference), bool? forceRegister = default(bool?), GcpCredentials gcpCredentials = default(GcpCredentials), HostTypeEnum? hostType = default(HostTypeEnum?), KubernetesCredentials kubernetesCredentials = default(KubernetesCredentials), long? minimumFreeSpaceGB = default(long?), NasMountCredentialParams nasMountCredentials = default(NasMountCredentialParams), List<Office365Credentials> office365CredentialsList = default(List<Office365Credentials>), string password = default(string), bool? sourceSideDedupEnabled = default(bool?), SslVerification sslVerification = default(SslVerification), ThrottlingPolicyParameters throttlingPolicy = default(ThrottlingPolicyParameters), List<ThrottlingPolicyOverride> throttlingPolicyOverrides = default(List<ThrottlingPolicyOverride>), bool? useOAuthForExchangeOnline = default(bool?), string username = default(string), VlanParameters vlanParams = default(VlanParameters))
         {
             this.AgentEndpoint = agentEndpoint;
             this.Endpoint = endpoint;
@@ -99,28 +102,33 @@ namespace Cohesity.Model
             this.HostType = hostType;
             this.MinimumFreeSpaceGB = minimumFreeSpaceGB;
             this.NasMountCredentials = nasMountCredentials;
+            this.Office365CredentialsList = office365CredentialsList;
             this.Password = password;
             this.SourceSideDedupEnabled = sourceSideDedupEnabled;
             this.ThrottlingPolicy = throttlingPolicy;
             this.ThrottlingPolicyOverrides = throttlingPolicyOverrides;
+            this.UseOAuthForExchangeOnline = useOAuthForExchangeOnline;
             this.Username = username;
             this.AgentEndpoint = agentEndpoint;
             this.AwsCredentials = awsCredentials;
             this.AzureCredentials = azureCredentials;
             this.Endpoint = endpoint;
+            this.ExchangeDagProtectionPreference = exchangeDagProtectionPreference;
             this.ForceRegister = forceRegister;
             this.GcpCredentials = gcpCredentials;
             this.HostType = hostType;
             this.KubernetesCredentials = kubernetesCredentials;
             this.MinimumFreeSpaceGB = minimumFreeSpaceGB;
             this.NasMountCredentials = nasMountCredentials;
-            this.Office365Credentials = office365Credentials;
+            this.Office365CredentialsList = office365CredentialsList;
             this.Password = password;
             this.SourceSideDedupEnabled = sourceSideDedupEnabled;
             this.SslVerification = sslVerification;
             this.ThrottlingPolicy = throttlingPolicy;
             this.ThrottlingPolicyOverrides = throttlingPolicyOverrides;
+            this.UseOAuthForExchangeOnline = useOAuthForExchangeOnline;
             this.Username = username;
+            this.VlanParams = vlanParams;
         }
         
         /// <summary>
@@ -148,6 +156,12 @@ namespace Cohesity.Model
         /// <value>Specifies the network endpoint of the Protection Source where it is reachable. It could be an URL or hostname or an IP address of the Protection Source.</value>
         [DataMember(Name="endpoint", EmitDefaultValue=true)]
         public string Endpoint { get; set; }
+
+        /// <summary>
+        /// Gets or Sets ExchangeDagProtectionPreference
+        /// </summary>
+        [DataMember(Name="exchangeDagProtectionPreference", EmitDefaultValue=false)]
+        public ExchangeDAGProtectionPreference ExchangeDagProtectionPreference { get; set; }
 
         /// <summary>
         /// ForceRegister is applicable to Physical Environment. By default, the agent running on a physical host will fail the registration, if it is already registered as part of another cluster. By setting this option to true, agent can be forced to register with the current cluster. This is a hidden parameter and should not be documented externally.
@@ -183,10 +197,11 @@ namespace Cohesity.Model
         public NasMountCredentialParams NasMountCredentials { get; set; }
 
         /// <summary>
-        /// Gets or Sets Office365Credentials
+        /// Office365 Source Credentials.  Specifies credentials needed to authenticate &amp; authorize user for Office365 using MS Graph APIs.
         /// </summary>
-        [DataMember(Name="office365Credentials", EmitDefaultValue=false)]
-        public Office365Credentials Office365Credentials { get; set; }
+        /// <value>Office365 Source Credentials.  Specifies credentials needed to authenticate &amp; authorize user for Office365 using MS Graph APIs.</value>
+        [DataMember(Name="office365CredentialsList", EmitDefaultValue=true)]
+        public List<Office365Credentials> Office365CredentialsList { get; set; }
 
         /// <summary>
         /// Specifies password of the username to access the target source.
@@ -223,11 +238,24 @@ namespace Cohesity.Model
         public List<ThrottlingPolicyOverride> ThrottlingPolicyOverrides { get; set; }
 
         /// <summary>
+        /// Specifies whether OAuth should be used for authentication in case of Exchange Online.
+        /// </summary>
+        /// <value>Specifies whether OAuth should be used for authentication in case of Exchange Online.</value>
+        [DataMember(Name="useOAuthForExchangeOnline", EmitDefaultValue=true)]
+        public bool? UseOAuthForExchangeOnline { get; set; }
+
+        /// <summary>
         /// Specifies username to access the target source.
         /// </summary>
         /// <value>Specifies username to access the target source.</value>
         [DataMember(Name="username", EmitDefaultValue=true)]
         public string Username { get; set; }
+
+        /// <summary>
+        /// Gets or Sets VlanParams
+        /// </summary>
+        [DataMember(Name="vlanParams", EmitDefaultValue=false)]
+        public VlanParameters VlanParams { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -286,6 +314,11 @@ namespace Cohesity.Model
                     this.Endpoint.Equals(input.Endpoint))
                 ) && 
                 (
+                    this.ExchangeDagProtectionPreference == input.ExchangeDagProtectionPreference ||
+                    (this.ExchangeDagProtectionPreference != null &&
+                    this.ExchangeDagProtectionPreference.Equals(input.ExchangeDagProtectionPreference))
+                ) && 
+                (
                     this.ForceRegister == input.ForceRegister ||
                     (this.ForceRegister != null &&
                     this.ForceRegister.Equals(input.ForceRegister))
@@ -315,9 +348,10 @@ namespace Cohesity.Model
                     this.NasMountCredentials.Equals(input.NasMountCredentials))
                 ) && 
                 (
-                    this.Office365Credentials == input.Office365Credentials ||
-                    (this.Office365Credentials != null &&
-                    this.Office365Credentials.Equals(input.Office365Credentials))
+                    this.Office365CredentialsList == input.Office365CredentialsList ||
+                    this.Office365CredentialsList != null &&
+                    input.Office365CredentialsList != null &&
+                    this.Office365CredentialsList.SequenceEqual(input.Office365CredentialsList)
                 ) && 
                 (
                     this.Password == input.Password ||
@@ -346,9 +380,19 @@ namespace Cohesity.Model
                     this.ThrottlingPolicyOverrides.SequenceEqual(input.ThrottlingPolicyOverrides)
                 ) && 
                 (
+                    this.UseOAuthForExchangeOnline == input.UseOAuthForExchangeOnline ||
+                    (this.UseOAuthForExchangeOnline != null &&
+                    this.UseOAuthForExchangeOnline.Equals(input.UseOAuthForExchangeOnline))
+                ) && 
+                (
                     this.Username == input.Username ||
                     (this.Username != null &&
                     this.Username.Equals(input.Username))
+                ) && 
+                (
+                    this.VlanParams == input.VlanParams ||
+                    (this.VlanParams != null &&
+                    this.VlanParams.Equals(input.VlanParams))
                 );
         }
 
@@ -369,6 +413,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.AzureCredentials.GetHashCode();
                 if (this.Endpoint != null)
                     hashCode = hashCode * 59 + this.Endpoint.GetHashCode();
+                if (this.ExchangeDagProtectionPreference != null)
+                    hashCode = hashCode * 59 + this.ExchangeDagProtectionPreference.GetHashCode();
                 if (this.ForceRegister != null)
                     hashCode = hashCode * 59 + this.ForceRegister.GetHashCode();
                 if (this.GcpCredentials != null)
@@ -380,8 +426,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.MinimumFreeSpaceGB.GetHashCode();
                 if (this.NasMountCredentials != null)
                     hashCode = hashCode * 59 + this.NasMountCredentials.GetHashCode();
-                if (this.Office365Credentials != null)
-                    hashCode = hashCode * 59 + this.Office365Credentials.GetHashCode();
+                if (this.Office365CredentialsList != null)
+                    hashCode = hashCode * 59 + this.Office365CredentialsList.GetHashCode();
                 if (this.Password != null)
                     hashCode = hashCode * 59 + this.Password.GetHashCode();
                 if (this.SourceSideDedupEnabled != null)
@@ -392,8 +438,12 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ThrottlingPolicy.GetHashCode();
                 if (this.ThrottlingPolicyOverrides != null)
                     hashCode = hashCode * 59 + this.ThrottlingPolicyOverrides.GetHashCode();
+                if (this.UseOAuthForExchangeOnline != null)
+                    hashCode = hashCode * 59 + this.UseOAuthForExchangeOnline.GetHashCode();
                 if (this.Username != null)
                     hashCode = hashCode * 59 + this.Username.GetHashCode();
+                if (this.VlanParams != null)
+                    hashCode = hashCode * 59 + this.VlanParams.GetHashCode();
                 return hashCode;
             }
         }

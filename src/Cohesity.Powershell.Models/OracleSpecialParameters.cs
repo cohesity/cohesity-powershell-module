@@ -25,12 +25,15 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="appParamsList">Array of application parameters i.e. database parameters for standalone/RAC and DG parameters for data guard.  Specifies the list of parameters required at app entity level..</param>
         /// <param name="applicationEntityIds">Array of Ids of Application Entities like Oracle instances, and databases that should be protected in a Protection Source.  Specifies the subset of application entities like Oracle instances, and databases to protect in a Protection Source of type kOracle&#39;. If not specified, all application entities on the Protection Source..</param>
-        public OracleSpecialParameters(List<OracleAppParams> appParamsList = default(List<OracleAppParams>), List<long> applicationEntityIds = default(List<long>))
+        /// <param name="persistMountpoints">Specifies if the mountpoints for Oracle view for the current host are to be persisted..</param>
+        public OracleSpecialParameters(List<OracleAppParams> appParamsList = default(List<OracleAppParams>), List<long> applicationEntityIds = default(List<long>), bool? persistMountpoints = default(bool?))
         {
             this.AppParamsList = appParamsList;
             this.ApplicationEntityIds = applicationEntityIds;
+            this.PersistMountpoints = persistMountpoints;
             this.AppParamsList = appParamsList;
             this.ApplicationEntityIds = applicationEntityIds;
+            this.PersistMountpoints = persistMountpoints;
         }
         
         /// <summary>
@@ -46,6 +49,13 @@ namespace Cohesity.Model
         /// <value>Array of Ids of Application Entities like Oracle instances, and databases that should be protected in a Protection Source.  Specifies the subset of application entities like Oracle instances, and databases to protect in a Protection Source of type kOracle&#39;. If not specified, all application entities on the Protection Source.</value>
         [DataMember(Name="applicationEntityIds", EmitDefaultValue=true)]
         public List<long> ApplicationEntityIds { get; set; }
+
+        /// <summary>
+        /// Specifies if the mountpoints for Oracle view for the current host are to be persisted.
+        /// </summary>
+        /// <value>Specifies if the mountpoints for Oracle view for the current host are to be persisted.</value>
+        [DataMember(Name="persistMountpoints", EmitDefaultValue=true)]
+        public bool? PersistMountpoints { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -94,6 +104,11 @@ namespace Cohesity.Model
                     this.ApplicationEntityIds != null &&
                     input.ApplicationEntityIds != null &&
                     this.ApplicationEntityIds.SequenceEqual(input.ApplicationEntityIds)
+                ) && 
+                (
+                    this.PersistMountpoints == input.PersistMountpoints ||
+                    (this.PersistMountpoints != null &&
+                    this.PersistMountpoints.Equals(input.PersistMountpoints))
                 );
         }
 
@@ -110,6 +125,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.AppParamsList.GetHashCode();
                 if (this.ApplicationEntityIds != null)
                     hashCode = hashCode * 59 + this.ApplicationEntityIds.GetHashCode();
+                if (this.PersistMountpoints != null)
+                    hashCode = hashCode * 59 + this.PersistMountpoints.GetHashCode();
                 return hashCode;
             }
         }

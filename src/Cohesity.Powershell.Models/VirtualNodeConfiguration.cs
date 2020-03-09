@@ -25,12 +25,15 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="nodeId">Specifies the Node ID for this node..</param>
         /// <param name="nodeIp">Specifies the Node IP address for this node..</param>
-        public VirtualNodeConfiguration(long? nodeId = default(long?), string nodeIp = default(string))
+        /// <param name="useAsComputeNode">Specifies whether to use the Node for compute only..</param>
+        public VirtualNodeConfiguration(long? nodeId = default(long?), string nodeIp = default(string), bool? useAsComputeNode = default(bool?))
         {
             this.NodeId = nodeId;
             this.NodeIp = nodeIp;
+            this.UseAsComputeNode = useAsComputeNode;
             this.NodeId = nodeId;
             this.NodeIp = nodeIp;
+            this.UseAsComputeNode = useAsComputeNode;
         }
         
         /// <summary>
@@ -46,6 +49,13 @@ namespace Cohesity.Model
         /// <value>Specifies the Node IP address for this node.</value>
         [DataMember(Name="nodeIp", EmitDefaultValue=true)]
         public string NodeIp { get; set; }
+
+        /// <summary>
+        /// Specifies whether to use the Node for compute only.
+        /// </summary>
+        /// <value>Specifies whether to use the Node for compute only.</value>
+        [DataMember(Name="useAsComputeNode", EmitDefaultValue=true)]
+        public bool? UseAsComputeNode { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -92,6 +102,11 @@ namespace Cohesity.Model
                     this.NodeIp == input.NodeIp ||
                     (this.NodeIp != null &&
                     this.NodeIp.Equals(input.NodeIp))
+                ) && 
+                (
+                    this.UseAsComputeNode == input.UseAsComputeNode ||
+                    (this.UseAsComputeNode != null &&
+                    this.UseAsComputeNode.Equals(input.UseAsComputeNode))
                 );
         }
 
@@ -108,6 +123,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.NodeId.GetHashCode();
                 if (this.NodeIp != null)
                     hashCode = hashCode * 59 + this.NodeIp.GetHashCode();
+                if (this.UseAsComputeNode != null)
+                    hashCode = hashCode * 59 + this.UseAsComputeNode.GetHashCode();
                 return hashCode;
             }
         }

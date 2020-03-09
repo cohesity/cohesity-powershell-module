@@ -25,7 +25,7 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="diskToOverwrite">diskToOverwrite.</param>
         /// <param name="sourceDisk">sourceDisk.</param>
-        /// <param name="targetLocationId">Specifies the target location information, for e.g. a datastore in VMware environment. If diskToOverwrite is specified then the target location is automatically deduced..</param>
+        /// <param name="targetLocationId">Specifies the target location information, for e.g. a datastore in VMware environment. If diskToOverwrite is specified, then the target location is automatically deduced..</param>
         public VirtualDiskMapping(VirtualDiskIdInformation diskToOverwrite = default(VirtualDiskIdInformation), VirtualDiskIdInformation sourceDisk = default(VirtualDiskIdInformation), long? targetLocationId = default(long?))
         {
             this.TargetLocationId = targetLocationId;
@@ -47,9 +47,9 @@ namespace Cohesity.Model
         public VirtualDiskIdInformation SourceDisk { get; set; }
 
         /// <summary>
-        /// Specifies the target location information, for e.g. a datastore in VMware environment. If diskToOverwrite is specified then the target location is automatically deduced.
+        /// Specifies the target location information, for e.g. a datastore in VMware environment. If diskToOverwrite is specified, then the target location is automatically deduced.
         /// </summary>
-        /// <value>Specifies the target location information, for e.g. a datastore in VMware environment. If diskToOverwrite is specified then the target location is automatically deduced.</value>
+        /// <value>Specifies the target location information, for e.g. a datastore in VMware environment. If diskToOverwrite is specified, then the target location is automatically deduced.</value>
         [DataMember(Name="targetLocationId", EmitDefaultValue=true)]
         public long? TargetLocationId { get; set; }
 

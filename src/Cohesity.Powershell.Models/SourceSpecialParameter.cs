@@ -24,6 +24,7 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="SourceSpecialParameter" /> class.
         /// </summary>
         /// <param name="adSpecialParameters">adSpecialParameters.</param>
+        /// <param name="exchangeSpecialParameters">exchangeSpecialParameters.</param>
         /// <param name="oracleSpecialParameters">oracleSpecialParameters.</param>
         /// <param name="physicalSpecialParameters">physicalSpecialParameters.</param>
         /// <param name="skipIndexing">Specifies not to index the objects in the Protection Source when backing up..</param>
@@ -32,13 +33,14 @@ namespace Cohesity.Model
         /// <param name="truncateExchangeLog">If true, after the Cohesity Cluster successfully captures a Snapshot during a Job Run, the Cluster truncates the Exchange transaction logs on a Microsoft Exchange Server. The default value is false. This field is deprecated. Use the field in ApplicationParameters inside source specific parameter. deprecated: true.</param>
         /// <param name="vmCredentials">Specifies the administrator credentials to log in to the guest Windows system of a VM that hosts the Microsoft Exchange Server. If truncateExchangeLog is set to true and the specified source is a VM, administrator credentials to log in to the guest Windows system of the VM must be provided to truncate the logs. This field is only applicable to Sources in the kVMware environment. This field is deprecated. Use the field in VmCredentials inside source specific parameter. deprecated: true.</param>
         /// <param name="vmwareSpecialParameters">vmwareSpecialParameters.</param>
-        public SourceSpecialParameter(ApplicationSpecialParameters adSpecialParameters = default(ApplicationSpecialParameters), OracleSpecialParameters oracleSpecialParameters = default(OracleSpecialParameters), PhysicalSpecialParameters physicalSpecialParameters = default(PhysicalSpecialParameters), bool? skipIndexing = default(bool?), long? sourceId = default(long?), ApplicationSpecialParameters sqlSpecialParameters = default(ApplicationSpecialParameters), bool? truncateExchangeLog = default(bool?), Credentials vmCredentials = default(Credentials), VmwareSpecialParameters vmwareSpecialParameters = default(VmwareSpecialParameters))
+        public SourceSpecialParameter(ApplicationSpecialParameters adSpecialParameters = default(ApplicationSpecialParameters), ApplicationSpecialParameters exchangeSpecialParameters = default(ApplicationSpecialParameters), OracleSpecialParameters oracleSpecialParameters = default(OracleSpecialParameters), PhysicalSpecialParameters physicalSpecialParameters = default(PhysicalSpecialParameters), bool? skipIndexing = default(bool?), long? sourceId = default(long?), ApplicationSpecialParameters sqlSpecialParameters = default(ApplicationSpecialParameters), bool? truncateExchangeLog = default(bool?), Credentials vmCredentials = default(Credentials), VmwareSpecialParameters vmwareSpecialParameters = default(VmwareSpecialParameters))
         {
             this.SkipIndexing = skipIndexing;
             this.SourceId = sourceId;
             this.TruncateExchangeLog = truncateExchangeLog;
             this.VmCredentials = vmCredentials;
             this.AdSpecialParameters = adSpecialParameters;
+            this.ExchangeSpecialParameters = exchangeSpecialParameters;
             this.OracleSpecialParameters = oracleSpecialParameters;
             this.PhysicalSpecialParameters = physicalSpecialParameters;
             this.SkipIndexing = skipIndexing;
@@ -54,6 +56,12 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="adSpecialParameters", EmitDefaultValue=false)]
         public ApplicationSpecialParameters AdSpecialParameters { get; set; }
+
+        /// <summary>
+        /// Gets or Sets ExchangeSpecialParameters
+        /// </summary>
+        [DataMember(Name="exchangeSpecialParameters", EmitDefaultValue=false)]
+        public ApplicationSpecialParameters ExchangeSpecialParameters { get; set; }
 
         /// <summary>
         /// Gets or Sets OracleSpecialParameters
@@ -149,6 +157,11 @@ namespace Cohesity.Model
                     this.AdSpecialParameters.Equals(input.AdSpecialParameters))
                 ) && 
                 (
+                    this.ExchangeSpecialParameters == input.ExchangeSpecialParameters ||
+                    (this.ExchangeSpecialParameters != null &&
+                    this.ExchangeSpecialParameters.Equals(input.ExchangeSpecialParameters))
+                ) && 
+                (
                     this.OracleSpecialParameters == input.OracleSpecialParameters ||
                     (this.OracleSpecialParameters != null &&
                     this.OracleSpecialParameters.Equals(input.OracleSpecialParameters))
@@ -201,6 +214,8 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.AdSpecialParameters != null)
                     hashCode = hashCode * 59 + this.AdSpecialParameters.GetHashCode();
+                if (this.ExchangeSpecialParameters != null)
+                    hashCode = hashCode * 59 + this.ExchangeSpecialParameters.GetHashCode();
                 if (this.OracleSpecialParameters != null)
                     hashCode = hashCode * 59 + this.OracleSpecialParameters.GetHashCode();
                 if (this.PhysicalSpecialParameters != null)

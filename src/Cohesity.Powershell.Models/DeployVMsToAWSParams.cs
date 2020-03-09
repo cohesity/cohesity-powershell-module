@@ -26,16 +26,20 @@ namespace Cohesity.Model
         /// <param name="instanceType">instanceType.</param>
         /// <param name="keyPairName">keyPairName.</param>
         /// <param name="networkSecurityGroups">Names of the network security groups within the above VPC. At least one entry should be present..</param>
+        /// <param name="proxyVmSubnet">proxyVmSubnet.</param>
+        /// <param name="proxyVmVpc">proxyVmVpc.</param>
         /// <param name="rdsParams">rdsParams.</param>
         /// <param name="region">region.</param>
         /// <param name="subnet">subnet.</param>
         /// <param name="vpc">vpc.</param>
-        public DeployVMsToAWSParams(EntityProto instanceType = default(EntityProto), EntityProto keyPairName = default(EntityProto), List<EntityProto> networkSecurityGroups = default(List<EntityProto>), DeployDBInstancesToRDSParams rdsParams = default(DeployDBInstancesToRDSParams), EntityProto region = default(EntityProto), EntityProto subnet = default(EntityProto), EntityProto vpc = default(EntityProto))
+        public DeployVMsToAWSParams(EntityProto instanceType = default(EntityProto), EntityProto keyPairName = default(EntityProto), List<EntityProto> networkSecurityGroups = default(List<EntityProto>), EntityProto proxyVmSubnet = default(EntityProto), EntityProto proxyVmVpc = default(EntityProto), DeployDBInstancesToRDSParams rdsParams = default(DeployDBInstancesToRDSParams), EntityProto region = default(EntityProto), EntityProto subnet = default(EntityProto), EntityProto vpc = default(EntityProto))
         {
             this.NetworkSecurityGroups = networkSecurityGroups;
             this.InstanceType = instanceType;
             this.KeyPairName = keyPairName;
             this.NetworkSecurityGroups = networkSecurityGroups;
+            this.ProxyVmSubnet = proxyVmSubnet;
+            this.ProxyVmVpc = proxyVmVpc;
             this.RdsParams = rdsParams;
             this.Region = region;
             this.Subnet = subnet;
@@ -60,6 +64,18 @@ namespace Cohesity.Model
         /// <value>Names of the network security groups within the above VPC. At least one entry should be present.</value>
         [DataMember(Name="networkSecurityGroups", EmitDefaultValue=true)]
         public List<EntityProto> NetworkSecurityGroups { get; set; }
+
+        /// <summary>
+        /// Gets or Sets ProxyVmSubnet
+        /// </summary>
+        [DataMember(Name="proxyVmSubnet", EmitDefaultValue=false)]
+        public EntityProto ProxyVmSubnet { get; set; }
+
+        /// <summary>
+        /// Gets or Sets ProxyVmVpc
+        /// </summary>
+        [DataMember(Name="proxyVmVpc", EmitDefaultValue=false)]
+        public EntityProto ProxyVmVpc { get; set; }
 
         /// <summary>
         /// Gets or Sets RdsParams
@@ -138,6 +154,16 @@ namespace Cohesity.Model
                     this.NetworkSecurityGroups.SequenceEqual(input.NetworkSecurityGroups)
                 ) && 
                 (
+                    this.ProxyVmSubnet == input.ProxyVmSubnet ||
+                    (this.ProxyVmSubnet != null &&
+                    this.ProxyVmSubnet.Equals(input.ProxyVmSubnet))
+                ) && 
+                (
+                    this.ProxyVmVpc == input.ProxyVmVpc ||
+                    (this.ProxyVmVpc != null &&
+                    this.ProxyVmVpc.Equals(input.ProxyVmVpc))
+                ) && 
+                (
                     this.RdsParams == input.RdsParams ||
                     (this.RdsParams != null &&
                     this.RdsParams.Equals(input.RdsParams))
@@ -174,6 +200,10 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.KeyPairName.GetHashCode();
                 if (this.NetworkSecurityGroups != null)
                     hashCode = hashCode * 59 + this.NetworkSecurityGroups.GetHashCode();
+                if (this.ProxyVmSubnet != null)
+                    hashCode = hashCode * 59 + this.ProxyVmSubnet.GetHashCode();
+                if (this.ProxyVmVpc != null)
+                    hashCode = hashCode * 59 + this.ProxyVmVpc.GetHashCode();
                 if (this.RdsParams != null)
                     hashCode = hashCode * 59 + this.RdsParams.GetHashCode();
                 if (this.Region != null)

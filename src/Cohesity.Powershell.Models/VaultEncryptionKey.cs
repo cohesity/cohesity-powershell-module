@@ -15,7 +15,7 @@ using Newtonsoft.Json.Converters;
 namespace Cohesity.Model
 {
     /// <summary>
-    /// Specifies the encrytion information needed to restore data.
+    /// Specifies the encryption information needed to restore data.
     /// </summary>
     [DataContract]
     public partial class VaultEncryptionKey :  IEquatable<VaultEncryptionKey>

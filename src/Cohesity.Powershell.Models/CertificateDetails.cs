@@ -60,7 +60,7 @@ namespace Cohesity.Model
         /// <param name="expiryDate">Specifies the date in epoch till when the certificate is valid..</param>
         /// <param name="hostIps">Each certificate can be deployed to multiple hosts. List of all hosts is returned after deployment..</param>
         /// <param name="type">Specifies the type of the host such as &#39;kSapHana&#39;, &#39;kSapOracle&#39;, etc. Specifies the host type of host for generating and deploying a Certificate. &#39;kOther&#39; indicates it is any of the other hosts. &#39;kSapOracle&#39; indicates it is a SAP Oracle host. &#39;kSapHana&#39; indicates it is a SAP HANA host..</param>
-        public CertificateDetails(string certFileName = default(string), long? expiryDate = default(long?), List<string> hostIps = default(List<string>), TypeEnum? type = default(TypeEnum?))
+        public CertificateDetails(string certFileName = default(string), string expiryDate = default(string), List<string> hostIps = default(List<string>), TypeEnum? type = default(TypeEnum?))
         {
             this.CertFileName = certFileName;
             this.ExpiryDate = expiryDate;
@@ -84,7 +84,7 @@ namespace Cohesity.Model
         /// </summary>
         /// <value>Specifies the date in epoch till when the certificate is valid.</value>
         [DataMember(Name="expiryDate", EmitDefaultValue=true)]
-        public long? ExpiryDate { get; set; }
+        public string ExpiryDate { get; set; }
 
         /// <summary>
         /// Each certificate can be deployed to multiple hosts. List of all hosts is returned after deployment.

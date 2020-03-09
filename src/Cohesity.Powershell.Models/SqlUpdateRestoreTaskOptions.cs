@@ -23,13 +23,23 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="SqlUpdateRestoreTaskOptions" /> class.
         /// </summary>
+        /// <param name="enableAutoSync">Enable/Disable auto_sync for db migration.</param>
         /// <param name="multiStageRestoreAction">This field is set if we are performing an action on a multi-stage SQL restore..</param>
-        public SqlUpdateRestoreTaskOptions(int? multiStageRestoreAction = default(int?))
+        public SqlUpdateRestoreTaskOptions(bool? enableAutoSync = default(bool?), int? multiStageRestoreAction = default(int?))
         {
+            this.EnableAutoSync = enableAutoSync;
             this.MultiStageRestoreAction = multiStageRestoreAction;
+            this.EnableAutoSync = enableAutoSync;
             this.MultiStageRestoreAction = multiStageRestoreAction;
         }
         
+        /// <summary>
+        /// Enable/Disable auto_sync for db migration
+        /// </summary>
+        /// <value>Enable/Disable auto_sync for db migration</value>
+        [DataMember(Name="enableAutoSync", EmitDefaultValue=true)]
+        public bool? EnableAutoSync { get; set; }
+
         /// <summary>
         /// This field is set if we are performing an action on a multi-stage SQL restore.
         /// </summary>
@@ -74,6 +84,11 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.EnableAutoSync == input.EnableAutoSync ||
+                    (this.EnableAutoSync != null &&
+                    this.EnableAutoSync.Equals(input.EnableAutoSync))
+                ) && 
+                (
                     this.MultiStageRestoreAction == input.MultiStageRestoreAction ||
                     (this.MultiStageRestoreAction != null &&
                     this.MultiStageRestoreAction.Equals(input.MultiStageRestoreAction))
@@ -89,6 +104,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.EnableAutoSync != null)
+                    hashCode = hashCode * 59 + this.EnableAutoSync.GetHashCode();
                 if (this.MultiStageRestoreAction != null)
                     hashCode = hashCode * 59 + this.MultiStageRestoreAction.GetHashCode();
                 return hashCode;

@@ -28,20 +28,23 @@ namespace Cohesity.Model
         /// <param name="databaseUniqueName">Specifies the unique Name of the database..</param>
         /// <param name="databaseUuid">Specifies the database unique id. This is an internal field and is filled by magneto master based on corresponding app entity id..</param>
         /// <param name="defaultChannelCount">Specifies the default number of channels to use per node per database. The default number of channels to use per host per db. This value is used on all OracleDatabaseNode&#39;s unless databaseNodeList item&#39;s channelCount is specified for the node..</param>
+        /// <param name="enableDgPrimaryBackup">Specifies whether the database having the Primary role within Data Guard configuration is to be backed up..</param>
         /// <param name="maxNodeCount">Specifies the maximum number of nodes from which we are allowed to take backup/restore..</param>
-        public OracleDatabaseNodeChannel(int? archiveLogKeepDays = default(int?), List<OracleDatabaseNode> databaseNodeList = default(List<OracleDatabaseNode>), string databaseUniqueName = default(string), string databaseUuid = default(string), int? defaultChannelCount = default(int?), int? maxNodeCount = default(int?))
+        public OracleDatabaseNodeChannel(int? archiveLogKeepDays = default(int?), List<OracleDatabaseNode> databaseNodeList = default(List<OracleDatabaseNode>), string databaseUniqueName = default(string), string databaseUuid = default(string), int? defaultChannelCount = default(int?), bool? enableDgPrimaryBackup = default(bool?), int? maxNodeCount = default(int?))
         {
             this.ArchiveLogKeepDays = archiveLogKeepDays;
             this.DatabaseNodeList = databaseNodeList;
             this.DatabaseUniqueName = databaseUniqueName;
             this.DatabaseUuid = databaseUuid;
             this.DefaultChannelCount = defaultChannelCount;
+            this.EnableDgPrimaryBackup = enableDgPrimaryBackup;
             this.MaxNodeCount = maxNodeCount;
             this.ArchiveLogKeepDays = archiveLogKeepDays;
             this.DatabaseNodeList = databaseNodeList;
             this.DatabaseUniqueName = databaseUniqueName;
             this.DatabaseUuid = databaseUuid;
             this.DefaultChannelCount = defaultChannelCount;
+            this.EnableDgPrimaryBackup = enableDgPrimaryBackup;
             this.MaxNodeCount = maxNodeCount;
         }
         
@@ -79,6 +82,13 @@ namespace Cohesity.Model
         /// <value>Specifies the default number of channels to use per node per database. The default number of channels to use per host per db. This value is used on all OracleDatabaseNode&#39;s unless databaseNodeList item&#39;s channelCount is specified for the node.</value>
         [DataMember(Name="defaultChannelCount", EmitDefaultValue=true)]
         public int? DefaultChannelCount { get; set; }
+
+        /// <summary>
+        /// Specifies whether the database having the Primary role within Data Guard configuration is to be backed up.
+        /// </summary>
+        /// <value>Specifies whether the database having the Primary role within Data Guard configuration is to be backed up.</value>
+        [DataMember(Name="enableDgPrimaryBackup", EmitDefaultValue=true)]
+        public bool? EnableDgPrimaryBackup { get; set; }
 
         /// <summary>
         /// Specifies the maximum number of nodes from which we are allowed to take backup/restore.
@@ -150,6 +160,11 @@ namespace Cohesity.Model
                     this.DefaultChannelCount.Equals(input.DefaultChannelCount))
                 ) && 
                 (
+                    this.EnableDgPrimaryBackup == input.EnableDgPrimaryBackup ||
+                    (this.EnableDgPrimaryBackup != null &&
+                    this.EnableDgPrimaryBackup.Equals(input.EnableDgPrimaryBackup))
+                ) && 
+                (
                     this.MaxNodeCount == input.MaxNodeCount ||
                     (this.MaxNodeCount != null &&
                     this.MaxNodeCount.Equals(input.MaxNodeCount))
@@ -175,6 +190,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.DatabaseUuid.GetHashCode();
                 if (this.DefaultChannelCount != null)
                     hashCode = hashCode * 59 + this.DefaultChannelCount.GetHashCode();
+                if (this.EnableDgPrimaryBackup != null)
+                    hashCode = hashCode * 59 + this.EnableDgPrimaryBackup.GetHashCode();
                 if (this.MaxNodeCount != null)
                     hashCode = hashCode * 59 + this.MaxNodeCount.GetHashCode();
                 return hashCode;

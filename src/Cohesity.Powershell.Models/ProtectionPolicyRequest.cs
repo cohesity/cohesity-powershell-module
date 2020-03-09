@@ -84,6 +84,7 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="ProtectionPolicyRequest" /> class.
         /// </summary>
         /// <param name="blackoutPeriods">Array of Blackout Periods.  If specified, this field defines black periods when new Job Runs are not started. If a Job Run has been scheduled but not yet executed and the blackout period starts, the behavior depends on the policy field AbortInBlackoutPeriod..</param>
+        /// <param name="cdpSchedulingPolicy">cdpSchedulingPolicy.</param>
         /// <param name="cloudDeployPolicies">Array of Cloud Deploy Policies.  Specifies settings for copying Snapshots to Cloud. CloudDeploy target where backup snapshots may be converted and stored. It also defines the retention of copied Snapshots on the Cloud..</param>
         /// <param name="daysToKeep">Specifies how many days to retain Snapshots on the Cohesity Cluster..</param>
         /// <param name="daysToKeepLog">Specifies the number of days to retain log run if Log Schedule exists..</param>
@@ -105,7 +106,7 @@ namespace Cohesity.Model
         /// <param name="systemSchedulingPolicy">systemSchedulingPolicy.</param>
         /// <param name="type">Specifies the type of the protection policy. &#39;kRegular&#39; means a regular Protection Policy. &#39;kRPO&#39; means an RPO Protection Policy..</param>
         /// <param name="wormRetentionType">Specifies WORM retention type for the snapshots. When a WORM retention type is specified, the snapshots of the Protection Jobs using this policy will be kept until the maximum of the snapshot retention time. During that time, the snapshots cannot be deleted. &#39;kNone&#39; implies there is no WORM retention set. &#39;kCompliance&#39; implies WORM retention is set for compliance reason. &#39;kAdministrative&#39; implies WORM retention is set for administrative purposes..</param>
-        public ProtectionPolicyRequest(List<BlackoutPeriod> blackoutPeriods = default(List<BlackoutPeriod>), List<SnapshotCloudCopyPolicy> cloudDeployPolicies = default(List<SnapshotCloudCopyPolicy>), long? daysToKeep = default(long?), long? daysToKeepLog = default(long?), long? daysToKeepSystem = default(long?), string description = default(string), List<ExtendedRetentionPolicy> extendedRetentionPolicies = default(List<ExtendedRetentionPolicy>), SchedulingPolicy fullSchedulingPolicy = default(SchedulingPolicy), SchedulingPolicy incrementalSchedulingPolicy = default(SchedulingPolicy), SchedulingPolicy logSchedulingPolicy = default(SchedulingPolicy), string name = default(string), long? numLinkedPolicies = default(long?), string parentPolicyId = default(string), int? retries = default(int?), int? retryIntervalMins = default(int?), RpoPolicySettings rpoPolicySettings = default(RpoPolicySettings), int? skipIntervalMins = default(int?), List<SnapshotArchivalCopyPolicy> snapshotArchivalCopyPolicies = default(List<SnapshotArchivalCopyPolicy>), List<SnapshotReplicationCopyPolicy> snapshotReplicationCopyPolicies = default(List<SnapshotReplicationCopyPolicy>), SchedulingPolicy systemSchedulingPolicy = default(SchedulingPolicy), TypeEnum? type = default(TypeEnum?), WormRetentionTypeEnum? wormRetentionType = default(WormRetentionTypeEnum?))
+        public ProtectionPolicyRequest(List<BlackoutPeriod> blackoutPeriods = default(List<BlackoutPeriod>), SchedulingPolicy cdpSchedulingPolicy = default(SchedulingPolicy), List<SnapshotCloudCopyPolicy> cloudDeployPolicies = default(List<SnapshotCloudCopyPolicy>), long? daysToKeep = default(long?), long? daysToKeepLog = default(long?), long? daysToKeepSystem = default(long?), string description = default(string), List<ExtendedRetentionPolicy> extendedRetentionPolicies = default(List<ExtendedRetentionPolicy>), SchedulingPolicy fullSchedulingPolicy = default(SchedulingPolicy), SchedulingPolicy incrementalSchedulingPolicy = default(SchedulingPolicy), SchedulingPolicy logSchedulingPolicy = default(SchedulingPolicy), string name = default(string), long? numLinkedPolicies = default(long?), string parentPolicyId = default(string), int? retries = default(int?), int? retryIntervalMins = default(int?), RpoPolicySettings rpoPolicySettings = default(RpoPolicySettings), int? skipIntervalMins = default(int?), List<SnapshotArchivalCopyPolicy> snapshotArchivalCopyPolicies = default(List<SnapshotArchivalCopyPolicy>), List<SnapshotReplicationCopyPolicy> snapshotReplicationCopyPolicies = default(List<SnapshotReplicationCopyPolicy>), SchedulingPolicy systemSchedulingPolicy = default(SchedulingPolicy), TypeEnum? type = default(TypeEnum?), WormRetentionTypeEnum? wormRetentionType = default(WormRetentionTypeEnum?))
         {
             this.BlackoutPeriods = blackoutPeriods;
             this.CloudDeployPolicies = cloudDeployPolicies;
@@ -127,6 +128,7 @@ namespace Cohesity.Model
             this.Type = type;
             this.WormRetentionType = wormRetentionType;
             this.BlackoutPeriods = blackoutPeriods;
+            this.CdpSchedulingPolicy = cdpSchedulingPolicy;
             this.CloudDeployPolicies = cloudDeployPolicies;
             this.DaysToKeep = daysToKeep;
             this.DaysToKeepLog = daysToKeepLog;
@@ -156,6 +158,12 @@ namespace Cohesity.Model
         /// <value>Array of Blackout Periods.  If specified, this field defines black periods when new Job Runs are not started. If a Job Run has been scheduled but not yet executed and the blackout period starts, the behavior depends on the policy field AbortInBlackoutPeriod.</value>
         [DataMember(Name="blackoutPeriods", EmitDefaultValue=true)]
         public List<BlackoutPeriod> BlackoutPeriods { get; set; }
+
+        /// <summary>
+        /// Gets or Sets CdpSchedulingPolicy
+        /// </summary>
+        [DataMember(Name="cdpSchedulingPolicy", EmitDefaultValue=false)]
+        public SchedulingPolicy CdpSchedulingPolicy { get; set; }
 
         /// <summary>
         /// Array of Cloud Deploy Policies.  Specifies settings for copying Snapshots to Cloud. CloudDeploy target where backup snapshots may be converted and stored. It also defines the retention of copied Snapshots on the Cloud.
@@ -330,6 +338,11 @@ namespace Cohesity.Model
                     this.BlackoutPeriods.SequenceEqual(input.BlackoutPeriods)
                 ) && 
                 (
+                    this.CdpSchedulingPolicy == input.CdpSchedulingPolicy ||
+                    (this.CdpSchedulingPolicy != null &&
+                    this.CdpSchedulingPolicy.Equals(input.CdpSchedulingPolicy))
+                ) && 
+                (
                     this.CloudDeployPolicies == input.CloudDeployPolicies ||
                     this.CloudDeployPolicies != null &&
                     input.CloudDeployPolicies != null &&
@@ -449,6 +462,8 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.BlackoutPeriods != null)
                     hashCode = hashCode * 59 + this.BlackoutPeriods.GetHashCode();
+                if (this.CdpSchedulingPolicy != null)
+                    hashCode = hashCode * 59 + this.CdpSchedulingPolicy.GetHashCode();
                 if (this.CloudDeployPolicies != null)
                     hashCode = hashCode * 59 + this.CloudDeployPolicies.GetHashCode();
                 if (this.DaysToKeep != null)

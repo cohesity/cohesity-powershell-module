@@ -25,15 +25,17 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="adRestoreParams">adRestoreParams.</param>
         /// <param name="cloneTaskId">Id of finished clone task which has to be refreshed with different data..</param>
+        /// <param name="exchangeRestoreParams">exchangeRestoreParams.</param>
         /// <param name="oracleRestoreParams">oracleRestoreParams.</param>
         /// <param name="sqlRestoreParams">sqlRestoreParams.</param>
         /// <param name="targetHost">targetHost.</param>
         /// <param name="targetHostParentSource">targetHostParentSource.</param>
-        public RestoreAppObjectParams(RestoreADAppObjectParams adRestoreParams = default(RestoreADAppObjectParams), long? cloneTaskId = default(long?), RestoreOracleAppObjectParams oracleRestoreParams = default(RestoreOracleAppObjectParams), RestoreSqlAppObjectParams sqlRestoreParams = default(RestoreSqlAppObjectParams), EntityProto targetHost = default(EntityProto), EntityProto targetHostParentSource = default(EntityProto))
+        public RestoreAppObjectParams(RestoreADAppObjectParams adRestoreParams = default(RestoreADAppObjectParams), long? cloneTaskId = default(long?), RestoreExchangeParams exchangeRestoreParams = default(RestoreExchangeParams), RestoreOracleAppObjectParams oracleRestoreParams = default(RestoreOracleAppObjectParams), RestoreSqlAppObjectParams sqlRestoreParams = default(RestoreSqlAppObjectParams), EntityProto targetHost = default(EntityProto), EntityProto targetHostParentSource = default(EntityProto))
         {
             this.CloneTaskId = cloneTaskId;
             this.AdRestoreParams = adRestoreParams;
             this.CloneTaskId = cloneTaskId;
+            this.ExchangeRestoreParams = exchangeRestoreParams;
             this.OracleRestoreParams = oracleRestoreParams;
             this.SqlRestoreParams = sqlRestoreParams;
             this.TargetHost = targetHost;
@@ -52,6 +54,12 @@ namespace Cohesity.Model
         /// <value>Id of finished clone task which has to be refreshed with different data.</value>
         [DataMember(Name="cloneTaskId", EmitDefaultValue=true)]
         public long? CloneTaskId { get; set; }
+
+        /// <summary>
+        /// Gets or Sets ExchangeRestoreParams
+        /// </summary>
+        [DataMember(Name="exchangeRestoreParams", EmitDefaultValue=false)]
+        public RestoreExchangeParams ExchangeRestoreParams { get; set; }
 
         /// <summary>
         /// Gets or Sets OracleRestoreParams
@@ -124,6 +132,11 @@ namespace Cohesity.Model
                     this.CloneTaskId.Equals(input.CloneTaskId))
                 ) && 
                 (
+                    this.ExchangeRestoreParams == input.ExchangeRestoreParams ||
+                    (this.ExchangeRestoreParams != null &&
+                    this.ExchangeRestoreParams.Equals(input.ExchangeRestoreParams))
+                ) && 
+                (
                     this.OracleRestoreParams == input.OracleRestoreParams ||
                     (this.OracleRestoreParams != null &&
                     this.OracleRestoreParams.Equals(input.OracleRestoreParams))
@@ -158,6 +171,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.AdRestoreParams.GetHashCode();
                 if (this.CloneTaskId != null)
                     hashCode = hashCode * 59 + this.CloneTaskId.GetHashCode();
+                if (this.ExchangeRestoreParams != null)
+                    hashCode = hashCode * 59 + this.ExchangeRestoreParams.GetHashCode();
                 if (this.OracleRestoreParams != null)
                     hashCode = hashCode * 59 + this.OracleRestoreParams.GetHashCode();
                 if (this.SqlRestoreParams != null)

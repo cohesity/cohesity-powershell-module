@@ -24,7 +24,7 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="UserDeleteParameters" /> class.
         /// </summary>
         /// <param name="domain">Specifies the domain associated with the users to delete. Only users associated with the same domain can be deleted by a single request. If no domain is specified, the specified users are deleted from the LOCAL domain on the Cohesity Cluster. If a non-LOCAL domain is specified, the specified users are deleted on the Cohesity Cluster. However, the referenced user principals on the Active Directory are not deleted..</param>
-        /// <param name="tenantId">Specifies the tenant for which the the users are to be deleted..</param>
+        /// <param name="tenantId">Specifies the tenant for which the users are to be deleted..</param>
         /// <param name="users">Array of Users.  Specifies the list of users to delete on Cohesity Cluster. Only users from the same domain can be deleted by a single request..</param>
         public UserDeleteParameters(string domain = default(string), string tenantId = default(string), List<string> users = default(List<string>))
         {
@@ -44,9 +44,9 @@ namespace Cohesity.Model
         public string Domain { get; set; }
 
         /// <summary>
-        /// Specifies the tenant for which the the users are to be deleted.
+        /// Specifies the tenant for which the users are to be deleted.
         /// </summary>
-        /// <value>Specifies the tenant for which the the users are to be deleted.</value>
+        /// <value>Specifies the tenant for which the users are to be deleted.</value>
         [DataMember(Name="tenantId", EmitDefaultValue=true)]
         public string TenantId { get; set; }
 

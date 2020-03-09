@@ -23,6 +23,7 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="PerformRestoreTaskStateProto" /> class.
         /// </summary>
+        /// <param name="actionExecutorTargetType">Denotes the target for action executor(Bridge / BridgeProxy) on which task on slave should execute actions..</param>
         /// <param name="_base">_base.</param>
         /// <param name="canTeardown">This is set if the clone operation has created any objects on the primary environment and teardown operation is possible. UI will disable the teardown button only if this is not set or set to false. NOTE: This won&#39;t be reset if the teardown operation subsequently completes as teardown state is managed separately..</param>
         /// <param name="cdpRestoreProgressMonitorTaskPath">The path of the progress monitor for the task that is responsible for creating the CDP hydrated view..</param>
@@ -48,6 +49,7 @@ namespace Cohesity.Model
         /// <param name="parentRestoreTaskId">The id of the parent restore task if this is a restore sub-task.  List of environments that use this field: kSQL : Used for multi-stage SQL restore that supports a hot-standy.  This will also be used by refresh op to mark the new clone as internal sub-task..</param>
         /// <param name="pathPrefixDEPRECATED">pathPrefixDEPRECATED.</param>
         /// <param name="powerStateConfig">powerStateConfig.</param>
+        /// <param name="preserveTags">Whether to preserve tags for the clone op. This field is currently used by HyperV and VMWare..</param>
         /// <param name="progressMonitorTaskPath">Root path of a Pulse task tracking the progress of the restore task..</param>
         /// <param name="recoverDisksTaskState">recoverDisksTaskState.</param>
         /// <param name="recoverVolumesTaskState">recoverVolumesTaskState.</param>
@@ -83,8 +85,9 @@ namespace Cohesity.Model
         /// <param name="viewNameDEPRECATED">The view name as provided by the user for this restore operation..</param>
         /// <param name="viewParams">viewParams.</param>
         /// <param name="volumeInfoVec">Information regarding volumes that are required for the restore task. This is populated for restore files and mount virtual disk ops..</param>
-        public PerformRestoreTaskStateProto(RestoreTaskStateBaseProto _base = default(RestoreTaskStateBaseProto), bool? canTeardown = default(bool?), string cdpRestoreProgressMonitorTaskPath = default(string), PerformRestoreTaskStateProto cdpRestoreTask = default(PerformRestoreTaskStateProto), long? cdpRestoreTaskId = default(long?), string cdpRestoreViewName = default(string), long? childCloneTaskId = default(long?), long? childDestroyTaskId = default(long?), CloneAppViewInfoProto cloneAppViewInfo = default(CloneAppViewInfoProto), CloudDeployInfoProto cloudDeployInfo = default(CloudDeployInfoProto), bool? continueRestoreOnError = default(bool?), bool? createView = default(bool?), List<EntityProto> datastoreEntityVec = default(List<EntityProto>), DeployVMsToCloudTaskStateProto deployVmsToCloudTaskState = default(DeployVMsToCloudTaskStateProto), EntityProto folderEntity = default(EntityProto), string fullViewName = default(string), bool? includeVmConfig = default(bool?), MountVolumesTaskStateProto mountVolumesTaskState = default(MountVolumesTaskStateProto), string objectNameDEPRECATED = default(string), List<RestoreObject> objects = default(List<RestoreObject>), List<string> objectsProgressMonitorTaskPaths = default(List<string>), long? parentRestoreJobId = default(long?), long? parentRestoreTaskId = default(long?), string pathPrefixDEPRECATED = default(string), PowerStateConfigProto powerStateConfig = default(PowerStateConfigProto), string progressMonitorTaskPath = default(string), RecoverDisksTaskStateProto recoverDisksTaskState = default(RecoverDisksTaskStateProto), RecoverVolumesTaskStateProto recoverVolumesTaskState = default(RecoverVolumesTaskStateProto), long? relatedRestoreTaskId = default(long?), RenameObjectParamProto renameRestoredObjectParam = default(RenameObjectParamProto), RenameObjectParamProto renameRestoredVappParam = default(RenameObjectParamProto), EntityProto resourcePoolEntity = default(EntityProto), RestoreAcropolisVMsParams restoreAcropolisVmsParams = default(RestoreAcropolisVMsParams), RestoreAppTaskStateProto restoreAppTaskState = default(RestoreAppTaskStateProto), RestoreFilesTaskStateProto restoreFilesTaskState = default(RestoreFilesTaskStateProto), RestoreHyperVVMParams restoreHypervVmParams = default(RestoreHyperVVMParams), RestoreInfoProto restoreInfo = default(RestoreInfoProto), RestoreKubernetesNamespacesParams restoreKubernetesNamespacesParams = default(RestoreKubernetesNamespacesParams), RestoreKVMVMsParams restoreKvmVmsParams = default(RestoreKVMVMsParams), RestoreOneDriveParams restoreOneDriveParams = default(RestoreOneDriveParams), RestoreOutlookParams restoreOutlookParams = default(RestoreOutlookParams), EntityProto restoreParentSource = default(EntityProto), List<long> restoreSubTaskVec = default(List<long>), bool? restoreTaskPurged = default(bool?), EntityProto restoreViewDatastoreEntity = default(EntityProto), RestoreVMwareVMParams restoreVmwareVmParams = default(RestoreVMwareVMParams), RestoredObjectNetworkConfigProto restoredObjectsNetworkConfig = default(RestoredObjectNetworkConfigProto), bool? restoredToDifferentSource = default(bool?), string retrieveArchiveProgressMonitorTaskPath = default(string), string retrieveArchiveStubViewName = default(string), List<UniversalIdProto> retrieveArchiveTaskUidVec = default(List<UniversalIdProto>), List<RetrieveArchiveTaskStateProto> retrieveArchiveTaskVec = default(List<RetrieveArchiveTaskStateProto>), string retrieveArchiveViewName = default(string), string stubViewRelativeDirName = default(string), VaultParamsRestoreParams vaultRestoreParams = default(VaultParamsRestoreParams), RestoredObjectVCDConfigProto vcdConfig = default(RestoredObjectVCDConfigProto), long? viewBoxId = default(long?), string viewNameDEPRECATED = default(string), ViewParams viewParams = default(ViewParams), List<VolumeInfo> volumeInfoVec = default(List<VolumeInfo>))
+        public PerformRestoreTaskStateProto(int? actionExecutorTargetType = default(int?), RestoreTaskStateBaseProto _base = default(RestoreTaskStateBaseProto), bool? canTeardown = default(bool?), string cdpRestoreProgressMonitorTaskPath = default(string), PerformRestoreTaskStateProto cdpRestoreTask = default(PerformRestoreTaskStateProto), long? cdpRestoreTaskId = default(long?), string cdpRestoreViewName = default(string), long? childCloneTaskId = default(long?), long? childDestroyTaskId = default(long?), CloneAppViewInfoProto cloneAppViewInfo = default(CloneAppViewInfoProto), CloudDeployInfoProto cloudDeployInfo = default(CloudDeployInfoProto), bool? continueRestoreOnError = default(bool?), bool? createView = default(bool?), List<EntityProto> datastoreEntityVec = default(List<EntityProto>), DeployVMsToCloudTaskStateProto deployVmsToCloudTaskState = default(DeployVMsToCloudTaskStateProto), EntityProto folderEntity = default(EntityProto), string fullViewName = default(string), bool? includeVmConfig = default(bool?), MountVolumesTaskStateProto mountVolumesTaskState = default(MountVolumesTaskStateProto), string objectNameDEPRECATED = default(string), List<RestoreObject> objects = default(List<RestoreObject>), List<string> objectsProgressMonitorTaskPaths = default(List<string>), long? parentRestoreJobId = default(long?), long? parentRestoreTaskId = default(long?), string pathPrefixDEPRECATED = default(string), PowerStateConfigProto powerStateConfig = default(PowerStateConfigProto), bool? preserveTags = default(bool?), string progressMonitorTaskPath = default(string), RecoverDisksTaskStateProto recoverDisksTaskState = default(RecoverDisksTaskStateProto), RecoverVolumesTaskStateProto recoverVolumesTaskState = default(RecoverVolumesTaskStateProto), long? relatedRestoreTaskId = default(long?), RenameObjectParamProto renameRestoredObjectParam = default(RenameObjectParamProto), RenameObjectParamProto renameRestoredVappParam = default(RenameObjectParamProto), EntityProto resourcePoolEntity = default(EntityProto), RestoreAcropolisVMsParams restoreAcropolisVmsParams = default(RestoreAcropolisVMsParams), RestoreAppTaskStateProto restoreAppTaskState = default(RestoreAppTaskStateProto), RestoreFilesTaskStateProto restoreFilesTaskState = default(RestoreFilesTaskStateProto), RestoreHyperVVMParams restoreHypervVmParams = default(RestoreHyperVVMParams), RestoreInfoProto restoreInfo = default(RestoreInfoProto), RestoreKubernetesNamespacesParams restoreKubernetesNamespacesParams = default(RestoreKubernetesNamespacesParams), RestoreKVMVMsParams restoreKvmVmsParams = default(RestoreKVMVMsParams), RestoreOneDriveParams restoreOneDriveParams = default(RestoreOneDriveParams), RestoreOutlookParams restoreOutlookParams = default(RestoreOutlookParams), EntityProto restoreParentSource = default(EntityProto), List<long> restoreSubTaskVec = default(List<long>), bool? restoreTaskPurged = default(bool?), EntityProto restoreViewDatastoreEntity = default(EntityProto), RestoreVMwareVMParams restoreVmwareVmParams = default(RestoreVMwareVMParams), RestoredObjectNetworkConfigProto restoredObjectsNetworkConfig = default(RestoredObjectNetworkConfigProto), bool? restoredToDifferentSource = default(bool?), string retrieveArchiveProgressMonitorTaskPath = default(string), string retrieveArchiveStubViewName = default(string), List<UniversalIdProto> retrieveArchiveTaskUidVec = default(List<UniversalIdProto>), List<RetrieveArchiveTaskStateProto> retrieveArchiveTaskVec = default(List<RetrieveArchiveTaskStateProto>), string retrieveArchiveViewName = default(string), string stubViewRelativeDirName = default(string), VaultParamsRestoreParams vaultRestoreParams = default(VaultParamsRestoreParams), RestoredObjectVCDConfigProto vcdConfig = default(RestoredObjectVCDConfigProto), long? viewBoxId = default(long?), string viewNameDEPRECATED = default(string), ViewParams viewParams = default(ViewParams), List<VolumeInfo> volumeInfoVec = default(List<VolumeInfo>))
         {
+            this.ActionExecutorTargetType = actionExecutorTargetType;
             this.CanTeardown = canTeardown;
             this.CdpRestoreProgressMonitorTaskPath = cdpRestoreProgressMonitorTaskPath;
             this.CdpRestoreTaskId = cdpRestoreTaskId;
@@ -102,6 +105,7 @@ namespace Cohesity.Model
             this.ParentRestoreJobId = parentRestoreJobId;
             this.ParentRestoreTaskId = parentRestoreTaskId;
             this.PathPrefixDEPRECATED = pathPrefixDEPRECATED;
+            this.PreserveTags = preserveTags;
             this.ProgressMonitorTaskPath = progressMonitorTaskPath;
             this.RelatedRestoreTaskId = relatedRestoreTaskId;
             this.RestoreSubTaskVec = restoreSubTaskVec;
@@ -116,6 +120,7 @@ namespace Cohesity.Model
             this.ViewBoxId = viewBoxId;
             this.ViewNameDEPRECATED = viewNameDEPRECATED;
             this.VolumeInfoVec = volumeInfoVec;
+            this.ActionExecutorTargetType = actionExecutorTargetType;
             this.Base = _base;
             this.CanTeardown = canTeardown;
             this.CdpRestoreProgressMonitorTaskPath = cdpRestoreProgressMonitorTaskPath;
@@ -141,6 +146,7 @@ namespace Cohesity.Model
             this.ParentRestoreTaskId = parentRestoreTaskId;
             this.PathPrefixDEPRECATED = pathPrefixDEPRECATED;
             this.PowerStateConfig = powerStateConfig;
+            this.PreserveTags = preserveTags;
             this.ProgressMonitorTaskPath = progressMonitorTaskPath;
             this.RecoverDisksTaskState = recoverDisksTaskState;
             this.RecoverVolumesTaskState = recoverVolumesTaskState;
@@ -178,6 +184,13 @@ namespace Cohesity.Model
             this.VolumeInfoVec = volumeInfoVec;
         }
         
+        /// <summary>
+        /// Denotes the target for action executor(Bridge / BridgeProxy) on which task on slave should execute actions.
+        /// </summary>
+        /// <value>Denotes the target for action executor(Bridge / BridgeProxy) on which task on slave should execute actions.</value>
+        [DataMember(Name="actionExecutorTargetType", EmitDefaultValue=true)]
+        public int? ActionExecutorTargetType { get; set; }
+
         /// <summary>
         /// Gets or Sets Base
         /// </summary>
@@ -343,6 +356,13 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="powerStateConfig", EmitDefaultValue=false)]
         public PowerStateConfigProto PowerStateConfig { get; set; }
+
+        /// <summary>
+        /// Whether to preserve tags for the clone op. This field is currently used by HyperV and VMWare.
+        /// </summary>
+        /// <value>Whether to preserve tags for the clone op. This field is currently used by HyperV and VMWare.</value>
+        [DataMember(Name="preserveTags", EmitDefaultValue=true)]
+        public bool? PreserveTags { get; set; }
 
         /// <summary>
         /// Root path of a Pulse task tracking the progress of the restore task.
@@ -605,6 +625,11 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.ActionExecutorTargetType == input.ActionExecutorTargetType ||
+                    (this.ActionExecutorTargetType != null &&
+                    this.ActionExecutorTargetType.Equals(input.ActionExecutorTargetType))
+                ) && 
+                (
                     this.Base == input.Base ||
                     (this.Base != null &&
                     this.Base.Equals(input.Base))
@@ -731,6 +756,11 @@ namespace Cohesity.Model
                     this.PowerStateConfig == input.PowerStateConfig ||
                     (this.PowerStateConfig != null &&
                     this.PowerStateConfig.Equals(input.PowerStateConfig))
+                ) && 
+                (
+                    this.PreserveTags == input.PreserveTags ||
+                    (this.PreserveTags != null &&
+                    this.PreserveTags.Equals(input.PreserveTags))
                 ) && 
                 (
                     this.ProgressMonitorTaskPath == input.ProgressMonitorTaskPath ||
@@ -922,6 +952,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.ActionExecutorTargetType != null)
+                    hashCode = hashCode * 59 + this.ActionExecutorTargetType.GetHashCode();
                 if (this.Base != null)
                     hashCode = hashCode * 59 + this.Base.GetHashCode();
                 if (this.CanTeardown != null)
@@ -972,6 +1004,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.PathPrefixDEPRECATED.GetHashCode();
                 if (this.PowerStateConfig != null)
                     hashCode = hashCode * 59 + this.PowerStateConfig.GetHashCode();
+                if (this.PreserveTags != null)
+                    hashCode = hashCode * 59 + this.PreserveTags.GetHashCode();
                 if (this.ProgressMonitorTaskPath != null)
                     hashCode = hashCode * 59 + this.ProgressMonitorTaskPath.GetHashCode();
                 if (this.RecoverDisksTaskState != null)

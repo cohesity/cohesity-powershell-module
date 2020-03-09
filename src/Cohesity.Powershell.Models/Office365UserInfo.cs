@@ -23,19 +23,39 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="Office365UserInfo" /> class.
         /// </summary>
+        /// <param name="department">Specifies the department within the enterprise of the Office365 user..</param>
+        /// <param name="graphUuid">Specifies the MS Graph UUID for the given user entity..</param>
         /// <param name="mailboxSize">Specifies the size of the Outlook Mailbox associated with this Office365 entity..</param>
         /// <param name="oneDriveId">Specifies the Id of the OneDrive associated with the this Office 365 entity..</param>
         /// <param name="oneDriveSize">Specifies the size of the OneDrive associated with this Office365 entity..</param>
-        public Office365UserInfo(long? mailboxSize = default(long?), string oneDriveId = default(string), long? oneDriveSize = default(long?))
+        public Office365UserInfo(string department = default(string), string graphUuid = default(string), long? mailboxSize = default(long?), string oneDriveId = default(string), long? oneDriveSize = default(long?))
         {
+            this.Department = department;
+            this.GraphUuid = graphUuid;
             this.MailboxSize = mailboxSize;
             this.OneDriveId = oneDriveId;
             this.OneDriveSize = oneDriveSize;
+            this.Department = department;
+            this.GraphUuid = graphUuid;
             this.MailboxSize = mailboxSize;
             this.OneDriveId = oneDriveId;
             this.OneDriveSize = oneDriveSize;
         }
         
+        /// <summary>
+        /// Specifies the department within the enterprise of the Office365 user.
+        /// </summary>
+        /// <value>Specifies the department within the enterprise of the Office365 user.</value>
+        [DataMember(Name="department", EmitDefaultValue=true)]
+        public string Department { get; set; }
+
+        /// <summary>
+        /// Specifies the MS Graph UUID for the given user entity.
+        /// </summary>
+        /// <value>Specifies the MS Graph UUID for the given user entity.</value>
+        [DataMember(Name="graphUuid", EmitDefaultValue=true)]
+        public string GraphUuid { get; set; }
+
         /// <summary>
         /// Specifies the size of the Outlook Mailbox associated with this Office365 entity.
         /// </summary>
@@ -94,6 +114,16 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.Department == input.Department ||
+                    (this.Department != null &&
+                    this.Department.Equals(input.Department))
+                ) && 
+                (
+                    this.GraphUuid == input.GraphUuid ||
+                    (this.GraphUuid != null &&
+                    this.GraphUuid.Equals(input.GraphUuid))
+                ) && 
+                (
                     this.MailboxSize == input.MailboxSize ||
                     (this.MailboxSize != null &&
                     this.MailboxSize.Equals(input.MailboxSize))
@@ -119,6 +149,10 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.Department != null)
+                    hashCode = hashCode * 59 + this.Department.GetHashCode();
+                if (this.GraphUuid != null)
+                    hashCode = hashCode * 59 + this.GraphUuid.GetHashCode();
                 if (this.MailboxSize != null)
                     hashCode = hashCode * 59 + this.MailboxSize.GetHashCode();
                 if (this.OneDriveId != null)

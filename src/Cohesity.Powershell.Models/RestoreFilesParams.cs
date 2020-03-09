@@ -27,6 +27,7 @@ namespace Cohesity.Model
         /// <param name="isArchiveFlr">Whether this is a file restore operation from an archive..</param>
         /// <param name="isFileVolumeRestore">Whether this is a file based volume restore..</param>
         /// <param name="isMountBasedFlr">Whether this is a mount based file restore operation.</param>
+        /// <param name="isVmwareToolsBasedFlr">Whether this is a file restore operation using VMware Tools..</param>
         /// <param name="mountDisksOnVm">Whether this will attach disks or mount disks on the VM side OR use Storage Proxy RPCs to stream data..</param>
         /// <param name="nasProtocolTypeVec">The NAS protocol type(s) of this restore task. Currently we only support a single restore type. This field is only populated for NAS restore tasks..</param>
         /// <param name="proxyEntity">proxyEntity.</param>
@@ -38,14 +39,16 @@ namespace Cohesity.Model
         /// <param name="targetEntityParentSource">targetEntityParentSource.</param>
         /// <param name="targetHostEntity">targetHostEntity.</param>
         /// <param name="targetHostType">The host environment type. This is set in VMware environment to indicate the OS type of the target entity. NOTE: This is expected to be set since magneto does not know the host type for VMware entities..</param>
+        /// <param name="uptierParams">uptierParams.</param>
         /// <param name="useExistingAgent">Whether this will use an existing agent on the target VM to do the restore..</param>
         /// <param name="vpcConnectorEntity">vpcConnectorEntity.</param>
-        public RestoreFilesParams(List<RestoreFilesParamsDirectoryNameSecurityStyleMapEntry> directoryNameSecurityStyleMap = default(List<RestoreFilesParamsDirectoryNameSecurityStyleMapEntry>), bool? isArchiveFlr = default(bool?), bool? isFileVolumeRestore = default(bool?), bool? isMountBasedFlr = default(bool?), bool? mountDisksOnVm = default(bool?), List<int> nasProtocolTypeVec = default(List<int>), EntityProto proxyEntity = default(EntityProto), EntityProto proxyEntityParentSource = default(EntityProto), RestoreFilesPreferences restoreFilesPreferences = default(RestoreFilesPreferences), List<RestoredFileInfo> restoredFileInfoVec = default(List<RestoredFileInfo>), EntityProto targetEntity = default(EntityProto), Credentials targetEntityCredentials = default(Credentials), EntityProto targetEntityParentSource = default(EntityProto), EntityProto targetHostEntity = default(EntityProto), int? targetHostType = default(int?), bool? useExistingAgent = default(bool?), EntityProto vpcConnectorEntity = default(EntityProto))
+        public RestoreFilesParams(List<RestoreFilesParamsDirectoryNameSecurityStyleMapEntry> directoryNameSecurityStyleMap = default(List<RestoreFilesParamsDirectoryNameSecurityStyleMapEntry>), bool? isArchiveFlr = default(bool?), bool? isFileVolumeRestore = default(bool?), bool? isMountBasedFlr = default(bool?), bool? isVmwareToolsBasedFlr = default(bool?), bool? mountDisksOnVm = default(bool?), List<int> nasProtocolTypeVec = default(List<int>), EntityProto proxyEntity = default(EntityProto), EntityProto proxyEntityParentSource = default(EntityProto), RestoreFilesPreferences restoreFilesPreferences = default(RestoreFilesPreferences), List<RestoredFileInfo> restoredFileInfoVec = default(List<RestoredFileInfo>), EntityProto targetEntity = default(EntityProto), Credentials targetEntityCredentials = default(Credentials), EntityProto targetEntityParentSource = default(EntityProto), EntityProto targetHostEntity = default(EntityProto), int? targetHostType = default(int?), FileUptieringParams uptierParams = default(FileUptieringParams), bool? useExistingAgent = default(bool?), EntityProto vpcConnectorEntity = default(EntityProto))
         {
             this.DirectoryNameSecurityStyleMap = directoryNameSecurityStyleMap;
             this.IsArchiveFlr = isArchiveFlr;
             this.IsFileVolumeRestore = isFileVolumeRestore;
             this.IsMountBasedFlr = isMountBasedFlr;
+            this.IsVmwareToolsBasedFlr = isVmwareToolsBasedFlr;
             this.MountDisksOnVm = mountDisksOnVm;
             this.NasProtocolTypeVec = nasProtocolTypeVec;
             this.RestoredFileInfoVec = restoredFileInfoVec;
@@ -55,6 +58,7 @@ namespace Cohesity.Model
             this.IsArchiveFlr = isArchiveFlr;
             this.IsFileVolumeRestore = isFileVolumeRestore;
             this.IsMountBasedFlr = isMountBasedFlr;
+            this.IsVmwareToolsBasedFlr = isVmwareToolsBasedFlr;
             this.MountDisksOnVm = mountDisksOnVm;
             this.NasProtocolTypeVec = nasProtocolTypeVec;
             this.ProxyEntity = proxyEntity;
@@ -66,6 +70,7 @@ namespace Cohesity.Model
             this.TargetEntityParentSource = targetEntityParentSource;
             this.TargetHostEntity = targetHostEntity;
             this.TargetHostType = targetHostType;
+            this.UptierParams = uptierParams;
             this.UseExistingAgent = useExistingAgent;
             this.VpcConnectorEntity = vpcConnectorEntity;
         }
@@ -97,6 +102,13 @@ namespace Cohesity.Model
         /// <value>Whether this is a mount based file restore operation</value>
         [DataMember(Name="isMountBasedFlr", EmitDefaultValue=true)]
         public bool? IsMountBasedFlr { get; set; }
+
+        /// <summary>
+        /// Whether this is a file restore operation using VMware Tools.
+        /// </summary>
+        /// <value>Whether this is a file restore operation using VMware Tools.</value>
+        [DataMember(Name="isVmwareToolsBasedFlr", EmitDefaultValue=true)]
+        public bool? IsVmwareToolsBasedFlr { get; set; }
 
         /// <summary>
         /// Whether this will attach disks or mount disks on the VM side OR use Storage Proxy RPCs to stream data.
@@ -169,6 +181,12 @@ namespace Cohesity.Model
         public int? TargetHostType { get; set; }
 
         /// <summary>
+        /// Gets or Sets UptierParams
+        /// </summary>
+        [DataMember(Name="uptierParams", EmitDefaultValue=false)]
+        public FileUptieringParams UptierParams { get; set; }
+
+        /// <summary>
         /// Whether this will use an existing agent on the target VM to do the restore.
         /// </summary>
         /// <value>Whether this will use an existing agent on the target VM to do the restore.</value>
@@ -239,6 +257,11 @@ namespace Cohesity.Model
                     this.IsMountBasedFlr.Equals(input.IsMountBasedFlr))
                 ) && 
                 (
+                    this.IsVmwareToolsBasedFlr == input.IsVmwareToolsBasedFlr ||
+                    (this.IsVmwareToolsBasedFlr != null &&
+                    this.IsVmwareToolsBasedFlr.Equals(input.IsVmwareToolsBasedFlr))
+                ) && 
+                (
                     this.MountDisksOnVm == input.MountDisksOnVm ||
                     (this.MountDisksOnVm != null &&
                     this.MountDisksOnVm.Equals(input.MountDisksOnVm))
@@ -296,6 +319,11 @@ namespace Cohesity.Model
                     this.TargetHostType.Equals(input.TargetHostType))
                 ) && 
                 (
+                    this.UptierParams == input.UptierParams ||
+                    (this.UptierParams != null &&
+                    this.UptierParams.Equals(input.UptierParams))
+                ) && 
+                (
                     this.UseExistingAgent == input.UseExistingAgent ||
                     (this.UseExistingAgent != null &&
                     this.UseExistingAgent.Equals(input.UseExistingAgent))
@@ -324,6 +352,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.IsFileVolumeRestore.GetHashCode();
                 if (this.IsMountBasedFlr != null)
                     hashCode = hashCode * 59 + this.IsMountBasedFlr.GetHashCode();
+                if (this.IsVmwareToolsBasedFlr != null)
+                    hashCode = hashCode * 59 + this.IsVmwareToolsBasedFlr.GetHashCode();
                 if (this.MountDisksOnVm != null)
                     hashCode = hashCode * 59 + this.MountDisksOnVm.GetHashCode();
                 if (this.NasProtocolTypeVec != null)
@@ -346,6 +376,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.TargetHostEntity.GetHashCode();
                 if (this.TargetHostType != null)
                     hashCode = hashCode * 59 + this.TargetHostType.GetHashCode();
+                if (this.UptierParams != null)
+                    hashCode = hashCode * 59 + this.UptierParams.GetHashCode();
                 if (this.UseExistingAgent != null)
                     hashCode = hashCode * 59 + this.UseExistingAgent.GetHashCode();
                 if (this.VpcConnectorEntity != null)

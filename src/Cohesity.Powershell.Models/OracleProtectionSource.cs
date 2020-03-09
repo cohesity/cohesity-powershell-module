@@ -21,9 +21,9 @@ namespace Cohesity.Model
     public partial class OracleProtectionSource :  IEquatable<OracleProtectionSource>
     {
         /// <summary>
-        /// Specifies the type of the database in Oracle Protection Source. &#39;kRACDatabase&#39; indicates the database is a RAC DB. &#39;kSingleInstance&#39; indicates that the databse is single instance.
+        /// Specifies the type of the database in Oracle Protection Source. &#39;kRACDatabase&#39; indicates the database is a RAC DB. &#39;kSingleInstance&#39; indicates that the database is single instance.
         /// </summary>
-        /// <value>Specifies the type of the database in Oracle Protection Source. &#39;kRACDatabase&#39; indicates the database is a RAC DB. &#39;kSingleInstance&#39; indicates that the databse is single instance.</value>
+        /// <value>Specifies the type of the database in Oracle Protection Source. &#39;kRACDatabase&#39; indicates the database is a RAC DB. &#39;kSingleInstance&#39; indicates that the database is single instance.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum DbTypeEnum
         {
@@ -42,9 +42,9 @@ namespace Cohesity.Model
         }
 
         /// <summary>
-        /// Specifies the type of the database in Oracle Protection Source. &#39;kRACDatabase&#39; indicates the database is a RAC DB. &#39;kSingleInstance&#39; indicates that the databse is single instance.
+        /// Specifies the type of the database in Oracle Protection Source. &#39;kRACDatabase&#39; indicates the database is a RAC DB. &#39;kSingleInstance&#39; indicates that the database is single instance.
         /// </summary>
-        /// <value>Specifies the type of the database in Oracle Protection Source. &#39;kRACDatabase&#39; indicates the database is a RAC DB. &#39;kSingleInstance&#39; indicates that the databse is single instance.</value>
+        /// <value>Specifies the type of the database in Oracle Protection Source. &#39;kRACDatabase&#39; indicates the database is a RAC DB. &#39;kSingleInstance&#39; indicates that the database is single instance.</value>
         [DataMember(Name="dbType", EmitDefaultValue=true)]
         public DbTypeEnum? DbType { get; set; }
         /// <summary>
@@ -103,8 +103,12 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="archiveLogEnabled">Specifies whether the database is running in ARCHIVELOG mode. It enables the redo of log files into archived redo log files..</param>
         /// <param name="bctEnabled">Specifies whether the Block Change Tracking is enabled. BCT improves the performance of incremental backups by recording changed blocks into the block change tracking file. RMAN then uses this file to identify changed blocks to be backed up..</param>
-        /// <param name="dbType">Specifies the type of the database in Oracle Protection Source. &#39;kRACDatabase&#39; indicates the database is a RAC DB. &#39;kSingleInstance&#39; indicates that the databse is single instance..</param>
-        /// <param name="fraSize">Specfies Flash/Fast Recovery area size for the current DB entity..</param>
+        /// <param name="containerDatabaseInfo">containerDatabaseInfo.</param>
+        /// <param name="dataGuardInfo">dataGuardInfo.</param>
+        /// <param name="databaseUniqueName">Specifies the unique name of the Oracle entity..</param>
+        /// <param name="dbType">Specifies the type of the database in Oracle Protection Source. &#39;kRACDatabase&#39; indicates the database is a RAC DB. &#39;kSingleInstance&#39; indicates that the database is single instance..</param>
+        /// <param name="domain">Specifies the Oracle DB Domain..</param>
+        /// <param name="fraSize">Specifies Flash/Fast Recovery area size for the current DB entity..</param>
         /// <param name="hosts">Specifies the list of hosts for the current DB entity..</param>
         /// <param name="name">Specifies the instance name of the Oracle entity..</param>
         /// <param name="ownerId">Specifies the entity id of the owner entity (such as a VM). This is only set if type is kDatabase..</param>
@@ -115,11 +119,13 @@ namespace Cohesity.Model
         /// <param name="type">Specifies the type of the managed Object in Oracle Protection Source. &#39;kRACRootContainer&#39; indicates the entity is a root container to an Oracle Real Application clusters(Oracle RAC). &#39;kRootContainer&#39; indicates the entity is a root container to an Oracle standalone server. &#39;kHost&#39; indicates the entity is an Oracle host. &#39;kDatabase&#39; indicates the entity is an Oracle Database. &#39;kTableSpace&#39; indicates the entity is an Oracle table space. &#39;kTable&#39; indicates the entity is an Oracle table..</param>
         /// <param name="uuid">Specifies the UUID for the Oracle entity..</param>
         /// <param name="version">Specifies the Oracle database instance version..</param>
-        public OracleProtectionSource(bool? archiveLogEnabled = default(bool?), bool? bctEnabled = default(bool?), DbTypeEnum? dbType = default(DbTypeEnum?), long? fraSize = default(long?), List<OracleHost> hosts = default(List<OracleHost>), string name = default(string), long? ownerId = default(long?), string sgaTargetSize = default(string), string sharedPoolSize = default(string), long? size = default(long?), long? tempFilesCount = default(long?), TypeEnum? type = default(TypeEnum?), string uuid = default(string), string version = default(string))
+        public OracleProtectionSource(bool? archiveLogEnabled = default(bool?), bool? bctEnabled = default(bool?), OracleContainerDatabaseInfo containerDatabaseInfo = default(OracleContainerDatabaseInfo), OracleDataGuardInfo dataGuardInfo = default(OracleDataGuardInfo), string databaseUniqueName = default(string), DbTypeEnum? dbType = default(DbTypeEnum?), string domain = default(string), long? fraSize = default(long?), List<OracleHost> hosts = default(List<OracleHost>), string name = default(string), long? ownerId = default(long?), string sgaTargetSize = default(string), string sharedPoolSize = default(string), long? size = default(long?), long? tempFilesCount = default(long?), TypeEnum? type = default(TypeEnum?), string uuid = default(string), string version = default(string))
         {
             this.ArchiveLogEnabled = archiveLogEnabled;
             this.BctEnabled = bctEnabled;
+            this.DatabaseUniqueName = databaseUniqueName;
             this.DbType = dbType;
+            this.Domain = domain;
             this.FraSize = fraSize;
             this.Hosts = hosts;
             this.Name = name;
@@ -133,7 +139,11 @@ namespace Cohesity.Model
             this.Version = version;
             this.ArchiveLogEnabled = archiveLogEnabled;
             this.BctEnabled = bctEnabled;
+            this.ContainerDatabaseInfo = containerDatabaseInfo;
+            this.DataGuardInfo = dataGuardInfo;
+            this.DatabaseUniqueName = databaseUniqueName;
             this.DbType = dbType;
+            this.Domain = domain;
             this.FraSize = fraSize;
             this.Hosts = hosts;
             this.Name = name;
@@ -162,9 +172,35 @@ namespace Cohesity.Model
         public bool? BctEnabled { get; set; }
 
         /// <summary>
-        /// Specfies Flash/Fast Recovery area size for the current DB entity.
+        /// Gets or Sets ContainerDatabaseInfo
         /// </summary>
-        /// <value>Specfies Flash/Fast Recovery area size for the current DB entity.</value>
+        [DataMember(Name="containerDatabaseInfo", EmitDefaultValue=false)]
+        public OracleContainerDatabaseInfo ContainerDatabaseInfo { get; set; }
+
+        /// <summary>
+        /// Gets or Sets DataGuardInfo
+        /// </summary>
+        [DataMember(Name="dataGuardInfo", EmitDefaultValue=false)]
+        public OracleDataGuardInfo DataGuardInfo { get; set; }
+
+        /// <summary>
+        /// Specifies the unique name of the Oracle entity.
+        /// </summary>
+        /// <value>Specifies the unique name of the Oracle entity.</value>
+        [DataMember(Name="databaseUniqueName", EmitDefaultValue=true)]
+        public string DatabaseUniqueName { get; set; }
+
+        /// <summary>
+        /// Specifies the Oracle DB Domain.
+        /// </summary>
+        /// <value>Specifies the Oracle DB Domain.</value>
+        [DataMember(Name="domain", EmitDefaultValue=true)]
+        public string Domain { get; set; }
+
+        /// <summary>
+        /// Specifies Flash/Fast Recovery area size for the current DB entity.
+        /// </summary>
+        /// <value>Specifies Flash/Fast Recovery area size for the current DB entity.</value>
         [DataMember(Name="fraSize", EmitDefaultValue=true)]
         public long? FraSize { get; set; }
 
@@ -278,8 +314,28 @@ namespace Cohesity.Model
                     this.BctEnabled.Equals(input.BctEnabled))
                 ) && 
                 (
+                    this.ContainerDatabaseInfo == input.ContainerDatabaseInfo ||
+                    (this.ContainerDatabaseInfo != null &&
+                    this.ContainerDatabaseInfo.Equals(input.ContainerDatabaseInfo))
+                ) && 
+                (
+                    this.DataGuardInfo == input.DataGuardInfo ||
+                    (this.DataGuardInfo != null &&
+                    this.DataGuardInfo.Equals(input.DataGuardInfo))
+                ) && 
+                (
+                    this.DatabaseUniqueName == input.DatabaseUniqueName ||
+                    (this.DatabaseUniqueName != null &&
+                    this.DatabaseUniqueName.Equals(input.DatabaseUniqueName))
+                ) && 
+                (
                     this.DbType == input.DbType ||
                     this.DbType.Equals(input.DbType)
+                ) && 
+                (
+                    this.Domain == input.Domain ||
+                    (this.Domain != null &&
+                    this.Domain.Equals(input.Domain))
                 ) && 
                 (
                     this.FraSize == input.FraSize ||
@@ -351,7 +407,15 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ArchiveLogEnabled.GetHashCode();
                 if (this.BctEnabled != null)
                     hashCode = hashCode * 59 + this.BctEnabled.GetHashCode();
+                if (this.ContainerDatabaseInfo != null)
+                    hashCode = hashCode * 59 + this.ContainerDatabaseInfo.GetHashCode();
+                if (this.DataGuardInfo != null)
+                    hashCode = hashCode * 59 + this.DataGuardInfo.GetHashCode();
+                if (this.DatabaseUniqueName != null)
+                    hashCode = hashCode * 59 + this.DatabaseUniqueName.GetHashCode();
                 hashCode = hashCode * 59 + this.DbType.GetHashCode();
+                if (this.Domain != null)
+                    hashCode = hashCode * 59 + this.Domain.GetHashCode();
                 if (this.FraSize != null)
                     hashCode = hashCode * 59 + this.FraSize.GetHashCode();
                 if (this.Hosts != null)

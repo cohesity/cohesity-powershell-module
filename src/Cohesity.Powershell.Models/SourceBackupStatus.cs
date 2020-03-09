@@ -77,7 +77,7 @@ namespace Cohesity.Model
         /// <param name="currentSnapshotInfo">currentSnapshotInfo.</param>
         /// <param name="error">Specifies if an error occurred (if any) while running this task. This field is populated when the status is equal to &#39;kFailure&#39;..</param>
         /// <param name="isFullBackup">Specifies whether this is a &#39;kFull&#39; or &#39;kRegular&#39; backup of the Run. This may be true even if the scheduled backup type is &#39;kRegular&#39;. This will happen when this run corresponds to the first backup run of the Job or if no previous snapshot information is found..</param>
-        /// <param name="numRestarts">Specifies the number of times the the task was restarted because of the changes on the backup source host..</param>
+        /// <param name="numRestarts">Specifies the number of times the task was restarted because of the changes on the backup source host..</param>
         /// <param name="parentSourceId">Specifies the id of the registered Protection Source that is the parent of the Objects that are protected by this Job Run..</param>
         /// <param name="progressMonitorTaskPath">Specifies the yoda progress monitor task path which is used to get pulse information about the source that is being backed up..</param>
         /// <param name="quiesced">Specifies if app-consistent snapshot was captured. This field is set to true, if an app-consistent snapshot was taken by quiescing applications and the file system before taking a backup..</param>
@@ -132,9 +132,9 @@ namespace Cohesity.Model
         public bool? IsFullBackup { get; set; }
 
         /// <summary>
-        /// Specifies the number of times the the task was restarted because of the changes on the backup source host.
+        /// Specifies the number of times the task was restarted because of the changes on the backup source host.
         /// </summary>
-        /// <value>Specifies the number of times the the task was restarted because of the changes on the backup source host.</value>
+        /// <value>Specifies the number of times the task was restarted because of the changes on the backup source host.</value>
         [DataMember(Name="numRestarts", EmitDefaultValue=true)]
         public int? NumRestarts { get; set; }
 

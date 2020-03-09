@@ -24,11 +24,16 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="RegisterRemoteCluster" /> class.
         /// </summary>
         /// <param name="allEndpointsReachable">Specifies whether any endpoint (such as a Node) on the remote Cluster is reachable from this local Cluster. If true, a service running on the local Cluster can communicate directly with any of its peers running on the remote Cluster, without using a proxy..</param>
+        /// <param name="autoRegisterTarget">Specifies whether the remote cluster needs to be kept in sync. This will be set to true by default..</param>
+        /// <param name="autoRegistration">Specifies whether the remote registration has happened automatically (due to registration on the other site). Can&#39;t think of other states (other than manually &amp; automatically) so this isn&#39;t an enum. For a manual registration, this field will not be set..</param>
         /// <param name="bandwidthLimit">bandwidthLimit.</param>
         /// <param name="clusterId">Specifies the unique id of the remote Cluster..</param>
+        /// <param name="clusterIncarnationId">Specifies the unique incarnation id of the remote Cluster. This id is determined dynamically by contacting the remote Cluster..</param>
         /// <param name="compressionEnabled">Specifies whether to compress the outbound data when transferring the replication data over the network to the remote Cluster..</param>
+        /// <param name="description">Specifies any additional information if needed..</param>
         /// <param name="encryptionKey">Specifies the encryption key used for encrypting the replication data from a local Cluster to a remote Cluster. If a key is not specified, replication traffic encryption is disabled. When Snapshots are replicated from a local Cluster to a remote Cluster, the encryption key specified on the local Cluster must be the same as the key specified on the remote Cluster..</param>
-        /// <param name="networkInterfaceGroup">Specifies the group name of the network interfaces to use for communicating with the remote Cluster..</param>
+        /// <param name="name">Specifies the name of the remote cluster. This field is determined dynamically by contacting the remote cluster..</param>
+        /// <param name="networkInterface">Specifies the name of the network interfaces to use for communicating with the remote Cluster..</param>
         /// <param name="password">Specifies the password for Cohesity user to use when connecting to the remote Cluster..</param>
         /// <param name="purposeRemoteAccess">Whether the remote cluster will be used for remote access for SPOG..</param>
         /// <param name="purposeReplication">Whether the remote cluster will be used for replication..</param>
@@ -38,13 +43,18 @@ namespace Cohesity.Model
         /// <param name="userName">Specifies the Cohesity user name used to connect to the remote Cluster..</param>
         /// <param name="validateOnly">Whether to only validate the credentials without saving the information..</param>
         /// <param name="viewBoxPairInfo">Array of Storage Domain (View Box) Pairs.  Specifies pairings between Storage Domains (View Boxes) on the local Cluster with Storage Domains (View Boxes) on a remote Cluster that are used in replication..</param>
-        public RegisterRemoteCluster(bool? allEndpointsReachable = default(bool?), BandwidthLimit bandwidthLimit = default(BandwidthLimit), long? clusterId = default(long?), bool? compressionEnabled = default(bool?), string encryptionKey = default(string), string networkInterfaceGroup = default(string), string password = default(string), bool? purposeRemoteAccess = default(bool?), bool? purposeReplication = default(bool?), AccessTokenCredential remoteAccessCredentials = default(AccessTokenCredential), List<string> remoteIps = default(List<string>), List<long> remoteIrisPorts = default(List<long>), string userName = default(string), bool? validateOnly = default(bool?), List<ViewBoxPairInfo> viewBoxPairInfo = default(List<ViewBoxPairInfo>))
+        public RegisterRemoteCluster(bool? allEndpointsReachable = default(bool?), bool? autoRegisterTarget = default(bool?), bool? autoRegistration = default(bool?), BandwidthLimit bandwidthLimit = default(BandwidthLimit), long? clusterId = default(long?), long? clusterIncarnationId = default(long?), bool? compressionEnabled = default(bool?), string description = default(string), string encryptionKey = default(string), string name = default(string), string networkInterface = default(string), string password = default(string), bool? purposeRemoteAccess = default(bool?), bool? purposeReplication = default(bool?), AccessTokenCredential remoteAccessCredentials = default(AccessTokenCredential), List<string> remoteIps = default(List<string>), List<long> remoteIrisPorts = default(List<long>), string userName = default(string), bool? validateOnly = default(bool?), List<ViewBoxPairInfo> viewBoxPairInfo = default(List<ViewBoxPairInfo>))
         {
             this.AllEndpointsReachable = allEndpointsReachable;
+            this.AutoRegisterTarget = autoRegisterTarget;
+            this.AutoRegistration = autoRegistration;
             this.ClusterId = clusterId;
+            this.ClusterIncarnationId = clusterIncarnationId;
             this.CompressionEnabled = compressionEnabled;
+            this.Description = description;
             this.EncryptionKey = encryptionKey;
-            this.NetworkInterfaceGroup = networkInterfaceGroup;
+            this.Name = name;
+            this.NetworkInterface = networkInterface;
             this.Password = password;
             this.PurposeRemoteAccess = purposeRemoteAccess;
             this.PurposeReplication = purposeReplication;
@@ -54,11 +64,16 @@ namespace Cohesity.Model
             this.ValidateOnly = validateOnly;
             this.ViewBoxPairInfo = viewBoxPairInfo;
             this.AllEndpointsReachable = allEndpointsReachable;
+            this.AutoRegisterTarget = autoRegisterTarget;
+            this.AutoRegistration = autoRegistration;
             this.BandwidthLimit = bandwidthLimit;
             this.ClusterId = clusterId;
+            this.ClusterIncarnationId = clusterIncarnationId;
             this.CompressionEnabled = compressionEnabled;
+            this.Description = description;
             this.EncryptionKey = encryptionKey;
-            this.NetworkInterfaceGroup = networkInterfaceGroup;
+            this.Name = name;
+            this.NetworkInterface = networkInterface;
             this.Password = password;
             this.PurposeRemoteAccess = purposeRemoteAccess;
             this.PurposeReplication = purposeReplication;
@@ -78,6 +93,20 @@ namespace Cohesity.Model
         public bool? AllEndpointsReachable { get; set; }
 
         /// <summary>
+        /// Specifies whether the remote cluster needs to be kept in sync. This will be set to true by default.
+        /// </summary>
+        /// <value>Specifies whether the remote cluster needs to be kept in sync. This will be set to true by default.</value>
+        [DataMember(Name="autoRegisterTarget", EmitDefaultValue=true)]
+        public bool? AutoRegisterTarget { get; set; }
+
+        /// <summary>
+        /// Specifies whether the remote registration has happened automatically (due to registration on the other site). Can&#39;t think of other states (other than manually &amp; automatically) so this isn&#39;t an enum. For a manual registration, this field will not be set.
+        /// </summary>
+        /// <value>Specifies whether the remote registration has happened automatically (due to registration on the other site). Can&#39;t think of other states (other than manually &amp; automatically) so this isn&#39;t an enum. For a manual registration, this field will not be set.</value>
+        [DataMember(Name="autoRegistration", EmitDefaultValue=true)]
+        public bool? AutoRegistration { get; set; }
+
+        /// <summary>
         /// Gets or Sets BandwidthLimit
         /// </summary>
         [DataMember(Name="bandwidthLimit", EmitDefaultValue=false)]
@@ -91,11 +120,25 @@ namespace Cohesity.Model
         public long? ClusterId { get; set; }
 
         /// <summary>
+        /// Specifies the unique incarnation id of the remote Cluster. This id is determined dynamically by contacting the remote Cluster.
+        /// </summary>
+        /// <value>Specifies the unique incarnation id of the remote Cluster. This id is determined dynamically by contacting the remote Cluster.</value>
+        [DataMember(Name="clusterIncarnationId", EmitDefaultValue=true)]
+        public long? ClusterIncarnationId { get; set; }
+
+        /// <summary>
         /// Specifies whether to compress the outbound data when transferring the replication data over the network to the remote Cluster.
         /// </summary>
         /// <value>Specifies whether to compress the outbound data when transferring the replication data over the network to the remote Cluster.</value>
         [DataMember(Name="compressionEnabled", EmitDefaultValue=true)]
         public bool? CompressionEnabled { get; set; }
+
+        /// <summary>
+        /// Specifies any additional information if needed.
+        /// </summary>
+        /// <value>Specifies any additional information if needed.</value>
+        [DataMember(Name="description", EmitDefaultValue=true)]
+        public string Description { get; set; }
 
         /// <summary>
         /// Specifies the encryption key used for encrypting the replication data from a local Cluster to a remote Cluster. If a key is not specified, replication traffic encryption is disabled. When Snapshots are replicated from a local Cluster to a remote Cluster, the encryption key specified on the local Cluster must be the same as the key specified on the remote Cluster.
@@ -105,11 +148,18 @@ namespace Cohesity.Model
         public string EncryptionKey { get; set; }
 
         /// <summary>
-        /// Specifies the group name of the network interfaces to use for communicating with the remote Cluster.
+        /// Specifies the name of the remote cluster. This field is determined dynamically by contacting the remote cluster.
         /// </summary>
-        /// <value>Specifies the group name of the network interfaces to use for communicating with the remote Cluster.</value>
-        [DataMember(Name="networkInterfaceGroup", EmitDefaultValue=true)]
-        public string NetworkInterfaceGroup { get; set; }
+        /// <value>Specifies the name of the remote cluster. This field is determined dynamically by contacting the remote cluster.</value>
+        [DataMember(Name="name", EmitDefaultValue=true)]
+        public string Name { get; set; }
+
+        /// <summary>
+        /// Specifies the name of the network interfaces to use for communicating with the remote Cluster.
+        /// </summary>
+        /// <value>Specifies the name of the network interfaces to use for communicating with the remote Cluster.</value>
+        [DataMember(Name="networkInterface", EmitDefaultValue=true)]
+        public string NetworkInterface { get; set; }
 
         /// <summary>
         /// Specifies the password for Cohesity user to use when connecting to the remote Cluster.
@@ -215,6 +265,16 @@ namespace Cohesity.Model
                     this.AllEndpointsReachable.Equals(input.AllEndpointsReachable))
                 ) && 
                 (
+                    this.AutoRegisterTarget == input.AutoRegisterTarget ||
+                    (this.AutoRegisterTarget != null &&
+                    this.AutoRegisterTarget.Equals(input.AutoRegisterTarget))
+                ) && 
+                (
+                    this.AutoRegistration == input.AutoRegistration ||
+                    (this.AutoRegistration != null &&
+                    this.AutoRegistration.Equals(input.AutoRegistration))
+                ) && 
+                (
                     this.BandwidthLimit == input.BandwidthLimit ||
                     (this.BandwidthLimit != null &&
                     this.BandwidthLimit.Equals(input.BandwidthLimit))
@@ -225,9 +285,19 @@ namespace Cohesity.Model
                     this.ClusterId.Equals(input.ClusterId))
                 ) && 
                 (
+                    this.ClusterIncarnationId == input.ClusterIncarnationId ||
+                    (this.ClusterIncarnationId != null &&
+                    this.ClusterIncarnationId.Equals(input.ClusterIncarnationId))
+                ) && 
+                (
                     this.CompressionEnabled == input.CompressionEnabled ||
                     (this.CompressionEnabled != null &&
                     this.CompressionEnabled.Equals(input.CompressionEnabled))
+                ) && 
+                (
+                    this.Description == input.Description ||
+                    (this.Description != null &&
+                    this.Description.Equals(input.Description))
                 ) && 
                 (
                     this.EncryptionKey == input.EncryptionKey ||
@@ -235,9 +305,14 @@ namespace Cohesity.Model
                     this.EncryptionKey.Equals(input.EncryptionKey))
                 ) && 
                 (
-                    this.NetworkInterfaceGroup == input.NetworkInterfaceGroup ||
-                    (this.NetworkInterfaceGroup != null &&
-                    this.NetworkInterfaceGroup.Equals(input.NetworkInterfaceGroup))
+                    this.Name == input.Name ||
+                    (this.Name != null &&
+                    this.Name.Equals(input.Name))
+                ) && 
+                (
+                    this.NetworkInterface == input.NetworkInterface ||
+                    (this.NetworkInterface != null &&
+                    this.NetworkInterface.Equals(input.NetworkInterface))
                 ) && 
                 (
                     this.Password == input.Password ||
@@ -300,16 +375,26 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.AllEndpointsReachable != null)
                     hashCode = hashCode * 59 + this.AllEndpointsReachable.GetHashCode();
+                if (this.AutoRegisterTarget != null)
+                    hashCode = hashCode * 59 + this.AutoRegisterTarget.GetHashCode();
+                if (this.AutoRegistration != null)
+                    hashCode = hashCode * 59 + this.AutoRegistration.GetHashCode();
                 if (this.BandwidthLimit != null)
                     hashCode = hashCode * 59 + this.BandwidthLimit.GetHashCode();
                 if (this.ClusterId != null)
                     hashCode = hashCode * 59 + this.ClusterId.GetHashCode();
+                if (this.ClusterIncarnationId != null)
+                    hashCode = hashCode * 59 + this.ClusterIncarnationId.GetHashCode();
                 if (this.CompressionEnabled != null)
                     hashCode = hashCode * 59 + this.CompressionEnabled.GetHashCode();
+                if (this.Description != null)
+                    hashCode = hashCode * 59 + this.Description.GetHashCode();
                 if (this.EncryptionKey != null)
                     hashCode = hashCode * 59 + this.EncryptionKey.GetHashCode();
-                if (this.NetworkInterfaceGroup != null)
-                    hashCode = hashCode * 59 + this.NetworkInterfaceGroup.GetHashCode();
+                if (this.Name != null)
+                    hashCode = hashCode * 59 + this.Name.GetHashCode();
+                if (this.NetworkInterface != null)
+                    hashCode = hashCode * 59 + this.NetworkInterface.GetHashCode();
                 if (this.Password != null)
                     hashCode = hashCode * 59 + this.Password.GetHashCode();
                 if (this.PurposeRemoteAccess != null)

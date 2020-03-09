@@ -25,7 +25,7 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="averageRunTimeUsecs">Specifies the average run time of all successful Protection Runs. It is specified as a Unix epoch Timestamp (in microseconds)..</param>
         /// <param name="fastestRunTimeUsecs">Specifies the time taken for a fastest successful Protection Run so far. It is specified as a Unix epoch Timestamp (in microseconds)..</param>
-        /// <param name="numCanceledRuns">Specifies the number of runs that were canceled..</param>
+        /// <param name="numCanceledRuns">Specifies the number of runs that were cancelled..</param>
         /// <param name="numFailedRuns">Specifies the number of runs that failed to finish..</param>
         /// <param name="numSlaViolations">Specifies the number of runs having SLA violations..</param>
         /// <param name="numSuccessfulRuns">Specifies the number of runs that finished successfully..</param>
@@ -72,9 +72,9 @@ namespace Cohesity.Model
         public long? FastestRunTimeUsecs { get; set; }
 
         /// <summary>
-        /// Specifies the number of runs that were canceled.
+        /// Specifies the number of runs that were cancelled.
         /// </summary>
-        /// <value>Specifies the number of runs that were canceled.</value>
+        /// <value>Specifies the number of runs that were cancelled.</value>
         [DataMember(Name="numCanceledRuns", EmitDefaultValue=true)]
         public long? NumCanceledRuns { get; set; }
 

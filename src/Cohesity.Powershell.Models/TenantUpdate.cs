@@ -24,18 +24,24 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="TenantUpdate" /> class.
         /// </summary>
         /// <param name="bifrostEnabled">Specifies whether bifrost (Ambassador proxy) is enabled for tenant..</param>
+        /// <param name="clusterHostname">The hostname for Cohesity cluster as seen by tenants and as is routable from the tenant&#39;s network. Tenant&#39;s VLAN&#39;s hostname, if available can be used instead but it is mandatory to provide this value if there&#39;s no VLAN hostname to use. Also, when set, this field would take precedence over VLAN hostname..</param>
+        /// <param name="clusterIps">Set of IPs as seen from the tenant&#39;s network for the Cohesity cluster. Only one from &#39;ClusterHostname&#39; and &#39;ClusterIps&#39; is needed..</param>
         /// <param name="description">Specifies the description of this tenant..</param>
         /// <param name="name">Specifies the name of the tenant..</param>
         /// <param name="subscribeToAlertEmails">Service provider can optionally unsubscribe from the Tenant Alert Emails..</param>
         /// <param name="tenantId">Specifies the unique id of the tenant..</param>
-        public TenantUpdate(bool? bifrostEnabled = default(bool?), string description = default(string), string name = default(string), bool? subscribeToAlertEmails = default(bool?), string tenantId = default(string))
+        public TenantUpdate(bool? bifrostEnabled = default(bool?), string clusterHostname = default(string), List<string> clusterIps = default(List<string>), string description = default(string), string name = default(string), bool? subscribeToAlertEmails = default(bool?), string tenantId = default(string))
         {
             this.BifrostEnabled = bifrostEnabled;
+            this.ClusterHostname = clusterHostname;
+            this.ClusterIps = clusterIps;
             this.Description = description;
             this.Name = name;
             this.SubscribeToAlertEmails = subscribeToAlertEmails;
             this.TenantId = tenantId;
             this.BifrostEnabled = bifrostEnabled;
+            this.ClusterHostname = clusterHostname;
+            this.ClusterIps = clusterIps;
             this.Description = description;
             this.Name = name;
             this.SubscribeToAlertEmails = subscribeToAlertEmails;
@@ -48,6 +54,20 @@ namespace Cohesity.Model
         /// <value>Specifies whether bifrost (Ambassador proxy) is enabled for tenant.</value>
         [DataMember(Name="bifrostEnabled", EmitDefaultValue=true)]
         public bool? BifrostEnabled { get; set; }
+
+        /// <summary>
+        /// The hostname for Cohesity cluster as seen by tenants and as is routable from the tenant&#39;s network. Tenant&#39;s VLAN&#39;s hostname, if available can be used instead but it is mandatory to provide this value if there&#39;s no VLAN hostname to use. Also, when set, this field would take precedence over VLAN hostname.
+        /// </summary>
+        /// <value>The hostname for Cohesity cluster as seen by tenants and as is routable from the tenant&#39;s network. Tenant&#39;s VLAN&#39;s hostname, if available can be used instead but it is mandatory to provide this value if there&#39;s no VLAN hostname to use. Also, when set, this field would take precedence over VLAN hostname.</value>
+        [DataMember(Name="clusterHostname", EmitDefaultValue=true)]
+        public string ClusterHostname { get; set; }
+
+        /// <summary>
+        /// Set of IPs as seen from the tenant&#39;s network for the Cohesity cluster. Only one from &#39;ClusterHostname&#39; and &#39;ClusterIps&#39; is needed.
+        /// </summary>
+        /// <value>Set of IPs as seen from the tenant&#39;s network for the Cohesity cluster. Only one from &#39;ClusterHostname&#39; and &#39;ClusterIps&#39; is needed.</value>
+        [DataMember(Name="clusterIps", EmitDefaultValue=true)]
+        public List<string> ClusterIps { get; set; }
 
         /// <summary>
         /// Specifies the description of this tenant.
@@ -119,6 +139,17 @@ namespace Cohesity.Model
                     this.BifrostEnabled.Equals(input.BifrostEnabled))
                 ) && 
                 (
+                    this.ClusterHostname == input.ClusterHostname ||
+                    (this.ClusterHostname != null &&
+                    this.ClusterHostname.Equals(input.ClusterHostname))
+                ) && 
+                (
+                    this.ClusterIps == input.ClusterIps ||
+                    this.ClusterIps != null &&
+                    input.ClusterIps != null &&
+                    this.ClusterIps.SequenceEqual(input.ClusterIps)
+                ) && 
+                (
                     this.Description == input.Description ||
                     (this.Description != null &&
                     this.Description.Equals(input.Description))
@@ -151,6 +182,10 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.BifrostEnabled != null)
                     hashCode = hashCode * 59 + this.BifrostEnabled.GetHashCode();
+                if (this.ClusterHostname != null)
+                    hashCode = hashCode * 59 + this.ClusterHostname.GetHashCode();
+                if (this.ClusterIps != null)
+                    hashCode = hashCode * 59 + this.ClusterIps.GetHashCode();
                 if (this.Description != null)
                     hashCode = hashCode * 59 + this.Description.GetHashCode();
                 if (this.Name != null)

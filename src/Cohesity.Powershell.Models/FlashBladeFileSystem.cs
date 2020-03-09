@@ -64,7 +64,7 @@ namespace Cohesity.Model
         /// <param name="physicalUsedBytes">Specifies the size of physical data currently consumed by the file system. This includes the space used for the snapshots..</param>
         /// <param name="protocols">List of Protocols.  Specifies the list of protocols enabled on the file system. &#39;kNfs&#39; indicates NFS exports are supported on Pure FlashBlade File System. &#39;kCifs2&#39; indicates CIFS/SMB Shares are supported on Pure FlashBlade File System. &#39;kHttp&#39; indicates object protocol over HTTP and HTTPS are supported..</param>
         /// <param name="smbInfo">smbInfo.</param>
-        /// <param name="uniqueUsedBytes">Specifies the size of physical data cconsumed by the file system itself not including the size of the snapshots..</param>
+        /// <param name="uniqueUsedBytes">Specifies the size of physical data consumed by the file system itself not including the size of the snapshots..</param>
         public FlashBladeFileSystem(bool? backupEnabled = default(bool?), long? createdTimeMsecs = default(long?), long? logicalCapacityBytes = default(long?), long? logicalUsedBytes = default(long?), FlashBladeNfsInfo nfsInfo = default(FlashBladeNfsInfo), long? physicalUsedBytes = default(long?), List<ProtocolsEnum> protocols = default(List<ProtocolsEnum>), FlashBladeSmbInfo smbInfo = default(FlashBladeSmbInfo), long? uniqueUsedBytes = default(long?))
         {
             this.BackupEnabled = backupEnabled;
@@ -133,9 +133,9 @@ namespace Cohesity.Model
         public FlashBladeSmbInfo SmbInfo { get; set; }
 
         /// <summary>
-        /// Specifies the size of physical data cconsumed by the file system itself not including the size of the snapshots.
+        /// Specifies the size of physical data consumed by the file system itself not including the size of the snapshots.
         /// </summary>
-        /// <value>Specifies the size of physical data cconsumed by the file system itself not including the size of the snapshots.</value>
+        /// <value>Specifies the size of physical data consumed by the file system itself not including the size of the snapshots.</value>
         [DataMember(Name="uniqueUsedBytes", EmitDefaultValue=true)]
         public long? UniqueUsedBytes { get; set; }
 

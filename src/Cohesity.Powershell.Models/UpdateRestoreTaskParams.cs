@@ -57,13 +57,16 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="UpdateRestoreTaskParams" /> class.
         /// </summary>
         /// <param name="adOptions">adOptions.</param>
+        /// <param name="enableAutoSync">Enables Auto Sync feature for SQL Multi-stage Restore task..</param>
         /// <param name="restoreTaskId">Specifies the ID of the existing Restore Task to update..</param>
         /// <param name="sqlOptions">Specifies the sql options to update the Restore Task with. Specifies the action type of multi stage SQL restore.  &#39;kCreate&#39; specifies the create action for a restore. &#39;kUpdate&#39; specifies the user action to update an ongoing restore. &#39;kFinalize&#39; specifies the user action to finalize a restore..</param>
-        public UpdateRestoreTaskParams(AdRestoreOptions adOptions = default(AdRestoreOptions), long? restoreTaskId = default(long?), SqlOptionsEnum? sqlOptions = default(SqlOptionsEnum?))
+        public UpdateRestoreTaskParams(AdRestoreOptions adOptions = default(AdRestoreOptions), bool? enableAutoSync = default(bool?), long? restoreTaskId = default(long?), SqlOptionsEnum? sqlOptions = default(SqlOptionsEnum?))
         {
+            this.EnableAutoSync = enableAutoSync;
             this.RestoreTaskId = restoreTaskId;
             this.SqlOptions = sqlOptions;
             this.AdOptions = adOptions;
+            this.EnableAutoSync = enableAutoSync;
             this.RestoreTaskId = restoreTaskId;
             this.SqlOptions = sqlOptions;
         }
@@ -73,6 +76,13 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="adOptions", EmitDefaultValue=false)]
         public AdRestoreOptions AdOptions { get; set; }
+
+        /// <summary>
+        /// Enables Auto Sync feature for SQL Multi-stage Restore task.
+        /// </summary>
+        /// <value>Enables Auto Sync feature for SQL Multi-stage Restore task.</value>
+        [DataMember(Name="enableAutoSync", EmitDefaultValue=true)]
+        public bool? EnableAutoSync { get; set; }
 
         /// <summary>
         /// Specifies the ID of the existing Restore Task to update.
@@ -123,6 +133,11 @@ namespace Cohesity.Model
                     this.AdOptions.Equals(input.AdOptions))
                 ) && 
                 (
+                    this.EnableAutoSync == input.EnableAutoSync ||
+                    (this.EnableAutoSync != null &&
+                    this.EnableAutoSync.Equals(input.EnableAutoSync))
+                ) && 
+                (
                     this.RestoreTaskId == input.RestoreTaskId ||
                     (this.RestoreTaskId != null &&
                     this.RestoreTaskId.Equals(input.RestoreTaskId))
@@ -144,6 +159,8 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.AdOptions != null)
                     hashCode = hashCode * 59 + this.AdOptions.GetHashCode();
+                if (this.EnableAutoSync != null)
+                    hashCode = hashCode * 59 + this.EnableAutoSync.GetHashCode();
                 if (this.RestoreTaskId != null)
                     hashCode = hashCode * 59 + this.RestoreTaskId.GetHashCode();
                 hashCode = hashCode * 59 + this.SqlOptions.GetHashCode();

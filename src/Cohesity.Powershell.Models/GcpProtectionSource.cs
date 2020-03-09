@@ -272,10 +272,11 @@ namespace Cohesity.Model
         /// <param name="regionId">Specifies the region Id. For the kIAMUser entity this contains the region to be used to deploy proxy VMs. For entities of type kVirtualMachine this contains the region the virtual machine belongs to..</param>
         /// <param name="resourceId">Specifies the unique Id of the resource given by the cloud provider..</param>
         /// <param name="restoreTaskId">Specifies the id of the \&quot;convert and deploy\&quot; restore task that created the entity in the cloud.  It is required to support the DR-to-cloud usecase where we replicate an on-prem entity to a cluster running in cloud, bring it up using \&quot;convert and deploy\&quot; mechanism, protect it using a cloud job that uses physical adapter, and convert it back to the on-prem format before replication.  Before replicating, we need to update the backup task state of the backed up entity using the on-prem entity and on-prem entity&#39;s parent. The id is used to lookup the restore entity that contains details about the on-prem entity.  It is set at the time of refreshing the cloud entity hierarchy if all the following conditions are met: Name of the current entity matches with name of any cloud entity deployed using the \&quot;convert and deploy\&quot; restore task. Restore entity associated with the above matched cloud entity has &#39;failed_over&#39; flag set to true in its cloud extension..</param>
+        /// <param name="tagAttributes">Specifies the list of GCP tag attributes..</param>
         /// <param name="type">Specifies the type of an GCP Protection Source Object such as &#39;kIAMUser&#39;, &#39;kProject&#39;, &#39;kRegion&#39;, etc. Specifies the type of a GCP source entity. &#39;kIAMUser&#39; indicates a unique user within a GCP account. &#39;kProject&#39; represents compute resources and storage. &#39;kRegion&#39; indicates a geographical region in the global infrastructure. &#39;kAvailabilityZone&#39; indicates an availability zone within a region. &#39;kVirtualMachine&#39; indicates a Virtual Machine running in GCP environment. &#39;kVPC&#39; indicates a virtual private cloud (VPC) network within GCP. &#39;kSubnet&#39; indicates a subnet inside the VPC. &#39;kNetworkSecurityGroup&#39; represents a network security group. &#39;kInstanceType&#39; represents various machine types. &#39;kLabel&#39; represents a label present on the instances. &#39;kMetaData&#39; represents a custom metadata present on instances. &#39;kTag&#39; represents a network tag on instances. &#39;kVPCConnector&#39; represents a VPC connector used for serverless VPC access..</param>
         /// <param name="vpcNetwork">Specifies the VPC Network to deploy proxy VMs..</param>
         /// <param name="vpcSubnetwork">Specifies the subnetwork to deploy proxy VMs..</param>
-        public GcpProtectionSource(string clientEmailAddress = default(string), string clientPrivateKey = default(string), GcpTypeEnum? gcpType = default(GcpTypeEnum?), HostTypeEnum? hostType = default(HostTypeEnum?), string ipAddressesVM = default(string), string name = default(string), string ownerId = default(string), long? physicalSourceId = default(long?), string projectId = default(string), string regionId = default(string), string resourceId = default(string), long? restoreTaskId = default(long?), TypeEnum? type = default(TypeEnum?), string vpcNetwork = default(string), string vpcSubnetwork = default(string))
+        public GcpProtectionSource(string clientEmailAddress = default(string), string clientPrivateKey = default(string), GcpTypeEnum? gcpType = default(GcpTypeEnum?), HostTypeEnum? hostType = default(HostTypeEnum?), string ipAddressesVM = default(string), string name = default(string), string ownerId = default(string), long? physicalSourceId = default(long?), string projectId = default(string), string regionId = default(string), string resourceId = default(string), long? restoreTaskId = default(long?), List<TagAttribute> tagAttributes = default(List<TagAttribute>), TypeEnum? type = default(TypeEnum?), string vpcNetwork = default(string), string vpcSubnetwork = default(string))
         {
             this.ClientEmailAddress = clientEmailAddress;
             this.ClientPrivateKey = clientPrivateKey;
@@ -289,6 +290,7 @@ namespace Cohesity.Model
             this.RegionId = regionId;
             this.ResourceId = resourceId;
             this.RestoreTaskId = restoreTaskId;
+            this.TagAttributes = tagAttributes;
             this.Type = type;
             this.VpcNetwork = vpcNetwork;
             this.VpcSubnetwork = vpcSubnetwork;
@@ -304,6 +306,7 @@ namespace Cohesity.Model
             this.RegionId = regionId;
             this.ResourceId = resourceId;
             this.RestoreTaskId = restoreTaskId;
+            this.TagAttributes = tagAttributes;
             this.Type = type;
             this.VpcNetwork = vpcNetwork;
             this.VpcSubnetwork = vpcSubnetwork;
@@ -378,6 +381,13 @@ namespace Cohesity.Model
         /// <value>Specifies the id of the \&quot;convert and deploy\&quot; restore task that created the entity in the cloud.  It is required to support the DR-to-cloud usecase where we replicate an on-prem entity to a cluster running in cloud, bring it up using \&quot;convert and deploy\&quot; mechanism, protect it using a cloud job that uses physical adapter, and convert it back to the on-prem format before replication.  Before replicating, we need to update the backup task state of the backed up entity using the on-prem entity and on-prem entity&#39;s parent. The id is used to lookup the restore entity that contains details about the on-prem entity.  It is set at the time of refreshing the cloud entity hierarchy if all the following conditions are met: Name of the current entity matches with name of any cloud entity deployed using the \&quot;convert and deploy\&quot; restore task. Restore entity associated with the above matched cloud entity has &#39;failed_over&#39; flag set to true in its cloud extension.</value>
         [DataMember(Name="restoreTaskId", EmitDefaultValue=true)]
         public long? RestoreTaskId { get; set; }
+
+        /// <summary>
+        /// Specifies the list of GCP tag attributes.
+        /// </summary>
+        /// <value>Specifies the list of GCP tag attributes.</value>
+        [DataMember(Name="tagAttributes", EmitDefaultValue=true)]
+        public List<TagAttribute> TagAttributes { get; set; }
 
         /// <summary>
         /// Specifies the VPC Network to deploy proxy VMs.
@@ -488,6 +498,12 @@ namespace Cohesity.Model
                     this.RestoreTaskId.Equals(input.RestoreTaskId))
                 ) && 
                 (
+                    this.TagAttributes == input.TagAttributes ||
+                    this.TagAttributes != null &&
+                    input.TagAttributes != null &&
+                    this.TagAttributes.SequenceEqual(input.TagAttributes)
+                ) && 
+                (
                     this.Type == input.Type ||
                     this.Type.Equals(input.Type)
                 ) && 
@@ -534,6 +550,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ResourceId.GetHashCode();
                 if (this.RestoreTaskId != null)
                     hashCode = hashCode * 59 + this.RestoreTaskId.GetHashCode();
+                if (this.TagAttributes != null)
+                    hashCode = hashCode * 59 + this.TagAttributes.GetHashCode();
                 hashCode = hashCode * 59 + this.Type.GetHashCode();
                 if (this.VpcNetwork != null)
                     hashCode = hashCode * 59 + this.VpcNetwork.GetHashCode();

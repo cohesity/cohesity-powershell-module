@@ -23,11 +23,11 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="SQLServerInstanceVersion" /> class.
         /// </summary>
-        /// <param name="build">Specfies the build..</param>
-        /// <param name="majorVersion">Specfies the major version..</param>
-        /// <param name="minorVersion">Specfies the minor version..</param>
-        /// <param name="revision">Specfies the revision..</param>
-        /// <param name="versionString">Specfies the version string..</param>
+        /// <param name="build">Specifies the build..</param>
+        /// <param name="majorVersion">Specifies the major version..</param>
+        /// <param name="minorVersion">Specifies the minor version..</param>
+        /// <param name="revision">Specifies the revision..</param>
+        /// <param name="versionString">Specifies the version string..</param>
         public SQLServerInstanceVersion(int? build = default(int?), int? majorVersion = default(int?), int? minorVersion = default(int?), int? revision = default(int?), string versionString = default(string))
         {
             this.Build = build;
@@ -43,37 +43,37 @@ namespace Cohesity.Model
         }
         
         /// <summary>
-        /// Specfies the build.
+        /// Specifies the build.
         /// </summary>
-        /// <value>Specfies the build.</value>
+        /// <value>Specifies the build.</value>
         [DataMember(Name="build", EmitDefaultValue=true)]
         public int? Build { get; set; }
 
         /// <summary>
-        /// Specfies the major version.
+        /// Specifies the major version.
         /// </summary>
-        /// <value>Specfies the major version.</value>
+        /// <value>Specifies the major version.</value>
         [DataMember(Name="majorVersion", EmitDefaultValue=true)]
         public int? MajorVersion { get; set; }
 
         /// <summary>
-        /// Specfies the minor version.
+        /// Specifies the minor version.
         /// </summary>
-        /// <value>Specfies the minor version.</value>
+        /// <value>Specifies the minor version.</value>
         [DataMember(Name="minorVersion", EmitDefaultValue=true)]
         public int? MinorVersion { get; set; }
 
         /// <summary>
-        /// Specfies the revision.
+        /// Specifies the revision.
         /// </summary>
-        /// <value>Specfies the revision.</value>
+        /// <value>Specifies the revision.</value>
         [DataMember(Name="revision", EmitDefaultValue=true)]
         public int? Revision { get; set; }
 
         /// <summary>
-        /// Specfies the version string.
+        /// Specifies the version string.
         /// </summary>
-        /// <value>Specfies the version string.</value>
+        /// <value>Specifies the version string.</value>
         [DataMember(Name="versionString", EmitDefaultValue=true)]
         public string VersionString { get; set; }
 

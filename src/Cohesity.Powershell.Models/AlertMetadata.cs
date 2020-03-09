@@ -179,8 +179,9 @@ namespace Cohesity.Model
         /// <param name="propertyList">Specifies list of properties that the client is supposed to provide when alert of this type is raised..</param>
         /// <param name="sendSupportNotification">Specifies whether to send support notification for the alert..</param>
         /// <param name="snmpNotification">Specifies whether an SNMP notification is sent when an alert is raised..</param>
+        /// <param name="syslogNotification">Specifies whether an syslog notification is sent when an alert is raised..</param>
         /// <param name="version">Specifies version of the metadata..</param>
-        public AlertMetadata(List<AlertDocument> alertDocumentList = default(List<AlertDocument>), AlertTypeBucketEnum? alertTypeBucket = default(AlertTypeBucketEnum?), int? alertTypeId = default(int?), CategoryEnum? category = default(CategoryEnum?), int? dedupIntervalSeconds = default(int?), bool? dedupUntilResolved = default(bool?), bool? hideAlertFromUser = default(bool?), bool? ignoreDuplicateOccurrences = default(bool?), List<string> primaryKeyList = default(List<string>), List<string> propertyList = default(List<string>), bool? sendSupportNotification = default(bool?), bool? snmpNotification = default(bool?), int? version = default(int?))
+        public AlertMetadata(List<AlertDocument> alertDocumentList = default(List<AlertDocument>), AlertTypeBucketEnum? alertTypeBucket = default(AlertTypeBucketEnum?), int? alertTypeId = default(int?), CategoryEnum? category = default(CategoryEnum?), int? dedupIntervalSeconds = default(int?), bool? dedupUntilResolved = default(bool?), bool? hideAlertFromUser = default(bool?), bool? ignoreDuplicateOccurrences = default(bool?), List<string> primaryKeyList = default(List<string>), List<string> propertyList = default(List<string>), bool? sendSupportNotification = default(bool?), bool? snmpNotification = default(bool?), bool? syslogNotification = default(bool?), int? version = default(int?))
         {
             this.AlertDocumentList = alertDocumentList;
             this.AlertTypeBucket = alertTypeBucket;
@@ -194,6 +195,7 @@ namespace Cohesity.Model
             this.PropertyList = propertyList;
             this.SendSupportNotification = sendSupportNotification;
             this.SnmpNotification = snmpNotification;
+            this.SyslogNotification = syslogNotification;
             this.Version = version;
             this.AlertDocumentList = alertDocumentList;
             this.AlertTypeBucket = alertTypeBucket;
@@ -207,6 +209,7 @@ namespace Cohesity.Model
             this.PropertyList = propertyList;
             this.SendSupportNotification = sendSupportNotification;
             this.SnmpNotification = snmpNotification;
+            this.SyslogNotification = syslogNotification;
             this.Version = version;
         }
         
@@ -279,6 +282,13 @@ namespace Cohesity.Model
         /// <value>Specifies whether an SNMP notification is sent when an alert is raised.</value>
         [DataMember(Name="snmpNotification", EmitDefaultValue=true)]
         public bool? SnmpNotification { get; set; }
+
+        /// <summary>
+        /// Specifies whether an syslog notification is sent when an alert is raised.
+        /// </summary>
+        /// <value>Specifies whether an syslog notification is sent when an alert is raised.</value>
+        [DataMember(Name="syslogNotification", EmitDefaultValue=true)]
+        public bool? SyslogNotification { get; set; }
 
         /// <summary>
         /// Specifies version of the metadata.
@@ -385,6 +395,11 @@ namespace Cohesity.Model
                     this.SnmpNotification.Equals(input.SnmpNotification))
                 ) && 
                 (
+                    this.SyslogNotification == input.SyslogNotification ||
+                    (this.SyslogNotification != null &&
+                    this.SyslogNotification.Equals(input.SyslogNotification))
+                ) && 
+                (
                     this.Version == input.Version ||
                     (this.Version != null &&
                     this.Version.Equals(input.Version))
@@ -422,6 +437,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.SendSupportNotification.GetHashCode();
                 if (this.SnmpNotification != null)
                     hashCode = hashCode * 59 + this.SnmpNotification.GetHashCode();
+                if (this.SyslogNotification != null)
+                    hashCode = hashCode * 59 + this.SyslogNotification.GetHashCode();
                 if (this.Version != null)
                     hashCode = hashCode * 59 + this.Version.GetHashCode();
                 return hashCode;

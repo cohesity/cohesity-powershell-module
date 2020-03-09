@@ -29,17 +29,18 @@ namespace Cohesity.Model
         /// <param name="dbRestoreOverwritePolicy">Policy to overwrite an existing DB during a restore operation..</param>
         /// <param name="enableChecksum">Whether restore checksums are enabled..</param>
         /// <param name="instanceName">The name of the SQL instance that we restore database to. If target_host is not empty, this also cannot be empty..</param>
+        /// <param name="isAutoSyncEnabled">The following field is set if auto_sync for multi-stage SQL restore task is enabled. This field is valid only if is_multi_state_restore is set to true..</param>
         /// <param name="isMultiStageRestore">The following field is set if we are creating a multi-stage SQL restore task needed for features such as Hot-Standby..</param>
         /// <param name="keepCdc">Set to true to keep cdc on restored database..</param>
         /// <param name="logFileDestination">Which directory to put the database log files. Missing directory will be automatically created. Cannot be empty if not restoring to the original SQL instance..</param>
         /// <param name="multiStageRestoreOptions">multiStageRestoreOptions.</param>
         /// <param name="newDatabaseName">The new name of the database, if it is going to be renamed. app_entity in RestoreAppObject has to be non-empty for the renaming, otherwise it does not make sense to rename all databases in the owner..</param>
-        /// <param name="restoreTimeSecs">The time to which the SQL database needs to be restored. This allows for granular recovery of SQL databases. If this is not set, the SQL database will be recovered to the full/incremental snapshot (specified in the owner&#39;s restore object in AppOwnerRestoreInfo). This is only applicable if restoring to the original SQL instance..</param>
+        /// <param name="restoreTimeSecs">The time to which the SQL database needs to be restored. This allows for granular recovery of SQL databases. If this is not set, the SQL database will be recovered to the full/incremental snapshot (specified in the owner&#39;s restore object in AppOwnerRestoreInfo)..</param>
         /// <param name="secondaryDataFileDestination">Which directory to put the secondary data files of the database. Secondary data files are optional and are user defined. The recommended file name extension for these is \&quot;.ndf\&quot;.  If this option is specified, the directory will be automatically created if its missing..</param>
         /// <param name="secondaryDataFileDestinationVec">Specify the secondary data files and corresponding direcories of the DB. Secondary data files are optional and are user defined. The recommended file extension for secondary files is \&quot;.ndf\&quot;.  If this option is specified and the destination folders do not exist they will be automatically created..</param>
         /// <param name="withClause">&#39;with_clause&#39; contains &#39;with clause&#39; to be used in native sql restore command. This is only applicable for db restore of native sql backup. Here user can specify multiple restore options. Example: \&quot;WITH BUFFERCOUNT &#x3D; 575, MAXTRANSFERSIZE &#x3D; 2097152\&quot;. If this is not specified, we use the value specified in magneto_sql_native_restore_with_clause gflag..</param>
-        /// <param name="withNoRecovery">Set to true if we want to recover the database in \&quot;NO_RECOVERY\&quot; mode which does not bring it online after restore.  Note: This is only applicable if we are restoring the database back to its original location..</param>
-        public RestoreSqlAppObjectParams(bool? captureTailLogs = default(bool?), bool? continueAfterError = default(bool?), string dataFileDestination = default(string), int? dbRestoreOverwritePolicy = default(int?), bool? enableChecksum = default(bool?), string instanceName = default(string), bool? isMultiStageRestore = default(bool?), bool? keepCdc = default(bool?), string logFileDestination = default(string), SqlUpdateRestoreTaskOptions multiStageRestoreOptions = default(SqlUpdateRestoreTaskOptions), string newDatabaseName = default(string), long? restoreTimeSecs = default(long?), string secondaryDataFileDestination = default(string), List<FilesToDirectoryMapping> secondaryDataFileDestinationVec = default(List<FilesToDirectoryMapping>), string withClause = default(string), bool? withNoRecovery = default(bool?))
+        /// <param name="withNoRecovery">Set to true if we want to recover the database in \&quot;NO_RECOVERY\&quot; mode which does not bring it online after restore..</param>
+        public RestoreSqlAppObjectParams(bool? captureTailLogs = default(bool?), bool? continueAfterError = default(bool?), string dataFileDestination = default(string), int? dbRestoreOverwritePolicy = default(int?), bool? enableChecksum = default(bool?), string instanceName = default(string), bool? isAutoSyncEnabled = default(bool?), bool? isMultiStageRestore = default(bool?), bool? keepCdc = default(bool?), string logFileDestination = default(string), SqlUpdateRestoreTaskOptions multiStageRestoreOptions = default(SqlUpdateRestoreTaskOptions), string newDatabaseName = default(string), long? restoreTimeSecs = default(long?), string secondaryDataFileDestination = default(string), List<FilesToDirectoryMapping> secondaryDataFileDestinationVec = default(List<FilesToDirectoryMapping>), string withClause = default(string), bool? withNoRecovery = default(bool?))
         {
             this.CaptureTailLogs = captureTailLogs;
             this.ContinueAfterError = continueAfterError;
@@ -47,6 +48,7 @@ namespace Cohesity.Model
             this.DbRestoreOverwritePolicy = dbRestoreOverwritePolicy;
             this.EnableChecksum = enableChecksum;
             this.InstanceName = instanceName;
+            this.IsAutoSyncEnabled = isAutoSyncEnabled;
             this.IsMultiStageRestore = isMultiStageRestore;
             this.KeepCdc = keepCdc;
             this.LogFileDestination = logFileDestination;
@@ -62,6 +64,7 @@ namespace Cohesity.Model
             this.DbRestoreOverwritePolicy = dbRestoreOverwritePolicy;
             this.EnableChecksum = enableChecksum;
             this.InstanceName = instanceName;
+            this.IsAutoSyncEnabled = isAutoSyncEnabled;
             this.IsMultiStageRestore = isMultiStageRestore;
             this.KeepCdc = keepCdc;
             this.LogFileDestination = logFileDestination;
@@ -117,6 +120,13 @@ namespace Cohesity.Model
         public string InstanceName { get; set; }
 
         /// <summary>
+        /// The following field is set if auto_sync for multi-stage SQL restore task is enabled. This field is valid only if is_multi_state_restore is set to true.
+        /// </summary>
+        /// <value>The following field is set if auto_sync for multi-stage SQL restore task is enabled. This field is valid only if is_multi_state_restore is set to true.</value>
+        [DataMember(Name="isAutoSyncEnabled", EmitDefaultValue=true)]
+        public bool? IsAutoSyncEnabled { get; set; }
+
+        /// <summary>
         /// The following field is set if we are creating a multi-stage SQL restore task needed for features such as Hot-Standby.
         /// </summary>
         /// <value>The following field is set if we are creating a multi-stage SQL restore task needed for features such as Hot-Standby.</value>
@@ -151,9 +161,9 @@ namespace Cohesity.Model
         public string NewDatabaseName { get; set; }
 
         /// <summary>
-        /// The time to which the SQL database needs to be restored. This allows for granular recovery of SQL databases. If this is not set, the SQL database will be recovered to the full/incremental snapshot (specified in the owner&#39;s restore object in AppOwnerRestoreInfo). This is only applicable if restoring to the original SQL instance.
+        /// The time to which the SQL database needs to be restored. This allows for granular recovery of SQL databases. If this is not set, the SQL database will be recovered to the full/incremental snapshot (specified in the owner&#39;s restore object in AppOwnerRestoreInfo).
         /// </summary>
-        /// <value>The time to which the SQL database needs to be restored. This allows for granular recovery of SQL databases. If this is not set, the SQL database will be recovered to the full/incremental snapshot (specified in the owner&#39;s restore object in AppOwnerRestoreInfo). This is only applicable if restoring to the original SQL instance.</value>
+        /// <value>The time to which the SQL database needs to be restored. This allows for granular recovery of SQL databases. If this is not set, the SQL database will be recovered to the full/incremental snapshot (specified in the owner&#39;s restore object in AppOwnerRestoreInfo).</value>
         [DataMember(Name="restoreTimeSecs", EmitDefaultValue=true)]
         public long? RestoreTimeSecs { get; set; }
 
@@ -179,9 +189,9 @@ namespace Cohesity.Model
         public string WithClause { get; set; }
 
         /// <summary>
-        /// Set to true if we want to recover the database in \&quot;NO_RECOVERY\&quot; mode which does not bring it online after restore.  Note: This is only applicable if we are restoring the database back to its original location.
+        /// Set to true if we want to recover the database in \&quot;NO_RECOVERY\&quot; mode which does not bring it online after restore.
         /// </summary>
-        /// <value>Set to true if we want to recover the database in \&quot;NO_RECOVERY\&quot; mode which does not bring it online after restore.  Note: This is only applicable if we are restoring the database back to its original location.</value>
+        /// <value>Set to true if we want to recover the database in \&quot;NO_RECOVERY\&quot; mode which does not bring it online after restore.</value>
         [DataMember(Name="withNoRecovery", EmitDefaultValue=true)]
         public bool? WithNoRecovery { get; set; }
 
@@ -250,6 +260,11 @@ namespace Cohesity.Model
                     this.InstanceName == input.InstanceName ||
                     (this.InstanceName != null &&
                     this.InstanceName.Equals(input.InstanceName))
+                ) && 
+                (
+                    this.IsAutoSyncEnabled == input.IsAutoSyncEnabled ||
+                    (this.IsAutoSyncEnabled != null &&
+                    this.IsAutoSyncEnabled.Equals(input.IsAutoSyncEnabled))
                 ) && 
                 (
                     this.IsMultiStageRestore == input.IsMultiStageRestore ||
@@ -325,6 +340,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.EnableChecksum.GetHashCode();
                 if (this.InstanceName != null)
                     hashCode = hashCode * 59 + this.InstanceName.GetHashCode();
+                if (this.IsAutoSyncEnabled != null)
+                    hashCode = hashCode * 59 + this.IsAutoSyncEnabled.GetHashCode();
                 if (this.IsMultiStageRestore != null)
                     hashCode = hashCode * 59 + this.IsMultiStageRestore.GetHashCode();
                 if (this.KeepCdc != null)

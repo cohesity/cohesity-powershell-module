@@ -23,13 +23,15 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="DeployVMsToCloudParams" /> class.
         /// </summary>
+        /// <param name="deployFleetParams">deployFleetParams.</param>
         /// <param name="deployVmsToAwsParams">deployVmsToAwsParams.</param>
         /// <param name="deployVmsToAzureParams">deployVmsToAzureParams.</param>
         /// <param name="deployVmsToGcpParams">deployVmsToGcpParams.</param>
         /// <param name="replicateSnapshotsToAwsParams">replicateSnapshotsToAwsParams.</param>
         /// <param name="replicateSnapshotsToAzureParams">replicateSnapshotsToAzureParams.</param>
-        public DeployVMsToCloudParams(DeployVMsToAWSParams deployVmsToAwsParams = default(DeployVMsToAWSParams), DeployVMsToAzureParams deployVmsToAzureParams = default(DeployVMsToAzureParams), DeployVMsToGCPParams deployVmsToGcpParams = default(DeployVMsToGCPParams), ReplicateSnapshotsToAWSParams replicateSnapshotsToAwsParams = default(ReplicateSnapshotsToAWSParams), ReplicateSnapshotsToAzureParams replicateSnapshotsToAzureParams = default(ReplicateSnapshotsToAzureParams))
+        public DeployVMsToCloudParams(DeployFleetParams deployFleetParams = default(DeployFleetParams), DeployVMsToAWSParams deployVmsToAwsParams = default(DeployVMsToAWSParams), DeployVMsToAzureParams deployVmsToAzureParams = default(DeployVMsToAzureParams), DeployVMsToGCPParams deployVmsToGcpParams = default(DeployVMsToGCPParams), ReplicateSnapshotsToAWSParams replicateSnapshotsToAwsParams = default(ReplicateSnapshotsToAWSParams), ReplicateSnapshotsToAzureParams replicateSnapshotsToAzureParams = default(ReplicateSnapshotsToAzureParams))
         {
+            this.DeployFleetParams = deployFleetParams;
             this.DeployVmsToAwsParams = deployVmsToAwsParams;
             this.DeployVmsToAzureParams = deployVmsToAzureParams;
             this.DeployVmsToGcpParams = deployVmsToGcpParams;
@@ -37,6 +39,12 @@ namespace Cohesity.Model
             this.ReplicateSnapshotsToAzureParams = replicateSnapshotsToAzureParams;
         }
         
+        /// <summary>
+        /// Gets or Sets DeployFleetParams
+        /// </summary>
+        [DataMember(Name="deployFleetParams", EmitDefaultValue=false)]
+        public DeployFleetParams DeployFleetParams { get; set; }
+
         /// <summary>
         /// Gets or Sets DeployVmsToAwsParams
         /// </summary>
@@ -104,6 +112,11 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.DeployFleetParams == input.DeployFleetParams ||
+                    (this.DeployFleetParams != null &&
+                    this.DeployFleetParams.Equals(input.DeployFleetParams))
+                ) && 
+                (
                     this.DeployVmsToAwsParams == input.DeployVmsToAwsParams ||
                     (this.DeployVmsToAwsParams != null &&
                     this.DeployVmsToAwsParams.Equals(input.DeployVmsToAwsParams))
@@ -139,6 +152,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.DeployFleetParams != null)
+                    hashCode = hashCode * 59 + this.DeployFleetParams.GetHashCode();
                 if (this.DeployVmsToAwsParams != null)
                     hashCode = hashCode * 59 + this.DeployVmsToAwsParams.GetHashCode();
                 if (this.DeployVmsToAzureParams != null)

@@ -21,9 +21,9 @@ namespace Cohesity.Model
     public partial class CreateViewRequest :  IEquatable<CreateViewRequest>
     {
         /// <summary>
-        /// Specifies the supported Protocols for the View. &#39;kAll&#39; enables protocol access to all three views: NFS, SMB and S3. &#39;kNFSOnly&#39; enables protocol access to NFS only. &#39;kSMBOnly&#39; enables protocol access to SMB only. &#39;kS3Only&#39; enables protocol access to S3 only.
+        /// Specifies the supported Protocols for the View. &#39;kAll&#39; enables protocol access to following three views: NFS, SMB and S3. &#39;kNFSOnly&#39; enables protocol access to NFS only. &#39;kSMBOnly&#39; enables protocol access to SMB only. &#39;kS3Only&#39; enables protocol access to S3 only. &#39;kSwiftOnly&#39; enables protocol access to Swift only.
         /// </summary>
-        /// <value>Specifies the supported Protocols for the View. &#39;kAll&#39; enables protocol access to all three views: NFS, SMB and S3. &#39;kNFSOnly&#39; enables protocol access to NFS only. &#39;kSMBOnly&#39; enables protocol access to SMB only. &#39;kS3Only&#39; enables protocol access to S3 only.</value>
+        /// <value>Specifies the supported Protocols for the View. &#39;kAll&#39; enables protocol access to following three views: NFS, SMB and S3. &#39;kNFSOnly&#39; enables protocol access to NFS only. &#39;kSMBOnly&#39; enables protocol access to SMB only. &#39;kS3Only&#39; enables protocol access to S3 only. &#39;kSwiftOnly&#39; enables protocol access to Swift only.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum ProtocolAccessEnum
         {
@@ -49,14 +49,20 @@ namespace Cohesity.Model
             /// Enum KS3Only for value: kS3Only
             /// </summary>
             [EnumMember(Value = "kS3Only")]
-            KS3Only = 4
+            KS3Only = 4,
+
+            /// <summary>
+            /// Enum KSwiftOnly for value: kSwiftOnly
+            /// </summary>
+            [EnumMember(Value = "kSwiftOnly")]
+            KSwiftOnly = 5
 
         }
 
         /// <summary>
-        /// Specifies the supported Protocols for the View. &#39;kAll&#39; enables protocol access to all three views: NFS, SMB and S3. &#39;kNFSOnly&#39; enables protocol access to NFS only. &#39;kSMBOnly&#39; enables protocol access to SMB only. &#39;kS3Only&#39; enables protocol access to S3 only.
+        /// Specifies the supported Protocols for the View. &#39;kAll&#39; enables protocol access to following three views: NFS, SMB and S3. &#39;kNFSOnly&#39; enables protocol access to NFS only. &#39;kSMBOnly&#39; enables protocol access to SMB only. &#39;kS3Only&#39; enables protocol access to S3 only. &#39;kSwiftOnly&#39; enables protocol access to Swift only.
         /// </summary>
-        /// <value>Specifies the supported Protocols for the View. &#39;kAll&#39; enables protocol access to all three views: NFS, SMB and S3. &#39;kNFSOnly&#39; enables protocol access to NFS only. &#39;kSMBOnly&#39; enables protocol access to SMB only. &#39;kS3Only&#39; enables protocol access to S3 only.</value>
+        /// <value>Specifies the supported Protocols for the View. &#39;kAll&#39; enables protocol access to following three views: NFS, SMB and S3. &#39;kNFSOnly&#39; enables protocol access to NFS only. &#39;kSMBOnly&#39; enables protocol access to SMB only. &#39;kS3Only&#39; enables protocol access to S3 only. &#39;kSwiftOnly&#39; enables protocol access to Swift only.</value>
         [DataMember(Name="protocolAccess", EmitDefaultValue=true)]
         public ProtocolAccessEnum? ProtocolAccess { get; set; }
         /// <summary>
@@ -143,12 +149,15 @@ namespace Cohesity.Model
         /// <param name="antivirusScanConfig">antivirusScanConfig.</param>
         /// <param name="caseInsensitiveNamesEnabled">Specifies whether to support case insensitive file/folder names. This parameter can only be set during create and cannot be changed..</param>
         /// <param name="description">Specifies an optional text description about the View..</param>
+        /// <param name="enableFastDurableHandle">Specifies whether fast durable handle is enabled. If enabled, view open handle will be kept in memory, which results in a higher performance. But the handles cannot be recovered if node or service crashes..</param>
         /// <param name="enableFilerAuditLogging">Specifies if Filer Audit Logging is enabled for this view..</param>
+        /// <param name="enableLiveIndexing">Specifies whether to enable live indexing for the view..</param>
         /// <param name="enableMixedModePermissions">If set, mixed mode (NFS and SMB) access is enabled for this view. This field is deprecated. Use the field SecurityMode. deprecated: true.</param>
         /// <param name="enableNfsViewDiscovery">If set, it enables discovery of view for NFS..</param>
         /// <param name="enableOfflineCaching">Specifies whether to enable offline file caching of the view..</param>
         /// <param name="enableSmbAccessBasedEnumeration">Specifies if access-based enumeration should be enabled. If &#39;true&#39;, only files and folders that the user has permissions to access are visible on the SMB share for that user..</param>
         /// <param name="enableSmbEncryption">Specifies the SMB encryption for the View. If set, it enables the SMB encryption for the View. Encryption is supported only by SMB 3.x dialects. Dialects that do not support would still access data in unencrypted format..</param>
+        /// <param name="enableSmbOplock">Specifies whether SMB opportunistic lock is enabled..</param>
         /// <param name="enableSmbViewDiscovery">If set, it enables discovery of view for SMB..</param>
         /// <param name="enforceSmbEncryption">Specifies the SMB encryption for all the sessions for the View. If set, encryption is enforced for all the sessions for the View. When enabled all future and existing unencrypted sessions are disallowed..</param>
         /// <param name="fileExtensionFilter">fileExtensionFilter.</param>
@@ -159,7 +168,7 @@ namespace Cohesity.Model
         /// <param name="nfsRootPermissions">nfsRootPermissions.</param>
         /// <param name="nfsRootSquash">nfsRootSquash.</param>
         /// <param name="overrideGlobalWhitelist">Specifies whether view level client subnet whitelist overrides cluster and global setting..</param>
-        /// <param name="protocolAccess">Specifies the supported Protocols for the View. &#39;kAll&#39; enables protocol access to all three views: NFS, SMB and S3. &#39;kNFSOnly&#39; enables protocol access to NFS only. &#39;kSMBOnly&#39; enables protocol access to SMB only. &#39;kS3Only&#39; enables protocol access to S3 only..</param>
+        /// <param name="protocolAccess">Specifies the supported Protocols for the View. &#39;kAll&#39; enables protocol access to following three views: NFS, SMB and S3. &#39;kNFSOnly&#39; enables protocol access to NFS only. &#39;kSMBOnly&#39; enables protocol access to SMB only. &#39;kS3Only&#39; enables protocol access to S3 only. &#39;kSwiftOnly&#39; enables protocol access to Swift only..</param>
         /// <param name="qos">qos.</param>
         /// <param name="s3KeyMappingConfig">Specifies key mapping config of S3 storage. Configuration of S3 key mapping.  Specifies the type of S3 key mapping config..</param>
         /// <param name="securityMode">Specifies the security mode used for this view. Currently we support the following modes: Native, Unified and NTFS style. &#39;kNativeMode&#39; indicates a native security mode. &#39;kUnifiedMode&#39; indicates a unified security mode. &#39;kNtfsMode&#39; indicates a NTFS style security mode..</param>
@@ -167,19 +176,26 @@ namespace Cohesity.Model
         /// <param name="smbPermissionsInfo">smbPermissionsInfo.</param>
         /// <param name="storagePolicyOverride">storagePolicyOverride.</param>
         /// <param name="subnetWhitelist">Array of Subnets.  Specifies a list of Subnets with IP addresses that have permissions to access the View. (Overrides the Subnets specified at the global Cohesity Cluster level.).</param>
+        /// <param name="swiftProjectDomain">Specifies the Keystone project domain..</param>
+        /// <param name="swiftProjectName">Specifies the Keystone project name..</param>
+        /// <param name="swiftUserDomain">Specifies the Keystone user domain..</param>
+        /// <param name="swiftUsername">Specifies the Keystone username..</param>
         /// <param name="tenantId">Optional tenant id who has access to this View..</param>
         /// <param name="viewBoxId">Specifies the id of the Storage Domain (View Box) where the View will be created. (required).</param>
-        public CreateViewRequest(List<string> accessSids = default(List<string>), AntivirusScanConfig antivirusScanConfig = default(AntivirusScanConfig), bool? caseInsensitiveNamesEnabled = default(bool?), string description = default(string), bool? enableFilerAuditLogging = default(bool?), bool? enableMixedModePermissions = default(bool?), bool? enableNfsViewDiscovery = default(bool?), bool? enableOfflineCaching = default(bool?), bool? enableSmbAccessBasedEnumeration = default(bool?), bool? enableSmbEncryption = default(bool?), bool? enableSmbViewDiscovery = default(bool?), bool? enforceSmbEncryption = default(bool?), FileExtensionFilter fileExtensionFilter = default(FileExtensionFilter), FileLevelDataLockConfig fileLockConfig = default(FileLevelDataLockConfig), QuotaPolicy logicalQuota = default(QuotaPolicy), string name = default(string), NfsSquash nfsAllSquash = default(NfsSquash), NfsRootPermissions nfsRootPermissions = default(NfsRootPermissions), NfsSquash nfsRootSquash = default(NfsSquash), bool? overrideGlobalWhitelist = default(bool?), ProtocolAccessEnum? protocolAccess = default(ProtocolAccessEnum?), QoS qos = default(QoS), S3KeyMappingConfigEnum? s3KeyMappingConfig = default(S3KeyMappingConfigEnum?), SecurityModeEnum? securityMode = default(SecurityModeEnum?), List<SmbPermission> sharePermissions = default(List<SmbPermission>), SmbPermissionsInfo smbPermissionsInfo = default(SmbPermissionsInfo), StoragePolicyOverride storagePolicyOverride = default(StoragePolicyOverride), List<Subnet> subnetWhitelist = default(List<Subnet>), string tenantId = default(string), long? viewBoxId = default(long?))
+        public CreateViewRequest(List<string> accessSids = default(List<string>), AntivirusScanConfig antivirusScanConfig = default(AntivirusScanConfig), bool? caseInsensitiveNamesEnabled = default(bool?), string description = default(string), bool? enableFastDurableHandle = default(bool?), bool? enableFilerAuditLogging = default(bool?), bool? enableLiveIndexing = default(bool?), bool? enableMixedModePermissions = default(bool?), bool? enableNfsViewDiscovery = default(bool?), bool? enableOfflineCaching = default(bool?), bool? enableSmbAccessBasedEnumeration = default(bool?), bool? enableSmbEncryption = default(bool?), bool? enableSmbOplock = default(bool?), bool? enableSmbViewDiscovery = default(bool?), bool? enforceSmbEncryption = default(bool?), FileExtensionFilter fileExtensionFilter = default(FileExtensionFilter), FileLevelDataLockConfig fileLockConfig = default(FileLevelDataLockConfig), QuotaPolicy logicalQuota = default(QuotaPolicy), string name = default(string), NfsSquash nfsAllSquash = default(NfsSquash), NfsRootPermissions nfsRootPermissions = default(NfsRootPermissions), NfsSquash nfsRootSquash = default(NfsSquash), bool? overrideGlobalWhitelist = default(bool?), ProtocolAccessEnum? protocolAccess = default(ProtocolAccessEnum?), QoS qos = default(QoS), S3KeyMappingConfigEnum? s3KeyMappingConfig = default(S3KeyMappingConfigEnum?), SecurityModeEnum? securityMode = default(SecurityModeEnum?), List<SmbPermission> sharePermissions = default(List<SmbPermission>), SmbPermissionsInfo smbPermissionsInfo = default(SmbPermissionsInfo), StoragePolicyOverride storagePolicyOverride = default(StoragePolicyOverride), List<Subnet> subnetWhitelist = default(List<Subnet>), string swiftProjectDomain = default(string), string swiftProjectName = default(string), string swiftUserDomain = default(string), string swiftUsername = default(string), string tenantId = default(string), long? viewBoxId = default(long?))
         {
             this.AccessSids = accessSids;
             this.CaseInsensitiveNamesEnabled = caseInsensitiveNamesEnabled;
             this.Description = description;
+            this.EnableFastDurableHandle = enableFastDurableHandle;
             this.EnableFilerAuditLogging = enableFilerAuditLogging;
+            this.EnableLiveIndexing = enableLiveIndexing;
             this.EnableMixedModePermissions = enableMixedModePermissions;
             this.EnableNfsViewDiscovery = enableNfsViewDiscovery;
             this.EnableOfflineCaching = enableOfflineCaching;
             this.EnableSmbAccessBasedEnumeration = enableSmbAccessBasedEnumeration;
             this.EnableSmbEncryption = enableSmbEncryption;
+            this.EnableSmbOplock = enableSmbOplock;
             this.EnableSmbViewDiscovery = enableSmbViewDiscovery;
             this.EnforceSmbEncryption = enforceSmbEncryption;
             this.LogicalQuota = logicalQuota;
@@ -190,18 +206,25 @@ namespace Cohesity.Model
             this.SecurityMode = securityMode;
             this.SharePermissions = sharePermissions;
             this.SubnetWhitelist = subnetWhitelist;
+            this.SwiftProjectDomain = swiftProjectDomain;
+            this.SwiftProjectName = swiftProjectName;
+            this.SwiftUserDomain = swiftUserDomain;
+            this.SwiftUsername = swiftUsername;
             this.TenantId = tenantId;
             this.ViewBoxId = viewBoxId;
             this.AccessSids = accessSids;
             this.AntivirusScanConfig = antivirusScanConfig;
             this.CaseInsensitiveNamesEnabled = caseInsensitiveNamesEnabled;
             this.Description = description;
+            this.EnableFastDurableHandle = enableFastDurableHandle;
             this.EnableFilerAuditLogging = enableFilerAuditLogging;
+            this.EnableLiveIndexing = enableLiveIndexing;
             this.EnableMixedModePermissions = enableMixedModePermissions;
             this.EnableNfsViewDiscovery = enableNfsViewDiscovery;
             this.EnableOfflineCaching = enableOfflineCaching;
             this.EnableSmbAccessBasedEnumeration = enableSmbAccessBasedEnumeration;
             this.EnableSmbEncryption = enableSmbEncryption;
+            this.EnableSmbOplock = enableSmbOplock;
             this.EnableSmbViewDiscovery = enableSmbViewDiscovery;
             this.EnforceSmbEncryption = enforceSmbEncryption;
             this.FileExtensionFilter = fileExtensionFilter;
@@ -219,6 +242,10 @@ namespace Cohesity.Model
             this.SmbPermissionsInfo = smbPermissionsInfo;
             this.StoragePolicyOverride = storagePolicyOverride;
             this.SubnetWhitelist = subnetWhitelist;
+            this.SwiftProjectDomain = swiftProjectDomain;
+            this.SwiftProjectName = swiftProjectName;
+            this.SwiftUserDomain = swiftUserDomain;
+            this.SwiftUsername = swiftUsername;
             this.TenantId = tenantId;
         }
         
@@ -250,11 +277,25 @@ namespace Cohesity.Model
         public string Description { get; set; }
 
         /// <summary>
+        /// Specifies whether fast durable handle is enabled. If enabled, view open handle will be kept in memory, which results in a higher performance. But the handles cannot be recovered if node or service crashes.
+        /// </summary>
+        /// <value>Specifies whether fast durable handle is enabled. If enabled, view open handle will be kept in memory, which results in a higher performance. But the handles cannot be recovered if node or service crashes.</value>
+        [DataMember(Name="enableFastDurableHandle", EmitDefaultValue=true)]
+        public bool? EnableFastDurableHandle { get; set; }
+
+        /// <summary>
         /// Specifies if Filer Audit Logging is enabled for this view.
         /// </summary>
         /// <value>Specifies if Filer Audit Logging is enabled for this view.</value>
         [DataMember(Name="enableFilerAuditLogging", EmitDefaultValue=true)]
         public bool? EnableFilerAuditLogging { get; set; }
+
+        /// <summary>
+        /// Specifies whether to enable live indexing for the view.
+        /// </summary>
+        /// <value>Specifies whether to enable live indexing for the view.</value>
+        [DataMember(Name="enableLiveIndexing", EmitDefaultValue=true)]
+        public bool? EnableLiveIndexing { get; set; }
 
         /// <summary>
         /// If set, mixed mode (NFS and SMB) access is enabled for this view. This field is deprecated. Use the field SecurityMode. deprecated: true
@@ -290,6 +331,13 @@ namespace Cohesity.Model
         /// <value>Specifies the SMB encryption for the View. If set, it enables the SMB encryption for the View. Encryption is supported only by SMB 3.x dialects. Dialects that do not support would still access data in unencrypted format.</value>
         [DataMember(Name="enableSmbEncryption", EmitDefaultValue=true)]
         public bool? EnableSmbEncryption { get; set; }
+
+        /// <summary>
+        /// Specifies whether SMB opportunistic lock is enabled.
+        /// </summary>
+        /// <value>Specifies whether SMB opportunistic lock is enabled.</value>
+        [DataMember(Name="enableSmbOplock", EmitDefaultValue=true)]
+        public bool? EnableSmbOplock { get; set; }
 
         /// <summary>
         /// If set, it enables discovery of view for SMB.
@@ -389,6 +437,34 @@ namespace Cohesity.Model
         public List<Subnet> SubnetWhitelist { get; set; }
 
         /// <summary>
+        /// Specifies the Keystone project domain.
+        /// </summary>
+        /// <value>Specifies the Keystone project domain.</value>
+        [DataMember(Name="swiftProjectDomain", EmitDefaultValue=true)]
+        public string SwiftProjectDomain { get; set; }
+
+        /// <summary>
+        /// Specifies the Keystone project name.
+        /// </summary>
+        /// <value>Specifies the Keystone project name.</value>
+        [DataMember(Name="swiftProjectName", EmitDefaultValue=true)]
+        public string SwiftProjectName { get; set; }
+
+        /// <summary>
+        /// Specifies the Keystone user domain.
+        /// </summary>
+        /// <value>Specifies the Keystone user domain.</value>
+        [DataMember(Name="swiftUserDomain", EmitDefaultValue=true)]
+        public string SwiftUserDomain { get; set; }
+
+        /// <summary>
+        /// Specifies the Keystone username.
+        /// </summary>
+        /// <value>Specifies the Keystone username.</value>
+        [DataMember(Name="swiftUsername", EmitDefaultValue=true)]
+        public string SwiftUsername { get; set; }
+
+        /// <summary>
         /// Optional tenant id who has access to this View.
         /// </summary>
         /// <value>Optional tenant id who has access to this View.</value>
@@ -460,9 +536,19 @@ namespace Cohesity.Model
                     this.Description.Equals(input.Description))
                 ) && 
                 (
+                    this.EnableFastDurableHandle == input.EnableFastDurableHandle ||
+                    (this.EnableFastDurableHandle != null &&
+                    this.EnableFastDurableHandle.Equals(input.EnableFastDurableHandle))
+                ) && 
+                (
                     this.EnableFilerAuditLogging == input.EnableFilerAuditLogging ||
                     (this.EnableFilerAuditLogging != null &&
                     this.EnableFilerAuditLogging.Equals(input.EnableFilerAuditLogging))
+                ) && 
+                (
+                    this.EnableLiveIndexing == input.EnableLiveIndexing ||
+                    (this.EnableLiveIndexing != null &&
+                    this.EnableLiveIndexing.Equals(input.EnableLiveIndexing))
                 ) && 
                 (
                     this.EnableMixedModePermissions == input.EnableMixedModePermissions ||
@@ -488,6 +574,11 @@ namespace Cohesity.Model
                     this.EnableSmbEncryption == input.EnableSmbEncryption ||
                     (this.EnableSmbEncryption != null &&
                     this.EnableSmbEncryption.Equals(input.EnableSmbEncryption))
+                ) && 
+                (
+                    this.EnableSmbOplock == input.EnableSmbOplock ||
+                    (this.EnableSmbOplock != null &&
+                    this.EnableSmbOplock.Equals(input.EnableSmbOplock))
                 ) && 
                 (
                     this.EnableSmbViewDiscovery == input.EnableSmbViewDiscovery ||
@@ -579,6 +670,26 @@ namespace Cohesity.Model
                     this.SubnetWhitelist.SequenceEqual(input.SubnetWhitelist)
                 ) && 
                 (
+                    this.SwiftProjectDomain == input.SwiftProjectDomain ||
+                    (this.SwiftProjectDomain != null &&
+                    this.SwiftProjectDomain.Equals(input.SwiftProjectDomain))
+                ) && 
+                (
+                    this.SwiftProjectName == input.SwiftProjectName ||
+                    (this.SwiftProjectName != null &&
+                    this.SwiftProjectName.Equals(input.SwiftProjectName))
+                ) && 
+                (
+                    this.SwiftUserDomain == input.SwiftUserDomain ||
+                    (this.SwiftUserDomain != null &&
+                    this.SwiftUserDomain.Equals(input.SwiftUserDomain))
+                ) && 
+                (
+                    this.SwiftUsername == input.SwiftUsername ||
+                    (this.SwiftUsername != null &&
+                    this.SwiftUsername.Equals(input.SwiftUsername))
+                ) && 
+                (
                     this.TenantId == input.TenantId ||
                     (this.TenantId != null &&
                     this.TenantId.Equals(input.TenantId))
@@ -607,8 +718,12 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.CaseInsensitiveNamesEnabled.GetHashCode();
                 if (this.Description != null)
                     hashCode = hashCode * 59 + this.Description.GetHashCode();
+                if (this.EnableFastDurableHandle != null)
+                    hashCode = hashCode * 59 + this.EnableFastDurableHandle.GetHashCode();
                 if (this.EnableFilerAuditLogging != null)
                     hashCode = hashCode * 59 + this.EnableFilerAuditLogging.GetHashCode();
+                if (this.EnableLiveIndexing != null)
+                    hashCode = hashCode * 59 + this.EnableLiveIndexing.GetHashCode();
                 if (this.EnableMixedModePermissions != null)
                     hashCode = hashCode * 59 + this.EnableMixedModePermissions.GetHashCode();
                 if (this.EnableNfsViewDiscovery != null)
@@ -619,6 +734,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.EnableSmbAccessBasedEnumeration.GetHashCode();
                 if (this.EnableSmbEncryption != null)
                     hashCode = hashCode * 59 + this.EnableSmbEncryption.GetHashCode();
+                if (this.EnableSmbOplock != null)
+                    hashCode = hashCode * 59 + this.EnableSmbOplock.GetHashCode();
                 if (this.EnableSmbViewDiscovery != null)
                     hashCode = hashCode * 59 + this.EnableSmbViewDiscovery.GetHashCode();
                 if (this.EnforceSmbEncryption != null)
@@ -652,6 +769,14 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.StoragePolicyOverride.GetHashCode();
                 if (this.SubnetWhitelist != null)
                     hashCode = hashCode * 59 + this.SubnetWhitelist.GetHashCode();
+                if (this.SwiftProjectDomain != null)
+                    hashCode = hashCode * 59 + this.SwiftProjectDomain.GetHashCode();
+                if (this.SwiftProjectName != null)
+                    hashCode = hashCode * 59 + this.SwiftProjectName.GetHashCode();
+                if (this.SwiftUserDomain != null)
+                    hashCode = hashCode * 59 + this.SwiftUserDomain.GetHashCode();
+                if (this.SwiftUsername != null)
+                    hashCode = hashCode * 59 + this.SwiftUsername.GetHashCode();
                 if (this.TenantId != null)
                     hashCode = hashCode * 59 + this.TenantId.GetHashCode();
                 if (this.ViewBoxId != null)

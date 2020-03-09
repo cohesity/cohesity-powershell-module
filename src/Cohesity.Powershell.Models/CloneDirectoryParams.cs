@@ -24,7 +24,7 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="CloneDirectoryParams" /> class.
         /// </summary>
         /// <param name="destinationDirectoryName">Name of the new directory which will contain the clone contents..</param>
-        /// <param name="destinationParentDirectoryPath">Specifies the path of the destination parent directory. The source dir would be cloned as a child of dest parent dir..</param>
+        /// <param name="destinationParentDirectoryPath">Specifies the path of the destination parent directory. The source dir would be cloned as a child of destination parent dir..</param>
         /// <param name="sourceDirectoryPath">Specifies the path of the source directory.</param>
         public CloneDirectoryParams(string destinationDirectoryName = default(string), string destinationParentDirectoryPath = default(string), string sourceDirectoryPath = default(string))
         {
@@ -44,9 +44,9 @@ namespace Cohesity.Model
         public string DestinationDirectoryName { get; set; }
 
         /// <summary>
-        /// Specifies the path of the destination parent directory. The source dir would be cloned as a child of dest parent dir.
+        /// Specifies the path of the destination parent directory. The source dir would be cloned as a child of destination parent dir.
         /// </summary>
-        /// <value>Specifies the path of the destination parent directory. The source dir would be cloned as a child of dest parent dir.</value>
+        /// <value>Specifies the path of the destination parent directory. The source dir would be cloned as a child of destination parent dir.</value>
         [DataMember(Name="destinationParentDirectoryPath", EmitDefaultValue=true)]
         public string DestinationParentDirectoryPath { get; set; }
 

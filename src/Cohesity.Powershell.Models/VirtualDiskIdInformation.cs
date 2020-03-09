@@ -25,7 +25,7 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="busNumber">Specifies the Id of the controller bus that controls the disk..</param>
         /// <param name="controllerType">Specifies the controller type like SCSI, or IDE etc..</param>
-        /// <param name="diskId">Specfies the uuid of the virtual disk..</param>
+        /// <param name="diskId">Specifies the uuid of the virtual disk..</param>
         /// <param name="unitNumber">Specifies the disk file name. This is the VMDK name and not the flat file name..</param>
         public VirtualDiskIdInformation(long? busNumber = default(long?), string controllerType = default(string), string diskId = default(string), long? unitNumber = default(long?))
         {
@@ -54,9 +54,9 @@ namespace Cohesity.Model
         public string ControllerType { get; set; }
 
         /// <summary>
-        /// Specfies the uuid of the virtual disk.
+        /// Specifies the uuid of the virtual disk.
         /// </summary>
-        /// <value>Specfies the uuid of the virtual disk.</value>
+        /// <value>Specifies the uuid of the virtual disk.</value>
         [DataMember(Name="diskId", EmitDefaultValue=true)]
         public string DiskId { get; set; }
 

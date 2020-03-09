@@ -28,15 +28,17 @@ namespace Cohesity.Model
         /// <param name="networkId">Specifies a network configuration to be attached to the cloned or recovered object. For kCloneVMs and kRecoverVMs tasks, original network configuration is detached if the cloned or recovered object is kept under a different parent Protection Source or a different Resource Pool. By default, for kRecoverVMs task, original network configuration is preserved if the recovered object is kept under the same parent Protection Source and the same Resource Pool. Specify this field to override the preserved network configuration or to attach a new network configuration to the cloned or recovered objects. You can get the networkId of the kNetwork object by setting includeNetworks to &#39;true&#39; in the GET /public/protectionSources operation. In the response, get the id of the desired kNetwork object, the resource pool, and the registered parent Protection Source..</param>
         /// <param name="poweredOn">Specifies the power state of the cloned or recovered objects. By default, the cloned or recovered objects are powered off..</param>
         /// <param name="prefix">Specifies a prefix to prepended to the source object name to derive a new name for the recovered or cloned object. By default, cloned or recovered objects retain their original name. Length of this field is limited to 8 characters..</param>
+        /// <param name="preserveTags">Specifies whether or not to preserve tags during the operation..</param>
         /// <param name="resourceId">The resource (HyperV host) to which the restored VM will be attached.  This field is optional for a kRecoverVMs task if the VMs are being restored to its original parent source. If not specified, restored VMs will be attached to its original host. This field is mandatory if the VMs are being restored to a different parent source..</param>
         /// <param name="suffix">Specifies a suffix to appended to the original source object name to derive a new name for the recovered or cloned object. By default, cloned or recovered objects retain their original name. Length of this field is limited to 8 characters..</param>
-        public HypervRestoreParameters(long? datastoreId = default(long?), bool? disableNetwork = default(bool?), long? networkId = default(long?), bool? poweredOn = default(bool?), string prefix = default(string), long? resourceId = default(long?), string suffix = default(string))
+        public HypervRestoreParameters(long? datastoreId = default(long?), bool? disableNetwork = default(bool?), long? networkId = default(long?), bool? poweredOn = default(bool?), string prefix = default(string), bool? preserveTags = default(bool?), long? resourceId = default(long?), string suffix = default(string))
         {
             this.DatastoreId = datastoreId;
             this.DisableNetwork = disableNetwork;
             this.NetworkId = networkId;
             this.PoweredOn = poweredOn;
             this.Prefix = prefix;
+            this.PreserveTags = preserveTags;
             this.ResourceId = resourceId;
             this.Suffix = suffix;
             this.DatastoreId = datastoreId;
@@ -44,6 +46,7 @@ namespace Cohesity.Model
             this.NetworkId = networkId;
             this.PoweredOn = poweredOn;
             this.Prefix = prefix;
+            this.PreserveTags = preserveTags;
             this.ResourceId = resourceId;
             this.Suffix = suffix;
         }
@@ -82,6 +85,13 @@ namespace Cohesity.Model
         /// <value>Specifies a prefix to prepended to the source object name to derive a new name for the recovered or cloned object. By default, cloned or recovered objects retain their original name. Length of this field is limited to 8 characters.</value>
         [DataMember(Name="prefix", EmitDefaultValue=true)]
         public string Prefix { get; set; }
+
+        /// <summary>
+        /// Specifies whether or not to preserve tags during the operation.
+        /// </summary>
+        /// <value>Specifies whether or not to preserve tags during the operation.</value>
+        [DataMember(Name="preserveTags", EmitDefaultValue=true)]
+        public bool? PreserveTags { get; set; }
 
         /// <summary>
         /// The resource (HyperV host) to which the restored VM will be attached.  This field is optional for a kRecoverVMs task if the VMs are being restored to its original parent source. If not specified, restored VMs will be attached to its original host. This field is mandatory if the VMs are being restored to a different parent source.
@@ -159,6 +169,11 @@ namespace Cohesity.Model
                     this.Prefix.Equals(input.Prefix))
                 ) && 
                 (
+                    this.PreserveTags == input.PreserveTags ||
+                    (this.PreserveTags != null &&
+                    this.PreserveTags.Equals(input.PreserveTags))
+                ) && 
+                (
                     this.ResourceId == input.ResourceId ||
                     (this.ResourceId != null &&
                     this.ResourceId.Equals(input.ResourceId))
@@ -189,6 +204,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.PoweredOn.GetHashCode();
                 if (this.Prefix != null)
                     hashCode = hashCode * 59 + this.Prefix.GetHashCode();
+                if (this.PreserveTags != null)
+                    hashCode = hashCode * 59 + this.PreserveTags.GetHashCode();
                 if (this.ResourceId != null)
                     hashCode = hashCode * 59 + this.ResourceId.GetHashCode();
                 if (this.Suffix != null)

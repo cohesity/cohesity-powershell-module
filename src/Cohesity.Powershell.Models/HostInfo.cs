@@ -23,7 +23,7 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="HostInfo" /> class.
         /// </summary>
-        /// <param name="password">Specifies the passsword of the host to establish SSH connection. The certificate is copied to the host after generating the certificate on the cluster..</param>
+        /// <param name="password">Specifies the password of the host to establish SSH connection. The certificate is copied to the host after generating the certificate on the cluster..</param>
         /// <param name="serverName">Specifies the servername of the host where certificate is to be deployed..</param>
         /// <param name="target">Specifies the target location on the host where the certificate is deployed..</param>
         /// <param name="userName">Specifies the username of the host..</param>
@@ -40,9 +40,9 @@ namespace Cohesity.Model
         }
         
         /// <summary>
-        /// Specifies the passsword of the host to establish SSH connection. The certificate is copied to the host after generating the certificate on the cluster.
+        /// Specifies the password of the host to establish SSH connection. The certificate is copied to the host after generating the certificate on the cluster.
         /// </summary>
-        /// <value>Specifies the passsword of the host to establish SSH connection. The certificate is copied to the host after generating the certificate on the cluster.</value>
+        /// <value>Specifies the password of the host to establish SSH connection. The certificate is copied to the host after generating the certificate on the cluster.</value>
         [DataMember(Name="password", EmitDefaultValue=true)]
         public string Password { get; set; }
 

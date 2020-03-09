@@ -25,7 +25,7 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="busNumber">Specifies the Id of the controller bus that controls the disk..</param>
         /// <param name="controllerType">Specifies the controller type like SCSI, or IDE etc..</param>
-        /// <param name="diskId">Specifies original disk id. This is sufficient to identify the disk information, but in some scenarios, user&#39;s may specify the controller option instead..</param>
+        /// <param name="diskId">Specifies original disk id. This is sufficient to identify the disk information, but in some scenarios, users may specify the controller option instead..</param>
         /// <param name="diskLocation">diskLocation.</param>
         /// <param name="diskSizeInBytes">Specifies size of the virtual disk in bytes..</param>
         /// <param name="filePath">Specifies the original file path if applicable..</param>
@@ -65,9 +65,9 @@ namespace Cohesity.Model
         public string ControllerType { get; set; }
 
         /// <summary>
-        /// Specifies original disk id. This is sufficient to identify the disk information, but in some scenarios, user&#39;s may specify the controller option instead.
+        /// Specifies original disk id. This is sufficient to identify the disk information, but in some scenarios, users may specify the controller option instead.
         /// </summary>
-        /// <value>Specifies original disk id. This is sufficient to identify the disk information, but in some scenarios, user&#39;s may specify the controller option instead.</value>
+        /// <value>Specifies original disk id. This is sufficient to identify the disk information, but in some scenarios, users may specify the controller option instead.</value>
         [DataMember(Name="diskId", EmitDefaultValue=true)]
         public string DiskId { get; set; }
 

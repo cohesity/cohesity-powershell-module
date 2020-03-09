@@ -15,7 +15,7 @@ using Newtonsoft.Json.Converters;
 namespace Cohesity.Model
 {
     /// <summary>
-    /// Specifies settings for limiting the data transfer rate between the local and remote Clusters.
+    /// Specifies settings for limiting the data transfer rate between the local and remote Clusters or bandwidth limiting schedule for apollo. Only one of RateLimitBytesPerSec or IoRate should be set in this struct and corresponding BandwidthLimitOverrides should also be in the same unit.
     /// </summary>
     [DataContract]
     public partial class BandwidthLimit :  IEquatable<BandwidthLimit>
@@ -24,14 +24,17 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="BandwidthLimit" /> class.
         /// </summary>
         /// <param name="bandwidthLimitOverrides">Array of Override Bandwidth Limits.  Specifies a list of override bandwidth limits and time periods when those limits override the rateLimitBytesPerSec limit. If overlapping time periods are specified, the last one in the array takes precedence..</param>
+        /// <param name="ioRate">Specifies the default IO Rate of the throttling schedule. This value is internally mapped to some notion of how many resources a process should be consuming..</param>
         /// <param name="rateLimitBytesPerSec">Specifies the maximum allowed data transfer rate between the local Cluster and remote Clusters. The value is specified in bytes per second. If not set, the data transfer rate is not limited..</param>
         /// <param name="timezone">Specifies a time zone for the specified time period. The time zone is defined in the following format: \&quot;Area/Location\&quot;, for example: \&quot;America/New_York\&quot;..</param>
-        public BandwidthLimit(List<BandwidthLimitOverride> bandwidthLimitOverrides = default(List<BandwidthLimitOverride>), long? rateLimitBytesPerSec = default(long?), string timezone = default(string))
+        public BandwidthLimit(List<BandwidthLimitOverride> bandwidthLimitOverrides = default(List<BandwidthLimitOverride>), int? ioRate = default(int?), long? rateLimitBytesPerSec = default(long?), string timezone = default(string))
         {
             this.BandwidthLimitOverrides = bandwidthLimitOverrides;
+            this.IoRate = ioRate;
             this.RateLimitBytesPerSec = rateLimitBytesPerSec;
             this.Timezone = timezone;
             this.BandwidthLimitOverrides = bandwidthLimitOverrides;
+            this.IoRate = ioRate;
             this.RateLimitBytesPerSec = rateLimitBytesPerSec;
             this.Timezone = timezone;
         }
@@ -42,6 +45,13 @@ namespace Cohesity.Model
         /// <value>Array of Override Bandwidth Limits.  Specifies a list of override bandwidth limits and time periods when those limits override the rateLimitBytesPerSec limit. If overlapping time periods are specified, the last one in the array takes precedence.</value>
         [DataMember(Name="bandwidthLimitOverrides", EmitDefaultValue=true)]
         public List<BandwidthLimitOverride> BandwidthLimitOverrides { get; set; }
+
+        /// <summary>
+        /// Specifies the default IO Rate of the throttling schedule. This value is internally mapped to some notion of how many resources a process should be consuming.
+        /// </summary>
+        /// <value>Specifies the default IO Rate of the throttling schedule. This value is internally mapped to some notion of how many resources a process should be consuming.</value>
+        [DataMember(Name="ioRate", EmitDefaultValue=true)]
+        public int? IoRate { get; set; }
 
         /// <summary>
         /// Specifies the maximum allowed data transfer rate between the local Cluster and remote Clusters. The value is specified in bytes per second. If not set, the data transfer rate is not limited.
@@ -100,6 +110,11 @@ namespace Cohesity.Model
                     this.BandwidthLimitOverrides.SequenceEqual(input.BandwidthLimitOverrides)
                 ) && 
                 (
+                    this.IoRate == input.IoRate ||
+                    (this.IoRate != null &&
+                    this.IoRate.Equals(input.IoRate))
+                ) && 
+                (
                     this.RateLimitBytesPerSec == input.RateLimitBytesPerSec ||
                     (this.RateLimitBytesPerSec != null &&
                     this.RateLimitBytesPerSec.Equals(input.RateLimitBytesPerSec))
@@ -122,6 +137,8 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.BandwidthLimitOverrides != null)
                     hashCode = hashCode * 59 + this.BandwidthLimitOverrides.GetHashCode();
+                if (this.IoRate != null)
+                    hashCode = hashCode * 59 + this.IoRate.GetHashCode();
                 if (this.RateLimitBytesPerSec != null)
                     hashCode = hashCode * 59 + this.RateLimitBytesPerSec.GetHashCode();
                 if (this.Timezone != null)

@@ -30,7 +30,7 @@ namespace Cohesity.Model
         /// <param name="protectionJobRunUid">protectionJobRunUid.</param>
         /// <param name="snapshotTarget">Specifies the cluster id in case of local or replication snapshots and name of location in case of archival snapshots..</param>
         /// <param name="snapshotTargetType">Specifies the snapshot target type of the latest snapshot..</param>
-        /// <param name="taskStatus">Specifies the task status of the Protecion Job Run in the final attempt..</param>
+        /// <param name="taskStatus">Specifies the task status of the Protection Job Run in the final attempt..</param>
         /// <param name="uuid">Specifies the unique id of the Protection Source for which a snapshot is taken..</param>
         public LatestProtectionRun(SourceBackupStatus backupRun = default(SourceBackupStatus), long? changeEventId = default(long?), CopyRun copyRun = default(CopyRun), long? jobRunId = default(long?), RunUid protectionJobRunUid = default(RunUid), string snapshotTarget = default(string), int? snapshotTargetType = default(int?), int? taskStatus = default(int?), string uuid = default(string))
         {
@@ -98,9 +98,9 @@ namespace Cohesity.Model
         public int? SnapshotTargetType { get; set; }
 
         /// <summary>
-        /// Specifies the task status of the Protecion Job Run in the final attempt.
+        /// Specifies the task status of the Protection Job Run in the final attempt.
         /// </summary>
-        /// <value>Specifies the task status of the Protecion Job Run in the final attempt.</value>
+        /// <value>Specifies the task status of the Protection Job Run in the final attempt.</value>
         [DataMember(Name="taskStatus", EmitDefaultValue=true)]
         public int? TaskStatus { get; set; }
 

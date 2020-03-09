@@ -24,6 +24,7 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="SqlRestoreParameters" /> class.
         /// </summary>
         /// <param name="captureTailLogs">Set this to true if tail logs are to be captured before the restore operation. This is only applicable if we are restoring the SQL database to its hosting Protection Source, and the database is not being renamed..</param>
+        /// <param name="isAutoSyncEnabled">This field determines if Auto Sync enabled/disabled for SQL Multi-stage Restore task.</param>
         /// <param name="keepCdc">This field prevents \&quot;change data capture\&quot; settings from being reomved when a database or log backup is restored on another server and database is recovered..</param>
         /// <param name="keepOffline">Set this to true if we want to restore the database and do not want to bring it online after restore.  This is only applicable if we are restoring the database back to its original location..</param>
         /// <param name="newDatabaseName">Specifies optionally a new name for the restored database..</param>
@@ -31,11 +32,12 @@ namespace Cohesity.Model
         /// <param name="restoreTimeSecs">Specifies the time in the past to which the SQL database needs to be restored. This allows for granular recovery of SQL databases. If this is not set, the SQL database will be restored from the full/incremental snapshot..</param>
         /// <param name="targetDataFilesDirectory">Specifies the directory where to put the database data files. Missing directory will be automatically created. This field must be set if restoring to a different target host..</param>
         /// <param name="targetLogFilesDirectory">Specifies the directory where to put the database log files. Missing directory will be automatically created. This field must be set if restoring to a different target host..</param>
-        /// <param name="targetSecondaryDataFilesDirectoryList">Specifies the secondary data filename pattern and corresponding direcories of the DB. Secondary data files are optional and are user defined. The recommended file extention for secondary files is \&quot;.ndf\&quot;.  If this option is specified and the destination folders do not exist they will be automatically created..</param>
+        /// <param name="targetSecondaryDataFilesDirectoryList">Specifies the secondary data filename pattern and corresponding directories of the DB. Secondary data files are optional and are user defined. The recommended file extension for secondary files is \&quot;.ndf\&quot;.  If this option is specified and the destination folders do not exist they will be automatically created..</param>
         /// <param name="withClause">WithClause allows you to specify clauses to be used in native sql restore task..</param>
-        public SqlRestoreParameters(bool? captureTailLogs = default(bool?), bool? keepCdc = default(bool?), bool? keepOffline = default(bool?), string newDatabaseName = default(string), string newInstanceName = default(string), long? restoreTimeSecs = default(long?), string targetDataFilesDirectory = default(string), string targetLogFilesDirectory = default(string), List<FilenamePatternToDirectory> targetSecondaryDataFilesDirectoryList = default(List<FilenamePatternToDirectory>), string withClause = default(string))
+        public SqlRestoreParameters(bool? captureTailLogs = default(bool?), bool? isAutoSyncEnabled = default(bool?), bool? keepCdc = default(bool?), bool? keepOffline = default(bool?), string newDatabaseName = default(string), string newInstanceName = default(string), long? restoreTimeSecs = default(long?), string targetDataFilesDirectory = default(string), string targetLogFilesDirectory = default(string), List<FilenamePatternToDirectory> targetSecondaryDataFilesDirectoryList = default(List<FilenamePatternToDirectory>), string withClause = default(string))
         {
             this.CaptureTailLogs = captureTailLogs;
+            this.IsAutoSyncEnabled = isAutoSyncEnabled;
             this.KeepCdc = keepCdc;
             this.KeepOffline = keepOffline;
             this.NewDatabaseName = newDatabaseName;
@@ -46,6 +48,7 @@ namespace Cohesity.Model
             this.TargetSecondaryDataFilesDirectoryList = targetSecondaryDataFilesDirectoryList;
             this.WithClause = withClause;
             this.CaptureTailLogs = captureTailLogs;
+            this.IsAutoSyncEnabled = isAutoSyncEnabled;
             this.KeepCdc = keepCdc;
             this.KeepOffline = keepOffline;
             this.NewDatabaseName = newDatabaseName;
@@ -63,6 +66,13 @@ namespace Cohesity.Model
         /// <value>Set this to true if tail logs are to be captured before the restore operation. This is only applicable if we are restoring the SQL database to its hosting Protection Source, and the database is not being renamed.</value>
         [DataMember(Name="captureTailLogs", EmitDefaultValue=true)]
         public bool? CaptureTailLogs { get; set; }
+
+        /// <summary>
+        /// This field determines if Auto Sync enabled/disabled for SQL Multi-stage Restore task
+        /// </summary>
+        /// <value>This field determines if Auto Sync enabled/disabled for SQL Multi-stage Restore task</value>
+        [DataMember(Name="isAutoSyncEnabled", EmitDefaultValue=true)]
+        public bool? IsAutoSyncEnabled { get; set; }
 
         /// <summary>
         /// This field prevents \&quot;change data capture\&quot; settings from being reomved when a database or log backup is restored on another server and database is recovered.
@@ -114,9 +124,9 @@ namespace Cohesity.Model
         public string TargetLogFilesDirectory { get; set; }
 
         /// <summary>
-        /// Specifies the secondary data filename pattern and corresponding direcories of the DB. Secondary data files are optional and are user defined. The recommended file extention for secondary files is \&quot;.ndf\&quot;.  If this option is specified and the destination folders do not exist they will be automatically created.
+        /// Specifies the secondary data filename pattern and corresponding directories of the DB. Secondary data files are optional and are user defined. The recommended file extension for secondary files is \&quot;.ndf\&quot;.  If this option is specified and the destination folders do not exist they will be automatically created.
         /// </summary>
-        /// <value>Specifies the secondary data filename pattern and corresponding direcories of the DB. Secondary data files are optional and are user defined. The recommended file extention for secondary files is \&quot;.ndf\&quot;.  If this option is specified and the destination folders do not exist they will be automatically created.</value>
+        /// <value>Specifies the secondary data filename pattern and corresponding directories of the DB. Secondary data files are optional and are user defined. The recommended file extension for secondary files is \&quot;.ndf\&quot;.  If this option is specified and the destination folders do not exist they will be automatically created.</value>
         [DataMember(Name="targetSecondaryDataFilesDirectoryList", EmitDefaultValue=true)]
         public List<FilenamePatternToDirectory> TargetSecondaryDataFilesDirectoryList { get; set; }
 
@@ -167,6 +177,11 @@ namespace Cohesity.Model
                     this.CaptureTailLogs == input.CaptureTailLogs ||
                     (this.CaptureTailLogs != null &&
                     this.CaptureTailLogs.Equals(input.CaptureTailLogs))
+                ) && 
+                (
+                    this.IsAutoSyncEnabled == input.IsAutoSyncEnabled ||
+                    (this.IsAutoSyncEnabled != null &&
+                    this.IsAutoSyncEnabled.Equals(input.IsAutoSyncEnabled))
                 ) && 
                 (
                     this.KeepCdc == input.KeepCdc ||
@@ -227,6 +242,8 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.CaptureTailLogs != null)
                     hashCode = hashCode * 59 + this.CaptureTailLogs.GetHashCode();
+                if (this.IsAutoSyncEnabled != null)
+                    hashCode = hashCode * 59 + this.IsAutoSyncEnabled.GetHashCode();
                 if (this.KeepCdc != null)
                     hashCode = hashCode * 59 + this.KeepCdc.GetHashCode();
                 if (this.KeepOffline != null)

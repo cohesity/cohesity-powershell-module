@@ -25,6 +25,8 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="activeDirectories">Specifies the active directories this tenant is associated to..</param>
         /// <param name="bifrostEnabled">Specifies whether bifrost (Ambassador proxy) is enabled for tenant..</param>
+        /// <param name="clusterHostname">The hostname for Cohesity cluster as seen by tenants and as is routable from the tenant&#39;s network. Tenant&#39;s VLAN&#39;s hostname, if available can be used instead but it is mandatory to provide this value if there&#39;s no VLAN hostname to use. Also, when set, this field would take precedence over VLAN hostname..</param>
+        /// <param name="clusterIps">Set of IPs as seen from the tenant&#39;s network for the Cohesity cluster. Only one from &#39;ClusterHostname&#39; and &#39;ClusterIps&#39; is needed..</param>
         /// <param name="createdTimeMsecs">Specifies the epoch time in milliseconds when the tenant account was created on the Cohesity Cluster..</param>
         /// <param name="deleted">Specifies if the Tenant is deleted..</param>
         /// <param name="deletedTimeMsecs">Specifies the timestamp at which the tenant was deleted..</param>
@@ -40,14 +42,17 @@ namespace Cohesity.Model
         /// <param name="policyIds">Specifies the PolicyIds this tenant is associated to..</param>
         /// <param name="protectionJobs">Specifies the ProtectionJobs this tenant is associated to..</param>
         /// <param name="subscribeToAlertEmails">Service provider can optionally unsubscribe from the Tenant Alert Emails..</param>
+        /// <param name="swiftConfig">swiftConfig.</param>
         /// <param name="tenantId">Specifies the unique id of the tenant..</param>
         /// <param name="viewBoxIds">Specifies the ViewBoxIds this tenant is associated to..</param>
         /// <param name="views">Specifies the Views this tenant is associated to..</param>
         /// <param name="vlanIfaceNames">Specifies the VlanIfaceNames this tenant is associated to, in the format of bond1.200..</param>
-        public Tenant(List<ActiveDirectoryEntry> activeDirectories = default(List<ActiveDirectoryEntry>), bool? bifrostEnabled = default(bool?), long? createdTimeMsecs = default(long?), bool? deleted = default(bool?), long? deletedTimeMsecs = default(long?), bool? deletionFinished = default(bool?), List<TenantDeletionInfo> deletionInfoVec = default(List<TenantDeletionInfo>), string description = default(string), List<long> entityIds = default(List<long>), long? lastUpdatedTimeMsecs = default(long?), List<LdapProviderResponse> ldapProviders = default(List<LdapProviderResponse>), string name = default(string), string orgSuffix = default(string), string parentTenantId = default(string), List<string> policyIds = default(List<string>), List<BackupJobProto> protectionJobs = default(List<BackupJobProto>), bool? subscribeToAlertEmails = default(bool?), string tenantId = default(string), List<long> viewBoxIds = default(List<long>), List<View> views = default(List<View>), List<string> vlanIfaceNames = default(List<string>))
+        public Tenant(List<ActiveDirectoryEntry> activeDirectories = default(List<ActiveDirectoryEntry>), bool? bifrostEnabled = default(bool?), string clusterHostname = default(string), List<string> clusterIps = default(List<string>), long? createdTimeMsecs = default(long?), bool? deleted = default(bool?), long? deletedTimeMsecs = default(long?), bool? deletionFinished = default(bool?), List<TenantDeletionInfo> deletionInfoVec = default(List<TenantDeletionInfo>), string description = default(string), List<long> entityIds = default(List<long>), long? lastUpdatedTimeMsecs = default(long?), List<LdapProviderResponse> ldapProviders = default(List<LdapProviderResponse>), string name = default(string), string orgSuffix = default(string), string parentTenantId = default(string), List<string> policyIds = default(List<string>), List<BackupJobProto> protectionJobs = default(List<BackupJobProto>), bool? subscribeToAlertEmails = default(bool?), SwiftParams swiftConfig = default(SwiftParams), string tenantId = default(string), List<long> viewBoxIds = default(List<long>), List<View> views = default(List<View>), List<string> vlanIfaceNames = default(List<string>))
         {
             this.ActiveDirectories = activeDirectories;
             this.BifrostEnabled = bifrostEnabled;
+            this.ClusterHostname = clusterHostname;
+            this.ClusterIps = clusterIps;
             this.CreatedTimeMsecs = createdTimeMsecs;
             this.Deleted = deleted;
             this.DeletedTimeMsecs = deletedTimeMsecs;
@@ -69,6 +74,8 @@ namespace Cohesity.Model
             this.VlanIfaceNames = vlanIfaceNames;
             this.ActiveDirectories = activeDirectories;
             this.BifrostEnabled = bifrostEnabled;
+            this.ClusterHostname = clusterHostname;
+            this.ClusterIps = clusterIps;
             this.CreatedTimeMsecs = createdTimeMsecs;
             this.Deleted = deleted;
             this.DeletedTimeMsecs = deletedTimeMsecs;
@@ -84,6 +91,7 @@ namespace Cohesity.Model
             this.PolicyIds = policyIds;
             this.ProtectionJobs = protectionJobs;
             this.SubscribeToAlertEmails = subscribeToAlertEmails;
+            this.SwiftConfig = swiftConfig;
             this.TenantId = tenantId;
             this.ViewBoxIds = viewBoxIds;
             this.Views = views;
@@ -103,6 +111,20 @@ namespace Cohesity.Model
         /// <value>Specifies whether bifrost (Ambassador proxy) is enabled for tenant.</value>
         [DataMember(Name="bifrostEnabled", EmitDefaultValue=true)]
         public bool? BifrostEnabled { get; set; }
+
+        /// <summary>
+        /// The hostname for Cohesity cluster as seen by tenants and as is routable from the tenant&#39;s network. Tenant&#39;s VLAN&#39;s hostname, if available can be used instead but it is mandatory to provide this value if there&#39;s no VLAN hostname to use. Also, when set, this field would take precedence over VLAN hostname.
+        /// </summary>
+        /// <value>The hostname for Cohesity cluster as seen by tenants and as is routable from the tenant&#39;s network. Tenant&#39;s VLAN&#39;s hostname, if available can be used instead but it is mandatory to provide this value if there&#39;s no VLAN hostname to use. Also, when set, this field would take precedence over VLAN hostname.</value>
+        [DataMember(Name="clusterHostname", EmitDefaultValue=true)]
+        public string ClusterHostname { get; set; }
+
+        /// <summary>
+        /// Set of IPs as seen from the tenant&#39;s network for the Cohesity cluster. Only one from &#39;ClusterHostname&#39; and &#39;ClusterIps&#39; is needed.
+        /// </summary>
+        /// <value>Set of IPs as seen from the tenant&#39;s network for the Cohesity cluster. Only one from &#39;ClusterHostname&#39; and &#39;ClusterIps&#39; is needed.</value>
+        [DataMember(Name="clusterIps", EmitDefaultValue=true)]
+        public List<string> ClusterIps { get; set; }
 
         /// <summary>
         /// Specifies the epoch time in milliseconds when the tenant account was created on the Cohesity Cluster.
@@ -210,6 +232,12 @@ namespace Cohesity.Model
         public bool? SubscribeToAlertEmails { get; set; }
 
         /// <summary>
+        /// Gets or Sets SwiftConfig
+        /// </summary>
+        [DataMember(Name="swiftConfig", EmitDefaultValue=false)]
+        public SwiftParams SwiftConfig { get; set; }
+
+        /// <summary>
         /// Specifies the unique id of the tenant.
         /// </summary>
         /// <value>Specifies the unique id of the tenant.</value>
@@ -283,6 +311,17 @@ namespace Cohesity.Model
                     this.BifrostEnabled == input.BifrostEnabled ||
                     (this.BifrostEnabled != null &&
                     this.BifrostEnabled.Equals(input.BifrostEnabled))
+                ) && 
+                (
+                    this.ClusterHostname == input.ClusterHostname ||
+                    (this.ClusterHostname != null &&
+                    this.ClusterHostname.Equals(input.ClusterHostname))
+                ) && 
+                (
+                    this.ClusterIps == input.ClusterIps ||
+                    this.ClusterIps != null &&
+                    input.ClusterIps != null &&
+                    this.ClusterIps.SequenceEqual(input.ClusterIps)
                 ) && 
                 (
                     this.CreatedTimeMsecs == input.CreatedTimeMsecs ||
@@ -365,6 +404,11 @@ namespace Cohesity.Model
                     this.SubscribeToAlertEmails.Equals(input.SubscribeToAlertEmails))
                 ) && 
                 (
+                    this.SwiftConfig == input.SwiftConfig ||
+                    (this.SwiftConfig != null &&
+                    this.SwiftConfig.Equals(input.SwiftConfig))
+                ) && 
+                (
                     this.TenantId == input.TenantId ||
                     (this.TenantId != null &&
                     this.TenantId.Equals(input.TenantId))
@@ -402,6 +446,10 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ActiveDirectories.GetHashCode();
                 if (this.BifrostEnabled != null)
                     hashCode = hashCode * 59 + this.BifrostEnabled.GetHashCode();
+                if (this.ClusterHostname != null)
+                    hashCode = hashCode * 59 + this.ClusterHostname.GetHashCode();
+                if (this.ClusterIps != null)
+                    hashCode = hashCode * 59 + this.ClusterIps.GetHashCode();
                 if (this.CreatedTimeMsecs != null)
                     hashCode = hashCode * 59 + this.CreatedTimeMsecs.GetHashCode();
                 if (this.Deleted != null)
@@ -432,6 +480,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ProtectionJobs.GetHashCode();
                 if (this.SubscribeToAlertEmails != null)
                     hashCode = hashCode * 59 + this.SubscribeToAlertEmails.GetHashCode();
+                if (this.SwiftConfig != null)
+                    hashCode = hashCode * 59 + this.SwiftConfig.GetHashCode();
                 if (this.TenantId != null)
                     hashCode = hashCode * 59 + this.TenantId.GetHashCode();
                 if (this.ViewBoxIds != null)

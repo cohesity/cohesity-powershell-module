@@ -24,12 +24,15 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="FileSearchResults" /> class.
         /// </summary>
         /// <param name="files">Array of Files and Folders.  Specifies the list of files and folders returned by this request that match the specified search and filter criteria. The number of files returned is limited by the pageCount field..</param>
+        /// <param name="paginationCookie">Specifies cookie for resuming search if pagination is being used. For Librarian queries only..</param>
         /// <param name="totalCount">Specifies the total number of files and folders that match the filter and search criteria. Use this value to determine how many additional requests are required to get the full result..</param>
-        public FileSearchResults(List<FileSearchResult> files = default(List<FileSearchResult>), long? totalCount = default(long?))
+        public FileSearchResults(List<FileSearchResult> files = default(List<FileSearchResult>), string paginationCookie = default(string), long? totalCount = default(long?))
         {
             this.Files = files;
+            this.PaginationCookie = paginationCookie;
             this.TotalCount = totalCount;
             this.Files = files;
+            this.PaginationCookie = paginationCookie;
             this.TotalCount = totalCount;
         }
         
@@ -39,6 +42,13 @@ namespace Cohesity.Model
         /// <value>Array of Files and Folders.  Specifies the list of files and folders returned by this request that match the specified search and filter criteria. The number of files returned is limited by the pageCount field.</value>
         [DataMember(Name="files", EmitDefaultValue=true)]
         public List<FileSearchResult> Files { get; set; }
+
+        /// <summary>
+        /// Specifies cookie for resuming search if pagination is being used. For Librarian queries only.
+        /// </summary>
+        /// <value>Specifies cookie for resuming search if pagination is being used. For Librarian queries only.</value>
+        [DataMember(Name="paginationCookie", EmitDefaultValue=true)]
+        public string PaginationCookie { get; set; }
 
         /// <summary>
         /// Specifies the total number of files and folders that match the filter and search criteria. Use this value to determine how many additional requests are required to get the full result.
@@ -90,6 +100,11 @@ namespace Cohesity.Model
                     this.Files.SequenceEqual(input.Files)
                 ) && 
                 (
+                    this.PaginationCookie == input.PaginationCookie ||
+                    (this.PaginationCookie != null &&
+                    this.PaginationCookie.Equals(input.PaginationCookie))
+                ) && 
+                (
                     this.TotalCount == input.TotalCount ||
                     (this.TotalCount != null &&
                     this.TotalCount.Equals(input.TotalCount))
@@ -107,6 +122,8 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.Files != null)
                     hashCode = hashCode * 59 + this.Files.GetHashCode();
+                if (this.PaginationCookie != null)
+                    hashCode = hashCode * 59 + this.PaginationCookie.GetHashCode();
                 if (this.TotalCount != null)
                     hashCode = hashCode * 59 + this.TotalCount.GetHashCode();
                 return hashCode;

@@ -24,7 +24,7 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="ActivateViewAliasesResult" /> class.
         /// </summary>
         /// <param name="aliases">Aliases created for the view. A view alias allows a directory path inside a view to be mounted using the alias name..</param>
-        public ActivateViewAliasesResult(List<ViewAliasInfo> aliases = default(List<ViewAliasInfo>))
+        public ActivateViewAliasesResult(List<ViewAlias> aliases = default(List<ViewAlias>))
         {
             this.Aliases = aliases;
             this.Aliases = aliases;
@@ -35,7 +35,7 @@ namespace Cohesity.Model
         /// </summary>
         /// <value>Aliases created for the view. A view alias allows a directory path inside a view to be mounted using the alias name.</value>
         [DataMember(Name="aliases", EmitDefaultValue=true)]
-        public List<ViewAliasInfo> Aliases { get; set; }
+        public List<ViewAlias> Aliases { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object

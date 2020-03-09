@@ -24,18 +24,24 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="DeviceTree" /> class.
         /// </summary>
         /// <param name="childVec">childVec.</param>
+        /// <param name="deviceId">Internal device identifier of the device to be activated as a thin volume..</param>
         /// <param name="deviceLength">The length of this device. This should match the length which is computable based on children and combining strategy.  e.g. if there is only one partition slice in an LVM volume, &#39;length&#39; in the partition slice is equal to &#39;device_length&#39;..</param>
         /// <param name="stripeSize">In case data is striped, this represents the length of the stripe. The number of stripes is defined by the size of child_vec above..</param>
+        /// <param name="thinPoolChunkSize">Chunk size. Only populated if device type is thin pool..</param>
         /// <param name="type">How to combine the children..</param>
-        public DeviceTree(List<DeviceTreeChildDevice> childVec = default(List<DeviceTreeChildDevice>), long? deviceLength = default(long?), int? stripeSize = default(int?), int? type = default(int?))
+        public DeviceTree(List<DeviceTreeChildDevice> childVec = default(List<DeviceTreeChildDevice>), long? deviceId = default(long?), long? deviceLength = default(long?), int? stripeSize = default(int?), long? thinPoolChunkSize = default(long?), int? type = default(int?))
         {
             this.ChildVec = childVec;
+            this.DeviceId = deviceId;
             this.DeviceLength = deviceLength;
             this.StripeSize = stripeSize;
+            this.ThinPoolChunkSize = thinPoolChunkSize;
             this.Type = type;
             this.ChildVec = childVec;
+            this.DeviceId = deviceId;
             this.DeviceLength = deviceLength;
             this.StripeSize = stripeSize;
+            this.ThinPoolChunkSize = thinPoolChunkSize;
             this.Type = type;
         }
         
@@ -44,6 +50,13 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="childVec", EmitDefaultValue=true)]
         public List<DeviceTreeChildDevice> ChildVec { get; set; }
+
+        /// <summary>
+        /// Internal device identifier of the device to be activated as a thin volume.
+        /// </summary>
+        /// <value>Internal device identifier of the device to be activated as a thin volume.</value>
+        [DataMember(Name="deviceId", EmitDefaultValue=true)]
+        public long? DeviceId { get; set; }
 
         /// <summary>
         /// The length of this device. This should match the length which is computable based on children and combining strategy.  e.g. if there is only one partition slice in an LVM volume, &#39;length&#39; in the partition slice is equal to &#39;device_length&#39;.
@@ -58,6 +71,13 @@ namespace Cohesity.Model
         /// <value>In case data is striped, this represents the length of the stripe. The number of stripes is defined by the size of child_vec above.</value>
         [DataMember(Name="stripeSize", EmitDefaultValue=true)]
         public int? StripeSize { get; set; }
+
+        /// <summary>
+        /// Chunk size. Only populated if device type is thin pool.
+        /// </summary>
+        /// <value>Chunk size. Only populated if device type is thin pool.</value>
+        [DataMember(Name="thinPoolChunkSize", EmitDefaultValue=true)]
+        public long? ThinPoolChunkSize { get; set; }
 
         /// <summary>
         /// How to combine the children.
@@ -109,6 +129,11 @@ namespace Cohesity.Model
                     this.ChildVec.SequenceEqual(input.ChildVec)
                 ) && 
                 (
+                    this.DeviceId == input.DeviceId ||
+                    (this.DeviceId != null &&
+                    this.DeviceId.Equals(input.DeviceId))
+                ) && 
+                (
                     this.DeviceLength == input.DeviceLength ||
                     (this.DeviceLength != null &&
                     this.DeviceLength.Equals(input.DeviceLength))
@@ -117,6 +142,11 @@ namespace Cohesity.Model
                     this.StripeSize == input.StripeSize ||
                     (this.StripeSize != null &&
                     this.StripeSize.Equals(input.StripeSize))
+                ) && 
+                (
+                    this.ThinPoolChunkSize == input.ThinPoolChunkSize ||
+                    (this.ThinPoolChunkSize != null &&
+                    this.ThinPoolChunkSize.Equals(input.ThinPoolChunkSize))
                 ) && 
                 (
                     this.Type == input.Type ||
@@ -136,10 +166,14 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.ChildVec != null)
                     hashCode = hashCode * 59 + this.ChildVec.GetHashCode();
+                if (this.DeviceId != null)
+                    hashCode = hashCode * 59 + this.DeviceId.GetHashCode();
                 if (this.DeviceLength != null)
                     hashCode = hashCode * 59 + this.DeviceLength.GetHashCode();
                 if (this.StripeSize != null)
                     hashCode = hashCode * 59 + this.StripeSize.GetHashCode();
+                if (this.ThinPoolChunkSize != null)
+                    hashCode = hashCode * 59 + this.ThinPoolChunkSize.GetHashCode();
                 if (this.Type != null)
                     hashCode = hashCode * 59 + this.Type.GetHashCode();
                 return hashCode;

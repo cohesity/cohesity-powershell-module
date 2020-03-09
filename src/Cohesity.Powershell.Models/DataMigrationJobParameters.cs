@@ -21,9 +21,9 @@ namespace Cohesity.Model
     public partial class DataMigrationJobParameters :  IEquatable<DataMigrationJobParameters>
     {
         /// <summary>
-        /// Specifies policy to select a file to migrate based on its creation, last access or modification time. eg. A file can be selected to migrate if it has not been accessed/modified in the ColdFileWindow. enum: kOlderThan, kLastAccessed, kLastModified. Specifies policy for file seletion in data migration jobs based on time. &#39;kOlderThan&#39;: Migrate the files that are older than cold file window. &#39;kLastAccessed&#39;: Migrate the files thar are not accessed in cold file window. &#39;kLastModified&#39;: Migrate the files that have not been modified in cold file window.
+        /// Specifies policy to select a file to migrate based on its creation, last access or modification time. eg. A file can be selected to migrate if it has not been accessed/modified in the ColdFileWindow. enum: kOlderThan, kLastAccessed, kLastModified. Specifies policy for file selection in data migration jobs based on time. &#39;kOlderThan&#39;: Migrate the files that are older than cold file window. &#39;kLastAccessed&#39;: Migrate the files that are not accessed in cold file window. &#39;kLastModified&#39;: Migrate the files that have not been modified in cold file window.
         /// </summary>
-        /// <value>Specifies policy to select a file to migrate based on its creation, last access or modification time. eg. A file can be selected to migrate if it has not been accessed/modified in the ColdFileWindow. enum: kOlderThan, kLastAccessed, kLastModified. Specifies policy for file seletion in data migration jobs based on time. &#39;kOlderThan&#39;: Migrate the files that are older than cold file window. &#39;kLastAccessed&#39;: Migrate the files thar are not accessed in cold file window. &#39;kLastModified&#39;: Migrate the files that have not been modified in cold file window.</value>
+        /// <value>Specifies policy to select a file to migrate based on its creation, last access or modification time. eg. A file can be selected to migrate if it has not been accessed/modified in the ColdFileWindow. enum: kOlderThan, kLastAccessed, kLastModified. Specifies policy for file selection in data migration jobs based on time. &#39;kOlderThan&#39;: Migrate the files that are older than cold file window. &#39;kLastAccessed&#39;: Migrate the files that are not accessed in cold file window. &#39;kLastModified&#39;: Migrate the files that have not been modified in cold file window.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum FileSelectionPolicyEnum
         {
@@ -48,15 +48,15 @@ namespace Cohesity.Model
         }
 
         /// <summary>
-        /// Specifies policy to select a file to migrate based on its creation, last access or modification time. eg. A file can be selected to migrate if it has not been accessed/modified in the ColdFileWindow. enum: kOlderThan, kLastAccessed, kLastModified. Specifies policy for file seletion in data migration jobs based on time. &#39;kOlderThan&#39;: Migrate the files that are older than cold file window. &#39;kLastAccessed&#39;: Migrate the files thar are not accessed in cold file window. &#39;kLastModified&#39;: Migrate the files that have not been modified in cold file window.
+        /// Specifies policy to select a file to migrate based on its creation, last access or modification time. eg. A file can be selected to migrate if it has not been accessed/modified in the ColdFileWindow. enum: kOlderThan, kLastAccessed, kLastModified. Specifies policy for file selection in data migration jobs based on time. &#39;kOlderThan&#39;: Migrate the files that are older than cold file window. &#39;kLastAccessed&#39;: Migrate the files that are not accessed in cold file window. &#39;kLastModified&#39;: Migrate the files that have not been modified in cold file window.
         /// </summary>
-        /// <value>Specifies policy to select a file to migrate based on its creation, last access or modification time. eg. A file can be selected to migrate if it has not been accessed/modified in the ColdFileWindow. enum: kOlderThan, kLastAccessed, kLastModified. Specifies policy for file seletion in data migration jobs based on time. &#39;kOlderThan&#39;: Migrate the files that are older than cold file window. &#39;kLastAccessed&#39;: Migrate the files thar are not accessed in cold file window. &#39;kLastModified&#39;: Migrate the files that have not been modified in cold file window.</value>
+        /// <value>Specifies policy to select a file to migrate based on its creation, last access or modification time. eg. A file can be selected to migrate if it has not been accessed/modified in the ColdFileWindow. enum: kOlderThan, kLastAccessed, kLastModified. Specifies policy for file selection in data migration jobs based on time. &#39;kOlderThan&#39;: Migrate the files that are older than cold file window. &#39;kLastAccessed&#39;: Migrate the files that are not accessed in cold file window. &#39;kLastModified&#39;: Migrate the files that have not been modified in cold file window.</value>
         [DataMember(Name="fileSelectionPolicy", EmitDefaultValue=true)]
         public FileSelectionPolicyEnum? FileSelectionPolicy { get; set; }
         /// <summary>
-        /// Specifies policy to select a file to migrate based on its size. eg. A file can be selected to migrate if its size is greater than or smaller than the FileSizeBytes. enum: kGreaterThan, kSmallerThan. Specifies policy for file seletion in data migration jobs based on file size. &#39;kGreaterThan&#39;: Migrate the files whose size are greater than specified file size. &#39;kSmallerThan&#39;: Migrate the files whose size are smaller than specified file size.
+        /// Specifies policy to select a file to migrate based on its size. eg. A file can be selected to migrate if its size is greater than or smaller than the FileSizeBytes. enum: kGreaterThan, kSmallerThan. Specifies policy for file selection in data migration jobs based on file size. &#39;kGreaterThan&#39;: Migrate the files whose size are greater than specified file size. &#39;kSmallerThan&#39;: Migrate the files whose size are smaller than specified file size.
         /// </summary>
-        /// <value>Specifies policy to select a file to migrate based on its size. eg. A file can be selected to migrate if its size is greater than or smaller than the FileSizeBytes. enum: kGreaterThan, kSmallerThan. Specifies policy for file seletion in data migration jobs based on file size. &#39;kGreaterThan&#39;: Migrate the files whose size are greater than specified file size. &#39;kSmallerThan&#39;: Migrate the files whose size are smaller than specified file size.</value>
+        /// <value>Specifies policy to select a file to migrate based on its size. eg. A file can be selected to migrate if its size is greater than or smaller than the FileSizeBytes. enum: kGreaterThan, kSmallerThan. Specifies policy for file selection in data migration jobs based on file size. &#39;kGreaterThan&#39;: Migrate the files whose size are greater than specified file size. &#39;kSmallerThan&#39;: Migrate the files whose size are smaller than specified file size.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum FileSizePolicyEnum
         {
@@ -75,34 +75,40 @@ namespace Cohesity.Model
         }
 
         /// <summary>
-        /// Specifies policy to select a file to migrate based on its size. eg. A file can be selected to migrate if its size is greater than or smaller than the FileSizeBytes. enum: kGreaterThan, kSmallerThan. Specifies policy for file seletion in data migration jobs based on file size. &#39;kGreaterThan&#39;: Migrate the files whose size are greater than specified file size. &#39;kSmallerThan&#39;: Migrate the files whose size are smaller than specified file size.
+        /// Specifies policy to select a file to migrate based on its size. eg. A file can be selected to migrate if its size is greater than or smaller than the FileSizeBytes. enum: kGreaterThan, kSmallerThan. Specifies policy for file selection in data migration jobs based on file size. &#39;kGreaterThan&#39;: Migrate the files whose size are greater than specified file size. &#39;kSmallerThan&#39;: Migrate the files whose size are smaller than specified file size.
         /// </summary>
-        /// <value>Specifies policy to select a file to migrate based on its size. eg. A file can be selected to migrate if its size is greater than or smaller than the FileSizeBytes. enum: kGreaterThan, kSmallerThan. Specifies policy for file seletion in data migration jobs based on file size. &#39;kGreaterThan&#39;: Migrate the files whose size are greater than specified file size. &#39;kSmallerThan&#39;: Migrate the files whose size are smaller than specified file size.</value>
+        /// <value>Specifies policy to select a file to migrate based on its size. eg. A file can be selected to migrate if its size is greater than or smaller than the FileSizeBytes. enum: kGreaterThan, kSmallerThan. Specifies policy for file selection in data migration jobs based on file size. &#39;kGreaterThan&#39;: Migrate the files whose size are greater than specified file size. &#39;kSmallerThan&#39;: Migrate the files whose size are smaller than specified file size.</value>
         [DataMember(Name="fileSizePolicy", EmitDefaultValue=true)]
         public FileSizePolicyEnum? FileSizePolicy { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="DataMigrationJobParameters" /> class.
         /// </summary>
         /// <param name="coldFileWindow">Identifies the cold files in the NAS source. Files that haven&#39;t been accessed/modified in the last cold_file_window are migrated..</param>
+        /// <param name="deleteOrphanData">Delete migrated data if no symlink at source is pointing to it..</param>
         /// <param name="filePathFilter">filePathFilter.</param>
-        /// <param name="fileSelectionPolicy">Specifies policy to select a file to migrate based on its creation, last access or modification time. eg. A file can be selected to migrate if it has not been accessed/modified in the ColdFileWindow. enum: kOlderThan, kLastAccessed, kLastModified. Specifies policy for file seletion in data migration jobs based on time. &#39;kOlderThan&#39;: Migrate the files that are older than cold file window. &#39;kLastAccessed&#39;: Migrate the files thar are not accessed in cold file window. &#39;kLastModified&#39;: Migrate the files that have not been modified in cold file window..</param>
+        /// <param name="fileSelectionPolicy">Specifies policy to select a file to migrate based on its creation, last access or modification time. eg. A file can be selected to migrate if it has not been accessed/modified in the ColdFileWindow. enum: kOlderThan, kLastAccessed, kLastModified. Specifies policy for file selection in data migration jobs based on time. &#39;kOlderThan&#39;: Migrate the files that are older than cold file window. &#39;kLastAccessed&#39;: Migrate the files that are not accessed in cold file window. &#39;kLastModified&#39;: Migrate the files that have not been modified in cold file window..</param>
         /// <param name="fileSizeBytes">Gives the size criteria to be used for selecting the files to be migrated in bytes. The cold files that are equal and greater than this size are migrated..</param>
-        /// <param name="fileSizePolicy">Specifies policy to select a file to migrate based on its size. eg. A file can be selected to migrate if its size is greater than or smaller than the FileSizeBytes. enum: kGreaterThan, kSmallerThan. Specifies policy for file seletion in data migration jobs based on file size. &#39;kGreaterThan&#39;: Migrate the files whose size are greater than specified file size. &#39;kSmallerThan&#39;: Migrate the files whose size are smaller than specified file size..</param>
+        /// <param name="fileSizePolicy">Specifies policy to select a file to migrate based on its size. eg. A file can be selected to migrate if its size is greater than or smaller than the FileSizeBytes. enum: kGreaterThan, kSmallerThan. Specifies policy for file selection in data migration jobs based on file size. &#39;kGreaterThan&#39;: Migrate the files whose size are greater than specified file size. &#39;kSmallerThan&#39;: Migrate the files whose size are smaller than specified file size..</param>
+        /// <param name="migrateWithoutStub">Specifies if data is to be migrated without stub..</param>
         /// <param name="nfsMountPath">Mount path where the target view must be mounted on all NFS clients for accessing the migrated data..</param>
         /// <param name="targetViewName">The target view name to which the data will be migrated..</param>
-        public DataMigrationJobParameters(long? coldFileWindow = default(long?), FilePathFilter filePathFilter = default(FilePathFilter), FileSelectionPolicyEnum? fileSelectionPolicy = default(FileSelectionPolicyEnum?), long? fileSizeBytes = default(long?), FileSizePolicyEnum? fileSizePolicy = default(FileSizePolicyEnum?), string nfsMountPath = default(string), string targetViewName = default(string))
+        public DataMigrationJobParameters(long? coldFileWindow = default(long?), bool? deleteOrphanData = default(bool?), FilePathFilter filePathFilter = default(FilePathFilter), FileSelectionPolicyEnum? fileSelectionPolicy = default(FileSelectionPolicyEnum?), long? fileSizeBytes = default(long?), FileSizePolicyEnum? fileSizePolicy = default(FileSizePolicyEnum?), bool? migrateWithoutStub = default(bool?), string nfsMountPath = default(string), string targetViewName = default(string))
         {
             this.ColdFileWindow = coldFileWindow;
+            this.DeleteOrphanData = deleteOrphanData;
             this.FileSelectionPolicy = fileSelectionPolicy;
             this.FileSizeBytes = fileSizeBytes;
             this.FileSizePolicy = fileSizePolicy;
+            this.MigrateWithoutStub = migrateWithoutStub;
             this.NfsMountPath = nfsMountPath;
             this.TargetViewName = targetViewName;
             this.ColdFileWindow = coldFileWindow;
+            this.DeleteOrphanData = deleteOrphanData;
             this.FilePathFilter = filePathFilter;
             this.FileSelectionPolicy = fileSelectionPolicy;
             this.FileSizeBytes = fileSizeBytes;
             this.FileSizePolicy = fileSizePolicy;
+            this.MigrateWithoutStub = migrateWithoutStub;
             this.NfsMountPath = nfsMountPath;
             this.TargetViewName = targetViewName;
         }
@@ -113,6 +119,13 @@ namespace Cohesity.Model
         /// <value>Identifies the cold files in the NAS source. Files that haven&#39;t been accessed/modified in the last cold_file_window are migrated.</value>
         [DataMember(Name="coldFileWindow", EmitDefaultValue=true)]
         public long? ColdFileWindow { get; set; }
+
+        /// <summary>
+        /// Delete migrated data if no symlink at source is pointing to it.
+        /// </summary>
+        /// <value>Delete migrated data if no symlink at source is pointing to it.</value>
+        [DataMember(Name="deleteOrphanData", EmitDefaultValue=true)]
+        public bool? DeleteOrphanData { get; set; }
 
         /// <summary>
         /// Gets or Sets FilePathFilter
@@ -126,6 +139,13 @@ namespace Cohesity.Model
         /// <value>Gives the size criteria to be used for selecting the files to be migrated in bytes. The cold files that are equal and greater than this size are migrated.</value>
         [DataMember(Name="fileSizeBytes", EmitDefaultValue=true)]
         public long? FileSizeBytes { get; set; }
+
+        /// <summary>
+        /// Specifies if data is to be migrated without stub.
+        /// </summary>
+        /// <value>Specifies if data is to be migrated without stub.</value>
+        [DataMember(Name="migrateWithoutStub", EmitDefaultValue=true)]
+        public bool? MigrateWithoutStub { get; set; }
 
         /// <summary>
         /// Mount path where the target view must be mounted on all NFS clients for accessing the migrated data.
@@ -183,6 +203,11 @@ namespace Cohesity.Model
                     this.ColdFileWindow.Equals(input.ColdFileWindow))
                 ) && 
                 (
+                    this.DeleteOrphanData == input.DeleteOrphanData ||
+                    (this.DeleteOrphanData != null &&
+                    this.DeleteOrphanData.Equals(input.DeleteOrphanData))
+                ) && 
+                (
                     this.FilePathFilter == input.FilePathFilter ||
                     (this.FilePathFilter != null &&
                     this.FilePathFilter.Equals(input.FilePathFilter))
@@ -199,6 +224,11 @@ namespace Cohesity.Model
                 (
                     this.FileSizePolicy == input.FileSizePolicy ||
                     this.FileSizePolicy.Equals(input.FileSizePolicy)
+                ) && 
+                (
+                    this.MigrateWithoutStub == input.MigrateWithoutStub ||
+                    (this.MigrateWithoutStub != null &&
+                    this.MigrateWithoutStub.Equals(input.MigrateWithoutStub))
                 ) && 
                 (
                     this.NfsMountPath == input.NfsMountPath ||
@@ -223,12 +253,16 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.ColdFileWindow != null)
                     hashCode = hashCode * 59 + this.ColdFileWindow.GetHashCode();
+                if (this.DeleteOrphanData != null)
+                    hashCode = hashCode * 59 + this.DeleteOrphanData.GetHashCode();
                 if (this.FilePathFilter != null)
                     hashCode = hashCode * 59 + this.FilePathFilter.GetHashCode();
                 hashCode = hashCode * 59 + this.FileSelectionPolicy.GetHashCode();
                 if (this.FileSizeBytes != null)
                     hashCode = hashCode * 59 + this.FileSizeBytes.GetHashCode();
                 hashCode = hashCode * 59 + this.FileSizePolicy.GetHashCode();
+                if (this.MigrateWithoutStub != null)
+                    hashCode = hashCode * 59 + this.MigrateWithoutStub.GetHashCode();
                 if (this.NfsMountPath != null)
                     hashCode = hashCode * 59 + this.NfsMountPath.GetHashCode();
                 if (this.TargetViewName != null)
