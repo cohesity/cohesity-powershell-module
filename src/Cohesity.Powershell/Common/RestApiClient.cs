@@ -220,6 +220,63 @@ namespace Cohesity.Powershell.Common
                 return userProfile.AccessToken != null;
             }
         }
+        public bool ShallRefreshToken()
+        {
+            return CmdletConfiguration.Instance.IsRefreshToken;
+        }
+        public bool InitiateTokenRefresh()
+        {
+            var userProfile = userProfileProvider.GetUserProfile();
+            if(null == userProfile)
+            {
+                return false;
+            }
+            Console.WriteLine("The session token has expired, attempting to refresh.");
+            if(null == userProfile.Credentials)
+            {
+                Console.WriteLine("No credentials available to implictly connect the cluster.");
+                return false;
+            }
+            var credentials = new AccessTokenCredential
+            {
+                Domain = userProfile.Credentials.Domain,
+                Username = userProfile.Credentials.Username,
+                Password = userProfile.Credentials.Password
+            };
 
+
+            var httpRequest = new HttpRequestMessage(HttpMethod.Post, "public/accessTokens")
+            {
+                Content = new StringContent(JsonConvert.SerializeObject(credentials), Encoding.UTF8, "application/json")
+            };
+
+            try
+            {
+                var httpClient = BuildClient(userProfile.ClusterUri, true);
+                var response = httpClient.SendAsync(httpRequest).Result;
+                var responseContent = response.Content.ReadAsStringAsync().Result;
+
+                if (response.StatusCode != HttpStatusCode.Created)
+                {
+                    var error = JsonConvert.DeserializeObject<ErrorProto>(responseContent);
+                    StringBuilder sb = new StringBuilder();
+                    sb.AppendLine(error.ErrorMsg);
+                    Console.WriteLine("Exception : Refreshing the token, " + sb.ToString());
+                    return false;
+                }
+
+                var accessToken = JsonConvert.DeserializeObject<AccessToken>(responseContent);
+
+                userProfile.AccessToken = accessToken;
+                userProfileProvider.SetUserProfile(userProfile);
+                Console.WriteLine("The session token has been refreshed.");
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine("Exception : Refreshing the token, " + ex.Message);
+                return false;
+            }
+            return true;
+        }
     }
 }

@@ -97,6 +97,28 @@ function Invoke-RestApi
         $errorMsg = $_.Exception.Message
         Write-Host $errorMsg -ForegroundColor Red
         CSLog -Message $errorMsg -Severity 3
+        # Implementing code review feedback
+        if(401 -eq $Global:CohesityAPIError.StatusCode.Value__) {
+            if($true -eq $Global:CohesityCmdletConfig.RefreshToken) {
+                Write-Host "The session token has expired, attempting to refresh."
+                $cohesitySession = Get-Content -Path $HOME/.cohesity | ConvertFrom-Json
+                if($null -ne $cohesitySession.Credentials) {
+                    $cohesityUrl = $cohesitySession.ClusterUri + "/irisservices/api/v1/public/accessTokens"
+                    $payload = @{
+                        Domain                 = $cohesitySession.Credentials.Domain
+                        Username                   = $cohesitySession.Credentials.Username
+                        Password                   = $cohesitySession.Credentials.Password
+                    }
+                    $payloadJson = $payload | ConvertTo-Json
+                    $headers = @{'Content-Type' = 'application/json'}
+                    $resp = Invoke-RestApi -Method Post -Uri $cohesityUrl -Headers $headers -Body $payloadJson
+                    $cohesitySession.AccessToken = $resp
+                    $content = Set-Content -Path $HOME/.cohesity ($cohesitySession | ConvertTo-Json)
+                    Write-Host "The session token has been refreshed."
+                } else {
+                    Write-Host "No credentials available to implictly connect the cluster."
+                }
+            }
+        }
     }
 }
-
