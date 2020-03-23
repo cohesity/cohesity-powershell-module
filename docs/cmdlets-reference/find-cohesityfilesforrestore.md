@@ -1,3 +1,4 @@
+
 # Find-CohesityFilesForRestore
 
 ## SYNOPSIS
@@ -180,7 +181,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### Cohesity.Model.FileSearchResult
 ## NOTES
 
 ## RELATED LINKS
+

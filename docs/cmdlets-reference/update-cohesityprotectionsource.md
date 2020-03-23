@@ -1,3 +1,4 @@
+
 # Update-CohesityProtectionSource
 
 ## SYNOPSIS
@@ -69,7 +70,6 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ### System.Int64
 Specifies a unique id of the protection source.
 
-### Cohesity.Model.ProtectionSourceNode
 Specifies a protection source object.
 
 ## OUTPUTS
@@ -77,3 +77,4 @@ Specifies a protection source object.
 ## NOTES
 
 ## RELATED LINKS
+

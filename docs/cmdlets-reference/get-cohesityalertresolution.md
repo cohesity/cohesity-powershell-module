@@ -1,3 +1,4 @@
+
 # Get-CohesityAlertResolution
 
 ## SYNOPSIS
@@ -108,7 +109,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### Cohesity.Model.AlertResolution
 ## NOTES
 
 ## RELATED LINKS
+

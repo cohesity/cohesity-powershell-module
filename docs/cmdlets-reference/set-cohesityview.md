@@ -1,3 +1,4 @@
+
 # Set-CohesityView
 
 ## SYNOPSIS
@@ -54,12 +55,11 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### Cohesity.Model.View
 The updated View.
 
 ## OUTPUTS
 
-### Cohesity.Model.View
 ## NOTES
 
 ## RELATED LINKS
+

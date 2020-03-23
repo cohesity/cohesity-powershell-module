@@ -1,3 +1,4 @@
+
 # Register-CohesityProtectionSourceMSSQL
 
 ## SYNOPSIS
@@ -93,7 +94,7 @@ Specifies the Id of the Protection Source that has MS SQL Application Server run
 
 ## OUTPUTS
 
-### Cohesity.Model.ProtectionSource
 ## NOTES
 
 ## RELATED LINKS
+

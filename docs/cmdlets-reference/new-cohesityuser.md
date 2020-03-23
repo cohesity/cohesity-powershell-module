@@ -1,3 +1,4 @@
+
 # New-CohesityUser
 
 ## SYNOPSIS
@@ -154,7 +155,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### Cohesity.Model.User
 ## NOTES
 
 ## RELATED LINKS
+

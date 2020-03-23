@@ -1,3 +1,4 @@
+
 # Get-CohesityProtectionJobRun
 
 ## SYNOPSIS
@@ -232,7 +233,7 @@ If not specified, all job runs for all protection jobs are returned.
 
 ## OUTPUTS
 
-### Cohesity.Model.ProtectionRunInstance
 ## NOTES
 
 ## RELATED LINKS
+

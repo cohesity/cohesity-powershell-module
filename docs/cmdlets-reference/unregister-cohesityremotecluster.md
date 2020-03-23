@@ -1,3 +1,4 @@
+
 # Unregister-CohesityRemoteCluster
 
 ## SYNOPSIS
@@ -67,7 +68,6 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ### System.Int64
 Specifies a unique id of the remote cluster.
 
-### Cohesity.Model.RemoteCluster
 Specifies a remote cluster object.
 
 ## OUTPUTS
@@ -75,3 +75,4 @@ Specifies a remote cluster object.
 ## NOTES
 
 ## RELATED LINKS
+

@@ -1,3 +1,4 @@
+
 # Set-CohesityStorageDomain
 
 ## SYNOPSIS
@@ -43,12 +44,11 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### Cohesity.Model.ViewBox
 The updated StorageDomain.
 
 ## OUTPUTS
 
-### Cohesity.Model.ViewBox
 ## NOTES
 
 ## RELATED LINKS
+

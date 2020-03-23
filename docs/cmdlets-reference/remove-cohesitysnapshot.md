@@ -1,3 +1,4 @@
+
 # Remove-CohesitySnapshot
 
 ## SYNOPSIS
@@ -99,9 +100,9 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### Cohesity.Model.ProtectionRunInstance
 ## OUTPUTS
 
 ## NOTES
 
 ## RELATED LINKS
+

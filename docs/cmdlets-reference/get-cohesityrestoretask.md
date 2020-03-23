@@ -1,3 +1,4 @@
+
 # Get-CohesityRestoreTask
 
 ## SYNOPSIS
@@ -95,7 +96,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### Cohesity.Model.RestoreTask
 ## NOTES
 
 ## RELATED LINKS
+

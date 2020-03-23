@@ -1,3 +1,4 @@
+
 # Find-CohesityObjectsForRestore
 
 ## SYNOPSIS
@@ -147,7 +148,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### Cohesity.Model.ObjectSnapshotInfo
 ## NOTES
 
 ## RELATED LINKS
+
