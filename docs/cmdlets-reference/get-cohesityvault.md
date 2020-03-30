@@ -14,9 +14,9 @@ List the Vaults (External Targets) registered on the Cohesity Cluster filtered b
 ## EXAMPLES
 
 ### EXAMPLE 1
-Get-CohesityVault -VaultName <string>
+Get-CohesityVault -VaultName "nas-archival"
 
-Lists the vault filtered by the vault name. 
+Lists the vault filtered by the vault name.
 
 ## PARAMETERS
 
