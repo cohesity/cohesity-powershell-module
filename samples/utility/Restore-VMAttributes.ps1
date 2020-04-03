@@ -1,7 +1,7 @@
 <#
 
 Restore-VMAttributes - Restores VM custom attributes from a previous backup
-Usage: .\Restore-VMAttributes.ps1 -vcenter 10.2.145.20 -sourcevm win2k16-srv1 -targetvm win2k16-srv2 -credential (Get-Credential) -filepath "c:\out.json" -EnableVerbose
+Usage: .\Restore-VMAttributes.ps1 -vcenter "my.vcenter.com" -sourcevm win2k16-srv1 -targetvm win2k16-srv2 -credential (Get-Credential) -filepath "c:\out.json" -EnableVerbose
 
 #>
 

@@ -1,7 +1,7 @@
 <#
 
 Backup-VMAttributes - Fetches VM custom attributes from vCenter server and stores them to a json file
-Usage: .\Backup-VMAttributes.ps1 -vcenter 10.2.145.20 -vmnames win2k16-srv1,win2k16-srv2,win2k16-srv3 -credential (Get-Credential) -filepath "c:\out.json" -EnableVerbose
+Usage: .\Backup-VMAttributes.ps1 -vcenter "my.vcenter.com" -vmnames win2k16-srv1,win2k16-srv2,win2k16-srv3 -credential (Get-Credential) -filepath "c:\out.json" -EnableVerbose
 
 Assumptions:
 - If "vmnames" is not specified gets all the VMs in vCenter
