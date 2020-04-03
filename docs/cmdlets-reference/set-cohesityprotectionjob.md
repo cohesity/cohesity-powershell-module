@@ -1,3 +1,4 @@
+
 # Set-CohesityProtectionJob
 
 ## SYNOPSIS
@@ -43,12 +44,11 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### Cohesity.Model.ProtectionJob
 The updated protection job.
 
 ## OUTPUTS
 
-### Cohesity.Model.ProtectionJob
 ## NOTES
 
 ## RELATED LINKS
+

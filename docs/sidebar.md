@@ -39,6 +39,7 @@
 - [Get-CohesityClusterConfiguration](cmdlets-reference/get-cohesityclusterconfiguration.md)
 - [Set-CohesityClusterConfiguration](cmdlets-reference/set-cohesityclusterconfiguration.md)
 - [Get-CohesityStorageDomain](cmdlets-reference/get-cohesitystoragedomain.md)
+- [New-CohesityStorageDomain](cmdlets-reference/new-cohesitystoragedomain.md)
 - [Set-CohesityStorageDomain](cmdlets-reference/set-cohesitystoragedomain.md)
 
 
@@ -72,6 +73,7 @@
 - [Get-CohesityVMwareVM](cmdlets-reference/get-cohesityvmwarevm.md)
 - [Get-CohesityMSSQLObject](cmdlets-reference/get-cohesitymssqlobject.md)
 - [Get-CohesityProtectionPolicy](cmdlets-reference/get-cohesityprotectionpolicy.md)
+- [New-CohesityProtectionPolicy](cmdlets-reference/new-cohesityprotectionpolicy.md)
 - [Set-CohesityProtectionPolicy](cmdlets-reference/set-cohesityprotectionpolicy.md)
 - [Remove-CohesityProtectionPolicy](cmdlets-reference/remove-cohesityprotectionpolicy.md)
 - [New-CohesityHypervProtectionJob](cmdlets-reference/new-cohesityhypervprotectionjob.md)
@@ -109,6 +111,7 @@
 - [Restore-CohesityFile](cmdlets-reference/restore-cohesityfile.md)
 - [Get-CohesityRestoreTask](cmdlets-reference/get-cohesityrestoretask.md)
 - [Stop-CohesityRestoreTask](cmdlets-reference/stop-cohesityrestoretask.md)
+- [Save-CohesityFile](cmdlets-reference/save-cohesityfile.md)
 
 
 - **Instant Volume Mount**
@@ -123,12 +126,43 @@
 - [Remove-CohesityClone](cmdlets-reference/remove-cohesityclone.md)
 
 
+- **Tenant**
+- [Get-CohesityOrganisation](cmdlets-reference/get-cohesityorganisation.md)
+
+
+- **Routes**
+- [Get-CohesityRoutes](cmdlets-reference/get-cohesityroutes.md)
+- [New-CohesityRoutes](cmdlets-reference/new-cohesityroutes.md)
+- [Remove-CohesityRoutes](cmdlets-reference/remove-cohesityroutes.md)
+
+
 - **Remote Cluster**
 - [Register-CohesityRemoteCluster](cmdlets-reference/register-cohesityremotecluster.md)
 - [Unregister-CohesityRemoteCluster](cmdlets-reference/unregister-cohesityremotecluster.md)
 - [Get-CohesityRemoteCluster](cmdlets-reference/get-cohesityremotecluster.md)
 - [Set-CohesityRemoteCluster](cmdlets-reference/set-cohesityremotecluster.md)
 - [New-CohesityReplicationEncryptionKey](cmdlets-reference/new-cohesityreplicationencryptionkey.md)
+
+
+**Interface Group**
+- [Get-CohesityInterfaceGroup](cmdlets-reference/get-cohesityinterfacegroup.md)
+
+
+- **Vaults**
+- [Get-CohesityVault](cmdlets-reference/get-cohesityvault.md)
+
+
+- **Vlan**
+- [Get-CohesityVlan](cmdlets-reference/get-cohesityvlan.md)
+- [New-CohesityVlan](cmdlets-reference/new-cohesityvlan.md)
+- [Update-CohesityVlan](cmdlets-reference/update-cohesityvlan.md)
+- [Remove-CohesityVlan](cmdlets-reference/remove-cohesityvlan.md)
+
+
+- **Virtual IP**
+- [Get-CohesityVirtualIP](cmdlets-reference/get-cohesityvirtualip.md)
+- [New-CohesityVirtualIP](cmdlets-reference/new-cohesityvirtualip.md)
+- [Remove-CohesityVirtualIP](cmdlets-reference/remove-cohesityvirtualip.md)
 
 
 - **Agents**

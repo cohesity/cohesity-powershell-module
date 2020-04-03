@@ -1,3 +1,4 @@
+
 # Get-CohesityStorageDomain
 
 ## SYNOPSIS
@@ -94,7 +95,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### Cohesity.Model.ViewBox
 ## NOTES
 
 ## RELATED LINKS
+

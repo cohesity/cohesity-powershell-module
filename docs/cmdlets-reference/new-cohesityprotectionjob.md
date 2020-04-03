@@ -1,3 +1,4 @@
+
 # New-CohesityProtectionJob
 
 ## SYNOPSIS
@@ -325,7 +326,7 @@ Specifies the unique id of the protection source objects (such as a virtual mach
 
 ## OUTPUTS
 
-### Cohesity.Model.ProtectionJob
 ## NOTES
 
 ## RELATED LINKS
+

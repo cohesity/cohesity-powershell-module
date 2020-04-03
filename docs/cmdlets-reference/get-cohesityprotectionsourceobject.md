@@ -1,3 +1,4 @@
+
 # Get-CohesityProtectionSourceObject
 
 ## SYNOPSIS
@@ -138,7 +139,7 @@ Returns only the object specified by the id.
 
 ## OUTPUTS
 
-### Cohesity.Model.ProtectionSource
 ## NOTES
 
 ## RELATED LINKS
+

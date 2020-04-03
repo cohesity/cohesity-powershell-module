@@ -1,3 +1,4 @@
+
 # Register-CohesityProtectionSourceIsilon
 
 ## SYNOPSIS
@@ -60,7 +61,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### Cohesity.Model.ProtectionSource
 ## NOTES
 
 ## RELATED LINKS
+

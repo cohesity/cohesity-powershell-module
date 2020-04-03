@@ -1,3 +1,4 @@
+
 # Get-CohesityProtectionJob
 
 ## SYNOPSIS
@@ -157,7 +158,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### Cohesity.Model.ProtectionJob
 ## NOTES
 
 ## RELATED LINKS
+

@@ -1,3 +1,4 @@
+
 # Get-CohesityRole
 
 ## SYNOPSIS
@@ -52,7 +53,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### Cohesity.Model.Role
 ## NOTES
 
 ## RELATED LINKS
+

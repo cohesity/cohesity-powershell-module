@@ -1,3 +1,4 @@
+
 # Set-CohesityProtectionPolicy
 
 ## SYNOPSIS
@@ -43,12 +44,11 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### Cohesity.Model.ProtectionPolicy
 The updated Protection Policy object.
 
 ## OUTPUTS
 
-### Cohesity.Model.ProtectionPolicy
 ## NOTES
 
 ## RELATED LINKS
+
