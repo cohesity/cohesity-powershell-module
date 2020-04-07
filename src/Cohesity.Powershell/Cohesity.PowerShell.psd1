@@ -66,6 +66,7 @@ NestedModules = @('Cohesity.PowerShell.psm1')
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
 FunctionsToExport = @(
+                      'Copy-CohesityView',
                       'Get-CohesityActiveDirectory',
                       'Get-CohesityCmdletConfig',
                       'Get-CohesityInterfaceGroup',
@@ -107,7 +108,6 @@ CmdletsToExport = @('Add-CohesityViewShare',
                     'Convert-CohesityDateTimeToUsecs'
                     'Convert-CohesityUsecsToDateTime',
                     'Copy-CohesityMSSQLObject',
-                    'Copy-CohesityView',
                     'Copy-CohesityVMwareVM',
                     'Disable-CohesityProtectionJob',
                     'Disconnect-CohesityCluster',
