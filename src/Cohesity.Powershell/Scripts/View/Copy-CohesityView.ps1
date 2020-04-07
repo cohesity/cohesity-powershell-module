@@ -33,10 +33,10 @@ function Copy-CohesityView {
         [string]$QoSPolicy = "Backup Target Low",
         [Parameter(Mandatory = $false)]
         [ValidateNotNullOrEmpty()]
-        [long]$JobRunId = $null,
+        [long]$JobRunId = 0,
         [Parameter(Mandatory = $false)]
         [ValidateNotNullOrEmpty()]
-        [long]$StartTime = $null
+        [long]$StartTime = 0
     )
     Begin {
         if (-not (Test-Path -Path "$HOME/.cohesity")) {
@@ -82,8 +82,12 @@ function Copy-CohesityView {
             $cloneObject = @{
                 jobId              = $JobId
                 protectionSourceId = $sourceView.ViewProtection.MagnetoEntityId
-                # jobRunId           = $JobRunId
-                # startedTimeUsecs   = $StartTime
+            }
+            if($JobRunId -gt 0) {
+                $cloneObject | Add-Member -MemberType NoteProperty -Name jobRunId -Value $JobRunId
+            } 
+            if($StartTime -gt 0) {
+                $cloneObject | Add-Member -MemberType NoteProperty -Name startedTimeUsecs -Value $StartTime
             }
             $cloneObjects = @()
             $cloneObjects += $cloneObject
@@ -97,10 +101,10 @@ function Copy-CohesityView {
 
 
             $payload = $cloneRequest
-              
+
             $payloadJson = $payload | ConvertTo-Json -Depth 100
             Write-Host $payloadJson
-            $resp = Invoke-RestApi -Method Put -Uri $cohesityClusterURL -Headers $cohesityHeaders -Body $payloadJson
+            $resp = Invoke-RestApi -Method Post -Uri $cohesityClusterURL -Headers $cohesityHeaders -Body $payloadJson
             if ($resp) {
                 $resp
             }
