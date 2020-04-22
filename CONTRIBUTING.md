@@ -9,7 +9,6 @@ today! As a contributor, here are the guidelines we would like you to follow:
  - [Feature Requests](#feature)
  - [Request more examples](#example)
  - [Submission Guidelines](#submit)
- - [Commit Message Guidelines](#commit)
  - [Contributions Under Repository License](#cla) 
 
 ## <a name="coc"></a> Code of Conduct
