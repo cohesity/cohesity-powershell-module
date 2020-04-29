@@ -10,8 +10,10 @@ function Copy-CohesityView {
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
         Copy-CohesityView -TaskName "Task-clone-a-view" -SourceViewName "source-view" -TargetViewName "target-view" -TargetViewDescription "Create a view clone" -QosPolicy "Backup Target Low" -JobId 12345
+        .EXAMPLE
+        Copy-CohesityView -TaskName "Task-clone-a-view" -SourceViewName "source-view" -TargetViewName "target-view" -TargetViewDescription "Create a view clone" -JobId 17955 -JobRunId 17956 -StartTime 1582878606980416
     #>
-    [CmdletBinding()]
+    [CmdletBinding(DefaultParameterSetName="Default")]
     param(
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
@@ -31,10 +33,10 @@ function Copy-CohesityView {
         [Parameter(Mandatory = $false)]
         [ValidateNotNullOrEmpty()]
         [string]$QoSPolicy = "Backup Target Low",
-        [Parameter(Mandatory = $false)]
+        [Parameter(Mandatory = $true, ParameterSetName="JobRunSpecific")]
         [ValidateNotNullOrEmpty()]
         [long]$JobRunId = 0,
-        [Parameter(Mandatory = $false)]
+        [Parameter(Mandatory = $true, ParameterSetName="JobRunSpecific")]
         [ValidateNotNullOrEmpty()]
         [long]$StartTime = 0
     )
@@ -75,19 +77,19 @@ function Copy-CohesityView {
                 cloneViewName = $TargetViewName
                 description    = $TargetViewDescription
                 qos            = @{
-                    principalName = $QoSPolicy 
+                    principalName = $QoSPolicy
                 }
             }
-            
             $cloneObject = @{
                 jobId              = $JobId
                 protectionSourceId = $sourceView.ViewProtection.MagnetoEntityId
             }
+            
             if($JobRunId -gt 0) {
-                $cloneObject | Add-Member -MemberType NoteProperty -Name jobRunId -Value $JobRunId
-            } 
+                $cloneObject.Add("jobRunId",$JobRunId)
+            }
             if($StartTime -gt 0) {
-                $cloneObject | Add-Member -MemberType NoteProperty -Name startedTimeUsecs -Value $StartTime
+                $cloneObject.Add("startedTimeUsecs",$StartTime)
             }
             $cloneObjects = @()
             $cloneObjects += $cloneObject
