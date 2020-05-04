@@ -15,9 +15,6 @@ param(
     [string]$mdfFolder,
     [Parameter()]
     [ValidateNotNullOrEmpty()]
-    [string]$sourceServer,
-    [Parameter()]
-    [ValidateNotNullOrEmpty()]
     [string]$sourceInstance,
     [Parameter()]
     [ValidateNotNullOrEmpty()]
@@ -33,19 +30,33 @@ Begin {
 Process {
     switch ($restoreType) {
         "RESTORE-LOCAL" {
-            if($sourceServer -and $sourceInstance -and $sourceDB) {
+            $selectedDBs = $null
+            if($sourceInstance -and $sourceDB) {
                 # Standalone processing individual database
-                .\parallel-process-mssql-objects.ps1 -vip $vip -username $username  -overWrite:$true -wait:$true -progress:$true `
-                -sourceServer $sourceServer -sourceInstance  $sourceInstance -sourceDB $sourceDB 
-            } elseif ($sourceServer -and $sourceInstance) {
+                $searchedDBs  =.\searchDB.ps1 -vip $vip -username admin -jobName $jobName
+                $selectedDBs = $searchedDBs | Where-Object{$_.sqlProtectionSource.name -eq $sourceInstance -and $_.sqlProtectionSource.databaseName -eq $sourceDB}
+                if($null -eq $selectedDBs) {
+                    write-host "Database not found $sourceInstance/$sourceDB" -ForegroundColor Red
+                    exit 0
+                }
+            } elseif ($sourceInstance) {
                 # Standalone parallel processing all databases inside a single instance
-                .\parallel-process-mssql-objects.ps1 -vip $vip -username $username  -overWrite:$true -wait:$true -progress:$true `
-                -sourceServer $sourceServer -sourceInstance  $sourceInstance
+                $searchedDBs  =.\searchDB.ps1 -vip $vip -username admin -jobName $jobName
+                $selectedDBs = $searchedDBs | Where-Object{$_.sqlProtectionSource.name -eq $sourceInstance}
+                if($null -eq $selectedDBs) {
+                    write-host "Instance not found $sourceInstance" -ForegroundColor Red
+                    exit 0
+                }
             } else {
                 # Piped selection of db and parallel processing of selected dbs
-                .\searchDB.ps1 -vip $vip -username $username -jobName  $jobName | Out-GridView -PassThru | `
-                .\parallel-process-mssql-objects.ps1 -vip $vip -username $username  -overWrite:$true -wait:$true -progress:$true
+                $selectedDBs = .\searchDB.ps1 -vip $vip -username $username -jobName  $jobName | Out-GridView -PassThru
+                if($null -eq $selectedDBs) {
+                    write-host "Databases not selected" -ForegroundColor Red
+                    exit 0
+                }
             }
+            $selectedDBs | .\parallel-process-mssql-objects.ps1 -vip $vip -username $username  -overWrite:$true -wait:$true -progress:$true
+            break
         }
         "RESTORE-REMOTE" {
             if ($targetServer) {
@@ -56,6 +67,7 @@ Process {
             } else {
                 write-host "Please provide target server info"
             }
+            break
         }
     }
 }

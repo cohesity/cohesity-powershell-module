@@ -1,8 +1,8 @@
  # Standalone processing individual database
- .\restoreDB.ps1 -vip 10.2.148.61 -username admin -sourceServer 10.2.100.162 -sourceInstance  SQL2014 -sourceDB SQL2014_DB
+ .\restoreDB.ps1 -vip 10.2.148.61 -username admin -sourceInstance  SQL2014 -sourceDB SQL2014_DB
 
  # Standalone parallel processing all databases inside a single instance
- .\restoreDB.ps1 -vip 10.2.148.61 -username admin -sourceServer 10.2.100.162 -sourceInstance  SQL2014
+ .\restoreDB.ps1 -vip 10.2.148.61 -username admin -sourceInstance  SQL2014
 
  # Piped selection of db and parallel processing of selected dbs on source server
  .\restoreDB.ps1 -vip 10.2.148.61 -username admin -jobName  mssql-59-and-162

@@ -37,17 +37,22 @@ Begin{
         # as per recommendations each node can process 2 request at a time
         $requestPerCluster = ($nodes.Count) * 2
     }
+    # the following part of the script will be usefule when this script is used in standalone mode
     # when only the instance name has been passed
     if('' -ne $sourceInstance -and '' -eq $sourceDB -and $null -eq $pipedObjects) {
         #search for active and un-deleted protection jobs
         $activeSQLJobIds = [System.Collections.ArrayList]::new()
         $activeSQLJobs = api get "/public/protectionJobs?names=&environments=kSQL&isActive=true&isDeleted=false"
         foreach($item in $activeSQLJobs) {
-            $activeSQLJobIds.Add($item.Id)
+            $resp = $activeSQLJobIds.Add($item.Id)
         }
 
         $resp = api get "/searchvms?environment=SQL&entityTypes=kSQL&showAll=false&onlyLatestVersion=true&vmName=*"
         $mssqlObjects = $resp.vms | where-object{$_.vmDocument.objectId.entity.sqlEntity.instanceName -eq  $sourceInstance -and $_.vmDocument.objectAliases -contains $sourceServer -and $activeSQLJobIds -contains $_.vmDocument.objectId.jobId }
+        if($null -eq $mssqlObjects) {
+            write-host "Could not find databases in the instance $sourceInstance" -ForegroundColor Red
+            exit 0
+        }
         foreach($item in $mssqlObjects) {
             [RequestObject]$request = [RequestObject]::new()
             $request.SourceClusterVIP = $vip
@@ -111,6 +116,7 @@ Begin{
 }
 
 Process {
+    # in conjunction with the scripts searchDB.ps1 and restoreDB.ps1
     # when piped info is sent
     if($pipedObjects -ne $null) {
         [RequestObject]$request = [RequestObject]::new()

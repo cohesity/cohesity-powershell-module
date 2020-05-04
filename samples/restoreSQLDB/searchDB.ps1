@@ -8,6 +8,8 @@ param(
 )
 
 Begin {
+    # initialize the current working path
+    $env:cohesity=$pwd
     Import-Module -Name $env:cohesity"\cohesity-api.psm1"
     apiauth -vip $vip -username $username -domain $domain
     # look for the target job
