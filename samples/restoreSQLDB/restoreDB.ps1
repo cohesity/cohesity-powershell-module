@@ -59,13 +59,18 @@ Process {
             break
         }
         "RESTORE-REMOTE" {
+            $selectedDBs = $null
             if ($targetServer) {
                 # Piped selection of db and parallel processing of selected dbs on target server/instance/folder
-                .\searchDB.ps1 -vip $vip -username $username -jobName  $jobName | Out-GridView -PassThru | `
-                .\parallel-process-mssql-objects.ps1 `
+                $selectedDBs = .\searchDB.ps1 -vip $vip -username $username -jobName  $jobName | Out-GridView -PassThru
+                if($null -eq $selectedDBs) {
+                    write-host "No database selected" -ForegroundColor Red
+                    exit 0
+                }
+                $selectedDBs | .\parallel-process-mssql-objects.ps1 `
                  -vip $vip -username $username  -overWrite:$true -wait:$true -progress:$true -targetServer $targetServer -targetInstance $targetInstance -mdfFolder $mdfFolder
             } else {
-                write-host "Please provide target server info"
+                write-host "Please provide target server info" -ForegroundColor Red
             }
             break
         }
