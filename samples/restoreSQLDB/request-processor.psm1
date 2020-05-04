@@ -25,7 +25,6 @@ function bulkProcessing($inputData,$requestPerCluster) {
             # write-host ("inputData.Count = " + $inputData.Count + ", psJobs.Count = " + $psJobs.Count)
             # write-host ("requestPerCluster = " + $requestPerCluster + ", maxLoad = " + $maxLoad)
 			if($inputData.Count -eq 0 -and $psJobs.Count -eq 0) {
-				write-host "breaking the loop"
 				break
 			}
 
@@ -59,7 +58,7 @@ function bulkProcessing($inputData,$requestPerCluster) {
             if($completedJob.Item1 -eq $false) {
                 if($requestObject.Retry -lt $requestObject.MaxRetry) {
                     $requestObject.Retry += 1
-                    write-host "Remaining Q " $inputData.Count
+                    # write-host "Remaining Q " $inputData.Count
                     $inputData.Enqueue($requestObject)	
                     write-host "Enqueuing DB  "$requestObject.SourceDBName
                 } else {
@@ -332,7 +331,7 @@ function restoreDB($requestObject) {
 
     ### create new clone task (RestoreAppArg Object)
     $restoreTask = @{
-        "name" = "customEngg-$sourceInstance-$sourceDB-$(dateToUsecs (get-date))";
+        "name" = "$sourceServer-$sourceInstance-$sourceDB-$(dateToUsecs (get-date))";
         'action' = 'kRecoverApp';
         'restoreAppParams' = @{
             'type' = 3;
