@@ -12,7 +12,7 @@
 ###############
 
 function Update-CohesityProtectionJobRun {
-	[CmdletBinding()]
+	[CmdletBinding(DefaultParameterSetName="Local")]
 	param(
 		[Parameter(Mandatory = $False)]
 		$ProtectionJobName = $null,
@@ -22,8 +22,13 @@ function Update-CohesityProtectionJobRun {
 		[Uint64]$StartTimeUsecs = $null,
 		[Parameter(Mandatory = $False)]
 		[Uint64]$EndTimeUsecs = $null,
-		[Parameter(Mandatory = $True)]
+		[Parameter(Mandatory = $True, ParameterSetName="Local")]
+		[Parameter(ParameterSetName="Archive")]
 		[Int64]$ExtendRetention = $null,
+		[Parameter(Mandatory = $True, ParameterSetName="Archive")]
+		[string]$ArchiveName = $null,
+		[Parameter(Mandatory = $True, ParameterSetName="Archive")]
+		[Int64]$ArchiveRetention = $null,
 		[Parameter(ValueFromPipeline=$True, DontShow=$True)]
 		[object[]]$BackupJobRuns = $null
 	)
@@ -96,7 +101,22 @@ function Update-CohesityProtectionJobRun {
 				return
 			}
 		}
-
+		if($ArchiveName) {
+			$vault = Get-CohesityVault -VaultName $ArchiveName
+			if($null -eq $vault) {
+				write-host "No archive found with the name $ArchiveName"
+				return
+			}
+			$archive = @{
+				archivalTarget = @{
+					vaultId = 107815
+					vaultName = $ArchiveName
+					vaultType = "kCloud"
+				}
+				daysToKeep = $ArchiveRetention
+				type = "kArchival"
+			}
+		}
 		if ($BackupJobRuns) {
 			#collect all job run ids, if the user doesn't provide any specific job run id
 			if ($null -eq $JobRunIds) {
@@ -108,13 +128,14 @@ function Update-CohesityProtectionJobRun {
 					[bool]$snapshotDeleted = $JobRun.backupRun.snapshotsDeleted
 
 					if ($snapshotDeleted -eq $false) {
-						$copyRunTarget = @{
-							daysToKeep = $ExtendRetention
-							type = "kLocal"
+						if($ExtendRetention) {
+							$copyRunTarget = @{
+								daysToKeep = $ExtendRetention
+								type = "kLocal"
+							}
 						}
-
 						$jobRunObj = @{
-							copyRunTargets = @($copyRunTarget)
+							copyRunTargets = @()
 							jobUid = @{
 								clusterId = $JobRun.jobUid.clusterId
 								clusterIncarnationId = $JobRun.jobUid.clusterIncarnationId
@@ -122,12 +143,17 @@ function Update-CohesityProtectionJobRun {
 							}
 							runStartTimeUsecs = $JobRun.copyRun[0].runStartTimeUsecs
 						}
-
+						if($archive) {
+							$jobRunObj.copyRunTargets += $archive
+						}
+						if($copyRunTarget) {
+							$jobRunObj.copyRunTargets += $copyRunTarget
+						}
 						$payload = @{
 							jobRuns = @($jobRunObj)
 						}
-						$payloadJson = $payload | ConvertTo-Json -Depth 4
-
+						$payloadJson = $payload | ConvertTo-Json -Depth 100
+						# write-host $payloadJson
 						try {
 							$url = $server + '/irisservices/api/v1/public/protectionRuns'
 							$updateResp = Invoke-RestApi -Method 'Put' -Uri $url -Headers $headers -Body $payloadJson
