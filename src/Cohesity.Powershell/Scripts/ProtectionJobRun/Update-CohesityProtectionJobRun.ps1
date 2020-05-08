@@ -12,7 +12,7 @@
 ###############
 
 function Update-CohesityProtectionJobRun {
-	[CmdletBinding(DefaultParameterSetName="Local")]
+	[CmdletBinding(DefaultParameterSetName = "Local")]
 	param(
 		[Parameter(Mandatory = $False)]
 		$ProtectionJobName = $null,
@@ -22,16 +22,23 @@ function Update-CohesityProtectionJobRun {
 		[Uint64]$StartTimeUsecs = $null,
 		[Parameter(Mandatory = $False)]
 		[Uint64]$EndTimeUsecs = $null,
-		[Parameter(Mandatory = $True, ParameterSetName="Local")]
-		[Parameter(ParameterSetName="Archive")]
+		[Parameter(Mandatory = $True, ParameterSetName = "Local")]
+		[Parameter(ParameterSetName = "Archive")]
+		[Parameter(ParameterSetName = "Replication")]
 		[Int64]$ExtendRetention = $null,
-		[Parameter(Mandatory = $True, ParameterSetName="Archive")]
+		[Parameter(Mandatory = $True, ParameterSetName = "Archive")]
 		[string[]]$ArchiveNames = $null,
-		[Parameter(Mandatory = $True, ParameterSetName="Archive")]
+		[Parameter(Mandatory = $True, ParameterSetName = "Archive")]
 		[Int64]$ArchiveRetention = $null,
-		[Parameter(Mandatory = $True, ParameterSetName="Archive")]
+		[Parameter(Mandatory = $True, ParameterSetName = "Archive")]
 		[switch]$ArchivePartialJobRun,
-		[Parameter(ValueFromPipeline=$True, DontShow=$True)]
+		[Parameter(Mandatory = $True, ParameterSetName = "Replication")]
+		[string[]]$ReplicationNames = $null,
+		[Parameter(Mandatory = $True, ParameterSetName = "Replication")]
+		[Int64]$ReplicationRetention = $null,
+		[Parameter(Mandatory = $True, ParameterSetName = "Replication")]
+		[switch]$ReplicationPartialJobRun,
+		[Parameter(ValueFromPipeline = $True, DontShow = $True)]
 		[object[]]$BackupJobRuns = $null
 	)
 
@@ -55,12 +62,12 @@ function Update-CohesityProtectionJobRun {
 		$succeedJobRunIds = @()
 
 		#Collect all the job run ids from the backup run details fetched through pipeline, if the user doesn't provide any run ids
-		if($null -ne $BackupJobRuns) {
+		if ($null -ne $BackupJobRuns) {
 			$JobRunIds = $BackupJobRuns.backupRun.jobRunId
 			$ProtectionJobName = $BackupJobRuns.jobName
 		}
 
-		if($null -eq $ProtectionJobName) {
+		if ($null -eq $ProtectionJobName) {
 			Write-Host "Please provide protection job name"
 			return
 		}
@@ -82,7 +89,8 @@ function Update-CohesityProtectionJobRun {
 						break
 					}
 				}
-			} catch {
+			}
+			catch {
 				Write-Error $_.Exception.Message
 				return
 			}
@@ -98,37 +106,71 @@ function Update-CohesityProtectionJobRun {
 				}
 
 				$BackupJobRuns = Invoke-RestApi -Method 'Get' -Uri $jobRunUrl -Headers $headers
-			} else {
+			}
+			else {
 				Write-Host "Protection job '$ProtectionJobName' doesn't exist."
 				return
 			}
 		}
-		if($ArchiveNames) {
+
+		if ($ReplicationNames) {
+			$remoteClusters = Get-CohesityRemoteCluster
+			if ($null -eq $remoteClusters) {
+				write-host "No replication cluster found"
+				return
+			}
+
+			$replicationClusters = $null
+			foreach ($item in $ReplicationNames) {
+				if ($remoteClusters.name -contains $item) {
+					$remoteCluster = $remoteClusters | where-object { $_.name -eq $item }
+					if ($null -eq $replicationClusters) {
+						$replicationClusters = @()
+					}
+					$replicationObject = @{
+						replicationTarget = @{
+							clusterId   = $remoteCluster.ClusterId
+							clusterName = $remoteCluster.Name
+						}
+						daysToKeep        = $ReplicationRetention
+						type              = "kRemote"
+						copyPartial       = $ReplicationPartialJobRun
+					}
+					$replicationClusters += $replicationObject
+				}
+				else {
+					write-host "The replication cluster '$item' not found"
+				}
+			}
+		}
+
+		if ($ArchiveNames) {
 			$vaults = Get-CohesityVault
-			if($null -eq $vaults) {
+			if ($null -eq $vaults) {
 				write-host "No archives found"
 				return
 			}
 
 			$archives = $null
-			foreach($item in $ArchiveNames) {
-				if($vaults.name -contains $item) {
-					$vault = $vaults | where-object{$_.name -eq $item}
-					if($null -eq $archives) {
+			foreach ($item in $ArchiveNames) {
+				if ($vaults.name -contains $item) {
+					$vault = $vaults | where-object { $_.name -eq $item }
+					if ($null -eq $archives) {
 						$archives = @()
 					}
 					$archiveObject = @{
 						archivalTarget = @{
-							vaultId = $vault.id
+							vaultId   = $vault.id
 							vaultName = $vault.name
 							vaultType = "kCloud"
 						}
-						daysToKeep = $ArchiveRetention
-						type = "kArchival"
-						copyPartial = $ArchivePartialJobRun
+						daysToKeep     = $ArchiveRetention
+						type           = "kArchival"
+						copyPartial    = $ArchivePartialJobRun
 					}
 					$archives += $archiveObject
-				} else {
+				}
+				else {
 					write-host "The archive '$item' not found"
 				}
 			}
@@ -145,25 +187,28 @@ function Update-CohesityProtectionJobRun {
 					[bool]$snapshotDeleted = $JobRun.backupRun.snapshotsDeleted
 
 					if ($snapshotDeleted -eq $false) {
-						if($ExtendRetention) {
+						if ($ExtendRetention) {
 							$copyRunTarget = @{
 								daysToKeep = $ExtendRetention
-								type = "kLocal"
+								type       = "kLocal"
 							}
 						}
 						$jobRunObj = @{
-							copyRunTargets = @()
-							jobUid = @{
-								clusterId = $JobRun.jobUid.clusterId
+							copyRunTargets    = @()
+							jobUid            = @{
+								clusterId            = $JobRun.jobUid.clusterId
 								clusterIncarnationId = $JobRun.jobUid.clusterIncarnationId
-								id = $JobRun.jobUid.id
+								id                   = $JobRun.jobUid.id
 							}
 							runStartTimeUsecs = $JobRun.copyRun[0].runStartTimeUsecs
 						}
-						if($archives) {
+						if($replicationClusters) {
+							$jobRunObj.copyRunTargets += $replicationClusters
+						}
+						if ($archives) {
 							$jobRunObj.copyRunTargets += $archives
 						}
-						if($copyRunTarget) {
+						if ($copyRunTarget) {
 							$jobRunObj.copyRunTargets += $copyRunTarget
 						}
 						$payload = @{
@@ -178,7 +223,8 @@ function Update-CohesityProtectionJobRun {
 							$jobUpdated += 1
 							$succeedJobRunIds += $JobRun.backupRun.jobRunId
 							$global:updatedJobRundIds += $JobRun.backupRun.jobRunId
-						} catch {
+						}
+						catch {
 							$failedJobRunIds += $JobRun.backupRun.jobRunId
 							Write-Error $_
 						}
@@ -192,14 +238,15 @@ function Update-CohesityProtectionJobRun {
 			if ($succeedJobRunIds.length -ne 0) {
 				Write-Host "Updated the snapshot retention for job run id(s) $succeedJobRunIds, successfully for the job '$ProtectionJobName'"
 			}
-		} else {
+		}
+		else {
 			Write-Host "Backup job run details are unavilable"
 		}
 	}
 
 	End {
 		if ($ProtectionJobName) {
-			Get-CohesityProtectionJobRun -JobName $ProtectionJobName | Where-Object {$global:updatedJobRundIds -contains $_.backupRun.jobRunId}
+			Get-CohesityProtectionJobRun -JobName $ProtectionJobName | Where-Object { $global:updatedJobRundIds -contains $_.backupRun.jobRunId }
 		}
-    }
+	}
 }
