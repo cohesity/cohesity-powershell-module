@@ -26,9 +26,11 @@ function Update-CohesityProtectionJobRun {
 		[Parameter(ParameterSetName="Archive")]
 		[Int64]$ExtendRetention = $null,
 		[Parameter(Mandatory = $True, ParameterSetName="Archive")]
-		[string]$ArchiveName = $null,
+		[string[]]$ArchiveNames = $null,
 		[Parameter(Mandatory = $True, ParameterSetName="Archive")]
 		[Int64]$ArchiveRetention = $null,
+		[Parameter(Mandatory = $True, ParameterSetName="Archive")]
+		[switch]$ArchivePartialJobRun,
 		[Parameter(ValueFromPipeline=$True, DontShow=$True)]
 		[object[]]$BackupJobRuns = $null
 	)
@@ -101,22 +103,37 @@ function Update-CohesityProtectionJobRun {
 				return
 			}
 		}
-		if($ArchiveName) {
-			$vault = Get-CohesityVault -VaultName $ArchiveName
-			if($null -eq $vault) {
-				write-host "No archive found with the name $ArchiveName"
+		if($ArchiveNames) {
+			$vaults = Get-CohesityVault
+			if($null -eq $vaults) {
+				write-host "No archives found"
 				return
 			}
-			$archive = @{
-				archivalTarget = @{
-					vaultId = 107815
-					vaultName = $ArchiveName
-					vaultType = "kCloud"
+
+			$archives = $null
+			foreach($item in $ArchiveNames) {
+				if($vaults.name -contains $item) {
+					$vault = $vaults | where-object{$_.name -eq $item}
+					if($null -eq $archives) {
+						$archives = @()
+					}
+					$archiveObject = @{
+						archivalTarget = @{
+							vaultId = $vault.id
+							vaultName = $vault.name
+							vaultType = "kCloud"
+						}
+						daysToKeep = $ArchiveRetention
+						type = "kArchival"
+						copyPartial = $ArchivePartialJobRun
+					}
+					$archives += $archiveObject
+				} else {
+					write-host "The archive '$item' not found"
 				}
-				daysToKeep = $ArchiveRetention
-				type = "kArchival"
 			}
 		}
+
 		if ($BackupJobRuns) {
 			#collect all job run ids, if the user doesn't provide any specific job run id
 			if ($null -eq $JobRunIds) {
@@ -143,8 +160,8 @@ function Update-CohesityProtectionJobRun {
 							}
 							runStartTimeUsecs = $JobRun.copyRun[0].runStartTimeUsecs
 						}
-						if($archive) {
-							$jobRunObj.copyRunTargets += $archive
+						if($archives) {
+							$jobRunObj.copyRunTargets += $archives
 						}
 						if($copyRunTarget) {
 							$jobRunObj.copyRunTargets += $copyRunTarget
