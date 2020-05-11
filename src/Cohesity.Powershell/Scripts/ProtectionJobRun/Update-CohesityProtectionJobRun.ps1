@@ -1,17 +1,36 @@
-#### USAGE ####
-#	********************** Using Pipeline *********************
-#	Get-CohesityProtectionJobRun -JobName viewJob | Update-CohesityProtectionJobRun -ExtendRetention 10
-#	Get-CohesityProtectionJobRun -JobName viewJob -StartTime 1573929000000000 -EndTime 1574101799999000 | Update-CohesityProtectionJobRun -ExtendRetention 10
-#	********************** Using Function *********************
-#	Update-CohesityProtectionJobRun -ProtectionJobName viewJob -JobRunIds 65675,65163 -ExtendRetention 10
-#	Update-CohesityProtectionJobRun -ProtectionJobName viewJob -JobRunIds 65675 -ExtendRetention 10 (Extend by 10 days)
-#	Update-CohesityProtectionJobRun -ProtectionJobName viewJob -JobRunIds 65675 -ExtendRetention -3 (Reduce by 3 days)
-#	Update-CohesityProtectionJobRun -ProtectionJobName viewJob -JobRunIds 65675 -ExtendRetention 0 (Mark the snapshot for deletion)
-#	Update-CohesityProtectionJobRun -ProtectionJobName viewJob -ExtendRetention 10
-# 	Update-CohesityProtectionJobRun -ProtectionJobName viewJob -StartTimeUsecs 1573929000000000 -EndTimeUsecs 1574101799999000 -ExtendRetention 10
-###############
-
 function Update-CohesityProtectionJobRun {
+	<#
+		.SYNOPSIS
+		Update the protection job run to extend on local, archive and replication servers.
+		.DESCRIPTION
+		The Update-CohesityProtectionJobRun function is used to update the existing protection job run with to extend on local, archive and replication servers. Piping can also be used with this cmdlet.
+		.EXAMPLE
+		# Extend the retention for 10 days on local server for the selected job runs
+		Update-CohesityProtectionJobRun -ProtectionJobName viewJob -JobRunIds 65675,65163 -ExtendRetention 10
+		.EXAMPLE
+		Update-CohesityProtectionJobRun -ProtectionJobName viewJob -JobRunIds 65675 -ExtendRetention 10 (Extend by 10 days)
+		.EXAMPLE
+		Update-CohesityProtectionJobRun -ProtectionJobName viewJob -JobRunIds 65675 -ExtendRetention -3 (Reduce by 3 days)
+		.EXAMPLE
+		Update-CohesityProtectionJobRun -ProtectionJobName viewJob -JobRunIds 65675 -ExtendRetention 0 (Mark the snapshot for deletion)
+		.EXAMPLE
+		# Extend the retention for 10 days for all job runs with the given job name
+		Update-CohesityProtectionJobRun -ProtectionJobName viewJob -ExtendRetention 10
+		.EXAMPLE
+		# Extend the retention by providing start time and end time
+		Update-CohesityProtectionJobRun -ProtectionJobName viewJob -StartTimeUsecs 1573929000000000 -EndTimeUsecs 1574101799999000 -ExtendRetention 10
+		.EXAMPLE
+		# Piping the job runs
+		Get-CohesityProtectionJobRun -JobName viewJob | Update-CohesityProtectionJobRun -ExtendRetention 10
+		.EXAMPLE
+		Get-CohesityProtectionJobRun -JobName viewJob -StartTime 1573929000000000 -EndTime 1574101799999000 | Update-CohesityProtectionJobRun -ExtendRetention 10
+		.EXAMPLE
+		# Extend retention for archive
+		Update-CohesityProtectionJobRun -ArchiveNames nas-archive-3,nas-archive-2,nas-archive-4 -ArchiveRetention 20 -ArchivePartialJobRun:$false -JobRunIds 583 -ProtectionJobName job-small-vms
+		.EXAMPLE
+		# Extend retention for replication
+		Update-CohesityProtectionJobRun -ReplicationNames replication-server1,replication-server2 -ReplicationRetention 10 -ReplicationPartialJobRun:$false -JobRunIds 651 -ProtectionJobName job-small-vms
+	#>
 	[CmdletBinding(DefaultParameterSetName = "Local")]
 	param(
 		[Parameter(Mandatory = $False)]
@@ -202,7 +221,7 @@ function Update-CohesityProtectionJobRun {
 							}
 							runStartTimeUsecs = $JobRun.copyRun[0].runStartTimeUsecs
 						}
-						if($replicationClusters) {
+						if ($replicationClusters) {
 							$jobRunObj.copyRunTargets += $replicationClusters
 						}
 						if ($archives) {

@@ -54,6 +54,16 @@ Get-CohesityProtectionJobRun -JobName viewJob | Update-CohesityProtectionJobRun 
 Get-CohesityProtectionJobRun -JobName viewJob -StartTime 1573929000000000 -EndTime 1574101799999000 | Update-CohesityProtectionJobRun -ExtendRetention 10
 ```
 
+### EXAMPLE 9 (Update selected protection job runs for archiving in multiple targets)
+```
+Update-CohesityProtectionJobRun -ArchiveNames nas-archive-3,nas-archive-2,nas-archive-4 -ArchiveRetention 20 -ArchivePartialJobRun:$false -JobRunIds 583 -ProtectionJobName job-small-vms
+```
+
+### EXAMPLE 10 (Update selected protection job runs for retention in multiple replication servers)
+```
+Update-CohesityProtectionJobRun -ReplicationNames replication-server1,replication-server2 -ReplicationRetention 10 -ReplicationPartialJobRun:$false -JobRunIds 651 -ProtectionJobName job-small-vms
+```
+
 ## PARAMETERS
 
 ### -ProtectionJobName
