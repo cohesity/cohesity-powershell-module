@@ -15,7 +15,7 @@ function Copy-CohesityView {
     #>
     [CmdletBinding(DefaultParameterSetName = "Default")]
     param(
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $false)]
         [ValidateNotNullOrEmpty()]
         [string]$TaskName,
         [Parameter(Mandatory = $true)]
@@ -24,7 +24,7 @@ function Copy-CohesityView {
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
         [string]$TargetViewName,
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $false)]
         [ValidateNotNullOrEmpty()]
         [string]$TargetViewDescription,
         [Parameter(Mandatory = $true)]
@@ -32,6 +32,7 @@ function Copy-CohesityView {
         [long]$JobId,
         [Parameter(Mandatory = $false)]
         [ValidateNotNullOrEmpty()]
+        [ValidateSet("Backup Target High","Backup Target Low","TestAndDev High","TestAndDev Low","Backup Target SSD","Backup Target Commvault")]
         [string]$QoSPolicy = "Backup Target Low",
         [Parameter(Mandatory = $true, ParameterSetName = "JobRunSpecific")]
         [ValidateNotNullOrEmpty()]
@@ -68,6 +69,12 @@ function Copy-CohesityView {
                 Write-Host "The job run '$jobRun' does not exists for job id '$JobId'"
                 return
             }
+        }
+        if('' -eq $TaskName) {
+            $TaskName = "Clone-view-" + (Get-Date -Format ss-mm-hh-dd-MMM-yyyy)
+        }
+        if('' -eq $TargetViewDescription) {
+            $TargetViewDescription = "Cloned view from $SourceViewName"
         }
         if ($false -eq $sourceView.ViewProtection.Inactive) {
             $cohesityClusterURL = $cohesityCluster + '/irisservices/api/v1/public/restore/clone'
@@ -153,7 +160,7 @@ function Copy-CohesityView {
             $viewObjects = @()
             $viewObjects += $viewObject
             $payload = @{
-                name               = "Clone-task-" + (Get-Date -Format ss-mm-hh-dd-MMM-yyyy)
+                name               = $TaskName
                 objects            = $viewObjects
                 viewName           = $TargetViewName
                 action             = $VIEW_CLONE_ACTION_ID
@@ -170,18 +177,18 @@ function Copy-CohesityView {
                     }
                 }
             }
-        }
-        $payloadJson = $payload | ConvertTo-Json -Depth 100
-        $cohesityClusterURL = $cohesityCluster + '/irisservices/api/v1/clone'
-        $cohesityHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
-        $resp = Invoke-RestApi -Method Post -Uri $cohesityClusterURL -Headers $cohesityHeaders -Body $payloadJson
-        if ($resp) {
-            $resp
-        }
-        else {
-            $errorMsg = "Copy view : Failed to create a copy from inactive view"
-            Write-Host $errorMsg
-            CSLog -Message $errorMsg
+            $payloadJson = $payload | ConvertTo-Json -Depth 100
+            $cohesityClusterURL = $cohesityCluster + '/irisservices/api/v1/clone'
+            $cohesityHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
+            $resp = Invoke-RestApi -Method Post -Uri $cohesityClusterURL -Headers $cohesityHeaders -Body $payloadJson
+            if ($resp) {
+                $resp
+            }
+            else {
+                $errorMsg = "Copy view : Failed to create a copy from inactive view"
+                Write-Host $errorMsg
+                CSLog -Message $errorMsg
+            }
         }
     }
     End {
