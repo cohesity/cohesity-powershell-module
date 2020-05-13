@@ -51,7 +51,8 @@ namespace Cohesity.Model
         /// <param name="user">The user who requested this restore job..</param>
         /// <param name="userInfo">userInfo.</param>
         /// <param name="viewBoxId">The view box id to which the restore job belongs to..</param>
-        public PerformRestoreJobStateProto(long? admittedTimeUsecs = default(long?), bool? cancellationRequested = default(bool?), bool? continueRestoreOnError = default(bool?), DeployVMsToCloudTaskStateProto deployVmsToCloudTaskState = default(DeployVMsToCloudTaskStateProto), long? endTimeUsecs = default(long?), ErrorProto error = default(ErrorProto), string name = default(string), ConnectorParams parentSourceConnectionParams = default(ConnectorParams), PowerStateConfigProto powerStateConfig = default(PowerStateConfigProto), bool? preserveTags = default(bool?), string progressMonitorTaskPath = default(string), RenameObjectParamProto renameRestoredObjectParam = default(RenameObjectParamProto), RestoreAcropolisVMsParams restoreAcropolisVmsParams = default(RestoreAcropolisVMsParams), long? restoreJobId = default(long?), RestoreKubernetesNamespacesParams restoreKubernetesNamespacesParams = default(RestoreKubernetesNamespacesParams), RestoreKVMVMsParams restoreKvmVmsParams = default(RestoreKVMVMsParams), EntityProto restoreParentSource = default(EntityProto), PerformRestoreTaskStateProto restoreTaskStateProtoTmpl = default(PerformRestoreTaskStateProto), List<PerformRestoreJobStateProtoRestoreTask> restoreTaskVec = default(List<PerformRestoreJobStateProtoRestoreTask>), RestoreVMwareVMParams restoreVmwareVmParams = default(RestoreVMwareVMParams), RestoredObjectNetworkConfigProto restoredObjectsNetworkConfig = default(RestoredObjectNetworkConfigProto), bool? restoredToDifferentSource = default(bool?), long? startTimeUsecs = default(long?), int? status = default(int?), int? type = default(int?), string user = default(string), UserInformation userInfo = default(UserInformation), long? viewBoxId = default(long?))
+        /// <param name="warnings">Populate warnings on the job if any. The warning messages are propagated from the child restore tasks upon completion of the task..</param>
+        public PerformRestoreJobStateProto(long? admittedTimeUsecs = default(long?), bool? cancellationRequested = default(bool?), bool? continueRestoreOnError = default(bool?), DeployVMsToCloudTaskStateProto deployVmsToCloudTaskState = default(DeployVMsToCloudTaskStateProto), long? endTimeUsecs = default(long?), ErrorProto error = default(ErrorProto), string name = default(string), ConnectorParams parentSourceConnectionParams = default(ConnectorParams), PowerStateConfigProto powerStateConfig = default(PowerStateConfigProto), bool? preserveTags = default(bool?), string progressMonitorTaskPath = default(string), RenameObjectParamProto renameRestoredObjectParam = default(RenameObjectParamProto), RestoreAcropolisVMsParams restoreAcropolisVmsParams = default(RestoreAcropolisVMsParams), long? restoreJobId = default(long?), RestoreKubernetesNamespacesParams restoreKubernetesNamespacesParams = default(RestoreKubernetesNamespacesParams), RestoreKVMVMsParams restoreKvmVmsParams = default(RestoreKVMVMsParams), EntityProto restoreParentSource = default(EntityProto), PerformRestoreTaskStateProto restoreTaskStateProtoTmpl = default(PerformRestoreTaskStateProto), List<PerformRestoreJobStateProtoRestoreTask> restoreTaskVec = default(List<PerformRestoreJobStateProtoRestoreTask>), RestoreVMwareVMParams restoreVmwareVmParams = default(RestoreVMwareVMParams), RestoredObjectNetworkConfigProto restoredObjectsNetworkConfig = default(RestoredObjectNetworkConfigProto), bool? restoredToDifferentSource = default(bool?), long? startTimeUsecs = default(long?), int? status = default(int?), int? type = default(int?), string user = default(string), UserInformation userInfo = default(UserInformation), long? viewBoxId = default(long?), List<ErrorProto> warnings = default(List<ErrorProto>))
         {
             this.AdmittedTimeUsecs = admittedTimeUsecs;
             this.CancellationRequested = cancellationRequested;
@@ -68,6 +69,7 @@ namespace Cohesity.Model
             this.Type = type;
             this.User = user;
             this.ViewBoxId = viewBoxId;
+            this.Warnings = warnings;
             this.AdmittedTimeUsecs = admittedTimeUsecs;
             this.CancellationRequested = cancellationRequested;
             this.ContinueRestoreOnError = continueRestoreOnError;
@@ -96,6 +98,7 @@ namespace Cohesity.Model
             this.User = user;
             this.UserInfo = userInfo;
             this.ViewBoxId = viewBoxId;
+            this.Warnings = warnings;
         }
         
         /// <summary>
@@ -282,6 +285,13 @@ namespace Cohesity.Model
         public long? ViewBoxId { get; set; }
 
         /// <summary>
+        /// Populate warnings on the job if any. The warning messages are propagated from the child restore tasks upon completion of the task.
+        /// </summary>
+        /// <value>Populate warnings on the job if any. The warning messages are propagated from the child restore tasks upon completion of the task.</value>
+        [DataMember(Name="warnings", EmitDefaultValue=true)]
+        public List<ErrorProto> Warnings { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -457,6 +467,12 @@ namespace Cohesity.Model
                     this.ViewBoxId == input.ViewBoxId ||
                     (this.ViewBoxId != null &&
                     this.ViewBoxId.Equals(input.ViewBoxId))
+                ) && 
+                (
+                    this.Warnings == input.Warnings ||
+                    this.Warnings != null &&
+                    input.Warnings != null &&
+                    this.Warnings.SequenceEqual(input.Warnings)
                 );
         }
 
@@ -525,6 +541,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.UserInfo.GetHashCode();
                 if (this.ViewBoxId != null)
                     hashCode = hashCode * 59 + this.ViewBoxId.GetHashCode();
+                if (this.Warnings != null)
+                    hashCode = hashCode * 59 + this.Warnings.GetHashCode();
                 return hashCode;
             }
         }

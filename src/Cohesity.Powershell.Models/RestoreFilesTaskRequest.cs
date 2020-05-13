@@ -21,6 +21,39 @@ namespace Cohesity.Model
     public partial class RestoreFilesTaskRequest :  IEquatable<RestoreFilesTaskRequest>
     {
         /// <summary>
+        /// Specifies the type of method to be used to perform file recovery. &#39;kAutoDeploy&#39; indicates that file restore operation wiil be performed using an ephemeral agent. &#39;kUseExistingAgent&#39; indicates that file restore operation wiil be performed using an persistent agent. &#39;kUseHypervisorAPIs&#39; indicates that file restore operation wiil be performed using an hypervisor API&#39;s.
+        /// </summary>
+        /// <value>Specifies the type of method to be used to perform file recovery. &#39;kAutoDeploy&#39; indicates that file restore operation wiil be performed using an ephemeral agent. &#39;kUseExistingAgent&#39; indicates that file restore operation wiil be performed using an persistent agent. &#39;kUseHypervisorAPIs&#39; indicates that file restore operation wiil be performed using an hypervisor API&#39;s.</value>
+        [JsonConverter(typeof(StringEnumConverter))]
+        public enum FileRecoveryMethodEnum
+        {
+            /// <summary>
+            /// Enum KAutoDeploy for value: kAutoDeploy
+            /// </summary>
+            [EnumMember(Value = "kAutoDeploy")]
+            KAutoDeploy = 1,
+
+            /// <summary>
+            /// Enum KUseExistingAgent for value: kUseExistingAgent
+            /// </summary>
+            [EnumMember(Value = "kUseExistingAgent")]
+            KUseExistingAgent = 2,
+
+            /// <summary>
+            /// Enum KUseHypervisorAPIs for value: kUseHypervisorAPIs
+            /// </summary>
+            [EnumMember(Value = "kUseHypervisorAPIs")]
+            KUseHypervisorAPIs = 3
+
+        }
+
+        /// <summary>
+        /// Specifies the type of method to be used to perform file recovery. &#39;kAutoDeploy&#39; indicates that file restore operation wiil be performed using an ephemeral agent. &#39;kUseExistingAgent&#39; indicates that file restore operation wiil be performed using an persistent agent. &#39;kUseHypervisorAPIs&#39; indicates that file restore operation wiil be performed using an hypervisor API&#39;s.
+        /// </summary>
+        /// <value>Specifies the type of method to be used to perform file recovery. &#39;kAutoDeploy&#39; indicates that file restore operation wiil be performed using an ephemeral agent. &#39;kUseExistingAgent&#39; indicates that file restore operation wiil be performed using an persistent agent. &#39;kUseHypervisorAPIs&#39; indicates that file restore operation wiil be performed using an hypervisor API&#39;s.</value>
+        [DataMember(Name="fileRecoveryMethod", EmitDefaultValue=true)]
+        public FileRecoveryMethodEnum? FileRecoveryMethod { get; set; }
+        /// <summary>
         /// Specifies the target host types to be restored. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kOther&#39; indicates the other types of operating system.
         /// </summary>
         /// <value>Specifies the target host types to be restored. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kOther&#39; indicates the other types of operating system.</value>
@@ -75,6 +108,7 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="RestoreFilesTaskRequest" /> class.
         /// </summary>
         /// <param name="continueOnError">Specifies if the Restore Task should continue even if the copy operation of some files and folders fails. If true, the Cohesity Cluster ignores intermittent errors and recovers as many files and folders as possible. If false, the Restore Task stops recovering when a copy operation fails..</param>
+        /// <param name="fileRecoveryMethod">Specifies the type of method to be used to perform file recovery. &#39;kAutoDeploy&#39; indicates that file restore operation wiil be performed using an ephemeral agent. &#39;kUseExistingAgent&#39; indicates that file restore operation wiil be performed using an persistent agent. &#39;kUseHypervisorAPIs&#39; indicates that file restore operation wiil be performed using an hypervisor API&#39;s..</param>
         /// <param name="filenames">Array of Files or Folders.  Specifies the files and folders to recover from the snapshot..</param>
         /// <param name="isFileBasedVolumeRestore">Specifies whether this is a file based volume restore..</param>
         /// <param name="mountDisksOnVm">Sepcifies whether this will attach disks or mount disks on the VM side OR use Storage Proxy RPCs to stream data.</param>
@@ -88,11 +122,12 @@ namespace Cohesity.Model
         /// <param name="targetHostType">Specifies the target host types to be restored. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kOther&#39; indicates the other types of operating system..</param>
         /// <param name="targetParentSourceId">Specifies the registered source (such as a vCenter Server) that contains the target protection source (such as a VM) where the files and folders are recovered to. This field is not required for a Physical Server..</param>
         /// <param name="targetSourceId">Specifies the id of the target protection source (such as a VM) where the files and folders are recovered to..</param>
-        /// <param name="useExistingAgent">Specifies whether this will use an existing agent on the target vm to do restore..</param>
+        /// <param name="useExistingAgent">Specifies whether this will use an existing agent on the target vm to do restore. Following field is deprecated and shall not be used. Please refer to the FileRecoveryMethod field for more information..</param>
         /// <param name="username">Specifies username to access the target source..</param>
-        public RestoreFilesTaskRequest(bool? continueOnError = default(bool?), List<string> filenames = default(List<string>), bool? isFileBasedVolumeRestore = default(bool?), bool? mountDisksOnVm = default(bool?), string name = default(string), string newBaseDirectory = default(string), bool? overwrite = default(bool?), string password = default(string), bool? preserveAttributes = default(bool?), List<RestoredFileInfoList> restoredFileInfoList = default(List<RestoredFileInfoList>), RestoreObjectDetails sourceObjectInfo = default(RestoreObjectDetails), TargetHostTypeEnum? targetHostType = default(TargetHostTypeEnum?), long? targetParentSourceId = default(long?), long? targetSourceId = default(long?), bool? useExistingAgent = default(bool?), string username = default(string))
+        public RestoreFilesTaskRequest(bool? continueOnError = default(bool?), FileRecoveryMethodEnum? fileRecoveryMethod = default(FileRecoveryMethodEnum?), List<string> filenames = default(List<string>), bool? isFileBasedVolumeRestore = default(bool?), bool? mountDisksOnVm = default(bool?), string name = default(string), string newBaseDirectory = default(string), bool? overwrite = default(bool?), string password = default(string), bool? preserveAttributes = default(bool?), List<RestoredFileInfoList> restoredFileInfoList = default(List<RestoredFileInfoList>), RestoreObjectDetails sourceObjectInfo = default(RestoreObjectDetails), TargetHostTypeEnum? targetHostType = default(TargetHostTypeEnum?), long? targetParentSourceId = default(long?), long? targetSourceId = default(long?), bool? useExistingAgent = default(bool?), string username = default(string))
         {
             this.ContinueOnError = continueOnError;
+            this.FileRecoveryMethod = fileRecoveryMethod;
             this.Filenames = filenames;
             this.IsFileBasedVolumeRestore = isFileBasedVolumeRestore;
             this.MountDisksOnVm = mountDisksOnVm;
@@ -109,6 +144,7 @@ namespace Cohesity.Model
             this.UseExistingAgent = useExistingAgent;
             this.Username = username;
             this.ContinueOnError = continueOnError;
+            this.FileRecoveryMethod = fileRecoveryMethod;
             this.Filenames = filenames;
             this.IsFileBasedVolumeRestore = isFileBasedVolumeRestore;
             this.MountDisksOnVm = mountDisksOnVm;
@@ -218,9 +254,9 @@ namespace Cohesity.Model
         public long? TargetSourceId { get; set; }
 
         /// <summary>
-        /// Specifies whether this will use an existing agent on the target vm to do restore.
+        /// Specifies whether this will use an existing agent on the target vm to do restore. Following field is deprecated and shall not be used. Please refer to the FileRecoveryMethod field for more information.
         /// </summary>
-        /// <value>Specifies whether this will use an existing agent on the target vm to do restore.</value>
+        /// <value>Specifies whether this will use an existing agent on the target vm to do restore. Following field is deprecated and shall not be used. Please refer to the FileRecoveryMethod field for more information.</value>
         [DataMember(Name="useExistingAgent", EmitDefaultValue=true)]
         public bool? UseExistingAgent { get; set; }
 
@@ -271,6 +307,10 @@ namespace Cohesity.Model
                     this.ContinueOnError == input.ContinueOnError ||
                     (this.ContinueOnError != null &&
                     this.ContinueOnError.Equals(input.ContinueOnError))
+                ) && 
+                (
+                    this.FileRecoveryMethod == input.FileRecoveryMethod ||
+                    this.FileRecoveryMethod.Equals(input.FileRecoveryMethod)
                 ) && 
                 (
                     this.Filenames == input.Filenames ||
@@ -361,6 +401,7 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.ContinueOnError != null)
                     hashCode = hashCode * 59 + this.ContinueOnError.GetHashCode();
+                hashCode = hashCode * 59 + this.FileRecoveryMethod.GetHashCode();
                 if (this.Filenames != null)
                     hashCode = hashCode * 59 + this.Filenames.GetHashCode();
                 if (this.IsFileBasedVolumeRestore != null)

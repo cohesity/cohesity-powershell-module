@@ -23,6 +23,7 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="DestroyClonedTaskStateProto" /> class.
         /// </summary>
+        /// <param name="actionExecutorTargetType">Denotes the target for action executor(Bridge/Bridge_Proxy) on which task on slave should execute actions..</param>
         /// <param name="cloneTaskName">The name of the clone task..</param>
         /// <param name="datastoreEntity">datastoreEntity.</param>
         /// <param name="deployVmsToCloudTaskState">deployVmsToCloudTaskState.</param>
@@ -49,8 +50,9 @@ namespace Cohesity.Model
         /// <param name="vcdConfig">vcdConfig.</param>
         /// <param name="viewBoxId">The view box id to which &#39;view_name&#39; belongs to..</param>
         /// <param name="viewNameDEPRECATED">The view name as provided by the user for the clone operation..</param>
-        public DestroyClonedTaskStateProto(string cloneTaskName = default(string), EntityProto datastoreEntity = default(EntityProto), DeployVMsToCloudTaskStateProto deployVmsToCloudTaskState = default(DeployVMsToCloudTaskStateProto), DestroyCloneAppTaskInfoProto destroyCloneAppTaskInfo = default(DestroyCloneAppTaskInfoProto), DestroyClonedVMTaskInfoProto destroyCloneVmTaskInfo = default(DestroyClonedVMTaskInfoProto), DestroyMountVolumesTaskInfoProto destroyMountVolumesTaskInfo = default(DestroyMountVolumesTaskInfoProto), long? endTimeUsecs = default(long?), ErrorProto error = default(ErrorProto), EntityProto folderEntity = default(EntityProto), bool? forceDelete = default(bool?), string fullViewName = default(string), ConnectorParams parentSourceConnectionParams = default(ConnectorParams), long? parentTaskId = default(long?), long? performCloneTaskId = default(long?), int? restoreType = default(int?), long? scheduledConstituentId = default(long?), long? scheduledGandalfSessionId = default(long?), long? startTimeUsecs = default(long?), int? status = default(int?), long? taskId = default(long?), int? type = default(int?), string user = default(string), UserInformation userInfo = default(UserInformation), RestoredObjectVCDConfigProto vcdConfig = default(RestoredObjectVCDConfigProto), long? viewBoxId = default(long?), string viewNameDEPRECATED = default(string))
+        public DestroyClonedTaskStateProto(int? actionExecutorTargetType = default(int?), string cloneTaskName = default(string), EntityProto datastoreEntity = default(EntityProto), DeployVMsToCloudTaskStateProto deployVmsToCloudTaskState = default(DeployVMsToCloudTaskStateProto), DestroyCloneAppTaskInfoProto destroyCloneAppTaskInfo = default(DestroyCloneAppTaskInfoProto), DestroyClonedVMTaskInfoProto destroyCloneVmTaskInfo = default(DestroyClonedVMTaskInfoProto), DestroyMountVolumesTaskInfoProto destroyMountVolumesTaskInfo = default(DestroyMountVolumesTaskInfoProto), long? endTimeUsecs = default(long?), ErrorProto error = default(ErrorProto), EntityProto folderEntity = default(EntityProto), bool? forceDelete = default(bool?), string fullViewName = default(string), ConnectorParams parentSourceConnectionParams = default(ConnectorParams), long? parentTaskId = default(long?), long? performCloneTaskId = default(long?), int? restoreType = default(int?), long? scheduledConstituentId = default(long?), long? scheduledGandalfSessionId = default(long?), long? startTimeUsecs = default(long?), int? status = default(int?), long? taskId = default(long?), int? type = default(int?), string user = default(string), UserInformation userInfo = default(UserInformation), RestoredObjectVCDConfigProto vcdConfig = default(RestoredObjectVCDConfigProto), long? viewBoxId = default(long?), string viewNameDEPRECATED = default(string))
         {
+            this.ActionExecutorTargetType = actionExecutorTargetType;
             this.CloneTaskName = cloneTaskName;
             this.EndTimeUsecs = endTimeUsecs;
             this.ForceDelete = forceDelete;
@@ -67,6 +69,7 @@ namespace Cohesity.Model
             this.User = user;
             this.ViewBoxId = viewBoxId;
             this.ViewNameDEPRECATED = viewNameDEPRECATED;
+            this.ActionExecutorTargetType = actionExecutorTargetType;
             this.CloneTaskName = cloneTaskName;
             this.DatastoreEntity = datastoreEntity;
             this.DeployVmsToCloudTaskState = deployVmsToCloudTaskState;
@@ -95,6 +98,13 @@ namespace Cohesity.Model
             this.ViewNameDEPRECATED = viewNameDEPRECATED;
         }
         
+        /// <summary>
+        /// Denotes the target for action executor(Bridge/Bridge_Proxy) on which task on slave should execute actions.
+        /// </summary>
+        /// <value>Denotes the target for action executor(Bridge/Bridge_Proxy) on which task on slave should execute actions.</value>
+        [DataMember(Name="actionExecutorTargetType", EmitDefaultValue=true)]
+        public int? ActionExecutorTargetType { get; set; }
+
         /// <summary>
         /// The name of the clone task.
         /// </summary>
@@ -303,6 +313,11 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.ActionExecutorTargetType == input.ActionExecutorTargetType ||
+                    (this.ActionExecutorTargetType != null &&
+                    this.ActionExecutorTargetType.Equals(input.ActionExecutorTargetType))
+                ) && 
+                (
                     this.CloneTaskName == input.CloneTaskName ||
                     (this.CloneTaskName != null &&
                     this.CloneTaskName.Equals(input.CloneTaskName))
@@ -443,6 +458,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.ActionExecutorTargetType != null)
+                    hashCode = hashCode * 59 + this.ActionExecutorTargetType.GetHashCode();
                 if (this.CloneTaskName != null)
                     hashCode = hashCode * 59 + this.CloneTaskName.GetHashCode();
                 if (this.DatastoreEntity != null)
