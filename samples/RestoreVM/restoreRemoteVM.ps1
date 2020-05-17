@@ -7,14 +7,18 @@ param(
     [Parameter(Mandatory = $True)][string]$VMName,
     [Parameter(Mandatory = $false)][string]$Prefix,
     [Parameter(Mandatory = $false)][string]$Suffix,
+    [Parameter(Mandatory = $false)][Int64]$JobRunId = 0,
+    [Parameter(Mandatory = $false)]$TaskName = $null,
+    [Parameter(Mandatory = $false)][bool]$ContinueOnError = $false,
+    [Parameter(Mandatory = $false)][bool]$PowerOn = $false,
     [Parameter(Mandatory = $True, ParameterSetName = "NewLocation")]
-    $TargetParentId,
+    $TargetParentId = $null,
     [Parameter(Mandatory = $True, ParameterSetName = "NewLocation")]
-    $TargetResourcePoolId,
+    $TargetResourcePoolId = $null,
     [Parameter(Mandatory = $True, ParameterSetName = "NewLocation")]
-    $TargetDatastoreId,
+    $TargetDatastoreId = $null,
     [Parameter(Mandatory = $false, ParameterSetName = "NewLocation")]
-    $TargetVMFolderId
+    $TargetVMFolderId = $null
 )
 Begin {
     $env:cohesity=$pwd
@@ -30,16 +34,33 @@ Process {
         return
     }
     $searchedVMs = api get "/searchvms?entityTypes=kVMware&entityTypes=kHyperV&entityTypes=kHyperVVSS&entityTypes=kAcropolis&entityTypes=kKVM&entityTypes=kAWS&entityTypes=kAzure&entityTypes=kGCP&vmName=$VMName"
+    $vmDetail = $null
     $vmDetail = $searchedVMs.vms | Where-Object {$_.vmDocument.jobName -eq $JobName -and $_.vmDocument.objectName -eq $VMName}
     if($null -eq $vmDetail) {
         write-host "VM '$VMName' not found in job '$JobName'"
         return
     }
     $vmObject = $vmDetail.vmDocument.objectId
-    $vmObject | Add-Member -MemberType NoteProperty -Name "jobInstanceId" -Value $vmDetail.vmDocument.versions[0].instanceId.jobInstanceId
-    $vmObject | Add-Member -MemberType NoteProperty -Name "startTimeUsecs" -Value $vmDetail.vmDocument.versions[0].instanceId.jobStartTimeUsecs
     $vmObject | Add-Member -MemberType NoteProperty -Name "_jobType" -Value 1
+    if(0 -ne $JobRunId) {
+        $jobRunDetail = $null
+        $jobRunDetail = $vmDetail.vmDocument.versions | Where-Object{$_.instanceId.jobInstanceId -eq $JobRunId}
+        if($null -eq $jobRunDetail) {
+            write-host "Did not find job run '$JobRunId' for the job '$JobName'"
+            return
+        }
+        $vmObject | Add-Member -MemberType NoteProperty -Name "jobInstanceId" -Value $jobRunDetail.instanceId.jobInstanceId
+        $vmObject | Add-Member -MemberType NoteProperty -Name "startTimeUsecs" -Value $jobRunDetail.instanceId.jobStartTimeUsecs
+    } else {
+        $vmObject | Add-Member -MemberType NoteProperty -Name "jobInstanceId" -Value $vmDetail.vmDocument.versions[0].instanceId.jobInstanceId
+        $vmObject | Add-Member -MemberType NoteProperty -Name "startTimeUsecs" -Value $vmDetail.vmDocument.versions[0].instanceId.jobStartTimeUsecs
+    }
 
+    $targetParentDetail = $null
+    $targetResourcePoolDetail = $null
+    $targetDatastoreDetail = $null
+    $targetVMFolderDetail = $null
+    $renameObject = $null
 
     if($TargetParentId) {
         $searchedTarget = api get "/entitiesOfType?environmentTypes=kVMware&vmwareEntityTypes=kVCenter&vmwareEntityTypes=kStandaloneHost"
@@ -84,14 +105,16 @@ Process {
             $renameObject.Add("suffix",$Suffix)
         }
     }
-
+    if($null -eq $TaskName) {
+        $TaskName = "Restore-VM-$(get-date -Format ss-mm-hh-dd-MM-yyyy)"
+    }
     $payload = @{
         _serviceMethod ="restoreVM"
-        continueRestoreOnError = $false
-        name = "Restore-VM-$(get-date -Format ss-mm-hh-dd-MM-yyyy)"
+        continueRestoreOnError = $ContinueOnError
+        name = $TaskName
         objects = @($vmObject)
         powerStateConfig = @{
-            powerOn = $false
+            powerOn = $PowerOn
         }
         restoredObjectsNetworkConfig = @{
             detachNetwork = $true
