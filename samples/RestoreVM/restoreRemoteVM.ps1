@@ -33,6 +33,10 @@ Process {
         write-host "Job '$JobName' not found"
         return
     }
+    if($null -eq $jobDetail.isActive -or $true -eq $jobDetail.isActive) {
+        write-host "The restore operation can be performed with remote/inactive jobs only"
+        return
+    }
     $searchedVMs = api get "/searchvms?entityTypes=kVMware&entityTypes=kHyperV&entityTypes=kHyperVVSS&entityTypes=kAcropolis&entityTypes=kKVM&entityTypes=kAWS&entityTypes=kAzure&entityTypes=kGCP&vmName=$VMName"
     $vmDetail = $null
     $vmDetail = $searchedVMs.vms | Where-Object {$_.vmDocument.jobName -eq $JobName -and $_.vmDocument.objectName -eq $VMName}

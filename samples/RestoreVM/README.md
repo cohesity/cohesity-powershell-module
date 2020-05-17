@@ -24,3 +24,7 @@
 - TargetResourcePoolId : Resourcepool id in the alternate vcenter (Optional)
 - TargetDatastoreId : Datastrore id in the alternate vcenter (Optional)
 - TargetVMFolderId : VM folder id in the alternate vcenter (Optional)
+
+### Tested
+- The script has been tested on the Cohesity cluster version 6.3.1e_release-20200303_498fa637.
+- The script is applicable for inactive jobs only
