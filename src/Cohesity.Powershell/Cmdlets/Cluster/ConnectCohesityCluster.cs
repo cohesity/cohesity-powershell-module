@@ -144,10 +144,11 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
                     ClusterUri = clusterUri,
                     AccessToken = accessToken,
                     AllowInvalidServerCertificates = true,
-                    Credentials = credentials
                 };
 
                 userProfileProvider.SetUserProfile(userProfile);
+                //saving the credentials in process environment variable
+                userProfileProvider.SaveCredentials(credentials);
 
                 WriteObject($"Connected to the Cohesity Cluster {Server} Successfully");
             }

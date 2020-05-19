@@ -232,18 +232,12 @@ namespace Cohesity.Powershell.Common
                 return false;
             }
             Console.WriteLine("The session token has expired, attempting to refresh.");
-            if(null == userProfile.Credentials)
+            AccessTokenCredential credentials = userProfileProvider.GetCredentials();
+            if (null == credentials)
             {
                 Console.WriteLine("No credentials available to implictly connect the cluster.");
                 return false;
             }
-            var credentials = new AccessTokenCredential
-            {
-                Domain = userProfile.Credentials.Domain,
-                Username = userProfile.Credentials.Username,
-                Password = userProfile.Credentials.Password
-            };
-
 
             var httpRequest = new HttpRequestMessage(HttpMethod.Post, "public/accessTokens")
             {
