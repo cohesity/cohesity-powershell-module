@@ -1,6 +1,9 @@
 ﻿// Copyright 2018 Cohesity Inc.
+using System;
+using System.Collections.Generic;
 using System.Management.Automation;
 using Cohesity.Powershell.Common;
+using Cohesity.Model;
 
 namespace Cohesity.Powershell.Cmdlets.ProtectionJob
 {
@@ -71,10 +74,35 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
         /// </summary>
         protected override void ProcessRecord()
         {
+            if(ProtectionJob.Environment == Model.ProtectionJob.EnvironmentEnum.KPhysicalFiles)
+            {
+                var job = RestApiCommon.GetProtectionJobById(Session.ApiClient,ProtectionJob.Id.Value);
+                List<SourceSpecialParameter> resp = ConstructSourceSpecialParameters(ProtectionJob.SourceIds, job.SourceIds);
+                ProtectionJob.SourceSpecialParameters.AddRange(resp);
+            }
             // PUT public/protectionJobs/{id}
             var preparedUrl = $"/public/protectionJobs/{ProtectionJob.Id.ToString()}";
             var result = Session.ApiClient.Put<Model.ProtectionJob>(preparedUrl, ProtectionJob);
             WriteObject(result);
+        }
+
+        private List<SourceSpecialParameter> ConstructSourceSpecialParameters(List<long> newSourceIds, List<long> existingSourceIds)
+        {
+            List<SourceSpecialParameter> ret = new List<SourceSpecialParameter>();
+            foreach (long item in newSourceIds)
+            {
+                if(false == existingSourceIds.Contains(item))
+                {
+                    var sourceSpecialParameter = new SourceSpecialParameter();
+                    sourceSpecialParameter.SourceId = item;
+                    sourceSpecialParameter.PhysicalSpecialParameters = new Model.PhysicalSpecialParameters();
+                    sourceSpecialParameter.PhysicalSpecialParameters.UsesSkipNestedVolumesVec = true;
+                    sourceSpecialParameter.PhysicalSpecialParameters.FilePaths = new System.Collections.Generic.List<FilePathParameters>();
+                    sourceSpecialParameter.PhysicalSpecialParameters.FilePaths.Add(new FilePathParameters("/C/"));
+                    ret.Add(sourceSpecialParameter);
+                }
+            }
+            return ret;
         }
 
         #endregion
