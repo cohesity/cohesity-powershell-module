@@ -101,13 +101,15 @@ function Invoke-RestApi
         if(401 -eq $Global:CohesityAPIError.StatusCode.Value__) {
             if($true -eq $Global:CohesityCmdletConfig.RefreshToken) {
                 Write-Host "The session token has expired, attempting to refresh."
+				$credentialsJson = [Environment]::GetEnvironmentVariable('cohesityCredentials', 'Process')
                 $cohesitySession = Get-Content -Path $HOME/.cohesity | ConvertFrom-Json
-                if($null -ne $cohesitySession.Credentials) {
+                if($null -ne $credentialsJson) {
                     $cohesityUrl = $cohesitySession.ClusterUri + "/irisservices/api/v1/public/accessTokens"
+					$credentialsObject = $credentialsJson | ConvertFrom-Json
                     $payload = @{
-                        Domain                 = $cohesitySession.Credentials.Domain
-                        Username                   = $cohesitySession.Credentials.Username
-                        Password                   = $cohesitySession.Credentials.Password
+                        Domain                 = $credentialsObject.Domain
+                        Username                   = $credentialsObject.Username
+                        Password                   = $credentialsObject.Password
                     }
                     $payloadJson = $payload | ConvertTo-Json
                     $headers = @{'Content-Type' = 'application/json'}

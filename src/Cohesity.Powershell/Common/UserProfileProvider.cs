@@ -1,6 +1,7 @@
 ﻿// Copyright 2018 Cohesity Inc.
 using System;
 using System.IO;
+using Cohesity.Model;
 using Newtonsoft.Json;
 
 namespace Cohesity.Powershell.Common
@@ -80,6 +81,21 @@ namespace Cohesity.Powershell.Common
         {
             var userProfilePath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
             return Path.Combine(userProfilePath, ".cohesity");
+        }
+
+        internal void SaveCredentials(AccessTokenCredential credentials)
+        {
+            var credentialsJson = JsonConvert.SerializeObject(credentials);
+            Environment.SetEnvironmentVariable("cohesityCredentials", credentialsJson, EnvironmentVariableTarget.Process);
+        }
+        internal AccessTokenCredential GetCredentials()
+        {
+            var credentialsJson = Environment.GetEnvironmentVariable("cohesityCredentials", EnvironmentVariableTarget.Process);
+            if(credentialsJson == null)
+            {
+                return null;
+            }
+             return JsonConvert.DeserializeObject<AccessTokenCredential>(credentialsJson);
         }
     }
 }
