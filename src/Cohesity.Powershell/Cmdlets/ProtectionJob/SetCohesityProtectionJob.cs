@@ -77,8 +77,18 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
             if(ProtectionJob.Environment == Model.ProtectionJob.EnvironmentEnum.KPhysicalFiles)
             {
                 var job = RestApiCommon.GetProtectionJobById(Session.ApiClient,ProtectionJob.Id.Value);
-                List<SourceSpecialParameter> resp = ConstructSourceSpecialParameters(ProtectionJob.SourceIds, job.SourceIds);
-                ProtectionJob.SourceSpecialParameters.AddRange(resp);
+                if(null != job)
+                {
+                    if(null != job.SourceSpecialParameters)
+                    {
+                        // assuming that there will be at least one source exists in the job and the job has ran at least once
+                        PhysicalProtectionSource.HostTypeEnum hostType = (PhysicalProtectionSource.HostTypeEnum)
+                            job.LastRun.BackupRun.SourceBackupStatus[0].Source.PhysicalProtectionSource.HostType;
+
+                        List<SourceSpecialParameter> resp = ConstructSourceSpecialParameters(hostType,ProtectionJob.SourceIds, job.SourceIds);
+                        ProtectionJob.SourceSpecialParameters.AddRange(resp);
+                    }
+                }
             }
             // PUT public/protectionJobs/{id}
             var preparedUrl = $"/public/protectionJobs/{ProtectionJob.Id.ToString()}";
@@ -86,7 +96,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
             WriteObject(result);
         }
 
-        private List<SourceSpecialParameter> ConstructSourceSpecialParameters(List<long> newSourceIds, List<long> existingSourceIds)
+        private List<SourceSpecialParameter> ConstructSourceSpecialParameters(PhysicalProtectionSource.HostTypeEnum hostType,List<long> newSourceIds, List<long> existingSourceIds)
         {
             List<SourceSpecialParameter> ret = new List<SourceSpecialParameter>();
             foreach (long item in newSourceIds)
@@ -96,9 +106,17 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
                     var sourceSpecialParameter = new SourceSpecialParameter();
                     sourceSpecialParameter.SourceId = item;
                     sourceSpecialParameter.PhysicalSpecialParameters = new Model.PhysicalSpecialParameters();
-                    sourceSpecialParameter.PhysicalSpecialParameters.UsesSkipNestedVolumesVec = true;
                     sourceSpecialParameter.PhysicalSpecialParameters.FilePaths = new System.Collections.Generic.List<FilePathParameters>();
-                    sourceSpecialParameter.PhysicalSpecialParameters.FilePaths.Add(new FilePathParameters("/C/"));
+                    if(hostType == PhysicalProtectionSource.HostTypeEnum.KWindows)
+                    {
+                        sourceSpecialParameter.PhysicalSpecialParameters.UsesSkipNestedVolumesVec = true;
+                        sourceSpecialParameter.PhysicalSpecialParameters.FilePaths.Add(new FilePathParameters("/C/"));
+
+                    }
+                    if (hostType == PhysicalProtectionSource.HostTypeEnum.KLinux)
+                    {
+                        sourceSpecialParameter.PhysicalSpecialParameters.FilePaths.Add(new FilePathParameters("/",null,true));
+                    }
                     ret.Add(sourceSpecialParameter);
                 }
             }
