@@ -263,6 +263,7 @@ namespace Cohesity.Model
         /// <param name="clientEmailAddress">Specifies Client email address associated with the service account..</param>
         /// <param name="clientPrivateKey">Specifies Client private associated with the service account..</param>
         /// <param name="gcpType">Specifies the entity type such as &#39;kIAMUser&#39; if the environment is kGCP. Specifies the type of a GCP source entity. &#39;kIAMUser&#39; indicates a unique user within a GCP account. &#39;kProject&#39; represents compute resources and storage. &#39;kRegion&#39; indicates a geographical region in the global infrastructure. &#39;kAvailabilityZone&#39; indicates an availability zone within a region. &#39;kVirtualMachine&#39; indicates a Virtual Machine running in GCP environment. &#39;kVPC&#39; indicates a virtual private cloud (VPC) network within GCP. &#39;kSubnet&#39; indicates a subnet inside the VPC. &#39;kNetworkSecurityGroup&#39; represents a network security group. &#39;kInstanceType&#39; represents various machine types. &#39;kLabel&#39; represents a label present on the instances. &#39;kMetaData&#39; represents a custom metadata present on instances. &#39;kTag&#39; represents a network tag on instances. &#39;kVPCConnector&#39; represents a VPC connector used for serverless VPC access..</param>
+        /// <param name="hostProjectId">Specifies the host project id. It is populated in entities of type kSubnet if the subnet is part of a shared VPC. This contains the ID of host project the subnet belongs to. Populated in entities of type kProject if the project is a service project in a Shared VPC setup. This contains the ID of the host project it is attached to..</param>
         /// <param name="hostType">Specifies the OS type of the Protection Source of type &#39;kVirtualMachine&#39; such as &#39;kWindows&#39; or &#39;kLinux&#39;. overrideDescription: true &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kOther&#39; indicates the other types of operating system..</param>
         /// <param name="ipAddressesVM">Specifies the IP address of the entity of type &#39;kVirtualMachine&#39;..</param>
         /// <param name="name">Specifies the name of the Object set by the Cloud Provider. If the provider did not set a name for the object, this field is not set..</param>
@@ -276,11 +277,12 @@ namespace Cohesity.Model
         /// <param name="type">Specifies the type of an GCP Protection Source Object such as &#39;kIAMUser&#39;, &#39;kProject&#39;, &#39;kRegion&#39;, etc. Specifies the type of a GCP source entity. &#39;kIAMUser&#39; indicates a unique user within a GCP account. &#39;kProject&#39; represents compute resources and storage. &#39;kRegion&#39; indicates a geographical region in the global infrastructure. &#39;kAvailabilityZone&#39; indicates an availability zone within a region. &#39;kVirtualMachine&#39; indicates a Virtual Machine running in GCP environment. &#39;kVPC&#39; indicates a virtual private cloud (VPC) network within GCP. &#39;kSubnet&#39; indicates a subnet inside the VPC. &#39;kNetworkSecurityGroup&#39; represents a network security group. &#39;kInstanceType&#39; represents various machine types. &#39;kLabel&#39; represents a label present on the instances. &#39;kMetaData&#39; represents a custom metadata present on instances. &#39;kTag&#39; represents a network tag on instances. &#39;kVPCConnector&#39; represents a VPC connector used for serverless VPC access..</param>
         /// <param name="vpcNetwork">Specifies the VPC Network to deploy proxy VMs..</param>
         /// <param name="vpcSubnetwork">Specifies the subnetwork to deploy proxy VMs..</param>
-        public GcpProtectionSource(string clientEmailAddress = default(string), string clientPrivateKey = default(string), GcpTypeEnum? gcpType = default(GcpTypeEnum?), HostTypeEnum? hostType = default(HostTypeEnum?), string ipAddressesVM = default(string), string name = default(string), string ownerId = default(string), long? physicalSourceId = default(long?), string projectId = default(string), string regionId = default(string), string resourceId = default(string), long? restoreTaskId = default(long?), List<TagAttribute> tagAttributes = default(List<TagAttribute>), TypeEnum? type = default(TypeEnum?), string vpcNetwork = default(string), string vpcSubnetwork = default(string))
+        public GcpProtectionSource(string clientEmailAddress = default(string), string clientPrivateKey = default(string), GcpTypeEnum? gcpType = default(GcpTypeEnum?), string hostProjectId = default(string), HostTypeEnum? hostType = default(HostTypeEnum?), string ipAddressesVM = default(string), string name = default(string), string ownerId = default(string), long? physicalSourceId = default(long?), string projectId = default(string), string regionId = default(string), string resourceId = default(string), long? restoreTaskId = default(long?), List<TagAttribute> tagAttributes = default(List<TagAttribute>), TypeEnum? type = default(TypeEnum?), string vpcNetwork = default(string), string vpcSubnetwork = default(string))
         {
             this.ClientEmailAddress = clientEmailAddress;
             this.ClientPrivateKey = clientPrivateKey;
             this.GcpType = gcpType;
+            this.HostProjectId = hostProjectId;
             this.HostType = hostType;
             this.IpAddressesVM = ipAddressesVM;
             this.Name = name;
@@ -297,6 +299,7 @@ namespace Cohesity.Model
             this.ClientEmailAddress = clientEmailAddress;
             this.ClientPrivateKey = clientPrivateKey;
             this.GcpType = gcpType;
+            this.HostProjectId = hostProjectId;
             this.HostType = hostType;
             this.IpAddressesVM = ipAddressesVM;
             this.Name = name;
@@ -325,6 +328,13 @@ namespace Cohesity.Model
         /// <value>Specifies Client private associated with the service account.</value>
         [DataMember(Name="clientPrivateKey", EmitDefaultValue=true)]
         public string ClientPrivateKey { get; set; }
+
+        /// <summary>
+        /// Specifies the host project id. It is populated in entities of type kSubnet if the subnet is part of a shared VPC. This contains the ID of host project the subnet belongs to. Populated in entities of type kProject if the project is a service project in a Shared VPC setup. This contains the ID of the host project it is attached to.
+        /// </summary>
+        /// <value>Specifies the host project id. It is populated in entities of type kSubnet if the subnet is part of a shared VPC. This contains the ID of host project the subnet belongs to. Populated in entities of type kProject if the project is a service project in a Shared VPC setup. This contains the ID of the host project it is attached to.</value>
+        [DataMember(Name="hostProjectId", EmitDefaultValue=true)]
+        public string HostProjectId { get; set; }
 
         /// <summary>
         /// Specifies the IP address of the entity of type &#39;kVirtualMachine&#39;.
@@ -454,6 +464,11 @@ namespace Cohesity.Model
                     this.GcpType.Equals(input.GcpType)
                 ) && 
                 (
+                    this.HostProjectId == input.HostProjectId ||
+                    (this.HostProjectId != null &&
+                    this.HostProjectId.Equals(input.HostProjectId))
+                ) && 
+                (
                     this.HostType == input.HostType ||
                     this.HostType.Equals(input.HostType)
                 ) && 
@@ -533,6 +548,8 @@ namespace Cohesity.Model
                 if (this.ClientPrivateKey != null)
                     hashCode = hashCode * 59 + this.ClientPrivateKey.GetHashCode();
                 hashCode = hashCode * 59 + this.GcpType.GetHashCode();
+                if (this.HostProjectId != null)
+                    hashCode = hashCode * 59 + this.HostProjectId.GetHashCode();
                 hashCode = hashCode * 59 + this.HostType.GetHashCode();
                 if (this.IpAddressesVM != null)
                     hashCode = hashCode * 59 + this.IpAddressesVM.GetHashCode();

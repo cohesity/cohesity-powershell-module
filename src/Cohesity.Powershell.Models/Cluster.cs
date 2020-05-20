@@ -153,8 +153,10 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="Cluster" /> class.
         /// </summary>
         /// <param name="appsSettings">appsSettings.</param>
+        /// <param name="assignedRacksCount">Specifies the number of racks in cluster with at least one rack assigned..</param>
         /// <param name="availableMetadataSpace">Information about storage available for metadata.</param>
         /// <param name="bannerEnabled">Specifies whether UI banner is enabled on the cluster or not. When banner is enabled, UI will make an additional API call to fetch the banner and show at the login page..</param>
+        /// <param name="chassisCount">Specifies the number of chassis in cluster..</param>
         /// <param name="clusterAuditLogConfig">clusterAuditLogConfig.</param>
         /// <param name="clusterSoftwareVersion">Specifies the current release of the Cohesity software running on this Cohesity Cluster..</param>
         /// <param name="clusterType">Specifies the type of Cluster such as kPhysical. &#39;kPhysical&#39; indicates the Cohesity Cluster is hosted directly on hardware. &#39;kVirtualRobo&#39; indicates the Cohesity Cluster is hosted in a VM on a ESXi Host of a VMware vCenter Server using Cohesity&#39;s Virtual Edition. &#39;kMicrosoftCloud&#39; indicates the Cohesity Cluster is hosted in a VM on Microsoft Azure using Cohesity&#39;s Cloud Edition. &#39;kAmazonCloud&#39; indicates the Cohesity Cluster is hosted in a VM on Amazon S3 using Cohesity&#39;s Cloud Edition. &#39;kGoogleCloud&#39; indicates the Cohesity Cluster is hosted in a VM on Google Cloud Platform using Cohesity&#39;s Cloud Edition..</param>
@@ -203,10 +205,12 @@ namespace Cohesity.Model
         /// <param name="timezone">Specifies the timezone to use for showing time in emails, reports, filer audit logs, etc..</param>
         /// <param name="turboMode">Specifies if the cluster is in Turbo mode..</param>
         /// <param name="usedMetadataSpacePct">UsedMetadataSpacePct measures the percentage about storage used for metadata over the total storage available for metadata.</param>
-        public Cluster(AppsConfig appsSettings = default(AppsConfig), long? availableMetadataSpace = default(long?), bool? bannerEnabled = default(bool?), ClusterAuditLogConfiguration clusterAuditLogConfig = default(ClusterAuditLogConfiguration), string clusterSoftwareVersion = default(string), ClusterTypeEnum? clusterType = default(ClusterTypeEnum?), long? createdTimeMsecs = default(long?), long? currentOpScheduledTimeSecs = default(long?), CurrentOperationEnum? currentOperation = default(CurrentOperationEnum?), long? currentTimeMsecs = default(long?), List<string> dnsServerIps = default(List<string>), List<string> domainNames = default(List<string>), bool? enableActiveMonitoring = default(bool?), bool? enableUpgradePkgPolling = default(bool?), bool? encryptionEnabled = default(bool?), long? encryptionKeyRotationPeriodSecs = default(long?), EulaConfig eulaConfig = default(EulaConfig), FaultToleranceLevelEnum? faultToleranceLevel = default(FaultToleranceLevelEnum?), FilerAuditLogConfiguration filerAuditLogConfig = default(FilerAuditLogConfiguration), bool? fipsModeEnabled = default(bool?), string gateway = default(string), bool? googleAnalyticsEnabled = default(bool?), ClusterHardwareInfo hardwareInfo = default(ClusterHardwareInfo), long? id = default(long?), long? incarnationId = default(long?), int? ipPreference = default(int?), bool? isDocumentationLocal = default(bool?), string languageLocale = default(string), LicenseState licenseState = default(LicenseState), string localAuthDomainName = default(string), bool? localGroupsEnabled = default(bool?), int? metadataFaultToleranceFactor = default(int?), bool? multiTenancyEnabled = default(bool?), string name = default(string), long? nodeCount = default(long?), string nodeIps = default(string), NtpSettingsConfig ntpSettings = default(NtpSettingsConfig), int? pcieSsdTierRebalanceDelaySecs = default(int?), string proxyVMSubnet = default(string), bool? reverseTunnelEnabled = default(bool?), long? reverseTunnelEndTimeMsecs = default(long?), List<SchemaInfo> schemaInfoList = default(List<SchemaInfo>), bool? smbAdDisabled = default(bool?), ClusterStats stats = default(ClusterStats), bool? stigMode = default(bool?), SupportedConfig supportedConfig = default(SupportedConfig), string targetSoftwareVersion = default(string), bool? tenantViewboxSharingEnabled = default(bool?), string timezone = default(string), bool? turboMode = default(bool?), double? usedMetadataSpacePct = default(double?))
+        public Cluster(AppsConfig appsSettings = default(AppsConfig), int? assignedRacksCount = default(int?), long? availableMetadataSpace = default(long?), bool? bannerEnabled = default(bool?), int? chassisCount = default(int?), ClusterAuditLogConfiguration clusterAuditLogConfig = default(ClusterAuditLogConfiguration), string clusterSoftwareVersion = default(string), ClusterTypeEnum? clusterType = default(ClusterTypeEnum?), long? createdTimeMsecs = default(long?), long? currentOpScheduledTimeSecs = default(long?), CurrentOperationEnum? currentOperation = default(CurrentOperationEnum?), long? currentTimeMsecs = default(long?), List<string> dnsServerIps = default(List<string>), List<string> domainNames = default(List<string>), bool? enableActiveMonitoring = default(bool?), bool? enableUpgradePkgPolling = default(bool?), bool? encryptionEnabled = default(bool?), long? encryptionKeyRotationPeriodSecs = default(long?), EulaConfig eulaConfig = default(EulaConfig), FaultToleranceLevelEnum? faultToleranceLevel = default(FaultToleranceLevelEnum?), FilerAuditLogConfiguration filerAuditLogConfig = default(FilerAuditLogConfiguration), bool? fipsModeEnabled = default(bool?), string gateway = default(string), bool? googleAnalyticsEnabled = default(bool?), ClusterHardwareInfo hardwareInfo = default(ClusterHardwareInfo), long? id = default(long?), long? incarnationId = default(long?), int? ipPreference = default(int?), bool? isDocumentationLocal = default(bool?), string languageLocale = default(string), LicenseState licenseState = default(LicenseState), string localAuthDomainName = default(string), bool? localGroupsEnabled = default(bool?), int? metadataFaultToleranceFactor = default(int?), bool? multiTenancyEnabled = default(bool?), string name = default(string), long? nodeCount = default(long?), string nodeIps = default(string), NtpSettingsConfig ntpSettings = default(NtpSettingsConfig), int? pcieSsdTierRebalanceDelaySecs = default(int?), string proxyVMSubnet = default(string), bool? reverseTunnelEnabled = default(bool?), long? reverseTunnelEndTimeMsecs = default(long?), List<SchemaInfo> schemaInfoList = default(List<SchemaInfo>), bool? smbAdDisabled = default(bool?), ClusterStats stats = default(ClusterStats), bool? stigMode = default(bool?), SupportedConfig supportedConfig = default(SupportedConfig), string targetSoftwareVersion = default(string), bool? tenantViewboxSharingEnabled = default(bool?), string timezone = default(string), bool? turboMode = default(bool?), double? usedMetadataSpacePct = default(double?))
         {
+            this.AssignedRacksCount = assignedRacksCount;
             this.AvailableMetadataSpace = availableMetadataSpace;
             this.BannerEnabled = bannerEnabled;
+            this.ChassisCount = chassisCount;
             this.ClusterSoftwareVersion = clusterSoftwareVersion;
             this.ClusterType = clusterType;
             this.CreatedTimeMsecs = createdTimeMsecs;
@@ -250,8 +254,10 @@ namespace Cohesity.Model
             this.TurboMode = turboMode;
             this.UsedMetadataSpacePct = usedMetadataSpacePct;
             this.AppsSettings = appsSettings;
+            this.AssignedRacksCount = assignedRacksCount;
             this.AvailableMetadataSpace = availableMetadataSpace;
             this.BannerEnabled = bannerEnabled;
+            this.ChassisCount = chassisCount;
             this.ClusterAuditLogConfig = clusterAuditLogConfig;
             this.ClusterSoftwareVersion = clusterSoftwareVersion;
             this.ClusterType = clusterType;
@@ -309,6 +315,13 @@ namespace Cohesity.Model
         public AppsConfig AppsSettings { get; set; }
 
         /// <summary>
+        /// Specifies the number of racks in cluster with at least one rack assigned.
+        /// </summary>
+        /// <value>Specifies the number of racks in cluster with at least one rack assigned.</value>
+        [DataMember(Name="assignedRacksCount", EmitDefaultValue=true)]
+        public int? AssignedRacksCount { get; set; }
+
+        /// <summary>
         /// Information about storage available for metadata
         /// </summary>
         /// <value>Information about storage available for metadata</value>
@@ -321,6 +334,13 @@ namespace Cohesity.Model
         /// <value>Specifies whether UI banner is enabled on the cluster or not. When banner is enabled, UI will make an additional API call to fetch the banner and show at the login page.</value>
         [DataMember(Name="bannerEnabled", EmitDefaultValue=true)]
         public bool? BannerEnabled { get; set; }
+
+        /// <summary>
+        /// Specifies the number of chassis in cluster.
+        /// </summary>
+        /// <value>Specifies the number of chassis in cluster.</value>
+        [DataMember(Name="chassisCount", EmitDefaultValue=true)]
+        public int? ChassisCount { get; set; }
 
         /// <summary>
         /// Gets or Sets ClusterAuditLogConfig
@@ -673,6 +693,11 @@ namespace Cohesity.Model
                     this.AppsSettings.Equals(input.AppsSettings))
                 ) && 
                 (
+                    this.AssignedRacksCount == input.AssignedRacksCount ||
+                    (this.AssignedRacksCount != null &&
+                    this.AssignedRacksCount.Equals(input.AssignedRacksCount))
+                ) && 
+                (
                     this.AvailableMetadataSpace == input.AvailableMetadataSpace ||
                     (this.AvailableMetadataSpace != null &&
                     this.AvailableMetadataSpace.Equals(input.AvailableMetadataSpace))
@@ -681,6 +706,11 @@ namespace Cohesity.Model
                     this.BannerEnabled == input.BannerEnabled ||
                     (this.BannerEnabled != null &&
                     this.BannerEnabled.Equals(input.BannerEnabled))
+                ) && 
+                (
+                    this.ChassisCount == input.ChassisCount ||
+                    (this.ChassisCount != null &&
+                    this.ChassisCount.Equals(input.ChassisCount))
                 ) && 
                 (
                     this.ClusterAuditLogConfig == input.ClusterAuditLogConfig ||
@@ -935,10 +965,14 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.AppsSettings != null)
                     hashCode = hashCode * 59 + this.AppsSettings.GetHashCode();
+                if (this.AssignedRacksCount != null)
+                    hashCode = hashCode * 59 + this.AssignedRacksCount.GetHashCode();
                 if (this.AvailableMetadataSpace != null)
                     hashCode = hashCode * 59 + this.AvailableMetadataSpace.GetHashCode();
                 if (this.BannerEnabled != null)
                     hashCode = hashCode * 59 + this.BannerEnabled.GetHashCode();
+                if (this.ChassisCount != null)
+                    hashCode = hashCode * 59 + this.ChassisCount.GetHashCode();
                 if (this.ClusterAuditLogConfig != null)
                     hashCode = hashCode * 59 + this.ClusterAuditLogConfig.GetHashCode();
                 if (this.ClusterSoftwareVersion != null)

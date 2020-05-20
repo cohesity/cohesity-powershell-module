@@ -584,6 +584,13 @@ namespace Cohesity.Model
         public GoogleAccountInfo GoogleAccount { get; set; }
 
         /// <summary>
+        /// Specifies the Cohesity roles to associate with the user&#39; group. These roles can only be edited from group.
+        /// </summary>
+        /// <value>Specifies the Cohesity roles to associate with the user&#39; group. These roles can only be edited from group.</value>
+        [DataMember(Name="groupRoles", EmitDefaultValue=true)]
+        public List<string> GroupRoles { get; private set; }
+
+        /// <summary>
         /// Gets or Sets IdpUserInfo
         /// </summary>
         [DataMember(Name="idpUserInfo", EmitDefaultValue=false)]
@@ -773,6 +780,12 @@ namespace Cohesity.Model
                     this.GoogleAccount.Equals(input.GoogleAccount))
                 ) && 
                 (
+                    this.GroupRoles == input.GroupRoles ||
+                    this.GroupRoles != null &&
+                    input.GroupRoles != null &&
+                    this.GroupRoles.SequenceEqual(input.GroupRoles)
+                ) && 
+                (
                     this.IdpUserInfo == input.IdpUserInfo ||
                     (this.IdpUserInfo != null &&
                     this.IdpUserInfo.Equals(input.IdpUserInfo))
@@ -883,6 +896,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ExpiredTimeMsecs.GetHashCode();
                 if (this.GoogleAccount != null)
                     hashCode = hashCode * 59 + this.GoogleAccount.GetHashCode();
+                if (this.GroupRoles != null)
+                    hashCode = hashCode * 59 + this.GroupRoles.GetHashCode();
                 if (this.IdpUserInfo != null)
                     hashCode = hashCode * 59 + this.IdpUserInfo.GetHashCode();
                 if (this.LastUpdatedTimeMsecs != null)
