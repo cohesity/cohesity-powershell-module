@@ -23,6 +23,12 @@ Connect-CohesityCluster -Server 192.168.1.100 -Credential (Get-Credential)
 
 Connects to a Cohesity Cluster at the address "192.168.1.100" using the provided credentials.
 
+### EXAMPLE 2
+```
+Connect-CohesityCluster -Server 192.168.1.100 -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList "mydomain.com\admin", (ConvertTo-SecureString -AsPlainText "p@ssword" -Force))
+```
+Connects to a Cohesity Cluster at the address "192.168.1.100" using the active directory user, by appending domain name(mydomain.com) to the user.
+
 ## PARAMETERS
 
 ### -Server
