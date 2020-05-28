@@ -165,12 +165,44 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
             foreach(var node in nodes)
             {
                 var childrenNodes = node.Nodes;
+                // for SQL nodes, the items are available in ApplicationNodes
+                if (childrenNodes == null)
+                {
+                    if(node.ApplicationNodes != null)
+                    {
+                        childrenNodes = node.ApplicationNodes;
+                    }
+                }
                 node.Nodes = null;
-                result.Add(node);
+
+                DecideToAppendNode(node, ref result);
+
                 result.AddRange(FlattenNodes(childrenNodes));
             }
 
             return result;
+        }
+        private void DecideToAppendNode(ProtectionSourceNode node, ref List<ProtectionSourceNode> result)
+        {
+            // Ensure that we are processing only the requested items type passed in the environment variable
+            Model.ProtectionSource.EnvironmentEnum resp = System.Array.Find(this.Environments, element => element == node.ProtectionSource.Environment);
+            if (resp == node.ProtectionSource.Environment)
+            {
+                // The SQL query in REST API responds back with KPhysical items as well filter them out
+                if (node.ProtectionSource.Environment == Model.ProtectionSource.EnvironmentEnum.KSQL)
+                {
+                    // For SQL return the instance items only
+                    if (node.ProtectionSource.SqlProtectionSource.Type == SqlProtectionSource.TypeEnum.KInstance)
+                    {
+                        result.Add(node);
+                    }
+                }
+                else
+                {
+                    result.Add(node);
+
+                }
+            }
         }
     }
 }
