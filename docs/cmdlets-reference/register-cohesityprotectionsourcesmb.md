@@ -22,6 +22,13 @@ Register-CohesityProtectionSourceSMB -MountPath "\\smb-server.example.com\share 
 
 Registers a new SMB file share with mount path "\\\\smb-server.example.com\share" with the Cohesity Cluster.
 
+### EXAMPLE 2
+```
+Register-CohesityProtectionSourceSMB -MountPath "\\smb-server.example.com\share -Credential (Get-Credential) -SkipValidation:$true"
+```
+
+Registers a new SMB file share with mount path "\\\\smb-server.example.com\share" with the Cohesity Cluster and skip the validation.
+
 ## PARAMETERS
 
 ### -MountPath

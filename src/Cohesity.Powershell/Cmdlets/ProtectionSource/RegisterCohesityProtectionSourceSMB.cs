@@ -57,6 +57,13 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
         /// </summary>
         [Parameter(Mandatory = true)]
         public PSCredential Credential { get; set; } = null;
+        /// <summary>
+        /// <para type="description">
+        /// Skip SMB validation registration
+        /// </para>
+        /// </summary>
+        [Parameter(Mandatory = false)]
+        public bool SkipValidation = false;
         #endregion
 
         #region Processing
@@ -90,6 +97,13 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
                             password = networkCredential.Password,
                             domainName = domain
                         }
+                    }
+                },
+                registeredEntityParams = new
+                {
+                    genericNasParams = new
+                    {
+                        skipValidation = SkipValidation
                     }
                 }
             });

@@ -32,6 +32,15 @@ Get-CohesityProtectionSourceObject -Id 1234
 
 Returns only the object that matches the specified id.
 
+### EXAMPLE 3
+```
+$sql = Get-CohesityProtectionSourceObject -Environments KSQL
+$sql | Where-Object{$_.SqlProtectionSource.Type -eq "KDatabase"}
+```
+
+Get all the SQL objects and filter the array with KDatabase and KInstance to get the databases and the server instances respectively.
+
+
 ## PARAMETERS
 
 ### -IncludeDatastores
