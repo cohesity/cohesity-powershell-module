@@ -2,7 +2,7 @@
  - Windows only
  ### Standalone processing individual database
  ```
- .\restoreDB.ps1 -vip 10.2.102.233 -username admin -jobName  mssql-162 -restoreType "RESTORE-LOCAL" -sourceInstance  SQL2014 -sourceDB SQL2014_DB
+ .\restoreDB.ps1 -vip 10.2.102.233 -username admin -jobName  mssql-162 -restoreType "RESTORE-LOCAL" -sourceInstance  SQL2014 -sourceDBs SQL2014_DB, MY_DB1, MY_DB2
 ```
  ### Standalone parallel processing all databases inside a single instance
  ```
