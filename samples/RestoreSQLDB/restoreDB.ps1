@@ -18,7 +18,7 @@ param(
     [string]$sourceInstance,
     [Parameter()]
     [ValidateNotNullOrEmpty()]
-    [string]$sourceDB,
+    [string[]]$sourceDBs,
     [Parameter(Mandatory = $true)]
     [ValidateNotNullOrEmpty()]
     [ValidateSet("RESTORE-LOCAL", "RESTORE-REMOTE")]
@@ -31,12 +31,24 @@ Process {
     switch ($restoreType) {
         "RESTORE-LOCAL" {
             $selectedDBs = $null
-            if($sourceInstance -and $sourceDB) {
+            if($sourceInstance -and $sourceDBs) {
+                [bool]$invalidDB = $false
                 # Standalone processing individual database
                 $searchedDBs  =.\searchDB.ps1 -vip $vip -username admin -jobName $jobName
-                $selectedDBs = $searchedDBs | Where-Object{$_.sqlProtectionSource.name -eq $sourceInstance -and $_.sqlProtectionSource.databaseName -eq $sourceDB}
-                if($null -eq $selectedDBs) {
-                    write-host "Database not found $sourceInstance/$sourceDB" -ForegroundColor Red
+                foreach ($item in $sourceDBs) {
+                    $foundDB = $null
+                    $foundDB = $searchedDBs | Where-Object{$_.sqlProtectionSource.name -eq $sourceInstance -and $_.sqlProtectionSource.databaseName -eq $item}
+                    if($null -eq $foundDB) {
+                        $invalidDB = $true
+                        Write-host "Database not found $sourceInstance/$item" -ForegroundColor Red
+                    }
+                    if($null -eq $selectedDBs) {
+                        $selectedDBs = @()
+                    }
+                    $selectedDBs += $foundDB
+                }
+                if($true -eq $invalidDB) {
+                    write-host "Cannot proceed with invaild database(s)" -ForegroundColor Red
                     exit 0
                 }
             } elseif ($sourceInstance) {
