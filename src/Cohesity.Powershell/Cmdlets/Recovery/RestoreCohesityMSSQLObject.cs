@@ -264,6 +264,20 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
                 }
             };
 
+            if(false == JobRunId.HasValue || false == StartTime.HasValue)
+            {
+                //Set the latest job run for restoration
+                List<Model.ProtectionRunInstance> jobRuns = new List<Model.ProtectionRunInstance>(RestApiCommon.GetProtectionJobRunsByJobId(Session.ApiClient, JobId));
+                if (null != jobRuns && jobRuns.Count > 0)
+                {
+                    Model.ProtectionRunInstance jobRun = jobRuns[0];
+                    if (null != jobRun.CopyRun && jobRun.CopyRun.Count > 0)
+                    {
+                        JobRunId = jobRun.BackupRun.JobRunId;
+                        StartTime = jobRun.CopyRun[0].RunStartTimeUsecs;
+                    }
+                }
+            }
             if (JobRunId.HasValue)
                 hostingProtectionSource.JobRunId = JobRunId;
 
