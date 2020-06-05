@@ -29,6 +29,33 @@ Begin {
         write-host "DB details could not be fetched for $dbList"
         return
     }
+
+    $nonDBItems = $dbDetails | Where-Object {$_.sqlProtectionSource.type -eq "kInstance"}
+    if ($null -ne $nonDBItems) {
+        # we may encounter kInstance (when source is auto protected)
+        $databaseIds = @()
+        foreach ($item in $dbDetails) {
+            if ($item.sqlProtectionSource.type -eq "kDatabase") {
+                $databaseIds += $item
+            }
+            else {
+                if ($item.sqlProtectionSource.type -eq "kInstance") {
+                    $instanceId = $item.id
+                    $instanceTree = api get "/public/protectionSources?id=$instanceId&environments=kSQL"
+                    $databaseIds += ($instanceTree.nodes | Select-Object -ExpandProperty ProtectionSource) | Select-Object -Property id
+                }
+            }
+        }
+        # now we have the db ids
+        $dbList = $databaseIds.id -join ','
+        # search the db list details
+        $dbDetails = api get "/public/protectionSources/objects?objectIds=$dbList"
+        if ($null -eq $dbDetails) {
+            write-host "DB details not found for $dbList"
+            return
+        }
+    }
+
     if($appendSourceIP) {
         # will identify the source server IP
         $uniquParentIds = $dbDetails | select-object -Property ParentId -Unique
