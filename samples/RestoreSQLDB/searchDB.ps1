@@ -13,14 +13,25 @@ Begin {
     Import-Module -Name $env:cohesity"\cohesity-api.psm1"
     apiauth -vip $vip -username $username -domain $domain
     # look for the target job
-    $sqlJob = api get "/public/protectionJobs?names=$jobName&environments=kSQL"
+    $sqlJob = api get "/public/protectionJobs?names=$jobName&environments=kSQL&isDeleted=false"
     if($null -eq $sqlJob) {
         write-host "Job details not found for $jobName"
         return
     }
     $dbList = [System.Collections.ArrayList]::new()
-    foreach($item in $sqlJob.sourceSpecialParameters) {
-        $dbList.AddRange($item.sqlSpecialParameters.applicationEntityIds)
+    if($null -eq $sqlJob.sourceSpecialParameters) {
+        # assuming that the root id is added as source (as auto protected)
+        foreach($sourceId in $sqlJob.SourceIds) {
+            $rootTree = api get "/public/protectionSources/applicationServers?protectionSourcesRootNodeId=$sourceId&application=kSQL"
+            $result = $rootTree.applicationServer.applicationNodes.nodes | Where-Object{$_.protectionSource.sqlProtectionSource.type -eq "kDatabase"}
+            if($null -ne $result) {
+                $dbList.AddRange(($result | Select-Object -ExpandProperty ProtectionSource).id)
+            }
+        }
+    } else {
+        foreach($item in $sqlJob.sourceSpecialParameters) {
+            $dbList.AddRange($item.sqlSpecialParameters.applicationEntityIds)
+        }
     }
     $dbList = $dbList -join ','
     # search the db list details
