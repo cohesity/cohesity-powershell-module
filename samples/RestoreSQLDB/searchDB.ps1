@@ -13,14 +13,25 @@ Begin {
     Import-Module -Name $env:cohesity"\cohesity-api.psm1"
     apiauth -vip $vip -username $username -domain $domain
     # look for the target job
-    $sqlJob = api get "/public/protectionJobs?names=$jobName&environments=kSQL"
+    $sqlJob = api get "/public/protectionJobs?names=$jobName&environments=kSQL&isDeleted=false"
     if($null -eq $sqlJob) {
         write-host "Job details not found for $jobName"
         return
     }
     $dbList = [System.Collections.ArrayList]::new()
-    foreach($item in $sqlJob.sourceSpecialParameters) {
-        $dbList.AddRange($item.sqlSpecialParameters.applicationEntityIds)
+    if($null -eq $sqlJob.sourceSpecialParameters) {
+        # assuming that the root id is added as source (as auto protected)
+        foreach($sourceId in $sqlJob.SourceIds) {
+            $rootTree = api get "/public/protectionSources/applicationServers?protectionSourcesRootNodeId=$sourceId&application=kSQL"
+            $result = $rootTree.applicationServer.applicationNodes.nodes | Where-Object{$_.protectionSource.sqlProtectionSource.type -eq "kDatabase"}
+            if($null -ne $result) {
+                $dbList.AddRange(($result | Select-Object -ExpandProperty ProtectionSource).id)
+            }
+        }
+    } else {
+        foreach($item in $sqlJob.sourceSpecialParameters) {
+            $dbList.AddRange($item.sqlSpecialParameters.applicationEntityIds)
+        }
     }
     $dbList = $dbList -join ','
     # search the db list details
@@ -29,6 +40,33 @@ Begin {
         write-host "DB details could not be fetched for $dbList"
         return
     }
+
+    $nonDBItems = $dbDetails | Where-Object {$_.sqlProtectionSource.type -eq "kInstance"}
+    if ($null -ne $nonDBItems) {
+        # we may encounter kInstance (when source is auto protected)
+        $databaseIds = @()
+        foreach ($item in $dbDetails) {
+            if ($item.sqlProtectionSource.type -eq "kDatabase") {
+                $databaseIds += $item
+            }
+            else {
+                if ($item.sqlProtectionSource.type -eq "kInstance") {
+                    $instanceId = $item.id
+                    $instanceTree = api get "/public/protectionSources?id=$instanceId&environments=kSQL"
+                    $databaseIds += ($instanceTree.nodes | Select-Object -ExpandProperty ProtectionSource) | Select-Object -Property id
+                }
+            }
+        }
+        # now we have the db ids
+        $dbList = $databaseIds.id -join ','
+        # search the db list details
+        $dbDetails = api get "/public/protectionSources/objects?objectIds=$dbList"
+        if ($null -eq $dbDetails) {
+            write-host "DB details not found for $dbList"
+            return
+        }
+    }
+
     if($appendSourceIP) {
         # will identify the source server IP
         $uniquParentIds = $dbDetails | select-object -Property ParentId -Unique

@@ -13,7 +13,7 @@
  .\restoreDB.ps1 -vip 10.2.102.233 -username admin -jobName  mssql-162 -restoreType "RESTORE-LOCAL"
  ```
 
- ### Piped selection of db and parallel processing of selected dbs on target server
+ ### Piped selection of db and parallel processing of selected dbs on target server, the mdf and the log files will be restored on the same folder
  ```
- .\restoreDB.ps1 -vip 10.2.102.233 -username admin -jobName mssql-162 -restoreType "RESTORE-REMOTE" -targetServer 10.2.100.59 -targetInstance "MYSQLSERVER" -mdfFolder "new-backup"
+ .\restoreDB.ps1 -vip 10.2.100.211 -username admin -jobName job-sql-203 -restoreType "RESTORE-REMOTE" -targetServer 10.2.100.193 -targetInstance "MSSQLSERVER" -mdfFolder "C:\temp"
  ```
