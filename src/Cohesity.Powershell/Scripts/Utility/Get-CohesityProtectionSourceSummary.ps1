@@ -6,6 +6,8 @@ function Get-CohesityProtectionSourceSummary {
 		The Get-CohesityProtectionSourceSummary is used to get the summary of protected and unprotected sources, for example the VMs, databases, volumes, physical servers etc.
 		.EXAMPLE
 		Get-CohesityProtectionSourceSummary
+		.EXAMPLE
+		Get-CohesityProtectionSourceSummary -BasicSummary:$true
 	#>
     [CmdletBinding()]
     param(
