@@ -9,8 +9,10 @@ function Get-CohesityProtectionSourceSummary {
 	#>
     [CmdletBinding()]
     param(
+        [Parameter(Mandatory = $false)]
+        [switch]$BasicSummary
     )
-    
+
     Begin {
         if (-not (Test-Path -Path "$HOME/.cohesity")) {
             throw "Failed to authenticate. Please connect to the Cohesity Cluster using 'Connect-CohesityCluster'"
@@ -26,7 +28,22 @@ function Get-CohesityProtectionSourceSummary {
         $cohesityHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
         $resp = Invoke-RestApi -Method Get -Uri $cohesityClusterURL -Headers $cohesityHeaders
         if ($resp) {
-            $resp
+            if($true -eq $BasicSummary) {
+                $result = ($resp.dashboard.protectedObjects | Select-Object -ExpandProperty objectsProtected)
+                $summary = @{
+                    envType = "Total"
+                    protectedCount = $resp.dashboard.protectedObjects.protectedCount
+                    protectedSizeBytes = $resp.dashboard.protectedObjects.protectedSizeBytes
+                    unprotectedCount = $resp.dashboard.protectedObjects.unprotectedCount
+                    unprotectedSizeBytes = $resp.dashboard.protectedObjects.unprotectedSizeBytes
+                }
+                $result += $summary
+                return ($result  |Select-Object envType,protectedCount, `
+                @{Name="protected size(GB)"; Expression={[math]::round($_.protectedSizeBytes/1GB, 2)}}, `
+                unprotectedCount, @{Name="unprotected size(GB)"; Expression={[math]::round($_.unprotectedSizeBytes/1GB, 2)}})
+            } else {
+                return $resp
+            }
         }
         else {
             $errorMsg = "Protection source summary : Failed to get"
