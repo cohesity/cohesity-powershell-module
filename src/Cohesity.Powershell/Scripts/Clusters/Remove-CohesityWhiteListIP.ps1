@@ -1,4 +1,4 @@
-function Add-CohesityWhiteListIP {
+function Remove-CohesityWhiteListIP {
     <#
         .SYNOPSIS
         Remove an IP from whitelist.
@@ -9,14 +9,12 @@ function Add-CohesityWhiteListIP {
         .LINK
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
-        Remove-CohesityWhiteListIP -IP4 "1.1.1.1" -NetmaskIp4 "255.255.255.0"
+        Remove-CohesityWhiteListIP -IP4 "1.1.1.1"
     #>
-    [CmdletBinding()]
+    [CmdletBinding(SupportsShouldProcess = $True, ConfirmImpact = "High")]
     Param(
         [Parameter(Mandatory = $true)]
-        $IP4,
-        [Parameter(Mandatory = $true)]
-        $NetmaskIp4
+        $IP4
     )
 
     Begin {
@@ -29,27 +27,37 @@ function Add-CohesityWhiteListIP {
     }
 
     Process {
-        $whiteListIPs = Get-CohesityWhiteListIP
-        $foundIP = $whiteListIPs.clientSubnets | where-object {$_.ip -eq $IP4 -and $_.netmaskIp4 -eq $NetmaskIp4}
+        $whiteList = Get-CohesityWhiteListIP
+        $foundIP = $whiteList | where-object {$_.ip -eq $IP4}
         if($null -eq $foundIP) {
-            Write-Host "Cannot proceed, IP '$IP' with netmask '$NetmaskIp4' not found"
+            Write-Host "Cannot proceed, IP '$IP4' not found"
             return
         }
 
-        $whiteListIPs.clientSubnets = $whiteListIPs.clientSubnets | where-object {$_.ip -ne $IP4 -and $_.netmaskIp4 -ne $NetmaskIp4} 
-        $payload = $whiteListIPs
+        if ($PSCmdlet.ShouldProcess($IP4)) {
+            $whiteList = $whiteList | where-object {$_.ip -ne $IP4}
+            $arrList = [System.Collections.ArrayList]::new()
+            if($whiteList) {
+                $whiteList = $arrList + $whiteList
+            } else {
+                $whiteList = $arrList
+            }
+            $payload = @{clientSubnets = $whiteList}
 
-        $cohesityClusterURL = $cohesityCluster + '/irisservices/api/v1/public/externalClientSubnets'
-        $cohesityHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
-        $payloadJson = $payload | ConvertTo-Json
-        $resp = Invoke-RestApi -Method Put -Uri $cohesityClusterURL -Headers $cohesityHeaders -Body $payloadJson
-        if ($resp) {
-            $resp
-        }
-        else {
-            $errorMsg = "Whitelist IP : Failed to remove"
-            Write-Host $errorMsg
-            CSLog -Message $errorMsg
+            $cohesityClusterURL = $cohesityCluster + '/irisservices/api/v1/public/externalClientSubnets'
+            $cohesityHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
+            $payloadJson = $payload | ConvertTo-Json
+            $resp = Invoke-RestApi -Method Put -Uri $cohesityClusterURL -Headers $cohesityHeaders -Body $payloadJson
+            if ($resp) {
+                $resp.clientSubnets
+            }
+            else {
+                $errorMsg = "Whitelist IP : Failed to remove"
+                Write-Host $errorMsg
+                CSLog -Message $errorMsg
+            }
+        } else {
+            Write-Host "Operation aborted"
         }
     }
 

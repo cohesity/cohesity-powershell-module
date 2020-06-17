@@ -20,12 +20,12 @@ function Add-CohesityWhiteListIP {
         [Parameter(Mandatory = $true)]
         $NetmaskIp4,
         [Parameter(Mandatory = $false)]
-        [switch]$NFSRootSquash = $false,
+        [Boolean]$NFSRootSquash = $false,
         [Parameter(Mandatory = $false)]
         [ValidateSet("kDisabled", "kReadOnly", "kReadWrite")]
         $NFSAccess = "kReadWrite",
         [Parameter(Mandatory = $false)]
-        [switch]$NFSAllSquash = $false,
+        [Boolean]$NFSAllSquash = $false,
         [Parameter(Mandatory = $false)]
         [ValidateSet("kDisabled", "kReadOnly", "kReadWrite")]
         $SMBAccess = "kReadWrite"
@@ -48,19 +48,24 @@ function Add-CohesityWhiteListIP {
             nfsAccess     = $NFSAccess
             smbAccess     = $SMBAccess
             nfsAllSquash  = $NFSAllSquash
-            _ip           = $IP4 + "/" + $NetmaskIp4
         }
 
-        $whiteListIPs = Get-CohesityWhiteListIP
-        $whiteListIPs.clientSubnets += $newIP
-        $payload = $whiteListIPs
+        $whiteList = Get-CohesityWhiteListIP
+        $arrList = [System.Collections.ArrayList]::new()
+        if($whiteList) {
+            $whiteList = $arrList + $whiteList
+        } else {
+            $whiteList = $arrList
+        }
+        $whiteList += $newIP
+        $payload = @{clientSubnets = $whiteList}
 
         $cohesityClusterURL = $cohesityCluster + '/irisservices/api/v1/public/externalClientSubnets'
         $cohesityHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
         $payloadJson = $payload | ConvertTo-Json
         $resp = Invoke-RestApi -Method Put -Uri $cohesityClusterURL -Headers $cohesityHeaders -Body $payloadJson
         if ($resp) {
-            $resp
+            $resp.clientSubnets
         }
         else {
             $errorMsg = "Whitelist IP : Failed to add"

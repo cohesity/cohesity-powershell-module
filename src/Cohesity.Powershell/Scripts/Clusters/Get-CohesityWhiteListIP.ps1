@@ -29,7 +29,7 @@ function Get-CohesityWhiteListIP {
         $cohesityHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
         $resp = Invoke-RestApi -Method Get -Uri $cohesityClusterURL -Headers $cohesityHeaders
         if ($resp) {
-            $resp
+            $resp.clientSubnets
         }
         else {
             $errorMsg = "Whitelist IP : Failed to get"
