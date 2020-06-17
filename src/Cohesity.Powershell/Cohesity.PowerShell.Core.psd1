@@ -8,7 +8,7 @@
 RootModule = 'Cohesity.PowerShell.Core.dll'
 
 # Version number of this module.
-ModuleVersion = '1.4.1'
+ModuleVersion = '1.4.2'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -66,6 +66,7 @@ NestedModules = @('Cohesity.PowerShell.psm1')
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
 FunctionsToExport = @(
+                      'Add-CohesityWhiteListIP',
                       'Copy-CohesityView',
                       'Get-CohesityActiveDirectory',
                       'Get-CohesityCmdletConfig',
@@ -79,6 +80,7 @@ FunctionsToExport = @(
                       'Get-CohesityVault',
                       'Get-CohesityVirtualIP',
                       'Get-CohesityVlan',
+                      'Get-CohesityWhiteListIP',
                       'New-CohesityActiveDirectory',
                       'New-CohesityHypervProtectionJob'
                       'New-CohesityProtectionPolicy',
@@ -94,6 +96,7 @@ FunctionsToExport = @(
                       'Remove-CohesityUser',
                       'Remove-CohesityVirtualIP',
                       'Remove-CohesityVlan',
+                      'Remove-CohesityWhiteListIP',
                       'Restore-CohesityBackupToView',
                       'Save-CohesityFile',
                       'Set-CohesityAlertResolutions',
