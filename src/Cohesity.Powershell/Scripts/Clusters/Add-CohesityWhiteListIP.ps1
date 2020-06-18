@@ -1,24 +1,24 @@
 function Add-CohesityWhiteListIP {
     <#
         .SYNOPSIS
-        Add an IP to whitelist.
+        Add an external client IP.
         .DESCRIPTION
-        The Add-CohesityWhiteListIP function is used to add whitelist IP.
+        The Add-CohesityWhiteListIP function is used to add external client (global whitelist) IP.
         .NOTES
         Published by Cohesity
         .LINK
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
-        Add-CohesityWhiteListIP -IP4 "1.1.1.1" -NetmaskIp4 "255.255.255.0"
+        Add-CohesityWhiteListIP -IP4 "1.1.1.1" -NetmaskIP4 "255.255.255.0"
         .EXAMPLE
-        Add-CohesityWhiteListIP -IP4 "1.1.1.1" -NetmaskIp4 "255.255.255.0" -NFSRootSquash:$false -NFSAccess "kReadWrite" -NFSAllSquash:$false -SMBAccess "kReadWrite"
+        Add-CohesityWhiteListIP -IP4 "1.1.1.1" -NetmaskIP4 "255.255.255.0" -NFSRootSquash:$false -NFSAccess "kReadWrite" -NFSAllSquash:$false -SMBAccess "kReadWrite"
     #>
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory = $true)]
         $IP4,
         [Parameter(Mandatory = $true)]
-        $NetmaskIp4,
+        $NetmaskIP4,
         [Parameter(Mandatory = $false)]
         [Boolean]$NFSRootSquash = $false,
         [Parameter(Mandatory = $false)]
@@ -43,7 +43,7 @@ function Add-CohesityWhiteListIP {
     Process {
         $newIP = @{
             ip            = $IP4
-            netmaskIp4    = $NetmaskIp4
+            netmaskIp4    = $NetmaskIP4
             nfsRootSquash = $NFSRootSquash
             nfsAccess     = $NFSAccess
             smbAccess     = $SMBAccess
@@ -68,7 +68,7 @@ function Add-CohesityWhiteListIP {
             $resp.clientSubnets
         }
         else {
-            $errorMsg = "Whitelist IP : Failed to add"
+            $errorMsg = "External client : Failed to add"
             Write-Host $errorMsg
             CSLog -Message $errorMsg
         }

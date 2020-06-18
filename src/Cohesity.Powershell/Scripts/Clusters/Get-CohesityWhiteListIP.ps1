@@ -1,9 +1,9 @@
 function Get-CohesityWhiteListIP {
     <#
         .SYNOPSIS
-        Get whitelist IPs.
+        Get external client IPs.
         .DESCRIPTION
-        The Get-CohesityWhiteListIP function is used to get whitelist IP(s).
+        The Get-CohesityWhiteListIP function is used to get external client IP(s) which is also known as global whitelist IP(s).
         .NOTES
         Published by Cohesity
         .LINK
@@ -32,7 +32,7 @@ function Get-CohesityWhiteListIP {
             $resp.clientSubnets
         }
         else {
-            $errorMsg = "Whitelist IP : Failed to get"
+            $errorMsg = "External client : Failed to get"
             Write-Host $errorMsg
             CSLog -Message $errorMsg
         }

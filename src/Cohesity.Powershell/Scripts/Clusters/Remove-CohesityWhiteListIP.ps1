@@ -1,9 +1,9 @@
 function Remove-CohesityWhiteListIP {
     <#
         .SYNOPSIS
-        Remove an IP from whitelist.
+        Remove an external client from global whitelist.
         .DESCRIPTION
-        The Remove-CohesityWhiteListIP function is used to remove IP from whitelist.
+        The Remove-CohesityWhiteListIP function is used to remove external client (global whitelist) IP.
         .NOTES
         Published by Cohesity
         .LINK
@@ -52,7 +52,7 @@ function Remove-CohesityWhiteListIP {
                 $resp.clientSubnets
             }
             else {
-                $errorMsg = "Whitelist IP : Failed to remove"
+                $errorMsg = "External client : Failed to remove"
                 Write-Host $errorMsg
                 CSLog -Message $errorMsg
             }
