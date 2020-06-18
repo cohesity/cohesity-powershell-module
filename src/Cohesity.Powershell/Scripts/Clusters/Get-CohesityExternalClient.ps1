@@ -29,7 +29,11 @@ function Get-CohesityExternalClient {
         $cohesityHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
         $resp = Invoke-RestApi -Method Get -Uri $cohesityClusterURL -Headers $cohesityHeaders
         if ($resp) {
-            $resp.clientSubnets
+            if($resp.clientSubnets) {
+                $arr = [System.Collections.ArrayList]::new()
+                $na = $arr.Add($resp.clientSubnets)
+                $arr
+            }
         }
         else {
             $errorMsg = "External client : Failed to get"
