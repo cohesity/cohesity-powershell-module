@@ -1,15 +1,15 @@
-function Remove-CohesityWhiteListIP {
+function Remove-CohesityExternalClient {
     <#
         .SYNOPSIS
         Remove an external client from global whitelist.
         .DESCRIPTION
-        The Remove-CohesityWhiteListIP function is used to remove external client (global whitelist) IP.
+        The Remove-CohesityExternalClient function is used to remove external client (global whitelist) IP.
         .NOTES
         Published by Cohesity
         .LINK
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
-        Remove-CohesityWhiteListIP -IP4 "1.1.1.1"
+        Remove-CohesityExternalClient -IP4 "1.1.1.1"
     #>
     [CmdletBinding(SupportsShouldProcess = $True, ConfirmImpact = "High")]
     Param(
@@ -27,7 +27,7 @@ function Remove-CohesityWhiteListIP {
     }
 
     Process {
-        $whiteList = Get-CohesityWhiteListIP
+        $whiteList = Get-CohesityExternalClient
         $foundIP = $whiteList | where-object {$_.ip -eq $IP4}
         if($null -eq $foundIP) {
             Write-Host "Cannot proceed, IP '$IP4' not found"

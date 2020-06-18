@@ -1,17 +1,17 @@
-function Add-CohesityWhiteListIP {
+function Add-CohesityExternalClient {
     <#
         .SYNOPSIS
         Add an external client IP.
         .DESCRIPTION
-        The Add-CohesityWhiteListIP function is used to add external client (global whitelist) IP.
+        The Add-CohesityExternalClient function is used to add external client (global whitelist) IP.
         .NOTES
         Published by Cohesity
         .LINK
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
-        Add-CohesityWhiteListIP -IP4 "1.1.1.1" -NetmaskIP4 "255.255.255.0"
+        Add-CohesityExternalClient -IP4 "1.1.1.1" -NetmaskIP4 "255.255.255.0"
         .EXAMPLE
-        Add-CohesityWhiteListIP -IP4 "1.1.1.1" -NetmaskIP4 "255.255.255.0" -NFSRootSquash:$false -NFSAccess "kReadWrite" -NFSAllSquash:$false -SMBAccess "kReadWrite"
+        Add-CohesityExternalClient -IP4 "1.1.1.1" -NetmaskIP4 "255.255.255.0" -NFSRootSquash:$false -NFSAccess "kReadWrite" -NFSAllSquash:$false -SMBAccess "kReadWrite"
     #>
     [CmdletBinding()]
     Param(
@@ -50,7 +50,7 @@ function Add-CohesityWhiteListIP {
             nfsAllSquash  = $NFSAllSquash
         }
 
-        $whiteList = Get-CohesityWhiteListIP
+        $whiteList = Get-CohesityExternalClient
         $arrList = [System.Collections.ArrayList]::new()
         if($whiteList) {
             $whiteList = $arrList + $whiteList
