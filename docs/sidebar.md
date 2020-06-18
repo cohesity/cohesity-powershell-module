@@ -33,6 +33,11 @@
 - [Update-CohesityActiveDirectory](cmdlets-reference/update-cohesityactivedirectory.md)
 
 
+- **Clusters**
+- [Add-CohesityExternalClient](cmdlets-reference/add-cohesityexternalclient.md)
+- [Get-CohesityExternalClient](cmdlets-reference/get-cohesityexternalclient.md)
+- [Remove-CohesityExternalClient](cmdlets-reference/Remove-cohesityexternalclient.md)
+
 - **Platform**
 - [Get-CohesityCluster](cmdlets-reference/get-cohesitycluster.md)
 - [Get-CohesityClusterPartition](cmdlets-reference/get-cohesityclusterpartition.md)
@@ -144,7 +149,7 @@
 - [New-CohesityReplicationEncryptionKey](cmdlets-reference/new-cohesityreplicationencryptionkey.md)
 
 
-**Interface Group**
+- **Interface Group**
 - [Get-CohesityInterfaceGroup](cmdlets-reference/get-cohesityinterfacegroup.md)
 
 
@@ -174,4 +179,5 @@
 - [Convert-CohesityUsecsToDateTime](cmdlets-reference/convert-cohesityusecstodatetime.md)
 - [Convert-CohesityDateTimeToUsecs](cmdlets-reference/convert-cohesitydatetimetousecs.md)
 - [Get-CohesityCmdletConfig](cmdlets-reference/get-cohesitycmdletconfig.md)
+- [Get-CohesityProtectionSourceSummary](cmdlets-reference/get-cohesityprotectionsourcesummary.md)
 - [Set-CohesityCmdletConfig](cmdlets-reference/set-cohesitycmdletconfig.md)
