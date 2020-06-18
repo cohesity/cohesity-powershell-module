@@ -65,7 +65,11 @@ function Add-CohesityExternalClient {
         $payloadJson = $payload | ConvertTo-Json
         $resp = Invoke-RestApi -Method Put -Uri $cohesityClusterURL -Headers $cohesityHeaders -Body $payloadJson
         if ($resp) {
-            $resp.clientSubnets
+            if($resp.clientSubnets) {
+                $arr = [System.Collections.ArrayList]::new()
+                $na = $arr.Add($resp.clientSubnets)
+                $arr
+            }
         }
         else {
             $errorMsg = "External client : Failed to add"
