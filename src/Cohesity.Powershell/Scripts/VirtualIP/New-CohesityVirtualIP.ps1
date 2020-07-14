@@ -10,6 +10,8 @@ function New-CohesityVirtualIP {
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
         New-CohesityVirtualIP -InterfaceGroupName "intf_group2" -VlanId 11 -VirtualIPs "1.3.4.14", "1.3.4.15"
+        .EXAMPLE
+        New-CohesityVirtualIP -InterfaceGroupName "intf_group2" -VlanId 11 -VirtualIPs "1.3.4.14", "1.3.4.15" -HostName "myfqdn.cohesity.com"
     #>
     [CmdletBinding()]
     Param(
@@ -21,7 +23,9 @@ function New-CohesityVirtualIP {
         [string]$VlanId,
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
-        [string[]]$VirtualIPs
+        [string[]]$VirtualIPs,
+        [Parameter(Mandatory = $false)]
+        [string]$HostName
     )
 
     Begin {
@@ -57,7 +61,9 @@ function New-CohesityVirtualIP {
             ifaceGroupName        = $vlanObject.ifaceGroupName
             ips                   = $VirtualIPs
             vlanName              = $vlanObject.vlanName
-            hostname              = $vlanObject.hostname
+        }
+        if($HostName) {
+            $payload | Add-Member -MemberType NoteProperty -Name hostname -Value $HostName
         }
         $payloadJson = $payload | ConvertTo-Json -Depth 100
         $resp = Invoke-RestApi -Method Put -Uri $cohesityClusterURL -Headers $cohesityHeaders -Body $payloadJson
