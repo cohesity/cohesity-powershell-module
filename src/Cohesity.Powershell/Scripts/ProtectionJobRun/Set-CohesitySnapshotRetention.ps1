@@ -13,7 +13,7 @@ function Set-CohesitySnapshotRetention {
         .EXAMPLE
         Set-CohesitySnapshotRetention -JobName Test-Job -JobRunId 2123 -ReduceByDays 30
     #>
-    [CmdletBinding(DefaultParameterSetName="Default")]
+    [CmdletBinding()]
     Param(
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
@@ -42,7 +42,21 @@ function Set-CohesitySnapshotRetention {
 
     Process {
         $job = Get-CohesityProtectionJob -Names $JobName
-        $jobRun = Get-CohesityProtectionJobRun -JobName $JobName
+        if($null -eq $job) {
+            Write-Host "No job found with the name '$JobName'"
+            return
+        }
+        $jobRuns = Get-CohesityProtectionJobRun -JobName $JobName
+        if($null -eq $jobRuns) {
+            Write-Host "Job runs not found for job '$JobName'"
+            return
+        }
+        $jobRun = $jobRuns | Where-Object {$_.BackupRun.JobRunId -eq $JobRunId}
+        if($null -eq $jobRun) {
+            Write-Host "The job run '$JobRunId' does not exists for job '$JobName'"
+            return
+        }
+
         $cohesityClusterURL = $cohesityCluster + '/irisservices/api/v1/public/protectionRuns'
         $cohesityHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
 
@@ -58,7 +72,7 @@ function Set-CohesitySnapshotRetention {
             holdForLegalPurpose = $null
         }
         $copyRunTargetsObject = @()
-        $copyRunTargets += $targetObject
+        $copyRunTargetsObject += $targetObject
         $jobUidObject = @{
             ClusterId = $null
             ClusterIncarnationId = $null
@@ -84,13 +98,20 @@ function Set-CohesitySnapshotRetention {
         }
         $payloadJson = $payload | ConvertTo-Json -Depth 100
         $resp = Invoke-RestApi -Method Put -Uri $cohesityClusterURL -Headers $cohesityHeaders -Body $payloadJson
-        if ($resp) {
+
+        $success = $false
+        # there is no response to the API call. Therefore using the response status to identify
+        if($Global:CohesityAPIResponse) {
+            if($Global:CohesityAPIResponse.StatusCode -eq 204) {
+                $success = $true
+            }
+        }
+        if ($success) {
             if($ExtendByDays) {
                 Write-Host "Extended the snapshot retention successfully"
             } elseif ($ReduceByDays) {
                 Write-Host "Reduced the snapshot retention successfully"
             }
-            $resp
         }
         else {
             $errorMsg = "Snapshot retention : Failed to update the snapshot"
