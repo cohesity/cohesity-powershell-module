@@ -79,6 +79,19 @@ function Set-CohesitySnapshotRetention {
             Id = $null
         }
         if($job.IsActive -eq $false) {
+            # using a private API for protection job in remote clusters
+            # find out the job run for a partcular job
+            $backupRunURL = $cohesityCluster + '/irisservices/api/v1/backupjobruns?allUnderHierarchy=true&id=' + $job.id
+            $resp = Invoke-RestApi -Method Get -Uri $backupRunURL -Headers $cohesityHeaders
+            $searchedJobRun = $resp | Where-Object {$_.backupJobRuns.jobDescription.name -eq $JobName}
+            if($null -eq $searchedJobRun) {
+                Write-Host "Could not find backup run details for inactive job '$JobName'"
+                return
+            }
+            $jobUidObject.ClusterId = $searchedJobRun.backupJobRuns.jobDescription.primaryJobUid.ClusterId
+            $jobUidObject.ClusterIncarnationId = $searchedJobRun.backupJobRuns.jobDescription.primaryJobUid.ClusterIncarnationId
+            $jobUidObject.Id = $searchedJobRun.backupJobRuns.jobDescription.primaryJobUid.objectId
+
         } else {
             $jobUidObject.ClusterId = $jobRun.JobUid.ClusterId
             $jobUidObject.ClusterIncarnationId = $jobRun.JobUid.ClusterIncarnationId

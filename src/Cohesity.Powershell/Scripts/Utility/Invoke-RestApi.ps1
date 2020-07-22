@@ -1,6 +1,11 @@
 $Global:CohesityUserAgentName = $null
 $Global:CohesityAPIError = $null
+
+# Allow the caller to have access to response object,
+# it is observed that some of the REST APIs (PUT method) do not return object,
+# therefore provisioning an object, so that the caller can identify using the status code, if the API call succeeded
 $Global:CohesityAPIResponse = $null
+
 function Invoke-RestApi
 {
     [CmdletBinding()]
@@ -43,9 +48,6 @@ function Invoke-RestApi
         $errorMsg = "User agent for the current session : " + $Global:CohesityUserAgentName
         CSLog -Message $errorMsg
     }
-    # Allow the caller to have access to response object,
-    # it is observed that some of the REST APIs (PUT method) do not return object,
-    # therefore provisioning an object, so that the caller can identify using the status code, if the API call succeeded
     $Global:CohesityAPIResponse = $null
 
     $Global:CohesityAPIError = $null
