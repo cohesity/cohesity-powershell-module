@@ -41,7 +41,8 @@ function Set-CohesitySnapshotRetention {
     }
 
     Process {
-        $job = Get-CohesityProtectionJob -Names $JobName
+        $jobs = Get-CohesityProtectionJob
+        $job = $jobs | Where-Object {$_.name -eq  $JobName}
         if($null -eq $job) {
             Write-Host "No job found with the name '$JobName'"
             return
@@ -120,11 +121,13 @@ function Set-CohesitySnapshotRetention {
             }
         }
         if ($success) {
+            $message = $null
             if($ExtendByDays) {
-                Write-Host "Extended the snapshot retention successfully"
+                $message = "Extended the snapshot retention successfully"
             } elseif ($ReduceByDays) {
-                Write-Host "Reduced the snapshot retention successfully"
+                $message = "Reduced the snapshot retention successfully"
             }
+            return $message
         }
         else {
             $errorMsg = "Snapshot retention : Failed to update the snapshot"
