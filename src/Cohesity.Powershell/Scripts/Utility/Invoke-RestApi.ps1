@@ -103,8 +103,9 @@ function Invoke-RestApi
     }
     catch {
         # this flag can be optionally used by the caller to identify the details of failure
-        $Global:CohesityAPIError = $_.Exception.Response
-        $errorMsg = $_.Exception.Message
+        $Global:CohesityAPIError = $_.Exception
+        # capturing the error message from the cluster rather than the powershell framework $_.Exception.Message
+        $errorMsg = $_
         Write-Host $errorMsg -ForegroundColor Red
         CSLog -Message $errorMsg -Severity 3
         # Implementing code review feedback

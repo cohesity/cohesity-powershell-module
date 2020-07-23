@@ -120,7 +120,7 @@ function Set-CohesitySnapshotRetention {
                 $success = $true
             }
         }
-        if ($success) {
+        if ($success -eq $true) {
             $message = $null
             if($ExtendByDays) {
                 $message = "Extended the snapshot retention successfully"
