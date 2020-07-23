@@ -48,7 +48,7 @@ function Remove-CohesityRoutes {
         $cohesityUrl = $cohesityServer + '/irisservices/api/v1/public/routes'
         $cohesityHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
         if ($PSCmdlet.ShouldProcess($DestNetwork)) {
-            $payload = @{ 
+            $payload = @{
                 destNetwork    = $DestNetwork
                 nextHop        = $NextHop
                 ifaceGroupName = $InterfaceGroupName
@@ -60,7 +60,7 @@ function Remove-CohesityRoutes {
             }
             else {
                 $errorMsg = "Routes : Failed to remove."
-                Write-Host $errorMsg
+                Write-Output $errorMsg
                 CSLog -Message $errorMsg
             }
         }

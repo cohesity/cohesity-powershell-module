@@ -13,7 +13,8 @@ function Add-CohesityExternalClient {
         .EXAMPLE
         Add-CohesityExternalClient -IP4 "1.1.1.1" -NetmaskIP4 "255.255.255.0" -NFSRootSquash:$false -NFSAccess "kReadWrite" -NFSAllSquash:$false -SMBAccess "kReadWrite"
     #>
-    [CmdletBinding()]
+    [OutputType('System.Collections.ArrayList')]
+    [CmdletBinding(SupportsShouldProcess = $True, ConfirmImpact = "High")]
     Param(
         [Parameter(Mandatory = $true)]
         $IP4,
@@ -41,40 +42,43 @@ function Add-CohesityExternalClient {
     }
 
     Process {
-        $newIP = @{
-            ip            = $IP4
-            netmaskIp4    = $NetmaskIP4
-            nfsRootSquash = $NFSRootSquash
-            nfsAccess     = $NFSAccess
-            smbAccess     = $SMBAccess
-            nfsAllSquash  = $NFSAllSquash
-        }
-
-        $whiteList = Get-CohesityExternalClient
-        $arrList = [System.Collections.ArrayList]::new()
-        if($whiteList) {
-            $whiteList = $arrList + $whiteList
-        } else {
-            $whiteList = $arrList
-        }
-        $whiteList += $newIP
-        $payload = @{clientSubnets = $whiteList}
-
-        $cohesityClusterURL = $cohesityCluster + '/irisservices/api/v1/public/externalClientSubnets'
-        $cohesityHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
-        $payloadJson = $payload | ConvertTo-Json
-        $resp = Invoke-RestApi -Method Put -Uri $cohesityClusterURL -Headers $cohesityHeaders -Body $payloadJson
-        if ($resp) {
-            if($resp.clientSubnets) {
-                $arr = [System.Collections.ArrayList]::new()
-                $na = $arr.Add($resp.clientSubnets)
-                $arr
+        if ($PSCmdlet.ShouldProcess($IP4)) {
+            $newIP = @{
+                ip            = $IP4
+                netmaskIp4    = $NetmaskIP4
+                nfsRootSquash = $NFSRootSquash
+                nfsAccess     = $NFSAccess
+                smbAccess     = $SMBAccess
+                nfsAllSquash  = $NFSAllSquash
             }
-        }
-        else {
-            $errorMsg = "External client : Failed to add"
-            Write-Host $errorMsg
-            CSLog -Message $errorMsg
+
+            $whiteList = Get-CohesityExternalClient
+            $arrList = [System.Collections.ArrayList]::new()
+            if ($whiteList) {
+                $whiteList = $arrList + $whiteList
+            }
+            else {
+                $whiteList = $arrList
+            }
+            $whiteList += $newIP
+            $payload = @{clientSubnets = $whiteList }
+
+            $cohesityClusterURL = $cohesityCluster + '/irisservices/api/v1/public/externalClientSubnets'
+            $cohesityHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
+            $payloadJson = $payload | ConvertTo-Json
+            $resp = Invoke-RestApi -Method Put -Uri $cohesityClusterURL -Headers $cohesityHeaders -Body $payloadJson
+            if ($resp) {
+                if ($resp.clientSubnets) {
+                    $arr = [System.Collections.ArrayList]::new()
+                    $arr.Add($resp.clientSubnets) | Out-Null
+                    $arr
+                }
+            }
+            else {
+                $errorMsg = "External client : Failed to add"
+                Write-Output $errorMsg
+                CSLog -Message $errorMsg
+            }
         }
     }
 

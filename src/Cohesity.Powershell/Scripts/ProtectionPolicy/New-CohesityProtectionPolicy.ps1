@@ -15,7 +15,7 @@ function New-CohesityProtectionPolicy {
         .EXAMPLE
         New-CohesityProtectionPolicy -PolicyName <string> -BackupInHours 14 -RetainInDays 25 -VaultName <string>
     #>
-    [CmdletBinding()]
+    [CmdletBinding(SupportsShouldProcess = $True, ConfirmImpact = "High")]
     Param(
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
@@ -32,7 +32,6 @@ function New-CohesityProtectionPolicy {
         [string]$IncrementalSchedule = "INCREMENTAL-ONLY",
         [Parameter(Mandatory = $false)]
         $VaultName = $null
-        
     )
     Begin {
         if (-not (Test-Path -Path "$HOME/.cohesity")) {
@@ -46,63 +45,65 @@ function New-CohesityProtectionPolicy {
     }
 
     Process {
-        $url = $server + '/irisservices/api/v1/public/protectionPolicies'
+        if ($PSCmdlet.ShouldProcess($PolicyName)) {
+            $url = $server + '/irisservices/api/v1/public/protectionPolicies'
 
-        $headers = @{'Authorization' = 'Bearer ' + $token }
+            $headers = @{'Authorization' = 'Bearer ' + $token }
 
-        $snapshotArchivalCopyPolicies = $null
-        if ($VaultName) {
-            $resp = Get-CohesityVault -VaultName $VaultName
-            if ($null -eq $resp) {
-                Write-Host "Vault (external target) name '$VaultName' does not exists"
-                return
+            $snapshotArchivalCopyPolicies = $null
+            if ($VaultName) {
+                $resp = Get-CohesityVault -VaultName $VaultName
+                if ($null -eq $resp) {
+                    Write-Output "Vault (external target) name '$VaultName' does not exists"
+                    return
+                }
+                # Except the vault info all the default values referenced from cohesity UI
+                $snapshotArchivalCopyPolicies = @(
+                    @{
+                        copyPartial = $true
+                        daysToKeep  = 90
+                        multiplier  = 1
+                        periodicity = "kDay"
+                        target      = @{
+                            vaultId   = $resp.Id
+                            vaultName = $resp.Name
+                            vaultType = "kCloud"
+                        }
+                    }
+                )
             }
-            # Except the vault info all the default values referenced from cohesity UI
-            $snapshotArchivalCopyPolicies = @(
-                @{
-                    copyPartial = $true
-                    daysToKeep  = 90
-                    multiplier  = 1
-                    periodicity = "kDay"
-                    target      = @{
-                        vaultId   = $resp.Id
-                        vaultName = $resp.Name
-                        vaultType = "kCloud"
+            $fullSchedule = $null
+            if ("INCREMENTAL-FULL" -eq $IncrementalSchedule) {
+                $fullSchedule = @{
+                    periodicity   = "kDaily"
+                    dailySchedule = @{
+                        days = @()
                     }
                 }
-            )
-        }
-        $fullSchedule = $null
-        if ("INCREMENTAL-FULL" -eq $IncrementalSchedule) {
-            $fullSchedule = @{
-                periodicity   = "kDaily"
-                dailySchedule = @{
-                    days = @()
-                }
             }
-        }
-        $payload = @{
-            name                         = $PolicyName
-            incrementalSchedulingPolicy  = @{
-                periodicity        = "kContinuous"
-                continuousSchedule = @{
-                    # convert to minutes
-                    backupIntervalMins = $BackupInHours * 60
+            $payload = @{
+                name                         = $PolicyName
+                incrementalSchedulingPolicy  = @{
+                    periodicity        = "kContinuous"
+                    continuousSchedule = @{
+                        # convert to minutes
+                        backupIntervalMins = $BackupInHours * 60
+                    }
                 }
+                daysToKeep                   = $RetainInDays
+                fullSchedulingPolicy         = $fullSchedule
+                snapshotArchivalCopyPolicies = $snapshotArchivalCopyPolicies
             }
-            daysToKeep                   = $RetainInDays
-            fullSchedulingPolicy         = $fullSchedule
-            snapshotArchivalCopyPolicies = $snapshotArchivalCopyPolicies
-        }
-        $payloadJson = $payload | ConvertTo-Json -Depth 100
-        $resp = Invoke-RestApi -Method Post -Uri $url -Headers $headers -Body $payloadJson
-        if ($resp) {
-            $resp
-        }
-        else {
-            $errorMsg = "Protection Policy : Failed to create"
-            Write-Host $errorMsg
-            CSLog -Message $errorMsg
+            $payloadJson = $payload | ConvertTo-Json -Depth 100
+            $resp = Invoke-RestApi -Method Post -Uri $url -Headers $headers -Body $payloadJson
+            if ($resp) {
+                $resp
+            }
+            else {
+                $errorMsg = "Protection Policy : Failed to create"
+                Write-Output $errorMsg
+                CSLog -Message $errorMsg
+            }
         }
     }
     End {

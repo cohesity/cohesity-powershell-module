@@ -49,7 +49,7 @@ function Save-CohesityFile {
         if ($rfObj.files) {
             # Fetch the first appeared file in the response for the specified server
             # Note: Only file can be downloaded
-            $entityInfo = $rfObj.files | Where-Object {$_.protectionSource.name -eq $ServerName -and !$_.isFolder}
+            $entityInfo = $rfObj.files | Where-Object { $_.protectionSource.name -eq $ServerName -and !$_.isFolder }
 
             if ($entityInfo) {
                 $AbsolutePath = $entityInfo[0].filename
@@ -68,7 +68,7 @@ function Save-CohesityFile {
                 $queryParam.Add('clusterIncarnationId', $ClusterIncarnationId)
                 $queryParam.Add('sourceId', $SourceId)
                 $queryParam.Add('filename', $EncodedFileName)
-                $queryString = '?' + ($queryParam.Keys.ForEach({"$_=$($queryParam.$_)"}) -join '&')
+                $queryString = '?' + ($queryParam.Keys.ForEach( { "$_=$($queryParam.$_)" }) -join '&')
 
                 $snapshotUrl = $server + '/irisservices/api/v1/public/restore/files/snapshotsInformation' + $queryString
                 $snapshotObj = Invoke-RestApi -Method 'Get' -Uri $snapshotUrl -Headers $headers
@@ -87,30 +87,33 @@ function Save-CohesityFile {
                 $dwldParam.Add('jobStartTimeUsecs', $latestSnapshot.snapshot.startedTimeUsecs)
                 $dwldParam.Add('viewBoxId', $ViewBoxId)
 
-                $dwldQS = '?' + ($dwldParam.Keys.ForEach({"$_=$($dwldParam.$_)"}) -join '&')
+                $dwldQS = '?' + ($dwldParam.Keys.ForEach( { "$_=$($dwldParam.$_)" }) -join '&')
                 $downloadUrl = $server + '/irisservices/api/v1/downloadfiles' + $dwldQS
 
                 # Perform web request to download the file from the cluster
                 $fn = Split-Path -Path $AbsolutePath -Leaf
-                $OutFile = Join-Path $(if($OutFile){$OutFile} else {$Home}) $fn
+                $OutFile = Join-Path $(if ($OutFile) { $OutFile } else { $Home }) $fn
                 $resp = Invoke-RestApi -Method 'Get' -Uri $downloadUrl -Headers $headers -OutFile "$OutFile"
 
                 if ($resp) {
-                    Write-Host "Successfully downloaded the file in '$OutFile'." -ForegroundColor Green
+                    Write-Output "Successfully downloaded the file in '$OutFile'." -ForegroundColor Green
                 }
-            } else {
+            }
+            else {
                 $warnMsg = "Server '$ServerName' not found."
                 Write-Warning $warnMsg
                 CSLog -Message $warnMsg
             }
-        } else {
+        }
+        else {
             if ($Global:CohesityAPIError) {
                 if ($Global:CohesityAPIError.StatusCode -ne 'Unauthorized') {
                     $errorMsg = "Failed to fetch information for the file '$FileName'."
                     Write-Error $errorMsg
                     CSLog -Message $errorMsg
                 }
-            } else {
+            }
+            else {
                 $warnMsg = "No files found with specified name."
                 Write-Warning $warnMsg
                 CSLog -Message $warnMsg

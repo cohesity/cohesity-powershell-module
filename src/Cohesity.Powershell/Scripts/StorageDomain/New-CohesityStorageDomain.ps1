@@ -16,10 +16,10 @@ function New-CohesityStorageDomain {
         New-CohesityStorageDomain -Name <string> -Deduplication <boolean> -InlineDeduplication <boolean> -Compression <boolean> -InlineCompression <boolean> -Encryption <boolean>
         Create storage domain (view box) with deduplication, Compression disabled and Encryption enabled. Based on enable/disable state of compression and encryption parameter, compression and encryption policy will be decided respectively.
     #>
-    [CmdletBinding()]
+    [CmdletBinding(SupportsShouldProcess = $True, ConfirmImpact = "High")]
     Param(
-        # Determines whether the compression policy should be ‘kCompressionNone’ (disabled case) or ‘kCompressionLow’ (enabled case)
-        # ‘kCompressionNone’ indicates that data is not compressed. ‘kCompressionLow’ indicates that data is compressed.
+        # Determines whether the compression policy should be 'kCompressionNone' (disabled case) or 'kCompressionLow' (enabled case)
+        # 'kCompressionNone' indicates that data is not compressed. 'kCompressionLow' indicates that data is compressed.
         [Parameter(Mandatory = $false)][ValidateSet("true", "false")]
         [String]$Compression = $true,
         # If deduplication is enabled, the Cohesity Cluster eliminates duplicate blocks of repeating data stored on the Cluster,
@@ -27,7 +27,7 @@ function New-CohesityStorageDomain {
         [Parameter(Mandatory = $false)][ValidateSet("true", "false")]
         [String]$Deduplication = $true,
         # Specifies the encryption setting for the Storage Domain (View Box).
-        # ‘kEncryptionNone’ (disabled case) indicates the data is not encrypted. ‘kEncryptionStrong’ (enabled case) indicates the data is encrypted.
+        # 'kEncryptionNone' (disabled case) indicates the data is not encrypted. 'kEncryptionStrong' (enabled case) indicates the data is encrypted.
         [Parameter(Mandatory = $false)][ValidateSet("true", "false")]
         [String]$Encryption = $false,
         # Specifies if compression should occur inline (as the data is being written). This field is only relevant if compression is enabled.
@@ -45,7 +45,7 @@ function New-CohesityStorageDomain {
         [Parameter(Mandatory = $false)]
         [Int]$PhysicalQuota = $null
     )
-    
+
     Begin {
         if (-not (Test-Path -Path "$HOME/.cohesity")) {
             throw "Failed to authenticate. Please connect to the Cohesity Cluster using 'Connect-CohesityCluster'"
@@ -58,72 +58,76 @@ function New-CohesityStorageDomain {
     }
 
     Process {
-        # Check if the storage domain with specified name already exist
-        $domainUrl = $server + '/irisservices/api/v1/public/viewBoxes'
-        $headers = @{'Authorization' = 'Bearer ' + $token }
+        if ($PSCmdlet.ShouldProcess($Name)) {
+            # Check if the storage domain with specified name already exist
+            $domainUrl = $server + '/irisservices/api/v1/public/viewBoxes'
+            $headers = @{'Authorization' = 'Bearer ' + $token }
 
-        $url = $domainUrl + '?names=' + $Name + '&allUnderHierarchy=true'
-        $isDomainExist = Invoke-RestApi -Method 'Get' -Uri $url -Headers $headers
+            $url = $domainUrl + '?names=' + $Name + '&allUnderHierarchy=true'
+            $isDomainExist = Invoke-RestApi -Method 'Get' -Uri $url -Headers $headers
 
-        if ($isDomainExist) {
-            Write-Warning "Storage Domain with name '$Name' already exists."
-            return
-        } elseif ($Global:CohesityAPIError.StatusCode -eq 'Unauthorized'){
-            return
-        }
+            if ($isDomainExist) {
+                Write-Warning "Storage Domain with name '$Name' already exists."
+                return
+            }
+            elseif ($Global:CohesityAPIError.StatusCode -eq 'Unauthorized') {
+                return
+            }
 
-        # Get the cluster partion ID
-        $clusterUrl = $server + '/irisservices/api/v1/public/clusterPartitions'
-        $clusterPartition = Invoke-RestApi -Method 'Get' -Uri $clusterUrl -Headers $headers
+            # Get the cluster partion ID
+            $clusterUrl = $server + '/irisservices/api/v1/public/clusterPartitions'
+            $clusterPartition = Invoke-RestApi -Method 'Get' -Uri $clusterUrl -Headers $headers
 
-        if ($clusterPartition) {
-            $ClusterPartitionId = $clusterPartition[0].id
-        }
+            if ($clusterPartition) {
+                $ClusterPartitionId = $clusterPartition[0].id
+            }
 
-        # If parameter is specified by user
-        if ($Deduplication -eq $false) {
-            $InlineDeduplication = $false
-        }
-        if ($Compression -eq $false) {
-            $InlineCompression = $false
-        }
+            # If parameter is specified by user
+            if ($Deduplication -eq $false) {
+                $InlineDeduplication = $false
+            }
+            if ($Compression -eq $false) {
+                $InlineCompression = $false
+            }
 
-        # Convert Physical quota value to bytes, if physical quota is specified by user
-        $PhysicalQuotaObj = @{}
-        $GibToBytes = (1024 * 1024 * 1024)
+            # Convert Physical quota value to bytes, if physical quota is specified by user
+            $PhysicalQuotaObj = @{}
+            $GibToBytes = (1024 * 1024 * 1024)
 
-        if ($PhysicalQuota) {
-            [Int64]$PhysicalQuota_bytes = ($PhysicalQuota * $GibToBytes)
-            $PhysicalQuotaObj = @{hardLimitBytes = $PhysicalQuota_bytes}
-        }
+            if ($PhysicalQuota) {
+                [Int64]$PhysicalQuota_bytes = ($PhysicalQuota * $GibToBytes)
+                $PhysicalQuotaObj = @{hardLimitBytes = $PhysicalQuota_bytes }
+            }
 
-        $payload = @{
-            name                    =       $Name
-            clusterPartitionId      =       $ClusterPartitionId
-            storagePolicy           =       @{
-                                                deduplicationEnabled    =   [System.Convert]::ToBoolean($Deduplication)
-                                                inlineDeduplicate       =   [System.Convert]::ToBoolean($InlineDeduplication)
-                                                inlineCompress          =   [System.Convert]::ToBoolean($InlineCompression)
-                                                compressionPolicy       =   $(if ($Compression -eq $true) {'kCompressionLow'} else {'kCompressionNone'})
-                                                encryptionPolicy        =   $(if ($Encryption -eq $true) {'kEncryptionStrong'} else {'kEncryptionNone'})
-                                            }
-            physicalQuota           =       $PhysicalQuotaObj
-            defaultViewQuotaPolicy  =       @{}
-        }
-        $payloadJson = $payload | ConvertTo-Json
+            $payload = @{
+                name                   = $Name
+                clusterPartitionId     = $ClusterPartitionId
+                storagePolicy          = @{
+                    deduplicationEnabled = [System.Convert]::ToBoolean($Deduplication)
+                    inlineDeduplicate    = [System.Convert]::ToBoolean($InlineDeduplication)
+                    inlineCompress       = [System.Convert]::ToBoolean($InlineCompression)
+                    compressionPolicy    = $(if ($Compression -eq $true) { 'kCompressionLow' } else { 'kCompressionNone' })
+                    encryptionPolicy     = $(if ($Encryption -eq $true) { 'kEncryptionStrong' } else { 'kEncryptionNone' })
+                }
+                physicalQuota          = $PhysicalQuotaObj
+                defaultViewQuotaPolicy = @{}
+            }
+            $payloadJson = $payload | ConvertTo-Json
 
-        # Construct URL & header
-        $StorageDomain = Invoke-RestApi -Method 'Post' -Uri $domainUrl -Headers $headers -Body $payloadJson
+            # Construct URL & header
+            $StorageDomain = Invoke-RestApi -Method 'Post' -Uri $domainUrl -Headers $headers -Body $payloadJson
 
-        if ($StorageDomain) {
-            Write-Host "Created '$Name' Storage Domain Successfully." -ForegroundColor Green
-            Get-CohesityStorageDomain -Names $Name
-            $successMsg = "Created '$Name' Storage Domain Successfully `n $StorageDomain"
-            CSLog -Message $successMsg
-        } else {
-            $errorMsg = "Failed to create storage domain '$Name'."
-            Write-Error $errorMsg
-            CSLog -Message $errorMsg
+            if ($StorageDomain) {
+                Write-Output "Created '$Name' Storage Domain Successfully." -ForegroundColor Green
+                Get-CohesityStorageDomain -Names $Name
+                $successMsg = "Created '$Name' Storage Domain Successfully `n $StorageDomain"
+                CSLog -Message $successMsg
+            }
+            else {
+                $errorMsg = "Failed to create storage domain '$Name'."
+                Write-Error $errorMsg
+                CSLog -Message $errorMsg
+            }
         }
     } # End of process
 } # End of function

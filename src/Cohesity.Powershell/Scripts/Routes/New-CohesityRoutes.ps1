@@ -11,7 +11,7 @@ function New-CohesityRoutes {
         .EXAMPLE
         New-CohesityRoutes -DestNetwork "10.2.3.4" -NextHop "10.2.3.5" -InterfaceGroupName "intf_group1"
     #>
-    [CmdletBinding()]
+    [CmdletBinding(SupportsShouldProcess = $True, ConfirmImpact = "High")]
     Param(
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
@@ -34,24 +34,26 @@ function New-CohesityRoutes {
     }
 
     Process {
-        $cohesityUrl = $cohesityServer + '/irisservices/api/v1/public/routes'
-        $cohesityHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
+        if ($PSCmdlet.ShouldProcess($DestNetwork)) {
+            $cohesityUrl = $cohesityServer + '/irisservices/api/v1/public/routes'
+            $cohesityHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
 
-        $payload = @{ 
-            destNetwork    = $DestNetwork
-            nextHop        = $NextHop
-            ifaceGroupName = $InterfaceGroupName
-        }
-        $payloadJson = $payload | ConvertTo-Json -Depth 100
-        $resp = Invoke-RestApi -Method Post -Uri $cohesityUrl -Headers $cohesityHeaders -Body $payloadJson
+            $payload = @{
+                destNetwork    = $DestNetwork
+                nextHop        = $NextHop
+                ifaceGroupName = $InterfaceGroupName
+            }
+            $payloadJson = $payload | ConvertTo-Json -Depth 100
+            $resp = Invoke-RestApi -Method Post -Uri $cohesityUrl -Headers $cohesityHeaders -Body $payloadJson
 
-        if ($resp) {
-            $resp
-        }
-        else {
-            $errorMsg = "Routes : Failed to create."
-            Write-Host $errorMsg
-            CSLog -Message $errorMsg
+            if ($resp) {
+                $resp
+            }
+            else {
+                $errorMsg = "Routes : Failed to create."
+                Write-Output $errorMsg
+                CSLog -Message $errorMsg
+            }
         }
     }
 
