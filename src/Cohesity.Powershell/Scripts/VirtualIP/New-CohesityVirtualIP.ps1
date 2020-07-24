@@ -13,7 +13,7 @@ function New-CohesityVirtualIP {
         .EXAMPLE
         New-CohesityVirtualIP -InterfaceGroupName "intf_group2" -VlanId 11 -VirtualIPs "1.3.4.14", "1.3.4.15" -HostName "myfqdn.cohesity.com"
     #>
-    [CmdletBinding()]
+    [CmdletBinding(SupportsShouldProcess = $True, ConfirmImpact = "High")]
     Param(
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
@@ -38,42 +38,44 @@ function New-CohesityVirtualIP {
     }
 
     Process {
-        # Please see the documentation how to construct the below attribute
-        $virtualInterfaceGroupName = $InterfaceGroupName + "." + $VlanId
-        $vlanObject = Get-CohesityVlan | Where-Object { $_.id -eq $VlanId -and $_.ifaceGroupName -eq $virtualInterfaceGroupName}
-        if ($null -eq $vlanObject) {
-            Write-Host "VLAN id '$VlanId' on interface group '$InterfaceGroupName' does not exists"
-            return
-        }
-        $cohesityClusterURL = $cohesityCluster + '/irisservices/api/v1/public/vlans/' + $vlanObject.id
-        $cohesityHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
-        if ($vlanObject.ips) {
-            $VirtualIPs += $vlanObject.ips
-        }
-        $payload = @{
-            addToClusterPartition = $true
-            id                    = $vlanObject.id
-            gateway               = $vlanObject.gateway
-            subnet                = @{
-                ip          = $vlanObject.subnet.ip
-                netmaskBits = $vlanObject.subnet.netmaskBits
+        if ($PSCmdlet.ShouldProcess($VirtualIPs)) {
+            # Please see the documentation how to construct the below attribute
+            $virtualInterfaceGroupName = $InterfaceGroupName + "." + $VlanId
+            $vlanObject = Get-CohesityVlan | Where-Object { $_.id -eq $VlanId -and $_.ifaceGroupName -eq $virtualInterfaceGroupName }
+            if ($null -eq $vlanObject) {
+                Write-Output "VLAN id '$VlanId' on interface group '$InterfaceGroupName' does not exists"
+                return
             }
-            ifaceGroupName        = $vlanObject.ifaceGroupName
-            ips                   = $VirtualIPs
-            vlanName              = $vlanObject.vlanName
-        }
-        if($HostName) {
-            $payload | Add-Member -MemberType NoteProperty -Name hostname -Value $HostName
-        }
-        $payloadJson = $payload | ConvertTo-Json -Depth 100
-        $resp = Invoke-RestApi -Method Put -Uri $cohesityClusterURL -Headers $cohesityHeaders -Body $payloadJson
-        if ($resp) {
-            $resp
-        }
-        else {
-            $errorMsg = "Virtual IP : Failed to create"
-            Write-Host $errorMsg
-            CSLog -Message $errorMsg
+            $cohesityClusterURL = $cohesityCluster + '/irisservices/api/v1/public/vlans/' + $vlanObject.id
+            $cohesityHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
+            if ($vlanObject.ips) {
+                $VirtualIPs += $vlanObject.ips
+            }
+            $payload = @{
+                addToClusterPartition = $true
+                id                    = $vlanObject.id
+                gateway               = $vlanObject.gateway
+                subnet                = @{
+                    ip          = $vlanObject.subnet.ip
+                    netmaskBits = $vlanObject.subnet.netmaskBits
+                }
+                ifaceGroupName        = $vlanObject.ifaceGroupName
+                ips                   = $VirtualIPs
+                vlanName              = $vlanObject.vlanName
+            }
+            if ($HostName) {
+                $payload | Add-Member -MemberType NoteProperty -Name hostname -Value $HostName
+            }
+            $payloadJson = $payload | ConvertTo-Json -Depth 100
+            $resp = Invoke-RestApi -Method Put -Uri $cohesityClusterURL -Headers $cohesityHeaders -Body $payloadJson
+            if ($resp) {
+                $resp
+            }
+            else {
+                $errorMsg = "Virtual IP : Failed to create"
+                Write-Output $errorMsg
+                CSLog -Message $errorMsg
+            }
         }
     }
 

@@ -1,5 +1,5 @@
 function Update-CohesityCmdletConfig {
-    [CmdletBinding()]
+    [CmdletBinding(SupportsShouldProcess = $True, ConfirmImpact = "High")]
     param(
         [Parameter(Mandatory = $true)]
         $CurrentConfig
@@ -11,11 +11,13 @@ function Update-CohesityCmdletConfig {
             $cmdletConfigPath = "$HOME/" + $cohesityFolder + "/" + $configFileName
         }
     Process {
-		$resp = $CurrentConfig | Get-Member -Name RefreshToken
-		if($null -eq $resp) {
-            $CurrentConfig | Add-Member -NotePropertyName RefreshToken -NotePropertyValue $false
-            $CurrentConfig | ConvertTo-Json -depth 100 | Out-File $cmdletConfigPath
-		}
+        if ($PSCmdlet.ShouldProcess("Cmdlet configuration")) {
+            $resp = $CurrentConfig | Get-Member -Name RefreshToken
+            if($null -eq $resp) {
+                $CurrentConfig | Add-Member -NotePropertyName RefreshToken -NotePropertyValue $false
+                $CurrentConfig | ConvertTo-Json -depth 100 | Out-File $cmdletConfigPath
+            }
+        }
     }
     End {
     }

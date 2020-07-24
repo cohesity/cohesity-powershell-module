@@ -49,7 +49,7 @@ function Get-CohesityProtectionSourceSummary {
         }
         else {
             $errorMsg = "Protection source summary : Failed to get"
-            Write-Host $errorMsg
+            Write-Output $errorMsg
             CSLog -Message $errorMsg
         }
     }

@@ -52,21 +52,21 @@ function Copy-CohesityView {
     Process {
         $sourceView = Get-CohesityView -ViewNames $SourceViewName -IncludeInactive:$true
         if ($null -eq $sourceView) {
-            Write-Host "The source view '$SourceViewName' does not exists."
+            Write-Output "The source view '$SourceViewName' does not exists."
             return
         }
         if ($null -eq $sourceView.ViewProtection) {
-            Write-Host "No job associated with '$SourceViewName' exists."
+            Write-Output "No job associated with '$SourceViewName' exists."
             return
         }
         if ($null -eq $sourceView.ViewProtection.ProtectionJobs | Where-Object { $_.jobId -eq $JobId }) {
-            Write-Host "The job id '$JobId' is not associated with '$SourceViewName'."
+            Write-Output "The job id '$JobId' is not associated with '$SourceViewName'."
             return
         }
         if ($JobRunId) {
             $jobRun = (Get-CohesityProtectionJobRun -JobId $JobId) | Where-Object { $_.BackupRun.JobRunId -eq $JobRunId }
             if ($null -eq $jobRun) {
-                Write-Host "The job run '$jobRun' does not exists for job id '$JobId'"
+                Write-Output "The job run '$jobRun' does not exists for job id '$JobId'"
                 return
             }
         }
@@ -118,7 +118,7 @@ function Copy-CohesityView {
             }
             else {
                 $errorMsg = "Copy view : Failed to create a copy of view"
-                Write-Host $errorMsg
+                Write-Output $errorMsg
                 CSLog -Message $errorMsg
             }
         }
@@ -130,12 +130,12 @@ function Copy-CohesityView {
             $searchHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
             $searchResult = Invoke-RestApi -Method Get -Uri $searchURL -Headers $searchHeaders
             if ($null -eq $searchResult) {
-                Write-Host "Could not search view with the job id $JobId"
+                Write-Output "Could not search view with the job id $JobId"
                 return
             }
             $searchedViewDetails = $searchResult.vms | Where-Object { $_.vmDocument.objectId.jobId -eq $JobId -and $_.vmDocument.objectId.entity.id -eq $sourceView.ViewProtection.MagnetoEntityId }
             if ($null -eq $searchedViewDetails) {
-                Write-Host "Could not find details for view id = "$sourceView.ViewProtection.MagnetoEntityId
+                Write-Output "Could not find details for view id = "$sourceView.ViewProtection.MagnetoEntityId
                 return
             }
             # first instance, find the job run instance and the start time
@@ -146,7 +146,7 @@ function Copy-CohesityView {
 
             $qos = Get-CohesityQOSPolicy -QOSNames $QoSPolicy
             if ($null -eq $qos) {
-                Write-Host "The QOS policy '$QoSPolicy' not available"
+                Write-Output "The QOS policy '$QoSPolicy' not available"
                 return
             }
             # following the swagger model, expecting an array
@@ -186,7 +186,7 @@ function Copy-CohesityView {
             }
             else {
                 $errorMsg = "Copy view : Failed to create a copy from inactive view"
-                Write-Host $errorMsg
+                Write-Output $errorMsg
                 CSLog -Message $errorMsg
             }
         }

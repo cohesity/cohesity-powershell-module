@@ -34,14 +34,14 @@ function Remove-CohesityVlan {
     Process {
         $vlanObject = $null
         if ($VlanInfo) {
-            # Object sailing through the pipe 
+            # Object sailing through the pipe
             $VlanId = $VlanInfo.id
             $vlanObject = $VlanInfo
         }
         else {
             $vlanObject = Get-CohesityVlan | Where-Object { $_.id -eq $VlanId }
             if ($null -eq $vlanObject) {
-                Write-Host "VLAN id  '$VlanId' does not exists"
+                Write-Output "VLAN id  '$VlanId' does not exists"
                 return
             }
         }
@@ -59,7 +59,7 @@ function Remove-CohesityVlan {
             }
             else {
                 $errorMsg = "VLAN : Failed to delete"
-                Write-Host $errorMsg
+                Write-Output $errorMsg
                 CSLog -Message $errorMsg
             }
         }
