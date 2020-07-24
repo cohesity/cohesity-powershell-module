@@ -1,5 +1,11 @@
 $Global:CohesityUserAgentName = $null
 $Global:CohesityAPIError = $null
+
+# Allow the caller to have access to response object,
+# it is observed that some of the REST APIs (PUT method) do not return object,
+# therefore provisioning an object, so that the caller can identify using the status code, if the API call succeeded
+$Global:CohesityAPIResponse = $null
+
 function Invoke-RestApi
 {
     [CmdletBinding()]
@@ -42,6 +48,8 @@ function Invoke-RestApi
         $errorMsg = "User agent for the current session : " + $Global:CohesityUserAgentName
         CSLog -Message $errorMsg
     }
+    $Global:CohesityAPIResponse = $null
+
     $Global:CohesityAPIError = $null
     # to ensure, for every success execution of REST API, the function must return a non null object
     try {
@@ -68,7 +76,9 @@ function Invoke-RestApi
             Enable-SelfSignedCertificates
             $result = Invoke-WebRequest -UseBasicParsing @PSBoundParameters -UserAgent $Global:CohesityUserAgentName
         }
-        
+
+        $Global:CohesityAPIResponse = $result
+
         if ($PSBoundParameters.ContainsKey('Method')) {
             if ('Delete' -eq $PSBoundParameters['Method']) {
                 # there is no response object from the backend for a successful delete operation, hence constructing a new one
@@ -93,8 +103,9 @@ function Invoke-RestApi
     }
     catch {
         # this flag can be optionally used by the caller to identify the details of failure
-        $Global:CohesityAPIError = $_.Exception.Response
-        $errorMsg = $_.Exception.Message
+        $Global:CohesityAPIError = $_.Exception
+        # capturing the error message from the cluster rather than the powershell framework $_.Exception.Message
+        $errorMsg = $_
         Write-Host $errorMsg -ForegroundColor Red
         CSLog -Message $errorMsg -Severity 3
         # Implementing code review feedback
