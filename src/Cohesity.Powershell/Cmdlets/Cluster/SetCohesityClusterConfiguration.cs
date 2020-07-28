@@ -22,7 +22,8 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
     /// </para>
     /// </example>
 
-    [Cmdlet(VerbsCommon.Set, "CohesityClusterConfiguration")]
+    [Cmdlet(VerbsCommon.Set, "CohesityClusterConfiguration",
+        SupportsShouldProcess = true, ConfirmImpact = ConfirmImpact.High)]
     [OutputType(typeof(Model.Cluster))]
     public class SetCohesityClusterConfiguration : PSCmdlet
     {
@@ -70,10 +71,13 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
         /// </summary>
         protected override void ProcessRecord()
         {
-            // PUT public/cluster
-            var preparedUrl = $"/public/cluster";
-            var result = Session.ApiClient.Put<Model.Cluster>(preparedUrl, ClusterConfiguration);
-            WriteObject(result);
+            if (ShouldProcess($"Piped object"))
+            {
+                // PUT public/cluster
+                var preparedUrl = $"/public/cluster";
+                var result = Session.ApiClient.Put<Model.Cluster>(preparedUrl, ClusterConfiguration);
+                WriteObject(result);
+            }
         }
 
         #endregion
