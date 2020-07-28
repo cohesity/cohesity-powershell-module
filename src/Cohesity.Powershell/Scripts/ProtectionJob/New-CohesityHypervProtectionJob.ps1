@@ -39,7 +39,8 @@ function New-CohesityHypervProtectionJob {
     Process {
         if ($PSCmdlet.ShouldProcess($Name)) {
             $timeZone = Get-TimeZone
-            $protectionPolicyObject = Get-CohesityProtectionPolicy | Where-Object { $_.name -eq $PolicyName }
+			# fix for support to v6.3 and v6.5
+            $protectionPolicyObject = Get-CohesityProtectionPolicy -Names $PolicyName | Where-Object { $_.name -eq $PolicyName }
             if ($null -eq $protectionPolicyObject) {
                 Write-Output "Incorrect protection policy name '$PolicyName'"
                 return
