@@ -40,11 +40,11 @@ function Get-CohesityProtectionSourceSummary {
                     unprotectedSizeBytes = $resp.dashboard.protectedObjects.unprotectedSizeBytes
                 }
                 $result += $summary
-                return ($result  |Select-Object envType,protectedCount, `
+                ($result  |Select-Object envType,protectedCount, `
                 @{Name="protected size(GB)"; Expression={[math]::round($_.protectedSizeBytes/1GB, 2)}}, `
                 unprotectedCount, @{Name="unprotected size(GB)"; Expression={[math]::round($_.unprotectedSizeBytes/1GB, 2)}})
             } else {
-                return $resp
+                $resp
             }
         }
         else {

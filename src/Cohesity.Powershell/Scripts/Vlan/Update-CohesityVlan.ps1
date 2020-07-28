@@ -13,7 +13,7 @@ function Update-CohesityVlan {
         .EXAMPLE
         Get-CohesityVlan -VlanId 11 |  Update-CohesityVlan -InterfaceGroupName intf_group1 -Subnet 1.2.1.1
     #>
-    [CmdletBinding(SupportsShouldProcess = $True, ConfirmImpact = "High")]
+    [CmdletBinding(DefaultParameterSetName = "InterfaceGroupName", SupportsShouldProcess = $True, ConfirmImpact = "High")]
     Param(
         [Parameter(Mandatory = $true, ParameterSetName = 'InterfaceGroupName')]
         [Parameter(Mandatory = $false, ParameterSetName = 'PipedVlanInfo')]

@@ -13,7 +13,7 @@ function Remove-CohesityVlan {
         .EXAMPLE
         Get-CohesityVlan -VlanId 11 | Remove-CohesityVlan
     #>
-    [CmdletBinding(SupportsShouldProcess = $True, ConfirmImpact = "High", DefaultParameterSetName = "PipedVlanInfo")]
+    [CmdletBinding(DefaultParameterSetName = "PipedVlanInfo", SupportsShouldProcess = $True, ConfirmImpact = "High")]
     Param(
         [Parameter(Mandatory = $true, ParameterSetName = 'VlanId')]
         [ValidateNotNullOrEmpty()]
