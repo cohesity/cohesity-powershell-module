@@ -38,11 +38,11 @@ function Remove-CohesityVirtualIP {
         $virtualInterfaceGroupName = $InterfaceGroupName + "." + $VlanId
         $vlanObject = Get-CohesityVlan | Where-Object { $_.id -eq $VlanId -and $_.ifaceGroupName -eq $virtualInterfaceGroupName}
         if ($null -eq $vlanObject) {
-            Write-Host "VLAN id '$VlanId' on interface group '$InterfaceGroupName' does not exists"
+            Write-Output "VLAN id '$VlanId' on interface group '$InterfaceGroupName' does not exists"
             return
         }
         if ($null -eq $vlanObject.ips) {
-            Write-Host "No virtual IP(s) exists with the VLAN '$VlanId' on interface group '$InterfaceGroupName' does not exists"
+            Write-Output "No virtual IP(s) exists with the VLAN '$VlanId' on interface group '$InterfaceGroupName' does not exists"
             return
         }
         if ($PSCmdlet.ShouldProcess($VirtualIPs)) {
@@ -70,7 +70,7 @@ function Remove-CohesityVirtualIP {
             }
             else {
                 $errorMsg = "Virtual IP : Failed to remove"
-                Write-Host $errorMsg
+                Write-Output $errorMsg
                 CSLog -Message $errorMsg
             }
         }

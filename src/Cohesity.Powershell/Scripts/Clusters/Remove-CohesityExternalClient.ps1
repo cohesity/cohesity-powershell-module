@@ -11,6 +11,7 @@ function Remove-CohesityExternalClient {
         .EXAMPLE
         Remove-CohesityExternalClient -IP4 "1.1.1.1"
     #>
+    [OutputType('System.Collections.ArrayList')]
     [CmdletBinding(SupportsShouldProcess = $True, ConfirmImpact = "High")]
     Param(
         [Parameter(Mandatory = $true)]
@@ -28,40 +29,42 @@ function Remove-CohesityExternalClient {
 
     Process {
         $whiteList = Get-CohesityExternalClient
-        $foundIP = $whiteList | where-object {$_.ip -eq $IP4}
-        if($null -eq $foundIP) {
-            Write-Host "Cannot proceed, IP '$IP4' not found"
+        $foundIP = $whiteList | where-object { $_.ip -eq $IP4 }
+        if ($null -eq $foundIP) {
+            Write-Output "Cannot proceed, IP '$IP4' not found"
             return
         }
 
         if ($PSCmdlet.ShouldProcess($IP4)) {
-            $whiteList = $whiteList | where-object {$_.ip -ne $IP4}
+            $whiteList = $whiteList | where-object { $_.ip -ne $IP4 }
             $arrList = [System.Collections.ArrayList]::new()
-            if($whiteList) {
+            if ($whiteList) {
                 $whiteList = $arrList + $whiteList
-            } else {
+            }
+            else {
                 $whiteList = $arrList
             }
-            $payload = @{clientSubnets = $whiteList}
+            $payload = @{clientSubnets = $whiteList }
 
             $cohesityClusterURL = $cohesityCluster + '/irisservices/api/v1/public/externalClientSubnets'
             $cohesityHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
             $payloadJson = $payload | ConvertTo-Json
             $resp = Invoke-RestApi -Method Put -Uri $cohesityClusterURL -Headers $cohesityHeaders -Body $payloadJson
             if ($resp) {
-                if($resp.clientSubnets) {
+                if ($resp.clientSubnets) {
                     $arr = [System.Collections.ArrayList]::new()
-                    $na = $arr.Add($resp.clientSubnets)
+                    $arr.Add($resp.clientSubnets) | Out-Null
                     $arr
                 }
             }
             else {
                 $errorMsg = "External client : Failed to remove"
-                Write-Host $errorMsg
+                Write-Output $errorMsg
                 CSLog -Message $errorMsg
             }
-        } else {
-            Write-Host "Operation aborted"
+        }
+        else {
+            Write-Output "Operation aborted"
         }
     }
 

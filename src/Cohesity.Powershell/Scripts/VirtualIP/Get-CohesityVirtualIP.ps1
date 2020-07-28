@@ -28,6 +28,7 @@ function Get-CohesityVirtualIP {
         .EXAMPLE
         Get-CohesityVirtualIP
     #>
+    [OutputType('System.Object[]')]
     [CmdletBinding(DefaultParameterSetName='Default')]
     Param(
         [Parameter(Mandatory = $true, ParameterSetName = 'VirtualIPInfo')]
@@ -52,7 +53,7 @@ function Get-CohesityVirtualIP {
             $vlanObject = Get-CohesityVlan
         }
         if ($null -eq $vlanObject) {
-            Write-Host "VLAN id '$VlanId' on interface group '$InterfaceGroupName' does not exists"
+            Write-Output "VLAN id '$VlanId' on interface group '$InterfaceGroupName' does not exists"
             return
         }
         $virtualIPList = @()

@@ -63,8 +63,8 @@ function Register-CohesityProtectionSourceIsilon {
     }
     else {
       $errorMsg = "Register Isilon : Failed to register"
-      Write-Host $errorMsg
-      Write-Host $Global:CohesityAPIError
+      Write-Output $errorMsg
+      Write-Output $Global:CohesityAPIError
       CSLog -Message $errorMsg
     }
   }

@@ -30,7 +30,7 @@ function Restore-CohesityBackupToView {
         $headers = @{'Authorization'='Bearer '+$token}
         $resp = Invoke-RestApi -Method 'Get' -Uri $url -Headers $headers
         if ($resp.objectSnapshotInfo.length -eq 0) {
-            Write-Host "There are no objects available for restoration, protected by " $ProtectionJobName
+            Write-Output "There are no objects available for restoration, protected by " $ProtectionJobName
             return
         }
         $searchSuccess = $false
@@ -57,7 +57,7 @@ function Restore-CohesityBackupToView {
                 if($null -eq $SourceName) {
                     $searchSuccess = $true
                     break
-                } 
+                }
                 if ($item.snapshottedSource.name -eq $SourceName) {
                     $searchSuccess = $true
                     break
@@ -66,7 +66,7 @@ function Restore-CohesityBackupToView {
             }
         }
         if($searchSuccess -eq $false) {
-            Write-Host "Could not find NAS source, protected by job '$ProtectionJobName', Error : $errorMessage"
+            Write-Output "Could not find NAS source, protected by job '$ProtectionJobName', Error : $errorMessage"
             return
         }
 
@@ -94,17 +94,17 @@ function Restore-CohesityBackupToView {
             viewName=$TargetViewName
         }
         $payloadJson = $payload | ConvertTo-Json
-        Write-Host $payloadJson
+        Write-Output $payloadJson
 
         $url = $server + '/irisservices/api/v1/public/restore/recover'
 
         $headers = @{'Authorization'='Bearer '+$token}
         $resp = Invoke-RestApi -Method 'Post' -Uri $url -Headers $headers -Body $payloadJson
         if($resp.fullViewName -eq $TargetViewName) {
-            Write-Host "Successfully restored from NAS backup to a view, " $TargetViewName
+            Write-Output "Successfully restored from NAS backup to a view, " $TargetViewName
         } else {
-            $error = $resp | ConvertTo-Json
-            Write-Host "Failed to complete the task " + $error
+            $errorMsg = $resp | ConvertTo-Json
+            Write-Output ("Failed to complete the task " + $errorMsg)
         }
     }
     End {

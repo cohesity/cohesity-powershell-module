@@ -31,7 +31,7 @@ function Update-CohesityProtectionJobRun {
 		# Extend retention for replication
 		Update-CohesityProtectionJobRun -ReplicationNames replication-server1,replication-server2 -ReplicationRetention 10 -ReplicationPartialJobRun:$false -JobRunIds 651 -ProtectionJobName job-small-vms
 	#>
-	[CmdletBinding(DefaultParameterSetName = "Local")]
+	[CmdletBinding(DefaultParameterSetName = "Local", SupportsShouldProcess = $True, ConfirmImpact = "High")]
 	param(
 		[Parameter(Mandatory = $False)]
 		$ProtectionJobName = $null,
@@ -73,193 +73,195 @@ function Update-CohesityProtectionJobRun {
 	}
 
 	process {
-		#Headers
-		$token = 'Bearer ' + $session.Accesstoken.Accesstoken
-		$headers = @{ "Authorization" = $token }
-		$jobUpdated = 0
-		$failedJobRunIds = @()
-		$succeedJobRunIds = @()
+		if ($PSCmdlet.ShouldProcess($ProtectionJobName)) {
+			#Headers
+			$token = 'Bearer ' + $session.Accesstoken.Accesstoken
+			$headers = @{ "Authorization" = $token }
+			$jobUpdated = 0
+			$failedJobRunIds = @()
+			$succeedJobRunIds = @()
 
-		#Collect all the job run ids from the backup run details fetched through pipeline, if the user doesn't provide any run ids
-		if ($null -ne $BackupJobRuns) {
-			$JobRunIds = $BackupJobRuns.backupRun.jobRunId
-			$ProtectionJobName = $BackupJobRuns.jobName
-		}
+			#Collect all the job run ids from the backup run details fetched through pipeline, if the user doesn't provide any run ids
+			if ($null -ne $BackupJobRuns) {
+				$JobRunIds = $BackupJobRuns.backupRun.jobRunId
+				$ProtectionJobName = $BackupJobRuns.jobName
+			}
 
-		if ($null -eq $ProtectionJobName) {
-			Write-Host "Please provide protection job name"
-			return
-		}
+			if ($null -eq $ProtectionJobName) {
+				Write-Output "Please provide protection job name"
+				return
+			}
 
-		if ($null -eq $BackupJobRuns) {
-			#Fetch the job id for the specified job
-			try {
-				$jobUrl = $server + '/irisservices/api/v1/public/protectionJobs'
-				$jobResp = Invoke-RestApi -Method 'Get' -Uri $jobUrl -Headers $headers
+			if ($null -eq $BackupJobRuns) {
+				#Fetch the job id for the specified job
+				try {
+					$jobUrl = $server + '/irisservices/api/v1/public/protectionJobs'
+					$jobResp = Invoke-RestApi -Method 'Get' -Uri $jobUrl -Headers $headers
 
-				if ($null -eq $jobResp) {
-					Write-Warning "No Protection Jobs available in the connected cluster"
+					if ($null -eq $jobResp) {
+						Write-Warning "No Protection Jobs available in the connected cluster"
+						return
+					}
+
+					foreach ($job in $jobResp) {
+						if ($job.Name -eq $ProtectionJobName) {
+							$JobId = $job.id
+							break
+						}
+					}
+				}
+				catch {
+					Write-Error $_.Exception.Message
 					return
 				}
 
-				foreach ($job in $jobResp) {
-					if ($job.Name -eq $ProtectionJobName) {
-						$JobId = $job.id
-						break
+				#If job exists then collect the job run details for the specific job
+				if ($JobId) {
+					$jobRunUrl = $server + '/irisservices/api/v1/public/protectionRuns?jobId=' + $JobId
+					if ($StartTimeUsecs) {
+						$jobRunUrl = $jobRunUrl + '&startTimeUsecs=' + $StartTimeUsecs
+					}
+					if ($EndTimeUsecs) {
+						$jobRunUrl = $jobRunUrl + '&endTimeUsecs=' + $EndTimeUsecs
+					}
+
+					$BackupJobRuns = Invoke-RestApi -Method 'Get' -Uri $jobRunUrl -Headers $headers
+				}
+				else {
+					Write-Output "Protection job '$ProtectionJobName' doesn't exist."
+					return
+				}
+			}
+
+			if ($ReplicationNames) {
+				$remoteClusters = Get-CohesityRemoteCluster
+				if ($null -eq $remoteClusters) {
+					Write-Output "No replication cluster found"
+					return
+				}
+
+				$replicationClusters = $null
+				foreach ($item in $ReplicationNames) {
+					if ($remoteClusters.name -contains $item) {
+						$remoteCluster = $remoteClusters | where-object { $_.name -eq $item }
+						if ($null -eq $replicationClusters) {
+							$replicationClusters = @()
+						}
+						$replicationObject = @{
+							replicationTarget = @{
+								clusterId   = $remoteCluster.ClusterId
+								clusterName = $remoteCluster.Name
+							}
+							daysToKeep        = $ReplicationRetention
+							type              = "kRemote"
+							copyPartial       = $ReplicationPartialJobRun
+						}
+						$replicationClusters += $replicationObject
+					}
+					else {
+						Write-Output "The replication cluster '$item' not found"
 					}
 				}
 			}
-			catch {
-				Write-Error $_.Exception.Message
-				return
+
+			if ($ArchiveNames) {
+				$vaults = Get-CohesityVault
+				if ($null -eq $vaults) {
+					Write-Output "No archives found"
+					return
+				}
+
+				$archives = $null
+				foreach ($item in $ArchiveNames) {
+					if ($vaults.name -contains $item) {
+						$vault = $vaults | where-object { $_.name -eq $item }
+						if ($null -eq $archives) {
+							$archives = @()
+						}
+						$archiveObject = @{
+							archivalTarget = @{
+								vaultId   = $vault.id
+								vaultName = $vault.name
+								vaultType = "kCloud"
+							}
+							daysToKeep     = $ArchiveRetention
+							type           = "kArchival"
+							copyPartial    = $ArchivePartialJobRun
+						}
+						$archives += $archiveObject
+					}
+					else {
+						Write-Output "The archive '$item' not found"
+					}
+				}
 			}
 
-			#If job exists then collect the job run details for the specific job
-			if ($JobId) {
-				$jobRunUrl = $server + '/irisservices/api/v1/public/protectionRuns?jobId=' + $JobId
-				if ($StartTimeUsecs) {
-					$jobRunUrl = $jobRunUrl + '&startTimeUsecs=' + $StartTimeUsecs
-				}
-				if ($EndTimeUsecs) {
-					$jobRunUrl = $jobRunUrl + '&endTimeUsecs=' + $EndTimeUsecs
+			if ($BackupJobRuns) {
+				#collect all job run ids, if the user doesn't provide any specific job run id
+				if ($null -eq $JobRunIds) {
+					$JobRunIds += $BackupJobRuns.backupRun.jobRunId
 				}
 
-				$BackupJobRuns = Invoke-RestApi -Method 'Get' -Uri $jobRunUrl -Headers $headers
+				foreach ($JobRun in $BackupJobRuns) {
+					if ($JobRunIds -contains $JobRun.backupRun.jobRunId) {
+						[bool]$snapshotDeleted = $JobRun.backupRun.snapshotsDeleted
+
+						if ($snapshotDeleted -eq $false) {
+							if ($ExtendRetention) {
+								$copyRunTarget = @{
+									daysToKeep = $ExtendRetention
+									type       = "kLocal"
+								}
+							}
+							$jobRunObj = @{
+								copyRunTargets    = @()
+								jobUid            = @{
+									clusterId            = $JobRun.jobUid.clusterId
+									clusterIncarnationId = $JobRun.jobUid.clusterIncarnationId
+									id                   = $JobRun.jobUid.id
+								}
+								runStartTimeUsecs = $JobRun.copyRun[0].runStartTimeUsecs
+							}
+							if ($replicationClusters) {
+								$jobRunObj.copyRunTargets += $replicationClusters
+							}
+							if ($archives) {
+								$jobRunObj.copyRunTargets += $archives
+							}
+							if ($copyRunTarget) {
+								$jobRunObj.copyRunTargets += $copyRunTarget
+							}
+							$payload = @{
+								jobRuns = @($jobRunObj)
+							}
+							$payloadJson = $payload | ConvertTo-Json -Depth 100
+							# Write-Output $payloadJson
+							try {
+								$url = $server + '/irisservices/api/v1/public/protectionRuns'
+								Invoke-RestApi -Method 'Put' -Uri $url -Headers $headers -Body $payloadJson | Out-Null
+
+								$jobUpdated += 1
+								$succeedJobRunIds += $JobRun.backupRun.jobRunId
+								$global:updatedJobRundIds += $JobRun.backupRun.jobRunId
+							}
+							catch {
+								$failedJobRunIds += $JobRun.backupRun.jobRunId
+								Write-Error $_
+							}
+						}
+					}
+				}
+
+				if ($failedJobRunIds.length -ne 0) {
+					Write-Warning "Some of the snapshot's retention is not updated, with job run id(s) $failedJobrunIds"
+				}
+				if ($succeedJobRunIds.length -ne 0) {
+					Write-Output "Updated the snapshot retention for job run id(s) $succeedJobRunIds, successfully for the job '$ProtectionJobName'"
+				}
 			}
 			else {
-				Write-Host "Protection job '$ProtectionJobName' doesn't exist."
-				return
+				Write-Output "Backup job run details are unavilable"
 			}
-		}
-
-		if ($ReplicationNames) {
-			$remoteClusters = Get-CohesityRemoteCluster
-			if ($null -eq $remoteClusters) {
-				write-host "No replication cluster found"
-				return
-			}
-
-			$replicationClusters = $null
-			foreach ($item in $ReplicationNames) {
-				if ($remoteClusters.name -contains $item) {
-					$remoteCluster = $remoteClusters | where-object { $_.name -eq $item }
-					if ($null -eq $replicationClusters) {
-						$replicationClusters = @()
-					}
-					$replicationObject = @{
-						replicationTarget = @{
-							clusterId   = $remoteCluster.ClusterId
-							clusterName = $remoteCluster.Name
-						}
-						daysToKeep        = $ReplicationRetention
-						type              = "kRemote"
-						copyPartial       = $ReplicationPartialJobRun
-					}
-					$replicationClusters += $replicationObject
-				}
-				else {
-					write-host "The replication cluster '$item' not found"
-				}
-			}
-		}
-
-		if ($ArchiveNames) {
-			$vaults = Get-CohesityVault
-			if ($null -eq $vaults) {
-				write-host "No archives found"
-				return
-			}
-
-			$archives = $null
-			foreach ($item in $ArchiveNames) {
-				if ($vaults.name -contains $item) {
-					$vault = $vaults | where-object { $_.name -eq $item }
-					if ($null -eq $archives) {
-						$archives = @()
-					}
-					$archiveObject = @{
-						archivalTarget = @{
-							vaultId   = $vault.id
-							vaultName = $vault.name
-							vaultType = "kCloud"
-						}
-						daysToKeep     = $ArchiveRetention
-						type           = "kArchival"
-						copyPartial    = $ArchivePartialJobRun
-					}
-					$archives += $archiveObject
-				}
-				else {
-					write-host "The archive '$item' not found"
-				}
-			}
-		}
-
-		if ($BackupJobRuns) {
-			#collect all job run ids, if the user doesn't provide any specific job run id
-			if ($null -eq $JobRunIds) {
-				$JobRunIds += $BackupJobRuns.backupRun.jobRunId
-			}
-
-			foreach ($JobRun in $BackupJobRuns) {
-				if ($JobRunIds -contains $JobRun.backupRun.jobRunId) {
-					[bool]$snapshotDeleted = $JobRun.backupRun.snapshotsDeleted
-
-					if ($snapshotDeleted -eq $false) {
-						if ($ExtendRetention) {
-							$copyRunTarget = @{
-								daysToKeep = $ExtendRetention
-								type       = "kLocal"
-							}
-						}
-						$jobRunObj = @{
-							copyRunTargets    = @()
-							jobUid            = @{
-								clusterId            = $JobRun.jobUid.clusterId
-								clusterIncarnationId = $JobRun.jobUid.clusterIncarnationId
-								id                   = $JobRun.jobUid.id
-							}
-							runStartTimeUsecs = $JobRun.copyRun[0].runStartTimeUsecs
-						}
-						if ($replicationClusters) {
-							$jobRunObj.copyRunTargets += $replicationClusters
-						}
-						if ($archives) {
-							$jobRunObj.copyRunTargets += $archives
-						}
-						if ($copyRunTarget) {
-							$jobRunObj.copyRunTargets += $copyRunTarget
-						}
-						$payload = @{
-							jobRuns = @($jobRunObj)
-						}
-						$payloadJson = $payload | ConvertTo-Json -Depth 100
-						# write-host $payloadJson
-						try {
-							$url = $server + '/irisservices/api/v1/public/protectionRuns'
-							$updateResp = Invoke-RestApi -Method 'Put' -Uri $url -Headers $headers -Body $payloadJson
-
-							$jobUpdated += 1
-							$succeedJobRunIds += $JobRun.backupRun.jobRunId
-							$global:updatedJobRundIds += $JobRun.backupRun.jobRunId
-						}
-						catch {
-							$failedJobRunIds += $JobRun.backupRun.jobRunId
-							Write-Error $_
-						}
-					}
-				}
-			}
-
-			if ($failedJobRunIds.length -ne 0) {
-				Write-Warning "Some of the snapshot's retention is not updated, with job run id(s) $failedJobrunIds"
-			}
-			if ($succeedJobRunIds.length -ne 0) {
-				Write-Host "Updated the snapshot retention for job run id(s) $succeedJobRunIds, successfully for the job '$ProtectionJobName'"
-			}
-		}
-		else {
-			Write-Host "Backup job run details are unavilable"
 		}
 	}
 

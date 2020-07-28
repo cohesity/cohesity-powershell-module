@@ -16,7 +16,7 @@ Foreach($script in @($scripts))
 # Post module installation initialize the cmdlet configuration
 $config = Get-CohesityCmdletConfig
 if($null -eq $config) {
-    $resp = Set-CohesityCmdletConfig -LogSeverity 3
+    $resp = Set-CohesityCmdletConfig -LogSeverity 3 -Confirm:$false
 } else {
-    $resp = Update-CohesityCmdletConfig -CurrentConfig $config
+    $resp = Update-CohesityCmdletConfig -CurrentConfig $config -Confirm:$false
 }

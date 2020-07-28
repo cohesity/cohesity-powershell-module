@@ -37,7 +37,7 @@ function Get-CohesityVault {
         $resp = Invoke-RestApi -Method Get -Uri $url -Headers $headers
         $resp
     }
-    End { 
+    End {
     }
 
 }

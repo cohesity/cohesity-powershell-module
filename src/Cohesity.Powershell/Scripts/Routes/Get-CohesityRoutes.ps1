@@ -57,7 +57,7 @@ function Get-CohesityRoutes {
             }
             else {
                 $errorMsg = "Routes : Failed to filter with $FilterName = '$FilterValue'"
-                Write-Host $errorMsg
+                Write-Output $errorMsg
                 CSLog -Message $errorMsg
             }
         }
@@ -67,7 +67,7 @@ function Get-CohesityRoutes {
             }
             else {
                 $errorMsg = "Routes : Failed to fetch."
-                Write-Host $errorMsg
+                Write-Output $errorMsg
                 CSLog -Message $errorMsg
             }
         }

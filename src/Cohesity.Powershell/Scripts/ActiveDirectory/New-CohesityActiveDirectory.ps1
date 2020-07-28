@@ -4,7 +4,7 @@
 #   New-CohesityActiveDirectory -DomainName cohesity.com -MachineAccounts "Test" -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList "Administrator", (ConvertTo-SecureString -AsPlainText "secret" -Force))
 ###############
 function New-CohesityActiveDirectory {
-    [CmdletBinding()]
+    [CmdletBinding(SupportsShouldProcess = $True, ConfirmImpact = "High")]
     Param(
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
@@ -29,30 +29,33 @@ function New-CohesityActiveDirectory {
     }
 
     Process {
-        $UserName = $Credential.UserName
-        $PlainPassword = $Credential.GetNetworkCredential().Password
+        if ($PSCmdlet.ShouldProcess($DomainName)) {
 
-        $url = $server + '/irisservices/api/v1/public/activeDirectory'
+            $UserName = $Credential.UserName
+            $PlainPassword = $Credential.GetNetworkCredential().Password
 
-        $headers = @{'Authorization' = 'Bearer ' + $token}
-        $payload = @{
-            domainName                 = $DomainName
-            machineAccounts            = @($MachineAccounts)
-            preferredDomainControllers = @(@{domainName = $DomainName})
-            trustedDomainsEnabled      = $false
-            userIdMapping              = @{ }
-            userName                   = $UserName
-            password                   = $PlainPassword
-        }
-        $payloadJson = $payload | ConvertTo-Json
-        $resp = Invoke-RestApi -Method Post -Uri $url -Headers $headers -Body $payloadJson
-        if ($resp) {
-            $resp
-        }
-        else {
-            $errorMsg = "Failed to create, active directory configuration"
-            Write-Host $errorMsg
-            CSLog -Message $errorMsg
+            $url = $server + '/irisservices/api/v1/public/activeDirectory'
+
+            $headers = @{'Authorization' = 'Bearer ' + $token}
+            $payload = @{
+                domainName                 = $DomainName
+                machineAccounts            = @($MachineAccounts)
+                preferredDomainControllers = @(@{domainName = $DomainName})
+                trustedDomainsEnabled      = $false
+                userIdMapping              = @{ }
+                userName                   = $UserName
+                password                   = $PlainPassword
+            }
+            $payloadJson = $payload | ConvertTo-Json
+            $resp = Invoke-RestApi -Method Post -Uri $url -Headers $headers -Body $payloadJson
+            if ($resp) {
+                $resp
+            }
+            else {
+                $errorMsg = "Failed to create, active directory configuration"
+                Write-Output $errorMsg
+                CSLog -Message $errorMsg
+            }
         }
     }
     End {

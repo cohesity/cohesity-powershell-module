@@ -77,6 +77,8 @@ function Invoke-RestApi
             $result = Invoke-WebRequest -UseBasicParsing @PSBoundParameters -UserAgent $Global:CohesityUserAgentName
         }
 
+        # To satisfy ScriptAnalyzer
+        $Global:CohesityAPIResponse | Out-Null
         $Global:CohesityAPIResponse = $result
 
         if ($PSBoundParameters.ContainsKey('Method')) {
@@ -106,12 +108,12 @@ function Invoke-RestApi
         $Global:CohesityAPIError = $_.Exception
         # capturing the error message from the cluster rather than the powershell framework $_.Exception.Message
         $errorMsg = $_
-        Write-Host $errorMsg -ForegroundColor Red
+        Write-Output $errorMsg -ForegroundColor Red
         CSLog -Message $errorMsg -Severity 3
         # Implementing code review feedback
         if(401 -eq $Global:CohesityAPIError.StatusCode.Value__) {
             if($true -eq $Global:CohesityCmdletConfig.RefreshToken) {
-                Write-Host "The session token has expired, attempting to refresh."
+                Write-Output "The session token has expired, attempting to refresh."
 				$credentialsJson = [Environment]::GetEnvironmentVariable('cohesityCredentials', 'Process')
                 $cohesitySession = Get-Content -Path $HOME/.cohesity | ConvertFrom-Json
                 if($null -ne $credentialsJson) {
@@ -126,10 +128,10 @@ function Invoke-RestApi
                     $headers = @{'Content-Type' = 'application/json'}
                     $resp = Invoke-RestApi -Method Post -Uri $cohesityUrl -Headers $headers -Body $payloadJson
                     $cohesitySession.AccessToken = $resp
-                    $content = Set-Content -Path $HOME/.cohesity ($cohesitySession | ConvertTo-Json)
-                    Write-Host "The session token has been refreshed."
+                    Set-Content -Path $HOME/.cohesity ($cohesitySession | ConvertTo-Json) | Out-Null
+                    Write-Output "The session token has been refreshed."
                 } else {
-                    Write-Host "No credentials available to implictly connect the cluster."
+                    Write-Output "No credentials available to implictly connect the cluster."
                 }
             }
         }

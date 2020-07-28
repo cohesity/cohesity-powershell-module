@@ -6,7 +6,7 @@ class ProtectionJobStatus {
     $estimatedTime
     [double]$percentCompleted
 
-    ProtectionJobStatus(){}
+    ProtectionJobStatus() {}
     ProtectionJobStatus(
         [String]$jobName,
         [Boolean]$remoteCopy,
@@ -14,23 +14,23 @@ class ProtectionJobStatus {
         $startTime,
         $estimatedTime,
         [double]$percentCompleted
-    ){
+    ) {
         $this.jobName = $jobName
         $this.remoteCopy = $remoteCopy
         $this.jobId = $jobId
         $this.startTime = $startTime
         $this.estimatedTime = $estimatedTime
-        $this.percentCompleted  = $percentCompleted
+        $this.percentCompleted = $percentCompleted
     }
-    [string]ToString(){
+    [string]ToString() {
         return $this | Select-Object -Property *
     }
     [string]GetEstimatedTime() {
-        $ts =  [timespan]::fromseconds($this.estimatedTime)
+        $ts = [timespan]::fromseconds($this.estimatedTime)
         return ("{0:hh\:mm\:ss\ }" -f $ts)
     }
     [string]GetStartTime() {
-        if($this.startTime -eq 0) {
+        if ($this.startTime -eq 0) {
             return "0"
         }
         $ret = ([DateTimeOffset]::FromUnixTimeSeconds($this.startTime)).DateTime.ToLocalTime()
@@ -44,9 +44,8 @@ function Get-CohesityProtectionJobStatus {
     )
 
     Begin {
-        if(-not (Test-Path -Path "$HOME/.cohesity"))
-        {
-          throw "Failed to authenticate. Please connect to the Cohesity Cluster using 'Connect-CohesityCluster'"
+        if (-not (Test-Path -Path "$HOME/.cohesity")) {
+            throw "Failed to authenticate. Please connect to the Cohesity Cluster using 'Connect-CohesityCluster'"
         }
         $session = Get-Content -Path $HOME/.cohesity | ConvertFrom-Json
 
@@ -58,27 +57,28 @@ function Get-CohesityProtectionJobStatus {
     Process {
         $url = $server + '/irisservices/api/v1/public/protectionJobs?isDeleted=false'
 
-        $headers = @{'Authorization'='Bearer '+$token}
+        $headers = @{'Authorization' = 'Bearer ' + $token }
         $resp = Invoke-RestApi -Method 'Get' -Uri $url -Headers $headers
         $jobIdAndName = @{}
         $activeJobIds = New-Object System.Collections.ArrayList
         ForEach ($item in $resp) {
-             $r = $activeJobIds.Add($item.id)
-             $jobIdAndName.Add($item.id,$item.name)
+            $activeJobIds.Add($item.id) | Out-Null
+            $jobIdAndName.Add($item.id, $item.name)
         }
 
         $jobIdAndRemoteStatus = @{}
         $url = $server + '/irisservices/api/v1/public/protectionRuns'
         $resp = Invoke-RestApi -Method 'Get' -Uri $url -Headers $headers
         foreach ($item in $resp) {
-            if($item.backupRun.status -eq "kSuccess") {
-                if($false -eq $jobIdAndRemoteStatus.ContainsKey($item.jobId)) {
-                    $r = $jobIdAndRemoteStatus.Add($item.jobId, $false)
+            if ($item.backupRun.status -eq "kSuccess") {
+                if ($false -eq $jobIdAndRemoteStatus.ContainsKey($item.jobId)) {
+                    $jobIdAndRemoteStatus.Add($item.jobId, $false) | Out-Null
                 }
-            } else {
+            }
+            else {
                 $remoteStatus = $false
                 foreach ($status in $item.copyRun) {
-                    if($status.target.type -eq "kRemote") {
+                    if ($status.target.type -eq "kRemote") {
                         $remoteStatus = $true
                         break
                     }
@@ -92,10 +92,11 @@ function Get-CohesityProtectionJobStatus {
         $url = $server + '/irisservices/api/v1/backupjobssummary?_includeTenantInfo=true&allUnderHierarchy=true&includeJobsWithoutRun=true&isDeleted=false&numRuns=1000&onlyReturnBasicSummary=true&onlyReturnJobDescription=false'
         $resp = Invoke-RestApi -Method 'Get' -Uri $url -Headers $headers
         ForEach ($item in $resp) {
-            if($activeJobIds.Contains($item.backupJobSummary.jobDescription.jobId)) {
-                if($item.backupJobSummary.lastProtectionRun.backupRun.base.publicStatus -notin "kSuccess" -AND $null -notlike $item.backupJobSummary.lastProtectionRun.backupRun.activeAttempt.base.progressMonitorTaskPath) {
-                    $r = $activeTasks.Add($item.backupJobSummary.lastProtectionRun.backupRun.activeAttempt.base.progressMonitorTaskPath)
-                } else {
+            if ($activeJobIds.Contains($item.backupJobSummary.jobDescription.jobId)) {
+                if ($item.backupJobSummary.lastProtectionRun.backupRun.base.publicStatus -notin "kSuccess" -AND $null -notlike $item.backupJobSummary.lastProtectionRun.backupRun.activeAttempt.base.progressMonitorTaskPath) {
+                    $activeTasks.Add($item.backupJobSummary.lastProtectionRun.backupRun.activeAttempt.base.progressMonitorTaskPath) | Out-Null
+                }
+                else {
                     [ProtectionJobStatus]$status = [ProtectionJobStatus]::new(
                         $jobIdAndName[$item.backupJobSummary.jobDescription.jobId],
                         $false,
@@ -103,32 +104,28 @@ function Get-CohesityProtectionJobStatus {
                         0,
                         0,
                         100
-                        )
+                    )
                     $protectionJobStatusList += $status
                 }
             }
         }
         foreach ($item in $activeTasks) {
-            $url = $server + '/irisservices/api/v1/progressMonitors?=excludeSubTasks=true&includeFinishedTasks=true&taskPathVec='+$item
+            $url = $server + '/irisservices/api/v1/progressMonitors?=excludeSubTasks=true&includeFinishedTasks=true&taskPathVec=' + $item
             $resp = Invoke-RestApi -Method 'Get' -Uri $url -Headers $headers
             $task = $resp.resultGroupVec[0].taskVec[0].progress
             $jobName = ""
             $jobId = 0
-            $startTimeUsecs = 0
             foreach ($jobAttrib in $resp.resultGroupVec[0].taskVec[0].progress.attributeVec) {
-                if($jobAttrib.key -eq "job_name") {
+                if ($jobAttrib.key -eq "job_name") {
                     $jobName = $jobAttrib.value.data.stringValue
                 }
-                if($jobAttrib.key -eq "job_id") {
+                if ($jobAttrib.key -eq "job_id") {
                     $jobId = $jobAttrib.value.data.stringValue
-                }
-                if($jobAttrib.key -eq "start_time_usecs") {
-                    $startTimeUsecs = $jobAttrib.value.data.stringValue
                 }
             }
             $remoteJobStatus = $false
-            foreach($entry in $jobIdAndRemoteStatus.Keys) {
-                if($jobId -eq $entry) {
+            foreach ($entry in $jobIdAndRemoteStatus.Keys) {
+                if ($jobId -eq $entry) {
                     $remoteJobStatus = $jobIdAndRemoteStatus[$entry]
                     break
                 }
@@ -140,18 +137,18 @@ function Get-CohesityProtectionJobStatus {
                 $task.startTimeSecs,
                 $task.expectedTimeRemainingSecs,
                 $task.percentFinished
-                )
+            )
             $protectionJobStatusList += $status
         }
 
         $columnWidth = 20
         $protectionJobStatusList | Sort-Object  -Property startTime  -Descending |
-        Format-Table @{ Label='ID'; Expression={$_.jobId};},  
-        @{ Label='NAME'; Expression={$_.jobName}; Width=$columnWidth; },
-        @{ Label='REMOTE COPY'; Expression={$_.remoteCopy}; Width=$columnWidth },
-        @{ Label='STARTED AT'; Expression={$_.GetStartTime()}; Width=$columnWidth },
-        @{ Label='ESTIMATED TIME'; Expression={$_.GetEstimatedTime()};Width=$columnWidth },
-        @{ Label='COMPLETED(%)'; Expression={$_.percentCompleted}; Width=$columnWidth }
+        Format-Table @{ Label = 'ID'; Expression = { $_.jobId }; },
+        @{ Label = 'NAME'; Expression = { $_.jobName }; Width = $columnWidth; },
+        @{ Label = 'REMOTE COPY'; Expression = { $_.remoteCopy }; Width = $columnWidth },
+        @{ Label = 'STARTED AT'; Expression = { $_.GetStartTime() }; Width = $columnWidth },
+        @{ Label = 'ESTIMATED TIME'; Expression = { $_.GetEstimatedTime() }; Width = $columnWidth },
+        @{ Label = 'COMPLETED(%)'; Expression = { $_.percentCompleted }; Width = $columnWidth }
     }
 
     End {

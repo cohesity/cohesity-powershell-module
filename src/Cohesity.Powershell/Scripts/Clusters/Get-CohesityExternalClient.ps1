@@ -11,6 +11,7 @@ function Get-CohesityExternalClient {
         .EXAMPLE
         Get-CohesityExternalClient
     #>
+    [OutputType('System.Collections.ArrayList')]
     [CmdletBinding()]
     Param(
     )
@@ -29,15 +30,15 @@ function Get-CohesityExternalClient {
         $cohesityHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
         $resp = Invoke-RestApi -Method Get -Uri $cohesityClusterURL -Headers $cohesityHeaders
         if ($resp) {
-            if($resp.clientSubnets) {
+            if ($resp.clientSubnets) {
                 $arr = [System.Collections.ArrayList]::new()
-                $na = $arr.Add($resp.clientSubnets)
+                $arr.Add($resp.clientSubnets) | Out-Null
                 $arr
             }
         }
         else {
             $errorMsg = "External client : Failed to get"
-            Write-Host $errorMsg
+            Write-Output $errorMsg
             CSLog -Message $errorMsg
         }
     }

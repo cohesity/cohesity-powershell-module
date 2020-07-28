@@ -23,10 +23,10 @@ function Set-CohesityStorageDomain {
         Set-CohesityStorageDomain -StorageDomain <object>
         Update the specified storage domain (view box) object.
     #>
-    [CmdletBinding()]
+    [CmdletBinding(SupportsShouldProcess = $True, ConfirmImpact = "High")]
     Param(
-        # Determines whether the compression policy should be ‘kCompressionNone’ (disabled case) or ‘kCompressionLow’ (enabled case)
-        # ‘kCompressionNone’ indicates that data is not compressed. ‘kCompressionLow’ indicates that data is compressed.
+        # Determines whether the compression policy should be 'kCompressionNone' (disabled case) or 'kCompressionLow' (enabled case)
+        # 'kCompressionNone' indicates that data is not compressed. 'kCompressionLow' indicates that data is compressed.
         [Parameter(Mandatory = $false, ParameterSetName = 'UpdateField')][ValidateSet("true", "false")]
         [String]$Compression,
         # If deduplication is enabled, the Cohesity Cluster eliminates duplicate blocks of repeating data stored on the Cluster,
@@ -67,115 +67,130 @@ function Set-CohesityStorageDomain {
     }
 
     Process {
-        $payload = $null
-        $domainUrl = $server + '/irisservices/api/v1/public/viewBoxes'
-        $headers = @{'Authorization' = 'Bearer ' + $token }
+        if ($PSCmdlet.ShouldProcess($Name)) {
+            $payload = $null
+            $domainUrl = $server + '/irisservices/api/v1/public/viewBoxes'
+            $headers = @{'Authorization' = 'Bearer ' + $token }
 
-        # Check if the storage domain with specified name already exist
-        if ($NewDomainName) {
-            $url = $domainUrl + '?names=' + $NewDomainName + '&allUnderHierarchy=true'
-            $isDomainExist = Invoke-RestApi -Method 'Get' -Uri $url -Headers $headers
+            # Check if the storage domain with specified name already exist
+            if ($NewDomainName) {
+                $url = $domainUrl + '?names=' + $NewDomainName + '&allUnderHierarchy=true'
+                $isDomainExist = Invoke-RestApi -Method 'Get' -Uri $url -Headers $headers
 
-            if ($isDomainExist) {
-                throw "Storage Domain with name '$NewDomainName' already exists."
-            } elseif ($Global:CohesityAPIError.StatusCode -eq 'Unauthorized'){
+                if ($isDomainExist) {
+                    throw "Storage Domain with name '$NewDomainName' already exists."
+                }
+                elseif ($Global:CohesityAPIError.StatusCode -eq 'Unauthorized') {
+                    return
+                }
+            }
+
+            if ($null -ne $StorageDomain) {
+                $domainObj = $StorageDomain
+                if ($Name) {
+                    $domainObj = $StorageDomain | Where-Object { $_.name -eq $Name }
+                }
+                else {
+                    $Name = $StorageDomain.name
+                }
+            }
+
+            if (!$Name) {
+                Write-Warning "Please provide atleast one Storage Domain (View Box) name to update."
                 return
             }
-        }
 
-        if ($null -ne $StorageDomain) {
-            $domainObj = $StorageDomain
-            if ($Name) {
-                $domainObj = $StorageDomain | Where-Object {$_.name -eq $Name}
-            } else {
-                $Name = $StorageDomain.name
-            }
-        }
+            # Construct URL & header
+            $StorageDomainUrl = $server + '/irisservices/api/v1/public/viewBoxes'
 
-        if (!$Name) {
-            Write-Warning "Please provide atleast one Storage Domain (View Box) name to update."
-            return
-        }
+            if ($null -eq $StorageDomain) {
+                $getUrl = $StorageDomainUrl + '?names=' + $Name + '&allUnderHierarchy=true'
+                $domainObj = Invoke-RestApi -Method 'Get' -Uri $getUrl -Headers $headers
 
-        # Construct URL & header
-        $StorageDomainUrl = $server + '/irisservices/api/v1/public/viewBoxes'
-
-        if ($null -eq $StorageDomain) {
-            $getUrl = $StorageDomainUrl + '?names=' + $Name + '&allUnderHierarchy=true'
-            $domainObj = Invoke-RestApi -Method 'Get' -Uri $getUrl -Headers $headers
-
-            if ($null -eq $domainObj) {
-                if ($Global:CohesityAPIError) {
-                    if ($Global:CohesityAPIError.StatusCode -eq 'NotFound') {
-                        $errorMsg = "Storage domain (View Box) '$Name' doesn't exists."
-                        Write-Warning $errorMsg
-                    } else {
-                        $errorMsg = "Failed to fetch Storage Domain (View Box) information with an error : " + $Global:CohesityAPIError
+                if ($null -eq $domainObj) {
+                    if ($Global:CohesityAPIError) {
+                        if ($Global:CohesityAPIError.StatusCode -eq 'NotFound') {
+                            $errorMsg = "Storage domain (View Box) '$Name' doesn't exists."
+                            Write-Warning $errorMsg
+                        }
+                        else {
+                            $errorMsg = "Failed to fetch Storage Domain (View Box) information with an error : " + $Global:CohesityAPIError
+                        }
                     }
-                } else {
-                    $errorMsg = "Storage domain (View Box) '$Name' doesn't exist."
-                    Write-Warning $errorMsg
+                    else {
+                        $errorMsg = "Storage domain (View Box) '$Name' doesn't exist."
+                        Write-Warning $errorMsg
+                    }
+                    CSLog -Message $errorMsg
                 }
-                CSLog -Message $errorMsg
             }
-        }
 
-        # Update the specified Storage domain
-        if ($null -ne $domainObj) {
-            $domainObj | ForEach-Object {
-                $payload = $_
-                $domainName = $payload.name
+            # Update the specified Storage domain
+            if ($null -ne $domainObj) {
+                $domainObj | ForEach-Object {
+                    $payload = $_
+                    $domainName = $payload.name
 
-                # Update the payload with specified parameter values
-                if ('UpdateField' -eq $PsCmdlet.ParameterSetName) {
-                    $PsBoundParameters.keys | ForEach-Object {
-                        switch ($_) {
-                            'NewDomainName' {
-                                $payload.name = $NewDomainName
-                            }
-                            'Deduplication' {
-                                $payload.storagePolicy.deduplicationEnabled = [System.Convert]::ToBoolean($Deduplication)
-                                if ($Deduplication -eq $false) { $payload.storagePolicy.inlineDeduplicate = [System.Convert]::ToBoolean($Deduplication) }
-                            }
-                            'InlineDeduplication' {
-                                $payload.storagePolicy.inlineDeduplicate = [System.Convert]::ToBoolean($InlineDeduplicate)
-                                if ($Deduplication -eq $false) { $payload.storagePolicy.inlineDeduplicate = [System.Convert]::ToBoolean($Deduplication) }
-                            }
-                            'Compression' {
-                                $payload.storagePolicy.compressionPolicy = $(if ($Compression -eq $true) {'kCompressionLow'} else {'kCompressionNone'})
-                                if ($Compression -eq $false) { $payload.storagePolicy.inlineCompress = [System.Convert]::ToBoolean($Compression) }
-                            }
-                            'InlineCompression' {
-                                $payload.storagePolicy.inlineCompress = [System.Convert]::ToBoolean($InlineCompression)
-                                if ($Compression -eq $false) { $payload.storagePolicy.inlineCompress = [System.Convert]::ToBoolean($Compression) }
-                            }
-                            'PhysicalQuota' {
-                                $GibToBytes = (1024 * 1024 * 1024)
-                                [Int64]$PhysicalQuota_bytes = ($PhysicalQuota * $GibToBytes)
-                                if ($null -eq $payload.physicalQuota) {
-                                    $payload | Add-Member -MemberType NoteProperty -Name physicalQuota -Value @{}
+                    # Update the payload with specified parameter values
+                    if ('UpdateField' -eq $PsCmdlet.ParameterSetName) {
+                        $PsBoundParameters.keys | ForEach-Object {
+                            switch ($_) {
+                                'NewDomainName' {
+                                    $payload.name = $NewDomainName
                                 }
-                                if ($null -ne $payload.physicalQuota.hardLimitBytes) {
-                                    $payload.physicalQuota.hardLimitBytes = $PhysicalQuota_bytes
-                                } else {
-                                    $payload.physicalQuota | Add-Member -MemberType NoteProperty -Name hardLimitBytes -Value $PhysicalQuota_bytes
+                                'Deduplication' {
+                                    $payload.storagePolicy.deduplicationEnabled = [System.Convert]::ToBoolean($Deduplication)
+                                    if ($Deduplication -eq $false) { $payload.storagePolicy.inlineDeduplicate = [System.Convert]::ToBoolean($Deduplication) }
+                                }
+                                'InlineDeduplication' {
+                                    $payload.storagePolicy.inlineDeduplicate = [System.Convert]::ToBoolean($InlineDeduplicate)
+                                    if ($Deduplication -eq $false) { $payload.storagePolicy.inlineDeduplicate = [System.Convert]::ToBoolean($Deduplication) }
+                                }
+                                'Compression' {
+                                    $payload.storagePolicy.compressionPolicy = $(if ($Compression -eq $true) { 'kCompressionLow' } else { 'kCompressionNone' })
+                                    if ($Compression -eq $false) { $payload.storagePolicy.inlineCompress = [System.Convert]::ToBoolean($Compression) }
+                                }
+                                'InlineCompression' {
+                                    $payload.storagePolicy.inlineCompress = [System.Convert]::ToBoolean($InlineCompression)
+                                    if ($Compression -eq $false) { $payload.storagePolicy.inlineCompress = [System.Convert]::ToBoolean($Compression) }
+                                }
+                                'PhysicalQuota' {
+                                    $GibToBytes = (1024 * 1024 * 1024)
+                                    [Int64]$PhysicalQuota_bytes = ($PhysicalQuota * $GibToBytes)
+                                    if ($null -eq $payload.physicalQuota) {
+                                        $payload | Add-Member -MemberType NoteProperty -Name physicalQuota -Value @{}
+                                    }
+                                    if ($null -ne $payload.physicalQuota.hardLimitBytes) {
+                                        $payload.physicalQuota.hardLimitBytes = $PhysicalQuota_bytes
+                                    }
+                                    else {
+                                        $payload.physicalQuota | Add-Member -MemberType NoteProperty -Name hardLimitBytes -Value $PhysicalQuota_bytes
+                                    }
                                 }
                             }
                         }
                     }
-                }
 
-                $StorageDomainId = $payload.id
-                $payloadJson = $payload | ConvertTo-Json
+                    $StorageDomainId = $payload.id
+                    $payloadJson = $payload | ConvertTo-Json
 
-                $updateUrl = $StorageDomainUrl + "/" + $StorageDomainId
-                $StorageDomainObj = Invoke-RestApi -Method 'Put' -Uri $updateUrl -Headers $headers -Body $payloadJson
+                    $updateUrl = $StorageDomainUrl + "/" + $StorageDomainId
+                    $StorageDomainObj = Invoke-RestApi -Method 'Put' -Uri $updateUrl -Headers $headers -Body $payloadJson
 
-                if ($StorageDomainObj) {
-                    Write-Host "Updated '$domainName' Storage Domain Successfully." -ForegroundColor Green
-                    $StorageDomainObj
+                    if ($StorageDomainObj) {
+                        Write-Output "Updated '$domainName' Storage Domain Successfully." -ForegroundColor Green
+                        $StorageDomainObj
+                    }
                 }
             }
         }
+        #To satsify ScriptAnalyzer (linting) piping the parameters to null
+        $Compression | Out-Null
+        $Deduplication | Out-Null
+        $InlineDeduplication | Out-Null
+        $InlineCompression | Out-Null
+        $PhysicalQuota | Out-Null
+
+
     } # End of process
 } # End of function

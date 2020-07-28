@@ -12,7 +12,7 @@ class CohesityConfig {
 }
 $Global:CohesityCmdletConfig = $null
 function Set-CohesityCmdletConfig {
-    [CmdletBinding()]
+    [CmdletBinding(SupportsShouldProcess = $True, ConfirmImpact = "High")]
     param(
         [Parameter(Mandatory = $false, ParameterSetName = 'LogSeverity')]
         [ValidateSet(0, 1, 2, 3)]
@@ -37,7 +37,7 @@ function Set-CohesityCmdletConfig {
         $cohesityFolder = $configObject.ConfigFolder
         # check if the folder exists
         if ($false -eq [System.IO.Directory]::Exists("$HOME/" + $cohesityFolder)) {
-            $newFolder = New-Item -Path "$HOME/" -Name $cohesityFolder -ItemType "directory"
+            New-Item -Path "$HOME/" -Name $cohesityFolder -ItemType "directory" | Out-Null
         }
         $cmdletConfigPath = "$HOME/" + $cohesityFolder + "/" + $configFileName
         if ($false -eq [System.IO.File]::Exists($cmdletConfigPath)) {
@@ -45,26 +45,29 @@ function Set-CohesityCmdletConfig {
         }
     }
     Process {
-        $config = Get-Content $cmdletConfigPath | ConvertFrom-Json
-        switch ($PsCmdlet.ParameterSetName) {
-            'LogSeverity' {
-                $config.LogSeverity = $LogSeverity
+        if ($PSCmdlet.ShouldProcess("Cmdlet configuration")) {
+            $config = Get-Content $cmdletConfigPath | ConvertFrom-Json
+            switch ($PsCmdlet.ParameterSetName) {
+                'LogSeverity' {
+                    $config.LogSeverity = $LogSeverity
+                }
+                'LogRequestedPayload' {
+                    $config.LogRequestedPayload = $LogRequestedPayload
+                }
+                'LogResponseData' {
+                    $config.LogResponseData = $LogResponseData
+                }
+                'LogHeaderDetail' {
+                    $config.LogHeaderDetail = $LogHeaderDetail
+                }
+                'RefreshToken' {
+                    $config.RefreshToken = $RefreshToken
+                }
             }
-            'LogRequestedPayload' {
-                $config.LogRequestedPayload = $LogRequestedPayload
-            }
-            'LogResponseData' {
-                $config.LogResponseData = $LogResponseData
-            }
-            'LogHeaderDetail' {
-                $config.LogHeaderDetail = $LogHeaderDetail
-            }
-            'RefreshToken' {
-                $config.RefreshToken = $RefreshToken
-            }
+            $config | ConvertTo-Json -depth 100 | Out-File $cmdletConfigPath
+            $Global:CohesityCmdletConfig | Out-Null
+            $Global:CohesityCmdletConfig = $config
         }
-        $config | ConvertTo-Json -depth 100 | Out-File $cmdletConfigPath
-        $Global:CohesityCmdletConfig = $config
     }
     End {
     }

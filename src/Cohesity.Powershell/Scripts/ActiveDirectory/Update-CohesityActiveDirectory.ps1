@@ -8,7 +8,7 @@
 #   Update-CohesityActiveDirectory -DomainName cohesity.com -IgnoredTrustedDomains <Object>
 ###############
 function Update-CohesityActiveDirectory {
-    [CmdletBinding(DefaultParameterSetName = 'IdMappingInfo')]
+    [CmdletBinding(DefaultParameterSetName = 'IdMappingInfo', SupportsShouldProcess = $True, ConfirmImpact = "High")]
     Param(
         [ValidateNotNullOrEmpty()]
         [Parameter(Mandatory = $true, ParameterSetName = 'DomainOnly', Position = 0)]
@@ -38,39 +38,41 @@ function Update-CohesityActiveDirectory {
     }
 
     Process {
-        $url = $server + '/irisservices/api/v1/public/activeDirectory/' + $DomainName
-        switch ($PsCmdlet.ParameterSetName) {
-            "IdMappingInfo" {
-                Write-Host $IdMappingInfo
-                $url = $url + '/idMappingInfo'
-                $payload = $IdMappingInfo
+        if ($PSCmdlet.ShouldProcess($DomainName)) {
+            $url = $server + '/irisservices/api/v1/public/activeDirectory/' + $DomainName
+            switch ($PsCmdlet.ParameterSetName) {
+                "IdMappingInfo" {
+                    Write-Output $IdMappingInfo
+                    $url = $url + '/idMappingInfo'
+                    $payload = $IdMappingInfo
+                }
+                "IgnoredTrustedDomains" {
+                    Write-Output $IgnoredTrustedDomains
+                    $url = $url + '/ignoredTrustedDomains'
+                    $payload = $IgnoredTrustedDomains
+                }
+                "LdapProvider" {
+                    Write-Output $LdapProvider
+                    $url = $url + '/ldapProvider'
+                    $payload = $LdapProvider
+                }
+                "PreferredDomainControllers" {
+                    Write-Output $PreferredDomainControllers
+                    $url = $url + '/preferredDomainControllers'
+                    $payload = $PreferredDomainControllers
+                }
             }
-            "IgnoredTrustedDomains" {
-                Write-Host $IgnoredTrustedDomains
-                $url = $url + '/ignoredTrustedDomains'
-                $payload = $IgnoredTrustedDomains
+            $headers = @{'Authorization' = 'Bearer ' + $token }
+            $payloadJson = $payload | ConvertTo-Json
+            $resp = Invoke-RestApi -Method Put -Uri $url -Headers $headers -Body $payloadJson
+            if ($resp) {
+                $resp
             }
-            "LdapProvider" {
-                Write-Host $LdapProvider
-                $url = $url + '/ldapProvider'
-                $payload = $LdapProvider
+            else {
+                $errorMsg = "Active Directory : $DomainName, Failed to update"
+                Write-Output $errorMsg
+                CSLog -Message $errorMsg
             }
-            "PreferredDomainControllers" {
-                Write-Host $PreferredDomainControllers
-                $url = $url + '/preferredDomainControllers'
-                $payload = $PreferredDomainControllers
-            }
-        }
-        $headers = @{'Authorization' = 'Bearer ' + $token }
-        $payloadJson = $payload | ConvertTo-Json
-        $resp = Invoke-RestApi -Method Put -Uri $url -Headers $headers -Body $payloadJson
-        if ($resp) {
-            $resp
-        }
-        else {
-            $errorMsg = "Active Directory : $DomainName, Failed to update"
-            Write-Host $errorMsg
-            CSLog -Message $errorMsg
         }
     }
     End {

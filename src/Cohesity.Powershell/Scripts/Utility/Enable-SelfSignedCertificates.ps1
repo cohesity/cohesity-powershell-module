@@ -1,7 +1,7 @@
 function Enable-SelfSignedCertificates
 {
     # ignore self-signed server certificates
-    $client = New-Object System.Net.WebClient;
+    New-Object System.Net.WebClient | Out-Null;
     [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
     Add-Type @"
     using System;
@@ -12,12 +12,12 @@ function Enable-SelfSignedCertificates
     {
         public static void Ignore()
         {
-            ServicePointManager.ServerCertificateValidationCallback += 
+            ServicePointManager.ServerCertificateValidationCallback +=
                 delegate
                 (
-                    Object obj, 
-                    X509Certificate certificate, 
-                    X509Chain chain, 
+                    Object obj,
+                    X509Certificate certificate,
+                    X509Chain chain,
                     SslPolicyErrors errors
                 )
                 {
