@@ -12,7 +12,7 @@ class CohesityConfig {
 }
 $Global:CohesityCmdletConfig = $null
 function Set-CohesityCmdletConfig {
-    [CmdletBinding(SupportsShouldProcess = $True, ConfirmImpact = "High")]
+    [CmdletBinding(DefaultParameterSetName = 'LogSeverity', SupportsShouldProcess = $True, ConfirmImpact = "High")]
     param(
         [Parameter(Mandatory = $false, ParameterSetName = 'LogSeverity')]
         [ValidateSet(0, 1, 2, 3)]

@@ -23,7 +23,7 @@ function Set-CohesityStorageDomain {
         Set-CohesityStorageDomain -StorageDomain <object>
         Update the specified storage domain (view box) object.
     #>
-    [CmdletBinding(SupportsShouldProcess = $True, ConfirmImpact = "High")]
+    [CmdletBinding(DefaultParameterSetName = 'UpdateField', SupportsShouldProcess = $True, ConfirmImpact = "High")]
     Param(
         # Determines whether the compression policy should be 'kCompressionNone' (disabled case) or 'kCompressionLow' (enabled case)
         # 'kCompressionNone' indicates that data is not compressed. 'kCompressionLow' indicates that data is compressed.

@@ -13,7 +13,7 @@ function Set-CohesitySnapshotRetention {
         .EXAMPLE
         Set-CohesitySnapshotRetention -JobName Test-Job -JobRunId 2123 -ReduceByDays 30
     #>
-    [CmdletBinding(SupportsShouldProcess = $True, ConfirmImpact = "High")]
+    [CmdletBinding(DefaultParameterSetName = 'ExtendRetention', SupportsShouldProcess = $True, ConfirmImpact = "High")]
     Param(
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
@@ -131,7 +131,7 @@ function Set-CohesitySnapshotRetention {
                 elseif ($ReduceByDays) {
                     $message = "Reduced the snapshot retention successfully"
                 }
-                return $message
+                $message
             }
             else {
                 $errorMsg = "Snapshot retention : Failed to update the snapshot"
