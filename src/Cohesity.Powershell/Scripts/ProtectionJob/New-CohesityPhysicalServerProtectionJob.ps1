@@ -11,7 +11,9 @@ function New-CohesityPhysicalServerProtectionJob {
         .EXAMPLE
         New-CohesityPhysicalServerProtectionJob -Name <string> -PolicyName <string> -StorageDomainName <string> -SourceName <string>
         .EXAMPLE
-        New-CohesityPhysicalServerProtectionJob -Name test-physical-server -PolicyName Bronze -StorageDomainName DefaultStorageDomain -SourceName "10.2.151.120"
+        New-CohesityPhysicalServerProtectionJob -Name ps-block-based -PolicyName Bronze -StorageDomainName DefaultStorageDomain -SourceName "10.2.151.120" -SourceType kPhysical
+        .EXAMPLE
+        New-CohesityPhysicalServerProtectionJob -Name ps-files-based -PolicyName Bronze -StorageDomainName DefaultStorageDomain -SourceName "10.2.151.120" -SourceType kPhysicalFiles
     #>
     [CmdletBinding(SupportsShouldProcess = $True, ConfirmImpact = "High")]
     Param(
