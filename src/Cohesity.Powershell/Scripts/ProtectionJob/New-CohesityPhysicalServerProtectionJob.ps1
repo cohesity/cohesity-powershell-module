@@ -88,6 +88,24 @@ function New-CohesityPhysicalServerProtectionJob {
                 parentSourceId = $parentId
                 startTime      = @{hour = (Get-Date).Hour; minute = (Get-Date).Minute }
             }
+            if($SourceType -eq "kPhysicalFiles") {
+                $bkupFilePath = "/"
+                if($protectionSourceObject.PhysicalProtectionSource.HostType -eq "kWindows") {
+                    $bkupFilePath = "C:\"
+                }
+                $filePath = @{
+                    backupFilePath = $bkupFilePath
+                    skipNestedVolumes = $true
+                }
+                $sourceSpecial = @{
+                    sourceId = $protectionSourceObject.Id
+                    physicalSpecialParameters = @{
+                        filePaths = @($filePath)
+                    }
+                }
+                $payload | Add-Member -MemberType NoteProperty -Name sourceSpecialParameters -Value @($sourceSpecial)
+            }
+
             $payloadJson = $payload | ConvertTo-Json -Depth 100
             $resp = Invoke-RestApi -Method Post -Uri $url -Headers $headers -Body $payloadJson
             if ($resp) {
