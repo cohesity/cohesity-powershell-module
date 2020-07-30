@@ -83,6 +83,7 @@ FunctionsToExport = @(
                       'Get-CohesityVlan',
                       'New-CohesityActiveDirectory',
                       'New-CohesityHypervProtectionJob'
+                      'New-CohesityPhysicalServerProtectionJob'
                       'New-CohesityProtectionPolicy',
                       'New-CohesityRoutes',
                       'New-CohesityStorageDomain',
