@@ -71,17 +71,41 @@ function Restore-CohesityVMwareVM {
                 Write-Output "Could not search VM with the job id $JobId"
                 return
             }
-            $searchedViewDetails = $searchResult.vms | Where-Object { $_.vmDocument.objectId.jobId -eq $JobId -and $_.vmDocument.objectId.entity.id -eq $SourceId }
-            if ($null -eq $searchedViewDetails) {
+            $searchedVMDetails = $searchResult.vms | Where-Object { $_.vmDocument.objectId.jobId -eq $JobId -and $_.vmDocument.objectId.entity.id -eq $SourceId }
+            if ($null -eq $searchedVMDetails) {
                 Write-Output "Could not find details for VM id = "$SourceId
                 return
             }
 
+            $vmObject = $searchedVMDetails.vmDocument.objectId
+            $vmObjects = @()
+            $vmObjects += $vmObject
+
+            $renameVMObject = $null
+            if ($VmNamePrefix -or $VmNameSuffix) {
+                $renameVMObject = @{}
+                if ($VmNamePrefix) {
+                    $renameVMObject.Add("prefix",$VmNamePrefix)
+                }
+                if ($VmNameSuffix) {
+                    $renameVMObject.Add("suffix",$VmNameSuffix)
+                }
+            }
+            $payload = @{
+                continueRestoreOnError       = $true
+                name                         = $TaskName
+                objects                      = $vmObjects
+                powerStateConfig             = @{
+                    powerOn = $PoweredOn.IsPresent
+                }
+                renameRestoredObjectParam    = $renameVMObject
+                restoredObjectsNetworkConfig = @{
+                    disableNetwork = $DisableNetwork.IsPresent
+                }
+            }
             $url = $cohesityCluster + '/irisservices/api/v1/restore'
         }
         else {
-            $url = $cohesityCluster + '/irisservices/api/v1/public/restore/recover'
-
             $object = @{
                 jobId              = $JobId
                 jobRunId           = $JobRunId
@@ -106,8 +130,9 @@ function Restore-CohesityVMwareVM {
                 }
                 newParentId      = $NewParentId
             }
+            $url = $cohesityCluster + '/irisservices/api/v1/public/restore/recover'
         }
-        $payloadJson = $payload | ConvertTo-Json
+        $payloadJson = $payload | ConvertTo-Json -Depth 100
         Write-Output $payloadJson
 
         $headers = @{'Authorization' = 'Bearer ' + $cohesityToken }
