@@ -7,7 +7,7 @@ Gets a list of views filtered by specified parameters.
 ## SYNTAX
 
 ```
-Get-CohesityView [-IncludeInactive] [-JobIds <long[]>] [-MatchAliasNames] [-MatchPartialNames]
+Get-CohesityView [-IncludeInactive] [-IncludeStats] [-JobIds <long[]>] [-MatchAliasNames] [-MatchPartialNames]
  [-MaxCount <long>] [-MaxViewId <long>] [-SortByLogicalUsage] [-ViewBoxIds <long[]>] [-ViewBoxNames <string[]>]
  [-ViewNames <string[]>] [<CommonParameters>]
 ```
@@ -170,6 +170,21 @@ Accept wildcard characters: False
 
 ### -SortByLogicalUsage
 If set, the results are sorted in descending order by logical usage.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -IncludeStats
+If set, the results will include statistics.
 
 ```yaml
 Type: SwitchParameter

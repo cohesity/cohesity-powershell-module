@@ -129,6 +129,13 @@ namespace Cohesity.Powershell.Cmdlets.View
         [Parameter(Mandatory = false)]
         public SwitchParameter SortByLogicalUsage { get; set; }
 
+        /// <summary>
+        /// <para type="description">
+        /// If set, the results will include statistics.
+        /// </para>
+        /// </summary>
+        [Parameter(Mandatory = false)]
+        public SwitchParameter IncludeStats { get; set; }
 
         protected override void BeginProcessing()
         {
@@ -169,6 +176,9 @@ namespace Cohesity.Powershell.Cmdlets.View
 
             if (SortByLogicalUsage.IsPresent)
                 qb.Add("SortByLogicalUsage", true.ToString());
+
+            if (IncludeStats.IsPresent)
+                qb.Add("includeStats", true.ToString());
 
             var preparedUrl = $"/public/views{qb.Build()}";
             var result = Session.ApiClient.Get<GetViewsResult>(preparedUrl);
