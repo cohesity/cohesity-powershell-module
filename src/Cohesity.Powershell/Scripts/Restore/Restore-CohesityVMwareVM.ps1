@@ -12,6 +12,10 @@ function Restore-CohesityVMwareVM {
         Restore-CohesityVMwareVM -SourceId 500 -JobId 181
         .EXAMPLE
         Restore-CohesityVMwareVM -TaskName "Task-vm-restore" -SourceId 500 -JobId 181 -VmNamePrefix "pref" -VmNameSuffix "suff" -DisableNetwork:$false
+        .EXAMPLE
+        Restore-CohesityVMwareVM -SourceId 919 -JobId 48888 -VmNamePrefix "pref" -VmNameSuffix "suff" -DisableNetwork:$false
+        .EXAMPLE
+        Restore-CohesityVMwareVM -SourceId 919 -JobId 48888 -VmNamePrefix "pref2" -VmNameSuffix "suff2" -DisableNetwork:$false -NewParentId 1 -ResourcePoolId 25 -DatastoreId 7 -VmFolderId 692
     #>
 
     [CmdletBinding(DefaultParameterSetName = "Default")]
@@ -64,8 +68,9 @@ function Restore-CohesityVMwareVM {
         }
 
         if ($job.IsActive -eq $false) {
-            $searchURL = $cohesityCluster + '/irisservices/api/v1/searchvms?entityTypes=kVMware&jobIds=' + $JobId
             $searchHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
+
+            $searchURL = $cohesityCluster + '/irisservices/api/v1/searchvms?entityTypes=kVMware&jobIds=' + $JobId
             $searchResult = Invoke-RestApi -Method Get -Uri $searchURL -Headers $searchHeaders
             if ($null -eq $searchResult) {
                 Write-Output "Could not search VM with the job id $JobId"
@@ -76,6 +81,53 @@ function Restore-CohesityVMwareVM {
                 Write-Output "Could not find details for VM id = "$SourceId
                 return
             }
+            $vmwareDetail = $null
+            if ($NewParentId) {
+                $searchURL = $cohesityCluster + '/irisservices/api/v1/entitiesOfType?environmentTypes=kVMware&vmwareEntityTypes=kVCenter&vmwareEntityTypes=kStandaloneHost&vmwareEntityTypes=kvCloudDirector'
+                $searchResult = Invoke-RestApi -Method Get -Uri $searchURL -Headers $searchHeaders
+                $vmwareDetail = $searchResult | Where-Object { $_.id -eq $NewParentId }
+                if (-not $vmwareDetail) {
+                    Write-Output "The new parent id is incorrect '$NewParentId'"
+                    return
+                }
+            }
+
+            $resourcePoolDetail = $null
+            if ($ResourcePoolId) {
+                $searchURL = $cohesityCluster + '/irisservices/api/v1/resourcePools?vCenterId=' + $vmwareDetail.id
+                $searchResult = Invoke-RestApi -Method Get -Uri $searchURL -Headers $searchHeaders
+                $resourcePoolDetail = $searchResult | Where-Object { $_.resourcePool.id -eq $ResourcePoolId }
+                if (-not $resourcePoolDetail) {
+                    Write-Output "The resourcepool id '$ResourcePoolId' is not available for parent id '$NewParentId'"
+                    return
+                }
+                $resourcePoolDetail = $resourcePoolDetail.resourcePool
+            }
+
+            $datastoreDetail = $null
+            if ($DatastoreId) {
+                $searchURL = $cohesityCluster + '/irisservices/api/v1/datastores?resourcePoolId='+$ResourcePoolId+'&vCenterId='+$NewParentId
+                $searchResult = Invoke-RestApi -Method Get -Uri $searchURL -Headers $searchHeaders
+                $datastoreDetail = $searchResult | Where-Object { $_.id -eq $DatastoreId }
+                if (-not $datastoreDetail) {
+                    Write-Output "The datastore id '$DatastoreId' is not available for resourcepool id '$ResourcePoolId' and parent id '$NewParentId'"
+                    return
+                }
+            }
+
+            $vmFolderDetail = $null
+            if ($VmFolderId) {
+                $searchURL = $cohesityCluster + '/irisservices/api/v1/vmwareFolders?resourcePoolId='+$ResourcePoolId+'&vCenterId='+$NewParentId
+                $searchResult = Invoke-RestApi -Method Get -Uri $searchURL -Headers $searchHeaders
+                $vmFolder = $searchResult.vmFolders | Where-Object { $_.id -eq $VmFolderId }
+                if (-not $vmFolder) {
+                    Write-Output "The vm folder id '$VmFolderId' is not available for resourcepool id '$ResourcePoolId' and parent id '$NewParentId'"
+                    return
+                }
+                $vmFolderDetail = @{
+                    targetVmFolder = $vmFolder
+                }
+            }
 
             $vmObject = $searchedVMDetails.vmDocument.objectId
             $vmObjects = @()
@@ -85,10 +137,10 @@ function Restore-CohesityVMwareVM {
             if ($VmNamePrefix -or $VmNameSuffix) {
                 $renameVMObject = @{}
                 if ($VmNamePrefix) {
-                    $renameVMObject.Add("prefix",$VmNamePrefix)
+                    $renameVMObject.Add("prefix", $VmNamePrefix)
                 }
                 if ($VmNameSuffix) {
-                    $renameVMObject.Add("suffix",$VmNameSuffix)
+                    $renameVMObject.Add("suffix", $VmNameSuffix)
                 }
             }
             $payload = @{
@@ -102,6 +154,10 @@ function Restore-CohesityVMwareVM {
                 restoredObjectsNetworkConfig = @{
                     disableNetwork = $DisableNetwork.IsPresent
                 }
+                restoreParentSource          = $vmwareDetail
+                resourcePoolEntity           = $resourcePoolDetail
+                datastoreEntity              = $datastoreDetail
+                vmwareParams                 = $vmFolderDetail
             }
             $url = $cohesityCluster + '/irisservices/api/v1/restore'
         }
@@ -133,7 +189,6 @@ function Restore-CohesityVMwareVM {
             $url = $cohesityCluster + '/irisservices/api/v1/public/restore/recover'
         }
         $payloadJson = $payload | ConvertTo-Json -Depth 100
-        Write-Output $payloadJson
 
         $headers = @{'Authorization' = 'Bearer ' + $cohesityToken }
         $resp = Invoke-RestApi -Method 'Post' -Uri $url -Headers $headers -Body $payloadJson
