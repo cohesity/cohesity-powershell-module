@@ -118,7 +118,6 @@ function New-CohesityStorageDomain {
             $StorageDomain = Invoke-RestApi -Method 'Post' -Uri $domainUrl -Headers $headers -Body $payloadJson
 
             if ($StorageDomain) {
-                Write-Output "Created '$Name' Storage Domain Successfully." -ForegroundColor Green
                 Get-CohesityStorageDomain -Names $Name
                 $successMsg = "Created '$Name' Storage Domain Successfully `n $StorageDomain"
                 CSLog -Message $successMsg

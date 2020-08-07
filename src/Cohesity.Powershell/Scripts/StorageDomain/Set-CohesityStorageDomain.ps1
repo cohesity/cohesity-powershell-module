@@ -129,7 +129,6 @@ function Set-CohesityStorageDomain {
             if ($null -ne $domainObj) {
                 $domainObj | ForEach-Object {
                     $payload = $_
-                    $domainName = $payload.name
 
                     # Update the payload with specified parameter values
                     if ('UpdateField' -eq $PsCmdlet.ParameterSetName) {
@@ -178,7 +177,6 @@ function Set-CohesityStorageDomain {
                     $StorageDomainObj = Invoke-RestApi -Method 'Put' -Uri $updateUrl -Headers $headers -Body $payloadJson
 
                     if ($StorageDomainObj) {
-                        Write-Output "Updated '$domainName' Storage Domain Successfully." -ForegroundColor Green
                         $StorageDomainObj
                     }
                 }
