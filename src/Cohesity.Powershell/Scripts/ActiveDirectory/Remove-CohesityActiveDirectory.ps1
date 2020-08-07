@@ -47,7 +47,6 @@ function Remove-CohesityActiveDirectory {
             $resp = Invoke-RestApi -Method Delete -Uri $url -Headers $headers -Body $payloadJson
             if ($resp) {
                 $errorMsg = "Active Directory : $DomainName deleted."
-                Write-Output $errorMsg
                 CSLog -Message $errorMsg
 				$resp
             }

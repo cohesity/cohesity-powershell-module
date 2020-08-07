@@ -13,7 +13,7 @@ function New-CohesityPhysicalServerProtectionJob {
         .EXAMPLE
         New-CohesityPhysicalServerProtectionJob -Name ps-block-based -PolicyName Bronze -StorageDomainName DefaultStorageDomain -SourceName "10.2.151.120" -SourceType kPhysical
         .EXAMPLE
-        New-CohesityPhysicalServerProtectionJob -Name ps-files-based -PolicyName Bronze -StorageDomainName DefaultStorageDomain -SourceName "10.2.151.120" -SourceType kPhysicalFiles
+        New-CohesityPhysicalServerProtectionJob -Name ps-files-based -PolicyName Bronze -StorageDomainName DefaultStorageDomain -SourceName "10.2.151.120" -SourceType kPhysicalFiles -TimeZone "Asia/Calcutta"
     #>
     [CmdletBinding(SupportsShouldProcess = $True, ConfirmImpact = "High")]
     Param(
@@ -32,7 +32,9 @@ function New-CohesityPhysicalServerProtectionJob {
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
         [ValidateSet("kPhysical", "kPhysicalFiles")]
-        $SourceType
+        $SourceType,
+        [Parameter(Mandatory = $false)]
+        $TimeZone
     )
 
     Begin {
@@ -48,7 +50,9 @@ function New-CohesityPhysicalServerProtectionJob {
 
     Process {
         if ($PSCmdlet.ShouldProcess($SourceName)) {
-            $timeZone = Get-TimeZone
+			if(-not $TimeZone) {
+	            $TimeZone = (Get-TimeZone).Id
+			}
             $protectionPolicyObject = Get-CohesityProtectionPolicy -Names $PolicyName | Where-Object { $_.name -eq $PolicyName }
             if ($null -eq $protectionPolicyObject) {
                 Write-Output "Incorrect protection policy name '$PolicyName'"
@@ -84,7 +88,7 @@ function New-CohesityPhysicalServerProtectionJob {
                 _policyName    = $protectionPolicyObject.Name
                 viewBoxId      = $storageDomainObject.Id
                 _viewBoxName   = $storageDomainObject.Name
-                timezone       = $timeZone.Id
+                timezone       = $TimeZone
                 environment    = $SourceType
                 sourceIds      = @($protectionSourceObject.Id)
                 parentSourceId = $parentId

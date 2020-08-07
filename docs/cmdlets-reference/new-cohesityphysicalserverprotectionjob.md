@@ -5,7 +5,7 @@ Create a new protection job for Physical Server source.
 
 ## SYNTAX
 ```
-New-CohesityPhysicalServerProtectionJob -Name <string> -PolicyName <string> -StorageDomainName <string> -SourceName <string> -SourceType <string>
+New-CohesityPhysicalServerProtectionJob -Name <string> -PolicyName <string> -StorageDomainName <string> -SourceName <string> -SourceType <string> -TimeZone <string>
 ```
 
 ## DESCRIPTION
@@ -21,7 +21,7 @@ Creates a block based protection job for protecting a Physical Server source.
 
 ### EXAMPLE 2
 ```
-New-CohesityPhysicalServerProtectionJob  -Name ps-files-based -StorageDomainName DefaultStorageDomain -SourceName 10.2.151.120 -SourceType kPhysicalFiles -PolicyName Bronze
+New-CohesityPhysicalServerProtectionJob  -Name ps-files-based -StorageDomainName DefaultStorageDomain -SourceName 10.2.151.120 -SourceType kPhysicalFiles -PolicyName Bronze -TimeZone "Asia/Calcutta"
 ```
 Creates a files based protection job for protecting a Physical Server source.
 
@@ -96,6 +96,21 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -TimeZone
+Specifies the time zone.
+
+```yaml
+Type: string
+Parameter Sets: (All)
+Aliases:
+
+Required: False
 Position: Named
 Default value: None
 Accept pipeline input: False
