@@ -6,8 +6,7 @@ $Global:CohesityAPIError = $null
 # therefore provisioning an object, so that the caller can identify using the status code, if the API call succeeded
 $Global:CohesityAPIResponse = $null
 
-function Invoke-RestApi
-{
+function Invoke-RestApi {
     [CmdletBinding()]
     param(
         $Uri,
@@ -16,26 +15,23 @@ function Invoke-RestApi
         $Body,
         $OutFile
     )
-    if($null -eq $Global:CohesityCmdletConfig) {
+    if ($null -eq $Global:CohesityCmdletConfig) {
         $Global:CohesityCmdletConfig = Get-CohesityCmdletConfig
     }
-    if($null -eq $Global:CohesityUserAgentName) {
+    if ($null -eq $Global:CohesityUserAgentName) {
         try {
+            # Apparently its possible the user has installed a core module in windows, find out the cohesity module
             $userAgent = "cohesity-powershell"
-            $moduleName = $null
-            if ($IsWindows) {
-                $moduleName = "Cohesity.PowerShell"
-                $userAgent = "cohesity-powershell"
-            }
-            if ($IsLinux -or $IsMacOS) {
+            $moduleName = "Cohesity.PowerShell"
+            $resp = Get-InstalledModule
+            $installedPackage = $resp | Where-Object { $_.Name -contains $moduleName }
+            if (-not $installedPackage) {
                 $moduleName = "Cohesity.PowerShell.Core"
                 $userAgent = "cohesity-powershell-core"
+                $installedPackage = $resp | Where-Object { $_.Name -contains $moduleName }
             }
-            if ($moduleName) {
-                $resp = Get-InstalledModule -Name $moduleName
-                if ($resp) {
-                    $userAgent = $userAgent + "-" + $resp.Version
-                }
+            if($installedPackage) {
+                $userAgent = $userAgent + "-" + $installedPackage.Version
             }
         }
         catch {
@@ -108,29 +104,30 @@ function Invoke-RestApi
         $Global:CohesityAPIError = $_.Exception
         # capturing the error message from the cluster rather than the powershell framework $_.Exception.Message
         $errorMsg = $_
-        Write-Output $errorMsg -ForegroundColor Red
+        Write-Output $errorMsg
         CSLog -Message $errorMsg -Severity 3
         # Implementing code review feedback
-        if(401 -eq $Global:CohesityAPIError.StatusCode.Value__) {
-            if($true -eq $Global:CohesityCmdletConfig.RefreshToken) {
+        if (401 -eq $Global:CohesityAPIError.StatusCode.Value__) {
+            if ($true -eq $Global:CohesityCmdletConfig.RefreshToken) {
                 Write-Output "The session token has expired, attempting to refresh."
-				$credentialsJson = [Environment]::GetEnvironmentVariable('cohesityCredentials', 'Process')
+                $credentialsJson = [Environment]::GetEnvironmentVariable('cohesityCredentials', 'Process')
                 $cohesitySession = Get-Content -Path $HOME/.cohesity | ConvertFrom-Json
-                if($null -ne $credentialsJson) {
+                if ($null -ne $credentialsJson) {
                     $cohesityUrl = $cohesitySession.ClusterUri + "/irisservices/api/v1/public/accessTokens"
-					$credentialsObject = $credentialsJson | ConvertFrom-Json
+                    $credentialsObject = $credentialsJson | ConvertFrom-Json
                     $payload = @{
-                        Domain                 = $credentialsObject.Domain
-                        Username                   = $credentialsObject.Username
-                        Password                   = $credentialsObject.Password
+                        Domain   = $credentialsObject.Domain
+                        Username = $credentialsObject.Username
+                        Password = $credentialsObject.Password
                     }
                     $payloadJson = $payload | ConvertTo-Json
-                    $headers = @{'Content-Type' = 'application/json'}
+                    $headers = @{'Content-Type' = 'application/json' }
                     $resp = Invoke-RestApi -Method Post -Uri $cohesityUrl -Headers $headers -Body $payloadJson
                     $cohesitySession.AccessToken = $resp
                     Set-Content -Path $HOME/.cohesity ($cohesitySession | ConvertTo-Json) | Out-Null
                     Write-Output "The session token has been refreshed."
-                } else {
+                }
+                else {
                     Write-Output "No credentials available to implictly connect the cluster."
                 }
             }
