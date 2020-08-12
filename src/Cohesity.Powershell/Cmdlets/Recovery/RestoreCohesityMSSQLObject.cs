@@ -79,6 +79,7 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
         /// <summary>
         /// <para type="description">
         /// Specifies the job run id that captured the snapshot for this MS SQL instance. If not specified the latest run is used.
+        /// This field must be set if restoring to a different target host.
         /// </para>
         /// </summary>
         [Parameter(Mandatory = false)]
