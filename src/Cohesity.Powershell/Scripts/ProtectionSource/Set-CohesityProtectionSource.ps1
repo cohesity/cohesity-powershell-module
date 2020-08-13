@@ -9,6 +9,8 @@ function Set-CohesityProtectionSource {
         .LINK
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
+        Set-CohesityProtectionSource -ProtectionSourceObject $theObject
+        .EXAMPLE
         $protecionSource = Get-CohesityProtectionSource -Id 121
         $protecionSource.Name = "UpdatedName"
         $protecionSource | Set-CohesityProtectionSource
