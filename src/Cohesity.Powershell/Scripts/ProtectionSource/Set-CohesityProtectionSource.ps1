@@ -15,7 +15,7 @@ function Set-CohesityProtectionSource {
     #>
     [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = "High")]
     Param(
-        [Parameter(ValueFromPipeline = $true, DontShow = $true)]
+        [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
         [ValidateNotNullOrEmpty()]
         $ProtectionSourceObject
     )
@@ -30,6 +30,10 @@ function Set-CohesityProtectionSource {
     }
 
     Process {
+        if(-not $ProtectionSourceObject) {
+            Write-Output "Protection source object not found"
+            return
+        }
         if ($PSCmdlet.ShouldProcess($ProtectionSourceObject.Id)) {
             $cohesityClusterURL = $cohesityCluster + '/irisservices/api/v1/public/protectionSources/' + $ProtectionSourceObject.Id
             $cohesityHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
