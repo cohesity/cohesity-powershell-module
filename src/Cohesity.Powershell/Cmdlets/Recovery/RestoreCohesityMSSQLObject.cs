@@ -22,6 +22,21 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
     ///   Restores the MS SQL DB with the given source id using the latest run of job id 401.
     ///   </para>
     /// </example>
+    /// <example>
+    ///   <para>PS&gt;</para>
+    ///   <code>
+    /// $patternList = @()
+    /// $pattern = [Cohesity.Model.FilenamePatternToDirectory]::new()
+    /// $pattern.Directory = "C:\Secondary"
+    /// $pattern.FilenamePattern = ".ndf"
+    /// $patternList += $pattern
+    /// 
+    /// Restore-CohesityMSSQLObject -TaskName "restore-sql" -SourceId 698 -HostSourceId 675 -JobId 1359 -NewDatabaseName "restore-1" -NewInstanceName MSSQLSERVER -TargetHostId 972 -TargetDataFilesDirectory "C:\TEST Data" -TargetLogFilesDirectory "C:\TEST Log" -TargetSecondaryDataFilesDirectoryList $patternList
+    ///   </code>
+    ///   <para>
+    ///   Restores the MS SQL DB with the given source id on a target server.
+    ///   </para>
+    /// </example>
     [Cmdlet(VerbsData.Restore, "CohesityMSSQLObject")]
     public class RestoreCohesityMSSQLObject : PSCmdlet
     {
