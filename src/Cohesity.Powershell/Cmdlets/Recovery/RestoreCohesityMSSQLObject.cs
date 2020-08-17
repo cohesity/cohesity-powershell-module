@@ -165,6 +165,18 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
 
         /// <summary>
         /// <para type="description">
+        /// Specifies the secondary data filename pattern and corresponding directories of the DB. Secondary data
+        /// files are optional and are user defined. The recommended file extension for secondary files is
+        /// ".ndf".  If this option is specified and the destination folders do not exist they will be
+        /// automatically created.
+        /// </para>
+        /// </summary>
+        [Parameter(Mandatory = false)]
+        [ValidateNotNullOrEmpty()]
+        public List<Model.FilenamePatternToDirectory> TargetSecondaryDataFilesDirectoryList { get; set; }
+
+        /// <summary>
+        /// <para type="description">
         /// Specifies the target host if the application is to be restored to a different host.
         /// If not specified, then the application is restored to the original host (physical or virtual) that hosted this application.
         /// </para>
@@ -237,6 +249,11 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
             if (!string.IsNullOrWhiteSpace(TargetLogFilesDirectory))
             {
                 applicationRestoreObject.SqlRestoreParameters.TargetLogFilesDirectory = TargetLogFilesDirectory;
+            }
+
+            if(null != TargetSecondaryDataFilesDirectoryList)
+            {
+                applicationRestoreObject.SqlRestoreParameters.TargetSecondaryDataFilesDirectoryList = TargetSecondaryDataFilesDirectoryList;
             }
 
             if (TargetHostId != null)

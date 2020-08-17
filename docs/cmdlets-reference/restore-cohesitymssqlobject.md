@@ -10,7 +10,7 @@ Restore-CohesityMSSQLObject -HostSourceId <long> -JobId <long> -SourceId <long> 
  [-CaptureTailLogs] [-JobRunId <long>] [-KeepOffline] [-NewDatabaseName <string>] [-NewInstanceName <string>]
  [-RestoreTimeSecs <long>] [-StartTime <long>] [-TargetDataFilesDirectory <string>]
  [-TargetHostCredential <PSCredential>] [-TargetHostId <long>] [-TargetHostParentId <long>]
- [-TargetLogFilesDirectory <string>] [<CommonParameters>]
+ [-TargetLogFilesDirectory <string>] [-TargetSecondaryDataFilesDirectoryList <List<FilenamePatternToDirectory>>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -24,6 +24,20 @@ Restore-CohesityMSSQLObject -TaskName "sql-restore-task" -SourceId 9 -HostSource
 ```
 
 Restores the MS SQL DB with the given source id using the latest run of job id 401.
+
+
+### EXAMPLE 2
+```
+$patternList = @()
+$pattern = [Cohesity.Model.FilenamePatternToDirectory]::new()
+$pattern.Directory = "C:\Secondary"
+$pattern.FilenamePattern = ".ndf"
+$patternList += $pattern
+
+Restore-CohesityMSSQLObject -TaskName "restore-sql" -SourceId 698 -HostSourceId 675 -JobId 1359 -NewDatabaseName "restore-1" -NewInstanceName MSSQLSERVER -TargetHostId 972 -TargetDataFilesDirectory "C:\TEST Data" -TargetLogFilesDirectory "C:\TEST Log" -TargetSecondaryDataFilesDirectoryList $patternList
+```
+
+Restores the MS SQL DB with the given source id on a target server.
 
 ## PARAMETERS
 
@@ -224,6 +238,23 @@ This field must be set if restoring to a different target host.
 
 ```yaml
 Type: string
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -TargetSecondaryDataFilesDirectoryList
+Specifies the secondary data filename pattern and corresponding directories of the DB.
+Secondary data files are optional and are user defined. The recommended file extension for secondary files is ".ndf".
+If this option is specified and the destination folders do not exist they will be automatically created.
+
+```yaml
+Type: List<FilenamePatternToDirectory>
 Parameter Sets: (All)
 Aliases:
 
