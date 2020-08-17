@@ -31,7 +31,7 @@ Restores the MS SQL DB with the given source id using the latest run of job id 4
 $patternList = @()
 $pattern = [Cohesity.Model.FilenamePatternToDirectory]::new()
 $pattern.Directory = "C:\Secondary"
-$pattern.FilenamePattern = ".ndf"
+$pattern.FilenamePattern = "*.mdf"
 $patternList += $pattern
 
 Restore-CohesityMSSQLObject -TaskName "restore-sql" -SourceId 698 -HostSourceId 675 -JobId 1359 -NewDatabaseName "restore-1" -NewInstanceName MSSQLSERVER -TargetHostId 972 -TargetDataFilesDirectory "C:\TEST Data" -TargetLogFilesDirectory "C:\TEST Log" -TargetSecondaryDataFilesDirectoryList $patternList
