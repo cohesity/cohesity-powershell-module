@@ -184,6 +184,7 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
         /// files are optional and are user defined. The recommended file extension for secondary files is
         /// ".ndf".  If this option is specified and the destination folders do not exist they will be
         /// automatically created.
+        /// This field can be set only if restoring to a different target host.
         /// </para>
         /// </summary>
         [Parameter(Mandatory = false)]

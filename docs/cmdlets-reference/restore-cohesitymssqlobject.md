@@ -252,6 +252,7 @@ Accept wildcard characters: False
 Specifies the secondary data filename pattern and corresponding directories of the DB.
 Secondary data files are optional and are user defined. The recommended file extension for secondary files is ".ndf".
 If this option is specified and the destination folders do not exist they will be automatically created.
+This field can be set only if restoring to a different target host.
 
 ```yaml
 Type: List<FilenamePatternToDirectory>
