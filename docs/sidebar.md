@@ -75,6 +75,7 @@
 - [Unregister-CohesityProtectionSource](cmdlets-reference/unregister-cohesityprotectionsource.md)
 - [Unregister-CohesityApplicationServer](cmdlets-reference/unregister-cohesityapplicationserver.md)
 - [Get-CohesityProtectionSource](cmdlets-reference/get-cohesityprotectionsource.md)
+- [Set-CohesityProtectionSource](cmdlets-reference/set-cohesityprotectionsource.md)
 - [Get-CohesityProtectionSourceObject](cmdlets-reference/get-cohesityprotectionsourceobject.md)
 - [Get-CohesityVMwareVM](cmdlets-reference/get-cohesityvmwarevm.md)
 - [Get-CohesityMSSQLObject](cmdlets-reference/get-cohesitymssqlobject.md)

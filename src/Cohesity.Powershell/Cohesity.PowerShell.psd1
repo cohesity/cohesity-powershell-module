@@ -103,6 +103,7 @@ FunctionsToExport = @(
                       'Save-CohesityFile',
                       'Set-CohesityAlertResolutions',
                       'Set-CohesityCmdletConfig',
+                      'Set-CohesityProtectionSource'
                       'Set-CohesitySnapshotRetention',
                       'Set-CohesityStorageDomain',
                       'Update-CohesityActiveDirectory',
