@@ -22,6 +22,24 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
     ///   Restores the MS SQL DB with the given source id using the latest run of job id 401.
     ///   </para>
     /// </example>
+    /// <example>
+    ///   <para>PS&gt;</para>
+    ///   <code>
+    /// $patternList = @()
+    /// $pattern = [Cohesity.Model.FilenamePatternToDirectory]::new()
+    /// $pattern.Directory = "C:\Secondary"
+    /// $pattern.FilenamePattern = "*.mdf"
+    /// $patternList += $pattern
+    /// 
+    /// Restore-CohesityMSSQLObject -TaskName "restore-sql" -SourceId 698 -HostSourceId 675 -JobId 1359 `
+    /// -NewDatabaseName "restore-1" -NewInstanceName MSSQLSERVER -TargetHostId 972 `
+    /// -TargetDataFilesDirectory "C:\TEST Data" -TargetLogFilesDirectory "C:\TEST Log" `
+    /// -TargetSecondaryDataFilesDirectoryList $patternList
+    ///   </code>
+    ///   <para>
+    ///   Restores the MS SQL DB with the given source id on a target server.
+    ///   </para>
+    /// </example>
     [Cmdlet(VerbsData.Restore, "CohesityMSSQLObject")]
     public class RestoreCohesityMSSQLObject : PSCmdlet
     {
@@ -79,6 +97,7 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
         /// <summary>
         /// <para type="description">
         /// Specifies the job run id that captured the snapshot for this MS SQL instance. If not specified the latest run is used.
+        /// This field must be set if restoring to a different target host.
         /// </para>
         /// </summary>
         [Parameter(Mandatory = false)]
@@ -164,6 +183,19 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
 
         /// <summary>
         /// <para type="description">
+        /// Specifies the secondary data filename pattern and corresponding directories of the DB. Secondary data
+        /// files are optional and are user defined. The recommended file extension for secondary files is
+        /// ".ndf".  If this option is specified and the destination folders do not exist they will be
+        /// automatically created.
+        /// This field can be set only if restoring to a different target host.
+        /// </para>
+        /// </summary>
+        [Parameter(Mandatory = false)]
+        [ValidateNotNullOrEmpty()]
+        public List<Model.FilenamePatternToDirectory> TargetSecondaryDataFilesDirectoryList { get; set; }
+
+        /// <summary>
+        /// <para type="description">
         /// Specifies the target host if the application is to be restored to a different host.
         /// If not specified, then the application is restored to the original host (physical or virtual) that hosted this application.
         /// </para>
@@ -236,6 +268,11 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
             if (!string.IsNullOrWhiteSpace(TargetLogFilesDirectory))
             {
                 applicationRestoreObject.SqlRestoreParameters.TargetLogFilesDirectory = TargetLogFilesDirectory;
+            }
+
+            if(null != TargetSecondaryDataFilesDirectoryList)
+            {
+                applicationRestoreObject.SqlRestoreParameters.TargetSecondaryDataFilesDirectoryList = TargetSecondaryDataFilesDirectoryList;
             }
 
             if (TargetHostId != null)
