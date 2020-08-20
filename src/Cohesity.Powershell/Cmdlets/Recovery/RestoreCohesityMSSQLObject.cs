@@ -31,7 +31,10 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
     /// $pattern.FilenamePattern = "*.mdf"
     /// $patternList += $pattern
     /// 
-    /// Restore-CohesityMSSQLObject -TaskName "restore-sql" -SourceId 698 -HostSourceId 675 -JobId 1359 -NewDatabaseName "restore-1" -NewInstanceName MSSQLSERVER -TargetHostId 972 -TargetDataFilesDirectory "C:\TEST Data" -TargetLogFilesDirectory "C:\TEST Log" -TargetSecondaryDataFilesDirectoryList $patternList
+    /// Restore-CohesityMSSQLObject -TaskName "restore-sql" -SourceId 698 -HostSourceId 675 -JobId 1359 `
+    /// -NewDatabaseName "restore-1" -NewInstanceName MSSQLSERVER -TargetHostId 972 `
+    /// -TargetDataFilesDirectory "C:\TEST Data" -TargetLogFilesDirectory "C:\TEST Log" `
+    /// -TargetSecondaryDataFilesDirectoryList $patternList
     ///   </code>
     ///   <para>
     ///   Restores the MS SQL DB with the given source id on a target server.
