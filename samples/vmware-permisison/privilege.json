@@ -1,0 +1,74 @@
+{
+  "VMwareSnapshot": [
+    "System.Anonymous",
+    "System.View",
+    "System.Read",
+    "Datastore.AllocateSpace",
+    "Datastore.Browse",
+    "Datastore.DeleteFile",
+    "Datastore.FileManagement",
+    "Folder.Create",
+    "Folder.Delete",
+    "Global.LogEvent",
+    "Global.ManageCustomFields",
+    "Global.SetCustomField",
+    "Host.Config.Storage",
+    "Network.Assign",
+    "Resource.AssignVMToPool",
+    "Resource.ColdMigrate",
+    "Resource.HotMigrate",
+    "Sessions.TerminateSession",
+    "VApp.AssignResourcePool",
+    "VApp.AssignVM",
+    "VApp.Unregister",
+    "VirtualMachine.Config.DiskLease",
+    "VirtualMachine.Config.AddExistingDisk",
+    "VirtualMachine.Config.AddNewDisk",
+    "VirtualMachine.Config.AdvancedConfig",
+    "VirtualMachine.Config.SwapPlacement",
+    "VirtualMachine.Config.RawDevice",
+    "VirtualMachine.Config.RemoveDisk",
+    "VirtualMachine.Config.ChangeTracking",
+    "VirtualMachine.GuestOperations.Execute",
+    "VirtualMachine.GuestOperations.Query",
+    "VirtualMachine.GuestOperations.Modify",
+    "VirtualMachine.Inventory.Create",
+    "VirtualMachine.Inventory.Register",
+    "VirtualMachine.Interact.GuestControl",
+    "VirtualMachine.Interact.PowerOn",
+    "VirtualMachine.Interact.PowerOff",
+    "VirtualMachine.Provisioning.DiskRandomRead",
+    "VirtualMachine.Provisioning.GetVmFiles",
+    "VirtualMachine.State.CreateSnapshot",
+    "VirtualMachine.State.RemoveSnapshot",
+    "VirtualMachine.State.RevertToSnapshot",
+    "InventoryService.Tagging.AttachTag",
+    "Host.Local.DeleteVM"
+  ],
+  "VMwareSnapshotAdptThrot": [
+    "Datastore.Config"
+  ],
+  "VMwareSnapshotEncyptVM": [
+    "Cryptographer.Access",
+    "Cryptographer.AddDisk",
+    "Cryptographer.Encrypt"
+  ],
+  "StorageSnapshotIntegration": [
+    "Datastore.Rename",
+    "Host.Local.DeleteVM",
+    "VirtualMachine.Config.AddRemoveDevice",
+    "VirtualMachine.Config.Settings",
+    "VirtualMachine.Inventory.Register",
+    "VirtualMachine.Inventory.Delete",
+    "VirtualMachine.Provisioning.DiskRandomAccess",
+    "VirtualMachine.Provisioning.FileRandomAccess"
+  ],
+  "StorageSnapshotIntegrationAdptThrot": [
+    "Datastore.Config"
+  ],
+  "StorageSnapshotIntegrationEncryptVM": [
+    "Cryptographer.Access",
+    "Cryptographer.AddDisk",
+    "Cryptographer.Encrypt"
+  ]
+}
