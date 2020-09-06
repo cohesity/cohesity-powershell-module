@@ -168,13 +168,13 @@ catch {
     Add-Content $LogFile  "Reading Json file failed."       
 }
 $VMwareSnapshot = $json.VMwareSnapshot
-$VMwareSnapshotEncryptVM = $json.VMwareSnapshot + $json.VMwareSnapshotEncyptVM
-$VMwareSnapshotAdptThrot = $json.VMwareSnapshot + $json.VMwareSnapshotAdptThrot
-$VMwareSnapshotAdptThrotEncyptVM = $json.VMwareSnapshot + $json.VMwareSnapshotEncyptVM +$json.VMwareSnapshotAdptThrot
+$VMwareSnapshotEncryptVM = $json.VMwareSnapshot + $json.EncryptVM
+$VMwareSnapshotAdptThrot = $json.VMwareSnapshot + $json.AdaptiveThrottling
+$VMwareSnapshotAdptThrotEncyptVM = $json.VMwareSnapshot + $json.EncryptVM +$json.AdaptiveThrottling
 $StorageSnapshotIntegration = $json.VMwareSnapshot + $json.StorageSnapshotIntegration
-$StorageSnapshotIntegrationEncryptVM = $json.VMwareSnapshot + $json.StorageSnapshotIntegration + $json.StorageSnapshotIntegrationEncryptVM 
-$StorageSnapshotIntegrationAdptThrot = $json.VMwareSnapshot + $json.StorageSnapshotIntegration + $json.StorageSnapshotIntegrationAdptThrot
-$StorageSnapshotIntegrationAdptThrotEncryptVM = $json.VMwareSnapshot + $json.StorageSnapshotIntegration + $json.StorageSnapshotIntegrationEncryptVM + $json.StorageSnapshotIntegrationAdptThrot
+$StorageSnapshotIntegrationEncryptVM = $json.VMwareSnapshot + $json.StorageSnapshotIntegration + $json.EncryptVM 
+$StorageSnapshotIntegrationAdptThrot = $json.VMwareSnapshot + $json.StorageSnapshotIntegration + $json.AdaptiveThrottling
+$StorageSnapshotIntegrationAdptThrotEncryptVM = $json.VMwareSnapshot + $json.StorageSnapshotIntegration + $json.EncryptVM + $json.AdaptiveThrottling
 
 Add-Content $LogFile  "$((Get-Date).ToString()): Starting script."
 

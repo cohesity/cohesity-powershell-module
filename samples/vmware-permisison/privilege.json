@@ -45,30 +45,21 @@
     "InventoryService.Tagging.AttachTag",
     "Host.Local.DeleteVM"
   ],
-  "VMwareSnapshotAdptThrot": [
-    "Datastore.Config"
-  ],
-  "VMwareSnapshotEncyptVM": [
-    "Cryptographer.Access",
-    "Cryptographer.AddDisk",
-    "Cryptographer.Encrypt"
-  ],
   "StorageSnapshotIntegration": [
     "Datastore.Rename",
     "Host.Local.DeleteVM",
     "VirtualMachine.Config.AddRemoveDevice",
     "VirtualMachine.Config.Settings",
-    "VirtualMachine.Inventory.Register",
     "VirtualMachine.Inventory.Delete",
     "VirtualMachine.Provisioning.DiskRandomAccess",
     "VirtualMachine.Provisioning.FileRandomAccess"
   ],
-  "StorageSnapshotIntegrationAdptThrot": [
-    "Datastore.Config"
-  ],
-  "StorageSnapshotIntegrationEncryptVM": [
-    "Cryptographer.Access",
+"EncryptVM":[
+  "Cryptographer.Access",
     "Cryptographer.AddDisk",
     "Cryptographer.Encrypt"
-  ]
+],
+"AdaptiveThrottling":[
+  "Datastore.Config"
+]
 }
