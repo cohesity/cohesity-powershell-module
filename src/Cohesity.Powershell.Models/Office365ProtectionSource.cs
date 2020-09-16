@@ -43,7 +43,13 @@ namespace Cohesity.Model
             /// Enum KMailbox for value: kMailbox
             /// </summary>
             [EnumMember(Value = "kMailbox")]
-            KMailbox = 3
+            KMailbox = 3,
+
+            /// <summary>
+            /// Enum KUser for value: kUser
+            /// </summary>
+            [EnumMember(Value = "kUser")]
+            KUser = 4
 
         }
 
