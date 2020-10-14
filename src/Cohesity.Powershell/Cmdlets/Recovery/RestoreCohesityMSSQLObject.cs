@@ -249,6 +249,10 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
                     KeepOffline = KeepOffline.IsPresent
                 }
             };
+            if(null != this.RestoreTimeSecs)
+            {
+                applicationRestoreObject.SqlRestoreParameters.RestoreTimeSecs = this.RestoreTimeSecs;
+            }
 
             if (!string.IsNullOrWhiteSpace(NewDatabaseName))
             {
