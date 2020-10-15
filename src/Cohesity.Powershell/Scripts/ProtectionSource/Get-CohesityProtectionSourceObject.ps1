@@ -82,7 +82,8 @@ function Get-CohesityProtectionSourceObject {
 
             $cohesityUrl = $cohesityServer + $url
             $resp = Invoke-RestApi -Method Get -Uri $cohesityUrl -Headers $cohesityHeaders
-            $resp
+            $resp = FlattenProtectionSourceNode -Nodes $resp -Environments $Environments
+            $resp.protectionSource
         }
     }
 
