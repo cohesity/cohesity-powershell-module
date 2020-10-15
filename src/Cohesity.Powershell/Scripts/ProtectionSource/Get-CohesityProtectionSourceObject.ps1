@@ -40,7 +40,7 @@ function Get-CohesityProtectionSourceObject {
 
     Process {
         $cohesityHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
-        if($Id) {
+        if ($Id) {
             $cohesityUrl = $cohesityServer + '/irisservices/api/v1/public/protectionSources/objects/' + $Id.ToString()
             $resp = Invoke-RestApi -Method Get -Uri $cohesityUrl -Headers $cohesityHeaders
             $resp = @($resp)
@@ -49,34 +49,34 @@ function Get-CohesityProtectionSourceObject {
         else {
             $url = '/irisservices/api/v1/public/protectionSources'
             $filter = ""
-            if($IncludeDatastores.IsPresent) {
+            if ($IncludeDatastores.IsPresent) {
                 $filter += "includeDatastores=true"
             }
             if ($IncludeNetworks.IsPresent) {
-                if($filter -ne "") {
+                if ($filter -ne "") {
                     $filter += "&"
                 }
                 $filter += "includeNetworks=true"
             }
             if ($IncludeVMFolders.IsPresent) {
-                if($filter -ne "") {
+                if ($filter -ne "") {
                     $filter += "&"
                 }
                 $filter += "includeVMFolders=true"
             }
             if (-not $Environments) {
-                if($filter -ne "") {
+                if ($filter -ne "") {
                     $filter += "&"
                 }
-                $filter += "environments="+($Environments -join ",")
+                $filter += "environments=" + ($Environments -join ",")
             }
             if ($ExcludeTypes.IsPresent) {
-                if($filter -ne "") {
+                if ($filter -ne "") {
                     $filter += "&"
                 }
                 $filter += "excludeTypes=true"
             }
-            if($filter -ne "") {
+            if ($filter -ne "") {
                 $url += ("&" + $filter)
             }
 
