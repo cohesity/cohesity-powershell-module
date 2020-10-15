@@ -9,7 +9,7 @@ function Get-CohesityProtectionSourceObject {
         .LINK
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
-        Get-CohesityProtectionSourceObject -Environments kPhysical
+        Get-CohesityProtectionSourceObject -Environments KPhysical
         .EXAMPLE
         Get-CohesityProtectionSourceObject -Id 1234
     #>
