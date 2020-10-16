@@ -82,8 +82,13 @@ function Get-CohesityProtectionSourceObject {
 
             $cohesityUrl = $cohesityServer + $url
             $resp = Invoke-RestApi -Method Get -Uri $cohesityUrl -Headers $cohesityHeaders
-            $resp = FlattenProtectionSourceNode -Nodes $resp -Environments $Environments
-            $resp.protectionSource
+            if($Global:CohesityAPIError.StatusCode.Value__ -eq 200) {
+                $resp = FlattenProtectionSourceNode -Nodes $resp -Environments $Environments -Type 1
+                $resp.protectionSource
+            }
+            else {
+                $Global:CohesityAPIError.Response
+            }
         }
     }
 
