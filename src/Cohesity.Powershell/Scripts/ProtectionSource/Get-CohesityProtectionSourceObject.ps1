@@ -70,11 +70,11 @@ function Get-CohesityProtectionSourceObject {
                 }
                 $filter += "environments=" + ($Environments -join ",")
             }
-            if ($ExcludeTypes.IsPresent) {
+            if ($ExcludeTypes) {
                 if ($filter -ne "") {
                     $filter += "&"
                 }
-                $filter += "excludeTypes=true"
+                $filter += "excludeTypes=" + ($ExcludeTypes -join ",")
             }
             if ($filter -ne "") {
                 $url += ("?" + $filter)

@@ -126,6 +126,7 @@ Accept wildcard characters: False
 ### -ExcludeTypes
 Filter out the Object types (and their sub objects) that match the passed in types.
 For example, set this parameter to "kResourcePool" to exclude Resource Pool Objects from being returned.
+Available values : kVCenter, kFolder, kDatacenter, kComputeResource, kClusterComputeResource, kResourcePool, kDatastore, kHostSystem, kVirtualMachine, kVirtualApp, kStandaloneHost, kStoragePod, kNetwork, kDistributedVirtualPortgroup, kTagCategory, kTag
 
 ```yaml
 Type: string[]
