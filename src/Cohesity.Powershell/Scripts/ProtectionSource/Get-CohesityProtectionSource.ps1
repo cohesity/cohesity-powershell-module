@@ -50,24 +50,19 @@ function Get-CohesityProtectionSource {
             $results = @()
             $cohesityUrl = $cohesityServer + $url
             $resp = Invoke-RestApi -Method Get -Uri $cohesityUrl -Headers $cohesityHeaders
-            if($Global:CohesityAPIError.StatusCode.Value__ -eq 200) {
-                $groups = $resp | where-object{-not $_.RegistrationInfo}
-                foreach ($group in $groups) {
-                    $url = '/irisservices/api/v1/public/protectionSources?id=' + $group.ProtectionSource.Id.ToString()
-                    $cohesityUrl = $cohesityServer + $url
-                    $resp = Invoke-RestApi -Method Get -Uri $cohesityUrl -Headers $cohesityHeaders
-                    $children = FlattenProtectionSourceNode -Nodes $resp -Environments $Environments -Type 2
-                    foreach ($child in $children) {
-                        if ($child.RegistrationInfo) {
-                            $results += $child
-                        }
+            $groups = $resp | where-object{-not $_.RegistrationInfo}
+            foreach ($group in $groups) {
+                $url = '/irisservices/api/v1/public/protectionSources?id=' + $group.ProtectionSource.Id.ToString()
+                $cohesityUrl = $cohesityServer + $url
+                $resp = Invoke-RestApi -Method Get -Uri $cohesityUrl -Headers $cohesityHeaders
+                $children = FlattenProtectionSourceNode -Nodes $resp -Environments $Environments -Type 2
+                foreach ($child in $children) {
+                    if ($child.RegistrationInfo) {
+                        $results += $child
                     }
                 }
-                $results
             }
-            else {
-                $Global:CohesityAPIError.Response
-            }
+            $results
         }
     }
 

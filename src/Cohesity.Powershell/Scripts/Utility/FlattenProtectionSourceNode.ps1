@@ -34,7 +34,9 @@ function FlattenProtectionSourceNode {
         {
             $childrenNodes = $node.nodes;
             $result += $node
-            $result += (FlattenProtectionSourceNode -Nodes $childrenNodes -Environments $Environments -Type $Type)
+            if($childrenNodes) {
+                $result += (FlattenProtectionSourceNode -Nodes $childrenNodes -Environments $Environments -Type $Type)
+            }
         }
     }
     return $result
