@@ -4,11 +4,14 @@ function Get-CohesityProtectionSource {
         Get protection source.
         .DESCRIPTION
         The Get-CohesityProtectionSource function is used to get protection source.
+
         .NOTES
         Published by Cohesity
         .LINK
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
+        Available values for parameter 'Environments': kVMware, kSQL, kView, kPuppeteer, kPhysical, kPure, kNetapp, kGenericNas, kHyperV, kAcropolis, kAzure, kKubernetes, kCassandra, kMongoDB, kCouchbase, kHdfs, kHive, kHBase
+
         Get-CohesityProtectionSource -Environments kPhysical
         .EXAMPLE
         Get-CohesityProtectionSource -Id 1234
