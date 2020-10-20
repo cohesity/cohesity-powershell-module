@@ -4,22 +4,19 @@ function Get-CohesityProtectionSource {
         Get protection source.
         .DESCRIPTION
         The Get-CohesityProtectionSource function is used to get protection source.
-
         .NOTES
         Published by Cohesity
         .LINK
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
-        Available values for parameter 'Environments': kVMware, kSQL, kView, kPuppeteer, kPhysical, kPure, kNetapp, kGenericNas, kHyperV, kAcropolis, kAzure, kKubernetes, kCassandra, kMongoDB, kCouchbase, kHdfs, kHive, kHBase
-
-        Get-CohesityProtectionSource -Environments kPhysical
+        Get-CohesityProtectionSource -Environments KPhysical
         .EXAMPLE
         Get-CohesityProtectionSource -Id 1234
     #>
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory = $false)]
-        [string[]]$Environments,
+        [Cohesity.Model.ProtectionSource+EnvironmentEnum[]]$Environments,
         [Parameter(Mandatory = $false)]
         [long]$Id
     )
@@ -48,7 +45,13 @@ function Get-CohesityProtectionSource {
                 if ($filter -ne "") {
                     $filter += "?"
                 }
-                $filter += "environments=" + ($Environments -join ",")
+                $envList = @()
+                foreach($item in $Environments) {
+                    # converting KVMware to kVMware
+                    $envText = $item.ToString()
+                    $envList += $envText.SubString(0,1).ToLower() + $envText.SubString(1,$envText.Length - 1)
+                }
+                $filter += "environments=" + ($envList -join ",")
             }
             $results = @()
             $cohesityUrl = $cohesityServer + $url

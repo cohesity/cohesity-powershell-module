@@ -20,7 +20,7 @@ If you only want to get a specific object you can specify the -Id parameter.
 
 ### EXAMPLE 1
 ```
-Get-CohesityProtectionSourceObject -Environments kPhysical
+Get-CohesityProtectionSourceObject -Environments KPhysical
 ```
 
 Returns all the registered protection sources and their sub objects that match the environment type 'kPhysical'.
@@ -34,7 +34,7 @@ Returns only the object that matches the specified id.
 
 ### EXAMPLE 3
 ```
-$sql = Get-CohesityProtectionSourceObject -Environments kSQL
+$sql = Get-CohesityProtectionSourceObject -Environments KSQL
 $sql | Where-Object{$_.SqlProtectionSource.Type -eq "KDatabase"}
 ```
 
@@ -94,7 +94,6 @@ Accept wildcard characters: False
 ### -Environments
 Return only Protection Sources that match the passed in environment type.
 For example, set this parameter to 'kVMware' to only return the Sources (and their sub objects) found in the VMware environment.
-Available values : kVMware, kSQL, kView, kPuppeteer, kPhysical, kPure, kNetapp, kGenericNas, kHyperV, kAcropolis, kAzure, kKubernetes, kCassandra, kMongoDB, kCouchbase, kHdfs, kHive, kHBase
 
 ```yaml
 Type: EnvironmentEnum[]

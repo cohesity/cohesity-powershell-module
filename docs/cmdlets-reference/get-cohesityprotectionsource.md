@@ -17,7 +17,7 @@ If no parameters are specified, all protection sources that are registered on th
 
 ### EXAMPLE 1
 ```
-Get-CohesityProtectionSource -Environments kVMware
+Get-CohesityProtectionSource -Environments KVMware
 ```
 
 Returns registered protection sources that match the environment type 'kVMware'.
