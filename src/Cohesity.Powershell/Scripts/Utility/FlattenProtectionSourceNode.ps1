@@ -4,8 +4,6 @@ function FlattenProtectionSourceNode {
         [Parameter(Mandatory = $true)]
         $Nodes,
         [Parameter(Mandatory = $true)]
-        [Cohesity.Model.ProtectionSource+EnvironmentEnum[]]$Environments,
-        [Parameter(Mandatory = $true)]
         [ValidateSet(1, 2, 3)]
         [int]$Type
     )
@@ -21,11 +19,9 @@ function FlattenProtectionSourceNode {
                     $childrenNodes = $node.ApplicationNodes;
                 }
             }
-            if ($Environments -contains $node.ProtectionSource.Environment) {
-                $result += @($node)
-            }
+            $result += @($node)
             if ($childrenNodes) {
-                $result += (FlattenProtectionSourceNode -Nodes $childrenNodes -Environments $Environments -Type $Type)
+                $result += (FlattenProtectionSourceNode -Nodes $childrenNodes -Type $Type)
             }
         }
     }
@@ -35,7 +31,7 @@ function FlattenProtectionSourceNode {
             $childrenNodes = $node.nodes;
             $result += $node
             if($childrenNodes) {
-                $result += (FlattenProtectionSourceNode -Nodes $childrenNodes -Environments $Environments -Type $Type)
+                $result += (FlattenProtectionSourceNode -Nodes $childrenNodes -Type $Type)
             }
         }
     }

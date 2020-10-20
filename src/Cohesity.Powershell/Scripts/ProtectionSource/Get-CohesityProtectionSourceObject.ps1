@@ -64,7 +64,7 @@ function Get-CohesityProtectionSourceObject {
                 }
                 $filter += "includeVMFolders=true"
             }
-            if (-not $Environments) {
+            if ($Environments) {
                 if ($filter -ne "") {
                     $filter += "&"
                 }
@@ -77,12 +77,12 @@ function Get-CohesityProtectionSourceObject {
                 $filter += "excludeTypes=true"
             }
             if ($filter -ne "") {
-                $url += ("&" + $filter)
+                $url += ("?" + $filter)
             }
 
             $cohesityUrl = $cohesityServer + $url
             $resp = Invoke-RestApi -Method Get -Uri $cohesityUrl -Headers $cohesityHeaders
-            $resp = FlattenProtectionSourceNode -Nodes $resp -Environments $Environments -Type 1
+            $resp = FlattenProtectionSourceNode -Nodes $resp -Type 1
             $resp.protectionSource
         }
     }

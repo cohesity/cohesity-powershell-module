@@ -55,7 +55,7 @@ function Get-CohesityProtectionSource {
                 $url = '/irisservices/api/v1/public/protectionSources?id=' + $group.ProtectionSource.Id.ToString()
                 $cohesityUrl = $cohesityServer + $url
                 $resp = Invoke-RestApi -Method Get -Uri $cohesityUrl -Headers $cohesityHeaders
-                $children = FlattenProtectionSourceNode -Nodes $resp -Environments $Environments -Type 2
+                $children = FlattenProtectionSourceNode -Nodes $resp -Type 2
                 foreach ($child in $children) {
                     if ($child.RegistrationInfo) {
                         $results += $child
