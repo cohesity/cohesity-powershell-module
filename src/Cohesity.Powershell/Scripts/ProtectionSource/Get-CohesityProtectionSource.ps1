@@ -9,14 +9,14 @@ function Get-CohesityProtectionSource {
         .LINK
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
-        Get-CohesityProtectionSource -Environments KPhysical
+        Get-CohesityProtectionSource -Environments kPhysical
         .EXAMPLE
         Get-CohesityProtectionSource -Id 1234
     #>
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory = $false)]
-        [Cohesity.Model.ProtectionSource+EnvironmentEnum[]]$Environments,
+        [string[]]$Environments,
         [Parameter(Mandatory = $false)]
         [long]$Id
     )
@@ -41,7 +41,7 @@ function Get-CohesityProtectionSource {
         else {
             $url = '/irisservices/api/v1/public/protectionSources/rootNodes'
             $filter = ""
-            if (-not $Environments) {
+            if ($Environments) {
                 if ($filter -ne "") {
                     $filter += "?"
                 }

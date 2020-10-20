@@ -9,7 +9,7 @@ function Get-CohesityProtectionSourceObject {
         .LINK
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
-        Get-CohesityProtectionSourceObject -Environments KPhysical
+        Get-CohesityProtectionSourceObject -Environments kPhysical
         .EXAMPLE
         Get-CohesityProtectionSourceObject -Id 1234
     #>
@@ -22,7 +22,7 @@ function Get-CohesityProtectionSourceObject {
         [Parameter(Mandatory = $false)]
         [switch]$IncludeVMFolders,
         [Parameter(Mandatory = $false)]
-        [Cohesity.Model.ProtectionSource+EnvironmentEnum[]]$Environments,
+        [string[]]$Environments,
         [Parameter(Mandatory = $false, ValueFromPipeline = $true)]
         [long]$Id,
         [Parameter(Mandatory = $false)]
