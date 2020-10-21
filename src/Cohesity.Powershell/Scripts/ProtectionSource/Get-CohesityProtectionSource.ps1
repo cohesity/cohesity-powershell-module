@@ -53,7 +53,7 @@ function Get-CohesityProtectionSource {
             $cohesityUrl = $cohesityServer + $url
             $resp = Invoke-RestApi -Method Get -Uri $cohesityUrl -Headers $cohesityHeaders
             if ($resp) {
-                $result = $resp
+                $result = @($resp)
                 $groups = @($result | where-object { $null -eq $_.registrationInfo })
                 foreach ($group in $groups) {
                     $url = '/irisservices/api/v1/public/protectionSources?id=' + $group.protectionSource.id.ToString()
@@ -76,7 +76,7 @@ function Get-CohesityProtectionSource {
                 -and $null -ne $_.registrationInfo
             })
             # we have to sort the rows based on protectionSource.id and remove any duplicate entries
-            # $result = @($result | Sort-Object | Get-Unique)
+            $result = @($result | Sort-Object -property @{expression={$_.protectionSource.id }} -Unique)
             $result
         }
     }
