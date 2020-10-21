@@ -11,7 +11,7 @@ function Get-CohesityProtectionSourceObject {
         .EXAMPLE
         Available values for parameter 'ExcludeTypes': kVCenter, kFolder, kDatacenter, kComputeResource, kClusterComputeResource, kResourcePool, kDatastore, kHostSystem, kVirtualMachine, kVirtualApp, kStandaloneHost, kStoragePod, kNetwork, kDistributedVirtualPortgroup, kTagCategory, kTag
 
-        Get-CohesityProtectionSourceObject -Environments kPhysical
+        Get-CohesityProtectionSourceObject -Environments kVMware -ExcludeTypes kResourcePool
         .EXAMPLE
         Get-CohesityProtectionSourceObject -Id 1234
     #>
