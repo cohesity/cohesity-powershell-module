@@ -71,10 +71,10 @@ function Get-CohesityProtectionSourceObject {
                     $filter += "&"
                 }
                 $envList = @()
-                foreach($item in $Environments) {
+                foreach ($item in $Environments) {
                     # converting KVMware to kVMware
                     $envText = $item.ToString()
-                    $envList += $envText.SubString(0,1).ToLower() + $envText.SubString(1,$envText.Length - 1)
+                    $envList += $envText.SubString(0, 1).ToLower() + $envText.SubString(1, $envText.Length - 1)
                 }
                 $filter += "environments=" + ($envList -join ",")
             }
@@ -90,8 +90,10 @@ function Get-CohesityProtectionSourceObject {
 
             $cohesityUrl = $cohesityServer + $url
             $resp = Invoke-RestApi -Method Get -Uri $cohesityUrl -Headers $cohesityHeaders
-            $resp = FlattenProtectionSourceNode -Nodes $resp -Type 1
-            $resp.protectionSource
+            if ($resp) {
+                $resp = FlattenProtectionSourceNode -Nodes $resp -Type 1
+                $resp.protectionSource
+            }
         }
     }
 

@@ -40,35 +40,44 @@ function Get-CohesityProtectionSource {
         }
         else {
             $url = '/irisservices/api/v1/public/protectionSources/rootNodes'
-            $filter = ""
             if ($Environments) {
-                if ($filter -ne "") {
-                    $filter += "?"
-                }
                 $envList = @()
-                foreach($item in $Environments) {
+                foreach ($item in $Environments) {
                     # converting KVMware to kVMware
                     $envText = $item.ToString()
-                    $envList += $envText.SubString(0,1).ToLower() + $envText.SubString(1,$envText.Length - 1)
+                    $envList += $envText.SubString(0, 1).ToLower() + $envText.SubString(1, $envText.Length - 1)
                 }
-                $filter += "environments=" + ($envList -join ",")
+                $url += "?environments=" + ($envList -join ",")
             }
-            $results = @()
+            $result = @()
             $cohesityUrl = $cohesityServer + $url
             $resp = Invoke-RestApi -Method Get -Uri $cohesityUrl -Headers $cohesityHeaders
-            $groups = $resp | where-object{-not $_.RegistrationInfo}
-            foreach ($group in $groups) {
-                $url = '/irisservices/api/v1/public/protectionSources?id=' + $group.ProtectionSource.Id.ToString()
-                $cohesityUrl = $cohesityServer + $url
-                $resp = Invoke-RestApi -Method Get -Uri $cohesityUrl -Headers $cohesityHeaders
-                $children = FlattenProtectionSourceNode -Nodes $resp -Type 2
-                foreach ($child in $children) {
-                    if ($child.RegistrationInfo) {
-                        $results += $child
+            if ($resp) {
+                $result = $resp
+                $groups = @($result | where-object { $null -eq $_.registrationInfo })
+                foreach ($group in $groups) {
+                    $url = '/irisservices/api/v1/public/protectionSources?id=' + $group.protectionSource.id.ToString()
+                    $cohesityUrl = $cohesityServer + $url
+                    $resp = Invoke-RestApi -Method Get -Uri $cohesityUrl -Headers $cohesityHeaders
+                    if($resp) {
+                        $children = FlattenProtectionSourceNode -Nodes $resp -Type 2
+                        foreach ($child in $children) {
+                            if ($child.registrationInfo) {
+                                $result += $child
+                            }
+                        }
                     }
                 }
             }
-            $results
+            $result = @($result | where-object {
+                $_.protectionSource.environment -ne "kAgent" `
+                -and $_.protectionSource.environment -ne "kView" `
+                -and $_.protectionSource.environment -ne "kPuppeteer" `
+                -and $null -ne $_.registrationInfo
+            })
+            # we have to sort the rows based on protectionSource.id and remove any duplicate entries
+            # $result = @($result | Sort-Object | Get-Unique)
+            $result
         }
     }
 
