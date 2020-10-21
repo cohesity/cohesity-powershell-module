@@ -55,26 +55,30 @@ function Get-CohesityProtectionSource {
             if ($resp) {
                 $result = @($resp)
                 $groups = @($result | where-object { $null -eq $_.registrationInfo })
-                foreach ($group in $groups) {
-                    $url = '/irisservices/api/v1/public/protectionSources?id=' + $group.protectionSource.id.ToString()
-                    $cohesityUrl = $cohesityServer + $url
-                    $resp = Invoke-RestApi -Method Get -Uri $cohesityUrl -Headers $cohesityHeaders
-                    if($resp) {
-                        $children = FlattenProtectionSourceNode -Nodes $resp -Type 2
-                        foreach ($child in $children) {
-                            if ($child.registrationInfo) {
-                                $result += $child
-                            }
-                        }
-                    }
-                }
+				if($groups) {
+					foreach ($group in $groups) {
+						$url = '/irisservices/api/v1/public/protectionSources?id=' + $group.protectionSource.id.ToString()
+						$cohesityUrl = $cohesityServer + $url
+						$resp = Invoke-RestApi -Method Get -Uri $cohesityUrl -Headers $cohesityHeaders
+						if($resp) {
+							$children = FlattenProtectionSourceNode -Nodes $resp -Type 2
+							foreach ($child in $children) {
+								if ($child.registrationInfo) {
+									$result += $child
+								}
+							}
+						}
+					}
+				}
             }
+			# Skip kView, kAgent, kPuppeteer environment types and group nodes themselves
             $result = @($result | where-object {
                 $_.protectionSource.environment -ne "kAgent" `
                 -and $_.protectionSource.environment -ne "kView" `
                 -and $_.protectionSource.environment -ne "kPuppeteer" `
                 -and $null -ne $_.registrationInfo
             })
+			# Make sure each source id is only listed once as it might repeat under different environments
             # we have to sort the rows based on protectionSource.id and remove any duplicate entries
             $result = @($result | Sort-Object -property @{expression={$_.protectionSource.id }} -Unique)
             $result
