@@ -1,4 +1,5 @@
 function FlattenProtectionSourceNode {
+	[OutputType('System.Object[]')]
     [cmdletbinding()]
     param(
         [Parameter(Mandatory = $true)]

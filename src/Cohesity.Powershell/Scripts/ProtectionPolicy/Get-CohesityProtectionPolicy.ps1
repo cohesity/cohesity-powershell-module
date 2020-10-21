@@ -65,7 +65,6 @@ function Get-CohesityProtectionPolicy {
         }
         $cohesityUrl = $cohesityServer + $url
         $resp = Invoke-RestApi -Method Get -Uri $cohesityUrl -Headers $cohesityHeaders
-        $resp = @($resp)
         $resp
     }
 
