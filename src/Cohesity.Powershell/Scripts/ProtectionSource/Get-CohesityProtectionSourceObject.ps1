@@ -93,8 +93,13 @@ function Get-CohesityProtectionSourceObject {
             $resp = Invoke-RestApi -Method Get -Uri $cohesityUrl -Headers $cohesityHeaders
             if ($resp) {
                 $resp = FlattenProtectionSourceNode -Nodes $resp -Type 1
+                $resp = $resp.protectionSource
+                # though we get the filtered response from API but required to filter out for KSQL and KPhysical
+                if($Environments) {
+                    $resp = @($resp | Where-Object {$Environments -contains $_.environment})
+                }
                 # tagging reponse for display format ( configured in Cohesity.format.ps1xml )
-                @($resp.protectionSource | Add-Member -TypeName 'System.Object#ProtectionSource' -PassThru)
+                @($resp | Add-Member -TypeName 'System.Object#ProtectionSource' -PassThru)
             }
         }
     }
