@@ -82,7 +82,8 @@ function Get-CohesityProtectionSource {
 			# Make sure each source id is only listed once as it might repeat under different environments
             # we have to sort the rows based on protectionSource.id and remove any duplicate entries
             $result = @($result | Sort-Object -property @{expression={$_.protectionSource.id }} -Unique)
-            $result
+            # tagging reponse for display format ( configured in Cohesity.format.ps1xml )
+            @($result | Add-Member -TypeName 'System.Object#ProtectionSourceNode' -PassThru)
         }
     }
 

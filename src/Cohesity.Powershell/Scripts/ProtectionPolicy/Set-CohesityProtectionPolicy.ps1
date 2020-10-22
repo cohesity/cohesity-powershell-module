@@ -42,7 +42,8 @@ function Set-CohesityProtectionPolicy {
             $payloadJson = ($ProtectionPolicy | ConvertTo-Json -Depth 100)
             $resp = Invoke-RestApi -Method Put -Uri $cohesityUrl -Headers $cohesityHeaders -Body $payloadJson
             if($resp) {
-                $resp
+                # tagging reponse for display format ( configured in Cohesity.format.ps1xml )
+                @($resp | Add-Member -TypeName 'System.Object#ProtectionPolicy' -PassThru)
             }
             else {
                 $errorMsg = "Protection Policy : $protectionPolicyName, Failed to update"

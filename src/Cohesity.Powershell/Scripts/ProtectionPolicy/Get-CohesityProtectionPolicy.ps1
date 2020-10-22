@@ -65,7 +65,10 @@ function Get-CohesityProtectionPolicy {
         }
         $cohesityUrl = $cohesityServer + $url
         $resp = Invoke-RestApi -Method Get -Uri $cohesityUrl -Headers $cohesityHeaders
-        $resp
+        if($resp) {
+            # tagging reponse for display format ( configured in Cohesity.format.ps1xml )
+            @($resp | Add-Member -TypeName 'System.Object#ProtectionPolicy' -PassThru)
+        }
     }
 
     End {
