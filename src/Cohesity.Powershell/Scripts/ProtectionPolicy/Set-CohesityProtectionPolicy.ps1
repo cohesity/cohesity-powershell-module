@@ -18,6 +18,7 @@ function Set-CohesityProtectionPolicy {
         $result.name = "Test-Policy-updated"
         $result | Set-CohesityProtectionPolicy
     #>
+	[OutputType('System.Array')]
     [CmdletBinding(SupportsShouldProcess = $True, ConfirmImpact = "High")]
     Param(
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]

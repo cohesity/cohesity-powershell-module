@@ -15,7 +15,7 @@ function Get-CohesityProtectionSourceObject {
         .EXAMPLE
         Get-CohesityProtectionSourceObject -Id 1234
     #>
-	[OutputType('System.Object[]')]
+	[OutputType('System.Array')]
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory = $false)]

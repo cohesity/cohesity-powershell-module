@@ -13,6 +13,7 @@ function Get-CohesityProtectionPolicy {
         .EXAMPLE
         Get-CohesityProtectionPolicy -Names Test-Policy
     #>
+	[OutputType('System.Array')]
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory = $false)]
