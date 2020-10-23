@@ -46,8 +46,8 @@ function Get-CohesityProtectionSourceObject {
         if ($Id) {
             $cohesityUrl = $cohesityServer + '/irisservices/api/v1/public/protectionSources/objects/' + $Id.ToString()
             $resp = Invoke-RestApi -Method Get -Uri $cohesityUrl -Headers $cohesityHeaders
-            $resp = @($resp)
-            $resp
+            # tagging reponse for display format ( configured in Cohesity.format.ps1xml )
+            @($resp | Add-Member -TypeName 'System.Object#ProtectionSource' -PassThru)
         }
         else {
             $url = '/irisservices/api/v1/public/protectionSources'

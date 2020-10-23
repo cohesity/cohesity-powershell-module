@@ -1552,7 +1552,7 @@
                 <ScriptBlock>$_.ProtectionSource.Environment</ScriptBlock>
               </TableColumnItem>
               <TableColumnItem>
-                <ScriptBlock>$_.RegistrationInfo.RefreshTimeUsecs | Convert-CohesityUsecsToDateTime</ScriptBlock>
+                <ScriptBlock>if($_.RegistrationInfo.RefreshTimeUsecs){$_.RegistrationInfo.RefreshTimeUsecs | Convert-CohesityUsecsToDateTime} else {"-"}</ScriptBlock>
               </TableColumnItem>
             </TableColumnItems>
           </TableRowEntry>
