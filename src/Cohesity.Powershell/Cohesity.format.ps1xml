@@ -1608,5 +1608,55 @@
         </TableHeaders>
       </TableControl>
     </View>
+    <!-- ProtectionJob -->
+    <View>
+      <Name>System.Object.ProtectionJob.TableView</Name>
+      <ViewSelectedBy>
+        <TypeName>System.Object#ProtectionJob</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>Id</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Name</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Environment</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>$_.LastRun.BackupRun.Stats.StartTimeUsecs | Convert-CohesityUsecsToDateTime</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>if($_.LastRun.BackupRun.SlaViolated){"Fail"}else{"Pass"}</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>if($_.IsPaused){"True"}else{"False"}</ScriptBlock>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+        <TableHeaders>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>LastRunTime</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>SLA</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>IsPaused</Label>
+          </TableColumnHeader>
+        </TableHeaders>
+      </TableControl>
+    </View>
   </ViewDefinitions>
 </Configuration>
