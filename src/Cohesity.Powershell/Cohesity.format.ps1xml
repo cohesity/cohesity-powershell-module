@@ -1608,7 +1608,7 @@
         </TableHeaders>
       </TableControl>
     </View>
-    <!-- ProtectionJob -->
+    <!-- ProtectionJob Script based cmdlet -->
     <View>
       <Name>System.Object.ProtectionJob.TableView</Name>
       <ViewSelectedBy>
@@ -1654,6 +1654,79 @@
           </TableColumnHeader>
           <TableColumnHeader>
             <Label>IsPaused</Label>
+          </TableColumnHeader>
+        </TableHeaders>
+      </TableControl>
+    </View>
+    <!-- ProtectionJobRun Script based cmdlet -->
+    <View>
+      <Name>System.Object.ProtectionJobRun.TableView</Name>
+      <ViewSelectedBy>
+        <TypeName>System.Object#ProtectionRunInstance</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <ScriptBlock>$_.BackupRun.JobRunId</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>$_.BackupRun.Stats.StartTimeUsecs | Convert-CohesityUsecsToDateTime</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+               <ScriptBlock>$_.BackupRun.RunType</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>JobId</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>JobName</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>$_.BackupRun.Environment</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock> $_.BackupRun.Stats.numSuccessfulTasks, $_.BackupRun.Stats.numFailedTasks </ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>$_.BackupRun.Status</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>if($_.BackupRun.SnapshotsDeleted){"True"}else{"False"}</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>if($_.BackupRun.SnapshotsDeleted){"-"}else{$_.CopyRun[0].ExpiryTimeUsecs | Convert-CohesityUsecsToDateTime}</ScriptBlock>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+        <TableHeaders>
+          <TableColumnHeader>
+            <Label>Id</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Start Time</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>RunType</Label>
+          </TableColumnHeader>
+          <TableColumnHeader/>
+          <TableColumnHeader/>
+          <TableColumnHeader>
+            <Label>Environment</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Success/Error</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Status</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>SnapshotsDeleted</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Expiry Time</Label>
           </TableColumnHeader>
         </TableHeaders>
       </TableControl>
