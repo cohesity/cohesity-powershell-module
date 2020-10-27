@@ -130,11 +130,10 @@ function Get-CohesityProtectionJobRun {
         }
 
         $cohesityUrl = $cohesityServer + $url
-        write-host $cohesityUrl
         $resp = Invoke-RestApi -Method Get -Uri $cohesityUrl -Headers $cohesityHeaders
         if ($resp) {
             if (-not $IncludeDeleted.IsPresent) {
-                $resp = @($resp | where-object { $_.Name -inotmatch '_DELETED' })
+                $resp = @($resp | where-object { $_.JobName -inotmatch '_DELETED' })
             }
             # tagging reponse for display format ( configured in Cohesity.format.ps1xml )
             @($resp | Add-Member -TypeName 'System.Object#ProtectionRunInstance' -PassThru)
