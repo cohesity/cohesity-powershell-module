@@ -113,6 +113,7 @@ FunctionsToExport = @(
                       'Set-CohesityProtectionSource'
                       'Set-CohesitySnapshotRetention',
                       'Set-CohesityStorageDomain',
+                      'Stop-CohesityProtectionJob',
                       'Update-CohesityActiveDirectory',
                       'Update-CohesityProtectionJobRun',
                       'Update-CohesityVlan'
@@ -179,7 +180,6 @@ CmdletsToExport = @('Add-CohesityViewShare',
                     'Set-CohesityStorageDomain',
                     'Set-CohesityView',
                     'Start-CohesityProtectionJob',
-                    'Stop-CohesityProtectionJob',
                     'Stop-CohesityRestoreTask',
                     'Suspend-CohesityProtectionJob',
                     'Unregister-CohesityApplicationServer',

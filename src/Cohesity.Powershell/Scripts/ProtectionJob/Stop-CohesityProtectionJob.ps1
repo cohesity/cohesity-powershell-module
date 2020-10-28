@@ -94,9 +94,13 @@ function Stop-CohesityProtectionJob {
         $payload = [Cohesity.Model.CancelProtectionJobRunParam]::new()
         if ($copyRun)
         {
+            $taskUid = [Cohesity.Model.UniversalId]::new()
+            $taskUid.Id = $copyRun.TaskUid.Id
+            $taskUid.clusterId = $copyRun.TaskUid.clusterId
+            $taskUid.clusterIncarnationId = $copyRun.TaskUid.clusterIncarnationId
             # When the non-local job is being stopped
             # The copy task uid and job id would be used for Archival, Cloud spin and Remote targets
-            $payload.CopyTaskUid = $copyRun.TaskUid
+            $payload.CopyTaskUid = $taskUid
         }
         else
         {
@@ -107,12 +111,9 @@ function Stop-CohesityProtectionJob {
         $cohesityHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
         $url = '/irisservices/api/v1/public/protectionRuns/cancel/' + $Id
         $cohesityUrl = $cohesityServer + $url
-        $payloadJson = $ProtectionJob | ConvertTo-Json -Depth 100
+        $payloadJson = $payload | ConvertTo-Json -Depth 100
         $resp = Invoke-RestApi -Method Post -Uri $cohesityUrl -Headers $cohesityHeaders -Body $payloadJson
-        if ($resp) {
-            # tagging reponse for display format ( configured in Cohesity.format.ps1xml )
-            $resp | Add-Member -TypeName 'System.Object#ProtectionJob' -PassThru
-        }
+        Write-Output "Protection Job Run cancelled."
     }
 
     End {
