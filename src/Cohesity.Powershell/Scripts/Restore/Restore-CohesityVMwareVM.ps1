@@ -129,7 +129,25 @@ function Restore-CohesityVMwareVM {
                 }
             }
 
+            $networkDetail = $null
+            if($NetworkId) {
+                $searchURL = $cohesityCluster + '/irisservices/api/v1/networkEntities?resourcePoolId='+$ResourcePoolId+'&vCenterId='+$NewParentId
+                $searchResult = Invoke-RestApi -Method Get -Uri $searchURL -Headers $searchHeaders
+                $foundNetwork = $searchResult | Where-Object { $_.id -eq $NetworkId }
+                if (-not $foundNetwork) {
+                    Write-Output "The network id '$NetworkId' is not available for resourcepool id '$ResourcePoolId' and parent id '$NewParentId'"
+                    return
+                }
+                $networkDetail = @{
+                    networkEntity = $foundNetwork
+                }
+            }
+
             $vmObject = $searchedVMDetails.vmDocument.objectId
+            if ($JobRunId) {
+                $vmObject | Add-Member -NotePropertyName jobInstanceId -NotePropertyValue $JobRunId
+                $vmObject | Add-Member -NotePropertyName startTimeUsecs -NotePropertyValue $StartTime
+            }
             $vmObjects = @()
             $vmObjects += $vmObject
 
@@ -152,6 +170,7 @@ function Restore-CohesityVMwareVM {
                 }
                 renameRestoredObjectParam    = $renameVMObject
                 restoredObjectsNetworkConfig = @{
+                    networkEntity = $networkDetail.networkEntity
                     disableNetwork = $DisableNetwork.IsPresent
                 }
                 restoreParentSource          = $vmwareDetail
