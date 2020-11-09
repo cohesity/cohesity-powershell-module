@@ -249,11 +249,7 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
                     KeepOffline = KeepOffline.IsPresent
                 }
             };
-            if(null != this.RestoreTimeSecs)
-            {
-                applicationRestoreObject.SqlRestoreParameters.RestoreTimeSecs = this.RestoreTimeSecs;
-            }
-
+ 
             if (!string.IsNullOrWhiteSpace(NewDatabaseName))
             {
                 applicationRestoreObject.SqlRestoreParameters.NewDatabaseName = NewDatabaseName;
@@ -324,10 +320,57 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
                 restoreRequest.Password = TargetHostCredential.GetNetworkCredential().Password;
             }
 
+            if (null != this.RestoreTimeSecs)
+            {
+                if (false == IsValidPointInTime(this.RestoreTimeSecs, this.StartTime, this.SourceId, job))
+                {
+                    WriteObject("Invalid point in time " + this.RestoreTimeSecs);
+                    return;
+                }
+
+                applicationRestoreObject.SqlRestoreParameters.RestoreTimeSecs = this.RestoreTimeSecs;
+            }
+
+
             // POST /public/restore/applicationsRecover
             var preparedUrl = $"/public/restore/applicationsRecover";
             var result = Session.ApiClient.Post<Model.RestoreTask>(preparedUrl, restoreRequest);
             WriteObject(result);
+        }
+
+        private bool IsValidPointInTime(long? restoreTimeSecs, long? startTime, long sourceId, Model.ProtectionJob job)
+        {
+            // identifying range from preceeding day
+            System.DateTime startDate = RestApiCommon.ConvertUsecsToDateTime((long)startTime);
+            startDate = startDate.AddDays(-1);
+            long startTimeInUsec = RestApiCommon.ConvertDateTimeToUsecs(startDate);
+
+            var pointsInTimeRange = new Model.RestorePointsForTimeRangeParam
+            {
+                EndTimeUsecs = RestApiCommon.ConvertDateTimeToUsecs(System.DateTime.Now),
+                Environment = Model.RestorePointsForTimeRangeParam.EnvironmentEnum.KSQL,
+                JobUids = new List<Model.UniversalId>(),
+                ProtectionSourceId = sourceId,
+                StartTimeUsecs = startTimeInUsec
+            };
+            pointsInTimeRange.JobUids.Add(job.Uid);
+
+            var pointsForTimeRangeUrl = $"/public/restore/pointsForTimeRange";
+            var timeRangeResult = Session.ApiClient.Post<Model.RestorePointsForTimeRange>(pointsForTimeRangeUrl, pointsInTimeRange);
+            bool foundPointInTime = false;
+            if (null != timeRangeResult.TimeRanges)
+            {
+                foreach (var item in timeRangeResult.TimeRanges)
+                {
+                    var restoreTimeUsecs = restoreTimeSecs * 1000 * 1000;
+                    if (item.StartTimeUsecs < restoreTimeUsecs && restoreTimeUsecs < item.EndTimeUsecs)
+                    {
+                        foundPointInTime = true;
+                        break;
+                    }
+                }
+            }
+            return foundPointInTime;
         }
 
         #endregion

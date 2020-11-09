@@ -7,9 +7,10 @@ Restores the specified files or folders from a previous backup.
 
 ```
 Restore-CohesityFile -FileNames <string[]> -JobId <long> -SourceId <long> -TargetSourceId <long>
- -TaskName <string> [-ContinueOnError] [-DoNotOverwrite] [-DoNotPreserveAttributes] [-JobRunId <long>]
- [-NewBaseDirectory <string>] [-StartTime <long>] [-TargetHostCredential <PSCredential>]
- [-TargetHostType <TargetHostTypeEnum>] [-TargetParentSourceId <long>] [<CommonParameters>]
+ -TaskName <string> [-ContinueOnError] [-DoNotOverwrite] [-DoNotPreserveAttributes]
+ [-FileRecoveryMethod <FileRecoveryMethodEnum>] [-JobRunId <long>] [-NewBaseDirectory <string>]
+ [-StartTime <long>] [-TargetHostCredential <PSCredential>] [-TargetHostType <TargetHostTypeEnum>]
+ [-TargetParentSourceId <long>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -249,6 +250,24 @@ This is not required when restoring to a Physical Server but must be specified w
 Type: PSCredential
 Parameter Sets: (All)
 Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -FileRecoveryMethod
+Specifies the type of method to be used to perform file recovery.
+
+Possible values: KAutoDeploy, KUseExistingAgent, KUseHypervisorAPIs
+
+```yaml
+Type: FileRecoveryMethodEnum
+Parameter Sets: (All)
+Aliases:
+Accepted values: KAutoDeploy, KUseExistingAgent, KUseHypervisorAPIs
 
 Required: False
 Position: Named

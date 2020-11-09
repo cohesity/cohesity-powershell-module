@@ -177,6 +177,15 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
         [Parameter(Mandatory = false)]
         public PSCredential TargetHostCredential { get; set; } = null;
 
+        /// <summary>
+        /// <para type="description">
+        /// Specifies the type of method to be used to perform file recovery.
+        /// </para>
+        /// </summary>
+        [Parameter(Mandatory = false)]
+        public Model.RestoreFilesTaskRequest.FileRecoveryMethodEnum? FileRecoveryMethod { get; set; }
+
+        
         #endregion
 
         #region Processing
@@ -203,6 +212,11 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
                 PreserveAttributes = !(DoNotPreserveAttributes.IsPresent),
                 Overwrite = !(DoNotOverwrite.IsPresent)
             };
+
+            if(FileRecoveryMethod.HasValue)
+            {
+                restoreRequest.FileRecoveryMethod = FileRecoveryMethod;
+            }
 
             if(!string.IsNullOrWhiteSpace(NewBaseDirectory))
             {
