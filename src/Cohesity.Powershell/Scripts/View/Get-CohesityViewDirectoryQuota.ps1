@@ -24,7 +24,12 @@ function Get-CohesityViewDirectoryQuota {
     }
 
     Process {
-        $cohesityClusterURL = $cohesityCluster + '/irisservices/api/v1/public/viewDirectoryQuotas?viewName=$ViewName'
+        $view = Get-CohesityView -ViewNames $ViewName
+        if (-not $view) {
+            Write-Output "The view '$ViewName' does not exists."
+            return
+        }
+        $cohesityClusterURL = $cohesityCluster + '/irisservices/api/v1/public/viewDirectoryQuotas?viewName='+$ViewName
         $cohesityHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
         $resp = Invoke-RestApi -Method 'Get' -Uri $cohesityClusterURL -Headers $cohesityHeaders
         $resp
