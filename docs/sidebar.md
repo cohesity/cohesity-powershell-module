@@ -58,6 +58,8 @@
 - [Add-CohesityViewShare](cmdlets-reference/add-cohesityviewshare.md)
 - [Remove-CohesityViewShare](cmdlets-reference/remove-cohesityviewshare.md)
 - [Restore-CohesityBackupToView](cmdlets-reference/restore-cohesitybackuptoview.md)
+- [Get-CohesityViewDirectoryQuota](cmdlets-reference/get-cohesityviewdirectoryquota.md)
+- [Set-CohesityViewDirectoryQuota](cmdlets-reference/set-cohesityviewdirectoryquota.md)
 
 
 - **Data Protection**
