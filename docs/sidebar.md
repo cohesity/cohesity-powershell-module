@@ -57,7 +57,7 @@
 - [Get-CohesityViewShare](cmdlets-reference/get-cohesityviewshare.md)
 - [Add-CohesityViewShare](cmdlets-reference/add-cohesityviewshare.md)
 - [Remove-CohesityViewShare](cmdlets-reference/remove-cohesityviewshare.md)
-- [Recover-CohesityBackupToView](cmdlets-reference/recover-cohesitybackuptoview.md)
+- [Restore-CohesityBackupToView](cmdlets-reference/restore-cohesitybackuptoview.md)
 
 
 - **Data Protection**

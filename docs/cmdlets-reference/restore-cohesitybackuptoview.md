@@ -1,4 +1,4 @@
-# Recover-CohesityBackupToView
+# Restore-CohesityBackupToView
 
 ## SYNOPSIS
 Recovers a backup to a view.
@@ -6,7 +6,7 @@ Recovers a backup to a view.
 ## SYNTAX
 
 ```
-Recover-CohesityBackupToView -SourceName <string> -TargetViewName <string> -QOSPolicy <string> -ProtectionJobName <string>
+Restore-CohesityBackupToView -SourceName <string> -TargetViewName <string> -QOSPolicy <string> -ProtectionJobName <string>
 ```
 
 ## DESCRIPTION
@@ -16,7 +16,7 @@ Recovers a backup to a view.
 
 ### EXAMPLE 1
 ```
-Recover-CohesityBackupToView -ProtectionJobName job-nas -TargetViewName nas-view -QOSPolicy "TestAndDev High"
+Restore-CohesityBackupToView -ProtectionJobName job-nas -TargetViewName nas-view -QOSPolicy "TestAndDev High"
 ```
 
 ## PARAMETERS
