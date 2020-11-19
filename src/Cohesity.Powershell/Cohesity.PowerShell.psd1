@@ -85,6 +85,7 @@ FunctionsToExport = @(
                       'Get-CohesityStorageDomain',
                       'Get-CohesityVault',
                       'Get-CohesityVirtualIP',
+                      'Get-CohesityViewDirectoryQuota',
                       'Get-CohesityVlan',
                       'New-CohesityActiveDirectory',
                       'New-CohesityHypervProtectionJob'
