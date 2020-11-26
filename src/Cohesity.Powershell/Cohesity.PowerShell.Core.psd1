@@ -104,6 +104,7 @@ FunctionsToExport = @(
                       'Remove-CohesityExternalClient',
                       'Remove-CohesityRoutes',
                       'Remove-CohesityUser',
+                      'Remove-CohesityUserGroup',
                       'Remove-CohesityVirtualIP',
                       'Remove-CohesityVlan',
                       'Restore-CohesityBackupToView',

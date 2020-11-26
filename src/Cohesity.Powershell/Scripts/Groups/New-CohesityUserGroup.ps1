@@ -3,7 +3,12 @@ function New-CohesityUserGroup {
         .SYNOPSIS
         Creates new user group.
         .DESCRIPTION
-        The New-CohesityUserGroup function is used to create a new user group.
+        If an Active Directory domain is specified, a new group is added to the 
+        Cohesity Cluster for the specified Active Directory group principal.
+        If the LOCAL domain is specified, a new group is created directly in
+        the default LOCAL domain on the Cohesity Cluster.
+        Returns the created or added group.
+
         .NOTES
         Published by Cohesity
         .LINK
@@ -37,7 +42,8 @@ function New-CohesityUserGroup {
     }
 
     Process {
-        if (Get-CohesityUserGroup -Name $Name) {
+
+        if (Get-CohesityUserGroup | where-object { $_.name -eq $Name }) {
             Write-Output "The user group name '$Name' already exists, try another name"
             return
         }
@@ -54,7 +60,7 @@ function New-CohesityUserGroup {
                 Write-Output "Could not find the given user '$userName', please use the cmdlet 'Get-CohesityUser' to find the desired one."
                 return
             }
-            if(-not $userSIDs) {
+            if (-not $userSIDs) {
                 $userSIDs = @()
             }
             $userSIDs += $userDetail.Sid
