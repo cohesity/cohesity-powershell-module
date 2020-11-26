@@ -121,6 +121,7 @@ FunctionsToExport = @(
                       'Stop-CohesityProtectionJob',
                       'Update-CohesityActiveDirectory',
                       'Update-CohesityProtectionJobRun',
+                      'Update-CohesityUserGroup',
                       'Update-CohesityVlan'
                       )
 

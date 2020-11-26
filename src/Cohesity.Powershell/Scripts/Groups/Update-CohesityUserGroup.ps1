@@ -1,24 +1,24 @@
-function Remove-CohesityUserGroup {
+function Update-CohesityUserGroup {
     <#
         .SYNOPSIS
-        Removes a user group.
+        Updates the user group.
         .DESCRIPTION
-        If the group on the Cohesity Cluster was added for an Active Directory user,
-        the referenced principal group on the Active Directory domain is NOT deleted.
-        Only the group on the Cohesity Cluster is deleted.
-
+        Update an existing group on the Cohesity Cluster. Only group settings on the Cohesity Cluster
+         are updated. No changes are made to the referenced group principal on the Active Directory.
         .NOTES
         Published by Cohesity
         .LINK
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
-        Remove-CohesityUserGroup  -Name user-group1
+        $userGroup = Get-CohesityUserGroup -Name test-group2
+        $userGroup.Description = "Updating user group"
+        Update-CohesityUserGroup -UserGroupObject $userGroup
     #>
     [CmdletBinding(SupportsShouldProcess = $True, ConfirmImpact = "High")]
     Param(
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
-        [string]$Name
+        [object]$UserGroupObject
     )
 
     Begin {
@@ -31,29 +31,18 @@ function Remove-CohesityUserGroup {
     }
 
     Process {
-        $userGroupDomain = $null
-        $userGroupObject = Get-CohesityUserGroup | where-object { $_.name -eq $Name }
-        if (-not $userGroupObject) {
-            Write-Output "User group '$Name' does not exists"
-            return
-        }
-        $userGroupDomain = $userGroupObject.Domain
-
-        if ($PSCmdlet.ShouldProcess($Name)) {
+        if ($PSCmdlet.ShouldProcess("Update user group parameters")) {
             $cohesityClusterURL = $cohesityCluster + '/irisservices/api/v1/public/groups'
             $cohesityHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
 
-            $payload = @{
-                domain = $userGroupDomain
-                names  = @($Name)
-            }
-            $payloadJson = $payload | ConvertTo-Json -Depth 100
-            $resp = Invoke-RestApi -Method Delete -Uri $cohesityClusterURL -Headers $cohesityHeaders -Body $payloadJson
+            $payloadJson = $UserGroupObject | ConvertTo-Json -Depth 100
+            $resp = Invoke-RestApi -Method Put -Uri $cohesityClusterURL -Headers $cohesityHeaders -Body $payloadJson
             if ($resp) {
-                $resp
+                # tagging reponse for display format ( configured in Cohesity.format.ps1xml )
+                @($resp | Add-Member -TypeName 'System.Object#UserGroup' -PassThru)
             }
             else {
-                $errorMsg = "User group : Failed to remove"
+                $errorMsg = "User group : Failed to update"
                 Write-Output $errorMsg
                 CSLog -Message $errorMsg
             }
