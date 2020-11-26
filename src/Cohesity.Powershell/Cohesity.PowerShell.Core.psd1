@@ -94,6 +94,7 @@ FunctionsToExport = @(
                       'New-CohesityProtectionPolicy',
                       'New-CohesityRoutes',
                       'New-CohesityStorageDomain',
+                      'New-CohesityUserGroup',
                       'New-CohesityVirtualIP',
                       'New-CohesityVlan',
                       'Register-CohesityProtectionSourceHyperV',

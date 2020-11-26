@@ -38,6 +38,7 @@ function Get-CohesityUserGroup {
         $cohesityHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
 
         $userGroupList = Invoke-RestApi -Method 'Get' -Uri $cohesityClusterURL -Headers $cohesityHeaders
-        $userGroupList
+        # tagging reponse for display format ( configured in Cohesity.format.ps1xml )
+        @($userGroupList | Add-Member -TypeName 'System.Object#UserGroup' -PassThru)
     }
 }
