@@ -1772,5 +1772,40 @@
         </TableHeaders>
       </TableControl>
     </View>
+        <!-- Protection Source For Principal Script based cmdlet -->
+    <View>
+      <Name>System.Object.ProtectionSourceForPrincipal.TableView</Name>
+      <ViewSelectedBy>
+        <TypeName>System.Object#ProtectionSourceForPrincipal</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+		            <PropertyName>Sid</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+		            <PropertyName>Views</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+		            <ScriptBlock>$_.ProtectionSources.Name</ScriptBlock>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+        <TableHeaders>
+          <TableColumnHeader>
+            <Label>SID</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Views</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>ProtectionSources</Label>
+          </TableColumnHeader>
+        </TableHeaders>
+      </TableControl>
+    </View>
   </ViewDefinitions>
 </Configuration>
