@@ -33,7 +33,7 @@ function Remove-CohesityProtectionSourceForPrincipal {
         [long[]]$ProtectionSourceObjectIds,
         [Parameter(Mandatory = $false)]
         [ValidateNotNullOrEmpty()]
-        [string]$ViewNames
+        [string[]]$ViewNames
     )
 
     Begin {
@@ -55,25 +55,43 @@ function Remove-CohesityProtectionSourceForPrincipal {
             Write-Output "Not found '$PrincipalName' of principal type '$PrincipalType', please use 'Get-CohesityUser' or 'Get-CohesityUserGroup' to identify the desired one."
             return
         }
+        $updatedProtectionSourceObjectIds = @()
         if ($ProtectionSourceObjectIds) {
             $protectionSourceObjects = $principalDetail.ProtectionSources
             foreach ($Id in $ProtectionSourceObjectIds) {
                 if ($protectionSourceObjects.Id -notcontains $Id) {
-                    Write-Output "Protection source id '$Id' not found"
+                    Write-Output "'$PrincipalName' does not have access to protection source id '$Id'"
                     return
                 }
             }
-            $principalDetail.ProtectionSources = $principalDetail.protectionSources | Where-Object {$_.Id -notin $ProtectionSourceObjectIds}
+            $sourceList = $principalDetail.protectionSources.Id | Where-Object { $_ -notin $ProtectionSourceObjectIds }
+            if ($sourceList) {
+                $updatedProtectionSourceObjectIds += $sourceList
+            }
         }
+        else {
+            if ($principalDetail.protectionSources.Id) {
+                $updatedProtectionSourceObjectIds += $principalDetail.protectionSources.Id
+            }
+        }
+        $updatedViewNames = @()
         if ($ViewNames) {
             $viewObjects = $principalDetail.Views
             foreach ($viewName in $ViewNames) {
                 if ($viewObjects.Name -notcontains $viewName) {
-                    Write-Output "View name '$viewName' not found"
+                    Write-Output "'$PrincipalName' does not have access to view name '$viewName'"
                     return
                 }
             }
-            $principalDetail.Views = @($principalDetail.Views | Where-Object {$_ -notin $ViewNames})
+            $viewList = $principalDetail.Views.Name | Where-Object { $_ -notin $ViewNames }
+            if ($viewList) {
+                $updatedViewNames += $viewList
+            }
+        }
+        else {
+            if ($principalDetail.Views.Name) {
+                $updatedViewNames += $principalDetail.Views.Name
+            }
         }
 
         if ($PSCmdlet.ShouldProcess($PrincipalName)) {
@@ -81,9 +99,9 @@ function Remove-CohesityProtectionSourceForPrincipal {
             $cohesityHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
 
             $sourcesForPrincipalObject = @{
-                protectionSourceIds = @($ProtectionSourceObjectIds)
+                protectionSourceIds = $updatedProtectionSourceObjectIds
                 sid                 = $principalDetail.Sid
-                viewNames           = @($ViewNames)
+                viewNames           = $updatedViewNames
             }
             $payload = @{
                 sourcesForPrincipals = @($sourcesForPrincipalObject)

@@ -33,7 +33,7 @@ function Add-CohesityProtectionSourceForPrincipal {
         [long[]]$ProtectionSourceObjectIds,
         [Parameter(Mandatory = $false)]
         [ValidateNotNullOrEmpty()]
-        [string]$ViewNames
+        [string[]]$ViewNames
     )
 
     Begin {
@@ -55,6 +55,7 @@ function Add-CohesityProtectionSourceForPrincipal {
             Write-Output "Not found '$PrincipalName' of principal type '$PrincipalType', please use 'Get-CohesityUser' or 'Get-CohesityUserGroup' to identify the desired one."
             return
         }
+        $updatedProtectionSourceObjectIds = @()
         if ($ProtectionSourceObjectIds) {
             $protectionSourceObjects = Get-CohesityProtectionSourceObject
             foreach ($Id in $ProtectionSourceObjectIds) {
@@ -63,7 +64,12 @@ function Add-CohesityProtectionSourceForPrincipal {
                     return
                 }
             }
+            $updatedProtectionSourceObjectIds += $ProtectionSourceObjectIds
+            if($principalDetail.ProtectionSources) {
+                $updatedProtectionSourceObjectIds += @($principalDetail.ProtectionSources.Id)
+            }
         }
+        $updatedViewNames = @()
         if ($ViewNames) {
             $viewObjects = Get-CohesityView
             foreach ($viewName in $ViewNames) {
@@ -72,6 +78,10 @@ function Add-CohesityProtectionSourceForPrincipal {
                     return
                 }
             }
+            $updatedViewNames += $ViewNames
+            if($principalDetail.Views) {
+                $updatedViewNames += @($principalDetail.Views.Name)
+            }
         }
 
         if ($PSCmdlet.ShouldProcess($PrincipalName)) {
@@ -79,9 +89,9 @@ function Add-CohesityProtectionSourceForPrincipal {
             $cohesityHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
 
             $sourcesForPrincipalObject = @{
-                protectionSourceIds = @($ProtectionSourceObjectIds)
+                protectionSourceIds = $updatedProtectionSourceObjectIds
                 sid                 = $principalDetail.Sid
-                viewNames           = @($ViewNames)
+                viewNames           = $updatedViewNames
             }
             $payload = @{
                 sourcesForPrincipals = @($sourcesForPrincipalObject)
