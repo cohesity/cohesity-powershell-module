@@ -1786,7 +1786,7 @@
 		            <PropertyName>Sid</PropertyName>
               </TableColumnItem>
               <TableColumnItem>
-		            <PropertyName>Views</PropertyName>
+		            <ScriptBlock>$_.Views.Name</ScriptBlock>
               </TableColumnItem>
               <TableColumnItem>
 		            <ScriptBlock>$_.ProtectionSources.Name</ScriptBlock>
