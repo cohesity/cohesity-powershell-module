@@ -104,6 +104,7 @@ FunctionsToExport = @(
                       'Register-CohesityProtectionSourceO365',
                       'Remove-CohesityActiveDirectory',
                       'Remove-CohesityExternalClient',
+                      'Remove-CohesityProtectionSourceForPrincipal',
                       'Remove-CohesityRoutes',
                       'Remove-CohesityUser',
                       'Remove-CohesityUserGroup',

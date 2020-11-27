@@ -1,23 +1,23 @@
-function Add-CohesityProtectionSourceForPrincipal {
+function Remove-CohesityProtectionSourceForPrincipal {
     <#
         .SYNOPSIS
-        Specify the security identifier (SID) of the principal to grant access permissions for protection source.
+        Specify the security identifier (SID) of the principal to remove access permissions for protection source.
         .DESCRIPTION
-        Add Protection Sources and Views that the specified principal has permissions to access.
+        Remove Protection Sources and Views from the specified principal that has permissions to access.
 
         .NOTES
         Published by Cohesity
         .LINK
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
-        Add-CohesityProtectionSourceForPrincipal -PrincipalType "GROUP" -PrincipalName user-group1 -ProtectionSourceObjectIds 121,344
-        Add protection sources ids 121 and 344 to grant access to user-group1
+        Remove-CohesityProtectionSourceForPrincipal -PrincipalType "GROUP" -PrincipalName user-group1 -ProtectionSourceObjectIds 121,344
+        Remove protection sources ids 121 and 344 for access to user-group1
         .EXAMPLE
-        Add-CohesityProtectionSourceForPrincipal -PrincipalType "USER" -PrincipalName user1 -ProtectionSourceObjectIds 121,344
-        Add protection sources ids 121 and 344 to grant access to user1
+        Remove-CohesityProtectionSourceForPrincipal -PrincipalType "USER" -PrincipalName user1 -ProtectionSourceObjectIds 121,344
+        Remove protection sources ids 121 and 344 for access to user1
         .EXAMPLE
-        Add-CohesityProtectionSourceForPrincipal -PrincipalType "USER" -PrincipalName user1 -ViewNames view1, view2
-        Add views view1 and view2 to grant access to user1
+        Remove-CohesityProtectionSourceForPrincipal -PrincipalType "USER" -PrincipalName user1 -ViewNames view1, view2
+        Remove views view1 and view2 for access to user1
     #>
     [CmdletBinding(DefaultParameterSetName = "DefaultParameters", SupportsShouldProcess = $True, ConfirmImpact = "High")]
     Param(
@@ -56,22 +56,24 @@ function Add-CohesityProtectionSourceForPrincipal {
             return
         }
         if ($ProtectionSourceObjectIds) {
-            $protectionSourceObjects = Get-CohesityProtectionSourceObject
+            $protectionSourceObjects = $principalDetail.ProtectionSources
             foreach ($Id in $ProtectionSourceObjectIds) {
                 if ($protectionSourceObjects.Id -notcontains $Id) {
                     Write-Output "Protection source id '$Id' not found"
                     return
                 }
             }
+            $principalDetail.ProtectionSources = $principalDetail.protectionSources | Where-Object {$_.Id -notin $ProtectionSourceObjectIds}
         }
         if ($ViewNames) {
-            $viewObjects = Get-CohesityView
+            $viewObjects = $principalDetail.Views
             foreach ($viewName in $ViewNames) {
                 if ($viewObjects.Name -notcontains $viewName) {
                     Write-Output "View name '$viewName' not found"
                     return
                 }
             }
+            $principalDetail.Views = @($principalDetail.Views | Where-Object {$_ -notin $ViewNames})
         }
 
         if ($PSCmdlet.ShouldProcess($PrincipalName)) {
@@ -92,7 +94,7 @@ function Add-CohesityProtectionSourceForPrincipal {
                 @{Response = "Success"; Method = "Put"; }
             }
             else {
-                $errorMsg = "Protection source and view permission : Failed to add"
+                $errorMsg = "Protection source and view permission : Failed to remove"
                 Write-Output $errorMsg
                 CSLog -Message $errorMsg
             }
