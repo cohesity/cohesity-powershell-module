@@ -18,6 +18,7 @@ function Update-CohesityUserGroup {
     Param(
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
+        # User group object
         [object]$UserGroupObject
     )
 

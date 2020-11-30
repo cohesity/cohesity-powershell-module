@@ -24,16 +24,20 @@ function Add-CohesityProtectionSourceForPrincipal {
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
         [ValidateSet("USER", "GROUP")]
+        # Principal type "USER" or "GROUP" to differentiate between cohesity user and group.
         [string]$PrincipalType,
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
+        # Principal name of "USER" or "GROUP" type.
         [string]$PrincipalName,
         [Parameter(Mandatory = $false)]
         [ValidateNotNullOrEmpty()]
-		# The protection source object ids, use Get-CohesityProtectionSourceObject to identify the desired one.
+        # The protection source object ids to grant access for the principal,
+        # use Get-CohesityProtectionSourceObject to identify the desired one.
         [long[]]$ProtectionSourceObjectIds,
         [Parameter(Mandatory = $false)]
         [ValidateNotNullOrEmpty()]
+        # The view names to grant access for the principal.
         [string[]]$ViewNames
     )
 

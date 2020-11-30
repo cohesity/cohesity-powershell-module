@@ -20,15 +20,21 @@ function New-CohesityUserGroup {
     Param(
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
+        # Specifies the name of the group.
         [string]$Name,
         [Parameter(Mandatory = $false)]
+        # Specifies the domain of the group.
         [string]$Domain = "LOCAL",
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
+        # Specifies the Cohesity roles to associate with the group such as 'Admin', 'Ops' or 'View'.
+        # The Cohesity roles determine privileges on the Cohesity Cluster for all the users in this group.
         [string[]]$Roles,
         [Parameter(Mandatory = $false)]
+        # Specifies a description of the group.
         [string]$Description,
         [Parameter(Mandatory = $false)]
+        # Specifies the name of users who are members of the group. This field is used only for local groups.
         [string[]]$UserNames
     )
 

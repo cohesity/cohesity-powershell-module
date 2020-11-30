@@ -6,6 +6,10 @@ Param(
 )
 
 Begin {
+	if (!(Get-Module "PlatyPS")) {
+	    Install-Module -Name PlatyPS -Force -Scope CurrentUser
+	}
+	Import-Module "PlatyPS"
 
 	$moduleName = "Cohesity.PowerShell"
 	$resp = Get-InstalledModule
@@ -21,7 +25,7 @@ Begin {
 	New-MarkdownHelp -Module $moduleName -OutputFolder $OutputFolder  -Force -NoMetadata
 	$mdFiles = @( Get-ChildItem -Recurse -Path $OutputFolder\*.md -ErrorAction SilentlyContinue )
 	foreach($mdFile in $mdFiles) {
-		mv $mdFile.FullName $mdFile.FullName.ToLower()
+		ren $mdFile.FullName $mdFile.FullName.ToLower()
 	}
 }
 

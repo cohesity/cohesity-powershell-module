@@ -17,9 +17,11 @@ function Get-CohesityProtectionSourceForPrincipal {
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
         [ValidateSet("USER", "GROUP")]
+        # Principal type "USER" or "GROUP" to differentiate between cohesity user and group.
         [string]$PrincipalType,
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
+        # Principal name of "USER" or "GROUP" type.
         [string]$PrincipalName
     )
 

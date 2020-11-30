@@ -18,6 +18,7 @@ function Remove-CohesityUserGroup {
     Param(
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
+        # Name of Group. Specifies the name of group to delete on the Cohesity Cluster.
         [string]$Name
     )
 

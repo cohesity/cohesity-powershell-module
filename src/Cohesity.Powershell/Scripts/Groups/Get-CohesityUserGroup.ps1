@@ -13,6 +13,7 @@ function Get-CohesityUserGroup {
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory = $false)]
+        # Optionally specify a group name to filter by. All groups containing name will be returned.
         [string]$Name
     )
 

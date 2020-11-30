@@ -24,15 +24,19 @@ function Remove-CohesityProtectionSourceForPrincipal {
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
         [ValidateSet("USER", "GROUP")]
+        # Principal type "USER" or "GROUP" to differentiate between cohesity user and group.
         [string]$PrincipalType,
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
+        # Principal name of "USER" or "GROUP" type.
         [string]$PrincipalName,
         [Parameter(Mandatory = $false)]
         [ValidateNotNullOrEmpty()]
+        # The protection source object ids to remove access for the principal.
         [long[]]$ProtectionSourceObjectIds,
         [Parameter(Mandatory = $false)]
         [ValidateNotNullOrEmpty()]
+        # The view names to remove access for the principal.
         [string[]]$ViewNames
     )
 
