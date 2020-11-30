@@ -30,6 +30,7 @@ function Add-CohesityProtectionSourceForPrincipal {
         [string]$PrincipalName,
         [Parameter(Mandatory = $false)]
         [ValidateNotNullOrEmpty()]
+		# The protection source object ids, use Get-CohesityProtectionSourceObject to identify the desired one.
         [long[]]$ProtectionSourceObjectIds,
         [Parameter(Mandatory = $false)]
         [ValidateNotNullOrEmpty()]
