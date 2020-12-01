@@ -28,6 +28,15 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
     ///   Connects to a Cohesity Cluster at the address "192.168.1.100" using the provided credentials.
     ///   </para>
     /// </example>
+    /// <example>
+    ///   <para>PS&gt;</para>
+    ///   <code>
+    ///   Connect-CohesityCluster -Server 192.168.1.100 -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList "mydomain.com\admin", (ConvertTo-SecureString -AsPlainText "p@ssword" -Force))
+    ///   </code>
+    ///   <para>
+    ///   Connects to a Cohesity Cluster at the address "192.168.1.100" using the active directory user, by appending domain name(mydomain.com) to the user.
+    ///   </para>
+    /// </example>
     [Cmdlet(VerbsCommunications.Connect, "CohesityCluster")]
     public class ConnectCohesityCluster : PSCmdlet
     {

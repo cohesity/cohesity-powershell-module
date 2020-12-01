@@ -1,4 +1,3 @@
-
 # Get-CohesityProtectionSourceObject
 
 ## SYNOPSIS
@@ -7,8 +6,8 @@ Gets a list of the registered Protection Sources and their sub objects.
 ## SYNTAX
 
 ```
-Get-CohesityProtectionSourceObject [-Environments <EnvironmentEnum[]>] [-ExcludeTypes <string[]>] [-Id <long>]
- [-IncludeDatastores] [-IncludeNetworks] [-IncludeVMFolders] [<CommonParameters>]
+Get-CohesityProtectionSourceObject [-IncludeDatastores] [-IncludeNetworks] [-IncludeVMFolders]
+ [[-Environments] <EnvironmentEnum[]>] [[-Id] <Int64>] [[-ExcludeTypes] <String[]>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -35,11 +34,15 @@ Returns only the object that matches the specified id.
 ### EXAMPLE 3
 ```
 $sql = Get-CohesityProtectionSourceObject -Environments KSQL
-$sql | Where-Object{$_.SqlProtectionSource.Type -eq "KDatabase"}
 ```
 
+$sql | Where-Object{$_.SqlProtectionSource.Type -eq "KDatabase"}
 Get all the SQL objects and filter the array with KDatabase and KInstance to get the databases and the server instances respectively.
 
+### EXAMPLE 4
+```
+Get-CohesityProtectionSourceObject -Environments kVMware -ExcludeTypes kResourcePool
+```
 
 ## PARAMETERS
 
@@ -99,9 +102,10 @@ For example, set this parameter to 'kVMware' to only return the Sources (and the
 Type: EnvironmentEnum[]
 Parameter Sets: (All)
 Aliases:
+Accepted values: KVMware, KHyperV, KSQL, KView, KPuppeteer, KPhysical, KPure, KNimble, KAzure, KNetapp, KAgent, KGenericNas, KAcropolis, KPhysicalFiles, KIsilon, KGPFS, KKVM, KAWS, KExchange, KHyperVVSS, KOracle, KGCP, KFlashBlade, KAWSNative, KO365, KO365Outlook, KHyperFlex, KGCPNative, KAzureNative, KKubernetes, KElastifile, KAD, KRDSSnapshotManager, KVCD
 
 Required: False
-Position: Named
+Position: 1
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -111,13 +115,13 @@ Accept wildcard characters: False
 Returns only the object specified by the id.
 
 ```yaml
-Type: long
+Type: Int64
 Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: Named
-Default value: None
+Position: 2
+Default value: 0
 Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
@@ -128,12 +132,12 @@ For example, set this parameter to "kResourcePool" to exclude Resource Pool Obje
 Available values : kVCenter, kFolder, kDatacenter, kComputeResource, kClusterComputeResource, kResourcePool, kDatastore, kHostSystem, kVirtualMachine, kVirtualApp, kStandaloneHost, kStoragePod, kNetwork, kDistributedVirtualPortgroup, kTagCategory, kTag
 
 ```yaml
-Type: string[]
+Type: String[]
 Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: Named
+Position: 3
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -144,12 +148,13 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### System.Int64
-Returns only the object specified by the id.
-
 ## OUTPUTS
 
+### System.Array
 ## NOTES
+Published by Cohesity
 
 ## RELATED LINKS
+
+[https://cohesity.github.io/cohesity-powershell-module/#/README](https://cohesity.github.io/cohesity-powershell-module/#/README)
 

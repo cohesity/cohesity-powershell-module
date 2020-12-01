@@ -1,4 +1,3 @@
-
 # Get-CohesityExternalClient
 
 ## SYNOPSIS
@@ -20,8 +19,9 @@ The Get-CohesityExternalClient function is used to get external client IP(s) whi
 Get-CohesityExternalClient
 ```
 
-Get external client (global whitelist) IP(s)
+Get external client (global whitelist) IP(s).
 
+## PARAMETERS
 
 ### CommonParameters
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
@@ -30,7 +30,11 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
+### System.Collections.ArrayList
 ## NOTES
+Published by Cohesity
 
 ## RELATED LINKS
+
+[https://cohesity.github.io/cohesity-powershell-module/#/README](https://cohesity.github.io/cohesity-powershell-module/#/README)
 

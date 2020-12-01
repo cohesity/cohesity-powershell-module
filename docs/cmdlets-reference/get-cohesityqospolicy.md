@@ -1,71 +1,56 @@
-# Get-CohesityRoutes
+# Get-CohesityQOSPolicy
 
 ## SYNOPSIS
-Get the routes.
+Get QOS detail.
 
 ## SYNTAX
 
-### Default (Default)
 ```
-Get-CohesityRoutes [<CommonParameters>]
-```
-
-### Filter
-```
-Get-CohesityRoutes -FilterName <Object> -FilterValue <Object> [<CommonParameters>]
+Get-CohesityQOSPolicy [[-QOSIds] <Int64[]>] [[-QOSNames] <String[]>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-List the static routes for the cohesity cluster.
+The Get-CohesityQOSPolicy function is used to get QOS details.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Get-CohesityRoutes -FilterName INTERFACE-GROUP-NAME -FilterValue "intf_group1"
+Get-CohesityQOSPolicy -QOSIds 23,24
 ```
-
-Lists all filtered cohesity routes.
 
 ### EXAMPLE 2
 ```
-Get-CohesityRoutes -FilterName DESTINATION-NETWORK -FilterValue "1.2.4.14/32"
-```
-
-Lists all filtered cohesity routes.
-
-### EXAMPLE 3
-```
-Get-CohesityRoutes
+Get-CohesityQOSPolicy -QOSNames "Backup Target Commvault"
 ```
 
 ## PARAMETERS
 
-### -FilterName
-Provide one of the option(Destination Network/Interface group name/Next hop) that to be used for filtering the routes
+### -QOSIds
+QOS ids
 
 ```yaml
-Type: Object
-Parameter Sets: Filter
+Type: Int64[]
+Parameter Sets: (All)
 Aliases:
 
-Required: True
-Position: Named
+Required: False
+Position: 1
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -FilterValue
-Provide the value for the option provided in the FilterName
+### -QOSNames
+QOS names
 
 ```yaml
-Type: Object
-Parameter Sets: Filter
+Type: String[]
+Parameter Sets: (All)
 Aliases:
 
-Required: True
-Position: Named
+Required: False
+Position: 2
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False

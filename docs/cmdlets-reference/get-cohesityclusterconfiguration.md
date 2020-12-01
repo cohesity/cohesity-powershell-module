@@ -1,4 +1,3 @@
-
 # Get-CohesityClusterConfiguration
 
 ## SYNOPSIS
@@ -46,7 +45,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
+### Cohesity.Model.Cluster
 ## NOTES
 
 ## RELATED LINKS
-

@@ -10,35 +10,45 @@ function Copy-CohesityView {
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
         Copy-CohesityView -TaskName "Task-clone-a-view" -SourceViewName "source-view" -TargetViewName "target-view" -TargetViewDescription "Create a view clone" -QosPolicy "Backup Target Low" -JobId 12345
+		Clones the Cohesity View called "test-view" with the given source id using the latest run of job id 49402.
         .EXAMPLE
         Copy-CohesityView -TaskName "Task-clone-a-view" -SourceViewName "source-view" -TargetViewName "target-view" -TargetViewDescription "Create a view clone" -JobId 17955 -JobRunId 17956 -StartTime 1582878606980416
+		Clones a view from a job with job run id and start time.
     #>
     [CmdletBinding(DefaultParameterSetName = "Default")]
     param(
         [Parameter(Mandatory = $false)]
         [ValidateNotNullOrEmpty()]
+		# Task name for the operation.
         [string]$TaskName,
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
+		# Specifies the name of the source View that will be cloned.
         [string]$SourceViewName,
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
+		# Specifies the name of the target View.
         [string]$TargetViewName,
         [Parameter(Mandatory = $false)]
         [ValidateNotNullOrEmpty()]
+		# Specifies an optional text description about the View.
         [string]$TargetViewDescription,
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
+		# Job Id for the protected source view.
         [long]$JobId,
         [Parameter(Mandatory = $false)]
         [ValidateNotNullOrEmpty()]
         [ValidateSet("Backup Target High","Backup Target Low","TestAndDev High","TestAndDev Low","Backup Target SSD","Backup Target Commvault")]
+		# Specifies the name of the QoS Policy used for the View.
         [string]$QoSPolicy = "Backup Target Low",
         [Parameter(Mandatory = $true, ParameterSetName = "JobRunSpecific")]
         [ValidateNotNullOrEmpty()]
+		# Job run id for the protected source view.
         [long]$JobRunId = 0,
         [Parameter(Mandatory = $true, ParameterSetName = "JobRunSpecific")]
         [ValidateNotNullOrEmpty()]
+		# Start time for the protected source view.
         [long]$StartTime = 0
     )
     Begin {

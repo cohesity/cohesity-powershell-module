@@ -6,10 +6,10 @@ Clones the specified VMware virtual machine.
 ## SYNTAX
 
 ```
-Copy-CohesityVMwareVM -JobId <long> -ResourcePoolId <long> -SourceId <long> -TargetViewName <string>
- -TaskName <string> [-DatastoreFolderId <long>] [-DisableNetwork] [-JobRunId <long>] [-NetworkId <long>]
- [-NewParentId <long>] [-PoweredOn] [-StartTime <long>] [-VmFolderId <long>] [-VmNamePrefix <string>]
- [-VmNameSuffix <string>] [<CommonParameters>]
+Copy-CohesityVMwareVM -TaskName <String> -TargetViewName <String> -SourceId <Int64> -JobId <Int64>
+ [-JobRunId <Int64>] [-StartTime <Int64>] [-VmNamePrefix <String>] [-VmNameSuffix <String>] [-DisableNetwork]
+ [-PoweredOn] [-DatastoreFolderId <Int64>] [-NetworkId <Int64>] -ResourcePoolId <Int64> [-VmFolderId <Int64>]
+ [-NewParentId <Int64>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -30,7 +30,7 @@ Clones the VMware virtual machine with the given source id using the latest run 
 Specifies the name of the clone task.
 
 ```yaml
-Type: string
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -45,7 +45,7 @@ Accept wildcard characters: False
 Specifies the name of the View where the cloned VM is stored.
 
 ```yaml
-Type: string
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -60,7 +60,7 @@ Accept wildcard characters: False
 Specifies the source id of the VM to be cloned.
 
 ```yaml
-Type: long
+Type: Int64
 Parameter Sets: (All)
 Aliases:
 
@@ -75,7 +75,7 @@ Accept wildcard characters: False
 Specifies the job id that backed up this VM and will be used for cloning.
 
 ```yaml
-Type: long
+Type: Int64
 Parameter Sets: (All)
 Aliases:
 
@@ -91,7 +91,7 @@ Specifies the job run id that captured the snapshot for this VM.
 If not specified the latest run is used.
 
 ```yaml
-Type: long
+Type: Int64
 Parameter Sets: (All)
 Aliases:
 
@@ -108,7 +108,7 @@ Specified as a Unix epoch Timestamp (in microseconds).
 This must be specified if job run id is specified.
 
 ```yaml
-Type: long
+Type: Int64
 Parameter Sets: (All)
 Aliases:
 
@@ -123,7 +123,7 @@ Accept wildcard characters: False
 Specifies the prefix to add to the name of the cloned VM.
 
 ```yaml
-Type: string
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -138,7 +138,7 @@ Accept wildcard characters: False
 Specifies the suffix to add to the name of the cloned VM.
 
 ```yaml
-Type: string
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -184,7 +184,7 @@ Accept wildcard characters: False
 Specifies the folder where the datastore should be created when the VM is being cloned.
 
 ```yaml
-Type: long
+Type: Int64
 Parameter Sets: (All)
 Aliases:
 
@@ -201,7 +201,7 @@ By default, original network configuration is preserved if the VM is cloned unde
 Original network configuration is detached if the VM is cloned under a different vCenter or a different resource pool.
 
 ```yaml
-Type: long
+Type: Int64
 Parameter Sets: (All)
 Aliases:
 
@@ -216,7 +216,7 @@ Accept wildcard characters: False
 Specifies the resource pool where the VM should be cloned.
 
 ```yaml
-Type: long
+Type: Int64
 Parameter Sets: (All)
 Aliases:
 
@@ -232,7 +232,7 @@ Specifies the folder where the VM should be cloned.
 This is applicable only when the VM is being cloned to an alternate location.
 
 ```yaml
-Type: long
+Type: Int64
 Parameter Sets: (All)
 Aliases:
 
@@ -248,7 +248,7 @@ Specifies a new parent source such as vCenter to clone the VM.
 If not specified, the VM is cloned to its original parent source.
 
 ```yaml
-Type: long
+Type: Int64
 Parameter Sets: (All)
 Aliases:
 

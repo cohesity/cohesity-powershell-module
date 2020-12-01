@@ -1,7 +1,7 @@
 # Get-CohesityCmdletConfig
 
 ## SYNOPSIS
-Gets the configuration details for cohesity cmdlet.
+Get the local configuration for cohesity powershell cmdlets.
 
 ## SYNTAX
 
@@ -10,7 +10,7 @@ Get-CohesityCmdletConfig [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Gets the configuration details for cohesity cmdlet.
+Get the local configuration for cohesity powershell cmdlets.
 
 ## EXAMPLES
 
@@ -19,6 +19,8 @@ Gets the configuration details for cohesity cmdlet.
 Get-CohesityCmdletConfig
 ```
 
+## PARAMETERS
+
 ### CommonParameters
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
@@ -26,4 +28,10 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
+## NOTES
+Published by Cohesity
+
 ## RELATED LINKS
+
+[https://cohesity.github.io/cohesity-powershell-module/#/README](https://cohesity.github.io/cohesity-powershell-module/#/README)
+

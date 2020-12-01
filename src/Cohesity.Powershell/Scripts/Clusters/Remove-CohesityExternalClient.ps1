@@ -15,6 +15,7 @@ function Remove-CohesityExternalClient {
     [CmdletBinding(SupportsShouldProcess = $True, ConfirmImpact = "High")]
     Param(
         [Parameter(Mandatory = $true)]
+		# Specifies an IPv4 address.
         $IP4
     )
 

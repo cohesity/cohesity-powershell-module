@@ -10,6 +10,7 @@ function Get-CohesityInterfaceGroup {
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
         Get-CohesityInterfaceGroup
+		List the interface groups for the Cohesity Cluster.
     #>
     [CmdletBinding()]
     Param()

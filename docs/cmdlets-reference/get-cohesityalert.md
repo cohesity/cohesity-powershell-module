@@ -1,4 +1,3 @@
-
 # Get-CohesityAlert
 
 ## SYNOPSIS
@@ -7,9 +6,9 @@ Gets a list of alerts triggered on the Cohesity Cluster filtered by the specifie
 ## SYNTAX
 
 ```
-Get-CohesityAlert -MaxAlerts <long> [-AlertCategories <AlertCategoryEnum[]>] [-AlertIds <string[]>]
- [-AlertSeverities <SeverityEnum[]>] [-AlertStates <AlertStateEnum[]>] [-AlertTypes <int[]>] [-EndTime <long>]
- [-ResolutionIds <long[]>] [-StartTime <long>] [<CommonParameters>]
+Get-CohesityAlert -MaxAlerts <Int64> [-AlertCategories <AlertCategoryEnum[]>] [-AlertStates <AlertStateEnum[]>]
+ [-AlertSeverities <SeverityEnum[]>] [-ResolutionIds <Int64[]>] [-AlertIds <String[]>] [-AlertTypes <Int32[]>]
+ [-StartTime <Int64>] [-EndTime <Int64>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -31,7 +30,7 @@ Limit the number of alerts to the specified value.
 The newest alerts are returned upto the limit specified.
 
 ```yaml
-Type: long
+Type: Int64
 Parameter Sets: (All)
 Aliases:
 
@@ -91,7 +90,7 @@ Accept wildcard characters: False
 Filter by a list of resolution Ids.
 
 ```yaml
-Type: long[]
+Type: Int64[]
 Parameter Sets: (All)
 Aliases:
 
@@ -106,7 +105,7 @@ Accept wildcard characters: False
 Filter by a list of alert Ids.
 
 ```yaml
-Type: string[]
+Type: String[]
 Parameter Sets: (All)
 Aliases:
 
@@ -121,7 +120,7 @@ Accept wildcard characters: False
 Filter by a list of alert types.
 
 ```yaml
-Type: int[]
+Type: Int32[]
 Parameter Sets: (All)
 Aliases:
 
@@ -136,7 +135,7 @@ Accept wildcard characters: False
 Filter by start date and time by specifying a unix epoch time in microseconds.
 
 ```yaml
-Type: long
+Type: Int64
 Parameter Sets: (All)
 Aliases:
 
@@ -151,7 +150,7 @@ Accept wildcard characters: False
 Filter by end date and time by specifying a unix epoch time in microseconds.
 
 ```yaml
-Type: long
+Type: Int64
 Parameter Sets: (All)
 Aliases:
 
@@ -169,7 +168,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
+### Cohesity.Model.Alert
 ## NOTES
 
 ## RELATED LINKS
-

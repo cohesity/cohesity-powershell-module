@@ -1,4 +1,3 @@
-
 # Get-CohesityClusterPartition
 
 ## SYNOPSIS
@@ -7,7 +6,7 @@ Gets a list of partitions in the Cohesity Cluster.
 ## SYNTAX
 
 ```
-Get-CohesityClusterPartition [-Ids <long[]>] [-Names <string[]>] [<CommonParameters>]
+Get-CohesityClusterPartition [-Ids <Int64[]>] [-Names <String[]>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -28,7 +27,7 @@ Gets a list of partitions in the Cohesity Cluster.
 Filter by a list of cluster partition ids.
 
 ```yaml
-Type: long[]
+Type: Int64[]
 Parameter Sets: (All)
 Aliases:
 
@@ -43,7 +42,7 @@ Accept wildcard characters: False
 Filter by a list of cluster partition names.
 
 ```yaml
-Type: string[]
+Type: String[]
 Parameter Sets: (All)
 Aliases:
 
@@ -61,7 +60,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
+### Cohesity.Model.ClusterPartition
 ## NOTES
 
 ## RELATED LINKS
-

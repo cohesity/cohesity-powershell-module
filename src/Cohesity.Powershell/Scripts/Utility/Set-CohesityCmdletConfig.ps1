@@ -12,23 +12,39 @@ class CohesityConfig {
 }
 $Global:CohesityCmdletConfig = $null
 function Set-CohesityCmdletConfig {
+    <#
+        .SYNOPSIS
+        Set the local configuration for cohesity powershell cmdlets.
+        .DESCRIPTION
+        Set the local configuration for cohesity powershell cmdlets.
+        .NOTES
+        Published by Cohesity
+        .LINK
+        https://cohesity.github.io/cohesity-powershell-module/#/README
+        .EXAMPLE
+        Set-CohesityCmdletConfig -LogSeverity 3
+    #>
     [CmdletBinding(DefaultParameterSetName = 'LogSeverity', SupportsShouldProcess = $True, ConfirmImpact = "High")]
     param(
         [Parameter(Mandatory = $false, ParameterSetName = 'LogSeverity')]
         [ValidateSet(0, 1, 2, 3)]
+		# Set the log level.
         $LogSeverity = $null,
         [Parameter(Mandatory = $false, ParameterSetName = 'LogRequestedPayload')]
         [ValidateSet($true, $false)]
-        # not recommended, the request payload may contain passwords or key information
+        # not recommended, the request payload may contain passwords or key information.
         $LogRequestedPayload = $false,
         [Parameter(Mandatory = $false, ParameterSetName = 'LogResponseData')]
         [ValidateSet($true, $false)]
+		# Log the response data.
         $LogResponseData = $false,
         [Parameter(Mandatory = $false, ParameterSetName = 'LogHeaderDetail')]
         [ValidateSet($true, $false)]
+		# Log the header details.
         $LogHeaderDetail = $false,
         [Parameter(Mandatory = $false, ParameterSetName = 'RefreshToken')]
         [ValidateSet($true, $false)]
+		# If set and the token has expired, the framework would attempt refreshing the token.
         $RefreshToken = $false
     )
     Begin {

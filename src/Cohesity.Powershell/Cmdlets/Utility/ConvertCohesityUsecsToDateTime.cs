@@ -26,7 +26,11 @@ namespace Cohesity.Powershell.Cmdlets.Utility
     [OutputType(typeof(DateTime))]
     public class ConvertCohesityUsecsToDateTime : Cmdlet
     {
-
+        /// <summary>
+        /// <para type="description">
+        /// Timestamp in microseconds.
+        /// </para>
+        /// </summary>
         [Parameter(Mandatory = true, ValueFromPipeline = true)]
         public long Usecs { get; set; }
 

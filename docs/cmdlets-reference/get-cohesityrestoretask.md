@@ -1,4 +1,3 @@
-
 # Get-CohesityRestoreTask
 
 ## SYNOPSIS
@@ -7,7 +6,7 @@ Gets a list of the restore tasks filtered by the specified parameters.
 ## SYNTAX
 
 ```
-Get-CohesityRestoreTask [-EndTime <long>] [-Ids <long[]>] [-StartTime <long>] [-Types <TypeEnum[]>]
+Get-CohesityRestoreTask [-Ids <Int64[]>] [-Types <TypeEnum[]>] [-StartTime <Int64>] [-EndTime <Int64>]
  [<CommonParameters>]
 ```
 
@@ -29,7 +28,7 @@ Returns only the restore tasks that match the type 'kRecoverVMs'.
 Filter by a list of task ids.
 
 ```yaml
-Type: long[]
+Type: Int64[]
 Parameter Sets: (All)
 Aliases:
 
@@ -61,7 +60,7 @@ All Restore Tasks (both completed and running) on the Cohesity Cluster that star
 If not set, the start time is creation time of the Cohesity Cluster.
 
 ```yaml
-Type: long
+Type: Int64
 Parameter Sets: (All)
 Aliases:
 
@@ -78,7 +77,7 @@ All Restore Tasks (both completed and running) on the Cohesity Cluster that star
 If not set, the end time is the current time.
 
 ```yaml
-Type: long
+Type: Int64
 Parameter Sets: (All)
 Aliases:
 
@@ -96,7 +95,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
+### Cohesity.Model.RestoreTask
 ## NOTES
 
 ## RELATED LINKS
-

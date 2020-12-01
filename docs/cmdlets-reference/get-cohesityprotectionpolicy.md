@@ -1,4 +1,3 @@
-
 # Get-CohesityProtectionPolicy
 
 ## SYNOPSIS
@@ -7,7 +6,7 @@ Gets a list of protection policies filtered by specified parameters.
 ## SYNTAX
 
 ```
-Get-CohesityProtectionPolicy [-Environments <EnvironmentEnum[]>] [-Ids <string[]>] [-Names <string[]>]
+Get-CohesityProtectionPolicy [[-Environments] <EnvironmentEnum[]>] [[-Ids] <String[]>] [[-Names] <String[]>]
  [<CommonParameters>]
 ```
 
@@ -24,6 +23,11 @@ Get-CohesityProtectionPolicy -Names Test-Policy
 
 Displays the protection policy with name "Test-Policy".
 
+### EXAMPLE 2
+```
+Get-CohesityProtectionPolicy -Environments KPhysical
+```
+
 ## PARAMETERS
 
 ### -Environments
@@ -35,9 +39,10 @@ NOTE: "kPuppeteer" refers to Cohesity's Remote Adapter.
 Type: EnvironmentEnum[]
 Parameter Sets: (All)
 Aliases:
+Accepted values: KVMware, KHyperV, KSQL, KView, KPuppeteer, KPhysical, KPure, KNimble, KAzure, KNetapp, KAgent, KGenericNas, KAcropolis, KPhysicalFiles, KIsilon, KGPFS, KKVM, KAWS, KExchange, KHyperVVSS, KOracle, KGCP, KFlashBlade, KAWSNative, KVCD, KO365, KO365Outlook, KHyperFlex, KGCPNative, KAzureNative, KKubernetes, KElastifile, KAD, KRDSSnapshotManager
 
 Required: False
-Position: Named
+Position: 1
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -47,12 +52,12 @@ Accept wildcard characters: False
 Filter by a list of protection policy ids.
 
 ```yaml
-Type: string[]
+Type: String[]
 Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: Named
+Position: 2
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -62,12 +67,12 @@ Accept wildcard characters: False
 Filter by a list of protection policy names.
 
 ```yaml
-Type: string[]
+Type: String[]
 Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: Named
+Position: 3
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -80,7 +85,11 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
+### System.Array
 ## NOTES
+Published by Cohesity
 
 ## RELATED LINKS
+
+[https://cohesity.github.io/cohesity-powershell-module/#/README](https://cohesity.github.io/cohesity-powershell-module/#/README)
 

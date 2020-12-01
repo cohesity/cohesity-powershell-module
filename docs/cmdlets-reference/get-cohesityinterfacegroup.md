@@ -2,6 +2,7 @@
 
 ## SYNOPSIS
 Get interface group.
+
 ## SYNTAX
 
 ```
@@ -18,7 +19,7 @@ The Get-CohesityInterfaceGroup function is used to get interface group.
 Get-CohesityInterfaceGroup
 ```
 
-List the interface groups for the Cohesity Cluster. 
+List the interface groups for the Cohesity Cluster.
 
 ## PARAMETERS
 
@@ -30,5 +31,9 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## OUTPUTS
 
 ## NOTES
+Published by Cohesity
 
 ## RELATED LINKS
+
+[https://cohesity.github.io/cohesity-powershell-module/#/README](https://cohesity.github.io/cohesity-powershell-module/#/README)
+

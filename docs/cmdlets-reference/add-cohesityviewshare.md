@@ -1,4 +1,3 @@
-
 # Add-CohesityViewShare
 
 ## SYNOPSIS
@@ -7,7 +6,7 @@ Adds a new share to a Cohesity View.
 ## SYNTAX
 
 ```
-Add-CohesityViewShare -ShareName <string> -ViewName <string> [-ViewPath <string>] [<CommonParameters>]
+Add-CohesityViewShare -ViewName <String> -ShareName <String> [-ViewPath <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -28,7 +27,7 @@ Adds a new share called 'Test-Share' using a Cohesity View named 'Test-View' map
 Specifies the name of the View.
 
 ```yaml
-Type: string
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -43,7 +42,7 @@ Accept wildcard characters: False
 Specifies the name of the Share to be created.
 
 ```yaml
-Type: string
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -59,7 +58,7 @@ Specifies a directory path inside the View to be mounted using this Share.
 If not specified, '/' will be used as the default path.
 
 ```yaml
-Type: string
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -77,7 +76,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
+### Cohesity.Model.ViewAlias
 ## NOTES
 
 ## RELATED LINKS
-

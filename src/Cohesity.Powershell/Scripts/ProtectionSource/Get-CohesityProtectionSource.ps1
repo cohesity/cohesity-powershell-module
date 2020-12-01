@@ -1,15 +1,16 @@
 function Get-CohesityProtectionSource {
     <#
         .SYNOPSIS
-        Get protection source.
+        Gets a list of the registered protection sources filtered by the specified parameters.
         .DESCRIPTION
-        The Get-CohesityProtectionSource function is used to get protection source.
+        If no parameters are specified, all protection sources that are registered on the Cohesity Cluster are returned.
         .NOTES
         Published by Cohesity
         .LINK
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
-        Get-CohesityProtectionSource -Environments KPhysical
+        Get-CohesityProtectionSource -Environments KVMware
+		Returns registered protection sources that match the environment type 'kVMware'.
         .EXAMPLE
         Get-CohesityProtectionSource -Id 1234
     #>
@@ -17,8 +18,11 @@ function Get-CohesityProtectionSource {
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory = $false)]
+		# Return only protection sources that match the passed in environment type.
+		# For example, set this parameter to 'kVMware' to only return the VMware sources.
         [Cohesity.Model.ProtectionSource+EnvironmentEnum[]]$Environments,
         [Parameter(Mandatory = $false)]
+		# Return only the protection source that matches the Id.
         [long]$Id
     )
 

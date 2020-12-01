@@ -6,9 +6,9 @@ Clones the specified MS SQL Database.
 ## SYNTAX
 
 ```
-Copy-CohesityMSSQLObject -HostSourceId <long> -InstanceName <string> -JobId <long> -SourceId <long>
- -TaskName <string> [-JobRunId <long>] [-NewDatabaseName <string>] [-StartTime <long>]
- [-TargetHostCredential <PSCredential>] [-TargetHostId <long>] [-TargetHostParentId <long>]
+Copy-CohesityMSSQLObject -TaskName <String> -SourceId <Int64> -HostSourceId <Int64> -JobId <Int64>
+ [-JobRunId <Int64>] [-StartTime <Int64>] [-NewDatabaseName <String>] -InstanceName <String>
+ [-TargetHostId <Int64>] [-TargetHostParentId <Int64>] [-TargetHostCredential <PSCredential>]
  [<CommonParameters>]
 ```
 
@@ -30,7 +30,7 @@ Clones the MS SQL Database with the given source id using the latest run of job 
 Specifies the name of the clone task.
 
 ```yaml
-Type: string
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -46,7 +46,7 @@ Specifies the source id of the MS SQL database to clone.
 This can be obtained using Get-CohesityMSSQLObject.
 
 ```yaml
-Type: long
+Type: Int64
 Parameter Sets: (All)
 Aliases:
 
@@ -61,7 +61,7 @@ Accept wildcard characters: False
 Specifies the source id of the physical server or virtual machine that is hosting the MS SQL instance.
 
 ```yaml
-Type: long
+Type: Int64
 Parameter Sets: (All)
 Aliases:
 
@@ -76,7 +76,7 @@ Accept wildcard characters: False
 Specifies the job id that backed up this MS SQL instance and will be used for this clone operation.
 
 ```yaml
-Type: long
+Type: Int64
 Parameter Sets: (All)
 Aliases:
 
@@ -92,7 +92,7 @@ Specifies the job run id that captured the snapshot for this MS SQL instance.
 If not specified the latest run is used.
 
 ```yaml
-Type: long
+Type: Int64
 Parameter Sets: (All)
 Aliases:
 
@@ -109,7 +109,7 @@ Specified as a Unix epoch Timestamp (in microseconds).
 This must be specified if job run id is specified.
 
 ```yaml
-Type: long
+Type: Int64
 Parameter Sets: (All)
 Aliases:
 
@@ -124,7 +124,7 @@ Accept wildcard characters: False
 Specifies a new name for the cloned database.
 
 ```yaml
-Type: string
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -139,7 +139,7 @@ Accept wildcard characters: False
 Specifies the instance name of the SQL Server for this clone operation.
 
 ```yaml
-Type: string
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -154,7 +154,7 @@ Accept wildcard characters: False
 Specifies the target host for this clone operation.
 
 ```yaml
-Type: long
+Type: Int64
 Parameter Sets: (All)
 Aliases:
 
@@ -170,7 +170,7 @@ Specifies the id of the registered parent source (such as vCenter) of the target
 This is only applicable if the target host is a virtual machine.
 
 ```yaml
-Type: long
+Type: Int64
 Parameter Sets: (All)
 Aliases:
 

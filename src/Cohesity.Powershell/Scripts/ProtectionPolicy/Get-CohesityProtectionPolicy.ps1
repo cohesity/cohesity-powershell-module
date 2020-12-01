@@ -1,26 +1,33 @@
 function Get-CohesityProtectionPolicy {
     <#
         .SYNOPSIS
-        Get protection source.
+        Gets a list of protection policies filtered by specified parameters.
         .DESCRIPTION
-        The Get-CohesityProtectionPolicy function is used to get protection source.
+        If no parameters are specified, all protection policies on the Cohesity Cluster are returned.
+		Specifying parameters filters the results that are returned.
         .NOTES
         Published by Cohesity
         .LINK
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
-        Get-CohesityProtectionPolicy -Environments KPhysical
-        .EXAMPLE
         Get-CohesityProtectionPolicy -Names Test-Policy
+		Displays the protection policy with name "Test-Policy".
+        .EXAMPLE
+        Get-CohesityProtectionPolicy -Environments KPhysical
     #>
 	[OutputType('System.Array')]
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory = $false)]
+		# Filter by Environment type.
+		# Only Policies protecting the specified environment type are returned.
+		# NOTE: "kPuppeteer" refers to Cohesity's Remote Adapter.
         [Cohesity.Model.ProtectionJob+EnvironmentEnum[]]$Environments,
         [Parameter(Mandatory = $false)]
+		# Filter by a list of protection policy ids.
         [string[]]$Ids,
         [Parameter(Mandatory = $false)]
+		# Filter by a list of protection policy names.
         [string[]]$Names
     )
 

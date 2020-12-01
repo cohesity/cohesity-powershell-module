@@ -1,12 +1,13 @@
 # Get-CohesityOrganization
 
 ## SYNOPSIS
-Gets a list of organizations on the Cohesity Cluster filtered by the specified parameters
-To get a specific organization provide the organization name
+Gets a list of organizations on the Cohesity Cluster filtered by the specified parameters.
+To get a specific organization provide the organization name.
+
 ## SYNTAX
 
 ```
-Get-CohesityOrganization -Name <string> [<CommonParameters>] 
+Get-CohesityOrganization [[-Name] <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -31,20 +32,19 @@ Lists the Cohesity organisation after filtering with the given name.
 ## PARAMETERS
 
 ### -Name
-Specifies the name of the organisation
+Specifies the name of the organisation.
 
 ```yaml
-Type: string
+Type: String
 Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: Named
+Position: 1
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
-
 
 ### CommonParameters
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).

@@ -1,13 +1,30 @@
-#### USAGE ####
-#   Get-Command -Name Update-CohesityActiveDirectory -Syntax
-#	********************** Using Function *********************
-#   Update-CohesityActiveDirectory -DomainName cohesity.com
-#   Update-CohesityActiveDirectory -DomainName cohesity.com -IdMappingInfo <Object>
-#   Update-CohesityActiveDirectory -DomainName cohesity.com -PreferredDomainControllers <Object>
-#   Update-CohesityActiveDirectory -DomainName cohesity.com -LdapProvider <Object>
-#   Update-CohesityActiveDirectory -DomainName cohesity.com -IgnoredTrustedDomains <Object>
-###############
 function Update-CohesityActiveDirectory {
+    <#
+        .SYNOPSIS
+		Updates active directory entities.
+        .DESCRIPTION
+        Updates the user id mapping info of an Active Directory.
+		Updates the list of trusted domains to be ignored during trusted domain discovery of an 
+		Active Directory.
+		Updates the LDAP provide Id for an Active Directory domain.
+		Updates the preferred domain controllers of an Active Directory
+
+        .NOTES
+        Published by Cohesity
+        .LINK
+        https://cohesity.github.io/cohesity-powershell-module/#/README
+        .EXAMPLE
+        Update-CohesityActiveDirectory -DomainName cohesity.com
+		.EXAMPLE
+		Update-CohesityActiveDirectory -DomainName cohesity.com -IdMappingInfo <Object>
+		.EXAMPLE
+		Update-CohesityActiveDirectory -DomainName cohesity.com -PreferredDomainControllers <Object>
+		.EXAMPLE
+		Update-CohesityActiveDirectory -DomainName cohesity.com -LdapProvider <Object>
+		.EXAMPLE
+		Update-CohesityActiveDirectory -DomainName cohesity.com -IgnoredTrustedDomains <Object>
+    #>
+
     [CmdletBinding(DefaultParameterSetName = 'IdMappingInfo', SupportsShouldProcess = $True, ConfirmImpact = "High")]
     Param(
         [ValidateNotNullOrEmpty()]
@@ -16,14 +33,19 @@ function Update-CohesityActiveDirectory {
         [Parameter(Mandatory = $true, ParameterSetName = 'IgnoredTrustedDomains', Position = 0)]
         [Parameter(Mandatory = $true, ParameterSetName = 'LdapProvider', Position = 0)]
         [Parameter(Mandatory = $true, ParameterSetName = 'PreferredDomainControllers', Position = 0)]
+		# Specifies the Active Directory Domain Name.
         $DomainName,
         [Parameter(Mandatory = $true, ParameterSetName = 'IdMappingInfo', Position = 1)]
+		# Specifies how the Unix and Windows users are mapped in an Active Directory.
         $IdMappingInfo,
         [Parameter(Mandatory = $true, ParameterSetName = 'IgnoredTrustedDomains', Position = 1)]
+		#  Specifies the list of trusted domains that were set by the user to be ignored during trusted domain discovery.
         $IgnoredTrustedDomains,
         [Parameter(Mandatory = $true, ParameterSetName = 'LdapProvider', Position = 1)]
+		# Specifies the LDAP provider which is map to this Active Directory
         $LdapProvider,
         [Parameter(Mandatory = $true, ParameterSetName = 'PreferredDomainControllers', Position = 1)]
+		# Specifies Map of Active Directory domain names to its preferred domain controllers.
         $PreferredDomainControllers
     )
     Begin {
