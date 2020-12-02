@@ -1,4 +1,3 @@
-
 # Register-CohesityProtectionSourcePhysical
 
 ## SYNOPSIS
@@ -7,8 +6,8 @@ Registers a new Physical protection source with the Cohesity Cluster.
 ## SYNTAX
 
 ```
-Register-CohesityProtectionSourcePhysical -HostType <HostTypeEnum> -PhysicalType <PhysicalTypeEnum>
- -Server <string> [<CommonParameters>]
+Register-CohesityProtectionSourcePhysical -Server <String> -HostType <HostTypeEnum>
+ -PhysicalType <PhysicalTypeEnum> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -29,7 +28,7 @@ Registers a physical linux server with hostname "server.example.com" with the Co
 Hostname or IP Address of the Physical server.
 
 ```yaml
-Type: string
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -85,7 +84,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
+### Cohesity.Model.ProtectionSource
 ## NOTES
 
 ## RELATED LINKS
-

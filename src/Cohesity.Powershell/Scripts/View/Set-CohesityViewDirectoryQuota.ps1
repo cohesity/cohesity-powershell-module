@@ -13,13 +13,17 @@ function Set-CohesityViewDirectoryQuota {
     Param(
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
+		# Specifies the view name.
         [String]$ViewName,
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
+		# Specifies the directory path.
         [String]$DirPath,
         [Parameter(Mandatory = $false)]
+		# Specifies the alert limit in GB.
         [long]$AlertLimitInGB,
         [Parameter(Mandatory = $false)]
+		# Specifies the hard limit in GB.
         [long]$HardLimitInGB
     )
 

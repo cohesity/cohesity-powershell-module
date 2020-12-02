@@ -1,4 +1,3 @@
-
 # Unregister-CohesityProtectionSource
 
 ## SYNOPSIS
@@ -6,12 +5,12 @@ Unregisters the specified protection source from the Cohesity Cluster.
 
 ## SYNTAX
 
-### UNNAMED_PARAMETER_SET_1
+### ById
 ```
-Unregister-CohesityProtectionSource -Id <long> [<CommonParameters>]
+Unregister-CohesityProtectionSource -Id <Int64> [<CommonParameters>]
 ```
 
-### UNNAMED_PARAMETER_SET_2
+### ByObject
 ```
 Unregister-CohesityProtectionSource -ProtectionSource <ProtectionSourceNode> [<CommonParameters>]
 ```
@@ -34,8 +33,8 @@ Unregisters the given protection source.
 Specifies a unique id of the protection source.
 
 ```yaml
-Type: long
-Parameter Sets: UNNAMED_PARAMETER_SET_1
+Type: Int64
+Parameter Sets: ById
 Aliases:
 
 Required: True
@@ -50,7 +49,7 @@ Specifies a protection source object.
 
 ```yaml
 Type: ProtectionSourceNode
-Parameter Sets: UNNAMED_PARAMETER_SET_2
+Parameter Sets: ByObject
 Aliases:
 
 Required: True
@@ -68,6 +67,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ### System.Int64
 Specifies a unique id of the protection source.
 
+### Cohesity.Model.ProtectionSourceNode
 Specifies a protection source object.
 
 ## OUTPUTS
@@ -75,4 +75,3 @@ Specifies a protection source object.
 ## NOTES
 
 ## RELATED LINKS
-

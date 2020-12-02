@@ -5,19 +5,20 @@ Changes the retention of the snapshots associated with a Protection Job.
 
 ## SYNTAX
 
-### UNNAMED_PARAMETER_SET_1
+### ExtendRetention (Default)
 ```
-Set-CohesitySnapshotRetention -ExtendByDays <long> -JobName <string> -JobRunId <long> [-SourceIds <long[]>]
- [<CommonParameters>]
+Set-CohesitySnapshotRetention -JobName <String> -JobRunId <Int64> -ExtendByDays <Int64> [-SourceIds <Int64[]>]
+ [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
-### UNNAMED_PARAMETER_SET_2
+### ReduceRetention
 ```
-Set-CohesitySnapshotRetention -JobName <string> -JobRunId <long> -ReduceByDays <long> [-SourceIds <long[]>]
- [<CommonParameters>]
+Set-CohesitySnapshotRetention -JobName <String> -JobRunId <Int64> -ReduceByDays <Int64> [-SourceIds <Int64[]>]
+ [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
+Changes the retention of the snapshots associated with a Protection Job.
 Returns success if the retention for snapshots is updated successfully.
 
 ## EXAMPLES
@@ -49,7 +50,7 @@ Extends the retention of the snapshots associated with only the specified Source
 The name of the Protection Job.
 
 ```yaml
-Type: string
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -64,7 +65,7 @@ Accept wildcard characters: False
 The unique id of the Protection Job Run.
 
 ```yaml
-Type: long
+Type: Int64
 Parameter Sets: (All)
 Aliases:
 
@@ -79,13 +80,13 @@ Accept wildcard characters: False
 Specifies the number of days by which the Snapshot retention will be extended.
 
 ```yaml
-Type: long
-Parameter Sets: UNNAMED_PARAMETER_SET_1
+Type: Int64
+Parameter Sets: ExtendRetention
 Aliases:
 
 Required: True
 Position: Named
-Default value: None
+Default value: 0
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -94,13 +95,13 @@ Accept wildcard characters: False
 Specifies the number of days by which the Snapshot retention will be reduced.
 
 ```yaml
-Type: long
-Parameter Sets: UNNAMED_PARAMETER_SET_2
+Type: Int64
+Parameter Sets: ReduceRetention
 Aliases:
 
 Required: True
 Position: Named
-Default value: None
+Default value: 0
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -109,9 +110,40 @@ Accept wildcard characters: False
 Specifies the source ids to only select snapshots belonging to these source ids.
 
 ```yaml
-Type: long[]
+Type: Int64[]
 Parameter Sets: (All)
 Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -WhatIf
+Shows what would happen if the cmdlet runs.
+The cmdlet is not run.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: wi
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Confirm
+Prompts you for confirmation before running the cmdlet.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: cf
 
 Required: False
 Position: Named
@@ -128,5 +160,9 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## OUTPUTS
 
 ## NOTES
+Published by Cohesity
 
 ## RELATED LINKS
+
+[https://cohesity.github.io/cohesity-powershell-module/#/README](https://cohesity.github.io/cohesity-powershell-module/#/README)
+

@@ -1,4 +1,3 @@
-
 # Register-CohesityProtectionSourceNetApp
 
 ## SYNOPSIS
@@ -7,7 +6,7 @@ Registers a new NetApp protection source with the Cohesity Cluster.
 ## SYNTAX
 
 ```
-Register-CohesityProtectionSourceNetApp -Credential <PSCredential> -Server <string> -Type <NetappTypeEnum>
+Register-CohesityProtectionSourceNetApp -Server <String> -Credential <PSCredential> -Type <NetappTypeEnum>
  [<CommonParameters>]
 ```
 
@@ -29,7 +28,7 @@ Registers a new NetApp cluster with hostname "netapp-cluster.example.com" with t
 Hostname or IP Address for the NetApp cluster or Vserver.
 
 ```yaml
-Type: string
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -81,7 +80,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
+### Cohesity.Model.ProtectionSource
 ## NOTES
 
 ## RELATED LINKS
-

@@ -1,4 +1,3 @@
-
 # Set-CohesityRemoteCluster
 
 ## SYNOPSIS
@@ -44,11 +43,12 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
+### Cohesity.Model.RemoteCluster
 The updated remote cluster.
 
 ## OUTPUTS
 
+### Cohesity.Model.RemoteCluster
 ## NOTES
 
 ## RELATED LINKS
-

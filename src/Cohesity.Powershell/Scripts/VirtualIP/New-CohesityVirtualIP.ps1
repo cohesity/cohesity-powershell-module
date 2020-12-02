@@ -17,14 +17,18 @@ function New-CohesityVirtualIP {
     Param(
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
+		# Specifies the name of the Interface group.
         [string]$InterfaceGroupName,
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
+		# Specifies the name id of vlan.
         [string]$VlanId,
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
+		# Specifies the list of virtual IPs.
         [string[]]$VirtualIPs,
         [Parameter(Mandatory = $false)]
+		# Specifies the FQDN for the virtual IPs.
         [string]$HostName
     )
 

@@ -1,4 +1,3 @@
-
 # Remove-CohesitySnapshot
 
 ## SYNOPSIS
@@ -6,14 +5,16 @@ Removes the Cohesity snapshots associated with a Protection Job.
 
 ## SYNTAX
 
-### UNNAMED_PARAMETER_SET_1
+### ObjectModel
 ```
-Remove-CohesitySnapshot -JobObject <ProtectionRunInstance> [-SourceIds <long[]>] [<CommonParameters>]
+Remove-CohesitySnapshot -JobObject <ProtectionRunInstance> [-SourceIds <Int64[]>] [-WhatIf] [-Confirm]
+ [<CommonParameters>]
 ```
 
-### UNNAMED_PARAMETER_SET_2
+### JobName
 ```
-Remove-CohesitySnapshot -JobName <string> -JobRunId <long> [-SourceIds <long[]>] [<CommonParameters>]
+Remove-CohesitySnapshot -JobName <String> -JobRunId <Int64> [-SourceIds <Int64[]>] [-WhatIf] [-Confirm]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -38,9 +39,11 @@ Expires the snapshots associated with only the specified Source Id (such as a VM
 ## PARAMETERS
 
 ### -JobObject
+The piped job object.
+
 ```yaml
 Type: ProtectionRunInstance
-Parameter Sets: UNNAMED_PARAMETER_SET_1
+Parameter Sets: ObjectModel
 Aliases:
 
 Required: True
@@ -54,8 +57,8 @@ Accept wildcard characters: False
 The name of the Protection Job.
 
 ```yaml
-Type: string
-Parameter Sets: UNNAMED_PARAMETER_SET_2
+Type: String
+Parameter Sets: JobName
 Aliases:
 
 Required: True
@@ -69,8 +72,8 @@ Accept wildcard characters: False
 The unique id of the Protection Job Run.
 
 ```yaml
-Type: long
-Parameter Sets: UNNAMED_PARAMETER_SET_2
+Type: Int64
+Parameter Sets: JobName
 Aliases:
 
 Required: True
@@ -84,9 +87,40 @@ Accept wildcard characters: False
 Specifies the source ids to only expire snapshots belonging to those source ids.
 
 ```yaml
-Type: long[]
+Type: Int64[]
 Parameter Sets: (All)
 Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Confirm
+Prompts you for confirmation before running the cmdlet.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: cf
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -WhatIf
+Shows what would happen if the cmdlet runs.
+The cmdlet is not run.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: wi
 
 Required: False
 Position: Named
@@ -100,9 +134,11 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
+### Cohesity.Model.ProtectionRunInstance
+The piped job object.
+
 ## OUTPUTS
 
 ## NOTES
 
 ## RELATED LINKS
-

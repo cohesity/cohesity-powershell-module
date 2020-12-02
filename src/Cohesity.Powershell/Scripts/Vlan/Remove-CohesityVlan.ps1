@@ -17,8 +17,10 @@ function Remove-CohesityVlan {
     Param(
         [Parameter(Mandatory = $true, ParameterSetName = 'VlanId')]
         [ValidateNotNullOrEmpty()]
+		# Specifies the Id of the Vlan.
         [int]$VlanId,
         [Parameter(Mandatory = $false, ValueFromPipeline = $True, DontShow = $True)]
+		# Piped vlan info.
         $VlanInfo = $null
     )
 

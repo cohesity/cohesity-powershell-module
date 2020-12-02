@@ -1,44 +1,44 @@
-# Restore-CohesityBackupToView
+# Register-CohesityProtectionSourceO365
 
 ## SYNOPSIS
-Recovers a backup to a view.
+Registers a new O365 protection source with the Cohesity Cluster.
 
 ## SYNTAX
 
 ```
-Restore-CohesityBackupToView [[-SourceName] <Object>] [-TargetViewName] <String> [[-QOSPolicy] <String>]
- [-ProtectionJobName] <String> [<CommonParameters>]
+Register-CohesityProtectionSourceO365 [-Credential] <PSCredential> [-AppId] <String> [-AppSecretKey] <String>
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Recovers a backup to a view.
+Registers a new O365 protection source with the Cohesity Cluster.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Restore-CohesityBackupToView -ProtectionJobName job-nas -TargetViewName nas-view -QOSPolicy "TestAndDev High"
+Register-CohesityProtectionSourceO365 -AppId "app1" -AppSecretKey "key" -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList "root", (ConvertTo-SecureString -AsPlainText "secret" -Force))
 ```
 
 ## PARAMETERS
 
-### -SourceName
-The source name.
+### -Credential
+User credentials for the O365.
 
 ```yaml
-Type: Object
+Type: PSCredential
 Parameter Sets: (All)
 Aliases:
 
-Required: False
+Required: True
 Position: 1
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -TargetViewName
-Target view name where the backedup objects gets cloned.
+### -AppId
+Specifies the app id.
 
 ```yaml
 Type: String
@@ -52,23 +52,8 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -QOSPolicy
-QOS policy, one of the following, "Backup Target High","Backup Target Low","TestAndDev High","TestAndDev Low","Backup Target SSD","Backup Target Commvault".
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 3
-Default value: TestAndDev High
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -ProtectionJobName
-Specifies a protection job name.
+### -AppSecretKey
+Specifies the app secret key.
 
 ```yaml
 Type: String
@@ -76,7 +61,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: 4
+Position: 3
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False

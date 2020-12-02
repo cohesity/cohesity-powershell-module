@@ -8,13 +8,13 @@ function Get-CohesityVlan {
         Get-CohesityVlan
         List all configured Vlans
         .EXAMPLE
-        Get-CohesityVlan -SkipPrimaryAndBondIface <boolean>
+        Get-CohesityVlan -SkipPrimaryAndBondIface "true"
         SkipPrimaryAndBondIface is to filter interfaces entries which are primary interface or bond interfaces
         .EXAMPLE
-        Get-CohesityVlan -VlanId <integer>
+        Get-CohesityVlan -VlanId 222
         Returns the VLAN corresponding to the specified VLAN ID or a specified vlan interface group name.
         .EXAMPLE
-        Get-CohesityVlan -TenantIds [<string>]
+        Get-CohesityVlan -TenantIds 333
         Retuns the Vlan that are configured for the specific tenant. TenantIds contains list of/specific id(s) of the tenants for which configured Vlans are to be returned.
     #>
     [CmdletBinding()]
@@ -26,6 +26,7 @@ function Get-CohesityVlan {
         [Parameter(Mandatory = $false)]
         [String[]]$TenantIds = $null,
         [Parameter(Mandatory = $false)]
+		# Specifies the vlan Id.
         [Int64]$VlanId
     )
 

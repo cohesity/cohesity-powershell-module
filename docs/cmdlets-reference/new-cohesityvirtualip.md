@@ -6,7 +6,8 @@ Creates new virtual IP(s).
 ## SYNTAX
 
 ```
-New-CohesityVirtualIP -InterfaceGroupName <string> -VlanId <string> -VirtualIPs <string[]> -HostName <string> [<CommonParameters>]
+New-CohesityVirtualIP [-InterfaceGroupName] <String> [-VlanId] <String> [-VirtualIPs] <String[]>
+ [[-HostName] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -19,14 +20,10 @@ The New-CohesityVirtualIP function is used to create virtual IP(s).
 New-CohesityVirtualIP -InterfaceGroupName "intf_group2" -VlanId 11 -VirtualIPs "1.3.4.14", "1.3.4.15"
 ```
 
-Creates a new virtual IP with the specified details.
-
 ### EXAMPLE 2
 ```
 New-CohesityVirtualIP -InterfaceGroupName "intf_group2" -VlanId 11 -VirtualIPs "1.3.4.14", "1.3.4.15" -HostName "myfqdn.cohesity.com"
 ```
-
-Creates a new virtual IP with the specified details with the FQDN/hostname
 
 ## PARAMETERS
 
@@ -34,12 +31,12 @@ Creates a new virtual IP with the specified details with the FQDN/hostname
 Specifies the name of the Interface group.
 
 ```yaml
-Type: string
+Type: String
 Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: Named
+Position: 1
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -49,12 +46,12 @@ Accept wildcard characters: False
 Specifies the name id of vlan.
 
 ```yaml
-Type: string
+Type: String
 Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: Named
+Position: 2
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -64,12 +61,12 @@ Accept wildcard characters: False
 Specifies the list of virtual IPs.
 
 ```yaml
-Type: string[]
+Type: String[]
 Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: Named
+Position: 3
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -79,9 +76,40 @@ Accept wildcard characters: False
 Specifies the FQDN for the virtual IPs.
 
 ```yaml
-Type: string
+Type: String
 Parameter Sets: (All)
 Aliases:
+
+Required: False
+Position: 4
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -WhatIf
+Shows what would happen if the cmdlet runs.
+The cmdlet is not run.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: wi
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Confirm
+Prompts you for confirmation before running the cmdlet.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: cf
 
 Required: False
 Position: Named
@@ -98,5 +126,9 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## OUTPUTS
 
 ## NOTES
+Published by Cohesity
 
 ## RELATED LINKS
+
+[https://cohesity.github.io/cohesity-powershell-module/#/README](https://cohesity.github.io/cohesity-powershell-module/#/README)
+

@@ -22,7 +22,20 @@ function Set-CohesityCmdletConfig {
         .LINK
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
-        Set-CohesityCmdletConfig -LogSeverity 3
+        Set-CohesityCmdletConfig -LogSeverity 2
+		Enables the log severity to 2.
+		.EXAMPLE
+		Set-CohesityCmdletConfig -LogRequestedPayload $true
+		Enables the log for request payload.
+		.EXAMPLE
+		Set-CohesityCmdletConfig -LogResponseData $true
+		Enables the log for response data.
+		.EXAMPLE
+		Set-CohesityCmdletConfig -LogHeaderDetail $true
+		Enables the logs for headers.
+		.EXAMPLE
+		Set-CohesityCmdletConfig -RefreshToken $true
+		Enables the flag RefreshToken, the cmdlet framework would implicitly attempt to refresh the expired token. The user does not need to explicitly connect to the cluster post token expiry.
     #>
     [CmdletBinding(DefaultParameterSetName = 'LogSeverity', SupportsShouldProcess = $True, ConfirmImpact = "High")]
     param(

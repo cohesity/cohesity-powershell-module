@@ -1,16 +1,19 @@
 # Remove-CohesityUser
 
 ## SYNOPSIS
-Creates a new Cohesity User.
+Removes a Cohesity User.
 
 ## SYNTAX
 
 ```
-New-CohesityUser -Name <string> -Domain <string>
+Remove-CohesityUser [-Name] <String> [[-Domain] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Removes the Cohesity User
+If the Cohesity user was created for an Active Directory user, the referenced
+principal user on the Active Directory domain is NOT deleted.
+Only the user on the Cohesity Cluster is deleted.
+Returns Success if the specified user is deleted.
 
 ## EXAMPLES
 
@@ -18,6 +21,7 @@ Removes the Cohesity User
 ```
 Remove-CohesityUser -Name test-user
 ```
+
 ### EXAMPLE 2
 ```
 Remove-CohesityUser -Name test-user -Domain LOCAL
@@ -27,20 +31,21 @@ Remove-CohesityUser -Name test-user -Domain LOCAL
 ```
 Remove-CohesityUser -Name ad_user -Domain ad.engg.company.com
 ```
-Deletes the Cohesity User 
+
+Deletes the Cohesity User.
 
 ## PARAMETERS
 
 ### -Name
-Specifies the name of the User to be created.
+Specifies the name of the User to be deleted.
 
 ```yaml
-Type: string
+Type: String
 Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: Named
+Position: 1
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -50,9 +55,25 @@ Accept wildcard characters: False
 Defaults to LOCAL Domain if not specified.
 
 ```yaml
-Type: string
+Type: String
 Parameter Sets: (All)
 Aliases:
+
+Required: False
+Position: 2
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -WhatIf
+Shows what would happen if the cmdlet runs.
+The cmdlet is not run.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: wi
 
 Required: False
 Position: Named
@@ -61,7 +82,19 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -Confirm
+Prompts you for confirmation before running the cmdlet.
 
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: cf
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
 ```
 
 ### CommonParameters
@@ -72,5 +105,9 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## OUTPUTS
 
 ## NOTES
+Published by Cohesity
 
 ## RELATED LINKS
+
+[https://cohesity.github.io/cohesity-powershell-module/#/README](https://cohesity.github.io/cohesity-powershell-module/#/README)
+

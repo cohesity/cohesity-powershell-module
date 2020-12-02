@@ -1,4 +1,3 @@
-
 # Get-CohesityUser
 
 ## SYNOPSIS
@@ -7,7 +6,7 @@ Gets the users defined on the Cohesity Cluster.
 ## SYNTAX
 
 ```
-Get-CohesityUser [-Domain <string>] [-EmailAddresses <string[]>] [-Names <string[]>] [<CommonParameters>]
+Get-CohesityUser [-Names <String[]>] [-EmailAddresses <String[]>] [-Domain <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -42,7 +41,7 @@ Gets the details of all the users on the Cohesity Cluster.
 Specifies a list of user names to filter the results.
 
 ```yaml
-Type: string[]
+Type: String[]
 Parameter Sets: (All)
 Aliases:
 
@@ -57,7 +56,7 @@ Accept wildcard characters: False
 Specifies a list of email addresses to filter the results.
 
 ```yaml
-Type: string[]
+Type: String[]
 Parameter Sets: (All)
 Aliases:
 
@@ -72,7 +71,7 @@ Accept wildcard characters: False
 Specifies the domain name to filter the results.
 
 ```yaml
-Type: string
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -90,7 +89,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
+### Cohesity.Model.User
 ## NOTES
 
 ## RELATED LINKS
-

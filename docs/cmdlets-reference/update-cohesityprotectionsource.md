@@ -1,4 +1,3 @@
-
 # Update-CohesityProtectionSource
 
 ## SYNOPSIS
@@ -6,12 +5,12 @@ Refreshes the object hierarchy of the specified protection source on the Cohesit
 
 ## SYNTAX
 
-### UNNAMED_PARAMETER_SET_1
+### ById
 ```
-Update-CohesityProtectionSource -Id <long> [<CommonParameters>]
+Update-CohesityProtectionSource -Id <Int64> [<CommonParameters>]
 ```
 
-### UNNAMED_PARAMETER_SET_2
+### ByObject
 ```
 Update-CohesityProtectionSource -ProtectionSource <ProtectionSourceNode> [<CommonParameters>]
 ```
@@ -36,8 +35,8 @@ Immediately refreshes the given protection source.
 Specifies a unique id of the protection source.
 
 ```yaml
-Type: long
-Parameter Sets: UNNAMED_PARAMETER_SET_1
+Type: Int64
+Parameter Sets: ById
 Aliases:
 
 Required: True
@@ -52,7 +51,7 @@ Specifies a protection source object.
 
 ```yaml
 Type: ProtectionSourceNode
-Parameter Sets: UNNAMED_PARAMETER_SET_2
+Parameter Sets: ByObject
 Aliases:
 
 Required: True
@@ -70,6 +69,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ### System.Int64
 Specifies a unique id of the protection source.
 
+### Cohesity.Model.ProtectionSourceNode
 Specifies a protection source object.
 
 ## OUTPUTS
@@ -77,4 +77,3 @@ Specifies a protection source object.
 ## NOTES
 
 ## RELATED LINKS
-

@@ -15,17 +15,22 @@ function New-CohesityVlan {
     Param(
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
+		# Specifies the Interface group name of the Vlan.
         [string]$InterfaceGroupName,
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
+		# Specifies the subnet of the Vlan.
         [string]$Subnet,
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
+		# Specifies the netmask using bits.
         [int]$NetmaskBitsForSubnet,
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
+		# Specifies the Id of the Vlan.
         [int]$VlanId,
         [Parameter(Mandatory = $false)]
+		# Specifies the gateway ip.
         $Gateway = $null
     )
 

@@ -6,7 +6,8 @@ Creates new routes.
 ## SYNTAX
 
 ```
-New-CohesityRoutes -DestNetwork <string> -NextHop <string> -InterfaceGroupName <string>[<CommonParameters>]
+New-CohesityRoutes [-DestNetwork] <Object> [-NextHop] <Object> [-InterfaceGroupName] <Object> [-WhatIf]
+ [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -18,6 +19,7 @@ Creates a static route on the Cohesity cluster.
 ```
 New-CohesityRoutes -DestNetwork "10.2.3.4" -NextHop "10.2.3.5" -InterfaceGroupName "intf_group1"
 ```
+
 Creates a new route.
 
 ## PARAMETERS
@@ -26,12 +28,12 @@ Creates a new route.
 Specifies the destination network of the static route.
 
 ```yaml
-Type: string
+Type: Object
 Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: Named
+Position: 1
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -41,12 +43,12 @@ Accept wildcard characters: False
 Specifies the next hop to the destination network.
 
 ```yaml
-Type: string
+Type: Object
 Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: Named
+Position: 2
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -56,9 +58,40 @@ Accept wildcard characters: False
 Specifies the network interfaces group or interface group with vlan id to use for communicating with the destination network.
 
 ```yaml
-Type: string
+Type: Object
 Parameter Sets: (All)
 Aliases:
+
+Required: True
+Position: 3
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -WhatIf
+Shows what would happen if the cmdlet runs.
+The cmdlet is not run.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: wi
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Confirm
+Prompts you for confirmation before running the cmdlet.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: cf
 
 Required: False
 Position: Named
@@ -75,5 +108,9 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## OUTPUTS
 
 ## NOTES
+Published by Cohesity
 
 ## RELATED LINKS
+
+[https://cohesity.github.io/cohesity-powershell-module/#/README](https://cohesity.github.io/cohesity-powershell-module/#/README)
+

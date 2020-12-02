@@ -6,11 +6,13 @@ Restores the specified MS SQL object from a previous backup.
 ## SYNTAX
 
 ```
-Restore-CohesityMSSQLObject -HostSourceId <long> -JobId <long> -SourceId <long> -TaskName <string>
- [-CaptureTailLogs] [-JobRunId <long>] [-KeepOffline] [-NewDatabaseName <string>] [-NewInstanceName <string>]
- [-RestoreTimeSecs <long>] [-StartTime <long>] [-TargetDataFilesDirectory <string>]
- [-TargetHostCredential <PSCredential>] [-TargetHostId <long>] [-TargetHostParentId <long>]
- [-TargetLogFilesDirectory <string>] [-TargetSecondaryDataFilesDirectoryList <List<FilenamePatternToDirectory>>] [<CommonParameters>]
+Restore-CohesityMSSQLObject -TaskName <String> -SourceId <Int64> -HostSourceId <Int64> -JobId <Int64>
+ [-JobRunId <Int64>] [-StartTime <Int64>] [-CaptureTailLogs] [-KeepOffline] [-NewDatabaseName <String>]
+ [-NewInstanceName <String>] [-RestoreTimeSecs <Int64>] [-TargetDataFilesDirectory <String>]
+ [-TargetLogFilesDirectory <String>]
+ [-TargetSecondaryDataFilesDirectoryList <System.Collections.Generic.List`1[Cohesity.Model.FilenamePatternToDirectory]>]
+ [-TargetHostId <Int64>] [-TargetHostParentId <Int64>] [-TargetHostCredential <PSCredential>]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -25,7 +27,6 @@ Restore-CohesityMSSQLObject -TaskName "sql-restore-task" -SourceId 9 -HostSource
 
 Restores the MS SQL DB with the given source id using the latest run of job id 401.
 
-
 ### EXAMPLE 2
 ```
 $patternList = @()
@@ -34,7 +35,10 @@ $pattern.Directory = "C:\Secondary"
 $pattern.FilenamePattern = "*.mdf"
 $patternList += $pattern
 
-Restore-CohesityMSSQLObject -TaskName "restore-sql" -SourceId 698 -HostSourceId 675 -JobId 1359 -NewDatabaseName "restore-1" -NewInstanceName MSSQLSERVER -TargetHostId 972 -TargetDataFilesDirectory "C:\TEST Data" -TargetLogFilesDirectory "C:\TEST Log" -TargetSecondaryDataFilesDirectoryList $patternList
+Restore-CohesityMSSQLObject -TaskName "restore-sql" -SourceId 698 -HostSourceId 675 -JobId 1359 `
+-NewDatabaseName "restore-1" -NewInstanceName MSSQLSERVER -TargetHostId 972 `
+-TargetDataFilesDirectory "C:\TEST Data" -TargetLogFilesDirectory "C:\TEST Log" `
+-TargetSecondaryDataFilesDirectoryList $patternList
 ```
 
 Restores the MS SQL DB with the given source id on a target server.
@@ -45,7 +49,7 @@ Restores the MS SQL DB with the given source id on a target server.
 Specifies the name of the restore task.
 
 ```yaml
-Type: string
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -61,7 +65,7 @@ Specifies the source id of the MS SQL database to restore.
 This can be obtained using Get-CohesityMSSQLObject.
 
 ```yaml
-Type: long
+Type: Int64
 Parameter Sets: (All)
 Aliases:
 
@@ -76,7 +80,7 @@ Accept wildcard characters: False
 Specifies the source id of the physical server or virtual machine that is hosting the MS SQL instance.
 
 ```yaml
-Type: long
+Type: Int64
 Parameter Sets: (All)
 Aliases:
 
@@ -91,7 +95,7 @@ Accept wildcard characters: False
 Specifies the job id that backed up this MS SQL instance and will be used for this restore.
 
 ```yaml
-Type: long
+Type: Int64
 Parameter Sets: (All)
 Aliases:
 
@@ -104,10 +108,11 @@ Accept wildcard characters: False
 
 ### -JobRunId
 Specifies the job run id that captured the snapshot for this MS SQL instance.
-If not specified the latest run is used. This field must be set if restoring to a different target host.
+If not specified the latest run is used.
+This field must be set if restoring to a different target host.
 
 ```yaml
-Type: long
+Type: Int64
 Parameter Sets: (All)
 Aliases:
 
@@ -124,7 +129,7 @@ Specified as a Unix epoch Timestamp (in microseconds).
 This must be specified if job run id is specified.
 
 ```yaml
-Type: long
+Type: Int64
 Parameter Sets: (All)
 Aliases:
 
@@ -171,7 +176,7 @@ Accept wildcard characters: False
 Specifies a new name for the restored database.
 
 ```yaml
-Type: string
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -186,7 +191,7 @@ Accept wildcard characters: False
 Specifies the instance name of the SQL Server that should be restored.
 
 ```yaml
-Type: string
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -203,7 +208,7 @@ This allows for granular recovery of SQL databases.
 If not specified, the SQL database will be restored from the full/incremental snapshot.
 
 ```yaml
-Type: long
+Type: Int64
 Parameter Sets: (All)
 Aliases:
 
@@ -220,7 +225,7 @@ Missing directory will be automatically created.
 This field must be set if restoring to a different target host.
 
 ```yaml
-Type: string
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -237,7 +242,7 @@ Missing directory will be automatically created.
 This field must be set if restoring to a different target host.
 
 ```yaml
-Type: string
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -250,12 +255,13 @@ Accept wildcard characters: False
 
 ### -TargetSecondaryDataFilesDirectoryList
 Specifies the secondary data filename pattern and corresponding directories of the DB.
-Secondary data files are optional and are user defined. The recommended file extension for secondary files is ".ndf".
+Secondary data files are optional and are user defined.
+The recommended file extension for secondary files is ".ndf".
 If this option is specified and the destination folders do not exist they will be automatically created.
 This field can be set only if restoring to a different target host.
 
 ```yaml
-Type: List<FilenamePatternToDirectory>
+Type: System.Collections.Generic.List`1[Cohesity.Model.FilenamePatternToDirectory]
 Parameter Sets: (All)
 Aliases:
 
@@ -271,7 +277,7 @@ Specifies the target host if the application is to be restored to a different ho
 If not specified, then the application is restored to the original host (physical or virtual) that hosted this application.
 
 ```yaml
-Type: long
+Type: Int64
 Parameter Sets: (All)
 Aliases:
 
@@ -286,7 +292,7 @@ Accept wildcard characters: False
 Specifies the id of the registered parent source (such as vCenter) of the target host.
 
 ```yaml
-Type: long
+Type: Int64
 Parameter Sets: (All)
 Aliases:
 

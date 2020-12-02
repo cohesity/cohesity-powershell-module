@@ -1,13 +1,28 @@
 function Register-CohesityProtectionSourceO365 {
+  <#
+        .SYNOPSIS
+        Registers a new O365 protection source with the Cohesity Cluster.
+        .DESCRIPTION
+        Registers a new O365 protection source with the Cohesity Cluster.
+        .NOTES
+        Published by Cohesity
+        .LINK
+        https://cohesity.github.io/cohesity-powershell-module/#/README
+        .EXAMPLE
+        Register-CohesityProtectionSourceO365 -AppId "app1" -AppSecretKey "key" -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList "root", (ConvertTo-SecureString -AsPlainText "secret" -Force))
+    #>
   [CmdletBinding()]
   Param(
     [Parameter(Mandatory = $true)]
+	# User credentials for the O365.
     [System.Management.Automation.PSCredential]$Credential,
     [Parameter(Mandatory = $true)]
     [ValidateNotNullOrEmpty()]
+	# Specifies the app id.
     [String]$AppId,
     [Parameter(Mandatory = $true)]
     [ValidateNotNullOrEmpty()]
+	# Specifies the app secret key.
     [String]$AppSecretKey
   )
 

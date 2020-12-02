@@ -11,6 +11,7 @@ function Get-CohesityViewDirectoryQuota {
     Param(
         [Parameter(Mandatory = $false)]
         [ValidateNotNullOrEmpty()]
+		# Specifies view name.
         [String]$ViewName
     )
 

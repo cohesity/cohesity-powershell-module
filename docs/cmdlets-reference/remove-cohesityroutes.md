@@ -5,12 +5,15 @@ Removes the routes.
 
 ## SYNTAX
 
+### Default (Default)
 ```
-Remove-CohesityRoutes -DestNetwork <string> -NextHop <string> -InterfaceGroupName <string>[<CommonParameters>]
+Remove-CohesityRoutes [-RouteObject <Object>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
+### NonPiped
 ```
-Get-CohesityRoutes -FilterName <string> -FilterValue <string> | Remove-CohesityRoutes
+Remove-CohesityRoutes -DestNetwork <Object> -NextHop <Object> -InterfaceGroupName <Object>
+ [-RouteObject <Object>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -21,24 +24,23 @@ Deletes the specifies static route from the Cohesity cluster.
 ### EXAMPLE 1
 ```
 Remove-CohesityRoutes -DestNetwork "10.2.3.4" -NextHop "10.2.3.5" -InterfaceGroupName "intf_group1"
+```
 
 Removes the static route based on the specified parameters.
-```
 
 ### EXAMPLE 2
 ```
 Get-CohesityRoutes -FilterName INTERFACE-GROUP-NAME -FilterValue "intf_group1" | Remove-CohesityRoutes
-
 ```
+
 Removes the static route based on the specified parameters.
 
 ### EXAMPLE 3
 ```
 Get-CohesityRoutes -FilterName DESTINATION-NETWORK -FilterValue "1.2.4.14/32" | Remove-CohesityRoutes
-
 ```
-Removes the static route based on the specified parameters.
 
+Removes the static route based on the specified parameters.
 
 ## PARAMETERS
 
@@ -46,8 +48,8 @@ Removes the static route based on the specified parameters.
 Specifies the destination network of the static route.
 
 ```yaml
-Type: string
-Parameter Sets: (All)
+Type: Object
+Parameter Sets: NonPiped
 Aliases:
 
 Required: True
@@ -61,8 +63,8 @@ Accept wildcard characters: False
 Specifies the next hop to the destination network.
 
 ```yaml
-Type: string
-Parameter Sets: (All)
+Type: Object
+Parameter Sets: NonPiped
 Aliases:
 
 Required: True
@@ -76,8 +78,8 @@ Accept wildcard characters: False
 Specifies the network interfaces group or vlan interface group to use for communicating with the destination network.
 
 ```yaml
-Type: string
-Parameter Sets: (All)
+Type: Object
+Parameter Sets: NonPiped
 Aliases:
 
 Required: True
@@ -87,13 +89,29 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -FilterName
-Provide one of the options (Destination Network/Interface group name/Next hop) that is to be used for filtering the routes.
+### -RouteObject
+Piped route object.
 
 ```yaml
-Type: string
+Type: Object
 Parameter Sets: (All)
 Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: True (ByValue)
+Accept wildcard characters: False
+```
+
+### -WhatIf
+Shows what would happen if the cmdlet runs.
+The cmdlet is not run.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: wi
 
 Required: False
 Position: Named
@@ -102,13 +120,13 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -FilterValue
-Provide the value for the option provided in the FilterName.
+### -Confirm
+Prompts you for confirmation before running the cmdlet.
 
 ```yaml
-Type: string
+Type: SwitchParameter
 Parameter Sets: (All)
-Aliases:
+Aliases: cf
 
 Required: False
 Position: Named
@@ -125,5 +143,9 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## OUTPUTS
 
 ## NOTES
+Published by Cohesity
 
 ## RELATED LINKS
+
+[https://cohesity.github.io/cohesity-powershell-module/#/README](https://cohesity.github.io/cohesity-powershell-module/#/README)
+

@@ -1,15 +1,16 @@
 function Set-CohesityProtectionPolicy {
     <#
         .SYNOPSIS
-        Get protection source.
+        Updates a Protection Policy.
         .DESCRIPTION
-        The Set-CohesityProtectionPolicy function is used to set protection policy.
+        Returns the updated Protection Policy.
         .NOTES
         Published by Cohesity
         .LINK
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
-        Set-CohesityProtectionPolicy -ProtectionPolicy Test-Policy -Confirm:$false
+        Set-CohesityProtectionPolicy -ProtectionPolicy $policy
+		Updates a Protection Policy with the specified parameters.
         .EXAMPLE
         $result = Get-CohesityProtectionPolicy -Name Test-Policy
         Set-CohesityProtectionPolicy -Names $result
@@ -22,6 +23,7 @@ function Set-CohesityProtectionPolicy {
     [CmdletBinding(SupportsShouldProcess = $True, ConfirmImpact = "High")]
     Param(
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
+		# The updated Protection Policy object.
         [object]$ProtectionPolicy
     )
 

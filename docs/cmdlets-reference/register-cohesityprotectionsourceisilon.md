@@ -1,4 +1,3 @@
-
 # Register-CohesityProtectionSourceIsilon
 
 ## SYNOPSIS
@@ -7,7 +6,7 @@ Registers a new Isilon protection source with the Cohesity Cluster.
 ## SYNTAX
 
 ```
-Register-CohesityProtectionSourceIsilon -Credential <PSCredential> -Server <string> [<CommonParameters>]
+Register-CohesityProtectionSourceIsilon [-Server] <String> -Credential <PSCredential> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -17,7 +16,7 @@ Registers a new Isilon protection source with the Cohesity Cluster.
 
 ### EXAMPLE 1
 ```
-Register-CohesityProtectionSourceIsilon -Server isilon-cluster.example.com -Credential (Get-Credential)
+Register-CohesityProtectionSourceIsilon -Server "isilon-cluster.example.com"  -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList "root", (ConvertTo-SecureString -AsPlainText "secret" -Force))
 ```
 
 Registers a new Isilon cluster with hostname "isilon-cluster.example.com" with the Cohesity Cluster.
@@ -28,12 +27,12 @@ Registers a new Isilon cluster with hostname "isilon-cluster.example.com" with t
 Hostname or IP Address for the Isilon cluster.
 
 ```yaml
-Type: string
+Type: String
 Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: Named
+Position: 1
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -62,6 +61,9 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## OUTPUTS
 
 ## NOTES
+Published by Cohesity
 
 ## RELATED LINKS
+
+[https://cohesity.github.io/cohesity-powershell-module/#/README](https://cohesity.github.io/cohesity-powershell-module/#/README)
 

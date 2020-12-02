@@ -1,13 +1,36 @@
 function Set-CohesityAlertResolutions {
+    <#
+        .SYNOPSIS
+        Creates or updates an alert resolution.
+        .DESCRIPTION
+        Creates or updates an alert resolution by executing the commandlet individually or using piped commandlet.
+
+        .NOTES
+        Published by Cohesity
+        .LINK
+        https://cohesity.github.io/cohesity-powershell-module/#/README
+        .EXAMPLE
+        Set-CohesityAlertResolutions -AlertIds 2286917:1574404721769725,2285865:1574389202182867
+		.EXAMPLE
+		Set-CohesityAlertResolutions -ResolutionId 2684117 -AlertIds 2286917:1574404721769725,2285865:1574389202182867
+		.EXAMPLE
+		Get-CohesityAlert -MaxAlerts 1 -AlertStates kOpen | Set-CohesityAlertResolutions
+		.EXAMPLE
+		Get-CohesityAlert -MaxAlerts 1 -AlertStates kOpen | Set-CohesityAlertResolutions -ResolutionId 2684117
+    #>
     [CmdletBinding(SupportsShouldProcess = $True, ConfirmImpact = "High")]
     Param(
         [Parameter(Mandatory = $false)]
+		# The resolution id is used to update the alert resolutions.
         $ResolutionId = $null,
         [Parameter(Mandatory = $true, ValueFromPipelineByPropertyName = $True)]
+		# Specifies an array of protection job run ids.
         [alias("Id")][string[]]$AlertIds,
         [Parameter(Mandatory = $false)]
+		# Resolution summary.
         $ResolutionSummary = $null,
         [Parameter(Mandatory = $false)]
+		# Describe the resolution.
         $ResolutionDetails = $null
     )
     Begin {

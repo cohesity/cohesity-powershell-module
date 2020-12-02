@@ -5,59 +5,74 @@ function Update-CohesityProtectionJobRun {
 		.DESCRIPTION
 		The Update-CohesityProtectionJobRun function is used to update the existing protection job run with to extend on local, archive and replication servers. Piping can also be used with this cmdlet.
 		.EXAMPLE
-		# Extend the retention for 10 days on local server for the selected job runs
 		Update-CohesityProtectionJobRun -ProtectionJobName viewJob -JobRunIds 65675,65163 -ExtendRetention 10
+		Extend the retention for 10 days on local server for the selected job runs
 		.EXAMPLE
-		Update-CohesityProtectionJobRun -ProtectionJobName viewJob -JobRunIds 65675 -ExtendRetention 10 (Extend by 10 days)
+		Update-CohesityProtectionJobRun -ProtectionJobName viewJob -JobRunIds 65675 -ExtendRetention 10
+		Extend the retention by 10 days.
 		.EXAMPLE
-		Update-CohesityProtectionJobRun -ProtectionJobName viewJob -JobRunIds 65675 -ExtendRetention -3 (Reduce by 3 days)
+		Update-CohesityProtectionJobRun -ProtectionJobName viewJob -JobRunIds 65675 -ExtendRetention -3
+		Reduce the retention by 3 days.
 		.EXAMPLE
-		Update-CohesityProtectionJobRun -ProtectionJobName viewJob -JobRunIds 65675 -ExtendRetention 0 (Mark the snapshot for deletion)
+		Update-CohesityProtectionJobRun -ProtectionJobName viewJob -JobRunIds 65675 -ExtendRetention 0
+		Mark the snapshot for deletion.
 		.EXAMPLE
-		# Extend the retention for 10 days for all job runs with the given job name
 		Update-CohesityProtectionJobRun -ProtectionJobName viewJob -ExtendRetention 10
+		Extend the retention for 10 days for all job runs with the given job name.
 		.EXAMPLE
-		# Extend the retention by providing start time and end time
 		Update-CohesityProtectionJobRun -ProtectionJobName viewJob -StartTimeUsecs 1573929000000000 -EndTimeUsecs 1574101799999000 -ExtendRetention 10
+		Extend the retention by providing start time and end time.
 		.EXAMPLE
-		# Piping the job runs
 		Get-CohesityProtectionJobRun -JobName viewJob | Update-CohesityProtectionJobRun -ExtendRetention 10
+		Piping the job runs.
 		.EXAMPLE
 		Get-CohesityProtectionJobRun -JobName viewJob -StartTime 1573929000000000 -EndTime 1574101799999000 | Update-CohesityProtectionJobRun -ExtendRetention 10
 		.EXAMPLE
-		# Extend retention for archive
 		Update-CohesityProtectionJobRun -ArchiveNames nas-archive-3,nas-archive-2,nas-archive-4 -ArchiveRetention 20 -ArchivePartialJobRun:$false -JobRunIds 583 -ProtectionJobName job-small-vms
+		Extend retention for archive
 		.EXAMPLE
-		# Extend retention for replication
 		Update-CohesityProtectionJobRun -ReplicationNames replication-server1,replication-server2 -ReplicationRetention 10 -ReplicationPartialJobRun:$false -JobRunIds 651 -ProtectionJobName job-small-vms
+		Extend retention for replication
 	#>
 	[CmdletBinding(DefaultParameterSetName = "Local", SupportsShouldProcess = $True, ConfirmImpact = "High")]
 	param(
 		[Parameter(Mandatory = $False)]
+		# Specifies a protection job name.
 		$ProtectionJobName = $null,
 		[Parameter(Mandatory = $False)]
+		# Specifies an array of protection job run ids.
 		[string[]]$JobRunIds = $null,
 		[Parameter(Mandatory = $False)]
+		# Specifies start time in micro seconds.
 		[Uint64]$StartTimeUsecs = $null,
 		[Parameter(Mandatory = $False)]
+		# Specifies end time in micro seconds.
 		[Uint64]$EndTimeUsecs = $null,
 		[Parameter(Mandatory = $True, ParameterSetName = "Local")]
 		[Parameter(ParameterSetName = "Archive")]
 		[Parameter(ParameterSetName = "Replication")]
+		# Specifies end time in micro seconds.
 		[Int64]$ExtendRetention = $null,
 		[Parameter(Mandatory = $True, ParameterSetName = "Archive")]
+		# Specifies archive names.
 		[string[]]$ArchiveNames = $null,
 		[Parameter(Mandatory = $True, ParameterSetName = "Archive")]
+		# Specifies archive retention.
 		[Int64]$ArchiveRetention = $null,
 		[Parameter(Mandatory = $True, ParameterSetName = "Archive")]
+		# Flag for archiving partial job runs.
 		[switch]$ArchivePartialJobRun,
 		[Parameter(Mandatory = $True, ParameterSetName = "Replication")]
+		# Specifies replication names.
 		[string[]]$ReplicationNames = $null,
 		[Parameter(Mandatory = $True, ParameterSetName = "Replication")]
+		# Specifies replication retention.
 		[Int64]$ReplicationRetention = $null,
 		[Parameter(Mandatory = $True, ParameterSetName = "Replication")]
+		# Flag for replication partial job runs.
 		[switch]$ReplicationPartialJobRun,
 		[Parameter(ValueFromPipeline = $True, DontShow = $True)]
+		# Piped object for backup job runs.
 		[object[]]$BackupJobRuns = $null
 	)
 

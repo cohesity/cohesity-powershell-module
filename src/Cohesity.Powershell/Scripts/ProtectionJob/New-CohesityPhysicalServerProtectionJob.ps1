@@ -9,8 +9,6 @@ function New-CohesityPhysicalServerProtectionJob {
         .LINK
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
-        New-CohesityPhysicalServerProtectionJob -Name <string> -PolicyName <string> -StorageDomainName <string> -SourceName <string>
-        .EXAMPLE
         New-CohesityPhysicalServerProtectionJob -Name ps-block-based -PolicyName Bronze -StorageDomainName DefaultStorageDomain -SourceName "10.2.151.120" -SourceType kPhysical
         .EXAMPLE
         New-CohesityPhysicalServerProtectionJob -Name ps-files-based -PolicyName Bronze -StorageDomainName DefaultStorageDomain -SourceName "10.2.151.120" -SourceType kPhysicalFiles -TimeZone "Asia/Calcutta"
@@ -19,21 +17,27 @@ function New-CohesityPhysicalServerProtectionJob {
     Param(
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
+		# Specifies the name of the protection job.
         $Name,
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
+		# Specifies the policy name of the protection job.
         $PolicyName,
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
+		# Specifies the viewbox or the storage domain name associated with the protection job.
         $StorageDomainName,
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
+		# Specifies the source name for the protection job.
         $SourceName,
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
         [ValidateSet("kPhysical", "kPhysicalFiles")]
+		# Specifies the source type of the source name.
         $SourceType,
         [Parameter(Mandatory = $false)]
+		# Specifies the time zone.
         $TimeZone
     )
 

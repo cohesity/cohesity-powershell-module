@@ -13,16 +13,14 @@ function Update-CohesityActiveDirectory {
         Published by Cohesity
         .LINK
         https://cohesity.github.io/cohesity-powershell-module/#/README
-        .EXAMPLE
-        Update-CohesityActiveDirectory -DomainName cohesity.com
 		.EXAMPLE
-		Update-CohesityActiveDirectory -DomainName cohesity.com -IdMappingInfo <Object>
+		Update-CohesityActiveDirectory -DomainName cohesity.com -IdMappingInfo $mappingObject
 		.EXAMPLE
-		Update-CohesityActiveDirectory -DomainName cohesity.com -PreferredDomainControllers <Object>
+		Update-CohesityActiveDirectory -DomainName cohesity.com -PreferredDomainControllers $dcObject
 		.EXAMPLE
-		Update-CohesityActiveDirectory -DomainName cohesity.com -LdapProvider <Object>
+		Update-CohesityActiveDirectory -DomainName cohesity.com -LdapProvider $ldapObject
 		.EXAMPLE
-		Update-CohesityActiveDirectory -DomainName cohesity.com -IgnoredTrustedDomains <Object>
+		Update-CohesityActiveDirectory -DomainName cohesity.com -IgnoredTrustedDomains $itdObject
     #>
 
     [CmdletBinding(DefaultParameterSetName = 'IdMappingInfo', SupportsShouldProcess = $True, ConfirmImpact = "High")]

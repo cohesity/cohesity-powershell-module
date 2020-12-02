@@ -1,4 +1,3 @@
-
 # Set-CohesityProtectionSource
 
 ## SYNOPSIS
@@ -7,7 +6,7 @@ Updates the registered protection source.
 ## SYNTAX
 
 ```
-Set-CohesityProtectionSource -ProtectionSourceObject <object> [<CommonParameters>]
+Set-CohesityProtectionSource [-ProtectionSourceObject] <Object> [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -17,18 +16,19 @@ If no parameters are specified, all protection sources that are registered on th
 
 ### EXAMPLE 1
 ```
-Set-CohesityProtectionSource -ProtectionSourceObject <object>
+Set-CohesityProtectionSource -ProtectionSourceObject $theObject
 ```
+
 Returns updated registered protection sources.
 
 ### EXAMPLE 2
 ```
 $protecionSource = Get-CohesityProtectionSource -Id 121
+```
+
 $protecionSource.Name = "UpdatedName"
 $protecionSource | Set-CohesityProtectionSource
-```
 Returns updated registered protection sources when the object is piped.
-
 
 ## PARAMETERS
 
@@ -36,14 +36,45 @@ Returns updated registered protection sources when the object is piped.
 The protection source object, can be found from Get-CohesityProtectionSource.
 
 ```yaml
-Type: long
+Type: Object
 Parameter Sets: (All)
 Aliases:
 
 Required: True
+Position: 1
+Default value: None
+Accept pipeline input: True (ByValue)
+Accept wildcard characters: False
+```
+
+### -WhatIf
+Shows what would happen if the cmdlet runs.
+The cmdlet is not run.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: wi
+
+Required: False
 Position: Named
 Default value: None
-Accept pipeline input: True
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Confirm
+Prompts you for confirmation before running the cmdlet.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: cf
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
@@ -55,6 +86,9 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## OUTPUTS
 
 ## NOTES
+Published by Cohesity
 
 ## RELATED LINKS
+
+[https://cohesity.github.io/cohesity-powershell-module/#/README](https://cohesity.github.io/cohesity-powershell-module/#/README)
 

@@ -6,7 +6,7 @@ Request to download the specified file from the specified server.
 ## SYNTAX
 
 ```
-Save-CohesityFile -FileName <string> -ServerName <string> -OutFile <string>[<CommonParameters>]
+Save-CohesityFile [-FileName] <Object> [[-OutFile] <Object>] [-ServerName] <Object> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -16,14 +16,16 @@ The Save-CohesityFile function is used to download specific file using REST API 
 
 ### EXAMPLE 1
 ```
-Save-CohesityFile -FileName <string> -ServerName <string> -OutFile <string>
+Save-CohesityFile -FileName sfile1 -ServerName server1 -OutFile dfile1
 ```
+
 Download the specified file from the server under specified target path
 
 ### EXAMPLE 2
 ```
-Save-CohesityFile -FileName <string> -ServerName <string>       
+Save-CohesityFile -FileName sfile1 -ServerName server1
 ```
+
 Download the specified file from the server under home path
 
 ## PARAMETERS
@@ -32,12 +34,27 @@ Download the specified file from the server under home path
 Specifies the name of the file.
 
 ```yaml
-Type: string
+Type: Object
 Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: Named
+Position: 1
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -OutFile
+Specifies the output file.
+
+```yaml
+Type: Object
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 2
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -47,28 +64,13 @@ Accept wildcard characters: False
 Specifies the name of the server.
 
 ```yaml
-Type: string
+Type: Object
 Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: Named
+Position: 3
 Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -OutFile
-Specifies the output file. 
-
-```yaml
-Type: string
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: null
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -81,5 +83,8 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## OUTPUTS
 
 ## NOTES
+*** Only files can be downloaded
+*** If multiple files found for the specified file search, then the first occured file of the specified server (in search result) will be downloaded
+*** The latest snapshot will be used for downloading the file
 
 ## RELATED LINKS

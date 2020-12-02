@@ -9,19 +9,21 @@ function New-CohesityHypervProtectionJob {
         .LINK
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
-        New-CohesityHypervProtectionJob -Name <string> -PolicyName <string> -StorageDomainName <string> -SourceName <string>
-        .EXAMPLE
         New-CohesityHypervProtectionJob -Name test-hyperv -PolicyName Bronze -StorageDomainName DefaultStorageDomain -SourceName test-vm1
     #>
     [CmdletBinding(SupportsShouldProcess = $True, ConfirmImpact = "High")]
     Param(
         [Parameter(Mandatory = $true)]
+		# Specifies the name of the protection job.
         $Name,
         [Parameter(Mandatory = $true)]
+		# Specifies the policy name of the protection job.
         $PolicyName,
         [Parameter(Mandatory = $true)]
+		# Specifies the viewbox or the storage domain name associated with the protection job.
         $StorageDomainName,
         [Parameter(Mandatory = $true)]
+		# Specifies the source name for the protection job.
         $SourceName
     )
 

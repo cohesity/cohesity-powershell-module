@@ -1,11 +1,12 @@
- # Get-CohesityVault
+# Get-CohesityVault
 
 ## SYNOPSIS
 Get cohesity vault (external targets).
+
 ## SYNTAX
 
 ```
-Get-CohesityVault -VaultName <string> [<CommonParameters>]
+Get-CohesityVault [[-VaultName] <Object>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -14,22 +15,29 @@ List the Vaults (External Targets) registered on the Cohesity Cluster filtered b
 ## EXAMPLES
 
 ### EXAMPLE 1
+```
 Get-CohesityVault -VaultName "nas-archival"
+```
 
 Lists the vault filtered by the vault name.
+
+### EXAMPLE 2
+```
+Get-CohesityVault
+```
 
 ## PARAMETERS
 
 ### -VaultName
-Specifies the name of the vault.
+Specifies the vault name to filter.
 
 ```yaml
-Type: string
+Type: Object
 Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: Named
+Position: 1
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -43,5 +51,9 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## OUTPUTS
 
 ## NOTES
+Published by Cohesity
 
 ## RELATED LINKS
+
+[https://cohesity.github.io/cohesity-powershell-module/#/README](https://cohesity.github.io/cohesity-powershell-module/#/README)
+

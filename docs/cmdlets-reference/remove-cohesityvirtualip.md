@@ -6,7 +6,8 @@ Remove the virtual IP(s).
 ## SYNTAX
 
 ```
-Remove-CohesityVirtualIP -InterfaceGroupName <string> -VlanId <string> -VirtualIPs "1.3.4.14", "1.3.4.15" [<CommonParameters>]
+Remove-CohesityVirtualIP [-InterfaceGroupName] <String> [-VlanId] <String> [-VirtualIPs] <String[]> [-WhatIf]
+ [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -16,9 +17,8 @@ The Remove-CohesityVirtualIP function is used to remove virtual IP(s).
 
 ### EXAMPLE 1
 ```
-Remove-CohesityVirtualIP -InterfaceGroupName "intf_group2" -VlanId 11 -VirtualIPs <string[]>
+Remove-CohesityVirtualIP -InterfaceGroupName "intf_group2" -VlanId 11 -VirtualIPs "1.3.4.14", "1.3.4.15"
 ```
-Removes the virtual IPs.
 
 ## PARAMETERS
 
@@ -26,12 +26,12 @@ Removes the virtual IPs.
 Specifies the name of the Interface group.
 
 ```yaml
-Type: string
+Type: String
 Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: Named
+Position: 1
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -41,12 +41,12 @@ Accept wildcard characters: False
 Specifies the Id of the vlan.
 
 ```yaml
-Type: string
+Type: String
 Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: Named
+Position: 2
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -56,9 +56,40 @@ Accept wildcard characters: False
 Specifies the list of all the virtual IPs.
 
 ```yaml
-Type: string
+Type: String[]
 Parameter Sets: (All)
 Aliases:
+
+Required: True
+Position: 3
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -WhatIf
+Shows what would happen if the cmdlet runs.
+The cmdlet is not run.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: wi
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Confirm
+Prompts you for confirmation before running the cmdlet.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: cf
 
 Required: False
 Position: Named
@@ -75,5 +106,9 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## OUTPUTS
 
 ## NOTES
+Published by Cohesity
 
 ## RELATED LINKS
+
+[https://cohesity.github.io/cohesity-powershell-module/#/README](https://cohesity.github.io/cohesity-powershell-module/#/README)
+

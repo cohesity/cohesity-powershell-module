@@ -52,6 +52,11 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJobRun
         }
 
         #region Params
+        /// <summary>
+        /// <para type="description">
+        /// The piped job object.
+        /// </para>
+        /// </summary>
         [Parameter(Mandatory = true, ValueFromPipeline = true, ParameterSetName = "ObjectModel")]
         public Cohesity.Model.ProtectionRunInstance JobObject { get; set; }
     /// <summary>

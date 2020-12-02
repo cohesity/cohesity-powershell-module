@@ -1,4 +1,4 @@
-# New-CohesityProtectionPolicy 
+# New-CohesityProtectionPolicy
 
 ## SYNOPSIS
 Create a new protection policy.
@@ -6,7 +6,8 @@ Create a new protection policy.
 ## SYNTAX
 
 ```
-New-CohesityProtectionPolicy -PolicyName <string> -BackupInHours <int> -RetainInDays <int> -IncrementalSchedule <string> -VaultName <string> [<CommonParameters>]
+New-CohesityProtectionPolicy [-PolicyName] <String> [-BackupInHours] <Int32> [-RetainInDays] <Int32>
+ [[-IncrementalSchedule] <String>] [[-VaultName] <Object>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -16,18 +17,18 @@ The New-CohesityProtectionPolicy function is used to create a protection new pro
 
 ### EXAMPLE 1
 ```
-New-CohesityProtectionPolicy -PolicyName <string> -BackupInHours 14 -RetainInDays 25 -IncrementalSchedule INCREMENTAL-ONLY
-```
-### EXAMPLE 2
-```
-New-CohesityProtectionPolicy -PolicyName <string> -BackupInHours 14 -RetainInDays 25 -IncrementalSchedule INCREMENTAL-FULL
-```
-### EXAMPLE 3
-```
-New-CohesityProtectionPolicy -PolicyName <string> -BackupInHours 14 -RetainInDays 25 -VaultName <string>
+New-CohesityProtectionPolicy -PolicyName policy1 -BackupInHours 14 -RetainInDays 25 -IncrementalSchedule INCREMENTAL-ONLY
 ```
 
-Creates a new Protection policy.
+### EXAMPLE 2
+```
+New-CohesityProtectionPolicy -PolicyName policy1 -BackupInHours 14 -RetainInDays 25 -IncrementalSchedule INCREMENTAL-FULL
+```
+
+### EXAMPLE 3
+```
+New-CohesityProtectionPolicy -PolicyName policy1 -BackupInHours 14 -RetainInDays 25 -VaultName vault1
+```
 
 ## PARAMETERS
 
@@ -35,28 +36,29 @@ Creates a new Protection policy.
 Specifies the policy for the protection job.
 
 ```yaml
-Type: string
+Type: String
 Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: Named
+Position: 1
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -BackupInHours
-Specifies the no. of hours after which backup has to run.
+Specifies the no.
+of hours after which backup has to run.
 
 ```yaml
-Type: int
+Type: Int32
 Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: Named
-Default value: None
+Position: 2
+Default value: 0
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -65,13 +67,13 @@ Accept wildcard characters: False
 Specifies the number of days for retainment.
 
 ```yaml
-Type: int
+Type: Int32
 Parameter Sets: (All)
 Aliases:
 
-Required: False
-Position: Named
-Default value: None
+Required: True
+Position: 3
+Default value: 0
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -80,12 +82,12 @@ Accept wildcard characters: False
 Specifies the type of incremental schedule.
 
 ```yaml
-Type: string
+Type: String
 Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: Named
+Position: 4
 Default value: INCREMENTAL-ONLY
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -95,13 +97,44 @@ Accept wildcard characters: False
 Specifies the name of the vault.
 
 ```yaml
-Type: string
+Type: Object
 Parameter Sets: (All)
 Aliases:
 
 Required: False
+Position: 5
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -WhatIf
+Shows what would happen if the cmdlet runs.
+The cmdlet is not run.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: wi
+
+Required: False
 Position: Named
-Default value: //null
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Confirm
+Prompts you for confirmation before running the cmdlet.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: cf
+
+Required: False
+Position: Named
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -114,5 +147,9 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## OUTPUTS
 
 ## NOTES
+Published by Cohesity
 
 ## RELATED LINKS
+
+[https://cohesity.github.io/cohesity-powershell-module/#/README](https://cohesity.github.io/cohesity-powershell-module/#/README)
+
