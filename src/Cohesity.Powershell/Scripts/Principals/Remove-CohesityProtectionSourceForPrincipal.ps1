@@ -19,6 +19,7 @@ function Remove-CohesityProtectionSourceForPrincipal {
         Remove-CohesityProtectionSourceForPrincipal -PrincipalType "USER" -PrincipalName user1 -ViewNames view1, view2
         Remove views view1 and view2 for access to user1
     #>
+	[OutputType('System.Collections.Hashtable')]
     [CmdletBinding(DefaultParameterSetName = "DefaultParameters", SupportsShouldProcess = $True, ConfirmImpact = "High")]
     Param(
         [Parameter(Mandatory = $true)]

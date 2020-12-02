@@ -35,6 +35,7 @@
 - [New-CohesityUserGroup](cmdlets-reference/new-cohesityusergroup.md)
 - [Remove-CohesityActiveDirectory](cmdlets-reference/remove-cohesityactivedirectory.md)
 - [Remove-CohesityProtectionSourceForPrincipal](cmdlets-reference/remove-cohesityprotectionsourceforprincipal.md)
+- [Remove-CohesityUser](cmdlets-reference/remove-cohesityuser.md)
 - [Remove-CohesityUserGroup](cmdlets-reference/remove-cohesityusergroup.md)
 - [Update-CohesityActiveDirectory](cmdlets-reference/update-cohesityactivedirectory.md)
 - [Update-CohesityUserGroup](cmdlets-reference/update-cohesityusergroup.md)
@@ -79,6 +80,7 @@
 - [Register-CohesityProtectionSourceSMB](cmdlets-reference/register-cohesityprotectionsourcesmb.md)
 - [Register-CohesityProtectionSourceIsilon](cmdlets-reference/register-cohesityprotectionsourceisilon.md)
 - [Register-CohesityProtectionSourceMSSQL](cmdlets-reference/register-cohesityprotectionsourcemssql.md)
+- [Register-CohesityProtectionSourceO365](cmdlets-reference/register-cohesityprotectionsourceo365.md)
 - [Register-CohesityProtectionSourcePureStorageArray](cmdlets-reference/register-cohesityprotectionsourcepurestoragearray.md)
 - [Update-CohesityProtectionSource](cmdlets-reference/update-cohesityprotectionsource.md)
 - [Unregister-CohesityProtectionSource](cmdlets-reference/unregister-cohesityprotectionsource.md)
@@ -144,8 +146,10 @@
 
 
 - **Tenant**
-- [Get-CohesityOrganisation](cmdlets-reference/get-cohesityorganisation.md)
+- [Get-CohesityOrganization](cmdlets-reference/get-cohesityorganization.md)
 
+- **QOS**
+- [Get-CohesityQOSPolicy](cmdlets-reference/get-cohesityqospolicy.md)
 
 - **Routes**
 - [Get-CohesityRoutes](cmdlets-reference/get-cohesityroutes.md)

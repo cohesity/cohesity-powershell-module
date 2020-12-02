@@ -35,8 +35,8 @@ function Get-CohesityProtectionJob {
 		# Only jobs associated with the specified policy ids, are returned.
         [string[]]$PolicyIds,
         [Parameter(Mandatory = $false)]
-		# Filter by environment types such as kVMware, kView, kSQL, kPuppeteer, kPhysical, kPure, kNetapp, kGenericNas, kHyperV, kAcropolis, kAzure. 
-        # Only jobs protecting the specified environment types are returned. 
+		# Filter by environment types such as kVMware, kView, kSQL, kPuppeteer, kPhysical, kPure, kNetapp, kGenericNas, kHyperV, kAcropolis, kAzure.
+        # Only jobs protecting the specified environment types are returned.
         # NOTE: kPuppeteer refers to Cohesity's remote adapter.
         [Cohesity.Model.ProtectionJob+EnvironmentEnum[]]$Environments,
         [Parameter(Mandatory = $false)]

@@ -11,7 +11,7 @@ New-CohesityUserGroup [-Name] <String> [[-Domain] <String>] [-Roles] <String[]> 
 ```
 
 ## DESCRIPTION
-If an Active Directory domain is specified, a new group is added to the 
+If an Active Directory domain is specified, a new group is added to the
 Cohesity Cluster for the specified Active Directory group principal.
 If the LOCAL domain is specified, a new group is created directly in
 the default LOCAL domain on the Cohesity Cluster.
@@ -141,6 +141,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
+### System.Array
 ## NOTES
 Published by Cohesity
 

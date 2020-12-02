@@ -12,7 +12,7 @@ function Get-CohesityProtectionSourceSummary {
 		Returns summary of all protection sources, for example,
 		envType              : kSQL
 		protectedCount       : 8
-		protected size(GB)   : 0.09 
+		protected size(GB)   : 0.09
 		unprotectedCount     : 53
 		unprotected size(GB) : 0.7
 

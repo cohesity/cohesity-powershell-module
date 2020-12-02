@@ -10,7 +10,7 @@ Get-CohesityActiveDirectory [[-DomainNames] <String[]>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-After a Cohesity Cluster has been joined to an Active Directory domain, the users and groups in 
+After a Cohesity Cluster has been joined to an Active Directory domain, the users and groups in
 the domain can be authenticated on the Cohesity Cluster using their Active Directory credentials.
 NOTE: The userName and password fields are not populated by this operation.
 

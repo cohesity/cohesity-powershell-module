@@ -88,8 +88,8 @@ Accept wildcard characters: False
 ```
 
 ### -Environments
-Filter by environment types such as kVMware, kView, kSQL, kPuppeteer, kPhysical, kPure, kNetapp, kGenericNas, kHyperV, kAcropolis, kAzure. 
-Only jobs protecting the specified environment types are returned. 
+Filter by environment types such as kVMware, kView, kSQL, kPuppeteer, kPhysical, kPure, kNetapp, kGenericNas, kHyperV, kAcropolis, kAzure.
+Only jobs protecting the specified environment types are returned.
 NOTE: kPuppeteer refers to Cohesity's remote adapter.
 
 ```yaml

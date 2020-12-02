@@ -19,6 +19,7 @@ function Add-CohesityProtectionSourceForPrincipal {
         Add-CohesityProtectionSourceForPrincipal -PrincipalType "USER" -PrincipalName user1 -ViewNames view1, view2
         Add views view1 and view2 to grant access to user1
     #>
+	[OutputType('System.Collections.Hashtable')]
     [CmdletBinding(DefaultParameterSetName = "DefaultParameters", SupportsShouldProcess = $True, ConfirmImpact = "High")]
     Param(
         [Parameter(Mandatory = $true)]

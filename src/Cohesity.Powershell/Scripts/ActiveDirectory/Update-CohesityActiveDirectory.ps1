@@ -4,7 +4,7 @@ function Update-CohesityActiveDirectory {
 		Updates active directory entities.
         .DESCRIPTION
         Updates the user id mapping info of an Active Directory.
-		Updates the list of trusted domains to be ignored during trusted domain discovery of an 
+		Updates the list of trusted domains to be ignored during trusted domain discovery of an
 		Active Directory.
 		Updates the LDAP provide Id for an Active Directory domain.
 		Updates the preferred domain controllers of an Active Directory

@@ -3,7 +3,7 @@ function New-CohesityUserGroup {
         .SYNOPSIS
         Creates new user group.
         .DESCRIPTION
-        If an Active Directory domain is specified, a new group is added to the 
+        If an Active Directory domain is specified, a new group is added to the
         Cohesity Cluster for the specified Active Directory group principal.
         If the LOCAL domain is specified, a new group is created directly in
         the default LOCAL domain on the Cohesity Cluster.
@@ -16,6 +16,7 @@ function New-CohesityUserGroup {
         .EXAMPLE
         New-CohesityUserGroup -Name user-group1
     #>
+	[OutputType('System.Array')]
     [CmdletBinding(SupportsShouldProcess = $True, ConfirmImpact = "High")]
     Param(
         [Parameter(Mandatory = $true)]

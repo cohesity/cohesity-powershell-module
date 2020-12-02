@@ -10,6 +10,7 @@ function Get-CohesityUserGroup {
         .EXAMPLE
         Get-CohesityUserGroup -Name user_group1
     #>
+	[OutputType('System.Array')]
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory = $false)]
