@@ -24,6 +24,11 @@ Returns the created or added group.
 New-CohesityUserGroup -Name user-group1
 ```
 
+### EXAMPLE 2
+```
+New-CohesityUserGroup -Name user-group4 -Roles COHESITY_ADMIN -UserNames user1,user2
+```
+
 ## PARAMETERS
 
 ### -Name
