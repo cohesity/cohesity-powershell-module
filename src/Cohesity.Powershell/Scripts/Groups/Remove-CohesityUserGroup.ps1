@@ -12,7 +12,7 @@ function Remove-CohesityUserGroup {
         .LINK
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
-        Remove-CohesityUserGroup  -Name user-group1
+        Remove-CohesityUserGroup -Name user-group1
     #>
     [CmdletBinding(SupportsShouldProcess = $True, ConfirmImpact = "High")]
     Param(

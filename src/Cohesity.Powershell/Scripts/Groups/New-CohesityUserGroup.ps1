@@ -15,6 +15,8 @@ function New-CohesityUserGroup {
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
         New-CohesityUserGroup -Name user-group1
+        .EXAMPLE
+        New-CohesityUserGroup -Name user-group4 -Roles COHESITY_ADMIN -UserNames user1,user2
     #>
     [OutputType('System.Array')]
     [CmdletBinding(SupportsShouldProcess = $True, ConfirmImpact = "High")]
