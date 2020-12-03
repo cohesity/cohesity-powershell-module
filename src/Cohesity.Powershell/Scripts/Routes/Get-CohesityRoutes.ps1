@@ -10,10 +10,10 @@ function Get-CohesityRoutes {
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
         Get-CohesityRoutes -FilterName INTERFACE-GROUP-NAME -FilterValue "intf_group1"
-		Lists all filtered cohesity routes.
+        Lists all filtered cohesity routes.
         .EXAMPLE
         Get-CohesityRoutes -FilterName DESTINATION-NETWORK -FilterValue "1.2.4.14/32"
-		Lists all filtered cohesity routes.
+        Lists all filtered cohesity routes.
         .EXAMPLE
         Get-CohesityRoutes
     #>
@@ -22,11 +22,11 @@ function Get-CohesityRoutes {
         [Parameter(Mandatory = $true, ParameterSetName = 'Filter')]
         [ValidateSet("DESTINATION-NETWORK", "NEXT-HOP", "INTERFACE-GROUP-NAME")]
         [ValidateNotNullOrEmpty()]
-		# Provide one of the option(Destination Network/Interface group name/Next hop) that to be used for filtering the routes
+        # Provide one of the option(Destination Network/Interface group name/Next hop) that to be used for filtering the routes
         $FilterName,
         [Parameter(Mandatory = $true, ParameterSetName = 'Filter')]
         [ValidateNotNullOrEmpty()]
-		# Provide the value for the option provided in the FilterName
+        # Provide the value for the option provided in the FilterName
         $FilterValue
     )
 

@@ -12,7 +12,7 @@ function Get-CohesityProtectionSourceForPrincipal {
         Get-CohesityProtectionSourceForPrincipal -PrincipalType "GROUP" -PrincipalName user-group1
         List all protection sources and views for the pricipal type group.
     #>
-	[OutputType('System.Array')]
+    [OutputType('System.Array')]
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory = $true)]

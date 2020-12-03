@@ -26,7 +26,7 @@ function Get-CohesityVlan {
         [Parameter(Mandatory = $false)]
         [String[]]$TenantIds = $null,
         [Parameter(Mandatory = $false)]
-		# Specifies the vlan Id.
+        # Specifies the vlan Id.
         [Int64]$VlanId
     )
 

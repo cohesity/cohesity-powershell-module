@@ -39,7 +39,7 @@ function New-CohesityStorageDomain {
         [Parameter(Mandatory = $false)][ValidateSet("true", "false")]
         [String]$InlineDeduplication = $true,
         [Parameter(Mandatory = $True)]
-		# Storage domain name.
+        # Storage domain name.
         [String]$Name,
         # Specifies an optional quota limit on the usage allowed for this resource. This limit is specified in GiB.
         # If no value is specified,there is no limit.

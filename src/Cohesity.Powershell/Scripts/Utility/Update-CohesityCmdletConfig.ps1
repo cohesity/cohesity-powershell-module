@@ -14,7 +14,7 @@ function Update-CohesityCmdletConfig {
     [CmdletBinding(SupportsShouldProcess = $True, ConfirmImpact = "High")]
     param(
         [Parameter(Mandatory = $true)]
-		# Use the configuration object and update.
+        # Use the configuration object and update.
         $CurrentConfig
     )
     Begin {

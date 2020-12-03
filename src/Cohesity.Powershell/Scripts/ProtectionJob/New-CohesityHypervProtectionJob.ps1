@@ -14,16 +14,16 @@ function New-CohesityHypervProtectionJob {
     [CmdletBinding(SupportsShouldProcess = $True, ConfirmImpact = "High")]
     Param(
         [Parameter(Mandatory = $true)]
-		# Specifies the name of the protection job.
+        # Specifies the name of the protection job.
         $Name,
         [Parameter(Mandatory = $true)]
-		# Specifies the policy name of the protection job.
+        # Specifies the policy name of the protection job.
         $PolicyName,
         [Parameter(Mandatory = $true)]
-		# Specifies the viewbox or the storage domain name associated with the protection job.
+        # Specifies the viewbox or the storage domain name associated with the protection job.
         $StorageDomainName,
         [Parameter(Mandatory = $true)]
-		# Specifies the source name for the protection job.
+        # Specifies the source name for the protection job.
         $SourceName
     )
 
@@ -41,7 +41,7 @@ function New-CohesityHypervProtectionJob {
     Process {
         if ($PSCmdlet.ShouldProcess($Name)) {
             $timeZone = Get-TimeZone
-			# fix for support to v6.3 and v6.5
+            # fix for support to v6.3 and v6.5
             $protectionPolicyObject = Get-CohesityProtectionPolicy -Names $PolicyName | Where-Object { $_.name -eq $PolicyName }
             if ($null -eq $protectionPolicyObject) {
                 Write-Output "Incorrect protection policy name '$PolicyName'"

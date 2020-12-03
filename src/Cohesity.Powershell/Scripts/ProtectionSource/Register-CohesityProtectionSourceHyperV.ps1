@@ -10,25 +10,25 @@ function Register-CohesityProtectionSourceHyperV {
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
         Register-CohesityProtectionSourceHyperV -Server scvmm.example.com -Credential (Get-Credential) -HyperVType KSCVMMServer
-		Registers a new SCVMM server with hostname "scvmm.example.com" with the Cohesity Cluster.
-		.EXAMPLE
-		Register-CohesityProtectionSourceHyperV -Server hyperV-host.example.com -HyperVType KHyperVHost
-		Registers a new HyperV host "scvmm.example.com" with the Cohesity Cluster.
+        Registers a new SCVMM server with hostname "scvmm.example.com" with the Cohesity Cluster.
+        .EXAMPLE
+        Register-CohesityProtectionSourceHyperV -Server hyperV-host.example.com -HyperVType KHyperVHost
+        Registers a new HyperV host "scvmm.example.com" with the Cohesity Cluster.
     #>
   [CmdletBinding()]
   Param(
     [Parameter(Position = 0, Mandatory = $true)]
     [ValidateNotNullOrEmpty()]
-	# Hostname or IP Address for the SCVMM server.
+    # Hostname or IP Address for the SCVMM server.
     [String]$Server,
     [Parameter(Mandatory = $true)]
     [ValidateNotNullOrEmpty()]
     [ValidateSet('KSCVMMServer', 'KHyperVHost')]
-	# Specifies HyperV type.
+    # Specifies HyperV type.
     $HyperVType,
     [Parameter(Mandatory = $false)]
     [ValidateNotNullOrEmpty()]
-	# User credentials for the SCVMM server.
+    # User credentials for the SCVMM server.
     [System.Management.Automation.PSCredential]$Credentials
   )
 

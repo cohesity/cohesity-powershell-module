@@ -14,15 +14,15 @@ function Register-CohesityProtectionSourceO365 {
   [CmdletBinding()]
   Param(
     [Parameter(Mandatory = $true)]
-	# User credentials for the O365.
+    # User credentials for the O365.
     [System.Management.Automation.PSCredential]$Credential,
     [Parameter(Mandatory = $true)]
     [ValidateNotNullOrEmpty()]
-	# Specifies the app id.
+    # Specifies the app id.
     [String]$AppId,
     [Parameter(Mandatory = $true)]
     [ValidateNotNullOrEmpty()]
-	# Specifies the app secret key.
+    # Specifies the app secret key.
     [String]$AppSecretKey
   )
 

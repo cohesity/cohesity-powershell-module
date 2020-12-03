@@ -14,7 +14,7 @@ function Update-CohesityUserGroup {
         $userGroup.Description = "Updating user group"
         Update-CohesityUserGroup -UserGroupObject $userGroup
     #>
-	[OutputType('System.Array')]
+    [OutputType('System.Array')]
     [CmdletBinding(SupportsShouldProcess = $True, ConfirmImpact = "High")]
     Param(
         [Parameter(Mandatory = $true)]

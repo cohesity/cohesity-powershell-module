@@ -10,7 +10,7 @@ function Set-CohesityProtectionPolicy {
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
         Set-CohesityProtectionPolicy -ProtectionPolicy $policy
-		Updates a Protection Policy with the specified parameters.
+        Updates a Protection Policy with the specified parameters.
         .EXAMPLE
         $result = Get-CohesityProtectionPolicy -Name Test-Policy
         Set-CohesityProtectionPolicy -Names $result
@@ -19,11 +19,11 @@ function Set-CohesityProtectionPolicy {
         $result.name = "Test-Policy-updated"
         $result | Set-CohesityProtectionPolicy
     #>
-	[OutputType('System.Array')]
+    [OutputType('System.Array')]
     [CmdletBinding(SupportsShouldProcess = $True, ConfirmImpact = "High")]
     Param(
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
-		# The updated Protection Policy object.
+        # The updated Protection Policy object.
         [object]$ProtectionPolicy
     )
 

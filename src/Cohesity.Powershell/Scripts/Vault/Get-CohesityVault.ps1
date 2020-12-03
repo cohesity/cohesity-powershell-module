@@ -10,14 +10,14 @@ function Get-CohesityVault {
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
         Get-CohesityVault -VaultName "nas-archival"
-		Lists the vault filtered by the vault name.
+        Lists the vault filtered by the vault name.
         .EXAMPLE
         Get-CohesityVault
     #>
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory = $false)]
-		# Specifies the vault name to filter.
+        # Specifies the vault name to filter.
         $VaultName=$null
     )
     Begin {

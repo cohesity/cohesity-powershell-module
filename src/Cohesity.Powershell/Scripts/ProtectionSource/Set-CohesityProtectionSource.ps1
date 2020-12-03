@@ -10,18 +10,18 @@ function Set-CohesityProtectionSource {
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
         Set-CohesityProtectionSource -ProtectionSourceObject $theObject
-		Returns updated registered protection sources.
+        Returns updated registered protection sources.
         .EXAMPLE
         $protecionSource = Get-CohesityProtectionSource -Id 121
         $protecionSource.Name = "UpdatedName"
         $protecionSource | Set-CohesityProtectionSource
-		Returns updated registered protection sources when the object is piped.
+        Returns updated registered protection sources when the object is piped.
     #>
     [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = "High")]
     Param(
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
         [ValidateNotNullOrEmpty()]
-		# The protection source object, can be found from Get-CohesityProtectionSource.
+        # The protection source object, can be found from Get-CohesityProtectionSource.
         $ProtectionSourceObject
     )
 

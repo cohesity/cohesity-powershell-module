@@ -17,11 +17,11 @@ function Get-CohesityQOSPolicy {
     Param(
         [Parameter(Mandatory = $false)]
         [ValidateNotNullOrEmpty()]
-		# QOS ids
+        # QOS ids
         [long[]]$QOSIds,
         [Parameter(Mandatory = $false)]
         [ValidateNotNullOrEmpty()]
-		# QOS names
+        # QOS names
         [string[]]$QOSNames
     )
 

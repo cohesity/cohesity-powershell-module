@@ -10,34 +10,34 @@ function Set-CohesitySnapshotRetention {
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
         Set-CohesitySnapshotRetention -JobName Test-Job -JobRunId 2123 -ExtendByDays 30
-		Extends the retention of the snapshots associated with the specified Protection Job and Job Run Id by 30 days.
+        Extends the retention of the snapshots associated with the specified Protection Job and Job Run Id by 30 days.
         .EXAMPLE
         Set-CohesitySnapshotRetention -JobName Test-Job -JobRunId 2123 -ReduceByDays 30
-		Reduces the retention of the snapshots associated with the specified Protection Job and Job Run Id by 30 days.
-		.EXAMPLE
-		Set-CohesitySnapshotRetention -JobName Test-Job -JobRunId 2123 -ExtendByDays 30 -SourceIds 883
-		Extends the retention of the snapshots associated with only the specified Source Id (such as a VM), Protection Job and Job Run Id by 30 days.
+        Reduces the retention of the snapshots associated with the specified Protection Job and Job Run Id by 30 days.
+        .EXAMPLE
+        Set-CohesitySnapshotRetention -JobName Test-Job -JobRunId 2123 -ExtendByDays 30 -SourceIds 883
+        Extends the retention of the snapshots associated with only the specified Source Id (such as a VM), Protection Job and Job Run Id by 30 days.
     #>
     [CmdletBinding(DefaultParameterSetName = 'ExtendRetention', SupportsShouldProcess = $True, ConfirmImpact = "High")]
     Param(
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
-		# The name of the Protection Job.
+        # The name of the Protection Job.
         [string]$JobName,
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
-		# The unique id of the Protection Job Run.
+        # The unique id of the Protection Job Run.
         [long]$JobRunId,
         [Parameter(Mandatory = $true, ParameterSetName = "ExtendRetention")]
         [ValidateNotNullOrEmpty()]
-		# Specifies the number of days by which the Snapshot retention will be extended.
+        # Specifies the number of days by which the Snapshot retention will be extended.
         [long]$ExtendByDays,
         [Parameter(Mandatory = $true, ParameterSetName = "ReduceRetention")]
         [ValidateNotNullOrEmpty()]
-		# Specifies the number of days by which the Snapshot retention will be reduced.
+        # Specifies the number of days by which the Snapshot retention will be reduced.
         [long]$ReduceByDays,
         [Parameter(Mandatory = $false)]
-		# Specifies the source ids to only select snapshots belonging to these source ids.
+        # Specifies the source ids to only select snapshots belonging to these source ids.
         [long[]]$SourceIds = $null
     )
 

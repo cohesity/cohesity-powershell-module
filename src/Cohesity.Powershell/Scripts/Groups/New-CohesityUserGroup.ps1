@@ -16,7 +16,7 @@ function New-CohesityUserGroup {
         .EXAMPLE
         New-CohesityUserGroup -Name user-group1
     #>
-	[OutputType('System.Array')]
+    [OutputType('System.Array')]
     [CmdletBinding(SupportsShouldProcess = $True, ConfirmImpact = "High")]
     Param(
         [Parameter(Mandatory = $true)]

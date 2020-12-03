@@ -4,8 +4,8 @@ function Get-CohesityActiveDirectory {
         Get active directory list.
         .DESCRIPTION
         After a Cohesity Cluster has been joined to an Active Directory domain, the users and groups in
-		the domain can be authenticated on the Cohesity Cluster using their Active Directory credentials.
-		NOTE: The userName and password fields are not populated by this operation.
+        the domain can be authenticated on the Cohesity Cluster using their Active Directory credentials.
+        NOTE: The userName and password fields are not populated by this operation.
 
         .NOTES
         Published by Cohesity
@@ -17,7 +17,7 @@ function Get-CohesityActiveDirectory {
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory = $false)]
-		# Specifies the domains to fetch active directory entries.
+        # Specifies the domains to fetch active directory entries.
         [string[]]$DomainNames
     )
     Begin {

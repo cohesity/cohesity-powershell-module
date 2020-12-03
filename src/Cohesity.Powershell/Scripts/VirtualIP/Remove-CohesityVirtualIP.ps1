@@ -15,15 +15,15 @@ function Remove-CohesityVirtualIP {
     Param(
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
-		# Specifies the name of the Interface group.
+        # Specifies the name of the Interface group.
         [string]$InterfaceGroupName,
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
-		# Specifies the Id of the vlan.
+        # Specifies the Id of the vlan.
         [string]$VlanId,
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
-		# Specifies the list of all the virtual IPs.
+        # Specifies the list of all the virtual IPs.
         [string[]]$VirtualIPs
     )
 

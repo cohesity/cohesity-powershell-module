@@ -23,17 +23,17 @@ function Get-CohesityStorageDomain {
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory = $false)]
-		# Filter by a list of cluster partition Ids.
+        # Filter by a list of cluster partition Ids.
         [long[]]$ClusterPartitionIds = $null,
         [Parameter(Mandatory = $false)]
-		# Specifies whether to include usage and performance statistics.
+        # Specifies whether to include usage and performance statistics.
         [switch]$FetchStats,
         [Parameter(Mandatory = $false)]
-		# Filter by a list of storage domain (view box) ids.
+        # Filter by a list of storage domain (view box) ids.
         [long[]]$Ids = $null,
         [Parameter(Mandatory = $false)]
-		# Filter by a list of storage domain (view box) names.
-		# If empty, storage domains(view boxes) are not filtered by name.
+        # Filter by a list of storage domain (view box) names.
+        # If empty, storage domains(view boxes) are not filtered by name.
         [string[]]$Names = $null
     )
 

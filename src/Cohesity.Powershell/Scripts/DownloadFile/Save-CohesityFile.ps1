@@ -20,13 +20,13 @@ function Save-CohesityFile {
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory = $true)]
-		# Specifies the name of the file.
+        # Specifies the name of the file.
         $FileName,
         [Parameter(Mandatory = $false)]
-		# Specifies the output file.
+        # Specifies the output file.
         $OutFile = $null,
         [Parameter(Mandatory = $true)]
-		# Specifies the name of the server.
+        # Specifies the name of the server.
         $ServerName
     )
 

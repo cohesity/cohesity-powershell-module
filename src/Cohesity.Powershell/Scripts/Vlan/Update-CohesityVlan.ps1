@@ -18,29 +18,29 @@ function Update-CohesityVlan {
         [Parameter(Mandatory = $true, ParameterSetName = 'InterfaceGroupName')]
         [Parameter(Mandatory = $false, ParameterSetName = 'PipedVlanInfo')]
         [ValidateNotNullOrEmpty()]
-		# Specifies the name of the Interface group.
+        # Specifies the name of the Interface group.
         [string]$InterfaceGroupName,
         [Parameter(Mandatory = $true, ParameterSetName = 'VlanId')]
         [Parameter(Mandatory = $false, ParameterSetName = 'PipedVlanInfo')]
         [ValidateNotNullOrEmpty()]
-		# Specifies the Id of the Vlan.
+        # Specifies the Id of the Vlan.
         [int]$VlanId,
         [Parameter(Mandatory = $true, ParameterSetName = 'Subnet')]
         [Parameter(Mandatory = $false, ParameterSetName = 'PipedVlanInfo')]
         [ValidateNotNullOrEmpty()]
-		# Specifies the subnet.
+        # Specifies the subnet.
         [string]$Subnet,
         [Parameter(Mandatory = $true, ParameterSetName = 'NetmaskBitsForSubnet')]
         [Parameter(Mandatory = $false, ParameterSetName = 'PipedVlanInfo')]
         [ValidateNotNullOrEmpty()]
-		# Specifies the netmask for subnet.
+        # Specifies the netmask for subnet.
         [int]$NetmaskBitsForSubnet,
         [Parameter(Mandatory = $false, ParameterSetName = 'Gateway')]
         [Parameter(Mandatory = $false, ParameterSetName = 'PipedVlanInfo')]
-		# Specifies the gateway.
+        # Specifies the gateway.
         $Gateway,
         [Parameter(Mandatory = $false, ParameterSetName = 'PipedVlanInfo', ValueFromPipeline = $True, DontShow = $True)]
-		# Piped vlan info.
+        # Piped vlan info.
         $VlanInfo = $null
     )
 

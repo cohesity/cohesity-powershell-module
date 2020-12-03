@@ -14,17 +14,17 @@ function Restore-CohesityBackupToView {
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory = $false)]
-		# The source name.
+        # The source name.
         $SourceName=$null,
         [Parameter(Mandatory = $true)]
-		# Target view name where the backedup objects gets cloned.
+        # Target view name where the backedup objects gets cloned.
         [String]$TargetViewName,
         [Parameter(Mandatory = $false)]
         [ValidateSet("Backup Target High","Backup Target Low","TestAndDev High","TestAndDev Low","Backup Target SSD","Backup Target Commvault")]
-		# QOS policy, one of the following, "Backup Target High","Backup Target Low","TestAndDev High","TestAndDev Low","Backup Target SSD","Backup Target Commvault".
+        # QOS policy, one of the following, "Backup Target High","Backup Target Low","TestAndDev High","TestAndDev Low","Backup Target SSD","Backup Target Commvault".
         [String]$QOSPolicy="TestAndDev High",
         [Parameter(Mandatory = $true)]
-		# Specifies a protection job name.
+        # Specifies a protection job name.
         [String]$ProtectionJobName
     )
     Begin {

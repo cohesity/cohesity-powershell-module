@@ -3,68 +3,68 @@ function Get-CohesityProtectionJobRun {
         .SYNOPSIS
         Gets a list of protection job runs filtered by the specified parameters.
         .DESCRIPTION
-		If no parameters are specified, all the job runs on the Cohesity Cluster are returned.
-		Specifying parameters filters the results that are returned.
+        If no parameters are specified, all the job runs on the Cohesity Cluster are returned.
+        Specifying parameters filters the results that are returned.
         .NOTES
         Published by Cohesity
         .LINK
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
         Get-CohesityProtectionJobRun -SourceId 2
-		Only job runs protecting the specified source Id are returned.
+        Only job runs protecting the specified source Id are returned.
     #>
     [OutputType('System.Array')]
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true, ParameterSetName = "Id")]
         [Alias("Id")]
-		# Filter by a protection job that is specified by id.
+        # Filter by a protection job that is specified by id.
         # If not specified, all job runs for all protection jobs are returned.
         [long]$JobId,
         [Parameter(Mandatory = $false)]
         [ValidateNotNullOrEmpty()]
-		# Filter by a protection job that is specified by name.
+        # Filter by a protection job that is specified by name.
         # If not specified, all job runs for all protection jobs are returned.
         [string]$JobName,
         [Parameter(Mandatory = $false)]
-		# Return a specific job run by specifying a time and a jobId.
+        # Return a specific job run by specifying a time and a jobId.
         # Specify the time when the job run started as a unix epoch timestamp (in microseconds).
         # If this field is specified, JobId must also be specified.
         [long]$StartedTime = $null,
         [Parameter(Mandatory = $false)]
-		# Filter by a start time. Only job runs that started after the specified time are returned.
+        # Filter by a start time. Only job runs that started after the specified time are returned.
         # Specify the start time as a unix epoch timestamp (in microseconds).
         [long]$StartTime = $null,
         [Parameter(Mandatory = $false)]
-		# Filter by a end time specified as a unix epoch timestamp (in microseconds).
+        # Filter by a end time specified as a unix epoch timestamp (in microseconds).
         # Only job runs that completed before the specified end time are returned.
         [long]$EndTime = $null,
         [Parameter(Mandatory = $false)]
-		# Specify the number of job runs to return.
+        # Specify the number of job runs to return.
         # The newest job runs are returned.
         [long]$NumRuns = 1000,
         [Parameter(Mandatory = $false)]
-		# If true, the individual backup status for all the objects protected by the job run are not populated in the response.
+        # If true, the individual backup status for all the objects protected by the job run are not populated in the response.
         # For example in a VMware environment, the status of backing up each VM associated with a job is not returned.
         [switch]$ExcludeTasks,
         [Parameter(Mandatory = $false)]
-		# Filter by source id. Only job runs protecting the specified source (such as a VM or View) are returned.
-		# The source id is assigned by the Cohesity Cluster.
+        # Filter by source id. Only job runs protecting the specified source (such as a VM or View) are returned.
+        # The source id is assigned by the Cohesity Cluster.
         [long]$SourceId = $null,
         [Parameter(Mandatory = $false)]
-		# Filter out job runs with errors by setting this field.
+        # Filter out job runs with errors by setting this field.
         # If not set, job runs with errors are returned.
         [switch]$ExcludeErrorRuns,
         [Parameter(Mandatory = $false)]
-		# Filter by run type such as "kFull", "kRegular" or "kLog".
+        # Filter by run type such as "kFull", "kRegular" or "kLog".
         # If not specified, job runs of all types are returned.
         [string[]]$RunTypes = $null,
         [Parameter(Mandatory = $false)]
-		# Filter out jobs runs that cannot be restored by setting this field.
+        # Filter out jobs runs that cannot be restored by setting this field.
         # If not set, runs without any successful object will be returned.
         [switch]$ExcludeNonRestoreableRuns,
         [Parameter(Mandatory = $false)]
-		# Include jobs runs for deleted jobs by setting this field.
+        # Include jobs runs for deleted jobs by setting this field.
         # If not set, runs for deleted jobs will not be returned.
         [switch]$IncludeDeleted
     )

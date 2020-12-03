@@ -19,23 +19,23 @@ function New-CohesityProtectionPolicy {
     Param(
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
-		# Specifies the policy for the protection job.
+        # Specifies the policy for the protection job.
         [string]$PolicyName,
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
-		# Specifies the no. of hours after which backup has to run.
+        # Specifies the no. of hours after which backup has to run.
         [int]$BackupInHours,
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
-		# Specifies the number of days for retainment.
+        # Specifies the number of days for retainment.
         [int]$RetainInDays,
         [Parameter(Mandatory = $false)]
         [ValidateNotNullOrEmpty()]
         [ValidateSet("INCREMENTAL-ONLY", "INCREMENTAL-FULL")]
-		# Specifies the type of incremental schedule.
+        # Specifies the type of incremental schedule.
         [string]$IncrementalSchedule = "INCREMENTAL-ONLY",
         [Parameter(Mandatory = $false)]
-		# Specifies the name of the vault.
+        # Specifies the name of the vault.
         $VaultName = $null
     )
     Begin {

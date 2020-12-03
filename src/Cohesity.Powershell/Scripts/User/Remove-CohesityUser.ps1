@@ -3,10 +3,10 @@ function Remove-CohesityUser {
         .SYNOPSIS
         Removes a Cohesity User.
         .DESCRIPTION
-		If the Cohesity user was created for an Active Directory user, the referenced
-		principal user on the Active Directory domain is NOT deleted.
-		Only the user on the Cohesity Cluster is deleted.
-		Returns Success if the specified user is deleted.
+        If the Cohesity user was created for an Active Directory user, the referenced
+        principal user on the Active Directory domain is NOT deleted.
+        Only the user on the Cohesity Cluster is deleted.
+        Returns Success if the specified user is deleted.
 
         .NOTES
         Published by Cohesity
@@ -14,21 +14,21 @@ function Remove-CohesityUser {
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
         Remove-CohesityUser -Name test-user
-		.EXAMPLE
-		Remove-CohesityUser -Name test-user -Domain LOCAL
-		.EXAMPLE
-		Remove-CohesityUser -Name ad_user -Domain ad.engg.company.com
-		Deletes the Cohesity User.
+        .EXAMPLE
+        Remove-CohesityUser -Name test-user -Domain LOCAL
+        .EXAMPLE
+        Remove-CohesityUser -Name ad_user -Domain ad.engg.company.com
+        Deletes the Cohesity User.
     #>
   [CmdletBinding(SupportsShouldProcess = $True, ConfirmImpact = "High")]
   Param(
     [Parameter(Mandatory = $true)]
     [ValidateNotNullOrEmpty()]
-	# Specifies the name of the User to be deleted.
+    # Specifies the name of the User to be deleted.
     [String]$Name,
     [Parameter(Mandatory = $false)]
     [ValidateNotNullOrEmpty()]
-	# Defaults to LOCAL Domain if not specified.
+    # Defaults to LOCAL Domain if not specified.
     [String]$Domain
   )
 

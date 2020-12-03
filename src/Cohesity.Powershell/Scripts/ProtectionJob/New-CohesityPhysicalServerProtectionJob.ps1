@@ -17,27 +17,27 @@ function New-CohesityPhysicalServerProtectionJob {
     Param(
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
-		# Specifies the name of the protection job.
+        # Specifies the name of the protection job.
         $Name,
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
-		# Specifies the policy name of the protection job.
+        # Specifies the policy name of the protection job.
         $PolicyName,
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
-		# Specifies the viewbox or the storage domain name associated with the protection job.
+        # Specifies the viewbox or the storage domain name associated with the protection job.
         $StorageDomainName,
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
-		# Specifies the source name for the protection job.
+        # Specifies the source name for the protection job.
         $SourceName,
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
         [ValidateSet("kPhysical", "kPhysicalFiles")]
-		# Specifies the source type of the source name.
+        # Specifies the source type of the source name.
         $SourceType,
         [Parameter(Mandatory = $false)]
-		# Specifies the time zone.
+        # Specifies the time zone.
         $TimeZone
     )
 
@@ -54,9 +54,9 @@ function New-CohesityPhysicalServerProtectionJob {
 
     Process {
         if ($PSCmdlet.ShouldProcess($SourceName)) {
-			if(-not $TimeZone) {
-	            $TimeZone = (Get-TimeZone).Id
-			}
+            if(-not $TimeZone) {
+                $TimeZone = (Get-TimeZone).Id
+            }
             $protectionPolicyObject = Get-CohesityProtectionPolicy -Names $PolicyName | Where-Object { $_.name -eq $PolicyName }
             if ($null -eq $protectionPolicyObject) {
                 Write-Output "Incorrect protection policy name '$PolicyName'"

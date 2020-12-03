@@ -10,7 +10,7 @@ function Get-CohesityExternalClient {
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
         Get-CohesityExternalClient
-		Get external client (global whitelist) IP(s).
+        Get external client (global whitelist) IP(s).
     #>
     [OutputType('System.Collections.ArrayList')]
     [CmdletBinding()]

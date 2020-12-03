@@ -42,7 +42,7 @@ function Set-CohesityStorageDomain {
         [Parameter(Mandatory = $false, ParameterSetName = 'UpdateField')][ValidateSet("true", "false")]
         [String]$InlineCompression,
         [Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
-		# Piped name of the storage domain.
+        # Piped name of the storage domain.
         [string]$Name = $null,
         # New domain name to be update
         [Parameter(Mandatory = $false, ParameterSetName = 'UpdateField')]

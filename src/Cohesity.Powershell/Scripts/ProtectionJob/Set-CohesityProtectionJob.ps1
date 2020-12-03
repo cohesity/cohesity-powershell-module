@@ -10,13 +10,13 @@ function Set-CohesityProtectionJob {
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
         Set-CohesityProtectionJob -ProtectionJob $job
-		Updates a protection job with the specified parameters.
+        Updates a protection job with the specified parameters.
     #>
     [OutputType('System.Object')]
     [CmdletBinding(SupportsShouldProcess = $True, ConfirmImpact = "High")]
     Param(
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
-		# The updated protection job.
+        # The updated protection job.
         [object]$ProtectionJob
     )
 
