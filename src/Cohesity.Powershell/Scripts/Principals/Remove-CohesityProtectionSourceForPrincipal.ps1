@@ -113,7 +113,7 @@ function Remove-CohesityProtectionSourceForPrincipal {
                 @{Response = "Success"; Method = "Put"; }
             }
             else {
-                $errorMsg = "Protection source and view permission : Failed to remove"
+                $errorMsg = "Protection source permission : Failed to remove"
                 Write-Output $errorMsg
                 CSLog -Message $errorMsg
             }
