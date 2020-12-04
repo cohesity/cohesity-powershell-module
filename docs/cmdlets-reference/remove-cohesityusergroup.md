@@ -18,7 +18,7 @@ Only the group on the Cohesity Cluster is deleted.
 
 ### EXAMPLE 1
 ```
-Remove-CohesityUserGroup  -Name user-group1
+Remove-CohesityUserGroup -Name user-group1
 ```
 
 ## PARAMETERS
