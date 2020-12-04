@@ -1772,7 +1772,7 @@
         </TableHeaders>
       </TableControl>
     </View>
-        <!-- Protection Source For Principal Script based cmdlet -->
+    <!-- Protection Source For Principal Script based cmdlet -->
     <View>
       <Name>System.Object.ProtectionSourceForPrincipal.TableView</Name>
       <ViewSelectedBy>
@@ -1786,7 +1786,7 @@
 		            <PropertyName>Sid</PropertyName>
               </TableColumnItem>
               <TableColumnItem>
-		            <ScriptBlock>$_.Views.Name</ScriptBlock>
+		            <ScriptBlock>$_.ProtectionSources.Id</ScriptBlock>
               </TableColumnItem>
               <TableColumnItem>
 		            <ScriptBlock>$_.ProtectionSources.Name</ScriptBlock>
@@ -1799,10 +1799,39 @@
             <Label>SID</Label>
           </TableColumnHeader>
           <TableColumnHeader>
-            <Label>Views</Label>
+            <Label>Ids</Label>
           </TableColumnHeader>
           <TableColumnHeader>
             <Label>ProtectionSources</Label>
+          </TableColumnHeader>
+        </TableHeaders>
+      </TableControl>
+    </View>
+    <!-- Views For Principal Script based cmdlet -->
+    <View>
+      <Name>System.Object.ViewForPrincipal.TableView</Name>
+      <ViewSelectedBy>
+        <TypeName>System.Object#ViewForPrincipal</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>Sid</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>$_.Views.Name</ScriptBlock>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+        <TableHeaders>
+          <TableColumnHeader>
+            <Label>SID</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Views</Label>
           </TableColumnHeader>
         </TableHeaders>
       </TableControl>
