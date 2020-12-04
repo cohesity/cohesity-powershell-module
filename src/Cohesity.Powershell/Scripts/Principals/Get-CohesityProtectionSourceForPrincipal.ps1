@@ -1,16 +1,16 @@
 function Get-CohesityProtectionSourceForPrincipal {
     <#
         .SYNOPSIS
-        The list of Protection Sources objects and View names that the principal has permission to access.
+        The list of Protection Sources objects that the principal has permission to access.
         .DESCRIPTION
         The Get-CohesityProtectionSourceForPrincipal function is used to fetch list of
-        protection sources and views that the principal has access.
+        protection sources that the principal has access.
         .EXAMPLE
         Get-CohesityProtectionSourceForPrincipal -PrincipalType "USER" -PrincipalName user1
-        List all protection sources and views for the pricipal type user.
+        List all protection sources for the principal type user.
         .EXAMPLE
         Get-CohesityProtectionSourceForPrincipal -PrincipalType "GROUP" -PrincipalName user-group1
-        List all protection sources and views for the pricipal type group.
+        List all protection sources for the principal type group.
     #>
     [OutputType('System.Array')]
     [CmdletBinding()]

@@ -3,7 +3,7 @@ function Add-CohesityProtectionSourceForPrincipal {
         .SYNOPSIS
         Specify the security identifier (SID) of the principal to grant access permissions for protection source.
         .DESCRIPTION
-        Add Protection Sources and Views that the specified principal has permissions to access.
+        Add Protection Sources that the specified principal has permissions to access.
 
         .NOTES
         Published by Cohesity
@@ -16,8 +16,8 @@ function Add-CohesityProtectionSourceForPrincipal {
         Add-CohesityProtectionSourceForPrincipal -PrincipalType "USER" -PrincipalName user1 -ProtectionSourceObjectIds 121,344
         Add protection sources ids 121 and 344 to grant access to user1
         .EXAMPLE
-        Add-CohesityProtectionSourceForPrincipal -PrincipalType "USER" -PrincipalName user1 -ViewNames view1, view2
-        Add views view1 and view2 to grant access to user1
+        Get-CohesityProtectionSourceObject -Environments KVMware | Add-CohesityProtectionSourceForPrincipal -PrincipalType USER -PrincipalName user1
+        Using pipe add all VMware objects to grant access to user1.
     #>
     [OutputType('System.Collections.Hashtable')]
     [CmdletBinding(DefaultParameterSetName = "DefaultParameters", SupportsShouldProcess = $True, ConfirmImpact = "High")]
@@ -31,15 +31,15 @@ function Add-CohesityProtectionSourceForPrincipal {
         [ValidateNotNullOrEmpty()]
         # Principal name of "USER" or "GROUP" type.
         [string]$PrincipalName,
-        [Parameter(Mandatory = $false)]
+        [Parameter(Mandatory = $true, ParameterSetName = "DefaultParameters")]
+        [Parameter(Mandatory = $false, ParameterSetName = "PipedProtectionSourceObject")]
         [ValidateNotNullOrEmpty()]
         # The protection source object ids to grant access for the principal,
         # use Get-CohesityProtectionSourceObject to identify the desired one.
         [long[]]$ProtectionSourceObjectIds,
-        [Parameter(Mandatory = $false)]
-        [ValidateNotNullOrEmpty()]
-        # The view names to grant access for the principal.
-        [string[]]$ViewNames
+        [Parameter(Mandatory = $false, ParameterSetName = "PipedProtectionSourceObject", ValueFromPipeline = $true, DontShow = $true)]
+        # Piped object for protection source object id.
+        [object]$PipedProtectionSourceObject
     )
 
     Begin {
@@ -49,13 +49,16 @@ function Add-CohesityProtectionSourceForPrincipal {
         $cohesitySession = Get-Content -Path $HOME/.cohesity | ConvertFrom-Json
         $cohesityCluster = $cohesitySession.ClusterUri
         $cohesityToken = $cohesitySession.Accesstoken.Accesstoken
+        $pipedProtectionSourceObjectIds = @()
     }
 
     Process {
-        if ((-not $ProtectionSourceObjectIds) -and (-not $ViewNames)) {
-            Write-Output "Please provide the protection source ids and/or the view names"
-            return
+        if($PipedProtectionSourceObject.Id) {
+            $pipedProtectionSourceObjectIds += $PipedProtectionSourceObject.Id
         }
+    }
+
+    End {
         $principalDetail = Get-CohesityProtectionSourceForPrincipal -PrincipalType $PrincipalType -PrincipalName $PrincipalName
         if (-not $principalDetail.Sid) {
             Write-Output "Not found '$PrincipalName' of principal type '$PrincipalType', please use 'Get-CohesityUser' or 'Get-CohesityUserGroup' to identify the desired one."
@@ -75,19 +78,19 @@ function Add-CohesityProtectionSourceForPrincipal {
                 $updatedProtectionSourceObjectIds += @($principalDetail.ProtectionSources.Id)
             }
         }
+        else {
+            # we got the ids in piped object
+            if ($pipedProtectionSourceObjectIds.Count -eq 0) {
+                Write-Output "No protection source object ids found through piped object."
+                return
+            }
+            if($principalDetail.ProtectionSources) {
+                $updatedProtectionSourceObjectIds += @($pipedProtectionSourceObjectIds)
+            }
+        }
         $updatedViewNames = @()
-        if ($ViewNames) {
-            $viewObjects = Get-CohesityView
-            foreach ($viewName in $ViewNames) {
-                if ($viewObjects.Name -notcontains $viewName) {
-                    Write-Output "View name '$viewName' not found"
-                    return
-                }
-            }
-            $updatedViewNames += $ViewNames
-            if($principalDetail.Views) {
-                $updatedViewNames += @($principalDetail.Views.Name)
-            }
+        if($principalDetail.Views) {
+            $updatedViewNames += @($principalDetail.Views.Name)
         }
 
         if ($PSCmdlet.ShouldProcess($PrincipalName)) {
@@ -113,8 +116,5 @@ function Add-CohesityProtectionSourceForPrincipal {
                 CSLog -Message $errorMsg
             }
         }
-    }
-
-    End {
     }
 }

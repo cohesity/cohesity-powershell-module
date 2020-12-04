@@ -16,8 +16,8 @@ function Remove-CohesityProtectionSourceForPrincipal {
         Remove-CohesityProtectionSourceForPrincipal -PrincipalType "USER" -PrincipalName user1 -ProtectionSourceObjectIds 121,344
         Remove protection sources ids 121 and 344 for access to user1
         .EXAMPLE
-        Remove-CohesityProtectionSourceForPrincipal -PrincipalType "USER" -PrincipalName user1 -ViewNames view1, view2
-        Remove views view1 and view2 for access to user1
+        Get-CohesityProtectionSourceObject -Environments KVMware | Remove-CohesityProtectionSourceForPrincipal -PrincipalType USER -PrincipalName user1
+        Using pipe remove all VMware objects for grant access to user1.
     #>
     [OutputType('System.Collections.Hashtable')]
     [CmdletBinding(DefaultParameterSetName = "DefaultParameters", SupportsShouldProcess = $True, ConfirmImpact = "High")]
@@ -31,14 +31,14 @@ function Remove-CohesityProtectionSourceForPrincipal {
         [ValidateNotNullOrEmpty()]
         # Principal name of "USER" or "GROUP" type.
         [string]$PrincipalName,
-        [Parameter(Mandatory = $false)]
+        [Parameter(Mandatory = $true, ParameterSetName = "DefaultParameters")]
+        [Parameter(Mandatory = $false, ParameterSetName = "PipedProtectionSourceObject")]
         [ValidateNotNullOrEmpty()]
         # The protection source object ids to remove access for the principal.
         [long[]]$ProtectionSourceObjectIds,
-        [Parameter(Mandatory = $false)]
-        [ValidateNotNullOrEmpty()]
-        # The view names to remove access for the principal.
-        [string[]]$ViewNames
+        [Parameter(Mandatory = $false, ParameterSetName = "PipedProtectionSourceObject", ValueFromPipeline = $true, DontShow = $true)]
+        # Piped object for protection source object id.
+        [object]$PipedProtectionSourceObject
     )
 
     Begin {
@@ -48,13 +48,16 @@ function Remove-CohesityProtectionSourceForPrincipal {
         $cohesitySession = Get-Content -Path $HOME/.cohesity | ConvertFrom-Json
         $cohesityCluster = $cohesitySession.ClusterUri
         $cohesityToken = $cohesitySession.Accesstoken.Accesstoken
+        $pipedProtectionSourceObjectIds = @()
     }
 
     Process {
-        if ((-not $ProtectionSourceObjectIds) -and (-not $ViewNames)) {
-            Write-Output "Please provide the protection source ids and/or the view names"
-            return
+        if($PipedProtectionSourceObject.Id) {
+            $pipedProtectionSourceObjectIds += $PipedProtectionSourceObject.Id
         }
+    }
+
+    End {
         $principalDetail = Get-CohesityProtectionSourceForPrincipal -PrincipalType $PrincipalType -PrincipalName $PrincipalName
         if (-not $principalDetail.Sid) {
             Write-Output "Not found '$PrincipalName' of principal type '$PrincipalType', please use 'Get-CohesityUser' or 'Get-CohesityUserGroup' to identify the desired one."
@@ -75,28 +78,21 @@ function Remove-CohesityProtectionSourceForPrincipal {
             }
         }
         else {
+            # we got the ids in piped object
+            if ($pipedProtectionSourceObjectIds.Count -eq 0) {
+                Write-Output "No protection source object ids found through piped object."
+                return
+            }
             if ($principalDetail.protectionSources.Id) {
-                $updatedProtectionSourceObjectIds += $principalDetail.protectionSources.Id
+                $sourceList = $principalDetail.protectionSources.Id | Where-Object { $_ -notin $pipedProtectionSourceObjectIds }
+                if ($sourceList) {
+                    $updatedProtectionSourceObjectIds += $sourceList
+                }
             }
         }
         $updatedViewNames = @()
-        if ($ViewNames) {
-            $viewObjects = $principalDetail.Views
-            foreach ($viewName in $ViewNames) {
-                if ($viewObjects.Name -notcontains $viewName) {
-                    Write-Output "'$PrincipalName' does not have access to view name '$viewName'"
-                    return
-                }
-            }
-            $viewList = $principalDetail.Views.Name | Where-Object { $_ -notin $ViewNames }
-            if ($viewList) {
-                $updatedViewNames += $viewList
-            }
-        }
-        else {
-            if ($principalDetail.Views.Name) {
-                $updatedViewNames += $principalDetail.Views.Name
-            }
+        if($principalDetail.Views) {
+            $updatedViewNames += @($principalDetail.Views.Name)
         }
 
         if ($PSCmdlet.ShouldProcess($PrincipalName)) {
@@ -122,8 +118,5 @@ function Remove-CohesityProtectionSourceForPrincipal {
                 CSLog -Message $errorMsg
             }
         }
-    }
-
-    End {
     }
 }
