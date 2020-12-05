@@ -6,7 +6,7 @@ Removes a user group.
 ## SYNTAX
 
 ```
-Remove-CohesityUserGroup [-Name] <String> [-WhatIf] [-Confirm] [<CommonParameters>]
+Remove-CohesityUserGroup [-Name] <String> [[-Domain] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -18,7 +18,7 @@ Only the group on the Cohesity Cluster is deleted.
 
 ### EXAMPLE 1
 ```
-Remove-CohesityUserGroup -Name user-group1
+Remove-CohesityUserGroup -Name user-group1 -Domain "LOCAL"
 ```
 
 ## PARAMETERS
@@ -35,6 +35,21 @@ Aliases:
 Required: True
 Position: 1
 Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Domain
+Specifies the domain of the group.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 2
+Default value: LOCAL
 Accept pipeline input: False
 Accept wildcard characters: False
 ```

@@ -6,7 +6,7 @@ List the user groups that match the filter criteria specified using parameters
 ## SYNTAX
 
 ```
-Get-CohesityUserGroup [[-Name] <String>] [<CommonParameters>]
+Get-CohesityUserGroup [[-Name] <String>] [[-Domain] <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -23,7 +23,7 @@ List all user groups
 
 ### EXAMPLE 2
 ```
-Get-CohesityUserGroup -Name user_group1
+Get-CohesityUserGroup -Name user_group1 -Domain "LOCAL"
 ```
 
 ## PARAMETERS
@@ -39,6 +39,21 @@ Aliases:
 
 Required: False
 Position: 1
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Domain
+Specifies the domain of the group.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 2
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False

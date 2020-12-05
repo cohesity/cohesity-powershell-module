@@ -5,13 +5,21 @@ Specify the security identifier (SID) of the principal to grant access permissio
 
 ## SYNTAX
 
+### DefaultParameters (Default)
 ```
-Add-CohesityProtectionSourceForPrincipal [-PrincipalType] <String> [-PrincipalName] <String>
- [[-ProtectionSourceObjectIds] <Int64[]>] [[-ViewNames] <String[]>] [-WhatIf] [-Confirm] [<CommonParameters>]
+Add-CohesityProtectionSourceForPrincipal -PrincipalType <String> -PrincipalName <String>
+ -ProtectionSourceObjectIds <Int64[]> [-WhatIf] [-Confirm] [<CommonParameters>]
+```
+
+### PipedProtectionSourceObject
+```
+Add-CohesityProtectionSourceForPrincipal -PrincipalType <String> -PrincipalName <String>
+ [-ProtectionSourceObjectIds <Int64[]>] [-PipedProtectionSourceObject <Object>] [-WhatIf] [-Confirm]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Add Protection Sources and Views that the specified principal has permissions to access.
+Add Protection Sources that the specified principal has permissions to access.
 
 ## EXAMPLES
 
@@ -31,10 +39,10 @@ Add protection sources ids 121 and 344 to grant access to user1
 
 ### EXAMPLE 3
 ```
-Add-CohesityProtectionSourceForPrincipal -PrincipalType "USER" -PrincipalName user1 -ViewNames view1, view2
+Get-CohesityProtectionSourceObject -Environments KVMware | Add-CohesityProtectionSourceForPrincipal -PrincipalType USER -PrincipalName user1
 ```
 
-Add views view1 and view2 to grant access to user1
+Using pipe add all VMware objects to grant access to user1.
 
 ## PARAMETERS
 
@@ -47,7 +55,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: 1
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -62,7 +70,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: 2
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -74,28 +82,40 @@ use Get-CohesityProtectionSourceObject to identify the desired one.
 
 ```yaml
 Type: Int64[]
-Parameter Sets: (All)
+Parameter Sets: DefaultParameters
 Aliases:
 
-Required: False
-Position: 3
+Required: True
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -ViewNames
-The view names to grant access for the principal.
-
 ```yaml
-Type: String[]
-Parameter Sets: (All)
+Type: Int64[]
+Parameter Sets: PipedProtectionSourceObject
 Aliases:
 
 Required: False
-Position: 4
+Position: Named
 Default value: None
 Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -PipedProtectionSourceObject
+Piped object for protection source object id.
+
+```yaml
+Type: Object
+Parameter Sets: PipedProtectionSourceObject
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 

@@ -19,7 +19,7 @@ No changes are made to the referenced group principal on the Active Directory.
 
 ### EXAMPLE 1
 ```
-$userGroup = Get-CohesityUserGroup -Name test-group2
+$userGroup = Get-CohesityUserGroup -Name test-group2 -Domain "LOCAL"
 ```
 
 $userGroup.Description = "Updating user group"

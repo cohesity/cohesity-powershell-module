@@ -1,34 +1,33 @@
-# Get-CohesityProtectionSourceForPrincipal
+# Get-CohesityViewForPrincipal
 
 ## SYNOPSIS
-The list of Protection Sources objects that the principal has permission to access.
+The list of View names that the principal has permission to access.
 
 ## SYNTAX
 
 ```
-Get-CohesityProtectionSourceForPrincipal [-PrincipalType] <String> [-PrincipalName] <String>
- [<CommonParameters>]
+Get-CohesityViewForPrincipal [-PrincipalType] <String> [-PrincipalName] <String> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-The Get-CohesityProtectionSourceForPrincipal function is used to fetch list of
-protection sources that the principal has access.
+The Get-CohesityViewForPrincipal function is used to fetch list of
+views that the principal has access.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Get-CohesityProtectionSourceForPrincipal -PrincipalType "USER" -PrincipalName user1
+Get-CohesityViewForPrincipal -PrincipalType "USER" -PrincipalName user1
 ```
 
-List all protection sources for the principal type user.
+List all views for the pricipal type user.
 
 ### EXAMPLE 2
 ```
-Get-CohesityProtectionSourceForPrincipal -PrincipalType "GROUP" -PrincipalName user-group1
+Get-CohesityViewForPrincipal -PrincipalType "GROUP" -PrincipalName user-group1
 ```
 
-List all protection sources for the principal type group.
+List all views for the pricipal type group.
 
 ## PARAMETERS
 

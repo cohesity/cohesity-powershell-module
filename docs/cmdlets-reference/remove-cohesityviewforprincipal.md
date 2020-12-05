@@ -1,48 +1,47 @@
-# Remove-CohesityProtectionSourceForPrincipal
+# Remove-CohesityViewForPrincipal
 
 ## SYNOPSIS
-Specify the security identifier (SID) of the principal to remove access permissions for protection source.
+Specify the security identifier (SID) of the principal to remove access permissions for views.
 
 ## SYNTAX
 
 ### DefaultParameters (Default)
 ```
-Remove-CohesityProtectionSourceForPrincipal -PrincipalType <String> -PrincipalName <String>
- -ProtectionSourceObjectIds <Int64[]> [-WhatIf] [-Confirm] [<CommonParameters>]
+Remove-CohesityViewForPrincipal -PrincipalType <String> -PrincipalName <String> -ViewNames <String[]> [-WhatIf]
+ [-Confirm] [<CommonParameters>]
 ```
 
-### PipedProtectionSourceObject
+### PipedViewObject
 ```
-Remove-CohesityProtectionSourceForPrincipal -PrincipalType <String> -PrincipalName <String>
- [-ProtectionSourceObjectIds <Int64[]>] [-PipedProtectionSourceObject <Object>] [-WhatIf] [-Confirm]
- [<CommonParameters>]
+Remove-CohesityViewForPrincipal -PrincipalType <String> -PrincipalName <String> [-ViewNames <String[]>]
+ [-PipedViews <Object>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Remove Protection Sources and Views from the specified principal that has permissions to access.
+Remove Views from the specified principal that has permissions to access.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Remove-CohesityProtectionSourceForPrincipal -PrincipalType "GROUP" -PrincipalName user-group1 -ProtectionSourceObjectIds 121,344
+Remove-CohesityViewForPrincipal -PrincipalType "GROUP" -PrincipalName user-group1 -ViewNames view1, view2
 ```
 
-Remove protection sources ids 121 and 344 for access to user-group1
+Remove views view1 and view2 for access to user-group1.
 
 ### EXAMPLE 2
 ```
-Remove-CohesityProtectionSourceForPrincipal -PrincipalType "USER" -PrincipalName user1 -ProtectionSourceObjectIds 121,344
+Remove-CohesityViewForPrincipal -PrincipalType "USER" -PrincipalName user1 -ViewNames view1, view2
 ```
 
-Remove protection sources ids 121 and 344 for access to user1
+Remove views view1 and view2 for access to user1.
 
 ### EXAMPLE 3
 ```
-Get-CohesityProtectionSourceObject -Environments KVMware | Remove-CohesityProtectionSourceForPrincipal -PrincipalType USER -PrincipalName user1
+Get-CohesityView -ViewNames view1,view2,view3 | Remove-CohesityViewForPrincipal -PrincipalType USER -PrincipalName user1
 ```
 
-Using pipe remove all VMware objects for grant access to user1.
+Piped view names for remove access to user1.
 
 ## PARAMETERS
 
@@ -76,11 +75,11 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -ProtectionSourceObjectIds
-The protection source object ids to remove access for the principal.
+### -ViewNames
+The view names to remove access for the principal.
 
 ```yaml
-Type: Int64[]
+Type: String[]
 Parameter Sets: DefaultParameters
 Aliases:
 
@@ -92,8 +91,8 @@ Accept wildcard characters: False
 ```
 
 ```yaml
-Type: Int64[]
-Parameter Sets: PipedProtectionSourceObject
+Type: String[]
+Parameter Sets: PipedViewObject
 Aliases:
 
 Required: False
@@ -103,12 +102,12 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -PipedProtectionSourceObject
-Piped object for protection source object id.
+### -PipedViews
+Piped object for view.
 
 ```yaml
 Type: Object
-Parameter Sets: PipedProtectionSourceObject
+Parameter Sets: PipedViewObject
 Aliases:
 
 Required: False

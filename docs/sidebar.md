@@ -24,9 +24,11 @@
 
 - **Access Management**
 - [Add-CohesityProtectionSourceForPrincipal](cmdlets-reference/add-cohesityprotectionsourceforprincipal.md)
+- [Add-CohesityViewForPrincipal](cmdlets-reference/add-cohesityviewforprincipal.md)
 - [Get-CohesityActiveDirectory](cmdlets-reference/get-cohesityactivedirectory.md)
 - [Get-CohesityPrivilege](cmdlets-reference/get-cohesityprivilege.md)
 - [Get-CohesityProtectionSourceForPrincipal](cmdlets-reference/get-cohesityprotectionsourceforprincipal.md)
+- [Get-CohesityViewForPrincipal](cmdlets-reference/get-cohesityviewforprincipal.md)
 - [Get-CohesityRole](cmdlets-reference/get-cohesityrole.md)
 - [Get-CohesityUser](cmdlets-reference/get-cohesityuser.md)
 - [Get-CohesityUserGroup](cmdlets-reference/get-cohesityusergroup.md)
@@ -35,6 +37,7 @@
 - [New-CohesityUserGroup](cmdlets-reference/new-cohesityusergroup.md)
 - [Remove-CohesityActiveDirectory](cmdlets-reference/remove-cohesityactivedirectory.md)
 - [Remove-CohesityProtectionSourceForPrincipal](cmdlets-reference/remove-cohesityprotectionsourceforprincipal.md)
+- [Remove-CohesityViewForPrincipal](cmdlets-reference/remove-cohesityviewforprincipal.md)
 - [Remove-CohesityUser](cmdlets-reference/remove-cohesityuser.md)
 - [Remove-CohesityUserGroup](cmdlets-reference/remove-cohesityusergroup.md)
 - [Update-CohesityActiveDirectory](cmdlets-reference/update-cohesityactivedirectory.md)
