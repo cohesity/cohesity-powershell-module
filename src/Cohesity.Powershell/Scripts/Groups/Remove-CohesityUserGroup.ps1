@@ -12,14 +12,17 @@ function Remove-CohesityUserGroup {
         .LINK
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
-        Remove-CohesityUserGroup -Name user-group1
+        Remove-CohesityUserGroup -Name user-group1 -Domain "LOCAL"
     #>
     [CmdletBinding(SupportsShouldProcess = $True, ConfirmImpact = "High")]
     Param(
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
         # Name of Group. Specifies the name of group to delete on the Cohesity Cluster.
-        [string]$Name
+        [string]$Name,
+        [Parameter(Mandatory = $false)]
+        # Specifies the domain of the group.
+        [string]$Domain = "LOCAL"
     )
 
     Begin {
@@ -32,20 +35,18 @@ function Remove-CohesityUserGroup {
     }
 
     Process {
-        $userGroupDomain = $null
-        $userGroupObject = Get-CohesityUserGroup | where-object { $_.name -eq $Name }
+        $userGroupObject = Get-CohesityUserGroup -Name $Name -Domain $Domain
         if (-not $userGroupObject) {
             Write-Output "User group '$Name' does not exists"
             return
         }
-        $userGroupDomain = $userGroupObject.Domain
 
         if ($PSCmdlet.ShouldProcess($Name)) {
             $cohesityClusterURL = $cohesityCluster + '/irisservices/api/v1/public/groups'
             $cohesityHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
 
             $payload = @{
-                domain = $userGroupDomain
+                domain = $Domain
                 names  = @($Name)
             }
             $payloadJson = $payload | ConvertTo-Json -Depth 100

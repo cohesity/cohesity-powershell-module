@@ -10,7 +10,7 @@ function Update-CohesityUserGroup {
         .LINK
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
-        $userGroup = Get-CohesityUserGroup -Name test-group2
+        $userGroup = Get-CohesityUserGroup -Name test-group2 -Domain "LOCAL"
         $userGroup.Description = "Updating user group"
         Update-CohesityUserGroup -UserGroupObject $userGroup
     #>
