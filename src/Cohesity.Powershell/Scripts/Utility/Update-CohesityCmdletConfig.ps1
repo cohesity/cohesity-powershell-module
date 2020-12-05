@@ -1,7 +1,20 @@
 function Update-CohesityCmdletConfig {
+    <#
+        .SYNOPSIS
+        Update the local configuration for cohesity powershell cmdlets.
+        .DESCRIPTION
+        Update the local configuration for cohesity powershell cmdlets.
+        .NOTES
+        Published by Cohesity
+        .LINK
+        https://cohesity.github.io/cohesity-powershell-module/#/README
+        .EXAMPLE
+        Update-CohesityCmdletConfig -CurrentConfig $CurrentConfigObject
+    #>
     [CmdletBinding(SupportsShouldProcess = $True, ConfirmImpact = "High")]
     param(
         [Parameter(Mandatory = $true)]
+        # Use the configuration object and update.
         $CurrentConfig
     )
     Begin {

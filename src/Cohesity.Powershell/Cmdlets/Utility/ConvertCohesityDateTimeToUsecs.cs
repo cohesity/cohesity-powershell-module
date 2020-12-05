@@ -25,6 +25,11 @@ namespace Cohesity.Powershell.Cmdlets.Utility
     [OutputType(typeof(long))]
     public class ConvertCohesityDateTimeToUsecs : Cmdlet
     {
+        /// <summary>
+        /// <para type="description">
+        /// Timestamp in DateTime format.
+        /// </para>
+        /// </summary>
         [Parameter(Mandatory = true, ValueFromPipeline = true)]
         public DateTime DateTime { get; set; }
 

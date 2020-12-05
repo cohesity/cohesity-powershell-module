@@ -6,21 +6,21 @@ function Set-CohesityStorageDomain {
         The Set-CohesityStorageDomain function is used to update storage domain (view box) using REST API with given parameters and returns the updated storage domain (view box).
         If name of the storage domain (view box) that to be updated is not specified, then update all the storage domain (view box) with the given parameters.
         .EXAMPLE
-        Set-CohesityStorageDomain -Name <string> -NewDomainName <string> -PhysicalQuota <integer>
+        Set-CohesityStorageDomain -Name storage1 -NewDomainName storage2 -PhysicalQuota 10
         Update the specified storage domain (view box) with the user provided parameter values.
         .NOTES
         Mention PhysicalQuota value in GiB unit.
         .EXAMPLE
-        Set-CohesityStorageDomain -Name <string> -Deduplication <boolean> -InlineDeduplication <boolean> -Compression <boolean> -InlineCompression <boolean>
+        Set-CohesityStorageDomain -Name storage1 -Deduplication true -InlineDeduplication true -Compression true -InlineCompression true
         Update storage domain (view box) with user specified deduplication, Compression disabled. Based on enable/disable state of compression parameter, compression policy will be decided.
         .EXAMPLE
-        Get-CohesityStorageDomain -Names <string> | Set-CohesityStorageDomain -PhysicalQuota <integer>
+        Get-CohesityStorageDomain -Names storage1 | Set-CohesityStorageDomain -PhysicalQuota 10
         Get the list of storage domain filtered out by storage domain name through pipeline. Update the physical quota for the fetched storage domain (view box).
         .EXAMPLE
-        Get-CohesityStorageDomain | Set-CohesityStorageDomain -PhysicalQuota <integer>
+        Get-CohesityStorageDomain | Set-CohesityStorageDomain -PhysicalQuota 10
         Update all the available storage domain (view box) with the specified parameter values.
         .EXAMPLE
-        Set-CohesityStorageDomain -StorageDomain <object>
+        Set-CohesityStorageDomain -StorageDomain $storageObject
         Update the specified storage domain (view box) object.
     #>
     [CmdletBinding(DefaultParameterSetName = 'UpdateField', SupportsShouldProcess = $True, ConfirmImpact = "High")]
@@ -42,6 +42,7 @@ function Set-CohesityStorageDomain {
         [Parameter(Mandatory = $false, ParameterSetName = 'UpdateField')][ValidateSet("true", "false")]
         [String]$InlineCompression,
         [Parameter(Mandatory = $false, ValueFromPipelineByPropertyName = $true)]
+        # Piped name of the storage domain.
         [string]$Name = $null,
         # New domain name to be update
         [Parameter(Mandatory = $false, ParameterSetName = 'UpdateField')]

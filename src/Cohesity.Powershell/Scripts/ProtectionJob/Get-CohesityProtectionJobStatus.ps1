@@ -39,6 +39,19 @@ class ProtectionJobStatus {
 }
 
 function Get-CohesityProtectionJobStatus {
+    <#
+        .SYNOPSIS
+        Gets the protection job status.
+        .DESCRIPTION
+        Displays the protection job status for all jobs in the cluster.
+
+        .NOTES
+        Published by Cohesity
+        .LINK
+        https://cohesity.github.io/cohesity-powershell-module/#/README
+        .EXAMPLE
+        Get-CohesityProtectionJobStatus
+    #>
     [CmdletBinding()]
     Param(
     )

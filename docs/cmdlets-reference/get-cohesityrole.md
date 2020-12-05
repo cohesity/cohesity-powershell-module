@@ -1,4 +1,3 @@
-
 # Get-CohesityRole
 
 ## SYNOPSIS
@@ -7,7 +6,7 @@ Gets the roles defined on the Cohesity Cluster.
 ## SYNTAX
 
 ```
-Get-CohesityRole [-Name <string>] [<CommonParameters>]
+Get-CohesityRole [-Name <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -35,7 +34,7 @@ Gets all the roles on the Cohesity Cluster.
 Specifies the name of the Role.
 
 ```yaml
-Type: string
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -53,7 +52,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
+### Cohesity.Model.Role
 ## NOTES
 
 ## RELATED LINKS
-

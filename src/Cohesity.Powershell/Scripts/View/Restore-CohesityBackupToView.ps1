@@ -1,14 +1,30 @@
 function Restore-CohesityBackupToView {
+    <#
+        .SYNOPSIS
+        Recovers a backup to a view.
+        .DESCRIPTION
+        Recovers a backup to a view.
+        .NOTES
+        Published by Cohesity
+        .LINK
+        https://cohesity.github.io/cohesity-powershell-module/#/README
+        .EXAMPLE
+        Restore-CohesityBackupToView -ProtectionJobName job-nas -TargetViewName nas-view -QOSPolicy "TestAndDev High"
+    #>
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory = $false)]
+        # The source name.
         $SourceName=$null,
         [Parameter(Mandatory = $true)]
+        # Target view name where the backedup objects gets cloned.
         [String]$TargetViewName,
         [Parameter(Mandatory = $false)]
         [ValidateSet("Backup Target High","Backup Target Low","TestAndDev High","TestAndDev Low","Backup Target SSD","Backup Target Commvault")]
+        # QOS policy, one of the following, "Backup Target High","Backup Target Low","TestAndDev High","TestAndDev Low","Backup Target SSD","Backup Target Commvault".
         [String]$QOSPolicy="TestAndDev High",
         [Parameter(Mandatory = $true)]
+        # Specifies a protection job name.
         [String]$ProtectionJobName
     )
     Begin {

@@ -24,6 +24,8 @@ Converts the DateTime format to its corresponding unix timestamp in microseconds
 ## PARAMETERS
 
 ### -DateTime
+Timestamp in DateTime format.
+
 ```yaml
 Type: DateTime
 Parameter Sets: (All)
@@ -42,6 +44,8 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## INPUTS
 
 ### System.DateTime
+Timestamp in DateTime format.
+
 ## OUTPUTS
 
 ### System.Int64

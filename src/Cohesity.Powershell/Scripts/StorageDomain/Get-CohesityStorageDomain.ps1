@@ -1,20 +1,20 @@
 function Get-CohesityStorageDomain {
     <#
         .SYNOPSIS
-        Request to fetch all storage domain (view box) filtered by specified parameters.
+        Gets a list of storage domains (view boxes) filtered by the specified parameters.
         .DESCRIPTION
         The Get-CohesityStorageDomain function is used to fetch list of all storage domain (view box) information using REST API or specific storage domain information based on specified parameters. If no parameters are specified, all storage domains (view boxes) on the Cohesity Cluster are returned. Specifying parameters filters the results that are returned.
         .EXAMPLE
         Get-CohesityStorageDomain
         List all storage domain (view box).
         .EXAMPLE
-        Get-CohesityStorageDomain -Names [<string>]
+        Get-CohesityStorageDomain -Names storage1
         Returns the storage domain (view box) that are filtered out by specified name.
         .EXAMPLE
-        Get-CohesityStorageDomain -Ids [<long>]
+        Get-CohesityStorageDomain -Ids 111,222
         Returns the storage domain (view box) that are filtered out by specified ids.
         .EXAMPLE
-        Get-CohesityStorageDomain -ClusterPartitionIds [<long>]
+        Get-CohesityStorageDomain -ClusterPartitionIds 333,444
         Returns the storage domain (view box) that are filtered out by specified cluster partition ids.
         .EXAMPLE
         Get-CohesityStorageDomain -FetchStats
@@ -23,12 +23,17 @@ function Get-CohesityStorageDomain {
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory = $false)]
+        # Filter by a list of cluster partition Ids.
         [long[]]$ClusterPartitionIds = $null,
         [Parameter(Mandatory = $false)]
+        # Specifies whether to include usage and performance statistics.
         [switch]$FetchStats,
         [Parameter(Mandatory = $false)]
+        # Filter by a list of storage domain (view box) ids.
         [long[]]$Ids = $null,
         [Parameter(Mandatory = $false)]
+        # Filter by a list of storage domain (view box) names.
+        # If empty, storage domains(view boxes) are not filtered by name.
         [string[]]$Names = $null
     )
 

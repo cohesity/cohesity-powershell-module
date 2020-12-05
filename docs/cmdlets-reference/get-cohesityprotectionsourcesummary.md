@@ -1,4 +1,3 @@
-
 # Get-CohesityProtectionSourceSummary
 
 ## SYNOPSIS
@@ -7,7 +6,7 @@ Get the summary of protection sources.
 ## SYNTAX
 
 ```
-Get-CohesityProtectionSourceSummary [<CommonParameters>]
+Get-CohesityProtectionSourceSummary [-BasicSummary] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -28,10 +27,9 @@ Get-CohesityProtectionSourceSummary -BasicSummary:$true
 ```
 
 Returns summary of all protection sources, for example,
-```
 envType              : kSQL
 protectedCount       : 8
-protected size(GB)   : 0.09 
+protected size(GB)   : 0.09
 unprotectedCount     : 53
 unprotected size(GB) : 0.7
 
@@ -58,8 +56,22 @@ protected size(GB)   : 8.17
 unprotectedCount     : 294
 unprotected size(GB) : 5930.15
 
-```
+## PARAMETERS
 
+### -BasicSummary
+Returns basic summary of protection sources.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
 ### CommonParameters
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
@@ -71,4 +83,3 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## NOTES
 
 ## RELATED LINKS
-

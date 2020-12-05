@@ -1,4 +1,3 @@
-
 # Get-CohesityProtectionSource
 
 ## SYNOPSIS
@@ -7,7 +6,7 @@ Gets a list of the registered protection sources filtered by the specified param
 ## SYNTAX
 
 ```
-Get-CohesityProtectionSource [-Environments <EnvironmentEnum[]>] [-Id <long>] [<CommonParameters>]
+Get-CohesityProtectionSource [[-Environments] <EnvironmentEnum[]>] [[-Id] <Int64>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -22,6 +21,11 @@ Get-CohesityProtectionSource -Environments KVMware
 
 Returns registered protection sources that match the environment type 'kVMware'.
 
+### EXAMPLE 2
+```
+Get-CohesityProtectionSource -Id 1234
+```
+
 ## PARAMETERS
 
 ### -Environments
@@ -32,9 +36,10 @@ For example, set this parameter to 'kVMware' to only return the VMware sources.
 Type: EnvironmentEnum[]
 Parameter Sets: (All)
 Aliases:
+Accepted values: KVMware, KHyperV, KSQL, KView, KPuppeteer, KPhysical, KPure, KNimble, KAzure, KNetapp, KAgent, KGenericNas, KAcropolis, KPhysicalFiles, KIsilon, KGPFS, KKVM, KAWS, KExchange, KHyperVVSS, KOracle, KGCP, KFlashBlade, KAWSNative, KO365, KO365Outlook, KHyperFlex, KGCPNative, KAzureNative, KKubernetes, KElastifile, KAD, KRDSSnapshotManager, KVCD
 
 Required: False
-Position: Named
+Position: 1
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -44,13 +49,13 @@ Accept wildcard characters: False
 Return only the protection source that matches the Id.
 
 ```yaml
-Type: long
+Type: Int64
 Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: Named
-Default value: None
+Position: 2
+Default value: 0
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -62,7 +67,11 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
+### System.Array
 ## NOTES
+Published by Cohesity
 
 ## RELATED LINKS
+
+[https://cohesity.github.io/cohesity-powershell-module/#/README](https://cohesity.github.io/cohesity-powershell-module/#/README)
 

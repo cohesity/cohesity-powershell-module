@@ -1,4 +1,3 @@
-
 # Register-CohesityRemoteCluster
 
 ## SYNOPSIS
@@ -7,9 +6,9 @@ Registers a remote Cohesity Cluster with the local Cohesity Cluster.
 ## SYNTAX
 
 ```
-Register-CohesityRemoteCluster -RemoteClusterCredential <PSCredential> -RemoteClusterIps <string[]>
- [-BandwidthLimitMbps <long>] [-EnableOutBoundCompression] [-EnableRemoteAccess] [-EnableReplication]
- [-EncryptionKey <string>] [-StorageDomainPairs <Hashtable[]>] [<CommonParameters>]
+Register-CohesityRemoteCluster -RemoteClusterIps <String[]> -RemoteClusterCredential <PSCredential>
+ [-EnableRemoteAccess] [-EnableReplication] [-EnableOutBoundCompression] [-StorageDomainPairs <Hashtable[]>]
+ [-EncryptionKey <String>] [-BandwidthLimitMbps <Int64>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -30,7 +29,7 @@ Registers a new remote Cohesity Cluster with Cluster VIP (10.2.37.210) with the 
 Remote cluster VIP or node IP addresses.
 
 ```yaml
-Type: string[]
+Type: String[]
 Parameter Sets: (All)
 Aliases:
 
@@ -123,7 +122,7 @@ If a key is not specified, replication traffic encryption is disabled.
 When Snapshots are replicated from a local Cluster to a remote Cluster, the encryption key specified on the local Cluster must be the same as the key specified on the remote Cluster.
 
 ```yaml
-Type: string
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -140,7 +139,7 @@ The value is specified in MB per second.
 If not set, the data transfer rate is not limited.
 
 ```yaml
-Type: long
+Type: Int64
 Parameter Sets: (All)
 Aliases:
 
@@ -158,7 +157,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
+### Cohesity.Model.RemoteCluster
 ## NOTES
 
 ## RELATED LINKS
-

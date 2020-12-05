@@ -1,16 +1,18 @@
 # Get-CohesityActiveDirectory
 
 ## SYNOPSIS
-Get the active directory configuration.
+Get active directory list.
 
 ## SYNTAX
 
 ```
-Get-CohesityActiveDirectory -DomainNames [<string>]
+Get-CohesityActiveDirectory [[-DomainNames] <String[]>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Get the active directory configuration.
+After a Cohesity Cluster has been joined to an Active Directory domain, the users and groups in
+the domain can be authenticated on the Cohesity Cluster using their Active Directory credentials.
+NOTE: The userName and password fields are not populated by this operation.
 
 ## EXAMPLES
 
@@ -22,16 +24,16 @@ Get-CohesityActiveDirectory -DomainNames "cohesity.com","abc.com"
 ## PARAMETERS
 
 ### -DomainNames
-Specifies the active directory domains.
+Specifies the domains to fetch active directory entries.
 
 ```yaml
-Type: string
+Type: String[]
 Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: Named
-Default value: 0
+Position: 1
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -44,5 +46,9 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## OUTPUTS
 
 ## NOTES
+Published by Cohesity
 
 ## RELATED LINKS
+
+[https://cohesity.github.io/cohesity-powershell-module/#/README](https://cohesity.github.io/cohesity-powershell-module/#/README)
+

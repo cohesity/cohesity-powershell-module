@@ -1,4 +1,3 @@
-
 # Get-CohesityProtectionJobRun
 
 ## SYNOPSIS
@@ -7,9 +6,9 @@ Gets a list of protection job runs filtered by the specified parameters.
 ## SYNTAX
 
 ```
-Get-CohesityProtectionJobRun [-EndTime <long>] [-ExcludeErrorRuns] [-ExcludeNonRestoreableRuns] [-ExcludeTasks]
- [-IncludeDeleted] [-JobId <long>] [-JobName <string>] [-NumRuns <long>] [-RunTypes <string[]>]
- [-SourceId <long>] [-StartedTime <long>] [-StartTime <long>] [<CommonParameters>]
+Get-CohesityProtectionJobRun [-JobId <Int64>] [-JobName <String>] [-StartedTime <Int64>] [-StartTime <Int64>]
+ [-EndTime <Int64>] [-NumRuns <Int64>] [-ExcludeTasks] [-SourceId <Int64>] [-ExcludeErrorRuns]
+ [-RunTypes <String[]>] [-ExcludeNonRestoreableRuns] [-IncludeDeleted] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -32,13 +31,13 @@ Filter by a protection job that is specified by id.
 If not specified, all job runs for all protection jobs are returned.
 
 ```yaml
-Type: long
+Type: Int64
 Parameter Sets: (All)
 Aliases: Id
 
 Required: False
 Position: Named
-Default value: None
+Default value: 0
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
@@ -48,7 +47,7 @@ Filter by a protection job that is specified by name.
 If not specified, all job runs for all protection jobs are returned.
 
 ```yaml
-Type: string
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -65,7 +64,7 @@ Specify the time when the job run started as a unix epoch timestamp (in microsec
 If this field is specified, JobId must also be specified.
 
 ```yaml
-Type: long
+Type: Int64
 Parameter Sets: (All)
 Aliases:
 
@@ -82,7 +81,7 @@ Only job runs that started after the specified time are returned.
 Specify the start time as a unix epoch timestamp (in microseconds).
 
 ```yaml
-Type: long
+Type: Int64
 Parameter Sets: (All)
 Aliases:
 
@@ -98,7 +97,7 @@ Filter by a end time specified as a unix epoch timestamp (in microseconds).
 Only job runs that completed before the specified end time are returned.
 
 ```yaml
-Type: long
+Type: Int64
 Parameter Sets: (All)
 Aliases:
 
@@ -114,7 +113,7 @@ Specify the number of job runs to return.
 The newest job runs are returned.
 
 ```yaml
-Type: long
+Type: Int64
 Parameter Sets: (All)
 Aliases:
 
@@ -147,7 +146,7 @@ Only job runs protecting the specified source (such as a VM or View) are returne
 The source id is assigned by the Cohesity Cluster.
 
 ```yaml
-Type: long
+Type: Int64
 Parameter Sets: (All)
 Aliases:
 
@@ -179,7 +178,7 @@ Filter by run type such as "kFull", "kRegular" or "kLog".
 If not specified, job runs of all types are returned.
 
 ```yaml
-Type: string[]
+Type: String[]
 Parameter Sets: (All)
 Aliases:
 
@@ -227,13 +226,13 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### System.Int64
-Filter by a protection job that is specified by id.
-If not specified, all job runs for all protection jobs are returned.
-
 ## OUTPUTS
 
+### System.Array
 ## NOTES
+Published by Cohesity
 
 ## RELATED LINKS
+
+[https://cohesity.github.io/cohesity-powershell-module/#/README](https://cohesity.github.io/cohesity-powershell-module/#/README)
 

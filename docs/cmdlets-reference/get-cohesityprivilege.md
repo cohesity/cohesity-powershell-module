@@ -1,4 +1,3 @@
-
 # Get-CohesityPrivilege
 
 ## SYNOPSIS
@@ -7,7 +6,7 @@ Gets all privileges defined on the Cohesity Cluster.
 ## SYNTAX
 
 ```
-Get-CohesityPrivilege [-Name <string[]>] [<CommonParameters>]
+Get-CohesityPrivilege [-Name <String[]>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -28,7 +27,7 @@ Gets details of privilege with name PRINCIPAL_VIEW.
 Specifies the name of the Privilege.
 
 ```yaml
-Type: string[]
+Type: String[]
 Parameter Sets: (All)
 Aliases:
 
@@ -46,7 +45,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
+### Cohesity.Model.PrivilegeInfo
 ## NOTES
 
 ## RELATED LINKS
-

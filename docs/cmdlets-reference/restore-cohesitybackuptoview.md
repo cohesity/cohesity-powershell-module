@@ -1,4 +1,4 @@
-# Recover-CohesityBackupToView
+# Restore-CohesityBackupToView
 
 ## SYNOPSIS
 Recovers a backup to a view.
@@ -6,7 +6,8 @@ Recovers a backup to a view.
 ## SYNTAX
 
 ```
-Recover-CohesityBackupToView -SourceName <string> -TargetViewName <string> -QOSPolicy <string> -ProtectionJobName <string>
+Restore-CohesityBackupToView [[-SourceName] <Object>] [-TargetViewName] <String> [[-QOSPolicy] <String>]
+ [-ProtectionJobName] <String> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -16,22 +17,22 @@ Recovers a backup to a view.
 
 ### EXAMPLE 1
 ```
-Recover-CohesityBackupToView -ProtectionJobName job-nas -TargetViewName nas-view -QOSPolicy "TestAndDev High"
+Restore-CohesityBackupToView -ProtectionJobName job-nas -TargetViewName nas-view -QOSPolicy "TestAndDev High"
 ```
 
 ## PARAMETERS
 
-### -ProtectionJobName
-Specifies a protection job name.
+### -SourceName
+The source name.
 
 ```yaml
-Type: string
+Type: Object
 Parameter Sets: (All)
 Aliases:
 
-Required: True
-Position: Named
-Default value: 0
+Required: False
+Position: 1
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -40,12 +41,12 @@ Accept wildcard characters: False
 Target view name where the backedup objects gets cloned.
 
 ```yaml
-Type: string
+Type: String
 Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: Named
+Position: 2
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -55,27 +56,27 @@ Accept wildcard characters: False
 QOS policy, one of the following, "Backup Target High","Backup Target Low","TestAndDev High","TestAndDev Low","Backup Target SSD","Backup Target Commvault".
 
 ```yaml
-Type: string
+Type: String
 Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: Named
-Default value: None
+Position: 3
+Default value: TestAndDev High
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -SourceName
-The source name.
+### -ProtectionJobName
+Specifies a protection job name.
 
 ```yaml
-Type: string
+Type: String
 Parameter Sets: (All)
 Aliases:
 
-Required: False
-Position: Named
+Required: True
+Position: 4
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -89,5 +90,9 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## OUTPUTS
 
 ## NOTES
+Published by Cohesity
 
 ## RELATED LINKS
+
+[https://cohesity.github.io/cohesity-powershell-module/#/README](https://cohesity.github.io/cohesity-powershell-module/#/README)
+

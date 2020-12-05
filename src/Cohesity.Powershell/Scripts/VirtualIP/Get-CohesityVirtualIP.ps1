@@ -24,18 +24,22 @@ function Get-CohesityVirtualIP {
         .LINK
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
-        Get-CohesityVirtualIP -InterfaceGroupName "intf_group2" -VlanId 11
-        .EXAMPLE
         Get-CohesityVirtualIP
+        Lists all the virtual IPs.
+        .EXAMPLE
+        Get-CohesityVirtualIP -InterfaceGroupName "intf_group2" -VlanId 11
+        Lists the virtual IPs filtered by InterfaceGroupName and VlanId.
     #>
     [OutputType('System.Object[]')]
     [CmdletBinding(DefaultParameterSetName='Default')]
     Param(
         [Parameter(Mandatory = $true, ParameterSetName = 'VirtualIPInfo')]
         [ValidateNotNullOrEmpty()]
+        # Specifies the name of the Interface group.
         [string]$InterfaceGroupName,
         [Parameter(Mandatory = $true, ParameterSetName = 'VirtualIPInfo')]
         [ValidateNotNullOrEmpty()]
+        # Specifies the Id of the Vlan.
         [string]$VlanId
     )
 

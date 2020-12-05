@@ -1,4 +1,3 @@
-
 # Register-CohesityProtectionSourceNFS
 
 ## SYNOPSIS
@@ -7,7 +6,7 @@ Registers a new NFS mount point as protection source with the Cohesity Cluster.
 ## SYNTAX
 
 ```
-Register-CohesityProtectionSourceNFS -MountPath <string> [<CommonParameters>]
+Register-CohesityProtectionSourceNFS -MountPath <String> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -28,7 +27,7 @@ Registers a new NFS mount point with mount path "file-server.example.com:/source
 NFS Mount path.
 
 ```yaml
-Type: string
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -46,7 +45,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
+### Cohesity.Model.ProtectionSource
 ## NOTES
 
 ## RELATED LINKS
-

@@ -4,26 +4,26 @@
 Create a new protection job for Physical Server source.
 
 ## SYNTAX
+
 ```
-New-CohesityPhysicalServerProtectionJob -Name <string> -PolicyName <string> -StorageDomainName <string> -SourceName <string> -SourceType <string> -TimeZone <string>
+New-CohesityPhysicalServerProtectionJob [-Name] <Object> [-PolicyName] <Object> [-StorageDomainName] <Object>
+ [-SourceName] <Object> [-SourceType] <Object> [[-TimeZone] <Object>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Returns the created protection job for Physical Server source.
+The New-CohesityPhysicalServerProtectionJob function is used to create a protection job.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-New-CohesityPhysicalServerProtectionJob  -Name ps-block-based -StorageDomainName DefaultStorageDomain -SourceName 10.2.151.120 -SourceType kPhysical -PolicyName Bronze
+New-CohesityPhysicalServerProtectionJob -Name ps-block-based -PolicyName Bronze -StorageDomainName DefaultStorageDomain -SourceName "10.2.151.120" -SourceType kPhysical
 ```
-Creates a block based protection job for protecting a Physical Server source.
 
 ### EXAMPLE 2
 ```
-New-CohesityPhysicalServerProtectionJob  -Name ps-files-based -StorageDomainName DefaultStorageDomain -SourceName 10.2.151.120 -SourceType kPhysicalFiles -PolicyName Bronze -TimeZone "Asia/Calcutta"
+New-CohesityPhysicalServerProtectionJob -Name ps-files-based -PolicyName Bronze -StorageDomainName DefaultStorageDomain -SourceName "10.2.151.120" -SourceType kPhysicalFiles -TimeZone "Asia/Calcutta"
 ```
-Creates a files based protection job for protecting a Physical Server source.
 
 ## PARAMETERS
 
@@ -31,12 +31,12 @@ Creates a files based protection job for protecting a Physical Server source.
 Specifies the name of the protection job.
 
 ```yaml
-Type: string
+Type: Object
 Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: Named
+Position: 1
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -46,12 +46,12 @@ Accept wildcard characters: False
 Specifies the policy name of the protection job.
 
 ```yaml
-Type: string
+Type: Object
 Parameter Sets: (All)
 Aliases:
 
-Required: False
-Position: Named
+Required: True
+Position: 2
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -61,12 +61,12 @@ Accept wildcard characters: False
 Specifies the viewbox or the storage domain name associated with the protection job.
 
 ```yaml
-Type: string
+Type: Object
 Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: Named
+Position: 3
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -76,12 +76,12 @@ Accept wildcard characters: False
 Specifies the source name for the protection job.
 
 ```yaml
-Type: string
+Type: Object
 Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: Named
+Position: 4
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -91,12 +91,12 @@ Accept wildcard characters: False
 Specifies the source type of the source name.
 
 ```yaml
-Type: string
+Type: Object
 Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: Named
+Position: 5
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -106,9 +106,40 @@ Accept wildcard characters: False
 Specifies the time zone.
 
 ```yaml
-Type: string
+Type: Object
 Parameter Sets: (All)
 Aliases:
+
+Required: False
+Position: 6
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -WhatIf
+Shows what would happen if the cmdlet runs.
+The cmdlet is not run.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: wi
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Confirm
+Prompts you for confirmation before running the cmdlet.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: cf
 
 Required: False
 Position: Named
@@ -122,9 +153,12 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-
 ## OUTPUTS
 
 ## NOTES
+Published by Cohesity
 
 ## RELATED LINKS
+
+[https://cohesity.github.io/cohesity-powershell-module/#/README](https://cohesity.github.io/cohesity-powershell-module/#/README)
+

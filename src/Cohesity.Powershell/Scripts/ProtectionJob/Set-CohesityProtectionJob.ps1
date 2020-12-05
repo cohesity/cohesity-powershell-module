@@ -1,21 +1,22 @@
 function Set-CohesityProtectionJob {
     <#
         .SYNOPSIS
-        Update protection job.
-        .DESCRIPTION
-        The Set-CohesityProtectionJob function is used to set protection job.
         Updates a protection job.
+        .DESCRIPTION
+        Returns the updated protection job.
         .NOTES
         Published by Cohesity
         .LINK
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
         Set-CohesityProtectionJob -ProtectionJob $job
+        Updates a protection job with the specified parameters.
     #>
     [OutputType('System.Object')]
     [CmdletBinding(SupportsShouldProcess = $True, ConfirmImpact = "High")]
     Param(
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
+        # The updated protection job.
         [object]$ProtectionJob
     )
 

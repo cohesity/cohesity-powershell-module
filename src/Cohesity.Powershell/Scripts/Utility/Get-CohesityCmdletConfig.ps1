@@ -1,5 +1,17 @@
 function Get-CohesityCmdletConfig
 {
+    <#
+        .SYNOPSIS
+        Get the local configuration for cohesity powershell cmdlets.
+        .DESCRIPTION
+        Get the local configuration for cohesity powershell cmdlets.
+        .NOTES
+        Published by Cohesity
+        .LINK
+        https://cohesity.github.io/cohesity-powershell-module/#/README
+        .EXAMPLE
+        Get-CohesityCmdletConfig
+    #>
     [CmdletBinding()]
     param()
 

@@ -1,4 +1,3 @@
-
 # Set-CohesityProtectionJob
 
 ## SYNOPSIS
@@ -7,7 +6,7 @@ Updates a protection job.
 ## SYNTAX
 
 ```
-Set-CohesityProtectionJob -ProtectionJob <ProtectionJob> [<CommonParameters>]
+Set-CohesityProtectionJob [-ProtectionJob] <Object> [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -28,14 +27,45 @@ Updates a protection job with the specified parameters.
 The updated protection job.
 
 ```yaml
-Type: ProtectionJob
+Type: Object
 Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: Named
+Position: 1
 Default value: None
 Accept pipeline input: True (ByValue)
+Accept wildcard characters: False
+```
+
+### -WhatIf
+Shows what would happen if the cmdlet runs.
+The cmdlet is not run.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: wi
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Confirm
+Prompts you for confirmation before running the cmdlet.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: cf
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
@@ -44,11 +74,13 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-The updated protection job.
-
 ## OUTPUTS
 
+### System.Object
 ## NOTES
+Published by Cohesity
 
 ## RELATED LINKS
+
+[https://cohesity.github.io/cohesity-powershell-module/#/README](https://cohesity.github.io/cohesity-powershell-module/#/README)
 

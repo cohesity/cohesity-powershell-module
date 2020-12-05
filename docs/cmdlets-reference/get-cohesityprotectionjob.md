@@ -1,4 +1,3 @@
-
 # Get-CohesityProtectionJob
 
 ## SYNOPSIS
@@ -7,8 +6,8 @@ Gets a list of protection jobs filtered by the specified parameters.
 ## SYNTAX
 
 ```
-Get-CohesityProtectionJob [-Environments <EnvironmentEnum[]>] [-Ids <long[]>] [-Names <string[]>] [-OnlyActive]
- [-OnlyDeleted] [-OnlyInactive] [-PolicyIds <string[]>] [<CommonParameters>]
+Get-CohesityProtectionJob [[-Ids] <Int64[]>] [[-Names] <String[]>] [[-PolicyIds] <String[]>]
+ [[-Environments] <EnvironmentEnum[]>] [-OnlyActive] [-OnlyInactive] [-OnlyDeleted] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -46,12 +45,12 @@ Gets only the deleted protection jobs on the Cohesity Cluster.
 Filter by a list of protection job ids.
 
 ```yaml
-Type: long[]
+Type: Int64[]
 Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: Named
+Position: 1
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -61,12 +60,12 @@ Accept wildcard characters: False
 Filter by a list of protection job names.
 
 ```yaml
-Type: string[]
+Type: String[]
 Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: Named
+Position: 2
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -77,12 +76,12 @@ Filter by policy ids that are associated with protection jobs.
 Only jobs associated with the specified policy ids, are returned.
 
 ```yaml
-Type: string[]
+Type: String[]
 Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: Named
+Position: 3
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -97,9 +96,10 @@ NOTE: kPuppeteer refers to Cohesity's remote adapter.
 Type: EnvironmentEnum[]
 Parameter Sets: (All)
 Aliases:
+Accepted values: KVMware, KHyperV, KSQL, KView, KPuppeteer, KPhysical, KPure, KNimble, KAzure, KNetapp, KAgent, KGenericNas, KAcropolis, KPhysicalFiles, KIsilon, KGPFS, KKVM, KAWS, KExchange, KHyperVVSS, KOracle, KGCP, KFlashBlade, KAWSNative, KVCD, KO365, KO365Outlook, KHyperFlex, KGCPNative, KAzureNative, KKubernetes, KElastifile, KAD, KRDSSnapshotManager
 
 Required: False
-Position: Named
+Position: 4
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -158,7 +158,11 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
+### System.Array
 ## NOTES
+Published by Cohesity
 
 ## RELATED LINKS
+
+[https://cohesity.github.io/cohesity-powershell-module/#/README](https://cohesity.github.io/cohesity-powershell-module/#/README)
 

@@ -188,6 +188,16 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
         [Parameter(Mandatory = false)]
         public Model.ProtectionJob.EnvironmentEnum? Environment { get; set; }
 
+        /// <summary>
+        /// <para type="description">
+        /// Specifies additional settings that can apply to a subset of the
+        /// Sources listed in the Protection Job.For example, you can specify a list
+        /// of files and folders to protect instead of protecting the entire Physical
+        /// Server.If this field's setting conflicts with environmentParameters,
+        /// then this setting will be used. Specific volume selections must be passed
+        /// in here to take effect.
+        /// </para>
+        /// </summary>
         [Parameter()]
         public SourceSpecialParameter[] SourceSpecialParameters { get; set; }
 

@@ -6,7 +6,8 @@ Request to fetch all Vlan configuration filtered by specified parameters.
 ## SYNTAX
 
 ```
-Get-CohesityVlan -TenantIds [<string>] -SkipPrimaryAndBondIface <boolean> -VlanId <integer>  
+Get-CohesityVlan [[-SkipPrimaryAndBondIface] <String>] [[-TenantIds] <String[]>] [[-VlanId] <Int64>]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -18,56 +19,58 @@ The Get-CohesityVlan function is used to fetch list of all configured Vlan infor
 ```
 Get-CohesityVlan
 ```
+
 List all configured Vlans
 
 ### EXAMPLE 2
 ```
-Get-CohesityVlan -SkipPrimaryAndBondIface <boolean>       
+Get-CohesityVlan -SkipPrimaryAndBondIface "true"
 ```
-SkipPrimaryAndBondIface is to filter interfaces entries which are primary interface or bond interfaces
 
+SkipPrimaryAndBondIface is to filter interfaces entries which are primary interface or bond interfaces
 
 ### EXAMPLE 3
 ```
-Get-CohesityVlan -VlanId <integer>            
+Get-CohesityVlan -VlanId 222
 ```
-Returns the VLAN corresponding to the specified VLAN ID or a specified vlan interface group name.   
 
+Returns the VLAN corresponding to the specified VLAN ID or a specified vlan interface group name.
 
 ### EXAMPLE 4
 ```
-Get-CohesityVlan -TenantIds [<string>]         
+Get-CohesityVlan -TenantIds 333
 ```
-Retuns the Vlan that are configured for the specific tenant. TenantIds contains list of/specific id(s) of the tenants for which configured Vlans are to be returned.   
 
+Retuns the Vlan that are configured for the specific tenant.
+TenantIds contains list of/specific id(s) of the tenants for which configured Vlans are to be returned.
 
 ## PARAMETERS
 
 ### -SkipPrimaryAndBondIface
-Contains true false values
+Filter interfaces entries which are primary interface or bond interfaces.
 
 ```yaml
-Type: string
+Type: String
 Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: Named
+Position: 1
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -TenantIds
-Specifies the list of tenants.
+TenantIds contains ids of the tenants for which objects are to be returned.
 
 ```yaml
-Type: string[]
+Type: String[]
 Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: Named
+Position: 2
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -77,17 +80,16 @@ Accept wildcard characters: False
 Specifies the vlan Id.
 
 ```yaml
-Type: integer
+Type: Int64
 Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: Named
-Default value: /
+Position: 3
+Default value: 0
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
-
 
 ### CommonParameters
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).

@@ -1,23 +1,23 @@
-<#
- .Synopsis
-  Gets a list of organizations on the Cohesity Cluster filtered by the specified parameters
- .Description
-  Gets a list of organizations on the Cohesity Cluster filtered by the specified parameters.
-  To get a specific organization provide the organization name
- .Parameter Name
-   Organization Name
- .Example
-  Get-CohesityOrganization -Name testorg
- .Example
-  Get-CohesityOrganization
-#>
 function Get-CohesityOrganization
 {
+<#
+    .Synopsis
+    Gets a list of organizations on the Cohesity Cluster filtered by the specified parameters.
+    To get a specific organization provide the organization name.
+    .Description
+    Gets a list of organizations on the Cohesity Cluster filtered by the specified parameters.
+    .Example
+    Get-CohesityOrganization
+    Lists all Cohesity organisation.
+    .Example
+    Get-CohesityOrganization -Name testorg
+    Lists the Cohesity organisation after filtering with the given name.
+#>
   [CmdletBinding()]
   Param(
-    # Organization Name.
     [Parameter(Mandatory=$false, Position=0)]
     [ValidateNotNullOrEmpty()]
+    # Specifies the name of the organisation.
     [String]$Name
   )
 

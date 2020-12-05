@@ -5,15 +5,15 @@ function New-CohesityStorageDomain {
         .DESCRIPTION
         The New-CohesityStorageDomain function is used to create storage domain (view box) using REST API with given parameters. If no parameters are specified, storage domain (view box) will be cretaed with default settings.
         .EXAMPLE
-        New-CohesityStorageDomain -Name <string>
+        New-CohesityStorageDomain -Name storage1
         Create storage domain (view box) with default settings.
         .EXAMPLE
-        New-CohesityStorageDomain -Name <string> -PhysicalQuota <integer>
+        New-CohesityStorageDomain -Name storage1 -PhysicalQuota 10
         Create storage domain (view box) with specific physical quota.
         .NOTES
         Mention PhysicalQuota value in GiB unit.
         .EXAMPLE
-        New-CohesityStorageDomain -Name <string> -Deduplication <boolean> -InlineDeduplication <boolean> -Compression <boolean> -InlineCompression <boolean> -Encryption <boolean>
+        New-CohesityStorageDomain -Name storage1 -Deduplication true -InlineDeduplication true -Compression true -InlineCompression true -Encryption true
         Create storage domain (view box) with deduplication, Compression disabled and Encryption enabled. Based on enable/disable state of compression and encryption parameter, compression and encryption policy will be decided respectively.
     #>
     [CmdletBinding(SupportsShouldProcess = $True, ConfirmImpact = "High")]
@@ -39,6 +39,7 @@ function New-CohesityStorageDomain {
         [Parameter(Mandatory = $false)][ValidateSet("true", "false")]
         [String]$InlineDeduplication = $true,
         [Parameter(Mandatory = $True)]
+        # Storage domain name.
         [String]$Name,
         # Specifies an optional quota limit on the usage allowed for this resource. This limit is specified in GiB.
         # If no value is specified,there is no limit.

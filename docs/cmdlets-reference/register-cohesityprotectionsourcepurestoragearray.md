@@ -1,4 +1,3 @@
-
 # Register-CohesityProtectionSourcePureStorageArray
 
 ## SYNOPSIS
@@ -7,7 +6,7 @@ Registers a new Pure Storage array as a protection source.
 ## SYNTAX
 
 ```
-Register-CohesityProtectionSourcePureStorageArray -Credential <PSCredential> -Server <string>
+Register-CohesityProtectionSourcePureStorageArray -Server <String> -Credential <PSCredential>
  [<CommonParameters>]
 ```
 
@@ -29,7 +28,7 @@ Registers a new Pure Storage array with hostname "pure.example.com" with the Coh
 Hostname or IP Address for the Pure Storage array.
 
 ```yaml
-Type: string
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -62,7 +61,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
+### Cohesity.Model.ProtectionSource
 ## NOTES
 
 ## RELATED LINKS
-

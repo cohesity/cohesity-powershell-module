@@ -3,24 +3,28 @@ function New-CohesityRoutes {
         .SYNOPSIS
         Creates new routes.
         .DESCRIPTION
-        The New-CohesityRoutes function is used to create routes.
+        Creates a static route on the Cohesity cluster.
         .NOTES
         Published by Cohesity
         .LINK
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
         New-CohesityRoutes -DestNetwork "10.2.3.4" -NextHop "10.2.3.5" -InterfaceGroupName "intf_group1"
+        Creates a new route.
     #>
     [CmdletBinding(SupportsShouldProcess = $True, ConfirmImpact = "High")]
     Param(
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
+        # Specifies the destination network of the static route.
         $DestNetwork,
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
+        # Specifies the next hop to the destination network.
         $NextHop,
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
+        # Specifies the network interfaces group or interface group with vlan id to use for communicating with the destination network.
         $InterfaceGroupName
     )
 

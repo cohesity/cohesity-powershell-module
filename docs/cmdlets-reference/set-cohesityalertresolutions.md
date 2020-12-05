@@ -6,7 +6,8 @@ Creates or updates an alert resolution.
 ## SYNTAX
 
 ```
-Set-CohesityAlertResolutions -ResolutionId <string> -AlertIds <string> -ResolutionSummary <string> -ResolutionDetails <string>
+Set-CohesityAlertResolutions [[-ResolutionId] <Object>] [-AlertIds] <String[]> [[-ResolutionSummary] <Object>]
+ [[-ResolutionDetails] <Object>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -14,22 +15,22 @@ Creates or updates an alert resolution by executing the commandlet individually 
 
 ## EXAMPLES
 
-### EXAMPLE 1 (Create an alert resolution)
+### EXAMPLE 1
 ```
 Set-CohesityAlertResolutions -AlertIds 2286917:1574404721769725,2285865:1574389202182867
 ```
 
-### EXAMPLE 2 (Update the existing resolution)
+### EXAMPLE 2
 ```
 Set-CohesityAlertResolutions -ResolutionId 2684117 -AlertIds 2286917:1574404721769725,2285865:1574389202182867
 ```
 
-### EXAMPLE 3 (Create an alert resolution using pipe)
+### EXAMPLE 3
 ```
-Get-CohesityAlert -MaxAlerts 1 -AlertStates kOpen | Set-CohesityAlertResolutions 
+Get-CohesityAlert -MaxAlerts 1 -AlertStates kOpen | Set-CohesityAlertResolutions
 ```
 
-### EXAMPLE 4 (Update an alert resolution using piping)
+### EXAMPLE 4
 ```
 Get-CohesityAlert -MaxAlerts 1 -AlertStates kOpen | Set-CohesityAlertResolutions -ResolutionId 2684117
 ```
@@ -40,13 +41,13 @@ Get-CohesityAlert -MaxAlerts 1 -AlertStates kOpen | Set-CohesityAlertResolutions
 The resolution id is used to update the alert resolutions.
 
 ```yaml
-Type: long
+Type: Object
 Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: Named
-Default value: 0
+Position: 1
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -55,12 +56,12 @@ Accept wildcard characters: False
 Specifies an array of protection job run ids.
 
 ```yaml
-Type: Array
+Type: String[]
 Parameter Sets: (All)
-Aliases:
+Aliases: Id
 
 Required: True
-Position: Named
+Position: 2
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
@@ -70,12 +71,12 @@ Accept wildcard characters: False
 Resolution summary.
 
 ```yaml
-Type: string
+Type: Object
 Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: Named
+Position: 3
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -85,9 +86,40 @@ Accept wildcard characters: False
 Describe the resolution.
 
 ```yaml
-Type: string
+Type: Object
 Parameter Sets: (All)
 Aliases:
+
+Required: False
+Position: 4
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -WhatIf
+Shows what would happen if the cmdlet runs.
+The cmdlet is not run.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: wi
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Confirm
+Prompts you for confirmation before running the cmdlet.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: cf
 
 Required: False
 Position: Named
@@ -104,5 +136,9 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## OUTPUTS
 
 ## NOTES
+Published by Cohesity
 
 ## RELATED LINKS
+
+[https://cohesity.github.io/cohesity-powershell-module/#/README](https://cohesity.github.io/cohesity-powershell-module/#/README)
+

@@ -1,4 +1,3 @@
-
 # New-CohesityProtectionJob
 
 ## SYNOPSIS
@@ -6,23 +5,22 @@ Creates a new protection job.
 
 ## SYNTAX
 
-### UNNAMED_PARAMETER_SET_1
+### CreateById
 ```
-New-CohesityProtectionJob -Name <string> -PolicyId <string> -StorageDomainId <long> [-Description <string>]
- [-Environment <EnvironmentEnum>] [-ExcludeSourceIds <long[]>] [-ExcludeVmTagIds <long[]>]
- [-FullSLATimeInMinutes <long>] [-IncrementalSLATimeInMinutes <long>] [-ParentSourceId <long>]
- [-ScheduleStartTime <DateTime>] [-SourceIds <long[]>] [-SourceSpecialParameters <SourceSpecialParameter[]>]
- [-Timezone <string>] [-ViewName <string>] [-VmTagIds <long[]>] [<CommonParameters>]
+New-CohesityProtectionJob -Name <String> [-Description <String>] -PolicyId <String> [-ParentSourceId <Int64>]
+ [-SourceIds <Int64[]>] [-ExcludeSourceIds <Int64[]>] [-VmTagIds <Int64[]>] [-ExcludeVmTagIds <Int64[]>]
+ [-Timezone <String>] [-ScheduleStartTime <DateTime>] -StorageDomainId <Int64> [-ViewName <String>]
+ [-FullSLATimeInMinutes <Int64>] [-IncrementalSLATimeInMinutes <Int64>] [-Environment <EnvironmentEnum>]
+ [-SourceSpecialParameters <SourceSpecialParameter[]>] [<CommonParameters>]
 ```
 
-### UNNAMED_PARAMETER_SET_2
+### CreateByName
 ```
-New-CohesityProtectionJob -Name <string> -PolicyName <string> -StorageDomainName <string>
- [-Description <string>] [-Environment <EnvironmentEnum>] [-ExcludeSourceIds <long[]>]
- [-ExcludeVmTagIds <long[]>] [-FullSLATimeInMinutes <long>] [-IncrementalSLATimeInMinutes <long>]
- [-ParentSourceId <long>] [-ScheduleStartTime <DateTime>] [-SourceIds <long[]>]
- [-SourceSpecialParameters <SourceSpecialParameter[]>] [-Timezone <string>] [-ViewName <string>]
- [-VmTagIds <long[]>] [<CommonParameters>]
+New-CohesityProtectionJob -Name <String> [-Description <String>] -PolicyName <String> [-ParentSourceId <Int64>]
+ [-SourceIds <Int64[]>] [-ExcludeSourceIds <Int64[]>] [-VmTagIds <Int64[]>] [-ExcludeVmTagIds <Int64[]>]
+ [-Timezone <String>] [-ScheduleStartTime <DateTime>] -StorageDomainName <String> [-ViewName <String>]
+ [-FullSLATimeInMinutes <Int64>] [-IncrementalSLATimeInMinutes <Int64>] [-Environment <EnvironmentEnum>]
+ [-SourceSpecialParameters <SourceSpecialParameter[]>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -43,7 +41,7 @@ Creates a protection job for protecting a Cohesity View.
 Specifies the name of the protection job.
 
 ```yaml
-Type: string
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -58,7 +56,7 @@ Accept wildcard characters: False
 Specifies the description of the protection job.
 
 ```yaml
-Type: string
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -73,8 +71,8 @@ Accept wildcard characters: False
 Specifies the unique id of the protection policy associated with the protection job.
 
 ```yaml
-Type: string
-Parameter Sets: UNNAMED_PARAMETER_SET_1
+Type: String
+Parameter Sets: CreateById
 Aliases:
 
 Required: True
@@ -88,8 +86,8 @@ Accept wildcard characters: False
 Specifies the name of the protection policy associated with the protection job.
 
 ```yaml
-Type: string
-Parameter Sets: UNNAMED_PARAMETER_SET_2
+Type: String
+Parameter Sets: CreateByName
 Aliases:
 
 Required: True
@@ -103,7 +101,7 @@ Accept wildcard characters: False
 Specifies the unique id of the parent protection source (such as a vCenter server) protected by this protection job.
 
 ```yaml
-Type: long
+Type: Int64
 Parameter Sets: (All)
 Aliases:
 
@@ -118,7 +116,7 @@ Accept wildcard characters: False
 Specifies the unique id of the protection source objects (such as a virtual machines) protected by this protection job.
 
 ```yaml
-Type: long[]
+Type: Int64[]
 Parameter Sets: (All)
 Aliases:
 
@@ -135,7 +133,7 @@ Both leaf and non-leaf Objects may be specified in this list.
 An Object in this list must have its ancestor in the SourceIds list.
 
 ```yaml
-Type: long[]
+Type: Int64[]
 Parameter Sets: (All)
 Aliases:
 
@@ -150,7 +148,7 @@ Accept wildcard characters: False
 Specifies a list of VM tag ids to protect VMs with the corresponding tags.
 
 ```yaml
-Type: long[]
+Type: Int64[]
 Parameter Sets: (All)
 Aliases:
 
@@ -165,7 +163,7 @@ Accept wildcard characters: False
 Specifies a list of VM tag ids to exclude VMs with the corresponding tags.
 
 ```yaml
-Type: long[]
+Type: Int64[]
 Parameter Sets: (All)
 Aliases:
 
@@ -181,7 +179,7 @@ Specifies the timezone for this protection job.
 Must be a string in Olson time zone format such as "America/Los_Angeles".
 
 ```yaml
-Type: string
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -202,7 +200,7 @@ Aliases:
 
 Required: False
 Position: Named
-Default value: 1/12/2020 10:33:41 PM
+Default value: 12/2/2020 4:13:48 PM
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -211,8 +209,8 @@ Accept wildcard characters: False
 Specifies the storage domain (view box) id where this job writes data.
 
 ```yaml
-Type: long
-Parameter Sets: UNNAMED_PARAMETER_SET_1
+Type: Int64
+Parameter Sets: CreateById
 Aliases:
 
 Required: True
@@ -226,8 +224,8 @@ Accept wildcard characters: False
 Specifies the name of the storage domain associated with the protection job.
 
 ```yaml
-Type: string
-Parameter Sets: UNNAMED_PARAMETER_SET_2
+Type: String
+Parameter Sets: CreateByName
 Aliases:
 
 Required: True
@@ -241,7 +239,7 @@ Accept wildcard characters: False
 Specifies the name of the View associated with the protection job.
 
 ```yaml
-Type: string
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -257,7 +255,7 @@ Specifies the number of minutes that a Job Run of a Full (no CBT) backup schedul
 A SLA violation is reported when the run time of a Job Run exceeds the SLA time period specified for this backup schedule.
 
 ```yaml
-Type: long
+Type: Int64
 Parameter Sets: (All)
 Aliases:
 
@@ -273,7 +271,7 @@ Specifies the number of minutes that a Job Run of a CBT-based backup schedule is
 A SLA violation is reported when the run time of a Job Run exceeds the SLA time period specified for this backup schedule.
 
 ```yaml
-Type: long
+Type: Int64
 Parameter Sets: (All)
 Aliases:
 
@@ -304,6 +302,9 @@ Accept wildcard characters: False
 ```
 
 ### -SourceSpecialParameters
+Specifies additional settings that can apply to a subset of the Sources listed in the Protection Job.For example, you can specify a list of files and folders to protect instead of protecting the entire Physical Server.If this field's setting conflicts with environmentParameters, then this setting will be used.
+Specific volume selections must be passed in here to take effect.
+
 ```yaml
 Type: SourceSpecialParameter[]
 Parameter Sets: (All)
@@ -326,7 +327,7 @@ Specifies the unique id of the protection source objects (such as a virtual mach
 
 ## OUTPUTS
 
+### Cohesity.Model.ProtectionJob
 ## NOTES
 
 ## RELATED LINKS
-

@@ -1,4 +1,3 @@
-
 # Find-CohesityFilesForRestore
 
 ## SYNOPSIS
@@ -7,9 +6,9 @@ Finds a list of files and folders for restore based on the specified parameters.
 ## SYNTAX
 
 ```
-Find-CohesityFilesForRestore [-EndTime <long>] [-Environments <EnvironmentEnum[]>] [-FolderOnly <bool>]
- [-JobIds <long[]>] [-RegisteredSourceIds <long[]>] [-Search <string>] [-SourceIds <long[]>]
- [-StartTime <long>] [-StorageDomainIds <long[]>] [<CommonParameters>]
+Find-CohesityFilesForRestore [-Environments <EnvironmentEnum[]>] [-FolderOnly <Boolean>] [-Search <String>]
+ [-StartTime <Int64>] [-EndTime <Int64>] [-JobIds <Int64[]>] [-SourceIds <Int64[]>]
+ [-RegisteredSourceIds <Int64[]>] [-StorageDomainIds <Int64[]>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -49,7 +48,7 @@ If false, only files are returned.
 If not specified, both files and folders are returned.
 
 ```yaml
-Type: bool
+Type: Boolean
 Parameter Sets: (All)
 Aliases:
 
@@ -66,7 +65,7 @@ The specified string can match any part of the name.
 For example: "vm" or "123" both match the name of "vm-123".
 
 ```yaml
-Type: string
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -83,7 +82,7 @@ Specified as a Unix epoch Timestamp (in microseconds).
 Only items created by backups that completed between the specified start and end times are returned.
 
 ```yaml
-Type: long
+Type: Int64
 Parameter Sets: (All)
 Aliases:
 
@@ -100,7 +99,7 @@ Specified as a Unix epoch Timestamp (in microseconds).
 Only items created by backups that completed between the specified start and end times are returned.
 
 ```yaml
-Type: long
+Type: Int64
 Parameter Sets: (All)
 Aliases:
 
@@ -115,7 +114,7 @@ Accept wildcard characters: False
 Filter by a list of protection job ids.Only items backed up by the specified jobs are listed.
 
 ```yaml
-Type: long[]
+Type: Int64[]
 Parameter Sets: (All)
 Aliases:
 
@@ -131,7 +130,7 @@ Filter by source ids.
 Only files and folders found in the listed sources (such as VMs) are returned.
 
 ```yaml
-Type: long[]
+Type: Int64[]
 Parameter Sets: (All)
 Aliases:
 
@@ -147,7 +146,7 @@ Filter by a list of registered source ids.
 Only items from the listed registered sources are returned.
 
 ```yaml
-Type: long[]
+Type: Int64[]
 Parameter Sets: (All)
 Aliases:
 
@@ -163,7 +162,7 @@ Filter by a list of storage domain (view box) ids.
 Only items stored in the listed domains (view boxes) are returned.
 
 ```yaml
-Type: long[]
+Type: Int64[]
 Parameter Sets: (All)
 Aliases:
 
@@ -181,7 +180,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
+### Cohesity.Model.FileSearchResult
 ## NOTES
 
 ## RELATED LINKS
-

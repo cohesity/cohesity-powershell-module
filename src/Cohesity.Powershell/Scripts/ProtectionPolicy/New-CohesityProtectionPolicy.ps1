@@ -9,28 +9,33 @@ function New-CohesityProtectionPolicy {
         .LINK
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
-        New-CohesityProtectionPolicy -PolicyName <string> -BackupInHours 14 -RetainInDays 25 -IncrementalSchedule INCREMENTAL-ONLY
+        New-CohesityProtectionPolicy -PolicyName policy1 -BackupInHours 14 -RetainInDays 25 -IncrementalSchedule INCREMENTAL-ONLY
         .EXAMPLE
-        New-CohesityProtectionPolicy -PolicyName <string> -BackupInHours 14 -RetainInDays 25 -IncrementalSchedule INCREMENTAL-FULL
+        New-CohesityProtectionPolicy -PolicyName policy1 -BackupInHours 14 -RetainInDays 25 -IncrementalSchedule INCREMENTAL-FULL
         .EXAMPLE
-        New-CohesityProtectionPolicy -PolicyName <string> -BackupInHours 14 -RetainInDays 25 -VaultName <string>
+        New-CohesityProtectionPolicy -PolicyName policy1 -BackupInHours 14 -RetainInDays 25 -VaultName vault1
     #>
     [CmdletBinding(SupportsShouldProcess = $True, ConfirmImpact = "High")]
     Param(
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
+        # Specifies the policy for the protection job.
         [string]$PolicyName,
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
+        # Specifies the no. of hours after which backup has to run.
         [int]$BackupInHours,
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
+        # Specifies the number of days for retainment.
         [int]$RetainInDays,
         [Parameter(Mandatory = $false)]
         [ValidateNotNullOrEmpty()]
         [ValidateSet("INCREMENTAL-ONLY", "INCREMENTAL-FULL")]
+        # Specifies the type of incremental schedule.
         [string]$IncrementalSchedule = "INCREMENTAL-ONLY",
         [Parameter(Mandatory = $false)]
+        # Specifies the name of the vault.
         $VaultName = $null
     )
     Begin {

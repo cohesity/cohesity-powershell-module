@@ -5,9 +5,16 @@ Clones the specified Cohesity View.
 
 ## SYNTAX
 
+### Default (Default)
 ```
-Copy-CohesityView -JobId <long> -SourceViewName <string> -TargetViewDescription <string>
- -TargetViewName <string> -TaskName <string> [-JobRunId <long>] [-QoSPolicy <string>] [-StartTime <long>]
+Copy-CohesityView [-TaskName <String>] -SourceViewName <String> -TargetViewName <String>
+ [-TargetViewDescription <String>] -JobId <Int64> [-QoSPolicy <String>] [<CommonParameters>]
+```
+
+### JobRunSpecific
+```
+Copy-CohesityView [-TaskName <String>] -SourceViewName <String> -TargetViewName <String>
+ [-TargetViewDescription <String>] -JobId <Int64> [-QoSPolicy <String>] -JobRunId <Int64> -StartTime <Int64>
  [<CommonParameters>]
 ```
 
@@ -18,22 +25,29 @@ Clones the specified Cohesity View.
 
 ### EXAMPLE 1
 ```
-Copy-CohesityView -TaskName "clone-view-task" -SourceViewName "test-view" -TargetViewName "clone-of-test-view" -TargetViewDescription "cloned view" -QosPolicy "Backup Target Low" -JobId 49402
+Copy-CohesityView -TaskName "Task-clone-a-view" -SourceViewName "source-view" -TargetViewName "target-view" -TargetViewDescription "Create a view clone" -QosPolicy "Backup Target Low" -JobId 12345
 ```
 
 Clones the Cohesity View called "test-view" with the given source id using the latest run of job id 49402.
 
+### EXAMPLE 2
+```
+Copy-CohesityView -TaskName "Task-clone-a-view" -SourceViewName "source-view" -TargetViewName "target-view" -TargetViewDescription "Create a view clone" -JobId 17955 -JobRunId 17956 -StartTime 1582878606980416
+```
+
+Clones a view from a job with job run id and start time.
+
 ## PARAMETERS
 
 ### -TaskName
-Specifies the name of the clone task.
+Task name for the operation.
 
 ```yaml
-Type: string
+Type: String
 Parameter Sets: (All)
 Aliases:
 
-Required: True
+Required: False
 Position: Named
 Default value: None
 Accept pipeline input: False
@@ -41,10 +55,10 @@ Accept wildcard characters: False
 ```
 
 ### -SourceViewName
-Specifies the name of the View to clone.
+Specifies the name of the source View that will be cloned.
 
 ```yaml
-Type: string
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -56,10 +70,10 @@ Accept wildcard characters: False
 ```
 
 ### -TargetViewName
-Specifies the name of the cloned View.
+Specifies the name of the target View.
 
 ```yaml
-Type: string
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -70,31 +84,15 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -QoSPolicy
-Specifies the name of the QoS Policy used for the cloned View such as 'TestAndDev High', 'Backup Target SSD', 'Backup Target High' 'TestAndDev Low' and 'Backup Target Low'.
-If not specified, the default is 'Backup Target Low'.
+### -TargetViewDescription
+Specifies an optional text description about the View.
 
 ```yaml
-Type: string
+Type: String
 Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: Named
-Default value: Backup Target Low
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -TargetViewDescription
-Specifies the description of the cloned View.
-
-```yaml
-Type: string
-Parameter Sets: (All)
-Aliases:
-
-Required: True
 Position: Named
 Default value: None
 Accept pipeline input: False
@@ -102,10 +100,10 @@ Accept wildcard characters: False
 ```
 
 ### -JobId
-Specifies the job id that backed up this View and will be used for cloning.
+Job Id for the protected source view.
 
 ```yaml
-Type: long
+Type: Int64
 Parameter Sets: (All)
 Aliases:
 
@@ -116,35 +114,47 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -JobRunId
-Specifies the job run id that captured the snapshot for this View.
-If not specified the latest run is used.
+### -QoSPolicy
+Specifies the name of the QoS Policy used for the View.
 
 ```yaml
-Type: long
+Type: String
 Parameter Sets: (All)
 Aliases:
 
 Required: False
 Position: Named
-Default value: None
+Default value: Backup Target Low
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -JobRunId
+Job run id for the protected source view.
+
+```yaml
+Type: Int64
+Parameter Sets: JobRunSpecific
+Aliases:
+
+Required: True
+Position: Named
+Default value: 0
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -StartTime
-Specifies the time when the Job Run starts capturing a snapshot.
-Specified as a Unix epoch Timestamp (in microseconds).
-This must be specified if job run id is specified.
+Start time for the protected source view.
 
 ```yaml
-Type: long
-Parameter Sets: (All)
+Type: Int64
+Parameter Sets: JobRunSpecific
 Aliases:
 
-Required: False
+Required: True
 Position: Named
-Default value: None
+Default value: 0
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -157,5 +167,9 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## OUTPUTS
 
 ## NOTES
+Published by Cohesity
 
 ## RELATED LINKS
+
+[https://cohesity.github.io/cohesity-powershell-module/#/README](https://cohesity.github.io/cohesity-powershell-module/#/README)
+

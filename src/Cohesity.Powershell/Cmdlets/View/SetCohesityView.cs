@@ -21,6 +21,20 @@ namespace Cohesity.Powershell.Cmdlets.View
     ///   Updates a Cohesity View.
     ///   </para>
     /// </example>
+    /// <example>
+    ///   <para>PS&gt;</para>
+    ///   <code>
+    ///   $view = Get-CohesityView -ViewNames “Cohesity_View”
+    ///   $SubnetWhitelists = New-Object 'System.Collections.Generic.List[Cohesity.Model.Subnet]'
+    ///   $subnet =  New-Object -TypeName Cohesity.Model.Subnet("") -Property @{NetmaskIp4="255.255.255.0" Description="whitelist linux";Ip="10.2.146.241";NfsAccess=3; SmbAccess=2;NfsRootSquash=$False}
+    ///   $SubnetWhitelists.Add($subnet)
+    ///   $view.SubnetWhitelist= $SubnetWhitelists
+    ///   Set-CohesityView -View $view
+    ///   </code>
+    ///   <para>
+    ///   Override global whitelist.
+    ///   </para>
+    /// </example>
     [Cmdlet(VerbsCommon.Set, "CohesityView")]
     [OutputType(typeof(Model.View))]
     public class SetCohesityView: PSCmdlet

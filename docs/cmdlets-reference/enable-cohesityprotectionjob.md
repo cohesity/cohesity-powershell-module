@@ -5,14 +5,14 @@ Activates the specified protection job.
 
 ## SYNTAX
 
-### UNNAMED_PARAMETER_SET_1
+### ById
 ```
-Enable-CohesityProtectionJob -Id <long> -ParentSourceId <long> -PolicyId <string> [<CommonParameters>]
+Enable-CohesityProtectionJob -Id <Int64> -PolicyId <String> -ParentSourceId <Int64> [<CommonParameters>]
 ```
 
-### UNNAMED_PARAMETER_SET_2
+### ByName
 ```
-Enable-CohesityProtectionJob -Name <string> -ParentSourceId <long> -PolicyId <string> [<CommonParameters>]
+Enable-CohesityProtectionJob -Name <String> -PolicyId <String> -ParentSourceId <Int64> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -34,8 +34,8 @@ Activates a protection job with the id of 1234 and associates it with the specif
 Specifies the unique id of the protection job.
 
 ```yaml
-Type: long
-Parameter Sets: UNNAMED_PARAMETER_SET_1
+Type: Int64
+Parameter Sets: ById
 Aliases:
 
 Required: True
@@ -49,8 +49,8 @@ Accept wildcard characters: False
 Specifies the name of the protection job.
 
 ```yaml
-Type: string
-Parameter Sets: UNNAMED_PARAMETER_SET_2
+Type: String
+Parameter Sets: ByName
 Aliases:
 
 Required: True
@@ -64,7 +64,7 @@ Accept wildcard characters: False
 Specifies the unique id of the protection policy to be associated with the protection job.
 
 ```yaml
-Type: string
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -80,7 +80,7 @@ Specifies the unique id of the parent protection source (eg.
 a vCenter server) protected by this protection job.
 
 ```yaml
-Type: long
+Type: Int64
 Parameter Sets: (All)
 Aliases:
 

@@ -11,23 +11,32 @@ function Stop-CohesityProtectionJob {
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
         Stop-CohesityProtectionJob -Id 78773 -JobRunId 85510
+        Cancels a running protection job with Id 78773 and JobRunId 85510.
     #>
     [OutputType('System.Object')]
     [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = "High")]
     Param(
         [Parameter(Mandatory = $true, ValueFromPipelineByPropertyName = $true, ParameterSetName = "ById")]
         [ValidateRange(1, [long]::MaxValue)]
+        # Specifies the unique id of the protection job.
         [long]$Id,
         [Parameter(Mandatory = $true, ParameterSetName = "ByName")]
         [ValidateNotNullOrEmpty()]
+        # Specifies the name of the protection job.
         [string]$Name,
         [Parameter(Mandatory = $false)]
+        # Specifies flag to stop archival job.
         [switch]$StopArchivalJob,
         [Parameter(Mandatory = $false)]
+        # Specifies flag to stop cloud spin job.
         [switch]$StopCloudSpinJob,
         [Parameter(Mandatory = $false)]
+        # Specifies flag to stop replication job.
         [switch]$StopReplicationJob,
         [Parameter(Mandatory = $false)]
+        # Run Id of a protection job run that needs to be cancelled.
+        # If this run id does not match the id of an active run in the protection job, the job run is not cancelled and an error will be returned.
+        # If this is not specified, the last job run id is used.
         [long]$JobRunId
     )
 

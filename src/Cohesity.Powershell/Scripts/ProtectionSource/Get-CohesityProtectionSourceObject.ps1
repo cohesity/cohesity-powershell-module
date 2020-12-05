@@ -1,34 +1,54 @@
 function Get-CohesityProtectionSourceObject {
     <#
         .SYNOPSIS
-        Get protection source object.
+        Gets a list of the registered Protection Sources and their sub objects.
         .DESCRIPTION
-        The Get-CohesityProtectionSourceObject function is used to get protection source object.
+        If no parameters are specified, all the Protection Sources and their sub objects are returned.
+        Specifying additional parameters can filter the results that are returned.
+        If you only want to get a specific object you can specify the -Id parameter.
         .NOTES
         Published by Cohesity
         .LINK
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
-        Available values for parameter 'ExcludeTypes': kVCenter, kFolder, kDatacenter, kComputeResource, kClusterComputeResource, kResourcePool, kDatastore, kHostSystem, kVirtualMachine, kVirtualApp, kStandaloneHost, kStoragePod, kNetwork, kDistributedVirtualPortgroup, kTagCategory, kTag
-
-        Get-CohesityProtectionSourceObject -Environments kVMware -ExcludeTypes kResourcePool
+        Get-CohesityProtectionSourceObject -Environments KPhysical
+        Returns all the registered protection sources and their sub objects that match the environment type 'kPhysical'.
         .EXAMPLE
         Get-CohesityProtectionSourceObject -Id 1234
+        Returns only the object that matches the specified id.
+        .EXAMPLE
+        $sql = Get-CohesityProtectionSourceObject -Environments KSQL
+        $sql | Where-Object{$_.SqlProtectionSource.Type -eq "KDatabase"}
+        Get all the SQL objects and filter the array with KDatabase and KInstance to get the databases and the server instances respectively.
+        .EXAMPLE
+        Get-CohesityProtectionSourceObject -Environments kVMware -ExcludeTypes kResourcePool
     #>
-	[OutputType('System.Array')]
+    [OutputType('System.Array')]
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory = $false)]
+        # Set this parameter to also return kDatastore type of objects.
+        # By default, datastores are not returned.
         [switch]$IncludeDatastores,
         [Parameter(Mandatory = $false)]
+        # Set this parameter to also return kNetwork type of objects.
+        # By default, network objects are not returned.
         [switch]$IncludeNetworks,
         [Parameter(Mandatory = $false)]
+        # Set this parameter to also return kVMFolder type of objects.
+        # By default, VM folder objects are not returned.
         [switch]$IncludeVMFolders,
         [Parameter(Mandatory = $false)]
+        # Return only Protection Sources that match the passed in environment type.
+        # For example, set this parameter to 'kVMware' to only return the Sources (and their sub objects) found in the VMware environment.
         [Cohesity.Model.ProtectionSource+EnvironmentEnum[]]$Environments,
         [Parameter(Mandatory = $false, ValueFromPipeline = $true)]
+        # Returns only the object specified by the id.
         [long]$Id,
         [Parameter(Mandatory = $false)]
+        # Filter out the Object types (and their sub objects) that match the passed in types.
+        # For example, set this parameter to "kResourcePool" to exclude Resource Pool Objects from being returned.
+        # Available values : kVCenter, kFolder, kDatacenter, kComputeResource, kClusterComputeResource, kResourcePool, kDatastore, kHostSystem, kVirtualMachine, kVirtualApp, kStandaloneHost, kStoragePod, kNetwork, kDistributedVirtualPortgroup, kTagCategory, kTag
         [string[]]$ExcludeTypes
     )
 

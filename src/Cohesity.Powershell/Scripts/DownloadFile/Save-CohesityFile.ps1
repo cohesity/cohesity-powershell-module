@@ -7,10 +7,10 @@ function Save-CohesityFile {
         .NOTES
         If target path is not specified, then file will be downloaded under home folder
         .EXAMPLE
-        Save-CohesityFile -FileName <string> -ServerName <string> -OutFile <string>
+        Save-CohesityFile -FileName sfile1 -ServerName server1 -OutFile dfile1
         Download the specified file from the server under specified target path
         .EXAMPLE
-        Save-CohesityFile -FileName <string> -ServerName <string>
+        Save-CohesityFile -FileName sfile1 -ServerName server1
         Download the specified file from the server under home path
         .NOTES
         *** Only files can be downloaded
@@ -20,10 +20,13 @@ function Save-CohesityFile {
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory = $true)]
+        # Specifies the name of the file.
         $FileName,
         [Parameter(Mandatory = $false)]
+        # Specifies the output file.
         $OutFile = $null,
         [Parameter(Mandatory = $true)]
+        # Specifies the name of the server.
         $ServerName
     )
 

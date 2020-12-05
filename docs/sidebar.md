@@ -23,14 +23,25 @@
 
 
 - **Access Management**
+- [Add-CohesityProtectionSourceForPrincipal](cmdlets-reference/add-cohesityprotectionsourceforprincipal.md)
+- [Add-CohesityViewForPrincipal](cmdlets-reference/add-cohesityviewforprincipal.md)
 - [Get-CohesityActiveDirectory](cmdlets-reference/get-cohesityactivedirectory.md)
 - [Get-CohesityPrivilege](cmdlets-reference/get-cohesityprivilege.md)
+- [Get-CohesityProtectionSourceForPrincipal](cmdlets-reference/get-cohesityprotectionsourceforprincipal.md)
+- [Get-CohesityViewForPrincipal](cmdlets-reference/get-cohesityviewforprincipal.md)
 - [Get-CohesityRole](cmdlets-reference/get-cohesityrole.md)
 - [Get-CohesityUser](cmdlets-reference/get-cohesityuser.md)
+- [Get-CohesityUserGroup](cmdlets-reference/get-cohesityusergroup.md)
 - [New-CohesityActiveDirectory](cmdlets-reference/new-cohesityactivedirectory.md)
 - [New-CohesityUser](cmdlets-reference/new-cohesityuser.md)
+- [New-CohesityUserGroup](cmdlets-reference/new-cohesityusergroup.md)
 - [Remove-CohesityActiveDirectory](cmdlets-reference/remove-cohesityactivedirectory.md)
+- [Remove-CohesityProtectionSourceForPrincipal](cmdlets-reference/remove-cohesityprotectionsourceforprincipal.md)
+- [Remove-CohesityViewForPrincipal](cmdlets-reference/remove-cohesityviewforprincipal.md)
+- [Remove-CohesityUser](cmdlets-reference/remove-cohesityuser.md)
+- [Remove-CohesityUserGroup](cmdlets-reference/remove-cohesityusergroup.md)
 - [Update-CohesityActiveDirectory](cmdlets-reference/update-cohesityactivedirectory.md)
+- [Update-CohesityUserGroup](cmdlets-reference/update-cohesityusergroup.md)
 
 
 - **Clusters**
@@ -57,7 +68,9 @@
 - [Get-CohesityViewShare](cmdlets-reference/get-cohesityviewshare.md)
 - [Add-CohesityViewShare](cmdlets-reference/add-cohesityviewshare.md)
 - [Remove-CohesityViewShare](cmdlets-reference/remove-cohesityviewshare.md)
-- [Recover-CohesityBackupToView](cmdlets-reference/recover-cohesitybackuptoview.md)
+- [Restore-CohesityBackupToView](cmdlets-reference/restore-cohesitybackuptoview.md)
+- [Get-CohesityViewDirectoryQuota](cmdlets-reference/get-cohesityviewdirectoryquota.md)
+- [Set-CohesityViewDirectoryQuota](cmdlets-reference/set-cohesityviewdirectoryquota.md)
 
 
 - **Data Protection**
@@ -70,6 +83,7 @@
 - [Register-CohesityProtectionSourceSMB](cmdlets-reference/register-cohesityprotectionsourcesmb.md)
 - [Register-CohesityProtectionSourceIsilon](cmdlets-reference/register-cohesityprotectionsourceisilon.md)
 - [Register-CohesityProtectionSourceMSSQL](cmdlets-reference/register-cohesityprotectionsourcemssql.md)
+- [Register-CohesityProtectionSourceO365](cmdlets-reference/register-cohesityprotectionsourceo365.md)
 - [Register-CohesityProtectionSourcePureStorageArray](cmdlets-reference/register-cohesityprotectionsourcepurestoragearray.md)
 - [Update-CohesityProtectionSource](cmdlets-reference/update-cohesityprotectionsource.md)
 - [Unregister-CohesityProtectionSource](cmdlets-reference/unregister-cohesityprotectionsource.md)
@@ -135,8 +149,10 @@
 
 
 - **Tenant**
-- [Get-CohesityOrganisation](cmdlets-reference/get-cohesityorganisation.md)
+- [Get-CohesityOrganization](cmdlets-reference/get-cohesityorganization.md)
 
+- **QOS**
+- [Get-CohesityQOSPolicy](cmdlets-reference/get-cohesityqospolicy.md)
 
 - **Routes**
 - [Get-CohesityRoutes](cmdlets-reference/get-cohesityroutes.md)

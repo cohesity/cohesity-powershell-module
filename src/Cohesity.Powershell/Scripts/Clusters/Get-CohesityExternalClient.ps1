@@ -1,7 +1,7 @@
 function Get-CohesityExternalClient {
     <#
         .SYNOPSIS
-        Get external client IPs.
+        Get external client IP(s).
         .DESCRIPTION
         The Get-CohesityExternalClient function is used to get external client IP(s) which is also known as global whitelist IP(s).
         .NOTES
@@ -10,6 +10,7 @@ function Get-CohesityExternalClient {
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
         Get-CohesityExternalClient
+        Get external client (global whitelist) IP(s).
     #>
     [OutputType('System.Collections.ArrayList')]
     [CmdletBinding()]

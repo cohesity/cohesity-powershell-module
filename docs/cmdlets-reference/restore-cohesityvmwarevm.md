@@ -5,11 +5,19 @@ Restores the specified VMware virtual machine from a previous backup.
 
 ## SYNTAX
 
+### Default (Default)
 ```
-Restore-CohesityVMwareVM -JobId <long> -SourceId <long> -TaskName <string> [-DatastoreId <long>]
- [-DisableNetwork] [-JobRunId <long>] [-NetworkId <long>] [-NewParentId <long>] [-PoweredOn]
- [-ResourcePoolId <long>] [-StartTime <long>] [-VmFolderId <long>] [-VmNamePrefix <string>]
- [-VmNameSuffix <string>] [<CommonParameters>]
+Restore-CohesityVMwareVM -JobId <Object> -SourceId <Object> [-TaskName <Object>] [-VmNamePrefix <Object>]
+ [-VmNameSuffix <Object>] [-DisableNetwork] [-PoweredOn] [-DatastoreId <Object>] [-NetworkId <Object>]
+ [-ResourcePoolId <Object>] [-VmFolderId <Object>] [-NewParentId <Object>] [<CommonParameters>]
+```
+
+### Jobrun
+```
+Restore-CohesityVMwareVM -JobId <Object> -SourceId <Object> [-TaskName <Object>] [-JobRunId <Object>]
+ [-StartTime <Object>] [-VmNamePrefix <Object>] [-VmNameSuffix <Object>] [-DisableNetwork] [-PoweredOn]
+ [-DatastoreId <Object>] [-NetworkId <Object>] [-ResourcePoolId <Object>] [-VmFolderId <Object>]
+ [-NewParentId <Object>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -22,15 +30,28 @@ Restores the specified VMware virtual machine from a previous backup.
 Restore-CohesityVMwareVM -TaskName "Test-Restore" -SourceId 2 -JobId 8 -VmNamePrefix "copy-" -DisableNetwork -PoweredOn
 ```
 
-Restores the VMware virtual machine with the given source id using the latest run of job id 8.
+### EXAMPLE 2
+```
+Restore-CohesityVMwareVM -TaskName "Task-vm-restore" -SourceId 500 -JobId 181 -VmNamePrefix "pref" -VmNameSuffix "suff" -DisableNetwork:$false
+```
+
+### EXAMPLE 3
+```
+Restore-CohesityVMwareVM -SourceId 919 -JobId 48888 -VmNamePrefix "pref" -VmNameSuffix "suff" -DisableNetwork:$false
+```
+
+### EXAMPLE 4
+```
+Restore-CohesityVMwareVM -SourceId 919 -JobId 48888 -VmNamePrefix "pref2" -VmNameSuffix "suff2" -DisableNetwork:$false -NewParentId 1 -ResourcePoolId 25 -DatastoreId 7 -VmFolderId 692
+```
 
 ## PARAMETERS
 
-### -TaskName
-Specifies the name of the restore task.
+### -JobId
+Specifies the job id that backed up this VM and will be used for this restore.
 
 ```yaml
-Type: string
+Type: Object
 Parameter Sets: (All)
 Aliases:
 
@@ -45,28 +66,28 @@ Accept wildcard characters: False
 Specifies the source id of the VM to be restored.
 
 ```yaml
-Type: long
+Type: Object
 Parameter Sets: (All)
 Aliases:
 
 Required: True
 Position: Named
-Default value: 0
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -JobId
-Specifies the job id that backed up this VM and will be used for this restore.
+### -TaskName
+Specifies the name of the restore task.
 
 ```yaml
-Type: long
+Type: Object
 Parameter Sets: (All)
 Aliases:
 
-Required: True
+Required: False
 Position: Named
-Default value: 0
+Default value: "Recover-VMware-VM-" + (Get-Date -Format "dddd-MM-dd-yyyy-HH-mm-ss").ToString()
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -76,8 +97,8 @@ Specifies the job run id that captured the snapshot for this VM.
 If not specified the latest run is used.
 
 ```yaml
-Type: long
-Parameter Sets: (All)
+Type: Object
+Parameter Sets: Jobrun
 Aliases:
 
 Required: False
@@ -93,8 +114,8 @@ Specified as a Unix epoch Timestamp (in microseconds).
 This must be specified if job run id is specified.
 
 ```yaml
-Type: long
-Parameter Sets: (All)
+Type: Object
+Parameter Sets: Jobrun
 Aliases:
 
 Required: False
@@ -108,7 +129,7 @@ Accept wildcard characters: False
 Specifies the prefix to add to the name of the restored VM.
 
 ```yaml
-Type: string
+Type: Object
 Parameter Sets: (All)
 Aliases:
 
@@ -123,7 +144,7 @@ Accept wildcard characters: False
 Specifies the suffix to add to the name of the restored VM.
 
 ```yaml
-Type: string
+Type: Object
 Parameter Sets: (All)
 Aliases:
 
@@ -173,7 +194,7 @@ This field is mandatory when recovering the VM to a different resource pool or t
 If not specified, VM is recovered to its original datastore location in the parent source.
 
 ```yaml
-Type: long
+Type: Object
 Parameter Sets: (All)
 Aliases:
 
@@ -190,7 +211,7 @@ By default, original network configuration is preserved if the VM is recovered u
 Original network configuration is detached if the VM is recovered under a different vCenter or a different resource pool.
 
 ```yaml
-Type: long
+Type: Object
 Parameter Sets: (All)
 Aliases:
 
@@ -207,7 +228,7 @@ This field is mandatory if recovering to a new parent source such as vCenter.
 If this field is not specified, VM is recovered to the original resource pool.
 
 ```yaml
-Type: long
+Type: Object
 Parameter Sets: (All)
 Aliases:
 
@@ -223,7 +244,7 @@ Specifies the folder where the VM should be restored.
 This is applicable only when the VM is being restored to an alternate location.
 
 ```yaml
-Type: long
+Type: Object
 Parameter Sets: (All)
 Aliases:
 
@@ -239,7 +260,7 @@ Specifies a new parent source such as vCenter to recover the VM.
 If not specified, the VM is recovered to its original parent source.
 
 ```yaml
-Type: long
+Type: Object
 Parameter Sets: (All)
 Aliases:
 
@@ -258,5 +279,9 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## OUTPUTS
 
 ## NOTES
+Published by Cohesity
 
 ## RELATED LINKS
+
+[https://cohesity.github.io/cohesity-powershell-module/#/README](https://cohesity.github.io/cohesity-powershell-module/#/README)
+

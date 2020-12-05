@@ -3,26 +3,30 @@ function Get-CohesityRoutes {
         .SYNOPSIS
         Get the routes.
         .DESCRIPTION
-        The Get-CohesityRoutes function is used to get routes.
+        List the static routes for the cohesity cluster.
         .NOTES
         Published by Cohesity
         .LINK
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
-        Get-CohesityRoutes
-        .EXAMPLE
         Get-CohesityRoutes -FilterName INTERFACE-GROUP-NAME -FilterValue "intf_group1"
+        Lists all filtered cohesity routes.
         .EXAMPLE
         Get-CohesityRoutes -FilterName DESTINATION-NETWORK -FilterValue "1.2.4.14/32"
+        Lists all filtered cohesity routes.
+        .EXAMPLE
+        Get-CohesityRoutes
     #>
     [CmdletBinding(DefaultParameterSetName = 'Default')]
     Param(
         [Parameter(Mandatory = $true, ParameterSetName = 'Filter')]
         [ValidateSet("DESTINATION-NETWORK", "NEXT-HOP", "INTERFACE-GROUP-NAME")]
         [ValidateNotNullOrEmpty()]
+        # Provide one of the option(Destination Network/Interface group name/Next hop) that to be used for filtering the routes
         $FilterName,
         [Parameter(Mandatory = $true, ParameterSetName = 'Filter')]
         [ValidateNotNullOrEmpty()]
+        # Provide the value for the option provided in the FilterName
         $FilterValue
     )
 

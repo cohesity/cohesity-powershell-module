@@ -1,4 +1,3 @@
-
 # Register-CohesityProtectionSourceVMware
 
 ## SYNOPSIS
@@ -7,7 +6,7 @@ Registers a new VMware protection source.
 ## SYNTAX
 
 ```
-Register-CohesityProtectionSourceVMware -Credential <PSCredential> -Server <string> -Type <VmwareTypeEnum>
+Register-CohesityProtectionSourceVMware -Server <String> -Type <VmwareTypeEnum> -Credential <PSCredential>
  [<CommonParameters>]
 ```
 
@@ -29,7 +28,7 @@ Registers a new vCenter server with hostname "vcenter.example.com" with the Cohe
 Hostname or IP Address for the vCenter server or ESXi server.
 
 ```yaml
-Type: string
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -44,13 +43,13 @@ Accept wildcard characters: False
 Type of VMware server.
 Must be set to KStandaloneHost or KVcenter.
 
-Possible values: KVCenter, KFolder, KDatacenter, KComputeResource, KClusterComputeResource, KResourcePool, KDatastore, KHostSystem, KVirtualMachine, KVirtualApp, KStandaloneHost, KStoragePod, KNetwork, KDistributedVirtualPortgroup, KTagCategory, KTag, KOpaqueNetwork, KVCloudDirector, KOrganization, KVirtualDatacenter, KCatalog, KOrgMetadata, KStoragePolicy
+Possible values: KVCenter, KFolder, KDatacenter, KComputeResource, KClusterComputeResource, KResourcePool, KDatastore, KHostSystem, KVirtualMachine, KVirtualApp, KStandaloneHost, KStoragePod, KNetwork, KDistributedVirtualPortgroup, KTagCategory, KTag, KOpaqueNetwork, KvCloudDirector, KOrganization, KVirtualDatacenter, KCatalog, KOrgMetadata, KStoragePolicy
 
 ```yaml
 Type: VmwareTypeEnum
 Parameter Sets: (All)
 Aliases:
-Accepted values: KVCenter, KFolder, KDatacenter, KComputeResource, KClusterComputeResource, KResourcePool, KDatastore, KHostSystem, KVirtualMachine, KVirtualApp, KStandaloneHost, KStoragePod, KNetwork, KDistributedVirtualPortgroup, KTagCategory, KTag, KOpaqueNetwork, KVCloudDirector, KOrganization, KVirtualDatacenter, KCatalog, KOrgMetadata, KStoragePolicy
+Accepted values: KVCenter, KFolder, KDatacenter, KComputeResource, KClusterComputeResource, KResourcePool, KDatastore, KHostSystem, KVirtualMachine, KVirtualApp, KStandaloneHost, KStoragePod, KNetwork, KDistributedVirtualPortgroup, KTagCategory, KTag, KOpaqueNetwork, KvCloudDirector, KOrganization, KVirtualDatacenter, KCatalog, KOrgMetadata, KStoragePolicy
 
 Required: True
 Position: Named
@@ -81,7 +80,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
+### Cohesity.Model.ProtectionSource
 ## NOTES
 
 ## RELATED LINKS
-

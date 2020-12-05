@@ -1,4 +1,3 @@
-
 # Get-CohesityViewShare
 
 ## SYNOPSIS
@@ -7,7 +6,7 @@ Gets a list of shares associated with a view.
 ## SYNTAX
 
 ```
-Get-CohesityViewShare -ViewName <string> [<CommonParameters>]
+Get-CohesityViewShare -ViewName <String> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -28,7 +27,7 @@ Displays the shares associated with a view with the name "Test-view".
 Name of the View
 
 ```yaml
-Type: string
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -46,7 +45,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
+### Cohesity.Model.View
 ## NOTES
 
 ## RELATED LINKS
-

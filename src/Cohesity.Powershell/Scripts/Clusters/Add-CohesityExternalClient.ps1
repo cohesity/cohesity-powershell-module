@@ -10,25 +10,33 @@ function Add-CohesityExternalClient {
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
         Add-CohesityExternalClient -IP4 "1.1.1.1" -NetmaskIP4 "255.255.255.0"
+        Add an external client as the global whitelist IP(s)
         .EXAMPLE
         Add-CohesityExternalClient -IP4 "1.1.1.1" -NetmaskIP4 "255.255.255.0" -NFSRootSquash:$false -NFSAccess "kReadWrite" -NFSAllSquash:$false -SMBAccess "kReadWrite"
+        Add an external client as the global whitelist IP(s) with optional parameters
     #>
     [OutputType('System.Collections.ArrayList')]
     [CmdletBinding(SupportsShouldProcess = $True, ConfirmImpact = "High")]
     Param(
         [Parameter(Mandatory = $true)]
+        # Specifies an IPv4 address.
         $IP4,
         [Parameter(Mandatory = $true)]
+        # Specifies the netmask using an IP4 address. The netmask can only be set using netmaskIp4 if the IP address is an IPv4 address.
         $NetmaskIP4,
         [Parameter(Mandatory = $false)]
+        # Specifies whether clients from this subnet can mount as root on NFS.
         [Boolean]$NFSRootSquash = $false,
         [Parameter(Mandatory = $false)]
         [ValidateSet("kDisabled", "kReadOnly", "kReadWrite")]
+        # Specifies whether clients from this subnet can mount using NFS protocol.
         $NFSAccess = "kReadWrite",
         [Parameter(Mandatory = $false)]
+        # Specifies whether all clients from this subnet can map view with view_all_squash_uid/view_all_squash_gid configured in the view.
         [Boolean]$NFSAllSquash = $false,
         [Parameter(Mandatory = $false)]
         [ValidateSet("kDisabled", "kReadOnly", "kReadWrite")]
+        # Specifies whether clients from this subnet can mount using SMB protocol.
         $SMBAccess = "kReadWrite"
     )
 

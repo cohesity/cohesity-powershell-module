@@ -1,13 +1,14 @@
-
 # Register-CohesityProtectionSourceHyperV
 
 ## SYNOPSIS
-Registers a new HyperV protection source with the Cohesity Cluster. The HyperV type can be a SCVMM server or HyperV Host.
+Registers a new HyperV protection source with the Cohesity Cluster.
+The HyperV type can be a SCVMM server or HyperV Host.
 
 ## SYNTAX
 
 ```
-Register-CohesityProtectionSourceHyperV -Credential <PSCredential> -Server <string> -HyperVType <Object> [<CommonParameters>]
+Register-CohesityProtectionSourceHyperV [-Server] <String> -HyperVType <Object> [-Credentials <PSCredential>]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -35,7 +36,22 @@ Registers a new HyperV host "scvmm.example.com" with the Cohesity Cluster.
 Hostname or IP Address for the SCVMM server.
 
 ```yaml
-Type: string
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: 1
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -HyperVType
+Specifies HyperV type.
+
+```yaml
+Type: Object
 Parameter Sets: (All)
 Aliases:
 
@@ -46,7 +62,7 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Credential
+### -Credentials
 User credentials for the SCVMM server.
 
 ```yaml
@@ -54,7 +70,7 @@ Type: PSCredential
 Parameter Sets: (All)
 Aliases:
 
-Required: True
+Required: False
 Position: Named
 Default value: None
 Accept pipeline input: False
@@ -69,6 +85,9 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## OUTPUTS
 
 ## NOTES
+Published by Cohesity
 
 ## RELATED LINKS
+
+[https://cohesity.github.io/cohesity-powershell-module/#/README](https://cohesity.github.io/cohesity-powershell-module/#/README)
 

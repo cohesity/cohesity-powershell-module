@@ -6,7 +6,7 @@ Connects to a Cohesity Cluster and acquires an authentication token.
 ## SYNTAX
 
 ```
-Connect-CohesityCluster -Credential <PSCredential> -Server <string> [-Port <long>] [<CommonParameters>]
+Connect-CohesityCluster -Server <String> [-Port <Int64>] -Credential <PSCredential> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -27,6 +27,7 @@ Connects to a Cohesity Cluster at the address "192.168.1.100" using the provided
 ```
 Connect-CohesityCluster -Server 192.168.1.100 -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList "mydomain.com\admin", (ConvertTo-SecureString -AsPlainText "p@ssword" -Force))
 ```
+
 Connects to a Cohesity Cluster at the address "192.168.1.100" using the active directory user, by appending domain name(mydomain.com) to the user.
 
 ## PARAMETERS
@@ -35,7 +36,7 @@ Connects to a Cohesity Cluster at the address "192.168.1.100" using the active d
 The FQDN or IP address of any node in the Cohesity Cluster or Cluster VIP.
 
 ```yaml
-Type: string
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -50,7 +51,7 @@ Accept wildcard characters: False
 The port to use to connect to Cohesity Cluster.
 
 ```yaml
-Type: long
+Type: Int64
 Parameter Sets: (All)
 Aliases:
 
