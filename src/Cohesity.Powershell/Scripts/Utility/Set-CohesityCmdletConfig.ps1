@@ -16,7 +16,7 @@ function Set-CohesityCmdletConfig {
         .SYNOPSIS
         Set the local configuration for cohesity powershell cmdlets.
         .DESCRIPTION
-        Set the local configuration for cohesity powershell cmdlets.
+        Set the local configuration for cohesity powershell cmdlets. If the logging flags are set, a log is generated in the following path $HOME/cohesity/cmdlet.log.
         .NOTES
         Published by Cohesity
         .LINK

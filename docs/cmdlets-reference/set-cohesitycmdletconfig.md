@@ -32,6 +32,7 @@ Set-CohesityCmdletConfig [-RefreshToken <Object>] [-WhatIf] [-Confirm] [<CommonP
 
 ## DESCRIPTION
 Set the local configuration for cohesity powershell cmdlets.
+If the logging flags are set, a log is generated in the following path $HOME/cohesity/cmdlet.log.
 
 ## EXAMPLES
 
