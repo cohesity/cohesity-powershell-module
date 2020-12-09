@@ -12,7 +12,7 @@ function Copy-CohesityVMwareVM {
         Copy-CohesityVMwareVM -TaskName "test-clone-task" -SourceId 883 -TargetViewName "test-vm-datastore" -JobId 49402 -VmNamePrefix "clone-" -DisableNetwork -PoweredOn -ResourcePoolId 893
         Clones the VMware virtual machine with the given source id using the latest run of job id 49402.
     #>
-    [CmdletBinding(SupportsShouldProcess = $True, ConfirmImpact = "High")]
+    [CmdletBinding(DefaultParameterSetName = "Default", SupportsShouldProcess = $True, ConfirmImpact = "High")]
     Param(
         [Parameter(Mandatory = $false)]
         # Specifies the name of the clone task.
@@ -28,11 +28,11 @@ function Copy-CohesityVMwareVM {
         [ValidateRange(1, [long]::MaxValue)]
         # Specifies the job id that backed up this VM and will be used for cloning.
         [long]$JobId,
-        [Parameter(Mandatory = $false)]
+        [Parameter(Mandatory = $false, ParameterSetName = "Jobrun")]
         [ValidateRange(1, [long]::MaxValue)]
         # Specifies the job run id that captured the snapshot for this VM. If not specified the latest run is used.
         [long]$JobRunId,
-        [Parameter(Mandatory = $false)]
+        [Parameter(Mandatory = $false, ParameterSetName = "Jobrun")]
         # Specifies the time when the Job Run starts capturing a snapshot.
         # Specified as a Unix epoch Timestamp (in microseconds).
         # This must be specified if job run id is specified.
@@ -85,19 +85,57 @@ function Copy-CohesityVMwareVM {
     }
 
     Process {
-        $cohesityUrl = $cohesityServer + '/irisservices/api/v1/public/restore/clone'
-        $cohesityHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
-        if ($PSCmdlet.ShouldProcess($Param1)) {
-            $payload = @{}
-            $payloadJson = $payload | ConvertTo-Json -Depth 100
-            $resp = Invoke-RestApi -Method Post -Uri $cohesityUrl -Headers $cohesityHeaders -Body $payloadJson
-            if ($resp) {
-                $resp
+        if ($PSCmdlet.ShouldProcess($SourceId)) {
+
+            $job = Get-CohesityProtectionJob -Ids $JobId
+            if (-not $job) {
+                Write-Output "Cannot proceed, the job id '$JobId' is invalid"
+                return
+            }
+    
+            if ($job.IsActive -eq $false) {
+                # executing operations from remote cluster
             }
             else {
-                $errorMsg = "VMwareVM : Failed to copy."
-                Write-Output $errorMsg
-                CSLog -Message $errorMsg
+                $vmwareParams = [PSCustomObject]@{
+                    PoweredOn = $PoweredOn.IsPresent
+                    DisableNetwork = $DisableNetwork.IsPresent
+                    Prefix = $VmNamePrefix
+                    Suffix = $VmNameSuffix
+                    DatastoreFolderId = $DatastoreFolderId
+                    NetworkId = $NetworkId
+                    ResourcePoolId = $ResourcePoolId
+                    VmFolderId = $VmFolderId
+                }
+                $cloneObject = @{
+                    JobId = $JobId
+                    ProtectionSourceId = $SourceId
+                }
+                if ($JobRunId) {
+                    $cloneObject | Add-Member -NotePropertyName JobRunId -NotePropertyValue $JobRunId
+                    $cloneObject | Add-Member -NotePropertyName StartedTimeUsecs -NotePropertyValue $StartTime
+                }
+                $cloneRequest = [PSCustomObject]@{
+                    Type = "kCloneVMs"
+                    ContinueOnError = $true
+                    TargetViewName = $TargetViewName
+                    VmwareParameters = $vmwareParams
+                    NewParentId = $NewParentId
+                    Objects = @($cloneObject)
+                }
+                $payloadJson = $cloneRequest | ConvertTo-Json -Depth 100
+
+                $cohesityUrl = $cohesityServer + '/irisservices/api/v1/public/restore/clone'
+                $cohesityHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
+                $resp = Invoke-RestApi -Method Post -Uri $cohesityUrl -Headers $cohesityHeaders -Body $payloadJson
+                if ($resp) {
+                    $resp
+                }
+                else {
+                    $errorMsg = "VMwareVM : Failed to copy."
+                    Write-Output $errorMsg
+                    CSLog -Message $errorMsg
+                }
             }
         }
         else {
