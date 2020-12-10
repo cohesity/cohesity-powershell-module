@@ -60,7 +60,7 @@ function Copy-CohesityVMwareVM {
         # By default, original network configuration is preserved if the VM is cloned under the same parent source and the same resource pool.
         # Original network configuration is detached if the VM is cloned under a different vCenter or a different resource pool.
         [long]$NetworkId,
-        [Parameter(Mandatory = $false)]
+        [Parameter(Mandatory = $true)]
         [ValidateRange(1, [long]::MaxValue)]
         # Specifies the resource pool where the VM should be cloned.
         [long]$ResourcePoolId,
@@ -69,7 +69,7 @@ function Copy-CohesityVMwareVM {
         # Specifies the folder where the VM should be cloned.
         # This is applicable only when the VM is being cloned to an alternate location.
         [long]$VmFolderId,
-        [Parameter(Mandatory = $false)]
+        [Parameter(Mandatory = $true)]
         [ValidateRange(1, [long]::MaxValue)]
         # Specifies a new parent source such as vCenter to clone the VM.
         # If not specified, the VM is cloned to its original parent source.
@@ -98,44 +98,61 @@ function Copy-CohesityVMwareVM {
             }
             else {
                 $vmwareParams = [PSCustomObject]@{
-                    PoweredOn = $PoweredOn.IsPresent
-                    DisableNetwork = $DisableNetwork.IsPresent
-                    Prefix = $VmNamePrefix
-                    Suffix = $VmNameSuffix
-                    DatastoreFolderId = $DatastoreFolderId
-                    NetworkId = $NetworkId
-                    ResourcePoolId = $ResourcePoolId
-                    VmFolderId = $VmFolderId
+                    detachNetwork = $false
+                }
+                if($PoweredOn.IsPresent) {
+                    $vmwareParams | Add-Member -NotePropertyName poweredOn -NotePropertyValue $true
+                }
+                if($DisableNetwork.IsPresent) {
+                    $vmwareParams | Add-Member -NotePropertyName disableNetwork -NotePropertyValue $true
+                }
+                if($VmNamePrefix) {
+                    $vmwareParams | Add-Member -NotePropertyName prefix -NotePropertyValue $VmNamePrefix
+                }
+                if($VmNameSuffix) {
+                    $vmwareParams | Add-Member -NotePropertyName suffix -NotePropertyValue $VmNameSuffix
+                }
+                if($DatastoreFolderId) {
+                    $vmwareParams | Add-Member -NotePropertyName datastoreFolderId -NotePropertyValue $DatastoreFolderId
+                }
+                if($NetworkId) {
+                    $vmwareParams | Add-Member -NotePropertyName networkId -NotePropertyValue $NetworkId
+                }
+                if($ResourcePoolId) {
+                    $vmwareParams | Add-Member -NotePropertyName resourcePoolId -NotePropertyValue $ResourcePoolId
+                }
+                if($VmFolderId) {
+                    $vmwareParams | Add-Member -NotePropertyName vmFolderId -NotePropertyValue $VmFolderId
                 }
                 $cloneObject = @{
-                    JobId = $JobId
-                    ProtectionSourceId = $SourceId
+                    jobId = $JobId
+                    protectionSourceId = $SourceId
                 }
                 if ($JobRunId) {
                     $cloneObject | Add-Member -NotePropertyName JobRunId -NotePropertyValue $JobRunId
                     $cloneObject | Add-Member -NotePropertyName StartedTimeUsecs -NotePropertyValue $StartTime
                 }
                 $cloneRequest = [PSCustomObject]@{
-                    Type = "kCloneVMs"
-                    ContinueOnError = $true
-                    TargetViewName = $TargetViewName
-                    VmwareParameters = $vmwareParams
-                    NewParentId = $NewParentId
-                    Objects = @($cloneObject)
+                    name = $TaskName
+                    type = "kCloneVMs"
+                    continueOnError = $true
+                    targetViewName = $TargetViewName
+                    vmwareParameters = $vmwareParams
+                    newParentId = $NewParentId
+                    objects = @($cloneObject)
                 }
-                $payloadJson = $cloneRequest | ConvertTo-Json -Depth 100
-
                 $cohesityUrl = $cohesityServer + '/irisservices/api/v1/public/restore/clone'
-                $cohesityHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
-                $resp = Invoke-RestApi -Method Post -Uri $cohesityUrl -Headers $cohesityHeaders -Body $payloadJson
-                if ($resp) {
-                    $resp
-                }
-                else {
-                    $errorMsg = "VMwareVM : Failed to copy."
-                    Write-Output $errorMsg
-                    CSLog -Message $errorMsg
-                }
+            }
+            $payloadJson = $cloneRequest | ConvertTo-Json -Depth 100
+            $cohesityHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
+            $resp = Invoke-RestApi -Method Post -Uri $cohesityUrl -Headers $cohesityHeaders -Body $payloadJson
+            if ($resp) {
+                $resp
+            }
+            else {
+                $errorMsg = "VMwareVM : Failed to copy."
+                Write-Output $errorMsg
+                CSLog -Message $errorMsg
             }
         }
         else {
