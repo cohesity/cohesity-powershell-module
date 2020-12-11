@@ -145,13 +145,13 @@ function $filePrefix-Cohesity$Feature {
             throw "Failed to authenticate. Please connect to the Cohesity Cluster using 'Connect-CohesityCluster'"
         }
         `$cohesitySession = Get-Content -Path `$HOME/.cohesity | ConvertFrom-Json
-        `$cohesityServer = `$cohesitySession.ClusterUri
+        `$cohesityCluster = `$cohesitySession.ClusterUri
         `$cohesityToken = `$cohesitySession.Accesstoken.Accesstoken
     }
 
     Process {
         #       Append the url with your ActionType accordingly.
-        `$cohesityUrl = `$cohesityServer + '/irisservices/api/v1/public/'
+        `$cohesityUrl = `$cohesityCluster + '/irisservices/api/v1/public/'
         `$cohesityHeaders = @{'Authorization' = 'Bearer ' + `$cohesityToken }
         $processBlock
     }

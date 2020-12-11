@@ -80,7 +80,7 @@ function Copy-CohesityVMwareVM {
             throw "Failed to authenticate. Please connect to the Cohesity Cluster using 'Connect-CohesityCluster'"
         }
         $cohesitySession = Get-Content -Path $HOME/.cohesity | ConvertFrom-Json
-        $cohesityServer = $cohesitySession.ClusterUri
+        $cohesityCluster = $cohesitySession.ClusterUri
         $cohesityToken = $cohesitySession.Accesstoken.Accesstoken
     }
 
@@ -92,40 +92,161 @@ function Copy-CohesityVMwareVM {
                 Write-Output "Cannot proceed, the job id '$JobId' is invalid"
                 return
             }
-    
+
             if ($job.IsActive -eq $false) {
                 # executing operations from remote cluster
+                $searchHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
+
+                $searchURL = $cohesityCluster + '/irisservices/api/v1/searchvms?entityTypes=kVMware&jobIds=' + $JobId
+                $searchResult = Invoke-RestApi -Method Get -Uri $searchURL -Headers $searchHeaders
+                if (-not $searchResult) {
+                    Write-Output "Could not search VM with the job id $JobId"
+                    return
+                }
+                $searchedVMDetails = $searchResult.vms | Where-Object { $_.vmDocument.objectId.jobId -eq $JobId -and $_.vmDocument.objectId.entity.id -eq $SourceId }
+                if (-not $searchedVMDetails) {
+                    Write-Output "Could not find details for VM id = "$SourceId
+                    return
+                }
+                $vmwareDetail = $null
+                if ($NewParentId) {
+                    $searchURL = $cohesityCluster + '/irisservices/api/v1/entitiesOfType?environmentTypes=kVMware&vmwareEntityTypes=kVCenter&vmwareEntityTypes=kStandaloneHost&vmwareEntityTypes=kvCloudDirector'
+                    $searchResult = Invoke-RestApi -Method Get -Uri $searchURL -Headers $searchHeaders
+                    $vmwareDetail = $searchResult | Where-Object { $_.id -eq $NewParentId }
+                    if (-not $vmwareDetail) {
+                        Write-Output "The new parent id is incorrect '$NewParentId'"
+                        return
+                    }
+                }
+
+                $resourcePoolDetail = $null
+                if ($ResourcePoolId) {
+                    $searchURL = $cohesityCluster + '/irisservices/api/v1/resourcePools?vCenterId=' + $vmwareDetail.id
+                    $searchResult = Invoke-RestApi -Method Get -Uri $searchURL -Headers $searchHeaders
+                    $resourcePoolDetail = $searchResult | Where-Object { $_.resourcePool.id -eq $ResourcePoolId }
+                    if (-not $resourcePoolDetail) {
+                        Write-Output "The resourcepool id '$ResourcePoolId' is not available for parent id '$NewParentId'"
+                        return
+                    }
+                    $resourcePoolDetail = $resourcePoolDetail.resourcePool
+                }
+
+                $datastoreDetail = $null
+                if ($DatastoreFolderId) {
+                    $searchURL = $cohesityCluster + '/irisservices/api/v1/datastores?resourcePoolId=' + $ResourcePoolId + '&vCenterId=' + $NewParentId
+                    $searchResult = Invoke-RestApi -Method Get -Uri $searchURL -Headers $searchHeaders
+                    $datastoreDetail = $searchResult | Where-Object { $_.id -eq $DatastoreFolderId }
+                    if (-not $datastoreDetail) {
+                        Write-Output "The datastore id '$DatastoreFolderId' is not available for resourcepool id '$ResourcePoolId' and parent id '$NewParentId'"
+                        return
+                    }
+                }
+
+                $vmFolderDetail = $null
+                if ($VmFolderId) {
+                    $searchURL = $cohesityCluster + '/irisservices/api/v1/vmwareFolders?resourcePoolId=' + $ResourcePoolId + '&vCenterId=' + $NewParentId
+                    $searchResult = Invoke-RestApi -Method Get -Uri $searchURL -Headers $searchHeaders
+                    $vmFolder = $searchResult.vmFolders | Where-Object { $_.id -eq $VmFolderId }
+                    if (-not $vmFolder) {
+                        Write-Output "The vm folder id '$VmFolderId' is not available for resourcepool id '$ResourcePoolId' and parent id '$NewParentId'"
+                        return
+                    }
+                    $vmFolderDetail = @{
+                        targetVmFolder = $vmFolder
+                    }
+                }
+
+                $networkDetail = $null
+                if ($NetworkId) {
+                    $searchURL = $cohesityCluster + '/irisservices/api/v1/networkEntities?resourcePoolId=' + $ResourcePoolId + '&vCenterId=' + $NewParentId
+                    $searchResult = Invoke-RestApi -Method Get -Uri $searchURL -Headers $searchHeaders
+                    $foundNetwork = $searchResult | Where-Object { $_.id -eq $NetworkId }
+                    if (-not $foundNetwork) {
+                        Write-Output "The network id '$NetworkId' is not available for resourcepool id '$ResourcePoolId' and parent id '$NewParentId'"
+                        return
+                    }
+                    $networkDetail = @{
+                        networkEntity = $foundNetwork
+                    }
+                }
+
+                $vmObject = $searchedVMDetails.vmDocument.objectId
+                if ($JobRunId) {
+                    $vmObject | Add-Member -NotePropertyName jobInstanceId -NotePropertyValue $JobRunId
+                    $vmObject | Add-Member -NotePropertyName startTimeUsecs -NotePropertyValue $StartTime
+                }
+                $vmObjects = @()
+                $vmObjects += $vmObject
+
+                $renameVMObject = $null
+                if ($VmNamePrefix -or $VmNameSuffix) {
+                    $renameVMObject = @{}
+                    if ($VmNamePrefix) {
+                        $renameVMObject.Add("prefix", $VmNamePrefix)
+                    }
+                    if ($VmNameSuffix) {
+                        $renameVMObject.Add("suffix", $VmNameSuffix)
+                    }
+                }
+                $cloneRequest = @{
+                    continueRestoreOnError       = $true
+                    name                         = $TaskName
+                    objects                      = $vmObjects
+                    powerStateConfig             = @{
+                        powerOn = $PoweredOn.IsPresent
+                    }
+                    renameRestoredObjectParam    = $renameVMObject
+                    restoredObjectsNetworkConfig = @{
+                        networkEntity  = $networkDetail.networkEntity
+                        detachNetwork  = $false
+                        disableNetwork = $DisableNetwork.IsPresent
+                    }
+                    restoreParentSource          = $vmwareDetail
+                    resourcePoolEntity           = $resourcePoolDetail
+                    datastoreEntity              = $datastoreDetail
+                    vaultRestoreParams           = @{
+                        glacier = @{
+                            retrievalType = "kStandard"
+                        }
+                    }
+                    vmwareParams                 = @{
+                        targetVmFolder          = $vmFolderDetail.targetVmFolder
+                        preserveTagsDuringClone = $true
+                    }
+                    viewName                     = $TargetViewName
+                }
+                $cohesityUrl = $cohesityCluster + '/irisservices/api/v1/clone'
             }
             else {
                 $vmwareParams = [PSCustomObject]@{
                     detachNetwork = $false
                 }
-                if($PoweredOn.IsPresent) {
+                if ($PoweredOn.IsPresent) {
                     $vmwareParams | Add-Member -NotePropertyName poweredOn -NotePropertyValue $true
                 }
-                if($DisableNetwork.IsPresent) {
+                if ($DisableNetwork.IsPresent) {
                     $vmwareParams | Add-Member -NotePropertyName disableNetwork -NotePropertyValue $true
                 }
-                if($VmNamePrefix) {
+                if ($VmNamePrefix) {
                     $vmwareParams | Add-Member -NotePropertyName prefix -NotePropertyValue $VmNamePrefix
                 }
-                if($VmNameSuffix) {
+                if ($VmNameSuffix) {
                     $vmwareParams | Add-Member -NotePropertyName suffix -NotePropertyValue $VmNameSuffix
                 }
-                if($DatastoreFolderId) {
+                if ($DatastoreFolderId) {
                     $vmwareParams | Add-Member -NotePropertyName datastoreFolderId -NotePropertyValue $DatastoreFolderId
                 }
-                if($NetworkId) {
+                if ($NetworkId) {
                     $vmwareParams | Add-Member -NotePropertyName networkId -NotePropertyValue $NetworkId
                 }
-                if($ResourcePoolId) {
+                if ($ResourcePoolId) {
                     $vmwareParams | Add-Member -NotePropertyName resourcePoolId -NotePropertyValue $ResourcePoolId
                 }
-                if($VmFolderId) {
+                if ($VmFolderId) {
                     $vmwareParams | Add-Member -NotePropertyName vmFolderId -NotePropertyValue $VmFolderId
                 }
                 $cloneObject = @{
-                    jobId = $JobId
+                    jobId              = $JobId
                     protectionSourceId = $SourceId
                 }
                 if ($JobRunId) {
@@ -133,15 +254,15 @@ function Copy-CohesityVMwareVM {
                     $cloneObject | Add-Member -NotePropertyName StartedTimeUsecs -NotePropertyValue $StartTime
                 }
                 $cloneRequest = [PSCustomObject]@{
-                    name = $TaskName
-                    type = "kCloneVMs"
-                    continueOnError = $true
-                    targetViewName = $TargetViewName
+                    name             = $TaskName
+                    type             = "kCloneVMs"
+                    continueOnError  = $true
+                    targetViewName   = $TargetViewName
                     vmwareParameters = $vmwareParams
-                    newParentId = $NewParentId
-                    objects = @($cloneObject)
+                    newParentId      = $NewParentId
+                    objects          = @($cloneObject)
                 }
-                $cohesityUrl = $cohesityServer + '/irisservices/api/v1/public/restore/clone'
+                $cohesityUrl = $cohesityCluster + '/irisservices/api/v1/public/restore/clone'
             }
             $payloadJson = $cloneRequest | ConvertTo-Json -Depth 100
             $cohesityHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
