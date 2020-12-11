@@ -10,6 +10,10 @@ function New-CohesityGenericNASProtectionJob {
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
         New-CohesityGenericNASProtectionJob -Name job-nas -PolicyName Bronze -StorageDomainName DefaultStorageDomain -SourceName "10.14.31.60:/view1"
+        Creating job for a NFS mount NAS source.
+        .EXAMPLE
+        New-CohesityGenericNASProtectionJob -Name job-smb1 -PolicyName Bronze -StorageDomainName DefaultStorageDomain -SourceName "\\10.14.31.156\view3"
+        Creating job for a SMB mount NAS source.
     #>
     [CmdletBinding(SupportsShouldProcess = $True, ConfirmImpact = "High")]
     Param(
@@ -39,7 +43,7 @@ function New-CohesityGenericNASProtectionJob {
         if ($PSCmdlet.ShouldProcess($Name)) {
             $timeZone = Get-TimeZone
             $protectionPolicyObject = Get-CohesityProtectionPolicy -Names $PolicyName | Where-Object { $_.name -eq $PolicyName }
-            if ($null -eq $protectionPolicyObject) {
+            if (-not $protectionPolicyObject) {
                 Write-Output "Incorrect protection policy name '$PolicyName'"
                 return
             }
@@ -90,7 +94,8 @@ function New-CohesityGenericNASProtectionJob {
             $payloadJson = $payload | ConvertTo-Json -Depth 100
             $resp = Invoke-RestApi -Method Post -Uri $cohesityUrl -Headers $cohesityHeaders -Body $payloadJson
             if ($resp) {
-                $resp
+                # tagging reponse for display format ( configured in Cohesity.format.ps1xml )
+                @($resp | Add-Member -TypeName 'System.Object#ProtectionJob' -PassThru)
             }
             else {
                 $errorMsg = "GenericNASProtectionJob : Failed to create."
