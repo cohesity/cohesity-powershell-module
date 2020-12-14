@@ -1,5 +1,5 @@
 function ConstructResponseWithStatus {
-    [OutputType('System.Object')]
+    [OutputType('System.Collections.Hashtable')]
     [cmdletbinding()]
     param(
         [Parameter(Mandatory = $true)]

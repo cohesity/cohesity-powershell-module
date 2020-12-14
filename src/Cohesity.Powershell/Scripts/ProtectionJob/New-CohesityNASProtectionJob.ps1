@@ -15,6 +15,7 @@ function New-CohesityNASProtectionJob {
         New-CohesityNASProtectionJob -Name job-smb1 -PolicyName Bronze -StorageDomainName DefaultStorageDomain -SourceName "\\10.14.31.156\view3"
         Creating job for a SMB mount NAS source.
     #>
+    [OutputType('System.Array')]
     [CmdletBinding(SupportsShouldProcess = $True, ConfirmImpact = "High")]
     Param(
         [Parameter(Mandatory = $true)]

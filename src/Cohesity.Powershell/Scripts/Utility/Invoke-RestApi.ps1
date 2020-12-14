@@ -73,6 +73,8 @@ function Invoke-RestApi {
             $result = Invoke-WebRequest -UseBasicParsing @PSBoundParameters -UserAgent $Global:CohesityUserAgentName
         }
 
+        # To satisfy ScriptAnalyzer
+        $Global:CohesityAPIStatus | Out-Null
         $Global:CohesityAPIStatus = ConstructResponseWithStatus -APIResponse $result
 
         if ($PSBoundParameters.ContainsKey('Method')) {
