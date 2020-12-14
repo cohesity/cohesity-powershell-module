@@ -1,18 +1,18 @@
-function New-CohesityGenericNASProtectionJob {
+function New-CohesityNASProtectionJob {
     <#
         .SYNOPSIS
         Create a new protection job for generic NAS source.
         .DESCRIPTION
-        The New-CohesityGenericNASProtectionJob function is used to create a generic NAS protection job.
+        The New-CohesityNASProtectionJob function is used to create a generic NAS protection job.
         .NOTES
         Published by Cohesity
         .LINK
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
-        New-CohesityGenericNASProtectionJob -Name job-nas -PolicyName Bronze -StorageDomainName DefaultStorageDomain -SourceName "10.14.31.60:/view1"
+        New-CohesityNASProtectionJob -Name job-nas -PolicyName Bronze -StorageDomainName DefaultStorageDomain -SourceName "10.14.31.60:/view1"
         Creating job for a NFS mount NAS source.
         .EXAMPLE
-        New-CohesityGenericNASProtectionJob -Name job-smb1 -PolicyName Bronze -StorageDomainName DefaultStorageDomain -SourceName "\\10.14.31.156\view3"
+        New-CohesityNASProtectionJob -Name job-smb1 -PolicyName Bronze -StorageDomainName DefaultStorageDomain -SourceName "\\10.14.31.156\view3"
         Creating job for a SMB mount NAS source.
     #>
     [CmdletBinding(SupportsShouldProcess = $True, ConfirmImpact = "High")]
