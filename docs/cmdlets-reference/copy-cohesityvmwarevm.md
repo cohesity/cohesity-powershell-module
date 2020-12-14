@@ -5,15 +5,25 @@ Clones the specified VMware virtual machine.
 
 ## SYNTAX
 
+### Default (Default)
 ```
-Copy-CohesityVMwareVM -TaskName <String> -TargetViewName <String> -SourceId <Int64> -JobId <Int64>
+Copy-CohesityVMwareVM [-TaskName <String>] -TargetViewName <String> -SourceId <Int64> -JobId <Int64>
+ [-VmNamePrefix <String>] [-VmNameSuffix <String>] [-DisableNetwork] [-PoweredOn] [-DatastoreFolderId <Int64>]
+ [-NetworkId <Int64>] -ResourcePoolId <Int64> [-VmFolderId <Int64>] -NewParentId <Int64> [-WhatIf] [-Confirm]
+ [<CommonParameters>]
+```
+
+### Jobrun
+```
+Copy-CohesityVMwareVM [-TaskName <String>] -TargetViewName <String> -SourceId <Int64> -JobId <Int64>
  [-JobRunId <Int64>] [-StartTime <Int64>] [-VmNamePrefix <String>] [-VmNameSuffix <String>] [-DisableNetwork]
  [-PoweredOn] [-DatastoreFolderId <Int64>] [-NetworkId <Int64>] -ResourcePoolId <Int64> [-VmFolderId <Int64>]
- [-NewParentId <Int64>] [<CommonParameters>]
+ -NewParentId <Int64> [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 Clones the specified VMware virtual machine.
+The cmdlet can copy VM from remote cluster as well.
 
 ## EXAMPLES
 
@@ -34,9 +44,9 @@ Type: String
 Parameter Sets: (All)
 Aliases:
 
-Required: True
+Required: False
 Position: Named
-Default value: None
+Default value: "Copy-VMware-VM-" + (Get-Date -Format "dddd-MM-dd-yyyy-HH-mm-ss").ToString()
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -92,12 +102,12 @@ If not specified the latest run is used.
 
 ```yaml
 Type: Int64
-Parameter Sets: (All)
+Parameter Sets: Jobrun
 Aliases:
 
 Required: False
 Position: Named
-Default value: None
+Default value: 0
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -109,12 +119,12 @@ This must be specified if job run id is specified.
 
 ```yaml
 Type: Int64
-Parameter Sets: (All)
+Parameter Sets: Jobrun
 Aliases:
 
 Required: False
 Position: Named
-Default value: None
+Default value: 0
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -190,7 +200,7 @@ Aliases:
 
 Required: False
 Position: Named
-Default value: None
+Default value: 0
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -207,7 +217,7 @@ Aliases:
 
 Required: False
 Position: Named
-Default value: None
+Default value: 0
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -222,7 +232,7 @@ Aliases:
 
 Required: True
 Position: Named
-Default value: None
+Default value: 0
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -238,7 +248,7 @@ Aliases:
 
 Required: False
 Position: Named
-Default value: None
+Default value: 0
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -251,6 +261,37 @@ If not specified, the VM is cloned to its original parent source.
 Type: Int64
 Parameter Sets: (All)
 Aliases:
+
+Required: True
+Position: Named
+Default value: 0
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -WhatIf
+Shows what would happen if the cmdlet runs.
+The cmdlet is not run.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: wi
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Confirm
+Prompts you for confirmation before running the cmdlet.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: cf
 
 Required: False
 Position: Named
@@ -267,5 +308,9 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## OUTPUTS
 
 ## NOTES
+Published by Cohesity
 
 ## RELATED LINKS
+
+[https://cohesity.github.io/cohesity-powershell-module/#/README](https://cohesity.github.io/cohesity-powershell-module/#/README)
+
