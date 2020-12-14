@@ -24,7 +24,10 @@ function New-CohesityHypervProtectionJob {
         $StorageDomainName,
         [Parameter(Mandatory = $true)]
         # Specifies the source name for the protection job.
-        $SourceName
+        $SourceName,
+        [Parameter(Mandatory = $false)]
+        # Specifies the time zone.
+        $TimeZone
     )
 
     Begin {
@@ -40,7 +43,9 @@ function New-CohesityHypervProtectionJob {
 
     Process {
         if ($PSCmdlet.ShouldProcess($Name)) {
-            $timeZone = Get-TimeZone
+            if(-not $TimeZone) {
+                $TimeZone = (Get-TimeZone).Id
+            }
             # fix for support to v6.3 and v6.5
             $protectionPolicyObject = Get-CohesityProtectionPolicy -Names $PolicyName | Where-Object { $_.name -eq $PolicyName }
             if ($null -eq $protectionPolicyObject) {
@@ -74,7 +79,7 @@ function New-CohesityHypervProtectionJob {
                 _policyName    = $protectionPolicyObject.Name
                 viewBoxId      = $storageDomainObject.Id
                 _viewBoxName   = $storageDomainObject.Name
-                timezone       = $timeZone.Id
+                timezone       = $TimeZone
                 environment    = "kHyperVVSS"
                 sourceIds      = @($protectionSourceObject.Id)
                 parentSourceId = $protectionSourceObject.ParentId

@@ -29,7 +29,10 @@ function New-CohesityNASProtectionJob {
         $StorageDomainName,
         [Parameter(Mandatory = $true)]
         # Specifies the source name for the protection job.
-        $SourceName
+        $SourceName,
+        [Parameter(Mandatory = $false)]
+        # Specifies the time zone.
+        $TimeZone
     )
     Begin {
         if (-not (Test-Path -Path "$HOME/.cohesity")) {
@@ -42,7 +45,9 @@ function New-CohesityNASProtectionJob {
 
     Process {
         if ($PSCmdlet.ShouldProcess($Name)) {
-            $timeZone = Get-TimeZone
+            if(-not $TimeZone) {
+                $TimeZone = (Get-TimeZone).Id
+            }
             $protectionPolicyObject = Get-CohesityProtectionPolicy -Names $PolicyName | Where-Object { $_.name -eq $PolicyName }
             if (-not $protectionPolicyObject) {
                 Write-Output "Incorrect protection policy name '$PolicyName'"
@@ -77,7 +82,7 @@ function New-CohesityNASProtectionJob {
                 _policyName    = $protectionPolicyObject.Name
                 viewBoxId      = $storageDomainObject.Id
                 _viewBoxName   = $storageDomainObject.Name
-                timezone       = $timeZone.Id
+                timezone       = $TimeZone
                 environment    = "kGenericNas"
                 environmentParameters = @{
                     nasParameters = @{
