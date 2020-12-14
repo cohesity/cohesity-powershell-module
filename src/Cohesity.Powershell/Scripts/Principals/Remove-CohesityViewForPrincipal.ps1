@@ -108,11 +108,11 @@ function Remove-CohesityViewForPrincipal {
             }
             $payloadJson = $payload | ConvertTo-Json -Depth 100
             Invoke-RestApi -Method Put -Uri $cohesityClusterURL -Headers $cohesityHeaders -Body $payloadJson
-            if (204 -eq $Global:CohesityAPIResponse.StatusCode) {
+            if (204 -eq $Global:CohesityAPIStatus.StatusCode) {
                 @{Response = "Success"; Method = "Put"; }
             }
             else {
-                $errorMsg = "View permission : Failed to remove"
+                $errorMsg = $Global:CohesityAPIStatus.ErrorMessage + ", View permission : Failed to remove"
                 Write-Output $errorMsg
                 CSLog -Message $errorMsg
             }

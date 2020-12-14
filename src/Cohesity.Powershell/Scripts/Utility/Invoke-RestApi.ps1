@@ -4,7 +4,6 @@ $Global:CohesityAPIError = $null
 # Allow the caller to have access to response object,
 # it is observed that some of the REST APIs (PUT method) do not return object,
 # therefore provisioning an object, so that the caller can identify using the status code, if the API call succeeded
-$Global:CohesityAPIResponse = $null
 # Capture all response codes and the relevant error messages.
 $Global:CohesityAPIStatus = $null
 
@@ -46,7 +45,6 @@ function Invoke-RestApi {
         $errorMsg = "User agent for the current session : " + $Global:CohesityUserAgentName
         CSLog -Message $errorMsg
     }
-    $Global:CohesityAPIResponse = $null
 
     $Global:CohesityAPIError = $null
     # to ensure, for every success execution of REST API, the function must return a non null object
@@ -74,10 +72,6 @@ function Invoke-RestApi {
             Enable-SelfSignedCertificates
             $result = Invoke-WebRequest -UseBasicParsing @PSBoundParameters -UserAgent $Global:CohesityUserAgentName
         }
-
-        # To satisfy ScriptAnalyzer
-        $Global:CohesityAPIResponse | Out-Null
-        $Global:CohesityAPIResponse = $result
 
         $Global:CohesityAPIStatus = ConstructResponseWithStatus -APIResponse $result
 
