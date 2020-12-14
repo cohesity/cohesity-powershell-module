@@ -12,7 +12,7 @@ function New-CohesityNASProtectionJob {
         New-CohesityNASProtectionJob -Name job-nas -PolicyName Bronze -StorageDomainName DefaultStorageDomain -SourceName "10.14.31.60:/view1"
         Creating job for a NFS mount NAS source.
         .EXAMPLE
-        New-CohesityNASProtectionJob -Name job-smb1 -PolicyName Bronze -StorageDomainName DefaultStorageDomain -SourceName "\\10.14.31.156\view3"
+        New-CohesityNASProtectionJob -Name job-smb1 -PolicyName Bronze -StorageDomainName DefaultStorageDomain -SourceName "\\10.14.31.156\view3" -TimeZone "Asia/Kolkata"
         Creating job for a SMB mount NAS source.
     #>
     [OutputType('System.Array')]
@@ -20,19 +20,19 @@ function New-CohesityNASProtectionJob {
     Param(
         [Parameter(Mandatory = $true)]
         # Specifies the name of the protection job.
-        $Name,
+        [string]$Name,
         [Parameter(Mandatory = $true)]
         # Specifies the policy name of the protection job.
-        $PolicyName,
+        [string]$PolicyName,
         [Parameter(Mandatory = $true)]
         # Specifies the viewbox or the storage domain name associated with the protection job.
-        $StorageDomainName,
+        [string]$StorageDomainName,
         [Parameter(Mandatory = $true)]
         # Specifies the source name for the protection job.
-        $SourceName,
+        [string]$SourceName,
         [Parameter(Mandatory = $false)]
         # Specifies the time zone.
-        $TimeZone
+        [string]$TimeZone
     )
     Begin {
         if (-not (Test-Path -Path "$HOME/.cohesity")) {

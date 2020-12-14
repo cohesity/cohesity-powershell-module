@@ -6,8 +6,8 @@ Create a new protection job for generic NAS source.
 ## SYNTAX
 
 ```
-New-CohesityNASProtectionJob [-Name] <Object> [-PolicyName] <Object> [-StorageDomainName] <Object>
- [-SourceName] <Object> [[-TimeZone] <Object>] [-WhatIf] [-Confirm] [<CommonParameters>]
+New-CohesityNASProtectionJob [-Name] <String> [-PolicyName] <String> [-StorageDomainName] <String>
+ [-SourceName] <String> [[-TimeZone] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -24,7 +24,7 @@ Creating job for a NFS mount NAS source.
 
 ### EXAMPLE 2
 ```
-New-CohesityNASProtectionJob -Name job-smb1 -PolicyName Bronze -StorageDomainName DefaultStorageDomain -SourceName "\\10.14.31.156\view3"
+New-CohesityNASProtectionJob -Name job-smb1 -PolicyName Bronze -StorageDomainName DefaultStorageDomain -SourceName "\\10.14.31.156\view3" -TimeZone "Asia/Kolkata"
 ```
 
 Creating job for a SMB mount NAS source.
@@ -35,7 +35,7 @@ Creating job for a SMB mount NAS source.
 Specifies the name of the protection job.
 
 ```yaml
-Type: Object
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -50,7 +50,7 @@ Accept wildcard characters: False
 Specifies the policy name of the protection job.
 
 ```yaml
-Type: Object
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -65,7 +65,7 @@ Accept wildcard characters: False
 Specifies the viewbox or the storage domain name associated with the protection job.
 
 ```yaml
-Type: Object
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -80,7 +80,7 @@ Accept wildcard characters: False
 Specifies the source name for the protection job.
 
 ```yaml
-Type: Object
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -95,7 +95,7 @@ Accept wildcard characters: False
 Specifies the time zone.
 
 ```yaml
-Type: Object
+Type: String
 Parameter Sets: (All)
 Aliases:
 
