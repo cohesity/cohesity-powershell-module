@@ -66,8 +66,14 @@ function Get-CohesityProtectionSourceObject {
         if ($Id) {
             $cohesityUrl = $cohesityServer + '/irisservices/api/v1/public/protectionSources/objects/' + $Id.ToString()
             $resp = Invoke-RestApi -Method Get -Uri $cohesityUrl -Headers $cohesityHeaders
-            # tagging reponse for display format ( configured in Cohesity.format.ps1xml )
-            @($resp | Add-Member -TypeName 'System.Object#ProtectionSource' -PassThru)
+            if (200 -ne $Global:CohesityAPIStatus.StatusCode) {
+                Write-Verbose $Global:CohesityAPIStatus.ErrorMessage
+                return ($null)
+            }
+            else {
+                # tagging reponse for display format ( configured in Cohesity.format.ps1xml )
+                @($resp | Add-Member -TypeName 'System.Object#ProtectionSource' -PassThru)
+            }
         }
         else {
             $url = '/irisservices/api/v1/public/protectionSources'
@@ -115,8 +121,8 @@ function Get-CohesityProtectionSourceObject {
                 $resp = FlattenProtectionSourceNode -Nodes $resp -Type 1
                 $resp = $resp.protectionSource
                 # though we get the filtered response from API but required to filter out for KSQL and KPhysical
-                if($Environments) {
-                    $resp = @($resp | Where-Object {$Environments -contains $_.environment})
+                if ($Environments) {
+                    $resp = @($resp | Where-Object { $Environments -contains $_.environment })
                 }
                 # tagging reponse for display format ( configured in Cohesity.format.ps1xml )
                 @($resp | Add-Member -TypeName 'System.Object#ProtectionSource' -PassThru)

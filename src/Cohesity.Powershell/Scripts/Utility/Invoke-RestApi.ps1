@@ -5,6 +5,8 @@ $Global:CohesityAPIError = $null
 # it is observed that some of the REST APIs (PUT method) do not return object,
 # therefore provisioning an object, so that the caller can identify using the status code, if the API call succeeded
 $Global:CohesityAPIResponse = $null
+# Capture all response codes and the relevant error messages.
+$Global:CohesityAPIStatus = $null
 
 function Invoke-RestApi {
     [CmdletBinding()]
@@ -77,6 +79,8 @@ function Invoke-RestApi {
         $Global:CohesityAPIResponse | Out-Null
         $Global:CohesityAPIResponse = $result
 
+        $Global:CohesityAPIStatus = ConstructResponseWithStatus -APIResponse $result
+
         if ($PSBoundParameters.ContainsKey('Method')) {
             if ('Delete' -eq $PSBoundParameters['Method']) {
                 # there is no response object from the backend for a successful delete operation, hence constructing a new one
@@ -104,6 +108,7 @@ function Invoke-RestApi {
         $Global:CohesityAPIError = $_.Exception
         # capturing the error message from the cluster rather than the powershell framework $_.Exception.Message
         $errorMsg = $_
+        $Global:CohesityAPIStatus = ConstructResponseWithStatus -APIResponse $errorMsg
         Write-Output $errorMsg
         CSLog -Message $errorMsg -Severity 3
         # Implementing code review feedback
