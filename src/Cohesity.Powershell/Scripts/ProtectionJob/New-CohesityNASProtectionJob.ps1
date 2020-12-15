@@ -13,7 +13,7 @@ function New-CohesityNASProtectionJob {
         Creating job for a NFS mount NAS source.
         .EXAMPLE
         New-CohesityNASProtectionJob -Name job-smb1 -PolicyName Bronze -StorageDomainName DefaultStorageDomain -SourceName "\\10.14.31.156\view3" -TimeZone "Asia/Kolkata"
-        Creating job for a SMB mount NAS source.
+        Creating job for a SMB mount NAS source. For 'TimeZone' use (Get-TimeZone).Id to get the local time zone.
     #>
     [OutputType('System.Array')]
     [CmdletBinding(SupportsShouldProcess = $True, ConfirmImpact = "High")]
@@ -79,9 +79,7 @@ function New-CohesityNASProtectionJob {
             $payload = @{
                 name           = $Name
                 policyId       = $protectionPolicyObject.Id
-                _policyName    = $protectionPolicyObject.Name
                 viewBoxId      = $storageDomainObject.Id
-                _viewBoxName   = $storageDomainObject.Name
                 timezone       = $TimeZone
                 environment    = "kGenericNas"
                 environmentParameters = @{
@@ -104,7 +102,7 @@ function New-CohesityNASProtectionJob {
                 @($resp | Add-Member -TypeName 'System.Object#ProtectionJob' -PassThru)
             }
             else {
-                $errorMsg = "GenericNASProtectionJob : Failed to create."
+                $errorMsg = $Global:CohesityAPIStatus.ErrorMessage + ", GenericNASProtectionJob : Failed to create."
                 Write-Output $errorMsg
                 CSLog -Message $errorMsg
             }

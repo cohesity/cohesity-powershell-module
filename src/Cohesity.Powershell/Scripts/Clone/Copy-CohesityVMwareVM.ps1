@@ -271,7 +271,7 @@ function Copy-CohesityVMwareVM {
                 $resp
             }
             else {
-                $errorMsg = "VMwareVM : Failed to copy."
+                $errorMsg = $Global:CohesityAPIStatus.ErrorMessage + ", VMwareVM : Failed to copy."
                 Write-Output $errorMsg
                 CSLog -Message $errorMsg
             }
