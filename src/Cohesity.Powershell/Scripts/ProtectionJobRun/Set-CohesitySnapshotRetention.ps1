@@ -128,8 +128,8 @@ function Set-CohesitySnapshotRetention {
 
             $success = $false
             # there is no response to the API call. Therefore using the response status to identify
-            if ($Global:CohesityAPIResponse) {
-                if ($Global:CohesityAPIResponse.StatusCode -eq 204) {
+            if ($Global:CohesityAPIStatus) {
+                if ($Global:CohesityAPIStatus.StatusCode -eq 204) {
                     $success = $true
                 }
             }

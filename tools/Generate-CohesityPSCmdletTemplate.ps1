@@ -1,25 +1,25 @@
-function Generate-CohesityPSCmdletTemplate {
+
     <#
         .SYNOPSIS
-	Creates a powershell cmdlet template. 
-	.DESCRIPTION
-	Creates a powershell cmdlet's script template based on the given method type and feature. In case if the user doesn't provide the file path, it will create a file in the current directory.
-	.LINK
-	https://cohesity.github.io/cohesity-powershell-module/#/README
-	.EXAMPLE
-	Generate-CohesityPSCmdletTemplate -ActionType <string> -Feature <string>
-        Generate-CohesityPSCmdletTemplate -ActionType Get -Feature ProtectionJob 
-        Creates a template file for the given feature and Method type in the current location.
-        .EXAMPLE
-        Generate-CohesityPSCmdletTemplate -ActionType <string> -Feature <string> -FilePath <Path>
-        Generate-CohesityPSCmdletTemplate -ActionType Get -Feature ProtectionJob -FilePath /home/Cohesity/
-        Creates a template file for the given feature and Method type in the location passed in the FilePath.
+    Creates a powershell cmdlet template. 
+    .DESCRIPTION
+    Creates a powershell cmdlet's script template based on the given method type and feature. In case if the user doesn't provide the file path, it will create a file in the current directory.
+    .LINK
+    https://cohesity.github.io/cohesity-powershell-module/#/README
+    .EXAMPLE
+    Generate-CohesityPSCmdletTemplate -ActionType <string> -Feature <string>
+    Generate-CohesityPSCmdletTemplate -ActionType Get -Feature ProtectionJob 
+    Creates a template file for the given feature and Method type in the current location.
+    .EXAMPLE
+    Generate-CohesityPSCmdletTemplate -ActionType <string> -Feature <string> -FilePath <Path>
+    Generate-CohesityPSCmdletTemplate -ActionType Get -Feature ProtectionJob -FilePath /home/Cohesity/
+    Creates a template file for the given feature and Method type in the location passed in the FilePath.
     #>
 
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory = $true)]
-        [ValidateSet("GET", "POST","PUT","DELETE", "REGISTER")]
+        [ValidateSet("GET", "POST", "PUT", "DELETE", "REGISTER", "COPY")]
         [string]$ActionType,
         [Parameter(Mandatory = $true)]
         [string]$Feature,
@@ -33,7 +33,7 @@ function Generate-CohesityPSCmdletTemplate {
     Process {
         $ActionType = $ActionType.toLower()
 
-        switch -exact ($ActionType){
+        switch -exact ($ActionType) {
             "get" {
                 $filePrefix = "Get"
                 $httpMethod = "Get"
@@ -58,10 +58,16 @@ function Generate-CohesityPSCmdletTemplate {
                 $errorMessage = "`"$Feature : Failed to remove.`""
                 break
             }
-            "register"{
+            "register" {
                 $filePrefix = "Register"
                 $httpMethod = "Post"
                 $errorMessage = "`"$Feature : Failed to register.`""
+                break
+            }
+            "copy" {
+                $filePrefix = "Copy"
+                $httpMethod = "Post"
+                $errorMessage = "`"$Feature : Failed to copy.`""
                 break
             }
         }
@@ -70,51 +76,51 @@ function Generate-CohesityPSCmdletTemplate {
         $fileName = $filePrefix + '-Cohesity' + $feature + '.ps1'
 
         # If file path is not provided by the user, current location is taken.
-        if(!$FilePath){
+        if (!$FilePath) {
             $fileLoc = "$((Get-Location).Path)/$fileName"
         }
-        else{
+        else {
             $fileLoc = "$FilePath/$fileName"
         }
 
         # Creating the new file.
         New-item $fileLoc
         $processBlock = $null
-        $deleteBlock = $null
 
-        if($ActionType -eq "post" -OR $ActionType -eq "put" -OR $ActionType -eq "register"){
-            # Creating Process block for template file with body payload part for Post, Put, Register operation
-            $processBlock = @"
-        
-        #       `$payload = @{}
-        #       `$payloadJson = $payload | ConvertTo-Json -Depth 100
-        #       `$resp = Invoke-RestApi -Method $httpMethod -Uri `$cohesityUrl -Headers `$cohesityHeaders -Body `$payloadJson
-"@
-        }
-
-        if($ActionType -eq "get" -OR $ActionType -eq "delete"){
-            if ($ActionType -eq "delete") {
-                $processBlock = @"
-
-        #       if(`$PSCmdlet.ShouldProcess(`$Param1)){
-"@
-                $deleteBlock = @"
-        
-        #       } else {
-        #            return
-        #       }
-"@      
+        $responseBlock = @"
+            if (`$resp) {
+                `$resp
             }
-
+            else {
+                `$errorMsg = $errorMessage
+                Write-Output `$errorMsg
+                CSLog -Message `$errorMsg
+            }
+"@
+        if ($ActionType -eq "get") {
             # Creating Process block for template file without body payload part for Get and Delete operation
             $processBlock = @"
-                $processBlock
-        #       `$resp = Invoke-RestApi -Method $httpMethod -Uri `$cohesityUrl -Headers `$cohesityHeaders
+           `$resp = Invoke-RestApi -Method $httpMethod -Uri `$cohesityUrl -Headers `$cohesityHeaders
+            $responseBlock
+"@
+        }
+        else {
+            # Creating Process block for template file with body payload part for Post, Put, Register operation
+            $processBlock = @"
+            if(`$PSCmdlet.ShouldProcess(`$Param1)) {
+               `$payload = @{}
+               `$payloadJson = `$payload | ConvertTo-Json -Depth 100
+               `$resp = Invoke-RestApi -Method $httpMethod -Uri `$cohesityUrl -Headers `$cohesityHeaders -Body `$payloadJson
+                $responseBlock
+            }
+            else {
+                return
+            }
 "@
         }
 
-        # Creating the template body here.
-        $FileContent = @"
+# Creating the template body here.
+@"
 function $filePrefix-Cohesity$Feature {
     <#
         .SYNOPSIS
@@ -122,16 +128,16 @@ function $filePrefix-Cohesity$Feature {
         .DESCRIPTION
         <string>.
         .NOTES
-        <string>
-        <Add any specific note for the cmdlet or any prerequisites>
+        Published by Cohesity
         .LINK
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
         $filePrefix-Cohesity$Feature -Param1 <string>
     #>
-    [CmdletBinding($(if($ActionType -eq "delete"){'SupportsShouldProcess = $True, ConfirmImpact = "High"'}))]
+    [CmdletBinding($(if($ActionType -ne "get"){'SupportsShouldProcess = $True, ConfirmImpact = "High"'}))]
     Param(
         [Parameter(Mandatory = `$false)]
+        # Description about Param1
         `$Param1
     )
     Begin {
@@ -139,36 +145,22 @@ function $filePrefix-Cohesity$Feature {
             throw "Failed to authenticate. Please connect to the Cohesity Cluster using 'Connect-CohesityCluster'"
         }
         `$cohesitySession = Get-Content -Path `$HOME/.cohesity | ConvertFrom-Json
-        `$cohesityServer = `$cohesitySession.ClusterUri
+        `$cohesityCluster = `$cohesitySession.ClusterUri
         `$cohesityToken = `$cohesitySession.Accesstoken.Accesstoken
     }
 
     Process {
-        #       Please uncomment the code to use it
-
         #       Append the url with your ActionType accordingly.
-        #       `$cohesityUrl = `$cohesityServer + '/irisservices/api/v1/public/'
-        #       `$cohesityHeaders = @{'Authorization' = 'Bearer ' + `$cohesityToken }
-                $processBlock
-
-        #       if (`$resp) {
-        #           `$resp
-        #       }
-        #       else {
-        #           `$errorMsg = $errorMessage
-        #           Write-Host `$errorMsg
-        #           CSLog -Message `$errorMsg
-        #       }
-                $deleteBlock
+        `$cohesityUrl = `$cohesityCluster + '/irisservices/api/v1/public/'
+        `$cohesityHeaders = @{'Authorization' = 'Bearer ' + `$cohesityToken }
+        $processBlock
     }
 
     End {
     }
 }
-"@ | out-file $fileLoc # Writing the content of the template into the new created file.
+"@ | out-file $fileLoc -Force:$true # Writing the content of the template into the new created file.
     }
 
     End {
     }
-}
-Generate-CohesityPSCmdletTemplate 

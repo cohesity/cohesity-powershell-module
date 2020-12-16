@@ -1,44 +1,46 @@
-function New-CohesityHypervProtectionJob {
+function New-CohesityNASProtectionJob {
     <#
         .SYNOPSIS
-        Create a new protection job for HyperV source.
+        Create a new protection job for generic NAS source.
         .DESCRIPTION
-        The New-CohesityHypervProtectionJob function is used to create a protection job.
+        The New-CohesityNASProtectionJob function is used to create a generic NAS protection job.
         .NOTES
         Published by Cohesity
         .LINK
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
-        New-CohesityHypervProtectionJob -Name test-hyperv -PolicyName Bronze -StorageDomainName DefaultStorageDomain -SourceName test-vm1
+        New-CohesityNASProtectionJob -Name job-nas -PolicyName Bronze -StorageDomainName DefaultStorageDomain -SourceName "10.14.31.60:/view1"
+        Creating job for a NFS mount NAS source.
+        .EXAMPLE
+        New-CohesityNASProtectionJob -Name job-smb1 -PolicyName Bronze -StorageDomainName DefaultStorageDomain -SourceName "\\10.14.31.156\view3" -TimeZone "Asia/Kolkata"
+        Creating job for a SMB mount NAS source. For 'TimeZone' use (Get-TimeZone).Id to get the local time zone.
     #>
+    [OutputType('System.Array')]
     [CmdletBinding(SupportsShouldProcess = $True, ConfirmImpact = "High")]
     Param(
         [Parameter(Mandatory = $true)]
         # Specifies the name of the protection job.
-        $Name,
+        [string]$Name,
         [Parameter(Mandatory = $true)]
         # Specifies the policy name of the protection job.
-        $PolicyName,
+        [string]$PolicyName,
         [Parameter(Mandatory = $true)]
         # Specifies the viewbox or the storage domain name associated with the protection job.
-        $StorageDomainName,
+        [string]$StorageDomainName,
         [Parameter(Mandatory = $true)]
         # Specifies the source name for the protection job.
-        $SourceName,
+        [string]$SourceName,
         [Parameter(Mandatory = $false)]
         # Specifies the time zone.
-        $TimeZone
+        [string]$TimeZone
     )
-
     Begin {
         if (-not (Test-Path -Path "$HOME/.cohesity")) {
             throw "Failed to authenticate. Please connect to the Cohesity Cluster using 'Connect-CohesityCluster'"
         }
-        $session = Get-Content -Path $HOME/.cohesity | ConvertFrom-Json
-
-        $server = $session.ClusterUri
-
-        $token = $session.Accesstoken.Accesstoken
+        $cohesitySession = Get-Content -Path $HOME/.cohesity | ConvertFrom-Json
+        $cohesityCluster = $cohesitySession.ClusterUri
+        $cohesityToken = $cohesitySession.Accesstoken.Accesstoken
     }
 
     Process {
@@ -46,57 +48,70 @@ function New-CohesityHypervProtectionJob {
             if(-not $TimeZone) {
                 $TimeZone = (Get-TimeZone).Id
             }
-            # fix for support to v6.3 and v6.5
             $protectionPolicyObject = Get-CohesityProtectionPolicy -Names $PolicyName | Where-Object { $_.name -eq $PolicyName }
-            if ($null -eq $protectionPolicyObject) {
+            if (-not $protectionPolicyObject) {
                 Write-Output "Incorrect protection policy name '$PolicyName'"
                 return
             }
 
             $storageDomainObject = Get-CohesityStorageDomain | Where-Object { $_.name -eq $StorageDomainName }
-            if ($null -eq $storageDomainObject) {
+            if (-not $storageDomainObject) {
                 Write-Output "Incorrect storage domain name '$StorageDomainName'"
                 return
             }
 
             $protectionSourceObject = Get-CohesityProtectionSourceObject | Where-Object { $_.name -eq $SourceName }
-            if ($null -eq $protectionSourceObject) {
+            if (-not $protectionSourceObject) {
                 Write-Output "There are no source found with the name '$SourceName'"
                 return
             }
+            $protectionSourceParentId = (Get-CohesityProtectionSourceObject -Environments KGenericNas | Where-Object {$_.nasProtectionSource.type -eq "kGroup"}).id
+            if(-not $protectionSourceParentId) {
+                Write-Output "Parent id not found for '$SourceName'"
+                return
+            }
+
             if ("System.Array" -eq $protectionSourceObject.GetType().BaseType.ToString()) {
                 # In case the name of the object is same across different registered sources
                 Write-Output "There are multiple objects found for the search item, selecting the first item as source"
                 $protectionSourceObject = $protectionSourceObject[0]
             }
-
-            $url = $server + '/irisservices/api/v1/public/protectionJobs'
-
-            $headers = @{'Authorization' = 'Bearer ' + $token }
             $payload = @{
                 name           = $Name
                 policyId       = $protectionPolicyObject.Id
-                _policyName    = $protectionPolicyObject.Name
                 viewBoxId      = $storageDomainObject.Id
-                _viewBoxName   = $storageDomainObject.Name
                 timezone       = $TimeZone
-                environment    = "kHyperVVSS"
+                environment    = "kGenericNas"
+                environmentParameters = @{
+                    nasParameters = @{
+                        nasProtocol = "kNfs3"
+                        continueOnError = $true
+                    }
+                }
                 sourceIds      = @($protectionSourceObject.Id)
-                parentSourceId = $protectionSourceObject.ParentId
+                parentSourceId = $protectionSourceParentId
                 startTime      = @{hour = (Get-Date).Hour; minute = (Get-Date).Minute }
             }
+
+            $cohesityUrl = $cohesityCluster + '/irisservices/api/v1/public/protectionJobs'
+            $cohesityHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
             $payloadJson = $payload | ConvertTo-Json -Depth 100
-            $resp = Invoke-RestApi -Method Post -Uri $url -Headers $headers -Body $payloadJson
+            $resp = Invoke-RestApi -Method Post -Uri $cohesityUrl -Headers $cohesityHeaders -Body $payloadJson
             if ($resp) {
-                Start-CohesityProtectionJob -Id $resp.Id | Out-Null
-                $resp
+                # tagging reponse for display format ( configured in Cohesity.format.ps1xml )
+                @($resp | Add-Member -TypeName 'System.Object#ProtectionJob' -PassThru)
             }
             else {
-                Write-Output "Protection job : Failed to create job for HyperV"
-                Write-Output $Global:CohesityAPIError
+                $errorMsg = $Global:CohesityAPIStatus.ErrorMessage + ", GenericNASProtectionJob : Failed to create."
+                Write-Output $errorMsg
+                CSLog -Message $errorMsg
             }
         }
+        else {
+            return
+        }
     }
+
     End {
     }
 }
