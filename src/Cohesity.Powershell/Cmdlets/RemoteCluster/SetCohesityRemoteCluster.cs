@@ -15,6 +15,8 @@ namespace Cohesity.Powershell.Cmdlets.RemoteCluster
     /// <example>
     ///   <para>PS&gt;</para>
     ///   <code>
+    ///   $remoteCluster = Get-CohesityRemoteCluster
+    ///   $remoteCluster.AllEndpointsReachable = $true
     ///   Set-CohesityRemoteCluster -RemoteCluster $remoteCluster
     ///   </code>
     ///   <para>

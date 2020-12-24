@@ -9,8 +9,10 @@ function Set-CohesityProtectionJob {
         .LINK
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
+        $job = Get-CohesityProtectionJob -Names "jobnas"
+        $job.name = "jobnas1"
         Set-CohesityProtectionJob -ProtectionJob $job
-        Updates a protection job with the specified parameters.
+        Updates a protection job with the specified parameters, the object $job can also be piped.
     #>
     [OutputType('System.Object')]
     [CmdletBinding(SupportsShouldProcess = $True, ConfirmImpact = "High")]

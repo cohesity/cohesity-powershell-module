@@ -28,6 +28,7 @@ New-CohesityNASProtectionJob -Name job-smb1 -PolicyName Bronze -StorageDomainNam
 ```
 
 Creating job for a SMB mount NAS source.
+For 'TimeZone' use (Get-TimeZone).Id to get the local time zone.
 
 ## PARAMETERS
 

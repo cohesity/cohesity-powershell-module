@@ -16,10 +16,12 @@ Returns the updated protection job.
 
 ### EXAMPLE 1
 ```
-Set-CohesityProtectionJob -ProtectionJob $job
+$job = Get-CohesityProtectionJob -Names "jobnas"
 ```
 
-Updates a protection job with the specified parameters.
+$job.name = "jobnas1"
+Set-CohesityProtectionJob -ProtectionJob $job
+Updates a protection job with the specified parameters, the object $job can also be piped.
 
 ## PARAMETERS
 

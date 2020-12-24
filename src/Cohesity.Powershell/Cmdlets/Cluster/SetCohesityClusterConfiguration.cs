@@ -15,6 +15,8 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
     /// <example>
     /// <para>PS&gt;</para>
     /// <code>
+    /// $config = Get-CohesityClusterConfiguration
+    /// $config.AssignedRacksCount = 10
     /// Set-CohesityClusterConfiguration -ClusterConfiguration $config
     /// </code>
     /// <para>
