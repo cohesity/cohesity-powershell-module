@@ -16,6 +16,8 @@ Returns the Updated Cohesity Cluster configuration.
 
 ### EXAMPLE 1
 ```
+$config = Get-CohesityClusterConfiguration
+$config.AssignedRacksCount = 10
 Set-CohesityClusterConfiguration -ClusterConfiguration $config
 ```
 

@@ -152,8 +152,10 @@
 - **Tenant**
 - [Get-CohesityOrganization](cmdlets-reference/get-cohesityorganization.md)
 
+
 - **QOS**
 - [Get-CohesityQOSPolicy](cmdlets-reference/get-cohesityqospolicy.md)
+
 
 - **Routes**
 - [Get-CohesityRoutes](cmdlets-reference/get-cohesityroutes.md)

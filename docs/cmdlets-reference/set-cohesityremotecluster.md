@@ -16,6 +16,8 @@ Returns the updated remote cluster.
 
 ### EXAMPLE 1
 ```
+$remoteCluster = Get-CohesityRemoteCluster
+$remoteCluster.AllEndpointsReachable = $true
 Set-CohesityRemoteCluster -RemoteCluster $remoteCluster
 ```
 
