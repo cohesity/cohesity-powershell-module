@@ -93,6 +93,12 @@ namespace Cohesity.Powershell.Common
                     $"{AccessToken.TokenType} {AccessToken._AccessToken}");
             }
 
+            if (CmdletConfiguration.Instance.IsTenantConfigured)
+            {
+                request.Headers.Add(
+                    CohesityConstants.ImpersonateTenantID, CmdletConfiguration.Instance.GetTenantID());
+            }
+
             return request;
         }
 
@@ -111,6 +117,12 @@ namespace Cohesity.Powershell.Common
                 request.Headers.Add(
                     CohesityConstants.HttpHeaderAuthorization,
                     $"{AccessToken.TokenType} {AccessToken._AccessToken}");
+            }
+
+            if (CmdletConfiguration.Instance.IsTenantConfigured)
+            {
+                request.Headers.Add(
+                    CohesityConstants.ImpersonateTenantID, CmdletConfiguration.Instance.GetTenantID());
             }
 
             return request;
@@ -133,6 +145,12 @@ namespace Cohesity.Powershell.Common
                     $"{AccessToken.TokenType} {AccessToken._AccessToken}");
             }
 
+            if (CmdletConfiguration.Instance.IsTenantConfigured)
+            {
+                request.Headers.Add(
+                    CohesityConstants.ImpersonateTenantID, CmdletConfiguration.Instance.GetTenantID());
+            }
+
             return request;
         }
 
@@ -151,6 +169,12 @@ namespace Cohesity.Powershell.Common
                 request.Headers.Add(
                     CohesityConstants.HttpHeaderAuthorization,
                     $"{AccessToken.TokenType} {AccessToken._AccessToken}");
+            }
+
+            if (CmdletConfiguration.Instance.IsTenantConfigured)
+            {
+                request.Headers.Add(
+                    CohesityConstants.ImpersonateTenantID, CmdletConfiguration.Instance.GetTenantID());
             }
 
             return request;
@@ -173,6 +197,12 @@ namespace Cohesity.Powershell.Common
                     $"{AccessToken.TokenType} {AccessToken._AccessToken}");
             }
 
+            if (CmdletConfiguration.Instance.IsTenantConfigured)
+            {
+                request.Headers.Add(
+                    CohesityConstants.ImpersonateTenantID, CmdletConfiguration.Instance.GetTenantID());
+            }
+
             return request;
         }
 
@@ -191,6 +221,12 @@ namespace Cohesity.Powershell.Common
                 request.Headers.Add(
                     CohesityConstants.HttpHeaderAuthorization,
                     $"{AccessToken.TokenType} {AccessToken._AccessToken}");
+            }
+
+            if(CmdletConfiguration.Instance.IsTenantConfigured)
+            {
+                request.Headers.Add(
+                    CohesityConstants.ImpersonateTenantID, CmdletConfiguration.Instance.GetTenantID());
             }
 
             return request;

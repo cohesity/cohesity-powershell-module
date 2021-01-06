@@ -11,6 +11,7 @@ namespace Cohesity.Powershell.Common
     internal class CmdletConfig
     {
         public bool RefreshToken = false;
+        public string TenantID = null;
     }
     internal class CmdletConfiguration
     {
@@ -81,6 +82,17 @@ namespace Cohesity.Powershell.Common
             {
                 return this.__config.RefreshToken;
             }
+        }
+        public bool IsTenantConfigured
+        {
+            get
+            {
+                return (null == this.__config.TenantID) ? false : true;
+            }
+        }
+        public string GetTenantID()
+        {
+            return this.__config.TenantID;
         }
     }
 }
