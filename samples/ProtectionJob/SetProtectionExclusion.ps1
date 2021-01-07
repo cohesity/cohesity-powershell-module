@@ -111,7 +111,7 @@ param (
         $currentJob.ExcludeSourceIds = $newExclusionList
         try
         {
-            ( $currentJob | Set-CohesityProtectionJob ) 2>&1>$null
+            ( $currentJob | Set-CohesityProtectionJob -Confirm:$false) 2>&1>$null
             Write-Output "OK   - $($currentJobName.PadRight(25,'.')) - $nodeToExclude excluded from job."
             $counterOK++
         }
