@@ -123,9 +123,9 @@ function Set-CohesityCmdletConfig {
             $config | ConvertTo-Json -depth 100 | Out-File $cmdletConfigPath
             $Global:CohesityCmdletConfig | Out-Null
             $Global:CohesityCmdletConfig = $config
+            Write-Output "Successfully set the flag."
         }
     }
     End {
     }
 }
-
