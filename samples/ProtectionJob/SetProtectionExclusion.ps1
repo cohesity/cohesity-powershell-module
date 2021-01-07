@@ -1,9 +1,9 @@
 <#
-    setProtectionExclusion.ps1 - Excludes a VM sandpit from the autoprotect feature on a Cohesity cluster
+    SetProtectionExclusion.ps1 - Excludes a VM sandpit from the autoprotect feature on a Cohesity cluster
 
-    Example usage: 
-            setProtectionExclusion.ps1 -cluster 10.2.145.70 -userName cohesityadmin -userPass thepassw0rd -nodeToExclude rmavmrsoe7999
-            setProtectionExclusion.ps1 -cluster 10.2.102.115 -userName admin -userPass admin -nodeToExclude "centos-server01-MKLu","copy-centos-server01","gary-flr-win2k12" -forceRefresh:$true -coolingTimeInSeconds 180
+    Example usage:
+            SetProtectionExclusion.ps1 -cluster 10.2.145.70 -userName cohesityadmin -userPass thepassw0rd -nodeToExclude rmavmrsoe7999
+            SetProtectionExclusion.ps1 -cluster 10.2.102.115 -userName admin -userPass admin -nodeToExclude "centos-server01-MKLu","copy-centos-server01","gary-flr-win2k12" -forceRefresh:$true -coolingTimeInSeconds 180
     Assumptions:
             - The node to exclude exists at the Cohesity cluster (in any protection job) with the same exact name you are passing as a parameter (fqdn, usually)
 #>
