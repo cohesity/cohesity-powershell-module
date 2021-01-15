@@ -137,12 +137,26 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
             var queries = new Dictionary<string, string>();
 
             if (StartTime.HasValue)
+            {
+                if(false == IsValidTime(StartTime))
+                {
+                    WriteObject("Invalid start time : "+ StartTime.ToString());
+                    return;
+                }
                 queries.Add("startTimeUsecs", StartTime.ToString());
+            }
 
             if (EndTime.HasValue)
+            {
+                if (false == IsValidTime(EndTime))
+                {
+                    WriteObject("Invalid end time : " + EndTime.ToString());
+                    return;
+                }
                 queries.Add("endTimeUsecs", EndTime.ToString());
+            }
 
-            if(Search != null)
+            if (Search != null)
                 queries.Add("search", Search);
 
             if (FolderOnly != null && FolderOnly.HasValue)
@@ -173,6 +187,20 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
             var url = $"/public/restore/files{queryString}";
             var result = Session.ApiClient.Get<FileSearchResults>(url);
             WriteObject(result.Files, true);
+        }
+
+        private bool IsValidTime(long? time)
+        {
+            bool valid = true;
+            try
+            {
+                RestApiCommon.ConvertUsecsToDateTime((long)time);
+            }
+            catch
+            {
+                valid = false;
+            }
+            return valid;
         }
     }
 }
