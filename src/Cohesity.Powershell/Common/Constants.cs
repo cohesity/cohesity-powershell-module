@@ -10,6 +10,5 @@ namespace Cohesity.Powershell.Common
 
         public const string HttpHeaderUserAgent     = "User-Agent";
         public const string HttpHeaderAuthorization = "Authorization";
-        public const string ImpersonateTenantID = "X-IMPERSONATE-TENANT-ID";
     }
 }

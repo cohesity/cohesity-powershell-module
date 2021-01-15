@@ -30,11 +30,6 @@ Set-CohesityCmdletConfig [-LogHeaderDetail <Object>] [-WhatIf] [-Confirm] [<Comm
 Set-CohesityCmdletConfig [-RefreshToken <Object>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
-### OrganizationName
-```
-Set-CohesityCmdletConfig [-OrganizationName <Object>] [-WhatIf] [-Confirm] [<CommonParameters>]
-```
-
 ## DESCRIPTION
 Set the local configuration for cohesity powershell cmdlets.
 If the logging flags are set, a log is generated in the following path $HOME/cohesity/cmdlet.log.
@@ -76,22 +71,6 @@ Set-CohesityCmdletConfig -RefreshToken $true
 
 Enables the flag RefreshToken, the cmdlet framework would implicitly attempt to refresh the expired token.
 The user does not need to explicitly connect to the cluster post token expiry.
-
-### EXAMPLE 6
-```
-Set-CohesityCmdletConfig -OrganizationName org1
-```
-
-Set the organization (tenant).
-It would enable user to impersonate as tenant 'org1'.
-
-### EXAMPLE 7
-```
-Set-CohesityCmdletConfig -OrganizationName $null
-```
-
-Reset the organization (tenant).
-It would enable user to query as 'Administrator'.
 
 ## PARAMETERS
 
@@ -161,21 +140,6 @@ If set and the token has expired, the framework would attempt refreshing the tok
 ```yaml
 Type: Object
 Parameter Sets: RefreshToken
-Aliases:
-
-Required: False
-Position: Named
-Default value: False
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -OrganizationName
-For a organization (tenant) based queries set the name, $null to reset the value.
-
-```yaml
-Type: Object
-Parameter Sets: OrganizationName
 Aliases:
 
 Required: False

@@ -31,7 +31,7 @@ function Invoke-RestApi {
                 $userAgent = "cohesity-powershell-core"
                 $installedPackage = $resp | Where-Object { $_.Name -contains $moduleName }
             }
-            if ($installedPackage) {
+            if($installedPackage) {
                 $userAgent = $userAgent + "-" + $installedPackage.Version
             }
         }
@@ -50,11 +50,6 @@ function Invoke-RestApi {
     # to ensure, for every success execution of REST API, the function must return a non null object
     try {
         if ($Global:CohesityCmdletConfig) {
-            if ($Global:CohesityCmdletConfig.TenantID) {
-                if ($PSBoundParameters.ContainsKey('Headers')) {
-                    $PSBoundParameters.Headers['X-IMPERSONATE-TENANT-ID'] = $Global:CohesityCmdletConfig.TenantID
-                }
-            }
             if ($Global:CohesityCmdletConfig.LogHeaderDetail -eq $true) {
                 if ($PSBoundParameters.ContainsKey('Uri')) {
                     CSLog -Message ($PSBoundParameters.Uri | ConvertTo-Json) -Severity 1

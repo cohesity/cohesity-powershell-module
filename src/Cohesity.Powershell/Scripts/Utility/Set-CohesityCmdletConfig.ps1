@@ -5,8 +5,6 @@ class CohesityConfig {
     $LogResponseData = $false
     $LogHeaderDetail = $false
     $RefreshToken = $false
-    [string]$TenantName = $null
-    [string]$TenantID = $null
     # following values are read only, not for configuration purpose
     [string]$ConfigFolder = "cohesity"
     [string]$ConfigFileName = "config.json"
@@ -38,12 +36,6 @@ function Set-CohesityCmdletConfig {
         .EXAMPLE
         Set-CohesityCmdletConfig -RefreshToken $true
         Enables the flag RefreshToken, the cmdlet framework would implicitly attempt to refresh the expired token. The user does not need to explicitly connect to the cluster post token expiry.
-        .EXAMPLE
-        Set-CohesityCmdletConfig -OrganizationName org1
-        Set the organization (tenant). It would enable user to impersonate as tenant 'org1'.
-        .EXAMPLE
-        Set-CohesityCmdletConfig -OrganizationName $null
-        Reset the organization (tenant). It would enable user to query as 'Administrator'.
     #>
     [CmdletBinding(DefaultParameterSetName = 'LogSeverity', SupportsShouldProcess = $True, ConfirmImpact = "High")]
     param(
@@ -66,10 +58,7 @@ function Set-CohesityCmdletConfig {
         [Parameter(Mandatory = $false, ParameterSetName = 'RefreshToken')]
         [ValidateSet($true, $false)]
         # If set and the token has expired, the framework would attempt refreshing the token.
-        $RefreshToken = $false,
-        [Parameter(Mandatory = $false, ParameterSetName = 'OrganizationName')]
-        # For a organization (tenant) based queries set the name, $null to reset the value.
-        $OrganizationName = $false
+        $RefreshToken = $false
     )
     Begin {
         [CohesityConfig]$configObject = [CohesityConfig]::New()
@@ -103,29 +92,13 @@ function Set-CohesityCmdletConfig {
                 'RefreshToken' {
                     $config.RefreshToken = $RefreshToken
                 }
-                'OrganizationName' {
-                    # reset the organization name when $null
-                    $config | Add-Member -NotePropertyName TenantName -NotePropertyValue $null -Force
-                    $config | Add-Member -NotePropertyName TenantID -NotePropertyValue $null -Force
-                    if ($OrganizationName) {
-                        $orgDetail = Get-CohesityOrganization -Name $OrganizationName
-                        if ($orgDetail) {
-                            $config.TenantName = $orgDetail.name
-                            $config.TenantID = $orgDetail.tenantId
-                        }
-                        else {
-                            Write-Output "Could not find the organization '$OrganizationName', please use Get-CohesityOrganization to get the desired one."
-                            return
-                        }
-                    }
-                }
             }
             $config | ConvertTo-Json -depth 100 | Out-File $cmdletConfigPath
             $Global:CohesityCmdletConfig | Out-Null
             $Global:CohesityCmdletConfig = $config
-            Write-Output "Successfully set the flag."
         }
     }
     End {
     }
 }
+
