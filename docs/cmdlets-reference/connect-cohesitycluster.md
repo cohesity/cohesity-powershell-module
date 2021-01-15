@@ -30,6 +30,13 @@ Connect-CohesityCluster -Server 192.168.1.100 -Credential (New-Object -TypeName 
 
 Connects to a Cohesity Cluster at the address "192.168.1.100" using the active directory user, by appending domain name(mydomain.com) to the user.
 
+### EXAMPLE 3
+```
+Connect-CohesityCluster -Server 192.168.1.100 -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList "LOCAL\user1@tenant1", (ConvertTo-SecureString -AsPlainText "p@ssword" -Force))
+```
+
+Connects to a Cohesity Cluster at the address "192.168.1.100" for a user "user1" in the tenant "tenant1".
+
 ## PARAMETERS
 
 ### -Server
@@ -64,6 +71,7 @@ Accept wildcard characters: False
 
 ### -Credential
 User credentials for the Cohesity Cluster.
+To login as a tenant use the user name as LOCAL\user1@tenant1
 
 ```yaml
 Type: PSCredential
