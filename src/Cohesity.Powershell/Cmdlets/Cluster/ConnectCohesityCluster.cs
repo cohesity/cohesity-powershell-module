@@ -37,6 +37,15 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
     ///   Connects to a Cohesity Cluster at the address "192.168.1.100" using the active directory user, by appending domain name(mydomain.com) to the user.
     ///   </para>
     /// </example>
+    /// <example>
+    ///   <para>PS&gt;</para>
+    ///   <code>
+    ///   Connect-CohesityCluster -Server 192.168.1.100 -Credential (New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList "LOCAL\user1@tenant1", (ConvertTo-SecureString -AsPlainText "p@ssword" -Force))
+    ///   </code>
+    ///   <para>
+    ///   Connects to a Cohesity Cluster at the address "192.168.1.100" for a user "user1" in the tenant "tenant1".
+    ///   </para>
+    /// </example>
     [Cmdlet(VerbsCommunications.Connect, "CohesityCluster")]
     public class ConnectCohesityCluster : PSCmdlet
     {
@@ -83,7 +92,7 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
 
         /// <summary>
         /// <para type="description">
-        /// User credentials for the Cohesity Cluster.
+        /// User credentials for the Cohesity Cluster.  To login as a tenant use the user name as LOCAL\user1@tenant1
         /// </para>
         /// </summary>
         [Parameter(Mandatory = true)]
