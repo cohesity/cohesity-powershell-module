@@ -318,7 +318,13 @@ namespace Cohesity.Model
             /// Enum KFailure for value: kFailure
             /// </summary>
             [EnumMember(Value = "kFailure")]
-            KFailure = 6
+            KFailure = 6,
+
+            /// <summary>
+            /// Enum KWarning for value: kWarning
+            /// </summary>
+            [EnumMember(Value = "kWarning")]
+            KWarning = 7
 
         }
 

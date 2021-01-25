@@ -12,6 +12,7 @@ function Copy-CohesityMSSQLObject {
         Copy-CohesityMSSQLObject -TaskName "sql-clone-task" -SourceId 9 -HostSourceId 3 -JobId 41 -NewDatabaseName "ReportDB-clone" -InstanceName "MSSQLSERVER"
         Clones the MS SQL Database with the given source id using the latest run of job id 41 and renames it to "ReportDB-clone".
     #>
+	[OutputType('System.String')]
     [CmdletBinding(SupportsShouldProcess = $True, ConfirmImpact = "High")]
     Param(
         [Parameter(Mandatory = $false)]
@@ -97,13 +98,18 @@ function Copy-CohesityMSSQLObject {
                         instanceName    = $InstanceName
                     }
                 }
-                targetHost = $TargetHostId -eq 0 ? $null : @{ id = $TargetHostId }
-                targetHostParentSource = $TargetHostParentId -eq 0 ? $null : @{ id = $TargetHostParentId }
                 appEntity     = @{
                     type = $APP_ENTITY_TYPE
                     id   = $SourceId
                 }
             }
+			if ($TargetHostId) {
+				$restoreAppObject | Add-Member -NotePropertyName targetHost -NotePropertyValue $TargetHostId
+			}
+			if ($TargetHostParentId) {
+				$restoreAppObject | Add-Member -NotePropertyName targetHostParentSource -NotePropertyValue $TargetHostParentId
+			}
+
 
             $credentials = $null
             if ($TargetHostCredential) {
@@ -112,6 +118,23 @@ function Copy-CohesityMSSQLObject {
                     password = $TargetHostCredential.GetNetworkCredential().Password
                 }
             }
+			$ownerObject = @{
+                jobId  = $JobId
+                jobUid = @{
+                    clusterId            = $jobDetail.uid.clusterId
+                    clusterIncarnationId = $jobDetail.uid.clusterIncarnationId
+                    objectId             = $jobDetail.id
+                }
+                entity = @{
+                    id = $HostSourceId
+                }
+            }
+			if ($JobRunId) {
+				$ownerObject | Add-Member -NotePropertyName jobInstanceId -NotePropertyValue $JobRunId
+			}
+			if ($StartTime) {
+				$ownerObject | Add-Member -NotePropertyName startTimeUsecs -NotePropertyValue $StartTime
+			}
             $payload = @{
                 name                = $TaskName
                 action              = "kCloneApp"
@@ -119,19 +142,7 @@ function Copy-CohesityMSSQLObject {
                     type             = $APP_ENTITY_TYPE
                     credentials      = $credentials
                     ownerRestoreInfo = @{
-                        ownerObject    = @{
-                            jobId  = $JobId
-                            jobUid = @{
-                                clusterId            = $jobDetail.uid.clusterId
-                                clusterIncarnationId = $jobDetail.uid.clusterIncarnationId
-                                objectId             = $jobDetail.id
-                            }
-                            jobInstanceId = $JobRunId -eq 0 ? $null : $JobRunId
-                            startTimeUsecs = $StartTime -eq 0 ? $null : $StartTime
-                            entity = @{
-                                id = $HostSourceId
-                            }
-                        }
+                        ownerObject    = $ownerObject
                         performRestore = $false
                     }
                     restoreAppObjectVec = @($restoreAppObject)
@@ -149,7 +160,7 @@ function Copy-CohesityMSSQLObject {
             }
         }
         else {
-            return
+            return "The operation is cancelled."
         }
     }
 
