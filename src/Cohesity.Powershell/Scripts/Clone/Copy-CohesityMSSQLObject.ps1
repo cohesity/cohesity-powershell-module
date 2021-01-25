@@ -72,10 +72,20 @@ function Copy-CohesityMSSQLObject {
     Process {
         if ($PSCmdlet.ShouldProcess($SourceId)) {
             $jobDetail = Get-CohesityProtectionJob -Ids $JobId
-            if(-not $jobDetail) {
-                return "Invalid job id $JobId"
+            if (-not $jobDetail) {
+                return "Invalid job id '$JobId'"
             }
-            $cohesityUrl = $cohesityCluster + '/irisservices/api/v1/public/cloneApplication'
+            if (-not $StartTime) {
+                $jobRuns = Get-CohesityProtectionJobRun -JobId $JobId
+                if ($jobRuns.Count -eq 0) {
+                    return "No job runs available for job id '$JobId'"
+                }
+                if (-not $jobRuns.CopyRun[0].RunStartTimeUsecs) {
+                    return "Job run start time not available for job id '$JobId'"
+                }
+                $StartTime = $jobRuns.CopyRun[0].RunStartTimeUsecs
+            }
+            $cohesityUrl = $cohesityCluster + '/irisservices/api/v1/cloneApplication'
             $cohesityHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
 
             $APP_ENTITY_TYPE = 3
@@ -84,14 +94,14 @@ function Copy-CohesityMSSQLObject {
                     sqlRestoreParams = @{
                         captureTailLogs = $false
                         newDatabaseName = $NewDatabaseName
-                        instanceName = $InstanceName
+                        instanceName    = $InstanceName
                     }
                 }
                 targetHost = $TargetHostId -eq 0 ? $null : @{ id = $TargetHostId }
                 targetHostParentSource = $TargetHostParentId -eq 0 ? $null : @{ id = $TargetHostParentId }
-                appEntity = @{
+                appEntity     = @{
                     type = $APP_ENTITY_TYPE
-                    id = $SourceId
+                    id   = $SourceId
                 }
             }
 
@@ -103,29 +113,29 @@ function Copy-CohesityMSSQLObject {
                 }
             }
             $payload = @{
-                name = $TaskName
-                action = "kCloneApp"
-                restoreAppParams = @{
-                    type = $APP_ENTITY_TYPE
-                    credentials = $credentials
-                }
-                ownerRestoreInfo = @{
-                    ownerObject = @{
-                        jobId = $JobId
-                        jobUid = @{
-                            clusterId = $jobDetail.uid.clusterId
-                            clusterIncarnationId = $jobDetail.uid.clusterIncarnationId
-                            objectId = $jobDetail.id
+                name                = $TaskName
+                action              = "kCloneApp"
+                restoreAppParams    = @{
+                    type             = $APP_ENTITY_TYPE
+                    credentials      = $credentials
+                    ownerRestoreInfo = @{
+                        ownerObject    = @{
+                            jobId  = $JobId
+                            jobUid = @{
+                                clusterId            = $jobDetail.uid.clusterId
+                                clusterIncarnationId = $jobDetail.uid.clusterIncarnationId
+                                objectId             = $jobDetail.id
+                            }
+                            jobInstanceId = $JobRunId -eq 0 ? $null : $JobRunId
+                            startTimeUsecs = $StartTime -eq 0 ? $null : $StartTime
+                            entity = @{
+                                id = $HostSourceId
+                            }
                         }
-                        jobInstanceId = $JobRunId -eq 0 ? $null : $JobRunId
-                        startTimeUsecs = $StartTime -eq 0 ? $null : $StartTime
-                        entity = @{
-                            id = $HostSourceId
-                        }
+                        performRestore = $false
                     }
-                    performRestore = $false
+                    restoreAppObjectVec = @($restoreAppObject)
                 }
-                restoreAppObjectVec = @($restoreAppObject)
             }
             $payloadJson = $payload | ConvertTo-Json -Depth 100
             $resp = Invoke-RestApi -Method Post -Uri $cohesityUrl -Headers $cohesityHeaders -Body $payloadJson
