@@ -151,8 +151,13 @@ function Copy-CohesityMSSQLObject {
             }
             $payloadJson = $payload | ConvertTo-Json -Depth 100
             $resp = Invoke-RestApi -Method Post -Uri $cohesityUrl -Headers $cohesityHeaders -Body $payloadJson
-            if ($resp) {
-                $resp
+            if ($Global:CohesityAPIStatus.StatusCode -eq 200) {
+                $taskId = $resp.restoreTask.performRestoreTaskState.base.taskId
+				$cohesityUrl = $cohesityCluster + '/irisservices/api/v1/public/restore/tasks/' + $taskId
+				$taskStatus = Invoke-RestApi -Method Get -Uri $cohesityUrl -Headers $cohesityHeaders
+				# tagging reponse for display format ( configured in Cohesity.format.ps1xml )
+                @($taskStatus | Add-Member -TypeName 'System.Object#CopyMSSQLObject' -PassThru)
+
             }
             else {
                 $errorMsg = "MSSQLObject : Failed to copy."

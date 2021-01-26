@@ -1836,5 +1836,60 @@
         </TableHeaders>
       </TableControl>
     </View>
+    <!-- Copy MSSQL Object Script based cmdlet -->
+    <View>
+      <Name>System.Object.CopyMSSQLObject.TableView</Name>
+      <ViewSelectedBy>
+        <TypeName>System.Object#CopyMSSQLObject</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>Id</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Name</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Status</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Type</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>$_.StartTimeUSecs | Convert-CohesityUsecsToDateTime</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>if($_.EndTimeUsecs){$_.EndTimeUsecs | Convert-CohesityUsecsToDateTime}else{"-"}</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Username</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>if($_.Error.Message){$_.Error.Message}else{"-"}</ScriptBlock>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+        <TableHeaders>
+          <TableColumnHeader/>
+          <TableColumnHeader/>
+          <TableColumnHeader/>
+          <TableColumnHeader/>
+          <TableColumnHeader>
+            <Label>StartTime</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>EndTime</Label>
+          </TableColumnHeader>
+          <TableColumnHeader/>
+          <TableColumnHeader>
+            <Label>ErrorMessage</Label>
+          </TableColumnHeader>
+        </TableHeaders>
+      </TableControl>
+    </View>
   </ViewDefinitions>
 </Configuration>
