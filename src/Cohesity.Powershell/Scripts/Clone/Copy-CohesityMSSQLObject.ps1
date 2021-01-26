@@ -13,6 +13,7 @@ function Copy-CohesityMSSQLObject {
         Clones the MS SQL Database with the given source id using the latest run of job id 41 and renames it to "ReportDB-clone".
     #>
 	[OutputType('System.String')]
+	[OutputType('System.Array')]
     [CmdletBinding(SupportsShouldProcess = $True, ConfirmImpact = "High")]
     Param(
         [Parameter(Mandatory = $false)]
