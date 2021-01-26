@@ -160,7 +160,7 @@ function Copy-CohesityMSSQLObject {
 
             }
             else {
-                $errorMsg = "MSSQLObject : Failed to copy."
+                $errorMsg = $Global:CohesityAPIStatus.ErrorMessage + ", MSSQLObject : Failed to copy."
                 Write-Output $errorMsg
                 CSLog -Message $errorMsg
             }
