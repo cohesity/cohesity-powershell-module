@@ -76,7 +76,7 @@ function Copy-CohesityMSSQLObject {
             if (-not $jobDetail) {
                 return "Invalid job id '$JobId'"
             }
-            if (-not $StartTime) {
+            if ($StartTime -eq 0) {
                 $jobRuns = Get-CohesityProtectionJobRun -JobId $JobId
                 if ($jobRuns.Count -eq 0) {
                     return "No job runs available for job id '$JobId'"
@@ -86,11 +86,12 @@ function Copy-CohesityMSSQLObject {
                 }
                 $StartTime = $jobRuns.CopyRun[0].RunStartTimeUsecs
             }
+
             $cohesityUrl = $cohesityCluster + '/irisservices/api/v1/cloneApplication'
             $cohesityHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
 
             $APP_ENTITY_TYPE = 3
-            $restoreAppObject = @{
+            $restoreAppObject = [PSCustomObject]@{
                 restoreParams = @{
                     sqlRestoreParams = @{
                         captureTailLogs = $false
@@ -103,22 +104,22 @@ function Copy-CohesityMSSQLObject {
                     id   = $SourceId
                 }
             }
-			if ($TargetHostId) {
+			if ($TargetHostId -ne 0) {
 				$restoreAppObject | Add-Member -NotePropertyName targetHost -NotePropertyValue $TargetHostId
 			}
-			if ($TargetHostParentId) {
+			if ($TargetHostParentId -ne 0) {
 				$restoreAppObject | Add-Member -NotePropertyName targetHostParentSource -NotePropertyValue $TargetHostParentId
 			}
 
 
             $credentials = $null
             if ($TargetHostCredential) {
-                $credentials = @{
+                $credentials = [PSCustomObject]@{
                     username = $TargetHostCredential.UserName
                     password = $TargetHostCredential.GetNetworkCredential().Password
                 }
             }
-			$ownerObject = @{
+			$ownerObject = [PSCustomObject]@{
                 jobId  = $JobId
                 jobUid = @{
                     clusterId            = $jobDetail.uid.clusterId
@@ -129,13 +130,13 @@ function Copy-CohesityMSSQLObject {
                     id = $HostSourceId
                 }
             }
-			if ($JobRunId) {
+			if ($JobRunId -ne 0) {
 				$ownerObject | Add-Member -NotePropertyName jobInstanceId -NotePropertyValue $JobRunId
 			}
-			if ($StartTime) {
+			if ($StartTime -ne 0) {
 				$ownerObject | Add-Member -NotePropertyName startTimeUsecs -NotePropertyValue $StartTime
 			}
-            $payload = @{
+            $payload = [PSCustomObject]@{
                 name                = $TaskName
                 action              = "kCloneApp"
                 restoreAppParams    = @{
