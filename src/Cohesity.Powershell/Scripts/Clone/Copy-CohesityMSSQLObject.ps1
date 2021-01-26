@@ -105,10 +105,10 @@ function Copy-CohesityMSSQLObject {
                 }
             }
 			if ($TargetHostId -ne 0) {
-				$restoreAppObject | Add-Member -NotePropertyName targetHost -NotePropertyValue $TargetHostId
+				$restoreAppObject | Add-Member -NotePropertyName targetHost -NotePropertyValue @{id=$TargetHostId}
 			}
 			if ($TargetHostParentId -ne 0) {
-				$restoreAppObject | Add-Member -NotePropertyName targetHostParentSource -NotePropertyValue $TargetHostParentId
+				$restoreAppObject | Add-Member -NotePropertyName targetHostParentSource -NotePropertyValue @{id=$TargetHostParentId}
 			}
 
 
