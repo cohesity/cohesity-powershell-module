@@ -7,6 +7,7 @@ Param(
 )
 Begin {
     Import-Module -Name ".\HeliosWebRequest.psm1" -Force
+    Update-FormatData -AppendPath ./HeliosView.Format.ps1xml
 }
 
 Process {
@@ -34,7 +35,7 @@ Process {
         foreach ($protectionJob in $protectionJobs) {
             # filter out the desired parent source name
             $parentSourceObject = $rootNodes | Where-Object {$_.protectionSource.id -eq $protectionJob.parentSourceId}
-            $outputList += @{
+            $outputList += [PSCustomObject]@{
                 ClusterName = $cluster.clusterName
                 ProtectionJobId = $protectionJob.id
                 ProtectionJobName = $protectionJob.name
@@ -42,9 +43,8 @@ Process {
                 ParentSourceName = $parentSourceObject.protectionSource.name
             }
         }
-
-        write-host ($outputList | ConvertTo-Json)
     }
+    @($outputList | Add-Member -TypeName 'System.Object#HeliosClusterView' -PassThru)
 }
 End {
 }
