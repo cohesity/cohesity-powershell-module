@@ -44,6 +44,7 @@ Process {
             }
         }
     }
+    $outputList = $outputList | Sort-Object -Property ClusterName
     @($outputList | Add-Member -TypeName 'System.Object#HeliosClusterView' -PassThru)
 }
 End {

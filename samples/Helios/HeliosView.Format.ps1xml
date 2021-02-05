@@ -10,7 +10,6 @@
         <TableHeaders>
           <TableColumnHeader>
             <Label>Cohesity_Cluster_Name</Label>
-            <Width>20</Width>
             <Alignment>Left</Alignment>
           </TableColumnHeader>
           <TableColumnHeader>
