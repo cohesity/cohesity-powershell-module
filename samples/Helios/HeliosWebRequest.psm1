@@ -4,14 +4,13 @@ function HeliosWebRequest {
     Param(
         $Uri,
         $Method,
-        $APIKey
+        $Headers
     )
     Begin {}
     Process {
-        $headers = @{'apiKey' = $APIKey }
 
         If ($PSVersionTable.PSVersion.Major -ge 6) {
-            $result = Invoke-WebRequest -UseBasicParsing -SkipCertificateCheck -Method $Method -Uri $Uri -Headers $headers
+            $result = Invoke-WebRequest -UseBasicParsing -SkipCertificateCheck -Method $Method -Uri $Uri -Headers $Headers
         }
         else {
             # ignore self-signed server certificates
@@ -41,7 +40,7 @@ function HeliosWebRequest {
         }
 "@
             [ServerCertificateValidationCallback]::Ignore();
-            $result = Invoke-WebRequest -UseBasicParsing -Method $Method -Uri $Uri -Headers $headers
+            $result = Invoke-WebRequest -UseBasicParsing -Method $Method -Uri $Uri -Headers $Headers
         }
 
         ($result.Content | ConvertFrom-Json)
