@@ -1,7 +1,7 @@
 Use the script to get the cluster details
 
 ```
-./ClusterInfo.ps1 -HeliosServer "https://helios.mycompany.com" -HeliosAPIKey "1049a8ba-5260-477f-5317-28df7e614c4b"
+./ClusterInfo.ps1 -HeliosServer "https://helios.mycompany.com" -HeliosAPIKey "YOUR_API_KEY"
 ```
 
 The details will be available in the following format
