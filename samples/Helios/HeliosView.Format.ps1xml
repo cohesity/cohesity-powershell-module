@@ -17,11 +17,11 @@
             <Alignment>Left</Alignment>
           </TableColumnHeader>
           <TableColumnHeader>
-            <Label>VMware_Object_Cluster_Name</Label>
+            <Label>VMware_Source_vCenter_Name</Label>
             <Alignment>Left</Alignment>
           </TableColumnHeader>
           <TableColumnHeader>
-            <Label>VMware_Source_vCenter_Name</Label>
+            <Label>VMware_Object_Cluster_Name</Label>
             <Alignment>Left</Alignment>
           </TableColumnHeader>
         </TableHeaders>
@@ -35,10 +35,10 @@
                 <PropertyName>ProtectionJobName</PropertyName>
               </TableColumnItem>
               <TableColumnItem>
-                <ScriptBlock>"TBD"</ScriptBlock>
+                <PropertyName>ParentSourceName</PropertyName>
               </TableColumnItem>
               <TableColumnItem>
-                <PropertyName>ParentSourceName</PropertyName>
+                <PropertyName>ClusterComputeResourceName</PropertyName>
               </TableColumnItem>
             </TableColumnItems>
           </TableRowEntry>

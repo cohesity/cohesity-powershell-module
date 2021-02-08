@@ -3,10 +3,13 @@ Param(
     [Parameter(Mandatory = $true)]
     [string]$HeliosServer,
     [Parameter(Mandatory = $true)]
-    [string]$HeliosAPIKey
+    [string]$HeliosAPIKey,
+    [Parameter(Mandatory = $false)]
+    [bool]$EnableVMwareObjectClusterName = $true
 )
 Begin {
     Import-Module -Name ".\HeliosWebRequest.psm1" -Force
+    Import-Module -Name ".\FlattenProtectionSourceNode.psm1" -Force
     Update-FormatData -AppendPath ./HeliosView.Format.ps1xml
 }
 
@@ -24,6 +27,22 @@ Process {
                 }
         $rootNodes = HeliosWebRequest -Uri $url -Headers $headers -Method Get
 
+        $clusterComputeResourceList = @()
+        if ($EnableVMwareObjectClusterName -eq $true) {
+            # the follow operation would consume massive amount of time, therefore to avoid use the above flag
+            # get the protection source ids for VMware_Object_Cluster_Name
+            $url = $HeliosServer + '/irisservices/api/v1/public/protectionSources'
+            $headers = @{
+                        "apiKey" = $HeliosAPIKey
+                        "accessClusterId" = $cluster.clusterId
+                    }
+            $nodes = HeliosWebRequest -Uri $url -Headers $headers -Method Get
+            if($nodes) {
+                $flattenedNodes = FlattenProtectionSourceNode -Nodes $nodes -Type 2
+                $clusterComputeResourceList = [PSCustomObject]($flattenedNodes | where-object {$_.protectionSource.vmWareProtectionSource.type -eq "kClusterComputeResource"})
+            }
+        }
+
         # get the protection job
         $url = $HeliosServer + '/irisservices/api/v1/public/protectionJobs'
         $headers = @{
@@ -33,6 +52,11 @@ Process {
         $protectionJobs = HeliosWebRequest -Uri $url -Headers $headers -Method Get
 
         foreach ($protectionJob in $protectionJobs) {
+            $clusterComputeResourceName = "NA"
+            $clusterComputeResourceObject =  $clusterComputeResourceList | where-object {$_.protectionSource.parentId -eq $protectionJob.parentSourceId}
+            if($clusterComputeResourceObject) {
+                $clusterComputeResourceName = $clusterComputeResourceObject.protectionSource.name
+            }
             # filter out the desired parent source name
             $parentSourceObject = $rootNodes | Where-Object {$_.protectionSource.id -eq $protectionJob.parentSourceId}
             $outputList += [PSCustomObject]@{
@@ -41,6 +65,7 @@ Process {
                 ProtectionJobName = $protectionJob.name
                 ParentSourceId = $protectionJob.parentSourceId
                 ParentSourceName = $parentSourceObject.protectionSource.name
+                ClusterComputeResourceName = $clusterComputeResourceName
             }
         }
     }
