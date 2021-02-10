@@ -62,7 +62,7 @@ function RestoreRemoteMSSQLObject {
         # ".ndf".  If this option is specified and the destination folders do not exist they will be
         # automatically created.
         # This field can be set only if restoring to a different target host.
-        [Array[Model.FilenamePatternToDirectory]]$TargetSecondaryDataFilesDirectoryList,
+        [Cohesity.Model.FilenamePatternToDirectory[]]$TargetSecondaryDataFilesDirectoryList,
         [Parameter(Mandatory = $false)]
         [ValidateRange(1, [long]::MaxValue)]
         # Specifies the target host if the application is to be restored to a different host.
@@ -100,10 +100,10 @@ function RestoreRemoteMSSQLObject {
         if ($job.IsActive -eq $false) {
             $searchHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
 
-            $searchURL = $cohesityCluster + '/irisservices/api/v1/searchvms?entityTypes=kVMware&jobIds=' + $JobId
+            $searchURL = $cohesityCluster + '/irisservices/api/v1/searchvms?environment=SQL&entityTypes=kSQL&jobIds=' + $JobId
             $searchResult = Invoke-RestApi -Method Get -Uri $searchURL -Headers $searchHeaders
             if ($null -eq $searchResult) {
-                Write-Output "Could not search VM with the job id $JobId"
+                Write-Output "Could not search MSSQL objects with the job id $JobId"
                 return
             }
             $searchedVMDetails = $searchResult.vms | Where-Object { $_.vmDocument.objectId.jobId -eq $JobId -and $_.vmDocument.objectId.entity.id -eq $SourceId }
