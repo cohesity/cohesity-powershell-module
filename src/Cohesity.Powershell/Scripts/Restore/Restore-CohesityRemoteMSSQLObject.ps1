@@ -1,4 +1,18 @@
-function RestoreRemoteMSSQLObject {
+function Restore-CohesityRemoteMSSQLObject {
+    <#
+        .SYNOPSIS
+        From remote cluster restores the specified MS SQL object from a previous backup.
+        .DESCRIPTION
+        From remote cluster restores the specified  MS SQL object from a previous backup.
+        .NOTES
+        Published by Cohesity
+        .LINK
+        https://cohesity.github.io/cohesity-powershell-module/#/README
+        .EXAMPLE
+        Restore-CohesityRemoteMSSQLObject -TaskName "sql-restore-task" -SourceId 9 -HostSourceId 3 -JobId 401
+        From remote cluster, restores the MS SQL DB with the given source id using the latest run of job id 401.
+    #>
+
     [CmdletBinding(DefaultParameterSetName = "Default")]
     Param(
         [Parameter(Mandatory = $false)]
@@ -108,7 +122,7 @@ function RestoreRemoteMSSQLObject {
             }
             $searchedVMDetails = $searchResult.vms | Where-Object { $_.vmDocument.objectId.jobId -eq $JobId -and $_.vmDocument.objectId.entity.id -eq $SourceId }
             if ($null -eq $searchedVMDetails) {
-                Write-Output "Could not find details for VM id = "$SourceId
+                Write-Output "Could not find details for MSSQL source id = "$SourceId
                 return
             }
             $vmwareDetail = $null
@@ -122,131 +136,40 @@ function RestoreRemoteMSSQLObject {
                 }
             }
 
-            $resourcePoolDetail = $null
-            if ($ResourcePoolId) {
-                $searchURL = $cohesityCluster + '/irisservices/api/v1/resourcePools?vCenterId=' + $vmwareDetail.id
-                $searchResult = Invoke-RestApi -Method Get -Uri $searchURL -Headers $searchHeaders
-                $resourcePoolDetail = $searchResult | Where-Object { $_.resourcePool.id -eq $ResourcePoolId }
-                if (-not $resourcePoolDetail) {
-                    Write-Output "The resourcepool id '$ResourcePoolId' is not available for parent id '$NewParentId'"
-                    return
-                }
-                $resourcePoolDetail = $resourcePoolDetail.resourcePool
-            }
-
-            $datastoreDetail = $null
-            if ($DatastoreId) {
-                $searchURL = $cohesityCluster + '/irisservices/api/v1/datastores?resourcePoolId='+$ResourcePoolId+'&vCenterId='+$NewParentId
-                $searchResult = Invoke-RestApi -Method Get -Uri $searchURL -Headers $searchHeaders
-                $datastoreDetail = $searchResult | Where-Object { $_.id -eq $DatastoreId }
-                if (-not $datastoreDetail) {
-                    Write-Output "The datastore id '$DatastoreId' is not available for resourcepool id '$ResourcePoolId' and parent id '$NewParentId'"
-                    return
-                }
-            }
-
-            $vmFolderDetail = $null
-            if ($VmFolderId) {
-                $searchURL = $cohesityCluster + '/irisservices/api/v1/vmwareFolders?resourcePoolId='+$ResourcePoolId+'&vCenterId='+$NewParentId
-                $searchResult = Invoke-RestApi -Method Get -Uri $searchURL -Headers $searchHeaders
-                $vmFolder = $searchResult.vmFolders | Where-Object { $_.id -eq $VmFolderId }
-                if (-not $vmFolder) {
-                    Write-Output "The vm folder id '$VmFolderId' is not available for resourcepool id '$ResourcePoolId' and parent id '$NewParentId'"
-                    return
-                }
-                $vmFolderDetail = @{
-                    targetVmFolder = $vmFolder
-                }
-            }
-
-            $networkDetail = $null
-            if($NetworkId) {
-                $searchURL = $cohesityCluster + '/irisservices/api/v1/networkEntities?resourcePoolId='+$ResourcePoolId+'&vCenterId='+$NewParentId
-                $searchResult = Invoke-RestApi -Method Get -Uri $searchURL -Headers $searchHeaders
-                $foundNetwork = $searchResult | Where-Object { $_.id -eq $NetworkId }
-                if (-not $foundNetwork) {
-                    Write-Output "The network id '$NetworkId' is not available for resourcepool id '$ResourcePoolId' and parent id '$NewParentId'"
-                    return
-                }
-                $networkDetail = @{
-                    networkEntity = $foundNetwork
-                }
-            }
-
-            $vmObject = $searchedVMDetails.vmDocument.objectId
+            $mssqlObject = $searchedVMDetails.vmDocument.objectId
             if ($JobRunId) {
-                $vmObject | Add-Member -NotePropertyName jobInstanceId -NotePropertyValue $JobRunId
-                $vmObject | Add-Member -NotePropertyName startTimeUsecs -NotePropertyValue $StartTime
+                $mssqlObject | Add-Member -NotePropertyName jobInstanceId -NotePropertyValue $JobRunId
+                $mssqlObject | Add-Member -NotePropertyName startTimeUsecs -NotePropertyValue $StartTime
             }
-            $vmObjects = @()
-            $vmObjects += $vmObject
 
-            $renameVMObject = $null
-            if ($VmNamePrefix -or $VmNameSuffix) {
-                $renameVMObject = @{}
-                if ($VmNamePrefix) {
-                    $renameVMObject.Add("prefix", $VmNamePrefix)
-                }
-                if ($VmNameSuffix) {
-                    $renameVMObject.Add("suffix", $VmNameSuffix)
-                }
-            }
+            $MSSQL_OBJECT_RESTORE_TYPE = 3
             $payload = @{
-                continueRestoreOnError       = $true
+                action       = "kRecoverApp"
                 name                         = $TaskName
-                objects                      = $vmObjects
-                powerStateConfig             = @{
-                    powerOn = $PoweredOn.IsPresent
+                restoreAppParams = @{
+                    type = $MSSQL_OBJECT_RESTORE_TYPE
+                    ownerRestoreInfo = @{
+                        ownerObject = $mssqlObject
+                    }
                 }
-                renameRestoredObjectParam    = $renameVMObject
-                restoredObjectsNetworkConfig = @{
-                    networkEntity = $networkDetail.networkEntity
-                    disableNetwork = $DisableNetwork.IsPresent
-                }
-                restoreParentSource          = $vmwareDetail
-                resourcePoolEntity           = $resourcePoolDetail
-                datastoreEntity              = $datastoreDetail
-                vmwareParams                 = $vmFolderDetail
             }
-            $url = $cohesityCluster + '/irisservices/api/v1/restore'
+            $url = $cohesityCluster + '/irisservices/api/v1/recoverApplication'
+            $payloadJson = $payload | ConvertTo-Json -Depth 100
+
+            write-host $payloadJson
+
+            # $headers = @{'Authorization' = 'Bearer ' + $cohesityToken }
+            # $resp = Invoke-RestApi -Method 'Post' -Uri $url -Headers $headers -Body $payloadJson
+            # if ($resp) {
+            #     $resp
+            # }
+            # else {
+            #     $errorMsg = $resp | ConvertTo-Json
+            #     Write-Output ("MSSQL object : Failed to restore" + $errorMsg)
+            # }
         }
         else {
-            $object = @{
-                jobId              = $JobId
-                jobRunId           = $JobRunId
-                protectionSourceId = $SourceId
-                startedTimeUsecs   = $StartTime
-            }
-
-            $payload = @{
-                name             = $TaskName
-                continueOnError  = $true
-                objects          = @($object)
-                type             = "kRecoverVMs"
-                vmwareParameters = @{
-                    datastoreId    = $DatastoreId
-                    disableNetwork = $DisableNetwork.IsPresent
-                    networkId      = $NetworkId
-                    poweredOn      = $PoweredOn.IsPresent
-                    prefix         = $VmNamePrefix
-                    resourcePoolId = $ResourcePoolId
-                    suffix         = $VmNameSuffix
-                    vmFolderId     = $VmFolderId
-                }
-                newParentId      = $NewParentId
-            }
-            $url = $cohesityCluster + '/irisservices/api/v1/public/restore/recover'
-        }
-        $payloadJson = $payload | ConvertTo-Json -Depth 100
-
-        $headers = @{'Authorization' = 'Bearer ' + $cohesityToken }
-        $resp = Invoke-RestApi -Method 'Post' -Uri $url -Headers $headers -Body $payloadJson
-        if ($resp) {
-            $resp
-        }
-        else {
-            $errorMsg = $resp | ConvertTo-Json
-            Write-Output ("Vmware VM : Failed to restore" + $errorMsg)
+            Write-Output "Skipping operation on active job."
         }
     }
     End {

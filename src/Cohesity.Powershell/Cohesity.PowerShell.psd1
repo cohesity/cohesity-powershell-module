@@ -117,6 +117,7 @@ FunctionsToExport = @(
                     'Remove-CohesityVirtualIP',
                     'Remove-CohesityVlan',
                     'Restore-CohesityBackupToView',
+                    'Restore-CohesityRemoteMSSQLObject',
                     'Restore-CohesityVMwareVM',
                     'Save-CohesityFile',
                     'Set-CohesityAlertResolutions',
