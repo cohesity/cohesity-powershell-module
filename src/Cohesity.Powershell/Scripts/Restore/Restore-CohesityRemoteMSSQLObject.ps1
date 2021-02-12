@@ -9,7 +9,7 @@ function Restore-CohesityRemoteMSSQLObject {
         .LINK
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
-        Restore-CohesityRemoteMSSQLObject -TaskName "sql-restore-task" -SourceId 9 -HostSourceId 3 -JobId 401
+        Restore-CohesityRemoteMSSQLObject -TaskName "sql-restore-task" -SourceId 9 -SourceInstanceId 3 -JobId 401
         From remote cluster, restores the MS SQL DB with the given source id using the latest run of job id 401.
     #>
 
@@ -20,12 +20,12 @@ function Restore-CohesityRemoteMSSQLObject {
         [string]$TaskName = "Restore-MSSQL-Object-" + (Get-Date -Format "dddd-MM-dd-yyyy-HH-mm-ss").ToString(),
         [Parameter(Mandatory = $true)]
         [ValidateRange(1, [long]::MaxValue)]
-        # Specifies the source id of the MS SQL database to restore. This can be obtained using Get-CohesityMSSQLObject.
+        # Specifies the source id of the MS SQL database to restore. This can be obtained using Find-CohesityObjectsForRestore -Environments KSQL.
         [long]$SourceId,
         [Parameter(Mandatory = $true)]
         [ValidateRange(1, [long]::MaxValue)]
-        # Specifies the source id of the physical server or virtual machine that is hosting the MS SQL instance.
-        [long]$HostSourceId,
+        # Specifies the id of MSSQL database instance.
+        [long]$SourceInstanceId,
         [Parameter(Mandatory = $true)]
         [ValidateRange(1, [long]::MaxValue)]
         # Specifies the job id that backed up this MS SQL instance and will be used for this restore.
@@ -45,21 +45,11 @@ function Restore-CohesityRemoteMSSQLObject {
         # This is only applicable if restoring the SQL database to its hosting Protection Source and the database is not being renamed.
         [switch]$CaptureTailLogs,
         [Parameter(Mandatory = $false)]
-        # Specifies if we want to restore the database and do not want to bring it online after restore.
-        # This is only applicable if restoring the database back to its original location.
-        [switch]$KeepOffline,
-        [Parameter(Mandatory = $false)]
         # Specifies a new name for the restored database.
         [string]$NewDatabaseName,
         [Parameter(Mandatory = $false)]
         # Specifies the instance name of the SQL Server that should be restored.
         [string]$NewInstanceName,
-        [Parameter(Mandatory = $false)]
-        [ValidateRange(1, [long]::MaxValue)]
-        # Specifies the time in the past to which the SQL database needs to be restored.
-        # This allows for granular recovery of SQL databases.
-        # If not specified, the SQL database will be restored from the full/incremental snapshot.
-        [long]$RestoreTimeSecs,
         [Parameter(Mandatory = $false)]
         # Specifies the directory where to put the database data files.
         # Missing directory will be automatically created.
@@ -81,17 +71,7 @@ function Restore-CohesityRemoteMSSQLObject {
         [ValidateRange(1, [long]::MaxValue)]
         # Specifies the target host if the application is to be restored to a different host.
         # If not specified, then the application is restored to the original host (physical or virtual) that hosted this application.
-        [long]$TargetHostId,
-        [Parameter(Mandatory = $false)]
-        [ValidateRange(1, [long]::MaxValue)]
-        # Specifies the id of the registered parent source (such as vCenter) of the target host.
-        [long]$TargetHostParentId,
-        [Parameter(Mandatory = $false)]
-        # User credentials for accessing the target host for restore.
-        # This is not required when restoring to a Physical Server but must be specified when restoring to a VM.
-        [System.Management.Automation.PSCredential]
-        [System.Management.Automation.Credential()]
-        $TargetHostCredential
+        [long]$TargetHostId
     )
     Begin {
         if (-not (Test-Path -Path "$HOME/.cohesity")) {
@@ -112,64 +92,96 @@ function Restore-CohesityRemoteMSSQLObject {
         }
 
         if ($job.IsActive -eq $false) {
+
+            $protectionSourceObject = Get-CohesityProtectionSource -Id $TargetHostId
+            if (-not $protectionSourceObject) {
+                Write-Output "Cannot proceed, the target host id '$TargetHostId' is invalid"
+                return
+            }
+    
             $searchHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
 
-            $searchURL = $cohesityCluster + '/irisservices/api/v1/searchvms?environment=SQL&entityTypes=kSQL&jobIds=' + $JobId
+            $searchURL = $cohesityCluster + '/irisservices/api/v1/searchvms?environment=SQL&entityTypes=kSQL&showAll=false&onlyLatestVersion=true&jobIds=' + $JobId
             $searchResult = Invoke-RestApi -Method Get -Uri $searchURL -Headers $searchHeaders
             if ($null -eq $searchResult) {
                 Write-Output "Could not search MSSQL objects with the job id $JobId"
                 return
             }
-            $searchedVMDetails = $searchResult.vms | Where-Object { $_.vmDocument.objectId.jobId -eq $JobId -and $_.vmDocument.objectId.entity.id -eq $SourceId }
+            $searchedVMDetails = $searchResult.vms | Where-Object { $_.vmDocument.objectId.jobId -eq $JobId -and $_.vmDocument.objectId.entity.id -eq $SourceId -and $_.vmDocument.objectId.entity.parentId -eq $SourceInstanceId}
             if ($null -eq $searchedVMDetails) {
                 Write-Output "Could not find details for MSSQL source id = "$SourceId
                 return
             }
-            $vmwareDetail = $null
-            if ($NewParentId) {
-                $searchURL = $cohesityCluster + '/irisservices/api/v1/entitiesOfType?environmentTypes=kVMware&vmwareEntityTypes=kVCenter&vmwareEntityTypes=kStandaloneHost&vmwareEntityTypes=kvCloudDirector'
-                $searchResult = Invoke-RestApi -Method Get -Uri $searchURL -Headers $searchHeaders
-                $vmwareDetail = $searchResult | Where-Object { $_.id -eq $NewParentId }
-                if (-not $vmwareDetail) {
-                    Write-Output "The new parent id is incorrect '$NewParentId'"
-                    return
-                }
-            }
 
-            $mssqlObject = $searchedVMDetails.vmDocument.objectId
-            if ($JobRunId) {
-                $mssqlObject | Add-Member -NotePropertyName jobInstanceId -NotePropertyValue $JobRunId
-                $mssqlObject | Add-Member -NotePropertyName startTimeUsecs -NotePropertyValue $StartTime
+            if (-not $JobRunId) {
+                $run = Get-CohesityProtectionJobRun -JobId $JobId -NumRuns 1
+                $JobRunId = $run.backupRun.jobRunId
+                $StartTime = $run.backupRun.stats.startTimeUsecs
             }
+            $jobUid = [PSCustomObject]$searchedVMDetails.vmDocument.objectId.jobUid
 
+            $restoreAppObject = @{
+                appEntity = $searchedVMDetails.vmDocument.objectId.entity
+            }
             $MSSQL_OBJECT_RESTORE_TYPE = 3
+            $MSSQL_TARGET_HOST_TYPE = 6
+            $MSSQL_TARGET_PHYSICAL_ENTITY_HOST_TYPE = 1
             $payload = @{
                 action       = "kRecoverApp"
                 name                         = $TaskName
                 restoreAppParams = @{
                     type = $MSSQL_OBJECT_RESTORE_TYPE
                     ownerRestoreInfo = @{
-                        ownerObject = $mssqlObject
+                        ownerObject = @{
+                            jobUid = $jobUid
+                            jobId = $JobId
+                            jobInstanceId = $JobRunId
+                            startTimeUsecs = $StartTime
+                        }
+                        ownerRestoreParams = @{
+                            action = "kRecoverVMs"
+                            powerStateConfig = @{}
+                        }
+                        performRestore = $false
+                    }
+                    restoreAppObjectVec = @($restoreAppObject)
+                    restoreParams = @{
+                        sqlRestoreParams = @{
+                            captureTailLogs = $CaptureTailLogs.IsPresent
+                            dataFileDestination = $TargetDataFilesDirectory
+                            instanceName = $NewInstanceName
+                            logFileDestination = $TargetLogFilesDirectory
+                            newDatabaseName = $NewDatabaseName
+                            isMultiStageRestore = $false
+                            secondaryDataFileDestinationVec = $TargetSecondaryDataFilesDirectoryList
+                            alternateLocationParams = @{}
+                        }
+                        targetHost = @{
+                            type = $MSSQL_TARGET_HOST_TYPE
+                            physicalEntity = @{
+                                name = $protectionSourceObject.physicalProtectionSource.name
+                                hostType = $MSSQL_TARGET_PHYSICAL_ENTITY_HOST_TYPE
+                                osName = $protectionSourceObject.physicalProtectionSource.osName
+                            }
+                        }
                     }
                 }
             }
             $url = $cohesityCluster + '/irisservices/api/v1/recoverApplication'
             $payloadJson = $payload | ConvertTo-Json -Depth 100
 
-            write-host $payloadJson
-
-            # $headers = @{'Authorization' = 'Bearer ' + $cohesityToken }
-            # $resp = Invoke-RestApi -Method 'Post' -Uri $url -Headers $headers -Body $payloadJson
-            # if ($resp) {
-            #     $resp
-            # }
-            # else {
-            #     $errorMsg = $resp | ConvertTo-Json
-            #     Write-Output ("MSSQL object : Failed to restore" + $errorMsg)
-            # }
+            $headers = @{'Authorization' = 'Bearer ' + $cohesityToken }
+            $resp = Invoke-RestApi -Method 'Post' -Uri $url -Headers $headers -Body $payloadJson
+            if ($resp) {
+                $resp
+            }
+            else {
+                $errorMsg = $resp | ConvertTo-Json
+                Write-Output ("MSSQL object : Failed to restore" + $errorMsg)
+            }
         }
         else {
-            Write-Output "Skipping operation on active job."
+            Write-Output "Please use cmdlet Restore-CohesityMSSQLObject to restore from active job."
         }
     }
     End {

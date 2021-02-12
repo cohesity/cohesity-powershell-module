@@ -47,7 +47,7 @@
 - **Clusters**
 - [Add-CohesityExternalClient](cmdlets-reference/add-cohesityexternalclient.md)
 - [Get-CohesityExternalClient](cmdlets-reference/get-cohesityexternalclient.md)
-- [Remove-CohesityExternalClient](cmdlets-reference/Remove-cohesityexternalclient.md)
+- [Remove-CohesityExternalClient](cmdlets-reference/remove-cohesityexternalclient.md)
 
 
 - **Platform**
