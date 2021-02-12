@@ -13,7 +13,7 @@ function Restore-CohesityRemoteMSSQLObject {
         Restore MSSQL database from remote cluster with database id 1279 , database instance id 1277 and job id as 31520
     #>
 
-    [CmdletBinding(DefaultParameterSetName = "Default")]
+    [CmdletBinding(DefaultParameterSetName = "Default", SupportsShouldProcess = $True, ConfirmImpact = "High")]
     Param(
         [Parameter(Mandatory = $false)]
         # Specifies the name of the restore task.
@@ -78,117 +78,118 @@ function Restore-CohesityRemoteMSSQLObject {
             throw "Failed to authenticate. Please connect to the Cohesity Cluster using 'Connect-CohesityCluster'"
         }
         $cohesitySession = Get-Content -Path $HOME/.cohesity | ConvertFrom-Json
-
         $cohesityCluster = $cohesitySession.ClusterUri
-
         $cohesityToken = $cohesitySession.Accesstoken.Accesstoken
     }
 
     Process {
-        $job = Get-CohesityProtectionJob -Ids $JobId
-        if (-not $job) {
-            Write-Output "Cannot proceed, the job id '$JobId' is invalid"
-            return
-        }
-
-        if ($job.IsActive -eq $false) {
-
-            $protectionSourceObject = Get-CohesityProtectionSource -Id $TargetHostId
-            if (-not $protectionSourceObject) {
-                Write-Output "Cannot proceed, the target host id '$TargetHostId' is invalid"
+        if ($PSCmdlet.ShouldProcess($SourceId)) {
+            $job = Get-CohesityProtectionJob -Ids $JobId
+            if (-not $job) {
+                Write-Output "Cannot proceed, the job id '$JobId' is invalid"
                 return
             }
     
-            $searchHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
-
-            $searchURL = $cohesityCluster + '/irisservices/api/v1/searchvms?environment=SQL&entityTypes=kSQL&showAll=false&onlyLatestVersion=true&jobIds=' + $JobId
-            $searchResult = Invoke-RestApi -Method Get -Uri $searchURL -Headers $searchHeaders
-            if ($null -eq $searchResult) {
-                Write-Output "Could not search MSSQL objects with the job id $JobId"
-                return
-            }
-            $searchedVMDetails = $searchResult.vms | Where-Object { $_.vmDocument.objectId.jobId -eq $JobId -and $_.vmDocument.objectId.entity.id -eq $SourceId -and $_.vmDocument.objectId.entity.parentId -eq $SourceInstanceId}
-            if ($null -eq $searchedVMDetails) {
-                Write-Output "Could not find details for MSSQL source id = "$SourceId
-                return
-            }
-
-            if (-not $JobRunId) {
-                $run = Get-CohesityProtectionJobRun -JobId $JobId -NumRuns 1
-                $JobRunId = $run.backupRun.jobRunId
-                $StartTime = $run.backupRun.stats.startTimeUsecs
-            }
-            $jobUid = [PSCustomObject]$searchedVMDetails.vmDocument.objectId.jobUid
-
-            $MSSQL_OBJECT_RESTORE_TYPE = 3
-            $MSSQL_TARGET_HOST_TYPE = 6
-            $MSSQL_TARGET_PHYSICAL_ENTITY_HOST_TYPE = 1
-            $MSSQL_TARGET_PHYSICAL_ENTITY_TYPE = 1
-
-            $restoreAppObject = @{
-                appEntity = $searchedVMDetails.vmDocument.objectId.entity
-                restoreParams = @{
-                    sqlRestoreParams = @{
-                        captureTailLogs = $CaptureTailLogs.IsPresent
-                        dataFileDestination = $TargetDataFilesDirectory
-                        instanceName = $NewInstanceName
-                        logFileDestination = $TargetLogFilesDirectory
-                        newDatabaseName = $NewDatabaseName
-                        isMultiStageRestore = $false
-                        secondaryDataFileDestinationVec = $TargetSecondaryDataFilesDirectoryList
-                        alternateLocationParams = @{}
-                    }
-                    targetHost = @{
-                        type = $MSSQL_TARGET_HOST_TYPE
-                        physicalEntity = @{
-                            type = $MSSQL_TARGET_PHYSICAL_ENTITY_TYPE
-                            name = $protectionSourceObject.physicalProtectionSource.name
-                            hostType = $MSSQL_TARGET_PHYSICAL_ENTITY_HOST_TYPE
-                            osName = $protectionSourceObject.physicalProtectionSource.osName
-                        }
-                        id = $TargetHostId
-                    }
+            if ($job.IsActive -eq $false) {
+    
+                $protectionSourceObject = Get-CohesityProtectionSource -Id $TargetHostId
+                if (-not $protectionSourceObject) {
+                    Write-Output "Cannot proceed, the target host id '$TargetHostId' is invalid"
+                    return
                 }
-            }
-            $payload = @{
-                action       = "kRecoverApp"
-                name                         = $TaskName
-                restoreAppParams = @{
-                    type = $MSSQL_OBJECT_RESTORE_TYPE
-                    ownerRestoreInfo = @{
-                        ownerObject = @{
-                            jobUid = $jobUid
-                            jobId = $JobId
-                            jobInstanceId = $JobRunId
-                            startTimeUsecs = $StartTime
-                            entity = @{
-                                id = $SourceInstanceId
+        
+                $searchHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
+    
+                $searchURL = $cohesityCluster + '/irisservices/api/v1/searchvms?environment=SQL&entityTypes=kSQL&showAll=false&onlyLatestVersion=true&jobIds=' + $JobId
+                $searchResult = Invoke-RestApi -Method Get -Uri $searchURL -Headers $searchHeaders
+                if ($null -eq $searchResult) {
+                    Write-Output "Could not search MSSQL objects with the job id $JobId"
+                    return
+                }
+                $searchedVMDetails = $searchResult.vms | Where-Object { $_.vmDocument.objectId.jobId -eq $JobId -and $_.vmDocument.objectId.entity.id -eq $SourceId -and $_.vmDocument.objectId.entity.parentId -eq $SourceInstanceId }
+                if ($null -eq $searchedVMDetails) {
+                    Write-Output "Could not find details for MSSQL source id = "$SourceId
+                    return
+                }
+    
+                if (-not $JobRunId) {
+                    $run = Get-CohesityProtectionJobRun -JobId $JobId -NumRuns 1
+                    $JobRunId = $run.backupRun.jobRunId
+                    $StartTime = $run.backupRun.stats.startTimeUsecs
+                }
+                $jobUid = [PSCustomObject]$searchedVMDetails.vmDocument.objectId.jobUid
+    
+                $MSSQL_OBJECT_RESTORE_TYPE = 3
+                $MSSQL_TARGET_HOST_TYPE = 6
+                $MSSQL_TARGET_PHYSICAL_ENTITY_HOST_TYPE = 1
+                $MSSQL_TARGET_PHYSICAL_ENTITY_TYPE = 1
+    
+                $restoreAppObject = @{
+                    appEntity     = $searchedVMDetails.vmDocument.objectId.entity
+                    restoreParams = @{
+                        sqlRestoreParams = @{
+                            captureTailLogs                 = $CaptureTailLogs.IsPresent
+                            dataFileDestination             = $TargetDataFilesDirectory
+                            instanceName                    = $NewInstanceName
+                            logFileDestination              = $TargetLogFilesDirectory
+                            newDatabaseName                 = $NewDatabaseName
+                            isMultiStageRestore             = $false
+                            secondaryDataFileDestinationVec = $TargetSecondaryDataFilesDirectoryList
+                            alternateLocationParams         = @{}
+                        }
+                        targetHost       = @{
+                            type           = $MSSQL_TARGET_HOST_TYPE
+                            physicalEntity = @{
+                                type     = $MSSQL_TARGET_PHYSICAL_ENTITY_TYPE
+                                name     = $protectionSourceObject.physicalProtectionSource.name
+                                hostType = $MSSQL_TARGET_PHYSICAL_ENTITY_HOST_TYPE
+                                osName   = $protectionSourceObject.physicalProtectionSource.osName
                             }
+                            id             = $TargetHostId
                         }
-                        ownerRestoreParams = @{
-                            action = "kRecoverVMs"
-                            powerStateConfig = @{}
-                        }
-                        performRestore = $false
                     }
-                    restoreAppObjectVec = @($restoreAppObject)
                 }
-            }
-            $url = $cohesityCluster + '/irisservices/api/v1/recoverApplication'
-            $payloadJson = $payload | ConvertTo-Json -Depth 100
-
-            $headers = @{'Authorization' = 'Bearer ' + $cohesityToken }
-            $resp = Invoke-RestApi -Method 'Post' -Uri $url -Headers $headers -Body $payloadJson
-            if ($resp) {
-                $resp
+                $payload = @{
+                    action           = "kRecoverApp"
+                    name             = $TaskName
+                    restoreAppParams = @{
+                        type                = $MSSQL_OBJECT_RESTORE_TYPE
+                        ownerRestoreInfo    = @{
+                            ownerObject        = @{
+                                jobUid         = $jobUid
+                                jobId          = $JobId
+                                jobInstanceId  = $JobRunId
+                                startTimeUsecs = $StartTime
+                                entity         = @{
+                                    id = $SourceInstanceId
+                                }
+                            }
+                            ownerRestoreParams = @{
+                                action           = "kRecoverVMs"
+                                powerStateConfig = @{}
+                            }
+                            performRestore     = $false
+                        }
+                        restoreAppObjectVec = @($restoreAppObject)
+                    }
+                }
+                $url = $cohesityCluster + '/irisservices/api/v1/recoverApplication'
+                $payloadJson = $payload | ConvertTo-Json -Depth 100
+    
+                $headers = @{'Authorization' = 'Bearer ' + $cohesityToken }
+                $resp = Invoke-RestApi -Method 'Post' -Uri $url -Headers $headers -Body $payloadJson
+                if ($Global:CohesityAPIStatus.StatusCode -eq 200) {
+                    $resp
+                }
+                else {
+                    $errorMsg = $Global:CohesityAPIStatus.ErrorMessage + ", MSSQLObject : Failed to recover."
+                    Write-Output $errorMsg
+                    CSLog -Message $errorMsg
+                }
             }
             else {
-                $errorMsg = $resp | ConvertTo-Json
-                Write-Output ("MSSQL object : Failed to restore" + $errorMsg)
+                Write-Output "Please use cmdlet Restore-CohesityMSSQLObject to restore from active job."
             }
-        }
-        else {
-            Write-Output "Please use cmdlet Restore-CohesityMSSQLObject to restore from active job."
         }
     }
     End {
