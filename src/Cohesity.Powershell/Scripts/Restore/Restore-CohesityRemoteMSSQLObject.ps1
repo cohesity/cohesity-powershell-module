@@ -89,17 +89,17 @@ function Restore-CohesityRemoteMSSQLObject {
                 Write-Output "Cannot proceed, the job id '$JobId' is invalid"
                 return
             }
-    
+
             if ($job.IsActive -eq $false) {
-    
+
                 $protectionSourceObject = Get-CohesityProtectionSource -Id $TargetHostId
                 if (-not $protectionSourceObject) {
                     Write-Output "Cannot proceed, the target host id '$TargetHostId' is invalid"
                     return
                 }
-        
+
                 $searchHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
-    
+
                 $searchURL = $cohesityCluster + '/irisservices/api/v1/searchvms?environment=SQL&entityTypes=kSQL&showAll=false&onlyLatestVersion=true&jobIds=' + $JobId
                 $searchResult = Invoke-RestApi -Method Get -Uri $searchURL -Headers $searchHeaders
                 if ($null -eq $searchResult) {
@@ -111,19 +111,19 @@ function Restore-CohesityRemoteMSSQLObject {
                     Write-Output "Could not find details for MSSQL source id = "$SourceId
                     return
                 }
-    
+
                 if (-not $JobRunId) {
                     $run = Get-CohesityProtectionJobRun -JobId $JobId -NumRuns 1
                     $JobRunId = $run.backupRun.jobRunId
                     $StartTime = $run.backupRun.stats.startTimeUsecs
                 }
                 $jobUid = [PSCustomObject]$searchedVMDetails.vmDocument.objectId.jobUid
-    
+
                 $MSSQL_OBJECT_RESTORE_TYPE = 3
                 $MSSQL_TARGET_HOST_TYPE = 6
                 $MSSQL_TARGET_PHYSICAL_ENTITY_HOST_TYPE = 1
                 $MSSQL_TARGET_PHYSICAL_ENTITY_TYPE = 1
-    
+
                 $restoreAppObject = @{
                     appEntity     = $searchedVMDetails.vmDocument.objectId.entity
                     restoreParams = @{
@@ -175,7 +175,7 @@ function Restore-CohesityRemoteMSSQLObject {
                 }
                 $url = $cohesityCluster + '/irisservices/api/v1/recoverApplication'
                 $payloadJson = $payload | ConvertTo-Json -Depth 100
-    
+
                 $headers = @{'Authorization' = 'Bearer ' + $cohesityToken }
                 $resp = Invoke-RestApi -Method 'Post' -Uri $url -Headers $headers -Body $payloadJson
                 if ($Global:CohesityAPIStatus.StatusCode -eq 200) {
