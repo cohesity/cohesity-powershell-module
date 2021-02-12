@@ -13,9 +13,6 @@ function Set-CohesityProtectionPolicy {
         Updates a Protection Policy with the specified parameters.
         .EXAMPLE
         $result = Get-CohesityProtectionPolicy -Name Test-Policy
-        Set-CohesityProtectionPolicy -Names $result
-        .EXAMPLE
-        $result = Get-CohesityProtectionPolicy -Name Test-Policy
         $result.name = "Test-Policy-updated"
         $result | Set-CohesityProtectionPolicy
     #>

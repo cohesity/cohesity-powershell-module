@@ -26,13 +26,6 @@ Updates a Protection Policy with the specified parameters.
 $result = Get-CohesityProtectionPolicy -Name Test-Policy
 ```
 
-Set-CohesityProtectionPolicy -Names $result
-
-### EXAMPLE 3
-```
-$result = Get-CohesityProtectionPolicy -Name Test-Policy
-```
-
 $result.name = "Test-Policy-updated"
 $result | Set-CohesityProtectionPolicy
 
