@@ -3,14 +3,14 @@ function Restore-CohesityRemoteMSSQLObject {
         .SYNOPSIS
         From remote cluster restores the specified MS SQL object from a previous backup.
         .DESCRIPTION
-        From remote cluster restores the specified  MS SQL object from a previous backup.
+        From remote cluster restores the specified MS SQL object from a previous backup.
         .NOTES
         Published by Cohesity
         .LINK
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
-        Restore-CohesityRemoteMSSQLObject -TaskName "sql-restore-task" -SourceId 9 -SourceInstanceId 3 -JobId 401
-        From remote cluster, restores the MS SQL DB with the given source id using the latest run of job id 401.
+        Restore-CohesityRemoteMSSQLObject -SourceId 1279 -SourceInstanceId 1277 -JobId 31520 -TargetHostId 770 -CaptureTailLogs:$false -NewDatabaseName CohesityDB_r1 -NewInstanceName MSSQLSERVER -TargetDataFilesDirectory "C:\temp" -TargetLogFilesDirectory "C:\temp"
+        Restore MSSQL database from remote cluster with database id 1279 , database instance id 1277 and job id as 31520
     #>
 
     [CmdletBinding(DefaultParameterSetName = "Default")]
@@ -120,12 +120,36 @@ function Restore-CohesityRemoteMSSQLObject {
             }
             $jobUid = [PSCustomObject]$searchedVMDetails.vmDocument.objectId.jobUid
 
-            $restoreAppObject = @{
-                appEntity = $searchedVMDetails.vmDocument.objectId.entity
-            }
             $MSSQL_OBJECT_RESTORE_TYPE = 3
             $MSSQL_TARGET_HOST_TYPE = 6
             $MSSQL_TARGET_PHYSICAL_ENTITY_HOST_TYPE = 1
+            $MSSQL_TARGET_PHYSICAL_ENTITY_TYPE = 1
+
+            $restoreAppObject = @{
+                appEntity = $searchedVMDetails.vmDocument.objectId.entity
+                restoreParams = @{
+                    sqlRestoreParams = @{
+                        captureTailLogs = $CaptureTailLogs.IsPresent
+                        dataFileDestination = $TargetDataFilesDirectory
+                        instanceName = $NewInstanceName
+                        logFileDestination = $TargetLogFilesDirectory
+                        newDatabaseName = $NewDatabaseName
+                        isMultiStageRestore = $false
+                        secondaryDataFileDestinationVec = $TargetSecondaryDataFilesDirectoryList
+                        alternateLocationParams = @{}
+                    }
+                    targetHost = @{
+                        type = $MSSQL_TARGET_HOST_TYPE
+                        physicalEntity = @{
+                            type = $MSSQL_TARGET_PHYSICAL_ENTITY_TYPE
+                            name = $protectionSourceObject.physicalProtectionSource.name
+                            hostType = $MSSQL_TARGET_PHYSICAL_ENTITY_HOST_TYPE
+                            osName = $protectionSourceObject.physicalProtectionSource.osName
+                        }
+                        id = $TargetHostId
+                    }
+                }
+            }
             $payload = @{
                 action       = "kRecoverApp"
                 name                         = $TaskName
@@ -137,6 +161,9 @@ function Restore-CohesityRemoteMSSQLObject {
                             jobId = $JobId
                             jobInstanceId = $JobRunId
                             startTimeUsecs = $StartTime
+                            entity = @{
+                                id = $SourceInstanceId
+                            }
                         }
                         ownerRestoreParams = @{
                             action = "kRecoverVMs"
@@ -145,26 +172,6 @@ function Restore-CohesityRemoteMSSQLObject {
                         performRestore = $false
                     }
                     restoreAppObjectVec = @($restoreAppObject)
-                    restoreParams = @{
-                        sqlRestoreParams = @{
-                            captureTailLogs = $CaptureTailLogs.IsPresent
-                            dataFileDestination = $TargetDataFilesDirectory
-                            instanceName = $NewInstanceName
-                            logFileDestination = $TargetLogFilesDirectory
-                            newDatabaseName = $NewDatabaseName
-                            isMultiStageRestore = $false
-                            secondaryDataFileDestinationVec = $TargetSecondaryDataFilesDirectoryList
-                            alternateLocationParams = @{}
-                        }
-                        targetHost = @{
-                            type = $MSSQL_TARGET_HOST_TYPE
-                            physicalEntity = @{
-                                name = $protectionSourceObject.physicalProtectionSource.name
-                                hostType = $MSSQL_TARGET_PHYSICAL_ENTITY_HOST_TYPE
-                                osName = $protectionSourceObject.physicalProtectionSource.osName
-                            }
-                        }
-                    }
                 }
             }
             $url = $cohesityCluster + '/irisservices/api/v1/recoverApplication'
