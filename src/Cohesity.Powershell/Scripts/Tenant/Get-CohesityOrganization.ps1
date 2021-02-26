@@ -22,11 +22,7 @@ function Get-CohesityOrganization
   )
 
   Begin {
-    if(-not (Test-Path -Path "$HOME/.cohesity"))
-    {
-      throw "Failed to authenticate. Please connect to the Cohesity Cluster using 'Connect-CohesityCluster'"
-    }
-    $session = Get-Content -Path $HOME/.cohesity | ConvertFrom-Json
+    $session = CohesityUserProfile
   }
 
   Process {

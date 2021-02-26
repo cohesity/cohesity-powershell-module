@@ -47,13 +47,8 @@ function Update-CohesityActiveDirectory {
         $PreferredDomainControllers
     )
     Begin {
-        if (-not (Test-Path -Path "$HOME/.cohesity")) {
-            throw "Failed to authenticate. Please connect to the Cohesity Cluster using 'Connect-CohesityCluster'"
-        }
-        $session = Get-Content -Path $HOME/.cohesity | ConvertFrom-Json
-
+        $session = CohesityUserProfile
         $server = $session.ClusterUri
-
         $token = $session.Accesstoken.Accesstoken
     }
 
