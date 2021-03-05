@@ -108,7 +108,7 @@ function Invoke-RestApi {
         Write-Output $errorMsg
         CSLog -Message $errorMsg -Severity 3
         # Implementing code review feedback
-        if (401 -eq $Global:CohesityAPIError.StatusCode.Value__) {
+        if (401 -eq $Global:CohesityAPIStatus.StatusCode) {
             if ($true -eq $Global:CohesityCmdletConfig.RefreshToken) {
                 Write-Output "The session token has expired, attempting to refresh."
                 $credentialsJson = [Environment]::GetEnvironmentVariable('cohesityCredentials', 'Process')

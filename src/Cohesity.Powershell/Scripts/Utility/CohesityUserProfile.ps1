@@ -15,7 +15,7 @@ function CohesityUserProfile {
 		return ($userProfileJson | ConvertFrom-Json)
 	}
 	else {
-		$userProfileObject = $UserProfileData | ConvertFrom-Json
+		$userProfileObject = $UserProfileData | ConvertTo-Json
 		[Environment]::SetEnvironmentVariable($cohesityUserProfile, $userProfileObject, 'Process') | Out-Null
 	}
 }
