@@ -5,7 +5,11 @@ Param(
     [Parameter(Mandatory = $true)]
     [string]$HeliosAPIKey,
     [Parameter(Mandatory = $false)]
-    [string[]]$VMwareObjectClusterNames = $null
+    [string[]]$VMwareObjectClusterNames = $null,
+    [Parameter(Mandatory = $false)]
+    [switch]$SkipInactiveJobs,
+    [Parameter(Mandatory = $false)]
+    [switch]$SkipDeletedJobs
 )
 Begin {
     Import-Module -Name ".\HeliosWebRequest.psm1" -Force
@@ -38,6 +42,12 @@ Process {
 
         # get the protection job
         $url = $HeliosServer + '/irisservices/api/v1/public/protectionJobs?environments=kVMware'
+        if ($SkipInactiveJobs.IsPresent) {
+            $url += '&isActive=true'
+        }
+        if ($SkipInactiveJobs.IsPresent) {
+            $url += '&isDeleted=false'
+        }
         $headers = @{
                     "apiKey" = $HeliosAPIKey
                     "accessClusterId" = $cluster.clusterId
@@ -51,6 +61,10 @@ Process {
                 if($vmwareObjectClusterName) {
                     break
                 }
+            }
+            # ensure if the object cluster name is not available set the host name
+            if (-not $vmwareObjectClusterName) {
+                $vmwareObjectClusterName = ($vmsProtectionStatus | Where-Object { $sourceId -eq $_.vmId }).hostName
             }
             if($VMwareObjectClusterNames) {
                 if($vmwareObjectClusterName) {
