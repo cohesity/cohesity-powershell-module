@@ -11,6 +11,9 @@ function Restore-CohesityRemoteMSSQLObject {
         .EXAMPLE
         Restore-CohesityRemoteMSSQLObject -SourceId 1279 -SourceInstanceId 1277 -JobId 31520 -TargetHostId 770 -CaptureTailLogs:$false -NewDatabaseName CohesityDB_r1 -NewInstanceName MSSQLSERVER -TargetDataFilesDirectory "C:\temp" -TargetLogFilesDirectory "C:\temp"
         Restore MSSQL database from remote cluster with database id 1279 , database instance id 1277 and job id as 31520
+        $mssqlObjects = Find-CohesityObjectsForRestore -Environments KSQL
+        Get the source id, $mssqlObjects[0].SnapshottedSource.Id
+        Get the source instance id, $mssqlObjects[0].SnapshottedSource.SqlProtectionSource.OwnerId
     #>
 
     [CmdletBinding(DefaultParameterSetName = "Default", SupportsShouldProcess = $True, ConfirmImpact = "High")]
