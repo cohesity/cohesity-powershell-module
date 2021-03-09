@@ -32,7 +32,7 @@ function Invoke-RestApi {
                 $installedPackage = $resp | Where-Object { $_.Name -contains $moduleName }
             }
             if($installedPackage) {
-                $userAgent = $userAgent + "-" + $installedPackage.Version
+                $userAgent = $userAgent + "/" + $installedPackage.Version
             }
         }
         catch {
