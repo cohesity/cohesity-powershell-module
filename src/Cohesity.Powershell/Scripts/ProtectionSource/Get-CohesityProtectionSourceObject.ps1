@@ -53,10 +53,7 @@ function Get-CohesityProtectionSourceObject {
     )
 
     Begin {
-        if (-not (Test-Path -Path "$HOME/.cohesity")) {
-            throw "Failed to authenticate. Please connect to the Cohesity Cluster using 'Connect-CohesityCluster'"
-        }
-        $cohesitySession = Get-Content -Path $HOME/.cohesity | ConvertFrom-Json
+        $cohesitySession = CohesityUserProfile
         $cohesityServer = $cohesitySession.ClusterUri
         $cohesityToken = $cohesitySession.Accesstoken.Accesstoken
     }

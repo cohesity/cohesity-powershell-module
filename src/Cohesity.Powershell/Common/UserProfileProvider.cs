@@ -8,36 +8,15 @@ namespace Cohesity.Powershell.Common
 {
     internal class UserProfileProvider
     {
+        string COHESITY_USER_PROFILE = "cohesityUserProfile";
         public UserProfile GetUserProfile()
         {
-            var userProfileFilename = GetUserProfileFilename();
-
-            if (!File.Exists(userProfileFilename))
+            var userProfileJson = Environment.GetEnvironmentVariable(this.COHESITY_USER_PROFILE, EnvironmentVariableTarget.Process);
+            if (userProfileJson == null)
             {
                 return null;
             }
-
-            var profileJson = string.Empty;
-
-            using (var fs = File.OpenRead(userProfileFilename))
-            {
-                if (!fs.CanRead)
-                {
-                    throw new InvalidOperationException($"Cannot read user profile located at \"{userProfileFilename}\".");
-                }
-
-                using (var sw = new StreamReader(fs))
-                {
-                    profileJson = sw.ReadToEnd();
-                }
-            }
-
-            if (string.IsNullOrWhiteSpace(profileJson))
-            {
-                return null;
-            }
-
-            return JsonConvert.DeserializeObject<UserProfile>(profileJson);
+            return JsonConvert.DeserializeObject<UserProfile>(userProfileJson);
         }
 
         public void SetUserProfile(UserProfile profile)
@@ -45,42 +24,13 @@ namespace Cohesity.Powershell.Common
             if (profile == null)
                 throw new ArgumentNullException(nameof(profile));
 
-            var profileJson = JsonConvert.SerializeObject(profile);
-            var userProfileFilename = GetUserProfileFilename();
-
-
-            using (var fs = File.OpenWrite(userProfileFilename))
-            {
-
-
-                if (!fs.CanWrite)
-                {
-                    throw new InvalidOperationException($"Cannot write user profile located at \"{userProfileFilename}\".");
-                }
-
-                fs.SetLength(0);
-
-                using (var sw = new StreamWriter(fs))
-                {
-                    sw.Write(profileJson);
-                }
-            }
+            var userProfileJson = JsonConvert.SerializeObject(profile);
+            Environment.SetEnvironmentVariable(this.COHESITY_USER_PROFILE, userProfileJson, EnvironmentVariableTarget.Process);
         }
 
         public void DeleteUserProfile()
         {
-            var userProfileFilename = GetUserProfileFilename();
-
-            if (File.Exists(userProfileFilename))
-            {
-                File.Delete(userProfileFilename);
-            }
-        }
-
-        private string GetUserProfileFilename()
-        {
-            var userProfilePath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-            return Path.Combine(userProfilePath, ".cohesity");
+            Environment.SetEnvironmentVariable(this.COHESITY_USER_PROFILE, null, EnvironmentVariableTarget.Process);
         }
 
         internal void SaveCredentials(AccessTokenCredential credentials)

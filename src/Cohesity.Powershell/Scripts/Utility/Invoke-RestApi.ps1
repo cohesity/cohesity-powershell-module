@@ -108,11 +108,11 @@ function Invoke-RestApi {
         Write-Output $errorMsg
         CSLog -Message $errorMsg -Severity 3
         # Implementing code review feedback
-        if (401 -eq $Global:CohesityAPIError.StatusCode.Value__) {
+        if (401 -eq $Global:CohesityAPIStatus.StatusCode) {
             if ($true -eq $Global:CohesityCmdletConfig.RefreshToken) {
                 Write-Output "The session token has expired, attempting to refresh."
                 $credentialsJson = [Environment]::GetEnvironmentVariable('cohesityCredentials', 'Process')
-                $cohesitySession = Get-Content -Path $HOME/.cohesity | ConvertFrom-Json
+                $cohesitySession = CohesityUserProfile
                 if ($null -ne $credentialsJson) {
                     $cohesityUrl = $cohesitySession.ClusterUri + "/irisservices/api/v1/public/accessTokens"
                     $credentialsObject = $credentialsJson | ConvertFrom-Json
@@ -125,7 +125,7 @@ function Invoke-RestApi {
                     $headers = @{'Content-Type' = 'application/json' }
                     $resp = Invoke-RestApi -Method Post -Uri $cohesityUrl -Headers $headers -Body $payloadJson
                     $cohesitySession.AccessToken = $resp
-                    Set-Content -Path $HOME/.cohesity ($cohesitySession | ConvertTo-Json) | Out-Null
+                    CohesityUserProfile -UserProfileData $cohesitySession
                     Write-Output "The session token has been refreshed."
                 }
                 else {
