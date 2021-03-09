@@ -5,7 +5,11 @@ Param(
     [Parameter(Mandatory = $true)]
     [string]$HeliosAPIKey,
     [Parameter(Mandatory = $false)]
-    [bool]$EnableVMwareObjectClusterName = $true
+    [string[]]$VMwareObjectClusterNames = $null,
+    [Parameter(Mandatory = $false)]
+    [switch]$SkipInactiveJobs,
+    [Parameter(Mandatory = $false)]
+    [switch]$SkipDeletedJobs
 )
 Begin {
     Import-Module -Name ".\HeliosWebRequest.psm1" -Force
@@ -19,6 +23,7 @@ Process {
     $headers = @{"apiKey" = $HeliosAPIKey}
     $clusters = HeliosWebRequest -Uri $url -Headers $headers -Method Get
     foreach($cluster in $clusters.upgradeInfo) {
+        Write-Output "Processing cluster : " $cluster.clusterName
         # get the root nodes for the cluster
         $url = $HeliosServer + '/irisservices/api/v1/public/protectionSources/rootNodes'
         $headers = @{
@@ -27,24 +32,22 @@ Process {
                 }
         $rootNodes = HeliosWebRequest -Uri $url -Headers $headers -Method Get
 
-        $clusterComputeResourceList = @()
-        if ($EnableVMwareObjectClusterName -eq $true) {
-            # the follow operation would consume massive amount of time, therefore to avoid use the above flag
-            # get the protection source ids for VMware_Object_Cluster_Name
-            $url = $HeliosServer + '/irisservices/api/v1/public/protectionSources'
-            $headers = @{
-                        "apiKey" = $HeliosAPIKey
-                        "accessClusterId" = $cluster.clusterId
-                    }
-            $nodes = HeliosWebRequest -Uri $url -Headers $headers -Method Get
-            if($nodes) {
-                $flattenedNodes = FlattenProtectionSourceNode -Nodes $nodes -Type 2
-                $clusterComputeResourceList = [PSCustomObject]($flattenedNodes | where-object {$_.protectionSource.vmWareProtectionSource.type -eq "kClusterComputeResource"})
-            }
-        }
+        # get the vms protection status
+        $url = $HeliosServer + '/irisservices/api/v1/reports/objects/vmsProtectionStatus?allUnderHierarchy=true'
+        $headers = @{
+                    "apiKey" = $HeliosAPIKey
+                    "accessClusterId" = $cluster.clusterId
+                }
+        $vmsProtectionStatus = HeliosWebRequest -Uri $url -Headers $headers -Method Get
 
         # get the protection job
-        $url = $HeliosServer + '/irisservices/api/v1/public/protectionJobs'
+        $url = $HeliosServer + '/irisservices/api/v1/public/protectionJobs?environments=kVMware'
+        if ($SkipInactiveJobs.IsPresent) {
+            $url += '&isActive=true'
+        }
+        if ($SkipInactiveJobs.IsPresent) {
+            $url += '&isDeleted=false'
+        }
         $headers = @{
                     "apiKey" = $HeliosAPIKey
                     "accessClusterId" = $cluster.clusterId
@@ -52,11 +55,26 @@ Process {
         $protectionJobs = HeliosWebRequest -Uri $url -Headers $headers -Method Get
 
         foreach ($protectionJob in $protectionJobs) {
-            $clusterComputeResourceName = "NA"
-            $clusterComputeResourceObject =  $clusterComputeResourceList | where-object {$_.protectionSource.parentId -eq $protectionJob.parentSourceId}
-            if($clusterComputeResourceObject) {
-                $clusterComputeResourceName = $clusterComputeResourceObject.protectionSource.name
+            [string]$vmwareObjectClusterName = $null
+            foreach ($sourceId in $protectionJob.sourceIds) {
+                $vmwareObjectClusterName = ($vmsProtectionStatus | Where-Object { $sourceId -eq $_.vmId }).clusterName
+                if($vmwareObjectClusterName) {
+                    break
+                }
             }
+            # ensure if the object cluster name is not available set the host name
+            if (-not $vmwareObjectClusterName) {
+                $vmwareObjectClusterName = ($vmsProtectionStatus | Where-Object { $sourceId -eq $_.vmId }).hostName
+            }
+            if($VMwareObjectClusterNames) {
+                if($vmwareObjectClusterName) {
+                    if ( $false -eq ($VMwareObjectClusterNames -contains $vmwareObjectClusterName)) {
+                        Write-Output "Skipping item for object cluster name : $vmwareObjectClusterName"
+                        continue
+                    }
+                }
+            }
+
             # filter out the desired parent source name
             $parentSourceObject = $rootNodes | Where-Object {$_.protectionSource.id -eq $protectionJob.parentSourceId}
             $outputList += [PSCustomObject]@{
@@ -65,7 +83,8 @@ Process {
                 ProtectionJobName = $protectionJob.name
                 ParentSourceId = $protectionJob.parentSourceId
                 ParentSourceName = $parentSourceObject.protectionSource.name
-                ClusterComputeResourceName = $clusterComputeResourceName
+                VMwareObjectClusterName = $vmwareObjectClusterName
+
             }
         }
     }

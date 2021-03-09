@@ -38,7 +38,7 @@
                 <PropertyName>ParentSourceName</PropertyName>
               </TableColumnItem>
               <TableColumnItem>
-                <PropertyName>ClusterComputeResourceName</PropertyName>
+                <PropertyName>VMwareObjectClusterName</PropertyName>
               </TableColumnItem>
             </TableColumnItems>
           </TableRowEntry>
