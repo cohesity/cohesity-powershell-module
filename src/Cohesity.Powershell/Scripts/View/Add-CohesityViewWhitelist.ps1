@@ -1,0 +1,91 @@
+function Add-CohesityViewWhitelist {
+    <#
+        .SYNOPSIS
+        Add whitelist IP(s) for a given view.
+        .DESCRIPTION
+        Add whitelist IP(s) for a given view.
+        .NOTES
+        Published by Cohesity
+        .LINK
+        https://cohesity.github.io/cohesity-powershell-module/#/README
+        .EXAMPLE
+        Add-CohesityViewWhitelist -IP4List "1.1.1.1", "2.2.2.2" -NetmaskIP4 "255.255.255.0"
+        Add whitelist IP(s) an override global whitelist for a given view.
+        .EXAMPLE
+        Add-CohesityViewWhitelist -IP4List "1.1.1.1", "2.2.2.2" -NetmaskIP4 "255.255.255.0" -NFSRootSquash -NFSAccess "kReadWrite" -NFSAllSquash -SMBAccess "kReadWrite"
+        Add whitelist IP(s) an override global whitelist for a given view with optional parameters
+    #>
+    [OutputType('System.Collections.ArrayList')]
+    [CmdletBinding(SupportsShouldProcess = $True, ConfirmImpact = "High")]
+    Param(
+        [Parameter(Mandatory = $true)]
+        # Specifies view name.
+        [string]$ViewName,
+        [Parameter(Mandatory = $true)]
+        # Specifies IPv4 addresses.
+        [string[]]$IP4List,
+        [Parameter(Mandatory = $true)]
+        # Specifies the netmask using an IP4 address. The netmask can only be set using netmaskIp4 if the IP address is an IPv4 address.
+        [string]$NetmaskIP4,
+        [Parameter(Mandatory = $false)]
+        # Specifies whether clients from this subnet can mount as root on NFS.
+        [switch]$NFSRootSquash,
+        [Parameter(Mandatory = $false)]
+        [ValidateSet("kDisabled", "kReadOnly", "kReadWrite")]
+        # Specifies whether clients from this subnet can mount using NFS protocol.
+        [string]$NFSAccess = "kReadWrite",
+        [Parameter(Mandatory = $false)]
+        # Specifies whether all clients from this subnet can map view with view_all_squash_uid/view_all_squash_gid configured in the view.
+        [switch]$NFSAllSquash,
+        [Parameter(Mandatory = $false)]
+        [ValidateSet("kDisabled", "kReadOnly", "kReadWrite")]
+        # Specifies whether clients from this subnet can mount using SMB protocol.
+        [string]$SMBAccess = "kReadWrite"
+    )
+
+    Begin {
+        $cohesitySession = CohesityUserProfile
+        $cohesityCluster = $cohesitySession.ClusterUri
+        $cohesityToken = $cohesitySession.Accesstoken.Accesstoken
+    }
+
+    Process {
+        $viewObject = Get-CohesityView -ViewNames $ViewName
+        if (-not $viewObject) {
+            Write-Output "Could not proceed, view name '$ViewName' not found."
+            return
+        }
+
+        if ($PSCmdlet.ShouldProcess($ViewName)) {
+            $property = Get-Member -InputObject $viewObject -Name SubnetWhitelist
+            if(-not $property) {
+                $viewObject | Add-Member -NotePropertyName SubnetWhitelist -NotePropertyValue @()
+            }
+            $whiteList = @()
+            foreach ($ip in $IP4List) {
+                $newIP = @{
+                    ip            = $ip
+                    netmaskIp4    = $NetmaskIP4
+                    nfsRootSquash = $NFSRootSquash.IsPresent
+                    nfsAccess     = $NFSAccess
+                    smbAccess     = $SMBAccess
+                    nfsAllSquash  = $NFSAllSquash.IsPresent
+                }
+                $whiteList += $newIP
+            }
+            $viewObject.SubnetWhitelist += $whiteList
+            $resp = $viewObject | Set-CohesityView
+            if ($resp) {
+                $resp.SubnetWhitelist
+            }
+            else {
+                $errorMsg = "Whitelist for view : Failed to add"
+                Write-Output $errorMsg
+                CSLog -Message $errorMsg
+            }
+        }
+    }
+
+    End {
+    }
+}
