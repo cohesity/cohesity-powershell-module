@@ -44,9 +44,6 @@ function Add-CohesityViewWhitelist {
     )
 
     Begin {
-        $cohesitySession = CohesityUserProfile
-        $cohesityCluster = $cohesitySession.ClusterUri
-        $cohesityToken = $cohesitySession.Accesstoken.Accesstoken
     }
 
     Process {
@@ -58,19 +55,20 @@ function Add-CohesityViewWhitelist {
 
         if ($PSCmdlet.ShouldProcess($ViewName)) {
             $property = Get-Member -InputObject $viewObject -Name SubnetWhitelist
-            if(-not $property) {
+            if (-not $property) {
                 $viewObject | Add-Member -NotePropertyName SubnetWhitelist -NotePropertyValue @()
             }
             $whiteList = @()
             foreach ($ip in $IP4List) {
-                $newIP = @{
-                    ip            = $ip
-                    netmaskIp4    = $NetmaskIP4
-                    nfsRootSquash = $NFSRootSquash.IsPresent
-                    nfsAccess     = $NFSAccess
-                    smbAccess     = $SMBAccess
-                    nfsAllSquash  = $NFSAllSquash.IsPresent
-                }
+                # powershell enforces here to use the model
+                $newIP = [Cohesity.Model.Subnet]::new()
+                $newIP.ip = $ip
+                $newIP.netmaskIp4 = $NetmaskIP4
+                $newIP.nfsRootSquash = $NFSRootSquash.IsPresent
+                $newIP.nfsAccess = $NFSAccess
+                $newIP.smbAccess = $SMBAccess
+                $newIP.nfsAllSquash = $NFSAllSquash.IsPresent
+
                 $whiteList += $newIP
             }
             $viewObject.SubnetWhitelist += $whiteList
@@ -79,7 +77,7 @@ function Add-CohesityViewWhitelist {
                 $resp.SubnetWhitelist
             }
             else {
-                $errorMsg = "Whitelist for view : Failed to add"
+                $errorMsg = "View whitelist : Failed to add"
                 Write-Output $errorMsg
                 CSLog -Message $errorMsg
             }

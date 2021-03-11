@@ -9,54 +9,50 @@ function Remove-CohesityViewWhitelist {
         .LINK
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
-        Remove-CohesityViewWhitelist -IP4List "1.1.1.1", "2.2.2.2"
+        Remove-CohesityViewWhitelist -ViewName view1 -IP4List "1.1.1.1", "2.2.2.2"
     #>
     [OutputType('System.Collections.ArrayList')]
     [CmdletBinding(SupportsShouldProcess = $True, ConfirmImpact = "High")]
     Param(
         [Parameter(Mandatory = $true)]
-        # Specifies an IPv4 address.
+        # Specifies view name.
+        [string]$ViewName,
+        [Parameter(Mandatory = $true)]
+        # Specifies an IPv4 addresses.
         $IP4List
     )
 
     Begin {
-        $cohesitySession = CohesityUserProfile
-        $cohesityCluster = $cohesitySession.ClusterUri
-        $cohesityToken = $cohesitySession.Accesstoken.Accesstoken
     }
 
     Process {
-        $whiteList = Get-CohesityViewWhitelist
-        $foundIP = $whiteList | where-object { $_.ip -eq $IP4 }
-        if ($null -eq $foundIP) {
-            Write-Output "Cannot proceed, IP '$IP4' not found"
+        $viewObject = Get-CohesityView -ViewNames $ViewName
+        if (-not $viewObject) {
+            Write-Output "Could not proceed, view name '$ViewName' not found."
             return
         }
 
-        if ($PSCmdlet.ShouldProcess($IP4)) {
-            $whiteList = $whiteList | where-object { $_.ip -ne $IP4 }
-            $arrList = [System.Collections.ArrayList]::new()
-            if ($whiteList) {
-                $whiteList = $arrList + $whiteList
-            }
-            else {
-                $whiteList = $arrList
-            }
-            $payload = @{clientSubnets = $whiteList }
-
-            $cohesityClusterURL = $cohesityCluster + '/irisservices/api/v1/public/externalClientSubnets'
-            $cohesityHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
-            $payloadJson = $payload | ConvertTo-Json
-            $resp = Invoke-RestApi -Method Put -Uri $cohesityClusterURL -Headers $cohesityHeaders -Body $payloadJson
-            if ($resp) {
-                if ($resp.clientSubnets) {
-                    $arr = [System.Collections.ArrayList]::new()
-                    $arr.Add($resp.clientSubnets) | Out-Null
-                    $arr
+        if ($PSCmdlet.ShouldProcess($ViewName)) {
+            [System.Boolean]$foundAtleastOneMatch = $false
+            foreach ($ip in $IP4List) {
+                $foundObject = $viewObject.SubnetWhitelist | Where-Object {$_.Ip -eq $ip}
+                if (-not $foundObject) {
+                    Write-Output "Could not find IP $ip."
+                    continue
                 }
+                $foundAtleastOneMatch = $true
+                $viewObject.SubnetWhitelist = $viewObject.SubnetWhitelist | Where-Object {$_.Ip -ne $ip}
+            }
+            if ($false -eq $foundAtleastOneMatch) {
+                Write-Output "None of the given IPs matched."
+                return
+            }
+            $resp = $viewObject | Set-CohesityView
+            if ($resp) {
+                $resp.SubnetWhitelist
             }
             else {
-                $errorMsg = "External client : Failed to remove"
+                $errorMsg = "View whitelist : Failed to remove"
                 Write-Output $errorMsg
                 CSLog -Message $errorMsg
             }
