@@ -131,6 +131,7 @@ FunctionsToExport = @(
                     'Set-CohesitySnapshotRetention',
                     'Set-CohesityStorageDomain',
                     'Set-CohesityViewDirectoryQuota',
+                    'Set-CohesityViewWhitelist',
                     'Stop-CohesityProtectionJob',
                     'Update-CohesityActiveDirectory',
                     'Update-CohesityProtectionJobRun',
