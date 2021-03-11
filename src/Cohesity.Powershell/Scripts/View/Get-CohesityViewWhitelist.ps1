@@ -34,7 +34,7 @@ function Get-CohesityViewWhitelist {
             Write-Output "View whitelist does not exists for '$ViewName'."
             return
         }
-        $viewObject.SubnetWhitelist
+        @($viewObject.SubnetWhitelist | Add-Member -TypeName 'System.Object#ViewWhitelistObject' -PassThru)
     }
 
     End {

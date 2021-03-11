@@ -74,7 +74,7 @@ function Add-CohesityViewWhitelist {
             $viewObject.SubnetWhitelist += $whiteList
             $resp = $viewObject | Set-CohesityView
             if ($resp) {
-                $resp.SubnetWhitelist
+                @($resp.SubnetWhitelist | Add-Member -TypeName 'System.Object#ViewWhitelistObject' -PassThru)
             }
             else {
                 $errorMsg = "View whitelist : Failed to add"

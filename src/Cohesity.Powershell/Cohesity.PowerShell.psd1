@@ -95,6 +95,7 @@ FunctionsToExport = @(
                     'Get-CohesityViewDirectoryQuota',
                     'Get-CohesityViewForPrincipal',
                     'Get-CohesityViewWhitelist',
+                    'Get-CohesityViewShareWhitelist',
                     'Get-CohesityVlan',
                     'New-CohesityActiveDirectory',
                     'New-CohesityNASProtectionJob',
