@@ -13,7 +13,7 @@ function Get-CohesityViewShareWhitelist {
         Get the whitelist for share1.
     #>
 
-    [OutputType('System.Collections.ArrayList')]
+    [OutputType('System.Object')]
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory = $true)]
@@ -31,7 +31,16 @@ function Get-CohesityViewShareWhitelist {
         $cohesityClusterURL = $cohesityCluster + '/irisservices/api/v1/public/shares?shareName=' + $ShareName
         $cohesityHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
         $resp = Invoke-RestApi -Method 'Get' -Uri $cohesityClusterURL -Headers $cohesityHeaders
-        $resp
+        if(-not $resp) {
+            Write-Output "API call did not succeed for share name '$ShareName'."
+            return
+        }
+        $shareObject = $resp.sharesList | Where-Object {$_.shareName -eq $ShareName} | Select-Object -First 1
+        if(-not $shareObject) {
+            Write-Output "Cannot proceed, share name '$ShareName' not found."
+            return
+        }
+        Get-CohesityViewShare -ViewName $shareObject.viewName | Where-Object {$_.AliasName -eq $ShareName} | Select-Object -First 1
     }
 
     End {

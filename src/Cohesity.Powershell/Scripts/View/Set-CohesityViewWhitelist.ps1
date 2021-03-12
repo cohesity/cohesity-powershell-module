@@ -1,9 +1,9 @@
 function Set-CohesityViewWhitelist {
     <#
         .SYNOPSIS
-        Add whitelist IP(s) for a given view.
+        Set whitelist IP(s) for a given view.
         .DESCRIPTION
-        Add whitelist IP(s) for a given view.
+        Set whitelist IP(s) for a given view.
         .NOTES
         Published by Cohesity
         .LINK
