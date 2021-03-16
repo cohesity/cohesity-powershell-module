@@ -1,21 +1,21 @@
-function Set-CohesityViewShareWhitelist {
+function Set-CohesityViewShareAllowlist {
     <#
         .SYNOPSIS
-        Set whitelist IP(s) for a given view.
+        Set allowlist IP(s) for a given view.
         .DESCRIPTION
-        Set whitelist IP(s) for a given view.
+        Set allowlist IP(s) for a given view.
         .NOTES
         Published by Cohesity
         .LINK
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
-        Set-CohesityViewShareWhitelist -ShareName share1 -ViewShareWhitelist $viewWhitelist
-        Get the whitelist as follows, $viewShareWhitelist = Get-CohesityViewShareWhitelist -ShareName share1
-        Set whitelist for a given share.
+        Set-CohesityViewShareAllowlist -ShareName share1 -ViewShareWhitelist $viewWhitelist
+        Get the allowlist as follows, $viewShareWhitelist = Get-CohesityViewShareAllowlist -ShareName share1
+        Set allowlist for a given share.
         .EXAMPLE
-        $viewShareWhitelist | Set-CohesityViewShareWhitelist -ShareName share1
-        Get the whitelist as follows, $viewShareWhitelist = Get-CohesityViewShareWhitelist -ShareName share1
-        Set whitelist for a given share with a piped object.
+        $viewShareWhitelist | Set-CohesityViewShareAllowlist -ShareName share1
+        Get the allowlist as follows, $viewShareWhitelist = Get-CohesityViewShareAllowlist -ShareName share1
+        Set allowlist for a given share with a piped object.
     #>
     [OutputType('System.Object')]
     [CmdletBinding(SupportsShouldProcess = $True, ConfirmImpact = "High")]
@@ -24,7 +24,7 @@ function Set-CohesityViewShareWhitelist {
         # Specifies share name.
         [string]$ShareName,
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
-        # The updated whitelist for share.
+        # The updated allowlist for share.
         [object[]]$ViewShareWhitelist
     )
 
@@ -35,7 +35,7 @@ function Set-CohesityViewShareWhitelist {
     }
 
     Process {
-        $foundShareObject = Get-CohesityViewShareWhitelist -ShareName $ShareName
+        $foundShareObject = Get-CohesityViewShareAllowlist -ShareName $ShareName
         if (-not $foundShareObject) {
             Write-Output "Could not proceed, share name '$ShareName' not found."
             return
@@ -66,7 +66,7 @@ function Set-CohesityViewShareWhitelist {
                 $resp
             }
             else {
-                $errorMsg = "View share whitelist : Failed to set"
+                $errorMsg = "View share allowlist : Failed to set"
                 Write-Output $errorMsg
                 CSLog -Message $errorMsg
             }

@@ -1,19 +1,19 @@
-function Add-CohesityViewShareWhitelist {
+function Add-CohesityViewShareAllowlist {
     <#
         .SYNOPSIS
-        Add whitelist IP(s) for a given share.
+        Add allowlist IP(s) for a given share.
         .DESCRIPTION
-        Add whitelist IP(s) for a given share.
+        Add allowlist IP(s) for a given share.
         .NOTES
         Published by Cohesity
         .LINK
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
-        Add-CohesityViewShareWhitelist -ShareName view1Share1 -IP4List "1.1.1.1", "2.2.2.2" -NetmaskIP4 "255.255.255.0"
-        Add whitelist IP(s) an override global whitelist for a given share.
+        Add-CohesityViewShareAllowlist -ShareName view1Share1 -IP4List "1.1.1.1", "2.2.2.2" -NetmaskIP4 "255.255.255.0"
+        Add allowlist IP(s) an override global allowlist for a given share.
         .EXAMPLE
-        Add-CohesityViewShareWhitelist -ShareName view1Share1 -IP4List "1.1.1.1", "2.2.2.2" -NetmaskIP4 "255.255.255.0" -NFSRootSquash -NFSAccess "kReadWrite" -NFSAllSquash -SMBAccess "kReadWrite"
-        Add whitelist IP(s) an override global whitelist for a given share with optional parameters
+        Add-CohesityViewShareAllowlist -ShareName view1Share1 -IP4List "1.1.1.1", "2.2.2.2" -NetmaskIP4 "255.255.255.0" -NFSRootSquash -NFSAccess "kReadWrite" -NFSAllSquash -SMBAccess "kReadWrite"
+        Add allowlist IP(s) an override global allowlist for a given share with optional parameters
     #>
     [OutputType('System.Object')]
     [CmdletBinding(SupportsShouldProcess = $True, ConfirmImpact = "High")]
@@ -50,7 +50,7 @@ function Add-CohesityViewShareWhitelist {
     }
 
     Process {
-        $response = Get-CohesityViewShareWhitelist -ShareName $ShareName
+        $response = Get-CohesityViewShareAllowlist -ShareName $ShareName
         if (-not $response) {
             Write-Output "Could not proceed, share name '$ShareName' not found."
             return
@@ -70,7 +70,7 @@ function Add-CohesityViewShareWhitelist {
             if(-not $propertyAliasName) {
                 $foundShareObject | Add-Member -NotePropertyName 'aliasName' -NotePropertyValue $ShareName
             }
-            $whiteList = @()
+            $allowList = @()
             foreach ($ip in $IP4List) {
                 # powershell enforces here to use the model
                 $newIP = [Cohesity.Model.Subnet]::new()
@@ -81,9 +81,9 @@ function Add-CohesityViewShareWhitelist {
                 $newIP.smbAccess = $SMBAccess
                 $newIP.nfsAllSquash = $NFSAllSquash.IsPresent
 
-                $whiteList += $newIP
+                $allowList += $newIP
             }
-            $foundShareObject.SubnetWhitelist += $whiteList
+            $foundShareObject.SubnetWhitelist += $allowList
             $cohesityClusterURL = $cohesityCluster + '/irisservices/api/v1/public/viewAliases'
             $cohesityHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
 
@@ -93,7 +93,7 @@ function Add-CohesityViewShareWhitelist {
                 $resp
             }
             else {
-                $errorMsg = "View share whitelist : Failed to add"
+                $errorMsg = "View share allowlist : Failed to add"
                 Write-Output $errorMsg
                 CSLog -Message $errorMsg
             }

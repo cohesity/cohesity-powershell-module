@@ -1,16 +1,16 @@
-function Get-CohesityViewWhitelist {
+function Get-CohesityViewAllowlist {
     <#
         .SYNOPSIS
-        Get whitelist IP(s) for a given view.
+        Get allowlist IP(s) for a given view.
         .DESCRIPTION
-        Get whitelist IP(s) for a given view.
+        Get allowlist IP(s) for a given view.
         .NOTES
         Published by Cohesity
         .LINK
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
-        Get-CohesityViewWhitelist -ViewName view1
-        Get the whitelist for view1.
+        Get-CohesityViewAllowlist -ViewName view1
+        Get the allowlist for view1.
     #>
 
     [OutputType('System.Collections.ArrayList')]
@@ -31,10 +31,10 @@ function Get-CohesityViewWhitelist {
             return
         }
         if (-not $viewObject.SubnetWhitelist) {
-            Write-Output "View whitelist does not exists for '$ViewName'."
+            Write-Output "View allowlist does not exists for '$ViewName'."
             return
         }
-        @($viewObject.SubnetWhitelist | Add-Member -TypeName 'System.Object#ViewWhitelistObject' -PassThru)
+        @($viewObject.SubnetWhitelist | Add-Member -TypeName 'System.Object#ViewAllowlistObject' -PassThru)
     }
 
     End {

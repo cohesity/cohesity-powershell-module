@@ -1,21 +1,21 @@
-function Set-CohesityViewWhitelist {
+function Set-CohesityViewAllowlist {
     <#
         .SYNOPSIS
-        Set whitelist IP(s) for a given view.
+        Set allowlist IP(s) for a given view.
         .DESCRIPTION
-        Set whitelist IP(s) for a given view.
+        Set allowlist IP(s) for a given view.
         .NOTES
         Published by Cohesity
         .LINK
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
-        Set-CohesityViewWhitelist -ViewName view1 -ViewWhitelist $viewWhitelist
-        Get the whitelist as follows, $viewWhitelist = Get-CohesityViewWhitelist -ViewName view1
-        Set whitelist for a given view.
+        Set-CohesityViewAllowlist -ViewName view1 -ViewWhitelist $viewWhitelist
+        Get the allowlist as follows, $viewWhitelist = Get-CohesityViewAllowlist -ViewName view1
+        Set allowlist for a given view.
         .EXAMPLE
-        $viewWhitelist | Set-CohesityViewWhitelist -ViewName view1
-        Get the whitelist as follows, $viewWhitelist = Get-CohesityViewWhitelist -ViewName view1
-        Set whitelist for a given view with a piped object.
+        $viewWhitelist | Set-CohesityViewAllowlist -ViewName view1
+        Get the allowlist as follows, $viewWhitelist = Get-CohesityViewAllowlist -ViewName view1
+        Set allowlist for a given view with a piped object.
     #>
     [OutputType('System.Collections.ArrayList')]
     [CmdletBinding(SupportsShouldProcess = $True, ConfirmImpact = "High")]
@@ -24,7 +24,7 @@ function Set-CohesityViewWhitelist {
         # Specifies view name.
         [string]$ViewName,
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
-        # The updated whitelist for view.
+        # The updated allowlist for view.
         [object[]]$ViewWhitelist
     )
 
@@ -49,7 +49,7 @@ function Set-CohesityViewWhitelist {
                 $resp.SubnetWhitelist
             }
             else {
-                $errorMsg = "View whitelist : Failed to set"
+                $errorMsg = "View allowlist : Failed to set"
                 Write-Output $errorMsg
                 CSLog -Message $errorMsg
             }

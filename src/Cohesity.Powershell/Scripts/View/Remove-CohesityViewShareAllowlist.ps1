@@ -1,19 +1,19 @@
-function Remove-CohesityViewShareWhitelist {
+function Remove-CohesityViewShareAllowlist {
     <#
         .SYNOPSIS
-        Remove whitelist IP(s) for a given share.
+        Remove allowlist IP(s) for a given share.
         .DESCRIPTION
-        Remove whitelist IP(s) for a given share.
+        Remove allowlist IP(s) for a given share.
         .NOTES
         Published by Cohesity
         .LINK
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
-        Remove-CohesityViewShareWhitelist -ShareName view1Share1 -IP4List "1.1.1.1", "2.2.2.2"
-        Remove whitelist IP(s) an override global whitelist for a given share.
+        Remove-CohesityViewShareAllowlist -ShareName view1Share1 -IP4List "1.1.1.1", "2.2.2.2"
+        Remove allowlist IP(s) an override global allowlist for a given share.
         .EXAMPLE
-        Remove-CohesityViewShareWhitelist -ShareName view1Share1 -IP4List "1.1.1.1", "2.2.2.2" -NetmaskIP4 "255.255.255.0" -NFSRootSquash -NFSAccess "kReadWrite" -NFSAllSquash -SMBAccess "kReadWrite"
-        Remove whitelist IP(s) an override global whitelist for a given share with optional parameters
+        Remove-CohesityViewShareAllowlist -ShareName view1Share1 -IP4List "1.1.1.1", "2.2.2.2" -NetmaskIP4 "255.255.255.0" -NFSRootSquash -NFSAccess "kReadWrite" -NFSAllSquash -SMBAccess "kReadWrite"
+        Remove allowlist IP(s) an override global allowlist for a given share with optional parameters
     #>
     [OutputType('System.Object')]
     [CmdletBinding(SupportsShouldProcess = $True, ConfirmImpact = "High")]
@@ -33,7 +33,7 @@ function Remove-CohesityViewShareWhitelist {
     }
 
     Process {
-        $response = Get-CohesityViewShareWhitelist -ShareName $ShareName
+        $response = Get-CohesityViewShareAllowlist -ShareName $ShareName
         if (-not $response) {
             Write-Output "Could not proceed, share name '$ShareName' not found."
             return
@@ -68,7 +68,7 @@ function Remove-CohesityViewShareWhitelist {
                 $resp
             }
             else {
-                $errorMsg = "View share whitelist : Failed to remove"
+                $errorMsg = "View share allowlist : Failed to remove"
                 Write-Output $errorMsg
                 CSLog -Message $errorMsg
             }

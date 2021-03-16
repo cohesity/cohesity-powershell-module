@@ -1,15 +1,15 @@
-function Remove-CohesityViewWhitelist {
+function Remove-CohesityViewAllowlist {
     <#
         .SYNOPSIS
-        Remove whitelist IPs from given view.
+        Remove allowlist IPs from given view.
         .DESCRIPTION
-        Remove whitelist IPs from given view.
+        Remove allowlist IPs from given view.
         .NOTES
         Published by Cohesity
         .LINK
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
-        Remove-CohesityViewWhitelist -ViewName view1 -IP4List "1.1.1.1", "2.2.2.2"
+        Remove-CohesityViewAllowlist -ViewName view1 -IP4List "1.1.1.1", "2.2.2.2"
     #>
     [OutputType('System.Collections.ArrayList')]
     [CmdletBinding(SupportsShouldProcess = $True, ConfirmImpact = "High")]
@@ -49,10 +49,10 @@ function Remove-CohesityViewWhitelist {
             }
             $resp = $viewObject | Set-CohesityView
             if ($resp) {
-                @($resp.SubnetWhitelist | Add-Member -TypeName 'System.Object#ViewWhitelistObject' -PassThru)
+                @($resp.SubnetWhitelist | Add-Member -TypeName 'System.Object#ViewAllowlistObject' -PassThru)
             }
             else {
-                $errorMsg = "View whitelist : Failed to remove"
+                $errorMsg = "View allowlist : Failed to remove"
                 Write-Output $errorMsg
                 CSLog -Message $errorMsg
             }

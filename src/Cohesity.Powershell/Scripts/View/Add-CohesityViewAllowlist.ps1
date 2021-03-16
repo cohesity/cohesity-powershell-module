@@ -1,19 +1,19 @@
-function Add-CohesityViewWhitelist {
+function Add-CohesityViewAllowlist {
     <#
         .SYNOPSIS
-        Add whitelist IP(s) for a given view.
+        Add allowlist IP(s) for a given view.
         .DESCRIPTION
-        Add whitelist IP(s) for a given view.
+        Add allowlist IP(s) for a given view.
         .NOTES
         Published by Cohesity
         .LINK
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
-        Add-CohesityViewWhitelist -IP4List "1.1.1.1", "2.2.2.2" -NetmaskIP4 "255.255.255.0"
-        Add whitelist IP(s) an override global whitelist for a given view.
+        Add-CohesityViewAllowlist -IP4List "1.1.1.1", "2.2.2.2" -NetmaskIP4 "255.255.255.0"
+        Add allowlist IP(s) an override global allowlist for a given view.
         .EXAMPLE
-        Add-CohesityViewWhitelist -IP4List "1.1.1.1", "2.2.2.2" -NetmaskIP4 "255.255.255.0" -NFSRootSquash -NFSAccess "kReadWrite" -NFSAllSquash -SMBAccess "kReadWrite"
-        Add whitelist IP(s) an override global whitelist for a given view with optional parameters
+        Add-CohesityViewAllowlist -IP4List "1.1.1.1", "2.2.2.2" -NetmaskIP4 "255.255.255.0" -NFSRootSquash -NFSAccess "kReadWrite" -NFSAllSquash -SMBAccess "kReadWrite"
+        Add allowlist IP(s) an override global allowlist for a given view with optional parameters
     #>
     [OutputType('System.Collections.ArrayList')]
     [CmdletBinding(SupportsShouldProcess = $True, ConfirmImpact = "High")]
@@ -58,7 +58,7 @@ function Add-CohesityViewWhitelist {
             if (-not $property) {
                 $viewObject | Add-Member -NotePropertyName SubnetWhitelist -NotePropertyValue @()
             }
-            $whiteList = @()
+            $allowList = @()
             foreach ($ip in $IP4List) {
                 # powershell enforces here to use the model
                 $newIP = [Cohesity.Model.Subnet]::new()
@@ -69,15 +69,15 @@ function Add-CohesityViewWhitelist {
                 $newIP.smbAccess = $SMBAccess
                 $newIP.nfsAllSquash = $NFSAllSquash.IsPresent
 
-                $whiteList += $newIP
+                $allowList += $newIP
             }
-            $viewObject.SubnetWhitelist += $whiteList
+            $viewObject.SubnetWhitelist += $allowList
             $resp = $viewObject | Set-CohesityView
             if ($resp) {
-                @($resp.SubnetWhitelist | Add-Member -TypeName 'System.Object#ViewWhitelistObject' -PassThru)
+                @($resp.SubnetWhitelist | Add-Member -TypeName 'System.Object#ViewAllowlistObject' -PassThru)
             }
             else {
-                $errorMsg = "View whitelist : Failed to add"
+                $errorMsg = "View allowlist : Failed to add"
                 Write-Output $errorMsg
                 CSLog -Message $errorMsg
             }

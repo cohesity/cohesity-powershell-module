@@ -1,16 +1,16 @@
-function Get-CohesityViewShareWhitelist {
+function Get-CohesityViewShareAllowlist {
     <#
         .SYNOPSIS
-        Get whitelist IP(s) for a given share.
+        Get allowlist IP(s) for a given share.
         .DESCRIPTION
-        Get whitelist IP(s) for a given share.
+        Get allowlist IP(s) for a given share.
         .NOTES
         Published by Cohesity
         .LINK
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
-        Get-CohesityViewShareWhitelist -ShareName share1
-        Get the whitelist for share1.
+        Get-CohesityViewShareAllowlist -ShareName share1
+        Get the allowlist for share1.
     #>
 
     [OutputType('System.Object')]

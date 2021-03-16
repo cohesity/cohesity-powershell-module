@@ -1891,11 +1891,11 @@
         </TableHeaders>
       </TableControl>
     </View>
-        <!-- View Whitelist Object Script based cmdlet -->
+        <!-- View Allowlist Object Script based cmdlet -->
     <View>
-      <Name>System.Object.ViewWhitelistObject.TableView</Name>
+      <Name>System.Object.ViewAllowlistObject.TableView</Name>
       <ViewSelectedBy>
-        <TypeName>System.Object#ViewWhitelistObject</TypeName>
+        <TypeName>System.Object#ViewAllowlistObject</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableRowEntries>
