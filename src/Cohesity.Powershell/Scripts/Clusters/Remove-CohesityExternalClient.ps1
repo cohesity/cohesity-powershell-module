@@ -1,9 +1,9 @@
 function Remove-CohesityExternalClient {
     <#
         .SYNOPSIS
-        Remove an external client from global whitelist.
+        Remove an external client from global allowlist.
         .DESCRIPTION
-        The Remove-CohesityExternalClient function is used to remove external client (global whitelist) IP.
+        The Remove-CohesityExternalClient function is used to remove external client (global allowlist) IP.
         .NOTES
         Published by Cohesity
         .LINK
