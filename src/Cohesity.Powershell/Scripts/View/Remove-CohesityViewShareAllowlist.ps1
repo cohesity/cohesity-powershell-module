@@ -22,8 +22,8 @@ function Remove-CohesityViewShareAllowlist {
         # Specifies share name.
         [string]$ShareName,
         [Parameter(Mandatory = $true)]
-        # Specifies IPv4 addresses.
-        [string[]]$IP4List
+        # Specifies IPv4 addresses or FQDNs.
+        [string[]]$IPAllowlist
     )
 
     Begin {
@@ -46,7 +46,7 @@ function Remove-CohesityViewShareAllowlist {
 
         if ($PSCmdlet.ShouldProcess($ShareName)) {
             [System.Boolean]$foundAtleastOneMatch = $false
-            foreach ($ip in $IP4List) {
+            foreach ($ip in $IPAllowlist) {
                 $foundObject = $foundShareObject.SubnetWhitelist | Where-Object {$_.Ip -eq $ip}
                 if (-not $foundObject) {
                     Write-Output "Could not find IP $ip."

@@ -22,8 +22,8 @@ function Add-CohesityViewShareAllowlist {
         # Specifies share name.
         [string]$ShareName,
         [Parameter(Mandatory = $true)]
-        # Specifies IPv4 addresses.
-        [string[]]$IP4List,
+        # Specifies IPv4 addresses or FQDNs.
+        [string[]]$IPAllowlist,
         [Parameter(Mandatory = $true)]
         # Specifies the netmask using an IP4 address. The netmask can only be set using netmaskIp4 if the IP address is an IPv4 address.
         [string]$NetmaskIP4,
@@ -71,7 +71,7 @@ function Add-CohesityViewShareAllowlist {
                 $foundShareObject | Add-Member -NotePropertyName 'aliasName' -NotePropertyValue $ShareName
             }
             $allowList = @()
-            foreach ($ip in $IP4List) {
+            foreach ($ip in $IPAllowlist) {
                 # powershell enforces here to use the model
                 $newIP = [Cohesity.Model.Subnet]::new()
                 $newIP.ip = $ip

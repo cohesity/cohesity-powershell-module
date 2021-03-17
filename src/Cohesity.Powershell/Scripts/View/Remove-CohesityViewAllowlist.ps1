@@ -18,8 +18,8 @@ function Remove-CohesityViewAllowlist {
         # Specifies view name.
         [string]$ViewName,
         [Parameter(Mandatory = $true)]
-        # Specifies an IPv4 addresses.
-        $IP4List
+        # Specifies an IPv4 addresses or FQDNs.
+        $IPAllowlist
     )
 
     Begin {
@@ -34,7 +34,7 @@ function Remove-CohesityViewAllowlist {
 
         if ($PSCmdlet.ShouldProcess($ViewName)) {
             [System.Boolean]$foundAtleastOneMatch = $false
-            foreach ($ip in $IP4List) {
+            foreach ($ip in $IPAllowlist) {
                 $foundObject = $viewObject.SubnetWhitelist | Where-Object {$_.Ip -eq $ip}
                 if (-not $foundObject) {
                     Write-Output "Could not find IP $ip."
