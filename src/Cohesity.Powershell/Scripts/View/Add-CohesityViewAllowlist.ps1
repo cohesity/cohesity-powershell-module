@@ -9,10 +9,10 @@ function Add-CohesityViewAllowlist {
         .LINK
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
-        Add-CohesityViewAllowlist -IP4List "1.1.1.1", "2.2.2.2" -NetmaskIP4 "255.255.255.0"
+        Add-CohesityViewAllowlist -IPAllowlist "1.1.1.1", "2.2.2.2" -NetmaskIP4 "255.255.255.0"
         Add allowlist IP(s) an override global allowlist for a given view.
         .EXAMPLE
-        Add-CohesityViewAllowlist -IP4List "1.1.1.1", "2.2.2.2" -NetmaskIP4 "255.255.255.0" -NFSRootSquash -NFSAccess "kReadWrite" -NFSAllSquash -SMBAccess "kReadWrite"
+        Add-CohesityViewAllowlist -IPAllowlist "1.1.1.1", "2.2.2.2" -NetmaskIP4 "255.255.255.0" -NFSRootSquash -NFSAccess "kReadWrite" -NFSAllSquash -SMBAccess "kReadWrite"
         Add allowlist IP(s) an override global allowlist for a given view with optional parameters
     #>
     [OutputType('System.Collections.ArrayList')]

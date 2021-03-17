@@ -9,10 +9,10 @@ function Remove-CohesityViewShareAllowlist {
         .LINK
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
-        Remove-CohesityViewShareAllowlist -ShareName view1Share1 -IP4List "1.1.1.1", "2.2.2.2"
+        Remove-CohesityViewShareAllowlist -ShareName view1Share1 -IPAllowlist "1.1.1.1", "2.2.2.2"
         Remove allowlist IP(s) an override global allowlist for a given share.
         .EXAMPLE
-        Remove-CohesityViewShareAllowlist -ShareName view1Share1 -IP4List "1.1.1.1", "2.2.2.2" -NetmaskIP4 "255.255.255.0" -NFSRootSquash -NFSAccess "kReadWrite" -NFSAllSquash -SMBAccess "kReadWrite"
+        Remove-CohesityViewShareAllowlist -ShareName view1Share1 -IPAllowlist "1.1.1.1", "2.2.2.2" -NetmaskIP4 "255.255.255.0" -NFSRootSquash -NFSAccess "kReadWrite" -NFSAllSquash -SMBAccess "kReadWrite"
         Remove allowlist IP(s) an override global allowlist for a given share with optional parameters
     #>
     [OutputType('System.Object')]

@@ -9,7 +9,7 @@ function Remove-CohesityViewAllowlist {
         .LINK
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
-        Remove-CohesityViewAllowlist -ViewName view1 -IP4List "1.1.1.1", "2.2.2.2"
+        Remove-CohesityViewAllowlist -ViewName view1 -IPAllowlist "1.1.1.1", "2.2.2.2"
     #>
     [OutputType('System.Collections.ArrayList')]
     [CmdletBinding(SupportsShouldProcess = $True, ConfirmImpact = "High")]
