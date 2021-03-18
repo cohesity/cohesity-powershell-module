@@ -16,6 +16,12 @@ function Set-CohesityAllowlist {
         $allowlist | Set-CohesityAllowlist -ObjectType VIEW_ONLY -ObjectName view1
         Get the allowlist as follows, $allowlist = Get-CohesityViewAllowlist -ViewName view1
         Set allowlist for a given view with a piped object.
+        .EXAMPLE
+        $allowlist = Get-CohesityViewShareAllowlist -ShareName share1
+        $resp = Set-CohesityAllowlist -ObjectType VIEW_SHARE -ObjectName share1 -Allowlist $allowlist.subnetWhitelist
+        .EXAMPLE
+        $allowlist = Get-CohesityViewShareAllowlist -ShareName share1
+        $resp = $allowlist.subnetWhitelist | Set-CohesityAllowlist -ObjectType VIEW_SHARE -ObjectName share1
     #>
     [OutputType('System.Collections.ArrayList')]
     [CmdletBinding(SupportsShouldProcess = $True, ConfirmImpact = "High")]
@@ -69,7 +75,7 @@ function Set-CohesityAllowlist {
                         Write-Output "Could not proceed, share name '$ObjectName' not found."
                         return
                     }
-                    $foundShareObject = $response | Where-Object {$_.AliasName -eq $ObjectName} | Select-Object -first 1
+                    $foundShareObject = $foundShareObject | Where-Object {$_.AliasName -eq $ObjectName} | Select-Object -first 1
                     if (-not $foundShareObject) {
                         Write-Output "Share name '$ObjectName' not found"
                         return
@@ -83,8 +89,8 @@ function Set-CohesityAllowlist {
                     if(-not $propertyAliasName) {
                         $foundShareObject | Add-Member -NotePropertyName 'aliasName' -NotePropertyValue $ObjectName
                     }
-                    $foundShareObject.SubnetWhitelist = $ViewShareWhitelist
-        
+                    $foundShareObject.SubnetWhitelist = $Allowlist
+
                     $cohesityClusterURL = $cohesityCluster + '/irisservices/api/v1/public/viewAliases'
                     $cohesityHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
         
