@@ -5,6 +5,11 @@
 ./ClusterInfo.ps1 -HeliosServer "https://helios.mycompany.com" -HeliosAPIKey "YOUR_API_KEY"
 ```
 
+### Query all the protection job from helios with verbose detail.
+```
+./ClusterInfo.ps1 -HeliosServer "https://helios.mycompany.com" -HeliosAPIKey "YOUR_API_KEY" -Verbose
+```
+
 ### Filter protection jobs with inactive and deleted jobs.
 ```
 ./ClusterInfo.ps1 -HeliosServer "https://helios.mycompany.com" -HeliosAPIKey "YOUR_API_KEY" -SkipInactiveJobs -SkipDeletedJobs

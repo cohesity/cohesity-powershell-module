@@ -12,6 +12,7 @@ Param(
     [switch]$SkipDeletedJobs
 )
 Begin {
+    $ProgressPreference = ‘SilentlyContinue’
     Import-Module -Name ".\HeliosWebRequest.psm1" -Force
     Import-Module -Name ".\FlattenProtectionSourceNode.psm1" -Force
     Update-FormatData -AppendPath ./HeliosView.Format.ps1xml
@@ -23,57 +24,58 @@ Process {
     $headers = @{"apiKey" = $HeliosAPIKey}
     $clusters = HeliosWebRequest -Uri $url -Headers $headers -Method Get
     foreach($cluster in $clusters.upgradeInfo) {
-        Write-Output "Processing cluster : " $cluster.clusterName
+        $accessClusterId = $cluster.clusterId
+        Write-Output ("Processing cluster : " + $cluster.clusterName)
         # get the root nodes for the cluster
         $url = $HeliosServer + '/irisservices/api/v1/public/protectionSources/rootNodes'
         $headers = @{
                     "apiKey" = $HeliosAPIKey
-                    "accessClusterId" = $cluster.clusterId
+                    "accessClusterId" = $accessClusterId
                 }
         $rootNodes = HeliosWebRequest -Uri $url -Headers $headers -Method Get
-
-        # get the vms protection status
-        $url = $HeliosServer + '/irisservices/api/v1/reports/objects/vmsProtectionStatus?allUnderHierarchy=true'
-        $headers = @{
-                    "apiKey" = $HeliosAPIKey
-                    "accessClusterId" = $cluster.clusterId
-                }
-        $vmsProtectionStatus = HeliosWebRequest -Uri $url -Headers $headers -Method Get
 
         # get the protection job
         $url = $HeliosServer + '/irisservices/api/v1/public/protectionJobs?environments=kVMware'
         if ($SkipInactiveJobs.IsPresent) {
             $url += '&isActive=true'
         }
-        if ($SkipInactiveJobs.IsPresent) {
+        if ($SkipDeletedJobs.IsPresent) {
             $url += '&isDeleted=false'
         }
         $headers = @{
                     "apiKey" = $HeliosAPIKey
-                    "accessClusterId" = $cluster.clusterId
+                    "accessClusterId" = $accessClusterId
                 }
+
         $protectionJobs = HeliosWebRequest -Uri $url -Headers $headers -Method Get
 
         foreach ($protectionJob in $protectionJobs) {
-            [string]$vmwareObjectClusterName = $null
+            $protectionJobName = $protectionJob.name
+            # find host cluster name for each of the associated object for a protection job
+            [string[]]$objectClusterNames = @()
             foreach ($sourceId in $protectionJob.sourceIds) {
-                $vmwareObjectClusterName = ($vmsProtectionStatus | Where-Object { $sourceId -eq $_.vmId }).clusterName
-                if($vmwareObjectClusterName) {
-                    break
-                }
-            }
-            # ensure if the object cluster name is not available set the host name
-            if (-not $vmwareObjectClusterName) {
-                $vmwareObjectClusterName = ($vmsProtectionStatus | Where-Object { $sourceId -eq $_.vmId }).hostName
-            }
-            if($VMwareObjectClusterNames) {
-                if($vmwareObjectClusterName) {
-                    if ( $false -eq ($VMwareObjectClusterNames -contains $vmwareObjectClusterName)) {
-                        Write-Output "Skipping item for object cluster name : $vmwareObjectClusterName"
+                $url = $HeliosServer + '/irisservices/api/v1/public/protectionSources/objects/' + $sourceId
+                $objectDetail = HeliosWebRequest -Uri $url -Headers $headers -Method Get
+                if ($objectDetail.vmWareProtectionSource) {
+                    if ($objectDetail.vmWareProtectionSource.type -eq "kVirtualMachine") {
+                        # look for only non-vm objects
+                        $vmName = $objectDetail.vmWareProtectionSource.name
+                        Write-Verbose ("Found virtual machine '$vmName : $sourceId' on protection job '$protectionJobName', access cluster id '$accessClusterId'.")
                         continue
                     }
+                    if($VMwareObjectClusterNames) {
+                        if($VMwareObjectClusterNames -notcontains $objectDetail.vmWareProtectionSource.name) {
+                            continue
+                        }
+                    }
+                    $objectClusterNames += $objectDetail.vmWareProtectionSource.name
+                }
+                else {
+                    $objectName = $objectDetail.name
+                    Write-Verbose ("Object detail for source id '$objectName : $sourceId', protection job '$protectionJobName', access cluster id '$accessClusterId' not found.")
                 }
             }
+            $objectClusterNames = $objectClusterNames | Sort-Object | Get-Unique
 
             # filter out the desired parent source name
             $parentSourceObject = $rootNodes | Where-Object {$_.protectionSource.id -eq $protectionJob.parentSourceId}
@@ -83,7 +85,7 @@ Process {
                 ProtectionJobName = $protectionJob.name
                 ParentSourceId = $protectionJob.parentSourceId
                 ParentSourceName = $parentSourceObject.protectionSource.name
-                VMwareObjectClusterName = $vmwareObjectClusterName
+                VMwareObjectClusterName = $objectClusterNames
 
             }
         }
