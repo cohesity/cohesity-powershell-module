@@ -1891,5 +1891,64 @@
         </TableHeaders>
       </TableControl>
     </View>
+        <!-- View Allowlist Object Script based cmdlet -->
+    <View>
+      <Name>System.Object.ViewAllowlistObject.TableView</Name>
+      <ViewSelectedBy>
+        <TypeName>System.Object#ViewAllowlistObject</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>Ip</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>NetmaskIp4</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>NfsAccess</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>SmbAccess</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>NfsAllSquash</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>NfsRootSquash</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Description</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+        <TableHeaders>
+          <TableColumnHeader>
+            <Label>IP</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Netmask IPv4</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>NFS Access</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>SMB Access</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>NFS All Squash</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>NFS Root Squash</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Description</Label>
+          </TableColumnHeader>
+        </TableHeaders>
+      </TableControl>
+    </View>
   </ViewDefinitions>
 </Configuration>
