@@ -98,6 +98,9 @@ function Get-CohesityProtectionJob {
             if(-not $OnlyDeleted.IsPresent) {
                 $resp = @($resp | where-object { $_.Name -inotmatch '_DELETED'})
             }
+            if($Names) {
+                $resp = @($resp | where-object { $Names -contains $_.Name})
+            }
             # tagging reponse for display format ( configured in Cohesity.format.ps1xml )
             @($resp | Add-Member -TypeName 'System.Object#ProtectionJob' -PassThru)
         }
