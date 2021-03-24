@@ -93,7 +93,12 @@ function Invoke-RestApi {
 
         if ($Global:CohesityCmdletConfig) {
             if ($Global:CohesityCmdletConfig.LogResponseData -eq $true) {
-                CSLog -Message ($result.Content) -Severity 1
+                if ($result.Content) {
+                    CSLog -Message ($result.Content) -Severity 1
+                }
+                else {
+                    CSLog -Message "Response content not available" -Severity 1
+                }
             }
         }
 

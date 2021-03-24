@@ -59,7 +59,3 @@ function Remove-CohesityUser {
     }
   } # End of process
 } # End of function
-
-# Tests
-#Remove-CohesityUser -Name 'test-user' -Domain 'LOCAL'
-
