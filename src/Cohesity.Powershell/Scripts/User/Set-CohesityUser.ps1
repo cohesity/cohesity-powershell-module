@@ -13,10 +13,10 @@ function Set-CohesityUser {
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
         Set-CohesityUser -UserObject $userObject
-        Get the user object by querying, $userObject = Get-CohesityUser -Names user1
+        Get the user object by querying, $userObject = Get-CohesityUser -Names user1 | where-object { $_.Username -eq user1 }
         .EXAMPLE
         $userObject | Set-CohesityUser -UserObject $userObject
-        Piping the user object, get the user object by querying, $userObject = Get-CohesityUser -Names user1
+        Piping the user object, get the user object by querying, $userObject = Get-CohesityUser -Names user1 | where-object { $_.Username -eq user1 }
     #>
   [CmdletBinding(SupportsShouldProcess = $True, ConfirmImpact = "High")]
   Param(
