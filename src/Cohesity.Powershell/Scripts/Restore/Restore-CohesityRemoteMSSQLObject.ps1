@@ -9,7 +9,7 @@ function Restore-CohesityRemoteMSSQLObject {
         .LINK
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
-        Restore-CohesityRemoteMSSQLObject -SourceId 1279 -SourceInstanceId 1277 -JobId 31520 -TargetHostId 770 -CaptureTailLogs:$false -NewDatabaseName CohesityDB_r1 -NewInstanceName MSSQLSERVER -TargetDataFilesDirectory "C:\temp" -TargetLogFilesDirectory "C:\temp"
+        Restore-CohesityRemoteMSSQLObject -SourceId 1279 -HostSourceId 1277 -JobId 31520 -TargetHostId 770 -CaptureTailLogs:$false -NewDatabaseName CohesityDB_r1 -NewInstanceName MSSQLSERVER -TargetDataFilesDirectory "C:\temp" -TargetLogFilesDirectory "C:\temp"
         Restore MSSQL database from remote cluster with database id 1279 , database instance id 1277 and job id as 31520
         $mssqlObjects = Find-CohesityObjectsForRestore -Environments KSQL
         Get the source id, $mssqlObjects[0].SnapshottedSource.Id
@@ -28,7 +28,7 @@ function Restore-CohesityRemoteMSSQLObject {
         [Parameter(Mandatory = $true)]
         [ValidateRange(1, [long]::MaxValue)]
         # Specifies the id of MSSQL database instance.
-        [long]$SourceInstanceId,
+        [long]$HostSourceId,
         [Parameter(Mandatory = $true)]
         [ValidateRange(1, [long]::MaxValue)]
         # Specifies the job id that backed up this MS SQL instance and will be used for this restore.
@@ -53,6 +53,11 @@ function Restore-CohesityRemoteMSSQLObject {
         [Parameter(Mandatory = $false)]
         # Specifies the instance name of the SQL Server that should be restored.
         [string]$NewInstanceName,
+        [Parameter(Mandatory = $false)]
+        # Specifies the time in the past to which the SQL database needs to be restored.
+        # This allows for granular recovery of SQL databases.
+        # If not specified, the SQL database will be restored from the full/incremental snapshot.
+        [long]$RestoreTimeSecs,
         [Parameter(Mandatory = $false)]
         # Specifies the directory where to put the database data files.
         # Missing directory will be automatically created.
@@ -166,6 +171,7 @@ function Restore-CohesityRemoteMSSQLObject {
                             isMultiStageRestore             = $false
                             secondaryDataFileDestinationVec = $TargetSecondaryDataFilesDirectoryList
                             alternateLocationParams         = @{}
+                            restoreTimeSecs                 = $RestoreTimeSecs
                         }
                         targetHost             = $targetHost
                         targetHostParentSource = $targetHostParentSource
@@ -183,7 +189,7 @@ function Restore-CohesityRemoteMSSQLObject {
                                 jobInstanceId  = $JobRunId
                                 startTimeUsecs = $StartTime
                                 entity         = @{
-                                    id = $SourceInstanceId
+                                    id = $HostSourceId
                                 }
                             }
                             ownerRestoreParams = @{
