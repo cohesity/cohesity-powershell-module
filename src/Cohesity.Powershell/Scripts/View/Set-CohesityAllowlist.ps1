@@ -23,7 +23,7 @@ function Set-CohesityAllowlist {
         $allowlist = Get-CohesityViewShareAllowlist -ShareName share1
         $resp = $allowlist.subnetWhitelist | Set-CohesityAllowlist -ObjectType VIEW_SHARE -ObjectName share1
     #>
-    [OutputType('System.Collections.ArrayList')]
+    [OutputType('System.Array')]
     [CmdletBinding(SupportsShouldProcess = $True, ConfirmImpact = "High")]
     Param(
         [Parameter(Mandatory = $true)]
@@ -93,7 +93,7 @@ function Set-CohesityAllowlist {
 
                     $cohesityClusterURL = $cohesityCluster + '/irisservices/api/v1/public/viewAliases'
                     $cohesityHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
-        
+
                     $payloadJson = $foundShareObject | ConvertTo-Json -Depth 100
                     $resp = Invoke-RestApi -Method Put -Uri $cohesityClusterURL -Headers $cohesityHeaders -Body $payloadJson
                     if ($resp) {

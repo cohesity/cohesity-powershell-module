@@ -149,7 +149,7 @@ function Restore-CohesityRemoteMSSQLObject {
                     $pointsForTimeRangeUrl = $cohesityCluster + "/irisservices/api/v1/public/restore/pointsForTimeRange"
                     $pitHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
                     $payloadJson = $pointsInTimeRange | ConvertTo-Json -Depth 100
-    
+
                     $timeRangeResult = Invoke-RestApi -Method Post -Uri $pointsForTimeRangeUrl -Headers $pitHeaders -Body $payloadJson
                     [bool]$foundPointInTime = $false;
                     if ($timeRangeResult.TimeRanges)

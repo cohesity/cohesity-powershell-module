@@ -15,7 +15,7 @@ function Add-CohesityViewAllowlist {
         Add-CohesityViewAllowlist -IPAllowlist "1.1.1.1", "2.2.2.2" -NetmaskIP4 "255.255.255.0" -NFSRootSquash -NFSAccess "kReadWrite" -NFSAllSquash -SMBAccess "kReadWrite"
         Add allowlist IP(s) an override global allowlist for a given view with optional parameters
     #>
-    [OutputType('System.Collections.ArrayList')]
+    [OutputType('System.Array')]
     [CmdletBinding(SupportsShouldProcess = $True, ConfirmImpact = "High")]
     Param(
         [Parameter(Mandatory = $true)]

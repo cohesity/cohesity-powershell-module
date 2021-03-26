@@ -90,7 +90,7 @@ function Add-CohesityViewForPrincipal {
             if ($principalDetail.ProtectionSources) {
                 $updatedProtectionSourceObjectIds += @($principalDetail.ProtectionSources.Id)
             }
-    
+
             $updatedViewNames = @()
             if ($ViewNames) {
                 $viewObjects = Get-CohesityView

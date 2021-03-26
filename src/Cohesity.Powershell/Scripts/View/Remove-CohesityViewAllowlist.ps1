@@ -11,7 +11,7 @@ function Remove-CohesityViewAllowlist {
         .EXAMPLE
         Remove-CohesityViewAllowlist -ViewName view1 -IPAllowlist "1.1.1.1", "2.2.2.2"
     #>
-    [OutputType('System.Collections.ArrayList')]
+    [OutputType('System.Array')]
     [CmdletBinding(SupportsShouldProcess = $True, ConfirmImpact = "High")]
     Param(
         [Parameter(Mandatory = $true)]

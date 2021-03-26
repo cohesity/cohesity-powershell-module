@@ -40,7 +40,8 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
     ///   Restores the MS SQL DB with the given source id on a target server.
     ///   </para>
     /// </example>
-    [Cmdlet(VerbsData.Restore, "CohesityMSSQLObject")]
+    [Cmdlet(VerbsData.Restore, "CohesityMSSQLObject",
+        SupportsShouldProcess = true, ConfirmImpact = ConfirmImpact.High)]
     public class RestoreCohesityMSSQLObject : PSCmdlet
     {
         private Session Session
