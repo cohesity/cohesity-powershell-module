@@ -216,11 +216,13 @@ function Restore-CohesityRemoteMSSQLObject {
                             isMultiStageRestore             = $false
                             secondaryDataFileDestinationVec = $TargetSecondaryDataFilesDirectoryList
                             alternateLocationParams         = @{}
-                            restoreTimeSecs                 = $RestoreTimeSecs
                         }
                         targetHost             = $targetHost
                         targetHostParentSource = $targetHostParentSource
                     }
+                }
+                if ($RestoreTimeSecs) {
+                    $restoreAppObject.restoreParams.sqlRestoreParams | Add-Member -NotePropertyName restoreTimeSecs -NotePropertyValue $RestoreTimeSecs
                 }
                 $payload = @{
                     action           = "kRecoverApp"
