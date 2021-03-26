@@ -57,7 +57,7 @@ function Restore-CohesityRemoteMSSQLObject {
         # Specifies the time in the past to which the SQL database needs to be restored.
         # This allows for granular recovery of SQL databases.
         # If not specified, the SQL database will be restored from the full/incremental snapshot.
-        [long]$RestoreTimeSecs,
+        [long]$RestoreTimeSecs = 0,
         [Parameter(Mandatory = $false)]
         # Specifies the directory where to put the database data files.
         # Missing directory will be automatically created.
@@ -125,7 +125,7 @@ function Restore-CohesityRemoteMSSQLObject {
                 }
                 $jobUid = [PSCustomObject]$searchedVMDetails.vmDocument.objectId.jobUid
 
-                if ($RestoreTimeSecs) {
+                if ($RestoreTimeSecs -gt 0) {
                     # validate the point in time value
                     if (-not $StartTime) {
                         Write-Output "Please add start time to validate point in time restore."
@@ -204,25 +204,28 @@ function Restore-CohesityRemoteMSSQLObject {
                 }
                 $targetHost | Add-Member -NotePropertyName type -NotePropertyValue $MSSQL_TARGET_HOST_TYPE
 
+                $sqlRestoreParams = [PSCustomObject]@{
+                    captureTailLogs                 = $CaptureTailLogs.IsPresent
+                    dataFileDestination             = $TargetDataFilesDirectory
+                    instanceName                    = $NewInstanceName
+                    logFileDestination              = $TargetLogFilesDirectory
+                    newDatabaseName                 = $NewDatabaseName
+                    isMultiStageRestore             = $false
+                    secondaryDataFileDestinationVec = $TargetSecondaryDataFilesDirectoryList
+                    alternateLocationParams         = @{}
+                }
+
+                if ($RestoreTimeSecs -gt 0) {
+                    $sqlRestoreParams | Add-Member -NotePropertyName restoreTimeSecs -NotePropertyValue $RestoreTimeSecs
+                }
+
                 $restoreAppObject = @{
                     appEntity     = $searchedVMDetails.vmDocument.objectId.entity
                     restoreParams = @{
-                        sqlRestoreParams       = @{
-                            captureTailLogs                 = $CaptureTailLogs.IsPresent
-                            dataFileDestination             = $TargetDataFilesDirectory
-                            instanceName                    = $NewInstanceName
-                            logFileDestination              = $TargetLogFilesDirectory
-                            newDatabaseName                 = $NewDatabaseName
-                            isMultiStageRestore             = $false
-                            secondaryDataFileDestinationVec = $TargetSecondaryDataFilesDirectoryList
-                            alternateLocationParams         = @{}
-                        }
+                        sqlRestoreParams       = $sqlRestoreParams
                         targetHost             = $targetHost
                         targetHostParentSource = $targetHostParentSource
                     }
-                }
-                if ($RestoreTimeSecs) {
-                    $restoreAppObject.restoreParams.sqlRestoreParams | Add-Member -NotePropertyName restoreTimeSecs -NotePropertyValue $RestoreTimeSecs
                 }
                 $payload = @{
                     action           = "kRecoverApp"
