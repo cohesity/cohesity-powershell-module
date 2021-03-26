@@ -125,6 +125,51 @@ function Restore-CohesityRemoteMSSQLObject {
                 }
                 $jobUid = [PSCustomObject]$searchedVMDetails.vmDocument.objectId.jobUid
 
+                if ($RestoreTimeSecs) {
+                    # validate the point in time value
+                    if (-not $StartTime) {
+                        Write-Output "Please add start time to validate point in time restore."
+                        return
+                    }
+                    [System.DateTime] $startDate = Convert-CohesityUsecsToDateTime -Usecs $StartTime
+                    $startDate = $startDate.AddDays(-1);
+                    [long] $startTimeInUsec = Convert-CohesityDateTimeToUsecs -DateTime $startDate
+                    $pitJobId = @{
+                        clusterId = $jobUid.clusterId
+                        clusterIncarnationId = $jobUid.clusterIncarnationId
+                        id = $jobUid.objectId
+                    }
+                    $pointsInTimeRange = @{
+                        endTimeUsecs = Convert-CohesityDateTimeToUsecs -DateTime ([System.DateTime]::now)
+                        environment = [Cohesity.Model.RestorePointsForTimeRangeParam+EnvironmentEnum]::KSQL
+                        jobUids = @($pitJobId)
+                        protectionSourceId = $SourceId
+                        startTimeUsecs = $startTimeInUsec
+                    }
+                    $pointsForTimeRangeUrl = $cohesityCluster + "/irisservices/api/v1/public/restore/pointsForTimeRange"
+                    $pitHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
+                    $payloadJson = $pointsInTimeRange | ConvertTo-Json -Depth 100
+    
+                    $timeRangeResult = Invoke-RestApi -Method Post -Uri $pointsForTimeRangeUrl -Headers $pitHeaders -Body $payloadJson
+                    [bool]$foundPointInTime = $false;
+                    if ($timeRangeResult.TimeRanges)
+                    {
+                        foreach ($item in $timeRangeResult.TimeRanges)
+                        {
+                            $restoreTimeUsecs = $RestoreTimeSecs * 1000 * 1000;
+                            if (($item.StartTimeUsecs -lt $restoreTimeUsecs) -and ($restoreTimeUsecs -lt $item.EndTimeUsecs))
+                            {
+                                $foundPointInTime = $true;
+                                break;
+                            }
+                        }
+                    }
+                    if($false -eq $foundPointInTime) {
+                        Write-Output "Invalid point in time value '$RestoreTimeSecs'."
+                        return
+                    }
+                }
+
                 $MSSQL_TARGET_HOST_TYPE = 1
                 $MSSQL_OBJECT_RESTORE_TYPE = 3
                 $MSSQL_TARGET_PHYSICAL_ENTITY_HOST_TYPE = 1
