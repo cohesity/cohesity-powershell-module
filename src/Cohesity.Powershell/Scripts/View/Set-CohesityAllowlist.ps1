@@ -89,7 +89,7 @@ function Set-CohesityAllowlist {
                     if(-not $propertyAliasName) {
                         $foundShareObject | Add-Member -NotePropertyName 'aliasName' -NotePropertyValue $ObjectName
                     }
-                    $foundShareObject.SubnetWhitelist = $Allowlist
+                    $foundShareObject.SubnetWhitelist = [Cohesity.Model.Subnet[]]$Allowlist
 
                     $cohesityClusterURL = $cohesityCluster + '/irisservices/api/v1/public/viewAliases'
                     $cohesityHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }

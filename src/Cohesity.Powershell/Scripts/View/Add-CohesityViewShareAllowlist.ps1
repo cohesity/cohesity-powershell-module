@@ -70,7 +70,7 @@ function Add-CohesityViewShareAllowlist {
             if(-not $propertyAliasName) {
                 $foundShareObject | Add-Member -NotePropertyName 'aliasName' -NotePropertyValue $ShareName
             }
-            $allowList = @()
+            [Cohesity.Model.Subnet[]]$allowList = @()
             foreach ($ip in $IPAllowlist) {
                 # powershell enforces here to use the model
                 $newIP = [Cohesity.Model.Subnet]::new()
