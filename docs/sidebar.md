@@ -40,6 +40,7 @@
 - [Remove-CohesityViewForPrincipal](cmdlets-reference/remove-cohesityviewforprincipal.md)
 - [Remove-CohesityUser](cmdlets-reference/remove-cohesityuser.md)
 - [Remove-CohesityUserGroup](cmdlets-reference/remove-cohesityusergroup.md)
+- [Set-CohesityUser](cmdlets-reference/set-cohesityuser.md)
 - [Update-CohesityActiveDirectory](cmdlets-reference/update-cohesityactivedirectory.md)
 - [Update-CohesityUserGroup](cmdlets-reference/update-cohesityusergroup.md)
 
@@ -71,6 +72,13 @@
 - [Restore-CohesityBackupToView](cmdlets-reference/restore-cohesitybackuptoview.md)
 - [Get-CohesityViewDirectoryQuota](cmdlets-reference/get-cohesityviewdirectoryquota.md)
 - [Set-CohesityViewDirectoryQuota](cmdlets-reference/set-cohesityviewdirectoryquota.md)
+- [Add-CohesityViewAllowlist](cmdlets-reference/add-cohesityviewallowlist.md)
+- [Get-CohesityViewAllowlist](cmdlets-reference/get-cohesityviewallowlist.md)
+- [Remove-CohesityViewAllowlist](cmdlets-reference/remove-cohesityviewallowlist.md)
+- [Add-CohesityViewshareAllowlist](cmdlets-reference/add-cohesityviewshareallowlist.md)
+- [Get-CohesityViewshareAllowlist](cmdlets-reference/get-cohesityviewshareallowlist.md)
+- [Remove-CohesityViewshareAllowlist](cmdlets-reference/remove-cohesityviewshareallowlist.md)
+- [Set-CohesityAllowlist](cmdlets-reference/set-cohesityallowlist.md)
 
 
 - **Data Protection**
