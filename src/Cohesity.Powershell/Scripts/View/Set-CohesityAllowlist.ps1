@@ -58,7 +58,7 @@ function Set-CohesityAllowlist {
                     if (-not $property) {
                         $viewObject | Add-Member -NotePropertyName SubnetWhitelist -NotePropertyValue @()
                     }
-                    $viewObject.SubnetWhitelist = $Allowlist
+                    $viewObject.SubnetWhitelist = [Cohesity.Model.Subnet[]]$Allowlist
                     $resp = $viewObject | Set-CohesityView
                     if ($resp) {
                         $resp.SubnetWhitelist

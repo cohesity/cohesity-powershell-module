@@ -58,7 +58,7 @@ function Add-CohesityViewAllowlist {
             if (-not $property) {
                 $viewObject | Add-Member -NotePropertyName SubnetWhitelist -NotePropertyValue @()
             }
-            $allowList = @()
+            [Cohesity.Model.Subnet[]]$allowList = @()
             foreach ($ip in $IPAllowlist) {
                 # powershell enforces here to use the model
                 $newIP = [Cohesity.Model.Subnet]::new()
