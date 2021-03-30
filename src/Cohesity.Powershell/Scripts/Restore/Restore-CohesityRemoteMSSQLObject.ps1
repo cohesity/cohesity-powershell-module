@@ -257,7 +257,15 @@ function Restore-CohesityRemoteMSSQLObject {
                 $headers = @{'Authorization' = 'Bearer ' + $cohesityToken }
                 $resp = Invoke-RestApi -Method 'Post' -Uri $url -Headers $headers -Body $payloadJson
                 if ($Global:CohesityAPIStatus.StatusCode -eq 200) {
-                    $resp
+                    $taskId = $resp.restoreTask.performRestoreTaskState.base.taskId
+                    if ($taskId) {
+                        $url = $cohesityCluster + '/irisservices/api/v1/public/restore/tasks/' + $taskId
+                        $resp = Invoke-RestApi -Method 'Get' -Uri $url -Headers $headers
+                        $resp
+                    }
+                    else {
+                        $resp
+                    }
                 }
                 else {
                     $errorMsg = $Global:CohesityAPIStatus.ErrorMessage + ", MSSQLObject : Failed to recover."
