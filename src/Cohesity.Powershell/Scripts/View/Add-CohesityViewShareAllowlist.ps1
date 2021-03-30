@@ -55,32 +55,30 @@ function Add-CohesityViewShareAllowlist {
             Write-Output "Could not proceed, share name '$ShareName' not found."
             return
         }
-        $foundShareObject = $response | Where-Object {$_.AliasName -eq $ShareName} | Select-Object -first 1
+        $foundShareObject = $response | Where-Object { $_.AliasName -eq $ShareName } | Select-Object -first 1
         if (-not $foundShareObject) {
             Write-Output "Share name '$ShareName' not found"
             return
         }
-
         if ($PSCmdlet.ShouldProcess($ShareName)) {
             $property = Get-Member -InputObject $foundShareObject -Name SubnetWhitelist
             if (-not $property) {
                 $foundShareObject | Add-Member -NotePropertyName SubnetWhitelist -NotePropertyValue @()
             }
             $propertyAliasName = Get-Member -InputObject $foundShareObject -Name aliasName
-            if(-not $propertyAliasName) {
+            if (-not $propertyAliasName) {
                 $foundShareObject | Add-Member -NotePropertyName 'aliasName' -NotePropertyValue $ShareName
             }
-            [Cohesity.Model.Subnet[]]$allowList = @()
+            $allowList = @()
             foreach ($ip in $IPAllowlist) {
-                # powershell enforces here to use the model
-                $newIP = [Cohesity.Model.Subnet]::new()
-                $newIP.ip = $ip
-                $newIP.netmaskIp4 = $NetmaskIP4
-                $newIP.nfsRootSquash = $NFSRootSquash.IsPresent
-                $newIP.nfsAccess = $NFSAccess
-                $newIP.smbAccess = $SMBAccess
-                $newIP.nfsAllSquash = $NFSAllSquash.IsPresent
-
+                $newIP = @{ 
+                    ip            = $ip
+                    netmaskIp4    = $NetmaskIP4
+                    nfsRootSquash = $NFSRootSquash.IsPresent
+                    nfsAccess     = $NFSAccess
+                    smbAccess     = $SMBAccess
+                    nfsAllSquash  = $NFSAllSquash.IsPresent
+                }
                 $allowList += $newIP
             }
             $foundShareObject.SubnetWhitelist += $allowList
