@@ -1,3 +1,4 @@
+$ProgressPreference = "SilentlyContinue"
 $currentPath=pwd
 #Update the Cohesity Powershell module by reinstalling the module
 UnInstall-Module -Name Cohesity.PowerShell -AllVersions  -Verbose

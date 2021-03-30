@@ -71,7 +71,7 @@ function Add-CohesityViewShareAllowlist {
             }
             $allowList = @()
             foreach ($ip in $IPAllowlist) {
-                $newIP = @{ 
+                $newIP = @{
                     ip            = $ip
                     netmaskIp4    = $NetmaskIP4
                     nfsRootSquash = $NFSRootSquash.IsPresent

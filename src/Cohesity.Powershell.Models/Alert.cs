@@ -133,7 +133,13 @@ namespace Cohesity.Model
             /// Enum KArchivalCopy for value: kArchivalCopy
             /// </summary>
             [EnumMember(Value = "kArchivalCopy")]
-            KArchivalCopy = 18
+            KArchivalCopy = 18,
+
+            /// <summary>
+            /// Enum KUpgrade for value: kUpgrade
+            /// </summary>
+            [EnumMember(Value = "kUpgrade")]
+            KUpgrade = 19
 
         }
 
@@ -211,7 +217,13 @@ namespace Cohesity.Model
             /// Enum KOther for value: kOther
             /// </summary>
             [EnumMember(Value = "kOther")]
-            KOther = 4
+            KOther = 4,
+
+            /// <summary>
+            /// Enum KMaintenance for value: kMaintenance
+            /// </summary>
+            [EnumMember(Value = "kMaintenance")]
+            KMaintenance = 5
 
         }
 
