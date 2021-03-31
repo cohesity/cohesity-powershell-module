@@ -12,7 +12,7 @@ Param(
     [switch]$SkipDeletedJobs
 )
 Begin {
-    $ProgressPreference = ‘SilentlyContinue’
+    $ProgressPreference = 'SilentlyContinue'
     Import-Module -Name ".\HeliosWebRequest.psm1" -Force
     Import-Module -Name ".\FlattenProtectionSourceNode.psm1" -Force
     Update-FormatData -AppendPath ./HeliosView.Format.ps1xml

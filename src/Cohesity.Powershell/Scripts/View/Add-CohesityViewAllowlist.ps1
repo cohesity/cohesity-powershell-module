@@ -15,7 +15,7 @@ function Add-CohesityViewAllowlist {
         Add-CohesityViewAllowlist -IPAllowlist "1.1.1.1", "2.2.2.2" -NetmaskIP4 "255.255.255.0" -NFSRootSquash -NFSAccess "kReadWrite" -NFSAllSquash -SMBAccess "kReadWrite"
         Add allowlist IP(s) an override global allowlist for a given view with optional parameters
     #>
-    [OutputType('System.Collections.ArrayList')]
+    [OutputType('System.Array')]
     [CmdletBinding(SupportsShouldProcess = $True, ConfirmImpact = "High")]
     Param(
         [Parameter(Mandatory = $true)]
@@ -58,7 +58,7 @@ function Add-CohesityViewAllowlist {
             if (-not $property) {
                 $viewObject | Add-Member -NotePropertyName SubnetWhitelist -NotePropertyValue @()
             }
-            $allowList = @()
+            [Cohesity.Model.Subnet[]]$allowList = @()
             foreach ($ip in $IPAllowlist) {
                 # powershell enforces here to use the model
                 $newIP = [Cohesity.Model.Subnet]::new()

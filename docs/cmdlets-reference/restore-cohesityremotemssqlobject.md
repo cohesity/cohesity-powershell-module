@@ -7,8 +7,8 @@ From remote cluster restores the specified MS SQL object from a previous backup.
 
 ### Default (Default)
 ```
-Restore-CohesityRemoteMSSQLObject [-TaskName <String>] -SourceId <Int64> -SourceInstanceId <Int64>
- -JobId <Int64> [-CaptureTailLogs] [-NewDatabaseName <String>] [-NewInstanceName <String>]
+Restore-CohesityRemoteMSSQLObject [-TaskName <String>] -SourceId <Int64> -HostSourceId <Int64> -JobId <Int64>
+ [-CaptureTailLogs] [-NewDatabaseName <String>] [-NewInstanceName <String>] [-RestoreTimeSecs <Int64>]
  [-TargetDataFilesDirectory <String>] [-TargetLogFilesDirectory <String>]
  [-TargetSecondaryDataFilesDirectoryList <FilenamePatternToDirectory[]>] [-TargetHostId <Int64>] [-WhatIf]
  [-Confirm] [<CommonParameters>]
@@ -16,11 +16,11 @@ Restore-CohesityRemoteMSSQLObject [-TaskName <String>] -SourceId <Int64> -Source
 
 ### Jobrun
 ```
-Restore-CohesityRemoteMSSQLObject [-TaskName <String>] -SourceId <Int64> -SourceInstanceId <Int64>
- -JobId <Int64> [-JobRunId <Int64>] [-StartTime <Int64>] [-CaptureTailLogs] [-NewDatabaseName <String>]
- [-NewInstanceName <String>] [-TargetDataFilesDirectory <String>] [-TargetLogFilesDirectory <String>]
- [-TargetSecondaryDataFilesDirectoryList <FilenamePatternToDirectory[]>] [-TargetHostId <Int64>] [-WhatIf]
- [-Confirm] [<CommonParameters>]
+Restore-CohesityRemoteMSSQLObject [-TaskName <String>] -SourceId <Int64> -HostSourceId <Int64> -JobId <Int64>
+ [-JobRunId <Int64>] [-StartTime <Int64>] [-CaptureTailLogs] [-NewDatabaseName <String>]
+ [-NewInstanceName <String>] [-RestoreTimeSecs <Int64>] [-TargetDataFilesDirectory <String>]
+ [-TargetLogFilesDirectory <String>] [-TargetSecondaryDataFilesDirectoryList <FilenamePatternToDirectory[]>]
+ [-TargetHostId <Int64>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -30,7 +30,7 @@ From remote cluster restores the specified MS SQL object from a previous backup.
 
 ### EXAMPLE 1
 ```
-Restore-CohesityRemoteMSSQLObject -SourceId 1279 -SourceInstanceId 1277 -JobId 31520 -TargetHostId 770 -CaptureTailLogs:$false -NewDatabaseName CohesityDB_r1 -NewInstanceName MSSQLSERVER -TargetDataFilesDirectory "C:\temp" -TargetLogFilesDirectory "C:\temp"
+Restore-CohesityRemoteMSSQLObject -SourceId 1279 -HostSourceId 1277 -JobId 31520 -TargetHostId 770 -CaptureTailLogs:$false -NewDatabaseName CohesityDB_r1 -NewInstanceName MSSQLSERVER -TargetDataFilesDirectory "C:\temp" -TargetLogFilesDirectory "C:\temp"
 ```
 
 Restore MSSQL database from remote cluster with database id 1279 , database instance id 1277 and job id as 31520
@@ -71,7 +71,7 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -SourceInstanceId
+### -HostSourceId
 Specifies the id of MSSQL database instance.
 
 ```yaml
@@ -177,6 +177,23 @@ Aliases:
 Required: False
 Position: Named
 Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -RestoreTimeSecs
+Specifies the time in the past to which the SQL database needs to be restored.
+This allows for granular recovery of SQL databases.
+If not specified, the SQL database will be restored from the full/incremental snapshot.
+
+```yaml
+Type: Int64
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: 0
 Accept pipeline input: False
 Accept wildcard characters: False
 ```

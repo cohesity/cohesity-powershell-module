@@ -60,13 +60,13 @@ Accept wildcard characters: False
 Specifies the supported protocols for this View.
 If not specified, default is kAll which means all protocols are supported.
 
-Possible values: KAll, KNFSOnly, KSMBOnly, KS3Only, KSwiftOnly
+Possible values: KAll, KNFSOnly, KSMBOnly, KS3Only, KSwiftOnly, KUnknown
 
 ```yaml
 Type: ProtocolAccessEnum
 Parameter Sets: (All)
 Aliases:
-Accepted values: KAll, KNFSOnly, KSMBOnly, KS3Only, KSwiftOnly
+Accepted values: KAll, KNFSOnly, KSMBOnly, KS3Only, KSwiftOnly, KUnknown
 
 Required: False
 Position: Named

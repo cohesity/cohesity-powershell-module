@@ -1,28 +1,39 @@
-# Remove-CohesityExternalClient
+# Set-CohesityUser
 
 ## SYNOPSIS
-Remove an external client from global allowlist.
+Returns the user that was updated on the Cohesity Cluster.
 
 ## SYNTAX
 
 ```
-Remove-CohesityExternalClient [-IP4] <Object> [-WhatIf] [-Confirm] [<CommonParameters>]
+Set-CohesityUser [-UserObject] <Object> [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-The Remove-CohesityExternalClient function is used to remove external client (global allowlist) IP.
+Update an existing user on the Cohesity Cluster.
+Only user settings on the Cohesity Cluster are updated.
+No changes are made to the referenced user principal on the Active Directory.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Remove-CohesityExternalClient -IP4 "1.1.1.1"
+Set-CohesityUser -UserObject $userObject
 ```
+
+Get the user object by querying, $userObject = Get-CohesityUser -Names user1 | where-object { $_.Username -eq user1 }
+
+### EXAMPLE 2
+```
+$userObject | Set-CohesityUser -UserObject $userObject
+```
+
+Piping the user object, get the user object by querying, $userObject = Get-CohesityUser -Names user1 | where-object { $_.Username -eq user1 }
 
 ## PARAMETERS
 
-### -IP4
-Specifies an IPv4 address.
+### -UserObject
+Specifies the name of the User to be updated.
 
 ```yaml
 Type: Object
@@ -32,7 +43,7 @@ Aliases:
 Required: True
 Position: 1
 Default value: None
-Accept pipeline input: False
+Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
@@ -74,7 +85,6 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### System.Collections.ArrayList
 ## NOTES
 Published by Cohesity
 

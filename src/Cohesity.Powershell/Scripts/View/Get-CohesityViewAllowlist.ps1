@@ -13,7 +13,7 @@ function Get-CohesityViewAllowlist {
         Get the allowlist for view1.
     #>
 
-    [OutputType('System.Collections.ArrayList')]
+    [OutputType('System.Array')]
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory = $true)]

@@ -55,42 +55,67 @@ function Add-CohesityViewForPrincipal {
     }
 
     End {
-        $principalDetail = Get-CohesityProtectionSourceForPrincipal -PrincipalType $PrincipalType -PrincipalName $PrincipalName
-        if (-not $principalDetail.Sid) {
-            Write-Output "Not found '$PrincipalName' of principal type '$PrincipalType', please use 'Get-CohesityUser' or 'Get-CohesityUserGroup' to identify the desired one."
-            return
-        }
-        $updatedProtectionSourceObjectIds = @()
-        if ($principalDetail.ProtectionSources) {
-            $updatedProtectionSourceObjectIds += @($principalDetail.ProtectionSources.Id)
-        }
 
-        $updatedViewNames = @()
-        if ($ViewNames) {
-            $viewObjects = Get-CohesityView
-            foreach ($viewName in $ViewNames) {
-                if ($viewObjects.Name -notcontains $viewName) {
-                    Write-Output "View name '$viewName' not found"
-                    return
+        if ($PSCmdlet.ShouldProcess($PrincipalName)) {
+            switch ($PrincipalType) {
+                "USER" {
+                    $userDetail = Get-CohesityUser -Names $PrincipalName | where-object { $_.Username -eq $PrincipalName }
+                    if (-not $userDetail) {
+                        Write-Output "User '$PrincipalName' not found."
+                        return
+                    }
+                    if ($userDetail.restricted -eq $false) {
+                        $userDetail.restricted = $true
+                        Set-CohesityUser -UserObject $userDetail -Confirm:$false | Out-Null
+                    }
+                }
+                "GROUP" {
+                    $userGroupDetail = Get-CohesityUserGroup -Name $PrincipalName | where-object { $_.name -eq $PrincipalName }
+                    if (-not $userGroupDetail) {
+                        Write-Output "User group '$PrincipalName' not found."
+                        return
+                    }
+                    if ($userGroupDetail.restricted -eq $false) {
+                        $userGroupDetail.restricted = $true
+                        Update-CohesityUserGroup -UserGroupObject $userGroupDetail -Confirm:$false | Out-Null
+                    }
                 }
             }
-            $updatedViewNames += $ViewNames
-            if ($principalDetail.Views) {
-                $updatedViewNames += @($principalDetail.Views.Name)
-            }
-        }
-        else {
-            # we got the names in piped object
-            if ($pipedViewNames.Count -eq 0) {
-                Write-Output "No views found through piped object."
+            $principalDetail = Get-CohesityProtectionSourceForPrincipal -PrincipalType $PrincipalType -PrincipalName $PrincipalName
+            if (-not $principalDetail.Sid) {
+                Write-Output "Not found '$PrincipalName' of principal type '$PrincipalType', please use 'Get-CohesityUser' or 'Get-CohesityUserGroup' to identify the desired one."
                 return
             }
-            if ($principalDetail.Views) {
-                $updatedViewNames += @($principalDetail.Views.Name)
+            $updatedProtectionSourceObjectIds = @()
+            if ($principalDetail.ProtectionSources) {
+                $updatedProtectionSourceObjectIds += @($principalDetail.ProtectionSources.Id)
             }
-            $updatedViewNames += $pipedViewNames
-        }
-        if ($PSCmdlet.ShouldProcess($PrincipalName)) {
+
+            $updatedViewNames = @()
+            if ($ViewNames) {
+                $viewObjects = Get-CohesityView
+                foreach ($viewName in $ViewNames) {
+                    if ($viewObjects.Name -notcontains $viewName) {
+                        Write-Output "View name '$viewName' not found"
+                        return
+                    }
+                }
+                $updatedViewNames += $ViewNames
+                if ($principalDetail.Views) {
+                    $updatedViewNames += @($principalDetail.Views.Name)
+                }
+            }
+            else {
+                # we got the names in piped object
+                if ($pipedViewNames.Count -eq 0) {
+                    Write-Output "No views found through piped object."
+                    return
+                }
+                if ($principalDetail.Views) {
+                    $updatedViewNames += @($principalDetail.Views.Name)
+                }
+                $updatedViewNames += $pipedViewNames
+            }
             $cohesityClusterURL = $cohesityCluster + '/irisservices/api/v1/public/principals/protectionSources'
             $cohesityHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
 

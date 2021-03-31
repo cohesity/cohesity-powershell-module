@@ -40,7 +40,8 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
     ///   Restores the MS SQL DB with the given source id on a target server.
     ///   </para>
     /// </example>
-    [Cmdlet(VerbsData.Restore, "CohesityMSSQLObject")]
+    [Cmdlet(VerbsData.Restore, "CohesityMSSQLObject",
+        SupportsShouldProcess = true, ConfirmImpact = ConfirmImpact.High)]
     public class RestoreCohesityMSSQLObject : PSCmdlet
     {
         private Session Session
@@ -241,101 +242,104 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
         /// </summary>
         protected override void ProcessRecord()
         {
-            var applicationRestoreObject = new Model.ApplicationRestoreObject(applicationServerId: SourceId)
+            if (ShouldProcess($"Source Id : {SourceId}"))
             {
-                SqlRestoreParameters = new Model.SqlRestoreParameters
+                var applicationRestoreObject = new Model.ApplicationRestoreObject(applicationServerId: SourceId)
                 {
-                    CaptureTailLogs = CaptureTailLogs.IsPresent,
-                    KeepOffline = KeepOffline.IsPresent
-                }
-            };
- 
-            if (!string.IsNullOrWhiteSpace(NewDatabaseName))
-            {
-                applicationRestoreObject.SqlRestoreParameters.NewDatabaseName = NewDatabaseName;
-            }
+                    SqlRestoreParameters = new Model.SqlRestoreParameters
+                    {
+                        CaptureTailLogs = CaptureTailLogs.IsPresent,
+                        KeepOffline = KeepOffline.IsPresent
+                    }
+                };
 
-            if (!string.IsNullOrWhiteSpace(NewInstanceName))
-            {
-                applicationRestoreObject.SqlRestoreParameters.NewInstanceName = NewInstanceName;
-            }
-
-            if (!string.IsNullOrWhiteSpace(TargetDataFilesDirectory))
-            {
-                applicationRestoreObject.SqlRestoreParameters.TargetDataFilesDirectory = TargetDataFilesDirectory;
-            }
-
-            if (!string.IsNullOrWhiteSpace(TargetLogFilesDirectory))
-            {
-                applicationRestoreObject.SqlRestoreParameters.TargetLogFilesDirectory = TargetLogFilesDirectory;
-            }
-
-            if(null != TargetSecondaryDataFilesDirectoryList)
-            {
-                applicationRestoreObject.SqlRestoreParameters.TargetSecondaryDataFilesDirectoryList = TargetSecondaryDataFilesDirectoryList;
-            }
-
-            if (TargetHostId != null)
-            {
-                applicationRestoreObject.TargetHostId = TargetHostId;
-            }
-
-            if (TargetHostParentId != null)
-            {
-                applicationRestoreObject.TargetRootNodeId = TargetHostParentId;
-            }
-
-            var applicationRestoreObjects = new List<Model.ApplicationRestoreObject>();
-            applicationRestoreObjects.Add(applicationRestoreObject);
-
-            var job = RestApiCommon.GetProtectionJobById(Session.ApiClient, JobId);
-            var hostingProtectionSource = new Model.RestoreObjectDetails
-            {
-                JobId = JobId,
-                ProtectionSourceId = HostSourceId,
-                JobUid = new Model.UniversalId
+                if (!string.IsNullOrWhiteSpace(NewDatabaseName))
                 {
-                    Id = job.Id,
-                    ClusterId = job.Uid.ClusterId,
-                    ClusterIncarnationId = job.Uid.ClusterIncarnationId
-                }
-            };
-
-            if (JobRunId.HasValue)
-                hostingProtectionSource.JobRunId = JobRunId;
-
-            if (StartTime.HasValue)
-                hostingProtectionSource.StartedTimeUsecs = StartTime;
-
-            var restoreRequest = new Model.ApplicationsRestoreTaskRequest(name: TaskName,
-                applicationEnvironment: Model.ApplicationsRestoreTaskRequest.ApplicationEnvironmentEnum.KSQL,
-                applicationRestoreObjects: applicationRestoreObjects,
-                hostingProtectionSource: hostingProtectionSource)
-            {
-            };
-
-            if (TargetHostCredential != null)
-            {
-                restoreRequest.Username = TargetHostCredential.UserName;
-                restoreRequest.Password = TargetHostCredential.GetNetworkCredential().Password;
-            }
-
-            if (null != this.RestoreTimeSecs)
-            {
-                if (false == IsValidPointInTime(this.RestoreTimeSecs, this.StartTime, this.SourceId, job))
-                {
-                    WriteObject("Invalid point in time " + this.RestoreTimeSecs);
-                    return;
+                    applicationRestoreObject.SqlRestoreParameters.NewDatabaseName = NewDatabaseName;
                 }
 
-                applicationRestoreObject.SqlRestoreParameters.RestoreTimeSecs = this.RestoreTimeSecs;
+                if (!string.IsNullOrWhiteSpace(NewInstanceName))
+                {
+                    applicationRestoreObject.SqlRestoreParameters.NewInstanceName = NewInstanceName;
+                }
+
+                if (!string.IsNullOrWhiteSpace(TargetDataFilesDirectory))
+                {
+                    applicationRestoreObject.SqlRestoreParameters.TargetDataFilesDirectory = TargetDataFilesDirectory;
+                }
+
+                if (!string.IsNullOrWhiteSpace(TargetLogFilesDirectory))
+                {
+                    applicationRestoreObject.SqlRestoreParameters.TargetLogFilesDirectory = TargetLogFilesDirectory;
+                }
+
+                if (null != TargetSecondaryDataFilesDirectoryList)
+                {
+                    applicationRestoreObject.SqlRestoreParameters.TargetSecondaryDataFilesDirectoryList = TargetSecondaryDataFilesDirectoryList;
+                }
+
+                if (TargetHostId != null)
+                {
+                    applicationRestoreObject.TargetHostId = TargetHostId;
+                }
+
+                if (TargetHostParentId != null)
+                {
+                    applicationRestoreObject.TargetRootNodeId = TargetHostParentId;
+                }
+
+                var applicationRestoreObjects = new List<Model.ApplicationRestoreObject>();
+                applicationRestoreObjects.Add(applicationRestoreObject);
+
+                var job = RestApiCommon.GetProtectionJobById(Session.ApiClient, JobId);
+                var hostingProtectionSource = new Model.RestoreObjectDetails
+                {
+                    JobId = JobId,
+                    ProtectionSourceId = HostSourceId,
+                    JobUid = new Model.UniversalId
+                    {
+                        Id = job.Id,
+                        ClusterId = job.Uid.ClusterId,
+                        ClusterIncarnationId = job.Uid.ClusterIncarnationId
+                    }
+                };
+
+                if (JobRunId.HasValue)
+                    hostingProtectionSource.JobRunId = JobRunId;
+
+                if (StartTime.HasValue)
+                    hostingProtectionSource.StartedTimeUsecs = StartTime;
+
+                var restoreRequest = new Model.ApplicationsRestoreTaskRequest(name: TaskName,
+                    applicationEnvironment: Model.ApplicationsRestoreTaskRequest.ApplicationEnvironmentEnum.KSQL,
+                    applicationRestoreObjects: applicationRestoreObjects,
+                    hostingProtectionSource: hostingProtectionSource)
+                {
+                };
+
+                if (TargetHostCredential != null)
+                {
+                    restoreRequest.Username = TargetHostCredential.UserName;
+                    restoreRequest.Password = TargetHostCredential.GetNetworkCredential().Password;
+                }
+
+                if (null != this.RestoreTimeSecs)
+                {
+                    if (false == IsValidPointInTime(this.RestoreTimeSecs, this.StartTime, this.SourceId, job))
+                    {
+                        WriteObject("Invalid point in time " + this.RestoreTimeSecs);
+                        return;
+                    }
+
+                    applicationRestoreObject.SqlRestoreParameters.RestoreTimeSecs = this.RestoreTimeSecs;
+                }
+
+
+                // POST /public/restore/applicationsRecover
+                var preparedUrl = $"/public/restore/applicationsRecover";
+                var result = Session.ApiClient.Post<Model.RestoreTask>(preparedUrl, restoreRequest);
+                WriteObject(result);
             }
-
-
-            // POST /public/restore/applicationsRecover
-            var preparedUrl = $"/public/restore/applicationsRecover";
-            var result = Session.ApiClient.Post<Model.RestoreTask>(preparedUrl, restoreRequest);
-            WriteObject(result);
         }
 
         private bool IsValidPointInTime(long? restoreTimeSecs, long? startTime, long sourceId, Model.ProtectionJob job)

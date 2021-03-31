@@ -1,28 +1,44 @@
-# Remove-CohesityExternalClient
+# Remove-CohesityViewAllowlist
 
 ## SYNOPSIS
-Remove an external client from global allowlist.
+Remove allowlist IPs from given view.
 
 ## SYNTAX
 
 ```
-Remove-CohesityExternalClient [-IP4] <Object> [-WhatIf] [-Confirm] [<CommonParameters>]
+Remove-CohesityViewAllowlist [-ViewName] <String> [-IPAllowlist] <Object> [-WhatIf] [-Confirm]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-The Remove-CohesityExternalClient function is used to remove external client (global allowlist) IP.
+Remove allowlist IPs from given view.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Remove-CohesityExternalClient -IP4 "1.1.1.1"
+Remove-CohesityViewAllowlist -ViewName view1 -IPAllowlist "1.1.1.1", "2.2.2.2"
 ```
 
 ## PARAMETERS
 
-### -IP4
-Specifies an IPv4 address.
+### -ViewName
+Specifies view name.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: 1
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -IPAllowlist
+Specifies an IPv4 addresses or FQDNs.
 
 ```yaml
 Type: Object
@@ -30,7 +46,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: 1
+Position: 2
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -74,7 +90,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### System.Collections.ArrayList
+### System.Array
 ## NOTES
 Published by Cohesity
 

@@ -1,42 +1,42 @@
-# Add-CohesityExternalClient
+# Add-CohesityViewShareAllowlist
 
 ## SYNOPSIS
-Add an external client IP.
+Add allowlist IP(s) for a given share.
 
 ## SYNTAX
 
 ```
-Add-CohesityExternalClient [-IP4] <Object> [-NetmaskIP4] <Object> [[-NFSRootSquash] <Boolean>]
- [[-NFSAccess] <Object>] [[-NFSAllSquash] <Boolean>] [[-SMBAccess] <Object>] [-WhatIf] [-Confirm]
+Add-CohesityViewShareAllowlist [-ShareName] <String> [-IPAllowlist] <String[]> [-NetmaskIP4] <String>
+ [-NFSRootSquash] [[-NFSAccess] <String>] [-NFSAllSquash] [[-SMBAccess] <String>] [-WhatIf] [-Confirm]
  [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-The Add-CohesityExternalClient function is used to add external client (global allowlist) IP.
+Add allowlist IP(s) for a given share.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Add-CohesityExternalClient -IP4 "1.1.1.1" -NetmaskIP4 "255.255.255.0"
+Add-CohesityViewShareAllowlist -ShareName view1Share1 -IPAllowlist "1.1.1.1", "2.2.2.2" -NetmaskIP4 "255.255.255.0"
 ```
 
-Add an external client as the global allowlist IP(s)
+Add allowlist IP(s) an override global allowlist for a given share.
 
 ### EXAMPLE 2
 ```
-Add-CohesityExternalClient -IP4 "1.1.1.1" -NetmaskIP4 "255.255.255.0" -NFSRootSquash:$false -NFSAccess "kReadWrite" -NFSAllSquash:$false -SMBAccess "kReadWrite"
+Add-CohesityViewShareAllowlist -ShareName view1Share1 -IPAllowlist "1.1.1.1", "2.2.2.2" -NetmaskIP4 "255.255.255.0" -NFSRootSquash -NFSAccess "kReadWrite" -NFSAllSquash -SMBAccess "kReadWrite"
 ```
 
-Add an external client as the global allowlist IP(s) with optional parameters
+Add allowlist IP(s) an override global allowlist for a given share with optional parameters
 
 ## PARAMETERS
 
-### -IP4
-Specifies an IPv4 address.
+### -ShareName
+Specifies share name.
 
 ```yaml
-Type: Object
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -47,12 +47,11 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -NetmaskIP4
-Specifies the netmask using an IP4 address.
-The netmask can only be set using netmaskIp4 if the IP address is an IPv4 address.
+### -IPAllowlist
+Specifies IPv4 addresses or FQDNs.
 
 ```yaml
-Type: Object
+Type: String[]
 Parameter Sets: (All)
 Aliases:
 
@@ -63,16 +62,32 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -NetmaskIP4
+Specifies the netmask using an IP4 address.
+The netmask can only be set using netmaskIp4 if the IP address is an IPv4 address.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: 3
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -NFSRootSquash
 Specifies whether clients from this subnet can mount as root on NFS.
 
 ```yaml
-Type: Boolean
+Type: SwitchParameter
 Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 3
+Position: Named
 Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -82,7 +97,7 @@ Accept wildcard characters: False
 Specifies whether clients from this subnet can mount using NFS protocol.
 
 ```yaml
-Type: Object
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -97,12 +112,12 @@ Accept wildcard characters: False
 Specifies whether all clients from this subnet can map view with view_all_squash_uid/view_all_squash_gid configured in the view.
 
 ```yaml
-Type: Boolean
+Type: SwitchParameter
 Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 5
+Position: Named
 Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -112,12 +127,12 @@ Accept wildcard characters: False
 Specifies whether clients from this subnet can mount using SMB protocol.
 
 ```yaml
-Type: Object
+Type: String
 Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 6
+Position: 5
 Default value: KReadWrite
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -161,7 +176,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### System.Collections.ArrayList
+### System.Object
 ## NOTES
 Published by Cohesity
 

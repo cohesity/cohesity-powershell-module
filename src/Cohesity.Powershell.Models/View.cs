@@ -55,7 +55,13 @@ namespace Cohesity.Model
             /// Enum KSwiftOnly for value: kSwiftOnly
             /// </summary>
             [EnumMember(Value = "kSwiftOnly")]
-            KSwiftOnly = 5
+            KSwiftOnly = 5,
+
+            /// <summary>
+            /// Enum KUnknown for value: kUnknown
+            /// </summary>
+            [EnumMember(Value = "kUnknown")]
+            KUnknown = 6
 
         }
 

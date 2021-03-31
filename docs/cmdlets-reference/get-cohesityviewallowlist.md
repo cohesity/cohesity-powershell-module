@@ -1,27 +1,42 @@
-# Get-CohesityExternalClient
+# Get-CohesityViewAllowlist
 
 ## SYNOPSIS
-Get external client IP(s).
+Get allowlist IP(s) for a given view.
 
 ## SYNTAX
 
 ```
-Get-CohesityExternalClient [<CommonParameters>]
+Get-CohesityViewAllowlist [-ViewName] <String> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-The Get-CohesityExternalClient function is used to get external client IP(s) which is also known as global allowlist IP(s).
+Get allowlist IP(s) for a given view.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Get-CohesityExternalClient
+Get-CohesityViewAllowlist -ViewName view1
 ```
 
-Get external client (global allowlist) IP(s).
+Get the allowlist for view1.
 
 ## PARAMETERS
+
+### -ViewName
+Specifies view name.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: 1
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
 ### CommonParameters
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
@@ -30,7 +45,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### System.Collections.ArrayList
+### System.Array
 ## NOTES
 Published by Cohesity
 
