@@ -111,7 +111,7 @@ function Restore-CohesityRemoteMSSQLObject {
                     Write-Output "Could not search MSSQL objects with the job id $JobId"
                     return
                 }
-                $searchedVMDetails = $searchResult.vms | Where-Object { ($_.vmDocument.objectId.jobId -eq $JobId) -and ($_.vmDocument.objectId.entity.id -eq $SourceId)}
+                $searchedVMDetails = $searchResult.vms | Where-Object { ($_.vmDocument.objectId.jobId -eq $JobId) -and ($_.vmDocument.objectId.entity.id -eq $SourceId) }
                 if ($null -eq $searchedVMDetails) {
                     Write-Output "Could not find details for MSSQL source id = $SourceId , and Job id = $JobId"
                     return
@@ -119,13 +119,13 @@ function Restore-CohesityRemoteMSSQLObject {
 
                 if (-not $JobRunId) {
                     $runs = Get-CohesityProtectionJobRun -JobId $JobId -ExcludeErrorRuns:$true
-                    $run  = $runs[0]
+                    $run = $runs[0]
                     $JobRunId = $run.backupRun.jobRunId
                     $StartTime = $run.backupRun.stats.startTimeUsecs
                 }
-				if (-not $NewDatabaseName) {
-					$NewDatabaseName = $searchedVMDetails.vmDocument.objectId.entity.sqlEntity.databaseName
-				}
+                if (-not $NewDatabaseName) {
+                    $NewDatabaseName = $searchedVMDetails.vmDocument.objectId.entity.sqlEntity.databaseName
+                }
                 $jobUid = [PSCustomObject]$searchedVMDetails.vmDocument.objectId.jobUid
 
                 if ($RestoreTimeSecs -gt 0) {
@@ -138,16 +138,16 @@ function Restore-CohesityRemoteMSSQLObject {
                     $startDate = $startDate.AddDays(-1);
                     [long] $startTimeInUsec = Convert-CohesityDateTimeToUsecs -DateTime $startDate
                     $pitJobId = @{
-                        clusterId = $jobUid.clusterId
+                        clusterId            = $jobUid.clusterId
                         clusterIncarnationId = $jobUid.clusterIncarnationId
-                        id = $jobUid.objectId
+                        id                   = $jobUid.objectId
                     }
                     $pointsInTimeRange = @{
-                        endTimeUsecs = Convert-CohesityDateTimeToUsecs -DateTime ([System.DateTime]::now)
-                        environment = [Cohesity.Model.RestorePointsForTimeRangeParam+EnvironmentEnum]::KSQL
-                        jobUids = @($pitJobId)
+                        endTimeUsecs       = Convert-CohesityDateTimeToUsecs -DateTime ([System.DateTime]::now)
+                        environment        = [Cohesity.Model.RestorePointsForTimeRangeParam+EnvironmentEnum]::KSQL
+                        jobUids            = @($pitJobId)
                         protectionSourceId = $SourceId
-                        startTimeUsecs = $startTimeInUsec
+                        startTimeUsecs     = $startTimeInUsec
                     }
                     $pointsForTimeRangeUrl = $cohesityCluster + "/irisservices/api/v1/public/restore/pointsForTimeRange"
                     $pitHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
@@ -155,19 +155,16 @@ function Restore-CohesityRemoteMSSQLObject {
 
                     $timeRangeResult = Invoke-RestApi -Method Post -Uri $pointsForTimeRangeUrl -Headers $pitHeaders -Body $payloadJson
                     [bool]$foundPointInTime = $false;
-                    if ($timeRangeResult.TimeRanges)
-                    {
-                        foreach ($item in $timeRangeResult.TimeRanges)
-                        {
+                    if ($timeRangeResult.TimeRanges) {
+                        foreach ($item in $timeRangeResult.TimeRanges) {
                             $restoreTimeUsecs = $RestoreTimeSecs * 1000 * 1000;
-                            if (($item.StartTimeUsecs -lt $restoreTimeUsecs) -and ($restoreTimeUsecs -lt $item.EndTimeUsecs))
-                            {
+                            if (($item.StartTimeUsecs -lt $restoreTimeUsecs) -and ($restoreTimeUsecs -lt $item.EndTimeUsecs)) {
                                 $foundPointInTime = $true;
                                 break;
                             }
                         }
                     }
-                    if($false -eq $foundPointInTime) {
+                    if ($false -eq $foundPointInTime) {
                         Write-Output "Invalid point in time value '$RestoreTimeSecs'."
                         return
                     }
