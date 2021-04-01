@@ -123,6 +123,9 @@ function Restore-CohesityRemoteMSSQLObject {
                     $JobRunId = $run.backupRun.jobRunId
                     $StartTime = $run.backupRun.stats.startTimeUsecs
                 }
+				if (-not $NewDatabaseName) {
+					$NewDatabaseName = $searchedVMDetails.vmDocument.objectId.entity.sqlEntity.databaseName
+				}
                 $jobUid = [PSCustomObject]$searchedVMDetails.vmDocument.objectId.jobUid
 
                 if ($RestoreTimeSecs -gt 0) {
@@ -259,8 +262,7 @@ function Restore-CohesityRemoteMSSQLObject {
                 if ($Global:CohesityAPIStatus.StatusCode -eq 200) {
                     $taskId = $resp.restoreTask.performRestoreTaskState.base.taskId
                     if ($taskId) {
-                        $url = $cohesityCluster + '/irisservices/api/v1/public/restore/tasks/' + $taskId
-                        $resp = Invoke-RestApi -Method 'Get' -Uri $url -Headers $headers
+                        $resp = Get-CohesityRestoreTask -Ids $taskId
                         $resp
                     }
                     else {
