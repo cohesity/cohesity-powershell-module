@@ -144,7 +144,7 @@ function Restore-CohesityRemoteMSSQLObject {
                     }
                     $pointsInTimeRange = @{
                         endTimeUsecs       = Convert-CohesityDateTimeToUsecs -DateTime ([System.DateTime]::now)
-                        environment        = [Cohesity.Model.RestorePointsForTimeRangeParam+EnvironmentEnum]::KSQL
+                        environment        = "kSQL"
                         jobUids            = @($pitJobId)
                         protectionSourceId = $SourceId
                         startTimeUsecs     = $startTimeInUsec
@@ -154,16 +154,23 @@ function Restore-CohesityRemoteMSSQLObject {
                     $payloadJson = $pointsInTimeRange | ConvertTo-Json -Depth 100
 
                     $timeRangeResult = Invoke-RestApi -Method Post -Uri $pointsForTimeRangeUrl -Headers $pitHeaders -Body $payloadJson
-                    [bool]$foundPointInTime = $false;
-                    if ($timeRangeResult.TimeRanges) {
-                        foreach ($item in $timeRangeResult.TimeRanges) {
-                            $restoreTimeUsecs = $RestoreTimeSecs * 1000 * 1000;
-                            if (($item.StartTimeUsecs -lt $restoreTimeUsecs) -and ($restoreTimeUsecs -lt $item.EndTimeUsecs)) {
-                                $foundPointInTime = $true;
-                                break;
-                            }
-                        }
-                    }
+					if ($Global:CohesityAPIStatus.StatusCode -eq 201) {
+						[bool]$foundPointInTime = $false;
+						if ($timeRangeResult.TimeRanges) {
+							foreach ($item in $timeRangeResult.TimeRanges) {
+								$restoreTimeUsecs = $RestoreTimeSecs * 1000 * 1000;
+								if (($item.StartTimeUsecs -lt $restoreTimeUsecs) -and ($restoreTimeUsecs -lt $item.EndTimeUsecs)) {
+									$foundPointInTime = $true;
+									break;
+								}
+							}
+						}
+					}
+					else {
+					    $errorMsg = $Global:CohesityAPIStatus.ErrorMessage + ", Point in time : Failed to query."
+						Write-Output $errorMsg
+						CSLog -Message $errorMsg
+					}
                     if ($false -eq $foundPointInTime) {
                         Write-Output "Invalid point in time value '$RestoreTimeSecs'."
                         return
