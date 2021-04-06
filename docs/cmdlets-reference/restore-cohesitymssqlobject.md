@@ -7,9 +7,9 @@ Restores the specified MS SQL object from a previous backup.
 
 ```
 Restore-CohesityMSSQLObject -TaskName <String> -SourceId <Int64> -HostSourceId <Int64> -JobId <Int64>
- [-JobRunId <Int64>] [-StartTime <Int64>] [-CaptureTailLogs] [-KeepOffline] [-NewDatabaseName <String>]
- [-NewInstanceName <String>] [-RestoreTimeSecs <Int64>] [-TargetDataFilesDirectory <String>]
- [-TargetLogFilesDirectory <String>]
+ [-JobRunId <Int64>] [-StartTime <Int64>] [-CaptureTailLogs] [-KeepOffline] [-KeepCDC]
+ [-NewDatabaseName <String>] [-NewInstanceName <String>] [-RestoreTimeSecs <Int64>]
+ [-TargetDataFilesDirectory <String>] [-TargetLogFilesDirectory <String>]
  [-TargetSecondaryDataFilesDirectoryList <System.Collections.Generic.List`1[Cohesity.Model.FilenamePatternToDirectory]>]
  [-TargetHostId <Int64>] [-TargetHostParentId <Int64>] [-TargetHostCredential <PSCredential>] [-WhatIf]
  [-Confirm] [<CommonParameters>]
@@ -42,6 +42,16 @@ Restore-CohesityMSSQLObject -TaskName "restore-sql" -SourceId 698 -HostSourceId 
 ```
 
 Restores the MS SQL DB with the given source id on a target server.
+
+### EXAMPLE 3
+```
+Restore-CohesityMSSQLObject -TaskName "restore-sql" -SourceId 3101 -HostSourceId 3099 -JobId 51275 `
+-TargetHostId 3098 -CaptureTailLogs:$false -NewDatabaseName ReportServer_r26 `
+-NewInstanceName MSSQLSERVER -TargetDataFilesDirectory "C:\temp" -TargetLogFilesDirectory "C:\temp" `
+-StartTime 1614450600000000 -RestoreTimeSecs 1617097060
+```
+
+Request for restore MSSQL object with RestoreTimeSecs (point in time) parameter and StartTime.
 
 ## PARAMETERS
 
@@ -159,6 +169,22 @@ Accept wildcard characters: False
 ### -KeepOffline
 Specifies if we want to restore the database and do not want to bring it online after restore.
 This is only applicable if restoring the database back to its original location.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -KeepCDC
+This field prevents "change data capture" settings from being reomved.
+When a database or log backup is restored on another server and database is recovered.
 
 ```yaml
 Type: SwitchParameter

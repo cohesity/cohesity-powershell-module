@@ -347,6 +347,11 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
 
                 if (null != this.RestoreTimeSecs)
                 {
+                    if (null == this.StartTime)
+                    {
+                        WriteObject("Please add start time to validate point in time restore.");
+                        return;
+                    }
                     if (false == IsValidPointInTime(this.RestoreTimeSecs, this.StartTime, this.SourceId, job))
                     {
                         WriteObject("Invalid point in time " + this.RestoreTimeSecs);

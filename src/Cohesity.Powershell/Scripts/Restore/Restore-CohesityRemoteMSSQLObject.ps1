@@ -15,8 +15,8 @@ function Restore-CohesityRemoteMSSQLObject {
         Get the source id, $mssqlObjects[0].SnapshottedSource.Id
         Get the source instance id, $mssqlObjects[0].SnapshottedSource.SqlProtectionSource.OwnerId
         .EXAMPLE
-        Restore-CohesityRemoteMSSQLObject -SourceId 3101 -HostSourceId 3099 -JobId 51275 -TargetHostId 3098 -CaptureTailLogs:$false -NewDatabaseName ReportServer_r26 -NewInstanceName MSSQLSERVER -TargetDataFilesDirectory "C:\temp" -TargetLogFilesDirectory "C:\temp" -StartTime 1614450600000000 -RestoreTimeSecs 1617097060
-        Request for restore MSSQL object with RestoreTimeSecs (point in time) parameter and StartTime.
+        Restore-CohesityRemoteMSSQLObject -SourceId 3101 -HostSourceId 3099 -JobId 51275 -TargetHostId 3098 -CaptureTailLogs:$false -NewDatabaseName ReportServer_r26 -NewInstanceName MSSQLSERVER -TargetDataFilesDirectory "C:\temp" -TargetLogFilesDirectory "C:\temp" -StartTime 1616956306627994 -JobRunId 60832 -RestoreTimeSecs 1616958037
+        Request for restore MSSQL object with RestoreTimeSecs (point in time) parameter, StartTime and JobRunId.
     #>
 
     [CmdletBinding(DefaultParameterSetName = "Default", SupportsShouldProcess = $True, ConfirmImpact = "High")]
