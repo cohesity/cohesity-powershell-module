@@ -147,6 +147,15 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
 
         /// <summary>
         /// <para type="description">
+        /// This field prevents "change data capture" settings from being reomved.
+        /// When a database or log backup is restored on another server and database is recovered.
+        /// </para>
+        /// </summary>
+        [Parameter(Mandatory = false)]
+        public SwitchParameter KeepCDC { get; set; }
+
+        /// <summary>
+        /// <para type="description">
         /// Specifies a new name for the restored database.
         /// </para>
         /// </summary>
@@ -261,7 +270,8 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
                     SqlRestoreParameters = new Model.SqlRestoreParameters
                     {
                         CaptureTailLogs = CaptureTailLogs.IsPresent,
-                        KeepOffline = KeepOffline.IsPresent
+                        KeepOffline = KeepOffline.IsPresent,
+                        KeepCdc = KeepCDC.IsPresent
                     }
                 };
 

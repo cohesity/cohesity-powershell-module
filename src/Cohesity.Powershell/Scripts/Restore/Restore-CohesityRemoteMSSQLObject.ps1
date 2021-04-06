@@ -51,6 +51,10 @@ function Restore-CohesityRemoteMSSQLObject {
         # This is only applicable if restoring the SQL database to its hosting Protection Source and the database is not being renamed.
         [switch]$CaptureTailLogs,
         [Parameter(Mandatory = $false)]
+        # This field prevents "change data capture" settings from being reomved.
+        # When a database or log backup is restored on another server and database is recovered.
+        [switch]$KeepCDC,
+        [Parameter(Mandatory = $false)]
         # Specifies a new name for the restored database.
         [string]$NewDatabaseName,
         [Parameter(Mandatory = $false)]
@@ -216,6 +220,7 @@ function Restore-CohesityRemoteMSSQLObject {
 
                 $sqlRestoreParams = [PSCustomObject]@{
                     captureTailLogs                 = $CaptureTailLogs.IsPresent
+					keepCdc							= $KeepCDC.IsPresent
                     dataFileDestination             = $TargetDataFilesDirectory
                     instanceName                    = $NewInstanceName
                     logFileDestination              = $TargetLogFilesDirectory
