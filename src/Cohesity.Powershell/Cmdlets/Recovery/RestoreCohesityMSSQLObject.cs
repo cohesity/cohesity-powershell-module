@@ -40,6 +40,18 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
     ///   Restores the MS SQL DB with the given source id on a target server.
     ///   </para>
     /// </example>
+    /// <example>
+    ///   <para>PS&gt;</para>
+    ///   <code>
+    ///   Restore-CohesityMSSQLObject -TaskName "restore-sql" -SourceId 3101 -HostSourceId 3099 -JobId 51275 `
+    ///   -TargetHostId 3098 -CaptureTailLogs:$false -NewDatabaseName ReportServer_r26 `
+    ///   -NewInstanceName MSSQLSERVER -TargetDataFilesDirectory "C:\temp" -TargetLogFilesDirectory "C:\temp" `
+    ///   -StartTime 1614450600000000 -RestoreTimeSecs 1617097060
+    ///   </code>
+    ///   <para>
+    ///   Request for restore MSSQL object with RestoreTimeSecs (point in time) parameter and StartTime.
+    ///   </para>
+    /// </example>
     [Cmdlet(VerbsData.Restore, "CohesityMSSQLObject",
         SupportsShouldProcess = true, ConfirmImpact = ConfirmImpact.High)]
     public class RestoreCohesityMSSQLObject : PSCmdlet
