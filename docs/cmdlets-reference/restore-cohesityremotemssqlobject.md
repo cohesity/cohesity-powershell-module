@@ -8,8 +8,8 @@ From remote cluster restores the specified MS SQL object from a previous backup.
 ### Default (Default)
 ```
 Restore-CohesityRemoteMSSQLObject [-TaskName <String>] -SourceId <Int64> -HostSourceId <Int64> -JobId <Int64>
- [-CaptureTailLogs] [-NewDatabaseName <String>] [-NewInstanceName <String>] [-RestoreTimeSecs <Int64>]
- [-TargetDataFilesDirectory <String>] [-TargetLogFilesDirectory <String>]
+ [-CaptureTailLogs] [-KeepCDC] [-NewDatabaseName <String>] [-NewInstanceName <String>]
+ [-RestoreTimeSecs <Int64>] [-TargetDataFilesDirectory <String>] [-TargetLogFilesDirectory <String>]
  [-TargetSecondaryDataFilesDirectoryList <FilenamePatternToDirectory[]>] [-TargetHostId <Int64>] [-WhatIf]
  [-Confirm] [<CommonParameters>]
 ```
@@ -17,7 +17,7 @@ Restore-CohesityRemoteMSSQLObject [-TaskName <String>] -SourceId <Int64> -HostSo
 ### Jobrun
 ```
 Restore-CohesityRemoteMSSQLObject [-TaskName <String>] -SourceId <Int64> -HostSourceId <Int64> -JobId <Int64>
- [-JobRunId <Int64>] [-StartTime <Int64>] [-CaptureTailLogs] [-NewDatabaseName <String>]
+ [-JobRunId <Int64>] [-StartTime <Int64>] [-CaptureTailLogs] [-KeepCDC] [-NewDatabaseName <String>]
  [-NewInstanceName <String>] [-RestoreTimeSecs <Int64>] [-TargetDataFilesDirectory <String>]
  [-TargetLogFilesDirectory <String>] [-TargetSecondaryDataFilesDirectoryList <FilenamePatternToDirectory[]>]
  [-TargetHostId <Int64>] [-WhatIf] [-Confirm] [<CommonParameters>]
@@ -37,6 +37,13 @@ Restore MSSQL database from remote cluster with database id 1279 , database inst
 $mssqlObjects = Find-CohesityObjectsForRestore -Environments KSQL
 Get the source id, $mssqlObjects\[0\].SnapshottedSource.Id
 Get the source instance id, $mssqlObjects\[0\].SnapshottedSource.SqlProtectionSource.OwnerId
+
+### EXAMPLE 2
+```
+Restore-CohesityRemoteMSSQLObject -SourceId 3101 -HostSourceId 3099 -JobId 51275 -TargetHostId 3098 -CaptureTailLogs:$false -NewDatabaseName ReportServer_r26 -NewInstanceName MSSQLSERVER -TargetDataFilesDirectory "C:\temp" -TargetLogFilesDirectory "C:\temp" -StartTime 1616956306627994 -JobRunId 60832 -RestoreTimeSecs 1616958037
+```
+
+Request for restore MSSQL object with RestoreTimeSecs (point in time) parameter, StartTime and JobRunId.
 
 ## PARAMETERS
 
@@ -138,6 +145,22 @@ Accept wildcard characters: False
 ### -CaptureTailLogs
 Specifies if the tail logs are to be captured before the restore operation.
 This is only applicable if restoring the SQL database to its hosting Protection Source and the database is not being renamed.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -KeepCDC
+This field prevents "change data capture" settings from being reomved.
+When a database or log backup is restored on another server and database is recovered.
 
 ```yaml
 Type: SwitchParameter

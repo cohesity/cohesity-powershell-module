@@ -14,6 +14,9 @@ function Restore-CohesityRemoteMSSQLObject {
         $mssqlObjects = Find-CohesityObjectsForRestore -Environments KSQL
         Get the source id, $mssqlObjects[0].SnapshottedSource.Id
         Get the source instance id, $mssqlObjects[0].SnapshottedSource.SqlProtectionSource.OwnerId
+        .EXAMPLE
+        Restore-CohesityRemoteMSSQLObject -SourceId 3101 -HostSourceId 3099 -JobId 51275 -TargetHostId 3098 -CaptureTailLogs:$false -NewDatabaseName ReportServer_r26 -NewInstanceName MSSQLSERVER -TargetDataFilesDirectory "C:\temp" -TargetLogFilesDirectory "C:\temp" -StartTime 1616956306627994 -JobRunId 60832 -RestoreTimeSecs 1616958037
+        Request for restore MSSQL object with RestoreTimeSecs (point in time) parameter, StartTime and JobRunId.
     #>
 
     [CmdletBinding(DefaultParameterSetName = "Default", SupportsShouldProcess = $True, ConfirmImpact = "High")]
@@ -47,6 +50,10 @@ function Restore-CohesityRemoteMSSQLObject {
         # Specifies if the tail logs are to be captured before the restore operation.
         # This is only applicable if restoring the SQL database to its hosting Protection Source and the database is not being renamed.
         [switch]$CaptureTailLogs,
+        [Parameter(Mandatory = $false)]
+        # This field prevents "change data capture" settings from being reomved.
+        # When a database or log backup is restored on another server and database is recovered.
+        [switch]$KeepCDC,
         [Parameter(Mandatory = $false)]
         # Specifies a new name for the restored database.
         [string]$NewDatabaseName,
@@ -111,7 +118,7 @@ function Restore-CohesityRemoteMSSQLObject {
                     Write-Output "Could not search MSSQL objects with the job id $JobId"
                     return
                 }
-                $searchedVMDetails = $searchResult.vms | Where-Object { ($_.vmDocument.objectId.jobId -eq $JobId) -and ($_.vmDocument.objectId.entity.id -eq $SourceId)}
+                $searchedVMDetails = $searchResult.vms | Where-Object { ($_.vmDocument.objectId.jobId -eq $JobId) -and ($_.vmDocument.objectId.entity.id -eq $SourceId) }
                 if ($null -eq $searchedVMDetails) {
                     Write-Output "Could not find details for MSSQL source id = $SourceId , and Job id = $JobId"
                     return
@@ -119,9 +126,12 @@ function Restore-CohesityRemoteMSSQLObject {
 
                 if (-not $JobRunId) {
                     $runs = Get-CohesityProtectionJobRun -JobId $JobId -ExcludeErrorRuns:$true
-                    $run  = $runs[0]
+                    $run = $runs[0]
                     $JobRunId = $run.backupRun.jobRunId
                     $StartTime = $run.backupRun.stats.startTimeUsecs
+                }
+                if (-not $NewDatabaseName) {
+                    $NewDatabaseName = $searchedVMDetails.vmDocument.objectId.entity.sqlEntity.databaseName
                 }
                 $jobUid = [PSCustomObject]$searchedVMDetails.vmDocument.objectId.jobUid
 
@@ -135,36 +145,40 @@ function Restore-CohesityRemoteMSSQLObject {
                     $startDate = $startDate.AddDays(-1);
                     [long] $startTimeInUsec = Convert-CohesityDateTimeToUsecs -DateTime $startDate
                     $pitJobId = @{
-                        clusterId = $jobUid.clusterId
+                        clusterId            = $jobUid.clusterId
                         clusterIncarnationId = $jobUid.clusterIncarnationId
-                        id = $jobUid.objectId
+                        id                   = $jobUid.objectId
                     }
                     $pointsInTimeRange = @{
-                        endTimeUsecs = Convert-CohesityDateTimeToUsecs -DateTime ([System.DateTime]::now)
-                        environment = [Cohesity.Model.RestorePointsForTimeRangeParam+EnvironmentEnum]::KSQL
-                        jobUids = @($pitJobId)
+                        endTimeUsecs       = Convert-CohesityDateTimeToUsecs -DateTime ([System.DateTime]::now)
+                        environment        = "kSQL"
+                        jobUids            = @($pitJobId)
                         protectionSourceId = $SourceId
-                        startTimeUsecs = $startTimeInUsec
+                        startTimeUsecs     = $startTimeInUsec
                     }
                     $pointsForTimeRangeUrl = $cohesityCluster + "/irisservices/api/v1/public/restore/pointsForTimeRange"
                     $pitHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
                     $payloadJson = $pointsInTimeRange | ConvertTo-Json -Depth 100
 
                     $timeRangeResult = Invoke-RestApi -Method Post -Uri $pointsForTimeRangeUrl -Headers $pitHeaders -Body $payloadJson
-                    [bool]$foundPointInTime = $false;
-                    if ($timeRangeResult.TimeRanges)
-                    {
-                        foreach ($item in $timeRangeResult.TimeRanges)
-                        {
-                            $restoreTimeUsecs = $RestoreTimeSecs * 1000 * 1000;
-                            if (($item.StartTimeUsecs -lt $restoreTimeUsecs) -and ($restoreTimeUsecs -lt $item.EndTimeUsecs))
-                            {
-                                $foundPointInTime = $true;
-                                break;
-                            }
-                        }
-                    }
-                    if($false -eq $foundPointInTime) {
+					if ($Global:CohesityAPIStatus.StatusCode -eq 201) {
+						[bool]$foundPointInTime = $false;
+						if ($timeRangeResult.TimeRanges) {
+							foreach ($item in $timeRangeResult.TimeRanges) {
+								$restoreTimeUsecs = $RestoreTimeSecs * 1000 * 1000;
+								if (($item.StartTimeUsecs -lt $restoreTimeUsecs) -and ($restoreTimeUsecs -lt $item.EndTimeUsecs)) {
+									$foundPointInTime = $true;
+									break;
+								}
+							}
+						}
+					}
+					else {
+					    $errorMsg = $Global:CohesityAPIStatus.ErrorMessage + ", Point in time : Failed to query."
+						Write-Output $errorMsg
+						CSLog -Message $errorMsg
+					}
+                    if ($false -eq $foundPointInTime) {
                         Write-Output "Invalid point in time value '$RestoreTimeSecs'."
                         return
                     }
@@ -206,6 +220,7 @@ function Restore-CohesityRemoteMSSQLObject {
 
                 $sqlRestoreParams = [PSCustomObject]@{
                     captureTailLogs                 = $CaptureTailLogs.IsPresent
+					keepCdc							= $KeepCDC.IsPresent
                     dataFileDestination             = $TargetDataFilesDirectory
                     instanceName                    = $NewInstanceName
                     logFileDestination              = $TargetLogFilesDirectory
@@ -259,8 +274,7 @@ function Restore-CohesityRemoteMSSQLObject {
                 if ($Global:CohesityAPIStatus.StatusCode -eq 200) {
                     $taskId = $resp.restoreTask.performRestoreTaskState.base.taskId
                     if ($taskId) {
-                        $url = $cohesityCluster + '/irisservices/api/v1/public/restore/tasks/' + $taskId
-                        $resp = Invoke-RestApi -Method 'Get' -Uri $url -Headers $headers
+                        $resp = Get-CohesityRestoreTask -Ids $taskId
                         $resp
                     }
                     else {

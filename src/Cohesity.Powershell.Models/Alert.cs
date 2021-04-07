@@ -139,7 +139,13 @@ namespace Cohesity.Model
             /// Enum KUpgrade for value: kUpgrade
             /// </summary>
             [EnumMember(Value = "kUpgrade")]
-            KUpgrade = 19
+            KUpgrade = 19,
+
+            /// <summary>
+            /// Enum KNetworking for value: kNetworking
+            /// </summary>
+            [EnumMember(Value = "kNetworking")]
+            KNetworking = 20
 
         }
 
