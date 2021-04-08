@@ -1,12 +1,29 @@
+$ProgressPreference = "SilentlyContinue"
 $currentPath=pwd
 #Update the Cohesity Powershell module by reinstalling the module
 UnInstall-Module -Name Cohesity.PowerShell.Core -AllVersions  -Verbose
-Install-Module -Name Cohesity.PowerShell.Core
+Install-Module -Name Cohesity.PowerShell.Core -Repository LocalPSRepo -Verbose
+
 
 #Navigate to SDK-Generation folder
 $targetTestPath = "..\..\sdk-generation\powershell-tests"
 cd $targetTestPath
 
-#Invoke the pester and navigate back to powershell module
-Invoke-Pester -Tag UnitTest
+
+# read the config files prepared for each cohesity cluster versions
+$configFiles = Get-Item -Path "./config/*"
+foreach($config in $configFiles) {
+	$configName = ($config.BaseName -Split "config").Replace(" ","")
+	$cohesityClusterVersion = $configName[1]
+	$unitTest = "UnitTest"
+	$tags = @($unitTest)
+	[string]$newTag = ($unitTest+$cohesityClusterVersion)
+	$tags += $newTag
+
+    Copy-Item -Path $config.fullname -Destination ".\config.ini"  -Force
+
+	#Invoke the pester
+	Invoke-Pester -Tag $tags
+}
+
 cd $currentPath
