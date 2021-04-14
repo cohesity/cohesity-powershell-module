@@ -34,31 +34,31 @@ function Restore-CohesityRemoteFile {
         [long]$SourceId,
         [Parameter(Mandatory = $false)]
         # Specifies an optional base directory where the specified files and folders will be restored.
-		# By default, files and folders are restored to their original path.
+        # By default, files and folders are restored to their original path.
         [string]$NewBaseDirectory,
         [Parameter(Mandatory = $false)]
         [ValidateRange(1, [long]::MaxValue)]
         # Specifies the Job Run id that captured the snapshot.
-		# If not specified, the latest backup run is used.
+        # If not specified, the latest backup run is used.
         [long]$JobRunId,
         [Parameter(Mandatory = $false)]
         [ValidateRange(1, [long]::MaxValue)]
         # Specifies the time when the Job Run started capturing a snapshot.
-		# Specified as a Unix epoch Timestamp (in microseconds).
-		# This must be specified if the job run id is specified.
+        # Specified as a Unix epoch Timestamp (in microseconds).
+        # This must be specified if the job run id is specified.
         [long]$StartTime,
         [Parameter(Mandatory = $false)]
-		# Specifies that any existing files and folders should not be overwritten during the restore.
-		# By default, any existing files and folders are overwritten by restored files and folders.
+        # Specifies that any existing files and folders should not be overwritten during the restore.
+        # By default, any existing files and folders are overwritten by restored files and folders.
         [switch]$DoNotOverwrite,
         [Parameter(Mandatory = $false)]
-		# Specifies if the Restore Task should continue even if the restore of some files and folders fails.
-		# If specified, the Restore Task ignores errors and restores as many files and folders as possible.
-		# By default, the Restore Task stops restoring if any operation fails.
+        # Specifies if the Restore Task should continue even if the restore of some files and folders fails.
+        # If specified, the Restore Task ignores errors and restores as many files and folders as possible.
+        # By default, the Restore Task stops restoring if any operation fails.
         [switch]$ContinueOnError,
         [Parameter(Mandatory = $false)]
-		# Specifies that the Restore Task should not preserve the original attributes of the files and folders.
-		# By default, the original attributes are preserved.
+        # Specifies that the Restore Task should not preserve the original attributes of the files and folders.
+        # By default, the original attributes are preserved.
         [switch]$DoNotPreserveAttributes,
         [Parameter(Mandatory = $true)]
         [ValidateRange(1, [long]::MaxValue)]
@@ -67,16 +67,16 @@ function Restore-CohesityRemoteFile {
         [Parameter(Mandatory = $false)]
         [ValidateRange(1, [long]::MaxValue)]
         # Specifies the id of the registered parent source (such as a vCenter Server) that contains the target source (such as a VM).
-		# This is not required when restoring to a Physical Server but must be specified when restoring to a VM.
+        # This is not required when restoring to a Physical Server but must be specified when restoring to a VM.
         [long]$TargetParentSourceId,
         [Parameter(Mandatory = $false)]
         # Specifies the operating system type of the target host.
-		# This is not required when restoring to a Physical Server but must be specified when restoring to a VM.
+        # This is not required when restoring to a Physical Server but must be specified when restoring to a VM.
         [Cohesity.Model.RestoreFilesTaskRequest+TargetHostTypeEnum]$TargetHostType,
         [Parameter(Mandatory = $false)]
         # User credentials for accessing the target host for restore.
-		# This is not required when restoring to a Physical Server but must be specified when restoring to a VM.
-		[System.Management.Automation.PSCredential]
+        # This is not required when restoring to a Physical Server but must be specified when restoring to a VM.
+        [System.Management.Automation.PSCredential]
         [System.Management.Automation.Credential()]
         $TargetHostCredential,
         [Parameter(Mandatory = $false)]
@@ -112,26 +112,26 @@ function Restore-CohesityRemoteFile {
             }
 
             $payload = @{
-                continueRestoreOnError       = $true
-                name                         = $TaskName
+                continueRestoreOnError = $true
+                name                   = $TaskName
             }
             $url = $cohesityCluster + '/irisservices/api/v1/restoreFiles'
-	        $payloadJson = $payload | ConvertTo-Json -Depth 100
+            $payloadJson = $payload | ConvertTo-Json -Depth 100
 
-			$headers = @{'Authorization' = 'Bearer ' + $cohesityToken }
-			$resp = Invoke-RestApi -Method 'Post' -Uri $url -Headers $headers -Body $payloadJson
-			if ($Global:CohesityAPIStatus.StatusCode -eq 200) {
-				$resp
-			}
-			else {
-				$errorMsg = $Global:CohesityAPIStatus.ErrorMessage + ", File operation : Failed to recover."
-				Write-Output $errorMsg
-				CSLog -Message $errorMsg
-			}
+            $headers = @{'Authorization' = 'Bearer ' + $cohesityToken }
+            $resp = Invoke-RestApi -Method 'Post' -Uri $url -Headers $headers -Body $payloadJson
+            if ($Global:CohesityAPIStatus.StatusCode -eq 200) {
+                $resp
+            }
+            else {
+                $errorMsg = $Global:CohesityAPIStatus.ErrorMessage + ", File operation : Failed to recover."
+                Write-Output $errorMsg
+                CSLog -Message $errorMsg
+            }
         }
-		else {
-			Write-Output "Please use Restore-CohesityFile for local restore."
-		}
+        else {
+            Write-Output "Please use Restore-CohesityFile for local restore."
+        }
 
     }
     End {
