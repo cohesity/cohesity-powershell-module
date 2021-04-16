@@ -229,7 +229,13 @@ namespace Cohesity.Model
             /// Enum KMaintenance for value: kMaintenance
             /// </summary>
             [EnumMember(Value = "kMaintenance")]
-            KMaintenance = 5
+            KMaintenance = 5,
+
+            /// <summary>
+            /// Enum KDataService for value: kDataService
+            /// </summary>
+            [EnumMember(Value = "kDataService")]
+            KDataService = 6
 
         }
 

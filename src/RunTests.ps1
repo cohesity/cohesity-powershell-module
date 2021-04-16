@@ -23,8 +23,9 @@ foreach($config in $configFiles) {
 
     Copy-Item -Path $config.fullname -Destination ".\config.ini"  -Force
 
+	$reportFileName = $currentPath.ToString() + "\Win-PS-" + $newTag + "-" + (Get-Date -Format "dddd-MM-dd-yyyy-HH-mm-ss").ToString() + ".xml"
 	#Invoke the pester
-	Invoke-Pester -Tag $tags
+	Invoke-Pester -Tag $tags -OutputFormat  NUnitXml -OutputFile $reportFileName
 }
 
 # navigate back to powershell module
