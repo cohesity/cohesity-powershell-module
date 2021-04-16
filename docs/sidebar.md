@@ -141,6 +141,7 @@
 - [Restore-CohesityHyperVVM](cmdlets-reference/restore-cohesityhypervvm.md)
 - [Restore-CohesityAcropolisVM](cmdlets-reference/restore-cohesityacropolisvm.md)
 - [Restore-CohesityFile](cmdlets-reference/restore-cohesityfile.md)
+- [Restore-CohesityRemoteFile](cmdlets-reference/restore-cohesityremotefile.md)
 - [Get-CohesityRestoreTask](cmdlets-reference/get-cohesityrestoretask.md)
 - [Stop-CohesityRestoreTask](cmdlets-reference/stop-cohesityrestoretask.md)
 - [Save-CohesityFile](cmdlets-reference/save-cohesityfile.md)

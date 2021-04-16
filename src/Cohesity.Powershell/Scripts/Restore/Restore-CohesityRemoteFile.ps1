@@ -90,10 +90,10 @@ function Restore-CohesityRemoteFile {
                 $JobRunId = $run.backupRun.jobRunId
                 $StartTime = $run.backupRun.stats.startTimeUsecs
             }
-    
+
             if ($job.IsActive -eq $false) {
                 $searchHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
-    
+
                 $searchURL = $cohesityCluster + '/irisservices/api/v1/searchvms?entityIds=' + $SourceId
                 $sourceVMSearchResult = Invoke-RestApi -Method Get -Uri $searchURL -Headers $searchHeaders
                 if ($null -eq $sourceVMSearchResult) {
@@ -110,7 +110,7 @@ function Restore-CohesityRemoteFile {
                     Write-Output "Details for target source '$TargetSourceId' not found."
                     return
                 }
-    
+
                 $restoreToOriginalPaths = $true
                 if ($NewBaseDirectory) {
                     $restoreToOriginalPaths = $false
@@ -180,7 +180,7 @@ function Restore-CohesityRemoteFile {
                         displayName    = $sourceVMDetails.vmDocument.objectId.entity.displayName
                     }
                 }
-    
+
                 $payload = @{
                     filenames        = @($FileNames)
                     name             = $TaskName
@@ -214,7 +214,7 @@ function Restore-CohesityRemoteFile {
                 }
                 $url = $cohesityCluster + '/irisservices/api/v1/restoreFiles'
                 $payloadJson = $payload | ConvertTo-Json -Depth 100
-    
+
                 $headers = @{'Authorization' = 'Bearer ' + $cohesityToken }
                 $resp = Invoke-RestApi -Method 'Post' -Uri $url -Headers $headers -Body $payloadJson
                 if ($Global:CohesityAPIStatus.StatusCode -eq 200) {
