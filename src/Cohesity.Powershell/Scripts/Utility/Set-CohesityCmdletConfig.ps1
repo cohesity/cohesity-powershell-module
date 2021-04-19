@@ -26,40 +26,36 @@ function Set-CohesityCmdletConfig {
         Enables the log severity to 2.
         Log severity 1 for success/failure status, 2 for data validation errors, 3 for exception messages.
         .EXAMPLE
-        Set-CohesityCmdletConfig -LogRequestedPayload $true
+        Set-CohesityCmdletConfig -LogRequestedPayload:$true
         Enables the log for request payload.
         .EXAMPLE
-        Set-CohesityCmdletConfig -LogResponseData $true
+        Set-CohesityCmdletConfig -LogResponseData:$true
         Enables the log for response data.
         .EXAMPLE
-        Set-CohesityCmdletConfig -LogHeaderDetail $true
+        Set-CohesityCmdletConfig -LogHeaderDetail:$true
         Enables the logs for headers.
         .EXAMPLE
-        Set-CohesityCmdletConfig -RefreshToken $true
+        Set-CohesityCmdletConfig -RefreshToken:$true
         Enables the flag RefreshToken, the cmdlet framework would implicitly attempt to refresh the expired token. The user does not need to explicitly connect to the cluster post token expiry.
     #>
-    [CmdletBinding(DefaultParameterSetName = 'LogSeverity', SupportsShouldProcess = $True, ConfirmImpact = "High")]
+    [CmdletBinding(DefaultParameterSetName = 'Default', SupportsShouldProcess = $True, ConfirmImpact = "High")]
     param(
-        [Parameter(Mandatory = $false, ParameterSetName = 'LogSeverity')]
+        [Parameter(Mandatory = $false)]
         [ValidateSet(0, 1, 2, 3)]
         # Set the log level.
-        $LogSeverity = $null,
-        [Parameter(Mandatory = $false, ParameterSetName = 'LogRequestedPayload')]
-        [ValidateSet($true, $false)]
-        # not recommended, the request payload may contain passwords or key information.
-        $LogRequestedPayload = $false,
-        [Parameter(Mandatory = $false, ParameterSetName = 'LogResponseData')]
-        [ValidateSet($true, $false)]
+        [int]$LogSeverity,
+        [Parameter(Mandatory = $false)]
+        # Not recommended, the request payload may contain passwords or key information.
+        [switch]$LogRequestedPayload = $false,
+        [Parameter(Mandatory = $false)]
         # Log the response data.
-        $LogResponseData = $false,
-        [Parameter(Mandatory = $false, ParameterSetName = 'LogHeaderDetail')]
-        [ValidateSet($true, $false)]
+        [switch]$LogResponseData = $false,
+        [Parameter(Mandatory = $false)]
         # Log the header details.
-        $LogHeaderDetail = $false,
-        [Parameter(Mandatory = $false, ParameterSetName = 'RefreshToken')]
-        [ValidateSet($true, $false)]
+        [switch]$LogHeaderDetail = $false,
+        [Parameter(Mandatory = $false)]
         # If set and the token has expired, the framework would attempt refreshing the token.
-        $RefreshToken = $false
+        [switch]$RefreshToken = $false
     )
     Begin {
         [CohesityConfig]$configObject = [CohesityConfig]::New()
@@ -77,23 +73,23 @@ function Set-CohesityCmdletConfig {
     Process {
         if ($PSCmdlet.ShouldProcess("Cmdlet configuration")) {
             $config = Get-Content $cmdletConfigPath | ConvertFrom-Json
-            switch ($PsCmdlet.ParameterSetName) {
-                'LogSeverity' {
-                    $config.LogSeverity = $LogSeverity
-                }
-                'LogRequestedPayload' {
-                    $config.LogRequestedPayload = $LogRequestedPayload
-                }
-                'LogResponseData' {
-                    $config.LogResponseData = $LogResponseData
-                }
-                'LogHeaderDetail' {
-                    $config.LogHeaderDetail = $LogHeaderDetail
-                }
-                'RefreshToken' {
-                    $config.RefreshToken = $RefreshToken
-                }
+
+            if ($PSBoundParameters.ContainsKey('LogSeverity')) {
+                $config.LogSeverity = $LogSeverity
             }
+            if ($PSBoundParameters.ContainsKey('LogRequestedPayload')) {
+                $config.LogRequestedPayload = $LogRequestedPayload.IsPresent
+            }
+            if ($PSBoundParameters.ContainsKey('LogResponseData')) {
+                $config.LogResponseData = $LogResponseData.IsPresent
+            }
+            if ($PSBoundParameters.ContainsKey('LogHeaderDetail')) {
+                $config.LogHeaderDetail = $LogHeaderDetail.IsPresent
+            }
+            if ($PSBoundParameters.ContainsKey('RefreshToken')) {
+                $config.RefreshToken = $RefreshToken.IsPresent
+            }
+
             $config | ConvertTo-Json -depth 100 | Out-File $cmdletConfigPath
             $Global:CohesityCmdletConfig | Out-Null
             $Global:CohesityCmdletConfig = $config
