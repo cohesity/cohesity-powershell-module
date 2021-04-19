@@ -24,6 +24,7 @@ function Set-CohesityCmdletConfig {
         .EXAMPLE
         Set-CohesityCmdletConfig -LogSeverity 2
         Enables the log severity to 2.
+        Log severity 1 for success/failure status, 2 for data validation errors, 3 for exception messages.
         .EXAMPLE
         Set-CohesityCmdletConfig -LogRequestedPayload $true
         Enables the log for request payload.
