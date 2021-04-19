@@ -108,7 +108,7 @@ function Invoke-RestApi {
         # this flag can be optionally used by the caller to identify the details of failure
         $Global:CohesityAPIError = $_.Exception
 		# to make the ScriptAnalyzer happy
-		CSLog -Message ($Global:CohesityAPIError | ConvertTo-json) -Severity 1
+		CSLog -Message ($Global:CohesityAPIError | ConvertTo-json) -Severity 3
         # capturing the error message from the cluster rather than the powershell framework $_.Exception.Message
         $errorMsg = $_
         $Global:CohesityAPIStatus = ConstructResponseWithStatus -APIResponse $errorMsg

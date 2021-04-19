@@ -90,7 +90,9 @@ function Restore-CohesityVMwareVM {
     Process {
         $job = Get-CohesityProtectionJob -Ids $JobId
         if (-not $job) {
-            Write-Output "Cannot proceed, the job id '$JobId' is invalid"
+            $errorMsg = "Cannot proceed, the job id '$JobId' is invalid"
+            Write-Output $errorMsg
+            CSLog -Message $errorMsg -Severity 2
             return
         }
 
@@ -100,12 +102,16 @@ function Restore-CohesityVMwareVM {
             $searchURL = $cohesityCluster + '/irisservices/api/v1/searchvms?entityTypes=kVMware&jobIds=' + $JobId
             $searchResult = Invoke-RestApi -Method Get -Uri $searchURL -Headers $searchHeaders
             if ($null -eq $searchResult) {
-                Write-Output "Could not search VM with the job id $JobId"
+                $errorMsg = "Could not search VM with the job id $JobId"
+                Write-Output $errorMsg
+                CSLog -Message $errorMsg -Severity 2
                 return
             }
             $searchedVMDetails = $searchResult.vms | Where-Object { $_.vmDocument.objectId.jobId -eq $JobId -and $_.vmDocument.objectId.entity.id -eq $SourceId }
             if ($null -eq $searchedVMDetails) {
-                Write-Output "Could not find details for VM id = "$SourceId
+                $errorMsg = "Could not find details for VM id = $SourceId"
+                Write-Output $errorMsg
+                CSLog -Message $errorMsg -Severity 2
                 return
             }
             $vmwareDetail = $null
@@ -114,7 +120,9 @@ function Restore-CohesityVMwareVM {
                 $searchResult = Invoke-RestApi -Method Get -Uri $searchURL -Headers $searchHeaders
                 $vmwareDetail = $searchResult | Where-Object { $_.id -eq $NewParentId }
                 if (-not $vmwareDetail) {
-                    Write-Output "The new parent id is incorrect '$NewParentId'"
+                    $errorMsg = "The new parent id is incorrect '$NewParentId'"
+                    Write-Output $errorMsg
+                    CSLog -Message $errorMsg -Severity 2
                     return
                 }
             }
@@ -125,7 +133,9 @@ function Restore-CohesityVMwareVM {
                 $searchResult = Invoke-RestApi -Method Get -Uri $searchURL -Headers $searchHeaders
                 $resourcePoolDetail = $searchResult | Where-Object { $_.resourcePool.id -eq $ResourcePoolId }
                 if (-not $resourcePoolDetail) {
-                    Write-Output "The resourcepool id '$ResourcePoolId' is not available for parent id '$NewParentId'"
+                    $errorMsg = "The resourcepool id '$ResourcePoolId' is not available for parent id '$NewParentId'"
+                    Write-Output $errorMsg
+                    CSLog -Message $errorMsg -Severity 2
                     return
                 }
                 $resourcePoolDetail = $resourcePoolDetail.resourcePool
@@ -137,7 +147,9 @@ function Restore-CohesityVMwareVM {
                 $searchResult = Invoke-RestApi -Method Get -Uri $searchURL -Headers $searchHeaders
                 $datastoreDetail = $searchResult | Where-Object { $_.id -eq $DatastoreId }
                 if (-not $datastoreDetail) {
-                    Write-Output "The datastore id '$DatastoreId' is not available for resourcepool id '$ResourcePoolId' and parent id '$NewParentId'"
+                    $errorMsg = "The datastore id '$DatastoreId' is not available for resourcepool id '$ResourcePoolId' and parent id '$NewParentId'"
+                    Write-Output $errorMsg
+                    CSLog -Message $errorMsg -Severity 2
                     return
                 }
             }
@@ -148,7 +160,9 @@ function Restore-CohesityVMwareVM {
                 $searchResult = Invoke-RestApi -Method Get -Uri $searchURL -Headers $searchHeaders
                 $vmFolder = $searchResult.vmFolders | Where-Object { $_.id -eq $VmFolderId }
                 if (-not $vmFolder) {
-                    Write-Output "The vm folder id '$VmFolderId' is not available for resourcepool id '$ResourcePoolId' and parent id '$NewParentId'"
+                    $errorMsg = "The vm folder id '$VmFolderId' is not available for resourcepool id '$ResourcePoolId' and parent id '$NewParentId'"
+                    Write-Output $errorMsg
+                    CSLog -Message $errorMsg -Severity 2
                     return
                 }
                 $vmFolderDetail = @{
@@ -162,7 +176,9 @@ function Restore-CohesityVMwareVM {
                 $searchResult = Invoke-RestApi -Method Get -Uri $searchURL -Headers $searchHeaders
                 $foundNetwork = $searchResult | Where-Object { $_.id -eq $NetworkId }
                 if (-not $foundNetwork) {
-                    Write-Output "The network id '$NetworkId' is not available for resourcepool id '$ResourcePoolId' and parent id '$NewParentId'"
+                    $errorMsg = "The network id '$NetworkId' is not available for resourcepool id '$ResourcePoolId' and parent id '$NewParentId'"
+                    Write-Output $errorMsg
+                    CSLog -Message $errorMsg -Severity 2
                     return
                 }
                 $networkDetail = @{
@@ -217,7 +233,9 @@ function Restore-CohesityVMwareVM {
             if ($SourceArchivalId -gt 0) {
                 $vaultDetail = Get-CohesityVault | Where-Object {$_.id -eq $SourceArchivalId}
                 if (-not $vaultDetail) {
-                    Write-Output "Invalid source archival id '$SourceArchivalId'."
+                    $errorMsg = "Invalid source archival id '$SourceArchivalId'."
+                    Write-Output $errorMsg
+                    CSLog -Message $errorMsg -Severity 2
                     return
                 }
                 $archivalTarget = @{

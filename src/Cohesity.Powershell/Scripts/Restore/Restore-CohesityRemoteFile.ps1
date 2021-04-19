@@ -81,7 +81,9 @@ function Restore-CohesityRemoteFile {
         if ($PSCmdlet.ShouldProcess($SourceId)) {
             $job = Get-CohesityProtectionJob -Ids $JobId
             if (-not $job) {
-                Write-Output "Cannot proceed, the job id '$JobId' is invalid"
+                $errorMsg = "Cannot proceed, the job id '$JobId' is invalid"
+                Write-Output $errorMsg
+                CSLog -Message $errorMsg -Severity 2
                 return
             }
             if ($JobRunId -le 0) {
@@ -97,17 +99,23 @@ function Restore-CohesityRemoteFile {
                 $searchURL = $cohesityCluster + '/irisservices/api/v1/searchvms?entityIds=' + $SourceId
                 $sourceVMSearchResult = Invoke-RestApi -Method Get -Uri $searchURL -Headers $searchHeaders
                 if ($null -eq $sourceVMSearchResult) {
-                    Write-Output "Could not search VM with the Source id $SourceId"
+                    $errorMsg = "Could not search VM with the Source id $SourceId"
+                    Write-Output $errorMsg
+                    CSLog -Message $errorMsg -Severity 2
                     return
                 }
                 $sourceVMDetails = $sourceVMSearchResult.vms | Where-Object { $_.vmDocument.objectId.jobId -eq $JobId -and $_.vmDocument.objectId.entity.id -eq $SourceId }
                 if ($null -eq $sourceVMDetails) {
-                    Write-Output "Could not find details for VM id = "$SourceId
+                    $errorMsg = "Could not find details for VM id = $SourceId"
+                    Write-Output $errorMsg
+                    CSLog -Message $errorMsg -Severity 2
                     return
                 }
                 $targetSourceDetail = Get-CohesityProtectionSourceObject -Id $TargetSourceId
                 if (-not $targetSourceDetail) {
-                    Write-Output "Details for target source '$TargetSourceId' not found."
+                    $errorMsg = "Details for target source '$TargetSourceId' not found."
+                    Write-Output $errorMsg
+                    CSLog -Message $errorMsg -Severity 2
                     return
                 }
 
