@@ -27,6 +27,10 @@ function Restore-CohesityVMwareVM {
         # Specifies the source id of the VM to be restored.
         $SourceId,
         [Parameter(Mandatory = $false)]
+        [ValidateRange(1, [long]::MaxValue)]
+        # Specifies the source archival id, use Get-CohesityVault to fetch the details.
+        [long]$SourceArchivalId,
+        [Parameter(Mandatory = $false)]
         # Specifies the name of the restore task.
         $TaskName = "Recover-VMware-VM-" + (Get-Date -Format "dddd-MM-dd-yyyy-HH-mm-ss").ToString(),
         [Parameter(Mandatory = $false, ParameterSetName = "Jobrun")]
@@ -204,11 +208,24 @@ function Restore-CohesityVMwareVM {
             $url = $cohesityCluster + '/irisservices/api/v1/restore'
         }
         else {
-            $object = @{
+            $object = [PSCustomObject]@{
                 jobId              = $JobId
                 jobRunId           = $JobRunId
                 protectionSourceId = $SourceId
                 startedTimeUsecs   = $StartTime
+            }
+            if ($SourceArchivalId -gt 0) {
+                $vaultDetail = Get-CohesityVault | Where-Object {$_.id -eq $SourceArchivalId}
+                if (-not $vaultDetail) {
+                    Write-Output "Invalid source archival id '$SourceArchivalId'."
+                    return
+                }
+                $archivalTarget = @{
+                    vaultId = $vaultDetail.Id
+                    vaultName = $vaultDetail.name
+                    vaultType = "kCloud"
+                }
+                $object | Add-Member -NotePropertyName archivalTarget -NotePropertyValue $archivalTarget
             }
 
             $payload = @{
