@@ -5,6 +5,7 @@ class CohesityConfig {
     $LogResponseData = $false
     $LogHeaderDetail = $false
     $RefreshToken = $false
+    [string]$LogFilePath
     # following values are read only, not for configuration purpose
     [string]$ConfigFolder = "cohesity"
     [string]$ConfigFileName = "config.json"
@@ -55,7 +56,11 @@ function Set-CohesityCmdletConfig {
         [switch]$LogHeaderDetail = $false,
         [Parameter(Mandatory = $false)]
         # If set and the token has expired, the framework would attempt refreshing the token.
-        [switch]$RefreshToken = $false
+        [switch]$RefreshToken = $false,
+        [Parameter(Mandatory = $false)]
+        # Log file path. For example set the path as C:\temp
+        [string]$LogFilePath
+
     )
     Begin {
         [CohesityConfig]$configObject = [CohesityConfig]::New()
@@ -88,6 +93,13 @@ function Set-CohesityCmdletConfig {
             }
             if ($PSBoundParameters.ContainsKey('RefreshToken')) {
                 $config.RefreshToken = $RefreshToken.IsPresent
+            }
+            if ($PSBoundParameters.ContainsKey('LogFilePath')) {
+                $property = Get-Member -InputObject $config -Name LogFilePath
+                if (-not $property) {
+                    $config | Add-Member -NotePropertyName LogFilePath -NotePropertyValue ""
+                }
+                $config.LogFilePath = $LogFilePath
             }
 
             $config | ConvertTo-Json -depth 100 | Out-File $cmdletConfigPath
