@@ -38,6 +38,9 @@ function Set-CohesityCmdletConfig {
         .EXAMPLE
         Set-CohesityCmdletConfig -RefreshToken:$true
         Enables the flag RefreshToken, the cmdlet framework would implicitly attempt to refresh the expired token. The user does not need to explicitly connect to the cluster post token expiry.
+        .EXAMPLE
+        Set-CohesityCmdletConfig -LogFilePath "C:\cohesity\mylogs"
+        Set the log file path. The cmdlet will create the folders if it does not exists.
     #>
     [CmdletBinding(DefaultParameterSetName = 'Default', SupportsShouldProcess = $True, ConfirmImpact = "High")]
     param(
@@ -99,6 +102,10 @@ function Set-CohesityCmdletConfig {
                 if (-not $property) {
                     $config | Add-Member -NotePropertyName LogFilePath -NotePropertyValue ""
                 }
+				if ($false -eq [System.IO.Directory]::Exists($LogFilePath)) {
+					 Write-OutPut "Folder does not exists, creating '$LogFilePath'"
+					 New-Item -Path $LogFilePath  -ItemType "directory" -Force | Out-Null
+				}
                 $config.LogFilePath = $LogFilePath
             }
 

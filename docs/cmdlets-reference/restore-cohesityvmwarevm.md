@@ -7,16 +7,17 @@ Restores the specified VMware virtual machine from a previous backup.
 
 ### Default (Default)
 ```
-Restore-CohesityVMwareVM -JobId <Object> -SourceId <Object> [-TaskName <Object>] [-VmNamePrefix <Object>]
- [-VmNameSuffix <Object>] [-DisableNetwork] [-PoweredOn] [-DatastoreId <Object>] [-NetworkId <Object>]
- [-ResourcePoolId <Object>] [-VmFolderId <Object>] [-NewParentId <Object>] [<CommonParameters>]
+Restore-CohesityVMwareVM -JobId <Object> -SourceId <Object> [-SourceArchivalId <Int64>] [-TaskName <Object>]
+ [-VmNamePrefix <Object>] [-VmNameSuffix <Object>] [-DisableNetwork] [-PoweredOn] [-DatastoreId <Object>]
+ [-NetworkId <Object>] [-ResourcePoolId <Object>] [-VmFolderId <Object>] [-NewParentId <Object>]
+ [<CommonParameters>]
 ```
 
 ### Jobrun
 ```
-Restore-CohesityVMwareVM -JobId <Object> -SourceId <Object> [-TaskName <Object>] [-JobRunId <Object>]
- [-StartTime <Object>] [-VmNamePrefix <Object>] [-VmNameSuffix <Object>] [-DisableNetwork] [-PoweredOn]
- [-DatastoreId <Object>] [-NetworkId <Object>] [-ResourcePoolId <Object>] [-VmFolderId <Object>]
+Restore-CohesityVMwareVM -JobId <Object> -SourceId <Object> [-SourceArchivalId <Int64>] [-TaskName <Object>]
+ [-JobRunId <Object>] [-StartTime <Object>] [-VmNamePrefix <Object>] [-VmNameSuffix <Object>] [-DisableNetwork]
+ [-PoweredOn] [-DatastoreId <Object>] [-NetworkId <Object>] [-ResourcePoolId <Object>] [-VmFolderId <Object>]
  [-NewParentId <Object>] [<CommonParameters>]
 ```
 
@@ -73,6 +74,21 @@ Aliases:
 Required: True
 Position: Named
 Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -SourceArchivalId
+Specifies the source archival id, use Get-CohesityVault to fetch the details.
+
+```yaml
+Type: Int64
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: 0
 Accept pipeline input: False
 Accept wildcard characters: False
 ```

@@ -29,6 +29,9 @@ function CSLog {
         $CSLogFilePath = "$HOME/" + $cohesityFolder + "/" + $logFileName
     }
     if ($logFilePath) {
+	    if ($false -eq [System.IO.Directory]::Exists($logFilePath)) {
+		    New-Item -Path "$logFilePath" -ItemType "directory" -Force | Out-Null
+	    }
         $CSLogFilePath = $logFilePath + "/" + $logFileName
     }
     if ([System.IO.File]::Exists($CSLogFilePath)) {

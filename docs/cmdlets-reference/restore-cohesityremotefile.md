@@ -19,10 +19,15 @@ Restores the specified files or folders from a previous backup from a remote clu
 
 ### EXAMPLE 1
 ```
-Restore-CohesityRemoteFile -TaskName "restore-file-vm" -FileNames /C/data/file.txt -JobId 1234 -SourceId 843 -TargetSourceId 856 -TargetParentSourceId 828 -TargetHostType KWindows -TargetHostCredential (Get-Credential)
+Restore-CohesityRemoteFile -TaskName "restore-file-vm" -FileNames /C/data/file.txt -JobId 1234 -SourceId 843 -TargetSourceId 856 -TargetParentSourceId 828 -TargetHostCredential (Get-Credential)
 ```
 
 Restores the specified file to the target windows VM with the source id 843 from the latest backup.
+Get the job id from $jobs = Get-CohesityProtectionJob -Environments KVMware
+Get the source id from $jobs\[0\].sourceIds
+Get the target details $targets = Get-CohesityProtectionSourceObject -Environments KVMware
+Get the target source id $targets\[2\].id
+Get the target parent source id $targets\[2\].parentId
 
 ### EXAMPLE 2
 ```

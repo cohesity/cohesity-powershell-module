@@ -5,29 +5,9 @@ Set the local configuration for cohesity powershell cmdlets.
 
 ## SYNTAX
 
-### LogSeverity (Default)
 ```
-Set-CohesityCmdletConfig [-LogSeverity <Object>] [-WhatIf] [-Confirm] [<CommonParameters>]
-```
-
-### LogRequestedPayload
-```
-Set-CohesityCmdletConfig [-LogRequestedPayload <Object>] [-WhatIf] [-Confirm] [<CommonParameters>]
-```
-
-### LogResponseData
-```
-Set-CohesityCmdletConfig [-LogResponseData <Object>] [-WhatIf] [-Confirm] [<CommonParameters>]
-```
-
-### LogHeaderDetail
-```
-Set-CohesityCmdletConfig [-LogHeaderDetail <Object>] [-WhatIf] [-Confirm] [<CommonParameters>]
-```
-
-### RefreshToken
-```
-Set-CohesityCmdletConfig [-RefreshToken <Object>] [-WhatIf] [-Confirm] [<CommonParameters>]
+Set-CohesityCmdletConfig [[-LogSeverity] <Int32>] [-LogRequestedPayload] [-LogResponseData] [-LogHeaderDetail]
+ [-RefreshToken] [[-LogFilePath] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -42,35 +22,44 @@ Set-CohesityCmdletConfig -LogSeverity 2
 ```
 
 Enables the log severity to 2.
+Log severity 1 for success/failure status, 2 for data validation errors, 3 for exception messages.
 
 ### EXAMPLE 2
 ```
-Set-CohesityCmdletConfig -LogRequestedPayload $true
+Set-CohesityCmdletConfig -LogRequestedPayload:$true
 ```
 
 Enables the log for request payload.
 
 ### EXAMPLE 3
 ```
-Set-CohesityCmdletConfig -LogResponseData $true
+Set-CohesityCmdletConfig -LogResponseData:$true
 ```
 
 Enables the log for response data.
 
 ### EXAMPLE 4
 ```
-Set-CohesityCmdletConfig -LogHeaderDetail $true
+Set-CohesityCmdletConfig -LogHeaderDetail:$true
 ```
 
 Enables the logs for headers.
 
 ### EXAMPLE 5
 ```
-Set-CohesityCmdletConfig -RefreshToken $true
+Set-CohesityCmdletConfig -RefreshToken:$true
 ```
 
 Enables the flag RefreshToken, the cmdlet framework would implicitly attempt to refresh the expired token.
 The user does not need to explicitly connect to the cluster post token expiry.
+
+### EXAMPLE 6
+```
+Set-CohesityCmdletConfig -LogFilePath "C:\cohesity\mylogs"
+```
+
+Set the log file path.
+The cmdlet will create the folders if it does not exists.
 
 ## PARAMETERS
 
@@ -78,23 +67,23 @@ The user does not need to explicitly connect to the cluster post token expiry.
 Set the log level.
 
 ```yaml
-Type: Object
-Parameter Sets: LogSeverity
+Type: Int32
+Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: Named
-Default value: None
+Position: 1
+Default value: 0
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -LogRequestedPayload
-not recommended, the request payload may contain passwords or key information.
+Not recommended, the request payload may contain passwords or key information.
 
 ```yaml
-Type: Object
-Parameter Sets: LogRequestedPayload
+Type: SwitchParameter
+Parameter Sets: (All)
 Aliases:
 
 Required: False
@@ -108,8 +97,8 @@ Accept wildcard characters: False
 Log the response data.
 
 ```yaml
-Type: Object
-Parameter Sets: LogResponseData
+Type: SwitchParameter
+Parameter Sets: (All)
 Aliases:
 
 Required: False
@@ -123,8 +112,8 @@ Accept wildcard characters: False
 Log the header details.
 
 ```yaml
-Type: Object
-Parameter Sets: LogHeaderDetail
+Type: SwitchParameter
+Parameter Sets: (All)
 Aliases:
 
 Required: False
@@ -138,13 +127,29 @@ Accept wildcard characters: False
 If set and the token has expired, the framework would attempt refreshing the token.
 
 ```yaml
-Type: Object
-Parameter Sets: RefreshToken
+Type: SwitchParameter
+Parameter Sets: (All)
 Aliases:
 
 Required: False
 Position: Named
 Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -LogFilePath
+Log file path.
+For example set the path as C:\temp
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 2
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
