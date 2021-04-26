@@ -17,6 +17,14 @@ function Restore-CohesityRemoteMSSQLObject {
         .EXAMPLE
         Restore-CohesityRemoteMSSQLObject -SourceId 3101 -HostSourceId 3099 -JobId 51275 -TargetHostId 3098 -CaptureTailLogs:$false -NewDatabaseName ReportServer_r26 -NewInstanceName MSSQLSERVER -TargetDataFilesDirectory "C:\temp" -TargetLogFilesDirectory "C:\temp" -StartTime 1616956306627994 -JobRunId 60832 -RestoreTimeSecs 1616958037
         Request for restore MSSQL object with RestoreTimeSecs (point in time) parameter, StartTime and JobRunId.
+        .EXAMPLE
+        Restore-CohesityRemoteMSSQLObject -SourceId 3101 -HostSourceId 3099 -JobId 51275 -TargetHostId 3098 -CaptureTailLogs:$false -NewDatabaseName ReportServer_r20 -NewInstanceName MSSQLSERVER -TargetDataFilesDirectory "C:\temp" -TargetLogFilesDirectory "C:\temp" -Confirm:$false -TargetSecondaryDataFilesDirectoryList $patternList
+        For secondary data files, construct the $patternList as follows
+        $patternList = @()
+        $pattern1 = @{filePattern = "*.mdf"; targetDirectory = "c:\test"}
+        $pattern2 = @{filePattern = "*.ldf"; targetDirectory = "c:\test1"}
+        $patternList += $pattern1
+        $patternList += $pattern2
     #>
 
     [CmdletBinding(DefaultParameterSetName = "Default", SupportsShouldProcess = $True, ConfirmImpact = "High")]
@@ -81,7 +89,7 @@ function Restore-CohesityRemoteMSSQLObject {
         # ".ndf".  If this option is specified and the destination folders do not exist they will be
         # automatically created.
         # This field can be set only if restoring to a different target host.
-        [Cohesity.Model.FilenamePatternToDirectory[]]$TargetSecondaryDataFilesDirectoryList,
+        [Object[]]$TargetSecondaryDataFilesDirectoryList,
         [Parameter(Mandatory = $false)]
         [ValidateRange(1, [long]::MaxValue)]
         # Specifies the target host if the application is to be restored to a different host.
