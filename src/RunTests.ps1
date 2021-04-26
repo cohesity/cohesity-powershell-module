@@ -11,7 +11,7 @@ Install-Module -Name Cohesity.PowerShell -Repository LocalPSRepo -Verbose
 # create a fresh unit test report directory
 $utReportDirectory = $currentPath.ToString() + "\UTReport\"
 if ([System.IO.Directory]::Exists($utReportDirectory)) {
-	Remove-Item -Path $utReportDirectory -Force -Confirm:$false
+	Remove-Item -Path $utReportDirectory -Force -Confirm:$false -Recurse
 }
 # create a folder for accumulating unit test report
 New-Item -Path $utReportDirectory -ItemType "directory" -Force | Out-Null
