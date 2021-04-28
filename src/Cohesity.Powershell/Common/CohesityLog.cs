@@ -4,17 +4,13 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using System.Management.Automation;
-using System.Management.Automation.Runspaces;
+
 
 namespace Cohesity.Powershell.Common
 {
     internal class CohesityLog
     {
         private CmdletConfiguration __cmdletConfig = null;
-        //private Runspace __runSpace = null;
-        //private Pipeline __pipeline = null;
-        //private Command __cmd = null;
         private static readonly CohesityLog instance = new CohesityLog();
         private CohesityLog()
         {
@@ -32,13 +28,8 @@ namespace Cohesity.Powershell.Common
             try
             {
                 __cmdletConfig = CmdletConfiguration.Instance;
-                //__runSpace = RunspaceFactory.CreateRunspace();
-                //__runSpace.Open();
-                //__pipeline = __runSpace.CreatePipeline();
-                //// script based cohesity logs
-                //__cmd = new Command("CSLog");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine("Could not load logging module" + ex.Message);
             }
@@ -49,22 +40,16 @@ namespace Cohesity.Powershell.Common
             {
                 return;
             }
-            //if(__cmd == null)
-            //{
-            //    Console.WriteLine("Command object could not be created, cannot create log.");
-            //    return;
-            //}
             if (__cmdletConfig.IsLogHeaderDetail)
             {
-                //__cmd.Parameters.Add("Message", request.Content.Headers.ToString());
-                Console.WriteLine(request.Content.Headers.ToString());
+                WriteLog(request.RequestUri.AbsoluteUri,1);
+                WriteLog(request.Headers.ToString(),1);
             }
             if (__cmdletConfig.IsLogRequestedPayload)
             {
-                //__cmd.Parameters.Add("Message", request.Content.ToString());
                 if(request.Content != null)
                 {
-                    Console.WriteLine(request.Content.ToString());
+                    WriteLog(request.Content.ToString(),1);
                 }
             }
 
@@ -75,8 +60,12 @@ namespace Cohesity.Powershell.Common
             {
                 return;
             }
+            WriteLog(message,1);
+        }
+
+        private void WriteLog(string message, int severity)
+        {
             Console.WriteLine(message);
-            //__cmd.Parameters.Add("Message", message);
         }
     }
 }
