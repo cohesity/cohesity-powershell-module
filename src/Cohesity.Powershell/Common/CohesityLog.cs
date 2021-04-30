@@ -34,12 +34,6 @@ namespace Cohesity.Powershell.Common
                 string logFileName = ConstructLogFileName(__cmdletConfig);
                 var config = new NLog.Config.LoggingConfiguration();
                 var logfile = new NLog.Targets.FileTarget("CohesityPowershellSDKLogFile") { FileName = logFileName, ArchiveAboveSize = 1024*1024, ArchiveNumbering = NLog.Targets.ArchiveNumberingMode.DateAndSequence };
-                CsvLayout layout = new CsvLayout();
-                layout.Columns.Add(new CsvColumn("DateTime", "${longdate}"));
-                layout.Columns.Add(new CsvColumn("Message", "${message}"));
-                layout.Columns.Add(new CsvColumn("Severity", "${level}"));
-                logfile.Layout = layout;
-
                 config.AddRule(LogLevel.Info, LogLevel.Fatal, logfile);
                 // Apply config           
                 NLog.LogManager.Configuration = config;

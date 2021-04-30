@@ -13,11 +13,7 @@ function CSLog {
         return
     }
 
-    $line = [pscustomobject]@{
-        'DateTime' = (Get-Date)
-        'Message'  = $Message
-        'Severity' = $Severity
-    }
+    $line = [string]::Format("{0}|{1}|{2}",(Get-Date -Format "yyyy-MM-dd hh:mm:ss"),$Severity,$Message)
     $logFilePath = $Global:CohesityCmdletConfig.LogFilePath
     $logFileName = $Global:CohesityCmdletConfig.LogFileName
     $cohesityFolder = $Global:CohesityCmdletConfig.ConfigFolder
@@ -29,9 +25,9 @@ function CSLog {
         $CSLogFilePath = "$HOME/" + $cohesityFolder + "/" + $logFileName
     }
     if ($logFilePath) {
-	    if ($false -eq [System.IO.Directory]::Exists($logFilePath)) {
-		    New-Item -Path "$logFilePath" -ItemType "directory" -Force | Out-Null
-	    }
+        if ($false -eq [System.IO.Directory]::Exists($logFilePath)) {
+            New-Item -Path "$logFilePath" -ItemType "directory" -Force | Out-Null
+        }
         $CSLogFilePath = $logFilePath + "/" + $logFileName
     }
     if ([System.IO.File]::Exists($CSLogFilePath)) {
@@ -42,5 +38,5 @@ function CSLog {
             Rename-Item -Path $CSLogFilePath -NewName $rollOverLogFileName
         }
     }
-    $line | Export-Csv -Path $CSLogFilePath -Append -NoTypeInformation
+    $line | Out-File -FilePath $CSLogFilePath -Append -Encoding ascii
 }
