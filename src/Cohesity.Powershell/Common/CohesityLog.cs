@@ -64,7 +64,7 @@ namespace Cohesity.Powershell.Common
             }
             if (__cmdletConfig.IsLogHeaderDetail)
             {
-                WriteLog(request.RequestUri.AbsoluteUri,1);
+                WriteLog(string.Format("{0}:{1}", request.Method.Method , request.RequestUri.AbsoluteUri),1);
                 WriteLog(request.Headers.ToString(),1);
             }
             if (__cmdletConfig.IsLogRequestedPayload)

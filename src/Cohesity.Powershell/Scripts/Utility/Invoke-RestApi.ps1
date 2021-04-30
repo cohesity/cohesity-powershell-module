@@ -52,7 +52,8 @@ function Invoke-RestApi {
         if ($Global:CohesityCmdletConfig) {
             if ($Global:CohesityCmdletConfig.LogHeaderDetail -eq $true) {
                 if ($PSBoundParameters.ContainsKey('Uri')) {
-                    CSLog -Message ($PSBoundParameters.Uri | ConvertTo-Json) -Severity 1
+                    $logString = [string]::Format("{0}:{1}",$PSBoundParameters.Method, $PSBoundParameters.Uri)
+                    CSLog -Message ($logString) -Severity 1
                 }
                 if ($PSBoundParameters.ContainsKey('Headers')) {
                     CSLog -Message ($PSBoundParameters.Headers | ConvertTo-Json) -Severity 1
@@ -107,8 +108,8 @@ function Invoke-RestApi {
     catch {
         # this flag can be optionally used by the caller to identify the details of failure
         $Global:CohesityAPIError = $_.Exception
-		# to make the ScriptAnalyzer happy
-		CSLog -Message ($Global:CohesityAPIError | ConvertTo-json) -Severity 3
+        # to make the ScriptAnalyzer happy
+        CSLog -Message ($Global:CohesityAPIError | ConvertTo-json) -Severity 3
         # capturing the error message from the cluster rather than the powershell framework $_.Exception.Message
         $errorMsg = $_
         $Global:CohesityAPIStatus = ConstructResponseWithStatus -APIResponse $errorMsg

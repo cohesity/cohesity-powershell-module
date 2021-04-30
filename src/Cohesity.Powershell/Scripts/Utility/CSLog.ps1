@@ -13,7 +13,7 @@ function CSLog {
         return
     }
 
-    $line = [string]::Format("{0}|{1}|{2}",(Get-Date -Format "yyyy-MM-dd hh:mm:ss"),$Severity,$Message)
+    $line = [string]::Format("{0}|{1}|{2}|{3}",(Get-Date -Format "yyyy-MM-dd hh:mm:ss"),$Severity, "CSLog" ,$Message)
     $logFilePath = $Global:CohesityCmdletConfig.LogFilePath
     $logFileName = $Global:CohesityCmdletConfig.LogFileName
     $cohesityFolder = $Global:CohesityCmdletConfig.ConfigFolder
