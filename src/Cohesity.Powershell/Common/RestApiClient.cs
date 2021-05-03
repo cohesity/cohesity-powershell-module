@@ -93,6 +93,7 @@ namespace Cohesity.Powershell.Common
                     $"{AccessToken.TokenType} {AccessToken._AccessToken}");
             }
 
+            CohesityLog.Instance.WriteCohesityLog(request);
             return request;
         }
 
@@ -113,6 +114,7 @@ namespace Cohesity.Powershell.Common
                     $"{AccessToken.TokenType} {AccessToken._AccessToken}");
             }
 
+            CohesityLog.Instance.WriteCohesityLog(request);
             return request;
         }
 
@@ -133,6 +135,7 @@ namespace Cohesity.Powershell.Common
                     $"{AccessToken.TokenType} {AccessToken._AccessToken}");
             }
 
+            CohesityLog.Instance.WriteCohesityLog(request);
             return request;
         }
 
@@ -153,6 +156,7 @@ namespace Cohesity.Powershell.Common
                     $"{AccessToken.TokenType} {AccessToken._AccessToken}");
             }
 
+            CohesityLog.Instance.WriteCohesityLog(request);
             return request;
         }
 
@@ -173,6 +177,7 @@ namespace Cohesity.Powershell.Common
                     $"{AccessToken.TokenType} {AccessToken._AccessToken}");
             }
 
+            CohesityLog.Instance.WriteCohesityLog(request);
             return request;
         }
 
@@ -193,6 +198,7 @@ namespace Cohesity.Powershell.Common
                     $"{AccessToken.TokenType} {AccessToken._AccessToken}");
             }
 
+            CohesityLog.Instance.WriteCohesityLog(request);
             return request;
         }
 

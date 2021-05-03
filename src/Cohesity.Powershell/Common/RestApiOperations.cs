@@ -41,6 +41,7 @@ namespace Cohesity.Powershell.Common
 
             if (response.IsSuccessStatusCode)
             {
+                CohesityLog.Instance.WriteCohesityLog(responseContent);
                 return responseContent;
             }
             else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
@@ -54,6 +55,7 @@ namespace Cohesity.Powershell.Common
                 }
             }
 
+            CohesityLog.Instance.WriteCohesityLog(extractMessageFromErrorResponse(responseContent));
             throw new Exception(extractMessageFromErrorResponse(responseContent));
         }
 
@@ -75,6 +77,7 @@ namespace Cohesity.Powershell.Common
 
             if (response.IsSuccessStatusCode)
             {
+                CohesityLog.Instance.WriteCohesityLog(responseContent);
                 return responseContent;
             }
             else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
@@ -88,6 +91,7 @@ namespace Cohesity.Powershell.Common
                 }
             }
 
+            CohesityLog.Instance.WriteCohesityLog(extractMessageFromErrorResponse(responseContent));
             throw new Exception(extractMessageFromErrorResponse(responseContent));
         }
 
@@ -101,6 +105,7 @@ namespace Cohesity.Powershell.Common
 
             if (response.IsSuccessStatusCode)
             {
+                CohesityLog.Instance.WriteCohesityLog(responseContent);
                 return responseContent;
             }
             else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
@@ -114,6 +119,7 @@ namespace Cohesity.Powershell.Common
                 }
             }
 
+            CohesityLog.Instance.WriteCohesityLog(extractMessageFromErrorResponse(responseContent));
             throw new Exception(extractMessageFromErrorResponse(responseContent));
         }
 
@@ -133,6 +139,7 @@ namespace Cohesity.Powershell.Common
 
             if (response.IsSuccessStatusCode)
             {
+                CohesityLog.Instance.WriteCohesityLog(responseContent);
                 return responseContent;
             }
             else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
@@ -146,6 +153,7 @@ namespace Cohesity.Powershell.Common
                 }
             }
 
+            CohesityLog.Instance.WriteCohesityLog(extractMessageFromErrorResponse(responseContent));
             throw new Exception(extractMessageFromErrorResponse(responseContent));
         }
 
@@ -165,6 +173,7 @@ namespace Cohesity.Powershell.Common
 
             if (response.IsSuccessStatusCode)
             {
+                CohesityLog.Instance.WriteCohesityLog(responseContent);
                 return responseContent;
             }
             else if(response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
@@ -178,6 +187,7 @@ namespace Cohesity.Powershell.Common
                 }
             }
 
+            CohesityLog.Instance.WriteCohesityLog(extractMessageFromErrorResponse(responseContent));
             throw new Exception(extractMessageFromErrorResponse(responseContent));
         }
 
@@ -191,6 +201,7 @@ namespace Cohesity.Powershell.Common
 
             if (response.IsSuccessStatusCode)
             {
+                CohesityLog.Instance.WriteCohesityLog(responseContent);
                 return responseContent;
             }
             else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
@@ -204,6 +215,7 @@ namespace Cohesity.Powershell.Common
                 }
             }
 
+            CohesityLog.Instance.WriteCohesityLog(extractMessageFromErrorResponse(responseContent));
             throw new Exception(extractMessageFromErrorResponse(responseContent));
         }
 

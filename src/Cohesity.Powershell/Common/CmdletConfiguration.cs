@@ -10,7 +10,16 @@ namespace Cohesity.Powershell.Common
 {
     internal class CmdletConfig
     {
+        public int LogSeverity = 0;
+        public bool LogRequestedPayload = false;
+        public bool LogResponseData = false;
+        public bool LogHeaderDetail = false;
         public bool RefreshToken = false;
+        public string LogFilePath = null;
+        // non editable attributes
+        public string ConfigFolder = "cohesity";
+        public string ConfigFileName = "config.json";
+        public string LogFileName = "cmdlet.log";
     }
     internal class CmdletConfiguration
     {
@@ -75,11 +84,67 @@ namespace Cohesity.Powershell.Common
             }
             return true;
         }
+        public int LogSeverity
+        {
+            get
+            {
+                return this.__config.LogSeverity;
+            }
+        }
+        public bool IsLogRequestedPayload
+        {
+            get
+            {
+                return this.__config.LogRequestedPayload;
+            }
+        }
+        public bool IsLogResponseData
+        {
+            get
+            {
+                return this.__config.LogResponseData;
+            }
+        }
+        public bool IsLogHeaderDetail
+        {
+            get
+            {
+                return this.__config.LogHeaderDetail;
+            }
+        }
         public bool IsRefreshToken
         {
             get
             {
                 return this.__config.RefreshToken;
+            }
+        }
+        public string LogFilePath
+        {
+            get
+            {
+                return this.__config.LogFilePath;
+            }
+        }
+        public string ConfigFolder
+        {
+            get
+            {
+                return this.__config.ConfigFolder;
+            }
+        }
+        public string ConfigFileName
+        {
+            get
+            {
+                return this.__config.ConfigFileName;
+            }
+        }
+        public string LogFileName
+        {
+            get
+            {
+                return this.__config.LogFileName;
             }
         }
     }
