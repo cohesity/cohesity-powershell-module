@@ -49,7 +49,13 @@ namespace Cohesity.Model
             /// Enum KContinuousRPO for value: kContinuousRPO
             /// </summary>
             [EnumMember(Value = "kContinuousRPO")]
-            KContinuousRPO = 4
+            KContinuousRPO = 4,
+
+            /// <summary>
+            /// Enum KCDP for value: kCDP
+            /// </summary>
+            [EnumMember(Value = "kCDP")]
+            KCDP = 5
 
         }
 
