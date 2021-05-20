@@ -7,7 +7,7 @@ Install-Module -Name Cohesity.PowerShell.Core -Repository LocalPSRepo -Verbose
 # create a fresh unit test report directory
 $utReportDirectory = $currentPath.ToString() + "\UTReportCore\"
 if ([System.IO.Directory]::Exists($utReportDirectory)) {
-	$archiveTestReport = "C:\UTReportCore-" + (Get-Date -Format "dddd-MM-dd-yyyy-HH-mm-ss").ToString()
+	$archiveTestReport = "C:\UnitTestReportArchive\UTReportCore-" + (Get-Date -Format "dddd-MM-dd-yyyy-HH-mm-ss").ToString() + ".zip"
 	Compress-Archive -LiteralPath $utReportDirectory -DestinationPath $archiveTestReport
 	Remove-Item -Path $utReportDirectory -Force -Confirm:$false -Recurse
 }
