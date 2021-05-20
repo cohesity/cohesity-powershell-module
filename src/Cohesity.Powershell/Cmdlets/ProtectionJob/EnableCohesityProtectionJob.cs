@@ -22,7 +22,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
     ///   Activates a protection job with the id of 1234 and associates it with the specified policy id and source id.
     ///   </para>
     /// </example>
-    [Cmdlet(VerbsLifecycle.Enable, "CohesityProtectionJob")]
+    [Cmdlet(VerbsLifecycle.Enable, "CohesityProtectionJob", DefaultParameterSetName = "ByName")]
     public class EnableCohesityProtectionJob: PSCmdlet
     {
         private Session Session

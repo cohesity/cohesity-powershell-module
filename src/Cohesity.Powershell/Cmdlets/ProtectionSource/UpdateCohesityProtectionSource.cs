@@ -23,7 +23,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
     ///   Immediately refreshes the given protection source.
     ///   </para>
     /// </example>
-    [Cmdlet(VerbsData.Update, "CohesityProtectionSource")]
+    [Cmdlet(VerbsData.Update, "CohesityProtectionSource", DefaultParameterSetName = "ById")]
     public class UpdateCohesityProtectionSource : PSCmdlet
     {
         private Session Session

@@ -33,7 +33,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJobRun
     ///   </para>
     /// </example>
     [Cmdlet(VerbsCommon.Remove, "CohesitySnapshot",
-        SupportsShouldProcess = true, ConfirmImpact = ConfirmImpact.High)]
+        SupportsShouldProcess = true, ConfirmImpact = ConfirmImpact.High, DefaultParameterSetName = "JobName")]
     public class RemoveCohesitySnapshot : PSCmdlet
     {
 

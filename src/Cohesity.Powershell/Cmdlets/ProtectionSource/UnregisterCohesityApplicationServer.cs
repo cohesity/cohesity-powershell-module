@@ -21,7 +21,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
     ///   Unregisters the application server running on the protection source with Id 12 from Cohesity Cluster.
     ///   </para>
     /// </example>
-    [Cmdlet(VerbsLifecycle.Unregister, "CohesityApplicationServer")]
+    [Cmdlet(VerbsLifecycle.Unregister, "CohesityApplicationServer", DefaultParameterSetName = "ById")]
     public class UnregisterCohesityApplicationServer : PSCmdlet
     {
         private Session Session

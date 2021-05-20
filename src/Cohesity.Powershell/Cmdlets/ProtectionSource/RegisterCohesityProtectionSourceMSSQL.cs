@@ -32,7 +32,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
     /// Registers the specified source as running MS SQL application and connects using provided credentials.
     /// </para>
     /// </example>
-    [Cmdlet(VerbsLifecycle.Register, "CohesityProtectionSourceMSSQL")]
+    [Cmdlet(VerbsLifecycle.Register, "CohesityProtectionSourceMSSQL", DefaultParameterSetName = "UseCredential")]
     [OutputType(typeof(Model.ProtectionSource))]
     public class RegisterCohesityProtectionSourceMSSQL : PSCmdlet
     {
