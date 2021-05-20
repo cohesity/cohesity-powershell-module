@@ -5,15 +5,15 @@ Immediately starts a protection job run.
 
 ## SYNTAX
 
-### ById
+### ByName (Default)
 ```
-Start-CohesityProtectionJob -Id <Int64> [-RunType <RunTypeEnum>] [-SourceIds <Int64[]>]
+Start-CohesityProtectionJob -Name <String> [-RunType <RunTypeEnum>] [-SourceIds <Int64[]>]
  [-CopyRunTargets <RunJobSnapshotTarget[]>] [<CommonParameters>]
 ```
 
-### ByName
+### ById
 ```
-Start-CohesityProtectionJob -Name <String> [-RunType <RunTypeEnum>] [-SourceIds <Int64[]>]
+Start-CohesityProtectionJob -Id <Int64> [-RunType <RunTypeEnum>] [-SourceIds <Int64[]>]
  [-CopyRunTargets <RunJobSnapshotTarget[]>] [<CommonParameters>]
 ```
 

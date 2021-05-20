@@ -6,7 +6,8 @@ Registers a new Nutanix Acropolis protection source with the Cohesity Cluster.
 ## SYNTAX
 
 ```
-Register-CohesityProtectionSourceAcropolis -Server <String> -Credential <PSCredential> [<CommonParameters>]
+Register-CohesityProtectionSourceAcropolis -Server <String> -Credential <PSCredential>
+ [-EntityType <AcropolisTypeEnum>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -49,6 +50,25 @@ Aliases:
 Required: True
 Position: Named
 Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -EntityType
+Specifies entity type for acropolis.
+Recommend to use the default value 'KStandaloneCluster'.
+
+Possible values: KPrismCentral, KStandaloneCluster, KCluster, KHost, KVirtualMachine, KNetwork, KStorageContainer
+
+```yaml
+Type: AcropolisTypeEnum
+Parameter Sets: (All)
+Aliases:
+Accepted values: KPrismCentral, KStandaloneCluster, KCluster, KHost, KVirtualMachine, KNetwork, KStorageContainer
+
+Required: False
+Position: Named
+Default value: KStandaloneCluster
 Accept pipeline input: False
 Accept wildcard characters: False
 ```

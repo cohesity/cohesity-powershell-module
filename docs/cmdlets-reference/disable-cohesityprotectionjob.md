@@ -5,14 +5,14 @@ Deactivates the specified protection job.
 
 ## SYNTAX
 
+### ByName (Default)
+```
+Disable-CohesityProtectionJob -Name <String> [-PowerOffVms] [<CommonParameters>]
+```
+
 ### ById
 ```
 Disable-CohesityProtectionJob -Id <Int64> [-PowerOffVms] [<CommonParameters>]
-```
-
-### ByName
-```
-Disable-CohesityProtectionJob -Name <String> [-PowerOffVms] [<CommonParameters>]
 ```
 
 ## DESCRIPTION

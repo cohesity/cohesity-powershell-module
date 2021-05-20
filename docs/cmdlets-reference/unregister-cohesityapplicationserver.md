@@ -5,7 +5,7 @@ Unregisters the application server (such as SQL) running on the specified protec
 
 ## SYNTAX
 
-### ById
+### ById (Default)
 ```
 Unregister-CohesityApplicationServer -Id <Int64> [<CommonParameters>]
 ```

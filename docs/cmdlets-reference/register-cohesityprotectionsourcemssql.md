@@ -5,14 +5,14 @@ Registers an existing source as running MS SQL application.
 
 ## SYNTAX
 
+### UseCredential (Default)
+```
+Register-CohesityProtectionSourceMSSQL -Id <Int64> -Credential <PSCredential> [<CommonParameters>]
+```
+
 ### UseAgent
 ```
 Register-CohesityProtectionSourceMSSQL -Id <Int64> [-HasPersistentAgent] [<CommonParameters>]
-```
-
-### UseCredential
-```
-Register-CohesityProtectionSourceMSSQL -Id <Int64> -Credential <PSCredential> [<CommonParameters>]
 ```
 
 ## DESCRIPTION

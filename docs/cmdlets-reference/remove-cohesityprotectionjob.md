@@ -5,14 +5,14 @@ Removes a protection job.
 
 ## SYNTAX
 
+### ByName (Default)
+```
+Remove-CohesityProtectionJob -Name <String> [-KeepSnapshots] [-WhatIf] [-Confirm] [<CommonParameters>]
+```
+
 ### ById
 ```
 Remove-CohesityProtectionJob -Id <Int64> [-KeepSnapshots] [-WhatIf] [-Confirm] [<CommonParameters>]
-```
-
-### ByName
-```
-Remove-CohesityProtectionJob -Name <String> [-KeepSnapshots] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION

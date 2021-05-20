@@ -5,7 +5,7 @@ Unregisters the specified remote cluster from the Cohesity Cluster.
 
 ## SYNTAX
 
-### ById
+### ById (Default)
 ```
 Unregister-CohesityRemoteCluster -Id <Int64> [<CommonParameters>]
 ```

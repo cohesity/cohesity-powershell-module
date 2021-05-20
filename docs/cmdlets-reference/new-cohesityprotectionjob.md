@@ -5,20 +5,20 @@ Creates a new protection job.
 
 ## SYNTAX
 
+### CreateByName (Default)
+```
+New-CohesityProtectionJob -Name <String> [-Description <String>] -PolicyName <String> [-ParentSourceId <Int64>]
+ [-SourceIds <Int64[]>] [-ExcludeSourceIds <Int64[]>] [-VmTagIds <Int64[]>] [-ExcludeVmTagIds <Int64[]>]
+ [-Timezone <String>] [-ScheduleStartTime <DateTime>] -StorageDomainName <String> [-ViewName <String>]
+ [-FullSLATimeInMinutes <Int64>] [-IncrementalSLATimeInMinutes <Int64>] [-Environment <EnvironmentEnum>]
+ [-SourceSpecialParameters <SourceSpecialParameter[]>] [<CommonParameters>]
+```
+
 ### CreateById
 ```
 New-CohesityProtectionJob -Name <String> [-Description <String>] -PolicyId <String> [-ParentSourceId <Int64>]
  [-SourceIds <Int64[]>] [-ExcludeSourceIds <Int64[]>] [-VmTagIds <Int64[]>] [-ExcludeVmTagIds <Int64[]>]
  [-Timezone <String>] [-ScheduleStartTime <DateTime>] -StorageDomainId <Int64> [-ViewName <String>]
- [-FullSLATimeInMinutes <Int64>] [-IncrementalSLATimeInMinutes <Int64>] [-Environment <EnvironmentEnum>]
- [-SourceSpecialParameters <SourceSpecialParameter[]>] [<CommonParameters>]
-```
-
-### CreateByName
-```
-New-CohesityProtectionJob -Name <String> [-Description <String>] -PolicyName <String> [-ParentSourceId <Int64>]
- [-SourceIds <Int64[]>] [-ExcludeSourceIds <Int64[]>] [-VmTagIds <Int64[]>] [-ExcludeVmTagIds <Int64[]>]
- [-Timezone <String>] [-ScheduleStartTime <DateTime>] -StorageDomainName <String> [-ViewName <String>]
  [-FullSLATimeInMinutes <Int64>] [-IncrementalSLATimeInMinutes <Int64>] [-Environment <EnvironmentEnum>]
  [-SourceSpecialParameters <SourceSpecialParameter[]>] [<CommonParameters>]
 ```
@@ -200,7 +200,7 @@ Aliases:
 
 Required: False
 Position: Named
-Default value: 12/2/2020 4:13:48 PM
+Default value: 5/20/2021 4:20:33 PM
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
