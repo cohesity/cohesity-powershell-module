@@ -9,6 +9,7 @@
     <BuildDependsOn>
       $(BuildDependsOn);
       CopyCmdletDoc;
+	  CopyNLog;
     </BuildDependsOn>
 
     <Authors>Cohesity</Authors>
@@ -121,5 +122,8 @@
 
   <Target Name="CopyCmdletDoc" AfterTargets="Build">
     <Copy SourceFiles="$(net451Target)\Cohesity.Powershell.dll-Help.xml" DestinationFiles="$(netcoreapp20Target)\Cohesity.Powershell.Core.dll-Help.xml" ContinueOnError="false" />
+  </Target>
+    <Target Name="CopyNLog" AfterTargets="Build">
+    <Copy SourceFiles="$(net451Target)\NLog.dll" DestinationFiles="$(netcoreapp20Target)\NLog.dll" ContinueOnError="false" />
   </Target>
 </Project>

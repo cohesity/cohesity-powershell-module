@@ -5,14 +5,14 @@ Activates the specified protection job.
 
 ## SYNTAX
 
+### ByName (Default)
+```
+Enable-CohesityProtectionJob -Name <String> -PolicyId <String> -ParentSourceId <Int64> [<CommonParameters>]
+```
+
 ### ById
 ```
 Enable-CohesityProtectionJob -Id <Int64> -PolicyId <String> -ParentSourceId <Int64> [<CommonParameters>]
-```
-
-### ByName
-```
-Enable-CohesityProtectionJob -Name <String> -PolicyId <String> -ParentSourceId <Int64> [<CommonParameters>]
 ```
 
 ## DESCRIPTION

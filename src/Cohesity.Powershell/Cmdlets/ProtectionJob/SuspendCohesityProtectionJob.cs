@@ -23,7 +23,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
     ///   Pauses a protection job with the Id of 1234.
     ///   </para>
     /// </example>
-    [Cmdlet(VerbsLifecycle.Suspend, "CohesityProtectionJob")]
+    [Cmdlet(VerbsLifecycle.Suspend, "CohesityProtectionJob", DefaultParameterSetName = "ByName")]
     public class SuspendCohesityProtectionJob: PSCmdlet
     {
         private Session Session

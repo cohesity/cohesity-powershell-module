@@ -31,7 +31,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
     ///   Deactivates the protection job with the name "vm-replication-job" and also powers off the associated VMs in VMware environment.
     ///   </para>
     /// </example>
-    [Cmdlet(VerbsLifecycle.Disable, "CohesityProtectionJob")]
+    [Cmdlet(VerbsLifecycle.Disable, "CohesityProtectionJob", DefaultParameterSetName = "ByName")]
     public class DisableCohesityProtectionJob: PSCmdlet
     {
         private Session Session

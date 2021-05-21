@@ -5,14 +5,14 @@ Pauses the future runs of the specified protection job.
 
 ## SYNTAX
 
+### ByName (Default)
+```
+Suspend-CohesityProtectionJob -Name <String> [<CommonParameters>]
+```
+
 ### ById
 ```
 Suspend-CohesityProtectionJob -Id <Int64> [<CommonParameters>]
-```
-
-### ByName
-```
-Suspend-CohesityProtectionJob -Name <String> [<CommonParameters>]
 ```
 
 ## DESCRIPTION

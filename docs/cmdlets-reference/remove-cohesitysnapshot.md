@@ -5,15 +5,15 @@ Removes the Cohesity snapshots associated with a Protection Job.
 
 ## SYNTAX
 
-### ObjectModel
+### JobName (Default)
 ```
-Remove-CohesitySnapshot -JobObject <ProtectionRunInstance> [-SourceIds <Int64[]>] [-WhatIf] [-Confirm]
+Remove-CohesitySnapshot -JobName <String> -JobRunId <Int64> [-SourceIds <Int64[]>] [-WhatIf] [-Confirm]
  [<CommonParameters>]
 ```
 
-### JobName
+### ObjectModel
 ```
-Remove-CohesitySnapshot -JobName <String> -JobRunId <Int64> [-SourceIds <Int64[]>] [-WhatIf] [-Confirm]
+Remove-CohesitySnapshot -JobObject <ProtectionRunInstance> [-SourceIds <Int64[]>] [-WhatIf] [-Confirm]
  [<CommonParameters>]
 ```
 

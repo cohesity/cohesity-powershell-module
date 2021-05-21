@@ -25,7 +25,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
     ///   Creates a protection job for protecting a Cohesity View.
     ///   </para>
     /// </example>
-    [Cmdlet(VerbsCommon.New, "CohesityProtectionJob")]
+    [Cmdlet(VerbsCommon.New, "CohesityProtectionJob", DefaultParameterSetName = "CreateByName")]
     [OutputType(typeof(Model.ProtectionJob))]
     public class NewCohesityProtectionJob : PSCmdlet
     {

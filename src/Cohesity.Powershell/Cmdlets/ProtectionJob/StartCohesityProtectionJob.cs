@@ -28,7 +28,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
     ///   Immediately starts a job run for the given protection job.
     ///   </para>
     /// </example>
-    [Cmdlet(VerbsLifecycle.Start, "CohesityProtectionJob")]
+    [Cmdlet(VerbsLifecycle.Start, "CohesityProtectionJob", DefaultParameterSetName = "ByName")]
     public class StartCohesityProtectionJob : PSCmdlet
     {
 

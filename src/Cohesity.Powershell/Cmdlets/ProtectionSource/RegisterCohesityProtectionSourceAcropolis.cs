@@ -57,6 +57,14 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
         [Parameter(Mandatory = true)]
         public PSCredential Credential { get; set; } = null;
 
+        /// <summary>
+        /// <para type="description">
+        /// Specifies entity type for acropolis. Recommend to use the default value 'KStandaloneCluster'.
+        /// </para>
+        /// </summary>
+        [Parameter(Mandatory = false)]
+        public RegisterProtectionSourceParameters.AcropolisTypeEnum EntityType { get; set; } = RegisterProtectionSourceParameters.AcropolisTypeEnum.KStandaloneCluster;
+
         #endregion
 
         #region Processing
@@ -72,6 +80,7 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionSource
             var param = new RegisterProtectionSourceParameters
             {
                 Environment = Model.RegisterProtectionSourceParameters.EnvironmentEnum.KAcropolis,
+                AcropolisType = EntityType,
                 Endpoint = Server,
                 Username = Credential.UserName,
                 Password = Credential.GetNetworkCredential().Password

@@ -5,7 +5,7 @@ Refreshes the object hierarchy of the specified protection source on the Cohesit
 
 ## SYNTAX
 
-### ById
+### ById (Default)
 ```
 Update-CohesityProtectionSource -Id <Int64> [<CommonParameters>]
 ```

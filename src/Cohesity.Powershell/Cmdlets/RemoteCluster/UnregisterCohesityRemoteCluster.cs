@@ -21,7 +21,7 @@ namespace Cohesity.Powershell.Cmdlets.RemoteCluster
     ///   Unregisters the given remote cluster.
     ///   </para>
     /// </example>
-    [Cmdlet(VerbsLifecycle.Unregister, "CohesityRemoteCluster")]
+    [Cmdlet(VerbsLifecycle.Unregister, "CohesityRemoteCluster", DefaultParameterSetName = "ById")]
     public class UnregisterCohesityRemoteCluster : PSCmdlet
     {
         private Session Session
