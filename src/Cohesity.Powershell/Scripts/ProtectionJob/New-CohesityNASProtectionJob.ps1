@@ -85,6 +85,10 @@ function New-CohesityNASProtectionJob {
                         continueOnError = $true
                     }
                 }
+                indexingPolicy = @{
+                    disableIndexing = $false
+                    allowPrefixes = @("/")
+                }
                 sourceIds      = @($protectionSourceObject.Id)
                 parentSourceId = $protectionSourceParentId
                 startTime      = @{hour = (Get-Date).Hour; minute = (Get-Date).Minute }
