@@ -113,7 +113,8 @@ Accept wildcard characters: False
 ```
 
 ### -SourceIds
-Specifies the unique id of the protection source objects (such as a virtual machines) protected by this protection job.
+Specifies the unique id of the protection source objects (such as a virtual machines) protected by this protection job. 
+To enable Auto Protect, specify the same unique id as ParentSourceId.
 
 ```yaml
 Type: Int64[]
