@@ -10,4 +10,4 @@ jobs:
       - name: Run script analyser
         shell: powershell
         run: |
-          Invoke-ScriptAnalyzer -Path "../src/Cohesity.Powershell/Scripts/*/*.ps1" -ExcludeRule PSAvoidGlobalVars, PSUseSingularNouns
+          Invoke-ScriptAnalyzer -Path "./src/Cohesity.Powershell/Scripts/*/*.ps1" -ExcludeRule PSAvoidGlobalVars, PSUseSingularNouns
