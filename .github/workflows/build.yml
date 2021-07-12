@@ -4,6 +4,8 @@ jobs:
   Check-Path:
     runs-on: windows-latest
     steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
       - name: Testing a plain message
         shell: powershell
         run: write-host "Check for current path $pwd"
