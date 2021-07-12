@@ -15,8 +15,9 @@ jobs:
           dotnet-version: ${{ matrix.dotnet-version }}
       - name: Install dependencies
         run: dotnet restore
-      - name: Build the project
+      - name: Clean the project
         run: dotnet clean --configuration Release
+      - name: Build the project
         run: dotnet build --configuration Release
       - name: Testing a plain message
         shell: powershell
