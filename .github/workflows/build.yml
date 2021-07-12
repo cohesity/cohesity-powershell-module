@@ -3,18 +3,23 @@ on: [push]
 jobs:
   Check-Path:
     runs-on: windows-latest
-    strategy:
-      matrix:
-        dotnet-version: ['2.2','4.5.1' ]
     steps:
       - name: Check out repository code
         uses: actions/checkout@v2
-      - name: Setup .NET Core SDK ${{ matrix.dotnet-version }}
+      - name: Setup .NET 4.5.1
+        uses: actions/setup-dotnet@v1
+        with:
+          # Semantic version range syntax or exact version of a dotnet version
+          dotnet-version: '4.5.1'
+      - name: Setup .NET Core SDK 2.2
         uses: actions/setup-dotnet@v1.7.2
         with:
-          dotnet-version: ${{ matrix.dotnet-version }}
+          dotnet-version: '2.2'
+      # You can test your matrix by printing the current dotnet version
+      - name: Display dotnet version
+        run: dotnet --version
       - name: Install dependencies
-        run: dotnet restore
+        run: dotnet add package Newtonsoft.Json --version 12.0.1
       - name: Clean the project
         run: dotnet clean --configuration Release
       - name: Build the project
