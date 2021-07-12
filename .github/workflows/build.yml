@@ -7,3 +7,7 @@ jobs:
       - name: Testing a plain message
         shell: powershell
         run: write-host "Check for current path $pwd"
+      - name: Run script analyser
+        shell: powershell
+        run: |
+          Invoke-ScriptAnalyzer -Path "../src/Cohesity.Powershell/Scripts/*/*.ps1" -ExcludeRule PSAvoidGlobalVars, PSUseSingularNouns
