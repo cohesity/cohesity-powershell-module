@@ -5,4 +5,4 @@ jobs:
     runs-on: windows-latest
     steps:
       - shell: powershell
-      - run:  | pwd ; write-host "Check for path"
+      - run: write-host "Check for current path $pwd"
