@@ -12,8 +12,10 @@ jobs:
       - name: Display dotnet version
         run: dotnet --version
       - name: Clean the project
+        run: cd ./src
         run: dotnet clean --configuration Release
       - name: Build the project
+        run: cd ./src
         run: dotnet build --configuration Release
       - name: Testing a plain message
         shell: powershell
