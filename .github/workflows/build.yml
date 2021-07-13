@@ -6,15 +6,9 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v2
-      - name: Setup .NET Core SDK 2.2
-        uses: actions/setup-dotnet@v1.7.2
-        with:
-          dotnet-version: '2.2'
       # You can test your matrix by printing the current dotnet version
       - name: Display dotnet version
         run: dotnet --version
-      - name: Install dependencies
-        run: dotnet add package Newtonsoft.Json --version 12.0.1
       - name: Clean the project
         run: dotnet clean --configuration Release
       - name: Build the project
