@@ -1,7 +1,7 @@
 name: Build
 on: [push]
 jobs:
-  Check-Path:
+  Script-lint:
     runs-on: windows-latest
     steps:
       - name: Check out repository code
