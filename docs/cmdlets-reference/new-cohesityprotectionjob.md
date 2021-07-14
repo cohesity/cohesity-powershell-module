@@ -11,7 +11,7 @@ New-CohesityProtectionJob -Name <String> [-Description <String>] -PolicyName <St
  [-SourceIds <Int64[]>] [-ExcludeSourceIds <Int64[]>] [-VmTagIds <Int64[]>] [-ExcludeVmTagIds <Int64[]>]
  [-Timezone <String>] [-ScheduleStartTime <DateTime>] -StorageDomainName <String> [-ViewName <String>]
  [-FullSLATimeInMinutes <Int64>] [-IncrementalSLATimeInMinutes <Int64>] [-Environment <EnvironmentEnum>]
- [-SourceSpecialParameters <SourceSpecialParameter[]>] [<CommonParameters>]
+ [-SourceSpecialParameters <SourceSpecialParameter[]>] [-EnableIndexing] [<CommonParameters>]
 ```
 
 ### CreateById
@@ -20,7 +20,7 @@ New-CohesityProtectionJob -Name <String> [-Description <String>] -PolicyId <Stri
  [-SourceIds <Int64[]>] [-ExcludeSourceIds <Int64[]>] [-VmTagIds <Int64[]>] [-ExcludeVmTagIds <Int64[]>]
  [-Timezone <String>] [-ScheduleStartTime <DateTime>] -StorageDomainId <Int64> [-ViewName <String>]
  [-FullSLATimeInMinutes <Int64>] [-IncrementalSLATimeInMinutes <Int64>] [-Environment <EnvironmentEnum>]
- [-SourceSpecialParameters <SourceSpecialParameter[]>] [<CommonParameters>]
+ [-SourceSpecialParameters <SourceSpecialParameter[]>] [-EnableIndexing] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -200,7 +200,7 @@ Aliases:
 
 Required: False
 Position: Named
-Default value: 5/20/2021 4:20:33 PM
+Default value: 7/14/2021 1:49:31 PM
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -286,13 +286,13 @@ Accept wildcard characters: False
 Specifies the environment that this job is protecting.
 Default is kView.
 
-Possible values: KVMware, KHyperV, KSQL, KView, KPuppeteer, KPhysical, KPure, KNimble, KAzure, KNetapp, KAgent, KGenericNas, KAcropolis, KPhysicalFiles, KIsilon, KGPFS, KKVM, KAWS, KExchange, KHyperVVSS, KOracle, KGCP, KFlashBlade, KAWSNative, KVCD, KO365, KO365Outlook, KHyperFlex, KGCPNative, KAzureNative, KKubernetes, KElastifile, KAD, KRDSSnapshotManager
+Possible values: KVMware, KHyperV, KSQL, KView, KPuppeteer, KPhysical, KPure, KNimble, KAzure, KNetapp, KAgent, KGenericNas, KAcropolis, KPhysicalFiles, KIsilon, KGPFS, KKVM, KAWS, KExchange, KHyperVVSS, KOracle, KGCP, KFlashBlade, KAWSNative, KVCD, KO365, KO365Outlook, KHyperFlex, KGCPNative, KAzureNative, KKubernetes, KElastifile, KAD, KRDSSnapshotManager, KAWSSnapshotManager
 
 ```yaml
 Type: EnvironmentEnum
 Parameter Sets: (All)
 Aliases:
-Accepted values: KVMware, KHyperV, KSQL, KView, KPuppeteer, KPhysical, KPure, KNimble, KAzure, KNetapp, KAgent, KGenericNas, KAcropolis, KPhysicalFiles, KIsilon, KGPFS, KKVM, KAWS, KExchange, KHyperVVSS, KOracle, KGCP, KFlashBlade, KAWSNative, KVCD, KO365, KO365Outlook, KHyperFlex, KGCPNative, KAzureNative, KKubernetes, KElastifile, KAD, KRDSSnapshotManager
+Accepted values: KVMware, KHyperV, KSQL, KView, KPuppeteer, KPhysical, KPure, KNimble, KAzure, KNetapp, KAgent, KGenericNas, KAcropolis, KPhysicalFiles, KIsilon, KGPFS, KKVM, KAWS, KExchange, KHyperVVSS, KOracle, KGCP, KFlashBlade, KAWSNative, KVCD, KO365, KO365Outlook, KHyperFlex, KGCPNative, KAzureNative, KKubernetes, KElastifile, KAD, KRDSSnapshotManager, KAWSSnapshotManager
 
 Required: False
 Position: Named
@@ -313,6 +313,22 @@ Aliases:
 Required: False
 Position: Named
 Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -EnableIndexing
+Specifies settings for indexing files found in an Object (such as a VM) so these files can be searched and recovered.
+This also specifies inclusion and exclusion rules that determine the directories to index (backup files).
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
