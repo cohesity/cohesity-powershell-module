@@ -145,7 +145,19 @@ namespace Cohesity.Model
             /// Enum KNetworking for value: kNetworking
             /// </summary>
             [EnumMember(Value = "kNetworking")]
-            KNetworking = 20
+            KNetworking = 20,
+
+            /// <summary>
+            /// Enum KStorageUsage for value: kStorageUsage
+            /// </summary>
+            [EnumMember(Value = "kStorageUsage")]
+            KStorageUsage = 21,
+
+            /// <summary>
+            /// Enum KDataPath for value: kDataPath
+            /// </summary>
+            [EnumMember(Value = "kDataPath")]
+            KDataPath = 22
 
         }
 
