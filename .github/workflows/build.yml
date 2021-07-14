@@ -1,0 +1,12 @@
+name: Build
+on: [push]
+jobs:
+  Script-lint:
+    runs-on: windows-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+      - name: Run script analyser
+        shell: powershell
+        run: |
+          Invoke-ScriptAnalyzer -Path "./src/Cohesity.Powershell/Scripts/*/*.ps1" -ExcludeRule PSAvoidGlobalVars, PSUseSingularNouns  | Should -Be $null

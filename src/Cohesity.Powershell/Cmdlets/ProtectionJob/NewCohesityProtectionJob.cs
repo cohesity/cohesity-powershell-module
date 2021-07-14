@@ -201,6 +201,15 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
         [Parameter()]
         public SourceSpecialParameter[] SourceSpecialParameters { get; set; }
 
+        /// <summary>
+        /// <para type="description">
+        /// Specifies settings for indexing files found in an Object (such as a VM) so these files can be searched and recovered.
+        /// This also specifies inclusion and exclusion rules that determine the directories to index (backup files).
+        /// </para>
+        /// </summary>
+        [Parameter(Mandatory = false)]
+        public SwitchParameter EnableIndexing { get; set; }
+
         protected override void BeginProcessing()
         {
             base.BeginProcessing();
@@ -274,6 +283,13 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
             if (SourceSpecialParameters != null && SourceSpecialParameters.Any())
             {
                 newProtectionJob.SourceSpecialParameters = SourceSpecialParameters.ToList();
+            }
+
+            if (EnableIndexing.IsPresent)
+            {
+                newProtectionJob.IndexingPolicy = new IndexingPolicy();
+                newProtectionJob.IndexingPolicy.DisableIndexing = false;
+                newProtectionJob.IndexingPolicy.AllowPrefixes = new List<string>() { "/" };
             }
 
             var preparedUrl = $"/public/protectionJobs";

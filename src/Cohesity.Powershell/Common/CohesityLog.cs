@@ -71,7 +71,9 @@ namespace Cohesity.Powershell.Common
             {
                 if(request.Content != null)
                 {
-                    WriteLog(request.Content.ToString(),1);
+                    var content = request.Content;
+                    string jsonContent = content.ReadAsStringAsync().Result;
+                    WriteLog(jsonContent, 1);
                 }
             }
 
