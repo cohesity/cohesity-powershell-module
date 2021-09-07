@@ -108,6 +108,7 @@ FunctionsToExport = @(
                     'New-CohesityUserGroup',
                     'New-CohesityVirtualIP',
                     'New-CohesityVlan',
+                    'Register-CohesityProtectionSourceAWS',
                     'Register-CohesityProtectionSourceHyperV',
                     'Register-CohesityProtectionSourceIsilon',
                     'Register-CohesityProtectionSourceO365',
