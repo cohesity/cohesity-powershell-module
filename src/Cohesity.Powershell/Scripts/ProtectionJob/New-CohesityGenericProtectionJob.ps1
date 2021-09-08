@@ -13,7 +13,16 @@ function New-CohesityGenericProtectionJob {
 		Create a protection job by explicitly constructing the protection job object,
 		Construct the object as follows,
 		$protectionJobObject = [Cohesity.Model.ProtectionJob]::new()
-		$protectionJobObject.Name = "job-aws"
+		$protectionJobObject.Name = "job-rds4"
+		$protectionJobObject.Environment = [Cohesity.Model.ProtectionJob+EnvironmentEnum]::KRDSSnapshotManager
+		$protectionJobObject.PolicyId = "6572875819740094:1631076508923:3"
+		$protectionJobObject.viewBoxId = 4
+		$protectionJobObject.parentSourceId = 731
+		$sourceIds = New-Object Collections.Generic.List[long]
+		$sourceIds.Add(4791)
+		$protectionJobObject.sourceIds = $sourceIds
+		$protectionJobObject.startTime = [Cohesity.Model.TimeOfDay]::new(13,52)
+		$protectionJobObject.timezone = "America/Los_Angeles"
 
 		.EXAMPLE
 		For reference, another example available in link below.
@@ -33,11 +42,20 @@ function New-CohesityGenericProtectionJob {
     }
 
     Process {
+			if (-not $ProtectionJobObject.Environment) {
+				Write-Output "Please specify the environment."
+				return
+			}
+			$environment = $ProtectionJobObject.environment.ToString()
+			$environment = "k"+$environment.Substring(1,$environment.Length-1)
+			#  ConvertTo-Json of environment to string gives the enum number, therefore converting back to PSCustomObject
+			$pJobJson = $ProtectionJobObject | ConvertTo-Json -Depth 100
+			$pJobObject = $pJobJson | ConvertFrom-Json
+			$pJobObject.environment = $environment
+			
 			$url = $server + '/irisservices/api/v1/public/protectionJobs'
-
 			$headers = @{'Authorization' = 'Bearer ' + $token }
-			$payload = $ProtectionJobObject
-			$payloadJson = $payload | ConvertTo-Json -Depth 100
+			$payloadJson = $pJobObject | ConvertTo-Json -Depth 100
 			$resp = Invoke-RestApi -Method Post -Uri $url -Headers $headers -Body $payloadJson
 			if (201 -eq $Global:CohesityAPIStatus.StatusCode) {
 				Start-CohesityProtectionJob -Id $resp.Id | Out-Null
