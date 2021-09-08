@@ -99,6 +99,7 @@ FunctionsToExport = @(
                     'Get-CohesityViewShareAllowlist',
                     'Get-CohesityVlan',
                     'New-CohesityActiveDirectory',
+                    'New-CohesityGenericProtectionJob',
                     'New-CohesityNASProtectionJob',
                     'New-CohesityHypervProtectionJob'
                     'New-CohesityPhysicalServerProtectionJob'
