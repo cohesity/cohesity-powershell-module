@@ -82,6 +82,7 @@
 
 
 - **Data Protection**
+- [Register-CohesityProtectionSourceAWS](cmdlets-reference/register-cohesityprotectionsourceaws.md)
 - [Register-CohesityProtectionSourceVMware](cmdlets-reference/register-cohesityprotectionsourcevmware.md)
 - [Register-CohesityProtectionSourceHyperV](cmdlets-reference/register-cohesityprotectionsourcehyperv.md)
 - [Register-CohesityProtectionSourceAcropolis](cmdlets-reference/register-cohesityprotectionsourceacropolis.md)
@@ -105,6 +106,7 @@
 - [New-CohesityProtectionPolicy](cmdlets-reference/new-cohesityprotectionpolicy.md)
 - [Set-CohesityProtectionPolicy](cmdlets-reference/set-cohesityprotectionpolicy.md)
 - [Remove-CohesityProtectionPolicy](cmdlets-reference/remove-cohesityprotectionpolicy.md)
+- [New-CohesityGenericProtectionJob](cmdlets-reference/new-cohesitygenericprotectionjob.md)
 - [New-CohesityHypervProtectionJob](cmdlets-reference/new-cohesityhypervprotectionjob.md)
 - [New-CohesityNASProtectionJob](cmdlets-reference/new-cohesitynasprotectionjob.md)
 - [New-CohesityPhysicalServerProtectionJob](cmdlets-reference/new-cohesityphysicalserverprotectionjob.md)

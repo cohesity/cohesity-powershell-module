@@ -120,13 +120,43 @@ function Restore-CohesityRemoteMSSQLObject {
 
                 $searchHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
 
-                $searchURL = $cohesityCluster + '/irisservices/api/v1/searchvms?environment=SQL&entityTypes=kSQL&showAll=false&onlyLatestVersion=true&jobIds=' + $JobId
-                $searchResult = Invoke-RestApi -Method Get -Uri $searchURL -Headers $searchHeaders
-                if ($null -eq $searchResult) {
-                    Write-Output "Could not search MSSQL objects with the job id $JobId"
-                    return
+                $searchedVMDetails = $null
+                $searchIndex = 0
+                $continuePagination = $true
+                $searchTotalCount = 0
+
+                while ($continuePagination) {
+                    $searchURL = $cohesityCluster + '/irisservices/api/v1/searchvms?from=' + $searchIndex + '&environment=SQL&entityTypes=kSQL&showAll=false&onlyLatestVersion=true&jobIds=' + $JobId
+                    $searchResult = Invoke-RestApi -Method Get -Uri $searchURL -Headers $searchHeaders
+                    if ($null -eq $searchResult) {
+                        Write-Output "Could not search MSSQL objects with the job id $JobId"
+                        return
+                    }
+
+                    $searchedVMDetails = $searchResult.vms | Where-Object { ($_.vmDocument.objectId.jobId -eq $JobId) -and ($_.vmDocument.objectId.entity.id -eq $SourceId) }
+
+                    if ($searchTotalCount -eq 0) {
+                        # find the expected number of search result items
+                        $searchTotalCount = $searchResult.count
+                    }
+
+                    if ($searchedVMDetails) {
+                        $errorMsg = "Found database with search index " + $searchIndex + ", and total item count " + $searchTotalCount
+                        CSLog -Message $errorMsg
+                        $continuePagination = $false
+                    }
+
+                    # the number of items skimmed
+                    $searchIndex += $searchResult.vms.Count
+
+
+                    if ($searchIndex -ge $searchTotalCount) {
+                        $continuePagination = $false
+                    }
+                    if ($continuePagination -eq $false) {
+                        break
+                    }
                 }
-                $searchedVMDetails = $searchResult.vms | Where-Object { ($_.vmDocument.objectId.jobId -eq $JobId) -and ($_.vmDocument.objectId.entity.id -eq $SourceId) }
                 if ($null -eq $searchedVMDetails) {
                     Write-Output "Could not find details for MSSQL source id = $SourceId , and Job id = $JobId"
                     return
@@ -169,23 +199,23 @@ function Restore-CohesityRemoteMSSQLObject {
                     $payloadJson = $pointsInTimeRange | ConvertTo-Json -Depth 100
 
                     $timeRangeResult = Invoke-RestApi -Method Post -Uri $pointsForTimeRangeUrl -Headers $pitHeaders -Body $payloadJson
-					if ($Global:CohesityAPIStatus.StatusCode -eq 201) {
-						[bool]$foundPointInTime = $false;
-						if ($timeRangeResult.TimeRanges) {
-							foreach ($item in $timeRangeResult.TimeRanges) {
-								$restoreTimeUsecs = $RestoreTimeSecs * 1000 * 1000;
-								if (($item.StartTimeUsecs -lt $restoreTimeUsecs) -and ($restoreTimeUsecs -lt $item.EndTimeUsecs)) {
-									$foundPointInTime = $true;
-									break;
-								}
-							}
-						}
-					}
-					else {
-					    $errorMsg = $Global:CohesityAPIStatus.ErrorMessage + ", Point in time : Failed to query."
-						Write-Output $errorMsg
-						CSLog -Message $errorMsg
-					}
+                    if ($Global:CohesityAPIStatus.StatusCode -eq 201) {
+                        [bool]$foundPointInTime = $false;
+                        if ($timeRangeResult.TimeRanges) {
+                            foreach ($item in $timeRangeResult.TimeRanges) {
+                                $restoreTimeUsecs = $RestoreTimeSecs * 1000 * 1000;
+                                if (($item.StartTimeUsecs -lt $restoreTimeUsecs) -and ($restoreTimeUsecs -lt $item.EndTimeUsecs)) {
+                                    $foundPointInTime = $true;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    else {
+                        $errorMsg = $Global:CohesityAPIStatus.ErrorMessage + ", Point in time : Failed to query."
+                        Write-Output $errorMsg
+                        CSLog -Message $errorMsg
+                    }
                     if ($false -eq $foundPointInTime) {
                         Write-Output "Invalid point in time value '$RestoreTimeSecs'."
                         return
@@ -228,7 +258,7 @@ function Restore-CohesityRemoteMSSQLObject {
 
                 $sqlRestoreParams = [PSCustomObject]@{
                     captureTailLogs                 = $CaptureTailLogs.IsPresent
-					keepCdc							= $KeepCDC.IsPresent
+                    keepCdc                         = $KeepCDC.IsPresent
                     dataFileDestination             = $TargetDataFilesDirectory
                     instanceName                    = $NewInstanceName
                     logFileDestination              = $TargetLogFilesDirectory
