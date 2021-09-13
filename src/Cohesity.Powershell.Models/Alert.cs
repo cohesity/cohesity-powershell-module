@@ -157,7 +157,13 @@ namespace Cohesity.Model
             /// Enum KDataPath for value: kDataPath
             /// </summary>
             [EnumMember(Value = "kDataPath")]
-            KDataPath = 22
+            KDataPath = 22,
+
+            /// <summary>
+            /// Enum KIndexing for value: kIndexing
+            /// </summary>
+            [EnumMember(Value = "kIndexing")]
+            KIndexing = 23
 
         }
 
