@@ -38,15 +38,15 @@ function Register-CohesityProtectionSourceAWS {
     $uri = $session.ClusterUri + '/irisservices/api/v1/public/protectionSources/register'
 
     $awsRegistrationParameters = @{
-								  awsCredentials = @{
-									accessKey = $AccessKey
-									authMethod = "kUseIAMUser"
-									awsType = "kIAMUser"
-									iamRoleArn = $ARN
-									secretAccessKey = $SecretAccessKey
-								  }
-								  environment = "kAWS"
-								}
+      awsCredentials = @{
+        accessKey       = $AccessKey
+        authMethod      = "kUseIAMUser"
+        awsType         = "kIAMUser"
+        iamRoleArn      = $ARN
+        secretAccessKey = $SecretAccessKey
+      }
+      environment    = "kAWS"
+    }
 
     $request = $awsRegistrationParameters | ConvertTo-Json
     $result = Invoke-RestApi -Method Post -Headers $headers -Uri $uri -Body $request

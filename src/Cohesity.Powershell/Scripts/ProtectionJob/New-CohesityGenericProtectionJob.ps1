@@ -1,5 +1,5 @@
 function New-CohesityGenericProtectionJob {
-    <#
+	<#
         .SYNOPSIS
         Create a new protection job.
         .DESCRIPTION
@@ -28,44 +28,44 @@ function New-CohesityGenericProtectionJob {
 		For reference, another example available in link below.
 		eg; https://www.postman.com/cohesity/workspace/cohesity/request/14330502-4ebd5a6e-a772-4d7e-a23b-2dd335670d0e
     #>
-    [CmdletBinding()]
-    Param(
-        [Parameter(Mandatory = $true)]
-        # Specifies the object for the protection job.
-        [Cohesity.Model.ProtectionJob]$ProtectionJobObject
-    )
+	[CmdletBinding()]
+	Param(
+		[Parameter(Mandatory = $true)]
+		# Specifies the object for the protection job.
+		[Cohesity.Model.ProtectionJob]$ProtectionJobObject
+	)
 
-    Begin {
-        $session = CohesityUserProfile
-        $server = $session.ClusterUri
-        $token = $session.Accesstoken.Accesstoken
-    }
+	Begin {
+		$session = CohesityUserProfile
+		$server = $session.ClusterUri
+		$token = $session.Accesstoken.Accesstoken
+	}
 
-    Process {
-			if (-not $ProtectionJobObject.Environment) {
-				Write-Output "Please specify the environment."
-				return
-			}
-			$environment = $ProtectionJobObject.environment.ToString()
-			$environment = "k"+$environment.Substring(1,$environment.Length-1)
-			#  ConvertTo-Json of environment to string gives the enum number, therefore converting back to PSCustomObject
-			$pJobJson = $ProtectionJobObject | ConvertTo-Json -Depth 100
-			$pJobObject = $pJobJson | ConvertFrom-Json
-			$pJobObject.environment = $environment
+	Process {
+		if (-not $ProtectionJobObject.Environment) {
+			Write-Output "Please specify the environment."
+			return
+		}
+		$environment = $ProtectionJobObject.environment.ToString()
+		$environment = "k" + $environment.Substring(1, $environment.Length - 1)
+		#  ConvertTo-Json of environment to string gives the enum number, therefore converting back to PSCustomObject
+		$pJobJson = $ProtectionJobObject | ConvertTo-Json -Depth 100
+		$pJobObject = $pJobJson | ConvertFrom-Json
+		$pJobObject.environment = $environment
 			
-			$url = $server + '/irisservices/api/v1/public/protectionJobs'
-			$headers = @{'Authorization' = 'Bearer ' + $token }
-			$payloadJson = $pJobObject | ConvertTo-Json -Depth 100
-			$resp = Invoke-RestApi -Method Post -Uri $url -Headers $headers -Body $payloadJson
-			if (201 -eq $Global:CohesityAPIStatus.StatusCode) {
-				Start-CohesityProtectionJob -Id $resp.Id | Out-Null
-				$resp
-			}
-			else {
-				Write-Output "Protection job : Failed to create job"
-				Write-Output $Global:CohesityAPIError
-			}
-    }
-    End {
-    }
+		$url = $server + '/irisservices/api/v1/public/protectionJobs'
+		$headers = @{'Authorization' = 'Bearer ' + $token }
+		$payloadJson = $pJobObject | ConvertTo-Json -Depth 100
+		$resp = Invoke-RestApi -Method Post -Uri $url -Headers $headers -Body $payloadJson
+		if (201 -eq $Global:CohesityAPIStatus.StatusCode) {
+			Start-CohesityProtectionJob -Id $resp.Id | Out-Null
+			$resp
+		}
+		else {
+			Write-Output "Protection job : Failed to create job"
+			Write-Output $Global:CohesityAPIError
+		}
+	}
+	End {
+	}
 }
