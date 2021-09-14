@@ -128,7 +128,8 @@ function Restore-CohesityRemoteMSSQLObject {
                 while ($continuePagination) {
                     $searchURL = $cohesityCluster + '/irisservices/api/v1/searchvms?from=' + $searchIndex + '&environment=SQL&entityTypes=kSQL&showAll=false&onlyLatestVersion=true&jobIds=' + $JobId
                     $searchResult = Invoke-RestApi -Method Get -Uri $searchURL -Headers $searchHeaders
-                    if ($null -eq $searchResult) {
+
+                    if ($Global:CohesityAPIStatus.StatusCode -ne 200) {
                         Write-Output "Could not search MSSQL objects with the job id $JobId"
                         return
                     }
