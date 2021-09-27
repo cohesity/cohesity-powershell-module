@@ -39,7 +39,7 @@ function New-CohesityHypervProtectionJob {
     Process {
         if ($PSCmdlet.ShouldProcess($Name)) {
             if(-not $TimeZone) {
-                $TimeZone = (Get-TimeZone).Id
+                $TimeZone = GetCurrentTimeZone
             }
             # fix for support to v6.3 and v6.5
             $protectionPolicyObject = Get-CohesityProtectionPolicy -Names $PolicyName | Where-Object { $_.name -eq $PolicyName }

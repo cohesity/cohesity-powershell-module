@@ -50,7 +50,7 @@ function New-CohesityPhysicalServerProtectionJob {
     Process {
         if ($PSCmdlet.ShouldProcess($SourceName)) {
             if(-not $TimeZone) {
-                $TimeZone = (Get-TimeZone).Id
+                $TimeZone = GetCurrentTimeZone
             }
             $protectionPolicyObject = Get-CohesityProtectionPolicy -Names $PolicyName | Where-Object { $_.name -eq $PolicyName }
             if ($null -eq $protectionPolicyObject) {
