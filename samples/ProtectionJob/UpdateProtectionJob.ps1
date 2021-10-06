@@ -1,6 +1,9 @@
 # get the job
 $job = Get-CohesityProtectionJob -Names job-vmware
 
+#if the attribute does not exists
+# $job | Add-Member -NotePropertyName AlertingPolicy -NotePropertyValue @()
+
 # set the alerting policy
 $job.alertingPolicy = @("kFailure","kSlaViolation")
 
