@@ -49,7 +49,7 @@ function Set-CohesityProtectionJob {
                                 # identify if its a valid source id
                                 $newSourceDetail = Get-CohesityProtectionSource -Id $item
                                 if (-not $newSourceDetail.physicalProtectionSource) {
-                                    Write-Output "Invalid source id " + $item
+                                    Write-Output "Invalid source id : $item"
                                     continue
                                 }
                                 # now you know the host type, go ahead and set the file path
