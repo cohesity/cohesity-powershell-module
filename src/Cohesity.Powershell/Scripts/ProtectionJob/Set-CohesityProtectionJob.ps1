@@ -41,12 +41,19 @@ function Set-CohesityProtectionJob {
                 $job = Get-CohesityProtectionJob -Ids $ProtectionJob.Id
                 if ($job) {
                     if ($job.SourceSpecialParameters) {
-                        $hostType = $job.LastRun.BackupRun.SourceBackupStatus[0].Source.PhysicalProtectionSource.HostType;
                         $newSourceIds = $ProtectionJob.SourceIds
                         $existingSourceIds = $job.SourceIds
                         $sourceSpecialParameterList = @()
                         foreach ($item in $newSourceIds) {
                             if ( -not ($existingSourceIds -contains $item)) {
+                                # identify if its a valid source id
+                                $newSourceDetail = Get-CohesityProtectionSource -Id $item
+                                if (-not $newSourceDetail.physicalProtectionSource) {
+                                    Write-Output "Invalid source id " + $item
+                                    continue
+                                }
+                                # now you know the host type, go ahead and set the file path
+                                $hostType = $newSourceDetail.physicalProtectionSource.hostType
                                 $sourceSpecialParameter = [Cohesity.Model.SourceSpecialParameter]::new()
                                 $sourceSpecialParameter.SourceId = $item
                                 $sourceSpecialParameter.PhysicalSpecialParameters = [Cohesity.Model.PhysicalSpecialParameters]::new()
