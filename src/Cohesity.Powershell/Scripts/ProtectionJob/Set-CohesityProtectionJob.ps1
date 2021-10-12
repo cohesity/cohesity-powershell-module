@@ -65,7 +65,7 @@ function Set-CohesityProtectionJob {
                                 }
                                 if ($hostType -eq "kLinux") {
                                     $filePath = [Cohesity.Model.FilePathParameters]::new("/", $null, $true)
-                                    $sourceSpecialParameter.PhysicalSpecialParameters.FilePaths += $filePath
+                                    $sourceSpecialParameter.PhysicalSpecialParameters.FilePaths.Add($filePath)
                                 }
                                 $sourceSpecialParameterList += $sourceSpecialParameter
                             }
