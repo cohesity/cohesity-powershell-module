@@ -43,7 +43,7 @@ function New-CohesityNASProtectionJob {
     Process {
         if ($PSCmdlet.ShouldProcess($Name)) {
             if(-not $TimeZone) {
-                $TimeZone = (Get-TimeZone).Id
+                $TimeZone = GetCurrentTimeZone
             }
             $protectionPolicyObject = Get-CohesityProtectionPolicy -Names $PolicyName | Where-Object { $_.name -eq $PolicyName }
             if (-not $protectionPolicyObject) {
