@@ -28,9 +28,18 @@ Updates a protection job with the specified parameters, the object $job can also
 $job = Get-CohesityProtectionJob -Names "phy-file" -Environments KPhysicalFiles
 ```
 
-$job.sourceIds += 111165
-$job | Set-CohesityProtectionJob
+$job.sourceIds += 111165;
+$job | Set-CohesityProtectionJob;
 Updates a protection job (kPhysicalFiles) with a new physical server.
+
+### EXAMPLE 3
+```
+$job = Get-CohesityProtectionJob -Names "phy-file" -Environments KPhysicalFiles
+```
+
+$job.sourceIds = @(111165);
+$job | Set-CohesityProtectionJob;
+Protects a fresh list of physical servers for a job type (kPhysicalFiles).
 
 ## PARAMETERS
 
