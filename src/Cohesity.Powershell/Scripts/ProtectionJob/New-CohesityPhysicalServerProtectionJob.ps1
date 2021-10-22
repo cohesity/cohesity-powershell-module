@@ -42,9 +42,6 @@ function New-CohesityPhysicalServerProtectionJob {
     )
 
     Begin {
-        $session = CohesityUserProfile
-        $server = $session.ClusterUri
-        $token = $session.Accesstoken.Accesstoken
     }
 
     Process {
@@ -78,9 +75,8 @@ function New-CohesityPhysicalServerProtectionJob {
             $parentObject = Get-CohesityProtectionSourceObject -Environments KPhysical, KPhysicalFiles | Where-Object { $_.PhysicalProtectionSource.Type -eq "kGroup" }
             $parentId = $parentObject.Id
 
-            $url = $server + '/irisservices/api/v1/public/protectionJobs'
+            $url = '/irisservices/api/v1/public/protectionJobs'
 
-            $headers = @{'Authorization' = 'Bearer ' + $token }
             $payload = @{
                 name           = $Name
                 policyId       = $protectionPolicyObject.Id
@@ -112,7 +108,7 @@ function New-CohesityPhysicalServerProtectionJob {
             }
 
             $payloadJson = $payload | ConvertTo-Json -Depth 100
-            $resp = Invoke-RestApi -Method Post -Uri $url -Headers $headers -Body $payloadJson
+            $resp = Invoke-RestApi -Method Post -Uri $url -Body $payloadJson
             if ($resp) {
                 $resp
             }

@@ -25,9 +25,6 @@ function Remove-CohesityVlan {
     )
 
     Begin {
-        $cohesitySession = CohesityUserProfile
-        $cohesityCluster = $cohesitySession.ClusterUri
-        $cohesityToken = $cohesitySession.Accesstoken.Accesstoken
     }
 
     Process {
@@ -45,14 +42,13 @@ function Remove-CohesityVlan {
             }
         }
         if ($PSCmdlet.ShouldProcess($VlanId)) {
-            $cohesityClusterURL = $cohesityCluster + '/irisservices/api/v1/public/vlans/' + $vlanObject.id
-            $cohesityHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
+            $cohesityClusterURL = '/irisservices/api/v1/public/vlans/' + $vlanObject.id
 
             $payload = @{
                 ifaceGroupName = $vlanObject.ifaceGroupName
             }
             $payloadJson = $payload | ConvertTo-Json -Depth 100
-            $resp = Invoke-RestApi -Method Delete -Uri $cohesityClusterURL -Headers $cohesityHeaders -Body $payloadJson
+            $resp = Invoke-RestApi -Method Delete -Uri $cohesityClusterURL -Body $payloadJson
             if ($resp) {
                 $resp
             }

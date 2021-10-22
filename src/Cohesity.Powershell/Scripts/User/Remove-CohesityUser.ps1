@@ -33,13 +33,10 @@ function Remove-CohesityUser {
   )
 
   Begin {
-    $session = CohesityUserProfile
   }
 
   Process {
-    $token = 'Bearer ' + $session.AccessToken.AccessToken
-    $headers = @{"Authorization" = $token }
-    $uri = $session.ClusterUri + '/irisservices/api/v1/public/users'
+    $uri = '/irisservices/api/v1/public/users'
 
     if ($PSCmdlet.ShouldProcess($Name)) {
       if (!$Domain) {
@@ -51,7 +48,7 @@ function Remove-CohesityUser {
       }
 
       $request = $reqParameters | ConvertTo-Json
-      Invoke-RestApi -Method Delete -Headers $headers -Uri $uri -Body $request | Out-Null
+      Invoke-RestApi -Method Delete -Uri $uri -Body $request | Out-Null
       Write-Output "User $Name was deleted"
     }
     else {

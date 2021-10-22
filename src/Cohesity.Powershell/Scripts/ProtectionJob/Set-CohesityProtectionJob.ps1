@@ -33,9 +33,6 @@ function Set-CohesityProtectionJob {
     )
 
     Begin {
-        $cohesitySession = CohesityUserProfile
-        $cohesityServer = $cohesitySession.ClusterUri
-        $cohesityToken = $cohesitySession.Accesstoken.Accesstoken
     }
 
     Process {
@@ -83,11 +80,9 @@ function Set-CohesityProtectionJob {
                     }
                 }
             }
-            $cohesityHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
             $url = '/irisservices/api/v1/public/protectionJobs/' + $ProtectionJob.Id
-            $cohesityUrl = $cohesityServer + $url
             $payloadJson = $ProtectionJob | ConvertTo-Json -Depth 100
-            $resp = Invoke-RestApi -Method Put -Uri $cohesityUrl -Headers $cohesityHeaders -Body $payloadJson
+            $resp = Invoke-RestApi -Method Put -Uri $url -Body $payloadJson
             if ($resp) {
                 # tagging reponse for display format ( configured in Cohesity.format.ps1xml )
                 $resp | Add-Member -TypeName 'System.Object#ProtectionJob' -PassThru

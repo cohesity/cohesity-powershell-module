@@ -57,21 +57,17 @@ function Set-CohesityStorageDomain {
     )
 
     Begin {
-        $session = CohesityUserProfile
-        $server = $session.ClusterUri
-        $token = $session.Accesstoken.Accesstoken
     }
 
     Process {
         if ($PSCmdlet.ShouldProcess($Name)) {
             $payload = $null
-            $domainUrl = $server + '/irisservices/api/v1/public/viewBoxes'
-            $headers = @{'Authorization' = 'Bearer ' + $token }
+            $domainUrl = '/irisservices/api/v1/public/viewBoxes'
 
             # Check if the storage domain with specified name already exist
             if ($NewDomainName) {
                 $url = $domainUrl + '?names=' + $NewDomainName + '&allUnderHierarchy=true'
-                $isDomainExist = Invoke-RestApi -Method 'Get' -Uri $url -Headers $headers
+                $isDomainExist = Invoke-RestApi -Method 'Get' -Uri $url
 
                 if ($isDomainExist) {
                     throw "Storage Domain with name '$NewDomainName' already exists."
@@ -97,11 +93,11 @@ function Set-CohesityStorageDomain {
             }
 
             # Construct URL & header
-            $StorageDomainUrl = $server + '/irisservices/api/v1/public/viewBoxes'
+            $StorageDomainUrl = '/irisservices/api/v1/public/viewBoxes'
 
             if ($null -eq $StorageDomain) {
                 $getUrl = $StorageDomainUrl + '?names=' + $Name + '&allUnderHierarchy=true'
-                $domainObj = Invoke-RestApi -Method 'Get' -Uri $getUrl -Headers $headers
+                $domainObj = Invoke-RestApi -Method 'Get' -Uri $getUrl
 
                 if ($null -eq $domainObj) {
                     if ($Global:CohesityAPIError) {
@@ -170,7 +166,7 @@ function Set-CohesityStorageDomain {
                     $payloadJson = $payload | ConvertTo-Json
 
                     $updateUrl = $StorageDomainUrl + "/" + $StorageDomainId
-                    $StorageDomainObj = Invoke-RestApi -Method 'Put' -Uri $updateUrl -Headers $headers -Body $payloadJson
+                    $StorageDomainObj = Invoke-RestApi -Method 'Put' -Uri $updateUrl -Body $payloadJson
 
                     if ($StorageDomainObj) {
                         $StorageDomainObj

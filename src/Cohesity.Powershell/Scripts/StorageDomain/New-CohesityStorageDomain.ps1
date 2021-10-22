@@ -48,19 +48,15 @@ function New-CohesityStorageDomain {
     )
 
     Begin {
-        $session = CohesityUserProfile
-        $server = $session.ClusterUri
-        $token = $session.Accesstoken.Accesstoken
     }
 
     Process {
         if ($PSCmdlet.ShouldProcess($Name)) {
             # Check if the storage domain with specified name already exist
-            $domainUrl = $server + '/irisservices/api/v1/public/viewBoxes'
-            $headers = @{'Authorization' = 'Bearer ' + $token }
+            $domainUrl = '/irisservices/api/v1/public/viewBoxes'
 
             $url = $domainUrl + '?names=' + $Name + '&allUnderHierarchy=true'
-            $isDomainExist = Invoke-RestApi -Method 'Get' -Uri $url -Headers $headers
+            $isDomainExist = Invoke-RestApi -Method 'Get' -Uri $url
 
             if ($isDomainExist) {
                 Write-Warning "Storage Domain with name '$Name' already exists."
@@ -71,8 +67,8 @@ function New-CohesityStorageDomain {
             }
 
             # Get the cluster partion ID
-            $clusterUrl = $server + '/irisservices/api/v1/public/clusterPartitions'
-            $clusterPartition = Invoke-RestApi -Method 'Get' -Uri $clusterUrl -Headers $headers
+            $clusterUrl = '/irisservices/api/v1/public/clusterPartitions'
+            $clusterPartition = Invoke-RestApi -Method 'Get' -Uri $clusterUrl
 
             if ($clusterPartition) {
                 $ClusterPartitionId = $clusterPartition[0].id
@@ -111,7 +107,7 @@ function New-CohesityStorageDomain {
             $payloadJson = $payload | ConvertTo-Json
 
             # Construct URL & header
-            $StorageDomain = Invoke-RestApi -Method 'Post' -Uri $domainUrl -Headers $headers -Body $payloadJson
+            $StorageDomain = Invoke-RestApi -Method 'Post' -Uri $domainUrl -Body $payloadJson
 
             if ($StorageDomain) {
                 Get-CohesityStorageDomain -Names $Name

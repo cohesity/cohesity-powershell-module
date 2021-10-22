@@ -27,16 +27,12 @@ function Register-CohesityProtectionSourceIsilon {
   )
 
   Begin {
-    $cohesitySession = CohesityUserProfile
-    $cohesityCluster = $cohesitySession.ClusterUri
-    $cohesityToken = $cohesitySession.Accesstoken.Accesstoken
   }
 
   Process {
     $ISILON_TYPE = 14
     # Using a private API for the registration, public API will be used in the upcoming release
-    $cohesityClusterURL = $cohesityCluster + '/irisservices/api/v1/backupsources'
-    $cohesityHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
+    $cohesityClusterURL = '/irisservices/api/v1/backupsources'
 
     $userName = $Credential.UserName
     $plainPassword = $Credential.GetNetworkCredential().Password
@@ -57,7 +53,7 @@ function Register-CohesityProtectionSourceIsilon {
       }
     }
     $payloadJson = $payload | ConvertTo-Json -Depth 100
-    $resp = Invoke-RestApi -Method Post -Uri $cohesityClusterURL -Headers $cohesityHeaders -Body $payloadJson
+    $resp = Invoke-RestApi -Method Post -Uri $cohesityClusterURL -Body $payloadJson
     if ($resp) {
       $resp
     }

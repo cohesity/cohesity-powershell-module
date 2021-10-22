@@ -38,9 +38,6 @@ function Remove-CohesityRoutes {
     )
 
     Begin {
-        $cohesitySession = CohesityUserProfile
-        $cohesityServer = $cohesitySession.ClusterUri
-        $cohesityToken = $cohesitySession.Accesstoken.Accesstoken
     }
 
     Process {
@@ -49,8 +46,7 @@ function Remove-CohesityRoutes {
             $NextHop = $RouteObject.nextHop
             $InterfaceGroupName = $RouteObject.ifaceGroupName
         }
-        $cohesityUrl = $cohesityServer + '/irisservices/api/v1/public/routes'
-        $cohesityHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
+        $cohesityUrl = '/irisservices/api/v1/public/routes'
         if ($PSCmdlet.ShouldProcess($DestNetwork)) {
             $payload = @{
                 destNetwork    = $DestNetwork
@@ -58,7 +54,7 @@ function Remove-CohesityRoutes {
                 ifaceGroupName = $InterfaceGroupName
             }
             $payloadJson = $payload | ConvertTo-Json -Depth 100
-            $resp = Invoke-RestApi -Method Delete -Uri $cohesityUrl -Headers $cohesityHeaders -Body $payloadJson
+            $resp = Invoke-RestApi -Method Delete -Uri $cohesityUrl -Body $payloadJson
             if ($resp) {
                 $resp
             }

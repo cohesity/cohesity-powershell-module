@@ -27,16 +27,12 @@ function Get-CohesityProtectionSource {
     )
 
     Begin {
-        $cohesitySession = CohesityUserProfile
-        $cohesityServer = $cohesitySession.ClusterUri
-        $cohesityToken = $cohesitySession.Accesstoken.Accesstoken
     }
 
     Process {
-        $cohesityHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
         if ($Id) {
-            $cohesityUrl = $cohesityServer + '/irisservices/api/v1/public/protectionSources/objects/' + $Id.ToString()
-            $resp = Invoke-RestApi -Method Get -Uri $cohesityUrl -Headers $cohesityHeaders
+            $cohesityUrl = '/irisservices/api/v1/public/protectionSources/objects/' + $Id.ToString()
+            $resp = Invoke-RestApi -Method Get -Uri $cohesityUrl
             # tagging reponse for display format ( configured in Cohesity.format.ps1xml )
             @($resp | Add-Member -TypeName 'System.Object#ProtectionSource' -PassThru)
         }
@@ -53,15 +49,14 @@ function Get-CohesityProtectionSource {
             }
             $result = @()
             $cohesityUrl = $cohesityServer + $url
-            $resp = Invoke-RestApi -Method Get -Uri $cohesityUrl -Headers $cohesityHeaders
+            $resp = Invoke-RestApi -Method Get -Uri $cohesityUrl
             if ($resp) {
                 $result = @($resp)
                 $groups = @($result | where-object { $null -eq $_.registrationInfo })
                 if($groups) {
                     foreach ($group in $groups) {
                         $url = '/irisservices/api/v1/public/protectionSources?id=' + $group.protectionSource.id.ToString()
-                        $cohesityUrl = $cohesityServer + $url
-                        $resp = Invoke-RestApi -Method Get -Uri $cohesityUrl -Headers $cohesityHeaders
+                        $resp = Invoke-RestApi -Method Get -Uri $url
                         if($resp) {
                             $children = FlattenProtectionSourceNode -Nodes $resp -Type 2
                             foreach ($child in $children) {

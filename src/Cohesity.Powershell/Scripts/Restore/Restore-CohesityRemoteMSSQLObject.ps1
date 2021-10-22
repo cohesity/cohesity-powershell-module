@@ -97,9 +97,6 @@ function Restore-CohesityRemoteMSSQLObject {
         [long]$TargetHostId
     )
     Begin {
-        $cohesitySession = CohesityUserProfile
-        $cohesityCluster = $cohesitySession.ClusterUri
-        $cohesityToken = $cohesitySession.Accesstoken.Accesstoken
     }
 
     Process {
@@ -118,16 +115,14 @@ function Restore-CohesityRemoteMSSQLObject {
                     return
                 }
 
-                $searchHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
-
                 $searchedVMDetails = $null
                 $searchIndex = 0
                 $continuePagination = $true
                 $searchTotalCount = 0
 
                 while ($continuePagination) {
-                    $searchURL = $cohesityCluster + '/irisservices/api/v1/searchvms?from=' + $searchIndex + '&environment=SQL&entityTypes=kSQL&showAll=false&onlyLatestVersion=true&jobIds=' + $JobId
-                    $searchResult = Invoke-RestApi -Method Get -Uri $searchURL -Headers $searchHeaders
+                    $searchURL = '/irisservices/api/v1/searchvms?from=' + $searchIndex + '&environment=SQL&entityTypes=kSQL&showAll=false&onlyLatestVersion=true&jobIds=' + $JobId
+                    $searchResult = Invoke-RestApi -Method Get -Uri $searchURL
 
                     if ($Global:CohesityAPIStatus.StatusCode -ne 200) {
                         Write-Output "Could not search MSSQL objects with the job id $JobId"
@@ -195,11 +190,10 @@ function Restore-CohesityRemoteMSSQLObject {
                         protectionSourceId = $SourceId
                         startTimeUsecs     = $startTimeInUsec
                     }
-                    $pointsForTimeRangeUrl = $cohesityCluster + "/irisservices/api/v1/public/restore/pointsForTimeRange"
-                    $pitHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
+                    $pointsForTimeRangeUrl = "/irisservices/api/v1/public/restore/pointsForTimeRange"
                     $payloadJson = $pointsInTimeRange | ConvertTo-Json -Depth 100
 
-                    $timeRangeResult = Invoke-RestApi -Method Post -Uri $pointsForTimeRangeUrl -Headers $pitHeaders -Body $payloadJson
+                    $timeRangeResult = Invoke-RestApi -Method Post -Uri $pointsForTimeRangeUrl -Body $payloadJson
                     if ($Global:CohesityAPIStatus.StatusCode -eq 201) {
                         [bool]$foundPointInTime = $false;
                         if ($timeRangeResult.TimeRanges) {
@@ -305,11 +299,10 @@ function Restore-CohesityRemoteMSSQLObject {
                         restoreAppObjectVec = @($restoreAppObject)
                     }
                 }
-                $url = $cohesityCluster + '/irisservices/api/v1/recoverApplication'
+                $url = '/irisservices/api/v1/recoverApplication'
                 $payloadJson = $payload | ConvertTo-Json -Depth 100
 
-                $headers = @{'Authorization' = 'Bearer ' + $cohesityToken }
-                $resp = Invoke-RestApi -Method 'Post' -Uri $url -Headers $headers -Body $payloadJson
+                $resp = Invoke-RestApi -Method 'Post' -Uri $url -Body $payloadJson
                 if ($Global:CohesityAPIStatus.StatusCode -eq 200) {
                     $taskId = $resp.restoreTask.performRestoreTaskState.base.taskId
                     if ($taskId) {

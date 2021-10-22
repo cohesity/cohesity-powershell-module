@@ -35,9 +35,6 @@ function New-CohesityNASProtectionJob {
         [string]$TimeZone
     )
     Begin {
-        $cohesitySession = CohesityUserProfile
-        $cohesityCluster = $cohesitySession.ClusterUri
-        $cohesityToken = $cohesitySession.Accesstoken.Accesstoken
     }
 
     Process {
@@ -94,10 +91,9 @@ function New-CohesityNASProtectionJob {
                 startTime      = @{hour = (Get-Date).Hour; minute = (Get-Date).Minute }
             }
 
-            $cohesityUrl = $cohesityCluster + '/irisservices/api/v1/public/protectionJobs'
-            $cohesityHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
+            $cohesityUrl = '/irisservices/api/v1/public/protectionJobs'
             $payloadJson = $payload | ConvertTo-Json -Depth 100
-            $resp = Invoke-RestApi -Method Post -Uri $cohesityUrl -Headers $cohesityHeaders -Body $payloadJson
+            $resp = Invoke-RestApi -Method Post -Uri $cohesityUrl -Body $payloadJson
             if ($resp) {
                 # tagging reponse for display format ( configured in Cohesity.format.ps1xml )
                 @($resp | Add-Member -TypeName 'System.Object#ProtectionJob' -PassThru)

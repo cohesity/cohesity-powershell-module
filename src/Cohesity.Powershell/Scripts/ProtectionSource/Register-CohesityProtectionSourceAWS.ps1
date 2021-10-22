@@ -28,14 +28,11 @@ function Register-CohesityProtectionSourceAWS {
   )
 
   Begin {
-    $session = CohesityUserProfile
   }
 
   Process {
 
-    $token = 'Bearer ' + $session.AccessToken.AccessToken
-    $headers = @{"Authorization" = $token }
-    $uri = $session.ClusterUri + '/irisservices/api/v1/public/protectionSources/register'
+    $uri =  '/irisservices/api/v1/public/protectionSources/register'
 
     $awsRegistrationParameters = @{
       awsCredentials = @{
@@ -49,7 +46,7 @@ function Register-CohesityProtectionSourceAWS {
     }
 
     $request = $awsRegistrationParameters | ConvertTo-Json
-    $result = Invoke-RestApi -Method Post -Headers $headers -Uri $uri -Body $request
+    $result = Invoke-RestApi -Method Post -Uri $uri -Body $request
     $result
   }
 }

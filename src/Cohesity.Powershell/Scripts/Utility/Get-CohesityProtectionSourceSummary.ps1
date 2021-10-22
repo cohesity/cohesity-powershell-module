@@ -47,16 +47,12 @@ function Get-CohesityProtectionSourceSummary {
     )
 
     Begin {
-        $cohesitySession = CohesityUserProfile
-        $cohesityCluster = $cohesitySession.ClusterUri
-        $cohesityToken = $cohesitySession.Accesstoken.Accesstoken
     }
 
     Process {
         $clusterConfig = Get-CohesityClusterConfiguration
-        $cohesityClusterURL = $cohesityCluster + '/irisservices/api/v1/public/dashboard?clusterId=' + $clusterConfig.id
-        $cohesityHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
-        $resp = Invoke-RestApi -Method Get -Uri $cohesityClusterURL -Headers $cohesityHeaders
+        $cohesityClusterURL = '/irisservices/api/v1/public/dashboard?clusterId=' + $clusterConfig.id
+        $resp = Invoke-RestApi -Method Get -Uri $cohesityClusterURL
         if ($resp) {
             if($true -eq $BasicSummary) {
                 $result = ($resp.dashboard.protectedObjects | Select-Object -ExpandProperty objectsProtected)

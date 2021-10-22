@@ -33,9 +33,6 @@ function New-CohesityActiveDirectory {
         [string[]]$MachineAccounts
     )
     Begin {
-        $session = CohesityUserProfile
-        $server = $session.ClusterUri
-        $token = $session.Accesstoken.Accesstoken
     }
 
     Process {
@@ -44,9 +41,8 @@ function New-CohesityActiveDirectory {
             $UserName = $Credential.UserName
             $PlainPassword = $Credential.GetNetworkCredential().Password
 
-            $url = $server + '/irisservices/api/v1/public/activeDirectory'
+            $url = '/irisservices/api/v1/public/activeDirectory'
 
-            $headers = @{'Authorization' = 'Bearer ' + $token}
             $payload = @{
                 domainName                 = $DomainName
                 machineAccounts            = @($MachineAccounts)
@@ -57,7 +53,7 @@ function New-CohesityActiveDirectory {
                 password                   = $PlainPassword
             }
             $payloadJson = $payload | ConvertTo-Json
-            $resp = Invoke-RestApi -Method Post -Uri $url -Headers $headers -Body $payloadJson
+            $resp = Invoke-RestApi -Method Post -Uri $url -Body $payloadJson
             if ($resp) {
                 $resp
             }

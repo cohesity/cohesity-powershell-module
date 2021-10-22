@@ -140,7 +140,7 @@ function Invoke-RestApi {
                     }
                     $payloadJson = $payload | ConvertTo-Json
                     $headers = @{'Content-Type' = 'application/json' }
-                    $resp = Invoke-RestApi -Method Post -Uri $cohesityUrl -Headers $headers -Body $payloadJson
+                    $resp = Invoke-RestApi -Method Post -Uri $cohesityUrl -Body $payloadJson
                     $cohesitySession.AccessToken = $resp
                     CohesityUserProfile -UserProfileData $cohesitySession
                     Write-Output "The session token has been refreshed."

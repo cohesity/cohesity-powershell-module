@@ -22,15 +22,12 @@ function Get-CohesityUserGroup {
     )
 
     Begin {
-        $cohesitySession = CohesityUserProfile
-        $cohesityCluster = $cohesitySession.ClusterUri
-        $cohesityToken = $cohesitySession.Accesstoken.Accesstoken
     }
 
     Process {
 
         # Construct URL & header
-        $cohesityClusterURL = $cohesityCluster + '/irisservices/api/v1/public/groups'
+        $cohesityClusterURL = '/irisservices/api/v1/public/groups'
         $arguments = @()
         if($Name) {
             $arguments += "name=$Name"
@@ -41,9 +38,8 @@ function Get-CohesityUserGroup {
         if($arguments.Count -gt 0) {
             $cohesityClusterURL = $cohesityClusterURL + '?' + ($arguments -join "&")
         }
-        $cohesityHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
 
-        $userGroupList = Invoke-RestApi -Method 'Get' -Uri $cohesityClusterURL -Headers $cohesityHeaders
+        $userGroupList = Invoke-RestApi -Method 'Get' -Uri $cohesityClusterURL
         if($Name) {
             $userGroupList = $userGroupList | Where-Object {$_.Name -eq $Name}
         }

@@ -22,15 +22,11 @@ function Get-CohesityViewShareAllowlist {
     )
 
     Begin {
-        $cohesitySession = CohesityUserProfile
-        $cohesityCluster = $cohesitySession.ClusterUri
-        $cohesityToken = $cohesitySession.Accesstoken.Accesstoken
     }
 
     Process {
-        $cohesityClusterURL = $cohesityCluster + '/irisservices/api/v1/public/shares?shareName=' + $ShareName
-        $cohesityHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
-        $resp = Invoke-RestApi -Method 'Get' -Uri $cohesityClusterURL -Headers $cohesityHeaders
+        $cohesityClusterURL = '/irisservices/api/v1/public/shares?shareName=' + $ShareName
+        $resp = Invoke-RestApi -Method 'Get' -Uri $cohesityClusterURL
         if (-not $resp) {
             Write-Output "API call did not succeed for share name '$ShareName'."
             return

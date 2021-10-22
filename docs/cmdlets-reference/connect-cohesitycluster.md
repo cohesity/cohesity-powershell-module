@@ -5,8 +5,14 @@ Connects to a Cohesity Cluster and acquires an authentication token.
 
 ## SYNTAX
 
+### UsingCreds (Default)
 ```
 Connect-CohesityCluster -Server <String> [-Port <Int64>] -Credential <PSCredential> [<CommonParameters>]
+```
+
+### UsingAPIKey
+```
+Connect-CohesityCluster -Server <String> [-Port <Int64>] [-APIKey <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -36,6 +42,13 @@ Connect-CohesityCluster -Server 192.168.1.100 -Credential (New-Object -TypeName 
 ```
 
 Connects to a Cohesity Cluster at the address "192.168.1.100" for a user "user1" in the tenant "tenant1".
+
+### EXAMPLE 4
+```
+Connect-CohesityCluster -Server 192.168.1.100 -APIKey "MY-API-KEY"
+```
+
+Connects to a Cohesity Cluster at the address "192.168.1.100" using the API Key.
 
 ## PARAMETERS
 
@@ -75,10 +88,25 @@ To login as a tenant use the user name as LOCAL\user1@tenant1
 
 ```yaml
 Type: PSCredential
-Parameter Sets: (All)
+Parameter Sets: UsingCreds
 Aliases:
 
 Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -APIKey
+Cohesity API key
+
+```yaml
+Type: String
+Parameter Sets: UsingAPIKey
+Aliases:
+
+Required: False
 Position: Named
 Default value: None
 Accept pipeline input: False

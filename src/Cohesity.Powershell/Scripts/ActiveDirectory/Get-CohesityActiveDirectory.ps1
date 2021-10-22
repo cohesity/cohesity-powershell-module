@@ -21,21 +21,17 @@ function Get-CohesityActiveDirectory {
         [string[]]$DomainNames
     )
     Begin {
-        $session = CohesityUserProfile
-        $server = $session.ClusterUri
-        $token = $session.Accesstoken.Accesstoken
     }
 
     Process {
         if($DomainNames) {
             $domains = $DomainNames -join ","
-            $url = $server + '/irisservices/api/v1/public/activeDirectory?domains='+$domains
+            $url = '/irisservices/api/v1/public/activeDirectory?domains='+$domains
         } else {
-            $url = $server + '/irisservices/api/v1/public/activeDirectory'
+            $url = '/irisservices/api/v1/public/activeDirectory'
         }
 
-        $headers = @{'Authorization' = 'Bearer ' + $token }
-        $resp = Invoke-RestApi -Method Get -Uri $url -Headers $headers
+        $resp = Invoke-RestApi -Method Get -Uri $url
         $resp
     }
     End {

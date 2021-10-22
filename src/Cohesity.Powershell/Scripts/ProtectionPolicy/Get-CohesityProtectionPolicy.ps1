@@ -32,13 +32,9 @@ function Get-CohesityProtectionPolicy {
     )
 
     Begin {
-        $cohesitySession = CohesityUserProfile
-        $cohesityServer = $cohesitySession.ClusterUri
-        $cohesityToken = $cohesitySession.Accesstoken.Accesstoken
     }
 
     Process {
-        $cohesityHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
         $url = '/irisservices/api/v1/public/protectionPolicies'
         $filter = ""
         if ($Environments) {
@@ -68,8 +64,7 @@ function Get-CohesityProtectionPolicy {
         if ($filter -ne "") {
             $url += ("?" + $filter)
         }
-        $cohesityUrl = $cohesityServer + $url
-        $resp = Invoke-RestApi -Method Get -Uri $cohesityUrl -Headers $cohesityHeaders
+        $resp = Invoke-RestApi -Method Get -Uri $url
         if($resp) {
             # tagging reponse for display format ( configured in Cohesity.format.ps1xml )
             @($resp | Add-Member -TypeName 'System.Object#ProtectionPolicy' -PassThru)

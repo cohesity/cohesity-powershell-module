@@ -70,13 +70,9 @@ function Get-CohesityProtectionJobRun {
     )
 
     Begin {
-        $cohesitySession = CohesityUserProfile
-        $cohesityServer = $cohesitySession.ClusterUri
-        $cohesityToken = $cohesitySession.Accesstoken.Accesstoken
     }
 
     Process {
-        $cohesityHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
         $url = '/irisservices/api/v1/public/protectionRuns'
         if ($JobName) {
             $jobObject = Get-CohesityProtectionJob -Names $JobName
@@ -152,8 +148,7 @@ function Get-CohesityProtectionJobRun {
             $url += "?" + $filter
         }
 
-        $cohesityUrl = $cohesityServer + $url
-        $resp = Invoke-RestApi -Method Get -Uri $cohesityUrl -Headers $cohesityHeaders
+        $resp = Invoke-RestApi -Method Get -Uri $url
         if ($resp) {
             if (-not $IncludeDeleted.IsPresent) {
                 $resp = @($resp | where-object { $_.JobName -inotmatch '_DELETED' })

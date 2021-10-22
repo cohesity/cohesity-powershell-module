@@ -28,9 +28,6 @@ function Set-CohesityViewDirectoryQuota {
     )
 
     Begin {
-        $cohesitySession = CohesityUserProfile
-        $cohesityCluster = $cohesitySession.ClusterUri
-        $cohesityToken = $cohesitySession.Accesstoken.Accesstoken
     }
 
     Process {
@@ -40,8 +37,7 @@ function Set-CohesityViewDirectoryQuota {
             return
         }
         if ($PSCmdlet.ShouldProcess($ViewName)) {
-            $cohesityClusterURL = $cohesityCluster + '/irisservices/api/v1/public/viewDirectoryQuotas?viewName=$ViewName'
-            $cohesityHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
+            $cohesityClusterURL = '/irisservices/api/v1/public/viewDirectoryQuotas?viewName=$ViewName'
             $payload = [PSCustomObject]@{
                 quota = @{
                     dirPath =  $DirPath
@@ -53,7 +49,7 @@ function Set-CohesityViewDirectoryQuota {
                 viewName = $ViewName
             }
             $payloadJson = $payload | ConvertTo-Json
-            $resp = Invoke-RestApi -Method 'Put' -Uri $cohesityClusterURL -Headers $cohesityHeaders -Body $payloadJson
+            $resp = Invoke-RestApi -Method 'Put' -Uri $cohesityClusterURL -Body $payloadJson
             $resp
         }
     }

@@ -39,16 +39,11 @@ function New-CohesityProtectionPolicy {
         $VaultName = $null
     )
     Begin {
-        $session = CohesityUserProfile
-        $server = $session.ClusterUri
-        $token = $session.Accesstoken.Accesstoken
     }
 
     Process {
         if ($PSCmdlet.ShouldProcess($PolicyName)) {
-            $url = $server + '/irisservices/api/v1/public/protectionPolicies'
-
-            $headers = @{'Authorization' = 'Bearer ' + $token }
+            $url = '/irisservices/api/v1/public/protectionPolicies'
 
             $snapshotArchivalCopyPolicies = $null
             if ($VaultName) {
@@ -95,7 +90,7 @@ function New-CohesityProtectionPolicy {
                 snapshotArchivalCopyPolicies = $snapshotArchivalCopyPolicies
             }
             $payloadJson = $payload | ConvertTo-Json -Depth 100
-            $resp = Invoke-RestApi -Method Post -Uri $url -Headers $headers -Body $payloadJson
+            $resp = Invoke-RestApi -Method Post -Uri $url -Body $payloadJson
             if ($resp) {
                 $resp
             }

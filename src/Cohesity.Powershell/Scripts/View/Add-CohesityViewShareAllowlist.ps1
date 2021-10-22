@@ -44,9 +44,6 @@ function Add-CohesityViewShareAllowlist {
     )
 
     Begin {
-        $cohesitySession = CohesityUserProfile
-        $cohesityCluster = $cohesitySession.ClusterUri
-        $cohesityToken = $cohesitySession.Accesstoken.Accesstoken
     }
 
     Process {
@@ -82,11 +79,10 @@ function Add-CohesityViewShareAllowlist {
                 $allowList += $newIP
             }
             $foundShareObject.SubnetWhitelist += $allowList
-            $cohesityClusterURL = $cohesityCluster + '/irisservices/api/v1/public/viewAliases'
-            $cohesityHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
+            $cohesityClusterURL = '/irisservices/api/v1/public/viewAliases'
 
             $payloadJson = $foundShareObject | ConvertTo-Json -Depth 100
-            $resp = Invoke-RestApi -Method Put -Uri $cohesityClusterURL -Headers $cohesityHeaders -Body $payloadJson
+            $resp = Invoke-RestApi -Method Put -Uri $cohesityClusterURL -Body $payloadJson
             if ($resp) {
                 $resp
             }

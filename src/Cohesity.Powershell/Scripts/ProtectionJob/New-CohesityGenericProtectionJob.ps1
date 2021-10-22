@@ -36,9 +36,6 @@ function New-CohesityGenericProtectionJob {
     )
 
     Begin {
-        $session = CohesityUserProfile
-        $server = $session.ClusterUri
-        $token = $session.Accesstoken.Accesstoken
     }
 
     Process {
@@ -55,10 +52,9 @@ function New-CohesityGenericProtectionJob {
             $pJobObject = $pJobJson | ConvertFrom-Json
             $pJobObject.environment = $environment
 
-            $url = $server + '/irisservices/api/v1/public/protectionJobs'
-            $headers = @{'Authorization' = 'Bearer ' + $token }
+            $url = '/irisservices/api/v1/public/protectionJobs'
             $payloadJson = $pJobObject | ConvertTo-Json -Depth 100
-            $resp = Invoke-RestApi -Method Post -Uri $url -Headers $headers -Body $payloadJson
+            $resp = Invoke-RestApi -Method Post -Uri $url -Body $payloadJson
             if (201 -eq $Global:CohesityAPIStatus.StatusCode) {
                 Start-CohesityProtectionJob -Id $resp.Id | Out-Null
                 $resp

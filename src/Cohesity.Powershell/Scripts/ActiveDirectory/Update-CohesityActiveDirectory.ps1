@@ -47,14 +47,11 @@ function Update-CohesityActiveDirectory {
         $PreferredDomainControllers
     )
     Begin {
-        $session = CohesityUserProfile
-        $server = $session.ClusterUri
-        $token = $session.Accesstoken.Accesstoken
     }
 
     Process {
         if ($PSCmdlet.ShouldProcess($DomainName)) {
-            $url = $server + '/irisservices/api/v1/public/activeDirectory/' + $DomainName
+            $url = '/irisservices/api/v1/public/activeDirectory/' + $DomainName
             switch ($PsCmdlet.ParameterSetName) {
                 "IdMappingInfo" {
                     Write-Output $IdMappingInfo
@@ -77,9 +74,8 @@ function Update-CohesityActiveDirectory {
                     $payload = $PreferredDomainControllers
                 }
             }
-            $headers = @{'Authorization' = 'Bearer ' + $token }
             $payloadJson = $payload | ConvertTo-Json
-            $resp = Invoke-RestApi -Method Put -Uri $url -Headers $headers -Body $payloadJson
+            $resp = Invoke-RestApi -Method Put -Uri $url -Body $payloadJson
             if ($resp) {
                 $resp
             }
