@@ -46,7 +46,7 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
     ///   Connects to a Cohesity Cluster at the address "192.168.1.100" for a user "user1" in the tenant "tenant1".
     ///   </para>
     /// </example>
-    [Cmdlet(VerbsCommunications.Connect, "CohesityCluster")]
+    [Cmdlet(VerbsCommunications.Connect, "CohesityCluster", DefaultParameterSetName = "UsingCreds")]
     public class ConnectCohesityCluster : PSCmdlet
     {
         private static readonly string LocalDomain = "LOCAL";
@@ -95,8 +95,16 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
         /// User credentials for the Cohesity Cluster.  To login as a tenant use the user name as LOCAL\user1@tenant1
         /// </para>
         /// </summary>
-        [Parameter(Mandatory = true)]
+        [Parameter(Mandatory = true, ParameterSetName = "UsingCreds")]
         public PSCredential Credential { get; set; } = null;
+
+        /// <summary>
+        /// <para type="description">
+        /// Cohesity API key
+        /// </para>
+        /// </summary>
+        [Parameter(Mandatory = false, ParameterSetName = "UsingAPIKey")]
+        public String APIKey { get; set; } = null;
 
         private Uri clusterUri;
 
@@ -125,6 +133,26 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
         /// </summary>
         protected override void ProcessRecord()
         {
+            if (this.APIKey != null)
+            {
+                if (APIKeyAdapter.ValidateAPIKey(this.Server, this.APIKey))
+                {
+                    var userProfile = new UserProfile
+                    {
+                        ClusterUri = clusterUri,
+                        AccessToken = null,
+                        AllowInvalidServerCertificates = true,
+                        APIKey = this.APIKey
+                    };
+
+                    userProfileProvider.SetUserProfile(userProfile);
+                    WriteObject($"Connected to the Cohesity Cluster {Server} Successfully");
+                    return;
+                }
+                WriteObject("Failed to connect to the Cohesity Cluster.");
+                return;
+            }
+
             var networkCredential = Credential.GetNetworkCredential();
             var domain = string.IsNullOrWhiteSpace(networkCredential.Domain) ? LocalDomain : networkCredential.Domain;
 

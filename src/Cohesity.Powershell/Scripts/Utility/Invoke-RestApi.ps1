@@ -45,6 +45,15 @@ function Invoke-RestApi {
         $errorMsg = "User agent for the current session : " + $Global:CohesityUserAgentName
         CSLog -Message $errorMsg
     }
+    # get the user profile and construct the url and headers
+    $cohesitySession = CohesityUserProfile
+    $PSBoundParameters.Uri = $cohesitySession.ClusterUri + $PSBoundParameters.Uri
+    if($cohesitySession.APIKey) {
+        $PSBoundParameters.Headers = @{"apiKey" = $cohesitySession.APIKey}
+    } else {
+        $cohesityToken = $cohesitySession.Accesstoken.Accesstoken
+        $PSBoundParameters.Headers = @{'Authorization' = 'Bearer ' + $cohesityToken }
+    }
 
     $Global:CohesityAPIError = $null
     # to ensure, for every success execution of REST API, the function must return a non null object
