@@ -11,7 +11,7 @@ function Add-CohesityUserAPIKey {
         .EXAMPLE
         Add-CohesityUserAPIKey -UserName "user1" -APIKeyName "myKey1"
     #>
-    [OutputType('System.Object')]
+    [OutputType('System.Array')]
     [CmdletBinding(SupportsShouldProcess = $True, ConfirmImpact = "High")]
     Param(
         [Parameter(Mandatory = $true)]
