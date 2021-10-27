@@ -1950,5 +1950,60 @@
         </TableHeaders>
       </TableControl>
     </View>
-  </ViewDefinitions>
+          <!-- User api key Object Script based cmdlet -->
+    <View>
+      <Name>System.Object.UserAPIKeyObject.TableView</Name>
+      <ViewSelectedBy>
+        <TypeName>System.Object#UserAPIKeyObject</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>name</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>key</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>isActive</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>isExpired</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>ownerUsername</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>
+                  ($_.expiringTimeMsecs) * 1000 | Convert-CohesityUsecsToDateTime
+                </ScriptBlock>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+        <TableHeaders>
+          <TableColumnHeader>
+            <Label>Name</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Key</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>IsActive</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>IsExpired</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>OwnerUsername</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Expires in</Label>
+          </TableColumnHeader>
+        </TableHeaders>
+      </TableControl>
+    </View>
+</ViewDefinitions>
 </Configuration>
