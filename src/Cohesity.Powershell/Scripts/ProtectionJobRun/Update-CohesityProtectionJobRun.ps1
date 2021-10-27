@@ -77,18 +77,12 @@ function Update-CohesityProtectionJobRun {
     )
 
     begin {
-        $session = CohesityUserProfile
-        $server = $session.ClusterUri
-        $token = $session.Accesstoken.Accesstoken
-
         $global:updatedJobRundIds = @()
     }
 
     process {
         if ($PSCmdlet.ShouldProcess($ProtectionJobName)) {
             #Headers
-            $token = 'Bearer ' + $session.Accesstoken.Accesstoken
-            $headers = @{ "Authorization" = $token }
             $jobUpdated = 0
             $failedJobRunIds = @()
             $succeedJobRunIds = @()
@@ -107,8 +101,8 @@ function Update-CohesityProtectionJobRun {
             if ($null -eq $BackupJobRuns) {
                 #Fetch the job id for the specified job
                 try {
-                    $jobUrl = $server + '/irisservices/api/v1/public/protectionJobs'
-                    $jobResp = Invoke-RestApi -Method 'Get' -Uri $jobUrl -Headers $headers
+                    $jobUrl = '/irisservices/api/v1/public/protectionJobs'
+                    $jobResp = Invoke-RestApi -Method 'Get' -Uri $jobUrl
 
                     if ($null -eq $jobResp) {
                         Write-Warning "No Protection Jobs available in the connected cluster"
@@ -129,7 +123,7 @@ function Update-CohesityProtectionJobRun {
 
                 #If job exists then collect the job run details for the specific job
                 if ($JobId) {
-                    $jobRunUrl = $server + '/irisservices/api/v1/public/protectionRuns?jobId=' + $JobId
+                    $jobRunUrl = '/irisservices/api/v1/public/protectionRuns?jobId=' + $JobId
                     if ($StartTimeUsecs) {
                         $jobRunUrl = $jobRunUrl + '&startTimeUsecs=' + $StartTimeUsecs
                     }
@@ -137,7 +131,7 @@ function Update-CohesityProtectionJobRun {
                         $jobRunUrl = $jobRunUrl + '&endTimeUsecs=' + $EndTimeUsecs
                     }
 
-                    $BackupJobRuns = Invoke-RestApi -Method 'Get' -Uri $jobRunUrl -Headers $headers
+                    $BackupJobRuns = Invoke-RestApi -Method 'Get' -Uri $jobRunUrl
                 }
                 else {
                     Write-Output "Protection job '$ProtectionJobName' doesn't exist."
@@ -249,8 +243,8 @@ function Update-CohesityProtectionJobRun {
                             $payloadJson = $payload | ConvertTo-Json -Depth 100
                             # Write-Output $payloadJson
                             try {
-                                $url = $server + '/irisservices/api/v1/public/protectionRuns'
-                                Invoke-RestApi -Method 'Put' -Uri $url -Headers $headers -Body $payloadJson | Out-Null
+                                $url = '/irisservices/api/v1/public/protectionRuns'
+                                Invoke-RestApi -Method 'Put' -Uri $url -Body $payloadJson | Out-Null
 
                                 $jobUpdated += 1
                                 $succeedJobRunIds += $JobRun.backupRun.jobRunId

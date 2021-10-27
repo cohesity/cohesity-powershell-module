@@ -26,9 +26,6 @@ function Get-CohesityQOSPolicy {
     )
 
     Begin {
-        $cohesitySession = CohesityUserProfile
-        $cohesityServer = $cohesitySession.ClusterUri
-        $cohesityToken = $cohesitySession.Accesstoken.Accesstoken
     }
 
     Process {
@@ -49,9 +46,7 @@ function Get-CohesityQOSPolicy {
                 $url += "?" + $appendNames
             }
         }
-        $cohesityUrl = $cohesityServer + $url
-        $cohesityHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
-        $resp = Invoke-RestApi -Method Get -Uri $cohesityUrl -Headers $cohesityHeaders
+        $resp = Invoke-RestApi -Method Get -Uri $url
         $resp
     }
 

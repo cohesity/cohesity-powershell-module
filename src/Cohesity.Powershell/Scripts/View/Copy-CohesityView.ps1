@@ -52,9 +52,6 @@ function Copy-CohesityView {
         [long]$StartTime = 0
     )
     Begin {
-        $cohesitySession = CohesityUserProfile
-        $cohesityCluster = $cohesitySession.ClusterUri
-        $cohesityToken = $cohesitySession.Accesstoken.Accesstoken
     }
     Process {
         $sourceView = Get-CohesityView -ViewNames $SourceViewName -IncludeInactive:$true
@@ -84,8 +81,7 @@ function Copy-CohesityView {
             $TargetViewDescription = "Cloned view from $SourceViewName"
         }
         if ($false -eq $sourceView.ViewProtection.Inactive) {
-            $cohesityClusterURL = $cohesityCluster + '/irisservices/api/v1/public/restore/clone'
-            $cohesityHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
+            $cohesityClusterURL = '/irisservices/api/v1/public/restore/clone'
             $cloneView = @{
                 sourceViewName = $SourceViewName
                 cloneViewName  = $TargetViewName
@@ -119,7 +115,7 @@ function Copy-CohesityView {
             $payload = $cloneRequest
 
             $payloadJson = $payload | ConvertTo-Json -Depth 100
-            $resp = Invoke-RestApi -Method Post -Uri $cohesityClusterURL -Headers $cohesityHeaders -Body $payloadJson
+            $resp = Invoke-RestApi -Method Post -Uri $cohesityClusterURL -Body $payloadJson
             if ($resp) {
                 $resp
             }
@@ -133,9 +129,8 @@ function Copy-CohesityView {
             # Clone view from inactive view job run, using private APIs
             $VIEW_CLONE_ACTION_ID = 5
 
-            $searchURL = $cohesityCluster + '/irisservices/api/v1/searchvms?entityTypes=kView&jobIds=' + $JobId
-            $searchHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
-            $searchResult = Invoke-RestApi -Method Get -Uri $searchURL -Headers $searchHeaders
+            $searchURL = '/irisservices/api/v1/searchvms?entityTypes=kView&jobIds=' + $JobId
+            $searchResult = Invoke-RestApi -Method Get -Uri $searchURL
             if ($null -eq $searchResult) {
                 Write-Output "Could not search view with the job id $JobId"
                 return
@@ -185,9 +180,8 @@ function Copy-CohesityView {
                 }
             }
             $payloadJson = $payload | ConvertTo-Json -Depth 100
-            $cohesityClusterURL = $cohesityCluster + '/irisservices/api/v1/clone'
-            $cohesityHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
-            $resp = Invoke-RestApi -Method Post -Uri $cohesityClusterURL -Headers $cohesityHeaders -Body $payloadJson
+            $cohesityClusterURL = '/irisservices/api/v1/clone'
+            $resp = Invoke-RestApi -Method Post -Uri $cohesityClusterURL -Body $payloadJson
             if ($resp) {
                 $resp
             }

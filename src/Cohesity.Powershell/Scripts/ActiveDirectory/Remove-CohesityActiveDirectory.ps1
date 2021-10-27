@@ -31,18 +31,14 @@ function Remove-CohesityActiveDirectory {
         $Credential
     )
     Begin {
-        $session = CohesityUserProfile
-        $server = $session.ClusterUri
-        $token = $session.Accesstoken.Accesstoken
     }
 
     Process {
         $UserName = $Credential.UserName
         $PlainPassword = $Credential.GetNetworkCredential().Password
 
-        $url = $server + '/irisservices/api/v1/public/activeDirectory'
+        $url = '/irisservices/api/v1/public/activeDirectory'
 
-        $headers = @{'Authorization' = 'Bearer ' + $token}
         if ($PSCmdlet.ShouldProcess($Name)) {
 
             $payload = @{
@@ -55,7 +51,7 @@ function Remove-CohesityActiveDirectory {
                 password                   = $PlainPassword
             }
             $payloadJson = $payload | ConvertTo-Json
-            $resp = Invoke-RestApi -Method Delete -Uri $url -Headers $headers -Body $payloadJson
+            $resp = Invoke-RestApi -Method Delete -Uri $url -Body $payloadJson
             if ($resp) {
                 $errorMsg = "Active Directory : $DomainName deleted."
                 CSLog -Message $errorMsg

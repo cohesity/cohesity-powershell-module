@@ -41,9 +41,6 @@ function Stop-CohesityProtectionJob {
     )
 
     Begin {
-        $cohesitySession = CohesityUserProfile
-        $cohesityServer = $cohesitySession.ClusterUri
-        $cohesityToken = $cohesitySession.Accesstoken.Accesstoken
     }
 
     Process {
@@ -106,11 +103,9 @@ function Stop-CohesityProtectionJob {
                 $payload.JobRunId = $JobRunId
             }
 
-            $cohesityHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
             $url = '/irisservices/api/v1/public/protectionRuns/cancel/' + $Id
-            $cohesityUrl = $cohesityServer + $url
             $payloadJson = $payload | ConvertTo-Json -Depth 100
-            $resp = Invoke-RestApi -Method Post -Uri $cohesityUrl -Headers $cohesityHeaders -Body $payloadJson
+            $resp = Invoke-RestApi -Method Post -Uri $url -Body $payloadJson
             $resp | Out-Null
             Write-Output "Protection Job Run cancelled."
         }

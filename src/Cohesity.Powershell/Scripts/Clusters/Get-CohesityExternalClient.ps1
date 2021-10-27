@@ -18,15 +18,11 @@ function Get-CohesityExternalClient {
     )
 
     Begin {
-        $cohesitySession = CohesityUserProfile
-        $cohesityCluster = $cohesitySession.ClusterUri
-        $cohesityToken = $cohesitySession.Accesstoken.Accesstoken
     }
 
     Process {
-        $cohesityClusterURL = $cohesityCluster + '/irisservices/api/v1/public/externalClientSubnets'
-        $cohesityHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
-        $resp = Invoke-RestApi -Method Get -Uri $cohesityClusterURL -Headers $cohesityHeaders
+        $cohesityClusterURL = '/irisservices/api/v1/public/externalClientSubnets'
+        $resp = Invoke-RestApi -Method Get -Uri $cohesityClusterURL
         if ($resp) {
             if ($resp.clientSubnets) {
                 $arr = [System.Collections.ArrayList]::new()

@@ -33,9 +33,6 @@ function New-CohesityVirtualIP {
     )
 
     Begin {
-        $cohesitySession = CohesityUserProfile
-        $cohesityCluster = $cohesitySession.ClusterUri
-        $cohesityToken = $cohesitySession.Accesstoken.Accesstoken
     }
 
     Process {
@@ -47,8 +44,7 @@ function New-CohesityVirtualIP {
                 Write-Output "VLAN id '$VlanId' on interface group '$InterfaceGroupName' does not exists"
                 return
             }
-            $cohesityClusterURL = $cohesityCluster + '/irisservices/api/v1/public/vlans/' + $vlanObject.id
-            $cohesityHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
+            $cohesityClusterURL = '/irisservices/api/v1/public/vlans/' + $vlanObject.id
             if ($vlanObject.ips) {
                 $VirtualIPs += $vlanObject.ips
             }
@@ -68,7 +64,7 @@ function New-CohesityVirtualIP {
                 $payload | Add-Member -MemberType NoteProperty -Name hostname -Value $HostName
             }
             $payloadJson = $payload | ConvertTo-Json -Depth 100
-            $resp = Invoke-RestApi -Method Put -Uri $cohesityClusterURL -Headers $cohesityHeaders -Body $payloadJson
+            $resp = Invoke-RestApi -Method Put -Uri $cohesityClusterURL -Body $payloadJson
             if ($resp) {
                 $resp
             }

@@ -31,9 +31,6 @@ function New-CohesityHypervProtectionJob {
     )
 
     Begin {
-        $session = CohesityUserProfile
-        $server = $session.ClusterUri
-        $token = $session.Accesstoken.Accesstoken
     }
 
     Process {
@@ -65,9 +62,8 @@ function New-CohesityHypervProtectionJob {
                 $protectionSourceObject = $protectionSourceObject[0]
             }
 
-            $url = $server + '/irisservices/api/v1/public/protectionJobs'
+            $url = '/irisservices/api/v1/public/protectionJobs'
 
-            $headers = @{'Authorization' = 'Bearer ' + $token }
             $payload = @{
                 name           = $Name
                 policyId       = $protectionPolicyObject.Id
@@ -81,7 +77,7 @@ function New-CohesityHypervProtectionJob {
                 startTime      = @{hour = (Get-Date).Hour; minute = (Get-Date).Minute }
             }
             $payloadJson = $payload | ConvertTo-Json -Depth 100
-            $resp = Invoke-RestApi -Method Post -Uri $url -Headers $headers -Body $payloadJson
+            $resp = Invoke-RestApi -Method Post -Uri $url -Body $payloadJson
             if ($resp) {
                 Start-CohesityProtectionJob -Id $resp.Id | Out-Null
                 $resp

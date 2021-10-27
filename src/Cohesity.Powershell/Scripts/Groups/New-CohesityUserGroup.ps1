@@ -42,9 +42,6 @@ function New-CohesityUserGroup {
     )
 
     Begin {
-        $cohesitySession = CohesityUserProfile
-        $cohesityCluster = $cohesitySession.ClusterUri
-        $cohesityToken = $cohesitySession.Accesstoken.Accesstoken
     }
 
     Process {
@@ -73,8 +70,7 @@ function New-CohesityUserGroup {
         }
 
         if ($PSCmdlet.ShouldProcess($Name)) {
-            $cohesityClusterURL = $cohesityCluster + '/irisservices/api/v1/public/groups'
-            $cohesityHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
+            $cohesityClusterURL = '/irisservices/api/v1/public/groups'
             $payload = @{
                 description = $Description
                 domain      = $Domain
@@ -84,7 +80,7 @@ function New-CohesityUserGroup {
                 users       = $userSIDs
             }
             $payloadJson = $payload | ConvertTo-Json -Depth 100
-            $resp = Invoke-RestApi -Method Post -Uri $cohesityClusterURL -Headers $cohesityHeaders -Body $payloadJson
+            $resp = Invoke-RestApi -Method Post -Uri $cohesityClusterURL -Body $payloadJson
             if ($resp) {
                 # tagging reponse for display format ( configured in Cohesity.format.ps1xml )
                 @($resp | Add-Member -TypeName 'System.Object#UserGroup' -PassThru)

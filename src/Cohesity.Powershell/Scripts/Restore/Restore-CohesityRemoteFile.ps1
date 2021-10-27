@@ -78,9 +78,6 @@ function Restore-CohesityRemoteFile {
         $TargetHostCredential
     )
     Begin {
-        $cohesitySession = CohesityUserProfile
-        $cohesityCluster = $cohesitySession.ClusterUri
-        $cohesityToken = $cohesitySession.Accesstoken.Accesstoken
     }
 
     Process {
@@ -100,10 +97,9 @@ function Restore-CohesityRemoteFile {
             }
 
             if ($job.IsActive -eq $false) {
-                $searchHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
 
-                $searchURL = $cohesityCluster + '/irisservices/api/v1/searchvms?entityIds=' + $SourceId
-                $sourceVMSearchResult = Invoke-RestApi -Method Get -Uri $searchURL -Headers $searchHeaders
+                $searchURL = '/irisservices/api/v1/searchvms?entityIds=' + $SourceId
+                $sourceVMSearchResult = Invoke-RestApi -Method Get -Uri $searchURL
                 if ($null -eq $sourceVMSearchResult) {
                     $errorMsg = "Could not search VM with the Source id $SourceId"
                     Write-Output $errorMsg
@@ -226,11 +222,10 @@ function Restore-CohesityRemoteFile {
                         jobUid         = $sourceVMDetails.vmDocument.objectId.jobUid
                     }
                 }
-                $url = $cohesityCluster + '/irisservices/api/v1/restoreFiles'
+                $url = '/irisservices/api/v1/restoreFiles'
                 $payloadJson = $payload | ConvertTo-Json -Depth 100
 
-                $headers = @{'Authorization' = 'Bearer ' + $cohesityToken }
-                $resp = Invoke-RestApi -Method 'Post' -Uri $url -Headers $headers -Body $payloadJson
+                $resp = Invoke-RestApi -Method 'Post' -Uri $url -Body $payloadJson
                 if ($Global:CohesityAPIStatus.StatusCode -eq 200) {
                     $taskId = $resp.restoreTask.performRestoreTaskState.base.taskId
                     if ($taskId) {

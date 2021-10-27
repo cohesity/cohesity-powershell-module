@@ -34,9 +34,6 @@ function Set-CohesityAlertResolutions {
         $ResolutionDetails = $null
     )
     Begin {
-        $session = CohesityUserProfile
-        $server = $session.ClusterUri
-        $token = $session.Accesstoken.Accesstoken
     }
 
     Process {
@@ -45,9 +42,8 @@ function Set-CohesityAlertResolutions {
                 if ($null -eq $ResolutionSummary) {
                     $ResolutionSummary = "Resolved alerts through powershell cmdlets" #this is a mandatory field in the payload
                 }
-                $url = $server + '/irisservices/api/v1/public/alertResolutions'
+                $url = '/irisservices/api/v1/public/alertResolutions'
 
-                $headers = @{'Authorization' = 'Bearer ' + $token }
                 $payload = @{
                     alertIdList       = @($AlertIds)
                     resolutionDetails = @{
@@ -56,19 +52,18 @@ function Set-CohesityAlertResolutions {
                     }
                 }
                 $payloadJson = $payload  | ConvertTo-Json
-                $resp = Invoke-RestApi -Method 'Post' -Uri $url -Headers $headers -Body $payloadJson
+                $resp = Invoke-RestApi -Method 'Post' -Uri $url -Body $payloadJson
                 Write-Output "Successfully created, the resolution id ="$resp.resolutionDetails.resolutionId
 
             }
             else {
-                $url = $server + '/irisservices/api/v1/public/alertResolutions/' + $ResolutionId
+                $url = '/irisservices/api/v1/public/alertResolutions/' + $ResolutionId
 
-                $headers = @{'Authorization' = 'Bearer ' + $token }
                 $payload = @{
                     alertIdList = @($AlertIds)
                 }
                 $payloadJson = $payload  | ConvertTo-Json
-                $resp = Invoke-RestApi -Method 'Put' -Uri $url -Headers $headers -Body $payloadJson
+                $resp = Invoke-RestApi -Method 'Put' -Uri $url -Body $payloadJson
                 Write-Output "Successfully updated, the resolution id ="$resp.resolutionDetails.resolutionId
             }
         }

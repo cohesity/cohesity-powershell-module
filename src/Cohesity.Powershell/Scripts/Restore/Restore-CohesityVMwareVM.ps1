@@ -82,9 +82,6 @@ function Restore-CohesityVMwareVM {
         $NewParentId
     )
     Begin {
-        $cohesitySession = CohesityUserProfile
-        $cohesityCluster = $cohesitySession.ClusterUri
-        $cohesityToken = $cohesitySession.Accesstoken.Accesstoken
     }
 
     Process {
@@ -97,10 +94,9 @@ function Restore-CohesityVMwareVM {
         }
 
         if ($job.IsActive -eq $false) {
-            $searchHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
 
-            $searchURL = $cohesityCluster + '/irisservices/api/v1/searchvms?entityTypes=kVMware&jobIds=' + $JobId
-            $searchResult = Invoke-RestApi -Method Get -Uri $searchURL -Headers $searchHeaders
+            $searchURL = '/irisservices/api/v1/searchvms?entityTypes=kVMware&jobIds=' + $JobId
+            $searchResult = Invoke-RestApi -Method Get -Uri $searchURL
             if ($null -eq $searchResult) {
                 $errorMsg = "Could not search VM with the job id $JobId"
                 Write-Output $errorMsg
@@ -116,8 +112,8 @@ function Restore-CohesityVMwareVM {
             }
             $vmwareDetail = $null
             if ($NewParentId) {
-                $searchURL = $cohesityCluster + '/irisservices/api/v1/entitiesOfType?environmentTypes=kVMware&vmwareEntityTypes=kVCenter&vmwareEntityTypes=kStandaloneHost&vmwareEntityTypes=kvCloudDirector'
-                $searchResult = Invoke-RestApi -Method Get -Uri $searchURL -Headers $searchHeaders
+                $searchURL = '/irisservices/api/v1/entitiesOfType?environmentTypes=kVMware&vmwareEntityTypes=kVCenter&vmwareEntityTypes=kStandaloneHost&vmwareEntityTypes=kvCloudDirector'
+                $searchResult = Invoke-RestApi -Method Get -Uri $searchURL
                 $vmwareDetail = $searchResult | Where-Object { $_.id -eq $NewParentId }
                 if (-not $vmwareDetail) {
                     $errorMsg = "The new parent id is incorrect '$NewParentId'"
@@ -129,8 +125,8 @@ function Restore-CohesityVMwareVM {
 
             $resourcePoolDetail = $null
             if ($ResourcePoolId) {
-                $searchURL = $cohesityCluster + '/irisservices/api/v1/resourcePools?vCenterId=' + $vmwareDetail.id
-                $searchResult = Invoke-RestApi -Method Get -Uri $searchURL -Headers $searchHeaders
+                $searchURL = '/irisservices/api/v1/resourcePools?vCenterId=' + $vmwareDetail.id
+                $searchResult = Invoke-RestApi -Method Get -Uri $searchURL
                 $resourcePoolDetail = $searchResult | Where-Object { $_.resourcePool.id -eq $ResourcePoolId }
                 if (-not $resourcePoolDetail) {
                     $errorMsg = "The resourcepool id '$ResourcePoolId' is not available for parent id '$NewParentId'"
@@ -143,8 +139,8 @@ function Restore-CohesityVMwareVM {
 
             $datastoreDetail = $null
             if ($DatastoreId) {
-                $searchURL = $cohesityCluster + '/irisservices/api/v1/datastores?resourcePoolId='+$ResourcePoolId+'&vCenterId='+$NewParentId
-                $searchResult = Invoke-RestApi -Method Get -Uri $searchURL -Headers $searchHeaders
+                $searchURL = '/irisservices/api/v1/datastores?resourcePoolId='+$ResourcePoolId+'&vCenterId='+$NewParentId
+                $searchResult = Invoke-RestApi -Method Get -Uri $searchURL
                 $datastoreDetail = $searchResult | Where-Object { $_.id -eq $DatastoreId }
                 if (-not $datastoreDetail) {
                     $errorMsg = "The datastore id '$DatastoreId' is not available for resourcepool id '$ResourcePoolId' and parent id '$NewParentId'"
@@ -156,8 +152,8 @@ function Restore-CohesityVMwareVM {
 
             $vmFolderDetail = $null
             if ($VmFolderId) {
-                $searchURL = $cohesityCluster + '/irisservices/api/v1/vmwareFolders?resourcePoolId='+$ResourcePoolId+'&vCenterId='+$NewParentId
-                $searchResult = Invoke-RestApi -Method Get -Uri $searchURL -Headers $searchHeaders
+                $searchURL = '/irisservices/api/v1/vmwareFolders?resourcePoolId='+$ResourcePoolId+'&vCenterId='+$NewParentId
+                $searchResult = Invoke-RestApi -Method Get -Uri $searchURL
                 $vmFolder = $searchResult.vmFolders | Where-Object { $_.id -eq $VmFolderId }
                 if (-not $vmFolder) {
                     $errorMsg = "The vm folder id '$VmFolderId' is not available for resourcepool id '$ResourcePoolId' and parent id '$NewParentId'"
@@ -172,8 +168,8 @@ function Restore-CohesityVMwareVM {
 
             $networkDetail = $null
             if($NetworkId) {
-                $searchURL = $cohesityCluster + '/irisservices/api/v1/networkEntities?resourcePoolId='+$ResourcePoolId+'&vCenterId='+$NewParentId
-                $searchResult = Invoke-RestApi -Method Get -Uri $searchURL -Headers $searchHeaders
+                $searchURL = '/irisservices/api/v1/networkEntities?resourcePoolId='+$ResourcePoolId+'&vCenterId='+$NewParentId
+                $searchResult = Invoke-RestApi -Method Get -Uri $searchURL
                 $foundNetwork = $searchResult | Where-Object { $_.id -eq $NetworkId }
                 if (-not $foundNetwork) {
                     $errorMsg = "The network id '$NetworkId' is not available for resourcepool id '$ResourcePoolId' and parent id '$NewParentId'"
@@ -221,7 +217,7 @@ function Restore-CohesityVMwareVM {
                 datastoreEntity              = $datastoreDetail
                 vmwareParams                 = $vmFolderDetail
             }
-            $url = $cohesityCluster + '/irisservices/api/v1/restore'
+            $url = '/irisservices/api/v1/restore'
         }
         else {
             $object = [PSCustomObject]@{
@@ -263,12 +259,11 @@ function Restore-CohesityVMwareVM {
                 }
                 newParentId      = $NewParentId
             }
-            $url = $cohesityCluster + '/irisservices/api/v1/public/restore/recover'
+            $url = '/irisservices/api/v1/public/restore/recover'
         }
         $payloadJson = $payload | ConvertTo-Json -Depth 100
 
-        $headers = @{'Authorization' = 'Bearer ' + $cohesityToken }
-        $resp = Invoke-RestApi -Method 'Post' -Uri $url -Headers $headers -Body $payloadJson
+        $resp = Invoke-RestApi -Method 'Post' -Uri $url -Body $payloadJson
         if ($resp) {
             $resp
         }

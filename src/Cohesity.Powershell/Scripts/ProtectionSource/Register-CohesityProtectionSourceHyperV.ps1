@@ -33,14 +33,11 @@ function Register-CohesityProtectionSourceHyperV {
   )
 
   Begin {
-    $session = CohesityUserProfile
   }
 
   Process {
 
-    $token = 'Bearer ' + $session.AccessToken.AccessToken
-    $headers = @{"Authorization" = $token }
-    $uri = $session.ClusterUri + '/irisservices/api/v1/public/protectionSources/register'
+    $uri =  '/irisservices/api/v1/public/protectionSources/register'
 
     if ($HyperVType -eq 'KSCVMMServer') {
       $reqParameters = @{
@@ -61,7 +58,7 @@ function Register-CohesityProtectionSourceHyperV {
 
     $columnWidth = 20
     $request = $reqParameters | ConvertTo-Json
-    Invoke-RestApi -Method Post -Headers $headers -Uri $uri -Body $request |
+    Invoke-RestApi -Method Post -Uri $uri -Body $request |
     Format-Table @{ Label = 'ID'; Expression = { $_.id }; },
     @{ Label = 'Name'; Expression = { $_.name }; Width = $columnWidth; },
     @{ Label = 'Environment'; Expression = { $_.environment }; Width = $columnWidth },

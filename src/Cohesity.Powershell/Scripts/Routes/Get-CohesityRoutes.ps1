@@ -31,15 +31,11 @@ function Get-CohesityRoutes {
     )
 
     Begin {
-        $cohesitySession = CohesityUserProfile
-        $cohesityServer = $cohesitySession.ClusterUri
-        $cohesityToken = $cohesitySession.Accesstoken.Accesstoken
     }
 
     Process {
-        $cohesityUrl = $cohesityServer + '/irisservices/api/v1/public/routes'
-        $cohesityHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
-        $resp = Invoke-RestApi -Method Get -Uri $cohesityUrl -Headers $cohesityHeaders
+        $cohesityUrl = '/irisservices/api/v1/public/routes'
+        $resp = Invoke-RestApi -Method Get -Uri $cohesityUrl
 
         if ($FilterName -and $FilterValue) {
             switch ($FilterName) {

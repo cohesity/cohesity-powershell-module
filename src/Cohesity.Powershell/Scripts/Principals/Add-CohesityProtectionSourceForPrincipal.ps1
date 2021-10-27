@@ -43,9 +43,6 @@ function Add-CohesityProtectionSourceForPrincipal {
     )
 
     Begin {
-        $cohesitySession = CohesityUserProfile
-        $cohesityCluster = $cohesitySession.ClusterUri
-        $cohesityToken = $cohesitySession.Accesstoken.Accesstoken
         $pipedProtectionSourceObjectIds = @()
     }
 
@@ -113,8 +110,7 @@ function Add-CohesityProtectionSourceForPrincipal {
                 $updatedViewNames += @($principalDetail.Views.Name)
             }
 
-            $cohesityClusterURL = $cohesityCluster + '/irisservices/api/v1/public/principals/protectionSources'
-            $cohesityHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
+            $cohesityClusterURL = '/irisservices/api/v1/public/principals/protectionSources'
 
             $sourcesForPrincipalObject = @{
                 protectionSourceIds = $updatedProtectionSourceObjectIds
@@ -125,7 +121,7 @@ function Add-CohesityProtectionSourceForPrincipal {
                 sourcesForPrincipals = @($sourcesForPrincipalObject)
             }
             $payloadJson = $payload | ConvertTo-Json -Depth 100
-            Invoke-RestApi -Method Put -Uri $cohesityClusterURL -Headers $cohesityHeaders -Body $payloadJson
+            Invoke-RestApi -Method Put -Uri $cohesityClusterURL -Body $payloadJson
             if (204 -eq $Global:CohesityAPIStatus.StatusCode) {
                 @{Response = "Success"; Method = "Put"; }
             }

@@ -24,18 +24,14 @@ function Update-CohesityUserGroup {
     )
 
     Begin {
-        $cohesitySession = CohesityUserProfile
-        $cohesityCluster = $cohesitySession.ClusterUri
-        $cohesityToken = $cohesitySession.Accesstoken.Accesstoken
     }
 
     Process {
         if ($PSCmdlet.ShouldProcess("Update user group parameters")) {
-            $cohesityClusterURL = $cohesityCluster + '/irisservices/api/v1/public/groups'
-            $cohesityHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
+            $cohesityClusterURL = '/irisservices/api/v1/public/groups'
 
             $payloadJson = $UserGroupObject | ConvertTo-Json -Depth 100
-            $resp = Invoke-RestApi -Method Put -Uri $cohesityClusterURL -Headers $cohesityHeaders -Body $payloadJson
+            $resp = Invoke-RestApi -Method Put -Uri $cohesityClusterURL -Body $payloadJson
             if ($resp) {
                 # tagging reponse for display format ( configured in Cohesity.format.ps1xml )
                 @($resp | Add-Member -TypeName 'System.Object#UserGroup' -PassThru)

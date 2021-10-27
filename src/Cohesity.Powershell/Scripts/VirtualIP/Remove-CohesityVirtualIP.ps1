@@ -28,9 +28,6 @@ function Remove-CohesityVirtualIP {
     )
 
     Begin {
-        $cohesitySession = CohesityUserProfile
-        $cohesityCluster = $cohesitySession.ClusterUri
-        $cohesityToken = $cohesitySession.Accesstoken.Accesstoken
     }
 
     Process {
@@ -46,8 +43,7 @@ function Remove-CohesityVirtualIP {
             return
         }
         if ($PSCmdlet.ShouldProcess($VirtualIPs)) {
-            $cohesityClusterURL = $cohesityCluster + '/irisservices/api/v1/public/vlans/' + $vlanObject.id
-            $cohesityHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
+            $cohesityClusterURL = '/irisservices/api/v1/public/vlans/' + $vlanObject.id
             Foreach ($item in $VirtualIPs) {
                 $vlanObject.ips = $vlanObject.ips | Where-object { $_ -ne $item }
             }
@@ -64,7 +60,7 @@ function Remove-CohesityVirtualIP {
                 hostname       = $vlanObject.hostname
             }
             $payloadJson = $payload | ConvertTo-Json -Depth 100
-            $resp = Invoke-RestApi -Method Put -Uri $cohesityClusterURL -Headers $cohesityHeaders -Body $payloadJson
+            $resp = Invoke-RestApi -Method Put -Uri $cohesityClusterURL -Body $payloadJson
             if ($resp) {
                 $resp
             }

@@ -12,8 +12,8 @@ function Copy-CohesityMSSQLObject {
         Copy-CohesityMSSQLObject -TaskName "sql-clone-task" -SourceId 9 -HostSourceId 3 -JobId 41 -NewDatabaseName "ReportDB-clone" -InstanceName "MSSQLSERVER"
         Clones the MS SQL Database with the given source id using the latest run of job id 41 and renames it to "ReportDB-clone".
     #>
-	[OutputType('System.String')]
-	[OutputType('System.Array')]
+    [OutputType('System.String')]
+    [OutputType('System.Array')]
     [CmdletBinding(SupportsShouldProcess = $True, ConfirmImpact = "High")]
     Param(
         [Parameter(Mandatory = $false)]
@@ -63,9 +63,6 @@ function Copy-CohesityMSSQLObject {
         $TargetHostCredential = $null
     )
     Begin {
-        $cohesitySession = CohesityUserProfile
-        $cohesityCluster = $cohesitySession.ClusterUri
-        $cohesityToken = $cohesitySession.Accesstoken.Accesstoken
     }
 
     Process {
@@ -85,8 +82,7 @@ function Copy-CohesityMSSQLObject {
                 $StartTime = $jobRuns.CopyRun[0].RunStartTimeUsecs
             }
 
-            $cohesityUrl = $cohesityCluster + '/irisservices/api/v1/cloneApplication'
-            $cohesityHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
+            $cohesityUrl = '/irisservices/api/v1/cloneApplication'
 
             $APP_ENTITY_TYPE = 3
             $restoreAppObject = [PSCustomObject]@{
@@ -102,12 +98,12 @@ function Copy-CohesityMSSQLObject {
                     id   = $SourceId
                 }
             }
-			if ($TargetHostId -ne 0) {
-				$restoreAppObject | Add-Member -NotePropertyName targetHost -NotePropertyValue @{id=$TargetHostId}
-			}
-			if ($TargetHostParentId -ne 0) {
-				$restoreAppObject | Add-Member -NotePropertyName targetHostParentSource -NotePropertyValue @{id=$TargetHostParentId}
-			}
+            if ($TargetHostId -ne 0) {
+                $restoreAppObject | Add-Member -NotePropertyName targetHost -NotePropertyValue @{id=$TargetHostId}
+            }
+            if ($TargetHostParentId -ne 0) {
+                $restoreAppObject | Add-Member -NotePropertyName targetHostParentSource -NotePropertyValue @{id=$TargetHostParentId}
+            }
 
 
             $credentials = $null
@@ -117,7 +113,7 @@ function Copy-CohesityMSSQLObject {
                     password = $TargetHostCredential.GetNetworkCredential().Password
                 }
             }
-			$ownerObject = [PSCustomObject]@{
+            $ownerObject = [PSCustomObject]@{
                 jobId  = $JobId
                 jobUid = @{
                     clusterId            = $jobDetail.uid.clusterId
@@ -128,12 +124,12 @@ function Copy-CohesityMSSQLObject {
                     id = $HostSourceId
                 }
             }
-			if ($JobRunId -ne 0) {
-				$ownerObject | Add-Member -NotePropertyName jobInstanceId -NotePropertyValue $JobRunId
-			}
-			if ($StartTime -ne 0) {
-				$ownerObject | Add-Member -NotePropertyName startTimeUsecs -NotePropertyValue $StartTime
-			}
+            if ($JobRunId -ne 0) {
+                $ownerObject | Add-Member -NotePropertyName jobInstanceId -NotePropertyValue $JobRunId
+            }
+            if ($StartTime -ne 0) {
+                $ownerObject | Add-Member -NotePropertyName startTimeUsecs -NotePropertyValue $StartTime
+            }
             $payload = [PSCustomObject]@{
                 name                = $TaskName
                 action              = "kCloneApp"
@@ -148,12 +144,12 @@ function Copy-CohesityMSSQLObject {
                 }
             }
             $payloadJson = $payload | ConvertTo-Json -Depth 100
-            $resp = Invoke-RestApi -Method Post -Uri $cohesityUrl -Headers $cohesityHeaders -Body $payloadJson
+            $resp = Invoke-RestApi -Method Post -Uri $cohesityUrl -Body $payloadJson
             if ($Global:CohesityAPIStatus.StatusCode -eq 200) {
                 $taskId = $resp.restoreTask.performRestoreTaskState.base.taskId
-				$cohesityUrl = $cohesityCluster + '/irisservices/api/v1/public/restore/tasks/' + $taskId
-				$taskStatus = Invoke-RestApi -Method Get -Uri $cohesityUrl -Headers $cohesityHeaders
-				# tagging reponse for display format ( configured in Cohesity.format.ps1xml )
+                $cohesityUrl = '/irisservices/api/v1/public/restore/tasks/' + $taskId
+                $taskStatus = Invoke-RestApi -Method Get -Uri $cohesityUrl
+                # tagging reponse for display format ( configured in Cohesity.format.ps1xml )
                 @($taskStatus | Add-Member -TypeName 'System.Object#CopyMSSQLObject' -PassThru)
 
             }

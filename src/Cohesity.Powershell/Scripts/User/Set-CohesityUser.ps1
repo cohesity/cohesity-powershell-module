@@ -27,19 +27,15 @@ function Set-CohesityUser {
   )
 
   Begin {
-    $cohesitySession = CohesityUserProfile
-    $cohesityCluster = $cohesitySession.ClusterUri
-    $cohesityToken = $cohesitySession.Accesstoken.Accesstoken
   }
 
   Process {
     $name = $UserObject.name
     if ($PSCmdlet.ShouldProcess($name)) {
-      $cohesityClusterURL = $cohesityCluster + '/irisservices/api/v1/public/users'
-      $cohesityHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
+      $cohesityClusterURL = '/irisservices/api/v1/public/users'
 
       $payloadJson = $UserObject | ConvertTo-Json -Depth 100
-      $resp = Invoke-RestApi -Method Put -Uri $cohesityClusterURL -Headers $cohesityHeaders -Body $payloadJson
+      $resp = Invoke-RestApi -Method Put -Uri $cohesityClusterURL -Body $payloadJson
       if ($resp) {
         $resp
       }

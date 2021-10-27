@@ -29,15 +29,11 @@ function New-CohesityRoutes {
     )
 
     Begin {
-        $cohesitySession = CohesityUserProfile
-        $cohesityServer = $cohesitySession.ClusterUri
-        $cohesityToken = $cohesitySession.Accesstoken.Accesstoken
     }
 
     Process {
         if ($PSCmdlet.ShouldProcess($DestNetwork)) {
-            $cohesityUrl = $cohesityServer + '/irisservices/api/v1/public/routes'
-            $cohesityHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
+            $cohesityUrl = '/irisservices/api/v1/public/routes'
 
             $payload = @{
                 destNetwork    = $DestNetwork
@@ -45,7 +41,7 @@ function New-CohesityRoutes {
                 ifaceGroupName = $InterfaceGroupName
             }
             $payloadJson = $payload | ConvertTo-Json -Depth 100
-            $resp = Invoke-RestApi -Method Post -Uri $cohesityUrl -Headers $cohesityHeaders -Body $payloadJson
+            $resp = Invoke-RestApi -Method Post -Uri $cohesityUrl -Body $payloadJson
 
             if ($resp) {
                 $resp

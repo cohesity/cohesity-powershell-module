@@ -31,9 +31,6 @@ function Get-CohesityVlan {
     )
 
     Begin {
-        $session = CohesityUserProfile
-        $server = $session.ClusterUri
-        $token = $session.Accesstoken.Accesstoken
     }
 
     Process {
@@ -53,15 +50,13 @@ function Get-CohesityVlan {
         }
 
         # Construct URL & header
-        $url = $server + '/irisservices/api/v1/public/vlans'
+        $url = '/irisservices/api/v1/public/vlans'
         if($VlanId) {
             $url = $url + '/' + $VlanId
         }
         $url = $url + $queryString
 
-        $headers = @{'Authorization' = 'Bearer ' + $token }
-
-        $vlanList = Invoke-RestApi -Method 'Get' -Uri $url -Headers $headers
+        $vlanList = Invoke-RestApi -Method 'Get' -Uri $url
         $vlanList
 
         if ($null -eq $vlanList) {

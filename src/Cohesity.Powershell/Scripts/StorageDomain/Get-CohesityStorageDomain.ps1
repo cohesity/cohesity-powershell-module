@@ -38,9 +38,6 @@ function Get-CohesityStorageDomain {
     )
 
     Begin {
-        $session = CohesityUserProfile
-        $server = $session.ClusterUri
-        $token = $session.Accesstoken.Accesstoken
     }
 
     Process {
@@ -67,11 +64,10 @@ function Get-CohesityStorageDomain {
         }
 
         # Construct URL & header
-        $url = $server + '/irisservices/api/v1/public/viewBoxes'
+        $url = '/irisservices/api/v1/public/viewBoxes'
         $url = $url + $queryString
-        $headers = @{'Authorization' = 'Bearer ' + $token }
 
-        $StorageDomainList = Invoke-RestApi -Method 'Get' -Uri $url -Headers $headers
+        $StorageDomainList = Invoke-RestApi -Method 'Get' -Uri $url
         $StorageDomainList
 
         if ($null -eq $StorageDomainList) {

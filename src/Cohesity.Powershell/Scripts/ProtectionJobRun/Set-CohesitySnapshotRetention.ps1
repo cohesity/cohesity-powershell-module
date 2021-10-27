@@ -42,9 +42,6 @@ function Set-CohesitySnapshotRetention {
     )
 
     Begin {
-        $cohesitySession = CohesityUserProfile
-        $cohesityCluster = $cohesitySession.ClusterUri
-        $cohesityToken = $cohesitySession.Accesstoken.Accesstoken
     }
 
     Process {
@@ -66,8 +63,7 @@ function Set-CohesitySnapshotRetention {
                 return
             }
 
-            $cohesityClusterURL = $cohesityCluster + '/irisservices/api/v1/public/protectionRuns'
-            $cohesityHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
+            $cohesityClusterURL = '/irisservices/api/v1/public/protectionRuns'
 
             [long]$retentionDays = 0
             if ($ExtendByDays) {
@@ -91,8 +87,8 @@ function Set-CohesitySnapshotRetention {
             if ($job.IsActive -eq $false) {
                 # using a private API for protection job in remote clusters
                 # find out the job run for a partcular job
-                $backupRunURL = $cohesityCluster + '/irisservices/api/v1/backupjobruns?allUnderHierarchy=true&id=' + $job.id
-                $resp = Invoke-RestApi -Method Get -Uri $backupRunURL -Headers $cohesityHeaders
+                $backupRunURL = '/irisservices/api/v1/backupjobruns?allUnderHierarchy=true&id=' + $job.id
+                $resp = Invoke-RestApi -Method Get -Uri $backupRunURL
                 $searchedJobRun = $resp | Where-Object { $_.backupJobRuns.jobDescription.name -eq $JobName }
                 if ($null -eq $searchedJobRun) {
                     Write-Output "Could not find backup run details for inactive job '$JobName'"
@@ -121,7 +117,7 @@ function Set-CohesitySnapshotRetention {
                 jobRuns = $jobRunsObject
             }
             $payloadJson = $payload | ConvertTo-Json -Depth 100
-            $resp = Invoke-RestApi -Method Put -Uri $cohesityClusterURL -Headers $cohesityHeaders -Body $payloadJson
+            $resp = Invoke-RestApi -Method Put -Uri $cohesityClusterURL -Body $payloadJson
 
             $success = $false
             # there is no response to the API call. Therefore using the response status to identify

@@ -26,9 +26,6 @@ function Remove-CohesityUserGroup {
     )
 
     Begin {
-        $cohesitySession = CohesityUserProfile
-        $cohesityCluster = $cohesitySession.ClusterUri
-        $cohesityToken = $cohesitySession.Accesstoken.Accesstoken
     }
 
     Process {
@@ -39,15 +36,14 @@ function Remove-CohesityUserGroup {
         }
 
         if ($PSCmdlet.ShouldProcess($Name)) {
-            $cohesityClusterURL = $cohesityCluster + '/irisservices/api/v1/public/groups'
-            $cohesityHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
+            $cohesityClusterURL = '/irisservices/api/v1/public/groups'
 
             $payload = @{
                 domain = $Domain
                 names  = @($Name)
             }
             $payloadJson = $payload | ConvertTo-Json -Depth 100
-            $resp = Invoke-RestApi -Method Delete -Uri $cohesityClusterURL -Headers $cohesityHeaders -Body $payloadJson
+            $resp = Invoke-RestApi -Method Delete -Uri $cohesityClusterURL -Body $payloadJson
             if ($resp) {
                 $resp
             }

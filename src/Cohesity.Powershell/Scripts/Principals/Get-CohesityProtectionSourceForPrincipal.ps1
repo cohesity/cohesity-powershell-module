@@ -27,9 +27,6 @@ function Get-CohesityProtectionSourceForPrincipal {
     )
 
     Begin {
-        $cohesitySession = CohesityUserProfile
-        $cohesityCluster = $cohesitySession.ClusterUri
-        $cohesityToken = $cohesitySession.Accesstoken.Accesstoken
     }
 
     Process {
@@ -53,10 +50,9 @@ function Get-CohesityProtectionSourceForPrincipal {
             return
         }
         # Construct URL & header
-        $cohesityClusterURL = $cohesityCluster + '/irisservices/api/v1/public/principals/protectionSources?sids=' + $principalSID
-        $cohesityHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
+        $cohesityClusterURL = '/irisservices/api/v1/public/principals/protectionSources?sids=' + $principalSID
 
-        $principalAccessList = Invoke-RestApi -Method 'Get' -Uri $cohesityClusterURL -Headers $cohesityHeaders
+        $principalAccessList = Invoke-RestApi -Method 'Get' -Uri $cohesityClusterURL
         # tagging reponse for display format ( configured in Cohesity.format.ps1xml )
         @($principalAccessList | Add-Member -TypeName 'System.Object#ProtectionSourceForPrincipal' -PassThru)
     }

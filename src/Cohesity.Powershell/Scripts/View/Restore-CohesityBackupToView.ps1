@@ -28,18 +28,14 @@ function Restore-CohesityBackupToView {
         [String]$ProtectionJobName
     )
     Begin {
-        $session = CohesityUserProfile
-        $server = $session.ClusterUri
-        $token = $session.Accesstoken.Accesstoken
     }
 
     Process {
         $random = Get-Date -Format "dddd-MM-dd-yyyy-HH-mm-ss"
 
-        $url = $server + '/irisservices/api/v1/public/restore/objects?search=' + $ProtectionJobName
+        $url = '/irisservices/api/v1/public/restore/objects?search=' + $ProtectionJobName
 
-        $headers = @{'Authorization'='Bearer '+$token}
-        $resp = Invoke-RestApi -Method 'Get' -Uri $url -Headers $headers
+        $resp = Invoke-RestApi -Method 'Get' -Uri $url
         if ($resp.objectSnapshotInfo.length -eq 0) {
             Write-Output "There are no objects available for restoration, protected by " $ProtectionJobName
             return
@@ -107,10 +103,9 @@ function Restore-CohesityBackupToView {
         $payloadJson = $payload | ConvertTo-Json
         Write-Output $payloadJson
 
-        $url = $server + '/irisservices/api/v1/public/restore/recover'
+        $url = '/irisservices/api/v1/public/restore/recover'
 
-        $headers = @{'Authorization'='Bearer '+$token}
-        $resp = Invoke-RestApi -Method 'Post' -Uri $url -Headers $headers -Body $payloadJson
+        $resp = Invoke-RestApi -Method 'Post' -Uri $url -Body $payloadJson
         if($resp.fullViewName -eq $TargetViewName) {
             Write-Output "Successfully restored from NAS backup to a view, " $TargetViewName
         } else {

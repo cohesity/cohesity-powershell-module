@@ -31,17 +31,13 @@ function Save-CohesityFile {
     )
 
     Begin {
-        $session = CohesityUserProfile
-        $server = $session.ClusterUri
-        $token = $session.Accesstoken.Accesstoken
     }
 
     Process {
         # Search for file/folder and fetch entity info
         $EncodedFileName = [System.Web.HttpUtility]::UrlEncode($FileName)
-        $searchUrl = $server + '/irisservices/api/v1/public/restore/files?search=' + $EncodedFileName
-        $headers = @{'Authorization' = 'Bearer ' + $token }
-        $rfObj = Invoke-RestApi -Method 'Get' -Uri $searchUrl -Headers $headers
+        $searchUrl = '/irisservices/api/v1/public/restore/files?search=' + $EncodedFileName
+        $rfObj = Invoke-RestApi -Method 'Get' -Uri $searchUrl
 
         $entityInfo = $null
         if ($rfObj.files) {
@@ -68,8 +64,8 @@ function Save-CohesityFile {
                 $queryParam.Add('filename', $EncodedFileName)
                 $queryString = '?' + ($queryParam.Keys.ForEach( { "$_=$($queryParam.$_)" }) -join '&')
 
-                $snapshotUrl = $server + '/irisservices/api/v1/public/restore/files/snapshotsInformation' + $queryString
-                $snapshotObj = Invoke-RestApi -Method 'Get' -Uri $snapshotUrl -Headers $headers
+                $snapshotUrl = '/irisservices/api/v1/public/restore/files/snapshotsInformation' + $queryString
+                $snapshotObj = Invoke-RestApi -Method 'Get' -Uri $snapshotUrl
 
                 # Get the required information for downloading the file
                 # By default, the latest snapshot will be considered for downloading the file
@@ -86,12 +82,12 @@ function Save-CohesityFile {
                 $dwldParam.Add('viewBoxId', $ViewBoxId)
 
                 $dwldQS = '?' + ($dwldParam.Keys.ForEach( { "$_=$($dwldParam.$_)" }) -join '&')
-                $downloadUrl = $server + '/irisservices/api/v1/downloadfiles' + $dwldQS
+                $downloadUrl = '/irisservices/api/v1/downloadfiles' + $dwldQS
 
                 # Perform web request to download the file from the cluster
                 $fn = Split-Path -Path $AbsolutePath -Leaf
                 $OutFile = Join-Path $(if ($OutFile) { $OutFile } else { $Home }) $fn
-                $resp = Invoke-RestApi -Method 'Get' -Uri $downloadUrl -Headers $headers -OutFile "$OutFile"
+                $resp = Invoke-RestApi -Method 'Get' -Uri $downloadUrl -OutFile "$OutFile"
 
                 if ($resp) {
                     Write-Output "Successfully downloaded the file in '$OutFile'." -ForegroundColor Green

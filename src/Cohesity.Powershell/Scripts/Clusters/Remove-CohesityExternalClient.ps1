@@ -20,9 +20,6 @@ function Remove-CohesityExternalClient {
     )
 
     Begin {
-        $cohesitySession = CohesityUserProfile
-        $cohesityCluster = $cohesitySession.ClusterUri
-        $cohesityToken = $cohesitySession.Accesstoken.Accesstoken
     }
 
     Process {
@@ -44,10 +41,9 @@ function Remove-CohesityExternalClient {
             }
             $payload = @{clientSubnets = $whiteList }
 
-            $cohesityClusterURL = $cohesityCluster + '/irisservices/api/v1/public/externalClientSubnets'
-            $cohesityHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
+            $cohesityClusterURL = '/irisservices/api/v1/public/externalClientSubnets'
             $payloadJson = $payload | ConvertTo-Json
-            $resp = Invoke-RestApi -Method Put -Uri $cohesityClusterURL -Headers $cohesityHeaders -Body $payloadJson
+            $resp = Invoke-RestApi -Method Put -Uri $cohesityClusterURL -Body $payloadJson
             if ($resp) {
                 if ($resp.clientSubnets) {
                     $arr = [System.Collections.ArrayList]::new()

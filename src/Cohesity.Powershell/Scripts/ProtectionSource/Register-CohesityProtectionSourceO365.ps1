@@ -27,14 +27,11 @@ function Register-CohesityProtectionSourceO365 {
   )
 
   Begin {
-    $session = CohesityUserProfile
   }
 
   Process {
 
-    $token = 'Bearer ' + $session.AccessToken.AccessToken
-    $headers = @{"Authorization" = $token }
-    $uri = $session.ClusterUri + '/irisservices/api/v1/public/protectionSources/register'
+    $uri = '/irisservices/api/v1/public/protectionSources/register'
 
     $o365RegistrationParameters = @{
       environment          = "kO365"
@@ -51,7 +48,7 @@ function Register-CohesityProtectionSourceO365 {
     }
 
     $request = $o365RegistrationParameters | ConvertTo-Json
-    $result = Invoke-RestApi -Method Post -Headers $headers -Uri $uri -Body $request
+    $result = Invoke-RestApi -Method Post -Uri $uri -Body $request
     $result
   } # End of process
 } # End of function

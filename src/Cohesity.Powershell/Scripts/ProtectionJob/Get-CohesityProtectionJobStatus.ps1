@@ -57,16 +57,12 @@ function Get-CohesityProtectionJobStatus {
     )
 
     Begin {
-        $session = CohesityUserProfile
-        $server = $session.ClusterUri
-        $token = $session.Accesstoken.Accesstoken
     }
 
     Process {
-        $url = $server + '/irisservices/api/v1/public/protectionJobs?isDeleted=false'
+        $url = '/irisservices/api/v1/public/protectionJobs?isDeleted=false'
 
-        $headers = @{'Authorization' = 'Bearer ' + $token }
-        $resp = Invoke-RestApi -Method 'Get' -Uri $url -Headers $headers
+        $resp = Invoke-RestApi -Method 'Get' -Uri $url
         $jobIdAndName = @{}
         $activeJobIds = New-Object System.Collections.ArrayList
         ForEach ($item in $resp) {
@@ -75,8 +71,8 @@ function Get-CohesityProtectionJobStatus {
         }
 
         $jobIdAndRemoteStatus = @{}
-        $url = $server + '/irisservices/api/v1/public/protectionRuns'
-        $resp = Invoke-RestApi -Method 'Get' -Uri $url -Headers $headers
+        $url = '/irisservices/api/v1/public/protectionRuns'
+        $resp = Invoke-RestApi -Method 'Get' -Uri $url
         foreach ($item in $resp) {
             if ($item.backupRun.status -eq "kSuccess") {
                 if ($false -eq $jobIdAndRemoteStatus.ContainsKey($item.jobId)) {
@@ -97,8 +93,8 @@ function Get-CohesityProtectionJobStatus {
 
         $protectionJobStatusList = @()
         $activeTasks = New-Object System.Collections.ArrayList
-        $url = $server + '/irisservices/api/v1/backupjobssummary?_includeTenantInfo=true&allUnderHierarchy=true&includeJobsWithoutRun=true&isDeleted=false&numRuns=1000&onlyReturnBasicSummary=true&onlyReturnJobDescription=false'
-        $resp = Invoke-RestApi -Method 'Get' -Uri $url -Headers $headers
+        $url = '/irisservices/api/v1/backupjobssummary?_includeTenantInfo=true&allUnderHierarchy=true&includeJobsWithoutRun=true&isDeleted=false&numRuns=1000&onlyReturnBasicSummary=true&onlyReturnJobDescription=false'
+        $resp = Invoke-RestApi -Method 'Get' -Uri $url
         ForEach ($item in $resp) {
             if ($activeJobIds.Contains($item.backupJobSummary.jobDescription.jobId)) {
                 if ($item.backupJobSummary.lastProtectionRun.backupRun.base.publicStatus -notin "kSuccess" -AND $null -notlike $item.backupJobSummary.lastProtectionRun.backupRun.activeAttempt.base.progressMonitorTaskPath) {
@@ -118,8 +114,8 @@ function Get-CohesityProtectionJobStatus {
             }
         }
         foreach ($item in $activeTasks) {
-            $url = $server + '/irisservices/api/v1/progressMonitors?=excludeSubTasks=true&includeFinishedTasks=true&taskPathVec=' + $item
-            $resp = Invoke-RestApi -Method 'Get' -Uri $url -Headers $headers
+            $url = '/irisservices/api/v1/progressMonitors?=excludeSubTasks=true&includeFinishedTasks=true&taskPathVec=' + $item
+            $resp = Invoke-RestApi -Method 'Get' -Uri $url
             $task = $resp.resultGroupVec[0].taskVec[0].progress
             $jobName = ""
             $jobId = 0

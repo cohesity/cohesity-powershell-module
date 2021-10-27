@@ -26,9 +26,6 @@ function Set-CohesityProtectionSource {
     )
 
     Begin {
-        $cohesitySession = CohesityUserProfile
-        $cohesityCluster = $cohesitySession.ClusterUri
-        $cohesityToken = $cohesitySession.Accesstoken.Accesstoken
     }
 
     Process {
@@ -37,10 +34,9 @@ function Set-CohesityProtectionSource {
             return
         }
         if ($PSCmdlet.ShouldProcess($ProtectionSourceObject.Id)) {
-            $cohesityClusterURL = $cohesityCluster + '/irisservices/api/v1/public/protectionSources/' + $ProtectionSourceObject.Id
-            $cohesityHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
+            $cohesityClusterURL = '/irisservices/api/v1/public/protectionSources/' + $ProtectionSourceObject.Id
             $payloadJson = $ProtectionSourceObject | ConvertTo-Json -Depth 100
-            $resp = Invoke-RestApi -Method Patch -Uri $cohesityClusterURL -Headers $cohesityHeaders -Body $payloadJson
+            $resp = Invoke-RestApi -Method Patch -Uri $cohesityClusterURL -Body $payloadJson
             if ($resp) {
                 $resp
             }

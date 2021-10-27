@@ -21,17 +21,13 @@ function Get-CohesityVault {
         $VaultName=$null
     )
     Begin {
-        $session = CohesityUserProfile
-        $server = $session.ClusterUri
-        $token = $session.Accesstoken.Accesstoken
     }
     Process {
-        $url = $server + '/irisservices/api/v1/public/vaults'
+        $url = '/irisservices/api/v1/public/vaults'
         if ($VaultName) {
             $url = $url + '?name=' + $VaultName
         }
-        $headers = @{'Authorization' = 'Bearer ' + $token }
-        $resp = Invoke-RestApi -Method Get -Uri $url -Headers $headers
+        $resp = Invoke-RestApi -Method Get -Uri $url
         $resp
     }
     End {

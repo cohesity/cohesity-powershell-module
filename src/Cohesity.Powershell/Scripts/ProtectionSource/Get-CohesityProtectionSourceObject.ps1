@@ -53,16 +53,12 @@ function Get-CohesityProtectionSourceObject {
     )
 
     Begin {
-        $cohesitySession = CohesityUserProfile
-        $cohesityServer = $cohesitySession.ClusterUri
-        $cohesityToken = $cohesitySession.Accesstoken.Accesstoken
     }
 
     Process {
-        $cohesityHeaders = @{'Authorization' = 'Bearer ' + $cohesityToken }
         if ($Id) {
-            $cohesityUrl = $cohesityServer + '/irisservices/api/v1/public/protectionSources/objects/' + $Id.ToString()
-            $resp = Invoke-RestApi -Method Get -Uri $cohesityUrl -Headers $cohesityHeaders
+            $cohesityUrl = '/irisservices/api/v1/public/protectionSources/objects/' + $Id.ToString()
+            $resp = Invoke-RestApi -Method Get -Uri $cohesityUrl
             if (200 -ne $Global:CohesityAPIStatus.StatusCode) {
                 Write-Verbose $Global:CohesityAPIStatus.ErrorMessage
                 return ($null)
@@ -112,8 +108,7 @@ function Get-CohesityProtectionSourceObject {
                 $url += ("?" + $filter)
             }
 
-            $cohesityUrl = $cohesityServer + $url
-            $resp = Invoke-RestApi -Method Get -Uri $cohesityUrl -Headers $cohesityHeaders
+            $resp = Invoke-RestApi -Method Get -Uri $url
             if ($resp) {
                 $resp = FlattenProtectionSourceNode -Nodes $resp -Type 1
                 $resp = $resp.protectionSource

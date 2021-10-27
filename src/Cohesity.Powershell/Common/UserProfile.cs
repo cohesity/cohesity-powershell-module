@@ -12,5 +12,6 @@ namespace Cohesity.Powershell.Common
         
         public AccessToken AccessToken { get; set; }
     
+        public string APIKey { get; set; }
     }
 }

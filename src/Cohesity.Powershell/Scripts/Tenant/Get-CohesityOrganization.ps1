@@ -22,16 +22,13 @@ function Get-CohesityOrganization
   )
 
   Begin {
-    $session = CohesityUserProfile
   }
 
   Process {
 
-    $token = 'Bearer ' + $session.AccessToken.AccessToken
-    $headers = @{"Authorization"=$token}
-    $uri = $session.ClusterUri + '/irisservices/api/v1/public/tenants'
+    $uri = '/irisservices/api/v1/public/tenants'
 
-    $results = Invoke-RestApi -Method Get -Headers $headers -Uri $uri
+    $results = Invoke-RestApi -Method Get -Uri $uri
 
     if([string]::IsNullOrEmpty($Name))
     {

@@ -45,6 +45,15 @@ function Invoke-RestApi {
         $errorMsg = "User agent for the current session : " + $Global:CohesityUserAgentName
         CSLog -Message $errorMsg
     }
+    # get the user profile and construct the url and headers
+    $cohesitySession = CohesityUserProfile
+    $PSBoundParameters.Uri = $cohesitySession.ClusterUri + $PSBoundParameters.Uri
+    if($cohesitySession.APIKey) {
+        $PSBoundParameters.Headers = @{"apiKey" = $cohesitySession.APIKey}
+    } else {
+        $cohesityToken = $cohesitySession.Accesstoken.Accesstoken
+        $PSBoundParameters.Headers = @{'Authorization' = 'Bearer ' + $cohesityToken }
+    }
 
     $Global:CohesityAPIError = $null
     # to ensure, for every success execution of REST API, the function must return a non null object
@@ -131,7 +140,7 @@ function Invoke-RestApi {
                     }
                     $payloadJson = $payload | ConvertTo-Json
                     $headers = @{'Content-Type' = 'application/json' }
-                    $resp = Invoke-RestApi -Method Post -Uri $cohesityUrl -Headers $headers -Body $payloadJson
+                    $resp = Invoke-RestApi -Method Post -Uri $cohesityUrl -Body $payloadJson
                     $cohesitySession.AccessToken = $resp
                     CohesityUserProfile -UserProfileData $cohesitySession
                     Write-Output "The session token has been refreshed."
