@@ -49,7 +49,7 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
     /// <example>
     ///   <para>PS&gt;</para>
     ///   <code>
-    ///   Connect-CohesityCluster -Server 192.168.1.100 -APIKey "MY-API-KEY"
+    ///   Connect-CohesityCluster -Server 192.168.1.100 -APIKey "00000000-0000-0000-0000-000000000000"
     ///   </code>
     ///   <para>
     ///   Connects to a Cohesity Cluster at the address "192.168.1.100" using the API Key.
@@ -144,20 +144,21 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
         {
             if (this.APIKey != null)
             {
+                // allow the user profile for validating the api key
+                var userProfile = new UserProfile
+                {
+                    ClusterUri = clusterUri,
+                    AccessToken = null,
+                    AllowInvalidServerCertificates = true,
+                    APIKey = this.APIKey
+                };
+                userProfileProvider.SetUserProfile(userProfile);
                 if (APIKeyAdapter.ValidateAPIKey(this.Server, this.APIKey))
                 {
-                    var userProfile = new UserProfile
-                    {
-                        ClusterUri = clusterUri,
-                        AccessToken = null,
-                        AllowInvalidServerCertificates = true,
-                        APIKey = this.APIKey
-                    };
-
-                    userProfileProvider.SetUserProfile(userProfile);
                     WriteObject($"Connected to the Cohesity Cluster {Server} Successfully");
                     return;
                 }
+                userProfileProvider.DeleteUserProfile();
                 WriteObject("Failed to connect to the Cohesity Cluster.");
                 return;
             }

@@ -10,6 +10,14 @@ namespace Cohesity.Powershell.Common
     {
         static public bool ValidateAPIKey(string server, string apiKey)
         {
+            Session session = new Session();
+            var preparedUrl = $"/public/users";
+            var result = session.ApiClient.Get<IEnumerable<Model.User>>(preparedUrl);
+            ICollection<Model.User> users = result as ICollection<Model.User>;
+            if (users.Count == 0)
+            {
+                return false;
+            }
             return true;
         }
     }
