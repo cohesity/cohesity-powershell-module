@@ -48,7 +48,7 @@ Connects to a Cohesity Cluster at the address "192.168.1.100" for a user "user1"
 Connect-CohesityCluster -Server 192.168.1.100 -APIKey "00000000-0000-0000-0000-000000000000"
 ```
 
-Connects to a Cohesity Cluster at the address "192.168.1.100" using the API Key.
+Connects to a Cohesity Cluster at the address "192.168.1.100" using the API Key (supported 6.5.1d onwards).
 
 ## PARAMETERS
 

@@ -11,7 +11,7 @@ function Add-CohesityUserAPIKey {
         .EXAMPLE
         Add-CohesityUserAPIKey -UserName "user1" -APIKeyName "myKey1"
     #>
-    [OutputType('System.Array')]
+    [OutputType('System.Object')]
     [CmdletBinding(SupportsShouldProcess = $True, ConfirmImpact = "High")]
     Param(
         [Parameter(Mandatory = $true)]
@@ -41,7 +41,7 @@ function Add-CohesityUserAPIKey {
             $payloadJson  = $payload | ConvertTo-Json -Depth 100
             $userAPIKeyObject = Invoke-RestApi -Method 'POST' -Uri $cohesityClusterURL -Body $payloadJson
             # tagging reponse for display format ( configured in Cohesity.format.ps1xml )
-            @($userAPIKeyObject | Add-Member -TypeName 'System.Object#UserAPIKeyObject' -PassThru)
+            $userAPIKeyObject | Add-Member -TypeName 'System.Object#UserAPIKeyObject' -PassThru
         }
     }
 }
