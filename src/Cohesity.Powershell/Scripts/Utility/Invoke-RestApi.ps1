@@ -131,7 +131,7 @@ function Invoke-RestApi {
                 $credentialsJson = [Environment]::GetEnvironmentVariable('cohesityCredentials', 'Process')
                 $cohesitySession = CohesityUserProfile
                 if ($null -ne $credentialsJson) {
-                    $cohesityUrl = $cohesitySession.ClusterUri + "/irisservices/api/v1/public/accessTokens"
+                    $cohesityUrl = "/irisservices/api/v1/public/accessTokens"
                     $credentialsObject = $credentialsJson | ConvertFrom-Json
                     $payload = @{
                         Domain   = $credentialsObject.Domain

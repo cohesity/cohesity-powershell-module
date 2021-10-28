@@ -68,6 +68,7 @@ NestedModules = @('Cohesity.PowerShell.psm1')
 FunctionsToExport = @(
                     'Add-CohesityExternalClient',
                     'Add-CohesityProtectionSourceForPrincipal',
+                    'Add-CohesityUserAPIKey',
                     'Add-CohesityViewForPrincipal',
                     'Add-CohesityViewAllowlist',
                     'Add-CohesityViewShareAllowlist',
@@ -90,6 +91,7 @@ FunctionsToExport = @(
                     'Get-CohesityQOSPolicy',
                     'Get-CohesityRoutes',
                     'Get-CohesityStorageDomain',
+                    'Get-CohesityUserAPIKey',
                     'Get-CohesityUserGroup',
                     'Get-CohesityVault',
                     'Get-CohesityVirtualIP',
@@ -118,6 +120,7 @@ FunctionsToExport = @(
                     'Remove-CohesityProtectionSourceForPrincipal',
                     'Remove-CohesityRoutes',
                     'Remove-CohesityUser',
+                    'Remove-CohesityUserAPIKey',
                     'Remove-CohesityUserGroup',
                     'Remove-CohesityViewForPrincipal',
                     'Remove-CohesityViewAllowlist',
