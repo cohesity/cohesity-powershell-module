@@ -80,6 +80,7 @@ FunctionsToExport = @(
                     'Get-CohesityExternalClient',
                     'Get-CohesityInterfaceGroup',
                     'Get-CohesityOrganization',
+                    'Get-CohesityPhysicalAgentStatus',
                     'Get-CohesityProtectionJob',
                     'Get-CohesityProtectionJobRun',
                     'Get-CohesityProtectionJobStatus',

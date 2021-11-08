@@ -2005,5 +2005,40 @@
         </TableHeaders>
       </TableControl>
     </View>
+    <!-- System.Object.AgentStatus Script based cmdlet -->
+    <View>
+      <Name>System.Object.AgentStatus.TableView</Name>
+      <ViewSelectedBy>
+        <TypeName>System.Object#AgentStatus</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <ScriptBlock>$_.rootNode.Id</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>$_.rootNode.Name</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>if($_.registrationInfo.authenticationErrorMessage){$_.registrationInfo.authenticationErrorMessage} elseif($_.registrationInfo.refreshErrorMessage){$_.registrationInfo.refreshErrorMessage}else{"NA"}</ScriptBlock>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+        <TableHeaders>
+          <TableColumnHeader>
+            <Label>ID</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Name</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Error</Label>
+          </TableColumnHeader>
+        </TableHeaders>
+      </TableControl>
+    </View>
 </ViewDefinitions>
 </Configuration>
