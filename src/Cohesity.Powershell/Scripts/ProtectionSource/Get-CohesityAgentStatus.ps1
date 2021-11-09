@@ -1,4 +1,4 @@
-function Get-CohesityPhysicalAgentStatus {
+function Get-CohesityAgentStatus {
     <#
         .SYNOPSIS
         Gets a list of the agent status of physical servers.
@@ -9,7 +9,7 @@ function Get-CohesityPhysicalAgentStatus {
         .LINK
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
-        Get-CohesityPhysicalAgentStatus
+        Get-CohesityAgentStatus
         Returns the agent status of physcial servers.
     #>
     [OutputType('System.Array')]
