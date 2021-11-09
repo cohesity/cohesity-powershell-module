@@ -1,25 +1,25 @@
-# Get-CohesityPhysicalAgentStatus
+# Get-CohesityPhysicalAgent
 
 ## SYNOPSIS
-Gets a list of the agent status of physical servers.
+Gets a list of the registered physical agents with their information.
 
 ## SYNTAX
 
 ```
-Get-CohesityPhysicalAgentStatus [<CommonParameters>]
+Get-CohesityPhysicalAgent [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Gets a list of the agent status of physical servers.
+Gets a list of the registered physical agents with their information.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 ```
-Get-CohesityPhysicalAgentStatus
+Get-CohesityPhysicalAgent
 ```
 
-Returns the agent status of physcial servers.
+Gets a list of the registered physical agents with their information.
 
 ## PARAMETERS
 
@@ -30,11 +30,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### System.Array
+### Cohesity.Model.AgentInformation
 ## NOTES
-Published by Cohesity
 
 ## RELATED LINKS
-
-[https://cohesity.github.io/cohesity-powershell-module/#/README](https://cohesity.github.io/cohesity-powershell-module/#/README)
-
