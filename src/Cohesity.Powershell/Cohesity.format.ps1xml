@@ -2040,5 +2040,46 @@
         </TableHeaders>
       </TableControl>
     </View>
+    <!-- System.Object.ProtectionSourceObject Script based cmdlet -->
+    <View>
+      <Name>System.Object.ProtectionSourceObject.TableView</Name>
+      <ViewSelectedBy>
+        <TypeName>System.Object#ProtectionSourceObject</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <ScriptBlock>$_.protectionSourceUidList[0].sourceId</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>$_.source.name</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>$_.source.environment</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>if($_.protectionSourceUidList[0].parentSourceId){$_.protectionSourceUidList[0].parentSourceId}else{"-"}</ScriptBlock>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+        <TableHeaders>
+          <TableColumnHeader>
+            <Label>Id</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Name</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Environment</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>ParentId</Label>
+          </TableColumnHeader>
+        </TableHeaders>
+      </TableControl>
+    </View>
 </ViewDefinitions>
 </Configuration>

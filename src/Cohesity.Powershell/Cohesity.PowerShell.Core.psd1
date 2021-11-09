@@ -79,6 +79,7 @@ FunctionsToExport = @(
                     'Get-CohesityCmdletConfig',
                     'Get-CohesityExternalClient',
                     'Get-CohesityInterfaceGroup',
+                    'Get-CohesityObject',
                     'Get-CohesityOrganization',
                     'Get-CohesityPhysicalAgentStatus',
                     'Get-CohesityProtectionJob',
