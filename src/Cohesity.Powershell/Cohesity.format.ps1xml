@@ -2022,6 +2022,9 @@
                 <ScriptBlock>$_.rootNode.Name</ScriptBlock>
               </TableColumnItem>
               <TableColumnItem>
+                <ScriptBlock>$_.registrationInfo.authenticationStatus</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
                 <ScriptBlock>if($_.registrationInfo.authenticationErrorMessage){$_.registrationInfo.authenticationErrorMessage} elseif($_.registrationInfo.refreshErrorMessage){$_.registrationInfo.refreshErrorMessage}else{"NA"}</ScriptBlock>
               </TableColumnItem>
             </TableColumnItems>
@@ -2035,7 +2038,10 @@
             <Label>Name</Label>
           </TableColumnHeader>
           <TableColumnHeader>
-            <Label>Error</Label>
+            <Label>Status</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>ErrorMessage</Label>
           </TableColumnHeader>
         </TableHeaders>
       </TableControl>
