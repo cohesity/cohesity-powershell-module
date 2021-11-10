@@ -2005,5 +2005,87 @@
         </TableHeaders>
       </TableControl>
     </View>
+    <!-- System.Object.AgentStatus Script based cmdlet -->
+    <View>
+      <Name>System.Object.AgentStatus.TableView</Name>
+      <ViewSelectedBy>
+        <TypeName>System.Object#AgentStatus</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <ScriptBlock>$_.rootNode.Id</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>$_.rootNode.Name</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>$_.registrationInfo.authenticationStatus</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>if($_.registrationInfo.authenticationErrorMessage){$_.registrationInfo.authenticationErrorMessage} elseif($_.registrationInfo.refreshErrorMessage){$_.registrationInfo.refreshErrorMessage}else{"NA"}</ScriptBlock>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+        <TableHeaders>
+          <TableColumnHeader>
+            <Label>ID</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Name</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Status</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>ErrorMessage</Label>
+          </TableColumnHeader>
+        </TableHeaders>
+      </TableControl>
+    </View>
+    <!-- System.Object.ProtectionSourceObject Script based cmdlet -->
+    <View>
+      <Name>System.Object.ProtectionSourceObject.TableView</Name>
+      <ViewSelectedBy>
+        <TypeName>System.Object#ProtectionSourceObject</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <ScriptBlock>$_.protectionSourceUidList[0].sourceId</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>$_.source.name</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>$_.source.environment</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>if($_.protectionSourceUidList[0].parentSourceId){$_.protectionSourceUidList[0].parentSourceId}else{"-"}</ScriptBlock>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+        <TableHeaders>
+          <TableColumnHeader>
+            <Label>Id</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Name</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Environment</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>ParentId</Label>
+          </TableColumnHeader>
+        </TableHeaders>
+      </TableControl>
+    </View>
 </ViewDefinitions>
 </Configuration>

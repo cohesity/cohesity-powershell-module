@@ -100,6 +100,8 @@
 - [Update-CohesityProtectionSource](cmdlets-reference/update-cohesityprotectionsource.md)
 - [Unregister-CohesityProtectionSource](cmdlets-reference/unregister-cohesityprotectionsource.md)
 - [Unregister-CohesityApplicationServer](cmdlets-reference/unregister-cohesityapplicationserver.md)
+- [Get-CohesityObject](cmdlets-reference/get-cohesityobject.md)
+- [Get-CohesityAgentStatus](cmdlets-reference/get-cohesityagentstatus.md)
 - [Get-CohesityProtectionSource](cmdlets-reference/get-cohesityprotectionsource.md)
 - [Set-CohesityProtectionSource](cmdlets-reference/set-cohesityprotectionsource.md)
 - [Get-CohesityProtectionSourceObject](cmdlets-reference/get-cohesityprotectionsourceobject.md)
