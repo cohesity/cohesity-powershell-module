@@ -10,7 +10,7 @@ function Get-CohesityAgentStatus {
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
         Get-CohesityAgentStatus
-        Returns the agent status of physcial servers.
+        Returns the agent status of physcial servers. The attributes authenticationErrorMessage and refreshErrorMessage would provide the error messages.
     #>
     [OutputType('System.Array')]
     [CmdletBinding()]

@@ -20,6 +20,7 @@ Get-CohesityAgentStatus
 ```
 
 Returns the agent status of physcial servers.
+The attributes authenticationErrorMessage and refreshErrorMessage would provide the error messages.
 
 ## PARAMETERS
 
