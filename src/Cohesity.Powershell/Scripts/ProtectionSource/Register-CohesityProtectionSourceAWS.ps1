@@ -84,8 +84,18 @@ function Register-CohesityProtectionSourceAWS {
           }
           environment    = "kAWS"
         }
+        if ($FleetSubnetType) {
+            $awsFleetParams = @{
+            fleetSubnetType = $FleetSubnetType
+            fleetTags       = $FleetTags
+            }
+            $awsRegistrationParameters | Add-Member -NotePropertyName awsFleetParams -NotePropertyValue $awsFleetParams
+        }
+
     } else {
         # the auth method would be kUseIAMRole
+        $uri = '/irisservices/api/v1/backupsources'
+
         $ENTITY_TYPE = 16
         $AWS_ENTITY_TYPE = 0
         $ENTITY_INFO_TYPE = 16
@@ -104,7 +114,7 @@ function Register-CohesityProtectionSourceAWS {
                 }
             }
             entityInfo = @{
-                type = $ENTITY_INFO_TYPE,
+                type = $ENTITY_INFO_TYPE
                 credentials = @{
                     cloudCredentials = @{
                         awsCredentials = @{
@@ -116,16 +126,14 @@ function Register-CohesityProtectionSourceAWS {
                 }
             }
         }
-    }
-
-    if ($FleetSubnetType) {
-        $awsFleetParams = @{
-        fleetSubnetType = $FleetSubnetType
-        fleetTags       = $FleetTags
+        if ($FleetSubnetType) {
+            $awsFleetParams = @{
+                fleetSubnetType = $FleetSubnetType
+                fleetTagVec       = $FleetTags
+            }
+            $awsRegistrationParameters | Add-Member -NotePropertyName awsFleetParams -NotePropertyValue $awsFleetParams
         }
-        $awsRegistrationParameters | Add-Member -NotePropertyName awsFleetParams -NotePropertyValue $awsFleetParams
     }
-
 
     $request = $awsRegistrationParameters | ConvertTo-Json -Depth 100
     $result = Invoke-RestApi -Method Post -Uri $uri -Body $request
