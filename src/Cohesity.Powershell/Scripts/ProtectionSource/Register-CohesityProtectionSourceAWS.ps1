@@ -55,35 +55,77 @@ function Register-CohesityProtectionSourceAWS {
     [String]$FleetSubnetType,
     [Parameter(Mandatory = $false)]
     # Fleet settings, fleet tags.
-    [object[]]$FleetTags
+    [object[]]$FleetTags,
+    [Parameter(Mandatory = $false)]
+    # AWS account id.
+    [string]$AccountId,
+    [Parameter(Mandatory = $false)]
+    # IamRole registration name.
+    [string]$IamRoleName
   )
 
   Begin {
   }
 
   Process {
+    
+    if ($AuthMethod -eq "kUseIAMUser") {
+        $uri = '/irisservices/api/v1/public/protectionSources/register'
 
-    $uri = '/irisservices/api/v1/public/protectionSources/register'
-
-    $awsRegistrationParameters = @{
-      awsCredentials = @{
-        accessKey          = $AccessKey
-        amazonResourceName = $AmazonResourceName
-        authMethod         = $AuthMethod
-        awsType            = $AWSType
-        iamRoleArn         = $ARN
-        secretAccessKey    = $SecretAccessKey
-        subscriptionType   = $SubscriptionType
-      }
-      environment    = "kAWS"
+        $awsRegistrationParameters = @{
+          awsCredentials = @{
+            accessKey          = $AccessKey
+            amazonResourceName = $AmazonResourceName
+            authMethod         = $AuthMethod
+            awsType            = $AWSType
+            iamRoleArn         = $ARN
+            secretAccessKey    = $SecretAccessKey
+            subscriptionType   = $SubscriptionType
+          }
+          environment    = "kAWS"
+        }
+    } else {
+        # the auth method would be kUseIAMRole
+        $ENTITY_TYPE = 16
+        $AWS_ENTITY_TYPE = 0
+        $ENTITY_INFO_TYPE = 16
+        $AWS_AUTH_METHOD = 1
+        $SUBSCRIPTION_TYPE = 3
+        $iamRoleARN = [string]::Format(“arn:aws:iam::{0}:role/{1}”,$AccountId,$IamRoleName)
+        $awsRegistrationParameters = @{
+            entity = @{
+                type = $ENTITY_TYPE
+                awsEntity = @{
+                    type =  $AWS_ENTITY_TYPE
+                    ownerId = $AccountId
+                    commonInfo = @{
+                        id = $AccountId
+                    }
+                }
+            }
+            entityInfo = @{
+                type = $ENTITY_INFO_TYPE,
+                credentials = @{
+                    cloudCredentials = @{
+                        awsCredentials = @{
+                            authMethod = $AWS_AUTH_METHOD
+                            subscriptionType = $SUBSCRIPTION_TYPE
+                            iamRoleArn = $iamRoleARN
+                        }
+                    }
+                }
+            }
+        }
     }
+
     if ($FleetSubnetType) {
-      $awsFleetParams = @{
+        $awsFleetParams = @{
         fleetSubnetType = $FleetSubnetType
         fleetTags       = $FleetTags
-      }
-      $awsRegistrationParameters | Add-Member -NotePropertyName awsFleetParams -NotePropertyValue $awsFleetParams
+        }
+        $awsRegistrationParameters | Add-Member -NotePropertyName awsFleetParams -NotePropertyValue $awsFleetParams
     }
+
 
     $request = $awsRegistrationParameters | ConvertTo-Json -Depth 100
     $result = Invoke-RestApi -Method Post -Uri $uri -Body $request
