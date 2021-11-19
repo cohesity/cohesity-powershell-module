@@ -16,21 +16,27 @@ function Register-CohesityProtectionSourceAWS {
         $tags = @()
         $tags += @{key="bjt1";value="bjv1"}
         $tags += @{key="bjt2";value="bjv2"}
+        .EXAMPLE
+        Register-CohesityProtectionSourceAWS -AuthMethod kUseIAMRole -IamRoleName "role-name" -AccountId "12321432" -FleetSubnetType kSourceVM -FleetTags $tags
+        Register AWS protection source with IAmRole authentication method, construct the tags as follows,
+        $tags = @()
+        $tags += @{key="bjt1";value="bjv1"}
+        $tags += @{key="bjt2";value="bjv2"}
     #>
   [CmdletBinding()]
   Param(
-    [Parameter(Mandatory = $true)]
+    [Parameter(Mandatory = $false)]
     [ValidateNotNullOrEmpty()]
     # Specifies the access key.
     [String]$AccessKey,
     [Parameter(Mandatory = $false)]
     # Specifies amazon resource name.
     [String]$AmazonResourceName,
-    [Parameter(Mandatory = $true)]
+    [Parameter(Mandatory = $false)]
     [ValidateNotNullOrEmpty()]
     # Specifies the secret access key.
     [String]$SecretAccessKey,
-    [Parameter(Mandatory = $true)]
+    [Parameter(Mandatory = $false)]
     [ValidateNotNullOrEmpty()]
     # Specifies the ARN.
     [String]$ARN,
@@ -101,7 +107,7 @@ function Register-CohesityProtectionSourceAWS {
         $ENTITY_INFO_TYPE = 16
         $AWS_AUTH_METHOD = 1
         $SUBSCRIPTION_TYPE = 3
-        $iamRoleARN = [string]::Format(“arn:aws:iam::{0}:role/{1}”,$AccountId,$IamRoleName)
+        $iamRoleARN = [string]::Format("arn:aws:iam::{0}:role/{1}",$AccountId,$IamRoleName)
         $awsRegistrationParameters = @{
             entity = @{
                 type = $ENTITY_TYPE
