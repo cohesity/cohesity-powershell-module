@@ -74,7 +74,7 @@ function Register-CohesityProtectionSourceAWS {
   }
 
   Process {
-    
+
     if ($AuthMethod -eq "kUseIAMUser") {
         $uri = '/irisservices/api/v1/public/protectionSources/register'
 
