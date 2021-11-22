@@ -108,16 +108,26 @@ function Register-CohesityProtectionSourceAWS {
         $AWS_AUTH_METHOD = 1
         $SUBSCRIPTION_TYPE = 3
         $iamRoleARN = [string]::Format("arn:aws:iam::{0}:role/{1}",$AccountId,$IamRoleName)
-        $awsRegistrationParameters = @{
-            entity = @{
-                type = $ENTITY_TYPE
-                awsEntity = @{
+        $awsFleetParams = $null
+        if ($FleetSubnetType) {
+            $awsFleetParams = @{
+                fleetSubnetType = $FleetSubnetType
+                fleetTagVec       = $FleetTags
+            }
+        }
+        $awsEntity = @{
                     type =  $AWS_ENTITY_TYPE
                     ownerId = $AccountId
                     commonInfo = @{
                         id = $AccountId
                     }
+                    awsFleetParams = $awsFleetParams
                 }
+
+        $awsRegistrationParameters = @{
+            entity = @{
+                type = $ENTITY_TYPE
+                awsEntity = $awsEntity
             }
             entityInfo = @{
                 type = $ENTITY_INFO_TYPE
@@ -131,13 +141,6 @@ function Register-CohesityProtectionSourceAWS {
                     }
                 }
             }
-        }
-        if ($FleetSubnetType) {
-            $awsFleetParams = @{
-                fleetSubnetType = $FleetSubnetType
-                fleetTagVec       = $FleetTags
-            }
-            $awsRegistrationParameters | Add-Member -NotePropertyName awsFleetParams -NotePropertyValue $awsFleetParams
         }
     }
 
