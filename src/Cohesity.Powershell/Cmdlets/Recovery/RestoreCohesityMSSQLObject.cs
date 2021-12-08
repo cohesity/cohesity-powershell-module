@@ -244,6 +244,14 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
         [Parameter(Mandatory = false)]
         public PSCredential TargetHostCredential { get; set; } = null;
 
+        /// <summary>
+        /// <para type="description">
+        /// Source of the backup object. In this case vault/archival machine.
+        /// Use the cmdlet Get-CohesityVault to get the vault/archival source.
+        /// </para>
+        /// </summary>
+        [Parameter(Mandatory = false)]
+        public long? ArchivalId { get; set; }
         #endregion
 
         #region Processing
@@ -326,6 +334,14 @@ namespace Cohesity.Powershell.Cmdlets.Recovery
                     }
                 };
 
+                if (this.ArchivalId.HasValue)
+                {
+                    hostingProtectionSource.ArchivalTarget = new Model.ArchivalExternalTarget
+                    {
+                        VaultId = this.ArchivalId,
+                        VaultType = Model.ArchivalExternalTarget.VaultTypeEnum.KCloud
+                    };
+                }
                 if (JobRunId.HasValue)
                     hostingProtectionSource.JobRunId = JobRunId;
 
