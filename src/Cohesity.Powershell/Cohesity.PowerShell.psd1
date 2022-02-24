@@ -132,6 +132,7 @@ FunctionsToExport = @(
                     'Restore-CohesityBackupToView',
                     'Restore-CohesityRemoteFile',
                     'Restore-CohesityRemoteMSSQLObject',
+                    'Restore-CohesityRemoteMSSQLObject-Wrapper',
                     'Restore-CohesityVMwareVM',
                     'Save-CohesityFile',
                     'Set-CohesityAlertResolutions',

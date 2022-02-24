@@ -132,6 +132,7 @@ FunctionsToExport = @(
                     'Restore-CohesityBackupToView',
                     'Restore-CohesityRemoteFile',
                     'Restore-CohesityRemoteMSSQLObject',
+                    'Restore-CohesityRemoteMSSQLObject-Wrapper',
                     'Restore-CohesityVMwareVM',
                     'Save-CohesityFile',
                     'Set-CohesityAlertResolutions',
@@ -248,7 +249,7 @@ PrivateData = @{
         # A URL to an icon representing this module.
         IconUri = 'https://i.imgur.com/ZbvCiaC.png'
 
-		#Prerelease = 'alpha2'
+        #Prerelease = 'alpha2'
 
         # ReleaseNotes of this module
         ReleaseNotes = 'https://cohesity.github.io/cohesity-powershell-module'
