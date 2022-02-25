@@ -9,11 +9,12 @@ function Restore-CohesityRemoteMSSQLObject {
         .LINK
         https://cohesity.github.io/cohesity-powershell-module/#/README
         .EXAMPLE
-        Restore-CohesityRemoteMSSQLObject -SourceId 1279 -HostSourceId 1277 -JobId 31520 -TargetHostId 770 -CaptureTailLogs:$false -NewDatabaseName CohesityDB_r1 -NewInstanceName MSSQLSERVER -TargetDataFilesDirectory "C:\temp" -TargetLogFilesDirectory "C:\temp"
+        Restore-CohesityRemoteMSSQLObject -SourceId 1279 -HostSourceId 1277 -JobId 31520 -TargetHostId 770 -CaptureTailLogs:$false -NewDatabaseName CohesityDB_r1 -NewInstanceName MSSQLSERVER -TargetDataFilesDirectory "C:\temp" -TargetLogFilesDirectory "C:\temp" -DbRestoreOverwritePolicy:$true
         Restore MSSQL database from remote cluster with database id 1279 , database instance id 1277 and job id as 31520
         $mssqlObjects = Find-CohesityObjectsForRestore -Environments KSQL
         Get the source id, $mssqlObjects[0].SnapshottedSource.Id
         Get the source instance id, $mssqlObjects[0].SnapshottedSource.SqlProtectionSource.OwnerId
+        Use the DbRestoreOverwritePolicy:$true for overriding the existing database
         .EXAMPLE
         Restore-CohesityRemoteMSSQLObject -SourceId 3101 -HostSourceId 3099 -JobId 51275 -TargetHostId 3098 -CaptureTailLogs:$false -NewDatabaseName ReportServer_r26 -NewInstanceName MSSQLSERVER -TargetDataFilesDirectory "C:\temp" -TargetLogFilesDirectory "C:\temp" -StartTime 1616956306627994 -JobRunId 60832 -RestoreTimeSecs 1616958037
         Request for restore MSSQL object with RestoreTimeSecs (point in time) parameter, StartTime and JobRunId.
@@ -90,6 +91,10 @@ function Restore-CohesityRemoteMSSQLObject {
         # automatically created.
         # This field can be set only if restoring to a different target host.
         [Object[]]$TargetSecondaryDataFilesDirectoryList,
+        [Parameter(Mandatory = $false)]
+        # This field will overwrite the existing db contents if it sets to true
+        # By default the db overwrite policy is false
+        [switch]$DbRestoreOverwritePolicy,
         [Parameter(Mandatory = $false)]
         [ValidateRange(1, [long]::MaxValue)]
         # Specifies the target host if the application is to be restored to a different host.
@@ -261,6 +266,11 @@ function Restore-CohesityRemoteMSSQLObject {
                     isMultiStageRestore             = $false
                     secondaryDataFileDestinationVec = $TargetSecondaryDataFilesDirectoryList
                     alternateLocationParams         = @{}
+                }
+
+                if ($DbRestoreOverwritePolicy -eq $true)  {
+
+                    $sqlRestoreParams | Add-Member -NotePropertyName dbRestoreOverwritePolicy -NotePropertyValue "kOverwrite"
                 }
 
                 if ($RestoreTimeSecs -gt 0) {
