@@ -117,6 +117,17 @@ function Invoke-RestApi {
     catch {
         # this flag can be optionally used by the caller to identify the details of failure
         $Global:CohesityAPIError = $_.Exception
+        try  {
+           $Global:CohesityAPIError | Test-Json
+        }
+        catch  {
+
+            $errorMsg = "Invalid JSON format. Unable to parse the JSON string..."
+            Write-Host $errorMsg
+            CSLog -Message $_
+            CSLog -Message $errorMsg -Severity 3
+            return 
+        }
         # to make the ScriptAnalyzer happy
         CSLog -Message ($Global:CohesityAPIError | ConvertTo-json) -Severity 3
         # capturing the error message from the cluster rather than the powershell framework $_.Exception.Message
