@@ -118,14 +118,17 @@ function Invoke-RestApi {
         # this flag can be optionally used by the caller to identify the details of failure
         $Global:CohesityAPIError = $_.Exception
         try  {
-           $Global:CohesityAPIError | Test-Json
+            $Global:CohesityAPIError.Message | ConvertFrom-Json;
         }
-        catch  {
-
-            $errorMsg = "Invalid JSON format. Unable to parse the JSON string..."
-            Write-Host $errorMsg
-            CSLog -Message $_
-            CSLog -Message $errorMsg -Severity 3
+        catch {
+ 
+            $cohesityFolder = $Global:CohesityCmdletConfig.ConfigFolder
+            $logFileName = $Global:CohesityCmdletConfig.LogFileName
+            $CSLogFilePath = "$HOME/" + $cohesityFolder + "/" + $logFileName
+            Write-Host "Invalid response from server. Please refer the logs at $CSLogFilePath"
+            Write-Host $Global:CohesityAPIError.Message
+            CSLog -Message $Global:CohesityAPIError.Message 
+            CSLog $_
             return 
         }
         # to make the ScriptAnalyzer happy
