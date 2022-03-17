@@ -121,7 +121,7 @@ function Invoke-RestApi {
             $Global:CohesityAPIError.Message | ConvertFrom-Json;
         }
         catch {
- 
+
             $cohesityFolder = $Global:CohesityCmdletConfig.ConfigFolder
             $logFileName = $Global:CohesityCmdletConfig.LogFileName
             $CSLogFilePath = "$HOME/" + $cohesityFolder + "/" + $logFileName
