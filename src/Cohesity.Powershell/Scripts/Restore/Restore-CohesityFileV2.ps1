@@ -22,15 +22,15 @@ function Restore-CohesityFileV2 {
     param (
         [Parameter(Mandatory = $True)]
         # Name of the Source VM, the filles need to be picked up for restore
-        [string]$sourceVM, 
+        [string]$sourceVM,
 
         [Parameter(Mandatory = $False)]
         # Name of the Target V, the files need to be restored
-        [string]$targetVM, 
+        [string]$targetVM,
 
         [Parameter(Mandatory = $False)]
         # One or more file paths to be restored
-        [array]$fileNames, 
+        [array]$fileNames,
 
         [Parameter(Mandatory = $False)]
         # Task name of the restore job
@@ -38,43 +38,43 @@ function Restore-CohesityFileV2 {
 
         [Parameter(Mandatory = $False)]
         # text file of file paths
-        [string]$fileList, 
+        [string]$fileList,
 
         [Parameter(Mandatory = $False)]
         # UserName for VMTools
-        [string]$vmUser, 
+        [string]$vmUser,
 
         [Parameter(Mandatory = $False)]
         # Password for vm tools
-        [string]$vmPwd, 
+        [string]$vmPwd,
 
         [Parameter(Mandatory = $False)]
         # Alternate path to restore files in the target VM
-        [string]$restorePath, 
-        
+        [string]$restorePath,
+
         [Parameter(Mandatory = $False)][ValidateSet('ExistingAgent','AutoDeploy','VMTools')]
         # Different categories of the restore Job through different tools
         [string]$restoreMethod = 'ExistingAgent',
 
         [Parameter(Mandatory = $False)]
         # Wait for completion and report status. Script may delay to identify the status of the job status
-        [switch]$wait, 
+        [switch]$wait,
 
         [Parameter(Mandatory = $False)]
         # Show available run dates
-        [switch]$showVersions, 
+        [switch]$showVersions,
 
         [Parameter(Mandatory = $False)]
         # Restore from specified run ID
-        [string]$runId, 
+        [string]$runId,
 
         [Parameter(Mandatory = $False)]
         # Restore from latest backup before date
-        [string]$olderThan, 
+        [string]$olderThan,
 
         [Parameter(Mandatory = $False)]
         # Restore from backup 'n' days ago
-        [int]$daysAgo, 
+        [int]$daysAgo,
 
         [Parameter(Mandatory = $False)]
         [switch]$noIndex,
@@ -122,11 +122,11 @@ function Restore-CohesityFileV2 {
 
         # find source object
         $searchURL = "/v2/data-protect/search/protected-objects?snapshotActions=RecoverFiles&searchString=$sourceVM&environments=kVMware"
-        $objects = Invoke-RestApi -Method Get -Uri $searchURL 
+        $objects = Invoke-RestApi -Method Get -Uri $searchURL
         $object = $objects.objects | Where-Object name -eq $sourceVM
-        if(!$object)  {  
+        if(!$object)  {
 
-            $errorMsg = "VM $sourceVM not found" 
+            $errorMsg = "VM $sourceVM not found"
             Write-Output $errorMsg
             CSLog -Message $errorMsg
             return
@@ -197,7 +197,7 @@ function Restore-CohesityFileV2 {
             $dateString = get-date -UFormat '%Y-%m-%d_%H-%M-%S'
             $taskName = "Recover_$dateString"
         }
-        
+
         $restoreParams = @{
             "snapshotEnvironment" = "kVMware";
             "name"                = $taskName;
@@ -228,7 +228,7 @@ function Restore-CohesityFileV2 {
             if(!$vmUser)  {
 
                 $errorMsg = "VM credentials required for 'AutoDeploy' and 'VMTools' restore methods"
-                Write-Output $errorMsg 
+                Write-Output $errorMsg
                 CSLog -Message $errorMsg
                 return
             }
@@ -249,7 +249,7 @@ function Restore-CohesityFileV2 {
             if(!$restorePath)  {
 
                 $errorMsg = "restorePath required when restoring to alternate target VM"
-                Write-Output $errorMsg 
+                Write-Output $errorMsg
                 CSLog -Message $errorMsg
                 return
             }
@@ -258,8 +258,8 @@ function Restore-CohesityFileV2 {
             $targetObject = $vms | where-object name -eq $targetVM
             if(!$targetObject)  {
 
-                $errorMsg = "VM $targetVM not found" 
-                Write-Output $errorMsg 
+                $errorMsg = "VM $targetVM not found"
+                Write-Output $errorMsg
                 CSLog -Message $errorMsg
                 return
             }
@@ -332,14 +332,14 @@ function Restore-CohesityFileV2 {
                 $url = "/v2/data-protect/search/indexed-objects"
                 $searchJson = $searchParams | ConvertTo-Json -Depth 100
                 $search = Invoke-RestApi -Method Post -Uri $url -Body $searchJson
-                
+
                 $thisFile = $search.files | Where-Object {("{0}/{1}" -f $_.path, $_.name) -eq $file -or ("{0}/{1}/" -f $_.path, $_.name) -eq $file}
                 if(!$thisFile)  {
 
                     $errorMsg = "file $file not found"
-                    Write-Output $errorMsg 
+                    Write-Output $errorMsg
                     CSLog -Message $errorMsg
-                    
+
                 }
                 else  {
                     if($file[-1] -eq '/')  {
@@ -363,7 +363,7 @@ function Restore-CohesityFileV2 {
         # perform restore
         if($restoreParams.vmwareParams.recoverFileAndFolderParams.filesAndFolders.Count -gt 0)  {
 
-            $url = "/v2/data-protect/recoveries" 
+            $url = "/v2/data-protect/recoveries"
             $restoreJson = $restoreParams | ConvertTo-Json -Depth 100
             $restoreTask = Invoke-RestApi -Method Post -Uri $url -Body $restoreJson
             $restoreTaskId = $restoreTask.id
@@ -374,7 +374,7 @@ function Restore-CohesityFileV2 {
 
                     Start-Sleep 5
                     $url = "/v2/data-protect/recoveries/$($restoreTaskId)?includeTenants=true"
-                    $restoreTask = Invoke-RestApi -Method Get -Uri $url 
+                    $restoreTask = Invoke-RestApi -Method Get -Uri $url
                     $restoreTask
                 }
                 if($restoreTask.status -eq 'Succeeded')  {
@@ -383,20 +383,20 @@ function Restore-CohesityFileV2 {
                 }
                 else  {
 
-                    Write-Output "Restore $($restoreTask.status): $($restoreTask.messages -join ', ')" 
+                    Write-Output "Restore $($restoreTask.status): $($restoreTask.messages -join ', ')"
                     $restoreTask
                 }
             }
             else  {
 
-                Write-Output "Restore $($restoreTask.status): $($restoreTask.messages -join ', ')" 
+                Write-Output "Restore $($restoreTask.status): $($restoreTask.messages -join ', ')"
                 $restoreTask
             }
         }
         else  {
 
             $errorMsg = "No files found for restore"
-            Write-Output $errorMsg 
+            Write-Output $errorMsg
             CSLog -Message $errorMsg
         }
     }
