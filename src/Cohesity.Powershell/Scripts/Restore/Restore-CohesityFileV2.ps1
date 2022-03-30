@@ -5,7 +5,7 @@ function Restore-CohesityFileV2 {
         Restores the specified files or folders from a previous backup based on Cohesity V2 Rest APIs
         .DESCRIPTION
         Restores the specified files or folders from a previous backup based on Cohesity V2 Rest APIs
-        This script offers the -noIndex ($isDirectory = $True) parameter If the VM is not indexed. 
+        This script offers the -noIndex ($isDirectory = $True) parameter If the VM is not indexed.
         In this case, Most of the time the file/folder requested to restore is from a job run that is still in the indexing process using V2 apis.
         Restore is throwing errors if the VM is not indexed while using Restore-CohesityFile cmdlet which is based on V1 apis
         If the VM files/folders are indexed properly then use the Restore-CohesityFile cmdlet directly
@@ -411,8 +411,8 @@ function Restore-CohesityFileV2 {
             $restoreTaskId = $restoreTask.id
             if($wait)  {
 
-                # After getting the response, job status "Running" is being found after some delay. 
-                # Hence the following delay is required. Otherwise "Running" state will be not 
+                # After getting the response, job status "Running" is being found after some delay.
+                # Hence the following delay is required. Otherwise "Running" state will be not
                 # detected at all by the script due to backend limitation
                 $PollingForAPI = 3
                 Start-Sleep $PollingForAPI
