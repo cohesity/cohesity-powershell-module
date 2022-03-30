@@ -5,6 +5,11 @@ function Restore-CohesityFileV2 {
         Restores the specified files or folders from a previous backup based on Cohesity V2 Rest APIs
         .DESCRIPTION
         Restores the specified files or folders from a previous backup based on Cohesity V2 Rest APIs
+        This script offers the -noIndex ($isDirectory = $True) parameter If the VM is not indexed. 
+        In this case, Most of the time the file/folder requested to restore is from a job run that is still in the indexing process using V2 apis.
+        Restore is throwing errors if the VM is not indexed while using Restore-CohesityFile cmdlet which is based on V1 apis
+        If the VM files/folders are indexed properly then use the Restore-CohesityFile cmdlet directly
+
         .NOTES
         Published by Cohesity
         .LINK
@@ -76,11 +81,36 @@ function Restore-CohesityFileV2 {
         # Restore from backup 'n' days ago
         [int]$daysAgo,
 
+        # Specify the the VM file and folders are already indexed
         [Parameter(Mandatory = $False)]
         [switch]$noIndex,
 
         [Parameter(Mandatory = $False)]
-        [switch]$localOnly
+        [switch]$localOnly,
+
+        #Restore recovery fileandfolder - target environment
+        [Parameter(Mandatory = $False)]
+        [string]$targetEnvironment,
+
+        #Restore recovery fileandfolder - recover to original target
+        [Parameter(Mandatory = $False)]
+        [switch]$recoverToOriginalTarget,
+
+        #Restore recovery fileandfolder - overwrite existing
+        [Parameter(Mandatory = $False)]
+        [switch]$overwriteExisting,
+
+        #Restore recovery fileandfolder - preserveAttributes
+        [Parameter(Mandatory = $False)]
+        [switch]$preserveAttributes,
+
+        #Restore recovery fileandfolder - continue on error over operation
+        [Parameter(Mandatory = $False)]
+        [switch]$continueOnError,
+
+        #Restore recovery fileandfolder - encryption enable/disable
+        [Parameter(Mandatory = $False)]
+        [switch]$encryptionEnabled
     )
 
     Begin {
@@ -198,6 +228,19 @@ function Restore-CohesityFileV2 {
             $taskName = "Recover_$dateString"
         }
 
+        if (!$targetEnvironment)  {
+
+            $targetEnvironment = "kVMware"
+        }
+
+        if ($targetEnvironment -eq "kPhysical")  {
+
+            $errorMsg = "Functionality not implemented for Physical sources"
+            Write-Output $errorMsg
+            CSLog -Message $errorMsg
+            return
+        }
+
         $restoreParams = @{
             "snapshotEnvironment" = "kVMware";
             "name"                = $taskName;
@@ -210,13 +253,13 @@ function Restore-CohesityFileV2 {
                 "recoveryAction"             = "RecoverFiles";
                 "recoverFileAndFolderParams" = @{
                     "filesAndFolders"    = @();
-                    "targetEnvironment"  = "kVMware";
+                    "targetEnvironment"  = $targetEnvironment;
                     "vmwareTargetParams" = @{
-                        "recoverToOriginalTarget" = $true;
-                        "overwriteExisting"       = $true;
-                        "preserveAttributes"      = $true;
-                        "continueOnError"         = $true;
-                        "encryptionEnabled"       = $false
+                        "recoverToOriginalTarget" = $recoverToOriginalTarget.IsPresent;
+                        "overwriteExisting"       = $overwriteExisting.IsPresent;
+                        "preserveAttributes"      = $preserveAttributes.IsPresent;
+                        "continueOnError"         = $continueOnError.IsPresent;
+                        "encryptionEnabled"       = $encryptionEnabled.IsPresent
                     }
                 }
             }
@@ -253,8 +296,7 @@ function Restore-CohesityFileV2 {
                 CSLog -Message $errorMsg
                 return
             }
-            $url = "/irisservices/api/v1/public/protectionSources/virtualMachines"
-            $vms = Invoke-RestApi -Method Get -Uri $url
+            $vms = Get-CohesityVmwareVM
             $targetObject = $vms | where-object name -eq $targetVM
             if(!$targetObject)  {
 
@@ -369,10 +411,15 @@ function Restore-CohesityFileV2 {
             $restoreTaskId = $restoreTask.id
             if($wait)  {
 
-                Start-Sleep 3
+                # After getting the response, job status "Running" is being found after some delay. 
+                # Hence the following delay is required. Otherwise "Running" state will be not 
+                # detected at all by the script due to backend limitation
+                $PollingForAPI = 3
+                Start-Sleep $PollingForAPI
                 while($restoreTask.status -eq "Running")  {
 
-                    Start-Sleep 5
+                    $PollingForAPI = 5
+                    Start-Sleep $PollingForAPI
                     $url = "/v2/data-protect/recoveries/$($restoreTaskId)?includeTenants=true"
                     $restoreTask = Invoke-RestApi -Method Get -Uri $url
                     $restoreTask
@@ -380,6 +427,7 @@ function Restore-CohesityFileV2 {
                 if($restoreTask.status -eq 'Succeeded')  {
 
                     Write-Output "Restore $($restoreTask.status)"
+                    $restoreTask
                 }
                 else  {
 
