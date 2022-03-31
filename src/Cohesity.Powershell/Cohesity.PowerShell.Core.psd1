@@ -162,6 +162,7 @@ CmdletsToExport = @('Add-CohesityViewShare',
                     'Enable-CohesityProtectionJob',
                     'Find-CohesityFilesForRestore',
                     'Find-CohesityObjectsForRestore',
+                    'Get-CohesityAgentStatus',
                     'Get-CohesityAlert',
                     'Get-CohesityAlertResolution',
                     'Get-CohesityAuditLog',
@@ -248,7 +249,7 @@ PrivateData = @{
         # A URL to an icon representing this module.
         IconUri = 'https://i.imgur.com/ZbvCiaC.png'
 
-		#Prerelease = 'alpha2'
+        #Prerelease = 'alpha2'
 
         # ReleaseNotes of this module
         ReleaseNotes = 'https://cohesity.github.io/cohesity-powershell-module'
