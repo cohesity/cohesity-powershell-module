@@ -46,11 +46,11 @@ function Restore-CohesityFileV2 {
         [string]$fileList,
 
         [Parameter(Mandatory = $False)]
-        # UserName for VMTools
+        # UserName for VMTools, applicable only when restoreMethod selected as VMTools
         [string]$vmUser,
 
         [Parameter(Mandatory = $False)]
-        # Password for vm tools
+        # Password for vm tools, applicable only when restoreMethod selected as VMTools
         [string]$vmPwd,
 
         [Parameter(Mandatory = $False)]
