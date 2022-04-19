@@ -8,7 +8,7 @@
 [![GitHub release](https://img.shields.io/github/release/cohesity/cohesity-powershell-module.svg)](https://github.com/cohesity/cohesity-powershell-module/releases/)
 { ![PowerShell](https://img.shields.io/powershellgallery/dt/cohesity.powershell) + 
 ![PowerShell Core](https://img.shields.io/powershellgallery/dt/cohesity.powershell.core) }
-![Maintenance](https://img.shields.io/maintenance/yes/2021)
+![Maintenance](https://img.shields.io/maintenance/yes/2022)
 
 
 ![](docs/assets/images/cohesity_powershell.png)
