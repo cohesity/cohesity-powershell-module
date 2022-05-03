@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -33,10 +36,6 @@ namespace Cohesity.Model
         /// <param name="vmOnlineDisksError">vmOnlineDisksError.</param>
         public MountVolumesInfoProto(ErrorProto cleanupError = default(ErrorProto), ErrorProto error = default(ErrorProto), bool? finished = default(bool?), List<MountVolumeResult> mountVolumeResultVec = default(List<MountVolumeResult>), SetupRestoreDiskTaskInfoProto restoreDisksTaskInfoProto = default(SetupRestoreDiskTaskInfoProto), long? slaveTaskStartTimeUsecs = default(long?), int? type = default(int?), ErrorProto vmOnlineDisksError = default(ErrorProto))
         {
-            this.Finished = finished;
-            this.MountVolumeResultVec = mountVolumeResultVec;
-            this.SlaveTaskStartTimeUsecs = slaveTaskStartTimeUsecs;
-            this.Type = type;
             this.CleanupError = cleanupError;
             this.Error = error;
             this.Finished = finished;
@@ -63,14 +62,14 @@ namespace Cohesity.Model
         /// This will be set to true if the task is complete on the slave.
         /// </summary>
         /// <value>This will be set to true if the task is complete on the slave.</value>
-        [DataMember(Name="finished", EmitDefaultValue=true)]
+        [DataMember(Name="finished", EmitDefaultValue=false)]
         public bool? Finished { get; set; }
 
         /// <summary>
         /// Contains the result information of the mounted volumes.
         /// </summary>
         /// <value>Contains the result information of the mounted volumes.</value>
-        [DataMember(Name="mountVolumeResultVec", EmitDefaultValue=true)]
+        [DataMember(Name="mountVolumeResultVec", EmitDefaultValue=false)]
         public List<MountVolumeResult> MountVolumeResultVec { get; set; }
 
         /// <summary>
@@ -83,14 +82,14 @@ namespace Cohesity.Model
         /// This is the timestamp at which the slave task started.
         /// </summary>
         /// <value>This is the timestamp at which the slave task started.</value>
-        [DataMember(Name="slaveTaskStartTimeUsecs", EmitDefaultValue=true)]
+        [DataMember(Name="slaveTaskStartTimeUsecs", EmitDefaultValue=false)]
         public long? SlaveTaskStartTimeUsecs { get; set; }
 
         /// <summary>
         /// The type of environment this mount volumes info pertains to.
         /// </summary>
         /// <value>The type of environment this mount volumes info pertains to.</value>
-        [DataMember(Name="type", EmitDefaultValue=true)]
+        [DataMember(Name="type", EmitDefaultValue=false)]
         public int? Type { get; set; }
 
         /// <summary>
@@ -153,8 +152,7 @@ namespace Cohesity.Model
                 (
                     this.MountVolumeResultVec == input.MountVolumeResultVec ||
                     this.MountVolumeResultVec != null &&
-                    input.MountVolumeResultVec != null &&
-                    this.MountVolumeResultVec.SequenceEqual(input.MountVolumeResultVec)
+                    this.MountVolumeResultVec.Equals(input.MountVolumeResultVec)
                 ) && 
                 (
                     this.RestoreDisksTaskInfoProto == input.RestoreDisksTaskInfoProto ||

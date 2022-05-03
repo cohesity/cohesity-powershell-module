@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,14 +30,13 @@ namespace Cohesity.Model
         public MapReduceAuxData(List<Pattern> patternVec = default(List<Pattern>))
         {
             this.PatternVec = patternVec;
-            this.PatternVec = patternVec;
         }
         
         /// <summary>
         /// Pattern auxiliary data for a MapReduce.
         /// </summary>
         /// <value>Pattern auxiliary data for a MapReduce.</value>
-        [DataMember(Name="patternVec", EmitDefaultValue=true)]
+        [DataMember(Name="patternVec", EmitDefaultValue=false)]
         public List<Pattern> PatternVec { get; set; }
 
         /// <summary>
@@ -76,8 +78,7 @@ namespace Cohesity.Model
                 (
                     this.PatternVec == input.PatternVec ||
                     this.PatternVec != null &&
-                    input.PatternVec != null &&
-                    this.PatternVec.SequenceEqual(input.PatternVec)
+                    this.PatternVec.Equals(input.PatternVec)
                 );
         }
 

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -35,46 +38,41 @@ namespace Cohesity.Model
             this.GrantType = grantType;
             this.Scope = scope;
             this.UseOAuthForExchangeOnline = useOAuthForExchangeOnline;
-            this.ClientId = clientId;
-            this.ClientSecret = clientSecret;
-            this.GrantType = grantType;
-            this.Scope = scope;
-            this.UseOAuthForExchangeOnline = useOAuthForExchangeOnline;
         }
         
         /// <summary>
         /// Specifies the application ID that the registration portal (apps.dev.microsoft.com) assigned.
         /// </summary>
         /// <value>Specifies the application ID that the registration portal (apps.dev.microsoft.com) assigned.</value>
-        [DataMember(Name="clientId", EmitDefaultValue=true)]
+        [DataMember(Name="clientId", EmitDefaultValue=false)]
         public string ClientId { get; set; }
 
         /// <summary>
         /// Specifies the application secret that was created in app registration portal.
         /// </summary>
         /// <value>Specifies the application secret that was created in app registration portal.</value>
-        [DataMember(Name="clientSecret", EmitDefaultValue=true)]
+        [DataMember(Name="clientSecret", EmitDefaultValue=false)]
         public string ClientSecret { get; set; }
 
         /// <summary>
         /// Specifies the application grant type. eg: For client credentials flow, set this to \&quot;client_credentials\&quot;; For refreshing access-token, set this to \&quot;refresh_token\&quot;.
         /// </summary>
         /// <value>Specifies the application grant type. eg: For client credentials flow, set this to \&quot;client_credentials\&quot;; For refreshing access-token, set this to \&quot;refresh_token\&quot;.</value>
-        [DataMember(Name="grantType", EmitDefaultValue=true)]
+        [DataMember(Name="grantType", EmitDefaultValue=false)]
         public string GrantType { get; set; }
 
         /// <summary>
         /// Specifies a space separated list of scopes/permissions for the user. eg: Incase of MS Graph APIs for Office365, scope is set to default: https://graph.microsoft.com/.default
         /// </summary>
         /// <value>Specifies a space separated list of scopes/permissions for the user. eg: Incase of MS Graph APIs for Office365, scope is set to default: https://graph.microsoft.com/.default</value>
-        [DataMember(Name="scope", EmitDefaultValue=true)]
+        [DataMember(Name="scope", EmitDefaultValue=false)]
         public string Scope { get; set; }
 
         /// <summary>
         /// This field is deprecated from here and placed in RegisteredSourceInfo and ProtectionSourceParameters. deprecated: true
         /// </summary>
         /// <value>This field is deprecated from here and placed in RegisteredSourceInfo and ProtectionSourceParameters. deprecated: true</value>
-        [DataMember(Name="useOAuthForExchangeOnline", EmitDefaultValue=true)]
+        [DataMember(Name="useOAuthForExchangeOnline", EmitDefaultValue=false)]
         public bool? UseOAuthForExchangeOnline { get; set; }
 
         /// <summary>

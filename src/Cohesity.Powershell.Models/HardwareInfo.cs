@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -51,97 +54,84 @@ namespace Cohesity.Model
             this.ProductModel = productModel;
             this.ProductModelType = productModelType;
             this.SlotNumber = slotNumber;
-            this.ChassisModel = chassisModel;
-            this.ChassisSerial = chassisSerial;
-            this.ChassisType = chassisType;
-            this.CohesityChassisSerial = cohesityChassisSerial;
-            this.CohesityNodeSerial = cohesityNodeSerial;
-            this.HbaModel = hbaModel;
-            this.IpmiLanChannel = ipmiLanChannel;
-            this.MaxSlots = maxSlots;
-            this.NodeModel = nodeModel;
-            this.NodeSerial = nodeSerial;
-            this.ProductModel = productModel;
-            this.ProductModelType = productModelType;
-            this.SlotNumber = slotNumber;
         }
         
         /// <summary>
         /// Gets or Sets ChassisModel
         /// </summary>
-        [DataMember(Name="chassisModel", EmitDefaultValue=true)]
+        [DataMember(Name="chassisModel", EmitDefaultValue=false)]
         public string ChassisModel { get; set; }
 
         /// <summary>
         /// Gets or Sets ChassisSerial
         /// </summary>
-        [DataMember(Name="chassisSerial", EmitDefaultValue=true)]
+        [DataMember(Name="chassisSerial", EmitDefaultValue=false)]
         public string ChassisSerial { get; set; }
 
         /// <summary>
         /// Gets or Sets ChassisType
         /// </summary>
-        [DataMember(Name="chassisType", EmitDefaultValue=true)]
+        [DataMember(Name="chassisType", EmitDefaultValue=false)]
         public string ChassisType { get; set; }
 
         /// <summary>
         /// Gets or Sets CohesityChassisSerial
         /// </summary>
-        [DataMember(Name="cohesityChassisSerial", EmitDefaultValue=true)]
+        [DataMember(Name="cohesityChassisSerial", EmitDefaultValue=false)]
         public string CohesityChassisSerial { get; set; }
 
         /// <summary>
         /// Gets or Sets CohesityNodeSerial
         /// </summary>
-        [DataMember(Name="cohesityNodeSerial", EmitDefaultValue=true)]
+        [DataMember(Name="cohesityNodeSerial", EmitDefaultValue=false)]
         public string CohesityNodeSerial { get; set; }
 
         /// <summary>
         /// Gets or Sets HbaModel
         /// </summary>
-        [DataMember(Name="hbaModel", EmitDefaultValue=true)]
+        [DataMember(Name="hbaModel", EmitDefaultValue=false)]
         public string HbaModel { get; set; }
 
         /// <summary>
         /// Gets or Sets IpmiLanChannel
         /// </summary>
-        [DataMember(Name="ipmiLanChannel", EmitDefaultValue=true)]
+        [DataMember(Name="ipmiLanChannel", EmitDefaultValue=false)]
         public string IpmiLanChannel { get; set; }
 
         /// <summary>
         /// Gets or Sets MaxSlots
         /// </summary>
-        [DataMember(Name="maxSlots", EmitDefaultValue=true)]
+        [DataMember(Name="maxSlots", EmitDefaultValue=false)]
         public string MaxSlots { get; set; }
 
         /// <summary>
         /// Gets or Sets NodeModel
         /// </summary>
-        [DataMember(Name="nodeModel", EmitDefaultValue=true)]
+        [DataMember(Name="nodeModel", EmitDefaultValue=false)]
         public string NodeModel { get; set; }
 
         /// <summary>
         /// Gets or Sets NodeSerial
         /// </summary>
-        [DataMember(Name="nodeSerial", EmitDefaultValue=true)]
+        [DataMember(Name="nodeSerial", EmitDefaultValue=false)]
         public string NodeSerial { get; set; }
 
         /// <summary>
         /// Gets or Sets ProductModel
         /// </summary>
-        [DataMember(Name="productModel", EmitDefaultValue=true)]
+        [DataMember(Name="productModel", EmitDefaultValue=false)]
         public string ProductModel { get; set; }
 
         /// <summary>
         /// Gets or Sets ProductModelType
         /// </summary>
-        [DataMember(Name="productModelType", EmitDefaultValue=true)]
+        [DataMember(Name="productModelType", EmitDefaultValue=false)]
         public string ProductModelType { get; set; }
 
         /// <summary>
         /// Gets or Sets SlotNumber
         /// </summary>
-        [DataMember(Name="slotNumber", EmitDefaultValue=true)]
+        [DataMember(Name="slotNumber", EmitDefaultValue=false)]
         public string SlotNumber { get; set; }
 
         /// <summary>

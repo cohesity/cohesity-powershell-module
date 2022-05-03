@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,30 +34,27 @@ namespace Cohesity.Model
             this.RootNodes = rootNodes;
             this.Stats = stats;
             this.StatsByEnv = statsByEnv;
-            this.RootNodes = rootNodes;
-            this.Stats = stats;
-            this.StatsByEnv = statsByEnv;
         }
         
         /// <summary>
         /// Specifies the registration, protection and permission information of either all or a subset of registered Protection Sources matching the filter parameters. overrideDescription: true
         /// </summary>
         /// <value>Specifies the registration, protection and permission information of either all or a subset of registered Protection Sources matching the filter parameters. overrideDescription: true</value>
-        [DataMember(Name="rootNodes", EmitDefaultValue=true)]
+        [DataMember(Name="rootNodes", EmitDefaultValue=false)]
         public List<ProtectionSourceTreeInfo> RootNodes { get; set; }
 
         /// <summary>
         /// Specifies the sum of all the stats of protection of Protection Sources and views selected by the query parameters.
         /// </summary>
         /// <value>Specifies the sum of all the stats of protection of Protection Sources and views selected by the query parameters.</value>
-        [DataMember(Name="stats", EmitDefaultValue=true)]
+        [DataMember(Name="stats", EmitDefaultValue=false)]
         public ProtectionSummary Stats { get; set; }
 
         /// <summary>
         /// Specifies the breakdown of the stats by environment overrideDescription: true
         /// </summary>
         /// <value>Specifies the breakdown of the stats by environment overrideDescription: true</value>
-        [DataMember(Name="statsByEnv", EmitDefaultValue=true)]
+        [DataMember(Name="statsByEnv", EmitDefaultValue=false)]
         public List<ProtectionSummaryByEnv> StatsByEnv { get; set; }
 
         /// <summary>
@@ -96,19 +96,17 @@ namespace Cohesity.Model
                 (
                     this.RootNodes == input.RootNodes ||
                     this.RootNodes != null &&
-                    input.RootNodes != null &&
-                    this.RootNodes.SequenceEqual(input.RootNodes)
+                    this.RootNodes.Equals(input.RootNodes)
                 ) && 
                 (
                     this.Stats == input.Stats ||
-                    (this.Stats != null &&
-                    this.Stats.Equals(input.Stats))
+                    this.Stats != null &&
+                    this.Stats.Equals(input.Stats)
                 ) && 
                 (
                     this.StatsByEnv == input.StatsByEnv ||
                     this.StatsByEnv != null &&
-                    input.StatsByEnv != null &&
-                    this.StatsByEnv.SequenceEqual(input.StatsByEnv)
+                    this.StatsByEnv.Equals(input.StatsByEnv)
                 );
         }
 

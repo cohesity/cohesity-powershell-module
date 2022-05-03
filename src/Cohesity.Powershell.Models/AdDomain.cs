@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -33,11 +36,6 @@ namespace Cohesity.Model
         {
             this.DnsRoot = dnsRoot;
             this.Forest = forest;
-            this.NetbiosName = netbiosName;
-            this.ParentDomain = parentDomain;
-            this.TombstoneDays = tombstoneDays;
-            this.DnsRoot = dnsRoot;
-            this.Forest = forest;
             this.Identity = identity;
             this.NetbiosName = netbiosName;
             this.ParentDomain = parentDomain;
@@ -48,14 +46,14 @@ namespace Cohesity.Model
         /// Specifies DNS root.
         /// </summary>
         /// <value>Specifies DNS root.</value>
-        [DataMember(Name="dnsRoot", EmitDefaultValue=true)]
+        [DataMember(Name="dnsRoot", EmitDefaultValue=false)]
         public string DnsRoot { get; set; }
 
         /// <summary>
         /// Specifies AD forest name.
         /// </summary>
         /// <value>Specifies AD forest name.</value>
-        [DataMember(Name="forest", EmitDefaultValue=true)]
+        [DataMember(Name="forest", EmitDefaultValue=false)]
         public string Forest { get; set; }
 
         /// <summary>
@@ -68,21 +66,21 @@ namespace Cohesity.Model
         /// Specifies AD NetBIOS name.
         /// </summary>
         /// <value>Specifies AD NetBIOS name.</value>
-        [DataMember(Name="netbiosName", EmitDefaultValue=true)]
+        [DataMember(Name="netbiosName", EmitDefaultValue=false)]
         public string NetbiosName { get; set; }
 
         /// <summary>
         /// Specifies parent domain name.
         /// </summary>
         /// <value>Specifies parent domain name.</value>
-        [DataMember(Name="parentDomain", EmitDefaultValue=true)]
+        [DataMember(Name="parentDomain", EmitDefaultValue=false)]
         public string ParentDomain { get; set; }
 
         /// <summary>
         /// Specifies tombstone time in days.
         /// </summary>
         /// <value>Specifies tombstone time in days.</value>
-        [DataMember(Name="tombstoneDays", EmitDefaultValue=true)]
+        [DataMember(Name="tombstoneDays", EmitDefaultValue=false)]
         public int? TombstoneDays { get; set; }
 
         /// <summary>

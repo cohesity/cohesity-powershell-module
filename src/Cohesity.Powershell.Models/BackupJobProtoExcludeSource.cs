@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,14 +30,13 @@ namespace Cohesity.Model
         public BackupJobProtoExcludeSource(List<EntityProto> entities = default(List<EntityProto>))
         {
             this.Entities = entities;
-            this.Entities = entities;
         }
         
         /// <summary>
         /// An intersection of leaf-level entities will be obtained after expanding the following entities.
         /// </summary>
         /// <value>An intersection of leaf-level entities will be obtained after expanding the following entities.</value>
-        [DataMember(Name="entities", EmitDefaultValue=true)]
+        [DataMember(Name="entities", EmitDefaultValue=false)]
         public List<EntityProto> Entities { get; set; }
 
         /// <summary>
@@ -76,8 +78,7 @@ namespace Cohesity.Model
                 (
                     this.Entities == input.Entities ||
                     this.Entities != null &&
-                    input.Entities != null &&
-                    this.Entities.SequenceEqual(input.Entities)
+                    this.Entities.Equals(input.Entities)
                 );
         }
 

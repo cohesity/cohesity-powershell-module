@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -37,53 +40,47 @@ namespace Cohesity.Model
             this.StripeSize = stripeSize;
             this.ThinPoolChunkSize = thinPoolChunkSize;
             this.Type = type;
-            this.ChildVec = childVec;
-            this.DeviceId = deviceId;
-            this.DeviceLength = deviceLength;
-            this.StripeSize = stripeSize;
-            this.ThinPoolChunkSize = thinPoolChunkSize;
-            this.Type = type;
         }
         
         /// <summary>
         /// Gets or Sets ChildVec
         /// </summary>
-        [DataMember(Name="childVec", EmitDefaultValue=true)]
+        [DataMember(Name="childVec", EmitDefaultValue=false)]
         public List<DeviceTreeChildDevice> ChildVec { get; set; }
 
         /// <summary>
         /// Internal device identifier of the device to be activated as a thin volume.
         /// </summary>
         /// <value>Internal device identifier of the device to be activated as a thin volume.</value>
-        [DataMember(Name="deviceId", EmitDefaultValue=true)]
+        [DataMember(Name="deviceId", EmitDefaultValue=false)]
         public long? DeviceId { get; set; }
 
         /// <summary>
         /// The length of this device. This should match the length which is computable based on children and combining strategy.  e.g. if there is only one partition slice in an LVM volume, &#39;length&#39; in the partition slice is equal to &#39;device_length&#39;.
         /// </summary>
         /// <value>The length of this device. This should match the length which is computable based on children and combining strategy.  e.g. if there is only one partition slice in an LVM volume, &#39;length&#39; in the partition slice is equal to &#39;device_length&#39;.</value>
-        [DataMember(Name="deviceLength", EmitDefaultValue=true)]
+        [DataMember(Name="deviceLength", EmitDefaultValue=false)]
         public long? DeviceLength { get; set; }
 
         /// <summary>
         /// In case data is striped, this represents the length of the stripe. The number of stripes is defined by the size of child_vec above.
         /// </summary>
         /// <value>In case data is striped, this represents the length of the stripe. The number of stripes is defined by the size of child_vec above.</value>
-        [DataMember(Name="stripeSize", EmitDefaultValue=true)]
+        [DataMember(Name="stripeSize", EmitDefaultValue=false)]
         public int? StripeSize { get; set; }
 
         /// <summary>
         /// Chunk size. Only populated if device type is thin pool.
         /// </summary>
         /// <value>Chunk size. Only populated if device type is thin pool.</value>
-        [DataMember(Name="thinPoolChunkSize", EmitDefaultValue=true)]
+        [DataMember(Name="thinPoolChunkSize", EmitDefaultValue=false)]
         public long? ThinPoolChunkSize { get; set; }
 
         /// <summary>
         /// How to combine the children.
         /// </summary>
         /// <value>How to combine the children.</value>
-        [DataMember(Name="type", EmitDefaultValue=true)]
+        [DataMember(Name="type", EmitDefaultValue=false)]
         public int? Type { get; set; }
 
         /// <summary>
@@ -125,8 +122,7 @@ namespace Cohesity.Model
                 (
                     this.ChildVec == input.ChildVec ||
                     this.ChildVec != null &&
-                    input.ChildVec != null &&
-                    this.ChildVec.SequenceEqual(input.ChildVec)
+                    this.ChildVec.Equals(input.ChildVec)
                 ) && 
                 (
                     this.DeviceId == input.DeviceId ||

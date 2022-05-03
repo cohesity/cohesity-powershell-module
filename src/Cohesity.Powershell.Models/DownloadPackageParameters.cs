@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,14 +34,22 @@ namespace Cohesity.Model
         /// <param name="url">Specifies a URL from which the package can be downloaded to the Cluster. (required).</param>
         public DownloadPackageParameters(string url = default(string))
         {
-            this.Url = url;
+            // to ensure "url" is required (not null)
+            if (url == null)
+            {
+                throw new InvalidDataException("url is a required property for DownloadPackageParameters and cannot be null");
+            }
+            else
+            {
+                this.Url = url;
+            }
         }
         
         /// <summary>
         /// Specifies a URL from which the package can be downloaded to the Cluster.
         /// </summary>
         /// <value>Specifies a URL from which the package can be downloaded to the Cluster.</value>
-        [DataMember(Name="url", EmitDefaultValue=true)]
+        [DataMember(Name="url", EmitDefaultValue=false)]
         public string Url { get; set; }
 
         /// <summary>

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -28,7 +31,6 @@ namespace Cohesity.Model
         /// <param name="type">The type of the CloudDeploy target..</param>
         public CloudDeployTarget(DeployVMsToCloudParams deployVmsToCloudParams = default(DeployVMsToCloudParams), EntityProto targetEntity = default(EntityProto), int? type = default(int?))
         {
-            this.Type = type;
             this.DeployVmsToCloudParams = deployVmsToCloudParams;
             this.TargetEntity = targetEntity;
             this.Type = type;
@@ -50,7 +52,7 @@ namespace Cohesity.Model
         /// The type of the CloudDeploy target.
         /// </summary>
         /// <value>The type of the CloudDeploy target.</value>
-        [DataMember(Name="type", EmitDefaultValue=true)]
+        [DataMember(Name="type", EmitDefaultValue=false)]
         public int? Type { get; set; }
 
         /// <summary>

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -49,102 +52,90 @@ namespace Cohesity.Model
             this.VirtualDiskFile = virtualDiskFile;
             this.VolumeId = volumeId;
             this.VolumePath = volumePath;
-            this.AbsolutePath = absolutePath;
-            this.AttachedDiskId = attachedDiskId;
-            this.DiskPartitionId = diskPartitionId;
-            this.FsUuid = fsUuid;
-            this.IsDirectory = isDirectory;
-            this.IsNonSimpleLdmVol = isNonSimpleLdmVol;
-            this.RestoreBaseDirectory = restoreBaseDirectory;
-            this.RestoreMountPoint = restoreMountPoint;
-            this.SizeBytes = sizeBytes;
-            this.VirtualDiskFile = virtualDiskFile;
-            this.VolumeId = volumeId;
-            this.VolumePath = volumePath;
         }
         
         /// <summary>
         /// Full path of the file being restored: the actual file path without the disk. E.g.: \\Program Files\\App\\file.txt
         /// </summary>
         /// <value>Full path of the file being restored: the actual file path without the disk. E.g.: \\Program Files\\App\\file.txt</value>
-        [DataMember(Name="absolutePath", EmitDefaultValue=true)]
+        [DataMember(Name="absolutePath", EmitDefaultValue=false)]
         public string AbsolutePath { get; set; }
 
         /// <summary>
         /// Disk information of where the source file is currently located.
         /// </summary>
         /// <value>Disk information of where the source file is currently located.</value>
-        [DataMember(Name="attachedDiskId", EmitDefaultValue=true)]
+        [DataMember(Name="attachedDiskId", EmitDefaultValue=false)]
         public int? AttachedDiskId { get; set; }
 
         /// <summary>
         /// Disk partition to which the file belongs to.
         /// </summary>
         /// <value>Disk partition to which the file belongs to.</value>
-        [DataMember(Name="diskPartitionId", EmitDefaultValue=true)]
+        [DataMember(Name="diskPartitionId", EmitDefaultValue=false)]
         public int? DiskPartitionId { get; set; }
 
         /// <summary>
         /// File system UUID on which file resides.
         /// </summary>
         /// <value>File system UUID on which file resides.</value>
-        [DataMember(Name="fsUuid", EmitDefaultValue=true)]
+        [DataMember(Name="fsUuid", EmitDefaultValue=false)]
         public string FsUuid { get; set; }
 
         /// <summary>
         /// Whether the path points to a directory.
         /// </summary>
         /// <value>Whether the path points to a directory.</value>
-        [DataMember(Name="isDirectory", EmitDefaultValue=true)]
+        [DataMember(Name="isDirectory", EmitDefaultValue=false)]
         public bool? IsDirectory { get; set; }
 
         /// <summary>
         /// This will be set to true for recovery workflows for non-simple volumes on Windows Dynamic Disks. In that case, we will use VolumeInfo instead of some of the details captured here (e.g. virtual_disk_file) for determining disk and volume related details.
         /// </summary>
         /// <value>This will be set to true for recovery workflows for non-simple volumes on Windows Dynamic Disks. In that case, we will use VolumeInfo instead of some of the details captured here (e.g. virtual_disk_file) for determining disk and volume related details.</value>
-        [DataMember(Name="isNonSimpleLdmVol", EmitDefaultValue=true)]
+        [DataMember(Name="isNonSimpleLdmVol", EmitDefaultValue=false)]
         public bool? IsNonSimpleLdmVol { get; set; }
 
         /// <summary>
         /// This must be set to a directory path if restore_to_original_paths is false and restore task has multiple files which are not desired to be restore to one common location. If this filed is populated, &#39;absolute_path&#39; will be restored under this location. If this field is not populated all files in restore task will be restored to location specified in RestoreFilesPreferences.
         /// </summary>
         /// <value>This must be set to a directory path if restore_to_original_paths is false and restore task has multiple files which are not desired to be restore to one common location. If this filed is populated, &#39;absolute_path&#39; will be restored under this location. If this field is not populated all files in restore task will be restored to location specified in RestoreFilesPreferences.</value>
-        [DataMember(Name="restoreBaseDirectory", EmitDefaultValue=true)]
+        [DataMember(Name="restoreBaseDirectory", EmitDefaultValue=false)]
         public string RestoreBaseDirectory { get; set; }
 
         /// <summary>
         /// Mount point of the volume on which the file to be restored is located. E.g.: c:\\temp\\vhd_mount_1234
         /// </summary>
         /// <value>Mount point of the volume on which the file to be restored is located. E.g.: c:\\temp\\vhd_mount_1234</value>
-        [DataMember(Name="restoreMountPoint", EmitDefaultValue=true)]
+        [DataMember(Name="restoreMountPoint", EmitDefaultValue=false)]
         public string RestoreMountPoint { get; set; }
 
         /// <summary>
         /// Size of the file in bytes. Required in FLR in GCP using Cloud Functions.
         /// </summary>
         /// <value>Size of the file in bytes. Required in FLR in GCP using Cloud Functions.</value>
-        [DataMember(Name="sizeBytes", EmitDefaultValue=true)]
+        [DataMember(Name="sizeBytes", EmitDefaultValue=false)]
         public long? SizeBytes { get; set; }
 
         /// <summary>
         /// Virtual disk file to which this file belongs to.
         /// </summary>
         /// <value>Virtual disk file to which this file belongs to.</value>
-        [DataMember(Name="virtualDiskFile", EmitDefaultValue=true)]
+        [DataMember(Name="virtualDiskFile", EmitDefaultValue=false)]
         public string VirtualDiskFile { get; set; }
 
         /// <summary>
         /// Id of the volume.
         /// </summary>
         /// <value>Id of the volume.</value>
-        [DataMember(Name="volumeId", EmitDefaultValue=true)]
+        [DataMember(Name="volumeId", EmitDefaultValue=false)]
         public string VolumeId { get; set; }
 
         /// <summary>
         /// Original volume name (or drive letter). This is used while performing the copy to the original paths. E.g.: c:
         /// </summary>
         /// <value>Original volume name (or drive letter). This is used while performing the copy to the original paths. E.g.: c:</value>
-        [DataMember(Name="volumePath", EmitDefaultValue=true)]
+        [DataMember(Name="volumePath", EmitDefaultValue=false)]
         public string VolumePath { get; set; }
 
         /// <summary>

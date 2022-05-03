@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -25,10 +28,8 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="failedJobIds">Specifies a list of Protection Job ids for which updation of state failed..</param>
         /// <param name="successfulJobIds">Specifies a list of Protection Job ids for which updation of state is successful..</param>
-        public UpdateProtectionJobsState(List<long> failedJobIds = default(List<long>), List<long> successfulJobIds = default(List<long>))
+        public UpdateProtectionJobsState(List<long?> failedJobIds = default(List<long?>), List<long?> successfulJobIds = default(List<long?>))
         {
-            this.FailedJobIds = failedJobIds;
-            this.SuccessfulJobIds = successfulJobIds;
             this.FailedJobIds = failedJobIds;
             this.SuccessfulJobIds = successfulJobIds;
         }
@@ -37,15 +38,15 @@ namespace Cohesity.Model
         /// Specifies a list of Protection Job ids for which updation of state failed.
         /// </summary>
         /// <value>Specifies a list of Protection Job ids for which updation of state failed.</value>
-        [DataMember(Name="failedJobIds", EmitDefaultValue=true)]
-        public List<long> FailedJobIds { get; set; }
+        [DataMember(Name="failedJobIds", EmitDefaultValue=false)]
+        public List<long?> FailedJobIds { get; set; }
 
         /// <summary>
         /// Specifies a list of Protection Job ids for which updation of state is successful.
         /// </summary>
         /// <value>Specifies a list of Protection Job ids for which updation of state is successful.</value>
-        [DataMember(Name="successfulJobIds", EmitDefaultValue=true)]
-        public List<long> SuccessfulJobIds { get; set; }
+        [DataMember(Name="successfulJobIds", EmitDefaultValue=false)]
+        public List<long?> SuccessfulJobIds { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -86,14 +87,12 @@ namespace Cohesity.Model
                 (
                     this.FailedJobIds == input.FailedJobIds ||
                     this.FailedJobIds != null &&
-                    input.FailedJobIds != null &&
-                    this.FailedJobIds.SequenceEqual(input.FailedJobIds)
+                    this.FailedJobIds.Equals(input.FailedJobIds)
                 ) && 
                 (
                     this.SuccessfulJobIds == input.SuccessfulJobIds ||
                     this.SuccessfulJobIds != null &&
-                    input.SuccessfulJobIds != null &&
-                    this.SuccessfulJobIds.SequenceEqual(input.SuccessfulJobIds)
+                    this.SuccessfulJobIds.Equals(input.SuccessfulJobIds)
                 );
         }
 

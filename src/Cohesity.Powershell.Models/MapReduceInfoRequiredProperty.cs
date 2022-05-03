@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -33,38 +36,34 @@ namespace Cohesity.Model
             this.Description = description;
             this.IsRequired = isRequired;
             this.Name = name;
-            this.DefaultValue = defaultValue;
-            this.Description = description;
-            this.IsRequired = isRequired;
-            this.Name = name;
         }
         
         /// <summary>
         /// Default Value of the property.
         /// </summary>
         /// <value>Default Value of the property.</value>
-        [DataMember(Name="defaultValue", EmitDefaultValue=true)]
+        [DataMember(Name="defaultValue", EmitDefaultValue=false)]
         public string DefaultValue { get; set; }
 
         /// <summary>
         /// Description of this property
         /// </summary>
         /// <value>Description of this property</value>
-        [DataMember(Name="description", EmitDefaultValue=true)]
+        [DataMember(Name="description", EmitDefaultValue=false)]
         public string Description { get; set; }
 
         /// <summary>
         /// Whether the property is required or optional.
         /// </summary>
         /// <value>Whether the property is required or optional.</value>
-        [DataMember(Name="isRequired", EmitDefaultValue=true)]
+        [DataMember(Name="isRequired", EmitDefaultValue=false)]
         public bool? IsRequired { get; set; }
 
         /// <summary>
         /// Name of the property.
         /// </summary>
         /// <value>Name of the property.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
 
         /// <summary>

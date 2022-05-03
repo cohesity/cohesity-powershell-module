@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -28,8 +31,6 @@ namespace Cohesity.Model
         /// <param name="vmCredentials">Specifies the administrator credentials to log in to the guest Windows system of a VM that hosts the Microsoft Exchange Server. If truncateExchangeLog is set to true and the specified source is a VM, administrator credentials to log in to the guest Windows system of the VM must be provided to truncate the logs. This field is only applicable to Sources in the kVMware environment..</param>
         public VmwareSpecialParameters(ApplicationParameters applicationParameters = default(ApplicationParameters), List<DiskUnit> excludedDisks = default(List<DiskUnit>), Credentials vmCredentials = default(Credentials))
         {
-            this.ExcludedDisks = excludedDisks;
-            this.VmCredentials = vmCredentials;
             this.ApplicationParameters = applicationParameters;
             this.ExcludedDisks = excludedDisks;
             this.VmCredentials = vmCredentials;
@@ -45,14 +46,14 @@ namespace Cohesity.Model
         /// Specifies the list of Disks to be excluded from backing up. These disks are excluded from all Protection Sources in the Protection Job.
         /// </summary>
         /// <value>Specifies the list of Disks to be excluded from backing up. These disks are excluded from all Protection Sources in the Protection Job.</value>
-        [DataMember(Name="excludedDisks", EmitDefaultValue=true)]
+        [DataMember(Name="excludedDisks", EmitDefaultValue=false)]
         public List<DiskUnit> ExcludedDisks { get; set; }
 
         /// <summary>
         /// Specifies the administrator credentials to log in to the guest Windows system of a VM that hosts the Microsoft Exchange Server. If truncateExchangeLog is set to true and the specified source is a VM, administrator credentials to log in to the guest Windows system of the VM must be provided to truncate the logs. This field is only applicable to Sources in the kVMware environment.
         /// </summary>
         /// <value>Specifies the administrator credentials to log in to the guest Windows system of a VM that hosts the Microsoft Exchange Server. If truncateExchangeLog is set to true and the specified source is a VM, administrator credentials to log in to the guest Windows system of the VM must be provided to truncate the logs. This field is only applicable to Sources in the kVMware environment.</value>
-        [DataMember(Name="vmCredentials", EmitDefaultValue=true)]
+        [DataMember(Name="vmCredentials", EmitDefaultValue=false)]
         public Credentials VmCredentials { get; set; }
 
         /// <summary>
@@ -99,13 +100,12 @@ namespace Cohesity.Model
                 (
                     this.ExcludedDisks == input.ExcludedDisks ||
                     this.ExcludedDisks != null &&
-                    input.ExcludedDisks != null &&
-                    this.ExcludedDisks.SequenceEqual(input.ExcludedDisks)
+                    this.ExcludedDisks.Equals(input.ExcludedDisks)
                 ) && 
                 (
                     this.VmCredentials == input.VmCredentials ||
-                    (this.VmCredentials != null &&
-                    this.VmCredentials.Equals(input.VmCredentials))
+                    this.VmCredentials != null &&
+                    this.VmCredentials.Equals(input.VmCredentials)
                 );
         }
 

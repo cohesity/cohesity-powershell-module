@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,14 +34,22 @@ namespace Cohesity.Model
         /// <param name="newViewName">Specifies the new name of the View. (required).</param>
         public RenameViewParam(string newViewName = default(string))
         {
-            this.NewViewName = newViewName;
+            // to ensure "newViewName" is required (not null)
+            if (newViewName == null)
+            {
+                throw new InvalidDataException("newViewName is a required property for RenameViewParam and cannot be null");
+            }
+            else
+            {
+                this.NewViewName = newViewName;
+            }
         }
         
         /// <summary>
         /// Specifies the new name of the View.
         /// </summary>
         /// <value>Specifies the new name of the View.</value>
-        [DataMember(Name="newViewName", EmitDefaultValue=true)]
+        [DataMember(Name="newViewName", EmitDefaultValue=false)]
         public string NewViewName { get; set; }
 
         /// <summary>

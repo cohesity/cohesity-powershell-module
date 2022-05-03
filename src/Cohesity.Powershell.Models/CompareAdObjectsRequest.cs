@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -37,13 +40,24 @@ namespace Cohesity.Model
         /// <param name="quickCompare">Specifies the option to do quick compare of specified guid between Snapshot AD and Production AD. If at least one attribute mismatch is found, comparison stops and returns with AdObjectFlag kNotEqual..</param>
         public CompareAdObjectsRequest(long? restoreTaskId = default(long?), bool? allowEmptyDestGuids = default(bool?), bool? excludeSysAttributes = default(bool?), bool? filterNullValueAttributes = default(bool?), bool? filterSameValueAttributes = default(bool?), List<GuidPair> guidPairs = default(List<GuidPair>), bool? quickCompare = default(bool?))
         {
-            this.RestoreTaskId = restoreTaskId;
-            this.AllowEmptyDestGuids = allowEmptyDestGuids;
-            this.ExcludeSysAttributes = excludeSysAttributes;
-            this.FilterNullValueAttributes = filterNullValueAttributes;
-            this.FilterSameValueAttributes = filterSameValueAttributes;
-            this.GuidPairs = guidPairs;
-            this.QuickCompare = quickCompare;
+            // to ensure "restoreTaskId" is required (not null)
+            if (restoreTaskId == null)
+            {
+                throw new InvalidDataException("restoreTaskId is a required property for CompareAdObjectsRequest and cannot be null");
+            }
+            else
+            {
+                this.RestoreTaskId = restoreTaskId;
+            }
+            // to ensure "guidPairs" is required (not null)
+            if (guidPairs == null)
+            {
+                throw new InvalidDataException("guidPairs is a required property for CompareAdObjectsRequest and cannot be null");
+            }
+            else
+            {
+                this.GuidPairs = guidPairs;
+            }
             this.AllowEmptyDestGuids = allowEmptyDestGuids;
             this.ExcludeSysAttributes = excludeSysAttributes;
             this.FilterNullValueAttributes = filterNullValueAttributes;
@@ -55,49 +69,49 @@ namespace Cohesity.Model
         /// Specifies the Restore Task Id corresponding to which we need to compare the AD objects.
         /// </summary>
         /// <value>Specifies the Restore Task Id corresponding to which we need to compare the AD objects.</value>
-        [DataMember(Name="RestoreTaskId", EmitDefaultValue=true)]
+        [DataMember(Name="RestoreTaskId", EmitDefaultValue=false)]
         public long? RestoreTaskId { get; set; }
 
         /// <summary>
         /// Specifies the option to get object attributes from Snapshot AD when destination guid is missing in GuidPair. This helps to show attributes of AD object from Snapshot AD when the object is missing in Production AD.
         /// </summary>
         /// <value>Specifies the option to get object attributes from Snapshot AD when destination guid is missing in GuidPair. This helps to show attributes of AD object from Snapshot AD when the object is missing in Production AD.</value>
-        [DataMember(Name="allowEmptyDestGuids", EmitDefaultValue=true)]
+        [DataMember(Name="allowEmptyDestGuids", EmitDefaultValue=false)]
         public bool? AllowEmptyDestGuids { get; set; }
 
         /// <summary>
         /// Specifies the option to exclude AD system attributes when comparing two AD object attributes. If the objects have same guid, most of the system attributes would match.If the AD object was recovered through a restore, then many system attributes will be different. Default compares all attributes.
         /// </summary>
         /// <value>Specifies the option to exclude AD system attributes when comparing two AD object attributes. If the objects have same guid, most of the system attributes would match.If the AD object was recovered through a restore, then many system attributes will be different. Default compares all attributes.</value>
-        [DataMember(Name="excludeSysAttributes", EmitDefaultValue=true)]
+        [DataMember(Name="excludeSysAttributes", EmitDefaultValue=false)]
         public bool? ExcludeSysAttributes { get; set; }
 
         /// <summary>
         /// Specifies the option to not return attributes where source and destination values are null values. This reduces noise of the properties in the objects returned.
         /// </summary>
         /// <value>Specifies the option to not return attributes where source and destination values are null values. This reduces noise of the properties in the objects returned.</value>
-        [DataMember(Name="filterNullValueAttributes", EmitDefaultValue=true)]
+        [DataMember(Name="filterNullValueAttributes", EmitDefaultValue=false)]
         public bool? FilterNullValueAttributes { get; set; }
 
         /// <summary>
         /// Specifies the option to not return attributes where source and destination values are same. Use this flag to return only values that are different.
         /// </summary>
         /// <value>Specifies the option to not return attributes where source and destination values are same. Use this flag to return only values that are different.</value>
-        [DataMember(Name="filterSameValueAttributes", EmitDefaultValue=true)]
+        [DataMember(Name="filterSameValueAttributes", EmitDefaultValue=false)]
         public bool? FilterSameValueAttributes { get; set; }
 
         /// <summary>
         /// Specifies the GuidPair of the AD Objects which we want to compare from both Snapshot and Production AD.
         /// </summary>
         /// <value>Specifies the GuidPair of the AD Objects which we want to compare from both Snapshot and Production AD.</value>
-        [DataMember(Name="guidPairs", EmitDefaultValue=true)]
+        [DataMember(Name="guidPairs", EmitDefaultValue=false)]
         public List<GuidPair> GuidPairs { get; set; }
 
         /// <summary>
         /// Specifies the option to do quick compare of specified guid between Snapshot AD and Production AD. If at least one attribute mismatch is found, comparison stops and returns with AdObjectFlag kNotEqual.
         /// </summary>
         /// <value>Specifies the option to do quick compare of specified guid between Snapshot AD and Production AD. If at least one attribute mismatch is found, comparison stops and returns with AdObjectFlag kNotEqual.</value>
-        [DataMember(Name="quickCompare", EmitDefaultValue=true)]
+        [DataMember(Name="quickCompare", EmitDefaultValue=false)]
         public bool? QuickCompare { get; set; }
 
         /// <summary>
@@ -164,8 +178,7 @@ namespace Cohesity.Model
                 (
                     this.GuidPairs == input.GuidPairs ||
                     this.GuidPairs != null &&
-                    input.GuidPairs != null &&
-                    this.GuidPairs.SequenceEqual(input.GuidPairs)
+                    this.GuidPairs.Equals(input.GuidPairs)
                 ) && 
                 (
                     this.QuickCompare == input.QuickCompare ||

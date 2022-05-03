@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,20 +32,18 @@ namespace Cohesity.Model
         {
             this.HardwareModels = hardwareModels;
             this.HardwareVendors = hardwareVendors;
-            this.HardwareModels = hardwareModels;
-            this.HardwareVendors = hardwareVendors;
         }
         
         /// <summary>
         /// Gets or Sets HardwareModels
         /// </summary>
-        [DataMember(Name="hardwareModels", EmitDefaultValue=true)]
+        [DataMember(Name="hardwareModels", EmitDefaultValue=false)]
         public List<string> HardwareModels { get; set; }
 
         /// <summary>
         /// Gets or Sets HardwareVendors
         /// </summary>
-        [DataMember(Name="hardwareVendors", EmitDefaultValue=true)]
+        [DataMember(Name="hardwareVendors", EmitDefaultValue=false)]
         public List<string> HardwareVendors { get; set; }
 
         /// <summary>
@@ -84,14 +85,12 @@ namespace Cohesity.Model
                 (
                     this.HardwareModels == input.HardwareModels ||
                     this.HardwareModels != null &&
-                    input.HardwareModels != null &&
-                    this.HardwareModels.SequenceEqual(input.HardwareModels)
+                    this.HardwareModels.Equals(input.HardwareModels)
                 ) && 
                 (
                     this.HardwareVendors == input.HardwareVendors ||
                     this.HardwareVendors != null &&
-                    input.HardwareVendors != null &&
-                    this.HardwareVendors.SequenceEqual(input.HardwareVendors)
+                    this.HardwareVendors.Equals(input.HardwareVendors)
                 );
         }
 

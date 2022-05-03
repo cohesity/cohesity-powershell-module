@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -63,7 +66,7 @@ namespace Cohesity.Model
         /// Specifies the status of the search. &#39;kJobRunning&#39; indicates that the Job/task is currently running. &#39;kJobFinished&#39; indicates that the Job/task completed and finished. &#39;kJobFailed&#39; indicates that the Job/task failed and did not complete. &#39;kJobCanceled&#39; indicates that the Job/task was canceled. &#39;kJobPaused&#39; indicates the Job/task is paused.
         /// </summary>
         /// <value>Specifies the status of the search. &#39;kJobRunning&#39; indicates that the Job/task is currently running. &#39;kJobFinished&#39; indicates that the Job/task completed and finished. &#39;kJobFailed&#39; indicates that the Job/task failed and did not complete. &#39;kJobCanceled&#39; indicates that the Job/task was canceled. &#39;kJobPaused&#39; indicates the Job/task is paused.</value>
-        [DataMember(Name="searchJobStatus", EmitDefaultValue=true)]
+        [DataMember(Name="searchJobStatus", EmitDefaultValue=false)]
         public SearchJobStatusEnum? SearchJobStatus { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="RemoteVaultSearchJobInformation" /> class.
@@ -90,79 +93,70 @@ namespace Cohesity.Model
             this.StartTimeUsecs = startTimeUsecs;
             this.VaultId = vaultId;
             this.VaultName = vaultName;
-            this.ClusterCount = clusterCount;
-            this.EndTimeUsecs = endTimeUsecs;
-            this.Error = error;
-            this.JobCount = jobCount;
-            this.Name = name;
-            this.SearchJobStatus = searchJobStatus;
-            this.SearchJobUid = searchJobUid;
-            this.StartTimeUsecs = startTimeUsecs;
-            this.VaultId = vaultId;
-            this.VaultName = vaultName;
         }
         
         /// <summary>
         /// Specifies number of Clusters that have archived to the remote Vault and match the search criteria for this job, up to this point in the search. If the search is complete, the total number of Clusters that have archived to the remote Vault and that match the search criteria for this search Job, are reported. If the search is not complete, a partial number is reported.
         /// </summary>
         /// <value>Specifies number of Clusters that have archived to the remote Vault and match the search criteria for this job, up to this point in the search. If the search is complete, the total number of Clusters that have archived to the remote Vault and that match the search criteria for this search Job, are reported. If the search is not complete, a partial number is reported.</value>
-        [DataMember(Name="clusterCount", EmitDefaultValue=true)]
+        [DataMember(Name="clusterCount", EmitDefaultValue=false)]
         public int? ClusterCount { get; set; }
 
         /// <summary>
         /// Specifies the end time of the search as a Unix epoch Timestamp (in microseconds) if the search Job has completed.
         /// </summary>
         /// <value>Specifies the end time of the search as a Unix epoch Timestamp (in microseconds) if the search Job has completed.</value>
-        [DataMember(Name="endTimeUsecs", EmitDefaultValue=true)]
+        [DataMember(Name="endTimeUsecs", EmitDefaultValue=false)]
         public long? EndTimeUsecs { get; set; }
 
         /// <summary>
         /// Specifies the error message reported when a search fails.
         /// </summary>
         /// <value>Specifies the error message reported when a search fails.</value>
-        [DataMember(Name="error", EmitDefaultValue=true)]
+        [DataMember(Name="error", EmitDefaultValue=false)]
         public string Error { get; set; }
 
         /// <summary>
         /// Specifies number of Protection Jobs that have archived to the remote Vault and match the search criteria for this search Job, up to this point in the search. If the search is complete, the total number of Protection Jobs that have archived to the remote Vault and that match the search criteria for this search Job, are reported. If the search is not complete, a partial number is reported.
         /// </summary>
         /// <value>Specifies number of Protection Jobs that have archived to the remote Vault and match the search criteria for this search Job, up to this point in the search. If the search is complete, the total number of Protection Jobs that have archived to the remote Vault and that match the search criteria for this search Job, are reported. If the search is not complete, a partial number is reported.</value>
-        [DataMember(Name="jobCount", EmitDefaultValue=true)]
+        [DataMember(Name="jobCount", EmitDefaultValue=false)]
         public int? JobCount { get; set; }
 
         /// <summary>
         /// Specifies the name of the search Job.
         /// </summary>
         /// <value>Specifies the name of the search Job.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
+
 
         /// <summary>
         /// Specifies the unique id assigned to the search Job by the Cluster.
         /// </summary>
         /// <value>Specifies the unique id assigned to the search Job by the Cluster.</value>
-        [DataMember(Name="searchJobUid", EmitDefaultValue=true)]
+        [DataMember(Name="searchJobUid", EmitDefaultValue=false)]
         public UniversalId SearchJobUid { get; set; }
 
         /// <summary>
         /// Specifies the start time of the search as a Unix epoch Timestamp (in microseconds).
         /// </summary>
         /// <value>Specifies the start time of the search as a Unix epoch Timestamp (in microseconds).</value>
-        [DataMember(Name="startTimeUsecs", EmitDefaultValue=true)]
+        [DataMember(Name="startTimeUsecs", EmitDefaultValue=false)]
         public long? StartTimeUsecs { get; set; }
 
         /// <summary>
         /// Specifies the id of the remote Vault (External Target) that was searched.
         /// </summary>
         /// <value>Specifies the id of the remote Vault (External Target) that was searched.</value>
-        [DataMember(Name="vaultId", EmitDefaultValue=true)]
+        [DataMember(Name="vaultId", EmitDefaultValue=false)]
         public long? VaultId { get; set; }
 
         /// <summary>
         /// Specifies the name of the remote Vault (External Target) that was searched.
         /// </summary>
         /// <value>Specifies the name of the remote Vault (External Target) that was searched.</value>
-        [DataMember(Name="vaultName", EmitDefaultValue=true)]
+        [DataMember(Name="vaultName", EmitDefaultValue=false)]
         public string VaultName { get; set; }
 
         /// <summary>
@@ -228,12 +222,13 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.SearchJobStatus == input.SearchJobStatus ||
-                    this.SearchJobStatus.Equals(input.SearchJobStatus)
+                    (this.SearchJobStatus != null &&
+                    this.SearchJobStatus.Equals(input.SearchJobStatus))
                 ) && 
                 (
                     this.SearchJobUid == input.SearchJobUid ||
-                    (this.SearchJobUid != null &&
-                    this.SearchJobUid.Equals(input.SearchJobUid))
+                    this.SearchJobUid != null &&
+                    this.SearchJobUid.Equals(input.SearchJobUid)
                 ) && 
                 (
                     this.StartTimeUsecs == input.StartTimeUsecs ||
@@ -271,7 +266,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.JobCount.GetHashCode();
                 if (this.Name != null)
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
-                hashCode = hashCode * 59 + this.SearchJobStatus.GetHashCode();
+                if (this.SearchJobStatus != null)
+                    hashCode = hashCode * 59 + this.SearchJobStatus.GetHashCode();
                 if (this.SearchJobUid != null)
                     hashCode = hashCode * 59 + this.SearchJobUid.GetHashCode();
                 if (this.StartTimeUsecs != null)

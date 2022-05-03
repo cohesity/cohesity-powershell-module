@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.Cookie = cookie;
             this.FilesNlmLocks = filesNlmLocks;
-            this.Cookie = cookie;
-            this.FilesNlmLocks = filesNlmLocks;
         }
         
         /// <summary>
         /// Specifies an opaque string to pass to get the next set of NLM locks. If null is returned, this response is the last set of NLM locks.
         /// </summary>
         /// <value>Specifies an opaque string to pass to get the next set of NLM locks. If null is returned, this response is the last set of NLM locks.</value>
-        [DataMember(Name="cookie", EmitDefaultValue=true)]
+        [DataMember(Name="cookie", EmitDefaultValue=false)]
         public string Cookie { get; set; }
 
         /// <summary>
         /// Specifies the list of NLM locks.
         /// </summary>
         /// <value>Specifies the list of NLM locks.</value>
-        [DataMember(Name="filesNlmLocks", EmitDefaultValue=true)]
+        [DataMember(Name="filesNlmLocks", EmitDefaultValue=false)]
         public List<FileNlmLocks> FilesNlmLocks { get; set; }
 
         /// <summary>
@@ -91,8 +92,7 @@ namespace Cohesity.Model
                 (
                     this.FilesNlmLocks == input.FilesNlmLocks ||
                     this.FilesNlmLocks != null &&
-                    input.FilesNlmLocks != null &&
-                    this.FilesNlmLocks.SequenceEqual(input.FilesNlmLocks)
+                    this.FilesNlmLocks.Equals(input.FilesNlmLocks)
                 );
         }
 

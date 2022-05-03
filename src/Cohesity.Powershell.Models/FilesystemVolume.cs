@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -51,7 +54,7 @@ namespace Cohesity.Model
         /// Specifies the type of logical volume such as kSimpleVolume, kLVM or kLDM. &#39;kSimpleVolume&#39; indicates a simple volume. Data can be used by just mounting the only one partition present on the disk. &#39;kLVM&#39; indicates a logical volume on Linux managed by a Logical Volume Manager. In order to access the data, deviceTree must be created based on the specification in logicalVolume.deviceTree. &#39;kLDM&#39; indicates a logical volume on Windows managed by Logical Disk Manager.
         /// </summary>
         /// <value>Specifies the type of logical volume such as kSimpleVolume, kLVM or kLDM. &#39;kSimpleVolume&#39; indicates a simple volume. Data can be used by just mounting the only one partition present on the disk. &#39;kLVM&#39; indicates a logical volume on Linux managed by a Logical Volume Manager. In order to access the data, deviceTree must be created based on the specification in logicalVolume.deviceTree. &#39;kLDM&#39; indicates a logical volume on Windows managed by Logical Disk Manager.</value>
-        [DataMember(Name="logicalVolumeType", EmitDefaultValue=true)]
+        [DataMember(Name="logicalVolumeType", EmitDefaultValue=false)]
         public LogicalVolumeTypeEnum? LogicalVolumeType { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="FilesystemVolume" /> class.
@@ -76,71 +79,63 @@ namespace Cohesity.Model
             this.LogicalVolumeType = logicalVolumeType;
             this.Name = name;
             this.VolumeGuid = volumeGuid;
-            this.Disks = disks;
-            this.DisplayName = displayName;
-            this.FilesystemType = filesystemType;
-            this.FilesystemUuid = filesystemUuid;
-            this.IsSupported = isSupported;
-            this.LogicalVolume = logicalVolume;
-            this.LogicalVolumeType = logicalVolumeType;
-            this.Name = name;
-            this.VolumeGuid = volumeGuid;
         }
         
         /// <summary>
         /// Array of Disks and Partitions.  Specifies information about all the disks and partitions needed to mount this logical volume.
         /// </summary>
         /// <value>Array of Disks and Partitions.  Specifies information about all the disks and partitions needed to mount this logical volume.</value>
-        [DataMember(Name="disks", EmitDefaultValue=true)]
+        [DataMember(Name="disks", EmitDefaultValue=false)]
         public List<Disk> Disks { get; set; }
 
         /// <summary>
         /// Specifies a description about the filesystem.
         /// </summary>
         /// <value>Specifies a description about the filesystem.</value>
-        [DataMember(Name="displayName", EmitDefaultValue=true)]
+        [DataMember(Name="displayName", EmitDefaultValue=false)]
         public string DisplayName { get; set; }
 
         /// <summary>
         /// Specifies type of the filesystem on this volume.
         /// </summary>
         /// <value>Specifies type of the filesystem on this volume.</value>
-        [DataMember(Name="filesystemType", EmitDefaultValue=true)]
+        [DataMember(Name="filesystemType", EmitDefaultValue=false)]
         public string FilesystemType { get; set; }
 
         /// <summary>
         /// Specifies the uuid of the filesystem.
         /// </summary>
         /// <value>Specifies the uuid of the filesystem.</value>
-        [DataMember(Name="filesystemUuid", EmitDefaultValue=true)]
+        [DataMember(Name="filesystemUuid", EmitDefaultValue=false)]
         public string FilesystemUuid { get; set; }
 
         /// <summary>
         /// If true, this is a supported filesystem volume type.
         /// </summary>
         /// <value>If true, this is a supported filesystem volume type.</value>
-        [DataMember(Name="isSupported", EmitDefaultValue=true)]
+        [DataMember(Name="isSupported", EmitDefaultValue=false)]
         public bool? IsSupported { get; set; }
 
         /// <summary>
         /// Specify attributes for a kLMV (Linux) or kLDM (Windows) filesystem. This field is set only for kLVM and kLDM volume types.
         /// </summary>
         /// <value>Specify attributes for a kLMV (Linux) or kLDM (Windows) filesystem. This field is set only for kLVM and kLDM volume types.</value>
-        [DataMember(Name="logicalVolume", EmitDefaultValue=true)]
+        [DataMember(Name="logicalVolume", EmitDefaultValue=false)]
         public LogicalVolume LogicalVolume { get; set; }
+
 
         /// <summary>
         /// Specifies the name of the volume such as /C.
         /// </summary>
         /// <value>Specifies the name of the volume such as /C.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
 
         /// <summary>
         /// VolumeGuid is the Volume guid. This is populated for kPhysical environments.
         /// </summary>
         /// <value>VolumeGuid is the Volume guid. This is populated for kPhysical environments.</value>
-        [DataMember(Name="volumeGuid", EmitDefaultValue=true)]
+        [DataMember(Name="volumeGuid", EmitDefaultValue=false)]
         public string VolumeGuid { get; set; }
 
         /// <summary>
@@ -182,8 +177,7 @@ namespace Cohesity.Model
                 (
                     this.Disks == input.Disks ||
                     this.Disks != null &&
-                    input.Disks != null &&
-                    this.Disks.SequenceEqual(input.Disks)
+                    this.Disks.Equals(input.Disks)
                 ) && 
                 (
                     this.DisplayName == input.DisplayName ||
@@ -207,12 +201,13 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.LogicalVolume == input.LogicalVolume ||
-                    (this.LogicalVolume != null &&
-                    this.LogicalVolume.Equals(input.LogicalVolume))
+                    this.LogicalVolume != null &&
+                    this.LogicalVolume.Equals(input.LogicalVolume)
                 ) && 
                 (
                     this.LogicalVolumeType == input.LogicalVolumeType ||
-                    this.LogicalVolumeType.Equals(input.LogicalVolumeType)
+                    (this.LogicalVolumeType != null &&
+                    this.LogicalVolumeType.Equals(input.LogicalVolumeType))
                 ) && 
                 (
                     this.Name == input.Name ||
@@ -247,7 +242,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.IsSupported.GetHashCode();
                 if (this.LogicalVolume != null)
                     hashCode = hashCode * 59 + this.LogicalVolume.GetHashCode();
-                hashCode = hashCode * 59 + this.LogicalVolumeType.GetHashCode();
+                if (this.LogicalVolumeType != null)
+                    hashCode = hashCode * 59 + this.LogicalVolumeType.GetHashCode();
                 if (this.Name != null)
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
                 if (this.VolumeGuid != null)

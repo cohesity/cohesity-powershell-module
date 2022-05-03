@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,14 +30,13 @@ namespace Cohesity.Model
         public GetViewBoxStatsResult(List<StorageDomainStats> statsList = default(List<StorageDomainStats>))
         {
             this.StatsList = statsList;
-            this.StatsList = statsList;
         }
         
         /// <summary>
         /// Specifies a list of view box stats.
         /// </summary>
         /// <value>Specifies a list of view box stats.</value>
-        [DataMember(Name="statsList", EmitDefaultValue=true)]
+        [DataMember(Name="statsList", EmitDefaultValue=false)]
         public List<StorageDomainStats> StatsList { get; set; }
 
         /// <summary>
@@ -76,8 +78,7 @@ namespace Cohesity.Model
                 (
                     this.StatsList == input.StatsList ||
                     this.StatsList != null &&
-                    input.StatsList != null &&
-                    this.StatsList.SequenceEqual(input.StatsList)
+                    this.StatsList.Equals(input.StatsList)
                 );
         }
 

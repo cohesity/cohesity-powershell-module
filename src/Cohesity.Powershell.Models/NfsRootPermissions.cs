@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,30 +34,27 @@ namespace Cohesity.Model
             this.Gid = gid;
             this.Mode = mode;
             this.Uid = uid;
-            this.Gid = gid;
-            this.Mode = mode;
-            this.Uid = uid;
         }
         
         /// <summary>
         /// Unix GID for the root of the file system.
         /// </summary>
         /// <value>Unix GID for the root of the file system.</value>
-        [DataMember(Name="gid", EmitDefaultValue=true)]
+        [DataMember(Name="gid", EmitDefaultValue=false)]
         public int? Gid { get; set; }
 
         /// <summary>
         /// Unix mode bits for the root of the file system.
         /// </summary>
         /// <value>Unix mode bits for the root of the file system.</value>
-        [DataMember(Name="mode", EmitDefaultValue=true)]
+        [DataMember(Name="mode", EmitDefaultValue=false)]
         public int? Mode { get; set; }
 
         /// <summary>
         /// Unix UID for the root of the file system.
         /// </summary>
         /// <value>Unix UID for the root of the file system.</value>
-        [DataMember(Name="uid", EmitDefaultValue=true)]
+        [DataMember(Name="uid", EmitDefaultValue=false)]
         public int? Uid { get; set; }
 
         /// <summary>

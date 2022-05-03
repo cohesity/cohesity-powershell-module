@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.FullSnapshotInfo = fullSnapshotInfo;
             this.TimeRanges = timeRanges;
-            this.FullSnapshotInfo = fullSnapshotInfo;
-            this.TimeRanges = timeRanges;
         }
         
         /// <summary>
         /// Specifies the info related to the recovery object.
         /// </summary>
         /// <value>Specifies the info related to the recovery object.</value>
-        [DataMember(Name="fullSnapshotInfo", EmitDefaultValue=true)]
+        [DataMember(Name="fullSnapshotInfo", EmitDefaultValue=false)]
         public List<FullSnapshotInfo> FullSnapshotInfo { get; set; }
 
         /// <summary>
         /// Specifies the time ranges of the restore object between full snapshots.
         /// </summary>
         /// <value>Specifies the time ranges of the restore object between full snapshots.</value>
-        [DataMember(Name="timeRanges", EmitDefaultValue=true)]
+        [DataMember(Name="timeRanges", EmitDefaultValue=false)]
         public List<TimeRangeSettings> TimeRanges { get; set; }
 
         /// <summary>
@@ -86,14 +87,12 @@ namespace Cohesity.Model
                 (
                     this.FullSnapshotInfo == input.FullSnapshotInfo ||
                     this.FullSnapshotInfo != null &&
-                    input.FullSnapshotInfo != null &&
-                    this.FullSnapshotInfo.SequenceEqual(input.FullSnapshotInfo)
+                    this.FullSnapshotInfo.Equals(input.FullSnapshotInfo)
                 ) && 
                 (
                     this.TimeRanges == input.TimeRanges ||
                     this.TimeRanges != null &&
-                    input.TimeRanges != null &&
-                    this.TimeRanges.SequenceEqual(input.TimeRanges)
+                    this.TimeRanges.Equals(input.TimeRanges)
                 );
         }
 

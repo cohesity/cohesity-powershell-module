@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -32,7 +35,6 @@ namespace Cohesity.Model
         /// <param name="targetHostParentSource">targetHostParentSource.</param>
         public RestoreAppObjectParams(RestoreADAppObjectParams adRestoreParams = default(RestoreADAppObjectParams), long? cloneTaskId = default(long?), RestoreExchangeParams exchangeRestoreParams = default(RestoreExchangeParams), RestoreOracleAppObjectParams oracleRestoreParams = default(RestoreOracleAppObjectParams), RestoreSqlAppObjectParams sqlRestoreParams = default(RestoreSqlAppObjectParams), EntityProto targetHost = default(EntityProto), EntityProto targetHostParentSource = default(EntityProto))
         {
-            this.CloneTaskId = cloneTaskId;
             this.AdRestoreParams = adRestoreParams;
             this.CloneTaskId = cloneTaskId;
             this.ExchangeRestoreParams = exchangeRestoreParams;
@@ -52,7 +54,7 @@ namespace Cohesity.Model
         /// Id of finished clone task which has to be refreshed with different data.
         /// </summary>
         /// <value>Id of finished clone task which has to be refreshed with different data.</value>
-        [DataMember(Name="cloneTaskId", EmitDefaultValue=true)]
+        [DataMember(Name="cloneTaskId", EmitDefaultValue=false)]
         public long? CloneTaskId { get; set; }
 
         /// <summary>

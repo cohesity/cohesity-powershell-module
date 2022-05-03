@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,7 +30,6 @@ namespace Cohesity.Model
         /// <param name="taskResultVec">Contains high-level per-volume information. This data is here because Iris cannot see into protobuf extensions yet needs to display per-subtask progress..</param>
         public RecoverVolumesTaskStateProto(RecoverVolumesParams _params = default(RecoverVolumesParams), List<RecoverVolumesTaskStateProtoTaskResult> taskResultVec = default(List<RecoverVolumesTaskStateProtoTaskResult>))
         {
-            this.TaskResultVec = taskResultVec;
             this.Params = _params;
             this.TaskResultVec = taskResultVec;
         }
@@ -42,7 +44,7 @@ namespace Cohesity.Model
         /// Contains high-level per-volume information. This data is here because Iris cannot see into protobuf extensions yet needs to display per-subtask progress.
         /// </summary>
         /// <value>Contains high-level per-volume information. This data is here because Iris cannot see into protobuf extensions yet needs to display per-subtask progress.</value>
-        [DataMember(Name="taskResultVec", EmitDefaultValue=true)]
+        [DataMember(Name="taskResultVec", EmitDefaultValue=false)]
         public List<RecoverVolumesTaskStateProtoTaskResult> TaskResultVec { get; set; }
 
         /// <summary>
@@ -89,8 +91,7 @@ namespace Cohesity.Model
                 (
                     this.TaskResultVec == input.TaskResultVec ||
                     this.TaskResultVec != null &&
-                    input.TaskResultVec != null &&
-                    this.TaskResultVec.SequenceEqual(input.TaskResultVec)
+                    this.TaskResultVec.Equals(input.TaskResultVec)
                 );
         }
 

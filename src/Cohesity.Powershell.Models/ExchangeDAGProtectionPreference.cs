@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,30 +34,27 @@ namespace Cohesity.Model
             this.PassiveCopyPreferenceServerGuidList = passiveCopyPreferenceServerGuidList;
             this.PassiveOnly = passiveOnly;
             this.UseUserSpecifiedPassivePreferenceOrder = useUserSpecifiedPassivePreferenceOrder;
-            this.PassiveCopyPreferenceServerGuidList = passiveCopyPreferenceServerGuidList;
-            this.PassiveOnly = passiveOnly;
-            this.UseUserSpecifiedPassivePreferenceOrder = useUserSpecifiedPassivePreferenceOrder;
         }
         
         /// <summary>
         /// Specifies the preference order of the exchange servers from which passive database copies should be protected. The preference order is descending which indicates that passive database copy in the first server in the list gets the highest preference.
         /// </summary>
         /// <value>Specifies the preference order of the exchange servers from which passive database copies should be protected. The preference order is descending which indicates that passive database copy in the first server in the list gets the highest preference.</value>
-        [DataMember(Name="passiveCopyPreferenceServerGuidList", EmitDefaultValue=true)]
+        [DataMember(Name="passiveCopyPreferenceServerGuidList", EmitDefaultValue=false)]
         public List<string> PassiveCopyPreferenceServerGuidList { get; set; }
 
         /// <summary>
         /// Specifies that only passive database copies should be protected if this is set to true. If this is set to false, both active and passive database copies can be protected.
         /// </summary>
         /// <value>Specifies that only passive database copies should be protected if this is set to true. If this is set to false, both active and passive database copies can be protected.</value>
-        [DataMember(Name="passiveOnly", EmitDefaultValue=true)]
+        [DataMember(Name="passiveOnly", EmitDefaultValue=false)]
         public bool? PassiveOnly { get; set; }
 
         /// <summary>
         /// Specifies to use the user specified preference order of exchange servers from which the passive database copies should be protected if this is set to true.  Every copy of an Exchange database in a DAG is assigned an activation preference number. This number is used by the system as part of the passive database activation process. If this bool flag is set to false, the reverse order of activation is used while choosing between passive copies.
         /// </summary>
         /// <value>Specifies to use the user specified preference order of exchange servers from which the passive database copies should be protected if this is set to true.  Every copy of an Exchange database in a DAG is assigned an activation preference number. This number is used by the system as part of the passive database activation process. If this bool flag is set to false, the reverse order of activation is used while choosing between passive copies.</value>
-        [DataMember(Name="useUserSpecifiedPassivePreferenceOrder", EmitDefaultValue=true)]
+        [DataMember(Name="useUserSpecifiedPassivePreferenceOrder", EmitDefaultValue=false)]
         public bool? UseUserSpecifiedPassivePreferenceOrder { get; set; }
 
         /// <summary>
@@ -96,8 +96,7 @@ namespace Cohesity.Model
                 (
                     this.PassiveCopyPreferenceServerGuidList == input.PassiveCopyPreferenceServerGuidList ||
                     this.PassiveCopyPreferenceServerGuidList != null &&
-                    input.PassiveCopyPreferenceServerGuidList != null &&
-                    this.PassiveCopyPreferenceServerGuidList.SequenceEqual(input.PassiveCopyPreferenceServerGuidList)
+                    this.PassiveCopyPreferenceServerGuidList.Equals(input.PassiveCopyPreferenceServerGuidList)
                 ) && 
                 (
                     this.PassiveOnly == input.PassiveOnly ||

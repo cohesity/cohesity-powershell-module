@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.ClusterId = clusterId;
             this.ClusterName = clusterName;
-            this.ClusterId = clusterId;
-            this.ClusterName = clusterName;
         }
         
         /// <summary>
         /// The id of the remote cluster.
         /// </summary>
         /// <value>The id of the remote cluster.</value>
-        [DataMember(Name="clusterId", EmitDefaultValue=true)]
+        [DataMember(Name="clusterId", EmitDefaultValue=false)]
         public long? ClusterId { get; set; }
 
         /// <summary>
         /// The name of the remote cluster.
         /// </summary>
         /// <value>The name of the remote cluster.</value>
-        [DataMember(Name="clusterName", EmitDefaultValue=true)]
+        [DataMember(Name="clusterName", EmitDefaultValue=false)]
         public string ClusterName { get; set; }
 
         /// <summary>

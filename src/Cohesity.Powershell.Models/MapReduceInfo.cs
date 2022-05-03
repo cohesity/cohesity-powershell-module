@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -33,16 +36,8 @@ namespace Cohesity.Model
         /// <param name="name">Map reduce job name..</param>
         /// <param name="reducerId">ID of the reducer..</param>
         /// <param name="requiredPropertyVec">requiredPropertyVec.</param>
-        public MapReduceInfo(MapReduceInfoAppProperty appProperty = default(MapReduceInfoAppProperty), MapReduceAuxData auxData = default(MapReduceAuxData), string description = default(string), List<int> excludedDataSourceVec = default(List<int>), long? id = default(long?), bool? isSystemDefined = default(bool?), long? mapperId = default(long?), string name = default(string), long? reducerId = default(long?), List<MapReduceInfoRequiredProperty> requiredPropertyVec = default(List<MapReduceInfoRequiredProperty>))
+        public MapReduceInfo(MapReduceInfoAppProperty appProperty = default(MapReduceInfoAppProperty), MapReduceAuxData auxData = default(MapReduceAuxData), string description = default(string), List<int?> excludedDataSourceVec = default(List<int?>), long? id = default(long?), bool? isSystemDefined = default(bool?), long? mapperId = default(long?), string name = default(string), long? reducerId = default(long?), List<MapReduceInfoRequiredProperty> requiredPropertyVec = default(List<MapReduceInfoRequiredProperty>))
         {
-            this.Description = description;
-            this.ExcludedDataSourceVec = excludedDataSourceVec;
-            this.Id = id;
-            this.IsSystemDefined = isSystemDefined;
-            this.MapperId = mapperId;
-            this.Name = name;
-            this.ReducerId = reducerId;
-            this.RequiredPropertyVec = requiredPropertyVec;
             this.AppProperty = appProperty;
             this.AuxData = auxData;
             this.Description = description;
@@ -71,55 +66,55 @@ namespace Cohesity.Model
         /// Map reduce job description.
         /// </summary>
         /// <value>Map reduce job description.</value>
-        [DataMember(Name="description", EmitDefaultValue=true)]
+        [DataMember(Name="description", EmitDefaultValue=false)]
         public string Description { get; set; }
 
         /// <summary>
         /// List of all excluded data sources for this app.
         /// </summary>
         /// <value>List of all excluded data sources for this app.</value>
-        [DataMember(Name="excludedDataSourceVec", EmitDefaultValue=true)]
-        public List<int> ExcludedDataSourceVec { get; set; }
+        [DataMember(Name="excludedDataSourceVec", EmitDefaultValue=false)]
+        public List<int?> ExcludedDataSourceVec { get; set; }
 
         /// <summary>
         /// ID of map reduce job.
         /// </summary>
         /// <value>ID of map reduce job.</value>
-        [DataMember(Name="id", EmitDefaultValue=true)]
+        [DataMember(Name="id", EmitDefaultValue=false)]
         public long? Id { get; set; }
 
         /// <summary>
         /// Flag to denote if this is system pre-defined app or user has written this app.
         /// </summary>
         /// <value>Flag to denote if this is system pre-defined app or user has written this app.</value>
-        [DataMember(Name="isSystemDefined", EmitDefaultValue=true)]
+        [DataMember(Name="isSystemDefined", EmitDefaultValue=false)]
         public bool? IsSystemDefined { get; set; }
 
         /// <summary>
         /// ID of the mapper to process the input.
         /// </summary>
         /// <value>ID of the mapper to process the input.</value>
-        [DataMember(Name="mapperId", EmitDefaultValue=true)]
+        [DataMember(Name="mapperId", EmitDefaultValue=false)]
         public long? MapperId { get; set; }
 
         /// <summary>
         /// Map reduce job name.
         /// </summary>
         /// <value>Map reduce job name.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
 
         /// <summary>
         /// ID of the reducer.
         /// </summary>
         /// <value>ID of the reducer.</value>
-        [DataMember(Name="reducerId", EmitDefaultValue=true)]
+        [DataMember(Name="reducerId", EmitDefaultValue=false)]
         public long? ReducerId { get; set; }
 
         /// <summary>
         /// Gets or Sets RequiredPropertyVec
         /// </summary>
-        [DataMember(Name="requiredPropertyVec", EmitDefaultValue=true)]
+        [DataMember(Name="requiredPropertyVec", EmitDefaultValue=false)]
         public List<MapReduceInfoRequiredProperty> RequiredPropertyVec { get; set; }
 
         /// <summary>
@@ -176,8 +171,7 @@ namespace Cohesity.Model
                 (
                     this.ExcludedDataSourceVec == input.ExcludedDataSourceVec ||
                     this.ExcludedDataSourceVec != null &&
-                    input.ExcludedDataSourceVec != null &&
-                    this.ExcludedDataSourceVec.SequenceEqual(input.ExcludedDataSourceVec)
+                    this.ExcludedDataSourceVec.Equals(input.ExcludedDataSourceVec)
                 ) && 
                 (
                     this.Id == input.Id ||
@@ -207,8 +201,7 @@ namespace Cohesity.Model
                 (
                     this.RequiredPropertyVec == input.RequiredPropertyVec ||
                     this.RequiredPropertyVec != null &&
-                    input.RequiredPropertyVec != null &&
-                    this.RequiredPropertyVec.SequenceEqual(input.RequiredPropertyVec)
+                    this.RequiredPropertyVec.Equals(input.RequiredPropertyVec)
                 );
         }
 

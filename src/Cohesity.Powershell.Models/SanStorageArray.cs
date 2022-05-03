@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -33,38 +36,34 @@ namespace Cohesity.Model
             this.Ports = ports;
             this.Revision = revision;
             this.Version = version;
-            this.Id = id;
-            this.Ports = ports;
-            this.Revision = revision;
-            this.Version = version;
         }
         
         /// <summary>
         /// Specifies a unique id of a SAN Storage Array. The id is unique across Cohesity Clusters.
         /// </summary>
         /// <value>Specifies a unique id of a SAN Storage Array. The id is unique across Cohesity Clusters.</value>
-        [DataMember(Name="id", EmitDefaultValue=true)]
+        [DataMember(Name="id", EmitDefaultValue=false)]
         public string Id { get; set; }
 
         /// <summary>
         /// Specifies the SAN ports of the SAN Storage Array.
         /// </summary>
         /// <value>Specifies the SAN ports of the SAN Storage Array.</value>
-        [DataMember(Name="ports", EmitDefaultValue=true)]
+        [DataMember(Name="ports", EmitDefaultValue=false)]
         public List<IscsiSanPort> Ports { get; set; }
 
         /// <summary>
         /// Specifies the revision of the SAN Storage Array.
         /// </summary>
         /// <value>Specifies the revision of the SAN Storage Array.</value>
-        [DataMember(Name="revision", EmitDefaultValue=true)]
+        [DataMember(Name="revision", EmitDefaultValue=false)]
         public string Revision { get; set; }
 
         /// <summary>
         /// Specifies the version of the SAN Storage Array.
         /// </summary>
         /// <value>Specifies the version of the SAN Storage Array.</value>
-        [DataMember(Name="version", EmitDefaultValue=true)]
+        [DataMember(Name="version", EmitDefaultValue=false)]
         public string Version { get; set; }
 
         /// <summary>
@@ -111,8 +110,7 @@ namespace Cohesity.Model
                 (
                     this.Ports == input.Ports ||
                     this.Ports != null &&
-                    input.Ports != null &&
-                    this.Ports.SequenceEqual(input.Ports)
+                    this.Ports.Equals(input.Ports)
                 ) && 
                 (
                     this.Revision == input.Revision ||

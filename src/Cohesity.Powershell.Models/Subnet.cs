@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -51,8 +54,41 @@ namespace Cohesity.Model
         /// Specifies whether clients from this subnet can mount using NFS protocol. Protocol access level. &#39;kDisabled&#39; indicates Protocol access level &#39;Disabled&#39; &#39;kReadOnly&#39; indicates Protocol access level &#39;ReadOnly&#39; &#39;kReadWrite&#39; indicates Protocol access level &#39;ReadWrite&#39;
         /// </summary>
         /// <value>Specifies whether clients from this subnet can mount using NFS protocol. Protocol access level. &#39;kDisabled&#39; indicates Protocol access level &#39;Disabled&#39; &#39;kReadOnly&#39; indicates Protocol access level &#39;ReadOnly&#39; &#39;kReadWrite&#39; indicates Protocol access level &#39;ReadWrite&#39;</value>
-        [DataMember(Name="nfsAccess", EmitDefaultValue=true)]
+        [DataMember(Name="nfsAccess", EmitDefaultValue=false)]
         public NfsAccessEnum? NfsAccess { get; set; }
+        /// <summary>
+        /// Specifies whether clients from this subnet can access using S3 protocol. Protocol access level. &#39;kDisabled&#39; indicates Protocol access level &#39;Disabled&#39; &#39;kReadOnly&#39; indicates Protocol access level &#39;ReadOnly&#39; &#39;kReadWrite&#39; indicates Protocol access level &#39;ReadWrite&#39;
+        /// </summary>
+        /// <value>Specifies whether clients from this subnet can access using S3 protocol. Protocol access level. &#39;kDisabled&#39; indicates Protocol access level &#39;Disabled&#39; &#39;kReadOnly&#39; indicates Protocol access level &#39;ReadOnly&#39; &#39;kReadWrite&#39; indicates Protocol access level &#39;ReadWrite&#39;</value>
+        [JsonConverter(typeof(StringEnumConverter))]
+        public enum S3AccessEnum
+        {
+            /// <summary>
+            /// Enum KDisabled for value: kDisabled
+            /// </summary>
+            [EnumMember(Value = "kDisabled")]
+            KDisabled = 1,
+
+            /// <summary>
+            /// Enum KReadOnly for value: kReadOnly
+            /// </summary>
+            [EnumMember(Value = "kReadOnly")]
+            KReadOnly = 2,
+
+            /// <summary>
+            /// Enum KReadWrite for value: kReadWrite
+            /// </summary>
+            [EnumMember(Value = "kReadWrite")]
+            KReadWrite = 3
+
+        }
+
+        /// <summary>
+        /// Specifies whether clients from this subnet can access using S3 protocol. Protocol access level. &#39;kDisabled&#39; indicates Protocol access level &#39;Disabled&#39; &#39;kReadOnly&#39; indicates Protocol access level &#39;ReadOnly&#39; &#39;kReadWrite&#39; indicates Protocol access level &#39;ReadWrite&#39;
+        /// </summary>
+        /// <value>Specifies whether clients from this subnet can access using S3 protocol. Protocol access level. &#39;kDisabled&#39; indicates Protocol access level &#39;Disabled&#39; &#39;kReadOnly&#39; indicates Protocol access level &#39;ReadOnly&#39; &#39;kReadWrite&#39; indicates Protocol access level &#39;ReadWrite&#39;</value>
+        [DataMember(Name="s3Access", EmitDefaultValue=false)]
+        public S3AccessEnum? S3Access { get; set; }
         /// <summary>
         /// Specifies whether clients from this subnet can mount using SMB protocol. Protocol access level. &#39;kDisabled&#39; indicates Protocol access level &#39;Disabled&#39; &#39;kReadOnly&#39; indicates Protocol access level &#39;ReadOnly&#39; &#39;kReadWrite&#39; indicates Protocol access level &#39;ReadWrite&#39;
         /// </summary>
@@ -84,7 +120,7 @@ namespace Cohesity.Model
         /// Specifies whether clients from this subnet can mount using SMB protocol. Protocol access level. &#39;kDisabled&#39; indicates Protocol access level &#39;Disabled&#39; &#39;kReadOnly&#39; indicates Protocol access level &#39;ReadOnly&#39; &#39;kReadWrite&#39; indicates Protocol access level &#39;ReadWrite&#39;
         /// </summary>
         /// <value>Specifies whether clients from this subnet can mount using SMB protocol. Protocol access level. &#39;kDisabled&#39; indicates Protocol access level &#39;Disabled&#39; &#39;kReadOnly&#39; indicates Protocol access level &#39;ReadOnly&#39; &#39;kReadWrite&#39; indicates Protocol access level &#39;ReadWrite&#39;</value>
-        [DataMember(Name="smbAccess", EmitDefaultValue=true)]
+        [DataMember(Name="smbAccess", EmitDefaultValue=false)]
         public SmbAccessEnum? SmbAccess { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="Subnet" /> class.
@@ -98,8 +134,10 @@ namespace Cohesity.Model
         /// <param name="nfsAccess">Specifies whether clients from this subnet can mount using NFS protocol. Protocol access level. &#39;kDisabled&#39; indicates Protocol access level &#39;Disabled&#39; &#39;kReadOnly&#39; indicates Protocol access level &#39;ReadOnly&#39; &#39;kReadWrite&#39; indicates Protocol access level &#39;ReadWrite&#39;.</param>
         /// <param name="nfsAllSquash">Specifies whether all clients from this subnet can map view with view_all_squash_uid/view_all_squash_gid configured in the view..</param>
         /// <param name="nfsRootSquash">Specifies whether clients from this subnet can mount as root on NFS..</param>
+        /// <param name="s3Access">Specifies whether clients from this subnet can access using S3 protocol. Protocol access level. &#39;kDisabled&#39; indicates Protocol access level &#39;Disabled&#39; &#39;kReadOnly&#39; indicates Protocol access level &#39;ReadOnly&#39; &#39;kReadWrite&#39; indicates Protocol access level &#39;ReadWrite&#39;.</param>
         /// <param name="smbAccess">Specifies whether clients from this subnet can mount using SMB protocol. Protocol access level. &#39;kDisabled&#39; indicates Protocol access level &#39;Disabled&#39; &#39;kReadOnly&#39; indicates Protocol access level &#39;ReadOnly&#39; &#39;kReadWrite&#39; indicates Protocol access level &#39;ReadWrite&#39;.</param>
-        public Subnet(string component = default(string), string description = default(string), int? id = default(int?), string ip = default(string), int? netmaskBits = default(int?), string netmaskIp4 = default(string), NfsAccessEnum? nfsAccess = default(NfsAccessEnum?), bool? nfsAllSquash = default(bool?), bool? nfsRootSquash = default(bool?), SmbAccessEnum? smbAccess = default(SmbAccessEnum?))
+        /// <param name="tenantId">Specifies the unique id of the tenant..</param>
+        public Subnet(string component = default(string), string description = default(string), int? id = default(int?), string ip = default(string), int? netmaskBits = default(int?), string netmaskIp4 = default(string), NfsAccessEnum? nfsAccess = default(NfsAccessEnum?), bool? nfsAllSquash = default(bool?), bool? nfsRootSquash = default(bool?), S3AccessEnum? s3Access = default(S3AccessEnum?), SmbAccessEnum? smbAccess = default(SmbAccessEnum?), string tenantId = default(string))
         {
             this.Component = component;
             this.Description = description;
@@ -110,74 +148,76 @@ namespace Cohesity.Model
             this.NfsAccess = nfsAccess;
             this.NfsAllSquash = nfsAllSquash;
             this.NfsRootSquash = nfsRootSquash;
+            this.S3Access = s3Access;
             this.SmbAccess = smbAccess;
-            this.Component = component;
-            this.Description = description;
-            this.Id = id;
-            this.Ip = ip;
-            this.NetmaskBits = netmaskBits;
-            this.NetmaskIp4 = netmaskIp4;
-            this.NfsAccess = nfsAccess;
-            this.NfsAllSquash = nfsAllSquash;
-            this.NfsRootSquash = nfsRootSquash;
-            this.SmbAccess = smbAccess;
+            this.TenantId = tenantId;
         }
         
         /// <summary>
         /// Component that has reserved the subnet.
         /// </summary>
         /// <value>Component that has reserved the subnet.</value>
-        [DataMember(Name="component", EmitDefaultValue=true)]
+        [DataMember(Name="component", EmitDefaultValue=false)]
         public string Component { get; set; }
 
         /// <summary>
         /// Description of the subnet.
         /// </summary>
         /// <value>Description of the subnet.</value>
-        [DataMember(Name="description", EmitDefaultValue=true)]
+        [DataMember(Name="description", EmitDefaultValue=false)]
         public string Description { get; set; }
 
         /// <summary>
         /// ID of the subnet.
         /// </summary>
         /// <value>ID of the subnet.</value>
-        [DataMember(Name="id", EmitDefaultValue=true)]
+        [DataMember(Name="id", EmitDefaultValue=false)]
         public int? Id { get; set; }
 
         /// <summary>
         /// Specifies either an IPv6 address or an IPv4 address.
         /// </summary>
         /// <value>Specifies either an IPv6 address or an IPv4 address.</value>
-        [DataMember(Name="ip", EmitDefaultValue=true)]
+        [DataMember(Name="ip", EmitDefaultValue=false)]
         public string Ip { get; set; }
 
         /// <summary>
         /// Specifies the netmask using bits.
         /// </summary>
         /// <value>Specifies the netmask using bits.</value>
-        [DataMember(Name="netmaskBits", EmitDefaultValue=true)]
+        [DataMember(Name="netmaskBits", EmitDefaultValue=false)]
         public int? NetmaskBits { get; set; }
 
         /// <summary>
         /// Specifies the netmask using an IP4 address. The netmask can only be set using netmaskIp4 if the IP address is an IPv4 address.
         /// </summary>
         /// <value>Specifies the netmask using an IP4 address. The netmask can only be set using netmaskIp4 if the IP address is an IPv4 address.</value>
-        [DataMember(Name="netmaskIp4", EmitDefaultValue=true)]
+        [DataMember(Name="netmaskIp4", EmitDefaultValue=false)]
         public string NetmaskIp4 { get; set; }
+
 
         /// <summary>
         /// Specifies whether all clients from this subnet can map view with view_all_squash_uid/view_all_squash_gid configured in the view.
         /// </summary>
         /// <value>Specifies whether all clients from this subnet can map view with view_all_squash_uid/view_all_squash_gid configured in the view.</value>
-        [DataMember(Name="nfsAllSquash", EmitDefaultValue=true)]
+        [DataMember(Name="nfsAllSquash", EmitDefaultValue=false)]
         public bool? NfsAllSquash { get; set; }
 
         /// <summary>
         /// Specifies whether clients from this subnet can mount as root on NFS.
         /// </summary>
         /// <value>Specifies whether clients from this subnet can mount as root on NFS.</value>
-        [DataMember(Name="nfsRootSquash", EmitDefaultValue=true)]
+        [DataMember(Name="nfsRootSquash", EmitDefaultValue=false)]
         public bool? NfsRootSquash { get; set; }
+
+
+
+        /// <summary>
+        /// Specifies the unique id of the tenant.
+        /// </summary>
+        /// <value>Specifies the unique id of the tenant.</value>
+        [DataMember(Name="tenantId", EmitDefaultValue=false)]
+        public string TenantId { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -247,7 +287,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.NfsAccess == input.NfsAccess ||
-                    this.NfsAccess.Equals(input.NfsAccess)
+                    (this.NfsAccess != null &&
+                    this.NfsAccess.Equals(input.NfsAccess))
                 ) && 
                 (
                     this.NfsAllSquash == input.NfsAllSquash ||
@@ -260,8 +301,19 @@ namespace Cohesity.Model
                     this.NfsRootSquash.Equals(input.NfsRootSquash))
                 ) && 
                 (
+                    this.S3Access == input.S3Access ||
+                    (this.S3Access != null &&
+                    this.S3Access.Equals(input.S3Access))
+                ) && 
+                (
                     this.SmbAccess == input.SmbAccess ||
-                    this.SmbAccess.Equals(input.SmbAccess)
+                    (this.SmbAccess != null &&
+                    this.SmbAccess.Equals(input.SmbAccess))
+                ) && 
+                (
+                    this.TenantId == input.TenantId ||
+                    (this.TenantId != null &&
+                    this.TenantId.Equals(input.TenantId))
                 );
         }
 
@@ -286,12 +338,18 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.NetmaskBits.GetHashCode();
                 if (this.NetmaskIp4 != null)
                     hashCode = hashCode * 59 + this.NetmaskIp4.GetHashCode();
-                hashCode = hashCode * 59 + this.NfsAccess.GetHashCode();
+                if (this.NfsAccess != null)
+                    hashCode = hashCode * 59 + this.NfsAccess.GetHashCode();
                 if (this.NfsAllSquash != null)
                     hashCode = hashCode * 59 + this.NfsAllSquash.GetHashCode();
                 if (this.NfsRootSquash != null)
                     hashCode = hashCode * 59 + this.NfsRootSquash.GetHashCode();
-                hashCode = hashCode * 59 + this.SmbAccess.GetHashCode();
+                if (this.S3Access != null)
+                    hashCode = hashCode * 59 + this.S3Access.GetHashCode();
+                if (this.SmbAccess != null)
+                    hashCode = hashCode * 59 + this.SmbAccess.GetHashCode();
+                if (this.TenantId != null)
+                    hashCode = hashCode * 59 + this.TenantId.GetHashCode();
                 return hashCode;
             }
         }

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,30 +34,27 @@ namespace Cohesity.Model
             this.DataPointVec = dataPointVec;
             this.MetricName = metricName;
             this.Type = type;
-            this.DataPointVec = dataPointVec;
-            this.MetricName = metricName;
-            this.Type = type;
         }
         
         /// <summary>
         /// Array of Data Points.  Specifies a list of metric data points for a time series.
         /// </summary>
         /// <value>Array of Data Points.  Specifies a list of metric data points for a time series.</value>
-        [DataMember(Name="dataPointVec", EmitDefaultValue=true)]
+        [DataMember(Name="dataPointVec", EmitDefaultValue=false)]
         public List<MetricDataPoint> DataPointVec { get; set; }
 
         /// <summary>
         /// Specifies the name of a metric such as &#39;kDiskAwaitTimeMsecs&#39;.
         /// </summary>
         /// <value>Specifies the name of a metric such as &#39;kDiskAwaitTimeMsecs&#39;.</value>
-        [DataMember(Name="metricName", EmitDefaultValue=true)]
+        [DataMember(Name="metricName", EmitDefaultValue=false)]
         public string MetricName { get; set; }
 
         /// <summary>
         /// Specifies the data type of the data points. 0 specifies a data point of type Int64. 1 specifies a data point of type Double. 2 specifies a data point of type String. 3 specifies a data point of type Bytes.
         /// </summary>
         /// <value>Specifies the data type of the data points. 0 specifies a data point of type Int64. 1 specifies a data point of type Double. 2 specifies a data point of type String. 3 specifies a data point of type Bytes.</value>
-        [DataMember(Name="type", EmitDefaultValue=true)]
+        [DataMember(Name="type", EmitDefaultValue=false)]
         public int? Type { get; set; }
 
         /// <summary>
@@ -96,8 +96,7 @@ namespace Cohesity.Model
                 (
                     this.DataPointVec == input.DataPointVec ||
                     this.DataPointVec != null &&
-                    input.DataPointVec != null &&
-                    this.DataPointVec.SequenceEqual(input.DataPointVec)
+                    this.DataPointVec.Equals(input.DataPointVec)
                 ) && 
                 (
                     this.MetricName == input.MetricName ||

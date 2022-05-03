@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -67,20 +70,15 @@ namespace Cohesity.Model
             /// Enum KCheckSQLDiskSpace for value: kCheckSQLDiskSpace
             /// </summary>
             [EnumMember(Value = "kCheckSQLDiskSpace")]
-            KCheckSQLDiskSpace = 7,
+            KCheckSQLDiskSpace = 7
 
-            /// <summary>
-            /// Enum KIsSQLWriterRunningCheck for value: kIsSQLWriterRunningCheck
-            /// <summary>
-            [EnumMember(Value = "kIsSQLWriterRunningCheck")]
-            KIsSQLWriterRunningCheck = 8
         }
 
         /// <summary>
         /// Specifies the type of the check internally performed. Specifies the type of the host check performed internally. &#39;kIsAgentPortAccessible&#39; indicates the check for agent port access. &#39;kIsAgentRunning&#39; indicates the status for the Cohesity agent service. &#39;kIsSQLWriterRunning&#39; indicates the status for SQLWriter service. &#39;kAreSQLInstancesRunning&#39; indicates the run status for all the SQL instances in the host. &#39;kCheckServiceLoginsConfig&#39; checks the privileges and sysadmin status of the logins used by the SQL instance services, Cohesity agent service and the SQLWriter service. &#39;kCheckSQLFCIVIP&#39; checks whether the SQL FCI is registered with a valid VIP or FQDN. &#39;kCheckSQLDiskSpace&#39; checks whether volumes containing SQL DBs have at least 10% free space.
         /// </summary>
         /// <value>Specifies the type of the check internally performed. Specifies the type of the host check performed internally. &#39;kIsAgentPortAccessible&#39; indicates the check for agent port access. &#39;kIsAgentRunning&#39; indicates the status for the Cohesity agent service. &#39;kIsSQLWriterRunning&#39; indicates the status for SQLWriter service. &#39;kAreSQLInstancesRunning&#39; indicates the run status for all the SQL instances in the host. &#39;kCheckServiceLoginsConfig&#39; checks the privileges and sysadmin status of the logins used by the SQL instance services, Cohesity agent service and the SQLWriter service. &#39;kCheckSQLFCIVIP&#39; checks whether the SQL FCI is registered with a valid VIP or FQDN. &#39;kCheckSQLDiskSpace&#39; checks whether volumes containing SQL DBs have at least 10% free space.</value>
-        [DataMember(Name="checkType", EmitDefaultValue=true)]
+        [DataMember(Name="checkType", EmitDefaultValue=false)]
         public CheckTypeEnum? CheckType { get; set; }
         /// <summary>
         /// Specifies the type of the result returned after performing the internal host check. Specifies the type of the host check result performed internally. &#39;kPass&#39; indicates that the respective check was successful. &#39;kFail&#39; indicates that the respective check failed as some mandatory setting is not met &#39;kWarning&#39; indicates that the respective check has warning as certain non-mandatory setting is not met.
@@ -113,7 +111,7 @@ namespace Cohesity.Model
         /// Specifies the type of the result returned after performing the internal host check. Specifies the type of the host check result performed internally. &#39;kPass&#39; indicates that the respective check was successful. &#39;kFail&#39; indicates that the respective check failed as some mandatory setting is not met &#39;kWarning&#39; indicates that the respective check has warning as certain non-mandatory setting is not met.
         /// </summary>
         /// <value>Specifies the type of the result returned after performing the internal host check. Specifies the type of the host check result performed internally. &#39;kPass&#39; indicates that the respective check was successful. &#39;kFail&#39; indicates that the respective check failed as some mandatory setting is not met &#39;kWarning&#39; indicates that the respective check has warning as certain non-mandatory setting is not met.</value>
-        [DataMember(Name="resultType", EmitDefaultValue=true)]
+        [DataMember(Name="resultType", EmitDefaultValue=false)]
         public ResultTypeEnum? ResultType { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="HostSettingsCheckResult" /> class.
@@ -126,16 +124,15 @@ namespace Cohesity.Model
             this.CheckType = checkType;
             this.ResultType = resultType;
             this.UserMessage = userMessage;
-            this.CheckType = checkType;
-            this.ResultType = resultType;
-            this.UserMessage = userMessage;
         }
         
+
+
         /// <summary>
         /// Specifies a descriptive message for failed/warning types.
         /// </summary>
         /// <value>Specifies a descriptive message for failed/warning types.</value>
-        [DataMember(Name="userMessage", EmitDefaultValue=true)]
+        [DataMember(Name="userMessage", EmitDefaultValue=false)]
         public string UserMessage { get; set; }
 
         /// <summary>
@@ -176,11 +173,13 @@ namespace Cohesity.Model
             return 
                 (
                     this.CheckType == input.CheckType ||
-                    this.CheckType.Equals(input.CheckType)
+                    (this.CheckType != null &&
+                    this.CheckType.Equals(input.CheckType))
                 ) && 
                 (
                     this.ResultType == input.ResultType ||
-                    this.ResultType.Equals(input.ResultType)
+                    (this.ResultType != null &&
+                    this.ResultType.Equals(input.ResultType))
                 ) && 
                 (
                     this.UserMessage == input.UserMessage ||
@@ -198,8 +197,10 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                hashCode = hashCode * 59 + this.CheckType.GetHashCode();
-                hashCode = hashCode * 59 + this.ResultType.GetHashCode();
+                if (this.CheckType != null)
+                    hashCode = hashCode * 59 + this.CheckType.GetHashCode();
+                if (this.ResultType != null)
+                    hashCode = hashCode * 59 + this.ResultType.GetHashCode();
                 if (this.UserMessage != null)
                     hashCode = hashCode * 59 + this.UserMessage.GetHashCode();
                 return hashCode;

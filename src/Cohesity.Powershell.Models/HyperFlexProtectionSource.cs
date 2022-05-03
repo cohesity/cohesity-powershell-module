@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -39,7 +42,7 @@ namespace Cohesity.Model
         /// Specifies the type of managed Object in a HyperFlex protection source like kServer. Examples of a HyperFlex types include &#39;kServer&#39;. &#39;kServer&#39; indicates HyperFlex server entity.
         /// </summary>
         /// <value>Specifies the type of managed Object in a HyperFlex protection source like kServer. Examples of a HyperFlex types include &#39;kServer&#39;. &#39;kServer&#39; indicates HyperFlex server entity.</value>
-        [DataMember(Name="type", EmitDefaultValue=true)]
+        [DataMember(Name="type", EmitDefaultValue=false)]
         public TypeEnum? Type { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="HyperFlexProtectionSource" /> class.
@@ -54,31 +57,28 @@ namespace Cohesity.Model
             this.ProductVersion = productVersion;
             this.Type = type;
             this.Uuid = uuid;
-            this.Name = name;
-            this.ProductVersion = productVersion;
-            this.Type = type;
-            this.Uuid = uuid;
         }
         
         /// <summary>
         /// Specifies a unique name of the Protection Source
         /// </summary>
         /// <value>Specifies a unique name of the Protection Source</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
 
         /// <summary>
         /// Specifies the product version of the protection source.
         /// </summary>
         /// <value>Specifies the product version of the protection source.</value>
-        [DataMember(Name="productVersion", EmitDefaultValue=true)]
+        [DataMember(Name="productVersion", EmitDefaultValue=false)]
         public string ProductVersion { get; set; }
+
 
         /// <summary>
         /// Specifies the uuid of the protection source.
         /// </summary>
         /// <value>Specifies the uuid of the protection source.</value>
-        [DataMember(Name="uuid", EmitDefaultValue=true)]
+        [DataMember(Name="uuid", EmitDefaultValue=false)]
         public string Uuid { get; set; }
 
         /// <summary>
@@ -129,7 +129,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.Type == input.Type ||
-                    this.Type.Equals(input.Type)
+                    (this.Type != null &&
+                    this.Type.Equals(input.Type))
                 ) && 
                 (
                     this.Uuid == input.Uuid ||
@@ -151,7 +152,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
                 if (this.ProductVersion != null)
                     hashCode = hashCode * 59 + this.ProductVersion.GetHashCode();
-                hashCode = hashCode * 59 + this.Type.GetHashCode();
+                if (this.Type != null)
+                    hashCode = hashCode * 59 + this.Type.GetHashCode();
                 if (this.Uuid != null)
                     hashCode = hashCode * 59 + this.Uuid.GetHashCode();
                 return hashCode;

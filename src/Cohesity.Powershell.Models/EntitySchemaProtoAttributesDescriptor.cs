@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.AttributeVec = attributeVec;
             this.KeyAttributeNameIndex = keyAttributeNameIndex;
-            this.AttributeVec = attributeVec;
-            this.KeyAttributeNameIndex = keyAttributeNameIndex;
         }
         
         /// <summary>
         /// Array of Attributes.  List of attributes about an entity.
         /// </summary>
         /// <value>Array of Attributes.  List of attributes about an entity.</value>
-        [DataMember(Name="attributeVec", EmitDefaultValue=true)]
+        [DataMember(Name="attributeVec", EmitDefaultValue=false)]
         public List<EntitySchemaProtoKeyValueDescriptor> AttributeVec { get; set; }
 
         /// <summary>
         /// Specifies the attribute to use as a unique identifier for the entity. This value is returned in entityId when the GET public/statistics/entities operation is run.
         /// </summary>
         /// <value>Specifies the attribute to use as a unique identifier for the entity. This value is returned in entityId when the GET public/statistics/entities operation is run.</value>
-        [DataMember(Name="keyAttributeNameIndex", EmitDefaultValue=true)]
+        [DataMember(Name="keyAttributeNameIndex", EmitDefaultValue=false)]
         public int? KeyAttributeNameIndex { get; set; }
 
         /// <summary>
@@ -86,8 +87,7 @@ namespace Cohesity.Model
                 (
                     this.AttributeVec == input.AttributeVec ||
                     this.AttributeVec != null &&
-                    input.AttributeVec != null &&
-                    this.AttributeVec.SequenceEqual(input.AttributeVec)
+                    this.AttributeVec.Equals(input.AttributeVec)
                 ) && 
                 (
                     this.KeyAttributeNameIndex == input.KeyAttributeNameIndex ||

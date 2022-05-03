@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -57,7 +60,7 @@ namespace Cohesity.Model
         /// Specifies use of the nodeport kDefault - No specific service. kHttp - HTTP server. kHttps -  Secure HTTP server. kSsh - Secure shell server.
         /// </summary>
         /// <value>Specifies use of the nodeport kDefault - No specific service. kHttp - HTTP server. kHttps -  Secure HTTP server. kSsh - Secure shell server.</value>
-        [DataMember(Name="tag", EmitDefaultValue=true)]
+        [DataMember(Name="tag", EmitDefaultValue=false)]
         public TagEnum? Tag { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="NodePort" /> class.
@@ -70,22 +73,20 @@ namespace Cohesity.Model
             this.IsUiPort = isUiPort;
             this.Port = port;
             this.Tag = tag;
-            this.IsUiPort = isUiPort;
-            this.Port = port;
-            this.Tag = tag;
         }
         
         /// <summary>
         /// Gets or Sets IsUiPort
         /// </summary>
-        [DataMember(Name="isUiPort", EmitDefaultValue=true)]
+        [DataMember(Name="isUiPort", EmitDefaultValue=false)]
         public bool? IsUiPort { get; set; }
 
         /// <summary>
         /// Gets or Sets Port
         /// </summary>
-        [DataMember(Name="port", EmitDefaultValue=true)]
+        [DataMember(Name="port", EmitDefaultValue=false)]
         public int? Port { get; set; }
+
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -135,7 +136,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.Tag == input.Tag ||
-                    this.Tag.Equals(input.Tag)
+                    (this.Tag != null &&
+                    this.Tag.Equals(input.Tag))
                 );
         }
 
@@ -152,7 +154,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.IsUiPort.GetHashCode();
                 if (this.Port != null)
                     hashCode = hashCode * 59 + this.Port.GetHashCode();
-                hashCode = hashCode * 59 + this.Tag.GetHashCode();
+                if (this.Tag != null)
+                    hashCode = hashCode * 59 + this.Tag.GetHashCode();
                 return hashCode;
             }
         }

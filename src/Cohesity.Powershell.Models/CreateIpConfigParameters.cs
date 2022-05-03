@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -45,7 +48,7 @@ namespace Cohesity.Model
         /// Specifies the interface role. &#39;kPrimary&#39; indicates a primary role. &#39;kSecondary&#39; indicates a secondary role.
         /// </summary>
         /// <value>Specifies the interface role. &#39;kPrimary&#39; indicates a primary role. &#39;kSecondary&#39; indicates a secondary role.</value>
-        [DataMember(Name="role", EmitDefaultValue=true)]
+        [DataMember(Name="role", EmitDefaultValue=false)]
         public RoleEnum? Role { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="CreateIpConfigParameters" /> class.
@@ -63,12 +66,15 @@ namespace Cohesity.Model
         /// <param name="subnetMask">Specifies the interface subnet mask..</param>
         public CreateIpConfigParameters(List<string> ips = default(List<string>), int? mtu = default(int?), string name = default(string), RoleEnum? role = default(RoleEnum?), string subnetGateway = default(string), string subnetMask = default(string))
         {
-            this.Ips = ips;
-            this.Mtu = mtu;
-            this.Name = name;
-            this.Role = role;
-            this.SubnetGateway = subnetGateway;
-            this.SubnetMask = subnetMask;
+            // to ensure "name" is required (not null)
+            if (name == null)
+            {
+                throw new InvalidDataException("name is a required property for CreateIpConfigParameters and cannot be null");
+            }
+            else
+            {
+                this.Name = name;
+            }
             this.Ips = ips;
             this.Mtu = mtu;
             this.Role = role;
@@ -80,35 +86,36 @@ namespace Cohesity.Model
         /// Specifies the interface ips.
         /// </summary>
         /// <value>Specifies the interface ips.</value>
-        [DataMember(Name="ips", EmitDefaultValue=true)]
+        [DataMember(Name="ips", EmitDefaultValue=false)]
         public List<string> Ips { get; set; }
 
         /// <summary>
         /// Specifies the interface mtu.
         /// </summary>
         /// <value>Specifies the interface mtu.</value>
-        [DataMember(Name="mtu", EmitDefaultValue=true)]
+        [DataMember(Name="mtu", EmitDefaultValue=false)]
         public int? Mtu { get; set; }
 
         /// <summary>
         /// Specifies the interface name.
         /// </summary>
         /// <value>Specifies the interface name.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
+
 
         /// <summary>
         /// Specifies the interface gateway.
         /// </summary>
         /// <value>Specifies the interface gateway.</value>
-        [DataMember(Name="subnetGateway", EmitDefaultValue=true)]
+        [DataMember(Name="subnetGateway", EmitDefaultValue=false)]
         public string SubnetGateway { get; set; }
 
         /// <summary>
         /// Specifies the interface subnet mask.
         /// </summary>
         /// <value>Specifies the interface subnet mask.</value>
-        [DataMember(Name="subnetMask", EmitDefaultValue=true)]
+        [DataMember(Name="subnetMask", EmitDefaultValue=false)]
         public string SubnetMask { get; set; }
 
         /// <summary>
@@ -150,8 +157,7 @@ namespace Cohesity.Model
                 (
                     this.Ips == input.Ips ||
                     this.Ips != null &&
-                    input.Ips != null &&
-                    this.Ips.SequenceEqual(input.Ips)
+                    this.Ips.Equals(input.Ips)
                 ) && 
                 (
                     this.Mtu == input.Mtu ||
@@ -165,7 +171,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.Role == input.Role ||
-                    this.Role.Equals(input.Role)
+                    (this.Role != null &&
+                    this.Role.Equals(input.Role))
                 ) && 
                 (
                     this.SubnetGateway == input.SubnetGateway ||
@@ -194,7 +201,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Mtu.GetHashCode();
                 if (this.Name != null)
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
-                hashCode = hashCode * 59 + this.Role.GetHashCode();
+                if (this.Role != null)
+                    hashCode = hashCode * 59 + this.Role.GetHashCode();
                 if (this.SubnetGateway != null)
                     hashCode = hashCode * 59 + this.SubnetGateway.GetHashCode();
                 if (this.SubnetMask != null)

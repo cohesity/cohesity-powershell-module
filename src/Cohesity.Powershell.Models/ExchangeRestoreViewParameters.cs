@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,30 +34,27 @@ namespace Cohesity.Model
             this.Endpoint = endpoint;
             this.MountPoint = mountPoint;
             this.ViewName = viewName;
-            this.Endpoint = endpoint;
-            this.MountPoint = mountPoint;
-            this.ViewName = viewName;
         }
         
         /// <summary>
         /// Specifies whether we should white-list the restore view for all the IP addresses. If this parameter is set to false, then only the machine on which the view is mounted will be white-listed.
         /// </summary>
         /// <value>Specifies whether we should white-list the restore view for all the IP addresses. If this parameter is set to false, then only the machine on which the view is mounted will be white-listed.</value>
-        [DataMember(Name="endpoint", EmitDefaultValue=true)]
+        [DataMember(Name="endpoint", EmitDefaultValue=false)]
         public bool? Endpoint { get; set; }
 
         /// <summary>
         /// Specifies the path of the SMB share.
         /// </summary>
         /// <value>Specifies the path of the SMB share.</value>
-        [DataMember(Name="mountPoint", EmitDefaultValue=true)]
+        [DataMember(Name="mountPoint", EmitDefaultValue=false)]
         public string MountPoint { get; set; }
 
         /// <summary>
         /// Specifies the view to which the files of an Exchange database has to be cloned.
         /// </summary>
         /// <value>Specifies the view to which the files of an Exchange database has to be cloned.</value>
-        [DataMember(Name="viewName", EmitDefaultValue=true)]
+        [DataMember(Name="viewName", EmitDefaultValue=false)]
         public string ViewName { get; set; }
 
         /// <summary>

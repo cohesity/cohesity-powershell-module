@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -49,102 +52,90 @@ namespace Cohesity.Model
             this.TenantIds = tenantIds;
             this.Usernames = usernames;
             this.Users = users;
-            this.CreatedTimeMsecs = createdTimeMsecs;
-            this.Description = description;
-            this.Domain = domain;
-            this.LastUpdatedTimeMsecs = lastUpdatedTimeMsecs;
-            this.Name = name;
-            this.Restricted = restricted;
-            this.Roles = roles;
-            this.Sid = sid;
-            this.SmbPrincipals = smbPrincipals;
-            this.TenantIds = tenantIds;
-            this.Usernames = usernames;
-            this.Users = users;
         }
         
         /// <summary>
         /// Specifies the epoch time in milliseconds when the group was created/added.
         /// </summary>
         /// <value>Specifies the epoch time in milliseconds when the group was created/added.</value>
-        [DataMember(Name="createdTimeMsecs", EmitDefaultValue=true)]
+        [DataMember(Name="createdTimeMsecs", EmitDefaultValue=false)]
         public long? CreatedTimeMsecs { get; set; }
 
         /// <summary>
         /// Specifies a description of the group.
         /// </summary>
         /// <value>Specifies a description of the group.</value>
-        [DataMember(Name="description", EmitDefaultValue=true)]
+        [DataMember(Name="description", EmitDefaultValue=false)]
         public string Description { get; set; }
 
         /// <summary>
         /// Specifies the domain of the group.
         /// </summary>
         /// <value>Specifies the domain of the group.</value>
-        [DataMember(Name="domain", EmitDefaultValue=true)]
+        [DataMember(Name="domain", EmitDefaultValue=false)]
         public string Domain { get; set; }
 
         /// <summary>
         /// Specifies the epoch time in milliseconds when the group was last modified.
         /// </summary>
         /// <value>Specifies the epoch time in milliseconds when the group was last modified.</value>
-        [DataMember(Name="lastUpdatedTimeMsecs", EmitDefaultValue=true)]
+        [DataMember(Name="lastUpdatedTimeMsecs", EmitDefaultValue=false)]
         public long? LastUpdatedTimeMsecs { get; set; }
 
         /// <summary>
         /// Specifies the name of the group.
         /// </summary>
         /// <value>Specifies the name of the group.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
 
         /// <summary>
         /// Whether the group is a restricted group. Users belonging to a restricted group can only view objects they have permissions to.
         /// </summary>
         /// <value>Whether the group is a restricted group. Users belonging to a restricted group can only view objects they have permissions to.</value>
-        [DataMember(Name="restricted", EmitDefaultValue=true)]
+        [DataMember(Name="restricted", EmitDefaultValue=false)]
         public bool? Restricted { get; set; }
 
         /// <summary>
         /// Array of Roles.  Specifies the Cohesity roles to associate with the group such as &#39;Admin&#39;, &#39;Ops&#39; or &#39;View&#39;. The Cohesity roles determine privileges on the Cohesity Cluster for all the users in this group.
         /// </summary>
         /// <value>Array of Roles.  Specifies the Cohesity roles to associate with the group such as &#39;Admin&#39;, &#39;Ops&#39; or &#39;View&#39;. The Cohesity roles determine privileges on the Cohesity Cluster for all the users in this group.</value>
-        [DataMember(Name="roles", EmitDefaultValue=true)]
+        [DataMember(Name="roles", EmitDefaultValue=false)]
         public List<string> Roles { get; set; }
 
         /// <summary>
         /// Specifies the unique Security ID (SID) of the group.
         /// </summary>
         /// <value>Specifies the unique Security ID (SID) of the group.</value>
-        [DataMember(Name="sid", EmitDefaultValue=true)]
+        [DataMember(Name="sid", EmitDefaultValue=false)]
         public string Sid { get; set; }
 
         /// <summary>
         /// Specifies the SMB principals. Principals will be added to this group only if IsSmbPrincipalOnly set to true.
         /// </summary>
         /// <value>Specifies the SMB principals. Principals will be added to this group only if IsSmbPrincipalOnly set to true.</value>
-        [DataMember(Name="smbPrincipals", EmitDefaultValue=true)]
+        [DataMember(Name="smbPrincipals", EmitDefaultValue=false)]
         public List<SmbPrincipal> SmbPrincipals { get; set; }
 
         /// <summary>
         /// Specifies the tenants to which the group belongs to. If not specified, session user&#39;s tenant id is assumed.
         /// </summary>
         /// <value>Specifies the tenants to which the group belongs to. If not specified, session user&#39;s tenant id is assumed.</value>
-        [DataMember(Name="tenantIds", EmitDefaultValue=true)]
+        [DataMember(Name="tenantIds", EmitDefaultValue=false)]
         public List<string> TenantIds { get; set; }
 
         /// <summary>
         /// Specifies the username of users who are members of the group. This field is used only for local groups.
         /// </summary>
         /// <value>Specifies the username of users who are members of the group. This field is used only for local groups.</value>
-        [DataMember(Name="usernames", EmitDefaultValue=true)]
+        [DataMember(Name="usernames", EmitDefaultValue=false)]
         public List<string> Usernames { get; set; }
 
         /// <summary>
         /// Specifies the SID of users who are members of the group. This field is used only for local groups.
         /// </summary>
         /// <value>Specifies the SID of users who are members of the group. This field is used only for local groups.</value>
-        [DataMember(Name="users", EmitDefaultValue=true)]
+        [DataMember(Name="users", EmitDefaultValue=false)]
         public List<string> Users { get; set; }
 
         /// <summary>
@@ -216,8 +207,7 @@ namespace Cohesity.Model
                 (
                     this.Roles == input.Roles ||
                     this.Roles != null &&
-                    input.Roles != null &&
-                    this.Roles.SequenceEqual(input.Roles)
+                    this.Roles.Equals(input.Roles)
                 ) && 
                 (
                     this.Sid == input.Sid ||
@@ -227,26 +217,22 @@ namespace Cohesity.Model
                 (
                     this.SmbPrincipals == input.SmbPrincipals ||
                     this.SmbPrincipals != null &&
-                    input.SmbPrincipals != null &&
-                    this.SmbPrincipals.SequenceEqual(input.SmbPrincipals)
+                    this.SmbPrincipals.Equals(input.SmbPrincipals)
                 ) && 
                 (
                     this.TenantIds == input.TenantIds ||
                     this.TenantIds != null &&
-                    input.TenantIds != null &&
-                    this.TenantIds.SequenceEqual(input.TenantIds)
+                    this.TenantIds.Equals(input.TenantIds)
                 ) && 
                 (
                     this.Usernames == input.Usernames ||
                     this.Usernames != null &&
-                    input.Usernames != null &&
-                    this.Usernames.SequenceEqual(input.Usernames)
+                    this.Usernames.Equals(input.Usernames)
                 ) && 
                 (
                     this.Users == input.Users ||
                     this.Users != null &&
-                    input.Users != null &&
-                    this.Users.SequenceEqual(input.Users)
+                    this.Users.Equals(input.Users)
                 );
         }
 

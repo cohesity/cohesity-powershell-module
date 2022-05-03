@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -33,7 +36,6 @@ namespace Cohesity.Model
         public RestoreHyperVVMParams(bool? copyRecovery = default(bool?), EntityProto datastoreEntity = default(EntityProto), PowerStateConfigProto powerStateConfig = default(PowerStateConfigProto), RenameObjectParamProto renameRestoredObjectParam = default(RenameObjectParamProto), EntityProto resourceEntity = default(EntityProto), RestoredObjectNetworkConfigProto restoredObjectsNetworkConfig = default(RestoredObjectNetworkConfigProto), UuidConfigProto uuidConfig = default(UuidConfigProto))
         {
             this.CopyRecovery = copyRecovery;
-            this.CopyRecovery = copyRecovery;
             this.DatastoreEntity = datastoreEntity;
             this.PowerStateConfig = powerStateConfig;
             this.RenameRestoredObjectParam = renameRestoredObjectParam;
@@ -46,7 +48,7 @@ namespace Cohesity.Model
         /// Whether to perform copy recovery.
         /// </summary>
         /// <value>Whether to perform copy recovery.</value>
-        [DataMember(Name="copyRecovery", EmitDefaultValue=true)]
+        [DataMember(Name="copyRecovery", EmitDefaultValue=false)]
         public bool? CopyRecovery { get; set; }
 
         /// <summary>

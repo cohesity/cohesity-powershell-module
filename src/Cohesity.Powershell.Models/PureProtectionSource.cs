@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -45,7 +48,7 @@ namespace Cohesity.Model
         /// Specifies the type of managed Object in a SAN/Pure Protection Source like a kStorageArray or kVolume. Examples of SAN Objects include &#39;kStorageArray&#39; and &#39;kVolume&#39;. &#39;kStorageArray&#39; indicates that entire SAN storage array is being protected. &#39;kVolume&#39; indicates that volume within the array is being protected.
         /// </summary>
         /// <value>Specifies the type of managed Object in a SAN/Pure Protection Source like a kStorageArray or kVolume. Examples of SAN Objects include &#39;kStorageArray&#39; and &#39;kVolume&#39;. &#39;kStorageArray&#39; indicates that entire SAN storage array is being protected. &#39;kVolume&#39; indicates that volume within the array is being protected.</value>
-        [DataMember(Name="type", EmitDefaultValue=true)]
+        [DataMember(Name="type", EmitDefaultValue=false)]
         public TypeEnum? Type { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="PureProtectionSource" /> class.
@@ -57,8 +60,6 @@ namespace Cohesity.Model
         public PureProtectionSource(string name = default(string), SanStorageArray storageArray = default(SanStorageArray), TypeEnum? type = default(TypeEnum?), SanVolume volume = default(SanVolume))
         {
             this.Name = name;
-            this.Type = type;
-            this.Name = name;
             this.StorageArray = storageArray;
             this.Type = type;
             this.Volume = volume;
@@ -68,7 +69,7 @@ namespace Cohesity.Model
         /// Specifies a unique name of the Protection Source
         /// </summary>
         /// <value>Specifies a unique name of the Protection Source</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
 
         /// <summary>
@@ -76,6 +77,7 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="storageArray", EmitDefaultValue=false)]
         public SanStorageArray StorageArray { get; set; }
+
 
         /// <summary>
         /// Gets or Sets Volume
@@ -131,7 +133,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.Type == input.Type ||
-                    this.Type.Equals(input.Type)
+                    (this.Type != null &&
+                    this.Type.Equals(input.Type))
                 ) && 
                 (
                     this.Volume == input.Volume ||
@@ -153,7 +156,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
                 if (this.StorageArray != null)
                     hashCode = hashCode * 59 + this.StorageArray.GetHashCode();
-                hashCode = hashCode * 59 + this.Type.GetHashCode();
+                if (this.Type != null)
+                    hashCode = hashCode * 59 + this.Type.GetHashCode();
                 if (this.Volume != null)
                     hashCode = hashCode * 59 + this.Volume.GetHashCode();
                 return hashCode;

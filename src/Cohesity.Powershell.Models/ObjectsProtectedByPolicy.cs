@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,30 +34,27 @@ namespace Cohesity.Model
             this.ObjectsProtected = objectsProtected;
             this.PolicyId = policyId;
             this.PolicyName = policyName;
-            this.ObjectsProtected = objectsProtected;
-            this.PolicyId = policyId;
-            this.PolicyName = policyName;
         }
         
         /// <summary>
         /// Protected Objects.
         /// </summary>
         /// <value>Protected Objects.</value>
-        [DataMember(Name="objectsProtected", EmitDefaultValue=true)]
+        [DataMember(Name="objectsProtected", EmitDefaultValue=false)]
         public List<ObjectsByEnv> ObjectsProtected { get; set; }
 
         /// <summary>
         /// Id of the policy.
         /// </summary>
         /// <value>Id of the policy.</value>
-        [DataMember(Name="policyId", EmitDefaultValue=true)]
+        [DataMember(Name="policyId", EmitDefaultValue=false)]
         public string PolicyId { get; set; }
 
         /// <summary>
         /// Name of the policy.
         /// </summary>
         /// <value>Name of the policy.</value>
-        [DataMember(Name="policyName", EmitDefaultValue=true)]
+        [DataMember(Name="policyName", EmitDefaultValue=false)]
         public string PolicyName { get; set; }
 
         /// <summary>
@@ -96,8 +96,7 @@ namespace Cohesity.Model
                 (
                     this.ObjectsProtected == input.ObjectsProtected ||
                     this.ObjectsProtected != null &&
-                    input.ObjectsProtected != null &&
-                    this.ObjectsProtected.SequenceEqual(input.ObjectsProtected)
+                    this.ObjectsProtected.Equals(input.ObjectsProtected)
                 ) && 
                 (
                     this.PolicyId == input.PolicyId ||

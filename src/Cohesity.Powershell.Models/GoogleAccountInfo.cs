@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.AccountId = accountId;
             this.UserId = userId;
-            this.AccountId = accountId;
-            this.UserId = userId;
         }
         
         /// <summary>
         /// Specifies the Account Id assigned by Google.
         /// </summary>
         /// <value>Specifies the Account Id assigned by Google.</value>
-        [DataMember(Name="accountId", EmitDefaultValue=true)]
+        [DataMember(Name="accountId", EmitDefaultValue=false)]
         public string AccountId { get; set; }
 
         /// <summary>
         /// Specifies the User Id assigned by Google.
         /// </summary>
         /// <value>Specifies the User Id assigned by Google.</value>
-        [DataMember(Name="userId", EmitDefaultValue=true)]
+        [DataMember(Name="userId", EmitDefaultValue=false)]
         public string UserId { get; set; }
 
         /// <summary>

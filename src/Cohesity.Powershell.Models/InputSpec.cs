@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -28,7 +31,6 @@ namespace Cohesity.Model
         /// <param name="vmSelector">vmSelector.</param>
         public InputSpec(InputSpecInputFilesSelector filesSelector = default(InputSpecInputFilesSelector), bool? onNfsFiles = default(bool?), InputSpecInputVMsSelector vmSelector = default(InputSpecInputVMsSelector))
         {
-            this.OnNfsFiles = onNfsFiles;
             this.FilesSelector = filesSelector;
             this.OnNfsFiles = onNfsFiles;
             this.VmSelector = vmSelector;
@@ -44,7 +46,7 @@ namespace Cohesity.Model
         /// Selects whether input is files inside vmdks or files on NFS. One of vm_selector or files_selector will be chosen based on this flag.
         /// </summary>
         /// <value>Selects whether input is files inside vmdks or files on NFS. One of vm_selector or files_selector will be chosen based on this flag.</value>
-        [DataMember(Name="onNfsFiles", EmitDefaultValue=true)]
+        [DataMember(Name="onNfsFiles", EmitDefaultValue=false)]
         public bool? OnNfsFiles { get; set; }
 
         /// <summary>

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,8 +32,6 @@ namespace Cohesity.Model
         /// <param name="type">The application environment..</param>
         public RestoreAppParams(Credentials credentials = default(Credentials), AppOwnerRestoreInfo ownerRestoreInfo = default(AppOwnerRestoreInfo), List<RestoreAppObject> restoreAppObjectVec = default(List<RestoreAppObject>), int? type = default(int?))
         {
-            this.RestoreAppObjectVec = restoreAppObjectVec;
-            this.Type = type;
             this.Credentials = credentials;
             this.OwnerRestoreInfo = ownerRestoreInfo;
             this.RestoreAppObjectVec = restoreAppObjectVec;
@@ -53,14 +54,14 @@ namespace Cohesity.Model
         /// The application level objects that needs to be restored. If this vector is populated with exactly one object without its &#39;app_entity&#39;, all the application objects of the owner will be restored. If multiple objects are being restored, the &#39;app_entity&#39; field must be specified for all of them.
         /// </summary>
         /// <value>The application level objects that needs to be restored. If this vector is populated with exactly one object without its &#39;app_entity&#39;, all the application objects of the owner will be restored. If multiple objects are being restored, the &#39;app_entity&#39; field must be specified for all of them.</value>
-        [DataMember(Name="restoreAppObjectVec", EmitDefaultValue=true)]
+        [DataMember(Name="restoreAppObjectVec", EmitDefaultValue=false)]
         public List<RestoreAppObject> RestoreAppObjectVec { get; set; }
 
         /// <summary>
         /// The application environment.
         /// </summary>
         /// <value>The application environment.</value>
-        [DataMember(Name="type", EmitDefaultValue=true)]
+        [DataMember(Name="type", EmitDefaultValue=false)]
         public int? Type { get; set; }
 
         /// <summary>
@@ -112,8 +113,7 @@ namespace Cohesity.Model
                 (
                     this.RestoreAppObjectVec == input.RestoreAppObjectVec ||
                     this.RestoreAppObjectVec != null &&
-                    input.RestoreAppObjectVec != null &&
-                    this.RestoreAppObjectVec.SequenceEqual(input.RestoreAppObjectVec)
+                    this.RestoreAppObjectVec.Equals(input.RestoreAppObjectVec)
                 ) && 
                 (
                     this.Type == input.Type ||

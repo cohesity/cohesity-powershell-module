@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,14 +30,13 @@ namespace Cohesity.Model
         public LdapProviderStatus(string statusMessage = default(string))
         {
             this.StatusMessage = statusMessage;
-            this.StatusMessage = statusMessage;
         }
         
         /// <summary>
         /// Specifies the connection status message of an LDAP provider.
         /// </summary>
         /// <value>Specifies the connection status message of an LDAP provider.</value>
-        [DataMember(Name="statusMessage", EmitDefaultValue=true)]
+        [DataMember(Name="statusMessage", EmitDefaultValue=false)]
         public string StatusMessage { get; set; }
 
         /// <summary>

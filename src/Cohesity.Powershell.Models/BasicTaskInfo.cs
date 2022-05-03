@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.Name = name;
             this.TaskId = taskId;
-            this.Name = name;
-            this.TaskId = taskId;
         }
         
         /// <summary>
         /// Name of the recovery task.
         /// </summary>
         /// <value>Name of the recovery task.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
 
         /// <summary>
         /// Id of the recovery task.
         /// </summary>
         /// <value>Id of the recovery task.</value>
-        [DataMember(Name="taskId", EmitDefaultValue=true)]
+        [DataMember(Name="taskId", EmitDefaultValue=false)]
         public string TaskId { get; set; }
 
         /// <summary>

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -43,78 +46,69 @@ namespace Cohesity.Model
             this.Privileges = privileges;
             this.TenantId = tenantId;
             this.TenantIds = tenantIds;
-            this.CreatedTimeMsecs = createdTimeMsecs;
-            this.Description = description;
-            this.IsCustomRole = isCustomRole;
-            this.Label = label;
-            this.LastUpdatedTimeMsecs = lastUpdatedTimeMsecs;
-            this.Name = name;
-            this.Privileges = privileges;
-            this.TenantId = tenantId;
-            this.TenantIds = tenantIds;
         }
         
         /// <summary>
         /// Specifies the epoch time in milliseconds when the role was created.
         /// </summary>
         /// <value>Specifies the epoch time in milliseconds when the role was created.</value>
-        [DataMember(Name="createdTimeMsecs", EmitDefaultValue=true)]
+        [DataMember(Name="createdTimeMsecs", EmitDefaultValue=false)]
         public long? CreatedTimeMsecs { get; set; }
 
         /// <summary>
         /// Specifies a description about the role.
         /// </summary>
         /// <value>Specifies a description about the role.</value>
-        [DataMember(Name="description", EmitDefaultValue=true)]
+        [DataMember(Name="description", EmitDefaultValue=false)]
         public string Description { get; set; }
 
         /// <summary>
         /// Specifies if the role is a user-defined custom role. If true, the role is a user-defined custom role that was created using the REST API, the Cohesity Dashboard or the CLI. If false, the role is a default system role that was created during Cluster creation.
         /// </summary>
         /// <value>Specifies if the role is a user-defined custom role. If true, the role is a user-defined custom role that was created using the REST API, the Cohesity Dashboard or the CLI. If false, the role is a default system role that was created during Cluster creation.</value>
-        [DataMember(Name="isCustomRole", EmitDefaultValue=true)]
+        [DataMember(Name="isCustomRole", EmitDefaultValue=false)]
         public bool? IsCustomRole { get; set; }
 
         /// <summary>
         /// Specifies the label for the role as displayed on the Cohesity Dashboard such as &#39;Viewer&#39;.
         /// </summary>
         /// <value>Specifies the label for the role as displayed on the Cohesity Dashboard such as &#39;Viewer&#39;.</value>
-        [DataMember(Name="label", EmitDefaultValue=true)]
+        [DataMember(Name="label", EmitDefaultValue=false)]
         public string Label { get; set; }
 
         /// <summary>
         /// Specifies the epoch time in milliseconds when the role was last modified.
         /// </summary>
         /// <value>Specifies the epoch time in milliseconds when the role was last modified.</value>
-        [DataMember(Name="lastUpdatedTimeMsecs", EmitDefaultValue=true)]
+        [DataMember(Name="lastUpdatedTimeMsecs", EmitDefaultValue=false)]
         public long? LastUpdatedTimeMsecs { get; set; }
 
         /// <summary>
         /// Specifies the internal Cluster name for the role such as COHESITY_VIEWER. For custom roles, the name and the label are the same. For default system roles, the name and label are different.
         /// </summary>
         /// <value>Specifies the internal Cluster name for the role such as COHESITY_VIEWER. For custom roles, the name and the label are the same. For default system roles, the name and label are different.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
 
         /// <summary>
         /// Array of Privileges.  Specifies the privileges assigned to the role. When a user or group is assigned this role, these privileges define the operations the user or group can perform on the Cohesity Cluster.
         /// </summary>
         /// <value>Array of Privileges.  Specifies the privileges assigned to the role. When a user or group is assigned this role, these privileges define the operations the user or group can perform on the Cohesity Cluster.</value>
-        [DataMember(Name="privileges", EmitDefaultValue=true)]
+        [DataMember(Name="privileges", EmitDefaultValue=false)]
         public List<string> Privileges { get; set; }
 
         /// <summary>
         /// Specifies unique id of the tenant owning the role.
         /// </summary>
         /// <value>Specifies unique id of the tenant owning the role.</value>
-        [DataMember(Name="tenantId", EmitDefaultValue=true)]
+        [DataMember(Name="tenantId", EmitDefaultValue=false)]
         public string TenantId { get; set; }
 
         /// <summary>
         /// Specifies id of tenants using this role.
         /// </summary>
         /// <value>Specifies id of tenants using this role.</value>
-        [DataMember(Name="tenantIds", EmitDefaultValue=true)]
+        [DataMember(Name="tenantIds", EmitDefaultValue=false)]
         public List<string> TenantIds { get; set; }
 
         /// <summary>
@@ -186,8 +180,7 @@ namespace Cohesity.Model
                 (
                     this.Privileges == input.Privileges ||
                     this.Privileges != null &&
-                    input.Privileges != null &&
-                    this.Privileges.SequenceEqual(input.Privileges)
+                    this.Privileges.Equals(input.Privileges)
                 ) && 
                 (
                     this.TenantId == input.TenantId ||
@@ -197,8 +190,7 @@ namespace Cohesity.Model
                 (
                     this.TenantIds == input.TenantIds ||
                     this.TenantIds != null &&
-                    input.TenantIds != null &&
-                    this.TenantIds.SequenceEqual(input.TenantIds)
+                    this.TenantIds.Equals(input.TenantIds)
                 );
         }
 

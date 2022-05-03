@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,14 +30,13 @@ namespace Cohesity.Model
         public MappersWrapper(List<MapperInfo> mappers = default(List<MapperInfo>))
         {
             this.Mappers = mappers;
-            this.Mappers = mappers;
         }
         
         /// <summary>
         /// Mappers specifies the list of available mappers in analytics workbench.
         /// </summary>
         /// <value>Mappers specifies the list of available mappers in analytics workbench.</value>
-        [DataMember(Name="mappers", EmitDefaultValue=true)]
+        [DataMember(Name="mappers", EmitDefaultValue=false)]
         public List<MapperInfo> Mappers { get; set; }
 
         /// <summary>
@@ -76,8 +78,7 @@ namespace Cohesity.Model
                 (
                     this.Mappers == input.Mappers ||
                     this.Mappers != null &&
-                    input.Mappers != null &&
-                    this.Mappers.SequenceEqual(input.Mappers)
+                    this.Mappers.Equals(input.Mappers)
                 );
         }
 

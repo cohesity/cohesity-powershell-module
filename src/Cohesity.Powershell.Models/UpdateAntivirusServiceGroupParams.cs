@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -35,11 +38,24 @@ namespace Cohesity.Model
         /// <param name="name">Specifies the name of the Antivirus service group. (required).</param>
         public UpdateAntivirusServiceGroupParams(List<AntivirusServiceConfigParams> antivirusServices = default(List<AntivirusServiceConfigParams>), string description = default(string), long? id = default(long?), bool? isEnabled = default(bool?), string name = default(string))
         {
-            this.AntivirusServices = antivirusServices;
-            this.Description = description;
-            this.Id = id;
-            this.IsEnabled = isEnabled;
-            this.Name = name;
+            // to ensure "id" is required (not null)
+            if (id == null)
+            {
+                throw new InvalidDataException("id is a required property for UpdateAntivirusServiceGroupParams and cannot be null");
+            }
+            else
+            {
+                this.Id = id;
+            }
+            // to ensure "name" is required (not null)
+            if (name == null)
+            {
+                throw new InvalidDataException("name is a required property for UpdateAntivirusServiceGroupParams and cannot be null");
+            }
+            else
+            {
+                this.Name = name;
+            }
             this.AntivirusServices = antivirusServices;
             this.Description = description;
             this.IsEnabled = isEnabled;
@@ -49,35 +65,35 @@ namespace Cohesity.Model
         /// Specifies the Antivirus services for this provider.
         /// </summary>
         /// <value>Specifies the Antivirus services for this provider.</value>
-        [DataMember(Name="antivirusServices", EmitDefaultValue=true)]
+        [DataMember(Name="antivirusServices", EmitDefaultValue=false)]
         public List<AntivirusServiceConfigParams> AntivirusServices { get; set; }
 
         /// <summary>
         /// Specifies the description of the Antivirus service group.
         /// </summary>
         /// <value>Specifies the description of the Antivirus service group.</value>
-        [DataMember(Name="description", EmitDefaultValue=true)]
+        [DataMember(Name="description", EmitDefaultValue=false)]
         public string Description { get; set; }
 
         /// <summary>
         /// Specifies the Id of the Antivirus service group.
         /// </summary>
         /// <value>Specifies the Id of the Antivirus service group.</value>
-        [DataMember(Name="id", EmitDefaultValue=true)]
+        [DataMember(Name="id", EmitDefaultValue=false)]
         public long? Id { get; set; }
 
         /// <summary>
         /// Specifies whether the antivirus service group is enabled or not.
         /// </summary>
         /// <value>Specifies whether the antivirus service group is enabled or not.</value>
-        [DataMember(Name="isEnabled", EmitDefaultValue=true)]
+        [DataMember(Name="isEnabled", EmitDefaultValue=false)]
         public bool? IsEnabled { get; set; }
 
         /// <summary>
         /// Specifies the name of the Antivirus service group.
         /// </summary>
         /// <value>Specifies the name of the Antivirus service group.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
 
         /// <summary>
@@ -119,8 +135,7 @@ namespace Cohesity.Model
                 (
                     this.AntivirusServices == input.AntivirusServices ||
                     this.AntivirusServices != null &&
-                    input.AntivirusServices != null &&
-                    this.AntivirusServices.SequenceEqual(input.AntivirusServices)
+                    this.AntivirusServices.Equals(input.AntivirusServices)
                 ) && 
                 (
                     this.Description == input.Description ||

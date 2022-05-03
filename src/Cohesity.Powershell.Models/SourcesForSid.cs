@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,30 +34,27 @@ namespace Cohesity.Model
             this.ProtectionSources = protectionSources;
             this.Sid = sid;
             this.Views = views;
-            this.ProtectionSources = protectionSources;
-            this.Sid = sid;
-            this.Views = views;
         }
         
         /// <summary>
         /// Array of Protection Sources.  Specifies the Protection Source objects that the specified principal has permissions to access.
         /// </summary>
         /// <value>Array of Protection Sources.  Specifies the Protection Source objects that the specified principal has permissions to access.</value>
-        [DataMember(Name="protectionSources", EmitDefaultValue=true)]
+        [DataMember(Name="protectionSources", EmitDefaultValue=false)]
         public List<ProtectionSource> ProtectionSources { get; set; }
 
         /// <summary>
         /// Specifies the security identifier (SID) of the principal.
         /// </summary>
         /// <value>Specifies the security identifier (SID) of the principal.</value>
-        [DataMember(Name="sid", EmitDefaultValue=true)]
+        [DataMember(Name="sid", EmitDefaultValue=false)]
         public string Sid { get; set; }
 
         /// <summary>
         /// Array of View Names.  Specifies the names of the Views that the specified principal has permissions to access.
         /// </summary>
         /// <value>Array of View Names.  Specifies the names of the Views that the specified principal has permissions to access.</value>
-        [DataMember(Name="views", EmitDefaultValue=true)]
+        [DataMember(Name="views", EmitDefaultValue=false)]
         public List<View> Views { get; set; }
 
         /// <summary>
@@ -96,8 +96,7 @@ namespace Cohesity.Model
                 (
                     this.ProtectionSources == input.ProtectionSources ||
                     this.ProtectionSources != null &&
-                    input.ProtectionSources != null &&
-                    this.ProtectionSources.SequenceEqual(input.ProtectionSources)
+                    this.ProtectionSources.Equals(input.ProtectionSources)
                 ) && 
                 (
                     this.Sid == input.Sid ||
@@ -107,8 +106,7 @@ namespace Cohesity.Model
                 (
                     this.Views == input.Views ||
                     this.Views != null &&
-                    input.Views != null &&
-                    this.Views.SequenceEqual(input.Views)
+                    this.Views.Equals(input.Views)
                 );
         }
 

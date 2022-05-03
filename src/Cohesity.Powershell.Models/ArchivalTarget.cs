@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -12,6 +13,8 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
+
+
 namespace Cohesity.Model
 {
     /// <summary>
@@ -23,38 +26,43 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="ArchivalTarget" /> class.
         /// </summary>
+        /// <param name="cloudTierSetting">cloudTierSetting.</param>
         /// <param name="name">The name of the archival target..</param>
         /// <param name="type">The type of the archival target..</param>
         /// <param name="vaultId">The id of the archival vault..</param>
-        public ArchivalTarget(string name = default(string), int? type = default(int?), long? vaultId = default(long?))
+        public ArchivalTarget(ClusterConfigProtoVaultCloudTierSetting cloudTierSetting = default(ClusterConfigProtoVaultCloudTierSetting), string name = default(string), int? type = default(int?), long? vaultId = default(long?))
         {
-            this.Name = name;
-            this.Type = type;
-            this.VaultId = vaultId;
+            this.CloudTierSetting = cloudTierSetting;
             this.Name = name;
             this.Type = type;
             this.VaultId = vaultId;
         }
         
         /// <summary>
+        /// Gets or Sets CloudTierSetting
+        /// </summary>
+        [DataMember(Name="cloudTierSetting", EmitDefaultValue=false)]
+        public ClusterConfigProtoVaultCloudTierSetting CloudTierSetting { get; set; }
+
+        /// <summary>
         /// The name of the archival target.
         /// </summary>
         /// <value>The name of the archival target.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
 
         /// <summary>
         /// The type of the archival target.
         /// </summary>
         /// <value>The type of the archival target.</value>
-        [DataMember(Name="type", EmitDefaultValue=true)]
+        [DataMember(Name="type", EmitDefaultValue=false)]
         public int? Type { get; set; }
 
         /// <summary>
         /// The id of the archival vault.
         /// </summary>
         /// <value>The id of the archival vault.</value>
-        [DataMember(Name="vaultId", EmitDefaultValue=true)]
+        [DataMember(Name="vaultId", EmitDefaultValue=false)]
         public long? VaultId { get; set; }
 
         /// <summary>
@@ -94,6 +102,11 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.CloudTierSetting == input.CloudTierSetting ||
+                    (this.CloudTierSetting != null &&
+                    this.CloudTierSetting.Equals(input.CloudTierSetting))
+                ) && 
+                (
                     this.Name == input.Name ||
                     (this.Name != null &&
                     this.Name.Equals(input.Name))
@@ -119,6 +132,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.CloudTierSetting != null)
+                    hashCode = hashCode * 59 + this.CloudTierSetting.GetHashCode();
                 if (this.Name != null)
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
                 if (this.Type != null)

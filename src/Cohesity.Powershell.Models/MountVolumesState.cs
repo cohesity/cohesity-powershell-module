@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -35,46 +38,41 @@ namespace Cohesity.Model
             this.OtherError = otherError;
             this.TargetSourceId = targetSourceId;
             this.Username = username;
-            this.BringDisksOnline = bringDisksOnline;
-            this.MountVolumeResults = mountVolumeResults;
-            this.OtherError = otherError;
-            this.TargetSourceId = targetSourceId;
-            this.Username = username;
         }
         
         /// <summary>
         /// Optional setting that determines if the volumes are brought online on the mount target after attaching the disks. This option is only significant for VMs.
         /// </summary>
         /// <value>Optional setting that determines if the volumes are brought online on the mount target after attaching the disks. This option is only significant for VMs.</value>
-        [DataMember(Name="bringDisksOnline", EmitDefaultValue=true)]
+        [DataMember(Name="bringDisksOnline", EmitDefaultValue=false)]
         public bool? BringDisksOnline { get; set; }
 
         /// <summary>
         /// Array of Mount Volume Results.  Specifies the results of mounting each specified volume.
         /// </summary>
         /// <value>Array of Mount Volume Results.  Specifies the results of mounting each specified volume.</value>
-        [DataMember(Name="mountVolumeResults", EmitDefaultValue=true)]
+        [DataMember(Name="mountVolumeResults", EmitDefaultValue=false)]
         public List<MountVolumeResultDetails> MountVolumeResults { get; set; }
 
         /// <summary>
         /// Specifies an error that did not occur during the mount operation.
         /// </summary>
         /// <value>Specifies an error that did not occur during the mount operation.</value>
-        [DataMember(Name="otherError", EmitDefaultValue=true)]
+        [DataMember(Name="otherError", EmitDefaultValue=false)]
         public RequestError OtherError { get; set; }
 
         /// <summary>
         /// Specifies the target Protection Source Id where the volumes will be mounted. NOTE: The source that was backed up and the mount target must be the same type, for example if the source is a VMware VM, then the mount target must also be a VMware VM. The mount target must be registered on the Cohesity Cluster.
         /// </summary>
         /// <value>Specifies the target Protection Source Id where the volumes will be mounted. NOTE: The source that was backed up and the mount target must be the same type, for example if the source is a VMware VM, then the mount target must also be a VMware VM. The mount target must be registered on the Cohesity Cluster.</value>
-        [DataMember(Name="targetSourceId", EmitDefaultValue=true)]
+        [DataMember(Name="targetSourceId", EmitDefaultValue=false)]
         public long? TargetSourceId { get; set; }
 
         /// <summary>
         /// Specifies the username to access the mount target.
         /// </summary>
         /// <value>Specifies the username to access the mount target.</value>
-        [DataMember(Name="username", EmitDefaultValue=true)]
+        [DataMember(Name="username", EmitDefaultValue=false)]
         public string Username { get; set; }
 
         /// <summary>
@@ -121,13 +119,12 @@ namespace Cohesity.Model
                 (
                     this.MountVolumeResults == input.MountVolumeResults ||
                     this.MountVolumeResults != null &&
-                    input.MountVolumeResults != null &&
-                    this.MountVolumeResults.SequenceEqual(input.MountVolumeResults)
+                    this.MountVolumeResults.Equals(input.MountVolumeResults)
                 ) && 
                 (
                     this.OtherError == input.OtherError ||
-                    (this.OtherError != null &&
-                    this.OtherError.Equals(input.OtherError))
+                    this.OtherError != null &&
+                    this.OtherError.Equals(input.OtherError)
                 ) && 
                 (
                     this.TargetSourceId == input.TargetSourceId ||

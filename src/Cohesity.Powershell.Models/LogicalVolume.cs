@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -30,10 +33,6 @@ namespace Cohesity.Model
         /// <param name="uuid">Specifies the uuid of the logical volume..</param>
         public LogicalVolume(DeviceTreeDetails deviceRootNode = default(DeviceTreeDetails), string groupName = default(string), string groupUuid = default(string), string name = default(string), string uuid = default(string))
         {
-            this.GroupName = groupName;
-            this.GroupUuid = groupUuid;
-            this.Name = name;
-            this.Uuid = uuid;
             this.DeviceRootNode = deviceRootNode;
             this.GroupName = groupName;
             this.GroupUuid = groupUuid;
@@ -51,28 +50,28 @@ namespace Cohesity.Model
         /// Specifies the group name of the logical volume.
         /// </summary>
         /// <value>Specifies the group name of the logical volume.</value>
-        [DataMember(Name="groupName", EmitDefaultValue=true)]
+        [DataMember(Name="groupName", EmitDefaultValue=false)]
         public string GroupName { get; set; }
 
         /// <summary>
         /// Specifies the group uuid of the logical volume.
         /// </summary>
         /// <value>Specifies the group uuid of the logical volume.</value>
-        [DataMember(Name="groupUuid", EmitDefaultValue=true)]
+        [DataMember(Name="groupUuid", EmitDefaultValue=false)]
         public string GroupUuid { get; set; }
 
         /// <summary>
         /// Specifies the name of the logical volume.
         /// </summary>
         /// <value>Specifies the name of the logical volume.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
 
         /// <summary>
         /// Specifies the uuid of the logical volume.
         /// </summary>
         /// <value>Specifies the uuid of the logical volume.</value>
-        [DataMember(Name="uuid", EmitDefaultValue=true)]
+        [DataMember(Name="uuid", EmitDefaultValue=false)]
         public string Uuid { get; set; }
 
         /// <summary>

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -33,38 +36,34 @@ namespace Cohesity.Model
             this.PreserveMacAddress = preserveMacAddress;
             this.SourceNetworkId = sourceNetworkId;
             this.TargetNetworkId = targetNetworkId;
-            this.DisableNetwork = disableNetwork;
-            this.PreserveMacAddress = preserveMacAddress;
-            this.SourceNetworkId = sourceNetworkId;
-            this.TargetNetworkId = targetNetworkId;
         }
         
         /// <summary>
         /// Specifies if the network should be disabled. On restore or clone of the VM, if the network should be kept in disabled state, set this flag to true. The mapped network is enabled by default.
         /// </summary>
         /// <value>Specifies if the network should be disabled. On restore or clone of the VM, if the network should be kept in disabled state, set this flag to true. The mapped network is enabled by default.</value>
-        [DataMember(Name="disableNetwork", EmitDefaultValue=true)]
+        [DataMember(Name="disableNetwork", EmitDefaultValue=false)]
         public bool? DisableNetwork { get; set; }
 
         /// <summary>
         /// Specifies if the source mac address should be preserved after restore or clone. In case of collision of mac address on target network the job won&#39;t fail. Address collision should be resolved manually.
         /// </summary>
         /// <value>Specifies if the source mac address should be preserved after restore or clone. In case of collision of mac address on target network the job won&#39;t fail. Address collision should be resolved manually.</value>
-        [DataMember(Name="preserveMacAddress", EmitDefaultValue=true)]
+        [DataMember(Name="preserveMacAddress", EmitDefaultValue=false)]
         public bool? PreserveMacAddress { get; set; }
 
         /// <summary>
         /// Specifies the id of the source network.
         /// </summary>
         /// <value>Specifies the id of the source network.</value>
-        [DataMember(Name="sourceNetworkId", EmitDefaultValue=true)]
+        [DataMember(Name="sourceNetworkId", EmitDefaultValue=false)]
         public long? SourceNetworkId { get; set; }
 
         /// <summary>
         /// Specifies the id of target network.
         /// </summary>
         /// <value>Specifies the id of target network.</value>
-        [DataMember(Name="targetNetworkId", EmitDefaultValue=true)]
+        [DataMember(Name="targetNetworkId", EmitDefaultValue=false)]
         public long? TargetNetworkId { get; set; }
 
         /// <summary>

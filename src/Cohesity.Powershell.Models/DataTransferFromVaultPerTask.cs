@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -33,38 +36,34 @@ namespace Cohesity.Model
             this.NumPhysicalBytesTransferred = numPhysicalBytesTransferred;
             this.TaskName = taskName;
             this.TaskType = taskType;
-            this.NumLogicalBytesTransferred = numLogicalBytesTransferred;
-            this.NumPhysicalBytesTransferred = numPhysicalBytesTransferred;
-            this.TaskName = taskName;
-            this.TaskType = taskType;
         }
         
         /// <summary>
         /// Specifies the total number of logical bytes that are transferred from this Vault to the Cohesity Cluster for this task. The logical size is when the data is fully hydrated or expanded.
         /// </summary>
         /// <value>Specifies the total number of logical bytes that are transferred from this Vault to the Cohesity Cluster for this task. The logical size is when the data is fully hydrated or expanded.</value>
-        [DataMember(Name="numLogicalBytesTransferred", EmitDefaultValue=true)]
+        [DataMember(Name="numLogicalBytesTransferred", EmitDefaultValue=false)]
         public long? NumLogicalBytesTransferred { get; set; }
 
         /// <summary>
         /// Specifies the total number of physical bytes that are transferred from this Vault to the Cohesity Cluster for this task.
         /// </summary>
         /// <value>Specifies the total number of physical bytes that are transferred from this Vault to the Cohesity Cluster for this task.</value>
-        [DataMember(Name="numPhysicalBytesTransferred", EmitDefaultValue=true)]
+        [DataMember(Name="numPhysicalBytesTransferred", EmitDefaultValue=false)]
         public long? NumPhysicalBytesTransferred { get; set; }
 
         /// <summary>
         /// Specifies the task name.
         /// </summary>
         /// <value>Specifies the task name.</value>
-        [DataMember(Name="taskName", EmitDefaultValue=true)]
+        [DataMember(Name="taskName", EmitDefaultValue=false)]
         public string TaskName { get; set; }
 
         /// <summary>
         /// Specifies the task type.
         /// </summary>
         /// <value>Specifies the task type.</value>
-        [DataMember(Name="taskType", EmitDefaultValue=true)]
+        [DataMember(Name="taskType", EmitDefaultValue=false)]
         public string TaskType { get; set; }
 
         /// <summary>

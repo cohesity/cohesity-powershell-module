@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -47,31 +50,8 @@ namespace Cohesity.Model
         /// <param name="viewBoxIds">Specifies the ViewBoxIds this tenant is associated to..</param>
         /// <param name="views">Specifies the Views this tenant is associated to..</param>
         /// <param name="vlanIfaceNames">Specifies the VlanIfaceNames this tenant is associated to, in the format of bond1.200..</param>
-        public Tenant(List<ActiveDirectoryEntry> activeDirectories = default(List<ActiveDirectoryEntry>), bool? bifrostEnabled = default(bool?), string clusterHostname = default(string), List<string> clusterIps = default(List<string>), long? createdTimeMsecs = default(long?), bool? deleted = default(bool?), long? deletedTimeMsecs = default(long?), bool? deletionFinished = default(bool?), List<TenantDeletionInfo> deletionInfoVec = default(List<TenantDeletionInfo>), string description = default(string), List<long> entityIds = default(List<long>), long? lastUpdatedTimeMsecs = default(long?), List<LdapProviderResponse> ldapProviders = default(List<LdapProviderResponse>), string name = default(string), string orgSuffix = default(string), string parentTenantId = default(string), List<string> policyIds = default(List<string>), List<BackupJobProto> protectionJobs = default(List<BackupJobProto>), bool? subscribeToAlertEmails = default(bool?), SwiftParams swiftConfig = default(SwiftParams), string tenantId = default(string), List<long> viewBoxIds = default(List<long>), List<View> views = default(List<View>), List<string> vlanIfaceNames = default(List<string>))
+        public Tenant(List<ActiveDirectoryEntry> activeDirectories = default(List<ActiveDirectoryEntry>), bool? bifrostEnabled = default(bool?), string clusterHostname = default(string), List<string> clusterIps = default(List<string>), long? createdTimeMsecs = default(long?), bool? deleted = default(bool?), long? deletedTimeMsecs = default(long?), bool? deletionFinished = default(bool?), List<TenantDeletionInfo> deletionInfoVec = default(List<TenantDeletionInfo>), string description = default(string), List<long?> entityIds = default(List<long?>), long? lastUpdatedTimeMsecs = default(long?), List<LdapProviderResponse> ldapProviders = default(List<LdapProviderResponse>), string name = default(string), string orgSuffix = default(string), string parentTenantId = default(string), List<string> policyIds = default(List<string>), List<BackupJobProto> protectionJobs = default(List<BackupJobProto>), bool? subscribeToAlertEmails = default(bool?), SwiftParams swiftConfig = default(SwiftParams), string tenantId = default(string), List<long?> viewBoxIds = default(List<long?>), List<View> views = default(List<View>), List<string> vlanIfaceNames = default(List<string>))
         {
-            this.ActiveDirectories = activeDirectories;
-            this.BifrostEnabled = bifrostEnabled;
-            this.ClusterHostname = clusterHostname;
-            this.ClusterIps = clusterIps;
-            this.CreatedTimeMsecs = createdTimeMsecs;
-            this.Deleted = deleted;
-            this.DeletedTimeMsecs = deletedTimeMsecs;
-            this.DeletionFinished = deletionFinished;
-            this.DeletionInfoVec = deletionInfoVec;
-            this.Description = description;
-            this.EntityIds = entityIds;
-            this.LastUpdatedTimeMsecs = lastUpdatedTimeMsecs;
-            this.LdapProviders = ldapProviders;
-            this.Name = name;
-            this.OrgSuffix = orgSuffix;
-            this.ParentTenantId = parentTenantId;
-            this.PolicyIds = policyIds;
-            this.ProtectionJobs = protectionJobs;
-            this.SubscribeToAlertEmails = subscribeToAlertEmails;
-            this.TenantId = tenantId;
-            this.ViewBoxIds = viewBoxIds;
-            this.Views = views;
-            this.VlanIfaceNames = vlanIfaceNames;
             this.ActiveDirectories = activeDirectories;
             this.BifrostEnabled = bifrostEnabled;
             this.ClusterHostname = clusterHostname;
@@ -102,133 +82,133 @@ namespace Cohesity.Model
         /// Specifies the active directories this tenant is associated to.
         /// </summary>
         /// <value>Specifies the active directories this tenant is associated to.</value>
-        [DataMember(Name="activeDirectories", EmitDefaultValue=true)]
+        [DataMember(Name="activeDirectories", EmitDefaultValue=false)]
         public List<ActiveDirectoryEntry> ActiveDirectories { get; set; }
 
         /// <summary>
         /// Specifies whether bifrost (Ambassador proxy) is enabled for tenant.
         /// </summary>
         /// <value>Specifies whether bifrost (Ambassador proxy) is enabled for tenant.</value>
-        [DataMember(Name="bifrostEnabled", EmitDefaultValue=true)]
+        [DataMember(Name="bifrostEnabled", EmitDefaultValue=false)]
         public bool? BifrostEnabled { get; set; }
 
         /// <summary>
         /// The hostname for Cohesity cluster as seen by tenants and as is routable from the tenant&#39;s network. Tenant&#39;s VLAN&#39;s hostname, if available can be used instead but it is mandatory to provide this value if there&#39;s no VLAN hostname to use. Also, when set, this field would take precedence over VLAN hostname.
         /// </summary>
         /// <value>The hostname for Cohesity cluster as seen by tenants and as is routable from the tenant&#39;s network. Tenant&#39;s VLAN&#39;s hostname, if available can be used instead but it is mandatory to provide this value if there&#39;s no VLAN hostname to use. Also, when set, this field would take precedence over VLAN hostname.</value>
-        [DataMember(Name="clusterHostname", EmitDefaultValue=true)]
+        [DataMember(Name="clusterHostname", EmitDefaultValue=false)]
         public string ClusterHostname { get; set; }
 
         /// <summary>
         /// Set of IPs as seen from the tenant&#39;s network for the Cohesity cluster. Only one from &#39;ClusterHostname&#39; and &#39;ClusterIps&#39; is needed.
         /// </summary>
         /// <value>Set of IPs as seen from the tenant&#39;s network for the Cohesity cluster. Only one from &#39;ClusterHostname&#39; and &#39;ClusterIps&#39; is needed.</value>
-        [DataMember(Name="clusterIps", EmitDefaultValue=true)]
+        [DataMember(Name="clusterIps", EmitDefaultValue=false)]
         public List<string> ClusterIps { get; set; }
 
         /// <summary>
         /// Specifies the epoch time in milliseconds when the tenant account was created on the Cohesity Cluster.
         /// </summary>
         /// <value>Specifies the epoch time in milliseconds when the tenant account was created on the Cohesity Cluster.</value>
-        [DataMember(Name="createdTimeMsecs", EmitDefaultValue=true)]
+        [DataMember(Name="createdTimeMsecs", EmitDefaultValue=false)]
         public long? CreatedTimeMsecs { get; set; }
 
         /// <summary>
         /// Specifies if the Tenant is deleted.
         /// </summary>
         /// <value>Specifies if the Tenant is deleted.</value>
-        [DataMember(Name="deleted", EmitDefaultValue=true)]
+        [DataMember(Name="deleted", EmitDefaultValue=false)]
         public bool? Deleted { get; set; }
 
         /// <summary>
         /// Specifies the timestamp at which the tenant was deleted.
         /// </summary>
         /// <value>Specifies the timestamp at which the tenant was deleted.</value>
-        [DataMember(Name="deletedTimeMsecs", EmitDefaultValue=true)]
+        [DataMember(Name="deletedTimeMsecs", EmitDefaultValue=false)]
         public long? DeletedTimeMsecs { get; set; }
 
         /// <summary>
         /// Specifies if the object collection is complete for the tenant.
         /// </summary>
         /// <value>Specifies if the object collection is complete for the tenant.</value>
-        [DataMember(Name="deletionFinished", EmitDefaultValue=true)]
+        [DataMember(Name="deletionFinished", EmitDefaultValue=false)]
         public bool? DeletionFinished { get; set; }
 
         /// <summary>
         /// Specifies the current deletion state of object categories.
         /// </summary>
         /// <value>Specifies the current deletion state of object categories.</value>
-        [DataMember(Name="deletionInfoVec", EmitDefaultValue=true)]
+        [DataMember(Name="deletionInfoVec", EmitDefaultValue=false)]
         public List<TenantDeletionInfo> DeletionInfoVec { get; set; }
 
         /// <summary>
         /// Specifies the description of this tenant.
         /// </summary>
         /// <value>Specifies the description of this tenant.</value>
-        [DataMember(Name="description", EmitDefaultValue=true)]
+        [DataMember(Name="description", EmitDefaultValue=false)]
         public string Description { get; set; }
 
         /// <summary>
         /// Specifies the EntityIds this tenant is associated to.
         /// </summary>
         /// <value>Specifies the EntityIds this tenant is associated to.</value>
-        [DataMember(Name="entityIds", EmitDefaultValue=true)]
-        public List<long> EntityIds { get; set; }
+        [DataMember(Name="entityIds", EmitDefaultValue=false)]
+        public List<long?> EntityIds { get; set; }
 
         /// <summary>
         /// Specifies the epoch time in milliseconds when the tenant account was last modified on the Cohesity Cluster.
         /// </summary>
         /// <value>Specifies the epoch time in milliseconds when the tenant account was last modified on the Cohesity Cluster.</value>
-        [DataMember(Name="lastUpdatedTimeMsecs", EmitDefaultValue=true)]
+        [DataMember(Name="lastUpdatedTimeMsecs", EmitDefaultValue=false)]
         public long? LastUpdatedTimeMsecs { get; set; }
 
         /// <summary>
         /// Specifies the ldap providers this tenant is associated to.
         /// </summary>
         /// <value>Specifies the ldap providers this tenant is associated to.</value>
-        [DataMember(Name="ldapProviders", EmitDefaultValue=true)]
+        [DataMember(Name="ldapProviders", EmitDefaultValue=false)]
         public List<LdapProviderResponse> LdapProviders { get; set; }
 
         /// <summary>
         /// Specifies the name of the tenant.
         /// </summary>
         /// <value>Specifies the name of the tenant.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
 
         /// <summary>
         /// Specifies the organization suffix needed to construct tenant id. Tenant id is not completely auto generated rather chosen by tenant/SP admin as we needed same tenant id on multiple clusters to support replication across clusters, etc.
         /// </summary>
         /// <value>Specifies the organization suffix needed to construct tenant id. Tenant id is not completely auto generated rather chosen by tenant/SP admin as we needed same tenant id on multiple clusters to support replication across clusters, etc.</value>
-        [DataMember(Name="orgSuffix", EmitDefaultValue=true)]
+        [DataMember(Name="orgSuffix", EmitDefaultValue=false)]
         public string OrgSuffix { get; set; }
 
         /// <summary>
         /// Specifies the parent tenant of this tenant if available.
         /// </summary>
         /// <value>Specifies the parent tenant of this tenant if available.</value>
-        [DataMember(Name="parentTenantId", EmitDefaultValue=true)]
+        [DataMember(Name="parentTenantId", EmitDefaultValue=false)]
         public string ParentTenantId { get; set; }
 
         /// <summary>
         /// Specifies the PolicyIds this tenant is associated to.
         /// </summary>
         /// <value>Specifies the PolicyIds this tenant is associated to.</value>
-        [DataMember(Name="policyIds", EmitDefaultValue=true)]
+        [DataMember(Name="policyIds", EmitDefaultValue=false)]
         public List<string> PolicyIds { get; set; }
 
         /// <summary>
         /// Specifies the ProtectionJobs this tenant is associated to.
         /// </summary>
         /// <value>Specifies the ProtectionJobs this tenant is associated to.</value>
-        [DataMember(Name="protectionJobs", EmitDefaultValue=true)]
+        [DataMember(Name="protectionJobs", EmitDefaultValue=false)]
         public List<BackupJobProto> ProtectionJobs { get; set; }
 
         /// <summary>
         /// Service provider can optionally unsubscribe from the Tenant Alert Emails.
         /// </summary>
         /// <value>Service provider can optionally unsubscribe from the Tenant Alert Emails.</value>
-        [DataMember(Name="subscribeToAlertEmails", EmitDefaultValue=true)]
+        [DataMember(Name="subscribeToAlertEmails", EmitDefaultValue=false)]
         public bool? SubscribeToAlertEmails { get; set; }
 
         /// <summary>
@@ -241,28 +221,28 @@ namespace Cohesity.Model
         /// Specifies the unique id of the tenant.
         /// </summary>
         /// <value>Specifies the unique id of the tenant.</value>
-        [DataMember(Name="tenantId", EmitDefaultValue=true)]
+        [DataMember(Name="tenantId", EmitDefaultValue=false)]
         public string TenantId { get; set; }
 
         /// <summary>
         /// Specifies the ViewBoxIds this tenant is associated to.
         /// </summary>
         /// <value>Specifies the ViewBoxIds this tenant is associated to.</value>
-        [DataMember(Name="viewBoxIds", EmitDefaultValue=true)]
-        public List<long> ViewBoxIds { get; set; }
+        [DataMember(Name="viewBoxIds", EmitDefaultValue=false)]
+        public List<long?> ViewBoxIds { get; set; }
 
         /// <summary>
         /// Specifies the Views this tenant is associated to.
         /// </summary>
         /// <value>Specifies the Views this tenant is associated to.</value>
-        [DataMember(Name="views", EmitDefaultValue=true)]
+        [DataMember(Name="views", EmitDefaultValue=false)]
         public List<View> Views { get; set; }
 
         /// <summary>
         /// Specifies the VlanIfaceNames this tenant is associated to, in the format of bond1.200.
         /// </summary>
         /// <value>Specifies the VlanIfaceNames this tenant is associated to, in the format of bond1.200.</value>
-        [DataMember(Name="vlanIfaceNames", EmitDefaultValue=true)]
+        [DataMember(Name="vlanIfaceNames", EmitDefaultValue=false)]
         public List<string> VlanIfaceNames { get; set; }
 
         /// <summary>
@@ -304,8 +284,7 @@ namespace Cohesity.Model
                 (
                     this.ActiveDirectories == input.ActiveDirectories ||
                     this.ActiveDirectories != null &&
-                    input.ActiveDirectories != null &&
-                    this.ActiveDirectories.SequenceEqual(input.ActiveDirectories)
+                    this.ActiveDirectories.Equals(input.ActiveDirectories)
                 ) && 
                 (
                     this.BifrostEnabled == input.BifrostEnabled ||
@@ -320,8 +299,7 @@ namespace Cohesity.Model
                 (
                     this.ClusterIps == input.ClusterIps ||
                     this.ClusterIps != null &&
-                    input.ClusterIps != null &&
-                    this.ClusterIps.SequenceEqual(input.ClusterIps)
+                    this.ClusterIps.Equals(input.ClusterIps)
                 ) && 
                 (
                     this.CreatedTimeMsecs == input.CreatedTimeMsecs ||
@@ -346,8 +324,7 @@ namespace Cohesity.Model
                 (
                     this.DeletionInfoVec == input.DeletionInfoVec ||
                     this.DeletionInfoVec != null &&
-                    input.DeletionInfoVec != null &&
-                    this.DeletionInfoVec.SequenceEqual(input.DeletionInfoVec)
+                    this.DeletionInfoVec.Equals(input.DeletionInfoVec)
                 ) && 
                 (
                     this.Description == input.Description ||
@@ -357,8 +334,7 @@ namespace Cohesity.Model
                 (
                     this.EntityIds == input.EntityIds ||
                     this.EntityIds != null &&
-                    input.EntityIds != null &&
-                    this.EntityIds.SequenceEqual(input.EntityIds)
+                    this.EntityIds.Equals(input.EntityIds)
                 ) && 
                 (
                     this.LastUpdatedTimeMsecs == input.LastUpdatedTimeMsecs ||
@@ -368,8 +344,7 @@ namespace Cohesity.Model
                 (
                     this.LdapProviders == input.LdapProviders ||
                     this.LdapProviders != null &&
-                    input.LdapProviders != null &&
-                    this.LdapProviders.SequenceEqual(input.LdapProviders)
+                    this.LdapProviders.Equals(input.LdapProviders)
                 ) && 
                 (
                     this.Name == input.Name ||
@@ -389,14 +364,12 @@ namespace Cohesity.Model
                 (
                     this.PolicyIds == input.PolicyIds ||
                     this.PolicyIds != null &&
-                    input.PolicyIds != null &&
-                    this.PolicyIds.SequenceEqual(input.PolicyIds)
+                    this.PolicyIds.Equals(input.PolicyIds)
                 ) && 
                 (
                     this.ProtectionJobs == input.ProtectionJobs ||
                     this.ProtectionJobs != null &&
-                    input.ProtectionJobs != null &&
-                    this.ProtectionJobs.SequenceEqual(input.ProtectionJobs)
+                    this.ProtectionJobs.Equals(input.ProtectionJobs)
                 ) && 
                 (
                     this.SubscribeToAlertEmails == input.SubscribeToAlertEmails ||
@@ -416,20 +389,17 @@ namespace Cohesity.Model
                 (
                     this.ViewBoxIds == input.ViewBoxIds ||
                     this.ViewBoxIds != null &&
-                    input.ViewBoxIds != null &&
-                    this.ViewBoxIds.SequenceEqual(input.ViewBoxIds)
+                    this.ViewBoxIds.Equals(input.ViewBoxIds)
                 ) && 
                 (
                     this.Views == input.Views ||
                     this.Views != null &&
-                    input.Views != null &&
-                    this.Views.SequenceEqual(input.Views)
+                    this.Views.Equals(input.Views)
                 ) && 
                 (
                     this.VlanIfaceNames == input.VlanIfaceNames ||
                     this.VlanIfaceNames != null &&
-                    input.VlanIfaceNames != null &&
-                    this.VlanIfaceNames.SequenceEqual(input.VlanIfaceNames)
+                    this.VlanIfaceNames.Equals(input.VlanIfaceNames)
                 );
         }
 

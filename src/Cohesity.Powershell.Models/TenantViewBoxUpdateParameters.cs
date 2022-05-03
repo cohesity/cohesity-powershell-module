@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -25,10 +28,8 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="tenantId">Specifies the unique id of the tenant..</param>
         /// <param name="viewBoxIds">Specifies the ViewBoxIds for respective tenant..</param>
-        public TenantViewBoxUpdateParameters(string tenantId = default(string), List<long> viewBoxIds = default(List<long>))
+        public TenantViewBoxUpdateParameters(string tenantId = default(string), List<long?> viewBoxIds = default(List<long?>))
         {
-            this.TenantId = tenantId;
-            this.ViewBoxIds = viewBoxIds;
             this.TenantId = tenantId;
             this.ViewBoxIds = viewBoxIds;
         }
@@ -37,15 +38,15 @@ namespace Cohesity.Model
         /// Specifies the unique id of the tenant.
         /// </summary>
         /// <value>Specifies the unique id of the tenant.</value>
-        [DataMember(Name="tenantId", EmitDefaultValue=true)]
+        [DataMember(Name="tenantId", EmitDefaultValue=false)]
         public string TenantId { get; set; }
 
         /// <summary>
         /// Specifies the ViewBoxIds for respective tenant.
         /// </summary>
         /// <value>Specifies the ViewBoxIds for respective tenant.</value>
-        [DataMember(Name="viewBoxIds", EmitDefaultValue=true)]
-        public List<long> ViewBoxIds { get; set; }
+        [DataMember(Name="viewBoxIds", EmitDefaultValue=false)]
+        public List<long?> ViewBoxIds { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -91,8 +92,7 @@ namespace Cohesity.Model
                 (
                     this.ViewBoxIds == input.ViewBoxIds ||
                     this.ViewBoxIds != null &&
-                    input.ViewBoxIds != null &&
-                    this.ViewBoxIds.SequenceEqual(input.ViewBoxIds)
+                    this.ViewBoxIds.Equals(input.ViewBoxIds)
                 );
         }
 

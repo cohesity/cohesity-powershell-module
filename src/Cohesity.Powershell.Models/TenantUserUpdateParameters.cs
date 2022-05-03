@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.Sids = sids;
             this.TenantId = tenantId;
-            this.Sids = sids;
-            this.TenantId = tenantId;
         }
         
         /// <summary>
         /// Specifies the array of Sid of the users.
         /// </summary>
         /// <value>Specifies the array of Sid of the users.</value>
-        [DataMember(Name="sids", EmitDefaultValue=true)]
+        [DataMember(Name="sids", EmitDefaultValue=false)]
         public List<string> Sids { get; set; }
 
         /// <summary>
         /// Specifies the unique id of the tenant.
         /// </summary>
         /// <value>Specifies the unique id of the tenant.</value>
-        [DataMember(Name="tenantId", EmitDefaultValue=true)]
+        [DataMember(Name="tenantId", EmitDefaultValue=false)]
         public string TenantId { get; set; }
 
         /// <summary>
@@ -86,8 +87,7 @@ namespace Cohesity.Model
                 (
                     this.Sids == input.Sids ||
                     this.Sids != null &&
-                    input.Sids != null &&
-                    this.Sids.SequenceEqual(input.Sids)
+                    this.Sids.Equals(input.Sids)
                 ) && 
                 (
                     this.TenantId == input.TenantId ||

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -33,38 +36,34 @@ namespace Cohesity.Model
             this.BeforeCursorEntityId = beforeCursorEntityId;
             this.NodeId = nodeId;
             this.PageSize = pageSize;
-            this.AfterCursorEntityId = afterCursorEntityId;
-            this.BeforeCursorEntityId = beforeCursorEntityId;
-            this.NodeId = nodeId;
-            this.PageSize = pageSize;
         }
         
         /// <summary>
         /// Specifies the entity id starting from which the items are to be returned.
         /// </summary>
         /// <value>Specifies the entity id starting from which the items are to be returned.</value>
-        [DataMember(Name="afterCursorEntityId", EmitDefaultValue=true)]
+        [DataMember(Name="afterCursorEntityId", EmitDefaultValue=false)]
         public long? AfterCursorEntityId { get; set; }
 
         /// <summary>
         /// Specifies the entity id upto which the items are to be returned.
         /// </summary>
         /// <value>Specifies the entity id upto which the items are to be returned.</value>
-        [DataMember(Name="beforeCursorEntityId", EmitDefaultValue=true)]
+        [DataMember(Name="beforeCursorEntityId", EmitDefaultValue=false)]
         public long? BeforeCursorEntityId { get; set; }
 
         /// <summary>
         /// Specifies the entity id for the Node at any level within the Source entity hierarchy whose children are to be paginated.
         /// </summary>
         /// <value>Specifies the entity id for the Node at any level within the Source entity hierarchy whose children are to be paginated.</value>
-        [DataMember(Name="nodeId", EmitDefaultValue=true)]
+        [DataMember(Name="nodeId", EmitDefaultValue=false)]
         public long? NodeId { get; set; }
 
         /// <summary>
         /// Specifies the maximum number of entities to be returned within the page.
         /// </summary>
         /// <value>Specifies the maximum number of entities to be returned within the page.</value>
-        [DataMember(Name="pageSize", EmitDefaultValue=true)]
+        [DataMember(Name="pageSize", EmitDefaultValue=false)]
         public long? PageSize { get; set; }
 
         /// <summary>

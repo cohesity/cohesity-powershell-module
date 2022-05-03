@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.EndIp = endIp;
             this.StartIp = startIp;
-            this.EndIp = endIp;
-            this.StartIp = startIp;
         }
         
         /// <summary>
         /// Optional End IP of the range If not specified, EndIp is same as StartIp
         /// </summary>
         /// <value>Optional End IP of the range If not specified, EndIp is same as StartIp</value>
-        [DataMember(Name="endIp", EmitDefaultValue=true)]
+        [DataMember(Name="endIp", EmitDefaultValue=false)]
         public string EndIp { get; set; }
 
         /// <summary>
         /// Start IP of the range
         /// </summary>
         /// <value>Start IP of the range</value>
-        [DataMember(Name="startIp", EmitDefaultValue=true)]
+        [DataMember(Name="startIp", EmitDefaultValue=false)]
         public string StartIp { get; set; }
 
         /// <summary>

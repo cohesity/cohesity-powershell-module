@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -25,11 +28,12 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="copyTaskUid">copyTaskUid.</param>
         /// <param name="jobRunId">Run Id of a Protection Job Run that needs to be cancelled. If this Run id does not match the id of an active Run in the Protection job, the job Run is not cancelled and an error will be returned..</param>
-        public CancelProtectionJobRunParam(UniversalId copyTaskUid = default(UniversalId), long? jobRunId = default(long?))
+        /// <param name="taskIdList">List of entity ids for which we need to cancel the backup tasks. If this is provided it will not cancel the complete run but will cancel only subset of backup tasks (if backup tasks are cancelled correspoding copy task will also get cancelled). If the backup tasks are completed successfully it will not cancel those backup tasks..</param>
+        public CancelProtectionJobRunParam(UniversalId copyTaskUid = default(UniversalId), long? jobRunId = default(long?), List<long?> taskIdList = default(List<long?>))
         {
-            this.JobRunId = jobRunId;
             this.CopyTaskUid = copyTaskUid;
             this.JobRunId = jobRunId;
+            this.TaskIdList = taskIdList;
         }
         
         /// <summary>
@@ -42,8 +46,15 @@ namespace Cohesity.Model
         /// Run Id of a Protection Job Run that needs to be cancelled. If this Run id does not match the id of an active Run in the Protection job, the job Run is not cancelled and an error will be returned.
         /// </summary>
         /// <value>Run Id of a Protection Job Run that needs to be cancelled. If this Run id does not match the id of an active Run in the Protection job, the job Run is not cancelled and an error will be returned.</value>
-        [DataMember(Name="jobRunId", EmitDefaultValue=true)]
+        [DataMember(Name="jobRunId", EmitDefaultValue=false)]
         public long? JobRunId { get; set; }
+
+        /// <summary>
+        /// List of entity ids for which we need to cancel the backup tasks. If this is provided it will not cancel the complete run but will cancel only subset of backup tasks (if backup tasks are cancelled correspoding copy task will also get cancelled). If the backup tasks are completed successfully it will not cancel those backup tasks.
+        /// </summary>
+        /// <value>List of entity ids for which we need to cancel the backup tasks. If this is provided it will not cancel the complete run but will cancel only subset of backup tasks (if backup tasks are cancelled correspoding copy task will also get cancelled). If the backup tasks are completed successfully it will not cancel those backup tasks.</value>
+        [DataMember(Name="taskIdList", EmitDefaultValue=false)]
+        public List<long?> TaskIdList { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -90,6 +101,11 @@ namespace Cohesity.Model
                     this.JobRunId == input.JobRunId ||
                     (this.JobRunId != null &&
                     this.JobRunId.Equals(input.JobRunId))
+                ) && 
+                (
+                    this.TaskIdList == input.TaskIdList ||
+                    this.TaskIdList != null &&
+                    this.TaskIdList.Equals(input.TaskIdList)
                 );
         }
 
@@ -106,6 +122,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.CopyTaskUid.GetHashCode();
                 if (this.JobRunId != null)
                     hashCode = hashCode * 59 + this.JobRunId.GetHashCode();
+                if (this.TaskIdList != null)
+                    hashCode = hashCode * 59 + this.TaskIdList.GetHashCode();
                 return hashCode;
             }
         }

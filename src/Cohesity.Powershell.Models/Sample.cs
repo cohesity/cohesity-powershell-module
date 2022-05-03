@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,30 +34,27 @@ namespace Cohesity.Model
             this.FloatValue = floatValue;
             this.TimestampMsecs = timestampMsecs;
             this.Value = value;
-            this.FloatValue = floatValue;
-            this.TimestampMsecs = timestampMsecs;
-            this.Value = value;
         }
         
         /// <summary>
         /// Specifies the value of the data sample if the type is float64. This field is nil if the type of the data is not a float value.
         /// </summary>
         /// <value>Specifies the value of the data sample if the type is float64. This field is nil if the type of the data is not a float value.</value>
-        [DataMember(Name="floatValue", EmitDefaultValue=true)]
+        [DataMember(Name="floatValue", EmitDefaultValue=false)]
         public double? FloatValue { get; set; }
 
         /// <summary>
         /// Specifies the timestamp when the data sample occured.
         /// </summary>
         /// <value>Specifies the timestamp when the data sample occured.</value>
-        [DataMember(Name="timestampMsecs", EmitDefaultValue=true)]
+        [DataMember(Name="timestampMsecs", EmitDefaultValue=false)]
         public long? TimestampMsecs { get; set; }
 
         /// <summary>
         /// Specifies the value of the data sample if the type is int64. This field is nil if the type of the data is not an int value.
         /// </summary>
         /// <value>Specifies the value of the data sample if the type is int64. This field is nil if the type of the data is not an int value.</value>
-        [DataMember(Name="value", EmitDefaultValue=true)]
+        [DataMember(Name="value", EmitDefaultValue=false)]
         public long? Value { get; set; }
 
         /// <summary>

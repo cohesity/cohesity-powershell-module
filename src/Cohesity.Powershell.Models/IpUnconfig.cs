@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -26,11 +29,8 @@ namespace Cohesity.Model
         /// <param name="ipFamily">IpFamily of this config..</param>
         /// <param name="interfaceName">The interface name..</param>
         /// <param name="nodeIds">Node ids..</param>
-        public IpUnconfig(int? ipFamily = default(int?), string interfaceName = default(string), List<long> nodeIds = default(List<long>))
+        public IpUnconfig(int? ipFamily = default(int?), string interfaceName = default(string), List<long?> nodeIds = default(List<long?>))
         {
-            this.IpFamily = ipFamily;
-            this.InterfaceName = interfaceName;
-            this.NodeIds = nodeIds;
             this.IpFamily = ipFamily;
             this.InterfaceName = interfaceName;
             this.NodeIds = nodeIds;
@@ -40,22 +40,22 @@ namespace Cohesity.Model
         /// IpFamily of this config.
         /// </summary>
         /// <value>IpFamily of this config.</value>
-        [DataMember(Name="IpFamily", EmitDefaultValue=true)]
+        [DataMember(Name="IpFamily", EmitDefaultValue=false)]
         public int? IpFamily { get; set; }
 
         /// <summary>
         /// The interface name.
         /// </summary>
         /// <value>The interface name.</value>
-        [DataMember(Name="interfaceName", EmitDefaultValue=true)]
+        [DataMember(Name="interfaceName", EmitDefaultValue=false)]
         public string InterfaceName { get; set; }
 
         /// <summary>
         /// Node ids.
         /// </summary>
         /// <value>Node ids.</value>
-        [DataMember(Name="nodeIds", EmitDefaultValue=true)]
-        public List<long> NodeIds { get; set; }
+        [DataMember(Name="nodeIds", EmitDefaultValue=false)]
+        public List<long?> NodeIds { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -106,8 +106,7 @@ namespace Cohesity.Model
                 (
                     this.NodeIds == input.NodeIds ||
                     this.NodeIds != null &&
-                    input.NodeIds != null &&
-                    this.NodeIds.SequenceEqual(input.NodeIds)
+                    this.NodeIds.Equals(input.NodeIds)
                 );
         }
 

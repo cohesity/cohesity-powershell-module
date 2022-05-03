@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,30 +34,27 @@ namespace Cohesity.Model
             this.ClusterId = clusterId;
             this.ClusterIncarnationId = clusterIncarnationId;
             this.Id = id;
-            this.ClusterId = clusterId;
-            this.ClusterIncarnationId = clusterIncarnationId;
-            this.Id = id;
         }
         
         /// <summary>
         /// Specifies the Cohesity Cluster id where the object was created.
         /// </summary>
         /// <value>Specifies the Cohesity Cluster id where the object was created.</value>
-        [DataMember(Name="clusterId", EmitDefaultValue=true)]
+        [DataMember(Name="clusterId", EmitDefaultValue=false)]
         public long? ClusterId { get; set; }
 
         /// <summary>
         /// Specifies an id for the Cohesity Cluster that is generated when a Cohesity Cluster is initially created.
         /// </summary>
         /// <value>Specifies an id for the Cohesity Cluster that is generated when a Cohesity Cluster is initially created.</value>
-        [DataMember(Name="clusterIncarnationId", EmitDefaultValue=true)]
+        [DataMember(Name="clusterIncarnationId", EmitDefaultValue=false)]
         public long? ClusterIncarnationId { get; set; }
 
         /// <summary>
         /// Specifies a unique id assigned to an object (such as a Job) by the Cohesity Cluster.
         /// </summary>
         /// <value>Specifies a unique id assigned to an object (such as a Job) by the Cohesity Cluster.</value>
-        [DataMember(Name="id", EmitDefaultValue=true)]
+        [DataMember(Name="id", EmitDefaultValue=false)]
         public long? Id { get; set; }
 
         /// <summary>

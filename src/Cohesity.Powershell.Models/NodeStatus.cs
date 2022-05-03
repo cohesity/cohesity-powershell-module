@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -33,38 +36,34 @@ namespace Cohesity.Model
             this.IpmiIp = ipmiIp;
             this.NodeId = nodeId;
             this.NodeIp = nodeIp;
-            this.ErrorMessage = errorMessage;
-            this.IpmiIp = ipmiIp;
-            this.NodeId = nodeId;
-            this.NodeIp = nodeIp;
         }
         
         /// <summary>
         /// Specifies an optional message relating to the node status.
         /// </summary>
         /// <value>Specifies an optional message relating to the node status.</value>
-        [DataMember(Name="errorMessage", EmitDefaultValue=true)]
+        [DataMember(Name="errorMessage", EmitDefaultValue=false)]
         public string ErrorMessage { get; set; }
 
         /// <summary>
         /// Specifies the IPMI IP of the node (if physical cluster).
         /// </summary>
         /// <value>Specifies the IPMI IP of the node (if physical cluster).</value>
-        [DataMember(Name="ipmiIp", EmitDefaultValue=true)]
+        [DataMember(Name="ipmiIp", EmitDefaultValue=false)]
         public string IpmiIp { get; set; }
 
         /// <summary>
         /// Specifies the ID of the node.
         /// </summary>
         /// <value>Specifies the ID of the node.</value>
-        [DataMember(Name="nodeId", EmitDefaultValue=true)]
+        [DataMember(Name="nodeId", EmitDefaultValue=false)]
         public long? NodeId { get; set; }
 
         /// <summary>
         /// For physical nodes this will specify the IP address of the node.
         /// </summary>
         /// <value>For physical nodes this will specify the IP address of the node.</value>
-        [DataMember(Name="nodeIp", EmitDefaultValue=true)]
+        [DataMember(Name="nodeIp", EmitDefaultValue=false)]
         public string NodeIp { get; set; }
 
         /// <summary>

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.LastResult = lastResult;
             this.Views = views;
-            this.LastResult = lastResult;
-            this.Views = views;
         }
         
         /// <summary>
         /// If false, more Views are available to return. If the number of Views to return exceeds the number of Views specified in maxCount (default of 1000) of the original GET /public/views request, the first set of Views are returned and this field returns false. To get the next set of Views, in the next GET /public/views request send the last id from the previous viewList.
         /// </summary>
         /// <value>If false, more Views are available to return. If the number of Views to return exceeds the number of Views specified in maxCount (default of 1000) of the original GET /public/views request, the first set of Views are returned and this field returns false. To get the next set of Views, in the next GET /public/views request send the last id from the previous viewList.</value>
-        [DataMember(Name="lastResult", EmitDefaultValue=true)]
+        [DataMember(Name="lastResult", EmitDefaultValue=false)]
         public bool? LastResult { get; set; }
 
         /// <summary>
         /// Array of Views.  Specifies the list of Views returned in this response. The list is sorted by decreasing View ids.
         /// </summary>
         /// <value>Array of Views.  Specifies the list of Views returned in this response. The list is sorted by decreasing View ids.</value>
-        [DataMember(Name="views", EmitDefaultValue=true)]
+        [DataMember(Name="views", EmitDefaultValue=false)]
         public List<View> Views { get; set; }
 
         /// <summary>
@@ -91,8 +92,7 @@ namespace Cohesity.Model
                 (
                     this.Views == input.Views ||
                     this.Views != null &&
-                    input.Views != null &&
-                    this.Views.SequenceEqual(input.Views)
+                    this.Views.Equals(input.Views)
                 );
         }
 

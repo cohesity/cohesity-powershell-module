@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,14 +30,13 @@ namespace Cohesity.Model
         public CouchbaseCluster(List<string> seeds = default(List<string>))
         {
             this.Seeds = seeds;
-            this.Seeds = seeds;
         }
         
         /// <summary>
         /// Seeds of this Couchbase Cluster.
         /// </summary>
         /// <value>Seeds of this Couchbase Cluster.</value>
-        [DataMember(Name="seeds", EmitDefaultValue=true)]
+        [DataMember(Name="seeds", EmitDefaultValue=false)]
         public List<string> Seeds { get; set; }
 
         /// <summary>
@@ -76,8 +78,7 @@ namespace Cohesity.Model
                 (
                     this.Seeds == input.Seeds ||
                     this.Seeds != null &&
-                    input.Seeds != null &&
-                    this.Seeds.SequenceEqual(input.Seeds)
+                    this.Seeds.Equals(input.Seeds)
                 );
         }
 

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,14 +30,13 @@ namespace Cohesity.Model
         public HBaseTable(long? approxSizeBytes = default(long?))
         {
             this.ApproxSizeBytes = approxSizeBytes;
-            this.ApproxSizeBytes = approxSizeBytes;
         }
         
         /// <summary>
         /// Specifies the approx size of the table in bytes.
         /// </summary>
         /// <value>Specifies the approx size of the table in bytes.</value>
-        [DataMember(Name="approxSizeBytes", EmitDefaultValue=true)]
+        [DataMember(Name="approxSizeBytes", EmitDefaultValue=false)]
         public long? ApproxSizeBytes { get; set; }
 
         /// <summary>

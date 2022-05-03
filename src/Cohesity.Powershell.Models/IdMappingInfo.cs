@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -28,7 +31,6 @@ namespace Cohesity.Model
         /// <param name="userIdMappingInfo">userIdMappingInfo.</param>
         public IdMappingInfo(UserIdMapping fallbackUserIdMappingInfo = default(UserIdMapping), string unixRootSid = default(string), UserIdMapping userIdMappingInfo = default(UserIdMapping))
         {
-            this.UnixRootSid = unixRootSid;
             this.FallbackUserIdMappingInfo = fallbackUserIdMappingInfo;
             this.UnixRootSid = unixRootSid;
             this.UserIdMappingInfo = userIdMappingInfo;
@@ -44,7 +46,7 @@ namespace Cohesity.Model
         /// Specifies the SID of the Active Directory domain user to be mapped to Unix root user.
         /// </summary>
         /// <value>Specifies the SID of the Active Directory domain user to be mapped to Unix root user.</value>
-        [DataMember(Name="unixRootSid", EmitDefaultValue=true)]
+        [DataMember(Name="unixRootSid", EmitDefaultValue=false)]
         public string UnixRootSid { get; set; }
 
         /// <summary>

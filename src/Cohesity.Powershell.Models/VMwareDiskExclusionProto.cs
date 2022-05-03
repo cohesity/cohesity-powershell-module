@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,30 +34,27 @@ namespace Cohesity.Model
             this.ControllerBusNumber = controllerBusNumber;
             this.ControllerType = controllerType;
             this.UnitNumber = unitNumber;
-            this.ControllerBusNumber = controllerBusNumber;
-            this.ControllerType = controllerType;
-            this.UnitNumber = unitNumber;
         }
         
         /// <summary>
         /// Controller&#39;s bus-id controlling the virtual disk in question.
         /// </summary>
         /// <value>Controller&#39;s bus-id controlling the virtual disk in question.</value>
-        [DataMember(Name="controllerBusNumber", EmitDefaultValue=true)]
+        [DataMember(Name="controllerBusNumber", EmitDefaultValue=false)]
         public long? ControllerBusNumber { get; set; }
 
         /// <summary>
         /// Controller&#39;s type (SCSI, IDE etc).
         /// </summary>
         /// <value>Controller&#39;s type (SCSI, IDE etc).</value>
-        [DataMember(Name="controllerType", EmitDefaultValue=true)]
+        [DataMember(Name="controllerType", EmitDefaultValue=false)]
         public string ControllerType { get; set; }
 
         /// <summary>
         /// Disk unit number to identify the virtual disk within a controller.
         /// </summary>
         /// <value>Disk unit number to identify the virtual disk within a controller.</value>
-        [DataMember(Name="unitNumber", EmitDefaultValue=true)]
+        [DataMember(Name="unitNumber", EmitDefaultValue=false)]
         public long? UnitNumber { get; set; }
 
         /// <summary>

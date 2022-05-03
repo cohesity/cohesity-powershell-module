@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -43,78 +46,69 @@ namespace Cohesity.Model
             this.NumNodesWithIssues = numNodesWithIssues;
             this.PercentFull = percentFull;
             this.RawUsedBytes = rawUsedBytes;
-            this.CapacityBytes = capacityBytes;
-            this.ClusterCloudUsageBytes = clusterCloudUsageBytes;
-            this.LastDayAlerts = lastDayAlerts;
-            this.LastDayNumCriticals = lastDayNumCriticals;
-            this.LastDayNumWarnings = lastDayNumWarnings;
-            this.NumNodes = numNodes;
-            this.NumNodesWithIssues = numNodesWithIssues;
-            this.PercentFull = percentFull;
-            this.RawUsedBytes = rawUsedBytes;
         }
         
         /// <summary>
         /// Raw Cluster Capacity in Bytes. This is not usable capacity and does not take replication factor into account.
         /// </summary>
         /// <value>Raw Cluster Capacity in Bytes. This is not usable capacity and does not take replication factor into account.</value>
-        [DataMember(Name="capacityBytes", EmitDefaultValue=true)]
+        [DataMember(Name="capacityBytes", EmitDefaultValue=false)]
         public long? CapacityBytes { get; set; }
 
         /// <summary>
         /// Usage in Bytes on the cloud.
         /// </summary>
         /// <value>Usage in Bytes on the cloud.</value>
-        [DataMember(Name="clusterCloudUsageBytes", EmitDefaultValue=true)]
+        [DataMember(Name="clusterCloudUsageBytes", EmitDefaultValue=false)]
         public long? ClusterCloudUsageBytes { get; set; }
 
         /// <summary>
         /// Alerts in last 24 hours.
         /// </summary>
         /// <value>Alerts in last 24 hours.</value>
-        [DataMember(Name="lastDayAlerts", EmitDefaultValue=true)]
+        [DataMember(Name="lastDayAlerts", EmitDefaultValue=false)]
         public List<Alert> LastDayAlerts { get; set; }
 
         /// <summary>
         /// Number of Critical Alerts.
         /// </summary>
         /// <value>Number of Critical Alerts.</value>
-        [DataMember(Name="lastDayNumCriticals", EmitDefaultValue=true)]
+        [DataMember(Name="lastDayNumCriticals", EmitDefaultValue=false)]
         public long? LastDayNumCriticals { get; set; }
 
         /// <summary>
         /// Number of Warning Alerts.
         /// </summary>
         /// <value>Number of Warning Alerts.</value>
-        [DataMember(Name="lastDayNumWarnings", EmitDefaultValue=true)]
+        [DataMember(Name="lastDayNumWarnings", EmitDefaultValue=false)]
         public long? LastDayNumWarnings { get; set; }
 
         /// <summary>
         /// Number of nodes in the cluster.
         /// </summary>
         /// <value>Number of nodes in the cluster.</value>
-        [DataMember(Name="numNodes", EmitDefaultValue=true)]
+        [DataMember(Name="numNodes", EmitDefaultValue=false)]
         public int? NumNodes { get; set; }
 
         /// <summary>
         /// Number of nodes in the cluster that are unhealthy.
         /// </summary>
         /// <value>Number of nodes in the cluster that are unhealthy.</value>
-        [DataMember(Name="numNodesWithIssues", EmitDefaultValue=true)]
+        [DataMember(Name="numNodesWithIssues", EmitDefaultValue=false)]
         public int? NumNodesWithIssues { get; set; }
 
         /// <summary>
         /// Percent the cluster is full.
         /// </summary>
         /// <value>Percent the cluster is full.</value>
-        [DataMember(Name="percentFull", EmitDefaultValue=true)]
+        [DataMember(Name="percentFull", EmitDefaultValue=false)]
         public float? PercentFull { get; set; }
 
         /// <summary>
         /// Raw Bytes used in the cluster.
         /// </summary>
         /// <value>Raw Bytes used in the cluster.</value>
-        [DataMember(Name="rawUsedBytes", EmitDefaultValue=true)]
+        [DataMember(Name="rawUsedBytes", EmitDefaultValue=false)]
         public long? RawUsedBytes { get; set; }
 
         /// <summary>
@@ -166,8 +160,7 @@ namespace Cohesity.Model
                 (
                     this.LastDayAlerts == input.LastDayAlerts ||
                     this.LastDayAlerts != null &&
-                    input.LastDayAlerts != null &&
-                    this.LastDayAlerts.SequenceEqual(input.LastDayAlerts)
+                    this.LastDayAlerts.Equals(input.LastDayAlerts)
                 ) && 
                 (
                     this.LastDayNumCriticals == input.LastDayNumCriticals ||

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -24,18 +27,15 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="ViewIdMappingProtoProtocolAccessInfo" /> class.
         /// </summary>
         /// <param name="iscsiAccess">Access control for iSCSI protocol for this view..</param>
+        /// <param name="nfs4Access">Access control for NFSv4.1 protocol for this view. NFSv4.1 will be disabled by default in all configurations..</param>
         /// <param name="nfsAccess">Access control for NFS protocol for this view..</param>
         /// <param name="s3Access">Access control for S3 protocol for this view..</param>
         /// <param name="smbAccess">Access control for SMB protocol for this view..</param>
         /// <param name="swiftAccess">Access control for Swift protocol for this view..</param>
-        public ViewIdMappingProtoProtocolAccessInfo(int? iscsiAccess = default(int?), int? nfsAccess = default(int?), int? s3Access = default(int?), int? smbAccess = default(int?), int? swiftAccess = default(int?))
+        public ViewIdMappingProtoProtocolAccessInfo(int? iscsiAccess = default(int?), int? nfs4Access = default(int?), int? nfsAccess = default(int?), int? s3Access = default(int?), int? smbAccess = default(int?), int? swiftAccess = default(int?))
         {
             this.IscsiAccess = iscsiAccess;
-            this.NfsAccess = nfsAccess;
-            this.S3Access = s3Access;
-            this.SmbAccess = smbAccess;
-            this.SwiftAccess = swiftAccess;
-            this.IscsiAccess = iscsiAccess;
+            this.Nfs4Access = nfs4Access;
             this.NfsAccess = nfsAccess;
             this.S3Access = s3Access;
             this.SmbAccess = smbAccess;
@@ -46,35 +46,42 @@ namespace Cohesity.Model
         /// Access control for iSCSI protocol for this view.
         /// </summary>
         /// <value>Access control for iSCSI protocol for this view.</value>
-        [DataMember(Name="iscsiAccess", EmitDefaultValue=true)]
+        [DataMember(Name="iscsiAccess", EmitDefaultValue=false)]
         public int? IscsiAccess { get; set; }
+
+        /// <summary>
+        /// Access control for NFSv4.1 protocol for this view. NFSv4.1 will be disabled by default in all configurations.
+        /// </summary>
+        /// <value>Access control for NFSv4.1 protocol for this view. NFSv4.1 will be disabled by default in all configurations.</value>
+        [DataMember(Name="nfs4Access", EmitDefaultValue=false)]
+        public int? Nfs4Access { get; set; }
 
         /// <summary>
         /// Access control for NFS protocol for this view.
         /// </summary>
         /// <value>Access control for NFS protocol for this view.</value>
-        [DataMember(Name="nfsAccess", EmitDefaultValue=true)]
+        [DataMember(Name="nfsAccess", EmitDefaultValue=false)]
         public int? NfsAccess { get; set; }
 
         /// <summary>
         /// Access control for S3 protocol for this view.
         /// </summary>
         /// <value>Access control for S3 protocol for this view.</value>
-        [DataMember(Name="s3Access", EmitDefaultValue=true)]
+        [DataMember(Name="s3Access", EmitDefaultValue=false)]
         public int? S3Access { get; set; }
 
         /// <summary>
         /// Access control for SMB protocol for this view.
         /// </summary>
         /// <value>Access control for SMB protocol for this view.</value>
-        [DataMember(Name="smbAccess", EmitDefaultValue=true)]
+        [DataMember(Name="smbAccess", EmitDefaultValue=false)]
         public int? SmbAccess { get; set; }
 
         /// <summary>
         /// Access control for Swift protocol for this view.
         /// </summary>
         /// <value>Access control for Swift protocol for this view.</value>
-        [DataMember(Name="swiftAccess", EmitDefaultValue=true)]
+        [DataMember(Name="swiftAccess", EmitDefaultValue=false)]
         public int? SwiftAccess { get; set; }
 
         /// <summary>
@@ -119,6 +126,11 @@ namespace Cohesity.Model
                     this.IscsiAccess.Equals(input.IscsiAccess))
                 ) && 
                 (
+                    this.Nfs4Access == input.Nfs4Access ||
+                    (this.Nfs4Access != null &&
+                    this.Nfs4Access.Equals(input.Nfs4Access))
+                ) && 
+                (
                     this.NfsAccess == input.NfsAccess ||
                     (this.NfsAccess != null &&
                     this.NfsAccess.Equals(input.NfsAccess))
@@ -151,6 +163,8 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.IscsiAccess != null)
                     hashCode = hashCode * 59 + this.IscsiAccess.GetHashCode();
+                if (this.Nfs4Access != null)
+                    hashCode = hashCode * 59 + this.Nfs4Access.GetHashCode();
                 if (this.NfsAccess != null)
                     hashCode = hashCode * 59 + this.NfsAccess.GetHashCode();
                 if (this.S3Access != null)

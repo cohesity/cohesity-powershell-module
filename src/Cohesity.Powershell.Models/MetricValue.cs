@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -30,8 +33,6 @@ namespace Cohesity.Model
         {
             this.MetricName = metricName;
             this.TimestampMsecs = timestampMsecs;
-            this.MetricName = metricName;
-            this.TimestampMsecs = timestampMsecs;
             this.Value = value;
         }
         
@@ -39,14 +40,14 @@ namespace Cohesity.Model
         /// Specifies the metric name.
         /// </summary>
         /// <value>Specifies the metric name.</value>
-        [DataMember(Name="metricName", EmitDefaultValue=true)]
+        [DataMember(Name="metricName", EmitDefaultValue=false)]
         public string MetricName { get; set; }
 
         /// <summary>
         /// Specifies the creation time of a data point as a Unix epoch Timestamp (in milliseconds).
         /// </summary>
         /// <value>Specifies the creation time of a data point as a Unix epoch Timestamp (in milliseconds).</value>
-        [DataMember(Name="timestampMsecs", EmitDefaultValue=true)]
+        [DataMember(Name="timestampMsecs", EmitDefaultValue=false)]
         public long? TimestampMsecs { get; set; }
 
         /// <summary>

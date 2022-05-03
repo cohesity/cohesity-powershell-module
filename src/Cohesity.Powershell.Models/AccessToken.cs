@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,30 +34,27 @@ namespace Cohesity.Model
             this._AccessToken = accessToken;
             this.Privileges = privileges;
             this.TokenType = tokenType;
-            this._AccessToken = accessToken;
-            this.Privileges = privileges;
-            this.TokenType = tokenType;
         }
         
         /// <summary>
         /// Generated access token.
         /// </summary>
         /// <value>Generated access token.</value>
-        [DataMember(Name="accessToken", EmitDefaultValue=true)]
+        [DataMember(Name="accessToken", EmitDefaultValue=false)]
         public string _AccessToken { get; set; }
 
         /// <summary>
         /// Privileges for the user.
         /// </summary>
         /// <value>Privileges for the user.</value>
-        [DataMember(Name="privileges", EmitDefaultValue=true)]
+        [DataMember(Name="privileges", EmitDefaultValue=false)]
         public List<string> Privileges { get; set; }
 
         /// <summary>
         /// Access token type.
         /// </summary>
         /// <value>Access token type.</value>
-        [DataMember(Name="tokenType", EmitDefaultValue=true)]
+        [DataMember(Name="tokenType", EmitDefaultValue=false)]
         public string TokenType { get; set; }
 
         /// <summary>
@@ -101,8 +101,7 @@ namespace Cohesity.Model
                 (
                     this.Privileges == input.Privileges ||
                     this.Privileges != null &&
-                    input.Privileges != null &&
-                    this.Privileges.SequenceEqual(input.Privileges)
+                    this.Privileges.Equals(input.Privileges)
                 ) && 
                 (
                     this.TokenType == input.TokenType ||

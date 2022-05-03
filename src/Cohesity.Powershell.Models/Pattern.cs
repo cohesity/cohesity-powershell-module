@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -33,38 +36,34 @@ namespace Cohesity.Model
             this.Name = name;
             this.Type = type;
             this.Value = value;
-            this.IsSystemDefined = isSystemDefined;
-            this.Name = name;
-            this.Type = type;
-            this.Value = value;
         }
         
         /// <summary>
         /// Whether this pattern is system defined.
         /// </summary>
         /// <value>Whether this pattern is system defined.</value>
-        [DataMember(Name="isSystemDefined", EmitDefaultValue=true)]
+        [DataMember(Name="isSystemDefined", EmitDefaultValue=false)]
         public bool? IsSystemDefined { get; set; }
 
         /// <summary>
         /// Name of the pattern. This is marked optional but is required.
         /// </summary>
         /// <value>Name of the pattern. This is marked optional but is required.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
 
         /// <summary>
         /// Pattern type.
         /// </summary>
         /// <value>Pattern type.</value>
-        [DataMember(Name="type", EmitDefaultValue=true)]
+        [DataMember(Name="type", EmitDefaultValue=false)]
         public int? Type { get; set; }
 
         /// <summary>
         /// Value of the pattern. This is marked optional but is required.
         /// </summary>
         /// <value>Value of the pattern. This is marked optional but is required.</value>
-        [DataMember(Name="value", EmitDefaultValue=true)]
+        [DataMember(Name="value", EmitDefaultValue=false)]
         public string Value { get; set; }
 
         /// <summary>

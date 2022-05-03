@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,14 +30,13 @@ namespace Cohesity.Model
         public ActivateViewAliasesResult(List<ViewAlias> aliases = default(List<ViewAlias>))
         {
             this.Aliases = aliases;
-            this.Aliases = aliases;
         }
         
         /// <summary>
         /// Aliases created for the view. A view alias allows a directory path inside a view to be mounted using the alias name.
         /// </summary>
         /// <value>Aliases created for the view. A view alias allows a directory path inside a view to be mounted using the alias name.</value>
-        [DataMember(Name="aliases", EmitDefaultValue=true)]
+        [DataMember(Name="aliases", EmitDefaultValue=false)]
         public List<ViewAlias> Aliases { get; set; }
 
         /// <summary>
@@ -76,8 +78,7 @@ namespace Cohesity.Model
                 (
                     this.Aliases == input.Aliases ||
                     this.Aliases != null &&
-                    input.Aliases != null &&
-                    this.Aliases.SequenceEqual(input.Aliases)
+                    this.Aliases.Equals(input.Aliases)
                 );
         }
 

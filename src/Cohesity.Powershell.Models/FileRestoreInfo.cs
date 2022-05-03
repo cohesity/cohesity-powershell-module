@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,8 +32,6 @@ namespace Cohesity.Model
         /// <param name="isFolder">Specifies whether the file path is a folder..</param>
         public FileRestoreInfo(RequestError error = default(RequestError), string filename = default(string), FilesystemVolume filesystemVolume = default(FilesystemVolume), bool? isFolder = default(bool?))
         {
-            this.Filename = filename;
-            this.IsFolder = isFolder;
             this.Error = error;
             this.Filename = filename;
             this.FilesystemVolume = filesystemVolume;
@@ -47,7 +48,7 @@ namespace Cohesity.Model
         /// Specifies the path of the file/directory.
         /// </summary>
         /// <value>Specifies the path of the file/directory.</value>
-        [DataMember(Name="filename", EmitDefaultValue=true)]
+        [DataMember(Name="filename", EmitDefaultValue=false)]
         public string Filename { get; set; }
 
         /// <summary>
@@ -60,7 +61,7 @@ namespace Cohesity.Model
         /// Specifies whether the file path is a folder.
         /// </summary>
         /// <value>Specifies whether the file path is a folder.</value>
-        [DataMember(Name="isFolder", EmitDefaultValue=true)]
+        [DataMember(Name="isFolder", EmitDefaultValue=false)]
         public bool? IsFolder { get; set; }
 
         /// <summary>

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -63,7 +66,7 @@ namespace Cohesity.Model
         /// Specifies the SearchResultFlags of the AD object. &#39;kEqual&#39; indicates the AD Object from Snapshot and Production AD are equal. &#39;kNotEqual&#39; indicates the AD Object from snapshot and production AD are not equal. &#39;kRestorePasswordRequired&#39; indicates when restoring this AD Object from Snapshot AD to Production AD, a password is required. &#39;kMovedOnDestination&#39; indicates the object has moved to another container or OU in Production AD compared to  Snapshot AD. &#39;kDisableSupported&#39; indicates the enable and disable is supported on the AD Object. AD Objects of type &#39;User&#39; and &#39;Computers&#39; support this operation.
         /// </summary>
         /// <value>Specifies the SearchResultFlags of the AD object. &#39;kEqual&#39; indicates the AD Object from Snapshot and Production AD are equal. &#39;kNotEqual&#39; indicates the AD Object from snapshot and production AD are not equal. &#39;kRestorePasswordRequired&#39; indicates when restoring this AD Object from Snapshot AD to Production AD, a password is required. &#39;kMovedOnDestination&#39; indicates the object has moved to another container or OU in Production AD compared to  Snapshot AD. &#39;kDisableSupported&#39; indicates the enable and disable is supported on the AD Object. AD Objects of type &#39;User&#39; and &#39;Computers&#39; support this operation.</value>
-        [DataMember(Name="searchResultFlags", EmitDefaultValue=true)]
+        [DataMember(Name="searchResultFlags", EmitDefaultValue=false)]
         public List<SearchResultFlagsEnum> SearchResultFlags { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="ADObject" /> class.
@@ -86,63 +89,56 @@ namespace Cohesity.Model
             this.ObjectClass = objectClass;
             this.SearchResultFlags = searchResultFlags;
             this.SourceGuid = sourceGuid;
-            this.Description = description;
-            this.DestinationGuid = destinationGuid;
-            this.DisplayName = displayName;
-            this.DistinguishedName = distinguishedName;
-            this.ErrorMessage = errorMessage;
-            this.ObjectClass = objectClass;
-            this.SearchResultFlags = searchResultFlags;
-            this.SourceGuid = sourceGuid;
         }
         
         /// <summary>
         /// Specifies the &#39;description&#39; of an AD object.
         /// </summary>
         /// <value>Specifies the &#39;description&#39; of an AD object.</value>
-        [DataMember(Name="description", EmitDefaultValue=true)]
+        [DataMember(Name="description", EmitDefaultValue=false)]
         public string Description { get; set; }
 
         /// <summary>
         /// Specifies the guid of object in the Production AD which is equivalent to the object in the Snapshot AD.
         /// </summary>
         /// <value>Specifies the guid of object in the Production AD which is equivalent to the object in the Snapshot AD.</value>
-        [DataMember(Name="destinationGuid", EmitDefaultValue=true)]
+        [DataMember(Name="destinationGuid", EmitDefaultValue=false)]
         public string DestinationGuid { get; set; }
 
         /// <summary>
         /// Specifies the display name of the AD object.
         /// </summary>
         /// <value>Specifies the display name of the AD object.</value>
-        [DataMember(Name="displayName", EmitDefaultValue=true)]
+        [DataMember(Name="displayName", EmitDefaultValue=false)]
         public string DisplayName { get; set; }
 
         /// <summary>
         /// Specifies the distinguished name of the AD object. Eg: CN&#x3D;Jone Doe,OU&#x3D;Users,DC&#x3D;corp,DC&#x3D;cohesity,DC&#x3D;com
         /// </summary>
         /// <value>Specifies the distinguished name of the AD object. Eg: CN&#x3D;Jone Doe,OU&#x3D;Users,DC&#x3D;corp,DC&#x3D;cohesity,DC&#x3D;com</value>
-        [DataMember(Name="distinguishedName", EmitDefaultValue=true)]
+        [DataMember(Name="distinguishedName", EmitDefaultValue=false)]
         public string DistinguishedName { get; set; }
 
         /// <summary>
         /// Specifies the error message while fetching the AD object.
         /// </summary>
         /// <value>Specifies the error message while fetching the AD object.</value>
-        [DataMember(Name="errorMessage", EmitDefaultValue=true)]
+        [DataMember(Name="errorMessage", EmitDefaultValue=false)]
         public string ErrorMessage { get; set; }
 
         /// <summary>
         /// Specifies the class name of an AD Object such as &#39;user&#39;,&#39;computer&#39;, &#39;organizationalUnit&#39;.
         /// </summary>
         /// <value>Specifies the class name of an AD Object such as &#39;user&#39;,&#39;computer&#39;, &#39;organizationalUnit&#39;.</value>
-        [DataMember(Name="objectClass", EmitDefaultValue=true)]
+        [DataMember(Name="objectClass", EmitDefaultValue=false)]
         public string ObjectClass { get; set; }
+
 
         /// <summary>
         /// Specifies the guid of the AD object in Snapshot AD.
         /// </summary>
         /// <value>Specifies the guid of the AD object in Snapshot AD.</value>
-        [DataMember(Name="sourceGuid", EmitDefaultValue=true)]
+        [DataMember(Name="sourceGuid", EmitDefaultValue=false)]
         public string SourceGuid { get; set; }
 
         /// <summary>
@@ -213,7 +209,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.SearchResultFlags == input.SearchResultFlags ||
-                    this.SearchResultFlags.SequenceEqual(input.SearchResultFlags)
+                    this.SearchResultFlags != null &&
+                    this.SearchResultFlags.Equals(input.SearchResultFlags)
                 ) && 
                 (
                     this.SourceGuid == input.SourceGuid ||
@@ -243,7 +240,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ErrorMessage.GetHashCode();
                 if (this.ObjectClass != null)
                     hashCode = hashCode * 59 + this.ObjectClass.GetHashCode();
-                hashCode = hashCode * 59 + this.SearchResultFlags.GetHashCode();
+                if (this.SearchResultFlags != null)
+                    hashCode = hashCode * 59 + this.SearchResultFlags.GetHashCode();
                 if (this.SourceGuid != null)
                     hashCode = hashCode * 59 + this.SourceGuid.GetHashCode();
                 return hashCode;

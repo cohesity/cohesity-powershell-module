@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -32,7 +35,6 @@ namespace Cohesity.Model
         /// <param name="qstar">qstar.</param>
         public VaultConfig(AmazonCloudCredentials amazon = default(AmazonCloudCredentials), AzureCloudCredentials azure = default(AzureCloudCredentials), string bucketName = default(string), GoogleCloudCredentials google = default(GoogleCloudCredentials), NasCredentials nas = default(NasCredentials), OracleCloudCredentials oracle = default(OracleCloudCredentials), QStarServerCredentials qstar = default(QStarServerCredentials))
         {
-            this.BucketName = bucketName;
             this.Amazon = amazon;
             this.Azure = azure;
             this.BucketName = bucketName;
@@ -58,7 +60,7 @@ namespace Cohesity.Model
         /// Specifies the name of a storage location of the Vault, where objects are stored. For Google and AMS, this storage location is called a bucket. For Microsoft Azure, this storage location is called a container. For QStar and NAS, you do not specify a storage location.
         /// </summary>
         /// <value>Specifies the name of a storage location of the Vault, where objects are stored. For Google and AMS, this storage location is called a bucket. For Microsoft Azure, this storage location is called a container. For QStar and NAS, you do not specify a storage location.</value>
-        [DataMember(Name="bucketName", EmitDefaultValue=true)]
+        [DataMember(Name="bucketName", EmitDefaultValue=false)]
         public string BucketName { get; set; }
 
         /// <summary>

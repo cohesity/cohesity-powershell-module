@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.IfaceName = ifaceName;
             this.ProductModelName = productModelName;
-            this.IfaceName = ifaceName;
-            this.ProductModelName = productModelName;
         }
         
         /// <summary>
         /// Specifies the name of the interface.
         /// </summary>
         /// <value>Specifies the name of the interface.</value>
-        [DataMember(Name="ifaceName", EmitDefaultValue=true)]
+        [DataMember(Name="ifaceName", EmitDefaultValue=false)]
         public string IfaceName { get; set; }
 
         /// <summary>
         /// Specifies the product model name.
         /// </summary>
         /// <value>Specifies the product model name.</value>
-        [DataMember(Name="productModelName", EmitDefaultValue=true)]
+        [DataMember(Name="productModelName", EmitDefaultValue=false)]
         public string ProductModelName { get; set; }
 
         /// <summary>

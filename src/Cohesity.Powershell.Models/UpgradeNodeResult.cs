@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.Message = message;
             this.StatusUrl = statusUrl;
-            this.Message = message;
-            this.StatusUrl = statusUrl;
         }
         
         /// <summary>
         /// Specifies a message describing the result of the request.
         /// </summary>
         /// <value>Specifies a message describing the result of the request.</value>
-        [DataMember(Name="message", EmitDefaultValue=true)]
+        [DataMember(Name="message", EmitDefaultValue=false)]
         public string Message { get; set; }
 
         /// <summary>
         /// Specifies a URL that can be queried to get the status of the operation once it has begun.
         /// </summary>
         /// <value>Specifies a URL that can be queried to get the status of the operation once it has begun.</value>
-        [DataMember(Name="statusUrl", EmitDefaultValue=true)]
+        [DataMember(Name="statusUrl", EmitDefaultValue=false)]
         public string StatusUrl { get; set; }
 
         /// <summary>

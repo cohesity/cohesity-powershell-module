@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -37,54 +40,48 @@ namespace Cohesity.Model
             this.UseExistingAgent = useExistingAgent;
             this.Username = username;
             this.VolumeNames = volumeNames;
-            this.BringDisksOnline = bringDisksOnline;
-            this.Password = password;
-            this.TargetSourceId = targetSourceId;
-            this.UseExistingAgent = useExistingAgent;
-            this.Username = username;
-            this.VolumeNames = volumeNames;
         }
         
         /// <summary>
         /// Optional setting that determines if the volumes are brought online on the mount target after attaching the disks. This field is only set for VMs. The Cohesity Cluster always attempts to mount Physical servers. If true and the mount target is a VM, to mount the volumes VMware Tools must be installed on the guest operating system of the VM and login credentials to the mount target must be specified. NOTE: If automount is configured for a Windows system, the volumes may be automatically brought online.
         /// </summary>
         /// <value>Optional setting that determines if the volumes are brought online on the mount target after attaching the disks. This field is only set for VMs. The Cohesity Cluster always attempts to mount Physical servers. If true and the mount target is a VM, to mount the volumes VMware Tools must be installed on the guest operating system of the VM and login credentials to the mount target must be specified. NOTE: If automount is configured for a Windows system, the volumes may be automatically brought online.</value>
-        [DataMember(Name="bringDisksOnline", EmitDefaultValue=true)]
+        [DataMember(Name="bringDisksOnline", EmitDefaultValue=false)]
         public bool? BringDisksOnline { get; set; }
 
         /// <summary>
         /// Specifies password of the username to access the target source.
         /// </summary>
         /// <value>Specifies password of the username to access the target source.</value>
-        [DataMember(Name="password", EmitDefaultValue=true)]
+        [DataMember(Name="password", EmitDefaultValue=false)]
         public string Password { get; set; }
 
         /// <summary>
         /// Specifies the target Protection Source id where the volumes will be mounted. NOTE: The source that was backed up and the mount target must be the same type, for example if the source is a VMware VM, then the mount target must also be a VMware VM. The mount target must be registered on the Cohesity Cluster.
         /// </summary>
         /// <value>Specifies the target Protection Source id where the volumes will be mounted. NOTE: The source that was backed up and the mount target must be the same type, for example if the source is a VMware VM, then the mount target must also be a VMware VM. The mount target must be registered on the Cohesity Cluster.</value>
-        [DataMember(Name="targetSourceId", EmitDefaultValue=true)]
+        [DataMember(Name="targetSourceId", EmitDefaultValue=false)]
         public long? TargetSourceId { get; set; }
 
         /// <summary>
         /// Optional setting that determines if this will use an existing agent on the target vm to bring disks online.
         /// </summary>
         /// <value>Optional setting that determines if this will use an existing agent on the target vm to bring disks online.</value>
-        [DataMember(Name="useExistingAgent", EmitDefaultValue=true)]
+        [DataMember(Name="useExistingAgent", EmitDefaultValue=false)]
         public bool? UseExistingAgent { get; set; }
 
         /// <summary>
         /// Specifies username to access the target source.
         /// </summary>
         /// <value>Specifies username to access the target source.</value>
-        [DataMember(Name="username", EmitDefaultValue=true)]
+        [DataMember(Name="username", EmitDefaultValue=false)]
         public string Username { get; set; }
 
         /// <summary>
         /// Array of Volume Names.  Optionally specify the names of volumes to mount. If none are specified, all volumes of the Server are mounted on the target. To get the names of the volumes, call the GET /public/restore/vms/volumesInformation operation.
         /// </summary>
         /// <value>Array of Volume Names.  Optionally specify the names of volumes to mount. If none are specified, all volumes of the Server are mounted on the target. To get the names of the volumes, call the GET /public/restore/vms/volumesInformation operation.</value>
-        [DataMember(Name="volumeNames", EmitDefaultValue=true)]
+        [DataMember(Name="volumeNames", EmitDefaultValue=false)]
         public List<string> VolumeNames { get; set; }
 
         /// <summary>
@@ -151,8 +148,7 @@ namespace Cohesity.Model
                 (
                     this.VolumeNames == input.VolumeNames ||
                     this.VolumeNames != null &&
-                    input.VolumeNames != null &&
-                    this.VolumeNames.SequenceEqual(input.VolumeNames)
+                    this.VolumeNames.Equals(input.VolumeNames)
                 );
         }
 

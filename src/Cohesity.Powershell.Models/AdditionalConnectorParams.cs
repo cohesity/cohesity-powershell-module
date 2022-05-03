@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,7 +30,6 @@ namespace Cohesity.Model
         /// <param name="useOutlookEwsOauth">Whether OAuth should be used for authentication with EWS API (outlook backup), applicable only for Exchange Online..</param>
         public AdditionalConnectorParams(O365RegionProto o365Region = default(O365RegionProto), bool? useOutlookEwsOauth = default(bool?))
         {
-            this.UseOutlookEwsOauth = useOutlookEwsOauth;
             this.O365Region = o365Region;
             this.UseOutlookEwsOauth = useOutlookEwsOauth;
         }
@@ -42,7 +44,7 @@ namespace Cohesity.Model
         /// Whether OAuth should be used for authentication with EWS API (outlook backup), applicable only for Exchange Online.
         /// </summary>
         /// <value>Whether OAuth should be used for authentication with EWS API (outlook backup), applicable only for Exchange Online.</value>
-        [DataMember(Name="useOutlookEwsOauth", EmitDefaultValue=true)]
+        [DataMember(Name="useOutlookEwsOauth", EmitDefaultValue=false)]
         public bool? UseOutlookEwsOauth { get; set; }
 
         /// <summary>

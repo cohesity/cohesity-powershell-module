@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -24,68 +27,80 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="UpdateViewAliasParam" /> class.
         /// </summary>
         /// <param name="aliasName">Name of the alias to be updated..</param>
+        /// <param name="enableFilerAuditLog">Specifies whether to enable filer audit log on this view alias..</param>
         /// <param name="enableSmbEncryption">Specifies the SMB encryption for the View Alias. If set, it enables the SMB encryption for the View Alias. Encryption is supported only by SMB 3.x dialects. Dialects that do not support would still access data in unencrypted format..</param>
         /// <param name="enableSmbViewDiscovery">If set, it enables discovery of view alias for SMB..</param>
         /// <param name="enforceSmbEncryption">Specifies the SMB encryption for all the sessions for the View Alias. If set, encryption is enforced for all the sessions for the View Alias. When enabled all future and existing unencrypted sessions are disallowed..</param>
         /// <param name="sharePermissions">Specifies a list of share level permissions..</param>
         /// <param name="subnetWhitelist">Specifies a list of Subnets with IP addresses that have permissions to access the View Alias. (Overrides the Subnets specified at the global Cohesity Cluster level and View level.).</param>
-        public UpdateViewAliasParam(string aliasName = default(string), bool? enableSmbEncryption = default(bool?), bool? enableSmbViewDiscovery = default(bool?), bool? enforceSmbEncryption = default(bool?), List<SmbPermission> sharePermissions = default(List<SmbPermission>), List<Subnet> subnetWhitelist = default(List<Subnet>))
+        /// <param name="superUserSids">Specifies a list of user sids who have Superuser access to this alias..</param>
+        public UpdateViewAliasParam(string aliasName = default(string), bool? enableFilerAuditLog = default(bool?), bool? enableSmbEncryption = default(bool?), bool? enableSmbViewDiscovery = default(bool?), bool? enforceSmbEncryption = default(bool?), List<SmbPermission> sharePermissions = default(List<SmbPermission>), List<Subnet> subnetWhitelist = default(List<Subnet>), List<string> superUserSids = default(List<string>))
         {
             this.AliasName = aliasName;
+            this.EnableFilerAuditLog = enableFilerAuditLog;
             this.EnableSmbEncryption = enableSmbEncryption;
             this.EnableSmbViewDiscovery = enableSmbViewDiscovery;
             this.EnforceSmbEncryption = enforceSmbEncryption;
             this.SharePermissions = sharePermissions;
             this.SubnetWhitelist = subnetWhitelist;
-            this.AliasName = aliasName;
-            this.EnableSmbEncryption = enableSmbEncryption;
-            this.EnableSmbViewDiscovery = enableSmbViewDiscovery;
-            this.EnforceSmbEncryption = enforceSmbEncryption;
-            this.SharePermissions = sharePermissions;
-            this.SubnetWhitelist = subnetWhitelist;
+            this.SuperUserSids = superUserSids;
         }
         
         /// <summary>
         /// Name of the alias to be updated.
         /// </summary>
         /// <value>Name of the alias to be updated.</value>
-        [DataMember(Name="aliasName", EmitDefaultValue=true)]
+        [DataMember(Name="aliasName", EmitDefaultValue=false)]
         public string AliasName { get; set; }
+
+        /// <summary>
+        /// Specifies whether to enable filer audit log on this view alias.
+        /// </summary>
+        /// <value>Specifies whether to enable filer audit log on this view alias.</value>
+        [DataMember(Name="enableFilerAuditLog", EmitDefaultValue=false)]
+        public bool? EnableFilerAuditLog { get; set; }
 
         /// <summary>
         /// Specifies the SMB encryption for the View Alias. If set, it enables the SMB encryption for the View Alias. Encryption is supported only by SMB 3.x dialects. Dialects that do not support would still access data in unencrypted format.
         /// </summary>
         /// <value>Specifies the SMB encryption for the View Alias. If set, it enables the SMB encryption for the View Alias. Encryption is supported only by SMB 3.x dialects. Dialects that do not support would still access data in unencrypted format.</value>
-        [DataMember(Name="enableSmbEncryption", EmitDefaultValue=true)]
+        [DataMember(Name="enableSmbEncryption", EmitDefaultValue=false)]
         public bool? EnableSmbEncryption { get; set; }
 
         /// <summary>
         /// If set, it enables discovery of view alias for SMB.
         /// </summary>
         /// <value>If set, it enables discovery of view alias for SMB.</value>
-        [DataMember(Name="enableSmbViewDiscovery", EmitDefaultValue=true)]
+        [DataMember(Name="enableSmbViewDiscovery", EmitDefaultValue=false)]
         public bool? EnableSmbViewDiscovery { get; set; }
 
         /// <summary>
         /// Specifies the SMB encryption for all the sessions for the View Alias. If set, encryption is enforced for all the sessions for the View Alias. When enabled all future and existing unencrypted sessions are disallowed.
         /// </summary>
         /// <value>Specifies the SMB encryption for all the sessions for the View Alias. If set, encryption is enforced for all the sessions for the View Alias. When enabled all future and existing unencrypted sessions are disallowed.</value>
-        [DataMember(Name="enforceSmbEncryption", EmitDefaultValue=true)]
+        [DataMember(Name="enforceSmbEncryption", EmitDefaultValue=false)]
         public bool? EnforceSmbEncryption { get; set; }
 
         /// <summary>
         /// Specifies a list of share level permissions.
         /// </summary>
         /// <value>Specifies a list of share level permissions.</value>
-        [DataMember(Name="sharePermissions", EmitDefaultValue=true)]
+        [DataMember(Name="sharePermissions", EmitDefaultValue=false)]
         public List<SmbPermission> SharePermissions { get; set; }
 
         /// <summary>
         /// Specifies a list of Subnets with IP addresses that have permissions to access the View Alias. (Overrides the Subnets specified at the global Cohesity Cluster level and View level.)
         /// </summary>
         /// <value>Specifies a list of Subnets with IP addresses that have permissions to access the View Alias. (Overrides the Subnets specified at the global Cohesity Cluster level and View level.)</value>
-        [DataMember(Name="subnetWhitelist", EmitDefaultValue=true)]
+        [DataMember(Name="subnetWhitelist", EmitDefaultValue=false)]
         public List<Subnet> SubnetWhitelist { get; set; }
+
+        /// <summary>
+        /// Specifies a list of user sids who have Superuser access to this alias.
+        /// </summary>
+        /// <value>Specifies a list of user sids who have Superuser access to this alias.</value>
+        [DataMember(Name="superUserSids", EmitDefaultValue=false)]
+        public List<string> SuperUserSids { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -129,6 +144,11 @@ namespace Cohesity.Model
                     this.AliasName.Equals(input.AliasName))
                 ) && 
                 (
+                    this.EnableFilerAuditLog == input.EnableFilerAuditLog ||
+                    (this.EnableFilerAuditLog != null &&
+                    this.EnableFilerAuditLog.Equals(input.EnableFilerAuditLog))
+                ) && 
+                (
                     this.EnableSmbEncryption == input.EnableSmbEncryption ||
                     (this.EnableSmbEncryption != null &&
                     this.EnableSmbEncryption.Equals(input.EnableSmbEncryption))
@@ -146,14 +166,17 @@ namespace Cohesity.Model
                 (
                     this.SharePermissions == input.SharePermissions ||
                     this.SharePermissions != null &&
-                    input.SharePermissions != null &&
-                    this.SharePermissions.SequenceEqual(input.SharePermissions)
+                    this.SharePermissions.Equals(input.SharePermissions)
                 ) && 
                 (
                     this.SubnetWhitelist == input.SubnetWhitelist ||
                     this.SubnetWhitelist != null &&
-                    input.SubnetWhitelist != null &&
-                    this.SubnetWhitelist.SequenceEqual(input.SubnetWhitelist)
+                    this.SubnetWhitelist.Equals(input.SubnetWhitelist)
+                ) && 
+                (
+                    this.SuperUserSids == input.SuperUserSids ||
+                    this.SuperUserSids != null &&
+                    this.SuperUserSids.Equals(input.SuperUserSids)
                 );
         }
 
@@ -168,6 +191,8 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.AliasName != null)
                     hashCode = hashCode * 59 + this.AliasName.GetHashCode();
+                if (this.EnableFilerAuditLog != null)
+                    hashCode = hashCode * 59 + this.EnableFilerAuditLog.GetHashCode();
                 if (this.EnableSmbEncryption != null)
                     hashCode = hashCode * 59 + this.EnableSmbEncryption.GetHashCode();
                 if (this.EnableSmbViewDiscovery != null)
@@ -178,6 +203,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.SharePermissions.GetHashCode();
                 if (this.SubnetWhitelist != null)
                     hashCode = hashCode * 59 + this.SubnetWhitelist.GetHashCode();
+                if (this.SuperUserSids != null)
+                    hashCode = hashCode * 59 + this.SuperUserSids.GetHashCode();
                 return hashCode;
             }
         }

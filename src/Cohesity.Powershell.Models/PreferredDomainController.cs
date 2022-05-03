@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.DomainControllers = domainControllers;
             this.DomainName = domainName;
-            this.DomainControllers = domainControllers;
-            this.DomainName = domainName;
         }
         
         /// <summary>
         /// List of Domain controllers DCs in FQDN format that are mapped to an Active Directory Domain name.
         /// </summary>
         /// <value>List of Domain controllers DCs in FQDN format that are mapped to an Active Directory Domain name.</value>
-        [DataMember(Name="domainControllers", EmitDefaultValue=true)]
+        [DataMember(Name="domainControllers", EmitDefaultValue=false)]
         public List<string> DomainControllers { get; set; }
 
         /// <summary>
         /// Specifies the Domain name or the trusted domain of an Active Directory.
         /// </summary>
         /// <value>Specifies the Domain name or the trusted domain of an Active Directory.</value>
-        [DataMember(Name="domainName", EmitDefaultValue=true)]
+        [DataMember(Name="domainName", EmitDefaultValue=false)]
         public string DomainName { get; set; }
 
         /// <summary>
@@ -86,8 +87,7 @@ namespace Cohesity.Model
                 (
                     this.DomainControllers == input.DomainControllers ||
                     this.DomainControllers != null &&
-                    input.DomainControllers != null &&
-                    this.DomainControllers.SequenceEqual(input.DomainControllers)
+                    this.DomainControllers.Equals(input.DomainControllers)
                 ) && 
                 (
                     this.DomainName == input.DomainName ||

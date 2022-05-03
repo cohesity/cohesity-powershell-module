@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -43,78 +46,69 @@ namespace Cohesity.Model
             this.RootNodeId = rootNodeId;
             this.SourceId = sourceId;
             this.SourceName = sourceName;
-            this.AccessibleUsers = accessibleUsers;
-            this.AuditLogs = auditLogs;
-            this.CopyTaskInfo = copyTaskInfo;
-            this.IsProtected = isProtected;
-            this.Location = location;
-            this.ProtectionInfo = protectionInfo;
-            this.RootNodeId = rootNodeId;
-            this.SourceId = sourceId;
-            this.SourceName = sourceName;
         }
         
         /// <summary>
         /// Species the list of user who have access to this object.
         /// </summary>
         /// <value>Species the list of user who have access to this object.</value>
-        [DataMember(Name="accessibleUsers", EmitDefaultValue=true)]
+        [DataMember(Name="accessibleUsers", EmitDefaultValue=false)]
         public List<string> AccessibleUsers { get; set; }
 
         /// <summary>
         /// Specifies the audit log information.
         /// </summary>
         /// <value>Specifies the audit log information.</value>
-        [DataMember(Name="auditLogs", EmitDefaultValue=true)]
+        [DataMember(Name="auditLogs", EmitDefaultValue=false)]
         public List<ClusterAuditLog> AuditLogs { get; set; }
 
         /// <summary>
         /// Specifies the copy task information.
         /// </summary>
         /// <value>Specifies the copy task information.</value>
-        [DataMember(Name="copyTaskInfo", EmitDefaultValue=true)]
+        [DataMember(Name="copyTaskInfo", EmitDefaultValue=false)]
         public List<GdprCopyTask> CopyTaskInfo { get; set; }
 
         /// <summary>
         /// Specifies the protection status of the object.
         /// </summary>
         /// <value>Specifies the protection status of the object.</value>
-        [DataMember(Name="isProtected", EmitDefaultValue=true)]
+        [DataMember(Name="isProtected", EmitDefaultValue=false)]
         public bool? IsProtected { get; set; }
 
         /// <summary>
         /// Specifies the location of the parent source.
         /// </summary>
         /// <value>Specifies the location of the parent source.</value>
-        [DataMember(Name="location", EmitDefaultValue=true)]
+        [DataMember(Name="location", EmitDefaultValue=false)]
         public string Location { get; set; }
 
         /// <summary>
         /// Specifies the data locations for the protected objects.
         /// </summary>
         /// <value>Specifies the data locations for the protected objects.</value>
-        [DataMember(Name="protectionInfo", EmitDefaultValue=true)]
+        [DataMember(Name="protectionInfo", EmitDefaultValue=false)]
         public List<ProtectionInfo> ProtectionInfo { get; set; }
 
         /// <summary>
         /// Specifies the id of the root node.
         /// </summary>
         /// <value>Specifies the id of the root node.</value>
-        [DataMember(Name="rootNodeId", EmitDefaultValue=true)]
+        [DataMember(Name="rootNodeId", EmitDefaultValue=false)]
         public long? RootNodeId { get; set; }
 
         /// <summary>
         /// Specifies the id of the Protection Source.
         /// </summary>
         /// <value>Specifies the id of the Protection Source.</value>
-        [DataMember(Name="sourceId", EmitDefaultValue=true)]
+        [DataMember(Name="sourceId", EmitDefaultValue=false)]
         public long? SourceId { get; set; }
 
         /// <summary>
         /// Specifies the name of the object.
         /// </summary>
         /// <value>Specifies the name of the object.</value>
-        [DataMember(Name="sourceName", EmitDefaultValue=true)]
+        [DataMember(Name="sourceName", EmitDefaultValue=false)]
         public string SourceName { get; set; }
 
         /// <summary>
@@ -156,20 +150,17 @@ namespace Cohesity.Model
                 (
                     this.AccessibleUsers == input.AccessibleUsers ||
                     this.AccessibleUsers != null &&
-                    input.AccessibleUsers != null &&
-                    this.AccessibleUsers.SequenceEqual(input.AccessibleUsers)
+                    this.AccessibleUsers.Equals(input.AccessibleUsers)
                 ) && 
                 (
                     this.AuditLogs == input.AuditLogs ||
                     this.AuditLogs != null &&
-                    input.AuditLogs != null &&
-                    this.AuditLogs.SequenceEqual(input.AuditLogs)
+                    this.AuditLogs.Equals(input.AuditLogs)
                 ) && 
                 (
                     this.CopyTaskInfo == input.CopyTaskInfo ||
                     this.CopyTaskInfo != null &&
-                    input.CopyTaskInfo != null &&
-                    this.CopyTaskInfo.SequenceEqual(input.CopyTaskInfo)
+                    this.CopyTaskInfo.Equals(input.CopyTaskInfo)
                 ) && 
                 (
                     this.IsProtected == input.IsProtected ||
@@ -184,8 +175,7 @@ namespace Cohesity.Model
                 (
                     this.ProtectionInfo == input.ProtectionInfo ||
                     this.ProtectionInfo != null &&
-                    input.ProtectionInfo != null &&
-                    this.ProtectionInfo.SequenceEqual(input.ProtectionInfo)
+                    this.ProtectionInfo.Equals(input.ProtectionInfo)
                 ) && 
                 (
                     this.RootNodeId == input.RootNodeId ||

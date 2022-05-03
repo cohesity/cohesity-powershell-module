@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -51,7 +54,7 @@ namespace Cohesity.Model
         /// Specifies the type of the entity in an GPFS file system like &#39;kCluster&#39;, &#39;kFilesystem&#39;, or, &#39;kFileset&#39;. &#39;kCluster&#39; indicates an GPFS Cluster. &#39;kFilesystem&#39; indicates a top level filesystem on GPFS cluster. &#39;kFileset&#39; indicates a fileset within a filesystem.
         /// </summary>
         /// <value>Specifies the type of the entity in an GPFS file system like &#39;kCluster&#39;, &#39;kFilesystem&#39;, or, &#39;kFileset&#39;. &#39;kCluster&#39; indicates an GPFS Cluster. &#39;kFilesystem&#39; indicates a top level filesystem on GPFS cluster. &#39;kFileset&#39; indicates a fileset within a filesystem.</value>
-        [DataMember(Name="type", EmitDefaultValue=true)]
+        [DataMember(Name="type", EmitDefaultValue=false)]
         public TypeEnum? Type { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="GpfsProtectionSource" /> class.
@@ -63,8 +66,6 @@ namespace Cohesity.Model
         /// <param name="type">Specifies the type of the entity in an GPFS file system like &#39;kCluster&#39;, &#39;kFilesystem&#39;, or, &#39;kFileset&#39;. &#39;kCluster&#39; indicates an GPFS Cluster. &#39;kFilesystem&#39; indicates a top level filesystem on GPFS cluster. &#39;kFileset&#39; indicates a fileset within a filesystem..</param>
         public GpfsProtectionSource(GpfsCluster cluster = default(GpfsCluster), GpfsFileset fileset = default(GpfsFileset), GpfsFilesystem filesystem = default(GpfsFilesystem), string name = default(string), TypeEnum? type = default(TypeEnum?))
         {
-            this.Name = name;
-            this.Type = type;
             this.Cluster = cluster;
             this.Fileset = fileset;
             this.Filesystem = filesystem;
@@ -94,8 +95,9 @@ namespace Cohesity.Model
         /// Specifies a unique name of the Protection Source.
         /// </summary>
         /// <value>Specifies a unique name of the Protection Source.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
+
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -155,7 +157,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.Type == input.Type ||
-                    this.Type.Equals(input.Type)
+                    (this.Type != null &&
+                    this.Type.Equals(input.Type))
                 );
         }
 
@@ -176,7 +179,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Filesystem.GetHashCode();
                 if (this.Name != null)
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
-                hashCode = hashCode * 59 + this.Type.GetHashCode();
+                if (this.Type != null)
+                    hashCode = hashCode * 59 + this.Type.GetHashCode();
                 return hashCode;
             }
         }

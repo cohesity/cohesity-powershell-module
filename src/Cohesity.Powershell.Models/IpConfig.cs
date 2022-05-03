@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -30,15 +33,8 @@ namespace Cohesity.Model
         /// <param name="role">The interface role..</param>
         /// <param name="subnetGateway">The interface gateway..</param>
         /// <param name="subnetMaskBits">The interface subnet mask bits..</param>
-        public IpConfig(string interfaceName = default(string), int? ipFamily = default(int?), List<string> ips = default(List<string>), List<long> nodeIds = default(List<long>), string role = default(string), string subnetGateway = default(string), int? subnetMaskBits = default(int?))
+        public IpConfig(string interfaceName = default(string), int? ipFamily = default(int?), List<string> ips = default(List<string>), List<long?> nodeIds = default(List<long?>), string role = default(string), string subnetGateway = default(string), int? subnetMaskBits = default(int?))
         {
-            this.InterfaceName = interfaceName;
-            this.IpFamily = ipFamily;
-            this.Ips = ips;
-            this.NodeIds = nodeIds;
-            this.Role = role;
-            this.SubnetGateway = subnetGateway;
-            this.SubnetMaskBits = subnetMaskBits;
             this.InterfaceName = interfaceName;
             this.IpFamily = ipFamily;
             this.Ips = ips;
@@ -52,49 +48,49 @@ namespace Cohesity.Model
         /// The interface name.  Specifies which interface to assign IP to.
         /// </summary>
         /// <value>The interface name.  Specifies which interface to assign IP to.</value>
-        [DataMember(Name="interfaceName", EmitDefaultValue=true)]
+        [DataMember(Name="interfaceName", EmitDefaultValue=false)]
         public string InterfaceName { get; set; }
 
         /// <summary>
         /// IpFamily of this config.
         /// </summary>
         /// <value>IpFamily of this config.</value>
-        [DataMember(Name="ipFamily", EmitDefaultValue=true)]
+        [DataMember(Name="ipFamily", EmitDefaultValue=false)]
         public int? IpFamily { get; set; }
 
         /// <summary>
         /// The interface ips.
         /// </summary>
         /// <value>The interface ips.</value>
-        [DataMember(Name="ips", EmitDefaultValue=true)]
+        [DataMember(Name="ips", EmitDefaultValue=false)]
         public List<string> Ips { get; set; }
 
         /// <summary>
         /// Node ids.
         /// </summary>
         /// <value>Node ids.</value>
-        [DataMember(Name="nodeIds", EmitDefaultValue=true)]
-        public List<long> NodeIds { get; set; }
+        [DataMember(Name="nodeIds", EmitDefaultValue=false)]
+        public List<long?> NodeIds { get; set; }
 
         /// <summary>
         /// The interface role.
         /// </summary>
         /// <value>The interface role.</value>
-        [DataMember(Name="role", EmitDefaultValue=true)]
+        [DataMember(Name="role", EmitDefaultValue=false)]
         public string Role { get; set; }
 
         /// <summary>
         /// The interface gateway.
         /// </summary>
         /// <value>The interface gateway.</value>
-        [DataMember(Name="subnetGateway", EmitDefaultValue=true)]
+        [DataMember(Name="subnetGateway", EmitDefaultValue=false)]
         public string SubnetGateway { get; set; }
 
         /// <summary>
         /// The interface subnet mask bits.
         /// </summary>
         /// <value>The interface subnet mask bits.</value>
-        [DataMember(Name="subnetMaskBits", EmitDefaultValue=true)]
+        [DataMember(Name="subnetMaskBits", EmitDefaultValue=false)]
         public int? SubnetMaskBits { get; set; }
 
         /// <summary>
@@ -146,14 +142,12 @@ namespace Cohesity.Model
                 (
                     this.Ips == input.Ips ||
                     this.Ips != null &&
-                    input.Ips != null &&
-                    this.Ips.SequenceEqual(input.Ips)
+                    this.Ips.Equals(input.Ips)
                 ) && 
                 (
                     this.NodeIds == input.NodeIds ||
                     this.NodeIds != null &&
-                    input.NodeIds != null &&
-                    this.NodeIds.SequenceEqual(input.NodeIds)
+                    this.NodeIds.Equals(input.NodeIds)
                 ) && 
                 (
                     this.Role == input.Role ||

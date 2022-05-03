@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -32,8 +35,15 @@ namespace Cohesity.Model
         /// <param name="icapUri">Specifies the ICAP uri for this Antivirus service. It is of the form icap://&lt;ip-address&gt;[:&lt;port&gt;]/&lt;service&gt; (required).</param>
         public AntivirusServiceConfigParams(string description = default(string), string icapUri = default(string))
         {
-            this.Description = description;
-            this.IcapUri = icapUri;
+            // to ensure "icapUri" is required (not null)
+            if (icapUri == null)
+            {
+                throw new InvalidDataException("icapUri is a required property for AntivirusServiceConfigParams and cannot be null");
+            }
+            else
+            {
+                this.IcapUri = icapUri;
+            }
             this.Description = description;
         }
         
@@ -41,14 +51,14 @@ namespace Cohesity.Model
         /// Specifies the description of the Antivirus service. This could be any additional information admin might associate with the Antivirus service.
         /// </summary>
         /// <value>Specifies the description of the Antivirus service. This could be any additional information admin might associate with the Antivirus service.</value>
-        [DataMember(Name="description", EmitDefaultValue=true)]
+        [DataMember(Name="description", EmitDefaultValue=false)]
         public string Description { get; set; }
 
         /// <summary>
         /// Specifies the ICAP uri for this Antivirus service. It is of the form icap://&lt;ip-address&gt;[:&lt;port&gt;]/&lt;service&gt;
         /// </summary>
         /// <value>Specifies the ICAP uri for this Antivirus service. It is of the form icap://&lt;ip-address&gt;[:&lt;port&gt;]/&lt;service&gt;</value>
-        [DataMember(Name="icapUri", EmitDefaultValue=true)]
+        [DataMember(Name="icapUri", EmitDefaultValue=false)]
         public string IcapUri { get; set; }
 
         /// <summary>

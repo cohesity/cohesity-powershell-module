@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,9 +32,6 @@ namespace Cohesity.Model
         /// <param name="state">Execution state of the script..</param>
         public ScriptExecutionStatus(ErrorProto error = default(ErrorProto), bool? executing = default(bool?), int? exitCode = default(int?), int? state = default(int?))
         {
-            this.Executing = executing;
-            this.ExitCode = exitCode;
-            this.State = state;
             this.Error = error;
             this.Executing = executing;
             this.ExitCode = exitCode;
@@ -48,21 +48,21 @@ namespace Cohesity.Model
         /// Indicates if a script is executing. This is particularly useful when there is a cancellation request and Magneto crashes at that point before cleaning up the running script.
         /// </summary>
         /// <value>Indicates if a script is executing. This is particularly useful when there is a cancellation request and Magneto crashes at that point before cleaning up the running script.</value>
-        [DataMember(Name="executing", EmitDefaultValue=true)]
+        [DataMember(Name="executing", EmitDefaultValue=false)]
         public bool? Executing { get; set; }
 
         /// <summary>
         /// Exit code of the script.
         /// </summary>
         /// <value>Exit code of the script.</value>
-        [DataMember(Name="exitCode", EmitDefaultValue=true)]
+        [DataMember(Name="exitCode", EmitDefaultValue=false)]
         public int? ExitCode { get; set; }
 
         /// <summary>
         /// Execution state of the script.
         /// </summary>
         /// <value>Execution state of the script.</value>
-        [DataMember(Name="state", EmitDefaultValue=true)]
+        [DataMember(Name="state", EmitDefaultValue=false)]
         public int? State { get; set; }
 
         /// <summary>

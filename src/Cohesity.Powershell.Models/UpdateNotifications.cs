@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.Action = action;
             this.NotificationIds = notificationIds;
-            this.Action = action;
-            this.NotificationIds = notificationIds;
         }
         
         /// <summary>
         /// Specifies the operation to be performed on the resource. Eg. \&quot;action\&quot;:\&quot;dismiss\&quot;
         /// </summary>
         /// <value>Specifies the operation to be performed on the resource. Eg. \&quot;action\&quot;:\&quot;dismiss\&quot;</value>
-        [DataMember(Name="action", EmitDefaultValue=true)]
+        [DataMember(Name="action", EmitDefaultValue=false)]
         public string Action { get; set; }
 
         /// <summary>
         /// Specifies the list of NotificationIds to be operated upon.
         /// </summary>
         /// <value>Specifies the list of NotificationIds to be operated upon.</value>
-        [DataMember(Name="notificationIds", EmitDefaultValue=true)]
+        [DataMember(Name="notificationIds", EmitDefaultValue=false)]
         public List<string> NotificationIds { get; set; }
 
         /// <summary>
@@ -91,8 +92,7 @@ namespace Cohesity.Model
                 (
                     this.NotificationIds == input.NotificationIds ||
                     this.NotificationIds != null &&
-                    input.NotificationIds != null &&
-                    this.NotificationIds.SequenceEqual(input.NotificationIds)
+                    this.NotificationIds.Equals(input.NotificationIds)
                 );
         }
 

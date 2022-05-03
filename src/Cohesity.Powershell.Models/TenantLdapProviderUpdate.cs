@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -25,10 +28,8 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="ldapProviderIds">Specifies the ids of ldap providers for respective tenant..</param>
         /// <param name="tenantId">Specifies the unique id of the tenant..</param>
-        public TenantLdapProviderUpdate(List<long> ldapProviderIds = default(List<long>), string tenantId = default(string))
+        public TenantLdapProviderUpdate(List<long?> ldapProviderIds = default(List<long?>), string tenantId = default(string))
         {
-            this.LdapProviderIds = ldapProviderIds;
-            this.TenantId = tenantId;
             this.LdapProviderIds = ldapProviderIds;
             this.TenantId = tenantId;
         }
@@ -37,14 +38,14 @@ namespace Cohesity.Model
         /// Specifies the ids of ldap providers for respective tenant.
         /// </summary>
         /// <value>Specifies the ids of ldap providers for respective tenant.</value>
-        [DataMember(Name="ldapProviderIds", EmitDefaultValue=true)]
-        public List<long> LdapProviderIds { get; set; }
+        [DataMember(Name="ldapProviderIds", EmitDefaultValue=false)]
+        public List<long?> LdapProviderIds { get; set; }
 
         /// <summary>
         /// Specifies the unique id of the tenant.
         /// </summary>
         /// <value>Specifies the unique id of the tenant.</value>
-        [DataMember(Name="tenantId", EmitDefaultValue=true)]
+        [DataMember(Name="tenantId", EmitDefaultValue=false)]
         public string TenantId { get; set; }
 
         /// <summary>
@@ -86,8 +87,7 @@ namespace Cohesity.Model
                 (
                     this.LdapProviderIds == input.LdapProviderIds ||
                     this.LdapProviderIds != null &&
-                    input.LdapProviderIds != null &&
-                    this.LdapProviderIds.SequenceEqual(input.LdapProviderIds)
+                    this.LdapProviderIds.Equals(input.LdapProviderIds)
                 ) && 
                 (
                     this.TenantId == input.TenantId ||

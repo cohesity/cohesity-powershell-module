@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,30 +34,27 @@ namespace Cohesity.Model
             this.AccessZoneId = accessZoneId;
             this.Description = description;
             this.ShareName = shareName;
-            this.AccessZoneId = accessZoneId;
-            this.Description = description;
-            this.ShareName = shareName;
         }
         
         /// <summary>
         /// Specifies the Access Zone Id.
         /// </summary>
         /// <value>Specifies the Access Zone Id.</value>
-        [DataMember(Name="accessZoneId", EmitDefaultValue=true)]
+        [DataMember(Name="accessZoneId", EmitDefaultValue=false)]
         public long? AccessZoneId { get; set; }
 
         /// <summary>
         /// Specifies the description of the NFS mount point.
         /// </summary>
         /// <value>Specifies the description of the NFS mount point.</value>
-        [DataMember(Name="description", EmitDefaultValue=true)]
+        [DataMember(Name="description", EmitDefaultValue=false)]
         public string Description { get; set; }
 
         /// <summary>
         /// Specifies the name of the SMB/CIFS share.
         /// </summary>
         /// <value>Specifies the name of the SMB/CIFS share.</value>
-        [DataMember(Name="shareName", EmitDefaultValue=true)]
+        [DataMember(Name="shareName", EmitDefaultValue=false)]
         public string ShareName { get; set; }
 
         /// <summary>

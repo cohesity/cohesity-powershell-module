@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -35,46 +38,41 @@ namespace Cohesity.Model
             this.RemoteProtectionJobUid = remoteProtectionJobUid;
             this.StartTimeUsecs = startTimeUsecs;
             this.ViewBoxId = viewBoxId;
-            this.ArchiveTaskUid = archiveTaskUid;
-            this.EndTimeUsecs = endTimeUsecs;
-            this.RemoteProtectionJobUid = remoteProtectionJobUid;
-            this.StartTimeUsecs = startTimeUsecs;
-            this.ViewBoxId = viewBoxId;
         }
         
         /// <summary>
         /// Specifies a unique id of the Archive task that originally archived the object to the Vault.
         /// </summary>
         /// <value>Specifies a unique id of the Archive task that originally archived the object to the Vault.</value>
-        [DataMember(Name="archiveTaskUid", EmitDefaultValue=true)]
+        [DataMember(Name="archiveTaskUid", EmitDefaultValue=false)]
         public UniversalId ArchiveTaskUid { get; set; }
 
         /// <summary>
         /// Specifies the end time as a Unix epoch Timestamp (in microseconds). If set, only index and Snapshots for Protection Job Runs that started before the specified end time are restored.
         /// </summary>
         /// <value>Specifies the end time as a Unix epoch Timestamp (in microseconds). If set, only index and Snapshots for Protection Job Runs that started before the specified end time are restored.</value>
-        [DataMember(Name="endTimeUsecs", EmitDefaultValue=true)]
+        [DataMember(Name="endTimeUsecs", EmitDefaultValue=false)]
         public long? EndTimeUsecs { get; set; }
 
         /// <summary>
         /// Specifies a unique id assigned to the original Protection Job by the original Cluster that archived data to the remote Vault.
         /// </summary>
         /// <value>Specifies a unique id assigned to the original Protection Job by the original Cluster that archived data to the remote Vault.</value>
-        [DataMember(Name="remoteProtectionJobUid", EmitDefaultValue=true)]
+        [DataMember(Name="remoteProtectionJobUid", EmitDefaultValue=false)]
         public UniversalId RemoteProtectionJobUid { get; set; }
 
         /// <summary>
         /// Specifies the start time as a Unix epoch Timestamp (in microseconds). If set, only the index and Snapshots for Protection Job Runs that started after the specified start time are restored.
         /// </summary>
         /// <value>Specifies the start time as a Unix epoch Timestamp (in microseconds). If set, only the index and Snapshots for Protection Job Runs that started after the specified start time are restored.</value>
-        [DataMember(Name="startTimeUsecs", EmitDefaultValue=true)]
+        [DataMember(Name="startTimeUsecs", EmitDefaultValue=false)]
         public long? StartTimeUsecs { get; set; }
 
         /// <summary>
         /// Specifies the id of the local Storage Domain (View Box) where the index and the Snapshot will be restored to.
         /// </summary>
         /// <value>Specifies the id of the local Storage Domain (View Box) where the index and the Snapshot will be restored to.</value>
-        [DataMember(Name="viewBoxId", EmitDefaultValue=true)]
+        [DataMember(Name="viewBoxId", EmitDefaultValue=false)]
         public long? ViewBoxId { get; set; }
 
         /// <summary>
@@ -115,8 +113,8 @@ namespace Cohesity.Model
             return 
                 (
                     this.ArchiveTaskUid == input.ArchiveTaskUid ||
-                    (this.ArchiveTaskUid != null &&
-                    this.ArchiveTaskUid.Equals(input.ArchiveTaskUid))
+                    this.ArchiveTaskUid != null &&
+                    this.ArchiveTaskUid.Equals(input.ArchiveTaskUid)
                 ) && 
                 (
                     this.EndTimeUsecs == input.EndTimeUsecs ||
@@ -125,8 +123,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.RemoteProtectionJobUid == input.RemoteProtectionJobUid ||
-                    (this.RemoteProtectionJobUid != null &&
-                    this.RemoteProtectionJobUid.Equals(input.RemoteProtectionJobUid))
+                    this.RemoteProtectionJobUid != null &&
+                    this.RemoteProtectionJobUid.Equals(input.RemoteProtectionJobUid)
                 ) && 
                 (
                     this.StartTimeUsecs == input.StartTimeUsecs ||

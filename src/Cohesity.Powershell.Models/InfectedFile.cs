@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -45,7 +48,7 @@ namespace Cohesity.Model
         /// Specifies the remediation state of the file. Remediation State. &#39;kQuarantine&#39; indicates &#39;Quarantine&#39; state of the file. This state blocks the client access. The administrator will have to manually delete, rescan or unquarantine the file. &#39;kUnquarantine&#39; indicates &#39;Unquarantine&#39; state of the file. The administrator has manually moved files from quarantined to the unquarantined state to allow client access. Unquarantined files are not scanned for virus until manually reset.
         /// </summary>
         /// <value>Specifies the remediation state of the file. Remediation State. &#39;kQuarantine&#39; indicates &#39;Quarantine&#39; state of the file. This state blocks the client access. The administrator will have to manually delete, rescan or unquarantine the file. &#39;kUnquarantine&#39; indicates &#39;Unquarantine&#39; state of the file. The administrator has manually moved files from quarantined to the unquarantined state to allow client access. Unquarantined files are not scanned for virus until manually reset.</value>
-        [DataMember(Name="remediationState", EmitDefaultValue=true)]
+        [DataMember(Name="remediationState", EmitDefaultValue=false)]
         public RemediationStateEnum? RemediationState { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="InfectedFile" /> class.
@@ -76,95 +79,84 @@ namespace Cohesity.Model
             this.ThreatDescriptions = threatDescriptions;
             this.ViewId = viewId;
             this.ViewName = viewName;
-            this.AntivirusProviderName = antivirusProviderName;
-            this.EntityId = entityId;
-            this.FilePath = filePath;
-            this.InfectionDetectionTimestamp = infectionDetectionTimestamp;
-            this.ModifiedTimestampUsecs = modifiedTimestampUsecs;
-            this.RemediationState = remediationState;
-            this.RootInodeId = rootInodeId;
-            this.ScanTimestampUsecs = scanTimestampUsecs;
-            this.ServiceIcapUri = serviceIcapUri;
-            this.ThreatDescriptions = threatDescriptions;
-            this.ViewId = viewId;
-            this.ViewName = viewName;
         }
         
         /// <summary>
         /// Specifies the name of antivirus service provider.
         /// </summary>
         /// <value>Specifies the name of antivirus service provider.</value>
-        [DataMember(Name="antivirusProviderName", EmitDefaultValue=true)]
+        [DataMember(Name="antivirusProviderName", EmitDefaultValue=false)]
         public string AntivirusProviderName { get; set; }
 
         /// <summary>
         /// Specifies the entity id of the infected file.
         /// </summary>
         /// <value>Specifies the entity id of the infected file.</value>
-        [DataMember(Name="entityId", EmitDefaultValue=true)]
+        [DataMember(Name="entityId", EmitDefaultValue=false)]
         public long? EntityId { get; set; }
 
         /// <summary>
         /// Specifies file path of the infected file.
         /// </summary>
         /// <value>Specifies file path of the infected file.</value>
-        [DataMember(Name="filePath", EmitDefaultValue=true)]
+        [DataMember(Name="filePath", EmitDefaultValue=false)]
         public string FilePath { get; set; }
 
         /// <summary>
         /// Specifies unix epoch timestamp (in microseconds) at which these threats were detected.
         /// </summary>
         /// <value>Specifies unix epoch timestamp (in microseconds) at which these threats were detected.</value>
-        [DataMember(Name="infectionDetectionTimestamp", EmitDefaultValue=true)]
+        [DataMember(Name="infectionDetectionTimestamp", EmitDefaultValue=false)]
         public long? InfectionDetectionTimestamp { get; set; }
 
         /// <summary>
         /// Specifies unix epoch timestamp (in microseconds) at which this file is modified.
         /// </summary>
         /// <value>Specifies unix epoch timestamp (in microseconds) at which this file is modified.</value>
-        [DataMember(Name="modifiedTimestampUsecs", EmitDefaultValue=true)]
+        [DataMember(Name="modifiedTimestampUsecs", EmitDefaultValue=false)]
         public long? ModifiedTimestampUsecs { get; set; }
+
 
         /// <summary>
         /// Specifies the root inode id of the file system that infected file belongs to.
         /// </summary>
         /// <value>Specifies the root inode id of the file system that infected file belongs to.</value>
-        [DataMember(Name="rootInodeId", EmitDefaultValue=true)]
+        [DataMember(Name="rootInodeId", EmitDefaultValue=false)]
         public long? RootInodeId { get; set; }
 
         /// <summary>
         /// Specifies unix epoch timestamp (in microseconds) at which inode was scanned for viruses.
         /// </summary>
         /// <value>Specifies unix epoch timestamp (in microseconds) at which inode was scanned for viruses.</value>
-        [DataMember(Name="scanTimestampUsecs", EmitDefaultValue=true)]
+        [DataMember(Name="scanTimestampUsecs", EmitDefaultValue=false)]
         public long? ScanTimestampUsecs { get; set; }
 
         /// <summary>
         /// Specifies the instance of an antivirus ICAP server in the cluster config that detected these threats.
         /// </summary>
         /// <value>Specifies the instance of an antivirus ICAP server in the cluster config that detected these threats.</value>
-        [DataMember(Name="serviceIcapUri", EmitDefaultValue=true)]
+        [DataMember(Name="serviceIcapUri", EmitDefaultValue=false)]
         public string ServiceIcapUri { get; set; }
 
         /// <summary>
         /// Specifies the list of virus threat descriptions found in the file.
         /// </summary>
         /// <value>Specifies the list of virus threat descriptions found in the file.</value>
-        [DataMember(Name="threatDescriptions", EmitDefaultValue=true)]
+        [DataMember(Name="threatDescriptions", EmitDefaultValue=false)]
         public List<string> ThreatDescriptions { get; set; }
 
         /// <summary>
         /// Specifies the id of the View the infected file belongs to.
         /// </summary>
         /// <value>Specifies the id of the View the infected file belongs to.</value>
-        [DataMember(Name="viewId", EmitDefaultValue=true)]
+        [DataMember(Name="viewId", EmitDefaultValue=false)]
         public long? ViewId { get; set; }
 
         /// <summary>
         /// Specifies the View name corresponding to above view id.
         /// </summary>
         /// <value>Specifies the View name corresponding to above view id.</value>
-        [DataMember(Name="viewName", EmitDefaultValue=true)]
+        [DataMember(Name="viewName", EmitDefaultValue=false)]
         public string ViewName { get; set; }
 
         /// <summary>
@@ -230,7 +222,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.RemediationState == input.RemediationState ||
-                    this.RemediationState.Equals(input.RemediationState)
+                    (this.RemediationState != null &&
+                    this.RemediationState.Equals(input.RemediationState))
                 ) && 
                 (
                     this.RootInodeId == input.RootInodeId ||
@@ -250,8 +243,7 @@ namespace Cohesity.Model
                 (
                     this.ThreatDescriptions == input.ThreatDescriptions ||
                     this.ThreatDescriptions != null &&
-                    input.ThreatDescriptions != null &&
-                    this.ThreatDescriptions.SequenceEqual(input.ThreatDescriptions)
+                    this.ThreatDescriptions.Equals(input.ThreatDescriptions)
                 ) && 
                 (
                     this.ViewId == input.ViewId ||
@@ -284,7 +276,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.InfectionDetectionTimestamp.GetHashCode();
                 if (this.ModifiedTimestampUsecs != null)
                     hashCode = hashCode * 59 + this.ModifiedTimestampUsecs.GetHashCode();
-                hashCode = hashCode * 59 + this.RemediationState.GetHashCode();
+                if (this.RemediationState != null)
+                    hashCode = hashCode * 59 + this.RemediationState.GetHashCode();
                 if (this.RootInodeId != null)
                     hashCode = hashCode * 59 + this.RootInodeId.GetHashCode();
                 if (this.ScanTimestampUsecs != null)

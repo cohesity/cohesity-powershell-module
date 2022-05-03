@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,14 +30,13 @@ namespace Cohesity.Model
         public MapReduceInfoAppProperty(string csvHeader = default(string))
         {
             this.CsvHeader = csvHeader;
-            this.CsvHeader = csvHeader;
         }
         
         /// <summary>
         /// csv_header should be tab separated column names.
         /// </summary>
         /// <value>csv_header should be tab separated column names.</value>
-        [DataMember(Name="csvHeader", EmitDefaultValue=true)]
+        [DataMember(Name="csvHeader", EmitDefaultValue=false)]
         public string CsvHeader { get; set; }
 
         /// <summary>

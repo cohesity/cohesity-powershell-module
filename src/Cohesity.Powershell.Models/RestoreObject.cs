@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -28,39 +31,39 @@ namespace Cohesity.Model
         /// <param name="cloudDeployTarget">cloudDeployTarget.</param>
         /// <param name="cloudReplicationTarget">cloudReplicationTarget.</param>
         /// <param name="entity">entity.</param>
+        /// <param name="hydrationTimeUsecs">The time to which CDP logs hydrated. This field is currently only applicable to MongoDb. This field is used during restore as the &#39;start time&#39; for copying the remaining cdp logs that are yet to be hydrated by agent..</param>
         /// <param name="jobId">The job id from which to restore. This is used while communicating with yoda..</param>
         /// <param name="jobInstanceId">Id identifying a specific run to restore from. If this is not specified, and we need to restore from a run, the latest run is used. NOTE: This must be specified for RestoreFiles, RecoverDisks and GetVirtualDisks APIs..</param>
         /// <param name="jobUid">jobUid.</param>
+        /// <param name="nosqlRecoverParams">nosqlRecoverParams.</param>
         /// <param name="parentSource">parentSource.</param>
         /// <param name="pointInTimeRestoreTimeUsecs">The time to which the object needs to be restored. If this is not set, then the object will be restored to the full/incremental snapshot. This is applicable only if the object is protected using CDP..</param>
+        /// <param name="recoverFromStandby">This field indicates if the object should be recovered from standby if it is enabled..</param>
         /// <param name="restoreAcropolisVmParam">restoreAcropolisVmParam.</param>
         /// <param name="snapshotRelativeDirPath">The relative path to the directory containing the entity&#39;s snapshot..</param>
         /// <param name="startTimeUsecs">The start time of the specific job run. Iff &#39;job_instance_id&#39; is set, this field must be set. In-memory indices on the Magneto master are laid-out by the start time of the job, and this is how the master pulls up a specific run. NOTE: This must be specified for RestoreFiles, RecoverDisks and GetVirtualDisks APIs.</param>
+        /// <param name="udaRecoverParams">udaRecoverParams.</param>
         /// <param name="viewName">The name of the view where the object&#39;s snapshot is located..</param>
         /// <param name="vmHadIndependentDisks">This is applicable only to VMs and is set to true when the VM being recovered or cloned contained independent disks when it was backed up..</param>
-        public RestoreObject(ArchivalTarget archivalTarget = default(ArchivalTarget), int? attemptNum = default(int?), CloudDeployTarget cloudDeployTarget = default(CloudDeployTarget), CloudDeployTarget cloudReplicationTarget = default(CloudDeployTarget), EntityProto entity = default(EntityProto), long? jobId = default(long?), long? jobInstanceId = default(long?), UniversalIdProto jobUid = default(UniversalIdProto), EntityProto parentSource = default(EntityProto), long? pointInTimeRestoreTimeUsecs = default(long?), RestoreAcropolisVMParam restoreAcropolisVmParam = default(RestoreAcropolisVMParam), string snapshotRelativeDirPath = default(string), long? startTimeUsecs = default(long?), string viewName = default(string), bool? vmHadIndependentDisks = default(bool?))
+        public RestoreObject(ArchivalTarget archivalTarget = default(ArchivalTarget), int? attemptNum = default(int?), CloudDeployTarget cloudDeployTarget = default(CloudDeployTarget), CloudDeployTarget cloudReplicationTarget = default(CloudDeployTarget), EntityProto entity = default(EntityProto), long? hydrationTimeUsecs = default(long?), long? jobId = default(long?), long? jobInstanceId = default(long?), UniversalIdProto jobUid = default(UniversalIdProto), NoSqlRecoverParams nosqlRecoverParams = default(NoSqlRecoverParams), EntityProto parentSource = default(EntityProto), long? pointInTimeRestoreTimeUsecs = default(long?), bool? recoverFromStandby = default(bool?), RestoreAcropolisVMParam restoreAcropolisVmParam = default(RestoreAcropolisVMParam), string snapshotRelativeDirPath = default(string), long? startTimeUsecs = default(long?), UdaRecoverParams udaRecoverParams = default(UdaRecoverParams), string viewName = default(string), bool? vmHadIndependentDisks = default(bool?))
         {
-            this.AttemptNum = attemptNum;
-            this.JobId = jobId;
-            this.JobInstanceId = jobInstanceId;
-            this.PointInTimeRestoreTimeUsecs = pointInTimeRestoreTimeUsecs;
-            this.SnapshotRelativeDirPath = snapshotRelativeDirPath;
-            this.StartTimeUsecs = startTimeUsecs;
-            this.ViewName = viewName;
-            this.VmHadIndependentDisks = vmHadIndependentDisks;
             this.ArchivalTarget = archivalTarget;
             this.AttemptNum = attemptNum;
             this.CloudDeployTarget = cloudDeployTarget;
             this.CloudReplicationTarget = cloudReplicationTarget;
             this.Entity = entity;
+            this.HydrationTimeUsecs = hydrationTimeUsecs;
             this.JobId = jobId;
             this.JobInstanceId = jobInstanceId;
             this.JobUid = jobUid;
+            this.NosqlRecoverParams = nosqlRecoverParams;
             this.ParentSource = parentSource;
             this.PointInTimeRestoreTimeUsecs = pointInTimeRestoreTimeUsecs;
+            this.RecoverFromStandby = recoverFromStandby;
             this.RestoreAcropolisVmParam = restoreAcropolisVmParam;
             this.SnapshotRelativeDirPath = snapshotRelativeDirPath;
             this.StartTimeUsecs = startTimeUsecs;
+            this.UdaRecoverParams = udaRecoverParams;
             this.ViewName = viewName;
             this.VmHadIndependentDisks = vmHadIndependentDisks;
         }
@@ -75,7 +78,7 @@ namespace Cohesity.Model
         /// The attempt number of the job run to restore from.
         /// </summary>
         /// <value>The attempt number of the job run to restore from.</value>
-        [DataMember(Name="attemptNum", EmitDefaultValue=true)]
+        [DataMember(Name="attemptNum", EmitDefaultValue=false)]
         public int? AttemptNum { get; set; }
 
         /// <summary>
@@ -97,17 +100,24 @@ namespace Cohesity.Model
         public EntityProto Entity { get; set; }
 
         /// <summary>
+        /// The time to which CDP logs hydrated. This field is currently only applicable to MongoDb. This field is used during restore as the &#39;start time&#39; for copying the remaining cdp logs that are yet to be hydrated by agent.
+        /// </summary>
+        /// <value>The time to which CDP logs hydrated. This field is currently only applicable to MongoDb. This field is used during restore as the &#39;start time&#39; for copying the remaining cdp logs that are yet to be hydrated by agent.</value>
+        [DataMember(Name="hydrationTimeUsecs", EmitDefaultValue=false)]
+        public long? HydrationTimeUsecs { get; set; }
+
+        /// <summary>
         /// The job id from which to restore. This is used while communicating with yoda.
         /// </summary>
         /// <value>The job id from which to restore. This is used while communicating with yoda.</value>
-        [DataMember(Name="jobId", EmitDefaultValue=true)]
+        [DataMember(Name="jobId", EmitDefaultValue=false)]
         public long? JobId { get; set; }
 
         /// <summary>
         /// Id identifying a specific run to restore from. If this is not specified, and we need to restore from a run, the latest run is used. NOTE: This must be specified for RestoreFiles, RecoverDisks and GetVirtualDisks APIs.
         /// </summary>
         /// <value>Id identifying a specific run to restore from. If this is not specified, and we need to restore from a run, the latest run is used. NOTE: This must be specified for RestoreFiles, RecoverDisks and GetVirtualDisks APIs.</value>
-        [DataMember(Name="jobInstanceId", EmitDefaultValue=true)]
+        [DataMember(Name="jobInstanceId", EmitDefaultValue=false)]
         public long? JobInstanceId { get; set; }
 
         /// <summary>
@@ -115,6 +125,12 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="jobUid", EmitDefaultValue=false)]
         public UniversalIdProto JobUid { get; set; }
+
+        /// <summary>
+        /// Gets or Sets NosqlRecoverParams
+        /// </summary>
+        [DataMember(Name="nosqlRecoverParams", EmitDefaultValue=false)]
+        public NoSqlRecoverParams NosqlRecoverParams { get; set; }
 
         /// <summary>
         /// Gets or Sets ParentSource
@@ -126,8 +142,15 @@ namespace Cohesity.Model
         /// The time to which the object needs to be restored. If this is not set, then the object will be restored to the full/incremental snapshot. This is applicable only if the object is protected using CDP.
         /// </summary>
         /// <value>The time to which the object needs to be restored. If this is not set, then the object will be restored to the full/incremental snapshot. This is applicable only if the object is protected using CDP.</value>
-        [DataMember(Name="pointInTimeRestoreTimeUsecs", EmitDefaultValue=true)]
+        [DataMember(Name="pointInTimeRestoreTimeUsecs", EmitDefaultValue=false)]
         public long? PointInTimeRestoreTimeUsecs { get; set; }
+
+        /// <summary>
+        /// This field indicates if the object should be recovered from standby if it is enabled.
+        /// </summary>
+        /// <value>This field indicates if the object should be recovered from standby if it is enabled.</value>
+        [DataMember(Name="recoverFromStandby", EmitDefaultValue=false)]
+        public bool? RecoverFromStandby { get; set; }
 
         /// <summary>
         /// Gets or Sets RestoreAcropolisVmParam
@@ -139,28 +162,34 @@ namespace Cohesity.Model
         /// The relative path to the directory containing the entity&#39;s snapshot.
         /// </summary>
         /// <value>The relative path to the directory containing the entity&#39;s snapshot.</value>
-        [DataMember(Name="snapshotRelativeDirPath", EmitDefaultValue=true)]
+        [DataMember(Name="snapshotRelativeDirPath", EmitDefaultValue=false)]
         public string SnapshotRelativeDirPath { get; set; }
 
         /// <summary>
         /// The start time of the specific job run. Iff &#39;job_instance_id&#39; is set, this field must be set. In-memory indices on the Magneto master are laid-out by the start time of the job, and this is how the master pulls up a specific run. NOTE: This must be specified for RestoreFiles, RecoverDisks and GetVirtualDisks APIs
         /// </summary>
         /// <value>The start time of the specific job run. Iff &#39;job_instance_id&#39; is set, this field must be set. In-memory indices on the Magneto master are laid-out by the start time of the job, and this is how the master pulls up a specific run. NOTE: This must be specified for RestoreFiles, RecoverDisks and GetVirtualDisks APIs</value>
-        [DataMember(Name="startTimeUsecs", EmitDefaultValue=true)]
+        [DataMember(Name="startTimeUsecs", EmitDefaultValue=false)]
         public long? StartTimeUsecs { get; set; }
+
+        /// <summary>
+        /// Gets or Sets UdaRecoverParams
+        /// </summary>
+        [DataMember(Name="udaRecoverParams", EmitDefaultValue=false)]
+        public UdaRecoverParams UdaRecoverParams { get; set; }
 
         /// <summary>
         /// The name of the view where the object&#39;s snapshot is located.
         /// </summary>
         /// <value>The name of the view where the object&#39;s snapshot is located.</value>
-        [DataMember(Name="viewName", EmitDefaultValue=true)]
+        [DataMember(Name="viewName", EmitDefaultValue=false)]
         public string ViewName { get; set; }
 
         /// <summary>
         /// This is applicable only to VMs and is set to true when the VM being recovered or cloned contained independent disks when it was backed up.
         /// </summary>
         /// <value>This is applicable only to VMs and is set to true when the VM being recovered or cloned contained independent disks when it was backed up.</value>
-        [DataMember(Name="vmHadIndependentDisks", EmitDefaultValue=true)]
+        [DataMember(Name="vmHadIndependentDisks", EmitDefaultValue=false)]
         public bool? VmHadIndependentDisks { get; set; }
 
         /// <summary>
@@ -225,6 +254,11 @@ namespace Cohesity.Model
                     this.Entity.Equals(input.Entity))
                 ) && 
                 (
+                    this.HydrationTimeUsecs == input.HydrationTimeUsecs ||
+                    (this.HydrationTimeUsecs != null &&
+                    this.HydrationTimeUsecs.Equals(input.HydrationTimeUsecs))
+                ) && 
+                (
                     this.JobId == input.JobId ||
                     (this.JobId != null &&
                     this.JobId.Equals(input.JobId))
@@ -240,6 +274,11 @@ namespace Cohesity.Model
                     this.JobUid.Equals(input.JobUid))
                 ) && 
                 (
+                    this.NosqlRecoverParams == input.NosqlRecoverParams ||
+                    (this.NosqlRecoverParams != null &&
+                    this.NosqlRecoverParams.Equals(input.NosqlRecoverParams))
+                ) && 
+                (
                     this.ParentSource == input.ParentSource ||
                     (this.ParentSource != null &&
                     this.ParentSource.Equals(input.ParentSource))
@@ -248,6 +287,11 @@ namespace Cohesity.Model
                     this.PointInTimeRestoreTimeUsecs == input.PointInTimeRestoreTimeUsecs ||
                     (this.PointInTimeRestoreTimeUsecs != null &&
                     this.PointInTimeRestoreTimeUsecs.Equals(input.PointInTimeRestoreTimeUsecs))
+                ) && 
+                (
+                    this.RecoverFromStandby == input.RecoverFromStandby ||
+                    (this.RecoverFromStandby != null &&
+                    this.RecoverFromStandby.Equals(input.RecoverFromStandby))
                 ) && 
                 (
                     this.RestoreAcropolisVmParam == input.RestoreAcropolisVmParam ||
@@ -263,6 +307,11 @@ namespace Cohesity.Model
                     this.StartTimeUsecs == input.StartTimeUsecs ||
                     (this.StartTimeUsecs != null &&
                     this.StartTimeUsecs.Equals(input.StartTimeUsecs))
+                ) && 
+                (
+                    this.UdaRecoverParams == input.UdaRecoverParams ||
+                    (this.UdaRecoverParams != null &&
+                    this.UdaRecoverParams.Equals(input.UdaRecoverParams))
                 ) && 
                 (
                     this.ViewName == input.ViewName ||
@@ -295,22 +344,30 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.CloudReplicationTarget.GetHashCode();
                 if (this.Entity != null)
                     hashCode = hashCode * 59 + this.Entity.GetHashCode();
+                if (this.HydrationTimeUsecs != null)
+                    hashCode = hashCode * 59 + this.HydrationTimeUsecs.GetHashCode();
                 if (this.JobId != null)
                     hashCode = hashCode * 59 + this.JobId.GetHashCode();
                 if (this.JobInstanceId != null)
                     hashCode = hashCode * 59 + this.JobInstanceId.GetHashCode();
                 if (this.JobUid != null)
                     hashCode = hashCode * 59 + this.JobUid.GetHashCode();
+                if (this.NosqlRecoverParams != null)
+                    hashCode = hashCode * 59 + this.NosqlRecoverParams.GetHashCode();
                 if (this.ParentSource != null)
                     hashCode = hashCode * 59 + this.ParentSource.GetHashCode();
                 if (this.PointInTimeRestoreTimeUsecs != null)
                     hashCode = hashCode * 59 + this.PointInTimeRestoreTimeUsecs.GetHashCode();
+                if (this.RecoverFromStandby != null)
+                    hashCode = hashCode * 59 + this.RecoverFromStandby.GetHashCode();
                 if (this.RestoreAcropolisVmParam != null)
                     hashCode = hashCode * 59 + this.RestoreAcropolisVmParam.GetHashCode();
                 if (this.SnapshotRelativeDirPath != null)
                     hashCode = hashCode * 59 + this.SnapshotRelativeDirPath.GetHashCode();
                 if (this.StartTimeUsecs != null)
                     hashCode = hashCode * 59 + this.StartTimeUsecs.GetHashCode();
+                if (this.UdaRecoverParams != null)
+                    hashCode = hashCode * 59 + this.UdaRecoverParams.GetHashCode();
                 if (this.ViewName != null)
                     hashCode = hashCode * 59 + this.ViewName.GetHashCode();
                 if (this.VmHadIndependentDisks != null)

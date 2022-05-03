@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -51,7 +54,7 @@ namespace Cohesity.Model
         /// Specifies the AD restore request type. Specifies the action type of AD restore.  &#39;kNone&#39; specifies no special behaviour. &#39;kObjects&#39; specifies the user action to restore AD objects from a mounted AD snapshot database. &#39;kObjectAttributes&#39; specifies the user action to restore attributes of an AD object from a mounted AD snapshot database.
         /// </summary>
         /// <value>Specifies the AD restore request type. Specifies the action type of AD restore.  &#39;kNone&#39; specifies no special behaviour. &#39;kObjects&#39; specifies the user action to restore AD objects from a mounted AD snapshot database. &#39;kObjectAttributes&#39; specifies the user action to restore attributes of an AD object from a mounted AD snapshot database.</value>
-        [DataMember(Name="type", EmitDefaultValue=true)]
+        [DataMember(Name="type", EmitDefaultValue=false)]
         public TypeEnum? Type { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="AdRestoreOptions" /> class.
@@ -61,7 +64,6 @@ namespace Cohesity.Model
         /// <param name="type">Specifies the AD restore request type. Specifies the action type of AD restore.  &#39;kNone&#39; specifies no special behaviour. &#39;kObjects&#39; specifies the user action to restore AD objects from a mounted AD snapshot database. &#39;kObjectAttributes&#39; specifies the user action to restore attributes of an AD object from a mounted AD snapshot database..</param>
         public AdRestoreOptions(AdObjectAttributeParameters objectAttributeParameters = default(AdObjectAttributeParameters), AdObjectRestoreParameters objectParameters = default(AdObjectRestoreParameters), TypeEnum? type = default(TypeEnum?))
         {
-            this.Type = type;
             this.ObjectAttributeParameters = objectAttributeParameters;
             this.ObjectParameters = objectParameters;
             this.Type = type;
@@ -78,6 +80,7 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="objectParameters", EmitDefaultValue=false)]
         public AdObjectRestoreParameters ObjectParameters { get; set; }
+
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -127,7 +130,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.Type == input.Type ||
-                    this.Type.Equals(input.Type)
+                    (this.Type != null &&
+                    this.Type.Equals(input.Type))
                 );
         }
 
@@ -144,7 +148,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ObjectAttributeParameters.GetHashCode();
                 if (this.ObjectParameters != null)
                     hashCode = hashCode * 59 + this.ObjectParameters.GetHashCode();
-                hashCode = hashCode * 59 + this.Type.GetHashCode();
+                if (this.Type != null)
+                    hashCode = hashCode * 59 + this.Type.GetHashCode();
                 return hashCode;
             }
         }

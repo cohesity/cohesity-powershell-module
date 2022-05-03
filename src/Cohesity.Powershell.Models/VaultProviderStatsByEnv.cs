@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -225,7 +228,7 @@ namespace Cohesity.Model
         /// Specifies the environment type.
         /// </summary>
         /// <value>Specifies the environment type.</value>
-        [DataMember(Name="environment", EmitDefaultValue=true)]
+        [DataMember(Name="environment", EmitDefaultValue=false)]
         public EnvironmentEnum? Environment { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="VaultProviderStatsByEnv" /> class.
@@ -238,23 +241,21 @@ namespace Cohesity.Model
             this.Count = count;
             this.Environment = environment;
             this.Size = size;
-            this.Count = count;
-            this.Environment = environment;
-            this.Size = size;
         }
         
         /// <summary>
         /// Specifies the count of the objects of the specified environment.
         /// </summary>
         /// <value>Specifies the count of the objects of the specified environment.</value>
-        [DataMember(Name="count", EmitDefaultValue=true)]
+        [DataMember(Name="count", EmitDefaultValue=false)]
         public long? Count { get; set; }
+
 
         /// <summary>
         /// Specifies the size of the entities of the specified environment.
         /// </summary>
         /// <value>Specifies the size of the entities of the specified environment.</value>
-        [DataMember(Name="size", EmitDefaultValue=true)]
+        [DataMember(Name="size", EmitDefaultValue=false)]
         public long? Size { get; set; }
 
         /// <summary>
@@ -300,7 +301,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.Environment == input.Environment ||
-                    this.Environment.Equals(input.Environment)
+                    (this.Environment != null &&
+                    this.Environment.Equals(input.Environment))
                 ) && 
                 (
                     this.Size == input.Size ||
@@ -320,7 +322,8 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.Count != null)
                     hashCode = hashCode * 59 + this.Count.GetHashCode();
-                hashCode = hashCode * 59 + this.Environment.GetHashCode();
+                if (this.Environment != null)
+                    hashCode = hashCode * 59 + this.Environment.GetHashCode();
                 if (this.Size != null)
                     hashCode = hashCode * 59 + this.Size.GetHashCode();
                 return hashCode;

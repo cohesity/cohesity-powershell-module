@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.Domain = domain;
             this.Names = names;
-            this.Domain = domain;
-            this.Names = names;
         }
         
         /// <summary>
         /// Specifies the domain associated with the groups to delete. Only groups associated with the same domain can be deleted by a single request. If no domain is specified, the specified groups are deleted from the LOCAL domain on the Cohesity Cluster. If a non-LOCAL domain is specified, the specified groups are deleted on the Cohesity Cluster. However, the referenced group principals on the Active Directory are not deleted.
         /// </summary>
         /// <value>Specifies the domain associated with the groups to delete. Only groups associated with the same domain can be deleted by a single request. If no domain is specified, the specified groups are deleted from the LOCAL domain on the Cohesity Cluster. If a non-LOCAL domain is specified, the specified groups are deleted on the Cohesity Cluster. However, the referenced group principals on the Active Directory are not deleted.</value>
-        [DataMember(Name="domain", EmitDefaultValue=true)]
+        [DataMember(Name="domain", EmitDefaultValue=false)]
         public string Domain { get; set; }
 
         /// <summary>
         /// Array of Groups.  Specifies the list of groups to delete on the Cohesity Cluster. Only groups from the same domain can be deleted by a single request.
         /// </summary>
         /// <value>Array of Groups.  Specifies the list of groups to delete on the Cohesity Cluster. Only groups from the same domain can be deleted by a single request.</value>
-        [DataMember(Name="names", EmitDefaultValue=true)]
+        [DataMember(Name="names", EmitDefaultValue=false)]
         public List<string> Names { get; set; }
 
         /// <summary>
@@ -91,8 +92,7 @@ namespace Cohesity.Model
                 (
                     this.Names == input.Names ||
                     this.Names != null &&
-                    input.Names != null &&
-                    this.Names.SequenceEqual(input.Names)
+                    this.Names.Equals(input.Names)
                 );
         }
 

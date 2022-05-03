@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -33,9 +36,15 @@ namespace Cohesity.Model
         /// <param name="name">Specifies the name of the Antivirus service group. (required).</param>
         public AntivirusServiceGroupParams(List<AntivirusServiceConfigParams> antivirusServices = default(List<AntivirusServiceConfigParams>), string description = default(string), string name = default(string))
         {
-            this.AntivirusServices = antivirusServices;
-            this.Description = description;
-            this.Name = name;
+            // to ensure "name" is required (not null)
+            if (name == null)
+            {
+                throw new InvalidDataException("name is a required property for AntivirusServiceGroupParams and cannot be null");
+            }
+            else
+            {
+                this.Name = name;
+            }
             this.AntivirusServices = antivirusServices;
             this.Description = description;
         }
@@ -44,21 +53,21 @@ namespace Cohesity.Model
         /// Specifies the Antivirus services for this provider.
         /// </summary>
         /// <value>Specifies the Antivirus services for this provider.</value>
-        [DataMember(Name="antivirusServices", EmitDefaultValue=true)]
+        [DataMember(Name="antivirusServices", EmitDefaultValue=false)]
         public List<AntivirusServiceConfigParams> AntivirusServices { get; set; }
 
         /// <summary>
         /// Specifies the description of the Antivirus service group.
         /// </summary>
         /// <value>Specifies the description of the Antivirus service group.</value>
-        [DataMember(Name="description", EmitDefaultValue=true)]
+        [DataMember(Name="description", EmitDefaultValue=false)]
         public string Description { get; set; }
 
         /// <summary>
         /// Specifies the name of the Antivirus service group.
         /// </summary>
         /// <value>Specifies the name of the Antivirus service group.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
 
         /// <summary>
@@ -100,8 +109,7 @@ namespace Cohesity.Model
                 (
                     this.AntivirusServices == input.AntivirusServices ||
                     this.AntivirusServices != null &&
-                    input.AntivirusServices != null &&
-                    this.AntivirusServices.SequenceEqual(input.AntivirusServices)
+                    this.AntivirusServices.Equals(input.AntivirusServices)
                 ) && 
                 (
                     this.Description == input.Description ||

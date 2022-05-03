@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,30 +34,27 @@ namespace Cohesity.Model
             this.IpAddress = ipAddress;
             this.Name = name;
             this.Vlan = vlan;
-            this.IpAddress = ipAddress;
-            this.Name = name;
-            this.Vlan = vlan;
         }
         
         /// <summary>
         /// Specifies the IP address of the Pure Storage FlashBlade Array.
         /// </summary>
         /// <value>Specifies the IP address of the Pure Storage FlashBlade Array.</value>
-        [DataMember(Name="ipAddress", EmitDefaultValue=true)]
+        [DataMember(Name="ipAddress", EmitDefaultValue=false)]
         public string IpAddress { get; set; }
 
         /// <summary>
         /// Specifies the name of the network interface.
         /// </summary>
         /// <value>Specifies the name of the network interface.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
 
         /// <summary>
         /// Specifies the id of the VLAN network of the Pure Storage FlashBlade Array.
         /// </summary>
         /// <value>Specifies the id of the VLAN network of the Pure Storage FlashBlade Array.</value>
-        [DataMember(Name="vlan", EmitDefaultValue=true)]
+        [DataMember(Name="vlan", EmitDefaultValue=false)]
         public int? Vlan { get; set; }
 
         /// <summary>

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -33,8 +36,24 @@ namespace Cohesity.Model
         /// <param name="userPattern">userPattern (required).</param>
         public PatternRequestBody(int? applicationDataType = default(int?), long? applicationId = default(long?), SupportedPattern userPattern = default(SupportedPattern))
         {
-            this.ApplicationDataType = applicationDataType;
-            this.ApplicationId = applicationId;
+            // to ensure "applicationDataType" is required (not null)
+            if (applicationDataType == null)
+            {
+                throw new InvalidDataException("applicationDataType is a required property for PatternRequestBody and cannot be null");
+            }
+            else
+            {
+                this.ApplicationDataType = applicationDataType;
+            }
+            // to ensure "applicationId" is required (not null)
+            if (applicationId == null)
+            {
+                throw new InvalidDataException("applicationId is a required property for PatternRequestBody and cannot be null");
+            }
+            else
+            {
+                this.ApplicationId = applicationId;
+            }
             // to ensure "userPattern" is required (not null)
             if (userPattern == null)
             {
@@ -44,21 +63,20 @@ namespace Cohesity.Model
             {
                 this.UserPattern = userPattern;
             }
-
         }
         
         /// <summary>
         /// Specifies the data type for which supported patterns can be fetched.
         /// </summary>
         /// <value>Specifies the data type for which supported patterns can be fetched.</value>
-        [DataMember(Name="applicationDataType", EmitDefaultValue=true)]
+        [DataMember(Name="applicationDataType", EmitDefaultValue=false)]
         public int? ApplicationDataType { get; set; }
 
         /// <summary>
         /// Specifies AWB Application ID.
         /// </summary>
         /// <value>Specifies AWB Application ID.</value>
-        [DataMember(Name="applicationId", EmitDefaultValue=true)]
+        [DataMember(Name="applicationId", EmitDefaultValue=false)]
         public long? ApplicationId { get; set; }
 
         /// <summary>

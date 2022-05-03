@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -51,7 +54,7 @@ namespace Cohesity.Model
         /// Specifies WORM retention type for the files. When a WORM retention type is specified, the files will be kept until the maximum of the retention time. During that time, the files cannot be deleted. &#39;kNone&#39; implies there is no WORM retention set. &#39;kCompliance&#39; implies WORM retention is set for compliance reason. &#39;kAdministrative&#39; implies WORM retention is set for administrative purposes.
         /// </summary>
         /// <value>Specifies WORM retention type for the files. When a WORM retention type is specified, the files will be kept until the maximum of the retention time. During that time, the files cannot be deleted. &#39;kNone&#39; implies there is no WORM retention set. &#39;kCompliance&#39; implies WORM retention is set for compliance reason. &#39;kAdministrative&#39; implies WORM retention is set for administrative purposes.</value>
-        [DataMember(Name="wormRetentionType", EmitDefaultValue=true)]
+        [DataMember(Name="wormRetentionType", EmitDefaultValue=false)]
         public WormRetentionTypeEnum? WormRetentionType { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="DataMigrationPolicy" /> class.
@@ -62,8 +65,6 @@ namespace Cohesity.Model
         public DataMigrationPolicy(long? daysToKeep = default(long?), SchedulingPolicy schedulingPolicy = default(SchedulingPolicy), WormRetentionTypeEnum? wormRetentionType = default(WormRetentionTypeEnum?))
         {
             this.DaysToKeep = daysToKeep;
-            this.WormRetentionType = wormRetentionType;
-            this.DaysToKeep = daysToKeep;
             this.SchedulingPolicy = schedulingPolicy;
             this.WormRetentionType = wormRetentionType;
         }
@@ -72,7 +73,7 @@ namespace Cohesity.Model
         /// Specifies how many days to retain Snapshots on the Cohesity Cluster.
         /// </summary>
         /// <value>Specifies how many days to retain Snapshots on the Cohesity Cluster.</value>
-        [DataMember(Name="daysToKeep", EmitDefaultValue=true)]
+        [DataMember(Name="daysToKeep", EmitDefaultValue=false)]
         public long? DaysToKeep { get; set; }
 
         /// <summary>
@@ -80,6 +81,7 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="schedulingPolicy", EmitDefaultValue=false)]
         public SchedulingPolicy SchedulingPolicy { get; set; }
+
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -129,7 +131,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.WormRetentionType == input.WormRetentionType ||
-                    this.WormRetentionType.Equals(input.WormRetentionType)
+                    (this.WormRetentionType != null &&
+                    this.WormRetentionType.Equals(input.WormRetentionType))
                 );
         }
 
@@ -146,7 +149,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.DaysToKeep.GetHashCode();
                 if (this.SchedulingPolicy != null)
                     hashCode = hashCode * 59 + this.SchedulingPolicy.GetHashCode();
-                hashCode = hashCode * 59 + this.WormRetentionType.GetHashCode();
+                if (this.WormRetentionType != null)
+                    hashCode = hashCode * 59 + this.WormRetentionType.GetHashCode();
                 return hashCode;
             }
         }

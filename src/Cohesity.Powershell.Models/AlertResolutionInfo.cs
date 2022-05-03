@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.ResolutionDetails = resolutionDetails;
             this.ResolutionSummary = resolutionSummary;
-            this.ResolutionDetails = resolutionDetails;
-            this.ResolutionSummary = resolutionSummary;
         }
         
         /// <summary>
         /// Specifies detailed notes about the Resolution.
         /// </summary>
         /// <value>Specifies detailed notes about the Resolution.</value>
-        [DataMember(Name="resolutionDetails", EmitDefaultValue=true)]
+        [DataMember(Name="resolutionDetails", EmitDefaultValue=false)]
         public string ResolutionDetails { get; set; }
 
         /// <summary>
         /// Specifies short description about the Resolution.
         /// </summary>
         /// <value>Specifies short description about the Resolution.</value>
-        [DataMember(Name="resolutionSummary", EmitDefaultValue=true)]
+        [DataMember(Name="resolutionSummary", EmitDefaultValue=false)]
         public string ResolutionSummary { get; set; }
 
         /// <summary>

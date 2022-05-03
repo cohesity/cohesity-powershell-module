@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -63,8 +66,53 @@ namespace Cohesity.Model
         /// Specifies the authentication type of the user. &#39;kAuthLocal&#39; implies authenticated user is a local user. &#39;kAuthAd&#39; implies authenticated user is an Active Directory user. &#39;kAuthSalesforce&#39; implies authenticated user is a Salesforce user. &#39;kAuthGoogle&#39; implies authenticated user is a Google user. &#39;kAuthSso&#39; implies authenticated user is an SSO user.
         /// </summary>
         /// <value>Specifies the authentication type of the user. &#39;kAuthLocal&#39; implies authenticated user is a local user. &#39;kAuthAd&#39; implies authenticated user is an Active Directory user. &#39;kAuthSalesforce&#39; implies authenticated user is a Salesforce user. &#39;kAuthGoogle&#39; implies authenticated user is a Google user. &#39;kAuthSso&#39; implies authenticated user is an SSO user.</value>
-        [DataMember(Name="authenticationType", EmitDefaultValue=true)]
+        [DataMember(Name="authenticationType", EmitDefaultValue=false)]
         public AuthenticationTypeEnum? AuthenticationType { get; set; }
+        /// <summary>
+        /// Specifies the lockout reason of the user if it is locked. &#39;NotLocked&#39; implies the user is not locked. &#39;FailedLoginAttempts&#39; the account is locked due to many failed login attempts. &#39;LockedByAdmin&#39; implies the account is locked by the admin user. &#39;Inactivity&#39; implies the account is locked due to long time of inactivity. &#39;OtherReasons&#39; implied the account is loced for other reasons.
+        /// </summary>
+        /// <value>Specifies the lockout reason of the user if it is locked. &#39;NotLocked&#39; implies the user is not locked. &#39;FailedLoginAttempts&#39; the account is locked due to many failed login attempts. &#39;LockedByAdmin&#39; implies the account is locked by the admin user. &#39;Inactivity&#39; implies the account is locked due to long time of inactivity. &#39;OtherReasons&#39; implied the account is loced for other reasons.</value>
+        [JsonConverter(typeof(StringEnumConverter))]
+        public enum LockoutReasonEnum
+        {
+            /// <summary>
+            /// Enum NotLocked for value: NotLocked
+            /// </summary>
+            [EnumMember(Value = "NotLocked")]
+            NotLocked = 1,
+
+            /// <summary>
+            /// Enum FailedLoginAttempts for value: FailedLoginAttempts
+            /// </summary>
+            [EnumMember(Value = "FailedLoginAttempts")]
+            FailedLoginAttempts = 2,
+
+            /// <summary>
+            /// Enum LockedByAdmin for value: LockedByAdmin
+            /// </summary>
+            [EnumMember(Value = "LockedByAdmin")]
+            LockedByAdmin = 3,
+
+            /// <summary>
+            /// Enum Inactivity for value: Inactivity
+            /// </summary>
+            [EnumMember(Value = "Inactivity")]
+            Inactivity = 4,
+
+            /// <summary>
+            /// Enum OtherReasons for value: OtherReasons
+            /// </summary>
+            [EnumMember(Value = "OtherReasons")]
+            OtherReasons = 5
+
+        }
+
+        /// <summary>
+        /// Specifies the lockout reason of the user if it is locked. &#39;NotLocked&#39; implies the user is not locked. &#39;FailedLoginAttempts&#39; the account is locked due to many failed login attempts. &#39;LockedByAdmin&#39; implies the account is locked by the admin user. &#39;Inactivity&#39; implies the account is locked due to long time of inactivity. &#39;OtherReasons&#39; implied the account is loced for other reasons.
+        /// </summary>
+        /// <value>Specifies the lockout reason of the user if it is locked. &#39;NotLocked&#39; implies the user is not locked. &#39;FailedLoginAttempts&#39; the account is locked due to many failed login attempts. &#39;LockedByAdmin&#39; implies the account is locked by the admin user. &#39;Inactivity&#39; implies the account is locked due to long time of inactivity. &#39;OtherReasons&#39; implied the account is loced for other reasons.</value>
+        [DataMember(Name="lockoutReason", EmitDefaultValue=false)]
+        public LockoutReasonEnum? LockoutReason { get; set; }
         /// <summary>
         /// Defines PrivilegeIds
         /// </summary>
@@ -438,78 +486,80 @@ namespace Cohesity.Model
         /// Array of Privileges.  Specifies the Cohesity privileges from the roles. This will be populated based on the union of all privileges in roles. Type for unique privilege Id values. All below enum values specify a value for all uniquely defined privileges in Cohesity.
         /// </summary>
         /// <value>Array of Privileges.  Specifies the Cohesity privileges from the roles. This will be populated based on the union of all privileges in roles. Type for unique privilege Id values. All below enum values specify a value for all uniquely defined privileges in Cohesity.</value>
-        [DataMember(Name="privilegeIds", EmitDefaultValue=true)]
+        [DataMember(Name="privilegeIds", EmitDefaultValue=false)]
         public List<PrivilegeIdsEnum> PrivilegeIds { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="User" /> class.
         /// </summary>
         /// <param name="additionalGroupNames">Array of Additional Groups.  Specifies the names of additional groups this User may belong to..</param>
+        /// <param name="auditLogSettings">auditLogSettings.</param>
         /// <param name="authenticationType">Specifies the authentication type of the user. &#39;kAuthLocal&#39; implies authenticated user is a local user. &#39;kAuthAd&#39; implies authenticated user is an Active Directory user. &#39;kAuthSalesforce&#39; implies authenticated user is a Salesforce user. &#39;kAuthGoogle&#39; implies authenticated user is a Google user. &#39;kAuthSso&#39; implies authenticated user is an SSO user..</param>
         /// <param name="clusterIdentifiers">Specifies the list of clusters this user has access to. If this is not specified, access will be granted to all clusters..</param>
         /// <param name="createdTimeMsecs">Specifies the epoch time in milliseconds when the user account was created on the Cohesity Cluster..</param>
+        /// <param name="currentPassword">Specifies the current password when updating the password..</param>
         /// <param name="description">Specifies a description about the user..</param>
         /// <param name="domain">Specifies the fully qualified domain name (FQDN) of an Active Directory or LOCAL for the default LOCAL domain on the Cohesity Cluster. A user is uniquely identified by combination of the username and the domain..</param>
         /// <param name="effectiveTimeMsecs">Specifies the epoch time in milliseconds when the user becomes effective. Until that time, the user cannot log in..</param>
         /// <param name="emailAddress">Specifies the email address of the user..</param>
         /// <param name="expiredTimeMsecs">Specifies the epoch time in milliseconds when the user becomes expired. After that, the user cannot log in..</param>
+        /// <param name="forcePasswordChange">Specifies whether to force user to change password..</param>
         /// <param name="googleAccount">googleAccount.</param>
         /// <param name="idpUserInfo">idpUserInfo.</param>
+        /// <param name="isAccountLocked">Specifies whether the user account is locked..</param>
+        /// <param name="isActive">IsActive specifies whether or not a user is active, or has been disactivated by the customer. The default behavior is &#39;true&#39;..</param>
+        /// <param name="isClusterMfaEnabled">Specifies if MFA is enabled on cluster..</param>
+        /// <param name="lastSuccessfulLoginTimeMsecs">Specifies the epoch time in milliseconds when the user was last logged in successfully..</param>
         /// <param name="lastUpdatedTimeMsecs">Specifies the epoch time in milliseconds when the user account was last modified on the Cohesity Cluster..</param>
+        /// <param name="lockoutReason">Specifies the lockout reason of the user if it is locked. &#39;NotLocked&#39; implies the user is not locked. &#39;FailedLoginAttempts&#39; the account is locked due to many failed login attempts. &#39;LockedByAdmin&#39; implies the account is locked by the admin user. &#39;Inactivity&#39; implies the account is locked due to long time of inactivity. &#39;OtherReasons&#39; implied the account is loced for other reasons..</param>
+        /// <param name="mfaInfo">mfaInfo.</param>
+        /// <param name="mfaMethods">Specifies MFA methods that enabled on the cluster..</param>
         /// <param name="orgMembership">OrgMembership contains the list of all available tenantIds for this user to switch to. Only when creating the session user, this field is populated on the fly. We discover the tenantIds from various groups assigned to the users..</param>
         /// <param name="password">Specifies the password of this user..</param>
         /// <param name="preferences">preferences.</param>
+        /// <param name="previousLoginTimeMsecs">Specifies the epoch time in milliseconds of previous user login..</param>
         /// <param name="primaryGroupName">Specifies the name of the primary group of this User..</param>
         /// <param name="privilegeIds">Array of Privileges.  Specifies the Cohesity privileges from the roles. This will be populated based on the union of all privileges in roles. Type for unique privilege Id values. All below enum values specify a value for all uniquely defined privileges in Cohesity..</param>
+        /// <param name="profiles">Specifies the user profiles. NOTE: Currently used for Helios..</param>
         /// <param name="restricted">Whether the user is a restricted user. A restricted user can only view the objects he has permissions to..</param>
         /// <param name="roles">Array of Roles.  Specifies the Cohesity roles to associate with the user such as such as &#39;Admin&#39;, &#39;Ops&#39; or &#39;View&#39;. The Cohesity roles determine privileges on the Cohesity Cluster for this user..</param>
         /// <param name="s3AccessKeyId">Specifies the S3 Account Access Key ID..</param>
         /// <param name="s3AccountId">Specifies the S3 Account Canonical User ID..</param>
         /// <param name="s3SecretKey">Specifies the S3 Account Secret Key..</param>
         /// <param name="salesforceAccount">salesforceAccount.</param>
-        /// <param name="sid">Specifies the unique Security ID (SID) of the user..</param>
+        /// <param name="sid">Specifies the unique Security ID (SID) of the user. This field is mandatory in modifying user..</param>
         /// <param name="tenantId">Specifies the effective Tenant ID of the user..</param>
         /// <param name="username">Specifies the login name of the user..</param>
-        public User(List<string> additionalGroupNames = default(List<string>), AuthenticationTypeEnum? authenticationType = default(AuthenticationTypeEnum?), List<ClusterIdentifier> clusterIdentifiers = default(List<ClusterIdentifier>), long? createdTimeMsecs = default(long?), string description = default(string), string domain = default(string), long? effectiveTimeMsecs = default(long?), string emailAddress = default(string), long? expiredTimeMsecs = default(long?), GoogleAccountInfo googleAccount = default(GoogleAccountInfo), IdpUserInfo idpUserInfo = default(IdpUserInfo), long? lastUpdatedTimeMsecs = default(long?), List<TenantConfig> orgMembership = default(List<TenantConfig>), string password = default(string), Preferences preferences = default(Preferences), string primaryGroupName = default(string), List<PrivilegeIdsEnum> privilegeIds = default(List<PrivilegeIdsEnum>), bool? restricted = default(bool?), List<string> roles = default(List<string>), string s3AccessKeyId = default(string), string s3AccountId = default(string), string s3SecretKey = default(string), SalesforceAccountInfo salesforceAccount = default(SalesforceAccountInfo), string sid = default(string), string tenantId = default(string), string username = default(string))
+        public User(List<string> additionalGroupNames = default(List<string>), AuditLogSettings auditLogSettings = default(AuditLogSettings), AuthenticationTypeEnum? authenticationType = default(AuthenticationTypeEnum?), List<ClusterIdentifier> clusterIdentifiers = default(List<ClusterIdentifier>), long? createdTimeMsecs = default(long?), string currentPassword = default(string), string description = default(string), string domain = default(string), long? effectiveTimeMsecs = default(long?), string emailAddress = default(string), long? expiredTimeMsecs = default(long?), bool? forcePasswordChange = default(bool?), GoogleAccountInfo googleAccount = default(GoogleAccountInfo), IdpUserInfo idpUserInfo = default(IdpUserInfo), bool? isAccountLocked = default(bool?), bool? isActive = default(bool?), bool? isClusterMfaEnabled = default(bool?), long? lastSuccessfulLoginTimeMsecs = default(long?), long? lastUpdatedTimeMsecs = default(long?), LockoutReasonEnum? lockoutReason = default(LockoutReasonEnum?), MfaInfo mfaInfo = default(MfaInfo), List<string> mfaMethods = default(List<string>), List<TenantConfig> orgMembership = default(List<TenantConfig>), string password = default(string), Preferences preferences = default(Preferences), long? previousLoginTimeMsecs = default(long?), string primaryGroupName = default(string), List<PrivilegeIdsEnum> privilegeIds = default(List<PrivilegeIdsEnum>), List<McmUserProfile> profiles = default(List<McmUserProfile>), bool? restricted = default(bool?), List<string> roles = default(List<string>), string s3AccessKeyId = default(string), string s3AccountId = default(string), string s3SecretKey = default(string), SalesforceAccountInfo salesforceAccount = default(SalesforceAccountInfo), string sid = default(string), string tenantId = default(string), string username = default(string))
         {
             this.AdditionalGroupNames = additionalGroupNames;
+            this.AuditLogSettings = auditLogSettings;
             this.AuthenticationType = authenticationType;
             this.ClusterIdentifiers = clusterIdentifiers;
             this.CreatedTimeMsecs = createdTimeMsecs;
+            this.CurrentPassword = currentPassword;
             this.Description = description;
             this.Domain = domain;
             this.EffectiveTimeMsecs = effectiveTimeMsecs;
             this.EmailAddress = emailAddress;
             this.ExpiredTimeMsecs = expiredTimeMsecs;
-            this.LastUpdatedTimeMsecs = lastUpdatedTimeMsecs;
-            this.OrgMembership = orgMembership;
-            this.Password = password;
-            this.PrimaryGroupName = primaryGroupName;
-            this.PrivilegeIds = privilegeIds;
-            this.Restricted = restricted;
-            this.Roles = roles;
-            this.S3AccessKeyId = s3AccessKeyId;
-            this.S3AccountId = s3AccountId;
-            this.S3SecretKey = s3SecretKey;
-            this.Sid = sid;
-            this.TenantId = tenantId;
-            this.Username = username;
-            this.AdditionalGroupNames = additionalGroupNames;
-            this.AuthenticationType = authenticationType;
-            this.ClusterIdentifiers = clusterIdentifiers;
-            this.CreatedTimeMsecs = createdTimeMsecs;
-            this.Description = description;
-            this.Domain = domain;
-            this.EffectiveTimeMsecs = effectiveTimeMsecs;
-            this.EmailAddress = emailAddress;
-            this.ExpiredTimeMsecs = expiredTimeMsecs;
+            this.ForcePasswordChange = forcePasswordChange;
             this.GoogleAccount = googleAccount;
             this.IdpUserInfo = idpUserInfo;
+            this.IsAccountLocked = isAccountLocked;
+            this.IsActive = isActive;
+            this.IsClusterMfaEnabled = isClusterMfaEnabled;
+            this.LastSuccessfulLoginTimeMsecs = lastSuccessfulLoginTimeMsecs;
             this.LastUpdatedTimeMsecs = lastUpdatedTimeMsecs;
+            this.LockoutReason = lockoutReason;
+            this.MfaInfo = mfaInfo;
+            this.MfaMethods = mfaMethods;
             this.OrgMembership = orgMembership;
             this.Password = password;
             this.Preferences = preferences;
+            this.PreviousLoginTimeMsecs = previousLoginTimeMsecs;
             this.PrimaryGroupName = primaryGroupName;
             this.PrivilegeIds = privilegeIds;
+            this.Profiles = profiles;
             this.Restricted = restricted;
             this.Roles = roles;
             this.S3AccessKeyId = s3AccessKeyId;
@@ -525,57 +575,78 @@ namespace Cohesity.Model
         /// Array of Additional Groups.  Specifies the names of additional groups this User may belong to.
         /// </summary>
         /// <value>Array of Additional Groups.  Specifies the names of additional groups this User may belong to.</value>
-        [DataMember(Name="additionalGroupNames", EmitDefaultValue=true)]
+        [DataMember(Name="additionalGroupNames", EmitDefaultValue=false)]
         public List<string> AdditionalGroupNames { get; set; }
+
+        /// <summary>
+        /// Gets or Sets AuditLogSettings
+        /// </summary>
+        [DataMember(Name="auditLogSettings", EmitDefaultValue=false)]
+        public AuditLogSettings AuditLogSettings { get; set; }
+
 
         /// <summary>
         /// Specifies the list of clusters this user has access to. If this is not specified, access will be granted to all clusters.
         /// </summary>
         /// <value>Specifies the list of clusters this user has access to. If this is not specified, access will be granted to all clusters.</value>
-        [DataMember(Name="clusterIdentifiers", EmitDefaultValue=true)]
+        [DataMember(Name="clusterIdentifiers", EmitDefaultValue=false)]
         public List<ClusterIdentifier> ClusterIdentifiers { get; set; }
 
         /// <summary>
         /// Specifies the epoch time in milliseconds when the user account was created on the Cohesity Cluster.
         /// </summary>
         /// <value>Specifies the epoch time in milliseconds when the user account was created on the Cohesity Cluster.</value>
-        [DataMember(Name="createdTimeMsecs", EmitDefaultValue=true)]
+        [DataMember(Name="createdTimeMsecs", EmitDefaultValue=false)]
         public long? CreatedTimeMsecs { get; set; }
+
+        /// <summary>
+        /// Specifies the current password when updating the password.
+        /// </summary>
+        /// <value>Specifies the current password when updating the password.</value>
+        [DataMember(Name="currentPassword", EmitDefaultValue=false)]
+        public string CurrentPassword { get; set; }
 
         /// <summary>
         /// Specifies a description about the user.
         /// </summary>
         /// <value>Specifies a description about the user.</value>
-        [DataMember(Name="description", EmitDefaultValue=true)]
+        [DataMember(Name="description", EmitDefaultValue=false)]
         public string Description { get; set; }
 
         /// <summary>
         /// Specifies the fully qualified domain name (FQDN) of an Active Directory or LOCAL for the default LOCAL domain on the Cohesity Cluster. A user is uniquely identified by combination of the username and the domain.
         /// </summary>
         /// <value>Specifies the fully qualified domain name (FQDN) of an Active Directory or LOCAL for the default LOCAL domain on the Cohesity Cluster. A user is uniquely identified by combination of the username and the domain.</value>
-        [DataMember(Name="domain", EmitDefaultValue=true)]
+        [DataMember(Name="domain", EmitDefaultValue=false)]
         public string Domain { get; set; }
 
         /// <summary>
         /// Specifies the epoch time in milliseconds when the user becomes effective. Until that time, the user cannot log in.
         /// </summary>
         /// <value>Specifies the epoch time in milliseconds when the user becomes effective. Until that time, the user cannot log in.</value>
-        [DataMember(Name="effectiveTimeMsecs", EmitDefaultValue=true)]
+        [DataMember(Name="effectiveTimeMsecs", EmitDefaultValue=false)]
         public long? EffectiveTimeMsecs { get; set; }
 
         /// <summary>
         /// Specifies the email address of the user.
         /// </summary>
         /// <value>Specifies the email address of the user.</value>
-        [DataMember(Name="emailAddress", EmitDefaultValue=true)]
+        [DataMember(Name="emailAddress", EmitDefaultValue=false)]
         public string EmailAddress { get; set; }
 
         /// <summary>
         /// Specifies the epoch time in milliseconds when the user becomes expired. After that, the user cannot log in.
         /// </summary>
         /// <value>Specifies the epoch time in milliseconds when the user becomes expired. After that, the user cannot log in.</value>
-        [DataMember(Name="expiredTimeMsecs", EmitDefaultValue=true)]
+        [DataMember(Name="expiredTimeMsecs", EmitDefaultValue=false)]
         public long? ExpiredTimeMsecs { get; set; }
+
+        /// <summary>
+        /// Specifies whether to force user to change password.
+        /// </summary>
+        /// <value>Specifies whether to force user to change password.</value>
+        [DataMember(Name="forcePasswordChange", EmitDefaultValue=false)]
+        public bool? ForcePasswordChange { get; set; }
 
         /// <summary>
         /// Gets or Sets GoogleAccount
@@ -587,7 +658,7 @@ namespace Cohesity.Model
         /// Specifies the Cohesity roles to associate with the user&#39; group. These roles can only be edited from group.
         /// </summary>
         /// <value>Specifies the Cohesity roles to associate with the user&#39; group. These roles can only be edited from group.</value>
-        [DataMember(Name="groupRoles", EmitDefaultValue=true)]
+        [DataMember(Name="groupRoles", EmitDefaultValue=false)]
         public List<string> GroupRoles { get; private set; }
 
         /// <summary>
@@ -597,24 +668,66 @@ namespace Cohesity.Model
         public IdpUserInfo IdpUserInfo { get; set; }
 
         /// <summary>
+        /// Specifies whether the user account is locked.
+        /// </summary>
+        /// <value>Specifies whether the user account is locked.</value>
+        [DataMember(Name="isAccountLocked", EmitDefaultValue=false)]
+        public bool? IsAccountLocked { get; set; }
+
+        /// <summary>
+        /// IsActive specifies whether or not a user is active, or has been disactivated by the customer. The default behavior is &#39;true&#39;.
+        /// </summary>
+        /// <value>IsActive specifies whether or not a user is active, or has been disactivated by the customer. The default behavior is &#39;true&#39;.</value>
+        [DataMember(Name="isActive", EmitDefaultValue=false)]
+        public bool? IsActive { get; set; }
+
+        /// <summary>
+        /// Specifies if MFA is enabled on cluster.
+        /// </summary>
+        /// <value>Specifies if MFA is enabled on cluster.</value>
+        [DataMember(Name="isClusterMfaEnabled", EmitDefaultValue=false)]
+        public bool? IsClusterMfaEnabled { get; set; }
+
+        /// <summary>
+        /// Specifies the epoch time in milliseconds when the user was last logged in successfully.
+        /// </summary>
+        /// <value>Specifies the epoch time in milliseconds when the user was last logged in successfully.</value>
+        [DataMember(Name="lastSuccessfulLoginTimeMsecs", EmitDefaultValue=false)]
+        public long? LastSuccessfulLoginTimeMsecs { get; set; }
+
+        /// <summary>
         /// Specifies the epoch time in milliseconds when the user account was last modified on the Cohesity Cluster.
         /// </summary>
         /// <value>Specifies the epoch time in milliseconds when the user account was last modified on the Cohesity Cluster.</value>
-        [DataMember(Name="lastUpdatedTimeMsecs", EmitDefaultValue=true)]
+        [DataMember(Name="lastUpdatedTimeMsecs", EmitDefaultValue=false)]
         public long? LastUpdatedTimeMsecs { get; set; }
+
+
+        /// <summary>
+        /// Gets or Sets MfaInfo
+        /// </summary>
+        [DataMember(Name="mfaInfo", EmitDefaultValue=false)]
+        public MfaInfo MfaInfo { get; set; }
+
+        /// <summary>
+        /// Specifies MFA methods that enabled on the cluster.
+        /// </summary>
+        /// <value>Specifies MFA methods that enabled on the cluster.</value>
+        [DataMember(Name="mfaMethods", EmitDefaultValue=false)]
+        public List<string> MfaMethods { get; set; }
 
         /// <summary>
         /// OrgMembership contains the list of all available tenantIds for this user to switch to. Only when creating the session user, this field is populated on the fly. We discover the tenantIds from various groups assigned to the users.
         /// </summary>
         /// <value>OrgMembership contains the list of all available tenantIds for this user to switch to. Only when creating the session user, this field is populated on the fly. We discover the tenantIds from various groups assigned to the users.</value>
-        [DataMember(Name="orgMembership", EmitDefaultValue=true)]
+        [DataMember(Name="orgMembership", EmitDefaultValue=false)]
         public List<TenantConfig> OrgMembership { get; set; }
 
         /// <summary>
         /// Specifies the password of this user.
         /// </summary>
         /// <value>Specifies the password of this user.</value>
-        [DataMember(Name="password", EmitDefaultValue=true)]
+        [DataMember(Name="password", EmitDefaultValue=false)]
         public string Password { get; set; }
 
         /// <summary>
@@ -624,45 +737,60 @@ namespace Cohesity.Model
         public Preferences Preferences { get; set; }
 
         /// <summary>
+        /// Specifies the epoch time in milliseconds of previous user login.
+        /// </summary>
+        /// <value>Specifies the epoch time in milliseconds of previous user login.</value>
+        [DataMember(Name="previousLoginTimeMsecs", EmitDefaultValue=false)]
+        public long? PreviousLoginTimeMsecs { get; set; }
+
+        /// <summary>
         /// Specifies the name of the primary group of this User.
         /// </summary>
         /// <value>Specifies the name of the primary group of this User.</value>
-        [DataMember(Name="primaryGroupName", EmitDefaultValue=true)]
+        [DataMember(Name="primaryGroupName", EmitDefaultValue=false)]
         public string PrimaryGroupName { get; set; }
+
+
+        /// <summary>
+        /// Specifies the user profiles. NOTE: Currently used for Helios.
+        /// </summary>
+        /// <value>Specifies the user profiles. NOTE: Currently used for Helios.</value>
+        [DataMember(Name="profiles", EmitDefaultValue=false)]
+        public List<McmUserProfile> Profiles { get; set; }
 
         /// <summary>
         /// Whether the user is a restricted user. A restricted user can only view the objects he has permissions to.
         /// </summary>
         /// <value>Whether the user is a restricted user. A restricted user can only view the objects he has permissions to.</value>
-        [DataMember(Name="restricted", EmitDefaultValue=true)]
+        [DataMember(Name="restricted", EmitDefaultValue=false)]
         public bool? Restricted { get; set; }
 
         /// <summary>
         /// Array of Roles.  Specifies the Cohesity roles to associate with the user such as such as &#39;Admin&#39;, &#39;Ops&#39; or &#39;View&#39;. The Cohesity roles determine privileges on the Cohesity Cluster for this user.
         /// </summary>
         /// <value>Array of Roles.  Specifies the Cohesity roles to associate with the user such as such as &#39;Admin&#39;, &#39;Ops&#39; or &#39;View&#39;. The Cohesity roles determine privileges on the Cohesity Cluster for this user.</value>
-        [DataMember(Name="roles", EmitDefaultValue=true)]
+        [DataMember(Name="roles", EmitDefaultValue=false)]
         public List<string> Roles { get; set; }
 
         /// <summary>
         /// Specifies the S3 Account Access Key ID.
         /// </summary>
         /// <value>Specifies the S3 Account Access Key ID.</value>
-        [DataMember(Name="s3AccessKeyId", EmitDefaultValue=true)]
+        [DataMember(Name="s3AccessKeyId", EmitDefaultValue=false)]
         public string S3AccessKeyId { get; set; }
 
         /// <summary>
         /// Specifies the S3 Account Canonical User ID.
         /// </summary>
         /// <value>Specifies the S3 Account Canonical User ID.</value>
-        [DataMember(Name="s3AccountId", EmitDefaultValue=true)]
+        [DataMember(Name="s3AccountId", EmitDefaultValue=false)]
         public string S3AccountId { get; set; }
 
         /// <summary>
         /// Specifies the S3 Account Secret Key.
         /// </summary>
         /// <value>Specifies the S3 Account Secret Key.</value>
-        [DataMember(Name="s3SecretKey", EmitDefaultValue=true)]
+        [DataMember(Name="s3SecretKey", EmitDefaultValue=false)]
         public string S3SecretKey { get; set; }
 
         /// <summary>
@@ -672,24 +800,24 @@ namespace Cohesity.Model
         public SalesforceAccountInfo SalesforceAccount { get; set; }
 
         /// <summary>
-        /// Specifies the unique Security ID (SID) of the user.
+        /// Specifies the unique Security ID (SID) of the user. This field is mandatory in modifying user.
         /// </summary>
-        /// <value>Specifies the unique Security ID (SID) of the user.</value>
-        [DataMember(Name="sid", EmitDefaultValue=true)]
+        /// <value>Specifies the unique Security ID (SID) of the user. This field is mandatory in modifying user.</value>
+        [DataMember(Name="sid", EmitDefaultValue=false)]
         public string Sid { get; set; }
 
         /// <summary>
         /// Specifies the effective Tenant ID of the user.
         /// </summary>
         /// <value>Specifies the effective Tenant ID of the user.</value>
-        [DataMember(Name="tenantId", EmitDefaultValue=true)]
+        [DataMember(Name="tenantId", EmitDefaultValue=false)]
         public string TenantId { get; set; }
 
         /// <summary>
         /// Specifies the login name of the user.
         /// </summary>
         /// <value>Specifies the login name of the user.</value>
-        [DataMember(Name="username", EmitDefaultValue=true)]
+        [DataMember(Name="username", EmitDefaultValue=false)]
         public string Username { get; set; }
 
         /// <summary>
@@ -731,23 +859,32 @@ namespace Cohesity.Model
                 (
                     this.AdditionalGroupNames == input.AdditionalGroupNames ||
                     this.AdditionalGroupNames != null &&
-                    input.AdditionalGroupNames != null &&
-                    this.AdditionalGroupNames.SequenceEqual(input.AdditionalGroupNames)
+                    this.AdditionalGroupNames.Equals(input.AdditionalGroupNames)
+                ) && 
+                (
+                    this.AuditLogSettings == input.AuditLogSettings ||
+                    (this.AuditLogSettings != null &&
+                    this.AuditLogSettings.Equals(input.AuditLogSettings))
                 ) && 
                 (
                     this.AuthenticationType == input.AuthenticationType ||
-                    this.AuthenticationType.Equals(input.AuthenticationType)
+                    (this.AuthenticationType != null &&
+                    this.AuthenticationType.Equals(input.AuthenticationType))
                 ) && 
                 (
                     this.ClusterIdentifiers == input.ClusterIdentifiers ||
                     this.ClusterIdentifiers != null &&
-                    input.ClusterIdentifiers != null &&
-                    this.ClusterIdentifiers.SequenceEqual(input.ClusterIdentifiers)
+                    this.ClusterIdentifiers.Equals(input.ClusterIdentifiers)
                 ) && 
                 (
                     this.CreatedTimeMsecs == input.CreatedTimeMsecs ||
                     (this.CreatedTimeMsecs != null &&
                     this.CreatedTimeMsecs.Equals(input.CreatedTimeMsecs))
+                ) && 
+                (
+                    this.CurrentPassword == input.CurrentPassword ||
+                    (this.CurrentPassword != null &&
+                    this.CurrentPassword.Equals(input.CurrentPassword))
                 ) && 
                 (
                     this.Description == input.Description ||
@@ -775,6 +912,11 @@ namespace Cohesity.Model
                     this.ExpiredTimeMsecs.Equals(input.ExpiredTimeMsecs))
                 ) && 
                 (
+                    this.ForcePasswordChange == input.ForcePasswordChange ||
+                    (this.ForcePasswordChange != null &&
+                    this.ForcePasswordChange.Equals(input.ForcePasswordChange))
+                ) && 
+                (
                     this.GoogleAccount == input.GoogleAccount ||
                     (this.GoogleAccount != null &&
                     this.GoogleAccount.Equals(input.GoogleAccount))
@@ -782,8 +924,7 @@ namespace Cohesity.Model
                 (
                     this.GroupRoles == input.GroupRoles ||
                     this.GroupRoles != null &&
-                    input.GroupRoles != null &&
-                    this.GroupRoles.SequenceEqual(input.GroupRoles)
+                    this.GroupRoles.Equals(input.GroupRoles)
                 ) && 
                 (
                     this.IdpUserInfo == input.IdpUserInfo ||
@@ -791,15 +932,49 @@ namespace Cohesity.Model
                     this.IdpUserInfo.Equals(input.IdpUserInfo))
                 ) && 
                 (
+                    this.IsAccountLocked == input.IsAccountLocked ||
+                    (this.IsAccountLocked != null &&
+                    this.IsAccountLocked.Equals(input.IsAccountLocked))
+                ) && 
+                (
+                    this.IsActive == input.IsActive ||
+                    (this.IsActive != null &&
+                    this.IsActive.Equals(input.IsActive))
+                ) && 
+                (
+                    this.IsClusterMfaEnabled == input.IsClusterMfaEnabled ||
+                    (this.IsClusterMfaEnabled != null &&
+                    this.IsClusterMfaEnabled.Equals(input.IsClusterMfaEnabled))
+                ) && 
+                (
+                    this.LastSuccessfulLoginTimeMsecs == input.LastSuccessfulLoginTimeMsecs ||
+                    (this.LastSuccessfulLoginTimeMsecs != null &&
+                    this.LastSuccessfulLoginTimeMsecs.Equals(input.LastSuccessfulLoginTimeMsecs))
+                ) && 
+                (
                     this.LastUpdatedTimeMsecs == input.LastUpdatedTimeMsecs ||
                     (this.LastUpdatedTimeMsecs != null &&
                     this.LastUpdatedTimeMsecs.Equals(input.LastUpdatedTimeMsecs))
                 ) && 
                 (
+                    this.LockoutReason == input.LockoutReason ||
+                    (this.LockoutReason != null &&
+                    this.LockoutReason.Equals(input.LockoutReason))
+                ) && 
+                (
+                    this.MfaInfo == input.MfaInfo ||
+                    (this.MfaInfo != null &&
+                    this.MfaInfo.Equals(input.MfaInfo))
+                ) && 
+                (
+                    this.MfaMethods == input.MfaMethods ||
+                    this.MfaMethods != null &&
+                    this.MfaMethods.Equals(input.MfaMethods)
+                ) && 
+                (
                     this.OrgMembership == input.OrgMembership ||
                     this.OrgMembership != null &&
-                    input.OrgMembership != null &&
-                    this.OrgMembership.SequenceEqual(input.OrgMembership)
+                    this.OrgMembership.Equals(input.OrgMembership)
                 ) && 
                 (
                     this.Password == input.Password ||
@@ -812,13 +987,24 @@ namespace Cohesity.Model
                     this.Preferences.Equals(input.Preferences))
                 ) && 
                 (
+                    this.PreviousLoginTimeMsecs == input.PreviousLoginTimeMsecs ||
+                    (this.PreviousLoginTimeMsecs != null &&
+                    this.PreviousLoginTimeMsecs.Equals(input.PreviousLoginTimeMsecs))
+                ) && 
+                (
                     this.PrimaryGroupName == input.PrimaryGroupName ||
                     (this.PrimaryGroupName != null &&
                     this.PrimaryGroupName.Equals(input.PrimaryGroupName))
                 ) && 
                 (
                     this.PrivilegeIds == input.PrivilegeIds ||
-                    this.PrivilegeIds.SequenceEqual(input.PrivilegeIds)
+                    this.PrivilegeIds != null &&
+                    this.PrivilegeIds.Equals(input.PrivilegeIds)
+                ) && 
+                (
+                    this.Profiles == input.Profiles ||
+                    this.Profiles != null &&
+                    this.Profiles.Equals(input.Profiles)
                 ) && 
                 (
                     this.Restricted == input.Restricted ||
@@ -828,8 +1014,7 @@ namespace Cohesity.Model
                 (
                     this.Roles == input.Roles ||
                     this.Roles != null &&
-                    input.Roles != null &&
-                    this.Roles.SequenceEqual(input.Roles)
+                    this.Roles.Equals(input.Roles)
                 ) && 
                 (
                     this.S3AccessKeyId == input.S3AccessKeyId ||
@@ -879,11 +1064,16 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.AdditionalGroupNames != null)
                     hashCode = hashCode * 59 + this.AdditionalGroupNames.GetHashCode();
-                hashCode = hashCode * 59 + this.AuthenticationType.GetHashCode();
+                if (this.AuditLogSettings != null)
+                    hashCode = hashCode * 59 + this.AuditLogSettings.GetHashCode();
+                if (this.AuthenticationType != null)
+                    hashCode = hashCode * 59 + this.AuthenticationType.GetHashCode();
                 if (this.ClusterIdentifiers != null)
                     hashCode = hashCode * 59 + this.ClusterIdentifiers.GetHashCode();
                 if (this.CreatedTimeMsecs != null)
                     hashCode = hashCode * 59 + this.CreatedTimeMsecs.GetHashCode();
+                if (this.CurrentPassword != null)
+                    hashCode = hashCode * 59 + this.CurrentPassword.GetHashCode();
                 if (this.Description != null)
                     hashCode = hashCode * 59 + this.Description.GetHashCode();
                 if (this.Domain != null)
@@ -894,23 +1084,44 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.EmailAddress.GetHashCode();
                 if (this.ExpiredTimeMsecs != null)
                     hashCode = hashCode * 59 + this.ExpiredTimeMsecs.GetHashCode();
+                if (this.ForcePasswordChange != null)
+                    hashCode = hashCode * 59 + this.ForcePasswordChange.GetHashCode();
                 if (this.GoogleAccount != null)
                     hashCode = hashCode * 59 + this.GoogleAccount.GetHashCode();
                 if (this.GroupRoles != null)
                     hashCode = hashCode * 59 + this.GroupRoles.GetHashCode();
                 if (this.IdpUserInfo != null)
                     hashCode = hashCode * 59 + this.IdpUserInfo.GetHashCode();
+                if (this.IsAccountLocked != null)
+                    hashCode = hashCode * 59 + this.IsAccountLocked.GetHashCode();
+                if (this.IsActive != null)
+                    hashCode = hashCode * 59 + this.IsActive.GetHashCode();
+                if (this.IsClusterMfaEnabled != null)
+                    hashCode = hashCode * 59 + this.IsClusterMfaEnabled.GetHashCode();
+                if (this.LastSuccessfulLoginTimeMsecs != null)
+                    hashCode = hashCode * 59 + this.LastSuccessfulLoginTimeMsecs.GetHashCode();
                 if (this.LastUpdatedTimeMsecs != null)
                     hashCode = hashCode * 59 + this.LastUpdatedTimeMsecs.GetHashCode();
+                if (this.LockoutReason != null)
+                    hashCode = hashCode * 59 + this.LockoutReason.GetHashCode();
+                if (this.MfaInfo != null)
+                    hashCode = hashCode * 59 + this.MfaInfo.GetHashCode();
+                if (this.MfaMethods != null)
+                    hashCode = hashCode * 59 + this.MfaMethods.GetHashCode();
                 if (this.OrgMembership != null)
                     hashCode = hashCode * 59 + this.OrgMembership.GetHashCode();
                 if (this.Password != null)
                     hashCode = hashCode * 59 + this.Password.GetHashCode();
                 if (this.Preferences != null)
                     hashCode = hashCode * 59 + this.Preferences.GetHashCode();
+                if (this.PreviousLoginTimeMsecs != null)
+                    hashCode = hashCode * 59 + this.PreviousLoginTimeMsecs.GetHashCode();
                 if (this.PrimaryGroupName != null)
                     hashCode = hashCode * 59 + this.PrimaryGroupName.GetHashCode();
-                hashCode = hashCode * 59 + this.PrivilegeIds.GetHashCode();
+                if (this.PrivilegeIds != null)
+                    hashCode = hashCode * 59 + this.PrivilegeIds.GetHashCode();
+                if (this.Profiles != null)
+                    hashCode = hashCode * 59 + this.Profiles.GetHashCode();
                 if (this.Restricted != null)
                     hashCode = hashCode * 59 + this.Restricted.GetHashCode();
                 if (this.Roles != null)

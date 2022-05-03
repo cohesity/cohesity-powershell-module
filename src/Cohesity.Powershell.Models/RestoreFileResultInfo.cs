@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -30,8 +33,6 @@ namespace Cohesity.Model
         /// <param name="status">Status of the restore..</param>
         public RestoreFileResultInfo(RestoreFileCopyStats copyStats = default(RestoreFileCopyStats), string destinationDir = default(string), ErrorProto error = default(ErrorProto), RestoredFileInfo restoredFileInfo = default(RestoredFileInfo), int? status = default(int?))
         {
-            this.DestinationDir = destinationDir;
-            this.Status = status;
             this.CopyStats = copyStats;
             this.DestinationDir = destinationDir;
             this.Error = error;
@@ -49,7 +50,7 @@ namespace Cohesity.Model
         /// This is set to the destination directory where the file/directory was copied.
         /// </summary>
         /// <value>This is set to the destination directory where the file/directory was copied.</value>
-        [DataMember(Name="destinationDir", EmitDefaultValue=true)]
+        [DataMember(Name="destinationDir", EmitDefaultValue=false)]
         public string DestinationDir { get; set; }
 
         /// <summary>
@@ -68,7 +69,7 @@ namespace Cohesity.Model
         /// Status of the restore.
         /// </summary>
         /// <value>Status of the restore.</value>
-        [DataMember(Name="status", EmitDefaultValue=true)]
+        [DataMember(Name="status", EmitDefaultValue=false)]
         public int? Status { get; set; }
 
         /// <summary>

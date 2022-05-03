@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -63,7 +66,7 @@ namespace Cohesity.Model
         /// Specifies the current state of licensing workflow. LicenseStateType specifies the licenseState type. &#39;kInProgressNewCluster&#39; indicates licensing server claim is in progress for &#39;New&#39; Cluster. &#39;kInProgressOldCluster&#39; indicates licensing server claim is in progress for &#39;Old&#39; Cluster. &#39;kClaimed&#39; indicates licensing server is claimed. &#39;kSkipped&#39; indicates licensing workflow has been skipped. &#39;kStarted&#39; indicates licensing UI workflow has started.
         /// </summary>
         /// <value>Specifies the current state of licensing workflow. LicenseStateType specifies the licenseState type. &#39;kInProgressNewCluster&#39; indicates licensing server claim is in progress for &#39;New&#39; Cluster. &#39;kInProgressOldCluster&#39; indicates licensing server claim is in progress for &#39;Old&#39; Cluster. &#39;kClaimed&#39; indicates licensing server is claimed. &#39;kSkipped&#39; indicates licensing workflow has been skipped. &#39;kStarted&#39; indicates licensing UI workflow has started.</value>
-        [DataMember(Name="state", EmitDefaultValue=true)]
+        [DataMember(Name="state", EmitDefaultValue=false)]
         public StateEnum? State { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="LicenseState" /> class.
@@ -74,16 +77,15 @@ namespace Cohesity.Model
         {
             this.FailedAttempts = failedAttempts;
             this.State = state;
-            this.FailedAttempts = failedAttempts;
-            this.State = state;
         }
         
         /// <summary>
         /// Specifies no of failed attempts at claiming the license server
         /// </summary>
         /// <value>Specifies no of failed attempts at claiming the license server</value>
-        [DataMember(Name="failedAttempts", EmitDefaultValue=true)]
+        [DataMember(Name="failedAttempts", EmitDefaultValue=false)]
         public long? FailedAttempts { get; set; }
+
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -128,7 +130,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.State == input.State ||
-                    this.State.Equals(input.State)
+                    (this.State != null &&
+                    this.State.Equals(input.State))
                 );
         }
 
@@ -143,7 +146,8 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.FailedAttempts != null)
                     hashCode = hashCode * 59 + this.FailedAttempts.GetHashCode();
-                hashCode = hashCode * 59 + this.State.GetHashCode();
+                if (this.State != null)
+                    hashCode = hashCode * 59 + this.State.GetHashCode();
                 return hashCode;
             }
         }

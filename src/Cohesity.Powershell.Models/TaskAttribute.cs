@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -57,7 +60,7 @@ namespace Cohesity.Model
         /// Specifies the type of the value contained here. All values are returned as pointers to strings, but they can be casted to the type indicated here. &#39;kInt64&#39; indicates that the value stored in the Task Attribute is a 64-bit integer. &#39;kDouble&#39; indicates that the value stored in the Task Attribute is a 64 bit floating point number. &#39;kString&#39; indicates that the value stored in the Task Attribute is a string. &#39;kBytes&#39; indicates that the value stored in the Task Attribute is an array of bytes.
         /// </summary>
         /// <value>Specifies the type of the value contained here. All values are returned as pointers to strings, but they can be casted to the type indicated here. &#39;kInt64&#39; indicates that the value stored in the Task Attribute is a 64-bit integer. &#39;kDouble&#39; indicates that the value stored in the Task Attribute is a 64 bit floating point number. &#39;kString&#39; indicates that the value stored in the Task Attribute is a string. &#39;kBytes&#39; indicates that the value stored in the Task Attribute is an array of bytes.</value>
-        [DataMember(Name="valueType", EmitDefaultValue=true)]
+        [DataMember(Name="valueType", EmitDefaultValue=false)]
         public ValueTypeEnum? ValueType { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="TaskAttribute" /> class.
@@ -70,24 +73,22 @@ namespace Cohesity.Model
             this.Name = name;
             this.Value = value;
             this.ValueType = valueType;
-            this.Name = name;
-            this.Value = value;
-            this.ValueType = valueType;
         }
         
         /// <summary>
         /// Specifies the name of this Task Attribute.
         /// </summary>
         /// <value>Specifies the name of this Task Attribute.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
 
         /// <summary>
         /// Specifies the value of this Task Attribute.
         /// </summary>
         /// <value>Specifies the value of this Task Attribute.</value>
-        [DataMember(Name="value", EmitDefaultValue=true)]
+        [DataMember(Name="value", EmitDefaultValue=false)]
         public string Value { get; set; }
+
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -137,7 +138,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.ValueType == input.ValueType ||
-                    this.ValueType.Equals(input.ValueType)
+                    (this.ValueType != null &&
+                    this.ValueType.Equals(input.ValueType))
                 );
         }
 
@@ -154,7 +156,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
                 if (this.Value != null)
                     hashCode = hashCode * 59 + this.Value.GetHashCode();
-                hashCode = hashCode * 59 + this.ValueType.GetHashCode();
+                if (this.ValueType != null)
+                    hashCode = hashCode * 59 + this.ValueType.GetHashCode();
                 return hashCode;
             }
         }

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -36,13 +39,6 @@ namespace Cohesity.Model
             this.BusNumber = busNumber;
             this.ControllerType = controllerType;
             this.DiskId = diskId;
-            this.DiskSizeInBytes = diskSizeInBytes;
-            this.FilePath = filePath;
-            this.MountPoints = mountPoints;
-            this.UnitNumber = unitNumber;
-            this.BusNumber = busNumber;
-            this.ControllerType = controllerType;
-            this.DiskId = diskId;
             this.DiskLocation = diskLocation;
             this.DiskSizeInBytes = diskSizeInBytes;
             this.FilePath = filePath;
@@ -54,21 +50,21 @@ namespace Cohesity.Model
         /// Specifies the Id of the controller bus that controls the disk.
         /// </summary>
         /// <value>Specifies the Id of the controller bus that controls the disk.</value>
-        [DataMember(Name="busNumber", EmitDefaultValue=true)]
+        [DataMember(Name="busNumber", EmitDefaultValue=false)]
         public long? BusNumber { get; set; }
 
         /// <summary>
         /// Specifies the controller type like SCSI, or IDE etc.
         /// </summary>
         /// <value>Specifies the controller type like SCSI, or IDE etc.</value>
-        [DataMember(Name="controllerType", EmitDefaultValue=true)]
+        [DataMember(Name="controllerType", EmitDefaultValue=false)]
         public string ControllerType { get; set; }
 
         /// <summary>
         /// Specifies original disk id. This is sufficient to identify the disk information, but in some scenarios, users may specify the controller option instead.
         /// </summary>
         /// <value>Specifies original disk id. This is sufficient to identify the disk information, but in some scenarios, users may specify the controller option instead.</value>
-        [DataMember(Name="diskId", EmitDefaultValue=true)]
+        [DataMember(Name="diskId", EmitDefaultValue=false)]
         public string DiskId { get; set; }
 
         /// <summary>
@@ -81,28 +77,28 @@ namespace Cohesity.Model
         /// Specifies size of the virtual disk in bytes.
         /// </summary>
         /// <value>Specifies size of the virtual disk in bytes.</value>
-        [DataMember(Name="diskSizeInBytes", EmitDefaultValue=true)]
+        [DataMember(Name="diskSizeInBytes", EmitDefaultValue=false)]
         public long? DiskSizeInBytes { get; set; }
 
         /// <summary>
         /// Specifies the original file path if applicable.
         /// </summary>
         /// <value>Specifies the original file path if applicable.</value>
-        [DataMember(Name="filePath", EmitDefaultValue=true)]
+        [DataMember(Name="filePath", EmitDefaultValue=false)]
         public string FilePath { get; set; }
 
         /// <summary>
         /// Specifies the list of mount points.
         /// </summary>
         /// <value>Specifies the list of mount points.</value>
-        [DataMember(Name="mountPoints", EmitDefaultValue=true)]
+        [DataMember(Name="mountPoints", EmitDefaultValue=false)]
         public List<string> MountPoints { get; set; }
 
         /// <summary>
         /// Specifies the disk file name. This is the VMDK name and not the flat file name.
         /// </summary>
         /// <value>Specifies the disk file name. This is the VMDK name and not the flat file name.</value>
-        [DataMember(Name="unitNumber", EmitDefaultValue=true)]
+        [DataMember(Name="unitNumber", EmitDefaultValue=false)]
         public long? UnitNumber { get; set; }
 
         /// <summary>
@@ -174,8 +170,7 @@ namespace Cohesity.Model
                 (
                     this.MountPoints == input.MountPoints ||
                     this.MountPoints != null &&
-                    input.MountPoints != null &&
-                    this.MountPoints.SequenceEqual(input.MountPoints)
+                    this.MountPoints.Equals(input.MountPoints)
                 ) && 
                 (
                     this.UnitNumber == input.UnitNumber ||

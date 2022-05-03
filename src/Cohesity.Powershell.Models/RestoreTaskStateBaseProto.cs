@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -26,6 +29,7 @@ namespace Cohesity.Model
         /// <param name="cancellationRequested">Whether this task has a pending cancellation request..</param>
         /// <param name="endTimeUsecs">If the restore task has finished, this field contains the end time for the task..</param>
         /// <param name="error">error.</param>
+        /// <param name="isInternal">Whether the restore task is internal. This is currently used by standby restore tasks..</param>
         /// <param name="name">The name of the restore task..</param>
         /// <param name="parentSourceConnectionParams">parentSourceConnectionParams.</param>
         /// <param name="publicStatus">Iris-facing task state. This field is stamped during the export..</param>
@@ -43,27 +47,12 @@ namespace Cohesity.Model
         /// <param name="userInfo">userInfo.</param>
         /// <param name="userMessages">Messages displayed to the user for this task (if any). Only valid if the status of the task is kFinished. This is used for informing the user with additional details when there is not an error..</param>
         /// <param name="warnings">The warnings encountered by this task (if any) during its execution..</param>
-        public RestoreTaskStateBaseProto(bool? cancellationRequested = default(bool?), long? endTimeUsecs = default(long?), ErrorProto error = default(ErrorProto), string name = default(string), ConnectorParams parentSourceConnectionParams = default(ConnectorParams), int? publicStatus = default(int?), int? refreshStatus = default(int?), VlanParams restoreVlanParams = default(VlanParams), long? scheduledConstituentId = default(long?), long? scheduledGandalfSessionId = default(long?), long? startTimeUsecs = default(long?), int? status = default(int?), long? taskId = default(long?), long? totalLogicalSizeBytes = default(long?), long? totalPhysicalSizeBytes = default(long?), int? type = default(int?), string user = default(string), UserInformation userInfo = default(UserInformation), List<string> userMessages = default(List<string>), List<ErrorProto> warnings = default(List<ErrorProto>))
+        public RestoreTaskStateBaseProto(bool? cancellationRequested = default(bool?), long? endTimeUsecs = default(long?), ErrorProto error = default(ErrorProto), bool? isInternal = default(bool?), string name = default(string), ConnectorParams parentSourceConnectionParams = default(ConnectorParams), int? publicStatus = default(int?), int? refreshStatus = default(int?), VlanParams restoreVlanParams = default(VlanParams), long? scheduledConstituentId = default(long?), long? scheduledGandalfSessionId = default(long?), long? startTimeUsecs = default(long?), int? status = default(int?), long? taskId = default(long?), long? totalLogicalSizeBytes = default(long?), long? totalPhysicalSizeBytes = default(long?), int? type = default(int?), string user = default(string), UserInformation userInfo = default(UserInformation), List<string> userMessages = default(List<string>), List<ErrorProto> warnings = default(List<ErrorProto>))
         {
             this.CancellationRequested = cancellationRequested;
             this.EndTimeUsecs = endTimeUsecs;
-            this.Name = name;
-            this.PublicStatus = publicStatus;
-            this.RefreshStatus = refreshStatus;
-            this.ScheduledConstituentId = scheduledConstituentId;
-            this.ScheduledGandalfSessionId = scheduledGandalfSessionId;
-            this.StartTimeUsecs = startTimeUsecs;
-            this.Status = status;
-            this.TaskId = taskId;
-            this.TotalLogicalSizeBytes = totalLogicalSizeBytes;
-            this.TotalPhysicalSizeBytes = totalPhysicalSizeBytes;
-            this.Type = type;
-            this.User = user;
-            this.UserMessages = userMessages;
-            this.Warnings = warnings;
-            this.CancellationRequested = cancellationRequested;
-            this.EndTimeUsecs = endTimeUsecs;
             this.Error = error;
+            this.IsInternal = isInternal;
             this.Name = name;
             this.ParentSourceConnectionParams = parentSourceConnectionParams;
             this.PublicStatus = publicStatus;
@@ -87,14 +76,14 @@ namespace Cohesity.Model
         /// Whether this task has a pending cancellation request.
         /// </summary>
         /// <value>Whether this task has a pending cancellation request.</value>
-        [DataMember(Name="cancellationRequested", EmitDefaultValue=true)]
+        [DataMember(Name="cancellationRequested", EmitDefaultValue=false)]
         public bool? CancellationRequested { get; set; }
 
         /// <summary>
         /// If the restore task has finished, this field contains the end time for the task.
         /// </summary>
         /// <value>If the restore task has finished, this field contains the end time for the task.</value>
-        [DataMember(Name="endTimeUsecs", EmitDefaultValue=true)]
+        [DataMember(Name="endTimeUsecs", EmitDefaultValue=false)]
         public long? EndTimeUsecs { get; set; }
 
         /// <summary>
@@ -104,10 +93,17 @@ namespace Cohesity.Model
         public ErrorProto Error { get; set; }
 
         /// <summary>
+        /// Whether the restore task is internal. This is currently used by standby restore tasks.
+        /// </summary>
+        /// <value>Whether the restore task is internal. This is currently used by standby restore tasks.</value>
+        [DataMember(Name="isInternal", EmitDefaultValue=false)]
+        public bool? IsInternal { get; set; }
+
+        /// <summary>
         /// The name of the restore task.
         /// </summary>
         /// <value>The name of the restore task.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
 
         /// <summary>
@@ -120,14 +116,14 @@ namespace Cohesity.Model
         /// Iris-facing task state. This field is stamped during the export.
         /// </summary>
         /// <value>Iris-facing task state. This field is stamped during the export.</value>
-        [DataMember(Name="publicStatus", EmitDefaultValue=true)]
+        [DataMember(Name="publicStatus", EmitDefaultValue=false)]
         public int? PublicStatus { get; set; }
 
         /// <summary>
         /// Status of the refresh task.
         /// </summary>
         /// <value>Status of the refresh task.</value>
-        [DataMember(Name="refreshStatus", EmitDefaultValue=true)]
+        [DataMember(Name="refreshStatus", EmitDefaultValue=false)]
         public int? RefreshStatus { get; set; }
 
         /// <summary>
@@ -140,62 +136,62 @@ namespace Cohesity.Model
         /// Constituent id (and the gandalf session id) where this task has been scheduled. If -1, the task is not running at any slave. It&#39;s possible that the task was previously scheduled, but is now being re-scheduled.
         /// </summary>
         /// <value>Constituent id (and the gandalf session id) where this task has been scheduled. If -1, the task is not running at any slave. It&#39;s possible that the task was previously scheduled, but is now being re-scheduled.</value>
-        [DataMember(Name="scheduledConstituentId", EmitDefaultValue=true)]
+        [DataMember(Name="scheduledConstituentId", EmitDefaultValue=false)]
         public long? ScheduledConstituentId { get; set; }
 
         /// <summary>
         /// Gets or Sets ScheduledGandalfSessionId
         /// </summary>
-        [DataMember(Name="scheduledGandalfSessionId", EmitDefaultValue=true)]
+        [DataMember(Name="scheduledGandalfSessionId", EmitDefaultValue=false)]
         public long? ScheduledGandalfSessionId { get; set; }
 
         /// <summary>
         /// The start time for this restore task.
         /// </summary>
         /// <value>The start time for this restore task.</value>
-        [DataMember(Name="startTimeUsecs", EmitDefaultValue=true)]
+        [DataMember(Name="startTimeUsecs", EmitDefaultValue=false)]
         public long? StartTimeUsecs { get; set; }
 
         /// <summary>
         /// Status of the restore task.
         /// </summary>
         /// <value>Status of the restore task.</value>
-        [DataMember(Name="status", EmitDefaultValue=true)]
+        [DataMember(Name="status", EmitDefaultValue=false)]
         public int? Status { get; set; }
 
         /// <summary>
         /// A globally unique id for this task.
         /// </summary>
         /// <value>A globally unique id for this task.</value>
-        [DataMember(Name="taskId", EmitDefaultValue=true)]
+        [DataMember(Name="taskId", EmitDefaultValue=false)]
         public long? TaskId { get; set; }
 
         /// <summary>
         /// Logical size of this restore task. This is the amount of data that needs to be transferred to restore the entity.
         /// </summary>
         /// <value>Logical size of this restore task. This is the amount of data that needs to be transferred to restore the entity.</value>
-        [DataMember(Name="totalLogicalSizeBytes", EmitDefaultValue=true)]
+        [DataMember(Name="totalLogicalSizeBytes", EmitDefaultValue=false)]
         public long? TotalLogicalSizeBytes { get; set; }
 
         /// <summary>
         /// Physical size of this restore task. This is the amount of data that was actually transferred to restore the entity.
         /// </summary>
         /// <value>Physical size of this restore task. This is the amount of data that was actually transferred to restore the entity.</value>
-        [DataMember(Name="totalPhysicalSizeBytes", EmitDefaultValue=true)]
+        [DataMember(Name="totalPhysicalSizeBytes", EmitDefaultValue=false)]
         public long? TotalPhysicalSizeBytes { get; set; }
 
         /// <summary>
         /// The type of restore being performed.
         /// </summary>
         /// <value>The type of restore being performed.</value>
-        [DataMember(Name="type", EmitDefaultValue=true)]
+        [DataMember(Name="type", EmitDefaultValue=false)]
         public int? Type { get; set; }
 
         /// <summary>
         /// The user who requested this restore task.
         /// </summary>
         /// <value>The user who requested this restore task.</value>
-        [DataMember(Name="user", EmitDefaultValue=true)]
+        [DataMember(Name="user", EmitDefaultValue=false)]
         public string User { get; set; }
 
         /// <summary>
@@ -208,14 +204,14 @@ namespace Cohesity.Model
         /// Messages displayed to the user for this task (if any). Only valid if the status of the task is kFinished. This is used for informing the user with additional details when there is not an error.
         /// </summary>
         /// <value>Messages displayed to the user for this task (if any). Only valid if the status of the task is kFinished. This is used for informing the user with additional details when there is not an error.</value>
-        [DataMember(Name="userMessages", EmitDefaultValue=true)]
+        [DataMember(Name="userMessages", EmitDefaultValue=false)]
         public List<string> UserMessages { get; set; }
 
         /// <summary>
         /// The warnings encountered by this task (if any) during its execution.
         /// </summary>
         /// <value>The warnings encountered by this task (if any) during its execution.</value>
-        [DataMember(Name="warnings", EmitDefaultValue=true)]
+        [DataMember(Name="warnings", EmitDefaultValue=false)]
         public List<ErrorProto> Warnings { get; set; }
 
         /// <summary>
@@ -268,6 +264,11 @@ namespace Cohesity.Model
                     this.Error == input.Error ||
                     (this.Error != null &&
                     this.Error.Equals(input.Error))
+                ) && 
+                (
+                    this.IsInternal == input.IsInternal ||
+                    (this.IsInternal != null &&
+                    this.IsInternal.Equals(input.IsInternal))
                 ) && 
                 (
                     this.Name == input.Name ||
@@ -347,14 +348,12 @@ namespace Cohesity.Model
                 (
                     this.UserMessages == input.UserMessages ||
                     this.UserMessages != null &&
-                    input.UserMessages != null &&
-                    this.UserMessages.SequenceEqual(input.UserMessages)
+                    this.UserMessages.Equals(input.UserMessages)
                 ) && 
                 (
                     this.Warnings == input.Warnings ||
                     this.Warnings != null &&
-                    input.Warnings != null &&
-                    this.Warnings.SequenceEqual(input.Warnings)
+                    this.Warnings.Equals(input.Warnings)
                 );
         }
 
@@ -373,6 +372,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.EndTimeUsecs.GetHashCode();
                 if (this.Error != null)
                     hashCode = hashCode * 59 + this.Error.GetHashCode();
+                if (this.IsInternal != null)
+                    hashCode = hashCode * 59 + this.IsInternal.GetHashCode();
                 if (this.Name != null)
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
                 if (this.ParentSourceConnectionParams != null)

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -35,46 +38,41 @@ namespace Cohesity.Model
             this.Name = name;
             this.Uuid = uuid;
             this.Version = version;
-            this.EnodeIpAddressVec = enodeIpAddressVec;
-            this.LoadBalancerVip = loadBalancerVip;
-            this.Name = name;
-            this.Uuid = uuid;
-            this.Version = version;
         }
         
         /// <summary>
         /// IP addresses of Elastifile nodes.
         /// </summary>
         /// <value>IP addresses of Elastifile nodes.</value>
-        [DataMember(Name="enodeIpAddressVec", EmitDefaultValue=true)]
+        [DataMember(Name="enodeIpAddressVec", EmitDefaultValue=false)]
         public List<string> EnodeIpAddressVec { get; set; }
 
         /// <summary>
         /// Specifies the load balancer VIP if present.
         /// </summary>
         /// <value>Specifies the load balancer VIP if present.</value>
-        [DataMember(Name="loadBalancerVip", EmitDefaultValue=true)]
+        [DataMember(Name="loadBalancerVip", EmitDefaultValue=false)]
         public string LoadBalancerVip { get; set; }
 
         /// <summary>
         /// Specifies name of a Elastifile Cluster
         /// </summary>
         /// <value>Specifies name of a Elastifile Cluster</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
 
         /// <summary>
         /// Specifies the UUID of a Elastifile Cluster.
         /// </summary>
         /// <value>Specifies the UUID of a Elastifile Cluster.</value>
-        [DataMember(Name="uuid", EmitDefaultValue=true)]
+        [DataMember(Name="uuid", EmitDefaultValue=false)]
         public string Uuid { get; set; }
 
         /// <summary>
         /// Specifies the version of a Elastifile Cluster.
         /// </summary>
         /// <value>Specifies the version of a Elastifile Cluster.</value>
-        [DataMember(Name="version", EmitDefaultValue=true)]
+        [DataMember(Name="version", EmitDefaultValue=false)]
         public string Version { get; set; }
 
         /// <summary>
@@ -116,8 +114,7 @@ namespace Cohesity.Model
                 (
                     this.EnodeIpAddressVec == input.EnodeIpAddressVec ||
                     this.EnodeIpAddressVec != null &&
-                    input.EnodeIpAddressVec != null &&
-                    this.EnodeIpAddressVec.SequenceEqual(input.EnodeIpAddressVec)
+                    this.EnodeIpAddressVec.Equals(input.EnodeIpAddressVec)
                 ) && 
                 (
                     this.LoadBalancerVip == input.LoadBalancerVip ||

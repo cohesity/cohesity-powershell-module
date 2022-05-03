@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,14 +30,13 @@ namespace Cohesity.Model
         public UpdateLdapProviderParams(long? ldapProviderId = default(long?))
         {
             this.LdapProviderId = ldapProviderId;
-            this.LdapProviderId = ldapProviderId;
         }
         
         /// <summary>
         /// Specifies the LDAP provider id which is mapped to an Active Directory
         /// </summary>
         /// <value>Specifies the LDAP provider id which is mapped to an Active Directory</value>
-        [DataMember(Name="ldapProviderId", EmitDefaultValue=true)]
+        [DataMember(Name="ldapProviderId", EmitDefaultValue=false)]
         public long? LdapProviderId { get; set; }
 
         /// <summary>

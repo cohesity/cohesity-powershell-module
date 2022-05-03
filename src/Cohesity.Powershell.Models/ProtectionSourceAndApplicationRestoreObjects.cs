@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -32,7 +35,6 @@ namespace Cohesity.Model
         /// <param name="hostingProtectionSource">hostingProtectionSource (required).</param>
         public ProtectionSourceAndApplicationRestoreObjects(List<ApplicationRestoreObject> applicationRestoreObjects = default(List<ApplicationRestoreObject>), RestoreObjectDetails hostingProtectionSource = default(RestoreObjectDetails))
         {
-            this.ApplicationRestoreObjects = applicationRestoreObjects;
             // to ensure "hostingProtectionSource" is required (not null)
             if (hostingProtectionSource == null)
             {
@@ -42,7 +44,6 @@ namespace Cohesity.Model
             {
                 this.HostingProtectionSource = hostingProtectionSource;
             }
-
             this.ApplicationRestoreObjects = applicationRestoreObjects;
         }
         
@@ -50,7 +51,7 @@ namespace Cohesity.Model
         /// Specifies the Application Server objects whose data should be restored and the restore parameters for each of them.
         /// </summary>
         /// <value>Specifies the Application Server objects whose data should be restored and the restore parameters for each of them.</value>
-        [DataMember(Name="applicationRestoreObjects", EmitDefaultValue=true)]
+        [DataMember(Name="applicationRestoreObjects", EmitDefaultValue=false)]
         public List<ApplicationRestoreObject> ApplicationRestoreObjects { get; set; }
 
         /// <summary>
@@ -98,8 +99,7 @@ namespace Cohesity.Model
                 (
                     this.ApplicationRestoreObjects == input.ApplicationRestoreObjects ||
                     this.ApplicationRestoreObjects != null &&
-                    input.ApplicationRestoreObjects != null &&
-                    this.ApplicationRestoreObjects.SequenceEqual(input.ApplicationRestoreObjects)
+                    this.ApplicationRestoreObjects.Equals(input.ApplicationRestoreObjects)
                 ) && 
                 (
                     this.HostingProtectionSource == input.HostingProtectionSource ||

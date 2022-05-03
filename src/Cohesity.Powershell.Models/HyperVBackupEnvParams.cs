@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.AllowCrashConsistentSnapshot = allowCrashConsistentSnapshot;
             this.BackupJobType = backupJobType;
-            this.AllowCrashConsistentSnapshot = allowCrashConsistentSnapshot;
-            this.BackupJobType = backupJobType;
         }
         
         /// <summary>
         /// Whether to fallback to take a crash-consistent snapshot incase taking an app-consistent snapshot fails.
         /// </summary>
         /// <value>Whether to fallback to take a crash-consistent snapshot incase taking an app-consistent snapshot fails.</value>
-        [DataMember(Name="allowCrashConsistentSnapshot", EmitDefaultValue=true)]
+        [DataMember(Name="allowCrashConsistentSnapshot", EmitDefaultValue=false)]
         public bool? AllowCrashConsistentSnapshot { get; set; }
 
         /// <summary>
         /// The type of backup job to use. Default is to auto-detect the best type to use based on the VMs to backup. End user may select RCT or VSS also.
         /// </summary>
         /// <value>The type of backup job to use. Default is to auto-detect the best type to use based on the VMs to backup. End user may select RCT or VSS also.</value>
-        [DataMember(Name="backupJobType", EmitDefaultValue=true)]
+        [DataMember(Name="backupJobType", EmitDefaultValue=false)]
         public int? BackupJobType { get; set; }
 
         /// <summary>

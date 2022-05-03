@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,14 +30,13 @@ namespace Cohesity.Model
         public BackupJobProtoDRToCloudParams(bool? needToFailOver = default(bool?))
         {
             this.NeedToFailOver = needToFailOver;
-            this.NeedToFailOver = needToFailOver;
         }
         
         /// <summary>
         /// Whether the objects in this job will be failed over to cloud. In case of VMs, we need to fetch information about the logical volumes present on the VM. Magneto might fail backup of a VM in case volume information can not be fetched (maybe because the agent is not installed or if the VM is turned off etc.).  The VM will be backed up using the physical agent when it is running in the cloud. We might choose to backup the VM in the cloud using native API at a later point.  This flag makes sense when configuring a job to backup on-prem VMs.
         /// </summary>
         /// <value>Whether the objects in this job will be failed over to cloud. In case of VMs, we need to fetch information about the logical volumes present on the VM. Magneto might fail backup of a VM in case volume information can not be fetched (maybe because the agent is not installed or if the VM is turned off etc.).  The VM will be backed up using the physical agent when it is running in the cloud. We might choose to backup the VM in the cloud using native API at a later point.  This flag makes sense when configuring a job to backup on-prem VMs.</value>
-        [DataMember(Name="needToFailOver", EmitDefaultValue=true)]
+        [DataMember(Name="needToFailOver", EmitDefaultValue=false)]
         public bool? NeedToFailOver { get; set; }
 
         /// <summary>

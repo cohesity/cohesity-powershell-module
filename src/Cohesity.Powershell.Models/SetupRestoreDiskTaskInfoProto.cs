@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -32,11 +35,6 @@ namespace Cohesity.Model
         /// <param name="viewName">Destination view into which the files will be cloned..</param>
         public SetupRestoreDiskTaskInfoProto(EntityProto entity = default(EntityProto), string progressMonitorRootTaskPath = default(string), EntityProto rootEntity = default(EntityProto), string sourceViewName = default(string), long? taskId = default(long?), long? viewBoxId = default(long?), string viewName = default(string))
         {
-            this.ProgressMonitorRootTaskPath = progressMonitorRootTaskPath;
-            this.SourceViewName = sourceViewName;
-            this.TaskId = taskId;
-            this.ViewBoxId = viewBoxId;
-            this.ViewName = viewName;
             this.Entity = entity;
             this.ProgressMonitorRootTaskPath = progressMonitorRootTaskPath;
             this.RootEntity = rootEntity;
@@ -56,7 +54,7 @@ namespace Cohesity.Model
         /// The path to the progress monitor root task if any.
         /// </summary>
         /// <value>The path to the progress monitor root task if any.</value>
-        [DataMember(Name="progressMonitorRootTaskPath", EmitDefaultValue=true)]
+        [DataMember(Name="progressMonitorRootTaskPath", EmitDefaultValue=false)]
         public string ProgressMonitorRootTaskPath { get; set; }
 
         /// <summary>
@@ -69,28 +67,28 @@ namespace Cohesity.Model
         /// The source view which contains the backups for the &#39;entity&#39;.
         /// </summary>
         /// <value>The source view which contains the backups for the &#39;entity&#39;.</value>
-        [DataMember(Name="sourceViewName", EmitDefaultValue=true)]
+        [DataMember(Name="sourceViewName", EmitDefaultValue=false)]
         public string SourceViewName { get; set; }
 
         /// <summary>
         /// The id of the associated task.
         /// </summary>
         /// <value>The id of the associated task.</value>
-        [DataMember(Name="taskId", EmitDefaultValue=true)]
+        [DataMember(Name="taskId", EmitDefaultValue=false)]
         public long? TaskId { get; set; }
 
         /// <summary>
         /// The view box id containing the backups for the &#39;entity&#39;.
         /// </summary>
         /// <value>The view box id containing the backups for the &#39;entity&#39;.</value>
-        [DataMember(Name="viewBoxId", EmitDefaultValue=true)]
+        [DataMember(Name="viewBoxId", EmitDefaultValue=false)]
         public long? ViewBoxId { get; set; }
 
         /// <summary>
         /// Destination view into which the files will be cloned.
         /// </summary>
         /// <value>Destination view into which the files will be cloned.</value>
-        [DataMember(Name="viewName", EmitDefaultValue=true)]
+        [DataMember(Name="viewName", EmitDefaultValue=false)]
         public string ViewName { get; set; }
 
         /// <summary>

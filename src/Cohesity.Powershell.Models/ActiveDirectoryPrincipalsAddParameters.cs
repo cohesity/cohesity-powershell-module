@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -12,6 +13,8 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
+
+
 namespace Cohesity.Model
 {
     /// <summary>
@@ -21,9 +24,9 @@ namespace Cohesity.Model
     public partial class ActiveDirectoryPrincipalsAddParameters :  IEquatable<ActiveDirectoryPrincipalsAddParameters>
     {
         /// <summary>
-        /// Specifies the type of the referenced Active Directory principal. If &#39;kGroup&#39;, the referenced Active Directory principal is a group. If &#39;kUser&#39;, the referenced Active Directory principal is a user. &#39;kUser&#39; specifies a user object class. &#39;kGroup&#39; specifies a group object class. &#39;kComputer&#39; specifies a computer object class. &#39;kWellKnownPrincipal&#39; specifies a well known principal.
+        /// Specifies the type of the referenced Active Directory principal. If &#39;kGroup&#39;, the referenced Active Directory principal is a group. If &#39;kUser&#39;, the referenced Active Directory principal is a user. &#39;kUser&#39; specifies a user object class. &#39;kGroup&#39; specifies a group object class. &#39;kComputer&#39; specifies a computer object class. &#39;kWellKnownPrincipal&#39; specifies a well known principal. &#39;kServiceAccount&#39; specifies a service account object class.
         /// </summary>
-        /// <value>Specifies the type of the referenced Active Directory principal. If &#39;kGroup&#39;, the referenced Active Directory principal is a group. If &#39;kUser&#39;, the referenced Active Directory principal is a user. &#39;kUser&#39; specifies a user object class. &#39;kGroup&#39; specifies a group object class. &#39;kComputer&#39; specifies a computer object class. &#39;kWellKnownPrincipal&#39; specifies a well known principal.</value>
+        /// <value>Specifies the type of the referenced Active Directory principal. If &#39;kGroup&#39;, the referenced Active Directory principal is a group. If &#39;kUser&#39;, the referenced Active Directory principal is a user. &#39;kUser&#39; specifies a user object class. &#39;kGroup&#39; specifies a group object class. &#39;kComputer&#39; specifies a computer object class. &#39;kWellKnownPrincipal&#39; specifies a well known principal. &#39;kServiceAccount&#39; specifies a service account object class.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum ObjectClassEnum
         {
@@ -49,33 +52,33 @@ namespace Cohesity.Model
             /// Enum KWellKnownPrincipal for value: kWellKnownPrincipal
             /// </summary>
             [EnumMember(Value = "kWellKnownPrincipal")]
-            KWellKnownPrincipal = 4
+            KWellKnownPrincipal = 4,
+
+            /// <summary>
+            /// Enum KServiceAccount for value: kServiceAccount
+            /// </summary>
+            [EnumMember(Value = "kServiceAccount")]
+            KServiceAccount = 5
 
         }
 
         /// <summary>
-        /// Specifies the type of the referenced Active Directory principal. If &#39;kGroup&#39;, the referenced Active Directory principal is a group. If &#39;kUser&#39;, the referenced Active Directory principal is a user. &#39;kUser&#39; specifies a user object class. &#39;kGroup&#39; specifies a group object class. &#39;kComputer&#39; specifies a computer object class. &#39;kWellKnownPrincipal&#39; specifies a well known principal.
+        /// Specifies the type of the referenced Active Directory principal. If &#39;kGroup&#39;, the referenced Active Directory principal is a group. If &#39;kUser&#39;, the referenced Active Directory principal is a user. &#39;kUser&#39; specifies a user object class. &#39;kGroup&#39; specifies a group object class. &#39;kComputer&#39; specifies a computer object class. &#39;kWellKnownPrincipal&#39; specifies a well known principal. &#39;kServiceAccount&#39; specifies a service account object class.
         /// </summary>
-        /// <value>Specifies the type of the referenced Active Directory principal. If &#39;kGroup&#39;, the referenced Active Directory principal is a group. If &#39;kUser&#39;, the referenced Active Directory principal is a user. &#39;kUser&#39; specifies a user object class. &#39;kGroup&#39; specifies a group object class. &#39;kComputer&#39; specifies a computer object class. &#39;kWellKnownPrincipal&#39; specifies a well known principal.</value>
-        [DataMember(Name="objectClass", EmitDefaultValue=true)]
+        /// <value>Specifies the type of the referenced Active Directory principal. If &#39;kGroup&#39;, the referenced Active Directory principal is a group. If &#39;kUser&#39;, the referenced Active Directory principal is a user. &#39;kUser&#39; specifies a user object class. &#39;kGroup&#39; specifies a group object class. &#39;kComputer&#39; specifies a computer object class. &#39;kWellKnownPrincipal&#39; specifies a well known principal. &#39;kServiceAccount&#39; specifies a service account object class.</value>
+        [DataMember(Name="objectClass", EmitDefaultValue=false)]
         public ObjectClassEnum? ObjectClass { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="ActiveDirectoryPrincipalsAddParameters" /> class.
         /// </summary>
         /// <param name="description">Specifies a description about the user or group..</param>
         /// <param name="domain">Specifies the domain of the Active Directory where the referenced principal is stored..</param>
-        /// <param name="objectClass">Specifies the type of the referenced Active Directory principal. If &#39;kGroup&#39;, the referenced Active Directory principal is a group. If &#39;kUser&#39;, the referenced Active Directory principal is a user. &#39;kUser&#39; specifies a user object class. &#39;kGroup&#39; specifies a group object class. &#39;kComputer&#39; specifies a computer object class. &#39;kWellKnownPrincipal&#39; specifies a well known principal..</param>
+        /// <param name="objectClass">Specifies the type of the referenced Active Directory principal. If &#39;kGroup&#39;, the referenced Active Directory principal is a group. If &#39;kUser&#39;, the referenced Active Directory principal is a user. &#39;kUser&#39; specifies a user object class. &#39;kGroup&#39; specifies a group object class. &#39;kComputer&#39; specifies a computer object class. &#39;kWellKnownPrincipal&#39; specifies a well known principal. &#39;kServiceAccount&#39; specifies a service account object class..</param>
         /// <param name="principalName">Specifies the name of the Active Directory principal, that will be referenced by the group or user. The name of the Active Directory principal is used for naming the new group or user on the Cohesity Cluster..</param>
         /// <param name="restricted">Whether the principal is a restricted principal. A restricted principal can only view the objects he has permissions to..</param>
         /// <param name="roles">Array of Roles.  Specifies the Cohesity roles to associate with this user or group such as &#39;Admin&#39;, &#39;Ops&#39; or &#39;View&#39;. The Cohesity roles determine privileges on the Cohesity Cluster for this group or user. For example if the &#39;joe&#39; user is added for the Active Directory &#39;joe&#39; user principal and is associated with the Cohesity &#39;View&#39; role, &#39;joe&#39; can log in to the Cohesity Dashboard and has a read-only view of the data on the Cohesity Cluster..</param>
         public ActiveDirectoryPrincipalsAddParameters(string description = default(string), string domain = default(string), ObjectClassEnum? objectClass = default(ObjectClassEnum?), string principalName = default(string), bool? restricted = default(bool?), List<string> roles = default(List<string>))
         {
-            this.Description = description;
-            this.Domain = domain;
-            this.ObjectClass = objectClass;
-            this.PrincipalName = principalName;
-            this.Restricted = restricted;
-            this.Roles = roles;
             this.Description = description;
             this.Domain = domain;
             this.ObjectClass = objectClass;
@@ -88,35 +91,36 @@ namespace Cohesity.Model
         /// Specifies a description about the user or group.
         /// </summary>
         /// <value>Specifies a description about the user or group.</value>
-        [DataMember(Name="description", EmitDefaultValue=true)]
+        [DataMember(Name="description", EmitDefaultValue=false)]
         public string Description { get; set; }
 
         /// <summary>
         /// Specifies the domain of the Active Directory where the referenced principal is stored.
         /// </summary>
         /// <value>Specifies the domain of the Active Directory where the referenced principal is stored.</value>
-        [DataMember(Name="domain", EmitDefaultValue=true)]
+        [DataMember(Name="domain", EmitDefaultValue=false)]
         public string Domain { get; set; }
+
 
         /// <summary>
         /// Specifies the name of the Active Directory principal, that will be referenced by the group or user. The name of the Active Directory principal is used for naming the new group or user on the Cohesity Cluster.
         /// </summary>
         /// <value>Specifies the name of the Active Directory principal, that will be referenced by the group or user. The name of the Active Directory principal is used for naming the new group or user on the Cohesity Cluster.</value>
-        [DataMember(Name="principalName", EmitDefaultValue=true)]
+        [DataMember(Name="principalName", EmitDefaultValue=false)]
         public string PrincipalName { get; set; }
 
         /// <summary>
         /// Whether the principal is a restricted principal. A restricted principal can only view the objects he has permissions to.
         /// </summary>
         /// <value>Whether the principal is a restricted principal. A restricted principal can only view the objects he has permissions to.</value>
-        [DataMember(Name="restricted", EmitDefaultValue=true)]
+        [DataMember(Name="restricted", EmitDefaultValue=false)]
         public bool? Restricted { get; set; }
 
         /// <summary>
         /// Array of Roles.  Specifies the Cohesity roles to associate with this user or group such as &#39;Admin&#39;, &#39;Ops&#39; or &#39;View&#39;. The Cohesity roles determine privileges on the Cohesity Cluster for this group or user. For example if the &#39;joe&#39; user is added for the Active Directory &#39;joe&#39; user principal and is associated with the Cohesity &#39;View&#39; role, &#39;joe&#39; can log in to the Cohesity Dashboard and has a read-only view of the data on the Cohesity Cluster.
         /// </summary>
         /// <value>Array of Roles.  Specifies the Cohesity roles to associate with this user or group such as &#39;Admin&#39;, &#39;Ops&#39; or &#39;View&#39;. The Cohesity roles determine privileges on the Cohesity Cluster for this group or user. For example if the &#39;joe&#39; user is added for the Active Directory &#39;joe&#39; user principal and is associated with the Cohesity &#39;View&#39; role, &#39;joe&#39; can log in to the Cohesity Dashboard and has a read-only view of the data on the Cohesity Cluster.</value>
-        [DataMember(Name="roles", EmitDefaultValue=true)]
+        [DataMember(Name="roles", EmitDefaultValue=false)]
         public List<string> Roles { get; set; }
 
         /// <summary>
@@ -167,7 +171,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.ObjectClass == input.ObjectClass ||
-                    this.ObjectClass.Equals(input.ObjectClass)
+                    (this.ObjectClass != null &&
+                    this.ObjectClass.Equals(input.ObjectClass))
                 ) && 
                 (
                     this.PrincipalName == input.PrincipalName ||
@@ -182,8 +187,7 @@ namespace Cohesity.Model
                 (
                     this.Roles == input.Roles ||
                     this.Roles != null &&
-                    input.Roles != null &&
-                    this.Roles.SequenceEqual(input.Roles)
+                    this.Roles.Equals(input.Roles)
                 );
         }
 
@@ -200,7 +204,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Description.GetHashCode();
                 if (this.Domain != null)
                     hashCode = hashCode * 59 + this.Domain.GetHashCode();
-                hashCode = hashCode * 59 + this.ObjectClass.GetHashCode();
+                if (this.ObjectClass != null)
+                    hashCode = hashCode * 59 + this.ObjectClass.GetHashCode();
                 if (this.PrincipalName != null)
                     hashCode = hashCode * 59 + this.PrincipalName.GetHashCode();
                 if (this.Restricted != null)

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,18 +34,20 @@ namespace Cohesity.Model
         /// <param name="name">Specifies name of the gflag. (required).</param>
         /// <param name="productModel">Specifies product model this gflag set on..</param>
         /// <param name="reason">Specifies reason for setting the gflag..</param>
-        /// <param name="timestamp">Specifies timestamp when gflag was set..</param>
         /// <param name="value">Specifies value of the gflag..</param>
-        public Gflag(string name = default(string), string productModel = default(string), string reason = default(string), long? timestamp = default(long?), string value = default(string))
+        public Gflag(string name = default(string), string productModel = default(string), string reason = default(string), string value = default(string))
         {
-            this.Name = name;
+            // to ensure "name" is required (not null)
+            if (name == null)
+            {
+                throw new InvalidDataException("name is a required property for Gflag and cannot be null");
+            }
+            else
+            {
+                this.Name = name;
+            }
             this.ProductModel = productModel;
             this.Reason = reason;
-            this.Timestamp = timestamp;
-            this.Value = value;
-            this.ProductModel = productModel;
-            this.Reason = reason;
-            this.Timestamp = timestamp;
             this.Value = value;
         }
         
@@ -50,35 +55,35 @@ namespace Cohesity.Model
         /// Specifies name of the gflag.
         /// </summary>
         /// <value>Specifies name of the gflag.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
 
         /// <summary>
         /// Specifies product model this gflag set on.
         /// </summary>
         /// <value>Specifies product model this gflag set on.</value>
-        [DataMember(Name="productModel", EmitDefaultValue=true)]
+        [DataMember(Name="productModel", EmitDefaultValue=false)]
         public string ProductModel { get; set; }
 
         /// <summary>
         /// Specifies reason for setting the gflag.
         /// </summary>
         /// <value>Specifies reason for setting the gflag.</value>
-        [DataMember(Name="reason", EmitDefaultValue=true)]
+        [DataMember(Name="reason", EmitDefaultValue=false)]
         public string Reason { get; set; }
 
         /// <summary>
         /// Specifies timestamp when gflag was set.
         /// </summary>
         /// <value>Specifies timestamp when gflag was set.</value>
-        [DataMember(Name="timestamp", EmitDefaultValue=true)]
-        public long? Timestamp { get; set; }
+        [DataMember(Name="timestamp", EmitDefaultValue=false)]
+        public long? Timestamp { get; private set; }
 
         /// <summary>
         /// Specifies value of the gflag.
         /// </summary>
         /// <value>Specifies value of the gflag.</value>
-        [DataMember(Name="value", EmitDefaultValue=true)]
+        [DataMember(Name="value", EmitDefaultValue=false)]
         public string Value { get; set; }
 
         /// <summary>

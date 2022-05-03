@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -26,16 +29,14 @@ namespace Cohesity.Model
         /// <param name="busNumber">Specifies the Id of the controller bus that controls the disk..</param>
         /// <param name="controllerType">Specifies the controller type like SCSI, or IDE etc..</param>
         /// <param name="filename">Specifies the host file name used as the virtual disk..</param>
+        /// <param name="logicalSizeBytes">Virtual disk size..</param>
         /// <param name="unitNumber">Specifies the disk file name. This is the VMDK name and not the flat file name..</param>
-        public VirtualDiskInfo(long? busNumber = default(long?), string controllerType = default(string), string filename = default(string), long? unitNumber = default(long?))
+        public VirtualDiskInfo(long? busNumber = default(long?), string controllerType = default(string), string filename = default(string), long? logicalSizeBytes = default(long?), long? unitNumber = default(long?))
         {
             this.BusNumber = busNumber;
             this.ControllerType = controllerType;
             this.Filename = filename;
-            this.UnitNumber = unitNumber;
-            this.BusNumber = busNumber;
-            this.ControllerType = controllerType;
-            this.Filename = filename;
+            this.LogicalSizeBytes = logicalSizeBytes;
             this.UnitNumber = unitNumber;
         }
         
@@ -43,28 +44,35 @@ namespace Cohesity.Model
         /// Specifies the Id of the controller bus that controls the disk.
         /// </summary>
         /// <value>Specifies the Id of the controller bus that controls the disk.</value>
-        [DataMember(Name="busNumber", EmitDefaultValue=true)]
+        [DataMember(Name="busNumber", EmitDefaultValue=false)]
         public long? BusNumber { get; set; }
 
         /// <summary>
         /// Specifies the controller type like SCSI, or IDE etc.
         /// </summary>
         /// <value>Specifies the controller type like SCSI, or IDE etc.</value>
-        [DataMember(Name="controllerType", EmitDefaultValue=true)]
+        [DataMember(Name="controllerType", EmitDefaultValue=false)]
         public string ControllerType { get; set; }
 
         /// <summary>
         /// Specifies the host file name used as the virtual disk.
         /// </summary>
         /// <value>Specifies the host file name used as the virtual disk.</value>
-        [DataMember(Name="filename", EmitDefaultValue=true)]
+        [DataMember(Name="filename", EmitDefaultValue=false)]
         public string Filename { get; set; }
+
+        /// <summary>
+        /// Virtual disk size.
+        /// </summary>
+        /// <value>Virtual disk size.</value>
+        [DataMember(Name="logicalSizeBytes", EmitDefaultValue=false)]
+        public long? LogicalSizeBytes { get; set; }
 
         /// <summary>
         /// Specifies the disk file name. This is the VMDK name and not the flat file name.
         /// </summary>
         /// <value>Specifies the disk file name. This is the VMDK name and not the flat file name.</value>
-        [DataMember(Name="unitNumber", EmitDefaultValue=true)]
+        [DataMember(Name="unitNumber", EmitDefaultValue=false)]
         public long? UnitNumber { get; set; }
 
         /// <summary>
@@ -119,6 +127,11 @@ namespace Cohesity.Model
                     this.Filename.Equals(input.Filename))
                 ) && 
                 (
+                    this.LogicalSizeBytes == input.LogicalSizeBytes ||
+                    (this.LogicalSizeBytes != null &&
+                    this.LogicalSizeBytes.Equals(input.LogicalSizeBytes))
+                ) && 
+                (
                     this.UnitNumber == input.UnitNumber ||
                     (this.UnitNumber != null &&
                     this.UnitNumber.Equals(input.UnitNumber))
@@ -140,6 +153,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ControllerType.GetHashCode();
                 if (this.Filename != null)
                     hashCode = hashCode * 59 + this.Filename.GetHashCode();
+                if (this.LogicalSizeBytes != null)
+                    hashCode = hashCode * 59 + this.LogicalSizeBytes.GetHashCode();
                 if (this.UnitNumber != null)
                     hashCode = hashCode * 59 + this.UnitNumber.GetHashCode();
                 return hashCode;

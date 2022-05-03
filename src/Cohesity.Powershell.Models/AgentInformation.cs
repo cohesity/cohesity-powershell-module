@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -69,7 +72,7 @@ namespace Cohesity.Model
         /// Specifies the host type where the agent is running. This is only set for persistent agents. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kOther&#39; indicates the other types of operating system.
         /// </summary>
         /// <value>Specifies the host type where the agent is running. This is only set for persistent agents. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kOther&#39; indicates the other types of operating system.</value>
-        [DataMember(Name="hostType", EmitDefaultValue=true)]
+        [DataMember(Name="hostType", EmitDefaultValue=false)]
         public HostTypeEnum? HostType { get; set; }
         /// <summary>
         /// Specifies the agent status. Specifies the status of the agent running on a physical source. &#39;kUnknown&#39; indicates the Agent is not known. No attempt to connect to the Agent has occurred. &#39;kUnreachable&#39; indicates the Agent is not reachable. &#39;kHealthy&#39; indicates the Agent is healthy. &#39;kDegraded&#39; indicates the Agent is running but in a degraded state.
@@ -108,7 +111,7 @@ namespace Cohesity.Model
         /// Specifies the agent status. Specifies the status of the agent running on a physical source. &#39;kUnknown&#39; indicates the Agent is not known. No attempt to connect to the Agent has occurred. &#39;kUnreachable&#39; indicates the Agent is not reachable. &#39;kHealthy&#39; indicates the Agent is healthy. &#39;kDegraded&#39; indicates the Agent is running but in a degraded state.
         /// </summary>
         /// <value>Specifies the agent status. Specifies the status of the agent running on a physical source. &#39;kUnknown&#39; indicates the Agent is not known. No attempt to connect to the Agent has occurred. &#39;kUnreachable&#39; indicates the Agent is not reachable. &#39;kHealthy&#39; indicates the Agent is healthy. &#39;kDegraded&#39; indicates the Agent is running but in a degraded state.</value>
-        [DataMember(Name="status", EmitDefaultValue=true)]
+        [DataMember(Name="status", EmitDefaultValue=false)]
         public StatusEnum? Status { get; set; }
         /// <summary>
         /// Specifies the upgradability of the agent running on the physical server. Specifies the upgradability of the agent running on the physical server. &#39;kUpgradable&#39; indicates the Agent can be upgraded to the agent software version on the cluster. &#39;kCurrent&#39; indicates the Agent is running the latest version. &#39;kUnknown&#39; indicates the Agent&#39;s version is not known. &#39;kNonUpgradableInvalidVersion&#39; indicates the Agent&#39;s version is invalid. &#39;kNonUpgradableAgentIsNewer&#39; indicates the Agent&#39;s version is newer than the agent software version the cluster. &#39;kNonUpgradableAgentIsOld&#39; indicates the Agent&#39;s version is too old that does not support upgrades.
@@ -159,7 +162,7 @@ namespace Cohesity.Model
         /// Specifies the upgradability of the agent running on the physical server. Specifies the upgradability of the agent running on the physical server. &#39;kUpgradable&#39; indicates the Agent can be upgraded to the agent software version on the cluster. &#39;kCurrent&#39; indicates the Agent is running the latest version. &#39;kUnknown&#39; indicates the Agent&#39;s version is not known. &#39;kNonUpgradableInvalidVersion&#39; indicates the Agent&#39;s version is invalid. &#39;kNonUpgradableAgentIsNewer&#39; indicates the Agent&#39;s version is newer than the agent software version the cluster. &#39;kNonUpgradableAgentIsOld&#39; indicates the Agent&#39;s version is too old that does not support upgrades.
         /// </summary>
         /// <value>Specifies the upgradability of the agent running on the physical server. Specifies the upgradability of the agent running on the physical server. &#39;kUpgradable&#39; indicates the Agent can be upgraded to the agent software version on the cluster. &#39;kCurrent&#39; indicates the Agent is running the latest version. &#39;kUnknown&#39; indicates the Agent&#39;s version is not known. &#39;kNonUpgradableInvalidVersion&#39; indicates the Agent&#39;s version is invalid. &#39;kNonUpgradableAgentIsNewer&#39; indicates the Agent&#39;s version is newer than the agent software version the cluster. &#39;kNonUpgradableAgentIsOld&#39; indicates the Agent&#39;s version is too old that does not support upgrades.</value>
-        [DataMember(Name="upgradability", EmitDefaultValue=true)]
+        [DataMember(Name="upgradability", EmitDefaultValue=false)]
         public UpgradabilityEnum? Upgradability { get; set; }
         /// <summary>
         /// Specifies the status of the upgrade of the agent on a physical server. Specifies the status of the upgrade of the agent on a physical server. &#39;kIdle&#39; indicates there is no agent upgrade in progress. &#39;kAccepted&#39; indicates the Agent upgrade is accepted. &#39;kStarted&#39; indicates the Agent upgrade is in progress. &#39;kFinished&#39; indicates the Agent upgrade is completed.
@@ -198,7 +201,7 @@ namespace Cohesity.Model
         /// Specifies the status of the upgrade of the agent on a physical server. Specifies the status of the upgrade of the agent on a physical server. &#39;kIdle&#39; indicates there is no agent upgrade in progress. &#39;kAccepted&#39; indicates the Agent upgrade is accepted. &#39;kStarted&#39; indicates the Agent upgrade is in progress. &#39;kFinished&#39; indicates the Agent upgrade is completed.
         /// </summary>
         /// <value>Specifies the status of the upgrade of the agent on a physical server. Specifies the status of the upgrade of the agent on a physical server. &#39;kIdle&#39; indicates there is no agent upgrade in progress. &#39;kAccepted&#39; indicates the Agent upgrade is accepted. &#39;kStarted&#39; indicates the Agent upgrade is in progress. &#39;kFinished&#39; indicates the Agent upgrade is completed.</value>
-        [DataMember(Name="upgradeStatus", EmitDefaultValue=true)]
+        [DataMember(Name="upgradeStatus", EmitDefaultValue=false)]
         public UpgradeStatusEnum? UpgradeStatus { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="AgentInformation" /> class.
@@ -223,18 +226,6 @@ namespace Cohesity.Model
             this.Id = id;
             this.Name = name;
             this.OracleMultiNodeChannelSupported = oracleMultiNodeChannelSupported;
-            this.SourceSideDedupEnabled = sourceSideDedupEnabled;
-            this.Status = status;
-            this.StatusMessage = statusMessage;
-            this.Upgradability = upgradability;
-            this.UpgradeStatus = upgradeStatus;
-            this.UpgradeStatusMessage = upgradeStatusMessage;
-            this.Version = version;
-            this.CbmrVersion = cbmrVersion;
-            this.HostType = hostType;
-            this.Id = id;
-            this.Name = name;
-            this.OracleMultiNodeChannelSupported = oracleMultiNodeChannelSupported;
             this.RegistrationInfo = registrationInfo;
             this.SourceSideDedupEnabled = sourceSideDedupEnabled;
             this.Status = status;
@@ -249,28 +240,29 @@ namespace Cohesity.Model
         /// Specifies the version if Cristie BMR product is installed on the host.
         /// </summary>
         /// <value>Specifies the version if Cristie BMR product is installed on the host.</value>
-        [DataMember(Name="cbmrVersion", EmitDefaultValue=true)]
+        [DataMember(Name="cbmrVersion", EmitDefaultValue=false)]
         public string CbmrVersion { get; set; }
+
 
         /// <summary>
         /// Specifies the agent&#39;s id.
         /// </summary>
         /// <value>Specifies the agent&#39;s id.</value>
-        [DataMember(Name="id", EmitDefaultValue=true)]
+        [DataMember(Name="id", EmitDefaultValue=false)]
         public long? Id { get; set; }
 
         /// <summary>
         /// Specifies the agent&#39;s name.
         /// </summary>
         /// <value>Specifies the agent&#39;s name.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
 
         /// <summary>
         /// Specifies whether oracle multi node multi channel is supported or not.
         /// </summary>
         /// <value>Specifies whether oracle multi node multi channel is supported or not.</value>
-        [DataMember(Name="oracleMultiNodeChannelSupported", EmitDefaultValue=true)]
+        [DataMember(Name="oracleMultiNodeChannelSupported", EmitDefaultValue=false)]
         public bool? OracleMultiNodeChannelSupported { get; set; }
 
         /// <summary>
@@ -283,28 +275,31 @@ namespace Cohesity.Model
         /// Specifies whether source side dedup is enabled or not.
         /// </summary>
         /// <value>Specifies whether source side dedup is enabled or not.</value>
-        [DataMember(Name="sourceSideDedupEnabled", EmitDefaultValue=true)]
+        [DataMember(Name="sourceSideDedupEnabled", EmitDefaultValue=false)]
         public bool? SourceSideDedupEnabled { get; set; }
+
 
         /// <summary>
         /// Specifies additional details about the agent status.
         /// </summary>
         /// <value>Specifies additional details about the agent status.</value>
-        [DataMember(Name="statusMessage", EmitDefaultValue=true)]
+        [DataMember(Name="statusMessage", EmitDefaultValue=false)]
         public string StatusMessage { get; set; }
+
+
 
         /// <summary>
         /// Specifies detailed message about the agent upgrade failure. This field is not set for successful upgrade.
         /// </summary>
         /// <value>Specifies detailed message about the agent upgrade failure. This field is not set for successful upgrade.</value>
-        [DataMember(Name="upgradeStatusMessage", EmitDefaultValue=true)]
+        [DataMember(Name="upgradeStatusMessage", EmitDefaultValue=false)]
         public string UpgradeStatusMessage { get; set; }
 
         /// <summary>
         /// Specifies the version of the Agent software.
         /// </summary>
         /// <value>Specifies the version of the Agent software.</value>
-        [DataMember(Name="version", EmitDefaultValue=true)]
+        [DataMember(Name="version", EmitDefaultValue=false)]
         public string Version { get; set; }
 
         /// <summary>
@@ -350,7 +345,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.HostType == input.HostType ||
-                    this.HostType.Equals(input.HostType)
+                    (this.HostType != null &&
+                    this.HostType.Equals(input.HostType))
                 ) && 
                 (
                     this.Id == input.Id ||
@@ -379,7 +375,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.Status == input.Status ||
-                    this.Status.Equals(input.Status)
+                    (this.Status != null &&
+                    this.Status.Equals(input.Status))
                 ) && 
                 (
                     this.StatusMessage == input.StatusMessage ||
@@ -388,11 +385,13 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.Upgradability == input.Upgradability ||
-                    this.Upgradability.Equals(input.Upgradability)
+                    (this.Upgradability != null &&
+                    this.Upgradability.Equals(input.Upgradability))
                 ) && 
                 (
                     this.UpgradeStatus == input.UpgradeStatus ||
-                    this.UpgradeStatus.Equals(input.UpgradeStatus)
+                    (this.UpgradeStatus != null &&
+                    this.UpgradeStatus.Equals(input.UpgradeStatus))
                 ) && 
                 (
                     this.UpgradeStatusMessage == input.UpgradeStatusMessage ||
@@ -417,7 +416,8 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.CbmrVersion != null)
                     hashCode = hashCode * 59 + this.CbmrVersion.GetHashCode();
-                hashCode = hashCode * 59 + this.HostType.GetHashCode();
+                if (this.HostType != null)
+                    hashCode = hashCode * 59 + this.HostType.GetHashCode();
                 if (this.Id != null)
                     hashCode = hashCode * 59 + this.Id.GetHashCode();
                 if (this.Name != null)
@@ -428,11 +428,14 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.RegistrationInfo.GetHashCode();
                 if (this.SourceSideDedupEnabled != null)
                     hashCode = hashCode * 59 + this.SourceSideDedupEnabled.GetHashCode();
-                hashCode = hashCode * 59 + this.Status.GetHashCode();
+                if (this.Status != null)
+                    hashCode = hashCode * 59 + this.Status.GetHashCode();
                 if (this.StatusMessage != null)
                     hashCode = hashCode * 59 + this.StatusMessage.GetHashCode();
-                hashCode = hashCode * 59 + this.Upgradability.GetHashCode();
-                hashCode = hashCode * 59 + this.UpgradeStatus.GetHashCode();
+                if (this.Upgradability != null)
+                    hashCode = hashCode * 59 + this.Upgradability.GetHashCode();
+                if (this.UpgradeStatus != null)
+                    hashCode = hashCode * 59 + this.UpgradeStatus.GetHashCode();
                 if (this.UpgradeStatusMessage != null)
                     hashCode = hashCode * 59 + this.UpgradeStatusMessage.GetHashCode();
                 if (this.Version != null)

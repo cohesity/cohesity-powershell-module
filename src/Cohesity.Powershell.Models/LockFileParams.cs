@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.ExpiryTimestampMsecs = expiryTimestampMsecs;
             this.Path = path;
-            this.ExpiryTimestampMsecs = expiryTimestampMsecs;
-            this.Path = path;
         }
         
         /// <summary>
         /// Specifies a definite timestamp in milliseconds for retaining the file, or to extend it&#39;s expiry timestamp.
         /// </summary>
         /// <value>Specifies a definite timestamp in milliseconds for retaining the file, or to extend it&#39;s expiry timestamp.</value>
-        [DataMember(Name="expiryTimestampMsecs", EmitDefaultValue=true)]
+        [DataMember(Name="expiryTimestampMsecs", EmitDefaultValue=false)]
         public int? ExpiryTimestampMsecs { get; set; }
 
         /// <summary>
         /// Specifies the file path that needs to be locked.
         /// </summary>
         /// <value>Specifies the file path that needs to be locked.</value>
-        [DataMember(Name="path", EmitDefaultValue=true)]
+        [DataMember(Name="path", EmitDefaultValue=false)]
         public string Path { get; set; }
 
         /// <summary>

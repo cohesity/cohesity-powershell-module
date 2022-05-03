@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,30 +34,27 @@ namespace Cohesity.Model
             this.IsCappedCollection = isCappedCollection;
             this.IsMongoView = isMongoView;
             this.SizeBytes = sizeBytes;
-            this.IsCappedCollection = isCappedCollection;
-            this.IsMongoView = isMongoView;
-            this.SizeBytes = sizeBytes;
         }
         
         /// <summary>
         /// Set to true if this is a capped Collection.
         /// </summary>
         /// <value>Set to true if this is a capped Collection.</value>
-        [DataMember(Name="isCappedCollection", EmitDefaultValue=true)]
+        [DataMember(Name="isCappedCollection", EmitDefaultValue=false)]
         public bool? IsCappedCollection { get; set; }
 
         /// <summary>
         /// Set to true if this Collection is a view.
         /// </summary>
         /// <value>Set to true if this Collection is a view.</value>
-        [DataMember(Name="isMongoView", EmitDefaultValue=true)]
+        [DataMember(Name="isMongoView", EmitDefaultValue=false)]
         public bool? IsMongoView { get; set; }
 
         /// <summary>
         /// Size of this Collection.
         /// </summary>
         /// <value>Size of this Collection.</value>
-        [DataMember(Name="sizeBytes", EmitDefaultValue=true)]
+        [DataMember(Name="sizeBytes", EmitDefaultValue=false)]
         public long? SizeBytes { get; set; }
 
         /// <summary>

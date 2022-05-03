@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -51,26 +54,31 @@ namespace Cohesity.Model
         /// Specifies the sql options to update the Restore Task with. Specifies the action type of multi stage SQL restore.  &#39;kCreate&#39; specifies the create action for a restore. &#39;kUpdate&#39; specifies the user action to update an ongoing restore. &#39;kFinalize&#39; specifies the user action to finalize a restore.
         /// </summary>
         /// <value>Specifies the sql options to update the Restore Task with. Specifies the action type of multi stage SQL restore.  &#39;kCreate&#39; specifies the create action for a restore. &#39;kUpdate&#39; specifies the user action to update an ongoing restore. &#39;kFinalize&#39; specifies the user action to finalize a restore.</value>
-        [DataMember(Name="sqlOptions", EmitDefaultValue=true)]
+        [DataMember(Name="sqlOptions", EmitDefaultValue=false)]
         public SqlOptionsEnum? SqlOptions { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="UpdateRestoreTaskParams" /> class.
         /// </summary>
+        /// <param name="oracleOptions">oracleOptions.</param>
         /// <param name="adOptions">adOptions.</param>
         /// <param name="enableAutoSync">Enables Auto Sync feature for SQL Multi-stage Restore task..</param>
         /// <param name="restoreTaskId">Specifies the ID of the existing Restore Task to update..</param>
         /// <param name="sqlOptions">Specifies the sql options to update the Restore Task with. Specifies the action type of multi stage SQL restore.  &#39;kCreate&#39; specifies the create action for a restore. &#39;kUpdate&#39; specifies the user action to update an ongoing restore. &#39;kFinalize&#39; specifies the user action to finalize a restore..</param>
-        public UpdateRestoreTaskParams(AdRestoreOptions adOptions = default(AdRestoreOptions), bool? enableAutoSync = default(bool?), long? restoreTaskId = default(long?), SqlOptionsEnum? sqlOptions = default(SqlOptionsEnum?))
+        public UpdateRestoreTaskParams(OracleUpdateRestoreTaskOptions oracleOptions = default(OracleUpdateRestoreTaskOptions), AdRestoreOptions adOptions = default(AdRestoreOptions), bool? enableAutoSync = default(bool?), long? restoreTaskId = default(long?), SqlOptionsEnum? sqlOptions = default(SqlOptionsEnum?))
         {
-            this.EnableAutoSync = enableAutoSync;
-            this.RestoreTaskId = restoreTaskId;
-            this.SqlOptions = sqlOptions;
+            this.OracleOptions = oracleOptions;
             this.AdOptions = adOptions;
             this.EnableAutoSync = enableAutoSync;
             this.RestoreTaskId = restoreTaskId;
             this.SqlOptions = sqlOptions;
         }
         
+        /// <summary>
+        /// Gets or Sets OracleOptions
+        /// </summary>
+        [DataMember(Name="OracleOptions", EmitDefaultValue=false)]
+        public OracleUpdateRestoreTaskOptions OracleOptions { get; set; }
+
         /// <summary>
         /// Gets or Sets AdOptions
         /// </summary>
@@ -81,15 +89,16 @@ namespace Cohesity.Model
         /// Enables Auto Sync feature for SQL Multi-stage Restore task.
         /// </summary>
         /// <value>Enables Auto Sync feature for SQL Multi-stage Restore task.</value>
-        [DataMember(Name="enableAutoSync", EmitDefaultValue=true)]
+        [DataMember(Name="enableAutoSync", EmitDefaultValue=false)]
         public bool? EnableAutoSync { get; set; }
 
         /// <summary>
         /// Specifies the ID of the existing Restore Task to update.
         /// </summary>
         /// <value>Specifies the ID of the existing Restore Task to update.</value>
-        [DataMember(Name="restoreTaskId", EmitDefaultValue=true)]
+        [DataMember(Name="restoreTaskId", EmitDefaultValue=false)]
         public long? RestoreTaskId { get; set; }
+
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -128,6 +137,11 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.OracleOptions == input.OracleOptions ||
+                    (this.OracleOptions != null &&
+                    this.OracleOptions.Equals(input.OracleOptions))
+                ) && 
+                (
                     this.AdOptions == input.AdOptions ||
                     (this.AdOptions != null &&
                     this.AdOptions.Equals(input.AdOptions))
@@ -144,7 +158,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.SqlOptions == input.SqlOptions ||
-                    this.SqlOptions.Equals(input.SqlOptions)
+                    (this.SqlOptions != null &&
+                    this.SqlOptions.Equals(input.SqlOptions))
                 );
         }
 
@@ -157,13 +172,16 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.OracleOptions != null)
+                    hashCode = hashCode * 59 + this.OracleOptions.GetHashCode();
                 if (this.AdOptions != null)
                     hashCode = hashCode * 59 + this.AdOptions.GetHashCode();
                 if (this.EnableAutoSync != null)
                     hashCode = hashCode * 59 + this.EnableAutoSync.GetHashCode();
                 if (this.RestoreTaskId != null)
                     hashCode = hashCode * 59 + this.RestoreTaskId.GetHashCode();
-                hashCode = hashCode * 59 + this.SqlOptions.GetHashCode();
+                if (this.SqlOptions != null)
+                    hashCode = hashCode * 59 + this.SqlOptions.GetHashCode();
                 return hashCode;
             }
         }

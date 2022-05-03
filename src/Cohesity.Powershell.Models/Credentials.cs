@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.Password = password;
             this.Username = username;
-            this.Password = password;
-            this.Username = username;
         }
         
         /// <summary>
         /// Specifies password of the username to access the target source.
         /// </summary>
         /// <value>Specifies password of the username to access the target source.</value>
-        [DataMember(Name="password", EmitDefaultValue=true)]
+        [DataMember(Name="password", EmitDefaultValue=false)]
         public string Password { get; set; }
 
         /// <summary>
         /// Specifies username to access the target source.
         /// </summary>
         /// <value>Specifies username to access the target source.</value>
-        [DataMember(Name="username", EmitDefaultValue=true)]
+        [DataMember(Name="username", EmitDefaultValue=false)]
         public string Username { get; set; }
 
         /// <summary>

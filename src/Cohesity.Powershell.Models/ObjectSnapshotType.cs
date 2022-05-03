@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,21 +32,19 @@ namespace Cohesity.Model
         {
             this.Msg = msg;
             this.Type = type;
-            this.Msg = msg;
-            this.Type = type;
         }
         
         /// <summary>
         /// This captures any additional message about the snapshot itself, e.g. if the app-consistent snapshot had to fallback to crash consistent, this will contain that.
         /// </summary>
         /// <value>This captures any additional message about the snapshot itself, e.g. if the app-consistent snapshot had to fallback to crash consistent, this will contain that.</value>
-        [DataMember(Name="msg", EmitDefaultValue=true)]
+        [DataMember(Name="msg", EmitDefaultValue=false)]
         public string Msg { get; set; }
 
         /// <summary>
         /// Gets or Sets Type
         /// </summary>
-        [DataMember(Name="type", EmitDefaultValue=true)]
+        [DataMember(Name="type", EmitDefaultValue=false)]
         public int? Type { get; set; }
 
         /// <summary>

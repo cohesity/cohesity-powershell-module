@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -51,7 +54,7 @@ namespace Cohesity.Model
         /// Specifies the status of the VM for backup purpose. overrideDescription: true Specifies the backup status of a HyperV Virtual Machine object. &#39;kSupported&#39; indicates the agent on the VM can do backup. &#39;kUnsupportedConfig&#39; indicates the agent on the VM cannot do backup. &#39;kMissing&#39; indicates the VM is not found in SCVMM.
         /// </summary>
         /// <value>Specifies the status of the VM for backup purpose. overrideDescription: true Specifies the backup status of a HyperV Virtual Machine object. &#39;kSupported&#39; indicates the agent on the VM can do backup. &#39;kUnsupportedConfig&#39; indicates the agent on the VM cannot do backup. &#39;kMissing&#39; indicates the VM is not found in SCVMM.</value>
-        [DataMember(Name="vmBackupStatus", EmitDefaultValue=true)]
+        [DataMember(Name="vmBackupStatus", EmitDefaultValue=false)]
         public VmBackupStatusEnum? VmBackupStatus { get; set; }
         /// <summary>
         /// Specifies the type of backup supported by the VM. overrideDescription: true Specifies the type of an HyperV datastore object. &#39;kRctBackup&#39; indicates backup is done using RCT/checkpoints. &#39;kVssBackup&#39; indicates backup is done using VSS.
@@ -78,7 +81,7 @@ namespace Cohesity.Model
         /// Specifies the type of backup supported by the VM. overrideDescription: true Specifies the type of an HyperV datastore object. &#39;kRctBackup&#39; indicates backup is done using RCT/checkpoints. &#39;kVssBackup&#39; indicates backup is done using VSS.
         /// </summary>
         /// <value>Specifies the type of backup supported by the VM. overrideDescription: true Specifies the type of an HyperV datastore object. &#39;kRctBackup&#39; indicates backup is done using RCT/checkpoints. &#39;kVssBackup&#39; indicates backup is done using VSS.</value>
-        [DataMember(Name="vmBackupType", EmitDefaultValue=true)]
+        [DataMember(Name="vmBackupType", EmitDefaultValue=false)]
         public VmBackupTypeEnum? VmBackupType { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="HypervVirtualMachine" /> class.
@@ -93,25 +96,23 @@ namespace Cohesity.Model
             this.Version = version;
             this.VmBackupStatus = vmBackupStatus;
             this.VmBackupType = vmBackupType;
-            this.IsHighlyAvailable = isHighlyAvailable;
-            this.Version = version;
-            this.VmBackupStatus = vmBackupStatus;
-            this.VmBackupType = vmBackupType;
         }
         
         /// <summary>
         /// Specifies whether the VM is Highly Available or not.
         /// </summary>
         /// <value>Specifies whether the VM is Highly Available or not.</value>
-        [DataMember(Name="isHighlyAvailable", EmitDefaultValue=true)]
+        [DataMember(Name="isHighlyAvailable", EmitDefaultValue=false)]
         public bool? IsHighlyAvailable { get; set; }
 
         /// <summary>
         /// Specifies the version of the VM. For example, 8.0, 5.0 etc.
         /// </summary>
         /// <value>Specifies the version of the VM. For example, 8.0, 5.0 etc.</value>
-        [DataMember(Name="version", EmitDefaultValue=true)]
+        [DataMember(Name="version", EmitDefaultValue=false)]
         public string Version { get; set; }
+
+
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -161,11 +162,13 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.VmBackupStatus == input.VmBackupStatus ||
-                    this.VmBackupStatus.Equals(input.VmBackupStatus)
+                    (this.VmBackupStatus != null &&
+                    this.VmBackupStatus.Equals(input.VmBackupStatus))
                 ) && 
                 (
                     this.VmBackupType == input.VmBackupType ||
-                    this.VmBackupType.Equals(input.VmBackupType)
+                    (this.VmBackupType != null &&
+                    this.VmBackupType.Equals(input.VmBackupType))
                 );
         }
 
@@ -182,8 +185,10 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.IsHighlyAvailable.GetHashCode();
                 if (this.Version != null)
                     hashCode = hashCode * 59 + this.Version.GetHashCode();
-                hashCode = hashCode * 59 + this.VmBackupStatus.GetHashCode();
-                hashCode = hashCode * 59 + this.VmBackupType.GetHashCode();
+                if (this.VmBackupStatus != null)
+                    hashCode = hashCode * 59 + this.VmBackupStatus.GetHashCode();
+                if (this.VmBackupType != null)
+                    hashCode = hashCode * 59 + this.VmBackupType.GetHashCode();
                 return hashCode;
             }
         }

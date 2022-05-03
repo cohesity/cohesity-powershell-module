@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -51,7 +54,7 @@ namespace Cohesity.Model
         /// Specifies the state of the Exchange database copy. Specifies the state of Exchange Database Copy.   &#39;kUnknown&#39; indicates the status is not known. &#39;kMounted&#39; indicates the exchange database copy is mounted and healthy. &#39;kError&#39; indicates  the  exchange  database  copy  is unmounted or partially mounted or is in error state.
         /// </summary>
         /// <value>Specifies the state of the Exchange database copy. Specifies the state of Exchange Database Copy.   &#39;kUnknown&#39; indicates the status is not known. &#39;kMounted&#39; indicates the exchange database copy is mounted and healthy. &#39;kError&#39; indicates  the  exchange  database  copy  is unmounted or partially mounted or is in error state.</value>
-        [DataMember(Name="databaseState", EmitDefaultValue=true)]
+        [DataMember(Name="databaseState", EmitDefaultValue=false)]
         public DatabaseStateEnum? DatabaseState { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="ExchangeDatabaseCopyInfo" /> class.
@@ -88,119 +91,105 @@ namespace Cohesity.Model
             this.OwnerId = ownerId;
             this.ServerName = serverName;
             this.UtcOffsetMin = utcOffsetMin;
-            this.ActivationPreferenceNumber = activationPreferenceNumber;
-            this.AppServerId = appServerId;
-            this.BackupSupported = backupSupported;
-            this.BackupUnsupportedReasons = backupUnsupportedReasons;
-            this.CopyGuid = copyGuid;
-            this.CreatedTimeMsecs = createdTimeMsecs;
-            this.DatabaseState = databaseState;
-            this.DbSizeBytes = dbSizeBytes;
-            this.Dbguid = dbguid;
-            this.Fqdn = fqdn;
-            this.IsActiveCopy = isActiveCopy;
-            this.Name = name;
-            this.OwnerId = ownerId;
-            this.ServerName = serverName;
-            this.UtcOffsetMin = utcOffsetMin;
         }
         
         /// <summary>
         /// Specifies the activation preference number assigned for this database copy.
         /// </summary>
         /// <value>Specifies the activation preference number assigned for this database copy.</value>
-        [DataMember(Name="activationPreferenceNumber", EmitDefaultValue=true)]
+        [DataMember(Name="activationPreferenceNumber", EmitDefaultValue=false)]
         public int? ActivationPreferenceNumber { get; set; }
 
         /// <summary>
         /// Specifies the entity id of the Exchange Application Server which has this database copy.
         /// </summary>
         /// <value>Specifies the entity id of the Exchange Application Server which has this database copy.</value>
-        [DataMember(Name="appServerId", EmitDefaultValue=true)]
+        [DataMember(Name="appServerId", EmitDefaultValue=false)]
         public long? AppServerId { get; set; }
 
         /// <summary>
         /// Specifies if backup is supported for the Exchange database copy.
         /// </summary>
         /// <value>Specifies if backup is supported for the Exchange database copy.</value>
-        [DataMember(Name="backupSupported", EmitDefaultValue=true)]
+        [DataMember(Name="backupSupported", EmitDefaultValue=false)]
         public bool? BackupSupported { get; set; }
 
         /// <summary>
         /// Specifies any reason(s) for Exchange database backup not supported.
         /// </summary>
         /// <value>Specifies any reason(s) for Exchange database backup not supported.</value>
-        [DataMember(Name="backupUnsupportedReasons", EmitDefaultValue=true)]
+        [DataMember(Name="backupUnsupportedReasons", EmitDefaultValue=false)]
         public List<string> BackupUnsupportedReasons { get; set; }
 
         /// <summary>
         /// Specifies the Guid of the Exchange Database Copy.
         /// </summary>
         /// <value>Specifies the Guid of the Exchange Database Copy.</value>
-        [DataMember(Name="copyGuid", EmitDefaultValue=true)]
+        [DataMember(Name="copyGuid", EmitDefaultValue=false)]
         public string CopyGuid { get; set; }
 
         /// <summary>
         /// Specifies the time when the database is created in Unix epoch time in milliseconds.
         /// </summary>
         /// <value>Specifies the time when the database is created in Unix epoch time in milliseconds.</value>
-        [DataMember(Name="createdTimeMsecs", EmitDefaultValue=true)]
+        [DataMember(Name="createdTimeMsecs", EmitDefaultValue=false)]
         public long? CreatedTimeMsecs { get; set; }
+
 
         /// <summary>
         /// Specifies the size of the Exchange database copy in bytes.
         /// </summary>
         /// <value>Specifies the size of the Exchange database copy in bytes.</value>
-        [DataMember(Name="dbSizeBytes", EmitDefaultValue=true)]
+        [DataMember(Name="dbSizeBytes", EmitDefaultValue=false)]
         public long? DbSizeBytes { get; set; }
 
         /// <summary>
         /// Specifies the guid of the Exchange Database.
         /// </summary>
         /// <value>Specifies the guid of the Exchange Database.</value>
-        [DataMember(Name="dbguid", EmitDefaultValue=true)]
+        [DataMember(Name="dbguid", EmitDefaultValue=false)]
         public string Dbguid { get; set; }
 
         /// <summary>
         /// Specifies the fully qualified domain name of the Exchange Server on which the database copy is hosted.
         /// </summary>
         /// <value>Specifies the fully qualified domain name of the Exchange Server on which the database copy is hosted.</value>
-        [DataMember(Name="fqdn", EmitDefaultValue=true)]
+        [DataMember(Name="fqdn", EmitDefaultValue=false)]
         public string Fqdn { get; set; }
 
         /// <summary>
         /// Specifies if the Exchange database copy present on the Exchange Application server is active or passive.
         /// </summary>
         /// <value>Specifies if the Exchange database copy present on the Exchange Application server is active or passive.</value>
-        [DataMember(Name="isActiveCopy", EmitDefaultValue=true)]
+        [DataMember(Name="isActiveCopy", EmitDefaultValue=false)]
         public bool? IsActiveCopy { get; set; }
 
         /// <summary>
         /// Specifes the name of the Exchange Database.
         /// </summary>
         /// <value>Specifes the name of the Exchange Database.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
 
         /// <summary>
         /// Specifies the owner entity id of the Exchange Application Server which has this database copy.
         /// </summary>
         /// <value>Specifies the owner entity id of the Exchange Application Server which has this database copy.</value>
-        [DataMember(Name="ownerId", EmitDefaultValue=true)]
+        [DataMember(Name="ownerId", EmitDefaultValue=false)]
         public long? OwnerId { get; set; }
 
         /// <summary>
         /// Specifies the display name of the Exchange Application Server on which the database copy is hosted.
         /// </summary>
         /// <value>Specifies the display name of the Exchange Application Server on which the database copy is hosted.</value>
-        [DataMember(Name="serverName", EmitDefaultValue=true)]
+        [DataMember(Name="serverName", EmitDefaultValue=false)]
         public string ServerName { get; set; }
 
         /// <summary>
         /// Specifies UTC time offset of database creation time.
         /// </summary>
         /// <value>Specifies UTC time offset of database creation time.</value>
-        [DataMember(Name="utcOffsetMin", EmitDefaultValue=true)]
+        [DataMember(Name="utcOffsetMin", EmitDefaultValue=false)]
         public long? UtcOffsetMin { get; set; }
 
         /// <summary>
@@ -257,8 +246,7 @@ namespace Cohesity.Model
                 (
                     this.BackupUnsupportedReasons == input.BackupUnsupportedReasons ||
                     this.BackupUnsupportedReasons != null &&
-                    input.BackupUnsupportedReasons != null &&
-                    this.BackupUnsupportedReasons.SequenceEqual(input.BackupUnsupportedReasons)
+                    this.BackupUnsupportedReasons.Equals(input.BackupUnsupportedReasons)
                 ) && 
                 (
                     this.CopyGuid == input.CopyGuid ||
@@ -272,7 +260,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.DatabaseState == input.DatabaseState ||
-                    this.DatabaseState.Equals(input.DatabaseState)
+                    (this.DatabaseState != null &&
+                    this.DatabaseState.Equals(input.DatabaseState))
                 ) && 
                 (
                     this.DbSizeBytes == input.DbSizeBytes ||
@@ -337,7 +326,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.CopyGuid.GetHashCode();
                 if (this.CreatedTimeMsecs != null)
                     hashCode = hashCode * 59 + this.CreatedTimeMsecs.GetHashCode();
-                hashCode = hashCode * 59 + this.DatabaseState.GetHashCode();
+                if (this.DatabaseState != null)
+                    hashCode = hashCode * 59 + this.DatabaseState.GetHashCode();
                 if (this.DbSizeBytes != null)
                     hashCode = hashCode * 59 + this.DbSizeBytes.GetHashCode();
                 if (this.Dbguid != null)

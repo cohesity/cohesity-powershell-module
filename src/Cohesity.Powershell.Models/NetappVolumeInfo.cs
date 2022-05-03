@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -72,16 +75,22 @@ namespace Cohesity.Model
             /// Enum KManagement for value: kManagement
             /// </summary>
             [EnumMember(Value = "kManagement")]
-            KManagement = 8
+            KManagement = 8,
+
+            /// <summary>
+            /// Enum KNvme for value: kNvme
+            /// </summary>
+            [EnumMember(Value = "kNvme")]
+            KNvme = 9
 
         }
 
 
         /// <summary>
-        /// Array of Data Protocols.  Specifies the set of data protocols supported by this volume. &#39;kNfs&#39; indicates NFS connections. &#39;kCifs&#39; indicates SMB (CIFS) connections. &#39;kIscsi&#39; indicates iSCSI connections. &#39;kFc&#39; indicates Fiber Channel connections. &#39;kFcache&#39; indicates Flex Cache connections. &#39;kHttp&#39; indicates HTTP connections. &#39;kNdmp&#39; indicates NDMP connections. &#39;kManagement&#39; indicates non-data connections used for management purposes.
+        /// Array of Data Protocols.  Specifies the set of data protocols supported by this volume. &#39;kNfs&#39; indicates NFS connections. &#39;kCifs&#39; indicates SMB (CIFS) connections. &#39;kIscsi&#39; indicates iSCSI connections. &#39;kFc&#39; indicates Fiber Channel connections. &#39;kFcache&#39; indicates Flex Cache connections. &#39;kHttp&#39; indicates HTTP connections. &#39;kNdmp&#39; indicates NDMP connections. &#39;kManagement&#39; indicates non-data connections used for management purposes. &#39;kNvme&#39; indicates NVMe connections.
         /// </summary>
-        /// <value>Array of Data Protocols.  Specifies the set of data protocols supported by this volume. &#39;kNfs&#39; indicates NFS connections. &#39;kCifs&#39; indicates SMB (CIFS) connections. &#39;kIscsi&#39; indicates iSCSI connections. &#39;kFc&#39; indicates Fiber Channel connections. &#39;kFcache&#39; indicates Flex Cache connections. &#39;kHttp&#39; indicates HTTP connections. &#39;kNdmp&#39; indicates NDMP connections. &#39;kManagement&#39; indicates non-data connections used for management purposes.</value>
-        [DataMember(Name="dataProtocols", EmitDefaultValue=true)]
+        /// <value>Array of Data Protocols.  Specifies the set of data protocols supported by this volume. &#39;kNfs&#39; indicates NFS connections. &#39;kCifs&#39; indicates SMB (CIFS) connections. &#39;kIscsi&#39; indicates iSCSI connections. &#39;kFc&#39; indicates Fiber Channel connections. &#39;kFcache&#39; indicates Flex Cache connections. &#39;kHttp&#39; indicates HTTP connections. &#39;kNdmp&#39; indicates NDMP connections. &#39;kManagement&#39; indicates non-data connections used for management purposes. &#39;kNvme&#39; indicates NVMe connections.</value>
+        [DataMember(Name="dataProtocols", EmitDefaultValue=false)]
         public List<DataProtocolsEnum> DataProtocols { get; set; }
         /// <summary>
         /// Specifies the state of this volume. Specifies the state of a NetApp Volume. &#39;kOnline&#39; indicates the volume is online. Read and write access to this volume is allowed. &#39;kRestricted&#39; indicates the volume is restricted. Some operations, such as parity reconstruction, are allowed, but data access is not allowed. &#39;kOffline&#39; indicates the volume is offline. No access to the volume is allowed. &#39;kMixed&#39; indicates the volume is in mixed state, which means its aggregates are not all in the same state.
@@ -120,7 +129,7 @@ namespace Cohesity.Model
         /// Specifies the state of this volume. Specifies the state of a NetApp Volume. &#39;kOnline&#39; indicates the volume is online. Read and write access to this volume is allowed. &#39;kRestricted&#39; indicates the volume is restricted. Some operations, such as parity reconstruction, are allowed, but data access is not allowed. &#39;kOffline&#39; indicates the volume is offline. No access to the volume is allowed. &#39;kMixed&#39; indicates the volume is in mixed state, which means its aggregates are not all in the same state.
         /// </summary>
         /// <value>Specifies the state of this volume. Specifies the state of a NetApp Volume. &#39;kOnline&#39; indicates the volume is online. Read and write access to this volume is allowed. &#39;kRestricted&#39; indicates the volume is restricted. Some operations, such as parity reconstruction, are allowed, but data access is not allowed. &#39;kOffline&#39; indicates the volume is offline. No access to the volume is allowed. &#39;kMixed&#39; indicates the volume is in mixed state, which means its aggregates are not all in the same state.</value>
-        [DataMember(Name="state", EmitDefaultValue=true)]
+        [DataMember(Name="state", EmitDefaultValue=false)]
         public StateEnum? State { get; set; }
         /// <summary>
         /// Specifies the NetApp type of this volume. Specifies the type of a NetApp Volume. &#39;kReadWrite&#39; indicates read-write volume. &#39;kLoadSharing&#39; indicates load-sharing volume. &#39;kDataProtection&#39; indicates data-protection volume. &#39;kDataCache&#39; indicates data-cache volume. &#39;kTmp&#39; indicates temporary purpose. &#39;kUnknownType&#39; indicates unknown type.
@@ -171,7 +180,7 @@ namespace Cohesity.Model
         /// Specifies the NetApp type of this volume. Specifies the type of a NetApp Volume. &#39;kReadWrite&#39; indicates read-write volume. &#39;kLoadSharing&#39; indicates load-sharing volume. &#39;kDataProtection&#39; indicates data-protection volume. &#39;kDataCache&#39; indicates data-cache volume. &#39;kTmp&#39; indicates temporary purpose. &#39;kUnknownType&#39; indicates unknown type.
         /// </summary>
         /// <value>Specifies the NetApp type of this volume. Specifies the type of a NetApp Volume. &#39;kReadWrite&#39; indicates read-write volume. &#39;kLoadSharing&#39; indicates load-sharing volume. &#39;kDataProtection&#39; indicates data-protection volume. &#39;kDataCache&#39; indicates data-cache volume. &#39;kTmp&#39; indicates temporary purpose. &#39;kUnknownType&#39; indicates unknown type.</value>
-        [DataMember(Name="type", EmitDefaultValue=true)]
+        [DataMember(Name="type", EmitDefaultValue=false)]
         public TypeEnum? Type { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="NetappVolumeInfo" /> class.
@@ -180,7 +189,7 @@ namespace Cohesity.Model
         /// <param name="capacityBytes">Specifies the total capacity in bytes of this volume..</param>
         /// <param name="cifsShares">Array of CIFS Shares.  Specifies the set of CIFS Shares exported for this volume..</param>
         /// <param name="creationTimeUsecs">Specifies the creation time of the volume specified in Unix epoch time (in microseconds)..</param>
-        /// <param name="dataProtocols">Array of Data Protocols.  Specifies the set of data protocols supported by this volume. &#39;kNfs&#39; indicates NFS connections. &#39;kCifs&#39; indicates SMB (CIFS) connections. &#39;kIscsi&#39; indicates iSCSI connections. &#39;kFc&#39; indicates Fiber Channel connections. &#39;kFcache&#39; indicates Flex Cache connections. &#39;kHttp&#39; indicates HTTP connections. &#39;kNdmp&#39; indicates NDMP connections. &#39;kManagement&#39; indicates non-data connections used for management purposes..</param>
+        /// <param name="dataProtocols">Array of Data Protocols.  Specifies the set of data protocols supported by this volume. &#39;kNfs&#39; indicates NFS connections. &#39;kCifs&#39; indicates SMB (CIFS) connections. &#39;kIscsi&#39; indicates iSCSI connections. &#39;kFc&#39; indicates Fiber Channel connections. &#39;kFcache&#39; indicates Flex Cache connections. &#39;kHttp&#39; indicates HTTP connections. &#39;kNdmp&#39; indicates NDMP connections. &#39;kManagement&#39; indicates non-data connections used for management purposes. &#39;kNvme&#39; indicates NVMe connections..</param>
         /// <param name="exportPolicyName">Specifies the name of the export policy (which defines the access permissions for the mount client) that has been assigned to this volume..</param>
         /// <param name="junctionPath">Specifies the junction path of this volume. This path can be used to mount this volume via protocols such as NFS..</param>
         /// <param name="name">Specifies the name of the NetApp Vserver that this volume belongs to..</param>
@@ -190,17 +199,6 @@ namespace Cohesity.Model
         /// <param name="usedBytes">Specifies the total space (in bytes) used in this volume..</param>
         public NetappVolumeInfo(string aggregateName = default(string), long? capacityBytes = default(long?), List<CifsShareInfo> cifsShares = default(List<CifsShareInfo>), long? creationTimeUsecs = default(long?), List<DataProtocolsEnum> dataProtocols = default(List<DataProtocolsEnum>), string exportPolicyName = default(string), string junctionPath = default(string), string name = default(string), VolumeSecurityInfo securityInfo = default(VolumeSecurityInfo), StateEnum? state = default(StateEnum?), TypeEnum? type = default(TypeEnum?), long? usedBytes = default(long?))
         {
-            this.AggregateName = aggregateName;
-            this.CapacityBytes = capacityBytes;
-            this.CifsShares = cifsShares;
-            this.CreationTimeUsecs = creationTimeUsecs;
-            this.DataProtocols = dataProtocols;
-            this.ExportPolicyName = exportPolicyName;
-            this.JunctionPath = junctionPath;
-            this.Name = name;
-            this.State = state;
-            this.Type = type;
-            this.UsedBytes = usedBytes;
             this.AggregateName = aggregateName;
             this.CapacityBytes = capacityBytes;
             this.CifsShares = cifsShares;
@@ -219,49 +217,50 @@ namespace Cohesity.Model
         /// Specifies the containing aggregate name of this volume.
         /// </summary>
         /// <value>Specifies the containing aggregate name of this volume.</value>
-        [DataMember(Name="aggregateName", EmitDefaultValue=true)]
+        [DataMember(Name="aggregateName", EmitDefaultValue=false)]
         public string AggregateName { get; set; }
 
         /// <summary>
         /// Specifies the total capacity in bytes of this volume.
         /// </summary>
         /// <value>Specifies the total capacity in bytes of this volume.</value>
-        [DataMember(Name="capacityBytes", EmitDefaultValue=true)]
+        [DataMember(Name="capacityBytes", EmitDefaultValue=false)]
         public long? CapacityBytes { get; set; }
 
         /// <summary>
         /// Array of CIFS Shares.  Specifies the set of CIFS Shares exported for this volume.
         /// </summary>
         /// <value>Array of CIFS Shares.  Specifies the set of CIFS Shares exported for this volume.</value>
-        [DataMember(Name="cifsShares", EmitDefaultValue=true)]
+        [DataMember(Name="cifsShares", EmitDefaultValue=false)]
         public List<CifsShareInfo> CifsShares { get; set; }
 
         /// <summary>
         /// Specifies the creation time of the volume specified in Unix epoch time (in microseconds).
         /// </summary>
         /// <value>Specifies the creation time of the volume specified in Unix epoch time (in microseconds).</value>
-        [DataMember(Name="creationTimeUsecs", EmitDefaultValue=true)]
+        [DataMember(Name="creationTimeUsecs", EmitDefaultValue=false)]
         public long? CreationTimeUsecs { get; set; }
+
 
         /// <summary>
         /// Specifies the name of the export policy (which defines the access permissions for the mount client) that has been assigned to this volume.
         /// </summary>
         /// <value>Specifies the name of the export policy (which defines the access permissions for the mount client) that has been assigned to this volume.</value>
-        [DataMember(Name="exportPolicyName", EmitDefaultValue=true)]
+        [DataMember(Name="exportPolicyName", EmitDefaultValue=false)]
         public string ExportPolicyName { get; set; }
 
         /// <summary>
         /// Specifies the junction path of this volume. This path can be used to mount this volume via protocols such as NFS.
         /// </summary>
         /// <value>Specifies the junction path of this volume. This path can be used to mount this volume via protocols such as NFS.</value>
-        [DataMember(Name="junctionPath", EmitDefaultValue=true)]
+        [DataMember(Name="junctionPath", EmitDefaultValue=false)]
         public string JunctionPath { get; set; }
 
         /// <summary>
         /// Specifies the name of the NetApp Vserver that this volume belongs to.
         /// </summary>
         /// <value>Specifies the name of the NetApp Vserver that this volume belongs to.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
 
         /// <summary>
@@ -270,11 +269,13 @@ namespace Cohesity.Model
         [DataMember(Name="securityInfo", EmitDefaultValue=false)]
         public VolumeSecurityInfo SecurityInfo { get; set; }
 
+
+
         /// <summary>
         /// Specifies the total space (in bytes) used in this volume.
         /// </summary>
         /// <value>Specifies the total space (in bytes) used in this volume.</value>
-        [DataMember(Name="usedBytes", EmitDefaultValue=true)]
+        [DataMember(Name="usedBytes", EmitDefaultValue=false)]
         public long? UsedBytes { get; set; }
 
         /// <summary>
@@ -326,8 +327,7 @@ namespace Cohesity.Model
                 (
                     this.CifsShares == input.CifsShares ||
                     this.CifsShares != null &&
-                    input.CifsShares != null &&
-                    this.CifsShares.SequenceEqual(input.CifsShares)
+                    this.CifsShares.Equals(input.CifsShares)
                 ) && 
                 (
                     this.CreationTimeUsecs == input.CreationTimeUsecs ||
@@ -336,7 +336,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.DataProtocols == input.DataProtocols ||
-                    this.DataProtocols.SequenceEqual(input.DataProtocols)
+                    this.DataProtocols != null &&
+                    this.DataProtocols.Equals(input.DataProtocols)
                 ) && 
                 (
                     this.ExportPolicyName == input.ExportPolicyName ||
@@ -360,11 +361,13 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.State == input.State ||
-                    this.State.Equals(input.State)
+                    (this.State != null &&
+                    this.State.Equals(input.State))
                 ) && 
                 (
                     this.Type == input.Type ||
-                    this.Type.Equals(input.Type)
+                    (this.Type != null &&
+                    this.Type.Equals(input.Type))
                 ) && 
                 (
                     this.UsedBytes == input.UsedBytes ||
@@ -390,7 +393,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.CifsShares.GetHashCode();
                 if (this.CreationTimeUsecs != null)
                     hashCode = hashCode * 59 + this.CreationTimeUsecs.GetHashCode();
-                hashCode = hashCode * 59 + this.DataProtocols.GetHashCode();
+                if (this.DataProtocols != null)
+                    hashCode = hashCode * 59 + this.DataProtocols.GetHashCode();
                 if (this.ExportPolicyName != null)
                     hashCode = hashCode * 59 + this.ExportPolicyName.GetHashCode();
                 if (this.JunctionPath != null)
@@ -399,8 +403,10 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
                 if (this.SecurityInfo != null)
                     hashCode = hashCode * 59 + this.SecurityInfo.GetHashCode();
-                hashCode = hashCode * 59 + this.State.GetHashCode();
-                hashCode = hashCode * 59 + this.Type.GetHashCode();
+                if (this.State != null)
+                    hashCode = hashCode * 59 + this.State.GetHashCode();
+                if (this.Type != null)
+                    hashCode = hashCode * 59 + this.Type.GetHashCode();
                 if (this.UsedBytes != null)
                     hashCode = hashCode * 59 + this.UsedBytes.GetHashCode();
                 return hashCode;

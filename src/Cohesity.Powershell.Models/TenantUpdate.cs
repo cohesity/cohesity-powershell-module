@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -39,62 +42,55 @@ namespace Cohesity.Model
             this.Name = name;
             this.SubscribeToAlertEmails = subscribeToAlertEmails;
             this.TenantId = tenantId;
-            this.BifrostEnabled = bifrostEnabled;
-            this.ClusterHostname = clusterHostname;
-            this.ClusterIps = clusterIps;
-            this.Description = description;
-            this.Name = name;
-            this.SubscribeToAlertEmails = subscribeToAlertEmails;
-            this.TenantId = tenantId;
         }
         
         /// <summary>
         /// Specifies whether bifrost (Ambassador proxy) is enabled for tenant.
         /// </summary>
         /// <value>Specifies whether bifrost (Ambassador proxy) is enabled for tenant.</value>
-        [DataMember(Name="bifrostEnabled", EmitDefaultValue=true)]
+        [DataMember(Name="bifrostEnabled", EmitDefaultValue=false)]
         public bool? BifrostEnabled { get; set; }
 
         /// <summary>
         /// The hostname for Cohesity cluster as seen by tenants and as is routable from the tenant&#39;s network. Tenant&#39;s VLAN&#39;s hostname, if available can be used instead but it is mandatory to provide this value if there&#39;s no VLAN hostname to use. Also, when set, this field would take precedence over VLAN hostname.
         /// </summary>
         /// <value>The hostname for Cohesity cluster as seen by tenants and as is routable from the tenant&#39;s network. Tenant&#39;s VLAN&#39;s hostname, if available can be used instead but it is mandatory to provide this value if there&#39;s no VLAN hostname to use. Also, when set, this field would take precedence over VLAN hostname.</value>
-        [DataMember(Name="clusterHostname", EmitDefaultValue=true)]
+        [DataMember(Name="clusterHostname", EmitDefaultValue=false)]
         public string ClusterHostname { get; set; }
 
         /// <summary>
         /// Set of IPs as seen from the tenant&#39;s network for the Cohesity cluster. Only one from &#39;ClusterHostname&#39; and &#39;ClusterIps&#39; is needed.
         /// </summary>
         /// <value>Set of IPs as seen from the tenant&#39;s network for the Cohesity cluster. Only one from &#39;ClusterHostname&#39; and &#39;ClusterIps&#39; is needed.</value>
-        [DataMember(Name="clusterIps", EmitDefaultValue=true)]
+        [DataMember(Name="clusterIps", EmitDefaultValue=false)]
         public List<string> ClusterIps { get; set; }
 
         /// <summary>
         /// Specifies the description of this tenant.
         /// </summary>
         /// <value>Specifies the description of this tenant.</value>
-        [DataMember(Name="description", EmitDefaultValue=true)]
+        [DataMember(Name="description", EmitDefaultValue=false)]
         public string Description { get; set; }
 
         /// <summary>
         /// Specifies the name of the tenant.
         /// </summary>
         /// <value>Specifies the name of the tenant.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
 
         /// <summary>
         /// Service provider can optionally unsubscribe from the Tenant Alert Emails.
         /// </summary>
         /// <value>Service provider can optionally unsubscribe from the Tenant Alert Emails.</value>
-        [DataMember(Name="subscribeToAlertEmails", EmitDefaultValue=true)]
+        [DataMember(Name="subscribeToAlertEmails", EmitDefaultValue=false)]
         public bool? SubscribeToAlertEmails { get; set; }
 
         /// <summary>
         /// Specifies the unique id of the tenant.
         /// </summary>
         /// <value>Specifies the unique id of the tenant.</value>
-        [DataMember(Name="tenantId", EmitDefaultValue=true)]
+        [DataMember(Name="tenantId", EmitDefaultValue=false)]
         public string TenantId { get; set; }
 
         /// <summary>
@@ -146,8 +142,7 @@ namespace Cohesity.Model
                 (
                     this.ClusterIps == input.ClusterIps ||
                     this.ClusterIps != null &&
-                    input.ClusterIps != null &&
-                    this.ClusterIps.SequenceEqual(input.ClusterIps)
+                    this.ClusterIps.Equals(input.ClusterIps)
                 ) && 
                 (
                     this.Description == input.Description ||

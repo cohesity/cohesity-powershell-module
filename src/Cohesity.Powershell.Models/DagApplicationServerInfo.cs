@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -69,7 +72,7 @@ namespace Cohesity.Model
         /// Specifies the status of the registration of the Exchange Application Server. Specifies the status of registration of Exchange Application Server. &#39;kUnknown&#39; indicates the status is not known. &#39;kHealthy&#39; indicates the status is healty and is registered as Exchange Server. &#39;kUnHealthy&#39; indicates the exchange application is registered on the physical server but it is unreachable now. &#39;kUnregistered&#39; indicates the server is not registered as physical source. &#39;kUnreachable&#39; indicates the server is not reachable from the cohesity cluster or the cohesity protection server is not installed on the exchange server. &#39;kDetached&#39; indicates the server is removed from the ExchangeDAG.
         /// </summary>
         /// <value>Specifies the status of the registration of the Exchange Application Server. Specifies the status of registration of Exchange Application Server. &#39;kUnknown&#39; indicates the status is not known. &#39;kHealthy&#39; indicates the status is healty and is registered as Exchange Server. &#39;kUnHealthy&#39; indicates the exchange application is registered on the physical server but it is unreachable now. &#39;kUnregistered&#39; indicates the server is not registered as physical source. &#39;kUnreachable&#39; indicates the server is not reachable from the cohesity cluster or the cohesity protection server is not installed on the exchange server. &#39;kDetached&#39; indicates the server is removed from the ExchangeDAG.</value>
-        [DataMember(Name="status", EmitDefaultValue=true)]
+        [DataMember(Name="status", EmitDefaultValue=false)]
         public StatusEnum? Status { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="DagApplicationServerInfo" /> class.
@@ -90,55 +93,49 @@ namespace Cohesity.Model
             this.OwnerId = ownerId;
             this.Status = status;
             this.TotalSizeBytes = totalSizeBytes;
-            this.Fqdn = fqdn;
-            this.Guid = guid;
-            this.Id = id;
-            this.Name = name;
-            this.OwnerId = ownerId;
-            this.Status = status;
-            this.TotalSizeBytes = totalSizeBytes;
         }
         
         /// <summary>
         /// Specifies the fully qualified domain name of the Exchange Server.
         /// </summary>
         /// <value>Specifies the fully qualified domain name of the Exchange Server.</value>
-        [DataMember(Name="fqdn", EmitDefaultValue=true)]
+        [DataMember(Name="fqdn", EmitDefaultValue=false)]
         public string Fqdn { get; set; }
 
         /// <summary>
         /// Specifies the Guid of the Exchange Application Server.
         /// </summary>
         /// <value>Specifies the Guid of the Exchange Application Server.</value>
-        [DataMember(Name="guid", EmitDefaultValue=true)]
+        [DataMember(Name="guid", EmitDefaultValue=false)]
         public string Guid { get; set; }
 
         /// <summary>
         /// Specifies the entity id of the Exchange Application server.
         /// </summary>
         /// <value>Specifies the entity id of the Exchange Application server.</value>
-        [DataMember(Name="id", EmitDefaultValue=true)]
+        [DataMember(Name="id", EmitDefaultValue=false)]
         public long? Id { get; set; }
 
         /// <summary>
         /// Specifies the display name of the Exchange Application Server.
         /// </summary>
         /// <value>Specifies the display name of the Exchange Application Server.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
 
         /// <summary>
         /// Specifies the entity id of the owner entity of the Exchange Application Server.
         /// </summary>
         /// <value>Specifies the entity id of the owner entity of the Exchange Application Server.</value>
-        [DataMember(Name="ownerId", EmitDefaultValue=true)]
+        [DataMember(Name="ownerId", EmitDefaultValue=false)]
         public long? OwnerId { get; set; }
+
 
         /// <summary>
         /// Specifies the total size of all Exchange database copies in all the Exchange Application Servers that are part of the DAG.
         /// </summary>
         /// <value>Specifies the total size of all Exchange database copies in all the Exchange Application Servers that are part of the DAG.</value>
-        [DataMember(Name="totalSizeBytes", EmitDefaultValue=true)]
+        [DataMember(Name="totalSizeBytes", EmitDefaultValue=false)]
         public long? TotalSizeBytes { get; set; }
 
         /// <summary>
@@ -204,7 +201,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.Status == input.Status ||
-                    this.Status.Equals(input.Status)
+                    (this.Status != null &&
+                    this.Status.Equals(input.Status))
                 ) && 
                 (
                     this.TotalSizeBytes == input.TotalSizeBytes ||
@@ -232,7 +230,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
                 if (this.OwnerId != null)
                     hashCode = hashCode * 59 + this.OwnerId.GetHashCode();
-                hashCode = hashCode * 59 + this.Status.GetHashCode();
+                if (this.Status != null)
+                    hashCode = hashCode * 59 + this.Status.GetHashCode();
                 if (this.TotalSizeBytes != null)
                     hashCode = hashCode * 59 + this.TotalSizeBytes.GetHashCode();
                 return hashCode;

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,8 +32,6 @@ namespace Cohesity.Model
         public TimeRangeSettings(long? endTimeUsecs = default(long?), UniversalId jobUid = default(UniversalId), long? startTimeUsecs = default(long?))
         {
             this.EndTimeUsecs = endTimeUsecs;
-            this.StartTimeUsecs = startTimeUsecs;
-            this.EndTimeUsecs = endTimeUsecs;
             this.JobUid = jobUid;
             this.StartTimeUsecs = startTimeUsecs;
         }
@@ -39,7 +40,7 @@ namespace Cohesity.Model
         /// Specifies the end time specified as a Unix epoch Timestamp (in microseconds).
         /// </summary>
         /// <value>Specifies the end time specified as a Unix epoch Timestamp (in microseconds).</value>
-        [DataMember(Name="endTimeUsecs", EmitDefaultValue=true)]
+        [DataMember(Name="endTimeUsecs", EmitDefaultValue=false)]
         public long? EndTimeUsecs { get; set; }
 
         /// <summary>
@@ -52,7 +53,7 @@ namespace Cohesity.Model
         /// Specifies the start time specified as a Unix epoch Timestamp (in microseconds).
         /// </summary>
         /// <value>Specifies the start time specified as a Unix epoch Timestamp (in microseconds).</value>
-        [DataMember(Name="startTimeUsecs", EmitDefaultValue=true)]
+        [DataMember(Name="startTimeUsecs", EmitDefaultValue=false)]
         public long? StartTimeUsecs { get; set; }
 
         /// <summary>

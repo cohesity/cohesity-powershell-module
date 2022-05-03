@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -42,14 +45,6 @@ namespace Cohesity.Model
             this.ObjectFlags = objectFlags;
             this.SourceGuid = sourceGuid;
             this.SourcePropCount = sourcePropCount;
-            this.AttributeVec = attributeVec;
-            this.DestGuid = destGuid;
-            this.DestPropCount = destPropCount;
-            this.ExcludedPropCount = excludedPropCount;
-            this.MismatchPropCount = mismatchPropCount;
-            this.ObjectFlags = objectFlags;
-            this.SourceGuid = sourceGuid;
-            this.SourcePropCount = sourcePropCount;
             this.Status = status;
         }
         
@@ -57,56 +52,56 @@ namespace Cohesity.Model
         /// Array of AD attributes of AD object. This will contain distinct attributes from source and destination objects.
         /// </summary>
         /// <value>Array of AD attributes of AD object. This will contain distinct attributes from source and destination objects.</value>
-        [DataMember(Name="attributeVec", EmitDefaultValue=true)]
+        [DataMember(Name="attributeVec", EmitDefaultValue=false)]
         public List<CompareADObjectsResultADAttribute> AttributeVec { get; set; }
 
         /// <summary>
         /// Object guid from dest_server. If empty, compare could not find an AD object corresponding to &#39;source_guid&#39; even after looking up based on source_guid, source DN or source SAM account name. The SAM is applicable only for account type objects.
         /// </summary>
         /// <value>Object guid from dest_server. If empty, compare could not find an AD object corresponding to &#39;source_guid&#39; even after looking up based on source_guid, source DN or source SAM account name. The SAM is applicable only for account type objects.</value>
-        [DataMember(Name="destGuid", EmitDefaultValue=true)]
+        [DataMember(Name="destGuid", EmitDefaultValue=false)]
         public string DestGuid { get; set; }
 
         /// <summary>
         /// Number of attributes in destination object including system properties compared. This count is useful for debugging.
         /// </summary>
         /// <value>Number of attributes in destination object including system properties compared. This count is useful for debugging.</value>
-        [DataMember(Name="destPropCount", EmitDefaultValue=true)]
+        [DataMember(Name="destPropCount", EmitDefaultValue=false)]
         public int? DestPropCount { get; set; }
 
         /// <summary>
         /// Number of attributes not compared due to ADCompareOptionFlags.kExcludeSysProps. This count is useful for debugging.
         /// </summary>
         /// <value>Number of attributes not compared due to ADCompareOptionFlags.kExcludeSysProps. This count is useful for debugging.</value>
-        [DataMember(Name="excludedPropCount", EmitDefaultValue=true)]
+        [DataMember(Name="excludedPropCount", EmitDefaultValue=false)]
         public int? ExcludedPropCount { get; set; }
 
         /// <summary>
         /// Number of AD attributes compared based on &#39;ADCompareOptionFlagsType&#39; flags and found to be mismatched. If this is non-zero, compared objects are different. If this is 0 ann&#39;dest_guid&#39; is empty, then object is missing.
         /// </summary>
         /// <value>Number of AD attributes compared based on &#39;ADCompareOptionFlagsType&#39; flags and found to be mismatched. If this is non-zero, compared objects are different. If this is 0 ann&#39;dest_guid&#39; is empty, then object is missing.</value>
-        [DataMember(Name="mismatchPropCount", EmitDefaultValue=true)]
+        [DataMember(Name="mismatchPropCount", EmitDefaultValue=false)]
         public int? MismatchPropCount { get; set; }
 
         /// <summary>
         /// Object result flags of type ADObjectFlags.
         /// </summary>
         /// <value>Object result flags of type ADObjectFlags.</value>
-        [DataMember(Name="objectFlags", EmitDefaultValue=true)]
+        [DataMember(Name="objectFlags", EmitDefaultValue=false)]
         public int? ObjectFlags { get; set; }
 
         /// <summary>
         /// Object guid from $SourceServer. Guid string with or without &#39;{}&#39; braces.
         /// </summary>
         /// <value>Object guid from $SourceServer. Guid string with or without &#39;{}&#39; braces.</value>
-        [DataMember(Name="sourceGuid", EmitDefaultValue=true)]
+        [DataMember(Name="sourceGuid", EmitDefaultValue=false)]
         public string SourceGuid { get; set; }
 
         /// <summary>
         /// Number of attributes in source object including system properties compared. This count is useful for debugging.
         /// </summary>
         /// <value>Number of attributes in source object including system properties compared. This count is useful for debugging.</value>
-        [DataMember(Name="sourcePropCount", EmitDefaultValue=true)]
+        [DataMember(Name="sourcePropCount", EmitDefaultValue=false)]
         public int? SourcePropCount { get; set; }
 
         /// <summary>
@@ -154,8 +149,7 @@ namespace Cohesity.Model
                 (
                     this.AttributeVec == input.AttributeVec ||
                     this.AttributeVec != null &&
-                    input.AttributeVec != null &&
-                    this.AttributeVec.SequenceEqual(input.AttributeVec)
+                    this.AttributeVec.Equals(input.AttributeVec)
                 ) && 
                 (
                     this.DestGuid == input.DestGuid ||

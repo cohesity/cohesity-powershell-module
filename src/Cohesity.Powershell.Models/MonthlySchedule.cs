@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -75,7 +78,7 @@ namespace Cohesity.Model
         /// Specifies the day of the week (such as &#39;kMonday&#39;) to start the Job Run. Used with day count to define the day in the month to start the Job Run. Specifies a day in a week such as &#39;kSunday&#39;, &#39;kMonday&#39;, etc.
         /// </summary>
         /// <value>Specifies the day of the week (such as &#39;kMonday&#39;) to start the Job Run. Used with day count to define the day in the month to start the Job Run. Specifies a day in a week such as &#39;kSunday&#39;, &#39;kMonday&#39;, etc.</value>
-        [DataMember(Name="day", EmitDefaultValue=true)]
+        [DataMember(Name="day", EmitDefaultValue=false)]
         public DayEnum? Day { get; set; }
         /// <summary>
         /// Specifies the day count in the month (such as &#39;kThird&#39;) to start the Job Run. Used in combination with day to define the day in the month to start the Job Run. Specifies the day count in the month to start the backup. For example if day count is set to &#39;kThird&#39; and day is set to &#39;kMonday&#39;, a backup is performed on the third Monday of every month. &#39;kFirst&#39; indicates that the first week should be chosen for specified day of every month. &#39;kSecond&#39; indicates that the second week should be chosen for specified day of every month. &#39;kThird&#39; indicates that the third week should be chosen for specified day of every month. &#39;kFourth&#39; indicates that the fourth week should be chosen for specified day of every month. &#39;kLast&#39; indicates that the last week should be chosen for specified day of every month.
@@ -120,7 +123,7 @@ namespace Cohesity.Model
         /// Specifies the day count in the month (such as &#39;kThird&#39;) to start the Job Run. Used in combination with day to define the day in the month to start the Job Run. Specifies the day count in the month to start the backup. For example if day count is set to &#39;kThird&#39; and day is set to &#39;kMonday&#39;, a backup is performed on the third Monday of every month. &#39;kFirst&#39; indicates that the first week should be chosen for specified day of every month. &#39;kSecond&#39; indicates that the second week should be chosen for specified day of every month. &#39;kThird&#39; indicates that the third week should be chosen for specified day of every month. &#39;kFourth&#39; indicates that the fourth week should be chosen for specified day of every month. &#39;kLast&#39; indicates that the last week should be chosen for specified day of every month.
         /// </summary>
         /// <value>Specifies the day count in the month (such as &#39;kThird&#39;) to start the Job Run. Used in combination with day to define the day in the month to start the Job Run. Specifies the day count in the month to start the backup. For example if day count is set to &#39;kThird&#39; and day is set to &#39;kMonday&#39;, a backup is performed on the third Monday of every month. &#39;kFirst&#39; indicates that the first week should be chosen for specified day of every month. &#39;kSecond&#39; indicates that the second week should be chosen for specified day of every month. &#39;kThird&#39; indicates that the third week should be chosen for specified day of every month. &#39;kFourth&#39; indicates that the fourth week should be chosen for specified day of every month. &#39;kLast&#39; indicates that the last week should be chosen for specified day of every month.</value>
-        [DataMember(Name="dayCount", EmitDefaultValue=true)]
+        [DataMember(Name="dayCount", EmitDefaultValue=false)]
         public DayCountEnum? DayCount { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="MonthlySchedule" /> class.
@@ -131,10 +134,10 @@ namespace Cohesity.Model
         {
             this.Day = day;
             this.DayCount = dayCount;
-            this.Day = day;
-            this.DayCount = dayCount;
         }
         
+
+
         /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
@@ -173,11 +176,13 @@ namespace Cohesity.Model
             return 
                 (
                     this.Day == input.Day ||
-                    this.Day.Equals(input.Day)
+                    (this.Day != null &&
+                    this.Day.Equals(input.Day))
                 ) && 
                 (
                     this.DayCount == input.DayCount ||
-                    this.DayCount.Equals(input.DayCount)
+                    (this.DayCount != null &&
+                    this.DayCount.Equals(input.DayCount))
                 );
         }
 
@@ -190,8 +195,10 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                hashCode = hashCode * 59 + this.Day.GetHashCode();
-                hashCode = hashCode * 59 + this.DayCount.GetHashCode();
+                if (this.Day != null)
+                    hashCode = hashCode * 59 + this.Day.GetHashCode();
+                if (this.DayCount != null)
+                    hashCode = hashCode * 59 + this.DayCount.GetHashCode();
                 return hashCode;
             }
         }

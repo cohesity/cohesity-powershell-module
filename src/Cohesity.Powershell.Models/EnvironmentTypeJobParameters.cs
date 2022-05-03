@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -25,6 +28,7 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="awsSnapshotParameters">awsSnapshotParameters.</param>
         /// <param name="exchangeParameters">exchangeParameters.</param>
+        /// <param name="externallyTriggeredJobParameters">externallyTriggeredJobParameters.</param>
         /// <param name="hypervParameters">hypervParameters.</param>
         /// <param name="nasParameters">nasParameters.</param>
         /// <param name="office365Parameters">office365Parameters.</param>
@@ -33,10 +37,11 @@ namespace Cohesity.Model
         /// <param name="pureParameters">pureParameters.</param>
         /// <param name="sqlParameters">sqlParameters.</param>
         /// <param name="vmwareParameters">vmwareParameters.</param>
-        public EnvironmentTypeJobParameters(AwsSnapshotManagerParameters awsSnapshotParameters = default(AwsSnapshotManagerParameters), ExchangeEnvJobParameters exchangeParameters = default(ExchangeEnvJobParameters), HypervEnvJobParameters hypervParameters = default(HypervEnvJobParameters), NasEnvJobParameters nasParameters = default(NasEnvJobParameters), Office365EnvJobParameters office365Parameters = default(Office365EnvJobParameters), OracleEnvJobParameters oracleParameters = default(OracleEnvJobParameters), PhysicalEnvJobParameters physicalParameters = default(PhysicalEnvJobParameters), SanEnvJobParameters pureParameters = default(SanEnvJobParameters), SqlEnvJobParameters sqlParameters = default(SqlEnvJobParameters), VmwareEnvJobParameters vmwareParameters = default(VmwareEnvJobParameters))
+        public EnvironmentTypeJobParameters(AwsSnapshotManagerParameters awsSnapshotParameters = default(AwsSnapshotManagerParameters), ExchangeEnvJobParameters exchangeParameters = default(ExchangeEnvJobParameters), ExternallyTriggeredEnvJobParameters externallyTriggeredJobParameters = default(ExternallyTriggeredEnvJobParameters), HypervEnvJobParameters hypervParameters = default(HypervEnvJobParameters), NasEnvJobParameters nasParameters = default(NasEnvJobParameters), Office365EnvJobParameters office365Parameters = default(Office365EnvJobParameters), OracleEnvJobParameters oracleParameters = default(OracleEnvJobParameters), PhysicalEnvJobParameters physicalParameters = default(PhysicalEnvJobParameters), SanEnvJobParameters pureParameters = default(SanEnvJobParameters), SqlEnvJobParameters sqlParameters = default(SqlEnvJobParameters), VmwareEnvJobParameters vmwareParameters = default(VmwareEnvJobParameters))
         {
             this.AwsSnapshotParameters = awsSnapshotParameters;
             this.ExchangeParameters = exchangeParameters;
+            this.ExternallyTriggeredJobParameters = externallyTriggeredJobParameters;
             this.HypervParameters = hypervParameters;
             this.NasParameters = nasParameters;
             this.Office365Parameters = office365Parameters;
@@ -58,6 +63,12 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="exchangeParameters", EmitDefaultValue=false)]
         public ExchangeEnvJobParameters ExchangeParameters { get; set; }
+
+        /// <summary>
+        /// Gets or Sets ExternallyTriggeredJobParameters
+        /// </summary>
+        [DataMember(Name="externallyTriggeredJobParameters", EmitDefaultValue=false)]
+        public ExternallyTriggeredEnvJobParameters ExternallyTriggeredJobParameters { get; set; }
 
         /// <summary>
         /// Gets or Sets HypervParameters
@@ -154,6 +165,11 @@ namespace Cohesity.Model
                     this.ExchangeParameters.Equals(input.ExchangeParameters))
                 ) && 
                 (
+                    this.ExternallyTriggeredJobParameters == input.ExternallyTriggeredJobParameters ||
+                    (this.ExternallyTriggeredJobParameters != null &&
+                    this.ExternallyTriggeredJobParameters.Equals(input.ExternallyTriggeredJobParameters))
+                ) && 
+                (
                     this.HypervParameters == input.HypervParameters ||
                     (this.HypervParameters != null &&
                     this.HypervParameters.Equals(input.HypervParameters))
@@ -208,6 +224,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.AwsSnapshotParameters.GetHashCode();
                 if (this.ExchangeParameters != null)
                     hashCode = hashCode * 59 + this.ExchangeParameters.GetHashCode();
+                if (this.ExternallyTriggeredJobParameters != null)
+                    hashCode = hashCode * 59 + this.ExternallyTriggeredJobParameters.GetHashCode();
                 if (this.HypervParameters != null)
                     hashCode = hashCode * 59 + this.HypervParameters.GetHashCode();
                 if (this.NasParameters != null)

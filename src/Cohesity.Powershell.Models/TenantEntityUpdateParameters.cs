@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -25,10 +28,8 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="entityIds">Specifies the EntityIds for respective tenant..</param>
         /// <param name="tenantId">Specifies the unique id of the tenant..</param>
-        public TenantEntityUpdateParameters(List<long> entityIds = default(List<long>), string tenantId = default(string))
+        public TenantEntityUpdateParameters(List<long?> entityIds = default(List<long?>), string tenantId = default(string))
         {
-            this.EntityIds = entityIds;
-            this.TenantId = tenantId;
             this.EntityIds = entityIds;
             this.TenantId = tenantId;
         }
@@ -37,14 +38,14 @@ namespace Cohesity.Model
         /// Specifies the EntityIds for respective tenant.
         /// </summary>
         /// <value>Specifies the EntityIds for respective tenant.</value>
-        [DataMember(Name="entityIds", EmitDefaultValue=true)]
-        public List<long> EntityIds { get; set; }
+        [DataMember(Name="entityIds", EmitDefaultValue=false)]
+        public List<long?> EntityIds { get; set; }
 
         /// <summary>
         /// Specifies the unique id of the tenant.
         /// </summary>
         /// <value>Specifies the unique id of the tenant.</value>
-        [DataMember(Name="tenantId", EmitDefaultValue=true)]
+        [DataMember(Name="tenantId", EmitDefaultValue=false)]
         public string TenantId { get; set; }
 
         /// <summary>
@@ -86,8 +87,7 @@ namespace Cohesity.Model
                 (
                     this.EntityIds == input.EntityIds ||
                     this.EntityIds != null &&
-                    input.EntityIds != null &&
-                    this.EntityIds.SequenceEqual(input.EntityIds)
+                    this.EntityIds.Equals(input.EntityIds)
                 ) && 
                 (
                     this.TenantId == input.TenantId ||

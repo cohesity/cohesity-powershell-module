@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -30,12 +33,9 @@ namespace Cohesity.Model
         /// <param name="slaveTaskStartTimeUsecs">This is the timestamp at which the slave task started..</param>
         /// <param name="targetEntity">targetEntity.</param>
         /// <param name="useExistingAgent">This will be set to true in two cases: 1. If persistent agent was used for IVM. 2. If user chose ephemeral agent during IVM but the host already had persistent agent installed..</param>
-        public DestroyMountVolumesTaskInfoProto(ErrorProto error = default(ErrorProto), bool? finished = default(bool?), string hostName = default(string), MountVolumesInfoProto mountVolumesInfoProto = default(MountVolumesInfoProto), long? slaveTaskStartTimeUsecs = default(long?), EntityProto targetEntity = default(EntityProto), bool? useExistingAgent = default(bool?))
+        /// <param name="vmwareParams">vmwareParams.</param>
+        public DestroyMountVolumesTaskInfoProto(ErrorProto error = default(ErrorProto), bool? finished = default(bool?), string hostName = default(string), MountVolumesInfoProto mountVolumesInfoProto = default(MountVolumesInfoProto), long? slaveTaskStartTimeUsecs = default(long?), EntityProto targetEntity = default(EntityProto), bool? useExistingAgent = default(bool?), MountVolumesVMwareParams vmwareParams = default(MountVolumesVMwareParams))
         {
-            this.Finished = finished;
-            this.HostName = hostName;
-            this.SlaveTaskStartTimeUsecs = slaveTaskStartTimeUsecs;
-            this.UseExistingAgent = useExistingAgent;
             this.Error = error;
             this.Finished = finished;
             this.HostName = hostName;
@@ -43,6 +43,7 @@ namespace Cohesity.Model
             this.SlaveTaskStartTimeUsecs = slaveTaskStartTimeUsecs;
             this.TargetEntity = targetEntity;
             this.UseExistingAgent = useExistingAgent;
+            this.VmwareParams = vmwareParams;
         }
         
         /// <summary>
@@ -55,14 +56,14 @@ namespace Cohesity.Model
         /// This will be set to true if the task is complete on the slave.
         /// </summary>
         /// <value>This will be set to true if the task is complete on the slave.</value>
-        [DataMember(Name="finished", EmitDefaultValue=true)]
+        [DataMember(Name="finished", EmitDefaultValue=false)]
         public bool? Finished { get; set; }
 
         /// <summary>
         /// This is the host name of the ESXi host. It is used if magneto_vmware_use_fqdn_for_guest_file_operations is set.
         /// </summary>
         /// <value>This is the host name of the ESXi host. It is used if magneto_vmware_use_fqdn_for_guest_file_operations is set.</value>
-        [DataMember(Name="hostName", EmitDefaultValue=true)]
+        [DataMember(Name="hostName", EmitDefaultValue=false)]
         public string HostName { get; set; }
 
         /// <summary>
@@ -75,7 +76,7 @@ namespace Cohesity.Model
         /// This is the timestamp at which the slave task started.
         /// </summary>
         /// <value>This is the timestamp at which the slave task started.</value>
-        [DataMember(Name="slaveTaskStartTimeUsecs", EmitDefaultValue=true)]
+        [DataMember(Name="slaveTaskStartTimeUsecs", EmitDefaultValue=false)]
         public long? SlaveTaskStartTimeUsecs { get; set; }
 
         /// <summary>
@@ -88,8 +89,14 @@ namespace Cohesity.Model
         /// This will be set to true in two cases: 1. If persistent agent was used for IVM. 2. If user chose ephemeral agent during IVM but the host already had persistent agent installed.
         /// </summary>
         /// <value>This will be set to true in two cases: 1. If persistent agent was used for IVM. 2. If user chose ephemeral agent during IVM but the host already had persistent agent installed.</value>
-        [DataMember(Name="useExistingAgent", EmitDefaultValue=true)]
+        [DataMember(Name="useExistingAgent", EmitDefaultValue=false)]
         public bool? UseExistingAgent { get; set; }
+
+        /// <summary>
+        /// Gets or Sets VmwareParams
+        /// </summary>
+        [DataMember(Name="vmwareParams", EmitDefaultValue=false)]
+        public MountVolumesVMwareParams VmwareParams { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -161,6 +168,11 @@ namespace Cohesity.Model
                     this.UseExistingAgent == input.UseExistingAgent ||
                     (this.UseExistingAgent != null &&
                     this.UseExistingAgent.Equals(input.UseExistingAgent))
+                ) && 
+                (
+                    this.VmwareParams == input.VmwareParams ||
+                    (this.VmwareParams != null &&
+                    this.VmwareParams.Equals(input.VmwareParams))
                 );
         }
 
@@ -187,6 +199,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.TargetEntity.GetHashCode();
                 if (this.UseExistingAgent != null)
                     hashCode = hashCode * 59 + this.UseExistingAgent.GetHashCode();
+                if (this.VmwareParams != null)
+                    hashCode = hashCode * 59 + this.VmwareParams.GetHashCode();
                 return hashCode;
             }
         }

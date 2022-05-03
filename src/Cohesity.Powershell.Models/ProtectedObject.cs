@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -28,8 +31,6 @@ namespace Cohesity.Model
         /// <param name="protectionSourceId">Specifies the id of the Protection Source..</param>
         public ProtectedObject(UniversalId jobId = default(UniversalId), string protectionFauilureReason = default(string), long? protectionSourceId = default(long?))
         {
-            this.ProtectionFauilureReason = protectionFauilureReason;
-            this.ProtectionSourceId = protectionSourceId;
             this.JobId = jobId;
             this.ProtectionFauilureReason = protectionFauilureReason;
             this.ProtectionSourceId = protectionSourceId;
@@ -45,14 +46,14 @@ namespace Cohesity.Model
         /// If protection fails then specifies why the protection failed on this object.
         /// </summary>
         /// <value>If protection fails then specifies why the protection failed on this object.</value>
-        [DataMember(Name="protectionFauilureReason", EmitDefaultValue=true)]
+        [DataMember(Name="protectionFauilureReason", EmitDefaultValue=false)]
         public string ProtectionFauilureReason { get; set; }
 
         /// <summary>
         /// Specifies the id of the Protection Source.
         /// </summary>
         /// <value>Specifies the id of the Protection Source.</value>
-        [DataMember(Name="protectionSourceId", EmitDefaultValue=true)]
+        [DataMember(Name="protectionSourceId", EmitDefaultValue=false)]
         public long? ProtectionSourceId { get; set; }
 
         /// <summary>

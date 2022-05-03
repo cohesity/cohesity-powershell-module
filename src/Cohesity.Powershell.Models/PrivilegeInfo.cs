@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -393,7 +396,7 @@ namespace Cohesity.Model
         /// Specifies unique id for a privilege. This number must be unique when creating a new privilege. Type for unique privilege Id values. All below enum values specify a value for all uniquely defined privileges in Cohesity.
         /// </summary>
         /// <value>Specifies unique id for a privilege. This number must be unique when creating a new privilege. Type for unique privilege Id values. All below enum values specify a value for all uniquely defined privileges in Cohesity.</value>
-        [DataMember(Name="PrivilegeId", EmitDefaultValue=true)]
+        [DataMember(Name="PrivilegeId", EmitDefaultValue=false)]
         public PrivilegeIdEnum? PrivilegeId { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="PrivilegeInfo" /> class.
@@ -418,71 +421,63 @@ namespace Cohesity.Model
             this.IsViewOnly = isViewOnly;
             this.Label = label;
             this.Name = name;
-            this.PrivilegeId = privilegeId;
-            this.Category = category;
-            this.Description = description;
-            this.IsAvailableOnHelios = isAvailableOnHelios;
-            this.IsCustomRoleDefault = isCustomRoleDefault;
-            this.IsSpecial = isSpecial;
-            this.IsViewOnly = isViewOnly;
-            this.Label = label;
-            this.Name = name;
         }
         
+
         /// <summary>
         /// Specifies a category for the privilege such as &#39;Access Management&#39;.
         /// </summary>
         /// <value>Specifies a category for the privilege such as &#39;Access Management&#39;.</value>
-        [DataMember(Name="category", EmitDefaultValue=true)]
+        [DataMember(Name="category", EmitDefaultValue=false)]
         public string Category { get; set; }
 
         /// <summary>
         /// Specifies a description defining what the privilege provides.
         /// </summary>
         /// <value>Specifies a description defining what the privilege provides.</value>
-        [DataMember(Name="description", EmitDefaultValue=true)]
+        [DataMember(Name="description", EmitDefaultValue=false)]
         public string Description { get; set; }
 
         /// <summary>
         /// Specifies that this privilege is available for Helios operations.
         /// </summary>
         /// <value>Specifies that this privilege is available for Helios operations.</value>
-        [DataMember(Name="isAvailableOnHelios", EmitDefaultValue=true)]
+        [DataMember(Name="isAvailableOnHelios", EmitDefaultValue=false)]
         public bool? IsAvailableOnHelios { get; set; }
 
         /// <summary>
         /// Specifies if this privilege is automatically assigned to custom roles.
         /// </summary>
         /// <value>Specifies if this privilege is automatically assigned to custom roles.</value>
-        [DataMember(Name="isCustomRoleDefault", EmitDefaultValue=true)]
+        [DataMember(Name="isCustomRoleDefault", EmitDefaultValue=false)]
         public bool? IsCustomRoleDefault { get; set; }
 
         /// <summary>
         /// Specifies if this privilege is automatically assigned to the default System Admin user called &#39;admin&#39;. If true, the privilege is NOT assigned to the default System Admin user called &#39;admin&#39;. By default, privileges are automatically assigned to the default System Admin user called &#39;admin&#39;.
         /// </summary>
         /// <value>Specifies if this privilege is automatically assigned to the default System Admin user called &#39;admin&#39;. If true, the privilege is NOT assigned to the default System Admin user called &#39;admin&#39;. By default, privileges are automatically assigned to the default System Admin user called &#39;admin&#39;.</value>
-        [DataMember(Name="isSpecial", EmitDefaultValue=true)]
+        [DataMember(Name="isSpecial", EmitDefaultValue=false)]
         public bool? IsSpecial { get; set; }
 
         /// <summary>
         /// Specifies if privilege is view-only privilege that cannot make changes.
         /// </summary>
         /// <value>Specifies if privilege is view-only privilege that cannot make changes.</value>
-        [DataMember(Name="isViewOnly", EmitDefaultValue=true)]
+        [DataMember(Name="isViewOnly", EmitDefaultValue=false)]
         public bool? IsViewOnly { get; set; }
 
         /// <summary>
         /// Specifies the label for the privilege as displayed on the Cohesity Dashboard such as &#39;Access Management View&#39;.
         /// </summary>
         /// <value>Specifies the label for the privilege as displayed on the Cohesity Dashboard such as &#39;Access Management View&#39;.</value>
-        [DataMember(Name="label", EmitDefaultValue=true)]
+        [DataMember(Name="label", EmitDefaultValue=false)]
         public string Label { get; set; }
 
         /// <summary>
         /// Specifies the Cluster name for the privilege such as PRINCIPAL_VIEW.
         /// </summary>
         /// <value>Specifies the Cluster name for the privilege such as PRINCIPAL_VIEW.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
 
         /// <summary>
@@ -523,7 +518,8 @@ namespace Cohesity.Model
             return 
                 (
                     this.PrivilegeId == input.PrivilegeId ||
-                    this.PrivilegeId.Equals(input.PrivilegeId)
+                    (this.PrivilegeId != null &&
+                    this.PrivilegeId.Equals(input.PrivilegeId))
                 ) && 
                 (
                     this.Category == input.Category ||
@@ -576,7 +572,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                hashCode = hashCode * 59 + this.PrivilegeId.GetHashCode();
+                if (this.PrivilegeId != null)
+                    hashCode = hashCode * 59 + this.PrivilegeId.GetHashCode();
                 if (this.Category != null)
                     hashCode = hashCode * 59 + this.Category.GetHashCode();
                 if (this.Description != null)

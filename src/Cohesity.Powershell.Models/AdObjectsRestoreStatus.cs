@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,30 +34,27 @@ namespace Cohesity.Model
             this.AdObjectsRestoreInfo = adObjectsRestoreInfo;
             this.NumObjectsFailed = numObjectsFailed;
             this.NumObjectsSucceeded = numObjectsSucceeded;
-            this.AdObjectsRestoreInfo = adObjectsRestoreInfo;
-            this.NumObjectsFailed = numObjectsFailed;
-            this.NumObjectsSucceeded = numObjectsSucceeded;
         }
         
         /// <summary>
         /// Specifies the status of all the AD Objects which were requested to be restored.
         /// </summary>
         /// <value>Specifies the status of all the AD Objects which were requested to be restored.</value>
-        [DataMember(Name="adObjectsRestoreInfo", EmitDefaultValue=true)]
+        [DataMember(Name="adObjectsRestoreInfo", EmitDefaultValue=false)]
         public List<AdObjectRestoreInformation> AdObjectsRestoreInfo { get; set; }
 
         /// <summary>
         /// Specifies the number of AD Objects whose restore is in progress.
         /// </summary>
         /// <value>Specifies the number of AD Objects whose restore is in progress.</value>
-        [DataMember(Name="numObjectsFailed", EmitDefaultValue=true)]
+        [DataMember(Name="numObjectsFailed", EmitDefaultValue=false)]
         public int? NumObjectsFailed { get; set; }
 
         /// <summary>
         /// Specifies the number of AD Objects whose restore is successfull.
         /// </summary>
         /// <value>Specifies the number of AD Objects whose restore is successfull.</value>
-        [DataMember(Name="numObjectsSucceeded", EmitDefaultValue=true)]
+        [DataMember(Name="numObjectsSucceeded", EmitDefaultValue=false)]
         public int? NumObjectsSucceeded { get; set; }
 
         /// <summary>
@@ -96,8 +96,7 @@ namespace Cohesity.Model
                 (
                     this.AdObjectsRestoreInfo == input.AdObjectsRestoreInfo ||
                     this.AdObjectsRestoreInfo != null &&
-                    input.AdObjectsRestoreInfo != null &&
-                    this.AdObjectsRestoreInfo.SequenceEqual(input.AdObjectsRestoreInfo)
+                    this.AdObjectsRestoreInfo.Equals(input.AdObjectsRestoreInfo)
                 ) && 
                 (
                     this.NumObjectsFailed == input.NumObjectsFailed ||

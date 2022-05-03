@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -225,47 +228,71 @@ namespace Cohesity.Model
         /// Specifies the environment.
         /// </summary>
         /// <value>Specifies the environment.</value>
-        [DataMember(Name="environment", EmitDefaultValue=true)]
+        [DataMember(Name="environment", EmitDefaultValue=false)]
         public EnvironmentEnum? Environment { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="LastProtectionRunStatsByEnv" /> class.
         /// </summary>
         /// <param name="environment">Specifies the environment..</param>
+        /// <param name="numObjectsCancelled">Specifies the number of objects that were cancelled in the last Run across all Protection Jobs..</param>
         /// <param name="numObjectsFailed">Specifies the count of objects that failed last Protection Run..</param>
         /// <param name="numObjectsFailedSla">Specifies the count of objects that failed sla in the last Run..</param>
+        /// <param name="numObjectsInProgress">Specifies the number of objects that are still in progress in the last Run across all Protection Jobs..</param>
         /// <param name="numObjectsMetSla">Specifies the count of objects that met sla in the last Run..</param>
-        public LastProtectionRunStatsByEnv(EnvironmentEnum? environment = default(EnvironmentEnum?), long? numObjectsFailed = default(long?), long? numObjectsFailedSla = default(long?), long? numObjectsMetSla = default(long?))
+        /// <param name="numObjectsSuccessful">Specifies the number of objects that were successful in the last Run across all Protection Jobs..</param>
+        public LastProtectionRunStatsByEnv(EnvironmentEnum? environment = default(EnvironmentEnum?), long? numObjectsCancelled = default(long?), long? numObjectsFailed = default(long?), long? numObjectsFailedSla = default(long?), long? numObjectsInProgress = default(long?), long? numObjectsMetSla = default(long?), long? numObjectsSuccessful = default(long?))
         {
             this.Environment = environment;
+            this.NumObjectsCancelled = numObjectsCancelled;
             this.NumObjectsFailed = numObjectsFailed;
             this.NumObjectsFailedSla = numObjectsFailedSla;
+            this.NumObjectsInProgress = numObjectsInProgress;
             this.NumObjectsMetSla = numObjectsMetSla;
-            this.Environment = environment;
-            this.NumObjectsFailed = numObjectsFailed;
-            this.NumObjectsFailedSla = numObjectsFailedSla;
-            this.NumObjectsMetSla = numObjectsMetSla;
+            this.NumObjectsSuccessful = numObjectsSuccessful;
         }
         
+
+        /// <summary>
+        /// Specifies the number of objects that were cancelled in the last Run across all Protection Jobs.
+        /// </summary>
+        /// <value>Specifies the number of objects that were cancelled in the last Run across all Protection Jobs.</value>
+        [DataMember(Name="numObjectsCancelled", EmitDefaultValue=false)]
+        public long? NumObjectsCancelled { get; set; }
+
         /// <summary>
         /// Specifies the count of objects that failed last Protection Run.
         /// </summary>
         /// <value>Specifies the count of objects that failed last Protection Run.</value>
-        [DataMember(Name="numObjectsFailed", EmitDefaultValue=true)]
+        [DataMember(Name="numObjectsFailed", EmitDefaultValue=false)]
         public long? NumObjectsFailed { get; set; }
 
         /// <summary>
         /// Specifies the count of objects that failed sla in the last Run.
         /// </summary>
         /// <value>Specifies the count of objects that failed sla in the last Run.</value>
-        [DataMember(Name="numObjectsFailedSla", EmitDefaultValue=true)]
+        [DataMember(Name="numObjectsFailedSla", EmitDefaultValue=false)]
         public long? NumObjectsFailedSla { get; set; }
+
+        /// <summary>
+        /// Specifies the number of objects that are still in progress in the last Run across all Protection Jobs.
+        /// </summary>
+        /// <value>Specifies the number of objects that are still in progress in the last Run across all Protection Jobs.</value>
+        [DataMember(Name="numObjectsInProgress", EmitDefaultValue=false)]
+        public long? NumObjectsInProgress { get; set; }
 
         /// <summary>
         /// Specifies the count of objects that met sla in the last Run.
         /// </summary>
         /// <value>Specifies the count of objects that met sla in the last Run.</value>
-        [DataMember(Name="numObjectsMetSla", EmitDefaultValue=true)]
+        [DataMember(Name="numObjectsMetSla", EmitDefaultValue=false)]
         public long? NumObjectsMetSla { get; set; }
+
+        /// <summary>
+        /// Specifies the number of objects that were successful in the last Run across all Protection Jobs.
+        /// </summary>
+        /// <value>Specifies the number of objects that were successful in the last Run across all Protection Jobs.</value>
+        [DataMember(Name="numObjectsSuccessful", EmitDefaultValue=false)]
+        public long? NumObjectsSuccessful { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -305,7 +332,13 @@ namespace Cohesity.Model
             return 
                 (
                     this.Environment == input.Environment ||
-                    this.Environment.Equals(input.Environment)
+                    (this.Environment != null &&
+                    this.Environment.Equals(input.Environment))
+                ) && 
+                (
+                    this.NumObjectsCancelled == input.NumObjectsCancelled ||
+                    (this.NumObjectsCancelled != null &&
+                    this.NumObjectsCancelled.Equals(input.NumObjectsCancelled))
                 ) && 
                 (
                     this.NumObjectsFailed == input.NumObjectsFailed ||
@@ -318,9 +351,19 @@ namespace Cohesity.Model
                     this.NumObjectsFailedSla.Equals(input.NumObjectsFailedSla))
                 ) && 
                 (
+                    this.NumObjectsInProgress == input.NumObjectsInProgress ||
+                    (this.NumObjectsInProgress != null &&
+                    this.NumObjectsInProgress.Equals(input.NumObjectsInProgress))
+                ) && 
+                (
                     this.NumObjectsMetSla == input.NumObjectsMetSla ||
                     (this.NumObjectsMetSla != null &&
                     this.NumObjectsMetSla.Equals(input.NumObjectsMetSla))
+                ) && 
+                (
+                    this.NumObjectsSuccessful == input.NumObjectsSuccessful ||
+                    (this.NumObjectsSuccessful != null &&
+                    this.NumObjectsSuccessful.Equals(input.NumObjectsSuccessful))
                 );
         }
 
@@ -333,13 +376,20 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                hashCode = hashCode * 59 + this.Environment.GetHashCode();
+                if (this.Environment != null)
+                    hashCode = hashCode * 59 + this.Environment.GetHashCode();
+                if (this.NumObjectsCancelled != null)
+                    hashCode = hashCode * 59 + this.NumObjectsCancelled.GetHashCode();
                 if (this.NumObjectsFailed != null)
                     hashCode = hashCode * 59 + this.NumObjectsFailed.GetHashCode();
                 if (this.NumObjectsFailedSla != null)
                     hashCode = hashCode * 59 + this.NumObjectsFailedSla.GetHashCode();
+                if (this.NumObjectsInProgress != null)
+                    hashCode = hashCode * 59 + this.NumObjectsInProgress.GetHashCode();
                 if (this.NumObjectsMetSla != null)
                     hashCode = hashCode * 59 + this.NumObjectsMetSla.GetHashCode();
+                if (this.NumObjectsSuccessful != null)
+                    hashCode = hashCode * 59 + this.NumObjectsSuccessful.GetHashCode();
                 return hashCode;
             }
         }

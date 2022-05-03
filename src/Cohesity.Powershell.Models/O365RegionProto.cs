@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,14 +30,13 @@ namespace Cohesity.Model
         public O365RegionProto(int? country = default(int?))
         {
             this.Country = country;
-            this.Country = country;
         }
         
         /// <summary>
         /// The country where the o365 connector apis were called from.
         /// </summary>
         /// <value>The country where the o365 connector apis were called from.</value>
-        [DataMember(Name="country", EmitDefaultValue=true)]
+        [DataMember(Name="country", EmitDefaultValue=false)]
         public int? Country { get; set; }
 
         /// <summary>

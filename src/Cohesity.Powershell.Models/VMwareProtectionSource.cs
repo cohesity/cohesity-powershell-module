@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -69,7 +72,7 @@ namespace Cohesity.Model
         /// Specifies the connection state of the Object and are only valid for ESXi hosts (&#39;kHostSystem&#39;) or Virtual Machines (&#39;kVirtualMachine&#39;). These enums are equivalent to the connection states documented in VMware&#39;s reference documentation. Examples of Cohesity connection states include &#39;kConnected&#39;, &#39;kDisconnected&#39;, &#39;kInacccessible&#39;, etc. &#39;kConnected&#39; indicates that server has access to virtual machine. &#39;kDisconnected&#39; indicates that server is currently disconnected to virtual machine. &#39;kInaccessible&#39; indicates that one or more configuration files are inacccessible. &#39;kInvalid&#39; indicates that virtual machine configuration is invalid. &#39;kOrphaned&#39; indicates that virtual machine is no longer registered on the host it is associated with. &#39;kNotResponding&#39; indicates that virtual machine has failed to respond due to external issues such as network connectivity, host not running etc.
         /// </summary>
         /// <value>Specifies the connection state of the Object and are only valid for ESXi hosts (&#39;kHostSystem&#39;) or Virtual Machines (&#39;kVirtualMachine&#39;). These enums are equivalent to the connection states documented in VMware&#39;s reference documentation. Examples of Cohesity connection states include &#39;kConnected&#39;, &#39;kDisconnected&#39;, &#39;kInacccessible&#39;, etc. &#39;kConnected&#39; indicates that server has access to virtual machine. &#39;kDisconnected&#39; indicates that server is currently disconnected to virtual machine. &#39;kInaccessible&#39; indicates that one or more configuration files are inacccessible. &#39;kInvalid&#39; indicates that virtual machine configuration is invalid. &#39;kOrphaned&#39; indicates that virtual machine is no longer registered on the host it is associated with. &#39;kNotResponding&#39; indicates that virtual machine has failed to respond due to external issues such as network connectivity, host not running etc.</value>
-        [DataMember(Name="connectionState", EmitDefaultValue=true)]
+        [DataMember(Name="connectionState", EmitDefaultValue=false)]
         public ConnectionStateEnum? ConnectionState { get; set; }
         /// <summary>
         /// Specifies the folder type for the &#39;kFolder&#39; Object. &#39;kVMFolder&#39; indicates folder can hold VMs or vApps. &#39;kHostFolder&#39; indicates folder can hold hosts and compute resources. &#39;kDatastoreFolder&#39; indicates folder can hold datastores and storage pods. &#39;kNetworkFolder&#39; indicates folder can hold networks and switches. &#39;kRootFolder&#39; indicates folder can hold datacenters.
@@ -114,7 +117,7 @@ namespace Cohesity.Model
         /// Specifies the folder type for the &#39;kFolder&#39; Object. &#39;kVMFolder&#39; indicates folder can hold VMs or vApps. &#39;kHostFolder&#39; indicates folder can hold hosts and compute resources. &#39;kDatastoreFolder&#39; indicates folder can hold datastores and storage pods. &#39;kNetworkFolder&#39; indicates folder can hold networks and switches. &#39;kRootFolder&#39; indicates folder can hold datacenters.
         /// </summary>
         /// <value>Specifies the folder type for the &#39;kFolder&#39; Object. &#39;kVMFolder&#39; indicates folder can hold VMs or vApps. &#39;kHostFolder&#39; indicates folder can hold hosts and compute resources. &#39;kDatastoreFolder&#39; indicates folder can hold datastores and storage pods. &#39;kNetworkFolder&#39; indicates folder can hold networks and switches. &#39;kRootFolder&#39; indicates folder can hold datacenters.</value>
-        [DataMember(Name="folderType", EmitDefaultValue=true)]
+        [DataMember(Name="folderType", EmitDefaultValue=false)]
         public FolderTypeEnum? FolderType { get; set; }
         /// <summary>
         /// Specifies the host type for the &#39;kVirtualMachine&#39; Object. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kOther&#39; indicates the other types of operating system.
@@ -165,7 +168,7 @@ namespace Cohesity.Model
         /// Specifies the host type for the &#39;kVirtualMachine&#39; Object. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kOther&#39; indicates the other types of operating system.
         /// </summary>
         /// <value>Specifies the host type for the &#39;kVirtualMachine&#39; Object. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kOther&#39; indicates the other types of operating system.</value>
-        [DataMember(Name="hostType", EmitDefaultValue=true)]
+        [DataMember(Name="hostType", EmitDefaultValue=false)]
         public HostTypeEnum? HostType { get; set; }
         /// <summary>
         /// Specifies the status of VMware Tools for the guest OS on the VM. This is only valid for the &#39;kVirtualMachine&#39; type. &#39;kGuestToolsRunning&#39; means the VMware tools are running on the guest OS. &#39;kGuestToolsNotRunning&#39; means the VMware tools are not running on the guest OS. &#39;kUnknown&#39; means the state of the VMware tools on the guest OS is not known. &#39;kGuestToolsExecutingScripts&#39; means the guest OS is currently executing scripts using VMware tools.
@@ -204,7 +207,7 @@ namespace Cohesity.Model
         /// Specifies the status of VMware Tools for the guest OS on the VM. This is only valid for the &#39;kVirtualMachine&#39; type. &#39;kGuestToolsRunning&#39; means the VMware tools are running on the guest OS. &#39;kGuestToolsNotRunning&#39; means the VMware tools are not running on the guest OS. &#39;kUnknown&#39; means the state of the VMware tools on the guest OS is not known. &#39;kGuestToolsExecutingScripts&#39; means the guest OS is currently executing scripts using VMware tools.
         /// </summary>
         /// <value>Specifies the status of VMware Tools for the guest OS on the VM. This is only valid for the &#39;kVirtualMachine&#39; type. &#39;kGuestToolsRunning&#39; means the VMware tools are running on the guest OS. &#39;kGuestToolsNotRunning&#39; means the VMware tools are not running on the guest OS. &#39;kUnknown&#39; means the state of the VMware tools on the guest OS is not known. &#39;kGuestToolsExecutingScripts&#39; means the guest OS is currently executing scripts using VMware tools.</value>
-        [DataMember(Name="toolsRunningStatus", EmitDefaultValue=true)]
+        [DataMember(Name="toolsRunningStatus", EmitDefaultValue=false)]
         public ToolsRunningStatusEnum? ToolsRunningStatus { get; set; }
         /// <summary>
         /// Specifies the type of managed Object in a VMware Protection Source. Examples of VMware Objects include &#39;kVCenter&#39;, &#39;kFolder&#39;, &#39;kDatacenter&#39;, &#39;kResourcePool&#39;, &#39;kDatastore&#39;, &#39;kVirtualMachine&#39;, etc. &#39;kVCenter&#39; indicates the vCenter entity in a VMware protection source type. &#39;kFolder indicates the folder entity (of any kind) in a VMware protection source type. &#39;kDatacenter&#39; indicates the datacenter entity in a VMware protection source type. &#39;kComputeResource&#39; indicates the physical compute resource entity in a VMware protection source type. &#39;kResourcePool&#39; indicates the set of physical resources within a compute resource or cloudcompute resource. &#39;kDataStore&#39; indicates the datastore entity in a VMware protection source type. &#39;kHostSystem&#39; indicates the ESXi host entity in a VMware protection source type. &#39;kVirtualMachine&#39; indicates the virtual machine entity in a VMware protection source type. &#39;kVirtualApp&#39; indicates the virtual app entity in a VMware protection source type. &#39;kStandaloneHost&#39; indicates the standalone ESXi host entity (not managed by vCenter) in a VMware protection source type. &#39;kStoragePod&#39; indicates the storage pod entity in a VMware protection source type. &#39;kNetwork&#39; indicates the standard vSwitch in a VMware protection source type. &#39;kDistributedVirtualPortgroup&#39; indicates a distributed vSwitch port group in a VMware protection source type. &#39;kTagCategory&#39; indicates a tag category entity in a VMware protection source type. &#39;kTag&#39; indicates a tag entity in a VMware protection source type. &#39;kOpaqueNetwork&#39; indicates an opaque network which is created and managed by an entity outside of vSphere. &#39;kvCloudDirector&#39; indicates a vCloud director entity in a VMware protection source type. &#39;kOrganization&#39; indicates an Organization under a vCD in a VMware protection source type. &#39;kVirtualDatacenter&#39; indicates a virtual datacenter entity in a VMware protection source type. &#39;kCatalog&#39; indicates a VCD catalog entity in a VMware protection source type. &#39;kOrgMetadata&#39; indicates an VCD organization metadata in a VMware protection source type. &#39;kStoragePolicy&#39; indicates a storage policy associated with the vApp in a VMware protection source type.
@@ -357,20 +360,23 @@ namespace Cohesity.Model
         /// Specifies the type of managed Object in a VMware Protection Source. Examples of VMware Objects include &#39;kVCenter&#39;, &#39;kFolder&#39;, &#39;kDatacenter&#39;, &#39;kResourcePool&#39;, &#39;kDatastore&#39;, &#39;kVirtualMachine&#39;, etc. &#39;kVCenter&#39; indicates the vCenter entity in a VMware protection source type. &#39;kFolder indicates the folder entity (of any kind) in a VMware protection source type. &#39;kDatacenter&#39; indicates the datacenter entity in a VMware protection source type. &#39;kComputeResource&#39; indicates the physical compute resource entity in a VMware protection source type. &#39;kResourcePool&#39; indicates the set of physical resources within a compute resource or cloudcompute resource. &#39;kDataStore&#39; indicates the datastore entity in a VMware protection source type. &#39;kHostSystem&#39; indicates the ESXi host entity in a VMware protection source type. &#39;kVirtualMachine&#39; indicates the virtual machine entity in a VMware protection source type. &#39;kVirtualApp&#39; indicates the virtual app entity in a VMware protection source type. &#39;kStandaloneHost&#39; indicates the standalone ESXi host entity (not managed by vCenter) in a VMware protection source type. &#39;kStoragePod&#39; indicates the storage pod entity in a VMware protection source type. &#39;kNetwork&#39; indicates the standard vSwitch in a VMware protection source type. &#39;kDistributedVirtualPortgroup&#39; indicates a distributed vSwitch port group in a VMware protection source type. &#39;kTagCategory&#39; indicates a tag category entity in a VMware protection source type. &#39;kTag&#39; indicates a tag entity in a VMware protection source type. &#39;kOpaqueNetwork&#39; indicates an opaque network which is created and managed by an entity outside of vSphere. &#39;kvCloudDirector&#39; indicates a vCloud director entity in a VMware protection source type. &#39;kOrganization&#39; indicates an Organization under a vCD in a VMware protection source type. &#39;kVirtualDatacenter&#39; indicates a virtual datacenter entity in a VMware protection source type. &#39;kCatalog&#39; indicates a VCD catalog entity in a VMware protection source type. &#39;kOrgMetadata&#39; indicates an VCD organization metadata in a VMware protection source type. &#39;kStoragePolicy&#39; indicates a storage policy associated with the vApp in a VMware protection source type.
         /// </summary>
         /// <value>Specifies the type of managed Object in a VMware Protection Source. Examples of VMware Objects include &#39;kVCenter&#39;, &#39;kFolder&#39;, &#39;kDatacenter&#39;, &#39;kResourcePool&#39;, &#39;kDatastore&#39;, &#39;kVirtualMachine&#39;, etc. &#39;kVCenter&#39; indicates the vCenter entity in a VMware protection source type. &#39;kFolder indicates the folder entity (of any kind) in a VMware protection source type. &#39;kDatacenter&#39; indicates the datacenter entity in a VMware protection source type. &#39;kComputeResource&#39; indicates the physical compute resource entity in a VMware protection source type. &#39;kResourcePool&#39; indicates the set of physical resources within a compute resource or cloudcompute resource. &#39;kDataStore&#39; indicates the datastore entity in a VMware protection source type. &#39;kHostSystem&#39; indicates the ESXi host entity in a VMware protection source type. &#39;kVirtualMachine&#39; indicates the virtual machine entity in a VMware protection source type. &#39;kVirtualApp&#39; indicates the virtual app entity in a VMware protection source type. &#39;kStandaloneHost&#39; indicates the standalone ESXi host entity (not managed by vCenter) in a VMware protection source type. &#39;kStoragePod&#39; indicates the storage pod entity in a VMware protection source type. &#39;kNetwork&#39; indicates the standard vSwitch in a VMware protection source type. &#39;kDistributedVirtualPortgroup&#39; indicates a distributed vSwitch port group in a VMware protection source type. &#39;kTagCategory&#39; indicates a tag category entity in a VMware protection source type. &#39;kTag&#39; indicates a tag entity in a VMware protection source type. &#39;kOpaqueNetwork&#39; indicates an opaque network which is created and managed by an entity outside of vSphere. &#39;kvCloudDirector&#39; indicates a vCloud director entity in a VMware protection source type. &#39;kOrganization&#39; indicates an Organization under a vCD in a VMware protection source type. &#39;kVirtualDatacenter&#39; indicates a virtual datacenter entity in a VMware protection source type. &#39;kCatalog&#39; indicates a VCD catalog entity in a VMware protection source type. &#39;kOrgMetadata&#39; indicates an VCD organization metadata in a VMware protection source type. &#39;kStoragePolicy&#39; indicates a storage policy associated with the vApp in a VMware protection source type.</value>
-        [DataMember(Name="type", EmitDefaultValue=true)]
+        [DataMember(Name="type", EmitDefaultValue=false)]
         public TypeEnum? Type { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="VMwareProtectionSource" /> class.
         /// </summary>
         /// <param name="agentId">Specifies the id of the persistent agent..</param>
         /// <param name="agents">Specifies the list of agent information on the Virtual Machine. This is set only if the Virtual Machine has persistent agent..</param>
+        /// <param name="cdpInfo">cdpInfo.</param>
         /// <param name="connectionState">Specifies the connection state of the Object and are only valid for ESXi hosts (&#39;kHostSystem&#39;) or Virtual Machines (&#39;kVirtualMachine&#39;). These enums are equivalent to the connection states documented in VMware&#39;s reference documentation. Examples of Cohesity connection states include &#39;kConnected&#39;, &#39;kDisconnected&#39;, &#39;kInacccessible&#39;, etc. &#39;kConnected&#39; indicates that server has access to virtual machine. &#39;kDisconnected&#39; indicates that server is currently disconnected to virtual machine. &#39;kInaccessible&#39; indicates that one or more configuration files are inacccessible. &#39;kInvalid&#39; indicates that virtual machine configuration is invalid. &#39;kOrphaned&#39; indicates that virtual machine is no longer registered on the host it is associated with. &#39;kNotResponding&#39; indicates that virtual machine has failed to respond due to external issues such as network connectivity, host not running etc..</param>
         /// <param name="datastoreInfo">datastoreInfo.</param>
         /// <param name="folderType">Specifies the folder type for the &#39;kFolder&#39; Object. &#39;kVMFolder&#39; indicates folder can hold VMs or vApps. &#39;kHostFolder&#39; indicates folder can hold hosts and compute resources. &#39;kDatastoreFolder&#39; indicates folder can hold datastores and storage pods. &#39;kNetworkFolder&#39; indicates folder can hold networks and switches. &#39;kRootFolder&#39; indicates folder can hold datacenters..</param>
         /// <param name="hasPersistentAgent">Set to true if a persistent agent is running on the Virtual Machine. This is populated for entities of type &#39;kVirtualMachine&#39;..</param>
         /// <param name="hostType">Specifies the host type for the &#39;kVirtualMachine&#39; Object. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kOther&#39; indicates the other types of operating system..</param>
         /// <param name="id">id.</param>
+        /// <param name="ipDetails">ipDetails.</param>
         /// <param name="isVmTemplate">IsTemplate specifies if the VM is a template or not..</param>
+        /// <param name="isVmcEntity">This field is used for indicating that registered vmware source is a VMC (VMware Cloud) environment..</param>
         /// <param name="name">Specifies a human readable name of the Protection Source..</param>
         /// <param name="tagAttributes">Specifies the optional list of VM Tag attributes associated with this Object..</param>
         /// <param name="toolsRunningStatus">Specifies the status of VMware Tools for the guest OS on the VM. This is only valid for the &#39;kVirtualMachine&#39; type. &#39;kGuestToolsRunning&#39; means the VMware tools are running on the guest OS. &#39;kGuestToolsNotRunning&#39; means the VMware tools are not running on the guest OS. &#39;kUnknown&#39; means the state of the VMware tools on the guest OS is not known. &#39;kGuestToolsExecutingScripts&#39; means the guest OS is currently executing scripts using VMware tools..</param>
@@ -378,31 +384,21 @@ namespace Cohesity.Model
         /// <param name="vCloudDirectorInfo">Specifies an array of vCenters to be registered.</param>
         /// <param name="version">For vCenter and ESXi, this will show the software version. For VMs, this will show the hardware version..</param>
         /// <param name="virtualDisks">Specifies an array of virtual disks that are part of the Virtual Machine. This is populated for entities of type &#39;kVirtualMachine&#39;..</param>
-        public VMwareProtectionSource(long? agentId = default(long?), List<AgentInformation> agents = default(List<AgentInformation>), ConnectionStateEnum? connectionState = default(ConnectionStateEnum?), DatastoreInfo datastoreInfo = default(DatastoreInfo), FolderTypeEnum? folderType = default(FolderTypeEnum?), bool? hasPersistentAgent = default(bool?), HostTypeEnum? hostType = default(HostTypeEnum?), VMwareObjectId id = default(VMwareObjectId), bool? isVmTemplate = default(bool?), string name = default(string), List<TagAttribute> tagAttributes = default(List<TagAttribute>), ToolsRunningStatusEnum? toolsRunningStatus = default(ToolsRunningStatusEnum?), TypeEnum? type = default(TypeEnum?), List<VCloudDirectorInfo> vCloudDirectorInfo = default(List<VCloudDirectorInfo>), string version = default(string), List<VirtualDiskInfo> virtualDisks = default(List<VirtualDiskInfo>))
+        /// <param name="vmLinkingInfo">vmLinkingInfo.</param>
+        public VMwareProtectionSource(long? agentId = default(long?), List<AgentInformation> agents = default(List<AgentInformation>), VMwareCdpProtectionSourceInfo cdpInfo = default(VMwareCdpProtectionSourceInfo), ConnectionStateEnum? connectionState = default(ConnectionStateEnum?), DatastoreInfo datastoreInfo = default(DatastoreInfo), FolderTypeEnum? folderType = default(FolderTypeEnum?), bool? hasPersistentAgent = default(bool?), HostTypeEnum? hostType = default(HostTypeEnum?), VMwareObjectId id = default(VMwareObjectId), IpDetails ipDetails = default(IpDetails), bool? isVmTemplate = default(bool?), bool? isVmcEntity = default(bool?), string name = default(string), List<TagAttribute> tagAttributes = default(List<TagAttribute>), ToolsRunningStatusEnum? toolsRunningStatus = default(ToolsRunningStatusEnum?), TypeEnum? type = default(TypeEnum?), List<VCloudDirectorInfo> vCloudDirectorInfo = default(List<VCloudDirectorInfo>), string version = default(string), List<VirtualDiskInfo> virtualDisks = default(List<VirtualDiskInfo>), VmLinkingInfo vmLinkingInfo = default(VmLinkingInfo))
         {
             this.AgentId = agentId;
             this.Agents = agents;
-            this.ConnectionState = connectionState;
-            this.FolderType = folderType;
-            this.HasPersistentAgent = hasPersistentAgent;
-            this.HostType = hostType;
-            this.IsVmTemplate = isVmTemplate;
-            this.Name = name;
-            this.TagAttributes = tagAttributes;
-            this.ToolsRunningStatus = toolsRunningStatus;
-            this.Type = type;
-            this.VCloudDirectorInfo = vCloudDirectorInfo;
-            this.Version = version;
-            this.VirtualDisks = virtualDisks;
-            this.AgentId = agentId;
-            this.Agents = agents;
+            this.CdpInfo = cdpInfo;
             this.ConnectionState = connectionState;
             this.DatastoreInfo = datastoreInfo;
             this.FolderType = folderType;
             this.HasPersistentAgent = hasPersistentAgent;
             this.HostType = hostType;
             this.Id = id;
+            this.IpDetails = ipDetails;
             this.IsVmTemplate = isVmTemplate;
+            this.IsVmcEntity = isVmcEntity;
             this.Name = name;
             this.TagAttributes = tagAttributes;
             this.ToolsRunningStatus = toolsRunningStatus;
@@ -410,21 +406,29 @@ namespace Cohesity.Model
             this.VCloudDirectorInfo = vCloudDirectorInfo;
             this.Version = version;
             this.VirtualDisks = virtualDisks;
+            this.VmLinkingInfo = vmLinkingInfo;
         }
         
         /// <summary>
         /// Specifies the id of the persistent agent.
         /// </summary>
         /// <value>Specifies the id of the persistent agent.</value>
-        [DataMember(Name="agentId", EmitDefaultValue=true)]
+        [DataMember(Name="agentId", EmitDefaultValue=false)]
         public long? AgentId { get; set; }
 
         /// <summary>
         /// Specifies the list of agent information on the Virtual Machine. This is set only if the Virtual Machine has persistent agent.
         /// </summary>
         /// <value>Specifies the list of agent information on the Virtual Machine. This is set only if the Virtual Machine has persistent agent.</value>
-        [DataMember(Name="agents", EmitDefaultValue=true)]
+        [DataMember(Name="agents", EmitDefaultValue=false)]
         public List<AgentInformation> Agents { get; set; }
+
+        /// <summary>
+        /// Gets or Sets CdpInfo
+        /// </summary>
+        [DataMember(Name="cdpInfo", EmitDefaultValue=false)]
+        public VMwareCdpProtectionSourceInfo CdpInfo { get; set; }
+
 
         /// <summary>
         /// Gets or Sets DatastoreInfo
@@ -432,12 +436,14 @@ namespace Cohesity.Model
         [DataMember(Name="datastoreInfo", EmitDefaultValue=false)]
         public DatastoreInfo DatastoreInfo { get; set; }
 
+
         /// <summary>
         /// Set to true if a persistent agent is running on the Virtual Machine. This is populated for entities of type &#39;kVirtualMachine&#39;.
         /// </summary>
         /// <value>Set to true if a persistent agent is running on the Virtual Machine. This is populated for entities of type &#39;kVirtualMachine&#39;.</value>
-        [DataMember(Name="hasPersistentAgent", EmitDefaultValue=true)]
+        [DataMember(Name="hasPersistentAgent", EmitDefaultValue=false)]
         public bool? HasPersistentAgent { get; set; }
+
 
         /// <summary>
         /// Gets or Sets Id
@@ -446,46 +452,67 @@ namespace Cohesity.Model
         public VMwareObjectId Id { get; set; }
 
         /// <summary>
+        /// Gets or Sets IpDetails
+        /// </summary>
+        [DataMember(Name="ipDetails", EmitDefaultValue=false)]
+        public IpDetails IpDetails { get; set; }
+
+        /// <summary>
         /// IsTemplate specifies if the VM is a template or not.
         /// </summary>
         /// <value>IsTemplate specifies if the VM is a template or not.</value>
-        [DataMember(Name="isVmTemplate", EmitDefaultValue=true)]
+        [DataMember(Name="isVmTemplate", EmitDefaultValue=false)]
         public bool? IsVmTemplate { get; set; }
+
+        /// <summary>
+        /// This field is used for indicating that registered vmware source is a VMC (VMware Cloud) environment.
+        /// </summary>
+        /// <value>This field is used for indicating that registered vmware source is a VMC (VMware Cloud) environment.</value>
+        [DataMember(Name="isVmcEntity", EmitDefaultValue=false)]
+        public bool? IsVmcEntity { get; set; }
 
         /// <summary>
         /// Specifies a human readable name of the Protection Source.
         /// </summary>
         /// <value>Specifies a human readable name of the Protection Source.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
 
         /// <summary>
         /// Specifies the optional list of VM Tag attributes associated with this Object.
         /// </summary>
         /// <value>Specifies the optional list of VM Tag attributes associated with this Object.</value>
-        [DataMember(Name="tagAttributes", EmitDefaultValue=true)]
+        [DataMember(Name="tagAttributes", EmitDefaultValue=false)]
         public List<TagAttribute> TagAttributes { get; set; }
+
+
 
         /// <summary>
         /// Specifies an array of vCenters to be registered
         /// </summary>
         /// <value>Specifies an array of vCenters to be registered</value>
-        [DataMember(Name="vCloudDirectorInfo", EmitDefaultValue=true)]
+        [DataMember(Name="vCloudDirectorInfo", EmitDefaultValue=false)]
         public List<VCloudDirectorInfo> VCloudDirectorInfo { get; set; }
 
         /// <summary>
         /// For vCenter and ESXi, this will show the software version. For VMs, this will show the hardware version.
         /// </summary>
         /// <value>For vCenter and ESXi, this will show the software version. For VMs, this will show the hardware version.</value>
-        [DataMember(Name="version", EmitDefaultValue=true)]
+        [DataMember(Name="version", EmitDefaultValue=false)]
         public string Version { get; set; }
 
         /// <summary>
         /// Specifies an array of virtual disks that are part of the Virtual Machine. This is populated for entities of type &#39;kVirtualMachine&#39;.
         /// </summary>
         /// <value>Specifies an array of virtual disks that are part of the Virtual Machine. This is populated for entities of type &#39;kVirtualMachine&#39;.</value>
-        [DataMember(Name="virtualDisks", EmitDefaultValue=true)]
+        [DataMember(Name="virtualDisks", EmitDefaultValue=false)]
         public List<VirtualDiskInfo> VirtualDisks { get; set; }
+
+        /// <summary>
+        /// Gets or Sets VmLinkingInfo
+        /// </summary>
+        [DataMember(Name="vmLinkingInfo", EmitDefaultValue=false)]
+        public VmLinkingInfo VmLinkingInfo { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -531,12 +558,17 @@ namespace Cohesity.Model
                 (
                     this.Agents == input.Agents ||
                     this.Agents != null &&
-                    input.Agents != null &&
-                    this.Agents.SequenceEqual(input.Agents)
+                    this.Agents.Equals(input.Agents)
+                ) && 
+                (
+                    this.CdpInfo == input.CdpInfo ||
+                    (this.CdpInfo != null &&
+                    this.CdpInfo.Equals(input.CdpInfo))
                 ) && 
                 (
                     this.ConnectionState == input.ConnectionState ||
-                    this.ConnectionState.Equals(input.ConnectionState)
+                    (this.ConnectionState != null &&
+                    this.ConnectionState.Equals(input.ConnectionState))
                 ) && 
                 (
                     this.DatastoreInfo == input.DatastoreInfo ||
@@ -545,7 +577,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.FolderType == input.FolderType ||
-                    this.FolderType.Equals(input.FolderType)
+                    (this.FolderType != null &&
+                    this.FolderType.Equals(input.FolderType))
                 ) && 
                 (
                     this.HasPersistentAgent == input.HasPersistentAgent ||
@@ -554,7 +587,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.HostType == input.HostType ||
-                    this.HostType.Equals(input.HostType)
+                    (this.HostType != null &&
+                    this.HostType.Equals(input.HostType))
                 ) && 
                 (
                     this.Id == input.Id ||
@@ -562,9 +596,19 @@ namespace Cohesity.Model
                     this.Id.Equals(input.Id))
                 ) && 
                 (
+                    this.IpDetails == input.IpDetails ||
+                    (this.IpDetails != null &&
+                    this.IpDetails.Equals(input.IpDetails))
+                ) && 
+                (
                     this.IsVmTemplate == input.IsVmTemplate ||
                     (this.IsVmTemplate != null &&
                     this.IsVmTemplate.Equals(input.IsVmTemplate))
+                ) && 
+                (
+                    this.IsVmcEntity == input.IsVmcEntity ||
+                    (this.IsVmcEntity != null &&
+                    this.IsVmcEntity.Equals(input.IsVmcEntity))
                 ) && 
                 (
                     this.Name == input.Name ||
@@ -574,22 +618,22 @@ namespace Cohesity.Model
                 (
                     this.TagAttributes == input.TagAttributes ||
                     this.TagAttributes != null &&
-                    input.TagAttributes != null &&
-                    this.TagAttributes.SequenceEqual(input.TagAttributes)
+                    this.TagAttributes.Equals(input.TagAttributes)
                 ) && 
                 (
                     this.ToolsRunningStatus == input.ToolsRunningStatus ||
-                    this.ToolsRunningStatus.Equals(input.ToolsRunningStatus)
+                    (this.ToolsRunningStatus != null &&
+                    this.ToolsRunningStatus.Equals(input.ToolsRunningStatus))
                 ) && 
                 (
                     this.Type == input.Type ||
-                    this.Type.Equals(input.Type)
+                    (this.Type != null &&
+                    this.Type.Equals(input.Type))
                 ) && 
                 (
                     this.VCloudDirectorInfo == input.VCloudDirectorInfo ||
                     this.VCloudDirectorInfo != null &&
-                    input.VCloudDirectorInfo != null &&
-                    this.VCloudDirectorInfo.SequenceEqual(input.VCloudDirectorInfo)
+                    this.VCloudDirectorInfo.Equals(input.VCloudDirectorInfo)
                 ) && 
                 (
                     this.Version == input.Version ||
@@ -599,8 +643,12 @@ namespace Cohesity.Model
                 (
                     this.VirtualDisks == input.VirtualDisks ||
                     this.VirtualDisks != null &&
-                    input.VirtualDisks != null &&
-                    this.VirtualDisks.SequenceEqual(input.VirtualDisks)
+                    this.VirtualDisks.Equals(input.VirtualDisks)
+                ) && 
+                (
+                    this.VmLinkingInfo == input.VmLinkingInfo ||
+                    (this.VmLinkingInfo != null &&
+                    this.VmLinkingInfo.Equals(input.VmLinkingInfo))
                 );
         }
 
@@ -617,29 +665,42 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.AgentId.GetHashCode();
                 if (this.Agents != null)
                     hashCode = hashCode * 59 + this.Agents.GetHashCode();
-                hashCode = hashCode * 59 + this.ConnectionState.GetHashCode();
+                if (this.CdpInfo != null)
+                    hashCode = hashCode * 59 + this.CdpInfo.GetHashCode();
+                if (this.ConnectionState != null)
+                    hashCode = hashCode * 59 + this.ConnectionState.GetHashCode();
                 if (this.DatastoreInfo != null)
                     hashCode = hashCode * 59 + this.DatastoreInfo.GetHashCode();
-                hashCode = hashCode * 59 + this.FolderType.GetHashCode();
+                if (this.FolderType != null)
+                    hashCode = hashCode * 59 + this.FolderType.GetHashCode();
                 if (this.HasPersistentAgent != null)
                     hashCode = hashCode * 59 + this.HasPersistentAgent.GetHashCode();
-                hashCode = hashCode * 59 + this.HostType.GetHashCode();
+                if (this.HostType != null)
+                    hashCode = hashCode * 59 + this.HostType.GetHashCode();
                 if (this.Id != null)
                     hashCode = hashCode * 59 + this.Id.GetHashCode();
+                if (this.IpDetails != null)
+                    hashCode = hashCode * 59 + this.IpDetails.GetHashCode();
                 if (this.IsVmTemplate != null)
                     hashCode = hashCode * 59 + this.IsVmTemplate.GetHashCode();
+                if (this.IsVmcEntity != null)
+                    hashCode = hashCode * 59 + this.IsVmcEntity.GetHashCode();
                 if (this.Name != null)
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
                 if (this.TagAttributes != null)
                     hashCode = hashCode * 59 + this.TagAttributes.GetHashCode();
-                hashCode = hashCode * 59 + this.ToolsRunningStatus.GetHashCode();
-                hashCode = hashCode * 59 + this.Type.GetHashCode();
+                if (this.ToolsRunningStatus != null)
+                    hashCode = hashCode * 59 + this.ToolsRunningStatus.GetHashCode();
+                if (this.Type != null)
+                    hashCode = hashCode * 59 + this.Type.GetHashCode();
                 if (this.VCloudDirectorInfo != null)
                     hashCode = hashCode * 59 + this.VCloudDirectorInfo.GetHashCode();
                 if (this.Version != null)
                     hashCode = hashCode * 59 + this.Version.GetHashCode();
                 if (this.VirtualDisks != null)
                     hashCode = hashCode * 59 + this.VirtualDisks.GetHashCode();
+                if (this.VmLinkingInfo != null)
+                    hashCode = hashCode * 59 + this.VmLinkingInfo.GetHashCode();
                 return hashCode;
             }
         }

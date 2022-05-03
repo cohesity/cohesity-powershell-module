@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,14 +30,13 @@ namespace Cohesity.Model
         public UserPreferencesResult(Dictionary<string, string> preferences = default(Dictionary<string, string>))
         {
             this.Preferences = preferences;
-            this.Preferences = preferences;
         }
         
         /// <summary>
         /// Preferences is a key-value map of preferences.
         /// </summary>
         /// <value>Preferences is a key-value map of preferences.</value>
-        [DataMember(Name="preferences", EmitDefaultValue=true)]
+        [DataMember(Name="preferences", EmitDefaultValue=false)]
         public Dictionary<string, string> Preferences { get; set; }
 
         /// <summary>
@@ -76,8 +78,7 @@ namespace Cohesity.Model
                 (
                     this.Preferences == input.Preferences ||
                     this.Preferences != null &&
-                    input.Preferences != null &&
-                    this.Preferences.SequenceEqual(input.Preferences)
+                    this.Preferences.Equals(input.Preferences)
                 );
         }
 

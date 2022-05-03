@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -32,10 +35,6 @@ namespace Cohesity.Model
         {
             this.Name = name;
             this.OutputFormat = outputFormat;
-            this.SubjectLine = subjectLine;
-            this.Type = type;
-            this.Name = name;
-            this.OutputFormat = outputFormat;
             this.Parameters = parameters;
             this.SubjectLine = subjectLine;
             this.Type = type;
@@ -45,14 +44,14 @@ namespace Cohesity.Model
         /// Specifies the report name.
         /// </summary>
         /// <value>Specifies the report name.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
 
         /// <summary>
         /// Specifies the output format of the report.
         /// </summary>
         /// <value>Specifies the output format of the report.</value>
-        [DataMember(Name="outputFormat", EmitDefaultValue=true)]
+        [DataMember(Name="outputFormat", EmitDefaultValue=false)]
         public string OutputFormat { get; set; }
 
         /// <summary>
@@ -65,14 +64,14 @@ namespace Cohesity.Model
         /// Specifies the subject line for report.
         /// </summary>
         /// <value>Specifies the subject line for report.</value>
-        [DataMember(Name="subjectLine", EmitDefaultValue=true)]
+        [DataMember(Name="subjectLine", EmitDefaultValue=false)]
         public string SubjectLine { get; set; }
 
         /// <summary>
         /// Specifies the report type.
         /// </summary>
         /// <value>Specifies the report type.</value>
-        [DataMember(Name="type", EmitDefaultValue=true)]
+        [DataMember(Name="type", EmitDefaultValue=false)]
         public int? Type { get; set; }
 
         /// <summary>

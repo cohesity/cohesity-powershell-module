@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -35,11 +38,6 @@ namespace Cohesity.Model
             this.ObjectFlags = objectFlags;
             this.PropertyStatusVec = propertyStatusVec;
             this.SourceGuid = sourceGuid;
-            this.TimetakenMs = timetakenMs;
-            this.DestGuid = destGuid;
-            this.ObjectFlags = objectFlags;
-            this.PropertyStatusVec = propertyStatusVec;
-            this.SourceGuid = sourceGuid;
             this.Status = status;
             this.TimetakenMs = timetakenMs;
         }
@@ -48,28 +46,28 @@ namespace Cohesity.Model
         /// Destination guid string of the AD object that is newly created on production AD corresponding to &#39;source_guid&#39;. If the object was restored from production AD recycle Bin, this value can be empty or set to same value as &#39;source_guid&#39;. If this value is non-empty and is different from source_guid, implying production AD object is a new object created in production AD as part of restore.
         /// </summary>
         /// <value>Destination guid string of the AD object that is newly created on production AD corresponding to &#39;source_guid&#39;. If the object was restored from production AD recycle Bin, this value can be empty or set to same value as &#39;source_guid&#39;. If this value is non-empty and is different from source_guid, implying production AD object is a new object created in production AD as part of restore.</value>
-        [DataMember(Name="destGuid", EmitDefaultValue=true)]
+        [DataMember(Name="destGuid", EmitDefaultValue=false)]
         public string DestGuid { get; set; }
 
         /// <summary>
         /// Object result flags of type ADObjectFlags.
         /// </summary>
         /// <value>Object result flags of type ADObjectFlags.</value>
-        [DataMember(Name="objectFlags", EmitDefaultValue=true)]
+        [DataMember(Name="objectFlags", EmitDefaultValue=false)]
         public int? ObjectFlags { get; set; }
 
         /// <summary>
         /// AD object attribute(property) restore status vector.
         /// </summary>
         /// <value>AD object attribute(property) restore status vector.</value>
-        [DataMember(Name="propertyStatusVec", EmitDefaultValue=true)]
+        [DataMember(Name="propertyStatusVec", EmitDefaultValue=false)]
         public List<ADObjectRestoreStatusADAttributeRestoreStatus> PropertyStatusVec { get; set; }
 
         /// <summary>
         /// Source guid of AD object that was restored. This will not be empty. This is populated from the source of request argument.
         /// </summary>
         /// <value>Source guid of AD object that was restored. This will not be empty. This is populated from the source of request argument.</value>
-        [DataMember(Name="sourceGuid", EmitDefaultValue=true)]
+        [DataMember(Name="sourceGuid", EmitDefaultValue=false)]
         public string SourceGuid { get; set; }
 
         /// <summary>
@@ -82,7 +80,7 @@ namespace Cohesity.Model
         /// Time taken in milliseconds to restore the individual object or attribute update. If this object restore was part of a batch, it shows the time taken once the operation was dispatched to AD for the object. This time can be useful in answering why some objects took long time to restore. Note that this time is not the elapsed time when the request was made from Magneto.
         /// </summary>
         /// <value>Time taken in milliseconds to restore the individual object or attribute update. If this object restore was part of a batch, it shows the time taken once the operation was dispatched to AD for the object. This time can be useful in answering why some objects took long time to restore. Note that this time is not the elapsed time when the request was made from Magneto.</value>
-        [DataMember(Name="timetakenMs", EmitDefaultValue=true)]
+        [DataMember(Name="timetakenMs", EmitDefaultValue=false)]
         public int? TimetakenMs { get; set; }
 
         /// <summary>
@@ -134,8 +132,7 @@ namespace Cohesity.Model
                 (
                     this.PropertyStatusVec == input.PropertyStatusVec ||
                     this.PropertyStatusVec != null &&
-                    input.PropertyStatusVec != null &&
-                    this.PropertyStatusVec.SequenceEqual(input.PropertyStatusVec)
+                    this.PropertyStatusVec.Equals(input.PropertyStatusVec)
                 ) && 
                 (
                     this.SourceGuid == input.SourceGuid ||

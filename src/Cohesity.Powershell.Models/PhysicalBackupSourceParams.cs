@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,8 +34,6 @@ namespace Cohesity.Model
         public PhysicalBackupSourceParams(bool? enableSystemBackup = default(bool?), PhysicalFileBackupParams fileBackupParams = default(PhysicalFileBackupParams), PhysicalSnapshotParams snapshotParams = default(PhysicalSnapshotParams), SourceAppParams sourceAppParams = default(SourceAppParams), List<string> volumeGuidVec = default(List<string>))
         {
             this.EnableSystemBackup = enableSystemBackup;
-            this.VolumeGuidVec = volumeGuidVec;
-            this.EnableSystemBackup = enableSystemBackup;
             this.FileBackupParams = fileBackupParams;
             this.SnapshotParams = snapshotParams;
             this.SourceAppParams = sourceAppParams;
@@ -43,7 +44,7 @@ namespace Cohesity.Model
         /// Allows Magneto to drive a \&quot;system\&quot; backup using a 3rd-party tool installed on the Agent host.
         /// </summary>
         /// <value>Allows Magneto to drive a \&quot;system\&quot; backup using a 3rd-party tool installed on the Agent host.</value>
-        [DataMember(Name="enableSystemBackup", EmitDefaultValue=true)]
+        [DataMember(Name="enableSystemBackup", EmitDefaultValue=false)]
         public bool? EnableSystemBackup { get; set; }
 
         /// <summary>
@@ -68,7 +69,7 @@ namespace Cohesity.Model
         /// If this list is non-empty, then only volumes in this will be protected, otherwise all volumes belonging to the host will be protected.
         /// </summary>
         /// <value>If this list is non-empty, then only volumes in this will be protected, otherwise all volumes belonging to the host will be protected.</value>
-        [DataMember(Name="volumeGuidVec", EmitDefaultValue=true)]
+        [DataMember(Name="volumeGuidVec", EmitDefaultValue=false)]
         public List<string> VolumeGuidVec { get; set; }
 
         /// <summary>
@@ -130,8 +131,7 @@ namespace Cohesity.Model
                 (
                     this.VolumeGuidVec == input.VolumeGuidVec ||
                     this.VolumeGuidVec != null &&
-                    input.VolumeGuidVec != null &&
-                    this.VolumeGuidVec.SequenceEqual(input.VolumeGuidVec)
+                    this.VolumeGuidVec.Equals(input.VolumeGuidVec)
                 );
         }
 

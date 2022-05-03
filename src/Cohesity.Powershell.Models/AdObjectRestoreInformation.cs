@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -35,46 +38,41 @@ namespace Cohesity.Model
             this.Name = name;
             this.StartTimeUsecs = startTimeUsecs;
             this.TimeTakenMsecs = timeTakenMsecs;
-            this.AttributeRestoreInfo = attributeRestoreInfo;
-            this.ErrorMessage = errorMessage;
-            this.Name = name;
-            this.StartTimeUsecs = startTimeUsecs;
-            this.TimeTakenMsecs = timeTakenMsecs;
         }
         
         /// <summary>
         /// Specifies the list of attributes of the AD object whose restore failed.
         /// </summary>
         /// <value>Specifies the list of attributes of the AD object whose restore failed.</value>
-        [DataMember(Name="attributeRestoreInfo", EmitDefaultValue=true)]
+        [DataMember(Name="attributeRestoreInfo", EmitDefaultValue=false)]
         public List<AttributeRestoreInformation> AttributeRestoreInfo { get; set; }
 
         /// <summary>
         /// Specifies the error message while restoring the AD Object.
         /// </summary>
         /// <value>Specifies the error message while restoring the AD Object.</value>
-        [DataMember(Name="errorMessage", EmitDefaultValue=true)]
+        [DataMember(Name="errorMessage", EmitDefaultValue=false)]
         public string ErrorMessage { get; set; }
 
         /// <summary>
         /// Specifies the name of the AD object.
         /// </summary>
         /// <value>Specifies the name of the AD object.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
 
         /// <summary>
         /// Specifies the start time of the restore of the AD object specified as a Unix epoch Timestamp(in microseconds).
         /// </summary>
         /// <value>Specifies the start time of the restore of the AD object specified as a Unix epoch Timestamp(in microseconds).</value>
-        [DataMember(Name="startTimeUsecs", EmitDefaultValue=true)]
+        [DataMember(Name="startTimeUsecs", EmitDefaultValue=false)]
         public long? StartTimeUsecs { get; set; }
 
         /// <summary>
         /// Specifies the time taken for restore of AD Object and its attributes in milliseconds.
         /// </summary>
         /// <value>Specifies the time taken for restore of AD Object and its attributes in milliseconds.</value>
-        [DataMember(Name="timeTakenMsecs", EmitDefaultValue=true)]
+        [DataMember(Name="timeTakenMsecs", EmitDefaultValue=false)]
         public int? TimeTakenMsecs { get; set; }
 
         /// <summary>
@@ -116,8 +114,7 @@ namespace Cohesity.Model
                 (
                     this.AttributeRestoreInfo == input.AttributeRestoreInfo ||
                     this.AttributeRestoreInfo != null &&
-                    input.AttributeRestoreInfo != null &&
-                    this.AttributeRestoreInfo.SequenceEqual(input.AttributeRestoreInfo)
+                    this.AttributeRestoreInfo.Equals(input.AttributeRestoreInfo)
                 ) && 
                 (
                     this.ErrorMessage == input.ErrorMessage ||

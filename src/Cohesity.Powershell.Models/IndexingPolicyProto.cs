@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,30 +34,27 @@ namespace Cohesity.Model
             this.AllowPrefixes = allowPrefixes;
             this.DenyPrefixes = denyPrefixes;
             this.DisableIndexing = disableIndexing;
-            this.AllowPrefixes = allowPrefixes;
-            this.DenyPrefixes = denyPrefixes;
-            this.DisableIndexing = disableIndexing;
         }
         
         /// <summary>
         /// List of directory prefixes to allow for indexing.
         /// </summary>
         /// <value>List of directory prefixes to allow for indexing.</value>
-        [DataMember(Name="allowPrefixes", EmitDefaultValue=true)]
+        [DataMember(Name="allowPrefixes", EmitDefaultValue=false)]
         public List<string> AllowPrefixes { get; set; }
 
         /// <summary>
         /// List of directory prefixes to filter out.
         /// </summary>
         /// <value>List of directory prefixes to filter out.</value>
-        [DataMember(Name="denyPrefixes", EmitDefaultValue=true)]
+        [DataMember(Name="denyPrefixes", EmitDefaultValue=false)]
         public List<string> DenyPrefixes { get; set; }
 
         /// <summary>
         /// If this field is set all the files in the VM will be filtered.
         /// </summary>
         /// <value>If this field is set all the files in the VM will be filtered.</value>
-        [DataMember(Name="disableIndexing", EmitDefaultValue=true)]
+        [DataMember(Name="disableIndexing", EmitDefaultValue=false)]
         public bool? DisableIndexing { get; set; }
 
         /// <summary>
@@ -96,14 +96,12 @@ namespace Cohesity.Model
                 (
                     this.AllowPrefixes == input.AllowPrefixes ||
                     this.AllowPrefixes != null &&
-                    input.AllowPrefixes != null &&
-                    this.AllowPrefixes.SequenceEqual(input.AllowPrefixes)
+                    this.AllowPrefixes.Equals(input.AllowPrefixes)
                 ) && 
                 (
                     this.DenyPrefixes == input.DenyPrefixes ||
                     this.DenyPrefixes != null &&
-                    input.DenyPrefixes != null &&
-                    this.DenyPrefixes.SequenceEqual(input.DenyPrefixes)
+                    this.DenyPrefixes.Equals(input.DenyPrefixes)
                 ) && 
                 (
                     this.DisableIndexing == input.DisableIndexing ||

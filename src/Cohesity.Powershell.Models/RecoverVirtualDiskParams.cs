@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,9 +34,6 @@ namespace Cohesity.Model
         {
             this.PowerOffVmBeforeRecovery = powerOffVmBeforeRecovery;
             this.PowerOnVmAfterRecovery = powerOnVmAfterRecovery;
-            this.VirtualDiskMappings = virtualDiskMappings;
-            this.PowerOffVmBeforeRecovery = powerOffVmBeforeRecovery;
-            this.PowerOnVmAfterRecovery = powerOnVmAfterRecovery;
             this.TargetEntity = targetEntity;
             this.VirtualDiskMappings = virtualDiskMappings;
         }
@@ -42,14 +42,14 @@ namespace Cohesity.Model
         /// Whether to power-off the VM before recovering virtual disks.
         /// </summary>
         /// <value>Whether to power-off the VM before recovering virtual disks.</value>
-        [DataMember(Name="powerOffVmBeforeRecovery", EmitDefaultValue=true)]
+        [DataMember(Name="powerOffVmBeforeRecovery", EmitDefaultValue=false)]
         public bool? PowerOffVmBeforeRecovery { get; set; }
 
         /// <summary>
         /// Whether to power-on the VM after recovering virtual disks.
         /// </summary>
         /// <value>Whether to power-on the VM after recovering virtual disks.</value>
-        [DataMember(Name="powerOnVmAfterRecovery", EmitDefaultValue=true)]
+        [DataMember(Name="powerOnVmAfterRecovery", EmitDefaultValue=false)]
         public bool? PowerOnVmAfterRecovery { get; set; }
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace Cohesity.Model
         /// <summary>
         /// Gets or Sets VirtualDiskMappings
         /// </summary>
-        [DataMember(Name="virtualDiskMappings", EmitDefaultValue=true)]
+        [DataMember(Name="virtualDiskMappings", EmitDefaultValue=false)]
         public List<RecoverVirtualDiskParamsVirtualDiskMapping> VirtualDiskMappings { get; set; }
 
         /// <summary>
@@ -118,8 +118,7 @@ namespace Cohesity.Model
                 (
                     this.VirtualDiskMappings == input.VirtualDiskMappings ||
                     this.VirtualDiskMappings != null &&
-                    input.VirtualDiskMappings != null &&
-                    this.VirtualDiskMappings.SequenceEqual(input.VirtualDiskMappings)
+                    this.VirtualDiskMappings.Equals(input.VirtualDiskMappings)
                 );
         }
 

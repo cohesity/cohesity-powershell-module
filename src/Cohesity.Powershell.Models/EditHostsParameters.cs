@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,14 +30,13 @@ namespace Cohesity.Model
         public EditHostsParameters(List<HostEntry> hosts = default(List<HostEntry>))
         {
             this.Hosts = hosts;
-            this.Hosts = hosts;
         }
         
         /// <summary>
         /// Specifies the list of host entries to be edited. Each IP address listed in the list of host entries will have its corresponding domain names in the /etc/hosts file replaced with the domain names specified here.
         /// </summary>
         /// <value>Specifies the list of host entries to be edited. Each IP address listed in the list of host entries will have its corresponding domain names in the /etc/hosts file replaced with the domain names specified here.</value>
-        [DataMember(Name="hosts", EmitDefaultValue=true)]
+        [DataMember(Name="hosts", EmitDefaultValue=false)]
         public List<HostEntry> Hosts { get; set; }
 
         /// <summary>
@@ -76,8 +78,7 @@ namespace Cohesity.Model
                 (
                     this.Hosts == input.Hosts ||
                     this.Hosts != null &&
-                    input.Hosts != null &&
-                    this.Hosts.SequenceEqual(input.Hosts)
+                    this.Hosts.Equals(input.Hosts)
                 );
         }
 

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,7 +30,6 @@ namespace Cohesity.Model
         /// <param name="jarUploadPath">Path where Jars can be uploaded by Iris..</param>
         public GetMRJarUploadPathResult(ErrorProto error = default(ErrorProto), string jarUploadPath = default(string))
         {
-            this.JarUploadPath = jarUploadPath;
             this.Error = error;
             this.JarUploadPath = jarUploadPath;
         }
@@ -42,7 +44,7 @@ namespace Cohesity.Model
         /// Path where Jars can be uploaded by Iris.
         /// </summary>
         /// <value>Path where Jars can be uploaded by Iris.</value>
-        [DataMember(Name="jarUploadPath", EmitDefaultValue=true)]
+        [DataMember(Name="jarUploadPath", EmitDefaultValue=false)]
         public string JarUploadPath { get; set; }
 
         /// <summary>

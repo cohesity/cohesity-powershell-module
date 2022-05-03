@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -33,38 +36,34 @@ namespace Cohesity.Model
             this.ServerName = serverName;
             this.Target = target;
             this.UserName = userName;
-            this.Password = password;
-            this.ServerName = serverName;
-            this.Target = target;
-            this.UserName = userName;
         }
         
         /// <summary>
         /// Specifies the password of the host to establish SSH connection. The certificate is copied to the host after generating the certificate on the cluster.
         /// </summary>
         /// <value>Specifies the password of the host to establish SSH connection. The certificate is copied to the host after generating the certificate on the cluster.</value>
-        [DataMember(Name="password", EmitDefaultValue=true)]
+        [DataMember(Name="password", EmitDefaultValue=false)]
         public string Password { get; set; }
 
         /// <summary>
         /// Specifies the servername of the host where certificate is to be deployed.
         /// </summary>
         /// <value>Specifies the servername of the host where certificate is to be deployed.</value>
-        [DataMember(Name="serverName", EmitDefaultValue=true)]
+        [DataMember(Name="serverName", EmitDefaultValue=false)]
         public string ServerName { get; set; }
 
         /// <summary>
         /// Specifies the target location on the host where the certificate is deployed.
         /// </summary>
         /// <value>Specifies the target location on the host where the certificate is deployed.</value>
-        [DataMember(Name="target", EmitDefaultValue=true)]
+        [DataMember(Name="target", EmitDefaultValue=false)]
         public string Target { get; set; }
 
         /// <summary>
         /// Specifies the username of the host.
         /// </summary>
         /// <value>Specifies the username of the host.</value>
-        [DataMember(Name="userName", EmitDefaultValue=true)]
+        [DataMember(Name="userName", EmitDefaultValue=false)]
         public string UserName { get; set; }
 
         /// <summary>

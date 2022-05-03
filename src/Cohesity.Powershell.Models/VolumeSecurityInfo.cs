@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -49,25 +52,7 @@ namespace Cohesity.Model
             /// Enum KUnified for value: kUnified
             /// </summary>
             [EnumMember(Value = "kUnified")]
-            KUnified = 4,
-
-            /// <summary>
-            /// Enum kDataProtection for value: kDataProtection
-            /// </summary>
-            [EnumMember(Value = "kDataProtection")]
-            kDataProtection = 5,
-
-            /// <summary>
-            /// Enum kDataCache for value: kDataCache
-            /// </summary>
-            [EnumMember(Value = "kDataCache")]
-            kDataCache = 6,
-
-            /// <summary>
-            /// Enum kLoadSharing for value: kLoadSharing
-            /// </summary>
-            [EnumMember(Value = "kLoadSharing")]
-            kLoadSharing = 7
+            KUnified = 4
 
         }
 
@@ -75,7 +60,7 @@ namespace Cohesity.Model
         /// Specifies the security style associated with this volume. Specifies the type of a NetApp Volume. &#39;kUnix&#39; indicates Unix-style security. &#39;kNtfs&#39; indicates Windows NTFS-style security. &#39;kMixed&#39; indicates mixed-style security. &#39;kUnified&#39; indicates Unified-style security.
         /// </summary>
         /// <value>Specifies the security style associated with this volume. Specifies the type of a NetApp Volume. &#39;kUnix&#39; indicates Unix-style security. &#39;kNtfs&#39; indicates Windows NTFS-style security. &#39;kMixed&#39; indicates mixed-style security. &#39;kUnified&#39; indicates Unified-style security.</value>
-        [DataMember(Name="style", EmitDefaultValue=true)]
+        [DataMember(Name="style", EmitDefaultValue=false)]
         public StyleEnum? Style { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="VolumeSecurityInfo" /> class.
@@ -90,31 +75,28 @@ namespace Cohesity.Model
             this.Permissions = permissions;
             this.Style = style;
             this.UserId = userId;
-            this.GroupId = groupId;
-            this.Permissions = permissions;
-            this.Style = style;
-            this.UserId = userId;
         }
         
         /// <summary>
         /// Specifies the Unix group ID for this volume. 0 indicates the root id.
         /// </summary>
         /// <value>Specifies the Unix group ID for this volume. 0 indicates the root id.</value>
-        [DataMember(Name="groupId", EmitDefaultValue=true)]
+        [DataMember(Name="groupId", EmitDefaultValue=false)]
         public int? GroupId { get; set; }
 
         /// <summary>
         /// Specifies the Unix permission bits in octal string format.
         /// </summary>
         /// <value>Specifies the Unix permission bits in octal string format.</value>
-        [DataMember(Name="permissions", EmitDefaultValue=true)]
+        [DataMember(Name="permissions", EmitDefaultValue=false)]
         public string Permissions { get; set; }
+
 
         /// <summary>
         /// Specifies the Unix user id for this volume. 0 indicates the root id.
         /// </summary>
         /// <value>Specifies the Unix user id for this volume. 0 indicates the root id.</value>
-        [DataMember(Name="userId", EmitDefaultValue=true)]
+        [DataMember(Name="userId", EmitDefaultValue=false)]
         public int? UserId { get; set; }
 
         /// <summary>
@@ -165,7 +147,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.Style == input.Style ||
-                    this.Style.Equals(input.Style)
+                    (this.Style != null &&
+                    this.Style.Equals(input.Style))
                 ) && 
                 (
                     this.UserId == input.UserId ||
@@ -187,7 +170,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.GroupId.GetHashCode();
                 if (this.Permissions != null)
                     hashCode = hashCode * 59 + this.Permissions.GetHashCode();
-                hashCode = hashCode * 59 + this.Style.GetHashCode();
+                if (this.Style != null)
+                    hashCode = hashCode * 59 + this.Style.GetHashCode();
                 if (this.UserId != null)
                     hashCode = hashCode * 59 + this.UserId.GetHashCode();
                 return hashCode;

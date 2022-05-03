@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -51,7 +54,7 @@ namespace Cohesity.Model
         /// Specifies the flags related to the attribute values of the AD object. &#39;kError&#39; indicates error in conversion of AD Object value to string. The value in the AdAttributValue contains the error message. &#39;kTruncated&#39; indicates the multi valued attribute is truncated when value exceeded &#39;truncate_multivalues&#39; value specified in the request. &#39;kCSV&#39; indicates content in &#39;values&#39; is a comma separated value (CSV) format of a complex object.
         /// </summary>
         /// <value>Specifies the flags related to the attribute values of the AD object. &#39;kError&#39; indicates error in conversion of AD Object value to string. The value in the AdAttributValue contains the error message. &#39;kTruncated&#39; indicates the multi valued attribute is truncated when value exceeded &#39;truncate_multivalues&#39; value specified in the request. &#39;kCSV&#39; indicates content in &#39;values&#39; is a comma separated value (CSV) format of a complex object.</value>
-        [DataMember(Name="flags", EmitDefaultValue=true)]
+        [DataMember(Name="flags", EmitDefaultValue=false)]
         public List<FlagsEnum> Flags { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="AttributeValue" /> class.
@@ -62,15 +65,14 @@ namespace Cohesity.Model
         {
             this.Flags = flags;
             this.Values = values;
-            this.Flags = flags;
-            this.Values = values;
         }
         
+
         /// <summary>
         /// Specifies list of values for the attribute.
         /// </summary>
         /// <value>Specifies list of values for the attribute.</value>
-        [DataMember(Name="values", EmitDefaultValue=true)]
+        [DataMember(Name="values", EmitDefaultValue=false)]
         public List<string> Values { get; set; }
 
         /// <summary>
@@ -111,13 +113,13 @@ namespace Cohesity.Model
             return 
                 (
                     this.Flags == input.Flags ||
-                    this.Flags.SequenceEqual(input.Flags)
+                    this.Flags != null &&
+                    this.Flags.Equals(input.Flags)
                 ) && 
                 (
                     this.Values == input.Values ||
                     this.Values != null &&
-                    input.Values != null &&
-                    this.Values.SequenceEqual(input.Values)
+                    this.Values.Equals(input.Values)
                 );
         }
 
@@ -130,7 +132,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                hashCode = hashCode * 59 + this.Flags.GetHashCode();
+                if (this.Flags != null)
+                    hashCode = hashCode * 59 + this.Flags.GetHashCode();
                 if (this.Values != null)
                     hashCode = hashCode * 59 + this.Values.GetHashCode();
                 return hashCode;

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -45,7 +48,7 @@ namespace Cohesity.Model
         /// Specifies the mode of the file lock. &#39;kCompliance&#39;, &#39;kEnterprise&#39;. A lock mode of a file in a view can be in one of the following:  &#39;kCompliance&#39;: Default mode of datalock, in this mode, Data Security Admin cannot modify/delete this view when datalock is in effect. Data Security Admin can delete this view when datalock is expired. &#39;kEnterprise&#39; : In this mode, Data Security Admin can change view name or delete view when datalock is in effect. Datalock in this mode can be upgraded to &#39;kCompliance&#39; mode.
         /// </summary>
         /// <value>Specifies the mode of the file lock. &#39;kCompliance&#39;, &#39;kEnterprise&#39;. A lock mode of a file in a view can be in one of the following:  &#39;kCompliance&#39;: Default mode of datalock, in this mode, Data Security Admin cannot modify/delete this view when datalock is in effect. Data Security Admin can delete this view when datalock is expired. &#39;kEnterprise&#39; : In this mode, Data Security Admin can change view name or delete view when datalock is in effect. Datalock in this mode can be upgraded to &#39;kCompliance&#39; mode.</value>
-        [DataMember(Name="mode", EmitDefaultValue=true)]
+        [DataMember(Name="mode", EmitDefaultValue=false)]
         public ModeEnum? Mode { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="FileLockStatus" /> class.
@@ -62,39 +65,35 @@ namespace Cohesity.Model
             this.LockTimestampMsecs = lockTimestampMsecs;
             this.Mode = mode;
             this.State = state;
-            this.ExpiryTimestampMsecs = expiryTimestampMsecs;
-            this.HoldTimestampMsecs = holdTimestampMsecs;
-            this.LockTimestampMsecs = lockTimestampMsecs;
-            this.Mode = mode;
-            this.State = state;
         }
         
         /// <summary>
         /// Specifies a expiry timestamp in milliseconds until the file is locked.
         /// </summary>
         /// <value>Specifies a expiry timestamp in milliseconds until the file is locked.</value>
-        [DataMember(Name="expiryTimestampMsecs", EmitDefaultValue=true)]
+        [DataMember(Name="expiryTimestampMsecs", EmitDefaultValue=false)]
         public long? ExpiryTimestampMsecs { get; set; }
 
         /// <summary>
         /// Specifies a override timestamp in milliseconds when an expired file is kept on hold.
         /// </summary>
         /// <value>Specifies a override timestamp in milliseconds when an expired file is kept on hold.</value>
-        [DataMember(Name="holdTimestampMsecs", EmitDefaultValue=true)]
+        [DataMember(Name="holdTimestampMsecs", EmitDefaultValue=false)]
         public long? HoldTimestampMsecs { get; set; }
 
         /// <summary>
         /// Specifies the timestamp at which the file was locked.
         /// </summary>
         /// <value>Specifies the timestamp at which the file was locked.</value>
-        [DataMember(Name="lockTimestampMsecs", EmitDefaultValue=true)]
+        [DataMember(Name="lockTimestampMsecs", EmitDefaultValue=false)]
         public long? LockTimestampMsecs { get; set; }
+
 
         /// <summary>
         /// Specifies the lock state of the file.
         /// </summary>
         /// <value>Specifies the lock state of the file.</value>
-        [DataMember(Name="state", EmitDefaultValue=true)]
+        [DataMember(Name="state", EmitDefaultValue=false)]
         public int? State { get; set; }
 
         /// <summary>
@@ -150,7 +149,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.Mode == input.Mode ||
-                    this.Mode.Equals(input.Mode)
+                    (this.Mode != null &&
+                    this.Mode.Equals(input.Mode))
                 ) && 
                 (
                     this.State == input.State ||
@@ -174,7 +174,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.HoldTimestampMsecs.GetHashCode();
                 if (this.LockTimestampMsecs != null)
                     hashCode = hashCode * 59 + this.LockTimestampMsecs.GetHashCode();
-                hashCode = hashCode * 59 + this.Mode.GetHashCode();
+                if (this.Mode != null)
+                    hashCode = hashCode * 59 + this.Mode.GetHashCode();
                 if (this.State != null)
                     hashCode = hashCode * 59 + this.State.GetHashCode();
                 return hashCode;

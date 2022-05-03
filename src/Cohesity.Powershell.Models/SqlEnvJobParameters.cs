@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -57,7 +60,7 @@ namespace Cohesity.Model
         /// Specifies the preference for backing up databases that are part of an AAG. Only applicable if &#39;aagPreferenceFromSqlServer&#39; is set to false or not given. kPrimaryReplicaOnly implies backups should always occur on the primary replica. kSecondaryReplicaOnly implies backups should always occur on the secondary replica. kPreferSecondaryReplica implies secondary replica is preferred for backups. kAnyReplica implies no preference of about whether backups are performed on the primary replica or on a secondary replica. If no secondary replica is available, then performing backups on the primary replica is acceptable.
         /// </summary>
         /// <value>Specifies the preference for backing up databases that are part of an AAG. Only applicable if &#39;aagPreferenceFromSqlServer&#39; is set to false or not given. kPrimaryReplicaOnly implies backups should always occur on the primary replica. kSecondaryReplicaOnly implies backups should always occur on the secondary replica. kPreferSecondaryReplica implies secondary replica is preferred for backups. kAnyReplica implies no preference of about whether backups are performed on the primary replica or on a secondary replica. If no secondary replica is available, then performing backups on the primary replica is acceptable.</value>
-        [DataMember(Name="aagPreference", EmitDefaultValue=true)]
+        [DataMember(Name="aagPreference", EmitDefaultValue=false)]
         public AagPreferenceEnum? AagPreference { get; set; }
         /// <summary>
         /// Specifies the type of the &#39;kFull&#39; backup job. Specifies whether it is Volume level backup or individual files level backup. kSqlVSSVolume implies volume based VSS full backup. kSqlVSSFile implies file based VSS full backup.
@@ -90,7 +93,7 @@ namespace Cohesity.Model
         /// Specifies the type of the &#39;kFull&#39; backup job. Specifies whether it is Volume level backup or individual files level backup. kSqlVSSVolume implies volume based VSS full backup. kSqlVSSFile implies file based VSS full backup.
         /// </summary>
         /// <value>Specifies the type of the &#39;kFull&#39; backup job. Specifies whether it is Volume level backup or individual files level backup. kSqlVSSVolume implies volume based VSS full backup. kSqlVSSFile implies file based VSS full backup.</value>
-        [DataMember(Name="backupType", EmitDefaultValue=true)]
+        [DataMember(Name="backupType", EmitDefaultValue=false)]
         public BackupTypeEnum? BackupType { get; set; }
         /// <summary>
         /// Specifies the preference for backing up user databases on the host. kBackupAllDatabases implies to backup all databases. kBackupAllExceptAAGDatabases implies not to backup AAG databases. kBackupOnlyAAGDatabases implies to backup only AAG databases.
@@ -123,7 +126,7 @@ namespace Cohesity.Model
         /// Specifies the preference for backing up user databases on the host. kBackupAllDatabases implies to backup all databases. kBackupAllExceptAAGDatabases implies not to backup AAG databases. kBackupOnlyAAGDatabases implies to backup only AAG databases.
         /// </summary>
         /// <value>Specifies the preference for backing up user databases on the host. kBackupAllDatabases implies to backup all databases. kBackupAllExceptAAGDatabases implies not to backup AAG databases. kBackupOnlyAAGDatabases implies to backup only AAG databases.</value>
-        [DataMember(Name="userDatabasePreference", EmitDefaultValue=true)]
+        [DataMember(Name="userDatabasePreference", EmitDefaultValue=false)]
         public UserDatabasePreferenceEnum? UserDatabasePreference { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="SqlEnvJobParameters" /> class.
@@ -150,65 +153,58 @@ namespace Cohesity.Model
             this.NumStreams = numStreams;
             this.UserDatabasePreference = userDatabasePreference;
             this.WithClause = withClause;
-            this.AagPreference = aagPreference;
-            this.AagPreferenceFromSqlServer = aagPreferenceFromSqlServer;
-            this.BackupSystemDatabases = backupSystemDatabases;
-            this.BackupType = backupType;
-            this.BackupVolumesOnly = backupVolumesOnly;
-            this.IncrementalSnapshotUponRestart = incrementalSnapshotUponRestart;
-            this.IsCopyOnlyFull = isCopyOnlyFull;
-            this.NumStreams = numStreams;
-            this.UserDatabasePreference = userDatabasePreference;
-            this.WithClause = withClause;
         }
         
+
         /// <summary>
         /// If true, AAG preferences are taken from the SQL server host. If this is set to false or not given, preferences can be overridden by aagBackupPreference.
         /// </summary>
         /// <value>If true, AAG preferences are taken from the SQL server host. If this is set to false or not given, preferences can be overridden by aagBackupPreference.</value>
-        [DataMember(Name="aagPreferenceFromSqlServer", EmitDefaultValue=true)]
+        [DataMember(Name="aagPreferenceFromSqlServer", EmitDefaultValue=false)]
         public bool? AagPreferenceFromSqlServer { get; set; }
 
         /// <summary>
         /// If true, system databases are backed up. If this is set to false, system databases are not backed up. If this field is not specified, default value is true.
         /// </summary>
         /// <value>If true, system databases are backed up. If this is set to false, system databases are not backed up. If this field is not specified, default value is true.</value>
-        [DataMember(Name="backupSystemDatabases", EmitDefaultValue=true)]
+        [DataMember(Name="backupSystemDatabases", EmitDefaultValue=false)]
         public bool? BackupSystemDatabases { get; set; }
+
 
         /// <summary>
         /// If set to true, only the volumes associated with databases should be backed up. The user cannot select additional volumes at host level for backup.  If set to false, all the volumes on the host machine will be backed up. In this case, the user can further select the exact set of volumes using host level params.  Note that the volumes associated with selected databases will always be included in the backup.
         /// </summary>
         /// <value>If set to true, only the volumes associated with databases should be backed up. The user cannot select additional volumes at host level for backup.  If set to false, all the volumes on the host machine will be backed up. In this case, the user can further select the exact set of volumes using host level params.  Note that the volumes associated with selected databases will always be included in the backup.</value>
-        [DataMember(Name="backupVolumesOnly", EmitDefaultValue=true)]
+        [DataMember(Name="backupVolumesOnly", EmitDefaultValue=false)]
         public bool? BackupVolumesOnly { get; set; }
 
         /// <summary>
         /// If true, the backup of type kSqlVssVolume will be incremental after restart
         /// </summary>
         /// <value>If true, the backup of type kSqlVssVolume will be incremental after restart</value>
-        [DataMember(Name="incrementalSnapshotUponRestart", EmitDefaultValue=true)]
+        [DataMember(Name="incrementalSnapshotUponRestart", EmitDefaultValue=false)]
         public bool? IncrementalSnapshotUponRestart { get; set; }
 
         /// <summary>
         /// If true, the backup is a full backup with the copy-only option specified.
         /// </summary>
         /// <value>If true, the backup is a full backup with the copy-only option specified.</value>
-        [DataMember(Name="isCopyOnlyFull", EmitDefaultValue=true)]
+        [DataMember(Name="isCopyOnlyFull", EmitDefaultValue=false)]
         public bool? IsCopyOnlyFull { get; set; }
 
         /// <summary>
         /// Number of streams to be used in native sql backup.
         /// </summary>
         /// <value>Number of streams to be used in native sql backup.</value>
-        [DataMember(Name="numStreams", EmitDefaultValue=true)]
+        [DataMember(Name="numStreams", EmitDefaultValue=false)]
         public int? NumStreams { get; set; }
+
 
         /// <summary>
         /// With clause is used for setting clauese in native sql backup.
         /// </summary>
         /// <value>With clause is used for setting clauese in native sql backup.</value>
-        [DataMember(Name="withClause", EmitDefaultValue=true)]
+        [DataMember(Name="withClause", EmitDefaultValue=false)]
         public string WithClause { get; set; }
 
         /// <summary>
@@ -249,7 +245,8 @@ namespace Cohesity.Model
             return 
                 (
                     this.AagPreference == input.AagPreference ||
-                    this.AagPreference.Equals(input.AagPreference)
+                    (this.AagPreference != null &&
+                    this.AagPreference.Equals(input.AagPreference))
                 ) && 
                 (
                     this.AagPreferenceFromSqlServer == input.AagPreferenceFromSqlServer ||
@@ -263,7 +260,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.BackupType == input.BackupType ||
-                    this.BackupType.Equals(input.BackupType)
+                    (this.BackupType != null &&
+                    this.BackupType.Equals(input.BackupType))
                 ) && 
                 (
                     this.BackupVolumesOnly == input.BackupVolumesOnly ||
@@ -287,7 +285,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.UserDatabasePreference == input.UserDatabasePreference ||
-                    this.UserDatabasePreference.Equals(input.UserDatabasePreference)
+                    (this.UserDatabasePreference != null &&
+                    this.UserDatabasePreference.Equals(input.UserDatabasePreference))
                 ) && 
                 (
                     this.WithClause == input.WithClause ||
@@ -305,12 +304,14 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                hashCode = hashCode * 59 + this.AagPreference.GetHashCode();
+                if (this.AagPreference != null)
+                    hashCode = hashCode * 59 + this.AagPreference.GetHashCode();
                 if (this.AagPreferenceFromSqlServer != null)
                     hashCode = hashCode * 59 + this.AagPreferenceFromSqlServer.GetHashCode();
                 if (this.BackupSystemDatabases != null)
                     hashCode = hashCode * 59 + this.BackupSystemDatabases.GetHashCode();
-                hashCode = hashCode * 59 + this.BackupType.GetHashCode();
+                if (this.BackupType != null)
+                    hashCode = hashCode * 59 + this.BackupType.GetHashCode();
                 if (this.BackupVolumesOnly != null)
                     hashCode = hashCode * 59 + this.BackupVolumesOnly.GetHashCode();
                 if (this.IncrementalSnapshotUponRestart != null)
@@ -319,7 +320,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.IsCopyOnlyFull.GetHashCode();
                 if (this.NumStreams != null)
                     hashCode = hashCode * 59 + this.NumStreams.GetHashCode();
-                hashCode = hashCode * 59 + this.UserDatabasePreference.GetHashCode();
+                if (this.UserDatabasePreference != null)
+                    hashCode = hashCode * 59 + this.UserDatabasePreference.GetHashCode();
                 if (this.WithClause != null)
                     hashCode = hashCode * 59 + this.WithClause.GetHashCode();
                 return hashCode;

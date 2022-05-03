@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -33,38 +36,34 @@ namespace Cohesity.Model
             this.Name = name;
             this.Sid = sid;
             this.Type = type;
-            this.Domain = domain;
-            this.Name = name;
-            this.Sid = sid;
-            this.Type = type;
         }
         
         /// <summary>
         /// Specifies domain name of the principal.
         /// </summary>
         /// <value>Specifies domain name of the principal.</value>
-        [DataMember(Name="domain", EmitDefaultValue=true)]
+        [DataMember(Name="domain", EmitDefaultValue=false)]
         public string Domain { get; set; }
 
         /// <summary>
         /// Specifies name of the SMB principal which may be a group or user.
         /// </summary>
         /// <value>Specifies name of the SMB principal which may be a group or user.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
 
         /// <summary>
         /// Specifies unique Security ID (SID) of the principal that look similar to windows domain SID.
         /// </summary>
         /// <value>Specifies unique Security ID (SID) of the principal that look similar to windows domain SID.</value>
-        [DataMember(Name="sid", EmitDefaultValue=true)]
+        [DataMember(Name="sid", EmitDefaultValue=false)]
         public string Sid { get; set; }
 
         /// <summary>
         /// Specifies the type. This can be a user or a group.
         /// </summary>
         /// <value>Specifies the type. This can be a user or a group.</value>
-        [DataMember(Name="type", EmitDefaultValue=true)]
+        [DataMember(Name="type", EmitDefaultValue=false)]
         public string Type { get; set; }
 
         /// <summary>

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -12,6 +13,8 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
+
+
 namespace Cohesity.Model
 {
     /// <summary>
@@ -23,12 +26,16 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="RestoreFilesParams" /> class.
         /// </summary>
+        /// <param name="blacklistedIpAddrs">A list of target IP addresses that should not be used..</param>
         /// <param name="directoryNameSecurityStyleMap">Directory name security style map contains mapping of the directory name to security style it supports.  This is needed to restore the same permission for the given directory for Qtrees..</param>
         /// <param name="isArchiveFlr">Whether this is a file restore operation from an archive..</param>
         /// <param name="isFileVolumeRestore">Whether this is a file based volume restore..</param>
         /// <param name="isMountBasedFlr">Whether this is a mount based file restore operation.</param>
+        /// <param name="isilonEnvParams">isilonEnvParams.</param>
         /// <param name="mountDisksOnVm">Whether this will attach disks or mount disks on the VM side OR use Storage Proxy RPCs to stream data..</param>
+        /// <param name="nasBackupParams">nasBackupParams.</param>
         /// <param name="nasProtocolTypeVec">The NAS protocol type(s) of this restore task. Currently we only support a single restore type. This field is only populated for NAS restore tasks..</param>
+        /// <param name="physicalFlrParallelRestore">If enabled, magneto physical file restore will be enabled via job framework.</param>
         /// <param name="proxyEntity">proxyEntity.</param>
         /// <param name="proxyEntityParentSource">proxyEntityParentSource.</param>
         /// <param name="restoreFilesPreferences">restoreFilesPreferences.</param>
@@ -42,24 +49,19 @@ namespace Cohesity.Model
         /// <param name="uptierParams">uptierParams.</param>
         /// <param name="useExistingAgent">Whether this will use an existing agent on the target VM to do the restore. This field is deprecated. restore_method should be used for populating use of existing agent..</param>
         /// <param name="vpcConnectorEntity">vpcConnectorEntity.</param>
-        public RestoreFilesParams(List<RestoreFilesParamsDirectoryNameSecurityStyleMapEntry> directoryNameSecurityStyleMap = default(List<RestoreFilesParamsDirectoryNameSecurityStyleMapEntry>), bool? isArchiveFlr = default(bool?), bool? isFileVolumeRestore = default(bool?), bool? isMountBasedFlr = default(bool?), bool? mountDisksOnVm = default(bool?), List<int> nasProtocolTypeVec = default(List<int>), EntityProto proxyEntity = default(EntityProto), EntityProto proxyEntityParentSource = default(EntityProto), RestoreFilesPreferences restoreFilesPreferences = default(RestoreFilesPreferences), int? restoreMethod = default(int?), List<RestoredFileInfo> restoredFileInfoVec = default(List<RestoredFileInfo>), EntityProto targetEntity = default(EntityProto), Credentials targetEntityCredentials = default(Credentials), EntityProto targetEntityParentSource = default(EntityProto), EntityProto targetHostEntity = default(EntityProto), int? targetHostType = default(int?), FileUptieringParams uptierParams = default(FileUptieringParams), bool? useExistingAgent = default(bool?), EntityProto vpcConnectorEntity = default(EntityProto))
+        /// <param name="whitelistedIpAddrs">A list of target IP addresses that should be used exclusively..</param>
+        public RestoreFilesParams(List<string> blacklistedIpAddrs = default(List<string>), List<RestoreFilesParamsDirectoryNameSecurityStyleMapEntry> directoryNameSecurityStyleMap = default(List<RestoreFilesParamsDirectoryNameSecurityStyleMapEntry>), bool? isArchiveFlr = default(bool?), bool? isFileVolumeRestore = default(bool?), bool? isMountBasedFlr = default(bool?), IsilonEnvParams isilonEnvParams = default(IsilonEnvParams), bool? mountDisksOnVm = default(bool?), NasBackupParams nasBackupParams = default(NasBackupParams), List<int?> nasProtocolTypeVec = default(List<int?>), bool? physicalFlrParallelRestore = default(bool?), EntityProto proxyEntity = default(EntityProto), EntityProto proxyEntityParentSource = default(EntityProto), RestoreFilesPreferences restoreFilesPreferences = default(RestoreFilesPreferences), int? restoreMethod = default(int?), List<RestoredFileInfo> restoredFileInfoVec = default(List<RestoredFileInfo>), EntityProto targetEntity = default(EntityProto), Credentials targetEntityCredentials = default(Credentials), EntityProto targetEntityParentSource = default(EntityProto), EntityProto targetHostEntity = default(EntityProto), int? targetHostType = default(int?), FileUptieringParams uptierParams = default(FileUptieringParams), bool? useExistingAgent = default(bool?), EntityProto vpcConnectorEntity = default(EntityProto), List<string> whitelistedIpAddrs = default(List<string>))
         {
+            this.BlacklistedIpAddrs = blacklistedIpAddrs;
             this.DirectoryNameSecurityStyleMap = directoryNameSecurityStyleMap;
             this.IsArchiveFlr = isArchiveFlr;
             this.IsFileVolumeRestore = isFileVolumeRestore;
             this.IsMountBasedFlr = isMountBasedFlr;
+            this.IsilonEnvParams = isilonEnvParams;
             this.MountDisksOnVm = mountDisksOnVm;
+            this.NasBackupParams = nasBackupParams;
             this.NasProtocolTypeVec = nasProtocolTypeVec;
-            this.RestoreMethod = restoreMethod;
-            this.RestoredFileInfoVec = restoredFileInfoVec;
-            this.TargetHostType = targetHostType;
-            this.UseExistingAgent = useExistingAgent;
-            this.DirectoryNameSecurityStyleMap = directoryNameSecurityStyleMap;
-            this.IsArchiveFlr = isArchiveFlr;
-            this.IsFileVolumeRestore = isFileVolumeRestore;
-            this.IsMountBasedFlr = isMountBasedFlr;
-            this.MountDisksOnVm = mountDisksOnVm;
-            this.NasProtocolTypeVec = nasProtocolTypeVec;
+            this.PhysicalFlrParallelRestore = physicalFlrParallelRestore;
             this.ProxyEntity = proxyEntity;
             this.ProxyEntityParentSource = proxyEntityParentSource;
             this.RestoreFilesPreferences = restoreFilesPreferences;
@@ -73,49 +75,76 @@ namespace Cohesity.Model
             this.UptierParams = uptierParams;
             this.UseExistingAgent = useExistingAgent;
             this.VpcConnectorEntity = vpcConnectorEntity;
+            this.WhitelistedIpAddrs = whitelistedIpAddrs;
         }
         
+        /// <summary>
+        /// A list of target IP addresses that should not be used.
+        /// </summary>
+        /// <value>A list of target IP addresses that should not be used.</value>
+        [DataMember(Name="blacklistedIpAddrs", EmitDefaultValue=false)]
+        public List<string> BlacklistedIpAddrs { get; set; }
+
         /// <summary>
         /// Directory name security style map contains mapping of the directory name to security style it supports.  This is needed to restore the same permission for the given directory for Qtrees.
         /// </summary>
         /// <value>Directory name security style map contains mapping of the directory name to security style it supports.  This is needed to restore the same permission for the given directory for Qtrees.</value>
-        [DataMember(Name="directoryNameSecurityStyleMap", EmitDefaultValue=true)]
+        [DataMember(Name="directoryNameSecurityStyleMap", EmitDefaultValue=false)]
         public List<RestoreFilesParamsDirectoryNameSecurityStyleMapEntry> DirectoryNameSecurityStyleMap { get; set; }
 
         /// <summary>
         /// Whether this is a file restore operation from an archive.
         /// </summary>
         /// <value>Whether this is a file restore operation from an archive.</value>
-        [DataMember(Name="isArchiveFlr", EmitDefaultValue=true)]
+        [DataMember(Name="isArchiveFlr", EmitDefaultValue=false)]
         public bool? IsArchiveFlr { get; set; }
 
         /// <summary>
         /// Whether this is a file based volume restore.
         /// </summary>
         /// <value>Whether this is a file based volume restore.</value>
-        [DataMember(Name="isFileVolumeRestore", EmitDefaultValue=true)]
+        [DataMember(Name="isFileVolumeRestore", EmitDefaultValue=false)]
         public bool? IsFileVolumeRestore { get; set; }
 
         /// <summary>
         /// Whether this is a mount based file restore operation
         /// </summary>
         /// <value>Whether this is a mount based file restore operation</value>
-        [DataMember(Name="isMountBasedFlr", EmitDefaultValue=true)]
+        [DataMember(Name="isMountBasedFlr", EmitDefaultValue=false)]
         public bool? IsMountBasedFlr { get; set; }
+
+        /// <summary>
+        /// Gets or Sets IsilonEnvParams
+        /// </summary>
+        [DataMember(Name="isilonEnvParams", EmitDefaultValue=false)]
+        public IsilonEnvParams IsilonEnvParams { get; set; }
 
         /// <summary>
         /// Whether this will attach disks or mount disks on the VM side OR use Storage Proxy RPCs to stream data.
         /// </summary>
         /// <value>Whether this will attach disks or mount disks on the VM side OR use Storage Proxy RPCs to stream data.</value>
-        [DataMember(Name="mountDisksOnVm", EmitDefaultValue=true)]
+        [DataMember(Name="mountDisksOnVm", EmitDefaultValue=false)]
         public bool? MountDisksOnVm { get; set; }
+
+        /// <summary>
+        /// Gets or Sets NasBackupParams
+        /// </summary>
+        [DataMember(Name="nasBackupParams", EmitDefaultValue=false)]
+        public NasBackupParams NasBackupParams { get; set; }
 
         /// <summary>
         /// The NAS protocol type(s) of this restore task. Currently we only support a single restore type. This field is only populated for NAS restore tasks.
         /// </summary>
         /// <value>The NAS protocol type(s) of this restore task. Currently we only support a single restore type. This field is only populated for NAS restore tasks.</value>
-        [DataMember(Name="nasProtocolTypeVec", EmitDefaultValue=true)]
-        public List<int> NasProtocolTypeVec { get; set; }
+        [DataMember(Name="nasProtocolTypeVec", EmitDefaultValue=false)]
+        public List<int?> NasProtocolTypeVec { get; set; }
+
+        /// <summary>
+        /// If enabled, magneto physical file restore will be enabled via job framework
+        /// </summary>
+        /// <value>If enabled, magneto physical file restore will be enabled via job framework</value>
+        [DataMember(Name="physicalFlrParallelRestore", EmitDefaultValue=false)]
+        public bool? PhysicalFlrParallelRestore { get; set; }
 
         /// <summary>
         /// Gets or Sets ProxyEntity
@@ -139,14 +168,14 @@ namespace Cohesity.Model
         /// Determines the type of method to be used to perform FLR.
         /// </summary>
         /// <value>Determines the type of method to be used to perform FLR.</value>
-        [DataMember(Name="restoreMethod", EmitDefaultValue=true)]
+        [DataMember(Name="restoreMethod", EmitDefaultValue=false)]
         public int? RestoreMethod { get; set; }
 
         /// <summary>
         /// Information regarding files and directories.
         /// </summary>
         /// <value>Information regarding files and directories.</value>
-        [DataMember(Name="restoredFileInfoVec", EmitDefaultValue=true)]
+        [DataMember(Name="restoredFileInfoVec", EmitDefaultValue=false)]
         public List<RestoredFileInfo> RestoredFileInfoVec { get; set; }
 
         /// <summary>
@@ -177,7 +206,7 @@ namespace Cohesity.Model
         /// The host environment type. This is set in VMware environment to indicate the OS type of the target entity. NOTE: This is expected to be set since magneto does not know the host type for VMware entities.
         /// </summary>
         /// <value>The host environment type. This is set in VMware environment to indicate the OS type of the target entity. NOTE: This is expected to be set since magneto does not know the host type for VMware entities.</value>
-        [DataMember(Name="targetHostType", EmitDefaultValue=true)]
+        [DataMember(Name="targetHostType", EmitDefaultValue=false)]
         public int? TargetHostType { get; set; }
 
         /// <summary>
@@ -190,7 +219,7 @@ namespace Cohesity.Model
         /// Whether this will use an existing agent on the target VM to do the restore. This field is deprecated. restore_method should be used for populating use of existing agent.
         /// </summary>
         /// <value>Whether this will use an existing agent on the target VM to do the restore. This field is deprecated. restore_method should be used for populating use of existing agent.</value>
-        [DataMember(Name="useExistingAgent", EmitDefaultValue=true)]
+        [DataMember(Name="useExistingAgent", EmitDefaultValue=false)]
         public bool? UseExistingAgent { get; set; }
 
         /// <summary>
@@ -198,6 +227,13 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="vpcConnectorEntity", EmitDefaultValue=false)]
         public EntityProto VpcConnectorEntity { get; set; }
+
+        /// <summary>
+        /// A list of target IP addresses that should be used exclusively.
+        /// </summary>
+        /// <value>A list of target IP addresses that should be used exclusively.</value>
+        [DataMember(Name="whitelistedIpAddrs", EmitDefaultValue=false)]
+        public List<string> WhitelistedIpAddrs { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -236,10 +272,14 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.BlacklistedIpAddrs == input.BlacklistedIpAddrs ||
+                    this.BlacklistedIpAddrs != null &&
+                    this.BlacklistedIpAddrs.Equals(input.BlacklistedIpAddrs)
+                ) && 
+                (
                     this.DirectoryNameSecurityStyleMap == input.DirectoryNameSecurityStyleMap ||
                     this.DirectoryNameSecurityStyleMap != null &&
-                    input.DirectoryNameSecurityStyleMap != null &&
-                    this.DirectoryNameSecurityStyleMap.SequenceEqual(input.DirectoryNameSecurityStyleMap)
+                    this.DirectoryNameSecurityStyleMap.Equals(input.DirectoryNameSecurityStyleMap)
                 ) && 
                 (
                     this.IsArchiveFlr == input.IsArchiveFlr ||
@@ -257,15 +297,29 @@ namespace Cohesity.Model
                     this.IsMountBasedFlr.Equals(input.IsMountBasedFlr))
                 ) && 
                 (
+                    this.IsilonEnvParams == input.IsilonEnvParams ||
+                    (this.IsilonEnvParams != null &&
+                    this.IsilonEnvParams.Equals(input.IsilonEnvParams))
+                ) && 
+                (
                     this.MountDisksOnVm == input.MountDisksOnVm ||
                     (this.MountDisksOnVm != null &&
                     this.MountDisksOnVm.Equals(input.MountDisksOnVm))
                 ) && 
                 (
+                    this.NasBackupParams == input.NasBackupParams ||
+                    (this.NasBackupParams != null &&
+                    this.NasBackupParams.Equals(input.NasBackupParams))
+                ) && 
+                (
                     this.NasProtocolTypeVec == input.NasProtocolTypeVec ||
                     this.NasProtocolTypeVec != null &&
-                    input.NasProtocolTypeVec != null &&
-                    this.NasProtocolTypeVec.SequenceEqual(input.NasProtocolTypeVec)
+                    this.NasProtocolTypeVec.Equals(input.NasProtocolTypeVec)
+                ) && 
+                (
+                    this.PhysicalFlrParallelRestore == input.PhysicalFlrParallelRestore ||
+                    (this.PhysicalFlrParallelRestore != null &&
+                    this.PhysicalFlrParallelRestore.Equals(input.PhysicalFlrParallelRestore))
                 ) && 
                 (
                     this.ProxyEntity == input.ProxyEntity ||
@@ -290,8 +344,7 @@ namespace Cohesity.Model
                 (
                     this.RestoredFileInfoVec == input.RestoredFileInfoVec ||
                     this.RestoredFileInfoVec != null &&
-                    input.RestoredFileInfoVec != null &&
-                    this.RestoredFileInfoVec.SequenceEqual(input.RestoredFileInfoVec)
+                    this.RestoredFileInfoVec.Equals(input.RestoredFileInfoVec)
                 ) && 
                 (
                     this.TargetEntity == input.TargetEntity ||
@@ -332,6 +385,11 @@ namespace Cohesity.Model
                     this.VpcConnectorEntity == input.VpcConnectorEntity ||
                     (this.VpcConnectorEntity != null &&
                     this.VpcConnectorEntity.Equals(input.VpcConnectorEntity))
+                ) && 
+                (
+                    this.WhitelistedIpAddrs == input.WhitelistedIpAddrs ||
+                    this.WhitelistedIpAddrs != null &&
+                    this.WhitelistedIpAddrs.Equals(input.WhitelistedIpAddrs)
                 );
         }
 
@@ -344,6 +402,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.BlacklistedIpAddrs != null)
+                    hashCode = hashCode * 59 + this.BlacklistedIpAddrs.GetHashCode();
                 if (this.DirectoryNameSecurityStyleMap != null)
                     hashCode = hashCode * 59 + this.DirectoryNameSecurityStyleMap.GetHashCode();
                 if (this.IsArchiveFlr != null)
@@ -352,10 +412,16 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.IsFileVolumeRestore.GetHashCode();
                 if (this.IsMountBasedFlr != null)
                     hashCode = hashCode * 59 + this.IsMountBasedFlr.GetHashCode();
+                if (this.IsilonEnvParams != null)
+                    hashCode = hashCode * 59 + this.IsilonEnvParams.GetHashCode();
                 if (this.MountDisksOnVm != null)
                     hashCode = hashCode * 59 + this.MountDisksOnVm.GetHashCode();
+                if (this.NasBackupParams != null)
+                    hashCode = hashCode * 59 + this.NasBackupParams.GetHashCode();
                 if (this.NasProtocolTypeVec != null)
                     hashCode = hashCode * 59 + this.NasProtocolTypeVec.GetHashCode();
+                if (this.PhysicalFlrParallelRestore != null)
+                    hashCode = hashCode * 59 + this.PhysicalFlrParallelRestore.GetHashCode();
                 if (this.ProxyEntity != null)
                     hashCode = hashCode * 59 + this.ProxyEntity.GetHashCode();
                 if (this.ProxyEntityParentSource != null)
@@ -382,6 +448,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.UseExistingAgent.GetHashCode();
                 if (this.VpcConnectorEntity != null)
                     hashCode = hashCode * 59 + this.VpcConnectorEntity.GetHashCode();
+                if (this.WhitelistedIpAddrs != null)
+                    hashCode = hashCode * 59 + this.WhitelistedIpAddrs.GetHashCode();
                 return hashCode;
             }
         }

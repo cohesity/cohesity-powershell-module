@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,7 +30,7 @@ namespace Cohesity.Model
         /// <param name="cloudDataWrittenBytesTimestampUsec">Specifies Timestamp of CloudDataWrittenBytes..</param>
         /// <param name="cloudTotalPhysicalUsageBytes">Specifies the total cloud capacity, as computed by the Cohesity Cluster, after the size of the data has been reduced by change-block tracking, compression and deduplication..</param>
         /// <param name="cloudTotalPhysicalUsageBytesTimestampUsec">Specifies Timestamp of CloudTotalPhysicalUsageBytes..</param>
-        /// <param name="dataInBytes">Specifies the data brought into the cluster. This is the usage before data reduction..</param>
+        /// <param name="dataInBytes">Specifies the data read from the protected objects by the Cohesity Cluster before any data reduction using deduplication and compression..</param>
         /// <param name="dataInBytesAfterDedup">Specifies the size of the data has been reduced by change-block tracking and deduplication but before compression or data is replicated to other nodes as per RF or Erasure Coding policy..</param>
         /// <param name="dataInBytesAfterDedupTimestampUsec">Specifies Timestamp of DataInBytesAfterDedup..</param>
         /// <param name="dataInBytesTimestampUsec">Specifies Timestamp of DataInBytes..</param>
@@ -35,7 +38,7 @@ namespace Cohesity.Model
         /// <param name="dataProtectLogicalUsageBytesTimestampUsec">Specifies Timestamp of DataProtectLogicalUsageBytes..</param>
         /// <param name="dataProtectPhysicalUsageBytes">Specifies the physical data used by Data Protect on Cohesity cluster..</param>
         /// <param name="dataProtectPhysicalUsageBytesTimestampUsec">Specifies Timestamp of DataProtectPhysicalUsageBytes..</param>
-        /// <param name="dataWrittenBytes">Specifies the total data written on local and cloud tiers, as computed by the Cohesity Cluster, after the size of the data has been reduced by change-block tracking, deduplication and compression. This does not include resiliency impact..</param>
+        /// <param name="dataWrittenBytes">Specifies the data written after it has been reduced by deduplication and compression. This does not include resiliency impact..</param>
         /// <param name="dataWrittenBytesTimestampUsec">Specifies Timestamp of DataWrittenBytes..</param>
         /// <param name="fileServicesLogicalUsageBytes">Specifies the logical data used by File services on Cohesity cluster..</param>
         /// <param name="fileServicesLogicalUsageBytesTimestampUsec">Specifies Timestamp of FileServicesLogicalUsageBytes..</param>
@@ -49,11 +52,13 @@ namespace Cohesity.Model
         /// <param name="localTotalPhysicalUsageBytesTimestampUsec">Specifies Timestamp of LocalTotalPhysicalUsageBytes..</param>
         /// <param name="outdatedLogicalUsageBytesTimestampUsec">Specifies Timestamp of OutdatedLogicalUsageBytes..</param>
         /// <param name="storageConsumedBytes">Specifies the total capacity, as computed by the Cohesity Cluster, after the size of the data has been reduced by change-block tracking, compression and deduplication. This includes resiliency impact..</param>
+        /// <param name="storageConsumedBytesPrev">Specifies the total capacity, as computed by the Cohesity Cluster, after the size of the data has been reduced by change-block tracking, compression and deduplication at a previous time to compare. This includes resiliency impact..</param>
+        /// <param name="storageConsumedBytesPrevTimestampUsec">Specifies Timestamp of StorageConsumedBytesPrev..</param>
         /// <param name="storageConsumedBytesTimestampUsec">Specifies Timestamp of StorageConsumedBytes..</param>
-        /// <param name="totalLogicalUsageBytes">Specifies the logical usage as computed by the Cohesity Cluster. The size of the data without reduction by change-block tracking, compression and deduplication..</param>
+        /// <param name="totalLogicalUsageBytes">Provides the combined data residing on protected objects. The size of data before reduction by deduplication and compression..</param>
         /// <param name="totalLogicalUsageBytesTimestampUsec">Specifies Timestamp of TotalLogicalUsageBytes..</param>
         /// <param name="uniquePhysicalDataBytes">Specifies the unique physical data usage in bytes..</param>
-        public DataUsageStats(long? cloudDataWrittenBytes = default(long?), long? cloudDataWrittenBytesTimestampUsec = default(long?), long? cloudTotalPhysicalUsageBytes = default(long?), long? cloudTotalPhysicalUsageBytesTimestampUsec = default(long?), long? dataInBytes = default(long?), long? dataInBytesAfterDedup = default(long?), long? dataInBytesAfterDedupTimestampUsec = default(long?), long? dataInBytesTimestampUsec = default(long?), long? dataProtectLogicalUsageBytes = default(long?), long? dataProtectLogicalUsageBytesTimestampUsec = default(long?), long? dataProtectPhysicalUsageBytes = default(long?), long? dataProtectPhysicalUsageBytesTimestampUsec = default(long?), long? dataWrittenBytes = default(long?), long? dataWrittenBytesTimestampUsec = default(long?), long? fileServicesLogicalUsageBytes = default(long?), long? fileServicesLogicalUsageBytesTimestampUsec = default(long?), long? fileServicesPhysicalUsageBytes = default(long?), long? fileServicesPhysicalUsageBytesTimestampUsec = default(long?), long? localDataWrittenBytes = default(long?), long? localDataWrittenBytesTimestampUsec = default(long?), long? localTierResiliencyImpactBytes = default(long?), long? localTierResiliencyImpactBytesTimestampUsec = default(long?), long? localTotalPhysicalUsageBytes = default(long?), long? localTotalPhysicalUsageBytesTimestampUsec = default(long?), long? outdatedLogicalUsageBytesTimestampUsec = default(long?), long? storageConsumedBytes = default(long?), long? storageConsumedBytesTimestampUsec = default(long?), long? totalLogicalUsageBytes = default(long?), long? totalLogicalUsageBytesTimestampUsec = default(long?), long? uniquePhysicalDataBytes = default(long?))
+        public DataUsageStats(long? cloudDataWrittenBytes = default(long?), long? cloudDataWrittenBytesTimestampUsec = default(long?), long? cloudTotalPhysicalUsageBytes = default(long?), long? cloudTotalPhysicalUsageBytesTimestampUsec = default(long?), long? dataInBytes = default(long?), long? dataInBytesAfterDedup = default(long?), long? dataInBytesAfterDedupTimestampUsec = default(long?), long? dataInBytesTimestampUsec = default(long?), long? dataProtectLogicalUsageBytes = default(long?), long? dataProtectLogicalUsageBytesTimestampUsec = default(long?), long? dataProtectPhysicalUsageBytes = default(long?), long? dataProtectPhysicalUsageBytesTimestampUsec = default(long?), long? dataWrittenBytes = default(long?), long? dataWrittenBytesTimestampUsec = default(long?), long? fileServicesLogicalUsageBytes = default(long?), long? fileServicesLogicalUsageBytesTimestampUsec = default(long?), long? fileServicesPhysicalUsageBytes = default(long?), long? fileServicesPhysicalUsageBytesTimestampUsec = default(long?), long? localDataWrittenBytes = default(long?), long? localDataWrittenBytesTimestampUsec = default(long?), long? localTierResiliencyImpactBytes = default(long?), long? localTierResiliencyImpactBytesTimestampUsec = default(long?), long? localTotalPhysicalUsageBytes = default(long?), long? localTotalPhysicalUsageBytesTimestampUsec = default(long?), long? outdatedLogicalUsageBytesTimestampUsec = default(long?), long? storageConsumedBytes = default(long?), long? storageConsumedBytesPrev = default(long?), long? storageConsumedBytesPrevTimestampUsec = default(long?), long? storageConsumedBytesTimestampUsec = default(long?), long? totalLogicalUsageBytes = default(long?), long? totalLogicalUsageBytesTimestampUsec = default(long?), long? uniquePhysicalDataBytes = default(long?))
         {
             this.CloudDataWrittenBytes = cloudDataWrittenBytes;
             this.CloudDataWrittenBytesTimestampUsec = cloudDataWrittenBytesTimestampUsec;
@@ -81,36 +86,8 @@ namespace Cohesity.Model
             this.LocalTotalPhysicalUsageBytesTimestampUsec = localTotalPhysicalUsageBytesTimestampUsec;
             this.OutdatedLogicalUsageBytesTimestampUsec = outdatedLogicalUsageBytesTimestampUsec;
             this.StorageConsumedBytes = storageConsumedBytes;
-            this.StorageConsumedBytesTimestampUsec = storageConsumedBytesTimestampUsec;
-            this.TotalLogicalUsageBytes = totalLogicalUsageBytes;
-            this.TotalLogicalUsageBytesTimestampUsec = totalLogicalUsageBytesTimestampUsec;
-            this.UniquePhysicalDataBytes = uniquePhysicalDataBytes;
-            this.CloudDataWrittenBytes = cloudDataWrittenBytes;
-            this.CloudDataWrittenBytesTimestampUsec = cloudDataWrittenBytesTimestampUsec;
-            this.CloudTotalPhysicalUsageBytes = cloudTotalPhysicalUsageBytes;
-            this.CloudTotalPhysicalUsageBytesTimestampUsec = cloudTotalPhysicalUsageBytesTimestampUsec;
-            this.DataInBytes = dataInBytes;
-            this.DataInBytesAfterDedup = dataInBytesAfterDedup;
-            this.DataInBytesAfterDedupTimestampUsec = dataInBytesAfterDedupTimestampUsec;
-            this.DataInBytesTimestampUsec = dataInBytesTimestampUsec;
-            this.DataProtectLogicalUsageBytes = dataProtectLogicalUsageBytes;
-            this.DataProtectLogicalUsageBytesTimestampUsec = dataProtectLogicalUsageBytesTimestampUsec;
-            this.DataProtectPhysicalUsageBytes = dataProtectPhysicalUsageBytes;
-            this.DataProtectPhysicalUsageBytesTimestampUsec = dataProtectPhysicalUsageBytesTimestampUsec;
-            this.DataWrittenBytes = dataWrittenBytes;
-            this.DataWrittenBytesTimestampUsec = dataWrittenBytesTimestampUsec;
-            this.FileServicesLogicalUsageBytes = fileServicesLogicalUsageBytes;
-            this.FileServicesLogicalUsageBytesTimestampUsec = fileServicesLogicalUsageBytesTimestampUsec;
-            this.FileServicesPhysicalUsageBytes = fileServicesPhysicalUsageBytes;
-            this.FileServicesPhysicalUsageBytesTimestampUsec = fileServicesPhysicalUsageBytesTimestampUsec;
-            this.LocalDataWrittenBytes = localDataWrittenBytes;
-            this.LocalDataWrittenBytesTimestampUsec = localDataWrittenBytesTimestampUsec;
-            this.LocalTierResiliencyImpactBytes = localTierResiliencyImpactBytes;
-            this.LocalTierResiliencyImpactBytesTimestampUsec = localTierResiliencyImpactBytesTimestampUsec;
-            this.LocalTotalPhysicalUsageBytes = localTotalPhysicalUsageBytes;
-            this.LocalTotalPhysicalUsageBytesTimestampUsec = localTotalPhysicalUsageBytesTimestampUsec;
-            this.OutdatedLogicalUsageBytesTimestampUsec = outdatedLogicalUsageBytesTimestampUsec;
-            this.StorageConsumedBytes = storageConsumedBytes;
+            this.StorageConsumedBytesPrev = storageConsumedBytesPrev;
+            this.StorageConsumedBytesPrevTimestampUsec = storageConsumedBytesPrevTimestampUsec;
             this.StorageConsumedBytesTimestampUsec = storageConsumedBytesTimestampUsec;
             this.TotalLogicalUsageBytes = totalLogicalUsageBytes;
             this.TotalLogicalUsageBytesTimestampUsec = totalLogicalUsageBytesTimestampUsec;
@@ -121,210 +98,224 @@ namespace Cohesity.Model
         /// Specifies the total data written on cloud tiers, as computed by the Cohesity Cluster.
         /// </summary>
         /// <value>Specifies the total data written on cloud tiers, as computed by the Cohesity Cluster.</value>
-        [DataMember(Name="cloudDataWrittenBytes", EmitDefaultValue=true)]
+        [DataMember(Name="cloudDataWrittenBytes", EmitDefaultValue=false)]
         public long? CloudDataWrittenBytes { get; set; }
 
         /// <summary>
         /// Specifies Timestamp of CloudDataWrittenBytes.
         /// </summary>
         /// <value>Specifies Timestamp of CloudDataWrittenBytes.</value>
-        [DataMember(Name="cloudDataWrittenBytesTimestampUsec", EmitDefaultValue=true)]
+        [DataMember(Name="cloudDataWrittenBytesTimestampUsec", EmitDefaultValue=false)]
         public long? CloudDataWrittenBytesTimestampUsec { get; set; }
 
         /// <summary>
         /// Specifies the total cloud capacity, as computed by the Cohesity Cluster, after the size of the data has been reduced by change-block tracking, compression and deduplication.
         /// </summary>
         /// <value>Specifies the total cloud capacity, as computed by the Cohesity Cluster, after the size of the data has been reduced by change-block tracking, compression and deduplication.</value>
-        [DataMember(Name="cloudTotalPhysicalUsageBytes", EmitDefaultValue=true)]
+        [DataMember(Name="cloudTotalPhysicalUsageBytes", EmitDefaultValue=false)]
         public long? CloudTotalPhysicalUsageBytes { get; set; }
 
         /// <summary>
         /// Specifies Timestamp of CloudTotalPhysicalUsageBytes.
         /// </summary>
         /// <value>Specifies Timestamp of CloudTotalPhysicalUsageBytes.</value>
-        [DataMember(Name="cloudTotalPhysicalUsageBytesTimestampUsec", EmitDefaultValue=true)]
+        [DataMember(Name="cloudTotalPhysicalUsageBytesTimestampUsec", EmitDefaultValue=false)]
         public long? CloudTotalPhysicalUsageBytesTimestampUsec { get; set; }
 
         /// <summary>
-        /// Specifies the data brought into the cluster. This is the usage before data reduction.
+        /// Specifies the data read from the protected objects by the Cohesity Cluster before any data reduction using deduplication and compression.
         /// </summary>
-        /// <value>Specifies the data brought into the cluster. This is the usage before data reduction.</value>
-        [DataMember(Name="dataInBytes", EmitDefaultValue=true)]
+        /// <value>Specifies the data read from the protected objects by the Cohesity Cluster before any data reduction using deduplication and compression.</value>
+        [DataMember(Name="dataInBytes", EmitDefaultValue=false)]
         public long? DataInBytes { get; set; }
 
         /// <summary>
         /// Specifies the size of the data has been reduced by change-block tracking and deduplication but before compression or data is replicated to other nodes as per RF or Erasure Coding policy.
         /// </summary>
         /// <value>Specifies the size of the data has been reduced by change-block tracking and deduplication but before compression or data is replicated to other nodes as per RF or Erasure Coding policy.</value>
-        [DataMember(Name="dataInBytesAfterDedup", EmitDefaultValue=true)]
+        [DataMember(Name="dataInBytesAfterDedup", EmitDefaultValue=false)]
         public long? DataInBytesAfterDedup { get; set; }
 
         /// <summary>
         /// Specifies Timestamp of DataInBytesAfterDedup.
         /// </summary>
         /// <value>Specifies Timestamp of DataInBytesAfterDedup.</value>
-        [DataMember(Name="dataInBytesAfterDedupTimestampUsec", EmitDefaultValue=true)]
+        [DataMember(Name="dataInBytesAfterDedupTimestampUsec", EmitDefaultValue=false)]
         public long? DataInBytesAfterDedupTimestampUsec { get; set; }
 
         /// <summary>
         /// Specifies Timestamp of DataInBytes.
         /// </summary>
         /// <value>Specifies Timestamp of DataInBytes.</value>
-        [DataMember(Name="dataInBytesTimestampUsec", EmitDefaultValue=true)]
+        [DataMember(Name="dataInBytesTimestampUsec", EmitDefaultValue=false)]
         public long? DataInBytesTimestampUsec { get; set; }
 
         /// <summary>
         /// Specifies the logical data used by Data Protect on Cohesity cluster.
         /// </summary>
         /// <value>Specifies the logical data used by Data Protect on Cohesity cluster.</value>
-        [DataMember(Name="dataProtectLogicalUsageBytes", EmitDefaultValue=true)]
+        [DataMember(Name="dataProtectLogicalUsageBytes", EmitDefaultValue=false)]
         public long? DataProtectLogicalUsageBytes { get; set; }
 
         /// <summary>
         /// Specifies Timestamp of DataProtectLogicalUsageBytes.
         /// </summary>
         /// <value>Specifies Timestamp of DataProtectLogicalUsageBytes.</value>
-        [DataMember(Name="dataProtectLogicalUsageBytesTimestampUsec", EmitDefaultValue=true)]
+        [DataMember(Name="dataProtectLogicalUsageBytesTimestampUsec", EmitDefaultValue=false)]
         public long? DataProtectLogicalUsageBytesTimestampUsec { get; set; }
 
         /// <summary>
         /// Specifies the physical data used by Data Protect on Cohesity cluster.
         /// </summary>
         /// <value>Specifies the physical data used by Data Protect on Cohesity cluster.</value>
-        [DataMember(Name="dataProtectPhysicalUsageBytes", EmitDefaultValue=true)]
+        [DataMember(Name="dataProtectPhysicalUsageBytes", EmitDefaultValue=false)]
         public long? DataProtectPhysicalUsageBytes { get; set; }
 
         /// <summary>
         /// Specifies Timestamp of DataProtectPhysicalUsageBytes.
         /// </summary>
         /// <value>Specifies Timestamp of DataProtectPhysicalUsageBytes.</value>
-        [DataMember(Name="dataProtectPhysicalUsageBytesTimestampUsec", EmitDefaultValue=true)]
+        [DataMember(Name="dataProtectPhysicalUsageBytesTimestampUsec", EmitDefaultValue=false)]
         public long? DataProtectPhysicalUsageBytesTimestampUsec { get; set; }
 
         /// <summary>
-        /// Specifies the total data written on local and cloud tiers, as computed by the Cohesity Cluster, after the size of the data has been reduced by change-block tracking, deduplication and compression. This does not include resiliency impact.
+        /// Specifies the data written after it has been reduced by deduplication and compression. This does not include resiliency impact.
         /// </summary>
-        /// <value>Specifies the total data written on local and cloud tiers, as computed by the Cohesity Cluster, after the size of the data has been reduced by change-block tracking, deduplication and compression. This does not include resiliency impact.</value>
-        [DataMember(Name="dataWrittenBytes", EmitDefaultValue=true)]
+        /// <value>Specifies the data written after it has been reduced by deduplication and compression. This does not include resiliency impact.</value>
+        [DataMember(Name="dataWrittenBytes", EmitDefaultValue=false)]
         public long? DataWrittenBytes { get; set; }
 
         /// <summary>
         /// Specifies Timestamp of DataWrittenBytes.
         /// </summary>
         /// <value>Specifies Timestamp of DataWrittenBytes.</value>
-        [DataMember(Name="dataWrittenBytesTimestampUsec", EmitDefaultValue=true)]
+        [DataMember(Name="dataWrittenBytesTimestampUsec", EmitDefaultValue=false)]
         public long? DataWrittenBytesTimestampUsec { get; set; }
 
         /// <summary>
         /// Specifies the logical data used by File services on Cohesity cluster.
         /// </summary>
         /// <value>Specifies the logical data used by File services on Cohesity cluster.</value>
-        [DataMember(Name="fileServicesLogicalUsageBytes", EmitDefaultValue=true)]
+        [DataMember(Name="fileServicesLogicalUsageBytes", EmitDefaultValue=false)]
         public long? FileServicesLogicalUsageBytes { get; set; }
 
         /// <summary>
         /// Specifies Timestamp of FileServicesLogicalUsageBytes.
         /// </summary>
         /// <value>Specifies Timestamp of FileServicesLogicalUsageBytes.</value>
-        [DataMember(Name="fileServicesLogicalUsageBytesTimestampUsec", EmitDefaultValue=true)]
+        [DataMember(Name="fileServicesLogicalUsageBytesTimestampUsec", EmitDefaultValue=false)]
         public long? FileServicesLogicalUsageBytesTimestampUsec { get; set; }
 
         /// <summary>
         /// Specifies the physical data used by File services on Cohesity cluster.
         /// </summary>
         /// <value>Specifies the physical data used by File services on Cohesity cluster.</value>
-        [DataMember(Name="fileServicesPhysicalUsageBytes", EmitDefaultValue=true)]
+        [DataMember(Name="fileServicesPhysicalUsageBytes", EmitDefaultValue=false)]
         public long? FileServicesPhysicalUsageBytes { get; set; }
 
         /// <summary>
         /// Specifies Timestamp of FileServicesPhysicalUsageBytes.
         /// </summary>
         /// <value>Specifies Timestamp of FileServicesPhysicalUsageBytes.</value>
-        [DataMember(Name="fileServicesPhysicalUsageBytesTimestampUsec", EmitDefaultValue=true)]
+        [DataMember(Name="fileServicesPhysicalUsageBytesTimestampUsec", EmitDefaultValue=false)]
         public long? FileServicesPhysicalUsageBytesTimestampUsec { get; set; }
 
         /// <summary>
         /// Specifies the total data written on local tiers, as computed by the Cohesity Cluster, after the size of the data has been reduced by change-block tracking, deduplication and compression. This does not include resiliency impact.
         /// </summary>
         /// <value>Specifies the total data written on local tiers, as computed by the Cohesity Cluster, after the size of the data has been reduced by change-block tracking, deduplication and compression. This does not include resiliency impact.</value>
-        [DataMember(Name="localDataWrittenBytes", EmitDefaultValue=true)]
+        [DataMember(Name="localDataWrittenBytes", EmitDefaultValue=false)]
         public long? LocalDataWrittenBytes { get; set; }
 
         /// <summary>
         /// Specifies Timestamp of LocalDataWrittenBytes.
         /// </summary>
         /// <value>Specifies Timestamp of LocalDataWrittenBytes.</value>
-        [DataMember(Name="localDataWrittenBytesTimestampUsec", EmitDefaultValue=true)]
+        [DataMember(Name="localDataWrittenBytesTimestampUsec", EmitDefaultValue=false)]
         public long? LocalDataWrittenBytesTimestampUsec { get; set; }
 
         /// <summary>
         /// Specifies the size of the data has been replicated to other nodes as per RF or Erasure Coding policy.
         /// </summary>
         /// <value>Specifies the size of the data has been replicated to other nodes as per RF or Erasure Coding policy.</value>
-        [DataMember(Name="localTierResiliencyImpactBytes", EmitDefaultValue=true)]
+        [DataMember(Name="localTierResiliencyImpactBytes", EmitDefaultValue=false)]
         public long? LocalTierResiliencyImpactBytes { get; set; }
 
         /// <summary>
         /// Specifies Timestamp of LocalTierResiliencyImpactBytes.
         /// </summary>
         /// <value>Specifies Timestamp of LocalTierResiliencyImpactBytes.</value>
-        [DataMember(Name="localTierResiliencyImpactBytesTimestampUsec", EmitDefaultValue=true)]
+        [DataMember(Name="localTierResiliencyImpactBytesTimestampUsec", EmitDefaultValue=false)]
         public long? LocalTierResiliencyImpactBytesTimestampUsec { get; set; }
 
         /// <summary>
         /// Specifies the total local capacity, as computed by the Cohesity Cluster, after the size of the data has been reduced by change-block tracking, compression and deduplication.
         /// </summary>
         /// <value>Specifies the total local capacity, as computed by the Cohesity Cluster, after the size of the data has been reduced by change-block tracking, compression and deduplication.</value>
-        [DataMember(Name="localTotalPhysicalUsageBytes", EmitDefaultValue=true)]
+        [DataMember(Name="localTotalPhysicalUsageBytes", EmitDefaultValue=false)]
         public long? LocalTotalPhysicalUsageBytes { get; set; }
 
         /// <summary>
         /// Specifies Timestamp of LocalTotalPhysicalUsageBytes.
         /// </summary>
         /// <value>Specifies Timestamp of LocalTotalPhysicalUsageBytes.</value>
-        [DataMember(Name="localTotalPhysicalUsageBytesTimestampUsec", EmitDefaultValue=true)]
+        [DataMember(Name="localTotalPhysicalUsageBytesTimestampUsec", EmitDefaultValue=false)]
         public long? LocalTotalPhysicalUsageBytesTimestampUsec { get; set; }
 
         /// <summary>
         /// Specifies Timestamp of OutdatedLogicalUsageBytes.
         /// </summary>
         /// <value>Specifies Timestamp of OutdatedLogicalUsageBytes.</value>
-        [DataMember(Name="outdatedLogicalUsageBytesTimestampUsec", EmitDefaultValue=true)]
+        [DataMember(Name="outdatedLogicalUsageBytesTimestampUsec", EmitDefaultValue=false)]
         public long? OutdatedLogicalUsageBytesTimestampUsec { get; set; }
 
         /// <summary>
         /// Specifies the total capacity, as computed by the Cohesity Cluster, after the size of the data has been reduced by change-block tracking, compression and deduplication. This includes resiliency impact.
         /// </summary>
         /// <value>Specifies the total capacity, as computed by the Cohesity Cluster, after the size of the data has been reduced by change-block tracking, compression and deduplication. This includes resiliency impact.</value>
-        [DataMember(Name="storageConsumedBytes", EmitDefaultValue=true)]
+        [DataMember(Name="storageConsumedBytes", EmitDefaultValue=false)]
         public long? StorageConsumedBytes { get; set; }
+
+        /// <summary>
+        /// Specifies the total capacity, as computed by the Cohesity Cluster, after the size of the data has been reduced by change-block tracking, compression and deduplication at a previous time to compare. This includes resiliency impact.
+        /// </summary>
+        /// <value>Specifies the total capacity, as computed by the Cohesity Cluster, after the size of the data has been reduced by change-block tracking, compression and deduplication at a previous time to compare. This includes resiliency impact.</value>
+        [DataMember(Name="storageConsumedBytesPrev", EmitDefaultValue=false)]
+        public long? StorageConsumedBytesPrev { get; set; }
+
+        /// <summary>
+        /// Specifies Timestamp of StorageConsumedBytesPrev.
+        /// </summary>
+        /// <value>Specifies Timestamp of StorageConsumedBytesPrev.</value>
+        [DataMember(Name="storageConsumedBytesPrevTimestampUsec", EmitDefaultValue=false)]
+        public long? StorageConsumedBytesPrevTimestampUsec { get; set; }
 
         /// <summary>
         /// Specifies Timestamp of StorageConsumedBytes.
         /// </summary>
         /// <value>Specifies Timestamp of StorageConsumedBytes.</value>
-        [DataMember(Name="storageConsumedBytesTimestampUsec", EmitDefaultValue=true)]
+        [DataMember(Name="storageConsumedBytesTimestampUsec", EmitDefaultValue=false)]
         public long? StorageConsumedBytesTimestampUsec { get; set; }
 
         /// <summary>
-        /// Specifies the logical usage as computed by the Cohesity Cluster. The size of the data without reduction by change-block tracking, compression and deduplication.
+        /// Provides the combined data residing on protected objects. The size of data before reduction by deduplication and compression.
         /// </summary>
-        /// <value>Specifies the logical usage as computed by the Cohesity Cluster. The size of the data without reduction by change-block tracking, compression and deduplication.</value>
-        [DataMember(Name="totalLogicalUsageBytes", EmitDefaultValue=true)]
+        /// <value>Provides the combined data residing on protected objects. The size of data before reduction by deduplication and compression.</value>
+        [DataMember(Name="totalLogicalUsageBytes", EmitDefaultValue=false)]
         public long? TotalLogicalUsageBytes { get; set; }
 
         /// <summary>
         /// Specifies Timestamp of TotalLogicalUsageBytes.
         /// </summary>
         /// <value>Specifies Timestamp of TotalLogicalUsageBytes.</value>
-        [DataMember(Name="totalLogicalUsageBytesTimestampUsec", EmitDefaultValue=true)]
+        [DataMember(Name="totalLogicalUsageBytesTimestampUsec", EmitDefaultValue=false)]
         public long? TotalLogicalUsageBytesTimestampUsec { get; set; }
 
         /// <summary>
         /// Specifies the unique physical data usage in bytes.
         /// </summary>
         /// <value>Specifies the unique physical data usage in bytes.</value>
-        [DataMember(Name="uniquePhysicalDataBytes", EmitDefaultValue=true)]
+        [DataMember(Name="uniquePhysicalDataBytes", EmitDefaultValue=false)]
         public long? UniquePhysicalDataBytes { get; set; }
 
         /// <summary>
@@ -494,6 +485,16 @@ namespace Cohesity.Model
                     this.StorageConsumedBytes.Equals(input.StorageConsumedBytes))
                 ) && 
                 (
+                    this.StorageConsumedBytesPrev == input.StorageConsumedBytesPrev ||
+                    (this.StorageConsumedBytesPrev != null &&
+                    this.StorageConsumedBytesPrev.Equals(input.StorageConsumedBytesPrev))
+                ) && 
+                (
+                    this.StorageConsumedBytesPrevTimestampUsec == input.StorageConsumedBytesPrevTimestampUsec ||
+                    (this.StorageConsumedBytesPrevTimestampUsec != null &&
+                    this.StorageConsumedBytesPrevTimestampUsec.Equals(input.StorageConsumedBytesPrevTimestampUsec))
+                ) && 
+                (
                     this.StorageConsumedBytesTimestampUsec == input.StorageConsumedBytesTimestampUsec ||
                     (this.StorageConsumedBytesTimestampUsec != null &&
                     this.StorageConsumedBytesTimestampUsec.Equals(input.StorageConsumedBytesTimestampUsec))
@@ -576,6 +577,10 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.OutdatedLogicalUsageBytesTimestampUsec.GetHashCode();
                 if (this.StorageConsumedBytes != null)
                     hashCode = hashCode * 59 + this.StorageConsumedBytes.GetHashCode();
+                if (this.StorageConsumedBytesPrev != null)
+                    hashCode = hashCode * 59 + this.StorageConsumedBytesPrev.GetHashCode();
+                if (this.StorageConsumedBytesPrevTimestampUsec != null)
+                    hashCode = hashCode * 59 + this.StorageConsumedBytesPrevTimestampUsec.GetHashCode();
                 if (this.StorageConsumedBytesTimestampUsec != null)
                     hashCode = hashCode * 59 + this.StorageConsumedBytesTimestampUsec.GetHashCode();
                 if (this.TotalLogicalUsageBytes != null)

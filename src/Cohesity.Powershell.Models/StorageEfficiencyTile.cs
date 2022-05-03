@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -53,118 +56,104 @@ namespace Cohesity.Model
             this.PhysicalUsedBytesSamples = physicalUsedBytesSamples;
             this.StorageReductionRatio = storageReductionRatio;
             this.StorageReductionSamples = storageReductionSamples;
-            this.DataInBytes = dataInBytes;
-            this.DataInBytesSamples = dataInBytesSamples;
-            this.DataInDedupedBytes = dataInDedupedBytes;
-            this.DataInDedupedBytesSamples = dataInDedupedBytesSamples;
-            this.DedupeRatio = dedupeRatio;
-            this.DedupeRatioSamples = dedupeRatioSamples;
-            this.DurationDays = durationDays;
-            this.IntervalSeconds = intervalSeconds;
-            this.LogicalUsedBytes = logicalUsedBytes;
-            this.LogicalUsedBytesSamples = logicalUsedBytesSamples;
-            this.PhysicalUsedBytes = physicalUsedBytes;
-            this.PhysicalUsedBytesSamples = physicalUsedBytesSamples;
-            this.StorageReductionRatio = storageReductionRatio;
-            this.StorageReductionSamples = storageReductionSamples;
         }
         
         /// <summary>
         /// Specifies the size of data brought into the cluster. This is the usage before data reduction if we ignore the zeroes and effects of cloning.
         /// </summary>
         /// <value>Specifies the size of data brought into the cluster. This is the usage before data reduction if we ignore the zeroes and effects of cloning.</value>
-        [DataMember(Name="dataInBytes", EmitDefaultValue=true)]
+        [DataMember(Name="dataInBytes", EmitDefaultValue=false)]
         public long? DataInBytes { get; set; }
 
         /// <summary>
         /// Specifies the samples taken for Data brought into the cluster in bytes in ascending order of time.
         /// </summary>
         /// <value>Specifies the samples taken for Data brought into the cluster in bytes in ascending order of time.</value>
-        [DataMember(Name="dataInBytesSamples", EmitDefaultValue=true)]
+        [DataMember(Name="dataInBytesSamples", EmitDefaultValue=false)]
         public List<Sample> DataInBytesSamples { get; set; }
 
         /// <summary>
         /// Specifies the size of data after compression and or dedupe operations just before the data is replicated to other nodes as per RF or Erasure Coding policy.
         /// </summary>
         /// <value>Specifies the size of data after compression and or dedupe operations just before the data is replicated to other nodes as per RF or Erasure Coding policy.</value>
-        [DataMember(Name="dataInDedupedBytes", EmitDefaultValue=true)]
+        [DataMember(Name="dataInDedupedBytes", EmitDefaultValue=false)]
         public long? DataInDedupedBytes { get; set; }
 
         /// <summary>
         /// Specifies the samples taken for morphed data in bytes in ascending order of time.
         /// </summary>
         /// <value>Specifies the samples taken for morphed data in bytes in ascending order of time.</value>
-        [DataMember(Name="dataInDedupedBytesSamples", EmitDefaultValue=true)]
+        [DataMember(Name="dataInDedupedBytesSamples", EmitDefaultValue=false)]
         public List<Sample> DataInDedupedBytesSamples { get; set; }
 
         /// <summary>
         /// Specifies the current dedupe ratio on the cluster. It is the ratio of DataInBytes to DataInDedupedBytes.
         /// </summary>
         /// <value>Specifies the current dedupe ratio on the cluster. It is the ratio of DataInBytes to DataInDedupedBytes.</value>
-        [DataMember(Name="dedupeRatio", EmitDefaultValue=true)]
+        [DataMember(Name="dedupeRatio", EmitDefaultValue=false)]
         public double? DedupeRatio { get; set; }
 
         /// <summary>
         /// Specifies the samples for data reduction ratio in ascending order of time.
         /// </summary>
         /// <value>Specifies the samples for data reduction ratio in ascending order of time.</value>
-        [DataMember(Name="dedupeRatioSamples", EmitDefaultValue=true)]
+        [DataMember(Name="dedupeRatioSamples", EmitDefaultValue=false)]
         public List<Sample> DedupeRatioSamples { get; set; }
 
         /// <summary>
         /// Specifies the duration in days in which the samples were taken. For this tile, it is 7 days.
         /// </summary>
         /// <value>Specifies the duration in days in which the samples were taken. For this tile, it is 7 days.</value>
-        [DataMember(Name="durationDays", EmitDefaultValue=true)]
+        [DataMember(Name="durationDays", EmitDefaultValue=false)]
         public int? DurationDays { get; set; }
 
         /// <summary>
         /// Specifies the interval between the samples in seconds. For this tile, it is 1 day which is 86400 seconds.
         /// </summary>
         /// <value>Specifies the interval between the samples in seconds. For this tile, it is 1 day which is 86400 seconds.</value>
-        [DataMember(Name="intervalSeconds", EmitDefaultValue=true)]
+        [DataMember(Name="intervalSeconds", EmitDefaultValue=false)]
         public int? IntervalSeconds { get; set; }
 
         /// <summary>
         /// Specifies the size of logical data currently represented on the cluster.
         /// </summary>
         /// <value>Specifies the size of logical data currently represented on the cluster.</value>
-        [DataMember(Name="logicalUsedBytes", EmitDefaultValue=true)]
+        [DataMember(Name="logicalUsedBytes", EmitDefaultValue=false)]
         public long? LogicalUsedBytes { get; set; }
 
         /// <summary>
         /// Specifies the samples taken for logical data represented in bytes in ascending order of time.
         /// </summary>
         /// <value>Specifies the samples taken for logical data represented in bytes in ascending order of time.</value>
-        [DataMember(Name="logicalUsedBytesSamples", EmitDefaultValue=true)]
+        [DataMember(Name="logicalUsedBytesSamples", EmitDefaultValue=false)]
         public List<Sample> LogicalUsedBytesSamples { get; set; }
 
         /// <summary>
         /// Specifies the size of physical data currently consumed on the cluster.
         /// </summary>
         /// <value>Specifies the size of physical data currently consumed on the cluster.</value>
-        [DataMember(Name="physicalUsedBytes", EmitDefaultValue=true)]
+        [DataMember(Name="physicalUsedBytes", EmitDefaultValue=false)]
         public long? PhysicalUsedBytes { get; set; }
 
         /// <summary>
         /// Specifies the samples taken for physical data consumed in bytes in ascending order of time.
         /// </summary>
         /// <value>Specifies the samples taken for physical data consumed in bytes in ascending order of time.</value>
-        [DataMember(Name="physicalUsedBytesSamples", EmitDefaultValue=true)]
+        [DataMember(Name="physicalUsedBytesSamples", EmitDefaultValue=false)]
         public List<Sample> PhysicalUsedBytesSamples { get; set; }
 
         /// <summary>
         /// Specifies the current storage reduction ratio on the cluster. It is the ratio of LogicalUsedBytes to PhysicalUsedBytes.
         /// </summary>
         /// <value>Specifies the current storage reduction ratio on the cluster. It is the ratio of LogicalUsedBytes to PhysicalUsedBytes.</value>
-        [DataMember(Name="storageReductionRatio", EmitDefaultValue=true)]
+        [DataMember(Name="storageReductionRatio", EmitDefaultValue=false)]
         public double? StorageReductionRatio { get; set; }
 
         /// <summary>
         /// Specifies the samples for storage reduction ratio in ascending order of time.
         /// </summary>
         /// <value>Specifies the samples for storage reduction ratio in ascending order of time.</value>
-        [DataMember(Name="storageReductionSamples", EmitDefaultValue=true)]
+        [DataMember(Name="storageReductionSamples", EmitDefaultValue=false)]
         public List<Sample> StorageReductionSamples { get; set; }
 
         /// <summary>
@@ -211,8 +200,7 @@ namespace Cohesity.Model
                 (
                     this.DataInBytesSamples == input.DataInBytesSamples ||
                     this.DataInBytesSamples != null &&
-                    input.DataInBytesSamples != null &&
-                    this.DataInBytesSamples.SequenceEqual(input.DataInBytesSamples)
+                    this.DataInBytesSamples.Equals(input.DataInBytesSamples)
                 ) && 
                 (
                     this.DataInDedupedBytes == input.DataInDedupedBytes ||
@@ -222,8 +210,7 @@ namespace Cohesity.Model
                 (
                     this.DataInDedupedBytesSamples == input.DataInDedupedBytesSamples ||
                     this.DataInDedupedBytesSamples != null &&
-                    input.DataInDedupedBytesSamples != null &&
-                    this.DataInDedupedBytesSamples.SequenceEqual(input.DataInDedupedBytesSamples)
+                    this.DataInDedupedBytesSamples.Equals(input.DataInDedupedBytesSamples)
                 ) && 
                 (
                     this.DedupeRatio == input.DedupeRatio ||
@@ -233,8 +220,7 @@ namespace Cohesity.Model
                 (
                     this.DedupeRatioSamples == input.DedupeRatioSamples ||
                     this.DedupeRatioSamples != null &&
-                    input.DedupeRatioSamples != null &&
-                    this.DedupeRatioSamples.SequenceEqual(input.DedupeRatioSamples)
+                    this.DedupeRatioSamples.Equals(input.DedupeRatioSamples)
                 ) && 
                 (
                     this.DurationDays == input.DurationDays ||
@@ -254,8 +240,7 @@ namespace Cohesity.Model
                 (
                     this.LogicalUsedBytesSamples == input.LogicalUsedBytesSamples ||
                     this.LogicalUsedBytesSamples != null &&
-                    input.LogicalUsedBytesSamples != null &&
-                    this.LogicalUsedBytesSamples.SequenceEqual(input.LogicalUsedBytesSamples)
+                    this.LogicalUsedBytesSamples.Equals(input.LogicalUsedBytesSamples)
                 ) && 
                 (
                     this.PhysicalUsedBytes == input.PhysicalUsedBytes ||
@@ -265,8 +250,7 @@ namespace Cohesity.Model
                 (
                     this.PhysicalUsedBytesSamples == input.PhysicalUsedBytesSamples ||
                     this.PhysicalUsedBytesSamples != null &&
-                    input.PhysicalUsedBytesSamples != null &&
-                    this.PhysicalUsedBytesSamples.SequenceEqual(input.PhysicalUsedBytesSamples)
+                    this.PhysicalUsedBytesSamples.Equals(input.PhysicalUsedBytesSamples)
                 ) && 
                 (
                     this.StorageReductionRatio == input.StorageReductionRatio ||
@@ -276,8 +260,7 @@ namespace Cohesity.Model
                 (
                     this.StorageReductionSamples == input.StorageReductionSamples ||
                     this.StorageReductionSamples != null &&
-                    input.StorageReductionSamples != null &&
-                    this.StorageReductionSamples.SequenceEqual(input.StorageReductionSamples)
+                    this.StorageReductionSamples.Equals(input.StorageReductionSamples)
                 );
         }
 

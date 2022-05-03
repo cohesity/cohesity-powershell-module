@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -33,38 +36,34 @@ namespace Cohesity.Model
             this.LengthBytes = lengthBytes;
             this.Number = number;
             this.OffsetBytes = offsetBytes;
-            this.DiskFileName = diskFileName;
-            this.LengthBytes = lengthBytes;
-            this.Number = number;
-            this.OffsetBytes = offsetBytes;
         }
         
         /// <summary>
         /// Specifies the disk file name where the logical partition is.
         /// </summary>
         /// <value>Specifies the disk file name where the logical partition is.</value>
-        [DataMember(Name="diskFileName", EmitDefaultValue=true)]
+        [DataMember(Name="diskFileName", EmitDefaultValue=false)]
         public string DiskFileName { get; set; }
 
         /// <summary>
         /// Specifies the length of the block in bytes.
         /// </summary>
         /// <value>Specifies the length of the block in bytes.</value>
-        [DataMember(Name="lengthBytes", EmitDefaultValue=true)]
+        [DataMember(Name="lengthBytes", EmitDefaultValue=false)]
         public long? LengthBytes { get; set; }
 
         /// <summary>
         /// Specifies a unique number of the partition within the linear disk file.
         /// </summary>
         /// <value>Specifies a unique number of the partition within the linear disk file.</value>
-        [DataMember(Name="number", EmitDefaultValue=true)]
+        [DataMember(Name="number", EmitDefaultValue=false)]
         public long? Number { get; set; }
 
         /// <summary>
         /// Specifies the offset of the block (in bytes) from the beginning of the containing object such as a physical disk or a virtual disk file.
         /// </summary>
         /// <value>Specifies the offset of the block (in bytes) from the beginning of the containing object such as a physical disk or a virtual disk file.</value>
-        [DataMember(Name="offsetBytes", EmitDefaultValue=true)]
+        [DataMember(Name="offsetBytes", EmitDefaultValue=false)]
         public long? OffsetBytes { get; set; }
 
         /// <summary>

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,7 +32,6 @@ namespace Cohesity.Model
         public BackupJobProtoExclusionTimeRange(int? day = default(int?), Time endTime = default(Time), Time startTime = default(Time))
         {
             this.Day = day;
-            this.Day = day;
             this.EndTime = endTime;
             this.StartTime = startTime;
         }
@@ -38,7 +40,7 @@ namespace Cohesity.Model
         /// If the day is not set, the time range applies to all days.
         /// </summary>
         /// <value>If the day is not set, the time range applies to all days.</value>
-        [DataMember(Name="day", EmitDefaultValue=true)]
+        [DataMember(Name="day", EmitDefaultValue=false)]
         public int? Day { get; set; }
 
         /// <summary>

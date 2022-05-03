@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,30 +34,27 @@ namespace Cohesity.Model
             this.DestinationDirectoryName = destinationDirectoryName;
             this.DestinationParentDirectoryPath = destinationParentDirectoryPath;
             this.SourceDirectoryPath = sourceDirectoryPath;
-            this.DestinationDirectoryName = destinationDirectoryName;
-            this.DestinationParentDirectoryPath = destinationParentDirectoryPath;
-            this.SourceDirectoryPath = sourceDirectoryPath;
         }
         
         /// <summary>
         /// Name of the new directory which will contain the clone contents.
         /// </summary>
         /// <value>Name of the new directory which will contain the clone contents.</value>
-        [DataMember(Name="destinationDirectoryName", EmitDefaultValue=true)]
+        [DataMember(Name="destinationDirectoryName", EmitDefaultValue=false)]
         public string DestinationDirectoryName { get; set; }
 
         /// <summary>
         /// Specifies the path of the destination parent directory. The source dir would be cloned as a child of destination parent dir.
         /// </summary>
         /// <value>Specifies the path of the destination parent directory. The source dir would be cloned as a child of destination parent dir.</value>
-        [DataMember(Name="destinationParentDirectoryPath", EmitDefaultValue=true)]
+        [DataMember(Name="destinationParentDirectoryPath", EmitDefaultValue=false)]
         public string DestinationParentDirectoryPath { get; set; }
 
         /// <summary>
         /// Specifies the path of the source directory
         /// </summary>
         /// <value>Specifies the path of the source directory</value>
-        [DataMember(Name="sourceDirectoryPath", EmitDefaultValue=true)]
+        [DataMember(Name="sourceDirectoryPath", EmitDefaultValue=false)]
         public string SourceDirectoryPath { get; set; }
 
         /// <summary>

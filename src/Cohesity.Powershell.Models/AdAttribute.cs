@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -63,7 +66,7 @@ namespace Cohesity.Model
         /// Specifies the flags related to the attribute of the AD object. &#39;kEqual&#39; indicates the attribute value of AD object from Snapshot and Production AD are equal. &#39;kNotEqual&#39; indicates the attribute value of AD object from Snapshot and Production AD are not equal. &#39;kNotFound&#39; indicates attribute of the AD object is missing from both Snapshot and Production AD. &#39;kSystem&#39; indicates this is system attribute. This can only be updated by the AD internal component. &#39;kMultiValue&#39; indicates that the attribute is mutli-value attribute. This attribute supports mutli-value merge during attribute restore operation.
         /// </summary>
         /// <value>Specifies the flags related to the attribute of the AD object. &#39;kEqual&#39; indicates the attribute value of AD object from Snapshot and Production AD are equal. &#39;kNotEqual&#39; indicates the attribute value of AD object from Snapshot and Production AD are not equal. &#39;kNotFound&#39; indicates attribute of the AD object is missing from both Snapshot and Production AD. &#39;kSystem&#39; indicates this is system attribute. This can only be updated by the AD internal component. &#39;kMultiValue&#39; indicates that the attribute is mutli-value attribute. This attribute supports mutli-value merge during attribute restore operation.</value>
-        [DataMember(Name="adAttributeFlags", EmitDefaultValue=true)]
+        [DataMember(Name="adAttributeFlags", EmitDefaultValue=false)]
         public List<AdAttributeFlagsEnum> AdAttributeFlags { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="AdAttribute" /> class.
@@ -77,9 +80,6 @@ namespace Cohesity.Model
         public AdAttribute(List<AdAttributeFlagsEnum> adAttributeFlags = default(List<AdAttributeFlagsEnum>), AttributeValue destinationValue = default(AttributeValue), string errorMessage = default(string), string name = default(string), AttributeValue sameValue = default(AttributeValue), AttributeValue sourceValue = default(AttributeValue))
         {
             this.AdAttributeFlags = adAttributeFlags;
-            this.ErrorMessage = errorMessage;
-            this.Name = name;
-            this.AdAttributeFlags = adAttributeFlags;
             this.DestinationValue = destinationValue;
             this.ErrorMessage = errorMessage;
             this.Name = name;
@@ -87,6 +87,7 @@ namespace Cohesity.Model
             this.SourceValue = sourceValue;
         }
         
+
         /// <summary>
         /// Gets or Sets DestinationValue
         /// </summary>
@@ -97,14 +98,14 @@ namespace Cohesity.Model
         /// Specifies the error message regarding the attribute
         /// </summary>
         /// <value>Specifies the error message regarding the attribute</value>
-        [DataMember(Name="errorMessage", EmitDefaultValue=true)]
+        [DataMember(Name="errorMessage", EmitDefaultValue=false)]
         public string ErrorMessage { get; set; }
 
         /// <summary>
         /// Specifies the name of the attribute of the AD object.
         /// </summary>
         /// <value>Specifies the name of the attribute of the AD object.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
 
         /// <summary>
@@ -157,7 +158,8 @@ namespace Cohesity.Model
             return 
                 (
                     this.AdAttributeFlags == input.AdAttributeFlags ||
-                    this.AdAttributeFlags.SequenceEqual(input.AdAttributeFlags)
+                    this.AdAttributeFlags != null &&
+                    this.AdAttributeFlags.Equals(input.AdAttributeFlags)
                 ) && 
                 (
                     this.DestinationValue == input.DestinationValue ||
@@ -195,7 +197,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                hashCode = hashCode * 59 + this.AdAttributeFlags.GetHashCode();
+                if (this.AdAttributeFlags != null)
+                    hashCode = hashCode * 59 + this.AdAttributeFlags.GetHashCode();
                 if (this.DestinationValue != null)
                     hashCode = hashCode * 59 + this.DestinationValue.GetHashCode();
                 if (this.ErrorMessage != null)

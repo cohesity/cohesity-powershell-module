@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -37,14 +40,6 @@ namespace Cohesity.Model
         {
             this.BytesTransferred = bytesTransferred;
             this.EndTimestampUsecs = endTimestampUsecs;
-            this.LogicalBytesTransferred = logicalBytesTransferred;
-            this.LogicalSizeBytes = logicalSizeBytes;
-            this.ProgressMonitorTaskPath = progressMonitorTaskPath;
-            this.RelativeSnapshotDir = relativeSnapshotDir;
-            this.StartTimestampUsecs = startTimestampUsecs;
-            this.Status = status;
-            this.BytesTransferred = bytesTransferred;
-            this.EndTimestampUsecs = endTimestampUsecs;
             this.Entity = entity;
             this.Error = error;
             this.LogicalBytesTransferred = logicalBytesTransferred;
@@ -59,14 +54,14 @@ namespace Cohesity.Model
         /// Number of physical bytes transferred over wire for this entity.
         /// </summary>
         /// <value>Number of physical bytes transferred over wire for this entity.</value>
-        [DataMember(Name="bytesTransferred", EmitDefaultValue=true)]
+        [DataMember(Name="bytesTransferred", EmitDefaultValue=false)]
         public long? BytesTransferred { get; set; }
 
         /// <summary>
         /// Time in microseconds when retrieve of this entity finished or failed.
         /// </summary>
         /// <value>Time in microseconds when retrieve of this entity finished or failed.</value>
-        [DataMember(Name="endTimestampUsecs", EmitDefaultValue=true)]
+        [DataMember(Name="endTimestampUsecs", EmitDefaultValue=false)]
         public long? EndTimestampUsecs { get; set; }
 
         /// <summary>
@@ -85,42 +80,42 @@ namespace Cohesity.Model
         /// Number of logical bytes transferred so far.
         /// </summary>
         /// <value>Number of logical bytes transferred so far.</value>
-        [DataMember(Name="logicalBytesTransferred", EmitDefaultValue=true)]
+        [DataMember(Name="logicalBytesTransferred", EmitDefaultValue=false)]
         public long? LogicalBytesTransferred { get; set; }
 
         /// <summary>
         /// Total logical size of this entity.
         /// </summary>
         /// <value>Total logical size of this entity.</value>
-        [DataMember(Name="logicalSizeBytes", EmitDefaultValue=true)]
+        [DataMember(Name="logicalSizeBytes", EmitDefaultValue=false)]
         public long? LogicalSizeBytes { get; set; }
 
         /// <summary>
         /// The path relative to the root path of the retrieval task progress monitor of this entity progress monitor.
         /// </summary>
         /// <value>The path relative to the root path of the retrieval task progress monitor of this entity progress monitor.</value>
-        [DataMember(Name="progressMonitorTaskPath", EmitDefaultValue=true)]
+        [DataMember(Name="progressMonitorTaskPath", EmitDefaultValue=false)]
         public string ProgressMonitorTaskPath { get; set; }
 
         /// <summary>
         /// The path relative to the root of the file system where the snapshot of this entity was retrieved/copied to.
         /// </summary>
         /// <value>The path relative to the root of the file system where the snapshot of this entity was retrieved/copied to.</value>
-        [DataMember(Name="relativeSnapshotDir", EmitDefaultValue=true)]
+        [DataMember(Name="relativeSnapshotDir", EmitDefaultValue=false)]
         public string RelativeSnapshotDir { get; set; }
 
         /// <summary>
         /// Time in microseconds when retrieve of this entity started.
         /// </summary>
         /// <value>Time in microseconds when retrieve of this entity started.</value>
-        [DataMember(Name="startTimestampUsecs", EmitDefaultValue=true)]
+        [DataMember(Name="startTimestampUsecs", EmitDefaultValue=false)]
         public long? StartTimestampUsecs { get; set; }
 
         /// <summary>
         /// The retrieval status of this entity.
         /// </summary>
         /// <value>The retrieval status of this entity.</value>
-        [DataMember(Name="status", EmitDefaultValue=true)]
+        [DataMember(Name="status", EmitDefaultValue=false)]
         public int? Status { get; set; }
 
         /// <summary>

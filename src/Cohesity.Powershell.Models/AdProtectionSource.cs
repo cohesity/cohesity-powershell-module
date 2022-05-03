@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -45,7 +48,7 @@ namespace Cohesity.Model
         /// Specifies the type of the managed object in AD Protection Source. Specifies the kind of AD protection source. &#39;kRootContainer&#39; indicates the entity is a root container to an AD domain controller. &#39;kDomainController&#39; indicates the domain controller hosted in this physical server.
         /// </summary>
         /// <value>Specifies the type of the managed object in AD Protection Source. Specifies the kind of AD protection source. &#39;kRootContainer&#39; indicates the entity is a root container to an AD domain controller. &#39;kDomainController&#39; indicates the domain controller hosted in this physical server.</value>
-        [DataMember(Name="type", EmitDefaultValue=true)]
+        [DataMember(Name="type", EmitDefaultValue=false)]
         public TypeEnum? Type { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="AdProtectionSource" /> class.
@@ -58,11 +61,6 @@ namespace Cohesity.Model
         /// <param name="uuid">Specifies the UUID for the AD entity..</param>
         public AdProtectionSource(AdDomainController domainController = default(AdDomainController), string domainName = default(string), string name = default(string), long? ownerId = default(long?), TypeEnum? type = default(TypeEnum?), string uuid = default(string))
         {
-            this.DomainName = domainName;
-            this.Name = name;
-            this.OwnerId = ownerId;
-            this.Type = type;
-            this.Uuid = uuid;
             this.DomainController = domainController;
             this.DomainName = domainName;
             this.Name = name;
@@ -81,28 +79,29 @@ namespace Cohesity.Model
         /// Specifies the domain name corresponding to the domain controller.
         /// </summary>
         /// <value>Specifies the domain name corresponding to the domain controller.</value>
-        [DataMember(Name="domainName", EmitDefaultValue=true)]
+        [DataMember(Name="domainName", EmitDefaultValue=false)]
         public string DomainName { get; set; }
 
         /// <summary>
         /// Specifies the domain name of the AD entity.
         /// </summary>
         /// <value>Specifies the domain name of the AD entity.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
 
         /// <summary>
         /// Specifies the entity id of the owner entity.
         /// </summary>
         /// <value>Specifies the entity id of the owner entity.</value>
-        [DataMember(Name="ownerId", EmitDefaultValue=true)]
+        [DataMember(Name="ownerId", EmitDefaultValue=false)]
         public long? OwnerId { get; set; }
+
 
         /// <summary>
         /// Specifies the UUID for the AD entity.
         /// </summary>
         /// <value>Specifies the UUID for the AD entity.</value>
-        [DataMember(Name="uuid", EmitDefaultValue=true)]
+        [DataMember(Name="uuid", EmitDefaultValue=false)]
         public string Uuid { get; set; }
 
         /// <summary>
@@ -163,7 +162,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.Type == input.Type ||
-                    this.Type.Equals(input.Type)
+                    (this.Type != null &&
+                    this.Type.Equals(input.Type))
                 ) && 
                 (
                     this.Uuid == input.Uuid ||
@@ -189,7 +189,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
                 if (this.OwnerId != null)
                     hashCode = hashCode * 59 + this.OwnerId.GetHashCode();
-                hashCode = hashCode * 59 + this.Type.GetHashCode();
+                if (this.Type != null)
+                    hashCode = hashCode * 59 + this.Type.GetHashCode();
                 if (this.Uuid != null)
                     hashCode = hashCode * 59 + this.Uuid.GetHashCode();
                 return hashCode;

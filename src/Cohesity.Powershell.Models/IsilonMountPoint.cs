@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -45,7 +48,7 @@ namespace Cohesity.Model
         /// List of Protocols on Isilon.  Specifies the list of protocols enabled on Isilon OneFs file system. &#39;kNfs&#39; indicates NFS exports in an Isilon Cluster. &#39;kSmb&#39; indicates CIFS/SMB Shares in an Isilon Cluster.
         /// </summary>
         /// <value>List of Protocols on Isilon.  Specifies the list of protocols enabled on Isilon OneFs file system. &#39;kNfs&#39; indicates NFS exports in an Isilon Cluster. &#39;kSmb&#39; indicates CIFS/SMB Shares in an Isilon Cluster.</value>
-        [DataMember(Name="protocols", EmitDefaultValue=true)]
+        [DataMember(Name="protocols", EmitDefaultValue=false)]
         public List<ProtocolsEnum> Protocols { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="IsilonMountPoint" /> class.
@@ -58,10 +61,6 @@ namespace Cohesity.Model
         public IsilonMountPoint(string accessZoneName = default(string), IsilonNfsMountPoint nfsMountPoint = default(IsilonNfsMountPoint), string path = default(string), List<ProtocolsEnum> protocols = default(List<ProtocolsEnum>), List<IsilonSmbMountPoint> smbMountPoints = default(List<IsilonSmbMountPoint>))
         {
             this.AccessZoneName = accessZoneName;
-            this.Path = path;
-            this.Protocols = protocols;
-            this.SmbMountPoints = smbMountPoints;
-            this.AccessZoneName = accessZoneName;
             this.NfsMountPoint = nfsMountPoint;
             this.Path = path;
             this.Protocols = protocols;
@@ -72,7 +71,7 @@ namespace Cohesity.Model
         /// Specifies the name of access zone.
         /// </summary>
         /// <value>Specifies the name of access zone.</value>
-        [DataMember(Name="accessZoneName", EmitDefaultValue=true)]
+        [DataMember(Name="accessZoneName", EmitDefaultValue=false)]
         public string AccessZoneName { get; set; }
 
         /// <summary>
@@ -85,14 +84,15 @@ namespace Cohesity.Model
         /// Specifies the path of the access zone in ifs. This should include the leading \&quot;/ifs/\&quot;.
         /// </summary>
         /// <value>Specifies the path of the access zone in ifs. This should include the leading \&quot;/ifs/\&quot;.</value>
-        [DataMember(Name="path", EmitDefaultValue=true)]
+        [DataMember(Name="path", EmitDefaultValue=false)]
         public string Path { get; set; }
+
 
         /// <summary>
         /// Specifies information about an SMB share. This field is set if the file system supports protocol type &#39;kSmb&#39;.
         /// </summary>
         /// <value>Specifies information about an SMB share. This field is set if the file system supports protocol type &#39;kSmb&#39;.</value>
-        [DataMember(Name="smbMountPoints", EmitDefaultValue=true)]
+        [DataMember(Name="smbMountPoints", EmitDefaultValue=false)]
         public List<IsilonSmbMountPoint> SmbMountPoints { get; set; }
 
         /// <summary>
@@ -148,13 +148,13 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.Protocols == input.Protocols ||
-                    this.Protocols.SequenceEqual(input.Protocols)
+                    this.Protocols != null &&
+                    this.Protocols.Equals(input.Protocols)
                 ) && 
                 (
                     this.SmbMountPoints == input.SmbMountPoints ||
                     this.SmbMountPoints != null &&
-                    input.SmbMountPoints != null &&
-                    this.SmbMountPoints.SequenceEqual(input.SmbMountPoints)
+                    this.SmbMountPoints.Equals(input.SmbMountPoints)
                 );
         }
 
@@ -173,7 +173,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.NfsMountPoint.GetHashCode();
                 if (this.Path != null)
                     hashCode = hashCode * 59 + this.Path.GetHashCode();
-                hashCode = hashCode * 59 + this.Protocols.GetHashCode();
+                if (this.Protocols != null)
+                    hashCode = hashCode * 59 + this.Protocols.GetHashCode();
                 if (this.SmbMountPoints != null)
                     hashCode = hashCode * 59 + this.SmbMountPoints.GetHashCode();
                 return hashCode;

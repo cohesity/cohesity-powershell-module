@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -24,11 +27,12 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="DirQuotaInfo" /> class.
         /// </summary>
         /// <param name="config">config.</param>
+        /// <param name="cookie">This cookie can be used in the succeeding call to list user quotas and usages to get the next set of user quota overrides. If set to nil, it means that there&#39;s no more results that the server could provide..</param>
         /// <param name="quotas">Specifies the list of directory quota policies applied on the view..</param>
-        public DirQuotaInfo(DirQuotaConfig config = default(DirQuotaConfig), List<DirQuotaPolicy> quotas = default(List<DirQuotaPolicy>))
+        public DirQuotaInfo(DirQuotaConfig config = default(DirQuotaConfig), long? cookie = default(long?), List<DirQuotaPolicy> quotas = default(List<DirQuotaPolicy>))
         {
-            this.Quotas = quotas;
             this.Config = config;
+            this.Cookie = cookie;
             this.Quotas = quotas;
         }
         
@@ -39,10 +43,17 @@ namespace Cohesity.Model
         public DirQuotaConfig Config { get; set; }
 
         /// <summary>
+        /// This cookie can be used in the succeeding call to list user quotas and usages to get the next set of user quota overrides. If set to nil, it means that there&#39;s no more results that the server could provide.
+        /// </summary>
+        /// <value>This cookie can be used in the succeeding call to list user quotas and usages to get the next set of user quota overrides. If set to nil, it means that there&#39;s no more results that the server could provide.</value>
+        [DataMember(Name="cookie", EmitDefaultValue=false)]
+        public long? Cookie { get; set; }
+
+        /// <summary>
         /// Specifies the list of directory quota policies applied on the view.
         /// </summary>
         /// <value>Specifies the list of directory quota policies applied on the view.</value>
-        [DataMember(Name="quotas", EmitDefaultValue=true)]
+        [DataMember(Name="quotas", EmitDefaultValue=false)]
         public List<DirQuotaPolicy> Quotas { get; set; }
 
         /// <summary>
@@ -87,10 +98,14 @@ namespace Cohesity.Model
                     this.Config.Equals(input.Config))
                 ) && 
                 (
+                    this.Cookie == input.Cookie ||
+                    (this.Cookie != null &&
+                    this.Cookie.Equals(input.Cookie))
+                ) && 
+                (
                     this.Quotas == input.Quotas ||
                     this.Quotas != null &&
-                    input.Quotas != null &&
-                    this.Quotas.SequenceEqual(input.Quotas)
+                    this.Quotas.Equals(input.Quotas)
                 );
         }
 
@@ -105,6 +120,8 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.Config != null)
                     hashCode = hashCode * 59 + this.Config.GetHashCode();
+                if (this.Cookie != null)
+                    hashCode = hashCode * 59 + this.Cookie.GetHashCode();
                 if (this.Quotas != null)
                     hashCode = hashCode * 59 + this.Quotas.GetHashCode();
                 return hashCode;

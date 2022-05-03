@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -24,13 +27,22 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="RestoredObjectVCDConfigProto" /> class.
         /// </summary>
         /// <param name="isVapp">Whether the restored object is a VApp..</param>
+        /// <param name="isVappTemplate">Whether the restored object is a VApp template..</param>
+        /// <param name="restoredVappInfo">restoredVappInfo.</param>
+        /// <param name="restoredVappObject">restoredVappObject.</param>
+        /// <param name="restoredVappTemplateInfo">restoredVappTemplateInfo.</param>
+        /// <param name="restoredVappTemplateObject">restoredVappTemplateObject.</param>
         /// <param name="vappEntity">vappEntity.</param>
         /// <param name="vcenterConnectorParams">vcenterConnectorParams.</param>
         /// <param name="vdcEntity">vdcEntity.</param>
-        public RestoredObjectVCDConfigProto(bool? isVapp = default(bool?), EntityProto vappEntity = default(EntityProto), ConnectorParams vcenterConnectorParams = default(ConnectorParams), EntityProto vdcEntity = default(EntityProto))
+        public RestoredObjectVCDConfigProto(bool? isVapp = default(bool?), bool? isVappTemplate = default(bool?), EntityProto restoredVappInfo = default(EntityProto), RestoreObject restoredVappObject = default(RestoreObject), EntityProto restoredVappTemplateInfo = default(EntityProto), RestoreObject restoredVappTemplateObject = default(RestoreObject), EntityProto vappEntity = default(EntityProto), ConnectorParams vcenterConnectorParams = default(ConnectorParams), EntityProto vdcEntity = default(EntityProto))
         {
             this.IsVapp = isVapp;
-            this.IsVapp = isVapp;
+            this.IsVappTemplate = isVappTemplate;
+            this.RestoredVappInfo = restoredVappInfo;
+            this.RestoredVappObject = restoredVappObject;
+            this.RestoredVappTemplateInfo = restoredVappTemplateInfo;
+            this.RestoredVappTemplateObject = restoredVappTemplateObject;
             this.VappEntity = vappEntity;
             this.VcenterConnectorParams = vcenterConnectorParams;
             this.VdcEntity = vdcEntity;
@@ -40,8 +52,39 @@ namespace Cohesity.Model
         /// Whether the restored object is a VApp.
         /// </summary>
         /// <value>Whether the restored object is a VApp.</value>
-        [DataMember(Name="isVapp", EmitDefaultValue=true)]
+        [DataMember(Name="isVapp", EmitDefaultValue=false)]
         public bool? IsVapp { get; set; }
+
+        /// <summary>
+        /// Whether the restored object is a VApp template.
+        /// </summary>
+        /// <value>Whether the restored object is a VApp template.</value>
+        [DataMember(Name="isVappTemplate", EmitDefaultValue=false)]
+        public bool? IsVappTemplate { get; set; }
+
+        /// <summary>
+        /// Gets or Sets RestoredVappInfo
+        /// </summary>
+        [DataMember(Name="restoredVappInfo", EmitDefaultValue=false)]
+        public EntityProto RestoredVappInfo { get; set; }
+
+        /// <summary>
+        /// Gets or Sets RestoredVappObject
+        /// </summary>
+        [DataMember(Name="restoredVappObject", EmitDefaultValue=false)]
+        public RestoreObject RestoredVappObject { get; set; }
+
+        /// <summary>
+        /// Gets or Sets RestoredVappTemplateInfo
+        /// </summary>
+        [DataMember(Name="restoredVappTemplateInfo", EmitDefaultValue=false)]
+        public EntityProto RestoredVappTemplateInfo { get; set; }
+
+        /// <summary>
+        /// Gets or Sets RestoredVappTemplateObject
+        /// </summary>
+        [DataMember(Name="restoredVappTemplateObject", EmitDefaultValue=false)]
+        public RestoreObject RestoredVappTemplateObject { get; set; }
 
         /// <summary>
         /// Gets or Sets VappEntity
@@ -103,6 +146,31 @@ namespace Cohesity.Model
                     this.IsVapp.Equals(input.IsVapp))
                 ) && 
                 (
+                    this.IsVappTemplate == input.IsVappTemplate ||
+                    (this.IsVappTemplate != null &&
+                    this.IsVappTemplate.Equals(input.IsVappTemplate))
+                ) && 
+                (
+                    this.RestoredVappInfo == input.RestoredVappInfo ||
+                    (this.RestoredVappInfo != null &&
+                    this.RestoredVappInfo.Equals(input.RestoredVappInfo))
+                ) && 
+                (
+                    this.RestoredVappObject == input.RestoredVappObject ||
+                    (this.RestoredVappObject != null &&
+                    this.RestoredVappObject.Equals(input.RestoredVappObject))
+                ) && 
+                (
+                    this.RestoredVappTemplateInfo == input.RestoredVappTemplateInfo ||
+                    (this.RestoredVappTemplateInfo != null &&
+                    this.RestoredVappTemplateInfo.Equals(input.RestoredVappTemplateInfo))
+                ) && 
+                (
+                    this.RestoredVappTemplateObject == input.RestoredVappTemplateObject ||
+                    (this.RestoredVappTemplateObject != null &&
+                    this.RestoredVappTemplateObject.Equals(input.RestoredVappTemplateObject))
+                ) && 
+                (
                     this.VappEntity == input.VappEntity ||
                     (this.VappEntity != null &&
                     this.VappEntity.Equals(input.VappEntity))
@@ -130,6 +198,16 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.IsVapp != null)
                     hashCode = hashCode * 59 + this.IsVapp.GetHashCode();
+                if (this.IsVappTemplate != null)
+                    hashCode = hashCode * 59 + this.IsVappTemplate.GetHashCode();
+                if (this.RestoredVappInfo != null)
+                    hashCode = hashCode * 59 + this.RestoredVappInfo.GetHashCode();
+                if (this.RestoredVappObject != null)
+                    hashCode = hashCode * 59 + this.RestoredVappObject.GetHashCode();
+                if (this.RestoredVappTemplateInfo != null)
+                    hashCode = hashCode * 59 + this.RestoredVappTemplateInfo.GetHashCode();
+                if (this.RestoredVappTemplateObject != null)
+                    hashCode = hashCode * 59 + this.RestoredVappTemplateObject.GetHashCode();
                 if (this.VappEntity != null)
                     hashCode = hashCode * 59 + this.VappEntity.GetHashCode();
                 if (this.VcenterConnectorParams != null)

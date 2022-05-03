@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,14 +30,13 @@ namespace Cohesity.Model
         public ApplicationParameters(bool? truncateExchangeLog = default(bool?))
         {
             this.TruncateExchangeLog = truncateExchangeLog;
-            this.TruncateExchangeLog = truncateExchangeLog;
         }
         
         /// <summary>
         /// If true, after the Cohesity Cluster successfully captures a Snapshot during a Job Run, the Cluster truncates the Exchange transaction logs on a Microsoft Exchange Server. The default value is false.
         /// </summary>
         /// <value>If true, after the Cohesity Cluster successfully captures a Snapshot during a Job Run, the Cluster truncates the Exchange transaction logs on a Microsoft Exchange Server. The default value is false.</value>
-        [DataMember(Name="truncateExchangeLog", EmitDefaultValue=true)]
+        [DataMember(Name="truncateExchangeLog", EmitDefaultValue=false)]
         public bool? TruncateExchangeLog { get; set; }
 
         /// <summary>

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -30,8 +33,6 @@ namespace Cohesity.Model
         {
             this.BytesPerSecond = bytesPerSecond;
             this.IoRate = ioRate;
-            this.BytesPerSecond = bytesPerSecond;
-            this.IoRate = ioRate;
             this.TimePeriods = timePeriods;
         }
         
@@ -39,14 +40,14 @@ namespace Cohesity.Model
         /// Specifies the value to override the regular maximum bandwidth rate (rateLimitBytesPerSec) for the specified time period. The value is specified in bytes per second.
         /// </summary>
         /// <value>Specifies the value to override the regular maximum bandwidth rate (rateLimitBytesPerSec) for the specified time period. The value is specified in bytes per second.</value>
-        [DataMember(Name="bytesPerSecond", EmitDefaultValue=true)]
+        [DataMember(Name="bytesPerSecond", EmitDefaultValue=false)]
         public long? BytesPerSecond { get; set; }
 
         /// <summary>
         /// Specifies the value to override the default IO rate for the specified time period.
         /// </summary>
         /// <value>Specifies the value to override the default IO rate for the specified time period.</value>
-        [DataMember(Name="ioRate", EmitDefaultValue=true)]
+        [DataMember(Name="ioRate", EmitDefaultValue=false)]
         public int? IoRate { get; set; }
 
         /// <summary>

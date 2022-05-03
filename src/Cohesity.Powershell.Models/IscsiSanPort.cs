@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,30 +34,27 @@ namespace Cohesity.Model
             this.IpAddress = ipAddress;
             this.Iqn = iqn;
             this.TcpPort = tcpPort;
-            this.IpAddress = ipAddress;
-            this.Iqn = iqn;
-            this.TcpPort = tcpPort;
         }
         
         /// <summary>
         /// Specifies the IP address of the SAN port.
         /// </summary>
         /// <value>Specifies the IP address of the SAN port.</value>
-        [DataMember(Name="ipAddress", EmitDefaultValue=true)]
+        [DataMember(Name="ipAddress", EmitDefaultValue=false)]
         public string IpAddress { get; set; }
 
         /// <summary>
         /// Specifies the qualified name of the iSCSI port (IQN).
         /// </summary>
         /// <value>Specifies the qualified name of the iSCSI port (IQN).</value>
-        [DataMember(Name="iqn", EmitDefaultValue=true)]
+        [DataMember(Name="iqn", EmitDefaultValue=false)]
         public string Iqn { get; set; }
 
         /// <summary>
         /// Specifies the listening port(tcp) of the SAN port.
         /// </summary>
         /// <value>Specifies the listening port(tcp) of the SAN port.</value>
-        [DataMember(Name="tcpPort", EmitDefaultValue=true)]
+        [DataMember(Name="tcpPort", EmitDefaultValue=false)]
         public int? TcpPort { get; set; }
 
         /// <summary>

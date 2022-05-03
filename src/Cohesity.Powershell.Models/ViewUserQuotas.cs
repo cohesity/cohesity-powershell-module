@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -33,9 +36,6 @@ namespace Cohesity.Model
         {
             this.Cookie = cookie;
             this.QuotaAndUsageInAllViews = quotaAndUsageInAllViews;
-            this.UsersQuotaAndUsage = usersQuotaAndUsage;
-            this.Cookie = cookie;
-            this.QuotaAndUsageInAllViews = quotaAndUsageInAllViews;
             this.SummaryForUser = summaryForUser;
             this.SummaryForView = summaryForView;
             this.UserQuotaSettings = userQuotaSettings;
@@ -46,14 +46,14 @@ namespace Cohesity.Model
         /// This cookie can be used in the succeeding call to list user quotas and usages to get the next set of user quota overrides. If set to nil, it means that there&#39;s no more results that the server could provide.
         /// </summary>
         /// <value>This cookie can be used in the succeeding call to list user quotas and usages to get the next set of user quota overrides. If set to nil, it means that there&#39;s no more results that the server could provide.</value>
-        [DataMember(Name="cookie", EmitDefaultValue=true)]
+        [DataMember(Name="cookie", EmitDefaultValue=false)]
         public string Cookie { get; set; }
 
         /// <summary>
         /// The quota and usage information for a user in all his views.
         /// </summary>
         /// <value>The quota and usage information for a user in all his views.</value>
-        [DataMember(Name="quotaAndUsageInAllViews", EmitDefaultValue=true)]
+        [DataMember(Name="quotaAndUsageInAllViews", EmitDefaultValue=false)]
         public List<QuotaAndUsageInView> QuotaAndUsageInAllViews { get; set; }
 
         /// <summary>
@@ -78,7 +78,7 @@ namespace Cohesity.Model
         /// The list of user quota policies/overrides and usages.
         /// </summary>
         /// <value>The list of user quota policies/overrides and usages.</value>
-        [DataMember(Name="usersQuotaAndUsage", EmitDefaultValue=true)]
+        [DataMember(Name="usersQuotaAndUsage", EmitDefaultValue=false)]
         public List<UserQuotaAndUsage> UsersQuotaAndUsage { get; set; }
 
         /// <summary>
@@ -125,8 +125,7 @@ namespace Cohesity.Model
                 (
                     this.QuotaAndUsageInAllViews == input.QuotaAndUsageInAllViews ||
                     this.QuotaAndUsageInAllViews != null &&
-                    input.QuotaAndUsageInAllViews != null &&
-                    this.QuotaAndUsageInAllViews.SequenceEqual(input.QuotaAndUsageInAllViews)
+                    this.QuotaAndUsageInAllViews.Equals(input.QuotaAndUsageInAllViews)
                 ) && 
                 (
                     this.SummaryForUser == input.SummaryForUser ||
@@ -146,8 +145,7 @@ namespace Cohesity.Model
                 (
                     this.UsersQuotaAndUsage == input.UsersQuotaAndUsage ||
                     this.UsersQuotaAndUsage != null &&
-                    input.UsersQuotaAndUsage != null &&
-                    this.UsersQuotaAndUsage.SequenceEqual(input.UsersQuotaAndUsage)
+                    this.UsersQuotaAndUsage.Equals(input.UsersQuotaAndUsage)
                 );
         }
 

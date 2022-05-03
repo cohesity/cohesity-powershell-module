@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -111,7 +114,7 @@ namespace Cohesity.Model
         /// Specifies the entity type such as &#39;kIAMUser&#39; if the environment is kGCP. Specifies the type of a GCP source entity. &#39;kIAMUser&#39; indicates a unique user within a GCP account. &#39;kProject&#39; represents compute resources and storage. &#39;kRegion&#39; indicates a geographical region in the global infrastructure. &#39;kAvailabilityZone&#39; indicates an availability zone within a region. &#39;kVirtualMachine&#39; indicates a Virtual Machine running in GCP environment. &#39;kVPC&#39; indicates a virtual private cloud (VPC) network within GCP. &#39;kSubnet&#39; indicates a subnet inside the VPC. &#39;kNetworkSecurityGroup&#39; represents a network security group. &#39;kInstanceType&#39; represents various machine types. &#39;kLabel&#39; represents a label present on the instances. &#39;kMetaData&#39; represents a custom metadata present on instances. &#39;kTag&#39; represents a network tag on instances. &#39;kVPCConnector&#39; represents a VPC connector used for serverless VPC access.
         /// </summary>
         /// <value>Specifies the entity type such as &#39;kIAMUser&#39; if the environment is kGCP. Specifies the type of a GCP source entity. &#39;kIAMUser&#39; indicates a unique user within a GCP account. &#39;kProject&#39; represents compute resources and storage. &#39;kRegion&#39; indicates a geographical region in the global infrastructure. &#39;kAvailabilityZone&#39; indicates an availability zone within a region. &#39;kVirtualMachine&#39; indicates a Virtual Machine running in GCP environment. &#39;kVPC&#39; indicates a virtual private cloud (VPC) network within GCP. &#39;kSubnet&#39; indicates a subnet inside the VPC. &#39;kNetworkSecurityGroup&#39; represents a network security group. &#39;kInstanceType&#39; represents various machine types. &#39;kLabel&#39; represents a label present on the instances. &#39;kMetaData&#39; represents a custom metadata present on instances. &#39;kTag&#39; represents a network tag on instances. &#39;kVPCConnector&#39; represents a VPC connector used for serverless VPC access.</value>
-        [DataMember(Name="gcpType", EmitDefaultValue=true)]
+        [DataMember(Name="gcpType", EmitDefaultValue=false)]
         public GcpTypeEnum? GcpType { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="GcpCredentials" /> class.
@@ -130,47 +133,42 @@ namespace Cohesity.Model
             this.ProjectId = projectId;
             this.VpcNetwork = vpcNetwork;
             this.VpcSubnetwork = vpcSubnetwork;
-            this.ClientEmailAddress = clientEmailAddress;
-            this.ClientPrivateKey = clientPrivateKey;
-            this.GcpType = gcpType;
-            this.ProjectId = projectId;
-            this.VpcNetwork = vpcNetwork;
-            this.VpcSubnetwork = vpcSubnetwork;
         }
         
         /// <summary>
         /// Specifies Client email address associated with the service account.
         /// </summary>
         /// <value>Specifies Client email address associated with the service account.</value>
-        [DataMember(Name="clientEmailAddress", EmitDefaultValue=true)]
+        [DataMember(Name="clientEmailAddress", EmitDefaultValue=false)]
         public string ClientEmailAddress { get; set; }
 
         /// <summary>
         /// Specifies Client private associated with the service account.
         /// </summary>
         /// <value>Specifies Client private associated with the service account.</value>
-        [DataMember(Name="clientPrivateKey", EmitDefaultValue=true)]
+        [DataMember(Name="clientPrivateKey", EmitDefaultValue=false)]
         public string ClientPrivateKey { get; set; }
+
 
         /// <summary>
         /// Specifies Id of the project associated with Google cloud account.
         /// </summary>
         /// <value>Specifies Id of the project associated with Google cloud account.</value>
-        [DataMember(Name="projectId", EmitDefaultValue=true)]
+        [DataMember(Name="projectId", EmitDefaultValue=false)]
         public string ProjectId { get; set; }
 
         /// <summary>
         /// Specifies the VPC Network to deploy proxy VMs.
         /// </summary>
         /// <value>Specifies the VPC Network to deploy proxy VMs.</value>
-        [DataMember(Name="vpcNetwork", EmitDefaultValue=true)]
+        [DataMember(Name="vpcNetwork", EmitDefaultValue=false)]
         public string VpcNetwork { get; set; }
 
         /// <summary>
         /// Specifies the subnetwork to deploy proxy VMs.
         /// </summary>
         /// <value>Specifies the subnetwork to deploy proxy VMs.</value>
-        [DataMember(Name="vpcSubnetwork", EmitDefaultValue=true)]
+        [DataMember(Name="vpcSubnetwork", EmitDefaultValue=false)]
         public string VpcSubnetwork { get; set; }
 
         /// <summary>
@@ -221,7 +219,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.GcpType == input.GcpType ||
-                    this.GcpType.Equals(input.GcpType)
+                    (this.GcpType != null &&
+                    this.GcpType.Equals(input.GcpType))
                 ) && 
                 (
                     this.ProjectId == input.ProjectId ||
@@ -253,7 +252,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ClientEmailAddress.GetHashCode();
                 if (this.ClientPrivateKey != null)
                     hashCode = hashCode * 59 + this.ClientPrivateKey.GetHashCode();
-                hashCode = hashCode * 59 + this.GcpType.GetHashCode();
+                if (this.GcpType != null)
+                    hashCode = hashCode * 59 + this.GcpType.GetHashCode();
                 if (this.ProjectId != null)
                     hashCode = hashCode * 59 + this.ProjectId.GetHashCode();
                 if (this.VpcNetwork != null)

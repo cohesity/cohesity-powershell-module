@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,21 +32,19 @@ namespace Cohesity.Model
         {
             this.ClientId = clientId;
             this.LockRanges = lockRanges;
-            this.ClientId = clientId;
-            this.LockRanges = lockRanges;
         }
         
         /// <summary>
         /// Specifies the client ID
         /// </summary>
         /// <value>Specifies the client ID</value>
-        [DataMember(Name="clientId", EmitDefaultValue=true)]
+        [DataMember(Name="clientId", EmitDefaultValue=false)]
         public string ClientId { get; set; }
 
         /// <summary>
         /// Gets or Sets LockRanges
         /// </summary>
-        [DataMember(Name="lockRanges", EmitDefaultValue=true)]
+        [DataMember(Name="lockRanges", EmitDefaultValue=false)]
         public List<LockRange> LockRanges { get; set; }
 
         /// <summary>
@@ -90,8 +91,7 @@ namespace Cohesity.Model
                 (
                     this.LockRanges == input.LockRanges ||
                     this.LockRanges != null &&
-                    input.LockRanges != null &&
-                    this.LockRanges.SequenceEqual(input.LockRanges)
+                    this.LockRanges.Equals(input.LockRanges)
                 );
         }
 

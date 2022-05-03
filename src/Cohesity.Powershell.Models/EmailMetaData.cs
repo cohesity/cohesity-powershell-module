@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -26,6 +29,7 @@ namespace Cohesity.Model
         /// <param name="allUnderHierarchy">AllUnderHierarchy specifies if logs of all the tenants under the hierarchy of tenant with id TenantId should be returned..</param>
         /// <param name="bccRecipientAddresses">Specifies the email addresses of the bcc recipients..</param>
         /// <param name="ccRecipientAddresses">Specifies the email addresses of the cc recipients..</param>
+        /// <param name="directoryPath">Specifies the directory path to the item..</param>
         /// <param name="domainIds">Specifies the domain Ids in which mailboxes are registered..</param>
         /// <param name="emailSubject">Specifies the subject of the email..</param>
         /// <param name="folderKey">Specifes the Parent Folder key..</param>
@@ -42,30 +46,12 @@ namespace Cohesity.Model
         /// <param name="sentTimeSeconds">Specifies the unix time when the email was sent..</param>
         /// <param name="showOnlyEmailFolders">Specifies whether the query result should include only Email folders..</param>
         /// <param name="tenantId">TenantId specifies the tenant whose action resulted in the audit log..</param>
-        public EmailMetaData(bool? allUnderHierarchy = default(bool?), List<string> bccRecipientAddresses = default(List<string>), List<string> ccRecipientAddresses = default(List<string>), List<long> domainIds = default(List<long>), string emailSubject = default(string), long? folderKey = default(long?), string folderName = default(string), bool? hasAttachments = default(bool?), string itemKey = default(string), List<long> mailboxIds = default(List<long>), List<long> protectionJobIds = default(List<long>), long? receivedEndTime = default(long?), long? receivedStartTime = default(long?), long? receivedTimeSeconds = default(long?), List<string> recipientAddresses = default(List<string>), string senderAddress = default(string), long? sentTimeSeconds = default(long?), bool? showOnlyEmailFolders = default(bool?), string tenantId = default(string))
+        public EmailMetaData(bool? allUnderHierarchy = default(bool?), List<string> bccRecipientAddresses = default(List<string>), List<string> ccRecipientAddresses = default(List<string>), string directoryPath = default(string), List<long?> domainIds = default(List<long?>), string emailSubject = default(string), long? folderKey = default(long?), string folderName = default(string), bool? hasAttachments = default(bool?), string itemKey = default(string), List<long?> mailboxIds = default(List<long?>), List<long?> protectionJobIds = default(List<long?>), long? receivedEndTime = default(long?), long? receivedStartTime = default(long?), long? receivedTimeSeconds = default(long?), List<string> recipientAddresses = default(List<string>), string senderAddress = default(string), long? sentTimeSeconds = default(long?), bool? showOnlyEmailFolders = default(bool?), string tenantId = default(string))
         {
             this.AllUnderHierarchy = allUnderHierarchy;
             this.BccRecipientAddresses = bccRecipientAddresses;
             this.CcRecipientAddresses = ccRecipientAddresses;
-            this.DomainIds = domainIds;
-            this.EmailSubject = emailSubject;
-            this.FolderKey = folderKey;
-            this.FolderName = folderName;
-            this.HasAttachments = hasAttachments;
-            this.ItemKey = itemKey;
-            this.MailboxIds = mailboxIds;
-            this.ProtectionJobIds = protectionJobIds;
-            this.ReceivedEndTime = receivedEndTime;
-            this.ReceivedStartTime = receivedStartTime;
-            this.ReceivedTimeSeconds = receivedTimeSeconds;
-            this.RecipientAddresses = recipientAddresses;
-            this.SenderAddress = senderAddress;
-            this.SentTimeSeconds = sentTimeSeconds;
-            this.ShowOnlyEmailFolders = showOnlyEmailFolders;
-            this.TenantId = tenantId;
-            this.AllUnderHierarchy = allUnderHierarchy;
-            this.BccRecipientAddresses = bccRecipientAddresses;
-            this.CcRecipientAddresses = ccRecipientAddresses;
+            this.DirectoryPath = directoryPath;
             this.DomainIds = domainIds;
             this.EmailSubject = emailSubject;
             this.FolderKey = folderKey;
@@ -88,133 +74,140 @@ namespace Cohesity.Model
         /// AllUnderHierarchy specifies if logs of all the tenants under the hierarchy of tenant with id TenantId should be returned.
         /// </summary>
         /// <value>AllUnderHierarchy specifies if logs of all the tenants under the hierarchy of tenant with id TenantId should be returned.</value>
-        [DataMember(Name="allUnderHierarchy", EmitDefaultValue=true)]
+        [DataMember(Name="allUnderHierarchy", EmitDefaultValue=false)]
         public bool? AllUnderHierarchy { get; set; }
 
         /// <summary>
         /// Specifies the email addresses of the bcc recipients.
         /// </summary>
         /// <value>Specifies the email addresses of the bcc recipients.</value>
-        [DataMember(Name="bccRecipientAddresses", EmitDefaultValue=true)]
+        [DataMember(Name="bccRecipientAddresses", EmitDefaultValue=false)]
         public List<string> BccRecipientAddresses { get; set; }
 
         /// <summary>
         /// Specifies the email addresses of the cc recipients.
         /// </summary>
         /// <value>Specifies the email addresses of the cc recipients.</value>
-        [DataMember(Name="ccRecipientAddresses", EmitDefaultValue=true)]
+        [DataMember(Name="ccRecipientAddresses", EmitDefaultValue=false)]
         public List<string> CcRecipientAddresses { get; set; }
+
+        /// <summary>
+        /// Specifies the directory path to the item.
+        /// </summary>
+        /// <value>Specifies the directory path to the item.</value>
+        [DataMember(Name="directoryPath", EmitDefaultValue=false)]
+        public string DirectoryPath { get; set; }
 
         /// <summary>
         /// Specifies the domain Ids in which mailboxes are registered.
         /// </summary>
         /// <value>Specifies the domain Ids in which mailboxes are registered.</value>
-        [DataMember(Name="domainIds", EmitDefaultValue=true)]
-        public List<long> DomainIds { get; set; }
+        [DataMember(Name="domainIds", EmitDefaultValue=false)]
+        public List<long?> DomainIds { get; set; }
 
         /// <summary>
         /// Specifies the subject of the email.
         /// </summary>
         /// <value>Specifies the subject of the email.</value>
-        [DataMember(Name="emailSubject", EmitDefaultValue=true)]
+        [DataMember(Name="emailSubject", EmitDefaultValue=false)]
         public string EmailSubject { get; set; }
 
         /// <summary>
         /// Specifes the Parent Folder key.
         /// </summary>
         /// <value>Specifes the Parent Folder key.</value>
-        [DataMember(Name="folderKey", EmitDefaultValue=true)]
+        [DataMember(Name="folderKey", EmitDefaultValue=false)]
         public long? FolderKey { get; set; }
 
         /// <summary>
         /// Specifies the parent folder name of the email.
         /// </summary>
         /// <value>Specifies the parent folder name of the email.</value>
-        [DataMember(Name="folderName", EmitDefaultValue=true)]
+        [DataMember(Name="folderName", EmitDefaultValue=false)]
         public string FolderName { get; set; }
 
         /// <summary>
         /// Specifies whether the emails have any attachments.
         /// </summary>
         /// <value>Specifies whether the emails have any attachments.</value>
-        [DataMember(Name="hasAttachments", EmitDefaultValue=true)]
+        [DataMember(Name="hasAttachments", EmitDefaultValue=false)]
         public bool? HasAttachments { get; set; }
 
         /// <summary>
         /// Specifies the Key(unique within mailbox) for Outlook item such as Email. This key is not indexed but used for identifying the item while restore.
         /// </summary>
         /// <value>Specifies the Key(unique within mailbox) for Outlook item such as Email. This key is not indexed but used for identifying the item while restore.</value>
-        [DataMember(Name="itemKey", EmitDefaultValue=true)]
+        [DataMember(Name="itemKey", EmitDefaultValue=false)]
         public string ItemKey { get; set; }
 
         /// <summary>
         /// Specifies the mailbox Ids which contains the emails/folders.
         /// </summary>
         /// <value>Specifies the mailbox Ids which contains the emails/folders.</value>
-        [DataMember(Name="mailboxIds", EmitDefaultValue=true)]
-        public List<long> MailboxIds { get; set; }
+        [DataMember(Name="mailboxIds", EmitDefaultValue=false)]
+        public List<long?> MailboxIds { get; set; }
 
         /// <summary>
         /// Specifies the protection job Ids which have backed up mailbox(es) continaing emails/folders.
         /// </summary>
         /// <value>Specifies the protection job Ids which have backed up mailbox(es) continaing emails/folders.</value>
-        [DataMember(Name="protectionJobIds", EmitDefaultValue=true)]
-        public List<long> ProtectionJobIds { get; set; }
+        [DataMember(Name="protectionJobIds", EmitDefaultValue=false)]
+        public List<long?> ProtectionJobIds { get; set; }
 
         /// <summary>
         /// Specifies the unix end time for querying on email&#39;s received time.
         /// </summary>
         /// <value>Specifies the unix end time for querying on email&#39;s received time.</value>
-        [DataMember(Name="receivedEndTime", EmitDefaultValue=true)]
+        [DataMember(Name="receivedEndTime", EmitDefaultValue=false)]
         public long? ReceivedEndTime { get; set; }
 
         /// <summary>
         /// Specifies the unix start time for querying on email&#39;s received time.
         /// </summary>
         /// <value>Specifies the unix start time for querying on email&#39;s received time.</value>
-        [DataMember(Name="receivedStartTime", EmitDefaultValue=true)]
+        [DataMember(Name="receivedStartTime", EmitDefaultValue=false)]
         public long? ReceivedStartTime { get; set; }
 
         /// <summary>
         /// Specifies the unix time when the email was received.
         /// </summary>
         /// <value>Specifies the unix time when the email was received.</value>
-        [DataMember(Name="receivedTimeSeconds", EmitDefaultValue=true)]
+        [DataMember(Name="receivedTimeSeconds", EmitDefaultValue=false)]
         public long? ReceivedTimeSeconds { get; set; }
 
         /// <summary>
         /// Specifies the email addresses of the recipients.
         /// </summary>
         /// <value>Specifies the email addresses of the recipients.</value>
-        [DataMember(Name="recipientAddresses", EmitDefaultValue=true)]
+        [DataMember(Name="recipientAddresses", EmitDefaultValue=false)]
         public List<string> RecipientAddresses { get; set; }
 
         /// <summary>
         /// Specifies the email address of the sender.
         /// </summary>
         /// <value>Specifies the email address of the sender.</value>
-        [DataMember(Name="senderAddress", EmitDefaultValue=true)]
+        [DataMember(Name="senderAddress", EmitDefaultValue=false)]
         public string SenderAddress { get; set; }
 
         /// <summary>
         /// Specifies the unix time when the email was sent.
         /// </summary>
         /// <value>Specifies the unix time when the email was sent.</value>
-        [DataMember(Name="sentTimeSeconds", EmitDefaultValue=true)]
+        [DataMember(Name="sentTimeSeconds", EmitDefaultValue=false)]
         public long? SentTimeSeconds { get; set; }
 
         /// <summary>
         /// Specifies whether the query result should include only Email folders.
         /// </summary>
         /// <value>Specifies whether the query result should include only Email folders.</value>
-        [DataMember(Name="showOnlyEmailFolders", EmitDefaultValue=true)]
+        [DataMember(Name="showOnlyEmailFolders", EmitDefaultValue=false)]
         public bool? ShowOnlyEmailFolders { get; set; }
 
         /// <summary>
         /// TenantId specifies the tenant whose action resulted in the audit log.
         /// </summary>
         /// <value>TenantId specifies the tenant whose action resulted in the audit log.</value>
-        [DataMember(Name="tenantId", EmitDefaultValue=true)]
+        [DataMember(Name="tenantId", EmitDefaultValue=false)]
         public string TenantId { get; set; }
 
         /// <summary>
@@ -261,20 +254,22 @@ namespace Cohesity.Model
                 (
                     this.BccRecipientAddresses == input.BccRecipientAddresses ||
                     this.BccRecipientAddresses != null &&
-                    input.BccRecipientAddresses != null &&
-                    this.BccRecipientAddresses.SequenceEqual(input.BccRecipientAddresses)
+                    this.BccRecipientAddresses.Equals(input.BccRecipientAddresses)
                 ) && 
                 (
                     this.CcRecipientAddresses == input.CcRecipientAddresses ||
                     this.CcRecipientAddresses != null &&
-                    input.CcRecipientAddresses != null &&
-                    this.CcRecipientAddresses.SequenceEqual(input.CcRecipientAddresses)
+                    this.CcRecipientAddresses.Equals(input.CcRecipientAddresses)
+                ) && 
+                (
+                    this.DirectoryPath == input.DirectoryPath ||
+                    (this.DirectoryPath != null &&
+                    this.DirectoryPath.Equals(input.DirectoryPath))
                 ) && 
                 (
                     this.DomainIds == input.DomainIds ||
                     this.DomainIds != null &&
-                    input.DomainIds != null &&
-                    this.DomainIds.SequenceEqual(input.DomainIds)
+                    this.DomainIds.Equals(input.DomainIds)
                 ) && 
                 (
                     this.EmailSubject == input.EmailSubject ||
@@ -304,14 +299,12 @@ namespace Cohesity.Model
                 (
                     this.MailboxIds == input.MailboxIds ||
                     this.MailboxIds != null &&
-                    input.MailboxIds != null &&
-                    this.MailboxIds.SequenceEqual(input.MailboxIds)
+                    this.MailboxIds.Equals(input.MailboxIds)
                 ) && 
                 (
                     this.ProtectionJobIds == input.ProtectionJobIds ||
                     this.ProtectionJobIds != null &&
-                    input.ProtectionJobIds != null &&
-                    this.ProtectionJobIds.SequenceEqual(input.ProtectionJobIds)
+                    this.ProtectionJobIds.Equals(input.ProtectionJobIds)
                 ) && 
                 (
                     this.ReceivedEndTime == input.ReceivedEndTime ||
@@ -331,8 +324,7 @@ namespace Cohesity.Model
                 (
                     this.RecipientAddresses == input.RecipientAddresses ||
                     this.RecipientAddresses != null &&
-                    input.RecipientAddresses != null &&
-                    this.RecipientAddresses.SequenceEqual(input.RecipientAddresses)
+                    this.RecipientAddresses.Equals(input.RecipientAddresses)
                 ) && 
                 (
                     this.SenderAddress == input.SenderAddress ||
@@ -371,6 +363,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.BccRecipientAddresses.GetHashCode();
                 if (this.CcRecipientAddresses != null)
                     hashCode = hashCode * 59 + this.CcRecipientAddresses.GetHashCode();
+                if (this.DirectoryPath != null)
+                    hashCode = hashCode * 59 + this.DirectoryPath.GetHashCode();
                 if (this.DomainIds != null)
                     hashCode = hashCode * 59 + this.DomainIds.GetHashCode();
                 if (this.EmailSubject != null)

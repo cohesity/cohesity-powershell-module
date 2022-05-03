@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -12,6 +13,8 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
+
+
 namespace Cohesity.Model
 {
     /// <summary>
@@ -21,9 +24,9 @@ namespace Cohesity.Model
     public partial class SchedulingPolicy :  IEquatable<SchedulingPolicy>
     {
         /// <summary>
-        /// Specifies how often to start new Job Runs of a Protection Job. &#39;kDaily&#39; means new Job Runs start daily. &#39;kMonthly&#39; means new Job Runs start monthly. &#39;kContinuous&#39; means new Job Runs repetitively start at the beginning of the specified time interval (in hours or minutes). &#39;kContinuousRPO&#39; means this is an RPO schedule.
+        /// Specifies how often to start new Job Runs of a Protection Job. &#39;kDaily&#39; means new Job Runs start daily. &#39;kMonthly&#39; means new Job Runs start monthly. &#39;kContinuous&#39; means new Job Runs repetitively start at the beginning of the specified time interval (in hours or minutes). &#39;kContinuousRPO&#39; means this is an RPO schedule. &#39;kCDP&#39; means this is a continuous data protection policy.
         /// </summary>
-        /// <value>Specifies how often to start new Job Runs of a Protection Job. &#39;kDaily&#39; means new Job Runs start daily. &#39;kMonthly&#39; means new Job Runs start monthly. &#39;kContinuous&#39; means new Job Runs repetitively start at the beginning of the specified time interval (in hours or minutes). &#39;kContinuousRPO&#39; means this is an RPO schedule.</value>
+        /// <value>Specifies how often to start new Job Runs of a Protection Job. &#39;kDaily&#39; means new Job Runs start daily. &#39;kMonthly&#39; means new Job Runs start monthly. &#39;kContinuous&#39; means new Job Runs repetitively start at the beginning of the specified time interval (in hours or minutes). &#39;kContinuousRPO&#39; means this is an RPO schedule. &#39;kCDP&#39; means this is a continuous data protection policy.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum PeriodicityEnum
         {
@@ -60,10 +63,10 @@ namespace Cohesity.Model
         }
 
         /// <summary>
-        /// Specifies how often to start new Job Runs of a Protection Job. &#39;kDaily&#39; means new Job Runs start daily. &#39;kMonthly&#39; means new Job Runs start monthly. &#39;kContinuous&#39; means new Job Runs repetitively start at the beginning of the specified time interval (in hours or minutes). &#39;kContinuousRPO&#39; means this is an RPO schedule.
+        /// Specifies how often to start new Job Runs of a Protection Job. &#39;kDaily&#39; means new Job Runs start daily. &#39;kMonthly&#39; means new Job Runs start monthly. &#39;kContinuous&#39; means new Job Runs repetitively start at the beginning of the specified time interval (in hours or minutes). &#39;kContinuousRPO&#39; means this is an RPO schedule. &#39;kCDP&#39; means this is a continuous data protection policy.
         /// </summary>
-        /// <value>Specifies how often to start new Job Runs of a Protection Job. &#39;kDaily&#39; means new Job Runs start daily. &#39;kMonthly&#39; means new Job Runs start monthly. &#39;kContinuous&#39; means new Job Runs repetitively start at the beginning of the specified time interval (in hours or minutes). &#39;kContinuousRPO&#39; means this is an RPO schedule.</value>
-        [DataMember(Name="periodicity", EmitDefaultValue=true)]
+        /// <value>Specifies how often to start new Job Runs of a Protection Job. &#39;kDaily&#39; means new Job Runs start daily. &#39;kMonthly&#39; means new Job Runs start monthly. &#39;kContinuous&#39; means new Job Runs repetitively start at the beginning of the specified time interval (in hours or minutes). &#39;kContinuousRPO&#39; means this is an RPO schedule. &#39;kCDP&#39; means this is a continuous data protection policy.</value>
+        [DataMember(Name="periodicity", EmitDefaultValue=false)]
         public PeriodicityEnum? Periodicity { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="SchedulingPolicy" /> class.
@@ -71,15 +74,10 @@ namespace Cohesity.Model
         /// <param name="continuousSchedule">Specifies the time interval between two Job Runs of a continuous backup schedule and any blackout periods when new Job Runs should NOT be started. Set if periodicity is kContinuous..</param>
         /// <param name="dailySchedule">Specifies a daily or weekly backup schedule. Set if periodicity is kDaily..</param>
         /// <param name="monthlySchedule">Specifies a monthly backup schedule. Set if periodicity is kMonthly..</param>
-        /// <param name="periodicity">Specifies how often to start new Job Runs of a Protection Job. &#39;kDaily&#39; means new Job Runs start daily. &#39;kMonthly&#39; means new Job Runs start monthly. &#39;kContinuous&#39; means new Job Runs repetitively start at the beginning of the specified time interval (in hours or minutes). &#39;kContinuousRPO&#39; means this is an RPO schedule..</param>
+        /// <param name="periodicity">Specifies how often to start new Job Runs of a Protection Job. &#39;kDaily&#39; means new Job Runs start daily. &#39;kMonthly&#39; means new Job Runs start monthly. &#39;kContinuous&#39; means new Job Runs repetitively start at the beginning of the specified time interval (in hours or minutes). &#39;kContinuousRPO&#39; means this is an RPO schedule. &#39;kCDP&#39; means this is a continuous data protection policy..</param>
         /// <param name="rpoSchedule">Specifies an RPO backup schedule. Set if periodicity is kContinuousRPO..</param>
         public SchedulingPolicy(ContinuousSchedule continuousSchedule = default(ContinuousSchedule), DailySchedule dailySchedule = default(DailySchedule), MonthlySchedule monthlySchedule = default(MonthlySchedule), PeriodicityEnum? periodicity = default(PeriodicityEnum?), RpoSchedule rpoSchedule = default(RpoSchedule))
         {
-            this.ContinuousSchedule = continuousSchedule;
-            this.DailySchedule = dailySchedule;
-            this.MonthlySchedule = monthlySchedule;
-            this.Periodicity = periodicity;
-            this.RpoSchedule = rpoSchedule;
             this.ContinuousSchedule = continuousSchedule;
             this.DailySchedule = dailySchedule;
             this.MonthlySchedule = monthlySchedule;
@@ -91,28 +89,29 @@ namespace Cohesity.Model
         /// Specifies the time interval between two Job Runs of a continuous backup schedule and any blackout periods when new Job Runs should NOT be started. Set if periodicity is kContinuous.
         /// </summary>
         /// <value>Specifies the time interval between two Job Runs of a continuous backup schedule and any blackout periods when new Job Runs should NOT be started. Set if periodicity is kContinuous.</value>
-        [DataMember(Name="continuousSchedule", EmitDefaultValue=true)]
+        [DataMember(Name="continuousSchedule", EmitDefaultValue=false)]
         public ContinuousSchedule ContinuousSchedule { get; set; }
 
         /// <summary>
         /// Specifies a daily or weekly backup schedule. Set if periodicity is kDaily.
         /// </summary>
         /// <value>Specifies a daily or weekly backup schedule. Set if periodicity is kDaily.</value>
-        [DataMember(Name="dailySchedule", EmitDefaultValue=true)]
+        [DataMember(Name="dailySchedule", EmitDefaultValue=false)]
         public DailySchedule DailySchedule { get; set; }
 
         /// <summary>
         /// Specifies a monthly backup schedule. Set if periodicity is kMonthly.
         /// </summary>
         /// <value>Specifies a monthly backup schedule. Set if periodicity is kMonthly.</value>
-        [DataMember(Name="monthlySchedule", EmitDefaultValue=true)]
+        [DataMember(Name="monthlySchedule", EmitDefaultValue=false)]
         public MonthlySchedule MonthlySchedule { get; set; }
+
 
         /// <summary>
         /// Specifies an RPO backup schedule. Set if periodicity is kContinuousRPO.
         /// </summary>
         /// <value>Specifies an RPO backup schedule. Set if periodicity is kContinuousRPO.</value>
-        [DataMember(Name="rpoSchedule", EmitDefaultValue=true)]
+        [DataMember(Name="rpoSchedule", EmitDefaultValue=false)]
         public RpoSchedule RpoSchedule { get; set; }
 
         /// <summary>
@@ -153,27 +152,28 @@ namespace Cohesity.Model
             return 
                 (
                     this.ContinuousSchedule == input.ContinuousSchedule ||
-                    (this.ContinuousSchedule != null &&
-                    this.ContinuousSchedule.Equals(input.ContinuousSchedule))
+                    this.ContinuousSchedule != null &&
+                    this.ContinuousSchedule.Equals(input.ContinuousSchedule)
                 ) && 
                 (
                     this.DailySchedule == input.DailySchedule ||
-                    (this.DailySchedule != null &&
-                    this.DailySchedule.Equals(input.DailySchedule))
+                    this.DailySchedule != null &&
+                    this.DailySchedule.Equals(input.DailySchedule)
                 ) && 
                 (
                     this.MonthlySchedule == input.MonthlySchedule ||
-                    (this.MonthlySchedule != null &&
-                    this.MonthlySchedule.Equals(input.MonthlySchedule))
+                    this.MonthlySchedule != null &&
+                    this.MonthlySchedule.Equals(input.MonthlySchedule)
                 ) && 
                 (
                     this.Periodicity == input.Periodicity ||
-                    this.Periodicity.Equals(input.Periodicity)
+                    (this.Periodicity != null &&
+                    this.Periodicity.Equals(input.Periodicity))
                 ) && 
                 (
                     this.RpoSchedule == input.RpoSchedule ||
-                    (this.RpoSchedule != null &&
-                    this.RpoSchedule.Equals(input.RpoSchedule))
+                    this.RpoSchedule != null &&
+                    this.RpoSchedule.Equals(input.RpoSchedule)
                 );
         }
 
@@ -192,7 +192,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.DailySchedule.GetHashCode();
                 if (this.MonthlySchedule != null)
                     hashCode = hashCode * 59 + this.MonthlySchedule.GetHashCode();
-                hashCode = hashCode * 59 + this.Periodicity.GetHashCode();
+                if (this.Periodicity != null)
+                    hashCode = hashCode * 59 + this.Periodicity.GetHashCode();
                 if (this.RpoSchedule != null)
                     hashCode = hashCode * 59 + this.RpoSchedule.GetHashCode();
                 return hashCode;

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -30,8 +33,6 @@ namespace Cohesity.Model
         {
             this.NumDaysToKeep = numDaysToKeep;
             this.NumSecsToKeep = numSecsToKeep;
-            this.NumDaysToKeep = numDaysToKeep;
-            this.NumSecsToKeep = numSecsToKeep;
             this.WormRetention = wormRetention;
         }
         
@@ -39,14 +40,14 @@ namespace Cohesity.Model
         /// The number of days to keep the snapshots for a backup run.
         /// </summary>
         /// <value>The number of days to keep the snapshots for a backup run.</value>
-        [DataMember(Name="numDaysToKeep", EmitDefaultValue=true)]
+        [DataMember(Name="numDaysToKeep", EmitDefaultValue=false)]
         public long? NumDaysToKeep { get; set; }
 
         /// <summary>
         /// The number of seconds to keep the snapshots for a backup run.
         /// </summary>
         /// <value>The number of seconds to keep the snapshots for a backup run.</value>
-        [DataMember(Name="numSecsToKeep", EmitDefaultValue=true)]
+        [DataMember(Name="numSecsToKeep", EmitDefaultValue=false)]
         public int? NumSecsToKeep { get; set; }
 
         /// <summary>

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,7 +30,6 @@ namespace Cohesity.Model
         /// <param name="snapshotTargetPolicyVec">Specifies additional policies that can be used to copy snapshots created by a backup run to different targets (such as a remote replica, tape etc). Each policy also specifies the retention policy that should be applied to the copied snapshots at the respective target..</param>
         public JobPolicyProto(BackupPolicyProto backupPolicy = default(BackupPolicyProto), List<SnapshotTargetPolicyProto> snapshotTargetPolicyVec = default(List<SnapshotTargetPolicyProto>))
         {
-            this.SnapshotTargetPolicyVec = snapshotTargetPolicyVec;
             this.BackupPolicy = backupPolicy;
             this.SnapshotTargetPolicyVec = snapshotTargetPolicyVec;
         }
@@ -42,7 +44,7 @@ namespace Cohesity.Model
         /// Specifies additional policies that can be used to copy snapshots created by a backup run to different targets (such as a remote replica, tape etc). Each policy also specifies the retention policy that should be applied to the copied snapshots at the respective target.
         /// </summary>
         /// <value>Specifies additional policies that can be used to copy snapshots created by a backup run to different targets (such as a remote replica, tape etc). Each policy also specifies the retention policy that should be applied to the copied snapshots at the respective target.</value>
-        [DataMember(Name="snapshotTargetPolicyVec", EmitDefaultValue=true)]
+        [DataMember(Name="snapshotTargetPolicyVec", EmitDefaultValue=false)]
         public List<SnapshotTargetPolicyProto> SnapshotTargetPolicyVec { get; set; }
 
         /// <summary>
@@ -89,8 +91,7 @@ namespace Cohesity.Model
                 (
                     this.SnapshotTargetPolicyVec == input.SnapshotTargetPolicyVec ||
                     this.SnapshotTargetPolicyVec != null &&
-                    input.SnapshotTargetPolicyVec != null &&
-                    this.SnapshotTargetPolicyVec.SequenceEqual(input.SnapshotTargetPolicyVec)
+                    this.SnapshotTargetPolicyVec.Equals(input.SnapshotTargetPolicyVec)
                 );
         }
 

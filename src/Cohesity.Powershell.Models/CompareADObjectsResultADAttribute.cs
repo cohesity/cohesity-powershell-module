@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -32,8 +35,6 @@ namespace Cohesity.Model
         public CompareADObjectsResultADAttribute(int? attrFlags = default(int?), CompareADObjectsResultADAttributeValue destValue = default(CompareADObjectsResultADAttributeValue), string ldapName = default(string), CompareADObjectsResultADAttributeValue sameValue = default(CompareADObjectsResultADAttributeValue), CompareADObjectsResultADAttributeValue sourceValue = default(CompareADObjectsResultADAttributeValue), ErrorProto status = default(ErrorProto))
         {
             this.AttrFlags = attrFlags;
-            this.LdapName = ldapName;
-            this.AttrFlags = attrFlags;
             this.DestValue = destValue;
             this.LdapName = ldapName;
             this.SameValue = sameValue;
@@ -45,7 +46,7 @@ namespace Cohesity.Model
         /// Object result flags of type ADAttributeFlags.
         /// </summary>
         /// <value>Object result flags of type ADAttributeFlags.</value>
-        [DataMember(Name="attrFlags", EmitDefaultValue=true)]
+        [DataMember(Name="attrFlags", EmitDefaultValue=false)]
         public int? AttrFlags { get; set; }
 
         /// <summary>
@@ -58,7 +59,7 @@ namespace Cohesity.Model
         /// LDAP attribute name.
         /// </summary>
         /// <value>LDAP attribute name.</value>
-        [DataMember(Name="ldapName", EmitDefaultValue=true)]
+        [DataMember(Name="ldapName", EmitDefaultValue=false)]
         public string LdapName { get; set; }
 
         /// <summary>

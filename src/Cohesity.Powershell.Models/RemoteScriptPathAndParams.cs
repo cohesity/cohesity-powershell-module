@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -35,46 +38,41 @@ namespace Cohesity.Model
             this.ScriptParams = scriptParams;
             this.ScriptPath = scriptPath;
             this.TimeoutSecs = timeoutSecs;
-            this.ContinueOnError = continueOnError;
-            this.IsActive = isActive;
-            this.ScriptParams = scriptParams;
-            this.ScriptPath = scriptPath;
-            this.TimeoutSecs = timeoutSecs;
         }
         
         /// <summary>
         /// Specifies if the script needs to continue even if there is an occurence of an error. If this flag is set to true, then backup job will start even if the pre backup script fails. Applicable only for pre backup scripts.
         /// </summary>
         /// <value>Specifies if the script needs to continue even if there is an occurence of an error. If this flag is set to true, then backup job will start even if the pre backup script fails. Applicable only for pre backup scripts.</value>
-        [DataMember(Name="continueOnError", EmitDefaultValue=true)]
+        [DataMember(Name="continueOnError", EmitDefaultValue=false)]
         public bool? ContinueOnError { get; set; }
 
         /// <summary>
         /// Specifies if the script is active. If set to false, this script will not be executed even if it is part of the backup job.
         /// </summary>
         /// <value>Specifies if the script is active. If set to false, this script will not be executed even if it is part of the backup job.</value>
-        [DataMember(Name="isActive", EmitDefaultValue=true)]
+        [DataMember(Name="isActive", EmitDefaultValue=false)]
         public bool? IsActive { get; set; }
 
         /// <summary>
         /// Specifies the parameters and values to pass into the remote script. For example if the script expects values for the &#39;database&#39; and &#39;user&#39; parameters, specify the parameters and values using the following string: \&quot;database&#x3D;myDatabase user&#x3D;me\&quot;.
         /// </summary>
         /// <value>Specifies the parameters and values to pass into the remote script. For example if the script expects values for the &#39;database&#39; and &#39;user&#39; parameters, specify the parameters and values using the following string: \&quot;database&#x3D;myDatabase user&#x3D;me\&quot;.</value>
-        [DataMember(Name="scriptParams", EmitDefaultValue=true)]
+        [DataMember(Name="scriptParams", EmitDefaultValue=false)]
         public string ScriptParams { get; set; }
 
         /// <summary>
         /// Specifies the path to the script on the remote host.
         /// </summary>
         /// <value>Specifies the path to the script on the remote host.</value>
-        [DataMember(Name="scriptPath", EmitDefaultValue=true)]
+        [DataMember(Name="scriptPath", EmitDefaultValue=false)]
         public string ScriptPath { get; set; }
 
         /// <summary>
         /// Specifies the timeout of the script in seconds. The script will be killed if it exceeds this value. If the value of the field is &#39;-1&#39; then timeout is not set for the script.
         /// </summary>
         /// <value>Specifies the timeout of the script in seconds. The script will be killed if it exceeds this value. If the value of the field is &#39;-1&#39; then timeout is not set for the script.</value>
-        [DataMember(Name="timeoutSecs", EmitDefaultValue=true)]
+        [DataMember(Name="timeoutSecs", EmitDefaultValue=false)]
         public int? TimeoutSecs { get; set; }
 
         /// <summary>

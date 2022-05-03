@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,9 +32,6 @@ namespace Cohesity.Model
         /// <param name="viewName">View name of input view..</param>
         public UpdateUserQuotaSettingsForView(QuotaPolicy defaultUserQuotaPolicy = default(QuotaPolicy), bool? enableUserQuota = default(bool?), bool? inheritDefaultPolicyFromViewbox = default(bool?), string viewName = default(string))
         {
-            this.EnableUserQuota = enableUserQuota;
-            this.InheritDefaultPolicyFromViewbox = inheritDefaultPolicyFromViewbox;
-            this.ViewName = viewName;
             this.DefaultUserQuotaPolicy = defaultUserQuotaPolicy;
             this.EnableUserQuota = enableUserQuota;
             this.InheritDefaultPolicyFromViewbox = inheritDefaultPolicyFromViewbox;
@@ -48,21 +48,21 @@ namespace Cohesity.Model
         /// If set, it enables/disables the user quota overrides for a view. Otherwise, it leaves it at it&#39;s previous state.
         /// </summary>
         /// <value>If set, it enables/disables the user quota overrides for a view. Otherwise, it leaves it at it&#39;s previous state.</value>
-        [DataMember(Name="enableUserQuota", EmitDefaultValue=true)]
+        [DataMember(Name="enableUserQuota", EmitDefaultValue=false)]
         public bool? EnableUserQuota { get; set; }
 
         /// <summary>
         /// If set to true, the default_policy in view metadata will be cleared and the default policy from viewbox will take effect for all users in the view.
         /// </summary>
         /// <value>If set to true, the default_policy in view metadata will be cleared and the default policy from viewbox will take effect for all users in the view.</value>
-        [DataMember(Name="inheritDefaultPolicyFromViewbox", EmitDefaultValue=true)]
+        [DataMember(Name="inheritDefaultPolicyFromViewbox", EmitDefaultValue=false)]
         public bool? InheritDefaultPolicyFromViewbox { get; set; }
 
         /// <summary>
         /// View name of input view.
         /// </summary>
         /// <value>View name of input view.</value>
-        [DataMember(Name="viewName", EmitDefaultValue=true)]
+        [DataMember(Name="viewName", EmitDefaultValue=false)]
         public string ViewName { get; set; }
 
         /// <summary>

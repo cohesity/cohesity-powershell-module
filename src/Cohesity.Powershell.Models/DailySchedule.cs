@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -75,7 +78,7 @@ namespace Cohesity.Model
         /// Array of Days.  Specifies a list of days of the week when to start Job Runs. If no days are specified, the Jobs Runs will run every day of the week. Specifies a day in a week such as &#39;kSunday&#39;, &#39;kMonday&#39;, etc.
         /// </summary>
         /// <value>Array of Days.  Specifies a list of days of the week when to start Job Runs. If no days are specified, the Jobs Runs will run every day of the week. Specifies a day in a week such as &#39;kSunday&#39;, &#39;kMonday&#39;, etc.</value>
-        [DataMember(Name="days", EmitDefaultValue=true)]
+        [DataMember(Name="days", EmitDefaultValue=false)]
         public List<DaysEnum> Days { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="DailySchedule" /> class.
@@ -84,9 +87,9 @@ namespace Cohesity.Model
         public DailySchedule(List<DaysEnum> days = default(List<DaysEnum>))
         {
             this.Days = days;
-            this.Days = days;
         }
         
+
         /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
@@ -125,7 +128,8 @@ namespace Cohesity.Model
             return 
                 (
                     this.Days == input.Days ||
-                    this.Days.SequenceEqual(input.Days)
+                    this.Days != null &&
+                    this.Days.Equals(input.Days)
                 );
         }
 
@@ -138,7 +142,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                hashCode = hashCode * 59 + this.Days.GetHashCode();
+                if (this.Days != null)
+                    hashCode = hashCode * 59 + this.Days.GetHashCode();
                 return hashCode;
             }
         }

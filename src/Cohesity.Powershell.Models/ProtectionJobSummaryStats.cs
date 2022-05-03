@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -45,86 +48,76 @@ namespace Cohesity.Model
             this.TotalBytesReadFromSource = totalBytesReadFromSource;
             this.TotalLogicalBackupSizeBytes = totalLogicalBackupSizeBytes;
             this.TotalPhysicalBackupSizeBytes = totalPhysicalBackupSizeBytes;
-            this.AverageRunTimeUsecs = averageRunTimeUsecs;
-            this.FastestRunTimeUsecs = fastestRunTimeUsecs;
-            this.NumCanceledRuns = numCanceledRuns;
-            this.NumFailedRuns = numFailedRuns;
-            this.NumSlaViolations = numSlaViolations;
-            this.NumSuccessfulRuns = numSuccessfulRuns;
-            this.SlowestRunTimeUsecs = slowestRunTimeUsecs;
-            this.TotalBytesReadFromSource = totalBytesReadFromSource;
-            this.TotalLogicalBackupSizeBytes = totalLogicalBackupSizeBytes;
-            this.TotalPhysicalBackupSizeBytes = totalPhysicalBackupSizeBytes;
         }
         
         /// <summary>
         /// Specifies the average run time of all successful Protection Runs. It is specified as a Unix epoch Timestamp (in microseconds).
         /// </summary>
         /// <value>Specifies the average run time of all successful Protection Runs. It is specified as a Unix epoch Timestamp (in microseconds).</value>
-        [DataMember(Name="averageRunTimeUsecs", EmitDefaultValue=true)]
+        [DataMember(Name="averageRunTimeUsecs", EmitDefaultValue=false)]
         public long? AverageRunTimeUsecs { get; set; }
 
         /// <summary>
         /// Specifies the time taken for a fastest successful Protection Run so far. It is specified as a Unix epoch Timestamp (in microseconds).
         /// </summary>
         /// <value>Specifies the time taken for a fastest successful Protection Run so far. It is specified as a Unix epoch Timestamp (in microseconds).</value>
-        [DataMember(Name="fastestRunTimeUsecs", EmitDefaultValue=true)]
+        [DataMember(Name="fastestRunTimeUsecs", EmitDefaultValue=false)]
         public long? FastestRunTimeUsecs { get; set; }
 
         /// <summary>
         /// Specifies the number of runs that were cancelled.
         /// </summary>
         /// <value>Specifies the number of runs that were cancelled.</value>
-        [DataMember(Name="numCanceledRuns", EmitDefaultValue=true)]
+        [DataMember(Name="numCanceledRuns", EmitDefaultValue=false)]
         public long? NumCanceledRuns { get; set; }
 
         /// <summary>
         /// Specifies the number of runs that failed to finish.
         /// </summary>
         /// <value>Specifies the number of runs that failed to finish.</value>
-        [DataMember(Name="numFailedRuns", EmitDefaultValue=true)]
+        [DataMember(Name="numFailedRuns", EmitDefaultValue=false)]
         public long? NumFailedRuns { get; set; }
 
         /// <summary>
         /// Specifies the number of runs having SLA violations.
         /// </summary>
         /// <value>Specifies the number of runs having SLA violations.</value>
-        [DataMember(Name="numSlaViolations", EmitDefaultValue=true)]
+        [DataMember(Name="numSlaViolations", EmitDefaultValue=false)]
         public long? NumSlaViolations { get; set; }
 
         /// <summary>
         /// Specifies the number of runs that finished successfully.
         /// </summary>
         /// <value>Specifies the number of runs that finished successfully.</value>
-        [DataMember(Name="numSuccessfulRuns", EmitDefaultValue=true)]
+        [DataMember(Name="numSuccessfulRuns", EmitDefaultValue=false)]
         public long? NumSuccessfulRuns { get; set; }
 
         /// <summary>
         /// Specifies the time taken for a slowest successful Protection Run so far. It is specified as a Unix epoch Timestamp (in microseconds).
         /// </summary>
         /// <value>Specifies the time taken for a slowest successful Protection Run so far. It is specified as a Unix epoch Timestamp (in microseconds).</value>
-        [DataMember(Name="slowestRunTimeUsecs", EmitDefaultValue=true)]
+        [DataMember(Name="slowestRunTimeUsecs", EmitDefaultValue=false)]
         public long? SlowestRunTimeUsecs { get; set; }
 
         /// <summary>
         /// Specifies the total amount of data read from the source (so far).
         /// </summary>
         /// <value>Specifies the total amount of data read from the source (so far).</value>
-        [DataMember(Name="totalBytesReadFromSource", EmitDefaultValue=true)]
+        [DataMember(Name="totalBytesReadFromSource", EmitDefaultValue=false)]
         public long? TotalBytesReadFromSource { get; set; }
 
         /// <summary>
         /// Specifies the size of the source object (such as a VM) protected by this task on the primary storage after the snapshot is taken. The logical size of the data on the source if the data is fully hydrated or expanded and not reduced by change-block tracking, compression and deduplication.
         /// </summary>
         /// <value>Specifies the size of the source object (such as a VM) protected by this task on the primary storage after the snapshot is taken. The logical size of the data on the source if the data is fully hydrated or expanded and not reduced by change-block tracking, compression and deduplication.</value>
-        [DataMember(Name="totalLogicalBackupSizeBytes", EmitDefaultValue=true)]
+        [DataMember(Name="totalLogicalBackupSizeBytes", EmitDefaultValue=false)]
         public long? TotalLogicalBackupSizeBytes { get; set; }
 
         /// <summary>
         /// Specifies the total amount of physical space used on the Cohesity Cluster to store the protected object after being reduced by change-block tracking, compression and deduplication. For example, if the logical backup size is 1GB, but only 1MB was used on the Cohesity Cluster to store it, this field be equal to 1MB.
         /// </summary>
         /// <value>Specifies the total amount of physical space used on the Cohesity Cluster to store the protected object after being reduced by change-block tracking, compression and deduplication. For example, if the logical backup size is 1GB, but only 1MB was used on the Cohesity Cluster to store it, this field be equal to 1MB.</value>
-        [DataMember(Name="totalPhysicalBackupSizeBytes", EmitDefaultValue=true)]
+        [DataMember(Name="totalPhysicalBackupSizeBytes", EmitDefaultValue=false)]
         public long? TotalPhysicalBackupSizeBytes { get; set; }
 
         /// <summary>

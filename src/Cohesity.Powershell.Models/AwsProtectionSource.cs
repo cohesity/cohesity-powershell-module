@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -12,6 +13,8 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
+
+
 namespace Cohesity.Model
 {
     /// <summary>
@@ -21,9 +24,36 @@ namespace Cohesity.Model
     public partial class AwsProtectionSource :  IEquatable<AwsProtectionSource>
     {
         /// <summary>
-        /// Specifies the entity type such as &#39;kIAMUser&#39; if the environment is kAWS. Specifies the type of an AWS source entity. &#39;kIAMUser&#39; indicates a unique user within an AWS account. &#39;kRegion&#39; indicates a geographical region in the global infrastructure. &#39;kAvailabilityZone&#39; indicates an availability zone within a region. &#39;kEC2Instance&#39; indicates a Virtual Machine running in AWS environment. &#39;kVPC&#39; indicates a virtual private cloud (VPC) network within AWS. &#39;kSubnet&#39; indicates a subnet inside the VPC. &#39;kNetworkSecurityGroup&#39; represents a network security group. &#39;kInstanceType&#39; represents various machine types. &#39;kKeyPair&#39; represents a pair of public and private key used to login into a Virtual Machine. &#39;kTag&#39; represents a tag attached to EC2 instance. &#39;kRDSOptionGroup&#39; represents a RDS option group for configuring database features. &#39;kRDSParameterGroup&#39; represents a RDS parameter group. &#39;kRDSInstance&#39; represents a RDS DB instance. &#39;kRDSSubnet&#39; represents a RDS subnet. &#39;kRDSTag&#39; represents a tag attached to RDS instance.
+        /// Specifies the authentication method to be used for API calls. Specifies the authentication method to be used for API calls. &#39;kUseIAMUser&#39; indicates a user based authentication. &#39;kUseIAMRole&#39; indicates a role based authentication, used only for AWS CE.
         /// </summary>
-        /// <value>Specifies the entity type such as &#39;kIAMUser&#39; if the environment is kAWS. Specifies the type of an AWS source entity. &#39;kIAMUser&#39; indicates a unique user within an AWS account. &#39;kRegion&#39; indicates a geographical region in the global infrastructure. &#39;kAvailabilityZone&#39; indicates an availability zone within a region. &#39;kEC2Instance&#39; indicates a Virtual Machine running in AWS environment. &#39;kVPC&#39; indicates a virtual private cloud (VPC) network within AWS. &#39;kSubnet&#39; indicates a subnet inside the VPC. &#39;kNetworkSecurityGroup&#39; represents a network security group. &#39;kInstanceType&#39; represents various machine types. &#39;kKeyPair&#39; represents a pair of public and private key used to login into a Virtual Machine. &#39;kTag&#39; represents a tag attached to EC2 instance. &#39;kRDSOptionGroup&#39; represents a RDS option group for configuring database features. &#39;kRDSParameterGroup&#39; represents a RDS parameter group. &#39;kRDSInstance&#39; represents a RDS DB instance. &#39;kRDSSubnet&#39; represents a RDS subnet. &#39;kRDSTag&#39; represents a tag attached to RDS instance.</value>
+        /// <value>Specifies the authentication method to be used for API calls. Specifies the authentication method to be used for API calls. &#39;kUseIAMUser&#39; indicates a user based authentication. &#39;kUseIAMRole&#39; indicates a role based authentication, used only for AWS CE.</value>
+        [JsonConverter(typeof(StringEnumConverter))]
+        public enum AuthMethodEnum
+        {
+            /// <summary>
+            /// Enum KUseIAMUser for value: kUseIAMUser
+            /// </summary>
+            [EnumMember(Value = "kUseIAMUser")]
+            KUseIAMUser = 1,
+
+            /// <summary>
+            /// Enum KUseIAMRole for value: kUseIAMRole
+            /// </summary>
+            [EnumMember(Value = "kUseIAMRole")]
+            KUseIAMRole = 2
+
+        }
+
+        /// <summary>
+        /// Specifies the authentication method to be used for API calls. Specifies the authentication method to be used for API calls. &#39;kUseIAMUser&#39; indicates a user based authentication. &#39;kUseIAMRole&#39; indicates a role based authentication, used only for AWS CE.
+        /// </summary>
+        /// <value>Specifies the authentication method to be used for API calls. Specifies the authentication method to be used for API calls. &#39;kUseIAMUser&#39; indicates a user based authentication. &#39;kUseIAMRole&#39; indicates a role based authentication, used only for AWS CE.</value>
+        [DataMember(Name="authMethod", EmitDefaultValue=false)]
+        public AuthMethodEnum? AuthMethod { get; set; }
+        /// <summary>
+        /// Specifies the entity type such as &#39;kIAMUser&#39; if the environment is kAWS. Specifies the type of an AWS source entity. &#39;kIAMUser&#39; indicates a unique user within an AWS account. &#39;kRegion&#39; indicates a geographical region in the global infrastructure. &#39;kAvailabilityZone&#39; indicates an availability zone within a region. &#39;kEC2Instance&#39; indicates a Virtual Machine running in AWS environment. &#39;kVPC&#39; indicates a virtual private cloud (VPC) network within AWS. &#39;kSubnet&#39; indicates a subnet inside the VPC. &#39;kNetworkSecurityGroup&#39; represents a network security group. &#39;kInstanceType&#39; represents various machine types. &#39;kKeyPair&#39; represents a pair of public and private key used to login into a Virtual Machine. &#39;kTag&#39; represents a tag attached to EC2 instance. &#39;kRDSOptionGroup&#39; represents a RDS option group for configuring database features. &#39;kRDSParameterGroup&#39; represents a RDS parameter group. &#39;kRDSInstance&#39; represents a RDS DB instance. &#39;kRDSSubnet&#39; represents a RDS subnet. &#39;kRDSTag&#39; represents a tag attached to RDS instance. &#39;kAuroraCluster&#39; represents an Aurora cluster.
+        /// </summary>
+        /// <value>Specifies the entity type such as &#39;kIAMUser&#39; if the environment is kAWS. Specifies the type of an AWS source entity. &#39;kIAMUser&#39; indicates a unique user within an AWS account. &#39;kRegion&#39; indicates a geographical region in the global infrastructure. &#39;kAvailabilityZone&#39; indicates an availability zone within a region. &#39;kEC2Instance&#39; indicates a Virtual Machine running in AWS environment. &#39;kVPC&#39; indicates a virtual private cloud (VPC) network within AWS. &#39;kSubnet&#39; indicates a subnet inside the VPC. &#39;kNetworkSecurityGroup&#39; represents a network security group. &#39;kInstanceType&#39; represents various machine types. &#39;kKeyPair&#39; represents a pair of public and private key used to login into a Virtual Machine. &#39;kTag&#39; represents a tag attached to EC2 instance. &#39;kRDSOptionGroup&#39; represents a RDS option group for configuring database features. &#39;kRDSParameterGroup&#39; represents a RDS parameter group. &#39;kRDSInstance&#39; represents a RDS DB instance. &#39;kRDSSubnet&#39; represents a RDS subnet. &#39;kRDSTag&#39; represents a tag attached to RDS instance. &#39;kAuroraCluster&#39; represents an Aurora cluster.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum AwsTypeEnum
         {
@@ -112,24 +142,24 @@ namespace Cohesity.Model
             KRDSSubnet = 14,
 
             /// <summary>
-            /// Enum KRDSSecurityGroup for value: kRDSSecurityGroup
-            /// </summary>
-            [EnumMember(Value = "kRDSSecurityGroup")]
-            KRDSSecurityGroup = 15,
-
-            /// <summary>
             /// Enum KRDSTag for value: kRDSTag
             /// </summary>
             [EnumMember(Value = "kRDSTag")]
-            KRDSTag = 16
+            KRDSTag = 15,
+
+            /// <summary>
+            /// Enum KAuroraCluster for value: kAuroraCluster
+            /// </summary>
+            [EnumMember(Value = "kAuroraCluster")]
+            KAuroraCluster = 16
 
         }
 
         /// <summary>
-        /// Specifies the entity type such as &#39;kIAMUser&#39; if the environment is kAWS. Specifies the type of an AWS source entity. &#39;kIAMUser&#39; indicates a unique user within an AWS account. &#39;kRegion&#39; indicates a geographical region in the global infrastructure. &#39;kAvailabilityZone&#39; indicates an availability zone within a region. &#39;kEC2Instance&#39; indicates a Virtual Machine running in AWS environment. &#39;kVPC&#39; indicates a virtual private cloud (VPC) network within AWS. &#39;kSubnet&#39; indicates a subnet inside the VPC. &#39;kNetworkSecurityGroup&#39; represents a network security group. &#39;kInstanceType&#39; represents various machine types. &#39;kKeyPair&#39; represents a pair of public and private key used to login into a Virtual Machine. &#39;kTag&#39; represents a tag attached to EC2 instance. &#39;kRDSOptionGroup&#39; represents a RDS option group for configuring database features. &#39;kRDSParameterGroup&#39; represents a RDS parameter group. &#39;kRDSInstance&#39; represents a RDS DB instance. &#39;kRDSSubnet&#39; represents a RDS subnet. &#39;kRDSTag&#39; represents a tag attached to RDS instance.
+        /// Specifies the entity type such as &#39;kIAMUser&#39; if the environment is kAWS. Specifies the type of an AWS source entity. &#39;kIAMUser&#39; indicates a unique user within an AWS account. &#39;kRegion&#39; indicates a geographical region in the global infrastructure. &#39;kAvailabilityZone&#39; indicates an availability zone within a region. &#39;kEC2Instance&#39; indicates a Virtual Machine running in AWS environment. &#39;kVPC&#39; indicates a virtual private cloud (VPC) network within AWS. &#39;kSubnet&#39; indicates a subnet inside the VPC. &#39;kNetworkSecurityGroup&#39; represents a network security group. &#39;kInstanceType&#39; represents various machine types. &#39;kKeyPair&#39; represents a pair of public and private key used to login into a Virtual Machine. &#39;kTag&#39; represents a tag attached to EC2 instance. &#39;kRDSOptionGroup&#39; represents a RDS option group for configuring database features. &#39;kRDSParameterGroup&#39; represents a RDS parameter group. &#39;kRDSInstance&#39; represents a RDS DB instance. &#39;kRDSSubnet&#39; represents a RDS subnet. &#39;kRDSTag&#39; represents a tag attached to RDS instance. &#39;kAuroraCluster&#39; represents an Aurora cluster.
         /// </summary>
-        /// <value>Specifies the entity type such as &#39;kIAMUser&#39; if the environment is kAWS. Specifies the type of an AWS source entity. &#39;kIAMUser&#39; indicates a unique user within an AWS account. &#39;kRegion&#39; indicates a geographical region in the global infrastructure. &#39;kAvailabilityZone&#39; indicates an availability zone within a region. &#39;kEC2Instance&#39; indicates a Virtual Machine running in AWS environment. &#39;kVPC&#39; indicates a virtual private cloud (VPC) network within AWS. &#39;kSubnet&#39; indicates a subnet inside the VPC. &#39;kNetworkSecurityGroup&#39; represents a network security group. &#39;kInstanceType&#39; represents various machine types. &#39;kKeyPair&#39; represents a pair of public and private key used to login into a Virtual Machine. &#39;kTag&#39; represents a tag attached to EC2 instance. &#39;kRDSOptionGroup&#39; represents a RDS option group for configuring database features. &#39;kRDSParameterGroup&#39; represents a RDS parameter group. &#39;kRDSInstance&#39; represents a RDS DB instance. &#39;kRDSSubnet&#39; represents a RDS subnet. &#39;kRDSTag&#39; represents a tag attached to RDS instance.</value>
-        [DataMember(Name="awsType", EmitDefaultValue=true)]
+        /// <value>Specifies the entity type such as &#39;kIAMUser&#39; if the environment is kAWS. Specifies the type of an AWS source entity. &#39;kIAMUser&#39; indicates a unique user within an AWS account. &#39;kRegion&#39; indicates a geographical region in the global infrastructure. &#39;kAvailabilityZone&#39; indicates an availability zone within a region. &#39;kEC2Instance&#39; indicates a Virtual Machine running in AWS environment. &#39;kVPC&#39; indicates a virtual private cloud (VPC) network within AWS. &#39;kSubnet&#39; indicates a subnet inside the VPC. &#39;kNetworkSecurityGroup&#39; represents a network security group. &#39;kInstanceType&#39; represents various machine types. &#39;kKeyPair&#39; represents a pair of public and private key used to login into a Virtual Machine. &#39;kTag&#39; represents a tag attached to EC2 instance. &#39;kRDSOptionGroup&#39; represents a RDS option group for configuring database features. &#39;kRDSParameterGroup&#39; represents a RDS parameter group. &#39;kRDSInstance&#39; represents a RDS DB instance. &#39;kRDSSubnet&#39; represents a RDS subnet. &#39;kRDSTag&#39; represents a tag attached to RDS instance. &#39;kAuroraCluster&#39; represents an Aurora cluster.</value>
+        [DataMember(Name="awsType", EmitDefaultValue=false)]
         public AwsTypeEnum? AwsType { get; set; }
         /// <summary>
         /// Specifies the OS type of the Protection Source of type &#39;kVirtualMachine&#39; such as &#39;kWindows&#39; or &#39;kLinux&#39;. overrideDescription: true &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kOther&#39; indicates the other types of operating system.
@@ -180,7 +210,7 @@ namespace Cohesity.Model
         /// Specifies the OS type of the Protection Source of type &#39;kVirtualMachine&#39; such as &#39;kWindows&#39; or &#39;kLinux&#39;. overrideDescription: true &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kOther&#39; indicates the other types of operating system.
         /// </summary>
         /// <value>Specifies the OS type of the Protection Source of type &#39;kVirtualMachine&#39; such as &#39;kWindows&#39; or &#39;kLinux&#39;. overrideDescription: true &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kOther&#39; indicates the other types of operating system.</value>
-        [DataMember(Name="hostType", EmitDefaultValue=true)]
+        [DataMember(Name="hostType", EmitDefaultValue=false)]
         public HostTypeEnum? HostType { get; set; }
         /// <summary>
         /// Specifies the subscription type of AWS such as &#39;kAWSCommercial&#39; or &#39;kAWSGovCloud&#39;. Specifies the subscription type of an AWS source entity. &#39;kAWSCommercial&#39; indicates a standard AWS subscription. &#39;kAWSGovCloud&#39; indicates a govt AWS subscription.
@@ -207,12 +237,12 @@ namespace Cohesity.Model
         /// Specifies the subscription type of AWS such as &#39;kAWSCommercial&#39; or &#39;kAWSGovCloud&#39;. Specifies the subscription type of an AWS source entity. &#39;kAWSCommercial&#39; indicates a standard AWS subscription. &#39;kAWSGovCloud&#39; indicates a govt AWS subscription.
         /// </summary>
         /// <value>Specifies the subscription type of AWS such as &#39;kAWSCommercial&#39; or &#39;kAWSGovCloud&#39;. Specifies the subscription type of an AWS source entity. &#39;kAWSCommercial&#39; indicates a standard AWS subscription. &#39;kAWSGovCloud&#39; indicates a govt AWS subscription.</value>
-        [DataMember(Name="subscriptionType", EmitDefaultValue=true)]
+        [DataMember(Name="subscriptionType", EmitDefaultValue=false)]
         public SubscriptionTypeEnum? SubscriptionType { get; set; }
         /// <summary>
-        /// Specifies the type of an AWS Protection Source Object such as &#39;kStorageContainer&#39;, &#39;kVirtualMachine&#39;, &#39;kVirtualNetwork&#39;, etc. Specifies the type of an AWS source entity. &#39;kIAMUser&#39; indicates a unique user within an AWS account. &#39;kRegion&#39; indicates a geographical region in the global infrastructure. &#39;kAvailabilityZone&#39; indicates an availability zone within a region. &#39;kEC2Instance&#39; indicates a Virtual Machine running in AWS environment. &#39;kVPC&#39; indicates a virtual private cloud (VPC) network within AWS. &#39;kSubnet&#39; indicates a subnet inside the VPC. &#39;kNetworkSecurityGroup&#39; represents a network security group. &#39;kInstanceType&#39; represents various machine types. &#39;kKeyPair&#39; represents a pair of public and private key used to login into a Virtual Machine. &#39;kTag&#39; represents a tag attached to EC2 instance. &#39;kRDSOptionGroup&#39; represents a RDS option group for configuring database features. &#39;kRDSParameterGroup&#39; represents a RDS parameter group. &#39;kRDSInstance&#39; represents a RDS DB instance. &#39;kRDSSubnet&#39; represents a RDS subnet. &#39;kRDSTag&#39; represents a tag attached to RDS instance.
+        /// Specifies the type of an AWS Protection Source Object such as &#39;kStorageContainer&#39;, &#39;kVirtualMachine&#39;, &#39;kVirtualNetwork&#39;, etc. Specifies the type of an AWS source entity. &#39;kIAMUser&#39; indicates a unique user within an AWS account. &#39;kRegion&#39; indicates a geographical region in the global infrastructure. &#39;kAvailabilityZone&#39; indicates an availability zone within a region. &#39;kEC2Instance&#39; indicates a Virtual Machine running in AWS environment. &#39;kVPC&#39; indicates a virtual private cloud (VPC) network within AWS. &#39;kSubnet&#39; indicates a subnet inside the VPC. &#39;kNetworkSecurityGroup&#39; represents a network security group. &#39;kInstanceType&#39; represents various machine types. &#39;kKeyPair&#39; represents a pair of public and private key used to login into a Virtual Machine. &#39;kTag&#39; represents a tag attached to EC2 instance. &#39;kRDSOptionGroup&#39; represents a RDS option group for configuring database features. &#39;kRDSParameterGroup&#39; represents a RDS parameter group. &#39;kRDSInstance&#39; represents a RDS DB instance. &#39;kRDSSubnet&#39; represents a RDS subnet. &#39;kRDSTag&#39; represents a tag attached to RDS instance. &#39;kAuroraCluster&#39; represents an Aurora cluster.
         /// </summary>
-        /// <value>Specifies the type of an AWS Protection Source Object such as &#39;kStorageContainer&#39;, &#39;kVirtualMachine&#39;, &#39;kVirtualNetwork&#39;, etc. Specifies the type of an AWS source entity. &#39;kIAMUser&#39; indicates a unique user within an AWS account. &#39;kRegion&#39; indicates a geographical region in the global infrastructure. &#39;kAvailabilityZone&#39; indicates an availability zone within a region. &#39;kEC2Instance&#39; indicates a Virtual Machine running in AWS environment. &#39;kVPC&#39; indicates a virtual private cloud (VPC) network within AWS. &#39;kSubnet&#39; indicates a subnet inside the VPC. &#39;kNetworkSecurityGroup&#39; represents a network security group. &#39;kInstanceType&#39; represents various machine types. &#39;kKeyPair&#39; represents a pair of public and private key used to login into a Virtual Machine. &#39;kTag&#39; represents a tag attached to EC2 instance. &#39;kRDSOptionGroup&#39; represents a RDS option group for configuring database features. &#39;kRDSParameterGroup&#39; represents a RDS parameter group. &#39;kRDSInstance&#39; represents a RDS DB instance. &#39;kRDSSubnet&#39; represents a RDS subnet. &#39;kRDSTag&#39; represents a tag attached to RDS instance.</value>
+        /// <value>Specifies the type of an AWS Protection Source Object such as &#39;kStorageContainer&#39;, &#39;kVirtualMachine&#39;, &#39;kVirtualNetwork&#39;, etc. Specifies the type of an AWS source entity. &#39;kIAMUser&#39; indicates a unique user within an AWS account. &#39;kRegion&#39; indicates a geographical region in the global infrastructure. &#39;kAvailabilityZone&#39; indicates an availability zone within a region. &#39;kEC2Instance&#39; indicates a Virtual Machine running in AWS environment. &#39;kVPC&#39; indicates a virtual private cloud (VPC) network within AWS. &#39;kSubnet&#39; indicates a subnet inside the VPC. &#39;kNetworkSecurityGroup&#39; represents a network security group. &#39;kInstanceType&#39; represents various machine types. &#39;kKeyPair&#39; represents a pair of public and private key used to login into a Virtual Machine. &#39;kTag&#39; represents a tag attached to EC2 instance. &#39;kRDSOptionGroup&#39; represents a RDS option group for configuring database features. &#39;kRDSParameterGroup&#39; represents a RDS parameter group. &#39;kRDSInstance&#39; represents a RDS DB instance. &#39;kRDSSubnet&#39; represents a RDS subnet. &#39;kRDSTag&#39; represents a tag attached to RDS instance. &#39;kAuroraCluster&#39; represents an Aurora cluster.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum TypeEnum
         {
@@ -301,33 +331,38 @@ namespace Cohesity.Model
             KRDSSubnet = 14,
 
             /// <summary>
-            /// Enum KRDSSecurityGroup for value: kRDSSecurityGroup
-            /// </summary>
-            [EnumMember(Value = "kRDSSecurityGroup")]
-            KRDSSecurityGroup = 15,
-
-            /// <summary>
             /// Enum KRDSTag for value: kRDSTag
             /// </summary>
             [EnumMember(Value = "kRDSTag")]
-            KRDSTag = 16
+            KRDSTag = 15,
+
+            /// <summary>
+            /// Enum KAuroraCluster for value: kAuroraCluster
+            /// </summary>
+            [EnumMember(Value = "kAuroraCluster")]
+            KAuroraCluster = 16
 
         }
 
         /// <summary>
-        /// Specifies the type of an AWS Protection Source Object such as &#39;kStorageContainer&#39;, &#39;kVirtualMachine&#39;, &#39;kVirtualNetwork&#39;, etc. Specifies the type of an AWS source entity. &#39;kIAMUser&#39; indicates a unique user within an AWS account. &#39;kRegion&#39; indicates a geographical region in the global infrastructure. &#39;kAvailabilityZone&#39; indicates an availability zone within a region. &#39;kEC2Instance&#39; indicates a Virtual Machine running in AWS environment. &#39;kVPC&#39; indicates a virtual private cloud (VPC) network within AWS. &#39;kSubnet&#39; indicates a subnet inside the VPC. &#39;kNetworkSecurityGroup&#39; represents a network security group. &#39;kInstanceType&#39; represents various machine types. &#39;kKeyPair&#39; represents a pair of public and private key used to login into a Virtual Machine. &#39;kTag&#39; represents a tag attached to EC2 instance. &#39;kRDSOptionGroup&#39; represents a RDS option group for configuring database features. &#39;kRDSParameterGroup&#39; represents a RDS parameter group. &#39;kRDSInstance&#39; represents a RDS DB instance. &#39;kRDSSubnet&#39; represents a RDS subnet. &#39;kRDSTag&#39; represents a tag attached to RDS instance.
+        /// Specifies the type of an AWS Protection Source Object such as &#39;kStorageContainer&#39;, &#39;kVirtualMachine&#39;, &#39;kVirtualNetwork&#39;, etc. Specifies the type of an AWS source entity. &#39;kIAMUser&#39; indicates a unique user within an AWS account. &#39;kRegion&#39; indicates a geographical region in the global infrastructure. &#39;kAvailabilityZone&#39; indicates an availability zone within a region. &#39;kEC2Instance&#39; indicates a Virtual Machine running in AWS environment. &#39;kVPC&#39; indicates a virtual private cloud (VPC) network within AWS. &#39;kSubnet&#39; indicates a subnet inside the VPC. &#39;kNetworkSecurityGroup&#39; represents a network security group. &#39;kInstanceType&#39; represents various machine types. &#39;kKeyPair&#39; represents a pair of public and private key used to login into a Virtual Machine. &#39;kTag&#39; represents a tag attached to EC2 instance. &#39;kRDSOptionGroup&#39; represents a RDS option group for configuring database features. &#39;kRDSParameterGroup&#39; represents a RDS parameter group. &#39;kRDSInstance&#39; represents a RDS DB instance. &#39;kRDSSubnet&#39; represents a RDS subnet. &#39;kRDSTag&#39; represents a tag attached to RDS instance. &#39;kAuroraCluster&#39; represents an Aurora cluster.
         /// </summary>
-        /// <value>Specifies the type of an AWS Protection Source Object such as &#39;kStorageContainer&#39;, &#39;kVirtualMachine&#39;, &#39;kVirtualNetwork&#39;, etc. Specifies the type of an AWS source entity. &#39;kIAMUser&#39; indicates a unique user within an AWS account. &#39;kRegion&#39; indicates a geographical region in the global infrastructure. &#39;kAvailabilityZone&#39; indicates an availability zone within a region. &#39;kEC2Instance&#39; indicates a Virtual Machine running in AWS environment. &#39;kVPC&#39; indicates a virtual private cloud (VPC) network within AWS. &#39;kSubnet&#39; indicates a subnet inside the VPC. &#39;kNetworkSecurityGroup&#39; represents a network security group. &#39;kInstanceType&#39; represents various machine types. &#39;kKeyPair&#39; represents a pair of public and private key used to login into a Virtual Machine. &#39;kTag&#39; represents a tag attached to EC2 instance. &#39;kRDSOptionGroup&#39; represents a RDS option group for configuring database features. &#39;kRDSParameterGroup&#39; represents a RDS parameter group. &#39;kRDSInstance&#39; represents a RDS DB instance. &#39;kRDSSubnet&#39; represents a RDS subnet. &#39;kRDSTag&#39; represents a tag attached to RDS instance.</value>
-        [DataMember(Name="type", EmitDefaultValue=true)]
+        /// <value>Specifies the type of an AWS Protection Source Object such as &#39;kStorageContainer&#39;, &#39;kVirtualMachine&#39;, &#39;kVirtualNetwork&#39;, etc. Specifies the type of an AWS source entity. &#39;kIAMUser&#39; indicates a unique user within an AWS account. &#39;kRegion&#39; indicates a geographical region in the global infrastructure. &#39;kAvailabilityZone&#39; indicates an availability zone within a region. &#39;kEC2Instance&#39; indicates a Virtual Machine running in AWS environment. &#39;kVPC&#39; indicates a virtual private cloud (VPC) network within AWS. &#39;kSubnet&#39; indicates a subnet inside the VPC. &#39;kNetworkSecurityGroup&#39; represents a network security group. &#39;kInstanceType&#39; represents various machine types. &#39;kKeyPair&#39; represents a pair of public and private key used to login into a Virtual Machine. &#39;kTag&#39; represents a tag attached to EC2 instance. &#39;kRDSOptionGroup&#39; represents a RDS option group for configuring database features. &#39;kRDSParameterGroup&#39; represents a RDS parameter group. &#39;kRDSInstance&#39; represents a RDS DB instance. &#39;kRDSSubnet&#39; represents a RDS subnet. &#39;kRDSTag&#39; represents a tag attached to RDS instance. &#39;kAuroraCluster&#39; represents an Aurora cluster.</value>
+        [DataMember(Name="type", EmitDefaultValue=false)]
         public TypeEnum? Type { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="AwsProtectionSource" /> class.
         /// </summary>
         /// <param name="accessKey">Specifies Access key of the AWS account..</param>
         /// <param name="amazonResourceName">Specifies Amazon Resource Name (owner ID) of the IAM user, act as an unique identifier of as AWS entity..</param>
-        /// <param name="awsType">Specifies the entity type such as &#39;kIAMUser&#39; if the environment is kAWS. Specifies the type of an AWS source entity. &#39;kIAMUser&#39; indicates a unique user within an AWS account. &#39;kRegion&#39; indicates a geographical region in the global infrastructure. &#39;kAvailabilityZone&#39; indicates an availability zone within a region. &#39;kEC2Instance&#39; indicates a Virtual Machine running in AWS environment. &#39;kVPC&#39; indicates a virtual private cloud (VPC) network within AWS. &#39;kSubnet&#39; indicates a subnet inside the VPC. &#39;kNetworkSecurityGroup&#39; represents a network security group. &#39;kInstanceType&#39; represents various machine types. &#39;kKeyPair&#39; represents a pair of public and private key used to login into a Virtual Machine. &#39;kTag&#39; represents a tag attached to EC2 instance. &#39;kRDSOptionGroup&#39; represents a RDS option group for configuring database features. &#39;kRDSParameterGroup&#39; represents a RDS parameter group. &#39;kRDSInstance&#39; represents a RDS DB instance. &#39;kRDSSubnet&#39; represents a RDS subnet. &#39;kRDSTag&#39; represents a tag attached to RDS instance..</param>
+        /// <param name="authMethod">Specifies the authentication method to be used for API calls. Specifies the authentication method to be used for API calls. &#39;kUseIAMUser&#39; indicates a user based authentication. &#39;kUseIAMRole&#39; indicates a role based authentication, used only for AWS CE..</param>
+        /// <param name="awsFleetParams">awsFleetParams.</param>
+        /// <param name="awsType">Specifies the entity type such as &#39;kIAMUser&#39; if the environment is kAWS. Specifies the type of an AWS source entity. &#39;kIAMUser&#39; indicates a unique user within an AWS account. &#39;kRegion&#39; indicates a geographical region in the global infrastructure. &#39;kAvailabilityZone&#39; indicates an availability zone within a region. &#39;kEC2Instance&#39; indicates a Virtual Machine running in AWS environment. &#39;kVPC&#39; indicates a virtual private cloud (VPC) network within AWS. &#39;kSubnet&#39; indicates a subnet inside the VPC. &#39;kNetworkSecurityGroup&#39; represents a network security group. &#39;kInstanceType&#39; represents various machine types. &#39;kKeyPair&#39; represents a pair of public and private key used to login into a Virtual Machine. &#39;kTag&#39; represents a tag attached to EC2 instance. &#39;kRDSOptionGroup&#39; represents a RDS option group for configuring database features. &#39;kRDSParameterGroup&#39; represents a RDS parameter group. &#39;kRDSInstance&#39; represents a RDS DB instance. &#39;kRDSSubnet&#39; represents a RDS subnet. &#39;kRDSTag&#39; represents a tag attached to RDS instance. &#39;kAuroraCluster&#39; represents an Aurora cluster..</param>
+        /// <param name="c2sServerInfo">c2sServerInfo.</param>
+        /// <param name="clusterNetworkInfo">clusterNetworkInfo.</param>
         /// <param name="dbEngineId">Specifies DB engine version info of the entity. This is populated only for RDSInstance, RDSOptionGroup and RDSParameterGroup entity types..</param>
         /// <param name="hostType">Specifies the OS type of the Protection Source of type &#39;kVirtualMachine&#39; such as &#39;kWindows&#39; or &#39;kLinux&#39;. overrideDescription: true &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kOther&#39; indicates the other types of operating system..</param>
+        /// <param name="iamRoleArn">Specifies the IAM role which will be used to access the security credentials required for API calls..</param>
         /// <param name="ipAddresses">Specifies the IP address of the entity of type &#39;kVirtualMachine&#39;..</param>
         /// <param name="name">Specifies the name of the Object set by the Cloud Provider. If the provider did not set a name for the object, this field is not set..</param>
         /// <param name="ownerId">Specifies the owner id of the resource in AWS environment. With type, name and ownerId gives a globally unique identity to the AWS entity..</param>
@@ -338,16 +373,22 @@ namespace Cohesity.Model
         /// <param name="secretAccessKey">Specifies Secret Access key of the AWS account..</param>
         /// <param name="subscriptionType">Specifies the subscription type of AWS such as &#39;kAWSCommercial&#39; or &#39;kAWSGovCloud&#39;. Specifies the subscription type of an AWS source entity. &#39;kAWSCommercial&#39; indicates a standard AWS subscription. &#39;kAWSGovCloud&#39; indicates a govt AWS subscription..</param>
         /// <param name="tagAttributes">Specifies the list of AWS tag attributes..</param>
-        /// <param name="type">Specifies the type of an AWS Protection Source Object such as &#39;kStorageContainer&#39;, &#39;kVirtualMachine&#39;, &#39;kVirtualNetwork&#39;, etc. Specifies the type of an AWS source entity. &#39;kIAMUser&#39; indicates a unique user within an AWS account. &#39;kRegion&#39; indicates a geographical region in the global infrastructure. &#39;kAvailabilityZone&#39; indicates an availability zone within a region. &#39;kEC2Instance&#39; indicates a Virtual Machine running in AWS environment. &#39;kVPC&#39; indicates a virtual private cloud (VPC) network within AWS. &#39;kSubnet&#39; indicates a subnet inside the VPC. &#39;kNetworkSecurityGroup&#39; represents a network security group. &#39;kInstanceType&#39; represents various machine types. &#39;kKeyPair&#39; represents a pair of public and private key used to login into a Virtual Machine. &#39;kTag&#39; represents a tag attached to EC2 instance. &#39;kRDSOptionGroup&#39; represents a RDS option group for configuring database features. &#39;kRDSParameterGroup&#39; represents a RDS parameter group. &#39;kRDSInstance&#39; represents a RDS DB instance. &#39;kRDSSubnet&#39; represents a RDS subnet. &#39;kRDSTag&#39; represents a tag attached to RDS instance..</param>
+        /// <param name="type">Specifies the type of an AWS Protection Source Object such as &#39;kStorageContainer&#39;, &#39;kVirtualMachine&#39;, &#39;kVirtualNetwork&#39;, etc. Specifies the type of an AWS source entity. &#39;kIAMUser&#39; indicates a unique user within an AWS account. &#39;kRegion&#39; indicates a geographical region in the global infrastructure. &#39;kAvailabilityZone&#39; indicates an availability zone within a region. &#39;kEC2Instance&#39; indicates a Virtual Machine running in AWS environment. &#39;kVPC&#39; indicates a virtual private cloud (VPC) network within AWS. &#39;kSubnet&#39; indicates a subnet inside the VPC. &#39;kNetworkSecurityGroup&#39; represents a network security group. &#39;kInstanceType&#39; represents various machine types. &#39;kKeyPair&#39; represents a pair of public and private key used to login into a Virtual Machine. &#39;kTag&#39; represents a tag attached to EC2 instance. &#39;kRDSOptionGroup&#39; represents a RDS option group for configuring database features. &#39;kRDSParameterGroup&#39; represents a RDS parameter group. &#39;kRDSInstance&#39; represents a RDS DB instance. &#39;kRDSSubnet&#39; represents a RDS subnet. &#39;kRDSTag&#39; represents a tag attached to RDS instance. &#39;kAuroraCluster&#39; represents an Aurora cluster..</param>
         /// <param name="userAccountId">Specifies the account id derived from the ARN of the user..</param>
         /// <param name="userResourceName">Specifies the Amazon Resource Name (ARN) of the user..</param>
-        public AwsProtectionSource(string accessKey = default(string), string amazonResourceName = default(string), AwsTypeEnum? awsType = default(AwsTypeEnum?), string dbEngineId = default(string), HostTypeEnum? hostType = default(HostTypeEnum?), string ipAddresses = default(string), string name = default(string), string ownerId = default(string), long? physicalSourceId = default(long?), string regionId = default(string), string resourceId = default(string), long? restoreTaskId = default(long?), string secretAccessKey = default(string), SubscriptionTypeEnum? subscriptionType = default(SubscriptionTypeEnum?), List<TagAttribute> tagAttributes = default(List<TagAttribute>), TypeEnum? type = default(TypeEnum?), string userAccountId = default(string), string userResourceName = default(string))
+        /// <param name="volumes">Specified the list of EBS volumes attached to the entity if the entity is an EC2 instance..</param>
+        public AwsProtectionSource(string accessKey = default(string), string amazonResourceName = default(string), AuthMethodEnum? authMethod = default(AuthMethodEnum?), AwsFleetParams awsFleetParams = default(AwsFleetParams), AwsTypeEnum? awsType = default(AwsTypeEnum?), C2SServerInfo c2sServerInfo = default(C2SServerInfo), FleetNetworkParams clusterNetworkInfo = default(FleetNetworkParams), string dbEngineId = default(string), HostTypeEnum? hostType = default(HostTypeEnum?), string iamRoleArn = default(string), string ipAddresses = default(string), string name = default(string), string ownerId = default(string), long? physicalSourceId = default(long?), string regionId = default(string), string resourceId = default(string), long? restoreTaskId = default(long?), string secretAccessKey = default(string), SubscriptionTypeEnum? subscriptionType = default(SubscriptionTypeEnum?), List<TagAttribute> tagAttributes = default(List<TagAttribute>), TypeEnum? type = default(TypeEnum?), string userAccountId = default(string), string userResourceName = default(string), List<EbsVolumeInfo> volumes = default(List<EbsVolumeInfo>))
         {
             this.AccessKey = accessKey;
             this.AmazonResourceName = amazonResourceName;
+            this.AuthMethod = authMethod;
+            this.AwsFleetParams = awsFleetParams;
             this.AwsType = awsType;
+            this.C2sServerInfo = c2sServerInfo;
+            this.ClusterNetworkInfo = clusterNetworkInfo;
             this.DbEngineId = dbEngineId;
             this.HostType = hostType;
+            this.IamRoleArn = iamRoleArn;
             this.IpAddresses = ipAddresses;
             this.Name = name;
             this.OwnerId = ownerId;
@@ -361,123 +402,143 @@ namespace Cohesity.Model
             this.Type = type;
             this.UserAccountId = userAccountId;
             this.UserResourceName = userResourceName;
-            this.AccessKey = accessKey;
-            this.AmazonResourceName = amazonResourceName;
-            this.AwsType = awsType;
-            this.DbEngineId = dbEngineId;
-            this.HostType = hostType;
-            this.IpAddresses = ipAddresses;
-            this.Name = name;
-            this.OwnerId = ownerId;
-            this.PhysicalSourceId = physicalSourceId;
-            this.RegionId = regionId;
-            this.ResourceId = resourceId;
-            this.RestoreTaskId = restoreTaskId;
-            this.SecretAccessKey = secretAccessKey;
-            this.SubscriptionType = subscriptionType;
-            this.TagAttributes = tagAttributes;
-            this.Type = type;
-            this.UserAccountId = userAccountId;
-            this.UserResourceName = userResourceName;
+            this.Volumes = volumes;
         }
         
         /// <summary>
         /// Specifies Access key of the AWS account.
         /// </summary>
         /// <value>Specifies Access key of the AWS account.</value>
-        [DataMember(Name="accessKey", EmitDefaultValue=true)]
+        [DataMember(Name="accessKey", EmitDefaultValue=false)]
         public string AccessKey { get; set; }
 
         /// <summary>
         /// Specifies Amazon Resource Name (owner ID) of the IAM user, act as an unique identifier of as AWS entity.
         /// </summary>
         /// <value>Specifies Amazon Resource Name (owner ID) of the IAM user, act as an unique identifier of as AWS entity.</value>
-        [DataMember(Name="amazonResourceName", EmitDefaultValue=true)]
+        [DataMember(Name="amazonResourceName", EmitDefaultValue=false)]
         public string AmazonResourceName { get; set; }
+
+
+        /// <summary>
+        /// Gets or Sets AwsFleetParams
+        /// </summary>
+        [DataMember(Name="awsFleetParams", EmitDefaultValue=false)]
+        public AwsFleetParams AwsFleetParams { get; set; }
+
+
+        /// <summary>
+        /// Gets or Sets C2sServerInfo
+        /// </summary>
+        [DataMember(Name="c2sServerInfo", EmitDefaultValue=false)]
+        public C2SServerInfo C2sServerInfo { get; set; }
+
+        /// <summary>
+        /// Gets or Sets ClusterNetworkInfo
+        /// </summary>
+        [DataMember(Name="clusterNetworkInfo", EmitDefaultValue=false)]
+        public FleetNetworkParams ClusterNetworkInfo { get; set; }
 
         /// <summary>
         /// Specifies DB engine version info of the entity. This is populated only for RDSInstance, RDSOptionGroup and RDSParameterGroup entity types.
         /// </summary>
         /// <value>Specifies DB engine version info of the entity. This is populated only for RDSInstance, RDSOptionGroup and RDSParameterGroup entity types.</value>
-        [DataMember(Name="dbEngineId", EmitDefaultValue=true)]
+        [DataMember(Name="dbEngineId", EmitDefaultValue=false)]
         public string DbEngineId { get; set; }
+
+
+        /// <summary>
+        /// Specifies the IAM role which will be used to access the security credentials required for API calls.
+        /// </summary>
+        /// <value>Specifies the IAM role which will be used to access the security credentials required for API calls.</value>
+        [DataMember(Name="iamRoleArn", EmitDefaultValue=false)]
+        public string IamRoleArn { get; set; }
 
         /// <summary>
         /// Specifies the IP address of the entity of type &#39;kVirtualMachine&#39;.
         /// </summary>
         /// <value>Specifies the IP address of the entity of type &#39;kVirtualMachine&#39;.</value>
-        [DataMember(Name="ipAddresses", EmitDefaultValue=true)]
+        [DataMember(Name="ipAddresses", EmitDefaultValue=false)]
         public string IpAddresses { get; set; }
 
         /// <summary>
         /// Specifies the name of the Object set by the Cloud Provider. If the provider did not set a name for the object, this field is not set.
         /// </summary>
         /// <value>Specifies the name of the Object set by the Cloud Provider. If the provider did not set a name for the object, this field is not set.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
 
         /// <summary>
         /// Specifies the owner id of the resource in AWS environment. With type, name and ownerId gives a globally unique identity to the AWS entity.
         /// </summary>
         /// <value>Specifies the owner id of the resource in AWS environment. With type, name and ownerId gives a globally unique identity to the AWS entity.</value>
-        [DataMember(Name="ownerId", EmitDefaultValue=true)]
+        [DataMember(Name="ownerId", EmitDefaultValue=false)]
         public string OwnerId { get; set; }
 
         /// <summary>
         /// Specifies the Protection Source id of the registered Physical Host. If the cloud entity is protected using a Physical Agent, it must be registered as a physical host.
         /// </summary>
         /// <value>Specifies the Protection Source id of the registered Physical Host. If the cloud entity is protected using a Physical Agent, it must be registered as a physical host.</value>
-        [DataMember(Name="physicalSourceId", EmitDefaultValue=true)]
+        [DataMember(Name="physicalSourceId", EmitDefaultValue=false)]
         public long? PhysicalSourceId { get; set; }
 
         /// <summary>
         /// Specifies the region Id of the entity if the entity is an EC2 instance.
         /// </summary>
         /// <value>Specifies the region Id of the entity if the entity is an EC2 instance.</value>
-        [DataMember(Name="regionId", EmitDefaultValue=true)]
+        [DataMember(Name="regionId", EmitDefaultValue=false)]
         public string RegionId { get; set; }
 
         /// <summary>
         /// Specifies the unique Id of the resource given by the cloud provider.
         /// </summary>
         /// <value>Specifies the unique Id of the resource given by the cloud provider.</value>
-        [DataMember(Name="resourceId", EmitDefaultValue=true)]
+        [DataMember(Name="resourceId", EmitDefaultValue=false)]
         public string ResourceId { get; set; }
 
         /// <summary>
         /// Specifies the id of the \&quot;convert and deploy\&quot; restore task that created the entity in the cloud.  It is required to support the DR-to-cloud usecase where we replicate an on-prem entity to a cluster running in cloud, bring it up using \&quot;convert and deploy\&quot; mechanism, protect it using a cloud job that uses physical adapter, and convert it back to the on-prem format before replication.  Before replicating, we need to update the backup task state of the backed up entity using the on-prem entity and on-prem entity&#39;s parent. The id is used to lookup the restore entity that contains details about the on-prem entity.  It is set at the time of refreshing the cloud entity hierarchy if all the following conditions are met: Name of the current entity matches with name of any cloud entity deployed using the \&quot;convert and deploy\&quot; restore task. Restore entity associated with the above matched cloud entity has &#39;failed_over&#39; flag set to true in its cloud extension.
         /// </summary>
         /// <value>Specifies the id of the \&quot;convert and deploy\&quot; restore task that created the entity in the cloud.  It is required to support the DR-to-cloud usecase where we replicate an on-prem entity to a cluster running in cloud, bring it up using \&quot;convert and deploy\&quot; mechanism, protect it using a cloud job that uses physical adapter, and convert it back to the on-prem format before replication.  Before replicating, we need to update the backup task state of the backed up entity using the on-prem entity and on-prem entity&#39;s parent. The id is used to lookup the restore entity that contains details about the on-prem entity.  It is set at the time of refreshing the cloud entity hierarchy if all the following conditions are met: Name of the current entity matches with name of any cloud entity deployed using the \&quot;convert and deploy\&quot; restore task. Restore entity associated with the above matched cloud entity has &#39;failed_over&#39; flag set to true in its cloud extension.</value>
-        [DataMember(Name="restoreTaskId", EmitDefaultValue=true)]
+        [DataMember(Name="restoreTaskId", EmitDefaultValue=false)]
         public long? RestoreTaskId { get; set; }
 
         /// <summary>
         /// Specifies Secret Access key of the AWS account.
         /// </summary>
         /// <value>Specifies Secret Access key of the AWS account.</value>
-        [DataMember(Name="secretAccessKey", EmitDefaultValue=true)]
+        [DataMember(Name="secretAccessKey", EmitDefaultValue=false)]
         public string SecretAccessKey { get; set; }
+
 
         /// <summary>
         /// Specifies the list of AWS tag attributes.
         /// </summary>
         /// <value>Specifies the list of AWS tag attributes.</value>
-        [DataMember(Name="tagAttributes", EmitDefaultValue=true)]
+        [DataMember(Name="tagAttributes", EmitDefaultValue=false)]
         public List<TagAttribute> TagAttributes { get; set; }
+
 
         /// <summary>
         /// Specifies the account id derived from the ARN of the user.
         /// </summary>
         /// <value>Specifies the account id derived from the ARN of the user.</value>
-        [DataMember(Name="userAccountId", EmitDefaultValue=true)]
+        [DataMember(Name="userAccountId", EmitDefaultValue=false)]
         public string UserAccountId { get; set; }
 
         /// <summary>
         /// Specifies the Amazon Resource Name (ARN) of the user.
         /// </summary>
         /// <value>Specifies the Amazon Resource Name (ARN) of the user.</value>
-        [DataMember(Name="userResourceName", EmitDefaultValue=true)]
+        [DataMember(Name="userResourceName", EmitDefaultValue=false)]
         public string UserResourceName { get; set; }
+
+        /// <summary>
+        /// Specified the list of EBS volumes attached to the entity if the entity is an EC2 instance.
+        /// </summary>
+        /// <value>Specified the list of EBS volumes attached to the entity if the entity is an EC2 instance.</value>
+        [DataMember(Name="volumes", EmitDefaultValue=false)]
+        public List<EbsVolumeInfo> Volumes { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -526,8 +587,29 @@ namespace Cohesity.Model
                     this.AmazonResourceName.Equals(input.AmazonResourceName))
                 ) && 
                 (
+                    this.AuthMethod == input.AuthMethod ||
+                    (this.AuthMethod != null &&
+                    this.AuthMethod.Equals(input.AuthMethod))
+                ) && 
+                (
+                    this.AwsFleetParams == input.AwsFleetParams ||
+                    (this.AwsFleetParams != null &&
+                    this.AwsFleetParams.Equals(input.AwsFleetParams))
+                ) && 
+                (
                     this.AwsType == input.AwsType ||
-                    this.AwsType.Equals(input.AwsType)
+                    (this.AwsType != null &&
+                    this.AwsType.Equals(input.AwsType))
+                ) && 
+                (
+                    this.C2sServerInfo == input.C2sServerInfo ||
+                    (this.C2sServerInfo != null &&
+                    this.C2sServerInfo.Equals(input.C2sServerInfo))
+                ) && 
+                (
+                    this.ClusterNetworkInfo == input.ClusterNetworkInfo ||
+                    (this.ClusterNetworkInfo != null &&
+                    this.ClusterNetworkInfo.Equals(input.ClusterNetworkInfo))
                 ) && 
                 (
                     this.DbEngineId == input.DbEngineId ||
@@ -536,7 +618,13 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.HostType == input.HostType ||
-                    this.HostType.Equals(input.HostType)
+                    (this.HostType != null &&
+                    this.HostType.Equals(input.HostType))
+                ) && 
+                (
+                    this.IamRoleArn == input.IamRoleArn ||
+                    (this.IamRoleArn != null &&
+                    this.IamRoleArn.Equals(input.IamRoleArn))
                 ) && 
                 (
                     this.IpAddresses == input.IpAddresses ||
@@ -580,17 +668,18 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.SubscriptionType == input.SubscriptionType ||
-                    this.SubscriptionType.Equals(input.SubscriptionType)
+                    (this.SubscriptionType != null &&
+                    this.SubscriptionType.Equals(input.SubscriptionType))
                 ) && 
                 (
                     this.TagAttributes == input.TagAttributes ||
                     this.TagAttributes != null &&
-                    input.TagAttributes != null &&
-                    this.TagAttributes.SequenceEqual(input.TagAttributes)
+                    this.TagAttributes.Equals(input.TagAttributes)
                 ) && 
                 (
                     this.Type == input.Type ||
-                    this.Type.Equals(input.Type)
+                    (this.Type != null &&
+                    this.Type.Equals(input.Type))
                 ) && 
                 (
                     this.UserAccountId == input.UserAccountId ||
@@ -601,6 +690,11 @@ namespace Cohesity.Model
                     this.UserResourceName == input.UserResourceName ||
                     (this.UserResourceName != null &&
                     this.UserResourceName.Equals(input.UserResourceName))
+                ) && 
+                (
+                    this.Volumes == input.Volumes ||
+                    this.Volumes != null &&
+                    this.Volumes.Equals(input.Volumes)
                 );
         }
 
@@ -617,10 +711,22 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.AccessKey.GetHashCode();
                 if (this.AmazonResourceName != null)
                     hashCode = hashCode * 59 + this.AmazonResourceName.GetHashCode();
-                hashCode = hashCode * 59 + this.AwsType.GetHashCode();
+                if (this.AuthMethod != null)
+                    hashCode = hashCode * 59 + this.AuthMethod.GetHashCode();
+                if (this.AwsFleetParams != null)
+                    hashCode = hashCode * 59 + this.AwsFleetParams.GetHashCode();
+                if (this.AwsType != null)
+                    hashCode = hashCode * 59 + this.AwsType.GetHashCode();
+                if (this.C2sServerInfo != null)
+                    hashCode = hashCode * 59 + this.C2sServerInfo.GetHashCode();
+                if (this.ClusterNetworkInfo != null)
+                    hashCode = hashCode * 59 + this.ClusterNetworkInfo.GetHashCode();
                 if (this.DbEngineId != null)
                     hashCode = hashCode * 59 + this.DbEngineId.GetHashCode();
-                hashCode = hashCode * 59 + this.HostType.GetHashCode();
+                if (this.HostType != null)
+                    hashCode = hashCode * 59 + this.HostType.GetHashCode();
+                if (this.IamRoleArn != null)
+                    hashCode = hashCode * 59 + this.IamRoleArn.GetHashCode();
                 if (this.IpAddresses != null)
                     hashCode = hashCode * 59 + this.IpAddresses.GetHashCode();
                 if (this.Name != null)
@@ -637,14 +743,18 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.RestoreTaskId.GetHashCode();
                 if (this.SecretAccessKey != null)
                     hashCode = hashCode * 59 + this.SecretAccessKey.GetHashCode();
-                hashCode = hashCode * 59 + this.SubscriptionType.GetHashCode();
+                if (this.SubscriptionType != null)
+                    hashCode = hashCode * 59 + this.SubscriptionType.GetHashCode();
                 if (this.TagAttributes != null)
                     hashCode = hashCode * 59 + this.TagAttributes.GetHashCode();
-                hashCode = hashCode * 59 + this.Type.GetHashCode();
+                if (this.Type != null)
+                    hashCode = hashCode * 59 + this.Type.GetHashCode();
                 if (this.UserAccountId != null)
                     hashCode = hashCode * 59 + this.UserAccountId.GetHashCode();
                 if (this.UserResourceName != null)
                     hashCode = hashCode * 59 + this.UserResourceName.GetHashCode();
+                if (this.Volumes != null)
+                    hashCode = hashCode * 59 + this.Volumes.GetHashCode();
                 return hashCode;
             }
         }

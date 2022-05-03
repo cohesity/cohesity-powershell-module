@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.TenantId = tenantId;
             this.VlanIfaceNames = vlanIfaceNames;
-            this.TenantId = tenantId;
-            this.VlanIfaceNames = vlanIfaceNames;
         }
         
         /// <summary>
         /// Specifies the unique id of the tenant.
         /// </summary>
         /// <value>Specifies the unique id of the tenant.</value>
-        [DataMember(Name="tenantId", EmitDefaultValue=true)]
+        [DataMember(Name="tenantId", EmitDefaultValue=false)]
         public string TenantId { get; set; }
 
         /// <summary>
         /// Specifies the VlanIfaceNames for respective tenant, in the format of bond1.200.
         /// </summary>
         /// <value>Specifies the VlanIfaceNames for respective tenant, in the format of bond1.200.</value>
-        [DataMember(Name="vlanIfaceNames", EmitDefaultValue=true)]
+        [DataMember(Name="vlanIfaceNames", EmitDefaultValue=false)]
         public List<string> VlanIfaceNames { get; set; }
 
         /// <summary>
@@ -91,8 +92,7 @@ namespace Cohesity.Model
                 (
                     this.VlanIfaceNames == input.VlanIfaceNames ||
                     this.VlanIfaceNames != null &&
-                    input.VlanIfaceNames != null &&
-                    this.VlanIfaceNames.SequenceEqual(input.VlanIfaceNames)
+                    this.VlanIfaceNames.Equals(input.VlanIfaceNames)
                 );
         }
 

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,14 +30,13 @@ namespace Cohesity.Model
         public NewS3SecretAccessKey(string newKey = default(string))
         {
             this.NewKey = newKey;
-            this.NewKey = newKey;
         }
         
         /// <summary>
         /// Specifies the new S3 Secret Access key.
         /// </summary>
         /// <value>Specifies the new S3 Secret Access key.</value>
-        [DataMember(Name="newKey", EmitDefaultValue=true)]
+        [DataMember(Name="newKey", EmitDefaultValue=false)]
         public string NewKey { get; set; }
 
         /// <summary>

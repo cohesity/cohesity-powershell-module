@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -35,46 +38,41 @@ namespace Cohesity.Model
             this.RpcPort = rpcPort;
             this.SslStoragePort = sslStoragePort;
             this.StoragePort = storagePort;
-            this.JmxPort = jmxPort;
-            this.NativeTransportPort = nativeTransportPort;
-            this.RpcPort = rpcPort;
-            this.SslStoragePort = sslStoragePort;
-            this.StoragePort = storagePort;
         }
         
         /// <summary>
         /// Specifies the Cassandra JMX port.
         /// </summary>
         /// <value>Specifies the Cassandra JMX port.</value>
-        [DataMember(Name="jmxPort", EmitDefaultValue=true)]
+        [DataMember(Name="jmxPort", EmitDefaultValue=false)]
         public int? JmxPort { get; set; }
 
         /// <summary>
         /// Specifies the port for the CQL native transport.
         /// </summary>
         /// <value>Specifies the port for the CQL native transport.</value>
-        [DataMember(Name="nativeTransportPort", EmitDefaultValue=true)]
+        [DataMember(Name="nativeTransportPort", EmitDefaultValue=false)]
         public int? NativeTransportPort { get; set; }
 
         /// <summary>
         /// Specifies the Remote Procedure Call (RPC) port for general mechanism for client-server applications.
         /// </summary>
         /// <value>Specifies the Remote Procedure Call (RPC) port for general mechanism for client-server applications.</value>
-        [DataMember(Name="rpcPort", EmitDefaultValue=true)]
+        [DataMember(Name="rpcPort", EmitDefaultValue=false)]
         public int? RpcPort { get; set; }
 
         /// <summary>
         /// Specifies the SSL port for encrypted communication.
         /// </summary>
         /// <value>Specifies the SSL port for encrypted communication.</value>
-        [DataMember(Name="sslStoragePort", EmitDefaultValue=true)]
+        [DataMember(Name="sslStoragePort", EmitDefaultValue=false)]
         public int? SslStoragePort { get; set; }
 
         /// <summary>
         /// Specifies the TCP port for data. Internally used by Cassandra bulk loader.
         /// </summary>
         /// <value>Specifies the TCP port for data. Internally used by Cassandra bulk loader.</value>
-        [DataMember(Name="storagePort", EmitDefaultValue=true)]
+        [DataMember(Name="storagePort", EmitDefaultValue=false)]
         public int? StoragePort { get; set; }
 
         /// <summary>

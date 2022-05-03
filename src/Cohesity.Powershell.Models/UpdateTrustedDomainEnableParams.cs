@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,14 +30,13 @@ namespace Cohesity.Model
         public UpdateTrustedDomainEnableParams(bool? trustedDomainsEnabled = default(bool?))
         {
             this.TrustedDomainsEnabled = trustedDomainsEnabled;
-            this.TrustedDomainsEnabled = trustedDomainsEnabled;
         }
         
         /// <summary>
         /// Request to update enable trusted domains state of an Active Directory.
         /// </summary>
         /// <value>Request to update enable trusted domains state of an Active Directory.</value>
-        [DataMember(Name="trustedDomainsEnabled", EmitDefaultValue=true)]
+        [DataMember(Name="trustedDomainsEnabled", EmitDefaultValue=false)]
         public bool? TrustedDomainsEnabled { get; set; }
 
         /// <summary>

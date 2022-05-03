@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -30,7 +33,6 @@ namespace Cohesity.Model
         /// <param name="rpoSchedule">rpoSchedule.</param>
         public SchedulingPolicyProto(SchedulingPolicyProtoContinuousSchedule continuousSchedule = default(SchedulingPolicyProtoContinuousSchedule), SchedulingPolicyProtoDailySchedule dailySchedule = default(SchedulingPolicyProtoDailySchedule), SchedulingPolicyProtoMonthlySchedule monthlySchedule = default(SchedulingPolicyProtoMonthlySchedule), int? periodicity = default(int?), SchedulingPolicyProtoRPOSchedule rpoSchedule = default(SchedulingPolicyProtoRPOSchedule))
         {
-            this.Periodicity = periodicity;
             this.ContinuousSchedule = continuousSchedule;
             this.DailySchedule = dailySchedule;
             this.MonthlySchedule = monthlySchedule;
@@ -60,7 +62,7 @@ namespace Cohesity.Model
         /// Determines how often the job should be run.
         /// </summary>
         /// <value>Determines how often the job should be run.</value>
-        [DataMember(Name="periodicity", EmitDefaultValue=true)]
+        [DataMember(Name="periodicity", EmitDefaultValue=false)]
         public int? Periodicity { get; set; }
 
         /// <summary>

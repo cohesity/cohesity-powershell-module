@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -35,46 +38,41 @@ namespace Cohesity.Model
             this.ScriptParams = scriptParams;
             this.ScriptPath = scriptPath;
             this.TimeoutSecs = timeoutSecs;
-            this.ContinueOnError = continueOnError;
-            this.IsActive = isActive;
-            this.ScriptParams = scriptParams;
-            this.ScriptPath = scriptPath;
-            this.TimeoutSecs = timeoutSecs;
         }
         
         /// <summary>
         /// Applicable only for pre backup scripts. If this flag is set to true, then backup job will start even if the pre backup script fails.
         /// </summary>
         /// <value>Applicable only for pre backup scripts. If this flag is set to true, then backup job will start even if the pre backup script fails.</value>
-        [DataMember(Name="continueOnError", EmitDefaultValue=true)]
+        [DataMember(Name="continueOnError", EmitDefaultValue=false)]
         public bool? ContinueOnError { get; set; }
 
         /// <summary>
         /// Indicates if the script is active. If &#39;is_active&#39; is set to false, this script will not be executed even if it is part of the backup job.
         /// </summary>
         /// <value>Indicates if the script is active. If &#39;is_active&#39; is set to false, this script will not be executed even if it is part of the backup job.</value>
-        [DataMember(Name="isActive", EmitDefaultValue=true)]
+        [DataMember(Name="isActive", EmitDefaultValue=false)]
         public bool? IsActive { get; set; }
 
         /// <summary>
         /// Custom parameters that users want to pass to the script. For example, if user wants to pass following params: 1. foo&#x3D;bar 2. v&#x3D;10. User can construct the param string as \&quot;far&#x3D;bar v&#x3D;10\&quot;.
         /// </summary>
         /// <value>Custom parameters that users want to pass to the script. For example, if user wants to pass following params: 1. foo&#x3D;bar 2. v&#x3D;10. User can construct the param string as \&quot;far&#x3D;bar v&#x3D;10\&quot;.</value>
-        [DataMember(Name="scriptParams", EmitDefaultValue=true)]
+        [DataMember(Name="scriptParams", EmitDefaultValue=false)]
         public string ScriptParams { get; set; }
 
         /// <summary>
         /// For backup jobs of type &#39;kPuppeteer&#39;, &#39;script_path&#39; is full path of location of the script within the host. For Pre/Post scripts of agent-based backup jobs, &#39;script_path&#39; is just name of the script, not full path.
         /// </summary>
         /// <value>For backup jobs of type &#39;kPuppeteer&#39;, &#39;script_path&#39; is full path of location of the script within the host. For Pre/Post scripts of agent-based backup jobs, &#39;script_path&#39; is just name of the script, not full path.</value>
-        [DataMember(Name="scriptPath", EmitDefaultValue=true)]
+        [DataMember(Name="scriptPath", EmitDefaultValue=false)]
         public string ScriptPath { get; set; }
 
         /// <summary>
         /// Timeout of the script. The script will be killed if it exceeds this value. &#39;-1&#39; indicates that the timeout is not set for the script.
         /// </summary>
         /// <value>Timeout of the script. The script will be killed if it exceeds this value. &#39;-1&#39; indicates that the timeout is not set for the script.</value>
-        [DataMember(Name="timeoutSecs", EmitDefaultValue=true)]
+        [DataMember(Name="timeoutSecs", EmitDefaultValue=false)]
         public int? TimeoutSecs { get; set; }
 
         /// <summary>

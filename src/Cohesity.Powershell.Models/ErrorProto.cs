@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.ErrorMsg = errorMsg;
             this.Type = type;
-            this.ErrorMsg = errorMsg;
-            this.Type = type;
         }
         
         /// <summary>
         /// An optional detail.
         /// </summary>
         /// <value>An optional detail.</value>
-        [DataMember(Name="errorMsg", EmitDefaultValue=true)]
+        [DataMember(Name="errorMsg", EmitDefaultValue=false)]
         public string ErrorMsg { get; set; }
 
         /// <summary>
         /// Error.
         /// </summary>
         /// <value>Error.</value>
-        [DataMember(Name="type", EmitDefaultValue=true)]
+        [DataMember(Name="type", EmitDefaultValue=false)]
         public int? Type { get; set; }
 
         /// <summary>

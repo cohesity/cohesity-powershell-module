@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -28,19 +31,16 @@ namespace Cohesity.Model
         /// <param name="isEnabled">Indicates whether read operations to the datastores, which are part of the registered Protection Source, are throttled..</param>
         /// <param name="latencyThresholds">latencyThresholds.</param>
         /// <param name="maxConcurrentStreams">Specifies the limit on the number of streams Cohesity cluster will make concurrently to the datastores of the registered entity. This limit is enforced only when the flag enforceMaxStreams is set to true..</param>
+        /// <param name="nasSourceParams">nasSourceParams.</param>
         /// <param name="registeredSourceMaxConcurrentBackups">Specifies the limit on the number of backups Cohesity cluster will make concurrently to the registered entity. This limit is enforced only when the flag enforceRegisteredSourceMaxBackups is set to true..</param>
-        public ThrottlingPolicyParameters(bool? enforceMaxStreams = default(bool?), bool? enforceRegisteredSourceMaxBackups = default(bool?), bool? isEnabled = default(bool?), LatencyThresholds latencyThresholds = default(LatencyThresholds), int? maxConcurrentStreams = default(int?), int? registeredSourceMaxConcurrentBackups = default(int?))
+        public ThrottlingPolicyParameters(bool? enforceMaxStreams = default(bool?), bool? enforceRegisteredSourceMaxBackups = default(bool?), bool? isEnabled = default(bool?), LatencyThresholds latencyThresholds = default(LatencyThresholds), int? maxConcurrentStreams = default(int?), NasSourceThrottlingParams nasSourceParams = default(NasSourceThrottlingParams), int? registeredSourceMaxConcurrentBackups = default(int?))
         {
-            this.EnforceMaxStreams = enforceMaxStreams;
-            this.EnforceRegisteredSourceMaxBackups = enforceRegisteredSourceMaxBackups;
-            this.IsEnabled = isEnabled;
-            this.MaxConcurrentStreams = maxConcurrentStreams;
-            this.RegisteredSourceMaxConcurrentBackups = registeredSourceMaxConcurrentBackups;
             this.EnforceMaxStreams = enforceMaxStreams;
             this.EnforceRegisteredSourceMaxBackups = enforceRegisteredSourceMaxBackups;
             this.IsEnabled = isEnabled;
             this.LatencyThresholds = latencyThresholds;
             this.MaxConcurrentStreams = maxConcurrentStreams;
+            this.NasSourceParams = nasSourceParams;
             this.RegisteredSourceMaxConcurrentBackups = registeredSourceMaxConcurrentBackups;
         }
         
@@ -48,21 +48,21 @@ namespace Cohesity.Model
         /// Specifies whether datastore streams are configured for all datastores that are part of the registered entity. If set to true, number of streams from Cohesity cluster to the registered entity will be limited to the value set for maxConcurrentStreams. If not set or set to false, there is no max limit for the number of concurrent streams.
         /// </summary>
         /// <value>Specifies whether datastore streams are configured for all datastores that are part of the registered entity. If set to true, number of streams from Cohesity cluster to the registered entity will be limited to the value set for maxConcurrentStreams. If not set or set to false, there is no max limit for the number of concurrent streams.</value>
-        [DataMember(Name="enforceMaxStreams", EmitDefaultValue=true)]
+        [DataMember(Name="enforceMaxStreams", EmitDefaultValue=false)]
         public bool? EnforceMaxStreams { get; set; }
 
         /// <summary>
         /// Specifies whether no. of backups are configured for the registered entity. If set to true, number of backups made by Cohesity cluster in the registered entity will be limited to the value set for RegisteredSourceMaxConcurrentBackups. If not set or set to false, there is no max limit for the number of concurrent backups.
         /// </summary>
         /// <value>Specifies whether no. of backups are configured for the registered entity. If set to true, number of backups made by Cohesity cluster in the registered entity will be limited to the value set for RegisteredSourceMaxConcurrentBackups. If not set or set to false, there is no max limit for the number of concurrent backups.</value>
-        [DataMember(Name="enforceRegisteredSourceMaxBackups", EmitDefaultValue=true)]
+        [DataMember(Name="enforceRegisteredSourceMaxBackups", EmitDefaultValue=false)]
         public bool? EnforceRegisteredSourceMaxBackups { get; set; }
 
         /// <summary>
         /// Indicates whether read operations to the datastores, which are part of the registered Protection Source, are throttled.
         /// </summary>
         /// <value>Indicates whether read operations to the datastores, which are part of the registered Protection Source, are throttled.</value>
-        [DataMember(Name="isEnabled", EmitDefaultValue=true)]
+        [DataMember(Name="isEnabled", EmitDefaultValue=false)]
         public bool? IsEnabled { get; set; }
 
         /// <summary>
@@ -75,14 +75,20 @@ namespace Cohesity.Model
         /// Specifies the limit on the number of streams Cohesity cluster will make concurrently to the datastores of the registered entity. This limit is enforced only when the flag enforceMaxStreams is set to true.
         /// </summary>
         /// <value>Specifies the limit on the number of streams Cohesity cluster will make concurrently to the datastores of the registered entity. This limit is enforced only when the flag enforceMaxStreams is set to true.</value>
-        [DataMember(Name="maxConcurrentStreams", EmitDefaultValue=true)]
+        [DataMember(Name="maxConcurrentStreams", EmitDefaultValue=false)]
         public int? MaxConcurrentStreams { get; set; }
+
+        /// <summary>
+        /// Gets or Sets NasSourceParams
+        /// </summary>
+        [DataMember(Name="nasSourceParams", EmitDefaultValue=false)]
+        public NasSourceThrottlingParams NasSourceParams { get; set; }
 
         /// <summary>
         /// Specifies the limit on the number of backups Cohesity cluster will make concurrently to the registered entity. This limit is enforced only when the flag enforceRegisteredSourceMaxBackups is set to true.
         /// </summary>
         /// <value>Specifies the limit on the number of backups Cohesity cluster will make concurrently to the registered entity. This limit is enforced only when the flag enforceRegisteredSourceMaxBackups is set to true.</value>
-        [DataMember(Name="registeredSourceMaxConcurrentBackups", EmitDefaultValue=true)]
+        [DataMember(Name="registeredSourceMaxConcurrentBackups", EmitDefaultValue=false)]
         public int? RegisteredSourceMaxConcurrentBackups { get; set; }
 
         /// <summary>
@@ -147,6 +153,11 @@ namespace Cohesity.Model
                     this.MaxConcurrentStreams.Equals(input.MaxConcurrentStreams))
                 ) && 
                 (
+                    this.NasSourceParams == input.NasSourceParams ||
+                    (this.NasSourceParams != null &&
+                    this.NasSourceParams.Equals(input.NasSourceParams))
+                ) && 
+                (
                     this.RegisteredSourceMaxConcurrentBackups == input.RegisteredSourceMaxConcurrentBackups ||
                     (this.RegisteredSourceMaxConcurrentBackups != null &&
                     this.RegisteredSourceMaxConcurrentBackups.Equals(input.RegisteredSourceMaxConcurrentBackups))
@@ -172,6 +183,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.LatencyThresholds.GetHashCode();
                 if (this.MaxConcurrentStreams != null)
                     hashCode = hashCode * 59 + this.MaxConcurrentStreams.GetHashCode();
+                if (this.NasSourceParams != null)
+                    hashCode = hashCode * 59 + this.NasSourceParams.GetHashCode();
                 if (this.RegisteredSourceMaxConcurrentBackups != null)
                     hashCode = hashCode * 59 + this.RegisteredSourceMaxConcurrentBackups.GetHashCode();
                 return hashCode;

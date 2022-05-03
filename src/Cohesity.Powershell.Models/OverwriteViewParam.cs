@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -32,22 +35,38 @@ namespace Cohesity.Model
         /// <param name="targetViewName">Specifies the target view name. (required).</param>
         public OverwriteViewParam(string sourceViewName = default(string), string targetViewName = default(string))
         {
-            this.SourceViewName = sourceViewName;
-            this.TargetViewName = targetViewName;
+            // to ensure "sourceViewName" is required (not null)
+            if (sourceViewName == null)
+            {
+                throw new InvalidDataException("sourceViewName is a required property for OverwriteViewParam and cannot be null");
+            }
+            else
+            {
+                this.SourceViewName = sourceViewName;
+            }
+            // to ensure "targetViewName" is required (not null)
+            if (targetViewName == null)
+            {
+                throw new InvalidDataException("targetViewName is a required property for OverwriteViewParam and cannot be null");
+            }
+            else
+            {
+                this.TargetViewName = targetViewName;
+            }
         }
         
         /// <summary>
         /// Specifies the source view name.
         /// </summary>
         /// <value>Specifies the source view name.</value>
-        [DataMember(Name="sourceViewName", EmitDefaultValue=true)]
+        [DataMember(Name="sourceViewName", EmitDefaultValue=false)]
         public string SourceViewName { get; set; }
 
         /// <summary>
         /// Specifies the target view name.
         /// </summary>
         /// <value>Specifies the target view name.</value>
-        [DataMember(Name="targetViewName", EmitDefaultValue=true)]
+        [DataMember(Name="targetViewName", EmitDefaultValue=false)]
         public string TargetViewName { get; set; }
 
         /// <summary>

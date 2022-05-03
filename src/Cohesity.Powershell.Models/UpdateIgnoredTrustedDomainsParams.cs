@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,14 +30,13 @@ namespace Cohesity.Model
         public UpdateIgnoredTrustedDomainsParams(List<string> ignoredTrustedDomains = default(List<string>))
         {
             this.IgnoredTrustedDomains = ignoredTrustedDomains;
-            this.IgnoredTrustedDomains = ignoredTrustedDomains;
         }
         
         /// <summary>
         /// Specifies the list of trusted domains that were set by the user to be ignored during trusted domain discovery.
         /// </summary>
         /// <value>Specifies the list of trusted domains that were set by the user to be ignored during trusted domain discovery.</value>
-        [DataMember(Name="ignoredTrustedDomains", EmitDefaultValue=true)]
+        [DataMember(Name="ignoredTrustedDomains", EmitDefaultValue=false)]
         public List<string> IgnoredTrustedDomains { get; set; }
 
         /// <summary>
@@ -76,8 +78,7 @@ namespace Cohesity.Model
                 (
                     this.IgnoredTrustedDomains == input.IgnoredTrustedDomains ||
                     this.IgnoredTrustedDomains != null &&
-                    input.IgnoredTrustedDomains != null &&
-                    this.IgnoredTrustedDomains.SequenceEqual(input.IgnoredTrustedDomains)
+                    this.IgnoredTrustedDomains.Equals(input.IgnoredTrustedDomains)
                 );
         }
 

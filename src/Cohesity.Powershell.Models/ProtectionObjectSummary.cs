@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -38,15 +41,6 @@ namespace Cohesity.Model
             this.LatestArchivalSnapshotTimeUsecs = latestArchivalSnapshotTimeUsecs;
             this.LatestLocalSnapshotTimeUsecs = latestLocalSnapshotTimeUsecs;
             this.LatestReplicationSnapshotTimeUsecs = latestReplicationSnapshotTimeUsecs;
-            this.ProtectionJobs = protectionJobs;
-            this.ProtectionSource = protectionSource;
-            this.RpoPolicies = rpoPolicies;
-            this.TotalArchivalSnapshots = totalArchivalSnapshots;
-            this.TotalLocalSnapshots = totalLocalSnapshots;
-            this.TotalReplicationSnapshots = totalReplicationSnapshots;
-            this.LatestArchivalSnapshotTimeUsecs = latestArchivalSnapshotTimeUsecs;
-            this.LatestLocalSnapshotTimeUsecs = latestLocalSnapshotTimeUsecs;
-            this.LatestReplicationSnapshotTimeUsecs = latestReplicationSnapshotTimeUsecs;
             this.ParentProtectionSource = parentProtectionSource;
             this.ProtectionJobs = protectionJobs;
             this.ProtectionSource = protectionSource;
@@ -60,21 +54,21 @@ namespace Cohesity.Model
         /// Specifies the Unix epoch Timestamp (in microseconds) of the latest Archival Snapshot.
         /// </summary>
         /// <value>Specifies the Unix epoch Timestamp (in microseconds) of the latest Archival Snapshot.</value>
-        [DataMember(Name="latestArchivalSnapshotTimeUsecs", EmitDefaultValue=true)]
+        [DataMember(Name="latestArchivalSnapshotTimeUsecs", EmitDefaultValue=false)]
         public long? LatestArchivalSnapshotTimeUsecs { get; set; }
 
         /// <summary>
         /// Specifies the Unix epoch Timestamp (in microseconds) of the latest Local Snapshot.
         /// </summary>
         /// <value>Specifies the Unix epoch Timestamp (in microseconds) of the latest Local Snapshot.</value>
-        [DataMember(Name="latestLocalSnapshotTimeUsecs", EmitDefaultValue=true)]
+        [DataMember(Name="latestLocalSnapshotTimeUsecs", EmitDefaultValue=false)]
         public long? LatestLocalSnapshotTimeUsecs { get; set; }
 
         /// <summary>
         /// Specifies the Unix epoch Timestamp (in microseconds) of the latest Replication Snapshot.
         /// </summary>
         /// <value>Specifies the Unix epoch Timestamp (in microseconds) of the latest Replication Snapshot.</value>
-        [DataMember(Name="latestReplicationSnapshotTimeUsecs", EmitDefaultValue=true)]
+        [DataMember(Name="latestReplicationSnapshotTimeUsecs", EmitDefaultValue=false)]
         public long? LatestReplicationSnapshotTimeUsecs { get; set; }
 
         /// <summary>
@@ -87,42 +81,42 @@ namespace Cohesity.Model
         /// Returns the list of Protection Jobs with summary Information.
         /// </summary>
         /// <value>Returns the list of Protection Jobs with summary Information.</value>
-        [DataMember(Name="protectionJobs", EmitDefaultValue=true)]
+        [DataMember(Name="protectionJobs", EmitDefaultValue=false)]
         public List<ProtectionRunInstance> ProtectionJobs { get; set; }
 
         /// <summary>
         /// Specifies the leaf Protection Source Object such as a VM.
         /// </summary>
         /// <value>Specifies the leaf Protection Source Object such as a VM.</value>
-        [DataMember(Name="protectionSource", EmitDefaultValue=true)]
+        [DataMember(Name="protectionSource", EmitDefaultValue=false)]
         public ProtectionSource ProtectionSource { get; set; }
 
         /// <summary>
         /// Specifies the id of the RPO policy protecting this object.
         /// </summary>
         /// <value>Specifies the id of the RPO policy protecting this object.</value>
-        [DataMember(Name="rpoPolicies", EmitDefaultValue=true)]
+        [DataMember(Name="rpoPolicies", EmitDefaultValue=false)]
         public List<ProtectionPolicy> RpoPolicies { get; set; }
 
         /// <summary>
         /// Specifies the total number of Archival Snapshots.
         /// </summary>
         /// <value>Specifies the total number of Archival Snapshots.</value>
-        [DataMember(Name="totalArchivalSnapshots", EmitDefaultValue=true)]
+        [DataMember(Name="totalArchivalSnapshots", EmitDefaultValue=false)]
         public int? TotalArchivalSnapshots { get; set; }
 
         /// <summary>
         /// Specifies the total number of Local Snapshots.
         /// </summary>
         /// <value>Specifies the total number of Local Snapshots.</value>
-        [DataMember(Name="totalLocalSnapshots", EmitDefaultValue=true)]
+        [DataMember(Name="totalLocalSnapshots", EmitDefaultValue=false)]
         public int? TotalLocalSnapshots { get; set; }
 
         /// <summary>
         /// Specifies the total number of Replication Snapshots.
         /// </summary>
         /// <value>Specifies the total number of Replication Snapshots.</value>
-        [DataMember(Name="totalReplicationSnapshots", EmitDefaultValue=true)]
+        [DataMember(Name="totalReplicationSnapshots", EmitDefaultValue=false)]
         public int? TotalReplicationSnapshots { get; set; }
 
         /// <summary>
@@ -184,19 +178,17 @@ namespace Cohesity.Model
                 (
                     this.ProtectionJobs == input.ProtectionJobs ||
                     this.ProtectionJobs != null &&
-                    input.ProtectionJobs != null &&
-                    this.ProtectionJobs.SequenceEqual(input.ProtectionJobs)
+                    this.ProtectionJobs.Equals(input.ProtectionJobs)
                 ) && 
                 (
                     this.ProtectionSource == input.ProtectionSource ||
-                    (this.ProtectionSource != null &&
-                    this.ProtectionSource.Equals(input.ProtectionSource))
+                    this.ProtectionSource != null &&
+                    this.ProtectionSource.Equals(input.ProtectionSource)
                 ) && 
                 (
                     this.RpoPolicies == input.RpoPolicies ||
                     this.RpoPolicies != null &&
-                    input.RpoPolicies != null &&
-                    this.RpoPolicies.SequenceEqual(input.RpoPolicies)
+                    this.RpoPolicies.Equals(input.RpoPolicies)
                 ) && 
                 (
                     this.TotalArchivalSnapshots == input.TotalArchivalSnapshots ||

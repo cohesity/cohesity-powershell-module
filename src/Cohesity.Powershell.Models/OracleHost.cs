@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,12 +30,8 @@ namespace Cohesity.Model
         /// <param name="ipAddresses">Specifies the IP address of the host..</param>
         /// <param name="ports">Specifies ports available for this host..</param>
         /// <param name="sessions">Specifies multiple session configurations available for this host..</param>
-        public OracleHost(int? cpuCount = default(int?), List<string> ipAddresses = default(List<string>), List<long> ports = default(List<long>), List<OracleSession> sessions = default(List<OracleSession>))
+        public OracleHost(int? cpuCount = default(int?), List<string> ipAddresses = default(List<string>), List<long?> ports = default(List<long?>), List<OracleSession> sessions = default(List<OracleSession>))
         {
-            this.CpuCount = cpuCount;
-            this.IpAddresses = ipAddresses;
-            this.Ports = ports;
-            this.Sessions = sessions;
             this.CpuCount = cpuCount;
             this.IpAddresses = ipAddresses;
             this.Ports = ports;
@@ -43,28 +42,28 @@ namespace Cohesity.Model
         /// Specifies the count of CPU available on the host.
         /// </summary>
         /// <value>Specifies the count of CPU available on the host.</value>
-        [DataMember(Name="cpuCount", EmitDefaultValue=true)]
+        [DataMember(Name="cpuCount", EmitDefaultValue=false)]
         public int? CpuCount { get; set; }
 
         /// <summary>
         /// Specifies the IP address of the host.
         /// </summary>
         /// <value>Specifies the IP address of the host.</value>
-        [DataMember(Name="ipAddresses", EmitDefaultValue=true)]
+        [DataMember(Name="ipAddresses", EmitDefaultValue=false)]
         public List<string> IpAddresses { get; set; }
 
         /// <summary>
         /// Specifies ports available for this host.
         /// </summary>
         /// <value>Specifies ports available for this host.</value>
-        [DataMember(Name="ports", EmitDefaultValue=true)]
-        public List<long> Ports { get; set; }
+        [DataMember(Name="ports", EmitDefaultValue=false)]
+        public List<long?> Ports { get; set; }
 
         /// <summary>
         /// Specifies multiple session configurations available for this host.
         /// </summary>
         /// <value>Specifies multiple session configurations available for this host.</value>
-        [DataMember(Name="sessions", EmitDefaultValue=true)]
+        [DataMember(Name="sessions", EmitDefaultValue=false)]
         public List<OracleSession> Sessions { get; set; }
 
         /// <summary>
@@ -111,20 +110,17 @@ namespace Cohesity.Model
                 (
                     this.IpAddresses == input.IpAddresses ||
                     this.IpAddresses != null &&
-                    input.IpAddresses != null &&
-                    this.IpAddresses.SequenceEqual(input.IpAddresses)
+                    this.IpAddresses.Equals(input.IpAddresses)
                 ) && 
                 (
                     this.Ports == input.Ports ||
                     this.Ports != null &&
-                    input.Ports != null &&
-                    this.Ports.SequenceEqual(input.Ports)
+                    this.Ports.Equals(input.Ports)
                 ) && 
                 (
                     this.Sessions == input.Sessions ||
                     this.Sessions != null &&
-                    input.Sessions != null &&
-                    this.Sessions.SequenceEqual(input.Sessions)
+                    this.Sessions.Equals(input.Sessions)
                 );
         }
 

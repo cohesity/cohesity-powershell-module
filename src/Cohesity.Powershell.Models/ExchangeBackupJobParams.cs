@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,14 +30,13 @@ namespace Cohesity.Model
         public ExchangeBackupJobParams(bool? isCopyOnlyFull = default(bool?))
         {
             this.IsCopyOnlyFull = isCopyOnlyFull;
-            this.IsCopyOnlyFull = isCopyOnlyFull;
         }
         
         /// <summary>
         /// Whether the backups should be copy-only. If this is set to true, then Exchange server will not truncate logs after backup.
         /// </summary>
         /// <value>Whether the backups should be copy-only. If this is set to true, then Exchange server will not truncate logs after backup.</value>
-        [DataMember(Name="isCopyOnlyFull", EmitDefaultValue=true)]
+        [DataMember(Name="isCopyOnlyFull", EmitDefaultValue=false)]
         public bool? IsCopyOnlyFull { get; set; }
 
         /// <summary>

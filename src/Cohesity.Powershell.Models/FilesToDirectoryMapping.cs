@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.FilePattern = filePattern;
             this.TargetDirectory = targetDirectory;
-            this.FilePattern = filePattern;
-            this.TargetDirectory = targetDirectory;
         }
         
         /// <summary>
         /// Source file name. The file name can be a regex matching source files.
         /// </summary>
         /// <value>Source file name. The file name can be a regex matching source files.</value>
-        [DataMember(Name="filePattern", EmitDefaultValue=true)]
+        [DataMember(Name="filePattern", EmitDefaultValue=false)]
         public string FilePattern { get; set; }
 
         /// <summary>
         /// Target directtory for the source file pattern.
         /// </summary>
         /// <value>Target directtory for the source file pattern.</value>
-        [DataMember(Name="targetDirectory", EmitDefaultValue=true)]
+        [DataMember(Name="targetDirectory", EmitDefaultValue=false)]
         public string TargetDirectory { get; set; }
 
         /// <summary>

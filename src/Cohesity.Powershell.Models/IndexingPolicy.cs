@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,30 +34,27 @@ namespace Cohesity.Model
             this.AllowPrefixes = allowPrefixes;
             this.DenyPrefixes = denyPrefixes;
             this.DisableIndexing = disableIndexing;
-            this.AllowPrefixes = allowPrefixes;
-            this.DenyPrefixes = denyPrefixes;
-            this.DisableIndexing = disableIndexing;
         }
         
         /// <summary>
         /// Array of Indexed Directories.  Specifies a list of directories to index.
         /// </summary>
         /// <value>Array of Indexed Directories.  Specifies a list of directories to index.</value>
-        [DataMember(Name="allowPrefixes", EmitDefaultValue=true)]
+        [DataMember(Name="allowPrefixes", EmitDefaultValue=false)]
         public List<string> AllowPrefixes { get; set; }
 
         /// <summary>
         /// Array of Excluded Directories.  Specifies a list of directories to exclude from indexing.
         /// </summary>
         /// <value>Array of Excluded Directories.  Specifies a list of directories to exclude from indexing.</value>
-        [DataMember(Name="denyPrefixes", EmitDefaultValue=true)]
+        [DataMember(Name="denyPrefixes", EmitDefaultValue=false)]
         public List<string> DenyPrefixes { get; set; }
 
         /// <summary>
         /// Specifies if the files found in an Object (such as a VM) should be indexed. If false (the default), files are indexed.
         /// </summary>
         /// <value>Specifies if the files found in an Object (such as a VM) should be indexed. If false (the default), files are indexed.</value>
-        [DataMember(Name="disableIndexing", EmitDefaultValue=true)]
+        [DataMember(Name="disableIndexing", EmitDefaultValue=false)]
         public bool? DisableIndexing { get; set; }
 
         /// <summary>
@@ -96,14 +96,12 @@ namespace Cohesity.Model
                 (
                     this.AllowPrefixes == input.AllowPrefixes ||
                     this.AllowPrefixes != null &&
-                    input.AllowPrefixes != null &&
-                    this.AllowPrefixes.SequenceEqual(input.AllowPrefixes)
+                    this.AllowPrefixes.Equals(input.AllowPrefixes)
                 ) && 
                 (
                     this.DenyPrefixes == input.DenyPrefixes ||
                     this.DenyPrefixes != null &&
-                    input.DenyPrefixes != null &&
-                    this.DenyPrefixes.SequenceEqual(input.DenyPrefixes)
+                    this.DenyPrefixes.Equals(input.DenyPrefixes)
                 ) && 
                 (
                     this.DisableIndexing == input.DisableIndexing ||

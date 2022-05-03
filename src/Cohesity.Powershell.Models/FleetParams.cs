@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -51,7 +54,7 @@ namespace Cohesity.Model
         /// Specifies the subnet type of the fleet. Specifies the type of the fleet subnet. &#39;kCluster&#39; implies same subnet as of Cluster, valid only for Cloud Edition cluster. &#39;kSourceVM&#39; implies same subnet as of source vm. &#39;kCustom&#39; implies the custome subnet.
         /// </summary>
         /// <value>Specifies the subnet type of the fleet. Specifies the type of the fleet subnet. &#39;kCluster&#39; implies same subnet as of Cluster, valid only for Cloud Edition cluster. &#39;kSourceVM&#39; implies same subnet as of source vm. &#39;kCustom&#39; implies the custome subnet.</value>
-        [DataMember(Name="fleetSubnetType", EmitDefaultValue=true)]
+        [DataMember(Name="fleetSubnetType", EmitDefaultValue=false)]
         public FleetSubnetTypeEnum? FleetSubnetType { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="FleetParams" /> class.
@@ -61,8 +64,6 @@ namespace Cohesity.Model
         /// <param name="fleetTags">Specifies the tag information for the fleet..</param>
         public FleetParams(FleetNetworkParams fleetNetworkParams = default(FleetNetworkParams), FleetSubnetTypeEnum? fleetSubnetType = default(FleetSubnetTypeEnum?), List<FleetTag> fleetTags = default(List<FleetTag>))
         {
-            this.FleetSubnetType = fleetSubnetType;
-            this.FleetTags = fleetTags;
             this.FleetNetworkParams = fleetNetworkParams;
             this.FleetSubnetType = fleetSubnetType;
             this.FleetTags = fleetTags;
@@ -74,11 +75,12 @@ namespace Cohesity.Model
         [DataMember(Name="fleetNetworkParams", EmitDefaultValue=false)]
         public FleetNetworkParams FleetNetworkParams { get; set; }
 
+
         /// <summary>
         /// Specifies the tag information for the fleet.
         /// </summary>
         /// <value>Specifies the tag information for the fleet.</value>
-        [DataMember(Name="fleetTags", EmitDefaultValue=true)]
+        [DataMember(Name="fleetTags", EmitDefaultValue=false)]
         public List<FleetTag> FleetTags { get; set; }
 
         /// <summary>
@@ -124,13 +126,13 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.FleetSubnetType == input.FleetSubnetType ||
-                    this.FleetSubnetType.Equals(input.FleetSubnetType)
+                    (this.FleetSubnetType != null &&
+                    this.FleetSubnetType.Equals(input.FleetSubnetType))
                 ) && 
                 (
                     this.FleetTags == input.FleetTags ||
                     this.FleetTags != null &&
-                    input.FleetTags != null &&
-                    this.FleetTags.SequenceEqual(input.FleetTags)
+                    this.FleetTags.Equals(input.FleetTags)
                 );
         }
 
@@ -145,7 +147,8 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.FleetNetworkParams != null)
                     hashCode = hashCode * 59 + this.FleetNetworkParams.GetHashCode();
-                hashCode = hashCode * 59 + this.FleetSubnetType.GetHashCode();
+                if (this.FleetSubnetType != null)
+                    hashCode = hashCode * 59 + this.FleetSubnetType.GetHashCode();
                 if (this.FleetTags != null)
                     hashCode = hashCode * 59 + this.FleetTags.GetHashCode();
                 return hashCode;

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,30 +34,27 @@ namespace Cohesity.Model
             this.AttemptNumber = attemptNumber;
             this.JobRunId = jobRunId;
             this.StartedTimeUsecs = startedTimeUsecs;
-            this.AttemptNumber = attemptNumber;
-            this.JobRunId = jobRunId;
-            this.StartedTimeUsecs = startedTimeUsecs;
         }
         
         /// <summary>
         /// Specifies the number of the attempts made by the Job Run to capture a snapshot of the object. For example, if an snapshot is successfully captured after three attempts, this field equals 3.
         /// </summary>
         /// <value>Specifies the number of the attempts made by the Job Run to capture a snapshot of the object. For example, if an snapshot is successfully captured after three attempts, this field equals 3.</value>
-        [DataMember(Name="attemptNumber", EmitDefaultValue=true)]
+        [DataMember(Name="attemptNumber", EmitDefaultValue=false)]
         public long? AttemptNumber { get; set; }
 
         /// <summary>
         /// Specifies the id of the Job Run that captured the snapshot.
         /// </summary>
         /// <value>Specifies the id of the Job Run that captured the snapshot.</value>
-        [DataMember(Name="jobRunId", EmitDefaultValue=true)]
+        [DataMember(Name="jobRunId", EmitDefaultValue=false)]
         public long? JobRunId { get; set; }
 
         /// <summary>
         /// Specifies the time when the Job Run starts capturing a snapshot. Specified as a Unix epoch Timestamp (in microseconds).
         /// </summary>
         /// <value>Specifies the time when the Job Run starts capturing a snapshot. Specified as a Unix epoch Timestamp (in microseconds).</value>
-        [DataMember(Name="startedTimeUsecs", EmitDefaultValue=true)]
+        [DataMember(Name="startedTimeUsecs", EmitDefaultValue=false)]
         public long? StartedTimeUsecs { get; set; }
 
         /// <summary>

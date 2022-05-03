@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,14 +30,13 @@ namespace Cohesity.Model
         public OracleContainerDatabaseInfo(List<OraclePluggableDatabaseInfo> pluggableDatabaseInfoList = default(List<OraclePluggableDatabaseInfo>))
         {
             this.PluggableDatabaseInfoList = pluggableDatabaseInfoList;
-            this.PluggableDatabaseInfoList = pluggableDatabaseInfoList;
         }
         
         /// <summary>
         /// Specifies the list of Pluggable databases within this Container Database.
         /// </summary>
         /// <value>Specifies the list of Pluggable databases within this Container Database.</value>
-        [DataMember(Name="pluggableDatabaseInfoList", EmitDefaultValue=true)]
+        [DataMember(Name="pluggableDatabaseInfoList", EmitDefaultValue=false)]
         public List<OraclePluggableDatabaseInfo> PluggableDatabaseInfoList { get; set; }
 
         /// <summary>
@@ -76,8 +78,7 @@ namespace Cohesity.Model
                 (
                     this.PluggableDatabaseInfoList == input.PluggableDatabaseInfoList ||
                     this.PluggableDatabaseInfoList != null &&
-                    input.PluggableDatabaseInfoList != null &&
-                    this.PluggableDatabaseInfoList.SequenceEqual(input.PluggableDatabaseInfoList)
+                    this.PluggableDatabaseInfoList.Equals(input.PluggableDatabaseInfoList)
                 );
         }
 

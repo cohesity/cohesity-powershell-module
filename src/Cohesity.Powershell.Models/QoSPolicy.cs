@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -45,7 +48,7 @@ namespace Cohesity.Model
         /// Specifies Priority of the Qos Policy. Priority of QoS Policy as defined in cluster config proto.
         /// </summary>
         /// <value>Specifies Priority of the Qos Policy. Priority of QoS Policy as defined in cluster config proto.</value>
-        [DataMember(Name="priority", EmitDefaultValue=true)]
+        [DataMember(Name="priority", EmitDefaultValue=false)]
         public PriorityEnum? Priority { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="QoSPolicy" /> class.
@@ -74,87 +77,77 @@ namespace Cohesity.Model
             this.SeqWriteSsdPct = seqWriteSsdPct;
             this.Weight = weight;
             this.WorkLoadType = workLoadType;
-            this.AlwaysUseSsd = alwaysUseSsd;
-            this.Id = id;
-            this.MinRequests = minRequests;
-            this.Name = name;
-            this.Priority = priority;
-            this.RandomWriteHydraPct = randomWriteHydraPct;
-            this.RandomWriteSsdPct = randomWriteSsdPct;
-            this.SeqWriteHydraPct = seqWriteHydraPct;
-            this.SeqWriteSsdPct = seqWriteSsdPct;
-            this.Weight = weight;
-            this.WorkLoadType = workLoadType;
         }
         
         /// <summary>
         /// Specifies whether to always write to SSD even if SeqWriteSsdPct is 0.
         /// </summary>
         /// <value>Specifies whether to always write to SSD even if SeqWriteSsdPct is 0.</value>
-        [DataMember(Name="alwaysUseSsd", EmitDefaultValue=true)]
+        [DataMember(Name="alwaysUseSsd", EmitDefaultValue=false)]
         public bool? AlwaysUseSsd { get; set; }
 
         /// <summary>
         /// Specifies Id of the QoS Policy.
         /// </summary>
         /// <value>Specifies Id of the QoS Policy.</value>
-        [DataMember(Name="id", EmitDefaultValue=true)]
+        [DataMember(Name="id", EmitDefaultValue=false)]
         public long? Id { get; set; }
 
         /// <summary>
         /// Specifies minimum number of requests,  corresponding to this Policy, executed in the QoS queue.
         /// </summary>
         /// <value>Specifies minimum number of requests,  corresponding to this Policy, executed in the QoS queue.</value>
-        [DataMember(Name="minRequests", EmitDefaultValue=true)]
+        [DataMember(Name="minRequests", EmitDefaultValue=false)]
         public int? MinRequests { get; set; }
 
         /// <summary>
         /// Specifies Name of the Qos Policy.
         /// </summary>
         /// <value>Specifies Name of the Qos Policy.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
+
 
         /// <summary>
         /// Specifies percentage of a random write request belonging to this Policy that hits hydra.
         /// </summary>
         /// <value>Specifies percentage of a random write request belonging to this Policy that hits hydra.</value>
-        [DataMember(Name="randomWriteHydraPct", EmitDefaultValue=true)]
+        [DataMember(Name="randomWriteHydraPct", EmitDefaultValue=false)]
         public int? RandomWriteHydraPct { get; set; }
 
         /// <summary>
         /// Specifies percentage of a random write request belonging to this Policy that hits SSD.
         /// </summary>
         /// <value>Specifies percentage of a random write request belonging to this Policy that hits SSD.</value>
-        [DataMember(Name="randomWriteSsdPct", EmitDefaultValue=true)]
+        [DataMember(Name="randomWriteSsdPct", EmitDefaultValue=false)]
         public int? RandomWriteSsdPct { get; set; }
 
         /// <summary>
         /// Specifies percentage of a sequential write request belonging to this Policy that hits hydra.
         /// </summary>
         /// <value>Specifies percentage of a sequential write request belonging to this Policy that hits hydra.</value>
-        [DataMember(Name="seqWriteHydraPct", EmitDefaultValue=true)]
+        [DataMember(Name="seqWriteHydraPct", EmitDefaultValue=false)]
         public int? SeqWriteHydraPct { get; set; }
 
         /// <summary>
         /// Specifies percentage of a sequential write request belonging to this Policy that hits SSD.
         /// </summary>
         /// <value>Specifies percentage of a sequential write request belonging to this Policy that hits SSD.</value>
-        [DataMember(Name="seqWriteSsdPct", EmitDefaultValue=true)]
+        [DataMember(Name="seqWriteSsdPct", EmitDefaultValue=false)]
         public int? SeqWriteSsdPct { get; set; }
 
         /// <summary>
         /// Specifies Weight of the QoS Policy used in QoS queue.
         /// </summary>
         /// <value>Specifies Weight of the QoS Policy used in QoS queue.</value>
-        [DataMember(Name="weight", EmitDefaultValue=true)]
+        [DataMember(Name="weight", EmitDefaultValue=false)]
         public int? Weight { get; set; }
 
         /// <summary>
         /// Specifies Workload type attribute associated with this Policy.
         /// </summary>
         /// <value>Specifies Workload type attribute associated with this Policy.</value>
-        [DataMember(Name="workLoadType", EmitDefaultValue=true)]
+        [DataMember(Name="workLoadType", EmitDefaultValue=false)]
         public string WorkLoadType { get; set; }
 
         /// <summary>
@@ -215,7 +208,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.Priority == input.Priority ||
-                    this.Priority.Equals(input.Priority)
+                    (this.Priority != null &&
+                    this.Priority.Equals(input.Priority))
                 ) && 
                 (
                     this.RandomWriteHydraPct == input.RandomWriteHydraPct ||
@@ -266,7 +260,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.MinRequests.GetHashCode();
                 if (this.Name != null)
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
-                hashCode = hashCode * 59 + this.Priority.GetHashCode();
+                if (this.Priority != null)
+                    hashCode = hashCode * 59 + this.Priority.GetHashCode();
                 if (this.RandomWriteHydraPct != null)
                     hashCode = hashCode * 59 + this.RandomWriteHydraPct.GetHashCode();
                 if (this.RandomWriteSsdPct != null)

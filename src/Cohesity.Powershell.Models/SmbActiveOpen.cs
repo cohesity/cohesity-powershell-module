@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -153,7 +156,7 @@ namespace Cohesity.Model
         /// Specifies the access information. &#39;kFileReadData&#39; indicates the right to read data from the file or named pipe. &#39;kFileWriteData&#39; indicates the right to write data into the file or named pipe beyond the end of the file. &#39;kFileAppendData&#39; indicates the right to append data into the file or named pipe. &#39;kFileReadEa&#39; indicates the right to read the extended attributes of the file or named pipe. &#39;kFileWriteEa&#39; indicates the right to write or change the extended attributes to the file or named pipe. &#39;kFileExecute&#39; indicates the right to delete entries within a directory. &#39;kFileDeleteChild&#39; indicates the right to execute the file. &#39;kFileReadAttributes&#39; indicates the right to read the attributes of the file. &#39;kFileWriteAttributes&#39; indicates the right to change the attributes of the file. &#39;kDelete&#39; indicates the right to delete the file. &#39;kReadControl&#39; indicates the right to read the security descriptor for the file or named pipe. &#39;kWriteDac&#39; indicates the right to change the discretionary access control list (DACL) in the security descriptor for the file or named pipe. For the DACL data structure, see ACL in [MS-DTYP]. &#39;kWriteOwner&#39; indicates the right to change the owner in the security descriptor for the file or named pipe. &#39;kSynchronize&#39; is used only by SMB2 clients. &#39;kAccessSystemSecurity&#39; indicates the right to read or change the system access control list (SACL) in the security descriptor for the file or named pipe. For the SACL data structure, see ACL in [MS-DTYP].&lt;42&gt; &#39;kMaximumAllowed&#39; indicates that the client is requesting an open to the file with the highest level of access the client has on this file. If no access is granted for the client on this file, the server MUST fail the open with STATUS_ACCESS_DENIED. &#39;kGenericAll&#39; indicates a request for all the access flags that are previously listed except kMaximumAllowed and kAccessSystemSecurity. &#39;kGenericExecute&#39; indicates a request for the following combination of access flags listed above: kFileReadAttributes| kFileExecute| kSynchronize| kReadControl. &#39;kGenericWrite&#39; indicates a request for the following combination of access flags listed above: kFileWriteData| kFileAppendData| kFileWriteAttributes| kFileWriteEa| kSynchronize| kReadControl. &#39;kGenericRead&#39; indicates a request for the following combination of access flags listed above: kFileReadData| kFileReadAttributes| kFileReadEa| kSynchronize| kReadControl.
         /// </summary>
         /// <value>Specifies the access information. &#39;kFileReadData&#39; indicates the right to read data from the file or named pipe. &#39;kFileWriteData&#39; indicates the right to write data into the file or named pipe beyond the end of the file. &#39;kFileAppendData&#39; indicates the right to append data into the file or named pipe. &#39;kFileReadEa&#39; indicates the right to read the extended attributes of the file or named pipe. &#39;kFileWriteEa&#39; indicates the right to write or change the extended attributes to the file or named pipe. &#39;kFileExecute&#39; indicates the right to delete entries within a directory. &#39;kFileDeleteChild&#39; indicates the right to execute the file. &#39;kFileReadAttributes&#39; indicates the right to read the attributes of the file. &#39;kFileWriteAttributes&#39; indicates the right to change the attributes of the file. &#39;kDelete&#39; indicates the right to delete the file. &#39;kReadControl&#39; indicates the right to read the security descriptor for the file or named pipe. &#39;kWriteDac&#39; indicates the right to change the discretionary access control list (DACL) in the security descriptor for the file or named pipe. For the DACL data structure, see ACL in [MS-DTYP]. &#39;kWriteOwner&#39; indicates the right to change the owner in the security descriptor for the file or named pipe. &#39;kSynchronize&#39; is used only by SMB2 clients. &#39;kAccessSystemSecurity&#39; indicates the right to read or change the system access control list (SACL) in the security descriptor for the file or named pipe. For the SACL data structure, see ACL in [MS-DTYP].&lt;42&gt; &#39;kMaximumAllowed&#39; indicates that the client is requesting an open to the file with the highest level of access the client has on this file. If no access is granted for the client on this file, the server MUST fail the open with STATUS_ACCESS_DENIED. &#39;kGenericAll&#39; indicates a request for all the access flags that are previously listed except kMaximumAllowed and kAccessSystemSecurity. &#39;kGenericExecute&#39; indicates a request for the following combination of access flags listed above: kFileReadAttributes| kFileExecute| kSynchronize| kReadControl. &#39;kGenericWrite&#39; indicates a request for the following combination of access flags listed above: kFileWriteData| kFileAppendData| kFileWriteAttributes| kFileWriteEa| kSynchronize| kReadControl. &#39;kGenericRead&#39; indicates a request for the following combination of access flags listed above: kFileReadData| kFileReadAttributes| kFileReadEa| kSynchronize| kReadControl.</value>
-        [DataMember(Name="accessInfoList", EmitDefaultValue=true)]
+        [DataMember(Name="accessInfoList", EmitDefaultValue=false)]
         public List<AccessInfoListEnum> AccessInfoList { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="SmbActiveOpen" /> class.
@@ -170,39 +173,35 @@ namespace Cohesity.Model
             this.OthersCanDelete = othersCanDelete;
             this.OthersCanRead = othersCanRead;
             this.OthersCanWrite = othersCanWrite;
-            this.AccessInfoList = accessInfoList;
-            this.OpenId = openId;
-            this.OthersCanDelete = othersCanDelete;
-            this.OthersCanRead = othersCanRead;
-            this.OthersCanWrite = othersCanWrite;
         }
         
+
         /// <summary>
         /// Specifies the id of the active open.
         /// </summary>
         /// <value>Specifies the id of the active open.</value>
-        [DataMember(Name="openId", EmitDefaultValue=true)]
+        [DataMember(Name="openId", EmitDefaultValue=false)]
         public long? OpenId { get; set; }
 
         /// <summary>
         /// Specifies whether others are allowed to delete.
         /// </summary>
         /// <value>Specifies whether others are allowed to delete.</value>
-        [DataMember(Name="othersCanDelete", EmitDefaultValue=true)]
+        [DataMember(Name="othersCanDelete", EmitDefaultValue=false)]
         public bool? OthersCanDelete { get; set; }
 
         /// <summary>
         /// Specifies whether others are allowed to read.
         /// </summary>
         /// <value>Specifies whether others are allowed to read.</value>
-        [DataMember(Name="othersCanRead", EmitDefaultValue=true)]
+        [DataMember(Name="othersCanRead", EmitDefaultValue=false)]
         public bool? OthersCanRead { get; set; }
 
         /// <summary>
         /// Specifies whether others are allowed to write.
         /// </summary>
         /// <value>Specifies whether others are allowed to write.</value>
-        [DataMember(Name="othersCanWrite", EmitDefaultValue=true)]
+        [DataMember(Name="othersCanWrite", EmitDefaultValue=false)]
         public bool? OthersCanWrite { get; set; }
 
         /// <summary>
@@ -243,7 +242,8 @@ namespace Cohesity.Model
             return 
                 (
                     this.AccessInfoList == input.AccessInfoList ||
-                    this.AccessInfoList.SequenceEqual(input.AccessInfoList)
+                    this.AccessInfoList != null &&
+                    this.AccessInfoList.Equals(input.AccessInfoList)
                 ) && 
                 (
                     this.OpenId == input.OpenId ||
@@ -276,7 +276,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                hashCode = hashCode * 59 + this.AccessInfoList.GetHashCode();
+                if (this.AccessInfoList != null)
+                    hashCode = hashCode * 59 + this.AccessInfoList.GetHashCode();
                 if (this.OpenId != null)
                     hashCode = hashCode * 59 + this.OpenId.GetHashCode();
                 if (this.OthersCanDelete != null)

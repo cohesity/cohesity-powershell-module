@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -45,7 +48,7 @@ namespace Cohesity.Model
         /// Specifies the role of the DataGuard database. Specifies the role of the DataGuard database.  A Data Guard configuration contains one production database, also referred to as the primary database, that functions in the primary role. The primary database can be either a single-instance Oracle database or an Oracle Real Application Clusters database.  A standby database is a transactionally consistent copy of the primary database. Similar to a primary database, a standby database can be either a single-instance Oracle database or an Oracle Real Application Clusters database. &#39;kPrimary&#39; indicates that the current database is primary database. &#39;kStandby&#39; indicates that the current database is standby database.
         /// </summary>
         /// <value>Specifies the role of the DataGuard database. Specifies the role of the DataGuard database.  A Data Guard configuration contains one production database, also referred to as the primary database, that functions in the primary role. The primary database can be either a single-instance Oracle database or an Oracle Real Application Clusters database.  A standby database is a transactionally consistent copy of the primary database. Similar to a primary database, a standby database can be either a single-instance Oracle database or an Oracle Real Application Clusters database. &#39;kPrimary&#39; indicates that the current database is primary database. &#39;kStandby&#39; indicates that the current database is standby database.</value>
-        [DataMember(Name="role", EmitDefaultValue=true)]
+        [DataMember(Name="role", EmitDefaultValue=false)]
         public RoleEnum? Role { get; set; }
         /// <summary>
         /// Specifies the type of standby database. Specifies the type of standby database. &#39;kPhysical&#39; indicates that the current database provides a physically identical copy of the primary database, with on disk structures identical to the primary database on a block-for-block basis. It is kept synchronized with the primary database, though Redo Apply, which recovers the redo data received from the primary database and applies the redo to the physical standby database. &#39;kLogical&#39; indicates that the current database provides the same logical information as the production database, although the physical structure can be different. It is kept synchronized with the primary database thorugh SQL Apply, which transforms the data in the redo received from the primary database into SQL statements and then executing the SQL statements on the standby database. &#39;kSnapshot&#39; indicates that the current database is a fully updateable standby created by converting a physical standby database into a snasphot standby database. It receives and archives but does not apply redo data from a primary database.
@@ -78,7 +81,7 @@ namespace Cohesity.Model
         /// Specifies the type of standby database. Specifies the type of standby database. &#39;kPhysical&#39; indicates that the current database provides a physically identical copy of the primary database, with on disk structures identical to the primary database on a block-for-block basis. It is kept synchronized with the primary database, though Redo Apply, which recovers the redo data received from the primary database and applies the redo to the physical standby database. &#39;kLogical&#39; indicates that the current database provides the same logical information as the production database, although the physical structure can be different. It is kept synchronized with the primary database thorugh SQL Apply, which transforms the data in the redo received from the primary database into SQL statements and then executing the SQL statements on the standby database. &#39;kSnapshot&#39; indicates that the current database is a fully updateable standby created by converting a physical standby database into a snasphot standby database. It receives and archives but does not apply redo data from a primary database.
         /// </summary>
         /// <value>Specifies the type of standby database. Specifies the type of standby database. &#39;kPhysical&#39; indicates that the current database provides a physically identical copy of the primary database, with on disk structures identical to the primary database on a block-for-block basis. It is kept synchronized with the primary database, though Redo Apply, which recovers the redo data received from the primary database and applies the redo to the physical standby database. &#39;kLogical&#39; indicates that the current database provides the same logical information as the production database, although the physical structure can be different. It is kept synchronized with the primary database thorugh SQL Apply, which transforms the data in the redo received from the primary database into SQL statements and then executing the SQL statements on the standby database. &#39;kSnapshot&#39; indicates that the current database is a fully updateable standby created by converting a physical standby database into a snasphot standby database. It receives and archives but does not apply redo data from a primary database.</value>
-        [DataMember(Name="type", EmitDefaultValue=true)]
+        [DataMember(Name="type", EmitDefaultValue=false)]
         public TypeEnum? Type { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="OracleDataGuardInfo" /> class.
@@ -89,10 +92,10 @@ namespace Cohesity.Model
         {
             this.Role = role;
             this.Type = type;
-            this.Role = role;
-            this.Type = type;
         }
         
+
+
         /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
@@ -131,11 +134,13 @@ namespace Cohesity.Model
             return 
                 (
                     this.Role == input.Role ||
-                    this.Role.Equals(input.Role)
+                    (this.Role != null &&
+                    this.Role.Equals(input.Role))
                 ) && 
                 (
                     this.Type == input.Type ||
-                    this.Type.Equals(input.Type)
+                    (this.Type != null &&
+                    this.Type.Equals(input.Type))
                 );
         }
 
@@ -148,8 +153,10 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                hashCode = hashCode * 59 + this.Role.GetHashCode();
-                hashCode = hashCode * 59 + this.Type.GetHashCode();
+                if (this.Role != null)
+                    hashCode = hashCode * 59 + this.Role.GetHashCode();
+                if (this.Type != null)
+                    hashCode = hashCode * 59 + this.Type.GetHashCode();
                 return hashCode;
             }
         }

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -12,6 +13,8 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
+
+
 namespace Cohesity.Model
 {
     /// <summary>
@@ -23,6 +26,7 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="DeployVMsToAzureParams" /> class.
         /// </summary>
+        /// <param name="availabilitySet">availabilitySet.</param>
         /// <param name="azureManagedDiskParams">azureManagedDiskParams.</param>
         /// <param name="computeOptions">computeOptions.</param>
         /// <param name="networkResourceGroup">networkResourceGroup.</param>
@@ -39,8 +43,9 @@ namespace Cohesity.Model
         /// <param name="tempVmSubnet">tempVmSubnet.</param>
         /// <param name="tempVmVirtualNetwork">tempVmVirtualNetwork.</param>
         /// <param name="virtualNetwork">virtualNetwork.</param>
-        public DeployVMsToAzureParams(AzureManagedDiskParams azureManagedDiskParams = default(AzureManagedDiskParams), EntityProto computeOptions = default(EntityProto), EntityProto networkResourceGroup = default(EntityProto), EntityProto networkSecurityGroup = default(EntityProto), EntityProto resourceGroup = default(EntityProto), EntityProto storageAccount = default(EntityProto), EntityProto storageContainer = default(EntityProto), EntityProto storageKey = default(EntityProto), EntityProto storageResourceGroup = default(EntityProto), EntityProto subnet = default(EntityProto), EntityProto tempVmResourceGroup = default(EntityProto), EntityProto tempVmStorageAccount = default(EntityProto), EntityProto tempVmStorageContainer = default(EntityProto), EntityProto tempVmSubnet = default(EntityProto), EntityProto tempVmVirtualNetwork = default(EntityProto), EntityProto virtualNetwork = default(EntityProto))
+        public DeployVMsToAzureParams(EntityProto availabilitySet = default(EntityProto), AzureManagedDiskParams azureManagedDiskParams = default(AzureManagedDiskParams), EntityProto computeOptions = default(EntityProto), EntityProto networkResourceGroup = default(EntityProto), EntityProto networkSecurityGroup = default(EntityProto), EntityProto resourceGroup = default(EntityProto), EntityProto storageAccount = default(EntityProto), EntityProto storageContainer = default(EntityProto), EntityProto storageKey = default(EntityProto), EntityProto storageResourceGroup = default(EntityProto), EntityProto subnet = default(EntityProto), EntityProto tempVmResourceGroup = default(EntityProto), EntityProto tempVmStorageAccount = default(EntityProto), EntityProto tempVmStorageContainer = default(EntityProto), EntityProto tempVmSubnet = default(EntityProto), EntityProto tempVmVirtualNetwork = default(EntityProto), EntityProto virtualNetwork = default(EntityProto))
         {
+            this.AvailabilitySet = availabilitySet;
             this.AzureManagedDiskParams = azureManagedDiskParams;
             this.ComputeOptions = computeOptions;
             this.NetworkResourceGroup = networkResourceGroup;
@@ -59,6 +64,12 @@ namespace Cohesity.Model
             this.VirtualNetwork = virtualNetwork;
         }
         
+        /// <summary>
+        /// Gets or Sets AvailabilitySet
+        /// </summary>
+        [DataMember(Name="availabilitySet", EmitDefaultValue=false)]
+        public EntityProto AvailabilitySet { get; set; }
+
         /// <summary>
         /// Gets or Sets AzureManagedDiskParams
         /// </summary>
@@ -192,6 +203,11 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.AvailabilitySet == input.AvailabilitySet ||
+                    (this.AvailabilitySet != null &&
+                    this.AvailabilitySet.Equals(input.AvailabilitySet))
+                ) && 
+                (
                     this.AzureManagedDiskParams == input.AzureManagedDiskParams ||
                     (this.AzureManagedDiskParams != null &&
                     this.AzureManagedDiskParams.Equals(input.AzureManagedDiskParams))
@@ -282,6 +298,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.AvailabilitySet != null)
+                    hashCode = hashCode * 59 + this.AvailabilitySet.GetHashCode();
                 if (this.AzureManagedDiskParams != null)
                     hashCode = hashCode * 59 + this.AzureManagedDiskParams.GetHashCode();
                 if (this.ComputeOptions != null)

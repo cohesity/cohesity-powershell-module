@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -63,7 +66,7 @@ namespace Cohesity.Model
         /// Specifies the format of the virtual disk. &#39;kVMDK&#39; indicates VMware&#39;s Virtual Disk format. &#39;kVHD&#39; indicates Microsoft&#39;s Virtual Hard Drive format. &#39;kVHDx&#39; indicates Microsoft&#39;s Hyper-V Virtual Hard Drive format. &#39;kRaw&#39; indicates Raw disk format used by KVM, Acropolis. &#39;kUnknow&#39; indicates Unknown disk format.
         /// </summary>
         /// <value>Specifies the format of the virtual disk. &#39;kVMDK&#39; indicates VMware&#39;s Virtual Disk format. &#39;kVHD&#39; indicates Microsoft&#39;s Virtual Hard Drive format. &#39;kVHDx&#39; indicates Microsoft&#39;s Hyper-V Virtual Hard Drive format. &#39;kRaw&#39; indicates Raw disk format used by KVM, Acropolis. &#39;kUnknow&#39; indicates Unknown disk format.</value>
-        [DataMember(Name="diskFormat", EmitDefaultValue=true)]
+        [DataMember(Name="diskFormat", EmitDefaultValue=false)]
         public DiskFormatEnum? DiskFormat { get; set; }
         /// <summary>
         /// Specifies partition table format on a disk. &#39;kNoPartition&#39; indicates missing partition table. &#39;kMBRPartition&#39; indicates partition table is in Master Boot Record format. &#39;kGPTPartition&#39; indicates partition table is in Guid Partition Table format. &#39;kSGIPartition&#39; indicates partition table uses SGI scheme. &#39;kSUNPartition&#39; indicates partition table uses SUN scheme.
@@ -108,7 +111,7 @@ namespace Cohesity.Model
         /// Specifies partition table format on a disk. &#39;kNoPartition&#39; indicates missing partition table. &#39;kMBRPartition&#39; indicates partition table is in Master Boot Record format. &#39;kGPTPartition&#39; indicates partition table is in Guid Partition Table format. &#39;kSGIPartition&#39; indicates partition table uses SGI scheme. &#39;kSUNPartition&#39; indicates partition table uses SUN scheme.
         /// </summary>
         /// <value>Specifies partition table format on a disk. &#39;kNoPartition&#39; indicates missing partition table. &#39;kMBRPartition&#39; indicates partition table is in Master Boot Record format. &#39;kGPTPartition&#39; indicates partition table is in Guid Partition Table format. &#39;kSGIPartition&#39; indicates partition table uses SGI scheme. &#39;kSUNPartition&#39; indicates partition table uses SUN scheme.</value>
-        [DataMember(Name="partitionTableFormat", EmitDefaultValue=true)]
+        [DataMember(Name="partitionTableFormat", EmitDefaultValue=false)]
         public PartitionTableFormatEnum? PartitionTableFormat { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="Disk" /> class.
@@ -131,56 +134,50 @@ namespace Cohesity.Model
             this.Uuid = uuid;
             this.VmdkFileName = vmdkFileName;
             this.VmdkSizeBytes = vmdkSizeBytes;
-            this.DiskBlocks = diskBlocks;
-            this.DiskFormat = diskFormat;
-            this.DiskPartitions = diskPartitions;
-            this.PartitionTableFormat = partitionTableFormat;
-            this.SectorSizeBytes = sectorSizeBytes;
-            this.Uuid = uuid;
-            this.VmdkFileName = vmdkFileName;
-            this.VmdkSizeBytes = vmdkSizeBytes;
         }
         
         /// <summary>
         /// Array of Disk Blocks.  Specifies a set of disk blocks by defining the location and offset of disk blocks in a disk.
         /// </summary>
         /// <value>Array of Disk Blocks.  Specifies a set of disk blocks by defining the location and offset of disk blocks in a disk.</value>
-        [DataMember(Name="diskBlocks", EmitDefaultValue=true)]
+        [DataMember(Name="diskBlocks", EmitDefaultValue=false)]
         public List<DiskBlock> DiskBlocks { get; set; }
+
 
         /// <summary>
         /// Array of Partitions.  Specifies information about all the partitions in this disk.
         /// </summary>
         /// <value>Array of Partitions.  Specifies information about all the partitions in this disk.</value>
-        [DataMember(Name="diskPartitions", EmitDefaultValue=true)]
+        [DataMember(Name="diskPartitions", EmitDefaultValue=false)]
         public List<DiskPartition> DiskPartitions { get; set; }
+
 
         /// <summary>
         /// Specifies the sector size of hard disk. It is used for mapping the disk blocks of the disk file into a linear list of sectors.
         /// </summary>
         /// <value>Specifies the sector size of hard disk. It is used for mapping the disk blocks of the disk file into a linear list of sectors.</value>
-        [DataMember(Name="sectorSizeBytes", EmitDefaultValue=true)]
+        [DataMember(Name="sectorSizeBytes", EmitDefaultValue=false)]
         public long? SectorSizeBytes { get; set; }
 
         /// <summary>
         /// Specifies the disk uuid.
         /// </summary>
         /// <value>Specifies the disk uuid.</value>
-        [DataMember(Name="uuid", EmitDefaultValue=true)]
+        [DataMember(Name="uuid", EmitDefaultValue=false)]
         public string Uuid { get; set; }
 
         /// <summary>
         /// Specifies the disk file name. This is the VMDK name and not the flat file name.
         /// </summary>
         /// <value>Specifies the disk file name. This is the VMDK name and not the flat file name.</value>
-        [DataMember(Name="vmdkFileName", EmitDefaultValue=true)]
+        [DataMember(Name="vmdkFileName", EmitDefaultValue=false)]
         public string VmdkFileName { get; set; }
 
         /// <summary>
         /// Specifies the disk size in bytes.
         /// </summary>
         /// <value>Specifies the disk size in bytes.</value>
-        [DataMember(Name="vmdkSizeBytes", EmitDefaultValue=true)]
+        [DataMember(Name="vmdkSizeBytes", EmitDefaultValue=false)]
         public long? VmdkSizeBytes { get; set; }
 
         /// <summary>
@@ -222,22 +219,22 @@ namespace Cohesity.Model
                 (
                     this.DiskBlocks == input.DiskBlocks ||
                     this.DiskBlocks != null &&
-                    input.DiskBlocks != null &&
-                    this.DiskBlocks.SequenceEqual(input.DiskBlocks)
+                    this.DiskBlocks.Equals(input.DiskBlocks)
                 ) && 
                 (
                     this.DiskFormat == input.DiskFormat ||
-                    this.DiskFormat.Equals(input.DiskFormat)
+                    (this.DiskFormat != null &&
+                    this.DiskFormat.Equals(input.DiskFormat))
                 ) && 
                 (
                     this.DiskPartitions == input.DiskPartitions ||
                     this.DiskPartitions != null &&
-                    input.DiskPartitions != null &&
-                    this.DiskPartitions.SequenceEqual(input.DiskPartitions)
+                    this.DiskPartitions.Equals(input.DiskPartitions)
                 ) && 
                 (
                     this.PartitionTableFormat == input.PartitionTableFormat ||
-                    this.PartitionTableFormat.Equals(input.PartitionTableFormat)
+                    (this.PartitionTableFormat != null &&
+                    this.PartitionTableFormat.Equals(input.PartitionTableFormat))
                 ) && 
                 (
                     this.SectorSizeBytes == input.SectorSizeBytes ||
@@ -272,10 +269,12 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.DiskBlocks != null)
                     hashCode = hashCode * 59 + this.DiskBlocks.GetHashCode();
-                hashCode = hashCode * 59 + this.DiskFormat.GetHashCode();
+                if (this.DiskFormat != null)
+                    hashCode = hashCode * 59 + this.DiskFormat.GetHashCode();
                 if (this.DiskPartitions != null)
                     hashCode = hashCode * 59 + this.DiskPartitions.GetHashCode();
-                hashCode = hashCode * 59 + this.PartitionTableFormat.GetHashCode();
+                if (this.PartitionTableFormat != null)
+                    hashCode = hashCode * 59 + this.PartitionTableFormat.GetHashCode();
                 if (this.SectorSizeBytes != null)
                     hashCode = hashCode * 59 + this.SectorSizeBytes.GetHashCode();
                 if (this.Uuid != null)

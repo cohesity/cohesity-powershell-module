@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,14 +30,13 @@ namespace Cohesity.Model
         public VmVolumesInformation(List<FilesystemVolume> filesystemVolumes = default(List<FilesystemVolume>))
         {
             this.FilesystemVolumes = filesystemVolumes;
-            this.FilesystemVolumes = filesystemVolumes;
         }
         
         /// <summary>
         /// Array of Filesystem Volumes.  Specifies information about the filesystem volumes found in a logical volume.
         /// </summary>
         /// <value>Array of Filesystem Volumes.  Specifies information about the filesystem volumes found in a logical volume.</value>
-        [DataMember(Name="filesystemVolumes", EmitDefaultValue=true)]
+        [DataMember(Name="filesystemVolumes", EmitDefaultValue=false)]
         public List<FilesystemVolume> FilesystemVolumes { get; set; }
 
         /// <summary>
@@ -76,8 +78,7 @@ namespace Cohesity.Model
                 (
                     this.FilesystemVolumes == input.FilesystemVolumes ||
                     this.FilesystemVolumes != null &&
-                    input.FilesystemVolumes != null &&
-                    this.FilesystemVolumes.SequenceEqual(input.FilesystemVolumes)
+                    this.FilesystemVolumes.Equals(input.FilesystemVolumes)
                 );
         }
 

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -36,9 +39,15 @@ namespace Cohesity.Model
         /// <param name="nodeIps">Specifies the configuration for the nodes in the new cluster. (required).</param>
         public CreateCloudClusterParameters(string clusterName = default(string), EncryptionConfiguration encryptionConfig = default(EncryptionConfiguration), int? ipPreference = default(int?), int? metadataFaultTolerance = default(int?), CloudNetworkConfiguration networkConfig = default(CloudNetworkConfiguration), List<string> nodeIps = default(List<string>))
         {
-            this.ClusterName = clusterName;
-            this.IpPreference = ipPreference;
-            this.MetadataFaultTolerance = metadataFaultTolerance;
+            // to ensure "clusterName" is required (not null)
+            if (clusterName == null)
+            {
+                throw new InvalidDataException("clusterName is a required property for CreateCloudClusterParameters and cannot be null");
+            }
+            else
+            {
+                this.ClusterName = clusterName;
+            }
             // to ensure "networkConfig" is required (not null)
             if (networkConfig == null)
             {
@@ -48,8 +57,15 @@ namespace Cohesity.Model
             {
                 this.NetworkConfig = networkConfig;
             }
-
-            this.NodeIps = nodeIps;
+            // to ensure "nodeIps" is required (not null)
+            if (nodeIps == null)
+            {
+                throw new InvalidDataException("nodeIps is a required property for CreateCloudClusterParameters and cannot be null");
+            }
+            else
+            {
+                this.NodeIps = nodeIps;
+            }
             this.EncryptionConfig = encryptionConfig;
             this.IpPreference = ipPreference;
             this.MetadataFaultTolerance = metadataFaultTolerance;
@@ -59,7 +75,7 @@ namespace Cohesity.Model
         /// Specifies the name of the new Cluster.
         /// </summary>
         /// <value>Specifies the name of the new Cluster.</value>
-        [DataMember(Name="clusterName", EmitDefaultValue=true)]
+        [DataMember(Name="clusterName", EmitDefaultValue=false)]
         public string ClusterName { get; set; }
 
         /// <summary>
@@ -72,14 +88,14 @@ namespace Cohesity.Model
         /// Specifies IP preference.
         /// </summary>
         /// <value>Specifies IP preference.</value>
-        [DataMember(Name="ipPreference", EmitDefaultValue=true)]
+        [DataMember(Name="ipPreference", EmitDefaultValue=false)]
         public int? IpPreference { get; set; }
 
         /// <summary>
         /// Specifies the metadata fault tolerance.
         /// </summary>
         /// <value>Specifies the metadata fault tolerance.</value>
-        [DataMember(Name="metadataFaultTolerance", EmitDefaultValue=true)]
+        [DataMember(Name="metadataFaultTolerance", EmitDefaultValue=false)]
         public int? MetadataFaultTolerance { get; set; }
 
         /// <summary>
@@ -92,7 +108,7 @@ namespace Cohesity.Model
         /// Specifies the configuration for the nodes in the new cluster.
         /// </summary>
         /// <value>Specifies the configuration for the nodes in the new cluster.</value>
-        [DataMember(Name="nodeIps", EmitDefaultValue=true)]
+        [DataMember(Name="nodeIps", EmitDefaultValue=false)]
         public List<string> NodeIps { get; set; }
 
         /// <summary>
@@ -159,8 +175,7 @@ namespace Cohesity.Model
                 (
                     this.NodeIps == input.NodeIps ||
                     this.NodeIps != null &&
-                    input.NodeIps != null &&
-                    this.NodeIps.SequenceEqual(input.NodeIps)
+                    this.NodeIps.Equals(input.NodeIps)
                 );
         }
 

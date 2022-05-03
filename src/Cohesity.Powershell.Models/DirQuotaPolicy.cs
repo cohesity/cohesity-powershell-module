@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,9 +34,6 @@ namespace Cohesity.Model
         {
             this.DirPath = dirPath;
             this.DirWalkPending = dirWalkPending;
-            this.UsageBytes = usageBytes;
-            this.DirPath = dirPath;
-            this.DirWalkPending = dirWalkPending;
             this.Policy = policy;
             this.UsageBytes = usageBytes;
         }
@@ -42,14 +42,14 @@ namespace Cohesity.Model
         /// Specifies the path of the directory in the view.
         /// </summary>
         /// <value>Specifies the path of the directory in the view.</value>
-        [DataMember(Name="dirPath", EmitDefaultValue=true)]
+        [DataMember(Name="dirPath", EmitDefaultValue=false)]
         public string DirPath { get; set; }
 
         /// <summary>
         /// Denotes directory quota walk is pending or not.
         /// </summary>
         /// <value>Denotes directory quota walk is pending or not.</value>
-        [DataMember(Name="dirWalkPending", EmitDefaultValue=true)]
+        [DataMember(Name="dirWalkPending", EmitDefaultValue=false)]
         public bool? DirWalkPending { get; set; }
 
         /// <summary>
@@ -62,7 +62,7 @@ namespace Cohesity.Model
         /// Specifies the current usage (in bytes) by the directory in the view. This is set by the response received from bridge when querying directory quota usage.
         /// </summary>
         /// <value>Specifies the current usage (in bytes) by the directory in the view. This is set by the response received from bridge when querying directory quota usage.</value>
-        [DataMember(Name="usageBytes", EmitDefaultValue=true)]
+        [DataMember(Name="usageBytes", EmitDefaultValue=false)]
         public long? UsageBytes { get; set; }
 
         /// <summary>

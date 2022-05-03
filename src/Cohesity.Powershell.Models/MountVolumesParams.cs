@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,9 +34,6 @@ namespace Cohesity.Model
         /// <param name="volumeNameVec">Optional names of volumes that need to be mounted. The names here correspond to the volume names obtained by Iris from Yoda as part of VMVolumeInfo call. NOTE: If this is not specified then all volumes that are part of the server will be mounted on the target entity..</param>
         public MountVolumesParams(MountVolumesHyperVParams hypervParams = default(MountVolumesHyperVParams), bool? readonlyMount = default(bool?), EntityProto targetEntity = default(EntityProto), bool? useExistingAgent = default(bool?), MountVolumesVMwareParams vmwareParams = default(MountVolumesVMwareParams), List<string> volumeNameVec = default(List<string>))
         {
-            this.ReadonlyMount = readonlyMount;
-            this.UseExistingAgent = useExistingAgent;
-            this.VolumeNameVec = volumeNameVec;
             this.HypervParams = hypervParams;
             this.ReadonlyMount = readonlyMount;
             this.TargetEntity = targetEntity;
@@ -52,7 +52,7 @@ namespace Cohesity.Model
         /// Allows the caller to force the Agent to perform a read-only mount. This is not usually required and we want to give customers the ability to mutate this mount for test/dev purposes.
         /// </summary>
         /// <value>Allows the caller to force the Agent to perform a read-only mount. This is not usually required and we want to give customers the ability to mutate this mount for test/dev purposes.</value>
-        [DataMember(Name="readonlyMount", EmitDefaultValue=true)]
+        [DataMember(Name="readonlyMount", EmitDefaultValue=false)]
         public bool? ReadonlyMount { get; set; }
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace Cohesity.Model
         /// Whether this will use an existing agent on the target vm to do a restore operation.
         /// </summary>
         /// <value>Whether this will use an existing agent on the target vm to do a restore operation.</value>
-        [DataMember(Name="useExistingAgent", EmitDefaultValue=true)]
+        [DataMember(Name="useExistingAgent", EmitDefaultValue=false)]
         public bool? UseExistingAgent { get; set; }
 
         /// <summary>
@@ -78,7 +78,7 @@ namespace Cohesity.Model
         /// Optional names of volumes that need to be mounted. The names here correspond to the volume names obtained by Iris from Yoda as part of VMVolumeInfo call. NOTE: If this is not specified then all volumes that are part of the server will be mounted on the target entity.
         /// </summary>
         /// <value>Optional names of volumes that need to be mounted. The names here correspond to the volume names obtained by Iris from Yoda as part of VMVolumeInfo call. NOTE: If this is not specified then all volumes that are part of the server will be mounted on the target entity.</value>
-        [DataMember(Name="volumeNameVec", EmitDefaultValue=true)]
+        [DataMember(Name="volumeNameVec", EmitDefaultValue=false)]
         public List<string> VolumeNameVec { get; set; }
 
         /// <summary>
@@ -145,8 +145,7 @@ namespace Cohesity.Model
                 (
                     this.VolumeNameVec == input.VolumeNameVec ||
                     this.VolumeNameVec != null &&
-                    input.VolumeNameVec != null &&
-                    this.VolumeNameVec.SequenceEqual(input.VolumeNameVec)
+                    this.VolumeNameVec.Equals(input.VolumeNameVec)
                 );
         }
 

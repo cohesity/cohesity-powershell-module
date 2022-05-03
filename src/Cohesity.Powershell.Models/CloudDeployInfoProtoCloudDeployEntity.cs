@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -35,13 +38,6 @@ namespace Cohesity.Model
         public CloudDeployInfoProtoCloudDeployEntity(string deployedVmName = default(string), EntityProto entity = default(EntityProto), ErrorProto error = default(ErrorProto), string previousRelativeCloneDirPath = default(string), List<string> previousRelativeClonePaths = default(List<string>), string progressMonitorTaskPath = default(string), int? publicStatus = default(int?), List<string> relativeClonePaths = default(List<string>), int? status = default(int?))
         {
             this.DeployedVmName = deployedVmName;
-            this.PreviousRelativeCloneDirPath = previousRelativeCloneDirPath;
-            this.PreviousRelativeClonePaths = previousRelativeClonePaths;
-            this.ProgressMonitorTaskPath = progressMonitorTaskPath;
-            this.PublicStatus = publicStatus;
-            this.RelativeClonePaths = relativeClonePaths;
-            this.Status = status;
-            this.DeployedVmName = deployedVmName;
             this.Entity = entity;
             this.Error = error;
             this.PreviousRelativeCloneDirPath = previousRelativeCloneDirPath;
@@ -56,7 +52,7 @@ namespace Cohesity.Model
         /// Optional name that should be used for deployed VM.
         /// </summary>
         /// <value>Optional name that should be used for deployed VM.</value>
-        [DataMember(Name="deployedVmName", EmitDefaultValue=true)]
+        [DataMember(Name="deployedVmName", EmitDefaultValue=false)]
         public string DeployedVmName { get; set; }
 
         /// <summary>
@@ -75,42 +71,42 @@ namespace Cohesity.Model
         /// Directory where files of the entity&#39;s previous snapshot were cloned to. Path is relative to the destination view.
         /// </summary>
         /// <value>Directory where files of the entity&#39;s previous snapshot were cloned to. Path is relative to the destination view.</value>
-        [DataMember(Name="previousRelativeCloneDirPath", EmitDefaultValue=true)]
+        [DataMember(Name="previousRelativeCloneDirPath", EmitDefaultValue=false)]
         public string PreviousRelativeCloneDirPath { get; set; }
 
         /// <summary>
         /// All the paths that the entity&#39;s previous snapshot files were cloned to. Each path is relative to the destination view.
         /// </summary>
         /// <value>All the paths that the entity&#39;s previous snapshot files were cloned to. Each path is relative to the destination view.</value>
-        [DataMember(Name="previousRelativeClonePaths", EmitDefaultValue=true)]
+        [DataMember(Name="previousRelativeClonePaths", EmitDefaultValue=false)]
         public List<string> PreviousRelativeClonePaths { get; set; }
 
         /// <summary>
         /// Progress monitor task path for this entity which is relative to the root path of the cloud deploy task progress monitor.
         /// </summary>
         /// <value>Progress monitor task path for this entity which is relative to the root path of the cloud deploy task progress monitor.</value>
-        [DataMember(Name="progressMonitorTaskPath", EmitDefaultValue=true)]
+        [DataMember(Name="progressMonitorTaskPath", EmitDefaultValue=false)]
         public string ProgressMonitorTaskPath { get; set; }
 
         /// <summary>
         /// Iris-facing task state. This field is stamped during the export.
         /// </summary>
         /// <value>Iris-facing task state. This field is stamped during the export.</value>
-        [DataMember(Name="publicStatus", EmitDefaultValue=true)]
+        [DataMember(Name="publicStatus", EmitDefaultValue=false)]
         public int? PublicStatus { get; set; }
 
         /// <summary>
         /// All the paths that the entity&#39;s files were cloned to. Each path is relative to the destination view.
         /// </summary>
         /// <value>All the paths that the entity&#39;s files were cloned to. Each path is relative to the destination view.</value>
-        [DataMember(Name="relativeClonePaths", EmitDefaultValue=true)]
+        [DataMember(Name="relativeClonePaths", EmitDefaultValue=false)]
         public List<string> RelativeClonePaths { get; set; }
 
         /// <summary>
         /// The status of the entity.
         /// </summary>
         /// <value>The status of the entity.</value>
-        [DataMember(Name="status", EmitDefaultValue=true)]
+        [DataMember(Name="status", EmitDefaultValue=false)]
         public int? Status { get; set; }
 
         /// <summary>
@@ -172,8 +168,7 @@ namespace Cohesity.Model
                 (
                     this.PreviousRelativeClonePaths == input.PreviousRelativeClonePaths ||
                     this.PreviousRelativeClonePaths != null &&
-                    input.PreviousRelativeClonePaths != null &&
-                    this.PreviousRelativeClonePaths.SequenceEqual(input.PreviousRelativeClonePaths)
+                    this.PreviousRelativeClonePaths.Equals(input.PreviousRelativeClonePaths)
                 ) && 
                 (
                     this.ProgressMonitorTaskPath == input.ProgressMonitorTaskPath ||
@@ -188,8 +183,7 @@ namespace Cohesity.Model
                 (
                     this.RelativeClonePaths == input.RelativeClonePaths ||
                     this.RelativeClonePaths != null &&
-                    input.RelativeClonePaths != null &&
-                    this.RelativeClonePaths.SequenceEqual(input.RelativeClonePaths)
+                    this.RelativeClonePaths.Equals(input.RelativeClonePaths)
                 ) && 
                 (
                     this.Status == input.Status ||

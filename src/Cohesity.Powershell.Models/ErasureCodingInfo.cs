@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -45,7 +48,7 @@ namespace Cohesity.Model
         /// Algorthm used for erasure coding. REED_SOLOMON indicates the algorithm used for erasure coding. LRC indicates the algorithm used for erasure coding.
         /// </summary>
         /// <value>Algorthm used for erasure coding. REED_SOLOMON indicates the algorithm used for erasure coding. LRC indicates the algorithm used for erasure coding.</value>
-        [DataMember(Name="algorithm", EmitDefaultValue=true)]
+        [DataMember(Name="algorithm", EmitDefaultValue=false)]
         public AlgorithmEnum? Algorithm { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="ErasureCodingInfo" /> class.
@@ -62,39 +65,35 @@ namespace Cohesity.Model
             this.InlineErasureCoding = inlineErasureCoding;
             this.NumCodedStripes = numCodedStripes;
             this.NumDataStripes = numDataStripes;
-            this.Algorithm = algorithm;
-            this.ErasureCodingEnabled = erasureCodingEnabled;
-            this.InlineErasureCoding = inlineErasureCoding;
-            this.NumCodedStripes = numCodedStripes;
-            this.NumDataStripes = numDataStripes;
         }
         
+
         /// <summary>
         /// Specifies whether Erasure coding is enabled on the Storage Domain (View Box).
         /// </summary>
         /// <value>Specifies whether Erasure coding is enabled on the Storage Domain (View Box).</value>
-        [DataMember(Name="erasureCodingEnabled", EmitDefaultValue=true)]
+        [DataMember(Name="erasureCodingEnabled", EmitDefaultValue=false)]
         public bool? ErasureCodingEnabled { get; set; }
 
         /// <summary>
         /// Specifies if erasure coding should occur inline (as the data is being written). This field is only relevant if erasure coding is enabled.
         /// </summary>
         /// <value>Specifies if erasure coding should occur inline (as the data is being written). This field is only relevant if erasure coding is enabled.</value>
-        [DataMember(Name="inlineErasureCoding", EmitDefaultValue=true)]
+        [DataMember(Name="inlineErasureCoding", EmitDefaultValue=false)]
         public bool? InlineErasureCoding { get; set; }
 
         /// <summary>
         /// The number of coded stripes.
         /// </summary>
         /// <value>The number of coded stripes.</value>
-        [DataMember(Name="numCodedStripes", EmitDefaultValue=true)]
+        [DataMember(Name="numCodedStripes", EmitDefaultValue=false)]
         public int? NumCodedStripes { get; set; }
 
         /// <summary>
         /// The number of stripes containing data.
         /// </summary>
         /// <value>The number of stripes containing data.</value>
-        [DataMember(Name="numDataStripes", EmitDefaultValue=true)]
+        [DataMember(Name="numDataStripes", EmitDefaultValue=false)]
         public int? NumDataStripes { get; set; }
 
         /// <summary>
@@ -135,7 +134,8 @@ namespace Cohesity.Model
             return 
                 (
                     this.Algorithm == input.Algorithm ||
-                    this.Algorithm.Equals(input.Algorithm)
+                    (this.Algorithm != null &&
+                    this.Algorithm.Equals(input.Algorithm))
                 ) && 
                 (
                     this.ErasureCodingEnabled == input.ErasureCodingEnabled ||
@@ -168,7 +168,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                hashCode = hashCode * 59 + this.Algorithm.GetHashCode();
+                if (this.Algorithm != null)
+                    hashCode = hashCode * 59 + this.Algorithm.GetHashCode();
                 if (this.ErasureCodingEnabled != null)
                     hashCode = hashCode * 59 + this.ErasureCodingEnabled.GetHashCode();
                 if (this.InlineErasureCoding != null)

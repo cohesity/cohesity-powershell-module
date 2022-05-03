@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,30 +34,27 @@ namespace Cohesity.Model
             this.DisableVlan = disableVlan;
             this.InterfaceName = interfaceName;
             this.Vlan = vlan;
-            this.DisableVlan = disableVlan;
-            this.InterfaceName = interfaceName;
-            this.Vlan = vlan;
         }
         
         /// <summary>
         /// Specifies whether to use the VIPs even when VLANs are configured on the Cluster. If configured, VLAN IP addresses are used by default. If VLANs are not configured, this flag is ignored. Set this flag to true to force using the partition VIPs when VLANs are configured on the Cluster.
         /// </summary>
         /// <value>Specifies whether to use the VIPs even when VLANs are configured on the Cluster. If configured, VLAN IP addresses are used by default. If VLANs are not configured, this flag is ignored. Set this flag to true to force using the partition VIPs when VLANs are configured on the Cluster.</value>
-        [DataMember(Name="disableVlan", EmitDefaultValue=true)]
+        [DataMember(Name="disableVlan", EmitDefaultValue=false)]
         public bool? DisableVlan { get; set; }
 
         /// <summary>
         /// Specifies the physical interface group name to use for mounting Cohesity&#39;s view on the remote host. If specified, Cohesity hostname or the IP address on this VLAN is used.
         /// </summary>
         /// <value>Specifies the physical interface group name to use for mounting Cohesity&#39;s view on the remote host. If specified, Cohesity hostname or the IP address on this VLAN is used.</value>
-        [DataMember(Name="interfaceName", EmitDefaultValue=true)]
+        [DataMember(Name="interfaceName", EmitDefaultValue=false)]
         public string InterfaceName { get; set; }
 
         /// <summary>
         /// Specifies the VLAN to use for mounting Cohesity&#39;s view on the remote host. If specified, Cohesity hostname or the IP address on this VLAN is used.
         /// </summary>
         /// <value>Specifies the VLAN to use for mounting Cohesity&#39;s view on the remote host. If specified, Cohesity hostname or the IP address on this VLAN is used.</value>
-        [DataMember(Name="vlan", EmitDefaultValue=true)]
+        [DataMember(Name="vlan", EmitDefaultValue=false)]
         public int? Vlan { get; set; }
 
         /// <summary>

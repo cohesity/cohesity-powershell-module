@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -33,38 +36,34 @@ namespace Cohesity.Model
             this.FolderKey = folderKey;
             this.OutlookItemIdList = outlookItemIdList;
             this.RestoreEntireFolder = restoreEntireFolder;
-            this.FolderId = folderId;
-            this.FolderKey = folderKey;
-            this.OutlookItemIdList = outlookItemIdList;
-            this.RestoreEntireFolder = restoreEntireFolder;
         }
         
         /// <summary>
         /// Specifies the unique ID of the folder.
         /// </summary>
         /// <value>Specifies the unique ID of the folder.</value>
-        [DataMember(Name="folderId", EmitDefaultValue=true)]
+        [DataMember(Name="folderId", EmitDefaultValue=false)]
         public string FolderId { get; set; }
 
         /// <summary>
         /// Specifies the key unique within the mailbox of the folder.
         /// </summary>
         /// <value>Specifies the key unique within the mailbox of the folder.</value>
-        [DataMember(Name="folderKey", EmitDefaultValue=true)]
+        [DataMember(Name="folderKey", EmitDefaultValue=false)]
         public long? FolderKey { get; set; }
 
         /// <summary>
         /// Specifies the outlook items within the folder to be restored incase the user wishes not to restore the entire folder.
         /// </summary>
         /// <value>Specifies the outlook items within the folder to be restored incase the user wishes not to restore the entire folder.</value>
-        [DataMember(Name="outlookItemIdList", EmitDefaultValue=true)]
+        [DataMember(Name="outlookItemIdList", EmitDefaultValue=false)]
         public List<string> OutlookItemIdList { get; set; }
 
         /// <summary>
         /// Specifies whether the entire folder is to be restored.
         /// </summary>
         /// <value>Specifies whether the entire folder is to be restored.</value>
-        [DataMember(Name="restoreEntireFolder", EmitDefaultValue=true)]
+        [DataMember(Name="restoreEntireFolder", EmitDefaultValue=false)]
         public bool? RestoreEntireFolder { get; set; }
 
         /// <summary>
@@ -116,8 +115,7 @@ namespace Cohesity.Model
                 (
                     this.OutlookItemIdList == input.OutlookItemIdList ||
                     this.OutlookItemIdList != null &&
-                    input.OutlookItemIdList != null &&
-                    this.OutlookItemIdList.SequenceEqual(input.OutlookItemIdList)
+                    this.OutlookItemIdList.Equals(input.OutlookItemIdList)
                 ) && 
                 (
                     this.RestoreEntireFolder == input.RestoreEntireFolder ||

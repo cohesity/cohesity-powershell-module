@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.ObjectCount = objectCount;
             this.ObjectType = objectType;
-            this.ObjectCount = objectCount;
-            this.ObjectType = objectType;
         }
         
         /// <summary>
         /// Specifies the number of restores of the object type.
         /// </summary>
         /// <value>Specifies the number of restores of the object type.</value>
-        [DataMember(Name="objectCount", EmitDefaultValue=true)]
+        [DataMember(Name="objectCount", EmitDefaultValue=false)]
         public int? ObjectCount { get; set; }
 
         /// <summary>
         /// Specifies the type of the restored object.
         /// </summary>
         /// <value>Specifies the type of the restored object.</value>
-        [DataMember(Name="objectType", EmitDefaultValue=true)]
+        [DataMember(Name="objectType", EmitDefaultValue=false)]
         public string ObjectType { get; set; }
 
         /// <summary>

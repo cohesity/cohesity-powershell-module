@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -26,11 +29,8 @@ namespace Cohesity.Model
         /// <param name="appParamsList">Array of application parameters i.e. database parameters for standalone/RAC and DG parameters for data guard.  Specifies the list of parameters required at app entity level..</param>
         /// <param name="applicationEntityIds">Array of Ids of Application Entities like Oracle instances, and databases that should be protected in a Protection Source.  Specifies the subset of application entities like Oracle instances, and databases to protect in a Protection Source of type kOracle&#39;. If not specified, all application entities on the Protection Source..</param>
         /// <param name="persistMountpoints">Specifies if the mountpoints for Oracle view for the current host are to be persisted..</param>
-        public OracleSpecialParameters(List<OracleAppParams> appParamsList = default(List<OracleAppParams>), List<long> applicationEntityIds = default(List<long>), bool? persistMountpoints = default(bool?))
+        public OracleSpecialParameters(List<OracleAppParams> appParamsList = default(List<OracleAppParams>), List<long?> applicationEntityIds = default(List<long?>), bool? persistMountpoints = default(bool?))
         {
-            this.AppParamsList = appParamsList;
-            this.ApplicationEntityIds = applicationEntityIds;
-            this.PersistMountpoints = persistMountpoints;
             this.AppParamsList = appParamsList;
             this.ApplicationEntityIds = applicationEntityIds;
             this.PersistMountpoints = persistMountpoints;
@@ -40,21 +40,21 @@ namespace Cohesity.Model
         /// Array of application parameters i.e. database parameters for standalone/RAC and DG parameters for data guard.  Specifies the list of parameters required at app entity level.
         /// </summary>
         /// <value>Array of application parameters i.e. database parameters for standalone/RAC and DG parameters for data guard.  Specifies the list of parameters required at app entity level.</value>
-        [DataMember(Name="appParamsList", EmitDefaultValue=true)]
+        [DataMember(Name="appParamsList", EmitDefaultValue=false)]
         public List<OracleAppParams> AppParamsList { get; set; }
 
         /// <summary>
         /// Array of Ids of Application Entities like Oracle instances, and databases that should be protected in a Protection Source.  Specifies the subset of application entities like Oracle instances, and databases to protect in a Protection Source of type kOracle&#39;. If not specified, all application entities on the Protection Source.
         /// </summary>
         /// <value>Array of Ids of Application Entities like Oracle instances, and databases that should be protected in a Protection Source.  Specifies the subset of application entities like Oracle instances, and databases to protect in a Protection Source of type kOracle&#39;. If not specified, all application entities on the Protection Source.</value>
-        [DataMember(Name="applicationEntityIds", EmitDefaultValue=true)]
-        public List<long> ApplicationEntityIds { get; set; }
+        [DataMember(Name="applicationEntityIds", EmitDefaultValue=false)]
+        public List<long?> ApplicationEntityIds { get; set; }
 
         /// <summary>
         /// Specifies if the mountpoints for Oracle view for the current host are to be persisted.
         /// </summary>
         /// <value>Specifies if the mountpoints for Oracle view for the current host are to be persisted.</value>
-        [DataMember(Name="persistMountpoints", EmitDefaultValue=true)]
+        [DataMember(Name="persistMountpoints", EmitDefaultValue=false)]
         public bool? PersistMountpoints { get; set; }
 
         /// <summary>
@@ -96,14 +96,12 @@ namespace Cohesity.Model
                 (
                     this.AppParamsList == input.AppParamsList ||
                     this.AppParamsList != null &&
-                    input.AppParamsList != null &&
-                    this.AppParamsList.SequenceEqual(input.AppParamsList)
+                    this.AppParamsList.Equals(input.AppParamsList)
                 ) && 
                 (
                     this.ApplicationEntityIds == input.ApplicationEntityIds ||
                     this.ApplicationEntityIds != null &&
-                    input.ApplicationEntityIds != null &&
-                    this.ApplicationEntityIds.SequenceEqual(input.ApplicationEntityIds)
+                    this.ApplicationEntityIds.Equals(input.ApplicationEntityIds)
                 ) && 
                 (
                     this.PersistMountpoints == input.PersistMountpoints ||

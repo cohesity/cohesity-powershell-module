@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -33,38 +36,34 @@ namespace Cohesity.Model
             this.HealthStatus = healthStatus;
             this.Name = name;
             this.NodePorts = nodePorts;
-            this.HealthDetail = healthDetail;
-            this.HealthStatus = healthStatus;
-            this.Name = name;
-            this.NodePorts = nodePorts;
         }
         
         /// <summary>
         /// Specifies the reason if vm is unhealthy.
         /// </summary>
         /// <value>Specifies the reason if vm is unhealthy.</value>
-        [DataMember(Name="healthDetail", EmitDefaultValue=true)]
+        [DataMember(Name="healthDetail", EmitDefaultValue=false)]
         public string HealthDetail { get; set; }
 
         /// <summary>
         /// Specifies the current health status of the app instance.
         /// </summary>
         /// <value>Specifies the current health status of the app instance.</value>
-        [DataMember(Name="healthStatus", EmitDefaultValue=true)]
+        [DataMember(Name="healthStatus", EmitDefaultValue=false)]
         public int? HealthStatus { get; set; }
 
         /// <summary>
         /// Specifies name of the VM.
         /// </summary>
         /// <value>Specifies name of the VM.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
 
         /// <summary>
         /// Specifies nodeports assigned to the vm.
         /// </summary>
         /// <value>Specifies nodeports assigned to the vm.</value>
-        [DataMember(Name="nodePorts", EmitDefaultValue=true)]
+        [DataMember(Name="nodePorts", EmitDefaultValue=false)]
         public List<NodePort> NodePorts { get; set; }
 
         /// <summary>
@@ -121,8 +120,7 @@ namespace Cohesity.Model
                 (
                     this.NodePorts == input.NodePorts ||
                     this.NodePorts != null &&
-                    input.NodePorts != null &&
-                    this.NodePorts.SequenceEqual(input.NodePorts)
+                    this.NodePorts.Equals(input.NodePorts)
                 );
         }
 

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -34,12 +37,6 @@ namespace Cohesity.Model
         /// <param name="uuid">Specifies the unique id of the Protection Source for which a snapshot is taken..</param>
         public LatestProtectionRun(SourceBackupStatus backupRun = default(SourceBackupStatus), long? changeEventId = default(long?), CopyRun copyRun = default(CopyRun), long? jobRunId = default(long?), RunUid protectionJobRunUid = default(RunUid), string snapshotTarget = default(string), int? snapshotTargetType = default(int?), int? taskStatus = default(int?), string uuid = default(string))
         {
-            this.ChangeEventId = changeEventId;
-            this.JobRunId = jobRunId;
-            this.SnapshotTarget = snapshotTarget;
-            this.SnapshotTargetType = snapshotTargetType;
-            this.TaskStatus = taskStatus;
-            this.Uuid = uuid;
             this.BackupRun = backupRun;
             this.ChangeEventId = changeEventId;
             this.CopyRun = copyRun;
@@ -61,7 +58,7 @@ namespace Cohesity.Model
         /// Specifies the event id which caused last update on this object.
         /// </summary>
         /// <value>Specifies the event id which caused last update on this object.</value>
-        [DataMember(Name="changeEventId", EmitDefaultValue=true)]
+        [DataMember(Name="changeEventId", EmitDefaultValue=false)]
         public long? ChangeEventId { get; set; }
 
         /// <summary>
@@ -74,7 +71,7 @@ namespace Cohesity.Model
         /// Specifies job run id of the latest successful Protection Job Run.
         /// </summary>
         /// <value>Specifies job run id of the latest successful Protection Job Run.</value>
-        [DataMember(Name="jobRunId", EmitDefaultValue=true)]
+        [DataMember(Name="jobRunId", EmitDefaultValue=false)]
         public long? JobRunId { get; set; }
 
         /// <summary>
@@ -87,28 +84,28 @@ namespace Cohesity.Model
         /// Specifies the cluster id in case of local or replication snapshots and name of location in case of archival snapshots.
         /// </summary>
         /// <value>Specifies the cluster id in case of local or replication snapshots and name of location in case of archival snapshots.</value>
-        [DataMember(Name="snapshotTarget", EmitDefaultValue=true)]
+        [DataMember(Name="snapshotTarget", EmitDefaultValue=false)]
         public string SnapshotTarget { get; set; }
 
         /// <summary>
         /// Specifies the snapshot target type of the latest snapshot.
         /// </summary>
         /// <value>Specifies the snapshot target type of the latest snapshot.</value>
-        [DataMember(Name="snapshotTargetType", EmitDefaultValue=true)]
+        [DataMember(Name="snapshotTargetType", EmitDefaultValue=false)]
         public int? SnapshotTargetType { get; set; }
 
         /// <summary>
         /// Specifies the task status of the Protection Job Run in the final attempt.
         /// </summary>
         /// <value>Specifies the task status of the Protection Job Run in the final attempt.</value>
-        [DataMember(Name="taskStatus", EmitDefaultValue=true)]
+        [DataMember(Name="taskStatus", EmitDefaultValue=false)]
         public int? TaskStatus { get; set; }
 
         /// <summary>
         /// Specifies the unique id of the Protection Source for which a snapshot is taken.
         /// </summary>
         /// <value>Specifies the unique id of the Protection Source for which a snapshot is taken.</value>
-        [DataMember(Name="uuid", EmitDefaultValue=true)]
+        [DataMember(Name="uuid", EmitDefaultValue=false)]
         public string Uuid { get; set; }
 
         /// <summary>

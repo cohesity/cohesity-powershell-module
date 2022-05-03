@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -35,46 +38,41 @@ namespace Cohesity.Model
             this.ProtectedSizeBytes = protectedSizeBytes;
             this.UnprotectedCount = unprotectedCount;
             this.UnprotectedSizeBytes = unprotectedSizeBytes;
-            this.EnvType = envType;
-            this.ProtectedCount = protectedCount;
-            this.ProtectedSizeBytes = protectedSizeBytes;
-            this.UnprotectedCount = unprotectedCount;
-            this.UnprotectedSizeBytes = unprotectedSizeBytes;
         }
         
         /// <summary>
         /// Environment Type.
         /// </summary>
         /// <value>Environment Type.</value>
-        [DataMember(Name="envType", EmitDefaultValue=true)]
+        [DataMember(Name="envType", EmitDefaultValue=false)]
         public string EnvType { get; set; }
 
         /// <summary>
         /// Number of Protected Objects.
         /// </summary>
         /// <value>Number of Protected Objects.</value>
-        [DataMember(Name="protectedCount", EmitDefaultValue=true)]
+        [DataMember(Name="protectedCount", EmitDefaultValue=false)]
         public int? ProtectedCount { get; set; }
 
         /// <summary>
         /// Size of Protected Objects.
         /// </summary>
         /// <value>Size of Protected Objects.</value>
-        [DataMember(Name="protectedSizeBytes", EmitDefaultValue=true)]
+        [DataMember(Name="protectedSizeBytes", EmitDefaultValue=false)]
         public long? ProtectedSizeBytes { get; set; }
 
         /// <summary>
         /// Number of Unprotected Objects.
         /// </summary>
         /// <value>Number of Unprotected Objects.</value>
-        [DataMember(Name="unprotectedCount", EmitDefaultValue=true)]
+        [DataMember(Name="unprotectedCount", EmitDefaultValue=false)]
         public int? UnprotectedCount { get; set; }
 
         /// <summary>
         /// Size of Unprotected Objects.
         /// </summary>
         /// <value>Size of Unprotected Objects.</value>
-        [DataMember(Name="unprotectedSizeBytes", EmitDefaultValue=true)]
+        [DataMember(Name="unprotectedSizeBytes", EmitDefaultValue=false)]
         public long? UnprotectedSizeBytes { get; set; }
 
         /// <summary>

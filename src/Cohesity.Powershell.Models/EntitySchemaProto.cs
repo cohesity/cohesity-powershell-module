@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -28,7 +31,7 @@ namespace Cohesity.Model
         /// <param name="flushIntervalSecs">Defines the interval used to flush in memory stats to scribe table. During this time if the stats server is down before flushing, it could loose some of the stats. Modules can flush any critical stats via AddEntitiesStats API. But this  should be used very judiciously as it causes lot of overhead for stats..</param>
         /// <param name="isInternalSchema">Specifies if this schema should be displayed in Advanced Diagnostics of the Cohesity Dashboard. If false, the schema is displayed..</param>
         /// <param name="largestFlushIntervalSecs">Use can change the flush interval secs via gflag and this store the largest interval seconds set. This is used to round up the timestamp to this flush interval secs during range scan..</param>
-        /// <param name="name">Specifies a name that uniquely identifies an entity schema such as &#39;kBridgeClusterStats&#39;..</param>
+        /// <param name="name">Specifies a name that uniquely identifies an entity schema such as &#39;kBridgeClusterStats&#39;. Name cannot have &#39;:&#39; as character..</param>
         /// <param name="rollupGranularityVec">rollupGranularityVec.</param>
         /// <param name="schemaDescriptiveName">Specifies the name of the Schema as displayed in Advanced Diagnostics of the Cohesity Dashboard. For example for the &#39;kBridgeClusterStats&#39; Schema, the descriptive name is &#39;Cluster Physical Stats&#39;..</param>
         /// <param name="schemaHelpText">Specifies an optional informational description about the schema..</param>
@@ -37,17 +40,6 @@ namespace Cohesity.Model
         /// <param name="version">Specifies the version of the entity schema..</param>
         public EntitySchemaProto(EntitySchemaProtoAttributesDescriptor attributesDescriptor = default(EntitySchemaProtoAttributesDescriptor), bool? enableRollup = default(bool?), int? flushIntervalSecs = default(int?), bool? isInternalSchema = default(bool?), int? largestFlushIntervalSecs = default(int?), string name = default(string), List<EntitySchemaProtoGranularity> rollupGranularityVec = default(List<EntitySchemaProtoGranularity>), string schemaDescriptiveName = default(string), string schemaHelpText = default(string), List<EntitySchemaProtoTimeSeriesDescriptor> timeSeriesDescriptorVec = default(List<EntitySchemaProtoTimeSeriesDescriptor>), long? timeToLiveSecs = default(long?), long? version = default(long?))
         {
-            this.EnableRollup = enableRollup;
-            this.FlushIntervalSecs = flushIntervalSecs;
-            this.IsInternalSchema = isInternalSchema;
-            this.LargestFlushIntervalSecs = largestFlushIntervalSecs;
-            this.Name = name;
-            this.RollupGranularityVec = rollupGranularityVec;
-            this.SchemaDescriptiveName = schemaDescriptiveName;
-            this.SchemaHelpText = schemaHelpText;
-            this.TimeSeriesDescriptorVec = timeSeriesDescriptorVec;
-            this.TimeToLiveSecs = timeToLiveSecs;
-            this.Version = version;
             this.AttributesDescriptor = attributesDescriptor;
             this.EnableRollup = enableRollup;
             this.FlushIntervalSecs = flushIntervalSecs;
@@ -72,76 +64,76 @@ namespace Cohesity.Model
         /// Timeseries for an entity schema is rolled up based on this setting. Rollup is disabled by default. Rollups cannot be done for metrics with value_type other than kInt64 or kDouble.
         /// </summary>
         /// <value>Timeseries for an entity schema is rolled up based on this setting. Rollup is disabled by default. Rollups cannot be done for metrics with value_type other than kInt64 or kDouble.</value>
-        [DataMember(Name="enableRollup", EmitDefaultValue=true)]
+        [DataMember(Name="enableRollup", EmitDefaultValue=false)]
         public bool? EnableRollup { get; set; }
 
         /// <summary>
         /// Defines the interval used to flush in memory stats to scribe table. During this time if the stats server is down before flushing, it could loose some of the stats. Modules can flush any critical stats via AddEntitiesStats API. But this  should be used very judiciously as it causes lot of overhead for stats.
         /// </summary>
         /// <value>Defines the interval used to flush in memory stats to scribe table. During this time if the stats server is down before flushing, it could loose some of the stats. Modules can flush any critical stats via AddEntitiesStats API. But this  should be used very judiciously as it causes lot of overhead for stats.</value>
-        [DataMember(Name="flushIntervalSecs", EmitDefaultValue=true)]
+        [DataMember(Name="flushIntervalSecs", EmitDefaultValue=false)]
         public int? FlushIntervalSecs { get; set; }
 
         /// <summary>
         /// Specifies if this schema should be displayed in Advanced Diagnostics of the Cohesity Dashboard. If false, the schema is displayed.
         /// </summary>
         /// <value>Specifies if this schema should be displayed in Advanced Diagnostics of the Cohesity Dashboard. If false, the schema is displayed.</value>
-        [DataMember(Name="isInternalSchema", EmitDefaultValue=true)]
+        [DataMember(Name="isInternalSchema", EmitDefaultValue=false)]
         public bool? IsInternalSchema { get; set; }
 
         /// <summary>
         /// Use can change the flush interval secs via gflag and this store the largest interval seconds set. This is used to round up the timestamp to this flush interval secs during range scan.
         /// </summary>
         /// <value>Use can change the flush interval secs via gflag and this store the largest interval seconds set. This is used to round up the timestamp to this flush interval secs during range scan.</value>
-        [DataMember(Name="largestFlushIntervalSecs", EmitDefaultValue=true)]
+        [DataMember(Name="largestFlushIntervalSecs", EmitDefaultValue=false)]
         public int? LargestFlushIntervalSecs { get; set; }
 
         /// <summary>
-        /// Specifies a name that uniquely identifies an entity schema such as &#39;kBridgeClusterStats&#39;.
+        /// Specifies a name that uniquely identifies an entity schema such as &#39;kBridgeClusterStats&#39;. Name cannot have &#39;:&#39; as character.
         /// </summary>
-        /// <value>Specifies a name that uniquely identifies an entity schema such as &#39;kBridgeClusterStats&#39;.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        /// <value>Specifies a name that uniquely identifies an entity schema such as &#39;kBridgeClusterStats&#39;. Name cannot have &#39;:&#39; as character.</value>
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
 
         /// <summary>
         /// Gets or Sets RollupGranularityVec
         /// </summary>
-        [DataMember(Name="rollupGranularityVec", EmitDefaultValue=true)]
+        [DataMember(Name="rollupGranularityVec", EmitDefaultValue=false)]
         public List<EntitySchemaProtoGranularity> RollupGranularityVec { get; set; }
 
         /// <summary>
         /// Specifies the name of the Schema as displayed in Advanced Diagnostics of the Cohesity Dashboard. For example for the &#39;kBridgeClusterStats&#39; Schema, the descriptive name is &#39;Cluster Physical Stats&#39;.
         /// </summary>
         /// <value>Specifies the name of the Schema as displayed in Advanced Diagnostics of the Cohesity Dashboard. For example for the &#39;kBridgeClusterStats&#39; Schema, the descriptive name is &#39;Cluster Physical Stats&#39;.</value>
-        [DataMember(Name="schemaDescriptiveName", EmitDefaultValue=true)]
+        [DataMember(Name="schemaDescriptiveName", EmitDefaultValue=false)]
         public string SchemaDescriptiveName { get; set; }
 
         /// <summary>
         /// Specifies an optional informational description about the schema.
         /// </summary>
         /// <value>Specifies an optional informational description about the schema.</value>
-        [DataMember(Name="schemaHelpText", EmitDefaultValue=true)]
+        [DataMember(Name="schemaHelpText", EmitDefaultValue=false)]
         public string SchemaHelpText { get; set; }
 
         /// <summary>
         /// Array of Time Series.  List of time series of data (set of data points) for metrics.
         /// </summary>
         /// <value>Array of Time Series.  List of time series of data (set of data points) for metrics.</value>
-        [DataMember(Name="timeSeriesDescriptorVec", EmitDefaultValue=true)]
+        [DataMember(Name="timeSeriesDescriptorVec", EmitDefaultValue=false)]
         public List<EntitySchemaProtoTimeSeriesDescriptor> TimeSeriesDescriptorVec { get; set; }
 
         /// <summary>
         /// Specifies how long the timeseries data of this schema will be stored. After expiry the entire data point(all metrics) is garbage collected.
         /// </summary>
         /// <value>Specifies how long the timeseries data of this schema will be stored. After expiry the entire data point(all metrics) is garbage collected.</value>
-        [DataMember(Name="timeToLiveSecs", EmitDefaultValue=true)]
+        [DataMember(Name="timeToLiveSecs", EmitDefaultValue=false)]
         public long? TimeToLiveSecs { get; set; }
 
         /// <summary>
         /// Specifies the version of the entity schema.
         /// </summary>
         /// <value>Specifies the version of the entity schema.</value>
-        [DataMember(Name="version", EmitDefaultValue=true)]
+        [DataMember(Name="version", EmitDefaultValue=false)]
         public long? Version { get; set; }
 
         /// <summary>
@@ -213,8 +205,7 @@ namespace Cohesity.Model
                 (
                     this.RollupGranularityVec == input.RollupGranularityVec ||
                     this.RollupGranularityVec != null &&
-                    input.RollupGranularityVec != null &&
-                    this.RollupGranularityVec.SequenceEqual(input.RollupGranularityVec)
+                    this.RollupGranularityVec.Equals(input.RollupGranularityVec)
                 ) && 
                 (
                     this.SchemaDescriptiveName == input.SchemaDescriptiveName ||
@@ -229,8 +220,7 @@ namespace Cohesity.Model
                 (
                     this.TimeSeriesDescriptorVec == input.TimeSeriesDescriptorVec ||
                     this.TimeSeriesDescriptorVec != null &&
-                    input.TimeSeriesDescriptorVec != null &&
-                    this.TimeSeriesDescriptorVec.SequenceEqual(input.TimeSeriesDescriptorVec)
+                    this.TimeSeriesDescriptorVec.Equals(input.TimeSeriesDescriptorVec)
                 ) && 
                 (
                     this.TimeToLiveSecs == input.TimeToLiveSecs ||

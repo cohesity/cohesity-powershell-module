@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,30 +34,27 @@ namespace Cohesity.Model
             this.DeleteAll = deleteAll;
             this.UserIds = userIds;
             this.ViewName = viewName;
-            this.DeleteAll = deleteAll;
-            this.UserIds = userIds;
-            this.ViewName = viewName;
         }
         
         /// <summary>
         /// Delete all existing user quota override policies.
         /// </summary>
         /// <value>Delete all existing user quota override policies.</value>
-        [DataMember(Name="deleteAll", EmitDefaultValue=true)]
+        [DataMember(Name="deleteAll", EmitDefaultValue=false)]
         public bool? DeleteAll { get; set; }
 
         /// <summary>
         /// The user ids whose policy needs to be deleted.
         /// </summary>
         /// <value>The user ids whose policy needs to be deleted.</value>
-        [DataMember(Name="userIds", EmitDefaultValue=true)]
+        [DataMember(Name="userIds", EmitDefaultValue=false)]
         public List<UserId> UserIds { get; set; }
 
         /// <summary>
         /// View name of input view.
         /// </summary>
         /// <value>View name of input view.</value>
-        [DataMember(Name="viewName", EmitDefaultValue=true)]
+        [DataMember(Name="viewName", EmitDefaultValue=false)]
         public string ViewName { get; set; }
 
         /// <summary>
@@ -101,8 +101,7 @@ namespace Cohesity.Model
                 (
                     this.UserIds == input.UserIds ||
                     this.UserIds != null &&
-                    input.UserIds != null &&
-                    this.UserIds.SequenceEqual(input.UserIds)
+                    this.UserIds.Equals(input.UserIds)
                 ) && 
                 (
                     this.ViewName == input.ViewName ||

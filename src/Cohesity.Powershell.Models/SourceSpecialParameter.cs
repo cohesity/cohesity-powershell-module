@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -35,10 +38,6 @@ namespace Cohesity.Model
         /// <param name="vmwareSpecialParameters">vmwareSpecialParameters.</param>
         public SourceSpecialParameter(ApplicationSpecialParameters adSpecialParameters = default(ApplicationSpecialParameters), ApplicationSpecialParameters exchangeSpecialParameters = default(ApplicationSpecialParameters), OracleSpecialParameters oracleSpecialParameters = default(OracleSpecialParameters), PhysicalSpecialParameters physicalSpecialParameters = default(PhysicalSpecialParameters), bool? skipIndexing = default(bool?), long? sourceId = default(long?), ApplicationSpecialParameters sqlSpecialParameters = default(ApplicationSpecialParameters), bool? truncateExchangeLog = default(bool?), Credentials vmCredentials = default(Credentials), VmwareSpecialParameters vmwareSpecialParameters = default(VmwareSpecialParameters))
         {
-            this.SkipIndexing = skipIndexing;
-            this.SourceId = sourceId;
-            this.TruncateExchangeLog = truncateExchangeLog;
-            this.VmCredentials = vmCredentials;
             this.AdSpecialParameters = adSpecialParameters;
             this.ExchangeSpecialParameters = exchangeSpecialParameters;
             this.OracleSpecialParameters = oracleSpecialParameters;
@@ -79,14 +78,14 @@ namespace Cohesity.Model
         /// Specifies not to index the objects in the Protection Source when backing up.
         /// </summary>
         /// <value>Specifies not to index the objects in the Protection Source when backing up.</value>
-        [DataMember(Name="skipIndexing", EmitDefaultValue=true)]
+        [DataMember(Name="skipIndexing", EmitDefaultValue=false)]
         public bool? SkipIndexing { get; set; }
 
         /// <summary>
         /// Specifies the object id of the Protection Source that these special settings apply. This field must refer to a leaf node such a VM or a Physical Server.
         /// </summary>
         /// <value>Specifies the object id of the Protection Source that these special settings apply. This field must refer to a leaf node such a VM or a Physical Server.</value>
-        [DataMember(Name="sourceId", EmitDefaultValue=true)]
+        [DataMember(Name="sourceId", EmitDefaultValue=false)]
         public long? SourceId { get; set; }
 
         /// <summary>
@@ -99,14 +98,14 @@ namespace Cohesity.Model
         /// If true, after the Cohesity Cluster successfully captures a Snapshot during a Job Run, the Cluster truncates the Exchange transaction logs on a Microsoft Exchange Server. The default value is false. This field is deprecated. Use the field in ApplicationParameters inside source specific parameter. deprecated: true
         /// </summary>
         /// <value>If true, after the Cohesity Cluster successfully captures a Snapshot during a Job Run, the Cluster truncates the Exchange transaction logs on a Microsoft Exchange Server. The default value is false. This field is deprecated. Use the field in ApplicationParameters inside source specific parameter. deprecated: true</value>
-        [DataMember(Name="truncateExchangeLog", EmitDefaultValue=true)]
+        [DataMember(Name="truncateExchangeLog", EmitDefaultValue=false)]
         public bool? TruncateExchangeLog { get; set; }
 
         /// <summary>
         /// Specifies the administrator credentials to log in to the guest Windows system of a VM that hosts the Microsoft Exchange Server. If truncateExchangeLog is set to true and the specified source is a VM, administrator credentials to log in to the guest Windows system of the VM must be provided to truncate the logs. This field is only applicable to Sources in the kVMware environment. This field is deprecated. Use the field in VmCredentials inside source specific parameter. deprecated: true
         /// </summary>
         /// <value>Specifies the administrator credentials to log in to the guest Windows system of a VM that hosts the Microsoft Exchange Server. If truncateExchangeLog is set to true and the specified source is a VM, administrator credentials to log in to the guest Windows system of the VM must be provided to truncate the logs. This field is only applicable to Sources in the kVMware environment. This field is deprecated. Use the field in VmCredentials inside source specific parameter. deprecated: true</value>
-        [DataMember(Name="vmCredentials", EmitDefaultValue=true)]
+        [DataMember(Name="vmCredentials", EmitDefaultValue=false)]
         public Credentials VmCredentials { get; set; }
 
         /// <summary>
@@ -193,8 +192,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.VmCredentials == input.VmCredentials ||
-                    (this.VmCredentials != null &&
-                    this.VmCredentials.Equals(input.VmCredentials))
+                    this.VmCredentials != null &&
+                    this.VmCredentials.Equals(input.VmCredentials)
                 ) && 
                 (
                     this.VmwareSpecialParameters == input.VmwareSpecialParameters ||

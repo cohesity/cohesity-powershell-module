@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -47,94 +50,83 @@ namespace Cohesity.Model
             this.Status = status;
             this.SuccessEntities = successEntities;
             this.TotalEntities = totalEntities;
-            this.BytesTransferred = bytesTransferred;
-            this.EndTimeUsecs = endTimeUsecs;
-            this.FailureEntities = failureEntities;
-            this.JobId = jobId;
-            this.JobRunId = jobRunId;
-            this.JobType = jobType;
-            this.SlaViolated = slaViolated;
-            this.StartTimeUsecs = startTimeUsecs;
-            this.Status = status;
-            this.SuccessEntities = successEntities;
-            this.TotalEntities = totalEntities;
         }
         
         /// <summary>
         /// Specifies bytes transferred in the run.
         /// </summary>
         /// <value>Specifies bytes transferred in the run.</value>
-        [DataMember(Name="bytesTransferred", EmitDefaultValue=true)]
+        [DataMember(Name="bytesTransferred", EmitDefaultValue=false)]
         public long? BytesTransferred { get; set; }
 
         /// <summary>
         /// Specifies the end time of the run.
         /// </summary>
         /// <value>Specifies the end time of the run.</value>
-        [DataMember(Name="endTimeUsecs", EmitDefaultValue=true)]
+        [DataMember(Name="endTimeUsecs", EmitDefaultValue=false)]
         public long? EndTimeUsecs { get; set; }
 
         /// <summary>
         /// Specifies the number of failed objects in the run.
         /// </summary>
         /// <value>Specifies the number of failed objects in the run.</value>
-        [DataMember(Name="failureEntities", EmitDefaultValue=true)]
+        [DataMember(Name="failureEntities", EmitDefaultValue=false)]
         public long? FailureEntities { get; set; }
 
         /// <summary>
         /// Specifies the job id.
         /// </summary>
         /// <value>Specifies the job id.</value>
-        [DataMember(Name="jobId", EmitDefaultValue=true)]
+        [DataMember(Name="jobId", EmitDefaultValue=false)]
         public string JobId { get; set; }
 
         /// <summary>
         /// Specifies the job run id.
         /// </summary>
         /// <value>Specifies the job run id.</value>
-        [DataMember(Name="jobRunId", EmitDefaultValue=true)]
+        [DataMember(Name="jobRunId", EmitDefaultValue=false)]
         public string JobRunId { get; set; }
 
         /// <summary>
         /// Specifies the job type, protection, replication, archival, apollo, indexing etc.
         /// </summary>
         /// <value>Specifies the job type, protection, replication, archival, apollo, indexing etc.</value>
-        [DataMember(Name="jobType", EmitDefaultValue=true)]
+        [DataMember(Name="jobType", EmitDefaultValue=false)]
         public string JobType { get; set; }
 
         /// <summary>
         /// Specifies if the sla was violated the run.
         /// </summary>
         /// <value>Specifies if the sla was violated the run.</value>
-        [DataMember(Name="slaViolated", EmitDefaultValue=true)]
+        [DataMember(Name="slaViolated", EmitDefaultValue=false)]
         public bool? SlaViolated { get; set; }
 
         /// <summary>
         /// Specifies the start time of the run.
         /// </summary>
         /// <value>Specifies the start time of the run.</value>
-        [DataMember(Name="startTimeUsecs", EmitDefaultValue=true)]
+        [DataMember(Name="startTimeUsecs", EmitDefaultValue=false)]
         public long? StartTimeUsecs { get; set; }
 
         /// <summary>
         /// Specifies status of the run
         /// </summary>
         /// <value>Specifies status of the run</value>
-        [DataMember(Name="status", EmitDefaultValue=true)]
+        [DataMember(Name="status", EmitDefaultValue=false)]
         public long? Status { get; set; }
 
         /// <summary>
         /// Specifies the number successful objects in the run.
         /// </summary>
         /// <value>Specifies the number successful objects in the run.</value>
-        [DataMember(Name="successEntities", EmitDefaultValue=true)]
+        [DataMember(Name="successEntities", EmitDefaultValue=false)]
         public long? SuccessEntities { get; set; }
 
         /// <summary>
         /// Specifies the number of objects in the run.
         /// </summary>
         /// <value>Specifies the number of objects in the run.</value>
-        [DataMember(Name="totalEntities", EmitDefaultValue=true)]
+        [DataMember(Name="totalEntities", EmitDefaultValue=false)]
         public long? TotalEntities { get; set; }
 
         /// <summary>

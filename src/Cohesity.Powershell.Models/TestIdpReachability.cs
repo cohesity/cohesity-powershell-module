@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.IssuerId = issuerId;
             this.SsoUrl = ssoUrl;
-            this.IssuerId = issuerId;
-            this.SsoUrl = ssoUrl;
         }
         
         /// <summary>
         /// Specifies the IdP provided Issuer ID for the app.
         /// </summary>
         /// <value>Specifies the IdP provided Issuer ID for the app.</value>
-        [DataMember(Name="issuerId", EmitDefaultValue=true)]
+        [DataMember(Name="issuerId", EmitDefaultValue=false)]
         public string IssuerId { get; set; }
 
         /// <summary>
         /// Specifies the SSO URL of the IdP service for the customer. This is the URL given by IdP when the customer created an account. Customers may use this for several clusters that are registered with on IdP site.
         /// </summary>
         /// <value>Specifies the SSO URL of the IdP service for the customer. This is the URL given by IdP when the customer created an account. Customers may use this for several clusters that are registered with on IdP site.</value>
-        [DataMember(Name="ssoUrl", EmitDefaultValue=true)]
+        [DataMember(Name="ssoUrl", EmitDefaultValue=false)]
         public string SsoUrl { get; set; }
 
         /// <summary>

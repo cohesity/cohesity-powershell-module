@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -12,6 +13,8 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
+
+
 namespace Cohesity.Model
 {
     /// <summary>
@@ -23,19 +26,27 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="HdfsBackupJobParams" /> class.
         /// </summary>
-        /// <param name="hdfsPattern">Any path/Glob pattern from HDFS that is to protected..</param>
-        public HdfsBackupJobParams(List<string> hdfsPattern = default(List<string>))
+        /// <param name="hdfsExcludePattern">Any path/Glob pattern from HDFS that is to excluded..</param>
+        /// <param name="hdfsProtectPattern">Any path/Glob pattern from HDFS that is to protected..</param>
+        public HdfsBackupJobParams(List<string> hdfsExcludePattern = default(List<string>), List<string> hdfsProtectPattern = default(List<string>))
         {
-            this.HdfsPattern = hdfsPattern;
-            this.HdfsPattern = hdfsPattern;
+            this.HdfsExcludePattern = hdfsExcludePattern;
+            this.HdfsProtectPattern = hdfsProtectPattern;
         }
         
+        /// <summary>
+        /// Any path/Glob pattern from HDFS that is to excluded.
+        /// </summary>
+        /// <value>Any path/Glob pattern from HDFS that is to excluded.</value>
+        [DataMember(Name="hdfsExcludePattern", EmitDefaultValue=false)]
+        public List<string> HdfsExcludePattern { get; set; }
+
         /// <summary>
         /// Any path/Glob pattern from HDFS that is to protected.
         /// </summary>
         /// <value>Any path/Glob pattern from HDFS that is to protected.</value>
-        [DataMember(Name="hdfsPattern", EmitDefaultValue=true)]
-        public List<string> HdfsPattern { get; set; }
+        [DataMember(Name="hdfsProtectPattern", EmitDefaultValue=false)]
+        public List<string> HdfsProtectPattern { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -74,10 +85,14 @@ namespace Cohesity.Model
 
             return 
                 (
-                    this.HdfsPattern == input.HdfsPattern ||
-                    this.HdfsPattern != null &&
-                    input.HdfsPattern != null &&
-                    this.HdfsPattern.SequenceEqual(input.HdfsPattern)
+                    this.HdfsExcludePattern == input.HdfsExcludePattern ||
+                    this.HdfsExcludePattern != null &&
+                    this.HdfsExcludePattern.Equals(input.HdfsExcludePattern)
+                ) && 
+                (
+                    this.HdfsProtectPattern == input.HdfsProtectPattern ||
+                    this.HdfsProtectPattern != null &&
+                    this.HdfsProtectPattern.Equals(input.HdfsProtectPattern)
                 );
         }
 
@@ -90,8 +105,10 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                if (this.HdfsPattern != null)
-                    hashCode = hashCode * 59 + this.HdfsPattern.GetHashCode();
+                if (this.HdfsExcludePattern != null)
+                    hashCode = hashCode * 59 + this.HdfsExcludePattern.GetHashCode();
+                if (this.HdfsProtectPattern != null)
+                    hashCode = hashCode * 59 + this.HdfsProtectPattern.GetHashCode();
                 return hashCode;
             }
         }

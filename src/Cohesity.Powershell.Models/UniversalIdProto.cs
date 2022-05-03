@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,30 +34,27 @@ namespace Cohesity.Model
             this.ClusterId = clusterId;
             this.ClusterIncarnationId = clusterIncarnationId;
             this.ObjectId = objectId;
-            this.ClusterId = clusterId;
-            this.ClusterIncarnationId = clusterIncarnationId;
-            this.ObjectId = objectId;
         }
         
         /// <summary>
         /// The id of the cluster at which the object was created.
         /// </summary>
         /// <value>The id of the cluster at which the object was created.</value>
-        [DataMember(Name="clusterId", EmitDefaultValue=true)]
+        [DataMember(Name="clusterId", EmitDefaultValue=false)]
         public long? ClusterId { get; set; }
 
         /// <summary>
         /// The incarnation id of the above cluster.
         /// </summary>
         /// <value>The incarnation id of the above cluster.</value>
-        [DataMember(Name="clusterIncarnationId", EmitDefaultValue=true)]
+        [DataMember(Name="clusterIncarnationId", EmitDefaultValue=false)]
         public long? ClusterIncarnationId { get; set; }
 
         /// <summary>
         /// The object id - this is unique within the above cluster.
         /// </summary>
         /// <value>The object id - this is unique within the above cluster.</value>
-        [DataMember(Name="objectId", EmitDefaultValue=true)]
+        [DataMember(Name="objectId", EmitDefaultValue=false)]
         public long? ObjectId { get; set; }
 
         /// <summary>

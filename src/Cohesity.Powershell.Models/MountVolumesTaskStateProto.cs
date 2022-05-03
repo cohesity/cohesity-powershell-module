@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -30,7 +33,6 @@ namespace Cohesity.Model
         public MountVolumesTaskStateProto(string fullNasPath = default(string), EntityProto hostEntity = default(EntityProto), MountVolumesInfoProto mountInfo = default(MountVolumesInfoProto), MountVolumesParams mountParams = default(MountVolumesParams))
         {
             this.FullNasPath = fullNasPath;
-            this.FullNasPath = fullNasPath;
             this.HostEntity = hostEntity;
             this.MountInfo = mountInfo;
             this.MountParams = mountParams;
@@ -40,7 +42,7 @@ namespace Cohesity.Model
         /// Contains the SMB/NFS path of the share we expose to clients. The share contains the files pertinent to the original backup run type.
         /// </summary>
         /// <value>Contains the SMB/NFS path of the share we expose to clients. The share contains the files pertinent to the original backup run type.</value>
-        [DataMember(Name="fullNasPath", EmitDefaultValue=true)]
+        [DataMember(Name="fullNasPath", EmitDefaultValue=false)]
         public string FullNasPath { get; set; }
 
         /// <summary>

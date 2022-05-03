@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -36,28 +39,13 @@ namespace Cohesity.Model
         /// <param name="multiStageRestoreOptions">multiStageRestoreOptions.</param>
         /// <param name="newDatabaseName">The new name of the database, if it is going to be renamed. app_entity in RestoreAppObject has to be non-empty for the renaming, otherwise it does not make sense to rename all databases in the owner..</param>
         /// <param name="restoreTimeSecs">The time to which the SQL database needs to be restored. This allows for granular recovery of SQL databases. If this is not set, the SQL database will be recovered to the full/incremental snapshot (specified in the owner&#39;s restore object in AppOwnerRestoreInfo)..</param>
+        /// <param name="resumeRestore">Resume restore if sql instance/database exist in restore/recovering state. The database might be in restore/recovering state if previous restore failed or previous  restore was attempted  with norecovery option..</param>
         /// <param name="secondaryDataFileDestination">Which directory to put the secondary data files of the database. Secondary data files are optional and are user defined. The recommended file name extension for these is \&quot;.ndf\&quot;.  If this option is specified, the directory will be automatically created if its missing..</param>
         /// <param name="secondaryDataFileDestinationVec">Specify the secondary data files and corresponding direcories of the DB. Secondary data files are optional and are user defined. The recommended file extension for secondary files is \&quot;.ndf\&quot;.  If this option is specified and the destination folders do not exist they will be automatically created..</param>
         /// <param name="withClause">&#39;with_clause&#39; contains &#39;with clause&#39; to be used in native sql restore command. This is only applicable for db restore of native sql backup. Here user can specify multiple restore options. Example: \&quot;WITH BUFFERCOUNT &#x3D; 575, MAXTRANSFERSIZE &#x3D; 2097152\&quot;. If this is not specified, we use the value specified in magneto_sql_native_restore_with_clause gflag..</param>
         /// <param name="withNoRecovery">Set to true if we want to recover the database in \&quot;NO_RECOVERY\&quot; mode which does not bring it online after restore..</param>
-        public RestoreSqlAppObjectParams(bool? captureTailLogs = default(bool?), bool? continueAfterError = default(bool?), string dataFileDestination = default(string), int? dbRestoreOverwritePolicy = default(int?), bool? enableChecksum = default(bool?), string instanceName = default(string), bool? isAutoSyncEnabled = default(bool?), bool? isMultiStageRestore = default(bool?), bool? keepCdc = default(bool?), string logFileDestination = default(string), SqlUpdateRestoreTaskOptions multiStageRestoreOptions = default(SqlUpdateRestoreTaskOptions), string newDatabaseName = default(string), long? restoreTimeSecs = default(long?), string secondaryDataFileDestination = default(string), List<FilesToDirectoryMapping> secondaryDataFileDestinationVec = default(List<FilesToDirectoryMapping>), string withClause = default(string), bool? withNoRecovery = default(bool?))
+        public RestoreSqlAppObjectParams(bool? captureTailLogs = default(bool?), bool? continueAfterError = default(bool?), string dataFileDestination = default(string), int? dbRestoreOverwritePolicy = default(int?), bool? enableChecksum = default(bool?), string instanceName = default(string), bool? isAutoSyncEnabled = default(bool?), bool? isMultiStageRestore = default(bool?), bool? keepCdc = default(bool?), string logFileDestination = default(string), SqlUpdateRestoreTaskOptions multiStageRestoreOptions = default(SqlUpdateRestoreTaskOptions), string newDatabaseName = default(string), long? restoreTimeSecs = default(long?), bool? resumeRestore = default(bool?), string secondaryDataFileDestination = default(string), List<FilesToDirectoryMapping> secondaryDataFileDestinationVec = default(List<FilesToDirectoryMapping>), string withClause = default(string), bool? withNoRecovery = default(bool?))
         {
-            this.CaptureTailLogs = captureTailLogs;
-            this.ContinueAfterError = continueAfterError;
-            this.DataFileDestination = dataFileDestination;
-            this.DbRestoreOverwritePolicy = dbRestoreOverwritePolicy;
-            this.EnableChecksum = enableChecksum;
-            this.InstanceName = instanceName;
-            this.IsAutoSyncEnabled = isAutoSyncEnabled;
-            this.IsMultiStageRestore = isMultiStageRestore;
-            this.KeepCdc = keepCdc;
-            this.LogFileDestination = logFileDestination;
-            this.NewDatabaseName = newDatabaseName;
-            this.RestoreTimeSecs = restoreTimeSecs;
-            this.SecondaryDataFileDestination = secondaryDataFileDestination;
-            this.SecondaryDataFileDestinationVec = secondaryDataFileDestinationVec;
-            this.WithClause = withClause;
-            this.WithNoRecovery = withNoRecovery;
             this.CaptureTailLogs = captureTailLogs;
             this.ContinueAfterError = continueAfterError;
             this.DataFileDestination = dataFileDestination;
@@ -71,6 +59,7 @@ namespace Cohesity.Model
             this.MultiStageRestoreOptions = multiStageRestoreOptions;
             this.NewDatabaseName = newDatabaseName;
             this.RestoreTimeSecs = restoreTimeSecs;
+            this.ResumeRestore = resumeRestore;
             this.SecondaryDataFileDestination = secondaryDataFileDestination;
             this.SecondaryDataFileDestinationVec = secondaryDataFileDestinationVec;
             this.WithClause = withClause;
@@ -81,70 +70,70 @@ namespace Cohesity.Model
         /// Set to true if tail logs are to be captured before the restore operation. This is only applicable if we are restoring the SQL database to its original source, and the database is not being renamed.
         /// </summary>
         /// <value>Set to true if tail logs are to be captured before the restore operation. This is only applicable if we are restoring the SQL database to its original source, and the database is not being renamed.</value>
-        [DataMember(Name="captureTailLogs", EmitDefaultValue=true)]
+        [DataMember(Name="captureTailLogs", EmitDefaultValue=false)]
         public bool? CaptureTailLogs { get; set; }
 
         /// <summary>
         /// Whether restore should continue after encountering a page checksum error.
         /// </summary>
         /// <value>Whether restore should continue after encountering a page checksum error.</value>
-        [DataMember(Name="continueAfterError", EmitDefaultValue=true)]
+        [DataMember(Name="continueAfterError", EmitDefaultValue=false)]
         public bool? ContinueAfterError { get; set; }
 
         /// <summary>
         /// Which directory to put the database data files. Missing directory will be automatically created. Cannot be empty if not restoring to the original SQL instance.
         /// </summary>
         /// <value>Which directory to put the database data files. Missing directory will be automatically created. Cannot be empty if not restoring to the original SQL instance.</value>
-        [DataMember(Name="dataFileDestination", EmitDefaultValue=true)]
+        [DataMember(Name="dataFileDestination", EmitDefaultValue=false)]
         public string DataFileDestination { get; set; }
 
         /// <summary>
         /// Policy to overwrite an existing DB during a restore operation.
         /// </summary>
         /// <value>Policy to overwrite an existing DB during a restore operation.</value>
-        [DataMember(Name="dbRestoreOverwritePolicy", EmitDefaultValue=true)]
+        [DataMember(Name="dbRestoreOverwritePolicy", EmitDefaultValue=false)]
         public int? DbRestoreOverwritePolicy { get; set; }
 
         /// <summary>
         /// Whether restore checksums are enabled.
         /// </summary>
         /// <value>Whether restore checksums are enabled.</value>
-        [DataMember(Name="enableChecksum", EmitDefaultValue=true)]
+        [DataMember(Name="enableChecksum", EmitDefaultValue=false)]
         public bool? EnableChecksum { get; set; }
 
         /// <summary>
         /// The name of the SQL instance that we restore database to. If target_host is not empty, this also cannot be empty.
         /// </summary>
         /// <value>The name of the SQL instance that we restore database to. If target_host is not empty, this also cannot be empty.</value>
-        [DataMember(Name="instanceName", EmitDefaultValue=true)]
+        [DataMember(Name="instanceName", EmitDefaultValue=false)]
         public string InstanceName { get; set; }
 
         /// <summary>
         /// The following field is set if auto_sync for multi-stage SQL restore task is enabled. This field is valid only if is_multi_state_restore is set to true.
         /// </summary>
         /// <value>The following field is set if auto_sync for multi-stage SQL restore task is enabled. This field is valid only if is_multi_state_restore is set to true.</value>
-        [DataMember(Name="isAutoSyncEnabled", EmitDefaultValue=true)]
+        [DataMember(Name="isAutoSyncEnabled", EmitDefaultValue=false)]
         public bool? IsAutoSyncEnabled { get; set; }
 
         /// <summary>
         /// The following field is set if we are creating a multi-stage SQL restore task needed for features such as Hot-Standby.
         /// </summary>
         /// <value>The following field is set if we are creating a multi-stage SQL restore task needed for features such as Hot-Standby.</value>
-        [DataMember(Name="isMultiStageRestore", EmitDefaultValue=true)]
+        [DataMember(Name="isMultiStageRestore", EmitDefaultValue=false)]
         public bool? IsMultiStageRestore { get; set; }
 
         /// <summary>
         /// Set to true to keep cdc on restored database.
         /// </summary>
         /// <value>Set to true to keep cdc on restored database.</value>
-        [DataMember(Name="keepCdc", EmitDefaultValue=true)]
+        [DataMember(Name="keepCdc", EmitDefaultValue=false)]
         public bool? KeepCdc { get; set; }
 
         /// <summary>
         /// Which directory to put the database log files. Missing directory will be automatically created. Cannot be empty if not restoring to the original SQL instance.
         /// </summary>
         /// <value>Which directory to put the database log files. Missing directory will be automatically created. Cannot be empty if not restoring to the original SQL instance.</value>
-        [DataMember(Name="logFileDestination", EmitDefaultValue=true)]
+        [DataMember(Name="logFileDestination", EmitDefaultValue=false)]
         public string LogFileDestination { get; set; }
 
         /// <summary>
@@ -157,42 +146,49 @@ namespace Cohesity.Model
         /// The new name of the database, if it is going to be renamed. app_entity in RestoreAppObject has to be non-empty for the renaming, otherwise it does not make sense to rename all databases in the owner.
         /// </summary>
         /// <value>The new name of the database, if it is going to be renamed. app_entity in RestoreAppObject has to be non-empty for the renaming, otherwise it does not make sense to rename all databases in the owner.</value>
-        [DataMember(Name="newDatabaseName", EmitDefaultValue=true)]
+        [DataMember(Name="newDatabaseName", EmitDefaultValue=false)]
         public string NewDatabaseName { get; set; }
 
         /// <summary>
         /// The time to which the SQL database needs to be restored. This allows for granular recovery of SQL databases. If this is not set, the SQL database will be recovered to the full/incremental snapshot (specified in the owner&#39;s restore object in AppOwnerRestoreInfo).
         /// </summary>
         /// <value>The time to which the SQL database needs to be restored. This allows for granular recovery of SQL databases. If this is not set, the SQL database will be recovered to the full/incremental snapshot (specified in the owner&#39;s restore object in AppOwnerRestoreInfo).</value>
-        [DataMember(Name="restoreTimeSecs", EmitDefaultValue=true)]
+        [DataMember(Name="restoreTimeSecs", EmitDefaultValue=false)]
         public long? RestoreTimeSecs { get; set; }
+
+        /// <summary>
+        /// Resume restore if sql instance/database exist in restore/recovering state. The database might be in restore/recovering state if previous restore failed or previous  restore was attempted  with norecovery option.
+        /// </summary>
+        /// <value>Resume restore if sql instance/database exist in restore/recovering state. The database might be in restore/recovering state if previous restore failed or previous  restore was attempted  with norecovery option.</value>
+        [DataMember(Name="resumeRestore", EmitDefaultValue=false)]
+        public bool? ResumeRestore { get; set; }
 
         /// <summary>
         /// Which directory to put the secondary data files of the database. Secondary data files are optional and are user defined. The recommended file name extension for these is \&quot;.ndf\&quot;.  If this option is specified, the directory will be automatically created if its missing.
         /// </summary>
         /// <value>Which directory to put the secondary data files of the database. Secondary data files are optional and are user defined. The recommended file name extension for these is \&quot;.ndf\&quot;.  If this option is specified, the directory will be automatically created if its missing.</value>
-        [DataMember(Name="secondaryDataFileDestination", EmitDefaultValue=true)]
+        [DataMember(Name="secondaryDataFileDestination", EmitDefaultValue=false)]
         public string SecondaryDataFileDestination { get; set; }
 
         /// <summary>
         /// Specify the secondary data files and corresponding direcories of the DB. Secondary data files are optional and are user defined. The recommended file extension for secondary files is \&quot;.ndf\&quot;.  If this option is specified and the destination folders do not exist they will be automatically created.
         /// </summary>
         /// <value>Specify the secondary data files and corresponding direcories of the DB. Secondary data files are optional and are user defined. The recommended file extension for secondary files is \&quot;.ndf\&quot;.  If this option is specified and the destination folders do not exist they will be automatically created.</value>
-        [DataMember(Name="secondaryDataFileDestinationVec", EmitDefaultValue=true)]
+        [DataMember(Name="secondaryDataFileDestinationVec", EmitDefaultValue=false)]
         public List<FilesToDirectoryMapping> SecondaryDataFileDestinationVec { get; set; }
 
         /// <summary>
         /// &#39;with_clause&#39; contains &#39;with clause&#39; to be used in native sql restore command. This is only applicable for db restore of native sql backup. Here user can specify multiple restore options. Example: \&quot;WITH BUFFERCOUNT &#x3D; 575, MAXTRANSFERSIZE &#x3D; 2097152\&quot;. If this is not specified, we use the value specified in magneto_sql_native_restore_with_clause gflag.
         /// </summary>
         /// <value>&#39;with_clause&#39; contains &#39;with clause&#39; to be used in native sql restore command. This is only applicable for db restore of native sql backup. Here user can specify multiple restore options. Example: \&quot;WITH BUFFERCOUNT &#x3D; 575, MAXTRANSFERSIZE &#x3D; 2097152\&quot;. If this is not specified, we use the value specified in magneto_sql_native_restore_with_clause gflag.</value>
-        [DataMember(Name="withClause", EmitDefaultValue=true)]
+        [DataMember(Name="withClause", EmitDefaultValue=false)]
         public string WithClause { get; set; }
 
         /// <summary>
         /// Set to true if we want to recover the database in \&quot;NO_RECOVERY\&quot; mode which does not bring it online after restore.
         /// </summary>
         /// <value>Set to true if we want to recover the database in \&quot;NO_RECOVERY\&quot; mode which does not bring it online after restore.</value>
-        [DataMember(Name="withNoRecovery", EmitDefaultValue=true)]
+        [DataMember(Name="withNoRecovery", EmitDefaultValue=false)]
         public bool? WithNoRecovery { get; set; }
 
         /// <summary>
@@ -297,6 +293,11 @@ namespace Cohesity.Model
                     this.RestoreTimeSecs.Equals(input.RestoreTimeSecs))
                 ) && 
                 (
+                    this.ResumeRestore == input.ResumeRestore ||
+                    (this.ResumeRestore != null &&
+                    this.ResumeRestore.Equals(input.ResumeRestore))
+                ) && 
+                (
                     this.SecondaryDataFileDestination == input.SecondaryDataFileDestination ||
                     (this.SecondaryDataFileDestination != null &&
                     this.SecondaryDataFileDestination.Equals(input.SecondaryDataFileDestination))
@@ -304,8 +305,7 @@ namespace Cohesity.Model
                 (
                     this.SecondaryDataFileDestinationVec == input.SecondaryDataFileDestinationVec ||
                     this.SecondaryDataFileDestinationVec != null &&
-                    input.SecondaryDataFileDestinationVec != null &&
-                    this.SecondaryDataFileDestinationVec.SequenceEqual(input.SecondaryDataFileDestinationVec)
+                    this.SecondaryDataFileDestinationVec.Equals(input.SecondaryDataFileDestinationVec)
                 ) && 
                 (
                     this.WithClause == input.WithClause ||
@@ -354,6 +354,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.NewDatabaseName.GetHashCode();
                 if (this.RestoreTimeSecs != null)
                     hashCode = hashCode * 59 + this.RestoreTimeSecs.GetHashCode();
+                if (this.ResumeRestore != null)
+                    hashCode = hashCode * 59 + this.ResumeRestore.GetHashCode();
                 if (this.SecondaryDataFileDestination != null)
                     hashCode = hashCode * 59 + this.SecondaryDataFileDestination.GetHashCode();
                 if (this.SecondaryDataFileDestinationVec != null)

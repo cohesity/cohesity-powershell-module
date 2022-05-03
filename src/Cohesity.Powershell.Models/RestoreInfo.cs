@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -37,13 +40,6 @@ namespace Cohesity.Model
         /// <param name="vmHadIndependentDisks">Specifies if the VM had independent disks..</param>
         public RestoreInfo(ArchivalExternalTarget archivalTarget = default(ArchivalExternalTarget), int? attemptNumber = default(int?), CloudDeployTargetDetails cloudDeployTarget = default(CloudDeployTargetDetails), long? jobRunId = default(long?), UniversalId jobUid = default(UniversalId), ProtectionSource parentSource = default(ProtectionSource), long? restoreTimeUsecs = default(long?), string snapshotRelativeDirPath = default(string), ProtectionSource source = default(ProtectionSource), long? startTimeUsecs = default(long?), string viewName = default(string), bool? vmHadIndependentDisks = default(bool?))
         {
-            this.AttemptNumber = attemptNumber;
-            this.JobRunId = jobRunId;
-            this.RestoreTimeUsecs = restoreTimeUsecs;
-            this.SnapshotRelativeDirPath = snapshotRelativeDirPath;
-            this.StartTimeUsecs = startTimeUsecs;
-            this.ViewName = viewName;
-            this.VmHadIndependentDisks = vmHadIndependentDisks;
             this.ArchivalTarget = archivalTarget;
             this.AttemptNumber = attemptNumber;
             this.CloudDeployTarget = cloudDeployTarget;
@@ -68,7 +64,7 @@ namespace Cohesity.Model
         /// Specifies the attempt number.
         /// </summary>
         /// <value>Specifies the attempt number.</value>
-        [DataMember(Name="attemptNumber", EmitDefaultValue=true)]
+        [DataMember(Name="attemptNumber", EmitDefaultValue=false)]
         public int? AttemptNumber { get; set; }
 
         /// <summary>
@@ -81,7 +77,7 @@ namespace Cohesity.Model
         /// Specifies the id of the job run.
         /// </summary>
         /// <value>Specifies the id of the job run.</value>
-        [DataMember(Name="jobRunId", EmitDefaultValue=true)]
+        [DataMember(Name="jobRunId", EmitDefaultValue=false)]
         public long? JobRunId { get; set; }
 
         /// <summary>
@@ -100,14 +96,14 @@ namespace Cohesity.Model
         /// This field specifies the time in to which the object needs to be restored. This filed is only applicable when object is being backeup using CDP feature.
         /// </summary>
         /// <value>This field specifies the time in to which the object needs to be restored. This filed is only applicable when object is being backeup using CDP feature.</value>
-        [DataMember(Name="restoreTimeUsecs", EmitDefaultValue=true)]
+        [DataMember(Name="restoreTimeUsecs", EmitDefaultValue=false)]
         public long? RestoreTimeUsecs { get; set; }
 
         /// <summary>
         /// Specifies the relative path of the snapshot directory.
         /// </summary>
         /// <value>Specifies the relative path of the snapshot directory.</value>
-        [DataMember(Name="snapshotRelativeDirPath", EmitDefaultValue=true)]
+        [DataMember(Name="snapshotRelativeDirPath", EmitDefaultValue=false)]
         public string SnapshotRelativeDirPath { get; set; }
 
         /// <summary>
@@ -120,21 +116,21 @@ namespace Cohesity.Model
         /// Specifies the start time specified as a Unix epoch Timestamp (in microseconds).
         /// </summary>
         /// <value>Specifies the start time specified as a Unix epoch Timestamp (in microseconds).</value>
-        [DataMember(Name="startTimeUsecs", EmitDefaultValue=true)]
+        [DataMember(Name="startTimeUsecs", EmitDefaultValue=false)]
         public long? StartTimeUsecs { get; set; }
 
         /// <summary>
         /// Specifies the name of the view.
         /// </summary>
         /// <value>Specifies the name of the view.</value>
-        [DataMember(Name="viewName", EmitDefaultValue=true)]
+        [DataMember(Name="viewName", EmitDefaultValue=false)]
         public string ViewName { get; set; }
 
         /// <summary>
         /// Specifies if the VM had independent disks.
         /// </summary>
         /// <value>Specifies if the VM had independent disks.</value>
-        [DataMember(Name="vmHadIndependentDisks", EmitDefaultValue=true)]
+        [DataMember(Name="vmHadIndependentDisks", EmitDefaultValue=false)]
         public bool? VmHadIndependentDisks { get; set; }
 
         /// <summary>

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,25 +34,14 @@ namespace Cohesity.Model
         /// <param name="logicalSizeBytes">Total logical size of the retrieval task..</param>
         /// <param name="progressMonitorTaskPath">The root path of the progress monitor for this task..</param>
         /// <param name="retrievedEntityVec">Contains info about all retrieved entities..</param>
+        /// <param name="skipCloningView">If true, we will use the view directly without cloning it and delete it when the restore is complete..</param>
         /// <param name="startTimeUsecs">Time when this retrieval task was started by Icebox. If not set, then retrieval has not been started yet..</param>
         /// <param name="stubViewName">The stub view that Icebox created. Stub view can be used for selectively restoring or accessing files from an archive location..</param>
         /// <param name="stubViewRelativeDirName">Relative directory inside the stub view that corresponds with the archive..</param>
         /// <param name="targetViewName">The name of the target view where Icebox has retrieved and staged the requested entities..</param>
         /// <param name="userActionRequiredMsg">Message to display in the UI if any manual intervention is needed to make forward progress for the retrieve from archive task. This message is mainly relevant for tape based retrieve from archive tasks where a backup admin might be asked to load new media when the tape library does not have the relevant media to retrieve the archive from..</param>
-        public RetrieveArchiveInfo(long? avgLogicalTransferRateBps = default(long?), long? bytesTransferred = default(long?), long? endTimeUsecs = default(long?), ErrorProto error = default(ErrorProto), long? logicalBytesTransferred = default(long?), long? logicalSizeBytes = default(long?), string progressMonitorTaskPath = default(string), List<RetrieveArchiveInfoRetrievedEntity> retrievedEntityVec = default(List<RetrieveArchiveInfoRetrievedEntity>), long? startTimeUsecs = default(long?), string stubViewName = default(string), string stubViewRelativeDirName = default(string), string targetViewName = default(string), string userActionRequiredMsg = default(string))
+        public RetrieveArchiveInfo(long? avgLogicalTransferRateBps = default(long?), long? bytesTransferred = default(long?), long? endTimeUsecs = default(long?), ErrorProto error = default(ErrorProto), long? logicalBytesTransferred = default(long?), long? logicalSizeBytes = default(long?), string progressMonitorTaskPath = default(string), List<RetrieveArchiveInfoRetrievedEntity> retrievedEntityVec = default(List<RetrieveArchiveInfoRetrievedEntity>), bool? skipCloningView = default(bool?), long? startTimeUsecs = default(long?), string stubViewName = default(string), string stubViewRelativeDirName = default(string), string targetViewName = default(string), string userActionRequiredMsg = default(string))
         {
-            this.AvgLogicalTransferRateBps = avgLogicalTransferRateBps;
-            this.BytesTransferred = bytesTransferred;
-            this.EndTimeUsecs = endTimeUsecs;
-            this.LogicalBytesTransferred = logicalBytesTransferred;
-            this.LogicalSizeBytes = logicalSizeBytes;
-            this.ProgressMonitorTaskPath = progressMonitorTaskPath;
-            this.RetrievedEntityVec = retrievedEntityVec;
-            this.StartTimeUsecs = startTimeUsecs;
-            this.StubViewName = stubViewName;
-            this.StubViewRelativeDirName = stubViewRelativeDirName;
-            this.TargetViewName = targetViewName;
-            this.UserActionRequiredMsg = userActionRequiredMsg;
             this.AvgLogicalTransferRateBps = avgLogicalTransferRateBps;
             this.BytesTransferred = bytesTransferred;
             this.EndTimeUsecs = endTimeUsecs;
@@ -58,6 +50,7 @@ namespace Cohesity.Model
             this.LogicalSizeBytes = logicalSizeBytes;
             this.ProgressMonitorTaskPath = progressMonitorTaskPath;
             this.RetrievedEntityVec = retrievedEntityVec;
+            this.SkipCloningView = skipCloningView;
             this.StartTimeUsecs = startTimeUsecs;
             this.StubViewName = stubViewName;
             this.StubViewRelativeDirName = stubViewRelativeDirName;
@@ -69,21 +62,21 @@ namespace Cohesity.Model
         /// Average logical bytes transfer rate in bytes per second as seen by Icebox.
         /// </summary>
         /// <value>Average logical bytes transfer rate in bytes per second as seen by Icebox.</value>
-        [DataMember(Name="avgLogicalTransferRateBps", EmitDefaultValue=true)]
+        [DataMember(Name="avgLogicalTransferRateBps", EmitDefaultValue=false)]
         public long? AvgLogicalTransferRateBps { get; set; }
 
         /// <summary>
         /// Number of physical bytes transferred for this retrieval task so far.
         /// </summary>
         /// <value>Number of physical bytes transferred for this retrieval task so far.</value>
-        [DataMember(Name="bytesTransferred", EmitDefaultValue=true)]
+        [DataMember(Name="bytesTransferred", EmitDefaultValue=false)]
         public long? BytesTransferred { get; set; }
 
         /// <summary>
         /// Time when this retrieval task ended at Icebox side. If not set, then the retrieval has not ended yet.
         /// </summary>
         /// <value>Time when this retrieval task ended at Icebox side. If not set, then the retrieval has not ended yet.</value>
-        [DataMember(Name="endTimeUsecs", EmitDefaultValue=true)]
+        [DataMember(Name="endTimeUsecs", EmitDefaultValue=false)]
         public long? EndTimeUsecs { get; set; }
 
         /// <summary>
@@ -96,63 +89,70 @@ namespace Cohesity.Model
         /// Number of logical bytes transferred so far.
         /// </summary>
         /// <value>Number of logical bytes transferred so far.</value>
-        [DataMember(Name="logicalBytesTransferred", EmitDefaultValue=true)]
+        [DataMember(Name="logicalBytesTransferred", EmitDefaultValue=false)]
         public long? LogicalBytesTransferred { get; set; }
 
         /// <summary>
         /// Total logical size of the retrieval task.
         /// </summary>
         /// <value>Total logical size of the retrieval task.</value>
-        [DataMember(Name="logicalSizeBytes", EmitDefaultValue=true)]
+        [DataMember(Name="logicalSizeBytes", EmitDefaultValue=false)]
         public long? LogicalSizeBytes { get; set; }
 
         /// <summary>
         /// The root path of the progress monitor for this task.
         /// </summary>
         /// <value>The root path of the progress monitor for this task.</value>
-        [DataMember(Name="progressMonitorTaskPath", EmitDefaultValue=true)]
+        [DataMember(Name="progressMonitorTaskPath", EmitDefaultValue=false)]
         public string ProgressMonitorTaskPath { get; set; }
 
         /// <summary>
         /// Contains info about all retrieved entities.
         /// </summary>
         /// <value>Contains info about all retrieved entities.</value>
-        [DataMember(Name="retrievedEntityVec", EmitDefaultValue=true)]
+        [DataMember(Name="retrievedEntityVec", EmitDefaultValue=false)]
         public List<RetrieveArchiveInfoRetrievedEntity> RetrievedEntityVec { get; set; }
+
+        /// <summary>
+        /// If true, we will use the view directly without cloning it and delete it when the restore is complete.
+        /// </summary>
+        /// <value>If true, we will use the view directly without cloning it and delete it when the restore is complete.</value>
+        [DataMember(Name="skipCloningView", EmitDefaultValue=false)]
+        public bool? SkipCloningView { get; set; }
 
         /// <summary>
         /// Time when this retrieval task was started by Icebox. If not set, then retrieval has not been started yet.
         /// </summary>
         /// <value>Time when this retrieval task was started by Icebox. If not set, then retrieval has not been started yet.</value>
-        [DataMember(Name="startTimeUsecs", EmitDefaultValue=true)]
+        [DataMember(Name="startTimeUsecs", EmitDefaultValue=false)]
         public long? StartTimeUsecs { get; set; }
 
         /// <summary>
         /// The stub view that Icebox created. Stub view can be used for selectively restoring or accessing files from an archive location.
         /// </summary>
         /// <value>The stub view that Icebox created. Stub view can be used for selectively restoring or accessing files from an archive location.</value>
-        [DataMember(Name="stubViewName", EmitDefaultValue=true)]
+        [DataMember(Name="stubViewName", EmitDefaultValue=false)]
         public string StubViewName { get; set; }
 
         /// <summary>
         /// Relative directory inside the stub view that corresponds with the archive.
         /// </summary>
         /// <value>Relative directory inside the stub view that corresponds with the archive.</value>
-        [DataMember(Name="stubViewRelativeDirName", EmitDefaultValue=true)]
+        [DataMember(Name="stubViewRelativeDirName", EmitDefaultValue=false)]
         public string StubViewRelativeDirName { get; set; }
 
         /// <summary>
         /// The name of the target view where Icebox has retrieved and staged the requested entities.
         /// </summary>
         /// <value>The name of the target view where Icebox has retrieved and staged the requested entities.</value>
-        [DataMember(Name="targetViewName", EmitDefaultValue=true)]
+        [DataMember(Name="targetViewName", EmitDefaultValue=false)]
         public string TargetViewName { get; set; }
 
         /// <summary>
         /// Message to display in the UI if any manual intervention is needed to make forward progress for the retrieve from archive task. This message is mainly relevant for tape based retrieve from archive tasks where a backup admin might be asked to load new media when the tape library does not have the relevant media to retrieve the archive from.
         /// </summary>
         /// <value>Message to display in the UI if any manual intervention is needed to make forward progress for the retrieve from archive task. This message is mainly relevant for tape based retrieve from archive tasks where a backup admin might be asked to load new media when the tape library does not have the relevant media to retrieve the archive from.</value>
-        [DataMember(Name="userActionRequiredMsg", EmitDefaultValue=true)]
+        [DataMember(Name="userActionRequiredMsg", EmitDefaultValue=false)]
         public string UserActionRequiredMsg { get; set; }
 
         /// <summary>
@@ -229,8 +229,12 @@ namespace Cohesity.Model
                 (
                     this.RetrievedEntityVec == input.RetrievedEntityVec ||
                     this.RetrievedEntityVec != null &&
-                    input.RetrievedEntityVec != null &&
-                    this.RetrievedEntityVec.SequenceEqual(input.RetrievedEntityVec)
+                    this.RetrievedEntityVec.Equals(input.RetrievedEntityVec)
+                ) && 
+                (
+                    this.SkipCloningView == input.SkipCloningView ||
+                    (this.SkipCloningView != null &&
+                    this.SkipCloningView.Equals(input.SkipCloningView))
                 ) && 
                 (
                     this.StartTimeUsecs == input.StartTimeUsecs ||
@@ -284,6 +288,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ProgressMonitorTaskPath.GetHashCode();
                 if (this.RetrievedEntityVec != null)
                     hashCode = hashCode * 59 + this.RetrievedEntityVec.GetHashCode();
+                if (this.SkipCloningView != null)
+                    hashCode = hashCode * 59 + this.SkipCloningView.GetHashCode();
                 if (this.StartTimeUsecs != null)
                     hashCode = hashCode * 59 + this.StartTimeUsecs.GetHashCode();
                 if (this.StubViewName != null)

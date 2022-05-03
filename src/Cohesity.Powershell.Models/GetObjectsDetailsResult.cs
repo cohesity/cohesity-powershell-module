@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -43,78 +46,69 @@ namespace Cohesity.Model
             this.JobType = jobType;
             this.StartTimeMsecs = startTimeMsecs;
             this.Status = status;
-            this.EndTimeMsecs = endTimeMsecs;
-            this.EntityEnv = entityEnv;
-            this.EntityId = entityId;
-            this.EntityName = entityName;
-            this.JobId = jobId;
-            this.JobRunId = jobRunId;
-            this.JobType = jobType;
-            this.StartTimeMsecs = startTimeMsecs;
-            this.Status = status;
         }
         
         /// <summary>
         /// Specifies the end time of the run.
         /// </summary>
         /// <value>Specifies the end time of the run.</value>
-        [DataMember(Name="endTimeMsecs", EmitDefaultValue=true)]
+        [DataMember(Name="endTimeMsecs", EmitDefaultValue=false)]
         public long? EndTimeMsecs { get; set; }
 
         /// <summary>
         /// Specifies the entity environment of the object.
         /// </summary>
         /// <value>Specifies the entity environment of the object.</value>
-        [DataMember(Name="entityEnv", EmitDefaultValue=true)]
+        [DataMember(Name="entityEnv", EmitDefaultValue=false)]
         public long? EntityEnv { get; set; }
 
         /// <summary>
         /// Specifies the entity id of the object.
         /// </summary>
         /// <value>Specifies the entity id of the object.</value>
-        [DataMember(Name="entityId", EmitDefaultValue=true)]
+        [DataMember(Name="entityId", EmitDefaultValue=false)]
         public long? EntityId { get; set; }
 
         /// <summary>
         /// Specifies the name of the entity.
         /// </summary>
         /// <value>Specifies the name of the entity.</value>
-        [DataMember(Name="entityName", EmitDefaultValue=true)]
+        [DataMember(Name="entityName", EmitDefaultValue=false)]
         public string EntityName { get; set; }
 
         /// <summary>
         /// Specifies the job id.
         /// </summary>
         /// <value>Specifies the job id.</value>
-        [DataMember(Name="jobId", EmitDefaultValue=true)]
+        [DataMember(Name="jobId", EmitDefaultValue=false)]
         public string JobId { get; set; }
 
         /// <summary>
         /// Specifies the job run id.
         /// </summary>
         /// <value>Specifies the job run id.</value>
-        [DataMember(Name="jobRunId", EmitDefaultValue=true)]
+        [DataMember(Name="jobRunId", EmitDefaultValue=false)]
         public string JobRunId { get; set; }
 
         /// <summary>
         /// Specifies the job type, protection, replication, archival, apollo, indexing etc.
         /// </summary>
         /// <value>Specifies the job type, protection, replication, archival, apollo, indexing etc.</value>
-        [DataMember(Name="jobType", EmitDefaultValue=true)]
+        [DataMember(Name="jobType", EmitDefaultValue=false)]
         public string JobType { get; set; }
 
         /// <summary>
         /// Specifies the start time of the run.
         /// </summary>
         /// <value>Specifies the start time of the run.</value>
-        [DataMember(Name="startTimeMsecs", EmitDefaultValue=true)]
+        [DataMember(Name="startTimeMsecs", EmitDefaultValue=false)]
         public long? StartTimeMsecs { get; set; }
 
         /// <summary>
         /// Specifies status of the object run.
         /// </summary>
         /// <value>Specifies status of the object run.</value>
-        [DataMember(Name="status", EmitDefaultValue=true)]
+        [DataMember(Name="status", EmitDefaultValue=false)]
         public long? Status { get; set; }
 
         /// <summary>

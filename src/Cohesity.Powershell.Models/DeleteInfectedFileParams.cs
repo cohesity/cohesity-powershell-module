@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,14 +30,13 @@ namespace Cohesity.Model
         public DeleteInfectedFileParams(List<InfectedFileParam> infectedFileIds = default(List<InfectedFileParam>))
         {
             this.InfectedFileIds = infectedFileIds;
-            this.InfectedFileIds = infectedFileIds;
         }
         
         /// <summary>
         /// Specifies the list of infected file path.
         /// </summary>
         /// <value>Specifies the list of infected file path.</value>
-        [DataMember(Name="infectedFileIds", EmitDefaultValue=true)]
+        [DataMember(Name="infectedFileIds", EmitDefaultValue=false)]
         public List<InfectedFileParam> InfectedFileIds { get; set; }
 
         /// <summary>
@@ -76,8 +78,7 @@ namespace Cohesity.Model
                 (
                     this.InfectedFileIds == input.InfectedFileIds ||
                     this.InfectedFileIds != null &&
-                    input.InfectedFileIds != null &&
-                    this.InfectedFileIds.SequenceEqual(input.InfectedFileIds)
+                    this.InfectedFileIds.Equals(input.InfectedFileIds)
                 );
         }
 

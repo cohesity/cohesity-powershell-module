@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,14 +30,13 @@ namespace Cohesity.Model
         public SanEnvJobParameters(long? maxSnapshotsOnPrimary = default(long?))
         {
             this.MaxSnapshotsOnPrimary = maxSnapshotsOnPrimary;
-            this.MaxSnapshotsOnPrimary = maxSnapshotsOnPrimary;
         }
         
         /// <summary>
         /// Specifies how many recent snapshots of each backed up entity to retain on the primary environment. If not specified, then snapshots will not be be deleted from the primary environment.
         /// </summary>
         /// <value>Specifies how many recent snapshots of each backed up entity to retain on the primary environment. If not specified, then snapshots will not be be deleted from the primary environment.</value>
-        [DataMember(Name="maxSnapshotsOnPrimary", EmitDefaultValue=true)]
+        [DataMember(Name="maxSnapshotsOnPrimary", EmitDefaultValue=false)]
         public long? MaxSnapshotsOnPrimary { get; set; }
 
         /// <summary>

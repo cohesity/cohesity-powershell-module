@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -33,8 +36,9 @@ namespace Cohesity.Model
         /// <param name="nfsAccess">Whether clients from this subnet can mount using NFS protocol..</param>
         /// <param name="nfsAllSquash">Whether all clients from this subnet can map view with view_all_squash_uid/view_all_squash_gid configured in the view..</param>
         /// <param name="nfsRootSquash">Whether clients from this subnet can mount as root on NFS..</param>
+        /// <param name="s3Access">Whether clients from this subnet can accept requests using S3 protocol..</param>
         /// <param name="smbAccess">Whether clients from this subnet can mount using SMB protocol..</param>
-        public ClusterConfigProtoSubnet(int? component = default(int?), string description = default(string), string gateway = default(string), int? id = default(int?), string ip = default(string), int? netmaskBits = default(int?), string netmaskIp4 = default(string), int? nfsAccess = default(int?), bool? nfsAllSquash = default(bool?), bool? nfsRootSquash = default(bool?), int? smbAccess = default(int?))
+        public ClusterConfigProtoSubnet(int? component = default(int?), string description = default(string), string gateway = default(string), int? id = default(int?), string ip = default(string), int? netmaskBits = default(int?), string netmaskIp4 = default(string), int? nfsAccess = default(int?), bool? nfsAllSquash = default(bool?), bool? nfsRootSquash = default(bool?), int? s3Access = default(int?), int? smbAccess = default(int?))
         {
             this.Component = component;
             this.Description = description;
@@ -46,17 +50,7 @@ namespace Cohesity.Model
             this.NfsAccess = nfsAccess;
             this.NfsAllSquash = nfsAllSquash;
             this.NfsRootSquash = nfsRootSquash;
-            this.SmbAccess = smbAccess;
-            this.Component = component;
-            this.Description = description;
-            this.Gateway = gateway;
-            this.Id = id;
-            this.Ip = ip;
-            this.NetmaskBits = netmaskBits;
-            this.NetmaskIp4 = netmaskIp4;
-            this.NfsAccess = nfsAccess;
-            this.NfsAllSquash = nfsAllSquash;
-            this.NfsRootSquash = nfsRootSquash;
+            this.S3Access = s3Access;
             this.SmbAccess = smbAccess;
         }
         
@@ -64,75 +58,82 @@ namespace Cohesity.Model
         /// The component that has claimed this subnet.
         /// </summary>
         /// <value>The component that has claimed this subnet.</value>
-        [DataMember(Name="component", EmitDefaultValue=true)]
+        [DataMember(Name="component", EmitDefaultValue=false)]
         public int? Component { get; set; }
 
         /// <summary>
         /// Description of the subnet.
         /// </summary>
         /// <value>Description of the subnet.</value>
-        [DataMember(Name="description", EmitDefaultValue=true)]
+        [DataMember(Name="description", EmitDefaultValue=false)]
         public string Description { get; set; }
 
         /// <summary>
         /// Gateway for the subnet.
         /// </summary>
         /// <value>Gateway for the subnet.</value>
-        [DataMember(Name="gateway", EmitDefaultValue=true)]
+        [DataMember(Name="gateway", EmitDefaultValue=false)]
         public string Gateway { get; set; }
 
         /// <summary>
         /// ID for this subnet.
         /// </summary>
         /// <value>ID for this subnet.</value>
-        [DataMember(Name="id", EmitDefaultValue=true)]
+        [DataMember(Name="id", EmitDefaultValue=false)]
         public int? Id { get; set; }
 
         /// <summary>
         /// ip is subnet IP address given either in v4 or v6. Netmask is specified by giving CIDR length in netmask_bits for ipv6. For IPv4 addresses, netmask_ip4 field is set in dotted decimal.
         /// </summary>
         /// <value>ip is subnet IP address given either in v4 or v6. Netmask is specified by giving CIDR length in netmask_bits for ipv6. For IPv4 addresses, netmask_ip4 field is set in dotted decimal.</value>
-        [DataMember(Name="ip", EmitDefaultValue=true)]
+        [DataMember(Name="ip", EmitDefaultValue=false)]
         public string Ip { get; set; }
 
         /// <summary>
         /// Gets or Sets NetmaskBits
         /// </summary>
-        [DataMember(Name="netmaskBits", EmitDefaultValue=true)]
+        [DataMember(Name="netmaskBits", EmitDefaultValue=false)]
         public int? NetmaskBits { get; set; }
 
         /// <summary>
         /// Gets or Sets NetmaskIp4
         /// </summary>
-        [DataMember(Name="netmaskIp4", EmitDefaultValue=true)]
+        [DataMember(Name="netmaskIp4", EmitDefaultValue=false)]
         public string NetmaskIp4 { get; set; }
 
         /// <summary>
         /// Whether clients from this subnet can mount using NFS protocol.
         /// </summary>
         /// <value>Whether clients from this subnet can mount using NFS protocol.</value>
-        [DataMember(Name="nfsAccess", EmitDefaultValue=true)]
+        [DataMember(Name="nfsAccess", EmitDefaultValue=false)]
         public int? NfsAccess { get; set; }
 
         /// <summary>
         /// Whether all clients from this subnet can map view with view_all_squash_uid/view_all_squash_gid configured in the view.
         /// </summary>
         /// <value>Whether all clients from this subnet can map view with view_all_squash_uid/view_all_squash_gid configured in the view.</value>
-        [DataMember(Name="nfsAllSquash", EmitDefaultValue=true)]
+        [DataMember(Name="nfsAllSquash", EmitDefaultValue=false)]
         public bool? NfsAllSquash { get; set; }
 
         /// <summary>
         /// Whether clients from this subnet can mount as root on NFS.
         /// </summary>
         /// <value>Whether clients from this subnet can mount as root on NFS.</value>
-        [DataMember(Name="nfsRootSquash", EmitDefaultValue=true)]
+        [DataMember(Name="nfsRootSquash", EmitDefaultValue=false)]
         public bool? NfsRootSquash { get; set; }
+
+        /// <summary>
+        /// Whether clients from this subnet can accept requests using S3 protocol.
+        /// </summary>
+        /// <value>Whether clients from this subnet can accept requests using S3 protocol.</value>
+        [DataMember(Name="s3Access", EmitDefaultValue=false)]
+        public int? S3Access { get; set; }
 
         /// <summary>
         /// Whether clients from this subnet can mount using SMB protocol.
         /// </summary>
         /// <value>Whether clients from this subnet can mount using SMB protocol.</value>
-        [DataMember(Name="smbAccess", EmitDefaultValue=true)]
+        [DataMember(Name="smbAccess", EmitDefaultValue=false)]
         public int? SmbAccess { get; set; }
 
         /// <summary>
@@ -222,6 +223,11 @@ namespace Cohesity.Model
                     this.NfsRootSquash.Equals(input.NfsRootSquash))
                 ) && 
                 (
+                    this.S3Access == input.S3Access ||
+                    (this.S3Access != null &&
+                    this.S3Access.Equals(input.S3Access))
+                ) && 
+                (
                     this.SmbAccess == input.SmbAccess ||
                     (this.SmbAccess != null &&
                     this.SmbAccess.Equals(input.SmbAccess))
@@ -257,6 +263,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.NfsAllSquash.GetHashCode();
                 if (this.NfsRootSquash != null)
                     hashCode = hashCode * 59 + this.NfsRootSquash.GetHashCode();
+                if (this.S3Access != null)
+                    hashCode = hashCode * 59 + this.S3Access.GetHashCode();
                 if (this.SmbAccess != null)
                     hashCode = hashCode * 59 + this.SmbAccess.GetHashCode();
                 return hashCode;

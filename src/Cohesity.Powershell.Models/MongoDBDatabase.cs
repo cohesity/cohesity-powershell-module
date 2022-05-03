@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,14 +30,13 @@ namespace Cohesity.Model
         public MongoDBDatabase(long? sizeBytes = default(long?))
         {
             this.SizeBytes = sizeBytes;
-            this.SizeBytes = sizeBytes;
         }
         
         /// <summary>
         /// Size of this Database.
         /// </summary>
         /// <value>Size of this Database.</value>
-        [DataMember(Name="sizeBytes", EmitDefaultValue=true)]
+        [DataMember(Name="sizeBytes", EmitDefaultValue=false)]
         public long? SizeBytes { get; set; }
 
         /// <summary>

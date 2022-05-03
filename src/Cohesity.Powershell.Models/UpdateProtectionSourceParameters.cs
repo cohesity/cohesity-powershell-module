@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -69,61 +72,68 @@ namespace Cohesity.Model
         /// Specifies the optional OS type of the Protection Source (such as kWindows or kLinux). overrideDescription: true &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kOther&#39; indicates the other types of operating system.
         /// </summary>
         /// <value>Specifies the optional OS type of the Protection Source (such as kWindows or kLinux). overrideDescription: true &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kOther&#39; indicates the other types of operating system.</value>
-        [DataMember(Name="hostType", EmitDefaultValue=true)]
+        [DataMember(Name="hostType", EmitDefaultValue=false)]
         public HostTypeEnum? HostType { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="UpdateProtectionSourceParameters" /> class.
         /// </summary>
         /// <param name="agentEndpoint">Specifies the agent endpoint if it is different from the source endpoint..</param>
+        /// <param name="allowedIpAddresses">Specifies the list of IP Addresses on the registered source to be exclusively allowed for doing any type of IO operations..</param>
         /// <param name="awsCredentials">awsCredentials.</param>
+        /// <param name="awsFleetParams">awsFleetParams.</param>
         /// <param name="azureCredentials">azureCredentials.</param>
+        /// <param name="blacklistedIpAddresses">This field is deprecated. Use DeniedIpAddresses instead. deprecated: true.</param>
+        /// <param name="clusterNetworkInfo">clusterNetworkInfo.</param>
+        /// <param name="deniedIpAddresses">Specifies the list of IP Addresses on the registered source to be denied for doing any type of IO operations..</param>
         /// <param name="endpoint">Specifies the network endpoint of the Protection Source where it is reachable. It could be an URL or hostname or an IP address of the Protection Source..</param>
         /// <param name="exchangeDagProtectionPreference">exchangeDagProtectionPreference.</param>
         /// <param name="forceRegister">ForceRegister is applicable to Physical Environment. By default, the agent running on a physical host will fail the registration, if it is already registered as part of another cluster. By setting this option to true, agent can be forced to register with the current cluster. This is a hidden parameter and should not be documented externally..</param>
         /// <param name="gcpCredentials">gcpCredentials.</param>
         /// <param name="hostType">Specifies the optional OS type of the Protection Source (such as kWindows or kLinux). overrideDescription: true &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kOther&#39; indicates the other types of operating system..</param>
+        /// <param name="isProxyHost">Specifies if the physical host has to be registered as a proxy host..</param>
+        /// <param name="isilonParams">isilonParams.</param>
         /// <param name="kubernetesCredentials">kubernetesCredentials.</param>
         /// <param name="minimumFreeSpaceGB">Specifies the minimum space in GB after which backup jobs will be canceled due to low space..</param>
         /// <param name="nasMountCredentials">Specifies the server credentials to connect to a NetApp server. This field is required for mounting SMB volumes on NetApp servers..</param>
         /// <param name="office365CredentialsList">Office365 Source Credentials.  Specifies credentials needed to authenticate &amp; authorize user for Office365 using MS Graph APIs..</param>
+        /// <param name="office365Region">Specifies the region for Office365..</param>
         /// <param name="password">Specifies password of the username to access the target source..</param>
+        /// <param name="proxyHostSourceIdList">Specifies the list of the protection source id of the windows physical host which will be used during the protection and recovery of the sites that belong to a office365 domain..</param>
         /// <param name="sourceSideDedupEnabled">This controls whether to use source side dedup on the source or not. This is only applicable to sources which support source side dedup (e.g., Linux physical servers)..</param>
         /// <param name="sslVerification">sslVerification.</param>
+        /// <param name="subnets">Specifies the list of subnet IP addresses and CIDR prefix for enabeling network data transfer. Currently, only Subnet IP and NetbaskBits are valid input fields. All other fields provided as input will be ignored..</param>
         /// <param name="throttlingPolicy">Specifies the throttling policy that should be applied to this Source..</param>
         /// <param name="throttlingPolicyOverrides">Array of Throttling Policy Overrides for Datastores.  Specifies a list of Throttling Policy for datastores that override the common throttling policy specified for the registered Protection Source. For datastores not in this list, common policy will still apply..</param>
         /// <param name="useOAuthForExchangeOnline">Specifies whether OAuth should be used for authentication in case of Exchange Online..</param>
         /// <param name="username">Specifies username to access the target source..</param>
         /// <param name="vlanParams">vlanParams.</param>
-        public UpdateProtectionSourceParameters(string agentEndpoint = default(string), AwsCredentials awsCredentials = default(AwsCredentials), AzureCredentials azureCredentials = default(AzureCredentials), string endpoint = default(string), ExchangeDAGProtectionPreference exchangeDagProtectionPreference = default(ExchangeDAGProtectionPreference), bool? forceRegister = default(bool?), GcpCredentials gcpCredentials = default(GcpCredentials), HostTypeEnum? hostType = default(HostTypeEnum?), KubernetesCredentials kubernetesCredentials = default(KubernetesCredentials), long? minimumFreeSpaceGB = default(long?), NasMountCredentialParams nasMountCredentials = default(NasMountCredentialParams), List<Office365Credentials> office365CredentialsList = default(List<Office365Credentials>), string password = default(string), bool? sourceSideDedupEnabled = default(bool?), SslVerification sslVerification = default(SslVerification), ThrottlingPolicyParameters throttlingPolicy = default(ThrottlingPolicyParameters), List<ThrottlingPolicyOverride> throttlingPolicyOverrides = default(List<ThrottlingPolicyOverride>), bool? useOAuthForExchangeOnline = default(bool?), string username = default(string), VlanParameters vlanParams = default(VlanParameters))
+        public UpdateProtectionSourceParameters(string agentEndpoint = default(string), List<string> allowedIpAddresses = default(List<string>), AwsCredentials awsCredentials = default(AwsCredentials), AWSFleetParams awsFleetParams = default(AWSFleetParams), AzureCredentials azureCredentials = default(AzureCredentials), List<string> blacklistedIpAddresses = default(List<string>), FleetNetworkParams clusterNetworkInfo = default(FleetNetworkParams), List<string> deniedIpAddresses = default(List<string>), string endpoint = default(string), ExchangeDAGProtectionPreference exchangeDagProtectionPreference = default(ExchangeDAGProtectionPreference), bool? forceRegister = default(bool?), GcpCredentials gcpCredentials = default(GcpCredentials), HostTypeEnum? hostType = default(HostTypeEnum?), bool? isProxyHost = default(bool?), RegisteredProtectionSourceIsilonParams isilonParams = default(RegisteredProtectionSourceIsilonParams), KubernetesCredentials kubernetesCredentials = default(KubernetesCredentials), long? minimumFreeSpaceGB = default(long?), NasMountCredentialParams nasMountCredentials = default(NasMountCredentialParams), List<Office365Credentials> office365CredentialsList = default(List<Office365Credentials>), string office365Region = default(string), string password = default(string), List<long?> proxyHostSourceIdList = default(List<long?>), bool? sourceSideDedupEnabled = default(bool?), SslVerification sslVerification = default(SslVerification), List<Subnet> subnets = default(List<Subnet>), ThrottlingPolicyParameters throttlingPolicy = default(ThrottlingPolicyParameters), List<ThrottlingPolicyOverride> throttlingPolicyOverrides = default(List<ThrottlingPolicyOverride>), bool? useOAuthForExchangeOnline = default(bool?), string username = default(string), VlanParameters vlanParams = default(VlanParameters))
         {
             this.AgentEndpoint = agentEndpoint;
-            this.Endpoint = endpoint;
-            this.ForceRegister = forceRegister;
-            this.HostType = hostType;
-            this.MinimumFreeSpaceGB = minimumFreeSpaceGB;
-            this.NasMountCredentials = nasMountCredentials;
-            this.Office365CredentialsList = office365CredentialsList;
-            this.Password = password;
-            this.SourceSideDedupEnabled = sourceSideDedupEnabled;
-            this.ThrottlingPolicy = throttlingPolicy;
-            this.ThrottlingPolicyOverrides = throttlingPolicyOverrides;
-            this.UseOAuthForExchangeOnline = useOAuthForExchangeOnline;
-            this.Username = username;
-            this.AgentEndpoint = agentEndpoint;
+            this.AllowedIpAddresses = allowedIpAddresses;
             this.AwsCredentials = awsCredentials;
+            this.AwsFleetParams = awsFleetParams;
             this.AzureCredentials = azureCredentials;
+            this.BlacklistedIpAddresses = blacklistedIpAddresses;
+            this.ClusterNetworkInfo = clusterNetworkInfo;
+            this.DeniedIpAddresses = deniedIpAddresses;
             this.Endpoint = endpoint;
             this.ExchangeDagProtectionPreference = exchangeDagProtectionPreference;
             this.ForceRegister = forceRegister;
             this.GcpCredentials = gcpCredentials;
             this.HostType = hostType;
+            this.IsProxyHost = isProxyHost;
+            this.IsilonParams = isilonParams;
             this.KubernetesCredentials = kubernetesCredentials;
             this.MinimumFreeSpaceGB = minimumFreeSpaceGB;
             this.NasMountCredentials = nasMountCredentials;
             this.Office365CredentialsList = office365CredentialsList;
+            this.Office365Region = office365Region;
             this.Password = password;
+            this.ProxyHostSourceIdList = proxyHostSourceIdList;
             this.SourceSideDedupEnabled = sourceSideDedupEnabled;
             this.SslVerification = sslVerification;
+            this.Subnets = subnets;
             this.ThrottlingPolicy = throttlingPolicy;
             this.ThrottlingPolicyOverrides = throttlingPolicyOverrides;
             this.UseOAuthForExchangeOnline = useOAuthForExchangeOnline;
@@ -135,8 +145,15 @@ namespace Cohesity.Model
         /// Specifies the agent endpoint if it is different from the source endpoint.
         /// </summary>
         /// <value>Specifies the agent endpoint if it is different from the source endpoint.</value>
-        [DataMember(Name="agentEndpoint", EmitDefaultValue=true)]
+        [DataMember(Name="agentEndpoint", EmitDefaultValue=false)]
         public string AgentEndpoint { get; set; }
+
+        /// <summary>
+        /// Specifies the list of IP Addresses on the registered source to be exclusively allowed for doing any type of IO operations.
+        /// </summary>
+        /// <value>Specifies the list of IP Addresses on the registered source to be exclusively allowed for doing any type of IO operations.</value>
+        [DataMember(Name="allowedIpAddresses", EmitDefaultValue=false)]
+        public List<string> AllowedIpAddresses { get; set; }
 
         /// <summary>
         /// Gets or Sets AwsCredentials
@@ -145,16 +162,42 @@ namespace Cohesity.Model
         public AwsCredentials AwsCredentials { get; set; }
 
         /// <summary>
+        /// Gets or Sets AwsFleetParams
+        /// </summary>
+        [DataMember(Name="awsFleetParams", EmitDefaultValue=false)]
+        public AWSFleetParams AwsFleetParams { get; set; }
+
+        /// <summary>
         /// Gets or Sets AzureCredentials
         /// </summary>
         [DataMember(Name="azureCredentials", EmitDefaultValue=false)]
         public AzureCredentials AzureCredentials { get; set; }
 
         /// <summary>
+        /// This field is deprecated. Use DeniedIpAddresses instead. deprecated: true
+        /// </summary>
+        /// <value>This field is deprecated. Use DeniedIpAddresses instead. deprecated: true</value>
+        [DataMember(Name="blacklistedIpAddresses", EmitDefaultValue=false)]
+        public List<string> BlacklistedIpAddresses { get; set; }
+
+        /// <summary>
+        /// Gets or Sets ClusterNetworkInfo
+        /// </summary>
+        [DataMember(Name="clusterNetworkInfo", EmitDefaultValue=false)]
+        public FleetNetworkParams ClusterNetworkInfo { get; set; }
+
+        /// <summary>
+        /// Specifies the list of IP Addresses on the registered source to be denied for doing any type of IO operations.
+        /// </summary>
+        /// <value>Specifies the list of IP Addresses on the registered source to be denied for doing any type of IO operations.</value>
+        [DataMember(Name="deniedIpAddresses", EmitDefaultValue=false)]
+        public List<string> DeniedIpAddresses { get; set; }
+
+        /// <summary>
         /// Specifies the network endpoint of the Protection Source where it is reachable. It could be an URL or hostname or an IP address of the Protection Source.
         /// </summary>
         /// <value>Specifies the network endpoint of the Protection Source where it is reachable. It could be an URL or hostname or an IP address of the Protection Source.</value>
-        [DataMember(Name="endpoint", EmitDefaultValue=true)]
+        [DataMember(Name="endpoint", EmitDefaultValue=false)]
         public string Endpoint { get; set; }
 
         /// <summary>
@@ -167,7 +210,7 @@ namespace Cohesity.Model
         /// ForceRegister is applicable to Physical Environment. By default, the agent running on a physical host will fail the registration, if it is already registered as part of another cluster. By setting this option to true, agent can be forced to register with the current cluster. This is a hidden parameter and should not be documented externally.
         /// </summary>
         /// <value>ForceRegister is applicable to Physical Environment. By default, the agent running on a physical host will fail the registration, if it is already registered as part of another cluster. By setting this option to true, agent can be forced to register with the current cluster. This is a hidden parameter and should not be documented externally.</value>
-        [DataMember(Name="forceRegister", EmitDefaultValue=true)]
+        [DataMember(Name="forceRegister", EmitDefaultValue=false)]
         public bool? ForceRegister { get; set; }
 
         /// <summary>
@@ -175,6 +218,20 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="gcpCredentials", EmitDefaultValue=false)]
         public GcpCredentials GcpCredentials { get; set; }
+
+
+        /// <summary>
+        /// Specifies if the physical host has to be registered as a proxy host.
+        /// </summary>
+        /// <value>Specifies if the physical host has to be registered as a proxy host.</value>
+        [DataMember(Name="isProxyHost", EmitDefaultValue=false)]
+        public bool? IsProxyHost { get; set; }
+
+        /// <summary>
+        /// Gets or Sets IsilonParams
+        /// </summary>
+        [DataMember(Name="isilonParams", EmitDefaultValue=false)]
+        public RegisteredProtectionSourceIsilonParams IsilonParams { get; set; }
 
         /// <summary>
         /// Gets or Sets KubernetesCredentials
@@ -186,35 +243,49 @@ namespace Cohesity.Model
         /// Specifies the minimum space in GB after which backup jobs will be canceled due to low space.
         /// </summary>
         /// <value>Specifies the minimum space in GB after which backup jobs will be canceled due to low space.</value>
-        [DataMember(Name="minimumFreeSpaceGB", EmitDefaultValue=true)]
+        [DataMember(Name="minimumFreeSpaceGB", EmitDefaultValue=false)]
         public long? MinimumFreeSpaceGB { get; set; }
 
         /// <summary>
         /// Specifies the server credentials to connect to a NetApp server. This field is required for mounting SMB volumes on NetApp servers.
         /// </summary>
         /// <value>Specifies the server credentials to connect to a NetApp server. This field is required for mounting SMB volumes on NetApp servers.</value>
-        [DataMember(Name="nasMountCredentials", EmitDefaultValue=true)]
+        [DataMember(Name="nasMountCredentials", EmitDefaultValue=false)]
         public NasMountCredentialParams NasMountCredentials { get; set; }
 
         /// <summary>
         /// Office365 Source Credentials.  Specifies credentials needed to authenticate &amp; authorize user for Office365 using MS Graph APIs.
         /// </summary>
         /// <value>Office365 Source Credentials.  Specifies credentials needed to authenticate &amp; authorize user for Office365 using MS Graph APIs.</value>
-        [DataMember(Name="office365CredentialsList", EmitDefaultValue=true)]
+        [DataMember(Name="office365CredentialsList", EmitDefaultValue=false)]
         public List<Office365Credentials> Office365CredentialsList { get; set; }
+
+        /// <summary>
+        /// Specifies the region for Office365.
+        /// </summary>
+        /// <value>Specifies the region for Office365.</value>
+        [DataMember(Name="office365Region", EmitDefaultValue=false)]
+        public string Office365Region { get; set; }
 
         /// <summary>
         /// Specifies password of the username to access the target source.
         /// </summary>
         /// <value>Specifies password of the username to access the target source.</value>
-        [DataMember(Name="password", EmitDefaultValue=true)]
+        [DataMember(Name="password", EmitDefaultValue=false)]
         public string Password { get; set; }
+
+        /// <summary>
+        /// Specifies the list of the protection source id of the windows physical host which will be used during the protection and recovery of the sites that belong to a office365 domain.
+        /// </summary>
+        /// <value>Specifies the list of the protection source id of the windows physical host which will be used during the protection and recovery of the sites that belong to a office365 domain.</value>
+        [DataMember(Name="proxyHostSourceIdList", EmitDefaultValue=false)]
+        public List<long?> ProxyHostSourceIdList { get; set; }
 
         /// <summary>
         /// This controls whether to use source side dedup on the source or not. This is only applicable to sources which support source side dedup (e.g., Linux physical servers).
         /// </summary>
         /// <value>This controls whether to use source side dedup on the source or not. This is only applicable to sources which support source side dedup (e.g., Linux physical servers).</value>
-        [DataMember(Name="sourceSideDedupEnabled", EmitDefaultValue=true)]
+        [DataMember(Name="sourceSideDedupEnabled", EmitDefaultValue=false)]
         public bool? SourceSideDedupEnabled { get; set; }
 
         /// <summary>
@@ -224,31 +295,38 @@ namespace Cohesity.Model
         public SslVerification SslVerification { get; set; }
 
         /// <summary>
+        /// Specifies the list of subnet IP addresses and CIDR prefix for enabeling network data transfer. Currently, only Subnet IP and NetbaskBits are valid input fields. All other fields provided as input will be ignored.
+        /// </summary>
+        /// <value>Specifies the list of subnet IP addresses and CIDR prefix for enabeling network data transfer. Currently, only Subnet IP and NetbaskBits are valid input fields. All other fields provided as input will be ignored.</value>
+        [DataMember(Name="subnets", EmitDefaultValue=false)]
+        public List<Subnet> Subnets { get; set; }
+
+        /// <summary>
         /// Specifies the throttling policy that should be applied to this Source.
         /// </summary>
         /// <value>Specifies the throttling policy that should be applied to this Source.</value>
-        [DataMember(Name="throttlingPolicy", EmitDefaultValue=true)]
+        [DataMember(Name="throttlingPolicy", EmitDefaultValue=false)]
         public ThrottlingPolicyParameters ThrottlingPolicy { get; set; }
 
         /// <summary>
         /// Array of Throttling Policy Overrides for Datastores.  Specifies a list of Throttling Policy for datastores that override the common throttling policy specified for the registered Protection Source. For datastores not in this list, common policy will still apply.
         /// </summary>
         /// <value>Array of Throttling Policy Overrides for Datastores.  Specifies a list of Throttling Policy for datastores that override the common throttling policy specified for the registered Protection Source. For datastores not in this list, common policy will still apply.</value>
-        [DataMember(Name="throttlingPolicyOverrides", EmitDefaultValue=true)]
+        [DataMember(Name="throttlingPolicyOverrides", EmitDefaultValue=false)]
         public List<ThrottlingPolicyOverride> ThrottlingPolicyOverrides { get; set; }
 
         /// <summary>
         /// Specifies whether OAuth should be used for authentication in case of Exchange Online.
         /// </summary>
         /// <value>Specifies whether OAuth should be used for authentication in case of Exchange Online.</value>
-        [DataMember(Name="useOAuthForExchangeOnline", EmitDefaultValue=true)]
+        [DataMember(Name="useOAuthForExchangeOnline", EmitDefaultValue=false)]
         public bool? UseOAuthForExchangeOnline { get; set; }
 
         /// <summary>
         /// Specifies username to access the target source.
         /// </summary>
         /// <value>Specifies username to access the target source.</value>
-        [DataMember(Name="username", EmitDefaultValue=true)]
+        [DataMember(Name="username", EmitDefaultValue=false)]
         public string Username { get; set; }
 
         /// <summary>
@@ -299,14 +377,39 @@ namespace Cohesity.Model
                     this.AgentEndpoint.Equals(input.AgentEndpoint))
                 ) && 
                 (
+                    this.AllowedIpAddresses == input.AllowedIpAddresses ||
+                    this.AllowedIpAddresses != null &&
+                    this.AllowedIpAddresses.Equals(input.AllowedIpAddresses)
+                ) && 
+                (
                     this.AwsCredentials == input.AwsCredentials ||
                     (this.AwsCredentials != null &&
                     this.AwsCredentials.Equals(input.AwsCredentials))
                 ) && 
                 (
+                    this.AwsFleetParams == input.AwsFleetParams ||
+                    (this.AwsFleetParams != null &&
+                    this.AwsFleetParams.Equals(input.AwsFleetParams))
+                ) && 
+                (
                     this.AzureCredentials == input.AzureCredentials ||
                     (this.AzureCredentials != null &&
                     this.AzureCredentials.Equals(input.AzureCredentials))
+                ) && 
+                (
+                    this.BlacklistedIpAddresses == input.BlacklistedIpAddresses ||
+                    this.BlacklistedIpAddresses != null &&
+                    this.BlacklistedIpAddresses.Equals(input.BlacklistedIpAddresses)
+                ) && 
+                (
+                    this.ClusterNetworkInfo == input.ClusterNetworkInfo ||
+                    (this.ClusterNetworkInfo != null &&
+                    this.ClusterNetworkInfo.Equals(input.ClusterNetworkInfo))
+                ) && 
+                (
+                    this.DeniedIpAddresses == input.DeniedIpAddresses ||
+                    this.DeniedIpAddresses != null &&
+                    this.DeniedIpAddresses.Equals(input.DeniedIpAddresses)
                 ) && 
                 (
                     this.Endpoint == input.Endpoint ||
@@ -330,7 +433,18 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.HostType == input.HostType ||
-                    this.HostType.Equals(input.HostType)
+                    (this.HostType != null &&
+                    this.HostType.Equals(input.HostType))
+                ) && 
+                (
+                    this.IsProxyHost == input.IsProxyHost ||
+                    (this.IsProxyHost != null &&
+                    this.IsProxyHost.Equals(input.IsProxyHost))
+                ) && 
+                (
+                    this.IsilonParams == input.IsilonParams ||
+                    (this.IsilonParams != null &&
+                    this.IsilonParams.Equals(input.IsilonParams))
                 ) && 
                 (
                     this.KubernetesCredentials == input.KubernetesCredentials ||
@@ -344,19 +458,28 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.NasMountCredentials == input.NasMountCredentials ||
-                    (this.NasMountCredentials != null &&
-                    this.NasMountCredentials.Equals(input.NasMountCredentials))
+                    this.NasMountCredentials != null &&
+                    this.NasMountCredentials.Equals(input.NasMountCredentials)
                 ) && 
                 (
                     this.Office365CredentialsList == input.Office365CredentialsList ||
                     this.Office365CredentialsList != null &&
-                    input.Office365CredentialsList != null &&
-                    this.Office365CredentialsList.SequenceEqual(input.Office365CredentialsList)
+                    this.Office365CredentialsList.Equals(input.Office365CredentialsList)
+                ) && 
+                (
+                    this.Office365Region == input.Office365Region ||
+                    (this.Office365Region != null &&
+                    this.Office365Region.Equals(input.Office365Region))
                 ) && 
                 (
                     this.Password == input.Password ||
                     (this.Password != null &&
                     this.Password.Equals(input.Password))
+                ) && 
+                (
+                    this.ProxyHostSourceIdList == input.ProxyHostSourceIdList ||
+                    this.ProxyHostSourceIdList != null &&
+                    this.ProxyHostSourceIdList.Equals(input.ProxyHostSourceIdList)
                 ) && 
                 (
                     this.SourceSideDedupEnabled == input.SourceSideDedupEnabled ||
@@ -369,15 +492,19 @@ namespace Cohesity.Model
                     this.SslVerification.Equals(input.SslVerification))
                 ) && 
                 (
+                    this.Subnets == input.Subnets ||
+                    this.Subnets != null &&
+                    this.Subnets.Equals(input.Subnets)
+                ) && 
+                (
                     this.ThrottlingPolicy == input.ThrottlingPolicy ||
-                    (this.ThrottlingPolicy != null &&
-                    this.ThrottlingPolicy.Equals(input.ThrottlingPolicy))
+                    this.ThrottlingPolicy != null &&
+                    this.ThrottlingPolicy.Equals(input.ThrottlingPolicy)
                 ) && 
                 (
                     this.ThrottlingPolicyOverrides == input.ThrottlingPolicyOverrides ||
                     this.ThrottlingPolicyOverrides != null &&
-                    input.ThrottlingPolicyOverrides != null &&
-                    this.ThrottlingPolicyOverrides.SequenceEqual(input.ThrottlingPolicyOverrides)
+                    this.ThrottlingPolicyOverrides.Equals(input.ThrottlingPolicyOverrides)
                 ) && 
                 (
                     this.UseOAuthForExchangeOnline == input.UseOAuthForExchangeOnline ||
@@ -407,10 +534,20 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.AgentEndpoint != null)
                     hashCode = hashCode * 59 + this.AgentEndpoint.GetHashCode();
+                if (this.AllowedIpAddresses != null)
+                    hashCode = hashCode * 59 + this.AllowedIpAddresses.GetHashCode();
                 if (this.AwsCredentials != null)
                     hashCode = hashCode * 59 + this.AwsCredentials.GetHashCode();
+                if (this.AwsFleetParams != null)
+                    hashCode = hashCode * 59 + this.AwsFleetParams.GetHashCode();
                 if (this.AzureCredentials != null)
                     hashCode = hashCode * 59 + this.AzureCredentials.GetHashCode();
+                if (this.BlacklistedIpAddresses != null)
+                    hashCode = hashCode * 59 + this.BlacklistedIpAddresses.GetHashCode();
+                if (this.ClusterNetworkInfo != null)
+                    hashCode = hashCode * 59 + this.ClusterNetworkInfo.GetHashCode();
+                if (this.DeniedIpAddresses != null)
+                    hashCode = hashCode * 59 + this.DeniedIpAddresses.GetHashCode();
                 if (this.Endpoint != null)
                     hashCode = hashCode * 59 + this.Endpoint.GetHashCode();
                 if (this.ExchangeDagProtectionPreference != null)
@@ -419,7 +556,12 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ForceRegister.GetHashCode();
                 if (this.GcpCredentials != null)
                     hashCode = hashCode * 59 + this.GcpCredentials.GetHashCode();
-                hashCode = hashCode * 59 + this.HostType.GetHashCode();
+                if (this.HostType != null)
+                    hashCode = hashCode * 59 + this.HostType.GetHashCode();
+                if (this.IsProxyHost != null)
+                    hashCode = hashCode * 59 + this.IsProxyHost.GetHashCode();
+                if (this.IsilonParams != null)
+                    hashCode = hashCode * 59 + this.IsilonParams.GetHashCode();
                 if (this.KubernetesCredentials != null)
                     hashCode = hashCode * 59 + this.KubernetesCredentials.GetHashCode();
                 if (this.MinimumFreeSpaceGB != null)
@@ -428,12 +570,18 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.NasMountCredentials.GetHashCode();
                 if (this.Office365CredentialsList != null)
                     hashCode = hashCode * 59 + this.Office365CredentialsList.GetHashCode();
+                if (this.Office365Region != null)
+                    hashCode = hashCode * 59 + this.Office365Region.GetHashCode();
                 if (this.Password != null)
                     hashCode = hashCode * 59 + this.Password.GetHashCode();
+                if (this.ProxyHostSourceIdList != null)
+                    hashCode = hashCode * 59 + this.ProxyHostSourceIdList.GetHashCode();
                 if (this.SourceSideDedupEnabled != null)
                     hashCode = hashCode * 59 + this.SourceSideDedupEnabled.GetHashCode();
                 if (this.SslVerification != null)
                     hashCode = hashCode * 59 + this.SslVerification.GetHashCode();
+                if (this.Subnets != null)
+                    hashCode = hashCode * 59 + this.Subnets.GetHashCode();
                 if (this.ThrottlingPolicy != null)
                     hashCode = hashCode * 59 + this.ThrottlingPolicy.GetHashCode();
                 if (this.ThrottlingPolicyOverrides != null)

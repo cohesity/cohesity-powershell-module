@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -35,46 +38,41 @@ namespace Cohesity.Model
             this.MinorVersion = minorVersion;
             this.Revision = revision;
             this.VersionString = versionString;
-            this.Build = build;
-            this.MajorVersion = majorVersion;
-            this.MinorVersion = minorVersion;
-            this.Revision = revision;
-            this.VersionString = versionString;
         }
         
         /// <summary>
         /// Specifies the build.
         /// </summary>
         /// <value>Specifies the build.</value>
-        [DataMember(Name="build", EmitDefaultValue=true)]
+        [DataMember(Name="build", EmitDefaultValue=false)]
         public int? Build { get; set; }
 
         /// <summary>
         /// Specifies the major version.
         /// </summary>
         /// <value>Specifies the major version.</value>
-        [DataMember(Name="majorVersion", EmitDefaultValue=true)]
+        [DataMember(Name="majorVersion", EmitDefaultValue=false)]
         public int? MajorVersion { get; set; }
 
         /// <summary>
         /// Specifies the minor version.
         /// </summary>
         /// <value>Specifies the minor version.</value>
-        [DataMember(Name="minorVersion", EmitDefaultValue=true)]
+        [DataMember(Name="minorVersion", EmitDefaultValue=false)]
         public int? MinorVersion { get; set; }
 
         /// <summary>
         /// Specifies the revision.
         /// </summary>
         /// <value>Specifies the revision.</value>
-        [DataMember(Name="revision", EmitDefaultValue=true)]
+        [DataMember(Name="revision", EmitDefaultValue=false)]
         public int? Revision { get; set; }
 
         /// <summary>
         /// Specifies the version string.
         /// </summary>
         /// <value>Specifies the version string.</value>
-        [DataMember(Name="versionString", EmitDefaultValue=true)]
+        [DataMember(Name="versionString", EmitDefaultValue=false)]
         public string VersionString { get; set; }
 
         /// <summary>

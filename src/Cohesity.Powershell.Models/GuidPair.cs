@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.DestGuid = destGuid;
             this.SourceGuid = sourceGuid;
-            this.DestGuid = destGuid;
-            this.SourceGuid = sourceGuid;
         }
         
         /// <summary>
         /// Specifies the guid of an AD object in the Production AD.
         /// </summary>
         /// <value>Specifies the guid of an AD object in the Production AD.</value>
-        [DataMember(Name="destGuid", EmitDefaultValue=true)]
+        [DataMember(Name="destGuid", EmitDefaultValue=false)]
         public string DestGuid { get; set; }
 
         /// <summary>
         /// Specifies the guid of an AD object in the Snapshot AD.
         /// </summary>
         /// <value>Specifies the guid of an AD object in the Snapshot AD.</value>
-        [DataMember(Name="sourceGuid", EmitDefaultValue=true)]
+        [DataMember(Name="sourceGuid", EmitDefaultValue=false)]
         public string SourceGuid { get; set; }
 
         /// <summary>

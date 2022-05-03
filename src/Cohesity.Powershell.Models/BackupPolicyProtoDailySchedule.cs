@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -25,9 +28,8 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="days">The days of the week backup must be performed. If no days are specified, then the backup will be performed on all days..</param>
         /// <param name="time">time.</param>
-        public BackupPolicyProtoDailySchedule(List<int> days = default(List<int>), Time time = default(Time))
+        public BackupPolicyProtoDailySchedule(List<int?> days = default(List<int?>), Time time = default(Time))
         {
-            this.Days = days;
             this.Days = days;
             this.Time = time;
         }
@@ -36,8 +38,8 @@ namespace Cohesity.Model
         /// The days of the week backup must be performed. If no days are specified, then the backup will be performed on all days.
         /// </summary>
         /// <value>The days of the week backup must be performed. If no days are specified, then the backup will be performed on all days.</value>
-        [DataMember(Name="days", EmitDefaultValue=true)]
-        public List<int> Days { get; set; }
+        [DataMember(Name="days", EmitDefaultValue=false)]
+        public List<int?> Days { get; set; }
 
         /// <summary>
         /// Gets or Sets Time
@@ -84,8 +86,7 @@ namespace Cohesity.Model
                 (
                     this.Days == input.Days ||
                     this.Days != null &&
-                    input.Days != null &&
-                    this.Days.SequenceEqual(input.Days)
+                    this.Days.Equals(input.Days)
                 ) && 
                 (
                     this.Time == input.Time ||

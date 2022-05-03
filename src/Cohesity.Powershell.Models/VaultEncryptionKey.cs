@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -35,46 +38,41 @@ namespace Cohesity.Model
             this.KeyUid = keyUid;
             this.VaultId = vaultId;
             this.VaultName = vaultName;
-            this.ClusterName = clusterName;
-            this.EncryptionKeyData = encryptionKeyData;
-            this.KeyUid = keyUid;
-            this.VaultId = vaultId;
-            this.VaultName = vaultName;
         }
         
         /// <summary>
         /// Specifies the name of the source Cohesity Cluster that archived the data on the Vault.
         /// </summary>
         /// <value>Specifies the name of the source Cohesity Cluster that archived the data on the Vault.</value>
-        [DataMember(Name="clusterName", EmitDefaultValue=true)]
+        [DataMember(Name="clusterName", EmitDefaultValue=false)]
         public string ClusterName { get; set; }
 
         /// <summary>
         /// Specifies the encryption key data corresponding to the specified keyUid. It contains a Key Encryption Key (KEK) or a Encrypted Data Encryption Key (eDEK).
         /// </summary>
         /// <value>Specifies the encryption key data corresponding to the specified keyUid. It contains a Key Encryption Key (KEK) or a Encrypted Data Encryption Key (eDEK).</value>
-        [DataMember(Name="encryptionKeyData", EmitDefaultValue=true)]
+        [DataMember(Name="encryptionKeyData", EmitDefaultValue=false)]
         public string EncryptionKeyData { get; set; }
 
         /// <summary>
         /// Specifies the universal id of the Data Encryption Key.
         /// </summary>
         /// <value>Specifies the universal id of the Data Encryption Key.</value>
-        [DataMember(Name="keyUid", EmitDefaultValue=true)]
+        [DataMember(Name="keyUid", EmitDefaultValue=false)]
         public UniversalId KeyUid { get; set; }
 
         /// <summary>
         /// Specifies the id of the Vault whose data is encrypted by this key.
         /// </summary>
         /// <value>Specifies the id of the Vault whose data is encrypted by this key.</value>
-        [DataMember(Name="vaultId", EmitDefaultValue=true)]
+        [DataMember(Name="vaultId", EmitDefaultValue=false)]
         public long? VaultId { get; set; }
 
         /// <summary>
         /// Specifies the name of the Vault whose data is encrypted by this key.
         /// </summary>
         /// <value>Specifies the name of the Vault whose data is encrypted by this key.</value>
-        [DataMember(Name="vaultName", EmitDefaultValue=true)]
+        [DataMember(Name="vaultName", EmitDefaultValue=false)]
         public string VaultName { get; set; }
 
         /// <summary>
@@ -125,8 +123,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.KeyUid == input.KeyUid ||
-                    (this.KeyUid != null &&
-                    this.KeyUid.Equals(input.KeyUid))
+                    this.KeyUid != null &&
+                    this.KeyUid.Equals(input.KeyUid)
                 ) && 
                 (
                     this.VaultId == input.VaultId ||

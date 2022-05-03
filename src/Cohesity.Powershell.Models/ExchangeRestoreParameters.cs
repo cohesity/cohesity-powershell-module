@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -51,7 +54,7 @@ namespace Cohesity.Model
         /// Specifies the Exchange restore type. Specifies the type of Exchange restore.  &#39;kNone&#39; specifies no special behaviour. &#39;kView&#39; specifies the option to create a view which cann be used by the external tools like Kroll to perform mailbox or mail-item recovery. &#39;kDatabase&#39; specifies the option to restore an Exchange database.
         /// </summary>
         /// <value>Specifies the Exchange restore type. Specifies the type of Exchange restore.  &#39;kNone&#39; specifies no special behaviour. &#39;kView&#39; specifies the option to create a view which cann be used by the external tools like Kroll to perform mailbox or mail-item recovery. &#39;kDatabase&#39; specifies the option to restore an Exchange database.</value>
-        [DataMember(Name="type", EmitDefaultValue=true)]
+        [DataMember(Name="type", EmitDefaultValue=false)]
         public TypeEnum? Type { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="ExchangeRestoreParameters" /> class.
@@ -61,10 +64,10 @@ namespace Cohesity.Model
         public ExchangeRestoreParameters(TypeEnum? type = default(TypeEnum?), ExchangeRestoreViewParameters viewParameters = default(ExchangeRestoreViewParameters))
         {
             this.Type = type;
-            this.Type = type;
             this.ViewParameters = viewParameters;
         }
         
+
         /// <summary>
         /// Gets or Sets ViewParameters
         /// </summary>
@@ -109,7 +112,8 @@ namespace Cohesity.Model
             return 
                 (
                     this.Type == input.Type ||
-                    this.Type.Equals(input.Type)
+                    (this.Type != null &&
+                    this.Type.Equals(input.Type))
                 ) && 
                 (
                     this.ViewParameters == input.ViewParameters ||
@@ -127,7 +131,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                hashCode = hashCode * 59 + this.Type.GetHashCode();
+                if (this.Type != null)
+                    hashCode = hashCode * 59 + this.Type.GetHashCode();
                 if (this.ViewParameters != null)
                     hashCode = hashCode * 59 + this.ViewParameters.GetHashCode();
                 return hashCode;

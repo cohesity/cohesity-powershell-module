@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -24,18 +27,26 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="CloneAppViewParams" /> class.
         /// </summary>
         /// <param name="mountPathIdentifier">Mount path identifier, which identifies the sub-dir where the cohesity view for App recovery will be mounted..</param>
-        public CloneAppViewParams(string mountPathIdentifier = default(string))
+        /// <param name="readOnlyViewExpose">Read only view expose param, if this is set, the expose view will be mounted with read only..</param>
+        public CloneAppViewParams(string mountPathIdentifier = default(string), bool? readOnlyViewExpose = default(bool?))
         {
             this.MountPathIdentifier = mountPathIdentifier;
-            this.MountPathIdentifier = mountPathIdentifier;
+            this.ReadOnlyViewExpose = readOnlyViewExpose;
         }
         
         /// <summary>
         /// Mount path identifier, which identifies the sub-dir where the cohesity view for App recovery will be mounted.
         /// </summary>
         /// <value>Mount path identifier, which identifies the sub-dir where the cohesity view for App recovery will be mounted.</value>
-        [DataMember(Name="mountPathIdentifier", EmitDefaultValue=true)]
+        [DataMember(Name="mountPathIdentifier", EmitDefaultValue=false)]
         public string MountPathIdentifier { get; set; }
+
+        /// <summary>
+        /// Read only view expose param, if this is set, the expose view will be mounted with read only.
+        /// </summary>
+        /// <value>Read only view expose param, if this is set, the expose view will be mounted with read only.</value>
+        [DataMember(Name="readOnlyViewExpose", EmitDefaultValue=false)]
+        public bool? ReadOnlyViewExpose { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -77,6 +88,11 @@ namespace Cohesity.Model
                     this.MountPathIdentifier == input.MountPathIdentifier ||
                     (this.MountPathIdentifier != null &&
                     this.MountPathIdentifier.Equals(input.MountPathIdentifier))
+                ) && 
+                (
+                    this.ReadOnlyViewExpose == input.ReadOnlyViewExpose ||
+                    (this.ReadOnlyViewExpose != null &&
+                    this.ReadOnlyViewExpose.Equals(input.ReadOnlyViewExpose))
                 );
         }
 
@@ -91,6 +107,8 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.MountPathIdentifier != null)
                     hashCode = hashCode * 59 + this.MountPathIdentifier.GetHashCode();
+                if (this.ReadOnlyViewExpose != null)
+                    hashCode = hashCode * 59 + this.ReadOnlyViewExpose.GetHashCode();
                 return hashCode;
             }
         }

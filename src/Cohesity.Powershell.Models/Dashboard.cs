@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -35,7 +38,6 @@ namespace Cohesity.Model
         /// <param name="throughput">throughput.</param>
         public Dashboard(AuditLogsTile auditLogs = default(AuditLogsTile), long? clusterId = default(long?), HealthTile health = default(HealthTile), IopsTile iops = default(IopsTile), JobRunsTile jobRuns = default(JobRunsTile), ProtectedObjectsTile protectedObjects = default(ProtectedObjectsTile), ProtectionTile protection = default(ProtectionTile), RecoveriesTile recoveries = default(RecoveriesTile), StorageEfficiencyTile storageEfficiency = default(StorageEfficiencyTile), ThroughputTile throughput = default(ThroughputTile))
         {
-            this.ClusterId = clusterId;
             this.AuditLogs = auditLogs;
             this.ClusterId = clusterId;
             this.Health = health;
@@ -58,7 +60,7 @@ namespace Cohesity.Model
         /// Id of the cluster for which dashboard is given.
         /// </summary>
         /// <value>Id of the cluster for which dashboard is given.</value>
-        [DataMember(Name="clusterId", EmitDefaultValue=true)]
+        [DataMember(Name="clusterId", EmitDefaultValue=false)]
         public long? ClusterId { get; set; }
 
         /// <summary>

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -45,7 +48,7 @@ namespace Cohesity.Model
         /// Specifies the type of the managed Object in Couchbase Protection Source. Specifies the type of an Couchbase source entity. &#39;kCluster&#39; indicates a Couchbase cluster distributed over several physical nodes. &#39;kBucket&#39; indicates a bucket within the Couchbase environment.
         /// </summary>
         /// <value>Specifies the type of the managed Object in Couchbase Protection Source. Specifies the type of an Couchbase source entity. &#39;kCluster&#39; indicates a Couchbase cluster distributed over several physical nodes. &#39;kBucket&#39; indicates a bucket within the Couchbase environment.</value>
-        [DataMember(Name="type", EmitDefaultValue=true)]
+        [DataMember(Name="type", EmitDefaultValue=false)]
         public TypeEnum? Type { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="CouchbaseProtectionSource" /> class.
@@ -57,9 +60,6 @@ namespace Cohesity.Model
         /// <param name="uuid">Specifies the UUID for the Couchbase entity..</param>
         public CouchbaseProtectionSource(CouchbaseBucket bucketInfo = default(CouchbaseBucket), CouchbaseCluster clusterInfo = default(CouchbaseCluster), string name = default(string), TypeEnum? type = default(TypeEnum?), string uuid = default(string))
         {
-            this.Name = name;
-            this.Type = type;
-            this.Uuid = uuid;
             this.BucketInfo = bucketInfo;
             this.ClusterInfo = clusterInfo;
             this.Name = name;
@@ -83,14 +83,15 @@ namespace Cohesity.Model
         /// Specifies the instance name of the Couchbase entity.
         /// </summary>
         /// <value>Specifies the instance name of the Couchbase entity.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
+
 
         /// <summary>
         /// Specifies the UUID for the Couchbase entity.
         /// </summary>
         /// <value>Specifies the UUID for the Couchbase entity.</value>
-        [DataMember(Name="uuid", EmitDefaultValue=true)]
+        [DataMember(Name="uuid", EmitDefaultValue=false)]
         public string Uuid { get; set; }
 
         /// <summary>
@@ -146,7 +147,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.Type == input.Type ||
-                    this.Type.Equals(input.Type)
+                    (this.Type != null &&
+                    this.Type.Equals(input.Type))
                 ) && 
                 (
                     this.Uuid == input.Uuid ||
@@ -170,7 +172,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ClusterInfo.GetHashCode();
                 if (this.Name != null)
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
-                hashCode = hashCode * 59 + this.Type.GetHashCode();
+                if (this.Type != null)
+                    hashCode = hashCode * 59 + this.Type.GetHashCode();
                 if (this.Uuid != null)
                     hashCode = hashCode * 59 + this.Uuid.GetHashCode();
                 return hashCode;

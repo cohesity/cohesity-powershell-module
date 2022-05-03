@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,30 +34,27 @@ namespace Cohesity.Model
             this.DevicePath = devicePath;
             this.Id = id;
             this.Offline = offline;
-            this.DevicePath = devicePath;
-            this.Id = id;
-            this.Offline = offline;
         }
         
         /// <summary>
         /// DevicePath is the device path of the disk.
         /// </summary>
         /// <value>DevicePath is the device path of the disk.</value>
-        [DataMember(Name="devicePath", EmitDefaultValue=true)]
+        [DataMember(Name="devicePath", EmitDefaultValue=false)]
         public string DevicePath { get; set; }
 
         /// <summary>
         /// Id is the id of the disk.
         /// </summary>
         /// <value>Id is the id of the disk.</value>
-        [DataMember(Name="id", EmitDefaultValue=true)]
+        [DataMember(Name="id", EmitDefaultValue=false)]
         public long? Id { get; set; }
 
         /// <summary>
         /// Offline specifies whether a disk is marked offline.
         /// </summary>
         /// <value>Offline specifies whether a disk is marked offline.</value>
-        [DataMember(Name="offline", EmitDefaultValue=true)]
+        [DataMember(Name="offline", EmitDefaultValue=false)]
         public bool? Offline { get; set; }
 
         /// <summary>

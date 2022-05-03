@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.DatabaseAppId = databaseAppId;
             this.NodeChannelList = nodeChannelList;
-            this.DatabaseAppId = databaseAppId;
-            this.NodeChannelList = nodeChannelList;
         }
         
         /// <summary>
         /// Specifies the source entity id of the selected app entity.
         /// </summary>
         /// <value>Specifies the source entity id of the selected app entity.</value>
-        [DataMember(Name="databaseAppId", EmitDefaultValue=true)]
+        [DataMember(Name="databaseAppId", EmitDefaultValue=false)]
         public long? DatabaseAppId { get; set; }
 
         /// <summary>
         /// Array of database node channel info.  Specifies the node channel info for all the databases of app entity. Length of this array will be 1 for RAC and Standalone setups.
         /// </summary>
         /// <value>Array of database node channel info.  Specifies the node channel info for all the databases of app entity. Length of this array will be 1 for RAC and Standalone setups.</value>
-        [DataMember(Name="nodeChannelList", EmitDefaultValue=true)]
+        [DataMember(Name="nodeChannelList", EmitDefaultValue=false)]
         public List<OracleDatabaseNodeChannel> NodeChannelList { get; set; }
 
         /// <summary>
@@ -91,8 +92,7 @@ namespace Cohesity.Model
                 (
                     this.NodeChannelList == input.NodeChannelList ||
                     this.NodeChannelList != null &&
-                    input.NodeChannelList != null &&
-                    this.NodeChannelList.SequenceEqual(input.NodeChannelList)
+                    this.NodeChannelList.Equals(input.NodeChannelList)
                 );
         }
 

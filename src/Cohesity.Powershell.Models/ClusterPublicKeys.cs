@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,14 +30,13 @@ namespace Cohesity.Model
         public ClusterPublicKeys(string sshPublicKey = default(string))
         {
             this.SshPublicKey = sshPublicKey;
-            this.SshPublicKey = sshPublicKey;
         }
         
         /// <summary>
         /// Specifies the SSH public key used to login to Cluster nodes.
         /// </summary>
         /// <value>Specifies the SSH public key used to login to Cluster nodes.</value>
-        [DataMember(Name="sshPublicKey", EmitDefaultValue=true)]
+        [DataMember(Name="sshPublicKey", EmitDefaultValue=false)]
         public string SshPublicKey { get; set; }
 
         /// <summary>

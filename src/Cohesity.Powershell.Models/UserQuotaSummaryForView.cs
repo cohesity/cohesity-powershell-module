@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,9 +32,6 @@ namespace Cohesity.Model
         /// <param name="totalNumUsers">Total number of users who has either a user quota policy override specified or has non-zero logical usage..</param>
         public UserQuotaSummaryForView(QuotaPolicy defaultUserQuotaPolicy = default(QuotaPolicy), long? numUsersAboveAlertThreshold = default(long?), long? numUsersAboveHardLimit = default(long?), long? totalNumUsers = default(long?))
         {
-            this.NumUsersAboveAlertThreshold = numUsersAboveAlertThreshold;
-            this.NumUsersAboveHardLimit = numUsersAboveHardLimit;
-            this.TotalNumUsers = totalNumUsers;
             this.DefaultUserQuotaPolicy = defaultUserQuotaPolicy;
             this.NumUsersAboveAlertThreshold = numUsersAboveAlertThreshold;
             this.NumUsersAboveHardLimit = numUsersAboveHardLimit;
@@ -48,21 +48,21 @@ namespace Cohesity.Model
         /// Number of users who has exceeded their specified alert limit.
         /// </summary>
         /// <value>Number of users who has exceeded their specified alert limit.</value>
-        [DataMember(Name="numUsersAboveAlertThreshold", EmitDefaultValue=true)]
+        [DataMember(Name="numUsersAboveAlertThreshold", EmitDefaultValue=false)]
         public long? NumUsersAboveAlertThreshold { get; set; }
 
         /// <summary>
         /// Number of users who has exceeded their specified quota hard limit.
         /// </summary>
         /// <value>Number of users who has exceeded their specified quota hard limit.</value>
-        [DataMember(Name="numUsersAboveHardLimit", EmitDefaultValue=true)]
+        [DataMember(Name="numUsersAboveHardLimit", EmitDefaultValue=false)]
         public long? NumUsersAboveHardLimit { get; set; }
 
         /// <summary>
         /// Total number of users who has either a user quota policy override specified or has non-zero logical usage.
         /// </summary>
         /// <value>Total number of users who has either a user quota policy override specified or has non-zero logical usage.</value>
-        [DataMember(Name="totalNumUsers", EmitDefaultValue=true)]
+        [DataMember(Name="totalNumUsers", EmitDefaultValue=false)]
         public long? TotalNumUsers { get; set; }
 
         /// <summary>

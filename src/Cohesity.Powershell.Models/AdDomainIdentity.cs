@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -33,38 +36,34 @@ namespace Cohesity.Model
             this.Guid = guid;
             this.Name = name;
             this.Sid = sid;
-            this.Dn = dn;
-            this.Guid = guid;
-            this.Name = name;
-            this.Sid = sid;
         }
         
         /// <summary>
         /// Specifies distinguished name of the domain.
         /// </summary>
         /// <value>Specifies distinguished name of the domain.</value>
-        [DataMember(Name="dn", EmitDefaultValue=true)]
+        [DataMember(Name="dn", EmitDefaultValue=false)]
         public string Dn { get; set; }
 
         /// <summary>
         /// Specifies Unique objectGUID for an AD domain.
         /// </summary>
         /// <value>Specifies Unique objectGUID for an AD domain.</value>
-        [DataMember(Name="guid", EmitDefaultValue=true)]
+        [DataMember(Name="guid", EmitDefaultValue=false)]
         public string Guid { get; set; }
 
         /// <summary>
         /// Specifies display name of the domain.
         /// </summary>
         /// <value>Specifies display name of the domain.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
 
         /// <summary>
         /// Specifies domain SID.
         /// </summary>
         /// <value>Specifies domain SID.</value>
-        [DataMember(Name="sid", EmitDefaultValue=true)]
+        [DataMember(Name="sid", EmitDefaultValue=false)]
         public string Sid { get; set; }
 
         /// <summary>

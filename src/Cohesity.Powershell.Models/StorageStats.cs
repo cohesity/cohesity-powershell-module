@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -39,62 +42,55 @@ namespace Cohesity.Model
             this.LocalAvailableBytes = localAvailableBytes;
             this.LocalUsageBytes = localUsageBytes;
             this.TotalCapacityBytes = totalCapacityBytes;
-            this.DataProtectionLogicalUsageBytes = dataProtectionLogicalUsageBytes;
-            this.DataProtectionPhysicalUsageBytes = dataProtectionPhysicalUsageBytes;
-            this.FileServicesLogicalUsageBytes = fileServicesLogicalUsageBytes;
-            this.FileServicesPhysicalUsageBytes = fileServicesPhysicalUsageBytes;
-            this.LocalAvailableBytes = localAvailableBytes;
-            this.LocalUsageBytes = localUsageBytes;
-            this.TotalCapacityBytes = totalCapacityBytes;
         }
         
         /// <summary>
         /// Specifies the logical size of protected objects in bytes.
         /// </summary>
         /// <value>Specifies the logical size of protected objects in bytes.</value>
-        [DataMember(Name="dataProtectionLogicalUsageBytes", EmitDefaultValue=true)]
+        [DataMember(Name="dataProtectionLogicalUsageBytes", EmitDefaultValue=false)]
         public long? DataProtectionLogicalUsageBytes { get; set; }
 
         /// <summary>
         /// Specifies the physical size of protected objects in bytes.
         /// </summary>
         /// <value>Specifies the physical size of protected objects in bytes.</value>
-        [DataMember(Name="dataProtectionPhysicalUsageBytes", EmitDefaultValue=true)]
+        [DataMember(Name="dataProtectionPhysicalUsageBytes", EmitDefaultValue=false)]
         public long? DataProtectionPhysicalUsageBytes { get; set; }
 
         /// <summary>
         /// Specifies the logical size consumed by file services in bytes.
         /// </summary>
         /// <value>Specifies the logical size consumed by file services in bytes.</value>
-        [DataMember(Name="fileServicesLogicalUsageBytes", EmitDefaultValue=true)]
+        [DataMember(Name="fileServicesLogicalUsageBytes", EmitDefaultValue=false)]
         public long? FileServicesLogicalUsageBytes { get; set; }
 
         /// <summary>
         /// Specifies the physical size consumed by file services in bytes.
         /// </summary>
         /// <value>Specifies the physical size consumed by file services in bytes.</value>
-        [DataMember(Name="fileServicesPhysicalUsageBytes", EmitDefaultValue=true)]
+        [DataMember(Name="fileServicesPhysicalUsageBytes", EmitDefaultValue=false)]
         public long? FileServicesPhysicalUsageBytes { get; set; }
 
         /// <summary>
         /// Specifies the local storage currently available on the cluster in bytes.
         /// </summary>
         /// <value>Specifies the local storage currently available on the cluster in bytes.</value>
-        [DataMember(Name="localAvailableBytes", EmitDefaultValue=true)]
+        [DataMember(Name="localAvailableBytes", EmitDefaultValue=false)]
         public long? LocalAvailableBytes { get; set; }
 
         /// <summary>
         /// Specifies the local storage currently in use on the cluster in bytes.
         /// </summary>
         /// <value>Specifies the local storage currently in use on the cluster in bytes.</value>
-        [DataMember(Name="localUsageBytes", EmitDefaultValue=true)]
+        [DataMember(Name="localUsageBytes", EmitDefaultValue=false)]
         public long? LocalUsageBytes { get; set; }
 
         /// <summary>
         /// Specifies the total capacity of the cluster in bytes.
         /// </summary>
         /// <value>Specifies the total capacity of the cluster in bytes.</value>
-        [DataMember(Name="totalCapacityBytes", EmitDefaultValue=true)]
+        [DataMember(Name="totalCapacityBytes", EmitDefaultValue=false)]
         public long? TotalCapacityBytes { get; set; }
 
         /// <summary>

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.JarName = jarName;
             this.JarPath = jarPath;
-            this.JarName = jarName;
-            this.JarPath = jarPath;
         }
         
         /// <summary>
         /// JarName is the name of the uploaded jar.
         /// </summary>
         /// <value>JarName is the name of the uploaded jar.</value>
-        [DataMember(Name="jarName", EmitDefaultValue=true)]
+        [DataMember(Name="jarName", EmitDefaultValue=false)]
         public string JarName { get; set; }
 
         /// <summary>
         /// JarPath is the path for the directory where uploaded jar is stored.
         /// </summary>
         /// <value>JarPath is the path for the directory where uploaded jar is stored.</value>
-        [DataMember(Name="jarPath", EmitDefaultValue=true)]
+        [DataMember(Name="jarPath", EmitDefaultValue=false)]
         public string JarPath { get; set; }
 
         /// <summary>

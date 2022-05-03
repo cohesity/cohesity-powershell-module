@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,13 +30,12 @@ namespace Cohesity.Model
         public CloneAppViewInfoOracle(List<string> mountPathInfoVec = default(List<string>))
         {
             this.MountPathInfoVec = mountPathInfoVec;
-            this.MountPathInfoVec = mountPathInfoVec;
         }
         
         /// <summary>
         /// Gets or Sets MountPathInfoVec
         /// </summary>
-        [DataMember(Name="mountPathInfoVec", EmitDefaultValue=true)]
+        [DataMember(Name="mountPathInfoVec", EmitDefaultValue=false)]
         public List<string> MountPathInfoVec { get; set; }
 
         /// <summary>
@@ -75,8 +77,7 @@ namespace Cohesity.Model
                 (
                     this.MountPathInfoVec == input.MountPathInfoVec ||
                     this.MountPathInfoVec != null &&
-                    input.MountPathInfoVec != null &&
-                    this.MountPathInfoVec.SequenceEqual(input.MountPathInfoVec)
+                    this.MountPathInfoVec.Equals(input.MountPathInfoVec)
                 );
         }
 

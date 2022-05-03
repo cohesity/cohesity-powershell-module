@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -51,27 +54,26 @@ namespace Cohesity.Model
         /// Specifies if all, none or specific protected objects are allowed to be accessed. Specifies if all, none or specific protected objects are allowed to be accessed. kNone - None of the protected objects have access. kAll - All the protected objects have access. kSpecific - Only specific protected objects have access.
         /// </summary>
         /// <value>Specifies if all, none or specific protected objects are allowed to be accessed. Specifies if all, none or specific protected objects are allowed to be accessed. kNone - None of the protected objects have access. kAll - All the protected objects have access. kSpecific - Only specific protected objects have access.</value>
-        [DataMember(Name="protectedObjectsprivilegesType", EmitDefaultValue=true)]
+        [DataMember(Name="protectedObjectsprivilegesType", EmitDefaultValue=false)]
         public ProtectedObjectsprivilegesTypeEnum? ProtectedObjectsprivilegesType { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="ProtectedObjectPrivileges" /> class.
         /// </summary>
         /// <param name="protectedObjectsprivilegesType">Specifies if all, none or specific protected objects are allowed to be accessed. Specifies if all, none or specific protected objects are allowed to be accessed. kNone - None of the protected objects have access. kAll - All the protected objects have access. kSpecific - Only specific protected objects have access..</param>
         /// <param name="protectionSourceIds">Specifies the ids of the protection sources which are allowed to be accessed in case the privilege type is kSpecific..</param>
-        public ProtectedObjectPrivileges(ProtectedObjectsprivilegesTypeEnum? protectedObjectsprivilegesType = default(ProtectedObjectsprivilegesTypeEnum?), List<long> protectionSourceIds = default(List<long>))
+        public ProtectedObjectPrivileges(ProtectedObjectsprivilegesTypeEnum? protectedObjectsprivilegesType = default(ProtectedObjectsprivilegesTypeEnum?), List<long?> protectionSourceIds = default(List<long?>))
         {
-            this.ProtectedObjectsprivilegesType = protectedObjectsprivilegesType;
-            this.ProtectionSourceIds = protectionSourceIds;
             this.ProtectedObjectsprivilegesType = protectedObjectsprivilegesType;
             this.ProtectionSourceIds = protectionSourceIds;
         }
         
+
         /// <summary>
         /// Specifies the ids of the protection sources which are allowed to be accessed in case the privilege type is kSpecific.
         /// </summary>
         /// <value>Specifies the ids of the protection sources which are allowed to be accessed in case the privilege type is kSpecific.</value>
-        [DataMember(Name="protectionSourceIds", EmitDefaultValue=true)]
-        public List<long> ProtectionSourceIds { get; set; }
+        [DataMember(Name="protectionSourceIds", EmitDefaultValue=false)]
+        public List<long?> ProtectionSourceIds { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -111,13 +113,13 @@ namespace Cohesity.Model
             return 
                 (
                     this.ProtectedObjectsprivilegesType == input.ProtectedObjectsprivilegesType ||
-                    this.ProtectedObjectsprivilegesType.Equals(input.ProtectedObjectsprivilegesType)
+                    (this.ProtectedObjectsprivilegesType != null &&
+                    this.ProtectedObjectsprivilegesType.Equals(input.ProtectedObjectsprivilegesType))
                 ) && 
                 (
                     this.ProtectionSourceIds == input.ProtectionSourceIds ||
                     this.ProtectionSourceIds != null &&
-                    input.ProtectionSourceIds != null &&
-                    this.ProtectionSourceIds.SequenceEqual(input.ProtectionSourceIds)
+                    this.ProtectionSourceIds.Equals(input.ProtectionSourceIds)
                 );
         }
 
@@ -130,7 +132,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                hashCode = hashCode * 59 + this.ProtectedObjectsprivilegesType.GetHashCode();
+                if (this.ProtectedObjectsprivilegesType != null)
+                    hashCode = hashCode * 59 + this.ProtectedObjectsprivilegesType.GetHashCode();
                 if (this.ProtectionSourceIds != null)
                     hashCode = hashCode * 59 + this.ProtectionSourceIds.GetHashCode();
                 return hashCode;

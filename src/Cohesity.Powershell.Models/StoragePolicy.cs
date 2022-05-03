@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -51,7 +54,7 @@ namespace Cohesity.Model
         /// Specifies the compression setting to be applied to a Storage Domain (View Box). &#39;kCompressionNone&#39; indicates that data is not compressed. &#39;kCompressionLow&#39; indicates that data is compressed using LZ4 or Snappy. &#39;kCompressionHigh&#39; indicates that data is compressed in Gzip.
         /// </summary>
         /// <value>Specifies the compression setting to be applied to a Storage Domain (View Box). &#39;kCompressionNone&#39; indicates that data is not compressed. &#39;kCompressionLow&#39; indicates that data is compressed using LZ4 or Snappy. &#39;kCompressionHigh&#39; indicates that data is compressed in Gzip.</value>
-        [DataMember(Name="compressionPolicy", EmitDefaultValue=true)]
+        [DataMember(Name="compressionPolicy", EmitDefaultValue=false)]
         public CompressionPolicyEnum? CompressionPolicy { get; set; }
         /// <summary>
         /// Specifies the encryption setting for the Storage Domain (View Box). &#39;kEncryptionNone&#39; indicates the data is not encrypted. &#39;kEncryptionStrong&#39; indicates the data is encrypted.
@@ -84,7 +87,7 @@ namespace Cohesity.Model
         /// Specifies the encryption setting for the Storage Domain (View Box). &#39;kEncryptionNone&#39; indicates the data is not encrypted. &#39;kEncryptionStrong&#39; indicates the data is encrypted.
         /// </summary>
         /// <value>Specifies the encryption setting for the Storage Domain (View Box). &#39;kEncryptionNone&#39; indicates the data is not encrypted. &#39;kEncryptionStrong&#39; indicates the data is encrypted.</value>
-        [DataMember(Name="encryptionPolicy", EmitDefaultValue=true)]
+        [DataMember(Name="encryptionPolicy", EmitDefaultValue=false)]
         public EncryptionPolicyEnum? EncryptionPolicy { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="StoragePolicy" /> class.
@@ -108,16 +111,6 @@ namespace Cohesity.Model
             this.DeduplicateCompressDelaySecs = deduplicateCompressDelaySecs;
             this.DeduplicationEnabled = deduplicationEnabled;
             this.EncryptionPolicy = encryptionPolicy;
-            this.InlineCompress = inlineCompress;
-            this.InlineDeduplicate = inlineDeduplicate;
-            this.NumFailuresTolerated = numFailuresTolerated;
-            this.NumNodeFailuresTolerated = numNodeFailuresTolerated;
-            this.AppMarkerDetection = appMarkerDetection;
-            this.CloudSpillVaultId = cloudSpillVaultId;
-            this.CompressionPolicy = compressionPolicy;
-            this.DeduplicateCompressDelaySecs = deduplicateCompressDelaySecs;
-            this.DeduplicationEnabled = deduplicationEnabled;
-            this.EncryptionPolicy = encryptionPolicy;
             this.ErasureCodingInfo = erasureCodingInfo;
             this.InlineCompress = inlineCompress;
             this.InlineDeduplicate = inlineDeduplicate;
@@ -129,29 +122,31 @@ namespace Cohesity.Model
         /// Specifies Whether to support app marker detection. When this is set to true, app markers (like commvault markers) will be removed from data and put in separate chunks. This way deduplication is improved as it is done on data that has no app markers.
         /// </summary>
         /// <value>Specifies Whether to support app marker detection. When this is set to true, app markers (like commvault markers) will be removed from data and put in separate chunks. This way deduplication is improved as it is done on data that has no app markers.</value>
-        [DataMember(Name="appMarkerDetection", EmitDefaultValue=true)]
+        [DataMember(Name="appMarkerDetection", EmitDefaultValue=false)]
         public bool? AppMarkerDetection { get; set; }
 
         /// <summary>
         /// Specifies the vault id assigned for an external Storage Target to facilitate cloud spill.
         /// </summary>
         /// <value>Specifies the vault id assigned for an external Storage Target to facilitate cloud spill.</value>
-        [DataMember(Name="cloudSpillVaultId", EmitDefaultValue=true)]
+        [DataMember(Name="cloudSpillVaultId", EmitDefaultValue=false)]
         public long? CloudSpillVaultId { get; set; }
+
 
         /// <summary>
         /// Specifies the time in seconds when deduplication and compression of data on the Storage Domain (View Box) starts. If set to 0, deduplication and compression is done inline (as the data is being written). Otherwise, post-process deduplication and compression is done after the specified delay.
         /// </summary>
         /// <value>Specifies the time in seconds when deduplication and compression of data on the Storage Domain (View Box) starts. If set to 0, deduplication and compression is done inline (as the data is being written). Otherwise, post-process deduplication and compression is done after the specified delay.</value>
-        [DataMember(Name="deduplicateCompressDelaySecs", EmitDefaultValue=true)]
+        [DataMember(Name="deduplicateCompressDelaySecs", EmitDefaultValue=false)]
         public int? DeduplicateCompressDelaySecs { get; set; }
 
         /// <summary>
         /// Specifies if deduplication is enabled for the Storage Domain (View Box). If deduplication is enabled, the Cohesity Cluster eliminates duplicate blocks of repeating data stored on the Cluster thus reducing the amount of storage space needed to store data.
         /// </summary>
         /// <value>Specifies if deduplication is enabled for the Storage Domain (View Box). If deduplication is enabled, the Cohesity Cluster eliminates duplicate blocks of repeating data stored on the Cluster thus reducing the amount of storage space needed to store data.</value>
-        [DataMember(Name="deduplicationEnabled", EmitDefaultValue=true)]
+        [DataMember(Name="deduplicationEnabled", EmitDefaultValue=false)]
         public bool? DeduplicationEnabled { get; set; }
+
 
         /// <summary>
         /// Gets or Sets ErasureCodingInfo
@@ -163,28 +158,28 @@ namespace Cohesity.Model
         /// Specifies if compression should occur inline (as the data is being written). This field is only relevant if compression is enabled. If deduplication is set to inline, Cohesity recommends setting compression to inline.
         /// </summary>
         /// <value>Specifies if compression should occur inline (as the data is being written). This field is only relevant if compression is enabled. If deduplication is set to inline, Cohesity recommends setting compression to inline.</value>
-        [DataMember(Name="inlineCompress", EmitDefaultValue=true)]
+        [DataMember(Name="inlineCompress", EmitDefaultValue=false)]
         public bool? InlineCompress { get; set; }
 
         /// <summary>
         /// Specifies if deduplication should occur inline (as the data is being written). This field is only relevant if deduplication is enabled.
         /// </summary>
         /// <value>Specifies if deduplication should occur inline (as the data is being written). This field is only relevant if deduplication is enabled.</value>
-        [DataMember(Name="inlineDeduplicate", EmitDefaultValue=true)]
+        [DataMember(Name="inlineDeduplicate", EmitDefaultValue=false)]
         public bool? InlineDeduplicate { get; set; }
 
         /// <summary>
         /// Number of disk failures to tolerate. This is an optional field. Default value is 1 for cluster having 3 or more nodes. If erasure coding is not enabled, then this specifies the replication factor for the Storage Domain (View Box). For RF&#x3D;2, number of failures to tolerate should be specified as 1. If erasure coding is enabled, then this value will be same as number of coded stripes.
         /// </summary>
         /// <value>Number of disk failures to tolerate. This is an optional field. Default value is 1 for cluster having 3 or more nodes. If erasure coding is not enabled, then this specifies the replication factor for the Storage Domain (View Box). For RF&#x3D;2, number of failures to tolerate should be specified as 1. If erasure coding is enabled, then this value will be same as number of coded stripes.</value>
-        [DataMember(Name="numFailuresTolerated", EmitDefaultValue=true)]
+        [DataMember(Name="numFailuresTolerated", EmitDefaultValue=false)]
         public int? NumFailuresTolerated { get; set; }
 
         /// <summary>
         /// Number of node failures to tolerate. If NumNodeFailuresTolerated is set to 2, then we would tolerate up to two node failures. If the following is not set, then the number of node failures tolerated would be same as replication factor - 1 for replicated chunk files or number of coded stripes for erasure coding chunk files.
         /// </summary>
         /// <value>Number of node failures to tolerate. If NumNodeFailuresTolerated is set to 2, then we would tolerate up to two node failures. If the following is not set, then the number of node failures tolerated would be same as replication factor - 1 for replicated chunk files or number of coded stripes for erasure coding chunk files.</value>
-        [DataMember(Name="numNodeFailuresTolerated", EmitDefaultValue=true)]
+        [DataMember(Name="numNodeFailuresTolerated", EmitDefaultValue=false)]
         public int? NumNodeFailuresTolerated { get; set; }
 
         /// <summary>
@@ -235,7 +230,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.CompressionPolicy == input.CompressionPolicy ||
-                    this.CompressionPolicy.Equals(input.CompressionPolicy)
+                    (this.CompressionPolicy != null &&
+                    this.CompressionPolicy.Equals(input.CompressionPolicy))
                 ) && 
                 (
                     this.DeduplicateCompressDelaySecs == input.DeduplicateCompressDelaySecs ||
@@ -249,7 +245,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.EncryptionPolicy == input.EncryptionPolicy ||
-                    this.EncryptionPolicy.Equals(input.EncryptionPolicy)
+                    (this.EncryptionPolicy != null &&
+                    this.EncryptionPolicy.Equals(input.EncryptionPolicy))
                 ) && 
                 (
                     this.ErasureCodingInfo == input.ErasureCodingInfo ||
@@ -291,12 +288,14 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.AppMarkerDetection.GetHashCode();
                 if (this.CloudSpillVaultId != null)
                     hashCode = hashCode * 59 + this.CloudSpillVaultId.GetHashCode();
-                hashCode = hashCode * 59 + this.CompressionPolicy.GetHashCode();
+                if (this.CompressionPolicy != null)
+                    hashCode = hashCode * 59 + this.CompressionPolicy.GetHashCode();
                 if (this.DeduplicateCompressDelaySecs != null)
                     hashCode = hashCode * 59 + this.DeduplicateCompressDelaySecs.GetHashCode();
                 if (this.DeduplicationEnabled != null)
                     hashCode = hashCode * 59 + this.DeduplicationEnabled.GetHashCode();
-                hashCode = hashCode * 59 + this.EncryptionPolicy.GetHashCode();
+                if (this.EncryptionPolicy != null)
+                    hashCode = hashCode * 59 + this.EncryptionPolicy.GetHashCode();
                 if (this.ErasureCodingInfo != null)
                     hashCode = hashCode * 59 + this.ErasureCodingInfo.GetHashCode();
                 if (this.InlineCompress != null)

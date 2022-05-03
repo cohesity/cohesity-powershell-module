@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,14 +34,22 @@ namespace Cohesity.Model
         /// <param name="targetSwVersion">Specifies the target software version. If specified, all Nodes on the Cluster will be searched to see if they have had the specified software package uploaded to them. If the specified package is found, then it will be used for the upgrade. (required).</param>
         public UpgradeClusterParameters(string targetSwVersion = default(string))
         {
-            this.TargetSwVersion = targetSwVersion;
+            // to ensure "targetSwVersion" is required (not null)
+            if (targetSwVersion == null)
+            {
+                throw new InvalidDataException("targetSwVersion is a required property for UpgradeClusterParameters and cannot be null");
+            }
+            else
+            {
+                this.TargetSwVersion = targetSwVersion;
+            }
         }
         
         /// <summary>
         /// Specifies the target software version. If specified, all Nodes on the Cluster will be searched to see if they have had the specified software package uploaded to them. If the specified package is found, then it will be used for the upgrade.
         /// </summary>
         /// <value>Specifies the target software version. If specified, all Nodes on the Cluster will be searched to see if they have had the specified software package uploaded to them. If the specified package is found, then it will be used for the upgrade.</value>
-        [DataMember(Name="targetSwVersion", EmitDefaultValue=true)]
+        [DataMember(Name="targetSwVersion", EmitDefaultValue=false)]
         public string TargetSwVersion { get; set; }
 
         /// <summary>

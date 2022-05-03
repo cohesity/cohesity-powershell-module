@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -51,7 +54,7 @@ namespace Cohesity.Model
         /// Specifies the status of the agent on the Exchange host. Specifies the status of agent on Exchange Application Server. &#39;kSupported&#39; indicates the agent is supported for Exchange data protection. &#39;kUnSupported&#39; indicates the agent is not supported for Exchange data protection. &#39;kUpgrade&#39; indicates the agent of server need to be upgraded.
         /// </summary>
         /// <value>Specifies the status of the agent on the Exchange host. Specifies the status of agent on Exchange Application Server. &#39;kSupported&#39; indicates the agent is supported for Exchange data protection. &#39;kUnSupported&#39; indicates the agent is not supported for Exchange data protection. &#39;kUpgrade&#39; indicates the agent of server need to be upgraded.</value>
-        [DataMember(Name="agentStatus", EmitDefaultValue=true)]
+        [DataMember(Name="agentStatus", EmitDefaultValue=false)]
         public AgentStatusEnum? AgentStatus { get; set; }
         /// <summary>
         /// Specifies the status of the registration of the Exchange Host. Specifies the status of registration of Exchange Application Server. &#39;kUnknown&#39; indicates the status is not known. &#39;kHealthy&#39; indicates the status is healty and is registered as Exchange Server. &#39;kUnHealthy&#39; indicates the exchange application is registered on the physical server but it is unreachable now. &#39;kUnregistered&#39; indicates the server is not registered as physical source. &#39;kUnreachable&#39; indicates the server is not reachable from the cohesity cluster or the cohesity protection server is not installed on the exchange server. &#39;kDetached&#39; indicates the server is removed from the ExchangeDAG.
@@ -102,7 +105,7 @@ namespace Cohesity.Model
         /// Specifies the status of the registration of the Exchange Host. Specifies the status of registration of Exchange Application Server. &#39;kUnknown&#39; indicates the status is not known. &#39;kHealthy&#39; indicates the status is healty and is registered as Exchange Server. &#39;kUnHealthy&#39; indicates the exchange application is registered on the physical server but it is unreachable now. &#39;kUnregistered&#39; indicates the server is not registered as physical source. &#39;kUnreachable&#39; indicates the server is not reachable from the cohesity cluster or the cohesity protection server is not installed on the exchange server. &#39;kDetached&#39; indicates the server is removed from the ExchangeDAG.
         /// </summary>
         /// <value>Specifies the status of the registration of the Exchange Host. Specifies the status of registration of Exchange Application Server. &#39;kUnknown&#39; indicates the status is not known. &#39;kHealthy&#39; indicates the status is healty and is registered as Exchange Server. &#39;kUnHealthy&#39; indicates the exchange application is registered on the physical server but it is unreachable now. &#39;kUnregistered&#39; indicates the server is not registered as physical source. &#39;kUnreachable&#39; indicates the server is not reachable from the cohesity cluster or the cohesity protection server is not installed on the exchange server. &#39;kDetached&#39; indicates the server is removed from the ExchangeDAG.</value>
-        [DataMember(Name="status", EmitDefaultValue=true)]
+        [DataMember(Name="status", EmitDefaultValue=false)]
         public StatusEnum? Status { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="ExchangeHostInfo" /> class.
@@ -121,41 +124,37 @@ namespace Cohesity.Model
             this.Name = name;
             this.ProtectionSourceId = protectionSourceId;
             this.Status = status;
-            this.AgentStatus = agentStatus;
-            this.Endpoint = endpoint;
-            this.Guid = guid;
-            this.Name = name;
-            this.ProtectionSourceId = protectionSourceId;
-            this.Status = status;
         }
         
+
         /// <summary>
         /// Specifies the endpoint of the Exchange host.
         /// </summary>
         /// <value>Specifies the endpoint of the Exchange host.</value>
-        [DataMember(Name="endpoint", EmitDefaultValue=true)]
+        [DataMember(Name="endpoint", EmitDefaultValue=false)]
         public string Endpoint { get; set; }
 
         /// <summary>
         /// Specifies the guid of the Exchange host.
         /// </summary>
         /// <value>Specifies the guid of the Exchange host.</value>
-        [DataMember(Name="guid", EmitDefaultValue=true)]
+        [DataMember(Name="guid", EmitDefaultValue=false)]
         public string Guid { get; set; }
 
         /// <summary>
         /// Specifies the display name of the Exchange host.
         /// </summary>
         /// <value>Specifies the display name of the Exchange host.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
 
         /// <summary>
         /// Specifies the Protection source id of the Physical Host if the Exchange application is already registered on the physical host with the above endpoint.
         /// </summary>
         /// <value>Specifies the Protection source id of the Physical Host if the Exchange application is already registered on the physical host with the above endpoint.</value>
-        [DataMember(Name="protectionSourceId", EmitDefaultValue=true)]
+        [DataMember(Name="protectionSourceId", EmitDefaultValue=false)]
         public long? ProtectionSourceId { get; set; }
+
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -195,7 +194,8 @@ namespace Cohesity.Model
             return 
                 (
                     this.AgentStatus == input.AgentStatus ||
-                    this.AgentStatus.Equals(input.AgentStatus)
+                    (this.AgentStatus != null &&
+                    this.AgentStatus.Equals(input.AgentStatus))
                 ) && 
                 (
                     this.Endpoint == input.Endpoint ||
@@ -219,7 +219,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.Status == input.Status ||
-                    this.Status.Equals(input.Status)
+                    (this.Status != null &&
+                    this.Status.Equals(input.Status))
                 );
         }
 
@@ -232,7 +233,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                hashCode = hashCode * 59 + this.AgentStatus.GetHashCode();
+                if (this.AgentStatus != null)
+                    hashCode = hashCode * 59 + this.AgentStatus.GetHashCode();
                 if (this.Endpoint != null)
                     hashCode = hashCode * 59 + this.Endpoint.GetHashCode();
                 if (this.Guid != null)
@@ -241,7 +243,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
                 if (this.ProtectionSourceId != null)
                     hashCode = hashCode * 59 + this.ProtectionSourceId.GetHashCode();
-                hashCode = hashCode * 59 + this.Status.GetHashCode();
+                if (this.Status != null)
+                    hashCode = hashCode * 59 + this.Status.GetHashCode();
                 return hashCode;
             }
         }

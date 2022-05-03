@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -24,13 +27,19 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="O365BackupEnvParams" /> class.
         /// </summary>
         /// <param name="filteringPolicy">filteringPolicy.</param>
+        /// <param name="groupBackupParams">groupBackupParams.</param>
         /// <param name="onedriveBackupParams">onedriveBackupParams.</param>
         /// <param name="outlookBackupParams">outlookBackupParams.</param>
-        public O365BackupEnvParams(FilteringPolicyProto filteringPolicy = default(FilteringPolicyProto), OneDriveBackupEnvParams onedriveBackupParams = default(OneDriveBackupEnvParams), OutlookBackupEnvParams outlookBackupParams = default(OutlookBackupEnvParams))
+        /// <param name="publicFoldersBackupParams">publicFoldersBackupParams.</param>
+        /// <param name="siteBackupParams">siteBackupParams.</param>
+        public O365BackupEnvParams(FilteringPolicyProto filteringPolicy = default(FilteringPolicyProto), GroupBackupEnvParams groupBackupParams = default(GroupBackupEnvParams), OneDriveBackupEnvParams onedriveBackupParams = default(OneDriveBackupEnvParams), OutlookBackupEnvParams outlookBackupParams = default(OutlookBackupEnvParams), PublicFoldersBackupEnvParams publicFoldersBackupParams = default(PublicFoldersBackupEnvParams), SharepPointSiteBackupEnvParams siteBackupParams = default(SharepPointSiteBackupEnvParams))
         {
             this.FilteringPolicy = filteringPolicy;
+            this.GroupBackupParams = groupBackupParams;
             this.OnedriveBackupParams = onedriveBackupParams;
             this.OutlookBackupParams = outlookBackupParams;
+            this.PublicFoldersBackupParams = publicFoldersBackupParams;
+            this.SiteBackupParams = siteBackupParams;
         }
         
         /// <summary>
@@ -38,6 +47,12 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="filteringPolicy", EmitDefaultValue=false)]
         public FilteringPolicyProto FilteringPolicy { get; set; }
+
+        /// <summary>
+        /// Gets or Sets GroupBackupParams
+        /// </summary>
+        [DataMember(Name="groupBackupParams", EmitDefaultValue=false)]
+        public GroupBackupEnvParams GroupBackupParams { get; set; }
 
         /// <summary>
         /// Gets or Sets OnedriveBackupParams
@@ -50,6 +65,18 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="outlookBackupParams", EmitDefaultValue=false)]
         public OutlookBackupEnvParams OutlookBackupParams { get; set; }
+
+        /// <summary>
+        /// Gets or Sets PublicFoldersBackupParams
+        /// </summary>
+        [DataMember(Name="publicFoldersBackupParams", EmitDefaultValue=false)]
+        public PublicFoldersBackupEnvParams PublicFoldersBackupParams { get; set; }
+
+        /// <summary>
+        /// Gets or Sets SiteBackupParams
+        /// </summary>
+        [DataMember(Name="siteBackupParams", EmitDefaultValue=false)]
+        public SharepPointSiteBackupEnvParams SiteBackupParams { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -93,6 +120,11 @@ namespace Cohesity.Model
                     this.FilteringPolicy.Equals(input.FilteringPolicy))
                 ) && 
                 (
+                    this.GroupBackupParams == input.GroupBackupParams ||
+                    (this.GroupBackupParams != null &&
+                    this.GroupBackupParams.Equals(input.GroupBackupParams))
+                ) && 
+                (
                     this.OnedriveBackupParams == input.OnedriveBackupParams ||
                     (this.OnedriveBackupParams != null &&
                     this.OnedriveBackupParams.Equals(input.OnedriveBackupParams))
@@ -101,6 +133,16 @@ namespace Cohesity.Model
                     this.OutlookBackupParams == input.OutlookBackupParams ||
                     (this.OutlookBackupParams != null &&
                     this.OutlookBackupParams.Equals(input.OutlookBackupParams))
+                ) && 
+                (
+                    this.PublicFoldersBackupParams == input.PublicFoldersBackupParams ||
+                    (this.PublicFoldersBackupParams != null &&
+                    this.PublicFoldersBackupParams.Equals(input.PublicFoldersBackupParams))
+                ) && 
+                (
+                    this.SiteBackupParams == input.SiteBackupParams ||
+                    (this.SiteBackupParams != null &&
+                    this.SiteBackupParams.Equals(input.SiteBackupParams))
                 );
         }
 
@@ -115,10 +157,16 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.FilteringPolicy != null)
                     hashCode = hashCode * 59 + this.FilteringPolicy.GetHashCode();
+                if (this.GroupBackupParams != null)
+                    hashCode = hashCode * 59 + this.GroupBackupParams.GetHashCode();
                 if (this.OnedriveBackupParams != null)
                     hashCode = hashCode * 59 + this.OnedriveBackupParams.GetHashCode();
                 if (this.OutlookBackupParams != null)
                     hashCode = hashCode * 59 + this.OutlookBackupParams.GetHashCode();
+                if (this.PublicFoldersBackupParams != null)
+                    hashCode = hashCode * 59 + this.PublicFoldersBackupParams.GetHashCode();
+                if (this.SiteBackupParams != null)
+                    hashCode = hashCode * 59 + this.SiteBackupParams.GetHashCode();
                 return hashCode;
             }
         }

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -153,7 +156,7 @@ namespace Cohesity.Model
         /// Specifies the list of changed values in a Protection Job. kProtectionJobName implies that protection job has change in the name field kProtectionJobDescription implies that protection job has change in the description field. kProtectionJobSources implies that protection job has change in the source field. kProtectionJobSchedule implies that protection job has change in the schedule field. kProtectionJobFullSchedule implies that protection job has change in the full schedule field. kProtectionJobRetrySettings implies that protection job has change in the retry settings. kProtectionJobRetentionPolicy implies that protection job has change in the retention policy. kProtectionJobIndexingPolicy implies that protection job has change in the indexing policy. kProtectionJobAlertingPolicy implies that protection job has change in the alerting policy. kProtectionJobPriority implies that protection job has change in the alerting policy. kProtectionJobQuiesce implies that protection job has change in the Quiesce. kProtectionJobSla implies that protection job has change in the SLA settings. kProtectionJobPolicyId implies that protection job has change in the poilcy Id settings. kProtectionJobTimezone implies that protection job has change in the timezone settings. kProtectionJobFutureRunsPaused implies that protection job has change in the future run settings. kProtectionJobFutureRunsResumed implies that protection job has change in the future run resume settings. kSnapshotTargetPolicy implies that protection job has change in the snapshot target policy settings. kProtectionJobQOS implies that protection job has change in QOS settings. kProtectionJobInvalidField implies that the changed field is invalid.
         /// </summary>
         /// <value>Specifies the list of changed values in a Protection Job. kProtectionJobName implies that protection job has change in the name field kProtectionJobDescription implies that protection job has change in the description field. kProtectionJobSources implies that protection job has change in the source field. kProtectionJobSchedule implies that protection job has change in the schedule field. kProtectionJobFullSchedule implies that protection job has change in the full schedule field. kProtectionJobRetrySettings implies that protection job has change in the retry settings. kProtectionJobRetentionPolicy implies that protection job has change in the retention policy. kProtectionJobIndexingPolicy implies that protection job has change in the indexing policy. kProtectionJobAlertingPolicy implies that protection job has change in the alerting policy. kProtectionJobPriority implies that protection job has change in the alerting policy. kProtectionJobQuiesce implies that protection job has change in the Quiesce. kProtectionJobSla implies that protection job has change in the SLA settings. kProtectionJobPolicyId implies that protection job has change in the poilcy Id settings. kProtectionJobTimezone implies that protection job has change in the timezone settings. kProtectionJobFutureRunsPaused implies that protection job has change in the future run settings. kProtectionJobFutureRunsResumed implies that protection job has change in the future run resume settings. kSnapshotTargetPolicy implies that protection job has change in the snapshot target policy settings. kProtectionJobQOS implies that protection job has change in QOS settings. kProtectionJobInvalidField implies that the changed field is invalid.</value>
-        [DataMember(Name="changes", EmitDefaultValue=true)]
+        [DataMember(Name="changes", EmitDefaultValue=false)]
         public List<ChangesEnum> Changes { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="ProtectionJobAuditTrail" /> class.
@@ -163,7 +166,6 @@ namespace Cohesity.Model
         /// <param name="changes">Specifies the list of changed values in a Protection Job. kProtectionJobName implies that protection job has change in the name field kProtectionJobDescription implies that protection job has change in the description field. kProtectionJobSources implies that protection job has change in the source field. kProtectionJobSchedule implies that protection job has change in the schedule field. kProtectionJobFullSchedule implies that protection job has change in the full schedule field. kProtectionJobRetrySettings implies that protection job has change in the retry settings. kProtectionJobRetentionPolicy implies that protection job has change in the retention policy. kProtectionJobIndexingPolicy implies that protection job has change in the indexing policy. kProtectionJobAlertingPolicy implies that protection job has change in the alerting policy. kProtectionJobPriority implies that protection job has change in the alerting policy. kProtectionJobQuiesce implies that protection job has change in the Quiesce. kProtectionJobSla implies that protection job has change in the SLA settings. kProtectionJobPolicyId implies that protection job has change in the poilcy Id settings. kProtectionJobTimezone implies that protection job has change in the timezone settings. kProtectionJobFutureRunsPaused implies that protection job has change in the future run settings. kProtectionJobFutureRunsResumed implies that protection job has change in the future run resume settings. kSnapshotTargetPolicy implies that protection job has change in the snapshot target policy settings. kProtectionJobQOS implies that protection job has change in QOS settings. kProtectionJobInvalidField implies that the changed field is invalid..</param>
         public ProtectionJobAuditTrail(ProtectionJob after = default(ProtectionJob), ProtectionJob before = default(ProtectionJob), List<ChangesEnum> changes = default(List<ChangesEnum>))
         {
-            this.Changes = changes;
             this.After = after;
             this.Before = before;
             this.Changes = changes;
@@ -180,6 +182,7 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="before", EmitDefaultValue=false)]
         public ProtectionJob Before { get; set; }
+
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -229,7 +232,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.Changes == input.Changes ||
-                    this.Changes.SequenceEqual(input.Changes)
+                    this.Changes != null &&
+                    this.Changes.Equals(input.Changes)
                 );
         }
 
@@ -246,7 +250,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.After.GetHashCode();
                 if (this.Before != null)
                     hashCode = hashCode * 59 + this.Before.GetHashCode();
-                hashCode = hashCode * 59 + this.Changes.GetHashCode();
+                if (this.Changes != null)
+                    hashCode = hashCode * 59 + this.Changes.GetHashCode();
                 return hashCode;
             }
         }

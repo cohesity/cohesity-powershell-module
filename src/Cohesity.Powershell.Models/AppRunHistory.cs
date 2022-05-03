@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,7 +30,6 @@ namespace Cohesity.Model
         /// <param name="mrInstances">InstancesWrapper is the slice containing the information about the map reduce application instances..</param>
         public AppRunHistory(MapReduceInfo appInfo = default(MapReduceInfo), List<MapReduceInstanceWrapper> mrInstances = default(List<MapReduceInstanceWrapper>))
         {
-            this.MrInstances = mrInstances;
             this.AppInfo = appInfo;
             this.MrInstances = mrInstances;
         }
@@ -42,7 +44,7 @@ namespace Cohesity.Model
         /// InstancesWrapper is the slice containing the information about the map reduce application instances.
         /// </summary>
         /// <value>InstancesWrapper is the slice containing the information about the map reduce application instances.</value>
-        [DataMember(Name="mrInstances", EmitDefaultValue=true)]
+        [DataMember(Name="mrInstances", EmitDefaultValue=false)]
         public List<MapReduceInstanceWrapper> MrInstances { get; set; }
 
         /// <summary>
@@ -89,8 +91,7 @@ namespace Cohesity.Model
                 (
                     this.MrInstances == input.MrInstances ||
                     this.MrInstances != null &&
-                    input.MrInstances != null &&
-                    this.MrInstances.SequenceEqual(input.MrInstances)
+                    this.MrInstances.Equals(input.MrInstances)
                 );
         }
 

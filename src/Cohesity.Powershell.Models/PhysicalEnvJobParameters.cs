@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,7 +30,6 @@ namespace Cohesity.Model
         /// <param name="incrementalSnapshotUponRestart">If true, performs an incremental backup after server restarts. Otherwise a full backup is done. NOTE: This is applicable only to Windows servers. If not set, default value is false..</param>
         public PhysicalEnvJobParameters(FilePathFilter filePathFilters = default(FilePathFilter), bool? incrementalSnapshotUponRestart = default(bool?))
         {
-            this.IncrementalSnapshotUponRestart = incrementalSnapshotUponRestart;
             this.FilePathFilters = filePathFilters;
             this.IncrementalSnapshotUponRestart = incrementalSnapshotUponRestart;
         }
@@ -42,7 +44,7 @@ namespace Cohesity.Model
         /// If true, performs an incremental backup after server restarts. Otherwise a full backup is done. NOTE: This is applicable only to Windows servers. If not set, default value is false.
         /// </summary>
         /// <value>If true, performs an incremental backup after server restarts. Otherwise a full backup is done. NOTE: This is applicable only to Windows servers. If not set, default value is false.</value>
-        [DataMember(Name="incrementalSnapshotUponRestart", EmitDefaultValue=true)]
+        [DataMember(Name="incrementalSnapshotUponRestart", EmitDefaultValue=false)]
         public bool? IncrementalSnapshotUponRestart { get; set; }
 
         /// <summary>

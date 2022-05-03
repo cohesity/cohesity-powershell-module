@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -51,7 +54,7 @@ namespace Cohesity.Model
         /// Specifies the type of the managed Object in MongoDB Protection Source. Specifies the type of an MongoDB source entity. &#39;kCluster&#39; indicates a mongodb cluster distributed over several physical nodes. &#39;kDatabase&#39; indicates a Database within the MongoDB environment. &#39;kCollection&#39; indicates a Collection in the MongoDB enironment.
         /// </summary>
         /// <value>Specifies the type of the managed Object in MongoDB Protection Source. Specifies the type of an MongoDB source entity. &#39;kCluster&#39; indicates a mongodb cluster distributed over several physical nodes. &#39;kDatabase&#39; indicates a Database within the MongoDB environment. &#39;kCollection&#39; indicates a Collection in the MongoDB enironment.</value>
-        [DataMember(Name="type", EmitDefaultValue=true)]
+        [DataMember(Name="type", EmitDefaultValue=false)]
         public TypeEnum? Type { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="MongoDBProtectionSource" /> class.
@@ -64,9 +67,6 @@ namespace Cohesity.Model
         /// <param name="uuid">Specifies the UUID for the MongoDB entity..</param>
         public MongoDBProtectionSource(MongoDBCluster clusterInfo = default(MongoDBCluster), MongoDBCollection collectionInfo = default(MongoDBCollection), MongoDBDatabase databaseInfo = default(MongoDBDatabase), string name = default(string), TypeEnum? type = default(TypeEnum?), string uuid = default(string))
         {
-            this.Name = name;
-            this.Type = type;
-            this.Uuid = uuid;
             this.ClusterInfo = clusterInfo;
             this.CollectionInfo = collectionInfo;
             this.DatabaseInfo = databaseInfo;
@@ -97,14 +97,15 @@ namespace Cohesity.Model
         /// Specifies the instance name of the MongoDB entity.
         /// </summary>
         /// <value>Specifies the instance name of the MongoDB entity.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
+
 
         /// <summary>
         /// Specifies the UUID for the MongoDB entity.
         /// </summary>
         /// <value>Specifies the UUID for the MongoDB entity.</value>
-        [DataMember(Name="uuid", EmitDefaultValue=true)]
+        [DataMember(Name="uuid", EmitDefaultValue=false)]
         public string Uuid { get; set; }
 
         /// <summary>
@@ -165,7 +166,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.Type == input.Type ||
-                    this.Type.Equals(input.Type)
+                    (this.Type != null &&
+                    this.Type.Equals(input.Type))
                 ) && 
                 (
                     this.Uuid == input.Uuid ||
@@ -191,7 +193,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.DatabaseInfo.GetHashCode();
                 if (this.Name != null)
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
-                hashCode = hashCode * 59 + this.Type.GetHashCode();
+                if (this.Type != null)
+                    hashCode = hashCode * 59 + this.Type.GetHashCode();
                 if (this.Uuid != null)
                     hashCode = hashCode * 59 + this.Uuid.GetHashCode();
                 return hashCode;

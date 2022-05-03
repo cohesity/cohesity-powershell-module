@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -24,11 +27,9 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="BannerUpdateParameters" /> class.
         /// </summary>
         /// <param name="content">Specifies the content of the banner..</param>
-        /// <param name="description">Specifies the description of this banner..</param>
+        /// <param name="description">description field is deprecated. Specifies the description of this banner..</param>
         public BannerUpdateParameters(string content = default(string), string description = default(string))
         {
-            this.Content = content;
-            this.Description = description;
             this.Content = content;
             this.Description = description;
         }
@@ -37,14 +38,14 @@ namespace Cohesity.Model
         /// Specifies the content of the banner.
         /// </summary>
         /// <value>Specifies the content of the banner.</value>
-        [DataMember(Name="content", EmitDefaultValue=true)]
+        [DataMember(Name="content", EmitDefaultValue=false)]
         public string Content { get; set; }
 
         /// <summary>
-        /// Specifies the description of this banner.
+        /// description field is deprecated. Specifies the description of this banner.
         /// </summary>
-        /// <value>Specifies the description of this banner.</value>
-        [DataMember(Name="description", EmitDefaultValue=true)]
+        /// <value>description field is deprecated. Specifies the description of this banner.</value>
+        [DataMember(Name="description", EmitDefaultValue=false)]
         public string Description { get; set; }
 
         /// <summary>

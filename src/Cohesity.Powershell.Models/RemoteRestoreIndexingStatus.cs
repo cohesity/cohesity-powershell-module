@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -63,7 +66,7 @@ namespace Cohesity.Model
         /// Specifies the status of the indexing Job/task. &#39;kJobRunning&#39; indicates that the Job/task is currently running. &#39;kJobFinished&#39; indicates that the Job/task completed and finished. &#39;kJobFailed&#39; indicates that the Job/task failed and did not complete. &#39;kJobCanceled&#39; indicates that the Job/task was canceled. &#39;kJobPaused&#39; indicates the Job/task is paused.
         /// </summary>
         /// <value>Specifies the status of the indexing Job/task. &#39;kJobRunning&#39; indicates that the Job/task is currently running. &#39;kJobFinished&#39; indicates that the Job/task completed and finished. &#39;kJobFailed&#39; indicates that the Job/task failed and did not complete. &#39;kJobCanceled&#39; indicates that the Job/task was canceled. &#39;kJobPaused&#39; indicates the Job/task is paused.</value>
-        [DataMember(Name="indexingTaskStatus", EmitDefaultValue=true)]
+        [DataMember(Name="indexingTaskStatus", EmitDefaultValue=false)]
         public IndexingTaskStatusEnum? IndexingTaskStatus { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="RemoteRestoreIndexingStatus" /> class.
@@ -88,71 +91,63 @@ namespace Cohesity.Model
             this.LatestExpiryTimeUsecs = latestExpiryTimeUsecs;
             this.ProgressMonitorTask = progressMonitorTask;
             this.StartTimeUsecs = startTimeUsecs;
-            this.EndTimeUsecs = endTimeUsecs;
-            this.Error = error;
-            this.IndexingTaskEndTimeUsecs = indexingTaskEndTimeUsecs;
-            this.IndexingTaskStartTimeUsecs = indexingTaskStartTimeUsecs;
-            this.IndexingTaskStatus = indexingTaskStatus;
-            this.IndexingTaskUid = indexingTaskUid;
-            this.LatestExpiryTimeUsecs = latestExpiryTimeUsecs;
-            this.ProgressMonitorTask = progressMonitorTask;
-            this.StartTimeUsecs = startTimeUsecs;
         }
         
         /// <summary>
         /// Specifies the end time of the time range that is being indexed. The indexing task is creating an index of the Job Runs that occurred between the startTimeUsecs and this endTimeUsecs. This field is recorded as a Unix epoch Timestamp (in microseconds).
         /// </summary>
         /// <value>Specifies the end time of the time range that is being indexed. The indexing task is creating an index of the Job Runs that occurred between the startTimeUsecs and this endTimeUsecs. This field is recorded as a Unix epoch Timestamp (in microseconds).</value>
-        [DataMember(Name="endTimeUsecs", EmitDefaultValue=true)]
+        [DataMember(Name="endTimeUsecs", EmitDefaultValue=false)]
         public long? EndTimeUsecs { get; set; }
 
         /// <summary>
         /// Specifies the error message if the indexing Job/task fails.
         /// </summary>
         /// <value>Specifies the error message if the indexing Job/task fails.</value>
-        [DataMember(Name="error", EmitDefaultValue=true)]
+        [DataMember(Name="error", EmitDefaultValue=false)]
         public string Error { get; set; }
 
         /// <summary>
         /// Specifies when the indexing task completed. This time is recorded as a Unix epoch Timestamp (in microseconds). This field is not set if the indexing task is still in progress.
         /// </summary>
         /// <value>Specifies when the indexing task completed. This time is recorded as a Unix epoch Timestamp (in microseconds). This field is not set if the indexing task is still in progress.</value>
-        [DataMember(Name="indexingTaskEndTimeUsecs", EmitDefaultValue=true)]
+        [DataMember(Name="indexingTaskEndTimeUsecs", EmitDefaultValue=false)]
         public long? IndexingTaskEndTimeUsecs { get; set; }
 
         /// <summary>
         /// Specifies when the indexing task started. This time is recorded as a Unix epoch Timestamp (in microseconds).
         /// </summary>
         /// <value>Specifies when the indexing task started. This time is recorded as a Unix epoch Timestamp (in microseconds).</value>
-        [DataMember(Name="indexingTaskStartTimeUsecs", EmitDefaultValue=true)]
+        [DataMember(Name="indexingTaskStartTimeUsecs", EmitDefaultValue=false)]
         public long? IndexingTaskStartTimeUsecs { get; set; }
+
 
         /// <summary>
         /// Specifies the unique id of the indexing task assigned by this Cluster.
         /// </summary>
         /// <value>Specifies the unique id of the indexing task assigned by this Cluster.</value>
-        [DataMember(Name="indexingTaskUid", EmitDefaultValue=true)]
+        [DataMember(Name="indexingTaskUid", EmitDefaultValue=false)]
         public UniversalId IndexingTaskUid { get; set; }
 
         /// <summary>
         /// For all the Snapshots retrieved by this Job, specifies the latest time when a Snapshot expires.
         /// </summary>
         /// <value>For all the Snapshots retrieved by this Job, specifies the latest time when a Snapshot expires.</value>
-        [DataMember(Name="latestExpiryTimeUsecs", EmitDefaultValue=true)]
+        [DataMember(Name="latestExpiryTimeUsecs", EmitDefaultValue=false)]
         public long? LatestExpiryTimeUsecs { get; set; }
 
         /// <summary>
         /// Specifies the path to progress monitor task to track the progress of building the index.
         /// </summary>
         /// <value>Specifies the path to progress monitor task to track the progress of building the index.</value>
-        [DataMember(Name="progressMonitorTask", EmitDefaultValue=true)]
+        [DataMember(Name="progressMonitorTask", EmitDefaultValue=false)]
         public string ProgressMonitorTask { get; set; }
 
         /// <summary>
         /// Specifies the start time of the time range that is being indexed. The indexing task is creating an index of the Job Runs that occurred between this startTimeUsecs and the endTimeUsecs. This field is recorded as a Unix epoch Timestamp (in microseconds).
         /// </summary>
         /// <value>Specifies the start time of the time range that is being indexed. The indexing task is creating an index of the Job Runs that occurred between this startTimeUsecs and the endTimeUsecs. This field is recorded as a Unix epoch Timestamp (in microseconds).</value>
-        [DataMember(Name="startTimeUsecs", EmitDefaultValue=true)]
+        [DataMember(Name="startTimeUsecs", EmitDefaultValue=false)]
         public long? StartTimeUsecs { get; set; }
 
         /// <summary>
@@ -213,12 +208,13 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.IndexingTaskStatus == input.IndexingTaskStatus ||
-                    this.IndexingTaskStatus.Equals(input.IndexingTaskStatus)
+                    (this.IndexingTaskStatus != null &&
+                    this.IndexingTaskStatus.Equals(input.IndexingTaskStatus))
                 ) && 
                 (
                     this.IndexingTaskUid == input.IndexingTaskUid ||
-                    (this.IndexingTaskUid != null &&
-                    this.IndexingTaskUid.Equals(input.IndexingTaskUid))
+                    this.IndexingTaskUid != null &&
+                    this.IndexingTaskUid.Equals(input.IndexingTaskUid)
                 ) && 
                 (
                     this.LatestExpiryTimeUsecs == input.LatestExpiryTimeUsecs ||
@@ -254,7 +250,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.IndexingTaskEndTimeUsecs.GetHashCode();
                 if (this.IndexingTaskStartTimeUsecs != null)
                     hashCode = hashCode * 59 + this.IndexingTaskStartTimeUsecs.GetHashCode();
-                hashCode = hashCode * 59 + this.IndexingTaskStatus.GetHashCode();
+                if (this.IndexingTaskStatus != null)
+                    hashCode = hashCode * 59 + this.IndexingTaskStatus.GetHashCode();
                 if (this.IndexingTaskUid != null)
                     hashCode = hashCode * 59 + this.IndexingTaskUid.GetHashCode();
                 if (this.LatestExpiryTimeUsecs != null)

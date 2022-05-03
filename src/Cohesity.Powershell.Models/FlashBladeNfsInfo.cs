@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,14 +30,13 @@ namespace Cohesity.Model
         public FlashBladeNfsInfo(string exportRules = default(string))
         {
             this.ExportRules = exportRules;
-            this.ExportRules = exportRules;
         }
         
         /// <summary>
         /// Specifies NFS protocol export rules. Rules are in the form host(options). host represents one of the following categories:  IP address in the form ddd.ddd.ddd.ddd for IPv4, or xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx for IPv6.  Netmask in the form ddd.ddd.ddd.ddd/dd for IPv4, or xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx/xxx for IPv6.  Wildcard in the form * to represent all clients  options in parenthesis represents a comma-separated list of NFS export options. Valid export options are rw, ro, root_squash, no_root_squash, and fileid_32bit.
         /// </summary>
         /// <value>Specifies NFS protocol export rules. Rules are in the form host(options). host represents one of the following categories:  IP address in the form ddd.ddd.ddd.ddd for IPv4, or xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx for IPv6.  Netmask in the form ddd.ddd.ddd.ddd/dd for IPv4, or xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:xxxx/xxx for IPv6.  Wildcard in the form * to represent all clients  options in parenthesis represents a comma-separated list of NFS export options. Valid export options are rw, ro, root_squash, no_root_squash, and fileid_32bit.</value>
-        [DataMember(Name="exportRules", EmitDefaultValue=true)]
+        [DataMember(Name="exportRules", EmitDefaultValue=false)]
         public string ExportRules { get; set; }
 
         /// <summary>

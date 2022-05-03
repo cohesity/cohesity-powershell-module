@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,30 +34,27 @@ namespace Cohesity.Model
             this.Domain = domain;
             this.TenantId = tenantId;
             this.Users = users;
-            this.Domain = domain;
-            this.TenantId = tenantId;
-            this.Users = users;
         }
         
         /// <summary>
         /// Specifies the domain associated with the users to delete. Only users associated with the same domain can be deleted by a single request. If no domain is specified, the specified users are deleted from the LOCAL domain on the Cohesity Cluster. If a non-LOCAL domain is specified, the specified users are deleted on the Cohesity Cluster. However, the referenced user principals on the Active Directory are not deleted.
         /// </summary>
         /// <value>Specifies the domain associated with the users to delete. Only users associated with the same domain can be deleted by a single request. If no domain is specified, the specified users are deleted from the LOCAL domain on the Cohesity Cluster. If a non-LOCAL domain is specified, the specified users are deleted on the Cohesity Cluster. However, the referenced user principals on the Active Directory are not deleted.</value>
-        [DataMember(Name="domain", EmitDefaultValue=true)]
+        [DataMember(Name="domain", EmitDefaultValue=false)]
         public string Domain { get; set; }
 
         /// <summary>
         /// Specifies the tenant for which the users are to be deleted.
         /// </summary>
         /// <value>Specifies the tenant for which the users are to be deleted.</value>
-        [DataMember(Name="tenantId", EmitDefaultValue=true)]
+        [DataMember(Name="tenantId", EmitDefaultValue=false)]
         public string TenantId { get; set; }
 
         /// <summary>
         /// Array of Users.  Specifies the list of users to delete on Cohesity Cluster. Only users from the same domain can be deleted by a single request.
         /// </summary>
         /// <value>Array of Users.  Specifies the list of users to delete on Cohesity Cluster. Only users from the same domain can be deleted by a single request.</value>
-        [DataMember(Name="users", EmitDefaultValue=true)]
+        [DataMember(Name="users", EmitDefaultValue=false)]
         public List<string> Users { get; set; }
 
         /// <summary>
@@ -106,8 +106,7 @@ namespace Cohesity.Model
                 (
                     this.Users == input.Users ||
                     this.Users != null &&
-                    input.Users != null &&
-                    this.Users.SequenceEqual(input.Users)
+                    this.Users.Equals(input.Users)
                 );
         }
 

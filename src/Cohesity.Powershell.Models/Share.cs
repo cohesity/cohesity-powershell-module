@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -24,6 +27,7 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="Share" /> class.
         /// </summary>
         /// <param name="allSmbMountPaths">Array of SMB Paths.  Specifies the possible paths that can be used to mount this Share as a SMB share. If Active Directory has multiple account names; each machine account has its own path..</param>
+        /// <param name="enableFilerAuditLog">Specifies whether to enable filer audit log on this view alias..</param>
         /// <param name="enableSmbEncryption">Specifies the SMB encryption for the View Alias. If set, it enables the SMB encryption for the View Alias. Encryption is supported only by SMB 3.x dialects. Dialects that do not support would still access data in unencrypted format..</param>
         /// <param name="enableSmbViewDiscovery">If set, it enables discovery of view alias for SMB..</param>
         /// <param name="enforceSmbEncryption">Specifies the SMB encryption for all the sessions for the View Alias. If set, encryption is enforced for all the sessions for the View Alias. When enabled all future and existing unencrypted sessions are disallowed..</param>
@@ -34,11 +38,13 @@ namespace Cohesity.Model
         /// <param name="sharePermissions">Specifies a list of share level permissions..</param>
         /// <param name="smbMountPath">Specifies the main path for mounting this Share as an SMB share..</param>
         /// <param name="subnetWhitelist">Specifies a list of Subnets with IP addresses that have permissions to access the View Alias. (Overrides the Subnets specified at the global Cohesity Cluster level and View level.).</param>
+        /// <param name="superUserSids">Specifies a list of user sids who have Superuser access to this share..</param>
         /// <param name="tenantId">Specifies the unique id of the tenant..</param>
         /// <param name="viewName">Specifies the view name this share belongs to..</param>
-        public Share(List<string> allSmbMountPaths = default(List<string>), bool? enableSmbEncryption = default(bool?), bool? enableSmbViewDiscovery = default(bool?), bool? enforceSmbEncryption = default(bool?), string nfsMountPath = default(string), string path = default(string), string s3AccessPath = default(string), string shareName = default(string), List<SmbPermission> sharePermissions = default(List<SmbPermission>), string smbMountPath = default(string), List<Subnet> subnetWhitelist = default(List<Subnet>), string tenantId = default(string), string viewName = default(string))
+        public Share(List<string> allSmbMountPaths = default(List<string>), bool? enableFilerAuditLog = default(bool?), bool? enableSmbEncryption = default(bool?), bool? enableSmbViewDiscovery = default(bool?), bool? enforceSmbEncryption = default(bool?), string nfsMountPath = default(string), string path = default(string), string s3AccessPath = default(string), string shareName = default(string), List<SmbPermission> sharePermissions = default(List<SmbPermission>), string smbMountPath = default(string), List<Subnet> subnetWhitelist = default(List<Subnet>), List<string> superUserSids = default(List<string>), string tenantId = default(string), string viewName = default(string))
         {
             this.AllSmbMountPaths = allSmbMountPaths;
+            this.EnableFilerAuditLog = enableFilerAuditLog;
             this.EnableSmbEncryption = enableSmbEncryption;
             this.EnableSmbViewDiscovery = enableSmbViewDiscovery;
             this.EnforceSmbEncryption = enforceSmbEncryption;
@@ -49,19 +55,7 @@ namespace Cohesity.Model
             this.SharePermissions = sharePermissions;
             this.SmbMountPath = smbMountPath;
             this.SubnetWhitelist = subnetWhitelist;
-            this.TenantId = tenantId;
-            this.ViewName = viewName;
-            this.AllSmbMountPaths = allSmbMountPaths;
-            this.EnableSmbEncryption = enableSmbEncryption;
-            this.EnableSmbViewDiscovery = enableSmbViewDiscovery;
-            this.EnforceSmbEncryption = enforceSmbEncryption;
-            this.NfsMountPath = nfsMountPath;
-            this.Path = path;
-            this.S3AccessPath = s3AccessPath;
-            this.ShareName = shareName;
-            this.SharePermissions = sharePermissions;
-            this.SmbMountPath = smbMountPath;
-            this.SubnetWhitelist = subnetWhitelist;
+            this.SuperUserSids = superUserSids;
             this.TenantId = tenantId;
             this.ViewName = viewName;
         }
@@ -70,91 +64,105 @@ namespace Cohesity.Model
         /// Array of SMB Paths.  Specifies the possible paths that can be used to mount this Share as a SMB share. If Active Directory has multiple account names; each machine account has its own path.
         /// </summary>
         /// <value>Array of SMB Paths.  Specifies the possible paths that can be used to mount this Share as a SMB share. If Active Directory has multiple account names; each machine account has its own path.</value>
-        [DataMember(Name="allSmbMountPaths", EmitDefaultValue=true)]
+        [DataMember(Name="allSmbMountPaths", EmitDefaultValue=false)]
         public List<string> AllSmbMountPaths { get; set; }
+
+        /// <summary>
+        /// Specifies whether to enable filer audit log on this view alias.
+        /// </summary>
+        /// <value>Specifies whether to enable filer audit log on this view alias.</value>
+        [DataMember(Name="enableFilerAuditLog", EmitDefaultValue=false)]
+        public bool? EnableFilerAuditLog { get; set; }
 
         /// <summary>
         /// Specifies the SMB encryption for the View Alias. If set, it enables the SMB encryption for the View Alias. Encryption is supported only by SMB 3.x dialects. Dialects that do not support would still access data in unencrypted format.
         /// </summary>
         /// <value>Specifies the SMB encryption for the View Alias. If set, it enables the SMB encryption for the View Alias. Encryption is supported only by SMB 3.x dialects. Dialects that do not support would still access data in unencrypted format.</value>
-        [DataMember(Name="enableSmbEncryption", EmitDefaultValue=true)]
+        [DataMember(Name="enableSmbEncryption", EmitDefaultValue=false)]
         public bool? EnableSmbEncryption { get; set; }
 
         /// <summary>
         /// If set, it enables discovery of view alias for SMB.
         /// </summary>
         /// <value>If set, it enables discovery of view alias for SMB.</value>
-        [DataMember(Name="enableSmbViewDiscovery", EmitDefaultValue=true)]
+        [DataMember(Name="enableSmbViewDiscovery", EmitDefaultValue=false)]
         public bool? EnableSmbViewDiscovery { get; set; }
 
         /// <summary>
         /// Specifies the SMB encryption for all the sessions for the View Alias. If set, encryption is enforced for all the sessions for the View Alias. When enabled all future and existing unencrypted sessions are disallowed.
         /// </summary>
         /// <value>Specifies the SMB encryption for all the sessions for the View Alias. If set, encryption is enforced for all the sessions for the View Alias. When enabled all future and existing unencrypted sessions are disallowed.</value>
-        [DataMember(Name="enforceSmbEncryption", EmitDefaultValue=true)]
+        [DataMember(Name="enforceSmbEncryption", EmitDefaultValue=false)]
         public bool? EnforceSmbEncryption { get; set; }
 
         /// <summary>
         /// Specifies the path for mounting this Share as an NFS share.
         /// </summary>
         /// <value>Specifies the path for mounting this Share as an NFS share.</value>
-        [DataMember(Name="nfsMountPath", EmitDefaultValue=true)]
+        [DataMember(Name="nfsMountPath", EmitDefaultValue=false)]
         public string NfsMountPath { get; set; }
 
         /// <summary>
         /// Specifies the path information for this share.
         /// </summary>
         /// <value>Specifies the path information for this share.</value>
-        [DataMember(Name="path", EmitDefaultValue=true)]
+        [DataMember(Name="path", EmitDefaultValue=false)]
         public string Path { get; set; }
 
         /// <summary>
         /// Specifies the path to access this View as an S3 share.
         /// </summary>
         /// <value>Specifies the path to access this View as an S3 share.</value>
-        [DataMember(Name="s3AccessPath", EmitDefaultValue=true)]
+        [DataMember(Name="s3AccessPath", EmitDefaultValue=false)]
         public string S3AccessPath { get; set; }
 
         /// <summary>
         /// The name of the share.
         /// </summary>
         /// <value>The name of the share.</value>
-        [DataMember(Name="shareName", EmitDefaultValue=true)]
+        [DataMember(Name="shareName", EmitDefaultValue=false)]
         public string ShareName { get; set; }
 
         /// <summary>
         /// Specifies a list of share level permissions.
         /// </summary>
         /// <value>Specifies a list of share level permissions.</value>
-        [DataMember(Name="sharePermissions", EmitDefaultValue=true)]
+        [DataMember(Name="sharePermissions", EmitDefaultValue=false)]
         public List<SmbPermission> SharePermissions { get; set; }
 
         /// <summary>
         /// Specifies the main path for mounting this Share as an SMB share.
         /// </summary>
         /// <value>Specifies the main path for mounting this Share as an SMB share.</value>
-        [DataMember(Name="smbMountPath", EmitDefaultValue=true)]
+        [DataMember(Name="smbMountPath", EmitDefaultValue=false)]
         public string SmbMountPath { get; set; }
 
         /// <summary>
         /// Specifies a list of Subnets with IP addresses that have permissions to access the View Alias. (Overrides the Subnets specified at the global Cohesity Cluster level and View level.)
         /// </summary>
         /// <value>Specifies a list of Subnets with IP addresses that have permissions to access the View Alias. (Overrides the Subnets specified at the global Cohesity Cluster level and View level.)</value>
-        [DataMember(Name="subnetWhitelist", EmitDefaultValue=true)]
+        [DataMember(Name="subnetWhitelist", EmitDefaultValue=false)]
         public List<Subnet> SubnetWhitelist { get; set; }
+
+        /// <summary>
+        /// Specifies a list of user sids who have Superuser access to this share.
+        /// </summary>
+        /// <value>Specifies a list of user sids who have Superuser access to this share.</value>
+        [DataMember(Name="superUserSids", EmitDefaultValue=false)]
+        public List<string> SuperUserSids { get; set; }
 
         /// <summary>
         /// Specifies the unique id of the tenant.
         /// </summary>
         /// <value>Specifies the unique id of the tenant.</value>
-        [DataMember(Name="tenantId", EmitDefaultValue=true)]
+        [DataMember(Name="tenantId", EmitDefaultValue=false)]
         public string TenantId { get; set; }
 
         /// <summary>
         /// Specifies the view name this share belongs to.
         /// </summary>
         /// <value>Specifies the view name this share belongs to.</value>
-        [DataMember(Name="viewName", EmitDefaultValue=true)]
+        [DataMember(Name="viewName", EmitDefaultValue=false)]
         public string ViewName { get; set; }
 
         /// <summary>
@@ -196,8 +204,12 @@ namespace Cohesity.Model
                 (
                     this.AllSmbMountPaths == input.AllSmbMountPaths ||
                     this.AllSmbMountPaths != null &&
-                    input.AllSmbMountPaths != null &&
-                    this.AllSmbMountPaths.SequenceEqual(input.AllSmbMountPaths)
+                    this.AllSmbMountPaths.Equals(input.AllSmbMountPaths)
+                ) && 
+                (
+                    this.EnableFilerAuditLog == input.EnableFilerAuditLog ||
+                    (this.EnableFilerAuditLog != null &&
+                    this.EnableFilerAuditLog.Equals(input.EnableFilerAuditLog))
                 ) && 
                 (
                     this.EnableSmbEncryption == input.EnableSmbEncryption ||
@@ -237,8 +249,7 @@ namespace Cohesity.Model
                 (
                     this.SharePermissions == input.SharePermissions ||
                     this.SharePermissions != null &&
-                    input.SharePermissions != null &&
-                    this.SharePermissions.SequenceEqual(input.SharePermissions)
+                    this.SharePermissions.Equals(input.SharePermissions)
                 ) && 
                 (
                     this.SmbMountPath == input.SmbMountPath ||
@@ -248,8 +259,12 @@ namespace Cohesity.Model
                 (
                     this.SubnetWhitelist == input.SubnetWhitelist ||
                     this.SubnetWhitelist != null &&
-                    input.SubnetWhitelist != null &&
-                    this.SubnetWhitelist.SequenceEqual(input.SubnetWhitelist)
+                    this.SubnetWhitelist.Equals(input.SubnetWhitelist)
+                ) && 
+                (
+                    this.SuperUserSids == input.SuperUserSids ||
+                    this.SuperUserSids != null &&
+                    this.SuperUserSids.Equals(input.SuperUserSids)
                 ) && 
                 (
                     this.TenantId == input.TenantId ||
@@ -274,6 +289,8 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.AllSmbMountPaths != null)
                     hashCode = hashCode * 59 + this.AllSmbMountPaths.GetHashCode();
+                if (this.EnableFilerAuditLog != null)
+                    hashCode = hashCode * 59 + this.EnableFilerAuditLog.GetHashCode();
                 if (this.EnableSmbEncryption != null)
                     hashCode = hashCode * 59 + this.EnableSmbEncryption.GetHashCode();
                 if (this.EnableSmbViewDiscovery != null)
@@ -294,6 +311,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.SmbMountPath.GetHashCode();
                 if (this.SubnetWhitelist != null)
                     hashCode = hashCode * 59 + this.SubnetWhitelist.GetHashCode();
+                if (this.SuperUserSids != null)
+                    hashCode = hashCode * 59 + this.SuperUserSids.GetHashCode();
                 if (this.TenantId != null)
                     hashCode = hashCode * 59 + this.TenantId.GetHashCode();
                 if (this.ViewName != null)

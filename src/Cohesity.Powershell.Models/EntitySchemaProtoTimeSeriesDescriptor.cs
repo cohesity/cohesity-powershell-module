@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,15 +30,10 @@ namespace Cohesity.Model
         /// <param name="metricName">Specifies the name of the metric such as &#39;kUnmorphedUsageBytes&#39;. It should be unique in an entity schema..</param>
         /// <param name="metricUnit">metricUnit.</param>
         /// <param name="rawMetricPublishIntervalHintSecs">Specifies a suggestion for the interval to collect raw data points..</param>
-        /// <param name="timeToLiveSecs">Specifies how long the data point will be stored..</param>
+        /// <param name="timeToLiveSecs">Specifies how long the data point will be stored. Note: In statsv2, as timeseries data of an entity is stored per scribe row with metrics as columns, it is good to have time_to_live_secs per schema(defined below) For existing schemas, we will consider highest time_to_live_secs of all metrics as expiration time for all metrics defined in schema..</param>
         /// <param name="valueType">Specifies the value type for this metric. A metric of type &#39;string\&quot; is not supported, instead use &#39;bytes&#39;. Note that an aggregate metric of type &#39;bytes&#39; is not supported. 0 specifies a value type of Int64. 1 specifies a value type of Double. 2 specifies a value type of String. 3 specifies a value type of Bytes..</param>
         public EntitySchemaProtoTimeSeriesDescriptor(string metricDescriptiveName = default(string), string metricName = default(string), EntitySchemaProtoTimeSeriesDescriptorMetricUnit metricUnit = default(EntitySchemaProtoTimeSeriesDescriptorMetricUnit), int? rawMetricPublishIntervalHintSecs = default(int?), long? timeToLiveSecs = default(long?), int? valueType = default(int?))
         {
-            this.MetricDescriptiveName = metricDescriptiveName;
-            this.MetricName = metricName;
-            this.RawMetricPublishIntervalHintSecs = rawMetricPublishIntervalHintSecs;
-            this.TimeToLiveSecs = timeToLiveSecs;
-            this.ValueType = valueType;
             this.MetricDescriptiveName = metricDescriptiveName;
             this.MetricName = metricName;
             this.MetricUnit = metricUnit;
@@ -48,14 +46,14 @@ namespace Cohesity.Model
         /// Specifies a descriptive name for the metric that is displayed in the Advanced Diagnostics of the Cohesity Dashboard. For example for the &#39;kUnmorphedUsageBytes&#39; metric, the descriptive name is \&quot;Total Logical Space Used\&quot;.
         /// </summary>
         /// <value>Specifies a descriptive name for the metric that is displayed in the Advanced Diagnostics of the Cohesity Dashboard. For example for the &#39;kUnmorphedUsageBytes&#39; metric, the descriptive name is \&quot;Total Logical Space Used\&quot;.</value>
-        [DataMember(Name="metricDescriptiveName", EmitDefaultValue=true)]
+        [DataMember(Name="metricDescriptiveName", EmitDefaultValue=false)]
         public string MetricDescriptiveName { get; set; }
 
         /// <summary>
         /// Specifies the name of the metric such as &#39;kUnmorphedUsageBytes&#39;. It should be unique in an entity schema.
         /// </summary>
         /// <value>Specifies the name of the metric such as &#39;kUnmorphedUsageBytes&#39;. It should be unique in an entity schema.</value>
-        [DataMember(Name="metricName", EmitDefaultValue=true)]
+        [DataMember(Name="metricName", EmitDefaultValue=false)]
         public string MetricName { get; set; }
 
         /// <summary>
@@ -68,21 +66,21 @@ namespace Cohesity.Model
         /// Specifies a suggestion for the interval to collect raw data points.
         /// </summary>
         /// <value>Specifies a suggestion for the interval to collect raw data points.</value>
-        [DataMember(Name="rawMetricPublishIntervalHintSecs", EmitDefaultValue=true)]
+        [DataMember(Name="rawMetricPublishIntervalHintSecs", EmitDefaultValue=false)]
         public int? RawMetricPublishIntervalHintSecs { get; set; }
 
         /// <summary>
-        /// Specifies how long the data point will be stored.
+        /// Specifies how long the data point will be stored. Note: In statsv2, as timeseries data of an entity is stored per scribe row with metrics as columns, it is good to have time_to_live_secs per schema(defined below) For existing schemas, we will consider highest time_to_live_secs of all metrics as expiration time for all metrics defined in schema.
         /// </summary>
-        /// <value>Specifies how long the data point will be stored.</value>
-        [DataMember(Name="timeToLiveSecs", EmitDefaultValue=true)]
+        /// <value>Specifies how long the data point will be stored. Note: In statsv2, as timeseries data of an entity is stored per scribe row with metrics as columns, it is good to have time_to_live_secs per schema(defined below) For existing schemas, we will consider highest time_to_live_secs of all metrics as expiration time for all metrics defined in schema.</value>
+        [DataMember(Name="timeToLiveSecs", EmitDefaultValue=false)]
         public long? TimeToLiveSecs { get; set; }
 
         /// <summary>
         /// Specifies the value type for this metric. A metric of type &#39;string\&quot; is not supported, instead use &#39;bytes&#39;. Note that an aggregate metric of type &#39;bytes&#39; is not supported. 0 specifies a value type of Int64. 1 specifies a value type of Double. 2 specifies a value type of String. 3 specifies a value type of Bytes.
         /// </summary>
         /// <value>Specifies the value type for this metric. A metric of type &#39;string\&quot; is not supported, instead use &#39;bytes&#39;. Note that an aggregate metric of type &#39;bytes&#39; is not supported. 0 specifies a value type of Int64. 1 specifies a value type of Double. 2 specifies a value type of String. 3 specifies a value type of Bytes.</value>
-        [DataMember(Name="valueType", EmitDefaultValue=true)]
+        [DataMember(Name="valueType", EmitDefaultValue=false)]
         public int? ValueType { get; set; }
 
         /// <summary>

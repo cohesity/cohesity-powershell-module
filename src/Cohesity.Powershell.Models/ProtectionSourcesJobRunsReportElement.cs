@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.ProtectionSource = protectionSource;
             this.SnapshotsInfo = snapshotsInfo;
-            this.ProtectionSource = protectionSource;
-            this.SnapshotsInfo = snapshotsInfo;
         }
         
         /// <summary>
         /// Specifies the leaf Protection Source Object such as a VM.
         /// </summary>
         /// <value>Specifies the leaf Protection Source Object such as a VM.</value>
-        [DataMember(Name="protectionSource", EmitDefaultValue=true)]
+        [DataMember(Name="protectionSource", EmitDefaultValue=false)]
         public ProtectionSource ProtectionSource { get; set; }
 
         /// <summary>
         /// Array of Snapshots  Specifies the Snapshots that contain backups of the Protection Source Object.
         /// </summary>
         /// <value>Array of Snapshots  Specifies the Snapshots that contain backups of the Protection Source Object.</value>
-        [DataMember(Name="snapshotsInfo", EmitDefaultValue=true)]
+        [DataMember(Name="snapshotsInfo", EmitDefaultValue=false)]
         public List<ProtectionSourceSnapshotInformation> SnapshotsInfo { get; set; }
 
         /// <summary>
@@ -85,14 +86,13 @@ namespace Cohesity.Model
             return 
                 (
                     this.ProtectionSource == input.ProtectionSource ||
-                    (this.ProtectionSource != null &&
-                    this.ProtectionSource.Equals(input.ProtectionSource))
+                    this.ProtectionSource != null &&
+                    this.ProtectionSource.Equals(input.ProtectionSource)
                 ) && 
                 (
                     this.SnapshotsInfo == input.SnapshotsInfo ||
                     this.SnapshotsInfo != null &&
-                    input.SnapshotsInfo != null &&
-                    this.SnapshotsInfo.SequenceEqual(input.SnapshotsInfo)
+                    this.SnapshotsInfo.Equals(input.SnapshotsInfo)
                 );
         }
 

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,30 +34,27 @@ namespace Cohesity.Model
             this.Cpu = cpu;
             this.MemorySizeBytes = memorySizeBytes;
             this.Network = network;
-            this.Cpu = cpu;
-            this.MemorySizeBytes = memorySizeBytes;
-            this.Network = network;
         }
         
         /// <summary>
         /// Cpu provides the information regarding the CPU.
         /// </summary>
         /// <value>Cpu provides the information regarding the CPU.</value>
-        [DataMember(Name="cpu", EmitDefaultValue=true)]
+        [DataMember(Name="cpu", EmitDefaultValue=false)]
         public string Cpu { get; set; }
 
         /// <summary>
         /// MemorySizeBytes provides the memory size in bytes.
         /// </summary>
         /// <value>MemorySizeBytes provides the memory size in bytes.</value>
-        [DataMember(Name="memorySizeBytes", EmitDefaultValue=true)]
+        [DataMember(Name="memorySizeBytes", EmitDefaultValue=false)]
         public long? MemorySizeBytes { get; set; }
 
         /// <summary>
         /// Network provides the information regarding the network cards.
         /// </summary>
         /// <value>Network provides the information regarding the network cards.</value>
-        [DataMember(Name="network", EmitDefaultValue=true)]
+        [DataMember(Name="network", EmitDefaultValue=false)]
         public string Network { get; set; }
 
         /// <summary>

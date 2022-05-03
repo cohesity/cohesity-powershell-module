@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -33,13 +36,6 @@ namespace Cohesity.Model
         /// <param name="viewBoxName">Specifies the name of the view box (storage domain) with respect to this group..</param>
         public StatsGroup(Consumer consumer = default(Consumer), string entityId = default(string), long? id = default(long?), string name = default(string), string tenantId = default(string), string tenantName = default(string), long? viewBoxId = default(long?), string viewBoxName = default(string))
         {
-            this.EntityId = entityId;
-            this.Id = id;
-            this.Name = name;
-            this.TenantId = tenantId;
-            this.TenantName = tenantName;
-            this.ViewBoxId = viewBoxId;
-            this.ViewBoxName = viewBoxName;
             this.Consumer = consumer;
             this.EntityId = entityId;
             this.Id = id;
@@ -60,49 +56,49 @@ namespace Cohesity.Model
         /// Specifies the entity id of the group.
         /// </summary>
         /// <value>Specifies the entity id of the group.</value>
-        [DataMember(Name="entityId", EmitDefaultValue=true)]
+        [DataMember(Name="entityId", EmitDefaultValue=false)]
         public string EntityId { get; set; }
 
         /// <summary>
         /// Specifies the id of the group.
         /// </summary>
         /// <value>Specifies the id of the group.</value>
-        [DataMember(Name="id", EmitDefaultValue=true)]
+        [DataMember(Name="id", EmitDefaultValue=false)]
         public long? Id { get; set; }
 
         /// <summary>
         /// Specifies the name of the group.
         /// </summary>
         /// <value>Specifies the name of the group.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
 
         /// <summary>
         /// Specifies the id of the organization (tenant) with respect to this group.
         /// </summary>
         /// <value>Specifies the id of the organization (tenant) with respect to this group.</value>
-        [DataMember(Name="tenantId", EmitDefaultValue=true)]
+        [DataMember(Name="tenantId", EmitDefaultValue=false)]
         public string TenantId { get; set; }
 
         /// <summary>
         /// Specifies the name of the organization (tenant) with respect to this group.
         /// </summary>
         /// <value>Specifies the name of the organization (tenant) with respect to this group.</value>
-        [DataMember(Name="tenantName", EmitDefaultValue=true)]
+        [DataMember(Name="tenantName", EmitDefaultValue=false)]
         public string TenantName { get; set; }
 
         /// <summary>
         /// Specifies the id of the view box (storage domain) with respect to this group.
         /// </summary>
         /// <value>Specifies the id of the view box (storage domain) with respect to this group.</value>
-        [DataMember(Name="viewBoxId", EmitDefaultValue=true)]
+        [DataMember(Name="viewBoxId", EmitDefaultValue=false)]
         public long? ViewBoxId { get; set; }
 
         /// <summary>
         /// Specifies the name of the view box (storage domain) with respect to this group.
         /// </summary>
         /// <value>Specifies the name of the view box (storage domain) with respect to this group.</value>
-        [DataMember(Name="viewBoxName", EmitDefaultValue=true)]
+        [DataMember(Name="viewBoxName", EmitDefaultValue=false)]
         public string ViewBoxName { get; set; }
 
         /// <summary>

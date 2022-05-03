@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -39,62 +42,55 @@ namespace Cohesity.Model
             this.IncarnationId = incarnationId;
             this.Message = message;
             this.UnhealthyNodes = unhealthyNodes;
-            this.ClusterId = clusterId;
-            this.ClusterName = clusterName;
-            this.ClusterSwVersion = clusterSwVersion;
-            this.HealthyNodes = healthyNodes;
-            this.IncarnationId = incarnationId;
-            this.Message = message;
-            this.UnhealthyNodes = unhealthyNodes;
         }
         
         /// <summary>
         /// Specifies the ID of the new Cluster.
         /// </summary>
         /// <value>Specifies the ID of the new Cluster.</value>
-        [DataMember(Name="clusterId", EmitDefaultValue=true)]
+        [DataMember(Name="clusterId", EmitDefaultValue=false)]
         public long? ClusterId { get; set; }
 
         /// <summary>
         /// Specifies the name of the new Cluster.
         /// </summary>
         /// <value>Specifies the name of the new Cluster.</value>
-        [DataMember(Name="clusterName", EmitDefaultValue=true)]
+        [DataMember(Name="clusterName", EmitDefaultValue=false)]
         public string ClusterName { get; set; }
 
         /// <summary>
         /// Specifies the software version of the new Cluster.
         /// </summary>
         /// <value>Specifies the software version of the new Cluster.</value>
-        [DataMember(Name="clusterSwVersion", EmitDefaultValue=true)]
+        [DataMember(Name="clusterSwVersion", EmitDefaultValue=false)]
         public string ClusterSwVersion { get; set; }
 
         /// <summary>
         /// Specifies the status of the Nodes in the Cluster. All Nodes that are accepted to the Cluster are appended to this list.
         /// </summary>
         /// <value>Specifies the status of the Nodes in the Cluster. All Nodes that are accepted to the Cluster are appended to this list.</value>
-        [DataMember(Name="healthyNodes", EmitDefaultValue=true)]
+        [DataMember(Name="healthyNodes", EmitDefaultValue=false)]
         public List<NodeStatus> HealthyNodes { get; set; }
 
         /// <summary>
         /// Specifies the Incarnation ID of the new Cluster.
         /// </summary>
         /// <value>Specifies the Incarnation ID of the new Cluster.</value>
-        [DataMember(Name="incarnationId", EmitDefaultValue=true)]
+        [DataMember(Name="incarnationId", EmitDefaultValue=false)]
         public long? IncarnationId { get; set; }
 
         /// <summary>
         /// Specifies an optional message field.
         /// </summary>
         /// <value>Specifies an optional message field.</value>
-        [DataMember(Name="message", EmitDefaultValue=true)]
+        [DataMember(Name="message", EmitDefaultValue=false)]
         public string Message { get; set; }
 
         /// <summary>
         /// Specifies the status of the Nodes in the Cluster. All Nodes that are not accepted to the Cluster are appended to this list.
         /// </summary>
         /// <value>Specifies the status of the Nodes in the Cluster. All Nodes that are not accepted to the Cluster are appended to this list.</value>
-        [DataMember(Name="unhealthyNodes", EmitDefaultValue=true)]
+        [DataMember(Name="unhealthyNodes", EmitDefaultValue=false)]
         public List<NodeStatus> UnhealthyNodes { get; set; }
 
         /// <summary>
@@ -151,8 +147,7 @@ namespace Cohesity.Model
                 (
                     this.HealthyNodes == input.HealthyNodes ||
                     this.HealthyNodes != null &&
-                    input.HealthyNodes != null &&
-                    this.HealthyNodes.SequenceEqual(input.HealthyNodes)
+                    this.HealthyNodes.Equals(input.HealthyNodes)
                 ) && 
                 (
                     this.IncarnationId == input.IncarnationId ||
@@ -167,8 +162,7 @@ namespace Cohesity.Model
                 (
                     this.UnhealthyNodes == input.UnhealthyNodes ||
                     this.UnhealthyNodes != null &&
-                    input.UnhealthyNodes != null &&
-                    this.UnhealthyNodes.SequenceEqual(input.UnhealthyNodes)
+                    this.UnhealthyNodes.Equals(input.UnhealthyNodes)
                 );
         }
 

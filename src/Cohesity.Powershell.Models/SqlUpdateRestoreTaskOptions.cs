@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.EnableAutoSync = enableAutoSync;
             this.MultiStageRestoreAction = multiStageRestoreAction;
-            this.EnableAutoSync = enableAutoSync;
-            this.MultiStageRestoreAction = multiStageRestoreAction;
         }
         
         /// <summary>
         /// Enable/Disable auto_sync for db migration
         /// </summary>
         /// <value>Enable/Disable auto_sync for db migration</value>
-        [DataMember(Name="enableAutoSync", EmitDefaultValue=true)]
+        [DataMember(Name="enableAutoSync", EmitDefaultValue=false)]
         public bool? EnableAutoSync { get; set; }
 
         /// <summary>
         /// This field is set if we are performing an action on a multi-stage SQL restore.
         /// </summary>
         /// <value>This field is set if we are performing an action on a multi-stage SQL restore.</value>
-        [DataMember(Name="multiStageRestoreAction", EmitDefaultValue=true)]
+        [DataMember(Name="multiStageRestoreAction", EmitDefaultValue=false)]
         public int? MultiStageRestoreAction { get; set; }
 
         /// <summary>

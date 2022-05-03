@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -39,7 +42,7 @@ namespace Cohesity.Model
         /// Specifies the type of the job. The enum which defines the Job type of the job.
         /// </summary>
         /// <value>Specifies the type of the job. The enum which defines the Job type of the job.</value>
-        [DataMember(Name="type", EmitDefaultValue=true)]
+        [DataMember(Name="type", EmitDefaultValue=false)]
         public TypeEnum? Type { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="SchedulerProtoSchedulerJob" /> class.
@@ -56,12 +59,6 @@ namespace Cohesity.Model
             this.EnableRecurringEmail = enableRecurringEmail;
             this.Id = id;
             this.Name = name;
-            this.Schedules = schedules;
-            this.TenantId = tenantId;
-            this.Type = type;
-            this.EnableRecurringEmail = enableRecurringEmail;
-            this.Id = id;
-            this.Name = name;
             this.ScheduleJobParameters = scheduleJobParameters;
             this.Schedules = schedules;
             this.TenantId = tenantId;
@@ -72,21 +69,21 @@ namespace Cohesity.Model
         /// The boolean which specifies if this job is to be scheduled or not.
         /// </summary>
         /// <value>The boolean which specifies if this job is to be scheduled or not.</value>
-        [DataMember(Name="enableRecurringEmail", EmitDefaultValue=true)]
+        [DataMember(Name="enableRecurringEmail", EmitDefaultValue=false)]
         public bool? EnableRecurringEmail { get; set; }
 
         /// <summary>
         /// The unique id for the scheduled job assigned by the cluster.
         /// </summary>
         /// <value>The unique id for the scheduled job assigned by the cluster.</value>
-        [DataMember(Name="id", EmitDefaultValue=true)]
+        [DataMember(Name="id", EmitDefaultValue=false)]
         public long? Id { get; set; }
 
         /// <summary>
         /// The name of the scheduled job given by the user.
         /// </summary>
         /// <value>The name of the scheduled job given by the user.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
 
         /// <summary>
@@ -99,15 +96,16 @@ namespace Cohesity.Model
         /// The frequency of schedule execution.
         /// </summary>
         /// <value>The frequency of schedule execution.</value>
-        [DataMember(Name="schedules", EmitDefaultValue=true)]
+        [DataMember(Name="schedules", EmitDefaultValue=false)]
         public List<SchedulerProtoSchedulerJobSchedule> Schedules { get; set; }
 
         /// <summary>
         /// Specifies id of tenant who created the scheduler job.
         /// </summary>
         /// <value>Specifies id of tenant who created the scheduler job.</value>
-        [DataMember(Name="tenantId", EmitDefaultValue=true)]
+        [DataMember(Name="tenantId", EmitDefaultValue=false)]
         public string TenantId { get; set; }
+
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -168,8 +166,7 @@ namespace Cohesity.Model
                 (
                     this.Schedules == input.Schedules ||
                     this.Schedules != null &&
-                    input.Schedules != null &&
-                    this.Schedules.SequenceEqual(input.Schedules)
+                    this.Schedules.Equals(input.Schedules)
                 ) && 
                 (
                     this.TenantId == input.TenantId ||
@@ -178,7 +175,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.Type == input.Type ||
-                    this.Type.Equals(input.Type)
+                    (this.Type != null &&
+                    this.Type.Equals(input.Type))
                 );
         }
 
@@ -203,7 +201,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Schedules.GetHashCode();
                 if (this.TenantId != null)
                     hashCode = hashCode * 59 + this.TenantId.GetHashCode();
-                hashCode = hashCode * 59 + this.Type.GetHashCode();
+                if (this.Type != null)
+                    hashCode = hashCode * 59 + this.Type.GetHashCode();
                 return hashCode;
             }
         }

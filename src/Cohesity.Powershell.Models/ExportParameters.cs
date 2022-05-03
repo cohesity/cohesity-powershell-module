@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,14 +30,13 @@ namespace Cohesity.Model
         public ExportParameters(string path = default(string))
         {
             this.Path = path;
-            this.Path = path;
         }
         
         /// <summary>
         /// Specifies the directory path where to create a configuration files.
         /// </summary>
         /// <value>Specifies the directory path where to create a configuration files.</value>
-        [DataMember(Name="path", EmitDefaultValue=true)]
+        [DataMember(Name="path", EmitDefaultValue=false)]
         public string Path { get; set; }
 
         /// <summary>

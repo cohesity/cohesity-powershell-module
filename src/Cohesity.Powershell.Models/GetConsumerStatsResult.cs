@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.Cookie = cookie;
             this.StatsList = statsList;
-            this.Cookie = cookie;
-            this.StatsList = statsList;
         }
         
         /// <summary>
         /// Specifies an opaque string to pass to get the next set of active opens. If null is returned, this response is the last set of active opens.
         /// </summary>
         /// <value>Specifies an opaque string to pass to get the next set of active opens. If null is returned, this response is the last set of active opens.</value>
-        [DataMember(Name="cookie", EmitDefaultValue=true)]
+        [DataMember(Name="cookie", EmitDefaultValue=false)]
         public string Cookie { get; set; }
 
         /// <summary>
         /// Specifies a list of consumer stats.
         /// </summary>
         /// <value>Specifies a list of consumer stats.</value>
-        [DataMember(Name="statsList", EmitDefaultValue=true)]
+        [DataMember(Name="statsList", EmitDefaultValue=false)]
         public List<ConsumerStats> StatsList { get; set; }
 
         /// <summary>
@@ -91,8 +92,7 @@ namespace Cohesity.Model
                 (
                     this.StatsList == input.StatsList ||
                     this.StatsList != null &&
-                    input.StatsList != null &&
-                    this.StatsList.SequenceEqual(input.StatsList)
+                    this.StatsList.Equals(input.StatsList)
                 );
         }
 

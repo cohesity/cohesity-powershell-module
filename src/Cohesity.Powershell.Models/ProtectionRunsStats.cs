@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,30 +34,27 @@ namespace Cohesity.Model
             this.NumArchivalRuns = numArchivalRuns;
             this.NumBackupRuns = numBackupRuns;
             this.NumReplicationRuns = numReplicationRuns;
-            this.NumArchivalRuns = numArchivalRuns;
-            this.NumBackupRuns = numBackupRuns;
-            this.NumReplicationRuns = numReplicationRuns;
         }
         
         /// <summary>
         /// Specifies the count of archival Runs.
         /// </summary>
         /// <value>Specifies the count of archival Runs.</value>
-        [DataMember(Name="numArchivalRuns", EmitDefaultValue=true)]
+        [DataMember(Name="numArchivalRuns", EmitDefaultValue=false)]
         public long? NumArchivalRuns { get; set; }
 
         /// <summary>
         /// Specifies the count of backup Runs.
         /// </summary>
         /// <value>Specifies the count of backup Runs.</value>
-        [DataMember(Name="numBackupRuns", EmitDefaultValue=true)]
+        [DataMember(Name="numBackupRuns", EmitDefaultValue=false)]
         public long? NumBackupRuns { get; set; }
 
         /// <summary>
         /// Specifies the count of replication Runs.
         /// </summary>
         /// <value>Specifies the count of replication Runs.</value>
-        [DataMember(Name="numReplicationRuns", EmitDefaultValue=true)]
+        [DataMember(Name="numReplicationRuns", EmitDefaultValue=false)]
         public long? NumReplicationRuns { get; set; }
 
         /// <summary>

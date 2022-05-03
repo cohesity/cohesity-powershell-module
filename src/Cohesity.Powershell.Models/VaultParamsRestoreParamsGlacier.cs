@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,13 +30,12 @@ namespace Cohesity.Model
         public VaultParamsRestoreParamsGlacier(int? retrievalType = default(int?))
         {
             this.RetrievalType = retrievalType;
-            this.RetrievalType = retrievalType;
         }
         
         /// <summary>
         /// Gets or Sets RetrievalType
         /// </summary>
-        [DataMember(Name="retrievalType", EmitDefaultValue=true)]
+        [DataMember(Name="retrievalType", EmitDefaultValue=false)]
         public int? RetrievalType { get; set; }
 
         /// <summary>

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -35,20 +38,8 @@ namespace Cohesity.Model
         /// <param name="mountType">Specifies mount type of volume e.g. nfs, autofs, ext4 etc..</param>
         /// <param name="networkPath">Specifies the full path to connect to the network attached volume. For example, (IP or hostname):/path/to/share for NFS volumes)..</param>
         /// <param name="usedSizeBytes">Specifies the size used by the volume in bytes..</param>
-        public PhysicalVolume(string devicePath = default(string), string guid = default(string), bool? isBootVolume = default(bool?), bool? isExtendedAttributesSupported = default(bool?), bool? isProtected = default(bool?), bool? isSharedVolume = default(bool?), string label = default(string), ulong? logicalSizeBytes = default(ulong?), List<string> mountPoints = default(List<string>), string mountType = default(string), string networkPath = default(string), ulong? usedSizeBytes = default(ulong?))
+        public PhysicalVolume(string devicePath = default(string), string guid = default(string), bool? isBootVolume = default(bool?), bool? isExtendedAttributesSupported = default(bool?), bool? isProtected = default(bool?), bool? isSharedVolume = default(bool?), string label = default(string), int? logicalSizeBytes = default(int?), List<string> mountPoints = default(List<string>), string mountType = default(string), string networkPath = default(string), int? usedSizeBytes = default(int?))
         {
-            this.DevicePath = devicePath;
-            this.Guid = guid;
-            this.IsBootVolume = isBootVolume;
-            this.IsExtendedAttributesSupported = isExtendedAttributesSupported;
-            this.IsProtected = isProtected;
-            this.IsSharedVolume = isSharedVolume;
-            this.Label = label;
-            this.LogicalSizeBytes = logicalSizeBytes;
-            this.MountPoints = mountPoints;
-            this.MountType = mountType;
-            this.NetworkPath = networkPath;
-            this.UsedSizeBytes = usedSizeBytes;
             this.DevicePath = devicePath;
             this.Guid = guid;
             this.IsBootVolume = isBootVolume;
@@ -67,85 +58,85 @@ namespace Cohesity.Model
         /// Specifies the path to the device that hosts the volume locally.
         /// </summary>
         /// <value>Specifies the path to the device that hosts the volume locally.</value>
-        [DataMember(Name="devicePath", EmitDefaultValue=true)]
+        [DataMember(Name="devicePath", EmitDefaultValue=false)]
         public string DevicePath { get; set; }
 
         /// <summary>
         /// Specifies an id for the Physical Volume.
         /// </summary>
         /// <value>Specifies an id for the Physical Volume.</value>
-        [DataMember(Name="guid", EmitDefaultValue=true)]
+        [DataMember(Name="guid", EmitDefaultValue=false)]
         public string Guid { get; set; }
 
         /// <summary>
         /// Specifies whether the volume is boot volume.
         /// </summary>
         /// <value>Specifies whether the volume is boot volume.</value>
-        [DataMember(Name="isBootVolume", EmitDefaultValue=true)]
+        [DataMember(Name="isBootVolume", EmitDefaultValue=false)]
         public bool? IsBootVolume { get; set; }
 
         /// <summary>
         /// Specifies whether this volume supports extended attributes (like ACLs) when performing file backups.
         /// </summary>
         /// <value>Specifies whether this volume supports extended attributes (like ACLs) when performing file backups.</value>
-        [DataMember(Name="isExtendedAttributesSupported", EmitDefaultValue=true)]
+        [DataMember(Name="isExtendedAttributesSupported", EmitDefaultValue=false)]
         public bool? IsExtendedAttributesSupported { get; set; }
 
         /// <summary>
         /// Specifies if a volume is protected by a Job.
         /// </summary>
         /// <value>Specifies if a volume is protected by a Job.</value>
-        [DataMember(Name="isProtected", EmitDefaultValue=true)]
+        [DataMember(Name="isProtected", EmitDefaultValue=false)]
         public bool? IsProtected { get; set; }
 
         /// <summary>
         /// Specifies whether the volume is shared volume.
         /// </summary>
         /// <value>Specifies whether the volume is shared volume.</value>
-        [DataMember(Name="isSharedVolume", EmitDefaultValue=true)]
+        [DataMember(Name="isSharedVolume", EmitDefaultValue=false)]
         public bool? IsSharedVolume { get; set; }
 
         /// <summary>
         /// Specifies a volume label that can be used for displaying additional identifying information about a volume.
         /// </summary>
         /// <value>Specifies a volume label that can be used for displaying additional identifying information about a volume.</value>
-        [DataMember(Name="label", EmitDefaultValue=true)]
+        [DataMember(Name="label", EmitDefaultValue=false)]
         public string Label { get; set; }
 
         /// <summary>
         /// Specifies the logical size of the volume in bytes that is not reduced by change-block tracking, compression and deduplication.
         /// </summary>
         /// <value>Specifies the logical size of the volume in bytes that is not reduced by change-block tracking, compression and deduplication.</value>
-        [DataMember(Name="logicalSizeBytes", EmitDefaultValue=true)]
-        public ulong? LogicalSizeBytes { get; set; }
+        [DataMember(Name="logicalSizeBytes", EmitDefaultValue=false)]
+        public int? LogicalSizeBytes { get; set; }
 
         /// <summary>
         /// Array of Mount Points.  Specifies the mount points where the volume is mounted, for example: &#39;C:\\&#39;, &#39;/mnt/foo&#39; etc.
         /// </summary>
         /// <value>Array of Mount Points.  Specifies the mount points where the volume is mounted, for example: &#39;C:\\&#39;, &#39;/mnt/foo&#39; etc.</value>
-        [DataMember(Name="mountPoints", EmitDefaultValue=true)]
+        [DataMember(Name="mountPoints", EmitDefaultValue=false)]
         public List<string> MountPoints { get; set; }
 
         /// <summary>
         /// Specifies mount type of volume e.g. nfs, autofs, ext4 etc.
         /// </summary>
         /// <value>Specifies mount type of volume e.g. nfs, autofs, ext4 etc.</value>
-        [DataMember(Name="mountType", EmitDefaultValue=true)]
+        [DataMember(Name="mountType", EmitDefaultValue=false)]
         public string MountType { get; set; }
 
         /// <summary>
         /// Specifies the full path to connect to the network attached volume. For example, (IP or hostname):/path/to/share for NFS volumes).
         /// </summary>
         /// <value>Specifies the full path to connect to the network attached volume. For example, (IP or hostname):/path/to/share for NFS volumes).</value>
-        [DataMember(Name="networkPath", EmitDefaultValue=true)]
+        [DataMember(Name="networkPath", EmitDefaultValue=false)]
         public string NetworkPath { get; set; }
 
         /// <summary>
         /// Specifies the size used by the volume in bytes.
         /// </summary>
         /// <value>Specifies the size used by the volume in bytes.</value>
-        [DataMember(Name="usedSizeBytes", EmitDefaultValue=true)]
-        public ulong? UsedSizeBytes { get; set; }
+        [DataMember(Name="usedSizeBytes", EmitDefaultValue=false)]
+        public int? UsedSizeBytes { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -226,8 +217,7 @@ namespace Cohesity.Model
                 (
                     this.MountPoints == input.MountPoints ||
                     this.MountPoints != null &&
-                    input.MountPoints != null &&
-                    this.MountPoints.SequenceEqual(input.MountPoints)
+                    this.MountPoints.Equals(input.MountPoints)
                 ) && 
                 (
                     this.MountType == input.MountType ||

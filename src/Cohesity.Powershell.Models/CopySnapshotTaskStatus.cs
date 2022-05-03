@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -12,6 +13,8 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
+
+
 namespace Cohesity.Model
 {
     /// <summary>
@@ -21,9 +24,9 @@ namespace Cohesity.Model
     public partial class CopySnapshotTaskStatus :  IEquatable<CopySnapshotTaskStatus>
     {
         /// <summary>
-        /// Specifies the status of the source object being protected. &#39;kAccepted&#39; indicates the task is queued to run but not yet running. &#39;kRunning&#39; indicates the task is running. &#39;kCanceling&#39; indicates a request to cancel the task has occurred but the task is not yet canceled. &#39;kCanceled&#39; indicates the task has been canceled. &#39;kSuccess&#39; indicates the task was successful. &#39;kFailure&#39; indicates the task failed.
+        /// Specifies the status of the source object being protected. &#39;kAccepted&#39; indicates the task is queued to run but not yet running. &#39;kRunning&#39; indicates the task is running. &#39;kCanceling&#39; indicates a request to cancel the task has occurred but the task is not yet canceled. &#39;kCanceled&#39; indicates the task has been canceled. &#39;kSuccess&#39; indicates the task was successful. &#39;kFailure&#39; indicates the task failed. &#39;kWarning&#39; indicates the task has finished with warning. &#39;kOnHold&#39; indicates the task is kept onHold. &#39;kMissed&#39; indicates the task is missed.
         /// </summary>
-        /// <value>Specifies the status of the source object being protected. &#39;kAccepted&#39; indicates the task is queued to run but not yet running. &#39;kRunning&#39; indicates the task is running. &#39;kCanceling&#39; indicates a request to cancel the task has occurred but the task is not yet canceled. &#39;kCanceled&#39; indicates the task has been canceled. &#39;kSuccess&#39; indicates the task was successful. &#39;kFailure&#39; indicates the task failed.</value>
+        /// <value>Specifies the status of the source object being protected. &#39;kAccepted&#39; indicates the task is queued to run but not yet running. &#39;kRunning&#39; indicates the task is running. &#39;kCanceling&#39; indicates a request to cancel the task has occurred but the task is not yet canceled. &#39;kCanceled&#39; indicates the task has been canceled. &#39;kSuccess&#39; indicates the task was successful. &#39;kFailure&#39; indicates the task failed. &#39;kWarning&#39; indicates the task has finished with warning. &#39;kOnHold&#39; indicates the task is kept onHold. &#39;kMissed&#39; indicates the task is missed.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum StatusEnum
         {
@@ -61,15 +64,33 @@ namespace Cohesity.Model
             /// Enum KFailure for value: kFailure
             /// </summary>
             [EnumMember(Value = "kFailure")]
-            KFailure = 6
+            KFailure = 6,
+
+            /// <summary>
+            /// Enum KWarning for value: kWarning
+            /// </summary>
+            [EnumMember(Value = "kWarning")]
+            KWarning = 7,
+
+            /// <summary>
+            /// Enum KOnHold for value: kOnHold
+            /// </summary>
+            [EnumMember(Value = "kOnHold")]
+            KOnHold = 8,
+
+            /// <summary>
+            /// Enum KMissed for value: kMissed
+            /// </summary>
+            [EnumMember(Value = "kMissed")]
+            KMissed = 9
 
         }
 
         /// <summary>
-        /// Specifies the status of the source object being protected. &#39;kAccepted&#39; indicates the task is queued to run but not yet running. &#39;kRunning&#39; indicates the task is running. &#39;kCanceling&#39; indicates a request to cancel the task has occurred but the task is not yet canceled. &#39;kCanceled&#39; indicates the task has been canceled. &#39;kSuccess&#39; indicates the task was successful. &#39;kFailure&#39; indicates the task failed.
+        /// Specifies the status of the source object being protected. &#39;kAccepted&#39; indicates the task is queued to run but not yet running. &#39;kRunning&#39; indicates the task is running. &#39;kCanceling&#39; indicates a request to cancel the task has occurred but the task is not yet canceled. &#39;kCanceled&#39; indicates the task has been canceled. &#39;kSuccess&#39; indicates the task was successful. &#39;kFailure&#39; indicates the task failed. &#39;kWarning&#39; indicates the task has finished with warning. &#39;kOnHold&#39; indicates the task is kept onHold. &#39;kMissed&#39; indicates the task is missed.
         /// </summary>
-        /// <value>Specifies the status of the source object being protected. &#39;kAccepted&#39; indicates the task is queued to run but not yet running. &#39;kRunning&#39; indicates the task is running. &#39;kCanceling&#39; indicates a request to cancel the task has occurred but the task is not yet canceled. &#39;kCanceled&#39; indicates the task has been canceled. &#39;kSuccess&#39; indicates the task was successful. &#39;kFailure&#39; indicates the task failed.</value>
-        [DataMember(Name="status", EmitDefaultValue=true)]
+        /// <value>Specifies the status of the source object being protected. &#39;kAccepted&#39; indicates the task is queued to run but not yet running. &#39;kRunning&#39; indicates the task is running. &#39;kCanceling&#39; indicates a request to cancel the task has occurred but the task is not yet canceled. &#39;kCanceled&#39; indicates the task has been canceled. &#39;kSuccess&#39; indicates the task was successful. &#39;kFailure&#39; indicates the task failed. &#39;kWarning&#39; indicates the task has finished with warning. &#39;kOnHold&#39; indicates the task is kept onHold. &#39;kMissed&#39; indicates the task is missed.</value>
+        [DataMember(Name="status", EmitDefaultValue=false)]
         public StatusEnum? Status { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="CopySnapshotTaskStatus" /> class.
@@ -77,15 +98,11 @@ namespace Cohesity.Model
         /// <param name="error">Specifies if an error occurred (if any) while running this task. This field is populated when the status is equal to &#39;kFailure&#39;..</param>
         /// <param name="source">source.</param>
         /// <param name="stats">stats.</param>
-        /// <param name="status">Specifies the status of the source object being protected. &#39;kAccepted&#39; indicates the task is queued to run but not yet running. &#39;kRunning&#39; indicates the task is running. &#39;kCanceling&#39; indicates a request to cancel the task has occurred but the task is not yet canceled. &#39;kCanceled&#39; indicates the task has been canceled. &#39;kSuccess&#39; indicates the task was successful. &#39;kFailure&#39; indicates the task failed..</param>
+        /// <param name="status">Specifies the status of the source object being protected. &#39;kAccepted&#39; indicates the task is queued to run but not yet running. &#39;kRunning&#39; indicates the task is running. &#39;kCanceling&#39; indicates a request to cancel the task has occurred but the task is not yet canceled. &#39;kCanceled&#39; indicates the task has been canceled. &#39;kSuccess&#39; indicates the task was successful. &#39;kFailure&#39; indicates the task failed. &#39;kWarning&#39; indicates the task has finished with warning. &#39;kOnHold&#39; indicates the task is kept onHold. &#39;kMissed&#39; indicates the task is missed..</param>
         /// <param name="taskEndTimeUsecs">Specifies the end time of the copy task. The end time is specified as a Unix epoch Timestamp (in microseconds)..</param>
         /// <param name="taskStartTimeUsecs">Specifies the start time of the copy task. The start time is specified as a Unix epoch Timestamp (in microseconds). Copy run task is started after completing backup tasks. It may spawn sub-tasks to copy or replicate individual snapshots..</param>
         public CopySnapshotTaskStatus(string error = default(string), ProtectionSource source = default(ProtectionSource), CopyRunStats stats = default(CopyRunStats), StatusEnum? status = default(StatusEnum?), long? taskEndTimeUsecs = default(long?), long? taskStartTimeUsecs = default(long?))
         {
-            this.Error = error;
-            this.Status = status;
-            this.TaskEndTimeUsecs = taskEndTimeUsecs;
-            this.TaskStartTimeUsecs = taskStartTimeUsecs;
             this.Error = error;
             this.Source = source;
             this.Stats = stats;
@@ -98,7 +115,7 @@ namespace Cohesity.Model
         /// Specifies if an error occurred (if any) while running this task. This field is populated when the status is equal to &#39;kFailure&#39;.
         /// </summary>
         /// <value>Specifies if an error occurred (if any) while running this task. This field is populated when the status is equal to &#39;kFailure&#39;.</value>
-        [DataMember(Name="error", EmitDefaultValue=true)]
+        [DataMember(Name="error", EmitDefaultValue=false)]
         public string Error { get; set; }
 
         /// <summary>
@@ -113,18 +130,19 @@ namespace Cohesity.Model
         [DataMember(Name="stats", EmitDefaultValue=false)]
         public CopyRunStats Stats { get; set; }
 
+
         /// <summary>
         /// Specifies the end time of the copy task. The end time is specified as a Unix epoch Timestamp (in microseconds).
         /// </summary>
         /// <value>Specifies the end time of the copy task. The end time is specified as a Unix epoch Timestamp (in microseconds).</value>
-        [DataMember(Name="taskEndTimeUsecs", EmitDefaultValue=true)]
+        [DataMember(Name="taskEndTimeUsecs", EmitDefaultValue=false)]
         public long? TaskEndTimeUsecs { get; set; }
 
         /// <summary>
         /// Specifies the start time of the copy task. The start time is specified as a Unix epoch Timestamp (in microseconds). Copy run task is started after completing backup tasks. It may spawn sub-tasks to copy or replicate individual snapshots.
         /// </summary>
         /// <value>Specifies the start time of the copy task. The start time is specified as a Unix epoch Timestamp (in microseconds). Copy run task is started after completing backup tasks. It may spawn sub-tasks to copy or replicate individual snapshots.</value>
-        [DataMember(Name="taskStartTimeUsecs", EmitDefaultValue=true)]
+        [DataMember(Name="taskStartTimeUsecs", EmitDefaultValue=false)]
         public long? TaskStartTimeUsecs { get; set; }
 
         /// <summary>
@@ -180,7 +198,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.Status == input.Status ||
-                    this.Status.Equals(input.Status)
+                    (this.Status != null &&
+                    this.Status.Equals(input.Status))
                 ) && 
                 (
                     this.TaskEndTimeUsecs == input.TaskEndTimeUsecs ||
@@ -209,7 +228,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Source.GetHashCode();
                 if (this.Stats != null)
                     hashCode = hashCode * 59 + this.Stats.GetHashCode();
-                hashCode = hashCode * 59 + this.Status.GetHashCode();
+                if (this.Status != null)
+                    hashCode = hashCode * 59 + this.Status.GetHashCode();
                 if (this.TaskEndTimeUsecs != null)
                     hashCode = hashCode * 59 + this.TaskEndTimeUsecs.GetHashCode();
                 if (this.TaskStartTimeUsecs != null)

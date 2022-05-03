@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -51,7 +54,7 @@ namespace Cohesity.Model
         /// Specifies the tag attribute type of GCP. Going forward, there will be an additional TagTypes for AWS as well. Specifies the type of the tag GCP entity refers to. &#39;kNetworkTag&#39; indicates a network tag present on instances. &#39;kLabel&#39; indicates a label (key-value pair) present on instances. &#39;kCustomMetadata&#39; indicates custom Metadata (key-value pair) present on instances.
         /// </summary>
         /// <value>Specifies the tag attribute type of GCP. Going forward, there will be an additional TagTypes for AWS as well. Specifies the type of the tag GCP entity refers to. &#39;kNetworkTag&#39; indicates a network tag present on instances. &#39;kLabel&#39; indicates a label (key-value pair) present on instances. &#39;kCustomMetadata&#39; indicates custom Metadata (key-value pair) present on instances.</value>
-        [DataMember(Name="gcpTagType", EmitDefaultValue=true)]
+        [DataMember(Name="gcpTagType", EmitDefaultValue=false)]
         public GcpTagTypeEnum? GcpTagType { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="TagAttribute" /> class.
@@ -66,31 +69,28 @@ namespace Cohesity.Model
             this.Id = id;
             this.Name = name;
             this.Uuid = uuid;
-            this.GcpTagType = gcpTagType;
-            this.Id = id;
-            this.Name = name;
-            this.Uuid = uuid;
         }
         
+
         /// <summary>
         /// Specifies the Coheisty id of the VM tag.
         /// </summary>
         /// <value>Specifies the Coheisty id of the VM tag.</value>
-        [DataMember(Name="id", EmitDefaultValue=true)]
+        [DataMember(Name="id", EmitDefaultValue=false)]
         public long? Id { get; set; }
 
         /// <summary>
         /// Specifies the VMware name of the VM tag.
         /// </summary>
         /// <value>Specifies the VMware name of the VM tag.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
 
         /// <summary>
         /// Specifies the VMware Universally Unique Identifier (UUID) of the VM tag.
         /// </summary>
         /// <value>Specifies the VMware Universally Unique Identifier (UUID) of the VM tag.</value>
-        [DataMember(Name="uuid", EmitDefaultValue=true)]
+        [DataMember(Name="uuid", EmitDefaultValue=false)]
         public string Uuid { get; set; }
 
         /// <summary>
@@ -131,7 +131,8 @@ namespace Cohesity.Model
             return 
                 (
                     this.GcpTagType == input.GcpTagType ||
-                    this.GcpTagType.Equals(input.GcpTagType)
+                    (this.GcpTagType != null &&
+                    this.GcpTagType.Equals(input.GcpTagType))
                 ) && 
                 (
                     this.Id == input.Id ||
@@ -159,7 +160,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                hashCode = hashCode * 59 + this.GcpTagType.GetHashCode();
+                if (this.GcpTagType != null)
+                    hashCode = hashCode * 59 + this.GcpTagType.GetHashCode();
                 if (this.Id != null)
                     hashCode = hashCode * 59 + this.Id.GetHashCode();
                 if (this.Name != null)

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -45,7 +48,7 @@ namespace Cohesity.Model
         /// Specifies the bonding mode to use for this bond. If not specified, this value will default to &#39;kActiveBackup&#39;. &#39;kActiveBackup&#39; indicates active backup bonding mode. &#39;k802_3ad&#39; indicates 802.3ad bonding mode.
         /// </summary>
         /// <value>Specifies the bonding mode to use for this bond. If not specified, this value will default to &#39;kActiveBackup&#39;. &#39;kActiveBackup&#39; indicates active backup bonding mode. &#39;k802_3ad&#39; indicates 802.3ad bonding mode.</value>
-        [DataMember(Name="bondingMode", EmitDefaultValue=true)]
+        [DataMember(Name="bondingMode", EmitDefaultValue=false)]
         public BondingModeEnum? BondingMode { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="CreateBondParameters" /> class.
@@ -60,24 +63,40 @@ namespace Cohesity.Model
         /// <param name="slaves">Specifies the names of the slaves of this bond. (required).</param>
         public CreateBondParameters(BondingModeEnum? bondingMode = default(BondingModeEnum?), string name = default(string), List<string> slaves = default(List<string>))
         {
-            this.BondingMode = bondingMode;
-            this.Name = name;
-            this.Slaves = slaves;
+            // to ensure "name" is required (not null)
+            if (name == null)
+            {
+                throw new InvalidDataException("name is a required property for CreateBondParameters and cannot be null");
+            }
+            else
+            {
+                this.Name = name;
+            }
+            // to ensure "slaves" is required (not null)
+            if (slaves == null)
+            {
+                throw new InvalidDataException("slaves is a required property for CreateBondParameters and cannot be null");
+            }
+            else
+            {
+                this.Slaves = slaves;
+            }
             this.BondingMode = bondingMode;
         }
         
+
         /// <summary>
         /// Specifies a unique name to identify the bond being created.
         /// </summary>
         /// <value>Specifies a unique name to identify the bond being created.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
 
         /// <summary>
         /// Specifies the names of the slaves of this bond.
         /// </summary>
         /// <value>Specifies the names of the slaves of this bond.</value>
-        [DataMember(Name="slaves", EmitDefaultValue=true)]
+        [DataMember(Name="slaves", EmitDefaultValue=false)]
         public List<string> Slaves { get; set; }
 
         /// <summary>
@@ -118,7 +137,8 @@ namespace Cohesity.Model
             return 
                 (
                     this.BondingMode == input.BondingMode ||
-                    this.BondingMode.Equals(input.BondingMode)
+                    (this.BondingMode != null &&
+                    this.BondingMode.Equals(input.BondingMode))
                 ) && 
                 (
                     this.Name == input.Name ||
@@ -128,8 +148,7 @@ namespace Cohesity.Model
                 (
                     this.Slaves == input.Slaves ||
                     this.Slaves != null &&
-                    input.Slaves != null &&
-                    this.Slaves.SequenceEqual(input.Slaves)
+                    this.Slaves.Equals(input.Slaves)
                 );
         }
 
@@ -142,7 +161,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                hashCode = hashCode * 59 + this.BondingMode.GetHashCode();
+                if (this.BondingMode != null)
+                    hashCode = hashCode * 59 + this.BondingMode.GetHashCode();
                 if (this.Name != null)
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
                 if (this.Slaves != null)

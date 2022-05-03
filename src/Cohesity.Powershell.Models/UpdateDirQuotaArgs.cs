@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,8 +32,6 @@ namespace Cohesity.Model
         public UpdateDirQuotaArgs(bool? disableDirQuota = default(bool?), DirQuotaPolicy quota = default(DirQuotaPolicy), string viewName = default(string))
         {
             this.DisableDirQuota = disableDirQuota;
-            this.ViewName = viewName;
-            this.DisableDirQuota = disableDirQuota;
             this.Quota = quota;
             this.ViewName = viewName;
         }
@@ -39,7 +40,7 @@ namespace Cohesity.Model
         /// Specifies directory quota to be disabled on the view.
         /// </summary>
         /// <value>Specifies directory quota to be disabled on the view.</value>
-        [DataMember(Name="disableDirQuota", EmitDefaultValue=true)]
+        [DataMember(Name="disableDirQuota", EmitDefaultValue=false)]
         public bool? DisableDirQuota { get; set; }
 
         /// <summary>
@@ -52,7 +53,7 @@ namespace Cohesity.Model
         /// Specifies the name of the view.
         /// </summary>
         /// <value>Specifies the name of the view.</value>
-        [DataMember(Name="viewName", EmitDefaultValue=true)]
+        [DataMember(Name="viewName", EmitDefaultValue=false)]
         public string ViewName { get; set; }
 
         /// <summary>

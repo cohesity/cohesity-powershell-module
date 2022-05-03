@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,14 +34,22 @@ namespace Cohesity.Model
         /// <param name="name">Specifies the interface name to be deleted. (required).</param>
         public DeleteIpConfigParameters(string name = default(string))
         {
-            this.Name = name;
+            // to ensure "name" is required (not null)
+            if (name == null)
+            {
+                throw new InvalidDataException("name is a required property for DeleteIpConfigParameters and cannot be null");
+            }
+            else
+            {
+                this.Name = name;
+            }
         }
         
         /// <summary>
         /// Specifies the interface name to be deleted.
         /// </summary>
         /// <value>Specifies the interface name to be deleted.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
 
         /// <summary>

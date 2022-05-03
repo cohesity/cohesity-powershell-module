@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -42,15 +45,6 @@ namespace Cohesity.Model
             this.JobUid = jobUid;
             this.ObjectName = objectName;
             this.OsType = osType;
-            this.Versions = versions;
-            this.ViewBoxId = viewBoxId;
-            this.ViewName = viewName;
-            this.ClusterPartitionId = clusterPartitionId;
-            this.JobId = jobId;
-            this.JobName = jobName;
-            this.JobUid = jobUid;
-            this.ObjectName = objectName;
-            this.OsType = osType;
             this.RegisteredSource = registeredSource;
             this.SnapshottedSource = snapshottedSource;
             this.Versions = versions;
@@ -62,42 +56,42 @@ namespace Cohesity.Model
         /// Specifies the Cohesity Cluster partition id where this object is stored.
         /// </summary>
         /// <value>Specifies the Cohesity Cluster partition id where this object is stored.</value>
-        [DataMember(Name="clusterPartitionId", EmitDefaultValue=true)]
+        [DataMember(Name="clusterPartitionId", EmitDefaultValue=false)]
         public long? ClusterPartitionId { get; set; }
 
         /// <summary>
         /// Specifies the id for the Protection Job that is currently associated with the object. If the object was backed up on current Cohesity Cluster, this field contains the id for the Job that captured this backup object. If the object was backed up on a Primary Cluster and replicated to this Cohesity Cluster, a new Inactive Job is created, the object is now associated with new Inactive Job, and this field contains the id of the new Inactive Job.
         /// </summary>
         /// <value>Specifies the id for the Protection Job that is currently associated with the object. If the object was backed up on current Cohesity Cluster, this field contains the id for the Job that captured this backup object. If the object was backed up on a Primary Cluster and replicated to this Cohesity Cluster, a new Inactive Job is created, the object is now associated with new Inactive Job, and this field contains the id of the new Inactive Job.</value>
-        [DataMember(Name="jobId", EmitDefaultValue=true)]
+        [DataMember(Name="jobId", EmitDefaultValue=false)]
         public long? JobId { get; set; }
 
         /// <summary>
         /// Specifies the name of the Protection Job that captured the backup.
         /// </summary>
         /// <value>Specifies the name of the Protection Job that captured the backup.</value>
-        [DataMember(Name="jobName", EmitDefaultValue=true)]
+        [DataMember(Name="jobName", EmitDefaultValue=false)]
         public string JobName { get; set; }
 
         /// <summary>
         /// Specifies the globally unique id of the Protection Job that backed up this object. This id is unique across Cohesity Clusters. Even if this object is replicated to a Remote Cohesity Cluster and the object is associated with a new Job, the value specified in this field does not change.
         /// </summary>
         /// <value>Specifies the globally unique id of the Protection Job that backed up this object. This id is unique across Cohesity Clusters. Even if this object is replicated to a Remote Cohesity Cluster and the object is associated with a new Job, the value specified in this field does not change.</value>
-        [DataMember(Name="jobUid", EmitDefaultValue=true)]
+        [DataMember(Name="jobUid", EmitDefaultValue=false)]
         public UniversalId JobUid { get; set; }
 
         /// <summary>
         /// Specifies the primary name of the object.
         /// </summary>
         /// <value>Specifies the primary name of the object.</value>
-        [DataMember(Name="objectName", EmitDefaultValue=true)]
+        [DataMember(Name="objectName", EmitDefaultValue=false)]
         public string ObjectName { get; set; }
 
         /// <summary>
         /// Specifies the inferred OS type.
         /// </summary>
         /// <value>Specifies the inferred OS type.</value>
-        [DataMember(Name="osType", EmitDefaultValue=true)]
+        [DataMember(Name="osType", EmitDefaultValue=false)]
         public string OsType { get; set; }
 
         /// <summary>
@@ -116,21 +110,21 @@ namespace Cohesity.Model
         /// Array of Snapshots.  Specifies all snapshot versions of this object. Each time a Job Run of a Job executes, it may create a new snapshot version of an object. This array stores the different snapshots versions of the object.
         /// </summary>
         /// <value>Array of Snapshots.  Specifies all snapshot versions of this object. Each time a Job Run of a Job executes, it may create a new snapshot version of an object. This array stores the different snapshots versions of the object.</value>
-        [DataMember(Name="versions", EmitDefaultValue=true)]
+        [DataMember(Name="versions", EmitDefaultValue=false)]
         public List<SnapshotVersion> Versions { get; set; }
 
         /// <summary>
         /// Specifies the id of the Domain (View Box) where this object is stored.
         /// </summary>
         /// <value>Specifies the id of the Domain (View Box) where this object is stored.</value>
-        [DataMember(Name="viewBoxId", EmitDefaultValue=true)]
+        [DataMember(Name="viewBoxId", EmitDefaultValue=false)]
         public long? ViewBoxId { get; set; }
 
         /// <summary>
         /// Specifies the View name where this object is stored.
         /// </summary>
         /// <value>Specifies the View name where this object is stored.</value>
-        [DataMember(Name="viewName", EmitDefaultValue=true)]
+        [DataMember(Name="viewName", EmitDefaultValue=false)]
         public string ViewName { get; set; }
 
         /// <summary>
@@ -186,8 +180,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.JobUid == input.JobUid ||
-                    (this.JobUid != null &&
-                    this.JobUid.Equals(input.JobUid))
+                    this.JobUid != null &&
+                    this.JobUid.Equals(input.JobUid)
                 ) && 
                 (
                     this.ObjectName == input.ObjectName ||
@@ -212,8 +206,7 @@ namespace Cohesity.Model
                 (
                     this.Versions == input.Versions ||
                     this.Versions != null &&
-                    input.Versions != null &&
-                    this.Versions.SequenceEqual(input.Versions)
+                    this.Versions.Equals(input.Versions)
                 ) && 
                 (
                     this.ViewBoxId == input.ViewBoxId ||

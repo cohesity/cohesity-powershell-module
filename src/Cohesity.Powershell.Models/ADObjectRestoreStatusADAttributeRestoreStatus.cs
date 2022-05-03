@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.AttrstatusVec = attrstatusVec;
             this.LdapName = ldapName;
-            this.AttrstatusVec = attrstatusVec;
-            this.LdapName = ldapName;
         }
         
         /// <summary>
         /// Error status. If the &#39;attrstatus_vec&#39; is empty or contains kNoError, treat the attribute restore as success. For multi-valued properties such as &#39;memberOf&#39;, this vector may contain failure to add or remove specific value within the multi-value set.
         /// </summary>
         /// <value>Error status. If the &#39;attrstatus_vec&#39; is empty or contains kNoError, treat the attribute restore as success. For multi-valued properties such as &#39;memberOf&#39;, this vector may contain failure to add or remove specific value within the multi-value set.</value>
-        [DataMember(Name="attrstatusVec", EmitDefaultValue=true)]
+        [DataMember(Name="attrstatusVec", EmitDefaultValue=false)]
         public List<ErrorProto> AttrstatusVec { get; set; }
 
         /// <summary>
         /// LDAP name of the attribute.
         /// </summary>
         /// <value>LDAP name of the attribute.</value>
-        [DataMember(Name="ldapName", EmitDefaultValue=true)]
+        [DataMember(Name="ldapName", EmitDefaultValue=false)]
         public string LdapName { get; set; }
 
         /// <summary>
@@ -86,8 +87,7 @@ namespace Cohesity.Model
                 (
                     this.AttrstatusVec == input.AttrstatusVec ||
                     this.AttrstatusVec != null &&
-                    input.AttrstatusVec != null &&
-                    this.AttrstatusVec.SequenceEqual(input.AttrstatusVec)
+                    this.AttrstatusVec.Equals(input.AttrstatusVec)
                 ) && 
                 (
                     this.LdapName == input.LdapName ||

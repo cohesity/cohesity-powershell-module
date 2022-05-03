@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -30,8 +33,6 @@ namespace Cohesity.Model
         {
             this.FolderVec = folderVec;
             this.IsEntireMailboxRequired = isEntireMailboxRequired;
-            this.FolderVec = folderVec;
-            this.IsEntireMailboxRequired = isEntireMailboxRequired;
             this.Object = _object;
         }
         
@@ -39,14 +40,14 @@ namespace Cohesity.Model
         /// If is_entire_mailbox_required is set to false, user will then specify which particular folders are to be restored.
         /// </summary>
         /// <value>If is_entire_mailbox_required is set to false, user will then specify which particular folders are to be restored.</value>
-        [DataMember(Name="folderVec", EmitDefaultValue=true)]
+        [DataMember(Name="folderVec", EmitDefaultValue=false)]
         public List<RestoreOutlookParamsFolder> FolderVec { get; set; }
 
         /// <summary>
         /// Specify if the entire mailbox is to be restored.
         /// </summary>
         /// <value>Specify if the entire mailbox is to be restored.</value>
-        [DataMember(Name="isEntireMailboxRequired", EmitDefaultValue=true)]
+        [DataMember(Name="isEntireMailboxRequired", EmitDefaultValue=false)]
         public bool? IsEntireMailboxRequired { get; set; }
 
         /// <summary>
@@ -94,8 +95,7 @@ namespace Cohesity.Model
                 (
                     this.FolderVec == input.FolderVec ||
                     this.FolderVec != null &&
-                    input.FolderVec != null &&
-                    this.FolderVec.SequenceEqual(input.FolderVec)
+                    this.FolderVec.Equals(input.FolderVec)
                 ) && 
                 (
                     this.IsEntireMailboxRequired == input.IsEntireMailboxRequired ||

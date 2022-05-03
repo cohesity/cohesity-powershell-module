@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,30 +34,27 @@ namespace Cohesity.Model
             this.NumViewsAboveAlertThreshold = numViewsAboveAlertThreshold;
             this.NumViewsAboveHardLimit = numViewsAboveHardLimit;
             this.TotalNumViews = totalNumViews;
-            this.NumViewsAboveAlertThreshold = numViewsAboveAlertThreshold;
-            this.NumViewsAboveHardLimit = numViewsAboveHardLimit;
-            this.TotalNumViews = totalNumViews;
         }
         
         /// <summary>
         /// Number of views in which user has exceeded alert threshold limit.
         /// </summary>
         /// <value>Number of views in which user has exceeded alert threshold limit.</value>
-        [DataMember(Name="numViewsAboveAlertThreshold", EmitDefaultValue=true)]
+        [DataMember(Name="numViewsAboveAlertThreshold", EmitDefaultValue=false)]
         public int? NumViewsAboveAlertThreshold { get; set; }
 
         /// <summary>
         /// Number of views in which the user has exceeded hard limit.
         /// </summary>
         /// <value>Number of views in which the user has exceeded hard limit.</value>
-        [DataMember(Name="numViewsAboveHardLimit", EmitDefaultValue=true)]
+        [DataMember(Name="numViewsAboveHardLimit", EmitDefaultValue=false)]
         public int? NumViewsAboveHardLimit { get; set; }
 
         /// <summary>
         /// Total number of views in which the user has a quota policy specified or has non-zero usage.
         /// </summary>
         /// <value>Total number of views in which the user has a quota policy specified or has non-zero usage.</value>
-        [DataMember(Name="totalNumViews", EmitDefaultValue=true)]
+        [DataMember(Name="totalNumViews", EmitDefaultValue=false)]
         public int? TotalNumViews { get; set; }
 
         /// <summary>

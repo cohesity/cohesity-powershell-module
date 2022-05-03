@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,23 +34,14 @@ namespace Cohesity.Model
         /// <param name="entity">entity.</param>
         /// <param name="hostType">The host environment type. This is set for kPhysical type environment..</param>
         /// <param name="id">A unique id associated with this connector params. This is a convenience field and is used to maintain an index to different connection params. This is generated at the time when the source is registered with Magneto..</param>
+        /// <param name="networkRealmId">The network-realm id of the tenant through which this source is accessible. This realm could be a collection of hyxes. If this is set(&gt;&#x3D; 0), tenant_id must also be set. Value of &#39;0&#39; has special semantics, refer bifrost/base/constant.cc..</param>
         /// <param name="populateSubnetForAllClusterNodes">If set to true, inter agent communcation will be enabled and for every GetAgentInfo call we will fill subnet information of all the nodes in clustered entity..</param>
         /// <param name="port">Optional port to use when connecting to the server. If this is not specified, then environment specific default port will be used..</param>
         /// <param name="tenantId">The tenant_id for the environment. This is used to remotely access connectors and executors via bifrost..</param>
         /// <param name="type">The type of environment to connect to..</param>
         /// <param name="version">A version that is associated with the params. This is updated anytime any of the params change. This is used to discard older connector params..</param>
-        public ConnectorParams(AdditionalConnectorParams additionalParams = default(AdditionalConnectorParams), string agentEndpoint = default(string), int? agentPort = default(int?), Credentials credentials = default(Credentials), string endpoint = default(string), EntityProto entity = default(EntityProto), int? hostType = default(int?), long? id = default(long?), bool? populateSubnetForAllClusterNodes = default(bool?), int? port = default(int?), string tenantId = default(string), int? type = default(int?), long? version = default(long?))
+        public ConnectorParams(AdditionalConnectorParams additionalParams = default(AdditionalConnectorParams), string agentEndpoint = default(string), int? agentPort = default(int?), Credentials credentials = default(Credentials), string endpoint = default(string), EntityProto entity = default(EntityProto), int? hostType = default(int?), long? id = default(long?), long? networkRealmId = default(long?), bool? populateSubnetForAllClusterNodes = default(bool?), int? port = default(int?), string tenantId = default(string), int? type = default(int?), long? version = default(long?))
         {
-            this.AgentEndpoint = agentEndpoint;
-            this.AgentPort = agentPort;
-            this.Endpoint = endpoint;
-            this.HostType = hostType;
-            this.Id = id;
-            this.PopulateSubnetForAllClusterNodes = populateSubnetForAllClusterNodes;
-            this.Port = port;
-            this.TenantId = tenantId;
-            this.Type = type;
-            this.Version = version;
             this.AdditionalParams = additionalParams;
             this.AgentEndpoint = agentEndpoint;
             this.AgentPort = agentPort;
@@ -56,6 +50,7 @@ namespace Cohesity.Model
             this.Entity = entity;
             this.HostType = hostType;
             this.Id = id;
+            this.NetworkRealmId = networkRealmId;
             this.PopulateSubnetForAllClusterNodes = populateSubnetForAllClusterNodes;
             this.Port = port;
             this.TenantId = tenantId;
@@ -73,14 +68,14 @@ namespace Cohesity.Model
         /// For some of the environments connection to endpoint is done through an agent. This captures the agent endpoint information.
         /// </summary>
         /// <value>For some of the environments connection to endpoint is done through an agent. This captures the agent endpoint information.</value>
-        [DataMember(Name="agentEndpoint", EmitDefaultValue=true)]
+        [DataMember(Name="agentEndpoint", EmitDefaultValue=false)]
         public string AgentEndpoint { get; set; }
 
         /// <summary>
         /// Optional agent port to use when connecting to the server. If this is not specified, then environment specific default port will be used.
         /// </summary>
         /// <value>Optional agent port to use when connecting to the server. If this is not specified, then environment specific default port will be used.</value>
-        [DataMember(Name="agentPort", EmitDefaultValue=true)]
+        [DataMember(Name="agentPort", EmitDefaultValue=false)]
         public int? AgentPort { get; set; }
 
         /// <summary>
@@ -93,7 +88,7 @@ namespace Cohesity.Model
         /// The endpoint URL of the environment (such as the address of the vCenter instance for a VMware environment, etc).
         /// </summary>
         /// <value>The endpoint URL of the environment (such as the address of the vCenter instance for a VMware environment, etc).</value>
-        [DataMember(Name="endpoint", EmitDefaultValue=true)]
+        [DataMember(Name="endpoint", EmitDefaultValue=false)]
         public string Endpoint { get; set; }
 
         /// <summary>
@@ -106,49 +101,56 @@ namespace Cohesity.Model
         /// The host environment type. This is set for kPhysical type environment.
         /// </summary>
         /// <value>The host environment type. This is set for kPhysical type environment.</value>
-        [DataMember(Name="hostType", EmitDefaultValue=true)]
+        [DataMember(Name="hostType", EmitDefaultValue=false)]
         public int? HostType { get; set; }
 
         /// <summary>
         /// A unique id associated with this connector params. This is a convenience field and is used to maintain an index to different connection params. This is generated at the time when the source is registered with Magneto.
         /// </summary>
         /// <value>A unique id associated with this connector params. This is a convenience field and is used to maintain an index to different connection params. This is generated at the time when the source is registered with Magneto.</value>
-        [DataMember(Name="id", EmitDefaultValue=true)]
+        [DataMember(Name="id", EmitDefaultValue=false)]
         public long? Id { get; set; }
+
+        /// <summary>
+        /// The network-realm id of the tenant through which this source is accessible. This realm could be a collection of hyxes. If this is set(&gt;&#x3D; 0), tenant_id must also be set. Value of &#39;0&#39; has special semantics, refer bifrost/base/constant.cc.
+        /// </summary>
+        /// <value>The network-realm id of the tenant through which this source is accessible. This realm could be a collection of hyxes. If this is set(&gt;&#x3D; 0), tenant_id must also be set. Value of &#39;0&#39; has special semantics, refer bifrost/base/constant.cc.</value>
+        [DataMember(Name="networkRealmId", EmitDefaultValue=false)]
+        public long? NetworkRealmId { get; set; }
 
         /// <summary>
         /// If set to true, inter agent communcation will be enabled and for every GetAgentInfo call we will fill subnet information of all the nodes in clustered entity.
         /// </summary>
         /// <value>If set to true, inter agent communcation will be enabled and for every GetAgentInfo call we will fill subnet information of all the nodes in clustered entity.</value>
-        [DataMember(Name="populateSubnetForAllClusterNodes", EmitDefaultValue=true)]
+        [DataMember(Name="populateSubnetForAllClusterNodes", EmitDefaultValue=false)]
         public bool? PopulateSubnetForAllClusterNodes { get; set; }
 
         /// <summary>
         /// Optional port to use when connecting to the server. If this is not specified, then environment specific default port will be used.
         /// </summary>
         /// <value>Optional port to use when connecting to the server. If this is not specified, then environment specific default port will be used.</value>
-        [DataMember(Name="port", EmitDefaultValue=true)]
+        [DataMember(Name="port", EmitDefaultValue=false)]
         public int? Port { get; set; }
 
         /// <summary>
         /// The tenant_id for the environment. This is used to remotely access connectors and executors via bifrost.
         /// </summary>
         /// <value>The tenant_id for the environment. This is used to remotely access connectors and executors via bifrost.</value>
-        [DataMember(Name="tenantId", EmitDefaultValue=true)]
+        [DataMember(Name="tenantId", EmitDefaultValue=false)]
         public string TenantId { get; set; }
 
         /// <summary>
         /// The type of environment to connect to.
         /// </summary>
         /// <value>The type of environment to connect to.</value>
-        [DataMember(Name="type", EmitDefaultValue=true)]
+        [DataMember(Name="type", EmitDefaultValue=false)]
         public int? Type { get; set; }
 
         /// <summary>
         /// A version that is associated with the params. This is updated anytime any of the params change. This is used to discard older connector params.
         /// </summary>
         /// <value>A version that is associated with the params. This is updated anytime any of the params change. This is used to discard older connector params.</value>
-        [DataMember(Name="version", EmitDefaultValue=true)]
+        [DataMember(Name="version", EmitDefaultValue=false)]
         public long? Version { get; set; }
 
         /// <summary>
@@ -228,6 +230,11 @@ namespace Cohesity.Model
                     this.Id.Equals(input.Id))
                 ) && 
                 (
+                    this.NetworkRealmId == input.NetworkRealmId ||
+                    (this.NetworkRealmId != null &&
+                    this.NetworkRealmId.Equals(input.NetworkRealmId))
+                ) && 
+                (
                     this.PopulateSubnetForAllClusterNodes == input.PopulateSubnetForAllClusterNodes ||
                     (this.PopulateSubnetForAllClusterNodes != null &&
                     this.PopulateSubnetForAllClusterNodes.Equals(input.PopulateSubnetForAllClusterNodes))
@@ -279,6 +286,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.HostType.GetHashCode();
                 if (this.Id != null)
                     hashCode = hashCode * 59 + this.Id.GetHashCode();
+                if (this.NetworkRealmId != null)
+                    hashCode = hashCode * 59 + this.NetworkRealmId.GetHashCode();
                 if (this.PopulateSubnetForAllClusterNodes != null)
                     hashCode = hashCode * 59 + this.PopulateSubnetForAllClusterNodes.GetHashCode();
                 if (this.Port != null)

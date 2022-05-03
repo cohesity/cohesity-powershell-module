@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.RollupIntervalSecs = rollupIntervalSecs;
             this.TimeToLiveSecs = timeToLiveSecs;
-            this.RollupIntervalSecs = rollupIntervalSecs;
-            this.TimeToLiveSecs = timeToLiveSecs;
         }
         
         /// <summary>
         /// Defines the rollup interval or a bucket size. All data points within one time bucket are rolled up to one summary data point using the defined rollup function. For example, say, raw metric is published at ~30 secs granularity. To generate a hourly or a daily summary time series, client can define rolled up metrics having interval 3600 secs and 86400 secs respectively.
         /// </summary>
         /// <value>Defines the rollup interval or a bucket size. All data points within one time bucket are rolled up to one summary data point using the defined rollup function. For example, say, raw metric is published at ~30 secs granularity. To generate a hourly or a daily summary time series, client can define rolled up metrics having interval 3600 secs and 86400 secs respectively.</value>
-        [DataMember(Name="rollupIntervalSecs", EmitDefaultValue=true)]
+        [DataMember(Name="rollupIntervalSecs", EmitDefaultValue=false)]
         public int? RollupIntervalSecs { get; set; }
 
         /// <summary>
         /// Defines the duration for which the rolled up data is to be stored. Once the lifespan has elapsed, expired data is garbage collected.
         /// </summary>
         /// <value>Defines the duration for which the rolled up data is to be stored. Once the lifespan has elapsed, expired data is garbage collected.</value>
-        [DataMember(Name="timeToLiveSecs", EmitDefaultValue=true)]
+        [DataMember(Name="timeToLiveSecs", EmitDefaultValue=false)]
         public long? TimeToLiveSecs { get; set; }
 
         /// <summary>

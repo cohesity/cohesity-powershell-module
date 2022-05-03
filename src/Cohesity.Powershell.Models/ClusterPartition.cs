@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -30,15 +33,8 @@ namespace Cohesity.Model
         /// <param name="vips">Array of VIPs.  Specifies a list of Virtual IP Addresses (VIPs) that route network traffic to the Cluster Partition..</param>
         /// <param name="vlanIps">Array of VLAN IPs.  Specifies a list of VLAN IP Addresses that route network traffic within certain VLANs to the Cluster Partition..</param>
         /// <param name="vlans">Array of VLANs.  Specifies a list of VLANs for the Cluster Partition..</param>
-        public ClusterPartition(string hostName = default(string), long? id = default(long?), string name = default(string), List<long> nodeIds = default(List<long>), List<string> vips = default(List<string>), List<string> vlanIps = default(List<string>), List<Vlan> vlans = default(List<Vlan>))
+        public ClusterPartition(string hostName = default(string), long? id = default(long?), string name = default(string), List<long?> nodeIds = default(List<long?>), List<string> vips = default(List<string>), List<string> vlanIps = default(List<string>), List<Vlan> vlans = default(List<Vlan>))
         {
-            this.HostName = hostName;
-            this.Id = id;
-            this.Name = name;
-            this.NodeIds = nodeIds;
-            this.Vips = vips;
-            this.VlanIps = vlanIps;
-            this.Vlans = vlans;
             this.HostName = hostName;
             this.Id = id;
             this.Name = name;
@@ -52,49 +48,49 @@ namespace Cohesity.Model
         /// Specifies that hostname that resolves to one or more Virtual IP Addresses (VIPs).
         /// </summary>
         /// <value>Specifies that hostname that resolves to one or more Virtual IP Addresses (VIPs).</value>
-        [DataMember(Name="hostName", EmitDefaultValue=true)]
+        [DataMember(Name="hostName", EmitDefaultValue=false)]
         public string HostName { get; set; }
 
         /// <summary>
         /// Specifies a unique identifier for the Cluster Partition.
         /// </summary>
         /// <value>Specifies a unique identifier for the Cluster Partition.</value>
-        [DataMember(Name="id", EmitDefaultValue=true)]
+        [DataMember(Name="id", EmitDefaultValue=false)]
         public long? Id { get; set; }
 
         /// <summary>
         /// Specifies the name of the Cluster Partition.
         /// </summary>
         /// <value>Specifies the name of the Cluster Partition.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
 
         /// <summary>
         /// Array of Node Ids.  Specifies a list of Node Ids that assigned to the Cluster Partition.
         /// </summary>
         /// <value>Array of Node Ids.  Specifies a list of Node Ids that assigned to the Cluster Partition.</value>
-        [DataMember(Name="nodeIds", EmitDefaultValue=true)]
-        public List<long> NodeIds { get; set; }
+        [DataMember(Name="nodeIds", EmitDefaultValue=false)]
+        public List<long?> NodeIds { get; set; }
 
         /// <summary>
         /// Array of VIPs.  Specifies a list of Virtual IP Addresses (VIPs) that route network traffic to the Cluster Partition.
         /// </summary>
         /// <value>Array of VIPs.  Specifies a list of Virtual IP Addresses (VIPs) that route network traffic to the Cluster Partition.</value>
-        [DataMember(Name="vips", EmitDefaultValue=true)]
+        [DataMember(Name="vips", EmitDefaultValue=false)]
         public List<string> Vips { get; set; }
 
         /// <summary>
         /// Array of VLAN IPs.  Specifies a list of VLAN IP Addresses that route network traffic within certain VLANs to the Cluster Partition.
         /// </summary>
         /// <value>Array of VLAN IPs.  Specifies a list of VLAN IP Addresses that route network traffic within certain VLANs to the Cluster Partition.</value>
-        [DataMember(Name="vlanIps", EmitDefaultValue=true)]
+        [DataMember(Name="vlanIps", EmitDefaultValue=false)]
         public List<string> VlanIps { get; set; }
 
         /// <summary>
         /// Array of VLANs.  Specifies a list of VLANs for the Cluster Partition.
         /// </summary>
         /// <value>Array of VLANs.  Specifies a list of VLANs for the Cluster Partition.</value>
-        [DataMember(Name="vlans", EmitDefaultValue=true)]
+        [DataMember(Name="vlans", EmitDefaultValue=false)]
         public List<Vlan> Vlans { get; set; }
 
         /// <summary>
@@ -151,26 +147,22 @@ namespace Cohesity.Model
                 (
                     this.NodeIds == input.NodeIds ||
                     this.NodeIds != null &&
-                    input.NodeIds != null &&
-                    this.NodeIds.SequenceEqual(input.NodeIds)
+                    this.NodeIds.Equals(input.NodeIds)
                 ) && 
                 (
                     this.Vips == input.Vips ||
                     this.Vips != null &&
-                    input.Vips != null &&
-                    this.Vips.SequenceEqual(input.Vips)
+                    this.Vips.Equals(input.Vips)
                 ) && 
                 (
                     this.VlanIps == input.VlanIps ||
                     this.VlanIps != null &&
-                    input.VlanIps != null &&
-                    this.VlanIps.SequenceEqual(input.VlanIps)
+                    this.VlanIps.Equals(input.VlanIps)
                 ) && 
                 (
                     this.Vlans == input.Vlans ||
                     this.Vlans != null &&
-                    input.Vlans != null &&
-                    this.Vlans.SequenceEqual(input.Vlans)
+                    this.Vlans.Equals(input.Vlans)
                 );
         }
 

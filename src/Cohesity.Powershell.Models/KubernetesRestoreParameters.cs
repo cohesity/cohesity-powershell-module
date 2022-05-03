@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.Prefix = prefix;
             this.Suffix = suffix;
-            this.Prefix = prefix;
-            this.Suffix = suffix;
         }
         
         /// <summary>
         /// Specifies a prefix to prepended to the source object name to derive a new name for the recovered or cloned object. By default, cloned or recovered objects retain their original name. Length of this field is limited to 8 characters.
         /// </summary>
         /// <value>Specifies a prefix to prepended to the source object name to derive a new name for the recovered or cloned object. By default, cloned or recovered objects retain their original name. Length of this field is limited to 8 characters.</value>
-        [DataMember(Name="prefix", EmitDefaultValue=true)]
+        [DataMember(Name="prefix", EmitDefaultValue=false)]
         public string Prefix { get; set; }
 
         /// <summary>
         /// Specifies a suffix to appended to the original source object name to derive a new name for the recovered or cloned object. By default, cloned or recovered objects retain their original name. Length of this field is limited to 8 characters.
         /// </summary>
         /// <value>Specifies a suffix to appended to the original source object name to derive a new name for the recovered or cloned object. By default, cloned or recovered objects retain their original name. Length of this field is limited to 8 characters.</value>
-        [DataMember(Name="suffix", EmitDefaultValue=true)]
+        [DataMember(Name="suffix", EmitDefaultValue=false)]
         public string Suffix { get; set; }
 
         /// <summary>

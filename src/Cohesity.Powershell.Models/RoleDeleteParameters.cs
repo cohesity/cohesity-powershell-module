@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,14 +34,22 @@ namespace Cohesity.Model
         /// <param name="names">Array of Role Names.  Specifies the list of roles to delete which are specified by role names. (required).</param>
         public RoleDeleteParameters(List<string> names = default(List<string>))
         {
-            this.Names = names;
+            // to ensure "names" is required (not null)
+            if (names == null)
+            {
+                throw new InvalidDataException("names is a required property for RoleDeleteParameters and cannot be null");
+            }
+            else
+            {
+                this.Names = names;
+            }
         }
         
         /// <summary>
         /// Array of Role Names.  Specifies the list of roles to delete which are specified by role names.
         /// </summary>
         /// <value>Array of Role Names.  Specifies the list of roles to delete which are specified by role names.</value>
-        [DataMember(Name="names", EmitDefaultValue=true)]
+        [DataMember(Name="names", EmitDefaultValue=false)]
         public List<string> Names { get; set; }
 
         /// <summary>
@@ -80,8 +91,7 @@ namespace Cohesity.Model
                 (
                     this.Names == input.Names ||
                     this.Names != null &&
-                    input.Names != null &&
-                    this.Names.SequenceEqual(input.Names)
+                    this.Names.Equals(input.Names)
                 );
         }
 

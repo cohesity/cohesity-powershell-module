@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -33,17 +36,8 @@ namespace Cohesity.Model
         /// <param name="rootDir">Within each volume, traversal will be rooted at this directory. A typical value here might be /home.</param>
         /// <param name="viewBoxIds">viewBoxIds.</param>
         /// <param name="viewName">This is the view name user enters manually. If this is set we will process this view only. partition_id and view_box_id will be populated only if view_name is present..</param>
-        public InputSpecInputFilesSelector(InputSpecFileTimeFilter fileTimeFilter = default(InputSpecFileTimeFilter), List<string> filenameGlob = default(List<string>), List<long> jobIds = default(List<long>), long? maxSnapshotTimestamp = default(long?), long? minSnapshotTimestamp = default(long?), List<long> partitionIds = default(List<long>), bool? processLatestOnly = default(bool?), string rootDir = default(string), List<long> viewBoxIds = default(List<long>), string viewName = default(string))
+        public InputSpecInputFilesSelector(InputSpecFileTimeFilter fileTimeFilter = default(InputSpecFileTimeFilter), List<string> filenameGlob = default(List<string>), List<long?> jobIds = default(List<long?>), long? maxSnapshotTimestamp = default(long?), long? minSnapshotTimestamp = default(long?), List<long?> partitionIds = default(List<long?>), bool? processLatestOnly = default(bool?), string rootDir = default(string), List<long?> viewBoxIds = default(List<long?>), string viewName = default(string))
         {
-            this.FilenameGlob = filenameGlob;
-            this.JobIds = jobIds;
-            this.MaxSnapshotTimestamp = maxSnapshotTimestamp;
-            this.MinSnapshotTimestamp = minSnapshotTimestamp;
-            this.PartitionIds = partitionIds;
-            this.ProcessLatestOnly = processLatestOnly;
-            this.RootDir = rootDir;
-            this.ViewBoxIds = viewBoxIds;
-            this.ViewName = viewName;
             this.FileTimeFilter = fileTimeFilter;
             this.FilenameGlob = filenameGlob;
             this.JobIds = jobIds;
@@ -66,60 +60,60 @@ namespace Cohesity.Model
         /// Glob patterns to match on file. e.g. {*.txt, *.cc}
         /// </summary>
         /// <value>Glob patterns to match on file. e.g. {*.txt, *.cc}</value>
-        [DataMember(Name="filenameGlob", EmitDefaultValue=true)]
+        [DataMember(Name="filenameGlob", EmitDefaultValue=false)]
         public List<string> FilenameGlob { get; set; }
 
         /// <summary>
         /// Gets or Sets JobIds
         /// </summary>
-        [DataMember(Name="jobIds", EmitDefaultValue=true)]
-        public List<long> JobIds { get; set; }
+        [DataMember(Name="jobIds", EmitDefaultValue=false)]
+        public List<long?> JobIds { get; set; }
 
         /// <summary>
         /// Exclusive end of snapshot_timestamp range. If missing, inf will be used as the timestamp range.
         /// </summary>
         /// <value>Exclusive end of snapshot_timestamp range. If missing, inf will be used as the timestamp range.</value>
-        [DataMember(Name="maxSnapshotTimestamp", EmitDefaultValue=true)]
+        [DataMember(Name="maxSnapshotTimestamp", EmitDefaultValue=false)]
         public long? MaxSnapshotTimestamp { get; set; }
 
         /// <summary>
         /// Inclusive. If missing, 0 will the default lower end of timestamp range
         /// </summary>
         /// <value>Inclusive. If missing, 0 will the default lower end of timestamp range</value>
-        [DataMember(Name="minSnapshotTimestamp", EmitDefaultValue=true)]
+        [DataMember(Name="minSnapshotTimestamp", EmitDefaultValue=false)]
         public long? MinSnapshotTimestamp { get; set; }
 
         /// <summary>
         /// Gets or Sets PartitionIds
         /// </summary>
-        [DataMember(Name="partitionIds", EmitDefaultValue=true)]
-        public List<long> PartitionIds { get; set; }
+        [DataMember(Name="partitionIds", EmitDefaultValue=false)]
+        public List<long?> PartitionIds { get; set; }
 
         /// <summary>
         /// Boolean flag to indicate if only latest snapshot of each object should be processed.
         /// </summary>
         /// <value>Boolean flag to indicate if only latest snapshot of each object should be processed.</value>
-        [DataMember(Name="processLatestOnly", EmitDefaultValue=true)]
+        [DataMember(Name="processLatestOnly", EmitDefaultValue=false)]
         public bool? ProcessLatestOnly { get; set; }
 
         /// <summary>
         /// Within each volume, traversal will be rooted at this directory. A typical value here might be /home
         /// </summary>
         /// <value>Within each volume, traversal will be rooted at this directory. A typical value here might be /home</value>
-        [DataMember(Name="rootDir", EmitDefaultValue=true)]
+        [DataMember(Name="rootDir", EmitDefaultValue=false)]
         public string RootDir { get; set; }
 
         /// <summary>
         /// Gets or Sets ViewBoxIds
         /// </summary>
-        [DataMember(Name="viewBoxIds", EmitDefaultValue=true)]
-        public List<long> ViewBoxIds { get; set; }
+        [DataMember(Name="viewBoxIds", EmitDefaultValue=false)]
+        public List<long?> ViewBoxIds { get; set; }
 
         /// <summary>
         /// This is the view name user enters manually. If this is set we will process this view only. partition_id and view_box_id will be populated only if view_name is present.
         /// </summary>
         /// <value>This is the view name user enters manually. If this is set we will process this view only. partition_id and view_box_id will be populated only if view_name is present.</value>
-        [DataMember(Name="viewName", EmitDefaultValue=true)]
+        [DataMember(Name="viewName", EmitDefaultValue=false)]
         public string ViewName { get; set; }
 
         /// <summary>
@@ -166,14 +160,12 @@ namespace Cohesity.Model
                 (
                     this.FilenameGlob == input.FilenameGlob ||
                     this.FilenameGlob != null &&
-                    input.FilenameGlob != null &&
-                    this.FilenameGlob.SequenceEqual(input.FilenameGlob)
+                    this.FilenameGlob.Equals(input.FilenameGlob)
                 ) && 
                 (
                     this.JobIds == input.JobIds ||
                     this.JobIds != null &&
-                    input.JobIds != null &&
-                    this.JobIds.SequenceEqual(input.JobIds)
+                    this.JobIds.Equals(input.JobIds)
                 ) && 
                 (
                     this.MaxSnapshotTimestamp == input.MaxSnapshotTimestamp ||
@@ -188,8 +180,7 @@ namespace Cohesity.Model
                 (
                     this.PartitionIds == input.PartitionIds ||
                     this.PartitionIds != null &&
-                    input.PartitionIds != null &&
-                    this.PartitionIds.SequenceEqual(input.PartitionIds)
+                    this.PartitionIds.Equals(input.PartitionIds)
                 ) && 
                 (
                     this.ProcessLatestOnly == input.ProcessLatestOnly ||
@@ -204,8 +195,7 @@ namespace Cohesity.Model
                 (
                     this.ViewBoxIds == input.ViewBoxIds ||
                     this.ViewBoxIds != null &&
-                    input.ViewBoxIds != null &&
-                    this.ViewBoxIds.SequenceEqual(input.ViewBoxIds)
+                    this.ViewBoxIds.Equals(input.ViewBoxIds)
                 ) && 
                 (
                     this.ViewName == input.ViewName ||

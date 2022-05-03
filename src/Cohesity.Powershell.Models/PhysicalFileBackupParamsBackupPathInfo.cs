@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,30 +34,27 @@ namespace Cohesity.Model
             this.ExcludePaths = excludePaths;
             this.IncludePath = includePath;
             this.SkipNestedVolumes = skipNestedVolumes;
-            this.ExcludePaths = excludePaths;
-            this.IncludePath = includePath;
-            this.SkipNestedVolumes = skipNestedVolumes;
         }
         
         /// <summary>
         /// A list of absolute paths on the Physical source that should not be backed up. Any path that is a descendant of these paths will also be skipped.
         /// </summary>
         /// <value>A list of absolute paths on the Physical source that should not be backed up. Any path that is a descendant of these paths will also be skipped.</value>
-        [DataMember(Name="excludePaths", EmitDefaultValue=true)]
+        [DataMember(Name="excludePaths", EmitDefaultValue=false)]
         public List<string> ExcludePaths { get; set; }
 
         /// <summary>
         /// An absolute path on the Physical source that should be backed up. Any path that is a descendant of this path will also be backed up, unless (a) it is excluded from backup by exclude_paths below, OR (b) it belongs to a volume that is different from the volume include_path belongs to and there are no relevant paths in that volume being backed up.
         /// </summary>
         /// <value>An absolute path on the Physical source that should be backed up. Any path that is a descendant of this path will also be backed up, unless (a) it is excluded from backup by exclude_paths below, OR (b) it belongs to a volume that is different from the volume include_path belongs to and there are no relevant paths in that volume being backed up.</value>
-        [DataMember(Name="includePath", EmitDefaultValue=true)]
+        [DataMember(Name="includePath", EmitDefaultValue=false)]
         public string IncludePath { get; set; }
 
         /// <summary>
         /// Whether to skip any nested volumes (both local and network) that are mounted under &#39;include_path&#39;. Note that if a path to a nested volume is specified as an include_path in another BackupPathInfo entry, that path will still get backed up.
         /// </summary>
         /// <value>Whether to skip any nested volumes (both local and network) that are mounted under &#39;include_path&#39;. Note that if a path to a nested volume is specified as an include_path in another BackupPathInfo entry, that path will still get backed up.</value>
-        [DataMember(Name="skipNestedVolumes", EmitDefaultValue=true)]
+        [DataMember(Name="skipNestedVolumes", EmitDefaultValue=false)]
         public bool? SkipNestedVolumes { get; set; }
 
         /// <summary>
@@ -96,8 +96,7 @@ namespace Cohesity.Model
                 (
                     this.ExcludePaths == input.ExcludePaths ||
                     this.ExcludePaths != null &&
-                    input.ExcludePaths != null &&
-                    this.ExcludePaths.SequenceEqual(input.ExcludePaths)
+                    this.ExcludePaths.Equals(input.ExcludePaths)
                 ) && 
                 (
                     this.IncludePath == input.IncludePath ||

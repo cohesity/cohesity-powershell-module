@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -33,38 +36,34 @@ namespace Cohesity.Model
             this.ProtectedSize = protectedSize;
             this.UnprotectedCount = unprotectedCount;
             this.UnprotectedSize = unprotectedSize;
-            this.ProtectedCount = protectedCount;
-            this.ProtectedSize = protectedSize;
-            this.UnprotectedCount = unprotectedCount;
-            this.UnprotectedSize = unprotectedSize;
         }
         
         /// <summary>
         /// Specifies the number of objects that are protected under the given entity.
         /// </summary>
         /// <value>Specifies the number of objects that are protected under the given entity.</value>
-        [DataMember(Name="protectedCount", EmitDefaultValue=true)]
+        [DataMember(Name="protectedCount", EmitDefaultValue=false)]
         public long? ProtectedCount { get; set; }
 
         /// <summary>
         /// Specifies the total size of the protected objects under the given entity.
         /// </summary>
         /// <value>Specifies the total size of the protected objects under the given entity.</value>
-        [DataMember(Name="protectedSize", EmitDefaultValue=true)]
+        [DataMember(Name="protectedSize", EmitDefaultValue=false)]
         public long? ProtectedSize { get; set; }
 
         /// <summary>
         /// Specifies the number of objects that are not protected under the given entity.
         /// </summary>
         /// <value>Specifies the number of objects that are not protected under the given entity.</value>
-        [DataMember(Name="unprotectedCount", EmitDefaultValue=true)]
+        [DataMember(Name="unprotectedCount", EmitDefaultValue=false)]
         public long? UnprotectedCount { get; set; }
 
         /// <summary>
         /// Specifies the total size of the unprotected objects under the given entity.
         /// </summary>
         /// <value>Specifies the total size of the unprotected objects under the given entity.</value>
-        [DataMember(Name="unprotectedSize", EmitDefaultValue=true)]
+        [DataMember(Name="unprotectedSize", EmitDefaultValue=false)]
         public long? UnprotectedSize { get; set; }
 
         /// <summary>

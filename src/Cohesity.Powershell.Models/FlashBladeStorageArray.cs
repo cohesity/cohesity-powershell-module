@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -37,54 +40,48 @@ namespace Cohesity.Model
             this.PhysicalUsedBytes = physicalUsedBytes;
             this.Revision = revision;
             this.Version = version;
-            this.CapacityBytes = capacityBytes;
-            this.Id = id;
-            this.Networks = networks;
-            this.PhysicalUsedBytes = physicalUsedBytes;
-            this.Revision = revision;
-            this.Version = version;
         }
         
         /// <summary>
         /// Specifies the total capacity in bytes of the Pure Storage FlashBlade Array.
         /// </summary>
         /// <value>Specifies the total capacity in bytes of the Pure Storage FlashBlade Array.</value>
-        [DataMember(Name="capacityBytes", EmitDefaultValue=true)]
+        [DataMember(Name="capacityBytes", EmitDefaultValue=false)]
         public long? CapacityBytes { get; set; }
 
         /// <summary>
         /// Specifies a unique id of a Pure Storage FlashBlade Array. The id is unique across Cohesity Clusters.
         /// </summary>
         /// <value>Specifies a unique id of a Pure Storage FlashBlade Array. The id is unique across Cohesity Clusters.</value>
-        [DataMember(Name="id", EmitDefaultValue=true)]
+        [DataMember(Name="id", EmitDefaultValue=false)]
         public string Id { get; set; }
 
         /// <summary>
         /// Specifies the network interfaces of the Pure Storage FlashBlade Array.
         /// </summary>
         /// <value>Specifies the network interfaces of the Pure Storage FlashBlade Array.</value>
-        [DataMember(Name="networks", EmitDefaultValue=true)]
+        [DataMember(Name="networks", EmitDefaultValue=false)]
         public List<FlashBladeNetworkInterface> Networks { get; set; }
 
         /// <summary>
         /// Specifies the space used for physical data in bytes.
         /// </summary>
         /// <value>Specifies the space used for physical data in bytes.</value>
-        [DataMember(Name="physicalUsedBytes", EmitDefaultValue=true)]
+        [DataMember(Name="physicalUsedBytes", EmitDefaultValue=false)]
         public long? PhysicalUsedBytes { get; set; }
 
         /// <summary>
         /// Specifies the revision of the Pure Storage FlashBlade software.
         /// </summary>
         /// <value>Specifies the revision of the Pure Storage FlashBlade software.</value>
-        [DataMember(Name="revision", EmitDefaultValue=true)]
+        [DataMember(Name="revision", EmitDefaultValue=false)]
         public string Revision { get; set; }
 
         /// <summary>
         /// Specifies the software version running on the Pure Storage FlashBlade Array.
         /// </summary>
         /// <value>Specifies the software version running on the Pure Storage FlashBlade Array.</value>
-        [DataMember(Name="version", EmitDefaultValue=true)]
+        [DataMember(Name="version", EmitDefaultValue=false)]
         public string Version { get; set; }
 
         /// <summary>
@@ -136,8 +133,7 @@ namespace Cohesity.Model
                 (
                     this.Networks == input.Networks ||
                     this.Networks != null &&
-                    input.Networks != null &&
-                    this.Networks.SequenceEqual(input.Networks)
+                    this.Networks.Equals(input.Networks)
                 ) && 
                 (
                     this.PhysicalUsedBytes == input.PhysicalUsedBytes ||

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -34,12 +37,6 @@ namespace Cohesity.Model
         public RestoreADAppObjectParams(List<ADRestoreStatus> adRestoreStatusVec = default(List<ADRestoreStatus>), ADUpdateRestoreTaskOptions adUpdateOptions = default(ADUpdateRestoreTaskOptions), Credentials credentials = default(Credentials), int? ldapPort = default(int?), int? numFailed = default(int?), int? numRunning = default(int?), int? numSuccessfull = default(int?), bool? shouldMountAndRestore = default(bool?))
         {
             this.AdRestoreStatusVec = adRestoreStatusVec;
-            this.LdapPort = ldapPort;
-            this.NumFailed = numFailed;
-            this.NumRunning = numRunning;
-            this.NumSuccessfull = numSuccessfull;
-            this.ShouldMountAndRestore = shouldMountAndRestore;
-            this.AdRestoreStatusVec = adRestoreStatusVec;
             this.AdUpdateOptions = adUpdateOptions;
             this.Credentials = credentials;
             this.LdapPort = ldapPort;
@@ -53,7 +50,7 @@ namespace Cohesity.Model
         /// Status of the AD object/attribute restore operation.
         /// </summary>
         /// <value>Status of the AD object/attribute restore operation.</value>
-        [DataMember(Name="adRestoreStatusVec", EmitDefaultValue=true)]
+        [DataMember(Name="adRestoreStatusVec", EmitDefaultValue=false)]
         public List<ADRestoreStatus> AdRestoreStatusVec { get; set; }
 
         /// <summary>
@@ -72,35 +69,35 @@ namespace Cohesity.Model
         /// The ldap port on which the AD domain controller&#39;s NTDS database will be mounted.
         /// </summary>
         /// <value>The ldap port on which the AD domain controller&#39;s NTDS database will be mounted.</value>
-        [DataMember(Name="ldapPort", EmitDefaultValue=true)]
+        [DataMember(Name="ldapPort", EmitDefaultValue=false)]
         public int? LdapPort { get; set; }
 
         /// <summary>
         /// Number of AD objects whose restore failed. Includes both AD object and attribute restored.
         /// </summary>
         /// <value>Number of AD objects whose restore failed. Includes both AD object and attribute restored.</value>
-        [DataMember(Name="numFailed", EmitDefaultValue=true)]
+        [DataMember(Name="numFailed", EmitDefaultValue=false)]
         public int? NumFailed { get; set; }
 
         /// <summary>
         /// Number of AD objects whose restores are currently running. Includes both AD object and attribute recoveries.
         /// </summary>
         /// <value>Number of AD objects whose restores are currently running. Includes both AD object and attribute recoveries.</value>
-        [DataMember(Name="numRunning", EmitDefaultValue=true)]
+        [DataMember(Name="numRunning", EmitDefaultValue=false)]
         public int? NumRunning { get; set; }
 
         /// <summary>
         /// Number of AD objects restored successfully. Includes both AD object and attribute restored.
         /// </summary>
         /// <value>Number of AD objects restored successfully. Includes both AD object and attribute restored.</value>
-        [DataMember(Name="numSuccessfull", EmitDefaultValue=true)]
+        [DataMember(Name="numSuccessfull", EmitDefaultValue=false)]
         public int? NumSuccessfull { get; set; }
 
         /// <summary>
         /// The following field is set if user wants to mount AD, restore AD objects and destory AD mount in single task.
         /// </summary>
         /// <value>The following field is set if user wants to mount AD, restore AD objects and destory AD mount in single task.</value>
-        [DataMember(Name="shouldMountAndRestore", EmitDefaultValue=true)]
+        [DataMember(Name="shouldMountAndRestore", EmitDefaultValue=false)]
         public bool? ShouldMountAndRestore { get; set; }
 
         /// <summary>
@@ -142,8 +139,7 @@ namespace Cohesity.Model
                 (
                     this.AdRestoreStatusVec == input.AdRestoreStatusVec ||
                     this.AdRestoreStatusVec != null &&
-                    input.AdRestoreStatusVec != null &&
-                    this.AdRestoreStatusVec.SequenceEqual(input.AdRestoreStatusVec)
+                    this.AdRestoreStatusVec.Equals(input.AdRestoreStatusVec)
                 ) && 
                 (
                     this.AdUpdateOptions == input.AdUpdateOptions ||

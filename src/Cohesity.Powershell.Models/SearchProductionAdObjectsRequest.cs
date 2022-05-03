@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -33,38 +36,34 @@ namespace Cohesity.Model
             this.ObjectGuids = objectGuids;
             this.ProtectionSourceId = protectionSourceId;
             this.SamAccountNames = samAccountNames;
-            this.DistinguishedNames = distinguishedNames;
-            this.ObjectGuids = objectGuids;
-            this.ProtectionSourceId = protectionSourceId;
-            this.SamAccountNames = samAccountNames;
         }
         
         /// <summary>
         /// Specifies the list of the distinguished names of the AD objects.
         /// </summary>
         /// <value>Specifies the list of the distinguished names of the AD objects.</value>
-        [DataMember(Name="distinguishedNames", EmitDefaultValue=true)]
+        [DataMember(Name="distinguishedNames", EmitDefaultValue=false)]
         public List<string> DistinguishedNames { get; set; }
 
         /// <summary>
         /// Specifies the list of the guids of the AD objects.
         /// </summary>
         /// <value>Specifies the list of the guids of the AD objects.</value>
-        [DataMember(Name="objectGuids", EmitDefaultValue=true)]
+        [DataMember(Name="objectGuids", EmitDefaultValue=false)]
         public List<string> ObjectGuids { get; set; }
 
         /// <summary>
         /// ProtectionSourceId is the Id of the Domain Controller host on which we want to search for AD objects.
         /// </summary>
         /// <value>ProtectionSourceId is the Id of the Domain Controller host on which we want to search for AD objects.</value>
-        [DataMember(Name="protectionSourceId", EmitDefaultValue=true)]
+        [DataMember(Name="protectionSourceId", EmitDefaultValue=false)]
         public long? ProtectionSourceId { get; set; }
 
         /// <summary>
         /// Specifies the list of the sam account names of the AD objects.
         /// </summary>
         /// <value>Specifies the list of the sam account names of the AD objects.</value>
-        [DataMember(Name="samAccountNames", EmitDefaultValue=true)]
+        [DataMember(Name="samAccountNames", EmitDefaultValue=false)]
         public List<string> SamAccountNames { get; set; }
 
         /// <summary>
@@ -106,14 +105,12 @@ namespace Cohesity.Model
                 (
                     this.DistinguishedNames == input.DistinguishedNames ||
                     this.DistinguishedNames != null &&
-                    input.DistinguishedNames != null &&
-                    this.DistinguishedNames.SequenceEqual(input.DistinguishedNames)
+                    this.DistinguishedNames.Equals(input.DistinguishedNames)
                 ) && 
                 (
                     this.ObjectGuids == input.ObjectGuids ||
                     this.ObjectGuids != null &&
-                    input.ObjectGuids != null &&
-                    this.ObjectGuids.SequenceEqual(input.ObjectGuids)
+                    this.ObjectGuids.Equals(input.ObjectGuids)
                 ) && 
                 (
                     this.ProtectionSourceId == input.ProtectionSourceId ||
@@ -123,8 +120,7 @@ namespace Cohesity.Model
                 (
                     this.SamAccountNames == input.SamAccountNames ||
                     this.SamAccountNames != null &&
-                    input.SamAccountNames != null &&
-                    this.SamAccountNames.SequenceEqual(input.SamAccountNames)
+                    this.SamAccountNames.Equals(input.SamAccountNames)
                 );
         }
 

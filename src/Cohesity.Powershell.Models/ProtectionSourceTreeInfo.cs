@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -30,14 +33,10 @@ namespace Cohesity.Model
         /// <param name="rootNode">Specifies the Protection Source for the root node of the Protection Source tree..</param>
         /// <param name="stats">Specifies the stats of protection for a Protection Source Tree..</param>
         /// <param name="statsByEnv">Specifies the breakdown of the stats of protection by environment. overrideDescription: true.</param>
-        public ProtectionSourceTreeInfo(List<ApplicationInfo> applications = default(List<ApplicationInfo>), EntityPermissionInformation entityPermissionInfo = default(EntityPermissionInformation), long? logicalSizeBytes = default(long?), RegisteredSourceInfo registrationInfo = default(RegisteredSourceInfo), ProtectionSource rootNode = default(ProtectionSource), ProtectionSummary stats = default(ProtectionSummary), List<ProtectionSummaryByEnv> statsByEnv = default(List<ProtectionSummaryByEnv>))
+        /// <param name="totalDowntieredSizeInBytes">Specifies the total bytes downtiered from the source so far..</param>
+        /// <param name="totalUptieredSizeInBytes">Specifies the total bytes uptiered to the source so far..</param>
+        public ProtectionSourceTreeInfo(List<ApplicationInfo> applications = default(List<ApplicationInfo>), EntityPermissionInformation entityPermissionInfo = default(EntityPermissionInformation), long? logicalSizeBytes = default(long?), RegisteredSourceInfo registrationInfo = default(RegisteredSourceInfo), ProtectionSource rootNode = default(ProtectionSource), ProtectionSummary stats = default(ProtectionSummary), List<ProtectionSummaryByEnv> statsByEnv = default(List<ProtectionSummaryByEnv>), long? totalDowntieredSizeInBytes = default(long?), long? totalUptieredSizeInBytes = default(long?))
         {
-            this.Applications = applications;
-            this.LogicalSizeBytes = logicalSizeBytes;
-            this.RegistrationInfo = registrationInfo;
-            this.RootNode = rootNode;
-            this.Stats = stats;
-            this.StatsByEnv = statsByEnv;
             this.Applications = applications;
             this.EntityPermissionInfo = entityPermissionInfo;
             this.LogicalSizeBytes = logicalSizeBytes;
@@ -45,13 +44,15 @@ namespace Cohesity.Model
             this.RootNode = rootNode;
             this.Stats = stats;
             this.StatsByEnv = statsByEnv;
+            this.TotalDowntieredSizeInBytes = totalDowntieredSizeInBytes;
+            this.TotalUptieredSizeInBytes = totalUptieredSizeInBytes;
         }
         
         /// <summary>
         /// Array of applications hierarchy registered on this node.  Specifies the application type and the list of instances of the application objects. For example for SQL Server, this list provides the SQL Server instances running on a VM or a Physical Server.
         /// </summary>
         /// <value>Array of applications hierarchy registered on this node.  Specifies the application type and the list of instances of the application objects. For example for SQL Server, this list provides the SQL Server instances running on a VM or a Physical Server.</value>
-        [DataMember(Name="applications", EmitDefaultValue=true)]
+        [DataMember(Name="applications", EmitDefaultValue=false)]
         public List<ApplicationInfo> Applications { get; set; }
 
         /// <summary>
@@ -64,36 +65,50 @@ namespace Cohesity.Model
         /// Specifies the logical size of the Protection Source in bytes.
         /// </summary>
         /// <value>Specifies the logical size of the Protection Source in bytes.</value>
-        [DataMember(Name="logicalSizeBytes", EmitDefaultValue=true)]
+        [DataMember(Name="logicalSizeBytes", EmitDefaultValue=false)]
         public long? LogicalSizeBytes { get; set; }
 
         /// <summary>
         /// Specifies registration information for a root node in a Protection Sources tree. A root node represents a registered Source on the Cohesity Cluster, such as a vCenter Server.
         /// </summary>
         /// <value>Specifies registration information for a root node in a Protection Sources tree. A root node represents a registered Source on the Cohesity Cluster, such as a vCenter Server.</value>
-        [DataMember(Name="registrationInfo", EmitDefaultValue=true)]
+        [DataMember(Name="registrationInfo", EmitDefaultValue=false)]
         public RegisteredSourceInfo RegistrationInfo { get; set; }
 
         /// <summary>
         /// Specifies the Protection Source for the root node of the Protection Source tree.
         /// </summary>
         /// <value>Specifies the Protection Source for the root node of the Protection Source tree.</value>
-        [DataMember(Name="rootNode", EmitDefaultValue=true)]
+        [DataMember(Name="rootNode", EmitDefaultValue=false)]
         public ProtectionSource RootNode { get; set; }
 
         /// <summary>
         /// Specifies the stats of protection for a Protection Source Tree.
         /// </summary>
         /// <value>Specifies the stats of protection for a Protection Source Tree.</value>
-        [DataMember(Name="stats", EmitDefaultValue=true)]
+        [DataMember(Name="stats", EmitDefaultValue=false)]
         public ProtectionSummary Stats { get; set; }
 
         /// <summary>
         /// Specifies the breakdown of the stats of protection by environment. overrideDescription: true
         /// </summary>
         /// <value>Specifies the breakdown of the stats of protection by environment. overrideDescription: true</value>
-        [DataMember(Name="statsByEnv", EmitDefaultValue=true)]
+        [DataMember(Name="statsByEnv", EmitDefaultValue=false)]
         public List<ProtectionSummaryByEnv> StatsByEnv { get; set; }
+
+        /// <summary>
+        /// Specifies the total bytes downtiered from the source so far.
+        /// </summary>
+        /// <value>Specifies the total bytes downtiered from the source so far.</value>
+        [DataMember(Name="totalDowntieredSizeInBytes", EmitDefaultValue=false)]
+        public long? TotalDowntieredSizeInBytes { get; set; }
+
+        /// <summary>
+        /// Specifies the total bytes uptiered to the source so far.
+        /// </summary>
+        /// <value>Specifies the total bytes uptiered to the source so far.</value>
+        [DataMember(Name="totalUptieredSizeInBytes", EmitDefaultValue=false)]
+        public long? TotalUptieredSizeInBytes { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -134,8 +149,7 @@ namespace Cohesity.Model
                 (
                     this.Applications == input.Applications ||
                     this.Applications != null &&
-                    input.Applications != null &&
-                    this.Applications.SequenceEqual(input.Applications)
+                    this.Applications.Equals(input.Applications)
                 ) && 
                 (
                     this.EntityPermissionInfo == input.EntityPermissionInfo ||
@@ -149,24 +163,33 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.RegistrationInfo == input.RegistrationInfo ||
-                    (this.RegistrationInfo != null &&
-                    this.RegistrationInfo.Equals(input.RegistrationInfo))
+                    this.RegistrationInfo != null &&
+                    this.RegistrationInfo.Equals(input.RegistrationInfo)
                 ) && 
                 (
                     this.RootNode == input.RootNode ||
-                    (this.RootNode != null &&
-                    this.RootNode.Equals(input.RootNode))
+                    this.RootNode != null &&
+                    this.RootNode.Equals(input.RootNode)
                 ) && 
                 (
                     this.Stats == input.Stats ||
-                    (this.Stats != null &&
-                    this.Stats.Equals(input.Stats))
+                    this.Stats != null &&
+                    this.Stats.Equals(input.Stats)
                 ) && 
                 (
                     this.StatsByEnv == input.StatsByEnv ||
                     this.StatsByEnv != null &&
-                    input.StatsByEnv != null &&
-                    this.StatsByEnv.SequenceEqual(input.StatsByEnv)
+                    this.StatsByEnv.Equals(input.StatsByEnv)
+                ) && 
+                (
+                    this.TotalDowntieredSizeInBytes == input.TotalDowntieredSizeInBytes ||
+                    (this.TotalDowntieredSizeInBytes != null &&
+                    this.TotalDowntieredSizeInBytes.Equals(input.TotalDowntieredSizeInBytes))
+                ) && 
+                (
+                    this.TotalUptieredSizeInBytes == input.TotalUptieredSizeInBytes ||
+                    (this.TotalUptieredSizeInBytes != null &&
+                    this.TotalUptieredSizeInBytes.Equals(input.TotalUptieredSizeInBytes))
                 );
         }
 
@@ -193,6 +216,10 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Stats.GetHashCode();
                 if (this.StatsByEnv != null)
                     hashCode = hashCode * 59 + this.StatsByEnv.GetHashCode();
+                if (this.TotalDowntieredSizeInBytes != null)
+                    hashCode = hashCode * 59 + this.TotalDowntieredSizeInBytes.GetHashCode();
+                if (this.TotalUptieredSizeInBytes != null)
+                    hashCode = hashCode * 59 + this.TotalUptieredSizeInBytes.GetHashCode();
                 return hashCode;
             }
         }

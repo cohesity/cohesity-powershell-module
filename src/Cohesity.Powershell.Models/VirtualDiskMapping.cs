@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -28,7 +31,6 @@ namespace Cohesity.Model
         /// <param name="targetLocationId">Specifies the target location information, for e.g. a datastore in VMware environment. If diskToOverwrite is specified, then the target location is automatically deduced..</param>
         public VirtualDiskMapping(VirtualDiskIdInformation diskToOverwrite = default(VirtualDiskIdInformation), VirtualDiskIdInformation sourceDisk = default(VirtualDiskIdInformation), long? targetLocationId = default(long?))
         {
-            this.TargetLocationId = targetLocationId;
             this.DiskToOverwrite = diskToOverwrite;
             this.SourceDisk = sourceDisk;
             this.TargetLocationId = targetLocationId;
@@ -50,7 +52,7 @@ namespace Cohesity.Model
         /// Specifies the target location information, for e.g. a datastore in VMware environment. If diskToOverwrite is specified, then the target location is automatically deduced.
         /// </summary>
         /// <value>Specifies the target location information, for e.g. a datastore in VMware environment. If diskToOverwrite is specified, then the target location is automatically deduced.</value>
-        [DataMember(Name="targetLocationId", EmitDefaultValue=true)]
+        [DataMember(Name="targetLocationId", EmitDefaultValue=false)]
         public long? TargetLocationId { get; set; }
 
         /// <summary>

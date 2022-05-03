@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -33,38 +36,34 @@ namespace Cohesity.Model
             this.Description = description;
             this.Guid = guid;
             this.Version = version;
-            this.ApiVersionStr = apiVersionStr;
-            this.Description = description;
-            this.Guid = guid;
-            this.Version = version;
         }
         
         /// <summary>
         /// Specifies the API version of an Isilon Cluster as string.
         /// </summary>
         /// <value>Specifies the API version of an Isilon Cluster as string.</value>
-        [DataMember(Name="apiVersionStr", EmitDefaultValue=true)]
+        [DataMember(Name="apiVersionStr", EmitDefaultValue=false)]
         public string ApiVersionStr { get; set; }
 
         /// <summary>
         /// Specifies the description of an Isilon Cluster.
         /// </summary>
         /// <value>Specifies the description of an Isilon Cluster.</value>
-        [DataMember(Name="description", EmitDefaultValue=true)]
+        [DataMember(Name="description", EmitDefaultValue=false)]
         public string Description { get; set; }
 
         /// <summary>
         /// Specifies a globally unique id of an Isilon Cluster.
         /// </summary>
         /// <value>Specifies a globally unique id of an Isilon Cluster.</value>
-        [DataMember(Name="guid", EmitDefaultValue=true)]
+        [DataMember(Name="guid", EmitDefaultValue=false)]
         public string Guid { get; set; }
 
         /// <summary>
         /// Specifies the version of an Isilon Cluster.
         /// </summary>
         /// <value>Specifies the version of an Isilon Cluster.</value>
-        [DataMember(Name="version", EmitDefaultValue=true)]
+        [DataMember(Name="version", EmitDefaultValue=false)]
         public string Version { get; set; }
 
         /// <summary>

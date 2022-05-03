@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.OwnerSid = ownerSid;
             this.Permissions = permissions;
-            this.OwnerSid = ownerSid;
-            this.Permissions = permissions;
         }
         
         /// <summary>
         /// Specifies the security identifier (SID) of the owner of the SMB share.
         /// </summary>
         /// <value>Specifies the security identifier (SID) of the owner of the SMB share.</value>
-        [DataMember(Name="ownerSid", EmitDefaultValue=true)]
+        [DataMember(Name="ownerSid", EmitDefaultValue=false)]
         public string OwnerSid { get; set; }
 
         /// <summary>
         /// Array of SMB Permissions.  Specifies a list of SMB permissions.
         /// </summary>
         /// <value>Array of SMB Permissions.  Specifies a list of SMB permissions.</value>
-        [DataMember(Name="permissions", EmitDefaultValue=true)]
+        [DataMember(Name="permissions", EmitDefaultValue=false)]
         public List<SmbPermission> Permissions { get; set; }
 
         /// <summary>
@@ -91,8 +92,7 @@ namespace Cohesity.Model
                 (
                     this.Permissions == input.Permissions ||
                     this.Permissions != null &&
-                    input.Permissions != null &&
-                    this.Permissions.SequenceEqual(input.Permissions)
+                    this.Permissions.Equals(input.Permissions)
                 );
         }
 

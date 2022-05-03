@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.AdditionalOracleDbParamsVec = additionalOracleDbParamsVec;
             this.PersistMountpoints = persistMountpoints;
-            this.AdditionalOracleDbParamsVec = additionalOracleDbParamsVec;
-            this.PersistMountpoints = persistMountpoints;
         }
         
         /// <summary>
         /// A vector of unique Oracle databases. Each vector entry represents the backup/restore parameters for one unique Oracle database. Uniqueness is determined by the database unique name.
         /// </summary>
         /// <value>A vector of unique Oracle databases. Each vector entry represents the backup/restore parameters for one unique Oracle database. Uniqueness is determined by the database unique name.</value>
-        [DataMember(Name="additionalOracleDbParamsVec", EmitDefaultValue=true)]
+        [DataMember(Name="additionalOracleDbParamsVec", EmitDefaultValue=false)]
         public List<AdditionalOracleDBParams> AdditionalOracleDbParamsVec { get; set; }
 
         /// <summary>
         /// This parameter indicates whether or not to persist mountpoints. Default is set to true, which was the behavior before this option.
         /// </summary>
         /// <value>This parameter indicates whether or not to persist mountpoints. Default is set to true, which was the behavior before this option.</value>
-        [DataMember(Name="persistMountpoints", EmitDefaultValue=true)]
+        [DataMember(Name="persistMountpoints", EmitDefaultValue=false)]
         public bool? PersistMountpoints { get; set; }
 
         /// <summary>
@@ -86,8 +87,7 @@ namespace Cohesity.Model
                 (
                     this.AdditionalOracleDbParamsVec == input.AdditionalOracleDbParamsVec ||
                     this.AdditionalOracleDbParamsVec != null &&
-                    input.AdditionalOracleDbParamsVec != null &&
-                    this.AdditionalOracleDbParamsVec.SequenceEqual(input.AdditionalOracleDbParamsVec)
+                    this.AdditionalOracleDbParamsVec.Equals(input.AdditionalOracleDbParamsVec)
                 ) && 
                 (
                     this.PersistMountpoints == input.PersistMountpoints ||

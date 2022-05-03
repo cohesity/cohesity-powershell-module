@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.ActiveDirectoryDomains = activeDirectoryDomains;
             this.TenantId = tenantId;
-            this.ActiveDirectoryDomains = activeDirectoryDomains;
-            this.TenantId = tenantId;
         }
         
         /// <summary>
         /// Specifies the ActiveDirectoryDomain vec for respective tenant.
         /// </summary>
         /// <value>Specifies the ActiveDirectoryDomain vec for respective tenant.</value>
-        [DataMember(Name="activeDirectoryDomains", EmitDefaultValue=true)]
+        [DataMember(Name="activeDirectoryDomains", EmitDefaultValue=false)]
         public List<string> ActiveDirectoryDomains { get; set; }
 
         /// <summary>
         /// Specifies the unique id of the tenant.
         /// </summary>
         /// <value>Specifies the unique id of the tenant.</value>
-        [DataMember(Name="tenantId", EmitDefaultValue=true)]
+        [DataMember(Name="tenantId", EmitDefaultValue=false)]
         public string TenantId { get; set; }
 
         /// <summary>
@@ -86,8 +87,7 @@ namespace Cohesity.Model
                 (
                     this.ActiveDirectoryDomains == input.ActiveDirectoryDomains ||
                     this.ActiveDirectoryDomains != null &&
-                    input.ActiveDirectoryDomains != null &&
-                    this.ActiveDirectoryDomains.SequenceEqual(input.ActiveDirectoryDomains)
+                    this.ActiveDirectoryDomains.Equals(input.ActiveDirectoryDomains)
                 ) && 
                 (
                     this.TenantId == input.TenantId ||

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.HoldForLegalPurpose = holdForLegalPurpose;
             this.ProtectionSourceId = protectionSourceId;
-            this.HoldForLegalPurpose = holdForLegalPurpose;
-            this.ProtectionSourceId = protectionSourceId;
         }
         
         /// <summary>
         /// Specifies whether the source is put on legal hold or not.
         /// </summary>
         /// <value>Specifies whether the source is put on legal hold or not.</value>
-        [DataMember(Name="holdForLegalPurpose", EmitDefaultValue=true)]
+        [DataMember(Name="holdForLegalPurpose", EmitDefaultValue=false)]
         public bool? HoldForLegalPurpose { get; set; }
 
         /// <summary>
         /// Specifies an Protection Source Id in the snapshot.
         /// </summary>
         /// <value>Specifies an Protection Source Id in the snapshot.</value>
-        [DataMember(Name="protectionSourceId", EmitDefaultValue=true)]
+        [DataMember(Name="protectionSourceId", EmitDefaultValue=false)]
         public long? ProtectionSourceId { get; set; }
 
         /// <summary>

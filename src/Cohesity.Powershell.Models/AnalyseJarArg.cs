@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -33,37 +36,33 @@ namespace Cohesity.Model
             this.JarPath = jarPath;
             this.JarRelativePath = jarRelativePath;
             this.SaveEntities = saveEntities;
-            this.JarName = jarName;
-            this.JarPath = jarPath;
-            this.JarRelativePath = jarRelativePath;
-            this.SaveEntities = saveEntities;
         }
         
         /// <summary>
         /// Name of the JAR to be analysed.
         /// </summary>
         /// <value>Name of the JAR to be analysed.</value>
-        [DataMember(Name="jarName", EmitDefaultValue=true)]
+        [DataMember(Name="jarName", EmitDefaultValue=false)]
         public string JarName { get; set; }
 
         /// <summary>
         /// Path of the jar file.
         /// </summary>
         /// <value>Path of the jar file.</value>
-        [DataMember(Name="jarPath", EmitDefaultValue=true)]
+        [DataMember(Name="jarPath", EmitDefaultValue=false)]
         public string JarPath { get; set; }
 
         /// <summary>
         /// Gets or Sets JarRelativePath
         /// </summary>
-        [DataMember(Name="jarRelativePath", EmitDefaultValue=true)]
+        [DataMember(Name="jarRelativePath", EmitDefaultValue=false)]
         public string JarRelativePath { get; set; }
 
         /// <summary>
         /// If this flag is true, then also save mapper and reducers in scribe.
         /// </summary>
         /// <value>If this flag is true, then also save mapper and reducers in scribe.</value>
-        [DataMember(Name="saveEntities", EmitDefaultValue=true)]
+        [DataMember(Name="saveEntities", EmitDefaultValue=false)]
         public bool? SaveEntities { get; set; }
 
         /// <summary>

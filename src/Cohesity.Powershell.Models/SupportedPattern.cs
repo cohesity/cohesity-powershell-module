@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -45,7 +48,7 @@ namespace Cohesity.Model
         /// Specifies the Pattern type. &#39;REGULAR&#39; indicates that the pattern contains a regular expression. &#39;TEMPLATE&#39; indicates that the pattern has a pre defined input pattern such as date of the form &#39;DD-MM-YYYY&#39;.
         /// </summary>
         /// <value>Specifies the Pattern type. &#39;REGULAR&#39; indicates that the pattern contains a regular expression. &#39;TEMPLATE&#39; indicates that the pattern has a pre defined input pattern such as date of the form &#39;DD-MM-YYYY&#39;.</value>
-        [DataMember(Name="patternType", EmitDefaultValue=true)]
+        [DataMember(Name="patternType", EmitDefaultValue=false)]
         public PatternTypeEnum? PatternType { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="SupportedPattern" /> class.
@@ -60,32 +63,29 @@ namespace Cohesity.Model
             this.Name = name;
             this.Pattern = pattern;
             this.PatternType = patternType;
-            this.IsSystemDefined = isSystemDefined;
-            this.Name = name;
-            this.Pattern = pattern;
-            this.PatternType = patternType;
         }
         
         /// <summary>
         /// Specifies whether the pattern has been defined by the system or the user.
         /// </summary>
         /// <value>Specifies whether the pattern has been defined by the system or the user.</value>
-        [DataMember(Name="isSystemDefined", EmitDefaultValue=true)]
+        [DataMember(Name="isSystemDefined", EmitDefaultValue=false)]
         public bool? IsSystemDefined { get; set; }
 
         /// <summary>
         /// Specifies the name of the Pattern.
         /// </summary>
         /// <value>Specifies the name of the Pattern.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
 
         /// <summary>
         /// Specifies the value of the pattern(Regex).
         /// </summary>
         /// <value>Specifies the value of the pattern(Regex).</value>
-        [DataMember(Name="pattern", EmitDefaultValue=true)]
+        [DataMember(Name="pattern", EmitDefaultValue=false)]
         public string Pattern { get; set; }
+
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -140,7 +140,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.PatternType == input.PatternType ||
-                    this.PatternType.Equals(input.PatternType)
+                    (this.PatternType != null &&
+                    this.PatternType.Equals(input.PatternType))
                 );
         }
 
@@ -159,7 +160,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
                 if (this.Pattern != null)
                     hashCode = hashCode * 59 + this.Pattern.GetHashCode();
-                hashCode = hashCode * 59 + this.PatternType.GetHashCode();
+                if (this.PatternType != null)
+                    hashCode = hashCode * 59 + this.PatternType.GetHashCode();
                 return hashCode;
             }
         }

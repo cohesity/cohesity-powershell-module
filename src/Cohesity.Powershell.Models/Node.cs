@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -63,7 +66,7 @@ namespace Cohesity.Model
         /// RemovalReason specifies the removal reason of the node. &#39;kAutoHealthCheck&#39; means the entity health is bad. &#39;kUserGracefulRemoval&#39; means user initiated a graceful removal. &#39;kUserAvoidAccess&#39; means user initiated a mark offline. &#39;kUserGracefulNodeRemoval&#39; mean users initiated graceful node removal. &#39;kUserRemoveDownNode&#39; mean user initiated graceful removal of down node.
         /// </summary>
         /// <value>RemovalReason specifies the removal reason of the node. &#39;kAutoHealthCheck&#39; means the entity health is bad. &#39;kUserGracefulRemoval&#39; means user initiated a graceful removal. &#39;kUserAvoidAccess&#39; means user initiated a mark offline. &#39;kUserGracefulNodeRemoval&#39; mean users initiated graceful node removal. &#39;kUserRemoveDownNode&#39; mean user initiated graceful removal of down node.</value>
-        [DataMember(Name="removalReason", EmitDefaultValue=true)]
+        [DataMember(Name="removalReason", EmitDefaultValue=false)]
         public List<RemovalReasonEnum> RemovalReason { get; set; }
         /// <summary>
         /// RemovalState specifies the removal state of the node. &#39;kDontRemove&#39; means the state of object is functional and it is not being removed. &#39;kMarkedForRemoval&#39; means the object is being removed. &#39;kOkToRemove&#39; means the object has been removed on the Cohesity Cluster and if the object is physical, it can be removed from the Cohesity Cluster.
@@ -96,7 +99,7 @@ namespace Cohesity.Model
         /// RemovalState specifies the removal state of the node. &#39;kDontRemove&#39; means the state of object is functional and it is not being removed. &#39;kMarkedForRemoval&#39; means the object is being removed. &#39;kOkToRemove&#39; means the object has been removed on the Cohesity Cluster and if the object is physical, it can be removed from the Cohesity Cluster.
         /// </summary>
         /// <value>RemovalState specifies the removal state of the node. &#39;kDontRemove&#39; means the state of object is functional and it is not being removed. &#39;kMarkedForRemoval&#39; means the object is being removed. &#39;kOkToRemove&#39; means the object has been removed on the Cohesity Cluster and if the object is physical, it can be removed from the Cohesity Cluster.</value>
-        [DataMember(Name="removalState", EmitDefaultValue=true)]
+        [DataMember(Name="removalState", EmitDefaultValue=false)]
         public RemovalStateEnum? RemovalState { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="Node" /> class.
@@ -105,56 +108,49 @@ namespace Cohesity.Model
         /// <param name="chassisInfo">chassisInfo.</param>
         /// <param name="clusterPartitionId">ClusterPartitionId is the Id of the cluster partition to which the Node belongs..</param>
         /// <param name="clusterPartitionName">ClusterPartitionName is the name of the cluster to which the Node belongs..</param>
+        /// <param name="cohesityNodeSerial">Cohesity Node Serial Number of the Node..</param>
         /// <param name="diskCount">DiskCount is the number of disks in a node..</param>
         /// <param name="diskCountByTier">DiskCountByTier describes the disk number of each storage tier..</param>
+        /// <param name="hostName">Host name of the node..</param>
         /// <param name="id">Id is the Id of the Node..</param>
         /// <param name="ip">Ip is the IP address of the Node..</param>
+        /// <param name="isAppNode">Whether node is app node..</param>
         /// <param name="isMarkedForRemoval">IsMarkedForRemoval specifies whether the node has been marked for removal..</param>
         /// <param name="maxPhysicalCapacityBytes">MaxPhysicalCapacityBytes specifies the maximum physical capacity of the node in bytes..</param>
         /// <param name="nodeHardwareInfo">nodeHardwareInfo.</param>
         /// <param name="nodeIncarnationId">NodeIncarnationId is the incarnation id  of this node. The incarnation id is changed every time the data is wiped from the node. Various services on a node is only run if incarnation id of the node matches the incarnation id of the cluster. Whenever a mismatch is detected, Nexus will stop all services and clean the data from the node. After clean operation is completed, Nexus will set the node incarnation id to cluster incarnation id and start the services..</param>
         /// <param name="nodeSoftwareVersion">NodeSoftwareVersion is the current version of Cohesity software installed on a node..</param>
         /// <param name="nodeType">Node type: StorageNode, AllFlashNode, RoboNode, AppNode, etc..</param>
+        /// <param name="offlineDiskCount">OfflineDiskCount is the number of offline disks in a node..</param>
         /// <param name="offlineMountPathsOfDisks">OfflineMountPathsOfDisks provides the corresponding mount paths for direct attached disks that are currently offline - access to these were detected to hang sometime in the past. After these disks have been fixed, their mount paths needs to be removed from the following list before these will be accessed again..</param>
+        /// <param name="productModel">Specifies the product model of the node..</param>
         /// <param name="removalReason">RemovalReason specifies the removal reason of the node. &#39;kAutoHealthCheck&#39; means the entity health is bad. &#39;kUserGracefulRemoval&#39; means user initiated a graceful removal. &#39;kUserAvoidAccess&#39; means user initiated a mark offline. &#39;kUserGracefulNodeRemoval&#39; mean users initiated graceful node removal. &#39;kUserRemoveDownNode&#39; mean user initiated graceful removal of down node..</param>
         /// <param name="removalState">RemovalState specifies the removal state of the node. &#39;kDontRemove&#39; means the state of object is functional and it is not being removed. &#39;kMarkedForRemoval&#39; means the object is being removed. &#39;kOkToRemove&#39; means the object has been removed on the Cohesity Cluster and if the object is physical, it can be removed from the Cohesity Cluster..</param>
         /// <param name="slotNumber">Slot number occupied by this node within the chassis..</param>
         /// <param name="stats">stats.</param>
         /// <param name="systemDisks">SystemDisk describes the node system disks..</param>
-        public Node(List<CapacityByTier> capacityByTier = default(List<CapacityByTier>), ChassisInfo chassisInfo = default(ChassisInfo), long? clusterPartitionId = default(long?), string clusterPartitionName = default(string), long? diskCount = default(long?), List<CountByTier> diskCountByTier = default(List<CountByTier>), long? id = default(long?), string ip = default(string), bool? isMarkedForRemoval = default(bool?), long? maxPhysicalCapacityBytes = default(long?), NodeHardwareInfo nodeHardwareInfo = default(NodeHardwareInfo), long? nodeIncarnationId = default(long?), string nodeSoftwareVersion = default(string), string nodeType = default(string), List<string> offlineMountPathsOfDisks = default(List<string>), List<RemovalReasonEnum> removalReason = default(List<RemovalReasonEnum>), RemovalStateEnum? removalState = default(RemovalStateEnum?), int? slotNumber = default(int?), NodeStats stats = default(NodeStats), List<NodeSystemDiskInfo> systemDisks = default(List<NodeSystemDiskInfo>))
+        public Node(List<CapacityByTier> capacityByTier = default(List<CapacityByTier>), ChassisInfo chassisInfo = default(ChassisInfo), long? clusterPartitionId = default(long?), string clusterPartitionName = default(string), string cohesityNodeSerial = default(string), long? diskCount = default(long?), List<CountByTier> diskCountByTier = default(List<CountByTier>), string hostName = default(string), long? id = default(long?), string ip = default(string), bool? isAppNode = default(bool?), bool? isMarkedForRemoval = default(bool?), long? maxPhysicalCapacityBytes = default(long?), NodeHardwareInfo nodeHardwareInfo = default(NodeHardwareInfo), long? nodeIncarnationId = default(long?), string nodeSoftwareVersion = default(string), string nodeType = default(string), long? offlineDiskCount = default(long?), List<string> offlineMountPathsOfDisks = default(List<string>), string productModel = default(string), List<RemovalReasonEnum> removalReason = default(List<RemovalReasonEnum>), RemovalStateEnum? removalState = default(RemovalStateEnum?), int? slotNumber = default(int?), NodeStats stats = default(NodeStats), List<NodeSystemDiskInfo> systemDisks = default(List<NodeSystemDiskInfo>))
         {
-            this.CapacityByTier = capacityByTier;
-            this.ClusterPartitionId = clusterPartitionId;
-            this.ClusterPartitionName = clusterPartitionName;
-            this.DiskCount = diskCount;
-            this.DiskCountByTier = diskCountByTier;
-            this.Id = id;
-            this.Ip = ip;
-            this.IsMarkedForRemoval = isMarkedForRemoval;
-            this.MaxPhysicalCapacityBytes = maxPhysicalCapacityBytes;
-            this.NodeIncarnationId = nodeIncarnationId;
-            this.NodeSoftwareVersion = nodeSoftwareVersion;
-            this.NodeType = nodeType;
-            this.OfflineMountPathsOfDisks = offlineMountPathsOfDisks;
-            this.RemovalReason = removalReason;
-            this.RemovalState = removalState;
-            this.SlotNumber = slotNumber;
-            this.SystemDisks = systemDisks;
             this.CapacityByTier = capacityByTier;
             this.ChassisInfo = chassisInfo;
             this.ClusterPartitionId = clusterPartitionId;
             this.ClusterPartitionName = clusterPartitionName;
+            this.CohesityNodeSerial = cohesityNodeSerial;
             this.DiskCount = diskCount;
             this.DiskCountByTier = diskCountByTier;
+            this.HostName = hostName;
             this.Id = id;
             this.Ip = ip;
+            this.IsAppNode = isAppNode;
             this.IsMarkedForRemoval = isMarkedForRemoval;
             this.MaxPhysicalCapacityBytes = maxPhysicalCapacityBytes;
             this.NodeHardwareInfo = nodeHardwareInfo;
             this.NodeIncarnationId = nodeIncarnationId;
             this.NodeSoftwareVersion = nodeSoftwareVersion;
             this.NodeType = nodeType;
+            this.OfflineDiskCount = offlineDiskCount;
             this.OfflineMountPathsOfDisks = offlineMountPathsOfDisks;
+            this.ProductModel = productModel;
             this.RemovalReason = removalReason;
             this.RemovalState = removalState;
             this.SlotNumber = slotNumber;
@@ -166,7 +162,7 @@ namespace Cohesity.Model
         /// CapacityByTier describes the capacity of each storage tier.
         /// </summary>
         /// <value>CapacityByTier describes the capacity of each storage tier.</value>
-        [DataMember(Name="capacityByTier", EmitDefaultValue=true)]
+        [DataMember(Name="capacityByTier", EmitDefaultValue=false)]
         public List<CapacityByTier> CapacityByTier { get; set; }
 
         /// <summary>
@@ -179,56 +175,77 @@ namespace Cohesity.Model
         /// ClusterPartitionId is the Id of the cluster partition to which the Node belongs.
         /// </summary>
         /// <value>ClusterPartitionId is the Id of the cluster partition to which the Node belongs.</value>
-        [DataMember(Name="clusterPartitionId", EmitDefaultValue=true)]
+        [DataMember(Name="clusterPartitionId", EmitDefaultValue=false)]
         public long? ClusterPartitionId { get; set; }
 
         /// <summary>
         /// ClusterPartitionName is the name of the cluster to which the Node belongs.
         /// </summary>
         /// <value>ClusterPartitionName is the name of the cluster to which the Node belongs.</value>
-        [DataMember(Name="clusterPartitionName", EmitDefaultValue=true)]
+        [DataMember(Name="clusterPartitionName", EmitDefaultValue=false)]
         public string ClusterPartitionName { get; set; }
+
+        /// <summary>
+        /// Cohesity Node Serial Number of the Node.
+        /// </summary>
+        /// <value>Cohesity Node Serial Number of the Node.</value>
+        [DataMember(Name="cohesityNodeSerial", EmitDefaultValue=false)]
+        public string CohesityNodeSerial { get; set; }
 
         /// <summary>
         /// DiskCount is the number of disks in a node.
         /// </summary>
         /// <value>DiskCount is the number of disks in a node.</value>
-        [DataMember(Name="diskCount", EmitDefaultValue=true)]
+        [DataMember(Name="diskCount", EmitDefaultValue=false)]
         public long? DiskCount { get; set; }
 
         /// <summary>
         /// DiskCountByTier describes the disk number of each storage tier.
         /// </summary>
         /// <value>DiskCountByTier describes the disk number of each storage tier.</value>
-        [DataMember(Name="diskCountByTier", EmitDefaultValue=true)]
+        [DataMember(Name="diskCountByTier", EmitDefaultValue=false)]
         public List<CountByTier> DiskCountByTier { get; set; }
+
+        /// <summary>
+        /// Host name of the node.
+        /// </summary>
+        /// <value>Host name of the node.</value>
+        [DataMember(Name="hostName", EmitDefaultValue=false)]
+        public string HostName { get; set; }
 
         /// <summary>
         /// Id is the Id of the Node.
         /// </summary>
         /// <value>Id is the Id of the Node.</value>
-        [DataMember(Name="id", EmitDefaultValue=true)]
+        [DataMember(Name="id", EmitDefaultValue=false)]
         public long? Id { get; set; }
 
         /// <summary>
         /// Ip is the IP address of the Node.
         /// </summary>
         /// <value>Ip is the IP address of the Node.</value>
-        [DataMember(Name="ip", EmitDefaultValue=true)]
+        [DataMember(Name="ip", EmitDefaultValue=false)]
         public string Ip { get; set; }
+
+        /// <summary>
+        /// Whether node is app node.
+        /// </summary>
+        /// <value>Whether node is app node.</value>
+        [DataMember(Name="isAppNode", EmitDefaultValue=false)]
+        public bool? IsAppNode { get; set; }
 
         /// <summary>
         /// IsMarkedForRemoval specifies whether the node has been marked for removal.
         /// </summary>
         /// <value>IsMarkedForRemoval specifies whether the node has been marked for removal.</value>
-        [DataMember(Name="isMarkedForRemoval", EmitDefaultValue=true)]
+        [DataMember(Name="isMarkedForRemoval", EmitDefaultValue=false)]
         public bool? IsMarkedForRemoval { get; set; }
 
         /// <summary>
         /// MaxPhysicalCapacityBytes specifies the maximum physical capacity of the node in bytes.
         /// </summary>
         /// <value>MaxPhysicalCapacityBytes specifies the maximum physical capacity of the node in bytes.</value>
-        [DataMember(Name="maxPhysicalCapacityBytes", EmitDefaultValue=true)]
+        [DataMember(Name="maxPhysicalCapacityBytes", EmitDefaultValue=false)]
         public long? MaxPhysicalCapacityBytes { get; set; }
 
         /// <summary>
@@ -241,35 +258,51 @@ namespace Cohesity.Model
         /// NodeIncarnationId is the incarnation id  of this node. The incarnation id is changed every time the data is wiped from the node. Various services on a node is only run if incarnation id of the node matches the incarnation id of the cluster. Whenever a mismatch is detected, Nexus will stop all services and clean the data from the node. After clean operation is completed, Nexus will set the node incarnation id to cluster incarnation id and start the services.
         /// </summary>
         /// <value>NodeIncarnationId is the incarnation id  of this node. The incarnation id is changed every time the data is wiped from the node. Various services on a node is only run if incarnation id of the node matches the incarnation id of the cluster. Whenever a mismatch is detected, Nexus will stop all services and clean the data from the node. After clean operation is completed, Nexus will set the node incarnation id to cluster incarnation id and start the services.</value>
-        [DataMember(Name="nodeIncarnationId", EmitDefaultValue=true)]
+        [DataMember(Name="nodeIncarnationId", EmitDefaultValue=false)]
         public long? NodeIncarnationId { get; set; }
 
         /// <summary>
         /// NodeSoftwareVersion is the current version of Cohesity software installed on a node.
         /// </summary>
         /// <value>NodeSoftwareVersion is the current version of Cohesity software installed on a node.</value>
-        [DataMember(Name="nodeSoftwareVersion", EmitDefaultValue=true)]
+        [DataMember(Name="nodeSoftwareVersion", EmitDefaultValue=false)]
         public string NodeSoftwareVersion { get; set; }
 
         /// <summary>
         /// Node type: StorageNode, AllFlashNode, RoboNode, AppNode, etc.
         /// </summary>
         /// <value>Node type: StorageNode, AllFlashNode, RoboNode, AppNode, etc.</value>
-        [DataMember(Name="nodeType", EmitDefaultValue=true)]
+        [DataMember(Name="nodeType", EmitDefaultValue=false)]
         public string NodeType { get; set; }
+
+        /// <summary>
+        /// OfflineDiskCount is the number of offline disks in a node.
+        /// </summary>
+        /// <value>OfflineDiskCount is the number of offline disks in a node.</value>
+        [DataMember(Name="offlineDiskCount", EmitDefaultValue=false)]
+        public long? OfflineDiskCount { get; set; }
 
         /// <summary>
         /// OfflineMountPathsOfDisks provides the corresponding mount paths for direct attached disks that are currently offline - access to these were detected to hang sometime in the past. After these disks have been fixed, their mount paths needs to be removed from the following list before these will be accessed again.
         /// </summary>
         /// <value>OfflineMountPathsOfDisks provides the corresponding mount paths for direct attached disks that are currently offline - access to these were detected to hang sometime in the past. After these disks have been fixed, their mount paths needs to be removed from the following list before these will be accessed again.</value>
-        [DataMember(Name="offlineMountPathsOfDisks", EmitDefaultValue=true)]
+        [DataMember(Name="offlineMountPathsOfDisks", EmitDefaultValue=false)]
         public List<string> OfflineMountPathsOfDisks { get; set; }
+
+        /// <summary>
+        /// Specifies the product model of the node.
+        /// </summary>
+        /// <value>Specifies the product model of the node.</value>
+        [DataMember(Name="productModel", EmitDefaultValue=false)]
+        public string ProductModel { get; set; }
+
+
 
         /// <summary>
         /// Slot number occupied by this node within the chassis.
         /// </summary>
         /// <value>Slot number occupied by this node within the chassis.</value>
-        [DataMember(Name="slotNumber", EmitDefaultValue=true)]
+        [DataMember(Name="slotNumber", EmitDefaultValue=false)]
         public int? SlotNumber { get; set; }
 
         /// <summary>
@@ -282,7 +315,7 @@ namespace Cohesity.Model
         /// SystemDisk describes the node system disks.
         /// </summary>
         /// <value>SystemDisk describes the node system disks.</value>
-        [DataMember(Name="systemDisks", EmitDefaultValue=true)]
+        [DataMember(Name="systemDisks", EmitDefaultValue=false)]
         public List<NodeSystemDiskInfo> SystemDisks { get; set; }
 
         /// <summary>
@@ -324,8 +357,7 @@ namespace Cohesity.Model
                 (
                     this.CapacityByTier == input.CapacityByTier ||
                     this.CapacityByTier != null &&
-                    input.CapacityByTier != null &&
-                    this.CapacityByTier.SequenceEqual(input.CapacityByTier)
+                    this.CapacityByTier.Equals(input.CapacityByTier)
                 ) && 
                 (
                     this.ChassisInfo == input.ChassisInfo ||
@@ -343,6 +375,11 @@ namespace Cohesity.Model
                     this.ClusterPartitionName.Equals(input.ClusterPartitionName))
                 ) && 
                 (
+                    this.CohesityNodeSerial == input.CohesityNodeSerial ||
+                    (this.CohesityNodeSerial != null &&
+                    this.CohesityNodeSerial.Equals(input.CohesityNodeSerial))
+                ) && 
+                (
                     this.DiskCount == input.DiskCount ||
                     (this.DiskCount != null &&
                     this.DiskCount.Equals(input.DiskCount))
@@ -350,8 +387,12 @@ namespace Cohesity.Model
                 (
                     this.DiskCountByTier == input.DiskCountByTier ||
                     this.DiskCountByTier != null &&
-                    input.DiskCountByTier != null &&
-                    this.DiskCountByTier.SequenceEqual(input.DiskCountByTier)
+                    this.DiskCountByTier.Equals(input.DiskCountByTier)
+                ) && 
+                (
+                    this.HostName == input.HostName ||
+                    (this.HostName != null &&
+                    this.HostName.Equals(input.HostName))
                 ) && 
                 (
                     this.Id == input.Id ||
@@ -362,6 +403,11 @@ namespace Cohesity.Model
                     this.Ip == input.Ip ||
                     (this.Ip != null &&
                     this.Ip.Equals(input.Ip))
+                ) && 
+                (
+                    this.IsAppNode == input.IsAppNode ||
+                    (this.IsAppNode != null &&
+                    this.IsAppNode.Equals(input.IsAppNode))
                 ) && 
                 (
                     this.IsMarkedForRemoval == input.IsMarkedForRemoval ||
@@ -394,18 +440,29 @@ namespace Cohesity.Model
                     this.NodeType.Equals(input.NodeType))
                 ) && 
                 (
+                    this.OfflineDiskCount == input.OfflineDiskCount ||
+                    (this.OfflineDiskCount != null &&
+                    this.OfflineDiskCount.Equals(input.OfflineDiskCount))
+                ) && 
+                (
                     this.OfflineMountPathsOfDisks == input.OfflineMountPathsOfDisks ||
                     this.OfflineMountPathsOfDisks != null &&
-                    input.OfflineMountPathsOfDisks != null &&
-                    this.OfflineMountPathsOfDisks.SequenceEqual(input.OfflineMountPathsOfDisks)
+                    this.OfflineMountPathsOfDisks.Equals(input.OfflineMountPathsOfDisks)
+                ) && 
+                (
+                    this.ProductModel == input.ProductModel ||
+                    (this.ProductModel != null &&
+                    this.ProductModel.Equals(input.ProductModel))
                 ) && 
                 (
                     this.RemovalReason == input.RemovalReason ||
-                    this.RemovalReason.SequenceEqual(input.RemovalReason)
+                    this.RemovalReason != null &&
+                    this.RemovalReason.Equals(input.RemovalReason)
                 ) && 
                 (
                     this.RemovalState == input.RemovalState ||
-                    this.RemovalState.Equals(input.RemovalState)
+                    (this.RemovalState != null &&
+                    this.RemovalState.Equals(input.RemovalState))
                 ) && 
                 (
                     this.SlotNumber == input.SlotNumber ||
@@ -420,8 +477,7 @@ namespace Cohesity.Model
                 (
                     this.SystemDisks == input.SystemDisks ||
                     this.SystemDisks != null &&
-                    input.SystemDisks != null &&
-                    this.SystemDisks.SequenceEqual(input.SystemDisks)
+                    this.SystemDisks.Equals(input.SystemDisks)
                 );
         }
 
@@ -442,14 +498,20 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ClusterPartitionId.GetHashCode();
                 if (this.ClusterPartitionName != null)
                     hashCode = hashCode * 59 + this.ClusterPartitionName.GetHashCode();
+                if (this.CohesityNodeSerial != null)
+                    hashCode = hashCode * 59 + this.CohesityNodeSerial.GetHashCode();
                 if (this.DiskCount != null)
                     hashCode = hashCode * 59 + this.DiskCount.GetHashCode();
                 if (this.DiskCountByTier != null)
                     hashCode = hashCode * 59 + this.DiskCountByTier.GetHashCode();
+                if (this.HostName != null)
+                    hashCode = hashCode * 59 + this.HostName.GetHashCode();
                 if (this.Id != null)
                     hashCode = hashCode * 59 + this.Id.GetHashCode();
                 if (this.Ip != null)
                     hashCode = hashCode * 59 + this.Ip.GetHashCode();
+                if (this.IsAppNode != null)
+                    hashCode = hashCode * 59 + this.IsAppNode.GetHashCode();
                 if (this.IsMarkedForRemoval != null)
                     hashCode = hashCode * 59 + this.IsMarkedForRemoval.GetHashCode();
                 if (this.MaxPhysicalCapacityBytes != null)
@@ -462,10 +524,16 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.NodeSoftwareVersion.GetHashCode();
                 if (this.NodeType != null)
                     hashCode = hashCode * 59 + this.NodeType.GetHashCode();
+                if (this.OfflineDiskCount != null)
+                    hashCode = hashCode * 59 + this.OfflineDiskCount.GetHashCode();
                 if (this.OfflineMountPathsOfDisks != null)
                     hashCode = hashCode * 59 + this.OfflineMountPathsOfDisks.GetHashCode();
-                hashCode = hashCode * 59 + this.RemovalReason.GetHashCode();
-                hashCode = hashCode * 59 + this.RemovalState.GetHashCode();
+                if (this.ProductModel != null)
+                    hashCode = hashCode * 59 + this.ProductModel.GetHashCode();
+                if (this.RemovalReason != null)
+                    hashCode = hashCode * 59 + this.RemovalReason.GetHashCode();
+                if (this.RemovalState != null)
+                    hashCode = hashCode * 59 + this.RemovalState.GetHashCode();
                 if (this.SlotNumber != null)
                     hashCode = hashCode * 59 + this.SlotNumber.GetHashCode();
                 if (this.Stats != null)

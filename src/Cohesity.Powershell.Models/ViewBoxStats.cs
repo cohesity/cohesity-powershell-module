@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,7 +34,6 @@ namespace Cohesity.Model
         /// <param name="usagePerfStats">usagePerfStats.</param>
         public ViewBoxStats(UsageAndPerformanceStats cloudUsagePerfStats = default(UsageAndPerformanceStats), DataUsageStats dataUsageStats = default(DataUsageStats), long? id = default(long?), UsageAndPerformanceStats localUsagePerfStats = default(UsageAndPerformanceStats), LogicalStats logicalStats = default(LogicalStats), UsageAndPerformanceStats usagePerfStats = default(UsageAndPerformanceStats))
         {
-            this.Id = id;
             this.CloudUsagePerfStats = cloudUsagePerfStats;
             this.DataUsageStats = dataUsageStats;
             this.Id = id;
@@ -56,7 +58,7 @@ namespace Cohesity.Model
         /// Specifies the id of the Storage Domain (View Box).
         /// </summary>
         /// <value>Specifies the id of the Storage Domain (View Box).</value>
-        [DataMember(Name="id", EmitDefaultValue=true)]
+        [DataMember(Name="id", EmitDefaultValue=false)]
         public long? Id { get; set; }
 
         /// <summary>

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,14 +30,13 @@ namespace Cohesity.Model
         public DeployDBInstancesToRDSParamsPointInTimeRestoreParams(long? timestampMsecs = default(long?))
         {
             this.TimestampMsecs = timestampMsecs;
-            this.TimestampMsecs = timestampMsecs;
         }
         
         /// <summary>
         /// Time in milliseconds since epoch that the DB needs to be restored to.
         /// </summary>
         /// <value>Time in milliseconds since epoch that the DB needs to be restored to.</value>
-        [DataMember(Name="timestampMsecs", EmitDefaultValue=true)]
+        [DataMember(Name="timestampMsecs", EmitDefaultValue=false)]
         public long? TimestampMsecs { get; set; }
 
         /// <summary>

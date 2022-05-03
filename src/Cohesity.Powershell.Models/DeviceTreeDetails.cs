@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -99,7 +102,7 @@ namespace Cohesity.Model
         /// Specifies how to combine the children of this node. The combining strategy for child devices. Some of these strategies imply constraint on the number of child devices. e.g. RAID5 will have 5 children. &#39;LINEAR&#39; indicates children are juxtaposed to form this device. &#39;STRIPE&#39; indicates children are striped. &#39;MIRROR&#39; indicates children are mirrored. &#39;RAID5&#39; &#39;RAID6&#39; &#39;ZERO&#39; &#39;THIN&#39; &#39;THINPOOL&#39; &#39;SNAPSHOT&#39; &#39;CACHE&#39; &#39;CACHEPOOL&#39;
         /// </summary>
         /// <value>Specifies how to combine the children of this node. The combining strategy for child devices. Some of these strategies imply constraint on the number of child devices. e.g. RAID5 will have 5 children. &#39;LINEAR&#39; indicates children are juxtaposed to form this device. &#39;STRIPE&#39; indicates children are striped. &#39;MIRROR&#39; indicates children are mirrored. &#39;RAID5&#39; &#39;RAID6&#39; &#39;ZERO&#39; &#39;THIN&#39; &#39;THINPOOL&#39; &#39;SNAPSHOT&#39; &#39;CACHE&#39; &#39;CACHEPOOL&#39;</value>
-        [DataMember(Name="combineMethod", EmitDefaultValue=true)]
+        [DataMember(Name="combineMethod", EmitDefaultValue=false)]
         public CombineMethodEnum? CombineMethod { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="DeviceTreeDetails" /> class.
@@ -114,31 +117,28 @@ namespace Cohesity.Model
             this.DeviceLength = deviceLength;
             this.DeviceNodes = deviceNodes;
             this.StripeSize = stripeSize;
-            this.CombineMethod = combineMethod;
-            this.DeviceLength = deviceLength;
-            this.DeviceNodes = deviceNodes;
-            this.StripeSize = stripeSize;
         }
         
+
         /// <summary>
         /// Specifies the length of this device. This number should match the length that is calculated from the children and combining method.
         /// </summary>
         /// <value>Specifies the length of this device. This number should match the length that is calculated from the children and combining method.</value>
-        [DataMember(Name="deviceLength", EmitDefaultValue=true)]
+        [DataMember(Name="deviceLength", EmitDefaultValue=false)]
         public long? DeviceLength { get; set; }
 
         /// <summary>
         /// Specifies the children of this node in the device tree.
         /// </summary>
         /// <value>Specifies the children of this node in the device tree.</value>
-        [DataMember(Name="deviceNodes", EmitDefaultValue=true)]
+        [DataMember(Name="deviceNodes", EmitDefaultValue=false)]
         public List<DeviceNode> DeviceNodes { get; set; }
 
         /// <summary>
         /// Specifies the size of the striped data if the data is striped.
         /// </summary>
         /// <value>Specifies the size of the striped data if the data is striped.</value>
-        [DataMember(Name="stripeSize", EmitDefaultValue=true)]
+        [DataMember(Name="stripeSize", EmitDefaultValue=false)]
         public int? StripeSize { get; set; }
 
         /// <summary>
@@ -179,7 +179,8 @@ namespace Cohesity.Model
             return 
                 (
                     this.CombineMethod == input.CombineMethod ||
-                    this.CombineMethod.Equals(input.CombineMethod)
+                    (this.CombineMethod != null &&
+                    this.CombineMethod.Equals(input.CombineMethod))
                 ) && 
                 (
                     this.DeviceLength == input.DeviceLength ||
@@ -189,8 +190,7 @@ namespace Cohesity.Model
                 (
                     this.DeviceNodes == input.DeviceNodes ||
                     this.DeviceNodes != null &&
-                    input.DeviceNodes != null &&
-                    this.DeviceNodes.SequenceEqual(input.DeviceNodes)
+                    this.DeviceNodes.Equals(input.DeviceNodes)
                 ) && 
                 (
                     this.StripeSize == input.StripeSize ||
@@ -208,7 +208,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                hashCode = hashCode * 59 + this.CombineMethod.GetHashCode();
+                if (this.CombineMethod != null)
+                    hashCode = hashCode * 59 + this.CombineMethod.GetHashCode();
                 if (this.DeviceLength != null)
                     hashCode = hashCode * 59 + this.DeviceLength.GetHashCode();
                 if (this.DeviceNodes != null)

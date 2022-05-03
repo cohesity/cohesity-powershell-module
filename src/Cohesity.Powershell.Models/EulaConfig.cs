@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -32,36 +35,52 @@ namespace Cohesity.Model
         /// <param name="signedVersion">Specifies the version of the End User License Agreement that was accepted. (required).</param>
         public EulaConfig(string licenseKey = default(string), long? signedVersion = default(long?))
         {
-            this.LicenseKey = licenseKey;
-            this.SignedVersion = signedVersion;
+            // to ensure "licenseKey" is required (not null)
+            if (licenseKey == null)
+            {
+                throw new InvalidDataException("licenseKey is a required property for EulaConfig and cannot be null");
+            }
+            else
+            {
+                this.LicenseKey = licenseKey;
+            }
+            // to ensure "signedVersion" is required (not null)
+            if (signedVersion == null)
+            {
+                throw new InvalidDataException("signedVersion is a required property for EulaConfig and cannot be null");
+            }
+            else
+            {
+                this.SignedVersion = signedVersion;
+            }
         }
         
         /// <summary>
         /// Specifies the license key.
         /// </summary>
         /// <value>Specifies the license key.</value>
-        [DataMember(Name="licenseKey", EmitDefaultValue=true)]
+        [DataMember(Name="licenseKey", EmitDefaultValue=false)]
         public string LicenseKey { get; set; }
 
         /// <summary>
         /// Specifies the login account name for the Cohesity user who accepted the End User License Agreement.
         /// </summary>
         /// <value>Specifies the login account name for the Cohesity user who accepted the End User License Agreement.</value>
-        [DataMember(Name="signedByUser", EmitDefaultValue=true)]
+        [DataMember(Name="signedByUser", EmitDefaultValue=false)]
         public string SignedByUser { get; private set; }
 
         /// <summary>
         /// Specifies the time that the End User License Agreement was accepted.
         /// </summary>
         /// <value>Specifies the time that the End User License Agreement was accepted.</value>
-        [DataMember(Name="signedTime", EmitDefaultValue=true)]
+        [DataMember(Name="signedTime", EmitDefaultValue=false)]
         public long? SignedTime { get; private set; }
 
         /// <summary>
         /// Specifies the version of the End User License Agreement that was accepted.
         /// </summary>
         /// <value>Specifies the version of the End User License Agreement that was accepted.</value>
-        [DataMember(Name="signedVersion", EmitDefaultValue=true)]
+        [DataMember(Name="signedVersion", EmitDefaultValue=false)]
         public long? SignedVersion { get; set; }
 
         /// <summary>

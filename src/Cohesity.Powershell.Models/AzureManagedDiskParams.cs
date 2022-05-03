@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.DataDisksSkuType = dataDisksSkuType;
             this.OsDiskSkuType = osDiskSkuType;
-            this.DataDisksSkuType = dataDisksSkuType;
-            this.OsDiskSkuType = osDiskSkuType;
         }
         
         /// <summary>
         /// SKU type for data disks.
         /// </summary>
         /// <value>SKU type for data disks.</value>
-        [DataMember(Name="dataDisksSkuType", EmitDefaultValue=true)]
+        [DataMember(Name="dataDisksSkuType", EmitDefaultValue=false)]
         public int? DataDisksSkuType { get; set; }
 
         /// <summary>
         /// SKU type for OS disk.
         /// </summary>
         /// <value>SKU type for OS disk.</value>
-        [DataMember(Name="osDiskSkuType", EmitDefaultValue=true)]
+        [DataMember(Name="osDiskSkuType", EmitDefaultValue=false)]
         public int? OsDiskSkuType { get; set; }
 
         /// <summary>

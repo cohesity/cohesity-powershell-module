@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.ActiveTaskMsecs = activeTaskMsecs;
             this.NewTaskMsecs = newTaskMsecs;
-            this.ActiveTaskMsecs = activeTaskMsecs;
-            this.NewTaskMsecs = newTaskMsecs;
         }
         
         /// <summary>
         /// If the latency of a datastore is above this value, existing backup tasks using the datastore are throttled.
         /// </summary>
         /// <value>If the latency of a datastore is above this value, existing backup tasks using the datastore are throttled.</value>
-        [DataMember(Name="activeTaskMsecs", EmitDefaultValue=true)]
+        [DataMember(Name="activeTaskMsecs", EmitDefaultValue=false)]
         public long? ActiveTaskMsecs { get; set; }
 
         /// <summary>
         /// If the latency of a datastore is above this value, then new backup tasks using the datastore will not be started.
         /// </summary>
         /// <value>If the latency of a datastore is above this value, then new backup tasks using the datastore will not be started.</value>
-        [DataMember(Name="newTaskMsecs", EmitDefaultValue=true)]
+        [DataMember(Name="newTaskMsecs", EmitDefaultValue=false)]
         public long? NewTaskMsecs { get; set; }
 
         /// <summary>

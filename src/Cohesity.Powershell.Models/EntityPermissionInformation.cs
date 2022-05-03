@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -25,15 +28,14 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="entityId">Specifies the entity id..</param>
         /// <param name="groups">Specifies groups that have access to entity in case of restricted user..</param>
+        /// <param name="isInferred">Specifies whether the Entity Permission Information is inferred or not. For example, SQL application hosted over vCenter will have inferred entity permission information..</param>
         /// <param name="tenant">tenant.</param>
         /// <param name="users">Specifies users that have access to entity in case of restricted user..</param>
-        public EntityPermissionInformation(long? entityId = default(long?), List<GroupInfo> groups = default(List<GroupInfo>), TenantInfo tenant = default(TenantInfo), List<UserInfo> users = default(List<UserInfo>))
+        public EntityPermissionInformation(long? entityId = default(long?), List<GroupInfo> groups = default(List<GroupInfo>), bool? isInferred = default(bool?), TenantInfo tenant = default(TenantInfo), List<UserInfo> users = default(List<UserInfo>))
         {
             this.EntityId = entityId;
             this.Groups = groups;
-            this.Users = users;
-            this.EntityId = entityId;
-            this.Groups = groups;
+            this.IsInferred = isInferred;
             this.Tenant = tenant;
             this.Users = users;
         }
@@ -42,15 +44,22 @@ namespace Cohesity.Model
         /// Specifies the entity id.
         /// </summary>
         /// <value>Specifies the entity id.</value>
-        [DataMember(Name="entityId", EmitDefaultValue=true)]
+        [DataMember(Name="entityId", EmitDefaultValue=false)]
         public long? EntityId { get; set; }
 
         /// <summary>
         /// Specifies groups that have access to entity in case of restricted user.
         /// </summary>
         /// <value>Specifies groups that have access to entity in case of restricted user.</value>
-        [DataMember(Name="groups", EmitDefaultValue=true)]
+        [DataMember(Name="groups", EmitDefaultValue=false)]
         public List<GroupInfo> Groups { get; set; }
+
+        /// <summary>
+        /// Specifies whether the Entity Permission Information is inferred or not. For example, SQL application hosted over vCenter will have inferred entity permission information.
+        /// </summary>
+        /// <value>Specifies whether the Entity Permission Information is inferred or not. For example, SQL application hosted over vCenter will have inferred entity permission information.</value>
+        [DataMember(Name="isInferred", EmitDefaultValue=false)]
+        public bool? IsInferred { get; set; }
 
         /// <summary>
         /// Gets or Sets Tenant
@@ -62,7 +71,7 @@ namespace Cohesity.Model
         /// Specifies users that have access to entity in case of restricted user.
         /// </summary>
         /// <value>Specifies users that have access to entity in case of restricted user.</value>
-        [DataMember(Name="users", EmitDefaultValue=true)]
+        [DataMember(Name="users", EmitDefaultValue=false)]
         public List<UserInfo> Users { get; set; }
 
         /// <summary>
@@ -109,8 +118,12 @@ namespace Cohesity.Model
                 (
                     this.Groups == input.Groups ||
                     this.Groups != null &&
-                    input.Groups != null &&
-                    this.Groups.SequenceEqual(input.Groups)
+                    this.Groups.Equals(input.Groups)
+                ) && 
+                (
+                    this.IsInferred == input.IsInferred ||
+                    (this.IsInferred != null &&
+                    this.IsInferred.Equals(input.IsInferred))
                 ) && 
                 (
                     this.Tenant == input.Tenant ||
@@ -120,8 +133,7 @@ namespace Cohesity.Model
                 (
                     this.Users == input.Users ||
                     this.Users != null &&
-                    input.Users != null &&
-                    this.Users.SequenceEqual(input.Users)
+                    this.Users.Equals(input.Users)
                 );
         }
 
@@ -138,6 +150,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.EntityId.GetHashCode();
                 if (this.Groups != null)
                     hashCode = hashCode * 59 + this.Groups.GetHashCode();
+                if (this.IsInferred != null)
+                    hashCode = hashCode * 59 + this.IsInferred.GetHashCode();
                 if (this.Tenant != null)
                     hashCode = hashCode * 59 + this.Tenant.GetHashCode();
                 if (this.Users != null)

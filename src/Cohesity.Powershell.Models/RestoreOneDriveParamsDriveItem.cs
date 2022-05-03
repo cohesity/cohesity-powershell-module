@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,30 +34,27 @@ namespace Cohesity.Model
             this.DriveItemPath = driveItemPath;
             this.Id = id;
             this.IsFileItem = isFileItem;
-            this.DriveItemPath = driveItemPath;
-            this.Id = id;
-            this.IsFileItem = isFileItem;
         }
         
         /// <summary>
         /// The path of the drive item relative to root.
         /// </summary>
         /// <value>The path of the drive item relative to root.</value>
-        [DataMember(Name="driveItemPath", EmitDefaultValue=true)]
+        [DataMember(Name="driveItemPath", EmitDefaultValue=false)]
         public string DriveItemPath { get; set; }
 
         /// <summary>
         /// The unique identifier of the item within the Drive.
         /// </summary>
         /// <value>The unique identifier of the item within the Drive.</value>
-        [DataMember(Name="id", EmitDefaultValue=true)]
+        [DataMember(Name="id", EmitDefaultValue=false)]
         public string Id { get; set; }
 
         /// <summary>
         /// Specify if the item is a file or not.
         /// </summary>
         /// <value>Specify if the item is a file or not.</value>
-        [DataMember(Name="isFileItem", EmitDefaultValue=true)]
+        [DataMember(Name="isFileItem", EmitDefaultValue=false)]
         public bool? IsFileItem { get; set; }
 
         /// <summary>

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,30 +34,27 @@ namespace Cohesity.Model
             this.Errors = errors;
             this.FileNames = fileNames;
             this.PaginationCookie = paginationCookie;
-            this.Errors = errors;
-            this.FileNames = fileNames;
-            this.PaginationCookie = paginationCookie;
         }
         
         /// <summary>
         /// Specifies the list of errors encountered by a task during a protection run.
         /// </summary>
         /// <value>Specifies the list of errors encountered by a task during a protection run.</value>
-        [DataMember(Name="errors", EmitDefaultValue=true)]
+        [DataMember(Name="errors", EmitDefaultValue=false)]
         public List<RequestError> Errors { get; set; }
 
         /// <summary>
         /// Specifies the list of filenames with errors encountered by a task during a protection run.
         /// </summary>
         /// <value>Specifies the list of filenames with errors encountered by a task during a protection run.</value>
-        [DataMember(Name="fileNames", EmitDefaultValue=true)]
+        [DataMember(Name="fileNames", EmitDefaultValue=false)]
         public List<string> FileNames { get; set; }
 
         /// <summary>
         /// Specifies the cookie for next set of results.
         /// </summary>
         /// <value>Specifies the cookie for next set of results.</value>
-        [DataMember(Name="paginationCookie", EmitDefaultValue=true)]
+        [DataMember(Name="paginationCookie", EmitDefaultValue=false)]
         public string PaginationCookie { get; set; }
 
         /// <summary>
@@ -96,14 +96,12 @@ namespace Cohesity.Model
                 (
                     this.Errors == input.Errors ||
                     this.Errors != null &&
-                    input.Errors != null &&
-                    this.Errors.SequenceEqual(input.Errors)
+                    this.Errors.Equals(input.Errors)
                 ) && 
                 (
                     this.FileNames == input.FileNames ||
                     this.FileNames != null &&
-                    input.FileNames != null &&
-                    this.FileNames.SequenceEqual(input.FileNames)
+                    this.FileNames.Equals(input.FileNames)
                 ) && 
                 (
                     this.PaginationCookie == input.PaginationCookie ||

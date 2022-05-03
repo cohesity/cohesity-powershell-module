@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -75,7 +78,7 @@ namespace Cohesity.Model
         /// Specifies the mapping type used. &#39;kRid&#39; indicates the kRid mapping type. &#39;kRfc2307&#39; indicates the kRfc2307 mapping type. &#39;kSfu30&#39; indicates the kSfu30 mapping type. &#39;kCentrify&#39; indicates the mapping type to refer to a centrify zone. &#39;kFixed&#39; indicates the mapping from all Active Directory users to a fixed Unix uid, and gid. &#39;kCustomAttributes&#39; indicates the mapping to derive from custom attributes defined in an AD domain. &#39;kLdapProvider&#39; indicates the Active Directory to LDAP provider mapping.
         /// </summary>
         /// <value>Specifies the mapping type used. &#39;kRid&#39; indicates the kRid mapping type. &#39;kRfc2307&#39; indicates the kRfc2307 mapping type. &#39;kSfu30&#39; indicates the kSfu30 mapping type. &#39;kCentrify&#39; indicates the mapping type to refer to a centrify zone. &#39;kFixed&#39; indicates the mapping from all Active Directory users to a fixed Unix uid, and gid. &#39;kCustomAttributes&#39; indicates the mapping to derive from custom attributes defined in an AD domain. &#39;kLdapProvider&#39; indicates the Active Directory to LDAP provider mapping.</value>
-        [DataMember(Name="type", EmitDefaultValue=true)]
+        [DataMember(Name="type", EmitDefaultValue=false)]
         public TypeEnum? Type { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="UserIdMapping" /> class.
@@ -86,7 +89,6 @@ namespace Cohesity.Model
         /// <param name="type">Specifies the mapping type used. &#39;kRid&#39; indicates the kRid mapping type. &#39;kRfc2307&#39; indicates the kRfc2307 mapping type. &#39;kSfu30&#39; indicates the kSfu30 mapping type. &#39;kCentrify&#39; indicates the mapping type to refer to a centrify zone. &#39;kFixed&#39; indicates the mapping from all Active Directory users to a fixed Unix uid, and gid. &#39;kCustomAttributes&#39; indicates the mapping to derive from custom attributes defined in an AD domain. &#39;kLdapProvider&#39; indicates the Active Directory to LDAP provider mapping..</param>
         public UserIdMapping(CentrifyZone centrifyZoneMapping = default(CentrifyZone), CustomUnixIdAttributes customAttributesMapping = default(CustomUnixIdAttributes), FixedUnixIdMapping fixedMapping = default(FixedUnixIdMapping), TypeEnum? type = default(TypeEnum?))
         {
-            this.Type = type;
             this.CentrifyZoneMapping = centrifyZoneMapping;
             this.CustomAttributesMapping = customAttributesMapping;
             this.FixedMapping = fixedMapping;
@@ -110,6 +112,7 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="fixedMapping", EmitDefaultValue=false)]
         public FixedUnixIdMapping FixedMapping { get; set; }
+
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -164,7 +167,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.Type == input.Type ||
-                    this.Type.Equals(input.Type)
+                    (this.Type != null &&
+                    this.Type.Equals(input.Type))
                 );
         }
 
@@ -183,7 +187,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.CustomAttributesMapping.GetHashCode();
                 if (this.FixedMapping != null)
                     hashCode = hashCode * 59 + this.FixedMapping.GetHashCode();
-                hashCode = hashCode * 59 + this.Type.GetHashCode();
+                if (this.Type != null)
+                    hashCode = hashCode * 59 + this.Type.GetHashCode();
                 return hashCode;
             }
         }

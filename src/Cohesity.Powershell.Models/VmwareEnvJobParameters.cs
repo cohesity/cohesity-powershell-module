@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,30 +34,27 @@ namespace Cohesity.Model
             this.ExcludedDisks = excludedDisks;
             this.FallbackToCrashConsistent = fallbackToCrashConsistent;
             this.SkipPhysicalRdmDisks = skipPhysicalRdmDisks;
-            this.ExcludedDisks = excludedDisks;
-            this.FallbackToCrashConsistent = fallbackToCrashConsistent;
-            this.SkipPhysicalRdmDisks = skipPhysicalRdmDisks;
         }
         
         /// <summary>
         /// Specifies the list of Disks to be excluded from backing up. These disks are excluded from all Protection Sources in the Protection Job.
         /// </summary>
         /// <value>Specifies the list of Disks to be excluded from backing up. These disks are excluded from all Protection Sources in the Protection Job.</value>
-        [DataMember(Name="excludedDisks", EmitDefaultValue=true)]
+        [DataMember(Name="excludedDisks", EmitDefaultValue=false)]
         public List<DiskUnit> ExcludedDisks { get; set; }
 
         /// <summary>
         /// If true, takes a crash-consistent snapshot when app-consistent snapshot fails. Otherwise, the snapshot attempt is marked failed.
         /// </summary>
         /// <value>If true, takes a crash-consistent snapshot when app-consistent snapshot fails. Otherwise, the snapshot attempt is marked failed.</value>
-        [DataMember(Name="fallbackToCrashConsistent", EmitDefaultValue=true)]
+        [DataMember(Name="fallbackToCrashConsistent", EmitDefaultValue=false)]
         public bool? FallbackToCrashConsistent { get; set; }
 
         /// <summary>
         /// If true, skip physical RDM disks when backing up VMs. Otherwise, backup of VMs having physical RDM will fail.
         /// </summary>
         /// <value>If true, skip physical RDM disks when backing up VMs. Otherwise, backup of VMs having physical RDM will fail.</value>
-        [DataMember(Name="skipPhysicalRdmDisks", EmitDefaultValue=true)]
+        [DataMember(Name="skipPhysicalRdmDisks", EmitDefaultValue=false)]
         public bool? SkipPhysicalRdmDisks { get; set; }
 
         /// <summary>
@@ -96,8 +96,7 @@ namespace Cohesity.Model
                 (
                     this.ExcludedDisks == input.ExcludedDisks ||
                     this.ExcludedDisks != null &&
-                    input.ExcludedDisks != null &&
-                    this.ExcludedDisks.SequenceEqual(input.ExcludedDisks)
+                    this.ExcludedDisks.Equals(input.ExcludedDisks)
                 ) && 
                 (
                     this.FallbackToCrashConsistent == input.FallbackToCrashConsistent ||

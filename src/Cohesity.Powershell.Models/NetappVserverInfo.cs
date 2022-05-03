@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -72,16 +75,22 @@ namespace Cohesity.Model
             /// Enum KManagement for value: kManagement
             /// </summary>
             [EnumMember(Value = "kManagement")]
-            KManagement = 8
+            KManagement = 8,
+
+            /// <summary>
+            /// Enum KNvme for value: kNvme
+            /// </summary>
+            [EnumMember(Value = "kNvme")]
+            KNvme = 9
 
         }
 
 
         /// <summary>
-        /// Array of Data Protocols.  Specifies the set of data protocols supported by this Vserver. The kManagement protocol is not supported for this case. &#39;kNfs&#39; indicates NFS connections. &#39;kCifs&#39; indicates SMB (CIFS) connections. &#39;kIscsi&#39; indicates iSCSI connections. &#39;kFc&#39; indicates Fiber Channel connections. &#39;kFcache&#39; indicates Flex Cache connections. &#39;kHttp&#39; indicates HTTP connections. &#39;kNdmp&#39; indicates NDMP connections. &#39;kManagement&#39; indicates non-data connections used for management purposes.
+        /// Array of Data Protocols.  Specifies the set of data protocols supported by this Vserver. The kManagement protocol is not supported for this case. &#39;kNfs&#39; indicates NFS connections. &#39;kCifs&#39; indicates SMB (CIFS) connections. &#39;kIscsi&#39; indicates iSCSI connections. &#39;kFc&#39; indicates Fiber Channel connections. &#39;kFcache&#39; indicates Flex Cache connections. &#39;kHttp&#39; indicates HTTP connections. &#39;kNdmp&#39; indicates NDMP connections. &#39;kManagement&#39; indicates non-data connections used for management purposes. &#39;kNvme&#39; indicates NVMe connections.
         /// </summary>
-        /// <value>Array of Data Protocols.  Specifies the set of data protocols supported by this Vserver. The kManagement protocol is not supported for this case. &#39;kNfs&#39; indicates NFS connections. &#39;kCifs&#39; indicates SMB (CIFS) connections. &#39;kIscsi&#39; indicates iSCSI connections. &#39;kFc&#39; indicates Fiber Channel connections. &#39;kFcache&#39; indicates Flex Cache connections. &#39;kHttp&#39; indicates HTTP connections. &#39;kNdmp&#39; indicates NDMP connections. &#39;kManagement&#39; indicates non-data connections used for management purposes.</value>
-        [DataMember(Name="dataProtocols", EmitDefaultValue=true)]
+        /// <value>Array of Data Protocols.  Specifies the set of data protocols supported by this Vserver. The kManagement protocol is not supported for this case. &#39;kNfs&#39; indicates NFS connections. &#39;kCifs&#39; indicates SMB (CIFS) connections. &#39;kIscsi&#39; indicates iSCSI connections. &#39;kFc&#39; indicates Fiber Channel connections. &#39;kFcache&#39; indicates Flex Cache connections. &#39;kHttp&#39; indicates HTTP connections. &#39;kNdmp&#39; indicates NDMP connections. &#39;kManagement&#39; indicates non-data connections used for management purposes. &#39;kNvme&#39; indicates NVMe connections.</value>
+        [DataMember(Name="dataProtocols", EmitDefaultValue=false)]
         public List<DataProtocolsEnum> DataProtocols { get; set; }
         /// <summary>
         /// Specifies the type of this Vserver. Specifies the type of the NetApp Vserver. &#39;kData&#39; indicates the Vserver is used for data backup and restore. &#39;kAdmin&#39; indicates the Vserver is used for cluster-wide management. &#39;kSystem&#39; indicates the Vserver is used for cluster-scoped communications in an IPspace. &#39;kNode&#39; indicates the Vserver is used as the physical controller. &#39;kUnknown&#39; indicates the Vserver is used for an unknown purpose.
@@ -126,12 +135,12 @@ namespace Cohesity.Model
         /// Specifies the type of this Vserver. Specifies the type of the NetApp Vserver. &#39;kData&#39; indicates the Vserver is used for data backup and restore. &#39;kAdmin&#39; indicates the Vserver is used for cluster-wide management. &#39;kSystem&#39; indicates the Vserver is used for cluster-scoped communications in an IPspace. &#39;kNode&#39; indicates the Vserver is used as the physical controller. &#39;kUnknown&#39; indicates the Vserver is used for an unknown purpose.
         /// </summary>
         /// <value>Specifies the type of this Vserver. Specifies the type of the NetApp Vserver. &#39;kData&#39; indicates the Vserver is used for data backup and restore. &#39;kAdmin&#39; indicates the Vserver is used for cluster-wide management. &#39;kSystem&#39; indicates the Vserver is used for cluster-scoped communications in an IPspace. &#39;kNode&#39; indicates the Vserver is used as the physical controller. &#39;kUnknown&#39; indicates the Vserver is used for an unknown purpose.</value>
-        [DataMember(Name="type", EmitDefaultValue=true)]
+        [DataMember(Name="type", EmitDefaultValue=false)]
         public TypeEnum? Type { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="NetappVserverInfo" /> class.
         /// </summary>
-        /// <param name="dataProtocols">Array of Data Protocols.  Specifies the set of data protocols supported by this Vserver. The kManagement protocol is not supported for this case. &#39;kNfs&#39; indicates NFS connections. &#39;kCifs&#39; indicates SMB (CIFS) connections. &#39;kIscsi&#39; indicates iSCSI connections. &#39;kFc&#39; indicates Fiber Channel connections. &#39;kFcache&#39; indicates Flex Cache connections. &#39;kHttp&#39; indicates HTTP connections. &#39;kNdmp&#39; indicates NDMP connections. &#39;kManagement&#39; indicates non-data connections used for management purposes..</param>
+        /// <param name="dataProtocols">Array of Data Protocols.  Specifies the set of data protocols supported by this Vserver. The kManagement protocol is not supported for this case. &#39;kNfs&#39; indicates NFS connections. &#39;kCifs&#39; indicates SMB (CIFS) connections. &#39;kIscsi&#39; indicates iSCSI connections. &#39;kFc&#39; indicates Fiber Channel connections. &#39;kFcache&#39; indicates Flex Cache connections. &#39;kHttp&#39; indicates HTTP connections. &#39;kNdmp&#39; indicates NDMP connections. &#39;kManagement&#39; indicates non-data connections used for management purposes. &#39;kNvme&#39; indicates NVMe connections..</param>
         /// <param name="interfaces">Array of Interfaces.  Specifies information about all interfaces on this Vserver..</param>
         /// <param name="rootCifsShare">rootCifsShare.</param>
         /// <param name="type">Specifies the type of this Vserver. Specifies the type of the NetApp Vserver. &#39;kData&#39; indicates the Vserver is used for data backup and restore. &#39;kAdmin&#39; indicates the Vserver is used for cluster-wide management. &#39;kSystem&#39; indicates the Vserver is used for cluster-scoped communications in an IPspace. &#39;kNode&#39; indicates the Vserver is used as the physical controller. &#39;kUnknown&#39; indicates the Vserver is used for an unknown purpose..</param>
@@ -139,18 +148,16 @@ namespace Cohesity.Model
         {
             this.DataProtocols = dataProtocols;
             this.Interfaces = interfaces;
-            this.Type = type;
-            this.DataProtocols = dataProtocols;
-            this.Interfaces = interfaces;
             this.RootCifsShare = rootCifsShare;
             this.Type = type;
         }
         
+
         /// <summary>
         /// Array of Interfaces.  Specifies information about all interfaces on this Vserver.
         /// </summary>
         /// <value>Array of Interfaces.  Specifies information about all interfaces on this Vserver.</value>
-        [DataMember(Name="interfaces", EmitDefaultValue=true)]
+        [DataMember(Name="interfaces", EmitDefaultValue=false)]
         public List<VserverNetworkInterface> Interfaces { get; set; }
 
         /// <summary>
@@ -158,6 +165,7 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="rootCifsShare", EmitDefaultValue=false)]
         public CifsShareInfo RootCifsShare { get; set; }
+
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -197,13 +205,13 @@ namespace Cohesity.Model
             return 
                 (
                     this.DataProtocols == input.DataProtocols ||
-                    this.DataProtocols.SequenceEqual(input.DataProtocols)
+                    this.DataProtocols != null &&
+                    this.DataProtocols.Equals(input.DataProtocols)
                 ) && 
                 (
                     this.Interfaces == input.Interfaces ||
                     this.Interfaces != null &&
-                    input.Interfaces != null &&
-                    this.Interfaces.SequenceEqual(input.Interfaces)
+                    this.Interfaces.Equals(input.Interfaces)
                 ) && 
                 (
                     this.RootCifsShare == input.RootCifsShare ||
@@ -212,7 +220,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.Type == input.Type ||
-                    this.Type.Equals(input.Type)
+                    (this.Type != null &&
+                    this.Type.Equals(input.Type))
                 );
         }
 
@@ -225,12 +234,14 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                hashCode = hashCode * 59 + this.DataProtocols.GetHashCode();
+                if (this.DataProtocols != null)
+                    hashCode = hashCode * 59 + this.DataProtocols.GetHashCode();
                 if (this.Interfaces != null)
                     hashCode = hashCode * 59 + this.Interfaces.GetHashCode();
                 if (this.RootCifsShare != null)
                     hashCode = hashCode * 59 + this.RootCifsShare.GetHashCode();
-                hashCode = hashCode * 59 + this.Type.GetHashCode();
+                if (this.Type != null)
+                    hashCode = hashCode * 59 + this.Type.GetHashCode();
                 return hashCode;
             }
         }

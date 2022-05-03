@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -45,7 +48,7 @@ namespace Cohesity.Model
         /// Specifies the type of OneDrive document(file/folder). Specifies the OneDrive document type.  &#39;kFile&#39; specifies a file. &#39;kFolder&#39; specifies a folder.
         /// </summary>
         /// <value>Specifies the type of OneDrive document(file/folder). Specifies the OneDrive document type.  &#39;kFile&#39; specifies a file. &#39;kFolder&#39; specifies a folder.</value>
-        [DataMember(Name="documentType", EmitDefaultValue=true)]
+        [DataMember(Name="documentType", EmitDefaultValue=false)]
         public DocumentTypeEnum? DocumentType { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="OneDriveDocumentMetadata" /> class.
@@ -54,9 +57,9 @@ namespace Cohesity.Model
         public OneDriveDocumentMetadata(DocumentTypeEnum? documentType = default(DocumentTypeEnum?))
         {
             this.DocumentType = documentType;
-            this.DocumentType = documentType;
         }
         
+
         /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
@@ -95,7 +98,8 @@ namespace Cohesity.Model
             return 
                 (
                     this.DocumentType == input.DocumentType ||
-                    this.DocumentType.Equals(input.DocumentType)
+                    (this.DocumentType != null &&
+                    this.DocumentType.Equals(input.DocumentType))
                 );
         }
 
@@ -108,7 +112,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                hashCode = hashCode * 59 + this.DocumentType.GetHashCode();
+                if (this.DocumentType != null)
+                    hashCode = hashCode * 59 + this.DocumentType.GetHashCode();
                 return hashCode;
             }
         }

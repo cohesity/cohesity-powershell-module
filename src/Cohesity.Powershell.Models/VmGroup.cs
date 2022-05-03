@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.Name = name;
             this.Vms = vms;
-            this.Name = name;
-            this.Vms = vms;
         }
         
         /// <summary>
         /// Specifies name of the VM group.
         /// </summary>
         /// <value>Specifies name of the VM group.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
 
         /// <summary>
         /// Specifies VMs in the group.
         /// </summary>
         /// <value>Specifies VMs in the group.</value>
-        [DataMember(Name="vms", EmitDefaultValue=true)]
+        [DataMember(Name="vms", EmitDefaultValue=false)]
         public List<VmInfo> Vms { get; set; }
 
         /// <summary>
@@ -91,8 +92,7 @@ namespace Cohesity.Model
                 (
                     this.Vms == input.Vms ||
                     this.Vms != null &&
-                    input.Vms != null &&
-                    this.Vms.SequenceEqual(input.Vms)
+                    this.Vms.Equals(input.Vms)
                 );
         }
 

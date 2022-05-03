@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -49,7 +52,13 @@ namespace Cohesity.Model
             /// Enum KCloudDeploy for value: kCloudDeploy
             /// </summary>
             [EnumMember(Value = "kCloudDeploy")]
-            KCloudDeploy = 4
+            KCloudDeploy = 4,
+
+            /// <summary>
+            /// Enum KCloudReplication for value: kCloudReplication
+            /// </summary>
+            [EnumMember(Value = "kCloudReplication")]
+            KCloudReplication = 5
 
         }
 
@@ -57,7 +66,7 @@ namespace Cohesity.Model
         /// Specifies the type of a Snapshot target such as &#39;kLocal&#39;, &#39;kRemote&#39; or &#39;kArchival&#39;. &#39;kLocal&#39; means the Snapshot is stored on a local Cohesity Cluster. &#39;kRemote&#39; means the Snapshot is stored on a Remote Cohesity Cluster. (It was copied to the Remote Cohesity Cluster using replication.) &#39;kArchival&#39; means the Snapshot is stored on a Archival External Target (such as Tape or AWS). &#39;kCloudDeploy&#39; means the Snapshot is stored on a Cloud platform.
         /// </summary>
         /// <value>Specifies the type of a Snapshot target such as &#39;kLocal&#39;, &#39;kRemote&#39; or &#39;kArchival&#39;. &#39;kLocal&#39; means the Snapshot is stored on a local Cohesity Cluster. &#39;kRemote&#39; means the Snapshot is stored on a Remote Cohesity Cluster. (It was copied to the Remote Cohesity Cluster using replication.) &#39;kArchival&#39; means the Snapshot is stored on a Archival External Target (such as Tape or AWS). &#39;kCloudDeploy&#39; means the Snapshot is stored on a Cloud platform.</value>
-        [DataMember(Name="type", EmitDefaultValue=true)]
+        [DataMember(Name="type", EmitDefaultValue=false)]
         public TypeEnum? Type { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="RunJobSnapshotTarget" /> class.
@@ -70,9 +79,6 @@ namespace Cohesity.Model
         /// <param name="type">Specifies the type of a Snapshot target such as &#39;kLocal&#39;, &#39;kRemote&#39; or &#39;kArchival&#39;. &#39;kLocal&#39; means the Snapshot is stored on a local Cohesity Cluster. &#39;kRemote&#39; means the Snapshot is stored on a Remote Cohesity Cluster. (It was copied to the Remote Cohesity Cluster using replication.) &#39;kArchival&#39; means the Snapshot is stored on a Archival External Target (such as Tape or AWS). &#39;kCloudDeploy&#39; means the Snapshot is stored on a Cloud platform..</param>
         public RunJobSnapshotTarget(ArchivalExternalTarget archivalTarget = default(ArchivalExternalTarget), CloudDeployTargetDetails cloudReplicationTarget = default(CloudDeployTargetDetails), long? daysToKeep = default(long?), bool? holdForLegalPurpose = default(bool?), ReplicationTargetSettings replicationTarget = default(ReplicationTargetSettings), TypeEnum? type = default(TypeEnum?))
         {
-            this.DaysToKeep = daysToKeep;
-            this.HoldForLegalPurpose = holdForLegalPurpose;
-            this.Type = type;
             this.ArchivalTarget = archivalTarget;
             this.CloudReplicationTarget = cloudReplicationTarget;
             this.DaysToKeep = daysToKeep;
@@ -97,14 +103,14 @@ namespace Cohesity.Model
         /// Specifies the number of days to retain copied Snapshots on the target.
         /// </summary>
         /// <value>Specifies the number of days to retain copied Snapshots on the target.</value>
-        [DataMember(Name="daysToKeep", EmitDefaultValue=true)]
+        [DataMember(Name="daysToKeep", EmitDefaultValue=false)]
         public long? DaysToKeep { get; set; }
 
         /// <summary>
         /// Specifies optionally whether to retain the snapshot for legal purpose. If set to true, the run cannot be deleted until the retention period. Note that using this option may cause the Cluster to run out of space. If set to false explicitly, the hold is removed, and the run will expire as specified in the policy of the Protection Job. If this field is not specified, there is no change to the hold of the run. This field can be set only by a User having Data Security Role.
         /// </summary>
         /// <value>Specifies optionally whether to retain the snapshot for legal purpose. If set to true, the run cannot be deleted until the retention period. Note that using this option may cause the Cluster to run out of space. If set to false explicitly, the hold is removed, and the run will expire as specified in the policy of the Protection Job. If this field is not specified, there is no change to the hold of the run. This field can be set only by a User having Data Security Role.</value>
-        [DataMember(Name="holdForLegalPurpose", EmitDefaultValue=true)]
+        [DataMember(Name="holdForLegalPurpose", EmitDefaultValue=false)]
         public bool? HoldForLegalPurpose { get; set; }
 
         /// <summary>
@@ -112,6 +118,7 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="replicationTarget", EmitDefaultValue=false)]
         public ReplicationTargetSettings ReplicationTarget { get; set; }
+
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -176,7 +183,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.Type == input.Type ||
-                    this.Type.Equals(input.Type)
+                    (this.Type != null &&
+                    this.Type.Equals(input.Type))
                 );
         }
 
@@ -199,7 +207,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.HoldForLegalPurpose.GetHashCode();
                 if (this.ReplicationTarget != null)
                     hashCode = hashCode * 59 + this.ReplicationTarget.GetHashCode();
-                hashCode = hashCode * 59 + this.Type.GetHashCode();
+                if (this.Type != null)
+                    hashCode = hashCode * 59 + this.Type.GetHashCode();
                 return hashCode;
             }
         }

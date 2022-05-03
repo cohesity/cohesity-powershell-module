@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,10 +34,6 @@ namespace Cohesity.Model
         public SqlAagHostAndDatabases(List<AagAndDatabases> aagDatabases = default(List<AagAndDatabases>), ProtectionSourceNode applicationNode = default(ProtectionSourceNode), List<ProtectionSource> databases = default(List<ProtectionSource>), string errorMessage = default(string), string unknownHostName = default(string))
         {
             this.AagDatabases = aagDatabases;
-            this.Databases = databases;
-            this.ErrorMessage = errorMessage;
-            this.UnknownHostName = unknownHostName;
-            this.AagDatabases = aagDatabases;
             this.ApplicationNode = applicationNode;
             this.Databases = databases;
             this.ErrorMessage = errorMessage;
@@ -45,7 +44,7 @@ namespace Cohesity.Model
         /// Specifies a list of AAGs and database members in each AAG.
         /// </summary>
         /// <value>Specifies a list of AAGs and database members in each AAG.</value>
-        [DataMember(Name="aagDatabases", EmitDefaultValue=true)]
+        [DataMember(Name="aagDatabases", EmitDefaultValue=false)]
         public List<AagAndDatabases> AagDatabases { get; set; }
 
         /// <summary>
@@ -58,21 +57,21 @@ namespace Cohesity.Model
         /// Specifies all database entities found on the server. Database may or may not be in an AAG.
         /// </summary>
         /// <value>Specifies all database entities found on the server. Database may or may not be in an AAG.</value>
-        [DataMember(Name="databases", EmitDefaultValue=true)]
+        [DataMember(Name="databases", EmitDefaultValue=false)]
         public List<ProtectionSource> Databases { get; set; }
 
         /// <summary>
         /// Specifies an error message when the host is not registered as an SQL host.
         /// </summary>
         /// <value>Specifies an error message when the host is not registered as an SQL host.</value>
-        [DataMember(Name="errorMessage", EmitDefaultValue=true)]
+        [DataMember(Name="errorMessage", EmitDefaultValue=false)]
         public string ErrorMessage { get; set; }
 
         /// <summary>
         /// Specifies the name of the host that is not registered as an SQL server on Cohesity Cluser.
         /// </summary>
         /// <value>Specifies the name of the host that is not registered as an SQL server on Cohesity Cluser.</value>
-        [DataMember(Name="unknownHostName", EmitDefaultValue=true)]
+        [DataMember(Name="unknownHostName", EmitDefaultValue=false)]
         public string UnknownHostName { get; set; }
 
         /// <summary>
@@ -114,8 +113,7 @@ namespace Cohesity.Model
                 (
                     this.AagDatabases == input.AagDatabases ||
                     this.AagDatabases != null &&
-                    input.AagDatabases != null &&
-                    this.AagDatabases.SequenceEqual(input.AagDatabases)
+                    this.AagDatabases.Equals(input.AagDatabases)
                 ) && 
                 (
                     this.ApplicationNode == input.ApplicationNode ||
@@ -125,8 +123,7 @@ namespace Cohesity.Model
                 (
                     this.Databases == input.Databases ||
                     this.Databases != null &&
-                    input.Databases != null &&
-                    this.Databases.SequenceEqual(input.Databases)
+                    this.Databases.Equals(input.Databases)
                 ) && 
                 (
                     this.ErrorMessage == input.ErrorMessage ||

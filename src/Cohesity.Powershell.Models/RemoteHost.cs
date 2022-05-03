@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -69,7 +72,7 @@ namespace Cohesity.Model
         /// Specifies the OS type of the remote host that will run the script. Currently only &#39;kLinux&#39; is supported. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kOther&#39; indicates the other types of operating system.
         /// </summary>
         /// <value>Specifies the OS type of the remote host that will run the script. Currently only &#39;kLinux&#39; is supported. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kOther&#39; indicates the other types of operating system.</value>
-        [DataMember(Name="type", EmitDefaultValue=true)]
+        [DataMember(Name="type", EmitDefaultValue=false)]
         public TypeEnum? Type { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="RemoteHost" /> class.
@@ -80,16 +83,15 @@ namespace Cohesity.Model
         {
             this.Address = address;
             this.Type = type;
-            this.Address = address;
-            this.Type = type;
         }
         
         /// <summary>
         /// Specifies the address (IP, hostname or FQDN) of the remote host that will run the script.
         /// </summary>
         /// <value>Specifies the address (IP, hostname or FQDN) of the remote host that will run the script.</value>
-        [DataMember(Name="address", EmitDefaultValue=true)]
+        [DataMember(Name="address", EmitDefaultValue=false)]
         public string Address { get; set; }
+
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -134,7 +136,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.Type == input.Type ||
-                    this.Type.Equals(input.Type)
+                    (this.Type != null &&
+                    this.Type.Equals(input.Type))
                 );
         }
 
@@ -149,7 +152,8 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.Address != null)
                     hashCode = hashCode * 59 + this.Address.GetHashCode();
-                hashCode = hashCode * 59 + this.Type.GetHashCode();
+                if (this.Type != null)
+                    hashCode = hashCode * 59 + this.Type.GetHashCode();
                 return hashCode;
             }
         }

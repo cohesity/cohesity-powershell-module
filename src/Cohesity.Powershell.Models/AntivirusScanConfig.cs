@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -35,12 +38,6 @@ namespace Cohesity.Model
             this.BlockAccessOnScanFailure = blockAccessOnScanFailure;
             this.IsEnabled = isEnabled;
             this.MaximumScanFileSize = maximumScanFileSize;
-            this.ScanOnAccess = scanOnAccess;
-            this.ScanOnClose = scanOnClose;
-            this.ScanTimeoutUsecs = scanTimeoutUsecs;
-            this.BlockAccessOnScanFailure = blockAccessOnScanFailure;
-            this.IsEnabled = isEnabled;
-            this.MaximumScanFileSize = maximumScanFileSize;
             this.ScanFilter = scanFilter;
             this.ScanOnAccess = scanOnAccess;
             this.ScanOnClose = scanOnClose;
@@ -51,21 +48,21 @@ namespace Cohesity.Model
         /// Specifies whether block access to the file when antivirus scan fails.
         /// </summary>
         /// <value>Specifies whether block access to the file when antivirus scan fails.</value>
-        [DataMember(Name="blockAccessOnScanFailure", EmitDefaultValue=true)]
+        [DataMember(Name="blockAccessOnScanFailure", EmitDefaultValue=false)]
         public bool? BlockAccessOnScanFailure { get; set; }
 
         /// <summary>
         /// Specifies whether the antivirus service is enabled or not.
         /// </summary>
         /// <value>Specifies whether the antivirus service is enabled or not.</value>
-        [DataMember(Name="isEnabled", EmitDefaultValue=true)]
+        [DataMember(Name="isEnabled", EmitDefaultValue=false)]
         public bool? IsEnabled { get; set; }
 
         /// <summary>
         /// Specifies maximum file size that will be sent to antivirus server for scanning. if greater than zero, the file size that exceeds this size would be skipped from virus scan.
         /// </summary>
         /// <value>Specifies maximum file size that will be sent to antivirus server for scanning. if greater than zero, the file size that exceeds this size would be skipped from virus scan.</value>
-        [DataMember(Name="maximumScanFileSize", EmitDefaultValue=true)]
+        [DataMember(Name="maximumScanFileSize", EmitDefaultValue=false)]
         public long? MaximumScanFileSize { get; set; }
 
         /// <summary>
@@ -78,21 +75,21 @@ namespace Cohesity.Model
         /// Specifies whether to scan a file when it is opened.
         /// </summary>
         /// <value>Specifies whether to scan a file when it is opened.</value>
-        [DataMember(Name="scanOnAccess", EmitDefaultValue=true)]
+        [DataMember(Name="scanOnAccess", EmitDefaultValue=false)]
         public bool? ScanOnAccess { get; set; }
 
         /// <summary>
         /// Specifies whether to scan a file when it is closed after modify.
         /// </summary>
         /// <value>Specifies whether to scan a file when it is closed after modify.</value>
-        [DataMember(Name="scanOnClose", EmitDefaultValue=true)]
+        [DataMember(Name="scanOnClose", EmitDefaultValue=false)]
         public bool? ScanOnClose { get; set; }
 
         /// <summary>
         /// Specifies the maximum amount of time that a scan can take before timing out.
         /// </summary>
         /// <value>Specifies the maximum amount of time that a scan can take before timing out.</value>
-        [DataMember(Name="scanTimeoutUsecs", EmitDefaultValue=true)]
+        [DataMember(Name="scanTimeoutUsecs", EmitDefaultValue=false)]
         public int? ScanTimeoutUsecs { get; set; }
 
         /// <summary>

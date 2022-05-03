@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -45,86 +48,76 @@ namespace Cohesity.Model
             this.UserName = userName;
             this.ViewId = viewId;
             this.ViewName = viewName;
-            this.ClientIp = clientIp;
-            this.DomainName = domainName;
-            this.NodeIp = nodeIp;
-            this.Path = path;
-            this.ServerIp = serverIp;
-            this.SessionId = sessionId;
-            this.Sids = sids;
-            this.UserName = userName;
-            this.ViewId = viewId;
-            this.ViewName = viewName;
         }
         
         /// <summary>
         /// Specifies the Client IP address of the connection.
         /// </summary>
         /// <value>Specifies the Client IP address of the connection.</value>
-        [DataMember(Name="clientIp", EmitDefaultValue=true)]
+        [DataMember(Name="clientIp", EmitDefaultValue=false)]
         public string ClientIp { get; set; }
 
         /// <summary>
         /// Domain name of the corresponding user.
         /// </summary>
         /// <value>Domain name of the corresponding user.</value>
-        [DataMember(Name="domainName", EmitDefaultValue=true)]
+        [DataMember(Name="domainName", EmitDefaultValue=false)]
         public string DomainName { get; set; }
 
         /// <summary>
         /// Specifies a Node IP address where the connection request is received.
         /// </summary>
         /// <value>Specifies a Node IP address where the connection request is received.</value>
-        [DataMember(Name="nodeIp", EmitDefaultValue=true)]
+        [DataMember(Name="nodeIp", EmitDefaultValue=false)]
         public string NodeIp { get; set; }
 
         /// <summary>
         /// Mount path.
         /// </summary>
         /// <value>Mount path.</value>
-        [DataMember(Name="path", EmitDefaultValue=true)]
+        [DataMember(Name="path", EmitDefaultValue=false)]
         public string Path { get; set; }
 
         /// <summary>
         /// Specifies the Server IP address of the connection. This could be a VIP, VLAN IP, or node IP on the Cluster.
         /// </summary>
         /// <value>Specifies the Server IP address of the connection. This could be a VIP, VLAN IP, or node IP on the Cluster.</value>
-        [DataMember(Name="serverIp", EmitDefaultValue=true)]
+        [DataMember(Name="serverIp", EmitDefaultValue=false)]
         public string ServerIp { get; set; }
 
         /// <summary>
         /// Session id.
         /// </summary>
         /// <value>Session id.</value>
-        [DataMember(Name="sessionId", EmitDefaultValue=true)]
+        [DataMember(Name="sessionId", EmitDefaultValue=false)]
         public long? SessionId { get; set; }
 
         /// <summary>
         /// List of SIDs in the SMB session token.
         /// </summary>
         /// <value>List of SIDs in the SMB session token.</value>
-        [DataMember(Name="sids", EmitDefaultValue=true)]
+        [DataMember(Name="sids", EmitDefaultValue=false)]
         public List<string> Sids { get; set; }
 
         /// <summary>
         /// User name used to login for this session.
         /// </summary>
         /// <value>User name used to login for this session.</value>
-        [DataMember(Name="userName", EmitDefaultValue=true)]
+        [DataMember(Name="userName", EmitDefaultValue=false)]
         public string UserName { get; set; }
 
         /// <summary>
         /// Specifies the id of the view.
         /// </summary>
         /// <value>Specifies the id of the view.</value>
-        [DataMember(Name="viewId", EmitDefaultValue=true)]
+        [DataMember(Name="viewId", EmitDefaultValue=false)]
         public long? ViewId { get; set; }
 
         /// <summary>
         /// Specifies the name of the view.
         /// </summary>
         /// <value>Specifies the name of the view.</value>
-        [DataMember(Name="viewName", EmitDefaultValue=true)]
+        [DataMember(Name="viewName", EmitDefaultValue=false)]
         public string ViewName { get; set; }
 
         /// <summary>
@@ -196,8 +189,7 @@ namespace Cohesity.Model
                 (
                     this.Sids == input.Sids ||
                     this.Sids != null &&
-                    input.Sids != null &&
-                    this.Sids.SequenceEqual(input.Sids)
+                    this.Sids.Equals(input.Sids)
                 ) && 
                 (
                     this.UserName == input.UserName ||

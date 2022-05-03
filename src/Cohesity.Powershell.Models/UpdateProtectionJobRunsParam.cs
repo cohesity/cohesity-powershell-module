@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,14 +30,13 @@ namespace Cohesity.Model
         public UpdateProtectionJobRunsParam(List<UpdateProtectionJobRun> jobRuns = default(List<UpdateProtectionJobRun>))
         {
             this.JobRuns = jobRuns;
-            this.JobRuns = jobRuns;
         }
         
         /// <summary>
         /// Array of Job Runs.  Specifies the Job Runs to update with a new expiration times.
         /// </summary>
         /// <value>Array of Job Runs.  Specifies the Job Runs to update with a new expiration times.</value>
-        [DataMember(Name="jobRuns", EmitDefaultValue=true)]
+        [DataMember(Name="jobRuns", EmitDefaultValue=false)]
         public List<UpdateProtectionJobRun> JobRuns { get; set; }
 
         /// <summary>
@@ -76,8 +78,7 @@ namespace Cohesity.Model
                 (
                     this.JobRuns == input.JobRuns ||
                     this.JobRuns != null &&
-                    input.JobRuns != null &&
-                    this.JobRuns.SequenceEqual(input.JobRuns)
+                    this.JobRuns.Equals(input.JobRuns)
                 );
         }
 

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,30 +34,27 @@ namespace Cohesity.Model
             this.Inactive = inactive;
             this.MagnetoEntityId = magnetoEntityId;
             this.ProtectionJobs = protectionJobs;
-            this.Inactive = inactive;
-            this.MagnetoEntityId = magnetoEntityId;
-            this.ProtectionJobs = protectionJobs;
         }
         
         /// <summary>
         /// Specifies if this View is an inactive View that was created on this Remote Cluster to store the Snapshots created by replication. This inactive View cannot be NFS or SMB mounted.
         /// </summary>
         /// <value>Specifies if this View is an inactive View that was created on this Remote Cluster to store the Snapshots created by replication. This inactive View cannot be NFS or SMB mounted.</value>
-        [DataMember(Name="inactive", EmitDefaultValue=true)]
+        [DataMember(Name="inactive", EmitDefaultValue=false)]
         public bool? Inactive { get; set; }
 
         /// <summary>
         /// Specifies the id of the Protection Source that is using this View.
         /// </summary>
         /// <value>Specifies the id of the Protection Source that is using this View.</value>
-        [DataMember(Name="magnetoEntityId", EmitDefaultValue=true)]
+        [DataMember(Name="magnetoEntityId", EmitDefaultValue=false)]
         public long? MagnetoEntityId { get; set; }
 
         /// <summary>
         /// Array of Protection Jobs.  Specifies the Protection Jobs that are protecting the View.
         /// </summary>
         /// <value>Array of Protection Jobs.  Specifies the Protection Jobs that are protecting the View.</value>
-        [DataMember(Name="protectionJobs", EmitDefaultValue=true)]
+        [DataMember(Name="protectionJobs", EmitDefaultValue=false)]
         public List<ProtectionJobInfo> ProtectionJobs { get; set; }
 
         /// <summary>
@@ -106,8 +106,7 @@ namespace Cohesity.Model
                 (
                     this.ProtectionJobs == input.ProtectionJobs ||
                     this.ProtectionJobs != null &&
-                    input.ProtectionJobs != null &&
-                    this.ProtectionJobs.SequenceEqual(input.ProtectionJobs)
+                    this.ProtectionJobs.Equals(input.ProtectionJobs)
                 );
         }
 

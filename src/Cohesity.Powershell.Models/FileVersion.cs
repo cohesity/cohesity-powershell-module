@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,30 +34,27 @@ namespace Cohesity.Model
             this.ModifiedTimeUsecs = modifiedTimeUsecs;
             this.SizeBytes = sizeBytes;
             this.Snapshots = snapshots;
-            this.ModifiedTimeUsecs = modifiedTimeUsecs;
-            this.SizeBytes = sizeBytes;
-            this.Snapshots = snapshots;
         }
         
         /// <summary>
         /// Specifies the time when the file or folder was last modified. Specified as a Unix epoch Timestamp (in microseconds).
         /// </summary>
         /// <value>Specifies the time when the file or folder was last modified. Specified as a Unix epoch Timestamp (in microseconds).</value>
-        [DataMember(Name="modifiedTimeUsecs", EmitDefaultValue=true)]
+        [DataMember(Name="modifiedTimeUsecs", EmitDefaultValue=false)]
         public long? ModifiedTimeUsecs { get; set; }
 
         /// <summary>
         /// Specifies the size of the file or folder (in bytes) from the most recent snapshot.
         /// </summary>
         /// <value>Specifies the size of the file or folder (in bytes) from the most recent snapshot.</value>
-        [DataMember(Name="sizeBytes", EmitDefaultValue=true)]
+        [DataMember(Name="sizeBytes", EmitDefaultValue=false)]
         public long? SizeBytes { get; set; }
 
         /// <summary>
         /// Array of Snapshots.  Specifies the available snapshots of the file or folder. When a Job Run executes, it captures a snapshot of object (such as a VM) that contains the file or folder.
         /// </summary>
         /// <value>Array of Snapshots.  Specifies the available snapshots of the file or folder. When a Job Run executes, it captures a snapshot of object (such as a VM) that contains the file or folder.</value>
-        [DataMember(Name="snapshots", EmitDefaultValue=true)]
+        [DataMember(Name="snapshots", EmitDefaultValue=false)]
         public List<SnapshotAttempt> Snapshots { get; set; }
 
         /// <summary>
@@ -106,8 +106,7 @@ namespace Cohesity.Model
                 (
                     this.Snapshots == input.Snapshots ||
                     this.Snapshots != null &&
-                    input.Snapshots != null &&
-                    this.Snapshots.SequenceEqual(input.Snapshots)
+                    this.Snapshots.Equals(input.Snapshots)
                 );
         }
 

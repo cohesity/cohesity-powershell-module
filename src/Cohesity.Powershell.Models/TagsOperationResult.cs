@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,14 +30,13 @@ namespace Cohesity.Model
         public TagsOperationResult(List<DocError> docErrors = default(List<DocError>))
         {
             this.DocErrors = docErrors;
-            this.DocErrors = docErrors;
         }
         
         /// <summary>
         /// DocErrors are document errors incurred in yoda service while tagging.
         /// </summary>
         /// <value>DocErrors are document errors incurred in yoda service while tagging.</value>
-        [DataMember(Name="docErrors", EmitDefaultValue=true)]
+        [DataMember(Name="docErrors", EmitDefaultValue=false)]
         public List<DocError> DocErrors { get; set; }
 
         /// <summary>
@@ -76,8 +78,7 @@ namespace Cohesity.Model
                 (
                     this.DocErrors == input.DocErrors ||
                     this.DocErrors != null &&
-                    input.DocErrors != null &&
-                    this.DocErrors.SequenceEqual(input.DocErrors)
+                    this.DocErrors.Equals(input.DocErrors)
                 );
         }
 

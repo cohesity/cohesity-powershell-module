@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.SshKey = sshKey;
             this.Username = username;
-            this.SshKey = sshKey;
-            this.Username = username;
         }
         
         /// <summary>
         /// Specifies SSH key needed to be added to the username passed.
         /// </summary>
         /// <value>Specifies SSH key needed to be added to the username passed.</value>
-        [DataMember(Name="sshKey", EmitDefaultValue=true)]
+        [DataMember(Name="sshKey", EmitDefaultValue=false)]
         public string SshKey { get; set; }
 
         /// <summary>
         /// Specifies name of the user to add.
         /// </summary>
         /// <value>Specifies name of the user to add.</value>
-        [DataMember(Name="username", EmitDefaultValue=true)]
+        [DataMember(Name="username", EmitDefaultValue=false)]
         public string Username { get; set; }
 
         /// <summary>

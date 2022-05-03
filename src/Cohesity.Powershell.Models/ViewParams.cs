@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -34,11 +37,6 @@ namespace Cohesity.Model
         {
             this.ClientSubnetWhitelistVec = clientSubnetWhitelistVec;
             this.DisableNfsAccess = disableNfsAccess;
-            this.QosMappingVec = qosMappingVec;
-            this.ViewDescription = viewDescription;
-            this.WormLockExpiryUsecs = wormLockExpiryUsecs;
-            this.ClientSubnetWhitelistVec = clientSubnetWhitelistVec;
-            this.DisableNfsAccess = disableNfsAccess;
             this.ProtocolAccessInfo = protocolAccessInfo;
             this.QosMappingVec = qosMappingVec;
             this.StoragePolicyOverride = storagePolicyOverride;
@@ -50,14 +48,14 @@ namespace Cohesity.Model
         /// List of external client subnets from where requests will be received for the new view.
         /// </summary>
         /// <value>List of external client subnets from where requests will be received for the new view.</value>
-        [DataMember(Name="clientSubnetWhitelistVec", EmitDefaultValue=true)]
+        [DataMember(Name="clientSubnetWhitelistVec", EmitDefaultValue=false)]
         public List<ClusterConfigProtoSubnet> ClientSubnetWhitelistVec { get; set; }
 
         /// <summary>
         /// Whether to disable NFS access in the new view.
         /// </summary>
         /// <value>Whether to disable NFS access in the new view.</value>
-        [DataMember(Name="disableNfsAccess", EmitDefaultValue=true)]
+        [DataMember(Name="disableNfsAccess", EmitDefaultValue=false)]
         public bool? DisableNfsAccess { get; set; }
 
         /// <summary>
@@ -70,7 +68,7 @@ namespace Cohesity.Model
         /// The qos mappings (if any) for the new view.
         /// </summary>
         /// <value>The qos mappings (if any) for the new view.</value>
-        [DataMember(Name="qosMappingVec", EmitDefaultValue=true)]
+        [DataMember(Name="qosMappingVec", EmitDefaultValue=false)]
         public List<ClusterConfigProtoQoSMapping> QosMappingVec { get; set; }
 
         /// <summary>
@@ -83,14 +81,14 @@ namespace Cohesity.Model
         /// The description to be applied to the new view.
         /// </summary>
         /// <value>The description to be applied to the new view.</value>
-        [DataMember(Name="viewDescription", EmitDefaultValue=true)]
+        [DataMember(Name="viewDescription", EmitDefaultValue=false)]
         public string ViewDescription { get; set; }
 
         /// <summary>
         /// This value &#39;worm_lock_expiry_usecs&#39; if specified will be set on the cloned view. This guarantees that the cloned view cannot be removed till the specified timestamp has reached. NOTE: If this is specified the clone view will be marked as immutable.
         /// </summary>
         /// <value>This value &#39;worm_lock_expiry_usecs&#39; if specified will be set on the cloned view. This guarantees that the cloned view cannot be removed till the specified timestamp has reached. NOTE: If this is specified the clone view will be marked as immutable.</value>
-        [DataMember(Name="wormLockExpiryUsecs", EmitDefaultValue=true)]
+        [DataMember(Name="wormLockExpiryUsecs", EmitDefaultValue=false)]
         public long? WormLockExpiryUsecs { get; set; }
 
         /// <summary>
@@ -132,8 +130,7 @@ namespace Cohesity.Model
                 (
                     this.ClientSubnetWhitelistVec == input.ClientSubnetWhitelistVec ||
                     this.ClientSubnetWhitelistVec != null &&
-                    input.ClientSubnetWhitelistVec != null &&
-                    this.ClientSubnetWhitelistVec.SequenceEqual(input.ClientSubnetWhitelistVec)
+                    this.ClientSubnetWhitelistVec.Equals(input.ClientSubnetWhitelistVec)
                 ) && 
                 (
                     this.DisableNfsAccess == input.DisableNfsAccess ||
@@ -148,8 +145,7 @@ namespace Cohesity.Model
                 (
                     this.QosMappingVec == input.QosMappingVec ||
                     this.QosMappingVec != null &&
-                    input.QosMappingVec != null &&
-                    this.QosMappingVec.SequenceEqual(input.QosMappingVec)
+                    this.QosMappingVec.Equals(input.QosMappingVec)
                 ) && 
                 (
                     this.StoragePolicyOverride == input.StoragePolicyOverride ||

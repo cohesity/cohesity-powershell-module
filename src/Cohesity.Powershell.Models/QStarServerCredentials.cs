@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -39,62 +42,55 @@ namespace Cohesity.Model
             this.ShareType = shareType;
             this.UseHttps = useHttps;
             this.Username = username;
-            this.Host = host;
-            this.IntegralVolumeNames = integralVolumeNames;
-            this.Password = password;
-            this.Port = port;
-            this.ShareType = shareType;
-            this.UseHttps = useHttps;
-            this.Username = username;
         }
         
         /// <summary>
         /// Specifies the IP address or DNS name of the server where QStar service is running.
         /// </summary>
         /// <value>Specifies the IP address or DNS name of the server where QStar service is running.</value>
-        [DataMember(Name="host", EmitDefaultValue=true)]
+        [DataMember(Name="host", EmitDefaultValue=false)]
         public string Host { get; set; }
 
         /// <summary>
         /// Array of Integral Volume Names.  Specifies a list of existing Integral Volume names available on the QStar server for storing objects.
         /// </summary>
         /// <value>Array of Integral Volume Names.  Specifies a list of existing Integral Volume names available on the QStar server for storing objects.</value>
-        [DataMember(Name="integralVolumeNames", EmitDefaultValue=true)]
+        [DataMember(Name="integralVolumeNames", EmitDefaultValue=false)]
         public List<string> IntegralVolumeNames { get; set; }
 
         /// <summary>
         /// Specifies the password used to access the QStar host.
         /// </summary>
         /// <value>Specifies the password used to access the QStar host.</value>
-        [DataMember(Name="password", EmitDefaultValue=true)]
+        [DataMember(Name="password", EmitDefaultValue=false)]
         public string Password { get; set; }
 
         /// <summary>
         /// Specifies the listening port where QStar WEB API service is running.
         /// </summary>
         /// <value>Specifies the listening port where QStar WEB API service is running.</value>
-        [DataMember(Name="port", EmitDefaultValue=true)]
+        [DataMember(Name="port", EmitDefaultValue=false)]
         public int? Port { get; set; }
 
         /// <summary>
         /// Specifies the sharing protocol type used by QStar to mount the integral volume. See the Cohesity online help for the recommended protocol for your environment.
         /// </summary>
         /// <value>Specifies the sharing protocol type used by QStar to mount the integral volume. See the Cohesity online help for the recommended protocol for your environment.</value>
-        [DataMember(Name="shareType", EmitDefaultValue=true)]
+        [DataMember(Name="shareType", EmitDefaultValue=false)]
         public string ShareType { get; set; }
 
         /// <summary>
         /// Specifies whether to use http or https to connect to the service. If true, a secure connection (https) is used.
         /// </summary>
         /// <value>Specifies whether to use http or https to connect to the service. If true, a secure connection (https) is used.</value>
-        [DataMember(Name="useHttps", EmitDefaultValue=true)]
+        [DataMember(Name="useHttps", EmitDefaultValue=false)]
         public bool? UseHttps { get; set; }
 
         /// <summary>
         /// Specifies the account name used to access the QStar host.
         /// </summary>
         /// <value>Specifies the account name used to access the QStar host.</value>
-        [DataMember(Name="username", EmitDefaultValue=true)]
+        [DataMember(Name="username", EmitDefaultValue=false)]
         public string Username { get; set; }
 
         /// <summary>
@@ -141,8 +137,7 @@ namespace Cohesity.Model
                 (
                     this.IntegralVolumeNames == input.IntegralVolumeNames ||
                     this.IntegralVolumeNames != null &&
-                    input.IntegralVolumeNames != null &&
-                    this.IntegralVolumeNames.SequenceEqual(input.IntegralVolumeNames)
+                    this.IntegralVolumeNames.Equals(input.IntegralVolumeNames)
                 ) && 
                 (
                     this.Password == input.Password ||

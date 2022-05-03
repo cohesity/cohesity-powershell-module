@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -12,6 +13,8 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
+
+
 namespace Cohesity.Model
 {
     /// <summary>
@@ -23,18 +26,26 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="ClusterConfigProtoStoragePolicyOverride" /> class.
         /// </summary>
+        /// <param name="disableDedup">If the following id set to true, we would disable dedup for writes made in this view irrespective of the view box&#39;s storage policy..</param>
         /// <param name="disableInlineDedupAndCompression">If this is set to true, we will not do inline dedup and compression even if deduplicate_compress_delay_secs is set to 0 in the view box&#39;s storage policy..</param>
-        public ClusterConfigProtoStoragePolicyOverride(bool? disableInlineDedupAndCompression = default(bool?))
+        public ClusterConfigProtoStoragePolicyOverride(bool? disableDedup = default(bool?), bool? disableInlineDedupAndCompression = default(bool?))
         {
-            this.DisableInlineDedupAndCompression = disableInlineDedupAndCompression;
+            this.DisableDedup = disableDedup;
             this.DisableInlineDedupAndCompression = disableInlineDedupAndCompression;
         }
         
         /// <summary>
+        /// If the following id set to true, we would disable dedup for writes made in this view irrespective of the view box&#39;s storage policy.
+        /// </summary>
+        /// <value>If the following id set to true, we would disable dedup for writes made in this view irrespective of the view box&#39;s storage policy.</value>
+        [DataMember(Name="disableDedup", EmitDefaultValue=false)]
+        public bool? DisableDedup { get; set; }
+
+        /// <summary>
         /// If this is set to true, we will not do inline dedup and compression even if deduplicate_compress_delay_secs is set to 0 in the view box&#39;s storage policy.
         /// </summary>
         /// <value>If this is set to true, we will not do inline dedup and compression even if deduplicate_compress_delay_secs is set to 0 in the view box&#39;s storage policy.</value>
-        [DataMember(Name="disableInlineDedupAndCompression", EmitDefaultValue=true)]
+        [DataMember(Name="disableInlineDedupAndCompression", EmitDefaultValue=false)]
         public bool? DisableInlineDedupAndCompression { get; set; }
 
         /// <summary>
@@ -74,6 +85,11 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.DisableDedup == input.DisableDedup ||
+                    (this.DisableDedup != null &&
+                    this.DisableDedup.Equals(input.DisableDedup))
+                ) && 
+                (
                     this.DisableInlineDedupAndCompression == input.DisableInlineDedupAndCompression ||
                     (this.DisableInlineDedupAndCompression != null &&
                     this.DisableInlineDedupAndCompression.Equals(input.DisableInlineDedupAndCompression))
@@ -89,6 +105,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.DisableDedup != null)
+                    hashCode = hashCode * 59 + this.DisableDedup.GetHashCode();
                 if (this.DisableInlineDedupAndCompression != null)
                     hashCode = hashCode * 59 + this.DisableInlineDedupAndCompression.GetHashCode();
                 return hashCode;

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -40,13 +43,6 @@ namespace Cohesity.Model
             this.OracleUsageBytes = oracleUsageBytes;
             this.QstarUsageBytes = qstarUsageBytes;
             this.S3cUsageBytes = s3cUsageBytes;
-            this.AwsUsageBytes = awsUsageBytes;
-            this.AzureUsageBytes = azureUsageBytes;
-            this.GcpUsageBytes = gcpUsageBytes;
-            this.NasUsageBytes = nasUsageBytes;
-            this.OracleUsageBytes = oracleUsageBytes;
-            this.QstarUsageBytes = qstarUsageBytes;
-            this.S3cUsageBytes = s3cUsageBytes;
             this.VaultStatsList = vaultStatsList;
         }
         
@@ -54,49 +50,49 @@ namespace Cohesity.Model
         /// Specifies the usage on AWS vaults.
         /// </summary>
         /// <value>Specifies the usage on AWS vaults.</value>
-        [DataMember(Name="awsUsageBytes", EmitDefaultValue=true)]
+        [DataMember(Name="awsUsageBytes", EmitDefaultValue=false)]
         public long? AwsUsageBytes { get; set; }
 
         /// <summary>
         /// Specifies the usage on Azure vaults.
         /// </summary>
         /// <value>Specifies the usage on Azure vaults.</value>
-        [DataMember(Name="azureUsageBytes", EmitDefaultValue=true)]
+        [DataMember(Name="azureUsageBytes", EmitDefaultValue=false)]
         public long? AzureUsageBytes { get; set; }
 
         /// <summary>
         /// Specifies the usage on GCP vaults.
         /// </summary>
         /// <value>Specifies the usage on GCP vaults.</value>
-        [DataMember(Name="gcpUsageBytes", EmitDefaultValue=true)]
+        [DataMember(Name="gcpUsageBytes", EmitDefaultValue=false)]
         public long? GcpUsageBytes { get; set; }
 
         /// <summary>
         /// Specifies the usage on NAS vaults.
         /// </summary>
         /// <value>Specifies the usage on NAS vaults.</value>
-        [DataMember(Name="nasUsageBytes", EmitDefaultValue=true)]
+        [DataMember(Name="nasUsageBytes", EmitDefaultValue=false)]
         public long? NasUsageBytes { get; set; }
 
         /// <summary>
         /// Specifies the usage on Oracle vaults.
         /// </summary>
         /// <value>Specifies the usage on Oracle vaults.</value>
-        [DataMember(Name="oracleUsageBytes", EmitDefaultValue=true)]
+        [DataMember(Name="oracleUsageBytes", EmitDefaultValue=false)]
         public long? OracleUsageBytes { get; set; }
 
         /// <summary>
         /// Specifies the usage on QStar Tape vaults.
         /// </summary>
         /// <value>Specifies the usage on QStar Tape vaults.</value>
-        [DataMember(Name="qstarUsageBytes", EmitDefaultValue=true)]
+        [DataMember(Name="qstarUsageBytes", EmitDefaultValue=false)]
         public long? QstarUsageBytes { get; set; }
 
         /// <summary>
         /// Specifies the usage on S3 Compatible vaults.
         /// </summary>
         /// <value>Specifies the usage on S3 Compatible vaults.</value>
-        [DataMember(Name="s3cUsageBytes", EmitDefaultValue=true)]
+        [DataMember(Name="s3cUsageBytes", EmitDefaultValue=false)]
         public long? S3cUsageBytes { get; set; }
 
         /// <summary>
@@ -180,8 +176,7 @@ namespace Cohesity.Model
                 (
                     this.VaultStatsList == input.VaultStatsList ||
                     this.VaultStatsList != null &&
-                    input.VaultStatsList != null &&
-                    this.VaultStatsList.SequenceEqual(input.VaultStatsList)
+                    this.VaultStatsList.Equals(input.VaultStatsList)
                 );
         }
 

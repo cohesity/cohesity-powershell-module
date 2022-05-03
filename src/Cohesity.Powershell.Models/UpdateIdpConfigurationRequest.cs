@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -43,78 +46,69 @@ namespace Cohesity.Model
             this.SamlAttributeName = samlAttributeName;
             this.SignRequest = signRequest;
             this.SsoUrl = ssoUrl;
-            this.AllowLocalAuthentication = allowLocalAuthentication;
-            this.Certificate = certificate;
-            this.CertificateFilename = certificateFilename;
-            this.Enable = enable;
-            this.IssuerId = issuerId;
-            this.Roles = roles;
-            this.SamlAttributeName = samlAttributeName;
-            this.SignRequest = signRequest;
-            this.SsoUrl = ssoUrl;
         }
         
         /// <summary>
         /// Specifies whether to allow local authentication. When IdP is configured, only IdP users are allowed to login to the Cluster. Local login is disabled except for users with admin role. If this flag is set to true, local (non-IdP) logins are allowed for all local and AD users. Local or AD users with admin role can login always independent of this flag&#39;s setting.
         /// </summary>
         /// <value>Specifies whether to allow local authentication. When IdP is configured, only IdP users are allowed to login to the Cluster. Local login is disabled except for users with admin role. If this flag is set to true, local (non-IdP) logins are allowed for all local and AD users. Local or AD users with admin role can login always independent of this flag&#39;s setting.</value>
-        [DataMember(Name="allowLocalAuthentication", EmitDefaultValue=true)]
+        [DataMember(Name="allowLocalAuthentication", EmitDefaultValue=false)]
         public bool? AllowLocalAuthentication { get; set; }
 
         /// <summary>
         /// Specifies the certificate generated for the app by the IdP service when the Cluster is registered as an app. This is required to verify the SAML response.
         /// </summary>
         /// <value>Specifies the certificate generated for the app by the IdP service when the Cluster is registered as an app. This is required to verify the SAML response.</value>
-        [DataMember(Name="certificate", EmitDefaultValue=true)]
+        [DataMember(Name="certificate", EmitDefaultValue=false)]
         public string Certificate { get; set; }
 
         /// <summary>
         /// Specifies the filename used to upload the certificate.
         /// </summary>
         /// <value>Specifies the filename used to upload the certificate.</value>
-        [DataMember(Name="certificateFilename", EmitDefaultValue=true)]
+        [DataMember(Name="certificateFilename", EmitDefaultValue=false)]
         public string CertificateFilename { get; set; }
 
         /// <summary>
         /// Specifies a flag to enable or disable this IdP service. When it is set to true, IdP service is enabled. When it is set to false, IdP service is disabled. When an IdP service is created, it is set to true.
         /// </summary>
         /// <value>Specifies a flag to enable or disable this IdP service. When it is set to true, IdP service is enabled. When it is set to false, IdP service is disabled. When an IdP service is created, it is set to true.</value>
-        [DataMember(Name="enable", EmitDefaultValue=true)]
+        [DataMember(Name="enable", EmitDefaultValue=false)]
         public bool? Enable { get; set; }
 
         /// <summary>
         /// Specifies the IdP provided Issuer ID for the app. For example, exkh1aov1nhHrgFhN0h7.
         /// </summary>
         /// <value>Specifies the IdP provided Issuer ID for the app. For example, exkh1aov1nhHrgFhN0h7.</value>
-        [DataMember(Name="issuerId", EmitDefaultValue=true)]
+        [DataMember(Name="issuerId", EmitDefaultValue=false)]
         public string IssuerId { get; set; }
 
         /// <summary>
         /// Specifies a list of roles assigned to an IdP user if samlAttributeName is not given.
         /// </summary>
         /// <value>Specifies a list of roles assigned to an IdP user if samlAttributeName is not given.</value>
-        [DataMember(Name="roles", EmitDefaultValue=true)]
+        [DataMember(Name="roles", EmitDefaultValue=false)]
         public List<string> Roles { get; set; }
 
         /// <summary>
         /// Specifies the SAML attribute name that contains a comma separated list of Cluster roles. Either this field or roles must be set. This field takes higher precedence than the roles field.
         /// </summary>
         /// <value>Specifies the SAML attribute name that contains a comma separated list of Cluster roles. Either this field or roles must be set. This field takes higher precedence than the roles field.</value>
-        [DataMember(Name="samlAttributeName", EmitDefaultValue=true)]
+        [DataMember(Name="samlAttributeName", EmitDefaultValue=false)]
         public string SamlAttributeName { get; set; }
 
         /// <summary>
         /// Specifies whether to sign the SAML request or not. When it is set to true, SAML request will be signed. When it is set to false, SAML request is not signed. Default is false. Set this flag to true if the IdP site is configured to expect the SAML request from the Cluster signed. If this is set to true, users must get the Cluster&#39;s certificate and upload it on the IdP site.
         /// </summary>
         /// <value>Specifies whether to sign the SAML request or not. When it is set to true, SAML request will be signed. When it is set to false, SAML request is not signed. Default is false. Set this flag to true if the IdP site is configured to expect the SAML request from the Cluster signed. If this is set to true, users must get the Cluster&#39;s certificate and upload it on the IdP site.</value>
-        [DataMember(Name="signRequest", EmitDefaultValue=true)]
+        [DataMember(Name="signRequest", EmitDefaultValue=false)]
         public bool? SignRequest { get; set; }
 
         /// <summary>
         /// Specifies the SSO URL of the IdP service for the customer. This is the URL given by IdP when the customer created an account. Customers may use this for several clusters that are registered with on IdP site. For example, dev-332534.oktapreview.com
         /// </summary>
         /// <value>Specifies the SSO URL of the IdP service for the customer. This is the URL given by IdP when the customer created an account. Customers may use this for several clusters that are registered with on IdP site. For example, dev-332534.oktapreview.com</value>
-        [DataMember(Name="ssoUrl", EmitDefaultValue=true)]
+        [DataMember(Name="ssoUrl", EmitDefaultValue=false)]
         public string SsoUrl { get; set; }
 
         /// <summary>
@@ -181,8 +175,7 @@ namespace Cohesity.Model
                 (
                     this.Roles == input.Roles ||
                     this.Roles != null &&
-                    input.Roles != null &&
-                    this.Roles.SequenceEqual(input.Roles)
+                    this.Roles.Equals(input.Roles)
                 ) && 
                 (
                     this.SamlAttributeName == input.SamlAttributeName ||

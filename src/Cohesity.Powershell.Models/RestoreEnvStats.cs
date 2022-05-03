@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -225,7 +228,7 @@ namespace Cohesity.Model
         /// Specifies the environment.
         /// </summary>
         /// <value>Specifies the environment.</value>
-        [DataMember(Name="environment", EmitDefaultValue=true)]
+        [DataMember(Name="environment", EmitDefaultValue=false)]
         public EnvironmentEnum? Environment { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="RestoreEnvStats" /> class.
@@ -238,21 +241,19 @@ namespace Cohesity.Model
             this.Environment = environment;
             this.ObjectCount = objectCount;
             this.TotalBytes = totalBytes;
-            this.Environment = environment;
-            this.ObjectCount = objectCount;
-            this.TotalBytes = totalBytes;
         }
         
+
         /// <summary>
         /// Gets or Sets ObjectCount
         /// </summary>
-        [DataMember(Name="objectCount", EmitDefaultValue=true)]
+        [DataMember(Name="objectCount", EmitDefaultValue=false)]
         public long? ObjectCount { get; set; }
 
         /// <summary>
         /// Gets or Sets TotalBytes
         /// </summary>
-        [DataMember(Name="totalBytes", EmitDefaultValue=true)]
+        [DataMember(Name="totalBytes", EmitDefaultValue=false)]
         public long? TotalBytes { get; set; }
 
         /// <summary>
@@ -293,7 +294,8 @@ namespace Cohesity.Model
             return 
                 (
                     this.Environment == input.Environment ||
-                    this.Environment.Equals(input.Environment)
+                    (this.Environment != null &&
+                    this.Environment.Equals(input.Environment))
                 ) && 
                 (
                     this.ObjectCount == input.ObjectCount ||
@@ -316,7 +318,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                hashCode = hashCode * 59 + this.Environment.GetHashCode();
+                if (this.Environment != null)
+                    hashCode = hashCode * 59 + this.Environment.GetHashCode();
                 if (this.ObjectCount != null)
                     hashCode = hashCode * 59 + this.ObjectCount.GetHashCode();
                 if (this.TotalBytes != null)

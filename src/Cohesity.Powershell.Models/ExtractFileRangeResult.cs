@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -28,12 +31,8 @@ namespace Cohesity.Model
         /// <param name="error">error.</param>
         /// <param name="fileLength">The total length of the file. This field would be set provided no error had occurred (indicated by error field above)..</param>
         /// <param name="startOffset">The offset from which data was read..</param>
-        public ExtractFileRangeResult(List<int> data = default(List<int>), bool? eof = default(bool?), ErrorProto error = default(ErrorProto), long? fileLength = default(long?), long? startOffset = default(long?))
+        public ExtractFileRangeResult(List<int?> data = default(List<int?>), bool? eof = default(bool?), ErrorProto error = default(ErrorProto), long? fileLength = default(long?), long? startOffset = default(long?))
         {
-            this.Data = data;
-            this.Eof = eof;
-            this.FileLength = fileLength;
-            this.StartOffset = startOffset;
             this.Data = data;
             this.Eof = eof;
             this.Error = error;
@@ -45,14 +44,14 @@ namespace Cohesity.Model
         /// The actual data bytes.
         /// </summary>
         /// <value>The actual data bytes.</value>
-        [DataMember(Name="data", EmitDefaultValue=true)]
-        public List<int> Data { get; set; }
+        [DataMember(Name="data", EmitDefaultValue=false)]
+        public List<int?> Data { get; set; }
 
         /// <summary>
         /// Will be true if start_offset &gt; file length or EOF is reached. This is an alternative to using file_length to determine when entire file is read. Used when fetching from a view.
         /// </summary>
         /// <value>Will be true if start_offset &gt; file length or EOF is reached. This is an alternative to using file_length to determine when entire file is read. Used when fetching from a view.</value>
-        [DataMember(Name="eof", EmitDefaultValue=true)]
+        [DataMember(Name="eof", EmitDefaultValue=false)]
         public bool? Eof { get; set; }
 
         /// <summary>
@@ -65,14 +64,14 @@ namespace Cohesity.Model
         /// The total length of the file. This field would be set provided no error had occurred (indicated by error field above).
         /// </summary>
         /// <value>The total length of the file. This field would be set provided no error had occurred (indicated by error field above).</value>
-        [DataMember(Name="fileLength", EmitDefaultValue=true)]
+        [DataMember(Name="fileLength", EmitDefaultValue=false)]
         public long? FileLength { get; set; }
 
         /// <summary>
         /// The offset from which data was read.
         /// </summary>
         /// <value>The offset from which data was read.</value>
-        [DataMember(Name="startOffset", EmitDefaultValue=true)]
+        [DataMember(Name="startOffset", EmitDefaultValue=false)]
         public long? StartOffset { get; set; }
 
         /// <summary>
@@ -114,8 +113,7 @@ namespace Cohesity.Model
                 (
                     this.Data == input.Data ||
                     this.Data != null &&
-                    input.Data != null &&
-                    this.Data.SequenceEqual(input.Data)
+                    this.Data.Equals(input.Data)
                 ) && 
                 (
                     this.Eof == input.Eof ||

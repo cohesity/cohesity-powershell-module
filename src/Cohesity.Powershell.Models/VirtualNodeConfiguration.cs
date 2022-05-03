@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,30 +34,27 @@ namespace Cohesity.Model
             this.NodeId = nodeId;
             this.NodeIp = nodeIp;
             this.UseAsComputeNode = useAsComputeNode;
-            this.NodeId = nodeId;
-            this.NodeIp = nodeIp;
-            this.UseAsComputeNode = useAsComputeNode;
         }
         
         /// <summary>
         /// Specifies the Node ID for this node.
         /// </summary>
         /// <value>Specifies the Node ID for this node.</value>
-        [DataMember(Name="nodeId", EmitDefaultValue=true)]
+        [DataMember(Name="nodeId", EmitDefaultValue=false)]
         public long? NodeId { get; set; }
 
         /// <summary>
         /// Specifies the Node IP address for this node.
         /// </summary>
         /// <value>Specifies the Node IP address for this node.</value>
-        [DataMember(Name="nodeIp", EmitDefaultValue=true)]
+        [DataMember(Name="nodeIp", EmitDefaultValue=false)]
         public string NodeIp { get; set; }
 
         /// <summary>
         /// Specifies whether to use the Node for compute only.
         /// </summary>
         /// <value>Specifies whether to use the Node for compute only.</value>
-        [DataMember(Name="useAsComputeNode", EmitDefaultValue=true)]
+        [DataMember(Name="useAsComputeNode", EmitDefaultValue=false)]
         public bool? UseAsComputeNode { get; set; }
 
         /// <summary>

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,30 +34,27 @@ namespace Cohesity.Model
             this.MountPoint = mountPoint;
             this.ViewName = viewName;
             this.WhitelistRestoreViewForAll = whitelistRestoreViewForAll;
-            this.MountPoint = mountPoint;
-            this.ViewName = viewName;
-            this.WhitelistRestoreViewForAll = whitelistRestoreViewForAll;
         }
         
         /// <summary>
         /// The path to access the SMB share.
         /// </summary>
         /// <value>The path to access the SMB share.</value>
-        [DataMember(Name="mountPoint", EmitDefaultValue=true)]
+        [DataMember(Name="mountPoint", EmitDefaultValue=false)]
         public string MountPoint { get; set; }
 
         /// <summary>
         /// View to which the files of an Exchange database have to be cloned.
         /// </summary>
         /// <value>View to which the files of an Exchange database have to be cloned.</value>
-        [DataMember(Name="viewName", EmitDefaultValue=true)]
+        [DataMember(Name="viewName", EmitDefaultValue=false)]
         public string ViewName { get; set; }
 
         /// <summary>
         /// If set to true then when restore view is cloned then white-list all IPs not just the agent IP.
         /// </summary>
         /// <value>If set to true then when restore view is cloned then white-list all IPs not just the agent IP.</value>
-        [DataMember(Name="whitelistRestoreViewForAll", EmitDefaultValue=true)]
+        [DataMember(Name="whitelistRestoreViewForAll", EmitDefaultValue=false)]
         public bool? WhitelistRestoreViewForAll { get; set; }
 
         /// <summary>

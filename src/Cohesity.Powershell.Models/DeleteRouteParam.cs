@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -26,36 +29,42 @@ namespace Cohesity.Model
         /// <param name="destNetwork">Destination network.  Specifies the destination network of the Static Route. overrideDescription: true.</param>
         /// <param name="ifName">Specifies the network interfaces name to use for communicating with the destination network..</param>
         /// <param name="ifaceGroupName">Specifies the network interfaces group or vlan interface group to use for communicating with the destination network..</param>
-        public DeleteRouteParam(string destNetwork = default(string), string ifName = default(string), string ifaceGroupName = default(string))
+        /// <param name="nodeGroupName">Specifies the network node group to represent a group of nodes..</param>
+        public DeleteRouteParam(string destNetwork = default(string), string ifName = default(string), string ifaceGroupName = default(string), string nodeGroupName = default(string))
         {
             this.DestNetwork = destNetwork;
             this.IfName = ifName;
             this.IfaceGroupName = ifaceGroupName;
-            this.DestNetwork = destNetwork;
-            this.IfName = ifName;
-            this.IfaceGroupName = ifaceGroupName;
+            this.NodeGroupName = nodeGroupName;
         }
         
         /// <summary>
         /// Destination network.  Specifies the destination network of the Static Route. overrideDescription: true
         /// </summary>
         /// <value>Destination network.  Specifies the destination network of the Static Route. overrideDescription: true</value>
-        [DataMember(Name="destNetwork", EmitDefaultValue=true)]
+        [DataMember(Name="destNetwork", EmitDefaultValue=false)]
         public string DestNetwork { get; set; }
 
         /// <summary>
         /// Specifies the network interfaces name to use for communicating with the destination network.
         /// </summary>
         /// <value>Specifies the network interfaces name to use for communicating with the destination network.</value>
-        [DataMember(Name="ifName", EmitDefaultValue=true)]
+        [DataMember(Name="ifName", EmitDefaultValue=false)]
         public string IfName { get; set; }
 
         /// <summary>
         /// Specifies the network interfaces group or vlan interface group to use for communicating with the destination network.
         /// </summary>
         /// <value>Specifies the network interfaces group or vlan interface group to use for communicating with the destination network.</value>
-        [DataMember(Name="ifaceGroupName", EmitDefaultValue=true)]
+        [DataMember(Name="ifaceGroupName", EmitDefaultValue=false)]
         public string IfaceGroupName { get; set; }
+
+        /// <summary>
+        /// Specifies the network node group to represent a group of nodes.
+        /// </summary>
+        /// <value>Specifies the network node group to represent a group of nodes.</value>
+        [DataMember(Name="nodeGroupName", EmitDefaultValue=false)]
+        public string NodeGroupName { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -107,6 +116,11 @@ namespace Cohesity.Model
                     this.IfaceGroupName == input.IfaceGroupName ||
                     (this.IfaceGroupName != null &&
                     this.IfaceGroupName.Equals(input.IfaceGroupName))
+                ) && 
+                (
+                    this.NodeGroupName == input.NodeGroupName ||
+                    (this.NodeGroupName != null &&
+                    this.NodeGroupName.Equals(input.NodeGroupName))
                 );
         }
 
@@ -125,6 +139,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.IfName.GetHashCode();
                 if (this.IfaceGroupName != null)
                     hashCode = hashCode * 59 + this.IfaceGroupName.GetHashCode();
+                if (this.NodeGroupName != null)
+                    hashCode = hashCode * 59 + this.NodeGroupName.GetHashCode();
                 return hashCode;
             }
         }

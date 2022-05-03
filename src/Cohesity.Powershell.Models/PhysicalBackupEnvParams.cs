@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -28,7 +31,6 @@ namespace Cohesity.Model
         public PhysicalBackupEnvParams(bool? enableIncrementalBackupAfterRestart = default(bool?), FilteringPolicyProto filteringPolicy = default(FilteringPolicyProto))
         {
             this.EnableIncrementalBackupAfterRestart = enableIncrementalBackupAfterRestart;
-            this.EnableIncrementalBackupAfterRestart = enableIncrementalBackupAfterRestart;
             this.FilteringPolicy = filteringPolicy;
         }
         
@@ -36,7 +38,7 @@ namespace Cohesity.Model
         /// If this is set to true, then incremental backup will be performed after the server restarts, otherwise a full-backup will be done. NOTE: This is applicable to windows host environments.
         /// </summary>
         /// <value>If this is set to true, then incremental backup will be performed after the server restarts, otherwise a full-backup will be done. NOTE: This is applicable to windows host environments.</value>
-        [DataMember(Name="enableIncrementalBackupAfterRestart", EmitDefaultValue=true)]
+        [DataMember(Name="enableIncrementalBackupAfterRestart", EmitDefaultValue=false)]
         public bool? EnableIncrementalBackupAfterRestart { get; set; }
 
         /// <summary>

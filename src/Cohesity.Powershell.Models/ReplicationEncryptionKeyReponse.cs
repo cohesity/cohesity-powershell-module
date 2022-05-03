@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,14 +30,13 @@ namespace Cohesity.Model
         public ReplicationEncryptionKeyReponse(string encryptionKey = default(string))
         {
             this.EncryptionKey = encryptionKey;
-            this.EncryptionKey = encryptionKey;
         }
         
         /// <summary>
         /// Specifies a replication encryption key.
         /// </summary>
         /// <value>Specifies a replication encryption key.</value>
-        [DataMember(Name="encryptionKey", EmitDefaultValue=true)]
+        [DataMember(Name="encryptionKey", EmitDefaultValue=false)]
         public string EncryptionKey { get; set; }
 
         /// <summary>

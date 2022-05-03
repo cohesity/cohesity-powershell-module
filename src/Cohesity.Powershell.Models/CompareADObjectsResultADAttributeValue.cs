@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.ValueFlags = valueFlags;
             this.ValueVec = valueVec;
-            this.ValueFlags = valueFlags;
-            this.ValueVec = valueVec;
         }
         
         /// <summary>
         /// Object result flags of type ADAttributeValueFlags.
         /// </summary>
         /// <value>Object result flags of type ADAttributeValueFlags.</value>
-        [DataMember(Name="valueFlags", EmitDefaultValue=true)]
+        [DataMember(Name="valueFlags", EmitDefaultValue=false)]
         public int? ValueFlags { get; set; }
 
         /// <summary>
         /// String representation of attribute value. For single valued property, only one value will be present here. For multi-valued properties such as group membership, this field will contain values that are in same order as contained in AD. Each AD attribute value will be converted to string. If this property is not set, then the property has null value.
         /// </summary>
         /// <value>String representation of attribute value. For single valued property, only one value will be present here. For multi-valued properties such as group membership, this field will contain values that are in same order as contained in AD. Each AD attribute value will be converted to string. If this property is not set, then the property has null value.</value>
-        [DataMember(Name="valueVec", EmitDefaultValue=true)]
+        [DataMember(Name="valueVec", EmitDefaultValue=false)]
         public List<string> ValueVec { get; set; }
 
         /// <summary>
@@ -91,8 +92,7 @@ namespace Cohesity.Model
                 (
                     this.ValueVec == input.ValueVec ||
                     this.ValueVec != null &&
-                    input.ValueVec != null &&
-                    this.ValueVec.SequenceEqual(input.ValueVec)
+                    this.ValueVec.Equals(input.ValueVec)
                 );
         }
 

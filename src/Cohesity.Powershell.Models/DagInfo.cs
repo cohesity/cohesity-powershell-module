@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -30,9 +33,6 @@ namespace Cohesity.Model
         public DagInfo(List<DagApplicationServerInfo> dagApplicationServerInfoList = default(List<DagApplicationServerInfo>), ExchangeDAGProtectionPreference exchangeDagProtectionPreference = default(ExchangeDAGProtectionPreference), string guid = default(string), string name = default(string))
         {
             this.DagApplicationServerInfoList = dagApplicationServerInfoList;
-            this.Guid = guid;
-            this.Name = name;
-            this.DagApplicationServerInfoList = dagApplicationServerInfoList;
             this.ExchangeDagProtectionPreference = exchangeDagProtectionPreference;
             this.Guid = guid;
             this.Name = name;
@@ -42,7 +42,7 @@ namespace Cohesity.Model
         /// Specifies the status of all the Exchange Application Servers that are part of this DAG.
         /// </summary>
         /// <value>Specifies the status of all the Exchange Application Servers that are part of this DAG.</value>
-        [DataMember(Name="dagApplicationServerInfoList", EmitDefaultValue=true)]
+        [DataMember(Name="dagApplicationServerInfoList", EmitDefaultValue=false)]
         public List<DagApplicationServerInfo> DagApplicationServerInfoList { get; set; }
 
         /// <summary>
@@ -55,14 +55,14 @@ namespace Cohesity.Model
         /// Specifies Unique GUID for the DAG.
         /// </summary>
         /// <value>Specifies Unique GUID for the DAG.</value>
-        [DataMember(Name="guid", EmitDefaultValue=true)]
+        [DataMember(Name="guid", EmitDefaultValue=false)]
         public string Guid { get; set; }
 
         /// <summary>
         /// Specifies display name of the DAG.
         /// </summary>
         /// <value>Specifies display name of the DAG.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
 
         /// <summary>
@@ -104,8 +104,7 @@ namespace Cohesity.Model
                 (
                     this.DagApplicationServerInfoList == input.DagApplicationServerInfoList ||
                     this.DagApplicationServerInfoList != null &&
-                    input.DagApplicationServerInfoList != null &&
-                    this.DagApplicationServerInfoList.SequenceEqual(input.DagApplicationServerInfoList)
+                    this.DagApplicationServerInfoList.Equals(input.DagApplicationServerInfoList)
                 ) && 
                 (
                     this.ExchangeDagProtectionPreference == input.ExchangeDagProtectionPreference ||

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,12 +30,8 @@ namespace Cohesity.Model
         /// <param name="jobUid">Specifies a unique universal id for the Job..</param>
         /// <param name="runStartTimeUsecs">Specifies the start time of the Job Run to update. The start time is specified as a Unix epoch Timestamp (in microseconds). This uniquely identifies a snapshot. This parameter is required..</param>
         /// <param name="sourceIds">Ids of the Protection Sources. If this is specified, retention time will only be updated for the sources specified..</param>
-        public UpdateProtectionJobRun(List<RunJobSnapshotTarget> copyRunTargets = default(List<RunJobSnapshotTarget>), UniversalId jobUid = default(UniversalId), long? runStartTimeUsecs = default(long?), List<long> sourceIds = default(List<long>))
+        public UpdateProtectionJobRun(List<RunJobSnapshotTarget> copyRunTargets = default(List<RunJobSnapshotTarget>), UniversalId jobUid = default(UniversalId), long? runStartTimeUsecs = default(long?), List<long?> sourceIds = default(List<long?>))
         {
-            this.CopyRunTargets = copyRunTargets;
-            this.JobUid = jobUid;
-            this.RunStartTimeUsecs = runStartTimeUsecs;
-            this.SourceIds = sourceIds;
             this.CopyRunTargets = copyRunTargets;
             this.JobUid = jobUid;
             this.RunStartTimeUsecs = runStartTimeUsecs;
@@ -43,29 +42,29 @@ namespace Cohesity.Model
         /// Specifies the retention for archival, replication or extended local retention.
         /// </summary>
         /// <value>Specifies the retention for archival, replication or extended local retention.</value>
-        [DataMember(Name="copyRunTargets", EmitDefaultValue=true)]
+        [DataMember(Name="copyRunTargets", EmitDefaultValue=false)]
         public List<RunJobSnapshotTarget> CopyRunTargets { get; set; }
 
         /// <summary>
         /// Specifies a unique universal id for the Job.
         /// </summary>
         /// <value>Specifies a unique universal id for the Job.</value>
-        [DataMember(Name="jobUid", EmitDefaultValue=true)]
+        [DataMember(Name="jobUid", EmitDefaultValue=false)]
         public UniversalId JobUid { get; set; }
 
         /// <summary>
         /// Specifies the start time of the Job Run to update. The start time is specified as a Unix epoch Timestamp (in microseconds). This uniquely identifies a snapshot. This parameter is required.
         /// </summary>
         /// <value>Specifies the start time of the Job Run to update. The start time is specified as a Unix epoch Timestamp (in microseconds). This uniquely identifies a snapshot. This parameter is required.</value>
-        [DataMember(Name="runStartTimeUsecs", EmitDefaultValue=true)]
+        [DataMember(Name="runStartTimeUsecs", EmitDefaultValue=false)]
         public long? RunStartTimeUsecs { get; set; }
 
         /// <summary>
         /// Ids of the Protection Sources. If this is specified, retention time will only be updated for the sources specified.
         /// </summary>
         /// <value>Ids of the Protection Sources. If this is specified, retention time will only be updated for the sources specified.</value>
-        [DataMember(Name="sourceIds", EmitDefaultValue=true)]
-        public List<long> SourceIds { get; set; }
+        [DataMember(Name="sourceIds", EmitDefaultValue=false)]
+        public List<long?> SourceIds { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -106,13 +105,12 @@ namespace Cohesity.Model
                 (
                     this.CopyRunTargets == input.CopyRunTargets ||
                     this.CopyRunTargets != null &&
-                    input.CopyRunTargets != null &&
-                    this.CopyRunTargets.SequenceEqual(input.CopyRunTargets)
+                    this.CopyRunTargets.Equals(input.CopyRunTargets)
                 ) && 
                 (
                     this.JobUid == input.JobUid ||
-                    (this.JobUid != null &&
-                    this.JobUid.Equals(input.JobUid))
+                    this.JobUid != null &&
+                    this.JobUid.Equals(input.JobUid)
                 ) && 
                 (
                     this.RunStartTimeUsecs == input.RunStartTimeUsecs ||
@@ -122,8 +120,7 @@ namespace Cohesity.Model
                 (
                     this.SourceIds == input.SourceIds ||
                     this.SourceIds != null &&
-                    input.SourceIds != null &&
-                    this.SourceIds.SequenceEqual(input.SourceIds)
+                    this.SourceIds.Equals(input.SourceIds)
                 );
         }
 

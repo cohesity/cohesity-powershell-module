@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -25,10 +28,8 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="protectionJobIds">Specifies the ProtectionJobIds vec for respective tenant..</param>
         /// <param name="tenantId">Specifies the unique id of the tenant..</param>
-        public TenantProtectionJobUpdate(List<long> protectionJobIds = default(List<long>), string tenantId = default(string))
+        public TenantProtectionJobUpdate(List<long?> protectionJobIds = default(List<long?>), string tenantId = default(string))
         {
-            this.ProtectionJobIds = protectionJobIds;
-            this.TenantId = tenantId;
             this.ProtectionJobIds = protectionJobIds;
             this.TenantId = tenantId;
         }
@@ -37,14 +38,14 @@ namespace Cohesity.Model
         /// Specifies the ProtectionJobIds vec for respective tenant.
         /// </summary>
         /// <value>Specifies the ProtectionJobIds vec for respective tenant.</value>
-        [DataMember(Name="protectionJobIds", EmitDefaultValue=true)]
-        public List<long> ProtectionJobIds { get; set; }
+        [DataMember(Name="protectionJobIds", EmitDefaultValue=false)]
+        public List<long?> ProtectionJobIds { get; set; }
 
         /// <summary>
         /// Specifies the unique id of the tenant.
         /// </summary>
         /// <value>Specifies the unique id of the tenant.</value>
-        [DataMember(Name="tenantId", EmitDefaultValue=true)]
+        [DataMember(Name="tenantId", EmitDefaultValue=false)]
         public string TenantId { get; set; }
 
         /// <summary>
@@ -86,8 +87,7 @@ namespace Cohesity.Model
                 (
                     this.ProtectionJobIds == input.ProtectionJobIds ||
                     this.ProtectionJobIds != null &&
-                    input.ProtectionJobIds != null &&
-                    this.ProtectionJobIds.SequenceEqual(input.ProtectionJobIds)
+                    this.ProtectionJobIds.Equals(input.ProtectionJobIds)
                 ) && 
                 (
                     this.TenantId == input.TenantId ||

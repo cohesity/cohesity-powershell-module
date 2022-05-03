@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -33,38 +36,34 @@ namespace Cohesity.Model
             this.Key = key;
             this.MetricName = metricName;
             this.SchemaName = schemaName;
-            this.EntityId = entityId;
-            this.Key = key;
-            this.MetricName = metricName;
-            this.SchemaName = schemaName;
         }
         
         /// <summary>
         /// Specifies the id of the entity represented as a string.
         /// </summary>
         /// <value>Specifies the id of the entity represented as a string.</value>
-        [DataMember(Name="entityId", EmitDefaultValue=true)]
+        [DataMember(Name="entityId", EmitDefaultValue=false)]
         public string EntityId { get; set; }
 
         /// <summary>
         /// Specifies the key which is public facing name for metric name.
         /// </summary>
         /// <value>Specifies the key which is public facing name for metric name.</value>
-        [DataMember(Name="key", EmitDefaultValue=true)]
+        [DataMember(Name="key", EmitDefaultValue=false)]
         public string Key { get; set; }
 
         /// <summary>
         /// Specifies the Apollo schema metric name.
         /// </summary>
         /// <value>Specifies the Apollo schema metric name.</value>
-        [DataMember(Name="metricName", EmitDefaultValue=true)]
+        [DataMember(Name="metricName", EmitDefaultValue=false)]
         public string MetricName { get; set; }
 
         /// <summary>
         /// Specifies the name of entity schema such as &#39;ApolloViewBoxStats&#39;.
         /// </summary>
         /// <value>Specifies the name of entity schema such as &#39;ApolloViewBoxStats&#39;.</value>
-        [DataMember(Name="schemaName", EmitDefaultValue=true)]
+        [DataMember(Name="schemaName", EmitDefaultValue=false)]
         public string SchemaName { get; set; }
 
         /// <summary>

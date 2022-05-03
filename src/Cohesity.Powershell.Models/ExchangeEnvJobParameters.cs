@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,14 +30,13 @@ namespace Cohesity.Model
         public ExchangeEnvJobParameters(bool? backupsCopyOnly = default(bool?))
         {
             this.BackupsCopyOnly = backupsCopyOnly;
-            this.BackupsCopyOnly = backupsCopyOnly;
         }
         
         /// <summary>
         /// Specifies whether the backups should be copy-only.
         /// </summary>
         /// <value>Specifies whether the backups should be copy-only.</value>
-        [DataMember(Name="backupsCopyOnly", EmitDefaultValue=true)]
+        [DataMember(Name="backupsCopyOnly", EmitDefaultValue=false)]
         public bool? BackupsCopyOnly { get; set; }
 
         /// <summary>

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.CaCertificate = caCertificate;
             this.IsEnabled = isEnabled;
-            this.CaCertificate = caCertificate;
-            this.IsEnabled = isEnabled;
         }
         
         /// <summary>
         /// Contains the contents of CA cert/cert chain.
         /// </summary>
         /// <value>Contains the contents of CA cert/cert chain.</value>
-        [DataMember(Name="caCertificate", EmitDefaultValue=true)]
+        [DataMember(Name="caCertificate", EmitDefaultValue=false)]
         public string CaCertificate { get; set; }
 
         /// <summary>
         /// Whether SSL verification should be performed.
         /// </summary>
         /// <value>Whether SSL verification should be performed.</value>
-        [DataMember(Name="isEnabled", EmitDefaultValue=true)]
+        [DataMember(Name="isEnabled", EmitDefaultValue=false)]
         public bool? IsEnabled { get; set; }
 
         /// <summary>

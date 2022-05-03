@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,30 +34,27 @@ namespace Cohesity.Model
             this.AttemptNum = attemptNum;
             this.JobInstanceId = jobInstanceId;
             this.JobStartTimeUsecs = jobStartTimeUsecs;
-            this.AttemptNum = attemptNum;
-            this.JobInstanceId = jobInstanceId;
-            this.JobStartTimeUsecs = jobStartTimeUsecs;
         }
         
         /// <summary>
         /// The attempt of the job instance that took the snapshot.
         /// </summary>
         /// <value>The attempt of the job instance that took the snapshot.</value>
-        [DataMember(Name="attemptNum", EmitDefaultValue=true)]
+        [DataMember(Name="attemptNum", EmitDefaultValue=false)]
         public long? AttemptNum { get; set; }
 
         /// <summary>
         /// Instance of the job that took the snapshot.
         /// </summary>
         /// <value>Instance of the job that took the snapshot.</value>
-        [DataMember(Name="jobInstanceId", EmitDefaultValue=true)]
+        [DataMember(Name="jobInstanceId", EmitDefaultValue=false)]
         public long? JobInstanceId { get; set; }
 
         /// <summary>
         /// Start time of the job instance.
         /// </summary>
         /// <value>Start time of the job instance.</value>
-        [DataMember(Name="jobStartTimeUsecs", EmitDefaultValue=true)]
+        [DataMember(Name="jobStartTimeUsecs", EmitDefaultValue=false)]
         public long? JobStartTimeUsecs { get; set; }
 
         /// <summary>

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -57,27 +60,26 @@ namespace Cohesity.Model
         /// Specifies the action to be performed on all the specified Protection Jobs. Specifies the type of action to be performed on Protection Job. &#39;kActivate&#39; specifies that Protection Job should be activated. &#39;kDeactivate&#39; specifies that Protection Job should be deactivated. &#39;kPause&#39; specifies that Protection Job should be paused. &#39;kResume&#39; specifies that Protection Job should be resumed.
         /// </summary>
         /// <value>Specifies the action to be performed on all the specified Protection Jobs. Specifies the type of action to be performed on Protection Job. &#39;kActivate&#39; specifies that Protection Job should be activated. &#39;kDeactivate&#39; specifies that Protection Job should be deactivated. &#39;kPause&#39; specifies that Protection Job should be paused. &#39;kResume&#39; specifies that Protection Job should be resumed.</value>
-        [DataMember(Name="action", EmitDefaultValue=true)]
+        [DataMember(Name="action", EmitDefaultValue=false)]
         public ActionEnum? Action { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="UpdateProtectionJobsStateRequestBody" /> class.
         /// </summary>
         /// <param name="action">Specifies the action to be performed on all the specified Protection Jobs. Specifies the type of action to be performed on Protection Job. &#39;kActivate&#39; specifies that Protection Job should be activated. &#39;kDeactivate&#39; specifies that Protection Job should be deactivated. &#39;kPause&#39; specifies that Protection Job should be paused. &#39;kResume&#39; specifies that Protection Job should be resumed..</param>
         /// <param name="jobIds">Specifies a list of Protection Job ids for which the state should change..</param>
-        public UpdateProtectionJobsStateRequestBody(ActionEnum? action = default(ActionEnum?), List<long> jobIds = default(List<long>))
+        public UpdateProtectionJobsStateRequestBody(ActionEnum? action = default(ActionEnum?), List<long?> jobIds = default(List<long?>))
         {
-            this.Action = action;
-            this.JobIds = jobIds;
             this.Action = action;
             this.JobIds = jobIds;
         }
         
+
         /// <summary>
         /// Specifies a list of Protection Job ids for which the state should change.
         /// </summary>
         /// <value>Specifies a list of Protection Job ids for which the state should change.</value>
-        [DataMember(Name="jobIds", EmitDefaultValue=true)]
-        public List<long> JobIds { get; set; }
+        [DataMember(Name="jobIds", EmitDefaultValue=false)]
+        public List<long?> JobIds { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -117,13 +119,13 @@ namespace Cohesity.Model
             return 
                 (
                     this.Action == input.Action ||
-                    this.Action.Equals(input.Action)
+                    (this.Action != null &&
+                    this.Action.Equals(input.Action))
                 ) && 
                 (
                     this.JobIds == input.JobIds ||
                     this.JobIds != null &&
-                    input.JobIds != null &&
-                    this.JobIds.SequenceEqual(input.JobIds)
+                    this.JobIds.Equals(input.JobIds)
                 );
         }
 
@@ -136,7 +138,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                hashCode = hashCode * 59 + this.Action.GetHashCode();
+                if (this.Action != null)
+                    hashCode = hashCode * 59 + this.Action.GetHashCode();
                 if (this.JobIds != null)
                     hashCode = hashCode * 59 + this.JobIds.GetHashCode();
                 return hashCode;

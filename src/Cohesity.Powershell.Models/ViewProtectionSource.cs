@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -45,7 +48,7 @@ namespace Cohesity.Model
         /// Specifies the type of managed Object in a View Protection Source environment. Examples of View Objects include &#39;kViewBox&#39; or &#39;kView&#39;. &#39;kViewBox&#39; indicates Storage Domain as a Protection Source type. &#39;kView&#39; indicates View as a Protection Source type.
         /// </summary>
         /// <value>Specifies the type of managed Object in a View Protection Source environment. Examples of View Objects include &#39;kViewBox&#39; or &#39;kView&#39;. &#39;kViewBox&#39; indicates Storage Domain as a Protection Source type. &#39;kView&#39; indicates View as a Protection Source type.</value>
-        [DataMember(Name="type", EmitDefaultValue=true)]
+        [DataMember(Name="type", EmitDefaultValue=false)]
         public TypeEnum? Type { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="ViewProtectionSource" /> class.
@@ -58,24 +61,22 @@ namespace Cohesity.Model
             this.Id = id;
             this.Name = name;
             this.Type = type;
-            this.Id = id;
-            this.Name = name;
-            this.Type = type;
         }
         
         /// <summary>
         /// Specifies a unique id of a Protection Source for a View. The id is unique across Cohesity Clusters.
         /// </summary>
         /// <value>Specifies a unique id of a Protection Source for a View. The id is unique across Cohesity Clusters.</value>
-        [DataMember(Name="id", EmitDefaultValue=true)]
+        [DataMember(Name="id", EmitDefaultValue=false)]
         public UniversalId Id { get; set; }
 
         /// <summary>
         /// Specifies a human readable name of the Protection Source of a View.
         /// </summary>
         /// <value>Specifies a human readable name of the Protection Source of a View.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
+
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -115,8 +116,8 @@ namespace Cohesity.Model
             return 
                 (
                     this.Id == input.Id ||
-                    (this.Id != null &&
-                    this.Id.Equals(input.Id))
+                    this.Id != null &&
+                    this.Id.Equals(input.Id)
                 ) && 
                 (
                     this.Name == input.Name ||
@@ -125,7 +126,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.Type == input.Type ||
-                    this.Type.Equals(input.Type)
+                    (this.Type != null &&
+                    this.Type.Equals(input.Type))
                 );
         }
 
@@ -142,7 +144,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Id.GetHashCode();
                 if (this.Name != null)
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
-                hashCode = hashCode * 59 + this.Type.GetHashCode();
+                if (this.Type != null)
+                    hashCode = hashCode * 59 + this.Type.GetHashCode();
                 return hashCode;
             }
         }

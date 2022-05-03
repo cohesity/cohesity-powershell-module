@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -34,10 +37,6 @@ namespace Cohesity.Model
             this.Id = id;
             this.Name = name;
             this.SchemaInfoList = schemaInfoList;
-            this.GroupList = groupList;
-            this.Id = id;
-            this.Name = name;
-            this.SchemaInfoList = schemaInfoList;
             this.Stats = stats;
         }
         
@@ -45,28 +44,28 @@ namespace Cohesity.Model
         /// Specifies a list of groups associated to this tenant (organization).
         /// </summary>
         /// <value>Specifies a list of groups associated to this tenant (organization).</value>
-        [DataMember(Name="groupList", EmitDefaultValue=true)]
+        [DataMember(Name="groupList", EmitDefaultValue=false)]
         public List<StatsGroup> GroupList { get; set; }
 
         /// <summary>
         /// Specifies the id of the tenant (organization).
         /// </summary>
         /// <value>Specifies the id of the tenant (organization).</value>
-        [DataMember(Name="id", EmitDefaultValue=true)]
+        [DataMember(Name="id", EmitDefaultValue=false)]
         public string Id { get; set; }
 
         /// <summary>
         /// Specifies the name of the tenant (organization).
         /// </summary>
         /// <value>Specifies the name of the tenant (organization).</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
 
         /// <summary>
         /// Specifies a list of schemaInfos of the tenant (organization).
         /// </summary>
         /// <value>Specifies a list of schemaInfos of the tenant (organization).</value>
-        [DataMember(Name="schemaInfoList", EmitDefaultValue=true)]
+        [DataMember(Name="schemaInfoList", EmitDefaultValue=false)]
         public List<UsageSchemaInfo> SchemaInfoList { get; set; }
 
         /// <summary>
@@ -114,8 +113,7 @@ namespace Cohesity.Model
                 (
                     this.GroupList == input.GroupList ||
                     this.GroupList != null &&
-                    input.GroupList != null &&
-                    this.GroupList.SequenceEqual(input.GroupList)
+                    this.GroupList.Equals(input.GroupList)
                 ) && 
                 (
                     this.Id == input.Id ||
@@ -130,8 +128,7 @@ namespace Cohesity.Model
                 (
                     this.SchemaInfoList == input.SchemaInfoList ||
                     this.SchemaInfoList != null &&
-                    input.SchemaInfoList != null &&
-                    this.SchemaInfoList.SequenceEqual(input.SchemaInfoList)
+                    this.SchemaInfoList.Equals(input.SchemaInfoList)
                 ) && 
                 (
                     this.Stats == input.Stats ||

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,14 +30,13 @@ namespace Cohesity.Model
         public CreatedRemoteVaultSearchJobUid(UniversalId searchJobUid = default(UniversalId))
         {
             this.SearchJobUid = searchJobUid;
-            this.SearchJobUid = searchJobUid;
         }
         
         /// <summary>
         /// Specifies the unique id assigned for the search Job on the Cluster.
         /// </summary>
         /// <value>Specifies the unique id assigned for the search Job on the Cluster.</value>
-        [DataMember(Name="searchJobUid", EmitDefaultValue=true)]
+        [DataMember(Name="searchJobUid", EmitDefaultValue=false)]
         public UniversalId SearchJobUid { get; set; }
 
         /// <summary>
@@ -75,8 +77,8 @@ namespace Cohesity.Model
             return 
                 (
                     this.SearchJobUid == input.SearchJobUid ||
-                    (this.SearchJobUid != null &&
-                    this.SearchJobUid.Equals(input.SearchJobUid))
+                    this.SearchJobUid != null &&
+                    this.SearchJobUid.Equals(input.SearchJobUid)
                 );
         }
 

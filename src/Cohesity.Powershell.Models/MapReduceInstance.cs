@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -33,9 +36,6 @@ namespace Cohesity.Model
         {
             this.Id = id;
             this.InputParams = inputParams;
-            this.MapReduceInfoId = mapReduceInfoId;
-            this.Id = id;
-            this.InputParams = inputParams;
             this.InputSpec = inputSpec;
             this.MapReduceInfoId = mapReduceInfoId;
             this.OutputSpec = outputSpec;
@@ -46,13 +46,13 @@ namespace Cohesity.Model
         /// System generated ID of map reduce instance.
         /// </summary>
         /// <value>System generated ID of map reduce instance.</value>
-        [DataMember(Name="id", EmitDefaultValue=true)]
+        [DataMember(Name="id", EmitDefaultValue=false)]
         public long? Id { get; set; }
 
         /// <summary>
         /// Gets or Sets InputParams
         /// </summary>
-        [DataMember(Name="inputParams", EmitDefaultValue=true)]
+        [DataMember(Name="inputParams", EmitDefaultValue=false)]
         public List<MapReduceInstanceInputParam> InputParams { get; set; }
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace Cohesity.Model
         /// ID of Map reduce info.
         /// </summary>
         /// <value>ID of Map reduce info.</value>
-        [DataMember(Name="mapReduceInfoId", EmitDefaultValue=true)]
+        [DataMember(Name="mapReduceInfoId", EmitDefaultValue=false)]
         public long? MapReduceInfoId { get; set; }
 
         /// <summary>
@@ -124,8 +124,7 @@ namespace Cohesity.Model
                 (
                     this.InputParams == input.InputParams ||
                     this.InputParams != null &&
-                    input.InputParams != null &&
-                    this.InputParams.SequenceEqual(input.InputParams)
+                    this.InputParams.Equals(input.InputParams)
                 ) && 
                 (
                     this.InputSpec == input.InputSpec ||

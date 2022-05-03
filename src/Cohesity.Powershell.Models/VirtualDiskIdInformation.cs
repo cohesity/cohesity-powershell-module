@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -33,38 +36,34 @@ namespace Cohesity.Model
             this.ControllerType = controllerType;
             this.DiskId = diskId;
             this.UnitNumber = unitNumber;
-            this.BusNumber = busNumber;
-            this.ControllerType = controllerType;
-            this.DiskId = diskId;
-            this.UnitNumber = unitNumber;
         }
         
         /// <summary>
         /// Specifies the Id of the controller bus that controls the disk.
         /// </summary>
         /// <value>Specifies the Id of the controller bus that controls the disk.</value>
-        [DataMember(Name="busNumber", EmitDefaultValue=true)]
+        [DataMember(Name="busNumber", EmitDefaultValue=false)]
         public long? BusNumber { get; set; }
 
         /// <summary>
         /// Specifies the controller type like SCSI, or IDE etc.
         /// </summary>
         /// <value>Specifies the controller type like SCSI, or IDE etc.</value>
-        [DataMember(Name="controllerType", EmitDefaultValue=true)]
+        [DataMember(Name="controllerType", EmitDefaultValue=false)]
         public string ControllerType { get; set; }
 
         /// <summary>
         /// Specifies the uuid of the virtual disk.
         /// </summary>
         /// <value>Specifies the uuid of the virtual disk.</value>
-        [DataMember(Name="diskId", EmitDefaultValue=true)]
+        [DataMember(Name="diskId", EmitDefaultValue=false)]
         public string DiskId { get; set; }
 
         /// <summary>
         /// Specifies the disk file name. This is the VMDK name and not the flat file name.
         /// </summary>
         /// <value>Specifies the disk file name. This is the VMDK name and not the flat file name.</value>
-        [DataMember(Name="unitNumber", EmitDefaultValue=true)]
+        [DataMember(Name="unitNumber", EmitDefaultValue=false)]
         public long? UnitNumber { get; set; }
 
         /// <summary>

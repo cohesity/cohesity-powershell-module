@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -32,10 +35,6 @@ namespace Cohesity.Model
         public RetrieveArchiveTaskStateProtoDownloadFilesInfo(List<string> filePathVec = default(List<string>), MagnetoInstanceId magnetoInstanceId = default(MagnetoInstanceId), MagnetoObjectId objectId = default(MagnetoObjectId), bool? skipRestoreInStubView = default(bool?), string targetDirPath = default(string), string targetViewName = default(string))
         {
             this.FilePathVec = filePathVec;
-            this.SkipRestoreInStubView = skipRestoreInStubView;
-            this.TargetDirPath = targetDirPath;
-            this.TargetViewName = targetViewName;
-            this.FilePathVec = filePathVec;
             this.MagnetoInstanceId = magnetoInstanceId;
             this.ObjectId = objectId;
             this.SkipRestoreInStubView = skipRestoreInStubView;
@@ -47,7 +46,7 @@ namespace Cohesity.Model
         /// The file paths to be retrieved from the archive. For example, if the file paths are /foo/bar and /foo2/bar and target_dir_path is \&quot;downloaded_files\&quot;. The retrieved files will have the full path structure maintained in target_dir_path such as downloaded_files/foo/bar and /downloaded_files/foo2/bar.
         /// </summary>
         /// <value>The file paths to be retrieved from the archive. For example, if the file paths are /foo/bar and /foo2/bar and target_dir_path is \&quot;downloaded_files\&quot;. The retrieved files will have the full path structure maintained in target_dir_path such as downloaded_files/foo/bar and /downloaded_files/foo2/bar.</value>
-        [DataMember(Name="filePathVec", EmitDefaultValue=true)]
+        [DataMember(Name="filePathVec", EmitDefaultValue=false)]
         public List<string> FilePathVec { get; set; }
 
         /// <summary>
@@ -66,21 +65,21 @@ namespace Cohesity.Model
         /// Ask Icebox to only create the stub view and skip restoring files in the stub view.
         /// </summary>
         /// <value>Ask Icebox to only create the stub view and skip restoring files in the stub view.</value>
-        [DataMember(Name="skipRestoreInStubView", EmitDefaultValue=true)]
+        [DataMember(Name="skipRestoreInStubView", EmitDefaultValue=false)]
         public bool? SkipRestoreInStubView { get; set; }
 
         /// <summary>
         /// Path to the directory under which the downloaded files will be placed.
         /// </summary>
         /// <value>Path to the directory under which the downloaded files will be placed.</value>
-        [DataMember(Name="targetDirPath", EmitDefaultValue=true)]
+        [DataMember(Name="targetDirPath", EmitDefaultValue=false)]
         public string TargetDirPath { get; set; }
 
         /// <summary>
         /// Target view name where the downloaded files will be placed.
         /// </summary>
         /// <value>Target view name where the downloaded files will be placed.</value>
-        [DataMember(Name="targetViewName", EmitDefaultValue=true)]
+        [DataMember(Name="targetViewName", EmitDefaultValue=false)]
         public string TargetViewName { get; set; }
 
         /// <summary>
@@ -122,8 +121,7 @@ namespace Cohesity.Model
                 (
                     this.FilePathVec == input.FilePathVec ||
                     this.FilePathVec != null &&
-                    input.FilePathVec != null &&
-                    this.FilePathVec.SequenceEqual(input.FilePathVec)
+                    this.FilePathVec.Equals(input.FilePathVec)
                 ) && 
                 (
                     this.MagnetoInstanceId == input.MagnetoInstanceId ||

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -45,12 +48,12 @@ namespace Cohesity.Model
         /// Status of the task. Status of the task. &#39;kSuccess&#39; indicates that task completed successfully. &#39;kError&#39; indicates that task encountered errors.
         /// </summary>
         /// <value>Status of the task. Status of the task. &#39;kSuccess&#39; indicates that task completed successfully. &#39;kError&#39; indicates that task encountered errors.</value>
-        [DataMember(Name="status", EmitDefaultValue=true)]
+        [DataMember(Name="status", EmitDefaultValue=false)]
         public StatusEnum? Status { get; set; }
         /// <summary>
-        /// Task type denotes which type of task this notification is for. This param is used to reflect the taskType. &#39;Restore&#39; notification type is generated upon completion of Restore tasks. &#39;Clone&#39; notification type is generated upon completion of Clone tasks. &#39;BackupNow&#39; notification type is generated upon completion of Backup tasks. &#39;FieldMessage&#39; notification type is generated when field message from Cohesity support is created.
+        /// Task type denotes which type of task this notification is for. This param is used to reflect the taskType. &#39;Restore&#39; notification type is generated upon completion of Restore tasks. &#39;Clone&#39; notification type is generated upon completion of Clone tasks. &#39;BackupNow&#39; notification type is generated upon completion of Backup tasks. &#39;FieldMessage&#39; notification type is generated when field message from Cohesity support is created. &#39;bulkInstallApp&#39; notification type is generated from bulk install app &#39;tiering&#39; notification type is generated upon completion of tiering tasks. &#39;analysis&#39; notification type is generated upon completion of analysis tasks.
         /// </summary>
-        /// <value>Task type denotes which type of task this notification is for. This param is used to reflect the taskType. &#39;Restore&#39; notification type is generated upon completion of Restore tasks. &#39;Clone&#39; notification type is generated upon completion of Clone tasks. &#39;BackupNow&#39; notification type is generated upon completion of Backup tasks. &#39;FieldMessage&#39; notification type is generated when field message from Cohesity support is created.</value>
+        /// <value>Task type denotes which type of task this notification is for. This param is used to reflect the taskType. &#39;Restore&#39; notification type is generated upon completion of Restore tasks. &#39;Clone&#39; notification type is generated upon completion of Clone tasks. &#39;BackupNow&#39; notification type is generated upon completion of Backup tasks. &#39;FieldMessage&#39; notification type is generated when field message from Cohesity support is created. &#39;bulkInstallApp&#39; notification type is generated from bulk install app &#39;tiering&#39; notification type is generated upon completion of tiering tasks. &#39;analysis&#39; notification type is generated upon completion of analysis tasks.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum TaskTypeEnum
         {
@@ -76,20 +79,40 @@ namespace Cohesity.Model
             /// Enum FieldMessage for value: fieldMessage
             /// </summary>
             [EnumMember(Value = "fieldMessage")]
-            FieldMessage = 4
+            FieldMessage = 4,
+
+            /// <summary>
+            /// Enum BulkInstallApp for value: bulkInstallApp
+            /// </summary>
+            [EnumMember(Value = "bulkInstallApp")]
+            BulkInstallApp = 5,
+
+            /// <summary>
+            /// Enum Tiering for value: tiering
+            /// </summary>
+            [EnumMember(Value = "tiering")]
+            Tiering = 6,
+
+            /// <summary>
+            /// Enum Analysis for value: analysis
+            /// </summary>
+            [EnumMember(Value = "analysis")]
+            Analysis = 7
 
         }
 
         /// <summary>
-        /// Task type denotes which type of task this notification is for. This param is used to reflect the taskType. &#39;Restore&#39; notification type is generated upon completion of Restore tasks. &#39;Clone&#39; notification type is generated upon completion of Clone tasks. &#39;BackupNow&#39; notification type is generated upon completion of Backup tasks. &#39;FieldMessage&#39; notification type is generated when field message from Cohesity support is created.
+        /// Task type denotes which type of task this notification is for. This param is used to reflect the taskType. &#39;Restore&#39; notification type is generated upon completion of Restore tasks. &#39;Clone&#39; notification type is generated upon completion of Clone tasks. &#39;BackupNow&#39; notification type is generated upon completion of Backup tasks. &#39;FieldMessage&#39; notification type is generated when field message from Cohesity support is created. &#39;bulkInstallApp&#39; notification type is generated from bulk install app &#39;tiering&#39; notification type is generated upon completion of tiering tasks. &#39;analysis&#39; notification type is generated upon completion of analysis tasks.
         /// </summary>
-        /// <value>Task type denotes which type of task this notification is for. This param is used to reflect the taskType. &#39;Restore&#39; notification type is generated upon completion of Restore tasks. &#39;Clone&#39; notification type is generated upon completion of Clone tasks. &#39;BackupNow&#39; notification type is generated upon completion of Backup tasks. &#39;FieldMessage&#39; notification type is generated when field message from Cohesity support is created.</value>
-        [DataMember(Name="taskType", EmitDefaultValue=true)]
+        /// <value>Task type denotes which type of task this notification is for. This param is used to reflect the taskType. &#39;Restore&#39; notification type is generated upon completion of Restore tasks. &#39;Clone&#39; notification type is generated upon completion of Clone tasks. &#39;BackupNow&#39; notification type is generated upon completion of Backup tasks. &#39;FieldMessage&#39; notification type is generated when field message from Cohesity support is created. &#39;bulkInstallApp&#39; notification type is generated from bulk install app &#39;tiering&#39; notification type is generated upon completion of tiering tasks. &#39;analysis&#39; notification type is generated upon completion of analysis tasks.</value>
+        [DataMember(Name="taskType", EmitDefaultValue=false)]
         public TaskTypeEnum? TaskType { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="TaskNotification" /> class.
         /// </summary>
+        /// <param name="analysisTask">analysisTask.</param>
         /// <param name="backupTask">backupTask.</param>
+        /// <param name="bulkInstallAppTask">bulkInstallAppTask.</param>
         /// <param name="cloneTask">cloneTask.</param>
         /// <param name="createdTimeSecs">Timestamp at which the notification was created..</param>
         /// <param name="description">Description holds the actual notification text generated for the event..</param>
@@ -99,21 +122,15 @@ namespace Cohesity.Model
         /// <param name="id">id identifies a user notification event uniquely. This can also be used to dismiss individual notifications..</param>
         /// <param name="recoveryTask">recoveryTask.</param>
         /// <param name="status">Status of the task. Status of the task. &#39;kSuccess&#39; indicates that task completed successfully. &#39;kError&#39; indicates that task encountered errors..</param>
-        /// <param name="taskType">Task type denotes which type of task this notification is for. This param is used to reflect the taskType. &#39;Restore&#39; notification type is generated upon completion of Restore tasks. &#39;Clone&#39; notification type is generated upon completion of Clone tasks. &#39;BackupNow&#39; notification type is generated upon completion of Backup tasks. &#39;FieldMessage&#39; notification type is generated when field message from Cohesity support is created..</param>
+        /// <param name="taskType">Task type denotes which type of task this notification is for. This param is used to reflect the taskType. &#39;Restore&#39; notification type is generated upon completion of Restore tasks. &#39;Clone&#39; notification type is generated upon completion of Clone tasks. &#39;BackupNow&#39; notification type is generated upon completion of Backup tasks. &#39;FieldMessage&#39; notification type is generated when field message from Cohesity support is created. &#39;bulkInstallApp&#39; notification type is generated from bulk install app &#39;tiering&#39; notification type is generated upon completion of tiering tasks. &#39;analysis&#39; notification type is generated upon completion of analysis tasks..</param>
+        /// <param name="tieringTask">tieringTask.</param>
         /// <param name="visited">Visited keeps track of whether a notification has been seen or not..</param>
         /// <param name="visitedTimeSecs">Timestamp at which user visited this notification event..</param>
-        public TaskNotification(BackupTaskInfo backupTask = default(BackupTaskInfo), CloneTaskInfo cloneTask = default(CloneTaskInfo), long? createdTimeSecs = default(long?), string description = default(string), bool? dismissed = default(bool?), long? dismissedTimeSecs = default(long?), BasicTaskInfo fieldMessageTask = default(BasicTaskInfo), string id = default(string), RecoveryTaskInfo recoveryTask = default(RecoveryTaskInfo), StatusEnum? status = default(StatusEnum?), TaskTypeEnum? taskType = default(TaskTypeEnum?), bool? visited = default(bool?), long? visitedTimeSecs = default(long?))
+        public TaskNotification(AnalysisTaskInfo analysisTask = default(AnalysisTaskInfo), BackupTaskInfo backupTask = default(BackupTaskInfo), BulkInstallAppTaskInfo bulkInstallAppTask = default(BulkInstallAppTaskInfo), CloneTaskInfo cloneTask = default(CloneTaskInfo), long? createdTimeSecs = default(long?), string description = default(string), bool? dismissed = default(bool?), long? dismissedTimeSecs = default(long?), BasicTaskInfo fieldMessageTask = default(BasicTaskInfo), string id = default(string), RecoveryTaskInfo recoveryTask = default(RecoveryTaskInfo), StatusEnum? status = default(StatusEnum?), TaskTypeEnum? taskType = default(TaskTypeEnum?), TieringTaskInfo tieringTask = default(TieringTaskInfo), bool? visited = default(bool?), long? visitedTimeSecs = default(long?))
         {
-            this.CreatedTimeSecs = createdTimeSecs;
-            this.Description = description;
-            this.Dismissed = dismissed;
-            this.DismissedTimeSecs = dismissedTimeSecs;
-            this.Id = id;
-            this.Status = status;
-            this.TaskType = taskType;
-            this.Visited = visited;
-            this.VisitedTimeSecs = visitedTimeSecs;
+            this.AnalysisTask = analysisTask;
             this.BackupTask = backupTask;
+            this.BulkInstallAppTask = bulkInstallAppTask;
             this.CloneTask = cloneTask;
             this.CreatedTimeSecs = createdTimeSecs;
             this.Description = description;
@@ -124,15 +141,28 @@ namespace Cohesity.Model
             this.RecoveryTask = recoveryTask;
             this.Status = status;
             this.TaskType = taskType;
+            this.TieringTask = tieringTask;
             this.Visited = visited;
             this.VisitedTimeSecs = visitedTimeSecs;
         }
         
         /// <summary>
+        /// Gets or Sets AnalysisTask
+        /// </summary>
+        [DataMember(Name="analysisTask", EmitDefaultValue=false)]
+        public AnalysisTaskInfo AnalysisTask { get; set; }
+
+        /// <summary>
         /// Gets or Sets BackupTask
         /// </summary>
         [DataMember(Name="backupTask", EmitDefaultValue=false)]
         public BackupTaskInfo BackupTask { get; set; }
+
+        /// <summary>
+        /// Gets or Sets BulkInstallAppTask
+        /// </summary>
+        [DataMember(Name="bulkInstallAppTask", EmitDefaultValue=false)]
+        public BulkInstallAppTaskInfo BulkInstallAppTask { get; set; }
 
         /// <summary>
         /// Gets or Sets CloneTask
@@ -144,28 +174,28 @@ namespace Cohesity.Model
         /// Timestamp at which the notification was created.
         /// </summary>
         /// <value>Timestamp at which the notification was created.</value>
-        [DataMember(Name="createdTimeSecs", EmitDefaultValue=true)]
+        [DataMember(Name="createdTimeSecs", EmitDefaultValue=false)]
         public long? CreatedTimeSecs { get; set; }
 
         /// <summary>
         /// Description holds the actual notification text generated for the event.
         /// </summary>
         /// <value>Description holds the actual notification text generated for the event.</value>
-        [DataMember(Name="description", EmitDefaultValue=true)]
+        [DataMember(Name="description", EmitDefaultValue=false)]
         public string Description { get; set; }
 
         /// <summary>
         /// Dismissed keeps track of whether a notification has been seen or not. User may choose to dismiss individual event or all notifications at once. Nil or 0 value represents false.
         /// </summary>
         /// <value>Dismissed keeps track of whether a notification has been seen or not. User may choose to dismiss individual event or all notifications at once. Nil or 0 value represents false.</value>
-        [DataMember(Name="dismissed", EmitDefaultValue=true)]
+        [DataMember(Name="dismissed", EmitDefaultValue=false)]
         public bool? Dismissed { get; set; }
 
         /// <summary>
         /// Timestamp at which user dismissed this notification event.
         /// </summary>
         /// <value>Timestamp at which user dismissed this notification event.</value>
-        [DataMember(Name="dismissedTimeSecs", EmitDefaultValue=true)]
+        [DataMember(Name="dismissedTimeSecs", EmitDefaultValue=false)]
         public long? DismissedTimeSecs { get; set; }
 
         /// <summary>
@@ -178,7 +208,7 @@ namespace Cohesity.Model
         /// id identifies a user notification event uniquely. This can also be used to dismiss individual notifications.
         /// </summary>
         /// <value>id identifies a user notification event uniquely. This can also be used to dismiss individual notifications.</value>
-        [DataMember(Name="id", EmitDefaultValue=true)]
+        [DataMember(Name="id", EmitDefaultValue=false)]
         public string Id { get; set; }
 
         /// <summary>
@@ -187,18 +217,26 @@ namespace Cohesity.Model
         [DataMember(Name="recoveryTask", EmitDefaultValue=false)]
         public RecoveryTaskInfo RecoveryTask { get; set; }
 
+
+
+        /// <summary>
+        /// Gets or Sets TieringTask
+        /// </summary>
+        [DataMember(Name="tieringTask", EmitDefaultValue=false)]
+        public TieringTaskInfo TieringTask { get; set; }
+
         /// <summary>
         /// Visited keeps track of whether a notification has been seen or not.
         /// </summary>
         /// <value>Visited keeps track of whether a notification has been seen or not.</value>
-        [DataMember(Name="visited", EmitDefaultValue=true)]
+        [DataMember(Name="visited", EmitDefaultValue=false)]
         public bool? Visited { get; set; }
 
         /// <summary>
         /// Timestamp at which user visited this notification event.
         /// </summary>
         /// <value>Timestamp at which user visited this notification event.</value>
-        [DataMember(Name="visitedTimeSecs", EmitDefaultValue=true)]
+        [DataMember(Name="visitedTimeSecs", EmitDefaultValue=false)]
         public long? VisitedTimeSecs { get; set; }
 
         /// <summary>
@@ -238,9 +276,19 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.AnalysisTask == input.AnalysisTask ||
+                    (this.AnalysisTask != null &&
+                    this.AnalysisTask.Equals(input.AnalysisTask))
+                ) && 
+                (
                     this.BackupTask == input.BackupTask ||
                     (this.BackupTask != null &&
                     this.BackupTask.Equals(input.BackupTask))
+                ) && 
+                (
+                    this.BulkInstallAppTask == input.BulkInstallAppTask ||
+                    (this.BulkInstallAppTask != null &&
+                    this.BulkInstallAppTask.Equals(input.BulkInstallAppTask))
                 ) && 
                 (
                     this.CloneTask == input.CloneTask ||
@@ -284,11 +332,18 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.Status == input.Status ||
-                    this.Status.Equals(input.Status)
+                    (this.Status != null &&
+                    this.Status.Equals(input.Status))
                 ) && 
                 (
                     this.TaskType == input.TaskType ||
-                    this.TaskType.Equals(input.TaskType)
+                    (this.TaskType != null &&
+                    this.TaskType.Equals(input.TaskType))
+                ) && 
+                (
+                    this.TieringTask == input.TieringTask ||
+                    (this.TieringTask != null &&
+                    this.TieringTask.Equals(input.TieringTask))
                 ) && 
                 (
                     this.Visited == input.Visited ||
@@ -311,8 +366,12 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.AnalysisTask != null)
+                    hashCode = hashCode * 59 + this.AnalysisTask.GetHashCode();
                 if (this.BackupTask != null)
                     hashCode = hashCode * 59 + this.BackupTask.GetHashCode();
+                if (this.BulkInstallAppTask != null)
+                    hashCode = hashCode * 59 + this.BulkInstallAppTask.GetHashCode();
                 if (this.CloneTask != null)
                     hashCode = hashCode * 59 + this.CloneTask.GetHashCode();
                 if (this.CreatedTimeSecs != null)
@@ -329,8 +388,12 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Id.GetHashCode();
                 if (this.RecoveryTask != null)
                     hashCode = hashCode * 59 + this.RecoveryTask.GetHashCode();
-                hashCode = hashCode * 59 + this.Status.GetHashCode();
-                hashCode = hashCode * 59 + this.TaskType.GetHashCode();
+                if (this.Status != null)
+                    hashCode = hashCode * 59 + this.Status.GetHashCode();
+                if (this.TaskType != null)
+                    hashCode = hashCode * 59 + this.TaskType.GetHashCode();
+                if (this.TieringTask != null)
+                    hashCode = hashCode * 59 + this.TieringTask.GetHashCode();
                 if (this.Visited != null)
                     hashCode = hashCode * 59 + this.Visited.GetHashCode();
                 if (this.VisitedTimeSecs != null)

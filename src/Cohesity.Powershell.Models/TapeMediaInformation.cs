@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,30 +34,27 @@ namespace Cohesity.Model
             this.Barcode = barcode;
             this.Location = location;
             this.Online = online;
-            this.Barcode = barcode;
-            this.Location = location;
-            this.Online = online;
         }
         
         /// <summary>
         /// Specifies a unique identifier for the media.
         /// </summary>
         /// <value>Specifies a unique identifier for the media.</value>
-        [DataMember(Name="barcode", EmitDefaultValue=true)]
+        [DataMember(Name="barcode", EmitDefaultValue=false)]
         public string Barcode { get; set; }
 
         /// <summary>
         /// Specifies the location of the offline media as recorded by the backup administrator using media management software.
         /// </summary>
         /// <value>Specifies the location of the offline media as recorded by the backup administrator using media management software.</value>
-        [DataMember(Name="location", EmitDefaultValue=true)]
+        [DataMember(Name="location", EmitDefaultValue=false)]
         public string Location { get; set; }
 
         /// <summary>
         /// Specifies a flag that indicates if the media is online or offline. Offline media must be manually loaded into the media library before a recovery can occur.
         /// </summary>
         /// <value>Specifies a flag that indicates if the media is online or offline. Offline media must be manually loaded into the media library before a recovery can occur.</value>
-        [DataMember(Name="online", EmitDefaultValue=true)]
+        [DataMember(Name="online", EmitDefaultValue=false)]
         public bool? Online { get; set; }
 
         /// <summary>

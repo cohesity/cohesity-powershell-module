@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -28,7 +31,6 @@ namespace Cohesity.Model
         public ViewStatsSnapshot(long? timestamp = default(long?), List<ViewStatInfo> viewStatsList = default(List<ViewStatInfo>))
         {
             this.Timestamp = timestamp;
-            this.Timestamp = timestamp;
             this.ViewStatsList = viewStatsList;
         }
         
@@ -36,7 +38,7 @@ namespace Cohesity.Model
         /// Specifies the unix time in milliseconds when these values were generated
         /// </summary>
         /// <value>Specifies the unix time in milliseconds when these values were generated</value>
-        [DataMember(Name="timestamp", EmitDefaultValue=true)]
+        [DataMember(Name="timestamp", EmitDefaultValue=false)]
         public long? Timestamp { get; set; }
 
         /// <summary>
@@ -90,8 +92,7 @@ namespace Cohesity.Model
                 (
                     this.ViewStatsList == input.ViewStatsList ||
                     this.ViewStatsList != null &&
-                    input.ViewStatsList != null &&
-                    this.ViewStatsList.SequenceEqual(input.ViewStatsList)
+                    this.ViewStatsList.Equals(input.ViewStatsList)
                 );
         }
 

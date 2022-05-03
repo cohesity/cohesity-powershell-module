@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,14 +30,13 @@ namespace Cohesity.Model
         public IdpReachabilityTestResult(bool? reachable = default(bool?))
         {
             this.Reachable = reachable;
-            this.Reachable = reachable;
         }
         
         /// <summary>
         /// Specifies the flag for Idp reachability.
         /// </summary>
         /// <value>Specifies the flag for Idp reachability.</value>
-        [DataMember(Name="reachable", EmitDefaultValue=true)]
+        [DataMember(Name="reachable", EmitDefaultValue=false)]
         public bool? Reachable { get; set; }
 
         /// <summary>

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -24,9 +27,8 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="ApplicationSpecialParameters" /> class.
         /// </summary>
         /// <param name="applicationEntityIds">Array of Ids of Application Entities like SQL/Oracle instances, and databases that should be protected in a Protection Source.  Specifies the subset of application entities like SQL/Oracle instances, and databases to protect in a Protection Source of type &#39;kSQL&#39;/&#39;kOracle&#39;. If not specified, all application entities on the Protection Source..</param>
-        public ApplicationSpecialParameters(List<long> applicationEntityIds = default(List<long>))
+        public ApplicationSpecialParameters(List<long?> applicationEntityIds = default(List<long?>))
         {
-            this.ApplicationEntityIds = applicationEntityIds;
             this.ApplicationEntityIds = applicationEntityIds;
         }
         
@@ -34,8 +36,8 @@ namespace Cohesity.Model
         /// Array of Ids of Application Entities like SQL/Oracle instances, and databases that should be protected in a Protection Source.  Specifies the subset of application entities like SQL/Oracle instances, and databases to protect in a Protection Source of type &#39;kSQL&#39;/&#39;kOracle&#39;. If not specified, all application entities on the Protection Source.
         /// </summary>
         /// <value>Array of Ids of Application Entities like SQL/Oracle instances, and databases that should be protected in a Protection Source.  Specifies the subset of application entities like SQL/Oracle instances, and databases to protect in a Protection Source of type &#39;kSQL&#39;/&#39;kOracle&#39;. If not specified, all application entities on the Protection Source.</value>
-        [DataMember(Name="applicationEntityIds", EmitDefaultValue=true)]
-        public List<long> ApplicationEntityIds { get; set; }
+        [DataMember(Name="applicationEntityIds", EmitDefaultValue=false)]
+        public List<long?> ApplicationEntityIds { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -76,8 +78,7 @@ namespace Cohesity.Model
                 (
                     this.ApplicationEntityIds == input.ApplicationEntityIds ||
                     this.ApplicationEntityIds != null &&
-                    input.ApplicationEntityIds != null &&
-                    this.ApplicationEntityIds.SequenceEqual(input.ApplicationEntityIds)
+                    this.ApplicationEntityIds.Equals(input.ApplicationEntityIds)
                 );
         }
 

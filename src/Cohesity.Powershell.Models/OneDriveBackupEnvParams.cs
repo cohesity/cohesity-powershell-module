@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,7 +30,6 @@ namespace Cohesity.Model
         /// <param name="shouldBackupOnedrive">Specifies whether the OneDrive(s) for all the Office365 Users present in the protection job should be backed up..</param>
         public OneDriveBackupEnvParams(FilteringPolicyProto filteringPolicy = default(FilteringPolicyProto), bool? shouldBackupOnedrive = default(bool?))
         {
-            this.ShouldBackupOnedrive = shouldBackupOnedrive;
             this.FilteringPolicy = filteringPolicy;
             this.ShouldBackupOnedrive = shouldBackupOnedrive;
         }
@@ -42,7 +44,7 @@ namespace Cohesity.Model
         /// Specifies whether the OneDrive(s) for all the Office365 Users present in the protection job should be backed up.
         /// </summary>
         /// <value>Specifies whether the OneDrive(s) for all the Office365 Users present in the protection job should be backed up.</value>
-        [DataMember(Name="shouldBackupOnedrive", EmitDefaultValue=true)]
+        [DataMember(Name="shouldBackupOnedrive", EmitDefaultValue=false)]
         public bool? ShouldBackupOnedrive { get; set; }
 
         /// <summary>

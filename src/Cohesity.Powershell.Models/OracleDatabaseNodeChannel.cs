@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -30,7 +33,8 @@ namespace Cohesity.Model
         /// <param name="defaultChannelCount">Specifies the default number of channels to use per node per database. The default number of channels to use per host per db. This value is used on all OracleDatabaseNode&#39;s unless databaseNodeList item&#39;s channelCount is specified for the node..</param>
         /// <param name="enableDgPrimaryBackup">Specifies whether the database having the Primary role within Data Guard configuration is to be backed up..</param>
         /// <param name="maxNodeCount">Specifies the maximum number of nodes from which we are allowed to take backup/restore..</param>
-        public OracleDatabaseNodeChannel(int? archiveLogKeepDays = default(int?), List<OracleDatabaseNode> databaseNodeList = default(List<OracleDatabaseNode>), string databaseUniqueName = default(string), string databaseUuid = default(string), int? defaultChannelCount = default(int?), bool? enableDgPrimaryBackup = default(bool?), int? maxNodeCount = default(int?))
+        /// <param name="rmanBackupType">Specifies the type of Oracle RMAN backup..</param>
+        public OracleDatabaseNodeChannel(int? archiveLogKeepDays = default(int?), List<OracleDatabaseNode> databaseNodeList = default(List<OracleDatabaseNode>), string databaseUniqueName = default(string), string databaseUuid = default(string), int? defaultChannelCount = default(int?), bool? enableDgPrimaryBackup = default(bool?), int? maxNodeCount = default(int?), int? rmanBackupType = default(int?))
         {
             this.ArchiveLogKeepDays = archiveLogKeepDays;
             this.DatabaseNodeList = databaseNodeList;
@@ -39,63 +43,64 @@ namespace Cohesity.Model
             this.DefaultChannelCount = defaultChannelCount;
             this.EnableDgPrimaryBackup = enableDgPrimaryBackup;
             this.MaxNodeCount = maxNodeCount;
-            this.ArchiveLogKeepDays = archiveLogKeepDays;
-            this.DatabaseNodeList = databaseNodeList;
-            this.DatabaseUniqueName = databaseUniqueName;
-            this.DatabaseUuid = databaseUuid;
-            this.DefaultChannelCount = defaultChannelCount;
-            this.EnableDgPrimaryBackup = enableDgPrimaryBackup;
-            this.MaxNodeCount = maxNodeCount;
+            this.RmanBackupType = rmanBackupType;
         }
         
         /// <summary>
         /// Specifies the number of days archive log should be stored.
         /// </summary>
         /// <value>Specifies the number of days archive log should be stored.</value>
-        [DataMember(Name="archiveLogKeepDays", EmitDefaultValue=true)]
+        [DataMember(Name="archiveLogKeepDays", EmitDefaultValue=false)]
         public int? ArchiveLogKeepDays { get; set; }
 
         /// <summary>
         /// Array of nodes of a database.  Specifies the Node info from where we are allowed to take the backup/restore.
         /// </summary>
         /// <value>Array of nodes of a database.  Specifies the Node info from where we are allowed to take the backup/restore.</value>
-        [DataMember(Name="databaseNodeList", EmitDefaultValue=true)]
+        [DataMember(Name="databaseNodeList", EmitDefaultValue=false)]
         public List<OracleDatabaseNode> DatabaseNodeList { get; set; }
 
         /// <summary>
         /// Specifies the unique Name of the database.
         /// </summary>
         /// <value>Specifies the unique Name of the database.</value>
-        [DataMember(Name="databaseUniqueName", EmitDefaultValue=true)]
+        [DataMember(Name="databaseUniqueName", EmitDefaultValue=false)]
         public string DatabaseUniqueName { get; set; }
 
         /// <summary>
         /// Specifies the database unique id. This is an internal field and is filled by magneto master based on corresponding app entity id.
         /// </summary>
         /// <value>Specifies the database unique id. This is an internal field and is filled by magneto master based on corresponding app entity id.</value>
-        [DataMember(Name="databaseUuid", EmitDefaultValue=true)]
+        [DataMember(Name="databaseUuid", EmitDefaultValue=false)]
         public string DatabaseUuid { get; set; }
 
         /// <summary>
         /// Specifies the default number of channels to use per node per database. The default number of channels to use per host per db. This value is used on all OracleDatabaseNode&#39;s unless databaseNodeList item&#39;s channelCount is specified for the node.
         /// </summary>
         /// <value>Specifies the default number of channels to use per node per database. The default number of channels to use per host per db. This value is used on all OracleDatabaseNode&#39;s unless databaseNodeList item&#39;s channelCount is specified for the node.</value>
-        [DataMember(Name="defaultChannelCount", EmitDefaultValue=true)]
+        [DataMember(Name="defaultChannelCount", EmitDefaultValue=false)]
         public int? DefaultChannelCount { get; set; }
 
         /// <summary>
         /// Specifies whether the database having the Primary role within Data Guard configuration is to be backed up.
         /// </summary>
         /// <value>Specifies whether the database having the Primary role within Data Guard configuration is to be backed up.</value>
-        [DataMember(Name="enableDgPrimaryBackup", EmitDefaultValue=true)]
+        [DataMember(Name="enableDgPrimaryBackup", EmitDefaultValue=false)]
         public bool? EnableDgPrimaryBackup { get; set; }
 
         /// <summary>
         /// Specifies the maximum number of nodes from which we are allowed to take backup/restore.
         /// </summary>
         /// <value>Specifies the maximum number of nodes from which we are allowed to take backup/restore.</value>
-        [DataMember(Name="maxNodeCount", EmitDefaultValue=true)]
+        [DataMember(Name="maxNodeCount", EmitDefaultValue=false)]
         public int? MaxNodeCount { get; set; }
+
+        /// <summary>
+        /// Specifies the type of Oracle RMAN backup.
+        /// </summary>
+        /// <value>Specifies the type of Oracle RMAN backup.</value>
+        [DataMember(Name="rmanBackupType", EmitDefaultValue=false)]
+        public int? RmanBackupType { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -141,8 +146,7 @@ namespace Cohesity.Model
                 (
                     this.DatabaseNodeList == input.DatabaseNodeList ||
                     this.DatabaseNodeList != null &&
-                    input.DatabaseNodeList != null &&
-                    this.DatabaseNodeList.SequenceEqual(input.DatabaseNodeList)
+                    this.DatabaseNodeList.Equals(input.DatabaseNodeList)
                 ) && 
                 (
                     this.DatabaseUniqueName == input.DatabaseUniqueName ||
@@ -168,6 +172,11 @@ namespace Cohesity.Model
                     this.MaxNodeCount == input.MaxNodeCount ||
                     (this.MaxNodeCount != null &&
                     this.MaxNodeCount.Equals(input.MaxNodeCount))
+                ) && 
+                (
+                    this.RmanBackupType == input.RmanBackupType ||
+                    (this.RmanBackupType != null &&
+                    this.RmanBackupType.Equals(input.RmanBackupType))
                 );
         }
 
@@ -194,6 +203,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.EnableDgPrimaryBackup.GetHashCode();
                 if (this.MaxNodeCount != null)
                     hashCode = hashCode * 59 + this.MaxNodeCount.GetHashCode();
+                if (this.RmanBackupType != null)
+                    hashCode = hashCode * 59 + this.RmanBackupType.GetHashCode();
                 return hashCode;
             }
         }

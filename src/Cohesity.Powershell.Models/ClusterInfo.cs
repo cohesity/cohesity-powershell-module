@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.ClusterId = clusterId;
             this.IncarnationId = incarnationId;
-            this.ClusterId = clusterId;
-            this.IncarnationId = incarnationId;
         }
         
         /// <summary>
         /// Specifies the id of the cluster.
         /// </summary>
         /// <value>Specifies the id of the cluster.</value>
-        [DataMember(Name="clusterId", EmitDefaultValue=true)]
+        [DataMember(Name="clusterId", EmitDefaultValue=false)]
         public long? ClusterId { get; set; }
 
         /// <summary>
         /// Specifies the incarnation id of the cluster.
         /// </summary>
         /// <value>Specifies the incarnation id of the cluster.</value>
-        [DataMember(Name="incarnationId", EmitDefaultValue=true)]
+        [DataMember(Name="incarnationId", EmitDefaultValue=false)]
         public long? IncarnationId { get; set; }
 
         /// <summary>

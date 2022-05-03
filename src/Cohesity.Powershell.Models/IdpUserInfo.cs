@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -35,46 +38,41 @@ namespace Cohesity.Model
             this.IssuerId = issuerId;
             this.UserId = userId;
             this.Vendor = vendor;
-            this.Groups = groups;
-            this.IdpId = idpId;
-            this.IssuerId = issuerId;
-            this.UserId = userId;
-            this.Vendor = vendor;
         }
         
         /// <summary>
         /// Specifies the Idp groups that the user is part of. As the user may not be registered on the cluster, we may have to capture the idp group membership. This way, if a group is created on the cluster later, users will instantly have access to tenantIds from that group as well.
         /// </summary>
         /// <value>Specifies the Idp groups that the user is part of. As the user may not be registered on the cluster, we may have to capture the idp group membership. This way, if a group is created on the cluster later, users will instantly have access to tenantIds from that group as well.</value>
-        [DataMember(Name="groups", EmitDefaultValue=true)]
+        [DataMember(Name="groups", EmitDefaultValue=false)]
         public List<string> Groups { get; set; }
 
         /// <summary>
         /// Specifies the unique Id assigned by the Cluster for the IdP.
         /// </summary>
         /// <value>Specifies the unique Id assigned by the Cluster for the IdP.</value>
-        [DataMember(Name="idpId", EmitDefaultValue=true)]
+        [DataMember(Name="idpId", EmitDefaultValue=false)]
         public long? IdpId { get; set; }
 
         /// <summary>
         /// Specifies the unique identifier assigned by the vendor for this Cluster.
         /// </summary>
         /// <value>Specifies the unique identifier assigned by the vendor for this Cluster.</value>
-        [DataMember(Name="issuerId", EmitDefaultValue=true)]
+        [DataMember(Name="issuerId", EmitDefaultValue=false)]
         public string IssuerId { get; set; }
 
         /// <summary>
         /// Specifies the unique identifier assigned by the vendor for the user.
         /// </summary>
         /// <value>Specifies the unique identifier assigned by the vendor for the user.</value>
-        [DataMember(Name="userId", EmitDefaultValue=true)]
+        [DataMember(Name="userId", EmitDefaultValue=false)]
         public string UserId { get; set; }
 
         /// <summary>
         /// Specifies the vendor providing the IdP service.
         /// </summary>
         /// <value>Specifies the vendor providing the IdP service.</value>
-        [DataMember(Name="vendor", EmitDefaultValue=true)]
+        [DataMember(Name="vendor", EmitDefaultValue=false)]
         public string Vendor { get; set; }
 
         /// <summary>
@@ -116,8 +114,7 @@ namespace Cohesity.Model
                 (
                     this.Groups == input.Groups ||
                     this.Groups != null &&
-                    input.Groups != null &&
-                    this.Groups.SequenceEqual(input.Groups)
+                    this.Groups.Equals(input.Groups)
                 ) && 
                 (
                     this.IdpId == input.IdpId ||

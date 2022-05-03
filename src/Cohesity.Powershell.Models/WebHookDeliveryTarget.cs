@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,21 +32,19 @@ namespace Cohesity.Model
         {
             this.CurlOptions = curlOptions;
             this.ExternalApiUrl = externalApiUrl;
-            this.CurlOptions = curlOptions;
-            this.ExternalApiUrl = externalApiUrl;
         }
         
         /// <summary>
         /// Specifies curl options used to invoke external api url defined above.
         /// </summary>
         /// <value>Specifies curl options used to invoke external api url defined above.</value>
-        [DataMember(Name="curlOptions", EmitDefaultValue=true)]
+        [DataMember(Name="curlOptions", EmitDefaultValue=false)]
         public string CurlOptions { get; set; }
 
         /// <summary>
         /// Gets or Sets ExternalApiUrl
         /// </summary>
-        [DataMember(Name="externalApiUrl", EmitDefaultValue=true)]
+        [DataMember(Name="externalApiUrl", EmitDefaultValue=false)]
         public string ExternalApiUrl { get; set; }
 
         /// <summary>

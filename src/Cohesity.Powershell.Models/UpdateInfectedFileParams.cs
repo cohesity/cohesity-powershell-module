@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -45,7 +48,7 @@ namespace Cohesity.Model
         /// Specifies the remediation state of the file. Not setting any value to remediation state will reset the infected file. Remediation State. &#39;kQuarantine&#39; indicates &#39;Quarantine&#39; state of the file. This state blocks the client access. The administrator will have to manually delete, rescan or unquarantine the file. &#39;kUnquarantine&#39; indicates &#39;Unquarantine&#39; state of the file. The administrator has manually moved files from quarantined to the unquarantined state to allow client access. Unquarantined files are not scanned for virus until manually reset.
         /// </summary>
         /// <value>Specifies the remediation state of the file. Not setting any value to remediation state will reset the infected file. Remediation State. &#39;kQuarantine&#39; indicates &#39;Quarantine&#39; state of the file. This state blocks the client access. The administrator will have to manually delete, rescan or unquarantine the file. &#39;kUnquarantine&#39; indicates &#39;Unquarantine&#39; state of the file. The administrator has manually moved files from quarantined to the unquarantined state to allow client access. Unquarantined files are not scanned for virus until manually reset.</value>
-        [DataMember(Name="remediationState", EmitDefaultValue=true)]
+        [DataMember(Name="remediationState", EmitDefaultValue=false)]
         public RemediationStateEnum? RemediationState { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="UpdateInfectedFileParams" /> class.
@@ -56,16 +59,15 @@ namespace Cohesity.Model
         {
             this.InfectedFileIds = infectedFileIds;
             this.RemediationState = remediationState;
-            this.InfectedFileIds = infectedFileIds;
-            this.RemediationState = remediationState;
         }
         
         /// <summary>
         /// Specifies the list of infected file identifiers.
         /// </summary>
         /// <value>Specifies the list of infected file identifiers.</value>
-        [DataMember(Name="infectedFileIds", EmitDefaultValue=true)]
+        [DataMember(Name="infectedFileIds", EmitDefaultValue=false)]
         public List<InfectedFileParam> InfectedFileIds { get; set; }
+
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -106,12 +108,12 @@ namespace Cohesity.Model
                 (
                     this.InfectedFileIds == input.InfectedFileIds ||
                     this.InfectedFileIds != null &&
-                    input.InfectedFileIds != null &&
-                    this.InfectedFileIds.SequenceEqual(input.InfectedFileIds)
+                    this.InfectedFileIds.Equals(input.InfectedFileIds)
                 ) && 
                 (
                     this.RemediationState == input.RemediationState ||
-                    this.RemediationState.Equals(input.RemediationState)
+                    (this.RemediationState != null &&
+                    this.RemediationState.Equals(input.RemediationState))
                 );
         }
 
@@ -126,7 +128,8 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.InfectedFileIds != null)
                     hashCode = hashCode * 59 + this.InfectedFileIds.GetHashCode();
-                hashCode = hashCode * 59 + this.RemediationState.GetHashCode();
+                if (this.RemediationState != null)
+                    hashCode = hashCode * 59 + this.RemediationState.GetHashCode();
                 return hashCode;
             }
         }

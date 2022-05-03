@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.Hour = hour;
             this.Minute = minute;
-            this.Hour = hour;
-            this.Minute = minute;
         }
         
         /// <summary>
         /// The hour when backup should be performed (0 - 23).
         /// </summary>
         /// <value>The hour when backup should be performed (0 - 23).</value>
-        [DataMember(Name="hour", EmitDefaultValue=true)]
+        [DataMember(Name="hour", EmitDefaultValue=false)]
         public int? Hour { get; set; }
 
         /// <summary>
         /// The minute when backup should be performed (0 - 59).
         /// </summary>
         /// <value>The minute when backup should be performed (0 - 59).</value>
-        [DataMember(Name="minute", EmitDefaultValue=true)]
+        [DataMember(Name="minute", EmitDefaultValue=false)]
         public int? Minute { get; set; }
 
         /// <summary>

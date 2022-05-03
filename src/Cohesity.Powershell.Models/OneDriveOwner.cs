@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -28,7 +31,6 @@ namespace Cohesity.Model
         public OneDriveOwner(List<OneDriveInfo> driveInfoList = default(List<OneDriveInfo>), RestoreObjectDetails userDetailObject = default(RestoreObjectDetails))
         {
             this.DriveInfoList = driveInfoList;
-            this.DriveInfoList = driveInfoList;
             this.UserDetailObject = userDetailObject;
         }
         
@@ -36,7 +38,7 @@ namespace Cohesity.Model
         /// Specifies the Drives that a user owns which are to be restored.
         /// </summary>
         /// <value>Specifies the Drives that a user owns which are to be restored.</value>
-        [DataMember(Name="driveInfoList", EmitDefaultValue=true)]
+        [DataMember(Name="driveInfoList", EmitDefaultValue=false)]
         public List<OneDriveInfo> DriveInfoList { get; set; }
 
         /// <summary>
@@ -84,8 +86,7 @@ namespace Cohesity.Model
                 (
                     this.DriveInfoList == input.DriveInfoList ||
                     this.DriveInfoList != null &&
-                    input.DriveInfoList != null &&
-                    this.DriveInfoList.SequenceEqual(input.DriveInfoList)
+                    this.DriveInfoList.Equals(input.DriveInfoList)
                 ) && 
                 (
                     this.UserDetailObject == input.UserDetailObject ||

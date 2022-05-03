@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -75,7 +78,7 @@ namespace Cohesity.Model
         /// Array of Week Days.  Specifies a list of days of a week (such as &#39;kSunday&#39;) when the time period should be applied. If not set, the time range applies to all days of the week. Specifies a day in a week such as &#39;kSunday&#39;, &#39;kMonday&#39;, etc.
         /// </summary>
         /// <value>Array of Week Days.  Specifies a list of days of a week (such as &#39;kSunday&#39;) when the time period should be applied. If not set, the time range applies to all days of the week. Specifies a day in a week such as &#39;kSunday&#39;, &#39;kMonday&#39;, etc.</value>
-        [DataMember(Name="days", EmitDefaultValue=true)]
+        [DataMember(Name="days", EmitDefaultValue=false)]
         public List<DaysEnum> Days { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="TimeOfAWeek" /> class.
@@ -90,31 +93,28 @@ namespace Cohesity.Model
             this.EndTime = endTime;
             this.IsAllDay = isAllDay;
             this.StartTime = startTime;
-            this.Days = days;
-            this.EndTime = endTime;
-            this.IsAllDay = isAllDay;
-            this.StartTime = startTime;
         }
         
+
         /// <summary>
         /// Specifies the end time for the daily time period.
         /// </summary>
         /// <value>Specifies the end time for the daily time period.</value>
-        [DataMember(Name="endTime", EmitDefaultValue=true)]
+        [DataMember(Name="endTime", EmitDefaultValue=false)]
         public TimeOfDay EndTime { get; set; }
 
         /// <summary>
         /// All Day.  Specifies that time range is applied for entire day.
         /// </summary>
         /// <value>All Day.  Specifies that time range is applied for entire day.</value>
-        [DataMember(Name="isAllDay", EmitDefaultValue=true)]
+        [DataMember(Name="isAllDay", EmitDefaultValue=false)]
         public bool? IsAllDay { get; set; }
 
         /// <summary>
         /// Specifies the start time for the daily time period.
         /// </summary>
         /// <value>Specifies the start time for the daily time period.</value>
-        [DataMember(Name="startTime", EmitDefaultValue=true)]
+        [DataMember(Name="startTime", EmitDefaultValue=false)]
         public TimeOfDay StartTime { get; set; }
 
         /// <summary>
@@ -155,12 +155,13 @@ namespace Cohesity.Model
             return 
                 (
                     this.Days == input.Days ||
-                    this.Days.SequenceEqual(input.Days)
+                    this.Days != null &&
+                    this.Days.Equals(input.Days)
                 ) && 
                 (
                     this.EndTime == input.EndTime ||
-                    (this.EndTime != null &&
-                    this.EndTime.Equals(input.EndTime))
+                    this.EndTime != null &&
+                    this.EndTime.Equals(input.EndTime)
                 ) && 
                 (
                     this.IsAllDay == input.IsAllDay ||
@@ -169,8 +170,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.StartTime == input.StartTime ||
-                    (this.StartTime != null &&
-                    this.StartTime.Equals(input.StartTime))
+                    this.StartTime != null &&
+                    this.StartTime.Equals(input.StartTime)
                 );
         }
 
@@ -183,7 +184,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                hashCode = hashCode * 59 + this.Days.GetHashCode();
+                if (this.Days != null)
+                    hashCode = hashCode * 59 + this.Days.GetHashCode();
                 if (this.EndTime != null)
                     hashCode = hashCode * 59 + this.EndTime.GetHashCode();
                 if (this.IsAllDay != null)

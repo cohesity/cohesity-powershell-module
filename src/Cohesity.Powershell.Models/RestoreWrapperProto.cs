@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -32,9 +35,6 @@ namespace Cohesity.Model
         public RestoreWrapperProto(List<DestroyClonedTaskStateProto> destroyClonedTaskStateVec = default(List<DestroyClonedTaskStateProto>), RestoreWrapperProto ownerRestoreWrapperProto = default(RestoreWrapperProto), List<PerformRestoreTaskStateProto> performRefreshTaskStateVec = default(List<PerformRestoreTaskStateProto>), PerformRestoreJobStateProto performRestoreJobState = default(PerformRestoreJobStateProto), PerformRestoreTaskStateProto performRestoreTaskState = default(PerformRestoreTaskStateProto), List<Object> restoreSubTaskWrapperProtoVec = default(List<Object>))
         {
             this.DestroyClonedTaskStateVec = destroyClonedTaskStateVec;
-            this.PerformRefreshTaskStateVec = performRefreshTaskStateVec;
-            this.RestoreSubTaskWrapperProtoVec = restoreSubTaskWrapperProtoVec;
-            this.DestroyClonedTaskStateVec = destroyClonedTaskStateVec;
             this.OwnerRestoreWrapperProto = ownerRestoreWrapperProto;
             this.PerformRefreshTaskStateVec = performRefreshTaskStateVec;
             this.PerformRestoreJobState = performRestoreJobState;
@@ -46,7 +46,7 @@ namespace Cohesity.Model
         /// For a restore task of type &#39;Clone&#39;, this field contains the info of the destroy task(s).
         /// </summary>
         /// <value>For a restore task of type &#39;Clone&#39;, this field contains the info of the destroy task(s).</value>
-        [DataMember(Name="destroyClonedTaskStateVec", EmitDefaultValue=true)]
+        [DataMember(Name="destroyClonedTaskStateVec", EmitDefaultValue=false)]
         public List<DestroyClonedTaskStateProto> DestroyClonedTaskStateVec { get; set; }
 
         /// <summary>
@@ -59,7 +59,7 @@ namespace Cohesity.Model
         /// Contains information of the refresh tasks for a clone
         /// </summary>
         /// <value>Contains information of the refresh tasks for a clone</value>
-        [DataMember(Name="performRefreshTaskStateVec", EmitDefaultValue=true)]
+        [DataMember(Name="performRefreshTaskStateVec", EmitDefaultValue=false)]
         public List<PerformRestoreTaskStateProto> PerformRefreshTaskStateVec { get; set; }
 
         /// <summary>
@@ -78,7 +78,7 @@ namespace Cohesity.Model
         /// If this restore has sub tasks, the following field will get populated with the wrapper proto of all of its sub-tasks.  Note that this field is only populated for Iris in response to &#39;GetRestoreTasksArg&#39; RPC. It is not persisted in Magneto&#39;s WAL.  List of environments that use this field: kSQL : Used for multi-stage SQL restore that supports a hot-standy.
         /// </summary>
         /// <value>If this restore has sub tasks, the following field will get populated with the wrapper proto of all of its sub-tasks.  Note that this field is only populated for Iris in response to &#39;GetRestoreTasksArg&#39; RPC. It is not persisted in Magneto&#39;s WAL.  List of environments that use this field: kSQL : Used for multi-stage SQL restore that supports a hot-standy.</value>
-        [DataMember(Name="restoreSubTaskWrapperProtoVec", EmitDefaultValue=true)]
+        [DataMember(Name="restoreSubTaskWrapperProtoVec", EmitDefaultValue=false)]
         public List<Object> RestoreSubTaskWrapperProtoVec { get; set; }
 
         /// <summary>
@@ -120,8 +120,7 @@ namespace Cohesity.Model
                 (
                     this.DestroyClonedTaskStateVec == input.DestroyClonedTaskStateVec ||
                     this.DestroyClonedTaskStateVec != null &&
-                    input.DestroyClonedTaskStateVec != null &&
-                    this.DestroyClonedTaskStateVec.SequenceEqual(input.DestroyClonedTaskStateVec)
+                    this.DestroyClonedTaskStateVec.Equals(input.DestroyClonedTaskStateVec)
                 ) && 
                 (
                     this.OwnerRestoreWrapperProto == input.OwnerRestoreWrapperProto ||
@@ -131,8 +130,7 @@ namespace Cohesity.Model
                 (
                     this.PerformRefreshTaskStateVec == input.PerformRefreshTaskStateVec ||
                     this.PerformRefreshTaskStateVec != null &&
-                    input.PerformRefreshTaskStateVec != null &&
-                    this.PerformRefreshTaskStateVec.SequenceEqual(input.PerformRefreshTaskStateVec)
+                    this.PerformRefreshTaskStateVec.Equals(input.PerformRefreshTaskStateVec)
                 ) && 
                 (
                     this.PerformRestoreJobState == input.PerformRestoreJobState ||
@@ -147,8 +145,7 @@ namespace Cohesity.Model
                 (
                     this.RestoreSubTaskWrapperProtoVec == input.RestoreSubTaskWrapperProtoVec ||
                     this.RestoreSubTaskWrapperProtoVec != null &&
-                    input.RestoreSubTaskWrapperProtoVec != null &&
-                    this.RestoreSubTaskWrapperProtoVec.SequenceEqual(input.RestoreSubTaskWrapperProtoVec)
+                    this.RestoreSubTaskWrapperProtoVec.Equals(input.RestoreSubTaskWrapperProtoVec)
                 );
         }
 

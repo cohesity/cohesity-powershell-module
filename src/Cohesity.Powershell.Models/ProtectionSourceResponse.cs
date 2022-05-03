@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -33,10 +36,6 @@ namespace Cohesity.Model
         {
             this.Jobs = jobs;
             this.LogicalSizeInBytes = logicalSizeInBytes;
-            this.ProtectionSourceUidList = protectionSourceUidList;
-            this.Uuid = uuid;
-            this.Jobs = jobs;
-            this.LogicalSizeInBytes = logicalSizeInBytes;
             this.ParentSource = parentSource;
             this.ProtectionSourceUidList = protectionSourceUidList;
             this.Source = source;
@@ -47,14 +46,14 @@ namespace Cohesity.Model
         /// Specifies the list of Protection Jobs that protect the object.
         /// </summary>
         /// <value>Specifies the list of Protection Jobs that protect the object.</value>
-        [DataMember(Name="jobs", EmitDefaultValue=true)]
+        [DataMember(Name="jobs", EmitDefaultValue=false)]
         public List<ProtectionJobSummary> Jobs { get; set; }
 
         /// <summary>
         /// Specifies the logical size of Protection Source in bytes.
         /// </summary>
         /// <value>Specifies the logical size of Protection Source in bytes.</value>
-        [DataMember(Name="logicalSizeInBytes", EmitDefaultValue=true)]
+        [DataMember(Name="logicalSizeInBytes", EmitDefaultValue=false)]
         public long? LogicalSizeInBytes { get; set; }
 
         /// <summary>
@@ -67,7 +66,7 @@ namespace Cohesity.Model
         /// Specifies the list of universal ids of the Protection Source.
         /// </summary>
         /// <value>Specifies the list of universal ids of the Protection Source.</value>
-        [DataMember(Name="protectionSourceUidList", EmitDefaultValue=true)]
+        [DataMember(Name="protectionSourceUidList", EmitDefaultValue=false)]
         public List<ProtectionSourceUid> ProtectionSourceUidList { get; set; }
 
         /// <summary>
@@ -80,7 +79,7 @@ namespace Cohesity.Model
         /// Specifies the unique id of the Protection Source.
         /// </summary>
         /// <value>Specifies the unique id of the Protection Source.</value>
-        [DataMember(Name="uuid", EmitDefaultValue=true)]
+        [DataMember(Name="uuid", EmitDefaultValue=false)]
         public string Uuid { get; set; }
 
         /// <summary>
@@ -122,8 +121,7 @@ namespace Cohesity.Model
                 (
                     this.Jobs == input.Jobs ||
                     this.Jobs != null &&
-                    input.Jobs != null &&
-                    this.Jobs.SequenceEqual(input.Jobs)
+                    this.Jobs.Equals(input.Jobs)
                 ) && 
                 (
                     this.LogicalSizeInBytes == input.LogicalSizeInBytes ||
@@ -138,8 +136,7 @@ namespace Cohesity.Model
                 (
                     this.ProtectionSourceUidList == input.ProtectionSourceUidList ||
                     this.ProtectionSourceUidList != null &&
-                    input.ProtectionSourceUidList != null &&
-                    this.ProtectionSourceUidList.SequenceEqual(input.ProtectionSourceUidList)
+                    this.ProtectionSourceUidList.Equals(input.ProtectionSourceUidList)
                 ) && 
                 (
                     this.Source == input.Source ||

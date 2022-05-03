@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -41,70 +44,62 @@ namespace Cohesity.Model
             this.PhysicalRangeVec = physicalRangeVec;
             this.SectorSize = sectorSize;
             this.VmdkSize = vmdkSize;
-            this.DiskFileName = diskFileName;
-            this.DiskFormat = diskFormat;
-            this.DiskUuid = diskUuid;
-            this.PartitionType = partitionType;
-            this.PartitionVec = partitionVec;
-            this.PhysicalRangeVec = physicalRangeVec;
-            this.SectorSize = sectorSize;
-            this.VmdkSize = vmdkSize;
         }
         
         /// <summary>
         /// Disk name. This is the vmdk names, and not the flat file name.
         /// </summary>
         /// <value>Disk name. This is the vmdk names, and not the flat file name.</value>
-        [DataMember(Name="diskFileName", EmitDefaultValue=true)]
+        [DataMember(Name="diskFileName", EmitDefaultValue=false)]
         public string DiskFileName { get; set; }
 
         /// <summary>
         /// Disk format type of this file. See util/disklib/base/enums.proto for available types.
         /// </summary>
         /// <value>Disk format type of this file. See util/disklib/base/enums.proto for available types.</value>
-        [DataMember(Name="diskFormat", EmitDefaultValue=true)]
+        [DataMember(Name="diskFormat", EmitDefaultValue=false)]
         public int? DiskFormat { get; set; }
 
         /// <summary>
         /// Disk uuid.
         /// </summary>
         /// <value>Disk uuid.</value>
-        [DataMember(Name="diskUuid", EmitDefaultValue=true)]
+        [DataMember(Name="diskUuid", EmitDefaultValue=false)]
         public string DiskUuid { get; set; }
 
         /// <summary>
         /// Disk partition type.
         /// </summary>
         /// <value>Disk partition type.</value>
-        [DataMember(Name="partitionType", EmitDefaultValue=true)]
+        [DataMember(Name="partitionType", EmitDefaultValue=false)]
         public int? PartitionType { get; set; }
 
         /// <summary>
         /// Information about all the partitions in this disk.
         /// </summary>
         /// <value>Information about all the partitions in this disk.</value>
-        [DataMember(Name="partitionVec", EmitDefaultValue=true)]
+        [DataMember(Name="partitionVec", EmitDefaultValue=false)]
         public List<VolumeInfoDiskInfoPartitionInfo> PartitionVec { get; set; }
 
         /// <summary>
         /// This disk is formed by following physical ranges. Ranges are arranged sequentially to form a disk.
         /// </summary>
         /// <value>This disk is formed by following physical ranges. Ranges are arranged sequentially to form a disk.</value>
-        [DataMember(Name="physicalRangeVec", EmitDefaultValue=true)]
+        [DataMember(Name="physicalRangeVec", EmitDefaultValue=false)]
         public List<VolumeInfoDiskInfoPhysicalRange> PhysicalRangeVec { get; set; }
 
         /// <summary>
         /// Sector size of disk. This is sector size of disk which is formed by mapping the physical ranges of the disk into a linear device.
         /// </summary>
         /// <value>Sector size of disk. This is sector size of disk which is formed by mapping the physical ranges of the disk into a linear device.</value>
-        [DataMember(Name="sectorSize", EmitDefaultValue=true)]
+        [DataMember(Name="sectorSize", EmitDefaultValue=false)]
         public long? SectorSize { get; set; }
 
         /// <summary>
         /// Disk size in bytes.
         /// </summary>
         /// <value>Disk size in bytes.</value>
-        [DataMember(Name="vmdkSize", EmitDefaultValue=true)]
+        [DataMember(Name="vmdkSize", EmitDefaultValue=false)]
         public long? VmdkSize { get; set; }
 
         /// <summary>
@@ -166,14 +161,12 @@ namespace Cohesity.Model
                 (
                     this.PartitionVec == input.PartitionVec ||
                     this.PartitionVec != null &&
-                    input.PartitionVec != null &&
-                    this.PartitionVec.SequenceEqual(input.PartitionVec)
+                    this.PartitionVec.Equals(input.PartitionVec)
                 ) && 
                 (
                     this.PhysicalRangeVec == input.PhysicalRangeVec ||
                     this.PhysicalRangeVec != null &&
-                    input.PhysicalRangeVec != null &&
-                    this.PhysicalRangeVec.SequenceEqual(input.PhysicalRangeVec)
+                    this.PhysicalRangeVec.Equals(input.PhysicalRangeVec)
                 ) && 
                 (
                     this.SectorSize == input.SectorSize ||

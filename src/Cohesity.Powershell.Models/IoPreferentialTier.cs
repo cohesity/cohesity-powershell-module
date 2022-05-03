@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -504,7 +507,7 @@ namespace Cohesity.Model
         /// <param name="scribeIOPreferentialTier">Specifies the list of perferred storage tiers used by Scribe..</param>
         /// <param name="sequentialIOPreferentialTier">Specifies the preferred storage tier for sequential IO operations..</param>
         /// <param name="yodaIOPreferentialTier">Specifies the list of perferred storage tiers used by Yoda..</param>
-        public IoPreferentialTier(List<ApolloIOPreferentialTierEnum> apolloIOPreferentialTier = default(List<ApolloIOPreferentialTierEnum>), List<ApolloWalIOPreferentialTierEnum> apolloWalIOPreferentialTier = default(List<ApolloWalIOPreferentialTierEnum>), List<AthenaIOPreferentialTierEnum> athenaIOPreferentialTier = default(List<AthenaIOPreferentialTierEnum>), List<AthenaSlowerIOPreferentialTierEnum> athenaSlowerIOPreferentialTier = default(List<AthenaSlowerIOPreferentialTierEnum>), List<int> downTierUsagePercentThresholds = default(List<int>), List<GrootIOPreferentialTierEnum> grootIOPreferentialTier = default(List<GrootIOPreferentialTierEnum>), List<HydraDowntierIOPreferentialTierEnum> hydraDowntierIOPreferentialTier = default(List<HydraDowntierIOPreferentialTierEnum>), List<HydraIOPreferentialTierEnum> hydraIOPreferentialTier = default(List<HydraIOPreferentialTierEnum>), List<LibrarianIOPreferentialTierEnum> librarianIOPreferentialTier = default(List<LibrarianIOPreferentialTierEnum>), List<RandomIOPreferentialTierEnum> randomIOPreferentialTier = default(List<RandomIOPreferentialTierEnum>), List<ScribeIOPreferentialTierEnum> scribeIOPreferentialTier = default(List<ScribeIOPreferentialTierEnum>), List<SequentialIOPreferentialTierEnum> sequentialIOPreferentialTier = default(List<SequentialIOPreferentialTierEnum>), List<YodaIOPreferentialTierEnum> yodaIOPreferentialTier = default(List<YodaIOPreferentialTierEnum>))
+        public IoPreferentialTier(List<ApolloIOPreferentialTierEnum> apolloIOPreferentialTier = default(List<ApolloIOPreferentialTierEnum>), List<ApolloWalIOPreferentialTierEnum> apolloWalIOPreferentialTier = default(List<ApolloWalIOPreferentialTierEnum>), List<AthenaIOPreferentialTierEnum> athenaIOPreferentialTier = default(List<AthenaIOPreferentialTierEnum>), List<AthenaSlowerIOPreferentialTierEnum> athenaSlowerIOPreferentialTier = default(List<AthenaSlowerIOPreferentialTierEnum>), List<int?> downTierUsagePercentThresholds = default(List<int?>), List<GrootIOPreferentialTierEnum> grootIOPreferentialTier = default(List<GrootIOPreferentialTierEnum>), List<HydraDowntierIOPreferentialTierEnum> hydraDowntierIOPreferentialTier = default(List<HydraDowntierIOPreferentialTierEnum>), List<HydraIOPreferentialTierEnum> hydraIOPreferentialTier = default(List<HydraIOPreferentialTierEnum>), List<LibrarianIOPreferentialTierEnum> librarianIOPreferentialTier = default(List<LibrarianIOPreferentialTierEnum>), List<RandomIOPreferentialTierEnum> randomIOPreferentialTier = default(List<RandomIOPreferentialTierEnum>), List<ScribeIOPreferentialTierEnum> scribeIOPreferentialTier = default(List<ScribeIOPreferentialTierEnum>), List<SequentialIOPreferentialTierEnum> sequentialIOPreferentialTier = default(List<SequentialIOPreferentialTierEnum>), List<YodaIOPreferentialTierEnum> yodaIOPreferentialTier = default(List<YodaIOPreferentialTierEnum>))
         {
             this.ApolloIOPreferentialTier = apolloIOPreferentialTier;
             this.ApolloWalIOPreferentialTier = apolloWalIOPreferentialTier;
@@ -521,12 +524,24 @@ namespace Cohesity.Model
             this.YodaIOPreferentialTier = yodaIOPreferentialTier;
         }
         
+
+
+
+
         /// <summary>
         /// Specifies the usage percentage thresholds for the correponding storage tier.
         /// </summary>
         /// <value>Specifies the usage percentage thresholds for the correponding storage tier.</value>
         [DataMember(Name="downTierUsagePercentThresholds", EmitDefaultValue=false)]
-        public List<int> DownTierUsagePercentThresholds { get; set; }
+        public List<int?> DownTierUsagePercentThresholds { get; set; }
+
+
+
+
+
+
+
+
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -566,57 +581,68 @@ namespace Cohesity.Model
             return 
                 (
                     this.ApolloIOPreferentialTier == input.ApolloIOPreferentialTier ||
-                    this.ApolloIOPreferentialTier.SequenceEqual(input.ApolloIOPreferentialTier)
+                    this.ApolloIOPreferentialTier != null &&
+                    this.ApolloIOPreferentialTier.Equals(input.ApolloIOPreferentialTier)
                 ) && 
                 (
                     this.ApolloWalIOPreferentialTier == input.ApolloWalIOPreferentialTier ||
-                    this.ApolloWalIOPreferentialTier.SequenceEqual(input.ApolloWalIOPreferentialTier)
+                    this.ApolloWalIOPreferentialTier != null &&
+                    this.ApolloWalIOPreferentialTier.Equals(input.ApolloWalIOPreferentialTier)
                 ) && 
                 (
                     this.AthenaIOPreferentialTier == input.AthenaIOPreferentialTier ||
-                    this.AthenaIOPreferentialTier.SequenceEqual(input.AthenaIOPreferentialTier)
+                    this.AthenaIOPreferentialTier != null &&
+                    this.AthenaIOPreferentialTier.Equals(input.AthenaIOPreferentialTier)
                 ) && 
                 (
                     this.AthenaSlowerIOPreferentialTier == input.AthenaSlowerIOPreferentialTier ||
-                    this.AthenaSlowerIOPreferentialTier.SequenceEqual(input.AthenaSlowerIOPreferentialTier)
+                    this.AthenaSlowerIOPreferentialTier != null &&
+                    this.AthenaSlowerIOPreferentialTier.Equals(input.AthenaSlowerIOPreferentialTier)
                 ) && 
                 (
                     this.DownTierUsagePercentThresholds == input.DownTierUsagePercentThresholds ||
                     this.DownTierUsagePercentThresholds != null &&
-                    input.DownTierUsagePercentThresholds != null &&
-                    this.DownTierUsagePercentThresholds.SequenceEqual(input.DownTierUsagePercentThresholds)
+                    this.DownTierUsagePercentThresholds.Equals(input.DownTierUsagePercentThresholds)
                 ) && 
                 (
                     this.GrootIOPreferentialTier == input.GrootIOPreferentialTier ||
-                    this.GrootIOPreferentialTier.SequenceEqual(input.GrootIOPreferentialTier)
+                    this.GrootIOPreferentialTier != null &&
+                    this.GrootIOPreferentialTier.Equals(input.GrootIOPreferentialTier)
                 ) && 
                 (
                     this.HydraDowntierIOPreferentialTier == input.HydraDowntierIOPreferentialTier ||
-                    this.HydraDowntierIOPreferentialTier.SequenceEqual(input.HydraDowntierIOPreferentialTier)
+                    this.HydraDowntierIOPreferentialTier != null &&
+                    this.HydraDowntierIOPreferentialTier.Equals(input.HydraDowntierIOPreferentialTier)
                 ) && 
                 (
                     this.HydraIOPreferentialTier == input.HydraIOPreferentialTier ||
-                    this.HydraIOPreferentialTier.SequenceEqual(input.HydraIOPreferentialTier)
+                    this.HydraIOPreferentialTier != null &&
+                    this.HydraIOPreferentialTier.Equals(input.HydraIOPreferentialTier)
                 ) && 
                 (
                     this.LibrarianIOPreferentialTier == input.LibrarianIOPreferentialTier ||
-                    this.LibrarianIOPreferentialTier.SequenceEqual(input.LibrarianIOPreferentialTier)
+                    this.LibrarianIOPreferentialTier != null &&
+                    this.LibrarianIOPreferentialTier.Equals(input.LibrarianIOPreferentialTier)
                 ) && 
                 (
                     this.RandomIOPreferentialTier == input.RandomIOPreferentialTier ||
-                    this.RandomIOPreferentialTier.SequenceEqual(input.RandomIOPreferentialTier)
+                    this.RandomIOPreferentialTier != null &&
+                    this.RandomIOPreferentialTier.Equals(input.RandomIOPreferentialTier)
                 ) && 
                 (
                     this.ScribeIOPreferentialTier == input.ScribeIOPreferentialTier ||
-                    this.ScribeIOPreferentialTier.SequenceEqual(input.ScribeIOPreferentialTier)
+                    this.ScribeIOPreferentialTier != null &&
+                    this.ScribeIOPreferentialTier.Equals(input.ScribeIOPreferentialTier)
                 ) && 
                 (
                     this.SequentialIOPreferentialTier == input.SequentialIOPreferentialTier ||
-                    this.SequentialIOPreferentialTier.SequenceEqual(input.SequentialIOPreferentialTier)
+                    this.SequentialIOPreferentialTier != null &&
+                    this.SequentialIOPreferentialTier.Equals(input.SequentialIOPreferentialTier)
                 ) && 
                 (
                     this.YodaIOPreferentialTier == input.YodaIOPreferentialTier ||
-                    this.YodaIOPreferentialTier.SequenceEqual(input.YodaIOPreferentialTier)
+                    this.YodaIOPreferentialTier != null &&
+                    this.YodaIOPreferentialTier.Equals(input.YodaIOPreferentialTier)
                 );
         }
 
@@ -629,20 +655,32 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                hashCode = hashCode * 59 + this.ApolloIOPreferentialTier.GetHashCode();
-                hashCode = hashCode * 59 + this.ApolloWalIOPreferentialTier.GetHashCode();
-                hashCode = hashCode * 59 + this.AthenaIOPreferentialTier.GetHashCode();
-                hashCode = hashCode * 59 + this.AthenaSlowerIOPreferentialTier.GetHashCode();
+                if (this.ApolloIOPreferentialTier != null)
+                    hashCode = hashCode * 59 + this.ApolloIOPreferentialTier.GetHashCode();
+                if (this.ApolloWalIOPreferentialTier != null)
+                    hashCode = hashCode * 59 + this.ApolloWalIOPreferentialTier.GetHashCode();
+                if (this.AthenaIOPreferentialTier != null)
+                    hashCode = hashCode * 59 + this.AthenaIOPreferentialTier.GetHashCode();
+                if (this.AthenaSlowerIOPreferentialTier != null)
+                    hashCode = hashCode * 59 + this.AthenaSlowerIOPreferentialTier.GetHashCode();
                 if (this.DownTierUsagePercentThresholds != null)
                     hashCode = hashCode * 59 + this.DownTierUsagePercentThresholds.GetHashCode();
-                hashCode = hashCode * 59 + this.GrootIOPreferentialTier.GetHashCode();
-                hashCode = hashCode * 59 + this.HydraDowntierIOPreferentialTier.GetHashCode();
-                hashCode = hashCode * 59 + this.HydraIOPreferentialTier.GetHashCode();
-                hashCode = hashCode * 59 + this.LibrarianIOPreferentialTier.GetHashCode();
-                hashCode = hashCode * 59 + this.RandomIOPreferentialTier.GetHashCode();
-                hashCode = hashCode * 59 + this.ScribeIOPreferentialTier.GetHashCode();
-                hashCode = hashCode * 59 + this.SequentialIOPreferentialTier.GetHashCode();
-                hashCode = hashCode * 59 + this.YodaIOPreferentialTier.GetHashCode();
+                if (this.GrootIOPreferentialTier != null)
+                    hashCode = hashCode * 59 + this.GrootIOPreferentialTier.GetHashCode();
+                if (this.HydraDowntierIOPreferentialTier != null)
+                    hashCode = hashCode * 59 + this.HydraDowntierIOPreferentialTier.GetHashCode();
+                if (this.HydraIOPreferentialTier != null)
+                    hashCode = hashCode * 59 + this.HydraIOPreferentialTier.GetHashCode();
+                if (this.LibrarianIOPreferentialTier != null)
+                    hashCode = hashCode * 59 + this.LibrarianIOPreferentialTier.GetHashCode();
+                if (this.RandomIOPreferentialTier != null)
+                    hashCode = hashCode * 59 + this.RandomIOPreferentialTier.GetHashCode();
+                if (this.ScribeIOPreferentialTier != null)
+                    hashCode = hashCode * 59 + this.ScribeIOPreferentialTier.GetHashCode();
+                if (this.SequentialIOPreferentialTier != null)
+                    hashCode = hashCode * 59 + this.SequentialIOPreferentialTier.GetHashCode();
+                if (this.YodaIOPreferentialTier != null)
+                    hashCode = hashCode * 59 + this.YodaIOPreferentialTier.GetHashCode();
                 return hashCode;
             }
         }

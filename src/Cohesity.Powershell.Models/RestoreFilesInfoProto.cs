@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -34,11 +37,6 @@ namespace Cohesity.Model
         public RestoreFilesInfoProto(string downloadFilesPath = default(string), ErrorProto error = default(ErrorProto), ConnectorParams proxyEntityConnectorParams = default(ConnectorParams), List<RestoreFileResultInfo> restoreFilesResultVec = default(List<RestoreFileResultInfo>), long? slaveTaskStartTimeUsecs = default(long?), int? targetType = default(int?), ErrorProto teardownError = default(ErrorProto), int? type = default(int?))
         {
             this.DownloadFilesPath = downloadFilesPath;
-            this.RestoreFilesResultVec = restoreFilesResultVec;
-            this.SlaveTaskStartTimeUsecs = slaveTaskStartTimeUsecs;
-            this.TargetType = targetType;
-            this.Type = type;
-            this.DownloadFilesPath = downloadFilesPath;
             this.Error = error;
             this.ProxyEntityConnectorParams = proxyEntityConnectorParams;
             this.RestoreFilesResultVec = restoreFilesResultVec;
@@ -52,7 +50,7 @@ namespace Cohesity.Model
         /// The path that the user should use to download files through the UI. If only a single file needs to be downloaded, this will be the path to that file. If a directory or multiple files &amp; directories need to be downloaded, this will be the path to the .zip file to download. Only applicable to a download files task.
         /// </summary>
         /// <value>The path that the user should use to download files through the UI. If only a single file needs to be downloaded, this will be the path to that file. If a directory or multiple files &amp; directories need to be downloaded, this will be the path to the .zip file to download. Only applicable to a download files task.</value>
-        [DataMember(Name="downloadFilesPath", EmitDefaultValue=true)]
+        [DataMember(Name="downloadFilesPath", EmitDefaultValue=false)]
         public string DownloadFilesPath { get; set; }
 
         /// <summary>
@@ -71,21 +69,21 @@ namespace Cohesity.Model
         /// Contains the result information of the restored files.
         /// </summary>
         /// <value>Contains the result information of the restored files.</value>
-        [DataMember(Name="restoreFilesResultVec", EmitDefaultValue=true)]
+        [DataMember(Name="restoreFilesResultVec", EmitDefaultValue=false)]
         public List<RestoreFileResultInfo> RestoreFilesResultVec { get; set; }
 
         /// <summary>
         /// This is the timestamp at which the slave task started.
         /// </summary>
         /// <value>This is the timestamp at which the slave task started.</value>
-        [DataMember(Name="slaveTaskStartTimeUsecs", EmitDefaultValue=true)]
+        [DataMember(Name="slaveTaskStartTimeUsecs", EmitDefaultValue=false)]
         public long? SlaveTaskStartTimeUsecs { get; set; }
 
         /// <summary>
         /// Specifies the target type for the task. The field is only valid if the task has got a permit.
         /// </summary>
         /// <value>Specifies the target type for the task. The field is only valid if the task has got a permit.</value>
-        [DataMember(Name="targetType", EmitDefaultValue=true)]
+        [DataMember(Name="targetType", EmitDefaultValue=false)]
         public int? TargetType { get; set; }
 
         /// <summary>
@@ -98,7 +96,7 @@ namespace Cohesity.Model
         /// The type of environment this restore files info pertains to.
         /// </summary>
         /// <value>The type of environment this restore files info pertains to.</value>
-        [DataMember(Name="type", EmitDefaultValue=true)]
+        [DataMember(Name="type", EmitDefaultValue=false)]
         public int? Type { get; set; }
 
         /// <summary>
@@ -155,8 +153,7 @@ namespace Cohesity.Model
                 (
                     this.RestoreFilesResultVec == input.RestoreFilesResultVec ||
                     this.RestoreFilesResultVec != null &&
-                    input.RestoreFilesResultVec != null &&
-                    this.RestoreFilesResultVec.SequenceEqual(input.RestoreFilesResultVec)
+                    this.RestoreFilesResultVec.Equals(input.RestoreFilesResultVec)
                 ) && 
                 (
                     this.SlaveTaskStartTimeUsecs == input.SlaveTaskStartTimeUsecs ||

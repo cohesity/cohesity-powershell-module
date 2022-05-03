@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -45,7 +48,7 @@ namespace Cohesity.Model
         /// Specifies the sharing protocol type used to mount the file system. Currently, only NFS is supported. &#39;kNFS&#39; indicates use the NFS protocol to mount the file system. &#39;kCIFS&#39; indicates use the CIFS protocol to mount the file system.
         /// </summary>
         /// <value>Specifies the sharing protocol type used to mount the file system. Currently, only NFS is supported. &#39;kNFS&#39; indicates use the NFS protocol to mount the file system. &#39;kCIFS&#39; indicates use the CIFS protocol to mount the file system.</value>
-        [DataMember(Name="shareType", EmitDefaultValue=true)]
+        [DataMember(Name="shareType", EmitDefaultValue=false)]
         public ShareTypeEnum? ShareType { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="NasCredentials" /> class.
@@ -62,39 +65,35 @@ namespace Cohesity.Model
             this.Password = password;
             this.ShareType = shareType;
             this.Username = username;
-            this.Host = host;
-            this.MountPath = mountPath;
-            this.Password = password;
-            this.ShareType = shareType;
-            this.Username = username;
         }
         
         /// <summary>
         /// Specifies the hostname or IP address of the NAS server.
         /// </summary>
         /// <value>Specifies the hostname or IP address of the NAS server.</value>
-        [DataMember(Name="host", EmitDefaultValue=true)]
+        [DataMember(Name="host", EmitDefaultValue=false)]
         public string Host { get; set; }
 
         /// <summary>
         /// Specifies the mount path to the NAS server.
         /// </summary>
         /// <value>Specifies the mount path to the NAS server.</value>
-        [DataMember(Name="mountPath", EmitDefaultValue=true)]
+        [DataMember(Name="mountPath", EmitDefaultValue=false)]
         public string MountPath { get; set; }
 
         /// <summary>
         /// If using the CIFS protocol and a Username was specified, specify the password for the username.
         /// </summary>
         /// <value>If using the CIFS protocol and a Username was specified, specify the password for the username.</value>
-        [DataMember(Name="password", EmitDefaultValue=true)]
+        [DataMember(Name="password", EmitDefaultValue=false)]
         public string Password { get; set; }
+
 
         /// <summary>
         /// If using the CIFS protocol, you can optional specify a username to use when mounting.
         /// </summary>
         /// <value>If using the CIFS protocol, you can optional specify a username to use when mounting.</value>
-        [DataMember(Name="username", EmitDefaultValue=true)]
+        [DataMember(Name="username", EmitDefaultValue=false)]
         public string Username { get; set; }
 
         /// <summary>
@@ -150,7 +149,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.ShareType == input.ShareType ||
-                    this.ShareType.Equals(input.ShareType)
+                    (this.ShareType != null &&
+                    this.ShareType.Equals(input.ShareType))
                 ) && 
                 (
                     this.Username == input.Username ||
@@ -174,7 +174,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.MountPath.GetHashCode();
                 if (this.Password != null)
                     hashCode = hashCode * 59 + this.Password.GetHashCode();
-                hashCode = hashCode * 59 + this.ShareType.GetHashCode();
+                if (this.ShareType != null)
+                    hashCode = hashCode * 59 + this.ShareType.GetHashCode();
                 if (this.Username != null)
                     hashCode = hashCode * 59 + this.Username.GetHashCode();
                 return hashCode;

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,14 +30,13 @@ namespace Cohesity.Model
         public ContinuousSchedule(long? backupIntervalMins = default(long?))
         {
             this.BackupIntervalMins = backupIntervalMins;
-            this.BackupIntervalMins = backupIntervalMins;
         }
         
         /// <summary>
         /// If specified, this field defines the time interval in minutes when new Job Runs are started.
         /// </summary>
         /// <value>If specified, this field defines the time interval in minutes when new Job Runs are started.</value>
-        [DataMember(Name="backupIntervalMins", EmitDefaultValue=true)]
+        [DataMember(Name="backupIntervalMins", EmitDefaultValue=false)]
         public long? BackupIntervalMins { get; set; }
 
         /// <summary>

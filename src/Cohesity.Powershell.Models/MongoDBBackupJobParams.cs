@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -12,6 +13,8 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
+
+
 namespace Cohesity.Model
 {
     /// <summary>
@@ -23,17 +26,17 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="MongoDBBackupJobParams" /> class.
         /// </summary>
-        /// <param name="mongoAdditionalInfo">mongoAdditionalInfo.</param>
-        public MongoDBBackupJobParams(MongoDBAdditionalParams mongoAdditionalInfo = default(MongoDBAdditionalParams))
+        /// <param name="mongodbAdditionalInfo">mongodbAdditionalInfo.</param>
+        public MongoDBBackupJobParams(MongoDBAdditionalParams mongodbAdditionalInfo = default(MongoDBAdditionalParams))
         {
-            this.MongoAdditionalInfo = mongoAdditionalInfo;
+            this.MongodbAdditionalInfo = mongodbAdditionalInfo;
         }
         
         /// <summary>
-        /// Gets or Sets MongoAdditionalInfo
+        /// Gets or Sets MongodbAdditionalInfo
         /// </summary>
-        [DataMember(Name="mongoAdditionalInfo", EmitDefaultValue=false)]
-        public MongoDBAdditionalParams MongoAdditionalInfo { get; set; }
+        [DataMember(Name="mongodbAdditionalInfo", EmitDefaultValue=false)]
+        public MongoDBAdditionalParams MongodbAdditionalInfo { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -72,9 +75,9 @@ namespace Cohesity.Model
 
             return 
                 (
-                    this.MongoAdditionalInfo == input.MongoAdditionalInfo ||
-                    (this.MongoAdditionalInfo != null &&
-                    this.MongoAdditionalInfo.Equals(input.MongoAdditionalInfo))
+                    this.MongodbAdditionalInfo == input.MongodbAdditionalInfo ||
+                    (this.MongodbAdditionalInfo != null &&
+                    this.MongodbAdditionalInfo.Equals(input.MongodbAdditionalInfo))
                 );
         }
 
@@ -87,8 +90,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                if (this.MongoAdditionalInfo != null)
-                    hashCode = hashCode * 59 + this.MongoAdditionalInfo.GetHashCode();
+                if (this.MongodbAdditionalInfo != null)
+                    hashCode = hashCode * 59 + this.MongodbAdditionalInfo.GetHashCode();
                 return hashCode;
             }
         }

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -63,7 +66,7 @@ namespace Cohesity.Model
         /// Specifies the status of the task being queried. &#39;kActive&#39; indicates that the task is still active. &#39;kFinished&#39; indicates that the task has finished without any errors. &#39;kFinishedWithError&#39; indicates that the task has finished, but that there was an errror of some kind. &#39;kCancelled&#39; indicates that the task was cancelled. &#39;kFinishedGarbageCollected&#39; indicates that the task was garbage collected due to its subtasks not finishing within the allotted time.
         /// </summary>
         /// <value>Specifies the status of the task being queried. &#39;kActive&#39; indicates that the task is still active. &#39;kFinished&#39; indicates that the task has finished without any errors. &#39;kFinishedWithError&#39; indicates that the task has finished, but that there was an errror of some kind. &#39;kCancelled&#39; indicates that the task was cancelled. &#39;kFinishedGarbageCollected&#39; indicates that the task was garbage collected due to its subtasks not finishing within the allotted time.</value>
-        [DataMember(Name="status", EmitDefaultValue=true)]
+        [DataMember(Name="status", EmitDefaultValue=false)]
         public StatusEnum? Status { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="Task" /> class.
@@ -96,103 +99,91 @@ namespace Cohesity.Model
             this.Status = status;
             this.SubTasks = subTasks;
             this.TaskPath = taskPath;
-            this.Attributes = attributes;
-            this.EndTimeSeconds = endTimeSeconds;
-            this.ErrorMessage = errorMessage;
-            this.Events = events;
-            this.ExpectedEndTimeSeconds = expectedEndTimeSeconds;
-            this.ExpectedSecondsRemaining = expectedSecondsRemaining;
-            this.ExpectedTotalWorkCount = expectedTotalWorkCount;
-            this.LastUpdateTimeSeconds = lastUpdateTimeSeconds;
-            this.PercentFinished = percentFinished;
-            this.StartTimeSeconds = startTimeSeconds;
-            this.Status = status;
-            this.SubTasks = subTasks;
-            this.TaskPath = taskPath;
         }
         
         /// <summary>
         /// The latest attributes reported for this task.
         /// </summary>
         /// <value>The latest attributes reported for this task.</value>
-        [DataMember(Name="attributes", EmitDefaultValue=true)]
+        [DataMember(Name="attributes", EmitDefaultValue=false)]
         public List<TaskAttribute> Attributes { get; set; }
 
         /// <summary>
         /// Specifies the end time of the task.
         /// </summary>
         /// <value>Specifies the end time of the task.</value>
-        [DataMember(Name="endTimeSeconds", EmitDefaultValue=true)]
+        [DataMember(Name="endTimeSeconds", EmitDefaultValue=false)]
         public long? EndTimeSeconds { get; set; }
 
         /// <summary>
         /// Specifies an optional error message for this task.
         /// </summary>
         /// <value>Specifies an optional error message for this task.</value>
-        [DataMember(Name="errorMessage", EmitDefaultValue=true)]
+        [DataMember(Name="errorMessage", EmitDefaultValue=false)]
         public string ErrorMessage { get; set; }
 
         /// <summary>
         /// Specifies the events reported for this task.
         /// </summary>
         /// <value>Specifies the events reported for this task.</value>
-        [DataMember(Name="events", EmitDefaultValue=true)]
+        [DataMember(Name="events", EmitDefaultValue=false)]
         public List<TaskEvent> Events { get; set; }
 
         /// <summary>
         /// Specifies the estimated end time of the task.
         /// </summary>
         /// <value>Specifies the estimated end time of the task.</value>
-        [DataMember(Name="expectedEndTimeSeconds", EmitDefaultValue=true)]
+        [DataMember(Name="expectedEndTimeSeconds", EmitDefaultValue=false)]
         public long? ExpectedEndTimeSeconds { get; set; }
 
         /// <summary>
         /// Specifies the expected remaining time for this task in seconds.
         /// </summary>
         /// <value>Specifies the expected remaining time for this task in seconds.</value>
-        [DataMember(Name="expectedSecondsRemaining", EmitDefaultValue=true)]
+        [DataMember(Name="expectedSecondsRemaining", EmitDefaultValue=false)]
         public long? ExpectedSecondsRemaining { get; set; }
 
         /// <summary>
         /// The expected raw count of the total work remaining. This is the highest work count value reported by the client. This field can be set to let pulse compute percentFinished by looking at the currently reported remainingWorkCount and the expectedTotalWorkCount.
         /// </summary>
         /// <value>The expected raw count of the total work remaining. This is the highest work count value reported by the client. This field can be set to let pulse compute percentFinished by looking at the currently reported remainingWorkCount and the expectedTotalWorkCount.</value>
-        [DataMember(Name="expectedTotalWorkCount", EmitDefaultValue=true)]
+        [DataMember(Name="expectedTotalWorkCount", EmitDefaultValue=false)]
         public long? ExpectedTotalWorkCount { get; set; }
 
         /// <summary>
         /// Specifies the timestamp when the last progress was reported.
         /// </summary>
         /// <value>Specifies the timestamp when the last progress was reported.</value>
-        [DataMember(Name="lastUpdateTimeSeconds", EmitDefaultValue=true)]
+        [DataMember(Name="lastUpdateTimeSeconds", EmitDefaultValue=false)]
         public long? LastUpdateTimeSeconds { get; set; }
 
         /// <summary>
         /// Specifies the reported progress on the task.
         /// </summary>
         /// <value>Specifies the reported progress on the task.</value>
-        [DataMember(Name="percentFinished", EmitDefaultValue=true)]
+        [DataMember(Name="percentFinished", EmitDefaultValue=false)]
         public float? PercentFinished { get; set; }
 
         /// <summary>
         /// Specifies the start time of the task.
         /// </summary>
         /// <value>Specifies the start time of the task.</value>
-        [DataMember(Name="startTimeSeconds", EmitDefaultValue=true)]
+        [DataMember(Name="startTimeSeconds", EmitDefaultValue=false)]
         public long? StartTimeSeconds { get; set; }
+
 
         /// <summary>
         /// Specifies a list of subtasks belonging to this task.
         /// </summary>
         /// <value>Specifies a list of subtasks belonging to this task.</value>
-        [DataMember(Name="subTasks", EmitDefaultValue=true)]
+        [DataMember(Name="subTasks", EmitDefaultValue=false)]
         public List<Object> SubTasks { get; set; }
 
         /// <summary>
         /// Specifes the path of this task.
         /// </summary>
         /// <value>Specifes the path of this task.</value>
-        [DataMember(Name="taskPath", EmitDefaultValue=true)]
+        [DataMember(Name="taskPath", EmitDefaultValue=false)]
         public string TaskPath { get; set; }
 
         /// <summary>
@@ -234,8 +225,7 @@ namespace Cohesity.Model
                 (
                     this.Attributes == input.Attributes ||
                     this.Attributes != null &&
-                    input.Attributes != null &&
-                    this.Attributes.SequenceEqual(input.Attributes)
+                    this.Attributes.Equals(input.Attributes)
                 ) && 
                 (
                     this.EndTimeSeconds == input.EndTimeSeconds ||
@@ -250,8 +240,7 @@ namespace Cohesity.Model
                 (
                     this.Events == input.Events ||
                     this.Events != null &&
-                    input.Events != null &&
-                    this.Events.SequenceEqual(input.Events)
+                    this.Events.Equals(input.Events)
                 ) && 
                 (
                     this.ExpectedEndTimeSeconds == input.ExpectedEndTimeSeconds ||
@@ -285,13 +274,13 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.Status == input.Status ||
-                    this.Status.Equals(input.Status)
+                    (this.Status != null &&
+                    this.Status.Equals(input.Status))
                 ) && 
                 (
                     this.SubTasks == input.SubTasks ||
                     this.SubTasks != null &&
-                    input.SubTasks != null &&
-                    this.SubTasks.SequenceEqual(input.SubTasks)
+                    this.SubTasks.Equals(input.SubTasks)
                 ) && 
                 (
                     this.TaskPath == input.TaskPath ||
@@ -329,7 +318,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.PercentFinished.GetHashCode();
                 if (this.StartTimeSeconds != null)
                     hashCode = hashCode * 59 + this.StartTimeSeconds.GetHashCode();
-                hashCode = hashCode * 59 + this.Status.GetHashCode();
+                if (this.Status != null)
+                    hashCode = hashCode * 59 + this.Status.GetHashCode();
                 if (this.SubTasks != null)
                     hashCode = hashCode * 59 + this.SubTasks.GetHashCode();
                 if (this.TaskPath != null)

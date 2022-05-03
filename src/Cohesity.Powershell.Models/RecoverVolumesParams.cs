@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -30,8 +33,6 @@ namespace Cohesity.Model
         {
             this.ForceUnmountVolume = forceUnmountVolume;
             this.MappingVec = mappingVec;
-            this.ForceUnmountVolume = forceUnmountVolume;
-            this.MappingVec = mappingVec;
             this.TargetEntity = targetEntity;
         }
         
@@ -39,14 +40,14 @@ namespace Cohesity.Model
         /// Whether volume would be dismounted first during LockVolume failure
         /// </summary>
         /// <value>Whether volume would be dismounted first during LockVolume failure</value>
-        [DataMember(Name="forceUnmountVolume", EmitDefaultValue=true)]
+        [DataMember(Name="forceUnmountVolume", EmitDefaultValue=false)]
         public bool? ForceUnmountVolume { get; set; }
 
         /// <summary>
         /// Contains the volume mapping data that defines the restore task.
         /// </summary>
         /// <value>Contains the volume mapping data that defines the restore task.</value>
-        [DataMember(Name="mappingVec", EmitDefaultValue=true)]
+        [DataMember(Name="mappingVec", EmitDefaultValue=false)]
         public List<RecoverVolumesParamsMapping> MappingVec { get; set; }
 
         /// <summary>
@@ -99,8 +100,7 @@ namespace Cohesity.Model
                 (
                     this.MappingVec == input.MappingVec ||
                     this.MappingVec != null &&
-                    input.MappingVec != null &&
-                    this.MappingVec.SequenceEqual(input.MappingVec)
+                    this.MappingVec.Equals(input.MappingVec)
                 ) && 
                 (
                     this.TargetEntity == input.TargetEntity ||

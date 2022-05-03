@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -51,7 +54,7 @@ namespace Cohesity.Model
         /// Specifies the type of the Archival External Target such as &#39;kCloud&#39;, &#39;kTape&#39; or &#39;kNas&#39;. &#39;kCloud&#39; indicates the archival location as Cloud. &#39;kTape&#39; indicates the archival location as Tape. &#39;kNas&#39; indicates the archival location as Network Attached Storage (Nas).
         /// </summary>
         /// <value>Specifies the type of the Archival External Target such as &#39;kCloud&#39;, &#39;kTape&#39; or &#39;kNas&#39;. &#39;kCloud&#39; indicates the archival location as Cloud. &#39;kTape&#39; indicates the archival location as Tape. &#39;kNas&#39; indicates the archival location as Network Attached Storage (Nas).</value>
-        [DataMember(Name="vaultType", EmitDefaultValue=true)]
+        [DataMember(Name="vaultType", EmitDefaultValue=false)]
         public VaultTypeEnum? VaultType { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="ArchivalExternalTarget" /> class.
@@ -64,24 +67,22 @@ namespace Cohesity.Model
             this.VaultId = vaultId;
             this.VaultName = vaultName;
             this.VaultType = vaultType;
-            this.VaultId = vaultId;
-            this.VaultName = vaultName;
-            this.VaultType = vaultType;
         }
         
         /// <summary>
         /// Specifies the id of Archival Vault assigned by the Cohesity Cluster.
         /// </summary>
         /// <value>Specifies the id of Archival Vault assigned by the Cohesity Cluster.</value>
-        [DataMember(Name="vaultId", EmitDefaultValue=true)]
+        [DataMember(Name="vaultId", EmitDefaultValue=false)]
         public long? VaultId { get; set; }
 
         /// <summary>
         /// Name of the Archival Vault.
         /// </summary>
         /// <value>Name of the Archival Vault.</value>
-        [DataMember(Name="vaultName", EmitDefaultValue=true)]
+        [DataMember(Name="vaultName", EmitDefaultValue=false)]
         public string VaultName { get; set; }
+
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -131,7 +132,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.VaultType == input.VaultType ||
-                    this.VaultType.Equals(input.VaultType)
+                    (this.VaultType != null &&
+                    this.VaultType.Equals(input.VaultType))
                 );
         }
 
@@ -148,7 +150,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.VaultId.GetHashCode();
                 if (this.VaultName != null)
                     hashCode = hashCode * 59 + this.VaultName.GetHashCode();
-                hashCode = hashCode * 59 + this.VaultType.GetHashCode();
+                if (this.VaultType != null)
+                    hashCode = hashCode * 59 + this.VaultType.GetHashCode();
                 return hashCode;
             }
         }

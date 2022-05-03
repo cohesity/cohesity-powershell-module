@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -47,23 +50,6 @@ namespace Cohesity.Model
             this.AllEndpointsReachable = allEndpointsReachable;
             this.AutoRegisterTarget = autoRegisterTarget;
             this.AutoRegistration = autoRegistration;
-            this.ClusterId = clusterId;
-            this.ClusterIncarnationId = clusterIncarnationId;
-            this.CompressionEnabled = compressionEnabled;
-            this.Description = description;
-            this.EncryptionKey = encryptionKey;
-            this.LocalIps = localIps;
-            this.Name = name;
-            this.NetworkInterface = networkInterface;
-            this.PurposeRemoteAccess = purposeRemoteAccess;
-            this.PurposeReplication = purposeReplication;
-            this.RemoteIps = remoteIps;
-            this.TenantId = tenantId;
-            this.UserName = userName;
-            this.ViewBoxPairInfo = viewBoxPairInfo;
-            this.AllEndpointsReachable = allEndpointsReachable;
-            this.AutoRegisterTarget = autoRegisterTarget;
-            this.AutoRegistration = autoRegistration;
             this.BandwidthLimit = bandwidthLimit;
             this.ClusterId = clusterId;
             this.ClusterIncarnationId = clusterIncarnationId;
@@ -86,21 +72,21 @@ namespace Cohesity.Model
         /// Specifies whether any endpoint (such as a Node) on the remote Cluster is reachable from this local Cluster. If true, a service running on the local Cluster can communicate directly with any of its peers running on the remote Cluster, without using a proxy.
         /// </summary>
         /// <value>Specifies whether any endpoint (such as a Node) on the remote Cluster is reachable from this local Cluster. If true, a service running on the local Cluster can communicate directly with any of its peers running on the remote Cluster, without using a proxy.</value>
-        [DataMember(Name="allEndpointsReachable", EmitDefaultValue=true)]
+        [DataMember(Name="allEndpointsReachable", EmitDefaultValue=false)]
         public bool? AllEndpointsReachable { get; set; }
 
         /// <summary>
         /// Specifies whether the remote cluster needs to be kept in sync. This will be set to true by default.
         /// </summary>
         /// <value>Specifies whether the remote cluster needs to be kept in sync. This will be set to true by default.</value>
-        [DataMember(Name="autoRegisterTarget", EmitDefaultValue=true)]
+        [DataMember(Name="autoRegisterTarget", EmitDefaultValue=false)]
         public bool? AutoRegisterTarget { get; set; }
 
         /// <summary>
         /// Specifies whether the remote registration has happened automatically (due to registration on the other site). Can&#39;t think of other states (other than manually &amp; automatically) so this isn&#39;t an enum. For a manual registration, this field will not be set.
         /// </summary>
         /// <value>Specifies whether the remote registration has happened automatically (due to registration on the other site). Can&#39;t think of other states (other than manually &amp; automatically) so this isn&#39;t an enum. For a manual registration, this field will not be set.</value>
-        [DataMember(Name="autoRegistration", EmitDefaultValue=true)]
+        [DataMember(Name="autoRegistration", EmitDefaultValue=false)]
         public bool? AutoRegistration { get; set; }
 
         /// <summary>
@@ -113,70 +99,70 @@ namespace Cohesity.Model
         /// Specifies the unique id of the remote Cluster.
         /// </summary>
         /// <value>Specifies the unique id of the remote Cluster.</value>
-        [DataMember(Name="clusterId", EmitDefaultValue=true)]
+        [DataMember(Name="clusterId", EmitDefaultValue=false)]
         public long? ClusterId { get; set; }
 
         /// <summary>
         /// Specifies the unique incarnation id of the remote Cluster. This id is determined dynamically by contacting the remote Cluster.
         /// </summary>
         /// <value>Specifies the unique incarnation id of the remote Cluster. This id is determined dynamically by contacting the remote Cluster.</value>
-        [DataMember(Name="clusterIncarnationId", EmitDefaultValue=true)]
+        [DataMember(Name="clusterIncarnationId", EmitDefaultValue=false)]
         public long? ClusterIncarnationId { get; set; }
 
         /// <summary>
         /// Specifies whether to compress the outbound data when transferring the replication data over the network to the remote Cluster.
         /// </summary>
         /// <value>Specifies whether to compress the outbound data when transferring the replication data over the network to the remote Cluster.</value>
-        [DataMember(Name="compressionEnabled", EmitDefaultValue=true)]
+        [DataMember(Name="compressionEnabled", EmitDefaultValue=false)]
         public bool? CompressionEnabled { get; set; }
 
         /// <summary>
         /// Specifies any additional information if needed.
         /// </summary>
         /// <value>Specifies any additional information if needed.</value>
-        [DataMember(Name="description", EmitDefaultValue=true)]
+        [DataMember(Name="description", EmitDefaultValue=false)]
         public string Description { get; set; }
 
         /// <summary>
         /// Specifies the encryption key used for encrypting the replication data from a local Cluster to a remote Cluster. If a key is not specified, replication traffic encryption is disabled. When Snapshots are replicated from a local Cluster to a remote Cluster, the encryption key specified on the local Cluster must be the same as the key specified on the remote Cluster.
         /// </summary>
         /// <value>Specifies the encryption key used for encrypting the replication data from a local Cluster to a remote Cluster. If a key is not specified, replication traffic encryption is disabled. When Snapshots are replicated from a local Cluster to a remote Cluster, the encryption key specified on the local Cluster must be the same as the key specified on the remote Cluster.</value>
-        [DataMember(Name="encryptionKey", EmitDefaultValue=true)]
+        [DataMember(Name="encryptionKey", EmitDefaultValue=false)]
         public string EncryptionKey { get; set; }
 
         /// <summary>
         /// Array of Local IP Addresses.  Specifies the IP addresses of the interfaces in the local Cluster which will be used for communicating with the remote Cluster.
         /// </summary>
         /// <value>Array of Local IP Addresses.  Specifies the IP addresses of the interfaces in the local Cluster which will be used for communicating with the remote Cluster.</value>
-        [DataMember(Name="localIps", EmitDefaultValue=true)]
+        [DataMember(Name="localIps", EmitDefaultValue=false)]
         public List<string> LocalIps { get; set; }
 
         /// <summary>
         /// Specifies the name of the remote cluster. This field is determined dynamically by contacting the remote cluster.
         /// </summary>
         /// <value>Specifies the name of the remote cluster. This field is determined dynamically by contacting the remote cluster.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
 
         /// <summary>
         /// Specifies the name of the network interfaces to use for communicating with the remote Cluster.
         /// </summary>
         /// <value>Specifies the name of the network interfaces to use for communicating with the remote Cluster.</value>
-        [DataMember(Name="networkInterface", EmitDefaultValue=true)]
+        [DataMember(Name="networkInterface", EmitDefaultValue=false)]
         public string NetworkInterface { get; set; }
 
         /// <summary>
         /// Whether the remote cluster will be used for remote access for SPOG.
         /// </summary>
         /// <value>Whether the remote cluster will be used for remote access for SPOG.</value>
-        [DataMember(Name="purposeRemoteAccess", EmitDefaultValue=true)]
+        [DataMember(Name="purposeRemoteAccess", EmitDefaultValue=false)]
         public bool? PurposeRemoteAccess { get; set; }
 
         /// <summary>
         /// Whether the remote cluster will be used for replication.
         /// </summary>
         /// <value>Whether the remote cluster will be used for replication.</value>
-        [DataMember(Name="purposeReplication", EmitDefaultValue=true)]
+        [DataMember(Name="purposeReplication", EmitDefaultValue=false)]
         public bool? PurposeReplication { get; set; }
 
         /// <summary>
@@ -189,28 +175,28 @@ namespace Cohesity.Model
         /// Array of Remote Node IP Addresses.  Specifies the IP addresses of the Nodes on the remote Cluster to connect with. These IP addresses can also be VIPS. Specifying hostnames is not supported.
         /// </summary>
         /// <value>Array of Remote Node IP Addresses.  Specifies the IP addresses of the Nodes on the remote Cluster to connect with. These IP addresses can also be VIPS. Specifying hostnames is not supported.</value>
-        [DataMember(Name="remoteIps", EmitDefaultValue=true)]
+        [DataMember(Name="remoteIps", EmitDefaultValue=false)]
         public List<string> RemoteIps { get; set; }
 
         /// <summary>
         /// Specifies the tenant Id of the organization that created this remote cluster configuration.
         /// </summary>
         /// <value>Specifies the tenant Id of the organization that created this remote cluster configuration.</value>
-        [DataMember(Name="tenantId", EmitDefaultValue=true)]
+        [DataMember(Name="tenantId", EmitDefaultValue=false)]
         public string TenantId { get; set; }
 
         /// <summary>
         /// Specifies the Cohesity user name used to connect to the remote Cluster.
         /// </summary>
         /// <value>Specifies the Cohesity user name used to connect to the remote Cluster.</value>
-        [DataMember(Name="userName", EmitDefaultValue=true)]
+        [DataMember(Name="userName", EmitDefaultValue=false)]
         public string UserName { get; set; }
 
         /// <summary>
         /// Array of Storage Domain (View Box) Pairs.  Specifies pairings between Storage Domains (View Boxes) on the local Cluster with Storage Domains (View Boxes) on a remote Cluster that are used in replication.
         /// </summary>
         /// <value>Array of Storage Domain (View Box) Pairs.  Specifies pairings between Storage Domains (View Boxes) on the local Cluster with Storage Domains (View Boxes) on a remote Cluster that are used in replication.</value>
-        [DataMember(Name="viewBoxPairInfo", EmitDefaultValue=true)]
+        [DataMember(Name="viewBoxPairInfo", EmitDefaultValue=false)]
         public List<ViewBoxPairInfo> ViewBoxPairInfo { get; set; }
 
         /// <summary>
@@ -297,8 +283,7 @@ namespace Cohesity.Model
                 (
                     this.LocalIps == input.LocalIps ||
                     this.LocalIps != null &&
-                    input.LocalIps != null &&
-                    this.LocalIps.SequenceEqual(input.LocalIps)
+                    this.LocalIps.Equals(input.LocalIps)
                 ) && 
                 (
                     this.Name == input.Name ||
@@ -328,8 +313,7 @@ namespace Cohesity.Model
                 (
                     this.RemoteIps == input.RemoteIps ||
                     this.RemoteIps != null &&
-                    input.RemoteIps != null &&
-                    this.RemoteIps.SequenceEqual(input.RemoteIps)
+                    this.RemoteIps.Equals(input.RemoteIps)
                 ) && 
                 (
                     this.TenantId == input.TenantId ||
@@ -344,8 +328,7 @@ namespace Cohesity.Model
                 (
                     this.ViewBoxPairInfo == input.ViewBoxPairInfo ||
                     this.ViewBoxPairInfo != null &&
-                    input.ViewBoxPairInfo != null &&
-                    this.ViewBoxPairInfo.SequenceEqual(input.ViewBoxPairInfo)
+                    this.ViewBoxPairInfo.Equals(input.ViewBoxPairInfo)
                 );
         }
 

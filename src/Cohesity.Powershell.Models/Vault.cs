@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -51,7 +54,7 @@ namespace Cohesity.Model
         /// Specifies whether to send data to the Vault in a compressed format. &#39;kCompressionNone&#39; indicates that data is not compressed. &#39;kCompressionLow&#39; indicates that data is compressed using LZ4 or Snappy. &#39;kCompressionHigh&#39; indicates that data is compressed in Gzip.
         /// </summary>
         /// <value>Specifies whether to send data to the Vault in a compressed format. &#39;kCompressionNone&#39; indicates that data is not compressed. &#39;kCompressionLow&#39; indicates that data is compressed using LZ4 or Snappy. &#39;kCompressionHigh&#39; indicates that data is compressed in Gzip.</value>
-        [DataMember(Name="compressionPolicy", EmitDefaultValue=true)]
+        [DataMember(Name="compressionPolicy", EmitDefaultValue=false)]
         public CompressionPolicyEnum? CompressionPolicy { get; set; }
         /// <summary>
         /// Desired location for write ahead logs(wal). &#39;kHomePartition&#39; indicates desired wal location to be the home partition. &#39;kDisk&#39; indicates desired wal location to be the same disk as chunk repo. &#39;kScribe&#39; indicates desired wal location to be scribe. &#39;kScribeTable&#39; indicates chunk repository state is kept as key-value pairs in scribe.
@@ -90,7 +93,7 @@ namespace Cohesity.Model
         /// Desired location for write ahead logs(wal). &#39;kHomePartition&#39; indicates desired wal location to be the home partition. &#39;kDisk&#39; indicates desired wal location to be the same disk as chunk repo. &#39;kScribe&#39; indicates desired wal location to be scribe. &#39;kScribeTable&#39; indicates chunk repository state is kept as key-value pairs in scribe.
         /// </summary>
         /// <value>Desired location for write ahead logs(wal). &#39;kHomePartition&#39; indicates desired wal location to be the home partition. &#39;kDisk&#39; indicates desired wal location to be the same disk as chunk repo. &#39;kScribe&#39; indicates desired wal location to be scribe. &#39;kScribeTable&#39; indicates chunk repository state is kept as key-value pairs in scribe.</value>
-        [DataMember(Name="desiredWalLocation", EmitDefaultValue=true)]
+        [DataMember(Name="desiredWalLocation", EmitDefaultValue=false)]
         public DesiredWalLocationEnum? DesiredWalLocation { get; set; }
         /// <summary>
         /// Specifies whether to send and store data in an encrypted format. &#39;kEncryptionNone&#39; indicates the data is not encrypted. &#39;kEncryptionStrong&#39; indicates the data is encrypted.
@@ -123,7 +126,7 @@ namespace Cohesity.Model
         /// Specifies whether to send and store data in an encrypted format. &#39;kEncryptionNone&#39; indicates the data is not encrypted. &#39;kEncryptionStrong&#39; indicates the data is encrypted.
         /// </summary>
         /// <value>Specifies whether to send and store data in an encrypted format. &#39;kEncryptionNone&#39; indicates the data is not encrypted. &#39;kEncryptionStrong&#39; indicates the data is encrypted.</value>
-        [DataMember(Name="encryptionPolicy", EmitDefaultValue=true)]
+        [DataMember(Name="encryptionPolicy", EmitDefaultValue=false)]
         public EncryptionPolicyEnum? EncryptionPolicy { get; set; }
         /// <summary>
         /// Specifies the type of Vault. &#39;kNearline&#39; indicates a Google Nearline Vault. &#39;kGlacier&#39; indicates an AWS Glacier Vault. &#39;kS3&#39; indicates an AWS S3 Vault. &#39;kAzureStandard&#39; indicates a Microsoft Azure Standard Vault. &#39;kS3Compatible&#39; indicates an S3 Compatible Vault. (See the online help for supported types.) &#39;kQStarTape&#39; indicates a QStar Tape Vault. &#39;kGoogleStandard&#39; indicates a Google Standard Vault. &#39;kGoogleDRA&#39; indicates a Google DRA Vault. &#39;kAmazonS3StandardIA&#39; indicates an Amazon S3 Standard-IA Vault. &#39;kAWSGovCloud&#39; indicates an AWS Gov Cloud Vault. &#39;kNAS&#39; indicates a NAS Vault. &#39;kColdline&#39; indicates a Google Coldline Vault. &#39;kAzureGovCloud&#39; indicates a Microsoft Azure Gov Cloud Vault. &#39;kAzureArchive&#39; indicates an Azure Archive Vault. &#39;kAzure&#39; indicates an Azure Vault. &#39;kGoogle&#39; indicates a Google Vault. &#39;kAmazon&#39; indicates an Amazon Vault. &#39;kOracle&#39; indicates an Oracle Vault. &#39;kOracleTierStandard&#39; indicates an Oracle Tier Standard Vault. &#39;kOracleTierArchive&#39; indicates an Oracle Tier Archive Vault. &#39;kAmazonC2S&#39; indicates an Amazon Commercial Cloud Services Vault.
@@ -264,8 +267,41 @@ namespace Cohesity.Model
         /// Specifies the type of Vault. &#39;kNearline&#39; indicates a Google Nearline Vault. &#39;kGlacier&#39; indicates an AWS Glacier Vault. &#39;kS3&#39; indicates an AWS S3 Vault. &#39;kAzureStandard&#39; indicates a Microsoft Azure Standard Vault. &#39;kS3Compatible&#39; indicates an S3 Compatible Vault. (See the online help for supported types.) &#39;kQStarTape&#39; indicates a QStar Tape Vault. &#39;kGoogleStandard&#39; indicates a Google Standard Vault. &#39;kGoogleDRA&#39; indicates a Google DRA Vault. &#39;kAmazonS3StandardIA&#39; indicates an Amazon S3 Standard-IA Vault. &#39;kAWSGovCloud&#39; indicates an AWS Gov Cloud Vault. &#39;kNAS&#39; indicates a NAS Vault. &#39;kColdline&#39; indicates a Google Coldline Vault. &#39;kAzureGovCloud&#39; indicates a Microsoft Azure Gov Cloud Vault. &#39;kAzureArchive&#39; indicates an Azure Archive Vault. &#39;kAzure&#39; indicates an Azure Vault. &#39;kGoogle&#39; indicates a Google Vault. &#39;kAmazon&#39; indicates an Amazon Vault. &#39;kOracle&#39; indicates an Oracle Vault. &#39;kOracleTierStandard&#39; indicates an Oracle Tier Standard Vault. &#39;kOracleTierArchive&#39; indicates an Oracle Tier Archive Vault. &#39;kAmazonC2S&#39; indicates an Amazon Commercial Cloud Services Vault.
         /// </summary>
         /// <value>Specifies the type of Vault. &#39;kNearline&#39; indicates a Google Nearline Vault. &#39;kGlacier&#39; indicates an AWS Glacier Vault. &#39;kS3&#39; indicates an AWS S3 Vault. &#39;kAzureStandard&#39; indicates a Microsoft Azure Standard Vault. &#39;kS3Compatible&#39; indicates an S3 Compatible Vault. (See the online help for supported types.) &#39;kQStarTape&#39; indicates a QStar Tape Vault. &#39;kGoogleStandard&#39; indicates a Google Standard Vault. &#39;kGoogleDRA&#39; indicates a Google DRA Vault. &#39;kAmazonS3StandardIA&#39; indicates an Amazon S3 Standard-IA Vault. &#39;kAWSGovCloud&#39; indicates an AWS Gov Cloud Vault. &#39;kNAS&#39; indicates a NAS Vault. &#39;kColdline&#39; indicates a Google Coldline Vault. &#39;kAzureGovCloud&#39; indicates a Microsoft Azure Gov Cloud Vault. &#39;kAzureArchive&#39; indicates an Azure Archive Vault. &#39;kAzure&#39; indicates an Azure Vault. &#39;kGoogle&#39; indicates a Google Vault. &#39;kAmazon&#39; indicates an Amazon Vault. &#39;kOracle&#39; indicates an Oracle Vault. &#39;kOracleTierStandard&#39; indicates an Oracle Tier Standard Vault. &#39;kOracleTierArchive&#39; indicates an Oracle Tier Archive Vault. &#39;kAmazonC2S&#39; indicates an Amazon Commercial Cloud Services Vault.</value>
-        [DataMember(Name="externalTargetType", EmitDefaultValue=true)]
+        [DataMember(Name="externalTargetType", EmitDefaultValue=false)]
         public ExternalTargetTypeEnum? ExternalTargetType { get; set; }
+        /// <summary>
+        /// Specifies the state of the vault to be removed. &#39;kDontRemove&#39; means the state of object is functional and it is not being removed. &#39;kMarkedForRemoval&#39; means the object is being removed. &#39;kOkToRemove&#39; means the object has been removed on the Cohesity Cluster and if the object is physical, it can be removed from the Cohesity Cluster.
+        /// </summary>
+        /// <value>Specifies the state of the vault to be removed. &#39;kDontRemove&#39; means the state of object is functional and it is not being removed. &#39;kMarkedForRemoval&#39; means the object is being removed. &#39;kOkToRemove&#39; means the object has been removed on the Cohesity Cluster and if the object is physical, it can be removed from the Cohesity Cluster.</value>
+        [JsonConverter(typeof(StringEnumConverter))]
+        public enum RemovalStateEnum
+        {
+            /// <summary>
+            /// Enum KDontRemove for value: kDontRemove
+            /// </summary>
+            [EnumMember(Value = "kDontRemove")]
+            KDontRemove = 1,
+
+            /// <summary>
+            /// Enum KMarkedForRemoval for value: kMarkedForRemoval
+            /// </summary>
+            [EnumMember(Value = "kMarkedForRemoval")]
+            KMarkedForRemoval = 2,
+
+            /// <summary>
+            /// Enum KOkToRemove for value: kOkToRemove
+            /// </summary>
+            [EnumMember(Value = "kOkToRemove")]
+            KOkToRemove = 3
+
+        }
+
+        /// <summary>
+        /// Specifies the state of the vault to be removed. &#39;kDontRemove&#39; means the state of object is functional and it is not being removed. &#39;kMarkedForRemoval&#39; means the object is being removed. &#39;kOkToRemove&#39; means the object has been removed on the Cohesity Cluster and if the object is physical, it can be removed from the Cohesity Cluster.
+        /// </summary>
+        /// <value>Specifies the state of the vault to be removed. &#39;kDontRemove&#39; means the state of object is functional and it is not being removed. &#39;kMarkedForRemoval&#39; means the object is being removed. &#39;kOkToRemove&#39; means the object has been removed on the Cohesity Cluster and if the object is physical, it can be removed from the Cohesity Cluster.</value>
+        [DataMember(Name="removalState", EmitDefaultValue=false)]
+        public RemovalStateEnum? RemovalState { get; set; }
         /// <summary>
         /// Specifies the type of Vault. This field is deprecated. This field is split into ExternalTargetType in and TierType in respective credentials. Initialize those fields instead. deprecated: true &#39;kNearline&#39; indicates a Google Nearline Vault. &#39;kGlacier&#39; indicates an AWS Glacier Vault. &#39;kS3&#39; indicates an AWS S3 Vault. &#39;kAzureStandard&#39; indicates a Microsoft Azure Standard Vault. &#39;kS3Compatible&#39; indicates an S3 Compatible Vault. (See the online help for supported types.) &#39;kQStarTape&#39; indicates a QStar Tape Vault. &#39;kGoogleStandard&#39; indicates a Google Standard Vault. &#39;kGoogleDRA&#39; indicates a Google DRA Vault. &#39;kAmazonS3StandardIA&#39; indicates an Amazon S3 Standard-IA Vault. &#39;kAWSGovCloud&#39; indicates an AWS Gov Cloud Vault. &#39;kNAS&#39; indicates a NAS Vault. &#39;kColdline&#39; indicates a Google Coldline Vault. &#39;kAzureGovCloud&#39; indicates a Microsoft Azure Gov Cloud Vault. &#39;kAzureArchive&#39; indicates an Azure Archive Vault. &#39;kAzure&#39; indicates an Azure Vault. &#39;kGoogle&#39; indicates a Google Vault. &#39;kAmazon&#39; indicates an Amazon Vault. &#39;kOracle&#39; indicates an Oracle Vault. &#39;kOracleTierStandard&#39; indicates an Oracle Tier Standard Vault. &#39;kOracleTierArchive&#39; indicates an Oracle Tier Archive Vault. &#39;kAmazonC2S&#39; indicates an Amazon Commercial Cloud Services Vault.
         /// </summary>
@@ -405,7 +441,7 @@ namespace Cohesity.Model
         /// Specifies the type of Vault. This field is deprecated. This field is split into ExternalTargetType in and TierType in respective credentials. Initialize those fields instead. deprecated: true &#39;kNearline&#39; indicates a Google Nearline Vault. &#39;kGlacier&#39; indicates an AWS Glacier Vault. &#39;kS3&#39; indicates an AWS S3 Vault. &#39;kAzureStandard&#39; indicates a Microsoft Azure Standard Vault. &#39;kS3Compatible&#39; indicates an S3 Compatible Vault. (See the online help for supported types.) &#39;kQStarTape&#39; indicates a QStar Tape Vault. &#39;kGoogleStandard&#39; indicates a Google Standard Vault. &#39;kGoogleDRA&#39; indicates a Google DRA Vault. &#39;kAmazonS3StandardIA&#39; indicates an Amazon S3 Standard-IA Vault. &#39;kAWSGovCloud&#39; indicates an AWS Gov Cloud Vault. &#39;kNAS&#39; indicates a NAS Vault. &#39;kColdline&#39; indicates a Google Coldline Vault. &#39;kAzureGovCloud&#39; indicates a Microsoft Azure Gov Cloud Vault. &#39;kAzureArchive&#39; indicates an Azure Archive Vault. &#39;kAzure&#39; indicates an Azure Vault. &#39;kGoogle&#39; indicates a Google Vault. &#39;kAmazon&#39; indicates an Amazon Vault. &#39;kOracle&#39; indicates an Oracle Vault. &#39;kOracleTierStandard&#39; indicates an Oracle Tier Standard Vault. &#39;kOracleTierArchive&#39; indicates an Oracle Tier Archive Vault. &#39;kAmazonC2S&#39; indicates an Amazon Commercial Cloud Services Vault.
         /// </summary>
         /// <value>Specifies the type of Vault. This field is deprecated. This field is split into ExternalTargetType in and TierType in respective credentials. Initialize those fields instead. deprecated: true &#39;kNearline&#39; indicates a Google Nearline Vault. &#39;kGlacier&#39; indicates an AWS Glacier Vault. &#39;kS3&#39; indicates an AWS S3 Vault. &#39;kAzureStandard&#39; indicates a Microsoft Azure Standard Vault. &#39;kS3Compatible&#39; indicates an S3 Compatible Vault. (See the online help for supported types.) &#39;kQStarTape&#39; indicates a QStar Tape Vault. &#39;kGoogleStandard&#39; indicates a Google Standard Vault. &#39;kGoogleDRA&#39; indicates a Google DRA Vault. &#39;kAmazonS3StandardIA&#39; indicates an Amazon S3 Standard-IA Vault. &#39;kAWSGovCloud&#39; indicates an AWS Gov Cloud Vault. &#39;kNAS&#39; indicates a NAS Vault. &#39;kColdline&#39; indicates a Google Coldline Vault. &#39;kAzureGovCloud&#39; indicates a Microsoft Azure Gov Cloud Vault. &#39;kAzureArchive&#39; indicates an Azure Archive Vault. &#39;kAzure&#39; indicates an Azure Vault. &#39;kGoogle&#39; indicates a Google Vault. &#39;kAmazon&#39; indicates an Amazon Vault. &#39;kOracle&#39; indicates an Oracle Vault. &#39;kOracleTierStandard&#39; indicates an Oracle Tier Standard Vault. &#39;kOracleTierArchive&#39; indicates an Oracle Tier Archive Vault. &#39;kAmazonC2S&#39; indicates an Amazon Commercial Cloud Services Vault.</value>
-        [DataMember(Name="type", EmitDefaultValue=true)]
+        [DataMember(Name="type", EmitDefaultValue=false)]
         public TypeEnum? Type { get; set; }
         /// <summary>
         /// Specifies the usage type of the Vault. &#39;kArchival&#39; indicates the Vault provides archive storage for backup data. &#39;kCloudSpill&#39; indicates the Vault provides additional storage for cold data.
@@ -432,7 +468,7 @@ namespace Cohesity.Model
         /// Specifies the usage type of the Vault. &#39;kArchival&#39; indicates the Vault provides archive storage for backup data. &#39;kCloudSpill&#39; indicates the Vault provides additional storage for cold data.
         /// </summary>
         /// <value>Specifies the usage type of the Vault. &#39;kArchival&#39; indicates the Vault provides archive storage for backup data. &#39;kCloudSpill&#39; indicates the Vault provides additional storage for cold data.</value>
-        [DataMember(Name="usageType", EmitDefaultValue=true)]
+        [DataMember(Name="usageType", EmitDefaultValue=false)]
         public UsageTypeEnum? UsageType { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="Vault" /> class.
@@ -440,10 +476,13 @@ namespace Cohesity.Model
         /// <param name="caTrustedCertificate">Specifies the CA (certificate authority) trusted certificate..</param>
         /// <param name="clientCertificate">Specifies the client CA  certificate. This certificate is in pem format..</param>
         /// <param name="clientPrivateKey">Specifies the client private key. This certificate is in pem format..</param>
+        /// <param name="cloudArchivalDirectConfig">cloudArchivalDirectConfig.</param>
         /// <param name="compressionPolicy">Specifies whether to send data to the Vault in a compressed format. &#39;kCompressionNone&#39; indicates that data is not compressed. &#39;kCompressionLow&#39; indicates that data is compressed using LZ4 or Snappy. &#39;kCompressionHigh&#39; indicates that data is compressed in Gzip..</param>
         /// <param name="config">config.</param>
         /// <param name="customerManagingEncryptionKeys">Specifies whether to manage the encryption key manually or let the Cohesity Cluster manage it. If true, you must get the encryption key store it outside the Cluster, before disaster strikes such as the source local Cohesity Cluster being down. You can get the encryption key by downloading it using the Cohesity Dashboard or by calling the GET /public/vaults/encryptionKey/{id} operation..</param>
         /// <param name="dedupEnabled">Specifies whether to deduplicate data before sending it to the Vault..</param>
+        /// <param name="dekRotationEnabled">Specifies whether DEK(Data Encryption Key) rotation is enabled for this vault. This is applicable only when the viewbox uses AWS or similar KMS in which the KEK (Key Encryption Key) is not created and maintained by Cohesity. For Internal KMS and keys stored in Safenet servers, DEK rotation will not be performed..</param>
+        /// <param name="deleteVaultError">Specifies the error message when deleting a vault..</param>
         /// <param name="description">Specifies a description about the Vault..</param>
         /// <param name="desiredWalLocation">Desired location for write ahead logs(wal). &#39;kHomePartition&#39; indicates desired wal location to be the home partition. &#39;kDisk&#39; indicates desired wal location to be the same disk as chunk repo. &#39;kScribe&#39; indicates desired wal location to be scribe. &#39;kScribeTable&#39; indicates chunk repository state is kept as key-value pairs in scribe..</param>
         /// <param name="encryptionKeyFileDownloaded">Specifies if the encryption key file has been downloaded using the Cohesity Dashboard (Cohesity UI). If true, the encryption key has been downloaded using the Cohesity Dashboard. An encryption key can only be downloaded once using the Cohesity Dashboard..</param>
@@ -452,40 +491,30 @@ namespace Cohesity.Model
         /// <param name="fullArchiveIntervalDays">Specifies the number days between full archives to the Vault. The current default is 90 days. This is only meaningful when incrementalArchivesEnabled is true and the Vault usage type is kArchival..</param>
         /// <param name="id">Specifies an id that identifies the Vault..</param>
         /// <param name="incrementalArchivesEnabled">Specifies whether to perform incremental archival when sending data to the Vault. If false, only full backups are performed. If true, incremental backups are performed between the full backups..</param>
+        /// <param name="isAwsSnowball">Specifies whether the vault is aws snowball or not..</param>
+        /// <param name="isForeverIncrementalArchiveEnabled">Specifies whether forever incremental archival is enabled on this vault..</param>
+        /// <param name="isPasswordEncrypted">Specifies if given password is not encrypted or not in the cluster config..</param>
         /// <param name="keyFileDownloadTimeUsecs">Specifies the time (in microseconds) when the encryption key file was downloaded from the Cohesity Dashboard (Cohesity UI). An encryption key can only be downloaded once using the Cohesity Dashboard..</param>
         /// <param name="keyFileDownloadUser">Specifies the user who downloaded the encryption key from the Cohesity Dashboard (Cohesity UI). This field is only populated if encryption is enabled for the Vault and customerManagingEncryptionKeys is true..</param>
+        /// <param name="kmsServerId">Specifies the associated KMS Server ID..</param>
         /// <param name="name">Specifies the name of the Vault..</param>
+        /// <param name="removalState">Specifies the state of the vault to be removed. &#39;kDontRemove&#39; means the state of object is functional and it is not being removed. &#39;kMarkedForRemoval&#39; means the object is being removed. &#39;kOkToRemove&#39; means the object has been removed on the Cohesity Cluster and if the object is physical, it can be removed from the Cohesity Cluster..</param>
+        /// <param name="tenantIds">Specifies the list of tenants which will have a access to current vault..</param>
         /// <param name="type">Specifies the type of Vault. This field is deprecated. This field is split into ExternalTargetType in and TierType in respective credentials. Initialize those fields instead. deprecated: true &#39;kNearline&#39; indicates a Google Nearline Vault. &#39;kGlacier&#39; indicates an AWS Glacier Vault. &#39;kS3&#39; indicates an AWS S3 Vault. &#39;kAzureStandard&#39; indicates a Microsoft Azure Standard Vault. &#39;kS3Compatible&#39; indicates an S3 Compatible Vault. (See the online help for supported types.) &#39;kQStarTape&#39; indicates a QStar Tape Vault. &#39;kGoogleStandard&#39; indicates a Google Standard Vault. &#39;kGoogleDRA&#39; indicates a Google DRA Vault. &#39;kAmazonS3StandardIA&#39; indicates an Amazon S3 Standard-IA Vault. &#39;kAWSGovCloud&#39; indicates an AWS Gov Cloud Vault. &#39;kNAS&#39; indicates a NAS Vault. &#39;kColdline&#39; indicates a Google Coldline Vault. &#39;kAzureGovCloud&#39; indicates a Microsoft Azure Gov Cloud Vault. &#39;kAzureArchive&#39; indicates an Azure Archive Vault. &#39;kAzure&#39; indicates an Azure Vault. &#39;kGoogle&#39; indicates a Google Vault. &#39;kAmazon&#39; indicates an Amazon Vault. &#39;kOracle&#39; indicates an Oracle Vault. &#39;kOracleTierStandard&#39; indicates an Oracle Tier Standard Vault. &#39;kOracleTierArchive&#39; indicates an Oracle Tier Archive Vault. &#39;kAmazonC2S&#39; indicates an Amazon Commercial Cloud Services Vault..</param>
         /// <param name="usageType">Specifies the usage type of the Vault. &#39;kArchival&#39; indicates the Vault provides archive storage for backup data. &#39;kCloudSpill&#39; indicates the Vault provides additional storage for cold data..</param>
         /// <param name="vaultBandwidthLimits">vaultBandwidthLimits.</param>
-        public Vault(string caTrustedCertificate = default(string), string clientCertificate = default(string), string clientPrivateKey = default(string), CompressionPolicyEnum? compressionPolicy = default(CompressionPolicyEnum?), VaultConfig config = default(VaultConfig), bool? customerManagingEncryptionKeys = default(bool?), bool? dedupEnabled = default(bool?), string description = default(string), DesiredWalLocationEnum? desiredWalLocation = default(DesiredWalLocationEnum?), bool? encryptionKeyFileDownloaded = default(bool?), EncryptionPolicyEnum? encryptionPolicy = default(EncryptionPolicyEnum?), ExternalTargetTypeEnum? externalTargetType = default(ExternalTargetTypeEnum?), long? fullArchiveIntervalDays = default(long?), long? id = default(long?), bool? incrementalArchivesEnabled = default(bool?), long? keyFileDownloadTimeUsecs = default(long?), string keyFileDownloadUser = default(string), string name = default(string), TypeEnum? type = default(TypeEnum?), UsageTypeEnum? usageType = default(UsageTypeEnum?), VaultBandwidthLimits vaultBandwidthLimits = default(VaultBandwidthLimits))
+        public Vault(string caTrustedCertificate = default(string), string clientCertificate = default(string), string clientPrivateKey = default(string), CloudArchivalDirectConfig cloudArchivalDirectConfig = default(CloudArchivalDirectConfig), CompressionPolicyEnum? compressionPolicy = default(CompressionPolicyEnum?), VaultConfig config = default(VaultConfig), bool? customerManagingEncryptionKeys = default(bool?), bool? dedupEnabled = default(bool?), bool? dekRotationEnabled = default(bool?), string deleteVaultError = default(string), string description = default(string), DesiredWalLocationEnum? desiredWalLocation = default(DesiredWalLocationEnum?), bool? encryptionKeyFileDownloaded = default(bool?), EncryptionPolicyEnum? encryptionPolicy = default(EncryptionPolicyEnum?), ExternalTargetTypeEnum? externalTargetType = default(ExternalTargetTypeEnum?), long? fullArchiveIntervalDays = default(long?), long? id = default(long?), bool? incrementalArchivesEnabled = default(bool?), bool? isAwsSnowball = default(bool?), bool? isForeverIncrementalArchiveEnabled = default(bool?), bool? isPasswordEncrypted = default(bool?), long? keyFileDownloadTimeUsecs = default(long?), string keyFileDownloadUser = default(string), long? kmsServerId = default(long?), string name = default(string), RemovalStateEnum? removalState = default(RemovalStateEnum?), List<string> tenantIds = default(List<string>), TypeEnum? type = default(TypeEnum?), UsageTypeEnum? usageType = default(UsageTypeEnum?), VaultBandwidthLimits vaultBandwidthLimits = default(VaultBandwidthLimits))
         {
             this.CaTrustedCertificate = caTrustedCertificate;
             this.ClientCertificate = clientCertificate;
             this.ClientPrivateKey = clientPrivateKey;
-            this.CompressionPolicy = compressionPolicy;
-            this.CustomerManagingEncryptionKeys = customerManagingEncryptionKeys;
-            this.DedupEnabled = dedupEnabled;
-            this.Description = description;
-            this.DesiredWalLocation = desiredWalLocation;
-            this.EncryptionKeyFileDownloaded = encryptionKeyFileDownloaded;
-            this.EncryptionPolicy = encryptionPolicy;
-            this.ExternalTargetType = externalTargetType;
-            this.FullArchiveIntervalDays = fullArchiveIntervalDays;
-            this.Id = id;
-            this.IncrementalArchivesEnabled = incrementalArchivesEnabled;
-            this.KeyFileDownloadTimeUsecs = keyFileDownloadTimeUsecs;
-            this.KeyFileDownloadUser = keyFileDownloadUser;
-            this.Name = name;
-            this.Type = type;
-            this.UsageType = usageType;
-            this.CaTrustedCertificate = caTrustedCertificate;
-            this.ClientCertificate = clientCertificate;
-            this.ClientPrivateKey = clientPrivateKey;
+            this.CloudArchivalDirectConfig = cloudArchivalDirectConfig;
             this.CompressionPolicy = compressionPolicy;
             this.Config = config;
             this.CustomerManagingEncryptionKeys = customerManagingEncryptionKeys;
             this.DedupEnabled = dedupEnabled;
+            this.DekRotationEnabled = dekRotationEnabled;
+            this.DeleteVaultError = deleteVaultError;
             this.Description = description;
             this.DesiredWalLocation = desiredWalLocation;
             this.EncryptionKeyFileDownloaded = encryptionKeyFileDownloaded;
@@ -494,9 +523,15 @@ namespace Cohesity.Model
             this.FullArchiveIntervalDays = fullArchiveIntervalDays;
             this.Id = id;
             this.IncrementalArchivesEnabled = incrementalArchivesEnabled;
+            this.IsAwsSnowball = isAwsSnowball;
+            this.IsForeverIncrementalArchiveEnabled = isForeverIncrementalArchiveEnabled;
+            this.IsPasswordEncrypted = isPasswordEncrypted;
             this.KeyFileDownloadTimeUsecs = keyFileDownloadTimeUsecs;
             this.KeyFileDownloadUser = keyFileDownloadUser;
+            this.KmsServerId = kmsServerId;
             this.Name = name;
+            this.RemovalState = removalState;
+            this.TenantIds = tenantIds;
             this.Type = type;
             this.UsageType = usageType;
             this.VaultBandwidthLimits = vaultBandwidthLimits;
@@ -506,22 +541,29 @@ namespace Cohesity.Model
         /// Specifies the CA (certificate authority) trusted certificate.
         /// </summary>
         /// <value>Specifies the CA (certificate authority) trusted certificate.</value>
-        [DataMember(Name="caTrustedCertificate", EmitDefaultValue=true)]
+        [DataMember(Name="caTrustedCertificate", EmitDefaultValue=false)]
         public string CaTrustedCertificate { get; set; }
 
         /// <summary>
         /// Specifies the client CA  certificate. This certificate is in pem format.
         /// </summary>
         /// <value>Specifies the client CA  certificate. This certificate is in pem format.</value>
-        [DataMember(Name="clientCertificate", EmitDefaultValue=true)]
+        [DataMember(Name="clientCertificate", EmitDefaultValue=false)]
         public string ClientCertificate { get; set; }
 
         /// <summary>
         /// Specifies the client private key. This certificate is in pem format.
         /// </summary>
         /// <value>Specifies the client private key. This certificate is in pem format.</value>
-        [DataMember(Name="clientPrivateKey", EmitDefaultValue=true)]
+        [DataMember(Name="clientPrivateKey", EmitDefaultValue=false)]
         public string ClientPrivateKey { get; set; }
+
+        /// <summary>
+        /// Gets or Sets CloudArchivalDirectConfig
+        /// </summary>
+        [DataMember(Name="cloudArchivalDirectConfig", EmitDefaultValue=false)]
+        public CloudArchivalDirectConfig CloudArchivalDirectConfig { get; set; }
+
 
         /// <summary>
         /// Gets or Sets Config
@@ -533,71 +575,126 @@ namespace Cohesity.Model
         /// Specifies whether to manage the encryption key manually or let the Cohesity Cluster manage it. If true, you must get the encryption key store it outside the Cluster, before disaster strikes such as the source local Cohesity Cluster being down. You can get the encryption key by downloading it using the Cohesity Dashboard or by calling the GET /public/vaults/encryptionKey/{id} operation.
         /// </summary>
         /// <value>Specifies whether to manage the encryption key manually or let the Cohesity Cluster manage it. If true, you must get the encryption key store it outside the Cluster, before disaster strikes such as the source local Cohesity Cluster being down. You can get the encryption key by downloading it using the Cohesity Dashboard or by calling the GET /public/vaults/encryptionKey/{id} operation.</value>
-        [DataMember(Name="customerManagingEncryptionKeys", EmitDefaultValue=true)]
+        [DataMember(Name="customerManagingEncryptionKeys", EmitDefaultValue=false)]
         public bool? CustomerManagingEncryptionKeys { get; set; }
 
         /// <summary>
         /// Specifies whether to deduplicate data before sending it to the Vault.
         /// </summary>
         /// <value>Specifies whether to deduplicate data before sending it to the Vault.</value>
-        [DataMember(Name="dedupEnabled", EmitDefaultValue=true)]
+        [DataMember(Name="dedupEnabled", EmitDefaultValue=false)]
         public bool? DedupEnabled { get; set; }
+
+        /// <summary>
+        /// Specifies whether DEK(Data Encryption Key) rotation is enabled for this vault. This is applicable only when the viewbox uses AWS or similar KMS in which the KEK (Key Encryption Key) is not created and maintained by Cohesity. For Internal KMS and keys stored in Safenet servers, DEK rotation will not be performed.
+        /// </summary>
+        /// <value>Specifies whether DEK(Data Encryption Key) rotation is enabled for this vault. This is applicable only when the viewbox uses AWS or similar KMS in which the KEK (Key Encryption Key) is not created and maintained by Cohesity. For Internal KMS and keys stored in Safenet servers, DEK rotation will not be performed.</value>
+        [DataMember(Name="dekRotationEnabled", EmitDefaultValue=false)]
+        public bool? DekRotationEnabled { get; set; }
+
+        /// <summary>
+        /// Specifies the error message when deleting a vault.
+        /// </summary>
+        /// <value>Specifies the error message when deleting a vault.</value>
+        [DataMember(Name="deleteVaultError", EmitDefaultValue=false)]
+        public string DeleteVaultError { get; set; }
 
         /// <summary>
         /// Specifies a description about the Vault.
         /// </summary>
         /// <value>Specifies a description about the Vault.</value>
-        [DataMember(Name="description", EmitDefaultValue=true)]
+        [DataMember(Name="description", EmitDefaultValue=false)]
         public string Description { get; set; }
+
 
         /// <summary>
         /// Specifies if the encryption key file has been downloaded using the Cohesity Dashboard (Cohesity UI). If true, the encryption key has been downloaded using the Cohesity Dashboard. An encryption key can only be downloaded once using the Cohesity Dashboard.
         /// </summary>
         /// <value>Specifies if the encryption key file has been downloaded using the Cohesity Dashboard (Cohesity UI). If true, the encryption key has been downloaded using the Cohesity Dashboard. An encryption key can only be downloaded once using the Cohesity Dashboard.</value>
-        [DataMember(Name="encryptionKeyFileDownloaded", EmitDefaultValue=true)]
+        [DataMember(Name="encryptionKeyFileDownloaded", EmitDefaultValue=false)]
         public bool? EncryptionKeyFileDownloaded { get; set; }
+
+
 
         /// <summary>
         /// Specifies the number days between full archives to the Vault. The current default is 90 days. This is only meaningful when incrementalArchivesEnabled is true and the Vault usage type is kArchival.
         /// </summary>
         /// <value>Specifies the number days between full archives to the Vault. The current default is 90 days. This is only meaningful when incrementalArchivesEnabled is true and the Vault usage type is kArchival.</value>
-        [DataMember(Name="fullArchiveIntervalDays", EmitDefaultValue=true)]
+        [DataMember(Name="fullArchiveIntervalDays", EmitDefaultValue=false)]
         public long? FullArchiveIntervalDays { get; set; }
 
         /// <summary>
         /// Specifies an id that identifies the Vault.
         /// </summary>
         /// <value>Specifies an id that identifies the Vault.</value>
-        [DataMember(Name="id", EmitDefaultValue=true)]
+        [DataMember(Name="id", EmitDefaultValue=false)]
         public long? Id { get; set; }
 
         /// <summary>
         /// Specifies whether to perform incremental archival when sending data to the Vault. If false, only full backups are performed. If true, incremental backups are performed between the full backups.
         /// </summary>
         /// <value>Specifies whether to perform incremental archival when sending data to the Vault. If false, only full backups are performed. If true, incremental backups are performed between the full backups.</value>
-        [DataMember(Name="incrementalArchivesEnabled", EmitDefaultValue=true)]
+        [DataMember(Name="incrementalArchivesEnabled", EmitDefaultValue=false)]
         public bool? IncrementalArchivesEnabled { get; set; }
+
+        /// <summary>
+        /// Specifies whether the vault is aws snowball or not.
+        /// </summary>
+        /// <value>Specifies whether the vault is aws snowball or not.</value>
+        [DataMember(Name="isAwsSnowball", EmitDefaultValue=false)]
+        public bool? IsAwsSnowball { get; set; }
+
+        /// <summary>
+        /// Specifies whether forever incremental archival is enabled on this vault.
+        /// </summary>
+        /// <value>Specifies whether forever incremental archival is enabled on this vault.</value>
+        [DataMember(Name="isForeverIncrementalArchiveEnabled", EmitDefaultValue=false)]
+        public bool? IsForeverIncrementalArchiveEnabled { get; set; }
+
+        /// <summary>
+        /// Specifies if given password is not encrypted or not in the cluster config.
+        /// </summary>
+        /// <value>Specifies if given password is not encrypted or not in the cluster config.</value>
+        [DataMember(Name="isPasswordEncrypted", EmitDefaultValue=false)]
+        public bool? IsPasswordEncrypted { get; set; }
 
         /// <summary>
         /// Specifies the time (in microseconds) when the encryption key file was downloaded from the Cohesity Dashboard (Cohesity UI). An encryption key can only be downloaded once using the Cohesity Dashboard.
         /// </summary>
         /// <value>Specifies the time (in microseconds) when the encryption key file was downloaded from the Cohesity Dashboard (Cohesity UI). An encryption key can only be downloaded once using the Cohesity Dashboard.</value>
-        [DataMember(Name="keyFileDownloadTimeUsecs", EmitDefaultValue=true)]
+        [DataMember(Name="keyFileDownloadTimeUsecs", EmitDefaultValue=false)]
         public long? KeyFileDownloadTimeUsecs { get; set; }
 
         /// <summary>
         /// Specifies the user who downloaded the encryption key from the Cohesity Dashboard (Cohesity UI). This field is only populated if encryption is enabled for the Vault and customerManagingEncryptionKeys is true.
         /// </summary>
         /// <value>Specifies the user who downloaded the encryption key from the Cohesity Dashboard (Cohesity UI). This field is only populated if encryption is enabled for the Vault and customerManagingEncryptionKeys is true.</value>
-        [DataMember(Name="keyFileDownloadUser", EmitDefaultValue=true)]
+        [DataMember(Name="keyFileDownloadUser", EmitDefaultValue=false)]
         public string KeyFileDownloadUser { get; set; }
+
+        /// <summary>
+        /// Specifies the associated KMS Server ID.
+        /// </summary>
+        /// <value>Specifies the associated KMS Server ID.</value>
+        [DataMember(Name="kmsServerId", EmitDefaultValue=false)]
+        public long? KmsServerId { get; set; }
 
         /// <summary>
         /// Specifies the name of the Vault.
         /// </summary>
         /// <value>Specifies the name of the Vault.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
+
+
+        /// <summary>
+        /// Specifies the list of tenants which will have a access to current vault.
+        /// </summary>
+        /// <value>Specifies the list of tenants which will have a access to current vault.</value>
+        [DataMember(Name="tenantIds", EmitDefaultValue=false)]
+        public List<string> TenantIds { get; set; }
+
+
 
         /// <summary>
         /// Gets or Sets VaultBandwidthLimits
@@ -657,8 +754,14 @@ namespace Cohesity.Model
                     this.ClientPrivateKey.Equals(input.ClientPrivateKey))
                 ) && 
                 (
+                    this.CloudArchivalDirectConfig == input.CloudArchivalDirectConfig ||
+                    (this.CloudArchivalDirectConfig != null &&
+                    this.CloudArchivalDirectConfig.Equals(input.CloudArchivalDirectConfig))
+                ) && 
+                (
                     this.CompressionPolicy == input.CompressionPolicy ||
-                    this.CompressionPolicy.Equals(input.CompressionPolicy)
+                    (this.CompressionPolicy != null &&
+                    this.CompressionPolicy.Equals(input.CompressionPolicy))
                 ) && 
                 (
                     this.Config == input.Config ||
@@ -676,13 +779,24 @@ namespace Cohesity.Model
                     this.DedupEnabled.Equals(input.DedupEnabled))
                 ) && 
                 (
+                    this.DekRotationEnabled == input.DekRotationEnabled ||
+                    (this.DekRotationEnabled != null &&
+                    this.DekRotationEnabled.Equals(input.DekRotationEnabled))
+                ) && 
+                (
+                    this.DeleteVaultError == input.DeleteVaultError ||
+                    (this.DeleteVaultError != null &&
+                    this.DeleteVaultError.Equals(input.DeleteVaultError))
+                ) && 
+                (
                     this.Description == input.Description ||
                     (this.Description != null &&
                     this.Description.Equals(input.Description))
                 ) && 
                 (
                     this.DesiredWalLocation == input.DesiredWalLocation ||
-                    this.DesiredWalLocation.Equals(input.DesiredWalLocation)
+                    (this.DesiredWalLocation != null &&
+                    this.DesiredWalLocation.Equals(input.DesiredWalLocation))
                 ) && 
                 (
                     this.EncryptionKeyFileDownloaded == input.EncryptionKeyFileDownloaded ||
@@ -691,11 +805,13 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.EncryptionPolicy == input.EncryptionPolicy ||
-                    this.EncryptionPolicy.Equals(input.EncryptionPolicy)
+                    (this.EncryptionPolicy != null &&
+                    this.EncryptionPolicy.Equals(input.EncryptionPolicy))
                 ) && 
                 (
                     this.ExternalTargetType == input.ExternalTargetType ||
-                    this.ExternalTargetType.Equals(input.ExternalTargetType)
+                    (this.ExternalTargetType != null &&
+                    this.ExternalTargetType.Equals(input.ExternalTargetType))
                 ) && 
                 (
                     this.FullArchiveIntervalDays == input.FullArchiveIntervalDays ||
@@ -713,6 +829,21 @@ namespace Cohesity.Model
                     this.IncrementalArchivesEnabled.Equals(input.IncrementalArchivesEnabled))
                 ) && 
                 (
+                    this.IsAwsSnowball == input.IsAwsSnowball ||
+                    (this.IsAwsSnowball != null &&
+                    this.IsAwsSnowball.Equals(input.IsAwsSnowball))
+                ) && 
+                (
+                    this.IsForeverIncrementalArchiveEnabled == input.IsForeverIncrementalArchiveEnabled ||
+                    (this.IsForeverIncrementalArchiveEnabled != null &&
+                    this.IsForeverIncrementalArchiveEnabled.Equals(input.IsForeverIncrementalArchiveEnabled))
+                ) && 
+                (
+                    this.IsPasswordEncrypted == input.IsPasswordEncrypted ||
+                    (this.IsPasswordEncrypted != null &&
+                    this.IsPasswordEncrypted.Equals(input.IsPasswordEncrypted))
+                ) && 
+                (
                     this.KeyFileDownloadTimeUsecs == input.KeyFileDownloadTimeUsecs ||
                     (this.KeyFileDownloadTimeUsecs != null &&
                     this.KeyFileDownloadTimeUsecs.Equals(input.KeyFileDownloadTimeUsecs))
@@ -723,17 +854,34 @@ namespace Cohesity.Model
                     this.KeyFileDownloadUser.Equals(input.KeyFileDownloadUser))
                 ) && 
                 (
+                    this.KmsServerId == input.KmsServerId ||
+                    (this.KmsServerId != null &&
+                    this.KmsServerId.Equals(input.KmsServerId))
+                ) && 
+                (
                     this.Name == input.Name ||
                     (this.Name != null &&
                     this.Name.Equals(input.Name))
                 ) && 
                 (
+                    this.RemovalState == input.RemovalState ||
+                    (this.RemovalState != null &&
+                    this.RemovalState.Equals(input.RemovalState))
+                ) && 
+                (
+                    this.TenantIds == input.TenantIds ||
+                    this.TenantIds != null &&
+                    this.TenantIds.Equals(input.TenantIds)
+                ) && 
+                (
                     this.Type == input.Type ||
-                    this.Type.Equals(input.Type)
+                    (this.Type != null &&
+                    this.Type.Equals(input.Type))
                 ) && 
                 (
                     this.UsageType == input.UsageType ||
-                    this.UsageType.Equals(input.UsageType)
+                    (this.UsageType != null &&
+                    this.UsageType.Equals(input.UsageType))
                 ) && 
                 (
                     this.VaultBandwidthLimits == input.VaultBandwidthLimits ||
@@ -757,34 +905,58 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ClientCertificate.GetHashCode();
                 if (this.ClientPrivateKey != null)
                     hashCode = hashCode * 59 + this.ClientPrivateKey.GetHashCode();
-                hashCode = hashCode * 59 + this.CompressionPolicy.GetHashCode();
+                if (this.CloudArchivalDirectConfig != null)
+                    hashCode = hashCode * 59 + this.CloudArchivalDirectConfig.GetHashCode();
+                if (this.CompressionPolicy != null)
+                    hashCode = hashCode * 59 + this.CompressionPolicy.GetHashCode();
                 if (this.Config != null)
                     hashCode = hashCode * 59 + this.Config.GetHashCode();
                 if (this.CustomerManagingEncryptionKeys != null)
                     hashCode = hashCode * 59 + this.CustomerManagingEncryptionKeys.GetHashCode();
                 if (this.DedupEnabled != null)
                     hashCode = hashCode * 59 + this.DedupEnabled.GetHashCode();
+                if (this.DekRotationEnabled != null)
+                    hashCode = hashCode * 59 + this.DekRotationEnabled.GetHashCode();
+                if (this.DeleteVaultError != null)
+                    hashCode = hashCode * 59 + this.DeleteVaultError.GetHashCode();
                 if (this.Description != null)
                     hashCode = hashCode * 59 + this.Description.GetHashCode();
-                hashCode = hashCode * 59 + this.DesiredWalLocation.GetHashCode();
+                if (this.DesiredWalLocation != null)
+                    hashCode = hashCode * 59 + this.DesiredWalLocation.GetHashCode();
                 if (this.EncryptionKeyFileDownloaded != null)
                     hashCode = hashCode * 59 + this.EncryptionKeyFileDownloaded.GetHashCode();
-                hashCode = hashCode * 59 + this.EncryptionPolicy.GetHashCode();
-                hashCode = hashCode * 59 + this.ExternalTargetType.GetHashCode();
+                if (this.EncryptionPolicy != null)
+                    hashCode = hashCode * 59 + this.EncryptionPolicy.GetHashCode();
+                if (this.ExternalTargetType != null)
+                    hashCode = hashCode * 59 + this.ExternalTargetType.GetHashCode();
                 if (this.FullArchiveIntervalDays != null)
                     hashCode = hashCode * 59 + this.FullArchiveIntervalDays.GetHashCode();
                 if (this.Id != null)
                     hashCode = hashCode * 59 + this.Id.GetHashCode();
                 if (this.IncrementalArchivesEnabled != null)
                     hashCode = hashCode * 59 + this.IncrementalArchivesEnabled.GetHashCode();
+                if (this.IsAwsSnowball != null)
+                    hashCode = hashCode * 59 + this.IsAwsSnowball.GetHashCode();
+                if (this.IsForeverIncrementalArchiveEnabled != null)
+                    hashCode = hashCode * 59 + this.IsForeverIncrementalArchiveEnabled.GetHashCode();
+                if (this.IsPasswordEncrypted != null)
+                    hashCode = hashCode * 59 + this.IsPasswordEncrypted.GetHashCode();
                 if (this.KeyFileDownloadTimeUsecs != null)
                     hashCode = hashCode * 59 + this.KeyFileDownloadTimeUsecs.GetHashCode();
                 if (this.KeyFileDownloadUser != null)
                     hashCode = hashCode * 59 + this.KeyFileDownloadUser.GetHashCode();
+                if (this.KmsServerId != null)
+                    hashCode = hashCode * 59 + this.KmsServerId.GetHashCode();
                 if (this.Name != null)
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
-                hashCode = hashCode * 59 + this.Type.GetHashCode();
-                hashCode = hashCode * 59 + this.UsageType.GetHashCode();
+                if (this.RemovalState != null)
+                    hashCode = hashCode * 59 + this.RemovalState.GetHashCode();
+                if (this.TenantIds != null)
+                    hashCode = hashCode * 59 + this.TenantIds.GetHashCode();
+                if (this.Type != null)
+                    hashCode = hashCode * 59 + this.Type.GetHashCode();
+                if (this.UsageType != null)
+                    hashCode = hashCode * 59 + this.UsageType.GetHashCode();
                 if (this.VaultBandwidthLimits != null)
                     hashCode = hashCode * 59 + this.VaultBandwidthLimits.GetHashCode();
                 return hashCode;

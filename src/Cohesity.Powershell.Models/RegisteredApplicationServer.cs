@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.ApplicationServer = applicationServer;
             this.RegisteredProtectionSource = registeredProtectionSource;
-            this.ApplicationServer = applicationServer;
-            this.RegisteredProtectionSource = registeredProtectionSource;
         }
         
         /// <summary>
         /// Specifies the child subtree used to store additional application-level Objects. Different environments use the subtree to store application-level information. For example for SQL Server, this subtree stores the SQL Server instances running on a VM.
         /// </summary>
         /// <value>Specifies the child subtree used to store additional application-level Objects. Different environments use the subtree to store application-level information. For example for SQL Server, this subtree stores the SQL Server instances running on a VM.</value>
-        [DataMember(Name="applicationServer", EmitDefaultValue=true)]
+        [DataMember(Name="applicationServer", EmitDefaultValue=false)]
         public ProtectionSourceNode ApplicationServer { get; set; }
 
         /// <summary>
         /// Specifies the Protection Source like a VM or Physical Server that registered the Application Server.
         /// </summary>
         /// <value>Specifies the Protection Source like a VM or Physical Server that registered the Application Server.</value>
-        [DataMember(Name="registeredProtectionSource", EmitDefaultValue=true)]
+        [DataMember(Name="registeredProtectionSource", EmitDefaultValue=false)]
         public ProtectionSource RegisteredProtectionSource { get; set; }
 
         /// <summary>
@@ -85,13 +86,13 @@ namespace Cohesity.Model
             return 
                 (
                     this.ApplicationServer == input.ApplicationServer ||
-                    (this.ApplicationServer != null &&
-                    this.ApplicationServer.Equals(input.ApplicationServer))
+                    this.ApplicationServer != null &&
+                    this.ApplicationServer.Equals(input.ApplicationServer)
                 ) && 
                 (
                     this.RegisteredProtectionSource == input.RegisteredProtectionSource ||
-                    (this.RegisteredProtectionSource != null &&
-                    this.RegisteredProtectionSource.Equals(input.RegisteredProtectionSource))
+                    this.RegisteredProtectionSource != null &&
+                    this.RegisteredProtectionSource.Equals(input.RegisteredProtectionSource)
                 );
         }
 

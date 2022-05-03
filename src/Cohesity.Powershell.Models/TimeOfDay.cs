@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.Hour = hour;
             this.Minute = minute;
-            this.Hour = hour;
-            this.Minute = minute;
         }
         
         /// <summary>
         /// Specifies an (0-23) hour in a day.
         /// </summary>
         /// <value>Specifies an (0-23) hour in a day.</value>
-        [DataMember(Name="hour", EmitDefaultValue=true)]
+        [DataMember(Name="hour", EmitDefaultValue=false)]
         public int? Hour { get; set; }
 
         /// <summary>
         /// Specifies a (0-59) minute in an hour.
         /// </summary>
         /// <value>Specifies a (0-59) minute in an hour.</value>
-        [DataMember(Name="minute", EmitDefaultValue=true)]
+        [DataMember(Name="minute", EmitDefaultValue=false)]
         public int? Minute { get; set; }
 
         /// <summary>

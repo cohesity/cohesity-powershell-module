@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -93,7 +96,7 @@ namespace Cohesity.Model
         /// Specifies the active operation on the Node if there is one. &#39;kNone&#39; specifies that there is no active operation on the Node. &#39;kDestroyCluster&#39; specifies that the Cluster which the Node is a part of is currently being destroyed. &#39;kUpgradeCluster&#39; specifies that the Cluster which the Node is a part of is currently being upgraded to a new software package. &#39;kRestartCluster&#39; specifies that the Cluster which the Node is a part of is currently being restarted. &#39;kCreateCluster&#39; specifies that the Node is currently being used to create a new Cluster. &#39;kExpandCluster&#39; specifies that the Node is currently being added to a Cluster or being used to assist in adding another Node to a Cluster. &#39;kUpgradeNode&#39; specifies that the Node is currently being upgraded to a new software package. &#39;kRemoveNode&#39; specifies that the Node is currently being removed from a Cluster or that it is assisting in removing another Node from a Cluster. &#39;kAddDisks&#39; specifies that the Node is being used to assist in adding disks to the Cluster. &#39;kMarkDiskOffline&#39; specifies that the Node is being use to assist in marking a disk in the Cluster as offline.
         /// </summary>
         /// <value>Specifies the active operation on the Node if there is one. &#39;kNone&#39; specifies that there is no active operation on the Node. &#39;kDestroyCluster&#39; specifies that the Cluster which the Node is a part of is currently being destroyed. &#39;kUpgradeCluster&#39; specifies that the Cluster which the Node is a part of is currently being upgraded to a new software package. &#39;kRestartCluster&#39; specifies that the Cluster which the Node is a part of is currently being restarted. &#39;kCreateCluster&#39; specifies that the Node is currently being used to create a new Cluster. &#39;kExpandCluster&#39; specifies that the Node is currently being added to a Cluster or being used to assist in adding another Node to a Cluster. &#39;kUpgradeNode&#39; specifies that the Node is currently being upgraded to a new software package. &#39;kRemoveNode&#39; specifies that the Node is currently being removed from a Cluster or that it is assisting in removing another Node from a Cluster. &#39;kAddDisks&#39; specifies that the Node is being used to assist in adding disks to the Cluster. &#39;kMarkDiskOffline&#39; specifies that the Node is being use to assist in marking a disk in the Cluster as offline.</value>
-        [DataMember(Name="activeOperation", EmitDefaultValue=true)]
+        [DataMember(Name="activeOperation", EmitDefaultValue=false)]
         public ActiveOperationEnum? ActiveOperation { get; set; }
         /// <summary>
         /// Specifies the reason for the removal operation if there is a removal operation going on. &#39;kUnknown&#39; specifies that the removal reason is not known. &#39;kAutoHealthCheck&#39; specifies that an internal health check found problems with the Node. &#39;kUserGracefulRemoval&#39; specifies that the user requested a graceful removal. &#39;kUserAvoidAccess&#39; specifies that the user requested to avoid access to this Node. &#39;kUserGracefulNodeRemoval&#39; specifies that the user requested a graceful removal for all of the disks in this Node. &#39;kUserRemoveDownNode&#39; specifies that the user requested a graceful removal of the Node while it is down.
@@ -144,7 +147,7 @@ namespace Cohesity.Model
         /// Specifies the reason for the removal operation if there is a removal operation going on. &#39;kUnknown&#39; specifies that the removal reason is not known. &#39;kAutoHealthCheck&#39; specifies that an internal health check found problems with the Node. &#39;kUserGracefulRemoval&#39; specifies that the user requested a graceful removal. &#39;kUserAvoidAccess&#39; specifies that the user requested to avoid access to this Node. &#39;kUserGracefulNodeRemoval&#39; specifies that the user requested a graceful removal for all of the disks in this Node. &#39;kUserRemoveDownNode&#39; specifies that the user requested a graceful removal of the Node while it is down.
         /// </summary>
         /// <value>Specifies the reason for the removal operation if there is a removal operation going on. &#39;kUnknown&#39; specifies that the removal reason is not known. &#39;kAutoHealthCheck&#39; specifies that an internal health check found problems with the Node. &#39;kUserGracefulRemoval&#39; specifies that the user requested a graceful removal. &#39;kUserAvoidAccess&#39; specifies that the user requested to avoid access to this Node. &#39;kUserGracefulNodeRemoval&#39; specifies that the user requested a graceful removal for all of the disks in this Node. &#39;kUserRemoveDownNode&#39; specifies that the user requested a graceful removal of the Node while it is down.</value>
-        [DataMember(Name="removalReason", EmitDefaultValue=true)]
+        [DataMember(Name="removalReason", EmitDefaultValue=false)]
         public RemovalReasonEnum? RemovalReason { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="NodeStatusResult" /> class.
@@ -155,14 +158,18 @@ namespace Cohesity.Model
         /// <param name="inCluster">Specifies whether or not the Node is part of a Cluster..</param>
         /// <param name="incarnationId">Specifies the Incarnation ID if the Node is part of a Cluster..</param>
         /// <param name="ip">Specifies the IP address of the Node..</param>
+        /// <param name="isAppNode">Whether the node is an app node..</param>
         /// <param name="lastUpgradeTimeSecs">Specifies the time of the last upgrade in seconds since the epoch..</param>
         /// <param name="markedForRemoval">Specifies whether or not this node is marked for removal..</param>
         /// <param name="message">Specifies an optional message describing the current state of the Node..</param>
         /// <param name="removalReason">Specifies the reason for the removal operation if there is a removal operation going on. &#39;kUnknown&#39; specifies that the removal reason is not known. &#39;kAutoHealthCheck&#39; specifies that an internal health check found problems with the Node. &#39;kUserGracefulRemoval&#39; specifies that the user requested a graceful removal. &#39;kUserAvoidAccess&#39; specifies that the user requested to avoid access to this Node. &#39;kUserGracefulNodeRemoval&#39; specifies that the user requested a graceful removal for all of the disks in this Node. &#39;kUserRemoveDownNode&#39; specifies that the user requested a graceful removal of the Node while it is down..</param>
         /// <param name="services">Specifies the list of services running on the cluster and their process Ids..</param>
+        /// <param name="servicesAckedList">[For UI: Displays list of Acked/NotAcked services separately.] Services already acked for removal of this entity..</param>
+        /// <param name="servicesNotAcked">[For CLI displays the string with ServicesNotAcked] ServicesNotAcked specifies services that have not ACKed yet in string format after node is marked for removal..</param>
+        /// <param name="servicesNotAckedList">Services not acked yet for removal of this entity..</param>
         /// <param name="softwareVersion">Specifies the version of the software running on the Node..</param>
         /// <param name="uptime">Uptime of node..</param>
-        public NodeStatusResult(ActiveOperationEnum? activeOperation = default(ActiveOperationEnum?), long? clusterId = default(long?), long? id = default(long?), bool? inCluster = default(bool?), long? incarnationId = default(long?), string ip = default(string), long? lastUpgradeTimeSecs = default(long?), bool? markedForRemoval = default(bool?), string message = default(string), RemovalReasonEnum? removalReason = default(RemovalReasonEnum?), List<ServiceProcessEntry> services = default(List<ServiceProcessEntry>), string softwareVersion = default(string), string uptime = default(string))
+        public NodeStatusResult(ActiveOperationEnum? activeOperation = default(ActiveOperationEnum?), long? clusterId = default(long?), long? id = default(long?), bool? inCluster = default(bool?), long? incarnationId = default(long?), string ip = default(string), bool? isAppNode = default(bool?), long? lastUpgradeTimeSecs = default(long?), bool? markedForRemoval = default(bool?), string message = default(string), RemovalReasonEnum? removalReason = default(RemovalReasonEnum?), List<ServiceProcessEntry> services = default(List<ServiceProcessEntry>), List<string> servicesAckedList = default(List<string>), string servicesNotAcked = default(string), List<string> servicesNotAckedList = default(List<string>), string softwareVersion = default(string), string uptime = default(string))
         {
             this.ActiveOperation = activeOperation;
             this.ClusterId = clusterId;
@@ -170,103 +177,124 @@ namespace Cohesity.Model
             this.InCluster = inCluster;
             this.IncarnationId = incarnationId;
             this.Ip = ip;
+            this.IsAppNode = isAppNode;
             this.LastUpgradeTimeSecs = lastUpgradeTimeSecs;
             this.MarkedForRemoval = markedForRemoval;
             this.Message = message;
             this.RemovalReason = removalReason;
             this.Services = services;
-            this.SoftwareVersion = softwareVersion;
-            this.Uptime = uptime;
-            this.ActiveOperation = activeOperation;
-            this.ClusterId = clusterId;
-            this.Id = id;
-            this.InCluster = inCluster;
-            this.IncarnationId = incarnationId;
-            this.Ip = ip;
-            this.LastUpgradeTimeSecs = lastUpgradeTimeSecs;
-            this.MarkedForRemoval = markedForRemoval;
-            this.Message = message;
-            this.RemovalReason = removalReason;
-            this.Services = services;
+            this.ServicesAckedList = servicesAckedList;
+            this.ServicesNotAcked = servicesNotAcked;
+            this.ServicesNotAckedList = servicesNotAckedList;
             this.SoftwareVersion = softwareVersion;
             this.Uptime = uptime;
         }
         
+
         /// <summary>
         /// Specifies the Cluster ID if the Node is part of a Cluster.
         /// </summary>
         /// <value>Specifies the Cluster ID if the Node is part of a Cluster.</value>
-        [DataMember(Name="clusterId", EmitDefaultValue=true)]
+        [DataMember(Name="clusterId", EmitDefaultValue=false)]
         public long? ClusterId { get; set; }
 
         /// <summary>
         /// Specifies the ID of the Node.
         /// </summary>
         /// <value>Specifies the ID of the Node.</value>
-        [DataMember(Name="id", EmitDefaultValue=true)]
+        [DataMember(Name="id", EmitDefaultValue=false)]
         public long? Id { get; set; }
 
         /// <summary>
         /// Specifies whether or not the Node is part of a Cluster.
         /// </summary>
         /// <value>Specifies whether or not the Node is part of a Cluster.</value>
-        [DataMember(Name="inCluster", EmitDefaultValue=true)]
+        [DataMember(Name="inCluster", EmitDefaultValue=false)]
         public bool? InCluster { get; set; }
 
         /// <summary>
         /// Specifies the Incarnation ID if the Node is part of a Cluster.
         /// </summary>
         /// <value>Specifies the Incarnation ID if the Node is part of a Cluster.</value>
-        [DataMember(Name="incarnationId", EmitDefaultValue=true)]
+        [DataMember(Name="incarnationId", EmitDefaultValue=false)]
         public long? IncarnationId { get; set; }
 
         /// <summary>
         /// Specifies the IP address of the Node.
         /// </summary>
         /// <value>Specifies the IP address of the Node.</value>
-        [DataMember(Name="ip", EmitDefaultValue=true)]
+        [DataMember(Name="ip", EmitDefaultValue=false)]
         public string Ip { get; set; }
+
+        /// <summary>
+        /// Whether the node is an app node.
+        /// </summary>
+        /// <value>Whether the node is an app node.</value>
+        [DataMember(Name="isAppNode", EmitDefaultValue=false)]
+        public bool? IsAppNode { get; set; }
 
         /// <summary>
         /// Specifies the time of the last upgrade in seconds since the epoch.
         /// </summary>
         /// <value>Specifies the time of the last upgrade in seconds since the epoch.</value>
-        [DataMember(Name="lastUpgradeTimeSecs", EmitDefaultValue=true)]
+        [DataMember(Name="lastUpgradeTimeSecs", EmitDefaultValue=false)]
         public long? LastUpgradeTimeSecs { get; set; }
 
         /// <summary>
         /// Specifies whether or not this node is marked for removal.
         /// </summary>
         /// <value>Specifies whether or not this node is marked for removal.</value>
-        [DataMember(Name="markedForRemoval", EmitDefaultValue=true)]
+        [DataMember(Name="markedForRemoval", EmitDefaultValue=false)]
         public bool? MarkedForRemoval { get; set; }
 
         /// <summary>
         /// Specifies an optional message describing the current state of the Node.
         /// </summary>
         /// <value>Specifies an optional message describing the current state of the Node.</value>
-        [DataMember(Name="message", EmitDefaultValue=true)]
+        [DataMember(Name="message", EmitDefaultValue=false)]
         public string Message { get; set; }
+
 
         /// <summary>
         /// Specifies the list of services running on the cluster and their process Ids.
         /// </summary>
         /// <value>Specifies the list of services running on the cluster and their process Ids.</value>
-        [DataMember(Name="services", EmitDefaultValue=true)]
+        [DataMember(Name="services", EmitDefaultValue=false)]
         public List<ServiceProcessEntry> Services { get; set; }
+
+        /// <summary>
+        /// [For UI: Displays list of Acked/NotAcked services separately.] Services already acked for removal of this entity.
+        /// </summary>
+        /// <value>[For UI: Displays list of Acked/NotAcked services separately.] Services already acked for removal of this entity.</value>
+        [DataMember(Name="servicesAckedList", EmitDefaultValue=false)]
+        public List<string> ServicesAckedList { get; set; }
+
+        /// <summary>
+        /// [For CLI displays the string with ServicesNotAcked] ServicesNotAcked specifies services that have not ACKed yet in string format after node is marked for removal.
+        /// </summary>
+        /// <value>[For CLI displays the string with ServicesNotAcked] ServicesNotAcked specifies services that have not ACKed yet in string format after node is marked for removal.</value>
+        [DataMember(Name="servicesNotAcked", EmitDefaultValue=false)]
+        public string ServicesNotAcked { get; set; }
+
+        /// <summary>
+        /// Services not acked yet for removal of this entity.
+        /// </summary>
+        /// <value>Services not acked yet for removal of this entity.</value>
+        [DataMember(Name="servicesNotAckedList", EmitDefaultValue=false)]
+        public List<string> ServicesNotAckedList { get; set; }
 
         /// <summary>
         /// Specifies the version of the software running on the Node.
         /// </summary>
         /// <value>Specifies the version of the software running on the Node.</value>
-        [DataMember(Name="softwareVersion", EmitDefaultValue=true)]
+        [DataMember(Name="softwareVersion", EmitDefaultValue=false)]
         public string SoftwareVersion { get; set; }
 
         /// <summary>
         /// Uptime of node.
         /// </summary>
         /// <value>Uptime of node.</value>
-        [DataMember(Name="uptime", EmitDefaultValue=true)]
+        [DataMember(Name="uptime", EmitDefaultValue=false)]
         public string Uptime { get; set; }
 
         /// <summary>
@@ -307,7 +335,8 @@ namespace Cohesity.Model
             return 
                 (
                     this.ActiveOperation == input.ActiveOperation ||
-                    this.ActiveOperation.Equals(input.ActiveOperation)
+                    (this.ActiveOperation != null &&
+                    this.ActiveOperation.Equals(input.ActiveOperation))
                 ) && 
                 (
                     this.ClusterId == input.ClusterId ||
@@ -335,6 +364,11 @@ namespace Cohesity.Model
                     this.Ip.Equals(input.Ip))
                 ) && 
                 (
+                    this.IsAppNode == input.IsAppNode ||
+                    (this.IsAppNode != null &&
+                    this.IsAppNode.Equals(input.IsAppNode))
+                ) && 
+                (
                     this.LastUpgradeTimeSecs == input.LastUpgradeTimeSecs ||
                     (this.LastUpgradeTimeSecs != null &&
                     this.LastUpgradeTimeSecs.Equals(input.LastUpgradeTimeSecs))
@@ -351,13 +385,28 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.RemovalReason == input.RemovalReason ||
-                    this.RemovalReason.Equals(input.RemovalReason)
+                    (this.RemovalReason != null &&
+                    this.RemovalReason.Equals(input.RemovalReason))
                 ) && 
                 (
                     this.Services == input.Services ||
                     this.Services != null &&
-                    input.Services != null &&
-                    this.Services.SequenceEqual(input.Services)
+                    this.Services.Equals(input.Services)
+                ) && 
+                (
+                    this.ServicesAckedList == input.ServicesAckedList ||
+                    this.ServicesAckedList != null &&
+                    this.ServicesAckedList.Equals(input.ServicesAckedList)
+                ) && 
+                (
+                    this.ServicesNotAcked == input.ServicesNotAcked ||
+                    (this.ServicesNotAcked != null &&
+                    this.ServicesNotAcked.Equals(input.ServicesNotAcked))
+                ) && 
+                (
+                    this.ServicesNotAckedList == input.ServicesNotAckedList ||
+                    this.ServicesNotAckedList != null &&
+                    this.ServicesNotAckedList.Equals(input.ServicesNotAckedList)
                 ) && 
                 (
                     this.SoftwareVersion == input.SoftwareVersion ||
@@ -380,7 +429,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                hashCode = hashCode * 59 + this.ActiveOperation.GetHashCode();
+                if (this.ActiveOperation != null)
+                    hashCode = hashCode * 59 + this.ActiveOperation.GetHashCode();
                 if (this.ClusterId != null)
                     hashCode = hashCode * 59 + this.ClusterId.GetHashCode();
                 if (this.Id != null)
@@ -391,15 +441,24 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.IncarnationId.GetHashCode();
                 if (this.Ip != null)
                     hashCode = hashCode * 59 + this.Ip.GetHashCode();
+                if (this.IsAppNode != null)
+                    hashCode = hashCode * 59 + this.IsAppNode.GetHashCode();
                 if (this.LastUpgradeTimeSecs != null)
                     hashCode = hashCode * 59 + this.LastUpgradeTimeSecs.GetHashCode();
                 if (this.MarkedForRemoval != null)
                     hashCode = hashCode * 59 + this.MarkedForRemoval.GetHashCode();
                 if (this.Message != null)
                     hashCode = hashCode * 59 + this.Message.GetHashCode();
-                hashCode = hashCode * 59 + this.RemovalReason.GetHashCode();
+                if (this.RemovalReason != null)
+                    hashCode = hashCode * 59 + this.RemovalReason.GetHashCode();
                 if (this.Services != null)
                     hashCode = hashCode * 59 + this.Services.GetHashCode();
+                if (this.ServicesAckedList != null)
+                    hashCode = hashCode * 59 + this.ServicesAckedList.GetHashCode();
+                if (this.ServicesNotAcked != null)
+                    hashCode = hashCode * 59 + this.ServicesNotAcked.GetHashCode();
+                if (this.ServicesNotAckedList != null)
+                    hashCode = hashCode * 59 + this.ServicesNotAckedList.GetHashCode();
                 if (this.SoftwareVersion != null)
                     hashCode = hashCode * 59 + this.SoftwareVersion.GetHashCode();
                 if (this.Uptime != null)

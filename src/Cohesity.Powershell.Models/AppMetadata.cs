@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -39,62 +42,55 @@ namespace Cohesity.Model
             this.IconImage = iconImage;
             this.LastModifiedDate = lastModifiedDate;
             this.Name = name;
-            this.Author = author;
-            this.CreatedDate = createdDate;
-            this.Description = description;
-            this.DevVersion = devVersion;
-            this.IconImage = iconImage;
-            this.LastModifiedDate = lastModifiedDate;
-            this.Name = name;
         }
         
         /// <summary>
         /// Specifies author of the app.
         /// </summary>
         /// <value>Specifies author of the app.</value>
-        [DataMember(Name="author", EmitDefaultValue=true)]
+        [DataMember(Name="author", EmitDefaultValue=false)]
         public string Author { get; set; }
 
         /// <summary>
         /// Specifies date when the first version of the app was created.
         /// </summary>
         /// <value>Specifies date when the first version of the app was created.</value>
-        [DataMember(Name="createdDate", EmitDefaultValue=true)]
+        [DataMember(Name="createdDate", EmitDefaultValue=false)]
         public string CreatedDate { get; set; }
 
         /// <summary>
         /// Specifies description about what app does.
         /// </summary>
         /// <value>Specifies description about what app does.</value>
-        [DataMember(Name="description", EmitDefaultValue=true)]
+        [DataMember(Name="description", EmitDefaultValue=false)]
         public string Description { get; set; }
 
         /// <summary>
         /// Specifies version of the app provided by the developer.
         /// </summary>
         /// <value>Specifies version of the app provided by the developer.</value>
-        [DataMember(Name="devVersion", EmitDefaultValue=true)]
+        [DataMember(Name="devVersion", EmitDefaultValue=false)]
         public string DevVersion { get; set; }
 
         /// <summary>
         /// Specifies application icon.
         /// </summary>
         /// <value>Specifies application icon.</value>
-        [DataMember(Name="iconImage", EmitDefaultValue=true)]
+        [DataMember(Name="iconImage", EmitDefaultValue=false)]
         public string IconImage { get; set; }
 
         /// <summary>
         /// Specifies date when the app was last modified.
         /// </summary>
         /// <value>Specifies date when the app was last modified.</value>
-        [DataMember(Name="lastModifiedDate", EmitDefaultValue=true)]
+        [DataMember(Name="lastModifiedDate", EmitDefaultValue=false)]
         public string LastModifiedDate { get; set; }
 
         /// <summary>
         /// Specifies name of the app.
         /// </summary>
         /// <value>Specifies name of the app.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
 
         /// <summary>

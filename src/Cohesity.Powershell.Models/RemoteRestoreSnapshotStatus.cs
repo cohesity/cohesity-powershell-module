@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -63,7 +66,7 @@ namespace Cohesity.Model
         /// Specifies the status of the indexing task. &#39;kJobRunning&#39; indicates that the Job/task is currently running. &#39;kJobFinished&#39; indicates that the Job/task completed and finished. &#39;kJobFailed&#39; indicates that the Job/task failed and did not complete. &#39;kJobCanceled&#39; indicates that the Job/task was canceled. &#39;kJobPaused&#39; indicates the Job/task is paused.
         /// </summary>
         /// <value>Specifies the status of the indexing task. &#39;kJobRunning&#39; indicates that the Job/task is currently running. &#39;kJobFinished&#39; indicates that the Job/task completed and finished. &#39;kJobFailed&#39; indicates that the Job/task failed and did not complete. &#39;kJobCanceled&#39; indicates that the Job/task was canceled. &#39;kJobPaused&#39; indicates the Job/task is paused.</value>
-        [DataMember(Name="snapshotTaskStatus", EmitDefaultValue=true)]
+        [DataMember(Name="snapshotTaskStatus", EmitDefaultValue=false)]
         public SnapshotTaskStatusEnum? SnapshotTaskStatus { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="RemoteRestoreSnapshotStatus" /> class.
@@ -86,63 +89,56 @@ namespace Cohesity.Model
             this.SnapshotTaskStatus = snapshotTaskStatus;
             this.SnapshotTaskUid = snapshotTaskUid;
             this.SnapshotTimeUsecs = snapshotTimeUsecs;
-            this.ArchiveTaskUid = archiveTaskUid;
-            this.Error = error;
-            this.ExpiryTimeUsecs = expiryTimeUsecs;
-            this.JobRunId = jobRunId;
-            this.ProgressMonitorTask = progressMonitorTask;
-            this.SnapshotTaskStatus = snapshotTaskStatus;
-            this.SnapshotTaskUid = snapshotTaskUid;
-            this.SnapshotTimeUsecs = snapshotTimeUsecs;
         }
         
         /// <summary>
         /// Specifies the globally unique id of the archival task that archived the Snapshots to the remote Vault.
         /// </summary>
         /// <value>Specifies the globally unique id of the archival task that archived the Snapshots to the remote Vault.</value>
-        [DataMember(Name="archiveTaskUid", EmitDefaultValue=true)]
+        [DataMember(Name="archiveTaskUid", EmitDefaultValue=false)]
         public UniversalId ArchiveTaskUid { get; set; }
 
         /// <summary>
         /// Specifies the error message if the indexing task fails.
         /// </summary>
         /// <value>Specifies the error message if the indexing task fails.</value>
-        [DataMember(Name="error", EmitDefaultValue=true)]
+        [DataMember(Name="error", EmitDefaultValue=false)]
         public string Error { get; set; }
 
         /// <summary>
         /// Specifies the time when the Snapshot expires on the remote Vault. This field is recorded as a Unix epoch Timestamp (in microseconds).
         /// </summary>
         /// <value>Specifies the time when the Snapshot expires on the remote Vault. This field is recorded as a Unix epoch Timestamp (in microseconds).</value>
-        [DataMember(Name="expiryTimeUsecs", EmitDefaultValue=true)]
+        [DataMember(Name="expiryTimeUsecs", EmitDefaultValue=false)]
         public long? ExpiryTimeUsecs { get; set; }
 
         /// <summary>
         /// Specifies the id of the Job Run that originally captured the Snapshot.
         /// </summary>
         /// <value>Specifies the id of the Job Run that originally captured the Snapshot.</value>
-        [DataMember(Name="jobRunId", EmitDefaultValue=true)]
+        [DataMember(Name="jobRunId", EmitDefaultValue=false)]
         public long? JobRunId { get; set; }
 
         /// <summary>
         /// Specifies the path to the progress monitor task that tracks the progress of building the index.
         /// </summary>
         /// <value>Specifies the path to the progress monitor task that tracks the progress of building the index.</value>
-        [DataMember(Name="progressMonitorTask", EmitDefaultValue=true)]
+        [DataMember(Name="progressMonitorTask", EmitDefaultValue=false)]
         public string ProgressMonitorTask { get; set; }
+
 
         /// <summary>
         /// Specifies the globally unique id of the task capturing the Snapshot.
         /// </summary>
         /// <value>Specifies the globally unique id of the task capturing the Snapshot.</value>
-        [DataMember(Name="snapshotTaskUid", EmitDefaultValue=true)]
+        [DataMember(Name="snapshotTaskUid", EmitDefaultValue=false)]
         public UniversalId SnapshotTaskUid { get; set; }
 
         /// <summary>
         /// Specify the time the Snapshot was captured. This time is recorded as a Unix epoch Timestamp (in microseconds).
         /// </summary>
         /// <value>Specify the time the Snapshot was captured. This time is recorded as a Unix epoch Timestamp (in microseconds).</value>
-        [DataMember(Name="snapshotTimeUsecs", EmitDefaultValue=true)]
+        [DataMember(Name="snapshotTimeUsecs", EmitDefaultValue=false)]
         public long? SnapshotTimeUsecs { get; set; }
 
         /// <summary>
@@ -183,8 +179,8 @@ namespace Cohesity.Model
             return 
                 (
                     this.ArchiveTaskUid == input.ArchiveTaskUid ||
-                    (this.ArchiveTaskUid != null &&
-                    this.ArchiveTaskUid.Equals(input.ArchiveTaskUid))
+                    this.ArchiveTaskUid != null &&
+                    this.ArchiveTaskUid.Equals(input.ArchiveTaskUid)
                 ) && 
                 (
                     this.Error == input.Error ||
@@ -208,12 +204,13 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.SnapshotTaskStatus == input.SnapshotTaskStatus ||
-                    this.SnapshotTaskStatus.Equals(input.SnapshotTaskStatus)
+                    (this.SnapshotTaskStatus != null &&
+                    this.SnapshotTaskStatus.Equals(input.SnapshotTaskStatus))
                 ) && 
                 (
                     this.SnapshotTaskUid == input.SnapshotTaskUid ||
-                    (this.SnapshotTaskUid != null &&
-                    this.SnapshotTaskUid.Equals(input.SnapshotTaskUid))
+                    this.SnapshotTaskUid != null &&
+                    this.SnapshotTaskUid.Equals(input.SnapshotTaskUid)
                 ) && 
                 (
                     this.SnapshotTimeUsecs == input.SnapshotTimeUsecs ||
@@ -241,7 +238,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.JobRunId.GetHashCode();
                 if (this.ProgressMonitorTask != null)
                     hashCode = hashCode * 59 + this.ProgressMonitorTask.GetHashCode();
-                hashCode = hashCode * 59 + this.SnapshotTaskStatus.GetHashCode();
+                if (this.SnapshotTaskStatus != null)
+                    hashCode = hashCode * 59 + this.SnapshotTaskStatus.GetHashCode();
                 if (this.SnapshotTaskUid != null)
                     hashCode = hashCode * 59 + this.SnapshotTaskUid.GetHashCode();
                 if (this.SnapshotTimeUsecs != null)

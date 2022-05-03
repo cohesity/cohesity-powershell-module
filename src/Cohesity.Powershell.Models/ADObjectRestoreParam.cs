@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -30,10 +33,6 @@ namespace Cohesity.Model
         /// <param name="srcSysvolFolder">When restoring a GPO, need to know the absolute path for SYSVOL folder..</param>
         public ADObjectRestoreParam(Credentials credentials = default(Credentials), List<string> guidVec = default(List<string>), int? optionFlags = default(int?), string ouPath = default(string), string srcSysvolFolder = default(string))
         {
-            this.GuidVec = guidVec;
-            this.OptionFlags = optionFlags;
-            this.OuPath = ouPath;
-            this.SrcSysvolFolder = srcSysvolFolder;
             this.Credentials = credentials;
             this.GuidVec = guidVec;
             this.OptionFlags = optionFlags;
@@ -51,28 +50,28 @@ namespace Cohesity.Model
         /// Array of AD object guids to restore either from recycle bin or from AD snapshot. The guid should not exist in production AD. If it exits, then kDuplicate error is output in status.
         /// </summary>
         /// <value>Array of AD object guids to restore either from recycle bin or from AD snapshot. The guid should not exist in production AD. If it exits, then kDuplicate error is output in status.</value>
-        [DataMember(Name="guidVec", EmitDefaultValue=true)]
+        [DataMember(Name="guidVec", EmitDefaultValue=false)]
         public List<string> GuidVec { get; set; }
 
         /// <summary>
         /// Restore option flags of type ADObjectRestoreOptionFlags.
         /// </summary>
         /// <value>Restore option flags of type ADObjectRestoreOptionFlags.</value>
-        [DataMember(Name="optionFlags", EmitDefaultValue=true)]
+        [DataMember(Name="optionFlags", EmitDefaultValue=false)]
         public int? OptionFlags { get; set; }
 
         /// <summary>
         /// Distinguished name(DN) of the target Organization Unit (OU) to restore non-OU object. This can be empty, in which case objects are restored to their original OU. The &#39;credential&#39; specified must have privileges to add objects to this OU. Example: &#39;OU&#x3D;SJC,OU&#x3D;EngOU,DC&#x3D;contoso,DC&#x3D;com&#39;. This parameter is ignored for OU objects.
         /// </summary>
         /// <value>Distinguished name(DN) of the target Organization Unit (OU) to restore non-OU object. This can be empty, in which case objects are restored to their original OU. The &#39;credential&#39; specified must have privileges to add objects to this OU. Example: &#39;OU&#x3D;SJC,OU&#x3D;EngOU,DC&#x3D;contoso,DC&#x3D;com&#39;. This parameter is ignored for OU objects.</value>
-        [DataMember(Name="ouPath", EmitDefaultValue=true)]
+        [DataMember(Name="ouPath", EmitDefaultValue=false)]
         public string OuPath { get; set; }
 
         /// <summary>
         /// When restoring a GPO, need to know the absolute path for SYSVOL folder.
         /// </summary>
         /// <value>When restoring a GPO, need to know the absolute path for SYSVOL folder.</value>
-        [DataMember(Name="srcSysvolFolder", EmitDefaultValue=true)]
+        [DataMember(Name="srcSysvolFolder", EmitDefaultValue=false)]
         public string SrcSysvolFolder { get; set; }
 
         /// <summary>
@@ -119,8 +118,7 @@ namespace Cohesity.Model
                 (
                     this.GuidVec == input.GuidVec ||
                     this.GuidVec != null &&
-                    input.GuidVec != null &&
-                    this.GuidVec.SequenceEqual(input.GuidVec)
+                    this.GuidVec.Equals(input.GuidVec)
                 ) && 
                 (
                     this.OptionFlags == input.OptionFlags ||

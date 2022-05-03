@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,30 +34,27 @@ namespace Cohesity.Model
             this.DatabaseCopyInfoList = databaseCopyInfoList;
             this.Guid = guid;
             this.Name = name;
-            this.DatabaseCopyInfoList = databaseCopyInfoList;
-            this.Guid = guid;
-            this.Name = name;
         }
         
         /// <summary>
         /// Specifies about all the copies of this DAG database. This include active and passive copy of the database.
         /// </summary>
         /// <value>Specifies about all the copies of this DAG database. This include active and passive copy of the database.</value>
-        [DataMember(Name="databaseCopyInfoList", EmitDefaultValue=true)]
+        [DataMember(Name="databaseCopyInfoList", EmitDefaultValue=false)]
         public List<ExchangeDatabaseCopyInfo> DatabaseCopyInfoList { get; set; }
 
         /// <summary>
         /// Specifies the guid of the database.
         /// </summary>
         /// <value>Specifies the guid of the database.</value>
-        [DataMember(Name="guid", EmitDefaultValue=true)]
+        [DataMember(Name="guid", EmitDefaultValue=false)]
         public string Guid { get; set; }
 
         /// <summary>
         /// Specifies the name of the database.
         /// </summary>
         /// <value>Specifies the name of the database.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
 
         /// <summary>
@@ -96,8 +96,7 @@ namespace Cohesity.Model
                 (
                     this.DatabaseCopyInfoList == input.DatabaseCopyInfoList ||
                     this.DatabaseCopyInfoList != null &&
-                    input.DatabaseCopyInfoList != null &&
-                    this.DatabaseCopyInfoList.SequenceEqual(input.DatabaseCopyInfoList)
+                    this.DatabaseCopyInfoList.Equals(input.DatabaseCopyInfoList)
                 ) && 
                 (
                     this.Guid == input.Guid ||

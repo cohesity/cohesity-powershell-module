@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -12,6 +13,8 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
+
+
 namespace Cohesity.Model
 {
     /// <summary>
@@ -20,6 +23,39 @@ namespace Cohesity.Model
     [DataContract]
     public partial class KmsConfigurationResponse :  IEquatable<KmsConfigurationResponse>
     {
+        /// <summary>
+        /// Specifies the state of the Kms Server. &#39;kDontRemove&#39; means the state of object is functional and it is not being removed. &#39;kMarkedForRemoval&#39; means the object is being removed. &#39;kOkToRemove&#39; means the object has been removed on the Cohesity Cluster and if the object is physical, it can be removed from the Cohesity Cluster.
+        /// </summary>
+        /// <value>Specifies the state of the Kms Server. &#39;kDontRemove&#39; means the state of object is functional and it is not being removed. &#39;kMarkedForRemoval&#39; means the object is being removed. &#39;kOkToRemove&#39; means the object has been removed on the Cohesity Cluster and if the object is physical, it can be removed from the Cohesity Cluster.</value>
+        [JsonConverter(typeof(StringEnumConverter))]
+        public enum RemovalStateEnum
+        {
+            /// <summary>
+            /// Enum KDontRemove for value: kDontRemove
+            /// </summary>
+            [EnumMember(Value = "kDontRemove")]
+            KDontRemove = 1,
+
+            /// <summary>
+            /// Enum KMarkedForRemoval for value: kMarkedForRemoval
+            /// </summary>
+            [EnumMember(Value = "kMarkedForRemoval")]
+            KMarkedForRemoval = 2,
+
+            /// <summary>
+            /// Enum KOkToRemove for value: kOkToRemove
+            /// </summary>
+            [EnumMember(Value = "kOkToRemove")]
+            KOkToRemove = 3
+
+        }
+
+        /// <summary>
+        /// Specifies the state of the Kms Server. &#39;kDontRemove&#39; means the state of object is functional and it is not being removed. &#39;kMarkedForRemoval&#39; means the object is being removed. &#39;kOkToRemove&#39; means the object has been removed on the Cohesity Cluster and if the object is physical, it can be removed from the Cohesity Cluster.
+        /// </summary>
+        /// <value>Specifies the state of the Kms Server. &#39;kDontRemove&#39; means the state of object is functional and it is not being removed. &#39;kMarkedForRemoval&#39; means the object is being removed. &#39;kOkToRemove&#39; means the object has been removed on the Cohesity Cluster and if the object is physical, it can be removed from the Cohesity Cluster.</value>
+        [DataMember(Name="removalState", EmitDefaultValue=false)]
+        public RemovalStateEnum? RemovalState { get; set; }
         /// <summary>
         /// Specifies the type of key mangement system. &#39;kInternalKms&#39; indicates an internal KMS object. &#39;kAwsKms&#39; indicates an Aws KMS object. &#39;kCryptsoftKms&#39; indicates a Cryptsoft KMS object.
         /// </summary>
@@ -51,7 +87,7 @@ namespace Cohesity.Model
         /// Specifies the type of key mangement system. &#39;kInternalKms&#39; indicates an internal KMS object. &#39;kAwsKms&#39; indicates an Aws KMS object. &#39;kCryptsoftKms&#39; indicates a Cryptsoft KMS object.
         /// </summary>
         /// <value>Specifies the type of key mangement system. &#39;kInternalKms&#39; indicates an internal KMS object. &#39;kAwsKms&#39; indicates an Aws KMS object. &#39;kCryptsoftKms&#39; indicates a Cryptsoft KMS object.</value>
-        [DataMember(Name="serverType", EmitDefaultValue=true)]
+        [DataMember(Name="serverType", EmitDefaultValue=false)]
         public ServerTypeEnum? ServerType { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="KmsConfigurationResponse" /> class.
@@ -60,20 +96,24 @@ namespace Cohesity.Model
         /// <param name="connectionStatus">Specifies if connection to this KMS exists..</param>
         /// <param name="cryptsoftKms">cryptsoftKms.</param>
         /// <param name="id">The Id of a KMS server..</param>
+        /// <param name="keyName">Specifies name of the key..</param>
+        /// <param name="removalState">Specifies the state of the Kms Server. &#39;kDontRemove&#39; means the state of object is functional and it is not being removed. &#39;kMarkedForRemoval&#39; means the object is being removed. &#39;kOkToRemove&#39; means the object has been removed on the Cohesity Cluster and if the object is physical, it can be removed from the Cohesity Cluster..</param>
         /// <param name="serverName">Specifies the name given to the KMS Server..</param>
         /// <param name="serverType">Specifies the type of key mangement system. &#39;kInternalKms&#39; indicates an internal KMS object. &#39;kAwsKms&#39; indicates an Aws KMS object. &#39;kCryptsoftKms&#39; indicates a Cryptsoft KMS object..</param>
-        public KmsConfigurationResponse(AwsKmsConfiguration awsKms = default(AwsKmsConfiguration), bool? connectionStatus = default(bool?), CryptsoftKmsConfigResponse cryptsoftKms = default(CryptsoftKmsConfigResponse), long? id = default(long?), string serverName = default(string), ServerTypeEnum? serverType = default(ServerTypeEnum?))
+        /// <param name="vaultIdList">Specifies the list of Vault Ids..</param>
+        /// <param name="viewBoxIdList">Specifies the list of View Box Ids..</param>
+        public KmsConfigurationResponse(AwsKmsConfiguration awsKms = default(AwsKmsConfiguration), bool? connectionStatus = default(bool?), CryptsoftKmsConfigResponse cryptsoftKms = default(CryptsoftKmsConfigResponse), long? id = default(long?), string keyName = default(string), RemovalStateEnum? removalState = default(RemovalStateEnum?), string serverName = default(string), ServerTypeEnum? serverType = default(ServerTypeEnum?), List<long?> vaultIdList = default(List<long?>), List<long?> viewBoxIdList = default(List<long?>))
         {
-            this.ConnectionStatus = connectionStatus;
-            this.Id = id;
-            this.ServerName = serverName;
-            this.ServerType = serverType;
             this.AwsKms = awsKms;
             this.ConnectionStatus = connectionStatus;
             this.CryptsoftKms = cryptsoftKms;
             this.Id = id;
+            this.KeyName = keyName;
+            this.RemovalState = removalState;
             this.ServerName = serverName;
             this.ServerType = serverType;
+            this.VaultIdList = vaultIdList;
+            this.ViewBoxIdList = viewBoxIdList;
         }
         
         /// <summary>
@@ -86,7 +126,7 @@ namespace Cohesity.Model
         /// Specifies if connection to this KMS exists.
         /// </summary>
         /// <value>Specifies if connection to this KMS exists.</value>
-        [DataMember(Name="connectionStatus", EmitDefaultValue=true)]
+        [DataMember(Name="connectionStatus", EmitDefaultValue=false)]
         public bool? ConnectionStatus { get; set; }
 
         /// <summary>
@@ -99,15 +139,38 @@ namespace Cohesity.Model
         /// The Id of a KMS server.
         /// </summary>
         /// <value>The Id of a KMS server.</value>
-        [DataMember(Name="id", EmitDefaultValue=true)]
+        [DataMember(Name="id", EmitDefaultValue=false)]
         public long? Id { get; set; }
+
+        /// <summary>
+        /// Specifies name of the key.
+        /// </summary>
+        /// <value>Specifies name of the key.</value>
+        [DataMember(Name="keyName", EmitDefaultValue=false)]
+        public string KeyName { get; set; }
+
 
         /// <summary>
         /// Specifies the name given to the KMS Server.
         /// </summary>
         /// <value>Specifies the name given to the KMS Server.</value>
-        [DataMember(Name="serverName", EmitDefaultValue=true)]
+        [DataMember(Name="serverName", EmitDefaultValue=false)]
         public string ServerName { get; set; }
+
+
+        /// <summary>
+        /// Specifies the list of Vault Ids.
+        /// </summary>
+        /// <value>Specifies the list of Vault Ids.</value>
+        [DataMember(Name="vaultIdList", EmitDefaultValue=false)]
+        public List<long?> VaultIdList { get; set; }
+
+        /// <summary>
+        /// Specifies the list of View Box Ids.
+        /// </summary>
+        /// <value>Specifies the list of View Box Ids.</value>
+        [DataMember(Name="viewBoxIdList", EmitDefaultValue=false)]
+        public List<long?> ViewBoxIdList { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -166,13 +229,34 @@ namespace Cohesity.Model
                     this.Id.Equals(input.Id))
                 ) && 
                 (
+                    this.KeyName == input.KeyName ||
+                    (this.KeyName != null &&
+                    this.KeyName.Equals(input.KeyName))
+                ) && 
+                (
+                    this.RemovalState == input.RemovalState ||
+                    (this.RemovalState != null &&
+                    this.RemovalState.Equals(input.RemovalState))
+                ) && 
+                (
                     this.ServerName == input.ServerName ||
                     (this.ServerName != null &&
                     this.ServerName.Equals(input.ServerName))
                 ) && 
                 (
                     this.ServerType == input.ServerType ||
-                    this.ServerType.Equals(input.ServerType)
+                    (this.ServerType != null &&
+                    this.ServerType.Equals(input.ServerType))
+                ) && 
+                (
+                    this.VaultIdList == input.VaultIdList ||
+                    this.VaultIdList != null &&
+                    this.VaultIdList.Equals(input.VaultIdList)
+                ) && 
+                (
+                    this.ViewBoxIdList == input.ViewBoxIdList ||
+                    this.ViewBoxIdList != null &&
+                    this.ViewBoxIdList.Equals(input.ViewBoxIdList)
                 );
         }
 
@@ -193,9 +277,18 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.CryptsoftKms.GetHashCode();
                 if (this.Id != null)
                     hashCode = hashCode * 59 + this.Id.GetHashCode();
+                if (this.KeyName != null)
+                    hashCode = hashCode * 59 + this.KeyName.GetHashCode();
+                if (this.RemovalState != null)
+                    hashCode = hashCode * 59 + this.RemovalState.GetHashCode();
                 if (this.ServerName != null)
                     hashCode = hashCode * 59 + this.ServerName.GetHashCode();
-                hashCode = hashCode * 59 + this.ServerType.GetHashCode();
+                if (this.ServerType != null)
+                    hashCode = hashCode * 59 + this.ServerType.GetHashCode();
+                if (this.VaultIdList != null)
+                    hashCode = hashCode * 59 + this.VaultIdList.GetHashCode();
+                if (this.ViewBoxIdList != null)
+                    hashCode = hashCode * 59 + this.ViewBoxIdList.GetHashCode();
                 return hashCode;
             }
         }

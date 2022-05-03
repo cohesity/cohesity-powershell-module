@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -63,7 +66,7 @@ namespace Cohesity.Model
         /// Specifies the type of the Job Run. &#39;kSuccess&#39; indicates that the Job Run was successful. &#39;kRunning&#39; indicates that the Job Run is currently running. &#39;kWarning&#39; indicates that the Job Run was successful but warnings were issued. &#39;kCancelled&#39; indicates that the Job Run was canceled. &#39;kError&#39; indicates the Job Run encountered an error and did not run to completion.
         /// </summary>
         /// <value>Specifies the type of the Job Run. &#39;kSuccess&#39; indicates that the Job Run was successful. &#39;kRunning&#39; indicates that the Job Run is currently running. &#39;kWarning&#39; indicates that the Job Run was successful but warnings were issued. &#39;kCancelled&#39; indicates that the Job Run was canceled. &#39;kError&#39; indicates the Job Run encountered an error and did not run to completion.</value>
-        [DataMember(Name="runStatus", EmitDefaultValue=true)]
+        [DataMember(Name="runStatus", EmitDefaultValue=false)]
         public RunStatusEnum? RunStatus { get; set; }
         /// <summary>
         /// Specifies the status of the Job Run. &#39;kRegular&#39; indicates an incremental (CBT) backup. Incremental backups utilizing CBT (if supported) are captured of the target protection objects. The first run of a kRegular schedule captures all the blocks. &#39;kFull&#39; indicates a full (no CBT) backup. A complete backup (all blocks) of the target protection objects are always captured and Change Block Tracking (CBT) is not utilized. &#39;kLog&#39; indicates a Database Log backup. Capture the database transaction logs to allow rolling back to a specific point in time. &#39;kSystem&#39; indicates system volume backup. It produces an image for bare metal recovery.
@@ -102,7 +105,7 @@ namespace Cohesity.Model
         /// Specifies the status of the Job Run. &#39;kRegular&#39; indicates an incremental (CBT) backup. Incremental backups utilizing CBT (if supported) are captured of the target protection objects. The first run of a kRegular schedule captures all the blocks. &#39;kFull&#39; indicates a full (no CBT) backup. A complete backup (all blocks) of the target protection objects are always captured and Change Block Tracking (CBT) is not utilized. &#39;kLog&#39; indicates a Database Log backup. Capture the database transaction logs to allow rolling back to a specific point in time. &#39;kSystem&#39; indicates system volume backup. It produces an image for bare metal recovery.
         /// </summary>
         /// <value>Specifies the status of the Job Run. &#39;kRegular&#39; indicates an incremental (CBT) backup. Incremental backups utilizing CBT (if supported) are captured of the target protection objects. The first run of a kRegular schedule captures all the blocks. &#39;kFull&#39; indicates a full (no CBT) backup. A complete backup (all blocks) of the target protection objects are always captured and Change Block Tracking (CBT) is not utilized. &#39;kLog&#39; indicates a Database Log backup. Capture the database transaction logs to allow rolling back to a specific point in time. &#39;kSystem&#39; indicates system volume backup. It produces an image for bare metal recovery.</value>
-        [DataMember(Name="runType", EmitDefaultValue=true)]
+        [DataMember(Name="runType", EmitDefaultValue=false)]
         public RunTypeEnum? RunType { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="ProtectionSourceSnapshotInformation" /> class.
@@ -135,97 +138,86 @@ namespace Cohesity.Model
             this.PaginationCookie = paginationCookie;
             this.RunStatus = runStatus;
             this.RunType = runType;
-            this.CopyTasks = copyTasks;
-            this.JobId = jobId;
-            this.JobName = jobName;
-            this.JobRunId = jobRunId;
-            this.JobRunStartTimeUsecs = jobRunStartTimeUsecs;
-            this.LastRunEndTimeUsecs = lastRunEndTimeUsecs;
-            this.LastRunStartTimeUsecs = lastRunStartTimeUsecs;
-            this.Message = message;
-            this.NumBytesRead = numBytesRead;
-            this.NumLogicalBytesProtected = numLogicalBytesProtected;
-            this.PaginationCookie = paginationCookie;
-            this.RunStatus = runStatus;
-            this.RunType = runType;
         }
         
         /// <summary>
         /// Array of Snapshot Copy Tasks.  Specifies a list of copy tasks (such as replication and archival tasks).
         /// </summary>
         /// <value>Array of Snapshot Copy Tasks.  Specifies a list of copy tasks (such as replication and archival tasks).</value>
-        [DataMember(Name="copyTasks", EmitDefaultValue=true)]
+        [DataMember(Name="copyTasks", EmitDefaultValue=false)]
         public List<SnapshotCopyTask> CopyTasks { get; set; }
 
         /// <summary>
         /// Specifies the id of the Protection Job.
         /// </summary>
         /// <value>Specifies the id of the Protection Job.</value>
-        [DataMember(Name="jobId", EmitDefaultValue=true)]
+        [DataMember(Name="jobId", EmitDefaultValue=false)]
         public long? JobId { get; set; }
 
         /// <summary>
         /// Specifies the name of the Protection Job.
         /// </summary>
         /// <value>Specifies the name of the Protection Job.</value>
-        [DataMember(Name="jobName", EmitDefaultValue=true)]
+        [DataMember(Name="jobName", EmitDefaultValue=false)]
         public string JobName { get; set; }
 
         /// <summary>
         /// Specifies the id of the Job Run.
         /// </summary>
         /// <value>Specifies the id of the Job Run.</value>
-        [DataMember(Name="jobRunId", EmitDefaultValue=true)]
+        [DataMember(Name="jobRunId", EmitDefaultValue=false)]
         public long? JobRunId { get; set; }
 
         /// <summary>
         /// Specifies the start time of the Job which this object is part of. The time is specified in Unix epoch Timestamp (in microseconds).
         /// </summary>
         /// <value>Specifies the start time of the Job which this object is part of. The time is specified in Unix epoch Timestamp (in microseconds).</value>
-        [DataMember(Name="jobRunStartTimeUsecs", EmitDefaultValue=true)]
+        [DataMember(Name="jobRunStartTimeUsecs", EmitDefaultValue=false)]
         public long? JobRunStartTimeUsecs { get; set; }
 
         /// <summary>
         /// Specifies the end time of the last Run of this object&#39;s snapshot. The time is specified in Unix epoch Timestamp (in microseconds).
         /// </summary>
         /// <value>Specifies the end time of the last Run of this object&#39;s snapshot. The time is specified in Unix epoch Timestamp (in microseconds).</value>
-        [DataMember(Name="lastRunEndTimeUsecs", EmitDefaultValue=true)]
+        [DataMember(Name="lastRunEndTimeUsecs", EmitDefaultValue=false)]
         public long? LastRunEndTimeUsecs { get; set; }
 
         /// <summary>
         /// Specifies the start time of the last Run of this object&#39;s snapshot. The time is specified in Unix epoch Timestamp (in microseconds).
         /// </summary>
         /// <value>Specifies the start time of the last Run of this object&#39;s snapshot. The time is specified in Unix epoch Timestamp (in microseconds).</value>
-        [DataMember(Name="lastRunStartTimeUsecs", EmitDefaultValue=true)]
+        [DataMember(Name="lastRunStartTimeUsecs", EmitDefaultValue=false)]
         public long? LastRunStartTimeUsecs { get; set; }
 
         /// <summary>
         /// Specifies warning or error information when the Job Run is not successful.
         /// </summary>
         /// <value>Specifies warning or error information when the Job Run is not successful.</value>
-        [DataMember(Name="message", EmitDefaultValue=true)]
+        [DataMember(Name="message", EmitDefaultValue=false)]
         public string Message { get; set; }
 
         /// <summary>
         /// Specifies the total number of bytes read.
         /// </summary>
         /// <value>Specifies the total number of bytes read.</value>
-        [DataMember(Name="numBytesRead", EmitDefaultValue=true)]
+        [DataMember(Name="numBytesRead", EmitDefaultValue=false)]
         public long? NumBytesRead { get; set; }
 
         /// <summary>
         /// Specifies the total number of logical bytes that are protected. The logical size is when the data is fully hydrated or expanded.
         /// </summary>
         /// <value>Specifies the total number of logical bytes that are protected. The logical size is when the data is fully hydrated or expanded.</value>
-        [DataMember(Name="numLogicalBytesProtected", EmitDefaultValue=true)]
+        [DataMember(Name="numLogicalBytesProtected", EmitDefaultValue=false)]
         public long? NumLogicalBytesProtected { get; set; }
 
         /// <summary>
         /// Specifies an opaque string to pass into the next request to get the next set of Snapshots for pagination purposes. If null, this is the last set of Snapshots or the number of Snapshots returned is equal to or less than the specified pageCount.
         /// </summary>
         /// <value>Specifies an opaque string to pass into the next request to get the next set of Snapshots for pagination purposes. If null, this is the last set of Snapshots or the number of Snapshots returned is equal to or less than the specified pageCount.</value>
-        [DataMember(Name="paginationCookie", EmitDefaultValue=true)]
+        [DataMember(Name="paginationCookie", EmitDefaultValue=false)]
         public int? PaginationCookie { get; set; }
+
+
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -266,8 +258,7 @@ namespace Cohesity.Model
                 (
                     this.CopyTasks == input.CopyTasks ||
                     this.CopyTasks != null &&
-                    input.CopyTasks != null &&
-                    this.CopyTasks.SequenceEqual(input.CopyTasks)
+                    this.CopyTasks.Equals(input.CopyTasks)
                 ) && 
                 (
                     this.JobId == input.JobId ||
@@ -321,11 +312,13 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.RunStatus == input.RunStatus ||
-                    this.RunStatus.Equals(input.RunStatus)
+                    (this.RunStatus != null &&
+                    this.RunStatus.Equals(input.RunStatus))
                 ) && 
                 (
                     this.RunType == input.RunType ||
-                    this.RunType.Equals(input.RunType)
+                    (this.RunType != null &&
+                    this.RunType.Equals(input.RunType))
                 );
         }
 
@@ -360,8 +353,10 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.NumLogicalBytesProtected.GetHashCode();
                 if (this.PaginationCookie != null)
                     hashCode = hashCode * 59 + this.PaginationCookie.GetHashCode();
-                hashCode = hashCode * 59 + this.RunStatus.GetHashCode();
-                hashCode = hashCode * 59 + this.RunType.GetHashCode();
+                if (this.RunStatus != null)
+                    hashCode = hashCode * 59 + this.RunStatus.GetHashCode();
+                if (this.RunType != null)
+                    hashCode = hashCode * 59 + this.RunType.GetHashCode();
                 return hashCode;
             }
         }

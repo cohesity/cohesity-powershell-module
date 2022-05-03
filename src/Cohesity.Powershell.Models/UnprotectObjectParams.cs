@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -33,9 +36,24 @@ namespace Cohesity.Model
         /// <param name="rpoPolicyId">Specifies the id of the Rpo Policy from which to unprotect the object. (required).</param>
         public UnprotectObjectParams(bool? deleteSnapshots = default(bool?), long? protectionSourceId = default(long?), string rpoPolicyId = default(string))
         {
-            this.DeleteSnapshots = deleteSnapshots;
-            this.ProtectionSourceId = protectionSourceId;
-            this.RpoPolicyId = rpoPolicyId;
+            // to ensure "protectionSourceId" is required (not null)
+            if (protectionSourceId == null)
+            {
+                throw new InvalidDataException("protectionSourceId is a required property for UnprotectObjectParams and cannot be null");
+            }
+            else
+            {
+                this.ProtectionSourceId = protectionSourceId;
+            }
+            // to ensure "rpoPolicyId" is required (not null)
+            if (rpoPolicyId == null)
+            {
+                throw new InvalidDataException("rpoPolicyId is a required property for UnprotectObjectParams and cannot be null");
+            }
+            else
+            {
+                this.RpoPolicyId = rpoPolicyId;
+            }
             this.DeleteSnapshots = deleteSnapshots;
         }
         
@@ -43,21 +61,21 @@ namespace Cohesity.Model
         /// Specifies whether to delete the snapshots of the Protection Object.
         /// </summary>
         /// <value>Specifies whether to delete the snapshots of the Protection Object.</value>
-        [DataMember(Name="deleteSnapshots", EmitDefaultValue=true)]
+        [DataMember(Name="deleteSnapshots", EmitDefaultValue=false)]
         public bool? DeleteSnapshots { get; set; }
 
         /// <summary>
         /// Specifies the id of the Protection Source to be unprotected.
         /// </summary>
         /// <value>Specifies the id of the Protection Source to be unprotected.</value>
-        [DataMember(Name="protectionSourceId", EmitDefaultValue=true)]
+        [DataMember(Name="protectionSourceId", EmitDefaultValue=false)]
         public long? ProtectionSourceId { get; set; }
 
         /// <summary>
         /// Specifies the id of the Rpo Policy from which to unprotect the object.
         /// </summary>
         /// <value>Specifies the id of the Rpo Policy from which to unprotect the object.</value>
-        [DataMember(Name="rpoPolicyId", EmitDefaultValue=true)]
+        [DataMember(Name="rpoPolicyId", EmitDefaultValue=false)]
         public string RpoPolicyId { get; set; }
 
         /// <summary>

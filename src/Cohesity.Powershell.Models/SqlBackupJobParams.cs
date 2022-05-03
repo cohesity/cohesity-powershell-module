@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -53,118 +56,104 @@ namespace Cohesity.Model
             this.UseAagPreferencesFromSqlServer = useAagPreferencesFromSqlServer;
             this.UserDbPreferenceType = userDbPreferenceType;
             this.WithClause = withClause;
-            this.AagBackupPreferenceType = aagBackupPreferenceType;
-            this.BackupDatabaseVolumesOnly = backupDatabaseVolumesOnly;
-            this.BackupSystemDbs = backupSystemDbs;
-            this.ContinueAfterError = continueAfterError;
-            this.EnableChecksum = enableChecksum;
-            this.EnableIncrementalBackupAfterRestart = enableIncrementalBackupAfterRestart;
-            this.FullBackupType = fullBackupType;
-            this.IsCopyOnlyFull = isCopyOnlyFull;
-            this.IsCopyOnlyLog = isCopyOnlyLog;
-            this.NumDbsPerBatch = numDbsPerBatch;
-            this.NumStreams = numStreams;
-            this.UseAagPreferencesFromSqlServer = useAagPreferencesFromSqlServer;
-            this.UserDbPreferenceType = userDbPreferenceType;
-            this.WithClause = withClause;
         }
         
         /// <summary>
         /// Preference type for backing up databases that are part of an AAG. Only applicable if &#39;use_aag_preferences_from_sql_server&#39; is set to false.
         /// </summary>
         /// <value>Preference type for backing up databases that are part of an AAG. Only applicable if &#39;use_aag_preferences_from_sql_server&#39; is set to false.</value>
-        [DataMember(Name="aagBackupPreferenceType", EmitDefaultValue=true)]
+        [DataMember(Name="aagBackupPreferenceType", EmitDefaultValue=false)]
         public int? AagBackupPreferenceType { get; set; }
 
         /// <summary>
         /// If set to true, only the volumes associated with databases should be backed up. The user cannot select additional volumes at host level for backup.  If set to false, all the volumes on the host machine will be backed up. In this case, the user can further select the exact set of volumes using host level params.  Note that the volumes associated with selected databases will always be included in the backup.
         /// </summary>
         /// <value>If set to true, only the volumes associated with databases should be backed up. The user cannot select additional volumes at host level for backup.  If set to false, all the volumes on the host machine will be backed up. In this case, the user can further select the exact set of volumes using host level params.  Note that the volumes associated with selected databases will always be included in the backup.</value>
-        [DataMember(Name="backupDatabaseVolumesOnly", EmitDefaultValue=true)]
+        [DataMember(Name="backupDatabaseVolumesOnly", EmitDefaultValue=false)]
         public bool? BackupDatabaseVolumesOnly { get; set; }
 
         /// <summary>
         /// Set to true if system databases should be backed up.
         /// </summary>
         /// <value>Set to true if system databases should be backed up.</value>
-        [DataMember(Name="backupSystemDbs", EmitDefaultValue=true)]
+        [DataMember(Name="backupSystemDbs", EmitDefaultValue=false)]
         public bool? BackupSystemDbs { get; set; }
 
         /// <summary>
         /// Whether backup should continue after encountering a page checksum error.
         /// </summary>
         /// <value>Whether backup should continue after encountering a page checksum error.</value>
-        [DataMember(Name="continueAfterError", EmitDefaultValue=true)]
+        [DataMember(Name="continueAfterError", EmitDefaultValue=false)]
         public bool? ContinueAfterError { get; set; }
 
         /// <summary>
         /// Whether backup checksums are enabled.
         /// </summary>
         /// <value>Whether backup checksums are enabled.</value>
-        [DataMember(Name="enableChecksum", EmitDefaultValue=true)]
+        [DataMember(Name="enableChecksum", EmitDefaultValue=false)]
         public bool? EnableChecksum { get; set; }
 
         /// <summary>
         /// If this is set to true, then incremental backup will be performed after the server restarts, otherwise a full-backup will be done.
         /// </summary>
         /// <value>If this is set to true, then incremental backup will be performed after the server restarts, otherwise a full-backup will be done.</value>
-        [DataMember(Name="enableIncrementalBackupAfterRestart", EmitDefaultValue=true)]
+        [DataMember(Name="enableIncrementalBackupAfterRestart", EmitDefaultValue=false)]
         public bool? EnableIncrementalBackupAfterRestart { get; set; }
 
         /// <summary>
         /// The type of SQL full backup to be used for this job.
         /// </summary>
         /// <value>The type of SQL full backup to be used for this job.</value>
-        [DataMember(Name="fullBackupType", EmitDefaultValue=true)]
+        [DataMember(Name="fullBackupType", EmitDefaultValue=false)]
         public int? FullBackupType { get; set; }
 
         /// <summary>
         /// Whether full backups should be copy-only.
         /// </summary>
         /// <value>Whether full backups should be copy-only.</value>
-        [DataMember(Name="isCopyOnlyFull", EmitDefaultValue=true)]
+        [DataMember(Name="isCopyOnlyFull", EmitDefaultValue=false)]
         public bool? IsCopyOnlyFull { get; set; }
 
         /// <summary>
         /// Whether log backups should be copy-only.
         /// </summary>
         /// <value>Whether log backups should be copy-only.</value>
-        [DataMember(Name="isCopyOnlyLog", EmitDefaultValue=true)]
+        [DataMember(Name="isCopyOnlyLog", EmitDefaultValue=false)]
         public bool? IsCopyOnlyLog { get; set; }
 
         /// <summary>
         /// The number of databases to be backed up per batch. This is only applicable for file based sql backup. If this is not specified, we use the value specified in magneto_vss_sql_app_file_batch_size gflag.
         /// </summary>
         /// <value>The number of databases to be backed up per batch. This is only applicable for file based sql backup. If this is not specified, we use the value specified in magneto_vss_sql_app_file_batch_size gflag.</value>
-        [DataMember(Name="numDbsPerBatch", EmitDefaultValue=true)]
+        [DataMember(Name="numDbsPerBatch", EmitDefaultValue=false)]
         public int? NumDbsPerBatch { get; set; }
 
         /// <summary>
         /// The number of streams to be used in native sql backup command. This is only applicable for native sql backup. If this is not specified, we use the value specified in magneto_sql_num_streams_for_each_db_backup gflag.
         /// </summary>
         /// <value>The number of streams to be used in native sql backup command. This is only applicable for native sql backup. If this is not specified, we use the value specified in magneto_sql_num_streams_for_each_db_backup gflag.</value>
-        [DataMember(Name="numStreams", EmitDefaultValue=true)]
+        [DataMember(Name="numStreams", EmitDefaultValue=false)]
         public int? NumStreams { get; set; }
 
         /// <summary>
         /// Set to true if we should use AAG preferences specified at the SQL server host.
         /// </summary>
         /// <value>Set to true if we should use AAG preferences specified at the SQL server host.</value>
-        [DataMember(Name="useAagPreferencesFromSqlServer", EmitDefaultValue=true)]
+        [DataMember(Name="useAagPreferencesFromSqlServer", EmitDefaultValue=false)]
         public bool? UseAagPreferencesFromSqlServer { get; set; }
 
         /// <summary>
         /// Preference type for backing up user databases on the host.
         /// </summary>
         /// <value>Preference type for backing up user databases on the host.</value>
-        [DataMember(Name="userDbPreferenceType", EmitDefaultValue=true)]
+        [DataMember(Name="userDbPreferenceType", EmitDefaultValue=false)]
         public int? UserDbPreferenceType { get; set; }
 
         /// <summary>
         /// &#39;with_clause&#39; contains &#39;with clause&#39; to be used in native sql backup command. This is only applicable for native sql backup. Here user can specify multiple backup options. Example: \&quot;WITH BUFFERCOUNT &#x3D; 575, MAXTRANSFERSIZE &#x3D; 2097152\&quot;. If this is not specified, we use the value specified in magneto_sql_native_backup_with_clause gflag.
         /// </summary>
         /// <value>&#39;with_clause&#39; contains &#39;with clause&#39; to be used in native sql backup command. This is only applicable for native sql backup. Here user can specify multiple backup options. Example: \&quot;WITH BUFFERCOUNT &#x3D; 575, MAXTRANSFERSIZE &#x3D; 2097152\&quot;. If this is not specified, we use the value specified in magneto_sql_native_backup_with_clause gflag.</value>
-        [DataMember(Name="withClause", EmitDefaultValue=true)]
+        [DataMember(Name="withClause", EmitDefaultValue=false)]
         public string WithClause { get; set; }
 
         /// <summary>

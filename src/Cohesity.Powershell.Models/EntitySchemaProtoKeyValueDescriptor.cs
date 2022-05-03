@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.KeyName = keyName;
             this.ValueType = valueType;
-            this.KeyName = keyName;
-            this.ValueType = valueType;
         }
         
         /// <summary>
         /// Specifies the name of a key.
         /// </summary>
         /// <value>Specifies the name of a key.</value>
-        [DataMember(Name="keyName", EmitDefaultValue=true)]
+        [DataMember(Name="keyName", EmitDefaultValue=false)]
         public string KeyName { get; set; }
 
         /// <summary>
         /// Specifies the type of the value that is associated with the key. 0 specifies a value type of Int64. 1 specifies a value type of Double. 2 specifies a value type of String. 3 specifies a value type of Bytes.
         /// </summary>
         /// <value>Specifies the type of the value that is associated with the key. 0 specifies a value type of Int64. 1 specifies a value type of Double. 2 specifies a value type of String. 3 specifies a value type of Bytes.</value>
-        [DataMember(Name="valueType", EmitDefaultValue=true)]
+        [DataMember(Name="valueType", EmitDefaultValue=false)]
         public int? ValueType { get; set; }
 
         /// <summary>

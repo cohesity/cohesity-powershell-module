@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -28,7 +31,6 @@ namespace Cohesity.Model
         public MountVolumesHyperVParams(bool? bringDisksOnline = default(bool?), Credentials targetEntityCredentials = default(Credentials))
         {
             this.BringDisksOnline = bringDisksOnline;
-            this.BringDisksOnline = bringDisksOnline;
             this.TargetEntityCredentials = targetEntityCredentials;
         }
         
@@ -36,7 +38,7 @@ namespace Cohesity.Model
         /// Optional setting which will determine if the volumes need to be onlined within the target environment after attaching the disks. NOTE: If this is set to true, then target_entity_credentials must be specified and HyperV Integration Services must be installed on the VM.
         /// </summary>
         /// <value>Optional setting which will determine if the volumes need to be onlined within the target environment after attaching the disks. NOTE: If this is set to true, then target_entity_credentials must be specified and HyperV Integration Services must be installed on the VM.</value>
-        [DataMember(Name="bringDisksOnline", EmitDefaultValue=true)]
+        [DataMember(Name="bringDisksOnline", EmitDefaultValue=false)]
         public bool? BringDisksOnline { get; set; }
 
         /// <summary>

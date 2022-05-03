@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -28,7 +31,6 @@ namespace Cohesity.Model
         public KeyValuePair(string key = default(string), Value value = default(Value))
         {
             this.Key = key;
-            this.Key = key;
             this.Value = value;
         }
         
@@ -36,7 +38,7 @@ namespace Cohesity.Model
         /// Specifies the name of the key.
         /// </summary>
         /// <value>Specifies the name of the key.</value>
-        [DataMember(Name="key", EmitDefaultValue=true)]
+        [DataMember(Name="key", EmitDefaultValue=false)]
         public string Key { get; set; }
 
         /// <summary>

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,30 +34,27 @@ namespace Cohesity.Model
             this.EntityId = entityId;
             this.RootInodeId = rootInodeId;
             this.ViewId = viewId;
-            this.EntityId = entityId;
-            this.RootInodeId = rootInodeId;
-            this.ViewId = viewId;
         }
         
         /// <summary>
         /// Specifies the entity id of the file.
         /// </summary>
         /// <value>Specifies the entity id of the file.</value>
-        [DataMember(Name="entityId", EmitDefaultValue=true)]
+        [DataMember(Name="entityId", EmitDefaultValue=false)]
         public long? EntityId { get; set; }
 
         /// <summary>
         /// Specifies the root inode id of the file system that file belongs to.
         /// </summary>
         /// <value>Specifies the root inode id of the file system that file belongs to.</value>
-        [DataMember(Name="rootInodeId", EmitDefaultValue=true)]
+        [DataMember(Name="rootInodeId", EmitDefaultValue=false)]
         public long? RootInodeId { get; set; }
 
         /// <summary>
         /// Specifies the id of the View the file belongs to.
         /// </summary>
         /// <value>Specifies the id of the View the file belongs to.</value>
-        [DataMember(Name="viewId", EmitDefaultValue=true)]
+        [DataMember(Name="viewId", EmitDefaultValue=false)]
         public long? ViewId { get; set; }
 
         /// <summary>

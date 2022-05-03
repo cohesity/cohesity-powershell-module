@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -35,46 +38,41 @@ namespace Cohesity.Model
             this.LvmDataOffset = lvmDataOffset;
             this.Offset = offset;
             this.PartitionNumber = partitionNumber;
-            this.DiskFileName = diskFileName;
-            this.Length = length;
-            this.LvmDataOffset = lvmDataOffset;
-            this.Offset = offset;
-            this.PartitionNumber = partitionNumber;
         }
         
         /// <summary>
         /// The disk to use.
         /// </summary>
         /// <value>The disk to use.</value>
-        [DataMember(Name="diskFileName", EmitDefaultValue=true)]
+        [DataMember(Name="diskFileName", EmitDefaultValue=false)]
         public string DiskFileName { get; set; }
 
         /// <summary>
         /// The length of data for the LVM volume (for which this device tree is being built) in bytes. It does not include size of the LVM meta data.
         /// </summary>
         /// <value>The length of data for the LVM volume (for which this device tree is being built) in bytes. It does not include size of the LVM meta data.</value>
-        [DataMember(Name="length", EmitDefaultValue=true)]
+        [DataMember(Name="length", EmitDefaultValue=false)]
         public long? Length { get; set; }
 
         /// <summary>
         /// Each LVM partition starts with LVM meta data. After the meta data there can be data for one or more LVM volumes.  This field indicates the offset in bytes (relative to partition) where data for various LVM volumes starts on the partition. NOTE: If this device tree represents first LVM volume on the  partition, &#39;lvm_data_offset&#39; is equal to &#39;offset&#39;.
         /// </summary>
         /// <value>Each LVM partition starts with LVM meta data. After the meta data there can be data for one or more LVM volumes.  This field indicates the offset in bytes (relative to partition) where data for various LVM volumes starts on the partition. NOTE: If this device tree represents first LVM volume on the  partition, &#39;lvm_data_offset&#39; is equal to &#39;offset&#39;.</value>
-        [DataMember(Name="lvmDataOffset", EmitDefaultValue=true)]
+        [DataMember(Name="lvmDataOffset", EmitDefaultValue=false)]
         public long? LvmDataOffset { get; set; }
 
         /// <summary>
         /// This is the offset (in bytes) where data for the LVM volume (for which this device tree is being build) starts relative to the start of the partition above.
         /// </summary>
         /// <value>This is the offset (in bytes) where data for the LVM volume (for which this device tree is being build) starts relative to the start of the partition above.</value>
-        [DataMember(Name="offset", EmitDefaultValue=true)]
+        [DataMember(Name="offset", EmitDefaultValue=false)]
         public long? Offset { get; set; }
 
         /// <summary>
         /// The partition to use in the disk above.
         /// </summary>
         /// <value>The partition to use in the disk above.</value>
-        [DataMember(Name="partitionNumber", EmitDefaultValue=true)]
+        [DataMember(Name="partitionNumber", EmitDefaultValue=false)]
         public int? PartitionNumber { get; set; }
 
         /// <summary>

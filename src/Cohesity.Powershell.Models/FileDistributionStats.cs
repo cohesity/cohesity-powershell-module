@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -35,46 +38,41 @@ namespace Cohesity.Model
             this.EntityId = entityId;
             this.EntityName = entityName;
             this.MetricsList = metricsList;
-            this.ClusterId = clusterId;
-            this.ClusterIncarnationId = clusterIncarnationId;
-            this.EntityId = entityId;
-            this.EntityName = entityName;
-            this.MetricsList = metricsList;
         }
         
         /// <summary>
         /// Specifies the cluster Id.
         /// </summary>
         /// <value>Specifies the cluster Id.</value>
-        [DataMember(Name="clusterId", EmitDefaultValue=true)]
+        [DataMember(Name="clusterId", EmitDefaultValue=false)]
         public long? ClusterId { get; set; }
 
         /// <summary>
         /// Specifies the cluster Incarnation Id.
         /// </summary>
         /// <value>Specifies the cluster Incarnation Id.</value>
-        [DataMember(Name="clusterIncarnationId", EmitDefaultValue=true)]
+        [DataMember(Name="clusterIncarnationId", EmitDefaultValue=false)]
         public long? ClusterIncarnationId { get; set; }
 
         /// <summary>
         /// Specifies the id of the entity for which file distribution stats are computed.
         /// </summary>
         /// <value>Specifies the id of the entity for which file distribution stats are computed.</value>
-        [DataMember(Name="entityId", EmitDefaultValue=true)]
+        [DataMember(Name="entityId", EmitDefaultValue=false)]
         public long? EntityId { get; set; }
 
         /// <summary>
         /// Specifies the name of the entity for which file distribution stats are computed.
         /// </summary>
         /// <value>Specifies the name of the entity for which file distribution stats are computed.</value>
-        [DataMember(Name="entityName", EmitDefaultValue=true)]
+        [DataMember(Name="entityName", EmitDefaultValue=false)]
         public string EntityName { get; set; }
 
         /// <summary>
         /// Specifies the list of file stats for different file extensions.
         /// </summary>
         /// <value>Specifies the list of file stats for different file extensions.</value>
-        [DataMember(Name="metricsList", EmitDefaultValue=true)]
+        [DataMember(Name="metricsList", EmitDefaultValue=false)]
         public List<FileDistributionMetrics> MetricsList { get; set; }
 
         /// <summary>
@@ -136,8 +134,7 @@ namespace Cohesity.Model
                 (
                     this.MetricsList == input.MetricsList ||
                     this.MetricsList != null &&
-                    input.MetricsList != null &&
-                    this.MetricsList.SequenceEqual(input.MetricsList)
+                    this.MetricsList.Equals(input.MetricsList)
                 );
         }
 

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -28,19 +31,16 @@ namespace Cohesity.Model
         /// <param name="jobId">Specifies the id of the Protection Job that was run..</param>
         /// <param name="jobName">Specifies the name of the Protection Job name that was run..</param>
         /// <param name="jobUid">Specifies the globally unique id of the Protection Job that was run..</param>
+        /// <param name="protectionShellInfo">protectionShellInfo.</param>
         /// <param name="viewBoxId">Specifies the Storage Domain (View Box) to store the backed up data. Specify the id of the Storage Domain (View Box)..</param>
-        public ProtectionRunInstance(BackupRun backupRun = default(BackupRun), List<CopyRun> copyRun = default(List<CopyRun>), long? jobId = default(long?), string jobName = default(string), UniversalId jobUid = default(UniversalId), long? viewBoxId = default(long?))
+        public ProtectionRunInstance(BackupRun backupRun = default(BackupRun), List<CopyRun> copyRun = default(List<CopyRun>), long? jobId = default(long?), string jobName = default(string), UniversalId jobUid = default(UniversalId), ProtectionShellInfo protectionShellInfo = default(ProtectionShellInfo), long? viewBoxId = default(long?))
         {
-            this.CopyRun = copyRun;
-            this.JobId = jobId;
-            this.JobName = jobName;
-            this.JobUid = jobUid;
-            this.ViewBoxId = viewBoxId;
             this.BackupRun = backupRun;
             this.CopyRun = copyRun;
             this.JobId = jobId;
             this.JobName = jobName;
             this.JobUid = jobUid;
+            this.ProtectionShellInfo = protectionShellInfo;
             this.ViewBoxId = viewBoxId;
         }
         
@@ -54,35 +54,41 @@ namespace Cohesity.Model
         /// Array of Copy Run Tasks.  Specifies details about the Copy tasks of this Job Run. A Copy task copies the captured snapshots to an external target or a Remote Cohesity Cluster.
         /// </summary>
         /// <value>Array of Copy Run Tasks.  Specifies details about the Copy tasks of this Job Run. A Copy task copies the captured snapshots to an external target or a Remote Cohesity Cluster.</value>
-        [DataMember(Name="copyRun", EmitDefaultValue=true)]
+        [DataMember(Name="copyRun", EmitDefaultValue=false)]
         public List<CopyRun> CopyRun { get; set; }
 
         /// <summary>
         /// Specifies the id of the Protection Job that was run.
         /// </summary>
         /// <value>Specifies the id of the Protection Job that was run.</value>
-        [DataMember(Name="jobId", EmitDefaultValue=true)]
+        [DataMember(Name="jobId", EmitDefaultValue=false)]
         public long? JobId { get; set; }
 
         /// <summary>
         /// Specifies the name of the Protection Job name that was run.
         /// </summary>
         /// <value>Specifies the name of the Protection Job name that was run.</value>
-        [DataMember(Name="jobName", EmitDefaultValue=true)]
+        [DataMember(Name="jobName", EmitDefaultValue=false)]
         public string JobName { get; set; }
 
         /// <summary>
         /// Specifies the globally unique id of the Protection Job that was run.
         /// </summary>
         /// <value>Specifies the globally unique id of the Protection Job that was run.</value>
-        [DataMember(Name="jobUid", EmitDefaultValue=true)]
+        [DataMember(Name="jobUid", EmitDefaultValue=false)]
         public UniversalId JobUid { get; set; }
+
+        /// <summary>
+        /// Gets or Sets ProtectionShellInfo
+        /// </summary>
+        [DataMember(Name="protectionShellInfo", EmitDefaultValue=false)]
+        public ProtectionShellInfo ProtectionShellInfo { get; set; }
 
         /// <summary>
         /// Specifies the Storage Domain (View Box) to store the backed up data. Specify the id of the Storage Domain (View Box).
         /// </summary>
         /// <value>Specifies the Storage Domain (View Box) to store the backed up data. Specify the id of the Storage Domain (View Box).</value>
-        [DataMember(Name="viewBoxId", EmitDefaultValue=true)]
+        [DataMember(Name="viewBoxId", EmitDefaultValue=false)]
         public long? ViewBoxId { get; set; }
 
         /// <summary>
@@ -129,8 +135,7 @@ namespace Cohesity.Model
                 (
                     this.CopyRun == input.CopyRun ||
                     this.CopyRun != null &&
-                    input.CopyRun != null &&
-                    this.CopyRun.SequenceEqual(input.CopyRun)
+                    this.CopyRun.Equals(input.CopyRun)
                 ) && 
                 (
                     this.JobId == input.JobId ||
@@ -144,8 +149,13 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.JobUid == input.JobUid ||
-                    (this.JobUid != null &&
-                    this.JobUid.Equals(input.JobUid))
+                    this.JobUid != null &&
+                    this.JobUid.Equals(input.JobUid)
+                ) && 
+                (
+                    this.ProtectionShellInfo == input.ProtectionShellInfo ||
+                    (this.ProtectionShellInfo != null &&
+                    this.ProtectionShellInfo.Equals(input.ProtectionShellInfo))
                 ) && 
                 (
                     this.ViewBoxId == input.ViewBoxId ||
@@ -173,6 +183,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.JobName.GetHashCode();
                 if (this.JobUid != null)
                     hashCode = hashCode * 59 + this.JobUid.GetHashCode();
+                if (this.ProtectionShellInfo != null)
+                    hashCode = hashCode * 59 + this.ProtectionShellInfo.GetHashCode();
                 if (this.ViewBoxId != null)
                     hashCode = hashCode * 59 + this.ViewBoxId.GetHashCode();
                 return hashCode;

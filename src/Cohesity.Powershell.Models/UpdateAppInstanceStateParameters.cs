@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -75,7 +78,7 @@ namespace Cohesity.Model
         /// Specifies the desired app instance state type. Specifies operational status of an app instance. kInitializing - The app instance has been launched or resumed, but is not fully running yet. kRunning - The app instance is running. Check health_status for the actual health. kPausing - The app instance is being paused. kPaused - The app instance has been paused. kTerminating - The app instance is being terminated. kTerminated -  The app instance has been terminated. kFailed - The app instance has failed due to an unrecoverable error.
         /// </summary>
         /// <value>Specifies the desired app instance state type. Specifies operational status of an app instance. kInitializing - The app instance has been launched or resumed, but is not fully running yet. kRunning - The app instance is running. Check health_status for the actual health. kPausing - The app instance is being paused. kPaused - The app instance has been paused. kTerminating - The app instance is being terminated. kTerminated -  The app instance has been terminated. kFailed - The app instance has failed due to an unrecoverable error.</value>
-        [DataMember(Name="state", EmitDefaultValue=true)]
+        [DataMember(Name="state", EmitDefaultValue=false)]
         public StateEnum? State { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="UpdateAppInstanceStateParameters" /> class.
@@ -84,9 +87,9 @@ namespace Cohesity.Model
         public UpdateAppInstanceStateParameters(StateEnum? state = default(StateEnum?))
         {
             this.State = state;
-            this.State = state;
         }
         
+
         /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
@@ -125,7 +128,8 @@ namespace Cohesity.Model
             return 
                 (
                     this.State == input.State ||
-                    this.State.Equals(input.State)
+                    (this.State != null &&
+                    this.State.Equals(input.State))
                 );
         }
 
@@ -138,7 +142,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                hashCode = hashCode * 59 + this.State.GetHashCode();
+                if (this.State != null)
+                    hashCode = hashCode * 59 + this.State.GetHashCode();
                 return hashCode;
             }
         }

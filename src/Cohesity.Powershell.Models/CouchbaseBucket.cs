@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.BucketType = bucketType;
             this.DocumentCount = documentCount;
-            this.BucketType = bucketType;
-            this.DocumentCount = documentCount;
         }
         
         /// <summary>
         /// Type of this bucket.
         /// </summary>
         /// <value>Type of this bucket.</value>
-        [DataMember(Name="bucketType", EmitDefaultValue=true)]
+        [DataMember(Name="bucketType", EmitDefaultValue=false)]
         public string BucketType { get; set; }
 
         /// <summary>
         /// Number of documents in this bucket.
         /// </summary>
         /// <value>Number of documents in this bucket.</value>
-        [DataMember(Name="documentCount", EmitDefaultValue=true)]
+        [DataMember(Name="documentCount", EmitDefaultValue=false)]
         public long? DocumentCount { get; set; }
 
         /// <summary>

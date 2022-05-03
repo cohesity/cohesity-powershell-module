@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,7 +30,6 @@ namespace Cohesity.Model
         /// <param name="nlmLocks">Specifies the list of NLM locks in a view..</param>
         public FileNlmLocks(FileId fileId = default(FileId), List<NlmLock> nlmLocks = default(List<NlmLock>))
         {
-            this.NlmLocks = nlmLocks;
             this.FileId = fileId;
             this.NlmLocks = nlmLocks;
         }
@@ -42,7 +44,7 @@ namespace Cohesity.Model
         /// Specifies the list of NLM locks in a view.
         /// </summary>
         /// <value>Specifies the list of NLM locks in a view.</value>
-        [DataMember(Name="nlmLocks", EmitDefaultValue=true)]
+        [DataMember(Name="nlmLocks", EmitDefaultValue=false)]
         public List<NlmLock> NlmLocks { get; set; }
 
         /// <summary>
@@ -89,8 +91,7 @@ namespace Cohesity.Model
                 (
                     this.NlmLocks == input.NlmLocks ||
                     this.NlmLocks != null &&
-                    input.NlmLocks != null &&
-                    this.NlmLocks.SequenceEqual(input.NlmLocks)
+                    this.NlmLocks.Equals(input.NlmLocks)
                 );
         }
 

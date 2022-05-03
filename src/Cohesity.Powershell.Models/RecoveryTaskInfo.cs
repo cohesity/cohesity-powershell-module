@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -45,7 +48,7 @@ namespace Cohesity.Model
         /// Denotes if the recovery task has an archival target. This param is used to reflect if the recovery op has an archival target to work with. &#39;local&#39; indicates no archival target. &#39;archive&#39; indicates that objects restored using an archival target.
         /// </summary>
         /// <value>Denotes if the recovery task has an archival target. This param is used to reflect if the recovery op has an archival target to work with. &#39;local&#39; indicates no archival target. &#39;archive&#39; indicates that objects restored using an archival target.</value>
-        [DataMember(Name="type", EmitDefaultValue=true)]
+        [DataMember(Name="type", EmitDefaultValue=false)]
         public TypeEnum? Type { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="RecoveryTaskInfo" /> class.
@@ -58,24 +61,22 @@ namespace Cohesity.Model
             this.Name = name;
             this.TaskId = taskId;
             this.Type = type;
-            this.Name = name;
-            this.TaskId = taskId;
-            this.Type = type;
         }
         
         /// <summary>
         /// Name of the recovery task.
         /// </summary>
         /// <value>Name of the recovery task.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
 
         /// <summary>
         /// Id of the recovery task.
         /// </summary>
         /// <value>Id of the recovery task.</value>
-        [DataMember(Name="taskId", EmitDefaultValue=true)]
+        [DataMember(Name="taskId", EmitDefaultValue=false)]
         public string TaskId { get; set; }
+
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -125,7 +126,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.Type == input.Type ||
-                    this.Type.Equals(input.Type)
+                    (this.Type != null &&
+                    this.Type.Equals(input.Type))
                 );
         }
 
@@ -142,7 +144,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
                 if (this.TaskId != null)
                     hashCode = hashCode * 59 + this.TaskId.GetHashCode();
-                hashCode = hashCode * 59 + this.Type.GetHashCode();
+                if (this.Type != null)
+                    hashCode = hashCode * 59 + this.Type.GetHashCode();
                 return hashCode;
             }
         }

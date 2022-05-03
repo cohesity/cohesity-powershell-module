@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.KeystoneId = keystoneId;
             this.OperatorRoles = operatorRoles;
-            this.KeystoneId = keystoneId;
-            this.OperatorRoles = operatorRoles;
         }
         
         /// <summary>
         /// Specifies the associated Keystone configuration id.
         /// </summary>
         /// <value>Specifies the associated Keystone configuration id.</value>
-        [DataMember(Name="keystoneId", EmitDefaultValue=true)]
+        [DataMember(Name="keystoneId", EmitDefaultValue=false)]
         public long? KeystoneId { get; set; }
 
         /// <summary>
         /// Specifies a list of operator roles.
         /// </summary>
         /// <value>Specifies a list of operator roles.</value>
-        [DataMember(Name="operatorRoles", EmitDefaultValue=true)]
+        [DataMember(Name="operatorRoles", EmitDefaultValue=false)]
         public List<string> OperatorRoles { get; set; }
 
         /// <summary>
@@ -91,8 +92,7 @@ namespace Cohesity.Model
                 (
                     this.OperatorRoles == input.OperatorRoles ||
                     this.OperatorRoles != null &&
-                    input.OperatorRoles != null &&
-                    this.OperatorRoles.SequenceEqual(input.OperatorRoles)
+                    this.OperatorRoles.Equals(input.OperatorRoles)
                 );
         }
 

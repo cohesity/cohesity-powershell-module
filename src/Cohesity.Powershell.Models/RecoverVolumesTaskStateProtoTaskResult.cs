@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,8 +32,6 @@ namespace Cohesity.Model
         public RecoverVolumesTaskStateProtoTaskResult(string dstGuid = default(string), ErrorProto error = default(ErrorProto), string progressMonitorTaskPath = default(string))
         {
             this.DstGuid = dstGuid;
-            this.ProgressMonitorTaskPath = progressMonitorTaskPath;
-            this.DstGuid = dstGuid;
             this.Error = error;
             this.ProgressMonitorTaskPath = progressMonitorTaskPath;
         }
@@ -39,7 +40,7 @@ namespace Cohesity.Model
         /// Volume GUID for the Target Entity (phy host).
         /// </summary>
         /// <value>Volume GUID for the Target Entity (phy host).</value>
-        [DataMember(Name="dstGuid", EmitDefaultValue=true)]
+        [DataMember(Name="dstGuid", EmitDefaultValue=false)]
         public string DstGuid { get; set; }
 
         /// <summary>
@@ -52,7 +53,7 @@ namespace Cohesity.Model
         /// The path relative to the root path of the restore task progress monitor.
         /// </summary>
         /// <value>The path relative to the root path of the restore task progress monitor.</value>
-        [DataMember(Name="progressMonitorTaskPath", EmitDefaultValue=true)]
+        [DataMember(Name="progressMonitorTaskPath", EmitDefaultValue=false)]
         public string ProgressMonitorTaskPath { get; set; }
 
         /// <summary>

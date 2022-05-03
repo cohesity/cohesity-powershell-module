@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -28,7 +31,6 @@ namespace Cohesity.Model
         /// <param name="protectionJob">protectionJob.</param>
         public ProtectionJobSummaryForPolicies(BackupRun backupRun = default(BackupRun), List<CopyRun> copyRuns = default(List<CopyRun>), ProtectionJob protectionJob = default(ProtectionJob))
         {
-            this.CopyRuns = copyRuns;
             this.BackupRun = backupRun;
             this.CopyRuns = copyRuns;
             this.ProtectionJob = protectionJob;
@@ -44,7 +46,7 @@ namespace Cohesity.Model
         /// Specifies details about the Copy tasks of the Job Run. A Copy task copies the captured snapshots to an external target or a Remote Cohesity Cluster.
         /// </summary>
         /// <value>Specifies details about the Copy tasks of the Job Run. A Copy task copies the captured snapshots to an external target or a Remote Cohesity Cluster.</value>
-        [DataMember(Name="copyRuns", EmitDefaultValue=true)]
+        [DataMember(Name="copyRuns", EmitDefaultValue=false)]
         public List<CopyRun> CopyRuns { get; set; }
 
         /// <summary>
@@ -97,8 +99,7 @@ namespace Cohesity.Model
                 (
                     this.CopyRuns == input.CopyRuns ||
                     this.CopyRuns != null &&
-                    input.CopyRuns != null &&
-                    this.CopyRuns.SequenceEqual(input.CopyRuns)
+                    this.CopyRuns.Equals(input.CopyRuns)
                 ) && 
                 (
                     this.ProtectionJob == input.ProtectionJob ||

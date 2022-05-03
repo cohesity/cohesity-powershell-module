@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -47,94 +50,83 @@ namespace Cohesity.Model
             this.TargetLogFilesDirectory = targetLogFilesDirectory;
             this.TargetSecondaryDataFilesDirectoryList = targetSecondaryDataFilesDirectoryList;
             this.WithClause = withClause;
-            this.CaptureTailLogs = captureTailLogs;
-            this.IsAutoSyncEnabled = isAutoSyncEnabled;
-            this.KeepCdc = keepCdc;
-            this.KeepOffline = keepOffline;
-            this.NewDatabaseName = newDatabaseName;
-            this.NewInstanceName = newInstanceName;
-            this.RestoreTimeSecs = restoreTimeSecs;
-            this.TargetDataFilesDirectory = targetDataFilesDirectory;
-            this.TargetLogFilesDirectory = targetLogFilesDirectory;
-            this.TargetSecondaryDataFilesDirectoryList = targetSecondaryDataFilesDirectoryList;
-            this.WithClause = withClause;
         }
         
         /// <summary>
         /// Set this to true if tail logs are to be captured before the restore operation. This is only applicable if we are restoring the SQL database to its hosting Protection Source, and the database is not being renamed.
         /// </summary>
         /// <value>Set this to true if tail logs are to be captured before the restore operation. This is only applicable if we are restoring the SQL database to its hosting Protection Source, and the database is not being renamed.</value>
-        [DataMember(Name="captureTailLogs", EmitDefaultValue=true)]
+        [DataMember(Name="captureTailLogs", EmitDefaultValue=false)]
         public bool? CaptureTailLogs { get; set; }
 
         /// <summary>
         /// This field determines if Auto Sync enabled/disabled for SQL Multi-stage Restore task
         /// </summary>
         /// <value>This field determines if Auto Sync enabled/disabled for SQL Multi-stage Restore task</value>
-        [DataMember(Name="isAutoSyncEnabled", EmitDefaultValue=true)]
+        [DataMember(Name="isAutoSyncEnabled", EmitDefaultValue=false)]
         public bool? IsAutoSyncEnabled { get; set; }
 
         /// <summary>
         /// This field prevents \&quot;change data capture\&quot; settings from being reomved when a database or log backup is restored on another server and database is recovered.
         /// </summary>
         /// <value>This field prevents \&quot;change data capture\&quot; settings from being reomved when a database or log backup is restored on another server and database is recovered.</value>
-        [DataMember(Name="keepCdc", EmitDefaultValue=true)]
+        [DataMember(Name="keepCdc", EmitDefaultValue=false)]
         public bool? KeepCdc { get; set; }
 
         /// <summary>
         /// Set this to true if we want to restore the database and do not want to bring it online after restore.  This is only applicable if we are restoring the database back to its original location.
         /// </summary>
         /// <value>Set this to true if we want to restore the database and do not want to bring it online after restore.  This is only applicable if we are restoring the database back to its original location.</value>
-        [DataMember(Name="keepOffline", EmitDefaultValue=true)]
+        [DataMember(Name="keepOffline", EmitDefaultValue=false)]
         public bool? KeepOffline { get; set; }
 
         /// <summary>
         /// Specifies optionally a new name for the restored database.
         /// </summary>
         /// <value>Specifies optionally a new name for the restored database.</value>
-        [DataMember(Name="newDatabaseName", EmitDefaultValue=true)]
+        [DataMember(Name="newDatabaseName", EmitDefaultValue=false)]
         public string NewDatabaseName { get; set; }
 
         /// <summary>
         /// Specifies an instance name of the SQL Server that should be restored. SQL application has many instances. Each instance has a unique name. One of the instances that should be restored must be set in this field.
         /// </summary>
         /// <value>Specifies an instance name of the SQL Server that should be restored. SQL application has many instances. Each instance has a unique name. One of the instances that should be restored must be set in this field.</value>
-        [DataMember(Name="newInstanceName", EmitDefaultValue=true)]
+        [DataMember(Name="newInstanceName", EmitDefaultValue=false)]
         public string NewInstanceName { get; set; }
 
         /// <summary>
         /// Specifies the time in the past to which the SQL database needs to be restored. This allows for granular recovery of SQL databases. If this is not set, the SQL database will be restored from the full/incremental snapshot.
         /// </summary>
         /// <value>Specifies the time in the past to which the SQL database needs to be restored. This allows for granular recovery of SQL databases. If this is not set, the SQL database will be restored from the full/incremental snapshot.</value>
-        [DataMember(Name="restoreTimeSecs", EmitDefaultValue=true)]
+        [DataMember(Name="restoreTimeSecs", EmitDefaultValue=false)]
         public long? RestoreTimeSecs { get; set; }
 
         /// <summary>
         /// Specifies the directory where to put the database data files. Missing directory will be automatically created. This field must be set if restoring to a different target host.
         /// </summary>
         /// <value>Specifies the directory where to put the database data files. Missing directory will be automatically created. This field must be set if restoring to a different target host.</value>
-        [DataMember(Name="targetDataFilesDirectory", EmitDefaultValue=true)]
+        [DataMember(Name="targetDataFilesDirectory", EmitDefaultValue=false)]
         public string TargetDataFilesDirectory { get; set; }
 
         /// <summary>
         /// Specifies the directory where to put the database log files. Missing directory will be automatically created. This field must be set if restoring to a different target host.
         /// </summary>
         /// <value>Specifies the directory where to put the database log files. Missing directory will be automatically created. This field must be set if restoring to a different target host.</value>
-        [DataMember(Name="targetLogFilesDirectory", EmitDefaultValue=true)]
+        [DataMember(Name="targetLogFilesDirectory", EmitDefaultValue=false)]
         public string TargetLogFilesDirectory { get; set; }
 
         /// <summary>
         /// Specifies the secondary data filename pattern and corresponding directories of the DB. Secondary data files are optional and are user defined. The recommended file extension for secondary files is \&quot;.ndf\&quot;.  If this option is specified and the destination folders do not exist they will be automatically created.
         /// </summary>
         /// <value>Specifies the secondary data filename pattern and corresponding directories of the DB. Secondary data files are optional and are user defined. The recommended file extension for secondary files is \&quot;.ndf\&quot;.  If this option is specified and the destination folders do not exist they will be automatically created.</value>
-        [DataMember(Name="targetSecondaryDataFilesDirectoryList", EmitDefaultValue=true)]
+        [DataMember(Name="targetSecondaryDataFilesDirectoryList", EmitDefaultValue=false)]
         public List<FilenamePatternToDirectory> TargetSecondaryDataFilesDirectoryList { get; set; }
 
         /// <summary>
         /// WithClause allows you to specify clauses to be used in native sql restore task.
         /// </summary>
         /// <value>WithClause allows you to specify clauses to be used in native sql restore task.</value>
-        [DataMember(Name="withClause", EmitDefaultValue=true)]
+        [DataMember(Name="withClause", EmitDefaultValue=false)]
         public string WithClause { get; set; }
 
         /// <summary>
@@ -221,8 +213,7 @@ namespace Cohesity.Model
                 (
                     this.TargetSecondaryDataFilesDirectoryList == input.TargetSecondaryDataFilesDirectoryList ||
                     this.TargetSecondaryDataFilesDirectoryList != null &&
-                    input.TargetSecondaryDataFilesDirectoryList != null &&
-                    this.TargetSecondaryDataFilesDirectoryList.SequenceEqual(input.TargetSecondaryDataFilesDirectoryList)
+                    this.TargetSecondaryDataFilesDirectoryList.Equals(input.TargetSecondaryDataFilesDirectoryList)
                 ) && 
                 (
                     this.WithClause == input.WithClause ||

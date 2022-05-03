@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -38,13 +41,15 @@ namespace Cohesity.Model
         /// <param name="vlanParameters">vlanParameters.</param>
         public CloneRefreshRequest(long? cloneTaskId = default(long?), bool? continueOnError = default(bool?), string name = default(string), long? newParentId = default(long?), List<RestoreObjectDetails> objects = default(List<RestoreObjectDetails>), long? refreshTimeSecs = default(long?), long? sourceDatabaseId = default(long?), VlanParameters vlanParameters = default(VlanParameters))
         {
-            this.CloneTaskId = cloneTaskId;
-            this.ContinueOnError = continueOnError;
-            this.Name = name;
-            this.NewParentId = newParentId;
-            this.Objects = objects;
-            this.RefreshTimeSecs = refreshTimeSecs;
-            this.SourceDatabaseId = sourceDatabaseId;
+            // to ensure "name" is required (not null)
+            if (name == null)
+            {
+                throw new InvalidDataException("name is a required property for CloneRefreshRequest and cannot be null");
+            }
+            else
+            {
+                this.Name = name;
+            }
             this.CloneTaskId = cloneTaskId;
             this.ContinueOnError = continueOnError;
             this.NewParentId = newParentId;
@@ -58,49 +63,49 @@ namespace Cohesity.Model
         /// Specifies the ID of the clone task. This is required to determine the details of the clone to be refreshed as clone task contains the details of the clone.
         /// </summary>
         /// <value>Specifies the ID of the clone task. This is required to determine the details of the clone to be refreshed as clone task contains the details of the clone.</value>
-        [DataMember(Name="cloneTaskId", EmitDefaultValue=true)]
+        [DataMember(Name="cloneTaskId", EmitDefaultValue=false)]
         public long? CloneTaskId { get; set; }
 
         /// <summary>
         /// Specifies if the Restore Task should continue when some operations on some objects fail. If true, the Cohesity Cluster ignores intermittent errors and restores as many objects as possible.
         /// </summary>
         /// <value>Specifies if the Restore Task should continue when some operations on some objects fail. If true, the Cohesity Cluster ignores intermittent errors and restores as many objects as possible.</value>
-        [DataMember(Name="continueOnError", EmitDefaultValue=true)]
+        [DataMember(Name="continueOnError", EmitDefaultValue=false)]
         public bool? ContinueOnError { get; set; }
 
         /// <summary>
         /// Specifies the name of the Restore Task. This field must be set and must be a unique name.
         /// </summary>
         /// <value>Specifies the name of the Restore Task. This field must be set and must be a unique name.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
 
         /// <summary>
         /// Specify a new registered parent Protection Source. If specified the selected objects are cloned or recovered to this new Protection Source. If not specified, objects are cloned or recovered to the original Protection Source that was managing them.
         /// </summary>
         /// <value>Specify a new registered parent Protection Source. If specified the selected objects are cloned or recovered to this new Protection Source. If not specified, objects are cloned or recovered to the original Protection Source that was managing them.</value>
-        [DataMember(Name="newParentId", EmitDefaultValue=true)]
+        [DataMember(Name="newParentId", EmitDefaultValue=false)]
         public long? NewParentId { get; set; }
 
         /// <summary>
         /// Array of Objects.  Specifies a list of Protection Source objects or Protection Job objects (with specified Protection Source objects).
         /// </summary>
         /// <value>Array of Objects.  Specifies a list of Protection Source objects or Protection Job objects (with specified Protection Source objects).</value>
-        [DataMember(Name="objects", EmitDefaultValue=true)]
+        [DataMember(Name="objects", EmitDefaultValue=false)]
         public List<RestoreObjectDetails> Objects { get; set; }
 
         /// <summary>
         /// Specifies a point in time (unix epoch) to which the database needs to be refreshed. This helps granular refresh of the database. If this is set, relevant archive logs (redo logs) will also be re-played to match with the specified time. For this, the log backup should be enabled in the backup policy. If this is not set, then only the incremental backup data will be used to refresh the target database.
         /// </summary>
         /// <value>Specifies a point in time (unix epoch) to which the database needs to be refreshed. This helps granular refresh of the database. If this is set, relevant archive logs (redo logs) will also be re-played to match with the specified time. For this, the log backup should be enabled in the backup policy. If this is not set, then only the incremental backup data will be used to refresh the target database.</value>
-        [DataMember(Name="refreshTimeSecs", EmitDefaultValue=true)]
+        [DataMember(Name="refreshTimeSecs", EmitDefaultValue=false)]
         public long? RefreshTimeSecs { get; set; }
 
         /// <summary>
         /// Specifies the ID of the source database in the backup job snapshot. This is the entity ID of the database, which needs to be used as a source during the refresh process.
         /// </summary>
         /// <value>Specifies the ID of the source database in the backup job snapshot. This is the entity ID of the database, which needs to be used as a source during the refresh process.</value>
-        [DataMember(Name="sourceDatabaseId", EmitDefaultValue=true)]
+        [DataMember(Name="sourceDatabaseId", EmitDefaultValue=false)]
         public long? SourceDatabaseId { get; set; }
 
         /// <summary>
@@ -168,8 +173,7 @@ namespace Cohesity.Model
                 (
                     this.Objects == input.Objects ||
                     this.Objects != null &&
-                    input.Objects != null &&
-                    this.Objects.SequenceEqual(input.Objects)
+                    this.Objects.Equals(input.Objects)
                 ) && 
                 (
                     this.RefreshTimeSecs == input.RefreshTimeSecs ||

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -34,9 +37,15 @@ namespace Cohesity.Model
         /// <param name="target">target.</param>
         public DeployTaskRequest(string name = default(string), long? newParentId = default(long?), List<RestoreObjectDetails> objects = default(List<RestoreObjectDetails>), CloudDeployTargetDetails target = default(CloudDeployTargetDetails))
         {
-            this.Name = name;
-            this.NewParentId = newParentId;
-            this.Objects = objects;
+            // to ensure "name" is required (not null)
+            if (name == null)
+            {
+                throw new InvalidDataException("name is a required property for DeployTaskRequest and cannot be null");
+            }
+            else
+            {
+                this.Name = name;
+            }
             this.NewParentId = newParentId;
             this.Objects = objects;
             this.Target = target;
@@ -46,21 +55,21 @@ namespace Cohesity.Model
         /// Specifies the name of the Deploy Task. This field must be set and must be a unique name.
         /// </summary>
         /// <value>Specifies the name of the Deploy Task. This field must be set and must be a unique name.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
 
         /// <summary>
         /// Specifies a new registered parent Protection Source. If specified the selected objects are cloned or recovered to this new Protection Source. If not specified, objects are cloned or recovered to the original Protection Source that was managing them.
         /// </summary>
         /// <value>Specifies a new registered parent Protection Source. If specified the selected objects are cloned or recovered to this new Protection Source. If not specified, objects are cloned or recovered to the original Protection Source that was managing them.</value>
-        [DataMember(Name="newParentId", EmitDefaultValue=true)]
+        [DataMember(Name="newParentId", EmitDefaultValue=false)]
         public long? NewParentId { get; set; }
 
         /// <summary>
         /// Array of Objects.  Specifies a list of Protection Source objects or Protection Job objects (with specified Protection Source objects).
         /// </summary>
         /// <value>Array of Objects.  Specifies a list of Protection Source objects or Protection Job objects (with specified Protection Source objects).</value>
-        [DataMember(Name="objects", EmitDefaultValue=true)]
+        [DataMember(Name="objects", EmitDefaultValue=false)]
         public List<RestoreObjectDetails> Objects { get; set; }
 
         /// <summary>
@@ -118,8 +127,7 @@ namespace Cohesity.Model
                 (
                     this.Objects == input.Objects ||
                     this.Objects != null &&
-                    input.Objects != null &&
-                    this.Objects.SequenceEqual(input.Objects)
+                    this.Objects.Equals(input.Objects)
                 ) && 
                 (
                     this.Target == input.Target ||

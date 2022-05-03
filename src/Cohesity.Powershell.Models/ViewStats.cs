@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,7 +30,6 @@ namespace Cohesity.Model
         /// <param name="id">Specifies the id of the View..</param>
         public ViewStats(DataUsageStats dataUsageStats = default(DataUsageStats), long? id = default(long?))
         {
-            this.Id = id;
             this.DataUsageStats = dataUsageStats;
             this.Id = id;
         }
@@ -42,7 +44,7 @@ namespace Cohesity.Model
         /// Specifies the id of the View.
         /// </summary>
         /// <value>Specifies the id of the View.</value>
-        [DataMember(Name="id", EmitDefaultValue=true)]
+        [DataMember(Name="id", EmitDefaultValue=false)]
         public long? Id { get; set; }
 
         /// <summary>

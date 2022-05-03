@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.EndAfterNumBackups = endAfterNumBackups;
             this.EndTimeUsecs = endTimeUsecs;
-            this.EndAfterNumBackups = endAfterNumBackups;
-            this.EndTimeUsecs = endTimeUsecs;
         }
         
         /// <summary>
         /// If specified, the backup job will no longer be run after it has been run these many times.
         /// </summary>
         /// <value>If specified, the backup job will no longer be run after it has been run these many times.</value>
-        [DataMember(Name="endAfterNumBackups", EmitDefaultValue=true)]
+        [DataMember(Name="endAfterNumBackups", EmitDefaultValue=false)]
         public long? EndAfterNumBackups { get; set; }
 
         /// <summary>
         /// If specified, the backup job will no longer be run after this time.
         /// </summary>
         /// <value>If specified, the backup job will no longer be run after this time.</value>
-        [DataMember(Name="endTimeUsecs", EmitDefaultValue=true)]
+        [DataMember(Name="endTimeUsecs", EmitDefaultValue=false)]
         public long? EndTimeUsecs { get; set; }
 
         /// <summary>

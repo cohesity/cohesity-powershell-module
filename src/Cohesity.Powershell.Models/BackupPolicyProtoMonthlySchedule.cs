@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -30,8 +33,6 @@ namespace Cohesity.Model
         {
             this.Count = count;
             this.Day = day;
-            this.Count = count;
-            this.Day = day;
             this.Time = time;
         }
         
@@ -39,14 +40,14 @@ namespace Cohesity.Model
         /// Count of the day on which to perform the backup (look above for a more detailed description).
         /// </summary>
         /// <value>Count of the day on which to perform the backup (look above for a more detailed description).</value>
-        [DataMember(Name="count", EmitDefaultValue=true)]
+        [DataMember(Name="count", EmitDefaultValue=false)]
         public int? Count { get; set; }
 
         /// <summary>
         /// The day of the month the backup is to be performed.
         /// </summary>
         /// <value>The day of the month the backup is to be performed.</value>
-        [DataMember(Name="day", EmitDefaultValue=true)]
+        [DataMember(Name="day", EmitDefaultValue=false)]
         public int? Day { get; set; }
 
         /// <summary>

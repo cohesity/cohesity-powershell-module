@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -45,7 +48,7 @@ namespace Cohesity.Model
         /// Specifies the type of backup supported by the VM. &#39;kRctBackup&#39;, &#39;kVssBackup&#39; Specifies the type of an HyperV datastore object. &#39;kRctBackup&#39; indicates backup is done using RCT/checkpoints. &#39;kVssBackup&#39; indicates backup is done using VSS.
         /// </summary>
         /// <value>Specifies the type of backup supported by the VM. &#39;kRctBackup&#39;, &#39;kVssBackup&#39; Specifies the type of an HyperV datastore object. &#39;kRctBackup&#39; indicates backup is done using RCT/checkpoints. &#39;kVssBackup&#39; indicates backup is done using VSS.</value>
-        [DataMember(Name="backupType", EmitDefaultValue=true)]
+        [DataMember(Name="backupType", EmitDefaultValue=false)]
         public BackupTypeEnum? BackupType { get; set; }
         /// <summary>
         /// Specifies host OS type for &#39;kVirtualMachine&#39; objects. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kOther&#39; indicates the other types of operating system.
@@ -96,7 +99,7 @@ namespace Cohesity.Model
         /// Specifies host OS type for &#39;kVirtualMachine&#39; objects. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kOther&#39; indicates the other types of operating system.
         /// </summary>
         /// <value>Specifies host OS type for &#39;kVirtualMachine&#39; objects. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kOther&#39; indicates the other types of operating system.</value>
-        [DataMember(Name="hostType", EmitDefaultValue=true)]
+        [DataMember(Name="hostType", EmitDefaultValue=false)]
         public HostTypeEnum? HostType { get; set; }
         /// <summary>
         /// Specifies the type of an HyperV Protection Source Object such as &#39;kSCVMMServer&#39;, &#39;kStandaloneHost&#39;, &#39;kNetwork&#39;, etc. overrideDescription: true Specifies the type of an HyperV Protection Source. &#39;kSCVMMServer&#39; indicates a collection of root folders clusters. &#39;kStandaloneHost&#39; indicates a single Nutanix cluster. &#39;kStandaloneCluster&#39; indicates a single Nutanix cluster. &#39;kHostGroup&#39; indicates a Nutanix cluster managed by a Prism Central. &#39;kHypervHost&#39; indicates an HyperV host. &#39;kHostCluster&#39; indicates a Nutanix cluster managed by a Prism Central. &#39;kVirtualMachine&#39; indicates a Virtual Machine. &#39;kNetwork&#39; indicates a Virtual Machine network object. &#39;kDatastore&#39; represents a storage container object. &#39;kTag&#39; indicates a tag type object. &#39;kCustomProperty&#39; indicates a custom property including tag type.
@@ -169,20 +172,15 @@ namespace Cohesity.Model
             /// Enum KCustomProperty for value: kCustomProperty
             /// </summary>
             [EnumMember(Value = "kCustomProperty")]
-            KCustomProperty = 11,
+            KCustomProperty = 11
 
-            /// <summary>
-            /// Enum KHost for value: kHost
-            /// </summary>
-            [EnumMember(Value = "kHost")]
-            KHost = 12
         }
 
         /// <summary>
         /// Specifies the type of an HyperV Protection Source Object such as &#39;kSCVMMServer&#39;, &#39;kStandaloneHost&#39;, &#39;kNetwork&#39;, etc. overrideDescription: true Specifies the type of an HyperV Protection Source. &#39;kSCVMMServer&#39; indicates a collection of root folders clusters. &#39;kStandaloneHost&#39; indicates a single Nutanix cluster. &#39;kStandaloneCluster&#39; indicates a single Nutanix cluster. &#39;kHostGroup&#39; indicates a Nutanix cluster managed by a Prism Central. &#39;kHypervHost&#39; indicates an HyperV host. &#39;kHostCluster&#39; indicates a Nutanix cluster managed by a Prism Central. &#39;kVirtualMachine&#39; indicates a Virtual Machine. &#39;kNetwork&#39; indicates a Virtual Machine network object. &#39;kDatastore&#39; represents a storage container object. &#39;kTag&#39; indicates a tag type object. &#39;kCustomProperty&#39; indicates a custom property including tag type.
         /// </summary>
         /// <value>Specifies the type of an HyperV Protection Source Object such as &#39;kSCVMMServer&#39;, &#39;kStandaloneHost&#39;, &#39;kNetwork&#39;, etc. overrideDescription: true Specifies the type of an HyperV Protection Source. &#39;kSCVMMServer&#39; indicates a collection of root folders clusters. &#39;kStandaloneHost&#39; indicates a single Nutanix cluster. &#39;kStandaloneCluster&#39; indicates a single Nutanix cluster. &#39;kHostGroup&#39; indicates a Nutanix cluster managed by a Prism Central. &#39;kHypervHost&#39; indicates an HyperV host. &#39;kHostCluster&#39; indicates a Nutanix cluster managed by a Prism Central. &#39;kVirtualMachine&#39; indicates a Virtual Machine. &#39;kNetwork&#39; indicates a Virtual Machine network object. &#39;kDatastore&#39; represents a storage container object. &#39;kTag&#39; indicates a tag type object. &#39;kCustomProperty&#39; indicates a custom property including tag type.</value>
-        [DataMember(Name="type", EmitDefaultValue=true)]
+        [DataMember(Name="type", EmitDefaultValue=false)]
         public TypeEnum? Type { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="HypervProtectionSource" /> class.
@@ -207,18 +205,6 @@ namespace Cohesity.Model
             this.BackupType = backupType;
             this.BuildNumber = buildNumber;
             this.ClusterName = clusterName;
-            this.Description = description;
-            this.HostType = hostType;
-            this.HypervUuid = hypervUuid;
-            this.Name = name;
-            this.TagAttributes = tagAttributes;
-            this.Type = type;
-            this.Uuid = uuid;
-            this.WindowsVersion = windowsVersion;
-            this.Agents = agents;
-            this.BackupType = backupType;
-            this.BuildNumber = buildNumber;
-            this.ClusterName = clusterName;
             this.DatastoreInfo = datastoreInfo;
             this.Description = description;
             this.HostType = hostType;
@@ -235,21 +221,22 @@ namespace Cohesity.Model
         /// Array of Agents on the Physical Protection Source.  Specifiles the agents running on the HyperV Protection Source and the status information.
         /// </summary>
         /// <value>Array of Agents on the Physical Protection Source.  Specifiles the agents running on the HyperV Protection Source and the status information.</value>
-        [DataMember(Name="agents", EmitDefaultValue=true)]
+        [DataMember(Name="agents", EmitDefaultValue=false)]
         public List<AgentInformation> Agents { get; set; }
+
 
         /// <summary>
         /// Specifies the build number for HyperV SCVMM Servers.
         /// </summary>
         /// <value>Specifies the build number for HyperV SCVMM Servers.</value>
-        [DataMember(Name="buildNumber", EmitDefaultValue=true)]
+        [DataMember(Name="buildNumber", EmitDefaultValue=false)]
         public string BuildNumber { get; set; }
 
         /// <summary>
         /// Specifies the cluster name for &#39;kHostCluster&#39; objects.
         /// </summary>
         /// <value>Specifies the cluster name for &#39;kHostCluster&#39; objects.</value>
-        [DataMember(Name="clusterName", EmitDefaultValue=true)]
+        [DataMember(Name="clusterName", EmitDefaultValue=false)]
         public string ClusterName { get; set; }
 
         /// <summary>
@@ -262,35 +249,37 @@ namespace Cohesity.Model
         /// Specifies a description about the Protection Source.
         /// </summary>
         /// <value>Specifies a description about the Protection Source.</value>
-        [DataMember(Name="description", EmitDefaultValue=true)]
+        [DataMember(Name="description", EmitDefaultValue=false)]
         public string Description { get; set; }
+
 
         /// <summary>
         /// Specifies the UUID for &#39;kVirtualMachine&#39; HyperV objects.
         /// </summary>
         /// <value>Specifies the UUID for &#39;kVirtualMachine&#39; HyperV objects.</value>
-        [DataMember(Name="hypervUuid", EmitDefaultValue=true)]
+        [DataMember(Name="hypervUuid", EmitDefaultValue=false)]
         public string HypervUuid { get; set; }
 
         /// <summary>
         /// Specifies the name of the HyperV Object.
         /// </summary>
         /// <value>Specifies the name of the HyperV Object.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
 
         /// <summary>
         /// Specifies the list of VM Tag attributes associated with this Object.
         /// </summary>
         /// <value>Specifies the list of VM Tag attributes associated with this Object.</value>
-        [DataMember(Name="tagAttributes", EmitDefaultValue=true)]
+        [DataMember(Name="tagAttributes", EmitDefaultValue=false)]
         public List<TagAttribute> TagAttributes { get; set; }
+
 
         /// <summary>
         /// Specifies the UUID of the Object. This is unique within the HyperV environment.
         /// </summary>
         /// <value>Specifies the UUID of the Object. This is unique within the HyperV environment.</value>
-        [DataMember(Name="uuid", EmitDefaultValue=true)]
+        [DataMember(Name="uuid", EmitDefaultValue=false)]
         public string Uuid { get; set; }
 
         /// <summary>
@@ -303,7 +292,7 @@ namespace Cohesity.Model
         /// Specifies the windows version for HyperV hosts.
         /// </summary>
         /// <value>Specifies the windows version for HyperV hosts.</value>
-        [DataMember(Name="windowsVersion", EmitDefaultValue=true)]
+        [DataMember(Name="windowsVersion", EmitDefaultValue=false)]
         public string WindowsVersion { get; set; }
 
         /// <summary>
@@ -345,12 +334,12 @@ namespace Cohesity.Model
                 (
                     this.Agents == input.Agents ||
                     this.Agents != null &&
-                    input.Agents != null &&
-                    this.Agents.SequenceEqual(input.Agents)
+                    this.Agents.Equals(input.Agents)
                 ) && 
                 (
                     this.BackupType == input.BackupType ||
-                    this.BackupType.Equals(input.BackupType)
+                    (this.BackupType != null &&
+                    this.BackupType.Equals(input.BackupType))
                 ) && 
                 (
                     this.BuildNumber == input.BuildNumber ||
@@ -374,7 +363,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.HostType == input.HostType ||
-                    this.HostType.Equals(input.HostType)
+                    (this.HostType != null &&
+                    this.HostType.Equals(input.HostType))
                 ) && 
                 (
                     this.HypervUuid == input.HypervUuid ||
@@ -389,12 +379,12 @@ namespace Cohesity.Model
                 (
                     this.TagAttributes == input.TagAttributes ||
                     this.TagAttributes != null &&
-                    input.TagAttributes != null &&
-                    this.TagAttributes.SequenceEqual(input.TagAttributes)
+                    this.TagAttributes.Equals(input.TagAttributes)
                 ) && 
                 (
                     this.Type == input.Type ||
-                    this.Type.Equals(input.Type)
+                    (this.Type != null &&
+                    this.Type.Equals(input.Type))
                 ) && 
                 (
                     this.Uuid == input.Uuid ||
@@ -424,7 +414,8 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.Agents != null)
                     hashCode = hashCode * 59 + this.Agents.GetHashCode();
-                hashCode = hashCode * 59 + this.BackupType.GetHashCode();
+                if (this.BackupType != null)
+                    hashCode = hashCode * 59 + this.BackupType.GetHashCode();
                 if (this.BuildNumber != null)
                     hashCode = hashCode * 59 + this.BuildNumber.GetHashCode();
                 if (this.ClusterName != null)
@@ -433,14 +424,16 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.DatastoreInfo.GetHashCode();
                 if (this.Description != null)
                     hashCode = hashCode * 59 + this.Description.GetHashCode();
-                hashCode = hashCode * 59 + this.HostType.GetHashCode();
+                if (this.HostType != null)
+                    hashCode = hashCode * 59 + this.HostType.GetHashCode();
                 if (this.HypervUuid != null)
                     hashCode = hashCode * 59 + this.HypervUuid.GetHashCode();
                 if (this.Name != null)
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
                 if (this.TagAttributes != null)
                     hashCode = hashCode * 59 + this.TagAttributes.GetHashCode();
-                hashCode = hashCode * 59 + this.Type.GetHashCode();
+                if (this.Type != null)
+                    hashCode = hashCode * 59 + this.Type.GetHashCode();
                 if (this.Uuid != null)
                     hashCode = hashCode * 59 + this.Uuid.GetHashCode();
                 if (this.VmInfo != null)

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.PaginationCookie = paginationCookie;
             this.SharesList = sharesList;
-            this.PaginationCookie = paginationCookie;
-            this.SharesList = sharesList;
         }
         
         /// <summary>
         /// If set, i.e. there are more results to display, use this value to get the next set of results, by using this value in paginationCookie param for the next request to GetViewsByShare.
         /// </summary>
         /// <value>If set, i.e. there are more results to display, use this value to get the next set of results, by using this value in paginationCookie param for the next request to GetViewsByShare.</value>
-        [DataMember(Name="paginationCookie", EmitDefaultValue=true)]
+        [DataMember(Name="paginationCookie", EmitDefaultValue=false)]
         public string PaginationCookie { get; set; }
 
         /// <summary>
         /// Array of Views and Aliases by Share name. Specifies the list of Views returned in this response.
         /// </summary>
         /// <value>Array of Views and Aliases by Share name. Specifies the list of Views returned in this response.</value>
-        [DataMember(Name="sharesList", EmitDefaultValue=true)]
+        [DataMember(Name="sharesList", EmitDefaultValue=false)]
         public List<Share> SharesList { get; set; }
 
         /// <summary>
@@ -91,8 +92,7 @@ namespace Cohesity.Model
                 (
                     this.SharesList == input.SharesList ||
                     this.SharesList != null &&
-                    input.SharesList != null &&
-                    this.SharesList.SequenceEqual(input.SharesList)
+                    this.SharesList.Equals(input.SharesList)
                 );
         }
 

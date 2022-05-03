@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -41,70 +44,62 @@ namespace Cohesity.Model
             this.LastProtectionJobRunStatus = lastProtectionJobRunStatus;
             this.PolicyId = policyId;
             this.PolicyName = policyName;
-            this.ClusterId = clusterId;
-            this.ClusterIncarnationId = clusterIncarnationId;
-            this.IsRpoJob = isRpoJob;
-            this.JobId = jobId;
-            this.JobName = jobName;
-            this.LastProtectionJobRunStatus = lastProtectionJobRunStatus;
-            this.PolicyId = policyId;
-            this.PolicyName = policyName;
         }
         
         /// <summary>
         /// Specifies the id of the cluster on which object is protected.
         /// </summary>
         /// <value>Specifies the id of the cluster on which object is protected.</value>
-        [DataMember(Name="clusterId", EmitDefaultValue=true)]
+        [DataMember(Name="clusterId", EmitDefaultValue=false)]
         public long? ClusterId { get; set; }
 
         /// <summary>
         /// Specifies the incarnation id of the cluster on which object is protected.
         /// </summary>
         /// <value>Specifies the incarnation id of the cluster on which object is protected.</value>
-        [DataMember(Name="clusterIncarnationId", EmitDefaultValue=true)]
+        [DataMember(Name="clusterIncarnationId", EmitDefaultValue=false)]
         public long? ClusterIncarnationId { get; set; }
 
         /// <summary>
         /// Specifies if the Protection Job is created by an RPO policy.
         /// </summary>
         /// <value>Specifies if the Protection Job is created by an RPO policy.</value>
-        [DataMember(Name="isRpoJob", EmitDefaultValue=true)]
+        [DataMember(Name="isRpoJob", EmitDefaultValue=false)]
         public bool? IsRpoJob { get; set; }
 
         /// <summary>
         /// Specifies the id of the Protection Job.
         /// </summary>
         /// <value>Specifies the id of the Protection Job.</value>
-        [DataMember(Name="jobId", EmitDefaultValue=true)]
+        [DataMember(Name="jobId", EmitDefaultValue=false)]
         public long? JobId { get; set; }
 
         /// <summary>
         /// Specifies the name of the Protection Job.
         /// </summary>
         /// <value>Specifies the name of the Protection Job.</value>
-        [DataMember(Name="jobName", EmitDefaultValue=true)]
+        [DataMember(Name="jobName", EmitDefaultValue=false)]
         public string JobName { get; set; }
 
         /// <summary>
         /// Specifies the last job run status.
         /// </summary>
         /// <value>Specifies the last job run status.</value>
-        [DataMember(Name="lastProtectionJobRunStatus", EmitDefaultValue=true)]
+        [DataMember(Name="lastProtectionJobRunStatus", EmitDefaultValue=false)]
         public int? LastProtectionJobRunStatus { get; set; }
 
         /// <summary>
         /// Specifies the id of the policy that is used by a Protection Job. Format of policy id will be like following: clusterid:clusterincarnationid:policyid.
         /// </summary>
         /// <value>Specifies the id of the policy that is used by a Protection Job. Format of policy id will be like following: clusterid:clusterincarnationid:policyid.</value>
-        [DataMember(Name="policyId", EmitDefaultValue=true)]
+        [DataMember(Name="policyId", EmitDefaultValue=false)]
         public string PolicyId { get; set; }
 
         /// <summary>
         /// Specifies the name of the policy that is used by a Protection Job.
         /// </summary>
         /// <value>Specifies the name of the policy that is used by a Protection Job.</value>
-        [DataMember(Name="policyName", EmitDefaultValue=true)]
+        [DataMember(Name="policyName", EmitDefaultValue=false)]
         public string PolicyName { get; set; }
 
         /// <summary>

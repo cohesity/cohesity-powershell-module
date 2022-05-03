@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.SecondaryNodeTag = secondaryNodeTag;
             this.UseSecondaryForBackup = useSecondaryForBackup;
-            this.SecondaryNodeTag = secondaryNodeTag;
-            this.UseSecondaryForBackup = useSecondaryForBackup;
         }
         
         /// <summary>
         /// The tag associated with the secondary nodes from which backups should be performed.
         /// </summary>
         /// <value>The tag associated with the secondary nodes from which backups should be performed.</value>
-        [DataMember(Name="secondaryNodeTag", EmitDefaultValue=true)]
+        [DataMember(Name="secondaryNodeTag", EmitDefaultValue=false)]
         public List<string> SecondaryNodeTag { get; set; }
 
         /// <summary>
         /// Set to true if this cluster uses secondary nodes for backup.
         /// </summary>
         /// <value>Set to true if this cluster uses secondary nodes for backup.</value>
-        [DataMember(Name="useSecondaryForBackup", EmitDefaultValue=true)]
+        [DataMember(Name="useSecondaryForBackup", EmitDefaultValue=false)]
         public bool? UseSecondaryForBackup { get; set; }
 
         /// <summary>
@@ -86,8 +87,7 @@ namespace Cohesity.Model
                 (
                     this.SecondaryNodeTag == input.SecondaryNodeTag ||
                     this.SecondaryNodeTag != null &&
-                    input.SecondaryNodeTag != null &&
-                    this.SecondaryNodeTag.SequenceEqual(input.SecondaryNodeTag)
+                    this.SecondaryNodeTag.Equals(input.SecondaryNodeTag)
                 ) && 
                 (
                     this.UseSecondaryForBackup == input.UseSecondaryForBackup ||

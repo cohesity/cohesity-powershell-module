@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -41,70 +44,62 @@ namespace Cohesity.Model
             this.ErrorMessage = errorMessage;
             this.ObjectClass = objectClass;
             this.SourceGuid = sourceGuid;
-            this.ChildObjects = childObjects;
-            this.Description = description;
-            this.DestGuid = destGuid;
-            this.DisplayName = displayName;
-            this.DistinguishedName = distinguishedName;
-            this.ErrorMessage = errorMessage;
-            this.ObjectClass = objectClass;
-            this.SourceGuid = sourceGuid;
         }
         
         /// <summary>
         /// Specifies the array of children of this object.
         /// </summary>
         /// <value>Specifies the array of children of this object.</value>
-        [DataMember(Name="childObjects", EmitDefaultValue=true)]
+        [DataMember(Name="childObjects", EmitDefaultValue=false)]
         public List<Object> ChildObjects { get; set; }
 
         /// <summary>
         /// Specifies the &#39;description&#39; of an object.
         /// </summary>
         /// <value>Specifies the &#39;description&#39; of an object.</value>
-        [DataMember(Name="description", EmitDefaultValue=true)]
+        [DataMember(Name="description", EmitDefaultValue=false)]
         public string Description { get; set; }
 
         /// <summary>
         /// Specifies the guid of matching &#39;source_guid&#39; from production AD. This is looked up  based on source_guid or distinguishedName attribute value.
         /// </summary>
         /// <value>Specifies the guid of matching &#39;source_guid&#39; from production AD. This is looked up  based on source_guid or distinguishedName attribute value.</value>
-        [DataMember(Name="destGuid", EmitDefaultValue=true)]
+        [DataMember(Name="destGuid", EmitDefaultValue=false)]
         public string DestGuid { get; set; }
 
         /// <summary>
         /// Specifies the display name of the object in AD Topology tree.
         /// </summary>
         /// <value>Specifies the display name of the object in AD Topology tree.</value>
-        [DataMember(Name="displayName", EmitDefaultValue=true)]
+        [DataMember(Name="displayName", EmitDefaultValue=false)]
         public string DisplayName { get; set; }
 
         /// <summary>
         /// Specifies the distinguished name of the object in AD Topology tree. Eg: CN&#x3D;Jone Doe,OU&#x3D;Users,DC&#x3D;corp,DC&#x3D;cohesity,DC&#x3D;com
         /// </summary>
         /// <value>Specifies the distinguished name of the object in AD Topology tree. Eg: CN&#x3D;Jone Doe,OU&#x3D;Users,DC&#x3D;corp,DC&#x3D;cohesity,DC&#x3D;com</value>
-        [DataMember(Name="distinguishedName", EmitDefaultValue=true)]
+        [DataMember(Name="distinguishedName", EmitDefaultValue=false)]
         public string DistinguishedName { get; set; }
 
         /// <summary>
         /// Specifies the AD error while fetching the ADRootTopologyObject.
         /// </summary>
         /// <value>Specifies the AD error while fetching the ADRootTopologyObject.</value>
-        [DataMember(Name="errorMessage", EmitDefaultValue=true)]
+        [DataMember(Name="errorMessage", EmitDefaultValue=false)]
         public string ErrorMessage { get; set; }
 
         /// <summary>
         /// Specifies the LDAP class name such as &#39;user&#39;,&#39;computer&#39;, &#39;organizationalUnit&#39;.
         /// </summary>
         /// <value>Specifies the LDAP class name such as &#39;user&#39;,&#39;computer&#39;, &#39;organizationalUnit&#39;.</value>
-        [DataMember(Name="objectClass", EmitDefaultValue=true)]
+        [DataMember(Name="objectClass", EmitDefaultValue=false)]
         public string ObjectClass { get; set; }
 
         /// <summary>
         /// Specifies the guid string of the object in AD snapshot database.
         /// </summary>
         /// <value>Specifies the guid string of the object in AD snapshot database.</value>
-        [DataMember(Name="sourceGuid", EmitDefaultValue=true)]
+        [DataMember(Name="sourceGuid", EmitDefaultValue=false)]
         public string SourceGuid { get; set; }
 
         /// <summary>
@@ -146,8 +141,7 @@ namespace Cohesity.Model
                 (
                     this.ChildObjects == input.ChildObjects ||
                     this.ChildObjects != null &&
-                    input.ChildObjects != null &&
-                    this.ChildObjects.SequenceEqual(input.ChildObjects)
+                    this.ChildObjects.Equals(input.ChildObjects)
                 ) && 
                 (
                     this.Description == input.Description ||

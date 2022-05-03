@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -32,10 +35,11 @@ namespace Cohesity.Model
         /// <param name="fraDest">FRA path..</param>
         /// <param name="fraSizeMb">FRA Size in MBs..</param>
         /// <param name="numTempfiles">How many tempfiles to use for the recovered database..</param>
+        /// <param name="pfileParameterMap">Map of pfile parameters to its values..</param>
         /// <param name="redoLogConf">redoLogConf.</param>
         /// <param name="sgaTargetSize">SGA_TARGET_SIZE size [ Default value same as Source DB ]..</param>
         /// <param name="sharedPoolSize">Shared pool size [ Default value same as Source DB ]..</param>
-        public OracleDBConfig(string auditLogDest = default(string), string bctFilePath = default(string), List<string> controlFilePathVec = default(List<string>), string dbConfigFilePath = default(string), string diagDest = default(string), bool? enableArchiveLogMode = default(bool?), string fraDest = default(string), int? fraSizeMb = default(int?), int? numTempfiles = default(int?), OracleDBConfigRedoLogGroupConf redoLogConf = default(OracleDBConfigRedoLogGroupConf), string sgaTargetSize = default(string), string sharedPoolSize = default(string))
+        public OracleDBConfig(string auditLogDest = default(string), string bctFilePath = default(string), List<string> controlFilePathVec = default(List<string>), string dbConfigFilePath = default(string), string diagDest = default(string), bool? enableArchiveLogMode = default(bool?), string fraDest = default(string), int? fraSizeMb = default(int?), int? numTempfiles = default(int?), List<OracleDBConfigPfileParameterMapEntry> pfileParameterMap = default(List<OracleDBConfigPfileParameterMapEntry>), OracleDBConfigRedoLogGroupConf redoLogConf = default(OracleDBConfigRedoLogGroupConf), string sgaTargetSize = default(string), string sharedPoolSize = default(string))
         {
             this.AuditLogDest = auditLogDest;
             this.BctFilePath = bctFilePath;
@@ -46,17 +50,7 @@ namespace Cohesity.Model
             this.FraDest = fraDest;
             this.FraSizeMb = fraSizeMb;
             this.NumTempfiles = numTempfiles;
-            this.SgaTargetSize = sgaTargetSize;
-            this.SharedPoolSize = sharedPoolSize;
-            this.AuditLogDest = auditLogDest;
-            this.BctFilePath = bctFilePath;
-            this.ControlFilePathVec = controlFilePathVec;
-            this.DbConfigFilePath = dbConfigFilePath;
-            this.DiagDest = diagDest;
-            this.EnableArchiveLogMode = enableArchiveLogMode;
-            this.FraDest = fraDest;
-            this.FraSizeMb = fraSizeMb;
-            this.NumTempfiles = numTempfiles;
+            this.PfileParameterMap = pfileParameterMap;
             this.RedoLogConf = redoLogConf;
             this.SgaTargetSize = sgaTargetSize;
             this.SharedPoolSize = sharedPoolSize;
@@ -66,64 +60,71 @@ namespace Cohesity.Model
         /// Audit log destination.
         /// </summary>
         /// <value>Audit log destination.</value>
-        [DataMember(Name="auditLogDest", EmitDefaultValue=true)]
+        [DataMember(Name="auditLogDest", EmitDefaultValue=false)]
         public string AuditLogDest { get; set; }
 
         /// <summary>
         /// BCT file path.
         /// </summary>
         /// <value>BCT file path.</value>
-        [DataMember(Name="bctFilePath", EmitDefaultValue=true)]
+        [DataMember(Name="bctFilePath", EmitDefaultValue=false)]
         public string BctFilePath { get; set; }
 
         /// <summary>
         /// List of paths where the control file needs to be multiplexed.
         /// </summary>
         /// <value>List of paths where the control file needs to be multiplexed.</value>
-        [DataMember(Name="controlFilePathVec", EmitDefaultValue=true)]
+        [DataMember(Name="controlFilePathVec", EmitDefaultValue=false)]
         public List<string> ControlFilePathVec { get; set; }
 
         /// <summary>
         /// Path to the file on oracle host which decides the configuration of restored DB.
         /// </summary>
         /// <value>Path to the file on oracle host which decides the configuration of restored DB.</value>
-        [DataMember(Name="dbConfigFilePath", EmitDefaultValue=true)]
+        [DataMember(Name="dbConfigFilePath", EmitDefaultValue=false)]
         public string DbConfigFilePath { get; set; }
 
         /// <summary>
         /// Diag destination.
         /// </summary>
         /// <value>Diag destination.</value>
-        [DataMember(Name="diagDest", EmitDefaultValue=true)]
+        [DataMember(Name="diagDest", EmitDefaultValue=false)]
         public string DiagDest { get; set; }
 
         /// <summary>
         /// If set to false, archive log mode is disabled.
         /// </summary>
         /// <value>If set to false, archive log mode is disabled.</value>
-        [DataMember(Name="enableArchiveLogMode", EmitDefaultValue=true)]
+        [DataMember(Name="enableArchiveLogMode", EmitDefaultValue=false)]
         public bool? EnableArchiveLogMode { get; set; }
 
         /// <summary>
         /// FRA path.
         /// </summary>
         /// <value>FRA path.</value>
-        [DataMember(Name="fraDest", EmitDefaultValue=true)]
+        [DataMember(Name="fraDest", EmitDefaultValue=false)]
         public string FraDest { get; set; }
 
         /// <summary>
         /// FRA Size in MBs.
         /// </summary>
         /// <value>FRA Size in MBs.</value>
-        [DataMember(Name="fraSizeMb", EmitDefaultValue=true)]
+        [DataMember(Name="fraSizeMb", EmitDefaultValue=false)]
         public int? FraSizeMb { get; set; }
 
         /// <summary>
         /// How many tempfiles to use for the recovered database.
         /// </summary>
         /// <value>How many tempfiles to use for the recovered database.</value>
-        [DataMember(Name="numTempfiles", EmitDefaultValue=true)]
+        [DataMember(Name="numTempfiles", EmitDefaultValue=false)]
         public int? NumTempfiles { get; set; }
+
+        /// <summary>
+        /// Map of pfile parameters to its values.
+        /// </summary>
+        /// <value>Map of pfile parameters to its values.</value>
+        [DataMember(Name="pfileParameterMap", EmitDefaultValue=false)]
+        public List<OracleDBConfigPfileParameterMapEntry> PfileParameterMap { get; set; }
 
         /// <summary>
         /// Gets or Sets RedoLogConf
@@ -135,14 +136,14 @@ namespace Cohesity.Model
         /// SGA_TARGET_SIZE size [ Default value same as Source DB ].
         /// </summary>
         /// <value>SGA_TARGET_SIZE size [ Default value same as Source DB ].</value>
-        [DataMember(Name="sgaTargetSize", EmitDefaultValue=true)]
+        [DataMember(Name="sgaTargetSize", EmitDefaultValue=false)]
         public string SgaTargetSize { get; set; }
 
         /// <summary>
         /// Shared pool size [ Default value same as Source DB ].
         /// </summary>
         /// <value>Shared pool size [ Default value same as Source DB ].</value>
-        [DataMember(Name="sharedPoolSize", EmitDefaultValue=true)]
+        [DataMember(Name="sharedPoolSize", EmitDefaultValue=false)]
         public string SharedPoolSize { get; set; }
 
         /// <summary>
@@ -194,8 +195,7 @@ namespace Cohesity.Model
                 (
                     this.ControlFilePathVec == input.ControlFilePathVec ||
                     this.ControlFilePathVec != null &&
-                    input.ControlFilePathVec != null &&
-                    this.ControlFilePathVec.SequenceEqual(input.ControlFilePathVec)
+                    this.ControlFilePathVec.Equals(input.ControlFilePathVec)
                 ) && 
                 (
                     this.DbConfigFilePath == input.DbConfigFilePath ||
@@ -226,6 +226,11 @@ namespace Cohesity.Model
                     this.NumTempfiles == input.NumTempfiles ||
                     (this.NumTempfiles != null &&
                     this.NumTempfiles.Equals(input.NumTempfiles))
+                ) && 
+                (
+                    this.PfileParameterMap == input.PfileParameterMap ||
+                    this.PfileParameterMap != null &&
+                    this.PfileParameterMap.Equals(input.PfileParameterMap)
                 ) && 
                 (
                     this.RedoLogConf == input.RedoLogConf ||
@@ -271,6 +276,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.FraSizeMb.GetHashCode();
                 if (this.NumTempfiles != null)
                     hashCode = hashCode * 59 + this.NumTempfiles.GetHashCode();
+                if (this.PfileParameterMap != null)
+                    hashCode = hashCode * 59 + this.PfileParameterMap.GetHashCode();
                 if (this.RedoLogConf != null)
                     hashCode = hashCode * 59 + this.RedoLogConf.GetHashCode();
                 if (this.SgaTargetSize != null)

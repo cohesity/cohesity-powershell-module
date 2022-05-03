@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -35,46 +38,41 @@ namespace Cohesity.Model
             this.NodeId = nodeId;
             this.NodeIp = nodeIp;
             this.Port = port;
-            this.DefaultPassword = defaultPassword;
-            this.DefaultUsername = defaultUsername;
-            this.NodeId = nodeId;
-            this.NodeIp = nodeIp;
-            this.Port = port;
         }
         
         /// <summary>
         /// Specifies the default password to access the postgres database.
         /// </summary>
         /// <value>Specifies the default password to access the postgres database.</value>
-        [DataMember(Name="defaultPassword", EmitDefaultValue=true)]
+        [DataMember(Name="defaultPassword", EmitDefaultValue=false)]
         public string DefaultPassword { get; set; }
 
         /// <summary>
         /// Specifies the default username to access the postgres database.
         /// </summary>
         /// <value>Specifies the default username to access the postgres database.</value>
-        [DataMember(Name="defaultUsername", EmitDefaultValue=true)]
+        [DataMember(Name="defaultUsername", EmitDefaultValue=false)]
         public string DefaultUsername { get; set; }
 
         /// <summary>
         /// Specifies the id of the node where postgres database is running.
         /// </summary>
         /// <value>Specifies the id of the node where postgres database is running.</value>
-        [DataMember(Name="nodeId", EmitDefaultValue=true)]
+        [DataMember(Name="nodeId", EmitDefaultValue=false)]
         public long? NodeId { get; set; }
 
         /// <summary>
         /// Specifies the ip of the node where postgres database is running.
         /// </summary>
         /// <value>Specifies the ip of the node where postgres database is running.</value>
-        [DataMember(Name="nodeIp", EmitDefaultValue=true)]
+        [DataMember(Name="nodeIp", EmitDefaultValue=false)]
         public string NodeIp { get; set; }
 
         /// <summary>
         /// Specifies the information where postgres database is running.
         /// </summary>
         /// <value>Specifies the information where postgres database is running.</value>
-        [DataMember(Name="port", EmitDefaultValue=true)]
+        [DataMember(Name="port", EmitDefaultValue=false)]
         public int? Port { get; set; }
 
         /// <summary>

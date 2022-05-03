@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -34,8 +37,6 @@ namespace Cohesity.Model
         public RestoreObjectParams(int? action = default(int?), EntityProto datastoreEntity = default(EntityProto), PowerStateConfigProto powerStateConfig = default(PowerStateConfigProto), RenameObjectParamProto renameRestoredObjectParam = default(RenameObjectParamProto), EntityProto resourcePoolEntity = default(EntityProto), EntityProto restoreParentSource = default(EntityProto), RestoredObjectNetworkConfigProto restoredObjectsNetworkConfig = default(RestoredObjectNetworkConfigProto), string viewName = default(string))
         {
             this.Action = action;
-            this.ViewName = viewName;
-            this.Action = action;
             this.DatastoreEntity = datastoreEntity;
             this.PowerStateConfig = powerStateConfig;
             this.RenameRestoredObjectParam = renameRestoredObjectParam;
@@ -49,7 +50,7 @@ namespace Cohesity.Model
         /// The action to perform.
         /// </summary>
         /// <value>The action to perform.</value>
-        [DataMember(Name="action", EmitDefaultValue=true)]
+        [DataMember(Name="action", EmitDefaultValue=false)]
         public int? Action { get; set; }
 
         /// <summary>
@@ -92,7 +93,7 @@ namespace Cohesity.Model
         /// Target view into which the objects are to be cloned.
         /// </summary>
         /// <value>Target view into which the objects are to be cloned.</value>
-        [DataMember(Name="viewName", EmitDefaultValue=true)]
+        [DataMember(Name="viewName", EmitDefaultValue=false)]
         public string ViewName { get; set; }
 
         /// <summary>

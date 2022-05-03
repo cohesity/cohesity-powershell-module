@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -37,13 +40,6 @@ namespace Cohesity.Model
         /// <param name="truncateLogs">Whether to truncate logs after a backup run. This is currently only relevant for full or incremental backups in a SQL environment..</param>
         public BackupPolicyProto(BackupPolicyProtoContinuousSchedule continuousSchedule = default(BackupPolicyProtoContinuousSchedule), BackupPolicyProtoDailySchedule dailySchedule = default(BackupPolicyProtoDailySchedule), BackupPolicyProtoMonthlySchedule monthlySchedule = default(BackupPolicyProtoMonthlySchedule), string name = default(string), long? numDaysToKeep = default(long?), int? numRetries = default(int?), BackupPolicyProtoOneOffSchedule oneOffSchedule = default(BackupPolicyProtoOneOffSchedule), int? periodicity = default(int?), int? retryDelayMins = default(int?), BackupPolicyProtoScheduleEnd scheduleEnd = default(BackupPolicyProtoScheduleEnd), int? startWindowIntervalMins = default(int?), bool? truncateLogs = default(bool?))
         {
-            this.Name = name;
-            this.NumDaysToKeep = numDaysToKeep;
-            this.NumRetries = numRetries;
-            this.Periodicity = periodicity;
-            this.RetryDelayMins = retryDelayMins;
-            this.StartWindowIntervalMins = startWindowIntervalMins;
-            this.TruncateLogs = truncateLogs;
             this.ContinuousSchedule = continuousSchedule;
             this.DailySchedule = dailySchedule;
             this.MonthlySchedule = monthlySchedule;
@@ -80,21 +76,21 @@ namespace Cohesity.Model
         /// A backup schedule can have an optional name.
         /// </summary>
         /// <value>A backup schedule can have an optional name.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
 
         /// <summary>
         /// Specifies how to determine the expiration time for snapshots created by a backup run. The snapshots will be marked as expiring (i.e., eligible to be garbage collected) in &#39;num_days_to_keep&#39; days from when the snapshots were created.
         /// </summary>
         /// <value>Specifies how to determine the expiration time for snapshots created by a backup run. The snapshots will be marked as expiring (i.e., eligible to be garbage collected) in &#39;num_days_to_keep&#39; days from when the snapshots were created.</value>
-        [DataMember(Name="numDaysToKeep", EmitDefaultValue=true)]
+        [DataMember(Name="numDaysToKeep", EmitDefaultValue=false)]
         public long? NumDaysToKeep { get; set; }
 
         /// <summary>
         /// The number of retries to perform (for retryable errors) before giving up.
         /// </summary>
         /// <value>The number of retries to perform (for retryable errors) before giving up.</value>
-        [DataMember(Name="numRetries", EmitDefaultValue=true)]
+        [DataMember(Name="numRetries", EmitDefaultValue=false)]
         public int? NumRetries { get; set; }
 
         /// <summary>
@@ -107,14 +103,14 @@ namespace Cohesity.Model
         /// Determines how often the job should be run.
         /// </summary>
         /// <value>Determines how often the job should be run.</value>
-        [DataMember(Name="periodicity", EmitDefaultValue=true)]
+        [DataMember(Name="periodicity", EmitDefaultValue=false)]
         public int? Periodicity { get; set; }
 
         /// <summary>
         /// The number of minutes to wait before retrying a failed job.
         /// </summary>
         /// <value>The number of minutes to wait before retrying a failed job.</value>
-        [DataMember(Name="retryDelayMins", EmitDefaultValue=true)]
+        [DataMember(Name="retryDelayMins", EmitDefaultValue=false)]
         public int? RetryDelayMins { get; set; }
 
         /// <summary>
@@ -127,14 +123,14 @@ namespace Cohesity.Model
         /// This field determines the amount of time (in minutes) after which a scheduled job will not be started. For example, if a job is scheduled to be run every Sunday at 5am, and this field is set to 30 minutes, but the job was unable to start by 5:30am on a Sunday due to other conflicts (say too many other jobs were already running), Magneto will not attempt to start the job until the next scheduled time (on the following Sunday). If this field is not set, the interval will be determined by the Magneto flag - -magneto_master_default_start_window_interval_mins.
         /// </summary>
         /// <value>This field determines the amount of time (in minutes) after which a scheduled job will not be started. For example, if a job is scheduled to be run every Sunday at 5am, and this field is set to 30 minutes, but the job was unable to start by 5:30am on a Sunday due to other conflicts (say too many other jobs were already running), Magneto will not attempt to start the job until the next scheduled time (on the following Sunday). If this field is not set, the interval will be determined by the Magneto flag - -magneto_master_default_start_window_interval_mins.</value>
-        [DataMember(Name="startWindowIntervalMins", EmitDefaultValue=true)]
+        [DataMember(Name="startWindowIntervalMins", EmitDefaultValue=false)]
         public int? StartWindowIntervalMins { get; set; }
 
         /// <summary>
         /// Whether to truncate logs after a backup run. This is currently only relevant for full or incremental backups in a SQL environment.
         /// </summary>
         /// <value>Whether to truncate logs after a backup run. This is currently only relevant for full or incremental backups in a SQL environment.</value>
-        [DataMember(Name="truncateLogs", EmitDefaultValue=true)]
+        [DataMember(Name="truncateLogs", EmitDefaultValue=false)]
         public bool? TruncateLogs { get; set; }
 
         /// <summary>

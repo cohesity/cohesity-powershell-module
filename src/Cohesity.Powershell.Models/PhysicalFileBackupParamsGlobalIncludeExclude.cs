@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,14 +30,13 @@ namespace Cohesity.Model
         public PhysicalFileBackupParamsGlobalIncludeExclude(List<string> excludeVec = default(List<string>))
         {
             this.ExcludeVec = excludeVec;
-            this.ExcludeVec = excludeVec;
         }
         
         /// <summary>
         /// Describes exclude vec at job level used in combination with to exclude_paths to exclude files.
         /// </summary>
         /// <value>Describes exclude vec at job level used in combination with to exclude_paths to exclude files.</value>
-        [DataMember(Name="excludeVec", EmitDefaultValue=true)]
+        [DataMember(Name="excludeVec", EmitDefaultValue=false)]
         public List<string> ExcludeVec { get; set; }
 
         /// <summary>
@@ -76,8 +78,7 @@ namespace Cohesity.Model
                 (
                     this.ExcludeVec == input.ExcludeVec ||
                     this.ExcludeVec != null &&
-                    input.ExcludeVec != null &&
-                    this.ExcludeVec.SequenceEqual(input.ExcludeVec)
+                    this.ExcludeVec.Equals(input.ExcludeVec)
                 );
         }
 

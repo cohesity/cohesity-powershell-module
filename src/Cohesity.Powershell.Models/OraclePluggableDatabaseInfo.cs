@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -57,7 +60,7 @@ namespace Cohesity.Model
         /// Specifies the OPEN_MODE information. Specifies the OPEN_MODE type for the Oracle database. &#39;kMounted&#39; indicates that the database is open in Mounted mode. &#39;kReadWrite&#39; indicates that the database is open in R/W mode. &#39;kReadOnly&#39; indicates that the database is open in ReadOnly mode. &#39;kMigrate&#39; inidcates that the database is open in Migrate mode.
         /// </summary>
         /// <value>Specifies the OPEN_MODE information. Specifies the OPEN_MODE type for the Oracle database. &#39;kMounted&#39; indicates that the database is open in Mounted mode. &#39;kReadWrite&#39; indicates that the database is open in R/W mode. &#39;kReadOnly&#39; indicates that the database is open in ReadOnly mode. &#39;kMigrate&#39; inidcates that the database is open in Migrate mode.</value>
-        [DataMember(Name="openMode", EmitDefaultValue=true)]
+        [DataMember(Name="openMode", EmitDefaultValue=false)]
         public OpenModeEnum? OpenMode { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="OraclePluggableDatabaseInfo" /> class.
@@ -72,31 +75,28 @@ namespace Cohesity.Model
             this.Name = name;
             this.OpenMode = openMode;
             this.SizeBytes = sizeBytes;
-            this.DatabaseId = databaseId;
-            this.Name = name;
-            this.OpenMode = openMode;
-            this.SizeBytes = sizeBytes;
         }
         
         /// <summary>
         /// Specifies the ID of the Pluggable Database.
         /// </summary>
         /// <value>Specifies the ID of the Pluggable Database.</value>
-        [DataMember(Name="databaseId", EmitDefaultValue=true)]
+        [DataMember(Name="databaseId", EmitDefaultValue=false)]
         public string DatabaseId { get; set; }
 
         /// <summary>
         /// Speicifes the name of the Pluggable Database.
         /// </summary>
         /// <value>Speicifes the name of the Pluggable Database.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
+
 
         /// <summary>
         /// Specifies the Size in Bytes of the Pluggable Database.
         /// </summary>
         /// <value>Specifies the Size in Bytes of the Pluggable Database.</value>
-        [DataMember(Name="sizeBytes", EmitDefaultValue=true)]
+        [DataMember(Name="sizeBytes", EmitDefaultValue=false)]
         public long? SizeBytes { get; set; }
 
         /// <summary>
@@ -147,7 +147,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.OpenMode == input.OpenMode ||
-                    this.OpenMode.Equals(input.OpenMode)
+                    (this.OpenMode != null &&
+                    this.OpenMode.Equals(input.OpenMode))
                 ) && 
                 (
                     this.SizeBytes == input.SizeBytes ||
@@ -169,7 +170,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.DatabaseId.GetHashCode();
                 if (this.Name != null)
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
-                hashCode = hashCode * 59 + this.OpenMode.GetHashCode();
+                if (this.OpenMode != null)
+                    hashCode = hashCode * 59 + this.OpenMode.GetHashCode();
                 if (this.SizeBytes != null)
                     hashCode = hashCode * 59 + this.SizeBytes.GetHashCode();
                 return hashCode;

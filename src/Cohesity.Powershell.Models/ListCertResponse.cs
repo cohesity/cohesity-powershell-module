@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,13 +30,12 @@ namespace Cohesity.Model
         public ListCertResponse(List<CertificateDetails> certificateList = default(List<CertificateDetails>))
         {
             this.CertificateList = certificateList;
-            this.CertificateList = certificateList;
         }
         
         /// <summary>
         /// Gets or Sets CertificateList
         /// </summary>
-        [DataMember(Name="certificateList", EmitDefaultValue=true)]
+        [DataMember(Name="certificateList", EmitDefaultValue=false)]
         public List<CertificateDetails> CertificateList { get; set; }
 
         /// <summary>
@@ -75,8 +77,7 @@ namespace Cohesity.Model
                 (
                     this.CertificateList == input.CertificateList ||
                     this.CertificateList != null &&
-                    input.CertificateList != null &&
-                    this.CertificateList.SequenceEqual(input.CertificateList)
+                    this.CertificateList.Equals(input.CertificateList)
                 );
         }
 

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,55 +30,68 @@ namespace Cohesity.Model
         /// <param name="destNetwork">Destination network.  Specifies the destination network of the Static Route. overrideDescription: true.</param>
         /// <param name="ifName">Specifies the network interfaces name to use for communicating with the destination network..</param>
         /// <param name="ifaceGroupName">Specifies the network interfaces group or interface group with vlan id to use for communicating with the destination network..</param>
+        /// <param name="mtu">Specifies MTU setting per route..</param>
         /// <param name="nextHop">Specifies the next hop to the destination network..</param>
-        public Route(string description = default(string), string destNetwork = default(string), string ifName = default(string), string ifaceGroupName = default(string), string nextHop = default(string))
+        /// <param name="nodeGroupName">Specifies the network node group to represent a group of nodes..</param>
+        public Route(string description = default(string), string destNetwork = default(string), string ifName = default(string), string ifaceGroupName = default(string), int? mtu = default(int?), string nextHop = default(string), string nodeGroupName = default(string))
         {
             this.Description = description;
             this.DestNetwork = destNetwork;
             this.IfName = ifName;
             this.IfaceGroupName = ifaceGroupName;
+            this.Mtu = mtu;
             this.NextHop = nextHop;
-            this.Description = description;
-            this.DestNetwork = destNetwork;
-            this.IfName = ifName;
-            this.IfaceGroupName = ifaceGroupName;
-            this.NextHop = nextHop;
+            this.NodeGroupName = nodeGroupName;
         }
         
         /// <summary>
         /// Specifies a description of the Static Route.
         /// </summary>
         /// <value>Specifies a description of the Static Route.</value>
-        [DataMember(Name="description", EmitDefaultValue=true)]
+        [DataMember(Name="description", EmitDefaultValue=false)]
         public string Description { get; set; }
 
         /// <summary>
         /// Destination network.  Specifies the destination network of the Static Route. overrideDescription: true
         /// </summary>
         /// <value>Destination network.  Specifies the destination network of the Static Route. overrideDescription: true</value>
-        [DataMember(Name="destNetwork", EmitDefaultValue=true)]
+        [DataMember(Name="destNetwork", EmitDefaultValue=false)]
         public string DestNetwork { get; set; }
 
         /// <summary>
         /// Specifies the network interfaces name to use for communicating with the destination network.
         /// </summary>
         /// <value>Specifies the network interfaces name to use for communicating with the destination network.</value>
-        [DataMember(Name="ifName", EmitDefaultValue=true)]
+        [DataMember(Name="ifName", EmitDefaultValue=false)]
         public string IfName { get; set; }
 
         /// <summary>
         /// Specifies the network interfaces group or interface group with vlan id to use for communicating with the destination network.
         /// </summary>
         /// <value>Specifies the network interfaces group or interface group with vlan id to use for communicating with the destination network.</value>
-        [DataMember(Name="ifaceGroupName", EmitDefaultValue=true)]
+        [DataMember(Name="ifaceGroupName", EmitDefaultValue=false)]
         public string IfaceGroupName { get; set; }
+
+        /// <summary>
+        /// Specifies MTU setting per route.
+        /// </summary>
+        /// <value>Specifies MTU setting per route.</value>
+        [DataMember(Name="mtu", EmitDefaultValue=false)]
+        public int? Mtu { get; set; }
 
         /// <summary>
         /// Specifies the next hop to the destination network.
         /// </summary>
         /// <value>Specifies the next hop to the destination network.</value>
-        [DataMember(Name="nextHop", EmitDefaultValue=true)]
+        [DataMember(Name="nextHop", EmitDefaultValue=false)]
         public string NextHop { get; set; }
+
+        /// <summary>
+        /// Specifies the network node group to represent a group of nodes.
+        /// </summary>
+        /// <value>Specifies the network node group to represent a group of nodes.</value>
+        [DataMember(Name="nodeGroupName", EmitDefaultValue=false)]
+        public string NodeGroupName { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -134,9 +150,19 @@ namespace Cohesity.Model
                     this.IfaceGroupName.Equals(input.IfaceGroupName))
                 ) && 
                 (
+                    this.Mtu == input.Mtu ||
+                    (this.Mtu != null &&
+                    this.Mtu.Equals(input.Mtu))
+                ) && 
+                (
                     this.NextHop == input.NextHop ||
                     (this.NextHop != null &&
                     this.NextHop.Equals(input.NextHop))
+                ) && 
+                (
+                    this.NodeGroupName == input.NodeGroupName ||
+                    (this.NodeGroupName != null &&
+                    this.NodeGroupName.Equals(input.NodeGroupName))
                 );
         }
 
@@ -157,8 +183,12 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.IfName.GetHashCode();
                 if (this.IfaceGroupName != null)
                     hashCode = hashCode * 59 + this.IfaceGroupName.GetHashCode();
+                if (this.Mtu != null)
+                    hashCode = hashCode * 59 + this.Mtu.GetHashCode();
                 if (this.NextHop != null)
                     hashCode = hashCode * 59 + this.NextHop.GetHashCode();
+                if (this.NodeGroupName != null)
+                    hashCode = hashCode * 59 + this.NodeGroupName.GetHashCode();
                 return hashCode;
             }
         }

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -33,38 +36,34 @@ namespace Cohesity.Model
             this.IoRate = ioRate;
             this.RateLimitBytesPerSec = rateLimitBytesPerSec;
             this.Timezone = timezone;
-            this.BandwidthLimitOverrides = bandwidthLimitOverrides;
-            this.IoRate = ioRate;
-            this.RateLimitBytesPerSec = rateLimitBytesPerSec;
-            this.Timezone = timezone;
         }
         
         /// <summary>
         /// Array of Override Bandwidth Limits.  Specifies a list of override bandwidth limits and time periods when those limits override the rateLimitBytesPerSec limit. If overlapping time periods are specified, the last one in the array takes precedence.
         /// </summary>
         /// <value>Array of Override Bandwidth Limits.  Specifies a list of override bandwidth limits and time periods when those limits override the rateLimitBytesPerSec limit. If overlapping time periods are specified, the last one in the array takes precedence.</value>
-        [DataMember(Name="bandwidthLimitOverrides", EmitDefaultValue=true)]
+        [DataMember(Name="bandwidthLimitOverrides", EmitDefaultValue=false)]
         public List<BandwidthLimitOverride> BandwidthLimitOverrides { get; set; }
 
         /// <summary>
         /// Specifies the default IO Rate of the throttling schedule. This value is internally mapped to some notion of how many resources a process should be consuming.
         /// </summary>
         /// <value>Specifies the default IO Rate of the throttling schedule. This value is internally mapped to some notion of how many resources a process should be consuming.</value>
-        [DataMember(Name="ioRate", EmitDefaultValue=true)]
+        [DataMember(Name="ioRate", EmitDefaultValue=false)]
         public int? IoRate { get; set; }
 
         /// <summary>
         /// Specifies the maximum allowed data transfer rate between the local Cluster and remote Clusters. The value is specified in bytes per second. If not set, the data transfer rate is not limited.
         /// </summary>
         /// <value>Specifies the maximum allowed data transfer rate between the local Cluster and remote Clusters. The value is specified in bytes per second. If not set, the data transfer rate is not limited.</value>
-        [DataMember(Name="rateLimitBytesPerSec", EmitDefaultValue=true)]
+        [DataMember(Name="rateLimitBytesPerSec", EmitDefaultValue=false)]
         public long? RateLimitBytesPerSec { get; set; }
 
         /// <summary>
         /// Specifies a time zone for the specified time period. The time zone is defined in the following format: \&quot;Area/Location\&quot;, for example: \&quot;America/New_York\&quot;.
         /// </summary>
         /// <value>Specifies a time zone for the specified time period. The time zone is defined in the following format: \&quot;Area/Location\&quot;, for example: \&quot;America/New_York\&quot;.</value>
-        [DataMember(Name="timezone", EmitDefaultValue=true)]
+        [DataMember(Name="timezone", EmitDefaultValue=false)]
         public string Timezone { get; set; }
 
         /// <summary>
@@ -106,8 +105,7 @@ namespace Cohesity.Model
                 (
                     this.BandwidthLimitOverrides == input.BandwidthLimitOverrides ||
                     this.BandwidthLimitOverrides != null &&
-                    input.BandwidthLimitOverrides != null &&
-                    this.BandwidthLimitOverrides.SequenceEqual(input.BandwidthLimitOverrides)
+                    this.BandwidthLimitOverrides.Equals(input.BandwidthLimitOverrides)
                 ) && 
                 (
                     this.IoRate == input.IoRate ||

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.CassandraNodeName = cassandraNodeName;
             this.TieredStorageDirectoriesVec = tieredStorageDirectoriesVec;
-            this.CassandraNodeName = cassandraNodeName;
-            this.TieredStorageDirectoriesVec = tieredStorageDirectoriesVec;
         }
         
         /// <summary>
         /// Name of the Cassandra node.
         /// </summary>
         /// <value>Name of the Cassandra node.</value>
-        [DataMember(Name="cassandraNodeName", EmitDefaultValue=true)]
+        [DataMember(Name="cassandraNodeName", EmitDefaultValue=false)]
         public string CassandraNodeName { get; set; }
 
         /// <summary>
         /// Array of tiered storage directories.
         /// </summary>
         /// <value>Array of tiered storage directories.</value>
-        [DataMember(Name="tieredStorageDirectoriesVec", EmitDefaultValue=true)]
+        [DataMember(Name="tieredStorageDirectoriesVec", EmitDefaultValue=false)]
         public List<string> TieredStorageDirectoriesVec { get; set; }
 
         /// <summary>
@@ -91,8 +92,7 @@ namespace Cohesity.Model
                 (
                     this.TieredStorageDirectoriesVec == input.TieredStorageDirectoriesVec ||
                     this.TieredStorageDirectoriesVec != null &&
-                    input.TieredStorageDirectoriesVec != null &&
-                    this.TieredStorageDirectoriesVec.SequenceEqual(input.TieredStorageDirectoriesVec)
+                    this.TieredStorageDirectoriesVec.Equals(input.TieredStorageDirectoriesVec)
                 );
         }
 

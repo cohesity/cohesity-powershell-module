@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,19 +30,16 @@ namespace Cohesity.Model
         /// <param name="hasLocalCopy">If true, this snapshot is located on a local Cohesity Cluster..</param>
         /// <param name="hasRemoteCopy">If true, this snapshot is located on a Remote Cohesity Cluster..</param>
         /// <param name="modifiedTimeUsecs">Specifies the time when the file or folder was last modified. Specified as a Unix epoch Timestamp (in microseconds)..</param>
+        /// <param name="replicaInfoList">Specifies the list of replication information about the current snapshot..</param>
         /// <param name="sizeBytes">Specifies the size of the file or folder in bytes..</param>
         /// <param name="snapshot">snapshot.</param>
-        public FileSnapshotInformation(bool? hasArchivalCopy = default(bool?), bool? hasLocalCopy = default(bool?), bool? hasRemoteCopy = default(bool?), long? modifiedTimeUsecs = default(long?), long? sizeBytes = default(long?), SnapshotAttempt snapshot = default(SnapshotAttempt))
+        public FileSnapshotInformation(bool? hasArchivalCopy = default(bool?), bool? hasLocalCopy = default(bool?), bool? hasRemoteCopy = default(bool?), long? modifiedTimeUsecs = default(long?), List<ReplicaInfo> replicaInfoList = default(List<ReplicaInfo>), long? sizeBytes = default(long?), SnapshotAttempt snapshot = default(SnapshotAttempt))
         {
             this.HasArchivalCopy = hasArchivalCopy;
             this.HasLocalCopy = hasLocalCopy;
             this.HasRemoteCopy = hasRemoteCopy;
             this.ModifiedTimeUsecs = modifiedTimeUsecs;
-            this.SizeBytes = sizeBytes;
-            this.HasArchivalCopy = hasArchivalCopy;
-            this.HasLocalCopy = hasLocalCopy;
-            this.HasRemoteCopy = hasRemoteCopy;
-            this.ModifiedTimeUsecs = modifiedTimeUsecs;
+            this.ReplicaInfoList = replicaInfoList;
             this.SizeBytes = sizeBytes;
             this.Snapshot = snapshot;
         }
@@ -48,35 +48,42 @@ namespace Cohesity.Model
         /// If true, this snapshot is located on an archival target (such as a tape or AWS).
         /// </summary>
         /// <value>If true, this snapshot is located on an archival target (such as a tape or AWS).</value>
-        [DataMember(Name="hasArchivalCopy", EmitDefaultValue=true)]
+        [DataMember(Name="hasArchivalCopy", EmitDefaultValue=false)]
         public bool? HasArchivalCopy { get; set; }
 
         /// <summary>
         /// If true, this snapshot is located on a local Cohesity Cluster.
         /// </summary>
         /// <value>If true, this snapshot is located on a local Cohesity Cluster.</value>
-        [DataMember(Name="hasLocalCopy", EmitDefaultValue=true)]
+        [DataMember(Name="hasLocalCopy", EmitDefaultValue=false)]
         public bool? HasLocalCopy { get; set; }
 
         /// <summary>
         /// If true, this snapshot is located on a Remote Cohesity Cluster.
         /// </summary>
         /// <value>If true, this snapshot is located on a Remote Cohesity Cluster.</value>
-        [DataMember(Name="hasRemoteCopy", EmitDefaultValue=true)]
+        [DataMember(Name="hasRemoteCopy", EmitDefaultValue=false)]
         public bool? HasRemoteCopy { get; set; }
 
         /// <summary>
         /// Specifies the time when the file or folder was last modified. Specified as a Unix epoch Timestamp (in microseconds).
         /// </summary>
         /// <value>Specifies the time when the file or folder was last modified. Specified as a Unix epoch Timestamp (in microseconds).</value>
-        [DataMember(Name="modifiedTimeUsecs", EmitDefaultValue=true)]
+        [DataMember(Name="modifiedTimeUsecs", EmitDefaultValue=false)]
         public long? ModifiedTimeUsecs { get; set; }
+
+        /// <summary>
+        /// Specifies the list of replication information about the current snapshot.
+        /// </summary>
+        /// <value>Specifies the list of replication information about the current snapshot.</value>
+        [DataMember(Name="replicaInfoList", EmitDefaultValue=false)]
+        public List<ReplicaInfo> ReplicaInfoList { get; set; }
 
         /// <summary>
         /// Specifies the size of the file or folder in bytes.
         /// </summary>
         /// <value>Specifies the size of the file or folder in bytes.</value>
-        [DataMember(Name="sizeBytes", EmitDefaultValue=true)]
+        [DataMember(Name="sizeBytes", EmitDefaultValue=false)]
         public long? SizeBytes { get; set; }
 
         /// <summary>
@@ -142,6 +149,11 @@ namespace Cohesity.Model
                     this.ModifiedTimeUsecs.Equals(input.ModifiedTimeUsecs))
                 ) && 
                 (
+                    this.ReplicaInfoList == input.ReplicaInfoList ||
+                    this.ReplicaInfoList != null &&
+                    this.ReplicaInfoList.Equals(input.ReplicaInfoList)
+                ) && 
+                (
                     this.SizeBytes == input.SizeBytes ||
                     (this.SizeBytes != null &&
                     this.SizeBytes.Equals(input.SizeBytes))
@@ -170,6 +182,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.HasRemoteCopy.GetHashCode();
                 if (this.ModifiedTimeUsecs != null)
                     hashCode = hashCode * 59 + this.ModifiedTimeUsecs.GetHashCode();
+                if (this.ReplicaInfoList != null)
+                    hashCode = hashCode * 59 + this.ReplicaInfoList.GetHashCode();
                 if (this.SizeBytes != null)
                     hashCode = hashCode * 59 + this.SizeBytes.GetHashCode();
                 if (this.Snapshot != null)

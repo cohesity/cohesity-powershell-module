@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -12,6 +13,8 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
+
+
 namespace Cohesity.Model
 {
     /// <summary>
@@ -21,9 +24,9 @@ namespace Cohesity.Model
     public partial class CassandraProtectionSource :  IEquatable<CassandraProtectionSource>
     {
         /// <summary>
-        /// Specifies the type of the managed Object in Cassandra Protection Source. Specifies the type of an Cassandra source entity. &#39;kCluster&#39; indicates a Cassandra cluster distributed over several physical nodes. &#39;kKeyspace&#39; indicates a Keyspace enclosing one or more tables. &#39;kTable&#39; indicates a Table in the Cassandra environment.
+        /// Specifies the type of the managed Object in Cassandra Protection Source. Replication strategy options for a keyspace. &#39;kCluster&#39; indicates a Cassandra cluster distributed over several physical nodes. &#39;kKeyspace&#39; indicates a Keyspace enclosing one or more tables. &#39;kTable&#39; indicates a Table in the Cassandra environment.
         /// </summary>
-        /// <value>Specifies the type of the managed Object in Cassandra Protection Source. Specifies the type of an Cassandra source entity. &#39;kCluster&#39; indicates a Cassandra cluster distributed over several physical nodes. &#39;kKeyspace&#39; indicates a Keyspace enclosing one or more tables. &#39;kTable&#39; indicates a Table in the Cassandra environment.</value>
+        /// <value>Specifies the type of the managed Object in Cassandra Protection Source. Replication strategy options for a keyspace. &#39;kCluster&#39; indicates a Cassandra cluster distributed over several physical nodes. &#39;kKeyspace&#39; indicates a Keyspace enclosing one or more tables. &#39;kTable&#39; indicates a Table in the Cassandra environment.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum TypeEnum
         {
@@ -48,10 +51,10 @@ namespace Cohesity.Model
         }
 
         /// <summary>
-        /// Specifies the type of the managed Object in Cassandra Protection Source. Specifies the type of an Cassandra source entity. &#39;kCluster&#39; indicates a Cassandra cluster distributed over several physical nodes. &#39;kKeyspace&#39; indicates a Keyspace enclosing one or more tables. &#39;kTable&#39; indicates a Table in the Cassandra environment.
+        /// Specifies the type of the managed Object in Cassandra Protection Source. Replication strategy options for a keyspace. &#39;kCluster&#39; indicates a Cassandra cluster distributed over several physical nodes. &#39;kKeyspace&#39; indicates a Keyspace enclosing one or more tables. &#39;kTable&#39; indicates a Table in the Cassandra environment.
         /// </summary>
-        /// <value>Specifies the type of the managed Object in Cassandra Protection Source. Specifies the type of an Cassandra source entity. &#39;kCluster&#39; indicates a Cassandra cluster distributed over several physical nodes. &#39;kKeyspace&#39; indicates a Keyspace enclosing one or more tables. &#39;kTable&#39; indicates a Table in the Cassandra environment.</value>
-        [DataMember(Name="type", EmitDefaultValue=true)]
+        /// <value>Specifies the type of the managed Object in Cassandra Protection Source. Replication strategy options for a keyspace. &#39;kCluster&#39; indicates a Cassandra cluster distributed over several physical nodes. &#39;kKeyspace&#39; indicates a Keyspace enclosing one or more tables. &#39;kTable&#39; indicates a Table in the Cassandra environment.</value>
+        [DataMember(Name="type", EmitDefaultValue=false)]
         public TypeEnum? Type { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="CassandraProtectionSource" /> class.
@@ -59,13 +62,10 @@ namespace Cohesity.Model
         /// <param name="clusterInfo">clusterInfo.</param>
         /// <param name="keyspaceInfo">keyspaceInfo.</param>
         /// <param name="name">Specifies the instance name of the Cassandra entity..</param>
-        /// <param name="type">Specifies the type of the managed Object in Cassandra Protection Source. Specifies the type of an Cassandra source entity. &#39;kCluster&#39; indicates a Cassandra cluster distributed over several physical nodes. &#39;kKeyspace&#39; indicates a Keyspace enclosing one or more tables. &#39;kTable&#39; indicates a Table in the Cassandra environment..</param>
+        /// <param name="type">Specifies the type of the managed Object in Cassandra Protection Source. Replication strategy options for a keyspace. &#39;kCluster&#39; indicates a Cassandra cluster distributed over several physical nodes. &#39;kKeyspace&#39; indicates a Keyspace enclosing one or more tables. &#39;kTable&#39; indicates a Table in the Cassandra environment..</param>
         /// <param name="uuid">Specifies the UUID for the Cassandra entity. Note : For each entity an ID unique within top level entity should be assigned by imanis backend. Example, UUID for a table can be the string &lt;keyspace_name&gt;.&lt;table_name&gt;.</param>
         public CassandraProtectionSource(CassandraCluster clusterInfo = default(CassandraCluster), CassandraKeyspace keyspaceInfo = default(CassandraKeyspace), string name = default(string), TypeEnum? type = default(TypeEnum?), string uuid = default(string))
         {
-            this.Name = name;
-            this.Type = type;
-            this.Uuid = uuid;
             this.ClusterInfo = clusterInfo;
             this.KeyspaceInfo = keyspaceInfo;
             this.Name = name;
@@ -89,14 +89,15 @@ namespace Cohesity.Model
         /// Specifies the instance name of the Cassandra entity.
         /// </summary>
         /// <value>Specifies the instance name of the Cassandra entity.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
+
 
         /// <summary>
         /// Specifies the UUID for the Cassandra entity. Note : For each entity an ID unique within top level entity should be assigned by imanis backend. Example, UUID for a table can be the string &lt;keyspace_name&gt;.&lt;table_name&gt;
         /// </summary>
         /// <value>Specifies the UUID for the Cassandra entity. Note : For each entity an ID unique within top level entity should be assigned by imanis backend. Example, UUID for a table can be the string &lt;keyspace_name&gt;.&lt;table_name&gt;</value>
-        [DataMember(Name="uuid", EmitDefaultValue=true)]
+        [DataMember(Name="uuid", EmitDefaultValue=false)]
         public string Uuid { get; set; }
 
         /// <summary>
@@ -152,7 +153,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.Type == input.Type ||
-                    this.Type.Equals(input.Type)
+                    (this.Type != null &&
+                    this.Type.Equals(input.Type))
                 ) && 
                 (
                     this.Uuid == input.Uuid ||
@@ -176,7 +178,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.KeyspaceInfo.GetHashCode();
                 if (this.Name != null)
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
-                hashCode = hashCode * 59 + this.Type.GetHashCode();
+                if (this.Type != null)
+                    hashCode = hashCode * 59 + this.Type.GetHashCode();
                 if (this.Uuid != null)
                     hashCode = hashCode * 59 + this.Uuid.GetHashCode();
                 return hashCode;

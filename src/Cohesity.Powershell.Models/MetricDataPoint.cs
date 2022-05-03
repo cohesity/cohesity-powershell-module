@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -28,8 +31,6 @@ namespace Cohesity.Model
         /// <param name="timestampMsecs">Specifies a timestamp when the metric data point was captured..</param>
         public MetricDataPoint(ValueData data = default(ValueData), int? rollupFunction = default(int?), long? timestampMsecs = default(long?))
         {
-            this.RollupFunction = rollupFunction;
-            this.TimestampMsecs = timestampMsecs;
             this.Data = data;
             this.RollupFunction = rollupFunction;
             this.TimestampMsecs = timestampMsecs;
@@ -45,14 +46,14 @@ namespace Cohesity.Model
         /// If this is a rolled up data point, following enum denotes the rollup function used for rolling up. For a raw point this enum is not set.
         /// </summary>
         /// <value>If this is a rolled up data point, following enum denotes the rollup function used for rolling up. For a raw point this enum is not set.</value>
-        [DataMember(Name="rollupFunction", EmitDefaultValue=true)]
+        [DataMember(Name="rollupFunction", EmitDefaultValue=false)]
         public int? RollupFunction { get; set; }
 
         /// <summary>
         /// Specifies a timestamp when the metric data point was captured.
         /// </summary>
         /// <value>Specifies a timestamp when the metric data point was captured.</value>
-        [DataMember(Name="timestampMsecs", EmitDefaultValue=true)]
+        [DataMember(Name="timestampMsecs", EmitDefaultValue=false)]
         public long? TimestampMsecs { get; set; }
 
         /// <summary>

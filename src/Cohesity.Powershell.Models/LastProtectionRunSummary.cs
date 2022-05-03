@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -39,62 +42,55 @@ namespace Cohesity.Model
             this.NumberOfSlaViolations = numberOfSlaViolations;
             this.NumberOfSuccessfulProtectionRuns = numberOfSuccessfulProtectionRuns;
             this.TotalLogicalBackupSizeInBytes = totalLogicalBackupSizeInBytes;
-            this.NumberOfCancelledProtectionRuns = numberOfCancelledProtectionRuns;
-            this.NumberOfFailedProtectionRuns = numberOfFailedProtectionRuns;
-            this.NumberOfProtectedSources = numberOfProtectedSources;
-            this.NumberOfRunningProtectionRuns = numberOfRunningProtectionRuns;
-            this.NumberOfSlaViolations = numberOfSlaViolations;
-            this.NumberOfSuccessfulProtectionRuns = numberOfSuccessfulProtectionRuns;
-            this.TotalLogicalBackupSizeInBytes = totalLogicalBackupSizeInBytes;
         }
         
         /// <summary>
         /// Specifies the number of cancelled Protection Runs the given Protection Policy has in the Last Run.
         /// </summary>
         /// <value>Specifies the number of cancelled Protection Runs the given Protection Policy has in the Last Run.</value>
-        [DataMember(Name="numberOfCancelledProtectionRuns", EmitDefaultValue=true)]
+        [DataMember(Name="numberOfCancelledProtectionRuns", EmitDefaultValue=false)]
         public long? NumberOfCancelledProtectionRuns { get; set; }
 
         /// <summary>
         /// Specifies the number of failed Protection Runs the given Protection Policy has in the Last Run.
         /// </summary>
         /// <value>Specifies the number of failed Protection Runs the given Protection Policy has in the Last Run.</value>
-        [DataMember(Name="numberOfFailedProtectionRuns", EmitDefaultValue=true)]
+        [DataMember(Name="numberOfFailedProtectionRuns", EmitDefaultValue=false)]
         public long? NumberOfFailedProtectionRuns { get; set; }
 
         /// <summary>
         /// Specifies the number of Protection Sources protected by the given Protection Policy.
         /// </summary>
         /// <value>Specifies the number of Protection Sources protected by the given Protection Policy.</value>
-        [DataMember(Name="numberOfProtectedSources", EmitDefaultValue=true)]
+        [DataMember(Name="numberOfProtectedSources", EmitDefaultValue=false)]
         public long? NumberOfProtectedSources { get; set; }
 
         /// <summary>
         /// Specifies the number of running Protection Runs using the current Protection Policy.
         /// </summary>
         /// <value>Specifies the number of running Protection Runs using the current Protection Policy.</value>
-        [DataMember(Name="numberOfRunningProtectionRuns", EmitDefaultValue=true)]
+        [DataMember(Name="numberOfRunningProtectionRuns", EmitDefaultValue=false)]
         public long? NumberOfRunningProtectionRuns { get; set; }
 
         /// <summary>
         /// Specifies the number of SLA violations the given Protection Policy has in the Last Run..
         /// </summary>
         /// <value>Specifies the number of SLA violations the given Protection Policy has in the Last Run..</value>
-        [DataMember(Name="numberOfSlaViolations", EmitDefaultValue=true)]
+        [DataMember(Name="numberOfSlaViolations", EmitDefaultValue=false)]
         public long? NumberOfSlaViolations { get; set; }
 
         /// <summary>
         /// Specifies the number of successful Protection Runs the given Protection Policy has in the Last Run.
         /// </summary>
         /// <value>Specifies the number of successful Protection Runs the given Protection Policy has in the Last Run.</value>
-        [DataMember(Name="numberOfSuccessfulProtectionRuns", EmitDefaultValue=true)]
+        [DataMember(Name="numberOfSuccessfulProtectionRuns", EmitDefaultValue=false)]
         public long? NumberOfSuccessfulProtectionRuns { get; set; }
 
         /// <summary>
         /// Specifies the aggregated total logical backup performed in all the Latest Protection Runs made for all the Protection Jobs which have the given Protection Policy Specified.
         /// </summary>
         /// <value>Specifies the aggregated total logical backup performed in all the Latest Protection Runs made for all the Protection Jobs which have the given Protection Policy Specified.</value>
-        [DataMember(Name="totalLogicalBackupSizeInBytes", EmitDefaultValue=true)]
+        [DataMember(Name="totalLogicalBackupSizeInBytes", EmitDefaultValue=false)]
         public long? TotalLogicalBackupSizeInBytes { get; set; }
 
         /// <summary>

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,14 +30,13 @@ namespace Cohesity.Model
         public SchedulerProto(List<SchedulerProtoSchedulerJob> schedulerJobs = default(List<SchedulerProtoSchedulerJob>))
         {
             this.SchedulerJobs = schedulerJobs;
-            this.SchedulerJobs = schedulerJobs;
         }
         
         /// <summary>
         /// The array of the various scheduler jobs.
         /// </summary>
         /// <value>The array of the various scheduler jobs.</value>
-        [DataMember(Name="schedulerJobs", EmitDefaultValue=true)]
+        [DataMember(Name="schedulerJobs", EmitDefaultValue=false)]
         public List<SchedulerProtoSchedulerJob> SchedulerJobs { get; set; }
 
         /// <summary>
@@ -76,8 +78,7 @@ namespace Cohesity.Model
                 (
                     this.SchedulerJobs == input.SchedulerJobs ||
                     this.SchedulerJobs != null &&
-                    input.SchedulerJobs != null &&
-                    this.SchedulerJobs.SequenceEqual(input.SchedulerJobs)
+                    this.SchedulerJobs.Equals(input.SchedulerJobs)
                 );
         }
 

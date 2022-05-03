@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -28,7 +31,6 @@ namespace Cohesity.Model
         /// <param name="vmwareDiskExclusionInfo">List of Virtual Disk(s) to be excluded from the backup job for the source. Overrides the exclusion list requested (if any) through EnvBackupParams.VMwareBackupEnvParams..</param>
         public VMwareBackupSourceParams(SourceAppParams sourceAppParams = default(SourceAppParams), Credentials vmCredentials = default(Credentials), List<VMwareDiskExclusionProto> vmwareDiskExclusionInfo = default(List<VMwareDiskExclusionProto>))
         {
-            this.VmwareDiskExclusionInfo = vmwareDiskExclusionInfo;
             this.SourceAppParams = sourceAppParams;
             this.VmCredentials = vmCredentials;
             this.VmwareDiskExclusionInfo = vmwareDiskExclusionInfo;
@@ -50,7 +52,7 @@ namespace Cohesity.Model
         /// List of Virtual Disk(s) to be excluded from the backup job for the source. Overrides the exclusion list requested (if any) through EnvBackupParams.VMwareBackupEnvParams.
         /// </summary>
         /// <value>List of Virtual Disk(s) to be excluded from the backup job for the source. Overrides the exclusion list requested (if any) through EnvBackupParams.VMwareBackupEnvParams.</value>
-        [DataMember(Name="vmwareDiskExclusionInfo", EmitDefaultValue=true)]
+        [DataMember(Name="vmwareDiskExclusionInfo", EmitDefaultValue=false)]
         public List<VMwareDiskExclusionProto> VmwareDiskExclusionInfo { get; set; }
 
         /// <summary>
@@ -102,8 +104,7 @@ namespace Cohesity.Model
                 (
                     this.VmwareDiskExclusionInfo == input.VmwareDiskExclusionInfo ||
                     this.VmwareDiskExclusionInfo != null &&
-                    input.VmwareDiskExclusionInfo != null &&
-                    this.VmwareDiskExclusionInfo.SequenceEqual(input.VmwareDiskExclusionInfo)
+                    this.VmwareDiskExclusionInfo.Equals(input.VmwareDiskExclusionInfo)
                 );
         }
 

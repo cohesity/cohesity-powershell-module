@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,14 +30,13 @@ namespace Cohesity.Model
         public UpgradePhysicalAgentsMessage(string message = default(string))
         {
             this.Message = message;
-            this.Message = message;
         }
         
         /// <summary>
         /// Specifies the status message returned after initiating an upgrade request. Status of each agent upgrade can be obtained by listing Physical Servers using the GET /public/protectionSources operation.
         /// </summary>
         /// <value>Specifies the status message returned after initiating an upgrade request. Status of each agent upgrade can be obtained by listing Physical Servers using the GET /public/protectionSources operation.</value>
-        [DataMember(Name="message", EmitDefaultValue=true)]
+        [DataMember(Name="message", EmitDefaultValue=false)]
         public string Message { get; set; }
 
         /// <summary>

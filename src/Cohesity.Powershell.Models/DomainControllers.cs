@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,14 +30,13 @@ namespace Cohesity.Model
         public DomainControllers(List<string> domainControllers = default(List<string>))
         {
             this._DomainControllers = domainControllers;
-            this._DomainControllers = domainControllers;
         }
         
         /// <summary>
         /// Domain Controllers of a domain of an Active Directory domain.
         /// </summary>
         /// <value>Domain Controllers of a domain of an Active Directory domain.</value>
-        [DataMember(Name="domainControllers", EmitDefaultValue=true)]
+        [DataMember(Name="domainControllers", EmitDefaultValue=false)]
         public List<string> _DomainControllers { get; set; }
 
         /// <summary>
@@ -76,8 +78,7 @@ namespace Cohesity.Model
                 (
                     this._DomainControllers == input._DomainControllers ||
                     this._DomainControllers != null &&
-                    input._DomainControllers != null &&
-                    this._DomainControllers.SequenceEqual(input._DomainControllers)
+                    this._DomainControllers.Equals(input._DomainControllers)
                 );
         }
 

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -39,62 +42,55 @@ namespace Cohesity.Model
             this.Name = name;
             this.ObjectType = objectType;
             this.SamAccountName = samAccountName;
-            this.DistinguishedName = distinguishedName;
-            this.Domain = domain;
-            this.Email = email;
-            this.Guid = guid;
-            this.Name = name;
-            this.ObjectType = objectType;
-            this.SamAccountName = samAccountName;
         }
         
         /// <summary>
         /// Specifies the Distinguished name of the AD object.
         /// </summary>
         /// <value>Specifies the Distinguished name of the AD object.</value>
-        [DataMember(Name="distinguishedName", EmitDefaultValue=true)]
+        [DataMember(Name="distinguishedName", EmitDefaultValue=false)]
         public string DistinguishedName { get; set; }
 
         /// <summary>
         /// Domain of the AD object.
         /// </summary>
         /// <value>Domain of the AD object.</value>
-        [DataMember(Name="domain", EmitDefaultValue=true)]
+        [DataMember(Name="domain", EmitDefaultValue=false)]
         public string Domain { get; set; }
 
         /// <summary>
         /// Specifies the email of the AD object of type user or group.
         /// </summary>
         /// <value>Specifies the email of the AD object of type user or group.</value>
-        [DataMember(Name="email", EmitDefaultValue=true)]
+        [DataMember(Name="email", EmitDefaultValue=false)]
         public string Email { get; set; }
 
         /// <summary>
         /// Specifies the Guid of the AD object.
         /// </summary>
         /// <value>Specifies the Guid of the AD object.</value>
-        [DataMember(Name="guid", EmitDefaultValue=true)]
+        [DataMember(Name="guid", EmitDefaultValue=false)]
         public string Guid { get; set; }
 
         /// <summary>
         /// Specifies the name of the AD object.
         /// </summary>
         /// <value>Specifies the name of the AD object.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
 
         /// <summary>
         /// Specifies the type of the AD Object. The type may be user, computer, group or ou.
         /// </summary>
         /// <value>Specifies the type of the AD Object. The type may be user, computer, group or ou.</value>
-        [DataMember(Name="objectType", EmitDefaultValue=true)]
+        [DataMember(Name="objectType", EmitDefaultValue=false)]
         public string ObjectType { get; set; }
 
         /// <summary>
         /// Specifies the sam account name of the AD object.
         /// </summary>
         /// <value>Specifies the sam account name of the AD object.</value>
-        [DataMember(Name="samAccountName", EmitDefaultValue=true)]
+        [DataMember(Name="samAccountName", EmitDefaultValue=false)]
         public string SamAccountName { get; set; }
 
         /// <summary>

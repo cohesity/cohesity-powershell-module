@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -30,25 +33,58 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="enabled">Specifies if the Cluster audit logging is enabled on the Cohesity Cluster. If &#39;true&#39;, Cluster audit logging is enabled. Otherwise, it is disabled. (required).</param>
         /// <param name="retentionPeriodDays">Specifies the number of days to keep (retain) the Cluster audit logs. Audit logs generated before the period of time specified by retentionPeriodDays are removed from the Cohesity Cluster. (required).</param>
-        public ClusterAuditLogConfiguration(bool? enabled = default(bool?), int? retentionPeriodDays = default(int?))
+        /// <param name="verboseAudit">Specifies if the Cluster audit logging includes prev value and new value. (required).</param>
+        public ClusterAuditLogConfiguration(bool? enabled = default(bool?), int? retentionPeriodDays = default(int?), bool? verboseAudit = default(bool?))
         {
-            this.Enabled = enabled;
-            this.RetentionPeriodDays = retentionPeriodDays;
+            // to ensure "enabled" is required (not null)
+            if (enabled == null)
+            {
+                throw new InvalidDataException("enabled is a required property for ClusterAuditLogConfiguration and cannot be null");
+            }
+            else
+            {
+                this.Enabled = enabled;
+            }
+            // to ensure "retentionPeriodDays" is required (not null)
+            if (retentionPeriodDays == null)
+            {
+                throw new InvalidDataException("retentionPeriodDays is a required property for ClusterAuditLogConfiguration and cannot be null");
+            }
+            else
+            {
+                this.RetentionPeriodDays = retentionPeriodDays;
+            }
+            // to ensure "verboseAudit" is required (not null)
+            if (verboseAudit == null)
+            {
+                throw new InvalidDataException("verboseAudit is a required property for ClusterAuditLogConfiguration and cannot be null");
+            }
+            else
+            {
+                this.VerboseAudit = verboseAudit;
+            }
         }
         
         /// <summary>
         /// Specifies if the Cluster audit logging is enabled on the Cohesity Cluster. If &#39;true&#39;, Cluster audit logging is enabled. Otherwise, it is disabled.
         /// </summary>
         /// <value>Specifies if the Cluster audit logging is enabled on the Cohesity Cluster. If &#39;true&#39;, Cluster audit logging is enabled. Otherwise, it is disabled.</value>
-        [DataMember(Name="enabled", EmitDefaultValue=true)]
+        [DataMember(Name="enabled", EmitDefaultValue=false)]
         public bool? Enabled { get; set; }
 
         /// <summary>
         /// Specifies the number of days to keep (retain) the Cluster audit logs. Audit logs generated before the period of time specified by retentionPeriodDays are removed from the Cohesity Cluster.
         /// </summary>
         /// <value>Specifies the number of days to keep (retain) the Cluster audit logs. Audit logs generated before the period of time specified by retentionPeriodDays are removed from the Cohesity Cluster.</value>
-        [DataMember(Name="retentionPeriodDays", EmitDefaultValue=true)]
+        [DataMember(Name="retentionPeriodDays", EmitDefaultValue=false)]
         public int? RetentionPeriodDays { get; set; }
+
+        /// <summary>
+        /// Specifies if the Cluster audit logging includes prev value and new value.
+        /// </summary>
+        /// <value>Specifies if the Cluster audit logging includes prev value and new value.</value>
+        [DataMember(Name="verboseAudit", EmitDefaultValue=false)]
+        public bool? VerboseAudit { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -95,6 +131,11 @@ namespace Cohesity.Model
                     this.RetentionPeriodDays == input.RetentionPeriodDays ||
                     (this.RetentionPeriodDays != null &&
                     this.RetentionPeriodDays.Equals(input.RetentionPeriodDays))
+                ) && 
+                (
+                    this.VerboseAudit == input.VerboseAudit ||
+                    (this.VerboseAudit != null &&
+                    this.VerboseAudit.Equals(input.VerboseAudit))
                 );
         }
 
@@ -111,6 +152,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Enabled.GetHashCode();
                 if (this.RetentionPeriodDays != null)
                     hashCode = hashCode * 59 + this.RetentionPeriodDays.GetHashCode();
+                if (this.VerboseAudit != null)
+                    hashCode = hashCode * 59 + this.VerboseAudit.GetHashCode();
                 return hashCode;
             }
         }

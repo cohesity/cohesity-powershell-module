@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.MetricName = metricName;
             this.Value = value;
-            this.MetricName = metricName;
-            this.Value = value;
         }
         
         /// <summary>
         /// Specifies the name of the metric.
         /// </summary>
         /// <value>Specifies the name of the metric.</value>
-        [DataMember(Name="metricName", EmitDefaultValue=true)]
+        [DataMember(Name="metricName", EmitDefaultValue=false)]
         public string MetricName { get; set; }
 
         /// <summary>
         /// Specifies the value of specified metric name.
         /// </summary>
         /// <value>Specifies the value of specified metric name.</value>
-        [DataMember(Name="value", EmitDefaultValue=true)]
+        [DataMember(Name="value", EmitDefaultValue=false)]
         public long? Value { get; set; }
 
         /// <summary>

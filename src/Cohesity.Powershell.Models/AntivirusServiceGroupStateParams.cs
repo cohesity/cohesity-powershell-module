@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -32,22 +35,38 @@ namespace Cohesity.Model
         /// <param name="id">Specifies the Id of the Antivirus service group. (required).</param>
         public AntivirusServiceGroupStateParams(bool? enable = default(bool?), long? id = default(long?))
         {
-            this.Enable = enable;
-            this.Id = id;
+            // to ensure "enable" is required (not null)
+            if (enable == null)
+            {
+                throw new InvalidDataException("enable is a required property for AntivirusServiceGroupStateParams and cannot be null");
+            }
+            else
+            {
+                this.Enable = enable;
+            }
+            // to ensure "id" is required (not null)
+            if (id == null)
+            {
+                throw new InvalidDataException("id is a required property for AntivirusServiceGroupStateParams and cannot be null");
+            }
+            else
+            {
+                this.Id = id;
+            }
         }
         
         /// <summary>
         /// Specifies the enable flag to enable the Antivirus service group.
         /// </summary>
         /// <value>Specifies the enable flag to enable the Antivirus service group.</value>
-        [DataMember(Name="enable", EmitDefaultValue=true)]
+        [DataMember(Name="enable", EmitDefaultValue=false)]
         public bool? Enable { get; set; }
 
         /// <summary>
         /// Specifies the Id of the Antivirus service group.
         /// </summary>
         /// <value>Specifies the Id of the Antivirus service group.</value>
-        [DataMember(Name="id", EmitDefaultValue=true)]
+        [DataMember(Name="id", EmitDefaultValue=false)]
         public long? Id { get; set; }
 
         /// <summary>

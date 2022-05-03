@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,14 +30,13 @@ namespace Cohesity.Model
         public StoragePolicyOverride(bool? disableInlineDedupAndCompression = default(bool?))
         {
             this.DisableInlineDedupAndCompression = disableInlineDedupAndCompression;
-            this.DisableInlineDedupAndCompression = disableInlineDedupAndCompression;
         }
         
         /// <summary>
         /// If false, the inline deduplication and compression settings inherited from the Storage Domain (View Box) apply to this View. If true, both inline deduplication and compression are disabled for this View. This can only be set to true if inline deduplication is set for the Storage Domain (View Box).
         /// </summary>
         /// <value>If false, the inline deduplication and compression settings inherited from the Storage Domain (View Box) apply to this View. If true, both inline deduplication and compression are disabled for this View. This can only be set to true if inline deduplication is set for the Storage Domain (View Box).</value>
-        [DataMember(Name="disableInlineDedupAndCompression", EmitDefaultValue=true)]
+        [DataMember(Name="disableInlineDedupAndCompression", EmitDefaultValue=false)]
         public bool? DisableInlineDedupAndCompression { get; set; }
 
         /// <summary>

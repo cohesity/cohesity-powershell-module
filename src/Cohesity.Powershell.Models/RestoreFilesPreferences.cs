@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -25,6 +28,7 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="alternateRestoreBaseDirectory">This must be set to a directory path if restore_to_original_paths is false. All the files and directories restored will be restored under this location..</param>
         /// <param name="continueOnError">Whether to continue with the copy in case of encountering an error..</param>
+        /// <param name="encryptionEnabled">Whether to enable encryption for NFS and SMB restores..</param>
         /// <param name="generateSshKeys">In case of GCP Linux restores, whether to generate ssh keys to connect to the customer&#39;s instance..</param>
         /// <param name="overrideOriginals">This is relevant only if restore_to_original_paths is true. If this is true, then already existing files will be overridden, otherwise new files will be skipped..</param>
         /// <param name="preserveAcls">Whether to preserve the ACLs of the original file..</param>
@@ -32,19 +36,11 @@ namespace Cohesity.Model
         /// <param name="preserveTimestamps">Whether to preserve the original time stamps..</param>
         /// <param name="restoreToOriginalPaths">If this is true, then files will be restored to original paths..</param>
         /// <param name="skipEstimation">Whether to skip the estimation step..</param>
-        public RestoreFilesPreferences(string alternateRestoreBaseDirectory = default(string), bool? continueOnError = default(bool?), bool? generateSshKeys = default(bool?), bool? overrideOriginals = default(bool?), bool? preserveAcls = default(bool?), bool? preserveAttributes = default(bool?), bool? preserveTimestamps = default(bool?), bool? restoreToOriginalPaths = default(bool?), bool? skipEstimation = default(bool?))
+        public RestoreFilesPreferences(string alternateRestoreBaseDirectory = default(string), bool? continueOnError = default(bool?), bool? encryptionEnabled = default(bool?), bool? generateSshKeys = default(bool?), bool? overrideOriginals = default(bool?), bool? preserveAcls = default(bool?), bool? preserveAttributes = default(bool?), bool? preserveTimestamps = default(bool?), bool? restoreToOriginalPaths = default(bool?), bool? skipEstimation = default(bool?))
         {
             this.AlternateRestoreBaseDirectory = alternateRestoreBaseDirectory;
             this.ContinueOnError = continueOnError;
-            this.GenerateSshKeys = generateSshKeys;
-            this.OverrideOriginals = overrideOriginals;
-            this.PreserveAcls = preserveAcls;
-            this.PreserveAttributes = preserveAttributes;
-            this.PreserveTimestamps = preserveTimestamps;
-            this.RestoreToOriginalPaths = restoreToOriginalPaths;
-            this.SkipEstimation = skipEstimation;
-            this.AlternateRestoreBaseDirectory = alternateRestoreBaseDirectory;
-            this.ContinueOnError = continueOnError;
+            this.EncryptionEnabled = encryptionEnabled;
             this.GenerateSshKeys = generateSshKeys;
             this.OverrideOriginals = overrideOriginals;
             this.PreserveAcls = preserveAcls;
@@ -58,63 +54,70 @@ namespace Cohesity.Model
         /// This must be set to a directory path if restore_to_original_paths is false. All the files and directories restored will be restored under this location.
         /// </summary>
         /// <value>This must be set to a directory path if restore_to_original_paths is false. All the files and directories restored will be restored under this location.</value>
-        [DataMember(Name="alternateRestoreBaseDirectory", EmitDefaultValue=true)]
+        [DataMember(Name="alternateRestoreBaseDirectory", EmitDefaultValue=false)]
         public string AlternateRestoreBaseDirectory { get; set; }
 
         /// <summary>
         /// Whether to continue with the copy in case of encountering an error.
         /// </summary>
         /// <value>Whether to continue with the copy in case of encountering an error.</value>
-        [DataMember(Name="continueOnError", EmitDefaultValue=true)]
+        [DataMember(Name="continueOnError", EmitDefaultValue=false)]
         public bool? ContinueOnError { get; set; }
+
+        /// <summary>
+        /// Whether to enable encryption for NFS and SMB restores.
+        /// </summary>
+        /// <value>Whether to enable encryption for NFS and SMB restores.</value>
+        [DataMember(Name="encryptionEnabled", EmitDefaultValue=false)]
+        public bool? EncryptionEnabled { get; set; }
 
         /// <summary>
         /// In case of GCP Linux restores, whether to generate ssh keys to connect to the customer&#39;s instance.
         /// </summary>
         /// <value>In case of GCP Linux restores, whether to generate ssh keys to connect to the customer&#39;s instance.</value>
-        [DataMember(Name="generateSshKeys", EmitDefaultValue=true)]
+        [DataMember(Name="generateSshKeys", EmitDefaultValue=false)]
         public bool? GenerateSshKeys { get; set; }
 
         /// <summary>
         /// This is relevant only if restore_to_original_paths is true. If this is true, then already existing files will be overridden, otherwise new files will be skipped.
         /// </summary>
         /// <value>This is relevant only if restore_to_original_paths is true. If this is true, then already existing files will be overridden, otherwise new files will be skipped.</value>
-        [DataMember(Name="overrideOriginals", EmitDefaultValue=true)]
+        [DataMember(Name="overrideOriginals", EmitDefaultValue=false)]
         public bool? OverrideOriginals { get; set; }
 
         /// <summary>
         /// Whether to preserve the ACLs of the original file.
         /// </summary>
         /// <value>Whether to preserve the ACLs of the original file.</value>
-        [DataMember(Name="preserveAcls", EmitDefaultValue=true)]
+        [DataMember(Name="preserveAcls", EmitDefaultValue=false)]
         public bool? PreserveAcls { get; set; }
 
         /// <summary>
         /// Whether to preserve the original attributes.
         /// </summary>
         /// <value>Whether to preserve the original attributes.</value>
-        [DataMember(Name="preserveAttributes", EmitDefaultValue=true)]
+        [DataMember(Name="preserveAttributes", EmitDefaultValue=false)]
         public bool? PreserveAttributes { get; set; }
 
         /// <summary>
         /// Whether to preserve the original time stamps.
         /// </summary>
         /// <value>Whether to preserve the original time stamps.</value>
-        [DataMember(Name="preserveTimestamps", EmitDefaultValue=true)]
+        [DataMember(Name="preserveTimestamps", EmitDefaultValue=false)]
         public bool? PreserveTimestamps { get; set; }
 
         /// <summary>
         /// If this is true, then files will be restored to original paths.
         /// </summary>
         /// <value>If this is true, then files will be restored to original paths.</value>
-        [DataMember(Name="restoreToOriginalPaths", EmitDefaultValue=true)]
+        [DataMember(Name="restoreToOriginalPaths", EmitDefaultValue=false)]
         public bool? RestoreToOriginalPaths { get; set; }
 
         /// <summary>
         /// Whether to skip the estimation step.
         /// </summary>
         /// <value>Whether to skip the estimation step.</value>
-        [DataMember(Name="skipEstimation", EmitDefaultValue=true)]
+        [DataMember(Name="skipEstimation", EmitDefaultValue=false)]
         public bool? SkipEstimation { get; set; }
 
         /// <summary>
@@ -162,6 +165,11 @@ namespace Cohesity.Model
                     this.ContinueOnError == input.ContinueOnError ||
                     (this.ContinueOnError != null &&
                     this.ContinueOnError.Equals(input.ContinueOnError))
+                ) && 
+                (
+                    this.EncryptionEnabled == input.EncryptionEnabled ||
+                    (this.EncryptionEnabled != null &&
+                    this.EncryptionEnabled.Equals(input.EncryptionEnabled))
                 ) && 
                 (
                     this.GenerateSshKeys == input.GenerateSshKeys ||
@@ -213,6 +221,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.AlternateRestoreBaseDirectory.GetHashCode();
                 if (this.ContinueOnError != null)
                     hashCode = hashCode * 59 + this.ContinueOnError.GetHashCode();
+                if (this.EncryptionEnabled != null)
+                    hashCode = hashCode * 59 + this.EncryptionEnabled.GetHashCode();
                 if (this.GenerateSshKeys != null)
                     hashCode = hashCode * 59 + this.GenerateSshKeys.GetHashCode();
                 if (this.OverrideOriginals != null)

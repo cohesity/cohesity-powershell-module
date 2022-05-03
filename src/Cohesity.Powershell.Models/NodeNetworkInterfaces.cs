@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,18 +30,15 @@ namespace Cohesity.Model
         /// <param name="interfaces">Specifies the list of network interfaces present on this Node..</param>
         /// <param name="message">Specifies an optional message describing the result of the request pertaining to this Node..</param>
         /// <param name="nodeId">Specifies the ID of the Node..</param>
+        /// <param name="nodeIp">Specifies the IP of the Node..</param>
         /// <param name="slot">Specifies the slot number the Node is located in..</param>
-        public NodeNetworkInterfaces(string chassisSerial = default(string), List<NetworkInterface> interfaces = default(List<NetworkInterface>), string message = default(string), long? nodeId = default(long?), long? slot = default(long?))
+        public NodeNetworkInterfaces(string chassisSerial = default(string), List<NetworkInterface> interfaces = default(List<NetworkInterface>), string message = default(string), long? nodeId = default(long?), string nodeIp = default(string), long? slot = default(long?))
         {
             this.ChassisSerial = chassisSerial;
             this.Interfaces = interfaces;
             this.Message = message;
             this.NodeId = nodeId;
-            this.Slot = slot;
-            this.ChassisSerial = chassisSerial;
-            this.Interfaces = interfaces;
-            this.Message = message;
-            this.NodeId = nodeId;
+            this.NodeIp = nodeIp;
             this.Slot = slot;
         }
         
@@ -46,35 +46,42 @@ namespace Cohesity.Model
         /// Specifies the serial number of Chassis.
         /// </summary>
         /// <value>Specifies the serial number of Chassis.</value>
-        [DataMember(Name="chassisSerial", EmitDefaultValue=true)]
+        [DataMember(Name="chassisSerial", EmitDefaultValue=false)]
         public string ChassisSerial { get; set; }
 
         /// <summary>
         /// Specifies the list of network interfaces present on this Node.
         /// </summary>
         /// <value>Specifies the list of network interfaces present on this Node.</value>
-        [DataMember(Name="interfaces", EmitDefaultValue=true)]
+        [DataMember(Name="interfaces", EmitDefaultValue=false)]
         public List<NetworkInterface> Interfaces { get; set; }
 
         /// <summary>
         /// Specifies an optional message describing the result of the request pertaining to this Node.
         /// </summary>
         /// <value>Specifies an optional message describing the result of the request pertaining to this Node.</value>
-        [DataMember(Name="message", EmitDefaultValue=true)]
+        [DataMember(Name="message", EmitDefaultValue=false)]
         public string Message { get; set; }
 
         /// <summary>
         /// Specifies the ID of the Node.
         /// </summary>
         /// <value>Specifies the ID of the Node.</value>
-        [DataMember(Name="nodeId", EmitDefaultValue=true)]
+        [DataMember(Name="nodeId", EmitDefaultValue=false)]
         public long? NodeId { get; set; }
+
+        /// <summary>
+        /// Specifies the IP of the Node.
+        /// </summary>
+        /// <value>Specifies the IP of the Node.</value>
+        [DataMember(Name="nodeIp", EmitDefaultValue=false)]
+        public string NodeIp { get; set; }
 
         /// <summary>
         /// Specifies the slot number the Node is located in.
         /// </summary>
         /// <value>Specifies the slot number the Node is located in.</value>
-        [DataMember(Name="slot", EmitDefaultValue=true)]
+        [DataMember(Name="slot", EmitDefaultValue=false)]
         public long? Slot { get; set; }
 
         /// <summary>
@@ -121,8 +128,7 @@ namespace Cohesity.Model
                 (
                     this.Interfaces == input.Interfaces ||
                     this.Interfaces != null &&
-                    input.Interfaces != null &&
-                    this.Interfaces.SequenceEqual(input.Interfaces)
+                    this.Interfaces.Equals(input.Interfaces)
                 ) && 
                 (
                     this.Message == input.Message ||
@@ -133,6 +139,11 @@ namespace Cohesity.Model
                     this.NodeId == input.NodeId ||
                     (this.NodeId != null &&
                     this.NodeId.Equals(input.NodeId))
+                ) && 
+                (
+                    this.NodeIp == input.NodeIp ||
+                    (this.NodeIp != null &&
+                    this.NodeIp.Equals(input.NodeIp))
                 ) && 
                 (
                     this.Slot == input.Slot ||
@@ -158,6 +169,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Message.GetHashCode();
                 if (this.NodeId != null)
                     hashCode = hashCode * 59 + this.NodeId.GetHashCode();
+                if (this.NodeIp != null)
+                    hashCode = hashCode * 59 + this.NodeIp.GetHashCode();
                 if (this.Slot != null)
                     hashCode = hashCode * 59 + this.Slot.GetHashCode();
                 return hashCode;

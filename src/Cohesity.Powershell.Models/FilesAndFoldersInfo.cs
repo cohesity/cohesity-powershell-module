@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.AbsolutePath = absolutePath;
             this.IsDirectory = isDirectory;
-            this.AbsolutePath = absolutePath;
-            this.IsDirectory = isDirectory;
         }
         
         /// <summary>
         /// AbsolutePath specifies the absolute path of the specified file or folder.
         /// </summary>
         /// <value>AbsolutePath specifies the absolute path of the specified file or folder.</value>
-        [DataMember(Name="absolutePath", EmitDefaultValue=true)]
+        [DataMember(Name="absolutePath", EmitDefaultValue=false)]
         public string AbsolutePath { get; set; }
 
         /// <summary>
         /// IsDirectory specifies if specified object is a directory or not.
         /// </summary>
         /// <value>IsDirectory specifies if specified object is a directory or not.</value>
-        [DataMember(Name="isDirectory", EmitDefaultValue=true)]
+        [DataMember(Name="isDirectory", EmitDefaultValue=false)]
         public bool? IsDirectory { get; set; }
 
         /// <summary>

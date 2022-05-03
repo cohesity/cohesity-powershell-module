@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,9 +32,6 @@ namespace Cohesity.Model
         /// <param name="originalVolumeName">This is the name or mount point of the original volume..</param>
         public MountVolumeResult(ErrorProto error = default(ErrorProto), string filesystemType = default(string), string mountPoint = default(string), string originalVolumeName = default(string))
         {
-            this.FilesystemType = filesystemType;
-            this.MountPoint = mountPoint;
-            this.OriginalVolumeName = originalVolumeName;
             this.Error = error;
             this.FilesystemType = filesystemType;
             this.MountPoint = mountPoint;
@@ -48,21 +48,21 @@ namespace Cohesity.Model
         /// Filesystem on this volume.
         /// </summary>
         /// <value>Filesystem on this volume.</value>
-        [DataMember(Name="filesystemType", EmitDefaultValue=true)]
+        [DataMember(Name="filesystemType", EmitDefaultValue=false)]
         public string FilesystemType { get; set; }
 
         /// <summary>
         /// This is populated with the mount point where the volume corresponding to the newly attached volume is mounted. NOTE: This may not be present in the VM environments if onlining of disks is not requested or if the there was any issue during onlining.
         /// </summary>
         /// <value>This is populated with the mount point where the volume corresponding to the newly attached volume is mounted. NOTE: This may not be present in the VM environments if onlining of disks is not requested or if the there was any issue during onlining.</value>
-        [DataMember(Name="mountPoint", EmitDefaultValue=true)]
+        [DataMember(Name="mountPoint", EmitDefaultValue=false)]
         public string MountPoint { get; set; }
 
         /// <summary>
         /// This is the name or mount point of the original volume.
         /// </summary>
         /// <value>This is the name or mount point of the original volume.</value>
-        [DataMember(Name="originalVolumeName", EmitDefaultValue=true)]
+        [DataMember(Name="originalVolumeName", EmitDefaultValue=false)]
         public string OriginalVolumeName { get; set; }
 
         /// <summary>

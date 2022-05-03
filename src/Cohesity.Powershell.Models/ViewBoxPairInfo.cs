@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -33,38 +36,34 @@ namespace Cohesity.Model
             this.LocalViewBoxName = localViewBoxName;
             this.RemoteViewBoxId = remoteViewBoxId;
             this.RemoteViewBoxName = remoteViewBoxName;
-            this.LocalViewBoxId = localViewBoxId;
-            this.LocalViewBoxName = localViewBoxName;
-            this.RemoteViewBoxId = remoteViewBoxId;
-            this.RemoteViewBoxName = remoteViewBoxName;
         }
         
         /// <summary>
         /// Specifies the id of the Storage Domain (View Box) on the local Cluster.
         /// </summary>
         /// <value>Specifies the id of the Storage Domain (View Box) on the local Cluster.</value>
-        [DataMember(Name="localViewBoxId", EmitDefaultValue=true)]
+        [DataMember(Name="localViewBoxId", EmitDefaultValue=false)]
         public long? LocalViewBoxId { get; set; }
 
         /// <summary>
         /// Specifies the name of the Storage Domain (View Box) on the local Cluster.
         /// </summary>
         /// <value>Specifies the name of the Storage Domain (View Box) on the local Cluster.</value>
-        [DataMember(Name="localViewBoxName", EmitDefaultValue=true)]
+        [DataMember(Name="localViewBoxName", EmitDefaultValue=false)]
         public string LocalViewBoxName { get; set; }
 
         /// <summary>
         /// Specifies the id of the Storage Domain (View Box) on the remote Cluster.
         /// </summary>
         /// <value>Specifies the id of the Storage Domain (View Box) on the remote Cluster.</value>
-        [DataMember(Name="remoteViewBoxId", EmitDefaultValue=true)]
+        [DataMember(Name="remoteViewBoxId", EmitDefaultValue=false)]
         public long? RemoteViewBoxId { get; set; }
 
         /// <summary>
         /// Specifies the name of the Storage Domain (View Box) on the remote Cluster.
         /// </summary>
         /// <value>Specifies the name of the Storage Domain (View Box) on the remote Cluster.</value>
-        [DataMember(Name="remoteViewBoxName", EmitDefaultValue=true)]
+        [DataMember(Name="remoteViewBoxName", EmitDefaultValue=false)]
         public string RemoteViewBoxName { get; set; }
 
         /// <summary>

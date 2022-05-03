@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -28,8 +31,6 @@ namespace Cohesity.Model
         /// <param name="restoreEntireMailbox">Specifies whether the entire mailbox is to be restored..</param>
         public OutlookMailbox(RestoreObjectDetails mailboxObject = default(RestoreObjectDetails), List<OutlookFolder> outlookFolderList = default(List<OutlookFolder>), bool? restoreEntireMailbox = default(bool?))
         {
-            this.OutlookFolderList = outlookFolderList;
-            this.RestoreEntireMailbox = restoreEntireMailbox;
             this.MailboxObject = mailboxObject;
             this.OutlookFolderList = outlookFolderList;
             this.RestoreEntireMailbox = restoreEntireMailbox;
@@ -45,14 +46,14 @@ namespace Cohesity.Model
         /// Specifies the list of folders to be restored incase user wishes not to restore entire mailbox.
         /// </summary>
         /// <value>Specifies the list of folders to be restored incase user wishes not to restore entire mailbox.</value>
-        [DataMember(Name="outlookFolderList", EmitDefaultValue=true)]
+        [DataMember(Name="outlookFolderList", EmitDefaultValue=false)]
         public List<OutlookFolder> OutlookFolderList { get; set; }
 
         /// <summary>
         /// Specifies whether the entire mailbox is to be restored.
         /// </summary>
         /// <value>Specifies whether the entire mailbox is to be restored.</value>
-        [DataMember(Name="restoreEntireMailbox", EmitDefaultValue=true)]
+        [DataMember(Name="restoreEntireMailbox", EmitDefaultValue=false)]
         public bool? RestoreEntireMailbox { get; set; }
 
         /// <summary>
@@ -99,8 +100,7 @@ namespace Cohesity.Model
                 (
                     this.OutlookFolderList == input.OutlookFolderList ||
                     this.OutlookFolderList != null &&
-                    input.OutlookFolderList != null &&
-                    this.OutlookFolderList.SequenceEqual(input.OutlookFolderList)
+                    this.OutlookFolderList.Equals(input.OutlookFolderList)
                 ) && 
                 (
                     this.RestoreEntireMailbox == input.RestoreEntireMailbox ||

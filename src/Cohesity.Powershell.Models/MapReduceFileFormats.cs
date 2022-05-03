@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,14 +30,13 @@ namespace Cohesity.Model
         public MapReduceFileFormats(List<string> supportedFormats = default(List<string>))
         {
             this.SupportedFormats = supportedFormats;
-            this.SupportedFormats = supportedFormats;
         }
         
         /// <summary>
         /// Specifies the list of formats supported with integer enum mapping to file format.
         /// </summary>
         /// <value>Specifies the list of formats supported with integer enum mapping to file format.</value>
-        [DataMember(Name="supportedFormats", EmitDefaultValue=true)]
+        [DataMember(Name="supportedFormats", EmitDefaultValue=false)]
         public List<string> SupportedFormats { get; set; }
 
         /// <summary>
@@ -76,8 +78,7 @@ namespace Cohesity.Model
                 (
                     this.SupportedFormats == input.SupportedFormats ||
                     this.SupportedFormats != null &&
-                    input.SupportedFormats != null &&
-                    this.SupportedFormats.SequenceEqual(input.SupportedFormats)
+                    this.SupportedFormats.Equals(input.SupportedFormats)
                 );
         }
 

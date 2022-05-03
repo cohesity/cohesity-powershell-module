@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -28,8 +31,6 @@ namespace Cohesity.Model
         /// <param name="numSnapshots">Specifies of number of successful snapshots..</param>
         public LatestProtectionJobRunInfo(LatestProtectionRun latestSnapshotInfo = default(LatestProtectionRun), string locationName = default(string), long? numSnapshots = default(long?))
         {
-            this.LocationName = locationName;
-            this.NumSnapshots = numSnapshots;
             this.LatestSnapshotInfo = latestSnapshotInfo;
             this.LocationName = locationName;
             this.NumSnapshots = numSnapshots;
@@ -45,14 +46,14 @@ namespace Cohesity.Model
         /// Specifies the name of location that the object is backedup to.
         /// </summary>
         /// <value>Specifies the name of location that the object is backedup to.</value>
-        [DataMember(Name="locationName", EmitDefaultValue=true)]
+        [DataMember(Name="locationName", EmitDefaultValue=false)]
         public string LocationName { get; set; }
 
         /// <summary>
         /// Specifies of number of successful snapshots.
         /// </summary>
         /// <value>Specifies of number of successful snapshots.</value>
-        [DataMember(Name="numSnapshots", EmitDefaultValue=true)]
+        [DataMember(Name="numSnapshots", EmitDefaultValue=false)]
         public long? NumSnapshots { get; set; }
 
         /// <summary>

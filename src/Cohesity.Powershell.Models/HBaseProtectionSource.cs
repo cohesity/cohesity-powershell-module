@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -51,7 +54,7 @@ namespace Cohesity.Model
         /// Specifies the type of the managed Object in HBase Protection Source. Specifies the type of an HBase source entity. &#39;kCluster&#39; indicates a HBase cluster distributed over several physical nodes. &#39;kNamespace&#39; indicates a Namespace in the HBase environment. &#39;kTable&#39; indicates a Table in the HBase environment.
         /// </summary>
         /// <value>Specifies the type of the managed Object in HBase Protection Source. Specifies the type of an HBase source entity. &#39;kCluster&#39; indicates a HBase cluster distributed over several physical nodes. &#39;kNamespace&#39; indicates a Namespace in the HBase environment. &#39;kTable&#39; indicates a Table in the HBase environment.</value>
-        [DataMember(Name="type", EmitDefaultValue=true)]
+        [DataMember(Name="type", EmitDefaultValue=false)]
         public TypeEnum? Type { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="HBaseProtectionSource" /> class.
@@ -63,9 +66,6 @@ namespace Cohesity.Model
         public HBaseProtectionSource(string name = default(string), HBaseTable tableInfo = default(HBaseTable), TypeEnum? type = default(TypeEnum?), string uuid = default(string))
         {
             this.Name = name;
-            this.Type = type;
-            this.Uuid = uuid;
-            this.Name = name;
             this.TableInfo = tableInfo;
             this.Type = type;
             this.Uuid = uuid;
@@ -75,7 +75,7 @@ namespace Cohesity.Model
         /// Specifies the instance name of the HBase entity.
         /// </summary>
         /// <value>Specifies the instance name of the HBase entity.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
 
         /// <summary>
@@ -84,11 +84,12 @@ namespace Cohesity.Model
         [DataMember(Name="tableInfo", EmitDefaultValue=false)]
         public HBaseTable TableInfo { get; set; }
 
+
         /// <summary>
         /// Specifies the UUID for the HBase entity.
         /// </summary>
         /// <value>Specifies the UUID for the HBase entity.</value>
-        [DataMember(Name="uuid", EmitDefaultValue=true)]
+        [DataMember(Name="uuid", EmitDefaultValue=false)]
         public string Uuid { get; set; }
 
         /// <summary>
@@ -139,7 +140,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.Type == input.Type ||
-                    this.Type.Equals(input.Type)
+                    (this.Type != null &&
+                    this.Type.Equals(input.Type))
                 ) && 
                 (
                     this.Uuid == input.Uuid ||
@@ -161,7 +163,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
                 if (this.TableInfo != null)
                     hashCode = hashCode * 59 + this.TableInfo.GetHashCode();
-                hashCode = hashCode * 59 + this.Type.GetHashCode();
+                if (this.Type != null)
+                    hashCode = hashCode * 59 + this.Type.GetHashCode();
                 if (this.Uuid != null)
                     hashCode = hashCode * 59 + this.Uuid.GetHashCode();
                 return hashCode;

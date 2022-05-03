@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -34,10 +37,6 @@ namespace Cohesity.Model
         /// <param name="uuid">Specifies the UUID for the Exchange entity..</param>
         public ExchangeProtectionSource(DagInfo dagInfo = default(DagInfo), ApplicationServerInfo applicationServerInfo = default(ApplicationServerInfo), ExchangeDatabaseCopyInfo dagDatabaseCopyInfo = default(ExchangeDatabaseCopyInfo), ExchangeDAGDatabase dagDatabaseInfo = default(ExchangeDAGDatabase), string name = default(string), long? ownerId = default(long?), ExchangeDatabaseInfo standaloneDatabaseCopyInfo = default(ExchangeDatabaseInfo), int? type = default(int?), string uuid = default(string))
         {
-            this.Name = name;
-            this.OwnerId = ownerId;
-            this.Type = type;
-            this.Uuid = uuid;
             this.DagInfo = dagInfo;
             this.ApplicationServerInfo = applicationServerInfo;
             this.DagDatabaseCopyInfo = dagDatabaseCopyInfo;
@@ -76,14 +75,14 @@ namespace Cohesity.Model
         /// <summary>
         /// Gets or Sets Name
         /// </summary>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
 
         /// <summary>
         /// Specifies the entity id of the owner of the Exchange Protection Source.
         /// </summary>
         /// <value>Specifies the entity id of the owner of the Exchange Protection Source.</value>
-        [DataMember(Name="ownerId", EmitDefaultValue=true)]
+        [DataMember(Name="ownerId", EmitDefaultValue=false)]
         public long? OwnerId { get; set; }
 
         /// <summary>
@@ -96,14 +95,14 @@ namespace Cohesity.Model
         /// Specifies the type of the Exchange Protection Source.
         /// </summary>
         /// <value>Specifies the type of the Exchange Protection Source.</value>
-        [DataMember(Name="type", EmitDefaultValue=true)]
+        [DataMember(Name="type", EmitDefaultValue=false)]
         public int? Type { get; set; }
 
         /// <summary>
         /// Specifies the UUID for the Exchange entity.
         /// </summary>
         /// <value>Specifies the UUID for the Exchange entity.</value>
-        [DataMember(Name="uuid", EmitDefaultValue=true)]
+        [DataMember(Name="uuid", EmitDefaultValue=false)]
         public string Uuid { get; set; }
 
         /// <summary>

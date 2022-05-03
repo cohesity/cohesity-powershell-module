@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -225,7 +228,7 @@ namespace Cohesity.Model
         /// Specifies the environment.
         /// </summary>
         /// <value>Specifies the environment.</value>
-        [DataMember(Name="environment", EmitDefaultValue=true)]
+        [DataMember(Name="environment", EmitDefaultValue=false)]
         public EnvironmentEnum? Environment { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="ProtectedObjectsSummaryByEnv" /> class.
@@ -242,39 +245,35 @@ namespace Cohesity.Model
             this.NumObjectsUnprotected = numObjectsUnprotected;
             this.ProtectedSizeBytes = protectedSizeBytes;
             this.UnprotectedSizeBytes = unprotectedSizeBytes;
-            this.Environment = environment;
-            this.NumObjectsProtected = numObjectsProtected;
-            this.NumObjectsUnprotected = numObjectsUnprotected;
-            this.ProtectedSizeBytes = protectedSizeBytes;
-            this.UnprotectedSizeBytes = unprotectedSizeBytes;
         }
         
+
         /// <summary>
         /// Specifies the total number of protected objects.
         /// </summary>
         /// <value>Specifies the total number of protected objects.</value>
-        [DataMember(Name="numObjectsProtected", EmitDefaultValue=true)]
+        [DataMember(Name="numObjectsProtected", EmitDefaultValue=false)]
         public long? NumObjectsProtected { get; set; }
 
         /// <summary>
         /// Specifies the total number of unprotected objects.
         /// </summary>
         /// <value>Specifies the total number of unprotected objects.</value>
-        [DataMember(Name="numObjectsUnprotected", EmitDefaultValue=true)]
+        [DataMember(Name="numObjectsUnprotected", EmitDefaultValue=false)]
         public long? NumObjectsUnprotected { get; set; }
 
         /// <summary>
         /// Specifies the total size of protected objects in bytes.
         /// </summary>
         /// <value>Specifies the total size of protected objects in bytes.</value>
-        [DataMember(Name="protectedSizeBytes", EmitDefaultValue=true)]
+        [DataMember(Name="protectedSizeBytes", EmitDefaultValue=false)]
         public long? ProtectedSizeBytes { get; set; }
 
         /// <summary>
         /// Specifies the total size of unprotected objects in bytes.
         /// </summary>
         /// <value>Specifies the total size of unprotected objects in bytes.</value>
-        [DataMember(Name="unprotectedSizeBytes", EmitDefaultValue=true)]
+        [DataMember(Name="unprotectedSizeBytes", EmitDefaultValue=false)]
         public long? UnprotectedSizeBytes { get; set; }
 
         /// <summary>
@@ -315,7 +314,8 @@ namespace Cohesity.Model
             return 
                 (
                     this.Environment == input.Environment ||
-                    this.Environment.Equals(input.Environment)
+                    (this.Environment != null &&
+                    this.Environment.Equals(input.Environment))
                 ) && 
                 (
                     this.NumObjectsProtected == input.NumObjectsProtected ||
@@ -348,7 +348,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                hashCode = hashCode * 59 + this.Environment.GetHashCode();
+                if (this.Environment != null)
+                    hashCode = hashCode * 59 + this.Environment.GetHashCode();
                 if (this.NumObjectsProtected != null)
                     hashCode = hashCode * 59 + this.NumObjectsProtected.GetHashCode();
                 if (this.NumObjectsUnprotected != null)

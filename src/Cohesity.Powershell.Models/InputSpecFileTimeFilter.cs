@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.ChangeTimeRangeEndSecs = changeTimeRangeEndSecs;
             this.ChangeTimeRangeStartSecs = changeTimeRangeStartSecs;
-            this.ChangeTimeRangeEndSecs = changeTimeRangeEndSecs;
-            this.ChangeTimeRangeStartSecs = changeTimeRangeStartSecs;
         }
         
         /// <summary>
         /// End of file&#39;s change time range.
         /// </summary>
         /// <value>End of file&#39;s change time range.</value>
-        [DataMember(Name="changeTimeRangeEndSecs", EmitDefaultValue=true)]
+        [DataMember(Name="changeTimeRangeEndSecs", EmitDefaultValue=false)]
         public long? ChangeTimeRangeEndSecs { get; set; }
 
         /// <summary>
         /// Start of file&#39;s change time range.
         /// </summary>
         /// <value>Start of file&#39;s change time range.</value>
-        [DataMember(Name="changeTimeRangeStartSecs", EmitDefaultValue=true)]
+        [DataMember(Name="changeTimeRangeStartSecs", EmitDefaultValue=false)]
         public long? ChangeTimeRangeStartSecs { get; set; }
 
         /// <summary>

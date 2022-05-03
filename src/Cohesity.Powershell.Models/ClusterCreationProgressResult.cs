@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -39,62 +42,55 @@ namespace Cohesity.Model
             this.Message = message;
             this.SecondsRemaining = secondsRemaining;
             this.WarningsFound = warningsFound;
-            this.CompletionPercentage = completionPercentage;
-            this.ErrorMessage = errorMessage;
-            this.Events = events;
-            this.InProgress = inProgress;
-            this.Message = message;
-            this.SecondsRemaining = secondsRemaining;
-            this.WarningsFound = warningsFound;
         }
         
         /// <summary>
         /// Specifies an approximate completion percentage for the Cluster creation process.
         /// </summary>
         /// <value>Specifies an approximate completion percentage for the Cluster creation process.</value>
-        [DataMember(Name="completionPercentage", EmitDefaultValue=true)]
+        [DataMember(Name="completionPercentage", EmitDefaultValue=false)]
         public int? CompletionPercentage { get; set; }
 
         /// <summary>
         /// Specifies a description of an error if any error was encountered during Cluster creation.
         /// </summary>
         /// <value>Specifies a description of an error if any error was encountered during Cluster creation.</value>
-        [DataMember(Name="errorMessage", EmitDefaultValue=true)]
+        [DataMember(Name="errorMessage", EmitDefaultValue=false)]
         public string ErrorMessage { get; set; }
 
         /// <summary>
         /// Specifies a list of events that took place during Cluster creation.
         /// </summary>
         /// <value>Specifies a list of events that took place during Cluster creation.</value>
-        [DataMember(Name="events", EmitDefaultValue=true)]
+        [DataMember(Name="events", EmitDefaultValue=false)]
         public List<string> Events { get; set; }
 
         /// <summary>
         /// Specifies whether or not the Cluster is still in the process of being created. Once the creation process is complete, this will be set to false and then, shortly afterward, all Cluster services will restart. The Cluster will be unreachable for about a minute while the services are being restarted.
         /// </summary>
         /// <value>Specifies whether or not the Cluster is still in the process of being created. Once the creation process is complete, this will be set to false and then, shortly afterward, all Cluster services will restart. The Cluster will be unreachable for about a minute while the services are being restarted.</value>
-        [DataMember(Name="inProgress", EmitDefaultValue=true)]
+        [DataMember(Name="inProgress", EmitDefaultValue=false)]
         public bool? InProgress { get; set; }
 
         /// <summary>
         /// Specifies an optional message describing the current state of the creation progress operation.
         /// </summary>
         /// <value>Specifies an optional message describing the current state of the creation progress operation.</value>
-        [DataMember(Name="message", EmitDefaultValue=true)]
+        [DataMember(Name="message", EmitDefaultValue=false)]
         public string Message { get; set; }
 
         /// <summary>
         /// Specifies an estimated number of seconds until the Cluster creation process is complete.
         /// </summary>
         /// <value>Specifies an estimated number of seconds until the Cluster creation process is complete.</value>
-        [DataMember(Name="secondsRemaining", EmitDefaultValue=true)]
+        [DataMember(Name="secondsRemaining", EmitDefaultValue=false)]
         public long? SecondsRemaining { get; set; }
 
         /// <summary>
         /// Specifies whether or not any warnings were encountered during Cluster creation.
         /// </summary>
         /// <value>Specifies whether or not any warnings were encountered during Cluster creation.</value>
-        [DataMember(Name="warningsFound", EmitDefaultValue=true)]
+        [DataMember(Name="warningsFound", EmitDefaultValue=false)]
         public bool? WarningsFound { get; set; }
 
         /// <summary>
@@ -146,8 +142,7 @@ namespace Cohesity.Model
                 (
                     this.Events == input.Events ||
                     this.Events != null &&
-                    input.Events != null &&
-                    this.Events.SequenceEqual(input.Events)
+                    this.Events.Equals(input.Events)
                 ) && 
                 (
                     this.InProgress == input.InProgress ||

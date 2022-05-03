@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -30,8 +33,6 @@ namespace Cohesity.Model
         {
             this.DatastoreId = datastoreId;
             this.DatastoreName = datastoreName;
-            this.DatastoreId = datastoreId;
-            this.DatastoreName = datastoreName;
             this.ThrottlingPolicy = throttlingPolicy;
         }
         
@@ -39,14 +40,14 @@ namespace Cohesity.Model
         /// Specifies the Protection Source id of the Datastore.
         /// </summary>
         /// <value>Specifies the Protection Source id of the Datastore.</value>
-        [DataMember(Name="datastoreId", EmitDefaultValue=true)]
+        [DataMember(Name="datastoreId", EmitDefaultValue=false)]
         public long? DatastoreId { get; set; }
 
         /// <summary>
         /// Specifies the display name of the Datastore.
         /// </summary>
         /// <value>Specifies the display name of the Datastore.</value>
-        [DataMember(Name="datastoreName", EmitDefaultValue=true)]
+        [DataMember(Name="datastoreName", EmitDefaultValue=false)]
         public string DatastoreName { get; set; }
 
         /// <summary>

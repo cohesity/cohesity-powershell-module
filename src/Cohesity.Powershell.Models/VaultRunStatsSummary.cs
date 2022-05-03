@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,10 +34,6 @@ namespace Cohesity.Model
         /// <param name="successTimeSeries">Specifies the time series for the successful runs that ended in the given time frame..</param>
         public VaultRunStatsSummary(List<VaultRunInfo> failureTimeSeries = default(List<VaultRunInfo>), long? numFailedRuns = default(long?), long? numInProgressRuns = default(long?), long? numQueuedRuns = default(long?), long? numSuccessfulRuns = default(long?), List<VaultRunInfo> successTimeSeries = default(List<VaultRunInfo>))
         {
-            this.NumFailedRuns = numFailedRuns;
-            this.NumInProgressRuns = numInProgressRuns;
-            this.NumQueuedRuns = numQueuedRuns;
-            this.NumSuccessfulRuns = numSuccessfulRuns;
             this.FailureTimeSeries = failureTimeSeries;
             this.NumFailedRuns = numFailedRuns;
             this.NumInProgressRuns = numInProgressRuns;
@@ -54,28 +53,28 @@ namespace Cohesity.Model
         /// Specifies the number of runs that ended in failure during the given time frame.
         /// </summary>
         /// <value>Specifies the number of runs that ended in failure during the given time frame.</value>
-        [DataMember(Name="numFailedRuns", EmitDefaultValue=true)]
+        [DataMember(Name="numFailedRuns", EmitDefaultValue=false)]
         public long? NumFailedRuns { get; set; }
 
         /// <summary>
         /// Specifies the number of runs that were currently in progress at the time that the API call was made.
         /// </summary>
         /// <value>Specifies the number of runs that were currently in progress at the time that the API call was made.</value>
-        [DataMember(Name="numInProgressRuns", EmitDefaultValue=true)]
+        [DataMember(Name="numInProgressRuns", EmitDefaultValue=false)]
         public long? NumInProgressRuns { get; set; }
 
         /// <summary>
         /// Specifies the number of runs that were currently queued at the time that the API call was made.
         /// </summary>
         /// <value>Specifies the number of runs that were currently queued at the time that the API call was made.</value>
-        [DataMember(Name="numQueuedRuns", EmitDefaultValue=true)]
+        [DataMember(Name="numQueuedRuns", EmitDefaultValue=false)]
         public long? NumQueuedRuns { get; set; }
 
         /// <summary>
         /// Specifies the number of runs that ended in success during the given time frame.
         /// </summary>
         /// <value>Specifies the number of runs that ended in success during the given time frame.</value>
-        [DataMember(Name="numSuccessfulRuns", EmitDefaultValue=true)]
+        [DataMember(Name="numSuccessfulRuns", EmitDefaultValue=false)]
         public long? NumSuccessfulRuns { get; set; }
 
         /// <summary>
@@ -124,8 +123,7 @@ namespace Cohesity.Model
                 (
                     this.FailureTimeSeries == input.FailureTimeSeries ||
                     this.FailureTimeSeries != null &&
-                    input.FailureTimeSeries != null &&
-                    this.FailureTimeSeries.SequenceEqual(input.FailureTimeSeries)
+                    this.FailureTimeSeries.Equals(input.FailureTimeSeries)
                 ) && 
                 (
                     this.NumFailedRuns == input.NumFailedRuns ||
@@ -150,8 +148,7 @@ namespace Cohesity.Model
                 (
                     this.SuccessTimeSeries == input.SuccessTimeSeries ||
                     this.SuccessTimeSeries != null &&
-                    input.SuccessTimeSeries != null &&
-                    this.SuccessTimeSeries.SequenceEqual(input.SuccessTimeSeries)
+                    this.SuccessTimeSeries.Equals(input.SuccessTimeSeries)
                 );
         }
 

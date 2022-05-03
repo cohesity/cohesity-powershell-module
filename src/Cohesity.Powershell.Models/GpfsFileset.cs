@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -45,22 +48,20 @@ namespace Cohesity.Model
         /// Specifies GPFS supported Protocol information enabled on GPFS File System &#39;kNfs&#39; indicates NFS exports in a GPFS fileset. &#39;kSmb&#39; indicates CIFS/SMB Shares in a GPFS fileset.
         /// </summary>
         /// <value>Specifies GPFS supported Protocol information enabled on GPFS File System &#39;kNfs&#39; indicates NFS exports in a GPFS fileset. &#39;kSmb&#39; indicates CIFS/SMB Shares in a GPFS fileset.</value>
-        [DataMember(Name="protocols", EmitDefaultValue=true)]
+        [DataMember(Name="protocols", EmitDefaultValue=false)]
         public List<ProtocolsEnum> Protocols { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="GpfsFileset" /> class.
         /// </summary>
         /// <param name="id">Specifies the id of the fileset..</param>
+        /// <param name="isIndependentFileset">If the given fileset is an Independent fileset or not..</param>
         /// <param name="name">Name of the filesystem associated with the fileset.</param>
         /// <param name="path">Specifies the absolute path of the fileset..</param>
         /// <param name="protocols">Specifies GPFS supported Protocol information enabled on GPFS File System &#39;kNfs&#39; indicates NFS exports in a GPFS fileset. &#39;kSmb&#39; indicates CIFS/SMB Shares in a GPFS fileset..</param>
-        public GpfsFileset(int? id = default(int?), string name = default(string), string path = default(string), List<ProtocolsEnum> protocols = default(List<ProtocolsEnum>))
+        public GpfsFileset(int? id = default(int?), bool? isIndependentFileset = default(bool?), string name = default(string), string path = default(string), List<ProtocolsEnum> protocols = default(List<ProtocolsEnum>))
         {
             this.Id = id;
-            this.Name = name;
-            this.Path = path;
-            this.Protocols = protocols;
-            this.Id = id;
+            this.IsIndependentFileset = isIndependentFileset;
             this.Name = name;
             this.Path = path;
             this.Protocols = protocols;
@@ -70,22 +71,30 @@ namespace Cohesity.Model
         /// Specifies the id of the fileset.
         /// </summary>
         /// <value>Specifies the id of the fileset.</value>
-        [DataMember(Name="id", EmitDefaultValue=true)]
+        [DataMember(Name="id", EmitDefaultValue=false)]
         public int? Id { get; set; }
+
+        /// <summary>
+        /// If the given fileset is an Independent fileset or not.
+        /// </summary>
+        /// <value>If the given fileset is an Independent fileset or not.</value>
+        [DataMember(Name="isIndependentFileset", EmitDefaultValue=false)]
+        public bool? IsIndependentFileset { get; set; }
 
         /// <summary>
         /// Name of the filesystem associated with the fileset
         /// </summary>
         /// <value>Name of the filesystem associated with the fileset</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
 
         /// <summary>
         /// Specifies the absolute path of the fileset.
         /// </summary>
         /// <value>Specifies the absolute path of the fileset.</value>
-        [DataMember(Name="path", EmitDefaultValue=true)]
+        [DataMember(Name="path", EmitDefaultValue=false)]
         public string Path { get; set; }
+
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -129,6 +138,11 @@ namespace Cohesity.Model
                     this.Id.Equals(input.Id))
                 ) && 
                 (
+                    this.IsIndependentFileset == input.IsIndependentFileset ||
+                    (this.IsIndependentFileset != null &&
+                    this.IsIndependentFileset.Equals(input.IsIndependentFileset))
+                ) && 
+                (
                     this.Name == input.Name ||
                     (this.Name != null &&
                     this.Name.Equals(input.Name))
@@ -140,7 +154,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.Protocols == input.Protocols ||
-                    this.Protocols.SequenceEqual(input.Protocols)
+                    this.Protocols != null &&
+                    this.Protocols.Equals(input.Protocols)
                 );
         }
 
@@ -155,11 +170,14 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.Id != null)
                     hashCode = hashCode * 59 + this.Id.GetHashCode();
+                if (this.IsIndependentFileset != null)
+                    hashCode = hashCode * 59 + this.IsIndependentFileset.GetHashCode();
                 if (this.Name != null)
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
                 if (this.Path != null)
                     hashCode = hashCode * 59 + this.Path.GetHashCode();
-                hashCode = hashCode * 59 + this.Protocols.GetHashCode();
+                if (this.Protocols != null)
+                    hashCode = hashCode * 59 + this.Protocols.GetHashCode();
                 return hashCode;
             }
         }

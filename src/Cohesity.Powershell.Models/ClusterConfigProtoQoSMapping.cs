@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -28,7 +31,6 @@ namespace Cohesity.Model
         public ClusterConfigProtoQoSMapping(long? principalId = default(long?), ClusterConfigProtoQoSMappingQoSContext qosContext = default(ClusterConfigProtoQoSMappingQoSContext))
         {
             this.PrincipalId = principalId;
-            this.PrincipalId = principalId;
             this.QosContext = qosContext;
         }
         
@@ -36,7 +38,7 @@ namespace Cohesity.Model
         /// Principal id of the QoS principal to which qos_context maps to.
         /// </summary>
         /// <value>Principal id of the QoS principal to which qos_context maps to.</value>
-        [DataMember(Name="principalId", EmitDefaultValue=true)]
+        [DataMember(Name="principalId", EmitDefaultValue=false)]
         public long? PrincipalId { get; set; }
 
         /// <summary>

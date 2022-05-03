@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,7 +30,6 @@ namespace Cohesity.Model
         /// <param name="enableUserQuota">If set, it enables/disables the user quota overrides for a view. Otherwise, it leaves it at it&#39;s previous state..</param>
         public UserQuotaSettings(QuotaPolicy defaultUserQuotaPolicy = default(QuotaPolicy), bool? enableUserQuota = default(bool?))
         {
-            this.EnableUserQuota = enableUserQuota;
             this.DefaultUserQuotaPolicy = defaultUserQuotaPolicy;
             this.EnableUserQuota = enableUserQuota;
         }
@@ -42,7 +44,7 @@ namespace Cohesity.Model
         /// If set, it enables/disables the user quota overrides for a view. Otherwise, it leaves it at it&#39;s previous state.
         /// </summary>
         /// <value>If set, it enables/disables the user quota overrides for a view. Otherwise, it leaves it at it&#39;s previous state.</value>
-        [DataMember(Name="enableUserQuota", EmitDefaultValue=true)]
+        [DataMember(Name="enableUserQuota", EmitDefaultValue=false)]
         public bool? EnableUserQuota { get; set; }
 
         /// <summary>

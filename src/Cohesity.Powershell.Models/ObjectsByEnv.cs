@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.EnvType = envType;
             this.NumObjects = numObjects;
-            this.EnvType = envType;
-            this.NumObjects = numObjects;
         }
         
         /// <summary>
         /// Environment Type.
         /// </summary>
         /// <value>Environment Type.</value>
-        [DataMember(Name="envType", EmitDefaultValue=true)]
+        [DataMember(Name="envType", EmitDefaultValue=false)]
         public string EnvType { get; set; }
 
         /// <summary>
         /// Number of Objects.
         /// </summary>
         /// <value>Number of Objects.</value>
-        [DataMember(Name="numObjects", EmitDefaultValue=true)]
+        [DataMember(Name="numObjects", EmitDefaultValue=false)]
         public int? NumObjects { get; set; }
 
         /// <summary>

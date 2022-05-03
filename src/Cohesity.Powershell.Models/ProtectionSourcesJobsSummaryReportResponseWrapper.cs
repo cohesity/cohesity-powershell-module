@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,14 +30,13 @@ namespace Cohesity.Model
         public ProtectionSourcesJobsSummaryReportResponseWrapper(List<ProtectionSourcesSummaryStats> protectionSourcesJobsSummary = default(List<ProtectionSourcesSummaryStats>))
         {
             this.ProtectionSourcesJobsSummary = protectionSourcesJobsSummary;
-            this.ProtectionSourcesJobsSummary = protectionSourcesJobsSummary;
         }
         
         /// <summary>
         /// Specifies the list of Snapshot summary statistics that match the filter criteria.
         /// </summary>
         /// <value>Specifies the list of Snapshot summary statistics that match the filter criteria.</value>
-        [DataMember(Name="protectionSourcesJobsSummary", EmitDefaultValue=true)]
+        [DataMember(Name="protectionSourcesJobsSummary", EmitDefaultValue=false)]
         public List<ProtectionSourcesSummaryStats> ProtectionSourcesJobsSummary { get; set; }
 
         /// <summary>
@@ -76,8 +78,7 @@ namespace Cohesity.Model
                 (
                     this.ProtectionSourcesJobsSummary == input.ProtectionSourcesJobsSummary ||
                     this.ProtectionSourcesJobsSummary != null &&
-                    input.ProtectionSourcesJobsSummary != null &&
-                    this.ProtectionSourcesJobsSummary.SequenceEqual(input.ProtectionSourcesJobsSummary)
+                    this.ProtectionSourcesJobsSummary.Equals(input.ProtectionSourcesJobsSummary)
                 );
         }
 

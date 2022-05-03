@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -45,7 +48,7 @@ namespace Cohesity.Model
         /// Specifies Elastifile supported Protocol information enabled on Elastifile container. &#39;kNfs&#39; indicates NFS protocol in an elastifile container. &#39;kSmb&#39; indicates SMB protocol in an elastifile container.
         /// </summary>
         /// <value>Specifies Elastifile supported Protocol information enabled on Elastifile container. &#39;kNfs&#39; indicates NFS protocol in an elastifile container. &#39;kSmb&#39; indicates SMB protocol in an elastifile container.</value>
-        [DataMember(Name="protocols", EmitDefaultValue=true)]
+        [DataMember(Name="protocols", EmitDefaultValue=false)]
         public List<ProtocolsEnum> Protocols { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="ElastifileContainer" /> class.
@@ -68,63 +71,56 @@ namespace Cohesity.Model
             this.Protocols = protocols;
             this.UsedBytes = usedBytes;
             this.Uuid = uuid;
-            this.CreatedAt = createdAt;
-            this.Id = id;
-            this.IsNfsInterface = isNfsInterface;
-            this.IsSmbInterface = isSmbInterface;
-            this.Name = name;
-            this.Protocols = protocols;
-            this.UsedBytes = usedBytes;
-            this.Uuid = uuid;
         }
         
         /// <summary>
         /// Specifies the creation date of the container.
         /// </summary>
         /// <value>Specifies the creation date of the container.</value>
-        [DataMember(Name="createdAt", EmitDefaultValue=true)]
+        [DataMember(Name="createdAt", EmitDefaultValue=false)]
         public string CreatedAt { get; set; }
 
         /// <summary>
         /// Specifies id of a Elastifile Container in a Cluster.
         /// </summary>
         /// <value>Specifies id of a Elastifile Container in a Cluster.</value>
-        [DataMember(Name="id", EmitDefaultValue=true)]
+        [DataMember(Name="id", EmitDefaultValue=false)]
         public int? Id { get; set; }
 
         /// <summary>
         /// Specifies if the container has NFS volumes or not.
         /// </summary>
         /// <value>Specifies if the container has NFS volumes or not.</value>
-        [DataMember(Name="isNfsInterface", EmitDefaultValue=true)]
+        [DataMember(Name="isNfsInterface", EmitDefaultValue=false)]
         public bool? IsNfsInterface { get; set; }
 
         /// <summary>
         /// Specifies if the container has SMB volumes or not.
         /// </summary>
         /// <value>Specifies if the container has SMB volumes or not.</value>
-        [DataMember(Name="isSmbInterface", EmitDefaultValue=true)]
+        [DataMember(Name="isSmbInterface", EmitDefaultValue=false)]
         public bool? IsSmbInterface { get; set; }
 
         /// <summary>
         /// Specifies the name of the container.
         /// </summary>
         /// <value>Specifies the name of the container.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
+
 
         /// <summary>
         /// Specifies the bytes used by the container.
         /// </summary>
         /// <value>Specifies the bytes used by the container.</value>
-        [DataMember(Name="usedBytes", EmitDefaultValue=true)]
+        [DataMember(Name="usedBytes", EmitDefaultValue=false)]
         public long? UsedBytes { get; set; }
 
         /// <summary>
         /// Specifies the UUID of the container.
         /// </summary>
         /// <value>Specifies the UUID of the container.</value>
-        [DataMember(Name="uuid", EmitDefaultValue=true)]
+        [DataMember(Name="uuid", EmitDefaultValue=false)]
         public string Uuid { get; set; }
 
         /// <summary>
@@ -190,7 +186,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.Protocols == input.Protocols ||
-                    this.Protocols.SequenceEqual(input.Protocols)
+                    this.Protocols != null &&
+                    this.Protocols.Equals(input.Protocols)
                 ) && 
                 (
                     this.UsedBytes == input.UsedBytes ||
@@ -223,7 +220,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.IsSmbInterface.GetHashCode();
                 if (this.Name != null)
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
-                hashCode = hashCode * 59 + this.Protocols.GetHashCode();
+                if (this.Protocols != null)
+                    hashCode = hashCode * 59 + this.Protocols.GetHashCode();
                 if (this.UsedBytes != null)
                     hashCode = hashCode * 59 + this.UsedBytes.GetHashCode();
                 if (this.Uuid != null)

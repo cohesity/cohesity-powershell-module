@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.AmiCreationFrequency = amiCreationFrequency;
             this.CreateAmi = createAmi;
-            this.AmiCreationFrequency = amiCreationFrequency;
-            this.CreateAmi = createAmi;
         }
         
         /// <summary>
         /// Specifies the frequency of AMI creation. This should be set if the option to create AMI is set. A value of n creates an AMI from the snapshots after every n runs. eg. n &#x3D; 2 implies every alternate backup run starting from the first will create an AMI.
         /// </summary>
         /// <value>Specifies the frequency of AMI creation. This should be set if the option to create AMI is set. A value of n creates an AMI from the snapshots after every n runs. eg. n &#x3D; 2 implies every alternate backup run starting from the first will create an AMI.</value>
-        [DataMember(Name="amiCreationFrequency", EmitDefaultValue=true)]
+        [DataMember(Name="amiCreationFrequency", EmitDefaultValue=false)]
         public int? AmiCreationFrequency { get; set; }
 
         /// <summary>
         /// If true, creates an AMI after taking snapshots of the instance. It should be set only while backing up EC2 instances. CreateAmi creates AMI for the protection job.
         /// </summary>
         /// <value>If true, creates an AMI after taking snapshots of the instance. It should be set only while backing up EC2 instances. CreateAmi creates AMI for the protection job.</value>
-        [DataMember(Name="createAmi", EmitDefaultValue=true)]
+        [DataMember(Name="createAmi", EmitDefaultValue=false)]
         public bool? CreateAmi { get; set; }
 
         /// <summary>

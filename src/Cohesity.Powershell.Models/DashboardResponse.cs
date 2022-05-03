@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,7 +30,6 @@ namespace Cohesity.Model
         /// <param name="dashboards">Specifies a list of dashboards of all the clusters in the SPOG setup if the query parameter allClusters is set to true. Otherwise this field is not populated. When populated the dashboard field is also populated with aggregated dashboard values..</param>
         public DashboardResponse(Dashboard dashboard = default(Dashboard), List<Dashboard> dashboards = default(List<Dashboard>))
         {
-            this.Dashboards = dashboards;
             this.Dashboard = dashboard;
             this.Dashboards = dashboards;
         }
@@ -42,7 +44,7 @@ namespace Cohesity.Model
         /// Specifies a list of dashboards of all the clusters in the SPOG setup if the query parameter allClusters is set to true. Otherwise this field is not populated. When populated the dashboard field is also populated with aggregated dashboard values.
         /// </summary>
         /// <value>Specifies a list of dashboards of all the clusters in the SPOG setup if the query parameter allClusters is set to true. Otherwise this field is not populated. When populated the dashboard field is also populated with aggregated dashboard values.</value>
-        [DataMember(Name="dashboards", EmitDefaultValue=true)]
+        [DataMember(Name="dashboards", EmitDefaultValue=false)]
         public List<Dashboard> Dashboards { get; set; }
 
         /// <summary>
@@ -89,8 +91,7 @@ namespace Cohesity.Model
                 (
                     this.Dashboards == input.Dashboards ||
                     this.Dashboards != null &&
-                    input.Dashboards != null &&
-                    this.Dashboards.SequenceEqual(input.Dashboards)
+                    this.Dashboards.Equals(input.Dashboards)
                 );
         }
 

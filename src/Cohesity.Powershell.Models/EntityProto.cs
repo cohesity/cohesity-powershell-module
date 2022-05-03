@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,8 +32,6 @@ namespace Cohesity.Model
         public EntityProto(List<KeyValuePair> attributeVec = default(List<KeyValuePair>), EntityIdentifier entityId = default(EntityIdentifier), List<MetricValue> latestMetricVec = default(List<MetricValue>))
         {
             this.AttributeVec = attributeVec;
-            this.LatestMetricVec = latestMetricVec;
-            this.AttributeVec = attributeVec;
             this.EntityId = entityId;
             this.LatestMetricVec = latestMetricVec;
         }
@@ -39,7 +40,7 @@ namespace Cohesity.Model
         /// Array of Attributes.  List of attributes of an entity.
         /// </summary>
         /// <value>Array of Attributes.  List of attributes of an entity.</value>
-        [DataMember(Name="attributeVec", EmitDefaultValue=true)]
+        [DataMember(Name="attributeVec", EmitDefaultValue=false)]
         public List<KeyValuePair> AttributeVec { get; set; }
 
         /// <summary>
@@ -52,7 +53,7 @@ namespace Cohesity.Model
         /// Array of Metric Statistics.  List of the latest statistics for all metrics defined in the schema that this entity belongs to. If statistics for a metric is not available, then that data point is not returned.
         /// </summary>
         /// <value>Array of Metric Statistics.  List of the latest statistics for all metrics defined in the schema that this entity belongs to. If statistics for a metric is not available, then that data point is not returned.</value>
-        [DataMember(Name="latestMetricVec", EmitDefaultValue=true)]
+        [DataMember(Name="latestMetricVec", EmitDefaultValue=false)]
         public List<MetricValue> LatestMetricVec { get; set; }
 
         /// <summary>
@@ -94,8 +95,7 @@ namespace Cohesity.Model
                 (
                     this.AttributeVec == input.AttributeVec ||
                     this.AttributeVec != null &&
-                    input.AttributeVec != null &&
-                    this.AttributeVec.SequenceEqual(input.AttributeVec)
+                    this.AttributeVec.Equals(input.AttributeVec)
                 ) && 
                 (
                     this.EntityId == input.EntityId ||
@@ -105,8 +105,7 @@ namespace Cohesity.Model
                 (
                     this.LatestMetricVec == input.LatestMetricVec ||
                     this.LatestMetricVec != null &&
-                    input.LatestMetricVec != null &&
-                    this.LatestMetricVec.SequenceEqual(input.LatestMetricVec)
+                    this.LatestMetricVec.Equals(input.LatestMetricVec)
                 );
         }
 

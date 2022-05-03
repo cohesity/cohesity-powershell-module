@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -35,45 +38,40 @@ namespace Cohesity.Model
             this.Type = type;
             this.ViewBoxId = viewBoxId;
             this.ViewId = viewId;
-            this.Component = component;
-            this.Priority = priority;
-            this.Type = type;
-            this.ViewBoxId = viewBoxId;
-            this.ViewId = viewId;
         }
         
         /// <summary>
         /// Component from which request is coming.
         /// </summary>
         /// <value>Component from which request is coming.</value>
-        [DataMember(Name="component", EmitDefaultValue=true)]
+        [DataMember(Name="component", EmitDefaultValue=false)]
         public int? Component { get; set; }
 
         /// <summary>
         /// Priority of a request.
         /// </summary>
         /// <value>Priority of a request.</value>
-        [DataMember(Name="priority", EmitDefaultValue=true)]
+        [DataMember(Name="priority", EmitDefaultValue=false)]
         public int? Priority { get; set; }
 
         /// <summary>
         /// Gets or Sets Type
         /// </summary>
-        [DataMember(Name="type", EmitDefaultValue=true)]
+        [DataMember(Name="type", EmitDefaultValue=false)]
         public int? Type { get; set; }
 
         /// <summary>
         /// View box id of a request.
         /// </summary>
         /// <value>View box id of a request.</value>
-        [DataMember(Name="viewBoxId", EmitDefaultValue=true)]
+        [DataMember(Name="viewBoxId", EmitDefaultValue=false)]
         public long? ViewBoxId { get; set; }
 
         /// <summary>
         /// View id of a request.
         /// </summary>
         /// <value>View id of a request.</value>
-        [DataMember(Name="viewId", EmitDefaultValue=true)]
+        [DataMember(Name="viewId", EmitDefaultValue=false)]
         public long? ViewId { get; set; }
 
         /// <summary>

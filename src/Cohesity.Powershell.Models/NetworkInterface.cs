@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -12,6 +13,8 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
+
+
 namespace Cohesity.Model
 {
     /// <summary>
@@ -23,8 +26,10 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="NetworkInterface" /> class.
         /// </summary>
+        /// <param name="activeBondSlave">Current active slave. This is only valid in active-backup mode..</param>
         /// <param name="bondSlaveSlotTypes">Specifies the types of the slots of any slaves if this interface is a bond..</param>
         /// <param name="bondSlaves">Specifies the names of any slaves if this interface is a bond..</param>
+        /// <param name="bondSlavesDetails">Specifies the details of the bond slaves..</param>
         /// <param name="bondingMode">Specifies the bonding mode if this interface is a bond..</param>
         /// <param name="gateway">Specifies the gateway of the interface..</param>
         /// <param name="gateway6">Specifies the gateway6 of the interface..</param>
@@ -41,14 +46,17 @@ namespace Cohesity.Model
         /// <param name="speed">Specifies the speed of the Interface..</param>
         /// <param name="staticIp">Specifies the static IP of the interface..</param>
         /// <param name="staticIp6">Specifies the static IPv6 of the interface..</param>
+        /// <param name="stats">stats.</param>
         /// <param name="subnet">Specifies the subnet mask of the interface..</param>
         /// <param name="subnet6">Specifies the subnet6 mask of the interface..</param>
         /// <param name="type">Specifies the type of interface..</param>
         /// <param name="virtualIp">Specifies the virtual IP of the interface..</param>
-        public NetworkInterface(List<string> bondSlaveSlotTypes = default(List<string>), List<string> bondSlaves = default(List<string>), int? bondingMode = default(int?), string gateway = default(string), string gateway6 = default(string), string group = default(string), long? id = default(long?), bool? isConnected = default(bool?), bool? isDefaultRoute = default(bool?), bool? isUp = default(bool?), string macAddress = default(string), int? mtu = default(int?), string name = default(string), string role = default(string), List<string> services = default(List<string>), string speed = default(string), string staticIp = default(string), string staticIp6 = default(string), string subnet = default(string), string subnet6 = default(string), int? type = default(int?), string virtualIp = default(string))
+        public NetworkInterface(string activeBondSlave = default(string), List<string> bondSlaveSlotTypes = default(List<string>), List<string> bondSlaves = default(List<string>), List<BondSlaveInfo> bondSlavesDetails = default(List<BondSlaveInfo>), int? bondingMode = default(int?), string gateway = default(string), string gateway6 = default(string), string group = default(string), long? id = default(long?), bool? isConnected = default(bool?), bool? isDefaultRoute = default(bool?), bool? isUp = default(bool?), string macAddress = default(string), int? mtu = default(int?), string name = default(string), string role = default(string), List<string> services = default(List<string>), string speed = default(string), string staticIp = default(string), string staticIp6 = default(string), InterfaceStats stats = default(InterfaceStats), string subnet = default(string), string subnet6 = default(string), int? type = default(int?), string virtualIp = default(string))
         {
+            this.ActiveBondSlave = activeBondSlave;
             this.BondSlaveSlotTypes = bondSlaveSlotTypes;
             this.BondSlaves = bondSlaves;
+            this.BondSlavesDetails = bondSlavesDetails;
             this.BondingMode = bondingMode;
             this.Gateway = gateway;
             this.Gateway6 = gateway6;
@@ -65,28 +73,7 @@ namespace Cohesity.Model
             this.Speed = speed;
             this.StaticIp = staticIp;
             this.StaticIp6 = staticIp6;
-            this.Subnet = subnet;
-            this.Subnet6 = subnet6;
-            this.Type = type;
-            this.VirtualIp = virtualIp;
-            this.BondSlaveSlotTypes = bondSlaveSlotTypes;
-            this.BondSlaves = bondSlaves;
-            this.BondingMode = bondingMode;
-            this.Gateway = gateway;
-            this.Gateway6 = gateway6;
-            this.Group = group;
-            this.Id = id;
-            this.IsConnected = isConnected;
-            this.IsDefaultRoute = isDefaultRoute;
-            this.IsUp = isUp;
-            this.MacAddress = macAddress;
-            this.Mtu = mtu;
-            this.Name = name;
-            this.Role = role;
-            this.Services = services;
-            this.Speed = speed;
-            this.StaticIp = staticIp;
-            this.StaticIp6 = staticIp6;
+            this.Stats = stats;
             this.Subnet = subnet;
             this.Subnet6 = subnet6;
             this.Type = type;
@@ -94,157 +81,177 @@ namespace Cohesity.Model
         }
         
         /// <summary>
+        /// Current active slave. This is only valid in active-backup mode.
+        /// </summary>
+        /// <value>Current active slave. This is only valid in active-backup mode.</value>
+        [DataMember(Name="activeBondSlave", EmitDefaultValue=false)]
+        public string ActiveBondSlave { get; set; }
+
+        /// <summary>
         /// Specifies the types of the slots of any slaves if this interface is a bond.
         /// </summary>
         /// <value>Specifies the types of the slots of any slaves if this interface is a bond.</value>
-        [DataMember(Name="bondSlaveSlotTypes", EmitDefaultValue=true)]
+        [DataMember(Name="bondSlaveSlotTypes", EmitDefaultValue=false)]
         public List<string> BondSlaveSlotTypes { get; set; }
 
         /// <summary>
         /// Specifies the names of any slaves if this interface is a bond.
         /// </summary>
         /// <value>Specifies the names of any slaves if this interface is a bond.</value>
-        [DataMember(Name="bondSlaves", EmitDefaultValue=true)]
+        [DataMember(Name="bondSlaves", EmitDefaultValue=false)]
         public List<string> BondSlaves { get; set; }
+
+        /// <summary>
+        /// Specifies the details of the bond slaves.
+        /// </summary>
+        /// <value>Specifies the details of the bond slaves.</value>
+        [DataMember(Name="bondSlavesDetails", EmitDefaultValue=false)]
+        public List<BondSlaveInfo> BondSlavesDetails { get; set; }
 
         /// <summary>
         /// Specifies the bonding mode if this interface is a bond.
         /// </summary>
         /// <value>Specifies the bonding mode if this interface is a bond.</value>
-        [DataMember(Name="bondingMode", EmitDefaultValue=true)]
+        [DataMember(Name="bondingMode", EmitDefaultValue=false)]
         public int? BondingMode { get; set; }
 
         /// <summary>
         /// Specifies the gateway of the interface.
         /// </summary>
         /// <value>Specifies the gateway of the interface.</value>
-        [DataMember(Name="gateway", EmitDefaultValue=true)]
+        [DataMember(Name="gateway", EmitDefaultValue=false)]
         public string Gateway { get; set; }
 
         /// <summary>
         /// Specifies the gateway6 of the interface.
         /// </summary>
         /// <value>Specifies the gateway6 of the interface.</value>
-        [DataMember(Name="gateway6", EmitDefaultValue=true)]
+        [DataMember(Name="gateway6", EmitDefaultValue=false)]
         public string Gateway6 { get; set; }
 
         /// <summary>
         /// Specifies the group that this interface belongs to.
         /// </summary>
         /// <value>Specifies the group that this interface belongs to.</value>
-        [DataMember(Name="group", EmitDefaultValue=true)]
+        [DataMember(Name="group", EmitDefaultValue=false)]
         public string Group { get; set; }
 
         /// <summary>
         /// Specifies the ID of this network interface.
         /// </summary>
         /// <value>Specifies the ID of this network interface.</value>
-        [DataMember(Name="id", EmitDefaultValue=true)]
+        [DataMember(Name="id", EmitDefaultValue=false)]
         public long? Id { get; set; }
 
         /// <summary>
         /// Specifies whether or not the Interface is connected.
         /// </summary>
         /// <value>Specifies whether or not the Interface is connected.</value>
-        [DataMember(Name="isConnected", EmitDefaultValue=true)]
+        [DataMember(Name="isConnected", EmitDefaultValue=false)]
         public bool? IsConnected { get; set; }
 
         /// <summary>
         /// Specifies whether or not to use this interface as the default route.
         /// </summary>
         /// <value>Specifies whether or not to use this interface as the default route.</value>
-        [DataMember(Name="isDefaultRoute", EmitDefaultValue=true)]
+        [DataMember(Name="isDefaultRoute", EmitDefaultValue=false)]
         public bool? IsDefaultRoute { get; set; }
 
         /// <summary>
         /// Specifies whether or not the interface is currently  up.
         /// </summary>
         /// <value>Specifies whether or not the interface is currently  up.</value>
-        [DataMember(Name="isUp", EmitDefaultValue=true)]
+        [DataMember(Name="isUp", EmitDefaultValue=false)]
         public bool? IsUp { get; set; }
 
         /// <summary>
         /// Specifies the Mac address of the Interface.
         /// </summary>
         /// <value>Specifies the Mac address of the Interface.</value>
-        [DataMember(Name="macAddress", EmitDefaultValue=true)]
+        [DataMember(Name="macAddress", EmitDefaultValue=false)]
         public string MacAddress { get; set; }
 
         /// <summary>
         /// Specifies the MTU of the interface.
         /// </summary>
         /// <value>Specifies the MTU of the interface.</value>
-        [DataMember(Name="mtu", EmitDefaultValue=true)]
+        [DataMember(Name="mtu", EmitDefaultValue=false)]
         public int? Mtu { get; set; }
 
         /// <summary>
         /// Specifies the name of the interface port.
         /// </summary>
         /// <value>Specifies the name of the interface port.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
 
         /// <summary>
         /// Specifies the role of this interface.
         /// </summary>
         /// <value>Specifies the role of this interface.</value>
-        [DataMember(Name="role", EmitDefaultValue=true)]
+        [DataMember(Name="role", EmitDefaultValue=false)]
         public string Role { get; set; }
 
         /// <summary>
         /// Specifies the types of services this interface is used for.
         /// </summary>
         /// <value>Specifies the types of services this interface is used for.</value>
-        [DataMember(Name="services", EmitDefaultValue=true)]
+        [DataMember(Name="services", EmitDefaultValue=false)]
         public List<string> Services { get; set; }
 
         /// <summary>
         /// Specifies the speed of the Interface.
         /// </summary>
         /// <value>Specifies the speed of the Interface.</value>
-        [DataMember(Name="speed", EmitDefaultValue=true)]
+        [DataMember(Name="speed", EmitDefaultValue=false)]
         public string Speed { get; set; }
 
         /// <summary>
         /// Specifies the static IP of the interface.
         /// </summary>
         /// <value>Specifies the static IP of the interface.</value>
-        [DataMember(Name="staticIp", EmitDefaultValue=true)]
+        [DataMember(Name="staticIp", EmitDefaultValue=false)]
         public string StaticIp { get; set; }
 
         /// <summary>
         /// Specifies the static IPv6 of the interface.
         /// </summary>
         /// <value>Specifies the static IPv6 of the interface.</value>
-        [DataMember(Name="staticIp6", EmitDefaultValue=true)]
+        [DataMember(Name="staticIp6", EmitDefaultValue=false)]
         public string StaticIp6 { get; set; }
+
+        /// <summary>
+        /// Gets or Sets Stats
+        /// </summary>
+        [DataMember(Name="stats", EmitDefaultValue=false)]
+        public InterfaceStats Stats { get; set; }
 
         /// <summary>
         /// Specifies the subnet mask of the interface.
         /// </summary>
         /// <value>Specifies the subnet mask of the interface.</value>
-        [DataMember(Name="subnet", EmitDefaultValue=true)]
+        [DataMember(Name="subnet", EmitDefaultValue=false)]
         public string Subnet { get; set; }
 
         /// <summary>
         /// Specifies the subnet6 mask of the interface.
         /// </summary>
         /// <value>Specifies the subnet6 mask of the interface.</value>
-        [DataMember(Name="subnet6", EmitDefaultValue=true)]
+        [DataMember(Name="subnet6", EmitDefaultValue=false)]
         public string Subnet6 { get; set; }
 
         /// <summary>
         /// Specifies the type of interface.
         /// </summary>
         /// <value>Specifies the type of interface.</value>
-        [DataMember(Name="type", EmitDefaultValue=true)]
+        [DataMember(Name="type", EmitDefaultValue=false)]
         public int? Type { get; set; }
 
         /// <summary>
         /// Specifies the virtual IP of the interface.
         /// </summary>
         /// <value>Specifies the virtual IP of the interface.</value>
-        [DataMember(Name="virtualIp", EmitDefaultValue=true)]
+        [DataMember(Name="virtualIp", EmitDefaultValue=false)]
         public string VirtualIp { get; set; }
 
         /// <summary>
@@ -284,16 +291,24 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.ActiveBondSlave == input.ActiveBondSlave ||
+                    (this.ActiveBondSlave != null &&
+                    this.ActiveBondSlave.Equals(input.ActiveBondSlave))
+                ) && 
+                (
                     this.BondSlaveSlotTypes == input.BondSlaveSlotTypes ||
                     this.BondSlaveSlotTypes != null &&
-                    input.BondSlaveSlotTypes != null &&
-                    this.BondSlaveSlotTypes.SequenceEqual(input.BondSlaveSlotTypes)
+                    this.BondSlaveSlotTypes.Equals(input.BondSlaveSlotTypes)
                 ) && 
                 (
                     this.BondSlaves == input.BondSlaves ||
                     this.BondSlaves != null &&
-                    input.BondSlaves != null &&
-                    this.BondSlaves.SequenceEqual(input.BondSlaves)
+                    this.BondSlaves.Equals(input.BondSlaves)
+                ) && 
+                (
+                    this.BondSlavesDetails == input.BondSlavesDetails ||
+                    this.BondSlavesDetails != null &&
+                    this.BondSlavesDetails.Equals(input.BondSlavesDetails)
                 ) && 
                 (
                     this.BondingMode == input.BondingMode ||
@@ -358,8 +373,7 @@ namespace Cohesity.Model
                 (
                     this.Services == input.Services ||
                     this.Services != null &&
-                    input.Services != null &&
-                    this.Services.SequenceEqual(input.Services)
+                    this.Services.Equals(input.Services)
                 ) && 
                 (
                     this.Speed == input.Speed ||
@@ -375,6 +389,11 @@ namespace Cohesity.Model
                     this.StaticIp6 == input.StaticIp6 ||
                     (this.StaticIp6 != null &&
                     this.StaticIp6.Equals(input.StaticIp6))
+                ) && 
+                (
+                    this.Stats == input.Stats ||
+                    (this.Stats != null &&
+                    this.Stats.Equals(input.Stats))
                 ) && 
                 (
                     this.Subnet == input.Subnet ||
@@ -407,10 +426,14 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.ActiveBondSlave != null)
+                    hashCode = hashCode * 59 + this.ActiveBondSlave.GetHashCode();
                 if (this.BondSlaveSlotTypes != null)
                     hashCode = hashCode * 59 + this.BondSlaveSlotTypes.GetHashCode();
                 if (this.BondSlaves != null)
                     hashCode = hashCode * 59 + this.BondSlaves.GetHashCode();
+                if (this.BondSlavesDetails != null)
+                    hashCode = hashCode * 59 + this.BondSlavesDetails.GetHashCode();
                 if (this.BondingMode != null)
                     hashCode = hashCode * 59 + this.BondingMode.GetHashCode();
                 if (this.Gateway != null)
@@ -443,6 +466,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.StaticIp.GetHashCode();
                 if (this.StaticIp6 != null)
                     hashCode = hashCode * 59 + this.StaticIp6.GetHashCode();
+                if (this.Stats != null)
+                    hashCode = hashCode * 59 + this.Stats.GetHashCode();
                 if (this.Subnet != null)
                     hashCode = hashCode * 59 + this.Subnet.GetHashCode();
                 if (this.Subnet6 != null)

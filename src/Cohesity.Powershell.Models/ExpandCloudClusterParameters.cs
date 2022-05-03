@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,14 +34,22 @@ namespace Cohesity.Model
         /// <param name="nodeIps">Specifies the list of IPs of the new Nodes. (required).</param>
         public ExpandCloudClusterParameters(List<string> nodeIps = default(List<string>))
         {
-            this.NodeIps = nodeIps;
+            // to ensure "nodeIps" is required (not null)
+            if (nodeIps == null)
+            {
+                throw new InvalidDataException("nodeIps is a required property for ExpandCloudClusterParameters and cannot be null");
+            }
+            else
+            {
+                this.NodeIps = nodeIps;
+            }
         }
         
         /// <summary>
         /// Specifies the list of IPs of the new Nodes.
         /// </summary>
         /// <value>Specifies the list of IPs of the new Nodes.</value>
-        [DataMember(Name="nodeIps", EmitDefaultValue=true)]
+        [DataMember(Name="nodeIps", EmitDefaultValue=false)]
         public List<string> NodeIps { get; set; }
 
         /// <summary>
@@ -80,8 +91,7 @@ namespace Cohesity.Model
                 (
                     this.NodeIps == input.NodeIps ||
                     this.NodeIps != null &&
-                    input.NodeIps != null &&
-                    this.NodeIps.SequenceEqual(input.NodeIps)
+                    this.NodeIps.Equals(input.NodeIps)
                 );
         }
 

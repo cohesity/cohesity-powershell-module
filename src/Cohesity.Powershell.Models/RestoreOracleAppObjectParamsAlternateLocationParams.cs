@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -36,11 +39,6 @@ namespace Cohesity.Model
             this.HomeDir = homeDir;
             this.NewDatabaseName = newDatabaseName;
             this.NewSidDeprecated = newSidDeprecated;
-            this.BaseDir = baseDir;
-            this.DatabaseFileDestination = databaseFileDestination;
-            this.HomeDir = homeDir;
-            this.NewDatabaseName = newDatabaseName;
-            this.NewSidDeprecated = newSidDeprecated;
             this.OracleDbConfig = oracleDbConfig;
         }
         
@@ -48,35 +46,35 @@ namespace Cohesity.Model
         /// Base directory of Oracle at destination. Example : /u01/app/oracle
         /// </summary>
         /// <value>Base directory of Oracle at destination. Example : /u01/app/oracle</value>
-        [DataMember(Name="baseDir", EmitDefaultValue=true)]
+        [DataMember(Name="baseDir", EmitDefaultValue=false)]
         public string BaseDir { get; set; }
 
         /// <summary>
         /// Location to put the database files(datafiles, logfiles etc.).
         /// </summary>
         /// <value>Location to put the database files(datafiles, logfiles etc.).</value>
-        [DataMember(Name="databaseFileDestination", EmitDefaultValue=true)]
+        [DataMember(Name="databaseFileDestination", EmitDefaultValue=false)]
         public string DatabaseFileDestination { get; set; }
 
         /// <summary>
         /// Home directory of Oracle at destination. Example : /u01/app/oracle/product/11.2.0.3/db_1
         /// </summary>
         /// <value>Home directory of Oracle at destination. Example : /u01/app/oracle/product/11.2.0.3/db_1</value>
-        [DataMember(Name="homeDir", EmitDefaultValue=true)]
+        [DataMember(Name="homeDir", EmitDefaultValue=false)]
         public string HomeDir { get; set; }
 
         /// <summary>
         /// The name of the Oracle database that we restore to.
         /// </summary>
         /// <value>The name of the Oracle database that we restore to.</value>
-        [DataMember(Name="newDatabaseName", EmitDefaultValue=true)]
+        [DataMember(Name="newDatabaseName", EmitDefaultValue=false)]
         public string NewDatabaseName { get; set; }
 
         /// <summary>
         /// Deprecated field SID of new Oracle database.
         /// </summary>
         /// <value>Deprecated field SID of new Oracle database.</value>
-        [DataMember(Name="newSidDeprecated", EmitDefaultValue=true)]
+        [DataMember(Name="newSidDeprecated", EmitDefaultValue=false)]
         public string NewSidDeprecated { get; set; }
 
         /// <summary>

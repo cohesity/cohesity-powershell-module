@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -28,7 +31,6 @@ namespace Cohesity.Model
         public SourceAppParams(bool? isVssCopyOnly = default(bool?), MSExchangeParams msExchangeParams = default(MSExchangeParams))
         {
             this.IsVssCopyOnly = isVssCopyOnly;
-            this.IsVssCopyOnly = isVssCopyOnly;
             this.MsExchangeParams = msExchangeParams;
         }
         
@@ -36,7 +38,7 @@ namespace Cohesity.Model
         /// If the backup is a VSS full backup with the copy-only option specified.
         /// </summary>
         /// <value>If the backup is a VSS full backup with the copy-only option specified.</value>
-        [DataMember(Name="isVssCopyOnly", EmitDefaultValue=true)]
+        [DataMember(Name="isVssCopyOnly", EmitDefaultValue=false)]
         public bool? IsVssCopyOnly { get; set; }
 
         /// <summary>

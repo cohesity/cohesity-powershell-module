@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -63,7 +66,7 @@ namespace Cohesity.Model
         /// Specifies the current state of the restore virtual disks task. Specifies the current state of the restore virtual disks task. &#39;kDetachDisksDone&#39; indicates the detached state of disks. &#39;kSetupDisksDone&#39; indicates that disks setup is completed. &#39;kMigrateDisksStarted&#39; indicates that disks are being migrated. &#39;kMigrateDisksDone&#39; indicates that disk migration is completed. &#39;kUnMountDatastoreDone&#39; indicates that disk has unmounted the datastore.
         /// </summary>
         /// <value>Specifies the current state of the restore virtual disks task. Specifies the current state of the restore virtual disks task. &#39;kDetachDisksDone&#39; indicates the detached state of disks. &#39;kSetupDisksDone&#39; indicates that disks setup is completed. &#39;kMigrateDisksStarted&#39; indicates that disks are being migrated. &#39;kMigrateDisksDone&#39; indicates that disk migration is completed. &#39;kUnMountDatastoreDone&#39; indicates that disk has unmounted the datastore.</value>
-        [DataMember(Name="taskState", EmitDefaultValue=true)]
+        [DataMember(Name="taskState", EmitDefaultValue=false)]
         public TaskStateEnum? TaskState { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="VirtualDiskRecoverTaskState" /> class.
@@ -74,8 +77,6 @@ namespace Cohesity.Model
         /// <param name="virtualDiskRestoreResponse">virtualDiskRestoreResponse.</param>
         public VirtualDiskRecoverTaskState(RequestError error = default(RequestError), bool? isInstantRecoveryFinished = default(bool?), TaskStateEnum? taskState = default(TaskStateEnum?), VirtualDiskRestoreResponse virtualDiskRestoreResponse = default(VirtualDiskRestoreResponse))
         {
-            this.IsInstantRecoveryFinished = isInstantRecoveryFinished;
-            this.TaskState = taskState;
             this.Error = error;
             this.IsInstantRecoveryFinished = isInstantRecoveryFinished;
             this.TaskState = taskState;
@@ -92,8 +93,9 @@ namespace Cohesity.Model
         /// Specifies if instant recovery of the virtual disk is complete.
         /// </summary>
         /// <value>Specifies if instant recovery of the virtual disk is complete.</value>
-        [DataMember(Name="isInstantRecoveryFinished", EmitDefaultValue=true)]
+        [DataMember(Name="isInstantRecoveryFinished", EmitDefaultValue=false)]
         public bool? IsInstantRecoveryFinished { get; set; }
+
 
         /// <summary>
         /// Gets or Sets VirtualDiskRestoreResponse
@@ -149,7 +151,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.TaskState == input.TaskState ||
-                    this.TaskState.Equals(input.TaskState)
+                    (this.TaskState != null &&
+                    this.TaskState.Equals(input.TaskState))
                 ) && 
                 (
                     this.VirtualDiskRestoreResponse == input.VirtualDiskRestoreResponse ||
@@ -171,7 +174,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Error.GetHashCode();
                 if (this.IsInstantRecoveryFinished != null)
                     hashCode = hashCode * 59 + this.IsInstantRecoveryFinished.GetHashCode();
-                hashCode = hashCode * 59 + this.TaskState.GetHashCode();
+                if (this.TaskState != null)
+                    hashCode = hashCode * 59 + this.TaskState.GetHashCode();
                 if (this.VirtualDiskRestoreResponse != null)
                     hashCode = hashCode * 59 + this.VirtualDiskRestoreResponse.GetHashCode();
                 return hashCode;

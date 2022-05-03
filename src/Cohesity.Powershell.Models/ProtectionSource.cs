@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -12,6 +13,8 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
+
+
 namespace Cohesity.Model
 {
     /// <summary>
@@ -21,9 +24,9 @@ namespace Cohesity.Model
     public partial class ProtectionSource :  IEquatable<ProtectionSource>
     {
         /// <summary>
-        /// Specifies the environment (such as &#39;kVMware&#39; or &#39;kSQL&#39;) where the Protection Source exists. Depending on the environment, one of the following Protection Sources are initialized.  NOTE: kPuppeteer refers to Cohesity&#39;s Remote Adapter. Supported environment types such as &#39;kView&#39;, &#39;kSQL&#39;, &#39;kVMware&#39;, etc. NOTE: &#39;kPuppeteer&#39; refers to Cohesity&#39;s Remote Adapter. &#39;kVMware&#39; indicates the VMware Protection Source environment. &#39;kHyperV&#39; indicates the HyperV Protection Source environment. &#39;kSQL&#39; indicates the SQL Protection Source environment. &#39;kView&#39; indicates the View Protection Source environment. &#39;kPuppeteer&#39; indicates the Cohesity&#39;s Remote Adapter. &#39;kPhysical&#39; indicates the physical Protection Source environment. &#39;kPure&#39; indicates the Pure Storage Protection Source environment. &#39;Nimble&#39; indicates the Nimble Storage Protection Source environment. &#39;kAzure&#39; indicates the Microsoft&#39;s Azure Protection Source environment. &#39;kNetapp&#39; indicates the Netapp Protection Source environment. &#39;kAgent&#39; indicates the Agent Protection Source environment. &#39;kGenericNas&#39; indicates the Generic Network Attached Storage Protection Source environment. &#39;kAcropolis&#39; indicates the Acropolis Protection Source environment. &#39;kPhsicalFiles&#39; indicates the Physical Files Protection Source environment. &#39;kIsilon&#39; indicates the Dell EMC&#39;s Isilon Protection Source environment. &#39;kGPFS&#39; indicates IBM&#39;s GPFS Protection Source environment. &#39;kKVM&#39; indicates the KVM Protection Source environment. &#39;kAWS&#39; indicates the AWS Protection Source environment. &#39;kExchange&#39; indicates the Exchange Protection Source environment. &#39;kHyperVVSS&#39; indicates the HyperV VSS Protection Source environment. &#39;kOracle&#39; indicates the Oracle Protection Source environment. &#39;kGCP&#39; indicates the Google Cloud Platform Protection Source environment. &#39;kFlashBlade&#39; indicates the Flash Blade Protection Source environment. &#39;kAWSNative&#39; indicates the AWS Native Protection Source environment. &#39;kO365&#39; indicates the Office 365 Protection Source environment. &#39;kO365Outlook&#39; indicates Office 365 outlook Protection Source environment. &#39;kHyperFlex&#39; indicates the Hyper Flex Protection Source environment. &#39;kGCPNative&#39; indicates the GCP Native Protection Source environment. &#39;kAzureNative&#39; indicates the Azure Native Protection Source environment. &#39;kKubernetes&#39; indicates a Kubernetes Protection Source environment. &#39;kElastifile&#39; indicates Elastifile Protection Source environment. &#39;kAD&#39; indicates Active Directory Protection Source environment. &#39;kRDSSnapshotManager&#39; indicates AWS RDS Protection Source environment.
+        /// Specifies the environment (such as &#39;kVMware&#39; or &#39;kSQL&#39;) where the Protection Source exists. Depending on the environment, one of the following Protection Sources are initialized.  NOTE: kPuppeteer refers to Cohesity&#39;s Remote Adapter. Supported environment types such as &#39;kView&#39;, &#39;kSQL&#39;, &#39;kVMware&#39;, etc. NOTE: &#39;kPuppeteer&#39; refers to Cohesity&#39;s Remote Adapter. &#39;kVMware&#39; indicates the VMware Protection Source environment. &#39;kHyperV&#39; indicates the HyperV Protection Source environment. &#39;kSQL&#39; indicates the SQL Protection Source environment. &#39;kView&#39; indicates the View Protection Source environment. &#39;kPuppeteer&#39; indicates the Cohesity&#39;s Remote Adapter. &#39;kPhysical&#39; indicates the physical Protection Source environment. &#39;kPure&#39; indicates the Pure Storage Protection Source environment. &#39;Nimble&#39; indicates the Nimble Storage Protection Source environment. &#39;kAzure&#39; indicates the Microsoft&#39;s Azure Protection Source environment. &#39;kNetapp&#39; indicates the Netapp Protection Source environment. &#39;kAgent&#39; indicates the Agent Protection Source environment. &#39;kGenericNas&#39; indicates the Generic Network Attached Storage Protection Source environment. &#39;kAcropolis&#39; indicates the Acropolis Protection Source environment. &#39;kPhsicalFiles&#39; indicates the Physical Files Protection Source environment. &#39;kIsilon&#39; indicates the Dell EMC&#39;s Isilon Protection Source environment. &#39;kGPFS&#39; indicates IBM&#39;s GPFS Protection Source environment. &#39;kKVM&#39; indicates the KVM Protection Source environment. &#39;kAWS&#39; indicates the AWS Protection Source environment. &#39;kExchange&#39; indicates the Exchange Protection Source environment. &#39;kHyperVVSS&#39; indicates the HyperV VSS Protection Source environment. &#39;kOracle&#39; indicates the Oracle Protection Source environment. &#39;kGCP&#39; indicates the Google Cloud Platform Protection Source environment. &#39;kFlashBlade&#39; indicates the Flash Blade Protection Source environment. &#39;kAWSNative&#39; indicates the AWS Native Protection Source environment. &#39;kO365&#39; indicates the Office 365 Protection Source environment. &#39;kO365Outlook&#39; indicates Office 365 outlook Protection Source environment. &#39;kHyperFlex&#39; indicates the Hyper Flex Protection Source environment. &#39;kGCPNative&#39; indicates the GCP Native Protection Source environment. &#39;kAzureNative&#39; indicates the Azure Native Protection Source environment. &#39;kKubernetes&#39; indicates a Kubernetes Protection Source environment. &#39;kElastifile&#39; indicates Elastifile Protection Source environment. &#39;kAD&#39; indicates Active Directory Protection Source environment. &#39;kRDSSnapshotManager&#39; indicates AWS RDS Protection Source environment. &#39;kCassandra&#39; indicates Cassandra Protection Source environment. &#39;kMongoDB&#39; indicates MongoDB Protection Source environment. &#39;kCouchbase&#39; indicates Couchbase Protection Source environment. &#39;kHdfs&#39; indicates Hdfs Protection Source environment. &#39;kHive&#39; indicates Hive Protection Source environment. &#39;kHBase&#39; indicates HBase Protection Source environment. &#39;kUDA&#39; indicates Universal Data Adapter Protection Source environment.
         /// </summary>
-        /// <value>Specifies the environment (such as &#39;kVMware&#39; or &#39;kSQL&#39;) where the Protection Source exists. Depending on the environment, one of the following Protection Sources are initialized.  NOTE: kPuppeteer refers to Cohesity&#39;s Remote Adapter. Supported environment types such as &#39;kView&#39;, &#39;kSQL&#39;, &#39;kVMware&#39;, etc. NOTE: &#39;kPuppeteer&#39; refers to Cohesity&#39;s Remote Adapter. &#39;kVMware&#39; indicates the VMware Protection Source environment. &#39;kHyperV&#39; indicates the HyperV Protection Source environment. &#39;kSQL&#39; indicates the SQL Protection Source environment. &#39;kView&#39; indicates the View Protection Source environment. &#39;kPuppeteer&#39; indicates the Cohesity&#39;s Remote Adapter. &#39;kPhysical&#39; indicates the physical Protection Source environment. &#39;kPure&#39; indicates the Pure Storage Protection Source environment. &#39;Nimble&#39; indicates the Nimble Storage Protection Source environment. &#39;kAzure&#39; indicates the Microsoft&#39;s Azure Protection Source environment. &#39;kNetapp&#39; indicates the Netapp Protection Source environment. &#39;kAgent&#39; indicates the Agent Protection Source environment. &#39;kGenericNas&#39; indicates the Generic Network Attached Storage Protection Source environment. &#39;kAcropolis&#39; indicates the Acropolis Protection Source environment. &#39;kPhsicalFiles&#39; indicates the Physical Files Protection Source environment. &#39;kIsilon&#39; indicates the Dell EMC&#39;s Isilon Protection Source environment. &#39;kGPFS&#39; indicates IBM&#39;s GPFS Protection Source environment. &#39;kKVM&#39; indicates the KVM Protection Source environment. &#39;kAWS&#39; indicates the AWS Protection Source environment. &#39;kExchange&#39; indicates the Exchange Protection Source environment. &#39;kHyperVVSS&#39; indicates the HyperV VSS Protection Source environment. &#39;kOracle&#39; indicates the Oracle Protection Source environment. &#39;kGCP&#39; indicates the Google Cloud Platform Protection Source environment. &#39;kFlashBlade&#39; indicates the Flash Blade Protection Source environment. &#39;kAWSNative&#39; indicates the AWS Native Protection Source environment. &#39;kO365&#39; indicates the Office 365 Protection Source environment. &#39;kO365Outlook&#39; indicates Office 365 outlook Protection Source environment. &#39;kHyperFlex&#39; indicates the Hyper Flex Protection Source environment. &#39;kGCPNative&#39; indicates the GCP Native Protection Source environment. &#39;kAzureNative&#39; indicates the Azure Native Protection Source environment. &#39;kKubernetes&#39; indicates a Kubernetes Protection Source environment. &#39;kElastifile&#39; indicates Elastifile Protection Source environment. &#39;kAD&#39; indicates Active Directory Protection Source environment. &#39;kRDSSnapshotManager&#39; indicates AWS RDS Protection Source environment.</value>
+        /// <value>Specifies the environment (such as &#39;kVMware&#39; or &#39;kSQL&#39;) where the Protection Source exists. Depending on the environment, one of the following Protection Sources are initialized.  NOTE: kPuppeteer refers to Cohesity&#39;s Remote Adapter. Supported environment types such as &#39;kView&#39;, &#39;kSQL&#39;, &#39;kVMware&#39;, etc. NOTE: &#39;kPuppeteer&#39; refers to Cohesity&#39;s Remote Adapter. &#39;kVMware&#39; indicates the VMware Protection Source environment. &#39;kHyperV&#39; indicates the HyperV Protection Source environment. &#39;kSQL&#39; indicates the SQL Protection Source environment. &#39;kView&#39; indicates the View Protection Source environment. &#39;kPuppeteer&#39; indicates the Cohesity&#39;s Remote Adapter. &#39;kPhysical&#39; indicates the physical Protection Source environment. &#39;kPure&#39; indicates the Pure Storage Protection Source environment. &#39;Nimble&#39; indicates the Nimble Storage Protection Source environment. &#39;kAzure&#39; indicates the Microsoft&#39;s Azure Protection Source environment. &#39;kNetapp&#39; indicates the Netapp Protection Source environment. &#39;kAgent&#39; indicates the Agent Protection Source environment. &#39;kGenericNas&#39; indicates the Generic Network Attached Storage Protection Source environment. &#39;kAcropolis&#39; indicates the Acropolis Protection Source environment. &#39;kPhsicalFiles&#39; indicates the Physical Files Protection Source environment. &#39;kIsilon&#39; indicates the Dell EMC&#39;s Isilon Protection Source environment. &#39;kGPFS&#39; indicates IBM&#39;s GPFS Protection Source environment. &#39;kKVM&#39; indicates the KVM Protection Source environment. &#39;kAWS&#39; indicates the AWS Protection Source environment. &#39;kExchange&#39; indicates the Exchange Protection Source environment. &#39;kHyperVVSS&#39; indicates the HyperV VSS Protection Source environment. &#39;kOracle&#39; indicates the Oracle Protection Source environment. &#39;kGCP&#39; indicates the Google Cloud Platform Protection Source environment. &#39;kFlashBlade&#39; indicates the Flash Blade Protection Source environment. &#39;kAWSNative&#39; indicates the AWS Native Protection Source environment. &#39;kO365&#39; indicates the Office 365 Protection Source environment. &#39;kO365Outlook&#39; indicates Office 365 outlook Protection Source environment. &#39;kHyperFlex&#39; indicates the Hyper Flex Protection Source environment. &#39;kGCPNative&#39; indicates the GCP Native Protection Source environment. &#39;kAzureNative&#39; indicates the Azure Native Protection Source environment. &#39;kKubernetes&#39; indicates a Kubernetes Protection Source environment. &#39;kElastifile&#39; indicates Elastifile Protection Source environment. &#39;kAD&#39; indicates Active Directory Protection Source environment. &#39;kRDSSnapshotManager&#39; indicates AWS RDS Protection Source environment. &#39;kCassandra&#39; indicates Cassandra Protection Source environment. &#39;kMongoDB&#39; indicates MongoDB Protection Source environment. &#39;kCouchbase&#39; indicates Couchbase Protection Source environment. &#39;kHdfs&#39; indicates Hdfs Protection Source environment. &#39;kHive&#39; indicates Hive Protection Source environment. &#39;kHBase&#39; indicates HBase Protection Source environment. &#39;kUDA&#39; indicates Universal Data Adapter Protection Source environment.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum EnvironmentEnum
         {
@@ -226,18 +229,54 @@ namespace Cohesity.Model
             KRDSSnapshotManager = 33,
 
             /// <summary>
-            /// Enum KVCD for value: kVCD
+            /// Enum KCassandra for value: kCassandra
             /// </summary>
-            [EnumMember(Value = "kVCD")]
-            KVCD = 34
+            [EnumMember(Value = "kCassandra")]
+            KCassandra = 34,
+
+            /// <summary>
+            /// Enum KMongoDB for value: kMongoDB
+            /// </summary>
+            [EnumMember(Value = "kMongoDB")]
+            KMongoDB = 35,
+
+            /// <summary>
+            /// Enum KCouchbase for value: kCouchbase
+            /// </summary>
+            [EnumMember(Value = "kCouchbase")]
+            KCouchbase = 36,
+
+            /// <summary>
+            /// Enum KHdfs for value: kHdfs
+            /// </summary>
+            [EnumMember(Value = "kHdfs")]
+            KHdfs = 37,
+
+            /// <summary>
+            /// Enum KHive for value: kHive
+            /// </summary>
+            [EnumMember(Value = "kHive")]
+            KHive = 38,
+
+            /// <summary>
+            /// Enum KHBase for value: kHBase
+            /// </summary>
+            [EnumMember(Value = "kHBase")]
+            KHBase = 39,
+
+            /// <summary>
+            /// Enum KUDA for value: kUDA
+            /// </summary>
+            [EnumMember(Value = "kUDA")]
+            KUDA = 40
 
         }
 
         /// <summary>
-        /// Specifies the environment (such as &#39;kVMware&#39; or &#39;kSQL&#39;) where the Protection Source exists. Depending on the environment, one of the following Protection Sources are initialized.  NOTE: kPuppeteer refers to Cohesity&#39;s Remote Adapter. Supported environment types such as &#39;kView&#39;, &#39;kSQL&#39;, &#39;kVMware&#39;, etc. NOTE: &#39;kPuppeteer&#39; refers to Cohesity&#39;s Remote Adapter. &#39;kVMware&#39; indicates the VMware Protection Source environment. &#39;kHyperV&#39; indicates the HyperV Protection Source environment. &#39;kSQL&#39; indicates the SQL Protection Source environment. &#39;kView&#39; indicates the View Protection Source environment. &#39;kPuppeteer&#39; indicates the Cohesity&#39;s Remote Adapter. &#39;kPhysical&#39; indicates the physical Protection Source environment. &#39;kPure&#39; indicates the Pure Storage Protection Source environment. &#39;Nimble&#39; indicates the Nimble Storage Protection Source environment. &#39;kAzure&#39; indicates the Microsoft&#39;s Azure Protection Source environment. &#39;kNetapp&#39; indicates the Netapp Protection Source environment. &#39;kAgent&#39; indicates the Agent Protection Source environment. &#39;kGenericNas&#39; indicates the Generic Network Attached Storage Protection Source environment. &#39;kAcropolis&#39; indicates the Acropolis Protection Source environment. &#39;kPhsicalFiles&#39; indicates the Physical Files Protection Source environment. &#39;kIsilon&#39; indicates the Dell EMC&#39;s Isilon Protection Source environment. &#39;kGPFS&#39; indicates IBM&#39;s GPFS Protection Source environment. &#39;kKVM&#39; indicates the KVM Protection Source environment. &#39;kAWS&#39; indicates the AWS Protection Source environment. &#39;kExchange&#39; indicates the Exchange Protection Source environment. &#39;kHyperVVSS&#39; indicates the HyperV VSS Protection Source environment. &#39;kOracle&#39; indicates the Oracle Protection Source environment. &#39;kGCP&#39; indicates the Google Cloud Platform Protection Source environment. &#39;kFlashBlade&#39; indicates the Flash Blade Protection Source environment. &#39;kAWSNative&#39; indicates the AWS Native Protection Source environment. &#39;kO365&#39; indicates the Office 365 Protection Source environment. &#39;kO365Outlook&#39; indicates Office 365 outlook Protection Source environment. &#39;kHyperFlex&#39; indicates the Hyper Flex Protection Source environment. &#39;kGCPNative&#39; indicates the GCP Native Protection Source environment. &#39;kAzureNative&#39; indicates the Azure Native Protection Source environment. &#39;kKubernetes&#39; indicates a Kubernetes Protection Source environment. &#39;kElastifile&#39; indicates Elastifile Protection Source environment. &#39;kAD&#39; indicates Active Directory Protection Source environment. &#39;kRDSSnapshotManager&#39; indicates AWS RDS Protection Source environment.
+        /// Specifies the environment (such as &#39;kVMware&#39; or &#39;kSQL&#39;) where the Protection Source exists. Depending on the environment, one of the following Protection Sources are initialized.  NOTE: kPuppeteer refers to Cohesity&#39;s Remote Adapter. Supported environment types such as &#39;kView&#39;, &#39;kSQL&#39;, &#39;kVMware&#39;, etc. NOTE: &#39;kPuppeteer&#39; refers to Cohesity&#39;s Remote Adapter. &#39;kVMware&#39; indicates the VMware Protection Source environment. &#39;kHyperV&#39; indicates the HyperV Protection Source environment. &#39;kSQL&#39; indicates the SQL Protection Source environment. &#39;kView&#39; indicates the View Protection Source environment. &#39;kPuppeteer&#39; indicates the Cohesity&#39;s Remote Adapter. &#39;kPhysical&#39; indicates the physical Protection Source environment. &#39;kPure&#39; indicates the Pure Storage Protection Source environment. &#39;Nimble&#39; indicates the Nimble Storage Protection Source environment. &#39;kAzure&#39; indicates the Microsoft&#39;s Azure Protection Source environment. &#39;kNetapp&#39; indicates the Netapp Protection Source environment. &#39;kAgent&#39; indicates the Agent Protection Source environment. &#39;kGenericNas&#39; indicates the Generic Network Attached Storage Protection Source environment. &#39;kAcropolis&#39; indicates the Acropolis Protection Source environment. &#39;kPhsicalFiles&#39; indicates the Physical Files Protection Source environment. &#39;kIsilon&#39; indicates the Dell EMC&#39;s Isilon Protection Source environment. &#39;kGPFS&#39; indicates IBM&#39;s GPFS Protection Source environment. &#39;kKVM&#39; indicates the KVM Protection Source environment. &#39;kAWS&#39; indicates the AWS Protection Source environment. &#39;kExchange&#39; indicates the Exchange Protection Source environment. &#39;kHyperVVSS&#39; indicates the HyperV VSS Protection Source environment. &#39;kOracle&#39; indicates the Oracle Protection Source environment. &#39;kGCP&#39; indicates the Google Cloud Platform Protection Source environment. &#39;kFlashBlade&#39; indicates the Flash Blade Protection Source environment. &#39;kAWSNative&#39; indicates the AWS Native Protection Source environment. &#39;kO365&#39; indicates the Office 365 Protection Source environment. &#39;kO365Outlook&#39; indicates Office 365 outlook Protection Source environment. &#39;kHyperFlex&#39; indicates the Hyper Flex Protection Source environment. &#39;kGCPNative&#39; indicates the GCP Native Protection Source environment. &#39;kAzureNative&#39; indicates the Azure Native Protection Source environment. &#39;kKubernetes&#39; indicates a Kubernetes Protection Source environment. &#39;kElastifile&#39; indicates Elastifile Protection Source environment. &#39;kAD&#39; indicates Active Directory Protection Source environment. &#39;kRDSSnapshotManager&#39; indicates AWS RDS Protection Source environment. &#39;kCassandra&#39; indicates Cassandra Protection Source environment. &#39;kMongoDB&#39; indicates MongoDB Protection Source environment. &#39;kCouchbase&#39; indicates Couchbase Protection Source environment. &#39;kHdfs&#39; indicates Hdfs Protection Source environment. &#39;kHive&#39; indicates Hive Protection Source environment. &#39;kHBase&#39; indicates HBase Protection Source environment. &#39;kUDA&#39; indicates Universal Data Adapter Protection Source environment.
         /// </summary>
-        /// <value>Specifies the environment (such as &#39;kVMware&#39; or &#39;kSQL&#39;) where the Protection Source exists. Depending on the environment, one of the following Protection Sources are initialized.  NOTE: kPuppeteer refers to Cohesity&#39;s Remote Adapter. Supported environment types such as &#39;kView&#39;, &#39;kSQL&#39;, &#39;kVMware&#39;, etc. NOTE: &#39;kPuppeteer&#39; refers to Cohesity&#39;s Remote Adapter. &#39;kVMware&#39; indicates the VMware Protection Source environment. &#39;kHyperV&#39; indicates the HyperV Protection Source environment. &#39;kSQL&#39; indicates the SQL Protection Source environment. &#39;kView&#39; indicates the View Protection Source environment. &#39;kPuppeteer&#39; indicates the Cohesity&#39;s Remote Adapter. &#39;kPhysical&#39; indicates the physical Protection Source environment. &#39;kPure&#39; indicates the Pure Storage Protection Source environment. &#39;Nimble&#39; indicates the Nimble Storage Protection Source environment. &#39;kAzure&#39; indicates the Microsoft&#39;s Azure Protection Source environment. &#39;kNetapp&#39; indicates the Netapp Protection Source environment. &#39;kAgent&#39; indicates the Agent Protection Source environment. &#39;kGenericNas&#39; indicates the Generic Network Attached Storage Protection Source environment. &#39;kAcropolis&#39; indicates the Acropolis Protection Source environment. &#39;kPhsicalFiles&#39; indicates the Physical Files Protection Source environment. &#39;kIsilon&#39; indicates the Dell EMC&#39;s Isilon Protection Source environment. &#39;kGPFS&#39; indicates IBM&#39;s GPFS Protection Source environment. &#39;kKVM&#39; indicates the KVM Protection Source environment. &#39;kAWS&#39; indicates the AWS Protection Source environment. &#39;kExchange&#39; indicates the Exchange Protection Source environment. &#39;kHyperVVSS&#39; indicates the HyperV VSS Protection Source environment. &#39;kOracle&#39; indicates the Oracle Protection Source environment. &#39;kGCP&#39; indicates the Google Cloud Platform Protection Source environment. &#39;kFlashBlade&#39; indicates the Flash Blade Protection Source environment. &#39;kAWSNative&#39; indicates the AWS Native Protection Source environment. &#39;kO365&#39; indicates the Office 365 Protection Source environment. &#39;kO365Outlook&#39; indicates Office 365 outlook Protection Source environment. &#39;kHyperFlex&#39; indicates the Hyper Flex Protection Source environment. &#39;kGCPNative&#39; indicates the GCP Native Protection Source environment. &#39;kAzureNative&#39; indicates the Azure Native Protection Source environment. &#39;kKubernetes&#39; indicates a Kubernetes Protection Source environment. &#39;kElastifile&#39; indicates Elastifile Protection Source environment. &#39;kAD&#39; indicates Active Directory Protection Source environment. &#39;kRDSSnapshotManager&#39; indicates AWS RDS Protection Source environment.</value>
-        [DataMember(Name="environment", EmitDefaultValue=true)]
+        /// <value>Specifies the environment (such as &#39;kVMware&#39; or &#39;kSQL&#39;) where the Protection Source exists. Depending on the environment, one of the following Protection Sources are initialized.  NOTE: kPuppeteer refers to Cohesity&#39;s Remote Adapter. Supported environment types such as &#39;kView&#39;, &#39;kSQL&#39;, &#39;kVMware&#39;, etc. NOTE: &#39;kPuppeteer&#39; refers to Cohesity&#39;s Remote Adapter. &#39;kVMware&#39; indicates the VMware Protection Source environment. &#39;kHyperV&#39; indicates the HyperV Protection Source environment. &#39;kSQL&#39; indicates the SQL Protection Source environment. &#39;kView&#39; indicates the View Protection Source environment. &#39;kPuppeteer&#39; indicates the Cohesity&#39;s Remote Adapter. &#39;kPhysical&#39; indicates the physical Protection Source environment. &#39;kPure&#39; indicates the Pure Storage Protection Source environment. &#39;Nimble&#39; indicates the Nimble Storage Protection Source environment. &#39;kAzure&#39; indicates the Microsoft&#39;s Azure Protection Source environment. &#39;kNetapp&#39; indicates the Netapp Protection Source environment. &#39;kAgent&#39; indicates the Agent Protection Source environment. &#39;kGenericNas&#39; indicates the Generic Network Attached Storage Protection Source environment. &#39;kAcropolis&#39; indicates the Acropolis Protection Source environment. &#39;kPhsicalFiles&#39; indicates the Physical Files Protection Source environment. &#39;kIsilon&#39; indicates the Dell EMC&#39;s Isilon Protection Source environment. &#39;kGPFS&#39; indicates IBM&#39;s GPFS Protection Source environment. &#39;kKVM&#39; indicates the KVM Protection Source environment. &#39;kAWS&#39; indicates the AWS Protection Source environment. &#39;kExchange&#39; indicates the Exchange Protection Source environment. &#39;kHyperVVSS&#39; indicates the HyperV VSS Protection Source environment. &#39;kOracle&#39; indicates the Oracle Protection Source environment. &#39;kGCP&#39; indicates the Google Cloud Platform Protection Source environment. &#39;kFlashBlade&#39; indicates the Flash Blade Protection Source environment. &#39;kAWSNative&#39; indicates the AWS Native Protection Source environment. &#39;kO365&#39; indicates the Office 365 Protection Source environment. &#39;kO365Outlook&#39; indicates Office 365 outlook Protection Source environment. &#39;kHyperFlex&#39; indicates the Hyper Flex Protection Source environment. &#39;kGCPNative&#39; indicates the GCP Native Protection Source environment. &#39;kAzureNative&#39; indicates the Azure Native Protection Source environment. &#39;kKubernetes&#39; indicates a Kubernetes Protection Source environment. &#39;kElastifile&#39; indicates Elastifile Protection Source environment. &#39;kAD&#39; indicates Active Directory Protection Source environment. &#39;kRDSSnapshotManager&#39; indicates AWS RDS Protection Source environment. &#39;kCassandra&#39; indicates Cassandra Protection Source environment. &#39;kMongoDB&#39; indicates MongoDB Protection Source environment. &#39;kCouchbase&#39; indicates Couchbase Protection Source environment. &#39;kHdfs&#39; indicates Hdfs Protection Source environment. &#39;kHive&#39; indicates Hive Protection Source environment. &#39;kHBase&#39; indicates HBase Protection Source environment. &#39;kUDA&#39; indicates Universal Data Adapter Protection Source environment.</value>
+        [DataMember(Name="environment", EmitDefaultValue=false)]
         public EnvironmentEnum? Environment { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="ProtectionSource" /> class.
@@ -248,8 +287,9 @@ namespace Cohesity.Model
         /// <param name="azureProtectionSource">Specifies details about an Azure Protection Source when the environment is set to &#39;kAzure&#39;..</param>
         /// <param name="cassandraProtectionSource">Specifies details about a Cassandra Protection Source when the environment is set to &#39;kCassandra&#39;..</param>
         /// <param name="couchbaseProtectionSource">Specifies details about a Couchbase Protection Source when the environment is set to &#39;kCouchbase&#39;..</param>
+        /// <param name="customName">Specifies the user provided custom name of the Protection Source..</param>
         /// <param name="elastifileProtectionSource">Specifies details about a Elastifile Protection Source when the environment is set to &#39;kElastifile&#39;..</param>
-        /// <param name="environment">Specifies the environment (such as &#39;kVMware&#39; or &#39;kSQL&#39;) where the Protection Source exists. Depending on the environment, one of the following Protection Sources are initialized.  NOTE: kPuppeteer refers to Cohesity&#39;s Remote Adapter. Supported environment types such as &#39;kView&#39;, &#39;kSQL&#39;, &#39;kVMware&#39;, etc. NOTE: &#39;kPuppeteer&#39; refers to Cohesity&#39;s Remote Adapter. &#39;kVMware&#39; indicates the VMware Protection Source environment. &#39;kHyperV&#39; indicates the HyperV Protection Source environment. &#39;kSQL&#39; indicates the SQL Protection Source environment. &#39;kView&#39; indicates the View Protection Source environment. &#39;kPuppeteer&#39; indicates the Cohesity&#39;s Remote Adapter. &#39;kPhysical&#39; indicates the physical Protection Source environment. &#39;kPure&#39; indicates the Pure Storage Protection Source environment. &#39;Nimble&#39; indicates the Nimble Storage Protection Source environment. &#39;kAzure&#39; indicates the Microsoft&#39;s Azure Protection Source environment. &#39;kNetapp&#39; indicates the Netapp Protection Source environment. &#39;kAgent&#39; indicates the Agent Protection Source environment. &#39;kGenericNas&#39; indicates the Generic Network Attached Storage Protection Source environment. &#39;kAcropolis&#39; indicates the Acropolis Protection Source environment. &#39;kPhsicalFiles&#39; indicates the Physical Files Protection Source environment. &#39;kIsilon&#39; indicates the Dell EMC&#39;s Isilon Protection Source environment. &#39;kGPFS&#39; indicates IBM&#39;s GPFS Protection Source environment. &#39;kKVM&#39; indicates the KVM Protection Source environment. &#39;kAWS&#39; indicates the AWS Protection Source environment. &#39;kExchange&#39; indicates the Exchange Protection Source environment. &#39;kHyperVVSS&#39; indicates the HyperV VSS Protection Source environment. &#39;kOracle&#39; indicates the Oracle Protection Source environment. &#39;kGCP&#39; indicates the Google Cloud Platform Protection Source environment. &#39;kFlashBlade&#39; indicates the Flash Blade Protection Source environment. &#39;kAWSNative&#39; indicates the AWS Native Protection Source environment. &#39;kO365&#39; indicates the Office 365 Protection Source environment. &#39;kO365Outlook&#39; indicates Office 365 outlook Protection Source environment. &#39;kHyperFlex&#39; indicates the Hyper Flex Protection Source environment. &#39;kGCPNative&#39; indicates the GCP Native Protection Source environment. &#39;kAzureNative&#39; indicates the Azure Native Protection Source environment. &#39;kKubernetes&#39; indicates a Kubernetes Protection Source environment. &#39;kElastifile&#39; indicates Elastifile Protection Source environment. &#39;kAD&#39; indicates Active Directory Protection Source environment. &#39;kRDSSnapshotManager&#39; indicates AWS RDS Protection Source environment..</param>
+        /// <param name="environment">Specifies the environment (such as &#39;kVMware&#39; or &#39;kSQL&#39;) where the Protection Source exists. Depending on the environment, one of the following Protection Sources are initialized.  NOTE: kPuppeteer refers to Cohesity&#39;s Remote Adapter. Supported environment types such as &#39;kView&#39;, &#39;kSQL&#39;, &#39;kVMware&#39;, etc. NOTE: &#39;kPuppeteer&#39; refers to Cohesity&#39;s Remote Adapter. &#39;kVMware&#39; indicates the VMware Protection Source environment. &#39;kHyperV&#39; indicates the HyperV Protection Source environment. &#39;kSQL&#39; indicates the SQL Protection Source environment. &#39;kView&#39; indicates the View Protection Source environment. &#39;kPuppeteer&#39; indicates the Cohesity&#39;s Remote Adapter. &#39;kPhysical&#39; indicates the physical Protection Source environment. &#39;kPure&#39; indicates the Pure Storage Protection Source environment. &#39;Nimble&#39; indicates the Nimble Storage Protection Source environment. &#39;kAzure&#39; indicates the Microsoft&#39;s Azure Protection Source environment. &#39;kNetapp&#39; indicates the Netapp Protection Source environment. &#39;kAgent&#39; indicates the Agent Protection Source environment. &#39;kGenericNas&#39; indicates the Generic Network Attached Storage Protection Source environment. &#39;kAcropolis&#39; indicates the Acropolis Protection Source environment. &#39;kPhsicalFiles&#39; indicates the Physical Files Protection Source environment. &#39;kIsilon&#39; indicates the Dell EMC&#39;s Isilon Protection Source environment. &#39;kGPFS&#39; indicates IBM&#39;s GPFS Protection Source environment. &#39;kKVM&#39; indicates the KVM Protection Source environment. &#39;kAWS&#39; indicates the AWS Protection Source environment. &#39;kExchange&#39; indicates the Exchange Protection Source environment. &#39;kHyperVVSS&#39; indicates the HyperV VSS Protection Source environment. &#39;kOracle&#39; indicates the Oracle Protection Source environment. &#39;kGCP&#39; indicates the Google Cloud Platform Protection Source environment. &#39;kFlashBlade&#39; indicates the Flash Blade Protection Source environment. &#39;kAWSNative&#39; indicates the AWS Native Protection Source environment. &#39;kO365&#39; indicates the Office 365 Protection Source environment. &#39;kO365Outlook&#39; indicates Office 365 outlook Protection Source environment. &#39;kHyperFlex&#39; indicates the Hyper Flex Protection Source environment. &#39;kGCPNative&#39; indicates the GCP Native Protection Source environment. &#39;kAzureNative&#39; indicates the Azure Native Protection Source environment. &#39;kKubernetes&#39; indicates a Kubernetes Protection Source environment. &#39;kElastifile&#39; indicates Elastifile Protection Source environment. &#39;kAD&#39; indicates Active Directory Protection Source environment. &#39;kRDSSnapshotManager&#39; indicates AWS RDS Protection Source environment. &#39;kCassandra&#39; indicates Cassandra Protection Source environment. &#39;kMongoDB&#39; indicates MongoDB Protection Source environment. &#39;kCouchbase&#39; indicates Couchbase Protection Source environment. &#39;kHdfs&#39; indicates Hdfs Protection Source environment. &#39;kHive&#39; indicates Hive Protection Source environment. &#39;kHBase&#39; indicates HBase Protection Source environment. &#39;kUDA&#39; indicates Universal Data Adapter Protection Source environment..</param>
         /// <param name="exchangeProtectionSource">Specifies details about an Exchange Protection Source when the environment is set to &#39;kExchange&#39;..</param>
         /// <param name="flashBladeProtectionSource">Specifies details about a Pure Storage FlashBlade Protection Source when the environment is set to &#39;kFlashBlade&#39;..</param>
         /// <param name="gcpProtectionSource">Specifies details about an GCP Protection Source when the environment is set to &#39;kGCP&#39;..</param>
@@ -274,9 +314,10 @@ namespace Cohesity.Model
         /// <param name="physicalProtectionSource">Specifies details about a Physical Protection Source when the environment is set to &#39;kPhysical&#39;..</param>
         /// <param name="pureProtectionSource">Specifies details about a Pure Protection Source when the environment is set to &#39;kPure&#39;..</param>
         /// <param name="sqlProtectionSource">Specifies details about a SQL Protection Source when the environment is set to &#39;kSQL&#39;..</param>
+        /// <param name="udaProtectionSource">Specifies details about a Universal Data Adapter Protection Source when the environment is set to &#39;kUDA&#39;..</param>
         /// <param name="viewProtectionSource">Specifies details about a View Protection Source when the environment is set to &#39;kView&#39;..</param>
         /// <param name="vmWareProtectionSource">Specifies details about a VMware Protection Source when the environment is set to &#39;kVMware&#39;..</param>
-        public ProtectionSource(AcropolisProtectionSource acropolisProtectionSource = default(AcropolisProtectionSource), AdProtectionSource adProtectionSource = default(AdProtectionSource), AwsProtectionSource awsProtectionSource = default(AwsProtectionSource), AzureProtectionSource azureProtectionSource = default(AzureProtectionSource), CassandraProtectionSource cassandraProtectionSource = default(CassandraProtectionSource), CouchbaseProtectionSource couchbaseProtectionSource = default(CouchbaseProtectionSource), ElastifileProtectionSource elastifileProtectionSource = default(ElastifileProtectionSource), EnvironmentEnum? environment = default(EnvironmentEnum?), ExchangeProtectionSource exchangeProtectionSource = default(ExchangeProtectionSource), FlashBladeProtectionSource flashBladeProtectionSource = default(FlashBladeProtectionSource), GcpProtectionSource gcpProtectionSource = default(GcpProtectionSource), GpfsProtectionSource gpfsProtectionSource = default(GpfsProtectionSource), HBaseProtectionSource hbaseProtectionSource = default(HBaseProtectionSource), HdfsProtectionSource hdfsProtectionSource = default(HdfsProtectionSource), HiveProtectionSource hiveProtectionSource = default(HiveProtectionSource), HyperFlexProtectionSource hyperFlexProtectionSource = default(HyperFlexProtectionSource), HypervProtectionSource hypervProtectionSource = default(HypervProtectionSource), long? id = default(long?), IsilonProtectionSource isilonProtectionSource = default(IsilonProtectionSource), KubernetesProtectionSource kubernetesProtectionSource = default(KubernetesProtectionSource), KvmProtectionSource kvmProtectionSource = default(KvmProtectionSource), MongoDBProtectionSource mongodbProtectionSource = default(MongoDBProtectionSource), string name = default(string), NasProtectionSource nasProtectionSource = default(NasProtectionSource), NetappProtectionSource netappProtectionSource = default(NetappProtectionSource), NimbleProtectionSource nimbleProtectionSource = default(NimbleProtectionSource), Office365ProtectionSource office365ProtectionSource = default(Office365ProtectionSource), OracleProtectionSource oracleProtectionSource = default(OracleProtectionSource), long? parentId = default(long?), PhysicalProtectionSource physicalProtectionSource = default(PhysicalProtectionSource), PureProtectionSource pureProtectionSource = default(PureProtectionSource), SqlProtectionSource sqlProtectionSource = default(SqlProtectionSource), ViewProtectionSource viewProtectionSource = default(ViewProtectionSource), VMwareProtectionSource vmWareProtectionSource = default(VMwareProtectionSource))
+        public ProtectionSource(AcropolisProtectionSource acropolisProtectionSource = default(AcropolisProtectionSource), AdProtectionSource adProtectionSource = default(AdProtectionSource), AwsProtectionSource awsProtectionSource = default(AwsProtectionSource), AzureProtectionSource azureProtectionSource = default(AzureProtectionSource), CassandraProtectionSource cassandraProtectionSource = default(CassandraProtectionSource), CouchbaseProtectionSource couchbaseProtectionSource = default(CouchbaseProtectionSource), string customName = default(string), ElastifileProtectionSource elastifileProtectionSource = default(ElastifileProtectionSource), EnvironmentEnum? environment = default(EnvironmentEnum?), ExchangeProtectionSource exchangeProtectionSource = default(ExchangeProtectionSource), FlashBladeProtectionSource flashBladeProtectionSource = default(FlashBladeProtectionSource), GcpProtectionSource gcpProtectionSource = default(GcpProtectionSource), GpfsProtectionSource gpfsProtectionSource = default(GpfsProtectionSource), HBaseProtectionSource hbaseProtectionSource = default(HBaseProtectionSource), HdfsProtectionSource hdfsProtectionSource = default(HdfsProtectionSource), HiveProtectionSource hiveProtectionSource = default(HiveProtectionSource), HyperFlexProtectionSource hyperFlexProtectionSource = default(HyperFlexProtectionSource), HypervProtectionSource hypervProtectionSource = default(HypervProtectionSource), long? id = default(long?), IsilonProtectionSource isilonProtectionSource = default(IsilonProtectionSource), KubernetesProtectionSource kubernetesProtectionSource = default(KubernetesProtectionSource), KvmProtectionSource kvmProtectionSource = default(KvmProtectionSource), MongoDBProtectionSource mongodbProtectionSource = default(MongoDBProtectionSource), string name = default(string), NasProtectionSource nasProtectionSource = default(NasProtectionSource), NetappProtectionSource netappProtectionSource = default(NetappProtectionSource), NimbleProtectionSource nimbleProtectionSource = default(NimbleProtectionSource), Office365ProtectionSource office365ProtectionSource = default(Office365ProtectionSource), OracleProtectionSource oracleProtectionSource = default(OracleProtectionSource), long? parentId = default(long?), PhysicalProtectionSource physicalProtectionSource = default(PhysicalProtectionSource), PureProtectionSource pureProtectionSource = default(PureProtectionSource), SqlProtectionSource sqlProtectionSource = default(SqlProtectionSource), UdaProtectionSource udaProtectionSource = default(UdaProtectionSource), ViewProtectionSource viewProtectionSource = default(ViewProtectionSource), VMwareProtectionSource vmWareProtectionSource = default(VMwareProtectionSource))
         {
             this.AcropolisProtectionSource = acropolisProtectionSource;
             this.AdProtectionSource = adProtectionSource;
@@ -284,6 +325,7 @@ namespace Cohesity.Model
             this.AzureProtectionSource = azureProtectionSource;
             this.CassandraProtectionSource = cassandraProtectionSource;
             this.CouchbaseProtectionSource = couchbaseProtectionSource;
+            this.CustomName = customName;
             this.ElastifileProtectionSource = elastifileProtectionSource;
             this.Environment = environment;
             this.ExchangeProtectionSource = exchangeProtectionSource;
@@ -310,40 +352,7 @@ namespace Cohesity.Model
             this.PhysicalProtectionSource = physicalProtectionSource;
             this.PureProtectionSource = pureProtectionSource;
             this.SqlProtectionSource = sqlProtectionSource;
-            this.ViewProtectionSource = viewProtectionSource;
-            this.VmWareProtectionSource = vmWareProtectionSource;
-            this.AcropolisProtectionSource = acropolisProtectionSource;
-            this.AdProtectionSource = adProtectionSource;
-            this.AwsProtectionSource = awsProtectionSource;
-            this.AzureProtectionSource = azureProtectionSource;
-            this.CassandraProtectionSource = cassandraProtectionSource;
-            this.CouchbaseProtectionSource = couchbaseProtectionSource;
-            this.ElastifileProtectionSource = elastifileProtectionSource;
-            this.Environment = environment;
-            this.ExchangeProtectionSource = exchangeProtectionSource;
-            this.FlashBladeProtectionSource = flashBladeProtectionSource;
-            this.GcpProtectionSource = gcpProtectionSource;
-            this.GpfsProtectionSource = gpfsProtectionSource;
-            this.HbaseProtectionSource = hbaseProtectionSource;
-            this.HdfsProtectionSource = hdfsProtectionSource;
-            this.HiveProtectionSource = hiveProtectionSource;
-            this.HyperFlexProtectionSource = hyperFlexProtectionSource;
-            this.HypervProtectionSource = hypervProtectionSource;
-            this.Id = id;
-            this.IsilonProtectionSource = isilonProtectionSource;
-            this.KubernetesProtectionSource = kubernetesProtectionSource;
-            this.KvmProtectionSource = kvmProtectionSource;
-            this.MongodbProtectionSource = mongodbProtectionSource;
-            this.Name = name;
-            this.NasProtectionSource = nasProtectionSource;
-            this.NetappProtectionSource = netappProtectionSource;
-            this.NimbleProtectionSource = nimbleProtectionSource;
-            this.Office365ProtectionSource = office365ProtectionSource;
-            this.OracleProtectionSource = oracleProtectionSource;
-            this.ParentId = parentId;
-            this.PhysicalProtectionSource = physicalProtectionSource;
-            this.PureProtectionSource = pureProtectionSource;
-            this.SqlProtectionSource = sqlProtectionSource;
+            this.UdaProtectionSource = udaProtectionSource;
             this.ViewProtectionSource = viewProtectionSource;
             this.VmWareProtectionSource = vmWareProtectionSource;
         }
@@ -352,231 +361,246 @@ namespace Cohesity.Model
         /// Specifies details about an Acropolis Protection Source when the environment is set to &#39;kAcropolis&#39;.
         /// </summary>
         /// <value>Specifies details about an Acropolis Protection Source when the environment is set to &#39;kAcropolis&#39;.</value>
-        [DataMember(Name="acropolisProtectionSource", EmitDefaultValue=true)]
+        [DataMember(Name="acropolisProtectionSource", EmitDefaultValue=false)]
         public AcropolisProtectionSource AcropolisProtectionSource { get; set; }
 
         /// <summary>
         /// Specifies details about an AD Protection Source when the environment is set to &#39;kAD&#39;.
         /// </summary>
         /// <value>Specifies details about an AD Protection Source when the environment is set to &#39;kAD&#39;.</value>
-        [DataMember(Name="adProtectionSource", EmitDefaultValue=true)]
+        [DataMember(Name="adProtectionSource", EmitDefaultValue=false)]
         public AdProtectionSource AdProtectionSource { get; set; }
 
         /// <summary>
         /// Specifies details about an AWS Protection Source when the environment is set to &#39;kAWS&#39;.
         /// </summary>
         /// <value>Specifies details about an AWS Protection Source when the environment is set to &#39;kAWS&#39;.</value>
-        [DataMember(Name="awsProtectionSource", EmitDefaultValue=true)]
+        [DataMember(Name="awsProtectionSource", EmitDefaultValue=false)]
         public AwsProtectionSource AwsProtectionSource { get; set; }
 
         /// <summary>
         /// Specifies details about an Azure Protection Source when the environment is set to &#39;kAzure&#39;.
         /// </summary>
         /// <value>Specifies details about an Azure Protection Source when the environment is set to &#39;kAzure&#39;.</value>
-        [DataMember(Name="azureProtectionSource", EmitDefaultValue=true)]
+        [DataMember(Name="azureProtectionSource", EmitDefaultValue=false)]
         public AzureProtectionSource AzureProtectionSource { get; set; }
 
         /// <summary>
         /// Specifies details about a Cassandra Protection Source when the environment is set to &#39;kCassandra&#39;.
         /// </summary>
         /// <value>Specifies details about a Cassandra Protection Source when the environment is set to &#39;kCassandra&#39;.</value>
-        [DataMember(Name="cassandraProtectionSource", EmitDefaultValue=true)]
+        [DataMember(Name="cassandraProtectionSource", EmitDefaultValue=false)]
         public CassandraProtectionSource CassandraProtectionSource { get; set; }
 
         /// <summary>
         /// Specifies details about a Couchbase Protection Source when the environment is set to &#39;kCouchbase&#39;.
         /// </summary>
         /// <value>Specifies details about a Couchbase Protection Source when the environment is set to &#39;kCouchbase&#39;.</value>
-        [DataMember(Name="couchbaseProtectionSource", EmitDefaultValue=true)]
+        [DataMember(Name="couchbaseProtectionSource", EmitDefaultValue=false)]
         public CouchbaseProtectionSource CouchbaseProtectionSource { get; set; }
+
+        /// <summary>
+        /// Specifies the user provided custom name of the Protection Source.
+        /// </summary>
+        /// <value>Specifies the user provided custom name of the Protection Source.</value>
+        [DataMember(Name="customName", EmitDefaultValue=false)]
+        public string CustomName { get; set; }
 
         /// <summary>
         /// Specifies details about a Elastifile Protection Source when the environment is set to &#39;kElastifile&#39;.
         /// </summary>
         /// <value>Specifies details about a Elastifile Protection Source when the environment is set to &#39;kElastifile&#39;.</value>
-        [DataMember(Name="elastifileProtectionSource", EmitDefaultValue=true)]
+        [DataMember(Name="elastifileProtectionSource", EmitDefaultValue=false)]
         public ElastifileProtectionSource ElastifileProtectionSource { get; set; }
+
 
         /// <summary>
         /// Specifies details about an Exchange Protection Source when the environment is set to &#39;kExchange&#39;.
         /// </summary>
         /// <value>Specifies details about an Exchange Protection Source when the environment is set to &#39;kExchange&#39;.</value>
-        [DataMember(Name="exchangeProtectionSource", EmitDefaultValue=true)]
+        [DataMember(Name="exchangeProtectionSource", EmitDefaultValue=false)]
         public ExchangeProtectionSource ExchangeProtectionSource { get; set; }
 
         /// <summary>
         /// Specifies details about a Pure Storage FlashBlade Protection Source when the environment is set to &#39;kFlashBlade&#39;.
         /// </summary>
         /// <value>Specifies details about a Pure Storage FlashBlade Protection Source when the environment is set to &#39;kFlashBlade&#39;.</value>
-        [DataMember(Name="flashBladeProtectionSource", EmitDefaultValue=true)]
+        [DataMember(Name="flashBladeProtectionSource", EmitDefaultValue=false)]
         public FlashBladeProtectionSource FlashBladeProtectionSource { get; set; }
 
         /// <summary>
         /// Specifies details about an GCP Protection Source when the environment is set to &#39;kGCP&#39;.
         /// </summary>
         /// <value>Specifies details about an GCP Protection Source when the environment is set to &#39;kGCP&#39;.</value>
-        [DataMember(Name="gcpProtectionSource", EmitDefaultValue=true)]
+        [DataMember(Name="gcpProtectionSource", EmitDefaultValue=false)]
         public GcpProtectionSource GcpProtectionSource { get; set; }
 
         /// <summary>
         /// Specifies details about an GPFS Protection Source when the environment is set to &#39;kGPFS&#39;.
         /// </summary>
         /// <value>Specifies details about an GPFS Protection Source when the environment is set to &#39;kGPFS&#39;.</value>
-        [DataMember(Name="gpfsProtectionSource", EmitDefaultValue=true)]
+        [DataMember(Name="gpfsProtectionSource", EmitDefaultValue=false)]
         public GpfsProtectionSource GpfsProtectionSource { get; set; }
 
         /// <summary>
         /// Specifies details about a HBase Protection Source when the environment is set to &#39;kHBase&#39;.
         /// </summary>
         /// <value>Specifies details about a HBase Protection Source when the environment is set to &#39;kHBase&#39;.</value>
-        [DataMember(Name="hbaseProtectionSource", EmitDefaultValue=true)]
+        [DataMember(Name="hbaseProtectionSource", EmitDefaultValue=false)]
         public HBaseProtectionSource HbaseProtectionSource { get; set; }
 
         /// <summary>
         /// Specifies details about a Hdfs Protection Source when the environment is set to &#39;kHdfs&#39;.
         /// </summary>
         /// <value>Specifies details about a Hdfs Protection Source when the environment is set to &#39;kHdfs&#39;.</value>
-        [DataMember(Name="hdfsProtectionSource", EmitDefaultValue=true)]
+        [DataMember(Name="hdfsProtectionSource", EmitDefaultValue=false)]
         public HdfsProtectionSource HdfsProtectionSource { get; set; }
 
         /// <summary>
         /// Specifies details about a Hive Protection Source when the environment is set to &#39;kHive&#39;.
         /// </summary>
         /// <value>Specifies details about a Hive Protection Source when the environment is set to &#39;kHive&#39;.</value>
-        [DataMember(Name="hiveProtectionSource", EmitDefaultValue=true)]
+        [DataMember(Name="hiveProtectionSource", EmitDefaultValue=false)]
         public HiveProtectionSource HiveProtectionSource { get; set; }
 
         /// <summary>
         /// Specifies details about a HyperFlex Storage Snapshot source when the environment is set to &#39;kHyperFlex&#39;
         /// </summary>
         /// <value>Specifies details about a HyperFlex Storage Snapshot source when the environment is set to &#39;kHyperFlex&#39;</value>
-        [DataMember(Name="hyperFlexProtectionSource", EmitDefaultValue=true)]
+        [DataMember(Name="hyperFlexProtectionSource", EmitDefaultValue=false)]
         public HyperFlexProtectionSource HyperFlexProtectionSource { get; set; }
 
         /// <summary>
         /// Specifies details about a HyperV Protection Source when the environment is set to &#39;kHyperV&#39;.
         /// </summary>
         /// <value>Specifies details about a HyperV Protection Source when the environment is set to &#39;kHyperV&#39;.</value>
-        [DataMember(Name="hypervProtectionSource", EmitDefaultValue=true)]
+        [DataMember(Name="hypervProtectionSource", EmitDefaultValue=false)]
         public HypervProtectionSource HypervProtectionSource { get; set; }
 
         /// <summary>
         /// Specifies an id of the Protection Source.
         /// </summary>
         /// <value>Specifies an id of the Protection Source.</value>
-        [DataMember(Name="id", EmitDefaultValue=true)]
+        [DataMember(Name="id", EmitDefaultValue=false)]
         public long? Id { get; set; }
 
         /// <summary>
         /// Specifies details about an Isilon OneFs Protection Source when the environment is set to &#39;kIsilon&#39;.
         /// </summary>
         /// <value>Specifies details about an Isilon OneFs Protection Source when the environment is set to &#39;kIsilon&#39;.</value>
-        [DataMember(Name="isilonProtectionSource", EmitDefaultValue=true)]
+        [DataMember(Name="isilonProtectionSource", EmitDefaultValue=false)]
         public IsilonProtectionSource IsilonProtectionSource { get; set; }
 
         /// <summary>
         /// Specifies details about a Kubernetes Protection Source when the environment is set to &#39;kKubernetes&#39;.
         /// </summary>
         /// <value>Specifies details about a Kubernetes Protection Source when the environment is set to &#39;kKubernetes&#39;.</value>
-        [DataMember(Name="kubernetesProtectionSource", EmitDefaultValue=true)]
+        [DataMember(Name="kubernetesProtectionSource", EmitDefaultValue=false)]
         public KubernetesProtectionSource KubernetesProtectionSource { get; set; }
 
         /// <summary>
         /// Specifies details about a KVM Protection Source when the environment is set to &#39;kKVM&#39;.
         /// </summary>
         /// <value>Specifies details about a KVM Protection Source when the environment is set to &#39;kKVM&#39;.</value>
-        [DataMember(Name="kvmProtectionSource", EmitDefaultValue=true)]
+        [DataMember(Name="kvmProtectionSource", EmitDefaultValue=false)]
         public KvmProtectionSource KvmProtectionSource { get; set; }
 
         /// <summary>
         /// Specifies details about a MongoDB Protection Source when the environment is set to &#39;kMongoDB&#39;.
         /// </summary>
         /// <value>Specifies details about a MongoDB Protection Source when the environment is set to &#39;kMongoDB&#39;.</value>
-        [DataMember(Name="mongodbProtectionSource", EmitDefaultValue=true)]
+        [DataMember(Name="mongodbProtectionSource", EmitDefaultValue=false)]
         public MongoDBProtectionSource MongodbProtectionSource { get; set; }
 
         /// <summary>
         /// Specifies a name of the Protection Source.
         /// </summary>
         /// <value>Specifies a name of the Protection Source.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
 
         /// <summary>
         /// Specifies details about a Generic NAS Protection Source when the environment is set to &#39;kGenericNas&#39;.
         /// </summary>
         /// <value>Specifies details about a Generic NAS Protection Source when the environment is set to &#39;kGenericNas&#39;.</value>
-        [DataMember(Name="nasProtectionSource", EmitDefaultValue=true)]
+        [DataMember(Name="nasProtectionSource", EmitDefaultValue=false)]
         public NasProtectionSource NasProtectionSource { get; set; }
 
         /// <summary>
         /// Specifies details about a NetApp Protection Source when the environment is set to &#39;kNetapp&#39;.
         /// </summary>
         /// <value>Specifies details about a NetApp Protection Source when the environment is set to &#39;kNetapp&#39;.</value>
-        [DataMember(Name="netappProtectionSource", EmitDefaultValue=true)]
+        [DataMember(Name="netappProtectionSource", EmitDefaultValue=false)]
         public NetappProtectionSource NetappProtectionSource { get; set; }
 
         /// <summary>
         /// Specifies details about a SAN Protection Source when the environment is set to &#39;kNimble&#39;.
         /// </summary>
         /// <value>Specifies details about a SAN Protection Source when the environment is set to &#39;kNimble&#39;.</value>
-        [DataMember(Name="nimbleProtectionSource", EmitDefaultValue=true)]
+        [DataMember(Name="nimbleProtectionSource", EmitDefaultValue=false)]
         public NimbleProtectionSource NimbleProtectionSource { get; set; }
 
         /// <summary>
         /// Specifies details about an Office 365 Protection Source when the environment is set to &#39;kO365&#39;.
         /// </summary>
         /// <value>Specifies details about an Office 365 Protection Source when the environment is set to &#39;kO365&#39;.</value>
-        [DataMember(Name="office365ProtectionSource", EmitDefaultValue=true)]
+        [DataMember(Name="office365ProtectionSource", EmitDefaultValue=false)]
         public Office365ProtectionSource Office365ProtectionSource { get; set; }
 
         /// <summary>
         /// Specifies details about an Oracle Protection Source when the environment is set to &#39;kOracle&#39;.
         /// </summary>
         /// <value>Specifies details about an Oracle Protection Source when the environment is set to &#39;kOracle&#39;.</value>
-        [DataMember(Name="oracleProtectionSource", EmitDefaultValue=true)]
+        [DataMember(Name="oracleProtectionSource", EmitDefaultValue=false)]
         public OracleProtectionSource OracleProtectionSource { get; set; }
 
         /// <summary>
         /// Specifies an id of the parent of the Protection Source.
         /// </summary>
         /// <value>Specifies an id of the parent of the Protection Source.</value>
-        [DataMember(Name="parentId", EmitDefaultValue=true)]
+        [DataMember(Name="parentId", EmitDefaultValue=false)]
         public long? ParentId { get; set; }
 
         /// <summary>
         /// Specifies details about a Physical Protection Source when the environment is set to &#39;kPhysical&#39;.
         /// </summary>
         /// <value>Specifies details about a Physical Protection Source when the environment is set to &#39;kPhysical&#39;.</value>
-        [DataMember(Name="physicalProtectionSource", EmitDefaultValue=true)]
+        [DataMember(Name="physicalProtectionSource", EmitDefaultValue=false)]
         public PhysicalProtectionSource PhysicalProtectionSource { get; set; }
 
         /// <summary>
         /// Specifies details about a Pure Protection Source when the environment is set to &#39;kPure&#39;.
         /// </summary>
         /// <value>Specifies details about a Pure Protection Source when the environment is set to &#39;kPure&#39;.</value>
-        [DataMember(Name="pureProtectionSource", EmitDefaultValue=true)]
+        [DataMember(Name="pureProtectionSource", EmitDefaultValue=false)]
         public PureProtectionSource PureProtectionSource { get; set; }
 
         /// <summary>
         /// Specifies details about a SQL Protection Source when the environment is set to &#39;kSQL&#39;.
         /// </summary>
         /// <value>Specifies details about a SQL Protection Source when the environment is set to &#39;kSQL&#39;.</value>
-        [DataMember(Name="sqlProtectionSource", EmitDefaultValue=true)]
+        [DataMember(Name="sqlProtectionSource", EmitDefaultValue=false)]
         public SqlProtectionSource SqlProtectionSource { get; set; }
+
+        /// <summary>
+        /// Specifies details about a Universal Data Adapter Protection Source when the environment is set to &#39;kUDA&#39;.
+        /// </summary>
+        /// <value>Specifies details about a Universal Data Adapter Protection Source when the environment is set to &#39;kUDA&#39;.</value>
+        [DataMember(Name="udaProtectionSource", EmitDefaultValue=false)]
+        public UdaProtectionSource UdaProtectionSource { get; set; }
 
         /// <summary>
         /// Specifies details about a View Protection Source when the environment is set to &#39;kView&#39;.
         /// </summary>
         /// <value>Specifies details about a View Protection Source when the environment is set to &#39;kView&#39;.</value>
-        [DataMember(Name="viewProtectionSource", EmitDefaultValue=true)]
+        [DataMember(Name="viewProtectionSource", EmitDefaultValue=false)]
         public ViewProtectionSource ViewProtectionSource { get; set; }
 
         /// <summary>
         /// Specifies details about a VMware Protection Source when the environment is set to &#39;kVMware&#39;.
         /// </summary>
         /// <value>Specifies details about a VMware Protection Source when the environment is set to &#39;kVMware&#39;.</value>
-        [DataMember(Name="vmWareProtectionSource", EmitDefaultValue=true)]
+        [DataMember(Name="vmWareProtectionSource", EmitDefaultValue=false)]
         public VMwareProtectionSource VmWareProtectionSource { get; set; }
 
         /// <summary>
@@ -617,87 +641,93 @@ namespace Cohesity.Model
             return 
                 (
                     this.AcropolisProtectionSource == input.AcropolisProtectionSource ||
-                    (this.AcropolisProtectionSource != null &&
-                    this.AcropolisProtectionSource.Equals(input.AcropolisProtectionSource))
+                    this.AcropolisProtectionSource != null &&
+                    this.AcropolisProtectionSource.Equals(input.AcropolisProtectionSource)
                 ) && 
                 (
                     this.AdProtectionSource == input.AdProtectionSource ||
-                    (this.AdProtectionSource != null &&
-                    this.AdProtectionSource.Equals(input.AdProtectionSource))
+                    this.AdProtectionSource != null &&
+                    this.AdProtectionSource.Equals(input.AdProtectionSource)
                 ) && 
                 (
                     this.AwsProtectionSource == input.AwsProtectionSource ||
-                    (this.AwsProtectionSource != null &&
-                    this.AwsProtectionSource.Equals(input.AwsProtectionSource))
+                    this.AwsProtectionSource != null &&
+                    this.AwsProtectionSource.Equals(input.AwsProtectionSource)
                 ) && 
                 (
                     this.AzureProtectionSource == input.AzureProtectionSource ||
-                    (this.AzureProtectionSource != null &&
-                    this.AzureProtectionSource.Equals(input.AzureProtectionSource))
+                    this.AzureProtectionSource != null &&
+                    this.AzureProtectionSource.Equals(input.AzureProtectionSource)
                 ) && 
                 (
                     this.CassandraProtectionSource == input.CassandraProtectionSource ||
-                    (this.CassandraProtectionSource != null &&
-                    this.CassandraProtectionSource.Equals(input.CassandraProtectionSource))
+                    this.CassandraProtectionSource != null &&
+                    this.CassandraProtectionSource.Equals(input.CassandraProtectionSource)
                 ) && 
                 (
                     this.CouchbaseProtectionSource == input.CouchbaseProtectionSource ||
-                    (this.CouchbaseProtectionSource != null &&
-                    this.CouchbaseProtectionSource.Equals(input.CouchbaseProtectionSource))
+                    this.CouchbaseProtectionSource != null &&
+                    this.CouchbaseProtectionSource.Equals(input.CouchbaseProtectionSource)
+                ) && 
+                (
+                    this.CustomName == input.CustomName ||
+                    (this.CustomName != null &&
+                    this.CustomName.Equals(input.CustomName))
                 ) && 
                 (
                     this.ElastifileProtectionSource == input.ElastifileProtectionSource ||
-                    (this.ElastifileProtectionSource != null &&
-                    this.ElastifileProtectionSource.Equals(input.ElastifileProtectionSource))
+                    this.ElastifileProtectionSource != null &&
+                    this.ElastifileProtectionSource.Equals(input.ElastifileProtectionSource)
                 ) && 
                 (
                     this.Environment == input.Environment ||
-                    this.Environment.Equals(input.Environment)
+                    (this.Environment != null &&
+                    this.Environment.Equals(input.Environment))
                 ) && 
                 (
                     this.ExchangeProtectionSource == input.ExchangeProtectionSource ||
-                    (this.ExchangeProtectionSource != null &&
-                    this.ExchangeProtectionSource.Equals(input.ExchangeProtectionSource))
+                    this.ExchangeProtectionSource != null &&
+                    this.ExchangeProtectionSource.Equals(input.ExchangeProtectionSource)
                 ) && 
                 (
                     this.FlashBladeProtectionSource == input.FlashBladeProtectionSource ||
-                    (this.FlashBladeProtectionSource != null &&
-                    this.FlashBladeProtectionSource.Equals(input.FlashBladeProtectionSource))
+                    this.FlashBladeProtectionSource != null &&
+                    this.FlashBladeProtectionSource.Equals(input.FlashBladeProtectionSource)
                 ) && 
                 (
                     this.GcpProtectionSource == input.GcpProtectionSource ||
-                    (this.GcpProtectionSource != null &&
-                    this.GcpProtectionSource.Equals(input.GcpProtectionSource))
+                    this.GcpProtectionSource != null &&
+                    this.GcpProtectionSource.Equals(input.GcpProtectionSource)
                 ) && 
                 (
                     this.GpfsProtectionSource == input.GpfsProtectionSource ||
-                    (this.GpfsProtectionSource != null &&
-                    this.GpfsProtectionSource.Equals(input.GpfsProtectionSource))
+                    this.GpfsProtectionSource != null &&
+                    this.GpfsProtectionSource.Equals(input.GpfsProtectionSource)
                 ) && 
                 (
                     this.HbaseProtectionSource == input.HbaseProtectionSource ||
-                    (this.HbaseProtectionSource != null &&
-                    this.HbaseProtectionSource.Equals(input.HbaseProtectionSource))
+                    this.HbaseProtectionSource != null &&
+                    this.HbaseProtectionSource.Equals(input.HbaseProtectionSource)
                 ) && 
                 (
                     this.HdfsProtectionSource == input.HdfsProtectionSource ||
-                    (this.HdfsProtectionSource != null &&
-                    this.HdfsProtectionSource.Equals(input.HdfsProtectionSource))
+                    this.HdfsProtectionSource != null &&
+                    this.HdfsProtectionSource.Equals(input.HdfsProtectionSource)
                 ) && 
                 (
                     this.HiveProtectionSource == input.HiveProtectionSource ||
-                    (this.HiveProtectionSource != null &&
-                    this.HiveProtectionSource.Equals(input.HiveProtectionSource))
+                    this.HiveProtectionSource != null &&
+                    this.HiveProtectionSource.Equals(input.HiveProtectionSource)
                 ) && 
                 (
                     this.HyperFlexProtectionSource == input.HyperFlexProtectionSource ||
-                    (this.HyperFlexProtectionSource != null &&
-                    this.HyperFlexProtectionSource.Equals(input.HyperFlexProtectionSource))
+                    this.HyperFlexProtectionSource != null &&
+                    this.HyperFlexProtectionSource.Equals(input.HyperFlexProtectionSource)
                 ) && 
                 (
                     this.HypervProtectionSource == input.HypervProtectionSource ||
-                    (this.HypervProtectionSource != null &&
-                    this.HypervProtectionSource.Equals(input.HypervProtectionSource))
+                    this.HypervProtectionSource != null &&
+                    this.HypervProtectionSource.Equals(input.HypervProtectionSource)
                 ) && 
                 (
                     this.Id == input.Id ||
@@ -706,23 +736,23 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.IsilonProtectionSource == input.IsilonProtectionSource ||
-                    (this.IsilonProtectionSource != null &&
-                    this.IsilonProtectionSource.Equals(input.IsilonProtectionSource))
+                    this.IsilonProtectionSource != null &&
+                    this.IsilonProtectionSource.Equals(input.IsilonProtectionSource)
                 ) && 
                 (
                     this.KubernetesProtectionSource == input.KubernetesProtectionSource ||
-                    (this.KubernetesProtectionSource != null &&
-                    this.KubernetesProtectionSource.Equals(input.KubernetesProtectionSource))
+                    this.KubernetesProtectionSource != null &&
+                    this.KubernetesProtectionSource.Equals(input.KubernetesProtectionSource)
                 ) && 
                 (
                     this.KvmProtectionSource == input.KvmProtectionSource ||
-                    (this.KvmProtectionSource != null &&
-                    this.KvmProtectionSource.Equals(input.KvmProtectionSource))
+                    this.KvmProtectionSource != null &&
+                    this.KvmProtectionSource.Equals(input.KvmProtectionSource)
                 ) && 
                 (
                     this.MongodbProtectionSource == input.MongodbProtectionSource ||
-                    (this.MongodbProtectionSource != null &&
-                    this.MongodbProtectionSource.Equals(input.MongodbProtectionSource))
+                    this.MongodbProtectionSource != null &&
+                    this.MongodbProtectionSource.Equals(input.MongodbProtectionSource)
                 ) && 
                 (
                     this.Name == input.Name ||
@@ -731,28 +761,28 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.NasProtectionSource == input.NasProtectionSource ||
-                    (this.NasProtectionSource != null &&
-                    this.NasProtectionSource.Equals(input.NasProtectionSource))
+                    this.NasProtectionSource != null &&
+                    this.NasProtectionSource.Equals(input.NasProtectionSource)
                 ) && 
                 (
                     this.NetappProtectionSource == input.NetappProtectionSource ||
-                    (this.NetappProtectionSource != null &&
-                    this.NetappProtectionSource.Equals(input.NetappProtectionSource))
+                    this.NetappProtectionSource != null &&
+                    this.NetappProtectionSource.Equals(input.NetappProtectionSource)
                 ) && 
                 (
                     this.NimbleProtectionSource == input.NimbleProtectionSource ||
-                    (this.NimbleProtectionSource != null &&
-                    this.NimbleProtectionSource.Equals(input.NimbleProtectionSource))
+                    this.NimbleProtectionSource != null &&
+                    this.NimbleProtectionSource.Equals(input.NimbleProtectionSource)
                 ) && 
                 (
                     this.Office365ProtectionSource == input.Office365ProtectionSource ||
-                    (this.Office365ProtectionSource != null &&
-                    this.Office365ProtectionSource.Equals(input.Office365ProtectionSource))
+                    this.Office365ProtectionSource != null &&
+                    this.Office365ProtectionSource.Equals(input.Office365ProtectionSource)
                 ) && 
                 (
                     this.OracleProtectionSource == input.OracleProtectionSource ||
-                    (this.OracleProtectionSource != null &&
-                    this.OracleProtectionSource.Equals(input.OracleProtectionSource))
+                    this.OracleProtectionSource != null &&
+                    this.OracleProtectionSource.Equals(input.OracleProtectionSource)
                 ) && 
                 (
                     this.ParentId == input.ParentId ||
@@ -761,28 +791,33 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.PhysicalProtectionSource == input.PhysicalProtectionSource ||
-                    (this.PhysicalProtectionSource != null &&
-                    this.PhysicalProtectionSource.Equals(input.PhysicalProtectionSource))
+                    this.PhysicalProtectionSource != null &&
+                    this.PhysicalProtectionSource.Equals(input.PhysicalProtectionSource)
                 ) && 
                 (
                     this.PureProtectionSource == input.PureProtectionSource ||
-                    (this.PureProtectionSource != null &&
-                    this.PureProtectionSource.Equals(input.PureProtectionSource))
+                    this.PureProtectionSource != null &&
+                    this.PureProtectionSource.Equals(input.PureProtectionSource)
                 ) && 
                 (
                     this.SqlProtectionSource == input.SqlProtectionSource ||
-                    (this.SqlProtectionSource != null &&
-                    this.SqlProtectionSource.Equals(input.SqlProtectionSource))
+                    this.SqlProtectionSource != null &&
+                    this.SqlProtectionSource.Equals(input.SqlProtectionSource)
+                ) && 
+                (
+                    this.UdaProtectionSource == input.UdaProtectionSource ||
+                    this.UdaProtectionSource != null &&
+                    this.UdaProtectionSource.Equals(input.UdaProtectionSource)
                 ) && 
                 (
                     this.ViewProtectionSource == input.ViewProtectionSource ||
-                    (this.ViewProtectionSource != null &&
-                    this.ViewProtectionSource.Equals(input.ViewProtectionSource))
+                    this.ViewProtectionSource != null &&
+                    this.ViewProtectionSource.Equals(input.ViewProtectionSource)
                 ) && 
                 (
                     this.VmWareProtectionSource == input.VmWareProtectionSource ||
-                    (this.VmWareProtectionSource != null &&
-                    this.VmWareProtectionSource.Equals(input.VmWareProtectionSource))
+                    this.VmWareProtectionSource != null &&
+                    this.VmWareProtectionSource.Equals(input.VmWareProtectionSource)
                 );
         }
 
@@ -807,9 +842,12 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.CassandraProtectionSource.GetHashCode();
                 if (this.CouchbaseProtectionSource != null)
                     hashCode = hashCode * 59 + this.CouchbaseProtectionSource.GetHashCode();
+                if (this.CustomName != null)
+                    hashCode = hashCode * 59 + this.CustomName.GetHashCode();
                 if (this.ElastifileProtectionSource != null)
                     hashCode = hashCode * 59 + this.ElastifileProtectionSource.GetHashCode();
-                hashCode = hashCode * 59 + this.Environment.GetHashCode();
+                if (this.Environment != null)
+                    hashCode = hashCode * 59 + this.Environment.GetHashCode();
                 if (this.ExchangeProtectionSource != null)
                     hashCode = hashCode * 59 + this.ExchangeProtectionSource.GetHashCode();
                 if (this.FlashBladeProtectionSource != null)
@@ -858,6 +896,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.PureProtectionSource.GetHashCode();
                 if (this.SqlProtectionSource != null)
                     hashCode = hashCode * 59 + this.SqlProtectionSource.GetHashCode();
+                if (this.UdaProtectionSource != null)
+                    hashCode = hashCode * 59 + this.UdaProtectionSource.GetHashCode();
                 if (this.ViewProtectionSource != null)
                     hashCode = hashCode * 59 + this.ViewProtectionSource.GetHashCode();
                 if (this.VmWareProtectionSource != null)

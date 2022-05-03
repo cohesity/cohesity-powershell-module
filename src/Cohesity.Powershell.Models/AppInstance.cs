@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -75,7 +78,7 @@ namespace Cohesity.Model
         /// Specifies the current state of the app instance. Specifies operational status of an app instance. kInitializing - The app instance has been launched or resumed, but is not fully running yet. kRunning - The app instance is running. Check health_status for the actual health. kPausing - The app instance is being paused. kPaused - The app instance has been paused. kTerminating - The app instance is being terminated. kTerminated -  The app instance has been terminated. kFailed - The app instance has failed due to an unrecoverable error.
         /// </summary>
         /// <value>Specifies the current state of the app instance. Specifies operational status of an app instance. kInitializing - The app instance has been launched or resumed, but is not fully running yet. kRunning - The app instance is running. Check health_status for the actual health. kPausing - The app instance is being paused. kPaused - The app instance has been paused. kTerminating - The app instance is being terminated. kTerminated -  The app instance has been terminated. kFailed - The app instance has failed due to an unrecoverable error.</value>
-        [DataMember(Name="state", EmitDefaultValue=true)]
+        [DataMember(Name="state", EmitDefaultValue=false)]
         public StateEnum? State { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="AppInstance" /> class.
@@ -93,6 +96,7 @@ namespace Cohesity.Model
         /// <param name="healthDetail">Specifies the reason the app instance is unhealthy. Only set if app instance is unhealthy..</param>
         /// <param name="healthStatus">Specifies the current health status of the app instance..</param>
         /// <param name="httpsUi">Specifies app ui http config. If set to true, the App&#39;s UI uses https. Otherwise it uses http..</param>
+        /// <param name="_namespace">_namespace.</param>
         /// <param name="nodeIp">Specifies the ip of the node which can be used to contact app instance external services..</param>
         /// <param name="nodePort">Specifies the node port on which the app instance services external requests..</param>
         /// <param name="settings">settings.</param>
@@ -100,7 +104,7 @@ namespace Cohesity.Model
         /// <param name="stateDetail">Specifies the failure reason when the app instance&#39;s state is kFailed..</param>
         /// <param name="userSshKey">userSshKey.</param>
         /// <param name="vmGroups">Specifies list of all VM groups for this application. Each VM group contains a list of VMs. Information needed for UI like the nodePort, the port type etc. is stored for each VM..</param>
-        public AppInstance(string appAccessToken = default(string), long? appInstanceId = default(long?), string appName = default(string), long? appUid = default(long?), long? appVersion = default(long?), long? createdTimeUsecs = default(long?), string creationUid = default(string), string description = default(string), string devVersion = default(string), long? durationUsecs = default(long?), string healthDetail = default(string), int? healthStatus = default(int?), bool? httpsUi = default(bool?), string nodeIp = default(string), int? nodePort = default(int?), AppInstanceSettings settings = default(AppInstanceSettings), StateEnum? state = default(StateEnum?), string stateDetail = default(string), UserSshKey userSshKey = default(UserSshKey), List<VmGroup> vmGroups = default(List<VmGroup>))
+        public AppInstance(string appAccessToken = default(string), long? appInstanceId = default(long?), string appName = default(string), long? appUid = default(long?), long? appVersion = default(long?), long? createdTimeUsecs = default(long?), string creationUid = default(string), string description = default(string), string devVersion = default(string), long? durationUsecs = default(long?), string healthDetail = default(string), int? healthStatus = default(int?), bool? httpsUi = default(bool?), string _namespace = default(string), string nodeIp = default(string), int? nodePort = default(int?), AppInstanceSettings settings = default(AppInstanceSettings), StateEnum? state = default(StateEnum?), string stateDetail = default(string), UserSshKey userSshKey = default(UserSshKey), List<VmGroup> vmGroups = default(List<VmGroup>))
         {
             this.AppAccessToken = appAccessToken;
             this.AppInstanceId = appInstanceId;
@@ -115,24 +119,7 @@ namespace Cohesity.Model
             this.HealthDetail = healthDetail;
             this.HealthStatus = healthStatus;
             this.HttpsUi = httpsUi;
-            this.NodeIp = nodeIp;
-            this.NodePort = nodePort;
-            this.State = state;
-            this.StateDetail = stateDetail;
-            this.VmGroups = vmGroups;
-            this.AppAccessToken = appAccessToken;
-            this.AppInstanceId = appInstanceId;
-            this.AppName = appName;
-            this.AppUid = appUid;
-            this.AppVersion = appVersion;
-            this.CreatedTimeUsecs = createdTimeUsecs;
-            this.CreationUid = creationUid;
-            this.Description = description;
-            this.DevVersion = devVersion;
-            this.DurationUsecs = durationUsecs;
-            this.HealthDetail = healthDetail;
-            this.HealthStatus = healthStatus;
-            this.HttpsUi = httpsUi;
+            this.Namespace = _namespace;
             this.NodeIp = nodeIp;
             this.NodePort = nodePort;
             this.Settings = settings;
@@ -146,105 +133,111 @@ namespace Cohesity.Model
         /// Specifies the token to access with the app.
         /// </summary>
         /// <value>Specifies the token to access with the app.</value>
-        [DataMember(Name="appAccessToken", EmitDefaultValue=true)]
+        [DataMember(Name="appAccessToken", EmitDefaultValue=false)]
         public string AppAccessToken { get; set; }
 
         /// <summary>
         /// Specifies unique id across all instances of all apps.
         /// </summary>
         /// <value>Specifies unique id across all instances of all apps.</value>
-        [DataMember(Name="appInstanceId", EmitDefaultValue=true)]
+        [DataMember(Name="appInstanceId", EmitDefaultValue=false)]
         public long? AppInstanceId { get; set; }
 
         /// <summary>
         /// Specifies name of the app that is launched in this instance.
         /// </summary>
         /// <value>Specifies name of the app that is launched in this instance.</value>
-        [DataMember(Name="appName", EmitDefaultValue=true)]
+        [DataMember(Name="appName", EmitDefaultValue=false)]
         public string AppName { get; set; }
 
         /// <summary>
         /// Specifies id of the app that is launched in this instance.
         /// </summary>
         /// <value>Specifies id of the app that is launched in this instance.</value>
-        [DataMember(Name="appUid", EmitDefaultValue=true)]
+        [DataMember(Name="appUid", EmitDefaultValue=false)]
         public long? AppUid { get; set; }
 
         /// <summary>
         /// Specifies the version of the app that is launched in this instance.
         /// </summary>
         /// <value>Specifies the version of the app that is launched in this instance.</value>
-        [DataMember(Name="appVersion", EmitDefaultValue=true)]
+        [DataMember(Name="appVersion", EmitDefaultValue=false)]
         public long? AppVersion { get; set; }
 
         /// <summary>
         /// Specifies timestamp (in microseconds) when the app instance was first created.
         /// </summary>
         /// <value>Specifies timestamp (in microseconds) when the app instance was first created.</value>
-        [DataMember(Name="createdTimeUsecs", EmitDefaultValue=true)]
+        [DataMember(Name="createdTimeUsecs", EmitDefaultValue=false)]
         public long? CreatedTimeUsecs { get; set; }
 
         /// <summary>
         /// Specifies a unique identifier generated by the client to let the backend identify retries of the app launch request.
         /// </summary>
         /// <value>Specifies a unique identifier generated by the client to let the backend identify retries of the app launch request.</value>
-        [DataMember(Name="creationUid", EmitDefaultValue=true)]
+        [DataMember(Name="creationUid", EmitDefaultValue=false)]
         public string CreationUid { get; set; }
 
         /// <summary>
         /// Specifies user configured description for the app instance.
         /// </summary>
         /// <value>Specifies user configured description for the app instance.</value>
-        [DataMember(Name="description", EmitDefaultValue=true)]
+        [DataMember(Name="description", EmitDefaultValue=false)]
         public string Description { get; set; }
 
         /// <summary>
         /// Specifies version of the app provided by the developer.
         /// </summary>
         /// <value>Specifies version of the app provided by the developer.</value>
-        [DataMember(Name="devVersion", EmitDefaultValue=true)]
+        [DataMember(Name="devVersion", EmitDefaultValue=false)]
         public string DevVersion { get; set; }
 
         /// <summary>
         /// Specifies duration (in microseconds) for which the app instance has run.
         /// </summary>
         /// <value>Specifies duration (in microseconds) for which the app instance has run.</value>
-        [DataMember(Name="durationUsecs", EmitDefaultValue=true)]
+        [DataMember(Name="durationUsecs", EmitDefaultValue=false)]
         public long? DurationUsecs { get; set; }
 
         /// <summary>
         /// Specifies the reason the app instance is unhealthy. Only set if app instance is unhealthy.
         /// </summary>
         /// <value>Specifies the reason the app instance is unhealthy. Only set if app instance is unhealthy.</value>
-        [DataMember(Name="healthDetail", EmitDefaultValue=true)]
+        [DataMember(Name="healthDetail", EmitDefaultValue=false)]
         public string HealthDetail { get; set; }
 
         /// <summary>
         /// Specifies the current health status of the app instance.
         /// </summary>
         /// <value>Specifies the current health status of the app instance.</value>
-        [DataMember(Name="healthStatus", EmitDefaultValue=true)]
+        [DataMember(Name="healthStatus", EmitDefaultValue=false)]
         public int? HealthStatus { get; set; }
 
         /// <summary>
         /// Specifies app ui http config. If set to true, the App&#39;s UI uses https. Otherwise it uses http.
         /// </summary>
         /// <value>Specifies app ui http config. If set to true, the App&#39;s UI uses https. Otherwise it uses http.</value>
-        [DataMember(Name="httpsUi", EmitDefaultValue=true)]
+        [DataMember(Name="httpsUi", EmitDefaultValue=false)]
         public bool? HttpsUi { get; set; }
+
+        /// <summary>
+        /// Gets or Sets Namespace
+        /// </summary>
+        [DataMember(Name="namespace", EmitDefaultValue=false)]
+        public string Namespace { get; set; }
 
         /// <summary>
         /// Specifies the ip of the node which can be used to contact app instance external services.
         /// </summary>
         /// <value>Specifies the ip of the node which can be used to contact app instance external services.</value>
-        [DataMember(Name="nodeIp", EmitDefaultValue=true)]
+        [DataMember(Name="nodeIp", EmitDefaultValue=false)]
         public string NodeIp { get; set; }
 
         /// <summary>
         /// Specifies the node port on which the app instance services external requests.
         /// </summary>
         /// <value>Specifies the node port on which the app instance services external requests.</value>
-        [DataMember(Name="nodePort", EmitDefaultValue=true)]
+        [DataMember(Name="nodePort", EmitDefaultValue=false)]
         public int? NodePort { get; set; }
 
         /// <summary>
@@ -253,11 +246,12 @@ namespace Cohesity.Model
         [DataMember(Name="settings", EmitDefaultValue=false)]
         public AppInstanceSettings Settings { get; set; }
 
+
         /// <summary>
         /// Specifies the failure reason when the app instance&#39;s state is kFailed.
         /// </summary>
         /// <value>Specifies the failure reason when the app instance&#39;s state is kFailed.</value>
-        [DataMember(Name="stateDetail", EmitDefaultValue=true)]
+        [DataMember(Name="stateDetail", EmitDefaultValue=false)]
         public string StateDetail { get; set; }
 
         /// <summary>
@@ -270,7 +264,7 @@ namespace Cohesity.Model
         /// Specifies list of all VM groups for this application. Each VM group contains a list of VMs. Information needed for UI like the nodePort, the port type etc. is stored for each VM.
         /// </summary>
         /// <value>Specifies list of all VM groups for this application. Each VM group contains a list of VMs. Information needed for UI like the nodePort, the port type etc. is stored for each VM.</value>
-        [DataMember(Name="vmGroups", EmitDefaultValue=true)]
+        [DataMember(Name="vmGroups", EmitDefaultValue=false)]
         public List<VmGroup> VmGroups { get; set; }
 
         /// <summary>
@@ -375,6 +369,11 @@ namespace Cohesity.Model
                     this.HttpsUi.Equals(input.HttpsUi))
                 ) && 
                 (
+                    this.Namespace == input.Namespace ||
+                    (this.Namespace != null &&
+                    this.Namespace.Equals(input.Namespace))
+                ) && 
+                (
                     this.NodeIp == input.NodeIp ||
                     (this.NodeIp != null &&
                     this.NodeIp.Equals(input.NodeIp))
@@ -391,7 +390,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.State == input.State ||
-                    this.State.Equals(input.State)
+                    (this.State != null &&
+                    this.State.Equals(input.State))
                 ) && 
                 (
                     this.StateDetail == input.StateDetail ||
@@ -406,8 +406,7 @@ namespace Cohesity.Model
                 (
                     this.VmGroups == input.VmGroups ||
                     this.VmGroups != null &&
-                    input.VmGroups != null &&
-                    this.VmGroups.SequenceEqual(input.VmGroups)
+                    this.VmGroups.Equals(input.VmGroups)
                 );
         }
 
@@ -446,13 +445,16 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.HealthStatus.GetHashCode();
                 if (this.HttpsUi != null)
                     hashCode = hashCode * 59 + this.HttpsUi.GetHashCode();
+                if (this.Namespace != null)
+                    hashCode = hashCode * 59 + this.Namespace.GetHashCode();
                 if (this.NodeIp != null)
                     hashCode = hashCode * 59 + this.NodeIp.GetHashCode();
                 if (this.NodePort != null)
                     hashCode = hashCode * 59 + this.NodePort.GetHashCode();
                 if (this.Settings != null)
                     hashCode = hashCode * 59 + this.Settings.GetHashCode();
-                hashCode = hashCode * 59 + this.State.GetHashCode();
+                if (this.State != null)
+                    hashCode = hashCode * 59 + this.State.GetHashCode();
                 if (this.StateDetail != null)
                     hashCode = hashCode * 59 + this.StateDetail.GetHashCode();
                 if (this.UserSshKey != null)

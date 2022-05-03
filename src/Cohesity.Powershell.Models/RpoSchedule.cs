@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -55,20 +58,15 @@ namespace Cohesity.Model
             /// Enum KMonths for value: kMonths
             /// </summary>
             [EnumMember(Value = "kMonths")]
-            KMonths = 5,
+            KMonths = 5
 
-            /// <summary>
-            /// Enum KDay for value: kDay
-            /// </summary>
-            [EnumMember(Value = "kDay")]
-            KDay = 6
         }
 
         /// <summary>
         /// Specifies an RPO policy interval unit which will be used along with the multiplier to calculate the interval for the RPO policy execution. this can be kHours, kDays, KWeeks, kMonths RPOIntervalUnit.  Specifies an RPO Schedule interval unit. kMinutes specifies that the rpo interval unit is hours. kHours specifies that the rpo interval unit is hours. kDays specifies that the rpo interval unit is days. kWeeks specifies that the rpo interval unit is weeks. kMonths specifies that the rpo interval unit is months.
         /// </summary>
         /// <value>Specifies an RPO policy interval unit which will be used along with the multiplier to calculate the interval for the RPO policy execution. this can be kHours, kDays, KWeeks, kMonths RPOIntervalUnit.  Specifies an RPO Schedule interval unit. kMinutes specifies that the rpo interval unit is hours. kHours specifies that the rpo interval unit is hours. kDays specifies that the rpo interval unit is days. kWeeks specifies that the rpo interval unit is weeks. kMonths specifies that the rpo interval unit is months.</value>
-        [DataMember(Name="intervalUnit", EmitDefaultValue=true)]
+        [DataMember(Name="intervalUnit", EmitDefaultValue=false)]
         public IntervalUnitEnum? IntervalUnit { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="RpoSchedule" /> class.
@@ -79,15 +77,14 @@ namespace Cohesity.Model
         {
             this.IntervalUnit = intervalUnit;
             this.Multiplier = multiplier;
-            this.IntervalUnit = intervalUnit;
-            this.Multiplier = multiplier;
         }
         
+
         /// <summary>
         /// Specifies the multiplier value to be used with the  RPO interval unit value.
         /// </summary>
         /// <value>Specifies the multiplier value to be used with the  RPO interval unit value.</value>
-        [DataMember(Name="multiplier", EmitDefaultValue=true)]
+        [DataMember(Name="multiplier", EmitDefaultValue=false)]
         public long? Multiplier { get; set; }
 
         /// <summary>
@@ -128,7 +125,8 @@ namespace Cohesity.Model
             return 
                 (
                     this.IntervalUnit == input.IntervalUnit ||
-                    this.IntervalUnit.Equals(input.IntervalUnit)
+                    (this.IntervalUnit != null &&
+                    this.IntervalUnit.Equals(input.IntervalUnit))
                 ) && 
                 (
                     this.Multiplier == input.Multiplier ||
@@ -146,7 +144,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                hashCode = hashCode * 59 + this.IntervalUnit.GetHashCode();
+                if (this.IntervalUnit != null)
+                    hashCode = hashCode * 59 + this.IntervalUnit.GetHashCode();
                 if (this.Multiplier != null)
                     hashCode = hashCode * 59 + this.Multiplier.GetHashCode();
                 return hashCode;

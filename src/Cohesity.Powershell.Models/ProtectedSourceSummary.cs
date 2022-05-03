@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -32,10 +35,6 @@ namespace Cohesity.Model
         /// <param name="sourceParameters">Specifies additional special settings for a single Protected Source..</param>
         public ProtectedSourceSummary(BackupRun backupRun = default(BackupRun), List<CopyRun> copyRuns = default(List<CopyRun>), bool? isPaused = default(bool?), long? nextProtectionRunTimeUsecs = default(long?), UniversalId protectedSourceUid = default(UniversalId), ProtectionSource protectionSource = default(ProtectionSource), List<SourceSpecialParameter> sourceParameters = default(List<SourceSpecialParameter>))
         {
-            this.CopyRuns = copyRuns;
-            this.IsPaused = isPaused;
-            this.NextProtectionRunTimeUsecs = nextProtectionRunTimeUsecs;
-            this.SourceParameters = sourceParameters;
             this.BackupRun = backupRun;
             this.CopyRuns = copyRuns;
             this.IsPaused = isPaused;
@@ -55,21 +54,21 @@ namespace Cohesity.Model
         /// Specifies details about the Copy tasks of the Job Run. A Copy task copies the captured snapshots to an external target or a Remote Cohesity Cluster.
         /// </summary>
         /// <value>Specifies details about the Copy tasks of the Job Run. A Copy task copies the captured snapshots to an external target or a Remote Cohesity Cluster.</value>
-        [DataMember(Name="copyRuns", EmitDefaultValue=true)]
+        [DataMember(Name="copyRuns", EmitDefaultValue=false)]
         public List<CopyRun> CopyRuns { get; set; }
 
         /// <summary>
         /// Specifies the status of the backup job.
         /// </summary>
         /// <value>Specifies the status of the backup job.</value>
-        [DataMember(Name="isPaused", EmitDefaultValue=true)]
+        [DataMember(Name="isPaused", EmitDefaultValue=false)]
         public bool? IsPaused { get; set; }
 
         /// <summary>
         /// Specifies the time at which the next Protection Run is scheduled for the given Protection Source in Unix epoch Time (microseconds).
         /// </summary>
         /// <value>Specifies the time at which the next Protection Run is scheduled for the given Protection Source in Unix epoch Time (microseconds).</value>
-        [DataMember(Name="nextProtectionRunTimeUsecs", EmitDefaultValue=true)]
+        [DataMember(Name="nextProtectionRunTimeUsecs", EmitDefaultValue=false)]
         public long? NextProtectionRunTimeUsecs { get; set; }
 
         /// <summary>
@@ -88,7 +87,7 @@ namespace Cohesity.Model
         /// Specifies additional special settings for a single Protected Source.
         /// </summary>
         /// <value>Specifies additional special settings for a single Protected Source.</value>
-        [DataMember(Name="sourceParameters", EmitDefaultValue=true)]
+        [DataMember(Name="sourceParameters", EmitDefaultValue=false)]
         public List<SourceSpecialParameter> SourceParameters { get; set; }
 
         /// <summary>
@@ -135,8 +134,7 @@ namespace Cohesity.Model
                 (
                     this.CopyRuns == input.CopyRuns ||
                     this.CopyRuns != null &&
-                    input.CopyRuns != null &&
-                    this.CopyRuns.SequenceEqual(input.CopyRuns)
+                    this.CopyRuns.Equals(input.CopyRuns)
                 ) && 
                 (
                     this.IsPaused == input.IsPaused ||
@@ -161,8 +159,7 @@ namespace Cohesity.Model
                 (
                     this.SourceParameters == input.SourceParameters ||
                     this.SourceParameters != null &&
-                    input.SourceParameters != null &&
-                    this.SourceParameters.SequenceEqual(input.SourceParameters)
+                    this.SourceParameters.Equals(input.SourceParameters)
                 );
         }
 

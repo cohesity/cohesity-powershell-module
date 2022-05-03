@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -37,13 +40,6 @@ namespace Cohesity.Model
         public DeployDBInstancesToRDSParams(bool? autoMinorVersionUpgrade = default(bool?), EntityProto availabilityZone = default(EntityProto), bool? copyTagsToSnapshots = default(bool?), string dbInstanceId = default(string), EntityProto dbOptionGroup = default(EntityProto), EntityProto dbParameterGroup = default(EntityProto), int? dbPort = default(int?), bool? iamDbAuthentication = default(bool?), bool? multiAzDeployment = default(bool?), DeployDBInstancesToRDSParamsPointInTimeRestoreParams pointInTimeParams = default(DeployDBInstancesToRDSParamsPointInTimeRestoreParams), bool? publicAccessibility = default(bool?))
         {
             this.AutoMinorVersionUpgrade = autoMinorVersionUpgrade;
-            this.CopyTagsToSnapshots = copyTagsToSnapshots;
-            this.DbInstanceId = dbInstanceId;
-            this.DbPort = dbPort;
-            this.IamDbAuthentication = iamDbAuthentication;
-            this.MultiAzDeployment = multiAzDeployment;
-            this.PublicAccessibility = publicAccessibility;
-            this.AutoMinorVersionUpgrade = autoMinorVersionUpgrade;
             this.AvailabilityZone = availabilityZone;
             this.CopyTagsToSnapshots = copyTagsToSnapshots;
             this.DbInstanceId = dbInstanceId;
@@ -60,7 +56,7 @@ namespace Cohesity.Model
         /// Whether to enable auto minor version upgrade in the restored DB.
         /// </summary>
         /// <value>Whether to enable auto minor version upgrade in the restored DB.</value>
-        [DataMember(Name="autoMinorVersionUpgrade", EmitDefaultValue=true)]
+        [DataMember(Name="autoMinorVersionUpgrade", EmitDefaultValue=false)]
         public bool? AutoMinorVersionUpgrade { get; set; }
 
         /// <summary>
@@ -73,14 +69,14 @@ namespace Cohesity.Model
         /// Whether to enable copying of tags to snapshots of the DB.
         /// </summary>
         /// <value>Whether to enable copying of tags to snapshots of the DB.</value>
-        [DataMember(Name="copyTagsToSnapshots", EmitDefaultValue=true)]
+        [DataMember(Name="copyTagsToSnapshots", EmitDefaultValue=false)]
         public bool? CopyTagsToSnapshots { get; set; }
 
         /// <summary>
         /// The DB instance identifier to use for the restored DB. This field is required.
         /// </summary>
         /// <value>The DB instance identifier to use for the restored DB. This field is required.</value>
-        [DataMember(Name="dbInstanceId", EmitDefaultValue=true)]
+        [DataMember(Name="dbInstanceId", EmitDefaultValue=false)]
         public string DbInstanceId { get; set; }
 
         /// <summary>
@@ -99,21 +95,21 @@ namespace Cohesity.Model
         /// Port to use for the DB in the restored RDS instance.
         /// </summary>
         /// <value>Port to use for the DB in the restored RDS instance.</value>
-        [DataMember(Name="dbPort", EmitDefaultValue=true)]
+        [DataMember(Name="dbPort", EmitDefaultValue=false)]
         public int? DbPort { get; set; }
 
         /// <summary>
         /// Whether to enable IAM authentication for the DB.
         /// </summary>
         /// <value>Whether to enable IAM authentication for the DB.</value>
-        [DataMember(Name="iamDbAuthentication", EmitDefaultValue=true)]
+        [DataMember(Name="iamDbAuthentication", EmitDefaultValue=false)]
         public bool? IamDbAuthentication { get; set; }
 
         /// <summary>
         /// Whether this is a multi-az deployment or not.
         /// </summary>
         /// <value>Whether this is a multi-az deployment or not.</value>
-        [DataMember(Name="multiAzDeployment", EmitDefaultValue=true)]
+        [DataMember(Name="multiAzDeployment", EmitDefaultValue=false)]
         public bool? MultiAzDeployment { get; set; }
 
         /// <summary>
@@ -126,7 +122,7 @@ namespace Cohesity.Model
         /// Whether this DB will be publicly accessible or not.
         /// </summary>
         /// <value>Whether this DB will be publicly accessible or not.</value>
-        [DataMember(Name="publicAccessibility", EmitDefaultValue=true)]
+        [DataMember(Name="publicAccessibility", EmitDefaultValue=false)]
         public bool? PublicAccessibility { get; set; }
 
         /// <summary>

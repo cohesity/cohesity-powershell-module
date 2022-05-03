@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.TenantId = tenantId;
             this.ViewNames = viewNames;
-            this.TenantId = tenantId;
-            this.ViewNames = viewNames;
         }
         
         /// <summary>
         /// Specifies the unique id of the tenant.
         /// </summary>
         /// <value>Specifies the unique id of the tenant.</value>
-        [DataMember(Name="tenantId", EmitDefaultValue=true)]
+        [DataMember(Name="tenantId", EmitDefaultValue=false)]
         public string TenantId { get; set; }
 
         /// <summary>
         /// Specifies the PolicyIds for respective tenant.
         /// </summary>
         /// <value>Specifies the PolicyIds for respective tenant.</value>
-        [DataMember(Name="viewNames", EmitDefaultValue=true)]
+        [DataMember(Name="viewNames", EmitDefaultValue=false)]
         public List<string> ViewNames { get; set; }
 
         /// <summary>
@@ -91,8 +92,7 @@ namespace Cohesity.Model
                 (
                     this.ViewNames == input.ViewNames ||
                     this.ViewNames != null &&
-                    input.ViewNames != null &&
-                    this.ViewNames.SequenceEqual(input.ViewNames)
+                    this.ViewNames.Equals(input.ViewNames)
                 );
         }
 

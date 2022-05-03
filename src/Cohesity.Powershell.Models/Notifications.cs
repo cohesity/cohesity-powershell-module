@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,30 +34,27 @@ namespace Cohesity.Model
             this.Count = count;
             this.NotificationList = notificationList;
             this.UnreadCount = unreadCount;
-            this.Count = count;
-            this.NotificationList = notificationList;
-            this.UnreadCount = unreadCount;
         }
         
         /// <summary>
         /// Notification Count.
         /// </summary>
         /// <value>Notification Count.</value>
-        [DataMember(Name="count", EmitDefaultValue=true)]
+        [DataMember(Name="count", EmitDefaultValue=false)]
         public long? Count { get; set; }
 
         /// <summary>
         /// Notification list.
         /// </summary>
         /// <value>Notification list.</value>
-        [DataMember(Name="notificationList", EmitDefaultValue=true)]
+        [DataMember(Name="notificationList", EmitDefaultValue=false)]
         public List<TaskNotification> NotificationList { get; set; }
 
         /// <summary>
         /// Unread Notification Count.
         /// </summary>
         /// <value>Unread Notification Count.</value>
-        [DataMember(Name="unreadCount", EmitDefaultValue=true)]
+        [DataMember(Name="unreadCount", EmitDefaultValue=false)]
         public long? UnreadCount { get; set; }
 
         /// <summary>
@@ -101,8 +101,7 @@ namespace Cohesity.Model
                 (
                     this.NotificationList == input.NotificationList ||
                     this.NotificationList != null &&
-                    input.NotificationList != null &&
-                    this.NotificationList.SequenceEqual(input.NotificationList)
+                    this.NotificationList.Equals(input.NotificationList)
                 ) && 
                 (
                     this.UnreadCount == input.UnreadCount ||

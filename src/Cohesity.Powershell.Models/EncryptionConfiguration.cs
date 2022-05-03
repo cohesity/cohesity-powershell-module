@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,30 +34,27 @@ namespace Cohesity.Model
             this.EnableEncryption = enableEncryption;
             this.EnableFipsMode = enableFipsMode;
             this.RotationPeriod = rotationPeriod;
-            this.EnableEncryption = enableEncryption;
-            this.EnableFipsMode = enableFipsMode;
-            this.RotationPeriod = rotationPeriod;
         }
         
         /// <summary>
         /// Specifies whether or not to enable encryption. If encryption is enabled, all data on the Cluster will be encrypted. This can only be enabled at Cluster creation time and cannot be disabled later.
         /// </summary>
         /// <value>Specifies whether or not to enable encryption. If encryption is enabled, all data on the Cluster will be encrypted. This can only be enabled at Cluster creation time and cannot be disabled later.</value>
-        [DataMember(Name="enableEncryption", EmitDefaultValue=true)]
+        [DataMember(Name="enableEncryption", EmitDefaultValue=false)]
         public bool? EnableEncryption { get; set; }
 
         /// <summary>
         /// Specifies whether or not to enable FIPS mode. EnableEncryption must be set to true in order to enable FIPS.
         /// </summary>
         /// <value>Specifies whether or not to enable FIPS mode. EnableEncryption must be set to true in order to enable FIPS.</value>
-        [DataMember(Name="enableFipsMode", EmitDefaultValue=true)]
+        [DataMember(Name="enableFipsMode", EmitDefaultValue=false)]
         public bool? EnableFipsMode { get; set; }
 
         /// <summary>
         /// Specifies the rotation period for encryption keys in days.
         /// </summary>
         /// <value>Specifies the rotation period for encryption keys in days.</value>
-        [DataMember(Name="rotationPeriod", EmitDefaultValue=true)]
+        [DataMember(Name="rotationPeriod", EmitDefaultValue=false)]
         public int? RotationPeriod { get; set; }
 
         /// <summary>

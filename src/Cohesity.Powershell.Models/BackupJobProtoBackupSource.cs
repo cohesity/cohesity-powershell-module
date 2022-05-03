@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,14 +30,13 @@ namespace Cohesity.Model
         public BackupJobProtoBackupSource(List<EntityProto> entities = default(List<EntityProto>))
         {
             this.Entities = entities;
-            this.Entities = entities;
         }
         
         /// <summary>
         /// Source entities. NOTE: Multiple sources can be specified here for non-leaf-level entities in the hierarchy. The sources obtained after expanding these will be intersected among each other to form the final set of sources. e.g. this can be used to backup only those VMs that have both the tags &#39;SQL&#39; and &#39;3hrs&#39;.
         /// </summary>
         /// <value>Source entities. NOTE: Multiple sources can be specified here for non-leaf-level entities in the hierarchy. The sources obtained after expanding these will be intersected among each other to form the final set of sources. e.g. this can be used to backup only those VMs that have both the tags &#39;SQL&#39; and &#39;3hrs&#39;.</value>
-        [DataMember(Name="entities", EmitDefaultValue=true)]
+        [DataMember(Name="entities", EmitDefaultValue=false)]
         public List<EntityProto> Entities { get; set; }
 
         /// <summary>
@@ -76,8 +78,7 @@ namespace Cohesity.Model
                 (
                     this.Entities == input.Entities ||
                     this.Entities != null &&
-                    input.Entities != null &&
-                    this.Entities.SequenceEqual(input.Entities)
+                    this.Entities.Equals(input.Entities)
                 );
         }
 

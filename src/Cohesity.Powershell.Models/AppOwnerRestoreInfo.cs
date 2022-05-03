@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -28,7 +31,6 @@ namespace Cohesity.Model
         /// <param name="performRestore">If this is set to true, then the owner object needs to be restored. The restore options that follow only apply if this field is set to true. If this field is not set, then the application objects will be restored to the original owner from where they were backed up..</param>
         public AppOwnerRestoreInfo(RestoreObject ownerObject = default(RestoreObject), RestoreObjectParams ownerRestoreParams = default(RestoreObjectParams), bool? performRestore = default(bool?))
         {
-            this.PerformRestore = performRestore;
             this.OwnerObject = ownerObject;
             this.OwnerRestoreParams = ownerRestoreParams;
             this.PerformRestore = performRestore;
@@ -50,7 +52,7 @@ namespace Cohesity.Model
         /// If this is set to true, then the owner object needs to be restored. The restore options that follow only apply if this field is set to true. If this field is not set, then the application objects will be restored to the original owner from where they were backed up.
         /// </summary>
         /// <value>If this is set to true, then the owner object needs to be restored. The restore options that follow only apply if this field is set to true. If this field is not set, then the application objects will be restored to the original owner from where they were backed up.</value>
-        [DataMember(Name="performRestore", EmitDefaultValue=true)]
+        [DataMember(Name="performRestore", EmitDefaultValue=false)]
         public bool? PerformRestore { get; set; }
 
         /// <summary>

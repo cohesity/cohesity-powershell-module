@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -393,7 +396,7 @@ namespace Cohesity.Model
         /// Array of Privileges.  Specifies the Cohesity privileges from the roles. This will be populated based on the union of all privileges in roles. Type for unique privilege Id values. All below enum values specify a value for all uniquely defined privileges in Cohesity.
         /// </summary>
         /// <value>Array of Privileges.  Specifies the Cohesity privileges from the roles. This will be populated based on the union of all privileges in roles. Type for unique privilege Id values. All below enum values specify a value for all uniquely defined privileges in Cohesity.</value>
-        [DataMember(Name="privilegeIds", EmitDefaultValue=true)]
+        [DataMember(Name="privilegeIds", EmitDefaultValue=false)]
         public List<PrivilegeIdsEnum> PrivilegeIds { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="UserParameters" /> class.
@@ -408,10 +411,11 @@ namespace Cohesity.Model
         /// <param name="password">Specifies the password of this user..</param>
         /// <param name="primaryGroupName">Specifies the name of the primary group of this User..</param>
         /// <param name="privilegeIds">Array of Privileges.  Specifies the Cohesity privileges from the roles. This will be populated based on the union of all privileges in roles. Type for unique privilege Id values. All below enum values specify a value for all uniquely defined privileges in Cohesity..</param>
+        /// <param name="profiles">Specifies the user profiles. NOTE: Currently used for Helios..</param>
         /// <param name="restricted">Whether the user is a restricted user. A restricted user can only view the objects he has permissions to..</param>
         /// <param name="roles">Array of Roles.  Specifies the Cohesity roles to associate with the user such as such as &#39;Admin&#39;, &#39;Ops&#39; or &#39;View&#39;. The Cohesity roles determine privileges on the Cohesity Cluster for this user..</param>
         /// <param name="username">Specifies the login name of the user..</param>
-        public UserParameters(List<string> additionalGroupNames = default(List<string>), List<ClusterIdentifier> clusterIdentifiers = default(List<ClusterIdentifier>), string description = default(string), string domain = default(string), long? effectiveTimeMsecs = default(long?), string emailAddress = default(string), long? expiredTimeMsecs = default(long?), string password = default(string), string primaryGroupName = default(string), List<PrivilegeIdsEnum> privilegeIds = default(List<PrivilegeIdsEnum>), bool? restricted = default(bool?), List<string> roles = default(List<string>), string username = default(string))
+        public UserParameters(List<string> additionalGroupNames = default(List<string>), List<ClusterIdentifier> clusterIdentifiers = default(List<ClusterIdentifier>), string description = default(string), string domain = default(string), long? effectiveTimeMsecs = default(long?), string emailAddress = default(string), long? expiredTimeMsecs = default(long?), string password = default(string), string primaryGroupName = default(string), List<PrivilegeIdsEnum> privilegeIds = default(List<PrivilegeIdsEnum>), List<McmUserProfile> profiles = default(List<McmUserProfile>), bool? restricted = default(bool?), List<string> roles = default(List<string>), string username = default(string))
         {
             this.AdditionalGroupNames = additionalGroupNames;
             this.ClusterIdentifiers = clusterIdentifiers;
@@ -423,19 +427,7 @@ namespace Cohesity.Model
             this.Password = password;
             this.PrimaryGroupName = primaryGroupName;
             this.PrivilegeIds = privilegeIds;
-            this.Restricted = restricted;
-            this.Roles = roles;
-            this.Username = username;
-            this.AdditionalGroupNames = additionalGroupNames;
-            this.ClusterIdentifiers = clusterIdentifiers;
-            this.Description = description;
-            this.Domain = domain;
-            this.EffectiveTimeMsecs = effectiveTimeMsecs;
-            this.EmailAddress = emailAddress;
-            this.ExpiredTimeMsecs = expiredTimeMsecs;
-            this.Password = password;
-            this.PrimaryGroupName = primaryGroupName;
-            this.PrivilegeIds = privilegeIds;
+            this.Profiles = profiles;
             this.Restricted = restricted;
             this.Roles = roles;
             this.Username = username;
@@ -445,84 +437,92 @@ namespace Cohesity.Model
         /// Array of Additional Groups.  Specifies the names of additional groups this User may belong to.
         /// </summary>
         /// <value>Array of Additional Groups.  Specifies the names of additional groups this User may belong to.</value>
-        [DataMember(Name="additionalGroupNames", EmitDefaultValue=true)]
+        [DataMember(Name="additionalGroupNames", EmitDefaultValue=false)]
         public List<string> AdditionalGroupNames { get; set; }
 
         /// <summary>
         /// Specifies the list of clusters this user has access to. If this is not specified, access will be granted to all clusters.
         /// </summary>
         /// <value>Specifies the list of clusters this user has access to. If this is not specified, access will be granted to all clusters.</value>
-        [DataMember(Name="clusterIdentifiers", EmitDefaultValue=true)]
+        [DataMember(Name="clusterIdentifiers", EmitDefaultValue=false)]
         public List<ClusterIdentifier> ClusterIdentifiers { get; set; }
 
         /// <summary>
         /// Specifies a description about the user.
         /// </summary>
         /// <value>Specifies a description about the user.</value>
-        [DataMember(Name="description", EmitDefaultValue=true)]
+        [DataMember(Name="description", EmitDefaultValue=false)]
         public string Description { get; set; }
 
         /// <summary>
         /// Specifies the fully qualified domain name (FQDN) of an Active Directory or LOCAL for the default LOCAL domain on the Cohesity Cluster. A user is uniquely identified by combination of the username and the domain.
         /// </summary>
         /// <value>Specifies the fully qualified domain name (FQDN) of an Active Directory or LOCAL for the default LOCAL domain on the Cohesity Cluster. A user is uniquely identified by combination of the username and the domain.</value>
-        [DataMember(Name="domain", EmitDefaultValue=true)]
+        [DataMember(Name="domain", EmitDefaultValue=false)]
         public string Domain { get; set; }
 
         /// <summary>
         /// Specifies the epoch time in milliseconds when the user becomes effective. Until that time, the user cannot log in.
         /// </summary>
         /// <value>Specifies the epoch time in milliseconds when the user becomes effective. Until that time, the user cannot log in.</value>
-        [DataMember(Name="effectiveTimeMsecs", EmitDefaultValue=true)]
+        [DataMember(Name="effectiveTimeMsecs", EmitDefaultValue=false)]
         public long? EffectiveTimeMsecs { get; set; }
 
         /// <summary>
         /// Specifies the email address of the user.
         /// </summary>
         /// <value>Specifies the email address of the user.</value>
-        [DataMember(Name="emailAddress", EmitDefaultValue=true)]
+        [DataMember(Name="emailAddress", EmitDefaultValue=false)]
         public string EmailAddress { get; set; }
 
         /// <summary>
         /// Specifies the epoch time in milliseconds when the user becomes expired. After that, the user cannot log in.
         /// </summary>
         /// <value>Specifies the epoch time in milliseconds when the user becomes expired. After that, the user cannot log in.</value>
-        [DataMember(Name="expiredTimeMsecs", EmitDefaultValue=true)]
+        [DataMember(Name="expiredTimeMsecs", EmitDefaultValue=false)]
         public long? ExpiredTimeMsecs { get; set; }
 
         /// <summary>
         /// Specifies the password of this user.
         /// </summary>
         /// <value>Specifies the password of this user.</value>
-        [DataMember(Name="password", EmitDefaultValue=true)]
+        [DataMember(Name="password", EmitDefaultValue=false)]
         public string Password { get; set; }
 
         /// <summary>
         /// Specifies the name of the primary group of this User.
         /// </summary>
         /// <value>Specifies the name of the primary group of this User.</value>
-        [DataMember(Name="primaryGroupName", EmitDefaultValue=true)]
+        [DataMember(Name="primaryGroupName", EmitDefaultValue=false)]
         public string PrimaryGroupName { get; set; }
+
+
+        /// <summary>
+        /// Specifies the user profiles. NOTE: Currently used for Helios.
+        /// </summary>
+        /// <value>Specifies the user profiles. NOTE: Currently used for Helios.</value>
+        [DataMember(Name="profiles", EmitDefaultValue=false)]
+        public List<McmUserProfile> Profiles { get; set; }
 
         /// <summary>
         /// Whether the user is a restricted user. A restricted user can only view the objects he has permissions to.
         /// </summary>
         /// <value>Whether the user is a restricted user. A restricted user can only view the objects he has permissions to.</value>
-        [DataMember(Name="restricted", EmitDefaultValue=true)]
+        [DataMember(Name="restricted", EmitDefaultValue=false)]
         public bool? Restricted { get; set; }
 
         /// <summary>
         /// Array of Roles.  Specifies the Cohesity roles to associate with the user such as such as &#39;Admin&#39;, &#39;Ops&#39; or &#39;View&#39;. The Cohesity roles determine privileges on the Cohesity Cluster for this user.
         /// </summary>
         /// <value>Array of Roles.  Specifies the Cohesity roles to associate with the user such as such as &#39;Admin&#39;, &#39;Ops&#39; or &#39;View&#39;. The Cohesity roles determine privileges on the Cohesity Cluster for this user.</value>
-        [DataMember(Name="roles", EmitDefaultValue=true)]
+        [DataMember(Name="roles", EmitDefaultValue=false)]
         public List<string> Roles { get; set; }
 
         /// <summary>
         /// Specifies the login name of the user.
         /// </summary>
         /// <value>Specifies the login name of the user.</value>
-        [DataMember(Name="username", EmitDefaultValue=true)]
+        [DataMember(Name="username", EmitDefaultValue=false)]
         public string Username { get; set; }
 
         /// <summary>
@@ -564,14 +564,12 @@ namespace Cohesity.Model
                 (
                     this.AdditionalGroupNames == input.AdditionalGroupNames ||
                     this.AdditionalGroupNames != null &&
-                    input.AdditionalGroupNames != null &&
-                    this.AdditionalGroupNames.SequenceEqual(input.AdditionalGroupNames)
+                    this.AdditionalGroupNames.Equals(input.AdditionalGroupNames)
                 ) && 
                 (
                     this.ClusterIdentifiers == input.ClusterIdentifiers ||
                     this.ClusterIdentifiers != null &&
-                    input.ClusterIdentifiers != null &&
-                    this.ClusterIdentifiers.SequenceEqual(input.ClusterIdentifiers)
+                    this.ClusterIdentifiers.Equals(input.ClusterIdentifiers)
                 ) && 
                 (
                     this.Description == input.Description ||
@@ -610,7 +608,13 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.PrivilegeIds == input.PrivilegeIds ||
-                    this.PrivilegeIds.SequenceEqual(input.PrivilegeIds)
+                    this.PrivilegeIds != null &&
+                    this.PrivilegeIds.Equals(input.PrivilegeIds)
+                ) && 
+                (
+                    this.Profiles == input.Profiles ||
+                    this.Profiles != null &&
+                    this.Profiles.Equals(input.Profiles)
                 ) && 
                 (
                     this.Restricted == input.Restricted ||
@@ -620,8 +624,7 @@ namespace Cohesity.Model
                 (
                     this.Roles == input.Roles ||
                     this.Roles != null &&
-                    input.Roles != null &&
-                    this.Roles.SequenceEqual(input.Roles)
+                    this.Roles.Equals(input.Roles)
                 ) && 
                 (
                     this.Username == input.Username ||
@@ -657,7 +660,10 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Password.GetHashCode();
                 if (this.PrimaryGroupName != null)
                     hashCode = hashCode * 59 + this.PrimaryGroupName.GetHashCode();
-                hashCode = hashCode * 59 + this.PrivilegeIds.GetHashCode();
+                if (this.PrivilegeIds != null)
+                    hashCode = hashCode * 59 + this.PrivilegeIds.GetHashCode();
+                if (this.Profiles != null)
+                    hashCode = hashCode * 59 + this.Profiles.GetHashCode();
                 if (this.Restricted != null)
                     hashCode = hashCode * 59 + this.Restricted.GetHashCode();
                 if (this.Roles != null)

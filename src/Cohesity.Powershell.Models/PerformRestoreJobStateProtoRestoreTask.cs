@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -28,8 +31,6 @@ namespace Cohesity.Model
         /// <param name="taskId">Id of the task tracking the restore of the above &#39;object&#39;..</param>
         public PerformRestoreJobStateProtoRestoreTask(RestoreObject _object = default(RestoreObject), string objectProgressMonitorTaskPath = default(string), long? taskId = default(long?))
         {
-            this.ObjectProgressMonitorTaskPath = objectProgressMonitorTaskPath;
-            this.TaskId = taskId;
             this.Object = _object;
             this.ObjectProgressMonitorTaskPath = objectProgressMonitorTaskPath;
             this.TaskId = taskId;
@@ -45,14 +46,14 @@ namespace Cohesity.Model
         /// The relative task path of the progress monitor for the restore of the above &#39;object&#39;. Please note that this field will be set only after progress monitor is created for this restore job.
         /// </summary>
         /// <value>The relative task path of the progress monitor for the restore of the above &#39;object&#39;. Please note that this field will be set only after progress monitor is created for this restore job.</value>
-        [DataMember(Name="objectProgressMonitorTaskPath", EmitDefaultValue=true)]
+        [DataMember(Name="objectProgressMonitorTaskPath", EmitDefaultValue=false)]
         public string ObjectProgressMonitorTaskPath { get; set; }
 
         /// <summary>
         /// Id of the task tracking the restore of the above &#39;object&#39;.
         /// </summary>
         /// <value>Id of the task tracking the restore of the above &#39;object&#39;.</value>
-        [DataMember(Name="taskId", EmitDefaultValue=true)]
+        [DataMember(Name="taskId", EmitDefaultValue=false)]
         public long? TaskId { get; set; }
 
         /// <summary>

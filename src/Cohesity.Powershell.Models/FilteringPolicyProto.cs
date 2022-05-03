@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.AllowFilters = allowFilters;
             this.DenyFilters = denyFilters;
-            this.AllowFilters = allowFilters;
-            this.DenyFilters = denyFilters;
         }
         
         /// <summary>
         /// List of filters to allow matched objects for backup.
         /// </summary>
         /// <value>List of filters to allow matched objects for backup.</value>
-        [DataMember(Name="allowFilters", EmitDefaultValue=true)]
+        [DataMember(Name="allowFilters", EmitDefaultValue=false)]
         public List<string> AllowFilters { get; set; }
 
         /// <summary>
         /// List of filters to deny matched objects for backup.
         /// </summary>
         /// <value>List of filters to deny matched objects for backup.</value>
-        [DataMember(Name="denyFilters", EmitDefaultValue=true)]
+        [DataMember(Name="denyFilters", EmitDefaultValue=false)]
         public List<string> DenyFilters { get; set; }
 
         /// <summary>
@@ -86,14 +87,12 @@ namespace Cohesity.Model
                 (
                     this.AllowFilters == input.AllowFilters ||
                     this.AllowFilters != null &&
-                    input.AllowFilters != null &&
-                    this.AllowFilters.SequenceEqual(input.AllowFilters)
+                    this.AllowFilters.Equals(input.AllowFilters)
                 ) && 
                 (
                     this.DenyFilters == input.DenyFilters ||
                     this.DenyFilters != null &&
-                    input.DenyFilters != null &&
-                    this.DenyFilters.SequenceEqual(input.DenyFilters)
+                    this.DenyFilters.Equals(input.DenyFilters)
                 );
         }
 

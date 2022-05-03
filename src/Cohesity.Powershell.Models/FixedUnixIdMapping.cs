@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.Gid = gid;
             this.Uid = uid;
-            this.Gid = gid;
-            this.Uid = uid;
         }
         
         /// <summary>
         /// Specifies the fixed Unix GID, when mapping type is set to kFixed.
         /// </summary>
         /// <value>Specifies the fixed Unix GID, when mapping type is set to kFixed.</value>
-        [DataMember(Name="gid", EmitDefaultValue=true)]
+        [DataMember(Name="gid", EmitDefaultValue=false)]
         public long? Gid { get; set; }
 
         /// <summary>
         /// Specifies the fixed Unix UID, when mapping type is set to kFixed.
         /// </summary>
         /// <value>Specifies the fixed Unix UID, when mapping type is set to kFixed.</value>
-        [DataMember(Name="uid", EmitDefaultValue=true)]
+        [DataMember(Name="uid", EmitDefaultValue=false)]
         public long? Uid { get; set; }
 
         /// <summary>

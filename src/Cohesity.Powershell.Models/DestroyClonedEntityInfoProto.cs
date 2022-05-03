@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,10 +34,6 @@ namespace Cohesity.Model
         /// <param name="type">The type of environment this destroy cloned entity info pertains to..</param>
         public DestroyClonedEntityInfoProto(DestroyClonedEntityInfoProtoClonedEntity clonedEntity = default(DestroyClonedEntityInfoProtoClonedEntity), int? clonedEntityStatus = default(int?), int? destroyClonedEntityState = default(int?), ErrorProto error = default(ErrorProto), string fullViewName = default(string), int? type = default(int?))
         {
-            this.ClonedEntityStatus = clonedEntityStatus;
-            this.DestroyClonedEntityState = destroyClonedEntityState;
-            this.FullViewName = fullViewName;
-            this.Type = type;
             this.ClonedEntity = clonedEntity;
             this.ClonedEntityStatus = clonedEntityStatus;
             this.DestroyClonedEntityState = destroyClonedEntityState;
@@ -52,14 +51,14 @@ namespace Cohesity.Model
         /// <summary>
         /// Gets or Sets ClonedEntityStatus
         /// </summary>
-        [DataMember(Name="clonedEntityStatus", EmitDefaultValue=true)]
+        [DataMember(Name="clonedEntityStatus", EmitDefaultValue=false)]
         public int? ClonedEntityStatus { get; set; }
 
         /// <summary>
         /// The state of the destroy/teardown of a cloned entity (i.e, VM).  The following two fields are set by the slave in order for the master to find status of the destroy operation.
         /// </summary>
         /// <value>The state of the destroy/teardown of a cloned entity (i.e, VM).  The following two fields are set by the slave in order for the master to find status of the destroy operation.</value>
-        [DataMember(Name="destroyClonedEntityState", EmitDefaultValue=true)]
+        [DataMember(Name="destroyClonedEntityState", EmitDefaultValue=false)]
         public int? DestroyClonedEntityState { get; set; }
 
         /// <summary>
@@ -72,14 +71,14 @@ namespace Cohesity.Model
         /// The full external view name where cloned objects are placed.
         /// </summary>
         /// <value>The full external view name where cloned objects are placed.</value>
-        [DataMember(Name="fullViewName", EmitDefaultValue=true)]
+        [DataMember(Name="fullViewName", EmitDefaultValue=false)]
         public string FullViewName { get; set; }
 
         /// <summary>
         /// The type of environment this destroy cloned entity info pertains to.
         /// </summary>
         /// <value>The type of environment this destroy cloned entity info pertains to.</value>
-        [DataMember(Name="type", EmitDefaultValue=true)]
+        [DataMember(Name="type", EmitDefaultValue=false)]
         public int? Type { get; set; }
 
         /// <summary>

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -33,11 +36,6 @@ namespace Cohesity.Model
         {
             this.CloudDeployEntityVec = cloudDeployEntityVec;
             this.IsIncremental = isIncremental;
-            this.TargetType = targetType;
-            this.TotalBytesTransferredToSource = totalBytesTransferredToSource;
-            this.Type = type;
-            this.CloudDeployEntityVec = cloudDeployEntityVec;
-            this.IsIncremental = isIncremental;
             this.RestoreInfo = restoreInfo;
             this.TargetType = targetType;
             this.TotalBytesTransferredToSource = totalBytesTransferredToSource;
@@ -48,14 +46,14 @@ namespace Cohesity.Model
         /// Contains the file paths and the information of the entities deployed to cloud.
         /// </summary>
         /// <value>Contains the file paths and the information of the entities deployed to cloud.</value>
-        [DataMember(Name="cloudDeployEntityVec", EmitDefaultValue=true)]
+        [DataMember(Name="cloudDeployEntityVec", EmitDefaultValue=false)]
         public List<CloudDeployInfoProtoCloudDeployEntity> CloudDeployEntityVec { get; set; }
 
         /// <summary>
         /// Whether this Cloud deploy info is for incremental cloudspin.
         /// </summary>
         /// <value>Whether this Cloud deploy info is for incremental cloudspin.</value>
-        [DataMember(Name="isIncremental", EmitDefaultValue=true)]
+        [DataMember(Name="isIncremental", EmitDefaultValue=false)]
         public bool? IsIncremental { get; set; }
 
         /// <summary>
@@ -68,21 +66,21 @@ namespace Cohesity.Model
         /// Specifies the target type for the task. The field is only valid if the task has got a permit.
         /// </summary>
         /// <value>Specifies the target type for the task. The field is only valid if the task has got a permit.</value>
-        [DataMember(Name="targetType", EmitDefaultValue=true)]
+        [DataMember(Name="targetType", EmitDefaultValue=false)]
         public int? TargetType { get; set; }
 
         /// <summary>
         /// Total bytes transferred to source.
         /// </summary>
         /// <value>Total bytes transferred to source.</value>
-        [DataMember(Name="totalBytesTransferredToSource", EmitDefaultValue=true)]
+        [DataMember(Name="totalBytesTransferredToSource", EmitDefaultValue=false)]
         public long? TotalBytesTransferredToSource { get; set; }
 
         /// <summary>
         /// The type of environment this cloud deploy info pertains to.
         /// </summary>
         /// <value>The type of environment this cloud deploy info pertains to.</value>
-        [DataMember(Name="type", EmitDefaultValue=true)]
+        [DataMember(Name="type", EmitDefaultValue=false)]
         public int? Type { get; set; }
 
         /// <summary>
@@ -124,8 +122,7 @@ namespace Cohesity.Model
                 (
                     this.CloudDeployEntityVec == input.CloudDeployEntityVec ||
                     this.CloudDeployEntityVec != null &&
-                    input.CloudDeployEntityVec != null &&
-                    this.CloudDeployEntityVec.SequenceEqual(input.CloudDeployEntityVec)
+                    this.CloudDeployEntityVec.Equals(input.CloudDeployEntityVec)
                 ) && 
                 (
                     this.IsIncremental == input.IsIncremental ||

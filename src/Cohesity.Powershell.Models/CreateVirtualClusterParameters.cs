@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -30,13 +33,21 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="clusterName">Specifies the name of the new Cluster. (required).</param>
         /// <param name="encryptionConfig">encryptionConfig.</param>
+        /// <param name="ipPreference">Specifies IP preference..</param>
         /// <param name="metadataFaultTolerance">Specifies the metadata fault tolerance..</param>
         /// <param name="networkConfig">networkConfig (required).</param>
         /// <param name="nodeConfigs">Specifies the configuration for the nodes in the new cluster. (required).</param>
-        public CreateVirtualClusterParameters(string clusterName = default(string), EncryptionConfiguration encryptionConfig = default(EncryptionConfiguration), int? metadataFaultTolerance = default(int?), NetworkConfiguration networkConfig = default(NetworkConfiguration), List<VirtualNodeConfiguration> nodeConfigs = default(List<VirtualNodeConfiguration>))
+        public CreateVirtualClusterParameters(string clusterName = default(string), EncryptionConfiguration encryptionConfig = default(EncryptionConfiguration), int? ipPreference = default(int?), int? metadataFaultTolerance = default(int?), NetworkConfiguration networkConfig = default(NetworkConfiguration), List<VirtualNodeConfiguration> nodeConfigs = default(List<VirtualNodeConfiguration>))
         {
-            this.ClusterName = clusterName;
-            this.MetadataFaultTolerance = metadataFaultTolerance;
+            // to ensure "clusterName" is required (not null)
+            if (clusterName == null)
+            {
+                throw new InvalidDataException("clusterName is a required property for CreateVirtualClusterParameters and cannot be null");
+            }
+            else
+            {
+                this.ClusterName = clusterName;
+            }
             // to ensure "networkConfig" is required (not null)
             if (networkConfig == null)
             {
@@ -46,9 +57,17 @@ namespace Cohesity.Model
             {
                 this.NetworkConfig = networkConfig;
             }
-
-            this.NodeConfigs = nodeConfigs;
+            // to ensure "nodeConfigs" is required (not null)
+            if (nodeConfigs == null)
+            {
+                throw new InvalidDataException("nodeConfigs is a required property for CreateVirtualClusterParameters and cannot be null");
+            }
+            else
+            {
+                this.NodeConfigs = nodeConfigs;
+            }
             this.EncryptionConfig = encryptionConfig;
+            this.IpPreference = ipPreference;
             this.MetadataFaultTolerance = metadataFaultTolerance;
         }
         
@@ -56,7 +75,7 @@ namespace Cohesity.Model
         /// Specifies the name of the new Cluster.
         /// </summary>
         /// <value>Specifies the name of the new Cluster.</value>
-        [DataMember(Name="clusterName", EmitDefaultValue=true)]
+        [DataMember(Name="clusterName", EmitDefaultValue=false)]
         public string ClusterName { get; set; }
 
         /// <summary>
@@ -66,10 +85,17 @@ namespace Cohesity.Model
         public EncryptionConfiguration EncryptionConfig { get; set; }
 
         /// <summary>
+        /// Specifies IP preference.
+        /// </summary>
+        /// <value>Specifies IP preference.</value>
+        [DataMember(Name="ipPreference", EmitDefaultValue=false)]
+        public int? IpPreference { get; set; }
+
+        /// <summary>
         /// Specifies the metadata fault tolerance.
         /// </summary>
         /// <value>Specifies the metadata fault tolerance.</value>
-        [DataMember(Name="metadataFaultTolerance", EmitDefaultValue=true)]
+        [DataMember(Name="metadataFaultTolerance", EmitDefaultValue=false)]
         public int? MetadataFaultTolerance { get; set; }
 
         /// <summary>
@@ -82,7 +108,7 @@ namespace Cohesity.Model
         /// Specifies the configuration for the nodes in the new cluster.
         /// </summary>
         /// <value>Specifies the configuration for the nodes in the new cluster.</value>
-        [DataMember(Name="nodeConfigs", EmitDefaultValue=true)]
+        [DataMember(Name="nodeConfigs", EmitDefaultValue=false)]
         public List<VirtualNodeConfiguration> NodeConfigs { get; set; }
 
         /// <summary>
@@ -132,6 +158,11 @@ namespace Cohesity.Model
                     this.EncryptionConfig.Equals(input.EncryptionConfig))
                 ) && 
                 (
+                    this.IpPreference == input.IpPreference ||
+                    (this.IpPreference != null &&
+                    this.IpPreference.Equals(input.IpPreference))
+                ) && 
+                (
                     this.MetadataFaultTolerance == input.MetadataFaultTolerance ||
                     (this.MetadataFaultTolerance != null &&
                     this.MetadataFaultTolerance.Equals(input.MetadataFaultTolerance))
@@ -144,8 +175,7 @@ namespace Cohesity.Model
                 (
                     this.NodeConfigs == input.NodeConfigs ||
                     this.NodeConfigs != null &&
-                    input.NodeConfigs != null &&
-                    this.NodeConfigs.SequenceEqual(input.NodeConfigs)
+                    this.NodeConfigs.Equals(input.NodeConfigs)
                 );
         }
 
@@ -162,6 +192,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ClusterName.GetHashCode();
                 if (this.EncryptionConfig != null)
                     hashCode = hashCode * 59 + this.EncryptionConfig.GetHashCode();
+                if (this.IpPreference != null)
+                    hashCode = hashCode * 59 + this.IpPreference.GetHashCode();
                 if (this.MetadataFaultTolerance != null)
                     hashCode = hashCode * 59 + this.MetadataFaultTolerance.GetHashCode();
                 if (this.NetworkConfig != null)

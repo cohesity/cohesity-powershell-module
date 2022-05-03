@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.PrincipalId = principalId;
             this.PrincipalName = principalName;
-            this.PrincipalId = principalId;
-            this.PrincipalName = principalName;
         }
         
         /// <summary>
         /// Specifies the name of the QoS Policy used for the View.
         /// </summary>
         /// <value>Specifies the name of the QoS Policy used for the View.</value>
-        [DataMember(Name="principalId", EmitDefaultValue=true)]
+        [DataMember(Name="principalId", EmitDefaultValue=false)]
         public long? PrincipalId { get; set; }
 
         /// <summary>
         /// Specifies the name of the QoS Policy used for the View such as &#39;TestAndDev High&#39;, &#39;Backup Target SSD&#39;, &#39;Backup Target High&#39; &#39;TestAndDev Low&#39; and &#39;Backup Target Low&#39;. For a complete list and descriptions, see the &#39;Create or Edit Views&#39; topic in the documentation. If not specified, the default is &#39;Backup Target Low&#39;.
         /// </summary>
         /// <value>Specifies the name of the QoS Policy used for the View such as &#39;TestAndDev High&#39;, &#39;Backup Target SSD&#39;, &#39;Backup Target High&#39; &#39;TestAndDev Low&#39; and &#39;Backup Target Low&#39;. For a complete list and descriptions, see the &#39;Create or Edit Views&#39; topic in the documentation. If not specified, the default is &#39;Backup Target Low&#39;.</value>
-        [DataMember(Name="principalName", EmitDefaultValue=true)]
+        [DataMember(Name="principalName", EmitDefaultValue=false)]
         public string PrincipalName { get; set; }
 
         /// <summary>

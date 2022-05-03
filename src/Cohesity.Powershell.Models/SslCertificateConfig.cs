@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,30 +34,27 @@ namespace Cohesity.Model
             this.Certificate = certificate;
             this.LastUpdateTimeMsecs = lastUpdateTimeMsecs;
             this.PrivateKey = privateKey;
-            this.Certificate = certificate;
-            this.LastUpdateTimeMsecs = lastUpdateTimeMsecs;
-            this.PrivateKey = privateKey;
         }
         
         /// <summary>
         /// Certificate is a SSL certificate used by Iris HTTPS webserver.
         /// </summary>
         /// <value>Certificate is a SSL certificate used by Iris HTTPS webserver.</value>
-        [DataMember(Name="certificate", EmitDefaultValue=true)]
+        [DataMember(Name="certificate", EmitDefaultValue=false)]
         public string Certificate { get; set; }
 
         /// <summary>
         /// LastUpdateTimeMsecs is a time in milliseconds at which certificate was last updated.
         /// </summary>
         /// <value>LastUpdateTimeMsecs is a time in milliseconds at which certificate was last updated.</value>
-        [DataMember(Name="lastUpdateTimeMsecs", EmitDefaultValue=true)]
+        [DataMember(Name="lastUpdateTimeMsecs", EmitDefaultValue=false)]
         public long? LastUpdateTimeMsecs { get; set; }
 
         /// <summary>
         /// PrivateKey is a matching private key of the above certificate.
         /// </summary>
         /// <value>PrivateKey is a matching private key of the above certificate.</value>
-        [DataMember(Name="privateKey", EmitDefaultValue=true)]
+        [DataMember(Name="privateKey", EmitDefaultValue=false)]
         public string PrivateKey { get; set; }
 
         /// <summary>

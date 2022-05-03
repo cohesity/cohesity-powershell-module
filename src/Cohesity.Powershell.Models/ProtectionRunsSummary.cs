@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -37,54 +40,48 @@ namespace Cohesity.Model
             this.NumberOfSuccessfulArchivalRuns = numberOfSuccessfulArchivalRuns;
             this.NumberOfSuccessfulProtectionRuns = numberOfSuccessfulProtectionRuns;
             this.NumberOfSuccessfulReplicationRuns = numberOfSuccessfulReplicationRuns;
-            this.NumberOfArchivalRuns = numberOfArchivalRuns;
-            this.NumberOfProtectionRuns = numberOfProtectionRuns;
-            this.NumberOfReplicationRuns = numberOfReplicationRuns;
-            this.NumberOfSuccessfulArchivalRuns = numberOfSuccessfulArchivalRuns;
-            this.NumberOfSuccessfulProtectionRuns = numberOfSuccessfulProtectionRuns;
-            this.NumberOfSuccessfulReplicationRuns = numberOfSuccessfulReplicationRuns;
         }
         
         /// <summary>
         /// Specifies the total number of Archival Runs using the current Protection Policy.
         /// </summary>
         /// <value>Specifies the total number of Archival Runs using the current Protection Policy.</value>
-        [DataMember(Name="numberOfArchivalRuns", EmitDefaultValue=true)]
+        [DataMember(Name="numberOfArchivalRuns", EmitDefaultValue=false)]
         public long? NumberOfArchivalRuns { get; set; }
 
         /// <summary>
         /// Specifies the total number of Protection Runs by the given Protection Policy.
         /// </summary>
         /// <value>Specifies the total number of Protection Runs by the given Protection Policy.</value>
-        [DataMember(Name="numberOfProtectionRuns", EmitDefaultValue=true)]
+        [DataMember(Name="numberOfProtectionRuns", EmitDefaultValue=false)]
         public long? NumberOfProtectionRuns { get; set; }
 
         /// <summary>
         /// Specifies the total number of Replication Runs using the current Protection Policy.
         /// </summary>
         /// <value>Specifies the total number of Replication Runs using the current Protection Policy.</value>
-        [DataMember(Name="numberOfReplicationRuns", EmitDefaultValue=true)]
+        [DataMember(Name="numberOfReplicationRuns", EmitDefaultValue=false)]
         public long? NumberOfReplicationRuns { get; set; }
 
         /// <summary>
         /// Specifies the number of total successful Archival Runs using the current Protection Policy.
         /// </summary>
         /// <value>Specifies the number of total successful Archival Runs using the current Protection Policy.</value>
-        [DataMember(Name="numberOfSuccessfulArchivalRuns", EmitDefaultValue=true)]
+        [DataMember(Name="numberOfSuccessfulArchivalRuns", EmitDefaultValue=false)]
         public long? NumberOfSuccessfulArchivalRuns { get; set; }
 
         /// <summary>
         /// Specifies the number of successful Protection Runs using the current Protection Policy.
         /// </summary>
         /// <value>Specifies the number of successful Protection Runs using the current Protection Policy.</value>
-        [DataMember(Name="numberOfSuccessfulProtectionRuns", EmitDefaultValue=true)]
+        [DataMember(Name="numberOfSuccessfulProtectionRuns", EmitDefaultValue=false)]
         public long? NumberOfSuccessfulProtectionRuns { get; set; }
 
         /// <summary>
         /// Specifies the number of total successful Replication Runs using the current Protection Policy.
         /// </summary>
         /// <value>Specifies the number of total successful Replication Runs using the current Protection Policy.</value>
-        [DataMember(Name="numberOfSuccessfulReplicationRuns", EmitDefaultValue=true)]
+        [DataMember(Name="numberOfSuccessfulReplicationRuns", EmitDefaultValue=false)]
         public long? NumberOfSuccessfulReplicationRuns { get; set; }
 
         /// <summary>

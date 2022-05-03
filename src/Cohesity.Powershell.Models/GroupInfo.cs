@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -26,36 +29,42 @@ namespace Cohesity.Model
         /// <param name="domain">Specifies domain name of the user..</param>
         /// <param name="groupName">Specifies group name of the group..</param>
         /// <param name="sid">Specifies unique Security ID (SID) of the user..</param>
-        public GroupInfo(string domain = default(string), string groupName = default(string), string sid = default(string))
+        /// <param name="tenantIds">Specifies the tenants to which the group belongs to..</param>
+        public GroupInfo(string domain = default(string), string groupName = default(string), string sid = default(string), List<string> tenantIds = default(List<string>))
         {
             this.Domain = domain;
             this.GroupName = groupName;
             this.Sid = sid;
-            this.Domain = domain;
-            this.GroupName = groupName;
-            this.Sid = sid;
+            this.TenantIds = tenantIds;
         }
         
         /// <summary>
         /// Specifies domain name of the user.
         /// </summary>
         /// <value>Specifies domain name of the user.</value>
-        [DataMember(Name="domain", EmitDefaultValue=true)]
+        [DataMember(Name="domain", EmitDefaultValue=false)]
         public string Domain { get; set; }
 
         /// <summary>
         /// Specifies group name of the group.
         /// </summary>
         /// <value>Specifies group name of the group.</value>
-        [DataMember(Name="groupName", EmitDefaultValue=true)]
+        [DataMember(Name="groupName", EmitDefaultValue=false)]
         public string GroupName { get; set; }
 
         /// <summary>
         /// Specifies unique Security ID (SID) of the user.
         /// </summary>
         /// <value>Specifies unique Security ID (SID) of the user.</value>
-        [DataMember(Name="sid", EmitDefaultValue=true)]
+        [DataMember(Name="sid", EmitDefaultValue=false)]
         public string Sid { get; set; }
+
+        /// <summary>
+        /// Specifies the tenants to which the group belongs to.
+        /// </summary>
+        /// <value>Specifies the tenants to which the group belongs to.</value>
+        [DataMember(Name="tenantIds", EmitDefaultValue=false)]
+        public List<string> TenantIds { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -107,6 +116,11 @@ namespace Cohesity.Model
                     this.Sid == input.Sid ||
                     (this.Sid != null &&
                     this.Sid.Equals(input.Sid))
+                ) && 
+                (
+                    this.TenantIds == input.TenantIds ||
+                    this.TenantIds != null &&
+                    this.TenantIds.Equals(input.TenantIds)
                 );
         }
 
@@ -125,6 +139,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.GroupName.GetHashCode();
                 if (this.Sid != null)
                     hashCode = hashCode * 59 + this.Sid.GetHashCode();
+                if (this.TenantIds != null)
+                    hashCode = hashCode * 59 + this.TenantIds.GetHashCode();
                 return hashCode;
             }
         }

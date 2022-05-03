@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -33,38 +36,34 @@ namespace Cohesity.Model
             this.FilePath = filePath;
             this.ViewId = viewId;
             this.ViewName = viewName;
-            this.ActiveSessions = activeSessions;
-            this.FilePath = filePath;
-            this.ViewId = viewId;
-            this.ViewName = viewName;
         }
         
         /// <summary>
         /// Specifies the sessions where the file is open.
         /// </summary>
         /// <value>Specifies the sessions where the file is open.</value>
-        [DataMember(Name="activeSessions", EmitDefaultValue=true)]
+        [DataMember(Name="activeSessions", EmitDefaultValue=false)]
         public List<SmbActiveSession> ActiveSessions { get; set; }
 
         /// <summary>
         /// Specifies the filepath in the view.
         /// </summary>
         /// <value>Specifies the filepath in the view.</value>
-        [DataMember(Name="filePath", EmitDefaultValue=true)]
+        [DataMember(Name="filePath", EmitDefaultValue=false)]
         public string FilePath { get; set; }
 
         /// <summary>
         /// Specifies the id of the View assigned by the Cohesity Cluster. Either viewName or viewId must be specified.
         /// </summary>
         /// <value>Specifies the id of the View assigned by the Cohesity Cluster. Either viewName or viewId must be specified.</value>
-        [DataMember(Name="viewId", EmitDefaultValue=true)]
+        [DataMember(Name="viewId", EmitDefaultValue=false)]
         public long? ViewId { get; set; }
 
         /// <summary>
         /// Specifies the name of the View.
         /// </summary>
         /// <value>Specifies the name of the View.</value>
-        [DataMember(Name="viewName", EmitDefaultValue=true)]
+        [DataMember(Name="viewName", EmitDefaultValue=false)]
         public string ViewName { get; set; }
 
         /// <summary>
@@ -106,8 +105,7 @@ namespace Cohesity.Model
                 (
                     this.ActiveSessions == input.ActiveSessions ||
                     this.ActiveSessions != null &&
-                    input.ActiveSessions != null &&
-                    this.ActiveSessions.SequenceEqual(input.ActiveSessions)
+                    this.ActiveSessions.Equals(input.ActiveSessions)
                 ) && 
                 (
                     this.FilePath == input.FilePath ||

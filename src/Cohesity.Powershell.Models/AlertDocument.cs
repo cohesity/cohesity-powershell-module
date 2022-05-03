@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -33,38 +36,34 @@ namespace Cohesity.Model
             this.AlertDescription = alertDescription;
             this.AlertHelpText = alertHelpText;
             this.AlertName = alertName;
-            this.AlertCause = alertCause;
-            this.AlertDescription = alertDescription;
-            this.AlertHelpText = alertHelpText;
-            this.AlertName = alertName;
         }
         
         /// <summary>
         /// Specifies cause of the Alert that is included in the body of the email or any other type of notification.
         /// </summary>
         /// <value>Specifies cause of the Alert that is included in the body of the email or any other type of notification.</value>
-        [DataMember(Name="alertCause", EmitDefaultValue=true)]
+        [DataMember(Name="alertCause", EmitDefaultValue=false)]
         public string AlertCause { get; set; }
 
         /// <summary>
         /// Specifies brief description about the Alert that is used in the subject line when sending a notification email for an Alert.
         /// </summary>
         /// <value>Specifies brief description about the Alert that is used in the subject line when sending a notification email for an Alert.</value>
-        [DataMember(Name="alertDescription", EmitDefaultValue=true)]
+        [DataMember(Name="alertDescription", EmitDefaultValue=false)]
         public string AlertDescription { get; set; }
 
         /// <summary>
         /// Specifies instructions describing how to resolve the Alert that is included in the body of the email or any other type of notification.
         /// </summary>
         /// <value>Specifies instructions describing how to resolve the Alert that is included in the body of the email or any other type of notification.</value>
-        [DataMember(Name="alertHelpText", EmitDefaultValue=true)]
+        [DataMember(Name="alertHelpText", EmitDefaultValue=false)]
         public string AlertHelpText { get; set; }
 
         /// <summary>
         /// Specifies short name that describes the Alert type such as DiskBad, HighCpuUsage, FrequentProcessRestarts, etc.
         /// </summary>
         /// <value>Specifies short name that describes the Alert type such as DiskBad, HighCpuUsage, FrequentProcessRestarts, etc.</value>
-        [DataMember(Name="alertName", EmitDefaultValue=true)]
+        [DataMember(Name="alertName", EmitDefaultValue=false)]
         public string AlertName { get; set; }
 
         /// <summary>

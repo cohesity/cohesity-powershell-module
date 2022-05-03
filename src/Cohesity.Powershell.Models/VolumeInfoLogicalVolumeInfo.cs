@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -30,10 +33,6 @@ namespace Cohesity.Model
         /// <param name="volumeGroupUuid">Volume group uuid..</param>
         public VolumeInfoLogicalVolumeInfo(DeviceTree deviceTree = default(DeviceTree), string logicalVolumeName = default(string), string logicalVolumeUuid = default(string), string volumeGroupName = default(string), string volumeGroupUuid = default(string))
         {
-            this.LogicalVolumeName = logicalVolumeName;
-            this.LogicalVolumeUuid = logicalVolumeUuid;
-            this.VolumeGroupName = volumeGroupName;
-            this.VolumeGroupUuid = volumeGroupUuid;
             this.DeviceTree = deviceTree;
             this.LogicalVolumeName = logicalVolumeName;
             this.LogicalVolumeUuid = logicalVolumeUuid;
@@ -51,28 +50,28 @@ namespace Cohesity.Model
         /// Logical volume name.
         /// </summary>
         /// <value>Logical volume name.</value>
-        [DataMember(Name="logicalVolumeName", EmitDefaultValue=true)]
+        [DataMember(Name="logicalVolumeName", EmitDefaultValue=false)]
         public string LogicalVolumeName { get; set; }
 
         /// <summary>
         /// Logical volume uuid.
         /// </summary>
         /// <value>Logical volume uuid.</value>
-        [DataMember(Name="logicalVolumeUuid", EmitDefaultValue=true)]
+        [DataMember(Name="logicalVolumeUuid", EmitDefaultValue=false)]
         public string LogicalVolumeUuid { get; set; }
 
         /// <summary>
         /// Volume group name.
         /// </summary>
         /// <value>Volume group name.</value>
-        [DataMember(Name="volumeGroupName", EmitDefaultValue=true)]
+        [DataMember(Name="volumeGroupName", EmitDefaultValue=false)]
         public string VolumeGroupName { get; set; }
 
         /// <summary>
         /// Volume group uuid.
         /// </summary>
         /// <value>Volume group uuid.</value>
-        [DataMember(Name="volumeGroupUuid", EmitDefaultValue=true)]
+        [DataMember(Name="volumeGroupUuid", EmitDefaultValue=false)]
         public string VolumeGroupUuid { get; set; }
 
         /// <summary>

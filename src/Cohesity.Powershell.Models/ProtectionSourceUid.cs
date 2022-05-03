@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -33,38 +36,34 @@ namespace Cohesity.Model
             this.ClusterIncarnationId = clusterIncarnationId;
             this.ParentSourceId = parentSourceId;
             this.SourceId = sourceId;
-            this.ClusterId = clusterId;
-            this.ClusterIncarnationId = clusterIncarnationId;
-            this.ParentSourceId = parentSourceId;
-            this.SourceId = sourceId;
         }
         
         /// <summary>
         /// Specifies the id of the cluster on which object is present.
         /// </summary>
         /// <value>Specifies the id of the cluster on which object is present.</value>
-        [DataMember(Name="clusterId", EmitDefaultValue=true)]
+        [DataMember(Name="clusterId", EmitDefaultValue=false)]
         public long? ClusterId { get; set; }
 
         /// <summary>
         /// Specifies the incarnation id of the cluster on which object is present.
         /// </summary>
         /// <value>Specifies the incarnation id of the cluster on which object is present.</value>
-        [DataMember(Name="clusterIncarnationId", EmitDefaultValue=true)]
+        [DataMember(Name="clusterIncarnationId", EmitDefaultValue=false)]
         public long? ClusterIncarnationId { get; set; }
 
         /// <summary>
         /// Specifies parent source id of an object.
         /// </summary>
         /// <value>Specifies parent source id of an object.</value>
-        [DataMember(Name="parentSourceId", EmitDefaultValue=true)]
+        [DataMember(Name="parentSourceId", EmitDefaultValue=false)]
         public long? ParentSourceId { get; set; }
 
         /// <summary>
         /// Specifies source id of an object.
         /// </summary>
         /// <value>Specifies source id of an object.</value>
-        [DataMember(Name="sourceId", EmitDefaultValue=true)]
+        [DataMember(Name="sourceId", EmitDefaultValue=false)]
         public long? SourceId { get; set; }
 
         /// <summary>

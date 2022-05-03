@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -33,8 +36,15 @@ namespace Cohesity.Model
         /// <param name="sourceObjectInfo">sourceObjectInfo.</param>
         public DownloadFilesAndFoldersParams(List<FilesAndFoldersInfo> filesAndFoldersInfo = default(List<FilesAndFoldersInfo>), string name = default(string), RestoreObjectDetails sourceObjectInfo = default(RestoreObjectDetails))
         {
-            this.FilesAndFoldersInfo = filesAndFoldersInfo;
-            this.Name = name;
+            // to ensure "name" is required (not null)
+            if (name == null)
+            {
+                throw new InvalidDataException("name is a required property for DownloadFilesAndFoldersParams and cannot be null");
+            }
+            else
+            {
+                this.Name = name;
+            }
             this.FilesAndFoldersInfo = filesAndFoldersInfo;
             this.SourceObjectInfo = sourceObjectInfo;
         }
@@ -43,14 +53,14 @@ namespace Cohesity.Model
         /// Specifies the absolute paths for list of files and folders to download.
         /// </summary>
         /// <value>Specifies the absolute paths for list of files and folders to download.</value>
-        [DataMember(Name="filesAndFoldersInfo", EmitDefaultValue=true)]
+        [DataMember(Name="filesAndFoldersInfo", EmitDefaultValue=false)]
         public List<FilesAndFoldersInfo> FilesAndFoldersInfo { get; set; }
 
         /// <summary>
         /// Specifies the name of the Download Task. This field must be set and must be a unique name.
         /// </summary>
         /// <value>Specifies the name of the Download Task. This field must be set and must be a unique name.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
 
         /// <summary>
@@ -98,8 +108,7 @@ namespace Cohesity.Model
                 (
                     this.FilesAndFoldersInfo == input.FilesAndFoldersInfo ||
                     this.FilesAndFoldersInfo != null &&
-                    input.FilesAndFoldersInfo != null &&
-                    this.FilesAndFoldersInfo.SequenceEqual(input.FilesAndFoldersInfo)
+                    this.FilesAndFoldersInfo.Equals(input.FilesAndFoldersInfo)
                 ) && 
                 (
                     this.Name == input.Name ||

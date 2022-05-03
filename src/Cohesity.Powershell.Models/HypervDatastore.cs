@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -45,7 +48,7 @@ namespace Cohesity.Model
         /// Specifies the type of the datastore object like kFileShare or kVolume. overrideDescription: true Specifies the type of a HyperV datastore object. &#39;kFileShare&#39; indicates SMB file share datastore. &#39;kVolume&#39; indicates a volume which can a LUN.
         /// </summary>
         /// <value>Specifies the type of the datastore object like kFileShare or kVolume. overrideDescription: true Specifies the type of a HyperV datastore object. &#39;kFileShare&#39; indicates SMB file share datastore. &#39;kVolume&#39; indicates a volume which can a LUN.</value>
-        [DataMember(Name="type", EmitDefaultValue=true)]
+        [DataMember(Name="type", EmitDefaultValue=false)]
         public TypeEnum? Type { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="HypervDatastore" /> class.
@@ -54,12 +57,8 @@ namespace Cohesity.Model
         /// <param name="freeSpace">Specifies the available space on the datastore in bytes..</param>
         /// <param name="mountPoints">Specifies the available mount points on the datastore..</param>
         /// <param name="type">Specifies the type of the datastore object like kFileShare or kVolume. overrideDescription: true Specifies the type of a HyperV datastore object. &#39;kFileShare&#39; indicates SMB file share datastore. &#39;kVolume&#39; indicates a volume which can a LUN..</param>
-        public HypervDatastore(ulong? capacity = default(ulong?), ulong? freeSpace = default(ulong?), List<string> mountPoints = default(List<string>), TypeEnum? type = default(TypeEnum?))
+        public HypervDatastore(int? capacity = default(int?), int? freeSpace = default(int?), List<string> mountPoints = default(List<string>), TypeEnum? type = default(TypeEnum?))
         {
-            this.Capacity = capacity;
-            this.FreeSpace = freeSpace;
-            this.MountPoints = mountPoints;
-            this.Type = type;
             this.Capacity = capacity;
             this.FreeSpace = freeSpace;
             this.MountPoints = mountPoints;
@@ -70,22 +69,23 @@ namespace Cohesity.Model
         /// Specifies the capacity of the datastore in bytes.
         /// </summary>
         /// <value>Specifies the capacity of the datastore in bytes.</value>
-        [DataMember(Name="capacity", EmitDefaultValue=true)]
-        public ulong? Capacity { get; set; }
+        [DataMember(Name="capacity", EmitDefaultValue=false)]
+        public int? Capacity { get; set; }
 
         /// <summary>
         /// Specifies the available space on the datastore in bytes.
         /// </summary>
         /// <value>Specifies the available space on the datastore in bytes.</value>
-        [DataMember(Name="freeSpace", EmitDefaultValue=true)]
-        public ulong? FreeSpace { get; set; }
+        [DataMember(Name="freeSpace", EmitDefaultValue=false)]
+        public int? FreeSpace { get; set; }
 
         /// <summary>
         /// Specifies the available mount points on the datastore.
         /// </summary>
         /// <value>Specifies the available mount points on the datastore.</value>
-        [DataMember(Name="mountPoints", EmitDefaultValue=true)]
+        [DataMember(Name="mountPoints", EmitDefaultValue=false)]
         public List<string> MountPoints { get; set; }
+
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -136,12 +136,12 @@ namespace Cohesity.Model
                 (
                     this.MountPoints == input.MountPoints ||
                     this.MountPoints != null &&
-                    input.MountPoints != null &&
-                    this.MountPoints.SequenceEqual(input.MountPoints)
+                    this.MountPoints.Equals(input.MountPoints)
                 ) && 
                 (
                     this.Type == input.Type ||
-                    this.Type.Equals(input.Type)
+                    (this.Type != null &&
+                    this.Type.Equals(input.Type))
                 );
         }
 
@@ -160,7 +160,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.FreeSpace.GetHashCode();
                 if (this.MountPoints != null)
                     hashCode = hashCode * 59 + this.MountPoints.GetHashCode();
-                hashCode = hashCode * 59 + this.Type.GetHashCode();
+                if (this.Type != null)
+                    hashCode = hashCode * 59 + this.Type.GetHashCode();
                 return hashCode;
             }
         }

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,30 +34,27 @@ namespace Cohesity.Model
             this.DriveId = driveId;
             this.DriveItemList = driveItemList;
             this.RestoreEntireDrive = restoreEntireDrive;
-            this.DriveId = driveId;
-            this.DriveItemList = driveItemList;
-            this.RestoreEntireDrive = restoreEntireDrive;
         }
         
         /// <summary>
         /// Specifies the Id of the Drive.
         /// </summary>
         /// <value>Specifies the Id of the Drive.</value>
-        [DataMember(Name="driveId", EmitDefaultValue=true)]
+        [DataMember(Name="driveId", EmitDefaultValue=false)]
         public string DriveId { get; set; }
 
         /// <summary>
         /// Specifies the Drive items such as files/folders.
         /// </summary>
         /// <value>Specifies the Drive items such as files/folders.</value>
-        [DataMember(Name="driveItemList", EmitDefaultValue=true)]
+        [DataMember(Name="driveItemList", EmitDefaultValue=false)]
         public List<OneDriveItem> DriveItemList { get; set; }
 
         /// <summary>
         /// Specifies whether entire drive is to be restored. This should be set to false if specific drive items are to be restored within &#39;DriveItemList&#39;.
         /// </summary>
         /// <value>Specifies whether entire drive is to be restored. This should be set to false if specific drive items are to be restored within &#39;DriveItemList&#39;.</value>
-        [DataMember(Name="restoreEntireDrive", EmitDefaultValue=true)]
+        [DataMember(Name="restoreEntireDrive", EmitDefaultValue=false)]
         public bool? RestoreEntireDrive { get; set; }
 
         /// <summary>
@@ -101,8 +101,7 @@ namespace Cohesity.Model
                 (
                     this.DriveItemList == input.DriveItemList ||
                     this.DriveItemList != null &&
-                    input.DriveItemList != null &&
-                    this.DriveItemList.SequenceEqual(input.DriveItemList)
+                    this.DriveItemList.Equals(input.DriveItemList)
                 ) && 
                 (
                     this.RestoreEntireDrive == input.RestoreEntireDrive ||

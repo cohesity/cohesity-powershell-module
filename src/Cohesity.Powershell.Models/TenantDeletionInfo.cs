@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -37,54 +40,48 @@ namespace Cohesity.Model
             this.RetryCount = retryCount;
             this.StartedAtTimeMsecs = startedAtTimeMsecs;
             this.State = state;
-            this.Category = category;
-            this.FinishedAtTimeMsecs = finishedAtTimeMsecs;
-            this.ProcessedAtNode = processedAtNode;
-            this.RetryCount = retryCount;
-            this.StartedAtTimeMsecs = startedAtTimeMsecs;
-            this.State = state;
         }
         
         /// <summary>
         /// Specifies the category of objects whose deletion state is being captured.
         /// </summary>
         /// <value>Specifies the category of objects whose deletion state is being captured.</value>
-        [DataMember(Name="category", EmitDefaultValue=true)]
+        [DataMember(Name="category", EmitDefaultValue=false)]
         public int? Category { get; set; }
 
         /// <summary>
         /// Specifies the time when the process finished.
         /// </summary>
         /// <value>Specifies the time when the process finished.</value>
-        [DataMember(Name="finishedAtTimeMsecs", EmitDefaultValue=true)]
+        [DataMember(Name="finishedAtTimeMsecs", EmitDefaultValue=false)]
         public long? FinishedAtTimeMsecs { get; set; }
 
         /// <summary>
         /// Specifies the node ip where the process ran. Typically this would be Iris Master.
         /// </summary>
         /// <value>Specifies the node ip where the process ran. Typically this would be Iris Master.</value>
-        [DataMember(Name="processedAtNode", EmitDefaultValue=true)]
+        [DataMember(Name="processedAtNode", EmitDefaultValue=false)]
         public string ProcessedAtNode { get; set; }
 
         /// <summary>
         /// Specifies the number of times this task has been retried.
         /// </summary>
         /// <value>Specifies the number of times this task has been retried.</value>
-        [DataMember(Name="retryCount", EmitDefaultValue=true)]
+        [DataMember(Name="retryCount", EmitDefaultValue=false)]
         public long? RetryCount { get; set; }
 
         /// <summary>
         /// Specifies the time when the process started.
         /// </summary>
         /// <value>Specifies the time when the process started.</value>
-        [DataMember(Name="startedAtTimeMsecs", EmitDefaultValue=true)]
+        [DataMember(Name="startedAtTimeMsecs", EmitDefaultValue=false)]
         public long? StartedAtTimeMsecs { get; set; }
 
         /// <summary>
         /// Specifies the deletion completion state of the object category.
         /// </summary>
         /// <value>Specifies the deletion completion state of the object category.</value>
-        [DataMember(Name="state", EmitDefaultValue=true)]
+        [DataMember(Name="state", EmitDefaultValue=false)]
         public int? State { get; set; }
 
         /// <summary>

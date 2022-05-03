@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,7 +30,6 @@ namespace Cohesity.Model
         /// <param name="snapshotTarget">Specifies the location holding snapshot copies that may be used for restore..</param>
         public FullSnapshotInfo(RestoreInfo restoreInfo = default(RestoreInfo), List<SnapshotTargetSettings> snapshotTarget = default(List<SnapshotTargetSettings>))
         {
-            this.SnapshotTarget = snapshotTarget;
             this.RestoreInfo = restoreInfo;
             this.SnapshotTarget = snapshotTarget;
         }
@@ -42,7 +44,7 @@ namespace Cohesity.Model
         /// Specifies the location holding snapshot copies that may be used for restore.
         /// </summary>
         /// <value>Specifies the location holding snapshot copies that may be used for restore.</value>
-        [DataMember(Name="snapshotTarget", EmitDefaultValue=true)]
+        [DataMember(Name="snapshotTarget", EmitDefaultValue=false)]
         public List<SnapshotTargetSettings> SnapshotTarget { get; set; }
 
         /// <summary>
@@ -89,8 +91,7 @@ namespace Cohesity.Model
                 (
                     this.SnapshotTarget == input.SnapshotTarget ||
                     this.SnapshotTarget != null &&
-                    input.SnapshotTarget != null &&
-                    this.SnapshotTarget.SequenceEqual(input.SnapshotTarget)
+                    this.SnapshotTarget.Equals(input.SnapshotTarget)
                 );
         }
 

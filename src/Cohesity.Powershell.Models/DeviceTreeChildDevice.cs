@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -28,7 +31,6 @@ namespace Cohesity.Model
         /// <param name="partitionSlice">partitionSlice.</param>
         public DeviceTreeChildDevice(DeviceTree device = default(DeviceTree), int? deviceType = default(int?), DeviceTreePartitionSlice partitionSlice = default(DeviceTreePartitionSlice))
         {
-            this.DeviceType = deviceType;
             this.Device = device;
             this.DeviceType = deviceType;
             this.PartitionSlice = partitionSlice;
@@ -44,7 +46,7 @@ namespace Cohesity.Model
         /// This specifies how the parent device is using this child device.
         /// </summary>
         /// <value>This specifies how the parent device is using this child device.</value>
-        [DataMember(Name="deviceType", EmitDefaultValue=true)]
+        [DataMember(Name="deviceType", EmitDefaultValue=false)]
         public int? DeviceType { get; set; }
 
         /// <summary>

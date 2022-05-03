@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,14 +30,13 @@ namespace Cohesity.Model
         public NetworkingInformation(List<ClusterNetworkingResourceInformation> resourceVec = default(List<ClusterNetworkingResourceInformation>))
         {
             this.ResourceVec = resourceVec;
-            this.ResourceVec = resourceVec;
         }
         
         /// <summary>
         /// The list of resources on the system that are accessible by an IP address.
         /// </summary>
         /// <value>The list of resources on the system that are accessible by an IP address.</value>
-        [DataMember(Name="resourceVec", EmitDefaultValue=true)]
+        [DataMember(Name="resourceVec", EmitDefaultValue=false)]
         public List<ClusterNetworkingResourceInformation> ResourceVec { get; set; }
 
         /// <summary>
@@ -76,8 +78,7 @@ namespace Cohesity.Model
                 (
                     this.ResourceVec == input.ResourceVec ||
                     this.ResourceVec != null &&
-                    input.ResourceVec != null &&
-                    this.ResourceVec.SequenceEqual(input.ResourceVec)
+                    this.ResourceVec.Equals(input.ResourceVec)
                 );
         }
 

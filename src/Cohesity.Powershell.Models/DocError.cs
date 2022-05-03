@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.DocumentId = documentId;
             this.ErrorString = errorString;
-            this.DocumentId = documentId;
-            this.ErrorString = errorString;
         }
         
         /// <summary>
         /// DocumentId is document which caused the error.
         /// </summary>
         /// <value>DocumentId is document which caused the error.</value>
-        [DataMember(Name="documentId", EmitDefaultValue=true)]
+        [DataMember(Name="documentId", EmitDefaultValue=false)]
         public string DocumentId { get; set; }
 
         /// <summary>
         /// ErrorString is the error converted to string.
         /// </summary>
         /// <value>ErrorString is the error converted to string.</value>
-        [DataMember(Name="errorString", EmitDefaultValue=true)]
+        [DataMember(Name="errorString", EmitDefaultValue=false)]
         public string ErrorString { get; set; }
 
         /// <summary>

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,30 +34,27 @@ namespace Cohesity.Model
             this.FilePath = filePath;
             this.OpenId = openId;
             this.ViewName = viewName;
-            this.FilePath = filePath;
-            this.OpenId = openId;
-            this.ViewName = viewName;
         }
         
         /// <summary>
         /// Specifies the filepath in the view relative to the root filesystem. If this field is specified, viewName field must also be specified.
         /// </summary>
         /// <value>Specifies the filepath in the view relative to the root filesystem. If this field is specified, viewName field must also be specified.</value>
-        [DataMember(Name="filePath", EmitDefaultValue=true)]
+        [DataMember(Name="filePath", EmitDefaultValue=false)]
         public string FilePath { get; set; }
 
         /// <summary>
         /// Specifies the id of the active open.
         /// </summary>
         /// <value>Specifies the id of the active open.</value>
-        [DataMember(Name="openId", EmitDefaultValue=true)]
+        [DataMember(Name="openId", EmitDefaultValue=false)]
         public long? OpenId { get; set; }
 
         /// <summary>
         /// Specifies the name of the View in which to search. If a view name is not specified, all the views in the Cluster is searched. This field is mandatory if filePath field is specified.
         /// </summary>
         /// <value>Specifies the name of the View in which to search. If a view name is not specified, all the views in the Cluster is searched. This field is mandatory if filePath field is specified.</value>
-        [DataMember(Name="viewName", EmitDefaultValue=true)]
+        [DataMember(Name="viewName", EmitDefaultValue=false)]
         public string ViewName { get; set; }
 
         /// <summary>

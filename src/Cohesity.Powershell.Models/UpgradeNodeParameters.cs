@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,12 +30,8 @@ namespace Cohesity.Model
         /// <param name="targetSwVersion">Specifies the target software version. The node that the request is sent to will search itself for the specified software package and if that package is found, it will be used for the upgrade..</param>
         /// <param name="upgradeAllFreeNodes">Specifies whether or not to attempt to upgrade all free nodes which are currently connected to the same local network as the node that the request was sent to. This parameter can only be specified if nodeIds is not..</param>
         /// <param name="upgradeSelf">Specifies that the node that the request is being sent to should be upgraded. By default, this is set to true..</param>
-        public UpgradeNodeParameters(List<long> nodeIds = default(List<long>), string targetSwVersion = default(string), bool? upgradeAllFreeNodes = default(bool?), bool? upgradeSelf = default(bool?))
+        public UpgradeNodeParameters(List<long?> nodeIds = default(List<long?>), string targetSwVersion = default(string), bool? upgradeAllFreeNodes = default(bool?), bool? upgradeSelf = default(bool?))
         {
-            this.NodeIds = nodeIds;
-            this.TargetSwVersion = targetSwVersion;
-            this.UpgradeAllFreeNodes = upgradeAllFreeNodes;
-            this.UpgradeSelf = upgradeSelf;
             this.NodeIds = nodeIds;
             this.TargetSwVersion = targetSwVersion;
             this.UpgradeAllFreeNodes = upgradeAllFreeNodes;
@@ -43,28 +42,28 @@ namespace Cohesity.Model
         /// Specifies a list of IDs of additional nodes to be upgraded. These must be free Nodes present on the same local network as the Node that the request was sent to. The ID of the Node the request was sent to should not be included in this list. This parameter can only be specified if upgradeAllFreeNodes is not.
         /// </summary>
         /// <value>Specifies a list of IDs of additional nodes to be upgraded. These must be free Nodes present on the same local network as the Node that the request was sent to. The ID of the Node the request was sent to should not be included in this list. This parameter can only be specified if upgradeAllFreeNodes is not.</value>
-        [DataMember(Name="nodeIds", EmitDefaultValue=true)]
-        public List<long> NodeIds { get; set; }
+        [DataMember(Name="nodeIds", EmitDefaultValue=false)]
+        public List<long?> NodeIds { get; set; }
 
         /// <summary>
         /// Specifies the target software version. The node that the request is sent to will search itself for the specified software package and if that package is found, it will be used for the upgrade.
         /// </summary>
         /// <value>Specifies the target software version. The node that the request is sent to will search itself for the specified software package and if that package is found, it will be used for the upgrade.</value>
-        [DataMember(Name="targetSwVersion", EmitDefaultValue=true)]
+        [DataMember(Name="targetSwVersion", EmitDefaultValue=false)]
         public string TargetSwVersion { get; set; }
 
         /// <summary>
         /// Specifies whether or not to attempt to upgrade all free nodes which are currently connected to the same local network as the node that the request was sent to. This parameter can only be specified if nodeIds is not.
         /// </summary>
         /// <value>Specifies whether or not to attempt to upgrade all free nodes which are currently connected to the same local network as the node that the request was sent to. This parameter can only be specified if nodeIds is not.</value>
-        [DataMember(Name="upgradeAllFreeNodes", EmitDefaultValue=true)]
+        [DataMember(Name="upgradeAllFreeNodes", EmitDefaultValue=false)]
         public bool? UpgradeAllFreeNodes { get; set; }
 
         /// <summary>
         /// Specifies that the node that the request is being sent to should be upgraded. By default, this is set to true.
         /// </summary>
         /// <value>Specifies that the node that the request is being sent to should be upgraded. By default, this is set to true.</value>
-        [DataMember(Name="upgradeSelf", EmitDefaultValue=true)]
+        [DataMember(Name="upgradeSelf", EmitDefaultValue=false)]
         public bool? UpgradeSelf { get; set; }
 
         /// <summary>
@@ -106,8 +105,7 @@ namespace Cohesity.Model
                 (
                     this.NodeIds == input.NodeIds ||
                     this.NodeIds != null &&
-                    input.NodeIds != null &&
-                    this.NodeIds.SequenceEqual(input.NodeIds)
+                    this.NodeIds.Equals(input.NodeIds)
                 ) && 
                 (
                     this.TargetSwVersion == input.TargetSwVersion ||

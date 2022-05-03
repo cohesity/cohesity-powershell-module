@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -35,46 +38,41 @@ namespace Cohesity.Model
             this.ResolutionSummary = resolutionSummary;
             this.TimestampUsecs = timestampUsecs;
             this.UserName = userName;
-            this.ResolutionDetails = resolutionDetails;
-            this.ResolutionId = resolutionId;
-            this.ResolutionSummary = resolutionSummary;
-            this.TimestampUsecs = timestampUsecs;
-            this.UserName = userName;
         }
         
         /// <summary>
         /// Specifies detailed notes about the Resolution.
         /// </summary>
         /// <value>Specifies detailed notes about the Resolution.</value>
-        [DataMember(Name="resolutionDetails", EmitDefaultValue=true)]
+        [DataMember(Name="resolutionDetails", EmitDefaultValue=false)]
         public string ResolutionDetails { get; set; }
 
         /// <summary>
         /// Specifies Unique id assigned by the Cohesity Cluster for this Resolution.
         /// </summary>
         /// <value>Specifies Unique id assigned by the Cohesity Cluster for this Resolution.</value>
-        [DataMember(Name="resolutionId", EmitDefaultValue=true)]
+        [DataMember(Name="resolutionId", EmitDefaultValue=false)]
         public long? ResolutionId { get; set; }
 
         /// <summary>
         /// Specifies short description about the Resolution.
         /// </summary>
         /// <value>Specifies short description about the Resolution.</value>
-        [DataMember(Name="resolutionSummary", EmitDefaultValue=true)]
+        [DataMember(Name="resolutionSummary", EmitDefaultValue=false)]
         public string ResolutionSummary { get; set; }
 
         /// <summary>
         /// Specifies unix epoch timestamp (in microseconds) when the Alerts were resolved.
         /// </summary>
         /// <value>Specifies unix epoch timestamp (in microseconds) when the Alerts were resolved.</value>
-        [DataMember(Name="timestampUsecs", EmitDefaultValue=true)]
+        [DataMember(Name="timestampUsecs", EmitDefaultValue=false)]
         public long? TimestampUsecs { get; set; }
 
         /// <summary>
         /// Specifies name of the Cohesity Cluster user who resolved the Alerts.
         /// </summary>
         /// <value>Specifies name of the Cohesity Cluster user who resolved the Alerts.</value>
-        [DataMember(Name="userName", EmitDefaultValue=true)]
+        [DataMember(Name="userName", EmitDefaultValue=false)]
         public string UserName { get; set; }
 
         /// <summary>

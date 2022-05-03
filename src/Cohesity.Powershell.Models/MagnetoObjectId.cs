@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -28,7 +31,6 @@ namespace Cohesity.Model
         /// <param name="jobUid">jobUid.</param>
         public MagnetoObjectId(EntityProto entity = default(EntityProto), long? jobId = default(long?), UniversalIdProto jobUid = default(UniversalIdProto))
         {
-            this.JobId = jobId;
             this.Entity = entity;
             this.JobId = jobId;
             this.JobUid = jobUid;
@@ -44,7 +46,7 @@ namespace Cohesity.Model
         /// The id of the local job that the object belongs to, which may or may not match the object_id field in job_uid below depending on whether the object originally belonged to this local job or to a different remote job.
         /// </summary>
         /// <value>The id of the local job that the object belongs to, which may or may not match the object_id field in job_uid below depending on whether the object originally belonged to this local job or to a different remote job.</value>
-        [DataMember(Name="jobId", EmitDefaultValue=true)]
+        [DataMember(Name="jobId", EmitDefaultValue=false)]
         public long? JobId { get; set; }
 
         /// <summary>

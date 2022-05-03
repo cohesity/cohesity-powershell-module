@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -35,46 +38,41 @@ namespace Cohesity.Model
             this.OptionFlags = optionFlags;
             this.PropertyVec = propertyVec;
             this.SrcSysvolFolder = srcSysvolFolder;
-            this.ExcludedPropertyVec = excludedPropertyVec;
-            this.GuidpairVec = guidpairVec;
-            this.OptionFlags = optionFlags;
-            this.PropertyVec = propertyVec;
-            this.SrcSysvolFolder = srcSysvolFolder;
         }
         
         /// <summary>
         /// Array of LDAP property names to excluded from &#39;property_vec&#39;. Excluded property name cannot contain wildcard character &#39;*&#39;.  Property names are case insensitive.
         /// </summary>
         /// <value>Array of LDAP property names to excluded from &#39;property_vec&#39;. Excluded property name cannot contain wildcard character &#39;*&#39;.  Property names are case insensitive.</value>
-        [DataMember(Name="excludedPropertyVec", EmitDefaultValue=true)]
+        [DataMember(Name="excludedPropertyVec", EmitDefaultValue=false)]
         public List<string> ExcludedPropertyVec { get; set; }
 
         /// <summary>
         /// Array of source and destination object guid pairs to restore attributes. Pair source guid refers to guid in AD snapshot in source_server endpoint. Destination guid refers to guid in production AD. If destination guid is empty, then source guid in AD snapshot should exist in production AD.
         /// </summary>
         /// <value>Array of source and destination object guid pairs to restore attributes. Pair source guid refers to guid in AD snapshot in source_server endpoint. Destination guid refers to guid in production AD. If destination guid is empty, then source guid in AD snapshot should exist in production AD.</value>
-        [DataMember(Name="guidpairVec", EmitDefaultValue=true)]
+        [DataMember(Name="guidpairVec", EmitDefaultValue=false)]
         public List<ADGuidPair> GuidpairVec { get; set; }
 
         /// <summary>
         /// Attribute restore option flags of type ADAttributeOptionFlags.
         /// </summary>
         /// <value>Attribute restore option flags of type ADAttributeOptionFlags.</value>
-        [DataMember(Name="optionFlags", EmitDefaultValue=true)]
+        [DataMember(Name="optionFlags", EmitDefaultValue=false)]
         public int? OptionFlags { get; set; }
 
         /// <summary>
         /// Array of LDAP property(attribute) names. The name can be standard or custom property defined in AD schema partition. The property can contain wildcard character &#39;*&#39;. If this array is empty, then &#39;*&#39; is assigned, means restore all properties except default system excluded properties. Wildcards will be expanded. If &#39;memberOf&#39; property is included, group membership of the objects specified in &#39;guid_vec&#39; will be restored. Property that does not exist for an object is ignored and no error info is returned for that property. Property names are case insensitive. Caller may check the ADAttributeFlags.kSystem obtained during object compare to exclude system properties.
         /// </summary>
         /// <value>Array of LDAP property(attribute) names. The name can be standard or custom property defined in AD schema partition. The property can contain wildcard character &#39;*&#39;. If this array is empty, then &#39;*&#39; is assigned, means restore all properties except default system excluded properties. Wildcards will be expanded. If &#39;memberOf&#39; property is included, group membership of the objects specified in &#39;guid_vec&#39; will be restored. Property that does not exist for an object is ignored and no error info is returned for that property. Property names are case insensitive. Caller may check the ADAttributeFlags.kSystem obtained during object compare to exclude system properties.</value>
-        [DataMember(Name="propertyVec", EmitDefaultValue=true)]
+        [DataMember(Name="propertyVec", EmitDefaultValue=false)]
         public List<string> PropertyVec { get; set; }
 
         /// <summary>
         /// When restoring a GPO, need to know the absolute path for SYSVOL folder.
         /// </summary>
         /// <value>When restoring a GPO, need to know the absolute path for SYSVOL folder.</value>
-        [DataMember(Name="srcSysvolFolder", EmitDefaultValue=true)]
+        [DataMember(Name="srcSysvolFolder", EmitDefaultValue=false)]
         public string SrcSysvolFolder { get; set; }
 
         /// <summary>
@@ -116,14 +114,12 @@ namespace Cohesity.Model
                 (
                     this.ExcludedPropertyVec == input.ExcludedPropertyVec ||
                     this.ExcludedPropertyVec != null &&
-                    input.ExcludedPropertyVec != null &&
-                    this.ExcludedPropertyVec.SequenceEqual(input.ExcludedPropertyVec)
+                    this.ExcludedPropertyVec.Equals(input.ExcludedPropertyVec)
                 ) && 
                 (
                     this.GuidpairVec == input.GuidpairVec ||
                     this.GuidpairVec != null &&
-                    input.GuidpairVec != null &&
-                    this.GuidpairVec.SequenceEqual(input.GuidpairVec)
+                    this.GuidpairVec.Equals(input.GuidpairVec)
                 ) && 
                 (
                     this.OptionFlags == input.OptionFlags ||
@@ -133,8 +129,7 @@ namespace Cohesity.Model
                 (
                     this.PropertyVec == input.PropertyVec ||
                     this.PropertyVec != null &&
-                    input.PropertyVec != null &&
-                    this.PropertyVec.SequenceEqual(input.PropertyVec)
+                    this.PropertyVec.Equals(input.PropertyVec)
                 ) && 
                 (
                     this.SrcSysvolFolder == input.SrcSysvolFolder ||

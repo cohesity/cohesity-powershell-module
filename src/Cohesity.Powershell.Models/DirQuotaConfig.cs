@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.Enabled = enabled;
             this.ViewName = viewName;
-            this.Enabled = enabled;
-            this.ViewName = viewName;
         }
         
         /// <summary>
         /// Specifies whether the directory quota is enabled on the view.
         /// </summary>
         /// <value>Specifies whether the directory quota is enabled on the view.</value>
-        [DataMember(Name="enabled", EmitDefaultValue=true)]
+        [DataMember(Name="enabled", EmitDefaultValue=false)]
         public bool? Enabled { get; set; }
 
         /// <summary>
         /// Specifies the name of the view.
         /// </summary>
         /// <value>Specifies the name of the view.</value>
-        [DataMember(Name="viewName", EmitDefaultValue=true)]
+        [DataMember(Name="viewName", EmitDefaultValue=false)]
         public string ViewName { get; set; }
 
         /// <summary>

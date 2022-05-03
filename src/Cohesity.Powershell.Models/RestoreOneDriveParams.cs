@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -34,10 +37,6 @@ namespace Cohesity.Model
             this.RestoreToOriginal = restoreToOriginal;
             this.TargetDriveId = targetDriveId;
             this.TargetFolderPath = targetFolderPath;
-            this.DriveOwnerVec = driveOwnerVec;
-            this.RestoreToOriginal = restoreToOriginal;
-            this.TargetDriveId = targetDriveId;
-            this.TargetFolderPath = targetFolderPath;
             this.TargetUser = targetUser;
         }
         
@@ -45,28 +44,28 @@ namespace Cohesity.Model
         /// The list of users/groups whose drives are being restored.
         /// </summary>
         /// <value>The list of users/groups whose drives are being restored.</value>
-        [DataMember(Name="driveOwnerVec", EmitDefaultValue=true)]
+        [DataMember(Name="driveOwnerVec", EmitDefaultValue=false)]
         public List<RestoreOneDriveParamsDriveOwner> DriveOwnerVec { get; set; }
 
         /// <summary>
         /// Whether or not all drive items are restored to original location.
         /// </summary>
         /// <value>Whether or not all drive items are restored to original location.</value>
-        [DataMember(Name="restoreToOriginal", EmitDefaultValue=true)]
+        [DataMember(Name="restoreToOriginal", EmitDefaultValue=false)]
         public bool? RestoreToOriginal { get; set; }
 
         /// <summary>
         /// The id of the drive in which items will be restored.
         /// </summary>
         /// <value>The id of the drive in which items will be restored.</value>
-        [DataMember(Name="targetDriveId", EmitDefaultValue=true)]
+        [DataMember(Name="targetDriveId", EmitDefaultValue=false)]
         public string TargetDriveId { get; set; }
 
         /// <summary>
         /// All drives part of various users listed in drive_owner_vec will be restored to the drive belonging to target_user having id target_drive_id. Let&#39;s say drive_owner_vec is A and B; drive_vec of A and B is 111 and 222 respectively; target_user is C; target_drive_id is 333. The final folder-hierarchy after restore job is finished will look like this : C:333: {target_folder_path}/| |A/111/{whatever is there in restore_item_vec of 111} |B/222/{whatever is there in restore_item_vec of 222}
         /// </summary>
         /// <value>All drives part of various users listed in drive_owner_vec will be restored to the drive belonging to target_user having id target_drive_id. Let&#39;s say drive_owner_vec is A and B; drive_vec of A and B is 111 and 222 respectively; target_user is C; target_drive_id is 333. The final folder-hierarchy after restore job is finished will look like this : C:333: {target_folder_path}/| |A/111/{whatever is there in restore_item_vec of 111} |B/222/{whatever is there in restore_item_vec of 222}</value>
-        [DataMember(Name="targetFolderPath", EmitDefaultValue=true)]
+        [DataMember(Name="targetFolderPath", EmitDefaultValue=false)]
         public string TargetFolderPath { get; set; }
 
         /// <summary>
@@ -114,8 +113,7 @@ namespace Cohesity.Model
                 (
                     this.DriveOwnerVec == input.DriveOwnerVec ||
                     this.DriveOwnerVec != null &&
-                    input.DriveOwnerVec != null &&
-                    this.DriveOwnerVec.SequenceEqual(input.DriveOwnerVec)
+                    this.DriveOwnerVec.Equals(input.DriveOwnerVec)
                 ) && 
                 (
                     this.RestoreToOriginal == input.RestoreToOriginal ||

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -35,46 +38,41 @@ namespace Cohesity.Model
             this.DestroyClonedEntityInfoVec = destroyClonedEntityInfoVec;
             this.Type = type;
             this.ViewDeleted = viewDeleted;
-            this.DatastoreNotUnmountedReason = datastoreNotUnmountedReason;
-            this.DatastoreUnmounted = datastoreUnmounted;
-            this.DestroyClonedEntityInfoVec = destroyClonedEntityInfoVec;
-            this.Type = type;
-            this.ViewDeleted = viewDeleted;
         }
         
         /// <summary>
         /// If datastore was not unmounted, this field contains the reason for the same.
         /// </summary>
         /// <value>If datastore was not unmounted, this field contains the reason for the same.</value>
-        [DataMember(Name="datastoreNotUnmountedReason", EmitDefaultValue=true)]
+        [DataMember(Name="datastoreNotUnmountedReason", EmitDefaultValue=false)]
         public string DatastoreNotUnmountedReason { get; set; }
 
         /// <summary>
         /// Whether the datastore corresponding to the clone view was unmounted from primary environment.
         /// </summary>
         /// <value>Whether the datastore corresponding to the clone view was unmounted from primary environment.</value>
-        [DataMember(Name="datastoreUnmounted", EmitDefaultValue=true)]
+        [DataMember(Name="datastoreUnmounted", EmitDefaultValue=false)]
         public bool? DatastoreUnmounted { get; set; }
 
         /// <summary>
         /// Vector of all cloned entities that this destroy task will teardown.
         /// </summary>
         /// <value>Vector of all cloned entities that this destroy task will teardown.</value>
-        [DataMember(Name="destroyClonedEntityInfoVec", EmitDefaultValue=true)]
+        [DataMember(Name="destroyClonedEntityInfoVec", EmitDefaultValue=false)]
         public List<DestroyClonedEntityInfoProto> DestroyClonedEntityInfoVec { get; set; }
 
         /// <summary>
         /// The type of environment this destroy clone task info pertains to.
         /// </summary>
         /// <value>The type of environment this destroy clone task info pertains to.</value>
-        [DataMember(Name="type", EmitDefaultValue=true)]
+        [DataMember(Name="type", EmitDefaultValue=false)]
         public int? Type { get; set; }
 
         /// <summary>
         /// Whether the clone view was deleted by the destroy task.
         /// </summary>
         /// <value>Whether the clone view was deleted by the destroy task.</value>
-        [DataMember(Name="viewDeleted", EmitDefaultValue=true)]
+        [DataMember(Name="viewDeleted", EmitDefaultValue=false)]
         public bool? ViewDeleted { get; set; }
 
         /// <summary>
@@ -126,8 +124,7 @@ namespace Cohesity.Model
                 (
                     this.DestroyClonedEntityInfoVec == input.DestroyClonedEntityInfoVec ||
                     this.DestroyClonedEntityInfoVec != null &&
-                    input.DestroyClonedEntityInfoVec != null &&
-                    this.DestroyClonedEntityInfoVec.SequenceEqual(input.DestroyClonedEntityInfoVec)
+                    this.DestroyClonedEntityInfoVec.Equals(input.DestroyClonedEntityInfoVec)
                 ) && 
                 (
                     this.Type == input.Type ||

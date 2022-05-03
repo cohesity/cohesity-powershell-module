@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.Directory = directory;
             this.FilenamePattern = filenamePattern;
-            this.Directory = directory;
-            this.FilenamePattern = filenamePattern;
         }
         
         /// <summary>
         /// Specifies the directory where to keep the files matching the pattern.
         /// </summary>
         /// <value>Specifies the directory where to keep the files matching the pattern.</value>
-        [DataMember(Name="directory", EmitDefaultValue=true)]
+        [DataMember(Name="directory", EmitDefaultValue=false)]
         public string Directory { get; set; }
 
         /// <summary>
         /// Specifies a pattern to be matched with filenames. This can be a regex expression.
         /// </summary>
         /// <value>Specifies a pattern to be matched with filenames. This can be a regex expression.</value>
-        [DataMember(Name="filenamePattern", EmitDefaultValue=true)]
+        [DataMember(Name="filenamePattern", EmitDefaultValue=false)]
         public string FilenamePattern { get; set; }
 
         /// <summary>

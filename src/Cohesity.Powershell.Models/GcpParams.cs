@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -33,38 +36,34 @@ namespace Cohesity.Model
             this.Region = region;
             this.SubnetId = subnetId;
             this.VirtualPrivateCloudId = virtualPrivateCloudId;
-            this.InstanceId = instanceId;
-            this.Region = region;
-            this.SubnetId = subnetId;
-            this.VirtualPrivateCloudId = virtualPrivateCloudId;
         }
         
         /// <summary>
         /// Specifies id of the GCP instance type in which to deploy the VM.
         /// </summary>
         /// <value>Specifies id of the GCP instance type in which to deploy the VM.</value>
-        [DataMember(Name="instanceId", EmitDefaultValue=true)]
+        [DataMember(Name="instanceId", EmitDefaultValue=false)]
         public long? InstanceId { get; set; }
 
         /// <summary>
         /// Specifies id of the GCP region in which to deploy the VM.
         /// </summary>
         /// <value>Specifies id of the GCP region in which to deploy the VM.</value>
-        [DataMember(Name="region", EmitDefaultValue=true)]
+        [DataMember(Name="region", EmitDefaultValue=false)]
         public long? Region { get; set; }
 
         /// <summary>
         /// Specifies id of the subnet within above VPC.
         /// </summary>
         /// <value>Specifies id of the subnet within above VPC.</value>
-        [DataMember(Name="subnetId", EmitDefaultValue=true)]
+        [DataMember(Name="subnetId", EmitDefaultValue=false)]
         public long? SubnetId { get; set; }
 
         /// <summary>
         /// Specifies id of the Virtual Private Cloud to chose for the instance type.
         /// </summary>
         /// <value>Specifies id of the Virtual Private Cloud to chose for the instance type.</value>
-        [DataMember(Name="virtualPrivateCloudId", EmitDefaultValue=true)]
+        [DataMember(Name="virtualPrivateCloudId", EmitDefaultValue=false)]
         public long? VirtualPrivateCloudId { get; set; }
 
         /// <summary>

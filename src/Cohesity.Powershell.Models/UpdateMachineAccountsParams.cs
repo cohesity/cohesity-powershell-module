@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -33,38 +36,34 @@ namespace Cohesity.Model
             this.OverwriteExistingAccounts = overwriteExistingAccounts;
             this.Password = password;
             this.UserName = userName;
-            this.MachineAccounts = machineAccounts;
-            this.OverwriteExistingAccounts = overwriteExistingAccounts;
-            this.Password = password;
-            this.UserName = userName;
         }
         
         /// <summary>
         /// Array of Machine Accounts.  Specifies an array of computer names used to identify the Cohesity Cluster on the domain.
         /// </summary>
         /// <value>Array of Machine Accounts.  Specifies an array of computer names used to identify the Cohesity Cluster on the domain.</value>
-        [DataMember(Name="machineAccounts", EmitDefaultValue=true)]
+        [DataMember(Name="machineAccounts", EmitDefaultValue=false)]
         public List<string> MachineAccounts { get; set; }
 
         /// <summary>
         /// Specifies whether the specified machine accounts should overwrite the existing machine accounts in this domain.
         /// </summary>
         /// <value>Specifies whether the specified machine accounts should overwrite the existing machine accounts in this domain.</value>
-        [DataMember(Name="overwriteExistingAccounts", EmitDefaultValue=true)]
+        [DataMember(Name="overwriteExistingAccounts", EmitDefaultValue=false)]
         public bool? OverwriteExistingAccounts { get; set; }
 
         /// <summary>
         /// Specifies the password for the specified userName.
         /// </summary>
         /// <value>Specifies the password for the specified userName.</value>
-        [DataMember(Name="password", EmitDefaultValue=true)]
+        [DataMember(Name="password", EmitDefaultValue=false)]
         public string Password { get; set; }
 
         /// <summary>
         /// Specifies a userName that has administrative privileges in the domain.
         /// </summary>
         /// <value>Specifies a userName that has administrative privileges in the domain.</value>
-        [DataMember(Name="userName", EmitDefaultValue=true)]
+        [DataMember(Name="userName", EmitDefaultValue=false)]
         public string UserName { get; set; }
 
         /// <summary>
@@ -106,8 +105,7 @@ namespace Cohesity.Model
                 (
                     this.MachineAccounts == input.MachineAccounts ||
                     this.MachineAccounts != null &&
-                    input.MachineAccounts != null &&
-                    this.MachineAccounts.SequenceEqual(input.MachineAccounts)
+                    this.MachineAccounts.Equals(input.MachineAccounts)
                 ) && 
                 (
                     this.OverwriteExistingAccounts == input.OverwriteExistingAccounts ||

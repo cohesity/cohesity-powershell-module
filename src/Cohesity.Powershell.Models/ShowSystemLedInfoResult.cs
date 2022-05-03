@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,13 +30,12 @@ namespace Cohesity.Model
         public ShowSystemLedInfoResult(string ledInfo = default(string))
         {
             this.LedInfo = ledInfo;
-            this.LedInfo = ledInfo;
         }
         
         /// <summary>
         /// Gets or Sets LedInfo
         /// </summary>
-        [DataMember(Name="ledInfo", EmitDefaultValue=true)]
+        [DataMember(Name="ledInfo", EmitDefaultValue=false)]
         public string LedInfo { get; set; }
 
         /// <summary>

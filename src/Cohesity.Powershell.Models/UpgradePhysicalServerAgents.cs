@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,17 +32,25 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="UpgradePhysicalServerAgents" /> class.
         /// </summary>
         /// <param name="agentIds">Array of Agent Ids.  Specifies a list of agentIds associated with the Physical Servers to upgrade with the agent release currently available from the Cohesity Cluster. (required).</param>
-        public UpgradePhysicalServerAgents(List<long> agentIds = default(List<long>))
+        public UpgradePhysicalServerAgents(List<long?> agentIds = default(List<long?>))
         {
-            this.AgentIds = agentIds;
+            // to ensure "agentIds" is required (not null)
+            if (agentIds == null)
+            {
+                throw new InvalidDataException("agentIds is a required property for UpgradePhysicalServerAgents and cannot be null");
+            }
+            else
+            {
+                this.AgentIds = agentIds;
+            }
         }
         
         /// <summary>
         /// Array of Agent Ids.  Specifies a list of agentIds associated with the Physical Servers to upgrade with the agent release currently available from the Cohesity Cluster.
         /// </summary>
         /// <value>Array of Agent Ids.  Specifies a list of agentIds associated with the Physical Servers to upgrade with the agent release currently available from the Cohesity Cluster.</value>
-        [DataMember(Name="agentIds", EmitDefaultValue=true)]
-        public List<long> AgentIds { get; set; }
+        [DataMember(Name="agentIds", EmitDefaultValue=false)]
+        public List<long?> AgentIds { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -80,8 +91,7 @@ namespace Cohesity.Model
                 (
                     this.AgentIds == input.AgentIds ||
                     this.AgentIds != null &&
-                    input.AgentIds != null &&
-                    this.AgentIds.SequenceEqual(input.AgentIds)
+                    this.AgentIds.Equals(input.AgentIds)
                 );
         }
 

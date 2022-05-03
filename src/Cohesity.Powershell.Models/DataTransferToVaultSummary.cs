@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -159,7 +162,7 @@ namespace Cohesity.Model
         /// Specifies the type of Vault. &#39;kNearline&#39; indicates a Google Nearline Vault. &#39;kGlacier&#39; indicates an AWS Glacier Vault. &#39;kS3&#39; indicates an AWS S3 Vault. &#39;kAzureStandard&#39; indicates a Microsoft Azure Standard Vault. &#39;kS3Compatible&#39; indicates an S3 Compatible Vault. (See the online help for supported types.) &#39;kQStarTape&#39; indicates a QStar Tape Vault. &#39;kGoogleStandard&#39; indicates a Google Standard Vault. &#39;kGoogleDRA&#39; indicates a Google DRA Vault. &#39;kAmazonS3StandardIA&#39; indicates an Amazon S3 Standard-IA Vault. &#39;kAWSGovCloud&#39; indicates an AWS Gov Cloud Vault. &#39;kNAS&#39; indicates a NAS Vault. &#39;kColdline&#39; indicates a Google Coldline Vault. &#39;kAzureGovCloud&#39; indicates a Microsoft Azure Gov Cloud Vault. &#39;kAzureArchive&#39; indicates an Azure Archive Vault. &#39;kAzure&#39; indicates an Azure Vault. &#39;kGoogle&#39; indicates a Google Vault. &#39;kAmazon&#39; indicates an Amazon Vault. &#39;kOracle&#39; indicates an Oracle Vault. &#39;kOracleTierStandard&#39; indicates an Oracle Tier Standard Vault. &#39;kOracleTierArchive&#39; indicates an Oracle Tier Archive Vault. &#39;kAmazonC2S&#39; indicates an Amazon Commercial Cloud Services Vault.
         /// </summary>
         /// <value>Specifies the type of Vault. &#39;kNearline&#39; indicates a Google Nearline Vault. &#39;kGlacier&#39; indicates an AWS Glacier Vault. &#39;kS3&#39; indicates an AWS S3 Vault. &#39;kAzureStandard&#39; indicates a Microsoft Azure Standard Vault. &#39;kS3Compatible&#39; indicates an S3 Compatible Vault. (See the online help for supported types.) &#39;kQStarTape&#39; indicates a QStar Tape Vault. &#39;kGoogleStandard&#39; indicates a Google Standard Vault. &#39;kGoogleDRA&#39; indicates a Google DRA Vault. &#39;kAmazonS3StandardIA&#39; indicates an Amazon S3 Standard-IA Vault. &#39;kAWSGovCloud&#39; indicates an AWS Gov Cloud Vault. &#39;kNAS&#39; indicates a NAS Vault. &#39;kColdline&#39; indicates a Google Coldline Vault. &#39;kAzureGovCloud&#39; indicates a Microsoft Azure Gov Cloud Vault. &#39;kAzureArchive&#39; indicates an Azure Archive Vault. &#39;kAzure&#39; indicates an Azure Vault. &#39;kGoogle&#39; indicates a Google Vault. &#39;kAmazon&#39; indicates an Amazon Vault. &#39;kOracle&#39; indicates an Oracle Vault. &#39;kOracleTierStandard&#39; indicates an Oracle Tier Standard Vault. &#39;kOracleTierArchive&#39; indicates an Oracle Tier Archive Vault. &#39;kAmazonC2S&#39; indicates an Amazon Commercial Cloud Services Vault.</value>
-        [DataMember(Name="vaultType", EmitDefaultValue=true)]
+        [DataMember(Name="vaultType", EmitDefaultValue=false)]
         public VaultTypeEnum? VaultType { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="DataTransferToVaultSummary" /> class.
@@ -174,18 +177,8 @@ namespace Cohesity.Model
         /// <param name="vaultId">The vault Id associated with the vault..</param>
         /// <param name="vaultName">Specifies the name of the Vault (External Target)..</param>
         /// <param name="vaultType">Specifies the type of Vault. &#39;kNearline&#39; indicates a Google Nearline Vault. &#39;kGlacier&#39; indicates an AWS Glacier Vault. &#39;kS3&#39; indicates an AWS S3 Vault. &#39;kAzureStandard&#39; indicates a Microsoft Azure Standard Vault. &#39;kS3Compatible&#39; indicates an S3 Compatible Vault. (See the online help for supported types.) &#39;kQStarTape&#39; indicates a QStar Tape Vault. &#39;kGoogleStandard&#39; indicates a Google Standard Vault. &#39;kGoogleDRA&#39; indicates a Google DRA Vault. &#39;kAmazonS3StandardIA&#39; indicates an Amazon S3 Standard-IA Vault. &#39;kAWSGovCloud&#39; indicates an AWS Gov Cloud Vault. &#39;kNAS&#39; indicates a NAS Vault. &#39;kColdline&#39; indicates a Google Coldline Vault. &#39;kAzureGovCloud&#39; indicates a Microsoft Azure Gov Cloud Vault. &#39;kAzureArchive&#39; indicates an Azure Archive Vault. &#39;kAzure&#39; indicates an Azure Vault. &#39;kGoogle&#39; indicates a Google Vault. &#39;kAmazon&#39; indicates an Amazon Vault. &#39;kOracle&#39; indicates an Oracle Vault. &#39;kOracleTierStandard&#39; indicates an Oracle Tier Standard Vault. &#39;kOracleTierArchive&#39; indicates an Oracle Tier Archive Vault. &#39;kAmazonC2S&#39; indicates an Amazon Commercial Cloud Services Vault..</param>
-        public DataTransferToVaultSummary(List<DataTransferToVaultPerProtectionJob> dataTransferPerProtectionJob = default(List<DataTransferToVaultPerProtectionJob>), List<long> logicalDataTransferredBytesDuringTimeRange = default(List<long>), long? numLogicalBytesTransferred = default(long?), long? numPhysicalBytesTransferred = default(long?), long? numProtectionJobs = default(long?), List<long> physicalDataTransferredBytesDuringTimeRange = default(List<long>), long? storageConsumedBytes = default(long?), long? vaultId = default(long?), string vaultName = default(string), VaultTypeEnum? vaultType = default(VaultTypeEnum?))
+        public DataTransferToVaultSummary(List<DataTransferToVaultPerProtectionJob> dataTransferPerProtectionJob = default(List<DataTransferToVaultPerProtectionJob>), List<long?> logicalDataTransferredBytesDuringTimeRange = default(List<long?>), long? numLogicalBytesTransferred = default(long?), long? numPhysicalBytesTransferred = default(long?), long? numProtectionJobs = default(long?), List<long?> physicalDataTransferredBytesDuringTimeRange = default(List<long?>), long? storageConsumedBytes = default(long?), long? vaultId = default(long?), string vaultName = default(string), VaultTypeEnum? vaultType = default(VaultTypeEnum?))
         {
-            this.DataTransferPerProtectionJob = dataTransferPerProtectionJob;
-            this.LogicalDataTransferredBytesDuringTimeRange = logicalDataTransferredBytesDuringTimeRange;
-            this.NumLogicalBytesTransferred = numLogicalBytesTransferred;
-            this.NumPhysicalBytesTransferred = numPhysicalBytesTransferred;
-            this.NumProtectionJobs = numProtectionJobs;
-            this.PhysicalDataTransferredBytesDuringTimeRange = physicalDataTransferredBytesDuringTimeRange;
-            this.StorageConsumedBytes = storageConsumedBytes;
-            this.VaultId = vaultId;
-            this.VaultName = vaultName;
-            this.VaultType = vaultType;
             this.DataTransferPerProtectionJob = dataTransferPerProtectionJob;
             this.LogicalDataTransferredBytesDuringTimeRange = logicalDataTransferredBytesDuringTimeRange;
             this.NumLogicalBytesTransferred = numLogicalBytesTransferred;
@@ -202,64 +195,65 @@ namespace Cohesity.Model
         /// Array of Data Transfer Statistics Per Protection Jobs.  Specifies the data transfer summary statistics for each Protection Job that is transferring data from this Cohesity Cluster to this Vault (External Target).
         /// </summary>
         /// <value>Array of Data Transfer Statistics Per Protection Jobs.  Specifies the data transfer summary statistics for each Protection Job that is transferring data from this Cohesity Cluster to this Vault (External Target).</value>
-        [DataMember(Name="dataTransferPerProtectionJob", EmitDefaultValue=true)]
+        [DataMember(Name="dataTransferPerProtectionJob", EmitDefaultValue=false)]
         public List<DataTransferToVaultPerProtectionJob> DataTransferPerProtectionJob { get; set; }
 
         /// <summary>
         /// Array of Logical Data Transferred Per Day.  Specifies the logical data transferred from this Cohesity Cluster to this Vault during the time period specified using the startTimeMsecs and endTimeMsecs parameters. For each day in the time period, an array element is returned, for example if 7 days are specified, 7 array elements are returned. The logical size is when the data is fully hydrated or expanded.
         /// </summary>
         /// <value>Array of Logical Data Transferred Per Day.  Specifies the logical data transferred from this Cohesity Cluster to this Vault during the time period specified using the startTimeMsecs and endTimeMsecs parameters. For each day in the time period, an array element is returned, for example if 7 days are specified, 7 array elements are returned. The logical size is when the data is fully hydrated or expanded.</value>
-        [DataMember(Name="logicalDataTransferredBytesDuringTimeRange", EmitDefaultValue=true)]
-        public List<long> LogicalDataTransferredBytesDuringTimeRange { get; set; }
+        [DataMember(Name="logicalDataTransferredBytesDuringTimeRange", EmitDefaultValue=false)]
+        public List<long?> LogicalDataTransferredBytesDuringTimeRange { get; set; }
 
         /// <summary>
         /// Specifies the total number of logical bytes that are transferred from this Cohesity Cluster to this Vault. The logical size is when the data is fully hydrated or expanded.
         /// </summary>
         /// <value>Specifies the total number of logical bytes that are transferred from this Cohesity Cluster to this Vault. The logical size is when the data is fully hydrated or expanded.</value>
-        [DataMember(Name="numLogicalBytesTransferred", EmitDefaultValue=true)]
+        [DataMember(Name="numLogicalBytesTransferred", EmitDefaultValue=false)]
         public long? NumLogicalBytesTransferred { get; set; }
 
         /// <summary>
         /// Specifies the total number of physical bytes that are transferred from this Cohesity Cluster to this Vault.
         /// </summary>
         /// <value>Specifies the total number of physical bytes that are transferred from this Cohesity Cluster to this Vault.</value>
-        [DataMember(Name="numPhysicalBytesTransferred", EmitDefaultValue=true)]
+        [DataMember(Name="numPhysicalBytesTransferred", EmitDefaultValue=false)]
         public long? NumPhysicalBytesTransferred { get; set; }
 
         /// <summary>
         /// Specifies the number of Protection Jobs that transfer data to this Vault.
         /// </summary>
         /// <value>Specifies the number of Protection Jobs that transfer data to this Vault.</value>
-        [DataMember(Name="numProtectionJobs", EmitDefaultValue=true)]
+        [DataMember(Name="numProtectionJobs", EmitDefaultValue=false)]
         public long? NumProtectionJobs { get; set; }
 
         /// <summary>
         /// Array of Physical Data Transferred Per Day.  Specifies the physical data transferred from this Cohesity Cluster to this Vault during the time period specified using the startTimeMsecs and endTimeMsecs parameters. For each day in the time period, an array element is returned, for example if 7 days are specified, 7 array elements are returned.
         /// </summary>
         /// <value>Array of Physical Data Transferred Per Day.  Specifies the physical data transferred from this Cohesity Cluster to this Vault during the time period specified using the startTimeMsecs and endTimeMsecs parameters. For each day in the time period, an array element is returned, for example if 7 days are specified, 7 array elements are returned.</value>
-        [DataMember(Name="physicalDataTransferredBytesDuringTimeRange", EmitDefaultValue=true)]
-        public List<long> PhysicalDataTransferredBytesDuringTimeRange { get; set; }
+        [DataMember(Name="physicalDataTransferredBytesDuringTimeRange", EmitDefaultValue=false)]
+        public List<long?> PhysicalDataTransferredBytesDuringTimeRange { get; set; }
 
         /// <summary>
         /// Specifies the storage consumed on the Vault as of last day in the specified time range.
         /// </summary>
         /// <value>Specifies the storage consumed on the Vault as of last day in the specified time range.</value>
-        [DataMember(Name="storageConsumedBytes", EmitDefaultValue=true)]
+        [DataMember(Name="storageConsumedBytes", EmitDefaultValue=false)]
         public long? StorageConsumedBytes { get; set; }
 
         /// <summary>
         /// The vault Id associated with the vault.
         /// </summary>
         /// <value>The vault Id associated with the vault.</value>
-        [DataMember(Name="vaultId", EmitDefaultValue=true)]
+        [DataMember(Name="vaultId", EmitDefaultValue=false)]
         public long? VaultId { get; set; }
 
         /// <summary>
         /// Specifies the name of the Vault (External Target).
         /// </summary>
         /// <value>Specifies the name of the Vault (External Target).</value>
-        [DataMember(Name="vaultName", EmitDefaultValue=true)]
+        [DataMember(Name="vaultName", EmitDefaultValue=false)]
         public string VaultName { get; set; }
+
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -300,14 +294,12 @@ namespace Cohesity.Model
                 (
                     this.DataTransferPerProtectionJob == input.DataTransferPerProtectionJob ||
                     this.DataTransferPerProtectionJob != null &&
-                    input.DataTransferPerProtectionJob != null &&
-                    this.DataTransferPerProtectionJob.SequenceEqual(input.DataTransferPerProtectionJob)
+                    this.DataTransferPerProtectionJob.Equals(input.DataTransferPerProtectionJob)
                 ) && 
                 (
                     this.LogicalDataTransferredBytesDuringTimeRange == input.LogicalDataTransferredBytesDuringTimeRange ||
                     this.LogicalDataTransferredBytesDuringTimeRange != null &&
-                    input.LogicalDataTransferredBytesDuringTimeRange != null &&
-                    this.LogicalDataTransferredBytesDuringTimeRange.SequenceEqual(input.LogicalDataTransferredBytesDuringTimeRange)
+                    this.LogicalDataTransferredBytesDuringTimeRange.Equals(input.LogicalDataTransferredBytesDuringTimeRange)
                 ) && 
                 (
                     this.NumLogicalBytesTransferred == input.NumLogicalBytesTransferred ||
@@ -327,8 +319,7 @@ namespace Cohesity.Model
                 (
                     this.PhysicalDataTransferredBytesDuringTimeRange == input.PhysicalDataTransferredBytesDuringTimeRange ||
                     this.PhysicalDataTransferredBytesDuringTimeRange != null &&
-                    input.PhysicalDataTransferredBytesDuringTimeRange != null &&
-                    this.PhysicalDataTransferredBytesDuringTimeRange.SequenceEqual(input.PhysicalDataTransferredBytesDuringTimeRange)
+                    this.PhysicalDataTransferredBytesDuringTimeRange.Equals(input.PhysicalDataTransferredBytesDuringTimeRange)
                 ) && 
                 (
                     this.StorageConsumedBytes == input.StorageConsumedBytes ||
@@ -347,7 +338,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.VaultType == input.VaultType ||
-                    this.VaultType.Equals(input.VaultType)
+                    (this.VaultType != null &&
+                    this.VaultType.Equals(input.VaultType))
                 );
         }
 
@@ -378,7 +370,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.VaultId.GetHashCode();
                 if (this.VaultName != null)
                     hashCode = hashCode * 59 + this.VaultName.GetHashCode();
-                hashCode = hashCode * 59 + this.VaultType.GetHashCode();
+                if (this.VaultType != null)
+                    hashCode = hashCode * 59 + this.VaultType.GetHashCode();
                 return hashCode;
             }
         }

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -52,20 +55,6 @@ namespace Cohesity.Model
             this.Impersonation = impersonation;
             this.Ip = ip;
             this.NewRecord = newRecord;
-            this.PreviousRecord = previousRecord;
-            this.TimestampUsecs = timestampUsecs;
-            this.UserName = userName;
-            this.Action = action;
-            this.ClusterInfo = clusterInfo;
-            this.Details = details;
-            this.Domain = domain;
-            this.EntityId = entityId;
-            this.EntityName = entityName;
-            this.EntityType = entityType;
-            this.HumanTimestamp = humanTimestamp;
-            this.Impersonation = impersonation;
-            this.Ip = ip;
-            this.NewRecord = newRecord;
             this.OriginalTenant = originalTenant;
             this.PreviousRecord = previousRecord;
             this.Tenant = tenant;
@@ -77,77 +66,77 @@ namespace Cohesity.Model
         /// Specifies the action that caused the log to be generated.
         /// </summary>
         /// <value>Specifies the action that caused the log to be generated.</value>
-        [DataMember(Name="action", EmitDefaultValue=true)]
+        [DataMember(Name="action", EmitDefaultValue=false)]
         public string Action { get; set; }
 
         /// <summary>
         /// Specifies the information of the cluster.
         /// </summary>
         /// <value>Specifies the information of the cluster.</value>
-        [DataMember(Name="clusterInfo", EmitDefaultValue=true)]
+        [DataMember(Name="clusterInfo", EmitDefaultValue=false)]
         public string ClusterInfo { get; set; }
 
         /// <summary>
         /// Specifies more information about the action.
         /// </summary>
         /// <value>Specifies more information about the action.</value>
-        [DataMember(Name="details", EmitDefaultValue=true)]
+        [DataMember(Name="details", EmitDefaultValue=false)]
         public string Details { get; set; }
 
         /// <summary>
         /// Specifies the domain of the user who caused the action that generated the log.
         /// </summary>
         /// <value>Specifies the domain of the user who caused the action that generated the log.</value>
-        [DataMember(Name="domain", EmitDefaultValue=true)]
+        [DataMember(Name="domain", EmitDefaultValue=false)]
         public string Domain { get; set; }
 
         /// <summary>
         /// Specifies the id of the entity (object) that the action is invoked on.
         /// </summary>
         /// <value>Specifies the id of the entity (object) that the action is invoked on.</value>
-        [DataMember(Name="entityId", EmitDefaultValue=true)]
+        [DataMember(Name="entityId", EmitDefaultValue=false)]
         public string EntityId { get; set; }
 
         /// <summary>
         /// Specifies the entity (object) name that the action is invoked on. For example, if a Job called BackupEng is paused, this field returns BackupEng.
         /// </summary>
         /// <value>Specifies the entity (object) name that the action is invoked on. For example, if a Job called BackupEng is paused, this field returns BackupEng.</value>
-        [DataMember(Name="entityName", EmitDefaultValue=true)]
+        [DataMember(Name="entityName", EmitDefaultValue=false)]
         public string EntityName { get; set; }
 
         /// <summary>
         /// Specifies the type of the entity (object) that the action is invoked on. For example, if a Job called BackupEng is paused, this field returns &#39;Protection Job&#39;.
         /// </summary>
         /// <value>Specifies the type of the entity (object) that the action is invoked on. For example, if a Job called BackupEng is paused, this field returns &#39;Protection Job&#39;.</value>
-        [DataMember(Name="entityType", EmitDefaultValue=true)]
+        [DataMember(Name="entityType", EmitDefaultValue=false)]
         public string EntityType { get; set; }
 
         /// <summary>
         /// Specifies the time when the log was generated. The time is specified using a human readable timestamp.
         /// </summary>
         /// <value>Specifies the time when the log was generated. The time is specified using a human readable timestamp.</value>
-        [DataMember(Name="humanTimestamp", EmitDefaultValue=true)]
+        [DataMember(Name="humanTimestamp", EmitDefaultValue=false)]
         public string HumanTimestamp { get; set; }
 
         /// <summary>
         /// Specifies if the log was generated during impersonation.
         /// </summary>
         /// <value>Specifies if the log was generated during impersonation.</value>
-        [DataMember(Name="impersonation", EmitDefaultValue=true)]
+        [DataMember(Name="impersonation", EmitDefaultValue=false)]
         public bool? Impersonation { get; set; }
 
         /// <summary>
         /// Specifies the IP address of the user making this action.
         /// </summary>
         /// <value>Specifies the IP address of the user making this action.</value>
-        [DataMember(Name="ip", EmitDefaultValue=true)]
+        [DataMember(Name="ip", EmitDefaultValue=false)]
         public string Ip { get; set; }
 
         /// <summary>
         /// Specifies the record after the action is invoked.
         /// </summary>
         /// <value>Specifies the record after the action is invoked.</value>
-        [DataMember(Name="newRecord", EmitDefaultValue=true)]
+        [DataMember(Name="newRecord", EmitDefaultValue=false)]
         public string NewRecord { get; set; }
 
         /// <summary>
@@ -160,7 +149,7 @@ namespace Cohesity.Model
         /// Specifies the record before the action is invoked.
         /// </summary>
         /// <value>Specifies the record before the action is invoked.</value>
-        [DataMember(Name="previousRecord", EmitDefaultValue=true)]
+        [DataMember(Name="previousRecord", EmitDefaultValue=false)]
         public string PreviousRecord { get; set; }
 
         /// <summary>
@@ -173,14 +162,14 @@ namespace Cohesity.Model
         /// Specifies the time when the log was generated. The time is specified using a Unix epoch Timestamp (in microseconds).
         /// </summary>
         /// <value>Specifies the time when the log was generated. The time is specified using a Unix epoch Timestamp (in microseconds).</value>
-        [DataMember(Name="timestampUsecs", EmitDefaultValue=true)]
+        [DataMember(Name="timestampUsecs", EmitDefaultValue=false)]
         public long? TimestampUsecs { get; set; }
 
         /// <summary>
         /// Specifies the user who caused the action that generated the log.
         /// </summary>
         /// <value>Specifies the user who caused the action that generated the log.</value>
-        [DataMember(Name="userName", EmitDefaultValue=true)]
+        [DataMember(Name="userName", EmitDefaultValue=false)]
         public string UserName { get; set; }
 
         /// <summary>

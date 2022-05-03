@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,11 +34,6 @@ namespace Cohesity.Model
         /// <param name="protectionSourceId">Specifies the Protection Source Id of the Exchange DAG if it is already created..</param>
         public ExchangeDagHostsResponse(ExchangeDAGProtectionPreference exchangeDagProtectionPreference = default(ExchangeDAGProtectionPreference), List<ExchangeHostInfo> exchangeHostInfoList = default(List<ExchangeHostInfo>), string guid = default(string), bool? isStandaloneHost = default(bool?), string name = default(string), long? protectionSourceId = default(long?))
         {
-            this.ExchangeHostInfoList = exchangeHostInfoList;
-            this.Guid = guid;
-            this.IsStandaloneHost = isStandaloneHost;
-            this.Name = name;
-            this.ProtectionSourceId = protectionSourceId;
             this.ExchangeDagProtectionPreference = exchangeDagProtectionPreference;
             this.ExchangeHostInfoList = exchangeHostInfoList;
             this.Guid = guid;
@@ -54,35 +52,35 @@ namespace Cohesity.Model
         /// Specifies the list of exchange hosts that belong to Exchange DAG.
         /// </summary>
         /// <value>Specifies the list of exchange hosts that belong to Exchange DAG.</value>
-        [DataMember(Name="exchangeHostInfoList", EmitDefaultValue=true)]
+        [DataMember(Name="exchangeHostInfoList", EmitDefaultValue=false)]
         public List<ExchangeHostInfo> ExchangeHostInfoList { get; set; }
 
         /// <summary>
         /// Specifies the Unique GUID for the DAG.
         /// </summary>
         /// <value>Specifies the Unique GUID for the DAG.</value>
-        [DataMember(Name="guid", EmitDefaultValue=true)]
+        [DataMember(Name="guid", EmitDefaultValue=false)]
         public string Guid { get; set; }
 
         /// <summary>
         /// Specifies if the endpoint provided in the request is a standlone exchange server or not. exchangeHostInfoList is not populated if it is a standalone exchange server.
         /// </summary>
         /// <value>Specifies if the endpoint provided in the request is a standlone exchange server or not. exchangeHostInfoList is not populated if it is a standalone exchange server.</value>
-        [DataMember(Name="isStandaloneHost", EmitDefaultValue=true)]
+        [DataMember(Name="isStandaloneHost", EmitDefaultValue=false)]
         public bool? IsStandaloneHost { get; set; }
 
         /// <summary>
         /// Specifies the display name of the DAG.
         /// </summary>
         /// <value>Specifies the display name of the DAG.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
 
         /// <summary>
         /// Specifies the Protection Source Id of the Exchange DAG if it is already created.
         /// </summary>
         /// <value>Specifies the Protection Source Id of the Exchange DAG if it is already created.</value>
-        [DataMember(Name="protectionSourceId", EmitDefaultValue=true)]
+        [DataMember(Name="protectionSourceId", EmitDefaultValue=false)]
         public long? ProtectionSourceId { get; set; }
 
         /// <summary>
@@ -129,8 +127,7 @@ namespace Cohesity.Model
                 (
                     this.ExchangeHostInfoList == input.ExchangeHostInfoList ||
                     this.ExchangeHostInfoList != null &&
-                    input.ExchangeHostInfoList != null &&
-                    this.ExchangeHostInfoList.SequenceEqual(input.ExchangeHostInfoList)
+                    this.ExchangeHostInfoList.Equals(input.ExchangeHostInfoList)
                 ) && 
                 (
                     this.Guid == input.Guid ||

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -45,7 +48,7 @@ namespace Cohesity.Model
         /// Specifies the remediation state of the file. Remediation State. &#39;kQuarantine&#39; indicates &#39;Quarantine&#39; state of the file. This state blocks the client access. The administrator will have to manually delete, rescan or unquarantine the file. &#39;kUnquarantine&#39; indicates &#39;Unquarantine&#39; state of the file. The administrator has manually moved files from quarantined to the unquarantined state to allow client access. Unquarantined files are not scanned for virus until manually reset.
         /// </summary>
         /// <value>Specifies the remediation state of the file. Remediation State. &#39;kQuarantine&#39; indicates &#39;Quarantine&#39; state of the file. This state blocks the client access. The administrator will have to manually delete, rescan or unquarantine the file. &#39;kUnquarantine&#39; indicates &#39;Unquarantine&#39; state of the file. The administrator has manually moved files from quarantined to the unquarantined state to allow client access. Unquarantined files are not scanned for virus until manually reset.</value>
-        [DataMember(Name="remediationState", EmitDefaultValue=true)]
+        [DataMember(Name="remediationState", EmitDefaultValue=false)]
         public RemediationStateEnum? RemediationState { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="InfectedFileParam" /> class.
@@ -60,31 +63,28 @@ namespace Cohesity.Model
             this.RemediationState = remediationState;
             this.RootInodeId = rootInodeId;
             this.ViewId = viewId;
-            this.EntityId = entityId;
-            this.RemediationState = remediationState;
-            this.RootInodeId = rootInodeId;
-            this.ViewId = viewId;
         }
         
         /// <summary>
         /// Specifies the entity id of the infected file.
         /// </summary>
         /// <value>Specifies the entity id of the infected file.</value>
-        [DataMember(Name="entityId", EmitDefaultValue=true)]
+        [DataMember(Name="entityId", EmitDefaultValue=false)]
         public long? EntityId { get; set; }
+
 
         /// <summary>
         /// Specifies the root inode id of the file system that infected file belongs to.
         /// </summary>
         /// <value>Specifies the root inode id of the file system that infected file belongs to.</value>
-        [DataMember(Name="rootInodeId", EmitDefaultValue=true)]
+        [DataMember(Name="rootInodeId", EmitDefaultValue=false)]
         public long? RootInodeId { get; set; }
 
         /// <summary>
         /// Specifies the id of the View the infected file belongs to.
         /// </summary>
         /// <value>Specifies the id of the View the infected file belongs to.</value>
-        [DataMember(Name="viewId", EmitDefaultValue=true)]
+        [DataMember(Name="viewId", EmitDefaultValue=false)]
         public long? ViewId { get; set; }
 
         /// <summary>
@@ -130,7 +130,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.RemediationState == input.RemediationState ||
-                    this.RemediationState.Equals(input.RemediationState)
+                    (this.RemediationState != null &&
+                    this.RemediationState.Equals(input.RemediationState))
                 ) && 
                 (
                     this.RootInodeId == input.RootInodeId ||
@@ -155,7 +156,8 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.EntityId != null)
                     hashCode = hashCode * 59 + this.EntityId.GetHashCode();
-                hashCode = hashCode * 59 + this.RemediationState.GetHashCode();
+                if (this.RemediationState != null)
+                    hashCode = hashCode * 59 + this.RemediationState.GetHashCode();
                 if (this.RootInodeId != null)
                     hashCode = hashCode * 59 + this.RootInodeId.GetHashCode();
                 if (this.ViewId != null)

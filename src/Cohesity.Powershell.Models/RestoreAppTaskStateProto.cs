@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -32,9 +35,6 @@ namespace Cohesity.Model
             this.AppRestoreProgressMonitorSubtaskPath = appRestoreProgressMonitorSubtaskPath;
             this.ChildRestoreAppParamsVec = childRestoreAppParamsVec;
             this.LastFinishedLogBackupStartTimeUsecs = lastFinishedLogBackupStartTimeUsecs;
-            this.AppRestoreProgressMonitorSubtaskPath = appRestoreProgressMonitorSubtaskPath;
-            this.ChildRestoreAppParamsVec = childRestoreAppParamsVec;
-            this.LastFinishedLogBackupStartTimeUsecs = lastFinishedLogBackupStartTimeUsecs;
             this.RestoreAppParams = restoreAppParams;
         }
         
@@ -42,21 +42,21 @@ namespace Cohesity.Model
         /// The Pulse task path to the application restore task sub tree. If the application restore has to wait on other tasks (for example, a SQL db restore may wait for a tail log backup or a VM restore), then this would represent a sub-tree of &#39;progress_monitor_task_path&#39; in PerformRestoreTaskStateProto.
         /// </summary>
         /// <value>The Pulse task path to the application restore task sub tree. If the application restore has to wait on other tasks (for example, a SQL db restore may wait for a tail log backup or a VM restore), then this would represent a sub-tree of &#39;progress_monitor_task_path&#39; in PerformRestoreTaskStateProto.</value>
-        [DataMember(Name="appRestoreProgressMonitorSubtaskPath", EmitDefaultValue=true)]
+        [DataMember(Name="appRestoreProgressMonitorSubtaskPath", EmitDefaultValue=false)]
         public string AppRestoreProgressMonitorSubtaskPath { get; set; }
 
         /// <summary>
         /// This has list of the restore app params for all the child restore tasks. This is populated iff the &#39;is_parent_task&#39; is set to true.
         /// </summary>
         /// <value>This has list of the restore app params for all the child restore tasks. This is populated iff the &#39;is_parent_task&#39; is set to true.</value>
-        [DataMember(Name="childRestoreAppParamsVec", EmitDefaultValue=true)]
+        [DataMember(Name="childRestoreAppParamsVec", EmitDefaultValue=false)]
         public List<RestoreAppParams> ChildRestoreAppParamsVec { get; set; }
 
         /// <summary>
         /// The start time of the last finished log backup run. For SQL application, this is set iff we need to take a tail log backup.
         /// </summary>
         /// <value>The start time of the last finished log backup run. For SQL application, this is set iff we need to take a tail log backup.</value>
-        [DataMember(Name="lastFinishedLogBackupStartTimeUsecs", EmitDefaultValue=true)]
+        [DataMember(Name="lastFinishedLogBackupStartTimeUsecs", EmitDefaultValue=false)]
         public long? LastFinishedLogBackupStartTimeUsecs { get; set; }
 
         /// <summary>
@@ -109,8 +109,7 @@ namespace Cohesity.Model
                 (
                     this.ChildRestoreAppParamsVec == input.ChildRestoreAppParamsVec ||
                     this.ChildRestoreAppParamsVec != null &&
-                    input.ChildRestoreAppParamsVec != null &&
-                    this.ChildRestoreAppParamsVec.SequenceEqual(input.ChildRestoreAppParamsVec)
+                    this.ChildRestoreAppParamsVec.Equals(input.ChildRestoreAppParamsVec)
                 ) && 
                 (
                     this.LastFinishedLogBackupStartTimeUsecs == input.LastFinishedLogBackupStartTimeUsecs ||

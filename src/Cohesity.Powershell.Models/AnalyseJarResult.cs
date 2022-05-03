@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -28,8 +31,6 @@ namespace Cohesity.Model
         /// <param name="reducers">Name of all reducers classes found in jar file..</param>
         public AnalyseJarResult(ErrorProto error = default(ErrorProto), List<string> mappers = default(List<string>), List<string> reducers = default(List<string>))
         {
-            this.Mappers = mappers;
-            this.Reducers = reducers;
             this.Error = error;
             this.Mappers = mappers;
             this.Reducers = reducers;
@@ -45,14 +46,14 @@ namespace Cohesity.Model
         /// Name of all mapper classes found in jar file.
         /// </summary>
         /// <value>Name of all mapper classes found in jar file.</value>
-        [DataMember(Name="mappers", EmitDefaultValue=true)]
+        [DataMember(Name="mappers", EmitDefaultValue=false)]
         public List<string> Mappers { get; set; }
 
         /// <summary>
         /// Name of all reducers classes found in jar file.
         /// </summary>
         /// <value>Name of all reducers classes found in jar file.</value>
-        [DataMember(Name="reducers", EmitDefaultValue=true)]
+        [DataMember(Name="reducers", EmitDefaultValue=false)]
         public List<string> Reducers { get; set; }
 
         /// <summary>
@@ -99,14 +100,12 @@ namespace Cohesity.Model
                 (
                     this.Mappers == input.Mappers ||
                     this.Mappers != null &&
-                    input.Mappers != null &&
-                    this.Mappers.SequenceEqual(input.Mappers)
+                    this.Mappers.Equals(input.Mappers)
                 ) && 
                 (
                     this.Reducers == input.Reducers ||
                     this.Reducers != null &&
-                    input.Reducers != null &&
-                    this.Reducers.SequenceEqual(input.Reducers)
+                    this.Reducers.Equals(input.Reducers)
                 );
         }
 

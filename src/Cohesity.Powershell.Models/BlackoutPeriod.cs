@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -75,36 +78,43 @@ namespace Cohesity.Model
         /// Blackout Day.  Specifies a day in the week when no new Job Runs should be started such as &#39;kSunday&#39;. If not set, the time range applies to all days. Specifies a day in a week such as &#39;kSunday&#39;, &#39;kMonday&#39;, etc.
         /// </summary>
         /// <value>Blackout Day.  Specifies a day in the week when no new Job Runs should be started such as &#39;kSunday&#39;. If not set, the time range applies to all days. Specifies a day in a week such as &#39;kSunday&#39;, &#39;kMonday&#39;, etc.</value>
-        [DataMember(Name="day", EmitDefaultValue=true)]
+        [DataMember(Name="day", EmitDefaultValue=false)]
         public DayEnum? Day { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="BlackoutPeriod" /> class.
         /// </summary>
+        /// <param name="id">Specified the Id for a snapshot copy policy. This is generated when the policy is created..</param>
         /// <param name="day">Blackout Day.  Specifies a day in the week when no new Job Runs should be started such as &#39;kSunday&#39;. If not set, the time range applies to all days. Specifies a day in a week such as &#39;kSunday&#39;, &#39;kMonday&#39;, etc..</param>
         /// <param name="endTime">Specifies the end time of the blackout time range..</param>
         /// <param name="startTime">Specifies the start time of the blackout time range..</param>
-        public BlackoutPeriod(DayEnum? day = default(DayEnum?), TimeOfDay endTime = default(TimeOfDay), TimeOfDay startTime = default(TimeOfDay))
+        public BlackoutPeriod(string id = default(string), DayEnum? day = default(DayEnum?), TimeOfDay endTime = default(TimeOfDay), TimeOfDay startTime = default(TimeOfDay))
         {
-            this.Day = day;
-            this.EndTime = endTime;
-            this.StartTime = startTime;
+            this.Id = id;
             this.Day = day;
             this.EndTime = endTime;
             this.StartTime = startTime;
         }
         
         /// <summary>
+        /// Specified the Id for a snapshot copy policy. This is generated when the policy is created.
+        /// </summary>
+        /// <value>Specified the Id for a snapshot copy policy. This is generated when the policy is created.</value>
+        [DataMember(Name="Id", EmitDefaultValue=false)]
+        public string Id { get; set; }
+
+
+        /// <summary>
         /// Specifies the end time of the blackout time range.
         /// </summary>
         /// <value>Specifies the end time of the blackout time range.</value>
-        [DataMember(Name="endTime", EmitDefaultValue=true)]
+        [DataMember(Name="endTime", EmitDefaultValue=false)]
         public TimeOfDay EndTime { get; set; }
 
         /// <summary>
         /// Specifies the start time of the blackout time range.
         /// </summary>
         /// <value>Specifies the start time of the blackout time range.</value>
-        [DataMember(Name="startTime", EmitDefaultValue=true)]
+        [DataMember(Name="startTime", EmitDefaultValue=false)]
         public TimeOfDay StartTime { get; set; }
 
         /// <summary>
@@ -144,18 +154,24 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.Id == input.Id ||
+                    (this.Id != null &&
+                    this.Id.Equals(input.Id))
+                ) && 
+                (
                     this.Day == input.Day ||
-                    this.Day.Equals(input.Day)
+                    (this.Day != null &&
+                    this.Day.Equals(input.Day))
                 ) && 
                 (
                     this.EndTime == input.EndTime ||
-                    (this.EndTime != null &&
-                    this.EndTime.Equals(input.EndTime))
+                    this.EndTime != null &&
+                    this.EndTime.Equals(input.EndTime)
                 ) && 
                 (
                     this.StartTime == input.StartTime ||
-                    (this.StartTime != null &&
-                    this.StartTime.Equals(input.StartTime))
+                    this.StartTime != null &&
+                    this.StartTime.Equals(input.StartTime)
                 );
         }
 
@@ -168,7 +184,10 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                hashCode = hashCode * 59 + this.Day.GetHashCode();
+                if (this.Id != null)
+                    hashCode = hashCode * 59 + this.Id.GetHashCode();
+                if (this.Day != null)
+                    hashCode = hashCode * 59 + this.Day.GetHashCode();
                 if (this.EndTime != null)
                     hashCode = hashCode * 59 + this.EndTime.GetHashCode();
                 if (this.StartTime != null)

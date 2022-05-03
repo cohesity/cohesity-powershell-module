@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -39,62 +42,55 @@ namespace Cohesity.Model
             this.TargetName = targetName;
             this.TotalSnapshots = totalSnapshots;
             this.Type = type;
-            this.JobId = jobId;
-            this.CloudTargetType = cloudTargetType;
-            this.ExpiryTimeUsecs = expiryTimeUsecs;
-            this.TargetId = targetId;
-            this.TargetName = targetName;
-            this.TotalSnapshots = totalSnapshots;
-            this.Type = type;
         }
         
         /// <summary>
         /// Specifies the job with which this copy task is tied to. Note: this is only used for internal aggregation.
         /// </summary>
         /// <value>Specifies the job with which this copy task is tied to. Note: this is only used for internal aggregation.</value>
-        [DataMember(Name="JobId", EmitDefaultValue=true)]
+        [DataMember(Name="JobId", EmitDefaultValue=false)]
         public long? JobId { get; set; }
 
         /// <summary>
         /// Specifies the cloud deploy target type. For example &#39;kAzure&#39;,&#39;kAWS&#39;, &#39;kGCP&#39;
         /// </summary>
         /// <value>Specifies the cloud deploy target type. For example &#39;kAzure&#39;,&#39;kAWS&#39;, &#39;kGCP&#39;</value>
-        [DataMember(Name="cloudTargetType", EmitDefaultValue=true)]
+        [DataMember(Name="cloudTargetType", EmitDefaultValue=false)]
         public string CloudTargetType { get; set; }
 
         /// <summary>
         /// Specifies the expiry of the copy task.
         /// </summary>
         /// <value>Specifies the expiry of the copy task.</value>
-        [DataMember(Name="expiryTimeUsecs", EmitDefaultValue=true)]
+        [DataMember(Name="expiryTimeUsecs", EmitDefaultValue=false)]
         public long? ExpiryTimeUsecs { get; set; }
 
         /// <summary>
         /// Specifies the id for the target.
         /// </summary>
         /// <value>Specifies the id for the target.</value>
-        [DataMember(Name="targetId", EmitDefaultValue=true)]
+        [DataMember(Name="targetId", EmitDefaultValue=false)]
         public long? TargetId { get; set; }
 
         /// <summary>
         /// Specifies the target of the replication or archival tasks.
         /// </summary>
         /// <value>Specifies the target of the replication or archival tasks.</value>
-        [DataMember(Name="targetName", EmitDefaultValue=true)]
+        [DataMember(Name="targetName", EmitDefaultValue=false)]
         public string TargetName { get; set; }
 
         /// <summary>
         /// Specifies the total number of snapshots.
         /// </summary>
         /// <value>Specifies the total number of snapshots.</value>
-        [DataMember(Name="totalSnapshots", EmitDefaultValue=true)]
+        [DataMember(Name="totalSnapshots", EmitDefaultValue=false)]
         public long? TotalSnapshots { get; set; }
 
         /// <summary>
         /// Specifies details about the Copy Run of a Job Run. A Copy task copies snapshots resulted from a backup run to an external target which could be &#39;kLocal&#39;, &#39;kArchival&#39;, or &#39;kRemote&#39;.
         /// </summary>
         /// <value>Specifies details about the Copy Run of a Job Run. A Copy task copies snapshots resulted from a backup run to an external target which could be &#39;kLocal&#39;, &#39;kArchival&#39;, or &#39;kRemote&#39;.</value>
-        [DataMember(Name="type", EmitDefaultValue=true)]
+        [DataMember(Name="type", EmitDefaultValue=false)]
         public string Type { get; set; }
 
         /// <summary>

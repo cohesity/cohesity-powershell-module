@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,13 +32,8 @@ namespace Cohesity.Model
         /// <param name="region">Specifies id of the AWS region in which to deploy the VM..</param>
         /// <param name="subnetId">Specifies id of the subnet within above VPC..</param>
         /// <param name="virtualPrivateCloudId">Specifies id of the Virtual Private Cloud to chose for the instance type..</param>
-        public AwsParams(long? instanceId = default(long?), List<long> networkSecurityGroupIds = default(List<long>), RdsParams rdsParams = default(RdsParams), long? region = default(long?), long? subnetId = default(long?), long? virtualPrivateCloudId = default(long?))
+        public AwsParams(long? instanceId = default(long?), List<long?> networkSecurityGroupIds = default(List<long?>), RdsParams rdsParams = default(RdsParams), long? region = default(long?), long? subnetId = default(long?), long? virtualPrivateCloudId = default(long?))
         {
-            this.InstanceId = instanceId;
-            this.NetworkSecurityGroupIds = networkSecurityGroupIds;
-            this.Region = region;
-            this.SubnetId = subnetId;
-            this.VirtualPrivateCloudId = virtualPrivateCloudId;
             this.InstanceId = instanceId;
             this.NetworkSecurityGroupIds = networkSecurityGroupIds;
             this.RdsParams = rdsParams;
@@ -48,15 +46,15 @@ namespace Cohesity.Model
         /// Specifies id of the AWS instance type in which to deploy the VM.
         /// </summary>
         /// <value>Specifies id of the AWS instance type in which to deploy the VM.</value>
-        [DataMember(Name="instanceId", EmitDefaultValue=true)]
+        [DataMember(Name="instanceId", EmitDefaultValue=false)]
         public long? InstanceId { get; set; }
 
         /// <summary>
         /// Specifies ids of the network security groups within above VPC.
         /// </summary>
         /// <value>Specifies ids of the network security groups within above VPC.</value>
-        [DataMember(Name="networkSecurityGroupIds", EmitDefaultValue=true)]
-        public List<long> NetworkSecurityGroupIds { get; set; }
+        [DataMember(Name="networkSecurityGroupIds", EmitDefaultValue=false)]
+        public List<long?> NetworkSecurityGroupIds { get; set; }
 
         /// <summary>
         /// Gets or Sets RdsParams
@@ -68,21 +66,21 @@ namespace Cohesity.Model
         /// Specifies id of the AWS region in which to deploy the VM.
         /// </summary>
         /// <value>Specifies id of the AWS region in which to deploy the VM.</value>
-        [DataMember(Name="region", EmitDefaultValue=true)]
+        [DataMember(Name="region", EmitDefaultValue=false)]
         public long? Region { get; set; }
 
         /// <summary>
         /// Specifies id of the subnet within above VPC.
         /// </summary>
         /// <value>Specifies id of the subnet within above VPC.</value>
-        [DataMember(Name="subnetId", EmitDefaultValue=true)]
+        [DataMember(Name="subnetId", EmitDefaultValue=false)]
         public long? SubnetId { get; set; }
 
         /// <summary>
         /// Specifies id of the Virtual Private Cloud to chose for the instance type.
         /// </summary>
         /// <value>Specifies id of the Virtual Private Cloud to chose for the instance type.</value>
-        [DataMember(Name="virtualPrivateCloudId", EmitDefaultValue=true)]
+        [DataMember(Name="virtualPrivateCloudId", EmitDefaultValue=false)]
         public long? VirtualPrivateCloudId { get; set; }
 
         /// <summary>
@@ -129,8 +127,7 @@ namespace Cohesity.Model
                 (
                     this.NetworkSecurityGroupIds == input.NetworkSecurityGroupIds ||
                     this.NetworkSecurityGroupIds != null &&
-                    input.NetworkSecurityGroupIds != null &&
-                    this.NetworkSecurityGroupIds.SequenceEqual(input.NetworkSecurityGroupIds)
+                    this.NetworkSecurityGroupIds.Equals(input.NetworkSecurityGroupIds)
                 ) && 
                 (
                     this.RdsParams == input.RdsParams ||

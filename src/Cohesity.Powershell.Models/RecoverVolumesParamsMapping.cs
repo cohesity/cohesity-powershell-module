@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.DstGuid = dstGuid;
             this.SrcGuid = srcGuid;
-            this.DstGuid = dstGuid;
-            this.SrcGuid = srcGuid;
         }
         
         /// <summary>
         /// The destination, pertains to the newly rebuilt system.
         /// </summary>
         /// <value>The destination, pertains to the newly rebuilt system.</value>
-        [DataMember(Name="dstGuid", EmitDefaultValue=true)]
+        [DataMember(Name="dstGuid", EmitDefaultValue=false)]
         public string DstGuid { get; set; }
 
         /// <summary>
         /// The source, pertains to the original backup.
         /// </summary>
         /// <value>The source, pertains to the original backup.</value>
-        [DataMember(Name="srcGuid", EmitDefaultValue=true)]
+        [DataMember(Name="srcGuid", EmitDefaultValue=false)]
         public string SrcGuid { get; set; }
 
         /// <summary>

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -39,62 +42,55 @@ namespace Cohesity.Model
             this.TotalBytesToCopy = totalBytesToCopy;
             this.TotalDirectoriesToCopy = totalDirectoriesToCopy;
             this.TotalFilesToCopy = totalFilesToCopy;
-            this.EstimationSkipped = estimationSkipped;
-            this.NumBytesCopied = numBytesCopied;
-            this.NumDirectoriesCopied = numDirectoriesCopied;
-            this.NumFilesCopied = numFilesCopied;
-            this.TotalBytesToCopy = totalBytesToCopy;
-            this.TotalDirectoriesToCopy = totalDirectoriesToCopy;
-            this.TotalFilesToCopy = totalFilesToCopy;
         }
         
         /// <summary>
         /// This will be set to true if the estimation step was skipped. NOTE: If estimation is skipped, then progress info will not be available.
         /// </summary>
         /// <value>This will be set to true if the estimation step was skipped. NOTE: If estimation is skipped, then progress info will not be available.</value>
-        [DataMember(Name="estimationSkipped", EmitDefaultValue=true)]
+        [DataMember(Name="estimationSkipped", EmitDefaultValue=false)]
         public bool? EstimationSkipped { get; set; }
 
         /// <summary>
         /// Number of bytes copied so far.
         /// </summary>
         /// <value>Number of bytes copied so far.</value>
-        [DataMember(Name="numBytesCopied", EmitDefaultValue=true)]
+        [DataMember(Name="numBytesCopied", EmitDefaultValue=false)]
         public long? NumBytesCopied { get; set; }
 
         /// <summary>
         /// Number of directories copied so far. NOTE: This just means the creation of directory (not the contents of the directory).
         /// </summary>
         /// <value>Number of directories copied so far. NOTE: This just means the creation of directory (not the contents of the directory).</value>
-        [DataMember(Name="numDirectoriesCopied", EmitDefaultValue=true)]
+        [DataMember(Name="numDirectoriesCopied", EmitDefaultValue=false)]
         public int? NumDirectoriesCopied { get; set; }
 
         /// <summary>
         /// Number of files copied so far.
         /// </summary>
         /// <value>Number of files copied so far.</value>
-        [DataMember(Name="numFilesCopied", EmitDefaultValue=true)]
+        [DataMember(Name="numFilesCopied", EmitDefaultValue=false)]
         public int? NumFilesCopied { get; set; }
 
         /// <summary>
         /// Total number of bytes to copy.
         /// </summary>
         /// <value>Total number of bytes to copy.</value>
-        [DataMember(Name="totalBytesToCopy", EmitDefaultValue=true)]
+        [DataMember(Name="totalBytesToCopy", EmitDefaultValue=false)]
         public long? TotalBytesToCopy { get; set; }
 
         /// <summary>
         /// Total number of directories to copy. NOTE: This just means the creation of directory (not the contents of the directory).
         /// </summary>
         /// <value>Total number of directories to copy. NOTE: This just means the creation of directory (not the contents of the directory).</value>
-        [DataMember(Name="totalDirectoriesToCopy", EmitDefaultValue=true)]
+        [DataMember(Name="totalDirectoriesToCopy", EmitDefaultValue=false)]
         public int? TotalDirectoriesToCopy { get; set; }
 
         /// <summary>
         /// Total number of files to copy.
         /// </summary>
         /// <value>Total number of files to copy.</value>
-        [DataMember(Name="totalFilesToCopy", EmitDefaultValue=true)]
+        [DataMember(Name="totalFilesToCopy", EmitDefaultValue=false)]
         public int? TotalFilesToCopy { get; set; }
 
         /// <summary>

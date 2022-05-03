@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -51,7 +54,7 @@ namespace Cohesity.Model
         /// DirEntryType is the type of entry i.e. file/folder. Specifies the type of directory entry.  &#39;kFile&#39; indicates that current entry is of file type. &#39;kDirectory&#39; indicates that current entry is of directory type. &#39;kSymlink&#39; indicates that current entry is of symbolic link.
         /// </summary>
         /// <value>DirEntryType is the type of entry i.e. file/folder. Specifies the type of directory entry.  &#39;kFile&#39; indicates that current entry is of file type. &#39;kDirectory&#39; indicates that current entry is of directory type. &#39;kSymlink&#39; indicates that current entry is of symbolic link.</value>
-        [DataMember(Name="type", EmitDefaultValue=true)]
+        [DataMember(Name="type", EmitDefaultValue=false)]
         public TypeEnum? Type { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="VmDirEntry" /> class.
@@ -62,9 +65,6 @@ namespace Cohesity.Model
         /// <param name="type">DirEntryType is the type of entry i.e. file/folder. Specifies the type of directory entry.  &#39;kFile&#39; indicates that current entry is of file type. &#39;kDirectory&#39; indicates that current entry is of directory type. &#39;kSymlink&#39; indicates that current entry is of symbolic link..</param>
         public VmDirEntry(FileStatInfo fstatInfo = default(FileStatInfo), string fullPath = default(string), string name = default(string), TypeEnum? type = default(TypeEnum?))
         {
-            this.FullPath = fullPath;
-            this.Name = name;
-            this.Type = type;
             this.FstatInfo = fstatInfo;
             this.FullPath = fullPath;
             this.Name = name;
@@ -81,15 +81,16 @@ namespace Cohesity.Model
         /// FullPath is the full path of the file/directory.
         /// </summary>
         /// <value>FullPath is the full path of the file/directory.</value>
-        [DataMember(Name="fullPath", EmitDefaultValue=true)]
+        [DataMember(Name="fullPath", EmitDefaultValue=false)]
         public string FullPath { get; set; }
 
         /// <summary>
         /// Name is the name of the file or folder. For /test/file.txt, name will be file.txt.
         /// </summary>
         /// <value>Name is the name of the file or folder. For /test/file.txt, name will be file.txt.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
+
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -144,7 +145,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.Type == input.Type ||
-                    this.Type.Equals(input.Type)
+                    (this.Type != null &&
+                    this.Type.Equals(input.Type))
                 );
         }
 
@@ -163,7 +165,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.FullPath.GetHashCode();
                 if (this.Name != null)
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
-                hashCode = hashCode * 59 + this.Type.GetHashCode();
+                if (this.Type != null)
+                    hashCode = hashCode * 59 + this.Type.GetHashCode();
                 return hashCode;
             }
         }

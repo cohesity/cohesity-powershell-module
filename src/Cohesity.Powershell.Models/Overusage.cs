@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -24,15 +27,12 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="Overusage" /> class.
         /// </summary>
         /// <param name="featureName">Name of feature..</param>
-        /// <param name="overusedGB">Feature overusage by the cluster..</param>
+        /// <param name="overusedGiB">Feature overusage by the cluster..</param>
         /// <param name="overusedVm">Number of overused VM spinned..</param>
-        public Overusage(string featureName = default(string), long? overusedGB = default(long?), long? overusedVm = default(long?))
+        public Overusage(string featureName = default(string), long? overusedGiB = default(long?), long? overusedVm = default(long?))
         {
             this.FeatureName = featureName;
-            this.OverusedGB = overusedGB;
-            this.OverusedVm = overusedVm;
-            this.FeatureName = featureName;
-            this.OverusedGB = overusedGB;
+            this.OverusedGiB = overusedGiB;
             this.OverusedVm = overusedVm;
         }
         
@@ -40,21 +40,21 @@ namespace Cohesity.Model
         /// Name of feature.
         /// </summary>
         /// <value>Name of feature.</value>
-        [DataMember(Name="featureName", EmitDefaultValue=true)]
+        [DataMember(Name="featureName", EmitDefaultValue=false)]
         public string FeatureName { get; set; }
 
         /// <summary>
         /// Feature overusage by the cluster.
         /// </summary>
         /// <value>Feature overusage by the cluster.</value>
-        [DataMember(Name="overusedGB", EmitDefaultValue=true)]
-        public long? OverusedGB { get; set; }
+        [DataMember(Name="overusedGiB", EmitDefaultValue=false)]
+        public long? OverusedGiB { get; set; }
 
         /// <summary>
         /// Number of overused VM spinned.
         /// </summary>
         /// <value>Number of overused VM spinned.</value>
-        [DataMember(Name="overusedVm", EmitDefaultValue=true)]
+        [DataMember(Name="overusedVm", EmitDefaultValue=false)]
         public long? OverusedVm { get; set; }
 
         /// <summary>
@@ -99,9 +99,9 @@ namespace Cohesity.Model
                     this.FeatureName.Equals(input.FeatureName))
                 ) && 
                 (
-                    this.OverusedGB == input.OverusedGB ||
-                    (this.OverusedGB != null &&
-                    this.OverusedGB.Equals(input.OverusedGB))
+                    this.OverusedGiB == input.OverusedGiB ||
+                    (this.OverusedGiB != null &&
+                    this.OverusedGiB.Equals(input.OverusedGiB))
                 ) && 
                 (
                     this.OverusedVm == input.OverusedVm ||
@@ -121,8 +121,8 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.FeatureName != null)
                     hashCode = hashCode * 59 + this.FeatureName.GetHashCode();
-                if (this.OverusedGB != null)
-                    hashCode = hashCode * 59 + this.OverusedGB.GetHashCode();
+                if (this.OverusedGiB != null)
+                    hashCode = hashCode * 59 + this.OverusedGiB.GetHashCode();
                 if (this.OverusedVm != null)
                     hashCode = hashCode * 59 + this.OverusedVm.GetHashCode();
                 return hashCode;

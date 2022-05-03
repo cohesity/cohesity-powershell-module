@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.Gid = gid;
             this.Uid = uid;
-            this.Gid = gid;
-            this.Uid = uid;
         }
         
         /// <summary>
         /// GID mapped for all clients.
         /// </summary>
         /// <value>GID mapped for all clients.</value>
-        [DataMember(Name="gid", EmitDefaultValue=true)]
+        [DataMember(Name="gid", EmitDefaultValue=false)]
         public int? Gid { get; set; }
 
         /// <summary>
         /// UID mapped for all clients.
         /// </summary>
         /// <value>UID mapped for all clients.</value>
-        [DataMember(Name="uid", EmitDefaultValue=true)]
+        [DataMember(Name="uid", EmitDefaultValue=false)]
         public int? Uid { get; set; }
 
         /// <summary>

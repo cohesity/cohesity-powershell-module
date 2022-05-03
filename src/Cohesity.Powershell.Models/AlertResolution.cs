@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,8 +32,6 @@ namespace Cohesity.Model
         public AlertResolution(List<string> alertIdList = default(List<string>), AlertResolutionDetails resolutionDetails = default(AlertResolutionDetails), List<string> tenantIds = default(List<string>))
         {
             this.AlertIdList = alertIdList;
-            this.TenantIds = tenantIds;
-            this.AlertIdList = alertIdList;
             this.ResolutionDetails = resolutionDetails;
             this.TenantIds = tenantIds;
         }
@@ -39,7 +40,7 @@ namespace Cohesity.Model
         /// Specifies list of Alerts resolved by a Resolution, which are specified by Alert Ids.
         /// </summary>
         /// <value>Specifies list of Alerts resolved by a Resolution, which are specified by Alert Ids.</value>
-        [DataMember(Name="alertIdList", EmitDefaultValue=true)]
+        [DataMember(Name="alertIdList", EmitDefaultValue=false)]
         public List<string> AlertIdList { get; set; }
 
         /// <summary>
@@ -52,7 +53,7 @@ namespace Cohesity.Model
         /// Specifies unique tenantIds of the alert contained in this resolution.
         /// </summary>
         /// <value>Specifies unique tenantIds of the alert contained in this resolution.</value>
-        [DataMember(Name="tenantIds", EmitDefaultValue=true)]
+        [DataMember(Name="tenantIds", EmitDefaultValue=false)]
         public List<string> TenantIds { get; set; }
 
         /// <summary>
@@ -94,8 +95,7 @@ namespace Cohesity.Model
                 (
                     this.AlertIdList == input.AlertIdList ||
                     this.AlertIdList != null &&
-                    input.AlertIdList != null &&
-                    this.AlertIdList.SequenceEqual(input.AlertIdList)
+                    this.AlertIdList.Equals(input.AlertIdList)
                 ) && 
                 (
                     this.ResolutionDetails == input.ResolutionDetails ||
@@ -105,8 +105,7 @@ namespace Cohesity.Model
                 (
                     this.TenantIds == input.TenantIds ||
                     this.TenantIds != null &&
-                    input.TenantIds != null &&
-                    this.TenantIds.SequenceEqual(input.TenantIds)
+                    this.TenantIds.Equals(input.TenantIds)
                 );
         }
 

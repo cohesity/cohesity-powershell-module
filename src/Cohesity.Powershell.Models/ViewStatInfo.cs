@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -84,17 +87,6 @@ namespace Cohesity.Model
             this.PeakReadThroughput = peakReadThroughput;
             this.PeakWriteThroughput = peakWriteThroughput;
             this.PhysicalUsedBytes = physicalUsedBytes;
-            this.StorageReductionRatio = storageReductionRatio;
-            this.ViewId = viewId;
-            this.ViewName = viewName;
-            this.ClusterId = clusterId;
-            this.ClusterIncarnationId = clusterIncarnationId;
-            this.DataReadBytes = dataReadBytes;
-            this.DataWrittenBytes = dataWrittenBytes;
-            this.LogicalUsedBytes = logicalUsedBytes;
-            this.PeakReadThroughput = peakReadThroughput;
-            this.PeakWriteThroughput = peakWriteThroughput;
-            this.PhysicalUsedBytes = physicalUsedBytes;
             this.Protocols = protocols;
             this.StorageReductionRatio = storageReductionRatio;
             this.ViewId = viewId;
@@ -105,77 +97,78 @@ namespace Cohesity.Model
         /// Specifies the cluster Id.
         /// </summary>
         /// <value>Specifies the cluster Id.</value>
-        [DataMember(Name="clusterId", EmitDefaultValue=true)]
+        [DataMember(Name="clusterId", EmitDefaultValue=false)]
         public long? ClusterId { get; set; }
 
         /// <summary>
         /// Specifies the cluster Incarnation Id.
         /// </summary>
         /// <value>Specifies the cluster Incarnation Id.</value>
-        [DataMember(Name="clusterIncarnationId", EmitDefaultValue=true)]
+        [DataMember(Name="clusterIncarnationId", EmitDefaultValue=false)]
         public long? ClusterIncarnationId { get; set; }
 
         /// <summary>
         /// Specifies the data read in bytes.
         /// </summary>
         /// <value>Specifies the data read in bytes.</value>
-        [DataMember(Name="dataReadBytes", EmitDefaultValue=true)]
+        [DataMember(Name="dataReadBytes", EmitDefaultValue=false)]
         public long? DataReadBytes { get; set; }
 
         /// <summary>
         /// Specifies the data written in bytes.
         /// </summary>
         /// <value>Specifies the data written in bytes.</value>
-        [DataMember(Name="dataWrittenBytes", EmitDefaultValue=true)]
+        [DataMember(Name="dataWrittenBytes", EmitDefaultValue=false)]
         public long? DataWrittenBytes { get; set; }
 
         /// <summary>
         /// Specifies the logical size used in bytes.
         /// </summary>
         /// <value>Specifies the logical size used in bytes.</value>
-        [DataMember(Name="logicalUsedBytes", EmitDefaultValue=true)]
+        [DataMember(Name="logicalUsedBytes", EmitDefaultValue=false)]
         public long? LogicalUsedBytes { get; set; }
 
         /// <summary>
         /// Specifies the peak data read in bytes per second in the last day.
         /// </summary>
         /// <value>Specifies the peak data read in bytes per second in the last day.</value>
-        [DataMember(Name="peakReadThroughput", EmitDefaultValue=true)]
+        [DataMember(Name="peakReadThroughput", EmitDefaultValue=false)]
         public long? PeakReadThroughput { get; set; }
 
         /// <summary>
         /// Specifies the peak data written in bytes per second in the last day.
         /// </summary>
         /// <value>Specifies the peak data written in bytes per second in the last day.</value>
-        [DataMember(Name="peakWriteThroughput", EmitDefaultValue=true)]
+        [DataMember(Name="peakWriteThroughput", EmitDefaultValue=false)]
         public long? PeakWriteThroughput { get; set; }
 
         /// <summary>
         /// Specifies the physical size used in bytes.
         /// </summary>
         /// <value>Specifies the physical size used in bytes.</value>
-        [DataMember(Name="physicalUsedBytes", EmitDefaultValue=true)]
+        [DataMember(Name="physicalUsedBytes", EmitDefaultValue=false)]
         public long? PhysicalUsedBytes { get; set; }
+
 
         /// <summary>
         /// Specifies the storage reduction ratio.
         /// </summary>
         /// <value>Specifies the storage reduction ratio.</value>
-        [DataMember(Name="storageReductionRatio", EmitDefaultValue=true)]
+        [DataMember(Name="storageReductionRatio", EmitDefaultValue=false)]
         public float? StorageReductionRatio { get; set; }
 
         /// <summary>
         /// Specifies the view Id.
         /// </summary>
         /// <value>Specifies the view Id.</value>
-        [DataMember(Name="viewId", EmitDefaultValue=true)]
+        [DataMember(Name="viewId", EmitDefaultValue=false)]
         public long? ViewId { get; set; }
 
         /// <summary>
         /// Specifies the view name.
         /// </summary>
         /// <value>Specifies the view name.</value>
-        [DataMember(Name="viewName", EmitDefaultValue=true)]
+        [DataMember(Name="viewName", EmitDefaultValue=false)]
         public string ViewName { get; set; }
 
         /// <summary>
@@ -256,7 +249,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.Protocols == input.Protocols ||
-                    this.Protocols.SequenceEqual(input.Protocols)
+                    this.Protocols != null &&
+                    this.Protocols.Equals(input.Protocols)
                 ) && 
                 (
                     this.StorageReductionRatio == input.StorageReductionRatio ||
@@ -300,7 +294,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.PeakWriteThroughput.GetHashCode();
                 if (this.PhysicalUsedBytes != null)
                     hashCode = hashCode * 59 + this.PhysicalUsedBytes.GetHashCode();
-                hashCode = hashCode * 59 + this.Protocols.GetHashCode();
+                if (this.Protocols != null)
+                    hashCode = hashCode * 59 + this.Protocols.GetHashCode();
                 if (this.StorageReductionRatio != null)
                     hashCode = hashCode * 59 + this.StorageReductionRatio.GetHashCode();
                 if (this.ViewId != null)

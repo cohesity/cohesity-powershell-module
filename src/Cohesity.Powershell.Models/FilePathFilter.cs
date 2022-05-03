@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.ExcludeFilters = excludeFilters;
             this.ProtectFilters = protectFilters;
-            this.ExcludeFilters = excludeFilters;
-            this.ProtectFilters = protectFilters;
         }
         
         /// <summary>
         /// Array of Excluded File Path Filters.  Specifies filters to match files or directories that should be removed from the list of objects matching ProtectFilters.
         /// </summary>
         /// <value>Array of Excluded File Path Filters.  Specifies filters to match files or directories that should be removed from the list of objects matching ProtectFilters.</value>
-        [DataMember(Name="excludeFilters", EmitDefaultValue=true)]
+        [DataMember(Name="excludeFilters", EmitDefaultValue=false)]
         public List<string> ExcludeFilters { get; set; }
 
         /// <summary>
         /// Array of Protected File Path Filters.  Specifies filters to match files or directories that should be protected.
         /// </summary>
         /// <value>Array of Protected File Path Filters.  Specifies filters to match files or directories that should be protected.</value>
-        [DataMember(Name="protectFilters", EmitDefaultValue=true)]
+        [DataMember(Name="protectFilters", EmitDefaultValue=false)]
         public List<string> ProtectFilters { get; set; }
 
         /// <summary>
@@ -86,14 +87,12 @@ namespace Cohesity.Model
                 (
                     this.ExcludeFilters == input.ExcludeFilters ||
                     this.ExcludeFilters != null &&
-                    input.ExcludeFilters != null &&
-                    this.ExcludeFilters.SequenceEqual(input.ExcludeFilters)
+                    this.ExcludeFilters.Equals(input.ExcludeFilters)
                 ) && 
                 (
                     this.ProtectFilters == input.ProtectFilters ||
                     this.ProtectFilters != null &&
-                    input.ProtectFilters != null &&
-                    this.ProtectFilters.SequenceEqual(input.ProtectFilters)
+                    this.ProtectFilters.Equals(input.ProtectFilters)
                 );
         }
 

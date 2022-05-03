@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -111,7 +114,7 @@ namespace Cohesity.Model
         /// Specifies the entity type such as &#39;kIAMUser&#39; if the environment is kGCP. Specifies the type of a GCP source entity. &#39;kIAMUser&#39; indicates a unique user within a GCP account. &#39;kProject&#39; represents compute resources and storage. &#39;kRegion&#39; indicates a geographical region in the global infrastructure. &#39;kAvailabilityZone&#39; indicates an availability zone within a region. &#39;kVirtualMachine&#39; indicates a Virtual Machine running in GCP environment. &#39;kVPC&#39; indicates a virtual private cloud (VPC) network within GCP. &#39;kSubnet&#39; indicates a subnet inside the VPC. &#39;kNetworkSecurityGroup&#39; represents a network security group. &#39;kInstanceType&#39; represents various machine types. &#39;kLabel&#39; represents a label present on the instances. &#39;kMetaData&#39; represents a custom metadata present on instances. &#39;kTag&#39; represents a network tag on instances. &#39;kVPCConnector&#39; represents a VPC connector used for serverless VPC access.
         /// </summary>
         /// <value>Specifies the entity type such as &#39;kIAMUser&#39; if the environment is kGCP. Specifies the type of a GCP source entity. &#39;kIAMUser&#39; indicates a unique user within a GCP account. &#39;kProject&#39; represents compute resources and storage. &#39;kRegion&#39; indicates a geographical region in the global infrastructure. &#39;kAvailabilityZone&#39; indicates an availability zone within a region. &#39;kVirtualMachine&#39; indicates a Virtual Machine running in GCP environment. &#39;kVPC&#39; indicates a virtual private cloud (VPC) network within GCP. &#39;kSubnet&#39; indicates a subnet inside the VPC. &#39;kNetworkSecurityGroup&#39; represents a network security group. &#39;kInstanceType&#39; represents various machine types. &#39;kLabel&#39; represents a label present on the instances. &#39;kMetaData&#39; represents a custom metadata present on instances. &#39;kTag&#39; represents a network tag on instances. &#39;kVPCConnector&#39; represents a VPC connector used for serverless VPC access.</value>
-        [DataMember(Name="gcpType", EmitDefaultValue=true)]
+        [DataMember(Name="gcpType", EmitDefaultValue=false)]
         public GcpTypeEnum? GcpType { get; set; }
         /// <summary>
         /// Specifies the OS type of the Protection Source of type &#39;kVirtualMachine&#39; such as &#39;kWindows&#39; or &#39;kLinux&#39;. overrideDescription: true &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kOther&#39; indicates the other types of operating system.
@@ -162,7 +165,7 @@ namespace Cohesity.Model
         /// Specifies the OS type of the Protection Source of type &#39;kVirtualMachine&#39; such as &#39;kWindows&#39; or &#39;kLinux&#39;. overrideDescription: true &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kOther&#39; indicates the other types of operating system.
         /// </summary>
         /// <value>Specifies the OS type of the Protection Source of type &#39;kVirtualMachine&#39; such as &#39;kWindows&#39; or &#39;kLinux&#39;. overrideDescription: true &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kOther&#39; indicates the other types of operating system.</value>
-        [DataMember(Name="hostType", EmitDefaultValue=true)]
+        [DataMember(Name="hostType", EmitDefaultValue=false)]
         public HostTypeEnum? HostType { get; set; }
         /// <summary>
         /// Specifies the type of an GCP Protection Source Object such as &#39;kIAMUser&#39;, &#39;kProject&#39;, &#39;kRegion&#39;, etc. Specifies the type of a GCP source entity. &#39;kIAMUser&#39; indicates a unique user within a GCP account. &#39;kProject&#39; represents compute resources and storage. &#39;kRegion&#39; indicates a geographical region in the global infrastructure. &#39;kAvailabilityZone&#39; indicates an availability zone within a region. &#39;kVirtualMachine&#39; indicates a Virtual Machine running in GCP environment. &#39;kVPC&#39; indicates a virtual private cloud (VPC) network within GCP. &#39;kSubnet&#39; indicates a subnet inside the VPC. &#39;kNetworkSecurityGroup&#39; represents a network security group. &#39;kInstanceType&#39; represents various machine types. &#39;kLabel&#39; represents a label present on the instances. &#39;kMetaData&#39; represents a custom metadata present on instances. &#39;kTag&#39; represents a network tag on instances. &#39;kVPCConnector&#39; represents a VPC connector used for serverless VPC access.
@@ -255,7 +258,7 @@ namespace Cohesity.Model
         /// Specifies the type of an GCP Protection Source Object such as &#39;kIAMUser&#39;, &#39;kProject&#39;, &#39;kRegion&#39;, etc. Specifies the type of a GCP source entity. &#39;kIAMUser&#39; indicates a unique user within a GCP account. &#39;kProject&#39; represents compute resources and storage. &#39;kRegion&#39; indicates a geographical region in the global infrastructure. &#39;kAvailabilityZone&#39; indicates an availability zone within a region. &#39;kVirtualMachine&#39; indicates a Virtual Machine running in GCP environment. &#39;kVPC&#39; indicates a virtual private cloud (VPC) network within GCP. &#39;kSubnet&#39; indicates a subnet inside the VPC. &#39;kNetworkSecurityGroup&#39; represents a network security group. &#39;kInstanceType&#39; represents various machine types. &#39;kLabel&#39; represents a label present on the instances. &#39;kMetaData&#39; represents a custom metadata present on instances. &#39;kTag&#39; represents a network tag on instances. &#39;kVPCConnector&#39; represents a VPC connector used for serverless VPC access.
         /// </summary>
         /// <value>Specifies the type of an GCP Protection Source Object such as &#39;kIAMUser&#39;, &#39;kProject&#39;, &#39;kRegion&#39;, etc. Specifies the type of a GCP source entity. &#39;kIAMUser&#39; indicates a unique user within a GCP account. &#39;kProject&#39; represents compute resources and storage. &#39;kRegion&#39; indicates a geographical region in the global infrastructure. &#39;kAvailabilityZone&#39; indicates an availability zone within a region. &#39;kVirtualMachine&#39; indicates a Virtual Machine running in GCP environment. &#39;kVPC&#39; indicates a virtual private cloud (VPC) network within GCP. &#39;kSubnet&#39; indicates a subnet inside the VPC. &#39;kNetworkSecurityGroup&#39; represents a network security group. &#39;kInstanceType&#39; represents various machine types. &#39;kLabel&#39; represents a label present on the instances. &#39;kMetaData&#39; represents a custom metadata present on instances. &#39;kTag&#39; represents a network tag on instances. &#39;kVPCConnector&#39; represents a VPC connector used for serverless VPC access.</value>
-        [DataMember(Name="type", EmitDefaultValue=true)]
+        [DataMember(Name="type", EmitDefaultValue=false)]
         public TypeEnum? Type { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="GcpProtectionSource" /> class.
@@ -296,121 +299,107 @@ namespace Cohesity.Model
             this.Type = type;
             this.VpcNetwork = vpcNetwork;
             this.VpcSubnetwork = vpcSubnetwork;
-            this.ClientEmailAddress = clientEmailAddress;
-            this.ClientPrivateKey = clientPrivateKey;
-            this.GcpType = gcpType;
-            this.HostProjectId = hostProjectId;
-            this.HostType = hostType;
-            this.IpAddressesVM = ipAddressesVM;
-            this.Name = name;
-            this.OwnerId = ownerId;
-            this.PhysicalSourceId = physicalSourceId;
-            this.ProjectId = projectId;
-            this.RegionId = regionId;
-            this.ResourceId = resourceId;
-            this.RestoreTaskId = restoreTaskId;
-            this.TagAttributes = tagAttributes;
-            this.Type = type;
-            this.VpcNetwork = vpcNetwork;
-            this.VpcSubnetwork = vpcSubnetwork;
         }
         
         /// <summary>
         /// Specifies Client email address associated with the service account.
         /// </summary>
         /// <value>Specifies Client email address associated with the service account.</value>
-        [DataMember(Name="clientEmailAddress", EmitDefaultValue=true)]
+        [DataMember(Name="clientEmailAddress", EmitDefaultValue=false)]
         public string ClientEmailAddress { get; set; }
 
         /// <summary>
         /// Specifies Client private associated with the service account.
         /// </summary>
         /// <value>Specifies Client private associated with the service account.</value>
-        [DataMember(Name="clientPrivateKey", EmitDefaultValue=true)]
+        [DataMember(Name="clientPrivateKey", EmitDefaultValue=false)]
         public string ClientPrivateKey { get; set; }
+
 
         /// <summary>
         /// Specifies the host project id. It is populated in entities of type kSubnet if the subnet is part of a shared VPC. This contains the ID of host project the subnet belongs to. Populated in entities of type kProject if the project is a service project in a Shared VPC setup. This contains the ID of the host project it is attached to.
         /// </summary>
         /// <value>Specifies the host project id. It is populated in entities of type kSubnet if the subnet is part of a shared VPC. This contains the ID of host project the subnet belongs to. Populated in entities of type kProject if the project is a service project in a Shared VPC setup. This contains the ID of the host project it is attached to.</value>
-        [DataMember(Name="hostProjectId", EmitDefaultValue=true)]
+        [DataMember(Name="hostProjectId", EmitDefaultValue=false)]
         public string HostProjectId { get; set; }
+
 
         /// <summary>
         /// Specifies the IP address of the entity of type &#39;kVirtualMachine&#39;.
         /// </summary>
         /// <value>Specifies the IP address of the entity of type &#39;kVirtualMachine&#39;.</value>
-        [DataMember(Name="ipAddressesVM", EmitDefaultValue=true)]
+        [DataMember(Name="ipAddressesVM", EmitDefaultValue=false)]
         public string IpAddressesVM { get; set; }
 
         /// <summary>
         /// Specifies the name of the Object set by the Cloud Provider. If the provider did not set a name for the object, this field is not set.
         /// </summary>
         /// <value>Specifies the name of the Object set by the Cloud Provider. If the provider did not set a name for the object, this field is not set.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
 
         /// <summary>
         /// Specifies the owner id of the resource in GCP environment. With type, name and ownerId gives a globally unique identity to the GCP entity.
         /// </summary>
         /// <value>Specifies the owner id of the resource in GCP environment. With type, name and ownerId gives a globally unique identity to the GCP entity.</value>
-        [DataMember(Name="ownerId", EmitDefaultValue=true)]
+        [DataMember(Name="ownerId", EmitDefaultValue=false)]
         public string OwnerId { get; set; }
 
         /// <summary>
         /// Specifies the Protection Source id of the registered Physical Host. If the cloud entity is protected using a Physical Agent, it must be registered as a physical host.
         /// </summary>
         /// <value>Specifies the Protection Source id of the registered Physical Host. If the cloud entity is protected using a Physical Agent, it must be registered as a physical host.</value>
-        [DataMember(Name="physicalSourceId", EmitDefaultValue=true)]
+        [DataMember(Name="physicalSourceId", EmitDefaultValue=false)]
         public long? PhysicalSourceId { get; set; }
 
         /// <summary>
         /// Specifies the project Id. For the kIAMUser entity this contains the id of the project to be used to deploy proxy VMs. For entities of type kVirtualMachine this contains the id of the project the virtual machine belongs to.
         /// </summary>
         /// <value>Specifies the project Id. For the kIAMUser entity this contains the id of the project to be used to deploy proxy VMs. For entities of type kVirtualMachine this contains the id of the project the virtual machine belongs to.</value>
-        [DataMember(Name="projectId", EmitDefaultValue=true)]
+        [DataMember(Name="projectId", EmitDefaultValue=false)]
         public string ProjectId { get; set; }
 
         /// <summary>
         /// Specifies the region Id. For the kIAMUser entity this contains the region to be used to deploy proxy VMs. For entities of type kVirtualMachine this contains the region the virtual machine belongs to.
         /// </summary>
         /// <value>Specifies the region Id. For the kIAMUser entity this contains the region to be used to deploy proxy VMs. For entities of type kVirtualMachine this contains the region the virtual machine belongs to.</value>
-        [DataMember(Name="regionId", EmitDefaultValue=true)]
+        [DataMember(Name="regionId", EmitDefaultValue=false)]
         public string RegionId { get; set; }
 
         /// <summary>
         /// Specifies the unique Id of the resource given by the cloud provider.
         /// </summary>
         /// <value>Specifies the unique Id of the resource given by the cloud provider.</value>
-        [DataMember(Name="resourceId", EmitDefaultValue=true)]
+        [DataMember(Name="resourceId", EmitDefaultValue=false)]
         public string ResourceId { get; set; }
 
         /// <summary>
         /// Specifies the id of the \&quot;convert and deploy\&quot; restore task that created the entity in the cloud.  It is required to support the DR-to-cloud usecase where we replicate an on-prem entity to a cluster running in cloud, bring it up using \&quot;convert and deploy\&quot; mechanism, protect it using a cloud job that uses physical adapter, and convert it back to the on-prem format before replication.  Before replicating, we need to update the backup task state of the backed up entity using the on-prem entity and on-prem entity&#39;s parent. The id is used to lookup the restore entity that contains details about the on-prem entity.  It is set at the time of refreshing the cloud entity hierarchy if all the following conditions are met: Name of the current entity matches with name of any cloud entity deployed using the \&quot;convert and deploy\&quot; restore task. Restore entity associated with the above matched cloud entity has &#39;failed_over&#39; flag set to true in its cloud extension.
         /// </summary>
         /// <value>Specifies the id of the \&quot;convert and deploy\&quot; restore task that created the entity in the cloud.  It is required to support the DR-to-cloud usecase where we replicate an on-prem entity to a cluster running in cloud, bring it up using \&quot;convert and deploy\&quot; mechanism, protect it using a cloud job that uses physical adapter, and convert it back to the on-prem format before replication.  Before replicating, we need to update the backup task state of the backed up entity using the on-prem entity and on-prem entity&#39;s parent. The id is used to lookup the restore entity that contains details about the on-prem entity.  It is set at the time of refreshing the cloud entity hierarchy if all the following conditions are met: Name of the current entity matches with name of any cloud entity deployed using the \&quot;convert and deploy\&quot; restore task. Restore entity associated with the above matched cloud entity has &#39;failed_over&#39; flag set to true in its cloud extension.</value>
-        [DataMember(Name="restoreTaskId", EmitDefaultValue=true)]
+        [DataMember(Name="restoreTaskId", EmitDefaultValue=false)]
         public long? RestoreTaskId { get; set; }
 
         /// <summary>
         /// Specifies the list of GCP tag attributes.
         /// </summary>
         /// <value>Specifies the list of GCP tag attributes.</value>
-        [DataMember(Name="tagAttributes", EmitDefaultValue=true)]
+        [DataMember(Name="tagAttributes", EmitDefaultValue=false)]
         public List<TagAttribute> TagAttributes { get; set; }
+
 
         /// <summary>
         /// Specifies the VPC Network to deploy proxy VMs.
         /// </summary>
         /// <value>Specifies the VPC Network to deploy proxy VMs.</value>
-        [DataMember(Name="vpcNetwork", EmitDefaultValue=true)]
+        [DataMember(Name="vpcNetwork", EmitDefaultValue=false)]
         public string VpcNetwork { get; set; }
 
         /// <summary>
         /// Specifies the subnetwork to deploy proxy VMs.
         /// </summary>
         /// <value>Specifies the subnetwork to deploy proxy VMs.</value>
-        [DataMember(Name="vpcSubnetwork", EmitDefaultValue=true)]
+        [DataMember(Name="vpcSubnetwork", EmitDefaultValue=false)]
         public string VpcSubnetwork { get; set; }
 
         /// <summary>
@@ -461,7 +450,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.GcpType == input.GcpType ||
-                    this.GcpType.Equals(input.GcpType)
+                    (this.GcpType != null &&
+                    this.GcpType.Equals(input.GcpType))
                 ) && 
                 (
                     this.HostProjectId == input.HostProjectId ||
@@ -470,7 +460,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.HostType == input.HostType ||
-                    this.HostType.Equals(input.HostType)
+                    (this.HostType != null &&
+                    this.HostType.Equals(input.HostType))
                 ) && 
                 (
                     this.IpAddressesVM == input.IpAddressesVM ||
@@ -515,12 +506,12 @@ namespace Cohesity.Model
                 (
                     this.TagAttributes == input.TagAttributes ||
                     this.TagAttributes != null &&
-                    input.TagAttributes != null &&
-                    this.TagAttributes.SequenceEqual(input.TagAttributes)
+                    this.TagAttributes.Equals(input.TagAttributes)
                 ) && 
                 (
                     this.Type == input.Type ||
-                    this.Type.Equals(input.Type)
+                    (this.Type != null &&
+                    this.Type.Equals(input.Type))
                 ) && 
                 (
                     this.VpcNetwork == input.VpcNetwork ||
@@ -547,10 +538,12 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ClientEmailAddress.GetHashCode();
                 if (this.ClientPrivateKey != null)
                     hashCode = hashCode * 59 + this.ClientPrivateKey.GetHashCode();
-                hashCode = hashCode * 59 + this.GcpType.GetHashCode();
+                if (this.GcpType != null)
+                    hashCode = hashCode * 59 + this.GcpType.GetHashCode();
                 if (this.HostProjectId != null)
                     hashCode = hashCode * 59 + this.HostProjectId.GetHashCode();
-                hashCode = hashCode * 59 + this.HostType.GetHashCode();
+                if (this.HostType != null)
+                    hashCode = hashCode * 59 + this.HostType.GetHashCode();
                 if (this.IpAddressesVM != null)
                     hashCode = hashCode * 59 + this.IpAddressesVM.GetHashCode();
                 if (this.Name != null)
@@ -569,7 +562,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.RestoreTaskId.GetHashCode();
                 if (this.TagAttributes != null)
                     hashCode = hashCode * 59 + this.TagAttributes.GetHashCode();
-                hashCode = hashCode * 59 + this.Type.GetHashCode();
+                if (this.Type != null)
+                    hashCode = hashCode * 59 + this.Type.GetHashCode();
                 if (this.VpcNetwork != null)
                     hashCode = hashCode * 59 + this.VpcNetwork.GetHashCode();
                 if (this.VpcSubnetwork != null)

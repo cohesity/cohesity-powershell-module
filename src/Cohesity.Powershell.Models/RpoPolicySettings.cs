@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -51,7 +54,7 @@ namespace Cohesity.Model
         /// Array of Job Events.  During Job Runs, the following Job Events are generated: 1) Job succeeds 2) Job fails 3) Job violates the SLA These Job Events can cause Alerts to be generated. &#39;kSuccess&#39; means the Protection Job succeeded. &#39;kFailure&#39; means the Protection Job failed. &#39;kSlaViolation&#39; means the Protection Job took longer than the time period specified in the SLA.
         /// </summary>
         /// <value>Array of Job Events.  During Job Runs, the following Job Events are generated: 1) Job succeeds 2) Job fails 3) Job violates the SLA These Job Events can cause Alerts to be generated. &#39;kSuccess&#39; means the Protection Job succeeded. &#39;kFailure&#39; means the Protection Job failed. &#39;kSlaViolation&#39; means the Protection Job took longer than the time period specified in the SLA.</value>
-        [DataMember(Name="alertingPolicy", EmitDefaultValue=true)]
+        [DataMember(Name="alertingPolicy", EmitDefaultValue=false)]
         public List<AlertingPolicyEnum> AlertingPolicy { get; set; }
         /// <summary>
         /// Specifies the QoS policy type to use. &#39;kBackupHDD&#39; indicates the Cohesity Cluster writes data directly to the HDD tier for this Protection Job. This is the recommended setting. &#39;kBackupSSD&#39; indicates the Cohesity Cluster writes data directly to the SSD tier for this Protection Job. Only specify this policy if you need fast ingest speed for a small number of Protection Jobs.
@@ -78,7 +81,7 @@ namespace Cohesity.Model
         /// Specifies the QoS policy type to use. &#39;kBackupHDD&#39; indicates the Cohesity Cluster writes data directly to the HDD tier for this Protection Job. This is the recommended setting. &#39;kBackupSSD&#39; indicates the Cohesity Cluster writes data directly to the SSD tier for this Protection Job. Only specify this policy if you need fast ingest speed for a small number of Protection Jobs.
         /// </summary>
         /// <value>Specifies the QoS policy type to use. &#39;kBackupHDD&#39; indicates the Cohesity Cluster writes data directly to the HDD tier for this Protection Job. This is the recommended setting. &#39;kBackupSSD&#39; indicates the Cohesity Cluster writes data directly to the SSD tier for this Protection Job. Only specify this policy if you need fast ingest speed for a small number of Protection Jobs.</value>
-        [DataMember(Name="qosType", EmitDefaultValue=true)]
+        [DataMember(Name="qosType", EmitDefaultValue=false)]
         public QosTypeEnum? QosType { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="RpoPolicySettings" /> class.
@@ -91,9 +94,6 @@ namespace Cohesity.Model
         /// <param name="storageDomainId">Specifies the Storage Domain to which data will be written..</param>
         public RpoPolicySettings(AlertingConfig alertingConfig = default(AlertingConfig), List<AlertingPolicyEnum> alertingPolicy = default(List<AlertingPolicyEnum>), EnvironmentTypeJobParameters environmentTypeJobParams = default(EnvironmentTypeJobParameters), IndexingPolicy indexingPolicy = default(IndexingPolicy), QosTypeEnum? qosType = default(QosTypeEnum?), long? storageDomainId = default(long?))
         {
-            this.AlertingPolicy = alertingPolicy;
-            this.QosType = qosType;
-            this.StorageDomainId = storageDomainId;
             this.AlertingConfig = alertingConfig;
             this.AlertingPolicy = alertingPolicy;
             this.EnvironmentTypeJobParams = environmentTypeJobParams;
@@ -108,6 +108,7 @@ namespace Cohesity.Model
         [DataMember(Name="alertingConfig", EmitDefaultValue=false)]
         public AlertingConfig AlertingConfig { get; set; }
 
+
         /// <summary>
         /// Gets or Sets EnvironmentTypeJobParams
         /// </summary>
@@ -120,11 +121,12 @@ namespace Cohesity.Model
         [DataMember(Name="indexingPolicy", EmitDefaultValue=false)]
         public IndexingPolicy IndexingPolicy { get; set; }
 
+
         /// <summary>
         /// Specifies the Storage Domain to which data will be written.
         /// </summary>
         /// <value>Specifies the Storage Domain to which data will be written.</value>
-        [DataMember(Name="storageDomainId", EmitDefaultValue=true)]
+        [DataMember(Name="storageDomainId", EmitDefaultValue=false)]
         public long? StorageDomainId { get; set; }
 
         /// <summary>
@@ -170,7 +172,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.AlertingPolicy == input.AlertingPolicy ||
-                    this.AlertingPolicy.SequenceEqual(input.AlertingPolicy)
+                    this.AlertingPolicy != null &&
+                    this.AlertingPolicy.Equals(input.AlertingPolicy)
                 ) && 
                 (
                     this.EnvironmentTypeJobParams == input.EnvironmentTypeJobParams ||
@@ -184,7 +187,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.QosType == input.QosType ||
-                    this.QosType.Equals(input.QosType)
+                    (this.QosType != null &&
+                    this.QosType.Equals(input.QosType))
                 ) && 
                 (
                     this.StorageDomainId == input.StorageDomainId ||
@@ -204,12 +208,14 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.AlertingConfig != null)
                     hashCode = hashCode * 59 + this.AlertingConfig.GetHashCode();
-                hashCode = hashCode * 59 + this.AlertingPolicy.GetHashCode();
+                if (this.AlertingPolicy != null)
+                    hashCode = hashCode * 59 + this.AlertingPolicy.GetHashCode();
                 if (this.EnvironmentTypeJobParams != null)
                     hashCode = hashCode * 59 + this.EnvironmentTypeJobParams.GetHashCode();
                 if (this.IndexingPolicy != null)
                     hashCode = hashCode * 59 + this.IndexingPolicy.GetHashCode();
-                hashCode = hashCode * 59 + this.QosType.GetHashCode();
+                if (this.QosType != null)
+                    hashCode = hashCode * 59 + this.QosType.GetHashCode();
                 if (this.StorageDomainId != null)
                     hashCode = hashCode * 59 + this.StorageDomainId.GetHashCode();
                 return hashCode;

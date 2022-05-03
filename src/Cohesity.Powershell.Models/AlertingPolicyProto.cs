@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -33,38 +36,34 @@ namespace Cohesity.Model
             this.Emails = emails;
             this.Policy = policy;
             this.RaiseObjectLevelFailureAlert = raiseObjectLevelFailureAlert;
-            this.DeliveryTargetVec = deliveryTargetVec;
-            this.Emails = emails;
-            this.Policy = policy;
-            this.RaiseObjectLevelFailureAlert = raiseObjectLevelFailureAlert;
         }
         
         /// <summary>
         /// The delivery targets to be alerted.
         /// </summary>
         /// <value>The delivery targets to be alerted.</value>
-        [DataMember(Name="deliveryTargetVec", EmitDefaultValue=true)]
+        [DataMember(Name="deliveryTargetVec", EmitDefaultValue=false)]
         public List<DeliveryRuleProtoDeliveryTarget> DeliveryTargetVec { get; set; }
 
         /// <summary>
         /// The email addresses to send alerts to. This field has been deprecated in favor of the field delivery_target_vec. The clients should take care to ensure that the emails stored in here are migrated to that field, or else utilise both the fields when trying to obtain the complete list of delivery targets.
         /// </summary>
         /// <value>The email addresses to send alerts to. This field has been deprecated in favor of the field delivery_target_vec. The clients should take care to ensure that the emails stored in here are migrated to that field, or else utilise both the fields when trying to obtain the complete list of delivery targets.</value>
-        [DataMember(Name="emails", EmitDefaultValue=true)]
+        [DataMember(Name="emails", EmitDefaultValue=false)]
         public List<string> Emails { get; set; }
 
         /// <summary>
         /// &#39;policy&#39; is declared as int32 because ORing the enums will generate values which are invalid as enums. Protobuf doesn&#39;t allow those invalid enums to be set.
         /// </summary>
         /// <value>&#39;policy&#39; is declared as int32 because ORing the enums will generate values which are invalid as enums. Protobuf doesn&#39;t allow those invalid enums to be set.</value>
-        [DataMember(Name="policy", EmitDefaultValue=true)]
+        [DataMember(Name="policy", EmitDefaultValue=false)]
         public int? Policy { get; set; }
 
         /// <summary>
         /// Raise per object alert for failures.
         /// </summary>
         /// <value>Raise per object alert for failures.</value>
-        [DataMember(Name="raiseObjectLevelFailureAlert", EmitDefaultValue=true)]
+        [DataMember(Name="raiseObjectLevelFailureAlert", EmitDefaultValue=false)]
         public bool? RaiseObjectLevelFailureAlert { get; set; }
 
         /// <summary>
@@ -106,14 +105,12 @@ namespace Cohesity.Model
                 (
                     this.DeliveryTargetVec == input.DeliveryTargetVec ||
                     this.DeliveryTargetVec != null &&
-                    input.DeliveryTargetVec != null &&
-                    this.DeliveryTargetVec.SequenceEqual(input.DeliveryTargetVec)
+                    this.DeliveryTargetVec.Equals(input.DeliveryTargetVec)
                 ) && 
                 (
                     this.Emails == input.Emails ||
                     this.Emails != null &&
-                    input.Emails != null &&
-                    this.Emails.SequenceEqual(input.Emails)
+                    this.Emails.Equals(input.Emails)
                 ) && 
                 (
                     this.Policy == input.Policy ||

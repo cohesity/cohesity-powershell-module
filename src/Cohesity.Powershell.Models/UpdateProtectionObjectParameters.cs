@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -34,7 +37,6 @@ namespace Cohesity.Model
         /// <param name="sourceParameters">Specifies the additional special settings for a Protected Source..</param>
         public UpdateProtectionObjectParameters(bool? pauseBackup = default(bool?), UniversalId protectedSourceUid = default(UniversalId), string rpoPolicyId = default(string), List<SourceSpecialParameter> sourceParameters = default(List<SourceSpecialParameter>))
         {
-            this.PauseBackup = pauseBackup;
             // to ensure "protectedSourceUid" is required (not null)
             if (protectedSourceUid == null)
             {
@@ -44,9 +46,6 @@ namespace Cohesity.Model
             {
                 this.ProtectedSourceUid = protectedSourceUid;
             }
-
-            this.RpoPolicyId = rpoPolicyId;
-            this.SourceParameters = sourceParameters;
             this.PauseBackup = pauseBackup;
             this.RpoPolicyId = rpoPolicyId;
             this.SourceParameters = sourceParameters;
@@ -56,7 +55,7 @@ namespace Cohesity.Model
         /// Specifies if the protection for the Protection Object is to be paused.
         /// </summary>
         /// <value>Specifies if the protection for the Protection Object is to be paused.</value>
-        [DataMember(Name="pauseBackup", EmitDefaultValue=true)]
+        [DataMember(Name="pauseBackup", EmitDefaultValue=false)]
         public bool? PauseBackup { get; set; }
 
         /// <summary>
@@ -69,14 +68,14 @@ namespace Cohesity.Model
         /// Specifies the unique id of the new RPO policy to assign to the object.
         /// </summary>
         /// <value>Specifies the unique id of the new RPO policy to assign to the object.</value>
-        [DataMember(Name="rpoPolicyId", EmitDefaultValue=true)]
+        [DataMember(Name="rpoPolicyId", EmitDefaultValue=false)]
         public string RpoPolicyId { get; set; }
 
         /// <summary>
         /// Specifies the additional special settings for a Protected Source.
         /// </summary>
         /// <value>Specifies the additional special settings for a Protected Source.</value>
-        [DataMember(Name="sourceParameters", EmitDefaultValue=true)]
+        [DataMember(Name="sourceParameters", EmitDefaultValue=false)]
         public List<SourceSpecialParameter> SourceParameters { get; set; }
 
         /// <summary>
@@ -133,8 +132,7 @@ namespace Cohesity.Model
                 (
                     this.SourceParameters == input.SourceParameters ||
                     this.SourceParameters != null &&
-                    input.SourceParameters != null &&
-                    this.SourceParameters.SequenceEqual(input.SourceParameters)
+                    this.SourceParameters.Equals(input.SourceParameters)
                 );
         }
 

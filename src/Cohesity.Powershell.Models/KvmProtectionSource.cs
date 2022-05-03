@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -87,7 +90,7 @@ namespace Cohesity.Model
         /// Specifies the type of KVM Protection Source entities such as &#39;kDatacenter&#39;, &#39;kCluster&#39;, &#39;kVirtualMachine&#39;, etc. Specifies the type of an KVM source entity. &#39;kOVirtManager&#39; indicates the root entity registered with Cohesity cluster. &#39;kStandaloneHost&#39; indicates a host registered with Cohesity cluster. &#39;kDatacenter&#39; indicates a KVM datacenter managed by the OVirt manager. &#39;kCluster&#39; indicates a KVM cluster managed by the OVirt manager. &#39;kHost&#39; indicates a host within the KVM environment. &#39;kVirtualMachine&#39; indicates a virtual machine in the KVM enironment. &#39;kNetwork&#39; represents a network used by the virtual machine entity. &#39;kStorageDomain&#39; represents a storage domain in the KVM environment. &#39;kVNicProfile&#39; represents a VNic profile.
         /// </summary>
         /// <value>Specifies the type of KVM Protection Source entities such as &#39;kDatacenter&#39;, &#39;kCluster&#39;, &#39;kVirtualMachine&#39;, etc. Specifies the type of an KVM source entity. &#39;kOVirtManager&#39; indicates the root entity registered with Cohesity cluster. &#39;kStandaloneHost&#39; indicates a host registered with Cohesity cluster. &#39;kDatacenter&#39; indicates a KVM datacenter managed by the OVirt manager. &#39;kCluster&#39; indicates a KVM cluster managed by the OVirt manager. &#39;kHost&#39; indicates a host within the KVM environment. &#39;kVirtualMachine&#39; indicates a virtual machine in the KVM enironment. &#39;kNetwork&#39; represents a network used by the virtual machine entity. &#39;kStorageDomain&#39; represents a storage domain in the KVM environment. &#39;kVNicProfile&#39; represents a VNic profile.</value>
-        [DataMember(Name="type", EmitDefaultValue=true)]
+        [DataMember(Name="type", EmitDefaultValue=false)]
         public TypeEnum? Type { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="KvmProtectionSource" /> class.
@@ -112,71 +115,63 @@ namespace Cohesity.Model
             this.NetworkId = networkId;
             this.Type = type;
             this.Uuid = uuid;
-            this.AgentError = agentError;
-            this.AgentId = agentId;
-            this.ClusterId = clusterId;
-            this.DatacenterId = datacenterId;
-            this.Description = description;
-            this.Name = name;
-            this.NetworkId = networkId;
-            this.Type = type;
-            this.Uuid = uuid;
         }
         
         /// <summary>
         /// Specifies a message when the agent cannot be reached.
         /// </summary>
         /// <value>Specifies a message when the agent cannot be reached.</value>
-        [DataMember(Name="agentError", EmitDefaultValue=true)]
+        [DataMember(Name="agentError", EmitDefaultValue=false)]
         public string AgentError { get; set; }
 
         /// <summary>
         /// Specifies the ID of the Agent with which this KVM entity is associated when the entity represents a Delegate host or KVM host.
         /// </summary>
         /// <value>Specifies the ID of the Agent with which this KVM entity is associated when the entity represents a Delegate host or KVM host.</value>
-        [DataMember(Name="agentId", EmitDefaultValue=true)]
+        [DataMember(Name="agentId", EmitDefaultValue=false)]
         public long? AgentId { get; set; }
 
         /// <summary>
         /// Specifies the cluster ID for &#39;kCluster&#39; objects.
         /// </summary>
         /// <value>Specifies the cluster ID for &#39;kCluster&#39; objects.</value>
-        [DataMember(Name="clusterId", EmitDefaultValue=true)]
+        [DataMember(Name="clusterId", EmitDefaultValue=false)]
         public string ClusterId { get; set; }
 
         /// <summary>
         /// Specifies the ID of the &#39;kDatacenter&#39; objects.
         /// </summary>
         /// <value>Specifies the ID of the &#39;kDatacenter&#39; objects.</value>
-        [DataMember(Name="datacenterId", EmitDefaultValue=true)]
+        [DataMember(Name="datacenterId", EmitDefaultValue=false)]
         public string DatacenterId { get; set; }
 
         /// <summary>
         /// Specifies a description about the Protection Source.
         /// </summary>
         /// <value>Specifies a description about the Protection Source.</value>
-        [DataMember(Name="description", EmitDefaultValue=true)]
+        [DataMember(Name="description", EmitDefaultValue=false)]
         public string Description { get; set; }
 
         /// <summary>
         /// Specifies the name of the KVM entity.
         /// </summary>
         /// <value>Specifies the name of the KVM entity.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
 
         /// <summary>
         /// Specifies the network ID to which Vnic is attached.
         /// </summary>
         /// <value>Specifies the network ID to which Vnic is attached.</value>
-        [DataMember(Name="networkId", EmitDefaultValue=true)]
+        [DataMember(Name="networkId", EmitDefaultValue=false)]
         public string NetworkId { get; set; }
+
 
         /// <summary>
         /// Specifies the UUID of the Object. This is unique within the KVM environment.
         /// </summary>
         /// <value>Specifies the UUID of the Object. This is unique within the KVM environment.</value>
-        [DataMember(Name="uuid", EmitDefaultValue=true)]
+        [DataMember(Name="uuid", EmitDefaultValue=false)]
         public string Uuid { get; set; }
 
         /// <summary>
@@ -252,7 +247,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.Type == input.Type ||
-                    this.Type.Equals(input.Type)
+                    (this.Type != null &&
+                    this.Type.Equals(input.Type))
                 ) && 
                 (
                     this.Uuid == input.Uuid ||
@@ -284,7 +280,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
                 if (this.NetworkId != null)
                     hashCode = hashCode * 59 + this.NetworkId.GetHashCode();
-                hashCode = hashCode * 59 + this.Type.GetHashCode();
+                if (this.Type != null)
+                    hashCode = hashCode * 59 + this.Type.GetHashCode();
                 if (this.Uuid != null)
                     hashCode = hashCode * 59 + this.Uuid.GetHashCode();
                 return hashCode;

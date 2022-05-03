@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -33,38 +36,34 @@ namespace Cohesity.Model
             this.Name = name;
             this.Path = path;
             this.ServerName = serverName;
-            this.Acls = acls;
-            this.Name = name;
-            this.Path = path;
-            this.ServerName = serverName;
         }
         
         /// <summary>
         /// Array of Access Control Lists.  Specifies the ACLs for this share.
         /// </summary>
         /// <value>Array of Access Control Lists.  Specifies the ACLs for this share.</value>
-        [DataMember(Name="acls", EmitDefaultValue=true)]
+        [DataMember(Name="acls", EmitDefaultValue=false)]
         public List<string> Acls { get; set; }
 
         /// <summary>
         /// Specifies the name of the CIFS share. This can be different from the volume name that this share belongs to. A single volume can export multiple CIFS shares, each with unique settings such as permissions.
         /// </summary>
         /// <value>Specifies the name of the CIFS share. This can be different from the volume name that this share belongs to. A single volume can export multiple CIFS shares, each with unique settings such as permissions.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
 
         /// <summary>
         /// Specifies the path of this share under the Vserver&#39;s root.
         /// </summary>
         /// <value>Specifies the path of this share under the Vserver&#39;s root.</value>
-        [DataMember(Name="path", EmitDefaultValue=true)]
+        [DataMember(Name="path", EmitDefaultValue=false)]
         public string Path { get; set; }
 
         /// <summary>
         /// Specifies the CIFS server name (such as &#39;NETAPP-01&#39;) specified by the system administrator. This name is searchable within the active directory domain.
         /// </summary>
         /// <value>Specifies the CIFS server name (such as &#39;NETAPP-01&#39;) specified by the system administrator. This name is searchable within the active directory domain.</value>
-        [DataMember(Name="serverName", EmitDefaultValue=true)]
+        [DataMember(Name="serverName", EmitDefaultValue=false)]
         public string ServerName { get; set; }
 
         /// <summary>
@@ -106,8 +105,7 @@ namespace Cohesity.Model
                 (
                     this.Acls == input.Acls ||
                     this.Acls != null &&
-                    input.Acls != null &&
-                    this.Acls.SequenceEqual(input.Acls)
+                    this.Acls.Equals(input.Acls)
                 ) && 
                 (
                     this.Name == input.Name ||

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,30 +34,27 @@ namespace Cohesity.Model
             this.CesAddresses = cesAddresses;
             this.Id = id;
             this.PrimaryServer = primaryServer;
-            this.CesAddresses = cesAddresses;
-            this.Id = id;
-            this.PrimaryServer = primaryServer;
         }
         
         /// <summary>
         /// Specifies a list of CES(Cluster Export Services) IP addresses of a GPFS Cluster.
         /// </summary>
         /// <value>Specifies a list of CES(Cluster Export Services) IP addresses of a GPFS Cluster.</value>
-        [DataMember(Name="cesAddresses", EmitDefaultValue=true)]
+        [DataMember(Name="cesAddresses", EmitDefaultValue=false)]
         public List<string> CesAddresses { get; set; }
 
         /// <summary>
         /// Specifies a globally unique id of a GPFS Cluster.
         /// </summary>
         /// <value>Specifies a globally unique id of a GPFS Cluster.</value>
-        [DataMember(Name="id", EmitDefaultValue=true)]
+        [DataMember(Name="id", EmitDefaultValue=false)]
         public int? Id { get; set; }
 
         /// <summary>
         /// Specifies a primary server of a GPFS Cluster.
         /// </summary>
         /// <value>Specifies a primary server of a GPFS Cluster.</value>
-        [DataMember(Name="primaryServer", EmitDefaultValue=true)]
+        [DataMember(Name="primaryServer", EmitDefaultValue=false)]
         public string PrimaryServer { get; set; }
 
         /// <summary>
@@ -96,8 +96,7 @@ namespace Cohesity.Model
                 (
                     this.CesAddresses == input.CesAddresses ||
                     this.CesAddresses != null &&
-                    input.CesAddresses != null &&
-                    this.CesAddresses.SequenceEqual(input.CesAddresses)
+                    this.CesAddresses.Equals(input.CesAddresses)
                 ) && 
                 (
                     this.Id == input.Id ||

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,30 +34,27 @@ namespace Cohesity.Model
             this.Fqdn = fqdn;
             this.Ipv4Addr = ipv4Addr;
             this.Ipv6Addr = ipv6Addr;
-            this.Fqdn = fqdn;
-            this.Ipv4Addr = ipv4Addr;
-            this.Ipv6Addr = ipv6Addr;
         }
         
         /// <summary>
         /// The Fully Qualified Domain Name.
         /// </summary>
         /// <value>The Fully Qualified Domain Name.</value>
-        [DataMember(Name="fqdn", EmitDefaultValue=true)]
+        [DataMember(Name="fqdn", EmitDefaultValue=false)]
         public string Fqdn { get; set; }
 
         /// <summary>
         /// The IPv4 address.
         /// </summary>
         /// <value>The IPv4 address.</value>
-        [DataMember(Name="ipv4Addr", EmitDefaultValue=true)]
+        [DataMember(Name="ipv4Addr", EmitDefaultValue=false)]
         public string Ipv4Addr { get; set; }
 
         /// <summary>
         /// The IPv6 address.
         /// </summary>
         /// <value>The IPv6 address.</value>
-        [DataMember(Name="ipv6Addr", EmitDefaultValue=true)]
+        [DataMember(Name="ipv6Addr", EmitDefaultValue=false)]
         public string Ipv6Addr { get; set; }
 
         /// <summary>

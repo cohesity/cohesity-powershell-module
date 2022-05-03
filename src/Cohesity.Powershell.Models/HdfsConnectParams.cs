@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -45,46 +48,52 @@ namespace Cohesity.Model
         /// Specifies the Hadoop Distribution. Hadoop distribution.  &#39;CDH&#39; indicates Hadoop distribution type Cloudera. &#39;HDP&#39; indicates Hadoop distribution type Hortonworks.
         /// </summary>
         /// <value>Specifies the Hadoop Distribution. Hadoop distribution.  &#39;CDH&#39; indicates Hadoop distribution type Cloudera. &#39;HDP&#39; indicates Hadoop distribution type Hortonworks.</value>
-        [DataMember(Name="hadoopDistribution", EmitDefaultValue=true)]
+        [DataMember(Name="hadoopDistribution", EmitDefaultValue=false)]
         public HadoopDistributionEnum? HadoopDistribution { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="HdfsConnectParams" /> class.
         /// </summary>
         /// <param name="hadoopDistribution">Specifies the Hadoop Distribution. Hadoop distribution.  &#39;CDH&#39; indicates Hadoop distribution type Cloudera. &#39;HDP&#39; indicates Hadoop distribution type Hortonworks..</param>
         /// <param name="hadoopVersion">Specifies the Hadoop version.</param>
+        /// <param name="kerberosPrincipal">Specifies the kerberos principal..</param>
         /// <param name="namenode">Specifies the Namenode host or Nameservice..</param>
         /// <param name="port">Specifies the Webhdfs Port.</param>
-        public HdfsConnectParams(HadoopDistributionEnum? hadoopDistribution = default(HadoopDistributionEnum?), string hadoopVersion = default(string), string namenode = default(string), int? port = default(int?))
+        public HdfsConnectParams(HadoopDistributionEnum? hadoopDistribution = default(HadoopDistributionEnum?), string hadoopVersion = default(string), string kerberosPrincipal = default(string), string namenode = default(string), int? port = default(int?))
         {
             this.HadoopDistribution = hadoopDistribution;
             this.HadoopVersion = hadoopVersion;
-            this.Namenode = namenode;
-            this.Port = port;
-            this.HadoopDistribution = hadoopDistribution;
-            this.HadoopVersion = hadoopVersion;
+            this.KerberosPrincipal = kerberosPrincipal;
             this.Namenode = namenode;
             this.Port = port;
         }
         
+
         /// <summary>
         /// Specifies the Hadoop version
         /// </summary>
         /// <value>Specifies the Hadoop version</value>
-        [DataMember(Name="hadoopVersion", EmitDefaultValue=true)]
+        [DataMember(Name="hadoopVersion", EmitDefaultValue=false)]
         public string HadoopVersion { get; set; }
+
+        /// <summary>
+        /// Specifies the kerberos principal.
+        /// </summary>
+        /// <value>Specifies the kerberos principal.</value>
+        [DataMember(Name="kerberosPrincipal", EmitDefaultValue=false)]
+        public string KerberosPrincipal { get; set; }
 
         /// <summary>
         /// Specifies the Namenode host or Nameservice.
         /// </summary>
         /// <value>Specifies the Namenode host or Nameservice.</value>
-        [DataMember(Name="namenode", EmitDefaultValue=true)]
+        [DataMember(Name="namenode", EmitDefaultValue=false)]
         public string Namenode { get; set; }
 
         /// <summary>
         /// Specifies the Webhdfs Port
         /// </summary>
         /// <value>Specifies the Webhdfs Port</value>
-        [DataMember(Name="port", EmitDefaultValue=true)]
+        [DataMember(Name="port", EmitDefaultValue=false)]
         public int? Port { get; set; }
 
         /// <summary>
@@ -125,12 +134,18 @@ namespace Cohesity.Model
             return 
                 (
                     this.HadoopDistribution == input.HadoopDistribution ||
-                    this.HadoopDistribution.Equals(input.HadoopDistribution)
+                    (this.HadoopDistribution != null &&
+                    this.HadoopDistribution.Equals(input.HadoopDistribution))
                 ) && 
                 (
                     this.HadoopVersion == input.HadoopVersion ||
                     (this.HadoopVersion != null &&
                     this.HadoopVersion.Equals(input.HadoopVersion))
+                ) && 
+                (
+                    this.KerberosPrincipal == input.KerberosPrincipal ||
+                    (this.KerberosPrincipal != null &&
+                    this.KerberosPrincipal.Equals(input.KerberosPrincipal))
                 ) && 
                 (
                     this.Namenode == input.Namenode ||
@@ -153,9 +168,12 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                hashCode = hashCode * 59 + this.HadoopDistribution.GetHashCode();
+                if (this.HadoopDistribution != null)
+                    hashCode = hashCode * 59 + this.HadoopDistribution.GetHashCode();
                 if (this.HadoopVersion != null)
                     hashCode = hashCode * 59 + this.HadoopVersion.GetHashCode();
+                if (this.KerberosPrincipal != null)
+                    hashCode = hashCode * 59 + this.KerberosPrincipal.GetHashCode();
                 if (this.Namenode != null)
                     hashCode = hashCode * 59 + this.Namenode.GetHashCode();
                 if (this.Port != null)

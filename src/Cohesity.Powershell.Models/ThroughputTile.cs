@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -33,38 +36,34 @@ namespace Cohesity.Model
             this.MaxWriteThroughput = maxWriteThroughput;
             this.ReadThroughputSamples = readThroughputSamples;
             this.WriteThroughputSamples = writeThroughputSamples;
-            this.MaxReadThroughput = maxReadThroughput;
-            this.MaxWriteThroughput = maxWriteThroughput;
-            this.ReadThroughputSamples = readThroughputSamples;
-            this.WriteThroughputSamples = writeThroughputSamples;
         }
         
         /// <summary>
         /// Maxium Read throughput in last 24 hours.
         /// </summary>
         /// <value>Maxium Read throughput in last 24 hours.</value>
-        [DataMember(Name="maxReadThroughput", EmitDefaultValue=true)]
+        [DataMember(Name="maxReadThroughput", EmitDefaultValue=false)]
         public long? MaxReadThroughput { get; set; }
 
         /// <summary>
         /// Maximum Write throughput in last 24 hours.
         /// </summary>
         /// <value>Maximum Write throughput in last 24 hours.</value>
-        [DataMember(Name="maxWriteThroughput", EmitDefaultValue=true)]
+        [DataMember(Name="maxWriteThroughput", EmitDefaultValue=false)]
         public long? MaxWriteThroughput { get; set; }
 
         /// <summary>
         /// Read throughput samples taken for the past 24 hours at 10 minutes interval given in descending order of time.
         /// </summary>
         /// <value>Read throughput samples taken for the past 24 hours at 10 minutes interval given in descending order of time.</value>
-        [DataMember(Name="readThroughputSamples", EmitDefaultValue=true)]
+        [DataMember(Name="readThroughputSamples", EmitDefaultValue=false)]
         public List<Sample> ReadThroughputSamples { get; set; }
 
         /// <summary>
         /// Write throughput samples taken for the past 24 hours at 10 minutes interval given in descending order of time.
         /// </summary>
         /// <value>Write throughput samples taken for the past 24 hours at 10 minutes interval given in descending order of time.</value>
-        [DataMember(Name="writeThroughputSamples", EmitDefaultValue=true)]
+        [DataMember(Name="writeThroughputSamples", EmitDefaultValue=false)]
         public List<Sample> WriteThroughputSamples { get; set; }
 
         /// <summary>
@@ -116,14 +115,12 @@ namespace Cohesity.Model
                 (
                     this.ReadThroughputSamples == input.ReadThroughputSamples ||
                     this.ReadThroughputSamples != null &&
-                    input.ReadThroughputSamples != null &&
-                    this.ReadThroughputSamples.SequenceEqual(input.ReadThroughputSamples)
+                    this.ReadThroughputSamples.Equals(input.ReadThroughputSamples)
                 ) && 
                 (
                     this.WriteThroughputSamples == input.WriteThroughputSamples ||
                     this.WriteThroughputSamples != null &&
-                    input.WriteThroughputSamples != null &&
-                    this.WriteThroughputSamples.SequenceEqual(input.WriteThroughputSamples)
+                    this.WriteThroughputSamples.Equals(input.WriteThroughputSamples)
                 );
         }
 

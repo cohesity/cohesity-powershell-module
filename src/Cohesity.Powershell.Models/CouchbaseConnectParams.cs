@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -33,38 +36,34 @@ namespace Cohesity.Model
             this.HttpDirectPort = httpDirectPort;
             this.RequiresSsl = requiresSsl;
             this.Seeds = seeds;
-            this.CarrierDirectPort = carrierDirectPort;
-            this.HttpDirectPort = httpDirectPort;
-            this.RequiresSsl = requiresSsl;
-            this.Seeds = seeds;
         }
         
         /// <summary>
         /// Specifies the Carrier direct/sll port.
         /// </summary>
         /// <value>Specifies the Carrier direct/sll port.</value>
-        [DataMember(Name="carrierDirectPort", EmitDefaultValue=true)]
+        [DataMember(Name="carrierDirectPort", EmitDefaultValue=false)]
         public int? CarrierDirectPort { get; set; }
 
         /// <summary>
         /// Specifies the HTTP direct/sll port.
         /// </summary>
         /// <value>Specifies the HTTP direct/sll port.</value>
-        [DataMember(Name="httpDirectPort", EmitDefaultValue=true)]
+        [DataMember(Name="httpDirectPort", EmitDefaultValue=false)]
         public int? HttpDirectPort { get; set; }
 
         /// <summary>
         /// Specifies whether this cluster allows connection through SSL only.
         /// </summary>
         /// <value>Specifies whether this cluster allows connection through SSL only.</value>
-        [DataMember(Name="requiresSsl", EmitDefaultValue=true)]
+        [DataMember(Name="requiresSsl", EmitDefaultValue=false)]
         public bool? RequiresSsl { get; set; }
 
         /// <summary>
         /// Specifies the Seeds of this Couchbase Cluster.
         /// </summary>
         /// <value>Specifies the Seeds of this Couchbase Cluster.</value>
-        [DataMember(Name="seeds", EmitDefaultValue=true)]
+        [DataMember(Name="seeds", EmitDefaultValue=false)]
         public List<string> Seeds { get; set; }
 
         /// <summary>
@@ -121,8 +120,7 @@ namespace Cohesity.Model
                 (
                     this.Seeds == input.Seeds ||
                     this.Seeds != null &&
-                    input.Seeds != null &&
-                    this.Seeds.SequenceEqual(input.Seeds)
+                    this.Seeds.Equals(input.Seeds)
                 );
         }
 

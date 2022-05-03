@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -45,7 +48,7 @@ namespace Cohesity.Model
         /// Specifies the new bonding mode. &#39;kActiveBackup&#39; indicates active backup bonding mode. &#39;k802_3ad&#39; indicates 802.3ad bonding mode.
         /// </summary>
         /// <value>Specifies the new bonding mode. &#39;kActiveBackup&#39; indicates active backup bonding mode. &#39;k802_3ad&#39; indicates 802.3ad bonding mode.</value>
-        [DataMember(Name="bondingMode", EmitDefaultValue=true)]
+        [DataMember(Name="bondingMode", EmitDefaultValue=false)]
         public BondingModeEnum BondingMode { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="UpdateBondParameters" /> class.
@@ -61,33 +64,48 @@ namespace Cohesity.Model
         /// <param name="xmitHashPolicy">Specifies the xmit hash policy. If not specified, This value will default to 1 (layer3+4)..</param>
         public UpdateBondParameters(BondingModeEnum bondingMode = default(BondingModeEnum), string lacpRate = default(string), string name = default(string), string xmitHashPolicy = default(string))
         {
-            this.BondingMode = bondingMode;
-            this.LacpRate = lacpRate;
-            this.Name = name;
-            this.XmitHashPolicy = xmitHashPolicy;
+            // to ensure "bondingMode" is required (not null)
+            if (bondingMode == null)
+            {
+                throw new InvalidDataException("bondingMode is a required property for UpdateBondParameters and cannot be null");
+            }
+            else
+            {
+                this.BondingMode = bondingMode;
+            }
+            // to ensure "name" is required (not null)
+            if (name == null)
+            {
+                throw new InvalidDataException("name is a required property for UpdateBondParameters and cannot be null");
+            }
+            else
+            {
+                this.Name = name;
+            }
             this.LacpRate = lacpRate;
             this.XmitHashPolicy = xmitHashPolicy;
         }
         
+
         /// <summary>
         /// Specifies the LACP rate. If not specified, This value will default to 0 (slow).
         /// </summary>
         /// <value>Specifies the LACP rate. If not specified, This value will default to 0 (slow).</value>
-        [DataMember(Name="lacpRate", EmitDefaultValue=true)]
+        [DataMember(Name="lacpRate", EmitDefaultValue=false)]
         public string LacpRate { get; set; }
 
         /// <summary>
         /// Specifies the name of the bond being updated.
         /// </summary>
         /// <value>Specifies the name of the bond being updated.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
 
         /// <summary>
         /// Specifies the xmit hash policy. If not specified, This value will default to 1 (layer3+4).
         /// </summary>
         /// <value>Specifies the xmit hash policy. If not specified, This value will default to 1 (layer3+4).</value>
-        [DataMember(Name="xmitHashPolicy", EmitDefaultValue=true)]
+        [DataMember(Name="xmitHashPolicy", EmitDefaultValue=false)]
         public string XmitHashPolicy { get; set; }
 
         /// <summary>
@@ -128,7 +146,8 @@ namespace Cohesity.Model
             return 
                 (
                     this.BondingMode == input.BondingMode ||
-                    this.BondingMode.Equals(input.BondingMode)
+                    (this.BondingMode != null &&
+                    this.BondingMode.Equals(input.BondingMode))
                 ) && 
                 (
                     this.LacpRate == input.LacpRate ||
@@ -156,7 +175,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                hashCode = hashCode * 59 + this.BondingMode.GetHashCode();
+                if (this.BondingMode != null)
+                    hashCode = hashCode * 59 + this.BondingMode.GetHashCode();
                 if (this.LacpRate != null)
                     hashCode = hashCode * 59 + this.LacpRate.GetHashCode();
                 if (this.Name != null)

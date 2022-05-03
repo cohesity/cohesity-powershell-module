@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,9 +32,6 @@ namespace Cohesity.Model
         /// <param name="viewName">View name..</param>
         public QuotaAndUsageInView(QuotaPolicy quota = default(QuotaPolicy), long? usageBytes = default(long?), long? viewId = default(long?), string viewName = default(string))
         {
-            this.UsageBytes = usageBytes;
-            this.ViewId = viewId;
-            this.ViewName = viewName;
             this.Quota = quota;
             this.UsageBytes = usageBytes;
             this.ViewId = viewId;
@@ -48,21 +48,21 @@ namespace Cohesity.Model
         /// Usage in bytes of this user in this view.
         /// </summary>
         /// <value>Usage in bytes of this user in this view.</value>
-        [DataMember(Name="usageBytes", EmitDefaultValue=true)]
+        [DataMember(Name="usageBytes", EmitDefaultValue=false)]
         public long? UsageBytes { get; set; }
 
         /// <summary>
         /// The usage and quota policy information of this user for this view.
         /// </summary>
         /// <value>The usage and quota policy information of this user for this view.</value>
-        [DataMember(Name="viewId", EmitDefaultValue=true)]
+        [DataMember(Name="viewId", EmitDefaultValue=false)]
         public long? ViewId { get; set; }
 
         /// <summary>
         /// View name.
         /// </summary>
         /// <value>View name.</value>
-        [DataMember(Name="viewName", EmitDefaultValue=true)]
+        [DataMember(Name="viewName", EmitDefaultValue=false)]
         public string ViewName { get; set; }
 
         /// <summary>

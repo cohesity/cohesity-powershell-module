@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.GidAttrName = gidAttrName;
             this.UidAttrName = uidAttrName;
-            this.GidAttrName = gidAttrName;
-            this.UidAttrName = uidAttrName;
         }
         
         /// <summary>
         /// Specifies the custom field name in Active Directory user properties to get the GID.
         /// </summary>
         /// <value>Specifies the custom field name in Active Directory user properties to get the GID.</value>
-        [DataMember(Name="gidAttrName", EmitDefaultValue=true)]
+        [DataMember(Name="gidAttrName", EmitDefaultValue=false)]
         public string GidAttrName { get; set; }
 
         /// <summary>
         /// Specifies the custom field name in Active Directory user properties to get the UID.
         /// </summary>
         /// <value>Specifies the custom field name in Active Directory user properties to get the UID.</value>
-        [DataMember(Name="uidAttrName", EmitDefaultValue=true)]
+        [DataMember(Name="uidAttrName", EmitDefaultValue=false)]
         public string UidAttrName { get; set; }
 
         /// <summary>

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,14 +30,13 @@ namespace Cohesity.Model
         public RestoredFileInfoList(bool? isDirectory = default(bool?))
         {
             this.IsDirectory = isDirectory;
-            this.IsDirectory = isDirectory;
         }
         
         /// <summary>
         /// Specifies whether the path points to directory.
         /// </summary>
         /// <value>Specifies whether the path points to directory.</value>
-        [DataMember(Name="isDirectory", EmitDefaultValue=true)]
+        [DataMember(Name="isDirectory", EmitDefaultValue=false)]
         public bool? IsDirectory { get; set; }
 
         /// <summary>

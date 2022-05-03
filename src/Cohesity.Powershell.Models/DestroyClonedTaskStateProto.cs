@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -54,23 +57,6 @@ namespace Cohesity.Model
         {
             this.ActionExecutorTargetType = actionExecutorTargetType;
             this.CloneTaskName = cloneTaskName;
-            this.EndTimeUsecs = endTimeUsecs;
-            this.ForceDelete = forceDelete;
-            this.FullViewName = fullViewName;
-            this.ParentTaskId = parentTaskId;
-            this.PerformCloneTaskId = performCloneTaskId;
-            this.RestoreType = restoreType;
-            this.ScheduledConstituentId = scheduledConstituentId;
-            this.ScheduledGandalfSessionId = scheduledGandalfSessionId;
-            this.StartTimeUsecs = startTimeUsecs;
-            this.Status = status;
-            this.TaskId = taskId;
-            this.Type = type;
-            this.User = user;
-            this.ViewBoxId = viewBoxId;
-            this.ViewNameDEPRECATED = viewNameDEPRECATED;
-            this.ActionExecutorTargetType = actionExecutorTargetType;
-            this.CloneTaskName = cloneTaskName;
             this.DatastoreEntity = datastoreEntity;
             this.DeployVmsToCloudTaskState = deployVmsToCloudTaskState;
             this.DestroyCloneAppTaskInfo = destroyCloneAppTaskInfo;
@@ -102,14 +88,14 @@ namespace Cohesity.Model
         /// Denotes the target for action executor(Bridge/Bridge_Proxy) on which task on slave should execute actions.
         /// </summary>
         /// <value>Denotes the target for action executor(Bridge/Bridge_Proxy) on which task on slave should execute actions.</value>
-        [DataMember(Name="actionExecutorTargetType", EmitDefaultValue=true)]
+        [DataMember(Name="actionExecutorTargetType", EmitDefaultValue=false)]
         public int? ActionExecutorTargetType { get; set; }
 
         /// <summary>
         /// The name of the clone task.
         /// </summary>
         /// <value>The name of the clone task.</value>
-        [DataMember(Name="cloneTaskName", EmitDefaultValue=true)]
+        [DataMember(Name="cloneTaskName", EmitDefaultValue=false)]
         public string CloneTaskName { get; set; }
 
         /// <summary>
@@ -146,7 +132,7 @@ namespace Cohesity.Model
         /// If the destroy clone task has finished, this field contains the end time of the task.
         /// </summary>
         /// <value>If the destroy clone task has finished, this field contains the end time of the task.</value>
-        [DataMember(Name="endTimeUsecs", EmitDefaultValue=true)]
+        [DataMember(Name="endTimeUsecs", EmitDefaultValue=false)]
         public long? EndTimeUsecs { get; set; }
 
         /// <summary>
@@ -165,14 +151,14 @@ namespace Cohesity.Model
         /// flag used to perform force delete, ignore error on delete steps
         /// </summary>
         /// <value>flag used to perform force delete, ignore error on delete steps</value>
-        [DataMember(Name="forceDelete", EmitDefaultValue=true)]
+        [DataMember(Name="forceDelete", EmitDefaultValue=false)]
         public bool? ForceDelete { get; set; }
 
         /// <summary>
         /// The full external view name where cloned objects are placed.
         /// </summary>
         /// <value>The full external view name where cloned objects are placed.</value>
-        [DataMember(Name="fullViewName", EmitDefaultValue=true)]
+        [DataMember(Name="fullViewName", EmitDefaultValue=false)]
         public string FullViewName { get; set; }
 
         /// <summary>
@@ -185,69 +171,69 @@ namespace Cohesity.Model
         /// The id of the task that triggered the destroy task. This will be used by refresh task to mark the destroy task as internal sub-task.
         /// </summary>
         /// <value>The id of the task that triggered the destroy task. This will be used by refresh task to mark the destroy task as internal sub-task.</value>
-        [DataMember(Name="parentTaskId", EmitDefaultValue=true)]
+        [DataMember(Name="parentTaskId", EmitDefaultValue=false)]
         public long? ParentTaskId { get; set; }
 
         /// <summary>
         /// The unique id of the task that performed the clone operation.
         /// </summary>
         /// <value>The unique id of the task that performed the clone operation.</value>
-        [DataMember(Name="performCloneTaskId", EmitDefaultValue=true)]
+        [DataMember(Name="performCloneTaskId", EmitDefaultValue=false)]
         public long? PerformCloneTaskId { get; set; }
 
         /// <summary>
         /// The type of the restore/clone operation that is being destroyed.
         /// </summary>
         /// <value>The type of the restore/clone operation that is being destroyed.</value>
-        [DataMember(Name="restoreType", EmitDefaultValue=true)]
+        [DataMember(Name="restoreType", EmitDefaultValue=false)]
         public int? RestoreType { get; set; }
 
         /// <summary>
         /// Constituent id (and the gandalf session id) where this task has been scheduled. If -1, the task is not running at any slave. It&#39;s possible that the task was previously scheduled, but is now being re-scheduled.
         /// </summary>
         /// <value>Constituent id (and the gandalf session id) where this task has been scheduled. If -1, the task is not running at any slave. It&#39;s possible that the task was previously scheduled, but is now being re-scheduled.</value>
-        [DataMember(Name="scheduledConstituentId", EmitDefaultValue=true)]
+        [DataMember(Name="scheduledConstituentId", EmitDefaultValue=false)]
         public long? ScheduledConstituentId { get; set; }
 
         /// <summary>
         /// Gets or Sets ScheduledGandalfSessionId
         /// </summary>
-        [DataMember(Name="scheduledGandalfSessionId", EmitDefaultValue=true)]
+        [DataMember(Name="scheduledGandalfSessionId", EmitDefaultValue=false)]
         public long? ScheduledGandalfSessionId { get; set; }
 
         /// <summary>
         /// The start time of this destroy clone task.
         /// </summary>
         /// <value>The start time of this destroy clone task.</value>
-        [DataMember(Name="startTimeUsecs", EmitDefaultValue=true)]
+        [DataMember(Name="startTimeUsecs", EmitDefaultValue=false)]
         public long? StartTimeUsecs { get; set; }
 
         /// <summary>
         /// Status of the destroy clone task.
         /// </summary>
         /// <value>Status of the destroy clone task.</value>
-        [DataMember(Name="status", EmitDefaultValue=true)]
+        [DataMember(Name="status", EmitDefaultValue=false)]
         public int? Status { get; set; }
 
         /// <summary>
         /// A globally unique id of this destroy clone task.
         /// </summary>
         /// <value>A globally unique id of this destroy clone task.</value>
-        [DataMember(Name="taskId", EmitDefaultValue=true)]
+        [DataMember(Name="taskId", EmitDefaultValue=false)]
         public long? TaskId { get; set; }
 
         /// <summary>
         /// The type of environment that is being operated on.
         /// </summary>
         /// <value>The type of environment that is being operated on.</value>
-        [DataMember(Name="type", EmitDefaultValue=true)]
+        [DataMember(Name="type", EmitDefaultValue=false)]
         public int? Type { get; set; }
 
         /// <summary>
         /// The user who requested this destroy clone task.
         /// </summary>
         /// <value>The user who requested this destroy clone task.</value>
-        [DataMember(Name="user", EmitDefaultValue=true)]
+        [DataMember(Name="user", EmitDefaultValue=false)]
         public string User { get; set; }
 
         /// <summary>
@@ -266,14 +252,14 @@ namespace Cohesity.Model
         /// The view box id to which &#39;view_name&#39; belongs to.
         /// </summary>
         /// <value>The view box id to which &#39;view_name&#39; belongs to.</value>
-        [DataMember(Name="viewBoxId", EmitDefaultValue=true)]
+        [DataMember(Name="viewBoxId", EmitDefaultValue=false)]
         public long? ViewBoxId { get; set; }
 
         /// <summary>
         /// The view name as provided by the user for the clone operation.
         /// </summary>
         /// <value>The view name as provided by the user for the clone operation.</value>
-        [DataMember(Name="viewName_DEPRECATED", EmitDefaultValue=true)]
+        [DataMember(Name="viewName_DEPRECATED", EmitDefaultValue=false)]
         public string ViewNameDEPRECATED { get; set; }
 
         /// <summary>

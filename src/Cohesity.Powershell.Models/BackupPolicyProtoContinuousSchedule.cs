@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.BackupIntervalMins = backupIntervalMins;
             this.ExclusionRanges = exclusionRanges;
-            this.BackupIntervalMins = backupIntervalMins;
-            this.ExclusionRanges = exclusionRanges;
         }
         
         /// <summary>
         /// If this field is set, backups will be performed periodically every &#39;interval_mins&#39; number of minutes. NOTE: This is the interval between the start time of two successive backups.
         /// </summary>
         /// <value>If this field is set, backups will be performed periodically every &#39;interval_mins&#39; number of minutes. NOTE: This is the interval between the start time of two successive backups.</value>
-        [DataMember(Name="backupIntervalMins", EmitDefaultValue=true)]
+        [DataMember(Name="backupIntervalMins", EmitDefaultValue=false)]
         public long? BackupIntervalMins { get; set; }
 
         /// <summary>
         /// Do not start backups in these time-ranges. It&#39;s possible for a previously started backup to spill over into an exclusion range.  NOTE: This field has been deprecated. Use the exclusion_ranges field defined within BackupPolicyProto instead.
         /// </summary>
         /// <value>Do not start backups in these time-ranges. It&#39;s possible for a previously started backup to spill over into an exclusion range.  NOTE: This field has been deprecated. Use the exclusion_ranges field defined within BackupPolicyProto instead.</value>
-        [DataMember(Name="exclusionRanges", EmitDefaultValue=true)]
+        [DataMember(Name="exclusionRanges", EmitDefaultValue=false)]
         public List<BackupPolicyProtoExclusionTimeRange> ExclusionRanges { get; set; }
 
         /// <summary>
@@ -91,8 +92,7 @@ namespace Cohesity.Model
                 (
                     this.ExclusionRanges == input.ExclusionRanges ||
                     this.ExclusionRanges != null &&
-                    input.ExclusionRanges != null &&
-                    this.ExclusionRanges.SequenceEqual(input.ExclusionRanges)
+                    this.ExclusionRanges.Equals(input.ExclusionRanges)
                 );
         }
 

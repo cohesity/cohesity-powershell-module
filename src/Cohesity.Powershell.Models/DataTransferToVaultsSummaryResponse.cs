@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,14 +30,13 @@ namespace Cohesity.Model
         public DataTransferToVaultsSummaryResponse(List<DataTransferToVaultSummary> dataTransferSummary = default(List<DataTransferToVaultSummary>))
         {
             this.DataTransferSummary = dataTransferSummary;
-            this.DataTransferSummary = dataTransferSummary;
         }
         
         /// <summary>
         /// Array of Summary Data Transfer Statistics.  Specifies summary statistics about the transfer of data from the Cohesity Cluster to Vaults.
         /// </summary>
         /// <value>Array of Summary Data Transfer Statistics.  Specifies summary statistics about the transfer of data from the Cohesity Cluster to Vaults.</value>
-        [DataMember(Name="dataTransferSummary", EmitDefaultValue=true)]
+        [DataMember(Name="dataTransferSummary", EmitDefaultValue=false)]
         public List<DataTransferToVaultSummary> DataTransferSummary { get; set; }
 
         /// <summary>
@@ -76,8 +78,7 @@ namespace Cohesity.Model
                 (
                     this.DataTransferSummary == input.DataTransferSummary ||
                     this.DataTransferSummary != null &&
-                    input.DataTransferSummary != null &&
-                    this.DataTransferSummary.SequenceEqual(input.DataTransferSummary)
+                    this.DataTransferSummary.Equals(input.DataTransferSummary)
                 );
         }
 

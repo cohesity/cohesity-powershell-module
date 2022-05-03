@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -63,7 +66,7 @@ namespace Cohesity.Model
         /// Specifies the format type of the file that SQL database stores the data. Specifies the format type of the file that SQL database stores the data. &#39;kRows&#39; refers to a data file &#39;kLog&#39; refers to a log file &#39;kFileStream&#39; refers to a directory containing FILESTREAM data &#39;kNotSupportedType&#39; is for information purposes only. Not supported. &#39;kFullText&#39; refers to a full-text catalog.
         /// </summary>
         /// <value>Specifies the format type of the file that SQL database stores the data. Specifies the format type of the file that SQL database stores the data. &#39;kRows&#39; refers to a data file &#39;kLog&#39; refers to a log file &#39;kFileStream&#39; refers to a directory containing FILESTREAM data &#39;kNotSupportedType&#39; is for information purposes only. Not supported. &#39;kFullText&#39; refers to a full-text catalog.</value>
-        [DataMember(Name="fileType", EmitDefaultValue=true)]
+        [DataMember(Name="fileType", EmitDefaultValue=false)]
         public FileTypeEnum? FileType { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="DbFileInfo" /> class.
@@ -76,23 +79,21 @@ namespace Cohesity.Model
             this.FileType = fileType;
             this.FullPath = fullPath;
             this.SizeBytes = sizeBytes;
-            this.FileType = fileType;
-            this.FullPath = fullPath;
-            this.SizeBytes = sizeBytes;
         }
         
+
         /// <summary>
         /// Specifies the full path of the database file on the SQL host machine.
         /// </summary>
         /// <value>Specifies the full path of the database file on the SQL host machine.</value>
-        [DataMember(Name="fullPath", EmitDefaultValue=true)]
+        [DataMember(Name="fullPath", EmitDefaultValue=false)]
         public string FullPath { get; set; }
 
         /// <summary>
         /// Specifies the last known size of the database file.
         /// </summary>
         /// <value>Specifies the last known size of the database file.</value>
-        [DataMember(Name="sizeBytes", EmitDefaultValue=true)]
+        [DataMember(Name="sizeBytes", EmitDefaultValue=false)]
         public long? SizeBytes { get; set; }
 
         /// <summary>
@@ -133,7 +134,8 @@ namespace Cohesity.Model
             return 
                 (
                     this.FileType == input.FileType ||
-                    this.FileType.Equals(input.FileType)
+                    (this.FileType != null &&
+                    this.FileType.Equals(input.FileType))
                 ) && 
                 (
                     this.FullPath == input.FullPath ||
@@ -156,7 +158,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                hashCode = hashCode * 59 + this.FileType.GetHashCode();
+                if (this.FileType != null)
+                    hashCode = hashCode * 59 + this.FileType.GetHashCode();
                 if (this.FullPath != null)
                     hashCode = hashCode * 59 + this.FullPath.GetHashCode();
                 if (this.SizeBytes != null)

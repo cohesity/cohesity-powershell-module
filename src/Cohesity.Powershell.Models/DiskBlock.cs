@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.LengthBytes = lengthBytes;
             this.OffsetBytes = offsetBytes;
-            this.LengthBytes = lengthBytes;
-            this.OffsetBytes = offsetBytes;
         }
         
         /// <summary>
         /// Specifies the length of the block in bytes.
         /// </summary>
         /// <value>Specifies the length of the block in bytes.</value>
-        [DataMember(Name="lengthBytes", EmitDefaultValue=true)]
+        [DataMember(Name="lengthBytes", EmitDefaultValue=false)]
         public long? LengthBytes { get; set; }
 
         /// <summary>
         /// Specifies the offset of the block (in bytes) from the beginning of the containing object such as a physical disk or a virtual disk file.
         /// </summary>
         /// <value>Specifies the offset of the block (in bytes) from the beginning of the containing object such as a physical disk or a virtual disk file.</value>
-        [DataMember(Name="offsetBytes", EmitDefaultValue=true)]
+        [DataMember(Name="offsetBytes", EmitDefaultValue=false)]
         public long? OffsetBytes { get; set; }
 
         /// <summary>

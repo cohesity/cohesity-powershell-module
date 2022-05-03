@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,30 +34,27 @@ namespace Cohesity.Model
             this.ArchivalRuns = archivalRuns;
             this.BackupRuns = backupRuns;
             this.ReplicationRuns = replicationRuns;
-            this.ArchivalRuns = archivalRuns;
-            this.BackupRuns = backupRuns;
-            this.ReplicationRuns = replicationRuns;
         }
         
         /// <summary>
         /// Specifies the list of archival job information.
         /// </summary>
         /// <value>Specifies the list of archival job information.</value>
-        [DataMember(Name="archivalRuns", EmitDefaultValue=true)]
+        [DataMember(Name="archivalRuns", EmitDefaultValue=false)]
         public List<LatestProtectionJobRunInfo> ArchivalRuns { get; set; }
 
         /// <summary>
         /// Specifies the list of local backup job information.
         /// </summary>
         /// <value>Specifies the list of local backup job information.</value>
-        [DataMember(Name="backupRuns", EmitDefaultValue=true)]
+        [DataMember(Name="backupRuns", EmitDefaultValue=false)]
         public List<LatestProtectionJobRunInfo> BackupRuns { get; set; }
 
         /// <summary>
         /// Specifies the list of replication job information.
         /// </summary>
         /// <value>Specifies the list of replication job information.</value>
-        [DataMember(Name="replicationRuns", EmitDefaultValue=true)]
+        [DataMember(Name="replicationRuns", EmitDefaultValue=false)]
         public List<LatestProtectionJobRunInfo> ReplicationRuns { get; set; }
 
         /// <summary>
@@ -96,20 +96,17 @@ namespace Cohesity.Model
                 (
                     this.ArchivalRuns == input.ArchivalRuns ||
                     this.ArchivalRuns != null &&
-                    input.ArchivalRuns != null &&
-                    this.ArchivalRuns.SequenceEqual(input.ArchivalRuns)
+                    this.ArchivalRuns.Equals(input.ArchivalRuns)
                 ) && 
                 (
                     this.BackupRuns == input.BackupRuns ||
                     this.BackupRuns != null &&
-                    input.BackupRuns != null &&
-                    this.BackupRuns.SequenceEqual(input.BackupRuns)
+                    this.BackupRuns.Equals(input.BackupRuns)
                 ) && 
                 (
                     this.ReplicationRuns == input.ReplicationRuns ||
                     this.ReplicationRuns != null &&
-                    input.ReplicationRuns != null &&
-                    this.ReplicationRuns.SequenceEqual(input.ReplicationRuns)
+                    this.ReplicationRuns.Equals(input.ReplicationRuns)
                 );
         }
 

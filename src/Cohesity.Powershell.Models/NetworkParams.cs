@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,7 +30,6 @@ namespace Cohesity.Model
         /// <param name="mtu">mtu.</param>
         public NetworkParams(BondingOpts bondingOpts = default(BondingOpts), int? mtu = default(int?))
         {
-            this.Mtu = mtu;
             this.BondingOpts = bondingOpts;
             this.Mtu = mtu;
         }
@@ -41,7 +43,7 @@ namespace Cohesity.Model
         /// <summary>
         /// Gets or Sets Mtu
         /// </summary>
-        [DataMember(Name="mtu", EmitDefaultValue=true)]
+        [DataMember(Name="mtu", EmitDefaultValue=false)]
         public int? Mtu { get; set; }
 
         /// <summary>

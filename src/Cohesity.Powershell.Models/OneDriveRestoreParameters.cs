@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -34,10 +37,6 @@ namespace Cohesity.Model
             this.RestoreToOriginalDrive = restoreToOriginalDrive;
             this.TargetDriveId = targetDriveId;
             this.TargetFolderPath = targetFolderPath;
-            this.DriveOwnerList = driveOwnerList;
-            this.RestoreToOriginalDrive = restoreToOriginalDrive;
-            this.TargetDriveId = targetDriveId;
-            this.TargetFolderPath = targetFolderPath;
             this.TargetUser = targetUser;
         }
         
@@ -45,28 +44,28 @@ namespace Cohesity.Model
         /// Specifies the list of Drive owners which are to be restored along with the details of their drives.
         /// </summary>
         /// <value>Specifies the list of Drive owners which are to be restored along with the details of their drives.</value>
-        [DataMember(Name="driveOwnerList", EmitDefaultValue=true)]
+        [DataMember(Name="driveOwnerList", EmitDefaultValue=false)]
         public List<OneDriveOwner> DriveOwnerList { get; set; }
 
         /// <summary>
         /// Specifies whether the objects are to be restored to the original drive.
         /// </summary>
         /// <value>Specifies whether the objects are to be restored to the original drive.</value>
-        [DataMember(Name="restoreToOriginalDrive", EmitDefaultValue=true)]
+        [DataMember(Name="restoreToOriginalDrive", EmitDefaultValue=false)]
         public bool? RestoreToOriginalDrive { get; set; }
 
         /// <summary>
         /// Specifies the Drive Id of the target user where the OneDrive items are to be recovered.
         /// </summary>
         /// <value>Specifies the Drive Id of the target user where the OneDrive items are to be recovered.</value>
-        [DataMember(Name="targetDriveId", EmitDefaultValue=true)]
+        [DataMember(Name="targetDriveId", EmitDefaultValue=false)]
         public string TargetDriveId { get; set; }
 
         /// <summary>
         /// Specifies the target folder path within the drive where recovery has to be done.
         /// </summary>
         /// <value>Specifies the target folder path within the drive where recovery has to be done.</value>
-        [DataMember(Name="targetFolderPath", EmitDefaultValue=true)]
+        [DataMember(Name="targetFolderPath", EmitDefaultValue=false)]
         public string TargetFolderPath { get; set; }
 
         /// <summary>
@@ -114,8 +113,7 @@ namespace Cohesity.Model
                 (
                     this.DriveOwnerList == input.DriveOwnerList ||
                     this.DriveOwnerList != null &&
-                    input.DriveOwnerList != null &&
-                    this.DriveOwnerList.SequenceEqual(input.DriveOwnerList)
+                    this.DriveOwnerList.Equals(input.DriveOwnerList)
                 ) && 
                 (
                     this.RestoreToOriginalDrive == input.RestoreToOriginalDrive ||

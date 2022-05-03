@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,30 +34,27 @@ namespace Cohesity.Model
             this.MtimeUsecs = mtimeUsecs;
             this.Size = size;
             this.Type = type;
-            this.MtimeUsecs = mtimeUsecs;
-            this.Size = size;
-            this.Type = type;
         }
         
         /// <summary>
         /// If this is a file, the mtime as returned by stat.
         /// </summary>
         /// <value>If this is a file, the mtime as returned by stat.</value>
-        [DataMember(Name="mtimeUsecs", EmitDefaultValue=true)]
+        [DataMember(Name="mtimeUsecs", EmitDefaultValue=false)]
         public long? MtimeUsecs { get; set; }
 
         /// <summary>
         /// If this is a file, the size of the file as returned by stat.
         /// </summary>
         /// <value>If this is a file, the size of the file as returned by stat.</value>
-        [DataMember(Name="size", EmitDefaultValue=true)]
+        [DataMember(Name="size", EmitDefaultValue=false)]
         public long? Size { get; set; }
 
         /// <summary>
         /// The type of this entity. This field will not be populated for ReadDir results, since the DirEntry already contains the type information.
         /// </summary>
         /// <value>The type of this entity. This field will not be populated for ReadDir results, since the DirEntry already contains the type information.</value>
-        [DataMember(Name="type", EmitDefaultValue=true)]
+        [DataMember(Name="type", EmitDefaultValue=false)]
         public int? Type { get; set; }
 
         /// <summary>

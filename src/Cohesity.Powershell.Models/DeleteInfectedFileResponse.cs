@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.DeleteFailedInfectedFiles = deleteFailedInfectedFiles;
             this.DeleteSucceededInfectedFiles = deleteSucceededInfectedFiles;
-            this.DeleteFailedInfectedFiles = deleteFailedInfectedFiles;
-            this.DeleteSucceededInfectedFiles = deleteSucceededInfectedFiles;
         }
         
         /// <summary>
         /// Specifies the failed delete infected files.
         /// </summary>
         /// <value>Specifies the failed delete infected files.</value>
-        [DataMember(Name="deleteFailedInfectedFiles", EmitDefaultValue=true)]
+        [DataMember(Name="deleteFailedInfectedFiles", EmitDefaultValue=false)]
         public List<InfectedFileId> DeleteFailedInfectedFiles { get; set; }
 
         /// <summary>
         /// Specifies the successfully deleted infected files.
         /// </summary>
         /// <value>Specifies the successfully deleted infected files.</value>
-        [DataMember(Name="deleteSucceededInfectedFiles", EmitDefaultValue=true)]
+        [DataMember(Name="deleteSucceededInfectedFiles", EmitDefaultValue=false)]
         public List<InfectedFileId> DeleteSucceededInfectedFiles { get; set; }
 
         /// <summary>
@@ -86,14 +87,12 @@ namespace Cohesity.Model
                 (
                     this.DeleteFailedInfectedFiles == input.DeleteFailedInfectedFiles ||
                     this.DeleteFailedInfectedFiles != null &&
-                    input.DeleteFailedInfectedFiles != null &&
-                    this.DeleteFailedInfectedFiles.SequenceEqual(input.DeleteFailedInfectedFiles)
+                    this.DeleteFailedInfectedFiles.Equals(input.DeleteFailedInfectedFiles)
                 ) && 
                 (
                     this.DeleteSucceededInfectedFiles == input.DeleteSucceededInfectedFiles ||
                     this.DeleteSucceededInfectedFiles != null &&
-                    input.DeleteSucceededInfectedFiles != null &&
-                    this.DeleteSucceededInfectedFiles.SequenceEqual(input.DeleteSucceededInfectedFiles)
+                    this.DeleteSucceededInfectedFiles.Equals(input.DeleteSucceededInfectedFiles)
                 );
         }
 

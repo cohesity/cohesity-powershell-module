@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.ErrorMessage = errorMessage;
             this.Name = name;
-            this.ErrorMessage = errorMessage;
-            this.Name = name;
         }
         
         /// <summary>
         /// Specifes the error messages corresponding to restore of the attribute.
         /// </summary>
         /// <value>Specifes the error messages corresponding to restore of the attribute.</value>
-        [DataMember(Name="errorMessage", EmitDefaultValue=true)]
+        [DataMember(Name="errorMessage", EmitDefaultValue=false)]
         public List<string> ErrorMessage { get; set; }
 
         /// <summary>
         /// Specifies the name of the attribute of the AD object.
         /// </summary>
         /// <value>Specifies the name of the attribute of the AD object.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
 
         /// <summary>
@@ -86,8 +87,7 @@ namespace Cohesity.Model
                 (
                     this.ErrorMessage == input.ErrorMessage ||
                     this.ErrorMessage != null &&
-                    input.ErrorMessage != null &&
-                    this.ErrorMessage.SequenceEqual(input.ErrorMessage)
+                    this.ErrorMessage.Equals(input.ErrorMessage)
                 ) && 
                 (
                     this.Name == input.Name ||

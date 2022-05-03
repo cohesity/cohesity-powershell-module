@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -51,7 +54,7 @@ namespace Cohesity.Model
         /// Specifies the type of the host such as &#39;kSapHana&#39;, &#39;kSapOracle&#39;, etc. Specifies the host type of host for generating and deploying a Certificate. &#39;kOther&#39; indicates it is any of the other hosts. &#39;kSapOracle&#39; indicates it is a SAP Oracle host. &#39;kSapHana&#39; indicates it is a SAP HANA host.
         /// </summary>
         /// <value>Specifies the type of the host such as &#39;kSapHana&#39;, &#39;kSapOracle&#39;, etc. Specifies the host type of host for generating and deploying a Certificate. &#39;kOther&#39; indicates it is any of the other hosts. &#39;kSapOracle&#39; indicates it is a SAP Oracle host. &#39;kSapHana&#39; indicates it is a SAP HANA host.</value>
-        [DataMember(Name="type", EmitDefaultValue=true)]
+        [DataMember(Name="type", EmitDefaultValue=false)]
         public TypeEnum? Type { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="DeployCertParameters" /> class.
@@ -66,31 +69,28 @@ namespace Cohesity.Model
             this.HostsInfoList = hostsInfoList;
             this.Type = type;
             this.ValidDays = validDays;
-            this.CertFileName = certFileName;
-            this.HostsInfoList = hostsInfoList;
-            this.Type = type;
-            this.ValidDays = validDays;
         }
         
         /// <summary>
         /// Specifies the filename of the certificate.
         /// </summary>
         /// <value>Specifies the filename of the certificate.</value>
-        [DataMember(Name="certFileName", EmitDefaultValue=true)]
+        [DataMember(Name="certFileName", EmitDefaultValue=false)]
         public string CertFileName { get; set; }
 
         /// <summary>
         /// Specifies the list of all hosts on which the certificate is to be deployed.
         /// </summary>
         /// <value>Specifies the list of all hosts on which the certificate is to be deployed.</value>
-        [DataMember(Name="hostsInfoList", EmitDefaultValue=true)]
+        [DataMember(Name="hostsInfoList", EmitDefaultValue=false)]
         public List<HostInfo> HostsInfoList { get; set; }
+
 
         /// <summary>
         /// Specifies the number of days after which the certificate will expire. The user has to input the number of days (from the current date) till when the certificate is valid.
         /// </summary>
         /// <value>Specifies the number of days after which the certificate will expire. The user has to input the number of days (from the current date) till when the certificate is valid.</value>
-        [DataMember(Name="validDays", EmitDefaultValue=true)]
+        [DataMember(Name="validDays", EmitDefaultValue=false)]
         public long? ValidDays { get; set; }
 
         /// <summary>
@@ -137,12 +137,12 @@ namespace Cohesity.Model
                 (
                     this.HostsInfoList == input.HostsInfoList ||
                     this.HostsInfoList != null &&
-                    input.HostsInfoList != null &&
-                    this.HostsInfoList.SequenceEqual(input.HostsInfoList)
+                    this.HostsInfoList.Equals(input.HostsInfoList)
                 ) && 
                 (
                     this.Type == input.Type ||
-                    this.Type.Equals(input.Type)
+                    (this.Type != null &&
+                    this.Type.Equals(input.Type))
                 ) && 
                 (
                     this.ValidDays == input.ValidDays ||
@@ -164,7 +164,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.CertFileName.GetHashCode();
                 if (this.HostsInfoList != null)
                     hashCode = hashCode * 59 + this.HostsInfoList.GetHashCode();
-                hashCode = hashCode * 59 + this.Type.GetHashCode();
+                if (this.Type != null)
+                    hashCode = hashCode * 59 + this.Type.GetHashCode();
                 if (this.ValidDays != null)
                     hashCode = hashCode * 59 + this.ValidDays.GetHashCode();
                 return hashCode;

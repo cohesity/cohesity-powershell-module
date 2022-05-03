@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -34,12 +37,6 @@ namespace Cohesity.Model
         {
             this.BackupSupported = backupSupported;
             this.BackupUnsupportedReasons = backupUnsupportedReasons;
-            this.HostName = hostName;
-            this.IsGlobalCatalog = isGlobalCatalog;
-            this.IsReadOnly = isReadOnly;
-            this.UtcOffsetMin = utcOffsetMin;
-            this.BackupSupported = backupSupported;
-            this.BackupUnsupportedReasons = backupUnsupportedReasons;
             this.Domain = domain;
             this.HostName = hostName;
             this.IsGlobalCatalog = isGlobalCatalog;
@@ -51,14 +48,14 @@ namespace Cohesity.Model
         /// Specifies whether backup of this domain controller is supported.
         /// </summary>
         /// <value>Specifies whether backup of this domain controller is supported.</value>
-        [DataMember(Name="backupSupported", EmitDefaultValue=true)]
+        [DataMember(Name="backupSupported", EmitDefaultValue=false)]
         public bool? BackupSupported { get; set; }
 
         /// <summary>
         /// Specifies any reason(s) for domain controller backup not supported.
         /// </summary>
         /// <value>Specifies any reason(s) for domain controller backup not supported.</value>
-        [DataMember(Name="backupUnsupportedReasons", EmitDefaultValue=true)]
+        [DataMember(Name="backupUnsupportedReasons", EmitDefaultValue=false)]
         public List<string> BackupUnsupportedReasons { get; set; }
 
         /// <summary>
@@ -71,28 +68,28 @@ namespace Cohesity.Model
         /// Specifies FQDN host name of the domain controller.
         /// </summary>
         /// <value>Specifies FQDN host name of the domain controller.</value>
-        [DataMember(Name="hostName", EmitDefaultValue=true)]
+        [DataMember(Name="hostName", EmitDefaultValue=false)]
         public string HostName { get; set; }
 
         /// <summary>
         /// Specifies whether this domain controller is a global catalog server.
         /// </summary>
         /// <value>Specifies whether this domain controller is a global catalog server.</value>
-        [DataMember(Name="isGlobalCatalog", EmitDefaultValue=true)]
+        [DataMember(Name="isGlobalCatalog", EmitDefaultValue=false)]
         public bool? IsGlobalCatalog { get; set; }
 
         /// <summary>
         /// Specifies whether this domain controller is read only.
         /// </summary>
         /// <value>Specifies whether this domain controller is read only.</value>
-        [DataMember(Name="isReadOnly", EmitDefaultValue=true)]
+        [DataMember(Name="isReadOnly", EmitDefaultValue=false)]
         public bool? IsReadOnly { get; set; }
 
         /// <summary>
         /// Specifies UTC time offset of this domain controller in minutes.
         /// </summary>
         /// <value>Specifies UTC time offset of this domain controller in minutes.</value>
-        [DataMember(Name="utcOffsetMin", EmitDefaultValue=true)]
+        [DataMember(Name="utcOffsetMin", EmitDefaultValue=false)]
         public int? UtcOffsetMin { get; set; }
 
         /// <summary>
@@ -139,8 +136,7 @@ namespace Cohesity.Model
                 (
                     this.BackupUnsupportedReasons == input.BackupUnsupportedReasons ||
                     this.BackupUnsupportedReasons != null &&
-                    input.BackupUnsupportedReasons != null &&
-                    this.BackupUnsupportedReasons.SequenceEqual(input.BackupUnsupportedReasons)
+                    this.BackupUnsupportedReasons.Equals(input.BackupUnsupportedReasons)
                 ) && 
                 (
                     this.Domain == input.Domain ||

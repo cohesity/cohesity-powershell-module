@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -69,7 +72,7 @@ namespace Cohesity.Model
         /// Specifies the flags related to this AD Object. &#39;kEqual&#39; indicates all the attributes of the AD Object on the Snapshot and Production are equal. &#39;kNotEqual&#39; indicates atleast one of the attribute of the AD Object on the Snapshot and Production AD are not equal. &#39;kRestorePasswordRequired&#39; indicates the AD Object is of &#39;User&#39; object class type. when restoring this object from Snapshot AD to Priduction AD, a password is required. &#39;kMovedOnDestination&#39; indicates the object has moved to another container or OU in production AD compared to AD snapshot. In this case, the distinguishedName will be different for these objects &#39;kDestinationNotFound&#39; indicates the object corresponding to dest_guid specified is missing from Production AD. Caller should check this flag and empty &#39;dest_guid&#39; first to find out destination is missing. &#39;kDisableSupported&#39; indicates the enable and disable is supported on the AD Object. AD Objects of type &#39;User&#39; and &#39;Computers&#39; support this operation.
         /// </summary>
         /// <value>Specifies the flags related to this AD Object. &#39;kEqual&#39; indicates all the attributes of the AD Object on the Snapshot and Production are equal. &#39;kNotEqual&#39; indicates atleast one of the attribute of the AD Object on the Snapshot and Production AD are not equal. &#39;kRestorePasswordRequired&#39; indicates the AD Object is of &#39;User&#39; object class type. when restoring this object from Snapshot AD to Priduction AD, a password is required. &#39;kMovedOnDestination&#39; indicates the object has moved to another container or OU in production AD compared to AD snapshot. In this case, the distinguishedName will be different for these objects &#39;kDestinationNotFound&#39; indicates the object corresponding to dest_guid specified is missing from Production AD. Caller should check this flag and empty &#39;dest_guid&#39; first to find out destination is missing. &#39;kDisableSupported&#39; indicates the enable and disable is supported on the AD Object. AD Objects of type &#39;User&#39; and &#39;Computers&#39; support this operation.</value>
-        [DataMember(Name="adObjectFlags", EmitDefaultValue=true)]
+        [DataMember(Name="adObjectFlags", EmitDefaultValue=false)]
         public List<AdObjectFlagsEnum> AdObjectFlags { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="ComparedADObject" /> class.
@@ -88,47 +91,42 @@ namespace Cohesity.Model
             this.ErrorMessage = errorMessage;
             this.MismatchAttrCount = mismatchAttrCount;
             this.SourceGuid = sourceGuid;
-            this.AdAttributes = adAttributes;
-            this.AdObjectFlags = adObjectFlags;
-            this.DestinationGuid = destinationGuid;
-            this.ErrorMessage = errorMessage;
-            this.MismatchAttrCount = mismatchAttrCount;
-            this.SourceGuid = sourceGuid;
         }
         
         /// <summary>
         /// Specifies the list of AD attributes for the AD object.
         /// </summary>
         /// <value>Specifies the list of AD attributes for the AD object.</value>
-        [DataMember(Name="adAttributes", EmitDefaultValue=true)]
+        [DataMember(Name="adAttributes", EmitDefaultValue=false)]
         public List<AdAttribute> AdAttributes { get; set; }
+
 
         /// <summary>
         /// Specifies the guid of the object in the Production AD which is equivalent to the one in the Snapshot AD.
         /// </summary>
         /// <value>Specifies the guid of the object in the Production AD which is equivalent to the one in the Snapshot AD.</value>
-        [DataMember(Name="destinationGuid", EmitDefaultValue=true)]
+        [DataMember(Name="destinationGuid", EmitDefaultValue=false)]
         public string DestinationGuid { get; set; }
 
         /// <summary>
         /// Specifies the error message while fetching the AD object.
         /// </summary>
         /// <value>Specifies the error message while fetching the AD object.</value>
-        [DataMember(Name="errorMessage", EmitDefaultValue=true)]
+        [DataMember(Name="errorMessage", EmitDefaultValue=false)]
         public string ErrorMessage { get; set; }
 
         /// <summary>
         /// Specifies the number of attributes of AD Object mismatched on the Snapshot and Production AD.
         /// </summary>
         /// <value>Specifies the number of attributes of AD Object mismatched on the Snapshot and Production AD.</value>
-        [DataMember(Name="mismatchAttrCount", EmitDefaultValue=true)]
+        [DataMember(Name="mismatchAttrCount", EmitDefaultValue=false)]
         public int? MismatchAttrCount { get; set; }
 
         /// <summary>
         /// Specifies the guid of the AD object in the Snapshot AD.
         /// </summary>
         /// <value>Specifies the guid of the AD object in the Snapshot AD.</value>
-        [DataMember(Name="sourceGuid", EmitDefaultValue=true)]
+        [DataMember(Name="sourceGuid", EmitDefaultValue=false)]
         public string SourceGuid { get; set; }
 
         /// <summary>
@@ -170,12 +168,12 @@ namespace Cohesity.Model
                 (
                     this.AdAttributes == input.AdAttributes ||
                     this.AdAttributes != null &&
-                    input.AdAttributes != null &&
-                    this.AdAttributes.SequenceEqual(input.AdAttributes)
+                    this.AdAttributes.Equals(input.AdAttributes)
                 ) && 
                 (
                     this.AdObjectFlags == input.AdObjectFlags ||
-                    this.AdObjectFlags.SequenceEqual(input.AdObjectFlags)
+                    this.AdObjectFlags != null &&
+                    this.AdObjectFlags.Equals(input.AdObjectFlags)
                 ) && 
                 (
                     this.DestinationGuid == input.DestinationGuid ||
@@ -210,7 +208,8 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.AdAttributes != null)
                     hashCode = hashCode * 59 + this.AdAttributes.GetHashCode();
-                hashCode = hashCode * 59 + this.AdObjectFlags.GetHashCode();
+                if (this.AdObjectFlags != null)
+                    hashCode = hashCode * 59 + this.AdObjectFlags.GetHashCode();
                 if (this.DestinationGuid != null)
                     hashCode = hashCode * 59 + this.DestinationGuid.GetHashCode();
                 if (this.ErrorMessage != null)

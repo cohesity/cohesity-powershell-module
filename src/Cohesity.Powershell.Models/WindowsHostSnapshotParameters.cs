@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -33,38 +36,34 @@ namespace Cohesity.Model
             this.DisableMetadata = disableMetadata;
             this.DisableNotification = disableNotification;
             this.ExcludedVssWriters = excludedVssWriters;
-            this.CopyOnlyBackup = copyOnlyBackup;
-            this.DisableMetadata = disableMetadata;
-            this.DisableNotification = disableNotification;
-            this.ExcludedVssWriters = excludedVssWriters;
         }
         
         /// <summary>
         /// Specifies whether to backup regardless of the state of each file&#39;s backup history. Backup history will not be updated. Refer Microsoft documentation on VSS_BT_COPY.
         /// </summary>
         /// <value>Specifies whether to backup regardless of the state of each file&#39;s backup history. Backup history will not be updated. Refer Microsoft documentation on VSS_BT_COPY.</value>
-        [DataMember(Name="copyOnlyBackup", EmitDefaultValue=true)]
+        [DataMember(Name="copyOnlyBackup", EmitDefaultValue=false)]
         public bool? CopyOnlyBackup { get; set; }
 
         /// <summary>
         /// Specifies whether to disable fetching and storing of some metadata on Cohesity Cluster to save storage space. Otherwise, there will be some metadata fetched and stored on Cohesity Cluster.
         /// </summary>
         /// <value>Specifies whether to disable fetching and storing of some metadata on Cohesity Cluster to save storage space. Otherwise, there will be some metadata fetched and stored on Cohesity Cluster.</value>
-        [DataMember(Name="disableMetadata", EmitDefaultValue=true)]
+        [DataMember(Name="disableMetadata", EmitDefaultValue=false)]
         public bool? DisableMetadata { get; set; }
 
         /// <summary>
         /// Specifies whether to disable some notification steps when taking snapshots.
         /// </summary>
         /// <value>Specifies whether to disable some notification steps when taking snapshots.</value>
-        [DataMember(Name="disableNotification", EmitDefaultValue=true)]
+        [DataMember(Name="disableNotification", EmitDefaultValue=false)]
         public bool? DisableNotification { get; set; }
 
         /// <summary>
         /// Specifies a list of Windows VSS writers that are excluded from backups. For example, \&quot;ASR Writer\&quot;, \&quot;System Writer\&quot;. Refer Microsoft documentaion for a complete list.
         /// </summary>
         /// <value>Specifies a list of Windows VSS writers that are excluded from backups. For example, \&quot;ASR Writer\&quot;, \&quot;System Writer\&quot;. Refer Microsoft documentaion for a complete list.</value>
-        [DataMember(Name="excludedVssWriters", EmitDefaultValue=true)]
+        [DataMember(Name="excludedVssWriters", EmitDefaultValue=false)]
         public List<string> ExcludedVssWriters { get; set; }
 
         /// <summary>
@@ -121,8 +120,7 @@ namespace Cohesity.Model
                 (
                     this.ExcludedVssWriters == input.ExcludedVssWriters ||
                     this.ExcludedVssWriters != null &&
-                    input.ExcludedVssWriters != null &&
-                    this.ExcludedVssWriters.SequenceEqual(input.ExcludedVssWriters)
+                    this.ExcludedVssWriters.Equals(input.ExcludedVssWriters)
                 );
         }
 

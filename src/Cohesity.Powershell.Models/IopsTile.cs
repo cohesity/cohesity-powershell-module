@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -33,38 +36,34 @@ namespace Cohesity.Model
             this.MaxWriteIops = maxWriteIops;
             this.ReadIopsSamples = readIopsSamples;
             this.WriteIopsSamples = writeIopsSamples;
-            this.MaxReadIops = maxReadIops;
-            this.MaxWriteIops = maxWriteIops;
-            this.ReadIopsSamples = readIopsSamples;
-            this.WriteIopsSamples = writeIopsSamples;
         }
         
         /// <summary>
         /// Maximum Read IOs per second in last 24 hours.
         /// </summary>
         /// <value>Maximum Read IOs per second in last 24 hours.</value>
-        [DataMember(Name="maxReadIops", EmitDefaultValue=true)]
+        [DataMember(Name="maxReadIops", EmitDefaultValue=false)]
         public long? MaxReadIops { get; set; }
 
         /// <summary>
         /// Maximum number of Write IOs per second in last 24 hours.
         /// </summary>
         /// <value>Maximum number of Write IOs per second in last 24 hours.</value>
-        [DataMember(Name="maxWriteIops", EmitDefaultValue=true)]
+        [DataMember(Name="maxWriteIops", EmitDefaultValue=false)]
         public long? MaxWriteIops { get; set; }
 
         /// <summary>
         /// Read IOs per second samples taken for the past 24 hours at 10 minutes interval given in descending order of time.
         /// </summary>
         /// <value>Read IOs per second samples taken for the past 24 hours at 10 minutes interval given in descending order of time.</value>
-        [DataMember(Name="readIopsSamples", EmitDefaultValue=true)]
+        [DataMember(Name="readIopsSamples", EmitDefaultValue=false)]
         public List<Sample> ReadIopsSamples { get; set; }
 
         /// <summary>
         /// Write IOs per second samples taken for the past 24 hours at 10 minutes interval given in descending order of time.
         /// </summary>
         /// <value>Write IOs per second samples taken for the past 24 hours at 10 minutes interval given in descending order of time.</value>
-        [DataMember(Name="writeIopsSamples", EmitDefaultValue=true)]
+        [DataMember(Name="writeIopsSamples", EmitDefaultValue=false)]
         public List<Sample> WriteIopsSamples { get; set; }
 
         /// <summary>
@@ -116,14 +115,12 @@ namespace Cohesity.Model
                 (
                     this.ReadIopsSamples == input.ReadIopsSamples ||
                     this.ReadIopsSamples != null &&
-                    input.ReadIopsSamples != null &&
-                    this.ReadIopsSamples.SequenceEqual(input.ReadIopsSamples)
+                    this.ReadIopsSamples.Equals(input.ReadIopsSamples)
                 ) && 
                 (
                     this.WriteIopsSamples == input.WriteIopsSamples ||
                     this.WriteIopsSamples != null &&
-                    input.WriteIopsSamples != null &&
-                    this.WriteIopsSamples.SequenceEqual(input.WriteIopsSamples)
+                    this.WriteIopsSamples.Equals(input.WriteIopsSamples)
                 );
         }
 

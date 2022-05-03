@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.ActiveFilePaths = activeFilePaths;
             this.Cookie = cookie;
-            this.ActiveFilePaths = activeFilePaths;
-            this.Cookie = cookie;
         }
         
         /// <summary>
         /// Specifies the active opens for an SMB file in a view.
         /// </summary>
         /// <value>Specifies the active opens for an SMB file in a view.</value>
-        [DataMember(Name="activeFilePaths", EmitDefaultValue=true)]
+        [DataMember(Name="activeFilePaths", EmitDefaultValue=false)]
         public List<SmbActiveFilePath> ActiveFilePaths { get; set; }
 
         /// <summary>
         /// Specifies an opaque string to pass to get the next set of active opens. If null is returned, this response is the last set of active opens.
         /// </summary>
         /// <value>Specifies an opaque string to pass to get the next set of active opens. If null is returned, this response is the last set of active opens.</value>
-        [DataMember(Name="cookie", EmitDefaultValue=true)]
+        [DataMember(Name="cookie", EmitDefaultValue=false)]
         public string Cookie { get; set; }
 
         /// <summary>
@@ -86,8 +87,7 @@ namespace Cohesity.Model
                 (
                     this.ActiveFilePaths == input.ActiveFilePaths ||
                     this.ActiveFilePaths != null &&
-                    input.ActiveFilePaths != null &&
-                    this.ActiveFilePaths.SequenceEqual(input.ActiveFilePaths)
+                    this.ActiveFilePaths.Equals(input.ActiveFilePaths)
                 ) && 
                 (
                     this.Cookie == input.Cookie ||

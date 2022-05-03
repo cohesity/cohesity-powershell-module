@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -35,46 +38,41 @@ namespace Cohesity.Model
             this.LastDayNumJobSlaViolations = lastDayNumJobSlaViolations;
             this.NumJobRunning = numJobRunning;
             this.ObjectsProtectedByPolicy = objectsProtectedByPolicy;
-            this.LastDayNumJobErrors = lastDayNumJobErrors;
-            this.LastDayNumJobRuns = lastDayNumJobRuns;
-            this.LastDayNumJobSlaViolations = lastDayNumJobSlaViolations;
-            this.NumJobRunning = numJobRunning;
-            this.ObjectsProtectedByPolicy = objectsProtectedByPolicy;
         }
         
         /// <summary>
         /// Number of Error runs in the last 24 hours.
         /// </summary>
         /// <value>Number of Error runs in the last 24 hours.</value>
-        [DataMember(Name="lastDayNumJobErrors", EmitDefaultValue=true)]
+        [DataMember(Name="lastDayNumJobErrors", EmitDefaultValue=false)]
         public int? LastDayNumJobErrors { get; set; }
 
         /// <summary>
         /// Number of Job Runs in the last 24 hours.
         /// </summary>
         /// <value>Number of Job Runs in the last 24 hours.</value>
-        [DataMember(Name="lastDayNumJobRuns", EmitDefaultValue=true)]
+        [DataMember(Name="lastDayNumJobRuns", EmitDefaultValue=false)]
         public int? LastDayNumJobRuns { get; set; }
 
         /// <summary>
         /// Number of SLA Violations in the last 24 hours.
         /// </summary>
         /// <value>Number of SLA Violations in the last 24 hours.</value>
-        [DataMember(Name="lastDayNumJobSlaViolations", EmitDefaultValue=true)]
+        [DataMember(Name="lastDayNumJobSlaViolations", EmitDefaultValue=false)]
         public int? LastDayNumJobSlaViolations { get; set; }
 
         /// <summary>
         /// Number of Jobs currently running.
         /// </summary>
         /// <value>Number of Jobs currently running.</value>
-        [DataMember(Name="numJobRunning", EmitDefaultValue=true)]
+        [DataMember(Name="numJobRunning", EmitDefaultValue=false)]
         public int? NumJobRunning { get; set; }
 
         /// <summary>
         /// Objects Protected By Policy.
         /// </summary>
         /// <value>Objects Protected By Policy.</value>
-        [DataMember(Name="objectsProtectedByPolicy", EmitDefaultValue=true)]
+        [DataMember(Name="objectsProtectedByPolicy", EmitDefaultValue=false)]
         public List<ObjectsProtectedByPolicy> ObjectsProtectedByPolicy { get; set; }
 
         /// <summary>
@@ -136,8 +134,7 @@ namespace Cohesity.Model
                 (
                     this.ObjectsProtectedByPolicy == input.ObjectsProtectedByPolicy ||
                     this.ObjectsProtectedByPolicy != null &&
-                    input.ObjectsProtectedByPolicy != null &&
-                    this.ObjectsProtectedByPolicy.SequenceEqual(input.ObjectsProtectedByPolicy)
+                    this.ObjectsProtectedByPolicy.Equals(input.ObjectsProtectedByPolicy)
                 );
         }
 

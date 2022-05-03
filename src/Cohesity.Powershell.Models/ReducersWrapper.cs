@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,14 +30,13 @@ namespace Cohesity.Model
         public ReducersWrapper(List<ReducerInfo> reducers = default(List<ReducerInfo>))
         {
             this.Reducers = reducers;
-            this.Reducers = reducers;
         }
         
         /// <summary>
         /// Reducers specifies the list of available reducers in analytics workbench.
         /// </summary>
         /// <value>Reducers specifies the list of available reducers in analytics workbench.</value>
-        [DataMember(Name="reducers", EmitDefaultValue=true)]
+        [DataMember(Name="reducers", EmitDefaultValue=false)]
         public List<ReducerInfo> Reducers { get; set; }
 
         /// <summary>
@@ -76,8 +78,7 @@ namespace Cohesity.Model
                 (
                     this.Reducers == input.Reducers ||
                     this.Reducers != null &&
-                    input.Reducers != null &&
-                    this.Reducers.SequenceEqual(input.Reducers)
+                    this.Reducers.Equals(input.Reducers)
                 );
         }
 

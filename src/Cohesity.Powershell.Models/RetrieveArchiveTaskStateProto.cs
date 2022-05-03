@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -47,19 +50,6 @@ namespace Cohesity.Model
         /// <param name="viewNameDEPRECATED">The view name as provided by the user for this retrieval task. Retrieved snapshots of the entities will be placed in this view..</param>
         public RetrieveArchiveTaskStateProto(ArchivalTarget archivalTarget = default(ArchivalTarget), UniversalIdProto archiveTaskUid = default(UniversalIdProto), long? backupRunStartTimeUsecs = default(long?), bool? cancellationRequested = default(bool?), RetrieveArchiveTaskStateProtoDownloadFilesInfo downloadFilesInfo = default(RetrieveArchiveTaskStateProtoDownloadFilesInfo), long? endTimeUsecs = default(long?), List<EntityProto> entityVec = default(List<EntityProto>), ErrorProto error = default(ErrorProto), string fullViewNameDEPRECATED = default(string), UniversalIdProto jobUid = default(UniversalIdProto), string name = default(string), string progressMonitorTaskPath = default(string), RetrieveArchiveTaskStateProtoDownloadFilesInfo restoreArchiveFilesInfo = default(RetrieveArchiveTaskStateProtoDownloadFilesInfo), long? restoreTaskId = default(long?), RetrieveArchiveInfo retrievalInfo = default(RetrieveArchiveInfo), long? startTimeUsecs = default(long?), int? status = default(int?), UniversalIdProto taskUid = default(UniversalIdProto), string user = default(string), VaultParamsRestoreParams vaultRestoreParams = default(VaultParamsRestoreParams), long? viewBoxId = default(long?), string viewNameDEPRECATED = default(string))
         {
-            this.BackupRunStartTimeUsecs = backupRunStartTimeUsecs;
-            this.CancellationRequested = cancellationRequested;
-            this.EndTimeUsecs = endTimeUsecs;
-            this.EntityVec = entityVec;
-            this.FullViewNameDEPRECATED = fullViewNameDEPRECATED;
-            this.Name = name;
-            this.ProgressMonitorTaskPath = progressMonitorTaskPath;
-            this.RestoreTaskId = restoreTaskId;
-            this.StartTimeUsecs = startTimeUsecs;
-            this.Status = status;
-            this.User = user;
-            this.ViewBoxId = viewBoxId;
-            this.ViewNameDEPRECATED = viewNameDEPRECATED;
             this.ArchivalTarget = archivalTarget;
             this.ArchiveTaskUid = archiveTaskUid;
             this.BackupRunStartTimeUsecs = backupRunStartTimeUsecs;
@@ -100,14 +90,14 @@ namespace Cohesity.Model
         /// The start time of the backup run whose corresponding archive is being retrieved. This field is just used for logging purposes.
         /// </summary>
         /// <value>The start time of the backup run whose corresponding archive is being retrieved. This field is just used for logging purposes.</value>
-        [DataMember(Name="backupRunStartTimeUsecs", EmitDefaultValue=true)]
+        [DataMember(Name="backupRunStartTimeUsecs", EmitDefaultValue=false)]
         public long? BackupRunStartTimeUsecs { get; set; }
 
         /// <summary>
         /// Whether this retrieval task has a pending cancellation request.
         /// </summary>
         /// <value>Whether this retrieval task has a pending cancellation request.</value>
-        [DataMember(Name="cancellationRequested", EmitDefaultValue=true)]
+        [DataMember(Name="cancellationRequested", EmitDefaultValue=false)]
         public bool? CancellationRequested { get; set; }
 
         /// <summary>
@@ -120,14 +110,14 @@ namespace Cohesity.Model
         /// If the retrieval task has finished, this field contains the end time for the task.
         /// </summary>
         /// <value>If the retrieval task has finished, this field contains the end time for the task.</value>
-        [DataMember(Name="endTimeUsecs", EmitDefaultValue=true)]
+        [DataMember(Name="endTimeUsecs", EmitDefaultValue=false)]
         public long? EndTimeUsecs { get; set; }
 
         /// <summary>
         /// Information on the exact set of objects to retrieve from archive. Even if the user wanted to retrieve all objects from the archive, this field will contain all individual leaf-level objects.
         /// </summary>
         /// <value>Information on the exact set of objects to retrieve from archive. Even if the user wanted to retrieve all objects from the archive, this field will contain all individual leaf-level objects.</value>
-        [DataMember(Name="entityVec", EmitDefaultValue=true)]
+        [DataMember(Name="entityVec", EmitDefaultValue=false)]
         public List<EntityProto> EntityVec { get; set; }
 
         /// <summary>
@@ -140,7 +130,7 @@ namespace Cohesity.Model
         /// The full view name (external). This is composed of a Cohesity specific prefix and the user provided view name.
         /// </summary>
         /// <value>The full view name (external). This is composed of a Cohesity specific prefix and the user provided view name.</value>
-        [DataMember(Name="fullViewName_DEPRECATED", EmitDefaultValue=true)]
+        [DataMember(Name="fullViewName_DEPRECATED", EmitDefaultValue=false)]
         public string FullViewNameDEPRECATED { get; set; }
 
         /// <summary>
@@ -153,14 +143,14 @@ namespace Cohesity.Model
         /// The name of the retrieval task.
         /// </summary>
         /// <value>The name of the retrieval task.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
 
         /// <summary>
         /// The path of the progress monitor for this task.
         /// </summary>
         /// <value>The path of the progress monitor for this task.</value>
-        [DataMember(Name="progressMonitorTaskPath", EmitDefaultValue=true)]
+        [DataMember(Name="progressMonitorTaskPath", EmitDefaultValue=false)]
         public string ProgressMonitorTaskPath { get; set; }
 
         /// <summary>
@@ -173,7 +163,7 @@ namespace Cohesity.Model
         /// For retrieve tasks created after the 2.8 release, this will contain the id of the restore task that created this retrieve task.
         /// </summary>
         /// <value>For retrieve tasks created after the 2.8 release, this will contain the id of the restore task that created this retrieve task.</value>
-        [DataMember(Name="restoreTaskId", EmitDefaultValue=true)]
+        [DataMember(Name="restoreTaskId", EmitDefaultValue=false)]
         public long? RestoreTaskId { get; set; }
 
         /// <summary>
@@ -186,14 +176,14 @@ namespace Cohesity.Model
         /// The start time for this retrieval task.
         /// </summary>
         /// <value>The start time for this retrieval task.</value>
-        [DataMember(Name="startTimeUsecs", EmitDefaultValue=true)]
+        [DataMember(Name="startTimeUsecs", EmitDefaultValue=false)]
         public long? StartTimeUsecs { get; set; }
 
         /// <summary>
         /// The status of this task.
         /// </summary>
         /// <value>The status of this task.</value>
-        [DataMember(Name="status", EmitDefaultValue=true)]
+        [DataMember(Name="status", EmitDefaultValue=false)]
         public int? Status { get; set; }
 
         /// <summary>
@@ -206,7 +196,7 @@ namespace Cohesity.Model
         /// The user who requested this retrieval task.
         /// </summary>
         /// <value>The user who requested this retrieval task.</value>
-        [DataMember(Name="user", EmitDefaultValue=true)]
+        [DataMember(Name="user", EmitDefaultValue=false)]
         public string User { get; set; }
 
         /// <summary>
@@ -219,14 +209,14 @@ namespace Cohesity.Model
         /// The view box id to which &#39;view_name&#39; belongs to.
         /// </summary>
         /// <value>The view box id to which &#39;view_name&#39; belongs to.</value>
-        [DataMember(Name="viewBoxId", EmitDefaultValue=true)]
+        [DataMember(Name="viewBoxId", EmitDefaultValue=false)]
         public long? ViewBoxId { get; set; }
 
         /// <summary>
         /// The view name as provided by the user for this retrieval task. Retrieved snapshots of the entities will be placed in this view.
         /// </summary>
         /// <value>The view name as provided by the user for this retrieval task. Retrieved snapshots of the entities will be placed in this view.</value>
-        [DataMember(Name="viewName_DEPRECATED", EmitDefaultValue=true)]
+        [DataMember(Name="viewName_DEPRECATED", EmitDefaultValue=false)]
         public string ViewNameDEPRECATED { get; set; }
 
         /// <summary>
@@ -298,8 +288,7 @@ namespace Cohesity.Model
                 (
                     this.EntityVec == input.EntityVec ||
                     this.EntityVec != null &&
-                    input.EntityVec != null &&
-                    this.EntityVec.SequenceEqual(input.EntityVec)
+                    this.EntityVec.Equals(input.EntityVec)
                 ) && 
                 (
                     this.Error == input.Error ||

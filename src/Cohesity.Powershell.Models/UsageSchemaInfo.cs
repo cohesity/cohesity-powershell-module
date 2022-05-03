@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,14 +30,13 @@ namespace Cohesity.Model
         public UsageSchemaInfo(List<SchemaInfo> schemaInfoList = default(List<SchemaInfo>))
         {
             this.SchemaInfoList = schemaInfoList;
-            this.SchemaInfoList = schemaInfoList;
         }
         
         /// <summary>
         /// Specifies the list of the schema info for an entity.
         /// </summary>
         /// <value>Specifies the list of the schema info for an entity.</value>
-        [DataMember(Name="schemaInfoList", EmitDefaultValue=true)]
+        [DataMember(Name="schemaInfoList", EmitDefaultValue=false)]
         public List<SchemaInfo> SchemaInfoList { get; set; }
 
         /// <summary>
@@ -76,8 +78,7 @@ namespace Cohesity.Model
                 (
                     this.SchemaInfoList == input.SchemaInfoList ||
                     this.SchemaInfoList != null &&
-                    input.SchemaInfoList != null &&
-                    this.SchemaInfoList.SequenceEqual(input.SchemaInfoList)
+                    this.SchemaInfoList.Equals(input.SchemaInfoList)
                 );
         }
 

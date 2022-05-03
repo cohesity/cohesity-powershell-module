@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -51,7 +54,7 @@ namespace Cohesity.Model
         /// List of Protocols.  Specifies the list of protocols enabled on the file system. &#39;kNfs&#39; indicates NFS exports are supported on Pure FlashBlade File System. &#39;kCifs2&#39; indicates CIFS/SMB Shares are supported on Pure FlashBlade File System. &#39;kHttp&#39; indicates object protocol over HTTP and HTTPS are supported.
         /// </summary>
         /// <value>List of Protocols.  Specifies the list of protocols enabled on the file system. &#39;kNfs&#39; indicates NFS exports are supported on Pure FlashBlade File System. &#39;kCifs2&#39; indicates CIFS/SMB Shares are supported on Pure FlashBlade File System. &#39;kHttp&#39; indicates object protocol over HTTP and HTTPS are supported.</value>
-        [DataMember(Name="protocols", EmitDefaultValue=true)]
+        [DataMember(Name="protocols", EmitDefaultValue=false)]
         public List<ProtocolsEnum> Protocols { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="FlashBladeFileSystem" /> class.
@@ -63,17 +66,9 @@ namespace Cohesity.Model
         /// <param name="nfsInfo">nfsInfo.</param>
         /// <param name="physicalUsedBytes">Specifies the size of physical data currently consumed by the file system. This includes the space used for the snapshots..</param>
         /// <param name="protocols">List of Protocols.  Specifies the list of protocols enabled on the file system. &#39;kNfs&#39; indicates NFS exports are supported on Pure FlashBlade File System. &#39;kCifs2&#39; indicates CIFS/SMB Shares are supported on Pure FlashBlade File System. &#39;kHttp&#39; indicates object protocol over HTTP and HTTPS are supported..</param>
-        /// <param name="smbInfo">smbInfo.</param>
         /// <param name="uniqueUsedBytes">Specifies the size of physical data consumed by the file system itself not including the size of the snapshots..</param>
-        public FlashBladeFileSystem(bool? backupEnabled = default(bool?), long? createdTimeMsecs = default(long?), long? logicalCapacityBytes = default(long?), long? logicalUsedBytes = default(long?), FlashBladeNfsInfo nfsInfo = default(FlashBladeNfsInfo), long? physicalUsedBytes = default(long?), List<ProtocolsEnum> protocols = default(List<ProtocolsEnum>), FlashBladeSmbInfo smbInfo = default(FlashBladeSmbInfo), long? uniqueUsedBytes = default(long?))
+        public FlashBladeFileSystem(bool? backupEnabled = default(bool?), long? createdTimeMsecs = default(long?), long? logicalCapacityBytes = default(long?), long? logicalUsedBytes = default(long?), FlashBladeNfsInfo nfsInfo = default(FlashBladeNfsInfo), long? physicalUsedBytes = default(long?), List<ProtocolsEnum> protocols = default(List<ProtocolsEnum>), long? uniqueUsedBytes = default(long?))
         {
-            this.BackupEnabled = backupEnabled;
-            this.CreatedTimeMsecs = createdTimeMsecs;
-            this.LogicalCapacityBytes = logicalCapacityBytes;
-            this.LogicalUsedBytes = logicalUsedBytes;
-            this.PhysicalUsedBytes = physicalUsedBytes;
-            this.Protocols = protocols;
-            this.UniqueUsedBytes = uniqueUsedBytes;
             this.BackupEnabled = backupEnabled;
             this.CreatedTimeMsecs = createdTimeMsecs;
             this.LogicalCapacityBytes = logicalCapacityBytes;
@@ -81,7 +76,6 @@ namespace Cohesity.Model
             this.NfsInfo = nfsInfo;
             this.PhysicalUsedBytes = physicalUsedBytes;
             this.Protocols = protocols;
-            this.SmbInfo = smbInfo;
             this.UniqueUsedBytes = uniqueUsedBytes;
         }
         
@@ -89,28 +83,28 @@ namespace Cohesity.Model
         /// Specifies whether the .snapshot directory exists on the file system. Backup is enabled only if the directory exists.
         /// </summary>
         /// <value>Specifies whether the .snapshot directory exists on the file system. Backup is enabled only if the directory exists.</value>
-        [DataMember(Name="backupEnabled", EmitDefaultValue=true)]
+        [DataMember(Name="backupEnabled", EmitDefaultValue=false)]
         public bool? BackupEnabled { get; set; }
 
         /// <summary>
         /// Specifies the time when the filesystem was created in Unix epoch time in milliseconds.
         /// </summary>
         /// <value>Specifies the time when the filesystem was created in Unix epoch time in milliseconds.</value>
-        [DataMember(Name="createdTimeMsecs", EmitDefaultValue=true)]
+        [DataMember(Name="createdTimeMsecs", EmitDefaultValue=false)]
         public long? CreatedTimeMsecs { get; set; }
 
         /// <summary>
         /// Specifies the total capacity in bytes of the file system.
         /// </summary>
         /// <value>Specifies the total capacity in bytes of the file system.</value>
-        [DataMember(Name="logicalCapacityBytes", EmitDefaultValue=true)]
+        [DataMember(Name="logicalCapacityBytes", EmitDefaultValue=false)]
         public long? LogicalCapacityBytes { get; set; }
 
         /// <summary>
         /// Specifies the size of logical data currently represented on the file system in bytes.
         /// </summary>
         /// <value>Specifies the size of logical data currently represented on the file system in bytes.</value>
-        [DataMember(Name="logicalUsedBytes", EmitDefaultValue=true)]
+        [DataMember(Name="logicalUsedBytes", EmitDefaultValue=false)]
         public long? LogicalUsedBytes { get; set; }
 
         /// <summary>
@@ -123,20 +117,15 @@ namespace Cohesity.Model
         /// Specifies the size of physical data currently consumed by the file system. This includes the space used for the snapshots.
         /// </summary>
         /// <value>Specifies the size of physical data currently consumed by the file system. This includes the space used for the snapshots.</value>
-        [DataMember(Name="physicalUsedBytes", EmitDefaultValue=true)]
+        [DataMember(Name="physicalUsedBytes", EmitDefaultValue=false)]
         public long? PhysicalUsedBytes { get; set; }
 
-        /// <summary>
-        /// Gets or Sets SmbInfo
-        /// </summary>
-        [DataMember(Name="smbInfo", EmitDefaultValue=false)]
-        public FlashBladeSmbInfo SmbInfo { get; set; }
 
         /// <summary>
         /// Specifies the size of physical data consumed by the file system itself not including the size of the snapshots.
         /// </summary>
         /// <value>Specifies the size of physical data consumed by the file system itself not including the size of the snapshots.</value>
-        [DataMember(Name="uniqueUsedBytes", EmitDefaultValue=true)]
+        [DataMember(Name="uniqueUsedBytes", EmitDefaultValue=false)]
         public long? UniqueUsedBytes { get; set; }
 
         /// <summary>
@@ -207,12 +196,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.Protocols == input.Protocols ||
-                    this.Protocols.SequenceEqual(input.Protocols)
-                ) && 
-                (
-                    this.SmbInfo == input.SmbInfo ||
-                    (this.SmbInfo != null &&
-                    this.SmbInfo.Equals(input.SmbInfo))
+                    this.Protocols != null &&
+                    this.Protocols.Equals(input.Protocols)
                 ) && 
                 (
                     this.UniqueUsedBytes == input.UniqueUsedBytes ||
@@ -242,9 +227,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.NfsInfo.GetHashCode();
                 if (this.PhysicalUsedBytes != null)
                     hashCode = hashCode * 59 + this.PhysicalUsedBytes.GetHashCode();
-                hashCode = hashCode * 59 + this.Protocols.GetHashCode();
-                if (this.SmbInfo != null)
-                    hashCode = hashCode * 59 + this.SmbInfo.GetHashCode();
+                if (this.Protocols != null)
+                    hashCode = hashCode * 59 + this.Protocols.GetHashCode();
                 if (this.UniqueUsedBytes != null)
                     hashCode = hashCode * 59 + this.UniqueUsedBytes.GetHashCode();
                 return hashCode;

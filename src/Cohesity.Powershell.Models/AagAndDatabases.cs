@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,7 +30,6 @@ namespace Cohesity.Model
         /// <param name="databases">Specifies databases found that are members of the AAG..</param>
         public AagAndDatabases(ProtectionSource aag = default(ProtectionSource), List<ProtectionSource> databases = default(List<ProtectionSource>))
         {
-            this.Databases = databases;
             this.Aag = aag;
             this.Databases = databases;
         }
@@ -42,7 +44,7 @@ namespace Cohesity.Model
         /// Specifies databases found that are members of the AAG.
         /// </summary>
         /// <value>Specifies databases found that are members of the AAG.</value>
-        [DataMember(Name="databases", EmitDefaultValue=true)]
+        [DataMember(Name="databases", EmitDefaultValue=false)]
         public List<ProtectionSource> Databases { get; set; }
 
         /// <summary>
@@ -89,8 +91,7 @@ namespace Cohesity.Model
                 (
                     this.Databases == input.Databases ||
                     this.Databases != null &&
-                    input.Databases != null &&
-                    this.Databases.SequenceEqual(input.Databases)
+                    this.Databases.Equals(input.Databases)
                 );
         }
 

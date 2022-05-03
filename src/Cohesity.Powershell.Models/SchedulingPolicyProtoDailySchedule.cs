@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -12,10 +13,12 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
+
+
 namespace Cohesity.Model
 {
     /// <summary>
-    /// The daily schedule encompasses weekly schedules as well. This has been done so there is only one way of specifying a schedule (backing up daily is the same as backing up weekly, but on all days of the week).
+    /// Sample protos: Every n days (n &gt;&#x3D; 1) Ex: For every 2 days, { frequency : 2 } Weekly schedule (Few selected weekdays) Ex: For every Monday, Tuesday { days : {kMonday, kTuesday} } NOTE: Only one of the &#39;days&#39; and &#39;frequency&#39; should be populated.
     /// </summary>
     [DataContract]
     public partial class SchedulingPolicyProtoDailySchedule :  IEquatable<SchedulingPolicyProtoDailySchedule>
@@ -23,19 +26,27 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="SchedulingPolicyProtoDailySchedule" /> class.
         /// </summary>
-        /// <param name="days">The days of the week backup must be performed. If no days are specified, then the backup will be performed on all days..</param>
-        public SchedulingPolicyProtoDailySchedule(List<int> days = default(List<int>))
+        /// <param name="days">The list of weekdays for scheduling a backup. This is populated only for selected weekday schedules..</param>
+        /// <param name="frequency">This is set only for every-n-day schedules..</param>
+        public SchedulingPolicyProtoDailySchedule(List<int?> days = default(List<int?>), long? frequency = default(long?))
         {
             this.Days = days;
-            this.Days = days;
+            this.Frequency = frequency;
         }
         
         /// <summary>
-        /// The days of the week backup must be performed. If no days are specified, then the backup will be performed on all days.
+        /// The list of weekdays for scheduling a backup. This is populated only for selected weekday schedules.
         /// </summary>
-        /// <value>The days of the week backup must be performed. If no days are specified, then the backup will be performed on all days.</value>
-        [DataMember(Name="days", EmitDefaultValue=true)]
-        public List<int> Days { get; set; }
+        /// <value>The list of weekdays for scheduling a backup. This is populated only for selected weekday schedules.</value>
+        [DataMember(Name="days", EmitDefaultValue=false)]
+        public List<int?> Days { get; set; }
+
+        /// <summary>
+        /// This is set only for every-n-day schedules.
+        /// </summary>
+        /// <value>This is set only for every-n-day schedules.</value>
+        [DataMember(Name="frequency", EmitDefaultValue=false)]
+        public long? Frequency { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -76,8 +87,12 @@ namespace Cohesity.Model
                 (
                     this.Days == input.Days ||
                     this.Days != null &&
-                    input.Days != null &&
-                    this.Days.SequenceEqual(input.Days)
+                    this.Days.Equals(input.Days)
+                ) && 
+                (
+                    this.Frequency == input.Frequency ||
+                    (this.Frequency != null &&
+                    this.Frequency.Equals(input.Frequency))
                 );
         }
 
@@ -92,6 +107,8 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.Days != null)
                     hashCode = hashCode * 59 + this.Days.GetHashCode();
+                if (this.Frequency != null)
+                    hashCode = hashCode * 59 + this.Frequency.GetHashCode();
                 return hashCode;
             }
         }

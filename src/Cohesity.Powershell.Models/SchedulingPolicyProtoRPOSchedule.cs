@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,14 +30,13 @@ namespace Cohesity.Model
         public SchedulingPolicyProtoRPOSchedule(long? rpoIntervalMins = default(long?))
         {
             this.RpoIntervalMins = rpoIntervalMins;
-            this.RpoIntervalMins = rpoIntervalMins;
         }
         
         /// <summary>
         /// If this field is set, then at any point, a recovery point should be available not older than the given interval mins.
         /// </summary>
         /// <value>If this field is set, then at any point, a recovery point should be available not older than the given interval mins.</value>
-        [DataMember(Name="rpoIntervalMins", EmitDefaultValue=true)]
+        [DataMember(Name="rpoIntervalMins", EmitDefaultValue=false)]
         public long? RpoIntervalMins { get; set; }
 
         /// <summary>

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,14 +30,13 @@ namespace Cohesity.Model
         public KubernetesCredentials(string clientPrivateKey = default(string))
         {
             this.ClientPrivateKey = clientPrivateKey;
-            this.ClientPrivateKey = clientPrivateKey;
         }
         
         /// <summary>
         /// Specifies Client private associated with the service account.
         /// </summary>
         /// <value>Specifies Client private associated with the service account.</value>
-        [DataMember(Name="clientPrivateKey", EmitDefaultValue=true)]
+        [DataMember(Name="clientPrivateKey", EmitDefaultValue=false)]
         public string ClientPrivateKey { get; set; }
 
         /// <summary>

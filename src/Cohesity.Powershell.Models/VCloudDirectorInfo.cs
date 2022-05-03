@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.Endpoint = endpoint;
             this.Name = name;
-            this.Endpoint = endpoint;
-            this.Name = name;
         }
         
         /// <summary>
         /// vCenter endpoint.
         /// </summary>
         /// <value>vCenter endpoint.</value>
-        [DataMember(Name="endpoint", EmitDefaultValue=true)]
+        [DataMember(Name="endpoint", EmitDefaultValue=false)]
         public string Endpoint { get; set; }
 
         /// <summary>
         /// vCenter name.
         /// </summary>
         /// <value>vCenter name.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
 
         /// <summary>

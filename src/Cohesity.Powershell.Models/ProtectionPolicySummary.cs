@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,9 +34,6 @@ namespace Cohesity.Model
         /// <param name="protectionRunsSummary">protectionRunsSummary.</param>
         public ProtectionPolicySummary(LastProtectionRunSummary lastProtectionRunSummary = default(LastProtectionRunSummary), string paginationCookie = default(string), List<ProtectedSourceSummary> protectedSourcesSummary = default(List<ProtectedSourceSummary>), List<ProtectionJobSummaryForPolicies> protectionJobsSummary = default(List<ProtectionJobSummaryForPolicies>), ProtectionPolicy protectionPolicy = default(ProtectionPolicy), ProtectionRunsSummary protectionRunsSummary = default(ProtectionRunsSummary))
         {
-            this.PaginationCookie = paginationCookie;
-            this.ProtectedSourcesSummary = protectedSourcesSummary;
-            this.ProtectionJobsSummary = protectionJobsSummary;
             this.LastProtectionRunSummary = lastProtectionRunSummary;
             this.PaginationCookie = paginationCookie;
             this.ProtectedSourcesSummary = protectedSourcesSummary;
@@ -52,21 +52,21 @@ namespace Cohesity.Model
         /// If there are more results to display, use this value to get the next set of results, by using this value in paginationCookie param for the next request to GetProtectionPolicySummary.
         /// </summary>
         /// <value>If there are more results to display, use this value to get the next set of results, by using this value in paginationCookie param for the next request to GetProtectionPolicySummary.</value>
-        [DataMember(Name="paginationCookie", EmitDefaultValue=true)]
+        [DataMember(Name="paginationCookie", EmitDefaultValue=false)]
         public string PaginationCookie { get; set; }
 
         /// <summary>
         /// Specifies the list of Protection Sources which are protected under the given policy. This is only populated if the policy is of type kRPO.
         /// </summary>
         /// <value>Specifies the list of Protection Sources which are protected under the given policy. This is only populated if the policy is of type kRPO.</value>
-        [DataMember(Name="protectedSourcesSummary", EmitDefaultValue=true)]
+        [DataMember(Name="protectedSourcesSummary", EmitDefaultValue=false)]
         public List<ProtectedSourceSummary> ProtectedSourcesSummary { get; set; }
 
         /// <summary>
         /// Specifies the list of Protection Jobs associated with the given Protection Policy. This is only populated if the type of the Protection Policy is kRegular.
         /// </summary>
         /// <value>Specifies the list of Protection Jobs associated with the given Protection Policy. This is only populated if the type of the Protection Policy is kRegular.</value>
-        [DataMember(Name="protectionJobsSummary", EmitDefaultValue=true)]
+        [DataMember(Name="protectionJobsSummary", EmitDefaultValue=false)]
         public List<ProtectionJobSummaryForPolicies> ProtectionJobsSummary { get; set; }
 
         /// <summary>
@@ -130,14 +130,12 @@ namespace Cohesity.Model
                 (
                     this.ProtectedSourcesSummary == input.ProtectedSourcesSummary ||
                     this.ProtectedSourcesSummary != null &&
-                    input.ProtectedSourcesSummary != null &&
-                    this.ProtectedSourcesSummary.SequenceEqual(input.ProtectedSourcesSummary)
+                    this.ProtectedSourcesSummary.Equals(input.ProtectedSourcesSummary)
                 ) && 
                 (
                     this.ProtectionJobsSummary == input.ProtectionJobsSummary ||
                     this.ProtectionJobsSummary != null &&
-                    input.ProtectionJobsSummary != null &&
-                    this.ProtectionJobsSummary.SequenceEqual(input.ProtectionJobsSummary)
+                    this.ProtectionJobsSummary.Equals(input.ProtectionJobsSummary)
                 ) && 
                 (
                     this.ProtectionPolicy == input.ProtectionPolicy ||

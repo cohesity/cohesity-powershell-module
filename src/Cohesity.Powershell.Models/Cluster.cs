@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -63,7 +66,7 @@ namespace Cohesity.Model
         /// Specifies the type of Cluster such as kPhysical. &#39;kPhysical&#39; indicates the Cohesity Cluster is hosted directly on hardware. &#39;kVirtualRobo&#39; indicates the Cohesity Cluster is hosted in a VM on a ESXi Host of a VMware vCenter Server using Cohesity&#39;s Virtual Edition. &#39;kMicrosoftCloud&#39; indicates the Cohesity Cluster is hosted in a VM on Microsoft Azure using Cohesity&#39;s Cloud Edition. &#39;kAmazonCloud&#39; indicates the Cohesity Cluster is hosted in a VM on Amazon S3 using Cohesity&#39;s Cloud Edition. &#39;kGoogleCloud&#39; indicates the Cohesity Cluster is hosted in a VM on Google Cloud Platform using Cohesity&#39;s Cloud Edition.
         /// </summary>
         /// <value>Specifies the type of Cluster such as kPhysical. &#39;kPhysical&#39; indicates the Cohesity Cluster is hosted directly on hardware. &#39;kVirtualRobo&#39; indicates the Cohesity Cluster is hosted in a VM on a ESXi Host of a VMware vCenter Server using Cohesity&#39;s Virtual Edition. &#39;kMicrosoftCloud&#39; indicates the Cohesity Cluster is hosted in a VM on Microsoft Azure using Cohesity&#39;s Cloud Edition. &#39;kAmazonCloud&#39; indicates the Cohesity Cluster is hosted in a VM on Amazon S3 using Cohesity&#39;s Cloud Edition. &#39;kGoogleCloud&#39; indicates the Cohesity Cluster is hosted in a VM on Google Cloud Platform using Cohesity&#39;s Cloud Edition.</value>
-        [DataMember(Name="clusterType", EmitDefaultValue=true)]
+        [DataMember(Name="clusterType", EmitDefaultValue=false)]
         public ClusterTypeEnum? ClusterType { get; set; }
         /// <summary>
         /// Specifies the current Cluster-level operation in progress. &#39;kUpgrade&#39; indicates the Cohesity Cluster is upgrading to a new release. &#39;kRemoveNode&#39; indicates the Cohesity Cluster is removing a Node from the Cluster. &#39;kNone&#39; indicates no action is occurring on the Cohesity Cluster. &#39;kDestroy&#39; indicates the Cohesity Cluster is getting destoryed. &#39;kClean&#39; indicates the Cohesity Cluster is getting cleaned. &#39;kRestartServices&#39; indicates the Cohesity Cluster is restarting the services.
@@ -114,7 +117,7 @@ namespace Cohesity.Model
         /// Specifies the current Cluster-level operation in progress. &#39;kUpgrade&#39; indicates the Cohesity Cluster is upgrading to a new release. &#39;kRemoveNode&#39; indicates the Cohesity Cluster is removing a Node from the Cluster. &#39;kNone&#39; indicates no action is occurring on the Cohesity Cluster. &#39;kDestroy&#39; indicates the Cohesity Cluster is getting destoryed. &#39;kClean&#39; indicates the Cohesity Cluster is getting cleaned. &#39;kRestartServices&#39; indicates the Cohesity Cluster is restarting the services.
         /// </summary>
         /// <value>Specifies the current Cluster-level operation in progress. &#39;kUpgrade&#39; indicates the Cohesity Cluster is upgrading to a new release. &#39;kRemoveNode&#39; indicates the Cohesity Cluster is removing a Node from the Cluster. &#39;kNone&#39; indicates no action is occurring on the Cohesity Cluster. &#39;kDestroy&#39; indicates the Cohesity Cluster is getting destoryed. &#39;kClean&#39; indicates the Cohesity Cluster is getting cleaned. &#39;kRestartServices&#39; indicates the Cohesity Cluster is restarting the services.</value>
-        [DataMember(Name="currentOperation", EmitDefaultValue=true)]
+        [DataMember(Name="currentOperation", EmitDefaultValue=false)]
         public CurrentOperationEnum? CurrentOperation { get; set; }
         /// <summary>
         /// Specifies the level which &#39;MetadataFaultToleranceFactor&#39; applies to. &#39;kNode&#39; indicates &#39;MetadataFaultToleranceFactor&#39; applies to Node level. &#39;kChassis&#39; indicates &#39;MetadataFaultToleranceFactor&#39; applies to Chassis level. &#39;kRack&#39; indicates &#39;MetadataFaultToleranceFactor&#39; applies to Rack level.
@@ -147,12 +150,13 @@ namespace Cohesity.Model
         /// Specifies the level which &#39;MetadataFaultToleranceFactor&#39; applies to. &#39;kNode&#39; indicates &#39;MetadataFaultToleranceFactor&#39; applies to Node level. &#39;kChassis&#39; indicates &#39;MetadataFaultToleranceFactor&#39; applies to Chassis level. &#39;kRack&#39; indicates &#39;MetadataFaultToleranceFactor&#39; applies to Rack level.
         /// </summary>
         /// <value>Specifies the level which &#39;MetadataFaultToleranceFactor&#39; applies to. &#39;kNode&#39; indicates &#39;MetadataFaultToleranceFactor&#39; applies to Node level. &#39;kChassis&#39; indicates &#39;MetadataFaultToleranceFactor&#39; applies to Chassis level. &#39;kRack&#39; indicates &#39;MetadataFaultToleranceFactor&#39; applies to Rack level.</value>
-        [DataMember(Name="faultToleranceLevel", EmitDefaultValue=true)]
+        [DataMember(Name="faultToleranceLevel", EmitDefaultValue=false)]
         public FaultToleranceLevelEnum? FaultToleranceLevel { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="Cluster" /> class.
         /// </summary>
-        /// <param name="appsSettings">appsSettings.</param>
+        /// <param name="amqpTargetConfig">amqpTargetConfig.</param>
+        /// <param name="appsSubnet">appsSubnet.</param>
         /// <param name="assignedRacksCount">Specifies the number of racks in cluster with at least one rack assigned..</param>
         /// <param name="availableMetadataSpace">Information about storage available for metadata.</param>
         /// <param name="bannerEnabled">Specifies whether UI banner is enabled on the cluster or not. When banner is enabled, UI will make an additional API call to fetch the banner and show at the login page..</param>
@@ -167,6 +171,7 @@ namespace Cohesity.Model
         /// <param name="dnsServerIps">Array of IP Addresses of DNS Servers.  Specifies the IP addresses of the DNS Servers used by the Cohesity Cluster..</param>
         /// <param name="domainNames">Array of Domain Names.  The first domain name specified in the array is the fully qualified domain name assigned to the Cohesity Cluster. Any additional domain names specified are used for the domain search list for hostname look-up..</param>
         /// <param name="enableActiveMonitoring">Specifies if Cohesity can receive monitoring information from the Cohesity Cluster. If &#39;true&#39;, remote monitoring of the Cohesity Cluster is allowed..</param>
+        /// <param name="enablePatchesDownload">Specifies whether to enable downloading patches from Cohesity download site..</param>
         /// <param name="enableUpgradePkgPolling">If &#39;true&#39;, Cohesity&#39;s upgrade server is polled for new releases..</param>
         /// <param name="encryptionEnabled">If &#39;true&#39;, the entire Cohesity Cluster is encrypted including all View Boxes..</param>
         /// <param name="encryptionKeyRotationPeriodSecs">Specifies the period of time (in seconds) when encryption keys are rotated. By default, the encryption keys are rotated every 77760000 seconds (30 days)..</param>
@@ -180,80 +185,45 @@ namespace Cohesity.Model
         /// <param name="id">Specifies the unique id of Cohesity Cluster..</param>
         /// <param name="incarnationId">Specifies the unique incarnation id of the Cohesity Cluster..</param>
         /// <param name="ipPreference">IP preference.</param>
+        /// <param name="isClusterMfaEnabled">Specifies if MFA is enabled on cluster..</param>
         /// <param name="isDocumentationLocal">Specifies what version of the documentation is used. If &#39;true&#39;, the version of documentation stored locally on the Cohesity Cluster is used. If &#39;false&#39;, the documentation stored on a Cohesity Web Server is used. The default is &#39;false&#39;. Cohesity recommends accessing the Help from the Cohesity Web site which provides the newest and most complete version of Help..</param>
+        /// <param name="kmsServerId">Specifies the KMS Server Id. This can only be set when the encryption is enabled on cluster..</param>
         /// <param name="languageLocale">Specifies the language and locale for this Cohesity Cluster..</param>
         /// <param name="licenseState">Specifies the Licensing State information..</param>
         /// <param name="localAuthDomainName">Domain name for SMB local authentication..</param>
         /// <param name="localGroupsEnabled">Specifies whether to enable local groups on cluster. Once it is enabled, it cannot be disabled..</param>
         /// <param name="metadataFaultToleranceFactor">Specifies metadata fault tolerance setting for the cluster. This denotes the number of simultaneous failures[node] supported by metadata services like gandalf and scribe..</param>
+        /// <param name="minimumFailureDomainsNeeded">Specifies minimum failure domains needed in the cluster..</param>
         /// <param name="multiTenancyEnabled">Specifies if multi tenancy is enabled in the cluster. Authentication &amp; Authorization will always use tenant_id, however, some UI elements may be disabled when multi tenancy is disabled..</param>
         /// <param name="name">Specifies the name of the Cohesity Cluster..</param>
         /// <param name="nodeCount">Specifies the number of Nodes in the Cohesity Cluster..</param>
         /// <param name="nodeIps">IP addresses of nodes in the cluster.</param>
         /// <param name="ntpSettings">ntpSettings.</param>
+        /// <param name="patchVersion">Specifies the patch version applied to cluster..</param>
         /// <param name="pcieSsdTierRebalanceDelaySecs">Specifies the rebalance delay in seconds for cluster PcieSSD storage tier..</param>
+        /// <param name="protoRpcEncryptionEnabled">Specifies if protorpc encryption is enabled or not..</param>
         /// <param name="proxyVMSubnet">The subnet reserved for ProxyVM.</param>
         /// <param name="reverseTunnelEnabled">If &#39;true&#39;, Cohesity&#39;s Remote Tunnel is enabled. Cohesity can access the Cluster and provide remote assistance via a Remote Tunnel..</param>
         /// <param name="reverseTunnelEndTimeMsecs">ReverseTunnelEndTimeMsecs specifies the end time in milliseconds since epoch until when the reverse tunnel will stay enabled..</param>
         /// <param name="schemaInfoList">Specifies the time series schema info of the cluster..</param>
+        /// <param name="securityModeDod">Specifies if Security Mode DOD is enabled or not..</param>
         /// <param name="smbAdDisabled">Specifies if Active Directory should be disabled for authentication of SMB shares. If &#39;true&#39;, Active Directory is disabled..</param>
+        /// <param name="smbMultichannelEnabled">Specifies whether SMB multichannel is enabled on the cluster. When this is set to true, then any SMB3 multichannel enabled client can establish multiple TCP connection per session to the Server..</param>
         /// <param name="stats">stats.</param>
-        /// <param name="stigMode">Specifies if STIG mode is enabled or not..</param>
+        /// <param name="stigMode">TODO(mitch) StigMode is deprecated. Should it still be in this list??.</param>
         /// <param name="supportedConfig">supportedConfig.</param>
+        /// <param name="syslogServers">Syslog servers..</param>
         /// <param name="targetSoftwareVersion">Specifies the Cohesity release that this Cluster is being upgraded to if an upgrade operation is in progress..</param>
         /// <param name="tenantViewboxSharingEnabled">In case multi tenancy is enabled, this flag controls whether multiple tenants can be placed on the same viewbox. Once set to true, this flag should never become false..</param>
+        /// <param name="tieringAuditLogConfig">tieringAuditLogConfig.</param>
         /// <param name="timezone">Specifies the timezone to use for showing time in emails, reports, filer audit logs, etc..</param>
         /// <param name="turboMode">Specifies if the cluster is in Turbo mode..</param>
+        /// <param name="useHeimdall">Specifies whether to enable Heimdall which tells whether services should use temporary fleet instances to mount disks by talking to Heimdall..</param>
         /// <param name="usedMetadataSpacePct">UsedMetadataSpacePct measures the percentage about storage used for metadata over the total storage available for metadata.</param>
-        public Cluster(AppsConfig appsSettings = default(AppsConfig), int? assignedRacksCount = default(int?), long? availableMetadataSpace = default(long?), bool? bannerEnabled = default(bool?), int? chassisCount = default(int?), ClusterAuditLogConfiguration clusterAuditLogConfig = default(ClusterAuditLogConfiguration), string clusterSoftwareVersion = default(string), ClusterTypeEnum? clusterType = default(ClusterTypeEnum?), long? createdTimeMsecs = default(long?), long? currentOpScheduledTimeSecs = default(long?), CurrentOperationEnum? currentOperation = default(CurrentOperationEnum?), long? currentTimeMsecs = default(long?), List<string> dnsServerIps = default(List<string>), List<string> domainNames = default(List<string>), bool? enableActiveMonitoring = default(bool?), bool? enableUpgradePkgPolling = default(bool?), bool? encryptionEnabled = default(bool?), long? encryptionKeyRotationPeriodSecs = default(long?), EulaConfig eulaConfig = default(EulaConfig), FaultToleranceLevelEnum? faultToleranceLevel = default(FaultToleranceLevelEnum?), FilerAuditLogConfiguration filerAuditLogConfig = default(FilerAuditLogConfiguration), bool? fipsModeEnabled = default(bool?), string gateway = default(string), bool? googleAnalyticsEnabled = default(bool?), ClusterHardwareInfo hardwareInfo = default(ClusterHardwareInfo), long? id = default(long?), long? incarnationId = default(long?), int? ipPreference = default(int?), bool? isDocumentationLocal = default(bool?), string languageLocale = default(string), LicenseState licenseState = default(LicenseState), string localAuthDomainName = default(string), bool? localGroupsEnabled = default(bool?), int? metadataFaultToleranceFactor = default(int?), bool? multiTenancyEnabled = default(bool?), string name = default(string), long? nodeCount = default(long?), string nodeIps = default(string), NtpSettingsConfig ntpSettings = default(NtpSettingsConfig), int? pcieSsdTierRebalanceDelaySecs = default(int?), string proxyVMSubnet = default(string), bool? reverseTunnelEnabled = default(bool?), long? reverseTunnelEndTimeMsecs = default(long?), List<SchemaInfo> schemaInfoList = default(List<SchemaInfo>), bool? smbAdDisabled = default(bool?), ClusterStats stats = default(ClusterStats), bool? stigMode = default(bool?), SupportedConfig supportedConfig = default(SupportedConfig), string targetSoftwareVersion = default(string), bool? tenantViewboxSharingEnabled = default(bool?), string timezone = default(string), bool? turboMode = default(bool?), double? usedMetadataSpacePct = default(double?))
+        public Cluster(AMQPTargetConfig amqpTargetConfig = default(AMQPTargetConfig), Subnet appsSubnet = default(Subnet), int? assignedRacksCount = default(int?), long? availableMetadataSpace = default(long?), bool? bannerEnabled = default(bool?), int? chassisCount = default(int?), ClusterAuditLogConfiguration clusterAuditLogConfig = default(ClusterAuditLogConfiguration), string clusterSoftwareVersion = default(string), ClusterTypeEnum? clusterType = default(ClusterTypeEnum?), long? createdTimeMsecs = default(long?), long? currentOpScheduledTimeSecs = default(long?), CurrentOperationEnum? currentOperation = default(CurrentOperationEnum?), long? currentTimeMsecs = default(long?), List<string> dnsServerIps = default(List<string>), List<string> domainNames = default(List<string>), bool? enableActiveMonitoring = default(bool?), bool? enablePatchesDownload = default(bool?), bool? enableUpgradePkgPolling = default(bool?), bool? encryptionEnabled = default(bool?), long? encryptionKeyRotationPeriodSecs = default(long?), EulaConfig eulaConfig = default(EulaConfig), FaultToleranceLevelEnum? faultToleranceLevel = default(FaultToleranceLevelEnum?), FilerAuditLogConfiguration filerAuditLogConfig = default(FilerAuditLogConfiguration), bool? fipsModeEnabled = default(bool?), string gateway = default(string), bool? googleAnalyticsEnabled = default(bool?), ClusterHardwareInfo hardwareInfo = default(ClusterHardwareInfo), long? id = default(long?), long? incarnationId = default(long?), int? ipPreference = default(int?), bool? isClusterMfaEnabled = default(bool?), bool? isDocumentationLocal = default(bool?), long? kmsServerId = default(long?), string languageLocale = default(string), LicenseState licenseState = default(LicenseState), string localAuthDomainName = default(string), bool? localGroupsEnabled = default(bool?), int? metadataFaultToleranceFactor = default(int?), int? minimumFailureDomainsNeeded = default(int?), bool? multiTenancyEnabled = default(bool?), string name = default(string), long? nodeCount = default(long?), string nodeIps = default(string), NtpSettingsConfig ntpSettings = default(NtpSettingsConfig), string patchVersion = default(string), int? pcieSsdTierRebalanceDelaySecs = default(int?), bool? protoRpcEncryptionEnabled = default(bool?), string proxyVMSubnet = default(string), bool? reverseTunnelEnabled = default(bool?), long? reverseTunnelEndTimeMsecs = default(long?), List<SchemaInfo> schemaInfoList = default(List<SchemaInfo>), bool? securityModeDod = default(bool?), bool? smbAdDisabled = default(bool?), bool? smbMultichannelEnabled = default(bool?), ClusterStats stats = default(ClusterStats), bool? stigMode = default(bool?), SupportedConfig supportedConfig = default(SupportedConfig), List<OldSyslogServer> syslogServers = default(List<OldSyslogServer>), string targetSoftwareVersion = default(string), bool? tenantViewboxSharingEnabled = default(bool?), TieringAuditLogConfiguration tieringAuditLogConfig = default(TieringAuditLogConfiguration), string timezone = default(string), bool? turboMode = default(bool?), bool? useHeimdall = default(bool?), double? usedMetadataSpacePct = default(double?))
         {
-            this.AssignedRacksCount = assignedRacksCount;
-            this.AvailableMetadataSpace = availableMetadataSpace;
-            this.BannerEnabled = bannerEnabled;
-            this.ChassisCount = chassisCount;
-            this.ClusterSoftwareVersion = clusterSoftwareVersion;
-            this.ClusterType = clusterType;
-            this.CreatedTimeMsecs = createdTimeMsecs;
-            this.CurrentOpScheduledTimeSecs = currentOpScheduledTimeSecs;
-            this.CurrentOperation = currentOperation;
-            this.CurrentTimeMsecs = currentTimeMsecs;
-            this.DnsServerIps = dnsServerIps;
-            this.DomainNames = domainNames;
-            this.EnableActiveMonitoring = enableActiveMonitoring;
-            this.EnableUpgradePkgPolling = enableUpgradePkgPolling;
-            this.EncryptionEnabled = encryptionEnabled;
-            this.EncryptionKeyRotationPeriodSecs = encryptionKeyRotationPeriodSecs;
-            this.EulaConfig = eulaConfig;
-            this.FaultToleranceLevel = faultToleranceLevel;
-            this.FipsModeEnabled = fipsModeEnabled;
-            this.Gateway = gateway;
-            this.GoogleAnalyticsEnabled = googleAnalyticsEnabled;
-            this.Id = id;
-            this.IncarnationId = incarnationId;
-            this.IpPreference = ipPreference;
-            this.IsDocumentationLocal = isDocumentationLocal;
-            this.LanguageLocale = languageLocale;
-            this.LicenseState = licenseState;
-            this.LocalAuthDomainName = localAuthDomainName;
-            this.LocalGroupsEnabled = localGroupsEnabled;
-            this.MetadataFaultToleranceFactor = metadataFaultToleranceFactor;
-            this.MultiTenancyEnabled = multiTenancyEnabled;
-            this.Name = name;
-            this.NodeCount = nodeCount;
-            this.NodeIps = nodeIps;
-            this.PcieSsdTierRebalanceDelaySecs = pcieSsdTierRebalanceDelaySecs;
-            this.ProxyVMSubnet = proxyVMSubnet;
-            this.ReverseTunnelEnabled = reverseTunnelEnabled;
-            this.ReverseTunnelEndTimeMsecs = reverseTunnelEndTimeMsecs;
-            this.SchemaInfoList = schemaInfoList;
-            this.SmbAdDisabled = smbAdDisabled;
-            this.StigMode = stigMode;
-            this.TargetSoftwareVersion = targetSoftwareVersion;
-            this.TenantViewboxSharingEnabled = tenantViewboxSharingEnabled;
-            this.Timezone = timezone;
-            this.TurboMode = turboMode;
-            this.UsedMetadataSpacePct = usedMetadataSpacePct;
-            this.AppsSettings = appsSettings;
+            this.AmqpTargetConfig = amqpTargetConfig;
+            this.AppsSubnet = appsSubnet;
             this.AssignedRacksCount = assignedRacksCount;
             this.AvailableMetadataSpace = availableMetadataSpace;
             this.BannerEnabled = bannerEnabled;
@@ -268,6 +238,7 @@ namespace Cohesity.Model
             this.DnsServerIps = dnsServerIps;
             this.DomainNames = domainNames;
             this.EnableActiveMonitoring = enableActiveMonitoring;
+            this.EnablePatchesDownload = enablePatchesDownload;
             this.EnableUpgradePkgPolling = enableUpgradePkgPolling;
             this.EncryptionEnabled = encryptionEnabled;
             this.EncryptionKeyRotationPeriodSecs = encryptionKeyRotationPeriodSecs;
@@ -281,65 +252,81 @@ namespace Cohesity.Model
             this.Id = id;
             this.IncarnationId = incarnationId;
             this.IpPreference = ipPreference;
+            this.IsClusterMfaEnabled = isClusterMfaEnabled;
             this.IsDocumentationLocal = isDocumentationLocal;
+            this.KmsServerId = kmsServerId;
             this.LanguageLocale = languageLocale;
             this.LicenseState = licenseState;
             this.LocalAuthDomainName = localAuthDomainName;
             this.LocalGroupsEnabled = localGroupsEnabled;
             this.MetadataFaultToleranceFactor = metadataFaultToleranceFactor;
+            this.MinimumFailureDomainsNeeded = minimumFailureDomainsNeeded;
             this.MultiTenancyEnabled = multiTenancyEnabled;
             this.Name = name;
             this.NodeCount = nodeCount;
             this.NodeIps = nodeIps;
             this.NtpSettings = ntpSettings;
+            this.PatchVersion = patchVersion;
             this.PcieSsdTierRebalanceDelaySecs = pcieSsdTierRebalanceDelaySecs;
+            this.ProtoRpcEncryptionEnabled = protoRpcEncryptionEnabled;
             this.ProxyVMSubnet = proxyVMSubnet;
             this.ReverseTunnelEnabled = reverseTunnelEnabled;
             this.ReverseTunnelEndTimeMsecs = reverseTunnelEndTimeMsecs;
             this.SchemaInfoList = schemaInfoList;
+            this.SecurityModeDod = securityModeDod;
             this.SmbAdDisabled = smbAdDisabled;
+            this.SmbMultichannelEnabled = smbMultichannelEnabled;
             this.Stats = stats;
             this.StigMode = stigMode;
             this.SupportedConfig = supportedConfig;
+            this.SyslogServers = syslogServers;
             this.TargetSoftwareVersion = targetSoftwareVersion;
             this.TenantViewboxSharingEnabled = tenantViewboxSharingEnabled;
+            this.TieringAuditLogConfig = tieringAuditLogConfig;
             this.Timezone = timezone;
             this.TurboMode = turboMode;
+            this.UseHeimdall = useHeimdall;
             this.UsedMetadataSpacePct = usedMetadataSpacePct;
         }
         
         /// <summary>
-        /// Gets or Sets AppsSettings
+        /// Gets or Sets AmqpTargetConfig
         /// </summary>
-        [DataMember(Name="appsSettings", EmitDefaultValue=false)]
-        public AppsConfig AppsSettings { get; set; }
+        [DataMember(Name="amqpTargetConfig", EmitDefaultValue=false)]
+        public AMQPTargetConfig AmqpTargetConfig { get; set; }
+
+        /// <summary>
+        /// Gets or Sets AppsSubnet
+        /// </summary>
+        [DataMember(Name="appsSubnet", EmitDefaultValue=false)]
+        public Subnet AppsSubnet { get; set; }
 
         /// <summary>
         /// Specifies the number of racks in cluster with at least one rack assigned.
         /// </summary>
         /// <value>Specifies the number of racks in cluster with at least one rack assigned.</value>
-        [DataMember(Name="assignedRacksCount", EmitDefaultValue=true)]
+        [DataMember(Name="assignedRacksCount", EmitDefaultValue=false)]
         public int? AssignedRacksCount { get; set; }
 
         /// <summary>
         /// Information about storage available for metadata
         /// </summary>
         /// <value>Information about storage available for metadata</value>
-        [DataMember(Name="availableMetadataSpace", EmitDefaultValue=true)]
+        [DataMember(Name="availableMetadataSpace", EmitDefaultValue=false)]
         public long? AvailableMetadataSpace { get; set; }
 
         /// <summary>
         /// Specifies whether UI banner is enabled on the cluster or not. When banner is enabled, UI will make an additional API call to fetch the banner and show at the login page.
         /// </summary>
         /// <value>Specifies whether UI banner is enabled on the cluster or not. When banner is enabled, UI will make an additional API call to fetch the banner and show at the login page.</value>
-        [DataMember(Name="bannerEnabled", EmitDefaultValue=true)]
+        [DataMember(Name="bannerEnabled", EmitDefaultValue=false)]
         public bool? BannerEnabled { get; set; }
 
         /// <summary>
         /// Specifies the number of chassis in cluster.
         /// </summary>
         /// <value>Specifies the number of chassis in cluster.</value>
-        [DataMember(Name="chassisCount", EmitDefaultValue=true)]
+        [DataMember(Name="chassisCount", EmitDefaultValue=false)]
         public int? ChassisCount { get; set; }
 
         /// <summary>
@@ -352,78 +339,88 @@ namespace Cohesity.Model
         /// Specifies the current release of the Cohesity software running on this Cohesity Cluster.
         /// </summary>
         /// <value>Specifies the current release of the Cohesity software running on this Cohesity Cluster.</value>
-        [DataMember(Name="clusterSoftwareVersion", EmitDefaultValue=true)]
+        [DataMember(Name="clusterSoftwareVersion", EmitDefaultValue=false)]
         public string ClusterSoftwareVersion { get; set; }
+
 
         /// <summary>
         /// Specifies the time when the Cohesity Cluster was created. This value is specified as a Unix epoch Timestamp (in microseconds).
         /// </summary>
         /// <value>Specifies the time when the Cohesity Cluster was created. This value is specified as a Unix epoch Timestamp (in microseconds).</value>
-        [DataMember(Name="createdTimeMsecs", EmitDefaultValue=true)]
+        [DataMember(Name="createdTimeMsecs", EmitDefaultValue=false)]
         public long? CreatedTimeMsecs { get; set; }
 
         /// <summary>
         /// Specifies the time scheduled by the Cohesity Cluster to start the current running operation.
         /// </summary>
         /// <value>Specifies the time scheduled by the Cohesity Cluster to start the current running operation.</value>
-        [DataMember(Name="currentOpScheduledTimeSecs", EmitDefaultValue=true)]
+        [DataMember(Name="currentOpScheduledTimeSecs", EmitDefaultValue=false)]
         public long? CurrentOpScheduledTimeSecs { get; set; }
+
 
         /// <summary>
         /// Specifies the current system time on the Cohesity Cluster. This value is specified as a Unix epoch Timestamp (in microseconds).
         /// </summary>
         /// <value>Specifies the current system time on the Cohesity Cluster. This value is specified as a Unix epoch Timestamp (in microseconds).</value>
-        [DataMember(Name="currentTimeMsecs", EmitDefaultValue=true)]
+        [DataMember(Name="currentTimeMsecs", EmitDefaultValue=false)]
         public long? CurrentTimeMsecs { get; set; }
 
         /// <summary>
         /// Array of IP Addresses of DNS Servers.  Specifies the IP addresses of the DNS Servers used by the Cohesity Cluster.
         /// </summary>
         /// <value>Array of IP Addresses of DNS Servers.  Specifies the IP addresses of the DNS Servers used by the Cohesity Cluster.</value>
-        [DataMember(Name="dnsServerIps", EmitDefaultValue=true)]
+        [DataMember(Name="dnsServerIps", EmitDefaultValue=false)]
         public List<string> DnsServerIps { get; set; }
 
         /// <summary>
         /// Array of Domain Names.  The first domain name specified in the array is the fully qualified domain name assigned to the Cohesity Cluster. Any additional domain names specified are used for the domain search list for hostname look-up.
         /// </summary>
         /// <value>Array of Domain Names.  The first domain name specified in the array is the fully qualified domain name assigned to the Cohesity Cluster. Any additional domain names specified are used for the domain search list for hostname look-up.</value>
-        [DataMember(Name="domainNames", EmitDefaultValue=true)]
+        [DataMember(Name="domainNames", EmitDefaultValue=false)]
         public List<string> DomainNames { get; set; }
 
         /// <summary>
         /// Specifies if Cohesity can receive monitoring information from the Cohesity Cluster. If &#39;true&#39;, remote monitoring of the Cohesity Cluster is allowed.
         /// </summary>
         /// <value>Specifies if Cohesity can receive monitoring information from the Cohesity Cluster. If &#39;true&#39;, remote monitoring of the Cohesity Cluster is allowed.</value>
-        [DataMember(Name="enableActiveMonitoring", EmitDefaultValue=true)]
+        [DataMember(Name="enableActiveMonitoring", EmitDefaultValue=false)]
         public bool? EnableActiveMonitoring { get; set; }
+
+        /// <summary>
+        /// Specifies whether to enable downloading patches from Cohesity download site.
+        /// </summary>
+        /// <value>Specifies whether to enable downloading patches from Cohesity download site.</value>
+        [DataMember(Name="enablePatchesDownload", EmitDefaultValue=false)]
+        public bool? EnablePatchesDownload { get; set; }
 
         /// <summary>
         /// If &#39;true&#39;, Cohesity&#39;s upgrade server is polled for new releases.
         /// </summary>
         /// <value>If &#39;true&#39;, Cohesity&#39;s upgrade server is polled for new releases.</value>
-        [DataMember(Name="enableUpgradePkgPolling", EmitDefaultValue=true)]
+        [DataMember(Name="enableUpgradePkgPolling", EmitDefaultValue=false)]
         public bool? EnableUpgradePkgPolling { get; set; }
 
         /// <summary>
         /// If &#39;true&#39;, the entire Cohesity Cluster is encrypted including all View Boxes.
         /// </summary>
         /// <value>If &#39;true&#39;, the entire Cohesity Cluster is encrypted including all View Boxes.</value>
-        [DataMember(Name="encryptionEnabled", EmitDefaultValue=true)]
+        [DataMember(Name="encryptionEnabled", EmitDefaultValue=false)]
         public bool? EncryptionEnabled { get; set; }
 
         /// <summary>
         /// Specifies the period of time (in seconds) when encryption keys are rotated. By default, the encryption keys are rotated every 77760000 seconds (30 days).
         /// </summary>
         /// <value>Specifies the period of time (in seconds) when encryption keys are rotated. By default, the encryption keys are rotated every 77760000 seconds (30 days).</value>
-        [DataMember(Name="encryptionKeyRotationPeriodSecs", EmitDefaultValue=true)]
+        [DataMember(Name="encryptionKeyRotationPeriodSecs", EmitDefaultValue=false)]
         public long? EncryptionKeyRotationPeriodSecs { get; set; }
 
         /// <summary>
         /// Specifies the End User License Agreement (EULA) acceptance information.
         /// </summary>
         /// <value>Specifies the End User License Agreement (EULA) acceptance information.</value>
-        [DataMember(Name="eulaConfig", EmitDefaultValue=true)]
+        [DataMember(Name="eulaConfig", EmitDefaultValue=false)]
         public EulaConfig EulaConfig { get; set; }
+
 
         /// <summary>
         /// Gets or Sets FilerAuditLogConfig
@@ -435,21 +432,21 @@ namespace Cohesity.Model
         /// Specifies if the Cohesity Cluster should operate in the FIPS mode, which is compliant with the Federal Information Processing Standard 140-2 certification.
         /// </summary>
         /// <value>Specifies if the Cohesity Cluster should operate in the FIPS mode, which is compliant with the Federal Information Processing Standard 140-2 certification.</value>
-        [DataMember(Name="fipsModeEnabled", EmitDefaultValue=true)]
+        [DataMember(Name="fipsModeEnabled", EmitDefaultValue=false)]
         public bool? FipsModeEnabled { get; set; }
 
         /// <summary>
         /// Specifies the gateway IP address.
         /// </summary>
         /// <value>Specifies the gateway IP address.</value>
-        [DataMember(Name="gateway", EmitDefaultValue=true)]
+        [DataMember(Name="gateway", EmitDefaultValue=false)]
         public string Gateway { get; set; }
 
         /// <summary>
         /// Specifies whether Google Analytics is enabled.
         /// </summary>
         /// <value>Specifies whether Google Analytics is enabled.</value>
-        [DataMember(Name="googleAnalyticsEnabled", EmitDefaultValue=true)]
+        [DataMember(Name="googleAnalyticsEnabled", EmitDefaultValue=false)]
         public bool? GoogleAnalyticsEnabled { get; set; }
 
         /// <summary>
@@ -462,91 +459,112 @@ namespace Cohesity.Model
         /// Specifies the unique id of Cohesity Cluster.
         /// </summary>
         /// <value>Specifies the unique id of Cohesity Cluster.</value>
-        [DataMember(Name="id", EmitDefaultValue=true)]
+        [DataMember(Name="id", EmitDefaultValue=false)]
         public long? Id { get; set; }
 
         /// <summary>
         /// Specifies the unique incarnation id of the Cohesity Cluster.
         /// </summary>
         /// <value>Specifies the unique incarnation id of the Cohesity Cluster.</value>
-        [DataMember(Name="incarnationId", EmitDefaultValue=true)]
+        [DataMember(Name="incarnationId", EmitDefaultValue=false)]
         public long? IncarnationId { get; set; }
 
         /// <summary>
         /// IP preference
         /// </summary>
         /// <value>IP preference</value>
-        [DataMember(Name="ipPreference", EmitDefaultValue=true)]
+        [DataMember(Name="ipPreference", EmitDefaultValue=false)]
         public int? IpPreference { get; set; }
+
+        /// <summary>
+        /// Specifies if MFA is enabled on cluster.
+        /// </summary>
+        /// <value>Specifies if MFA is enabled on cluster.</value>
+        [DataMember(Name="isClusterMfaEnabled", EmitDefaultValue=false)]
+        public bool? IsClusterMfaEnabled { get; set; }
 
         /// <summary>
         /// Specifies what version of the documentation is used. If &#39;true&#39;, the version of documentation stored locally on the Cohesity Cluster is used. If &#39;false&#39;, the documentation stored on a Cohesity Web Server is used. The default is &#39;false&#39;. Cohesity recommends accessing the Help from the Cohesity Web site which provides the newest and most complete version of Help.
         /// </summary>
         /// <value>Specifies what version of the documentation is used. If &#39;true&#39;, the version of documentation stored locally on the Cohesity Cluster is used. If &#39;false&#39;, the documentation stored on a Cohesity Web Server is used. The default is &#39;false&#39;. Cohesity recommends accessing the Help from the Cohesity Web site which provides the newest and most complete version of Help.</value>
-        [DataMember(Name="isDocumentationLocal", EmitDefaultValue=true)]
+        [DataMember(Name="isDocumentationLocal", EmitDefaultValue=false)]
         public bool? IsDocumentationLocal { get; set; }
+
+        /// <summary>
+        /// Specifies the KMS Server Id. This can only be set when the encryption is enabled on cluster.
+        /// </summary>
+        /// <value>Specifies the KMS Server Id. This can only be set when the encryption is enabled on cluster.</value>
+        [DataMember(Name="kmsServerId", EmitDefaultValue=false)]
+        public long? KmsServerId { get; set; }
 
         /// <summary>
         /// Specifies the language and locale for this Cohesity Cluster.
         /// </summary>
         /// <value>Specifies the language and locale for this Cohesity Cluster.</value>
-        [DataMember(Name="languageLocale", EmitDefaultValue=true)]
+        [DataMember(Name="languageLocale", EmitDefaultValue=false)]
         public string LanguageLocale { get; set; }
 
         /// <summary>
         /// Specifies the Licensing State information.
         /// </summary>
         /// <value>Specifies the Licensing State information.</value>
-        [DataMember(Name="licenseState", EmitDefaultValue=true)]
+        [DataMember(Name="licenseState", EmitDefaultValue=false)]
         public LicenseState LicenseState { get; set; }
 
         /// <summary>
         /// Domain name for SMB local authentication.
         /// </summary>
         /// <value>Domain name for SMB local authentication.</value>
-        [DataMember(Name="localAuthDomainName", EmitDefaultValue=true)]
+        [DataMember(Name="localAuthDomainName", EmitDefaultValue=false)]
         public string LocalAuthDomainName { get; set; }
 
         /// <summary>
         /// Specifies whether to enable local groups on cluster. Once it is enabled, it cannot be disabled.
         /// </summary>
         /// <value>Specifies whether to enable local groups on cluster. Once it is enabled, it cannot be disabled.</value>
-        [DataMember(Name="localGroupsEnabled", EmitDefaultValue=true)]
+        [DataMember(Name="localGroupsEnabled", EmitDefaultValue=false)]
         public bool? LocalGroupsEnabled { get; set; }
 
         /// <summary>
         /// Specifies metadata fault tolerance setting for the cluster. This denotes the number of simultaneous failures[node] supported by metadata services like gandalf and scribe.
         /// </summary>
         /// <value>Specifies metadata fault tolerance setting for the cluster. This denotes the number of simultaneous failures[node] supported by metadata services like gandalf and scribe.</value>
-        [DataMember(Name="metadataFaultToleranceFactor", EmitDefaultValue=true)]
+        [DataMember(Name="metadataFaultToleranceFactor", EmitDefaultValue=false)]
         public int? MetadataFaultToleranceFactor { get; set; }
+
+        /// <summary>
+        /// Specifies minimum failure domains needed in the cluster.
+        /// </summary>
+        /// <value>Specifies minimum failure domains needed in the cluster.</value>
+        [DataMember(Name="minimumFailureDomainsNeeded", EmitDefaultValue=false)]
+        public int? MinimumFailureDomainsNeeded { get; set; }
 
         /// <summary>
         /// Specifies if multi tenancy is enabled in the cluster. Authentication &amp; Authorization will always use tenant_id, however, some UI elements may be disabled when multi tenancy is disabled.
         /// </summary>
         /// <value>Specifies if multi tenancy is enabled in the cluster. Authentication &amp; Authorization will always use tenant_id, however, some UI elements may be disabled when multi tenancy is disabled.</value>
-        [DataMember(Name="multiTenancyEnabled", EmitDefaultValue=true)]
+        [DataMember(Name="multiTenancyEnabled", EmitDefaultValue=false)]
         public bool? MultiTenancyEnabled { get; set; }
 
         /// <summary>
         /// Specifies the name of the Cohesity Cluster.
         /// </summary>
         /// <value>Specifies the name of the Cohesity Cluster.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
 
         /// <summary>
         /// Specifies the number of Nodes in the Cohesity Cluster.
         /// </summary>
         /// <value>Specifies the number of Nodes in the Cohesity Cluster.</value>
-        [DataMember(Name="nodeCount", EmitDefaultValue=true)]
+        [DataMember(Name="nodeCount", EmitDefaultValue=false)]
         public long? NodeCount { get; set; }
 
         /// <summary>
         /// IP addresses of nodes in the cluster
         /// </summary>
         /// <value>IP addresses of nodes in the cluster</value>
-        [DataMember(Name="nodeIps", EmitDefaultValue=true)]
+        [DataMember(Name="nodeIps", EmitDefaultValue=false)]
         public string NodeIps { get; set; }
 
         /// <summary>
@@ -556,46 +574,74 @@ namespace Cohesity.Model
         public NtpSettingsConfig NtpSettings { get; set; }
 
         /// <summary>
+        /// Specifies the patch version applied to cluster.
+        /// </summary>
+        /// <value>Specifies the patch version applied to cluster.</value>
+        [DataMember(Name="patchVersion", EmitDefaultValue=false)]
+        public string PatchVersion { get; set; }
+
+        /// <summary>
         /// Specifies the rebalance delay in seconds for cluster PcieSSD storage tier.
         /// </summary>
         /// <value>Specifies the rebalance delay in seconds for cluster PcieSSD storage tier.</value>
-        [DataMember(Name="pcieSsdTierRebalanceDelaySecs", EmitDefaultValue=true)]
+        [DataMember(Name="pcieSsdTierRebalanceDelaySecs", EmitDefaultValue=false)]
         public int? PcieSsdTierRebalanceDelaySecs { get; set; }
+
+        /// <summary>
+        /// Specifies if protorpc encryption is enabled or not.
+        /// </summary>
+        /// <value>Specifies if protorpc encryption is enabled or not.</value>
+        [DataMember(Name="protoRpcEncryptionEnabled", EmitDefaultValue=false)]
+        public bool? ProtoRpcEncryptionEnabled { get; set; }
 
         /// <summary>
         /// The subnet reserved for ProxyVM
         /// </summary>
         /// <value>The subnet reserved for ProxyVM</value>
-        [DataMember(Name="proxyVMSubnet", EmitDefaultValue=true)]
+        [DataMember(Name="proxyVMSubnet", EmitDefaultValue=false)]
         public string ProxyVMSubnet { get; set; }
 
         /// <summary>
         /// If &#39;true&#39;, Cohesity&#39;s Remote Tunnel is enabled. Cohesity can access the Cluster and provide remote assistance via a Remote Tunnel.
         /// </summary>
         /// <value>If &#39;true&#39;, Cohesity&#39;s Remote Tunnel is enabled. Cohesity can access the Cluster and provide remote assistance via a Remote Tunnel.</value>
-        [DataMember(Name="reverseTunnelEnabled", EmitDefaultValue=true)]
+        [DataMember(Name="reverseTunnelEnabled", EmitDefaultValue=false)]
         public bool? ReverseTunnelEnabled { get; set; }
 
         /// <summary>
         /// ReverseTunnelEndTimeMsecs specifies the end time in milliseconds since epoch until when the reverse tunnel will stay enabled.
         /// </summary>
         /// <value>ReverseTunnelEndTimeMsecs specifies the end time in milliseconds since epoch until when the reverse tunnel will stay enabled.</value>
-        [DataMember(Name="reverseTunnelEndTimeMsecs", EmitDefaultValue=true)]
+        [DataMember(Name="reverseTunnelEndTimeMsecs", EmitDefaultValue=false)]
         public long? ReverseTunnelEndTimeMsecs { get; set; }
 
         /// <summary>
         /// Specifies the time series schema info of the cluster.
         /// </summary>
         /// <value>Specifies the time series schema info of the cluster.</value>
-        [DataMember(Name="schemaInfoList", EmitDefaultValue=true)]
+        [DataMember(Name="schemaInfoList", EmitDefaultValue=false)]
         public List<SchemaInfo> SchemaInfoList { get; set; }
+
+        /// <summary>
+        /// Specifies if Security Mode DOD is enabled or not.
+        /// </summary>
+        /// <value>Specifies if Security Mode DOD is enabled or not.</value>
+        [DataMember(Name="securityModeDod", EmitDefaultValue=false)]
+        public bool? SecurityModeDod { get; set; }
 
         /// <summary>
         /// Specifies if Active Directory should be disabled for authentication of SMB shares. If &#39;true&#39;, Active Directory is disabled.
         /// </summary>
         /// <value>Specifies if Active Directory should be disabled for authentication of SMB shares. If &#39;true&#39;, Active Directory is disabled.</value>
-        [DataMember(Name="smbAdDisabled", EmitDefaultValue=true)]
+        [DataMember(Name="smbAdDisabled", EmitDefaultValue=false)]
         public bool? SmbAdDisabled { get; set; }
+
+        /// <summary>
+        /// Specifies whether SMB multichannel is enabled on the cluster. When this is set to true, then any SMB3 multichannel enabled client can establish multiple TCP connection per session to the Server.
+        /// </summary>
+        /// <value>Specifies whether SMB multichannel is enabled on the cluster. When this is set to true, then any SMB3 multichannel enabled client can establish multiple TCP connection per session to the Server.</value>
+        [DataMember(Name="smbMultichannelEnabled", EmitDefaultValue=false)]
+        public bool? SmbMultichannelEnabled { get; set; }
 
         /// <summary>
         /// Gets or Sets Stats
@@ -604,10 +650,10 @@ namespace Cohesity.Model
         public ClusterStats Stats { get; set; }
 
         /// <summary>
-        /// Specifies if STIG mode is enabled or not.
+        /// TODO(mitch) StigMode is deprecated. Should it still be in this list??
         /// </summary>
-        /// <value>Specifies if STIG mode is enabled or not.</value>
-        [DataMember(Name="stigMode", EmitDefaultValue=true)]
+        /// <value>TODO(mitch) StigMode is deprecated. Should it still be in this list??</value>
+        [DataMember(Name="stigMode", EmitDefaultValue=false)]
         public bool? StigMode { get; set; }
 
         /// <summary>
@@ -617,38 +663,58 @@ namespace Cohesity.Model
         public SupportedConfig SupportedConfig { get; set; }
 
         /// <summary>
+        /// Syslog servers.
+        /// </summary>
+        /// <value>Syslog servers.</value>
+        [DataMember(Name="syslogServers", EmitDefaultValue=false)]
+        public List<OldSyslogServer> SyslogServers { get; set; }
+
+        /// <summary>
         /// Specifies the Cohesity release that this Cluster is being upgraded to if an upgrade operation is in progress.
         /// </summary>
         /// <value>Specifies the Cohesity release that this Cluster is being upgraded to if an upgrade operation is in progress.</value>
-        [DataMember(Name="targetSoftwareVersion", EmitDefaultValue=true)]
+        [DataMember(Name="targetSoftwareVersion", EmitDefaultValue=false)]
         public string TargetSoftwareVersion { get; set; }
 
         /// <summary>
         /// In case multi tenancy is enabled, this flag controls whether multiple tenants can be placed on the same viewbox. Once set to true, this flag should never become false.
         /// </summary>
         /// <value>In case multi tenancy is enabled, this flag controls whether multiple tenants can be placed on the same viewbox. Once set to true, this flag should never become false.</value>
-        [DataMember(Name="tenantViewboxSharingEnabled", EmitDefaultValue=true)]
+        [DataMember(Name="tenantViewboxSharingEnabled", EmitDefaultValue=false)]
         public bool? TenantViewboxSharingEnabled { get; set; }
+
+        /// <summary>
+        /// Gets or Sets TieringAuditLogConfig
+        /// </summary>
+        [DataMember(Name="tieringAuditLogConfig", EmitDefaultValue=false)]
+        public TieringAuditLogConfiguration TieringAuditLogConfig { get; set; }
 
         /// <summary>
         /// Specifies the timezone to use for showing time in emails, reports, filer audit logs, etc.
         /// </summary>
         /// <value>Specifies the timezone to use for showing time in emails, reports, filer audit logs, etc.</value>
-        [DataMember(Name="timezone", EmitDefaultValue=true)]
+        [DataMember(Name="timezone", EmitDefaultValue=false)]
         public string Timezone { get; set; }
 
         /// <summary>
         /// Specifies if the cluster is in Turbo mode.
         /// </summary>
         /// <value>Specifies if the cluster is in Turbo mode.</value>
-        [DataMember(Name="turboMode", EmitDefaultValue=true)]
+        [DataMember(Name="turboMode", EmitDefaultValue=false)]
         public bool? TurboMode { get; set; }
+
+        /// <summary>
+        /// Specifies whether to enable Heimdall which tells whether services should use temporary fleet instances to mount disks by talking to Heimdall.
+        /// </summary>
+        /// <value>Specifies whether to enable Heimdall which tells whether services should use temporary fleet instances to mount disks by talking to Heimdall.</value>
+        [DataMember(Name="useHeimdall", EmitDefaultValue=false)]
+        public bool? UseHeimdall { get; set; }
 
         /// <summary>
         /// UsedMetadataSpacePct measures the percentage about storage used for metadata over the total storage available for metadata
         /// </summary>
         /// <value>UsedMetadataSpacePct measures the percentage about storage used for metadata over the total storage available for metadata</value>
-        [DataMember(Name="usedMetadataSpacePct", EmitDefaultValue=true)]
+        [DataMember(Name="usedMetadataSpacePct", EmitDefaultValue=false)]
         public double? UsedMetadataSpacePct { get; set; }
 
         /// <summary>
@@ -688,9 +754,14 @@ namespace Cohesity.Model
 
             return 
                 (
-                    this.AppsSettings == input.AppsSettings ||
-                    (this.AppsSettings != null &&
-                    this.AppsSettings.Equals(input.AppsSettings))
+                    this.AmqpTargetConfig == input.AmqpTargetConfig ||
+                    (this.AmqpTargetConfig != null &&
+                    this.AmqpTargetConfig.Equals(input.AmqpTargetConfig))
+                ) && 
+                (
+                    this.AppsSubnet == input.AppsSubnet ||
+                    (this.AppsSubnet != null &&
+                    this.AppsSubnet.Equals(input.AppsSubnet))
                 ) && 
                 (
                     this.AssignedRacksCount == input.AssignedRacksCount ||
@@ -724,7 +795,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.ClusterType == input.ClusterType ||
-                    this.ClusterType.Equals(input.ClusterType)
+                    (this.ClusterType != null &&
+                    this.ClusterType.Equals(input.ClusterType))
                 ) && 
                 (
                     this.CreatedTimeMsecs == input.CreatedTimeMsecs ||
@@ -738,7 +810,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.CurrentOperation == input.CurrentOperation ||
-                    this.CurrentOperation.Equals(input.CurrentOperation)
+                    (this.CurrentOperation != null &&
+                    this.CurrentOperation.Equals(input.CurrentOperation))
                 ) && 
                 (
                     this.CurrentTimeMsecs == input.CurrentTimeMsecs ||
@@ -748,19 +821,22 @@ namespace Cohesity.Model
                 (
                     this.DnsServerIps == input.DnsServerIps ||
                     this.DnsServerIps != null &&
-                    input.DnsServerIps != null &&
-                    this.DnsServerIps.SequenceEqual(input.DnsServerIps)
+                    this.DnsServerIps.Equals(input.DnsServerIps)
                 ) && 
                 (
                     this.DomainNames == input.DomainNames ||
                     this.DomainNames != null &&
-                    input.DomainNames != null &&
-                    this.DomainNames.SequenceEqual(input.DomainNames)
+                    this.DomainNames.Equals(input.DomainNames)
                 ) && 
                 (
                     this.EnableActiveMonitoring == input.EnableActiveMonitoring ||
                     (this.EnableActiveMonitoring != null &&
                     this.EnableActiveMonitoring.Equals(input.EnableActiveMonitoring))
+                ) && 
+                (
+                    this.EnablePatchesDownload == input.EnablePatchesDownload ||
+                    (this.EnablePatchesDownload != null &&
+                    this.EnablePatchesDownload.Equals(input.EnablePatchesDownload))
                 ) && 
                 (
                     this.EnableUpgradePkgPolling == input.EnableUpgradePkgPolling ||
@@ -779,12 +855,13 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.EulaConfig == input.EulaConfig ||
-                    (this.EulaConfig != null &&
-                    this.EulaConfig.Equals(input.EulaConfig))
+                    this.EulaConfig != null &&
+                    this.EulaConfig.Equals(input.EulaConfig)
                 ) && 
                 (
                     this.FaultToleranceLevel == input.FaultToleranceLevel ||
-                    this.FaultToleranceLevel.Equals(input.FaultToleranceLevel)
+                    (this.FaultToleranceLevel != null &&
+                    this.FaultToleranceLevel.Equals(input.FaultToleranceLevel))
                 ) && 
                 (
                     this.FilerAuditLogConfig == input.FilerAuditLogConfig ||
@@ -827,9 +904,19 @@ namespace Cohesity.Model
                     this.IpPreference.Equals(input.IpPreference))
                 ) && 
                 (
+                    this.IsClusterMfaEnabled == input.IsClusterMfaEnabled ||
+                    (this.IsClusterMfaEnabled != null &&
+                    this.IsClusterMfaEnabled.Equals(input.IsClusterMfaEnabled))
+                ) && 
+                (
                     this.IsDocumentationLocal == input.IsDocumentationLocal ||
                     (this.IsDocumentationLocal != null &&
                     this.IsDocumentationLocal.Equals(input.IsDocumentationLocal))
+                ) && 
+                (
+                    this.KmsServerId == input.KmsServerId ||
+                    (this.KmsServerId != null &&
+                    this.KmsServerId.Equals(input.KmsServerId))
                 ) && 
                 (
                     this.LanguageLocale == input.LanguageLocale ||
@@ -838,8 +925,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.LicenseState == input.LicenseState ||
-                    (this.LicenseState != null &&
-                    this.LicenseState.Equals(input.LicenseState))
+                    this.LicenseState != null &&
+                    this.LicenseState.Equals(input.LicenseState)
                 ) && 
                 (
                     this.LocalAuthDomainName == input.LocalAuthDomainName ||
@@ -855,6 +942,11 @@ namespace Cohesity.Model
                     this.MetadataFaultToleranceFactor == input.MetadataFaultToleranceFactor ||
                     (this.MetadataFaultToleranceFactor != null &&
                     this.MetadataFaultToleranceFactor.Equals(input.MetadataFaultToleranceFactor))
+                ) && 
+                (
+                    this.MinimumFailureDomainsNeeded == input.MinimumFailureDomainsNeeded ||
+                    (this.MinimumFailureDomainsNeeded != null &&
+                    this.MinimumFailureDomainsNeeded.Equals(input.MinimumFailureDomainsNeeded))
                 ) && 
                 (
                     this.MultiTenancyEnabled == input.MultiTenancyEnabled ||
@@ -882,9 +974,19 @@ namespace Cohesity.Model
                     this.NtpSettings.Equals(input.NtpSettings))
                 ) && 
                 (
+                    this.PatchVersion == input.PatchVersion ||
+                    (this.PatchVersion != null &&
+                    this.PatchVersion.Equals(input.PatchVersion))
+                ) && 
+                (
                     this.PcieSsdTierRebalanceDelaySecs == input.PcieSsdTierRebalanceDelaySecs ||
                     (this.PcieSsdTierRebalanceDelaySecs != null &&
                     this.PcieSsdTierRebalanceDelaySecs.Equals(input.PcieSsdTierRebalanceDelaySecs))
+                ) && 
+                (
+                    this.ProtoRpcEncryptionEnabled == input.ProtoRpcEncryptionEnabled ||
+                    (this.ProtoRpcEncryptionEnabled != null &&
+                    this.ProtoRpcEncryptionEnabled.Equals(input.ProtoRpcEncryptionEnabled))
                 ) && 
                 (
                     this.ProxyVMSubnet == input.ProxyVMSubnet ||
@@ -904,13 +1006,22 @@ namespace Cohesity.Model
                 (
                     this.SchemaInfoList == input.SchemaInfoList ||
                     this.SchemaInfoList != null &&
-                    input.SchemaInfoList != null &&
-                    this.SchemaInfoList.SequenceEqual(input.SchemaInfoList)
+                    this.SchemaInfoList.Equals(input.SchemaInfoList)
+                ) && 
+                (
+                    this.SecurityModeDod == input.SecurityModeDod ||
+                    (this.SecurityModeDod != null &&
+                    this.SecurityModeDod.Equals(input.SecurityModeDod))
                 ) && 
                 (
                     this.SmbAdDisabled == input.SmbAdDisabled ||
                     (this.SmbAdDisabled != null &&
                     this.SmbAdDisabled.Equals(input.SmbAdDisabled))
+                ) && 
+                (
+                    this.SmbMultichannelEnabled == input.SmbMultichannelEnabled ||
+                    (this.SmbMultichannelEnabled != null &&
+                    this.SmbMultichannelEnabled.Equals(input.SmbMultichannelEnabled))
                 ) && 
                 (
                     this.Stats == input.Stats ||
@@ -928,6 +1039,11 @@ namespace Cohesity.Model
                     this.SupportedConfig.Equals(input.SupportedConfig))
                 ) && 
                 (
+                    this.SyslogServers == input.SyslogServers ||
+                    this.SyslogServers != null &&
+                    this.SyslogServers.Equals(input.SyslogServers)
+                ) && 
+                (
                     this.TargetSoftwareVersion == input.TargetSoftwareVersion ||
                     (this.TargetSoftwareVersion != null &&
                     this.TargetSoftwareVersion.Equals(input.TargetSoftwareVersion))
@@ -938,6 +1054,11 @@ namespace Cohesity.Model
                     this.TenantViewboxSharingEnabled.Equals(input.TenantViewboxSharingEnabled))
                 ) && 
                 (
+                    this.TieringAuditLogConfig == input.TieringAuditLogConfig ||
+                    (this.TieringAuditLogConfig != null &&
+                    this.TieringAuditLogConfig.Equals(input.TieringAuditLogConfig))
+                ) && 
+                (
                     this.Timezone == input.Timezone ||
                     (this.Timezone != null &&
                     this.Timezone.Equals(input.Timezone))
@@ -946,6 +1067,11 @@ namespace Cohesity.Model
                     this.TurboMode == input.TurboMode ||
                     (this.TurboMode != null &&
                     this.TurboMode.Equals(input.TurboMode))
+                ) && 
+                (
+                    this.UseHeimdall == input.UseHeimdall ||
+                    (this.UseHeimdall != null &&
+                    this.UseHeimdall.Equals(input.UseHeimdall))
                 ) && 
                 (
                     this.UsedMetadataSpacePct == input.UsedMetadataSpacePct ||
@@ -963,8 +1089,10 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                if (this.AppsSettings != null)
-                    hashCode = hashCode * 59 + this.AppsSettings.GetHashCode();
+                if (this.AmqpTargetConfig != null)
+                    hashCode = hashCode * 59 + this.AmqpTargetConfig.GetHashCode();
+                if (this.AppsSubnet != null)
+                    hashCode = hashCode * 59 + this.AppsSubnet.GetHashCode();
                 if (this.AssignedRacksCount != null)
                     hashCode = hashCode * 59 + this.AssignedRacksCount.GetHashCode();
                 if (this.AvailableMetadataSpace != null)
@@ -977,12 +1105,14 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ClusterAuditLogConfig.GetHashCode();
                 if (this.ClusterSoftwareVersion != null)
                     hashCode = hashCode * 59 + this.ClusterSoftwareVersion.GetHashCode();
-                hashCode = hashCode * 59 + this.ClusterType.GetHashCode();
+                if (this.ClusterType != null)
+                    hashCode = hashCode * 59 + this.ClusterType.GetHashCode();
                 if (this.CreatedTimeMsecs != null)
                     hashCode = hashCode * 59 + this.CreatedTimeMsecs.GetHashCode();
                 if (this.CurrentOpScheduledTimeSecs != null)
                     hashCode = hashCode * 59 + this.CurrentOpScheduledTimeSecs.GetHashCode();
-                hashCode = hashCode * 59 + this.CurrentOperation.GetHashCode();
+                if (this.CurrentOperation != null)
+                    hashCode = hashCode * 59 + this.CurrentOperation.GetHashCode();
                 if (this.CurrentTimeMsecs != null)
                     hashCode = hashCode * 59 + this.CurrentTimeMsecs.GetHashCode();
                 if (this.DnsServerIps != null)
@@ -991,6 +1121,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.DomainNames.GetHashCode();
                 if (this.EnableActiveMonitoring != null)
                     hashCode = hashCode * 59 + this.EnableActiveMonitoring.GetHashCode();
+                if (this.EnablePatchesDownload != null)
+                    hashCode = hashCode * 59 + this.EnablePatchesDownload.GetHashCode();
                 if (this.EnableUpgradePkgPolling != null)
                     hashCode = hashCode * 59 + this.EnableUpgradePkgPolling.GetHashCode();
                 if (this.EncryptionEnabled != null)
@@ -999,7 +1131,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.EncryptionKeyRotationPeriodSecs.GetHashCode();
                 if (this.EulaConfig != null)
                     hashCode = hashCode * 59 + this.EulaConfig.GetHashCode();
-                hashCode = hashCode * 59 + this.FaultToleranceLevel.GetHashCode();
+                if (this.FaultToleranceLevel != null)
+                    hashCode = hashCode * 59 + this.FaultToleranceLevel.GetHashCode();
                 if (this.FilerAuditLogConfig != null)
                     hashCode = hashCode * 59 + this.FilerAuditLogConfig.GetHashCode();
                 if (this.FipsModeEnabled != null)
@@ -1016,8 +1149,12 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.IncarnationId.GetHashCode();
                 if (this.IpPreference != null)
                     hashCode = hashCode * 59 + this.IpPreference.GetHashCode();
+                if (this.IsClusterMfaEnabled != null)
+                    hashCode = hashCode * 59 + this.IsClusterMfaEnabled.GetHashCode();
                 if (this.IsDocumentationLocal != null)
                     hashCode = hashCode * 59 + this.IsDocumentationLocal.GetHashCode();
+                if (this.KmsServerId != null)
+                    hashCode = hashCode * 59 + this.KmsServerId.GetHashCode();
                 if (this.LanguageLocale != null)
                     hashCode = hashCode * 59 + this.LanguageLocale.GetHashCode();
                 if (this.LicenseState != null)
@@ -1028,6 +1165,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.LocalGroupsEnabled.GetHashCode();
                 if (this.MetadataFaultToleranceFactor != null)
                     hashCode = hashCode * 59 + this.MetadataFaultToleranceFactor.GetHashCode();
+                if (this.MinimumFailureDomainsNeeded != null)
+                    hashCode = hashCode * 59 + this.MinimumFailureDomainsNeeded.GetHashCode();
                 if (this.MultiTenancyEnabled != null)
                     hashCode = hashCode * 59 + this.MultiTenancyEnabled.GetHashCode();
                 if (this.Name != null)
@@ -1038,8 +1177,12 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.NodeIps.GetHashCode();
                 if (this.NtpSettings != null)
                     hashCode = hashCode * 59 + this.NtpSettings.GetHashCode();
+                if (this.PatchVersion != null)
+                    hashCode = hashCode * 59 + this.PatchVersion.GetHashCode();
                 if (this.PcieSsdTierRebalanceDelaySecs != null)
                     hashCode = hashCode * 59 + this.PcieSsdTierRebalanceDelaySecs.GetHashCode();
+                if (this.ProtoRpcEncryptionEnabled != null)
+                    hashCode = hashCode * 59 + this.ProtoRpcEncryptionEnabled.GetHashCode();
                 if (this.ProxyVMSubnet != null)
                     hashCode = hashCode * 59 + this.ProxyVMSubnet.GetHashCode();
                 if (this.ReverseTunnelEnabled != null)
@@ -1048,22 +1191,32 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ReverseTunnelEndTimeMsecs.GetHashCode();
                 if (this.SchemaInfoList != null)
                     hashCode = hashCode * 59 + this.SchemaInfoList.GetHashCode();
+                if (this.SecurityModeDod != null)
+                    hashCode = hashCode * 59 + this.SecurityModeDod.GetHashCode();
                 if (this.SmbAdDisabled != null)
                     hashCode = hashCode * 59 + this.SmbAdDisabled.GetHashCode();
+                if (this.SmbMultichannelEnabled != null)
+                    hashCode = hashCode * 59 + this.SmbMultichannelEnabled.GetHashCode();
                 if (this.Stats != null)
                     hashCode = hashCode * 59 + this.Stats.GetHashCode();
                 if (this.StigMode != null)
                     hashCode = hashCode * 59 + this.StigMode.GetHashCode();
                 if (this.SupportedConfig != null)
                     hashCode = hashCode * 59 + this.SupportedConfig.GetHashCode();
+                if (this.SyslogServers != null)
+                    hashCode = hashCode * 59 + this.SyslogServers.GetHashCode();
                 if (this.TargetSoftwareVersion != null)
                     hashCode = hashCode * 59 + this.TargetSoftwareVersion.GetHashCode();
                 if (this.TenantViewboxSharingEnabled != null)
                     hashCode = hashCode * 59 + this.TenantViewboxSharingEnabled.GetHashCode();
+                if (this.TieringAuditLogConfig != null)
+                    hashCode = hashCode * 59 + this.TieringAuditLogConfig.GetHashCode();
                 if (this.Timezone != null)
                     hashCode = hashCode * 59 + this.Timezone.GetHashCode();
                 if (this.TurboMode != null)
                     hashCode = hashCode * 59 + this.TurboMode.GetHashCode();
+                if (this.UseHeimdall != null)
+                    hashCode = hashCode * 59 + this.UseHeimdall.GetHashCode();
                 if (this.UsedMetadataSpacePct != null)
                     hashCode = hashCode * 59 + this.UsedMetadataSpacePct.GetHashCode();
                 return hashCode;

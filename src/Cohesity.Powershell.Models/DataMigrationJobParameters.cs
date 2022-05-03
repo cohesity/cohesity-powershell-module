@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -51,7 +54,7 @@ namespace Cohesity.Model
         /// Specifies policy to select a file to migrate based on its creation, last access or modification time. eg. A file can be selected to migrate if it has not been accessed/modified in the ColdFileWindow. enum: kOlderThan, kLastAccessed, kLastModified. Specifies policy for file selection in data migration jobs based on time. &#39;kOlderThan&#39;: Migrate the files that are older than cold file window. &#39;kLastAccessed&#39;: Migrate the files that are not accessed in cold file window. &#39;kLastModified&#39;: Migrate the files that have not been modified in cold file window.
         /// </summary>
         /// <value>Specifies policy to select a file to migrate based on its creation, last access or modification time. eg. A file can be selected to migrate if it has not been accessed/modified in the ColdFileWindow. enum: kOlderThan, kLastAccessed, kLastModified. Specifies policy for file selection in data migration jobs based on time. &#39;kOlderThan&#39;: Migrate the files that are older than cold file window. &#39;kLastAccessed&#39;: Migrate the files that are not accessed in cold file window. &#39;kLastModified&#39;: Migrate the files that have not been modified in cold file window.</value>
-        [DataMember(Name="fileSelectionPolicy", EmitDefaultValue=true)]
+        [DataMember(Name="fileSelectionPolicy", EmitDefaultValue=false)]
         public FileSelectionPolicyEnum? FileSelectionPolicy { get; set; }
         /// <summary>
         /// Specifies policy to select a file to migrate based on its size. eg. A file can be selected to migrate if its size is greater than or smaller than the FileSizeBytes. enum: kGreaterThan, kSmallerThan. Specifies policy for file selection in data migration jobs based on file size. &#39;kGreaterThan&#39;: Migrate the files whose size are greater than specified file size. &#39;kSmallerThan&#39;: Migrate the files whose size are smaller than specified file size.
@@ -78,7 +81,7 @@ namespace Cohesity.Model
         /// Specifies policy to select a file to migrate based on its size. eg. A file can be selected to migrate if its size is greater than or smaller than the FileSizeBytes. enum: kGreaterThan, kSmallerThan. Specifies policy for file selection in data migration jobs based on file size. &#39;kGreaterThan&#39;: Migrate the files whose size are greater than specified file size. &#39;kSmallerThan&#39;: Migrate the files whose size are smaller than specified file size.
         /// </summary>
         /// <value>Specifies policy to select a file to migrate based on its size. eg. A file can be selected to migrate if its size is greater than or smaller than the FileSizeBytes. enum: kGreaterThan, kSmallerThan. Specifies policy for file selection in data migration jobs based on file size. &#39;kGreaterThan&#39;: Migrate the files whose size are greater than specified file size. &#39;kSmallerThan&#39;: Migrate the files whose size are smaller than specified file size.</value>
-        [DataMember(Name="fileSizePolicy", EmitDefaultValue=true)]
+        [DataMember(Name="fileSizePolicy", EmitDefaultValue=false)]
         public FileSizePolicyEnum? FileSizePolicy { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="DataMigrationJobParameters" /> class.
@@ -96,14 +99,6 @@ namespace Cohesity.Model
         {
             this.ColdFileWindow = coldFileWindow;
             this.DeleteOrphanData = deleteOrphanData;
-            this.FileSelectionPolicy = fileSelectionPolicy;
-            this.FileSizeBytes = fileSizeBytes;
-            this.FileSizePolicy = fileSizePolicy;
-            this.MigrateWithoutStub = migrateWithoutStub;
-            this.NfsMountPath = nfsMountPath;
-            this.TargetViewName = targetViewName;
-            this.ColdFileWindow = coldFileWindow;
-            this.DeleteOrphanData = deleteOrphanData;
             this.FilePathFilter = filePathFilter;
             this.FileSelectionPolicy = fileSelectionPolicy;
             this.FileSizeBytes = fileSizeBytes;
@@ -117,14 +112,14 @@ namespace Cohesity.Model
         /// Identifies the cold files in the NAS source. Files that haven&#39;t been accessed/modified in the last cold_file_window are migrated.
         /// </summary>
         /// <value>Identifies the cold files in the NAS source. Files that haven&#39;t been accessed/modified in the last cold_file_window are migrated.</value>
-        [DataMember(Name="coldFileWindow", EmitDefaultValue=true)]
+        [DataMember(Name="coldFileWindow", EmitDefaultValue=false)]
         public long? ColdFileWindow { get; set; }
 
         /// <summary>
         /// Delete migrated data if no symlink at source is pointing to it.
         /// </summary>
         /// <value>Delete migrated data if no symlink at source is pointing to it.</value>
-        [DataMember(Name="deleteOrphanData", EmitDefaultValue=true)]
+        [DataMember(Name="deleteOrphanData", EmitDefaultValue=false)]
         public bool? DeleteOrphanData { get; set; }
 
         /// <summary>
@@ -133,32 +128,34 @@ namespace Cohesity.Model
         [DataMember(Name="filePathFilter", EmitDefaultValue=false)]
         public FilePathFilter FilePathFilter { get; set; }
 
+
         /// <summary>
         /// Gives the size criteria to be used for selecting the files to be migrated in bytes. The cold files that are equal and greater than this size are migrated.
         /// </summary>
         /// <value>Gives the size criteria to be used for selecting the files to be migrated in bytes. The cold files that are equal and greater than this size are migrated.</value>
-        [DataMember(Name="fileSizeBytes", EmitDefaultValue=true)]
+        [DataMember(Name="fileSizeBytes", EmitDefaultValue=false)]
         public long? FileSizeBytes { get; set; }
+
 
         /// <summary>
         /// Specifies if data is to be migrated without stub.
         /// </summary>
         /// <value>Specifies if data is to be migrated without stub.</value>
-        [DataMember(Name="migrateWithoutStub", EmitDefaultValue=true)]
+        [DataMember(Name="migrateWithoutStub", EmitDefaultValue=false)]
         public bool? MigrateWithoutStub { get; set; }
 
         /// <summary>
         /// Mount path where the target view must be mounted on all NFS clients for accessing the migrated data.
         /// </summary>
         /// <value>Mount path where the target view must be mounted on all NFS clients for accessing the migrated data.</value>
-        [DataMember(Name="nfsMountPath", EmitDefaultValue=true)]
+        [DataMember(Name="nfsMountPath", EmitDefaultValue=false)]
         public string NfsMountPath { get; set; }
 
         /// <summary>
         /// The target view name to which the data will be migrated.
         /// </summary>
         /// <value>The target view name to which the data will be migrated.</value>
-        [DataMember(Name="targetViewName", EmitDefaultValue=true)]
+        [DataMember(Name="targetViewName", EmitDefaultValue=false)]
         public string TargetViewName { get; set; }
 
         /// <summary>
@@ -214,7 +211,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.FileSelectionPolicy == input.FileSelectionPolicy ||
-                    this.FileSelectionPolicy.Equals(input.FileSelectionPolicy)
+                    (this.FileSelectionPolicy != null &&
+                    this.FileSelectionPolicy.Equals(input.FileSelectionPolicy))
                 ) && 
                 (
                     this.FileSizeBytes == input.FileSizeBytes ||
@@ -223,7 +221,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.FileSizePolicy == input.FileSizePolicy ||
-                    this.FileSizePolicy.Equals(input.FileSizePolicy)
+                    (this.FileSizePolicy != null &&
+                    this.FileSizePolicy.Equals(input.FileSizePolicy))
                 ) && 
                 (
                     this.MigrateWithoutStub == input.MigrateWithoutStub ||
@@ -257,10 +256,12 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.DeleteOrphanData.GetHashCode();
                 if (this.FilePathFilter != null)
                     hashCode = hashCode * 59 + this.FilePathFilter.GetHashCode();
-                hashCode = hashCode * 59 + this.FileSelectionPolicy.GetHashCode();
+                if (this.FileSelectionPolicy != null)
+                    hashCode = hashCode * 59 + this.FileSelectionPolicy.GetHashCode();
                 if (this.FileSizeBytes != null)
                     hashCode = hashCode * 59 + this.FileSizeBytes.GetHashCode();
-                hashCode = hashCode * 59 + this.FileSizePolicy.GetHashCode();
+                if (this.FileSizePolicy != null)
+                    hashCode = hashCode * 59 + this.FileSizePolicy.GetHashCode();
                 if (this.MigrateWithoutStub != null)
                     hashCode = hashCode * 59 + this.MigrateWithoutStub.GetHashCode();
                 if (this.NfsMountPath != null)

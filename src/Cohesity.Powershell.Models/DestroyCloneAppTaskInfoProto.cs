@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,8 +34,6 @@ namespace Cohesity.Model
         public DestroyCloneAppTaskInfoProto(int? appEnv = default(int?), ErrorProto error = default(ErrorProto), bool? finished = default(bool?), EntityProto targetEntity = default(EntityProto), Credentials targetEntityCredentials = default(Credentials))
         {
             this.AppEnv = appEnv;
-            this.Finished = finished;
-            this.AppEnv = appEnv;
             this.Error = error;
             this.Finished = finished;
             this.TargetEntity = targetEntity;
@@ -43,7 +44,7 @@ namespace Cohesity.Model
         /// The application environment.
         /// </summary>
         /// <value>The application environment.</value>
-        [DataMember(Name="appEnv", EmitDefaultValue=true)]
+        [DataMember(Name="appEnv", EmitDefaultValue=false)]
         public int? AppEnv { get; set; }
 
         /// <summary>
@@ -56,7 +57,7 @@ namespace Cohesity.Model
         /// This will be set to true if the task is complete on the slave.
         /// </summary>
         /// <value>This will be set to true if the task is complete on the slave.</value>
-        [DataMember(Name="finished", EmitDefaultValue=true)]
+        [DataMember(Name="finished", EmitDefaultValue=false)]
         public bool? Finished { get; set; }
 
         /// <summary>

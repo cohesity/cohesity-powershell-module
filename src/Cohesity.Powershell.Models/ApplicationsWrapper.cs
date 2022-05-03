@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,14 +30,13 @@ namespace Cohesity.Model
         public ApplicationsWrapper(List<MapReduceInfo> applications = default(List<MapReduceInfo>))
         {
             this.Applications = applications;
-            this.Applications = applications;
         }
         
         /// <summary>
         /// Applications specifies the list of available map-reduce applications in analytics workbench.
         /// </summary>
         /// <value>Applications specifies the list of available map-reduce applications in analytics workbench.</value>
-        [DataMember(Name="applications", EmitDefaultValue=true)]
+        [DataMember(Name="applications", EmitDefaultValue=false)]
         public List<MapReduceInfo> Applications { get; set; }
 
         /// <summary>
@@ -76,8 +78,7 @@ namespace Cohesity.Model
                 (
                     this.Applications == input.Applications ||
                     this.Applications != null &&
-                    input.Applications != null &&
-                    this.Applications.SequenceEqual(input.Applications)
+                    this.Applications.Equals(input.Applications)
                 );
         }
 

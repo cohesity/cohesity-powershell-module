@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,14 +30,13 @@ namespace Cohesity.Model
         public UpdateEulaConfig(long? signedVersion = default(long?))
         {
             this.SignedVersion = signedVersion;
-            this.SignedVersion = signedVersion;
         }
         
         /// <summary>
         /// Specifies the version of the End User License Agreement that was accepted.
         /// </summary>
         /// <value>Specifies the version of the End User License Agreement that was accepted.</value>
-        [DataMember(Name="signedVersion", EmitDefaultValue=true)]
+        [DataMember(Name="signedVersion", EmitDefaultValue=false)]
         public long? SignedVersion { get; set; }
 
         /// <summary>

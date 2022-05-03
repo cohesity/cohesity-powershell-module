@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -57,7 +60,7 @@ namespace Cohesity.Model
         /// StorageTier is the type of StorageTier. StorageTierType represents the various values for the Storage Tier. &#39;kPCIeSSD&#39; indicates storage tier type of Pci Solid State Drive. &#39;kSATAHDD&#39; indicates storage tier type of SATA Solid State Drive. &#39;kSATAHDD&#39; indicates storage tier type of SATA Hard Disk Drive. &#39;kCLOUD&#39; indicates storage tier type of Cloud.
         /// </summary>
         /// <value>StorageTier is the type of StorageTier. StorageTierType represents the various values for the Storage Tier. &#39;kPCIeSSD&#39; indicates storage tier type of Pci Solid State Drive. &#39;kSATAHDD&#39; indicates storage tier type of SATA Solid State Drive. &#39;kSATAHDD&#39; indicates storage tier type of SATA Hard Disk Drive. &#39;kCLOUD&#39; indicates storage tier type of Cloud.</value>
-        [DataMember(Name="storageTier", EmitDefaultValue=true)]
+        [DataMember(Name="storageTier", EmitDefaultValue=false)]
         public StorageTierEnum? StorageTier { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="CountByTier" /> class.
@@ -68,16 +71,15 @@ namespace Cohesity.Model
         {
             this.DiskCount = diskCount;
             this.StorageTier = storageTier;
-            this.DiskCount = diskCount;
-            this.StorageTier = storageTier;
         }
         
         /// <summary>
         /// DiskCount is the disk number of the storage tier.
         /// </summary>
         /// <value>DiskCount is the disk number of the storage tier.</value>
-        [DataMember(Name="diskCount", EmitDefaultValue=true)]
+        [DataMember(Name="diskCount", EmitDefaultValue=false)]
         public long? DiskCount { get; set; }
+
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -122,7 +124,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.StorageTier == input.StorageTier ||
-                    this.StorageTier.Equals(input.StorageTier)
+                    (this.StorageTier != null &&
+                    this.StorageTier.Equals(input.StorageTier))
                 );
         }
 
@@ -137,7 +140,8 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.DiskCount != null)
                     hashCode = hashCode * 59 + this.DiskCount.GetHashCode();
-                hashCode = hashCode * 59 + this.StorageTier.GetHashCode();
+                if (this.StorageTier != null)
+                    hashCode = hashCode * 59 + this.StorageTier.GetHashCode();
                 return hashCode;
             }
         }

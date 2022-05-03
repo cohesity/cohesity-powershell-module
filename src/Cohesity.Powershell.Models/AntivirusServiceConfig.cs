@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -34,10 +37,15 @@ namespace Cohesity.Model
         /// <param name="tagId">Specifies the tag Id of antivirus service..</param>
         public AntivirusServiceConfig(string description = default(string), string icapUri = default(string), string tag = default(string), long? tagId = default(long?))
         {
-            this.Description = description;
-            this.IcapUri = icapUri;
-            this.Tag = tag;
-            this.TagId = tagId;
+            // to ensure "icapUri" is required (not null)
+            if (icapUri == null)
+            {
+                throw new InvalidDataException("icapUri is a required property for AntivirusServiceConfig and cannot be null");
+            }
+            else
+            {
+                this.IcapUri = icapUri;
+            }
             this.Description = description;
             this.Tag = tag;
             this.TagId = tagId;
@@ -47,28 +55,28 @@ namespace Cohesity.Model
         /// Specifies the description of the Antivirus service. This could be any additional information admin might associate with the Antivirus service.
         /// </summary>
         /// <value>Specifies the description of the Antivirus service. This could be any additional information admin might associate with the Antivirus service.</value>
-        [DataMember(Name="description", EmitDefaultValue=true)]
+        [DataMember(Name="description", EmitDefaultValue=false)]
         public string Description { get; set; }
 
         /// <summary>
         /// Specifies the ICAP uri for this Antivirus service. It is of the form icap://&lt;ip-address&gt;[:&lt;port&gt;]/&lt;service&gt;
         /// </summary>
         /// <value>Specifies the ICAP uri for this Antivirus service. It is of the form icap://&lt;ip-address&gt;[:&lt;port&gt;]/&lt;service&gt;</value>
-        [DataMember(Name="icapUri", EmitDefaultValue=true)]
+        [DataMember(Name="icapUri", EmitDefaultValue=false)]
         public string IcapUri { get; set; }
 
         /// <summary>
         /// Specifies the tag of antivirus service. This is service-specific \&quot;cookie\&quot; sent from Antivirus server to clients that represents a service&#39;s current state. This tag validates that previous Antivirus server responses can still be considered fresh by an Antivirus client that may be caching them. If a change on the AV server invalidates previous responses, the AV server can invalidate portions of the Antivirus client&#39;s cache by changing its service tag.
         /// </summary>
         /// <value>Specifies the tag of antivirus service. This is service-specific \&quot;cookie\&quot; sent from Antivirus server to clients that represents a service&#39;s current state. This tag validates that previous Antivirus server responses can still be considered fresh by an Antivirus client that may be caching them. If a change on the AV server invalidates previous responses, the AV server can invalidate portions of the Antivirus client&#39;s cache by changing its service tag.</value>
-        [DataMember(Name="tag", EmitDefaultValue=true)]
+        [DataMember(Name="tag", EmitDefaultValue=false)]
         public string Tag { get; set; }
 
         /// <summary>
         /// Specifies the tag Id of antivirus service.
         /// </summary>
         /// <value>Specifies the tag Id of antivirus service.</value>
-        [DataMember(Name="tagId", EmitDefaultValue=true)]
+        [DataMember(Name="tagId", EmitDefaultValue=false)]
         public long? TagId { get; set; }
 
         /// <summary>

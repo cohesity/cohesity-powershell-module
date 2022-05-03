@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -48,33 +51,8 @@ namespace Cohesity.Model
         /// <param name="viewName">Specifies the view name for which the report is required..</param>
         /// <param name="viewboxIds">Specifies the viewbox ids to filter by..</param>
         /// <param name="vmName">Specifies the VM name for which to get the report data..</param>
-        public SchedulerProtoSchedulerJobScheduleJobParametersReportJobParameterReportParameters(bool? allUnderHierarchy = default(bool?), string compactVersion = default(string), int? consecutiveFailures = default(int?), string environment = default(string), int? groupBy = default(int?), List<string> healthStatus = default(List<string>), List<string> hostOsType = default(List<string>), long? jobId = default(long?), string jobName = default(string), int? lastNDays = default(int?), List<long> objectIds = default(List<long>), string objectType = default(string), long? registeredSourceId = default(long?), List<long> registeredSourceIds = default(List<long>), string rollup = default(string), List<string> runStatus = default(List<string>), string sid = default(string), List<string> tenantIdVec = default(List<string>), string timezone = default(string), int? unixUid = default(int?), List<long> vaultIds = default(List<long>), long? viewBoxId = default(long?), string viewName = default(string), List<long> viewboxIds = default(List<long>), string vmName = default(string))
+        public SchedulerProtoSchedulerJobScheduleJobParametersReportJobParameterReportParameters(bool? allUnderHierarchy = default(bool?), string compactVersion = default(string), int? consecutiveFailures = default(int?), string environment = default(string), int? groupBy = default(int?), List<string> healthStatus = default(List<string>), List<string> hostOsType = default(List<string>), long? jobId = default(long?), string jobName = default(string), int? lastNDays = default(int?), List<long?> objectIds = default(List<long?>), string objectType = default(string), long? registeredSourceId = default(long?), List<long?> registeredSourceIds = default(List<long?>), string rollup = default(string), List<string> runStatus = default(List<string>), string sid = default(string), List<string> tenantIdVec = default(List<string>), string timezone = default(string), int? unixUid = default(int?), List<long?> vaultIds = default(List<long?>), long? viewBoxId = default(long?), string viewName = default(string), List<long?> viewboxIds = default(List<long?>), string vmName = default(string))
         {
-            this.AllUnderHierarchy = allUnderHierarchy;
-            this.CompactVersion = compactVersion;
-            this.ConsecutiveFailures = consecutiveFailures;
-            this.Environment = environment;
-            this.GroupBy = groupBy;
-            this.HealthStatus = healthStatus;
-            this.HostOsType = hostOsType;
-            this.JobId = jobId;
-            this.JobName = jobName;
-            this.LastNDays = lastNDays;
-            this.ObjectIds = objectIds;
-            this.ObjectType = objectType;
-            this.RegisteredSourceId = registeredSourceId;
-            this.RegisteredSourceIds = registeredSourceIds;
-            this.Rollup = rollup;
-            this.RunStatus = runStatus;
-            this.Sid = sid;
-            this.TenantIdVec = tenantIdVec;
-            this.Timezone = timezone;
-            this.UnixUid = unixUid;
-            this.VaultIds = vaultIds;
-            this.ViewBoxId = viewBoxId;
-            this.ViewName = viewName;
-            this.ViewboxIds = viewboxIds;
-            this.VmName = vmName;
             this.AllUnderHierarchy = allUnderHierarchy;
             this.CompactVersion = compactVersion;
             this.ConsecutiveFailures = consecutiveFailures;
@@ -106,175 +84,175 @@ namespace Cohesity.Model
         /// Specifies if subtenants of the given tenants should be considered for report generation.
         /// </summary>
         /// <value>Specifies if subtenants of the given tenants should be considered for report generation.</value>
-        [DataMember(Name="allUnderHierarchy", EmitDefaultValue=true)]
+        [DataMember(Name="allUnderHierarchy", EmitDefaultValue=false)]
         public bool? AllUnderHierarchy { get; set; }
 
         /// <summary>
         /// Specifies the Cohesity Agent software version.
         /// </summary>
         /// <value>Specifies the Cohesity Agent software version.</value>
-        [DataMember(Name="compactVersion", EmitDefaultValue=true)]
+        [DataMember(Name="compactVersion", EmitDefaultValue=false)]
         public string CompactVersion { get; set; }
 
         /// <summary>
         /// Specifies the number of consecutive failures.
         /// </summary>
         /// <value>Specifies the number of consecutive failures.</value>
-        [DataMember(Name="consecutiveFailures", EmitDefaultValue=true)]
+        [DataMember(Name="consecutiveFailures", EmitDefaultValue=false)]
         public int? ConsecutiveFailures { get; set; }
 
         /// <summary>
         /// Specifies the Environment for the entity being protected.
         /// </summary>
         /// <value>Specifies the Environment for the entity being protected.</value>
-        [DataMember(Name="environment", EmitDefaultValue=true)]
+        [DataMember(Name="environment", EmitDefaultValue=false)]
         public string Environment { get; set; }
 
         /// <summary>
         /// Specifies if the report should be grouped by any field.
         /// </summary>
         /// <value>Specifies if the report should be grouped by any field.</value>
-        [DataMember(Name="groupBy", EmitDefaultValue=true)]
+        [DataMember(Name="groupBy", EmitDefaultValue=false)]
         public int? GroupBy { get; set; }
 
         /// <summary>
         /// Specifies the Cohesity Agent health status.
         /// </summary>
         /// <value>Specifies the Cohesity Agent health status.</value>
-        [DataMember(Name="healthStatus", EmitDefaultValue=true)]
+        [DataMember(Name="healthStatus", EmitDefaultValue=false)]
         public List<string> HealthStatus { get; set; }
 
         /// <summary>
         /// Specifies the OS type on which Cohesity Agent is installed.
         /// </summary>
         /// <value>Specifies the OS type on which Cohesity Agent is installed.</value>
-        [DataMember(Name="hostOsType", EmitDefaultValue=true)]
+        [DataMember(Name="hostOsType", EmitDefaultValue=false)]
         public List<string> HostOsType { get; set; }
 
         /// <summary>
         /// Specifies the id of the job for which to get the report data.
         /// </summary>
         /// <value>Specifies the id of the job for which to get the report data.</value>
-        [DataMember(Name="jobId", EmitDefaultValue=true)]
+        [DataMember(Name="jobId", EmitDefaultValue=false)]
         public long? JobId { get; set; }
 
         /// <summary>
         /// Specifies the name of the job for which to get the report data.
         /// </summary>
         /// <value>Specifies the name of the job for which to get the report data.</value>
-        [DataMember(Name="jobName", EmitDefaultValue=true)]
+        [DataMember(Name="jobName", EmitDefaultValue=false)]
         public string JobName { get; set; }
 
         /// <summary>
         /// Specifies the number of days from current date for which the report data is to be fetched.
         /// </summary>
         /// <value>Specifies the number of days from current date for which the report data is to be fetched.</value>
-        [DataMember(Name="lastNDays", EmitDefaultValue=true)]
+        [DataMember(Name="lastNDays", EmitDefaultValue=false)]
         public int? LastNDays { get; set; }
 
         /// <summary>
         /// Specifies the object ids for which to get the report data.
         /// </summary>
         /// <value>Specifies the object ids for which to get the report data.</value>
-        [DataMember(Name="objectIds", EmitDefaultValue=true)]
-        public List<long> ObjectIds { get; set; }
+        [DataMember(Name="objectIds", EmitDefaultValue=false)]
+        public List<long?> ObjectIds { get; set; }
 
         /// <summary>
         /// Specifies the object type for which to get the report data.
         /// </summary>
         /// <value>Specifies the object type for which to get the report data.</value>
-        [DataMember(Name="objectType", EmitDefaultValue=true)]
+        [DataMember(Name="objectType", EmitDefaultValue=false)]
         public string ObjectType { get; set; }
 
         /// <summary>
         /// Specifies the registered source for which to get the report data.
         /// </summary>
         /// <value>Specifies the registered source for which to get the report data.</value>
-        [DataMember(Name="registeredSourceId", EmitDefaultValue=true)]
+        [DataMember(Name="registeredSourceId", EmitDefaultValue=false)]
         public long? RegisteredSourceId { get; set; }
 
         /// <summary>
         /// Specifies the registered sources for which to get the report data.
         /// </summary>
         /// <value>Specifies the registered sources for which to get the report data.</value>
-        [DataMember(Name="registeredSourceIds", EmitDefaultValue=true)]
-        public List<long> RegisteredSourceIds { get; set; }
+        [DataMember(Name="registeredSourceIds", EmitDefaultValue=false)]
+        public List<long?> RegisteredSourceIds { get; set; }
 
         /// <summary>
         /// Specifies the rollup(day/week/month) for protected object trends report.
         /// </summary>
         /// <value>Specifies the rollup(day/week/month) for protected object trends report.</value>
-        [DataMember(Name="rollup", EmitDefaultValue=true)]
+        [DataMember(Name="rollup", EmitDefaultValue=false)]
         public string Rollup { get; set; }
 
         /// <summary>
         /// Specifies the run status for which to get the report data.
         /// </summary>
         /// <value>Specifies the run status for which to get the report data.</value>
-        [DataMember(Name="runStatus", EmitDefaultValue=true)]
+        [DataMember(Name="runStatus", EmitDefaultValue=false)]
         public List<string> RunStatus { get; set; }
 
         /// <summary>
         /// Specifies the sid of the user.
         /// </summary>
         /// <value>Specifies the sid of the user.</value>
-        [DataMember(Name="sid", EmitDefaultValue=true)]
+        [DataMember(Name="sid", EmitDefaultValue=false)]
         public string Sid { get; set; }
 
         /// <summary>
         /// Specifies tenant ids for which report needs to be generated.
         /// </summary>
         /// <value>Specifies tenant ids for which report needs to be generated.</value>
-        [DataMember(Name="tenantIdVec", EmitDefaultValue=true)]
+        [DataMember(Name="tenantIdVec", EmitDefaultValue=false)]
         public List<string> TenantIdVec { get; set; }
 
         /// <summary>
         /// Specifies the timezone.
         /// </summary>
         /// <value>Specifies the timezone.</value>
-        [DataMember(Name="timezone", EmitDefaultValue=true)]
+        [DataMember(Name="timezone", EmitDefaultValue=false)]
         public string Timezone { get; set; }
 
         /// <summary>
         /// Specifies the unix uid of the user.
         /// </summary>
         /// <value>Specifies the unix uid of the user.</value>
-        [DataMember(Name="unixUid", EmitDefaultValue=true)]
+        [DataMember(Name="unixUid", EmitDefaultValue=false)]
         public int? UnixUid { get; set; }
 
         /// <summary>
         /// Specifies the vault ids for which to get the report data.
         /// </summary>
         /// <value>Specifies the vault ids for which to get the report data.</value>
-        [DataMember(Name="vaultIds", EmitDefaultValue=true)]
-        public List<long> VaultIds { get; set; }
+        [DataMember(Name="vaultIds", EmitDefaultValue=false)]
+        public List<long?> VaultIds { get; set; }
 
         /// <summary>
         /// Specifies the view box for which to get the report data.
         /// </summary>
         /// <value>Specifies the view box for which to get the report data.</value>
-        [DataMember(Name="viewBoxId", EmitDefaultValue=true)]
+        [DataMember(Name="viewBoxId", EmitDefaultValue=false)]
         public long? ViewBoxId { get; set; }
 
         /// <summary>
         /// Specifies the view name for which the report is required.
         /// </summary>
         /// <value>Specifies the view name for which the report is required.</value>
-        [DataMember(Name="viewName", EmitDefaultValue=true)]
+        [DataMember(Name="viewName", EmitDefaultValue=false)]
         public string ViewName { get; set; }
 
         /// <summary>
         /// Specifies the viewbox ids to filter by.
         /// </summary>
         /// <value>Specifies the viewbox ids to filter by.</value>
-        [DataMember(Name="viewboxIds", EmitDefaultValue=true)]
-        public List<long> ViewboxIds { get; set; }
+        [DataMember(Name="viewboxIds", EmitDefaultValue=false)]
+        public List<long?> ViewboxIds { get; set; }
 
         /// <summary>
         /// Specifies the VM name for which to get the report data.
         /// </summary>
         /// <value>Specifies the VM name for which to get the report data.</value>
-        [DataMember(Name="vmName", EmitDefaultValue=true)]
+        [DataMember(Name="vmName", EmitDefaultValue=false)]
         public string VmName { get; set; }
 
         /// <summary>
@@ -341,14 +319,12 @@ namespace Cohesity.Model
                 (
                     this.HealthStatus == input.HealthStatus ||
                     this.HealthStatus != null &&
-                    input.HealthStatus != null &&
-                    this.HealthStatus.SequenceEqual(input.HealthStatus)
+                    this.HealthStatus.Equals(input.HealthStatus)
                 ) && 
                 (
                     this.HostOsType == input.HostOsType ||
                     this.HostOsType != null &&
-                    input.HostOsType != null &&
-                    this.HostOsType.SequenceEqual(input.HostOsType)
+                    this.HostOsType.Equals(input.HostOsType)
                 ) && 
                 (
                     this.JobId == input.JobId ||
@@ -368,8 +344,7 @@ namespace Cohesity.Model
                 (
                     this.ObjectIds == input.ObjectIds ||
                     this.ObjectIds != null &&
-                    input.ObjectIds != null &&
-                    this.ObjectIds.SequenceEqual(input.ObjectIds)
+                    this.ObjectIds.Equals(input.ObjectIds)
                 ) && 
                 (
                     this.ObjectType == input.ObjectType ||
@@ -384,8 +359,7 @@ namespace Cohesity.Model
                 (
                     this.RegisteredSourceIds == input.RegisteredSourceIds ||
                     this.RegisteredSourceIds != null &&
-                    input.RegisteredSourceIds != null &&
-                    this.RegisteredSourceIds.SequenceEqual(input.RegisteredSourceIds)
+                    this.RegisteredSourceIds.Equals(input.RegisteredSourceIds)
                 ) && 
                 (
                     this.Rollup == input.Rollup ||
@@ -395,8 +369,7 @@ namespace Cohesity.Model
                 (
                     this.RunStatus == input.RunStatus ||
                     this.RunStatus != null &&
-                    input.RunStatus != null &&
-                    this.RunStatus.SequenceEqual(input.RunStatus)
+                    this.RunStatus.Equals(input.RunStatus)
                 ) && 
                 (
                     this.Sid == input.Sid ||
@@ -406,8 +379,7 @@ namespace Cohesity.Model
                 (
                     this.TenantIdVec == input.TenantIdVec ||
                     this.TenantIdVec != null &&
-                    input.TenantIdVec != null &&
-                    this.TenantIdVec.SequenceEqual(input.TenantIdVec)
+                    this.TenantIdVec.Equals(input.TenantIdVec)
                 ) && 
                 (
                     this.Timezone == input.Timezone ||
@@ -422,8 +394,7 @@ namespace Cohesity.Model
                 (
                     this.VaultIds == input.VaultIds ||
                     this.VaultIds != null &&
-                    input.VaultIds != null &&
-                    this.VaultIds.SequenceEqual(input.VaultIds)
+                    this.VaultIds.Equals(input.VaultIds)
                 ) && 
                 (
                     this.ViewBoxId == input.ViewBoxId ||
@@ -438,8 +409,7 @@ namespace Cohesity.Model
                 (
                     this.ViewboxIds == input.ViewboxIds ||
                     this.ViewboxIds != null &&
-                    input.ViewboxIds != null &&
-                    this.ViewboxIds.SequenceEqual(input.ViewboxIds)
+                    this.ViewboxIds.Equals(input.ViewboxIds)
                 ) && 
                 (
                     this.VmName == input.VmName ||

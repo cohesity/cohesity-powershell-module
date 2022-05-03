@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -37,54 +40,48 @@ namespace Cohesity.Model
             this.ReduceOutputPrefix = reduceOutputPrefix;
             this.ViewBoxId = viewBoxId;
             this.ViewName = viewName;
-            this.NumReduceShards = numReduceShards;
-            this.OutputDir = outputDir;
-            this.PartitionId = partitionId;
-            this.ReduceOutputPrefix = reduceOutputPrefix;
-            this.ViewBoxId = viewBoxId;
-            this.ViewName = viewName;
         }
         
         /// <summary>
         /// Number of reduce shards.
         /// </summary>
         /// <value>Number of reduce shards.</value>
-        [DataMember(Name="numReduceShards", EmitDefaultValue=true)]
+        [DataMember(Name="numReduceShards", EmitDefaultValue=false)]
         public int? NumReduceShards { get; set; }
 
         /// <summary>
         /// Name of output directory.
         /// </summary>
         /// <value>Name of output directory.</value>
-        [DataMember(Name="outputDir", EmitDefaultValue=true)]
+        [DataMember(Name="outputDir", EmitDefaultValue=false)]
         public string OutputDir { get; set; }
 
         /// <summary>
         /// Partition id where output will go.
         /// </summary>
         /// <value>Partition id where output will go.</value>
-        [DataMember(Name="partitionId", EmitDefaultValue=true)]
+        [DataMember(Name="partitionId", EmitDefaultValue=false)]
         public long? PartitionId { get; set; }
 
         /// <summary>
         /// Prefix of the reduce output files. File names will be: ${reduce_output_prefix}-00000-of-00100 if num_reduce_shards&#x3D;100 This name can contain some path components. e.g. \&quot;awb_results/run1\&quot; is a valid value. output_dir is deprecated.
         /// </summary>
         /// <value>Prefix of the reduce output files. File names will be: ${reduce_output_prefix}-00000-of-00100 if num_reduce_shards&#x3D;100 This name can contain some path components. e.g. \&quot;awb_results/run1\&quot; is a valid value. output_dir is deprecated.</value>
-        [DataMember(Name="reduceOutputPrefix", EmitDefaultValue=true)]
+        [DataMember(Name="reduceOutputPrefix", EmitDefaultValue=false)]
         public string ReduceOutputPrefix { get; set; }
 
         /// <summary>
         /// Viewbox id where the output will go.
         /// </summary>
         /// <value>Viewbox id where the output will go.</value>
-        [DataMember(Name="viewBoxId", EmitDefaultValue=true)]
+        [DataMember(Name="viewBoxId", EmitDefaultValue=false)]
         public long? ViewBoxId { get; set; }
 
         /// <summary>
         /// Name of the view where output will go. This will be filled up by yoda.
         /// </summary>
         /// <value>Name of the view where output will go. This will be filled up by yoda.</value>
-        [DataMember(Name="viewName", EmitDefaultValue=true)]
+        [DataMember(Name="viewName", EmitDefaultValue=false)]
         public string ViewName { get; set; }
 
         /// <summary>

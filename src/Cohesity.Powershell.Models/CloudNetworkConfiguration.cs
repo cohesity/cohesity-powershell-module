@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -35,46 +38,41 @@ namespace Cohesity.Model
             this.DnsServers = dnsServers;
             this.DomainNames = domainNames;
             this.NtpServers = ntpServers;
-            this.ClusterGateway = clusterGateway;
-            this.ClusterSubnetMask = clusterSubnetMask;
-            this.DnsServers = dnsServers;
-            this.DomainNames = domainNames;
-            this.NtpServers = ntpServers;
         }
         
         /// <summary>
         /// Specifies the default gateway IP address (or addresses) for the Cluster network.
         /// </summary>
         /// <value>Specifies the default gateway IP address (or addresses) for the Cluster network.</value>
-        [DataMember(Name="clusterGateway", EmitDefaultValue=true)]
+        [DataMember(Name="clusterGateway", EmitDefaultValue=false)]
         public string ClusterGateway { get; set; }
 
         /// <summary>
         /// Specifies the subnet mask (or masks) of the Cluster network.
         /// </summary>
         /// <value>Specifies the subnet mask (or masks) of the Cluster network.</value>
-        [DataMember(Name="clusterSubnetMask", EmitDefaultValue=true)]
+        [DataMember(Name="clusterSubnetMask", EmitDefaultValue=false)]
         public string ClusterSubnetMask { get; set; }
 
         /// <summary>
         /// Specifies the list of DNS Servers this cluster should be configured with.
         /// </summary>
         /// <value>Specifies the list of DNS Servers this cluster should be configured with.</value>
-        [DataMember(Name="dnsServers", EmitDefaultValue=true)]
+        [DataMember(Name="dnsServers", EmitDefaultValue=false)]
         public List<string> DnsServers { get; set; }
 
         /// <summary>
         /// Specifies the list of domain names this cluster should be configured with.
         /// </summary>
         /// <value>Specifies the list of domain names this cluster should be configured with.</value>
-        [DataMember(Name="domainNames", EmitDefaultValue=true)]
+        [DataMember(Name="domainNames", EmitDefaultValue=false)]
         public List<string> DomainNames { get; set; }
 
         /// <summary>
         /// Specifies the list of NTP Servers this cluster should be configured with.
         /// </summary>
         /// <value>Specifies the list of NTP Servers this cluster should be configured with.</value>
-        [DataMember(Name="ntpServers", EmitDefaultValue=true)]
+        [DataMember(Name="ntpServers", EmitDefaultValue=false)]
         public List<string> NtpServers { get; set; }
 
         /// <summary>
@@ -126,20 +124,17 @@ namespace Cohesity.Model
                 (
                     this.DnsServers == input.DnsServers ||
                     this.DnsServers != null &&
-                    input.DnsServers != null &&
-                    this.DnsServers.SequenceEqual(input.DnsServers)
+                    this.DnsServers.Equals(input.DnsServers)
                 ) && 
                 (
                     this.DomainNames == input.DomainNames ||
                     this.DomainNames != null &&
-                    input.DomainNames != null &&
-                    this.DomainNames.SequenceEqual(input.DomainNames)
+                    this.DomainNames.Equals(input.DomainNames)
                 ) && 
                 (
                     this.NtpServers == input.NtpServers ||
                     this.NtpServers != null &&
-                    input.NtpServers != null &&
-                    this.NtpServers.SequenceEqual(input.NtpServers)
+                    this.NtpServers.Equals(input.NtpServers)
                 );
         }
 

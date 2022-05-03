@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,8 +34,6 @@ namespace Cohesity.Model
         {
             this.AppId = appId;
             this.InputParams = inputParams;
-            this.AppId = appId;
-            this.InputParams = inputParams;
             this.MrInput = mrInput;
             this.MrOutput = mrOutput;
         }
@@ -41,14 +42,14 @@ namespace Cohesity.Model
         /// ApplicationId is the Id of the map reduce application to run.
         /// </summary>
         /// <value>ApplicationId is the Id of the map reduce application to run.</value>
-        [DataMember(Name="appId", EmitDefaultValue=true)]
+        [DataMember(Name="appId", EmitDefaultValue=false)]
         public long? AppId { get; set; }
 
         /// <summary>
         /// InputParams specifies optional list of key&#x3D;value input params specified for running the map reduce instance.
         /// </summary>
         /// <value>InputParams specifies optional list of key&#x3D;value input params specified for running the map reduce instance.</value>
-        [DataMember(Name="inputParams", EmitDefaultValue=true)]
+        [DataMember(Name="inputParams", EmitDefaultValue=false)]
         public List<MapReduceInstanceInputParam> InputParams { get; set; }
 
         /// <summary>
@@ -107,8 +108,7 @@ namespace Cohesity.Model
                 (
                     this.InputParams == input.InputParams ||
                     this.InputParams != null &&
-                    input.InputParams != null &&
-                    this.InputParams.SequenceEqual(input.InputParams)
+                    this.InputParams.Equals(input.InputParams)
                 ) && 
                 (
                     this.MrInput == input.MrInput ||

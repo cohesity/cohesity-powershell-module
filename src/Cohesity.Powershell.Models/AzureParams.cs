@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -51,7 +54,7 @@ namespace Cohesity.Model
         /// Specifies the disk type used by the data. &#39;kPremiumSSD&#39; is disk type backed by SSDs, delivers high performance, low latency disk support for VMs running I/O intensive workloads. &#39;kStandardSSD&#39; implies disk type that offers more consistent performance and reliability than HDD. &#39;kStandardHDD&#39; implies disk type backed by HDDs, delivers cost effective storage.
         /// </summary>
         /// <value>Specifies the disk type used by the data. &#39;kPremiumSSD&#39; is disk type backed by SSDs, delivers high performance, low latency disk support for VMs running I/O intensive workloads. &#39;kStandardSSD&#39; implies disk type that offers more consistent performance and reliability than HDD. &#39;kStandardHDD&#39; implies disk type backed by HDDs, delivers cost effective storage.</value>
-        [DataMember(Name="dataDiskType", EmitDefaultValue=true)]
+        [DataMember(Name="dataDiskType", EmitDefaultValue=false)]
         public DataDiskTypeEnum? DataDiskType { get; set; }
         /// <summary>
         /// Specifies the disk type used by the OS. &#39;kPremiumSSD&#39; is disk type backed by SSDs, delivers high performance, low latency disk support for VMs running I/O intensive workloads. &#39;kStandardSSD&#39; implies disk type that offers more consistent performance and reliability than HDD. &#39;kStandardHDD&#39; implies disk type backed by HDDs, delivers cost effective storage.
@@ -84,11 +87,12 @@ namespace Cohesity.Model
         /// Specifies the disk type used by the OS. &#39;kPremiumSSD&#39; is disk type backed by SSDs, delivers high performance, low latency disk support for VMs running I/O intensive workloads. &#39;kStandardSSD&#39; implies disk type that offers more consistent performance and reliability than HDD. &#39;kStandardHDD&#39; implies disk type backed by HDDs, delivers cost effective storage.
         /// </summary>
         /// <value>Specifies the disk type used by the OS. &#39;kPremiumSSD&#39; is disk type backed by SSDs, delivers high performance, low latency disk support for VMs running I/O intensive workloads. &#39;kStandardSSD&#39; implies disk type that offers more consistent performance and reliability than HDD. &#39;kStandardHDD&#39; implies disk type backed by HDDs, delivers cost effective storage.</value>
-        [DataMember(Name="osDiskType", EmitDefaultValue=true)]
+        [DataMember(Name="osDiskType", EmitDefaultValue=false)]
         public OsDiskTypeEnum? OsDiskType { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="AzureParams" /> class.
         /// </summary>
+        /// <param name="availabilitySetId">Specifies id of the Availability set in which the VM is to be restored..</param>
         /// <param name="dataDiskType">Specifies the disk type used by the data. &#39;kPremiumSSD&#39; is disk type backed by SSDs, delivers high performance, low latency disk support for VMs running I/O intensive workloads. &#39;kStandardSSD&#39; implies disk type that offers more consistent performance and reliability than HDD. &#39;kStandardHDD&#39; implies disk type backed by HDDs, delivers cost effective storage..</param>
         /// <param name="instanceId">Specifies Type of VM (e.g. small, medium, large) when cloning the VM in Azure..</param>
         /// <param name="networkResourceGroupId">Specifies id of the resource group for the selected virtual network..</param>
@@ -104,23 +108,9 @@ namespace Cohesity.Model
         /// <param name="tempVmSubnetId">Specifies the Subnet where temporary VM needs to be created..</param>
         /// <param name="tempVmVirtualNetworkId">Specifies the Virtual network where temporary VM needs to be created..</param>
         /// <param name="virtualNetworkId">Specifies Id of the Virtual Network..</param>
-        public AzureParams(DataDiskTypeEnum? dataDiskType = default(DataDiskTypeEnum?), long? instanceId = default(long?), long? networkResourceGroupId = default(long?), OsDiskTypeEnum? osDiskType = default(OsDiskTypeEnum?), long? resourceGroup = default(long?), long? storageAccount = default(long?), long? storageContainer = default(long?), long? storageResourceGroupId = default(long?), long? subnetId = default(long?), long? tempVmResourceGroupId = default(long?), long? tempVmStorageAccountId = default(long?), long? tempVmStorageContainerId = default(long?), long? tempVmSubnetId = default(long?), long? tempVmVirtualNetworkId = default(long?), long? virtualNetworkId = default(long?))
+        public AzureParams(long? availabilitySetId = default(long?), DataDiskTypeEnum? dataDiskType = default(DataDiskTypeEnum?), long? instanceId = default(long?), long? networkResourceGroupId = default(long?), OsDiskTypeEnum? osDiskType = default(OsDiskTypeEnum?), long? resourceGroup = default(long?), long? storageAccount = default(long?), long? storageContainer = default(long?), long? storageResourceGroupId = default(long?), long? subnetId = default(long?), long? tempVmResourceGroupId = default(long?), long? tempVmStorageAccountId = default(long?), long? tempVmStorageContainerId = default(long?), long? tempVmSubnetId = default(long?), long? tempVmVirtualNetworkId = default(long?), long? virtualNetworkId = default(long?))
         {
-            this.DataDiskType = dataDiskType;
-            this.InstanceId = instanceId;
-            this.NetworkResourceGroupId = networkResourceGroupId;
-            this.OsDiskType = osDiskType;
-            this.ResourceGroup = resourceGroup;
-            this.StorageAccount = storageAccount;
-            this.StorageContainer = storageContainer;
-            this.StorageResourceGroupId = storageResourceGroupId;
-            this.SubnetId = subnetId;
-            this.TempVmResourceGroupId = tempVmResourceGroupId;
-            this.TempVmStorageAccountId = tempVmStorageAccountId;
-            this.TempVmStorageContainerId = tempVmStorageContainerId;
-            this.TempVmSubnetId = tempVmSubnetId;
-            this.TempVmVirtualNetworkId = tempVmVirtualNetworkId;
-            this.VirtualNetworkId = virtualNetworkId;
+            this.AvailabilitySetId = availabilitySetId;
             this.DataDiskType = dataDiskType;
             this.InstanceId = instanceId;
             this.NetworkResourceGroupId = networkResourceGroupId;
@@ -139,94 +129,103 @@ namespace Cohesity.Model
         }
         
         /// <summary>
+        /// Specifies id of the Availability set in which the VM is to be restored.
+        /// </summary>
+        /// <value>Specifies id of the Availability set in which the VM is to be restored.</value>
+        [DataMember(Name="availabilitySetId", EmitDefaultValue=false)]
+        public long? AvailabilitySetId { get; set; }
+
+
+        /// <summary>
         /// Specifies Type of VM (e.g. small, medium, large) when cloning the VM in Azure.
         /// </summary>
         /// <value>Specifies Type of VM (e.g. small, medium, large) when cloning the VM in Azure.</value>
-        [DataMember(Name="instanceId", EmitDefaultValue=true)]
+        [DataMember(Name="instanceId", EmitDefaultValue=false)]
         public long? InstanceId { get; set; }
 
         /// <summary>
         /// Specifies id of the resource group for the selected virtual network.
         /// </summary>
         /// <value>Specifies id of the resource group for the selected virtual network.</value>
-        [DataMember(Name="networkResourceGroupId", EmitDefaultValue=true)]
+        [DataMember(Name="networkResourceGroupId", EmitDefaultValue=false)]
         public long? NetworkResourceGroupId { get; set; }
+
 
         /// <summary>
         /// Specifies id of the Azure resource group. Its value is globally unique within Azure.
         /// </summary>
         /// <value>Specifies id of the Azure resource group. Its value is globally unique within Azure.</value>
-        [DataMember(Name="resourceGroup", EmitDefaultValue=true)]
+        [DataMember(Name="resourceGroup", EmitDefaultValue=false)]
         public long? ResourceGroup { get; set; }
 
         /// <summary>
         /// Specifies id of the storage account that will contain the storage container within which we will create the blob that will become the VHD disk for the cloned VM.
         /// </summary>
         /// <value>Specifies id of the storage account that will contain the storage container within which we will create the blob that will become the VHD disk for the cloned VM.</value>
-        [DataMember(Name="storageAccount", EmitDefaultValue=true)]
+        [DataMember(Name="storageAccount", EmitDefaultValue=false)]
         public long? StorageAccount { get; set; }
 
         /// <summary>
         /// Specifies id of the storage container within the above storage account.
         /// </summary>
         /// <value>Specifies id of the storage container within the above storage account.</value>
-        [DataMember(Name="storageContainer", EmitDefaultValue=true)]
+        [DataMember(Name="storageContainer", EmitDefaultValue=false)]
         public long? StorageContainer { get; set; }
 
         /// <summary>
         /// Specifies id of the resource group for the selected storage account.
         /// </summary>
         /// <value>Specifies id of the resource group for the selected storage account.</value>
-        [DataMember(Name="storageResourceGroupId", EmitDefaultValue=true)]
+        [DataMember(Name="storageResourceGroupId", EmitDefaultValue=false)]
         public long? StorageResourceGroupId { get; set; }
 
         /// <summary>
         /// Specifies Id of the subnet within the above virtual network.
         /// </summary>
         /// <value>Specifies Id of the subnet within the above virtual network.</value>
-        [DataMember(Name="subnetId", EmitDefaultValue=true)]
+        [DataMember(Name="subnetId", EmitDefaultValue=false)]
         public long? SubnetId { get; set; }
 
         /// <summary>
         /// Specifies the resource group where temporary VM needs to be created.
         /// </summary>
         /// <value>Specifies the resource group where temporary VM needs to be created.</value>
-        [DataMember(Name="tempVmResourceGroupId", EmitDefaultValue=true)]
+        [DataMember(Name="tempVmResourceGroupId", EmitDefaultValue=false)]
         public long? TempVmResourceGroupId { get; set; }
 
         /// <summary>
         /// Specifies the Storage account where temporary VM needs to be created.
         /// </summary>
         /// <value>Specifies the Storage account where temporary VM needs to be created.</value>
-        [DataMember(Name="tempVmStorageAccountId", EmitDefaultValue=true)]
+        [DataMember(Name="tempVmStorageAccountId", EmitDefaultValue=false)]
         public long? TempVmStorageAccountId { get; set; }
 
         /// <summary>
         /// Specifies the Storage container where temporary VM needs to be created.
         /// </summary>
         /// <value>Specifies the Storage container where temporary VM needs to be created.</value>
-        [DataMember(Name="tempVmStorageContainerId", EmitDefaultValue=true)]
+        [DataMember(Name="tempVmStorageContainerId", EmitDefaultValue=false)]
         public long? TempVmStorageContainerId { get; set; }
 
         /// <summary>
         /// Specifies the Subnet where temporary VM needs to be created.
         /// </summary>
         /// <value>Specifies the Subnet where temporary VM needs to be created.</value>
-        [DataMember(Name="tempVmSubnetId", EmitDefaultValue=true)]
+        [DataMember(Name="tempVmSubnetId", EmitDefaultValue=false)]
         public long? TempVmSubnetId { get; set; }
 
         /// <summary>
         /// Specifies the Virtual network where temporary VM needs to be created.
         /// </summary>
         /// <value>Specifies the Virtual network where temporary VM needs to be created.</value>
-        [DataMember(Name="tempVmVirtualNetworkId", EmitDefaultValue=true)]
+        [DataMember(Name="tempVmVirtualNetworkId", EmitDefaultValue=false)]
         public long? TempVmVirtualNetworkId { get; set; }
 
         /// <summary>
         /// Specifies Id of the Virtual Network.
         /// </summary>
         /// <value>Specifies Id of the Virtual Network.</value>
-        [DataMember(Name="virtualNetworkId", EmitDefaultValue=true)]
+        [DataMember(Name="virtualNetworkId", EmitDefaultValue=false)]
         public long? VirtualNetworkId { get; set; }
 
         /// <summary>
@@ -266,8 +265,14 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.AvailabilitySetId == input.AvailabilitySetId ||
+                    (this.AvailabilitySetId != null &&
+                    this.AvailabilitySetId.Equals(input.AvailabilitySetId))
+                ) && 
+                (
                     this.DataDiskType == input.DataDiskType ||
-                    this.DataDiskType.Equals(input.DataDiskType)
+                    (this.DataDiskType != null &&
+                    this.DataDiskType.Equals(input.DataDiskType))
                 ) && 
                 (
                     this.InstanceId == input.InstanceId ||
@@ -281,7 +286,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.OsDiskType == input.OsDiskType ||
-                    this.OsDiskType.Equals(input.OsDiskType)
+                    (this.OsDiskType != null &&
+                    this.OsDiskType.Equals(input.OsDiskType))
                 ) && 
                 (
                     this.ResourceGroup == input.ResourceGroup ||
@@ -349,12 +355,16 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                hashCode = hashCode * 59 + this.DataDiskType.GetHashCode();
+                if (this.AvailabilitySetId != null)
+                    hashCode = hashCode * 59 + this.AvailabilitySetId.GetHashCode();
+                if (this.DataDiskType != null)
+                    hashCode = hashCode * 59 + this.DataDiskType.GetHashCode();
                 if (this.InstanceId != null)
                     hashCode = hashCode * 59 + this.InstanceId.GetHashCode();
                 if (this.NetworkResourceGroupId != null)
                     hashCode = hashCode * 59 + this.NetworkResourceGroupId.GetHashCode();
-                hashCode = hashCode * 59 + this.OsDiskType.GetHashCode();
+                if (this.OsDiskType != null)
+                    hashCode = hashCode * 59 + this.OsDiskType.GetHashCode();
                 if (this.ResourceGroup != null)
                     hashCode = hashCode * 59 + this.ResourceGroup.GetHashCode();
                 if (this.StorageAccount != null)

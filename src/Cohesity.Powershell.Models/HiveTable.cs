@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -57,7 +60,7 @@ namespace Cohesity.Model
         /// Specifies the type of table ex. MANAGED,VIRTUAL etc. Specifies the type of an Hive table. &#39;kManaged&#39; indicates a MANAGED Hive table. &#39;kExternal&#39; indicates a EXTERNAL Hive table. &#39;kVirtual&#39; indicates a VIRTUAL Hive tablet. &#39;kIndex&#39; indicates a INDEX Hive table.
         /// </summary>
         /// <value>Specifies the type of table ex. MANAGED,VIRTUAL etc. Specifies the type of an Hive table. &#39;kManaged&#39; indicates a MANAGED Hive table. &#39;kExternal&#39; indicates a EXTERNAL Hive table. &#39;kVirtual&#39; indicates a VIRTUAL Hive tablet. &#39;kIndex&#39; indicates a INDEX Hive table.</value>
-        [DataMember(Name="tableType", EmitDefaultValue=true)]
+        [DataMember(Name="tableType", EmitDefaultValue=false)]
         public TableTypeEnum? TableType { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="HiveTable" /> class.
@@ -74,40 +77,36 @@ namespace Cohesity.Model
             this.IsTransactionalTable = isTransactionalTable;
             this.Owner = owner;
             this.TableType = tableType;
-            this.ApproxSizeBytes = approxSizeBytes;
-            this.CreatedOn = createdOn;
-            this.IsTransactionalTable = isTransactionalTable;
-            this.Owner = owner;
-            this.TableType = tableType;
         }
         
         /// <summary>
         /// Specifies the approx size of the table in bytes.
         /// </summary>
         /// <value>Specifies the approx size of the table in bytes.</value>
-        [DataMember(Name="approxSizeBytes", EmitDefaultValue=true)]
+        [DataMember(Name="approxSizeBytes", EmitDefaultValue=false)]
         public long? ApproxSizeBytes { get; set; }
 
         /// <summary>
         /// Specifies the created on, epoch millis.
         /// </summary>
         /// <value>Specifies the created on, epoch millis.</value>
-        [DataMember(Name="createdOn", EmitDefaultValue=true)]
+        [DataMember(Name="createdOn", EmitDefaultValue=false)]
         public long? CreatedOn { get; set; }
 
         /// <summary>
         /// Specifies if this is a transactional table.
         /// </summary>
         /// <value>Specifies if this is a transactional table.</value>
-        [DataMember(Name="isTransactionalTable", EmitDefaultValue=true)]
+        [DataMember(Name="isTransactionalTable", EmitDefaultValue=false)]
         public bool? IsTransactionalTable { get; set; }
 
         /// <summary>
         /// Specifies the owner of the table.
         /// </summary>
         /// <value>Specifies the owner of the table.</value>
-        [DataMember(Name="owner", EmitDefaultValue=true)]
+        [DataMember(Name="owner", EmitDefaultValue=false)]
         public string Owner { get; set; }
+
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -167,7 +166,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.TableType == input.TableType ||
-                    this.TableType.Equals(input.TableType)
+                    (this.TableType != null &&
+                    this.TableType.Equals(input.TableType))
                 );
         }
 
@@ -188,7 +188,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.IsTransactionalTable.GetHashCode();
                 if (this.Owner != null)
                     hashCode = hashCode * 59 + this.Owner.GetHashCode();
-                hashCode = hashCode * 59 + this.TableType.GetHashCode();
+                if (this.TableType != null)
+                    hashCode = hashCode * 59 + this.TableType.GetHashCode();
                 return hashCode;
             }
         }

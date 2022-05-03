@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.ObjectSnapshotInfo = objectSnapshotInfo;
             this.TotalCount = totalCount;
-            this.ObjectSnapshotInfo = objectSnapshotInfo;
-            this.TotalCount = totalCount;
         }
         
         /// <summary>
         /// Array of Snapshot Objects.  Specifies the list of backup objects returned by this request that match the specified search and filter criteria. The number of objects returned is limited by the pageCount field.
         /// </summary>
         /// <value>Array of Snapshot Objects.  Specifies the list of backup objects returned by this request that match the specified search and filter criteria. The number of objects returned is limited by the pageCount field.</value>
-        [DataMember(Name="objectSnapshotInfo", EmitDefaultValue=true)]
+        [DataMember(Name="objectSnapshotInfo", EmitDefaultValue=false)]
         public List<ObjectSnapshotInfo> ObjectSnapshotInfo { get; set; }
 
         /// <summary>
         /// Specifies the total number of backup objects that match the filter and search criteria. Use this value to determine how many additional requests are required to get the full result.
         /// </summary>
         /// <value>Specifies the total number of backup objects that match the filter and search criteria. Use this value to determine how many additional requests are required to get the full result.</value>
-        [DataMember(Name="totalCount", EmitDefaultValue=true)]
+        [DataMember(Name="totalCount", EmitDefaultValue=false)]
         public long? TotalCount { get; set; }
 
         /// <summary>
@@ -86,8 +87,7 @@ namespace Cohesity.Model
                 (
                     this.ObjectSnapshotInfo == input.ObjectSnapshotInfo ||
                     this.ObjectSnapshotInfo != null &&
-                    input.ObjectSnapshotInfo != null &&
-                    this.ObjectSnapshotInfo.SequenceEqual(input.ObjectSnapshotInfo)
+                    this.ObjectSnapshotInfo.Equals(input.ObjectSnapshotInfo)
                 ) && 
                 (
                     this.TotalCount == input.TotalCount ||

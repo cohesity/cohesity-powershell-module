@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -37,54 +40,48 @@ namespace Cohesity.Model
             this.Guid = guid;
             this.Name = name;
             this.TotalSizeBytes = totalSizeBytes;
-            this.DatabaseCopyInfoList = databaseCopyInfoList;
-            this.DatabaseInfoList = databaseInfoList;
-            this.Fqdn = fqdn;
-            this.Guid = guid;
-            this.Name = name;
-            this.TotalSizeBytes = totalSizeBytes;
         }
         
         /// <summary>
         /// Specifies the list of all the copies of the Exchange databases(that are part of DAG) that are present on this Exchange Node.
         /// </summary>
         /// <value>Specifies the list of all the copies of the Exchange databases(that are part of DAG) that are present on this Exchange Node.</value>
-        [DataMember(Name="databaseCopyInfoList", EmitDefaultValue=true)]
+        [DataMember(Name="databaseCopyInfoList", EmitDefaultValue=false)]
         public List<ExchangeDatabaseCopyInfo> DatabaseCopyInfoList { get; set; }
 
         /// <summary>
         /// Specifies the list of all the databases available on the standalone Exchange server node. This is populated for the Standlone Exchange Servers.
         /// </summary>
         /// <value>Specifies the list of all the databases available on the standalone Exchange server node. This is populated for the Standlone Exchange Servers.</value>
-        [DataMember(Name="databaseInfoList", EmitDefaultValue=true)]
+        [DataMember(Name="databaseInfoList", EmitDefaultValue=false)]
         public List<ExchangeDatabaseInfo> DatabaseInfoList { get; set; }
 
         /// <summary>
         /// Specifies the fully qualified domain name of the Exchange Server.
         /// </summary>
         /// <value>Specifies the fully qualified domain name of the Exchange Server.</value>
-        [DataMember(Name="fqdn", EmitDefaultValue=true)]
+        [DataMember(Name="fqdn", EmitDefaultValue=false)]
         public string Fqdn { get; set; }
 
         /// <summary>
         /// Specifies the Guid of the Exchange Application Server.
         /// </summary>
         /// <value>Specifies the Guid of the Exchange Application Server.</value>
-        [DataMember(Name="guid", EmitDefaultValue=true)]
+        [DataMember(Name="guid", EmitDefaultValue=false)]
         public string Guid { get; set; }
 
         /// <summary>
         /// Specifies the display name of the Exchange Application Server.
         /// </summary>
         /// <value>Specifies the display name of the Exchange Application Server.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
 
         /// <summary>
         /// Specifies the total size of all Exchange database copies in all the Exchange Application Servers that are part of the DAG.
         /// </summary>
         /// <value>Specifies the total size of all Exchange database copies in all the Exchange Application Servers that are part of the DAG.</value>
-        [DataMember(Name="totalSizeBytes", EmitDefaultValue=true)]
+        [DataMember(Name="totalSizeBytes", EmitDefaultValue=false)]
         public long? TotalSizeBytes { get; set; }
 
         /// <summary>
@@ -126,14 +123,12 @@ namespace Cohesity.Model
                 (
                     this.DatabaseCopyInfoList == input.DatabaseCopyInfoList ||
                     this.DatabaseCopyInfoList != null &&
-                    input.DatabaseCopyInfoList != null &&
-                    this.DatabaseCopyInfoList.SequenceEqual(input.DatabaseCopyInfoList)
+                    this.DatabaseCopyInfoList.Equals(input.DatabaseCopyInfoList)
                 ) && 
                 (
                     this.DatabaseInfoList == input.DatabaseInfoList ||
                     this.DatabaseInfoList != null &&
-                    input.DatabaseInfoList != null &&
-                    this.DatabaseInfoList.SequenceEqual(input.DatabaseInfoList)
+                    this.DatabaseInfoList.Equals(input.DatabaseInfoList)
                 ) && 
                 (
                     this.Fqdn == input.Fqdn ||

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -28,7 +31,6 @@ namespace Cohesity.Model
         /// <param name="viewOptions">viewOptions.</param>
         public RestoreExchangeParams(RestoreExchangeParamsDatabaseOptions databaseOptions = default(RestoreExchangeParamsDatabaseOptions), int? type = default(int?), RestoreExchangeParamsViewOptions viewOptions = default(RestoreExchangeParamsViewOptions))
         {
-            this.Type = type;
             this.DatabaseOptions = databaseOptions;
             this.Type = type;
             this.ViewOptions = viewOptions;
@@ -44,7 +46,7 @@ namespace Cohesity.Model
         /// Restore type.
         /// </summary>
         /// <value>Restore type.</value>
-        [DataMember(Name="type", EmitDefaultValue=true)]
+        [DataMember(Name="type", EmitDefaultValue=false)]
         public int? Type { get; set; }
 
         /// <summary>

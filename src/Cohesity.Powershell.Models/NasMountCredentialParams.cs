@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -45,7 +48,7 @@ namespace Cohesity.Model
         /// Specifies the protocol used by the NAS server. Specifies the protocol used by a NAS server. &#39;kNfs3&#39; indicates NFS v3 protocol. &#39;kCifs1&#39; indicates CIFS v1.0 protocol.
         /// </summary>
         /// <value>Specifies the protocol used by the NAS server. Specifies the protocol used by a NAS server. &#39;kNfs3&#39; indicates NFS v3 protocol. &#39;kCifs1&#39; indicates CIFS v1.0 protocol.</value>
-        [DataMember(Name="nasProtocol", EmitDefaultValue=true)]
+        [DataMember(Name="nasProtocol", EmitDefaultValue=false)]
         public NasProtocolEnum? NasProtocol { get; set; }
         /// <summary>
         /// Specifies the type of a NAS Object such as &#39;kGroup&#39;, or &#39;kHost&#39;. Specifies the kind of NAS mount. &#39;kGroup&#39; indicates top level node that holds individual NAS hosts. &#39;kHost&#39; indicates a single NAS path that can be mounted. &#39;kDfsGroup&#39; indicates a DFS group containing top level directories mapped to different servers. &#39;kDfsTopDir&#39; indicates a top level directory inside a DFS group, discovered when registering a DFS group.
@@ -84,26 +87,24 @@ namespace Cohesity.Model
         /// Specifies the type of a NAS Object such as &#39;kGroup&#39;, or &#39;kHost&#39;. Specifies the kind of NAS mount. &#39;kGroup&#39; indicates top level node that holds individual NAS hosts. &#39;kHost&#39; indicates a single NAS path that can be mounted. &#39;kDfsGroup&#39; indicates a DFS group containing top level directories mapped to different servers. &#39;kDfsTopDir&#39; indicates a top level directory inside a DFS group, discovered when registering a DFS group.
         /// </summary>
         /// <value>Specifies the type of a NAS Object such as &#39;kGroup&#39;, or &#39;kHost&#39;. Specifies the kind of NAS mount. &#39;kGroup&#39; indicates top level node that holds individual NAS hosts. &#39;kHost&#39; indicates a single NAS path that can be mounted. &#39;kDfsGroup&#39; indicates a DFS group containing top level directories mapped to different servers. &#39;kDfsTopDir&#39; indicates a top level directory inside a DFS group, discovered when registering a DFS group.</value>
-        [DataMember(Name="nasType", EmitDefaultValue=true)]
+        [DataMember(Name="nasType", EmitDefaultValue=false)]
         public NasTypeEnum? NasType { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="NasMountCredentialParams" /> class.
         /// </summary>
         /// <param name="domain">Specifies the domain in which this credential is valid..</param>
+        /// <param name="domainController">Specifies the domain controller for the selected domain.</param>
+        /// <param name="managePasswordByCohesity">Specifies if Cohesity can manage the password after registration.</param>
         /// <param name="nasProtocol">Specifies the protocol used by the NAS server. Specifies the protocol used by a NAS server. &#39;kNfs3&#39; indicates NFS v3 protocol. &#39;kCifs1&#39; indicates CIFS v1.0 protocol..</param>
         /// <param name="nasType">Specifies the type of a NAS Object such as &#39;kGroup&#39;, or &#39;kHost&#39;. Specifies the kind of NAS mount. &#39;kGroup&#39; indicates top level node that holds individual NAS hosts. &#39;kHost&#39; indicates a single NAS path that can be mounted. &#39;kDfsGroup&#39; indicates a DFS group containing top level directories mapped to different servers. &#39;kDfsTopDir&#39; indicates a top level directory inside a DFS group, discovered when registering a DFS group..</param>
         /// <param name="password">Specifies the password for the username to use for mounting the NAS..</param>
         /// <param name="skipValidation">Specifies the flag to disable mount point validation during registration process..</param>
         /// <param name="username">Specifies a username to use for mounting the NAS..</param>
-        public NasMountCredentialParams(string domain = default(string), NasProtocolEnum? nasProtocol = default(NasProtocolEnum?), NasTypeEnum? nasType = default(NasTypeEnum?), string password = default(string), bool? skipValidation = default(bool?), string username = default(string))
+        public NasMountCredentialParams(string domain = default(string), string domainController = default(string), bool? managePasswordByCohesity = default(bool?), NasProtocolEnum? nasProtocol = default(NasProtocolEnum?), NasTypeEnum? nasType = default(NasTypeEnum?), string password = default(string), bool? skipValidation = default(bool?), string username = default(string))
         {
             this.Domain = domain;
-            this.NasProtocol = nasProtocol;
-            this.NasType = nasType;
-            this.Password = password;
-            this.SkipValidation = skipValidation;
-            this.Username = username;
-            this.Domain = domain;
+            this.DomainController = domainController;
+            this.ManagePasswordByCohesity = managePasswordByCohesity;
             this.NasProtocol = nasProtocol;
             this.NasType = nasType;
             this.Password = password;
@@ -115,28 +116,44 @@ namespace Cohesity.Model
         /// Specifies the domain in which this credential is valid.
         /// </summary>
         /// <value>Specifies the domain in which this credential is valid.</value>
-        [DataMember(Name="domain", EmitDefaultValue=true)]
+        [DataMember(Name="domain", EmitDefaultValue=false)]
         public string Domain { get; set; }
+
+        /// <summary>
+        /// Specifies the domain controller for the selected domain
+        /// </summary>
+        /// <value>Specifies the domain controller for the selected domain</value>
+        [DataMember(Name="domainController", EmitDefaultValue=false)]
+        public string DomainController { get; set; }
+
+        /// <summary>
+        /// Specifies if Cohesity can manage the password after registration
+        /// </summary>
+        /// <value>Specifies if Cohesity can manage the password after registration</value>
+        [DataMember(Name="managePasswordByCohesity", EmitDefaultValue=false)]
+        public bool? ManagePasswordByCohesity { get; set; }
+
+
 
         /// <summary>
         /// Specifies the password for the username to use for mounting the NAS.
         /// </summary>
         /// <value>Specifies the password for the username to use for mounting the NAS.</value>
-        [DataMember(Name="password", EmitDefaultValue=true)]
+        [DataMember(Name="password", EmitDefaultValue=false)]
         public string Password { get; set; }
 
         /// <summary>
         /// Specifies the flag to disable mount point validation during registration process.
         /// </summary>
         /// <value>Specifies the flag to disable mount point validation during registration process.</value>
-        [DataMember(Name="skipValidation", EmitDefaultValue=true)]
+        [DataMember(Name="skipValidation", EmitDefaultValue=false)]
         public bool? SkipValidation { get; set; }
 
         /// <summary>
         /// Specifies a username to use for mounting the NAS.
         /// </summary>
         /// <value>Specifies a username to use for mounting the NAS.</value>
-        [DataMember(Name="username", EmitDefaultValue=true)]
+        [DataMember(Name="username", EmitDefaultValue=false)]
         public string Username { get; set; }
 
         /// <summary>
@@ -181,12 +198,24 @@ namespace Cohesity.Model
                     this.Domain.Equals(input.Domain))
                 ) && 
                 (
+                    this.DomainController == input.DomainController ||
+                    (this.DomainController != null &&
+                    this.DomainController.Equals(input.DomainController))
+                ) && 
+                (
+                    this.ManagePasswordByCohesity == input.ManagePasswordByCohesity ||
+                    (this.ManagePasswordByCohesity != null &&
+                    this.ManagePasswordByCohesity.Equals(input.ManagePasswordByCohesity))
+                ) && 
+                (
                     this.NasProtocol == input.NasProtocol ||
-                    this.NasProtocol.Equals(input.NasProtocol)
+                    (this.NasProtocol != null &&
+                    this.NasProtocol.Equals(input.NasProtocol))
                 ) && 
                 (
                     this.NasType == input.NasType ||
-                    this.NasType.Equals(input.NasType)
+                    (this.NasType != null &&
+                    this.NasType.Equals(input.NasType))
                 ) && 
                 (
                     this.Password == input.Password ||
@@ -216,8 +245,14 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.Domain != null)
                     hashCode = hashCode * 59 + this.Domain.GetHashCode();
-                hashCode = hashCode * 59 + this.NasProtocol.GetHashCode();
-                hashCode = hashCode * 59 + this.NasType.GetHashCode();
+                if (this.DomainController != null)
+                    hashCode = hashCode * 59 + this.DomainController.GetHashCode();
+                if (this.ManagePasswordByCohesity != null)
+                    hashCode = hashCode * 59 + this.ManagePasswordByCohesity.GetHashCode();
+                if (this.NasProtocol != null)
+                    hashCode = hashCode * 59 + this.NasProtocol.GetHashCode();
+                if (this.NasType != null)
+                    hashCode = hashCode * 59 + this.NasType.GetHashCode();
                 if (this.Password != null)
                     hashCode = hashCode * 59 + this.Password.GetHashCode();
                 if (this.SkipValidation != null)

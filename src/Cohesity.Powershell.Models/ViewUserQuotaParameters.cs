@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,7 +30,6 @@ namespace Cohesity.Model
         /// <param name="viewName">View name of input view..</param>
         public ViewUserQuotaParameters(UserQuota userQuotaPolicy = default(UserQuota), string viewName = default(string))
         {
-            this.ViewName = viewName;
             this.UserQuotaPolicy = userQuotaPolicy;
             this.ViewName = viewName;
         }
@@ -42,7 +44,7 @@ namespace Cohesity.Model
         /// View name of input view.
         /// </summary>
         /// <value>View name of input view.</value>
-        [DataMember(Name="viewName", EmitDefaultValue=true)]
+        [DataMember(Name="viewName", EmitDefaultValue=false)]
         public string ViewName { get; set; }
 
         /// <summary>

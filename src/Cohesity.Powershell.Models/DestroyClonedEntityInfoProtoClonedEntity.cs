@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,7 +30,6 @@ namespace Cohesity.Model
         /// <param name="relativeRestorePathVec">Path of all files created by the clone operation. Each path is relative to the clone view..</param>
         public DestroyClonedEntityInfoProtoClonedEntity(EntityProto entity = default(EntityProto), List<string> relativeRestorePathVec = default(List<string>))
         {
-            this.RelativeRestorePathVec = relativeRestorePathVec;
             this.Entity = entity;
             this.RelativeRestorePathVec = relativeRestorePathVec;
         }
@@ -42,7 +44,7 @@ namespace Cohesity.Model
         /// Path of all files created by the clone operation. Each path is relative to the clone view.
         /// </summary>
         /// <value>Path of all files created by the clone operation. Each path is relative to the clone view.</value>
-        [DataMember(Name="relativeRestorePathVec", EmitDefaultValue=true)]
+        [DataMember(Name="relativeRestorePathVec", EmitDefaultValue=false)]
         public List<string> RelativeRestorePathVec { get; set; }
 
         /// <summary>
@@ -89,8 +91,7 @@ namespace Cohesity.Model
                 (
                     this.RelativeRestorePathVec == input.RelativeRestorePathVec ||
                     this.RelativeRestorePathVec != null &&
-                    input.RelativeRestorePathVec != null &&
-                    this.RelativeRestorePathVec.SequenceEqual(input.RelativeRestorePathVec)
+                    this.RelativeRestorePathVec.Equals(input.RelativeRestorePathVec)
                 );
         }
 

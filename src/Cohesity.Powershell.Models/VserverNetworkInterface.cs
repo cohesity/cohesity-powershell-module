@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -72,21 +75,27 @@ namespace Cohesity.Model
             /// Enum KManagement for value: kManagement
             /// </summary>
             [EnumMember(Value = "kManagement")]
-            KManagement = 8
+            KManagement = 8,
+
+            /// <summary>
+            /// Enum KNvme for value: kNvme
+            /// </summary>
+            [EnumMember(Value = "kNvme")]
+            KNvme = 9
 
         }
 
 
         /// <summary>
-        /// Array of Data Protocols.  Specifies the set of data protocols supported by this interface. &#39;kNfs&#39; indicates NFS connections. &#39;kCifs&#39; indicates SMB (CIFS) connections. &#39;kIscsi&#39; indicates iSCSI connections. &#39;kFc&#39; indicates Fiber Channel connections. &#39;kFcache&#39; indicates Flex Cache connections. &#39;kHttp&#39; indicates HTTP connections. &#39;kNdmp&#39; indicates NDMP connections. &#39;kManagement&#39; indicates non-data connections used for management purposes.
+        /// Array of Data Protocols.  Specifies the set of data protocols supported by this interface. &#39;kNfs&#39; indicates NFS connections. &#39;kCifs&#39; indicates SMB (CIFS) connections. &#39;kIscsi&#39; indicates iSCSI connections. &#39;kFc&#39; indicates Fiber Channel connections. &#39;kFcache&#39; indicates Flex Cache connections. &#39;kHttp&#39; indicates HTTP connections. &#39;kNdmp&#39; indicates NDMP connections. &#39;kManagement&#39; indicates non-data connections used for management purposes. &#39;kNvme&#39; indicates NVMe connections.
         /// </summary>
-        /// <value>Array of Data Protocols.  Specifies the set of data protocols supported by this interface. &#39;kNfs&#39; indicates NFS connections. &#39;kCifs&#39; indicates SMB (CIFS) connections. &#39;kIscsi&#39; indicates iSCSI connections. &#39;kFc&#39; indicates Fiber Channel connections. &#39;kFcache&#39; indicates Flex Cache connections. &#39;kHttp&#39; indicates HTTP connections. &#39;kNdmp&#39; indicates NDMP connections. &#39;kManagement&#39; indicates non-data connections used for management purposes.</value>
-        [DataMember(Name="dataProtocols", EmitDefaultValue=true)]
+        /// <value>Array of Data Protocols.  Specifies the set of data protocols supported by this interface. &#39;kNfs&#39; indicates NFS connections. &#39;kCifs&#39; indicates SMB (CIFS) connections. &#39;kIscsi&#39; indicates iSCSI connections. &#39;kFc&#39; indicates Fiber Channel connections. &#39;kFcache&#39; indicates Flex Cache connections. &#39;kHttp&#39; indicates HTTP connections. &#39;kNdmp&#39; indicates NDMP connections. &#39;kManagement&#39; indicates non-data connections used for management purposes. &#39;kNvme&#39; indicates NVMe connections.</value>
+        [DataMember(Name="dataProtocols", EmitDefaultValue=false)]
         public List<DataProtocolsEnum> DataProtocols { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="VserverNetworkInterface" /> class.
         /// </summary>
-        /// <param name="dataProtocols">Array of Data Protocols.  Specifies the set of data protocols supported by this interface. &#39;kNfs&#39; indicates NFS connections. &#39;kCifs&#39; indicates SMB (CIFS) connections. &#39;kIscsi&#39; indicates iSCSI connections. &#39;kFc&#39; indicates Fiber Channel connections. &#39;kFcache&#39; indicates Flex Cache connections. &#39;kHttp&#39; indicates HTTP connections. &#39;kNdmp&#39; indicates NDMP connections. &#39;kManagement&#39; indicates non-data connections used for management purposes..</param>
+        /// <param name="dataProtocols">Array of Data Protocols.  Specifies the set of data protocols supported by this interface. &#39;kNfs&#39; indicates NFS connections. &#39;kCifs&#39; indicates SMB (CIFS) connections. &#39;kIscsi&#39; indicates iSCSI connections. &#39;kFc&#39; indicates Fiber Channel connections. &#39;kFcache&#39; indicates Flex Cache connections. &#39;kHttp&#39; indicates HTTP connections. &#39;kNdmp&#39; indicates NDMP connections. &#39;kManagement&#39; indicates non-data connections used for management purposes. &#39;kNvme&#39; indicates NVMe connections..</param>
         /// <param name="ipAddress">Specifies the IP address of this interface..</param>
         /// <param name="name">Specifies the name of this interface..</param>
         public VserverNetworkInterface(List<DataProtocolsEnum> dataProtocols = default(List<DataProtocolsEnum>), string ipAddress = default(string), string name = default(string))
@@ -94,23 +103,21 @@ namespace Cohesity.Model
             this.DataProtocols = dataProtocols;
             this.IpAddress = ipAddress;
             this.Name = name;
-            this.DataProtocols = dataProtocols;
-            this.IpAddress = ipAddress;
-            this.Name = name;
         }
         
+
         /// <summary>
         /// Specifies the IP address of this interface.
         /// </summary>
         /// <value>Specifies the IP address of this interface.</value>
-        [DataMember(Name="ipAddress", EmitDefaultValue=true)]
+        [DataMember(Name="ipAddress", EmitDefaultValue=false)]
         public string IpAddress { get; set; }
 
         /// <summary>
         /// Specifies the name of this interface.
         /// </summary>
         /// <value>Specifies the name of this interface.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
 
         /// <summary>
@@ -151,7 +158,8 @@ namespace Cohesity.Model
             return 
                 (
                     this.DataProtocols == input.DataProtocols ||
-                    this.DataProtocols.SequenceEqual(input.DataProtocols)
+                    this.DataProtocols != null &&
+                    this.DataProtocols.Equals(input.DataProtocols)
                 ) && 
                 (
                     this.IpAddress == input.IpAddress ||
@@ -174,7 +182,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                hashCode = hashCode * 59 + this.DataProtocols.GetHashCode();
+                if (this.DataProtocols != null)
+                    hashCode = hashCode * 59 + this.DataProtocols.GetHashCode();
                 if (this.IpAddress != null)
                     hashCode = hashCode * 59 + this.IpAddress.GetHashCode();
                 if (this.Name != null)

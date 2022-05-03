@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this._InfectedFiles = infectedFiles;
             this.PaginationCookie = paginationCookie;
-            this._InfectedFiles = infectedFiles;
-            this.PaginationCookie = paginationCookie;
         }
         
         /// <summary>
         /// Specifies the infected files.
         /// </summary>
         /// <value>Specifies the infected files.</value>
-        [DataMember(Name="infectedFiles", EmitDefaultValue=true)]
+        [DataMember(Name="infectedFiles", EmitDefaultValue=false)]
         public List<InfectedFile> _InfectedFiles { get; set; }
 
         /// <summary>
         /// This cookie can be used in the succeeding call to list infected files to get the next set of infected files. If set to nil, it means that there&#39;s no more results that the server could provide.
         /// </summary>
         /// <value>This cookie can be used in the succeeding call to list infected files to get the next set of infected files. If set to nil, it means that there&#39;s no more results that the server could provide.</value>
-        [DataMember(Name="paginationCookie", EmitDefaultValue=true)]
+        [DataMember(Name="paginationCookie", EmitDefaultValue=false)]
         public string PaginationCookie { get; set; }
 
         /// <summary>
@@ -86,8 +87,7 @@ namespace Cohesity.Model
                 (
                     this._InfectedFiles == input._InfectedFiles ||
                     this._InfectedFiles != null &&
-                    input._InfectedFiles != null &&
-                    this._InfectedFiles.SequenceEqual(input._InfectedFiles)
+                    this._InfectedFiles.Equals(input._InfectedFiles)
                 ) && 
                 (
                     this.PaginationCookie == input.PaginationCookie ||

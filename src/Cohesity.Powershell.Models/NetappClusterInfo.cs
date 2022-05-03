@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,30 +34,27 @@ namespace Cohesity.Model
             this.ContactInfo = contactInfo;
             this.Location = location;
             this.SerialNumber = serialNumber;
-            this.ContactInfo = contactInfo;
-            this.Location = location;
-            this.SerialNumber = serialNumber;
         }
         
         /// <summary>
         /// Specifies information about the contact for the NetApp cluster such as a name, phone number, and email address.
         /// </summary>
         /// <value>Specifies information about the contact for the NetApp cluster such as a name, phone number, and email address.</value>
-        [DataMember(Name="contactInfo", EmitDefaultValue=true)]
+        [DataMember(Name="contactInfo", EmitDefaultValue=false)]
         public string ContactInfo { get; set; }
 
         /// <summary>
         /// Specifies where this NetApp cluster is located. This location identification string is configured by the NetApp system administrator. This field does not contain the NetApp cluster hostname or IP address.
         /// </summary>
         /// <value>Specifies where this NetApp cluster is located. This location identification string is configured by the NetApp system administrator. This field does not contain the NetApp cluster hostname or IP address.</value>
-        [DataMember(Name="location", EmitDefaultValue=true)]
+        [DataMember(Name="location", EmitDefaultValue=false)]
         public string Location { get; set; }
 
         /// <summary>
         /// Specifies the serial number of the NetApp cluster in the format: x-xx-xxxxxx.
         /// </summary>
         /// <value>Specifies the serial number of the NetApp cluster in the format: x-xx-xxxxxx.</value>
-        [DataMember(Name="serialNumber", EmitDefaultValue=true)]
+        [DataMember(Name="serialNumber", EmitDefaultValue=false)]
         public string SerialNumber { get; set; }
 
         /// <summary>

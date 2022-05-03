@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -26,11 +29,8 @@ namespace Cohesity.Model
         /// <param name="identifierAuthority">The authority under which the SID was created. This is always 6 bytes long..</param>
         /// <param name="revisionLevel">The revision level of the SID..</param>
         /// <param name="subAuthority">List of ids relative to the identifier_authority that uniquely identify a principal. The last entry in this list is the RID, which uniquely identifies the principal within a domain..</param>
-        public ClusterConfigProtoSID(List<int> identifierAuthority = default(List<int>), int? revisionLevel = default(int?), List<int> subAuthority = default(List<int>))
+        public ClusterConfigProtoSID(List<int?> identifierAuthority = default(List<int?>), int? revisionLevel = default(int?), List<int?> subAuthority = default(List<int?>))
         {
-            this.IdentifierAuthority = identifierAuthority;
-            this.RevisionLevel = revisionLevel;
-            this.SubAuthority = subAuthority;
             this.IdentifierAuthority = identifierAuthority;
             this.RevisionLevel = revisionLevel;
             this.SubAuthority = subAuthority;
@@ -40,22 +40,22 @@ namespace Cohesity.Model
         /// The authority under which the SID was created. This is always 6 bytes long.
         /// </summary>
         /// <value>The authority under which the SID was created. This is always 6 bytes long.</value>
-        [DataMember(Name="identifierAuthority", EmitDefaultValue=true)]
-        public List<int> IdentifierAuthority { get; set; }
+        [DataMember(Name="identifierAuthority", EmitDefaultValue=false)]
+        public List<int?> IdentifierAuthority { get; set; }
 
         /// <summary>
         /// The revision level of the SID.
         /// </summary>
         /// <value>The revision level of the SID.</value>
-        [DataMember(Name="revisionLevel", EmitDefaultValue=true)]
+        [DataMember(Name="revisionLevel", EmitDefaultValue=false)]
         public int? RevisionLevel { get; set; }
 
         /// <summary>
         /// List of ids relative to the identifier_authority that uniquely identify a principal. The last entry in this list is the RID, which uniquely identifies the principal within a domain.
         /// </summary>
         /// <value>List of ids relative to the identifier_authority that uniquely identify a principal. The last entry in this list is the RID, which uniquely identifies the principal within a domain.</value>
-        [DataMember(Name="subAuthority", EmitDefaultValue=true)]
-        public List<int> SubAuthority { get; set; }
+        [DataMember(Name="subAuthority", EmitDefaultValue=false)]
+        public List<int?> SubAuthority { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -96,8 +96,7 @@ namespace Cohesity.Model
                 (
                     this.IdentifierAuthority == input.IdentifierAuthority ||
                     this.IdentifierAuthority != null &&
-                    input.IdentifierAuthority != null &&
-                    this.IdentifierAuthority.SequenceEqual(input.IdentifierAuthority)
+                    this.IdentifierAuthority.Equals(input.IdentifierAuthority)
                 ) && 
                 (
                     this.RevisionLevel == input.RevisionLevel ||
@@ -107,8 +106,7 @@ namespace Cohesity.Model
                 (
                     this.SubAuthority == input.SubAuthority ||
                     this.SubAuthority != null &&
-                    input.SubAuthority != null &&
-                    this.SubAuthority.SequenceEqual(input.SubAuthority)
+                    this.SubAuthority.Equals(input.SubAuthority)
                 );
         }
 

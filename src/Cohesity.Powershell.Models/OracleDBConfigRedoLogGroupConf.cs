@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -33,38 +36,34 @@ namespace Cohesity.Model
             this.MemberPrefix = memberPrefix;
             this.NumGroups = numGroups;
             this.SizeMb = sizeMb;
-            this.GroupMemberVec = groupMemberVec;
-            this.MemberPrefix = memberPrefix;
-            this.NumGroups = numGroups;
-            this.SizeMb = sizeMb;
         }
         
         /// <summary>
         /// List of members of this redo log group.
         /// </summary>
         /// <value>List of members of this redo log group.</value>
-        [DataMember(Name="groupMemberVec", EmitDefaultValue=true)]
+        [DataMember(Name="groupMemberVec", EmitDefaultValue=false)]
         public List<string> GroupMemberVec { get; set; }
 
         /// <summary>
         /// Log member name prefix.
         /// </summary>
         /// <value>Log member name prefix.</value>
-        [DataMember(Name="memberPrefix", EmitDefaultValue=true)]
+        [DataMember(Name="memberPrefix", EmitDefaultValue=false)]
         public string MemberPrefix { get; set; }
 
         /// <summary>
         /// Number of redo log groups.
         /// </summary>
         /// <value>Number of redo log groups.</value>
-        [DataMember(Name="numGroups", EmitDefaultValue=true)]
+        [DataMember(Name="numGroups", EmitDefaultValue=false)]
         public int? NumGroups { get; set; }
 
         /// <summary>
         /// Size of the member in MB.
         /// </summary>
         /// <value>Size of the member in MB.</value>
-        [DataMember(Name="sizeMb", EmitDefaultValue=true)]
+        [DataMember(Name="sizeMb", EmitDefaultValue=false)]
         public int? SizeMb { get; set; }
 
         /// <summary>
@@ -106,8 +105,7 @@ namespace Cohesity.Model
                 (
                     this.GroupMemberVec == input.GroupMemberVec ||
                     this.GroupMemberVec != null &&
-                    input.GroupMemberVec != null &&
-                    this.GroupMemberVec.SequenceEqual(input.GroupMemberVec)
+                    this.GroupMemberVec.Equals(input.GroupMemberVec)
                 ) && 
                 (
                     this.MemberPrefix == input.MemberPrefix ||

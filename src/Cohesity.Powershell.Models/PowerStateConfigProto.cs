@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,13 +30,12 @@ namespace Cohesity.Model
         public PowerStateConfigProto(bool? powerOn = default(bool?))
         {
             this.PowerOn = powerOn;
-            this.PowerOn = powerOn;
         }
         
         /// <summary>
         /// Gets or Sets PowerOn
         /// </summary>
-        [DataMember(Name="powerOn", EmitDefaultValue=true)]
+        [DataMember(Name="powerOn", EmitDefaultValue=false)]
         public bool? PowerOn { get; set; }
 
         /// <summary>

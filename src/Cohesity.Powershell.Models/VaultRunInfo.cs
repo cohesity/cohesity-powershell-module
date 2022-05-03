@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.Count = count;
             this.Timestamp = timestamp;
-            this.Count = count;
-            this.Timestamp = timestamp;
         }
         
         /// <summary>
         /// Specifies the count of runs that ended in the specified state between the start time passed in and the current timestamp.
         /// </summary>
         /// <value>Specifies the count of runs that ended in the specified state between the start time passed in and the current timestamp.</value>
-        [DataMember(Name="count", EmitDefaultValue=true)]
+        [DataMember(Name="count", EmitDefaultValue=false)]
         public long? Count { get; set; }
 
         /// <summary>
         /// Specifies the Unix timestamp at which the run entered the specified state.
         /// </summary>
         /// <value>Specifies the Unix timestamp at which the run entered the specified state.</value>
-        [DataMember(Name="timestamp", EmitDefaultValue=true)]
+        [DataMember(Name="timestamp", EmitDefaultValue=false)]
         public long? Timestamp { get; set; }
 
         /// <summary>

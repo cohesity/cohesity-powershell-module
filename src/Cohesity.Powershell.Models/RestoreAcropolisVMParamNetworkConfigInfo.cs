@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.NetworkStateChange = networkStateChange;
             this.NicVec = nicVec;
-            this.NetworkStateChange = networkStateChange;
-            this.NicVec = nicVec;
         }
         
         /// <summary>
         /// Network state to be applied to the restored VM.
         /// </summary>
         /// <value>Network state to be applied to the restored VM.</value>
-        [DataMember(Name="networkStateChange", EmitDefaultValue=true)]
+        [DataMember(Name="networkStateChange", EmitDefaultValue=false)]
         public int? NetworkStateChange { get; set; }
 
         /// <summary>
         /// This field is applicable only if the network_state_change is set to &#39;kAttachNewNetwork&#39;.
         /// </summary>
         /// <value>This field is applicable only if the network_state_change is set to &#39;kAttachNewNetwork&#39;.</value>
-        [DataMember(Name="nicVec", EmitDefaultValue=true)]
+        [DataMember(Name="nicVec", EmitDefaultValue=false)]
         public List<RestoreAcropolisVMParamNetworkConfigInfoNICSpec> NicVec { get; set; }
 
         /// <summary>
@@ -91,8 +92,7 @@ namespace Cohesity.Model
                 (
                     this.NicVec == input.NicVec ||
                     this.NicVec != null &&
-                    input.NicVec != null &&
-                    this.NicVec.SequenceEqual(input.NicVec)
+                    this.NicVec.Equals(input.NicVec)
                 );
         }
 

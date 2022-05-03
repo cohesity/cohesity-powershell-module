@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -34,18 +37,8 @@ namespace Cohesity.Model
         /// <param name="sourceEntityIds">sourceEntityIds.</param>
         /// <param name="viewBoxIds">viewBoxIds.</param>
         /// <param name="viewNames">viewNames.</param>
-        public InputSpecInputVMsSelector(InputSpecFileTimeFilter fileTimeFilter = default(InputSpecFileTimeFilter), List<string> filenameGlob = default(List<string>), List<long> jobIds = default(List<long>), long? maxSnapshotTimestamp = default(long?), long? minSnapshotTimestamp = default(long?), List<long> partitionIds = default(List<long>), bool? processLatestOnly = default(bool?), string rootDir = default(string), List<long> sourceEntityIds = default(List<long>), List<long> viewBoxIds = default(List<long>), List<string> viewNames = default(List<string>))
+        public InputSpecInputVMsSelector(InputSpecFileTimeFilter fileTimeFilter = default(InputSpecFileTimeFilter), List<string> filenameGlob = default(List<string>), List<long?> jobIds = default(List<long?>), long? maxSnapshotTimestamp = default(long?), long? minSnapshotTimestamp = default(long?), List<long?> partitionIds = default(List<long?>), bool? processLatestOnly = default(bool?), string rootDir = default(string), List<long?> sourceEntityIds = default(List<long?>), List<long?> viewBoxIds = default(List<long?>), List<string> viewNames = default(List<string>))
         {
-            this.FilenameGlob = filenameGlob;
-            this.JobIds = jobIds;
-            this.MaxSnapshotTimestamp = maxSnapshotTimestamp;
-            this.MinSnapshotTimestamp = minSnapshotTimestamp;
-            this.PartitionIds = partitionIds;
-            this.ProcessLatestOnly = processLatestOnly;
-            this.RootDir = rootDir;
-            this.SourceEntityIds = sourceEntityIds;
-            this.ViewBoxIds = viewBoxIds;
-            this.ViewNames = viewNames;
             this.FileTimeFilter = fileTimeFilter;
             this.FilenameGlob = filenameGlob;
             this.JobIds = jobIds;
@@ -69,66 +62,66 @@ namespace Cohesity.Model
         /// After VMDKs are selected as above, the files within them can be selected by using these predicates.
         /// </summary>
         /// <value>After VMDKs are selected as above, the files within them can be selected by using these predicates.</value>
-        [DataMember(Name="filenameGlob", EmitDefaultValue=true)]
+        [DataMember(Name="filenameGlob", EmitDefaultValue=false)]
         public List<string> FilenameGlob { get; set; }
 
         /// <summary>
         /// Gets or Sets JobIds
         /// </summary>
-        [DataMember(Name="jobIds", EmitDefaultValue=true)]
-        public List<long> JobIds { get; set; }
+        [DataMember(Name="jobIds", EmitDefaultValue=false)]
+        public List<long?> JobIds { get; set; }
 
         /// <summary>
         /// Exclusive end of snapshot_timestamp range. If missing, inf will be used as the timestamp range.
         /// </summary>
         /// <value>Exclusive end of snapshot_timestamp range. If missing, inf will be used as the timestamp range.</value>
-        [DataMember(Name="maxSnapshotTimestamp", EmitDefaultValue=true)]
+        [DataMember(Name="maxSnapshotTimestamp", EmitDefaultValue=false)]
         public long? MaxSnapshotTimestamp { get; set; }
 
         /// <summary>
         /// Inclusive. If missing, 0 will the default lower end of timestamp range
         /// </summary>
         /// <value>Inclusive. If missing, 0 will the default lower end of timestamp range</value>
-        [DataMember(Name="minSnapshotTimestamp", EmitDefaultValue=true)]
+        [DataMember(Name="minSnapshotTimestamp", EmitDefaultValue=false)]
         public long? MinSnapshotTimestamp { get; set; }
 
         /// <summary>
         /// Filters are AND of ORs.
         /// </summary>
         /// <value>Filters are AND of ORs.</value>
-        [DataMember(Name="partitionIds", EmitDefaultValue=true)]
-        public List<long> PartitionIds { get; set; }
+        [DataMember(Name="partitionIds", EmitDefaultValue=false)]
+        public List<long?> PartitionIds { get; set; }
 
         /// <summary>
         /// Boolean flag to indicate if only latest snapshot of each object should be processed.
         /// </summary>
         /// <value>Boolean flag to indicate if only latest snapshot of each object should be processed.</value>
-        [DataMember(Name="processLatestOnly", EmitDefaultValue=true)]
+        [DataMember(Name="processLatestOnly", EmitDefaultValue=false)]
         public bool? ProcessLatestOnly { get; set; }
 
         /// <summary>
         /// Within each volume, traversal will be rooted at this directory. A typical value here might be /home
         /// </summary>
         /// <value>Within each volume, traversal will be rooted at this directory. A typical value here might be /home</value>
-        [DataMember(Name="rootDir", EmitDefaultValue=true)]
+        [DataMember(Name="rootDir", EmitDefaultValue=false)]
         public string RootDir { get; set; }
 
         /// <summary>
         /// Gets or Sets SourceEntityIds
         /// </summary>
-        [DataMember(Name="sourceEntityIds", EmitDefaultValue=true)]
-        public List<long> SourceEntityIds { get; set; }
+        [DataMember(Name="sourceEntityIds", EmitDefaultValue=false)]
+        public List<long?> SourceEntityIds { get; set; }
 
         /// <summary>
         /// Gets or Sets ViewBoxIds
         /// </summary>
-        [DataMember(Name="viewBoxIds", EmitDefaultValue=true)]
-        public List<long> ViewBoxIds { get; set; }
+        [DataMember(Name="viewBoxIds", EmitDefaultValue=false)]
+        public List<long?> ViewBoxIds { get; set; }
 
         /// <summary>
         /// Gets or Sets ViewNames
         /// </summary>
-        [DataMember(Name="viewNames", EmitDefaultValue=true)]
+        [DataMember(Name="viewNames", EmitDefaultValue=false)]
         public List<string> ViewNames { get; set; }
 
         /// <summary>
@@ -175,14 +168,12 @@ namespace Cohesity.Model
                 (
                     this.FilenameGlob == input.FilenameGlob ||
                     this.FilenameGlob != null &&
-                    input.FilenameGlob != null &&
-                    this.FilenameGlob.SequenceEqual(input.FilenameGlob)
+                    this.FilenameGlob.Equals(input.FilenameGlob)
                 ) && 
                 (
                     this.JobIds == input.JobIds ||
                     this.JobIds != null &&
-                    input.JobIds != null &&
-                    this.JobIds.SequenceEqual(input.JobIds)
+                    this.JobIds.Equals(input.JobIds)
                 ) && 
                 (
                     this.MaxSnapshotTimestamp == input.MaxSnapshotTimestamp ||
@@ -197,8 +188,7 @@ namespace Cohesity.Model
                 (
                     this.PartitionIds == input.PartitionIds ||
                     this.PartitionIds != null &&
-                    input.PartitionIds != null &&
-                    this.PartitionIds.SequenceEqual(input.PartitionIds)
+                    this.PartitionIds.Equals(input.PartitionIds)
                 ) && 
                 (
                     this.ProcessLatestOnly == input.ProcessLatestOnly ||
@@ -213,20 +203,17 @@ namespace Cohesity.Model
                 (
                     this.SourceEntityIds == input.SourceEntityIds ||
                     this.SourceEntityIds != null &&
-                    input.SourceEntityIds != null &&
-                    this.SourceEntityIds.SequenceEqual(input.SourceEntityIds)
+                    this.SourceEntityIds.Equals(input.SourceEntityIds)
                 ) && 
                 (
                     this.ViewBoxIds == input.ViewBoxIds ||
                     this.ViewBoxIds != null &&
-                    input.ViewBoxIds != null &&
-                    this.ViewBoxIds.SequenceEqual(input.ViewBoxIds)
+                    this.ViewBoxIds.Equals(input.ViewBoxIds)
                 ) && 
                 (
                     this.ViewNames == input.ViewNames ||
                     this.ViewNames != null &&
-                    input.ViewNames != null &&
-                    this.ViewNames.SequenceEqual(input.ViewNames)
+                    this.ViewNames.Equals(input.ViewNames)
                 );
         }
 

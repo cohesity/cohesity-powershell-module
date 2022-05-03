@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,14 +34,22 @@ namespace Cohesity.Model
         /// <param name="appInstanceId">Specifies the app instance Id. In: path (required).</param>
         public AppInstanceIdParameter(long? appInstanceId = default(long?))
         {
-            this.AppInstanceId = appInstanceId;
+            // to ensure "appInstanceId" is required (not null)
+            if (appInstanceId == null)
+            {
+                throw new InvalidDataException("appInstanceId is a required property for AppInstanceIdParameter and cannot be null");
+            }
+            else
+            {
+                this.AppInstanceId = appInstanceId;
+            }
         }
         
         /// <summary>
         /// Specifies the app instance Id. In: path
         /// </summary>
         /// <value>Specifies the app instance Id. In: path</value>
-        [DataMember(Name="appInstanceId", EmitDefaultValue=true)]
+        [DataMember(Name="appInstanceId", EmitDefaultValue=false)]
         public long? AppInstanceId { get; set; }
 
         /// <summary>

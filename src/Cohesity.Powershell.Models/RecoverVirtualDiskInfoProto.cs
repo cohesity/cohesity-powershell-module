@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -35,11 +38,6 @@ namespace Cohesity.Model
         /// <param name="type">The type of environment this recover virtual disk info pertains to..</param>
         public RecoverVirtualDiskInfoProto(ErrorProto cleanupError = default(ErrorProto), ErrorProto dataMigrationError = default(ErrorProto), ErrorProto error = default(ErrorProto), bool? finished = default(bool?), bool? instantRecoveryFinished = default(bool?), MORef migrateTaskMoref = default(MORef), SetupRestoreDiskTaskInfoProto restoreDisksTaskInfoProto = default(SetupRestoreDiskTaskInfoProto), long? slaveTaskStartTimeUsecs = default(long?), int? taskState = default(int?), int? type = default(int?))
         {
-            this.Finished = finished;
-            this.InstantRecoveryFinished = instantRecoveryFinished;
-            this.SlaveTaskStartTimeUsecs = slaveTaskStartTimeUsecs;
-            this.TaskState = taskState;
-            this.Type = type;
             this.CleanupError = cleanupError;
             this.DataMigrationError = dataMigrationError;
             this.Error = error;
@@ -74,14 +72,14 @@ namespace Cohesity.Model
         /// This will be set to true if the task is complete on the slave.
         /// </summary>
         /// <value>This will be set to true if the task is complete on the slave.</value>
-        [DataMember(Name="finished", EmitDefaultValue=true)]
+        [DataMember(Name="finished", EmitDefaultValue=false)]
         public bool? Finished { get; set; }
 
         /// <summary>
         /// This will be set to true once the instant recovery of the virtual disk is complete.
         /// </summary>
         /// <value>This will be set to true once the instant recovery of the virtual disk is complete.</value>
-        [DataMember(Name="instantRecoveryFinished", EmitDefaultValue=true)]
+        [DataMember(Name="instantRecoveryFinished", EmitDefaultValue=false)]
         public bool? InstantRecoveryFinished { get; set; }
 
         /// <summary>
@@ -100,21 +98,21 @@ namespace Cohesity.Model
         /// This is the timestamp at which the slave task started.
         /// </summary>
         /// <value>This is the timestamp at which the slave task started.</value>
-        [DataMember(Name="slaveTaskStartTimeUsecs", EmitDefaultValue=true)]
+        [DataMember(Name="slaveTaskStartTimeUsecs", EmitDefaultValue=false)]
         public long? SlaveTaskStartTimeUsecs { get; set; }
 
         /// <summary>
         /// The state of the task.
         /// </summary>
         /// <value>The state of the task.</value>
-        [DataMember(Name="taskState", EmitDefaultValue=true)]
+        [DataMember(Name="taskState", EmitDefaultValue=false)]
         public int? TaskState { get; set; }
 
         /// <summary>
         /// The type of environment this recover virtual disk info pertains to.
         /// </summary>
         /// <value>The type of environment this recover virtual disk info pertains to.</value>
-        [DataMember(Name="type", EmitDefaultValue=true)]
+        [DataMember(Name="type", EmitDefaultValue=false)]
         public int? Type { get; set; }
 
         /// <summary>

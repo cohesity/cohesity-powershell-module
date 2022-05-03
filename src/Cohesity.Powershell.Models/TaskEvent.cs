@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -33,38 +36,34 @@ namespace Cohesity.Model
             this.PercentFinished = percentFinished;
             this.RemainingWorkCount = remainingWorkCount;
             this.TimestampSeconds = timestampSeconds;
-            this.EventMessage = eventMessage;
-            this.PercentFinished = percentFinished;
-            this.RemainingWorkCount = remainingWorkCount;
-            this.TimestampSeconds = timestampSeconds;
         }
         
         /// <summary>
         /// Specifies the message associated with an event.
         /// </summary>
         /// <value>Specifies the message associated with an event.</value>
-        [DataMember(Name="eventMessage", EmitDefaultValue=true)]
+        [DataMember(Name="eventMessage", EmitDefaultValue=false)]
         public string EventMessage { get; set; }
 
         /// <summary>
         /// Specifies the completion percentage of the task attached to this event.
         /// </summary>
         /// <value>Specifies the completion percentage of the task attached to this event.</value>
-        [DataMember(Name="percentFinished", EmitDefaultValue=true)]
+        [DataMember(Name="percentFinished", EmitDefaultValue=false)]
         public float? PercentFinished { get; set; }
 
         /// <summary>
         /// Specifies the amount of work remaining for the task attached to this event.
         /// </summary>
         /// <value>Specifies the amount of work remaining for the task attached to this event.</value>
-        [DataMember(Name="remainingWorkCount", EmitDefaultValue=true)]
+        [DataMember(Name="remainingWorkCount", EmitDefaultValue=false)]
         public long? RemainingWorkCount { get; set; }
 
         /// <summary>
         /// Specifies the Unix timestamp that the event occurred.
         /// </summary>
         /// <value>Specifies the Unix timestamp that the event occurred.</value>
-        [DataMember(Name="timestampSeconds", EmitDefaultValue=true)]
+        [DataMember(Name="timestampSeconds", EmitDefaultValue=false)]
         public long? TimestampSeconds { get; set; }
 
         /// <summary>

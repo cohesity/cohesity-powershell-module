@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,27 +34,24 @@ namespace Cohesity.Model
             this.IsExclusive = isExclusive;
             this.Length = length;
             this.Offset = offset;
-            this.IsExclusive = isExclusive;
-            this.Length = length;
-            this.Offset = offset;
         }
         
         /// <summary>
         /// Gets or Sets IsExclusive
         /// </summary>
-        [DataMember(Name="isExclusive", EmitDefaultValue=true)]
+        [DataMember(Name="isExclusive", EmitDefaultValue=false)]
         public bool? IsExclusive { get; set; }
 
         /// <summary>
         /// Gets or Sets Length
         /// </summary>
-        [DataMember(Name="length", EmitDefaultValue=true)]
+        [DataMember(Name="length", EmitDefaultValue=false)]
         public int? Length { get; set; }
 
         /// <summary>
         /// Gets or Sets Offset
         /// </summary>
-        [DataMember(Name="offset", EmitDefaultValue=true)]
+        [DataMember(Name="offset", EmitDefaultValue=false)]
         public int? Offset { get; set; }
 
         /// <summary>

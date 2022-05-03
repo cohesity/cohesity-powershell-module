@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -12,6 +13,8 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
+
+
 namespace Cohesity.Model
 {
     /// <summary>
@@ -23,29 +26,45 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="TenantProxy" /> class.
         /// </summary>
+        /// <param name="constituentId">Specifies the constituent id of the proxy..</param>
         /// <param name="ipAddress">Specifies the ip address of the proxy..</param>
         /// <param name="tenantId">Specifies the unique id of the tenant..</param>
-        public TenantProxy(string ipAddress = default(string), string tenantId = default(string))
+        /// <param name="version">Specifies the version of the proxy..</param>
+        public TenantProxy(long? constituentId = default(long?), string ipAddress = default(string), string tenantId = default(string), string version = default(string))
         {
+            this.ConstituentId = constituentId;
             this.IpAddress = ipAddress;
             this.TenantId = tenantId;
-            this.IpAddress = ipAddress;
-            this.TenantId = tenantId;
+            this.Version = version;
         }
         
+        /// <summary>
+        /// Specifies the constituent id of the proxy.
+        /// </summary>
+        /// <value>Specifies the constituent id of the proxy.</value>
+        [DataMember(Name="constituentId", EmitDefaultValue=false)]
+        public long? ConstituentId { get; set; }
+
         /// <summary>
         /// Specifies the ip address of the proxy.
         /// </summary>
         /// <value>Specifies the ip address of the proxy.</value>
-        [DataMember(Name="ipAddress", EmitDefaultValue=true)]
+        [DataMember(Name="ipAddress", EmitDefaultValue=false)]
         public string IpAddress { get; set; }
 
         /// <summary>
         /// Specifies the unique id of the tenant.
         /// </summary>
         /// <value>Specifies the unique id of the tenant.</value>
-        [DataMember(Name="tenantId", EmitDefaultValue=true)]
+        [DataMember(Name="tenantId", EmitDefaultValue=false)]
         public string TenantId { get; set; }
+
+        /// <summary>
+        /// Specifies the version of the proxy.
+        /// </summary>
+        /// <value>Specifies the version of the proxy.</value>
+        [DataMember(Name="version", EmitDefaultValue=false)]
+        public string Version { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -84,6 +103,11 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.ConstituentId == input.ConstituentId ||
+                    (this.ConstituentId != null &&
+                    this.ConstituentId.Equals(input.ConstituentId))
+                ) && 
+                (
                     this.IpAddress == input.IpAddress ||
                     (this.IpAddress != null &&
                     this.IpAddress.Equals(input.IpAddress))
@@ -92,6 +116,11 @@ namespace Cohesity.Model
                     this.TenantId == input.TenantId ||
                     (this.TenantId != null &&
                     this.TenantId.Equals(input.TenantId))
+                ) && 
+                (
+                    this.Version == input.Version ||
+                    (this.Version != null &&
+                    this.Version.Equals(input.Version))
                 );
         }
 
@@ -104,10 +133,14 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.ConstituentId != null)
+                    hashCode = hashCode * 59 + this.ConstituentId.GetHashCode();
                 if (this.IpAddress != null)
                     hashCode = hashCode * 59 + this.IpAddress.GetHashCode();
                 if (this.TenantId != null)
                     hashCode = hashCode * 59 + this.TenantId.GetHashCode();
+                if (this.Version != null)
+                    hashCode = hashCode * 59 + this.Version.GetHashCode();
                 return hashCode;
             }
         }

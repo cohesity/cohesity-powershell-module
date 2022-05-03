@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.IpAddress = ipAddress;
             this.NetworkUuid = networkUuid;
-            this.IpAddress = ipAddress;
-            this.NetworkUuid = networkUuid;
         }
         
         /// <summary>
         /// IP address to assign to the NIC.
         /// </summary>
         /// <value>IP address to assign to the NIC.</value>
-        [DataMember(Name="ipAddress", EmitDefaultValue=true)]
+        [DataMember(Name="ipAddress", EmitDefaultValue=false)]
         public string IpAddress { get; set; }
 
         /// <summary>
         /// The UUID of the network to which the NIC is to be attached.
         /// </summary>
         /// <value>The UUID of the network to which the NIC is to be attached.</value>
-        [DataMember(Name="networkUuid", EmitDefaultValue=true)]
+        [DataMember(Name="networkUuid", EmitDefaultValue=false)]
         public string NetworkUuid { get; set; }
 
         /// <summary>

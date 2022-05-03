@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -51,7 +54,7 @@ namespace Cohesity.Model
         /// Specifies the authentication scheme for the cluster. &#39;kPasswordOnly&#39; indicates the normal cohesity authentication type. &#39;kCertificateOnly&#39; indicates that certificate based authentication has been enabled and the password based authentication has been turned off. &#39;kPasswordAndCertificate&#39; indicates that both the authenticatio schemes are required.
         /// </summary>
         /// <value>Specifies the authentication scheme for the cluster. &#39;kPasswordOnly&#39; indicates the normal cohesity authentication type. &#39;kCertificateOnly&#39; indicates that certificate based authentication has been enabled and the password based authentication has been turned off. &#39;kPasswordAndCertificate&#39; indicates that both the authenticatio schemes are required.</value>
-        [DataMember(Name="authenticationType", EmitDefaultValue=true)]
+        [DataMember(Name="authenticationType", EmitDefaultValue=false)]
         public AuthenticationTypeEnum? AuthenticationType { get; set; }
         /// <summary>
         /// Specifies the type of Cohesity Cluster. &#39;kPhysical&#39; indicates the Cohesity Cluster is hosted directly on hardware. &#39;kVirtualRobo&#39; indicates the Cohesity Cluster is hosted in a VM on a ESXi Host of a VMware vCenter Server using Cohesity&#39;s Virtual Edition. &#39;kMicrosoftCloud&#39; indicates the Cohesity Cluster is hosted in a VM on Microsoft Azure using Cohesity&#39;s Cloud Edition. &#39;kAmazonCloud&#39; indicates the Cohesity Cluster is hosted in a VM on Amazon S3 using Cohesity&#39;s Cloud Edition. &#39;kGoogleCloud&#39; indicates the Cohesity Cluster is hosted in a VM on Google Cloud Platform using Cohesity&#39;s Cloud Edition.
@@ -96,14 +99,14 @@ namespace Cohesity.Model
         /// Specifies the type of Cohesity Cluster. &#39;kPhysical&#39; indicates the Cohesity Cluster is hosted directly on hardware. &#39;kVirtualRobo&#39; indicates the Cohesity Cluster is hosted in a VM on a ESXi Host of a VMware vCenter Server using Cohesity&#39;s Virtual Edition. &#39;kMicrosoftCloud&#39; indicates the Cohesity Cluster is hosted in a VM on Microsoft Azure using Cohesity&#39;s Cloud Edition. &#39;kAmazonCloud&#39; indicates the Cohesity Cluster is hosted in a VM on Amazon S3 using Cohesity&#39;s Cloud Edition. &#39;kGoogleCloud&#39; indicates the Cohesity Cluster is hosted in a VM on Google Cloud Platform using Cohesity&#39;s Cloud Edition.
         /// </summary>
         /// <value>Specifies the type of Cohesity Cluster. &#39;kPhysical&#39; indicates the Cohesity Cluster is hosted directly on hardware. &#39;kVirtualRobo&#39; indicates the Cohesity Cluster is hosted in a VM on a ESXi Host of a VMware vCenter Server using Cohesity&#39;s Virtual Edition. &#39;kMicrosoftCloud&#39; indicates the Cohesity Cluster is hosted in a VM on Microsoft Azure using Cohesity&#39;s Cloud Edition. &#39;kAmazonCloud&#39; indicates the Cohesity Cluster is hosted in a VM on Amazon S3 using Cohesity&#39;s Cloud Edition. &#39;kGoogleCloud&#39; indicates the Cohesity Cluster is hosted in a VM on Google Cloud Platform using Cohesity&#39;s Cloud Edition.</value>
-        [DataMember(Name="clusterType", EmitDefaultValue=true)]
+        [DataMember(Name="clusterType", EmitDefaultValue=false)]
         public ClusterTypeEnum? ClusterType { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="BasicClusterInfo" /> class.
         /// </summary>
         /// <param name="authenticationType">Specifies the authentication scheme for the cluster. &#39;kPasswordOnly&#39; indicates the normal cohesity authentication type. &#39;kCertificateOnly&#39; indicates that certificate based authentication has been enabled and the password based authentication has been turned off. &#39;kPasswordAndCertificate&#39; indicates that both the authenticatio schemes are required..</param>
         /// <param name="bannerEnabled">Specifies if banner is enabled on the cluster..</param>
-        /// <param name="clusterSoftwareVersion">Specifies the current release of the Cohesity software running on this Cohesity Cluster..</param>
+        /// <param name="clusterSoftwareVersion">This field is deprecated. Specifies the current release of the Cohesity software running on this Cohesity Cluster. deprecated: true.</param>
         /// <param name="clusterType">Specifies the type of Cohesity Cluster. &#39;kPhysical&#39; indicates the Cohesity Cluster is hosted directly on hardware. &#39;kVirtualRobo&#39; indicates the Cohesity Cluster is hosted in a VM on a ESXi Host of a VMware vCenter Server using Cohesity&#39;s Virtual Edition. &#39;kMicrosoftCloud&#39; indicates the Cohesity Cluster is hosted in a VM on Microsoft Azure using Cohesity&#39;s Cloud Edition. &#39;kAmazonCloud&#39; indicates the Cohesity Cluster is hosted in a VM on Amazon S3 using Cohesity&#39;s Cloud Edition. &#39;kGoogleCloud&#39; indicates the Cohesity Cluster is hosted in a VM on Google Cloud Platform using Cohesity&#39;s Cloud Edition..</param>
         /// <param name="domains">Array of Domains.  Specifies a list of domains joined to the Cohesity Cluster, including the default LOCAL Cohesity domain used to store the local Cohesity users..</param>
         /// <param name="idpConfigured">Specifies Idp is configured for the Cluster..</param>
@@ -127,88 +130,78 @@ namespace Cohesity.Model
             this.McmOnPremMode = mcmOnPremMode;
             this.MultiTenancyEnabled = multiTenancyEnabled;
             this.Name = name;
-            this.AuthenticationType = authenticationType;
-            this.BannerEnabled = bannerEnabled;
-            this.ClusterSoftwareVersion = clusterSoftwareVersion;
-            this.ClusterType = clusterType;
-            this.Domains = domains;
-            this.IdpConfigured = idpConfigured;
-            this.IdpTenantExists = idpTenantExists;
-            this.LanguageLocale = languageLocale;
-            this.McmMode = mcmMode;
-            this.McmOnPremMode = mcmOnPremMode;
-            this.MultiTenancyEnabled = multiTenancyEnabled;
-            this.Name = name;
         }
         
+
         /// <summary>
         /// Specifies if banner is enabled on the cluster.
         /// </summary>
         /// <value>Specifies if banner is enabled on the cluster.</value>
-        [DataMember(Name="bannerEnabled", EmitDefaultValue=true)]
+        [DataMember(Name="bannerEnabled", EmitDefaultValue=false)]
         public bool? BannerEnabled { get; set; }
 
         /// <summary>
-        /// Specifies the current release of the Cohesity software running on this Cohesity Cluster.
+        /// This field is deprecated. Specifies the current release of the Cohesity software running on this Cohesity Cluster. deprecated: true
         /// </summary>
-        /// <value>Specifies the current release of the Cohesity software running on this Cohesity Cluster.</value>
-        [DataMember(Name="clusterSoftwareVersion", EmitDefaultValue=true)]
+        /// <value>This field is deprecated. Specifies the current release of the Cohesity software running on this Cohesity Cluster. deprecated: true</value>
+        [DataMember(Name="clusterSoftwareVersion", EmitDefaultValue=false)]
         public string ClusterSoftwareVersion { get; set; }
+
 
         /// <summary>
         /// Array of Domains.  Specifies a list of domains joined to the Cohesity Cluster, including the default LOCAL Cohesity domain used to store the local Cohesity users.
         /// </summary>
         /// <value>Array of Domains.  Specifies a list of domains joined to the Cohesity Cluster, including the default LOCAL Cohesity domain used to store the local Cohesity users.</value>
-        [DataMember(Name="domains", EmitDefaultValue=true)]
+        [DataMember(Name="domains", EmitDefaultValue=false)]
         public List<string> Domains { get; set; }
 
         /// <summary>
         /// Specifies Idp is configured for the Cluster.
         /// </summary>
         /// <value>Specifies Idp is configured for the Cluster.</value>
-        [DataMember(Name="idpConfigured", EmitDefaultValue=true)]
+        [DataMember(Name="idpConfigured", EmitDefaultValue=false)]
         public bool? IdpConfigured { get; set; }
 
         /// <summary>
         /// Specifies Idp is configured for a Tenant.
         /// </summary>
         /// <value>Specifies Idp is configured for a Tenant.</value>
-        [DataMember(Name="idpTenantExists", EmitDefaultValue=true)]
+        [DataMember(Name="idpTenantExists", EmitDefaultValue=false)]
         public bool? IdpTenantExists { get; set; }
 
         /// <summary>
         /// Specifies the language and locale for the Cohesity Cluster.
         /// </summary>
         /// <value>Specifies the language and locale for the Cohesity Cluster.</value>
-        [DataMember(Name="languageLocale", EmitDefaultValue=true)]
+        [DataMember(Name="languageLocale", EmitDefaultValue=false)]
         public string LanguageLocale { get; set; }
 
         /// <summary>
         /// Specifies whether server is running in mcm-mode. If set to true, it is in mcm-mode.
         /// </summary>
         /// <value>Specifies whether server is running in mcm-mode. If set to true, it is in mcm-mode.</value>
-        [DataMember(Name="mcmMode", EmitDefaultValue=true)]
+        [DataMember(Name="mcmMode", EmitDefaultValue=false)]
         public bool? McmMode { get; set; }
 
         /// <summary>
         /// Specifies whether server is running in mcm-on-prem-mode. If set to true, it is in mcm on prem mode. This need mcm-mode to be true.
         /// </summary>
         /// <value>Specifies whether server is running in mcm-on-prem-mode. If set to true, it is in mcm on prem mode. This need mcm-mode to be true.</value>
-        [DataMember(Name="mcmOnPremMode", EmitDefaultValue=true)]
+        [DataMember(Name="mcmOnPremMode", EmitDefaultValue=false)]
         public bool? McmOnPremMode { get; set; }
 
         /// <summary>
         /// Specifies if multi-tenancy is enabled on the cluster.
         /// </summary>
         /// <value>Specifies if multi-tenancy is enabled on the cluster.</value>
-        [DataMember(Name="multiTenancyEnabled", EmitDefaultValue=true)]
+        [DataMember(Name="multiTenancyEnabled", EmitDefaultValue=false)]
         public bool? MultiTenancyEnabled { get; set; }
 
         /// <summary>
         /// Specifies the name of the Cohesity Cluster.
         /// </summary>
         /// <value>Specifies the name of the Cohesity Cluster.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
 
         /// <summary>
@@ -249,7 +242,8 @@ namespace Cohesity.Model
             return 
                 (
                     this.AuthenticationType == input.AuthenticationType ||
-                    this.AuthenticationType.Equals(input.AuthenticationType)
+                    (this.AuthenticationType != null &&
+                    this.AuthenticationType.Equals(input.AuthenticationType))
                 ) && 
                 (
                     this.BannerEnabled == input.BannerEnabled ||
@@ -263,13 +257,13 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.ClusterType == input.ClusterType ||
-                    this.ClusterType.Equals(input.ClusterType)
+                    (this.ClusterType != null &&
+                    this.ClusterType.Equals(input.ClusterType))
                 ) && 
                 (
                     this.Domains == input.Domains ||
                     this.Domains != null &&
-                    input.Domains != null &&
-                    this.Domains.SequenceEqual(input.Domains)
+                    this.Domains.Equals(input.Domains)
                 ) && 
                 (
                     this.IdpConfigured == input.IdpConfigured ||
@@ -317,12 +311,14 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                hashCode = hashCode * 59 + this.AuthenticationType.GetHashCode();
+                if (this.AuthenticationType != null)
+                    hashCode = hashCode * 59 + this.AuthenticationType.GetHashCode();
                 if (this.BannerEnabled != null)
                     hashCode = hashCode * 59 + this.BannerEnabled.GetHashCode();
                 if (this.ClusterSoftwareVersion != null)
                     hashCode = hashCode * 59 + this.ClusterSoftwareVersion.GetHashCode();
-                hashCode = hashCode * 59 + this.ClusterType.GetHashCode();
+                if (this.ClusterType != null)
+                    hashCode = hashCode * 59 + this.ClusterType.GetHashCode();
                 if (this.Domains != null)
                     hashCode = hashCode * 59 + this.Domains.GetHashCode();
                 if (this.IdpConfigured != null)

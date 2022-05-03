@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.UpdateFailedInfectedFiles = updateFailedInfectedFiles;
             this.UpdateSucceededInfectedFiles = updateSucceededInfectedFiles;
-            this.UpdateFailedInfectedFiles = updateFailedInfectedFiles;
-            this.UpdateSucceededInfectedFiles = updateSucceededInfectedFiles;
         }
         
         /// <summary>
         /// Specifies the failed update infected files.
         /// </summary>
         /// <value>Specifies the failed update infected files.</value>
-        [DataMember(Name="updateFailedInfectedFiles", EmitDefaultValue=true)]
+        [DataMember(Name="updateFailedInfectedFiles", EmitDefaultValue=false)]
         public List<InfectedFileId> UpdateFailedInfectedFiles { get; set; }
 
         /// <summary>
         /// Specifies the successfully updated infected files.
         /// </summary>
         /// <value>Specifies the successfully updated infected files.</value>
-        [DataMember(Name="updateSucceededInfectedFiles", EmitDefaultValue=true)]
+        [DataMember(Name="updateSucceededInfectedFiles", EmitDefaultValue=false)]
         public List<InfectedFileId> UpdateSucceededInfectedFiles { get; set; }
 
         /// <summary>
@@ -86,14 +87,12 @@ namespace Cohesity.Model
                 (
                     this.UpdateFailedInfectedFiles == input.UpdateFailedInfectedFiles ||
                     this.UpdateFailedInfectedFiles != null &&
-                    input.UpdateFailedInfectedFiles != null &&
-                    this.UpdateFailedInfectedFiles.SequenceEqual(input.UpdateFailedInfectedFiles)
+                    this.UpdateFailedInfectedFiles.Equals(input.UpdateFailedInfectedFiles)
                 ) && 
                 (
                     this.UpdateSucceededInfectedFiles == input.UpdateSucceededInfectedFiles ||
                     this.UpdateSucceededInfectedFiles != null &&
-                    input.UpdateSucceededInfectedFiles != null &&
-                    this.UpdateSucceededInfectedFiles.SequenceEqual(input.UpdateSucceededInfectedFiles)
+                    this.UpdateSucceededInfectedFiles.Equals(input.UpdateSucceededInfectedFiles)
                 );
         }
 

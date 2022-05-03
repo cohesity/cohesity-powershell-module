@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,7 +30,6 @@ namespace Cohesity.Model
         /// <param name="selectedDataCenterVec">The data centers selected for backup..</param>
         public CassandraBackupJobParams(CassandraAdditionalParams cassandraAdditionalInfo = default(CassandraAdditionalParams), List<string> selectedDataCenterVec = default(List<string>))
         {
-            this.SelectedDataCenterVec = selectedDataCenterVec;
             this.CassandraAdditionalInfo = cassandraAdditionalInfo;
             this.SelectedDataCenterVec = selectedDataCenterVec;
         }
@@ -42,7 +44,7 @@ namespace Cohesity.Model
         /// The data centers selected for backup.
         /// </summary>
         /// <value>The data centers selected for backup.</value>
-        [DataMember(Name="selectedDataCenterVec", EmitDefaultValue=true)]
+        [DataMember(Name="selectedDataCenterVec", EmitDefaultValue=false)]
         public List<string> SelectedDataCenterVec { get; set; }
 
         /// <summary>
@@ -89,8 +91,7 @@ namespace Cohesity.Model
                 (
                     this.SelectedDataCenterVec == input.SelectedDataCenterVec ||
                     this.SelectedDataCenterVec != null &&
-                    input.SelectedDataCenterVec != null &&
-                    this.SelectedDataCenterVec.SequenceEqual(input.SelectedDataCenterVec)
+                    this.SelectedDataCenterVec.Equals(input.SelectedDataCenterVec)
                 );
         }
 

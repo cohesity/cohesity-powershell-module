@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -28,7 +31,6 @@ namespace Cohesity.Model
         public FileFstatResult(int? cookie = default(int?), FileStatInfo fstatInfo = default(FileStatInfo))
         {
             this.Cookie = cookie;
-            this.Cookie = cookie;
             this.FstatInfo = fstatInfo;
         }
         
@@ -36,7 +38,7 @@ namespace Cohesity.Model
         /// Cookie is used for paginating results. If ReadVMDirResult is returning partial results, this field will be set. Supplying this cookie will resume listing from where this result left off.
         /// </summary>
         /// <value>Cookie is used for paginating results. If ReadVMDirResult is returning partial results, this field will be set. Supplying this cookie will resume listing from where this result left off.</value>
-        [DataMember(Name="cookie", EmitDefaultValue=true)]
+        [DataMember(Name="cookie", EmitDefaultValue=false)]
         public int? Cookie { get; set; }
 
         /// <summary>

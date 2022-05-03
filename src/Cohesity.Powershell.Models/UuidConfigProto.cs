@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,13 +30,12 @@ namespace Cohesity.Model
         public UuidConfigProto(bool? preserveUuid = default(bool?))
         {
             this.PreserveUuid = preserveUuid;
-            this.PreserveUuid = preserveUuid;
         }
         
         /// <summary>
         /// Gets or Sets PreserveUuid
         /// </summary>
-        [DataMember(Name="preserveUuid", EmitDefaultValue=true)]
+        [DataMember(Name="preserveUuid", EmitDefaultValue=false)]
         public bool? PreserveUuid { get; set; }
 
         /// <summary>

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,9 +34,6 @@ namespace Cohesity.Model
         {
             this.ProtectionJobs = protectionJobs;
             this.ProtectionPolicies = protectionPolicies;
-            this.Stats = stats;
-            this.ProtectionJobs = protectionJobs;
-            this.ProtectionPolicies = protectionPolicies;
             this.ProtectionSource = protectionSource;
             this.Stats = stats;
         }
@@ -42,14 +42,14 @@ namespace Cohesity.Model
         /// Specifies the list of Protection Jobs that protect the VM.
         /// </summary>
         /// <value>Specifies the list of Protection Jobs that protect the VM.</value>
-        [DataMember(Name="protectionJobs", EmitDefaultValue=true)]
+        [DataMember(Name="protectionJobs", EmitDefaultValue=false)]
         public List<ProtectionJob> ProtectionJobs { get; set; }
 
         /// <summary>
         /// Specifies the list of Policies that are used by the Protection Jobs.
         /// </summary>
         /// <value>Specifies the list of Policies that are used by the Protection Jobs.</value>
-        [DataMember(Name="protectionPolicies", EmitDefaultValue=true)]
+        [DataMember(Name="protectionPolicies", EmitDefaultValue=false)]
         public List<ProtectionPolicy> ProtectionPolicies { get; set; }
 
         /// <summary>
@@ -62,7 +62,7 @@ namespace Cohesity.Model
         /// Specifies the protection stats of VM.
         /// </summary>
         /// <value>Specifies the protection stats of VM.</value>
-        [DataMember(Name="stats", EmitDefaultValue=true)]
+        [DataMember(Name="stats", EmitDefaultValue=false)]
         public ProtectionSummary Stats { get; set; }
 
         /// <summary>
@@ -104,14 +104,12 @@ namespace Cohesity.Model
                 (
                     this.ProtectionJobs == input.ProtectionJobs ||
                     this.ProtectionJobs != null &&
-                    input.ProtectionJobs != null &&
-                    this.ProtectionJobs.SequenceEqual(input.ProtectionJobs)
+                    this.ProtectionJobs.Equals(input.ProtectionJobs)
                 ) && 
                 (
                     this.ProtectionPolicies == input.ProtectionPolicies ||
                     this.ProtectionPolicies != null &&
-                    input.ProtectionPolicies != null &&
-                    this.ProtectionPolicies.SequenceEqual(input.ProtectionPolicies)
+                    this.ProtectionPolicies.Equals(input.ProtectionPolicies)
                 ) && 
                 (
                     this.ProtectionSource == input.ProtectionSource ||
@@ -120,8 +118,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.Stats == input.Stats ||
-                    (this.Stats != null &&
-                    this.Stats.Equals(input.Stats))
+                    this.Stats != null &&
+                    this.Stats.Equals(input.Stats)
                 );
         }
 

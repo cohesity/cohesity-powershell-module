@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -69,7 +72,7 @@ namespace Cohesity.Model
         /// Specifies the environment type for the host. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kOther&#39; indicates the other types of operating system.
         /// </summary>
         /// <value>Specifies the environment type for the host. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kOther&#39; indicates the other types of operating system.</value>
-        [DataMember(Name="hostType", EmitDefaultValue=true)]
+        [DataMember(Name="hostType", EmitDefaultValue=false)]
         public HostTypeEnum? HostType { get; set; }
         /// <summary>
         /// Specifies the type of managed Object in a Physical Protection Source. &#39;kGroup&#39; indicates the EH container. &#39;kHost&#39; indicates a single physical server. &#39;kWindowsCluster&#39; indicates a Microsoft Windows cluster. &#39;kOracleRACCluster&#39; indicates an Oracle Real Application Cluster(RAC). &#39;kOracleAPCluster&#39; indicates an Oracle Active-Passive Cluster.
@@ -106,13 +109,7 @@ namespace Cohesity.Model
             /// Enum KOracleAPCluster for value: kOracleAPCluster
             /// </summary>
             [EnumMember(Value = "kOracleAPCluster")]
-            KOracleAPCluster = 5,
-
-            /// <summary>
-            /// Enum KOracleCluster for value: kOracleCluster
-            /// </summary>
-            [EnumMember(Value = "kOracleCluster")]
-            KOracleCluster = 6
+            KOracleAPCluster = 5
 
         }
 
@@ -120,7 +117,7 @@ namespace Cohesity.Model
         /// Specifies the type of managed Object in a Physical Protection Source. &#39;kGroup&#39; indicates the EH container. &#39;kHost&#39; indicates a single physical server. &#39;kWindowsCluster&#39; indicates a Microsoft Windows cluster. &#39;kOracleRACCluster&#39; indicates an Oracle Real Application Cluster(RAC). &#39;kOracleAPCluster&#39; indicates an Oracle Active-Passive Cluster.
         /// </summary>
         /// <value>Specifies the type of managed Object in a Physical Protection Source. &#39;kGroup&#39; indicates the EH container. &#39;kHost&#39; indicates a single physical server. &#39;kWindowsCluster&#39; indicates a Microsoft Windows cluster. &#39;kOracleRACCluster&#39; indicates an Oracle Real Application Cluster(RAC). &#39;kOracleAPCluster&#39; indicates an Oracle Active-Passive Cluster.</value>
-        [DataMember(Name="type", EmitDefaultValue=true)]
+        [DataMember(Name="type", EmitDefaultValue=false)]
         public TypeEnum? Type { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="PhysicalProtectionSource" /> class.
@@ -129,7 +126,8 @@ namespace Cohesity.Model
         /// <param name="hostName">Specifies the hostname..</param>
         /// <param name="hostType">Specifies the environment type for the host. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kOther&#39; indicates the other types of operating system..</param>
         /// <param name="id">Specifies a unique id of a Physical Protection Source. The id is unique across Cohesity Clusters..</param>
-        /// <param name="memorySizeBytes">Specifies the total memory ont the host in bytes..</param>
+        /// <param name="isProxyHost">Specifies if the physical host is a proxy host..</param>
+        /// <param name="memorySizeBytes">Specifies the total memory on the host in bytes..</param>
         /// <param name="name">Specifies a human readable name of the Protection Source..</param>
         /// <param name="networkingInfo">networkingInfo.</param>
         /// <param name="numProcessors">Specifies the number of processors on the host..</param>
@@ -137,23 +135,14 @@ namespace Cohesity.Model
         /// <param name="type">Specifies the type of managed Object in a Physical Protection Source. &#39;kGroup&#39; indicates the EH container. &#39;kHost&#39; indicates a single physical server. &#39;kWindowsCluster&#39; indicates a Microsoft Windows cluster. &#39;kOracleRACCluster&#39; indicates an Oracle Real Application Cluster(RAC). &#39;kOracleAPCluster&#39; indicates an Oracle Active-Passive Cluster..</param>
         /// <param name="vcsVersion">Specifies cluster version for VCS host..</param>
         /// <param name="volumes">Array of Physical Volumes.  Specifies the volumes available on the physical host. These fields are populated only for the kPhysicalHost type..</param>
-        public PhysicalProtectionSource(List<AgentInformation> agents = default(List<AgentInformation>), string hostName = default(string), HostTypeEnum? hostType = default(HostTypeEnum?), UniversalId id = default(UniversalId), long? memorySizeBytes = default(long?), string name = default(string), NetworkingInformation networkingInfo = default(NetworkingInformation), long? numProcessors = default(long?), string osName = default(string), TypeEnum? type = default(TypeEnum?), string vcsVersion = default(string), List<PhysicalVolume> volumes = default(List<PhysicalVolume>))
+        /// <param name="vsswriters">Specifies the list of writers available on the physical host. These fields are populated only for the kPhysicalHost type, particularly when the host is windows.</param>
+        public PhysicalProtectionSource(List<AgentInformation> agents = default(List<AgentInformation>), string hostName = default(string), HostTypeEnum? hostType = default(HostTypeEnum?), UniversalId id = default(UniversalId), bool? isProxyHost = default(bool?), long? memorySizeBytes = default(long?), string name = default(string), NetworkingInformation networkingInfo = default(NetworkingInformation), long? numProcessors = default(long?), string osName = default(string), TypeEnum? type = default(TypeEnum?), string vcsVersion = default(string), List<PhysicalVolume> volumes = default(List<PhysicalVolume>), List<VssWriter> vsswriters = default(List<VssWriter>))
         {
             this.Agents = agents;
             this.HostName = hostName;
             this.HostType = hostType;
             this.Id = id;
-            this.MemorySizeBytes = memorySizeBytes;
-            this.Name = name;
-            this.NumProcessors = numProcessors;
-            this.OsName = osName;
-            this.Type = type;
-            this.VcsVersion = vcsVersion;
-            this.Volumes = volumes;
-            this.Agents = agents;
-            this.HostName = hostName;
-            this.HostType = hostType;
-            this.Id = id;
+            this.IsProxyHost = isProxyHost;
             this.MemorySizeBytes = memorySizeBytes;
             this.Name = name;
             this.NetworkingInfo = networkingInfo;
@@ -162,41 +151,50 @@ namespace Cohesity.Model
             this.Type = type;
             this.VcsVersion = vcsVersion;
             this.Volumes = volumes;
+            this.Vsswriters = vsswriters;
         }
         
         /// <summary>
         /// Array of Agents on the Physical Protection Source.  Specifiles the agents running on the Physical Protection Source and the status information.
         /// </summary>
         /// <value>Array of Agents on the Physical Protection Source.  Specifiles the agents running on the Physical Protection Source and the status information.</value>
-        [DataMember(Name="agents", EmitDefaultValue=true)]
+        [DataMember(Name="agents", EmitDefaultValue=false)]
         public List<AgentInformation> Agents { get; set; }
 
         /// <summary>
         /// Specifies the hostname.
         /// </summary>
         /// <value>Specifies the hostname.</value>
-        [DataMember(Name="hostName", EmitDefaultValue=true)]
+        [DataMember(Name="hostName", EmitDefaultValue=false)]
         public string HostName { get; set; }
+
 
         /// <summary>
         /// Specifies a unique id of a Physical Protection Source. The id is unique across Cohesity Clusters.
         /// </summary>
         /// <value>Specifies a unique id of a Physical Protection Source. The id is unique across Cohesity Clusters.</value>
-        [DataMember(Name="id", EmitDefaultValue=true)]
+        [DataMember(Name="id", EmitDefaultValue=false)]
         public UniversalId Id { get; set; }
 
         /// <summary>
-        /// Specifies the total memory ont the host in bytes.
+        /// Specifies if the physical host is a proxy host.
         /// </summary>
-        /// <value>Specifies the total memory ont the host in bytes.</value>
-        [DataMember(Name="memorySizeBytes", EmitDefaultValue=true)]
+        /// <value>Specifies if the physical host is a proxy host.</value>
+        [DataMember(Name="isProxyHost", EmitDefaultValue=false)]
+        public bool? IsProxyHost { get; set; }
+
+        /// <summary>
+        /// Specifies the total memory on the host in bytes.
+        /// </summary>
+        /// <value>Specifies the total memory on the host in bytes.</value>
+        [DataMember(Name="memorySizeBytes", EmitDefaultValue=false)]
         public long? MemorySizeBytes { get; set; }
 
         /// <summary>
         /// Specifies a human readable name of the Protection Source.
         /// </summary>
         /// <value>Specifies a human readable name of the Protection Source.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
 
         /// <summary>
@@ -209,29 +207,37 @@ namespace Cohesity.Model
         /// Specifies the number of processors on the host.
         /// </summary>
         /// <value>Specifies the number of processors on the host.</value>
-        [DataMember(Name="numProcessors", EmitDefaultValue=true)]
+        [DataMember(Name="numProcessors", EmitDefaultValue=false)]
         public long? NumProcessors { get; set; }
 
         /// <summary>
         /// Specifies a human readable name of the OS of the Protection Source.
         /// </summary>
         /// <value>Specifies a human readable name of the OS of the Protection Source.</value>
-        [DataMember(Name="osName", EmitDefaultValue=true)]
+        [DataMember(Name="osName", EmitDefaultValue=false)]
         public string OsName { get; set; }
+
 
         /// <summary>
         /// Specifies cluster version for VCS host.
         /// </summary>
         /// <value>Specifies cluster version for VCS host.</value>
-        [DataMember(Name="vcsVersion", EmitDefaultValue=true)]
+        [DataMember(Name="vcsVersion", EmitDefaultValue=false)]
         public string VcsVersion { get; set; }
 
         /// <summary>
         /// Array of Physical Volumes.  Specifies the volumes available on the physical host. These fields are populated only for the kPhysicalHost type.
         /// </summary>
         /// <value>Array of Physical Volumes.  Specifies the volumes available on the physical host. These fields are populated only for the kPhysicalHost type.</value>
-        [DataMember(Name="volumes", EmitDefaultValue=true)]
+        [DataMember(Name="volumes", EmitDefaultValue=false)]
         public List<PhysicalVolume> Volumes { get; set; }
+
+        /// <summary>
+        /// Specifies the list of writers available on the physical host. These fields are populated only for the kPhysicalHost type, particularly when the host is windows
+        /// </summary>
+        /// <value>Specifies the list of writers available on the physical host. These fields are populated only for the kPhysicalHost type, particularly when the host is windows</value>
+        [DataMember(Name="vsswriters", EmitDefaultValue=false)]
+        public List<VssWriter> Vsswriters { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -272,8 +278,7 @@ namespace Cohesity.Model
                 (
                     this.Agents == input.Agents ||
                     this.Agents != null &&
-                    input.Agents != null &&
-                    this.Agents.SequenceEqual(input.Agents)
+                    this.Agents.Equals(input.Agents)
                 ) && 
                 (
                     this.HostName == input.HostName ||
@@ -282,12 +287,18 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.HostType == input.HostType ||
-                    this.HostType.Equals(input.HostType)
+                    (this.HostType != null &&
+                    this.HostType.Equals(input.HostType))
                 ) && 
                 (
                     this.Id == input.Id ||
-                    (this.Id != null &&
-                    this.Id.Equals(input.Id))
+                    this.Id != null &&
+                    this.Id.Equals(input.Id)
+                ) && 
+                (
+                    this.IsProxyHost == input.IsProxyHost ||
+                    (this.IsProxyHost != null &&
+                    this.IsProxyHost.Equals(input.IsProxyHost))
                 ) && 
                 (
                     this.MemorySizeBytes == input.MemorySizeBytes ||
@@ -316,7 +327,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.Type == input.Type ||
-                    this.Type.Equals(input.Type)
+                    (this.Type != null &&
+                    this.Type.Equals(input.Type))
                 ) && 
                 (
                     this.VcsVersion == input.VcsVersion ||
@@ -326,8 +338,12 @@ namespace Cohesity.Model
                 (
                     this.Volumes == input.Volumes ||
                     this.Volumes != null &&
-                    input.Volumes != null &&
-                    this.Volumes.SequenceEqual(input.Volumes)
+                    this.Volumes.Equals(input.Volumes)
+                ) && 
+                (
+                    this.Vsswriters == input.Vsswriters ||
+                    this.Vsswriters != null &&
+                    this.Vsswriters.Equals(input.Vsswriters)
                 );
         }
 
@@ -344,9 +360,12 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Agents.GetHashCode();
                 if (this.HostName != null)
                     hashCode = hashCode * 59 + this.HostName.GetHashCode();
-                hashCode = hashCode * 59 + this.HostType.GetHashCode();
+                if (this.HostType != null)
+                    hashCode = hashCode * 59 + this.HostType.GetHashCode();
                 if (this.Id != null)
                     hashCode = hashCode * 59 + this.Id.GetHashCode();
+                if (this.IsProxyHost != null)
+                    hashCode = hashCode * 59 + this.IsProxyHost.GetHashCode();
                 if (this.MemorySizeBytes != null)
                     hashCode = hashCode * 59 + this.MemorySizeBytes.GetHashCode();
                 if (this.Name != null)
@@ -357,11 +376,14 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.NumProcessors.GetHashCode();
                 if (this.OsName != null)
                     hashCode = hashCode * 59 + this.OsName.GetHashCode();
-                hashCode = hashCode * 59 + this.Type.GetHashCode();
+                if (this.Type != null)
+                    hashCode = hashCode * 59 + this.Type.GetHashCode();
                 if (this.VcsVersion != null)
                     hashCode = hashCode * 59 + this.VcsVersion.GetHashCode();
                 if (this.Volumes != null)
                     hashCode = hashCode * 59 + this.Volumes.GetHashCode();
+                if (this.Vsswriters != null)
+                    hashCode = hashCode * 59 + this.Vsswriters.GetHashCode();
                 return hashCode;
             }
         }

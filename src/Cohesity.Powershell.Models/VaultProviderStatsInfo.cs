@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -81,7 +84,7 @@ namespace Cohesity.Model
         /// Specifies the cloud vendor type.
         /// </summary>
         /// <value>Specifies the cloud vendor type.</value>
-        [DataMember(Name="vaultGroup", EmitDefaultValue=true)]
+        [DataMember(Name="vaultGroup", EmitDefaultValue=false)]
         public VaultGroupEnum? VaultGroup { get; set; }
         /// <summary>
         /// Specifies the External Target type.
@@ -222,7 +225,7 @@ namespace Cohesity.Model
         /// Specifies the External Target type.
         /// </summary>
         /// <value>Specifies the External Target type.</value>
-        [DataMember(Name="vaultType", EmitDefaultValue=true)]
+        [DataMember(Name="vaultType", EmitDefaultValue=false)]
         public VaultTypeEnum? VaultType { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="VaultProviderStatsInfo" /> class.
@@ -245,16 +248,6 @@ namespace Cohesity.Model
             this.ClusterIncarnationId = clusterIncarnationId;
             this.ClusterName = clusterName;
             this.ReadBandwidth = readBandwidth;
-            this.VaultGroup = vaultGroup;
-            this.VaultId = vaultId;
-            this.VaultType = vaultType;
-            this.Vaultname = vaultname;
-            this.WriteBandwidth = writeBandwidth;
-            this.ChangeRate = changeRate;
-            this.ClusterId = clusterId;
-            this.ClusterIncarnationId = clusterIncarnationId;
-            this.ClusterName = clusterName;
-            this.ReadBandwidth = readBandwidth;
             this.StatsByEnv = statsByEnv;
             this.VaultGroup = vaultGroup;
             this.VaultId = vaultId;
@@ -267,35 +260,35 @@ namespace Cohesity.Model
         /// Specifies the relative change of size of entities on the vault.
         /// </summary>
         /// <value>Specifies the relative change of size of entities on the vault.</value>
-        [DataMember(Name="changeRate", EmitDefaultValue=true)]
+        [DataMember(Name="changeRate", EmitDefaultValue=false)]
         public long? ChangeRate { get; set; }
 
         /// <summary>
         /// Specifies the cluster id.
         /// </summary>
         /// <value>Specifies the cluster id.</value>
-        [DataMember(Name="clusterId", EmitDefaultValue=true)]
+        [DataMember(Name="clusterId", EmitDefaultValue=false)]
         public long? ClusterId { get; set; }
 
         /// <summary>
         /// Specifies the cluster incarnation id.
         /// </summary>
         /// <value>Specifies the cluster incarnation id.</value>
-        [DataMember(Name="clusterIncarnationId", EmitDefaultValue=true)]
+        [DataMember(Name="clusterIncarnationId", EmitDefaultValue=false)]
         public long? ClusterIncarnationId { get; set; }
 
         /// <summary>
         /// Specifies the cluster name.
         /// </summary>
         /// <value>Specifies the cluster name.</value>
-        [DataMember(Name="clusterName", EmitDefaultValue=true)]
+        [DataMember(Name="clusterName", EmitDefaultValue=false)]
         public string ClusterName { get; set; }
 
         /// <summary>
         /// Specifies the average read bandwidth over the last 24 hours.
         /// </summary>
         /// <value>Specifies the average read bandwidth over the last 24 hours.</value>
-        [DataMember(Name="readBandwidth", EmitDefaultValue=true)]
+        [DataMember(Name="readBandwidth", EmitDefaultValue=false)]
         public long? ReadBandwidth { get; set; }
 
         /// <summary>
@@ -305,25 +298,27 @@ namespace Cohesity.Model
         [DataMember(Name="statsByEnv", EmitDefaultValue=false)]
         public List<VaultProviderStatsByEnv> StatsByEnv { get; set; }
 
+
         /// <summary>
         /// Specifies the Vault id.
         /// </summary>
         /// <value>Specifies the Vault id.</value>
-        [DataMember(Name="vaultId", EmitDefaultValue=true)]
+        [DataMember(Name="vaultId", EmitDefaultValue=false)]
         public long? VaultId { get; set; }
+
 
         /// <summary>
         /// Specifies the Vault name.
         /// </summary>
         /// <value>Specifies the Vault name.</value>
-        [DataMember(Name="vaultname", EmitDefaultValue=true)]
+        [DataMember(Name="vaultname", EmitDefaultValue=false)]
         public string Vaultname { get; set; }
 
         /// <summary>
         /// Specifies the average write bandwidth over the last 24 hours.
         /// </summary>
         /// <value>Specifies the average write bandwidth over the last 24 hours.</value>
-        [DataMember(Name="writeBandwidth", EmitDefaultValue=true)]
+        [DataMember(Name="writeBandwidth", EmitDefaultValue=false)]
         public long? WriteBandwidth { get; set; }
 
         /// <summary>
@@ -390,12 +385,12 @@ namespace Cohesity.Model
                 (
                     this.StatsByEnv == input.StatsByEnv ||
                     this.StatsByEnv != null &&
-                    input.StatsByEnv != null &&
-                    this.StatsByEnv.SequenceEqual(input.StatsByEnv)
+                    this.StatsByEnv.Equals(input.StatsByEnv)
                 ) && 
                 (
                     this.VaultGroup == input.VaultGroup ||
-                    this.VaultGroup.Equals(input.VaultGroup)
+                    (this.VaultGroup != null &&
+                    this.VaultGroup.Equals(input.VaultGroup))
                 ) && 
                 (
                     this.VaultId == input.VaultId ||
@@ -404,7 +399,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.VaultType == input.VaultType ||
-                    this.VaultType.Equals(input.VaultType)
+                    (this.VaultType != null &&
+                    this.VaultType.Equals(input.VaultType))
                 ) && 
                 (
                     this.Vaultname == input.Vaultname ||
@@ -439,10 +435,12 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ReadBandwidth.GetHashCode();
                 if (this.StatsByEnv != null)
                     hashCode = hashCode * 59 + this.StatsByEnv.GetHashCode();
-                hashCode = hashCode * 59 + this.VaultGroup.GetHashCode();
+                if (this.VaultGroup != null)
+                    hashCode = hashCode * 59 + this.VaultGroup.GetHashCode();
                 if (this.VaultId != null)
                     hashCode = hashCode * 59 + this.VaultId.GetHashCode();
-                hashCode = hashCode * 59 + this.VaultType.GetHashCode();
+                if (this.VaultType != null)
+                    hashCode = hashCode * 59 + this.VaultType.GetHashCode();
                 if (this.Vaultname != null)
                     hashCode = hashCode * 59 + this.Vaultname.GetHashCode();
                 if (this.WriteBandwidth != null)

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,9 +32,6 @@ namespace Cohesity.Model
         /// <param name="usageBytes">Current logical usage of user id in the input view..</param>
         public UserQuotaAndUsage(QuotaPolicy quotaPolicy = default(QuotaPolicy), string sid = default(string), int? unixUid = default(int?), long? usageBytes = default(long?))
         {
-            this.Sid = sid;
-            this.UnixUid = unixUid;
-            this.UsageBytes = usageBytes;
             this.QuotaPolicy = quotaPolicy;
             this.Sid = sid;
             this.UnixUid = unixUid;
@@ -48,21 +48,21 @@ namespace Cohesity.Model
         /// If interested in a user via smb_client, include SID. Otherwise, If a valid unix-id to SID mappings are available (i.e., when mixed mode is enabled) the server will perform the necessary id mapping and return the correct usage irrespective of whether the unix id / SID is provided. The string is of following format - S-1-IdentifierAuthority-SubAuthority1-SubAuthority2-...-SubAuthorityn.
         /// </summary>
         /// <value>If interested in a user via smb_client, include SID. Otherwise, If a valid unix-id to SID mappings are available (i.e., when mixed mode is enabled) the server will perform the necessary id mapping and return the correct usage irrespective of whether the unix id / SID is provided. The string is of following format - S-1-IdentifierAuthority-SubAuthority1-SubAuthority2-...-SubAuthorityn.</value>
-        [DataMember(Name="sid", EmitDefaultValue=true)]
+        [DataMember(Name="sid", EmitDefaultValue=false)]
         public string Sid { get; set; }
 
         /// <summary>
         /// If interested in a user via unix-identifier, include UnixUid. Otherwise, If a valid unix-id to SID mappings are available (i.e., when mixed mode is enabled) the server will perform the necessary id mapping and return the correct usage irrespective of whether the unix id / SID is provided.
         /// </summary>
         /// <value>If interested in a user via unix-identifier, include UnixUid. Otherwise, If a valid unix-id to SID mappings are available (i.e., when mixed mode is enabled) the server will perform the necessary id mapping and return the correct usage irrespective of whether the unix id / SID is provided.</value>
-        [DataMember(Name="unixUid", EmitDefaultValue=true)]
+        [DataMember(Name="unixUid", EmitDefaultValue=false)]
         public int? UnixUid { get; set; }
 
         /// <summary>
         /// Current logical usage of user id in the input view.
         /// </summary>
         /// <value>Current logical usage of user id in the input view.</value>
-        [DataMember(Name="usageBytes", EmitDefaultValue=true)]
+        [DataMember(Name="usageBytes", EmitDefaultValue=false)]
         public long? UsageBytes { get; set; }
 
         /// <summary>

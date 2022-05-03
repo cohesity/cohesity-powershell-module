@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -35,46 +38,41 @@ namespace Cohesity.Model
             this.PartitionTypeUuid = partitionTypeUuid;
             this.PartitionUuid = partitionUuid;
             this.StartOffset = startOffset;
-            this.Length = length;
-            this.PartitionNumber = partitionNumber;
-            this.PartitionTypeUuid = partitionTypeUuid;
-            this.PartitionUuid = partitionUuid;
-            this.StartOffset = startOffset;
         }
         
         /// <summary>
         /// Length of partition in bytes.
         /// </summary>
         /// <value>Length of partition in bytes.</value>
-        [DataMember(Name="length", EmitDefaultValue=true)]
+        [DataMember(Name="length", EmitDefaultValue=false)]
         public long? Length { get; set; }
 
         /// <summary>
         /// Partition number.
         /// </summary>
         /// <value>Partition number.</value>
-        [DataMember(Name="partitionNumber", EmitDefaultValue=true)]
+        [DataMember(Name="partitionNumber", EmitDefaultValue=false)]
         public long? PartitionNumber { get; set; }
 
         /// <summary>
         /// Partition type uuid. If disk is unpartitioned, this field will not be set. If disk is MBR partitioned, this field will be set to partition type. Example: 83 (from below fdisk output) [This value is in hex] bash$ fdisk -l foobar.vmdk Device        Boot Start   End    Sectors  Size Id Type foobar.vmdk1       2048  1050623  1048576  512M 83 Linux If disk is GPT partitioned, this field will be set to partition type GUID. Example: fc63daf-8483-4772-8e793d69d8477de4 (Linux filesystem data)
         /// </summary>
         /// <value>Partition type uuid. If disk is unpartitioned, this field will not be set. If disk is MBR partitioned, this field will be set to partition type. Example: 83 (from below fdisk output) [This value is in hex] bash$ fdisk -l foobar.vmdk Device        Boot Start   End    Sectors  Size Id Type foobar.vmdk1       2048  1050623  1048576  512M 83 Linux If disk is GPT partitioned, this field will be set to partition type GUID. Example: fc63daf-8483-4772-8e793d69d8477de4 (Linux filesystem data)</value>
-        [DataMember(Name="partitionTypeUuid", EmitDefaultValue=true)]
+        [DataMember(Name="partitionTypeUuid", EmitDefaultValue=false)]
         public string PartitionTypeUuid { get; set; }
 
         /// <summary>
         /// Partition uuid. If disk is unpartitioned, this field will not be set. If disk is MBR partitioned, this field will not be set. If disk is GPT partitioned, this field will be set to partition GUID.
         /// </summary>
         /// <value>Partition uuid. If disk is unpartitioned, this field will not be set. If disk is MBR partitioned, this field will not be set. If disk is GPT partitioned, this field will be set to partition GUID.</value>
-        [DataMember(Name="partitionUuid", EmitDefaultValue=true)]
+        [DataMember(Name="partitionUuid", EmitDefaultValue=false)]
         public string PartitionUuid { get; set; }
 
         /// <summary>
         /// Start offset of partition in bytes.
         /// </summary>
         /// <value>Start offset of partition in bytes.</value>
-        [DataMember(Name="startOffset", EmitDefaultValue=true)]
+        [DataMember(Name="startOffset", EmitDefaultValue=false)]
         public long? StartOffset { get; set; }
 
         /// <summary>

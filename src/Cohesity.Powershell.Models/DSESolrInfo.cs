@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.SolrNodeVec = solrNodeVec;
             this.SolrPort = solrPort;
-            this.SolrNodeVec = solrNodeVec;
-            this.SolrPort = solrPort;
         }
         
         /// <summary>
         /// Solr node IP Addresses.
         /// </summary>
         /// <value>Solr node IP Addresses.</value>
-        [DataMember(Name="solrNodeVec", EmitDefaultValue=true)]
+        [DataMember(Name="solrNodeVec", EmitDefaultValue=false)]
         public List<string> SolrNodeVec { get; set; }
 
         /// <summary>
         /// Solr node Port.
         /// </summary>
         /// <value>Solr node Port.</value>
-        [DataMember(Name="solrPort", EmitDefaultValue=true)]
+        [DataMember(Name="solrPort", EmitDefaultValue=false)]
         public int? SolrPort { get; set; }
 
         /// <summary>
@@ -86,8 +87,7 @@ namespace Cohesity.Model
                 (
                     this.SolrNodeVec == input.SolrNodeVec ||
                     this.SolrNodeVec != null &&
-                    input.SolrNodeVec != null &&
-                    this.SolrNodeVec.SequenceEqual(input.SolrNodeVec)
+                    this.SolrNodeVec.Equals(input.SolrNodeVec)
                 ) && 
                 (
                     this.SolrPort == input.SolrPort ||

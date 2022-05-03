@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -159,7 +162,7 @@ namespace Cohesity.Model
         /// Specifies the Vault type.
         /// </summary>
         /// <value>Specifies the Vault type.</value>
-        [DataMember(Name="type", EmitDefaultValue=true)]
+        [DataMember(Name="type", EmitDefaultValue=false)]
         public TypeEnum? Type { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="VaultStatsInfo" /> class.
@@ -174,31 +177,28 @@ namespace Cohesity.Model
             this.Name = name;
             this.Type = type;
             this.UsageBytes = usageBytes;
-            this.Id = id;
-            this.Name = name;
-            this.Type = type;
-            this.UsageBytes = usageBytes;
         }
         
         /// <summary>
         /// Specifies the Vault Id.
         /// </summary>
         /// <value>Specifies the Vault Id.</value>
-        [DataMember(Name="id", EmitDefaultValue=true)]
+        [DataMember(Name="id", EmitDefaultValue=false)]
         public long? Id { get; set; }
 
         /// <summary>
         /// Specifies the Vault name.
         /// </summary>
         /// <value>Specifies the Vault name.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
+
 
         /// <summary>
         /// Specifies the bytes used by the Vault.
         /// </summary>
         /// <value>Specifies the bytes used by the Vault.</value>
-        [DataMember(Name="usageBytes", EmitDefaultValue=true)]
+        [DataMember(Name="usageBytes", EmitDefaultValue=false)]
         public long? UsageBytes { get; set; }
 
         /// <summary>
@@ -249,7 +249,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.Type == input.Type ||
-                    this.Type.Equals(input.Type)
+                    (this.Type != null &&
+                    this.Type.Equals(input.Type))
                 ) && 
                 (
                     this.UsageBytes == input.UsageBytes ||
@@ -271,7 +272,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Id.GetHashCode();
                 if (this.Name != null)
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
-                hashCode = hashCode * 59 + this.Type.GetHashCode();
+                if (this.Type != null)
+                    hashCode = hashCode * 59 + this.Type.GetHashCode();
                 if (this.UsageBytes != null)
                     hashCode = hashCode * 59 + this.UsageBytes.GetHashCode();
                 return hashCode;

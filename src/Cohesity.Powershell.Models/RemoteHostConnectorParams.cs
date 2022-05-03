@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -28,8 +31,6 @@ namespace Cohesity.Model
         /// <param name="hostType">Type of host to connect to..</param>
         public RemoteHostConnectorParams(Credentials credentials = default(Credentials), string hostAddress = default(string), int? hostType = default(int?))
         {
-            this.HostAddress = hostAddress;
-            this.HostType = hostType;
             this.Credentials = credentials;
             this.HostAddress = hostAddress;
             this.HostType = hostType;
@@ -45,14 +46,14 @@ namespace Cohesity.Model
         /// Address (i.e., IP, hostname or FQDN) of the host to connect to. Magneto will connect using ssh or equivalent to the host.
         /// </summary>
         /// <value>Address (i.e., IP, hostname or FQDN) of the host to connect to. Magneto will connect using ssh or equivalent to the host.</value>
-        [DataMember(Name="hostAddress", EmitDefaultValue=true)]
+        [DataMember(Name="hostAddress", EmitDefaultValue=false)]
         public string HostAddress { get; set; }
 
         /// <summary>
         /// Type of host to connect to.
         /// </summary>
         /// <value>Type of host to connect to.</value>
-        [DataMember(Name="hostType", EmitDefaultValue=true)]
+        [DataMember(Name="hostType", EmitDefaultValue=false)]
         public int? HostType { get; set; }
 
         /// <summary>

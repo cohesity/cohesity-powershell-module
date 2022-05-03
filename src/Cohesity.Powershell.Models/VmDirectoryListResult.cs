@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.Cookie = cookie;
             this.Entries = entries;
-            this.Cookie = cookie;
-            this.Entries = entries;
         }
         
         /// <summary>
         /// Cookie is used for paginating results. If ReadVMDirResult is returning partial results, this field will be set. Supplying this cookie will resume listing from where this result left off.
         /// </summary>
         /// <value>Cookie is used for paginating results. If ReadVMDirResult is returning partial results, this field will be set. Supplying this cookie will resume listing from where this result left off.</value>
-        [DataMember(Name="cookie", EmitDefaultValue=true)]
+        [DataMember(Name="cookie", EmitDefaultValue=false)]
         public string Cookie { get; set; }
 
         /// <summary>
         /// Entries is the array of files and folders that are immediate children of the parent directory specified in the request.
         /// </summary>
         /// <value>Entries is the array of files and folders that are immediate children of the parent directory specified in the request.</value>
-        [DataMember(Name="entries", EmitDefaultValue=true)]
+        [DataMember(Name="entries", EmitDefaultValue=false)]
         public List<VmDirEntry> Entries { get; set; }
 
         /// <summary>
@@ -91,8 +92,7 @@ namespace Cohesity.Model
                 (
                     this.Entries == input.Entries ||
                     this.Entries != null &&
-                    input.Entries != null &&
-                    this.Entries.SequenceEqual(input.Entries)
+                    this.Entries.Equals(input.Entries)
                 );
         }
 

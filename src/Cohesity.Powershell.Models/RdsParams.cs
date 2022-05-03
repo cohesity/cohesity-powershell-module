@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -40,16 +43,15 @@ namespace Cohesity.Model
         /// <param name="isMultiAzDeployment">Whether this is a multi-az deployment or not..</param>
         public RdsParams(long? availabilityZoneId = default(long?), string dbInstanceId = default(string), long? dbOptionGroupId = default(long?), long? dbParameterGroupId = default(long?), int? dbPort = default(int?), bool? enableAutoMinorVersionUpgrade = default(bool?), bool? enableCopyTagsToSnapshots = default(bool?), bool? enableDbAuthentication = default(bool?), bool? enablePublicAccessibility = default(bool?), bool? isMultiAzDeployment = default(bool?))
         {
-            this.AvailabilityZoneId = availabilityZoneId;
-            this.DbInstanceId = dbInstanceId;
-            this.DbOptionGroupId = dbOptionGroupId;
-            this.DbParameterGroupId = dbParameterGroupId;
-            this.DbPort = dbPort;
-            this.EnableAutoMinorVersionUpgrade = enableAutoMinorVersionUpgrade;
-            this.EnableCopyTagsToSnapshots = enableCopyTagsToSnapshots;
-            this.EnableDbAuthentication = enableDbAuthentication;
-            this.EnablePublicAccessibility = enablePublicAccessibility;
-            this.IsMultiAzDeployment = isMultiAzDeployment;
+            // to ensure "dbInstanceId" is required (not null)
+            if (dbInstanceId == null)
+            {
+                throw new InvalidDataException("dbInstanceId is a required property for RdsParams and cannot be null");
+            }
+            else
+            {
+                this.DbInstanceId = dbInstanceId;
+            }
             this.AvailabilityZoneId = availabilityZoneId;
             this.DbOptionGroupId = dbOptionGroupId;
             this.DbParameterGroupId = dbParameterGroupId;
@@ -65,70 +67,70 @@ namespace Cohesity.Model
         /// Entity representing the availability zone to use while restoring the DB.
         /// </summary>
         /// <value>Entity representing the availability zone to use while restoring the DB.</value>
-        [DataMember(Name="availabilityZoneId", EmitDefaultValue=true)]
+        [DataMember(Name="availabilityZoneId", EmitDefaultValue=false)]
         public long? AvailabilityZoneId { get; set; }
 
         /// <summary>
         /// The DB instance identifier to use for the restored DB. This field is required.
         /// </summary>
         /// <value>The DB instance identifier to use for the restored DB. This field is required.</value>
-        [DataMember(Name="dbInstanceId", EmitDefaultValue=true)]
+        [DataMember(Name="dbInstanceId", EmitDefaultValue=false)]
         public string DbInstanceId { get; set; }
 
         /// <summary>
         /// Entity representing the RDS option group to use while restoring the DB.
         /// </summary>
         /// <value>Entity representing the RDS option group to use while restoring the DB.</value>
-        [DataMember(Name="dbOptionGroupId", EmitDefaultValue=true)]
+        [DataMember(Name="dbOptionGroupId", EmitDefaultValue=false)]
         public long? DbOptionGroupId { get; set; }
 
         /// <summary>
         /// Entity representing the RDS parameter group to use while restoring the DB.
         /// </summary>
         /// <value>Entity representing the RDS parameter group to use while restoring the DB.</value>
-        [DataMember(Name="dbParameterGroupId", EmitDefaultValue=true)]
+        [DataMember(Name="dbParameterGroupId", EmitDefaultValue=false)]
         public long? DbParameterGroupId { get; set; }
 
         /// <summary>
         /// Port to use for the DB in the restored RDS instance.
         /// </summary>
         /// <value>Port to use for the DB in the restored RDS instance.</value>
-        [DataMember(Name="dbPort", EmitDefaultValue=true)]
+        [DataMember(Name="dbPort", EmitDefaultValue=false)]
         public int? DbPort { get; set; }
 
         /// <summary>
         /// Whether to enable auto minor version upgrade in the restored DB.
         /// </summary>
         /// <value>Whether to enable auto minor version upgrade in the restored DB.</value>
-        [DataMember(Name="enableAutoMinorVersionUpgrade", EmitDefaultValue=true)]
+        [DataMember(Name="enableAutoMinorVersionUpgrade", EmitDefaultValue=false)]
         public bool? EnableAutoMinorVersionUpgrade { get; set; }
 
         /// <summary>
         /// Whether to enable copying of tags to snapshots of the DB.
         /// </summary>
         /// <value>Whether to enable copying of tags to snapshots of the DB.</value>
-        [DataMember(Name="enableCopyTagsToSnapshots", EmitDefaultValue=true)]
+        [DataMember(Name="enableCopyTagsToSnapshots", EmitDefaultValue=false)]
         public bool? EnableCopyTagsToSnapshots { get; set; }
 
         /// <summary>
         /// Whether to enable IAM authentication for the DB.
         /// </summary>
         /// <value>Whether to enable IAM authentication for the DB.</value>
-        [DataMember(Name="enableDbAuthentication", EmitDefaultValue=true)]
+        [DataMember(Name="enableDbAuthentication", EmitDefaultValue=false)]
         public bool? EnableDbAuthentication { get; set; }
 
         /// <summary>
         /// Whether this DB will be publicly accessible or not.
         /// </summary>
         /// <value>Whether this DB will be publicly accessible or not.</value>
-        [DataMember(Name="enablePublicAccessibility", EmitDefaultValue=true)]
+        [DataMember(Name="enablePublicAccessibility", EmitDefaultValue=false)]
         public bool? EnablePublicAccessibility { get; set; }
 
         /// <summary>
         /// Whether this is a multi-az deployment or not.
         /// </summary>
         /// <value>Whether this is a multi-az deployment or not.</value>
-        [DataMember(Name="isMultiAzDeployment", EmitDefaultValue=true)]
+        [DataMember(Name="isMultiAzDeployment", EmitDefaultValue=false)]
         public bool? IsMultiAzDeployment { get; set; }
 
         /// <summary>

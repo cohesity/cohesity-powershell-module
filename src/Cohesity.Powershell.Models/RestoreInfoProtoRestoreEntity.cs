@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -34,11 +37,6 @@ namespace Cohesity.Model
         /// <param name="warnings">Optional warnings if any..</param>
         public RestoreInfoProtoRestoreEntity(EntityProto entity = default(EntityProto), ErrorProto error = default(ErrorProto), string progressMonitorTaskPath = default(string), int? publicStatus = default(int?), List<string> relativeRestorePaths = default(List<string>), EntityProto resourcePoolEntity = default(EntityProto), EntityProto restoredEntity = default(EntityProto), int? status = default(int?), List<ErrorProto> warnings = default(List<ErrorProto>))
         {
-            this.ProgressMonitorTaskPath = progressMonitorTaskPath;
-            this.PublicStatus = publicStatus;
-            this.RelativeRestorePaths = relativeRestorePaths;
-            this.Status = status;
-            this.Warnings = warnings;
             this.Entity = entity;
             this.Error = error;
             this.ProgressMonitorTaskPath = progressMonitorTaskPath;
@@ -66,21 +64,21 @@ namespace Cohesity.Model
         /// The path relative to the root path of the restore task progress monitor of the progress monitor for this entity.
         /// </summary>
         /// <value>The path relative to the root path of the restore task progress monitor of the progress monitor for this entity.</value>
-        [DataMember(Name="progressMonitorTaskPath", EmitDefaultValue=true)]
+        [DataMember(Name="progressMonitorTaskPath", EmitDefaultValue=false)]
         public string ProgressMonitorTaskPath { get; set; }
 
         /// <summary>
         /// Iris-facing task state. This field is stamped during the export.
         /// </summary>
         /// <value>Iris-facing task state. This field is stamped during the export.</value>
-        [DataMember(Name="publicStatus", EmitDefaultValue=true)]
+        [DataMember(Name="publicStatus", EmitDefaultValue=false)]
         public int? PublicStatus { get; set; }
 
         /// <summary>
         /// All the paths that the entity&#39;s files were restored to. Each path is relative to the destination view.
         /// </summary>
         /// <value>All the paths that the entity&#39;s files were restored to. Each path is relative to the destination view.</value>
-        [DataMember(Name="relativeRestorePaths", EmitDefaultValue=true)]
+        [DataMember(Name="relativeRestorePaths", EmitDefaultValue=false)]
         public List<string> RelativeRestorePaths { get; set; }
 
         /// <summary>
@@ -99,14 +97,14 @@ namespace Cohesity.Model
         /// The restore status of the entity.
         /// </summary>
         /// <value>The restore status of the entity.</value>
-        [DataMember(Name="status", EmitDefaultValue=true)]
+        [DataMember(Name="status", EmitDefaultValue=false)]
         public int? Status { get; set; }
 
         /// <summary>
         /// Optional warnings if any.
         /// </summary>
         /// <value>Optional warnings if any.</value>
-        [DataMember(Name="warnings", EmitDefaultValue=true)]
+        [DataMember(Name="warnings", EmitDefaultValue=false)]
         public List<ErrorProto> Warnings { get; set; }
 
         /// <summary>
@@ -168,8 +166,7 @@ namespace Cohesity.Model
                 (
                     this.RelativeRestorePaths == input.RelativeRestorePaths ||
                     this.RelativeRestorePaths != null &&
-                    input.RelativeRestorePaths != null &&
-                    this.RelativeRestorePaths.SequenceEqual(input.RelativeRestorePaths)
+                    this.RelativeRestorePaths.Equals(input.RelativeRestorePaths)
                 ) && 
                 (
                     this.ResourcePoolEntity == input.ResourcePoolEntity ||
@@ -189,8 +186,7 @@ namespace Cohesity.Model
                 (
                     this.Warnings == input.Warnings ||
                     this.Warnings != null &&
-                    input.Warnings != null &&
-                    this.Warnings.SequenceEqual(input.Warnings)
+                    this.Warnings.Equals(input.Warnings)
                 );
         }
 

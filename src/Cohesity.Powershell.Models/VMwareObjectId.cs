@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,30 +34,27 @@ namespace Cohesity.Model
             this.MorItem = morItem;
             this.MorType = morType;
             this.Uuid = uuid;
-            this.MorItem = morItem;
-            this.MorType = morType;
-            this.Uuid = uuid;
         }
         
         /// <summary>
         /// Specifies the Managed Object Reference Item.
         /// </summary>
         /// <value>Specifies the Managed Object Reference Item.</value>
-        [DataMember(Name="morItem", EmitDefaultValue=true)]
+        [DataMember(Name="morItem", EmitDefaultValue=false)]
         public string MorItem { get; set; }
 
         /// <summary>
         /// Specifies the Managed Object Reference Type.
         /// </summary>
         /// <value>Specifies the Managed Object Reference Type.</value>
-        [DataMember(Name="morType", EmitDefaultValue=true)]
+        [DataMember(Name="morType", EmitDefaultValue=false)]
         public string MorType { get; set; }
 
         /// <summary>
         /// Specifies a Universally Unique Identifier (UUID) of a VMware Object.
         /// </summary>
         /// <value>Specifies a Universally Unique Identifier (UUID) of a VMware Object.</value>
-        [DataMember(Name="uuid", EmitDefaultValue=true)]
+        [DataMember(Name="uuid", EmitDefaultValue=false)]
         public string Uuid { get; set; }
 
         /// <summary>

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -67,25 +70,24 @@ namespace Cohesity.Model
         /// <param name="viewCount">Specifies the number of Views which are using the specified protocol..</param>
         public ViewProtocolStats(List<ProtocolsEnum> protocols = default(List<ProtocolsEnum>), long? sizeBytes = default(long?), long? viewCount = default(long?))
         {
-            this.SizeBytes = sizeBytes;
-            this.ViewCount = viewCount;
             this.Protocols = protocols;
             this.SizeBytes = sizeBytes;
             this.ViewCount = viewCount;
         }
         
+
         /// <summary>
         /// Specifies the size of all the Views in bytes which are using the specified protocol.
         /// </summary>
         /// <value>Specifies the size of all the Views in bytes which are using the specified protocol.</value>
-        [DataMember(Name="sizeBytes", EmitDefaultValue=true)]
+        [DataMember(Name="sizeBytes", EmitDefaultValue=false)]
         public long? SizeBytes { get; set; }
 
         /// <summary>
         /// Specifies the number of Views which are using the specified protocol.
         /// </summary>
         /// <value>Specifies the number of Views which are using the specified protocol.</value>
-        [DataMember(Name="viewCount", EmitDefaultValue=true)]
+        [DataMember(Name="viewCount", EmitDefaultValue=false)]
         public long? ViewCount { get; set; }
 
         /// <summary>
@@ -126,7 +128,8 @@ namespace Cohesity.Model
             return 
                 (
                     this.Protocols == input.Protocols ||
-                    this.Protocols.SequenceEqual(input.Protocols)
+                    this.Protocols != null &&
+                    this.Protocols.Equals(input.Protocols)
                 ) && 
                 (
                     this.SizeBytes == input.SizeBytes ||
@@ -149,7 +152,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                hashCode = hashCode * 59 + this.Protocols.GetHashCode();
+                if (this.Protocols != null)
+                    hashCode = hashCode * 59 + this.Protocols.GetHashCode();
                 if (this.SizeBytes != null)
                     hashCode = hashCode * 59 + this.SizeBytes.GetHashCode();
                 if (this.ViewCount != null)

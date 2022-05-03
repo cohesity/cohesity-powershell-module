@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -35,46 +38,41 @@ namespace Cohesity.Model
             this.ClientCertificatePassword = clientCertificatePassword;
             this.Mission = mission;
             this.Role = role;
-            this.Agency = agency;
-            this.BaseUrl = baseUrl;
-            this.ClientCertificatePassword = clientCertificatePassword;
-            this.Mission = mission;
-            this.Role = role;
         }
         
         /// <summary>
         /// Name of the agency.
         /// </summary>
         /// <value>Name of the agency.</value>
-        [DataMember(Name="agency", EmitDefaultValue=true)]
+        [DataMember(Name="agency", EmitDefaultValue=false)]
         public string Agency { get; set; }
 
         /// <summary>
         /// The base url of C2S CAP server.
         /// </summary>
         /// <value>The base url of C2S CAP server.</value>
-        [DataMember(Name="baseUrl", EmitDefaultValue=true)]
+        [DataMember(Name="baseUrl", EmitDefaultValue=false)]
         public string BaseUrl { get; set; }
 
         /// <summary>
         /// Encrypted password of the client private key.
         /// </summary>
         /// <value>Encrypted password of the client private key.</value>
-        [DataMember(Name="clientCertificatePassword", EmitDefaultValue=true)]
+        [DataMember(Name="clientCertificatePassword", EmitDefaultValue=false)]
         public string ClientCertificatePassword { get; set; }
 
         /// <summary>
         /// Name of the mission.
         /// </summary>
         /// <value>Name of the mission.</value>
-        [DataMember(Name="mission", EmitDefaultValue=true)]
+        [DataMember(Name="mission", EmitDefaultValue=false)]
         public string Mission { get; set; }
 
         /// <summary>
         /// Role type.
         /// </summary>
         /// <value>Role type.</value>
-        [DataMember(Name="role", EmitDefaultValue=true)]
+        [DataMember(Name="role", EmitDefaultValue=false)]
         public string Role { get; set; }
 
         /// <summary>

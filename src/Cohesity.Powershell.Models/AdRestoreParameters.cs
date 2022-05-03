@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,8 +32,6 @@ namespace Cohesity.Model
         /// <param name="port">Specifies the port on which the AD domain controller&#39;s NTDS database will be mounted..</param>
         public AdRestoreParameters(AdRestoreOptions adOptions = default(AdRestoreOptions), Credentials credentials = default(Credentials), bool? mountAndRestore = default(bool?), int? port = default(int?))
         {
-            this.MountAndRestore = mountAndRestore;
-            this.Port = port;
             this.AdOptions = adOptions;
             this.Credentials = credentials;
             this.MountAndRestore = mountAndRestore;
@@ -53,14 +54,14 @@ namespace Cohesity.Model
         /// Specifies the option to mount the AD snapshot database and restore the AD objects in a single restore task. AdOptions must be set if this is set to true.
         /// </summary>
         /// <value>Specifies the option to mount the AD snapshot database and restore the AD objects in a single restore task. AdOptions must be set if this is set to true.</value>
-        [DataMember(Name="mountAndRestore", EmitDefaultValue=true)]
+        [DataMember(Name="mountAndRestore", EmitDefaultValue=false)]
         public bool? MountAndRestore { get; set; }
 
         /// <summary>
         /// Specifies the port on which the AD domain controller&#39;s NTDS database will be mounted.
         /// </summary>
         /// <value>Specifies the port on which the AD domain controller&#39;s NTDS database will be mounted.</value>
-        [DataMember(Name="port", EmitDefaultValue=true)]
+        [DataMember(Name="port", EmitDefaultValue=false)]
         public int? Port { get; set; }
 
         /// <summary>

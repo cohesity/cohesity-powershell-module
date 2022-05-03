@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -57,7 +60,7 @@ namespace Cohesity.Model
         /// StorageTier is the type of StorageTier. StorageTierType represents the various values for the Storage Tier. &#39;kPCIeSSD&#39; indicates storage tier type of Pci Solid State Drive. &#39;kSATAHDD&#39; indicates storage tier type of SATA Solid State Drive. &#39;kSATAHDD&#39; indicates storage tier type of SATA Hard Disk Drive. &#39;kCLOUD&#39; indicates storage tier type of Cloud.
         /// </summary>
         /// <value>StorageTier is the type of StorageTier. StorageTierType represents the various values for the Storage Tier. &#39;kPCIeSSD&#39; indicates storage tier type of Pci Solid State Drive. &#39;kSATAHDD&#39; indicates storage tier type of SATA Solid State Drive. &#39;kSATAHDD&#39; indicates storage tier type of SATA Hard Disk Drive. &#39;kCLOUD&#39; indicates storage tier type of Cloud.</value>
-        [DataMember(Name="storageTier", EmitDefaultValue=true)]
+        [DataMember(Name="storageTier", EmitDefaultValue=false)]
         public StorageTierEnum? StorageTier { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="CapacityByTier" /> class.
@@ -68,15 +71,14 @@ namespace Cohesity.Model
         {
             this.StorageTier = storageTier;
             this.TierMaxPhysicalCapacityBytes = tierMaxPhysicalCapacityBytes;
-            this.StorageTier = storageTier;
-            this.TierMaxPhysicalCapacityBytes = tierMaxPhysicalCapacityBytes;
         }
         
+
         /// <summary>
         /// TierMaxPhysicalCapacityBytes is the maximum physical capacity in bytes of the storage tier.
         /// </summary>
         /// <value>TierMaxPhysicalCapacityBytes is the maximum physical capacity in bytes of the storage tier.</value>
-        [DataMember(Name="tierMaxPhysicalCapacityBytes", EmitDefaultValue=true)]
+        [DataMember(Name="tierMaxPhysicalCapacityBytes", EmitDefaultValue=false)]
         public long? TierMaxPhysicalCapacityBytes { get; set; }
 
         /// <summary>
@@ -117,7 +119,8 @@ namespace Cohesity.Model
             return 
                 (
                     this.StorageTier == input.StorageTier ||
-                    this.StorageTier.Equals(input.StorageTier)
+                    (this.StorageTier != null &&
+                    this.StorageTier.Equals(input.StorageTier))
                 ) && 
                 (
                     this.TierMaxPhysicalCapacityBytes == input.TierMaxPhysicalCapacityBytes ||
@@ -135,7 +138,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                hashCode = hashCode * 59 + this.StorageTier.GetHashCode();
+                if (this.StorageTier != null)
+                    hashCode = hashCode * 59 + this.StorageTier.GetHashCode();
                 if (this.TierMaxPhysicalCapacityBytes != null)
                     hashCode = hashCode * 59 + this.TierMaxPhysicalCapacityBytes.GetHashCode();
                 return hashCode;

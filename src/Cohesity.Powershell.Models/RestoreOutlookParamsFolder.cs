@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -33,38 +36,34 @@ namespace Cohesity.Model
             this.FolderKey = folderKey;
             this.IsEntireFolderRequired = isEntireFolderRequired;
             this.ItemIdVec = itemIdVec;
-            this.FolderId = folderId;
-            this.FolderKey = folderKey;
-            this.IsEntireFolderRequired = isEntireFolderRequired;
-            this.ItemIdVec = itemIdVec;
         }
         
         /// <summary>
         /// The Unique ID of the folder.
         /// </summary>
         /// <value>The Unique ID of the folder.</value>
-        [DataMember(Name="folderId", EmitDefaultValue=true)]
+        [DataMember(Name="folderId", EmitDefaultValue=false)]
         public string FolderId { get; set; }
 
         /// <summary>
         /// The Unique key of the folder.
         /// </summary>
         /// <value>The Unique key of the folder.</value>
-        [DataMember(Name="folderKey", EmitDefaultValue=true)]
+        [DataMember(Name="folderKey", EmitDefaultValue=false)]
         public long? FolderKey { get; set; }
 
         /// <summary>
         /// Specify if the entire folder is to be restored.
         /// </summary>
         /// <value>Specify if the entire folder is to be restored.</value>
-        [DataMember(Name="isEntireFolderRequired", EmitDefaultValue=true)]
+        [DataMember(Name="isEntireFolderRequired", EmitDefaultValue=false)]
         public bool? IsEntireFolderRequired { get; set; }
 
         /// <summary>
         /// If is_entire_folder_required is set to false, user will then specify which particular items are to be restored.
         /// </summary>
         /// <value>If is_entire_folder_required is set to false, user will then specify which particular items are to be restored.</value>
-        [DataMember(Name="itemIdVec", EmitDefaultValue=true)]
+        [DataMember(Name="itemIdVec", EmitDefaultValue=false)]
         public List<string> ItemIdVec { get; set; }
 
         /// <summary>
@@ -121,8 +120,7 @@ namespace Cohesity.Model
                 (
                     this.ItemIdVec == input.ItemIdVec ||
                     this.ItemIdVec != null &&
-                    input.ItemIdVec != null &&
-                    this.ItemIdVec.SequenceEqual(input.ItemIdVec)
+                    this.ItemIdVec.Equals(input.ItemIdVec)
                 );
         }
 

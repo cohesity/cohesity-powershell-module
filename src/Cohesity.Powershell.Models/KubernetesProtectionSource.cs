@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -51,22 +54,20 @@ namespace Cohesity.Model
         /// Specifies the type of the entity in a Kubernetes environment. Specifies the type of a Kubernetes Protection Source. &#39;kCluster&#39; indicates a Kubernetes Cluster. &#39;kNamespace&#39; indicates a namespace in a Kubernetes Cluster. &#39;kService&#39; indicates a service running on a Kubernetes Cluster.
         /// </summary>
         /// <value>Specifies the type of the entity in a Kubernetes environment. Specifies the type of a Kubernetes Protection Source. &#39;kCluster&#39; indicates a Kubernetes Cluster. &#39;kNamespace&#39; indicates a namespace in a Kubernetes Cluster. &#39;kService&#39; indicates a service running on a Kubernetes Cluster.</value>
-        [DataMember(Name="type", EmitDefaultValue=true)]
+        [DataMember(Name="type", EmitDefaultValue=false)]
         public TypeEnum? Type { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="KubernetesProtectionSource" /> class.
         /// </summary>
         /// <param name="description">Specifies an optional description of the object..</param>
+        /// <param name="labelAttributes">Specifies the list of label attributes of this source..</param>
         /// <param name="name">Specifies a unique name of the Protection Source..</param>
         /// <param name="type">Specifies the type of the entity in a Kubernetes environment. Specifies the type of a Kubernetes Protection Source. &#39;kCluster&#39; indicates a Kubernetes Cluster. &#39;kNamespace&#39; indicates a namespace in a Kubernetes Cluster. &#39;kService&#39; indicates a service running on a Kubernetes Cluster..</param>
         /// <param name="uuid">Specifies the UUID of the object..</param>
-        public KubernetesProtectionSource(string description = default(string), string name = default(string), TypeEnum? type = default(TypeEnum?), string uuid = default(string))
+        public KubernetesProtectionSource(string description = default(string), List<KubernetesLabelAttribute> labelAttributes = default(List<KubernetesLabelAttribute>), string name = default(string), TypeEnum? type = default(TypeEnum?), string uuid = default(string))
         {
             this.Description = description;
-            this.Name = name;
-            this.Type = type;
-            this.Uuid = uuid;
-            this.Description = description;
+            this.LabelAttributes = labelAttributes;
             this.Name = name;
             this.Type = type;
             this.Uuid = uuid;
@@ -76,21 +77,29 @@ namespace Cohesity.Model
         /// Specifies an optional description of the object.
         /// </summary>
         /// <value>Specifies an optional description of the object.</value>
-        [DataMember(Name="description", EmitDefaultValue=true)]
+        [DataMember(Name="description", EmitDefaultValue=false)]
         public string Description { get; set; }
+
+        /// <summary>
+        /// Specifies the list of label attributes of this source.
+        /// </summary>
+        /// <value>Specifies the list of label attributes of this source.</value>
+        [DataMember(Name="labelAttributes", EmitDefaultValue=false)]
+        public List<KubernetesLabelAttribute> LabelAttributes { get; set; }
 
         /// <summary>
         /// Specifies a unique name of the Protection Source.
         /// </summary>
         /// <value>Specifies a unique name of the Protection Source.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
+
 
         /// <summary>
         /// Specifies the UUID of the object.
         /// </summary>
         /// <value>Specifies the UUID of the object.</value>
-        [DataMember(Name="uuid", EmitDefaultValue=true)]
+        [DataMember(Name="uuid", EmitDefaultValue=false)]
         public string Uuid { get; set; }
 
         /// <summary>
@@ -135,13 +144,19 @@ namespace Cohesity.Model
                     this.Description.Equals(input.Description))
                 ) && 
                 (
+                    this.LabelAttributes == input.LabelAttributes ||
+                    this.LabelAttributes != null &&
+                    this.LabelAttributes.Equals(input.LabelAttributes)
+                ) && 
+                (
                     this.Name == input.Name ||
                     (this.Name != null &&
                     this.Name.Equals(input.Name))
                 ) && 
                 (
                     this.Type == input.Type ||
-                    this.Type.Equals(input.Type)
+                    (this.Type != null &&
+                    this.Type.Equals(input.Type))
                 ) && 
                 (
                     this.Uuid == input.Uuid ||
@@ -161,9 +176,12 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.Description != null)
                     hashCode = hashCode * 59 + this.Description.GetHashCode();
+                if (this.LabelAttributes != null)
+                    hashCode = hashCode * 59 + this.LabelAttributes.GetHashCode();
                 if (this.Name != null)
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
-                hashCode = hashCode * 59 + this.Type.GetHashCode();
+                if (this.Type != null)
+                    hashCode = hashCode * 59 + this.Type.GetHashCode();
                 if (this.Uuid != null)
                     hashCode = hashCode * 59 + this.Uuid.GetHashCode();
                 return hashCode;

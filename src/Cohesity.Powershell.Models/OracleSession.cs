@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.Location = location;
             this.SystemIdentifier = systemIdentifier;
-            this.Location = location;
-            this.SystemIdentifier = systemIdentifier;
         }
         
         /// <summary>
         /// Location is the path where Oracle is installed.
         /// </summary>
         /// <value>Location is the path where Oracle is installed.</value>
-        [DataMember(Name="location", EmitDefaultValue=true)]
+        [DataMember(Name="location", EmitDefaultValue=false)]
         public string Location { get; set; }
 
         /// <summary>
         /// SystemIdentifier is the unique Oracle System Identifier for the DB instance.
         /// </summary>
         /// <value>SystemIdentifier is the unique Oracle System Identifier for the DB instance.</value>
-        [DataMember(Name="systemIdentifier", EmitDefaultValue=true)]
+        [DataMember(Name="systemIdentifier", EmitDefaultValue=false)]
         public string SystemIdentifier { get; set; }
 
         /// <summary>

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,7 +30,6 @@ namespace Cohesity.Model
         /// <param name="shouldBackupMailbox">Specifies whether mailbox of each Office365 Users/Groups within the job, should be backed up or not..</param>
         public OutlookEnvJobParameters(FilePathFilter filePathFilter = default(FilePathFilter), bool? shouldBackupMailbox = default(bool?))
         {
-            this.ShouldBackupMailbox = shouldBackupMailbox;
             this.FilePathFilter = filePathFilter;
             this.ShouldBackupMailbox = shouldBackupMailbox;
         }
@@ -42,7 +44,7 @@ namespace Cohesity.Model
         /// Specifies whether mailbox of each Office365 Users/Groups within the job, should be backed up or not.
         /// </summary>
         /// <value>Specifies whether mailbox of each Office365 Users/Groups within the job, should be backed up or not.</value>
-        [DataMember(Name="shouldBackupMailbox", EmitDefaultValue=true)]
+        [DataMember(Name="shouldBackupMailbox", EmitDefaultValue=false)]
         public bool? ShouldBackupMailbox { get; set; }
 
         /// <summary>

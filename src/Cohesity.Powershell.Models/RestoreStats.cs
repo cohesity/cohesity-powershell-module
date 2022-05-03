@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -30,8 +33,6 @@ namespace Cohesity.Model
         {
             this.NumClonedObjects = numClonedObjects;
             this.NumRecoveredObjects = numRecoveredObjects;
-            this.NumClonedObjects = numClonedObjects;
-            this.NumRecoveredObjects = numRecoveredObjects;
             this.StatsByEnvironment = statsByEnvironment;
         }
         
@@ -39,14 +40,14 @@ namespace Cohesity.Model
         /// Specifies the count of cloned objects in the given time frame.
         /// </summary>
         /// <value>Specifies the count of cloned objects in the given time frame.</value>
-        [DataMember(Name="numClonedObjects", EmitDefaultValue=true)]
+        [DataMember(Name="numClonedObjects", EmitDefaultValue=false)]
         public long? NumClonedObjects { get; set; }
 
         /// <summary>
         /// Specifies the count of recovered objects in the given time frame.
         /// </summary>
         /// <value>Specifies the count of recovered objects in the given time frame.</value>
-        [DataMember(Name="numRecoveredObjects", EmitDefaultValue=true)]
+        [DataMember(Name="numRecoveredObjects", EmitDefaultValue=false)]
         public long? NumRecoveredObjects { get; set; }
 
         /// <summary>
@@ -105,8 +106,7 @@ namespace Cohesity.Model
                 (
                     this.StatsByEnvironment == input.StatsByEnvironment ||
                     this.StatsByEnvironment != null &&
-                    input.StatsByEnvironment != null &&
-                    this.StatsByEnvironment.SequenceEqual(input.StatsByEnvironment)
+                    this.StatsByEnvironment.Equals(input.StatsByEnvironment)
                 );
         }
 

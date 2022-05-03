@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.Granularity = granularity;
             this.Multiplier = multiplier;
-            this.Granularity = granularity;
-            this.Multiplier = multiplier;
         }
         
         /// <summary>
         /// The base time period granularity that determines the frequency at which backup run snapshots will be copied.  NOTE: The granularity (in combination with the &#39;multiplier&#39; field below) that is specified should be such that the frequency of copying snapshots is lower than the frequency of actually creating the snapshots (i.e., lower than the frequency of the backup job runs).
         /// </summary>
         /// <value>The base time period granularity that determines the frequency at which backup run snapshots will be copied.  NOTE: The granularity (in combination with the &#39;multiplier&#39; field below) that is specified should be such that the frequency of copying snapshots is lower than the frequency of actually creating the snapshots (i.e., lower than the frequency of the backup job runs).</value>
-        [DataMember(Name="granularity", EmitDefaultValue=true)]
+        [DataMember(Name="granularity", EmitDefaultValue=false)]
         public int? Granularity { get; set; }
 
         /// <summary>
         /// A factor to multiply the granularity by. For example, if this is 2 and the granularity is kHour, then snapshots from the first eligible run from every 2 hour period will be copied.
         /// </summary>
         /// <value>A factor to multiply the granularity by. For example, if this is 2 and the granularity is kHour, then snapshots from the first eligible run from every 2 hour period will be copied.</value>
-        [DataMember(Name="multiplier", EmitDefaultValue=true)]
+        [DataMember(Name="multiplier", EmitDefaultValue=false)]
         public int? Multiplier { get; set; }
 
         /// <summary>

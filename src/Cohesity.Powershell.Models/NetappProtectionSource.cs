@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -51,7 +54,7 @@ namespace Cohesity.Model
         /// Specifies the type of managed NetApp Object in a NetApp Protection Source such as &#39;kCluster&#39;, &#39;kVserver&#39; or &#39;kVolume&#39;. &#39;kCluster&#39; indicates a Netapp cluster as a protection source. &#39;kVserver&#39; indicates a Netapp vserver in a cluster as a protection source. &#39;kVolume&#39; indicates  a volume in Netapp vserver as a protection source.
         /// </summary>
         /// <value>Specifies the type of managed NetApp Object in a NetApp Protection Source such as &#39;kCluster&#39;, &#39;kVserver&#39; or &#39;kVolume&#39;. &#39;kCluster&#39; indicates a Netapp cluster as a protection source. &#39;kVserver&#39; indicates a Netapp vserver in a cluster as a protection source. &#39;kVolume&#39; indicates  a volume in Netapp vserver as a protection source.</value>
-        [DataMember(Name="type", EmitDefaultValue=true)]
+        [DataMember(Name="type", EmitDefaultValue=false)]
         public TypeEnum? Type { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="NetappProtectionSource" /> class.
@@ -65,10 +68,6 @@ namespace Cohesity.Model
         /// <param name="vserverInfo">vserverInfo.</param>
         public NetappProtectionSource(NetappClusterInfo clusterInfo = default(NetappClusterInfo), bool? isTopLevel = default(bool?), string name = default(string), TypeEnum? type = default(TypeEnum?), string uuid = default(string), NetappVolumeInfo volumeInfo = default(NetappVolumeInfo), NetappVserverInfo vserverInfo = default(NetappVserverInfo))
         {
-            this.IsTopLevel = isTopLevel;
-            this.Name = name;
-            this.Type = type;
-            this.Uuid = uuid;
             this.ClusterInfo = clusterInfo;
             this.IsTopLevel = isTopLevel;
             this.Name = name;
@@ -88,21 +87,22 @@ namespace Cohesity.Model
         /// Specifies if this Object is a top level Object. Because a top level Object can either be a NetApp cluster or a Vserver, this cannot be determined only by type.
         /// </summary>
         /// <value>Specifies if this Object is a top level Object. Because a top level Object can either be a NetApp cluster or a Vserver, this cannot be determined only by type.</value>
-        [DataMember(Name="isTopLevel", EmitDefaultValue=true)]
+        [DataMember(Name="isTopLevel", EmitDefaultValue=false)]
         public bool? IsTopLevel { get; set; }
 
         /// <summary>
         /// Specifies the name of the NetApp Object.
         /// </summary>
         /// <value>Specifies the name of the NetApp Object.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
+
 
         /// <summary>
         /// Specifies the globally unique ID of this Object assigned by the NetApp server.
         /// </summary>
         /// <value>Specifies the globally unique ID of this Object assigned by the NetApp server.</value>
-        [DataMember(Name="uuid", EmitDefaultValue=true)]
+        [DataMember(Name="uuid", EmitDefaultValue=false)]
         public string Uuid { get; set; }
 
         /// <summary>
@@ -170,7 +170,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.Type == input.Type ||
-                    this.Type.Equals(input.Type)
+                    (this.Type != null &&
+                    this.Type.Equals(input.Type))
                 ) && 
                 (
                     this.Uuid == input.Uuid ||
@@ -204,7 +205,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.IsTopLevel.GetHashCode();
                 if (this.Name != null)
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
-                hashCode = hashCode * 59 + this.Type.GetHashCode();
+                if (this.Type != null)
+                    hashCode = hashCode * 59 + this.Type.GetHashCode();
                 if (this.Uuid != null)
                     hashCode = hashCode * 59 + this.Uuid.GetHashCode();
                 if (this.VolumeInfo != null)

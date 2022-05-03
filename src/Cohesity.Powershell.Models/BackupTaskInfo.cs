@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -33,38 +36,34 @@ namespace Cohesity.Model
             this.Name = name;
             this.StartTimeUsecs = startTimeUsecs;
             this.TaskId = taskId;
-            this.InstanceId = instanceId;
-            this.Name = name;
-            this.StartTimeUsecs = startTimeUsecs;
-            this.TaskId = taskId;
         }
         
         /// <summary>
         /// Id of that particular instance
         /// </summary>
         /// <value>Id of that particular instance</value>
-        [DataMember(Name="instanceId", EmitDefaultValue=true)]
+        [DataMember(Name="instanceId", EmitDefaultValue=false)]
         public string InstanceId { get; set; }
 
         /// <summary>
         /// Name of the recovery task.
         /// </summary>
         /// <value>Name of the recovery task.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
 
         /// <summary>
         /// Denotes the start time of the backuptask, needed for deeplinking.
         /// </summary>
         /// <value>Denotes the start time of the backuptask, needed for deeplinking.</value>
-        [DataMember(Name="startTimeUsecs", EmitDefaultValue=true)]
+        [DataMember(Name="startTimeUsecs", EmitDefaultValue=false)]
         public string StartTimeUsecs { get; set; }
 
         /// <summary>
         /// Id of the recovery task.
         /// </summary>
         /// <value>Id of the recovery task.</value>
-        [DataMember(Name="taskId", EmitDefaultValue=true)]
+        [DataMember(Name="taskId", EmitDefaultValue=false)]
         public string TaskId { get; set; }
 
         /// <summary>

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,14 +30,13 @@ namespace Cohesity.Model
         public UpdateResolutionParams(List<string> alertIdList = default(List<string>))
         {
             this.AlertIdList = alertIdList;
-            this.AlertIdList = alertIdList;
         }
         
         /// <summary>
         /// Specifies the Alerts to resolve, which are specified by Alert Ids.
         /// </summary>
         /// <value>Specifies the Alerts to resolve, which are specified by Alert Ids.</value>
-        [DataMember(Name="alertIdList", EmitDefaultValue=true)]
+        [DataMember(Name="alertIdList", EmitDefaultValue=false)]
         public List<string> AlertIdList { get; set; }
 
         /// <summary>
@@ -76,8 +78,7 @@ namespace Cohesity.Model
                 (
                     this.AlertIdList == input.AlertIdList ||
                     this.AlertIdList != null &&
-                    input.AlertIdList != null &&
-                    this.AlertIdList.SequenceEqual(input.AlertIdList)
+                    this.AlertIdList.Equals(input.AlertIdList)
                 );
         }
 

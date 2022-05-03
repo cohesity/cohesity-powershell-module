@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,30 +34,27 @@ namespace Cohesity.Model
             this.MountError = mountError;
             this.MountPoint = mountPoint;
             this.VolumeName = volumeName;
-            this.MountError = mountError;
-            this.MountPoint = mountPoint;
-            this.VolumeName = volumeName;
         }
         
         /// <summary>
         /// Specifies the cause of the mount failure if the mounting of a volume failed.
         /// </summary>
         /// <value>Specifies the cause of the mount failure if the mounting of a volume failed.</value>
-        [DataMember(Name="mountError", EmitDefaultValue=true)]
+        [DataMember(Name="mountError", EmitDefaultValue=false)]
         public RequestError MountError { get; set; }
 
         /// <summary>
         /// Specifies the mount point where the volume is mounted. NOTE: This field may not be populated for VM environments if the onlining of disks is not requested or there was any issue during onlining.
         /// </summary>
         /// <value>Specifies the mount point where the volume is mounted. NOTE: This field may not be populated for VM environments if the onlining of disks is not requested or there was any issue during onlining.</value>
-        [DataMember(Name="mountPoint", EmitDefaultValue=true)]
+        [DataMember(Name="mountPoint", EmitDefaultValue=false)]
         public string MountPoint { get; set; }
 
         /// <summary>
         /// Specifies the name of the original volume.
         /// </summary>
         /// <value>Specifies the name of the original volume.</value>
-        [DataMember(Name="volumeName", EmitDefaultValue=true)]
+        [DataMember(Name="volumeName", EmitDefaultValue=false)]
         public string VolumeName { get; set; }
 
         /// <summary>
@@ -95,8 +95,8 @@ namespace Cohesity.Model
             return 
                 (
                     this.MountError == input.MountError ||
-                    (this.MountError != null &&
-                    this.MountError.Equals(input.MountError))
+                    this.MountError != null &&
+                    this.MountError.Equals(input.MountError)
                 ) && 
                 (
                     this.MountPoint == input.MountPoint ||

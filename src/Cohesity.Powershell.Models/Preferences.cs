@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,14 +30,13 @@ namespace Cohesity.Model
         public Preferences(string locale = default(string))
         {
             this.Locale = locale;
-            this.Locale = locale;
         }
         
         /// <summary>
         /// Locale reflects the language settings of the user. Populate using the user preferences stored in Scribe for the user wherever needed.
         /// </summary>
         /// <value>Locale reflects the language settings of the user. Populate using the user preferences stored in Scribe for the user wherever needed.</value>
-        [DataMember(Name="locale", EmitDefaultValue=true)]
+        [DataMember(Name="locale", EmitDefaultValue=false)]
         public string Locale { get; set; }
 
         /// <summary>

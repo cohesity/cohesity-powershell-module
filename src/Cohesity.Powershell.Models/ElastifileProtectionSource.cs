@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -45,7 +48,7 @@ namespace Cohesity.Model
         /// Specifies the type of the entity in an Elastifile file system like &#39;kCluster&#39;, &#39;kContainer&#39;. &#39;kCluster&#39; indicates an Elastifile Cluster. &#39;kContainer&#39; indicates a container on Elastifile cluster.
         /// </summary>
         /// <value>Specifies the type of the entity in an Elastifile file system like &#39;kCluster&#39;, &#39;kContainer&#39;. &#39;kCluster&#39; indicates an Elastifile Cluster. &#39;kContainer&#39; indicates a container on Elastifile cluster.</value>
-        [DataMember(Name="type", EmitDefaultValue=true)]
+        [DataMember(Name="type", EmitDefaultValue=false)]
         public TypeEnum? Type { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="ElastifileProtectionSource" /> class.
@@ -56,8 +59,6 @@ namespace Cohesity.Model
         /// <param name="type">Specifies the type of the entity in an Elastifile file system like &#39;kCluster&#39;, &#39;kContainer&#39;. &#39;kCluster&#39; indicates an Elastifile Cluster. &#39;kContainer&#39; indicates a container on Elastifile cluster..</param>
         public ElastifileProtectionSource(ElastifileCluster cluster = default(ElastifileCluster), ElastifileContainer container = default(ElastifileContainer), string name = default(string), TypeEnum? type = default(TypeEnum?))
         {
-            this.Name = name;
-            this.Type = type;
             this.Cluster = cluster;
             this.Container = container;
             this.Name = name;
@@ -80,8 +81,9 @@ namespace Cohesity.Model
         /// Specifies a unique name of the Protection Source.
         /// </summary>
         /// <value>Specifies a unique name of the Protection Source.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
+
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -136,7 +138,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.Type == input.Type ||
-                    this.Type.Equals(input.Type)
+                    (this.Type != null &&
+                    this.Type.Equals(input.Type))
                 );
         }
 
@@ -155,7 +158,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Container.GetHashCode();
                 if (this.Name != null)
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
-                hashCode = hashCode * 59 + this.Type.GetHashCode();
+                if (this.Type != null)
+                    hashCode = hashCode * 59 + this.Type.GetHashCode();
                 return hashCode;
             }
         }

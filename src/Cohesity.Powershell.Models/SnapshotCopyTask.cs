@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -32,9 +35,6 @@ namespace Cohesity.Model
             this.CopyStatus = copyStatus;
             this.ExpiryTimeUsecs = expiryTimeUsecs;
             this.Message = message;
-            this.CopyStatus = copyStatus;
-            this.ExpiryTimeUsecs = expiryTimeUsecs;
-            this.Message = message;
             this.SnapshotTarget = snapshotTarget;
         }
         
@@ -42,21 +42,21 @@ namespace Cohesity.Model
         /// Specifies the status of the copy task.
         /// </summary>
         /// <value>Specifies the status of the copy task.</value>
-        [DataMember(Name="copyStatus", EmitDefaultValue=true)]
+        [DataMember(Name="copyStatus", EmitDefaultValue=false)]
         public string CopyStatus { get; set; }
 
         /// <summary>
         /// Specifies when the Snapshot expires on the target.
         /// </summary>
         /// <value>Specifies when the Snapshot expires on the target.</value>
-        [DataMember(Name="expiryTimeUsecs", EmitDefaultValue=true)]
+        [DataMember(Name="expiryTimeUsecs", EmitDefaultValue=false)]
         public long? ExpiryTimeUsecs { get; set; }
 
         /// <summary>
         /// Specifies warning or error information when the copy task is not successful.
         /// </summary>
         /// <value>Specifies warning or error information when the copy task is not successful.</value>
-        [DataMember(Name="message", EmitDefaultValue=true)]
+        [DataMember(Name="message", EmitDefaultValue=false)]
         public string Message { get; set; }
 
         /// <summary>

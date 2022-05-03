@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -33,38 +36,34 @@ namespace Cohesity.Model
             this.IpmiPassword = ipmiPassword;
             this.IpmiSubnetMask = ipmiSubnetMask;
             this.IpmiUsername = ipmiUsername;
-            this.IpmiGateway = ipmiGateway;
-            this.IpmiPassword = ipmiPassword;
-            this.IpmiSubnetMask = ipmiSubnetMask;
-            this.IpmiUsername = ipmiUsername;
         }
         
         /// <summary>
         /// Specifies the default Gateway IP Address for the IPMI network.
         /// </summary>
         /// <value>Specifies the default Gateway IP Address for the IPMI network.</value>
-        [DataMember(Name="ipmiGateway", EmitDefaultValue=true)]
+        [DataMember(Name="ipmiGateway", EmitDefaultValue=false)]
         public string IpmiGateway { get; set; }
 
         /// <summary>
         /// Specifies the IPMI Password.
         /// </summary>
         /// <value>Specifies the IPMI Password.</value>
-        [DataMember(Name="ipmiPassword", EmitDefaultValue=true)]
+        [DataMember(Name="ipmiPassword", EmitDefaultValue=false)]
         public string IpmiPassword { get; set; }
 
         /// <summary>
         /// Specifies the subnet mask for the IPMI network.
         /// </summary>
         /// <value>Specifies the subnet mask for the IPMI network.</value>
-        [DataMember(Name="ipmiSubnetMask", EmitDefaultValue=true)]
+        [DataMember(Name="ipmiSubnetMask", EmitDefaultValue=false)]
         public string IpmiSubnetMask { get; set; }
 
         /// <summary>
         /// Specifies the IPMI Username.
         /// </summary>
         /// <value>Specifies the IPMI Username.</value>
-        [DataMember(Name="ipmiUsername", EmitDefaultValue=true)]
+        [DataMember(Name="ipmiUsername", EmitDefaultValue=false)]
         public string IpmiUsername { get; set; }
 
         /// <summary>

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -27,14 +30,13 @@ namespace Cohesity.Model
         public UpdateSourcesForPrincipalsParams(List<SourceForPrincipalParam> sourcesForPrincipals = default(List<SourceForPrincipalParam>))
         {
             this.SourcesForPrincipals = sourcesForPrincipals;
-            this.SourcesForPrincipals = sourcesForPrincipals;
         }
         
         /// <summary>
         /// Array of Principals, Sources and Views.  Specifies a list of principals. For each principal, specify the Protection Sources and Views that the principal has permissions to access.
         /// </summary>
         /// <value>Array of Principals, Sources and Views.  Specifies a list of principals. For each principal, specify the Protection Sources and Views that the principal has permissions to access.</value>
-        [DataMember(Name="sourcesForPrincipals", EmitDefaultValue=true)]
+        [DataMember(Name="sourcesForPrincipals", EmitDefaultValue=false)]
         public List<SourceForPrincipalParam> SourcesForPrincipals { get; set; }
 
         /// <summary>
@@ -76,8 +78,7 @@ namespace Cohesity.Model
                 (
                     this.SourcesForPrincipals == input.SourcesForPrincipals ||
                     this.SourcesForPrincipals != null &&
-                    input.SourcesForPrincipals != null &&
-                    this.SourcesForPrincipals.SequenceEqual(input.SourcesForPrincipals)
+                    this.SourcesForPrincipals.Equals(input.SourcesForPrincipals)
                 );
         }
 

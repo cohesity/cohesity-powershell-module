@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -45,7 +48,7 @@ namespace Cohesity.Model
         /// Specifies the type of the database in Oracle Protection Source. &#39;kRACDatabase&#39; indicates the database is a RAC DB. &#39;kSingleInstance&#39; indicates that the database is single instance.
         /// </summary>
         /// <value>Specifies the type of the database in Oracle Protection Source. &#39;kRACDatabase&#39; indicates the database is a RAC DB. &#39;kSingleInstance&#39; indicates that the database is single instance.</value>
-        [DataMember(Name="dbType", EmitDefaultValue=true)]
+        [DataMember(Name="dbType", EmitDefaultValue=false)]
         public DbTypeEnum? DbType { get; set; }
         /// <summary>
         /// Specifies the type of the managed Object in Oracle Protection Source. &#39;kRACRootContainer&#39; indicates the entity is a root container to an Oracle Real Application clusters(Oracle RAC). &#39;kRootContainer&#39; indicates the entity is a root container to an Oracle standalone server. &#39;kHost&#39; indicates the entity is an Oracle host. &#39;kDatabase&#39; indicates the entity is an Oracle Database. &#39;kTableSpace&#39; indicates the entity is an Oracle table space. &#39;kTable&#39; indicates the entity is an Oracle table.
@@ -96,7 +99,7 @@ namespace Cohesity.Model
         /// Specifies the type of the managed Object in Oracle Protection Source. &#39;kRACRootContainer&#39; indicates the entity is a root container to an Oracle Real Application clusters(Oracle RAC). &#39;kRootContainer&#39; indicates the entity is a root container to an Oracle standalone server. &#39;kHost&#39; indicates the entity is an Oracle host. &#39;kDatabase&#39; indicates the entity is an Oracle Database. &#39;kTableSpace&#39; indicates the entity is an Oracle table space. &#39;kTable&#39; indicates the entity is an Oracle table.
         /// </summary>
         /// <value>Specifies the type of the managed Object in Oracle Protection Source. &#39;kRACRootContainer&#39; indicates the entity is a root container to an Oracle Real Application clusters(Oracle RAC). &#39;kRootContainer&#39; indicates the entity is a root container to an Oracle standalone server. &#39;kHost&#39; indicates the entity is an Oracle host. &#39;kDatabase&#39; indicates the entity is an Oracle Database. &#39;kTableSpace&#39; indicates the entity is an Oracle table space. &#39;kTable&#39; indicates the entity is an Oracle table.</value>
-        [DataMember(Name="type", EmitDefaultValue=true)]
+        [DataMember(Name="type", EmitDefaultValue=false)]
         public TypeEnum? Type { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="OracleProtectionSource" /> class.
@@ -115,28 +118,13 @@ namespace Cohesity.Model
         /// <param name="sgaTargetSize">Specifies System Global Area size for the current DB entity. A system global area (SGA) is a group of shared memory structures that contain data and control information for one Oracle database..</param>
         /// <param name="sharedPoolSize">Specifies Shared Pool Size for the current DB entity..</param>
         /// <param name="size">Specifies database size..</param>
+        /// <param name="tdeEncryptedTsCount">Specifies the number of TDE encrypted tablespaces found in the database..</param>
         /// <param name="tempFilesCount">Specifies number of temporary files for the current DB entity..</param>
         /// <param name="type">Specifies the type of the managed Object in Oracle Protection Source. &#39;kRACRootContainer&#39; indicates the entity is a root container to an Oracle Real Application clusters(Oracle RAC). &#39;kRootContainer&#39; indicates the entity is a root container to an Oracle standalone server. &#39;kHost&#39; indicates the entity is an Oracle host. &#39;kDatabase&#39; indicates the entity is an Oracle Database. &#39;kTableSpace&#39; indicates the entity is an Oracle table space. &#39;kTable&#39; indicates the entity is an Oracle table..</param>
         /// <param name="uuid">Specifies the UUID for the Oracle entity..</param>
         /// <param name="version">Specifies the Oracle database instance version..</param>
-        public OracleProtectionSource(bool? archiveLogEnabled = default(bool?), bool? bctEnabled = default(bool?), OracleContainerDatabaseInfo containerDatabaseInfo = default(OracleContainerDatabaseInfo), OracleDataGuardInfo dataGuardInfo = default(OracleDataGuardInfo), string databaseUniqueName = default(string), DbTypeEnum? dbType = default(DbTypeEnum?), string domain = default(string), long? fraSize = default(long?), List<OracleHost> hosts = default(List<OracleHost>), string name = default(string), long? ownerId = default(long?), string sgaTargetSize = default(string), string sharedPoolSize = default(string), long? size = default(long?), long? tempFilesCount = default(long?), TypeEnum? type = default(TypeEnum?), string uuid = default(string), string version = default(string))
+        public OracleProtectionSource(bool? archiveLogEnabled = default(bool?), bool? bctEnabled = default(bool?), OracleContainerDatabaseInfo containerDatabaseInfo = default(OracleContainerDatabaseInfo), OracleDataGuardInfo dataGuardInfo = default(OracleDataGuardInfo), string databaseUniqueName = default(string), DbTypeEnum? dbType = default(DbTypeEnum?), string domain = default(string), long? fraSize = default(long?), List<OracleHost> hosts = default(List<OracleHost>), string name = default(string), long? ownerId = default(long?), string sgaTargetSize = default(string), string sharedPoolSize = default(string), long? size = default(long?), long? tdeEncryptedTsCount = default(long?), long? tempFilesCount = default(long?), TypeEnum? type = default(TypeEnum?), string uuid = default(string), string version = default(string))
         {
-            this.ArchiveLogEnabled = archiveLogEnabled;
-            this.BctEnabled = bctEnabled;
-            this.DatabaseUniqueName = databaseUniqueName;
-            this.DbType = dbType;
-            this.Domain = domain;
-            this.FraSize = fraSize;
-            this.Hosts = hosts;
-            this.Name = name;
-            this.OwnerId = ownerId;
-            this.SgaTargetSize = sgaTargetSize;
-            this.SharedPoolSize = sharedPoolSize;
-            this.Size = size;
-            this.TempFilesCount = tempFilesCount;
-            this.Type = type;
-            this.Uuid = uuid;
-            this.Version = version;
             this.ArchiveLogEnabled = archiveLogEnabled;
             this.BctEnabled = bctEnabled;
             this.ContainerDatabaseInfo = containerDatabaseInfo;
@@ -151,6 +139,7 @@ namespace Cohesity.Model
             this.SgaTargetSize = sgaTargetSize;
             this.SharedPoolSize = sharedPoolSize;
             this.Size = size;
+            this.TdeEncryptedTsCount = tdeEncryptedTsCount;
             this.TempFilesCount = tempFilesCount;
             this.Type = type;
             this.Uuid = uuid;
@@ -161,14 +150,14 @@ namespace Cohesity.Model
         /// Specifies whether the database is running in ARCHIVELOG mode. It enables the redo of log files into archived redo log files.
         /// </summary>
         /// <value>Specifies whether the database is running in ARCHIVELOG mode. It enables the redo of log files into archived redo log files.</value>
-        [DataMember(Name="archiveLogEnabled", EmitDefaultValue=true)]
+        [DataMember(Name="archiveLogEnabled", EmitDefaultValue=false)]
         public bool? ArchiveLogEnabled { get; set; }
 
         /// <summary>
         /// Specifies whether the Block Change Tracking is enabled. BCT improves the performance of incremental backups by recording changed blocks into the block change tracking file. RMAN then uses this file to identify changed blocks to be backed up.
         /// </summary>
         /// <value>Specifies whether the Block Change Tracking is enabled. BCT improves the performance of incremental backups by recording changed blocks into the block change tracking file. RMAN then uses this file to identify changed blocks to be backed up.</value>
-        [DataMember(Name="bctEnabled", EmitDefaultValue=true)]
+        [DataMember(Name="bctEnabled", EmitDefaultValue=false)]
         public bool? BctEnabled { get; set; }
 
         /// <summary>
@@ -187,84 +176,93 @@ namespace Cohesity.Model
         /// Specifies the unique name of the Oracle entity.
         /// </summary>
         /// <value>Specifies the unique name of the Oracle entity.</value>
-        [DataMember(Name="databaseUniqueName", EmitDefaultValue=true)]
+        [DataMember(Name="databaseUniqueName", EmitDefaultValue=false)]
         public string DatabaseUniqueName { get; set; }
+
 
         /// <summary>
         /// Specifies the Oracle DB Domain.
         /// </summary>
         /// <value>Specifies the Oracle DB Domain.</value>
-        [DataMember(Name="domain", EmitDefaultValue=true)]
+        [DataMember(Name="domain", EmitDefaultValue=false)]
         public string Domain { get; set; }
 
         /// <summary>
         /// Specifies Flash/Fast Recovery area size for the current DB entity.
         /// </summary>
         /// <value>Specifies Flash/Fast Recovery area size for the current DB entity.</value>
-        [DataMember(Name="fraSize", EmitDefaultValue=true)]
+        [DataMember(Name="fraSize", EmitDefaultValue=false)]
         public long? FraSize { get; set; }
 
         /// <summary>
         /// Specifies the list of hosts for the current DB entity.
         /// </summary>
         /// <value>Specifies the list of hosts for the current DB entity.</value>
-        [DataMember(Name="hosts", EmitDefaultValue=true)]
+        [DataMember(Name="hosts", EmitDefaultValue=false)]
         public List<OracleHost> Hosts { get; set; }
 
         /// <summary>
         /// Specifies the instance name of the Oracle entity.
         /// </summary>
         /// <value>Specifies the instance name of the Oracle entity.</value>
-        [DataMember(Name="name", EmitDefaultValue=true)]
+        [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
 
         /// <summary>
         /// Specifies the entity id of the owner entity (such as a VM). This is only set if type is kDatabase.
         /// </summary>
         /// <value>Specifies the entity id of the owner entity (such as a VM). This is only set if type is kDatabase.</value>
-        [DataMember(Name="ownerId", EmitDefaultValue=true)]
+        [DataMember(Name="ownerId", EmitDefaultValue=false)]
         public long? OwnerId { get; set; }
 
         /// <summary>
         /// Specifies System Global Area size for the current DB entity. A system global area (SGA) is a group of shared memory structures that contain data and control information for one Oracle database.
         /// </summary>
         /// <value>Specifies System Global Area size for the current DB entity. A system global area (SGA) is a group of shared memory structures that contain data and control information for one Oracle database.</value>
-        [DataMember(Name="sgaTargetSize", EmitDefaultValue=true)]
+        [DataMember(Name="sgaTargetSize", EmitDefaultValue=false)]
         public string SgaTargetSize { get; set; }
 
         /// <summary>
         /// Specifies Shared Pool Size for the current DB entity.
         /// </summary>
         /// <value>Specifies Shared Pool Size for the current DB entity.</value>
-        [DataMember(Name="sharedPoolSize", EmitDefaultValue=true)]
+        [DataMember(Name="sharedPoolSize", EmitDefaultValue=false)]
         public string SharedPoolSize { get; set; }
 
         /// <summary>
         /// Specifies database size.
         /// </summary>
         /// <value>Specifies database size.</value>
-        [DataMember(Name="size", EmitDefaultValue=true)]
+        [DataMember(Name="size", EmitDefaultValue=false)]
         public long? Size { get; set; }
+
+        /// <summary>
+        /// Specifies the number of TDE encrypted tablespaces found in the database.
+        /// </summary>
+        /// <value>Specifies the number of TDE encrypted tablespaces found in the database.</value>
+        [DataMember(Name="tdeEncryptedTsCount", EmitDefaultValue=false)]
+        public long? TdeEncryptedTsCount { get; set; }
 
         /// <summary>
         /// Specifies number of temporary files for the current DB entity.
         /// </summary>
         /// <value>Specifies number of temporary files for the current DB entity.</value>
-        [DataMember(Name="tempFilesCount", EmitDefaultValue=true)]
+        [DataMember(Name="tempFilesCount", EmitDefaultValue=false)]
         public long? TempFilesCount { get; set; }
+
 
         /// <summary>
         /// Specifies the UUID for the Oracle entity.
         /// </summary>
         /// <value>Specifies the UUID for the Oracle entity.</value>
-        [DataMember(Name="uuid", EmitDefaultValue=true)]
+        [DataMember(Name="uuid", EmitDefaultValue=false)]
         public string Uuid { get; set; }
 
         /// <summary>
         /// Specifies the Oracle database instance version.
         /// </summary>
         /// <value>Specifies the Oracle database instance version.</value>
-        [DataMember(Name="version", EmitDefaultValue=true)]
+        [DataMember(Name="version", EmitDefaultValue=false)]
         public string Version { get; set; }
 
         /// <summary>
@@ -330,7 +328,8 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.DbType == input.DbType ||
-                    this.DbType.Equals(input.DbType)
+                    (this.DbType != null &&
+                    this.DbType.Equals(input.DbType))
                 ) && 
                 (
                     this.Domain == input.Domain ||
@@ -345,8 +344,7 @@ namespace Cohesity.Model
                 (
                     this.Hosts == input.Hosts ||
                     this.Hosts != null &&
-                    input.Hosts != null &&
-                    this.Hosts.SequenceEqual(input.Hosts)
+                    this.Hosts.Equals(input.Hosts)
                 ) && 
                 (
                     this.Name == input.Name ||
@@ -374,13 +372,19 @@ namespace Cohesity.Model
                     this.Size.Equals(input.Size))
                 ) && 
                 (
+                    this.TdeEncryptedTsCount == input.TdeEncryptedTsCount ||
+                    (this.TdeEncryptedTsCount != null &&
+                    this.TdeEncryptedTsCount.Equals(input.TdeEncryptedTsCount))
+                ) && 
+                (
                     this.TempFilesCount == input.TempFilesCount ||
                     (this.TempFilesCount != null &&
                     this.TempFilesCount.Equals(input.TempFilesCount))
                 ) && 
                 (
                     this.Type == input.Type ||
-                    this.Type.Equals(input.Type)
+                    (this.Type != null &&
+                    this.Type.Equals(input.Type))
                 ) && 
                 (
                     this.Uuid == input.Uuid ||
@@ -413,7 +417,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.DataGuardInfo.GetHashCode();
                 if (this.DatabaseUniqueName != null)
                     hashCode = hashCode * 59 + this.DatabaseUniqueName.GetHashCode();
-                hashCode = hashCode * 59 + this.DbType.GetHashCode();
+                if (this.DbType != null)
+                    hashCode = hashCode * 59 + this.DbType.GetHashCode();
                 if (this.Domain != null)
                     hashCode = hashCode * 59 + this.Domain.GetHashCode();
                 if (this.FraSize != null)
@@ -430,9 +435,12 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.SharedPoolSize.GetHashCode();
                 if (this.Size != null)
                     hashCode = hashCode * 59 + this.Size.GetHashCode();
+                if (this.TdeEncryptedTsCount != null)
+                    hashCode = hashCode * 59 + this.TdeEncryptedTsCount.GetHashCode();
                 if (this.TempFilesCount != null)
                     hashCode = hashCode * 59 + this.TempFilesCount.GetHashCode();
-                hashCode = hashCode * 59 + this.Type.GetHashCode();
+                if (this.Type != null)
+                    hashCode = hashCode * 59 + this.Type.GetHashCode();
                 if (this.Uuid != null)
                     hashCode = hashCode * 59 + this.Uuid.GetHashCode();
                 if (this.Version != null)

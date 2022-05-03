@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.ReceiverEmails = receiverEmails;
             this.Reports = reports;
-            this.ReceiverEmails = receiverEmails;
-            this.Reports = reports;
         }
         
         /// <summary>
         /// Specifies the list of receiver email addresses.
         /// </summary>
         /// <value>Specifies the list of receiver email addresses.</value>
-        [DataMember(Name="receiverEmails", EmitDefaultValue=true)]
+        [DataMember(Name="receiverEmails", EmitDefaultValue=false)]
         public List<string> ReceiverEmails { get; set; }
 
         /// <summary>
         /// The list of reports to be sent in the mail.
         /// </summary>
         /// <value>The list of reports to be sent in the mail.</value>
-        [DataMember(Name="reports", EmitDefaultValue=true)]
+        [DataMember(Name="reports", EmitDefaultValue=false)]
         public List<SchedulerProtoSchedulerJobScheduleJobParametersReportJobParameterReport> Reports { get; set; }
 
         /// <summary>
@@ -86,14 +87,12 @@ namespace Cohesity.Model
                 (
                     this.ReceiverEmails == input.ReceiverEmails ||
                     this.ReceiverEmails != null &&
-                    input.ReceiverEmails != null &&
-                    this.ReceiverEmails.SequenceEqual(input.ReceiverEmails)
+                    this.ReceiverEmails.Equals(input.ReceiverEmails)
                 ) && 
                 (
                     this.Reports == input.Reports ||
                     this.Reports != null &&
-                    input.Reports != null &&
-                    this.Reports.SequenceEqual(input.Reports)
+                    this.Reports.Equals(input.Reports)
                 );
         }
 

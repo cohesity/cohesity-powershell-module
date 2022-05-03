@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.ClusterAuditLogs = clusterAuditLogs;
             this.TotalCount = totalCount;
-            this.ClusterAuditLogs = clusterAuditLogs;
-            this.TotalCount = totalCount;
         }
         
         /// <summary>
         /// Array of Cluster Audit Logs.  Specifies a list of Cluster audit logs that match the specified filter criteria up to the limit specified in pageCount.
         /// </summary>
         /// <value>Array of Cluster Audit Logs.  Specifies a list of Cluster audit logs that match the specified filter criteria up to the limit specified in pageCount.</value>
-        [DataMember(Name="clusterAuditLogs", EmitDefaultValue=true)]
+        [DataMember(Name="clusterAuditLogs", EmitDefaultValue=false)]
         public List<ClusterAuditLog> ClusterAuditLogs { get; set; }
 
         /// <summary>
         /// Specifies the total number of logs that match the specified filter criteria. (This number might be larger than the size of the Cluster Audit Logs array.) This count is provided to indicate if additional requests must be made to get the full result.
         /// </summary>
         /// <value>Specifies the total number of logs that match the specified filter criteria. (This number might be larger than the size of the Cluster Audit Logs array.) This count is provided to indicate if additional requests must be made to get the full result.</value>
-        [DataMember(Name="totalCount", EmitDefaultValue=true)]
+        [DataMember(Name="totalCount", EmitDefaultValue=false)]
         public long? TotalCount { get; set; }
 
         /// <summary>
@@ -86,8 +87,7 @@ namespace Cohesity.Model
                 (
                     this.ClusterAuditLogs == input.ClusterAuditLogs ||
                     this.ClusterAuditLogs != null &&
-                    input.ClusterAuditLogs != null &&
-                    this.ClusterAuditLogs.SequenceEqual(input.ClusterAuditLogs)
+                    this.ClusterAuditLogs.Equals(input.ClusterAuditLogs)
                 ) && 
                 (
                     this.TotalCount == input.TotalCount ||

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.Pause = pause;
             this.PauseReason = pauseReason;
-            this.Pause = pause;
-            this.PauseReason = pauseReason;
         }
         
         /// <summary>
         /// If true, the specified Protection Job is paused and no new Runs of the Job are started. Any Runs that were executing continue to run. If false and the Protection Job was in a paused state, the Protection Job resumes and new Runs are started according to the schedule defined in the associated Policy.
         /// </summary>
         /// <value>If true, the specified Protection Job is paused and no new Runs of the Job are started. Any Runs that were executing continue to run. If false and the Protection Job was in a paused state, the Protection Job resumes and new Runs are started according to the schedule defined in the associated Policy.</value>
-        [DataMember(Name="pause", EmitDefaultValue=true)]
+        [DataMember(Name="pause", EmitDefaultValue=false)]
         public bool? Pause { get; set; }
 
         /// <summary>
         /// Specifies the reason of pausing the job so that depending on the pause reason, only specific jobs can be resumed. All the jobs paused manually by the user will be identified by nil PauseReason.
         /// </summary>
         /// <value>Specifies the reason of pausing the job so that depending on the pause reason, only specific jobs can be resumed. All the jobs paused manually by the user will be identified by nil PauseReason.</value>
-        [DataMember(Name="pauseReason", EmitDefaultValue=true)]
+        [DataMember(Name="pauseReason", EmitDefaultValue=false)]
         public int? PauseReason { get; set; }
 
         /// <summary>

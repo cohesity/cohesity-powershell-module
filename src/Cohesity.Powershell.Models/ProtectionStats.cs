@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,30 +34,27 @@ namespace Cohesity.Model
             this.NumFailed = numFailed;
             this.NumObjects = numObjects;
             this.SizeBytes = sizeBytes;
-            this.NumFailed = numFailed;
-            this.NumObjects = numObjects;
-            this.SizeBytes = sizeBytes;
         }
         
         /// <summary>
         /// Number of Failed Objects.
         /// </summary>
         /// <value>Number of Failed Objects.</value>
-        [DataMember(Name="numFailed", EmitDefaultValue=true)]
+        [DataMember(Name="numFailed", EmitDefaultValue=false)]
         public int? NumFailed { get; set; }
 
         /// <summary>
         /// Number of Objects.
         /// </summary>
         /// <value>Number of Objects.</value>
-        [DataMember(Name="numObjects", EmitDefaultValue=true)]
+        [DataMember(Name="numObjects", EmitDefaultValue=false)]
         public int? NumObjects { get; set; }
 
         /// <summary>
         /// Size in Bytes.
         /// </summary>
         /// <value>Size in Bytes.</value>
-        [DataMember(Name="sizeBytes", EmitDefaultValue=true)]
+        [DataMember(Name="sizeBytes", EmitDefaultValue=false)]
         public long? SizeBytes { get; set; }
 
         /// <summary>

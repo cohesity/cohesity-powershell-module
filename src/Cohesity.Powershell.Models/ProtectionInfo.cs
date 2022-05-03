@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -43,78 +46,69 @@ namespace Cohesity.Model
             this.StartTimeUsecs = startTimeUsecs;
             this.StorageDomain = storageDomain;
             this.TotalSnapshots = totalSnapshots;
-            this.EndTimeUsecs = endTimeUsecs;
-            this.Location = location;
-            this.PolicyId = policyId;
-            this.ProtectionJobId = protectionJobId;
-            this.ProtectionJobName = protectionJobName;
-            this.RetentionPeriod = retentionPeriod;
-            this.StartTimeUsecs = startTimeUsecs;
-            this.StorageDomain = storageDomain;
-            this.TotalSnapshots = totalSnapshots;
         }
         
         /// <summary>
         /// Specifies the end time for object retention.
         /// </summary>
         /// <value>Specifies the end time for object retention.</value>
-        [DataMember(Name="endTimeUsecs", EmitDefaultValue=true)]
+        [DataMember(Name="endTimeUsecs", EmitDefaultValue=false)]
         public long? EndTimeUsecs { get; set; }
 
         /// <summary>
         /// Specifies the location of the object.
         /// </summary>
         /// <value>Specifies the location of the object.</value>
-        [DataMember(Name="location", EmitDefaultValue=true)]
+        [DataMember(Name="location", EmitDefaultValue=false)]
         public string Location { get; set; }
 
         /// <summary>
         /// Specifies the id of the policy.
         /// </summary>
         /// <value>Specifies the id of the policy.</value>
-        [DataMember(Name="policyId", EmitDefaultValue=true)]
+        [DataMember(Name="policyId", EmitDefaultValue=false)]
         public string PolicyId { get; set; }
 
         /// <summary>
         /// Specifies the id of the protection job.
         /// </summary>
         /// <value>Specifies the id of the protection job.</value>
-        [DataMember(Name="protectionJobId", EmitDefaultValue=true)]
+        [DataMember(Name="protectionJobId", EmitDefaultValue=false)]
         public long? ProtectionJobId { get; set; }
 
         /// <summary>
         /// Specifies the protection job name which protects this object.
         /// </summary>
         /// <value>Specifies the protection job name which protects this object.</value>
-        [DataMember(Name="protectionJobName", EmitDefaultValue=true)]
+        [DataMember(Name="protectionJobName", EmitDefaultValue=false)]
         public string ProtectionJobName { get; set; }
 
         /// <summary>
         /// Specifies the retention period.
         /// </summary>
         /// <value>Specifies the retention period.</value>
-        [DataMember(Name="retentionPeriod", EmitDefaultValue=true)]
+        [DataMember(Name="retentionPeriod", EmitDefaultValue=false)]
         public long? RetentionPeriod { get; set; }
 
         /// <summary>
         /// Specifies the start time for object retention.
         /// </summary>
         /// <value>Specifies the start time for object retention.</value>
-        [DataMember(Name="startTimeUsecs", EmitDefaultValue=true)]
+        [DataMember(Name="startTimeUsecs", EmitDefaultValue=false)]
         public long? StartTimeUsecs { get; set; }
 
         /// <summary>
         /// Specifies the storage domain name.
         /// </summary>
         /// <value>Specifies the storage domain name.</value>
-        [DataMember(Name="storageDomain", EmitDefaultValue=true)]
+        [DataMember(Name="storageDomain", EmitDefaultValue=false)]
         public string StorageDomain { get; set; }
 
         /// <summary>
         /// Specifies the total number of snapshots.
         /// </summary>
         /// <value>Specifies the total number of snapshots.</value>
-        [DataMember(Name="totalSnapshots", EmitDefaultValue=true)]
+        [DataMember(Name="totalSnapshots", EmitDefaultValue=false)]
         public long? TotalSnapshots { get; set; }
 
         /// <summary>

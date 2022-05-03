@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,27 +34,24 @@ namespace Cohesity.Model
             this.LacpRate = lacpRate;
             this.Mode = mode;
             this.XmitHashPolicy = xmitHashPolicy;
-            this.LacpRate = lacpRate;
-            this.Mode = mode;
-            this.XmitHashPolicy = xmitHashPolicy;
         }
         
         /// <summary>
         /// Gets or Sets LacpRate
         /// </summary>
-        [DataMember(Name="lacpRate", EmitDefaultValue=true)]
+        [DataMember(Name="lacpRate", EmitDefaultValue=false)]
         public string LacpRate { get; set; }
 
         /// <summary>
         /// Gets or Sets Mode
         /// </summary>
-        [DataMember(Name="mode", EmitDefaultValue=true)]
+        [DataMember(Name="mode", EmitDefaultValue=false)]
         public string Mode { get; set; }
 
         /// <summary>
         /// Gets or Sets XmitHashPolicy
         /// </summary>
-        [DataMember(Name="xmitHashPolicy", EmitDefaultValue=true)]
+        [DataMember(Name="xmitHashPolicy", EmitDefaultValue=false)]
         public string XmitHashPolicy { get; set; }
 
         /// <summary>

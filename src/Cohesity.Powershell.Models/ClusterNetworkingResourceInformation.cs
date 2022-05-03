@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,22 +32,20 @@ namespace Cohesity.Model
         {
             this.Endpoints = endpoints;
             this.Type = type;
-            this.Endpoints = endpoints;
-            this.Type = type;
         }
         
         /// <summary>
         /// The endpoints by which the resource is accessible.
         /// </summary>
         /// <value>The endpoints by which the resource is accessible.</value>
-        [DataMember(Name="endpoints", EmitDefaultValue=true)]
+        [DataMember(Name="endpoints", EmitDefaultValue=false)]
         public List<ClusterNetworkingEndpoint> Endpoints { get; set; }
 
         /// <summary>
         /// The type of the resource.
         /// </summary>
         /// <value>The type of the resource.</value>
-        [DataMember(Name="type", EmitDefaultValue=true)]
+        [DataMember(Name="type", EmitDefaultValue=false)]
         public string Type { get; set; }
 
         /// <summary>
@@ -86,8 +87,7 @@ namespace Cohesity.Model
                 (
                     this.Endpoints == input.Endpoints ||
                     this.Endpoints != null &&
-                    input.Endpoints != null &&
-                    this.Endpoints.SequenceEqual(input.Endpoints)
+                    this.Endpoints.Equals(input.Endpoints)
                 ) && 
                 (
                     this.Type == input.Type ||

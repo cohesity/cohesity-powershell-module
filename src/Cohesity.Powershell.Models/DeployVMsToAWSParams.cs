@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -12,6 +13,8 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
+
+
 namespace Cohesity.Model
 {
     /// <summary>
@@ -23,6 +26,7 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="DeployVMsToAWSParams" /> class.
         /// </summary>
+        /// <param name="auroraParams">auroraParams.</param>
         /// <param name="instanceType">instanceType.</param>
         /// <param name="keyPairName">keyPairName.</param>
         /// <param name="networkSecurityGroups">Names of the network security groups within the above VPC. At least one entry should be present..</param>
@@ -32,9 +36,9 @@ namespace Cohesity.Model
         /// <param name="region">region.</param>
         /// <param name="subnet">subnet.</param>
         /// <param name="vpc">vpc.</param>
-        public DeployVMsToAWSParams(EntityProto instanceType = default(EntityProto), EntityProto keyPairName = default(EntityProto), List<EntityProto> networkSecurityGroups = default(List<EntityProto>), EntityProto proxyVmSubnet = default(EntityProto), EntityProto proxyVmVpc = default(EntityProto), DeployDBInstancesToRDSParams rdsParams = default(DeployDBInstancesToRDSParams), EntityProto region = default(EntityProto), EntityProto subnet = default(EntityProto), EntityProto vpc = default(EntityProto))
+        public DeployVMsToAWSParams(DeployDBInstancesToRDSParams auroraParams = default(DeployDBInstancesToRDSParams), EntityProto instanceType = default(EntityProto), EntityProto keyPairName = default(EntityProto), List<EntityProto> networkSecurityGroups = default(List<EntityProto>), EntityProto proxyVmSubnet = default(EntityProto), EntityProto proxyVmVpc = default(EntityProto), DeployDBInstancesToRDSParams rdsParams = default(DeployDBInstancesToRDSParams), EntityProto region = default(EntityProto), EntityProto subnet = default(EntityProto), EntityProto vpc = default(EntityProto))
         {
-            this.NetworkSecurityGroups = networkSecurityGroups;
+            this.AuroraParams = auroraParams;
             this.InstanceType = instanceType;
             this.KeyPairName = keyPairName;
             this.NetworkSecurityGroups = networkSecurityGroups;
@@ -46,6 +50,12 @@ namespace Cohesity.Model
             this.Vpc = vpc;
         }
         
+        /// <summary>
+        /// Gets or Sets AuroraParams
+        /// </summary>
+        [DataMember(Name="auroraParams", EmitDefaultValue=false)]
+        public DeployDBInstancesToRDSParams AuroraParams { get; set; }
+
         /// <summary>
         /// Gets or Sets InstanceType
         /// </summary>
@@ -62,7 +72,7 @@ namespace Cohesity.Model
         /// Names of the network security groups within the above VPC. At least one entry should be present.
         /// </summary>
         /// <value>Names of the network security groups within the above VPC. At least one entry should be present.</value>
-        [DataMember(Name="networkSecurityGroups", EmitDefaultValue=true)]
+        [DataMember(Name="networkSecurityGroups", EmitDefaultValue=false)]
         public List<EntityProto> NetworkSecurityGroups { get; set; }
 
         /// <summary>
@@ -138,6 +148,11 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.AuroraParams == input.AuroraParams ||
+                    (this.AuroraParams != null &&
+                    this.AuroraParams.Equals(input.AuroraParams))
+                ) && 
+                (
                     this.InstanceType == input.InstanceType ||
                     (this.InstanceType != null &&
                     this.InstanceType.Equals(input.InstanceType))
@@ -150,8 +165,7 @@ namespace Cohesity.Model
                 (
                     this.NetworkSecurityGroups == input.NetworkSecurityGroups ||
                     this.NetworkSecurityGroups != null &&
-                    input.NetworkSecurityGroups != null &&
-                    this.NetworkSecurityGroups.SequenceEqual(input.NetworkSecurityGroups)
+                    this.NetworkSecurityGroups.Equals(input.NetworkSecurityGroups)
                 ) && 
                 (
                     this.ProxyVmSubnet == input.ProxyVmSubnet ||
@@ -194,6 +208,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.AuroraParams != null)
+                    hashCode = hashCode * 59 + this.AuroraParams.GetHashCode();
                 if (this.InstanceType != null)
                     hashCode = hashCode * 59 + this.InstanceType.GetHashCode();
                 if (this.KeyPairName != null)

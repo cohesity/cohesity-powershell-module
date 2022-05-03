@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,8 +34,6 @@ namespace Cohesity.Model
         {
             this.DisableNetwork = disableNetwork;
             this.PreserveMacAddressOnNewNetwork = preserveMacAddressOnNewNetwork;
-            this.DisableNetwork = disableNetwork;
-            this.PreserveMacAddressOnNewNetwork = preserveMacAddressOnNewNetwork;
             this.SourceNetworkEntity = sourceNetworkEntity;
             this.TargetNetworkEntity = targetNetworkEntity;
         }
@@ -41,14 +42,14 @@ namespace Cohesity.Model
         /// This can be set to true to indicate that the attached network should be left in disabled state. This value takes priority over the value in RestoredObjectNetworkConfigProto.
         /// </summary>
         /// <value>This can be set to true to indicate that the attached network should be left in disabled state. This value takes priority over the value in RestoredObjectNetworkConfigProto.</value>
-        [DataMember(Name="disableNetwork", EmitDefaultValue=true)]
+        [DataMember(Name="disableNetwork", EmitDefaultValue=false)]
         public bool? DisableNetwork { get; set; }
 
         /// <summary>
         /// VM&#39;s MAC address will be preserved on the new network. This value takes priority over the value in RestoredObjectNetworkConfigProto.
         /// </summary>
         /// <value>VM&#39;s MAC address will be preserved on the new network. This value takes priority over the value in RestoredObjectNetworkConfigProto.</value>
-        [DataMember(Name="preserveMacAddressOnNewNetwork", EmitDefaultValue=true)]
+        [DataMember(Name="preserveMacAddressOnNewNetwork", EmitDefaultValue=false)]
         public bool? PreserveMacAddressOnNewNetwork { get; set; }
 
         /// <summary>

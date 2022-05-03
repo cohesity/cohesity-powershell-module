@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,9 +34,6 @@ namespace Cohesity.Model
         /// <param name="targetRootNodeId">Specifies the registered root node, like vCenter, of targetHost. If this is empty, then it is assumed the root node of the target host is the same as the host Protection Source of the application..</param>
         public ApplicationRestoreObject(AdRestoreParameters adRestoreParameters = default(AdRestoreParameters), long? applicationServerId = default(long?), ExchangeRestoreParameters exchangeRestoreParameters = default(ExchangeRestoreParameters), SqlRestoreParameters sqlRestoreParameters = default(SqlRestoreParameters), long? targetHostId = default(long?), long? targetRootNodeId = default(long?))
         {
-            this.ApplicationServerId = applicationServerId;
-            this.TargetHostId = targetHostId;
-            this.TargetRootNodeId = targetRootNodeId;
             this.AdRestoreParameters = adRestoreParameters;
             this.ApplicationServerId = applicationServerId;
             this.ExchangeRestoreParameters = exchangeRestoreParameters;
@@ -52,7 +52,7 @@ namespace Cohesity.Model
         /// Specifies the Application Server to restore (for example, kSQL).
         /// </summary>
         /// <value>Specifies the Application Server to restore (for example, kSQL).</value>
-        [DataMember(Name="applicationServerId", EmitDefaultValue=true)]
+        [DataMember(Name="applicationServerId", EmitDefaultValue=false)]
         public long? ApplicationServerId { get; set; }
 
         /// <summary>
@@ -71,14 +71,14 @@ namespace Cohesity.Model
         /// Specifies the target host if the application is to be restored to a different host. If this is empty, then the application is restored to the original host, which is the hosting Protection Source.
         /// </summary>
         /// <value>Specifies the target host if the application is to be restored to a different host. If this is empty, then the application is restored to the original host, which is the hosting Protection Source.</value>
-        [DataMember(Name="targetHostId", EmitDefaultValue=true)]
+        [DataMember(Name="targetHostId", EmitDefaultValue=false)]
         public long? TargetHostId { get; set; }
 
         /// <summary>
         /// Specifies the registered root node, like vCenter, of targetHost. If this is empty, then it is assumed the root node of the target host is the same as the host Protection Source of the application.
         /// </summary>
         /// <value>Specifies the registered root node, like vCenter, of targetHost. If this is empty, then it is assumed the root node of the target host is the same as the host Protection Source of the application.</value>
-        [DataMember(Name="targetRootNodeId", EmitDefaultValue=true)]
+        [DataMember(Name="targetRootNodeId", EmitDefaultValue=false)]
         public long? TargetRootNodeId { get; set; }
 
         /// <summary>

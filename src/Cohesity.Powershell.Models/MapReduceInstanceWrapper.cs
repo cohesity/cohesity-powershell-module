@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,8 +32,6 @@ namespace Cohesity.Model
         public MapReduceInstanceWrapper(string logPath = default(string), MapReduceInstance mrInstance = default(MapReduceInstance), List<string> outputFilePathList = default(List<string>))
         {
             this.LogPath = logPath;
-            this.OutputFilePathList = outputFilePathList;
-            this.LogPath = logPath;
             this.MrInstance = mrInstance;
             this.OutputFilePathList = outputFilePathList;
         }
@@ -39,7 +40,7 @@ namespace Cohesity.Model
         /// LogPath is the path of the log files for the MR instance run.
         /// </summary>
         /// <value>LogPath is the path of the log files for the MR instance run.</value>
-        [DataMember(Name="logPath", EmitDefaultValue=true)]
+        [DataMember(Name="logPath", EmitDefaultValue=false)]
         public string LogPath { get; set; }
 
         /// <summary>
@@ -52,7 +53,7 @@ namespace Cohesity.Model
         /// OutputFilePathList is the list containing the output files path suffix that Yoda uses to build the full path of the MR instance run output files.
         /// </summary>
         /// <value>OutputFilePathList is the list containing the output files path suffix that Yoda uses to build the full path of the MR instance run output files.</value>
-        [DataMember(Name="outputFilePathList", EmitDefaultValue=true)]
+        [DataMember(Name="outputFilePathList", EmitDefaultValue=false)]
         public List<string> OutputFilePathList { get; set; }
 
         /// <summary>
@@ -104,8 +105,7 @@ namespace Cohesity.Model
                 (
                     this.OutputFilePathList == input.OutputFilePathList ||
                     this.OutputFilePathList != null &&
-                    input.OutputFilePathList != null &&
-                    this.OutputFilePathList.SequenceEqual(input.OutputFilePathList)
+                    this.OutputFilePathList.Equals(input.OutputFilePathList)
                 );
         }
 

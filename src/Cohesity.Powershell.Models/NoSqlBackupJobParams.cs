@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -12,6 +13,8 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
+
+
 namespace Cohesity.Model
 {
     /// <summary>
@@ -23,33 +26,43 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="NoSqlBackupJobParams" /> class.
         /// </summary>
-        /// <param name="bandwidthBytesPerSecond">Net bandwidth bytes per second.</param>
+        /// <param name="bandwidthBytesPerSecond">Net bandwidth bytes per second..</param>
         /// <param name="cassandraBackupJobParams">cassandraBackupJobParams.</param>
-        /// <param name="concurrency">Max number of mappers.</param>
-        /// <param name="couchbaseBackupJobParams">Contains any additional couchbase environment specific backup params at the job level..</param>
+        /// <param name="compactionJobIntervalSecs">Frequency at which compaction jobs should run in seconds. Will be only applicable for Cassandra, Mongo and Couchbase environment..</param>
+        /// <param name="concurrency">Max number of mappers..</param>
+        /// <param name="couchbaseBackupJobParams">couchbaseBackupJobParams.</param>
+        /// <param name="gcJobIntervalSecs">Frequency at which garbage collection jobs should run in seconds..</param>
+        /// <param name="gcRetentionPeriodDays">Retention period for logs of this job in days..</param>
         /// <param name="hbaseBackupJobParams">hbaseBackupJobParams.</param>
         /// <param name="hdfsBackupJobParams">hdfsBackupJobParams.</param>
         /// <param name="hiveBackupJobParams">hiveBackupJobParams.</param>
+        /// <param name="lastCompactionRunTimeUsecs">The last time (in usecs) when the compaction ran for this jobs..</param>
+        /// <param name="lastGcRunTimeUsecs">The last time (in usecs) when the gc ran for this jobs..</param>
         /// <param name="mongodbBackupJobParams">mongodbBackupJobParams.</param>
-        public NoSqlBackupJobParams(long? bandwidthBytesPerSecond = default(long?), CassandraBackupJobParams cassandraBackupJobParams = default(CassandraBackupJobParams), int? concurrency = default(int?), Object couchbaseBackupJobParams = default(Object), HBaseBackupJobParams hbaseBackupJobParams = default(HBaseBackupJobParams), HdfsBackupJobParams hdfsBackupJobParams = default(HdfsBackupJobParams), HiveBackupJobParams hiveBackupJobParams = default(HiveBackupJobParams), MongoDBBackupJobParams mongodbBackupJobParams = default(MongoDBBackupJobParams))
+        /// <param name="previousProtectedEntityIdsVec">List of Magneto entity Ids for the entities that were protected in the previous run..</param>
+        public NoSqlBackupJobParams(long? bandwidthBytesPerSecond = default(long?), CassandraBackupJobParams cassandraBackupJobParams = default(CassandraBackupJobParams), long? compactionJobIntervalSecs = default(long?), int? concurrency = default(int?), CouchbaseBackupJobParams couchbaseBackupJobParams = default(CouchbaseBackupJobParams), long? gcJobIntervalSecs = default(long?), int? gcRetentionPeriodDays = default(int?), HBaseBackupJobParams hbaseBackupJobParams = default(HBaseBackupJobParams), HdfsBackupJobParams hdfsBackupJobParams = default(HdfsBackupJobParams), HiveBackupJobParams hiveBackupJobParams = default(HiveBackupJobParams), long? lastCompactionRunTimeUsecs = default(long?), long? lastGcRunTimeUsecs = default(long?), MongoDBBackupJobParams mongodbBackupJobParams = default(MongoDBBackupJobParams), List<long?> previousProtectedEntityIdsVec = default(List<long?>))
         {
             this.BandwidthBytesPerSecond = bandwidthBytesPerSecond;
-            this.Concurrency = concurrency;
-            this.BandwidthBytesPerSecond = bandwidthBytesPerSecond;
             this.CassandraBackupJobParams = cassandraBackupJobParams;
+            this.CompactionJobIntervalSecs = compactionJobIntervalSecs;
             this.Concurrency = concurrency;
             this.CouchbaseBackupJobParams = couchbaseBackupJobParams;
+            this.GcJobIntervalSecs = gcJobIntervalSecs;
+            this.GcRetentionPeriodDays = gcRetentionPeriodDays;
             this.HbaseBackupJobParams = hbaseBackupJobParams;
             this.HdfsBackupJobParams = hdfsBackupJobParams;
             this.HiveBackupJobParams = hiveBackupJobParams;
+            this.LastCompactionRunTimeUsecs = lastCompactionRunTimeUsecs;
+            this.LastGcRunTimeUsecs = lastGcRunTimeUsecs;
             this.MongodbBackupJobParams = mongodbBackupJobParams;
+            this.PreviousProtectedEntityIdsVec = previousProtectedEntityIdsVec;
         }
         
         /// <summary>
-        /// Net bandwidth bytes per second
+        /// Net bandwidth bytes per second.
         /// </summary>
-        /// <value>Net bandwidth bytes per second</value>
-        [DataMember(Name="bandwidthBytesPerSecond", EmitDefaultValue=true)]
+        /// <value>Net bandwidth bytes per second.</value>
+        [DataMember(Name="bandwidthBytesPerSecond", EmitDefaultValue=false)]
         public long? BandwidthBytesPerSecond { get; set; }
 
         /// <summary>
@@ -59,18 +72,38 @@ namespace Cohesity.Model
         public CassandraBackupJobParams CassandraBackupJobParams { get; set; }
 
         /// <summary>
-        /// Max number of mappers
+        /// Frequency at which compaction jobs should run in seconds. Will be only applicable for Cassandra, Mongo and Couchbase environment.
         /// </summary>
-        /// <value>Max number of mappers</value>
-        [DataMember(Name="concurrency", EmitDefaultValue=true)]
+        /// <value>Frequency at which compaction jobs should run in seconds. Will be only applicable for Cassandra, Mongo and Couchbase environment.</value>
+        [DataMember(Name="compactionJobIntervalSecs", EmitDefaultValue=false)]
+        public long? CompactionJobIntervalSecs { get; set; }
+
+        /// <summary>
+        /// Max number of mappers.
+        /// </summary>
+        /// <value>Max number of mappers.</value>
+        [DataMember(Name="concurrency", EmitDefaultValue=false)]
         public int? Concurrency { get; set; }
 
         /// <summary>
-        /// Contains any additional couchbase environment specific backup params at the job level.
+        /// Gets or Sets CouchbaseBackupJobParams
         /// </summary>
-        /// <value>Contains any additional couchbase environment specific backup params at the job level.</value>
         [DataMember(Name="couchbaseBackupJobParams", EmitDefaultValue=false)]
-        public Object CouchbaseBackupJobParams { get; set; }
+        public CouchbaseBackupJobParams CouchbaseBackupJobParams { get; set; }
+
+        /// <summary>
+        /// Frequency at which garbage collection jobs should run in seconds.
+        /// </summary>
+        /// <value>Frequency at which garbage collection jobs should run in seconds.</value>
+        [DataMember(Name="gcJobIntervalSecs", EmitDefaultValue=false)]
+        public long? GcJobIntervalSecs { get; set; }
+
+        /// <summary>
+        /// Retention period for logs of this job in days.
+        /// </summary>
+        /// <value>Retention period for logs of this job in days.</value>
+        [DataMember(Name="gcRetentionPeriodDays", EmitDefaultValue=false)]
+        public int? GcRetentionPeriodDays { get; set; }
 
         /// <summary>
         /// Gets or Sets HbaseBackupJobParams
@@ -91,10 +124,31 @@ namespace Cohesity.Model
         public HiveBackupJobParams HiveBackupJobParams { get; set; }
 
         /// <summary>
+        /// The last time (in usecs) when the compaction ran for this jobs.
+        /// </summary>
+        /// <value>The last time (in usecs) when the compaction ran for this jobs.</value>
+        [DataMember(Name="lastCompactionRunTimeUsecs", EmitDefaultValue=false)]
+        public long? LastCompactionRunTimeUsecs { get; set; }
+
+        /// <summary>
+        /// The last time (in usecs) when the gc ran for this jobs.
+        /// </summary>
+        /// <value>The last time (in usecs) when the gc ran for this jobs.</value>
+        [DataMember(Name="lastGcRunTimeUsecs", EmitDefaultValue=false)]
+        public long? LastGcRunTimeUsecs { get; set; }
+
+        /// <summary>
         /// Gets or Sets MongodbBackupJobParams
         /// </summary>
         [DataMember(Name="mongodbBackupJobParams", EmitDefaultValue=false)]
         public MongoDBBackupJobParams MongodbBackupJobParams { get; set; }
+
+        /// <summary>
+        /// List of Magneto entity Ids for the entities that were protected in the previous run.
+        /// </summary>
+        /// <value>List of Magneto entity Ids for the entities that were protected in the previous run.</value>
+        [DataMember(Name="previousProtectedEntityIdsVec", EmitDefaultValue=false)]
+        public List<long?> PreviousProtectedEntityIdsVec { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -143,6 +197,11 @@ namespace Cohesity.Model
                     this.CassandraBackupJobParams.Equals(input.CassandraBackupJobParams))
                 ) && 
                 (
+                    this.CompactionJobIntervalSecs == input.CompactionJobIntervalSecs ||
+                    (this.CompactionJobIntervalSecs != null &&
+                    this.CompactionJobIntervalSecs.Equals(input.CompactionJobIntervalSecs))
+                ) && 
+                (
                     this.Concurrency == input.Concurrency ||
                     (this.Concurrency != null &&
                     this.Concurrency.Equals(input.Concurrency))
@@ -151,6 +210,16 @@ namespace Cohesity.Model
                     this.CouchbaseBackupJobParams == input.CouchbaseBackupJobParams ||
                     (this.CouchbaseBackupJobParams != null &&
                     this.CouchbaseBackupJobParams.Equals(input.CouchbaseBackupJobParams))
+                ) && 
+                (
+                    this.GcJobIntervalSecs == input.GcJobIntervalSecs ||
+                    (this.GcJobIntervalSecs != null &&
+                    this.GcJobIntervalSecs.Equals(input.GcJobIntervalSecs))
+                ) && 
+                (
+                    this.GcRetentionPeriodDays == input.GcRetentionPeriodDays ||
+                    (this.GcRetentionPeriodDays != null &&
+                    this.GcRetentionPeriodDays.Equals(input.GcRetentionPeriodDays))
                 ) && 
                 (
                     this.HbaseBackupJobParams == input.HbaseBackupJobParams ||
@@ -168,9 +237,24 @@ namespace Cohesity.Model
                     this.HiveBackupJobParams.Equals(input.HiveBackupJobParams))
                 ) && 
                 (
+                    this.LastCompactionRunTimeUsecs == input.LastCompactionRunTimeUsecs ||
+                    (this.LastCompactionRunTimeUsecs != null &&
+                    this.LastCompactionRunTimeUsecs.Equals(input.LastCompactionRunTimeUsecs))
+                ) && 
+                (
+                    this.LastGcRunTimeUsecs == input.LastGcRunTimeUsecs ||
+                    (this.LastGcRunTimeUsecs != null &&
+                    this.LastGcRunTimeUsecs.Equals(input.LastGcRunTimeUsecs))
+                ) && 
+                (
                     this.MongodbBackupJobParams == input.MongodbBackupJobParams ||
                     (this.MongodbBackupJobParams != null &&
                     this.MongodbBackupJobParams.Equals(input.MongodbBackupJobParams))
+                ) && 
+                (
+                    this.PreviousProtectedEntityIdsVec == input.PreviousProtectedEntityIdsVec ||
+                    this.PreviousProtectedEntityIdsVec != null &&
+                    this.PreviousProtectedEntityIdsVec.Equals(input.PreviousProtectedEntityIdsVec)
                 );
         }
 
@@ -187,18 +271,30 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.BandwidthBytesPerSecond.GetHashCode();
                 if (this.CassandraBackupJobParams != null)
                     hashCode = hashCode * 59 + this.CassandraBackupJobParams.GetHashCode();
+                if (this.CompactionJobIntervalSecs != null)
+                    hashCode = hashCode * 59 + this.CompactionJobIntervalSecs.GetHashCode();
                 if (this.Concurrency != null)
                     hashCode = hashCode * 59 + this.Concurrency.GetHashCode();
                 if (this.CouchbaseBackupJobParams != null)
                     hashCode = hashCode * 59 + this.CouchbaseBackupJobParams.GetHashCode();
+                if (this.GcJobIntervalSecs != null)
+                    hashCode = hashCode * 59 + this.GcJobIntervalSecs.GetHashCode();
+                if (this.GcRetentionPeriodDays != null)
+                    hashCode = hashCode * 59 + this.GcRetentionPeriodDays.GetHashCode();
                 if (this.HbaseBackupJobParams != null)
                     hashCode = hashCode * 59 + this.HbaseBackupJobParams.GetHashCode();
                 if (this.HdfsBackupJobParams != null)
                     hashCode = hashCode * 59 + this.HdfsBackupJobParams.GetHashCode();
                 if (this.HiveBackupJobParams != null)
                     hashCode = hashCode * 59 + this.HiveBackupJobParams.GetHashCode();
+                if (this.LastCompactionRunTimeUsecs != null)
+                    hashCode = hashCode * 59 + this.LastCompactionRunTimeUsecs.GetHashCode();
+                if (this.LastGcRunTimeUsecs != null)
+                    hashCode = hashCode * 59 + this.LastGcRunTimeUsecs.GetHashCode();
                 if (this.MongodbBackupJobParams != null)
                     hashCode = hashCode * 59 + this.MongodbBackupJobParams.GetHashCode();
+                if (this.PreviousProtectedEntityIdsVec != null)
+                    hashCode = hashCode * 59 + this.PreviousProtectedEntityIdsVec.GetHashCode();
                 return hashCode;
             }
         }

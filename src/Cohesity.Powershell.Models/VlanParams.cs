@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,30 +34,27 @@ namespace Cohesity.Model
             this.DisableVlan = disableVlan;
             this.InterfaceName = interfaceName;
             this.VlanId = vlanId;
-            this.DisableVlan = disableVlan;
-            this.InterfaceName = interfaceName;
-            this.VlanId = vlanId;
         }
         
         /// <summary>
         /// If this is set to true, then even if VLANs are configured on the system, the partition VIPs will be used for the restore.
         /// </summary>
         /// <value>If this is set to true, then even if VLANs are configured on the system, the partition VIPs will be used for the restore.</value>
-        [DataMember(Name="disableVlan", EmitDefaultValue=true)]
+        [DataMember(Name="disableVlan", EmitDefaultValue=false)]
         public bool? DisableVlan { get; set; }
 
         /// <summary>
         /// Interface group to use for restore. If this is not specified, primary interface group for the cluster will be used.
         /// </summary>
         /// <value>Interface group to use for restore. If this is not specified, primary interface group for the cluster will be used.</value>
-        [DataMember(Name="interfaceName", EmitDefaultValue=true)]
+        [DataMember(Name="interfaceName", EmitDefaultValue=false)]
         public string InterfaceName { get; set; }
 
         /// <summary>
         /// If this is set, then the Cohesity host name or the IP address associated with this vlan is used for mounting Cohesity&#39;s view on the remote host.
         /// </summary>
         /// <value>If this is set, then the Cohesity host name or the IP address associated with this vlan is used for mounting Cohesity&#39;s view on the remote host.</value>
-        [DataMember(Name="vlanId", EmitDefaultValue=true)]
+        [DataMember(Name="vlanId", EmitDefaultValue=false)]
         public int? VlanId { get; set; }
 
         /// <summary>

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -33,38 +36,34 @@ namespace Cohesity.Model
             this.PulseAttributeVec = pulseAttributeVec;
             this.SidVec = sidVec;
             this.TenantIdVec = tenantIdVec;
-            this.IncludeSubtenantObjects = includeSubtenantObjects;
-            this.PulseAttributeVec = pulseAttributeVec;
-            this.SidVec = sidVec;
-            this.TenantIdVec = tenantIdVec;
         }
         
         /// <summary>
         /// Whether objects owned by subtenants should be returned. This would require a prefix search with the passed tenant_id. All tenants are considered sub-tenants of the admin. For GET requests, if tenant id is empty(admin user is querying) and if this flag is false, we will only return untagged objects. If it is true, we will return everything.
         /// </summary>
         /// <value>Whether objects owned by subtenants should be returned. This would require a prefix search with the passed tenant_id. All tenants are considered sub-tenants of the admin. For GET requests, if tenant id is empty(admin user is querying) and if this flag is false, we will only return untagged objects. If it is true, we will return everything.</value>
-        [DataMember(Name="includeSubtenantObjects", EmitDefaultValue=true)]
+        [DataMember(Name="includeSubtenantObjects", EmitDefaultValue=false)]
         public bool? IncludeSubtenantObjects { get; set; }
 
         /// <summary>
         /// Specifies the KeyValuePair that client (eg. Iris) wants to persist along with the corresponding (soon-to-be-created) Pulse task for the current action. Eg. pulse_attribute_vec can drive user notifications by associating a Pulse Task with user SID and later Pulse can be searched by client specified Sid to get all finished tasks for the logged in user.
         /// </summary>
         /// <value>Specifies the KeyValuePair that client (eg. Iris) wants to persist along with the corresponding (soon-to-be-created) Pulse task for the current action. Eg. pulse_attribute_vec can drive user notifications by associating a Pulse Task with user SID and later Pulse can be searched by client specified Sid to get all finished tasks for the logged in user.</value>
-        [DataMember(Name="pulseAttributeVec", EmitDefaultValue=true)]
+        [DataMember(Name="pulseAttributeVec", EmitDefaultValue=false)]
         public List<KeyValuePair> PulseAttributeVec { get; set; }
 
         /// <summary>
         /// If specified, only the objects associated with these SIDs should be returned.
         /// </summary>
         /// <value>If specified, only the objects associated with these SIDs should be returned.</value>
-        [DataMember(Name="sidVec", EmitDefaultValue=true)]
+        [DataMember(Name="sidVec", EmitDefaultValue=false)]
         public List<ClusterConfigProtoSID> SidVec { get; set; }
 
         /// <summary>
         /// If specified, only the objects associated with this tenant should be returned. A given tenant ID is always a prefix of the ids of its subtenants. Eg. if tenant_id of cluster admin is empty string then it will be a prefix match for all the tenants on the cluster.
         /// </summary>
         /// <value>If specified, only the objects associated with this tenant should be returned. A given tenant ID is always a prefix of the ids of its subtenants. Eg. if tenant_id of cluster admin is empty string then it will be a prefix match for all the tenants on the cluster.</value>
-        [DataMember(Name="tenantIdVec", EmitDefaultValue=true)]
+        [DataMember(Name="tenantIdVec", EmitDefaultValue=false)]
         public List<string> TenantIdVec { get; set; }
 
         /// <summary>
@@ -111,20 +110,17 @@ namespace Cohesity.Model
                 (
                     this.PulseAttributeVec == input.PulseAttributeVec ||
                     this.PulseAttributeVec != null &&
-                    input.PulseAttributeVec != null &&
-                    this.PulseAttributeVec.SequenceEqual(input.PulseAttributeVec)
+                    this.PulseAttributeVec.Equals(input.PulseAttributeVec)
                 ) && 
                 (
                     this.SidVec == input.SidVec ||
                     this.SidVec != null &&
-                    input.SidVec != null &&
-                    this.SidVec.SequenceEqual(input.SidVec)
+                    this.SidVec.Equals(input.SidVec)
                 ) && 
                 (
                     this.TenantIdVec == input.TenantIdVec ||
                     this.TenantIdVec != null &&
-                    input.TenantIdVec != null &&
-                    this.TenantIdVec.SequenceEqual(input.TenantIdVec)
+                    this.TenantIdVec.Equals(input.TenantIdVec)
                 );
         }
 

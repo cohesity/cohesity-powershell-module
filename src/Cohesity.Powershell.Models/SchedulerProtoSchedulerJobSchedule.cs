@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,30 +34,27 @@ namespace Cohesity.Model
             this.Day = day;
             this.Hour = hour;
             this.Timezone = timezone;
-            this.Day = day;
-            this.Hour = hour;
-            this.Timezone = timezone;
         }
         
         /// <summary>
         /// The day of the week when schedule should be executed (0-6).
         /// </summary>
         /// <value>The day of the week when schedule should be executed (0-6).</value>
-        [DataMember(Name="day", EmitDefaultValue=true)]
+        [DataMember(Name="day", EmitDefaultValue=false)]
         public int? Day { get; set; }
 
         /// <summary>
         /// The hour of the day when schedule should be executed (0-23).
         /// </summary>
         /// <value>The hour of the day when schedule should be executed (0-23).</value>
-        [DataMember(Name="hour", EmitDefaultValue=true)]
+        [DataMember(Name="hour", EmitDefaultValue=false)]
         public int? Hour { get; set; }
 
         /// <summary>
         /// The timezone for the execution of the schedule.
         /// </summary>
         /// <value>The timezone for the execution of the schedule.</value>
-        [DataMember(Name="timezone", EmitDefaultValue=true)]
+        [DataMember(Name="timezone", EmitDefaultValue=false)]
         public string Timezone { get; set; }
 
         /// <summary>

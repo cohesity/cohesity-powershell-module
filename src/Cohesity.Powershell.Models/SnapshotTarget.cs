@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -29,7 +32,6 @@ namespace Cohesity.Model
         /// <param name="type">The type of snapshot target this proto represents..</param>
         public SnapshotTarget(ArchivalTarget archivalTarget = default(ArchivalTarget), CloudDeployTarget cloudDeployTarget = default(CloudDeployTarget), ReplicationTarget replicationTarget = default(ReplicationTarget), int? type = default(int?))
         {
-            this.Type = type;
             this.ArchivalTarget = archivalTarget;
             this.CloudDeployTarget = cloudDeployTarget;
             this.ReplicationTarget = replicationTarget;
@@ -58,7 +60,7 @@ namespace Cohesity.Model
         /// The type of snapshot target this proto represents.
         /// </summary>
         /// <value>The type of snapshot target this proto represents.</value>
-        [DataMember(Name="type", EmitDefaultValue=true)]
+        [DataMember(Name="type", EmitDefaultValue=false)]
         public int? Type { get; set; }
 
         /// <summary>

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -35,46 +38,41 @@ namespace Cohesity.Model
             this.SerialNumber = serialNumber;
             this.SizeBytes = sizeBytes;
             this.UsedBytes = usedBytes;
-            this.CreatedTime = createdTime;
-            this.ParentVolume = parentVolume;
-            this.SerialNumber = serialNumber;
-            this.SizeBytes = sizeBytes;
-            this.UsedBytes = usedBytes;
         }
         
         /// <summary>
         /// Specifies the created time (e.g., \&quot;2015-07-21T17:59:41Z\&quot;) of the volume.
         /// </summary>
         /// <value>Specifies the created time (e.g., \&quot;2015-07-21T17:59:41Z\&quot;) of the volume.</value>
-        [DataMember(Name="createdTime", EmitDefaultValue=true)]
+        [DataMember(Name="createdTime", EmitDefaultValue=false)]
         public string CreatedTime { get; set; }
 
         /// <summary>
         /// Specifies the name of the source volume, if this volume was copied or cloned from it.
         /// </summary>
         /// <value>Specifies the name of the source volume, if this volume was copied or cloned from it.</value>
-        [DataMember(Name="parentVolume", EmitDefaultValue=true)]
+        [DataMember(Name="parentVolume", EmitDefaultValue=false)]
         public string ParentVolume { get; set; }
 
         /// <summary>
         /// Specifies the serial number of the volume.
         /// </summary>
         /// <value>Specifies the serial number of the volume.</value>
-        [DataMember(Name="serialNumber", EmitDefaultValue=true)]
+        [DataMember(Name="serialNumber", EmitDefaultValue=false)]
         public string SerialNumber { get; set; }
 
         /// <summary>
         /// Specifies the provisioned size in bytes of the volume.
         /// </summary>
         /// <value>Specifies the provisioned size in bytes of the volume.</value>
-        [DataMember(Name="sizeBytes", EmitDefaultValue=true)]
+        [DataMember(Name="sizeBytes", EmitDefaultValue=false)]
         public long? SizeBytes { get; set; }
 
         /// <summary>
         /// Specifies the total space actually used by the volume.
         /// </summary>
         /// <value>Specifies the total space actually used by the volume.</value>
-        [DataMember(Name="usedBytes", EmitDefaultValue=true)]
+        [DataMember(Name="usedBytes", EmitDefaultValue=false)]
         public long? UsedBytes { get; set; }
 
         /// <summary>

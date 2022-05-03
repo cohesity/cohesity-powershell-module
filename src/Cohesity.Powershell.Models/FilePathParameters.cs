@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -31,30 +34,27 @@ namespace Cohesity.Model
             this.BackupFilePath = backupFilePath;
             this.ExcludedFilePaths = excludedFilePaths;
             this.SkipNestedVolumes = skipNestedVolumes;
-            this.BackupFilePath = backupFilePath;
-            this.ExcludedFilePaths = excludedFilePaths;
-            this.SkipNestedVolumes = skipNestedVolumes;
         }
         
         /// <summary>
         /// Specifies absolute path to a file or a directory in a Physical Server to protect.
         /// </summary>
         /// <value>Specifies absolute path to a file or a directory in a Physical Server to protect.</value>
-        [DataMember(Name="backupFilePath", EmitDefaultValue=true)]
+        [DataMember(Name="backupFilePath", EmitDefaultValue=false)]
         public string BackupFilePath { get; set; }
 
         /// <summary>
         /// Array of Excluded File Paths.  Specifies absolute paths to descendant files or subdirectories of backupFilePath that should not be protected.
         /// </summary>
         /// <value>Array of Excluded File Paths.  Specifies absolute paths to descendant files or subdirectories of backupFilePath that should not be protected.</value>
-        [DataMember(Name="excludedFilePaths", EmitDefaultValue=true)]
+        [DataMember(Name="excludedFilePaths", EmitDefaultValue=false)]
         public List<string> ExcludedFilePaths { get; set; }
 
         /// <summary>
         /// Specifies if any subdirectories under backupFilePath, where local or network volumes are mounted, should be excluded from being protected. If true, the volumes are not protected. deprecated: true
         /// </summary>
         /// <value>Specifies if any subdirectories under backupFilePath, where local or network volumes are mounted, should be excluded from being protected. If true, the volumes are not protected. deprecated: true</value>
-        [DataMember(Name="skipNestedVolumes", EmitDefaultValue=true)]
+        [DataMember(Name="skipNestedVolumes", EmitDefaultValue=false)]
         public bool? SkipNestedVolumes { get; set; }
 
         /// <summary>
@@ -101,8 +101,7 @@ namespace Cohesity.Model
                 (
                     this.ExcludedFilePaths == input.ExcludedFilePaths ||
                     this.ExcludedFilePaths != null &&
-                    input.ExcludedFilePaths != null &&
-                    this.ExcludedFilePaths.SequenceEqual(input.ExcludedFilePaths)
+                    this.ExcludedFilePaths.Equals(input.ExcludedFilePaths)
                 ) && 
                 (
                     this.SkipNestedVolumes == input.SkipNestedVolumes ||

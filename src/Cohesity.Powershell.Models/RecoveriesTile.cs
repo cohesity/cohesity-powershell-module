@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -33,38 +36,34 @@ namespace Cohesity.Model
             this.LastMonthRecoveriesByType = lastMonthRecoveriesByType;
             this.LastMonthRecoverySizeBytes = lastMonthRecoverySizeBytes;
             this.RecoveryNumRunning = recoveryNumRunning;
-            this.LastMonthNumRecoveries = lastMonthNumRecoveries;
-            this.LastMonthRecoveriesByType = lastMonthRecoveriesByType;
-            this.LastMonthRecoverySizeBytes = lastMonthRecoverySizeBytes;
-            this.RecoveryNumRunning = recoveryNumRunning;
         }
         
         /// <summary>
         /// Number of Recoveries in the last 30 days.
         /// </summary>
         /// <value>Number of Recoveries in the last 30 days.</value>
-        [DataMember(Name="lastMonthNumRecoveries", EmitDefaultValue=true)]
+        [DataMember(Name="lastMonthNumRecoveries", EmitDefaultValue=false)]
         public int? LastMonthNumRecoveries { get; set; }
 
         /// <summary>
         /// Recoveries by Type in the last month.
         /// </summary>
         /// <value>Recoveries by Type in the last month.</value>
-        [DataMember(Name="lastMonthRecoveriesByType", EmitDefaultValue=true)]
+        [DataMember(Name="lastMonthRecoveriesByType", EmitDefaultValue=false)]
         public List<RestoreCountByObjectType> LastMonthRecoveriesByType { get; set; }
 
         /// <summary>
         /// Bytes recovered in the last 30 days.
         /// </summary>
         /// <value>Bytes recovered in the last 30 days.</value>
-        [DataMember(Name="lastMonthRecoverySizeBytes", EmitDefaultValue=true)]
+        [DataMember(Name="lastMonthRecoverySizeBytes", EmitDefaultValue=false)]
         public long? LastMonthRecoverySizeBytes { get; set; }
 
         /// <summary>
         /// Number of recoveries that are currently running.
         /// </summary>
         /// <value>Number of recoveries that are currently running.</value>
-        [DataMember(Name="recoveryNumRunning", EmitDefaultValue=true)]
+        [DataMember(Name="recoveryNumRunning", EmitDefaultValue=false)]
         public int? RecoveryNumRunning { get; set; }
 
         /// <summary>
@@ -111,8 +110,7 @@ namespace Cohesity.Model
                 (
                     this.LastMonthRecoveriesByType == input.LastMonthRecoveriesByType ||
                     this.LastMonthRecoveriesByType != null &&
-                    input.LastMonthRecoveriesByType != null &&
-                    this.LastMonthRecoveriesByType.SequenceEqual(input.LastMonthRecoveriesByType)
+                    this.LastMonthRecoveriesByType.Equals(input.LastMonthRecoveriesByType)
                 ) && 
                 (
                     this.LastMonthRecoverySizeBytes == input.LastMonthRecoverySizeBytes ||

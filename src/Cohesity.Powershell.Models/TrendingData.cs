@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
+
 
 namespace Cohesity.Model
 {
@@ -39,62 +42,55 @@ namespace Cohesity.Model
             this.Total = total;
             this.TrendName = trendName;
             this.TrendStartTimeUsecs = trendStartTimeUsecs;
-            this.Cancelled = cancelled;
-            this.Failed = failed;
-            this.Running = running;
-            this.Successful = successful;
-            this.Total = total;
-            this.TrendName = trendName;
-            this.TrendStartTimeUsecs = trendStartTimeUsecs;
         }
         
         /// <summary>
         /// Specifies number of cancelled runs.
         /// </summary>
         /// <value>Specifies number of cancelled runs.</value>
-        [DataMember(Name="cancelled", EmitDefaultValue=true)]
+        [DataMember(Name="cancelled", EmitDefaultValue=false)]
         public long? Cancelled { get; set; }
 
         /// <summary>
         /// Specifies number of failed runs.
         /// </summary>
         /// <value>Specifies number of failed runs.</value>
-        [DataMember(Name="failed", EmitDefaultValue=true)]
+        [DataMember(Name="failed", EmitDefaultValue=false)]
         public long? Failed { get; set; }
 
         /// <summary>
         /// Specifies number of in-progress runs.
         /// </summary>
         /// <value>Specifies number of in-progress runs.</value>
-        [DataMember(Name="running", EmitDefaultValue=true)]
+        [DataMember(Name="running", EmitDefaultValue=false)]
         public long? Running { get; set; }
 
         /// <summary>
         /// Specifies number of successful runs.
         /// </summary>
         /// <value>Specifies number of successful runs.</value>
-        [DataMember(Name="successful", EmitDefaultValue=true)]
+        [DataMember(Name="successful", EmitDefaultValue=false)]
         public long? Successful { get; set; }
 
         /// <summary>
         /// Specifies total number of runs.
         /// </summary>
         /// <value>Specifies total number of runs.</value>
-        [DataMember(Name="total", EmitDefaultValue=true)]
+        [DataMember(Name="total", EmitDefaultValue=false)]
         public long? Total { get; set; }
 
         /// <summary>
         /// Specifies trend name. This is start of the day/week/month.
         /// </summary>
         /// <value>Specifies trend name. This is start of the day/week/month.</value>
-        [DataMember(Name="trendName", EmitDefaultValue=true)]
+        [DataMember(Name="trendName", EmitDefaultValue=false)]
         public string TrendName { get; set; }
 
         /// <summary>
         /// Specifies start of the day/week/month in micro seconds
         /// </summary>
         /// <value>Specifies start of the day/week/month in micro seconds</value>
-        [DataMember(Name="trendStartTimeUsecs", EmitDefaultValue=true)]
+        [DataMember(Name="trendStartTimeUsecs", EmitDefaultValue=false)]
         public long? TrendStartTimeUsecs { get; set; }
 
         /// <summary>
