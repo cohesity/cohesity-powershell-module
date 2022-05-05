@@ -70,7 +70,7 @@ namespace Cohesity.Model
         /// <param name="runType">Specifies the type of backup. If not specified, &#39;kRegular&#39; is assumed. &#39;kRegular&#39; indicates a incremental (CBT) backup. Incremental backups utilizing CBT (if supported) are captured of the target protection objects. The first run of a kRegular schedule captures all the blocks. &#39;kFull&#39; indicates a full (no CBT) backup. A complete backup (all blocks) of the target protection objects are always captured and Change Block Tracking (CBT) is not utilized. &#39;kLog&#39; indicates a Database Log backup. Capture the database transaction logs to allow rolling back to a specific point in time. &#39;kSystem&#39; indicates a system backup. System backups are used to do bare metal recovery of the system to a specific point in time..</param>
         /// <param name="sourceIds">Optional parameter if you want to back up only a subset of sources that are protected by the job in this run. If a Run Now operation is to be performed then the source ids should only be provided in the runNowParameters along with the database Ids..</param>
         /// <param name="usePolicyDefaults">Specifies if default policy settings should be used interanally to copy snapshots to external targets already configured in policy. This field will only apply if \&quot;CopyRunTargets\&quot; is empty..</param>
-        public RunProtectionJobParam(List<RunJobSnapshotTarget> copyRunTargets = default(List<RunJobSnapshotTarget>), List<RunNowParameters> runNowParameters = default(List<RunNowParameters>), RunTypeEnum? runType = default(RunTypeEnum?), List<long?> sourceIds = default(List<long?>), bool? usePolicyDefaults = default(bool?))
+        public RunProtectionJobParam(List<RunJobSnapshotTarget> copyRunTargets = default(List<RunJobSnapshotTarget>), List<RunNowParameters> runNowParameters = default(List<RunNowParameters>), RunTypeEnum? runType = default(RunTypeEnum?), List<long> sourceIds = default(List<long>), bool? usePolicyDefaults = default(bool?))
         {
             this.CopyRunTargets = copyRunTargets;
             this.RunNowParameters = runNowParameters;
@@ -99,7 +99,7 @@ namespace Cohesity.Model
         /// </summary>
         /// <value>Optional parameter if you want to back up only a subset of sources that are protected by the job in this run. If a Run Now operation is to be performed then the source ids should only be provided in the runNowParameters along with the database Ids.</value>
         [DataMember(Name="sourceIds", EmitDefaultValue=false)]
-        public List<long?> SourceIds { get; set; }
+        public List<long> SourceIds { get; set; }
 
         /// <summary>
         /// Specifies if default policy settings should be used interanally to copy snapshots to external targets already configured in policy. This field will only apply if \&quot;CopyRunTargets\&quot; is empty.

@@ -32,7 +32,7 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="UpgradePhysicalServerAgents" /> class.
         /// </summary>
         /// <param name="agentIds">Array of Agent Ids.  Specifies a list of agentIds associated with the Physical Servers to upgrade with the agent release currently available from the Cohesity Cluster. (required).</param>
-        public UpgradePhysicalServerAgents(List<long?> agentIds = default(List<long?>))
+        public UpgradePhysicalServerAgents(List<long> agentIds = default(List<long>))
         {
             // to ensure "agentIds" is required (not null)
             if (agentIds == null)
@@ -50,7 +50,7 @@ namespace Cohesity.Model
         /// </summary>
         /// <value>Array of Agent Ids.  Specifies a list of agentIds associated with the Physical Servers to upgrade with the agent release currently available from the Cohesity Cluster.</value>
         [DataMember(Name="agentIds", EmitDefaultValue=false)]
-        public List<long?> AgentIds { get; set; }
+        public List<long> AgentIds { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object

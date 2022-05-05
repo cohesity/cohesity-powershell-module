@@ -377,7 +377,7 @@ namespace Cohesity.Model
         /// <param name="userAccountId">Specifies the account id derived from the ARN of the user..</param>
         /// <param name="userResourceName">Specifies the Amazon Resource Name (ARN) of the user..</param>
         /// <param name="volumes">Specified the list of EBS volumes attached to the entity if the entity is an EC2 instance..</param>
-        public AwsProtectionSource(string accessKey = default(string), string amazonResourceName = default(string), AuthMethodEnum? authMethod = default(AuthMethodEnum?), AwsFleetParams awsFleetParams = default(AwsFleetParams), AwsTypeEnum? awsType = default(AwsTypeEnum?), C2SServerInfo c2sServerInfo = default(C2SServerInfo), FleetNetworkParams clusterNetworkInfo = default(FleetNetworkParams), string dbEngineId = default(string), HostTypeEnum? hostType = default(HostTypeEnum?), string iamRoleArn = default(string), string ipAddresses = default(string), string name = default(string), string ownerId = default(string), long? physicalSourceId = default(long?), string regionId = default(string), string resourceId = default(string), long? restoreTaskId = default(long?), string secretAccessKey = default(string), SubscriptionTypeEnum? subscriptionType = default(SubscriptionTypeEnum?), List<TagAttribute> tagAttributes = default(List<TagAttribute>), TypeEnum? type = default(TypeEnum?), string userAccountId = default(string), string userResourceName = default(string), List<EbsVolumeInfo> volumes = default(List<EbsVolumeInfo>))
+        public AwsProtectionSource(string accessKey = default(string), string amazonResourceName = default(string), AuthMethodEnum? authMethod = default(AuthMethodEnum?), AWSFleetParams awsFleetParams = default(AWSFleetParams), AwsTypeEnum? awsType = default(AwsTypeEnum?), C2SServerInfo c2sServerInfo = default(C2SServerInfo), FleetNetworkParams clusterNetworkInfo = default(FleetNetworkParams), string dbEngineId = default(string), HostTypeEnum? hostType = default(HostTypeEnum?), string iamRoleArn = default(string), string ipAddresses = default(string), string name = default(string), string ownerId = default(string), long? physicalSourceId = default(long?), string regionId = default(string), string resourceId = default(string), long? restoreTaskId = default(long?), string secretAccessKey = default(string), SubscriptionTypeEnum? subscriptionType = default(SubscriptionTypeEnum?), List<TagAttribute> tagAttributes = default(List<TagAttribute>), TypeEnum? type = default(TypeEnum?), string userAccountId = default(string), string userResourceName = default(string), List<EbsVolumeInfo> volumes = default(List<EbsVolumeInfo>))
         {
             this.AccessKey = accessKey;
             this.AmazonResourceName = amazonResourceName;
@@ -424,7 +424,7 @@ namespace Cohesity.Model
         /// Gets or Sets AwsFleetParams
         /// </summary>
         [DataMember(Name="awsFleetParams", EmitDefaultValue=false)]
-        public AwsFleetParams AwsFleetParams { get; set; }
+        public AWSFleetParams AwsFleetParams { get; set; }
 
 
         /// <summary>

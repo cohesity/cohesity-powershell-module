@@ -30,7 +30,7 @@ namespace Cohesity.Model
         /// <param name="jobUid">Specifies a unique universal id for the Job..</param>
         /// <param name="runStartTimeUsecs">Specifies the start time of the Job Run to update. The start time is specified as a Unix epoch Timestamp (in microseconds). This uniquely identifies a snapshot. This parameter is required..</param>
         /// <param name="sourceIds">Ids of the Protection Sources. If this is specified, retention time will only be updated for the sources specified..</param>
-        public UpdateProtectionJobRun(List<RunJobSnapshotTarget> copyRunTargets = default(List<RunJobSnapshotTarget>), UniversalId jobUid = default(UniversalId), long? runStartTimeUsecs = default(long?), List<long?> sourceIds = default(List<long?>))
+        public UpdateProtectionJobRun(List<RunJobSnapshotTarget> copyRunTargets = default(List<RunJobSnapshotTarget>), UniversalId jobUid = default(UniversalId), long? runStartTimeUsecs = default(long?), List<long> sourceIds = default(List<long>))
         {
             this.CopyRunTargets = copyRunTargets;
             this.JobUid = jobUid;
@@ -64,7 +64,7 @@ namespace Cohesity.Model
         /// </summary>
         /// <value>Ids of the Protection Sources. If this is specified, retention time will only be updated for the sources specified.</value>
         [DataMember(Name="sourceIds", EmitDefaultValue=false)]
-        public List<long?> SourceIds { get; set; }
+        public List<long> SourceIds { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object

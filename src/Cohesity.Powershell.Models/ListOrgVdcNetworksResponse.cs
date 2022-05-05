@@ -27,7 +27,7 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="ListOrgVdcNetworksResponse" /> class.
         /// </summary>
         /// <param name="orgVdcNetworks">Specifies a list of Org VDC Networks..</param>
-        public ListOrgVdcNetworksResponse(List<OrgVdcNetwork> orgVdcNetworks = default(List<OrgVdcNetwork>))
+        public ListOrgVdcNetworksResponse(List<OrgVDCNetwork> orgVdcNetworks = default(List<OrgVDCNetwork>))
         {
             this.OrgVdcNetworks = orgVdcNetworks;
         }
@@ -37,7 +37,7 @@ namespace Cohesity.Model
         /// </summary>
         /// <value>Specifies a list of Org VDC Networks.</value>
         [DataMember(Name="orgVdcNetworks", EmitDefaultValue=false)]
-        public List<OrgVdcNetwork> OrgVdcNetworks { get; set; }
+        public List<OrgVDCNetwork> OrgVdcNetworks { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
