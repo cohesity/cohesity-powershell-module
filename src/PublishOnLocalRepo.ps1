@@ -1,4 +1,4 @@
-$localRepoPath="C:\workspace\MyServer\MyServer\Packages\"
+$localRepoPath="C:\Users\Administrator\source\repos\NuGetServerApp\NuGetServerApp\Packages\"
 $powerShellPackage=$localRepoPath+"Cohesity.PowerShell"
 $powerShellCorePackage=$localRepoPath+"Cohesity.PowerShell.Core"
 Remove-Item -Recurse -Force $powerShellPackage

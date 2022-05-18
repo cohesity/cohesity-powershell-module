@@ -52,6 +52,8 @@ You can install Cohesity PowerShell Module directly using the [PowerShell Galler
   Install-Module -Name Cohesity.PowerShell
   ```
 
+  ** Note: Windows with powershell version 7 or higher supports only Powershell Core
+
 ## <a name="examples"></a> Some samples to get you going :bulb:
 
 * Refer [`samples`](./samples) folder to find more examples.

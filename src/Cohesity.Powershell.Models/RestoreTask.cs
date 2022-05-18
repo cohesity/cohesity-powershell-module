@@ -85,7 +85,13 @@ namespace Cohesity.Model
             /// Enum KCancelled for value: kCancelled
             /// </summary>
             [EnumMember(Value = "kCancelled")]
-            KCancelled = 10
+            KCancelled = 10,
+
+            /// <summary>
+            /// Enum KOnHold for value: kOnHold
+            /// </summary>
+            [EnumMember(Value = "kOnHold")]
+            KOnHold = 11
 
         }
 
