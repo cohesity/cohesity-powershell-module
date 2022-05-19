@@ -8,6 +8,7 @@ You can install Cohesity PowerShell Module directly using the [PowerShell Galler
   > **Tip:** Please follow the steps based on the flavor of PowerShell that you are running.
   * If installing on `MacOS` and `Linux` you must use the steps for `PowerShell Core`.
   * If installing on `Windows` you should use the steps for `Windows PowerShell`, unless you are running `PowerShell Core`.
+  **NOTE:** Windows with powershell version 7 or higher requires `Cohesity.Powershell.core`.
 
 <!-- tabs:start -->
 

@@ -19,6 +19,11 @@ The Get-CohesityViewDirectoryQuota function is used to fetch directory quota for
 Get-CohesityViewDirectoryQuota -ViewName view1
 ```
 
+### EXAMPLE 2
+```
+Get-CohesityViewDirectoryQuota -ViewName view1 -PageCount 10
+```
+
 ## PARAMETERS
 
 ### -ViewName
@@ -32,6 +37,21 @@ Aliases:
 Required: False
 Position: 1
 Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -PageCount
+Specifies the number of view directory quota need to be returned while calling rest api
+
+```yaml
+Type: Integer
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 2
+Default value: 0
 Accept pipeline input: False
 Accept wildcard characters: False
 ```

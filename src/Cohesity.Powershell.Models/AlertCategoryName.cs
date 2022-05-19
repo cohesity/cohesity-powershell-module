@@ -46,94 +46,226 @@ namespace Cohesity.Model
             KCluster = 3,
 
             /// <summary>
+            /// Enum KChassis for value: kChassis
+            /// </summary>
+            [EnumMember(Value = "kChassis")]
+            KChassis = 4,
+
+            /// <summary>
+            /// Enum KPowerSupply for value: kPowerSupply
+            /// </summary>
+            [EnumMember(Value = "kPowerSupply")]
+            KPowerSupply = 5,
+
+            /// <summary>
+            /// Enum KCPU for value: kCPU
+            /// </summary>
+            [EnumMember(Value = "kCPU")]
+            KCPU = 6,
+
+            /// <summary>
+            /// Enum KMemory for value: kMemory
+            /// </summary>
+            [EnumMember(Value = "kMemory")]
+            KMemory = 7,
+
+            /// <summary>
+            /// Enum KTemperature for value: kTemperature
+            /// </summary>
+            [EnumMember(Value = "kTemperature")]
+            KTemperature = 8,
+
+            /// <summary>
+            /// Enum KFan for value: kFan
+            /// </summary>
+            [EnumMember(Value = "kFan")]
+            KFan = 9,
+
+            /// <summary>
+            /// Enum KNIC for value: kNIC
+            /// </summary>
+            [EnumMember(Value = "kNIC")]
+            KNIC = 10,
+
+            /// <summary>
+            /// Enum KFirmware for value: kFirmware
+            /// </summary>
+            [EnumMember(Value = "kFirmware")]
+            KFirmware = 11,
+
+            /// <summary>
             /// Enum KNodeHealth for value: kNodeHealth
             /// </summary>
             [EnumMember(Value = "kNodeHealth")]
-            KNodeHealth = 4,
+            KNodeHealth = 12,
 
             /// <summary>
-            /// Enum KClusterHealth for value: kClusterHealth
+            /// Enum KOperatingSystem for value: kOperatingSystem
             /// </summary>
-            [EnumMember(Value = "kClusterHealth")]
-            KClusterHealth = 5,
+            [EnumMember(Value = "kOperatingSystem")]
+            KOperatingSystem = 13,
 
             /// <summary>
-            /// Enum KBackupRestore for value: kBackupRestore
+            /// Enum KDataPath for value: kDataPath
             /// </summary>
-            [EnumMember(Value = "kBackupRestore")]
-            KBackupRestore = 6,
+            [EnumMember(Value = "kDataPath")]
+            KDataPath = 14,
 
             /// <summary>
-            /// Enum KEncryption for value: kEncryption
+            /// Enum KMetadata for value: kMetadata
             /// </summary>
-            [EnumMember(Value = "kEncryption")]
-            KEncryption = 7,
+            [EnumMember(Value = "kMetadata")]
+            KMetadata = 15,
 
             /// <summary>
-            /// Enum KArchivalRestore for value: kArchivalRestore
+            /// Enum KIndexing for value: kIndexing
             /// </summary>
-            [EnumMember(Value = "kArchivalRestore")]
-            KArchivalRestore = 8,
+            [EnumMember(Value = "kIndexing")]
+            KIndexing = 16,
 
             /// <summary>
-            /// Enum KRemoteReplication for value: kRemoteReplication
+            /// Enum KHelios for value: kHelios
             /// </summary>
-            [EnumMember(Value = "kRemoteReplication")]
-            KRemoteReplication = 9,
+            [EnumMember(Value = "kHelios")]
+            KHelios = 17,
 
             /// <summary>
-            /// Enum KQuota for value: kQuota
+            /// Enum KAppMarketPlace for value: kAppMarketPlace
             /// </summary>
-            [EnumMember(Value = "kQuota")]
-            KQuota = 10,
+            [EnumMember(Value = "kAppMarketPlace")]
+            KAppMarketPlace = 18,
 
             /// <summary>
             /// Enum KLicense for value: kLicense
             /// </summary>
             [EnumMember(Value = "kLicense")]
-            KLicense = 11,
-
-            /// <summary>
-            /// Enum KHeliosProActiveWellness for value: kHeliosProActiveWellness
-            /// </summary>
-            [EnumMember(Value = "kHeliosProActiveWellness")]
-            KHeliosProActiveWellness = 12,
-
-            /// <summary>
-            /// Enum KHeliosAnalyticsJobs for value: kHeliosAnalyticsJobs
-            /// </summary>
-            [EnumMember(Value = "kHeliosAnalyticsJobs")]
-            KHeliosAnalyticsJobs = 13,
-
-            /// <summary>
-            /// Enum KHeliosSignatureJobs for value: kHeliosSignatureJobs
-            /// </summary>
-            [EnumMember(Value = "kHeliosSignatureJobs")]
-            KHeliosSignatureJobs = 14,
+            KLicense = 19,
 
             /// <summary>
             /// Enum KSecurity for value: kSecurity
             /// </summary>
             [EnumMember(Value = "kSecurity")]
-            KSecurity = 15,
+            KSecurity = 20,
+
+            /// <summary>
+            /// Enum KUpgrade for value: kUpgrade
+            /// </summary>
+            [EnumMember(Value = "kUpgrade")]
+            KUpgrade = 21,
+
+            /// <summary>
+            /// Enum KClusterManagement for value: kClusterManagement
+            /// </summary>
+            [EnumMember(Value = "kClusterManagement")]
+            KClusterManagement = 22,
+
+            /// <summary>
+            /// Enum KAuditLog for value: kAuditLog
+            /// </summary>
+            [EnumMember(Value = "kAuditLog")]
+            KAuditLog = 23,
+
+            /// <summary>
+            /// Enum KNetworking for value: kNetworking
+            /// </summary>
+            [EnumMember(Value = "kNetworking")]
+            KNetworking = 24,
+
+            /// <summary>
+            /// Enum KConfiguration for value: kConfiguration
+            /// </summary>
+            [EnumMember(Value = "kConfiguration")]
+            KConfiguration = 25,
+
+            /// <summary>
+            /// Enum KStorageUsage for value: kStorageUsage
+            /// </summary>
+            [EnumMember(Value = "kStorageUsage")]
+            KStorageUsage = 26,
+
+            /// <summary>
+            /// Enum KFaultTolerance for value: kFaultTolerance
+            /// </summary>
+            [EnumMember(Value = "kFaultTolerance")]
+            KFaultTolerance = 27,
+
+            /// <summary>
+            /// Enum KBackupRestore for value: kBackupRestore
+            /// </summary>
+            [EnumMember(Value = "kBackupRestore")]
+            KBackupRestore = 28,
+
+            /// <summary>
+            /// Enum KArchivalRestore for value: kArchivalRestore
+            /// </summary>
+            [EnumMember(Value = "kArchivalRestore")]
+            KArchivalRestore = 29,
+
+            /// <summary>
+            /// Enum KRemoteReplication for value: kRemoteReplication
+            /// </summary>
+            [EnumMember(Value = "kRemoteReplication")]
+            KRemoteReplication = 30,
+
+            /// <summary>
+            /// Enum KQuota for value: kQuota
+            /// </summary>
+            [EnumMember(Value = "kQuota")]
+            KQuota = 31,
+
+            /// <summary>
+            /// Enum KCDP for value: kCDP
+            /// </summary>
+            [EnumMember(Value = "kCDP")]
+            KCDP = 32,
+
+            /// <summary>
+            /// Enum KClusterHealth for value: kClusterHealth
+            /// </summary>
+            [EnumMember(Value = "kClusterHealth")]
+            KClusterHealth = 33,
+
+            /// <summary>
+            /// Enum KEncryption for value: kEncryption
+            /// </summary>
+            [EnumMember(Value = "kEncryption")]
+            KEncryption = 34,
+
+            /// <summary>
+            /// Enum KHeliosProActiveWellness for value: kHeliosProActiveWellness
+            /// </summary>
+            [EnumMember(Value = "kHeliosProActiveWellness")]
+            KHeliosProActiveWellness = 35,
+
+            /// <summary>
+            /// Enum KHeliosAnalyticsJobs for value: kHeliosAnalyticsJobs
+            /// </summary>
+            [EnumMember(Value = "kHeliosAnalyticsJobs")]
+            KHeliosAnalyticsJobs = 36,
+
+            /// <summary>
+            /// Enum KHeliosSignatureJobs for value: kHeliosSignatureJobs
+            /// </summary>
+            [EnumMember(Value = "kHeliosSignatureJobs")]
+            KHeliosSignatureJobs = 37,
 
             /// <summary>
             /// Enum KAppsInfra for value: kAppsInfra
             /// </summary>
             [EnumMember(Value = "kAppsInfra")]
-            KAppsInfra = 16,
+            KAppsInfra = 38,
 
             /// <summary>
             /// Enum KAntivirus for value: kAntivirus
             /// </summary>
             [EnumMember(Value = "kAntivirus")]
-            KAntivirus = 17,
+            KAntivirus = 39,
 
             /// <summary>
             /// Enum KArchivalCopy for value: kArchivalCopy
             /// </summary>
             [EnumMember(Value = "kArchivalCopy")]
-            KArchivalCopy = 18
+            KArchivalCopy = 40
 
         }
 
