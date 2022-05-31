@@ -115,7 +115,27 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
         [Parameter(Mandatory = false, ParameterSetName = "UsingAPIKey")]
         public String APIKey { get; set; } = null;
 
+        /// <summary>
+        /// <para type="description">
+        /// Do MFA required ?
+        /// </para>
+        /// </summary>
+        [Parameter(Mandatory = false)]
+        // public bool UsingMFA { get; set; } = false;
+        public SwitchParameter UseMFA { get; set; }
+
+        /// <summary>
+        /// <para type="description">
+        /// Specifies OTP type for MFA verification.
+        /// 'Totp' implies the code is TOTP.
+        /// 'Email' implies the code is email OTP. 
+        /// </para>
+        /// </summary>
+        [Parameter(Mandatory = false)]
+        public Model.AccessTokenCredential.OtpTypeEnum? OtpType { get; set; }
+
         private Uri clusterUri;
+        private String otpCode;
 
         /// <summary>
         /// Begin processing.
@@ -166,11 +186,61 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
             var networkCredential = Credential.GetNetworkCredential();
             var domain = string.IsNullOrWhiteSpace(networkCredential.Domain) ? LocalDomain : networkCredential.Domain;
 
+            if (UseMFA.IsPresent)
+            {
+                if (OtpType == Model.AccessTokenCredential.OtpTypeEnum.Email)
+                {
+                    var emailMfaBody = new AccessTokenCredential
+                    {
+                        Domain = domain,
+                        Username = networkCredential.UserName,
+                        Password = networkCredential.Password
+                    };
+
+                    // Send security code to the registered mail address for the logged in user
+                    var emailMfaUrl = $"/v2/email-otp";
+                    var emailMFARequest = new HttpRequestMessage(HttpMethod.Post, emailMfaUrl)
+                    {
+                        Content = new StringContent(JsonConvert.SerializeObject(emailMfaBody), Encoding.UTF8, "application/json")
+                    };
+
+                    try
+                    {
+                        var httpClient = Session.ApiClient.BuildClient(clusterUri, true);
+                        var sendSecurityCode = httpClient.SendAsync(emailMFARequest).Result;
+                        var sendSecurityCodeResponse = sendSecurityCode.Content.ReadAsStringAsync().Result;
+
+                        if (sendSecurityCode.StatusCode != HttpStatusCode.Created)
+                        {
+                            var accessCodeError = JsonConvert.DeserializeObject<ErrorProto>(sendSecurityCodeResponse);
+                            StringBuilder sb = new StringBuilder();
+                            sb.AppendLine("Failed to send access code to the registered email address");
+                            sb.AppendLine(accessCodeError.ErrorMsg);
+                            throw new Exception(sb.ToString());
+                        }
+
+                        Console.WriteLine("Access code is sent to the registered email address");
+                    }
+                    catch (Exception ex)
+                    {
+                        StringBuilder sb = new StringBuilder();
+                        sb.AppendLine("Failed to send access code to the registered email address");
+                        sb.AppendLine(ex.Message);
+                        throw new Exception(sb.ToString());
+                    }
+                }
+
+                Console.WriteLine("Enter MFA code");
+                otpCode = Console.ReadLine();
+            }
+
             var credentials = new AccessTokenCredential
             {
                 Domain = domain,
                 Username = networkCredential.UserName,
-                Password = networkCredential.Password
+                Password = networkCredential.Password,
+                OtpCode = otpCode,
+                OtpType = OtpType == null ? Model.AccessTokenCredential.OtpTypeEnum.Totp : OtpType
             };
 
             var httpRequest = new HttpRequestMessage(HttpMethod.Post, "public/accessTokens")

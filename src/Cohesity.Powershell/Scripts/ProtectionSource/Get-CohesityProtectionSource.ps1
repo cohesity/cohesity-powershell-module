@@ -31,13 +31,14 @@ function Get-CohesityProtectionSource {
 
     Process {
         if ($Id) {
-            $cohesityUrl = '/irisservices/api/v1/public/protectionSources/objects/' + $Id.ToString()
-            $resp = Invoke-RestApi -Method Get -Uri $cohesityUrl
+            $PSObjectUrl = '/irisservices/api/v1/public/protectionSources/objects/' + $Id.ToString()
+            $resp = Invoke-RestApi -Method Get -Uri $PSObjectUrl
+
             # tagging reponse for display format ( configured in Cohesity.format.ps1xml )
             @($resp | Add-Member -TypeName 'System.Object#ProtectionSource' -PassThru)
         }
         else {
-            $url = '/irisservices/api/v1/public/protectionSources/rootNodes'
+            $rootNodeUrl = '/irisservices/api/v1/public/protectionSources/rootNodes'
             if ($Environments) {
                 $envList = @()
                 foreach ($item in $Environments) {
@@ -45,18 +46,20 @@ function Get-CohesityProtectionSource {
                     $envText = $item.ToString()
                     $envList += $envText.SubString(0, 1).ToLower() + $envText.SubString(1, $envText.Length - 1)
                 }
-                $url += "?environments=" + ($envList -join ",")
+                $rootNodeUrl += "?environments=" + ($envList -join ",")
             }
+
             $result = @()
-            $cohesityUrl = $cohesityServer + $url
-            $resp = Invoke-RestApi -Method Get -Uri $cohesityUrl
+            $resp = Invoke-RestApi -Method Get -Uri $rootNodeUrl
+
             if ($resp) {
                 $result = @($resp)
                 $groups = @($result | where-object { $null -eq $_.registrationInfo })
                 if($groups) {
                     foreach ($group in $groups) {
-                        $url = '/irisservices/api/v1/public/protectionSources?id=' + $group.protectionSource.id.ToString()
-                        $resp = Invoke-RestApi -Method Get -Uri $url
+                        $PSurl = '/irisservices/api/v1/public/protectionSources?id=' + $group.protectionSource.id.ToString()
+                        $resp = Invoke-RestApi -Method Get -Uri $PSurl
+
                         if($resp) {
                             $children = FlattenProtectionSourceNode -Nodes $resp -Type 2
                             foreach ($child in $children) {
@@ -68,6 +71,7 @@ function Get-CohesityProtectionSource {
                     }
                 }
             }
+
             # Skip kView, kAgent, kPuppeteer environment types and group nodes themselves
             $result = @($result | where-object {
                 $_.protectionSource.environment -ne "kAgent" `
@@ -75,6 +79,7 @@ function Get-CohesityProtectionSource {
                 -and $_.protectionSource.environment -ne "kPuppeteer" `
                 -and $null -ne $_.registrationInfo
             })
+
             # Make sure each source id is only listed once as it might repeat under different environments
             # we have to sort the rows based on protectionSource.id and remove any duplicate entries
             $result = @($result | Sort-Object -property @{expression={$_.protectionSource.id }} -Unique)
