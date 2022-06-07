@@ -51,13 +51,18 @@ function Remove-CohesityViewShareAllowlist {
                 }
                 $foundAtleastOneMatch = $true
                 $foundShareObject.SubnetWhitelist = $foundShareObject.SubnetWhitelist | Where-Object {$_.Ip -ne $ip}
+
+                # Check if the sourceId field is an array or not, if not convert it into array
+                if ( $foundShareObject.subnetWhitelist -isnot [object[]] ) {
+                    $foundShareObject.subnetWhitelist = [Object[]]($foundShareObject.subnetWhitelist)
+                }
             }
             if ($false -eq $foundAtleastOneMatch) {
                 Write-Output "None of the given IPs matched."
                 return
             }
-            $cohesityClusterURL = '/irisservices/api/v1/public/viewAliases'
 
+            $cohesityClusterURL = '/irisservices/api/v1/public/viewAliases'
             $payloadJson = $foundShareObject | ConvertTo-Json -Depth 100
             $resp = Invoke-RestApi -Method Put -Uri $cohesityClusterURL -Body $payloadJson
             if ($resp) {
