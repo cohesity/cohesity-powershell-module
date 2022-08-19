@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -45,10 +47,58 @@ namespace Cohesity.Model
             KCluster = 3,
 
             /// <summary>
+            /// Enum KChassis for value: kChassis
+            /// </summary>
+            [EnumMember(Value = "kChassis")]
+            KChassis = 4,
+
+            /// <summary>
+            /// Enum KPowerSupply for value: kPowerSupply
+            /// </summary>
+            [EnumMember(Value = "kPowerSupply")]
+            KPowerSupply = 5,
+
+            /// <summary>
+            /// Enum KCPU for value: kCPU
+            /// </summary>
+            [EnumMember(Value = "kCPU")]
+            KCPU = 6,
+
+            /// <summary>
+            /// Enum KMemory for value: kMemory
+            /// </summary>
+            [EnumMember(Value = "kMemory")]
+            KMemory = 7,
+
+            /// <summary>
+            /// Enum KTemperature for value: kTemperature
+            /// </summary>
+            [EnumMember(Value = "kTemperature")]
+            KTemperature = 8,
+
+            /// <summary>
+            /// Enum KFan for value: kFan
+            /// </summary>
+            [EnumMember(Value = "kFan")]
+            KFan = 9,
+
+            /// <summary>
+            /// Enum KNIC for value: kNIC
+            /// </summary>
+            [EnumMember(Value = "kNIC")]
+            KNIC = 10,
+
+            /// <summary>
+            /// Enum KFirmware for value: kFirmware
+            /// </summary>
+            [EnumMember(Value = "kFirmware")]
+            KFirmware = 11,
+
+            /// <summary>
             /// Enum KNodeHealth for value: kNodeHealth
             /// </summary>
             [EnumMember(Value = "kNodeHealth")]
-            KNodeHealth = 4,
+            KNodeHealth = 12,
 
             /// <summary>
             /// Enum KClusterHealth for value: kClusterHealth
@@ -201,16 +251,6 @@ namespace Cohesity.Model
             this.SyslogEnabled = syslogEnabled;
             this.TenantId = tenantId;
             this.WebHookDeliveryTargets = webHookDeliveryTargets;
-            this.AlertTypeList = alertTypeList;
-            this.Categories = categories;
-            this.EmailDeliveryTargets = emailDeliveryTargets;
-            this.RuleId = ruleId;
-            this.RuleName = ruleName;
-            this.Severities = severities;
-            this.SnmpEnabled = snmpEnabled;
-            this.SyslogEnabled = syslogEnabled;
-            this.TenantId = tenantId;
-            this.WebHookDeliveryTargets = webHookDeliveryTargets;
         }
         
         /// <summary>
@@ -309,17 +349,17 @@ namespace Cohesity.Model
                     this.AlertTypeList == input.AlertTypeList ||
                     this.AlertTypeList != null &&
                     input.AlertTypeList != null &&
-                    this.AlertTypeList.SequenceEqual(input.AlertTypeList)
+                    this.AlertTypeList.Equals(input.AlertTypeList)
                 ) && 
                 (
                     this.Categories == input.Categories ||
-                    this.Categories.SequenceEqual(input.Categories)
+                    this.Categories.Equals(input.Categories)
                 ) && 
                 (
                     this.EmailDeliveryTargets == input.EmailDeliveryTargets ||
                     this.EmailDeliveryTargets != null &&
                     input.EmailDeliveryTargets != null &&
-                    this.EmailDeliveryTargets.SequenceEqual(input.EmailDeliveryTargets)
+                    this.EmailDeliveryTargets.Equals(input.EmailDeliveryTargets)
                 ) && 
                 (
                     this.RuleId == input.RuleId ||
@@ -333,7 +373,7 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.Severities == input.Severities ||
-                    this.Severities.SequenceEqual(input.Severities)
+                    this.Severities.Equals(input.Severities)
                 ) && 
                 (
                     this.SnmpEnabled == input.SnmpEnabled ||
@@ -354,7 +394,7 @@ namespace Cohesity.Model
                     this.WebHookDeliveryTargets == input.WebHookDeliveryTargets ||
                     this.WebHookDeliveryTargets != null &&
                     input.WebHookDeliveryTargets != null &&
-                    this.WebHookDeliveryTargets.SequenceEqual(input.WebHookDeliveryTargets)
+                    this.WebHookDeliveryTargets.Equals(input.WebHookDeliveryTargets)
                 );
         }
 

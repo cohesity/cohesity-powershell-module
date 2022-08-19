@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -28,14 +30,23 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="HostEntry" /> class.
         /// </summary>
+        /// <param name="description">Description the host entry..</param>
         /// <param name="domainNames">Specifies the domain names of the host. (required).</param>
         /// <param name="ip">Specifies the IP address of the host. (required).</param>
-        public HostEntry(List<string> domainNames = default(List<string>), string ip = default(string))
+        public HostEntry(string description = default(string), List<string> domainNames = default(List<string>), string ip = default(string))
         {
+            this.Description = description;
             this.DomainNames = domainNames;
             this.Ip = ip;
         }
         
+        /// <summary>
+        /// Description the host entry.
+        /// </summary>
+        /// <value>Description the host entry.</value>
+        [DataMember(Name="description", EmitDefaultValue=true)]
+        public string Description { get; set; }
+
         /// <summary>
         /// Specifies the domain names of the host.
         /// </summary>
@@ -87,10 +98,15 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.Description == input.Description ||
+                    (this.Description != null &&
+                    this.Description.Equals(input.Description))
+                ) && 
+                (
                     this.DomainNames == input.DomainNames ||
                     this.DomainNames != null &&
                     input.DomainNames != null &&
-                    this.DomainNames.SequenceEqual(input.DomainNames)
+                    this.DomainNames.Equals(input.DomainNames)
                 ) && 
                 (
                     this.Ip == input.Ip ||
@@ -108,6 +124,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.Description != null)
+                    hashCode = hashCode * 59 + this.Description.GetHashCode();
                 if (this.DomainNames != null)
                     hashCode = hashCode * 59 + this.DomainNames.GetHashCode();
                 if (this.Ip != null)

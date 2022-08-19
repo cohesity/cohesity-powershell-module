@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -28,15 +30,23 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="ExpandPhysicalClusterParameters" /> class.
         /// </summary>
+        /// <param name="chassisSerialToRackIdMap">ChassisSerialToRackId map..</param>
         /// <param name="nodeConfigs">Specifies the configuration details of the Nodes in the Cluster. (required).</param>
         /// <param name="vips">Specifies the virtual IPs to add to the Cluster..</param>
-        public ExpandPhysicalClusterParameters(List<PhysicalNodeConfiguration> nodeConfigs = default(List<PhysicalNodeConfiguration>), List<string> vips = default(List<string>))
+        public ExpandPhysicalClusterParameters(Dictionary<string, long> chassisSerialToRackIdMap = default(Dictionary<string, long>), List<PhysicalNodeConfiguration> nodeConfigs = default(List<PhysicalNodeConfiguration>), List<string> vips = default(List<string>))
         {
+            this.ChassisSerialToRackIdMap = chassisSerialToRackIdMap;
             this.NodeConfigs = nodeConfigs;
-            this.Vips = vips;
             this.Vips = vips;
         }
         
+        /// <summary>
+        /// ChassisSerialToRackId map.
+        /// </summary>
+        /// <value>ChassisSerialToRackId map.</value>
+        [DataMember(Name="chassisSerialToRackIdMap", EmitDefaultValue=true)]
+        public Dictionary<string, long> ChassisSerialToRackIdMap { get; set; }
+
         /// <summary>
         /// Specifies the configuration details of the Nodes in the Cluster.
         /// </summary>
@@ -88,16 +98,22 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.ChassisSerialToRackIdMap == input.ChassisSerialToRackIdMap ||
+                    this.ChassisSerialToRackIdMap != null &&
+                    input.ChassisSerialToRackIdMap != null &&
+                    this.ChassisSerialToRackIdMap.Equals(input.ChassisSerialToRackIdMap)
+                ) && 
+                (
                     this.NodeConfigs == input.NodeConfigs ||
                     this.NodeConfigs != null &&
                     input.NodeConfigs != null &&
-                    this.NodeConfigs.SequenceEqual(input.NodeConfigs)
+                    this.NodeConfigs.Equals(input.NodeConfigs)
                 ) && 
                 (
                     this.Vips == input.Vips ||
                     this.Vips != null &&
                     input.Vips != null &&
-                    this.Vips.SequenceEqual(input.Vips)
+                    this.Vips.Equals(input.Vips)
                 );
         }
 
@@ -110,6 +126,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.ChassisSerialToRackIdMap != null)
+                    hashCode = hashCode * 59 + this.ChassisSerialToRackIdMap.GetHashCode();
                 if (this.NodeConfigs != null)
                     hashCode = hashCode * 59 + this.NodeConfigs.GetHashCode();
                 if (this.Vips != null)

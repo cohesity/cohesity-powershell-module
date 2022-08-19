@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -29,8 +31,6 @@ namespace Cohesity.Model
         /// <param name="mrOutput">mrOutput.</param>
         public RunMapReduceParams(long? appId = default(long?), List<MapReduceInstanceInputParam> inputParams = default(List<MapReduceInstanceInputParam>), InputSpec mrInput = default(InputSpec), OutputSpec mrOutput = default(OutputSpec))
         {
-            this.AppId = appId;
-            this.InputParams = inputParams;
             this.AppId = appId;
             this.InputParams = inputParams;
             this.MrInput = mrInput;
@@ -108,7 +108,7 @@ namespace Cohesity.Model
                     this.InputParams == input.InputParams ||
                     this.InputParams != null &&
                     input.InputParams != null &&
-                    this.InputParams.SequenceEqual(input.InputParams)
+                    this.InputParams.Equals(input.InputParams)
                 ) && 
                 (
                     this.MrInput == input.MrInput ||

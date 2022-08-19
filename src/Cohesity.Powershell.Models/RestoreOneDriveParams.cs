@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -115,7 +117,7 @@ namespace Cohesity.Model
                     this.DriveOwnerVec == input.DriveOwnerVec ||
                     this.DriveOwnerVec != null &&
                     input.DriveOwnerVec != null &&
-                    this.DriveOwnerVec.SequenceEqual(input.DriveOwnerVec)
+                    this.DriveOwnerVec.Equals(input.DriveOwnerVec)
                 ) && 
                 (
                     this.RestoreToOriginal == input.RestoreToOriginal ||

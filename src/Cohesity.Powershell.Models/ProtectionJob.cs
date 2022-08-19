@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -54,9 +56,9 @@ namespace Cohesity.Model
         [DataMember(Name="alertingPolicy", EmitDefaultValue=true)]
         public List<AlertingPolicyEnum> AlertingPolicy { get; set; }
         /// <summary>
-        /// Specifies the environment type (such as kVMware or kSQL) of the Protection Source this Job is protecting. Supported environment types such as &#39;kView&#39;, &#39;kSQL&#39;, &#39;kVMware&#39;, etc. NOTE: &#39;kPuppeteer&#39; refers to Cohesity&#39;s Remote Adapter. &#39;kVMware&#39; indicates the VMware Protection Source environment. &#39;kHyperV&#39; indicates the HyperV Protection Source environment. &#39;kSQL&#39; indicates the SQL Protection Source environment. &#39;kView&#39; indicates the View Protection Source environment. &#39;kPuppeteer&#39; indicates the Cohesity&#39;s Remote Adapter. &#39;kPhysical&#39; indicates the physical Protection Source environment. &#39;kPure&#39; indicates the Pure Storage Protection Source environment. &#39;Nimble&#39; indicates the Nimble Storage Protection Source environment. &#39;kAzure&#39; indicates the Microsoft&#39;s Azure Protection Source environment. &#39;kNetapp&#39; indicates the Netapp Protection Source environment. &#39;kAgent&#39; indicates the Agent Protection Source environment. &#39;kGenericNas&#39; indicates the Genreric Network Attached Storage Protection Source environment. &#39;kAcropolis&#39; indicates the Acropolis Protection Source environment. &#39;kPhsicalFiles&#39; indicates the Physical Files Protection Source environment. &#39;kIsilon&#39; indicates the Dell EMC&#39;s Isilon Protection Source environment. &#39;kGPFS&#39; indicates IBM&#39;s GPFS Protection Source environment. &#39;kKVM&#39; indicates the KVM Protection Source environment. &#39;kAWS&#39; indicates the AWS Protection Source environment. &#39;kExchange&#39; indicates the Exchange Protection Source environment. &#39;kHyperVVSS&#39; indicates the HyperV VSS Protection Source environment. &#39;kOracle&#39; indicates the Oracle Protection Source environment. &#39;kGCP&#39; indicates the Google Cloud Platform Protection Source environment. &#39;kFlashBlade&#39; indicates the Flash Blade Protection Source environment. &#39;kAWSNative&#39; indicates the AWS Native Protection Source environment. &#39;kVCD&#39; indicates the VMware&#39;s Virtual cloud Director Protection Source environment. &#39;kO365&#39; indicates the Office 365 Protection Source environment. &#39;kO365Outlook&#39; indicates Office 365 outlook Protection Source environment. &#39;kHyperFlex&#39; indicates the Hyper Flex Protection Source environment. &#39;kGCPNative&#39; indicates the GCP Native Protection Source environment. &#39;kAzureNative&#39; indicates the Azure Native Protection Source environment. &#39;kKubernetes&#39; indicates a Kubernetes Protection Source environment. &#39;kElastifile&#39; indicates Elastifile Protection Source environment.
+        /// Specifies the environment type (such as kVMware or kSQL) of the Protection Source this Job is protecting. Supported environment types such as &#39;kView&#39;, &#39;kSQL&#39;, &#39;kVMware&#39;, etc. NOTE: &#39;kPuppeteer&#39; refers to Cohesity&#39;s Remote Adapter. &#39;kVMware&#39; indicates the VMware Protection Source environment. &#39;kHyperV&#39; indicates the HyperV Protection Source environment. &#39;kSQL&#39; indicates the SQL Protection Source environment. &#39;kView&#39; indicates the View Protection Source environment. &#39;kPuppeteer&#39; indicates the Cohesity&#39;s Remote Adapter. &#39;kPhysical&#39; indicates the physical Protection Source environment. &#39;kPure&#39; indicates the Pure Storage Protection Source environment. &#39;kNimble&#39; indicates the Nimble Storage Protection Source environment. &#39;kAzure&#39; indicates the Microsoft&#39;s Azure Protection Source environment. &#39;kNetapp&#39; indicates the Netapp Protection Source environment. &#39;kAgent&#39; indicates the Agent Protection Source environment. &#39;kGenericNas&#39; indicates the Generic Network Attached Storage Protection Source environment. &#39;kAcropolis&#39; indicates the Acropolis Protection Source environment. &#39;kPhysicalFiles&#39; indicates the Physical Files Protection Source environment. &#39;kIsilon&#39; indicates the Dell EMC&#39;s Isilon Protection Source environment. &#39;kGPFS&#39; indicates IBM&#39;s GPFS Protection Source environment. &#39;kKVM&#39; indicates the KVM Protection Source environment. &#39;kAWS&#39; indicates the AWS Protection Source environment. &#39;kExchange&#39; indicates the Exchange Protection Source environment. &#39;kHyperVVSS&#39; indicates the HyperV VSS Protection Source environment. &#39;kOracle&#39; indicates the Oracle Protection Source environment. &#39;kGCP&#39; indicates the Google Cloud Platform Protection Source environment. &#39;kFlashBlade&#39; indicates the Flash Blade Protection Source environment. &#39;kAWSNative&#39; indicates the AWS Native Protection Source environment. &#39;kO365&#39; indicates the Office 365 Protection Source environment. &#39;kO365Outlook&#39; indicates Office 365 outlook Protection Source environment. &#39;kHyperFlex&#39; indicates the Hyper Flex Protection Source environment. &#39;kGCPNative&#39; indicates the GCP Native Protection Source environment. &#39;kAzureNative&#39; indicates the Azure Native Protection Source environment. &#39;kKubernetes&#39; indicates a Kubernetes Protection Source environment. &#39;kElastifile&#39; indicates Elastifile Protection Source environment. &#39;kAD&#39; indicates Active Directory Protection Source environment. &#39;kRDSSnapshotManager&#39; indicates AWS RDS Protection Source environment. &#39;kCassandra&#39; indicates Cassandra Protection Source environment. &#39;kMongoDB&#39; indicates MongoDB Protection Source environment. &#39;kCouchbase&#39; indicates Couchbase Protection Source environment. &#39;kHdfs&#39; indicates Hdfs Protection Source environment. &#39;kHive&#39; indicates Hive Protection Source environment. &#39;kHBase&#39; indicates HBase Protection Source environment. &#39;kUDA&#39; indicates Universal Data Adapter Protection Source environment. &#39;kO365Teams&#39; indicates the Office365 Teams Protection Source environment. &#39;kO365Group&#39; indicates the Office365 Groups Protection Source environment. &#39;kO365Exchange&#39; indicates the Office365 Mailbox Protection Source environment. &#39;kO365OneDrive&#39; indicates the Office365 OneDrive Protection Source environment. &#39;kO365Sharepoint&#39; indicates the Office365 SharePoint Protection Source environment. &#39;kO365PublicFolders&#39; indicates the Office365 PublicFolders Protection Source environment.
         /// </summary>
-        /// <value>Specifies the environment type (such as kVMware or kSQL) of the Protection Source this Job is protecting. Supported environment types such as &#39;kView&#39;, &#39;kSQL&#39;, &#39;kVMware&#39;, etc. NOTE: &#39;kPuppeteer&#39; refers to Cohesity&#39;s Remote Adapter. &#39;kVMware&#39; indicates the VMware Protection Source environment. &#39;kHyperV&#39; indicates the HyperV Protection Source environment. &#39;kSQL&#39; indicates the SQL Protection Source environment. &#39;kView&#39; indicates the View Protection Source environment. &#39;kPuppeteer&#39; indicates the Cohesity&#39;s Remote Adapter. &#39;kPhysical&#39; indicates the physical Protection Source environment. &#39;kPure&#39; indicates the Pure Storage Protection Source environment. &#39;Nimble&#39; indicates the Nimble Storage Protection Source environment. &#39;kAzure&#39; indicates the Microsoft&#39;s Azure Protection Source environment. &#39;kNetapp&#39; indicates the Netapp Protection Source environment. &#39;kAgent&#39; indicates the Agent Protection Source environment. &#39;kGenericNas&#39; indicates the Genreric Network Attached Storage Protection Source environment. &#39;kAcropolis&#39; indicates the Acropolis Protection Source environment. &#39;kPhsicalFiles&#39; indicates the Physical Files Protection Source environment. &#39;kIsilon&#39; indicates the Dell EMC&#39;s Isilon Protection Source environment. &#39;kGPFS&#39; indicates IBM&#39;s GPFS Protection Source environment. &#39;kKVM&#39; indicates the KVM Protection Source environment. &#39;kAWS&#39; indicates the AWS Protection Source environment. &#39;kExchange&#39; indicates the Exchange Protection Source environment. &#39;kHyperVVSS&#39; indicates the HyperV VSS Protection Source environment. &#39;kOracle&#39; indicates the Oracle Protection Source environment. &#39;kGCP&#39; indicates the Google Cloud Platform Protection Source environment. &#39;kFlashBlade&#39; indicates the Flash Blade Protection Source environment. &#39;kAWSNative&#39; indicates the AWS Native Protection Source environment. &#39;kVCD&#39; indicates the VMware&#39;s Virtual cloud Director Protection Source environment. &#39;kO365&#39; indicates the Office 365 Protection Source environment. &#39;kO365Outlook&#39; indicates Office 365 outlook Protection Source environment. &#39;kHyperFlex&#39; indicates the Hyper Flex Protection Source environment. &#39;kGCPNative&#39; indicates the GCP Native Protection Source environment. &#39;kAzureNative&#39; indicates the Azure Native Protection Source environment. &#39;kKubernetes&#39; indicates a Kubernetes Protection Source environment. &#39;kElastifile&#39; indicates Elastifile Protection Source environment.</value>
+        /// <value>Specifies the environment type (such as kVMware or kSQL) of the Protection Source this Job is protecting. Supported environment types such as &#39;kView&#39;, &#39;kSQL&#39;, &#39;kVMware&#39;, etc. NOTE: &#39;kPuppeteer&#39; refers to Cohesity&#39;s Remote Adapter. &#39;kVMware&#39; indicates the VMware Protection Source environment. &#39;kHyperV&#39; indicates the HyperV Protection Source environment. &#39;kSQL&#39; indicates the SQL Protection Source environment. &#39;kView&#39; indicates the View Protection Source environment. &#39;kPuppeteer&#39; indicates the Cohesity&#39;s Remote Adapter. &#39;kPhysical&#39; indicates the physical Protection Source environment. &#39;kPure&#39; indicates the Pure Storage Protection Source environment. &#39;kNimble&#39; indicates the Nimble Storage Protection Source environment. &#39;kAzure&#39; indicates the Microsoft&#39;s Azure Protection Source environment. &#39;kNetapp&#39; indicates the Netapp Protection Source environment. &#39;kAgent&#39; indicates the Agent Protection Source environment. &#39;kGenericNas&#39; indicates the Generic Network Attached Storage Protection Source environment. &#39;kAcropolis&#39; indicates the Acropolis Protection Source environment. &#39;kPhysicalFiles&#39; indicates the Physical Files Protection Source environment. &#39;kIsilon&#39; indicates the Dell EMC&#39;s Isilon Protection Source environment. &#39;kGPFS&#39; indicates IBM&#39;s GPFS Protection Source environment. &#39;kKVM&#39; indicates the KVM Protection Source environment. &#39;kAWS&#39; indicates the AWS Protection Source environment. &#39;kExchange&#39; indicates the Exchange Protection Source environment. &#39;kHyperVVSS&#39; indicates the HyperV VSS Protection Source environment. &#39;kOracle&#39; indicates the Oracle Protection Source environment. &#39;kGCP&#39; indicates the Google Cloud Platform Protection Source environment. &#39;kFlashBlade&#39; indicates the Flash Blade Protection Source environment. &#39;kAWSNative&#39; indicates the AWS Native Protection Source environment. &#39;kO365&#39; indicates the Office 365 Protection Source environment. &#39;kO365Outlook&#39; indicates Office 365 outlook Protection Source environment. &#39;kHyperFlex&#39; indicates the Hyper Flex Protection Source environment. &#39;kGCPNative&#39; indicates the GCP Native Protection Source environment. &#39;kAzureNative&#39; indicates the Azure Native Protection Source environment. &#39;kKubernetes&#39; indicates a Kubernetes Protection Source environment. &#39;kElastifile&#39; indicates Elastifile Protection Source environment. &#39;kAD&#39; indicates Active Directory Protection Source environment. &#39;kRDSSnapshotManager&#39; indicates AWS RDS Protection Source environment. &#39;kCassandra&#39; indicates Cassandra Protection Source environment. &#39;kMongoDB&#39; indicates MongoDB Protection Source environment. &#39;kCouchbase&#39; indicates Couchbase Protection Source environment. &#39;kHdfs&#39; indicates Hdfs Protection Source environment. &#39;kHive&#39; indicates Hive Protection Source environment. &#39;kHBase&#39; indicates HBase Protection Source environment. &#39;kUDA&#39; indicates Universal Data Adapter Protection Source environment. &#39;kO365Teams&#39; indicates the Office365 Teams Protection Source environment. &#39;kO365Group&#39; indicates the Office365 Groups Protection Source environment. &#39;kO365Exchange&#39; indicates the Office365 Mailbox Protection Source environment. &#39;kO365OneDrive&#39; indicates the Office365 OneDrive Protection Source environment. &#39;kO365Sharepoint&#39; indicates the Office365 SharePoint Protection Source environment. &#39;kO365PublicFolders&#39; indicates the Office365 PublicFolders Protection Source environment.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum EnvironmentEnum
         {
@@ -205,76 +207,154 @@ namespace Cohesity.Model
             KAWSNative = 24,
 
             /// <summary>
-            /// Enum KVCD for value: kVCD
-            /// </summary>
-            [EnumMember(Value = "kVCD")]
-            KVCD = 25,
-
-            /// <summary>
             /// Enum KO365 for value: kO365
             /// </summary>
             [EnumMember(Value = "kO365")]
-            KO365 = 26,
+            KO365 = 25,
 
             /// <summary>
             /// Enum KO365Outlook for value: kO365Outlook
             /// </summary>
             [EnumMember(Value = "kO365Outlook")]
-            KO365Outlook = 27,
+            KO365Outlook = 26,
 
             /// <summary>
             /// Enum KHyperFlex for value: kHyperFlex
             /// </summary>
             [EnumMember(Value = "kHyperFlex")]
-            KHyperFlex = 28,
+            KHyperFlex = 27,
 
             /// <summary>
             /// Enum KGCPNative for value: kGCPNative
             /// </summary>
             [EnumMember(Value = "kGCPNative")]
-            KGCPNative = 29,
+            KGCPNative = 28,
 
             /// <summary>
             /// Enum KAzureNative for value: kAzureNative
             /// </summary>
             [EnumMember(Value = "kAzureNative")]
-            KAzureNative = 30,
+            KAzureNative = 29,
 
             /// <summary>
             /// Enum KKubernetes for value: kKubernetes
             /// </summary>
             [EnumMember(Value = "kKubernetes")]
-            KKubernetes = 31,
+            KKubernetes = 30,
 
             /// <summary>
             /// Enum KElastifile for value: kElastifile
             /// </summary>
             [EnumMember(Value = "kElastifile")]
-            KElastifile = 32,
+            KElastifile = 31,
 
             /// <summary>
             /// Enum KAD for value: kAD
             /// </summary>
             [EnumMember(Value = "kAD")]
-            KAD = 33,
+            KAD = 32,
 
             /// <summary>
-            /// Enum KRDSSnapshotManager for kRDSSnapshotManager
+            /// Enum KRDSSnapshotManager for value: kRDSSnapshotManager
             /// </summary>
             [EnumMember(Value = "kRDSSnapshotManager")]
-            KRDSSnapshotManager = 34,
+            KRDSSnapshotManager = 33,
 
             /// <summary>
-            /// Enum KAWSSnapshotManager for kAWSSnapshotManager
+            /// Enum KCassandra for value: kCassandra
+            /// </summary>
+            [EnumMember(Value = "kCassandra")]
+            KCassandra = 34,
+
+            /// <summary>
+            /// Enum KMongoDB for value: kMongoDB
+            /// </summary>
+            [EnumMember(Value = "kMongoDB")]
+            KMongoDB = 35,
+
+            /// <summary>
+            /// Enum KCouchbase for value: kCouchbase
+            /// </summary>
+            [EnumMember(Value = "kCouchbase")]
+            KCouchbase = 36,
+
+            /// <summary>
+            /// Enum KHdfs for value: kHdfs
+            /// </summary>
+            [EnumMember(Value = "kHdfs")]
+            KHdfs = 37,
+
+            /// <summary>
+            /// Enum KHive for value: kHive
+            /// </summary>
+            [EnumMember(Value = "kHive")]
+            KHive = 38,
+
+            /// <summary>
+            /// Enum KHBase for value: kHBase
+            /// </summary>
+            [EnumMember(Value = "kHBase")]
+            KHBase = 39,
+
+            /// <summary>
+            /// Enum KUDA for value: kUDA
+            /// </summary>
+            [EnumMember(Value = "kUDA")]
+            KUDA = 40,
+
+            /// <summary>
+            /// Enum KO365Teams for value: kO365Teams
+            /// </summary>
+            [EnumMember(Value = "kO365Teams")]
+            KO365Teams = 41,
+
+            /// <summary>
+            /// Enum KO365Group for value: kO365Group
+            /// </summary>
+            [EnumMember(Value = "kO365Group")]
+            KO365Group = 42,
+
+            /// <summary>
+            /// Enum KO365Exchange for value: kO365Exchange
+            /// </summary>
+            [EnumMember(Value = "kO365Exchange")]
+            KO365Exchange = 43,
+
+            /// <summary>
+            /// Enum KO365OneDrive for value: kO365OneDrive
+            /// </summary>
+            [EnumMember(Value = "kO365OneDrive")]
+            KO365OneDrive = 44,
+
+            /// <summary>
+            /// Enum KO365Sharepoint for value: kO365Sharepoint
+            /// </summary>
+            [EnumMember(Value = "kO365Sharepoint")]
+            KO365Sharepoint = 45,
+
+            /// <summary>
+            /// Enum KO365PublicFolders for value: kO365PublicFolders
+            /// </summary>
+            [EnumMember(Value = "kO365PublicFolders")]
+            KO365PublicFolders = 46
+
+			/// Enum KAWSSnapshotManager for kAWSSnapshotManager
             /// </summary>
             [EnumMember(Value = "kAWSSnapshotManager")]
-            KAWSSnapshotManager = 35
+            KAWSSnapshotManager = 47,
+
+			/// <summary>
+            /// Enum KVCD for value: kVCD
+            /// </summary>
+            [EnumMember(Value = "kVCD")]
+            KVCD = 48
+
         }
 
         /// <summary>
-        /// Specifies the environment type (such as kVMware or kSQL) of the Protection Source this Job is protecting. Supported environment types such as &#39;kView&#39;, &#39;kSQL&#39;, &#39;kVMware&#39;, etc. NOTE: &#39;kPuppeteer&#39; refers to Cohesity&#39;s Remote Adapter. &#39;kVMware&#39; indicates the VMware Protection Source environment. &#39;kHyperV&#39; indicates the HyperV Protection Source environment. &#39;kSQL&#39; indicates the SQL Protection Source environment. &#39;kView&#39; indicates the View Protection Source environment. &#39;kPuppeteer&#39; indicates the Cohesity&#39;s Remote Adapter. &#39;kPhysical&#39; indicates the physical Protection Source environment. &#39;kPure&#39; indicates the Pure Storage Protection Source environment. &#39;Nimble&#39; indicates the Nimble Storage Protection Source environment. &#39;kAzure&#39; indicates the Microsoft&#39;s Azure Protection Source environment. &#39;kNetapp&#39; indicates the Netapp Protection Source environment. &#39;kAgent&#39; indicates the Agent Protection Source environment. &#39;kGenericNas&#39; indicates the Genreric Network Attached Storage Protection Source environment. &#39;kAcropolis&#39; indicates the Acropolis Protection Source environment. &#39;kPhsicalFiles&#39; indicates the Physical Files Protection Source environment. &#39;kIsilon&#39; indicates the Dell EMC&#39;s Isilon Protection Source environment. &#39;kGPFS&#39; indicates IBM&#39;s GPFS Protection Source environment. &#39;kKVM&#39; indicates the KVM Protection Source environment. &#39;kAWS&#39; indicates the AWS Protection Source environment. &#39;kExchange&#39; indicates the Exchange Protection Source environment. &#39;kHyperVVSS&#39; indicates the HyperV VSS Protection Source environment. &#39;kOracle&#39; indicates the Oracle Protection Source environment. &#39;kGCP&#39; indicates the Google Cloud Platform Protection Source environment. &#39;kFlashBlade&#39; indicates the Flash Blade Protection Source environment. &#39;kAWSNative&#39; indicates the AWS Native Protection Source environment. &#39;kVCD&#39; indicates the VMware&#39;s Virtual cloud Director Protection Source environment. &#39;kO365&#39; indicates the Office 365 Protection Source environment. &#39;kO365Outlook&#39; indicates Office 365 outlook Protection Source environment. &#39;kHyperFlex&#39; indicates the Hyper Flex Protection Source environment. &#39;kGCPNative&#39; indicates the GCP Native Protection Source environment. &#39;kAzureNative&#39; indicates the Azure Native Protection Source environment. &#39;kKubernetes&#39; indicates a Kubernetes Protection Source environment. &#39;kElastifile&#39; indicates Elastifile Protection Source environment.
+        /// Specifies the environment type (such as kVMware or kSQL) of the Protection Source this Job is protecting. Supported environment types such as &#39;kView&#39;, &#39;kSQL&#39;, &#39;kVMware&#39;, etc. NOTE: &#39;kPuppeteer&#39; refers to Cohesity&#39;s Remote Adapter. &#39;kVMware&#39; indicates the VMware Protection Source environment. &#39;kHyperV&#39; indicates the HyperV Protection Source environment. &#39;kSQL&#39; indicates the SQL Protection Source environment. &#39;kView&#39; indicates the View Protection Source environment. &#39;kPuppeteer&#39; indicates the Cohesity&#39;s Remote Adapter. &#39;kPhysical&#39; indicates the physical Protection Source environment. &#39;kPure&#39; indicates the Pure Storage Protection Source environment. &#39;kNimble&#39; indicates the Nimble Storage Protection Source environment. &#39;kAzure&#39; indicates the Microsoft&#39;s Azure Protection Source environment. &#39;kNetapp&#39; indicates the Netapp Protection Source environment. &#39;kAgent&#39; indicates the Agent Protection Source environment. &#39;kGenericNas&#39; indicates the Generic Network Attached Storage Protection Source environment. &#39;kAcropolis&#39; indicates the Acropolis Protection Source environment. &#39;kPhysicalFiles&#39; indicates the Physical Files Protection Source environment. &#39;kIsilon&#39; indicates the Dell EMC&#39;s Isilon Protection Source environment. &#39;kGPFS&#39; indicates IBM&#39;s GPFS Protection Source environment. &#39;kKVM&#39; indicates the KVM Protection Source environment. &#39;kAWS&#39; indicates the AWS Protection Source environment. &#39;kExchange&#39; indicates the Exchange Protection Source environment. &#39;kHyperVVSS&#39; indicates the HyperV VSS Protection Source environment. &#39;kOracle&#39; indicates the Oracle Protection Source environment. &#39;kGCP&#39; indicates the Google Cloud Platform Protection Source environment. &#39;kFlashBlade&#39; indicates the Flash Blade Protection Source environment. &#39;kAWSNative&#39; indicates the AWS Native Protection Source environment. &#39;kO365&#39; indicates the Office 365 Protection Source environment. &#39;kO365Outlook&#39; indicates Office 365 outlook Protection Source environment. &#39;kHyperFlex&#39; indicates the Hyper Flex Protection Source environment. &#39;kGCPNative&#39; indicates the GCP Native Protection Source environment. &#39;kAzureNative&#39; indicates the Azure Native Protection Source environment. &#39;kKubernetes&#39; indicates a Kubernetes Protection Source environment. &#39;kElastifile&#39; indicates Elastifile Protection Source environment. &#39;kAD&#39; indicates Active Directory Protection Source environment. &#39;kRDSSnapshotManager&#39; indicates AWS RDS Protection Source environment. &#39;kCassandra&#39; indicates Cassandra Protection Source environment. &#39;kMongoDB&#39; indicates MongoDB Protection Source environment. &#39;kCouchbase&#39; indicates Couchbase Protection Source environment. &#39;kHdfs&#39; indicates Hdfs Protection Source environment. &#39;kHive&#39; indicates Hive Protection Source environment. &#39;kHBase&#39; indicates HBase Protection Source environment. &#39;kUDA&#39; indicates Universal Data Adapter Protection Source environment. &#39;kO365Teams&#39; indicates the Office365 Teams Protection Source environment. &#39;kO365Group&#39; indicates the Office365 Groups Protection Source environment. &#39;kO365Exchange&#39; indicates the Office365 Mailbox Protection Source environment. &#39;kO365OneDrive&#39; indicates the Office365 OneDrive Protection Source environment. &#39;kO365Sharepoint&#39; indicates the Office365 SharePoint Protection Source environment. &#39;kO365PublicFolders&#39; indicates the Office365 PublicFolders Protection Source environment.
         /// </summary>
-        /// <value>Specifies the environment type (such as kVMware or kSQL) of the Protection Source this Job is protecting. Supported environment types such as &#39;kView&#39;, &#39;kSQL&#39;, &#39;kVMware&#39;, etc. NOTE: &#39;kPuppeteer&#39; refers to Cohesity&#39;s Remote Adapter. &#39;kVMware&#39; indicates the VMware Protection Source environment. &#39;kHyperV&#39; indicates the HyperV Protection Source environment. &#39;kSQL&#39; indicates the SQL Protection Source environment. &#39;kView&#39; indicates the View Protection Source environment. &#39;kPuppeteer&#39; indicates the Cohesity&#39;s Remote Adapter. &#39;kPhysical&#39; indicates the physical Protection Source environment. &#39;kPure&#39; indicates the Pure Storage Protection Source environment. &#39;Nimble&#39; indicates the Nimble Storage Protection Source environment. &#39;kAzure&#39; indicates the Microsoft&#39;s Azure Protection Source environment. &#39;kNetapp&#39; indicates the Netapp Protection Source environment. &#39;kAgent&#39; indicates the Agent Protection Source environment. &#39;kGenericNas&#39; indicates the Genreric Network Attached Storage Protection Source environment. &#39;kAcropolis&#39; indicates the Acropolis Protection Source environment. &#39;kPhsicalFiles&#39; indicates the Physical Files Protection Source environment. &#39;kIsilon&#39; indicates the Dell EMC&#39;s Isilon Protection Source environment. &#39;kGPFS&#39; indicates IBM&#39;s GPFS Protection Source environment. &#39;kKVM&#39; indicates the KVM Protection Source environment. &#39;kAWS&#39; indicates the AWS Protection Source environment. &#39;kExchange&#39; indicates the Exchange Protection Source environment. &#39;kHyperVVSS&#39; indicates the HyperV VSS Protection Source environment. &#39;kOracle&#39; indicates the Oracle Protection Source environment. &#39;kGCP&#39; indicates the Google Cloud Platform Protection Source environment. &#39;kFlashBlade&#39; indicates the Flash Blade Protection Source environment. &#39;kAWSNative&#39; indicates the AWS Native Protection Source environment. &#39;kVCD&#39; indicates the VMware&#39;s Virtual cloud Director Protection Source environment. &#39;kO365&#39; indicates the Office 365 Protection Source environment. &#39;kO365Outlook&#39; indicates Office 365 outlook Protection Source environment. &#39;kHyperFlex&#39; indicates the Hyper Flex Protection Source environment. &#39;kGCPNative&#39; indicates the GCP Native Protection Source environment. &#39;kAzureNative&#39; indicates the Azure Native Protection Source environment. &#39;kKubernetes&#39; indicates a Kubernetes Protection Source environment. &#39;kElastifile&#39; indicates Elastifile Protection Source environment.</value>
+        /// <value>Specifies the environment type (such as kVMware or kSQL) of the Protection Source this Job is protecting. Supported environment types such as &#39;kView&#39;, &#39;kSQL&#39;, &#39;kVMware&#39;, etc. NOTE: &#39;kPuppeteer&#39; refers to Cohesity&#39;s Remote Adapter. &#39;kVMware&#39; indicates the VMware Protection Source environment. &#39;kHyperV&#39; indicates the HyperV Protection Source environment. &#39;kSQL&#39; indicates the SQL Protection Source environment. &#39;kView&#39; indicates the View Protection Source environment. &#39;kPuppeteer&#39; indicates the Cohesity&#39;s Remote Adapter. &#39;kPhysical&#39; indicates the physical Protection Source environment. &#39;kPure&#39; indicates the Pure Storage Protection Source environment. &#39;kNimble&#39; indicates the Nimble Storage Protection Source environment. &#39;kAzure&#39; indicates the Microsoft&#39;s Azure Protection Source environment. &#39;kNetapp&#39; indicates the Netapp Protection Source environment. &#39;kAgent&#39; indicates the Agent Protection Source environment. &#39;kGenericNas&#39; indicates the Generic Network Attached Storage Protection Source environment. &#39;kAcropolis&#39; indicates the Acropolis Protection Source environment. &#39;kPhysicalFiles&#39; indicates the Physical Files Protection Source environment. &#39;kIsilon&#39; indicates the Dell EMC&#39;s Isilon Protection Source environment. &#39;kGPFS&#39; indicates IBM&#39;s GPFS Protection Source environment. &#39;kKVM&#39; indicates the KVM Protection Source environment. &#39;kAWS&#39; indicates the AWS Protection Source environment. &#39;kExchange&#39; indicates the Exchange Protection Source environment. &#39;kHyperVVSS&#39; indicates the HyperV VSS Protection Source environment. &#39;kOracle&#39; indicates the Oracle Protection Source environment. &#39;kGCP&#39; indicates the Google Cloud Platform Protection Source environment. &#39;kFlashBlade&#39; indicates the Flash Blade Protection Source environment. &#39;kAWSNative&#39; indicates the AWS Native Protection Source environment. &#39;kO365&#39; indicates the Office 365 Protection Source environment. &#39;kO365Outlook&#39; indicates Office 365 outlook Protection Source environment. &#39;kHyperFlex&#39; indicates the Hyper Flex Protection Source environment. &#39;kGCPNative&#39; indicates the GCP Native Protection Source environment. &#39;kAzureNative&#39; indicates the Azure Native Protection Source environment. &#39;kKubernetes&#39; indicates a Kubernetes Protection Source environment. &#39;kElastifile&#39; indicates Elastifile Protection Source environment. &#39;kAD&#39; indicates Active Directory Protection Source environment. &#39;kRDSSnapshotManager&#39; indicates AWS RDS Protection Source environment. &#39;kCassandra&#39; indicates Cassandra Protection Source environment. &#39;kMongoDB&#39; indicates MongoDB Protection Source environment. &#39;kCouchbase&#39; indicates Couchbase Protection Source environment. &#39;kHdfs&#39; indicates Hdfs Protection Source environment. &#39;kHive&#39; indicates Hive Protection Source environment. &#39;kHBase&#39; indicates HBase Protection Source environment. &#39;kUDA&#39; indicates Universal Data Adapter Protection Source environment. &#39;kO365Teams&#39; indicates the Office365 Teams Protection Source environment. &#39;kO365Group&#39; indicates the Office365 Groups Protection Source environment. &#39;kO365Exchange&#39; indicates the Office365 Mailbox Protection Source environment. &#39;kO365OneDrive&#39; indicates the Office365 OneDrive Protection Source environment. &#39;kO365Sharepoint&#39; indicates the Office365 SharePoint Protection Source environment. &#39;kO365PublicFolders&#39; indicates the Office365 PublicFolders Protection Source environment.</value>
         [DataMember(Name="environment", EmitDefaultValue=true)]
         public EnvironmentEnum? Environment { get; set; }
         /// <summary>
@@ -311,9 +391,9 @@ namespace Cohesity.Model
         [DataMember(Name="priority", EmitDefaultValue=true)]
         public PriorityEnum? Priority { get; set; }
         /// <summary>
-        /// Specifies the QoS policy type to use for this Protection Job. &#39;kBackupHDD&#39; indicates the Cohesity Cluster writes data directly to the HDD tier for this Protection Job. This is the recommended setting. &#39;kBackupSSD&#39; indicates the Cohesity Cluster writes data directly to the SSD tier for this Protection Job. Only specify this policy if you need fast ingest speed for a small number of Protection Jobs.
+        /// Specifies the QoS policy type to use for this Protection Job. &#39;kBackupHDD&#39; indicates the Cohesity Cluster writes data directly to the HDD tier for this Protection Job. This is the recommended setting. &#39;kBackupSSD&#39; indicates the Cohesity Cluster writes data directly to the SSD tier for this Protection Job. Only specify this policy if you need fast ingest speed for a small number of Protection Jobs. &#39;kTestAndDevHigh&#39; indicated the test and dev workload. &#39;kBackupAll&#39; indicates the Cohesity Cluster writes data directly to the HDD tier and the SSD tier for this Protection Job.
         /// </summary>
-        /// <value>Specifies the QoS policy type to use for this Protection Job. &#39;kBackupHDD&#39; indicates the Cohesity Cluster writes data directly to the HDD tier for this Protection Job. This is the recommended setting. &#39;kBackupSSD&#39; indicates the Cohesity Cluster writes data directly to the SSD tier for this Protection Job. Only specify this policy if you need fast ingest speed for a small number of Protection Jobs.</value>
+        /// <value>Specifies the QoS policy type to use for this Protection Job. &#39;kBackupHDD&#39; indicates the Cohesity Cluster writes data directly to the HDD tier for this Protection Job. This is the recommended setting. &#39;kBackupSSD&#39; indicates the Cohesity Cluster writes data directly to the SSD tier for this Protection Job. Only specify this policy if you need fast ingest speed for a small number of Protection Jobs. &#39;kTestAndDevHigh&#39; indicated the test and dev workload. &#39;kBackupAll&#39; indicates the Cohesity Cluster writes data directly to the HDD tier and the SSD tier for this Protection Job.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum QosTypeEnum
         {
@@ -327,14 +407,26 @@ namespace Cohesity.Model
             /// Enum KBackupSSD for value: kBackupSSD
             /// </summary>
             [EnumMember(Value = "kBackupSSD")]
-            KBackupSSD = 2
+            KBackupSSD = 2,
+
+            /// <summary>
+            /// Enum KTestAndDevHigh for value: kTestAndDevHigh
+            /// </summary>
+            [EnumMember(Value = "kTestAndDevHigh")]
+            KTestAndDevHigh = 3,
+
+            /// <summary>
+            /// Enum KBackupAll for value: kBackupAll
+            /// </summary>
+            [EnumMember(Value = "kBackupAll")]
+            KBackupAll = 4
 
         }
 
         /// <summary>
-        /// Specifies the QoS policy type to use for this Protection Job. &#39;kBackupHDD&#39; indicates the Cohesity Cluster writes data directly to the HDD tier for this Protection Job. This is the recommended setting. &#39;kBackupSSD&#39; indicates the Cohesity Cluster writes data directly to the SSD tier for this Protection Job. Only specify this policy if you need fast ingest speed for a small number of Protection Jobs.
+        /// Specifies the QoS policy type to use for this Protection Job. &#39;kBackupHDD&#39; indicates the Cohesity Cluster writes data directly to the HDD tier for this Protection Job. This is the recommended setting. &#39;kBackupSSD&#39; indicates the Cohesity Cluster writes data directly to the SSD tier for this Protection Job. Only specify this policy if you need fast ingest speed for a small number of Protection Jobs. &#39;kTestAndDevHigh&#39; indicated the test and dev workload. &#39;kBackupAll&#39; indicates the Cohesity Cluster writes data directly to the HDD tier and the SSD tier for this Protection Job.
         /// </summary>
-        /// <value>Specifies the QoS policy type to use for this Protection Job. &#39;kBackupHDD&#39; indicates the Cohesity Cluster writes data directly to the HDD tier for this Protection Job. This is the recommended setting. &#39;kBackupSSD&#39; indicates the Cohesity Cluster writes data directly to the SSD tier for this Protection Job. Only specify this policy if you need fast ingest speed for a small number of Protection Jobs.</value>
+        /// <value>Specifies the QoS policy type to use for this Protection Job. &#39;kBackupHDD&#39; indicates the Cohesity Cluster writes data directly to the HDD tier for this Protection Job. This is the recommended setting. &#39;kBackupSSD&#39; indicates the Cohesity Cluster writes data directly to the SSD tier for this Protection Job. Only specify this policy if you need fast ingest speed for a small number of Protection Jobs. &#39;kTestAndDevHigh&#39; indicated the test and dev workload. &#39;kBackupAll&#39; indicates the Cohesity Cluster writes data directly to the HDD tier and the SSD tier for this Protection Job.</value>
         [DataMember(Name="qosType", EmitDefaultValue=true)]
         public QosTypeEnum? QosType { get; set; }
         /// <summary>
@@ -345,19 +437,21 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="ProtectionJob" /> class.
         /// </summary>
-        /// <param name="abortInBlackoutPeriod">If true, the Cohesity Cluster aborts any currently executing Job Runs of this Protection Job when a blackout period specified for this Job starts, even if the Job Run started before the blackout period began. If false, a Job Run continues to execute, if the Job Run started before the blackout period starts..</param>
+        /// <param name="abortInBlackoutPeriod">If true, the Cohesity Cluster aborts any currently executing Job Runs of this Protection Job when a QuietTime period specified for this Job starts, even if the Job Run started before the QuietTime period began. If false, a Job Run continues to execute, if the Job Run started before the QuietTime period starts..</param>
         /// <param name="alertingConfig">alertingConfig.</param>
         /// <param name="alertingPolicy">Array of Job Events.  During Job Runs, the following Job Events are generated: 1) Job succeeds 2) Job fails 3) Job violates the SLA These Job Events can cause Alerts to be generated. &#39;kSuccess&#39; means the Protection Job succeeded. &#39;kFailure&#39; means the Protection Job failed. &#39;kSlaViolation&#39; means the Protection Job took longer than the time period specified in the SLA..</param>
+        /// <param name="allowParallelRuns">If this fiels is set to true, then we wil allow parallel runs for the job for the adapters which support parallel runs..</param>
         /// <param name="cloudParameters">cloudParameters.</param>
         /// <param name="continueOnQuiesceFailure">Whether to continue backing up on quiesce failure..</param>
-        /// <param name="createRemoteView">Specifies whether to create a remote view name to use for view overwrite..</param>
+        /// <param name="createRemoteView">Specifies whether to create a remote view name to use for view overwrite. This field is deprecated. Remote view names will automatically be used for all view jobs with replication policy. Use RemoteViewConfigList to setup remote view names. deprecated: true.</param>
         /// <param name="creationTimeUsecs">Specifies the time when the Protection Job was created..</param>
         /// <param name="dataMigrationPolicy">dataMigrationPolicy.</param>
         /// <param name="dedupDisabledSourceIds">List of source ids for which source side dedup is disabled from the backup job..</param>
         /// <param name="description">Specifies a text description about the Protection Job..</param>
         /// <param name="endTimeUsecs">Specifies the epoch time (in microseconds) after which the Protection Job becomes dormant..</param>
-        /// <param name="environment">Specifies the environment type (such as kVMware or kSQL) of the Protection Source this Job is protecting. Supported environment types such as &#39;kView&#39;, &#39;kSQL&#39;, &#39;kVMware&#39;, etc. NOTE: &#39;kPuppeteer&#39; refers to Cohesity&#39;s Remote Adapter. &#39;kVMware&#39; indicates the VMware Protection Source environment. &#39;kHyperV&#39; indicates the HyperV Protection Source environment. &#39;kSQL&#39; indicates the SQL Protection Source environment. &#39;kView&#39; indicates the View Protection Source environment. &#39;kPuppeteer&#39; indicates the Cohesity&#39;s Remote Adapter. &#39;kPhysical&#39; indicates the physical Protection Source environment. &#39;kPure&#39; indicates the Pure Storage Protection Source environment. &#39;Nimble&#39; indicates the Nimble Storage Protection Source environment. &#39;kAzure&#39; indicates the Microsoft&#39;s Azure Protection Source environment. &#39;kNetapp&#39; indicates the Netapp Protection Source environment. &#39;kAgent&#39; indicates the Agent Protection Source environment. &#39;kGenericNas&#39; indicates the Genreric Network Attached Storage Protection Source environment. &#39;kAcropolis&#39; indicates the Acropolis Protection Source environment. &#39;kPhsicalFiles&#39; indicates the Physical Files Protection Source environment. &#39;kIsilon&#39; indicates the Dell EMC&#39;s Isilon Protection Source environment. &#39;kGPFS&#39; indicates IBM&#39;s GPFS Protection Source environment. &#39;kKVM&#39; indicates the KVM Protection Source environment. &#39;kAWS&#39; indicates the AWS Protection Source environment. &#39;kExchange&#39; indicates the Exchange Protection Source environment. &#39;kHyperVVSS&#39; indicates the HyperV VSS Protection Source environment. &#39;kOracle&#39; indicates the Oracle Protection Source environment. &#39;kGCP&#39; indicates the Google Cloud Platform Protection Source environment. &#39;kFlashBlade&#39; indicates the Flash Blade Protection Source environment. &#39;kAWSNative&#39; indicates the AWS Native Protection Source environment. &#39;kVCD&#39; indicates the VMware&#39;s Virtual cloud Director Protection Source environment. &#39;kO365&#39; indicates the Office 365 Protection Source environment. &#39;kO365Outlook&#39; indicates Office 365 outlook Protection Source environment. &#39;kHyperFlex&#39; indicates the Hyper Flex Protection Source environment. &#39;kGCPNative&#39; indicates the GCP Native Protection Source environment. &#39;kAzureNative&#39; indicates the Azure Native Protection Source environment. &#39;kKubernetes&#39; indicates a Kubernetes Protection Source environment. &#39;kElastifile&#39; indicates Elastifile Protection Source environment..</param>
+        /// <param name="environment">Specifies the environment type (such as kVMware or kSQL) of the Protection Source this Job is protecting. Supported environment types such as &#39;kView&#39;, &#39;kSQL&#39;, &#39;kVMware&#39;, etc. NOTE: &#39;kPuppeteer&#39; refers to Cohesity&#39;s Remote Adapter. &#39;kVMware&#39; indicates the VMware Protection Source environment. &#39;kHyperV&#39; indicates the HyperV Protection Source environment. &#39;kSQL&#39; indicates the SQL Protection Source environment. &#39;kView&#39; indicates the View Protection Source environment. &#39;kPuppeteer&#39; indicates the Cohesity&#39;s Remote Adapter. &#39;kPhysical&#39; indicates the physical Protection Source environment. &#39;kPure&#39; indicates the Pure Storage Protection Source environment. &#39;kNimble&#39; indicates the Nimble Storage Protection Source environment. &#39;kAzure&#39; indicates the Microsoft&#39;s Azure Protection Source environment. &#39;kNetapp&#39; indicates the Netapp Protection Source environment. &#39;kAgent&#39; indicates the Agent Protection Source environment. &#39;kGenericNas&#39; indicates the Generic Network Attached Storage Protection Source environment. &#39;kAcropolis&#39; indicates the Acropolis Protection Source environment. &#39;kPhysicalFiles&#39; indicates the Physical Files Protection Source environment. &#39;kIsilon&#39; indicates the Dell EMC&#39;s Isilon Protection Source environment. &#39;kGPFS&#39; indicates IBM&#39;s GPFS Protection Source environment. &#39;kKVM&#39; indicates the KVM Protection Source environment. &#39;kAWS&#39; indicates the AWS Protection Source environment. &#39;kExchange&#39; indicates the Exchange Protection Source environment. &#39;kHyperVVSS&#39; indicates the HyperV VSS Protection Source environment. &#39;kOracle&#39; indicates the Oracle Protection Source environment. &#39;kGCP&#39; indicates the Google Cloud Platform Protection Source environment. &#39;kFlashBlade&#39; indicates the Flash Blade Protection Source environment. &#39;kAWSNative&#39; indicates the AWS Native Protection Source environment. &#39;kO365&#39; indicates the Office 365 Protection Source environment. &#39;kO365Outlook&#39; indicates Office 365 outlook Protection Source environment. &#39;kHyperFlex&#39; indicates the Hyper Flex Protection Source environment. &#39;kGCPNative&#39; indicates the GCP Native Protection Source environment. &#39;kAzureNative&#39; indicates the Azure Native Protection Source environment. &#39;kKubernetes&#39; indicates a Kubernetes Protection Source environment. &#39;kElastifile&#39; indicates Elastifile Protection Source environment. &#39;kAD&#39; indicates Active Directory Protection Source environment. &#39;kRDSSnapshotManager&#39; indicates AWS RDS Protection Source environment. &#39;kCassandra&#39; indicates Cassandra Protection Source environment. &#39;kMongoDB&#39; indicates MongoDB Protection Source environment. &#39;kCouchbase&#39; indicates Couchbase Protection Source environment. &#39;kHdfs&#39; indicates Hdfs Protection Source environment. &#39;kHive&#39; indicates Hive Protection Source environment. &#39;kHBase&#39; indicates HBase Protection Source environment. &#39;kUDA&#39; indicates Universal Data Adapter Protection Source environment. &#39;kO365Teams&#39; indicates the Office365 Teams Protection Source environment. &#39;kO365Group&#39; indicates the Office365 Groups Protection Source environment. &#39;kO365Exchange&#39; indicates the Office365 Mailbox Protection Source environment. &#39;kO365OneDrive&#39; indicates the Office365 OneDrive Protection Source environment. &#39;kO365Sharepoint&#39; indicates the Office365 SharePoint Protection Source environment. &#39;kO365PublicFolders&#39; indicates the Office365 PublicFolders Protection Source environment..</param>
         /// <param name="environmentParameters">environmentParameters.</param>
+        /// <param name="excludeLabelIds">Array of arrays of label IDs that specify labels to exclude. Optionally specify a list of labels to exclude from protecting by listing protection source ids of labels in this two dimensional array. Using this two dimensional array of label IDs, the Cluster generates a list of namespaces to exclude from protecting, which are derived from intersections of the inner arrays and union of the outer array..</param>
         /// <param name="excludeSourceIds">Array of Excluded Source Objects.  List of Object ids from a Protection Source that should not be protected and are excluded from being backed up by the Protection Job. Leaf and non-leaf Objects may be in this list and an Object in this list must have an ancestor in the sourceId list..</param>
         /// <param name="excludeVmTagIds">Array of Arrays of VM Tag Ids that Specify VMs to Exclude.  Optionally specify a list of VMs to exclude from protecting by listing Protection Source ids of VM Tags in this two dimensional array. Using this two dimensional array of Tag ids, the Cluster generates a list of VMs to exclude from protecting, which are derived from intersections of the inner arrays and union of the outer array, as shown by the following example. For example a Datacenter is selected to be protected but you want to exclude all the &#39;Former Employees&#39; VMs in the East and West but keep all the VMs for &#39;Former Employees&#39; in the South which are also stored in this Datacenter, by specifying the following tag id array: [ [1000, 2221], [1000, 3031] ], where 1000 is the &#39;Former Employee&#39; VM Tag id, 2221 is the &#39;East&#39; VM Tag id and 3031 is the &#39;West&#39; VM Tag id. The first inner array [1000, 2221] produces a list of VMs that are both tagged with &#39;Former Employees&#39; and &#39;East&#39; (an intersection). The second inner array [1000, 3031] produces a list of VMs that are both tagged with &#39;Former Employees&#39; and &#39;West&#39; (an intersection). The outer array combines the list of VMs from the two inner arrays. The list of resulting VMs are excluded from being protected this Job..</param>
         /// <param name="fullProtectionSlaTimeMins">If specified, this setting is number of minutes that a Job Run of a Full (no CBT) backup schedule is expected to complete, which is known as a Service-Level Agreement (SLA). A SLA violation is reported when the run time of a Job Run exceeds the SLA time period specified for this backup schedule..</param>
@@ -371,25 +465,32 @@ namespace Cohesity.Model
         /// <param name="isDirectArchiveEnabled">Specifies if this is a direct archive backup job..</param>
         /// <param name="isNativeFormat">Specifies if native format should be used for archiving, applicable for only direct archive jobs..</param>
         /// <param name="isPaused">Indicates if the Protection Job is paused, which means that no new Job Runs are started but any existing Job Runs continue to execute..</param>
+        /// <param name="labelIds">Array of array of label IDs that specify labels to protect. Optionally specify a list of labels to protect by listing protection source ids of labels in this two dimensional array. Using this two dimensional array of label IDs, the cluster generates a list of namespaces to protect, which are derived from intersections of the inner arrays and union of the outer array..</param>
         /// <param name="lastRun">lastRun.</param>
+        /// <param name="leverageNutanixSnapshots">Specifies whether to leverage nutanix API to take snapshots for this backup job. To leverage nutanix snapshot a prism endpoint on which the vcenter is registered as a management server has to be registered as a source. If nutanix snapshot can not be taken, job will fall back to default mode..</param>
+        /// <param name="leverageSanTransport">If this field is set to true, then the backup for the objects will be performed using dedicated storage area network (SAN) instead of LAN or managment network..</param>
         /// <param name="leverageStorageSnapshots">Specifies whether to leverage the storage array based snapshots for this backup job. To leverage storage snapshots, the storage array has to be registered as a source. If storage based snapshots can not be taken, job will fallback to the default backup method..</param>
         /// <param name="leverageStorageSnapshotsForHyperflex">Specifies whether to leverage Hyperflex as the storage snapshot array.</param>
+        /// <param name="logProtectionSlaTimeMins">If specified, this setting is number of minutes that a Job Run of a Log backup schedule is expected to complete, which is known as a Service-Level Agreement (SLA). A SLA violation is reported when the run time of a Job Run exceeds the SLA time period specified for this backup schedule..</param>
+        /// <param name="missingEntities">Specifies Information about missing entities..</param>
         /// <param name="modificationTimeUsecs">Specifies the last time this Job was updated..</param>
         /// <param name="modifiedByUser">Specifies the last Cohesity user who updated this Job..</param>
         /// <param name="name">Specifies the name of the Protection Job. (required).</param>
         /// <param name="parentSourceId">Specifies the id of the registered Protection Source that is the parent of the Objects that may be protected by this Job. For example when a vCenter Server is registered on a Cohesity Cluster, the Cohesity Cluster assigns a unique id to this field that represents the vCenter Server..</param>
+        /// <param name="performBrickBasedDedup">Specifies whether brick based dedupe should be performed or not..</param>
         /// <param name="performSourceSideDedup">Specifies whether source side dedupe should be performed or not..</param>
         /// <param name="policyAppliedTimeMsecs">Specifies the epoch time (in milliseconds) when the associated Policy was last applied to this Job. This is used to determine if the Policy has changed since it was last applied to this Job..</param>
         /// <param name="policyId">Specifies the unique id of the Protection Policy associated with the Protection Job. The Policy provides retry settings, Protection Schedules, Priority, SLA, etc. The Job defines the Storage Domain (View Box), the Objects to Protect (if applicable), Start Time, Indexing settings, etc. (required).</param>
         /// <param name="postBackupScript">Specifies the script associated with the backup job. This field must be specified for &#39;kPhysical&#39; jobs. This script will be executed post backup run..</param>
         /// <param name="preBackupScript">Specifies the script associated with the backup job. This field must be specified for &#39;kPhysical&#39; jobs. This script will be executed pre backup run. The &#39;remoteScript&#39; field will be used for remote adapter jobs and &#39;preBackupScript&#39; field will be used for &#39;kPhysical&#39; jobs..</param>
         /// <param name="priority">Specifies the priority of execution for a Protection Job. Cohesity supports concurrent backups but if the number of Jobs exceeds the ability to process Jobs, the specified priority determines the execution Job priority. This field also specifies the replication priority. &#39;kLow&#39; indicates lowest execution priority for a Protection job. &#39;kMedium&#39; indicates medium execution priority for a Protection job. &#39;kHigh&#39; indicates highest execution priority for a Protection job..</param>
-        /// <param name="qosType">Specifies the QoS policy type to use for this Protection Job. &#39;kBackupHDD&#39; indicates the Cohesity Cluster writes data directly to the HDD tier for this Protection Job. This is the recommended setting. &#39;kBackupSSD&#39; indicates the Cohesity Cluster writes data directly to the SSD tier for this Protection Job. Only specify this policy if you need fast ingest speed for a small number of Protection Jobs..</param>
+        /// <param name="qosType">Specifies the QoS policy type to use for this Protection Job. &#39;kBackupHDD&#39; indicates the Cohesity Cluster writes data directly to the HDD tier for this Protection Job. This is the recommended setting. &#39;kBackupSSD&#39; indicates the Cohesity Cluster writes data directly to the SSD tier for this Protection Job. Only specify this policy if you need fast ingest speed for a small number of Protection Jobs. &#39;kTestAndDevHigh&#39; indicated the test and dev workload. &#39;kBackupAll&#39; indicates the Cohesity Cluster writes data directly to the HDD tier and the SSD tier for this Protection Job..</param>
         /// <param name="quiesce">Indicates if the App-Consistent option is enabled for this Job. If the option is enabled, the Cohesity Cluster quiesces the file system and applications before taking Application-Consistent Snapshots. VMware Tools must be installed on the guest Operating System..</param>
         /// <param name="remoteScript">For a Remote Adapter &#39;kPuppeteer&#39; Job, this field specifies the settings about the remote script that will be executed by this Job. Only specify this field for Remote Adapter &#39;kPuppeteer&#39; Jobs..</param>
-        /// <param name="remoteViewName">Specifies the remote view name to use for view overwrite..</param>
+        /// <param name="remoteViewConfigList">Sepcifies the remote view names for the views that are being protected in the view job. Use this field only when job has a replication policy..</param>
+        /// <param name="remoteViewName">Specifies the remote view name to use for view overwrite. This field is deprecated. Remote view names will automatically be used for all view jobs with replication policy. Use RemoteViewConfigList to setup remote view names. deprecated: true.</param>
         /// <param name="sourceIds">Array of Protected Source Objects.  Specifies the list of Object ids from the Protection Source to protect (or back up) by the Protection Job. An Object in this list may be descendant of another Object in this list. For example a Datacenter could be selected but its child Host excluded. However, a child VM under the Host could be explicitly selected to be protected. Both the Datacenter and the VM are listed..</param>
-        /// <param name="sourceSpecialParameters">Array of Special Source Parameters.  Specifies additional settings that can apply to a subset of the Sources listed in the Protection Job. For example, you can specify a list of files and folders to protect instead of protecting the entire Physical Server. If this field&#39;s setting conflicts with environmentParameters, then this setting will be used..</param>
+        /// <param name="sourceSpecialParameters">Array of Special Source Parameters.  Specifies additional settings that can apply to a subset of the Sources listed in the Protection Job. For example, you can specify a list of files and folders to protect instead of protecting the entire Physical Server. If this field&#39;s setting conflicts with environmentParameters, then this setting will be used. Specific volume selections must be passed in here to take effect. (required).</param>
         /// <param name="startTime">Specifies the time of day to start the Protection Schedule. This is optional and only applicable if the Protection Policy defines a monthly or a daily Protection Schedule. Default value is 02:00 AM..</param>
         /// <param name="summaryStats">summaryStats.</param>
         /// <param name="tenantId">Specifies the unique id of the tenant..</param>
@@ -397,12 +498,13 @@ namespace Cohesity.Model
         /// <param name="uid">Specifies a global Protection Job id that is unique across Cohesity Clusters..</param>
         /// <param name="userSpecifiedTags">Tags associated with the job. User can specify tags/keywords that can indexed by Yoda and can be later searched in UI. For example, user can create a &#39;kPuppeteer&#39; job to backup Oracle DB for &#39;payroll&#39; department. User can specify following tags: &#39;payroll&#39;, &#39;Oracle_DB&#39;..</param>
         /// <param name="viewBoxId">Specifies the Storage Domain (View Box) id where this Job writes data. (required).</param>
-        /// <param name="viewName">For a Remote Adapter &#39;kPuppeteer&#39; Job or a &#39;kView&#39; Job, this field specifies a View name that should be protected. Specify this field when creating a Protection Job for the first time for a View. If this field is specified, ParentSourceId, SourceIds, and ExcludeSourceIds should not be specified..</param>
+        /// <param name="viewName">For a Remote Adapter &#39;kPuppeteer&#39; Job or a &#39;kView&#39; Job, this field specifies a View name that should be protected. Specify this field when creating a Protection Job for the first time for a View. If this field is specified, ParentSourceId, SourceIds, and ExcludeSourceIds should not be specified. This field is deprecated for view backups. Use sourceIds to specify list of view ids instead..</param>
         /// <param name="vmTagIds">Array of Arrays of VMs Tags Ids that Specify VMs to Protect.  Optionally specify a list of VMs to protect by listing Protection Source ids of VM Tags in this two dimensional array. Using this two dimensional array of Tag ids, the Cluster generates a list of VMs to protect which are derived from intersections of the inner arrays and union of the outer array, as shown by the following example. To protect only &#39;Eng&#39; VMs in the East and all the VMs in the West, specify the following tag id array: [ [1101, 2221], [3031] ], where 1101 is the &#39;Eng&#39; VM Tag id, 2221 is the &#39;East&#39; VM Tag id and 3031 is the &#39;West&#39; VM Tag id. The inner array [1101, 2221] produces a list of VMs that are both tagged with &#39;Eng&#39; and &#39;East&#39; (an intersection). The outer array combines the list from the inner array with list of VMs tagged with &#39;West&#39; (a union). The list of resulting VMs are protected by this Job..</param>
-        public ProtectionJob(bool? abortInBlackoutPeriod = default(bool?), AlertingConfig alertingConfig = default(AlertingConfig), List<AlertingPolicyEnum> alertingPolicy = default(List<AlertingPolicyEnum>), CloudParameters cloudParameters = default(CloudParameters), bool? continueOnQuiesceFailure = default(bool?), bool? createRemoteView = default(bool?), long? creationTimeUsecs = default(long?), DataMigrationPolicy dataMigrationPolicy = default(DataMigrationPolicy), List<long> dedupDisabledSourceIds = default(List<long>), string description = default(string), long? endTimeUsecs = default(long?), EnvironmentEnum? environment = default(EnvironmentEnum?), EnvironmentTypeJobParameters environmentParameters = default(EnvironmentTypeJobParameters), List<long> excludeSourceIds = default(List<long>), List<List<long>> excludeVmTagIds = default(List<List<long>>), long? fullProtectionSlaTimeMins = default(long?), TimeOfDay fullProtectionStartTime = default(TimeOfDay), long? id = default(long?), long? incrementalProtectionSlaTimeMins = default(long?), TimeOfDay incrementalProtectionStartTime = default(TimeOfDay), IndexingPolicy indexingPolicy = default(IndexingPolicy), bool? isActive = default(bool?), bool? isDeleted = default(bool?), bool? isDirectArchiveEnabled = default(bool?), bool? isNativeFormat = default(bool?), bool? isPaused = default(bool?), ProtectionRunInstance lastRun = default(ProtectionRunInstance), bool? leverageStorageSnapshots = default(bool?), bool? leverageStorageSnapshotsForHyperflex = default(bool?), long? modificationTimeUsecs = default(long?), string modifiedByUser = default(string), string name = default(string), long? parentSourceId = default(long?), bool? performSourceSideDedup = default(bool?), long? policyAppliedTimeMsecs = default(long?), string policyId = default(string), BackupScript postBackupScript = default(BackupScript), BackupScript preBackupScript = default(BackupScript), PriorityEnum? priority = default(PriorityEnum?), QosTypeEnum? qosType = default(QosTypeEnum?), bool? quiesce = default(bool?), RemoteJobScript remoteScript = default(RemoteJobScript), string remoteViewName = default(string), List<long> sourceIds = default(List<long>), List<SourceSpecialParameter> sourceSpecialParameters = default(List<SourceSpecialParameter>), TimeOfDay startTime = default(TimeOfDay), ProtectionJobSummaryStats summaryStats = default(ProtectionJobSummaryStats), string tenantId = default(string), string timezone = default(string), UniversalId uid = default(UniversalId), List<string> userSpecifiedTags = default(List<string>), long? viewBoxId = default(long?), string viewName = default(string), List<List<long>> vmTagIds = default(List<List<long>>))
+        public ProtectionJob(bool? abortInBlackoutPeriod = default(bool?), AlertingConfig alertingConfig = default(AlertingConfig), List<AlertingPolicyEnum> alertingPolicy = default(List<AlertingPolicyEnum>), bool? allowParallelRuns = default(bool?), CloudParameters cloudParameters = default(CloudParameters), bool? continueOnQuiesceFailure = default(bool?), bool? createRemoteView = default(bool?), long? creationTimeUsecs = default(long?), DataMigrationPolicy dataMigrationPolicy = default(DataMigrationPolicy), List<long> dedupDisabledSourceIds = default(List<long>), string description = default(string), long? endTimeUsecs = default(long?), EnvironmentEnum? environment = default(EnvironmentEnum?), EnvironmentTypeJobParameters environmentParameters = default(EnvironmentTypeJobParameters), List<List<long>> excludeLabelIds = default(List<List<long>>), List<long> excludeSourceIds = default(List<long>), List<List<long>> excludeVmTagIds = default(List<List<long>>), long? fullProtectionSlaTimeMins = default(long?), TimeOfDay fullProtectionStartTime = default(TimeOfDay), long? id = default(long?), long? incrementalProtectionSlaTimeMins = default(long?), TimeOfDay incrementalProtectionStartTime = default(TimeOfDay), IndexingPolicy indexingPolicy = default(IndexingPolicy), bool? isActive = default(bool?), bool? isDeleted = default(bool?), bool? isDirectArchiveEnabled = default(bool?), bool? isNativeFormat = default(bool?), bool? isPaused = default(bool?), List<List<long>> labelIds = default(List<List<long>>), ProtectionRunInstance lastRun = default(ProtectionRunInstance), bool? leverageNutanixSnapshots = default(bool?), bool? leverageSanTransport = default(bool?), bool? leverageStorageSnapshots = default(bool?), bool? leverageStorageSnapshotsForHyperflex = default(bool?), long? logProtectionSlaTimeMins = default(long?), List<ProtectionSource> missingEntities = default(List<ProtectionSource>), long? modificationTimeUsecs = default(long?), string modifiedByUser = default(string), string name = default(string), long? parentSourceId = default(long?), bool? performBrickBasedDedup = default(bool?), bool? performSourceSideDedup = default(bool?), long? policyAppliedTimeMsecs = default(long?), string policyId = default(string), BackupScript postBackupScript = default(BackupScript), BackupScript preBackupScript = default(BackupScript), PriorityEnum? priority = default(PriorityEnum?), QosTypeEnum? qosType = default(QosTypeEnum?), bool? quiesce = default(bool?), RemoteJobScript remoteScript = default(RemoteJobScript), List<RemoteViewConfig> remoteViewConfigList = default(List<RemoteViewConfig>), string remoteViewName = default(string), List<long> sourceIds = default(List<long>), List<SourceSpecialParameter> sourceSpecialParameters = default(List<SourceSpecialParameter>), TimeOfDay startTime = default(TimeOfDay), ProtectionJobSummaryStats summaryStats = default(ProtectionJobSummaryStats), string tenantId = default(string), string timezone = default(string), UniversalId uid = default(UniversalId), List<string> userSpecifiedTags = default(List<string>), long? viewBoxId = default(long?), string viewName = default(string), List<List<long>> vmTagIds = default(List<List<long>>))
         {
             this.AbortInBlackoutPeriod = abortInBlackoutPeriod;
             this.AlertingPolicy = alertingPolicy;
+            this.AllowParallelRuns = allowParallelRuns;
             this.ContinueOnQuiesceFailure = continueOnQuiesceFailure;
             this.CreateRemoteView = createRemoteView;
             this.CreationTimeUsecs = creationTimeUsecs;
@@ -410,6 +512,7 @@ namespace Cohesity.Model
             this.Description = description;
             this.EndTimeUsecs = endTimeUsecs;
             this.Environment = environment;
+            this.ExcludeLabelIds = excludeLabelIds;
             this.ExcludeSourceIds = excludeSourceIds;
             this.ExcludeVmTagIds = excludeVmTagIds;
             this.FullProtectionSlaTimeMins = fullProtectionSlaTimeMins;
@@ -422,12 +525,18 @@ namespace Cohesity.Model
             this.IsDirectArchiveEnabled = isDirectArchiveEnabled;
             this.IsNativeFormat = isNativeFormat;
             this.IsPaused = isPaused;
+            this.LabelIds = labelIds;
+            this.LeverageNutanixSnapshots = leverageNutanixSnapshots;
+            this.LeverageSanTransport = leverageSanTransport;
             this.LeverageStorageSnapshots = leverageStorageSnapshots;
             this.LeverageStorageSnapshotsForHyperflex = leverageStorageSnapshotsForHyperflex;
+            this.LogProtectionSlaTimeMins = logProtectionSlaTimeMins;
+            this.MissingEntities = missingEntities;
             this.ModificationTimeUsecs = modificationTimeUsecs;
             this.ModifiedByUser = modifiedByUser;
             this.Name = name;
             this.ParentSourceId = parentSourceId;
+            this.PerformBrickBasedDedup = performBrickBasedDedup;
             this.PerformSourceSideDedup = performSourceSideDedup;
             this.PolicyAppliedTimeMsecs = policyAppliedTimeMsecs;
             this.PolicyId = policyId;
@@ -437,6 +546,7 @@ namespace Cohesity.Model
             this.QosType = qosType;
             this.Quiesce = quiesce;
             this.RemoteScript = remoteScript;
+            this.RemoteViewConfigList = remoteViewConfigList;
             this.RemoteViewName = remoteViewName;
             this.SourceIds = sourceIds;
             this.SourceSpecialParameters = sourceSpecialParameters;
@@ -451,6 +561,7 @@ namespace Cohesity.Model
             this.AbortInBlackoutPeriod = abortInBlackoutPeriod;
             this.AlertingConfig = alertingConfig;
             this.AlertingPolicy = alertingPolicy;
+            this.AllowParallelRuns = allowParallelRuns;
             this.CloudParameters = cloudParameters;
             this.ContinueOnQuiesceFailure = continueOnQuiesceFailure;
             this.CreateRemoteView = createRemoteView;
@@ -461,6 +572,7 @@ namespace Cohesity.Model
             this.EndTimeUsecs = endTimeUsecs;
             this.Environment = environment;
             this.EnvironmentParameters = environmentParameters;
+            this.ExcludeLabelIds = excludeLabelIds;
             this.ExcludeSourceIds = excludeSourceIds;
             this.ExcludeVmTagIds = excludeVmTagIds;
             this.FullProtectionSlaTimeMins = fullProtectionSlaTimeMins;
@@ -474,12 +586,18 @@ namespace Cohesity.Model
             this.IsDirectArchiveEnabled = isDirectArchiveEnabled;
             this.IsNativeFormat = isNativeFormat;
             this.IsPaused = isPaused;
+            this.LabelIds = labelIds;
             this.LastRun = lastRun;
+            this.LeverageNutanixSnapshots = leverageNutanixSnapshots;
+            this.LeverageSanTransport = leverageSanTransport;
             this.LeverageStorageSnapshots = leverageStorageSnapshots;
             this.LeverageStorageSnapshotsForHyperflex = leverageStorageSnapshotsForHyperflex;
+            this.LogProtectionSlaTimeMins = logProtectionSlaTimeMins;
+            this.MissingEntities = missingEntities;
             this.ModificationTimeUsecs = modificationTimeUsecs;
             this.ModifiedByUser = modifiedByUser;
             this.ParentSourceId = parentSourceId;
+            this.PerformBrickBasedDedup = performBrickBasedDedup;
             this.PerformSourceSideDedup = performSourceSideDedup;
             this.PolicyAppliedTimeMsecs = policyAppliedTimeMsecs;
             this.PostBackupScript = postBackupScript;
@@ -488,9 +606,9 @@ namespace Cohesity.Model
             this.QosType = qosType;
             this.Quiesce = quiesce;
             this.RemoteScript = remoteScript;
+            this.RemoteViewConfigList = remoteViewConfigList;
             this.RemoteViewName = remoteViewName;
             this.SourceIds = sourceIds;
-            this.SourceSpecialParameters = sourceSpecialParameters;
             this.StartTime = startTime;
             this.SummaryStats = summaryStats;
             this.TenantId = tenantId;
@@ -502,9 +620,9 @@ namespace Cohesity.Model
         }
         
         /// <summary>
-        /// If true, the Cohesity Cluster aborts any currently executing Job Runs of this Protection Job when a blackout period specified for this Job starts, even if the Job Run started before the blackout period began. If false, a Job Run continues to execute, if the Job Run started before the blackout period starts.
+        /// If true, the Cohesity Cluster aborts any currently executing Job Runs of this Protection Job when a QuietTime period specified for this Job starts, even if the Job Run started before the QuietTime period began. If false, a Job Run continues to execute, if the Job Run started before the QuietTime period starts.
         /// </summary>
-        /// <value>If true, the Cohesity Cluster aborts any currently executing Job Runs of this Protection Job when a blackout period specified for this Job starts, even if the Job Run started before the blackout period began. If false, a Job Run continues to execute, if the Job Run started before the blackout period starts.</value>
+        /// <value>If true, the Cohesity Cluster aborts any currently executing Job Runs of this Protection Job when a QuietTime period specified for this Job starts, even if the Job Run started before the QuietTime period began. If false, a Job Run continues to execute, if the Job Run started before the QuietTime period starts.</value>
         [DataMember(Name="abortInBlackoutPeriod", EmitDefaultValue=true)]
         public bool? AbortInBlackoutPeriod { get; set; }
 
@@ -513,6 +631,13 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="alertingConfig", EmitDefaultValue=false)]
         public AlertingConfig AlertingConfig { get; set; }
+
+        /// <summary>
+        /// If this fiels is set to true, then we wil allow parallel runs for the job for the adapters which support parallel runs.
+        /// </summary>
+        /// <value>If this fiels is set to true, then we wil allow parallel runs for the job for the adapters which support parallel runs.</value>
+        [DataMember(Name="allowParallelRuns", EmitDefaultValue=true)]
+        public bool? AllowParallelRuns { get; set; }
 
         /// <summary>
         /// Gets or Sets CloudParameters
@@ -528,9 +653,9 @@ namespace Cohesity.Model
         public bool? ContinueOnQuiesceFailure { get; set; }
 
         /// <summary>
-        /// Specifies whether to create a remote view name to use for view overwrite.
+        /// Specifies whether to create a remote view name to use for view overwrite. This field is deprecated. Remote view names will automatically be used for all view jobs with replication policy. Use RemoteViewConfigList to setup remote view names. deprecated: true
         /// </summary>
-        /// <value>Specifies whether to create a remote view name to use for view overwrite.</value>
+        /// <value>Specifies whether to create a remote view name to use for view overwrite. This field is deprecated. Remote view names will automatically be used for all view jobs with replication policy. Use RemoteViewConfigList to setup remote view names. deprecated: true</value>
         [DataMember(Name="createRemoteView", EmitDefaultValue=true)]
         public bool? CreateRemoteView { get; set; }
 
@@ -573,6 +698,13 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="environmentParameters", EmitDefaultValue=false)]
         public EnvironmentTypeJobParameters EnvironmentParameters { get; set; }
+
+        /// <summary>
+        /// Array of arrays of label IDs that specify labels to exclude. Optionally specify a list of labels to exclude from protecting by listing protection source ids of labels in this two dimensional array. Using this two dimensional array of label IDs, the Cluster generates a list of namespaces to exclude from protecting, which are derived from intersections of the inner arrays and union of the outer array.
+        /// </summary>
+        /// <value>Array of arrays of label IDs that specify labels to exclude. Optionally specify a list of labels to exclude from protecting by listing protection source ids of labels in this two dimensional array. Using this two dimensional array of label IDs, the Cluster generates a list of namespaces to exclude from protecting, which are derived from intersections of the inner arrays and union of the outer array.</value>
+        [DataMember(Name="excludeLabelIds", EmitDefaultValue=true)]
+        public List<List<long>> ExcludeLabelIds { get; set; }
 
         /// <summary>
         /// Array of Excluded Source Objects.  List of Object ids from a Protection Source that should not be protected and are excluded from being backed up by the Protection Job. Leaf and non-leaf Objects may be in this list and an Object in this list must have an ancestor in the sourceId list.
@@ -665,10 +797,31 @@ namespace Cohesity.Model
         public bool? IsPaused { get; set; }
 
         /// <summary>
+        /// Array of array of label IDs that specify labels to protect. Optionally specify a list of labels to protect by listing protection source ids of labels in this two dimensional array. Using this two dimensional array of label IDs, the cluster generates a list of namespaces to protect, which are derived from intersections of the inner arrays and union of the outer array.
+        /// </summary>
+        /// <value>Array of array of label IDs that specify labels to protect. Optionally specify a list of labels to protect by listing protection source ids of labels in this two dimensional array. Using this two dimensional array of label IDs, the cluster generates a list of namespaces to protect, which are derived from intersections of the inner arrays and union of the outer array.</value>
+        [DataMember(Name="labelIds", EmitDefaultValue=true)]
+        public List<List<long>> LabelIds { get; set; }
+
+        /// <summary>
         /// Gets or Sets LastRun
         /// </summary>
         [DataMember(Name="lastRun", EmitDefaultValue=false)]
         public ProtectionRunInstance LastRun { get; set; }
+
+        /// <summary>
+        /// Specifies whether to leverage nutanix API to take snapshots for this backup job. To leverage nutanix snapshot a prism endpoint on which the vcenter is registered as a management server has to be registered as a source. If nutanix snapshot can not be taken, job will fall back to default mode.
+        /// </summary>
+        /// <value>Specifies whether to leverage nutanix API to take snapshots for this backup job. To leverage nutanix snapshot a prism endpoint on which the vcenter is registered as a management server has to be registered as a source. If nutanix snapshot can not be taken, job will fall back to default mode.</value>
+        [DataMember(Name="leverageNutanixSnapshots", EmitDefaultValue=true)]
+        public bool? LeverageNutanixSnapshots { get; set; }
+
+        /// <summary>
+        /// If this field is set to true, then the backup for the objects will be performed using dedicated storage area network (SAN) instead of LAN or managment network.
+        /// </summary>
+        /// <value>If this field is set to true, then the backup for the objects will be performed using dedicated storage area network (SAN) instead of LAN or managment network.</value>
+        [DataMember(Name="leverageSanTransport", EmitDefaultValue=true)]
+        public bool? LeverageSanTransport { get; set; }
 
         /// <summary>
         /// Specifies whether to leverage the storage array based snapshots for this backup job. To leverage storage snapshots, the storage array has to be registered as a source. If storage based snapshots can not be taken, job will fallback to the default backup method.
@@ -683,6 +836,20 @@ namespace Cohesity.Model
         /// <value>Specifies whether to leverage Hyperflex as the storage snapshot array</value>
         [DataMember(Name="leverageStorageSnapshotsForHyperflex", EmitDefaultValue=true)]
         public bool? LeverageStorageSnapshotsForHyperflex { get; set; }
+
+        /// <summary>
+        /// If specified, this setting is number of minutes that a Job Run of a Log backup schedule is expected to complete, which is known as a Service-Level Agreement (SLA). A SLA violation is reported when the run time of a Job Run exceeds the SLA time period specified for this backup schedule.
+        /// </summary>
+        /// <value>If specified, this setting is number of minutes that a Job Run of a Log backup schedule is expected to complete, which is known as a Service-Level Agreement (SLA). A SLA violation is reported when the run time of a Job Run exceeds the SLA time period specified for this backup schedule.</value>
+        [DataMember(Name="logProtectionSlaTimeMins", EmitDefaultValue=true)]
+        public long? LogProtectionSlaTimeMins { get; set; }
+
+        /// <summary>
+        /// Specifies Information about missing entities.
+        /// </summary>
+        /// <value>Specifies Information about missing entities.</value>
+        [DataMember(Name="missingEntities", EmitDefaultValue=true)]
+        public List<ProtectionSource> MissingEntities { get; set; }
 
         /// <summary>
         /// Specifies the last time this Job was updated.
@@ -711,6 +878,13 @@ namespace Cohesity.Model
         /// <value>Specifies the id of the registered Protection Source that is the parent of the Objects that may be protected by this Job. For example when a vCenter Server is registered on a Cohesity Cluster, the Cohesity Cluster assigns a unique id to this field that represents the vCenter Server.</value>
         [DataMember(Name="parentSourceId", EmitDefaultValue=true)]
         public long? ParentSourceId { get; set; }
+
+        /// <summary>
+        /// Specifies whether brick based dedupe should be performed or not.
+        /// </summary>
+        /// <value>Specifies whether brick based dedupe should be performed or not.</value>
+        [DataMember(Name="performBrickBasedDedup", EmitDefaultValue=true)]
+        public bool? PerformBrickBasedDedup { get; set; }
 
         /// <summary>
         /// Specifies whether source side dedupe should be performed or not.
@@ -762,9 +936,16 @@ namespace Cohesity.Model
         public RemoteJobScript RemoteScript { get; set; }
 
         /// <summary>
-        /// Specifies the remote view name to use for view overwrite.
+        /// Sepcifies the remote view names for the views that are being protected in the view job. Use this field only when job has a replication policy.
         /// </summary>
-        /// <value>Specifies the remote view name to use for view overwrite.</value>
+        /// <value>Sepcifies the remote view names for the views that are being protected in the view job. Use this field only when job has a replication policy.</value>
+        [DataMember(Name="remoteViewConfigList", EmitDefaultValue=true)]
+        public List<RemoteViewConfig> RemoteViewConfigList { get; set; }
+
+        /// <summary>
+        /// Specifies the remote view name to use for view overwrite. This field is deprecated. Remote view names will automatically be used for all view jobs with replication policy. Use RemoteViewConfigList to setup remote view names. deprecated: true
+        /// </summary>
+        /// <value>Specifies the remote view name to use for view overwrite. This field is deprecated. Remote view names will automatically be used for all view jobs with replication policy. Use RemoteViewConfigList to setup remote view names. deprecated: true</value>
         [DataMember(Name="remoteViewName", EmitDefaultValue=true)]
         public string RemoteViewName { get; set; }
 
@@ -776,9 +957,9 @@ namespace Cohesity.Model
         public List<long> SourceIds { get; set; }
 
         /// <summary>
-        /// Array of Special Source Parameters.  Specifies additional settings that can apply to a subset of the Sources listed in the Protection Job. For example, you can specify a list of files and folders to protect instead of protecting the entire Physical Server. If this field&#39;s setting conflicts with environmentParameters, then this setting will be used.
+        /// Array of Special Source Parameters.  Specifies additional settings that can apply to a subset of the Sources listed in the Protection Job. For example, you can specify a list of files and folders to protect instead of protecting the entire Physical Server. If this field&#39;s setting conflicts with environmentParameters, then this setting will be used. Specific volume selections must be passed in here to take effect.
         /// </summary>
-        /// <value>Array of Special Source Parameters.  Specifies additional settings that can apply to a subset of the Sources listed in the Protection Job. For example, you can specify a list of files and folders to protect instead of protecting the entire Physical Server. If this field&#39;s setting conflicts with environmentParameters, then this setting will be used.</value>
+        /// <value>Array of Special Source Parameters.  Specifies additional settings that can apply to a subset of the Sources listed in the Protection Job. For example, you can specify a list of files and folders to protect instead of protecting the entire Physical Server. If this field&#39;s setting conflicts with environmentParameters, then this setting will be used. Specific volume selections must be passed in here to take effect.</value>
         [DataMember(Name="sourceSpecialParameters", EmitDefaultValue=true)]
         public List<SourceSpecialParameter> SourceSpecialParameters { get; set; }
 
@@ -831,9 +1012,9 @@ namespace Cohesity.Model
         public long? ViewBoxId { get; set; }
 
         /// <summary>
-        /// For a Remote Adapter &#39;kPuppeteer&#39; Job or a &#39;kView&#39; Job, this field specifies a View name that should be protected. Specify this field when creating a Protection Job for the first time for a View. If this field is specified, ParentSourceId, SourceIds, and ExcludeSourceIds should not be specified.
+        /// For a Remote Adapter &#39;kPuppeteer&#39; Job or a &#39;kView&#39; Job, this field specifies a View name that should be protected. Specify this field when creating a Protection Job for the first time for a View. If this field is specified, ParentSourceId, SourceIds, and ExcludeSourceIds should not be specified. This field is deprecated for view backups. Use sourceIds to specify list of view ids instead.
         /// </summary>
-        /// <value>For a Remote Adapter &#39;kPuppeteer&#39; Job or a &#39;kView&#39; Job, this field specifies a View name that should be protected. Specify this field when creating a Protection Job for the first time for a View. If this field is specified, ParentSourceId, SourceIds, and ExcludeSourceIds should not be specified.</value>
+        /// <value>For a Remote Adapter &#39;kPuppeteer&#39; Job or a &#39;kView&#39; Job, this field specifies a View name that should be protected. Specify this field when creating a Protection Job for the first time for a View. If this field is specified, ParentSourceId, SourceIds, and ExcludeSourceIds should not be specified. This field is deprecated for view backups. Use sourceIds to specify list of view ids instead.</value>
         [DataMember(Name="viewName", EmitDefaultValue=true)]
         public string ViewName { get; set; }
 
@@ -892,7 +1073,12 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.AlertingPolicy == input.AlertingPolicy ||
-                    this.AlertingPolicy.SequenceEqual(input.AlertingPolicy)
+                    this.AlertingPolicy.Equals(input.AlertingPolicy)
+                ) && 
+                (
+                    this.AllowParallelRuns == input.AllowParallelRuns ||
+                    (this.AllowParallelRuns != null &&
+                    this.AllowParallelRuns.Equals(input.AllowParallelRuns))
                 ) && 
                 (
                     this.CloudParameters == input.CloudParameters ||
@@ -923,7 +1109,7 @@ namespace Cohesity.Model
                     this.DedupDisabledSourceIds == input.DedupDisabledSourceIds ||
                     this.DedupDisabledSourceIds != null &&
                     input.DedupDisabledSourceIds != null &&
-                    this.DedupDisabledSourceIds.SequenceEqual(input.DedupDisabledSourceIds)
+                    this.DedupDisabledSourceIds.Equals(input.DedupDisabledSourceIds)
                 ) && 
                 (
                     this.Description == input.Description ||
@@ -945,16 +1131,22 @@ namespace Cohesity.Model
                     this.EnvironmentParameters.Equals(input.EnvironmentParameters))
                 ) && 
                 (
+                    this.ExcludeLabelIds == input.ExcludeLabelIds ||
+                    this.ExcludeLabelIds != null &&
+                    input.ExcludeLabelIds != null &&
+                    this.ExcludeLabelIds.Equals(input.ExcludeLabelIds)
+                ) && 
+                (
                     this.ExcludeSourceIds == input.ExcludeSourceIds ||
                     this.ExcludeSourceIds != null &&
                     input.ExcludeSourceIds != null &&
-                    this.ExcludeSourceIds.SequenceEqual(input.ExcludeSourceIds)
+                    this.ExcludeSourceIds.Equals(input.ExcludeSourceIds)
                 ) && 
                 (
                     this.ExcludeVmTagIds == input.ExcludeVmTagIds ||
                     this.ExcludeVmTagIds != null &&
                     input.ExcludeVmTagIds != null &&
-                    this.ExcludeVmTagIds.SequenceEqual(input.ExcludeVmTagIds)
+                    this.ExcludeVmTagIds.Equals(input.ExcludeVmTagIds)
                 ) && 
                 (
                     this.FullProtectionSlaTimeMins == input.FullProtectionSlaTimeMins ||
@@ -1012,9 +1204,25 @@ namespace Cohesity.Model
                     this.IsPaused.Equals(input.IsPaused))
                 ) && 
                 (
+                    this.LabelIds == input.LabelIds ||
+                    this.LabelIds != null &&
+                    input.LabelIds != null &&
+                    this.LabelIds.Equals(input.LabelIds)
+                ) && 
+                (
                     this.LastRun == input.LastRun ||
                     (this.LastRun != null &&
                     this.LastRun.Equals(input.LastRun))
+                ) && 
+                (
+                    this.LeverageNutanixSnapshots == input.LeverageNutanixSnapshots ||
+                    (this.LeverageNutanixSnapshots != null &&
+                    this.LeverageNutanixSnapshots.Equals(input.LeverageNutanixSnapshots))
+                ) && 
+                (
+                    this.LeverageSanTransport == input.LeverageSanTransport ||
+                    (this.LeverageSanTransport != null &&
+                    this.LeverageSanTransport.Equals(input.LeverageSanTransport))
                 ) && 
                 (
                     this.LeverageStorageSnapshots == input.LeverageStorageSnapshots ||
@@ -1025,6 +1233,17 @@ namespace Cohesity.Model
                     this.LeverageStorageSnapshotsForHyperflex == input.LeverageStorageSnapshotsForHyperflex ||
                     (this.LeverageStorageSnapshotsForHyperflex != null &&
                     this.LeverageStorageSnapshotsForHyperflex.Equals(input.LeverageStorageSnapshotsForHyperflex))
+                ) && 
+                (
+                    this.LogProtectionSlaTimeMins == input.LogProtectionSlaTimeMins ||
+                    (this.LogProtectionSlaTimeMins != null &&
+                    this.LogProtectionSlaTimeMins.Equals(input.LogProtectionSlaTimeMins))
+                ) && 
+                (
+                    this.MissingEntities == input.MissingEntities ||
+                    this.MissingEntities != null &&
+                    input.MissingEntities != null &&
+                    this.MissingEntities.Equals(input.MissingEntities)
                 ) && 
                 (
                     this.ModificationTimeUsecs == input.ModificationTimeUsecs ||
@@ -1045,6 +1264,11 @@ namespace Cohesity.Model
                     this.ParentSourceId == input.ParentSourceId ||
                     (this.ParentSourceId != null &&
                     this.ParentSourceId.Equals(input.ParentSourceId))
+                ) && 
+                (
+                    this.PerformBrickBasedDedup == input.PerformBrickBasedDedup ||
+                    (this.PerformBrickBasedDedup != null &&
+                    this.PerformBrickBasedDedup.Equals(input.PerformBrickBasedDedup))
                 ) && 
                 (
                     this.PerformSourceSideDedup == input.PerformSourceSideDedup ||
@@ -1090,6 +1314,12 @@ namespace Cohesity.Model
                     this.RemoteScript.Equals(input.RemoteScript))
                 ) && 
                 (
+                    this.RemoteViewConfigList == input.RemoteViewConfigList ||
+                    this.RemoteViewConfigList != null &&
+                    input.RemoteViewConfigList != null &&
+                    this.RemoteViewConfigList.Equals(input.RemoteViewConfigList)
+                ) && 
+                (
                     this.RemoteViewName == input.RemoteViewName ||
                     (this.RemoteViewName != null &&
                     this.RemoteViewName.Equals(input.RemoteViewName))
@@ -1098,13 +1328,13 @@ namespace Cohesity.Model
                     this.SourceIds == input.SourceIds ||
                     this.SourceIds != null &&
                     input.SourceIds != null &&
-                    this.SourceIds.SequenceEqual(input.SourceIds)
+                    this.SourceIds.Equals(input.SourceIds)
                 ) && 
                 (
                     this.SourceSpecialParameters == input.SourceSpecialParameters ||
                     this.SourceSpecialParameters != null &&
                     input.SourceSpecialParameters != null &&
-                    this.SourceSpecialParameters.SequenceEqual(input.SourceSpecialParameters)
+                    this.SourceSpecialParameters.Equals(input.SourceSpecialParameters)
                 ) && 
                 (
                     this.StartTime == input.StartTime ||
@@ -1135,7 +1365,7 @@ namespace Cohesity.Model
                     this.UserSpecifiedTags == input.UserSpecifiedTags ||
                     this.UserSpecifiedTags != null &&
                     input.UserSpecifiedTags != null &&
-                    this.UserSpecifiedTags.SequenceEqual(input.UserSpecifiedTags)
+                    this.UserSpecifiedTags.Equals(input.UserSpecifiedTags)
                 ) && 
                 (
                     this.ViewBoxId == input.ViewBoxId ||
@@ -1151,7 +1381,7 @@ namespace Cohesity.Model
                     this.VmTagIds == input.VmTagIds ||
                     this.VmTagIds != null &&
                     input.VmTagIds != null &&
-                    this.VmTagIds.SequenceEqual(input.VmTagIds)
+                    this.VmTagIds.Equals(input.VmTagIds)
                 );
         }
 
@@ -1168,7 +1398,10 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.AbortInBlackoutPeriod.GetHashCode();
                 if (this.AlertingConfig != null)
                     hashCode = hashCode * 59 + this.AlertingConfig.GetHashCode();
-                hashCode = hashCode * 59 + this.AlertingPolicy.GetHashCode();
+                if (this.AlertingPolicy != null)
+					hashCode = hashCode * 59 + this.AlertingPolicy.GetHashCode();
+                if (this.AllowParallelRuns != null)
+                    hashCode = hashCode * 59 + this.AllowParallelRuns.GetHashCode();
                 if (this.CloudParameters != null)
                     hashCode = hashCode * 59 + this.CloudParameters.GetHashCode();
                 if (this.ContinueOnQuiesceFailure != null)
@@ -1185,9 +1418,12 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Description.GetHashCode();
                 if (this.EndTimeUsecs != null)
                     hashCode = hashCode * 59 + this.EndTimeUsecs.GetHashCode();
-                hashCode = hashCode * 59 + this.Environment.GetHashCode();
+                if (this.Environment != null)
+					hashCode = hashCode * 59 + this.Environment.GetHashCode();
                 if (this.EnvironmentParameters != null)
                     hashCode = hashCode * 59 + this.EnvironmentParameters.GetHashCode();
+                if (this.ExcludeLabelIds != null)
+                    hashCode = hashCode * 59 + this.ExcludeLabelIds.GetHashCode();
                 if (this.ExcludeSourceIds != null)
                     hashCode = hashCode * 59 + this.ExcludeSourceIds.GetHashCode();
                 if (this.ExcludeVmTagIds != null)
@@ -1214,12 +1450,22 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.IsNativeFormat.GetHashCode();
                 if (this.IsPaused != null)
                     hashCode = hashCode * 59 + this.IsPaused.GetHashCode();
+                if (this.LabelIds != null)
+                    hashCode = hashCode * 59 + this.LabelIds.GetHashCode();
                 if (this.LastRun != null)
                     hashCode = hashCode * 59 + this.LastRun.GetHashCode();
+                if (this.LeverageNutanixSnapshots != null)
+                    hashCode = hashCode * 59 + this.LeverageNutanixSnapshots.GetHashCode();
+                if (this.LeverageSanTransport != null)
+                    hashCode = hashCode * 59 + this.LeverageSanTransport.GetHashCode();
                 if (this.LeverageStorageSnapshots != null)
                     hashCode = hashCode * 59 + this.LeverageStorageSnapshots.GetHashCode();
                 if (this.LeverageStorageSnapshotsForHyperflex != null)
                     hashCode = hashCode * 59 + this.LeverageStorageSnapshotsForHyperflex.GetHashCode();
+                if (this.LogProtectionSlaTimeMins != null)
+                    hashCode = hashCode * 59 + this.LogProtectionSlaTimeMins.GetHashCode();
+                if (this.MissingEntities != null)
+                    hashCode = hashCode * 59 + this.MissingEntities.GetHashCode();
                 if (this.ModificationTimeUsecs != null)
                     hashCode = hashCode * 59 + this.ModificationTimeUsecs.GetHashCode();
                 if (this.ModifiedByUser != null)
@@ -1228,6 +1474,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
                 if (this.ParentSourceId != null)
                     hashCode = hashCode * 59 + this.ParentSourceId.GetHashCode();
+                if (this.PerformBrickBasedDedup != null)
+                    hashCode = hashCode * 59 + this.PerformBrickBasedDedup.GetHashCode();
                 if (this.PerformSourceSideDedup != null)
                     hashCode = hashCode * 59 + this.PerformSourceSideDedup.GetHashCode();
                 if (this.PolicyAppliedTimeMsecs != null)
@@ -1238,12 +1486,16 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.PostBackupScript.GetHashCode();
                 if (this.PreBackupScript != null)
                     hashCode = hashCode * 59 + this.PreBackupScript.GetHashCode();
-                hashCode = hashCode * 59 + this.Priority.GetHashCode();
-                hashCode = hashCode * 59 + this.QosType.GetHashCode();
+                if (this.Priority != null)
+					hashCode = hashCode * 59 + this.Priority.GetHashCode();
+                if (this.QosType != null)
+					hashCode = hashCode * 59 + this.QosType.GetHashCode();
                 if (this.Quiesce != null)
                     hashCode = hashCode * 59 + this.Quiesce.GetHashCode();
                 if (this.RemoteScript != null)
                     hashCode = hashCode * 59 + this.RemoteScript.GetHashCode();
+                if (this.RemoteViewConfigList != null)
+                    hashCode = hashCode * 59 + this.RemoteViewConfigList.GetHashCode();
                 if (this.RemoteViewName != null)
                     hashCode = hashCode * 59 + this.RemoteViewName.GetHashCode();
                 if (this.SourceIds != null)

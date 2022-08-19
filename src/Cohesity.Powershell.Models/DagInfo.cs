@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -105,7 +107,7 @@ namespace Cohesity.Model
                     this.DagApplicationServerInfoList == input.DagApplicationServerInfoList ||
                     this.DagApplicationServerInfoList != null &&
                     input.DagApplicationServerInfoList != null &&
-                    this.DagApplicationServerInfoList.SequenceEqual(input.DagApplicationServerInfoList)
+                    this.DagApplicationServerInfoList.Equals(input.DagApplicationServerInfoList)
                 ) && 
                 (
                     this.ExchangeDagProtectionPreference == input.ExchangeDagProtectionPreference ||

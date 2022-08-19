@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -12,6 +13,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
+
 namespace Cohesity.Model
 {
     /// <summary>
@@ -21,9 +23,9 @@ namespace Cohesity.Model
     public partial class ActiveDirectoryPrincipal :  IEquatable<ActiveDirectoryPrincipal>
     {
         /// <summary>
-        /// Specifies the object class of the principal (either &#39;kGroup&#39; or &#39;kUser&#39;). &#39;kUser&#39; specifies a user object class. &#39;kGroup&#39; specifies a group object class. &#39;kComputer&#39; specifies a computer object class. &#39;kWellKnownPrincipal&#39; specifies a well known principal.
+        /// Specifies the object class of the principal (either &#39;kGroup&#39; or &#39;kUser&#39;). &#39;kUser&#39; specifies a user object class. &#39;kGroup&#39; specifies a group object class. &#39;kComputer&#39; specifies a computer object class. &#39;kWellKnownPrincipal&#39; specifies a well known principal. &#39;kServiceAccount&#39; specifies a service account object class.
         /// </summary>
-        /// <value>Specifies the object class of the principal (either &#39;kGroup&#39; or &#39;kUser&#39;). &#39;kUser&#39; specifies a user object class. &#39;kGroup&#39; specifies a group object class. &#39;kComputer&#39; specifies a computer object class. &#39;kWellKnownPrincipal&#39; specifies a well known principal.</value>
+        /// <value>Specifies the object class of the principal (either &#39;kGroup&#39; or &#39;kUser&#39;). &#39;kUser&#39; specifies a user object class. &#39;kGroup&#39; specifies a group object class. &#39;kComputer&#39; specifies a computer object class. &#39;kWellKnownPrincipal&#39; specifies a well known principal. &#39;kServiceAccount&#39; specifies a service account object class.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum ObjectClassEnum
         {
@@ -49,14 +51,20 @@ namespace Cohesity.Model
             /// Enum KWellKnownPrincipal for value: kWellKnownPrincipal
             /// </summary>
             [EnumMember(Value = "kWellKnownPrincipal")]
-            KWellKnownPrincipal = 4
+            KWellKnownPrincipal = 4,
+
+            /// <summary>
+            /// Enum KServiceAccount for value: kServiceAccount
+            /// </summary>
+            [EnumMember(Value = "kServiceAccount")]
+            KServiceAccount = 5
 
         }
 
         /// <summary>
-        /// Specifies the object class of the principal (either &#39;kGroup&#39; or &#39;kUser&#39;). &#39;kUser&#39; specifies a user object class. &#39;kGroup&#39; specifies a group object class. &#39;kComputer&#39; specifies a computer object class. &#39;kWellKnownPrincipal&#39; specifies a well known principal.
+        /// Specifies the object class of the principal (either &#39;kGroup&#39; or &#39;kUser&#39;). &#39;kUser&#39; specifies a user object class. &#39;kGroup&#39; specifies a group object class. &#39;kComputer&#39; specifies a computer object class. &#39;kWellKnownPrincipal&#39; specifies a well known principal. &#39;kServiceAccount&#39; specifies a service account object class.
         /// </summary>
-        /// <value>Specifies the object class of the principal (either &#39;kGroup&#39; or &#39;kUser&#39;). &#39;kUser&#39; specifies a user object class. &#39;kGroup&#39; specifies a group object class. &#39;kComputer&#39; specifies a computer object class. &#39;kWellKnownPrincipal&#39; specifies a well known principal.</value>
+        /// <value>Specifies the object class of the principal (either &#39;kGroup&#39; or &#39;kUser&#39;). &#39;kUser&#39; specifies a user object class. &#39;kGroup&#39; specifies a group object class. &#39;kComputer&#39; specifies a computer object class. &#39;kWellKnownPrincipal&#39; specifies a well known principal. &#39;kServiceAccount&#39; specifies a service account object class.</value>
         [DataMember(Name="objectClass", EmitDefaultValue=true)]
         public ObjectClassEnum? ObjectClass { get; set; }
         /// <summary>
@@ -64,7 +72,7 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="domain">Specifies the domain name of the where the principal&#39; account is maintained..</param>
         /// <param name="fullName">Specifies the full name (first and last names) of the principal..</param>
-        /// <param name="objectClass">Specifies the object class of the principal (either &#39;kGroup&#39; or &#39;kUser&#39;). &#39;kUser&#39; specifies a user object class. &#39;kGroup&#39; specifies a group object class. &#39;kComputer&#39; specifies a computer object class. &#39;kWellKnownPrincipal&#39; specifies a well known principal..</param>
+        /// <param name="objectClass">Specifies the object class of the principal (either &#39;kGroup&#39; or &#39;kUser&#39;). &#39;kUser&#39; specifies a user object class. &#39;kGroup&#39; specifies a group object class. &#39;kComputer&#39; specifies a computer object class. &#39;kWellKnownPrincipal&#39; specifies a well known principal. &#39;kServiceAccount&#39; specifies a service account object class..</param>
         /// <param name="principalName">Specifies the name of the principal..</param>
         /// <param name="sid">Specifies the unique Security id (SID) of the principal..</param>
         public ActiveDirectoryPrincipal(string domain = default(string), string fullName = default(string), ObjectClassEnum? objectClass = default(ObjectClassEnum?), string principalName = default(string), string sid = default(string))

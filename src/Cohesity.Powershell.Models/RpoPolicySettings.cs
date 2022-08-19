@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -54,9 +56,9 @@ namespace Cohesity.Model
         [DataMember(Name="alertingPolicy", EmitDefaultValue=true)]
         public List<AlertingPolicyEnum> AlertingPolicy { get; set; }
         /// <summary>
-        /// Specifies the QoS policy type to use. &#39;kBackupHDD&#39; indicates the Cohesity Cluster writes data directly to the HDD tier for this Protection Job. This is the recommended setting. &#39;kBackupSSD&#39; indicates the Cohesity Cluster writes data directly to the SSD tier for this Protection Job. Only specify this policy if you need fast ingest speed for a small number of Protection Jobs.
+        /// Specifies the QoS policy type to use. &#39;kBackupHDD&#39; indicates the Cohesity Cluster writes data directly to the HDD tier for this Protection Job. This is the recommended setting. &#39;kBackupSSD&#39; indicates the Cohesity Cluster writes data directly to the SSD tier for this Protection Job. Only specify this policy if you need fast ingest speed for a small number of Protection Jobs. &#39;kTestAndDevHigh&#39; indicated the test and dev workload. &#39;kBackupAll&#39; indicates the Cohesity Cluster writes data directly to the HDD tier and the SSD tier for this Protection Job.
         /// </summary>
-        /// <value>Specifies the QoS policy type to use. &#39;kBackupHDD&#39; indicates the Cohesity Cluster writes data directly to the HDD tier for this Protection Job. This is the recommended setting. &#39;kBackupSSD&#39; indicates the Cohesity Cluster writes data directly to the SSD tier for this Protection Job. Only specify this policy if you need fast ingest speed for a small number of Protection Jobs.</value>
+        /// <value>Specifies the QoS policy type to use. &#39;kBackupHDD&#39; indicates the Cohesity Cluster writes data directly to the HDD tier for this Protection Job. This is the recommended setting. &#39;kBackupSSD&#39; indicates the Cohesity Cluster writes data directly to the SSD tier for this Protection Job. Only specify this policy if you need fast ingest speed for a small number of Protection Jobs. &#39;kTestAndDevHigh&#39; indicated the test and dev workload. &#39;kBackupAll&#39; indicates the Cohesity Cluster writes data directly to the HDD tier and the SSD tier for this Protection Job.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum QosTypeEnum
         {
@@ -70,14 +72,26 @@ namespace Cohesity.Model
             /// Enum KBackupSSD for value: kBackupSSD
             /// </summary>
             [EnumMember(Value = "kBackupSSD")]
-            KBackupSSD = 2
+            KBackupSSD = 2,
+
+            /// <summary>
+            /// Enum KTestAndDevHigh for value: kTestAndDevHigh
+            /// </summary>
+            [EnumMember(Value = "kTestAndDevHigh")]
+            KTestAndDevHigh = 3,
+
+            /// <summary>
+            /// Enum KBackupAll for value: kBackupAll
+            /// </summary>
+            [EnumMember(Value = "kBackupAll")]
+            KBackupAll = 4
 
         }
 
         /// <summary>
-        /// Specifies the QoS policy type to use. &#39;kBackupHDD&#39; indicates the Cohesity Cluster writes data directly to the HDD tier for this Protection Job. This is the recommended setting. &#39;kBackupSSD&#39; indicates the Cohesity Cluster writes data directly to the SSD tier for this Protection Job. Only specify this policy if you need fast ingest speed for a small number of Protection Jobs.
+        /// Specifies the QoS policy type to use. &#39;kBackupHDD&#39; indicates the Cohesity Cluster writes data directly to the HDD tier for this Protection Job. This is the recommended setting. &#39;kBackupSSD&#39; indicates the Cohesity Cluster writes data directly to the SSD tier for this Protection Job. Only specify this policy if you need fast ingest speed for a small number of Protection Jobs. &#39;kTestAndDevHigh&#39; indicated the test and dev workload. &#39;kBackupAll&#39; indicates the Cohesity Cluster writes data directly to the HDD tier and the SSD tier for this Protection Job.
         /// </summary>
-        /// <value>Specifies the QoS policy type to use. &#39;kBackupHDD&#39; indicates the Cohesity Cluster writes data directly to the HDD tier for this Protection Job. This is the recommended setting. &#39;kBackupSSD&#39; indicates the Cohesity Cluster writes data directly to the SSD tier for this Protection Job. Only specify this policy if you need fast ingest speed for a small number of Protection Jobs.</value>
+        /// <value>Specifies the QoS policy type to use. &#39;kBackupHDD&#39; indicates the Cohesity Cluster writes data directly to the HDD tier for this Protection Job. This is the recommended setting. &#39;kBackupSSD&#39; indicates the Cohesity Cluster writes data directly to the SSD tier for this Protection Job. Only specify this policy if you need fast ingest speed for a small number of Protection Jobs. &#39;kTestAndDevHigh&#39; indicated the test and dev workload. &#39;kBackupAll&#39; indicates the Cohesity Cluster writes data directly to the HDD tier and the SSD tier for this Protection Job.</value>
         [DataMember(Name="qosType", EmitDefaultValue=true)]
         public QosTypeEnum? QosType { get; set; }
         /// <summary>
@@ -87,13 +101,10 @@ namespace Cohesity.Model
         /// <param name="alertingPolicy">Array of Job Events.  During Job Runs, the following Job Events are generated: 1) Job succeeds 2) Job fails 3) Job violates the SLA These Job Events can cause Alerts to be generated. &#39;kSuccess&#39; means the Protection Job succeeded. &#39;kFailure&#39; means the Protection Job failed. &#39;kSlaViolation&#39; means the Protection Job took longer than the time period specified in the SLA..</param>
         /// <param name="environmentTypeJobParams">environmentTypeJobParams.</param>
         /// <param name="indexingPolicy">indexingPolicy.</param>
-        /// <param name="qosType">Specifies the QoS policy type to use. &#39;kBackupHDD&#39; indicates the Cohesity Cluster writes data directly to the HDD tier for this Protection Job. This is the recommended setting. &#39;kBackupSSD&#39; indicates the Cohesity Cluster writes data directly to the SSD tier for this Protection Job. Only specify this policy if you need fast ingest speed for a small number of Protection Jobs..</param>
+        /// <param name="qosType">Specifies the QoS policy type to use. &#39;kBackupHDD&#39; indicates the Cohesity Cluster writes data directly to the HDD tier for this Protection Job. This is the recommended setting. &#39;kBackupSSD&#39; indicates the Cohesity Cluster writes data directly to the SSD tier for this Protection Job. Only specify this policy if you need fast ingest speed for a small number of Protection Jobs. &#39;kTestAndDevHigh&#39; indicated the test and dev workload. &#39;kBackupAll&#39; indicates the Cohesity Cluster writes data directly to the HDD tier and the SSD tier for this Protection Job..</param>
         /// <param name="storageDomainId">Specifies the Storage Domain to which data will be written..</param>
         public RpoPolicySettings(AlertingConfig alertingConfig = default(AlertingConfig), List<AlertingPolicyEnum> alertingPolicy = default(List<AlertingPolicyEnum>), EnvironmentTypeJobParameters environmentTypeJobParams = default(EnvironmentTypeJobParameters), IndexingPolicy indexingPolicy = default(IndexingPolicy), QosTypeEnum? qosType = default(QosTypeEnum?), long? storageDomainId = default(long?))
         {
-            this.AlertingPolicy = alertingPolicy;
-            this.QosType = qosType;
-            this.StorageDomainId = storageDomainId;
             this.AlertingConfig = alertingConfig;
             this.AlertingPolicy = alertingPolicy;
             this.EnvironmentTypeJobParams = environmentTypeJobParams;
@@ -170,7 +181,7 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.AlertingPolicy == input.AlertingPolicy ||
-                    this.AlertingPolicy.SequenceEqual(input.AlertingPolicy)
+                    this.AlertingPolicy.Equals(input.AlertingPolicy)
                 ) && 
                 (
                     this.EnvironmentTypeJobParams == input.EnvironmentTypeJobParams ||

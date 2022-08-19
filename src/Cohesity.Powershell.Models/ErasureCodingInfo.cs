@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -57,11 +59,6 @@ namespace Cohesity.Model
         /// <param name="numDataStripes">The number of stripes containing data..</param>
         public ErasureCodingInfo(AlgorithmEnum? algorithm = default(AlgorithmEnum?), bool? erasureCodingEnabled = default(bool?), bool? inlineErasureCoding = default(bool?), int? numCodedStripes = default(int?), int? numDataStripes = default(int?))
         {
-            this.Algorithm = algorithm;
-            this.ErasureCodingEnabled = erasureCodingEnabled;
-            this.InlineErasureCoding = inlineErasureCoding;
-            this.NumCodedStripes = numCodedStripes;
-            this.NumDataStripes = numDataStripes;
             this.Algorithm = algorithm;
             this.ErasureCodingEnabled = erasureCodingEnabled;
             this.InlineErasureCoding = inlineErasureCoding;
@@ -168,7 +165,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                hashCode = hashCode * 59 + this.Algorithm.GetHashCode();
+                if (this.Algorithm != null)
+					hashCode = hashCode * 59 + this.Algorithm.GetHashCode();
                 if (this.ErasureCodingEnabled != null)
                     hashCode = hashCode * 59 + this.ErasureCodingEnabled.GetHashCode();
                 if (this.InlineErasureCoding != null)

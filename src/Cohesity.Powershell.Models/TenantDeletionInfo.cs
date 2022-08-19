@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -12,6 +13,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
+
 namespace Cohesity.Model
 {
     /// <summary>
@@ -21,22 +23,166 @@ namespace Cohesity.Model
     public partial class TenantDeletionInfo :  IEquatable<TenantDeletionInfo>
     {
         /// <summary>
+        /// Specifies the category of objects whose deletion state is being captured. Specifies the Category of objects which are required to be deleted. On the first pass (when Tenant is marked &#39;deleted&#39; and &#39;object_deletion_required&#39; is set to true, for all the objects recognized in the enum - default deletion_info_vec is created. In order to skip the deletion of a few object categories, this object should be created manually during the &#39;Delete API&#39; and these categories should be skipped.
+        /// </summary>
+        /// <value>Specifies the category of objects whose deletion state is being captured. Specifies the Category of objects which are required to be deleted. On the first pass (when Tenant is marked &#39;deleted&#39; and &#39;object_deletion_required&#39; is set to true, for all the objects recognized in the enum - default deletion_info_vec is created. In order to skip the deletion of a few object categories, this object should be created manually during the &#39;Delete API&#39; and these categories should be skipped.</value>
+        [JsonConverter(typeof(StringEnumConverter))]
+        public enum CategoryEnum
+        {
+            /// <summary>
+            /// Enum ProtectionJobs for value: ProtectionJobs
+            /// </summary>
+            [EnumMember(Value = "ProtectionJobs")]
+            ProtectionJobs = 1,
+
+            /// <summary>
+            /// Enum Views for value: Views
+            /// </summary>
+            [EnumMember(Value = "Views")]
+            Views = 2,
+
+            /// <summary>
+            /// Enum ProtectionSources for value: ProtectionSources
+            /// </summary>
+            [EnumMember(Value = "ProtectionSources")]
+            ProtectionSources = 3,
+
+            /// <summary>
+            /// Enum Users for value: Users
+            /// </summary>
+            [EnumMember(Value = "Users")]
+            Users = 4,
+
+            /// <summary>
+            /// Enum ProtectionPolicies for value: ProtectionPolicies
+            /// </summary>
+            [EnumMember(Value = "ProtectionPolicies")]
+            ProtectionPolicies = 5,
+
+            /// <summary>
+            /// Enum Groups for value: Groups
+            /// </summary>
+            [EnumMember(Value = "Groups")]
+            Groups = 6,
+
+            /// <summary>
+            /// Enum ActiveDirectories for value: ActiveDirectories
+            /// </summary>
+            [EnumMember(Value = "ActiveDirectories")]
+            ActiveDirectories = 7,
+
+            /// <summary>
+            /// Enum Ldap for value: Ldap
+            /// </summary>
+            [EnumMember(Value = "Ldap")]
+            Ldap = 8,
+
+            /// <summary>
+            /// Enum RecoveryTask for value: RecoveryTask
+            /// </summary>
+            [EnumMember(Value = "RecoveryTask")]
+            RecoveryTask = 9,
+
+            /// <summary>
+            /// Enum RemoteClusters for value: RemoteClusters
+            /// </summary>
+            [EnumMember(Value = "RemoteClusters")]
+            RemoteClusters = 10,
+
+            /// <summary>
+            /// Enum StorageDomains for value: StorageDomains
+            /// </summary>
+            [EnumMember(Value = "StorageDomains")]
+            StorageDomains = 11,
+
+            /// <summary>
+            /// Enum Alerts for value: Alerts
+            /// </summary>
+            [EnumMember(Value = "Alerts")]
+            Alerts = 12,
+
+            /// <summary>
+            /// Enum ReportingSchedules for value: ReportingSchedules
+            /// </summary>
+            [EnumMember(Value = "ReportingSchedules")]
+            ReportingSchedules = 13,
+
+            /// <summary>
+            /// Enum Idps for value: Idps
+            /// </summary>
+            [EnumMember(Value = "Idps")]
+            Idps = 14,
+
+            /// <summary>
+            /// Enum Swift for value: Swift
+            /// </summary>
+            [EnumMember(Value = "Swift")]
+            Swift = 15
+
+        }
+
+        /// <summary>
+        /// Specifies the category of objects whose deletion state is being captured. Specifies the Category of objects which are required to be deleted. On the first pass (when Tenant is marked &#39;deleted&#39; and &#39;object_deletion_required&#39; is set to true, for all the objects recognized in the enum - default deletion_info_vec is created. In order to skip the deletion of a few object categories, this object should be created manually during the &#39;Delete API&#39; and these categories should be skipped.
+        /// </summary>
+        /// <value>Specifies the category of objects whose deletion state is being captured. Specifies the Category of objects which are required to be deleted. On the first pass (when Tenant is marked &#39;deleted&#39; and &#39;object_deletion_required&#39; is set to true, for all the objects recognized in the enum - default deletion_info_vec is created. In order to skip the deletion of a few object categories, this object should be created manually during the &#39;Delete API&#39; and these categories should be skipped.</value>
+        [DataMember(Name="category", EmitDefaultValue=true)]
+        public CategoryEnum? Category { get; set; }
+        /// <summary>
+        /// Specifies the deletion completion state of the object category. Completion State is captured before any operations are started. Similar to WAL (Write Ahead Logging).
+        /// </summary>
+        /// <value>Specifies the deletion completion state of the object category. Completion State is captured before any operations are started. Similar to WAL (Write Ahead Logging).</value>
+        [JsonConverter(typeof(StringEnumConverter))]
+        public enum StateEnum
+        {
+            /// <summary>
+            /// Enum NotStarted for value: NotStarted
+            /// </summary>
+            [EnumMember(Value = "NotStarted")]
+            NotStarted = 1,
+
+            /// <summary>
+            /// Enum InProgress for value: InProgress
+            /// </summary>
+            [EnumMember(Value = "InProgress")]
+            InProgress = 2,
+
+            /// <summary>
+            /// Enum Finished for value: Finished
+            /// </summary>
+            [EnumMember(Value = "Finished")]
+            Finished = 3,
+
+            /// <summary>
+            /// Enum Skipped for value: Skipped
+            /// </summary>
+            [EnumMember(Value = "Skipped")]
+            Skipped = 4,
+
+            /// <summary>
+            /// Enum Waiting for value: Waiting
+            /// </summary>
+            [EnumMember(Value = "Waiting")]
+            Waiting = 5
+
+        }
+
+        /// <summary>
+        /// Specifies the deletion completion state of the object category. Completion State is captured before any operations are started. Similar to WAL (Write Ahead Logging).
+        /// </summary>
+        /// <value>Specifies the deletion completion state of the object category. Completion State is captured before any operations are started. Similar to WAL (Write Ahead Logging).</value>
+        [DataMember(Name="state", EmitDefaultValue=true)]
+        public StateEnum? State { get; set; }
+        /// <summary>
         /// Initializes a new instance of the <see cref="TenantDeletionInfo" /> class.
         /// </summary>
-        /// <param name="category">Specifies the category of objects whose deletion state is being captured..</param>
+        /// <param name="category">Specifies the category of objects whose deletion state is being captured. Specifies the Category of objects which are required to be deleted. On the first pass (when Tenant is marked &#39;deleted&#39; and &#39;object_deletion_required&#39; is set to true, for all the objects recognized in the enum - default deletion_info_vec is created. In order to skip the deletion of a few object categories, this object should be created manually during the &#39;Delete API&#39; and these categories should be skipped..</param>
         /// <param name="finishedAtTimeMsecs">Specifies the time when the process finished..</param>
-        /// <param name="processedAtNode">Specifies the node ip where the process ran. Typically this would be Iris Master..</param>
+        /// <param name="processedAtNode">Specifies the node ip where the process ran. Typically this would be Primary Iris..</param>
         /// <param name="retryCount">Specifies the number of times this task has been retried..</param>
         /// <param name="startedAtTimeMsecs">Specifies the time when the process started..</param>
-        /// <param name="state">Specifies the deletion completion state of the object category..</param>
-        public TenantDeletionInfo(int? category = default(int?), long? finishedAtTimeMsecs = default(long?), string processedAtNode = default(string), long? retryCount = default(long?), long? startedAtTimeMsecs = default(long?), int? state = default(int?))
+        /// <param name="state">Specifies the deletion completion state of the object category. Completion State is captured before any operations are started. Similar to WAL (Write Ahead Logging)..</param>
+        public TenantDeletionInfo(CategoryEnum? category = default(CategoryEnum?), long? finishedAtTimeMsecs = default(long?), string processedAtNode = default(string), long? retryCount = default(long?), long? startedAtTimeMsecs = default(long?), StateEnum? state = default(StateEnum?))
         {
-            this.Category = category;
-            this.FinishedAtTimeMsecs = finishedAtTimeMsecs;
-            this.ProcessedAtNode = processedAtNode;
-            this.RetryCount = retryCount;
-            this.StartedAtTimeMsecs = startedAtTimeMsecs;
-            this.State = state;
             this.Category = category;
             this.FinishedAtTimeMsecs = finishedAtTimeMsecs;
             this.ProcessedAtNode = processedAtNode;
@@ -46,13 +192,6 @@ namespace Cohesity.Model
         }
         
         /// <summary>
-        /// Specifies the category of objects whose deletion state is being captured.
-        /// </summary>
-        /// <value>Specifies the category of objects whose deletion state is being captured.</value>
-        [DataMember(Name="category", EmitDefaultValue=true)]
-        public int? Category { get; set; }
-
-        /// <summary>
         /// Specifies the time when the process finished.
         /// </summary>
         /// <value>Specifies the time when the process finished.</value>
@@ -60,9 +199,9 @@ namespace Cohesity.Model
         public long? FinishedAtTimeMsecs { get; set; }
 
         /// <summary>
-        /// Specifies the node ip where the process ran. Typically this would be Iris Master.
+        /// Specifies the node ip where the process ran. Typically this would be Primary Iris.
         /// </summary>
-        /// <value>Specifies the node ip where the process ran. Typically this would be Iris Master.</value>
+        /// <value>Specifies the node ip where the process ran. Typically this would be Primary Iris.</value>
         [DataMember(Name="processedAtNode", EmitDefaultValue=true)]
         public string ProcessedAtNode { get; set; }
 
@@ -79,13 +218,6 @@ namespace Cohesity.Model
         /// <value>Specifies the time when the process started.</value>
         [DataMember(Name="startedAtTimeMsecs", EmitDefaultValue=true)]
         public long? StartedAtTimeMsecs { get; set; }
-
-        /// <summary>
-        /// Specifies the deletion completion state of the object category.
-        /// </summary>
-        /// <value>Specifies the deletion completion state of the object category.</value>
-        [DataMember(Name="state", EmitDefaultValue=true)]
-        public int? State { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -125,8 +257,7 @@ namespace Cohesity.Model
             return 
                 (
                     this.Category == input.Category ||
-                    (this.Category != null &&
-                    this.Category.Equals(input.Category))
+                    this.Category.Equals(input.Category)
                 ) && 
                 (
                     this.FinishedAtTimeMsecs == input.FinishedAtTimeMsecs ||
@@ -150,8 +281,7 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.State == input.State ||
-                    (this.State != null &&
-                    this.State.Equals(input.State))
+                    this.State.Equals(input.State)
                 );
         }
 

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -12,6 +13,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
+
 namespace Cohesity.Model
 {
     /// <summary>
@@ -21,31 +23,60 @@ namespace Cohesity.Model
     public partial class AwsKmsConfiguration :  IEquatable<AwsKmsConfiguration>
     {
         /// <summary>
+        /// Specifies the authentication method to be used for API calls. Specifies the authentication method to be used for API calls. &#39;kUseIAMUser&#39; indicates a user based authentication. &#39;kUseIAMRole&#39; indicates a role based authentication, used only for AWS CE. &#39;kUseHelios&#39; indicates a Helios based authentication.
+        /// </summary>
+        /// <value>Specifies the authentication method to be used for API calls. Specifies the authentication method to be used for API calls. &#39;kUseIAMUser&#39; indicates a user based authentication. &#39;kUseIAMRole&#39; indicates a role based authentication, used only for AWS CE. &#39;kUseHelios&#39; indicates a Helios based authentication.</value>
+        [JsonConverter(typeof(StringEnumConverter))]
+        public enum AuthMethodEnum
+        {
+            /// <summary>
+            /// Enum KUseIAMUser for value: kUseIAMUser
+            /// </summary>
+            [EnumMember(Value = "kUseIAMUser")]
+            KUseIAMUser = 1,
+
+            /// <summary>
+            /// Enum KUseIAMRole for value: kUseIAMRole
+            /// </summary>
+            [EnumMember(Value = "kUseIAMRole")]
+            KUseIAMRole = 2,
+
+            /// <summary>
+            /// Enum KUseHelios for value: kUseHelios
+            /// </summary>
+            [EnumMember(Value = "kUseHelios")]
+            KUseHelios = 3
+
+        }
+
+        /// <summary>
+        /// Specifies the authentication method to be used for API calls. Specifies the authentication method to be used for API calls. &#39;kUseIAMUser&#39; indicates a user based authentication. &#39;kUseIAMRole&#39; indicates a role based authentication, used only for AWS CE. &#39;kUseHelios&#39; indicates a Helios based authentication.
+        /// </summary>
+        /// <value>Specifies the authentication method to be used for API calls. Specifies the authentication method to be used for API calls. &#39;kUseIAMUser&#39; indicates a user based authentication. &#39;kUseIAMRole&#39; indicates a role based authentication, used only for AWS CE. &#39;kUseHelios&#39; indicates a Helios based authentication.</value>
+        [DataMember(Name="authMethod", EmitDefaultValue=true)]
+        public AuthMethodEnum? AuthMethod { get; set; }
+        /// <summary>
         /// Initializes a new instance of the <see cref="AwsKmsConfiguration" /> class.
         /// </summary>
         /// <param name="accessKeyId">Access key id needed to access the cloud account. When update cluster config, should encrypte accessKeyId with cluster ID..</param>
+        /// <param name="authMethod">Specifies the authentication method to be used for API calls. Specifies the authentication method to be used for API calls. &#39;kUseIAMUser&#39; indicates a user based authentication. &#39;kUseIAMRole&#39; indicates a role based authentication, used only for AWS CE. &#39;kUseHelios&#39; indicates a Helios based authentication..</param>
         /// <param name="caCertificate">Specify the ca certificate path..</param>
         /// <param name="cmkAlias">The string alias of the CMK..</param>
         /// <param name="cmkArn">The Amazon Resource Number of AWS Customer Managed Key..</param>
         /// <param name="cmkKeyId">AWS keyId, and alias. Only need one of them to connect AWS. Alias is better, because keyId maybe rotated by AWS. The unique key id of the CMK..</param>
+        /// <param name="iamRoleArn">Specifies the IAM role which will be used to access the security credentials required for API calls..</param>
         /// <param name="region">AWS region, e.g. us-east-1, us-west-2, for the AWS Glacier service to be used to authenticate resources within this region by the configured AWS account..</param>
         /// <param name="secretAccessKey">Secret access key needed to access the cloud account. This is encrypted with the cluster id..</param>
         /// <param name="verifySSL">Specify whether to verify SSL when connect with AWS KMS. Default is true..</param>
-        public AwsKmsConfiguration(string accessKeyId = default(string), string caCertificate = default(string), string cmkAlias = default(string), string cmkArn = default(string), string cmkKeyId = default(string), string region = default(string), string secretAccessKey = default(string), bool? verifySSL = default(bool?))
+        public AwsKmsConfiguration(string accessKeyId = default(string), AuthMethodEnum? authMethod = default(AuthMethodEnum?), string caCertificate = default(string), string cmkAlias = default(string), string cmkArn = default(string), string cmkKeyId = default(string), string iamRoleArn = default(string), string region = default(string), string secretAccessKey = default(string), bool? verifySSL = default(bool?))
         {
             this.AccessKeyId = accessKeyId;
+            this.AuthMethod = authMethod;
             this.CaCertificate = caCertificate;
             this.CmkAlias = cmkAlias;
             this.CmkArn = cmkArn;
             this.CmkKeyId = cmkKeyId;
-            this.Region = region;
-            this.SecretAccessKey = secretAccessKey;
-            this.VerifySSL = verifySSL;
-            this.AccessKeyId = accessKeyId;
-            this.CaCertificate = caCertificate;
-            this.CmkAlias = cmkAlias;
-            this.CmkArn = cmkArn;
-            this.CmkKeyId = cmkKeyId;
+            this.IamRoleArn = iamRoleArn;
             this.Region = region;
             this.SecretAccessKey = secretAccessKey;
             this.VerifySSL = verifySSL;
@@ -85,6 +116,13 @@ namespace Cohesity.Model
         /// <value>AWS keyId, and alias. Only need one of them to connect AWS. Alias is better, because keyId maybe rotated by AWS. The unique key id of the CMK.</value>
         [DataMember(Name="cmkKeyId", EmitDefaultValue=true)]
         public string CmkKeyId { get; set; }
+
+        /// <summary>
+        /// Specifies the IAM role which will be used to access the security credentials required for API calls.
+        /// </summary>
+        /// <value>Specifies the IAM role which will be used to access the security credentials required for API calls.</value>
+        [DataMember(Name="iamRoleArn", EmitDefaultValue=true)]
+        public string IamRoleArn { get; set; }
 
         /// <summary>
         /// AWS region, e.g. us-east-1, us-west-2, for the AWS Glacier service to be used to authenticate resources within this region by the configured AWS account.
@@ -149,6 +187,10 @@ namespace Cohesity.Model
                     this.AccessKeyId.Equals(input.AccessKeyId))
                 ) && 
                 (
+                    this.AuthMethod == input.AuthMethod ||
+                    this.AuthMethod.Equals(input.AuthMethod)
+                ) && 
+                (
                     this.CaCertificate == input.CaCertificate ||
                     (this.CaCertificate != null &&
                     this.CaCertificate.Equals(input.CaCertificate))
@@ -167,6 +209,11 @@ namespace Cohesity.Model
                     this.CmkKeyId == input.CmkKeyId ||
                     (this.CmkKeyId != null &&
                     this.CmkKeyId.Equals(input.CmkKeyId))
+                ) && 
+                (
+                    this.IamRoleArn == input.IamRoleArn ||
+                    (this.IamRoleArn != null &&
+                    this.IamRoleArn.Equals(input.IamRoleArn))
                 ) && 
                 (
                     this.Region == input.Region ||
@@ -196,6 +243,8 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.AccessKeyId != null)
                     hashCode = hashCode * 59 + this.AccessKeyId.GetHashCode();
+				if (this.AuthMethod != null)
+                	hashCode = hashCode * 59 + this.AuthMethod.GetHashCode();
                 if (this.CaCertificate != null)
                     hashCode = hashCode * 59 + this.CaCertificate.GetHashCode();
                 if (this.CmkAlias != null)
@@ -204,6 +253,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.CmkArn.GetHashCode();
                 if (this.CmkKeyId != null)
                     hashCode = hashCode * 59 + this.CmkKeyId.GetHashCode();
+                if (this.IamRoleArn != null)
+                    hashCode = hashCode * 59 + this.IamRoleArn.GetHashCode();
                 if (this.Region != null)
                     hashCode = hashCode * 59 + this.Region.GetHashCode();
                 if (this.SecretAccessKey != null)

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -72,16 +74,14 @@ namespace Cohesity.Model
         /// <param name="clientPrivateKey">Specifies the private key used to access Google Cloud Storage that is generated when the service account is created..</param>
         /// <param name="projectId">Specifies the project id of an existing Google Cloud project to store objects..</param>
         /// <param name="tierType">Specifies the storage class of GCP. GoogleTierType specifies the storage class for Google. &#39;kGoogleStandard&#39; indicates a tier type of Google properties. &#39;kGoogleNearline&#39; indicates a tier type of Google properties that is not accessed frequently. &#39;kGoogleColdline&#39; indicates a tier type of Google properties that is rarely accessed. &#39;kGoogleRegional&#39; indicates a tier type of Google properties that stores frequently accessed data in the same region. &#39;kGoogleMultiRegional&#39; indicates a tier type of Google properties that is frequently accessed (\&quot;hot\&quot; objects) around the world..</param>
-        public GoogleCloudCredentials(string clientEmailAddress = default(string), string clientPrivateKey = default(string), string projectId = default(string), TierTypeEnum? tierType = default(TierTypeEnum?))
+        /// <param name="tiers">Specifies the list of all tiers for Google account..</param>
+        public GoogleCloudCredentials(string clientEmailAddress = default(string), string clientPrivateKey = default(string), string projectId = default(string), TierTypeEnum? tierType = default(TierTypeEnum?), List<string> tiers = default(List<string>))
         {
             this.ClientEmailAddress = clientEmailAddress;
             this.ClientPrivateKey = clientPrivateKey;
             this.ProjectId = projectId;
             this.TierType = tierType;
-            this.ClientEmailAddress = clientEmailAddress;
-            this.ClientPrivateKey = clientPrivateKey;
-            this.ProjectId = projectId;
-            this.TierType = tierType;
+            this.Tiers = tiers;
         }
         
         /// <summary>
@@ -104,6 +104,13 @@ namespace Cohesity.Model
         /// <value>Specifies the project id of an existing Google Cloud project to store objects.</value>
         [DataMember(Name="projectId", EmitDefaultValue=true)]
         public string ProjectId { get; set; }
+
+        /// <summary>
+        /// Specifies the list of all tiers for Google account.
+        /// </summary>
+        /// <value>Specifies the list of all tiers for Google account.</value>
+        [DataMember(Name="tiers", EmitDefaultValue=true)]
+        public List<string> Tiers { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -159,6 +166,12 @@ namespace Cohesity.Model
                 (
                     this.TierType == input.TierType ||
                     this.TierType.Equals(input.TierType)
+                ) && 
+                (
+                    this.Tiers == input.Tiers ||
+                    this.Tiers != null &&
+                    input.Tiers != null &&
+                    this.Tiers.Equals(input.Tiers)
                 );
         }
 
@@ -177,7 +190,10 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ClientPrivateKey.GetHashCode();
                 if (this.ProjectId != null)
                     hashCode = hashCode * 59 + this.ProjectId.GetHashCode();
-                hashCode = hashCode * 59 + this.TierType.GetHashCode();
+                if (this.TierType != null)
+					hashCode = hashCode * 59 + this.TierType.GetHashCode();
+                if (this.Tiers != null)
+                    hashCode = hashCode * 59 + this.Tiers.GetHashCode();
                 return hashCode;
             }
         }

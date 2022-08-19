@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -28,19 +30,18 @@ namespace Cohesity.Model
         /// <param name="homeDir">Home directory of Oracle at destination. Example : /u01/app/oracle/product/11.2.0.3/db_1.</param>
         /// <param name="newDatabaseName">The name of the Oracle database that we restore to..</param>
         /// <param name="newSidDeprecated">Deprecated field SID of new Oracle database..</param>
+        /// <param name="newnameClause">SET NEWNAME clause user can specified. This allows user to have full control on how their database files can be renamed during the alternate restore workflow..</param>
+        /// <param name="nofilenamecheck">NOFILENAMECHECK option for RMAN Duplicate Database command.</param>
         /// <param name="oracleDbConfig">oracleDbConfig.</param>
-        public RestoreOracleAppObjectParamsAlternateLocationParams(string baseDir = default(string), string databaseFileDestination = default(string), string homeDir = default(string), string newDatabaseName = default(string), string newSidDeprecated = default(string), OracleDBConfig oracleDbConfig = default(OracleDBConfig))
+        public RestoreOracleAppObjectParamsAlternateLocationParams(string baseDir = default(string), string databaseFileDestination = default(string), string homeDir = default(string), string newDatabaseName = default(string), string newSidDeprecated = default(string), string newnameClause = default(string), bool? nofilenamecheck = default(bool?), OracleDBConfig oracleDbConfig = default(OracleDBConfig))
         {
             this.BaseDir = baseDir;
             this.DatabaseFileDestination = databaseFileDestination;
             this.HomeDir = homeDir;
             this.NewDatabaseName = newDatabaseName;
             this.NewSidDeprecated = newSidDeprecated;
-            this.BaseDir = baseDir;
-            this.DatabaseFileDestination = databaseFileDestination;
-            this.HomeDir = homeDir;
-            this.NewDatabaseName = newDatabaseName;
-            this.NewSidDeprecated = newSidDeprecated;
+            this.NewnameClause = newnameClause;
+            this.Nofilenamecheck = nofilenamecheck;
             this.OracleDbConfig = oracleDbConfig;
         }
         
@@ -78,6 +79,20 @@ namespace Cohesity.Model
         /// <value>Deprecated field SID of new Oracle database.</value>
         [DataMember(Name="newSidDeprecated", EmitDefaultValue=true)]
         public string NewSidDeprecated { get; set; }
+
+        /// <summary>
+        /// SET NEWNAME clause user can specified. This allows user to have full control on how their database files can be renamed during the alternate restore workflow.
+        /// </summary>
+        /// <value>SET NEWNAME clause user can specified. This allows user to have full control on how their database files can be renamed during the alternate restore workflow.</value>
+        [DataMember(Name="newnameClause", EmitDefaultValue=true)]
+        public string NewnameClause { get; set; }
+
+        /// <summary>
+        /// NOFILENAMECHECK option for RMAN Duplicate Database command
+        /// </summary>
+        /// <value>NOFILENAMECHECK option for RMAN Duplicate Database command</value>
+        [DataMember(Name="nofilenamecheck", EmitDefaultValue=true)]
+        public bool? Nofilenamecheck { get; set; }
 
         /// <summary>
         /// Gets or Sets OracleDbConfig
@@ -147,6 +162,16 @@ namespace Cohesity.Model
                     this.NewSidDeprecated.Equals(input.NewSidDeprecated))
                 ) && 
                 (
+                    this.NewnameClause == input.NewnameClause ||
+                    (this.NewnameClause != null &&
+                    this.NewnameClause.Equals(input.NewnameClause))
+                ) && 
+                (
+                    this.Nofilenamecheck == input.Nofilenamecheck ||
+                    (this.Nofilenamecheck != null &&
+                    this.Nofilenamecheck.Equals(input.Nofilenamecheck))
+                ) && 
+                (
                     this.OracleDbConfig == input.OracleDbConfig ||
                     (this.OracleDbConfig != null &&
                     this.OracleDbConfig.Equals(input.OracleDbConfig))
@@ -172,6 +197,10 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.NewDatabaseName.GetHashCode();
                 if (this.NewSidDeprecated != null)
                     hashCode = hashCode * 59 + this.NewSidDeprecated.GetHashCode();
+                if (this.NewnameClause != null)
+                    hashCode = hashCode * 59 + this.NewnameClause.GetHashCode();
+                if (this.Nofilenamecheck != null)
+                    hashCode = hashCode * 59 + this.Nofilenamecheck.GetHashCode();
                 if (this.OracleDbConfig != null)
                     hashCode = hashCode * 59 + this.OracleDbConfig.GetHashCode();
                 return hashCode;

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -100,7 +102,7 @@ namespace Cohesity.Model
                     this.OutlookFolderList == input.OutlookFolderList ||
                     this.OutlookFolderList != null &&
                     input.OutlookFolderList != null &&
-                    this.OutlookFolderList.SequenceEqual(input.OutlookFolderList)
+                    this.OutlookFolderList.Equals(input.OutlookFolderList)
                 ) && 
                 (
                     this.RestoreEntireMailbox == input.RestoreEntireMailbox ||

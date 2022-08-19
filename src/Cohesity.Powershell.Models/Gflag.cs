@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -36,10 +38,6 @@ namespace Cohesity.Model
         public Gflag(string name = default(string), string productModel = default(string), string reason = default(string), long? timestamp = default(long?), string value = default(string))
         {
             this.Name = name;
-            this.ProductModel = productModel;
-            this.Reason = reason;
-            this.Timestamp = timestamp;
-            this.Value = value;
             this.ProductModel = productModel;
             this.Reason = reason;
             this.Timestamp = timestamp;

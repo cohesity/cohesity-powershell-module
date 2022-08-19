@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -157,19 +159,19 @@ namespace Cohesity.Model
                     this.AccessibleUsers == input.AccessibleUsers ||
                     this.AccessibleUsers != null &&
                     input.AccessibleUsers != null &&
-                    this.AccessibleUsers.SequenceEqual(input.AccessibleUsers)
+                    this.AccessibleUsers.Equals(input.AccessibleUsers)
                 ) && 
                 (
                     this.AuditLogs == input.AuditLogs ||
                     this.AuditLogs != null &&
                     input.AuditLogs != null &&
-                    this.AuditLogs.SequenceEqual(input.AuditLogs)
+                    this.AuditLogs.Equals(input.AuditLogs)
                 ) && 
                 (
                     this.CopyTaskInfo == input.CopyTaskInfo ||
                     this.CopyTaskInfo != null &&
                     input.CopyTaskInfo != null &&
-                    this.CopyTaskInfo.SequenceEqual(input.CopyTaskInfo)
+                    this.CopyTaskInfo.Equals(input.CopyTaskInfo)
                 ) && 
                 (
                     this.IsProtected == input.IsProtected ||
@@ -185,7 +187,7 @@ namespace Cohesity.Model
                     this.ProtectionInfo == input.ProtectionInfo ||
                     this.ProtectionInfo != null &&
                     input.ProtectionInfo != null &&
-                    this.ProtectionInfo.SequenceEqual(input.ProtectionInfo)
+                    this.ProtectionInfo.Equals(input.ProtectionInfo)
                 ) && 
                 (
                     this.RootNodeId == input.RootNodeId ||

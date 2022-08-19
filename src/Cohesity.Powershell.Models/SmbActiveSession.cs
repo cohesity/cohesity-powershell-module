@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -31,12 +33,6 @@ namespace Cohesity.Model
         /// <param name="username">Specifies the username who keeps the file open..</param>
         public SmbActiveSession(List<SmbActiveOpen> activeOpens = default(List<SmbActiveOpen>), string clientIp = default(string), string domain = default(string), string serverIp = default(string), long? sessionId = default(long?), string username = default(string))
         {
-            this.ActiveOpens = activeOpens;
-            this.ClientIp = clientIp;
-            this.Domain = domain;
-            this.ServerIp = serverIp;
-            this.SessionId = sessionId;
-            this.Username = username;
             this.ActiveOpens = activeOpens;
             this.ClientIp = clientIp;
             this.Domain = domain;
@@ -127,7 +123,7 @@ namespace Cohesity.Model
                     this.ActiveOpens == input.ActiveOpens ||
                     this.ActiveOpens != null &&
                     input.ActiveOpens != null &&
-                    this.ActiveOpens.SequenceEqual(input.ActiveOpens)
+                    this.ActiveOpens.Equals(input.ActiveOpens)
                 ) && 
                 (
                     this.ClientIp == input.ClientIp ||

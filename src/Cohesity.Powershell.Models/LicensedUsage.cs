@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -12,6 +13,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
+
 namespace Cohesity.Model
 {
     /// <summary>
@@ -23,31 +25,30 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="LicensedUsage" /> class.
         /// </summary>
-        /// <param name="capacityGB">Feature usage by the cluster..</param>
+        /// <param name="capacityGiB">Feature usage by the cluster..</param>
         /// <param name="expiryTime">Expiry time(epoch) of each feature. There could be multiple expiry time for the given SKU..</param>
         /// <param name="featureName">Name of feature..</param>
         /// <param name="licenseType">Type of License.</param>
         /// <param name="numVm">Number of VM spinned..</param>
-        public LicensedUsage(long? capacityGB = default(long?), long? expiryTime = default(long?), string featureName = default(string), string licenseType = default(string), long? numVm = default(long?))
+        /// <param name="productDescription">Detail description of entitlement.</param>
+        /// <param name="productInfo">Short description of entitlement.</param>
+        public LicensedUsage(long? capacityGiB = default(long?), long? expiryTime = default(long?), string featureName = default(string), string licenseType = default(string), long? numVm = default(long?), string productDescription = default(string), string productInfo = default(string))
         {
-            this.CapacityGB = capacityGB;
+            this.CapacityGiB = capacityGiB;
             this.ExpiryTime = expiryTime;
             this.FeatureName = featureName;
             this.LicenseType = licenseType;
             this.NumVm = numVm;
-            this.CapacityGB = capacityGB;
-            this.ExpiryTime = expiryTime;
-            this.FeatureName = featureName;
-            this.LicenseType = licenseType;
-            this.NumVm = numVm;
+            this.ProductDescription = productDescription;
+            this.ProductInfo = productInfo;
         }
         
         /// <summary>
         /// Feature usage by the cluster.
         /// </summary>
         /// <value>Feature usage by the cluster.</value>
-        [DataMember(Name="capacityGB", EmitDefaultValue=true)]
-        public long? CapacityGB { get; set; }
+        [DataMember(Name="capacityGiB", EmitDefaultValue=true)]
+        public long? CapacityGiB { get; set; }
 
         /// <summary>
         /// Expiry time(epoch) of each feature. There could be multiple expiry time for the given SKU.
@@ -76,6 +77,20 @@ namespace Cohesity.Model
         /// <value>Number of VM spinned.</value>
         [DataMember(Name="numVm", EmitDefaultValue=true)]
         public long? NumVm { get; set; }
+
+        /// <summary>
+        /// Detail description of entitlement
+        /// </summary>
+        /// <value>Detail description of entitlement</value>
+        [DataMember(Name="productDescription", EmitDefaultValue=true)]
+        public string ProductDescription { get; set; }
+
+        /// <summary>
+        /// Short description of entitlement
+        /// </summary>
+        /// <value>Short description of entitlement</value>
+        [DataMember(Name="productInfo", EmitDefaultValue=true)]
+        public string ProductInfo { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -114,9 +129,9 @@ namespace Cohesity.Model
 
             return 
                 (
-                    this.CapacityGB == input.CapacityGB ||
-                    (this.CapacityGB != null &&
-                    this.CapacityGB.Equals(input.CapacityGB))
+                    this.CapacityGiB == input.CapacityGiB ||
+                    (this.CapacityGiB != null &&
+                    this.CapacityGiB.Equals(input.CapacityGiB))
                 ) && 
                 (
                     this.ExpiryTime == input.ExpiryTime ||
@@ -137,6 +152,16 @@ namespace Cohesity.Model
                     this.NumVm == input.NumVm ||
                     (this.NumVm != null &&
                     this.NumVm.Equals(input.NumVm))
+                ) && 
+                (
+                    this.ProductDescription == input.ProductDescription ||
+                    (this.ProductDescription != null &&
+                    this.ProductDescription.Equals(input.ProductDescription))
+                ) && 
+                (
+                    this.ProductInfo == input.ProductInfo ||
+                    (this.ProductInfo != null &&
+                    this.ProductInfo.Equals(input.ProductInfo))
                 );
         }
 
@@ -149,8 +174,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                if (this.CapacityGB != null)
-                    hashCode = hashCode * 59 + this.CapacityGB.GetHashCode();
+                if (this.CapacityGiB != null)
+                    hashCode = hashCode * 59 + this.CapacityGiB.GetHashCode();
                 if (this.ExpiryTime != null)
                     hashCode = hashCode * 59 + this.ExpiryTime.GetHashCode();
                 if (this.FeatureName != null)
@@ -159,6 +184,10 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.LicenseType.GetHashCode();
                 if (this.NumVm != null)
                     hashCode = hashCode * 59 + this.NumVm.GetHashCode();
+                if (this.ProductDescription != null)
+                    hashCode = hashCode * 59 + this.ProductDescription.GetHashCode();
+                if (this.ProductInfo != null)
+                    hashCode = hashCode * 59 + this.ProductInfo.GetHashCode();
                 return hashCode;
             }
         }

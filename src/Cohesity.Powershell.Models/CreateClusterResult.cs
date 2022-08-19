@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -152,7 +154,7 @@ namespace Cohesity.Model
                     this.HealthyNodes == input.HealthyNodes ||
                     this.HealthyNodes != null &&
                     input.HealthyNodes != null &&
-                    this.HealthyNodes.SequenceEqual(input.HealthyNodes)
+                    this.HealthyNodes.Equals(input.HealthyNodes)
                 ) && 
                 (
                     this.IncarnationId == input.IncarnationId ||
@@ -168,7 +170,7 @@ namespace Cohesity.Model
                     this.UnhealthyNodes == input.UnhealthyNodes ||
                     this.UnhealthyNodes != null &&
                     input.UnhealthyNodes != null &&
-                    this.UnhealthyNodes.SequenceEqual(input.UnhealthyNodes)
+                    this.UnhealthyNodes.Equals(input.UnhealthyNodes)
                 );
         }
 

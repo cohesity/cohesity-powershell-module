@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -72,17 +74,50 @@ namespace Cohesity.Model
             /// Enum KManagement for value: kManagement
             /// </summary>
             [EnumMember(Value = "kManagement")]
-            KManagement = 8
+            KManagement = 8,
+
+            /// <summary>
+            /// Enum KNvme for value: kNvme
+            /// </summary>
+            [EnumMember(Value = "kNvme")]
+            KNvme = 9
 
         }
 
 
         /// <summary>
-        /// Array of Data Protocols.  Specifies the set of data protocols supported by this volume. &#39;kNfs&#39; indicates NFS connections. &#39;kCifs&#39; indicates SMB (CIFS) connections. &#39;kIscsi&#39; indicates iSCSI connections. &#39;kFc&#39; indicates Fiber Channel connections. &#39;kFcache&#39; indicates Flex Cache connections. &#39;kHttp&#39; indicates HTTP connections. &#39;kNdmp&#39; indicates NDMP connections. &#39;kManagement&#39; indicates non-data connections used for management purposes.
+        /// Array of Data Protocols.  Specifies the set of data protocols supported by this volume. &#39;kNfs&#39; indicates NFS connections. &#39;kCifs&#39; indicates SMB (CIFS) connections. &#39;kIscsi&#39; indicates iSCSI connections. &#39;kFc&#39; indicates Fiber Channel connections. &#39;kFcache&#39; indicates Flex Cache connections. &#39;kHttp&#39; indicates HTTP connections. &#39;kNdmp&#39; indicates NDMP connections. &#39;kManagement&#39; indicates non-data connections used for management purposes. &#39;kNvme&#39; indicates NVMe connections.
         /// </summary>
-        /// <value>Array of Data Protocols.  Specifies the set of data protocols supported by this volume. &#39;kNfs&#39; indicates NFS connections. &#39;kCifs&#39; indicates SMB (CIFS) connections. &#39;kIscsi&#39; indicates iSCSI connections. &#39;kFc&#39; indicates Fiber Channel connections. &#39;kFcache&#39; indicates Flex Cache connections. &#39;kHttp&#39; indicates HTTP connections. &#39;kNdmp&#39; indicates NDMP connections. &#39;kManagement&#39; indicates non-data connections used for management purposes.</value>
+        /// <value>Array of Data Protocols.  Specifies the set of data protocols supported by this volume. &#39;kNfs&#39; indicates NFS connections. &#39;kCifs&#39; indicates SMB (CIFS) connections. &#39;kIscsi&#39; indicates iSCSI connections. &#39;kFc&#39; indicates Fiber Channel connections. &#39;kFcache&#39; indicates Flex Cache connections. &#39;kHttp&#39; indicates HTTP connections. &#39;kNdmp&#39; indicates NDMP connections. &#39;kManagement&#39; indicates non-data connections used for management purposes. &#39;kNvme&#39; indicates NVMe connections.</value>
         [DataMember(Name="dataProtocols", EmitDefaultValue=true)]
         public List<DataProtocolsEnum> DataProtocols { get; set; }
+        /// <summary>
+        /// Specifies the Extended style information of a NetApp volume. Specifies the extended style info of a NetApp Volume. &#39;kFlexGroup&#39; indicates FlexGroup volume. A FlexGroup volume contains several constituents (which themselves are Netapp volumes) that automatically and transparently share the traffic. Cohesity does not need to deal with the individual consituents, just the main FlexGroup volume. &#39;kFlexVol&#39; indicates FlexVol volume. A typical NAS share.
+        /// </summary>
+        /// <value>Specifies the Extended style information of a NetApp volume. Specifies the extended style info of a NetApp Volume. &#39;kFlexGroup&#39; indicates FlexGroup volume. A FlexGroup volume contains several constituents (which themselves are Netapp volumes) that automatically and transparently share the traffic. Cohesity does not need to deal with the individual consituents, just the main FlexGroup volume. &#39;kFlexVol&#39; indicates FlexVol volume. A typical NAS share.</value>
+        [JsonConverter(typeof(StringEnumConverter))]
+        public enum ExtendedStyleEnum
+        {
+            /// <summary>
+            /// Enum KFlexVol for value: kFlexVol
+            /// </summary>
+            [EnumMember(Value = "kFlexVol")]
+            KFlexVol = 1,
+
+            /// <summary>
+            /// Enum KFlexGroup for value: kFlexGroup
+            /// </summary>
+            [EnumMember(Value = "kFlexGroup")]
+            KFlexGroup = 2
+
+        }
+
+        /// <summary>
+        /// Specifies the Extended style information of a NetApp volume. Specifies the extended style info of a NetApp Volume. &#39;kFlexGroup&#39; indicates FlexGroup volume. A FlexGroup volume contains several constituents (which themselves are Netapp volumes) that automatically and transparently share the traffic. Cohesity does not need to deal with the individual consituents, just the main FlexGroup volume. &#39;kFlexVol&#39; indicates FlexVol volume. A typical NAS share.
+        /// </summary>
+        /// <value>Specifies the Extended style information of a NetApp volume. Specifies the extended style info of a NetApp Volume. &#39;kFlexGroup&#39; indicates FlexGroup volume. A FlexGroup volume contains several constituents (which themselves are Netapp volumes) that automatically and transparently share the traffic. Cohesity does not need to deal with the individual consituents, just the main FlexGroup volume. &#39;kFlexVol&#39; indicates FlexVol volume. A typical NAS share.</value>
+        [DataMember(Name="extendedStyle", EmitDefaultValue=true)]
+        public ExtendedStyleEnum? ExtendedStyle { get; set; }
         /// <summary>
         /// Specifies the state of this volume. Specifies the state of a NetApp Volume. &#39;kOnline&#39; indicates the volume is online. Read and write access to this volume is allowed. &#39;kRestricted&#39; indicates the volume is restricted. Some operations, such as parity reconstruction, are allowed, but data access is not allowed. &#39;kOffline&#39; indicates the volume is offline. No access to the volume is allowed. &#39;kMixed&#39; indicates the volume is in mixed state, which means its aggregates are not all in the same state.
         /// </summary>
@@ -180,15 +215,16 @@ namespace Cohesity.Model
         /// <param name="capacityBytes">Specifies the total capacity in bytes of this volume..</param>
         /// <param name="cifsShares">Array of CIFS Shares.  Specifies the set of CIFS Shares exported for this volume..</param>
         /// <param name="creationTimeUsecs">Specifies the creation time of the volume specified in Unix epoch time (in microseconds)..</param>
-        /// <param name="dataProtocols">Array of Data Protocols.  Specifies the set of data protocols supported by this volume. &#39;kNfs&#39; indicates NFS connections. &#39;kCifs&#39; indicates SMB (CIFS) connections. &#39;kIscsi&#39; indicates iSCSI connections. &#39;kFc&#39; indicates Fiber Channel connections. &#39;kFcache&#39; indicates Flex Cache connections. &#39;kHttp&#39; indicates HTTP connections. &#39;kNdmp&#39; indicates NDMP connections. &#39;kManagement&#39; indicates non-data connections used for management purposes..</param>
+        /// <param name="dataProtocols">Array of Data Protocols.  Specifies the set of data protocols supported by this volume. &#39;kNfs&#39; indicates NFS connections. &#39;kCifs&#39; indicates SMB (CIFS) connections. &#39;kIscsi&#39; indicates iSCSI connections. &#39;kFc&#39; indicates Fiber Channel connections. &#39;kFcache&#39; indicates Flex Cache connections. &#39;kHttp&#39; indicates HTTP connections. &#39;kNdmp&#39; indicates NDMP connections. &#39;kManagement&#39; indicates non-data connections used for management purposes. &#39;kNvme&#39; indicates NVMe connections..</param>
         /// <param name="exportPolicyName">Specifies the name of the export policy (which defines the access permissions for the mount client) that has been assigned to this volume..</param>
+        /// <param name="extendedStyle">Specifies the Extended style information of a NetApp volume. Specifies the extended style info of a NetApp Volume. &#39;kFlexGroup&#39; indicates FlexGroup volume. A FlexGroup volume contains several constituents (which themselves are Netapp volumes) that automatically and transparently share the traffic. Cohesity does not need to deal with the individual consituents, just the main FlexGroup volume. &#39;kFlexVol&#39; indicates FlexVol volume. A typical NAS share..</param>
         /// <param name="junctionPath">Specifies the junction path of this volume. This path can be used to mount this volume via protocols such as NFS..</param>
         /// <param name="name">Specifies the name of the NetApp Vserver that this volume belongs to..</param>
         /// <param name="securityInfo">securityInfo.</param>
         /// <param name="state">Specifies the state of this volume. Specifies the state of a NetApp Volume. &#39;kOnline&#39; indicates the volume is online. Read and write access to this volume is allowed. &#39;kRestricted&#39; indicates the volume is restricted. Some operations, such as parity reconstruction, are allowed, but data access is not allowed. &#39;kOffline&#39; indicates the volume is offline. No access to the volume is allowed. &#39;kMixed&#39; indicates the volume is in mixed state, which means its aggregates are not all in the same state..</param>
         /// <param name="type">Specifies the NetApp type of this volume. Specifies the type of a NetApp Volume. &#39;kReadWrite&#39; indicates read-write volume. &#39;kLoadSharing&#39; indicates load-sharing volume. &#39;kDataProtection&#39; indicates data-protection volume. &#39;kDataCache&#39; indicates data-cache volume. &#39;kTmp&#39; indicates temporary purpose. &#39;kUnknownType&#39; indicates unknown type..</param>
         /// <param name="usedBytes">Specifies the total space (in bytes) used in this volume..</param>
-        public NetappVolumeInfo(string aggregateName = default(string), long? capacityBytes = default(long?), List<CifsShareInfo> cifsShares = default(List<CifsShareInfo>), long? creationTimeUsecs = default(long?), List<DataProtocolsEnum> dataProtocols = default(List<DataProtocolsEnum>), string exportPolicyName = default(string), string junctionPath = default(string), string name = default(string), VolumeSecurityInfo securityInfo = default(VolumeSecurityInfo), StateEnum? state = default(StateEnum?), TypeEnum? type = default(TypeEnum?), long? usedBytes = default(long?))
+        public NetappVolumeInfo(string aggregateName = default(string), long? capacityBytes = default(long?), List<CifsShareInfo> cifsShares = default(List<CifsShareInfo>), long? creationTimeUsecs = default(long?), List<DataProtocolsEnum> dataProtocols = default(List<DataProtocolsEnum>), string exportPolicyName = default(string), ExtendedStyleEnum? extendedStyle = default(ExtendedStyleEnum?), string junctionPath = default(string), string name = default(string), VolumeSecurityInfo securityInfo = default(VolumeSecurityInfo), StateEnum? state = default(StateEnum?), TypeEnum? type = default(TypeEnum?), long? usedBytes = default(long?))
         {
             this.AggregateName = aggregateName;
             this.CapacityBytes = capacityBytes;
@@ -196,17 +232,7 @@ namespace Cohesity.Model
             this.CreationTimeUsecs = creationTimeUsecs;
             this.DataProtocols = dataProtocols;
             this.ExportPolicyName = exportPolicyName;
-            this.JunctionPath = junctionPath;
-            this.Name = name;
-            this.State = state;
-            this.Type = type;
-            this.UsedBytes = usedBytes;
-            this.AggregateName = aggregateName;
-            this.CapacityBytes = capacityBytes;
-            this.CifsShares = cifsShares;
-            this.CreationTimeUsecs = creationTimeUsecs;
-            this.DataProtocols = dataProtocols;
-            this.ExportPolicyName = exportPolicyName;
+            this.ExtendedStyle = extendedStyle;
             this.JunctionPath = junctionPath;
             this.Name = name;
             this.SecurityInfo = securityInfo;
@@ -327,7 +353,7 @@ namespace Cohesity.Model
                     this.CifsShares == input.CifsShares ||
                     this.CifsShares != null &&
                     input.CifsShares != null &&
-                    this.CifsShares.SequenceEqual(input.CifsShares)
+                    this.CifsShares.Equals(input.CifsShares)
                 ) && 
                 (
                     this.CreationTimeUsecs == input.CreationTimeUsecs ||
@@ -336,12 +362,16 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.DataProtocols == input.DataProtocols ||
-                    this.DataProtocols.SequenceEqual(input.DataProtocols)
+                    this.DataProtocols.Equals(input.DataProtocols)
                 ) && 
                 (
                     this.ExportPolicyName == input.ExportPolicyName ||
                     (this.ExportPolicyName != null &&
                     this.ExportPolicyName.Equals(input.ExportPolicyName))
+                ) && 
+                (
+                    this.ExtendedStyle == input.ExtendedStyle ||
+                    this.ExtendedStyle.Equals(input.ExtendedStyle)
                 ) && 
                 (
                     this.JunctionPath == input.JunctionPath ||
@@ -390,17 +420,22 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.CifsShares.GetHashCode();
                 if (this.CreationTimeUsecs != null)
                     hashCode = hashCode * 59 + this.CreationTimeUsecs.GetHashCode();
-                hashCode = hashCode * 59 + this.DataProtocols.GetHashCode();
+                if (this.DataProtocols != null)
+					hashCode = hashCode * 59 + this.DataProtocols.GetHashCode();
                 if (this.ExportPolicyName != null)
                     hashCode = hashCode * 59 + this.ExportPolicyName.GetHashCode();
+                if (this.ExtendedStyle != null)
+					hashCode = hashCode * 59 + this.ExtendedStyle.GetHashCode();
                 if (this.JunctionPath != null)
                     hashCode = hashCode * 59 + this.JunctionPath.GetHashCode();
                 if (this.Name != null)
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
                 if (this.SecurityInfo != null)
                     hashCode = hashCode * 59 + this.SecurityInfo.GetHashCode();
-                hashCode = hashCode * 59 + this.State.GetHashCode();
-                hashCode = hashCode * 59 + this.Type.GetHashCode();
+                if (this.State != null)
+					hashCode = hashCode * 59 + this.State.GetHashCode();
+                if (this.Type != null)
+					hashCode = hashCode * 59 + this.Type.GetHashCode();
                 if (this.UsedBytes != null)
                     hashCode = hashCode * 59 + this.UsedBytes.GetHashCode();
                 return hashCode;

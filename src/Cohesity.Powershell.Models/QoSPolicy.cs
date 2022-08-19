@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -63,17 +65,6 @@ namespace Cohesity.Model
         /// <param name="workLoadType">Specifies Workload type attribute associated with this Policy..</param>
         public QoSPolicy(bool? alwaysUseSsd = default(bool?), long? id = default(long?), int? minRequests = default(int?), string name = default(string), PriorityEnum? priority = default(PriorityEnum?), int? randomWriteHydraPct = default(int?), int? randomWriteSsdPct = default(int?), int? seqWriteHydraPct = default(int?), int? seqWriteSsdPct = default(int?), int? weight = default(int?), string workLoadType = default(string))
         {
-            this.AlwaysUseSsd = alwaysUseSsd;
-            this.Id = id;
-            this.MinRequests = minRequests;
-            this.Name = name;
-            this.Priority = priority;
-            this.RandomWriteHydraPct = randomWriteHydraPct;
-            this.RandomWriteSsdPct = randomWriteSsdPct;
-            this.SeqWriteHydraPct = seqWriteHydraPct;
-            this.SeqWriteSsdPct = seqWriteSsdPct;
-            this.Weight = weight;
-            this.WorkLoadType = workLoadType;
             this.AlwaysUseSsd = alwaysUseSsd;
             this.Id = id;
             this.MinRequests = minRequests;

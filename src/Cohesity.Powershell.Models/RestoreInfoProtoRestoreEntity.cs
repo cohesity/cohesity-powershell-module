@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -30,15 +32,12 @@ namespace Cohesity.Model
         /// <param name="relativeRestorePaths">All the paths that the entity&#39;s files were restored to. Each path is relative to the destination view..</param>
         /// <param name="resourcePoolEntity">resourcePoolEntity.</param>
         /// <param name="restoredEntity">restoredEntity.</param>
+        /// <param name="restoredViewName">Cloned or converted view name which is used to restore the entity. In case of on-prem deploy task this view name will be used in next run..</param>
         /// <param name="status">The restore status of the entity..</param>
+        /// <param name="totalBytesRestored">Contains the information regarding total bytes restored for this entity. Currently updated only in case of outlook restore..</param>
         /// <param name="warnings">Optional warnings if any..</param>
-        public RestoreInfoProtoRestoreEntity(EntityProto entity = default(EntityProto), ErrorProto error = default(ErrorProto), string progressMonitorTaskPath = default(string), int? publicStatus = default(int?), List<string> relativeRestorePaths = default(List<string>), EntityProto resourcePoolEntity = default(EntityProto), EntityProto restoredEntity = default(EntityProto), int? status = default(int?), List<ErrorProto> warnings = default(List<ErrorProto>))
+        public RestoreInfoProtoRestoreEntity(EntityProto entity = default(EntityProto), ErrorProto error = default(ErrorProto), string progressMonitorTaskPath = default(string), int? publicStatus = default(int?), List<string> relativeRestorePaths = default(List<string>), EntityProto resourcePoolEntity = default(EntityProto), EntityProto restoredEntity = default(EntityProto), string restoredViewName = default(string), int? status = default(int?), long? totalBytesRestored = default(long?), List<ErrorProto> warnings = default(List<ErrorProto>))
         {
-            this.ProgressMonitorTaskPath = progressMonitorTaskPath;
-            this.PublicStatus = publicStatus;
-            this.RelativeRestorePaths = relativeRestorePaths;
-            this.Status = status;
-            this.Warnings = warnings;
             this.Entity = entity;
             this.Error = error;
             this.ProgressMonitorTaskPath = progressMonitorTaskPath;
@@ -46,7 +45,9 @@ namespace Cohesity.Model
             this.RelativeRestorePaths = relativeRestorePaths;
             this.ResourcePoolEntity = resourcePoolEntity;
             this.RestoredEntity = restoredEntity;
+            this.RestoredViewName = restoredViewName;
             this.Status = status;
+            this.TotalBytesRestored = totalBytesRestored;
             this.Warnings = warnings;
         }
         
@@ -96,11 +97,25 @@ namespace Cohesity.Model
         public EntityProto RestoredEntity { get; set; }
 
         /// <summary>
+        /// Cloned or converted view name which is used to restore the entity. In case of on-prem deploy task this view name will be used in next run.
+        /// </summary>
+        /// <value>Cloned or converted view name which is used to restore the entity. In case of on-prem deploy task this view name will be used in next run.</value>
+        [DataMember(Name="restoredViewName", EmitDefaultValue=true)]
+        public string RestoredViewName { get; set; }
+
+        /// <summary>
         /// The restore status of the entity.
         /// </summary>
         /// <value>The restore status of the entity.</value>
         [DataMember(Name="status", EmitDefaultValue=true)]
         public int? Status { get; set; }
+
+        /// <summary>
+        /// Contains the information regarding total bytes restored for this entity. Currently updated only in case of outlook restore.
+        /// </summary>
+        /// <value>Contains the information regarding total bytes restored for this entity. Currently updated only in case of outlook restore.</value>
+        [DataMember(Name="totalBytesRestored", EmitDefaultValue=true)]
+        public long? TotalBytesRestored { get; set; }
 
         /// <summary>
         /// Optional warnings if any.
@@ -169,7 +184,7 @@ namespace Cohesity.Model
                     this.RelativeRestorePaths == input.RelativeRestorePaths ||
                     this.RelativeRestorePaths != null &&
                     input.RelativeRestorePaths != null &&
-                    this.RelativeRestorePaths.SequenceEqual(input.RelativeRestorePaths)
+                    this.RelativeRestorePaths.Equals(input.RelativeRestorePaths)
                 ) && 
                 (
                     this.ResourcePoolEntity == input.ResourcePoolEntity ||
@@ -182,15 +197,25 @@ namespace Cohesity.Model
                     this.RestoredEntity.Equals(input.RestoredEntity))
                 ) && 
                 (
+                    this.RestoredViewName == input.RestoredViewName ||
+                    (this.RestoredViewName != null &&
+                    this.RestoredViewName.Equals(input.RestoredViewName))
+                ) && 
+                (
                     this.Status == input.Status ||
                     (this.Status != null &&
                     this.Status.Equals(input.Status))
                 ) && 
                 (
+                    this.TotalBytesRestored == input.TotalBytesRestored ||
+                    (this.TotalBytesRestored != null &&
+                    this.TotalBytesRestored.Equals(input.TotalBytesRestored))
+                ) && 
+                (
                     this.Warnings == input.Warnings ||
                     this.Warnings != null &&
                     input.Warnings != null &&
-                    this.Warnings.SequenceEqual(input.Warnings)
+                    this.Warnings.Equals(input.Warnings)
                 );
         }
 
@@ -217,8 +242,12 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ResourcePoolEntity.GetHashCode();
                 if (this.RestoredEntity != null)
                     hashCode = hashCode * 59 + this.RestoredEntity.GetHashCode();
+                if (this.RestoredViewName != null)
+                    hashCode = hashCode * 59 + this.RestoredViewName.GetHashCode();
                 if (this.Status != null)
                     hashCode = hashCode * 59 + this.Status.GetHashCode();
+                if (this.TotalBytesRestored != null)
+                    hashCode = hashCode * 59 + this.TotalBytesRestored.GetHashCode();
                 if (this.Warnings != null)
                     hashCode = hashCode * 59 + this.Warnings.GetHashCode();
                 return hashCode;

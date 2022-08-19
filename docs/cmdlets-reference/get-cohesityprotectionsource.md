@@ -26,6 +26,15 @@ Returns registered protection sources that match the environment type 'kVMware'.
 Get-CohesityProtectionSource -Id 1234
 ```
 
+Returns registered protection source that matches the id 1234.
+
+### EXAMPLE 3
+```
+Get-CohesityProtectionSource -Name 'abc'
+```
+
+Returns registered protection sources that matches the name 'abc'.
+
 ## PARAMETERS
 
 ### -Environments

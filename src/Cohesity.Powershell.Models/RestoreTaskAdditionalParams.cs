@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -25,10 +27,12 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="postScript">postScript.</param>
         /// <param name="preScript">preScript.</param>
-        public RestoreTaskAdditionalParams(RemoteScriptProto postScript = default(RemoteScriptProto), RemoteScriptProto preScript = default(RemoteScriptProto))
+        /// <param name="uptierParams">uptierParams.</param>
+        public RestoreTaskAdditionalParams(RemoteScriptProto postScript = default(RemoteScriptProto), RemoteScriptProto preScript = default(RemoteScriptProto), UptieringRunOnceParams uptierParams = default(UptieringRunOnceParams))
         {
             this.PostScript = postScript;
             this.PreScript = preScript;
+            this.UptierParams = uptierParams;
         }
         
         /// <summary>
@@ -42,6 +46,12 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="preScript", EmitDefaultValue=false)]
         public RemoteScriptProto PreScript { get; set; }
+
+        /// <summary>
+        /// Gets or Sets UptierParams
+        /// </summary>
+        [DataMember(Name="uptierParams", EmitDefaultValue=false)]
+        public UptieringRunOnceParams UptierParams { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -88,6 +98,11 @@ namespace Cohesity.Model
                     this.PreScript == input.PreScript ||
                     (this.PreScript != null &&
                     this.PreScript.Equals(input.PreScript))
+                ) && 
+                (
+                    this.UptierParams == input.UptierParams ||
+                    (this.UptierParams != null &&
+                    this.UptierParams.Equals(input.UptierParams))
                 );
         }
 
@@ -104,6 +119,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.PostScript.GetHashCode();
                 if (this.PreScript != null)
                     hashCode = hashCode * 59 + this.PreScript.GetHashCode();
+                if (this.UptierParams != null)
+                    hashCode = hashCode * 59 + this.UptierParams.GetHashCode();
                 return hashCode;
             }
         }

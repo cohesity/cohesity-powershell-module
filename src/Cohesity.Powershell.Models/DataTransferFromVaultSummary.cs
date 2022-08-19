@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -127,7 +129,7 @@ namespace Cohesity.Model
                     this.DataTransferPerTask == input.DataTransferPerTask ||
                     this.DataTransferPerTask != null &&
                     input.DataTransferPerTask != null &&
-                    this.DataTransferPerTask.SequenceEqual(input.DataTransferPerTask)
+                    this.DataTransferPerTask.Equals(input.DataTransferPerTask)
                 ) && 
                 (
                     this.NumLogicalBytesTransferred == input.NumLogicalBytesTransferred ||
@@ -148,7 +150,7 @@ namespace Cohesity.Model
                     this.PhysicalDataTransferredBytesDuringTimeRange == input.PhysicalDataTransferredBytesDuringTimeRange ||
                     this.PhysicalDataTransferredBytesDuringTimeRange != null &&
                     input.PhysicalDataTransferredBytesDuringTimeRange != null &&
-                    this.PhysicalDataTransferredBytesDuringTimeRange.SequenceEqual(input.PhysicalDataTransferredBytesDuringTimeRange)
+                    this.PhysicalDataTransferredBytesDuringTimeRange.Equals(input.PhysicalDataTransferredBytesDuringTimeRange)
                 ) && 
                 (
                     this.VaultName == input.VaultName ||

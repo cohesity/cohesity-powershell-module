@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -12,6 +13,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
+
 namespace Cohesity.Model
 {
     /// <summary>
@@ -23,12 +25,15 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="BackupJobProto" /> class.
         /// </summary>
-        /// <param name="abortInExclusionWindow">This field determines whether a backup run should be aborted when it hits an exclusion window (assuming that it was started earlier when it was not in an exclusion window)..</param>
+        /// <param name="abortInExclusionWindow">NOTE: Atmost one of abort_in_exclusion_window and pause_in_blackout_window will be set to true. This field determines whether a backup run should be aborted when it hits an exclusion window (assuming that it was started earlier when it was not in an exclusion window)..</param>
         /// <param name="alertingPolicy">alertingPolicy.</param>
+        /// <param name="allArchivalSnapshotsExpired">If job deletion status is kDeleteJobAndBackups and this field is set to true, then it  implies that expiration requests for all archival snapshots of this job (if any) have been acknowledged by Icebox. NOTE: This field may remain false for some period of time even if is_deleted field is set to true for the job..</param>
+        /// <param name="allowParallelRuns">Denotes whether for this host based backup jobs we allow parallel runs or not. This is only supported by VMware adapter..</param>
         /// <param name="backupQosPrincipal">The backup QoS principal to use for the backup job..</param>
         /// <param name="backupSourceParams">This contains additional backup params that are applicable to sources that are captured as part of the backup job. NOTE: The sources could point to higher level entities (such as a \&quot;Cluster\&quot; in VMware environment), but the source params captured here will not be for the matching higher level entity, but instead be for leaf-level entities (such as VMs)..</param>
         /// <param name="continueOnQuiesceFailure">Whether to continue backing up on quiesce failure..</param>
-        /// <param name="createRemoteView">If set to false, a remote view will not be created. If set to true and: 1) Remote view name is not provided by the user, a remote view is created with the same name as source view name. 2) Remote view name is provided by the user, a remote view is created with the given name..</param>
+        /// <param name="createRemoteView">If set to false, a remote view will not be created. If set to true and: 1) Remote view name is not provided by the user, a remote view is created with the same name as source view name. 2) Remote view name is provided by the user, a remote view is created with the given name. NOTE: From 6.6 onwards, remote view is always created for view backups if policy has replication. Hence, this bool is only used for Remote Adapter jobs (kPuppeteer)..</param>
+        /// <param name="dataTransferInfo">dataTransferInfo.</param>
         /// <param name="dedupDisabledSourceIdVec">List of source ids for which source side dedup is disabled from the backup job..</param>
         /// <param name="deletionStatus">Determines if the job (and associated backups) should be deleted. Once a job has been deleted, its status cannot be changed..</param>
         /// <param name="description">Job description (as entered by the user)..</param>
@@ -42,13 +47,19 @@ namespace Cohesity.Model
         /// <param name="fullBackupJobPolicy">fullBackupJobPolicy.</param>
         /// <param name="fullBackupSlaTimeMins">Same as &#39;sla_time_mins&#39; above, but applies to full backups. NOTE: This value is considered only for full backups that are excepted i.e either scheduled or the first full backup and not for full backups that happen as a result of incremental backup failure..</param>
         /// <param name="globalIncludeExclude">globalIncludeExclude.</param>
+        /// <param name="ignorableErrorsInErrorDb">Specifies the list of errors, that should not be persisted in error_db.</param>
         /// <param name="indexingPolicy">indexingPolicy.</param>
         /// <param name="isActive">Whether the backup job is active or not. Details about what an active job is can be found here: https://goo.gl/1mLvS3..</param>
-        /// <param name="isDeleted">Tracks whether the backup job has actually been deleted..</param>
+        /// <param name="isCdpSyncReplicationEnabled">If set to true and backup job policy has CDP parameters as well as snapshot replication target policy is specified then data is synchronously replicated to the replication target through Atom service..</param>
+        /// <param name="isCloudArchiveDirect">Denotes whether the backup job is CloudArchiveDirect (excluding NAS direct archive in native format). NAS direct archive jobs in native format can be identified by checking for the &#39;is_direct_archive_enabled&#39; field..</param>
+        /// <param name="isContinuousSnapshottingEnabled">Indicates if Magneto should continue taking source snapshots even if there is a pending run..</param>
+        /// <param name="isDeleted">Tracks whether the backup job has actually been deleted. NOTE: If job deletion status is kDeleteJobAndBackups and this field is true, then it only implies that all local snapshots have been deleted. Status of whether all archival snapshots have been expired can be inferred through &#39;all_archival_snapshots_expired&#39; field..</param>
         /// <param name="isDirectArchiveEnabled">This field is set to true if this is a direct archive backup job..</param>
         /// <param name="isDirectArchiveNativeFormatEnabled">This field is set to true if native format should be used for archiving. Applicable for only direct archive jobs..</param>
+        /// <param name="isInternal">Whether the backup job is an internal job. These jobs are hidden from the user, and are created internally..</param>
         /// <param name="isPaused">Whether the backup job is paused. New backup runs are not scheduled for the paused backup job. Active run of a backup job (if any) is not impacted..</param>
         /// <param name="isRpoJob">Whether the backup job is an RPO policy job. These jobs are hidden from the user, and are created internally to have a backup schedule for the given source..</param>
+        /// <param name="isSourcePausedMap">A map from entity id of the source to whether the source backup is paused..</param>
         /// <param name="jobCreationTimeUsecs">Time when this job was first created..</param>
         /// <param name="jobId">A unique id for locally created jobs. This should only be used to identify jobs created on the local cluster. When Iris communicates with Magneto, Iris can continue to use this job_id field, which will always be assumed to refer to locally created jobs.  For remotely created jobs, the &#39;job_uid&#39; field should be used. The only time Iris should ever need to refer to a remote job is when restoring an object from a remote snapshot. In all such cases, Iris should use the job_uid field..</param>
         /// <param name="jobPolicy">jobPolicy.</param>
@@ -57,12 +68,19 @@ namespace Cohesity.Model
         /// <param name="lastPauseModificationTimeUsecs">Time when the job was last paused or unpaused..</param>
         /// <param name="lastPauseReason">Last reason for pausing the backup job. Capturing the reason will help in resuming only the jobs that were paused because of a reason once the reason for pausing is not applicable..</param>
         /// <param name="lastUpdatedUsername">The user who modified the job most recently..</param>
+        /// <param name="leverageNutanixSnapshots">This is set to true by the user if nutanix snapshot is requested This is applicable in case if the vcenter in question is registered as a management server on a prism endpoint. This flag will be ignored at the backend if it is not feasible to leverage nutanix snapshot..</param>
+        /// <param name="leverageSanTransport">This is set to true by the user in order to backup the objects via a dedicated storage area network (SAN), as opposed to transport via LAN or management network. NOTE: Not all adapters support this method. Currently only VMware..</param>
         /// <param name="leverageStorageSnapshots">Whether to leverage the storage array based snapshots for this backup job. To leverage storage snapshots, the storage array has to be registered as a source. If storage based snapshots can not be taken, job will fallback to the default backup method. NOTE: This will be set for Pure snapshots..</param>
         /// <param name="leverageStorageSnapshotsForHyperflex">This is set to true by the user if hyperflex snapshots are requested NOTE: If this is set to true, then leverage_storage_snapshots above should be false..</param>
         /// <param name="logBackupJobPolicy">logBackupJobPolicy.</param>
+        /// <param name="logBackupSlaTimeMins">Same as &#39;sla_time_mins&#39; above, but applies to log backups..</param>
+        /// <param name="maxAllowedSourceSnapshots">Determines the maximum number of source snapshots allowed for a given entity in the job. This is only applicable if &#39;is_continuous_snapshotting_enabled&#39; is set to true..</param>
         /// <param name="name">The name of this backup job. This must be unique across all jobs..</param>
         /// <param name="numSnapshotsToKeepOnPrimary">Specifies how many recent snapshots of each backed up entity to retain on the primary environment. If not specified, then snapshots will not be be deleted from the primary environment. NOTE: This is only applicable for certain environments like kPure..</param>
+        /// <param name="objectBackupSpecUid">objectBackupSpecUid.</param>
         /// <param name="parentSource">parentSource.</param>
+        /// <param name="pauseInBlackoutWindow">This field determines whether a backup run should be paused when it hits a blackout window (assuming that it was started earlier when it was not in an blackout window). The backup run will get resumed when the blackout period ends..</param>
+        /// <param name="performBrickBasedDedup">Whether or not to perform source side dedup..</param>
         /// <param name="performSourceSideDedup">Whether or not to perform source side dedup..</param>
         /// <param name="policyAppliedTimeMsecs">Epoch time in milliseconds when the policy was last applied to this job. This field will be used to determine whether a policy has changed after it was applied to a particular job..</param>
         /// <param name="policyId">Id of the policy being applied to the backup job. It is expected to be of the form \&quot;cluster_id:cluster_instance_id:local_identifier\&quot;..</param>
@@ -73,11 +91,17 @@ namespace Cohesity.Model
         /// <param name="priority">The priority for the job. This is used at admission time - all admitted jobs are treated equally. This is also used to determine the Madrox replication priority..</param>
         /// <param name="quiesce">Whether to take app-consistent snapshots by quiescing apps and the filesystem before taking a backup..</param>
         /// <param name="remoteJobUids">The globally unique ids of all remote jobs that are linked to this job (because of incoming replications). This field will only be populated for locally created jobs. This field is populated only for the local(stub) job during incoming replications. In the most common case of one cluster replicating to another, this field will only have one entry (which is the id of the job on Tx side) and matches the primary_job_uid. This will have multiple entries in the following situation: A-&gt;B, A-&gt;C replication. The backup is failed over to B, and B now starts replicating to C. In this case, the stub job at C will have two entries. One is the job id from cluster A, and another is the local(stub) job uid from B. Also note that since the job originated from A, primary_job_uid for all the replicated instances of this job across multiple clusters will remain the same (which is equal to the job id from the original cluster A)..</param>
-        /// <param name="remoteViewName">A human readable name of the remote view. A remote view is created with name overwriting the latest snapshot..</param>
+        /// <param name="remoteViewName">A human readable name of the remote view. A remote view is created with name overwriting the latest snapshot. NOTE: From 6.6 onwards, we support protecting multiple views within a protection group, &#39;remote_view_params&#39; is the new field which captures this information for view backups, &#39;remote_view_name&#39; here is now only used for Remote Adapter jobs (kPuppeteer)..</param>
+        /// <param name="remoteViewParams">remoteViewParams.</param>
         /// <param name="requiredFeatureVec">The features that are strictly required to be supported by the cluster of the backup job. This is currently used in the following cases: 1. Tx cluster looks at the Rx cluster&#39;s supported features and replicates the backup job only if all the features captured here are supported. 2. When performing remote restore of a backup job from an archival, this job will be retrieved only if the cluster supports all the features listed here..</param>
+        /// <param name="skipRigelForBackup">Whether to skip Rigel for backup or not. This field is applicable only for DMaaS. This field is currently being used in DRaaS workflows only..</param>
+        /// <param name="skipTenantValidations">If set to true, skips tenant related validations. Default is false..</param>
         /// <param name="slaTimeMins">If specified, this variable determines the amount of time (after backup has started) in which backup is expected to finish for this job. An SLA violation is counted against this job if the amount of time taken exceeds this amount..</param>
+        /// <param name="sourceFilters">sourceFilters.</param>
         /// <param name="sources">The list of sources that should be backed up. A source in this list could be a descendant of another source in the list (this will be used when specifying override backup schedules)..</param>
+        /// <param name="standbyResourceVec">User provided resource(s) for creating a standby VM for each entity present in this backup job. For example in case of VMware, the user will provide the vCenter, datastore and resource pool on which the standby VM should be created. TODO(hmehra) Can the user edit this after the job is created or the resources have been specified?.</param>
         /// <param name="startTime">startTime.</param>
+        /// <param name="storageArraySnapshot">Whether this backup job has a policy for storage array snapshot based backups..</param>
         /// <param name="stubbingPolicy">stubbingPolicy.</param>
         /// <param name="tagVec">Tags associated with the job. User can specify tags/keywords that can indexed by Yoda and can be later searched in UI. For example, user can create a &#39;kPuppeteer&#39; job to backup Oracle DB for &#39;payroll&#39; department. User can specify following tags: &#39;payroll&#39;, &#39;Oracle_DB&#39;..</param>
         /// <param name="timezone">Timezone of the backup job. All time fields (i.e., TimeOfDay) in this backup job are stored wrt to this timezone.  The time zones have unique names of the form \&quot;Area/Location\&quot;, e.g. \&quot;America/New_York\&quot;. We are using \&quot;America/Los_Angeles\&quot; as a default value so as to be backward compatible with pre-2.7 code..</param>
@@ -85,9 +109,11 @@ namespace Cohesity.Model
         /// <param name="type">The type of environment this backup job corresponds to..</param>
         /// <param name="userInfo">userInfo.</param>
         /// <param name="viewBoxId">The view box to which data will be written..</param>
-        public BackupJobProto(bool? abortInExclusionWindow = default(bool?), AlertingPolicyProto alertingPolicy = default(AlertingPolicyProto), int? backupQosPrincipal = default(int?), List<BackupSourceParams> backupSourceParams = default(List<BackupSourceParams>), bool? continueOnQuiesceFailure = default(bool?), bool? createRemoteView = default(bool?), List<long> dedupDisabledSourceIdVec = default(List<long>), int? deletionStatus = default(int?), string description = default(string), BackupJobProtoDRToCloudParams drToCloudParams = default(BackupJobProtoDRToCloudParams), EntityProto ehParentSource = default(EntityProto), long? endTimeUsecs = default(long?), EnvBackupParams envBackupParams = default(EnvBackupParams), List<BackupJobProtoExcludeSource> excludeSources = default(List<BackupJobProtoExcludeSource>), List<EntityProto> excludeSourcesDEPRECATED = default(List<EntityProto>), List<BackupJobProtoExclusionTimeRange> exclusionRanges = default(List<BackupJobProtoExclusionTimeRange>), JobPolicyProto fullBackupJobPolicy = default(JobPolicyProto), long? fullBackupSlaTimeMins = default(long?), PhysicalFileBackupParamsGlobalIncludeExclude globalIncludeExclude = default(PhysicalFileBackupParamsGlobalIncludeExclude), IndexingPolicyProto indexingPolicy = default(IndexingPolicyProto), bool? isActive = default(bool?), bool? isDeleted = default(bool?), bool? isDirectArchiveEnabled = default(bool?), bool? isDirectArchiveNativeFormatEnabled = default(bool?), bool? isPaused = default(bool?), bool? isRpoJob = default(bool?), long? jobCreationTimeUsecs = default(long?), long? jobId = default(long?), JobPolicyProto jobPolicy = default(JobPolicyProto), UniversalIdProto jobUid = default(UniversalIdProto), long? lastModificationTimeUsecs = default(long?), long? lastPauseModificationTimeUsecs = default(long?), int? lastPauseReason = default(int?), string lastUpdatedUsername = default(string), bool? leverageStorageSnapshots = default(bool?), bool? leverageStorageSnapshotsForHyperflex = default(bool?), JobPolicyProto logBackupJobPolicy = default(JobPolicyProto), string name = default(string), long? numSnapshotsToKeepOnPrimary = default(long?), EntityProto parentSource = default(EntityProto), bool? performSourceSideDedup = default(bool?), long? policyAppliedTimeMsecs = default(long?), string policyId = default(string), string policyName = default(string), BackupJobPreOrPostScript postBackupScript = default(BackupJobPreOrPostScript), BackupJobPreOrPostScript preScript = default(BackupJobPreOrPostScript), UniversalIdProto primaryJobUid = default(UniversalIdProto), int? priority = default(int?), bool? quiesce = default(bool?), List<UniversalIdProto> remoteJobUids = default(List<UniversalIdProto>), string remoteViewName = default(string), List<string> requiredFeatureVec = default(List<string>), long? slaTimeMins = default(long?), List<BackupJobProtoBackupSource> sources = default(List<BackupJobProtoBackupSource>), Time startTime = default(Time), StubbingPolicyProto stubbingPolicy = default(StubbingPolicyProto), List<string> tagVec = default(List<string>), string timezone = default(string), bool? truncateLogs = default(bool?), int? type = default(int?), UserInformation userInfo = default(UserInformation), long? viewBoxId = default(long?))
+        public BackupJobProto(bool? abortInExclusionWindow = default(bool?), AlertingPolicyProto alertingPolicy = default(AlertingPolicyProto), bool? allArchivalSnapshotsExpired = default(bool?), bool? allowParallelRuns = default(bool?), int? backupQosPrincipal = default(int?), List<BackupSourceParams> backupSourceParams = default(List<BackupSourceParams>), bool? continueOnQuiesceFailure = default(bool?), bool? createRemoteView = default(bool?), DataTransferInfo dataTransferInfo = default(DataTransferInfo), List<long> dedupDisabledSourceIdVec = default(List<long>), int? deletionStatus = default(int?), string description = default(string), BackupJobProtoDRToCloudParams drToCloudParams = default(BackupJobProtoDRToCloudParams), EntityProto ehParentSource = default(EntityProto), long? endTimeUsecs = default(long?), EnvBackupParams envBackupParams = default(EnvBackupParams), List<BackupJobProtoExcludeSource> excludeSources = default(List<BackupJobProtoExcludeSource>), List<EntityProto> excludeSourcesDEPRECATED = default(List<EntityProto>), List<BackupJobProtoExclusionTimeRange> exclusionRanges = default(List<BackupJobProtoExclusionTimeRange>), JobPolicyProto fullBackupJobPolicy = default(JobPolicyProto), long? fullBackupSlaTimeMins = default(long?), PhysicalFileBackupParamsGlobalIncludeExclude globalIncludeExclude = default(PhysicalFileBackupParamsGlobalIncludeExclude), List<ErrorProto> ignorableErrorsInErrorDb = default(List<ErrorProto>), IndexingPolicyProto indexingPolicy = default(IndexingPolicyProto), bool? isActive = default(bool?), bool? isCdpSyncReplicationEnabled = default(bool?), bool? isCloudArchiveDirect = default(bool?), bool? isContinuousSnapshottingEnabled = default(bool?), bool? isDeleted = default(bool?), bool? isDirectArchiveEnabled = default(bool?), bool? isDirectArchiveNativeFormatEnabled = default(bool?), bool? isInternal = default(bool?), bool? isPaused = default(bool?), bool? isRpoJob = default(bool?), List<BackupJobProtoIsSourcePausedMapEntry> isSourcePausedMap = default(List<BackupJobProtoIsSourcePausedMapEntry>), long? jobCreationTimeUsecs = default(long?), long? jobId = default(long?), JobPolicyProto jobPolicy = default(JobPolicyProto), UniversalIdProto jobUid = default(UniversalIdProto), long? lastModificationTimeUsecs = default(long?), long? lastPauseModificationTimeUsecs = default(long?), int? lastPauseReason = default(int?), string lastUpdatedUsername = default(string), bool? leverageNutanixSnapshots = default(bool?), bool? leverageSanTransport = default(bool?), bool? leverageStorageSnapshots = default(bool?), bool? leverageStorageSnapshotsForHyperflex = default(bool?), JobPolicyProto logBackupJobPolicy = default(JobPolicyProto), long? logBackupSlaTimeMins = default(long?), int? maxAllowedSourceSnapshots = default(int?), string name = default(string), long? numSnapshotsToKeepOnPrimary = default(long?), UniversalIdProto objectBackupSpecUid = default(UniversalIdProto), EntityProto parentSource = default(EntityProto), bool? pauseInBlackoutWindow = default(bool?), bool? performBrickBasedDedup = default(bool?), bool? performSourceSideDedup = default(bool?), long? policyAppliedTimeMsecs = default(long?), string policyId = default(string), string policyName = default(string), BackupJobPreOrPostScript postBackupScript = default(BackupJobPreOrPostScript), BackupJobPreOrPostScript preScript = default(BackupJobPreOrPostScript), UniversalIdProto primaryJobUid = default(UniversalIdProto), int? priority = default(int?), bool? quiesce = default(bool?), List<UniversalIdProto> remoteJobUids = default(List<UniversalIdProto>), string remoteViewName = default(string), BackupJobProtoRemoteViewParams remoteViewParams = default(BackupJobProtoRemoteViewParams), List<string> requiredFeatureVec = default(List<string>), bool? skipRigelForBackup = default(bool?), bool? skipTenantValidations = default(bool?), long? slaTimeMins = default(long?), SourceFilters sourceFilters = default(SourceFilters), List<BackupJobProtoBackupSource> sources = default(List<BackupJobProtoBackupSource>), List<StandbyResource> standbyResourceVec = default(List<StandbyResource>), Time startTime = default(Time), bool? storageArraySnapshot = default(bool?), StubbingPolicyProto stubbingPolicy = default(StubbingPolicyProto), List<string> tagVec = default(List<string>), string timezone = default(string), bool? truncateLogs = default(bool?), int? type = default(int?), UserInformation userInfo = default(UserInformation), long? viewBoxId = default(long?))
         {
             this.AbortInExclusionWindow = abortInExclusionWindow;
+            this.AllArchivalSnapshotsExpired = allArchivalSnapshotsExpired;
+            this.AllowParallelRuns = allowParallelRuns;
             this.BackupQosPrincipal = backupQosPrincipal;
             this.BackupSourceParams = backupSourceParams;
             this.ContinueOnQuiesceFailure = continueOnQuiesceFailure;
@@ -100,22 +126,34 @@ namespace Cohesity.Model
             this.ExcludeSourcesDEPRECATED = excludeSourcesDEPRECATED;
             this.ExclusionRanges = exclusionRanges;
             this.FullBackupSlaTimeMins = fullBackupSlaTimeMins;
+            this.IgnorableErrorsInErrorDb = ignorableErrorsInErrorDb;
             this.IsActive = isActive;
+            this.IsCdpSyncReplicationEnabled = isCdpSyncReplicationEnabled;
+            this.IsCloudArchiveDirect = isCloudArchiveDirect;
+            this.IsContinuousSnapshottingEnabled = isContinuousSnapshottingEnabled;
             this.IsDeleted = isDeleted;
             this.IsDirectArchiveEnabled = isDirectArchiveEnabled;
             this.IsDirectArchiveNativeFormatEnabled = isDirectArchiveNativeFormatEnabled;
+            this.IsInternal = isInternal;
             this.IsPaused = isPaused;
             this.IsRpoJob = isRpoJob;
+            this.IsSourcePausedMap = isSourcePausedMap;
             this.JobCreationTimeUsecs = jobCreationTimeUsecs;
             this.JobId = jobId;
             this.LastModificationTimeUsecs = lastModificationTimeUsecs;
             this.LastPauseModificationTimeUsecs = lastPauseModificationTimeUsecs;
             this.LastPauseReason = lastPauseReason;
             this.LastUpdatedUsername = lastUpdatedUsername;
+            this.LeverageNutanixSnapshots = leverageNutanixSnapshots;
+            this.LeverageSanTransport = leverageSanTransport;
             this.LeverageStorageSnapshots = leverageStorageSnapshots;
             this.LeverageStorageSnapshotsForHyperflex = leverageStorageSnapshotsForHyperflex;
+            this.LogBackupSlaTimeMins = logBackupSlaTimeMins;
+            this.MaxAllowedSourceSnapshots = maxAllowedSourceSnapshots;
             this.Name = name;
             this.NumSnapshotsToKeepOnPrimary = numSnapshotsToKeepOnPrimary;
+            this.PauseInBlackoutWindow = pauseInBlackoutWindow;
+            this.PerformBrickBasedDedup = performBrickBasedDedup;
             this.PerformSourceSideDedup = performSourceSideDedup;
             this.PolicyAppliedTimeMsecs = policyAppliedTimeMsecs;
             this.PolicyId = policyId;
@@ -125,8 +163,12 @@ namespace Cohesity.Model
             this.RemoteJobUids = remoteJobUids;
             this.RemoteViewName = remoteViewName;
             this.RequiredFeatureVec = requiredFeatureVec;
+            this.SkipRigelForBackup = skipRigelForBackup;
+            this.SkipTenantValidations = skipTenantValidations;
             this.SlaTimeMins = slaTimeMins;
             this.Sources = sources;
+            this.StandbyResourceVec = standbyResourceVec;
+            this.StorageArraySnapshot = storageArraySnapshot;
             this.TagVec = tagVec;
             this.Timezone = timezone;
             this.TruncateLogs = truncateLogs;
@@ -134,10 +176,13 @@ namespace Cohesity.Model
             this.ViewBoxId = viewBoxId;
             this.AbortInExclusionWindow = abortInExclusionWindow;
             this.AlertingPolicy = alertingPolicy;
+            this.AllArchivalSnapshotsExpired = allArchivalSnapshotsExpired;
+            this.AllowParallelRuns = allowParallelRuns;
             this.BackupQosPrincipal = backupQosPrincipal;
             this.BackupSourceParams = backupSourceParams;
             this.ContinueOnQuiesceFailure = continueOnQuiesceFailure;
             this.CreateRemoteView = createRemoteView;
+            this.DataTransferInfo = dataTransferInfo;
             this.DedupDisabledSourceIdVec = dedupDisabledSourceIdVec;
             this.DeletionStatus = deletionStatus;
             this.Description = description;
@@ -151,13 +196,19 @@ namespace Cohesity.Model
             this.FullBackupJobPolicy = fullBackupJobPolicy;
             this.FullBackupSlaTimeMins = fullBackupSlaTimeMins;
             this.GlobalIncludeExclude = globalIncludeExclude;
+            this.IgnorableErrorsInErrorDb = ignorableErrorsInErrorDb;
             this.IndexingPolicy = indexingPolicy;
             this.IsActive = isActive;
+            this.IsCdpSyncReplicationEnabled = isCdpSyncReplicationEnabled;
+            this.IsCloudArchiveDirect = isCloudArchiveDirect;
+            this.IsContinuousSnapshottingEnabled = isContinuousSnapshottingEnabled;
             this.IsDeleted = isDeleted;
             this.IsDirectArchiveEnabled = isDirectArchiveEnabled;
             this.IsDirectArchiveNativeFormatEnabled = isDirectArchiveNativeFormatEnabled;
+            this.IsInternal = isInternal;
             this.IsPaused = isPaused;
             this.IsRpoJob = isRpoJob;
+            this.IsSourcePausedMap = isSourcePausedMap;
             this.JobCreationTimeUsecs = jobCreationTimeUsecs;
             this.JobId = jobId;
             this.JobPolicy = jobPolicy;
@@ -166,12 +217,19 @@ namespace Cohesity.Model
             this.LastPauseModificationTimeUsecs = lastPauseModificationTimeUsecs;
             this.LastPauseReason = lastPauseReason;
             this.LastUpdatedUsername = lastUpdatedUsername;
+            this.LeverageNutanixSnapshots = leverageNutanixSnapshots;
+            this.LeverageSanTransport = leverageSanTransport;
             this.LeverageStorageSnapshots = leverageStorageSnapshots;
             this.LeverageStorageSnapshotsForHyperflex = leverageStorageSnapshotsForHyperflex;
             this.LogBackupJobPolicy = logBackupJobPolicy;
+            this.LogBackupSlaTimeMins = logBackupSlaTimeMins;
+            this.MaxAllowedSourceSnapshots = maxAllowedSourceSnapshots;
             this.Name = name;
             this.NumSnapshotsToKeepOnPrimary = numSnapshotsToKeepOnPrimary;
+            this.ObjectBackupSpecUid = objectBackupSpecUid;
             this.ParentSource = parentSource;
+            this.PauseInBlackoutWindow = pauseInBlackoutWindow;
+            this.PerformBrickBasedDedup = performBrickBasedDedup;
             this.PerformSourceSideDedup = performSourceSideDedup;
             this.PolicyAppliedTimeMsecs = policyAppliedTimeMsecs;
             this.PolicyId = policyId;
@@ -183,10 +241,16 @@ namespace Cohesity.Model
             this.Quiesce = quiesce;
             this.RemoteJobUids = remoteJobUids;
             this.RemoteViewName = remoteViewName;
+            this.RemoteViewParams = remoteViewParams;
             this.RequiredFeatureVec = requiredFeatureVec;
+            this.SkipRigelForBackup = skipRigelForBackup;
+            this.SkipTenantValidations = skipTenantValidations;
             this.SlaTimeMins = slaTimeMins;
+            this.SourceFilters = sourceFilters;
             this.Sources = sources;
+            this.StandbyResourceVec = standbyResourceVec;
             this.StartTime = startTime;
+            this.StorageArraySnapshot = storageArraySnapshot;
             this.StubbingPolicy = stubbingPolicy;
             this.TagVec = tagVec;
             this.Timezone = timezone;
@@ -197,9 +261,9 @@ namespace Cohesity.Model
         }
         
         /// <summary>
-        /// This field determines whether a backup run should be aborted when it hits an exclusion window (assuming that it was started earlier when it was not in an exclusion window).
+        /// NOTE: Atmost one of abort_in_exclusion_window and pause_in_blackout_window will be set to true. This field determines whether a backup run should be aborted when it hits an exclusion window (assuming that it was started earlier when it was not in an exclusion window).
         /// </summary>
-        /// <value>This field determines whether a backup run should be aborted when it hits an exclusion window (assuming that it was started earlier when it was not in an exclusion window).</value>
+        /// <value>NOTE: Atmost one of abort_in_exclusion_window and pause_in_blackout_window will be set to true. This field determines whether a backup run should be aborted when it hits an exclusion window (assuming that it was started earlier when it was not in an exclusion window).</value>
         [DataMember(Name="abortInExclusionWindow", EmitDefaultValue=true)]
         public bool? AbortInExclusionWindow { get; set; }
 
@@ -208,6 +272,20 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="alertingPolicy", EmitDefaultValue=false)]
         public AlertingPolicyProto AlertingPolicy { get; set; }
+
+        /// <summary>
+        /// If job deletion status is kDeleteJobAndBackups and this field is set to true, then it  implies that expiration requests for all archival snapshots of this job (if any) have been acknowledged by Icebox. NOTE: This field may remain false for some period of time even if is_deleted field is set to true for the job.
+        /// </summary>
+        /// <value>If job deletion status is kDeleteJobAndBackups and this field is set to true, then it  implies that expiration requests for all archival snapshots of this job (if any) have been acknowledged by Icebox. NOTE: This field may remain false for some period of time even if is_deleted field is set to true for the job.</value>
+        [DataMember(Name="allArchivalSnapshotsExpired", EmitDefaultValue=true)]
+        public bool? AllArchivalSnapshotsExpired { get; set; }
+
+        /// <summary>
+        /// Denotes whether for this host based backup jobs we allow parallel runs or not. This is only supported by VMware adapter.
+        /// </summary>
+        /// <value>Denotes whether for this host based backup jobs we allow parallel runs or not. This is only supported by VMware adapter.</value>
+        [DataMember(Name="allowParallelRuns", EmitDefaultValue=true)]
+        public bool? AllowParallelRuns { get; set; }
 
         /// <summary>
         /// The backup QoS principal to use for the backup job.
@@ -231,11 +309,17 @@ namespace Cohesity.Model
         public bool? ContinueOnQuiesceFailure { get; set; }
 
         /// <summary>
-        /// If set to false, a remote view will not be created. If set to true and: 1) Remote view name is not provided by the user, a remote view is created with the same name as source view name. 2) Remote view name is provided by the user, a remote view is created with the given name.
+        /// If set to false, a remote view will not be created. If set to true and: 1) Remote view name is not provided by the user, a remote view is created with the same name as source view name. 2) Remote view name is provided by the user, a remote view is created with the given name. NOTE: From 6.6 onwards, remote view is always created for view backups if policy has replication. Hence, this bool is only used for Remote Adapter jobs (kPuppeteer).
         /// </summary>
-        /// <value>If set to false, a remote view will not be created. If set to true and: 1) Remote view name is not provided by the user, a remote view is created with the same name as source view name. 2) Remote view name is provided by the user, a remote view is created with the given name.</value>
+        /// <value>If set to false, a remote view will not be created. If set to true and: 1) Remote view name is not provided by the user, a remote view is created with the same name as source view name. 2) Remote view name is provided by the user, a remote view is created with the given name. NOTE: From 6.6 onwards, remote view is always created for view backups if policy has replication. Hence, this bool is only used for Remote Adapter jobs (kPuppeteer).</value>
         [DataMember(Name="createRemoteView", EmitDefaultValue=true)]
         public bool? CreateRemoteView { get; set; }
+
+        /// <summary>
+        /// Gets or Sets DataTransferInfo
+        /// </summary>
+        [DataMember(Name="dataTransferInfo", EmitDefaultValue=false)]
+        public DataTransferInfo DataTransferInfo { get; set; }
 
         /// <summary>
         /// List of source ids for which source side dedup is disabled from the backup job.
@@ -324,6 +408,13 @@ namespace Cohesity.Model
         public PhysicalFileBackupParamsGlobalIncludeExclude GlobalIncludeExclude { get; set; }
 
         /// <summary>
+        /// Specifies the list of errors, that should not be persisted in error_db
+        /// </summary>
+        /// <value>Specifies the list of errors, that should not be persisted in error_db</value>
+        [DataMember(Name="ignorableErrorsInErrorDb", EmitDefaultValue=true)]
+        public List<ErrorProto> IgnorableErrorsInErrorDb { get; set; }
+
+        /// <summary>
         /// Gets or Sets IndexingPolicy
         /// </summary>
         [DataMember(Name="indexingPolicy", EmitDefaultValue=false)]
@@ -337,9 +428,30 @@ namespace Cohesity.Model
         public bool? IsActive { get; set; }
 
         /// <summary>
-        /// Tracks whether the backup job has actually been deleted.
+        /// If set to true and backup job policy has CDP parameters as well as snapshot replication target policy is specified then data is synchronously replicated to the replication target through Atom service.
         /// </summary>
-        /// <value>Tracks whether the backup job has actually been deleted.</value>
+        /// <value>If set to true and backup job policy has CDP parameters as well as snapshot replication target policy is specified then data is synchronously replicated to the replication target through Atom service.</value>
+        [DataMember(Name="isCdpSyncReplicationEnabled", EmitDefaultValue=true)]
+        public bool? IsCdpSyncReplicationEnabled { get; set; }
+
+        /// <summary>
+        /// Denotes whether the backup job is CloudArchiveDirect (excluding NAS direct archive in native format). NAS direct archive jobs in native format can be identified by checking for the &#39;is_direct_archive_enabled&#39; field.
+        /// </summary>
+        /// <value>Denotes whether the backup job is CloudArchiveDirect (excluding NAS direct archive in native format). NAS direct archive jobs in native format can be identified by checking for the &#39;is_direct_archive_enabled&#39; field.</value>
+        [DataMember(Name="isCloudArchiveDirect", EmitDefaultValue=true)]
+        public bool? IsCloudArchiveDirect { get; set; }
+
+        /// <summary>
+        /// Indicates if Magneto should continue taking source snapshots even if there is a pending run.
+        /// </summary>
+        /// <value>Indicates if Magneto should continue taking source snapshots even if there is a pending run.</value>
+        [DataMember(Name="isContinuousSnapshottingEnabled", EmitDefaultValue=true)]
+        public bool? IsContinuousSnapshottingEnabled { get; set; }
+
+        /// <summary>
+        /// Tracks whether the backup job has actually been deleted. NOTE: If job deletion status is kDeleteJobAndBackups and this field is true, then it only implies that all local snapshots have been deleted. Status of whether all archival snapshots have been expired can be inferred through &#39;all_archival_snapshots_expired&#39; field.
+        /// </summary>
+        /// <value>Tracks whether the backup job has actually been deleted. NOTE: If job deletion status is kDeleteJobAndBackups and this field is true, then it only implies that all local snapshots have been deleted. Status of whether all archival snapshots have been expired can be inferred through &#39;all_archival_snapshots_expired&#39; field.</value>
         [DataMember(Name="isDeleted", EmitDefaultValue=true)]
         public bool? IsDeleted { get; set; }
 
@@ -358,6 +470,13 @@ namespace Cohesity.Model
         public bool? IsDirectArchiveNativeFormatEnabled { get; set; }
 
         /// <summary>
+        /// Whether the backup job is an internal job. These jobs are hidden from the user, and are created internally.
+        /// </summary>
+        /// <value>Whether the backup job is an internal job. These jobs are hidden from the user, and are created internally.</value>
+        [DataMember(Name="isInternal", EmitDefaultValue=true)]
+        public bool? IsInternal { get; set; }
+
+        /// <summary>
         /// Whether the backup job is paused. New backup runs are not scheduled for the paused backup job. Active run of a backup job (if any) is not impacted.
         /// </summary>
         /// <value>Whether the backup job is paused. New backup runs are not scheduled for the paused backup job. Active run of a backup job (if any) is not impacted.</value>
@@ -370,6 +489,13 @@ namespace Cohesity.Model
         /// <value>Whether the backup job is an RPO policy job. These jobs are hidden from the user, and are created internally to have a backup schedule for the given source.</value>
         [DataMember(Name="isRpoJob", EmitDefaultValue=true)]
         public bool? IsRpoJob { get; set; }
+
+        /// <summary>
+        /// A map from entity id of the source to whether the source backup is paused.
+        /// </summary>
+        /// <value>A map from entity id of the source to whether the source backup is paused.</value>
+        [DataMember(Name="isSourcePausedMap", EmitDefaultValue=true)]
+        public List<BackupJobProtoIsSourcePausedMapEntry> IsSourcePausedMap { get; set; }
 
         /// <summary>
         /// Time when this job was first created.
@@ -426,6 +552,20 @@ namespace Cohesity.Model
         public string LastUpdatedUsername { get; set; }
 
         /// <summary>
+        /// This is set to true by the user if nutanix snapshot is requested This is applicable in case if the vcenter in question is registered as a management server on a prism endpoint. This flag will be ignored at the backend if it is not feasible to leverage nutanix snapshot.
+        /// </summary>
+        /// <value>This is set to true by the user if nutanix snapshot is requested This is applicable in case if the vcenter in question is registered as a management server on a prism endpoint. This flag will be ignored at the backend if it is not feasible to leverage nutanix snapshot.</value>
+        [DataMember(Name="leverageNutanixSnapshots", EmitDefaultValue=true)]
+        public bool? LeverageNutanixSnapshots { get; set; }
+
+        /// <summary>
+        /// This is set to true by the user in order to backup the objects via a dedicated storage area network (SAN), as opposed to transport via LAN or management network. NOTE: Not all adapters support this method. Currently only VMware.
+        /// </summary>
+        /// <value>This is set to true by the user in order to backup the objects via a dedicated storage area network (SAN), as opposed to transport via LAN or management network. NOTE: Not all adapters support this method. Currently only VMware.</value>
+        [DataMember(Name="leverageSanTransport", EmitDefaultValue=true)]
+        public bool? LeverageSanTransport { get; set; }
+
+        /// <summary>
         /// Whether to leverage the storage array based snapshots for this backup job. To leverage storage snapshots, the storage array has to be registered as a source. If storage based snapshots can not be taken, job will fallback to the default backup method. NOTE: This will be set for Pure snapshots.
         /// </summary>
         /// <value>Whether to leverage the storage array based snapshots for this backup job. To leverage storage snapshots, the storage array has to be registered as a source. If storage based snapshots can not be taken, job will fallback to the default backup method. NOTE: This will be set for Pure snapshots.</value>
@@ -446,6 +586,20 @@ namespace Cohesity.Model
         public JobPolicyProto LogBackupJobPolicy { get; set; }
 
         /// <summary>
+        /// Same as &#39;sla_time_mins&#39; above, but applies to log backups.
+        /// </summary>
+        /// <value>Same as &#39;sla_time_mins&#39; above, but applies to log backups.</value>
+        [DataMember(Name="logBackupSlaTimeMins", EmitDefaultValue=true)]
+        public long? LogBackupSlaTimeMins { get; set; }
+
+        /// <summary>
+        /// Determines the maximum number of source snapshots allowed for a given entity in the job. This is only applicable if &#39;is_continuous_snapshotting_enabled&#39; is set to true.
+        /// </summary>
+        /// <value>Determines the maximum number of source snapshots allowed for a given entity in the job. This is only applicable if &#39;is_continuous_snapshotting_enabled&#39; is set to true.</value>
+        [DataMember(Name="maxAllowedSourceSnapshots", EmitDefaultValue=true)]
+        public int? MaxAllowedSourceSnapshots { get; set; }
+
+        /// <summary>
         /// The name of this backup job. This must be unique across all jobs.
         /// </summary>
         /// <value>The name of this backup job. This must be unique across all jobs.</value>
@@ -460,10 +614,30 @@ namespace Cohesity.Model
         public long? NumSnapshotsToKeepOnPrimary { get; set; }
 
         /// <summary>
+        /// Gets or Sets ObjectBackupSpecUid
+        /// </summary>
+        [DataMember(Name="objectBackupSpecUid", EmitDefaultValue=false)]
+        public UniversalIdProto ObjectBackupSpecUid { get; set; }
+
+        /// <summary>
         /// Gets or Sets ParentSource
         /// </summary>
         [DataMember(Name="parentSource", EmitDefaultValue=false)]
         public EntityProto ParentSource { get; set; }
+
+        /// <summary>
+        /// This field determines whether a backup run should be paused when it hits a blackout window (assuming that it was started earlier when it was not in an blackout window). The backup run will get resumed when the blackout period ends.
+        /// </summary>
+        /// <value>This field determines whether a backup run should be paused when it hits a blackout window (assuming that it was started earlier when it was not in an blackout window). The backup run will get resumed when the blackout period ends.</value>
+        [DataMember(Name="pauseInBlackoutWindow", EmitDefaultValue=true)]
+        public bool? PauseInBlackoutWindow { get; set; }
+
+        /// <summary>
+        /// Whether or not to perform source side dedup.
+        /// </summary>
+        /// <value>Whether or not to perform source side dedup.</value>
+        [DataMember(Name="performBrickBasedDedup", EmitDefaultValue=true)]
+        public bool? PerformBrickBasedDedup { get; set; }
 
         /// <summary>
         /// Whether or not to perform source side dedup.
@@ -533,11 +707,17 @@ namespace Cohesity.Model
         public List<UniversalIdProto> RemoteJobUids { get; set; }
 
         /// <summary>
-        /// A human readable name of the remote view. A remote view is created with name overwriting the latest snapshot.
+        /// A human readable name of the remote view. A remote view is created with name overwriting the latest snapshot. NOTE: From 6.6 onwards, we support protecting multiple views within a protection group, &#39;remote_view_params&#39; is the new field which captures this information for view backups, &#39;remote_view_name&#39; here is now only used for Remote Adapter jobs (kPuppeteer).
         /// </summary>
-        /// <value>A human readable name of the remote view. A remote view is created with name overwriting the latest snapshot.</value>
+        /// <value>A human readable name of the remote view. A remote view is created with name overwriting the latest snapshot. NOTE: From 6.6 onwards, we support protecting multiple views within a protection group, &#39;remote_view_params&#39; is the new field which captures this information for view backups, &#39;remote_view_name&#39; here is now only used for Remote Adapter jobs (kPuppeteer).</value>
         [DataMember(Name="remoteViewName", EmitDefaultValue=true)]
         public string RemoteViewName { get; set; }
+
+        /// <summary>
+        /// Gets or Sets RemoteViewParams
+        /// </summary>
+        [DataMember(Name="remoteViewParams", EmitDefaultValue=false)]
+        public BackupJobProtoRemoteViewParams RemoteViewParams { get; set; }
 
         /// <summary>
         /// The features that are strictly required to be supported by the cluster of the backup job. This is currently used in the following cases: 1. Tx cluster looks at the Rx cluster&#39;s supported features and replicates the backup job only if all the features captured here are supported. 2. When performing remote restore of a backup job from an archival, this job will be retrieved only if the cluster supports all the features listed here.
@@ -547,11 +727,31 @@ namespace Cohesity.Model
         public List<string> RequiredFeatureVec { get; set; }
 
         /// <summary>
+        /// Whether to skip Rigel for backup or not. This field is applicable only for DMaaS. This field is currently being used in DRaaS workflows only.
+        /// </summary>
+        /// <value>Whether to skip Rigel for backup or not. This field is applicable only for DMaaS. This field is currently being used in DRaaS workflows only.</value>
+        [DataMember(Name="skipRigelForBackup", EmitDefaultValue=true)]
+        public bool? SkipRigelForBackup { get; set; }
+
+        /// <summary>
+        /// If set to true, skips tenant related validations. Default is false.
+        /// </summary>
+        /// <value>If set to true, skips tenant related validations. Default is false.</value>
+        [DataMember(Name="skipTenantValidations", EmitDefaultValue=true)]
+        public bool? SkipTenantValidations { get; set; }
+
+        /// <summary>
         /// If specified, this variable determines the amount of time (after backup has started) in which backup is expected to finish for this job. An SLA violation is counted against this job if the amount of time taken exceeds this amount.
         /// </summary>
         /// <value>If specified, this variable determines the amount of time (after backup has started) in which backup is expected to finish for this job. An SLA violation is counted against this job if the amount of time taken exceeds this amount.</value>
         [DataMember(Name="slaTimeMins", EmitDefaultValue=true)]
         public long? SlaTimeMins { get; set; }
+
+        /// <summary>
+        /// Gets or Sets SourceFilters
+        /// </summary>
+        [DataMember(Name="sourceFilters", EmitDefaultValue=false)]
+        public SourceFilters SourceFilters { get; set; }
 
         /// <summary>
         /// The list of sources that should be backed up. A source in this list could be a descendant of another source in the list (this will be used when specifying override backup schedules).
@@ -561,10 +761,24 @@ namespace Cohesity.Model
         public List<BackupJobProtoBackupSource> Sources { get; set; }
 
         /// <summary>
+        /// User provided resource(s) for creating a standby VM for each entity present in this backup job. For example in case of VMware, the user will provide the vCenter, datastore and resource pool on which the standby VM should be created. TODO(hmehra) Can the user edit this after the job is created or the resources have been specified?
+        /// </summary>
+        /// <value>User provided resource(s) for creating a standby VM for each entity present in this backup job. For example in case of VMware, the user will provide the vCenter, datastore and resource pool on which the standby VM should be created. TODO(hmehra) Can the user edit this after the job is created or the resources have been specified?</value>
+        [DataMember(Name="standbyResourceVec", EmitDefaultValue=true)]
+        public List<StandbyResource> StandbyResourceVec { get; set; }
+
+        /// <summary>
         /// Gets or Sets StartTime
         /// </summary>
         [DataMember(Name="startTime", EmitDefaultValue=false)]
         public Time StartTime { get; set; }
+
+        /// <summary>
+        /// Whether this backup job has a policy for storage array snapshot based backups.
+        /// </summary>
+        /// <value>Whether this backup job has a policy for storage array snapshot based backups.</value>
+        [DataMember(Name="storageArraySnapshot", EmitDefaultValue=true)]
+        public bool? StorageArraySnapshot { get; set; }
 
         /// <summary>
         /// Gets or Sets StubbingPolicy
@@ -660,6 +874,16 @@ namespace Cohesity.Model
                     this.AlertingPolicy.Equals(input.AlertingPolicy))
                 ) && 
                 (
+                    this.AllArchivalSnapshotsExpired == input.AllArchivalSnapshotsExpired ||
+                    (this.AllArchivalSnapshotsExpired != null &&
+                    this.AllArchivalSnapshotsExpired.Equals(input.AllArchivalSnapshotsExpired))
+                ) && 
+                (
+                    this.AllowParallelRuns == input.AllowParallelRuns ||
+                    (this.AllowParallelRuns != null &&
+                    this.AllowParallelRuns.Equals(input.AllowParallelRuns))
+                ) && 
+                (
                     this.BackupQosPrincipal == input.BackupQosPrincipal ||
                     (this.BackupQosPrincipal != null &&
                     this.BackupQosPrincipal.Equals(input.BackupQosPrincipal))
@@ -668,7 +892,7 @@ namespace Cohesity.Model
                     this.BackupSourceParams == input.BackupSourceParams ||
                     this.BackupSourceParams != null &&
                     input.BackupSourceParams != null &&
-                    this.BackupSourceParams.SequenceEqual(input.BackupSourceParams)
+                    this.BackupSourceParams.Equals(input.BackupSourceParams)
                 ) && 
                 (
                     this.ContinueOnQuiesceFailure == input.ContinueOnQuiesceFailure ||
@@ -681,10 +905,15 @@ namespace Cohesity.Model
                     this.CreateRemoteView.Equals(input.CreateRemoteView))
                 ) && 
                 (
+                    this.DataTransferInfo == input.DataTransferInfo ||
+                    (this.DataTransferInfo != null &&
+                    this.DataTransferInfo.Equals(input.DataTransferInfo))
+                ) && 
+                (
                     this.DedupDisabledSourceIdVec == input.DedupDisabledSourceIdVec ||
                     this.DedupDisabledSourceIdVec != null &&
                     input.DedupDisabledSourceIdVec != null &&
-                    this.DedupDisabledSourceIdVec.SequenceEqual(input.DedupDisabledSourceIdVec)
+                    this.DedupDisabledSourceIdVec.Equals(input.DedupDisabledSourceIdVec)
                 ) && 
                 (
                     this.DeletionStatus == input.DeletionStatus ||
@@ -720,19 +949,19 @@ namespace Cohesity.Model
                     this.ExcludeSources == input.ExcludeSources ||
                     this.ExcludeSources != null &&
                     input.ExcludeSources != null &&
-                    this.ExcludeSources.SequenceEqual(input.ExcludeSources)
+                    this.ExcludeSources.Equals(input.ExcludeSources)
                 ) && 
                 (
                     this.ExcludeSourcesDEPRECATED == input.ExcludeSourcesDEPRECATED ||
                     this.ExcludeSourcesDEPRECATED != null &&
                     input.ExcludeSourcesDEPRECATED != null &&
-                    this.ExcludeSourcesDEPRECATED.SequenceEqual(input.ExcludeSourcesDEPRECATED)
+                    this.ExcludeSourcesDEPRECATED.Equals(input.ExcludeSourcesDEPRECATED)
                 ) && 
                 (
                     this.ExclusionRanges == input.ExclusionRanges ||
                     this.ExclusionRanges != null &&
                     input.ExclusionRanges != null &&
-                    this.ExclusionRanges.SequenceEqual(input.ExclusionRanges)
+                    this.ExclusionRanges.Equals(input.ExclusionRanges)
                 ) && 
                 (
                     this.FullBackupJobPolicy == input.FullBackupJobPolicy ||
@@ -750,6 +979,12 @@ namespace Cohesity.Model
                     this.GlobalIncludeExclude.Equals(input.GlobalIncludeExclude))
                 ) && 
                 (
+                    this.IgnorableErrorsInErrorDb == input.IgnorableErrorsInErrorDb ||
+                    this.IgnorableErrorsInErrorDb != null &&
+                    input.IgnorableErrorsInErrorDb != null &&
+                    this.IgnorableErrorsInErrorDb.Equals(input.IgnorableErrorsInErrorDb)
+                ) && 
+                (
                     this.IndexingPolicy == input.IndexingPolicy ||
                     (this.IndexingPolicy != null &&
                     this.IndexingPolicy.Equals(input.IndexingPolicy))
@@ -758,6 +993,21 @@ namespace Cohesity.Model
                     this.IsActive == input.IsActive ||
                     (this.IsActive != null &&
                     this.IsActive.Equals(input.IsActive))
+                ) && 
+                (
+                    this.IsCdpSyncReplicationEnabled == input.IsCdpSyncReplicationEnabled ||
+                    (this.IsCdpSyncReplicationEnabled != null &&
+                    this.IsCdpSyncReplicationEnabled.Equals(input.IsCdpSyncReplicationEnabled))
+                ) && 
+                (
+                    this.IsCloudArchiveDirect == input.IsCloudArchiveDirect ||
+                    (this.IsCloudArchiveDirect != null &&
+                    this.IsCloudArchiveDirect.Equals(input.IsCloudArchiveDirect))
+                ) && 
+                (
+                    this.IsContinuousSnapshottingEnabled == input.IsContinuousSnapshottingEnabled ||
+                    (this.IsContinuousSnapshottingEnabled != null &&
+                    this.IsContinuousSnapshottingEnabled.Equals(input.IsContinuousSnapshottingEnabled))
                 ) && 
                 (
                     this.IsDeleted == input.IsDeleted ||
@@ -775,6 +1025,11 @@ namespace Cohesity.Model
                     this.IsDirectArchiveNativeFormatEnabled.Equals(input.IsDirectArchiveNativeFormatEnabled))
                 ) && 
                 (
+                    this.IsInternal == input.IsInternal ||
+                    (this.IsInternal != null &&
+                    this.IsInternal.Equals(input.IsInternal))
+                ) && 
+                (
                     this.IsPaused == input.IsPaused ||
                     (this.IsPaused != null &&
                     this.IsPaused.Equals(input.IsPaused))
@@ -783,6 +1038,12 @@ namespace Cohesity.Model
                     this.IsRpoJob == input.IsRpoJob ||
                     (this.IsRpoJob != null &&
                     this.IsRpoJob.Equals(input.IsRpoJob))
+                ) && 
+                (
+                    this.IsSourcePausedMap == input.IsSourcePausedMap ||
+                    this.IsSourcePausedMap != null &&
+                    input.IsSourcePausedMap != null &&
+                    this.IsSourcePausedMap.Equals(input.IsSourcePausedMap)
                 ) && 
                 (
                     this.JobCreationTimeUsecs == input.JobCreationTimeUsecs ||
@@ -825,6 +1086,16 @@ namespace Cohesity.Model
                     this.LastUpdatedUsername.Equals(input.LastUpdatedUsername))
                 ) && 
                 (
+                    this.LeverageNutanixSnapshots == input.LeverageNutanixSnapshots ||
+                    (this.LeverageNutanixSnapshots != null &&
+                    this.LeverageNutanixSnapshots.Equals(input.LeverageNutanixSnapshots))
+                ) && 
+                (
+                    this.LeverageSanTransport == input.LeverageSanTransport ||
+                    (this.LeverageSanTransport != null &&
+                    this.LeverageSanTransport.Equals(input.LeverageSanTransport))
+                ) && 
+                (
                     this.LeverageStorageSnapshots == input.LeverageStorageSnapshots ||
                     (this.LeverageStorageSnapshots != null &&
                     this.LeverageStorageSnapshots.Equals(input.LeverageStorageSnapshots))
@@ -840,6 +1111,16 @@ namespace Cohesity.Model
                     this.LogBackupJobPolicy.Equals(input.LogBackupJobPolicy))
                 ) && 
                 (
+                    this.LogBackupSlaTimeMins == input.LogBackupSlaTimeMins ||
+                    (this.LogBackupSlaTimeMins != null &&
+                    this.LogBackupSlaTimeMins.Equals(input.LogBackupSlaTimeMins))
+                ) && 
+                (
+                    this.MaxAllowedSourceSnapshots == input.MaxAllowedSourceSnapshots ||
+                    (this.MaxAllowedSourceSnapshots != null &&
+                    this.MaxAllowedSourceSnapshots.Equals(input.MaxAllowedSourceSnapshots))
+                ) && 
+                (
                     this.Name == input.Name ||
                     (this.Name != null &&
                     this.Name.Equals(input.Name))
@@ -850,9 +1131,24 @@ namespace Cohesity.Model
                     this.NumSnapshotsToKeepOnPrimary.Equals(input.NumSnapshotsToKeepOnPrimary))
                 ) && 
                 (
+                    this.ObjectBackupSpecUid == input.ObjectBackupSpecUid ||
+                    (this.ObjectBackupSpecUid != null &&
+                    this.ObjectBackupSpecUid.Equals(input.ObjectBackupSpecUid))
+                ) && 
+                (
                     this.ParentSource == input.ParentSource ||
                     (this.ParentSource != null &&
                     this.ParentSource.Equals(input.ParentSource))
+                ) && 
+                (
+                    this.PauseInBlackoutWindow == input.PauseInBlackoutWindow ||
+                    (this.PauseInBlackoutWindow != null &&
+                    this.PauseInBlackoutWindow.Equals(input.PauseInBlackoutWindow))
+                ) && 
+                (
+                    this.PerformBrickBasedDedup == input.PerformBrickBasedDedup ||
+                    (this.PerformBrickBasedDedup != null &&
+                    this.PerformBrickBasedDedup.Equals(input.PerformBrickBasedDedup))
                 ) && 
                 (
                     this.PerformSourceSideDedup == input.PerformSourceSideDedup ||
@@ -903,7 +1199,7 @@ namespace Cohesity.Model
                     this.RemoteJobUids == input.RemoteJobUids ||
                     this.RemoteJobUids != null &&
                     input.RemoteJobUids != null &&
-                    this.RemoteJobUids.SequenceEqual(input.RemoteJobUids)
+                    this.RemoteJobUids.Equals(input.RemoteJobUids)
                 ) && 
                 (
                     this.RemoteViewName == input.RemoteViewName ||
@@ -911,10 +1207,25 @@ namespace Cohesity.Model
                     this.RemoteViewName.Equals(input.RemoteViewName))
                 ) && 
                 (
+                    this.RemoteViewParams == input.RemoteViewParams ||
+                    (this.RemoteViewParams != null &&
+                    this.RemoteViewParams.Equals(input.RemoteViewParams))
+                ) && 
+                (
                     this.RequiredFeatureVec == input.RequiredFeatureVec ||
                     this.RequiredFeatureVec != null &&
                     input.RequiredFeatureVec != null &&
-                    this.RequiredFeatureVec.SequenceEqual(input.RequiredFeatureVec)
+                    this.RequiredFeatureVec.Equals(input.RequiredFeatureVec)
+                ) && 
+                (
+                    this.SkipRigelForBackup == input.SkipRigelForBackup ||
+                    (this.SkipRigelForBackup != null &&
+                    this.SkipRigelForBackup.Equals(input.SkipRigelForBackup))
+                ) && 
+                (
+                    this.SkipTenantValidations == input.SkipTenantValidations ||
+                    (this.SkipTenantValidations != null &&
+                    this.SkipTenantValidations.Equals(input.SkipTenantValidations))
                 ) && 
                 (
                     this.SlaTimeMins == input.SlaTimeMins ||
@@ -922,15 +1233,31 @@ namespace Cohesity.Model
                     this.SlaTimeMins.Equals(input.SlaTimeMins))
                 ) && 
                 (
+                    this.SourceFilters == input.SourceFilters ||
+                    (this.SourceFilters != null &&
+                    this.SourceFilters.Equals(input.SourceFilters))
+                ) && 
+                (
                     this.Sources == input.Sources ||
                     this.Sources != null &&
                     input.Sources != null &&
-                    this.Sources.SequenceEqual(input.Sources)
+                    this.Sources.Equals(input.Sources)
+                ) && 
+                (
+                    this.StandbyResourceVec == input.StandbyResourceVec ||
+                    this.StandbyResourceVec != null &&
+                    input.StandbyResourceVec != null &&
+                    this.StandbyResourceVec.Equals(input.StandbyResourceVec)
                 ) && 
                 (
                     this.StartTime == input.StartTime ||
                     (this.StartTime != null &&
                     this.StartTime.Equals(input.StartTime))
+                ) && 
+                (
+                    this.StorageArraySnapshot == input.StorageArraySnapshot ||
+                    (this.StorageArraySnapshot != null &&
+                    this.StorageArraySnapshot.Equals(input.StorageArraySnapshot))
                 ) && 
                 (
                     this.StubbingPolicy == input.StubbingPolicy ||
@@ -941,7 +1268,7 @@ namespace Cohesity.Model
                     this.TagVec == input.TagVec ||
                     this.TagVec != null &&
                     input.TagVec != null &&
-                    this.TagVec.SequenceEqual(input.TagVec)
+                    this.TagVec.Equals(input.TagVec)
                 ) && 
                 (
                     this.Timezone == input.Timezone ||
@@ -983,6 +1310,10 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.AbortInExclusionWindow.GetHashCode();
                 if (this.AlertingPolicy != null)
                     hashCode = hashCode * 59 + this.AlertingPolicy.GetHashCode();
+                if (this.AllArchivalSnapshotsExpired != null)
+                    hashCode = hashCode * 59 + this.AllArchivalSnapshotsExpired.GetHashCode();
+                if (this.AllowParallelRuns != null)
+                    hashCode = hashCode * 59 + this.AllowParallelRuns.GetHashCode();
                 if (this.BackupQosPrincipal != null)
                     hashCode = hashCode * 59 + this.BackupQosPrincipal.GetHashCode();
                 if (this.BackupSourceParams != null)
@@ -991,6 +1322,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ContinueOnQuiesceFailure.GetHashCode();
                 if (this.CreateRemoteView != null)
                     hashCode = hashCode * 59 + this.CreateRemoteView.GetHashCode();
+                if (this.DataTransferInfo != null)
+                    hashCode = hashCode * 59 + this.DataTransferInfo.GetHashCode();
                 if (this.DedupDisabledSourceIdVec != null)
                     hashCode = hashCode * 59 + this.DedupDisabledSourceIdVec.GetHashCode();
                 if (this.DeletionStatus != null)
@@ -1017,20 +1350,32 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.FullBackupSlaTimeMins.GetHashCode();
                 if (this.GlobalIncludeExclude != null)
                     hashCode = hashCode * 59 + this.GlobalIncludeExclude.GetHashCode();
+                if (this.IgnorableErrorsInErrorDb != null)
+                    hashCode = hashCode * 59 + this.IgnorableErrorsInErrorDb.GetHashCode();
                 if (this.IndexingPolicy != null)
                     hashCode = hashCode * 59 + this.IndexingPolicy.GetHashCode();
                 if (this.IsActive != null)
                     hashCode = hashCode * 59 + this.IsActive.GetHashCode();
+                if (this.IsCdpSyncReplicationEnabled != null)
+                    hashCode = hashCode * 59 + this.IsCdpSyncReplicationEnabled.GetHashCode();
+                if (this.IsCloudArchiveDirect != null)
+                    hashCode = hashCode * 59 + this.IsCloudArchiveDirect.GetHashCode();
+                if (this.IsContinuousSnapshottingEnabled != null)
+                    hashCode = hashCode * 59 + this.IsContinuousSnapshottingEnabled.GetHashCode();
                 if (this.IsDeleted != null)
                     hashCode = hashCode * 59 + this.IsDeleted.GetHashCode();
                 if (this.IsDirectArchiveEnabled != null)
                     hashCode = hashCode * 59 + this.IsDirectArchiveEnabled.GetHashCode();
                 if (this.IsDirectArchiveNativeFormatEnabled != null)
                     hashCode = hashCode * 59 + this.IsDirectArchiveNativeFormatEnabled.GetHashCode();
+                if (this.IsInternal != null)
+                    hashCode = hashCode * 59 + this.IsInternal.GetHashCode();
                 if (this.IsPaused != null)
                     hashCode = hashCode * 59 + this.IsPaused.GetHashCode();
                 if (this.IsRpoJob != null)
                     hashCode = hashCode * 59 + this.IsRpoJob.GetHashCode();
+                if (this.IsSourcePausedMap != null)
+                    hashCode = hashCode * 59 + this.IsSourcePausedMap.GetHashCode();
                 if (this.JobCreationTimeUsecs != null)
                     hashCode = hashCode * 59 + this.JobCreationTimeUsecs.GetHashCode();
                 if (this.JobId != null)
@@ -1047,18 +1392,32 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.LastPauseReason.GetHashCode();
                 if (this.LastUpdatedUsername != null)
                     hashCode = hashCode * 59 + this.LastUpdatedUsername.GetHashCode();
+                if (this.LeverageNutanixSnapshots != null)
+                    hashCode = hashCode * 59 + this.LeverageNutanixSnapshots.GetHashCode();
+                if (this.LeverageSanTransport != null)
+                    hashCode = hashCode * 59 + this.LeverageSanTransport.GetHashCode();
                 if (this.LeverageStorageSnapshots != null)
                     hashCode = hashCode * 59 + this.LeverageStorageSnapshots.GetHashCode();
                 if (this.LeverageStorageSnapshotsForHyperflex != null)
                     hashCode = hashCode * 59 + this.LeverageStorageSnapshotsForHyperflex.GetHashCode();
                 if (this.LogBackupJobPolicy != null)
                     hashCode = hashCode * 59 + this.LogBackupJobPolicy.GetHashCode();
+                if (this.LogBackupSlaTimeMins != null)
+                    hashCode = hashCode * 59 + this.LogBackupSlaTimeMins.GetHashCode();
+                if (this.MaxAllowedSourceSnapshots != null)
+                    hashCode = hashCode * 59 + this.MaxAllowedSourceSnapshots.GetHashCode();
                 if (this.Name != null)
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
                 if (this.NumSnapshotsToKeepOnPrimary != null)
                     hashCode = hashCode * 59 + this.NumSnapshotsToKeepOnPrimary.GetHashCode();
+                if (this.ObjectBackupSpecUid != null)
+                    hashCode = hashCode * 59 + this.ObjectBackupSpecUid.GetHashCode();
                 if (this.ParentSource != null)
                     hashCode = hashCode * 59 + this.ParentSource.GetHashCode();
+                if (this.PauseInBlackoutWindow != null)
+                    hashCode = hashCode * 59 + this.PauseInBlackoutWindow.GetHashCode();
+                if (this.PerformBrickBasedDedup != null)
+                    hashCode = hashCode * 59 + this.PerformBrickBasedDedup.GetHashCode();
                 if (this.PerformSourceSideDedup != null)
                     hashCode = hashCode * 59 + this.PerformSourceSideDedup.GetHashCode();
                 if (this.PolicyAppliedTimeMsecs != null)
@@ -1081,14 +1440,26 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.RemoteJobUids.GetHashCode();
                 if (this.RemoteViewName != null)
                     hashCode = hashCode * 59 + this.RemoteViewName.GetHashCode();
+                if (this.RemoteViewParams != null)
+                    hashCode = hashCode * 59 + this.RemoteViewParams.GetHashCode();
                 if (this.RequiredFeatureVec != null)
                     hashCode = hashCode * 59 + this.RequiredFeatureVec.GetHashCode();
+                if (this.SkipRigelForBackup != null)
+                    hashCode = hashCode * 59 + this.SkipRigelForBackup.GetHashCode();
+                if (this.SkipTenantValidations != null)
+                    hashCode = hashCode * 59 + this.SkipTenantValidations.GetHashCode();
                 if (this.SlaTimeMins != null)
                     hashCode = hashCode * 59 + this.SlaTimeMins.GetHashCode();
+                if (this.SourceFilters != null)
+                    hashCode = hashCode * 59 + this.SourceFilters.GetHashCode();
                 if (this.Sources != null)
                     hashCode = hashCode * 59 + this.Sources.GetHashCode();
+                if (this.StandbyResourceVec != null)
+                    hashCode = hashCode * 59 + this.StandbyResourceVec.GetHashCode();
                 if (this.StartTime != null)
                     hashCode = hashCode * 59 + this.StartTime.GetHashCode();
+                if (this.StorageArraySnapshot != null)
+                    hashCode = hashCode * 59 + this.StorageArraySnapshot.GetHashCode();
                 if (this.StubbingPolicy != null)
                     hashCode = hashCode * 59 + this.StubbingPolicy.GetHashCode();
                 if (this.TagVec != null)

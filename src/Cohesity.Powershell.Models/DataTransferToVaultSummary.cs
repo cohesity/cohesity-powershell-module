@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -301,13 +303,13 @@ namespace Cohesity.Model
                     this.DataTransferPerProtectionJob == input.DataTransferPerProtectionJob ||
                     this.DataTransferPerProtectionJob != null &&
                     input.DataTransferPerProtectionJob != null &&
-                    this.DataTransferPerProtectionJob.SequenceEqual(input.DataTransferPerProtectionJob)
+                    this.DataTransferPerProtectionJob.Equals(input.DataTransferPerProtectionJob)
                 ) && 
                 (
                     this.LogicalDataTransferredBytesDuringTimeRange == input.LogicalDataTransferredBytesDuringTimeRange ||
                     this.LogicalDataTransferredBytesDuringTimeRange != null &&
                     input.LogicalDataTransferredBytesDuringTimeRange != null &&
-                    this.LogicalDataTransferredBytesDuringTimeRange.SequenceEqual(input.LogicalDataTransferredBytesDuringTimeRange)
+                    this.LogicalDataTransferredBytesDuringTimeRange.Equals(input.LogicalDataTransferredBytesDuringTimeRange)
                 ) && 
                 (
                     this.NumLogicalBytesTransferred == input.NumLogicalBytesTransferred ||
@@ -328,7 +330,7 @@ namespace Cohesity.Model
                     this.PhysicalDataTransferredBytesDuringTimeRange == input.PhysicalDataTransferredBytesDuringTimeRange ||
                     this.PhysicalDataTransferredBytesDuringTimeRange != null &&
                     input.PhysicalDataTransferredBytesDuringTimeRange != null &&
-                    this.PhysicalDataTransferredBytesDuringTimeRange.SequenceEqual(input.PhysicalDataTransferredBytesDuringTimeRange)
+                    this.PhysicalDataTransferredBytesDuringTimeRange.Equals(input.PhysicalDataTransferredBytesDuringTimeRange)
                 ) && 
                 (
                     this.StorageConsumedBytes == input.StorageConsumedBytes ||

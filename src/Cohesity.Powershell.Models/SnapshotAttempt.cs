@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -28,9 +30,6 @@ namespace Cohesity.Model
         /// <param name="startedTimeUsecs">Specifies the time when the Job Run starts capturing a snapshot. Specified as a Unix epoch Timestamp (in microseconds)..</param>
         public SnapshotAttempt(long? attemptNumber = default(long?), long? jobRunId = default(long?), long? startedTimeUsecs = default(long?))
         {
-            this.AttemptNumber = attemptNumber;
-            this.JobRunId = jobRunId;
-            this.StartedTimeUsecs = startedTimeUsecs;
             this.AttemptNumber = attemptNumber;
             this.JobRunId = jobRunId;
             this.StartedTimeUsecs = startedTimeUsecs;

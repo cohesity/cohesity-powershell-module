@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -185,7 +187,7 @@ namespace Cohesity.Model
                     this.ProtectionJobs == input.ProtectionJobs ||
                     this.ProtectionJobs != null &&
                     input.ProtectionJobs != null &&
-                    this.ProtectionJobs.SequenceEqual(input.ProtectionJobs)
+                    this.ProtectionJobs.Equals(input.ProtectionJobs)
                 ) && 
                 (
                     this.ProtectionSource == input.ProtectionSource ||
@@ -196,7 +198,7 @@ namespace Cohesity.Model
                     this.RpoPolicies == input.RpoPolicies ||
                     this.RpoPolicies != null &&
                     input.RpoPolicies != null &&
-                    this.RpoPolicies.SequenceEqual(input.RpoPolicies)
+                    this.RpoPolicies.Equals(input.RpoPolicies)
                 ) && 
                 (
                     this.TotalArchivalSnapshots == input.TotalArchivalSnapshots ||

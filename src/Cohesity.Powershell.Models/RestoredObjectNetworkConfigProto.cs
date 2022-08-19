@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -28,18 +30,16 @@ namespace Cohesity.Model
         /// <param name="mappings">The network mappings to be applied to the target object..</param>
         /// <param name="networkEntity">networkEntity.</param>
         /// <param name="preserveMacAddressOnNewNetwork">If this is true and we are attaching to a new network entity, then the VM&#39;s MAC address will be preserved on the new network..</param>
+        /// <param name="vcdNetwork">vcdNetwork.</param>
         /// <param name="vnicEntity">vnicEntity.</param>
-        public RestoredObjectNetworkConfigProto(bool? detachNetwork = default(bool?), bool? disableNetwork = default(bool?), List<NetworkMappingProto> mappings = default(List<NetworkMappingProto>), EntityProto networkEntity = default(EntityProto), bool? preserveMacAddressOnNewNetwork = default(bool?), EntityProto vnicEntity = default(EntityProto))
+        public RestoredObjectNetworkConfigProto(bool? detachNetwork = default(bool?), bool? disableNetwork = default(bool?), List<NetworkMappingProto> mappings = default(List<NetworkMappingProto>), EntityProto networkEntity = default(EntityProto), bool? preserveMacAddressOnNewNetwork = default(bool?), OrgVDCNetwork vcdNetwork = default(OrgVDCNetwork), EntityProto vnicEntity = default(EntityProto))
         {
-            this.DetachNetwork = detachNetwork;
-            this.DisableNetwork = disableNetwork;
-            this.Mappings = mappings;
-            this.PreserveMacAddressOnNewNetwork = preserveMacAddressOnNewNetwork;
             this.DetachNetwork = detachNetwork;
             this.DisableNetwork = disableNetwork;
             this.Mappings = mappings;
             this.NetworkEntity = networkEntity;
             this.PreserveMacAddressOnNewNetwork = preserveMacAddressOnNewNetwork;
+            this.VcdNetwork = vcdNetwork;
             this.VnicEntity = vnicEntity;
         }
         
@@ -76,6 +76,12 @@ namespace Cohesity.Model
         /// <value>If this is true and we are attaching to a new network entity, then the VM&#39;s MAC address will be preserved on the new network.</value>
         [DataMember(Name="preserveMacAddressOnNewNetwork", EmitDefaultValue=true)]
         public bool? PreserveMacAddressOnNewNetwork { get; set; }
+
+        /// <summary>
+        /// Gets or Sets VcdNetwork
+        /// </summary>
+        [DataMember(Name="vcdNetwork", EmitDefaultValue=false)]
+        public OrgVDCNetwork VcdNetwork { get; set; }
 
         /// <summary>
         /// Gets or Sets VnicEntity
@@ -133,7 +139,7 @@ namespace Cohesity.Model
                     this.Mappings == input.Mappings ||
                     this.Mappings != null &&
                     input.Mappings != null &&
-                    this.Mappings.SequenceEqual(input.Mappings)
+                    this.Mappings.Equals(input.Mappings)
                 ) && 
                 (
                     this.NetworkEntity == input.NetworkEntity ||
@@ -144,6 +150,11 @@ namespace Cohesity.Model
                     this.PreserveMacAddressOnNewNetwork == input.PreserveMacAddressOnNewNetwork ||
                     (this.PreserveMacAddressOnNewNetwork != null &&
                     this.PreserveMacAddressOnNewNetwork.Equals(input.PreserveMacAddressOnNewNetwork))
+                ) && 
+                (
+                    this.VcdNetwork == input.VcdNetwork ||
+                    (this.VcdNetwork != null &&
+                    this.VcdNetwork.Equals(input.VcdNetwork))
                 ) && 
                 (
                     this.VnicEntity == input.VnicEntity ||
@@ -171,6 +182,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.NetworkEntity.GetHashCode();
                 if (this.PreserveMacAddressOnNewNetwork != null)
                     hashCode = hashCode * 59 + this.PreserveMacAddressOnNewNetwork.GetHashCode();
+                if (this.VcdNetwork != null)
+                    hashCode = hashCode * 59 + this.VcdNetwork.GetHashCode();
                 if (this.VnicEntity != null)
                     hashCode = hashCode * 59 + this.VnicEntity.GetHashCode();
                 return hashCode;

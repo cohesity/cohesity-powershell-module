@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -89,6 +91,7 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="AzureParams" /> class.
         /// </summary>
+        /// <param name="availabilitySetId">Specifies id of the Availability set in which the VM is to be restored..</param>
         /// <param name="dataDiskType">Specifies the disk type used by the data. &#39;kPremiumSSD&#39; is disk type backed by SSDs, delivers high performance, low latency disk support for VMs running I/O intensive workloads. &#39;kStandardSSD&#39; implies disk type that offers more consistent performance and reliability than HDD. &#39;kStandardHDD&#39; implies disk type backed by HDDs, delivers cost effective storage..</param>
         /// <param name="instanceId">Specifies Type of VM (e.g. small, medium, large) when cloning the VM in Azure..</param>
         /// <param name="networkResourceGroupId">Specifies id of the resource group for the selected virtual network..</param>
@@ -104,23 +107,9 @@ namespace Cohesity.Model
         /// <param name="tempVmSubnetId">Specifies the Subnet where temporary VM needs to be created..</param>
         /// <param name="tempVmVirtualNetworkId">Specifies the Virtual network where temporary VM needs to be created..</param>
         /// <param name="virtualNetworkId">Specifies Id of the Virtual Network..</param>
-        public AzureParams(DataDiskTypeEnum? dataDiskType = default(DataDiskTypeEnum?), long? instanceId = default(long?), long? networkResourceGroupId = default(long?), OsDiskTypeEnum? osDiskType = default(OsDiskTypeEnum?), long? resourceGroup = default(long?), long? storageAccount = default(long?), long? storageContainer = default(long?), long? storageResourceGroupId = default(long?), long? subnetId = default(long?), long? tempVmResourceGroupId = default(long?), long? tempVmStorageAccountId = default(long?), long? tempVmStorageContainerId = default(long?), long? tempVmSubnetId = default(long?), long? tempVmVirtualNetworkId = default(long?), long? virtualNetworkId = default(long?))
+        public AzureParams(long? availabilitySetId = default(long?), DataDiskTypeEnum? dataDiskType = default(DataDiskTypeEnum?), long? instanceId = default(long?), long? networkResourceGroupId = default(long?), OsDiskTypeEnum? osDiskType = default(OsDiskTypeEnum?), long? resourceGroup = default(long?), long? storageAccount = default(long?), long? storageContainer = default(long?), long? storageResourceGroupId = default(long?), long? subnetId = default(long?), long? tempVmResourceGroupId = default(long?), long? tempVmStorageAccountId = default(long?), long? tempVmStorageContainerId = default(long?), long? tempVmSubnetId = default(long?), long? tempVmVirtualNetworkId = default(long?), long? virtualNetworkId = default(long?))
         {
-            this.DataDiskType = dataDiskType;
-            this.InstanceId = instanceId;
-            this.NetworkResourceGroupId = networkResourceGroupId;
-            this.OsDiskType = osDiskType;
-            this.ResourceGroup = resourceGroup;
-            this.StorageAccount = storageAccount;
-            this.StorageContainer = storageContainer;
-            this.StorageResourceGroupId = storageResourceGroupId;
-            this.SubnetId = subnetId;
-            this.TempVmResourceGroupId = tempVmResourceGroupId;
-            this.TempVmStorageAccountId = tempVmStorageAccountId;
-            this.TempVmStorageContainerId = tempVmStorageContainerId;
-            this.TempVmSubnetId = tempVmSubnetId;
-            this.TempVmVirtualNetworkId = tempVmVirtualNetworkId;
-            this.VirtualNetworkId = virtualNetworkId;
+            this.AvailabilitySetId = availabilitySetId;
             this.DataDiskType = dataDiskType;
             this.InstanceId = instanceId;
             this.NetworkResourceGroupId = networkResourceGroupId;
@@ -138,6 +127,13 @@ namespace Cohesity.Model
             this.VirtualNetworkId = virtualNetworkId;
         }
         
+        /// <summary>
+        /// Specifies id of the Availability set in which the VM is to be restored.
+        /// </summary>
+        /// <value>Specifies id of the Availability set in which the VM is to be restored.</value>
+        [DataMember(Name="availabilitySetId", EmitDefaultValue=true)]
+        public long? AvailabilitySetId { get; set; }
+
         /// <summary>
         /// Specifies Type of VM (e.g. small, medium, large) when cloning the VM in Azure.
         /// </summary>
@@ -266,6 +262,11 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.AvailabilitySetId == input.AvailabilitySetId ||
+                    (this.AvailabilitySetId != null &&
+                    this.AvailabilitySetId.Equals(input.AvailabilitySetId))
+                ) && 
+                (
                     this.DataDiskType == input.DataDiskType ||
                     this.DataDiskType.Equals(input.DataDiskType)
                 ) && 
@@ -349,12 +350,16 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                hashCode = hashCode * 59 + this.DataDiskType.GetHashCode();
+                if (this.AvailabilitySetId != null)
+                    hashCode = hashCode * 59 + this.AvailabilitySetId.GetHashCode();
+                if (this.DataDiskType != null)
+					hashCode = hashCode * 59 + this.DataDiskType.GetHashCode();
                 if (this.InstanceId != null)
                     hashCode = hashCode * 59 + this.InstanceId.GetHashCode();
                 if (this.NetworkResourceGroupId != null)
                     hashCode = hashCode * 59 + this.NetworkResourceGroupId.GetHashCode();
-                hashCode = hashCode * 59 + this.OsDiskType.GetHashCode();
+                if (this.OsDiskType != null)
+					hashCode = hashCode * 59 + this.OsDiskType.GetHashCode();
                 if (this.ResourceGroup != null)
                     hashCode = hashCode * 59 + this.ResourceGroup.GetHashCode();
                 if (this.StorageAccount != null)

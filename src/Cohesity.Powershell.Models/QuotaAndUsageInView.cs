@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -29,9 +31,6 @@ namespace Cohesity.Model
         /// <param name="viewName">View name..</param>
         public QuotaAndUsageInView(QuotaPolicy quota = default(QuotaPolicy), long? usageBytes = default(long?), long? viewId = default(long?), string viewName = default(string))
         {
-            this.UsageBytes = usageBytes;
-            this.ViewId = viewId;
-            this.ViewName = viewName;
             this.Quota = quota;
             this.UsageBytes = usageBytes;
             this.ViewId = viewId;

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -167,13 +169,13 @@ namespace Cohesity.Model
                     this.FilenameGlob == input.FilenameGlob ||
                     this.FilenameGlob != null &&
                     input.FilenameGlob != null &&
-                    this.FilenameGlob.SequenceEqual(input.FilenameGlob)
+                    this.FilenameGlob.Equals(input.FilenameGlob)
                 ) && 
                 (
                     this.JobIds == input.JobIds ||
                     this.JobIds != null &&
                     input.JobIds != null &&
-                    this.JobIds.SequenceEqual(input.JobIds)
+                    this.JobIds.Equals(input.JobIds)
                 ) && 
                 (
                     this.MaxSnapshotTimestamp == input.MaxSnapshotTimestamp ||
@@ -189,7 +191,7 @@ namespace Cohesity.Model
                     this.PartitionIds == input.PartitionIds ||
                     this.PartitionIds != null &&
                     input.PartitionIds != null &&
-                    this.PartitionIds.SequenceEqual(input.PartitionIds)
+                    this.PartitionIds.Equals(input.PartitionIds)
                 ) && 
                 (
                     this.ProcessLatestOnly == input.ProcessLatestOnly ||
@@ -205,7 +207,7 @@ namespace Cohesity.Model
                     this.ViewBoxIds == input.ViewBoxIds ||
                     this.ViewBoxIds != null &&
                     input.ViewBoxIds != null &&
-                    this.ViewBoxIds.SequenceEqual(input.ViewBoxIds)
+                    this.ViewBoxIds.Equals(input.ViewBoxIds)
                 ) && 
                 (
                     this.ViewName == input.ViewName ||

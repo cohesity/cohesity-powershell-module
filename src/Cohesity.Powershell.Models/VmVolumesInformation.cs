@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -77,7 +79,7 @@ namespace Cohesity.Model
                     this.FilesystemVolumes == input.FilesystemVolumes ||
                     this.FilesystemVolumes != null &&
                     input.FilesystemVolumes != null &&
-                    this.FilesystemVolumes.SequenceEqual(input.FilesystemVolumes)
+                    this.FilesystemVolumes.Equals(input.FilesystemVolumes)
                 );
         }
 

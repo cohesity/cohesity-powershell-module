@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -48,25 +50,66 @@ namespace Cohesity.Model
         [DataMember(Name="nasProtocol", EmitDefaultValue=true)]
         public NasProtocolEnum? NasProtocol { get; set; }
         /// <summary>
+        /// Specifies the preferred NFS protocol to use for the backup when multiple NFS protocols are present on a single volume. Specifies the protocol used by a NAS server. &#39;kNfs3&#39; indicates NFS v3 protocol. &#39;kCifs1&#39; indicates CIFS v1.0 protocol.
+        /// </summary>
+        /// <value>Specifies the preferred NFS protocol to use for the backup when multiple NFS protocols are present on a single volume. Specifies the protocol used by a NAS server. &#39;kNfs3&#39; indicates NFS v3 protocol. &#39;kCifs1&#39; indicates CIFS v1.0 protocol.</value>
+        [JsonConverter(typeof(StringEnumConverter))]
+        public enum NfsVersionPreferenceEnum
+        {
+            /// <summary>
+            /// Enum KNfs3 for value: kNfs3
+            /// </summary>
+            [EnumMember(Value = "kNfs3")]
+            KNfs3 = 1,
+
+            /// <summary>
+            /// Enum KCifs1 for value: kCifs1
+            /// </summary>
+            [EnumMember(Value = "kCifs1")]
+            KCifs1 = 2
+
+        }
+
+        /// <summary>
+        /// Specifies the preferred NFS protocol to use for the backup when multiple NFS protocols are present on a single volume. Specifies the protocol used by a NAS server. &#39;kNfs3&#39; indicates NFS v3 protocol. &#39;kCifs1&#39; indicates CIFS v1.0 protocol.
+        /// </summary>
+        /// <value>Specifies the preferred NFS protocol to use for the backup when multiple NFS protocols are present on a single volume. Specifies the protocol used by a NAS server. &#39;kNfs3&#39; indicates NFS v3 protocol. &#39;kCifs1&#39; indicates CIFS v1.0 protocol.</value>
+        [DataMember(Name="nfsVersionPreference", EmitDefaultValue=true)]
+        public NfsVersionPreferenceEnum? NfsVersionPreference { get; set; }
+        /// <summary>
         /// Initializes a new instance of the <see cref="NasEnvJobParameters" /> class.
         /// </summary>
         /// <param name="continueOnError">Specifies if the backup should continue on with other Protection Sources even if the backup operation of some Protection Source fails. If true, the Cohesity Cluster ignores the errors and continues with remaining Protection Sources in the job. If false, the backup operation stops when an error occurs. This does not apply to non-snapshot based generic NAS backup jobs. If not set, default value is true..</param>
         /// <param name="dataMigrationJobParameters">dataMigrationJobParameters.</param>
         /// <param name="dataUptierJobParameters">dataUptierJobParameters.</param>
         /// <param name="enableFasterIncrementalBackups">Specifies whether this job will enable faster incremental backups using change list or similar APIs.</param>
+        /// <param name="encryptionEnabled">Specifies if the protection job should use encryption while backing up.</param>
+        /// <param name="fileLockConfig">fileLockConfig.</param>
         /// <param name="filePathFilters">filePathFilters.</param>
+        /// <param name="filterIpConfig">filterIpConfig.</param>
         /// <param name="nasProtocol">Specifies the preferred protocol to use for backup. This does not apply to generic NAS and will be ignored. Specifies the protocol used by a NAS server. &#39;kNfs3&#39; indicates NFS v3 protocol. &#39;kCifs1&#39; indicates CIFS v1.0 protocol..</param>
-        public NasEnvJobParameters(bool? continueOnError = default(bool?), DataMigrationJobParameters dataMigrationJobParameters = default(DataMigrationJobParameters), DataUptierJobParameters dataUptierJobParameters = default(DataUptierJobParameters), bool? enableFasterIncrementalBackups = default(bool?), FilePathFilter filePathFilters = default(FilePathFilter), NasProtocolEnum? nasProtocol = default(NasProtocolEnum?))
+        /// <param name="nfsVersionPreference">Specifies the preferred NFS protocol to use for the backup when multiple NFS protocols are present on a single volume. Specifies the protocol used by a NAS server. &#39;kNfs3&#39; indicates NFS v3 protocol. &#39;kCifs1&#39; indicates CIFS v1.0 protocol..</param>
+        /// <param name="snapshotLabel">snapshotLabel.</param>
+        /// <param name="throttlingConfig">throttlingConfig.</param>
+        public NasEnvJobParameters(bool? continueOnError = default(bool?), DataMigrationJobParameters dataMigrationJobParameters = default(DataMigrationJobParameters), DataUptierJobParameters dataUptierJobParameters = default(DataUptierJobParameters), bool? enableFasterIncrementalBackups = default(bool?), bool? encryptionEnabled = default(bool?), FileLevelDataLockConfig fileLockConfig = default(FileLevelDataLockConfig), FilePathFilter filePathFilters = default(FilePathFilter), FilterIpConfig filterIpConfig = default(FilterIpConfig), NasProtocolEnum? nasProtocol = default(NasProtocolEnum?), NfsVersionPreferenceEnum? nfsVersionPreference = default(NfsVersionPreferenceEnum?), SnapshotLabel snapshotLabel = default(SnapshotLabel), NasSourceThrottlingParams throttlingConfig = default(NasSourceThrottlingParams))
         {
             this.ContinueOnError = continueOnError;
             this.EnableFasterIncrementalBackups = enableFasterIncrementalBackups;
+            this.EncryptionEnabled = encryptionEnabled;
             this.NasProtocol = nasProtocol;
+            this.NfsVersionPreference = nfsVersionPreference;
             this.ContinueOnError = continueOnError;
             this.DataMigrationJobParameters = dataMigrationJobParameters;
             this.DataUptierJobParameters = dataUptierJobParameters;
             this.EnableFasterIncrementalBackups = enableFasterIncrementalBackups;
+            this.EncryptionEnabled = encryptionEnabled;
+            this.FileLockConfig = fileLockConfig;
             this.FilePathFilters = filePathFilters;
+            this.FilterIpConfig = filterIpConfig;
             this.NasProtocol = nasProtocol;
+            this.NfsVersionPreference = nfsVersionPreference;
+            this.SnapshotLabel = snapshotLabel;
+            this.ThrottlingConfig = throttlingConfig;
         }
         
         /// <summary>
@@ -96,10 +139,41 @@ namespace Cohesity.Model
         public bool? EnableFasterIncrementalBackups { get; set; }
 
         /// <summary>
+        /// Specifies if the protection job should use encryption while backing up
+        /// </summary>
+        /// <value>Specifies if the protection job should use encryption while backing up</value>
+        [DataMember(Name="encryptionEnabled", EmitDefaultValue=true)]
+        public bool? EncryptionEnabled { get; set; }
+
+        /// <summary>
+        /// Gets or Sets FileLockConfig
+        /// </summary>
+        [DataMember(Name="fileLockConfig", EmitDefaultValue=false)]
+        public FileLevelDataLockConfig FileLockConfig { get; set; }
+
+        /// <summary>
         /// Gets or Sets FilePathFilters
         /// </summary>
         [DataMember(Name="filePathFilters", EmitDefaultValue=false)]
         public FilePathFilter FilePathFilters { get; set; }
+
+        /// <summary>
+        /// Gets or Sets FilterIpConfig
+        /// </summary>
+        [DataMember(Name="filterIpConfig", EmitDefaultValue=false)]
+        public FilterIpConfig FilterIpConfig { get; set; }
+
+        /// <summary>
+        /// Gets or Sets SnapshotLabel
+        /// </summary>
+        [DataMember(Name="snapshotLabel", EmitDefaultValue=false)]
+        public SnapshotLabel SnapshotLabel { get; set; }
+
+        /// <summary>
+        /// Gets or Sets ThrottlingConfig
+        /// </summary>
+        [DataMember(Name="throttlingConfig", EmitDefaultValue=false)]
+        public NasSourceThrottlingParams ThrottlingConfig { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -158,13 +232,42 @@ namespace Cohesity.Model
                     this.EnableFasterIncrementalBackups.Equals(input.EnableFasterIncrementalBackups))
                 ) && 
                 (
+                    this.EncryptionEnabled == input.EncryptionEnabled ||
+                    (this.EncryptionEnabled != null &&
+                    this.EncryptionEnabled.Equals(input.EncryptionEnabled))
+                ) && 
+                (
+                    this.FileLockConfig == input.FileLockConfig ||
+                    (this.FileLockConfig != null &&
+                    this.FileLockConfig.Equals(input.FileLockConfig))
+                ) && 
+                (
                     this.FilePathFilters == input.FilePathFilters ||
                     (this.FilePathFilters != null &&
                     this.FilePathFilters.Equals(input.FilePathFilters))
                 ) && 
                 (
+                    this.FilterIpConfig == input.FilterIpConfig ||
+                    (this.FilterIpConfig != null &&
+                    this.FilterIpConfig.Equals(input.FilterIpConfig))
+                ) && 
+                (
                     this.NasProtocol == input.NasProtocol ||
                     this.NasProtocol.Equals(input.NasProtocol)
+                ) && 
+                (
+                    this.NfsVersionPreference == input.NfsVersionPreference ||
+                    this.NfsVersionPreference.Equals(input.NfsVersionPreference)
+                ) && 
+                (
+                    this.SnapshotLabel == input.SnapshotLabel ||
+                    (this.SnapshotLabel != null &&
+                    this.SnapshotLabel.Equals(input.SnapshotLabel))
+                ) && 
+                (
+                    this.ThrottlingConfig == input.ThrottlingConfig ||
+                    (this.ThrottlingConfig != null &&
+                    this.ThrottlingConfig.Equals(input.ThrottlingConfig))
                 );
         }
 
@@ -185,9 +288,22 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.DataUptierJobParameters.GetHashCode();
                 if (this.EnableFasterIncrementalBackups != null)
                     hashCode = hashCode * 59 + this.EnableFasterIncrementalBackups.GetHashCode();
+                if (this.EncryptionEnabled != null)
+                    hashCode = hashCode * 59 + this.EncryptionEnabled.GetHashCode();
+                if (this.FileLockConfig != null)
+                    hashCode = hashCode * 59 + this.FileLockConfig.GetHashCode();
                 if (this.FilePathFilters != null)
                     hashCode = hashCode * 59 + this.FilePathFilters.GetHashCode();
-                hashCode = hashCode * 59 + this.NasProtocol.GetHashCode();
+                if (this.FilterIpConfig != null)
+                    hashCode = hashCode * 59 + this.FilterIpConfig.GetHashCode();
+                if (this.NasProtocol != null)
+					hashCode = hashCode * 59 + this.NasProtocol.GetHashCode();
+                if (this.NfsVersionPreference != null)
+					hashCode = hashCode * 59 + this.NfsVersionPreference.GetHashCode();
+                if (this.SnapshotLabel != null)
+                    hashCode = hashCode * 59 + this.SnapshotLabel.GetHashCode();
+                if (this.ThrottlingConfig != null)
+                    hashCode = hashCode * 59 + this.ThrottlingConfig.GetHashCode();
                 return hashCode;
             }
         }

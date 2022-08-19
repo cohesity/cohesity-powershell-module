@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -12,6 +13,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
+
 namespace Cohesity.Model
 {
     /// <summary>
@@ -23,17 +25,27 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="RestoreFilesParams" /> class.
         /// </summary>
+        /// <param name="blacklistedIpAddrs">A list of target IP addresses that should not be used..</param>
+        /// <param name="destinationEpUuid">Destination endpoint UUID for source s3 objectstore..</param>
         /// <param name="directoryNameSecurityStyleMap">Directory name security style map contains mapping of the directory name to security style it supports.  This is needed to restore the same permission for the given directory for Qtrees..</param>
+        /// <param name="glacierFlrRestoreOption">Glacier restore option chosen by the user..</param>
         /// <param name="isArchiveFlr">Whether this is a file restore operation from an archive..</param>
         /// <param name="isFileVolumeRestore">Whether this is a file based volume restore..</param>
         /// <param name="isMountBasedFlr">Whether this is a mount based file restore operation.</param>
+        /// <param name="isSourceInitiatedRestore">Whether this is a source initiated restore..</param>
+        /// <param name="isilonEnvParams">isilonEnvParams.</param>
         /// <param name="mountDisksOnVm">Whether this will attach disks or mount disks on the VM side OR use Storage Proxy RPCs to stream data..</param>
+        /// <param name="nasBackupParams">nasBackupParams.</param>
         /// <param name="nasProtocolTypeVec">The NAS protocol type(s) of this restore task. Currently we only support a single restore type. This field is only populated for NAS restore tasks..</param>
+        /// <param name="objectstoreConfigName">Object store config name for source initiated backup..</param>
+        /// <param name="physicalFlrParallelRestore">If enabled, magneto physical file restore will be enabled via job framework.</param>
         /// <param name="proxyEntity">proxyEntity.</param>
         /// <param name="proxyEntityParentSource">proxyEntityParentSource.</param>
         /// <param name="restoreFilesPreferences">restoreFilesPreferences.</param>
         /// <param name="restoreMethod">Determines the type of method to be used to perform FLR..</param>
         /// <param name="restoredFileInfoVec">Information regarding files and directories..</param>
+        /// <param name="s3Viewbackupproperties">s3Viewbackupproperties.</param>
+        /// <param name="sourceSnapshotName">Snapshot name need by source to start the restore..</param>
         /// <param name="targetEntity">targetEntity.</param>
         /// <param name="targetEntityCredentials">targetEntityCredentials.</param>
         /// <param name="targetEntityParentSource">targetEntityParentSource.</param>
@@ -41,30 +53,53 @@ namespace Cohesity.Model
         /// <param name="targetHostType">The host environment type. This is set in VMware environment to indicate the OS type of the target entity. NOTE: This is expected to be set since magneto does not know the host type for VMware entities..</param>
         /// <param name="uptierParams">uptierParams.</param>
         /// <param name="useExistingAgent">Whether this will use an existing agent on the target VM to do the restore. This field is deprecated. restore_method should be used for populating use of existing agent..</param>
+        /// <param name="viewId">View ID.</param>
+        /// <param name="viewName">Name of the S3 view.</param>
         /// <param name="vpcConnectorEntity">vpcConnectorEntity.</param>
-        public RestoreFilesParams(List<RestoreFilesParamsDirectoryNameSecurityStyleMapEntry> directoryNameSecurityStyleMap = default(List<RestoreFilesParamsDirectoryNameSecurityStyleMapEntry>), bool? isArchiveFlr = default(bool?), bool? isFileVolumeRestore = default(bool?), bool? isMountBasedFlr = default(bool?), bool? mountDisksOnVm = default(bool?), List<int> nasProtocolTypeVec = default(List<int>), EntityProto proxyEntity = default(EntityProto), EntityProto proxyEntityParentSource = default(EntityProto), RestoreFilesPreferences restoreFilesPreferences = default(RestoreFilesPreferences), int? restoreMethod = default(int?), List<RestoredFileInfo> restoredFileInfoVec = default(List<RestoredFileInfo>), EntityProto targetEntity = default(EntityProto), Credentials targetEntityCredentials = default(Credentials), EntityProto targetEntityParentSource = default(EntityProto), EntityProto targetHostEntity = default(EntityProto), int? targetHostType = default(int?), FileUptieringParams uptierParams = default(FileUptieringParams), bool? useExistingAgent = default(bool?), EntityProto vpcConnectorEntity = default(EntityProto))
+        /// <param name="whitelistedIpAddrs">A list of target IP addresses that should be used exclusively..</param>
+        public RestoreFilesParams(List<string> blacklistedIpAddrs = default(List<string>), string destinationEpUuid = default(string), List<RestoreFilesParamsDirectoryNameSecurityStyleMapEntry> directoryNameSecurityStyleMap = default(List<RestoreFilesParamsDirectoryNameSecurityStyleMapEntry>), int? glacierFlrRestoreOption = default(int?), bool? isArchiveFlr = default(bool?), bool? isFileVolumeRestore = default(bool?), bool? isMountBasedFlr = default(bool?), bool? isSourceInitiatedRestore = default(bool?), IsilonEnvParams isilonEnvParams = default(IsilonEnvParams), bool? mountDisksOnVm = default(bool?), NasBackupParams nasBackupParams = default(NasBackupParams), List<int> nasProtocolTypeVec = default(List<int>), string objectstoreConfigName = default(string), bool? physicalFlrParallelRestore = default(bool?), EntityProto proxyEntity = default(EntityProto), EntityProto proxyEntityParentSource = default(EntityProto), RestoreFilesPreferences restoreFilesPreferences = default(RestoreFilesPreferences), int? restoreMethod = default(int?), List<RestoredFileInfo> restoredFileInfoVec = default(List<RestoredFileInfo>), S3ViewBackupProperties s3Viewbackupproperties = default(S3ViewBackupProperties), string sourceSnapshotName = default(string), EntityProto targetEntity = default(EntityProto), Credentials targetEntityCredentials = default(Credentials), EntityProto targetEntityParentSource = default(EntityProto), EntityProto targetHostEntity = default(EntityProto), int? targetHostType = default(int?), FileUptieringParams uptierParams = default(FileUptieringParams), bool? useExistingAgent = default(bool?), long? viewId = default(long?), string viewName = default(string), EntityProto vpcConnectorEntity = default(EntityProto), List<string> whitelistedIpAddrs = default(List<string>))
         {
+            this.BlacklistedIpAddrs = blacklistedIpAddrs;
+            this.DestinationEpUuid = destinationEpUuid;
             this.DirectoryNameSecurityStyleMap = directoryNameSecurityStyleMap;
+            this.GlacierFlrRestoreOption = glacierFlrRestoreOption;
             this.IsArchiveFlr = isArchiveFlr;
             this.IsFileVolumeRestore = isFileVolumeRestore;
             this.IsMountBasedFlr = isMountBasedFlr;
+            this.IsSourceInitiatedRestore = isSourceInitiatedRestore;
             this.MountDisksOnVm = mountDisksOnVm;
             this.NasProtocolTypeVec = nasProtocolTypeVec;
+            this.ObjectstoreConfigName = objectstoreConfigName;
+            this.PhysicalFlrParallelRestore = physicalFlrParallelRestore;
             this.RestoreMethod = restoreMethod;
             this.RestoredFileInfoVec = restoredFileInfoVec;
+            this.SourceSnapshotName = sourceSnapshotName;
             this.TargetHostType = targetHostType;
             this.UseExistingAgent = useExistingAgent;
+            this.ViewId = viewId;
+            this.ViewName = viewName;
+            this.WhitelistedIpAddrs = whitelistedIpAddrs;
+            this.BlacklistedIpAddrs = blacklistedIpAddrs;
+            this.DestinationEpUuid = destinationEpUuid;
             this.DirectoryNameSecurityStyleMap = directoryNameSecurityStyleMap;
+            this.GlacierFlrRestoreOption = glacierFlrRestoreOption;
             this.IsArchiveFlr = isArchiveFlr;
             this.IsFileVolumeRestore = isFileVolumeRestore;
             this.IsMountBasedFlr = isMountBasedFlr;
+            this.IsSourceInitiatedRestore = isSourceInitiatedRestore;
+            this.IsilonEnvParams = isilonEnvParams;
             this.MountDisksOnVm = mountDisksOnVm;
+            this.NasBackupParams = nasBackupParams;
             this.NasProtocolTypeVec = nasProtocolTypeVec;
+            this.ObjectstoreConfigName = objectstoreConfigName;
+            this.PhysicalFlrParallelRestore = physicalFlrParallelRestore;
             this.ProxyEntity = proxyEntity;
             this.ProxyEntityParentSource = proxyEntityParentSource;
             this.RestoreFilesPreferences = restoreFilesPreferences;
             this.RestoreMethod = restoreMethod;
             this.RestoredFileInfoVec = restoredFileInfoVec;
+            this.S3Viewbackupproperties = s3Viewbackupproperties;
+            this.SourceSnapshotName = sourceSnapshotName;
             this.TargetEntity = targetEntity;
             this.TargetEntityCredentials = targetEntityCredentials;
             this.TargetEntityParentSource = targetEntityParentSource;
@@ -72,15 +107,39 @@ namespace Cohesity.Model
             this.TargetHostType = targetHostType;
             this.UptierParams = uptierParams;
             this.UseExistingAgent = useExistingAgent;
+            this.ViewId = viewId;
+            this.ViewName = viewName;
             this.VpcConnectorEntity = vpcConnectorEntity;
+            this.WhitelistedIpAddrs = whitelistedIpAddrs;
         }
         
+        /// <summary>
+        /// A list of target IP addresses that should not be used.
+        /// </summary>
+        /// <value>A list of target IP addresses that should not be used.</value>
+        [DataMember(Name="blacklistedIpAddrs", EmitDefaultValue=true)]
+        public List<string> BlacklistedIpAddrs { get; set; }
+
+        /// <summary>
+        /// Destination endpoint UUID for source s3 objectstore.
+        /// </summary>
+        /// <value>Destination endpoint UUID for source s3 objectstore.</value>
+        [DataMember(Name="destinationEpUuid", EmitDefaultValue=true)]
+        public string DestinationEpUuid { get; set; }
+
         /// <summary>
         /// Directory name security style map contains mapping of the directory name to security style it supports.  This is needed to restore the same permission for the given directory for Qtrees.
         /// </summary>
         /// <value>Directory name security style map contains mapping of the directory name to security style it supports.  This is needed to restore the same permission for the given directory for Qtrees.</value>
         [DataMember(Name="directoryNameSecurityStyleMap", EmitDefaultValue=true)]
         public List<RestoreFilesParamsDirectoryNameSecurityStyleMapEntry> DirectoryNameSecurityStyleMap { get; set; }
+
+        /// <summary>
+        /// Glacier restore option chosen by the user.
+        /// </summary>
+        /// <value>Glacier restore option chosen by the user.</value>
+        [DataMember(Name="glacierFlrRestoreOption", EmitDefaultValue=true)]
+        public int? GlacierFlrRestoreOption { get; set; }
 
         /// <summary>
         /// Whether this is a file restore operation from an archive.
@@ -104,6 +163,19 @@ namespace Cohesity.Model
         public bool? IsMountBasedFlr { get; set; }
 
         /// <summary>
+        /// Whether this is a source initiated restore.
+        /// </summary>
+        /// <value>Whether this is a source initiated restore.</value>
+        [DataMember(Name="isSourceInitiatedRestore", EmitDefaultValue=true)]
+        public bool? IsSourceInitiatedRestore { get; set; }
+
+        /// <summary>
+        /// Gets or Sets IsilonEnvParams
+        /// </summary>
+        [DataMember(Name="isilonEnvParams", EmitDefaultValue=false)]
+        public IsilonEnvParams IsilonEnvParams { get; set; }
+
+        /// <summary>
         /// Whether this will attach disks or mount disks on the VM side OR use Storage Proxy RPCs to stream data.
         /// </summary>
         /// <value>Whether this will attach disks or mount disks on the VM side OR use Storage Proxy RPCs to stream data.</value>
@@ -111,11 +183,31 @@ namespace Cohesity.Model
         public bool? MountDisksOnVm { get; set; }
 
         /// <summary>
+        /// Gets or Sets NasBackupParams
+        /// </summary>
+        [DataMember(Name="nasBackupParams", EmitDefaultValue=false)]
+        public NasBackupParams NasBackupParams { get; set; }
+
+        /// <summary>
         /// The NAS protocol type(s) of this restore task. Currently we only support a single restore type. This field is only populated for NAS restore tasks.
         /// </summary>
         /// <value>The NAS protocol type(s) of this restore task. Currently we only support a single restore type. This field is only populated for NAS restore tasks.</value>
         [DataMember(Name="nasProtocolTypeVec", EmitDefaultValue=true)]
         public List<int> NasProtocolTypeVec { get; set; }
+
+        /// <summary>
+        /// Object store config name for source initiated backup.
+        /// </summary>
+        /// <value>Object store config name for source initiated backup.</value>
+        [DataMember(Name="objectstoreConfigName", EmitDefaultValue=true)]
+        public string ObjectstoreConfigName { get; set; }
+
+        /// <summary>
+        /// If enabled, magneto physical file restore will be enabled via job framework
+        /// </summary>
+        /// <value>If enabled, magneto physical file restore will be enabled via job framework</value>
+        [DataMember(Name="physicalFlrParallelRestore", EmitDefaultValue=true)]
+        public bool? PhysicalFlrParallelRestore { get; set; }
 
         /// <summary>
         /// Gets or Sets ProxyEntity
@@ -148,6 +240,19 @@ namespace Cohesity.Model
         /// <value>Information regarding files and directories.</value>
         [DataMember(Name="restoredFileInfoVec", EmitDefaultValue=true)]
         public List<RestoredFileInfo> RestoredFileInfoVec { get; set; }
+
+        /// <summary>
+        /// Gets or Sets S3Viewbackupproperties
+        /// </summary>
+        [DataMember(Name="s3Viewbackupproperties", EmitDefaultValue=false)]
+        public S3ViewBackupProperties S3Viewbackupproperties { get; set; }
+
+        /// <summary>
+        /// Snapshot name need by source to start the restore.
+        /// </summary>
+        /// <value>Snapshot name need by source to start the restore.</value>
+        [DataMember(Name="sourceSnapshotName", EmitDefaultValue=true)]
+        public string SourceSnapshotName { get; set; }
 
         /// <summary>
         /// Gets or Sets TargetEntity
@@ -194,10 +299,31 @@ namespace Cohesity.Model
         public bool? UseExistingAgent { get; set; }
 
         /// <summary>
+        /// View ID
+        /// </summary>
+        /// <value>View ID</value>
+        [DataMember(Name="viewId", EmitDefaultValue=true)]
+        public long? ViewId { get; set; }
+
+        /// <summary>
+        /// Name of the S3 view
+        /// </summary>
+        /// <value>Name of the S3 view</value>
+        [DataMember(Name="viewName", EmitDefaultValue=true)]
+        public string ViewName { get; set; }
+
+        /// <summary>
         /// Gets or Sets VpcConnectorEntity
         /// </summary>
         [DataMember(Name="vpcConnectorEntity", EmitDefaultValue=false)]
         public EntityProto VpcConnectorEntity { get; set; }
+
+        /// <summary>
+        /// A list of target IP addresses that should be used exclusively.
+        /// </summary>
+        /// <value>A list of target IP addresses that should be used exclusively.</value>
+        [DataMember(Name="whitelistedIpAddrs", EmitDefaultValue=true)]
+        public List<string> WhitelistedIpAddrs { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -236,10 +362,26 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.BlacklistedIpAddrs == input.BlacklistedIpAddrs ||
+                    this.BlacklistedIpAddrs != null &&
+                    input.BlacklistedIpAddrs != null &&
+                    this.BlacklistedIpAddrs.Equals(input.BlacklistedIpAddrs)
+                ) && 
+                (
+                    this.DestinationEpUuid == input.DestinationEpUuid ||
+                    (this.DestinationEpUuid != null &&
+                    this.DestinationEpUuid.Equals(input.DestinationEpUuid))
+                ) && 
+                (
                     this.DirectoryNameSecurityStyleMap == input.DirectoryNameSecurityStyleMap ||
                     this.DirectoryNameSecurityStyleMap != null &&
                     input.DirectoryNameSecurityStyleMap != null &&
-                    this.DirectoryNameSecurityStyleMap.SequenceEqual(input.DirectoryNameSecurityStyleMap)
+                    this.DirectoryNameSecurityStyleMap.Equals(input.DirectoryNameSecurityStyleMap)
+                ) && 
+                (
+                    this.GlacierFlrRestoreOption == input.GlacierFlrRestoreOption ||
+                    (this.GlacierFlrRestoreOption != null &&
+                    this.GlacierFlrRestoreOption.Equals(input.GlacierFlrRestoreOption))
                 ) && 
                 (
                     this.IsArchiveFlr == input.IsArchiveFlr ||
@@ -257,15 +399,40 @@ namespace Cohesity.Model
                     this.IsMountBasedFlr.Equals(input.IsMountBasedFlr))
                 ) && 
                 (
+                    this.IsSourceInitiatedRestore == input.IsSourceInitiatedRestore ||
+                    (this.IsSourceInitiatedRestore != null &&
+                    this.IsSourceInitiatedRestore.Equals(input.IsSourceInitiatedRestore))
+                ) && 
+                (
+                    this.IsilonEnvParams == input.IsilonEnvParams ||
+                    (this.IsilonEnvParams != null &&
+                    this.IsilonEnvParams.Equals(input.IsilonEnvParams))
+                ) && 
+                (
                     this.MountDisksOnVm == input.MountDisksOnVm ||
                     (this.MountDisksOnVm != null &&
                     this.MountDisksOnVm.Equals(input.MountDisksOnVm))
                 ) && 
                 (
+                    this.NasBackupParams == input.NasBackupParams ||
+                    (this.NasBackupParams != null &&
+                    this.NasBackupParams.Equals(input.NasBackupParams))
+                ) && 
+                (
                     this.NasProtocolTypeVec == input.NasProtocolTypeVec ||
                     this.NasProtocolTypeVec != null &&
                     input.NasProtocolTypeVec != null &&
-                    this.NasProtocolTypeVec.SequenceEqual(input.NasProtocolTypeVec)
+                    this.NasProtocolTypeVec.Equals(input.NasProtocolTypeVec)
+                ) && 
+                (
+                    this.ObjectstoreConfigName == input.ObjectstoreConfigName ||
+                    (this.ObjectstoreConfigName != null &&
+                    this.ObjectstoreConfigName.Equals(input.ObjectstoreConfigName))
+                ) && 
+                (
+                    this.PhysicalFlrParallelRestore == input.PhysicalFlrParallelRestore ||
+                    (this.PhysicalFlrParallelRestore != null &&
+                    this.PhysicalFlrParallelRestore.Equals(input.PhysicalFlrParallelRestore))
                 ) && 
                 (
                     this.ProxyEntity == input.ProxyEntity ||
@@ -291,7 +458,17 @@ namespace Cohesity.Model
                     this.RestoredFileInfoVec == input.RestoredFileInfoVec ||
                     this.RestoredFileInfoVec != null &&
                     input.RestoredFileInfoVec != null &&
-                    this.RestoredFileInfoVec.SequenceEqual(input.RestoredFileInfoVec)
+                    this.RestoredFileInfoVec.Equals(input.RestoredFileInfoVec)
+                ) && 
+                (
+                    this.S3Viewbackupproperties == input.S3Viewbackupproperties ||
+                    (this.S3Viewbackupproperties != null &&
+                    this.S3Viewbackupproperties.Equals(input.S3Viewbackupproperties))
+                ) && 
+                (
+                    this.SourceSnapshotName == input.SourceSnapshotName ||
+                    (this.SourceSnapshotName != null &&
+                    this.SourceSnapshotName.Equals(input.SourceSnapshotName))
                 ) && 
                 (
                     this.TargetEntity == input.TargetEntity ||
@@ -329,9 +506,25 @@ namespace Cohesity.Model
                     this.UseExistingAgent.Equals(input.UseExistingAgent))
                 ) && 
                 (
+                    this.ViewId == input.ViewId ||
+                    (this.ViewId != null &&
+                    this.ViewId.Equals(input.ViewId))
+                ) && 
+                (
+                    this.ViewName == input.ViewName ||
+                    (this.ViewName != null &&
+                    this.ViewName.Equals(input.ViewName))
+                ) && 
+                (
                     this.VpcConnectorEntity == input.VpcConnectorEntity ||
                     (this.VpcConnectorEntity != null &&
                     this.VpcConnectorEntity.Equals(input.VpcConnectorEntity))
+                ) && 
+                (
+                    this.WhitelistedIpAddrs == input.WhitelistedIpAddrs ||
+                    this.WhitelistedIpAddrs != null &&
+                    input.WhitelistedIpAddrs != null &&
+                    this.WhitelistedIpAddrs.Equals(input.WhitelistedIpAddrs)
                 );
         }
 
@@ -344,18 +537,34 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.BlacklistedIpAddrs != null)
+                    hashCode = hashCode * 59 + this.BlacklistedIpAddrs.GetHashCode();
+                if (this.DestinationEpUuid != null)
+                    hashCode = hashCode * 59 + this.DestinationEpUuid.GetHashCode();
                 if (this.DirectoryNameSecurityStyleMap != null)
                     hashCode = hashCode * 59 + this.DirectoryNameSecurityStyleMap.GetHashCode();
+                if (this.GlacierFlrRestoreOption != null)
+                    hashCode = hashCode * 59 + this.GlacierFlrRestoreOption.GetHashCode();
                 if (this.IsArchiveFlr != null)
                     hashCode = hashCode * 59 + this.IsArchiveFlr.GetHashCode();
                 if (this.IsFileVolumeRestore != null)
                     hashCode = hashCode * 59 + this.IsFileVolumeRestore.GetHashCode();
                 if (this.IsMountBasedFlr != null)
                     hashCode = hashCode * 59 + this.IsMountBasedFlr.GetHashCode();
+                if (this.IsSourceInitiatedRestore != null)
+                    hashCode = hashCode * 59 + this.IsSourceInitiatedRestore.GetHashCode();
+                if (this.IsilonEnvParams != null)
+                    hashCode = hashCode * 59 + this.IsilonEnvParams.GetHashCode();
                 if (this.MountDisksOnVm != null)
                     hashCode = hashCode * 59 + this.MountDisksOnVm.GetHashCode();
+                if (this.NasBackupParams != null)
+                    hashCode = hashCode * 59 + this.NasBackupParams.GetHashCode();
                 if (this.NasProtocolTypeVec != null)
                     hashCode = hashCode * 59 + this.NasProtocolTypeVec.GetHashCode();
+                if (this.ObjectstoreConfigName != null)
+                    hashCode = hashCode * 59 + this.ObjectstoreConfigName.GetHashCode();
+                if (this.PhysicalFlrParallelRestore != null)
+                    hashCode = hashCode * 59 + this.PhysicalFlrParallelRestore.GetHashCode();
                 if (this.ProxyEntity != null)
                     hashCode = hashCode * 59 + this.ProxyEntity.GetHashCode();
                 if (this.ProxyEntityParentSource != null)
@@ -366,6 +575,10 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.RestoreMethod.GetHashCode();
                 if (this.RestoredFileInfoVec != null)
                     hashCode = hashCode * 59 + this.RestoredFileInfoVec.GetHashCode();
+                if (this.S3Viewbackupproperties != null)
+                    hashCode = hashCode * 59 + this.S3Viewbackupproperties.GetHashCode();
+                if (this.SourceSnapshotName != null)
+                    hashCode = hashCode * 59 + this.SourceSnapshotName.GetHashCode();
                 if (this.TargetEntity != null)
                     hashCode = hashCode * 59 + this.TargetEntity.GetHashCode();
                 if (this.TargetEntityCredentials != null)
@@ -380,8 +593,14 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.UptierParams.GetHashCode();
                 if (this.UseExistingAgent != null)
                     hashCode = hashCode * 59 + this.UseExistingAgent.GetHashCode();
+                if (this.ViewId != null)
+                    hashCode = hashCode * 59 + this.ViewId.GetHashCode();
+                if (this.ViewName != null)
+                    hashCode = hashCode * 59 + this.ViewName.GetHashCode();
                 if (this.VpcConnectorEntity != null)
                     hashCode = hashCode * 59 + this.VpcConnectorEntity.GetHashCode();
+                if (this.WhitelistedIpAddrs != null)
+                    hashCode = hashCode * 59 + this.WhitelistedIpAddrs.GetHashCode();
                 return hashCode;
             }
         }

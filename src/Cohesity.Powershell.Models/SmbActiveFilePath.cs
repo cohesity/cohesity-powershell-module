@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -29,10 +31,6 @@ namespace Cohesity.Model
         /// <param name="viewName">Specifies the name of the View..</param>
         public SmbActiveFilePath(List<SmbActiveSession> activeSessions = default(List<SmbActiveSession>), string filePath = default(string), long? viewId = default(long?), string viewName = default(string))
         {
-            this.ActiveSessions = activeSessions;
-            this.FilePath = filePath;
-            this.ViewId = viewId;
-            this.ViewName = viewName;
             this.ActiveSessions = activeSessions;
             this.FilePath = filePath;
             this.ViewId = viewId;
@@ -107,7 +105,7 @@ namespace Cohesity.Model
                     this.ActiveSessions == input.ActiveSessions ||
                     this.ActiveSessions != null &&
                     input.ActiveSessions != null &&
-                    this.ActiveSessions.SequenceEqual(input.ActiveSessions)
+                    this.ActiveSessions.Equals(input.ActiveSessions)
                 ) && 
                 (
                     this.FilePath == input.FilePath ||

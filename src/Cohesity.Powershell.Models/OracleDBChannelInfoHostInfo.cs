@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -12,6 +13,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
+
 namespace Cohesity.Model
 {
     /// <summary>
@@ -23,23 +25,22 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="OracleDBChannelInfoHostInfo" /> class.
         /// </summary>
-        /// <param name="host">Host string from which we are allowed to take the backup/restore..</param>
+        /// <param name="host">&#39;agent_id&#39; of the host from which we are allowed to take the backup/restore..</param>
         /// <param name="numChannels">Number of channels we need to create for this host. Default value for num_channels will be calculated as minimum of number of nodes in cohesity cluster, 2 * number of cpu on Oracle host..</param>
         /// <param name="portnum">port number where database is listening..</param>
-        public OracleDBChannelInfoHostInfo(string host = default(string), int? numChannels = default(int?), long? portnum = default(long?))
+        /// <param name="sbtHostParams">sbtHostParams.</param>
+        public OracleDBChannelInfoHostInfo(string host = default(string), int? numChannels = default(int?), long? portnum = default(long?), OracleSbtHostParams sbtHostParams = default(OracleSbtHostParams))
         {
             this.Host = host;
             this.NumChannels = numChannels;
             this.Portnum = portnum;
-            this.Host = host;
-            this.NumChannels = numChannels;
-            this.Portnum = portnum;
+            this.SbtHostParams = sbtHostParams;
         }
         
         /// <summary>
-        /// Host string from which we are allowed to take the backup/restore.
+        /// &#39;agent_id&#39; of the host from which we are allowed to take the backup/restore.
         /// </summary>
-        /// <value>Host string from which we are allowed to take the backup/restore.</value>
+        /// <value>&#39;agent_id&#39; of the host from which we are allowed to take the backup/restore.</value>
         [DataMember(Name="host", EmitDefaultValue=true)]
         public string Host { get; set; }
 
@@ -56,6 +57,12 @@ namespace Cohesity.Model
         /// <value>port number where database is listening.</value>
         [DataMember(Name="portnum", EmitDefaultValue=true)]
         public long? Portnum { get; set; }
+
+        /// <summary>
+        /// Gets or Sets SbtHostParams
+        /// </summary>
+        [DataMember(Name="sbtHostParams", EmitDefaultValue=false)]
+        public OracleSbtHostParams SbtHostParams { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -107,6 +114,11 @@ namespace Cohesity.Model
                     this.Portnum == input.Portnum ||
                     (this.Portnum != null &&
                     this.Portnum.Equals(input.Portnum))
+                ) && 
+                (
+                    this.SbtHostParams == input.SbtHostParams ||
+                    (this.SbtHostParams != null &&
+                    this.SbtHostParams.Equals(input.SbtHostParams))
                 );
         }
 
@@ -125,6 +137,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.NumChannels.GetHashCode();
                 if (this.Portnum != null)
                     hashCode = hashCode * 59 + this.Portnum.GetHashCode();
+                if (this.SbtHostParams != null)
+                    hashCode = hashCode * 59 + this.SbtHostParams.GetHashCode();
                 return hashCode;
             }
         }

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -32,6 +34,8 @@ namespace Cohesity.Model
         /// <param name="entityVec">Information on the exact set of objects to retrieve from archive. Even if the user wanted to retrieve all objects from the archive, this field will contain all individual leaf-level objects..</param>
         /// <param name="error">error.</param>
         /// <param name="fullViewNameDEPRECATED">The full view name (external). This is composed of a Cohesity specific prefix and the user provided view name..</param>
+        /// <param name="glacierFlrRestoreOption">Glacier restore option chosen by the user..</param>
+        /// <param name="isUptierRestoreJob">If we also need to uptier the data to hot tiers, set this bool..</param>
         /// <param name="jobUid">jobUid.</param>
         /// <param name="name">The name of the retrieval task..</param>
         /// <param name="progressMonitorTaskPath">The path of the progress monitor for this task..</param>
@@ -45,21 +49,8 @@ namespace Cohesity.Model
         /// <param name="vaultRestoreParams">vaultRestoreParams.</param>
         /// <param name="viewBoxId">The view box id to which &#39;view_name&#39; belongs to..</param>
         /// <param name="viewNameDEPRECATED">The view name as provided by the user for this retrieval task. Retrieved snapshots of the entities will be placed in this view..</param>
-        public RetrieveArchiveTaskStateProto(ArchivalTarget archivalTarget = default(ArchivalTarget), UniversalIdProto archiveTaskUid = default(UniversalIdProto), long? backupRunStartTimeUsecs = default(long?), bool? cancellationRequested = default(bool?), RetrieveArchiveTaskStateProtoDownloadFilesInfo downloadFilesInfo = default(RetrieveArchiveTaskStateProtoDownloadFilesInfo), long? endTimeUsecs = default(long?), List<EntityProto> entityVec = default(List<EntityProto>), ErrorProto error = default(ErrorProto), string fullViewNameDEPRECATED = default(string), UniversalIdProto jobUid = default(UniversalIdProto), string name = default(string), string progressMonitorTaskPath = default(string), RetrieveArchiveTaskStateProtoDownloadFilesInfo restoreArchiveFilesInfo = default(RetrieveArchiveTaskStateProtoDownloadFilesInfo), long? restoreTaskId = default(long?), RetrieveArchiveInfo retrievalInfo = default(RetrieveArchiveInfo), long? startTimeUsecs = default(long?), int? status = default(int?), UniversalIdProto taskUid = default(UniversalIdProto), string user = default(string), VaultParamsRestoreParams vaultRestoreParams = default(VaultParamsRestoreParams), long? viewBoxId = default(long?), string viewNameDEPRECATED = default(string))
+        public RetrieveArchiveTaskStateProto(ArchivalTarget archivalTarget = default(ArchivalTarget), UniversalIdProto archiveTaskUid = default(UniversalIdProto), long? backupRunStartTimeUsecs = default(long?), bool? cancellationRequested = default(bool?), RetrieveArchiveTaskStateProtoDownloadFilesInfo downloadFilesInfo = default(RetrieveArchiveTaskStateProtoDownloadFilesInfo), long? endTimeUsecs = default(long?), List<EntityProto> entityVec = default(List<EntityProto>), ErrorProto error = default(ErrorProto), string fullViewNameDEPRECATED = default(string), int? glacierFlrRestoreOption = default(int?), bool? isUptierRestoreJob = default(bool?), UniversalIdProto jobUid = default(UniversalIdProto), string name = default(string), string progressMonitorTaskPath = default(string), RetrieveArchiveTaskStateProtoDownloadFilesInfo restoreArchiveFilesInfo = default(RetrieveArchiveTaskStateProtoDownloadFilesInfo), long? restoreTaskId = default(long?), RetrieveArchiveInfo retrievalInfo = default(RetrieveArchiveInfo), long? startTimeUsecs = default(long?), int? status = default(int?), UniversalIdProto taskUid = default(UniversalIdProto), string user = default(string), VaultParamsRestoreParams vaultRestoreParams = default(VaultParamsRestoreParams), long? viewBoxId = default(long?), string viewNameDEPRECATED = default(string))
         {
-            this.BackupRunStartTimeUsecs = backupRunStartTimeUsecs;
-            this.CancellationRequested = cancellationRequested;
-            this.EndTimeUsecs = endTimeUsecs;
-            this.EntityVec = entityVec;
-            this.FullViewNameDEPRECATED = fullViewNameDEPRECATED;
-            this.Name = name;
-            this.ProgressMonitorTaskPath = progressMonitorTaskPath;
-            this.RestoreTaskId = restoreTaskId;
-            this.StartTimeUsecs = startTimeUsecs;
-            this.Status = status;
-            this.User = user;
-            this.ViewBoxId = viewBoxId;
-            this.ViewNameDEPRECATED = viewNameDEPRECATED;
             this.ArchivalTarget = archivalTarget;
             this.ArchiveTaskUid = archiveTaskUid;
             this.BackupRunStartTimeUsecs = backupRunStartTimeUsecs;
@@ -69,6 +60,8 @@ namespace Cohesity.Model
             this.EntityVec = entityVec;
             this.Error = error;
             this.FullViewNameDEPRECATED = fullViewNameDEPRECATED;
+            this.GlacierFlrRestoreOption = glacierFlrRestoreOption;
+            this.IsUptierRestoreJob = isUptierRestoreJob;
             this.JobUid = jobUid;
             this.Name = name;
             this.ProgressMonitorTaskPath = progressMonitorTaskPath;
@@ -142,6 +135,20 @@ namespace Cohesity.Model
         /// <value>The full view name (external). This is composed of a Cohesity specific prefix and the user provided view name.</value>
         [DataMember(Name="fullViewName_DEPRECATED", EmitDefaultValue=true)]
         public string FullViewNameDEPRECATED { get; set; }
+
+        /// <summary>
+        /// Glacier restore option chosen by the user.
+        /// </summary>
+        /// <value>Glacier restore option chosen by the user.</value>
+        [DataMember(Name="glacierFlrRestoreOption", EmitDefaultValue=true)]
+        public int? GlacierFlrRestoreOption { get; set; }
+
+        /// <summary>
+        /// If we also need to uptier the data to hot tiers, set this bool.
+        /// </summary>
+        /// <value>If we also need to uptier the data to hot tiers, set this bool.</value>
+        [DataMember(Name="isUptierRestoreJob", EmitDefaultValue=true)]
+        public bool? IsUptierRestoreJob { get; set; }
 
         /// <summary>
         /// Gets or Sets JobUid
@@ -299,7 +306,7 @@ namespace Cohesity.Model
                     this.EntityVec == input.EntityVec ||
                     this.EntityVec != null &&
                     input.EntityVec != null &&
-                    this.EntityVec.SequenceEqual(input.EntityVec)
+                    this.EntityVec.Equals(input.EntityVec)
                 ) && 
                 (
                     this.Error == input.Error ||
@@ -310,6 +317,16 @@ namespace Cohesity.Model
                     this.FullViewNameDEPRECATED == input.FullViewNameDEPRECATED ||
                     (this.FullViewNameDEPRECATED != null &&
                     this.FullViewNameDEPRECATED.Equals(input.FullViewNameDEPRECATED))
+                ) && 
+                (
+                    this.GlacierFlrRestoreOption == input.GlacierFlrRestoreOption ||
+                    (this.GlacierFlrRestoreOption != null &&
+                    this.GlacierFlrRestoreOption.Equals(input.GlacierFlrRestoreOption))
+                ) && 
+                (
+                    this.IsUptierRestoreJob == input.IsUptierRestoreJob ||
+                    (this.IsUptierRestoreJob != null &&
+                    this.IsUptierRestoreJob.Equals(input.IsUptierRestoreJob))
                 ) && 
                 (
                     this.JobUid == input.JobUid ||
@@ -405,6 +422,10 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Error.GetHashCode();
                 if (this.FullViewNameDEPRECATED != null)
                     hashCode = hashCode * 59 + this.FullViewNameDEPRECATED.GetHashCode();
+                if (this.GlacierFlrRestoreOption != null)
+                    hashCode = hashCode * 59 + this.GlacierFlrRestoreOption.GetHashCode();
+                if (this.IsUptierRestoreJob != null)
+                    hashCode = hashCode * 59 + this.IsUptierRestoreJob.GetHashCode();
                 if (this.JobUid != null)
                     hashCode = hashCode * 59 + this.JobUid.GetHashCode();
                 if (this.Name != null)

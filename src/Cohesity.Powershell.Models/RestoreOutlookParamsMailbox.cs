@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -95,7 +97,7 @@ namespace Cohesity.Model
                     this.FolderVec == input.FolderVec ||
                     this.FolderVec != null &&
                     input.FolderVec != null &&
-                    this.FolderVec.SequenceEqual(input.FolderVec)
+                    this.FolderVec.Equals(input.FolderVec)
                 ) && 
                 (
                     this.IsEntireMailboxRequired == input.IsEntireMailboxRequired ||

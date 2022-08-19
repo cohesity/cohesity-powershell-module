@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -24,10 +26,11 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="PhysicalFileBackupParamsGlobalIncludeExclude" /> class.
         /// </summary>
         /// <param name="excludeVec">Describes exclude vec at job level used in combination with to exclude_paths to exclude files..</param>
-        public PhysicalFileBackupParamsGlobalIncludeExclude(List<string> excludeVec = default(List<string>))
+        /// <param name="fsExclude">Global filesystem exclude vec.</param>
+        public PhysicalFileBackupParamsGlobalIncludeExclude(List<string> excludeVec = default(List<string>), List<string> fsExclude = default(List<string>))
         {
             this.ExcludeVec = excludeVec;
-            this.ExcludeVec = excludeVec;
+            this.FsExclude = fsExclude;
         }
         
         /// <summary>
@@ -36,6 +39,13 @@ namespace Cohesity.Model
         /// <value>Describes exclude vec at job level used in combination with to exclude_paths to exclude files.</value>
         [DataMember(Name="excludeVec", EmitDefaultValue=true)]
         public List<string> ExcludeVec { get; set; }
+
+        /// <summary>
+        /// Global filesystem exclude vec
+        /// </summary>
+        /// <value>Global filesystem exclude vec</value>
+        [DataMember(Name="fsExclude", EmitDefaultValue=true)]
+        public List<string> FsExclude { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -77,7 +87,13 @@ namespace Cohesity.Model
                     this.ExcludeVec == input.ExcludeVec ||
                     this.ExcludeVec != null &&
                     input.ExcludeVec != null &&
-                    this.ExcludeVec.SequenceEqual(input.ExcludeVec)
+                    this.ExcludeVec.Equals(input.ExcludeVec)
+                ) && 
+                (
+                    this.FsExclude == input.FsExclude ||
+                    this.FsExclude != null &&
+                    input.FsExclude != null &&
+                    this.FsExclude.Equals(input.FsExclude)
                 );
         }
 
@@ -92,6 +108,8 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.ExcludeVec != null)
                     hashCode = hashCode * 59 + this.ExcludeVec.GetHashCode();
+                if (this.FsExclude != null)
+                    hashCode = hashCode * 59 + this.FsExclude.GetHashCode();
                 return hashCode;
             }
         }

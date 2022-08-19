@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -12,6 +13,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
+
 namespace Cohesity.Model
 {
     /// <summary>
@@ -21,9 +23,9 @@ namespace Cohesity.Model
     public partial class AppInstanceSettings :  IEquatable<AppInstanceSettings>
     {
         /// <summary>
-        /// Specifies QoSTier of the app instance. Specifies QoS Tier for an app instance. App instances are allocated resources such as memory, CPU and IO based on their QoS Tier. kLow - Low QoS Tier. kMedium - Medium QoS Tier. kHigh - High QoS Tier.
+        /// Specifies QoSTier of the app instance. Specifies QoS Tier for an app instance. App instances are allocated resources such as memory, CPU and IO based on their QoS Tier. kLow - Low QoS Tier. kMedium - Medium QoS Tier. kHigh - High QoS Tier. kMax - Max QoS Tier.
         /// </summary>
-        /// <value>Specifies QoSTier of the app instance. Specifies QoS Tier for an app instance. App instances are allocated resources such as memory, CPU and IO based on their QoS Tier. kLow - Low QoS Tier. kMedium - Medium QoS Tier. kHigh - High QoS Tier.</value>
+        /// <value>Specifies QoSTier of the app instance. Specifies QoS Tier for an app instance. App instances are allocated resources such as memory, CPU and IO based on their QoS Tier. kLow - Low QoS Tier. kMedium - Medium QoS Tier. kHigh - High QoS Tier. kMax - Max QoS Tier.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum QosTierEnum
         {
@@ -43,32 +45,56 @@ namespace Cohesity.Model
             /// Enum KHigh for value: kHigh
             /// </summary>
             [EnumMember(Value = "kHigh")]
-            KHigh = 3
+            KHigh = 3,
+
+            /// <summary>
+            /// Enum KMax for value: kMax
+            /// </summary>
+            [EnumMember(Value = "kMax")]
+            KMax = 4
 
         }
 
         /// <summary>
-        /// Specifies QoSTier of the app instance. Specifies QoS Tier for an app instance. App instances are allocated resources such as memory, CPU and IO based on their QoS Tier. kLow - Low QoS Tier. kMedium - Medium QoS Tier. kHigh - High QoS Tier.
+        /// Specifies QoSTier of the app instance. Specifies QoS Tier for an app instance. App instances are allocated resources such as memory, CPU and IO based on their QoS Tier. kLow - Low QoS Tier. kMedium - Medium QoS Tier. kHigh - High QoS Tier. kMax - Max QoS Tier.
         /// </summary>
-        /// <value>Specifies QoSTier of the app instance. Specifies QoS Tier for an app instance. App instances are allocated resources such as memory, CPU and IO based on their QoS Tier. kLow - Low QoS Tier. kMedium - Medium QoS Tier. kHigh - High QoS Tier.</value>
+        /// <value>Specifies QoSTier of the app instance. Specifies QoS Tier for an app instance. App instances are allocated resources such as memory, CPU and IO based on their QoS Tier. kLow - Low QoS Tier. kMedium - Medium QoS Tier. kHigh - High QoS Tier. kMax - Max QoS Tier.</value>
         [DataMember(Name="qosTier", EmitDefaultValue=true)]
         public QosTierEnum? QosTier { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="AppInstanceSettings" /> class.
         /// </summary>
+        /// <param name="externalNetworkInfo">externalNetworkInfo.</param>
+        /// <param name="instanceSize">Instance size specification (e.g. small/medium/large). Used to determine container resources..</param>
         /// <param name="protectedObjectPrivileges">protectedObjectPrivileges.</param>
-        /// <param name="qosTier">Specifies QoSTier of the app instance. Specifies QoS Tier for an app instance. App instances are allocated resources such as memory, CPU and IO based on their QoS Tier. kLow - Low QoS Tier. kMedium - Medium QoS Tier. kHigh - High QoS Tier..</param>
+        /// <param name="qosTier">Specifies QoSTier of the app instance. Specifies QoS Tier for an app instance. App instances are allocated resources such as memory, CPU and IO based on their QoS Tier. kLow - Low QoS Tier. kMedium - Medium QoS Tier. kHigh - High QoS Tier. kMax - Max QoS Tier..</param>
         /// <param name="readViewPrivileges">readViewPrivileges.</param>
         /// <param name="readWriteViewPrivileges">readWriteViewPrivileges.</param>
-        public AppInstanceSettings(ProtectedObjectPrivileges protectedObjectPrivileges = default(ProtectedObjectPrivileges), QosTierEnum? qosTier = default(QosTierEnum?), ViewPrivileges readViewPrivileges = default(ViewPrivileges), ViewPrivileges readWriteViewPrivileges = default(ViewPrivileges))
+        /// <param name="vmNumReplicasList">List of vm-name, replica count pairs to be used at the time of app instance launch..</param>
+        public AppInstanceSettings(ExternalNetworkInfo externalNetworkInfo = default(ExternalNetworkInfo), string instanceSize = default(string), ProtectedObjectPrivileges protectedObjectPrivileges = default(ProtectedObjectPrivileges), QosTierEnum? qosTier = default(QosTierEnum?), ViewPrivileges readViewPrivileges = default(ViewPrivileges), ViewPrivileges readWriteViewPrivileges = default(ViewPrivileges), List<VmNumReplicas> vmNumReplicasList = default(List<VmNumReplicas>))
         {
-            this.QosTier = qosTier;
+            this.ExternalNetworkInfo = externalNetworkInfo;
+            this.InstanceSize = instanceSize;
             this.ProtectedObjectPrivileges = protectedObjectPrivileges;
             this.QosTier = qosTier;
             this.ReadViewPrivileges = readViewPrivileges;
             this.ReadWriteViewPrivileges = readWriteViewPrivileges;
+            this.VmNumReplicasList = vmNumReplicasList;
         }
         
+        /// <summary>
+        /// Gets or Sets ExternalNetworkInfo
+        /// </summary>
+        [DataMember(Name="externalNetworkInfo", EmitDefaultValue=false)]
+        public ExternalNetworkInfo ExternalNetworkInfo { get; set; }
+
+        /// <summary>
+        /// Instance size specification (e.g. small/medium/large). Used to determine container resources.
+        /// </summary>
+        /// <value>Instance size specification (e.g. small/medium/large). Used to determine container resources.</value>
+        [DataMember(Name="instanceSize", EmitDefaultValue=true)]
+        public string InstanceSize { get; set; }
+
         /// <summary>
         /// Gets or Sets ProtectedObjectPrivileges
         /// </summary>
@@ -86,6 +112,13 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="readWriteViewPrivileges", EmitDefaultValue=false)]
         public ViewPrivileges ReadWriteViewPrivileges { get; set; }
+
+        /// <summary>
+        /// List of vm-name, replica count pairs to be used at the time of app instance launch.
+        /// </summary>
+        /// <value>List of vm-name, replica count pairs to be used at the time of app instance launch.</value>
+        [DataMember(Name="vmNumReplicasList", EmitDefaultValue=true)]
+        public List<VmNumReplicas> VmNumReplicasList { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -124,6 +157,16 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.ExternalNetworkInfo == input.ExternalNetworkInfo ||
+                    (this.ExternalNetworkInfo != null &&
+                    this.ExternalNetworkInfo.Equals(input.ExternalNetworkInfo))
+                ) && 
+                (
+                    this.InstanceSize == input.InstanceSize ||
+                    (this.InstanceSize != null &&
+                    this.InstanceSize.Equals(input.InstanceSize))
+                ) && 
+                (
                     this.ProtectedObjectPrivileges == input.ProtectedObjectPrivileges ||
                     (this.ProtectedObjectPrivileges != null &&
                     this.ProtectedObjectPrivileges.Equals(input.ProtectedObjectPrivileges))
@@ -141,6 +184,12 @@ namespace Cohesity.Model
                     this.ReadWriteViewPrivileges == input.ReadWriteViewPrivileges ||
                     (this.ReadWriteViewPrivileges != null &&
                     this.ReadWriteViewPrivileges.Equals(input.ReadWriteViewPrivileges))
+                ) && 
+                (
+                    this.VmNumReplicasList == input.VmNumReplicasList ||
+                    this.VmNumReplicasList != null &&
+                    input.VmNumReplicasList != null &&
+                    this.VmNumReplicasList.Equals(input.VmNumReplicasList)
                 );
         }
 
@@ -153,13 +202,20 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.ExternalNetworkInfo != null)
+                    hashCode = hashCode * 59 + this.ExternalNetworkInfo.GetHashCode();
+                if (this.InstanceSize != null)
+                    hashCode = hashCode * 59 + this.InstanceSize.GetHashCode();
                 if (this.ProtectedObjectPrivileges != null)
                     hashCode = hashCode * 59 + this.ProtectedObjectPrivileges.GetHashCode();
-                hashCode = hashCode * 59 + this.QosTier.GetHashCode();
+				if (this.QosTier != null)
+					hashCode = hashCode * 59 + this.QosTier.GetHashCode();
                 if (this.ReadViewPrivileges != null)
                     hashCode = hashCode * 59 + this.ReadViewPrivileges.GetHashCode();
                 if (this.ReadWriteViewPrivileges != null)
                     hashCode = hashCode * 59 + this.ReadWriteViewPrivileges.GetHashCode();
+                if (this.VmNumReplicasList != null)
+                    hashCode = hashCode * 59 + this.VmNumReplicasList.GetHashCode();
                 return hashCode;
             }
         }

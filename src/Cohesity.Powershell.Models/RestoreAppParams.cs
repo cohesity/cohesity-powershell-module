@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -113,7 +115,7 @@ namespace Cohesity.Model
                     this.RestoreAppObjectVec == input.RestoreAppObjectVec ||
                     this.RestoreAppObjectVec != null &&
                     input.RestoreAppObjectVec != null &&
-                    this.RestoreAppObjectVec.SequenceEqual(input.RestoreAppObjectVec)
+                    this.RestoreAppObjectVec.Equals(input.RestoreAppObjectVec)
                 ) && 
                 (
                     this.Type == input.Type ||

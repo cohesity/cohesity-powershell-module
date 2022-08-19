@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -24,28 +26,25 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="OracleDBChannelInfo" /> class.
         /// </summary>
         /// <param name="archivelogKeepDays">Archived log deletion policy for this unique Oracle database. 1: keep archived log forever 0: delete archived log immediately n&gt;0: delete archived log after n days.</param>
+        /// <param name="credentials">credentials.</param>
         /// <param name="dbUniqueName">The unique name of the database..</param>
         /// <param name="dbUuid">Database id, internal field, is filled by magneto master based on corresponding app entity id..</param>
         /// <param name="enableDgPrimaryBackup">If set to false, and if the DG database role is primary, we will not allow the backup of that database..</param>
         /// <param name="hostInfoVec">Vector of Oracle hosts from which we are allowed to take the backup/restore. In case of RAC database it may be more than one..</param>
         /// <param name="maxNumHost">Maximum number of hosts from which we are allowed to take backup/restore parallely. This will be less than or equal to host_info_vec_size. If this is less than host_info_vec_size we will choose max_num_host from host_info_vec and take backup/restore from this number of host..</param>
         /// <param name="numChannels">The default number of channels to use per host per db. This value is used on all hosts unless host_info_vec.num_channels is specified for that host. Default value for num_channels will be calculated as minimum number of nodes in cohesity cluster, and 2 * number of cpu on Oracle host. Preference order for number of channels per host for given db is: 1. If user has specified host_info_vec.num_channels for host we will use that. 2. If user has not specified host_info_vec.num_channels but specified num_channels we will use this. 3. If user has neither specified host_info_vec.num_channels nor num_channels we will calculate default channels with above formula..</param>
-        public OracleDBChannelInfo(int? archivelogKeepDays = default(int?), string dbUniqueName = default(string), string dbUuid = default(string), bool? enableDgPrimaryBackup = default(bool?), List<OracleDBChannelInfoHostInfo> hostInfoVec = default(List<OracleDBChannelInfoHostInfo>), int? maxNumHost = default(int?), int? numChannels = default(int?))
+        /// <param name="rmanBackupType">Type of Oracle RMAN backup rquested (i.e ImageCopy, BackupSets)..</param>
+        public OracleDBChannelInfo(int? archivelogKeepDays = default(int?), Credentials credentials = default(Credentials), string dbUniqueName = default(string), string dbUuid = default(string), bool? enableDgPrimaryBackup = default(bool?), List<OracleDBChannelInfoHostInfo> hostInfoVec = default(List<OracleDBChannelInfoHostInfo>), int? maxNumHost = default(int?), int? numChannels = default(int?), int? rmanBackupType = default(int?))
         {
             this.ArchivelogKeepDays = archivelogKeepDays;
+            this.Credentials = credentials;
             this.DbUniqueName = dbUniqueName;
             this.DbUuid = dbUuid;
             this.EnableDgPrimaryBackup = enableDgPrimaryBackup;
             this.HostInfoVec = hostInfoVec;
             this.MaxNumHost = maxNumHost;
             this.NumChannels = numChannels;
-            this.ArchivelogKeepDays = archivelogKeepDays;
-            this.DbUniqueName = dbUniqueName;
-            this.DbUuid = dbUuid;
-            this.EnableDgPrimaryBackup = enableDgPrimaryBackup;
-            this.HostInfoVec = hostInfoVec;
-            this.MaxNumHost = maxNumHost;
-            this.NumChannels = numChannels;
+            this.RmanBackupType = rmanBackupType;
         }
         
         /// <summary>
@@ -54,6 +53,12 @@ namespace Cohesity.Model
         /// <value>Archived log deletion policy for this unique Oracle database. 1: keep archived log forever 0: delete archived log immediately n&gt;0: delete archived log after n days</value>
         [DataMember(Name="archivelogKeepDays", EmitDefaultValue=true)]
         public int? ArchivelogKeepDays { get; set; }
+
+        /// <summary>
+        /// Gets or Sets Credentials
+        /// </summary>
+        [DataMember(Name="credentials", EmitDefaultValue=false)]
+        public Credentials Credentials { get; set; }
 
         /// <summary>
         /// The unique name of the database.
@@ -98,6 +103,13 @@ namespace Cohesity.Model
         public int? NumChannels { get; set; }
 
         /// <summary>
+        /// Type of Oracle RMAN backup rquested (i.e ImageCopy, BackupSets).
+        /// </summary>
+        /// <value>Type of Oracle RMAN backup rquested (i.e ImageCopy, BackupSets).</value>
+        [DataMember(Name="rmanBackupType", EmitDefaultValue=true)]
+        public int? RmanBackupType { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -139,6 +151,11 @@ namespace Cohesity.Model
                     this.ArchivelogKeepDays.Equals(input.ArchivelogKeepDays))
                 ) && 
                 (
+                    this.Credentials == input.Credentials ||
+                    (this.Credentials != null &&
+                    this.Credentials.Equals(input.Credentials))
+                ) && 
+                (
                     this.DbUniqueName == input.DbUniqueName ||
                     (this.DbUniqueName != null &&
                     this.DbUniqueName.Equals(input.DbUniqueName))
@@ -157,7 +174,7 @@ namespace Cohesity.Model
                     this.HostInfoVec == input.HostInfoVec ||
                     this.HostInfoVec != null &&
                     input.HostInfoVec != null &&
-                    this.HostInfoVec.SequenceEqual(input.HostInfoVec)
+                    this.HostInfoVec.Equals(input.HostInfoVec)
                 ) && 
                 (
                     this.MaxNumHost == input.MaxNumHost ||
@@ -168,6 +185,11 @@ namespace Cohesity.Model
                     this.NumChannels == input.NumChannels ||
                     (this.NumChannels != null &&
                     this.NumChannels.Equals(input.NumChannels))
+                ) && 
+                (
+                    this.RmanBackupType == input.RmanBackupType ||
+                    (this.RmanBackupType != null &&
+                    this.RmanBackupType.Equals(input.RmanBackupType))
                 );
         }
 
@@ -182,6 +204,8 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.ArchivelogKeepDays != null)
                     hashCode = hashCode * 59 + this.ArchivelogKeepDays.GetHashCode();
+                if (this.Credentials != null)
+                    hashCode = hashCode * 59 + this.Credentials.GetHashCode();
                 if (this.DbUniqueName != null)
                     hashCode = hashCode * 59 + this.DbUniqueName.GetHashCode();
                 if (this.DbUuid != null)
@@ -194,6 +218,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.MaxNumHost.GetHashCode();
                 if (this.NumChannels != null)
                     hashCode = hashCode * 59 + this.NumChannels.GetHashCode();
+                if (this.RmanBackupType != null)
+                    hashCode = hashCode * 59 + this.RmanBackupType.GetHashCode();
                 return hashCode;
             }
         }

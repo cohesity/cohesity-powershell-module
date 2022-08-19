@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -12,6 +13,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
+
 namespace Cohesity.Model
 {
     /// <summary>
@@ -23,16 +25,32 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="HBaseConnectParams" /> class.
         /// </summary>
+        /// <param name="hdfsEntityId">The entity id of the HDFS source for this HBase.</param>
+        /// <param name="kerberosPrincipal">Specifies the kerberos principal..</param>
         /// <param name="rootDataDirectory">Specifies the HBase data root directory..</param>
         /// <param name="zookeeperQuorum">Specifies the HBase zookeeper quorum..</param>
-        public HBaseConnectParams(string rootDataDirectory = default(string), List<string> zookeeperQuorum = default(List<string>))
+        public HBaseConnectParams(long? hdfsEntityId = default(long?), string kerberosPrincipal = default(string), string rootDataDirectory = default(string), List<string> zookeeperQuorum = default(List<string>))
         {
-            this.RootDataDirectory = rootDataDirectory;
-            this.ZookeeperQuorum = zookeeperQuorum;
+            this.HdfsEntityId = hdfsEntityId;
+            this.KerberosPrincipal = kerberosPrincipal;
             this.RootDataDirectory = rootDataDirectory;
             this.ZookeeperQuorum = zookeeperQuorum;
         }
         
+        /// <summary>
+        /// The entity id of the HDFS source for this HBase
+        /// </summary>
+        /// <value>The entity id of the HDFS source for this HBase</value>
+        [DataMember(Name="hdfsEntityId", EmitDefaultValue=true)]
+        public long? HdfsEntityId { get; set; }
+
+        /// <summary>
+        /// Specifies the kerberos principal.
+        /// </summary>
+        /// <value>Specifies the kerberos principal.</value>
+        [DataMember(Name="kerberosPrincipal", EmitDefaultValue=true)]
+        public string KerberosPrincipal { get; set; }
+
         /// <summary>
         /// Specifies the HBase data root directory.
         /// </summary>
@@ -84,6 +102,16 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.HdfsEntityId == input.HdfsEntityId ||
+                    (this.HdfsEntityId != null &&
+                    this.HdfsEntityId.Equals(input.HdfsEntityId))
+                ) && 
+                (
+                    this.KerberosPrincipal == input.KerberosPrincipal ||
+                    (this.KerberosPrincipal != null &&
+                    this.KerberosPrincipal.Equals(input.KerberosPrincipal))
+                ) && 
+                (
                     this.RootDataDirectory == input.RootDataDirectory ||
                     (this.RootDataDirectory != null &&
                     this.RootDataDirectory.Equals(input.RootDataDirectory))
@@ -92,7 +120,7 @@ namespace Cohesity.Model
                     this.ZookeeperQuorum == input.ZookeeperQuorum ||
                     this.ZookeeperQuorum != null &&
                     input.ZookeeperQuorum != null &&
-                    this.ZookeeperQuorum.SequenceEqual(input.ZookeeperQuorum)
+                    this.ZookeeperQuorum.Equals(input.ZookeeperQuorum)
                 );
         }
 
@@ -105,6 +133,10 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.HdfsEntityId != null)
+                    hashCode = hashCode * 59 + this.HdfsEntityId.GetHashCode();
+                if (this.KerberosPrincipal != null)
+                    hashCode = hashCode * 59 + this.KerberosPrincipal.GetHashCode();
                 if (this.RootDataDirectory != null)
                     hashCode = hashCode * 59 + this.RootDataDirectory.GetHashCode();
                 if (this.ZookeeperQuorum != null)

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -112,19 +113,19 @@ namespace Cohesity.Model
                     this.PulseAttributeVec == input.PulseAttributeVec ||
                     this.PulseAttributeVec != null &&
                     input.PulseAttributeVec != null &&
-                    this.PulseAttributeVec.SequenceEqual(input.PulseAttributeVec)
+                    this.PulseAttributeVec.Equals(input.PulseAttributeVec)
                 ) && 
                 (
                     this.SidVec == input.SidVec ||
                     this.SidVec != null &&
                     input.SidVec != null &&
-                    this.SidVec.SequenceEqual(input.SidVec)
+                    this.SidVec.Equals(input.SidVec)
                 ) && 
                 (
                     this.TenantIdVec == input.TenantIdVec ||
                     this.TenantIdVec != null &&
                     input.TenantIdVec != null &&
-                    this.TenantIdVec.SequenceEqual(input.TenantIdVec)
+                    this.TenantIdVec.Equals(input.TenantIdVec)
                 );
         }
 

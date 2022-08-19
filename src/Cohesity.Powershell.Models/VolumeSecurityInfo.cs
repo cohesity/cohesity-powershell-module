@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -12,6 +13,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
+
 namespace Cohesity.Model
 {
     /// <summary>
@@ -21,9 +23,9 @@ namespace Cohesity.Model
     public partial class VolumeSecurityInfo :  IEquatable<VolumeSecurityInfo>
     {
         /// <summary>
-        /// Specifies the security style associated with this volume. Specifies the type of a NetApp Volume. &#39;kUnix&#39; indicates Unix-style security. &#39;kNtfs&#39; indicates Windows NTFS-style security. &#39;kMixed&#39; indicates mixed-style security. &#39;kUnified&#39; indicates Unified-style security.
+        /// Specifies the security style associated with this volume. Specifies the type of a NetApp Volume. &#39;kUnix&#39; indicates Unix-style security. &#39;kNtfs&#39; indicates Windows NTFS-style security. &#39;kMixed&#39; indicates mixed-style security. &#39;kUnified&#39; indicates Unified-style security. &#39;kUnknown&#39; indicates the security style is unknown.
         /// </summary>
-        /// <value>Specifies the security style associated with this volume. Specifies the type of a NetApp Volume. &#39;kUnix&#39; indicates Unix-style security. &#39;kNtfs&#39; indicates Windows NTFS-style security. &#39;kMixed&#39; indicates mixed-style security. &#39;kUnified&#39; indicates Unified-style security.</value>
+        /// <value>Specifies the security style associated with this volume. Specifies the type of a NetApp Volume. &#39;kUnix&#39; indicates Unix-style security. &#39;kNtfs&#39; indicates Windows NTFS-style security. &#39;kMixed&#39; indicates mixed-style security. &#39;kUnified&#39; indicates Unified-style security. &#39;kUnknown&#39; indicates the security style is unknown.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum StyleEnum
         {
@@ -67,14 +69,19 @@ namespace Cohesity.Model
             /// Enum kLoadSharing for value: kLoadSharing
             /// </summary>
             [EnumMember(Value = "kLoadSharing")]
-            kLoadSharing = 7
+            kLoadSharing = 7,
+			
+			/// Enum KUnknown for value: kUnknown
+            /// </summary>
+            [EnumMember(Value = "kUnknown")]
+            KUnknown = 8
 
         }
 
         /// <summary>
-        /// Specifies the security style associated with this volume. Specifies the type of a NetApp Volume. &#39;kUnix&#39; indicates Unix-style security. &#39;kNtfs&#39; indicates Windows NTFS-style security. &#39;kMixed&#39; indicates mixed-style security. &#39;kUnified&#39; indicates Unified-style security.
+        /// Specifies the security style associated with this volume. Specifies the type of a NetApp Volume. &#39;kUnix&#39; indicates Unix-style security. &#39;kNtfs&#39; indicates Windows NTFS-style security. &#39;kMixed&#39; indicates mixed-style security. &#39;kUnified&#39; indicates Unified-style security. &#39;kUnknown&#39; indicates the security style is unknown.
         /// </summary>
-        /// <value>Specifies the security style associated with this volume. Specifies the type of a NetApp Volume. &#39;kUnix&#39; indicates Unix-style security. &#39;kNtfs&#39; indicates Windows NTFS-style security. &#39;kMixed&#39; indicates mixed-style security. &#39;kUnified&#39; indicates Unified-style security.</value>
+        /// <value>Specifies the security style associated with this volume. Specifies the type of a NetApp Volume. &#39;kUnix&#39; indicates Unix-style security. &#39;kNtfs&#39; indicates Windows NTFS-style security. &#39;kMixed&#39; indicates mixed-style security. &#39;kUnified&#39; indicates Unified-style security. &#39;kUnknown&#39; indicates the security style is unknown.</value>
         [DataMember(Name="style", EmitDefaultValue=true)]
         public StyleEnum? Style { get; set; }
         /// <summary>
@@ -82,14 +89,10 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="groupId">Specifies the Unix group ID for this volume. 0 indicates the root id..</param>
         /// <param name="permissions">Specifies the Unix permission bits in octal string format..</param>
-        /// <param name="style">Specifies the security style associated with this volume. Specifies the type of a NetApp Volume. &#39;kUnix&#39; indicates Unix-style security. &#39;kNtfs&#39; indicates Windows NTFS-style security. &#39;kMixed&#39; indicates mixed-style security. &#39;kUnified&#39; indicates Unified-style security..</param>
+        /// <param name="style">Specifies the security style associated with this volume. Specifies the type of a NetApp Volume. &#39;kUnix&#39; indicates Unix-style security. &#39;kNtfs&#39; indicates Windows NTFS-style security. &#39;kMixed&#39; indicates mixed-style security. &#39;kUnified&#39; indicates Unified-style security. &#39;kUnknown&#39; indicates the security style is unknown..</param>
         /// <param name="userId">Specifies the Unix user id for this volume. 0 indicates the root id..</param>
         public VolumeSecurityInfo(int? groupId = default(int?), string permissions = default(string), StyleEnum? style = default(StyleEnum?), int? userId = default(int?))
         {
-            this.GroupId = groupId;
-            this.Permissions = permissions;
-            this.Style = style;
-            this.UserId = userId;
             this.GroupId = groupId;
             this.Permissions = permissions;
             this.Style = style;

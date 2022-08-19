@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -102,16 +104,6 @@ namespace Cohesity.Model
         /// <param name="numNodeFailuresTolerated">Number of node failures to tolerate. If NumNodeFailuresTolerated is set to 2, then we would tolerate up to two node failures. If the following is not set, then the number of node failures tolerated would be same as replication factor - 1 for replicated chunk files or number of coded stripes for erasure coding chunk files..</param>
         public StoragePolicy(bool? appMarkerDetection = default(bool?), long? cloudSpillVaultId = default(long?), CompressionPolicyEnum? compressionPolicy = default(CompressionPolicyEnum?), int? deduplicateCompressDelaySecs = default(int?), bool? deduplicationEnabled = default(bool?), EncryptionPolicyEnum? encryptionPolicy = default(EncryptionPolicyEnum?), ErasureCodingInfo erasureCodingInfo = default(ErasureCodingInfo), bool? inlineCompress = default(bool?), bool? inlineDeduplicate = default(bool?), int? numFailuresTolerated = default(int?), int? numNodeFailuresTolerated = default(int?))
         {
-            this.AppMarkerDetection = appMarkerDetection;
-            this.CloudSpillVaultId = cloudSpillVaultId;
-            this.CompressionPolicy = compressionPolicy;
-            this.DeduplicateCompressDelaySecs = deduplicateCompressDelaySecs;
-            this.DeduplicationEnabled = deduplicationEnabled;
-            this.EncryptionPolicy = encryptionPolicy;
-            this.InlineCompress = inlineCompress;
-            this.InlineDeduplicate = inlineDeduplicate;
-            this.NumFailuresTolerated = numFailuresTolerated;
-            this.NumNodeFailuresTolerated = numNodeFailuresTolerated;
             this.AppMarkerDetection = appMarkerDetection;
             this.CloudSpillVaultId = cloudSpillVaultId;
             this.CompressionPolicy = compressionPolicy;

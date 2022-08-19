@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -25,32 +27,36 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="coldFileWindow">Identifies the cold files in the NAS source. Files that haven&#39;t been accessed/modified in the last cold_file_window msecs or are older than cold_window_msecs are migrated..</param>
         /// <param name="deleteOrphanData">Delete migrated data if no symlink at source is pointing to it..</param>
+        /// <param name="enableAuditLogging">Audit log the file tiering activity..</param>
+        /// <param name="enableChecksumVerification">Enable checksum verification for downtier job..</param>
         /// <param name="fileSelectPolicy">File migrate policy based on file access/modify time and age..</param>
         /// <param name="fileSize">Gives the size criteria to be used for selecting the files to be migrated. The cold files that are equal and greater than file_size or smaller than file_size are migrated..</param>
         /// <param name="fileSizePolicy">File size policy for selecting files to migrate..</param>
         /// <param name="filteringPolicy">filteringPolicy.</param>
         /// <param name="migrateWithoutStub">Migrate data without stub..</param>
         /// <param name="nfsMountPath">Mount path where the Cohesity target view must be mounted on all NFS clients for accessing the migrated data..</param>
+        /// <param name="nfsMountPathPrefix">nfs_mount_path_prefix contains the parent directory path where respective view name will be suffixed to form a complete mount path where Cohesity target view will be mounted on NFS clients for accessing the migrated data..</param>
+        /// <param name="targetViewMap">The object&#39;s entity id to TargetViewData map where the data will be migrated..</param>
         /// <param name="targetViewName">The target view name to which the data will be migrated..</param>
-        public FileStubbingParams(long? coldFileWindow = default(long?), bool? deleteOrphanData = default(bool?), int? fileSelectPolicy = default(int?), long? fileSize = default(long?), int? fileSizePolicy = default(int?), FilteringPolicyProto filteringPolicy = default(FilteringPolicyProto), bool? migrateWithoutStub = default(bool?), string nfsMountPath = default(string), string targetViewName = default(string))
+        /// <param name="targetViewPrefix">target_view_prefix is used to support multiple objects in a single tiering job. It helps in generating view name which are reasonably close to the original share name..</param>
+        /// <param name="tieringGoal">Tiering Goal, i.e. the maximum amount of data that should be present on source after downtiering..</param>
+        public FileStubbingParams(long? coldFileWindow = default(long?), bool? deleteOrphanData = default(bool?), bool? enableAuditLogging = default(bool?), bool? enableChecksumVerification = default(bool?), int? fileSelectPolicy = default(int?), long? fileSize = default(long?), int? fileSizePolicy = default(int?), FilteringPolicyProto filteringPolicy = default(FilteringPolicyProto), bool? migrateWithoutStub = default(bool?), string nfsMountPath = default(string), string nfsMountPathPrefix = default(string), List<FileStubbingParamsTargetViewMapEntry> targetViewMap = default(List<FileStubbingParamsTargetViewMapEntry>), string targetViewName = default(string), string targetViewPrefix = default(string), long? tieringGoal = default(long?))
         {
             this.ColdFileWindow = coldFileWindow;
             this.DeleteOrphanData = deleteOrphanData;
-            this.FileSelectPolicy = fileSelectPolicy;
-            this.FileSize = fileSize;
-            this.FileSizePolicy = fileSizePolicy;
-            this.MigrateWithoutStub = migrateWithoutStub;
-            this.NfsMountPath = nfsMountPath;
-            this.TargetViewName = targetViewName;
-            this.ColdFileWindow = coldFileWindow;
-            this.DeleteOrphanData = deleteOrphanData;
+            this.EnableAuditLogging = enableAuditLogging;
+            this.EnableChecksumVerification = enableChecksumVerification;
             this.FileSelectPolicy = fileSelectPolicy;
             this.FileSize = fileSize;
             this.FileSizePolicy = fileSizePolicy;
             this.FilteringPolicy = filteringPolicy;
             this.MigrateWithoutStub = migrateWithoutStub;
             this.NfsMountPath = nfsMountPath;
+            this.NfsMountPathPrefix = nfsMountPathPrefix;
+            this.TargetViewMap = targetViewMap;
             this.TargetViewName = targetViewName;
+            this.TargetViewPrefix = targetViewPrefix;
+            this.TieringGoal = tieringGoal;
         }
         
         /// <summary>
@@ -66,6 +72,20 @@ namespace Cohesity.Model
         /// <value>Delete migrated data if no symlink at source is pointing to it.</value>
         [DataMember(Name="deleteOrphanData", EmitDefaultValue=true)]
         public bool? DeleteOrphanData { get; set; }
+
+        /// <summary>
+        /// Audit log the file tiering activity.
+        /// </summary>
+        /// <value>Audit log the file tiering activity.</value>
+        [DataMember(Name="enableAuditLogging", EmitDefaultValue=true)]
+        public bool? EnableAuditLogging { get; set; }
+
+        /// <summary>
+        /// Enable checksum verification for downtier job.
+        /// </summary>
+        /// <value>Enable checksum verification for downtier job.</value>
+        [DataMember(Name="enableChecksumVerification", EmitDefaultValue=true)]
+        public bool? EnableChecksumVerification { get; set; }
 
         /// <summary>
         /// File migrate policy based on file access/modify time and age.
@@ -109,11 +129,39 @@ namespace Cohesity.Model
         public string NfsMountPath { get; set; }
 
         /// <summary>
+        /// nfs_mount_path_prefix contains the parent directory path where respective view name will be suffixed to form a complete mount path where Cohesity target view will be mounted on NFS clients for accessing the migrated data.
+        /// </summary>
+        /// <value>nfs_mount_path_prefix contains the parent directory path where respective view name will be suffixed to form a complete mount path where Cohesity target view will be mounted on NFS clients for accessing the migrated data.</value>
+        [DataMember(Name="nfsMountPathPrefix", EmitDefaultValue=true)]
+        public string NfsMountPathPrefix { get; set; }
+
+        /// <summary>
+        /// The object&#39;s entity id to TargetViewData map where the data will be migrated.
+        /// </summary>
+        /// <value>The object&#39;s entity id to TargetViewData map where the data will be migrated.</value>
+        [DataMember(Name="targetViewMap", EmitDefaultValue=true)]
+        public List<FileStubbingParamsTargetViewMapEntry> TargetViewMap { get; set; }
+
+        /// <summary>
         /// The target view name to which the data will be migrated.
         /// </summary>
         /// <value>The target view name to which the data will be migrated.</value>
         [DataMember(Name="targetViewName", EmitDefaultValue=true)]
         public string TargetViewName { get; set; }
+
+        /// <summary>
+        /// target_view_prefix is used to support multiple objects in a single tiering job. It helps in generating view name which are reasonably close to the original share name.
+        /// </summary>
+        /// <value>target_view_prefix is used to support multiple objects in a single tiering job. It helps in generating view name which are reasonably close to the original share name.</value>
+        [DataMember(Name="targetViewPrefix", EmitDefaultValue=true)]
+        public string TargetViewPrefix { get; set; }
+
+        /// <summary>
+        /// Tiering Goal, i.e. the maximum amount of data that should be present on source after downtiering.
+        /// </summary>
+        /// <value>Tiering Goal, i.e. the maximum amount of data that should be present on source after downtiering.</value>
+        [DataMember(Name="tieringGoal", EmitDefaultValue=true)]
+        public long? TieringGoal { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -162,6 +210,16 @@ namespace Cohesity.Model
                     this.DeleteOrphanData.Equals(input.DeleteOrphanData))
                 ) && 
                 (
+                    this.EnableAuditLogging == input.EnableAuditLogging ||
+                    (this.EnableAuditLogging != null &&
+                    this.EnableAuditLogging.Equals(input.EnableAuditLogging))
+                ) && 
+                (
+                    this.EnableChecksumVerification == input.EnableChecksumVerification ||
+                    (this.EnableChecksumVerification != null &&
+                    this.EnableChecksumVerification.Equals(input.EnableChecksumVerification))
+                ) && 
+                (
                     this.FileSelectPolicy == input.FileSelectPolicy ||
                     (this.FileSelectPolicy != null &&
                     this.FileSelectPolicy.Equals(input.FileSelectPolicy))
@@ -192,9 +250,30 @@ namespace Cohesity.Model
                     this.NfsMountPath.Equals(input.NfsMountPath))
                 ) && 
                 (
+                    this.NfsMountPathPrefix == input.NfsMountPathPrefix ||
+                    (this.NfsMountPathPrefix != null &&
+                    this.NfsMountPathPrefix.Equals(input.NfsMountPathPrefix))
+                ) && 
+                (
+                    this.TargetViewMap == input.TargetViewMap ||
+                    this.TargetViewMap != null &&
+                    input.TargetViewMap != null &&
+                    this.TargetViewMap.Equals(input.TargetViewMap)
+                ) && 
+                (
                     this.TargetViewName == input.TargetViewName ||
                     (this.TargetViewName != null &&
                     this.TargetViewName.Equals(input.TargetViewName))
+                ) && 
+                (
+                    this.TargetViewPrefix == input.TargetViewPrefix ||
+                    (this.TargetViewPrefix != null &&
+                    this.TargetViewPrefix.Equals(input.TargetViewPrefix))
+                ) && 
+                (
+                    this.TieringGoal == input.TieringGoal ||
+                    (this.TieringGoal != null &&
+                    this.TieringGoal.Equals(input.TieringGoal))
                 );
         }
 
@@ -211,6 +290,10 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ColdFileWindow.GetHashCode();
                 if (this.DeleteOrphanData != null)
                     hashCode = hashCode * 59 + this.DeleteOrphanData.GetHashCode();
+                if (this.EnableAuditLogging != null)
+                    hashCode = hashCode * 59 + this.EnableAuditLogging.GetHashCode();
+                if (this.EnableChecksumVerification != null)
+                    hashCode = hashCode * 59 + this.EnableChecksumVerification.GetHashCode();
                 if (this.FileSelectPolicy != null)
                     hashCode = hashCode * 59 + this.FileSelectPolicy.GetHashCode();
                 if (this.FileSize != null)
@@ -223,8 +306,16 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.MigrateWithoutStub.GetHashCode();
                 if (this.NfsMountPath != null)
                     hashCode = hashCode * 59 + this.NfsMountPath.GetHashCode();
+                if (this.NfsMountPathPrefix != null)
+                    hashCode = hashCode * 59 + this.NfsMountPathPrefix.GetHashCode();
+                if (this.TargetViewMap != null)
+                    hashCode = hashCode * 59 + this.TargetViewMap.GetHashCode();
                 if (this.TargetViewName != null)
                     hashCode = hashCode * 59 + this.TargetViewName.GetHashCode();
+                if (this.TargetViewPrefix != null)
+                    hashCode = hashCode * 59 + this.TargetViewPrefix.GetHashCode();
+                if (this.TieringGoal != null)
+                    hashCode = hashCode * 59 + this.TieringGoal.GetHashCode();
                 return hashCode;
             }
         }

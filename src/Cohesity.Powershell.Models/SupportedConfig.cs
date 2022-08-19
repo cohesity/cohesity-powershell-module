@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -27,8 +29,6 @@ namespace Cohesity.Model
         /// <param name="supportedErasureCoding">Array of Supported Erasure Coding Options.  List the supported Erasure Coding options for the current number of Nodes (nodeCount) in this Cluster. Each string in the array is in the following format: \&quot;NumDataStripes:NumCodedStripes\&quot; For example if there are 3 nodes in the Cluster, the following Erasure Coding mode is returned: 2:1. See the Cohesity Dashboard help documentation for details..</param>
         public SupportedConfig(int? minNodesAllowed = default(int?), List<string> supportedErasureCoding = default(List<string>))
         {
-            this.MinNodesAllowed = minNodesAllowed;
-            this.SupportedErasureCoding = supportedErasureCoding;
             this.MinNodesAllowed = minNodesAllowed;
             this.SupportedErasureCoding = supportedErasureCoding;
         }
@@ -92,7 +92,7 @@ namespace Cohesity.Model
                     this.SupportedErasureCoding == input.SupportedErasureCoding ||
                     this.SupportedErasureCoding != null &&
                     input.SupportedErasureCoding != null &&
-                    this.SupportedErasureCoding.SequenceEqual(input.SupportedErasureCoding)
+                    this.SupportedErasureCoding.Equals(input.SupportedErasureCoding)
                 );
         }
 

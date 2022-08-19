@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -28,8 +30,6 @@ namespace Cohesity.Model
         /// <param name="statsByEnvironment">Specifies the stats of recovery jobs aggregated by the environment type..</param>
         public RestoreStats(long? numClonedObjects = default(long?), long? numRecoveredObjects = default(long?), List<RestoreEnvStats> statsByEnvironment = default(List<RestoreEnvStats>))
         {
-            this.NumClonedObjects = numClonedObjects;
-            this.NumRecoveredObjects = numRecoveredObjects;
             this.NumClonedObjects = numClonedObjects;
             this.NumRecoveredObjects = numRecoveredObjects;
             this.StatsByEnvironment = statsByEnvironment;
@@ -106,7 +106,7 @@ namespace Cohesity.Model
                     this.StatsByEnvironment == input.StatsByEnvironment ||
                     this.StatsByEnvironment != null &&
                     input.StatsByEnvironment != null &&
-                    this.StatsByEnvironment.SequenceEqual(input.StatsByEnvironment)
+                    this.StatsByEnvironment.Equals(input.StatsByEnvironment)
                 );
         }
 

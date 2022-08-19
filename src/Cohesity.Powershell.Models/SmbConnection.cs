@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -35,16 +37,6 @@ namespace Cohesity.Model
         /// <param name="viewName">Specifies the name of the view..</param>
         public SmbConnection(string clientIp = default(string), string domainName = default(string), string nodeIp = default(string), string path = default(string), string serverIp = default(string), long? sessionId = default(long?), List<string> sids = default(List<string>), string userName = default(string), long? viewId = default(long?), string viewName = default(string))
         {
-            this.ClientIp = clientIp;
-            this.DomainName = domainName;
-            this.NodeIp = nodeIp;
-            this.Path = path;
-            this.ServerIp = serverIp;
-            this.SessionId = sessionId;
-            this.Sids = sids;
-            this.UserName = userName;
-            this.ViewId = viewId;
-            this.ViewName = viewName;
             this.ClientIp = clientIp;
             this.DomainName = domainName;
             this.NodeIp = nodeIp;
@@ -197,7 +189,7 @@ namespace Cohesity.Model
                     this.Sids == input.Sids ||
                     this.Sids != null &&
                     input.Sids != null &&
-                    this.Sids.SequenceEqual(input.Sids)
+                    this.Sids.Equals(input.Sids)
                 ) && 
                 (
                     this.UserName == input.UserName ||

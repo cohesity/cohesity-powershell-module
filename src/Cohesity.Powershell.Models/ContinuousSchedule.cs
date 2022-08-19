@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -12,10 +13,11 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
+
 namespace Cohesity.Model
 {
     /// <summary>
-    /// Specifies the time interval between two Job Runs of a continuous backup schedule and any blackout periods when new Job Runs should NOT be started.
+    /// Specifies the time interval between two Job Runs of a continuous backup schedule and any QuietTime periods when new Job Runs should NOT be started.
     /// </summary>
     [DataContract]
     public partial class ContinuousSchedule :  IEquatable<ContinuousSchedule>

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -29,8 +31,9 @@ namespace Cohesity.Model
         /// <param name="entityId">EntityId is the Id of the entity where the file resides..</param>
         /// <param name="jobId">JobId is the Id of the job that took the snapshot..</param>
         /// <param name="jobInstanceIds">JobInstanceIds to tag corresponding snapshots..</param>
-        /// <param name="tags">Tags are list of tags that will be operated on to corresponding objects..</param>
-        public TagsOperationParameters(long? clusterId = default(long?), long? clusterIncarnationId = default(long?), List<string> documentIds = default(List<string>), long? entityId = default(long?), long? jobId = default(long?), List<long> jobInstanceIds = default(List<long>), List<string> tags = default(List<string>))
+        /// <param name="tagIds">Tags are list of tags uuids that will be operated on to corresponding objects..</param>
+        /// <param name="tags">Tags are list of tags that will be operated on to corresponding objects. This is deprecated. Use tagIds instead. deprecated: true.</param>
+        public TagsOperationParameters(long? clusterId = default(long?), long? clusterIncarnationId = default(long?), List<string> documentIds = default(List<string>), long? entityId = default(long?), long? jobId = default(long?), List<long> jobInstanceIds = default(List<long>), List<string> tagIds = default(List<string>), List<string> tags = default(List<string>))
         {
             this.ClusterId = clusterId;
             this.ClusterIncarnationId = clusterIncarnationId;
@@ -38,13 +41,7 @@ namespace Cohesity.Model
             this.EntityId = entityId;
             this.JobId = jobId;
             this.JobInstanceIds = jobInstanceIds;
-            this.Tags = tags;
-            this.ClusterId = clusterId;
-            this.ClusterIncarnationId = clusterIncarnationId;
-            this.DocumentIds = documentIds;
-            this.EntityId = entityId;
-            this.JobId = jobId;
-            this.JobInstanceIds = jobInstanceIds;
+            this.TagIds = tagIds;
             this.Tags = tags;
         }
         
@@ -91,9 +88,16 @@ namespace Cohesity.Model
         public List<long> JobInstanceIds { get; set; }
 
         /// <summary>
-        /// Tags are list of tags that will be operated on to corresponding objects.
+        /// Tags are list of tags uuids that will be operated on to corresponding objects.
         /// </summary>
-        /// <value>Tags are list of tags that will be operated on to corresponding objects.</value>
+        /// <value>Tags are list of tags uuids that will be operated on to corresponding objects.</value>
+        [DataMember(Name="tagIds", EmitDefaultValue=true)]
+        public List<string> TagIds { get; set; }
+
+        /// <summary>
+        /// Tags are list of tags that will be operated on to corresponding objects. This is deprecated. Use tagIds instead. deprecated: true
+        /// </summary>
+        /// <value>Tags are list of tags that will be operated on to corresponding objects. This is deprecated. Use tagIds instead. deprecated: true</value>
         [DataMember(Name="tags", EmitDefaultValue=true)]
         public List<string> Tags { get; set; }
 
@@ -147,7 +151,7 @@ namespace Cohesity.Model
                     this.DocumentIds == input.DocumentIds ||
                     this.DocumentIds != null &&
                     input.DocumentIds != null &&
-                    this.DocumentIds.SequenceEqual(input.DocumentIds)
+                    this.DocumentIds.Equals(input.DocumentIds)
                 ) && 
                 (
                     this.EntityId == input.EntityId ||
@@ -163,13 +167,19 @@ namespace Cohesity.Model
                     this.JobInstanceIds == input.JobInstanceIds ||
                     this.JobInstanceIds != null &&
                     input.JobInstanceIds != null &&
-                    this.JobInstanceIds.SequenceEqual(input.JobInstanceIds)
+                    this.JobInstanceIds.Equals(input.JobInstanceIds)
+                ) && 
+                (
+                    this.TagIds == input.TagIds ||
+                    this.TagIds != null &&
+                    input.TagIds != null &&
+                    this.TagIds.Equals(input.TagIds)
                 ) && 
                 (
                     this.Tags == input.Tags ||
                     this.Tags != null &&
                     input.Tags != null &&
-                    this.Tags.SequenceEqual(input.Tags)
+                    this.Tags.Equals(input.Tags)
                 );
         }
 
@@ -194,6 +204,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.JobId.GetHashCode();
                 if (this.JobInstanceIds != null)
                     hashCode = hashCode * 59 + this.JobInstanceIds.GetHashCode();
+                if (this.TagIds != null)
+                    hashCode = hashCode * 59 + this.TagIds.GetHashCode();
                 if (this.Tags != null)
                     hashCode = hashCode * 59 + this.Tags.GetHashCode();
                 return hashCode;

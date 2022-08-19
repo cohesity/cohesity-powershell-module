@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -97,7 +99,7 @@ namespace Cohesity.Model
                     this.PassiveCopyPreferenceServerGuidList == input.PassiveCopyPreferenceServerGuidList ||
                     this.PassiveCopyPreferenceServerGuidList != null &&
                     input.PassiveCopyPreferenceServerGuidList != null &&
-                    this.PassiveCopyPreferenceServerGuidList.SequenceEqual(input.PassiveCopyPreferenceServerGuidList)
+                    this.PassiveCopyPreferenceServerGuidList.Equals(input.PassiveCopyPreferenceServerGuidList)
                 ) && 
                 (
                     this.PassiveOnly == input.PassiveOnly ||

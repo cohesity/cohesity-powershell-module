@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -24,13 +26,10 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="QuotaPolicy" /> class.
         /// </summary>
         /// <param name="alertLimitBytes">Specifies if an alert should be triggered when the usage of this resource exceeds this quota limit. This limit is optional and is specified in bytes. If no value is specified, there is no limit..</param>
-        /// <param name="alertThresholdPercentage">Supported only for user quota policy. Specifies when the uage goes above an alert threshold percentage which is: HardLimitBytes * AlertThresholdPercentage, eg: 80% of HardLimitBytes Can only be set if HardLimitBytes is set. Cannot be set if AlertLimitBytes is already set..</param>
+        /// <param name="alertThresholdPercentage">Supported only for user quota policy. Specifies when the usage goes above an alert threshold percentage which is: HardLimitBytes * AlertThresholdPercentage, eg: 80% of HardLimitBytes Can only be set if HardLimitBytes is set. Cannot be set if AlertLimitBytes is already set..</param>
         /// <param name="hardLimitBytes">Specifies an optional quota limit on the usage allowed for this resource. This limit is specified in bytes. If no value is specified, there is no limit..</param>
         public QuotaPolicy(long? alertLimitBytes = default(long?), long? alertThresholdPercentage = default(long?), long? hardLimitBytes = default(long?))
         {
-            this.AlertLimitBytes = alertLimitBytes;
-            this.AlertThresholdPercentage = alertThresholdPercentage;
-            this.HardLimitBytes = hardLimitBytes;
             this.AlertLimitBytes = alertLimitBytes;
             this.AlertThresholdPercentage = alertThresholdPercentage;
             this.HardLimitBytes = hardLimitBytes;
@@ -44,9 +43,9 @@ namespace Cohesity.Model
         public long? AlertLimitBytes { get; set; }
 
         /// <summary>
-        /// Supported only for user quota policy. Specifies when the uage goes above an alert threshold percentage which is: HardLimitBytes * AlertThresholdPercentage, eg: 80% of HardLimitBytes Can only be set if HardLimitBytes is set. Cannot be set if AlertLimitBytes is already set.
+        /// Supported only for user quota policy. Specifies when the usage goes above an alert threshold percentage which is: HardLimitBytes * AlertThresholdPercentage, eg: 80% of HardLimitBytes Can only be set if HardLimitBytes is set. Cannot be set if AlertLimitBytes is already set.
         /// </summary>
-        /// <value>Supported only for user quota policy. Specifies when the uage goes above an alert threshold percentage which is: HardLimitBytes * AlertThresholdPercentage, eg: 80% of HardLimitBytes Can only be set if HardLimitBytes is set. Cannot be set if AlertLimitBytes is already set.</value>
+        /// <value>Supported only for user quota policy. Specifies when the usage goes above an alert threshold percentage which is: HardLimitBytes * AlertThresholdPercentage, eg: 80% of HardLimitBytes Can only be set if HardLimitBytes is set. Cannot be set if AlertLimitBytes is already set.</value>
         [DataMember(Name="alertThresholdPercentage", EmitDefaultValue=true)]
         public long? AlertThresholdPercentage { get; set; }
 

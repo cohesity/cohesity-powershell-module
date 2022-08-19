@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -117,7 +118,7 @@ namespace Cohesity.Model
                     this.ViewIds == input.ViewIds ||
                     this.ViewIds != null &&
                     input.ViewIds != null &&
-                    this.ViewIds.SequenceEqual(input.ViewIds)
+                    this.ViewIds.Equals(input.ViewIds)
                 );
         }
 

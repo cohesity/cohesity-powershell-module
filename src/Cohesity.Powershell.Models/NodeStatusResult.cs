@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -153,41 +155,59 @@ namespace Cohesity.Model
         /// <param name="clusterId">Specifies the Cluster ID if the Node is part of a Cluster..</param>
         /// <param name="id">Specifies the ID of the Node..</param>
         /// <param name="inCluster">Specifies whether or not the Node is part of a Cluster..</param>
+        /// <param name="inMaintenanceMode">InMaintnenanceMode is used to mark a node in maintenance mode..</param>
         /// <param name="incarnationId">Specifies the Incarnation ID if the Node is part of a Cluster..</param>
         /// <param name="ip">Specifies the IP address of the Node..</param>
+        /// <param name="isAppNode">Whether the node is an app node..</param>
         /// <param name="lastUpgradeTimeSecs">Specifies the time of the last upgrade in seconds since the epoch..</param>
         /// <param name="markedForRemoval">Specifies whether or not this node is marked for removal..</param>
         /// <param name="message">Specifies an optional message describing the current state of the Node..</param>
+        /// <param name="removalProgressList">Removal progress for various components which are not acked yet..</param>
         /// <param name="removalReason">Specifies the reason for the removal operation if there is a removal operation going on. &#39;kUnknown&#39; specifies that the removal reason is not known. &#39;kAutoHealthCheck&#39; specifies that an internal health check found problems with the Node. &#39;kUserGracefulRemoval&#39; specifies that the user requested a graceful removal. &#39;kUserAvoidAccess&#39; specifies that the user requested to avoid access to this Node. &#39;kUserGracefulNodeRemoval&#39; specifies that the user requested a graceful removal for all of the disks in this Node. &#39;kUserRemoveDownNode&#39; specifies that the user requested a graceful removal of the Node while it is down..</param>
         /// <param name="services">Specifies the list of services running on the cluster and their process Ids..</param>
+        /// <param name="servicesAckedList">[For UI: Displays list of Acked/NotAcked services separately.] Services already acked for removal of this entity..</param>
+        /// <param name="servicesNotAcked">[For CLI displays the string with ServicesNotAcked] ServicesNotAcked specifies services that have not ACKed yet in string format after node is marked for removal..</param>
+        /// <param name="servicesNotAckedList">Services not acked yet for removal of this entity..</param>
         /// <param name="softwareVersion">Specifies the version of the software running on the Node..</param>
         /// <param name="uptime">Uptime of node..</param>
-        public NodeStatusResult(ActiveOperationEnum? activeOperation = default(ActiveOperationEnum?), long? clusterId = default(long?), long? id = default(long?), bool? inCluster = default(bool?), long? incarnationId = default(long?), string ip = default(string), long? lastUpgradeTimeSecs = default(long?), bool? markedForRemoval = default(bool?), string message = default(string), RemovalReasonEnum? removalReason = default(RemovalReasonEnum?), List<ServiceProcessEntry> services = default(List<ServiceProcessEntry>), string softwareVersion = default(string), string uptime = default(string))
+        public NodeStatusResult(ActiveOperationEnum? activeOperation = default(ActiveOperationEnum?), long? clusterId = default(long?), long? id = default(long?), bool? inCluster = default(bool?), bool? inMaintenanceMode = default(bool?), long? incarnationId = default(long?), string ip = default(string), bool? isAppNode = default(bool?), long? lastUpgradeTimeSecs = default(long?), bool? markedForRemoval = default(bool?), string message = default(string), List<ComponentRemovalProgress> removalProgressList = default(List<ComponentRemovalProgress>), RemovalReasonEnum? removalReason = default(RemovalReasonEnum?), List<ServiceProcessEntry> services = default(List<ServiceProcessEntry>), List<string> servicesAckedList = default(List<string>), string servicesNotAcked = default(string), List<string> servicesNotAckedList = default(List<string>), string softwareVersion = default(string), string uptime = default(string))
         {
             this.ActiveOperation = activeOperation;
             this.ClusterId = clusterId;
             this.Id = id;
             this.InCluster = inCluster;
+            this.InMaintenanceMode = inMaintenanceMode;
             this.IncarnationId = incarnationId;
             this.Ip = ip;
+            this.IsAppNode = isAppNode;
             this.LastUpgradeTimeSecs = lastUpgradeTimeSecs;
             this.MarkedForRemoval = markedForRemoval;
             this.Message = message;
+            this.RemovalProgressList = removalProgressList;
             this.RemovalReason = removalReason;
             this.Services = services;
+            this.ServicesAckedList = servicesAckedList;
+            this.ServicesNotAcked = servicesNotAcked;
+            this.ServicesNotAckedList = servicesNotAckedList;
             this.SoftwareVersion = softwareVersion;
             this.Uptime = uptime;
             this.ActiveOperation = activeOperation;
             this.ClusterId = clusterId;
             this.Id = id;
             this.InCluster = inCluster;
+            this.InMaintenanceMode = inMaintenanceMode;
             this.IncarnationId = incarnationId;
             this.Ip = ip;
+            this.IsAppNode = isAppNode;
             this.LastUpgradeTimeSecs = lastUpgradeTimeSecs;
             this.MarkedForRemoval = markedForRemoval;
             this.Message = message;
+            this.RemovalProgressList = removalProgressList;
             this.RemovalReason = removalReason;
             this.Services = services;
+            this.ServicesAckedList = servicesAckedList;
+            this.ServicesNotAcked = servicesNotAcked;
+            this.ServicesNotAckedList = servicesNotAckedList;
             this.SoftwareVersion = softwareVersion;
             this.Uptime = uptime;
         }
@@ -214,6 +234,13 @@ namespace Cohesity.Model
         public bool? InCluster { get; set; }
 
         /// <summary>
+        /// InMaintnenanceMode is used to mark a node in maintenance mode.
+        /// </summary>
+        /// <value>InMaintnenanceMode is used to mark a node in maintenance mode.</value>
+        [DataMember(Name="inMaintenanceMode", EmitDefaultValue=true)]
+        public bool? InMaintenanceMode { get; set; }
+
+        /// <summary>
         /// Specifies the Incarnation ID if the Node is part of a Cluster.
         /// </summary>
         /// <value>Specifies the Incarnation ID if the Node is part of a Cluster.</value>
@@ -226,6 +253,13 @@ namespace Cohesity.Model
         /// <value>Specifies the IP address of the Node.</value>
         [DataMember(Name="ip", EmitDefaultValue=true)]
         public string Ip { get; set; }
+
+        /// <summary>
+        /// Whether the node is an app node.
+        /// </summary>
+        /// <value>Whether the node is an app node.</value>
+        [DataMember(Name="isAppNode", EmitDefaultValue=true)]
+        public bool? IsAppNode { get; set; }
 
         /// <summary>
         /// Specifies the time of the last upgrade in seconds since the epoch.
@@ -249,11 +283,39 @@ namespace Cohesity.Model
         public string Message { get; set; }
 
         /// <summary>
+        /// Removal progress for various components which are not acked yet.
+        /// </summary>
+        /// <value>Removal progress for various components which are not acked yet.</value>
+        [DataMember(Name="removalProgressList", EmitDefaultValue=true)]
+        public List<ComponentRemovalProgress> RemovalProgressList { get; set; }
+
+        /// <summary>
         /// Specifies the list of services running on the cluster and their process Ids.
         /// </summary>
         /// <value>Specifies the list of services running on the cluster and their process Ids.</value>
         [DataMember(Name="services", EmitDefaultValue=true)]
         public List<ServiceProcessEntry> Services { get; set; }
+
+        /// <summary>
+        /// [For UI: Displays list of Acked/NotAcked services separately.] Services already acked for removal of this entity.
+        /// </summary>
+        /// <value>[For UI: Displays list of Acked/NotAcked services separately.] Services already acked for removal of this entity.</value>
+        [DataMember(Name="servicesAckedList", EmitDefaultValue=true)]
+        public List<string> ServicesAckedList { get; set; }
+
+        /// <summary>
+        /// [For CLI displays the string with ServicesNotAcked] ServicesNotAcked specifies services that have not ACKed yet in string format after node is marked for removal.
+        /// </summary>
+        /// <value>[For CLI displays the string with ServicesNotAcked] ServicesNotAcked specifies services that have not ACKed yet in string format after node is marked for removal.</value>
+        [DataMember(Name="servicesNotAcked", EmitDefaultValue=true)]
+        public string ServicesNotAcked { get; set; }
+
+        /// <summary>
+        /// Services not acked yet for removal of this entity.
+        /// </summary>
+        /// <value>Services not acked yet for removal of this entity.</value>
+        [DataMember(Name="servicesNotAckedList", EmitDefaultValue=true)]
+        public List<string> ServicesNotAckedList { get; set; }
 
         /// <summary>
         /// Specifies the version of the software running on the Node.
@@ -325,6 +387,11 @@ namespace Cohesity.Model
                     this.InCluster.Equals(input.InCluster))
                 ) && 
                 (
+                    this.InMaintenanceMode == input.InMaintenanceMode ||
+                    (this.InMaintenanceMode != null &&
+                    this.InMaintenanceMode.Equals(input.InMaintenanceMode))
+                ) && 
+                (
                     this.IncarnationId == input.IncarnationId ||
                     (this.IncarnationId != null &&
                     this.IncarnationId.Equals(input.IncarnationId))
@@ -333,6 +400,11 @@ namespace Cohesity.Model
                     this.Ip == input.Ip ||
                     (this.Ip != null &&
                     this.Ip.Equals(input.Ip))
+                ) && 
+                (
+                    this.IsAppNode == input.IsAppNode ||
+                    (this.IsAppNode != null &&
+                    this.IsAppNode.Equals(input.IsAppNode))
                 ) && 
                 (
                     this.LastUpgradeTimeSecs == input.LastUpgradeTimeSecs ||
@@ -350,6 +422,12 @@ namespace Cohesity.Model
                     this.Message.Equals(input.Message))
                 ) && 
                 (
+                    this.RemovalProgressList == input.RemovalProgressList ||
+                    this.RemovalProgressList != null &&
+                    input.RemovalProgressList != null &&
+                    this.RemovalProgressList.Equals(input.RemovalProgressList)
+                ) && 
+                (
                     this.RemovalReason == input.RemovalReason ||
                     this.RemovalReason.Equals(input.RemovalReason)
                 ) && 
@@ -357,7 +435,24 @@ namespace Cohesity.Model
                     this.Services == input.Services ||
                     this.Services != null &&
                     input.Services != null &&
-                    this.Services.SequenceEqual(input.Services)
+                    this.Services.Equals(input.Services)
+                ) && 
+                (
+                    this.ServicesAckedList == input.ServicesAckedList ||
+                    this.ServicesAckedList != null &&
+                    input.ServicesAckedList != null &&
+                    this.ServicesAckedList.Equals(input.ServicesAckedList)
+                ) && 
+                (
+                    this.ServicesNotAcked == input.ServicesNotAcked ||
+                    (this.ServicesNotAcked != null &&
+                    this.ServicesNotAcked.Equals(input.ServicesNotAcked))
+                ) && 
+                (
+                    this.ServicesNotAckedList == input.ServicesNotAckedList ||
+                    this.ServicesNotAckedList != null &&
+                    input.ServicesNotAckedList != null &&
+                    this.ServicesNotAckedList.Equals(input.ServicesNotAckedList)
                 ) && 
                 (
                     this.SoftwareVersion == input.SoftwareVersion ||
@@ -387,19 +482,31 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Id.GetHashCode();
                 if (this.InCluster != null)
                     hashCode = hashCode * 59 + this.InCluster.GetHashCode();
+                if (this.InMaintenanceMode != null)
+                    hashCode = hashCode * 59 + this.InMaintenanceMode.GetHashCode();
                 if (this.IncarnationId != null)
                     hashCode = hashCode * 59 + this.IncarnationId.GetHashCode();
                 if (this.Ip != null)
                     hashCode = hashCode * 59 + this.Ip.GetHashCode();
+                if (this.IsAppNode != null)
+                    hashCode = hashCode * 59 + this.IsAppNode.GetHashCode();
                 if (this.LastUpgradeTimeSecs != null)
                     hashCode = hashCode * 59 + this.LastUpgradeTimeSecs.GetHashCode();
                 if (this.MarkedForRemoval != null)
                     hashCode = hashCode * 59 + this.MarkedForRemoval.GetHashCode();
                 if (this.Message != null)
                     hashCode = hashCode * 59 + this.Message.GetHashCode();
+                if (this.RemovalProgressList != null)
+                    hashCode = hashCode * 59 + this.RemovalProgressList.GetHashCode();
                 hashCode = hashCode * 59 + this.RemovalReason.GetHashCode();
                 if (this.Services != null)
                     hashCode = hashCode * 59 + this.Services.GetHashCode();
+                if (this.ServicesAckedList != null)
+                    hashCode = hashCode * 59 + this.ServicesAckedList.GetHashCode();
+                if (this.ServicesNotAcked != null)
+                    hashCode = hashCode * 59 + this.ServicesNotAcked.GetHashCode();
+                if (this.ServicesNotAckedList != null)
+                    hashCode = hashCode * 59 + this.ServicesNotAckedList.GetHashCode();
                 if (this.SoftwareVersion != null)
                     hashCode = hashCode * 59 + this.SoftwareVersion.GetHashCode();
                 if (this.Uptime != null)

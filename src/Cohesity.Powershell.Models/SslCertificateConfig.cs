@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -28,9 +30,6 @@ namespace Cohesity.Model
         /// <param name="privateKey">PrivateKey is a matching private key of the above certificate..</param>
         public SslCertificateConfig(string certificate = default(string), long? lastUpdateTimeMsecs = default(long?), string privateKey = default(string))
         {
-            this.Certificate = certificate;
-            this.LastUpdateTimeMsecs = lastUpdateTimeMsecs;
-            this.PrivateKey = privateKey;
             this.Certificate = certificate;
             this.LastUpdateTimeMsecs = lastUpdateTimeMsecs;
             this.PrivateKey = privateKey;

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -56,19 +58,27 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="AzureCloudCredentials" /> class.
         /// </summary>
+        /// <param name="isWormEnabled">Specifies if write once read many (WORM) protection is enabled for the Azure container or not..</param>
         /// <param name="storageAccessKey">Specifies the access key to use when accessing a storage tier in a Azure cloud service..</param>
         /// <param name="storageAccountName">Specifies the account name to use when accessing a storage tier in a Azure cloud service..</param>
         /// <param name="tierType">Specifies the storage class of Azure. AzureTierType specifies the storage class for Azure. &#39;kAzureTierHot&#39; indicates a tier type of Azure properties that is accessed frequently. &#39;kAzureTierCool&#39; indicates a tier type of Azure properties that is accessed less frequently, and stored for at least 30 days. &#39;kAzureTierArchive&#39; indicates a tier type of Azure properties that is accessed rarely and stored for at least 180 days..</param>
-        public AzureCloudCredentials(string storageAccessKey = default(string), string storageAccountName = default(string), TierTypeEnum? tierType = default(TierTypeEnum?))
+        /// <param name="tiers">Specifies the list of all tiers for Amazon account..</param>
+        public AzureCloudCredentials(bool? isWormEnabled = default(bool?), string storageAccessKey = default(string), string storageAccountName = default(string), TierTypeEnum? tierType = default(TierTypeEnum?), List<string> tiers = default(List<string>))
         {
+            this.IsWormEnabled = isWormEnabled;
             this.StorageAccessKey = storageAccessKey;
             this.StorageAccountName = storageAccountName;
             this.TierType = tierType;
-            this.StorageAccessKey = storageAccessKey;
-            this.StorageAccountName = storageAccountName;
-            this.TierType = tierType;
+            this.Tiers = tiers;
         }
         
+        /// <summary>
+        /// Specifies if write once read many (WORM) protection is enabled for the Azure container or not.
+        /// </summary>
+        /// <value>Specifies if write once read many (WORM) protection is enabled for the Azure container or not.</value>
+        [DataMember(Name="isWormEnabled", EmitDefaultValue=true)]
+        public bool? IsWormEnabled { get; set; }
+
         /// <summary>
         /// Specifies the access key to use when accessing a storage tier in a Azure cloud service.
         /// </summary>
@@ -82,6 +92,13 @@ namespace Cohesity.Model
         /// <value>Specifies the account name to use when accessing a storage tier in a Azure cloud service.</value>
         [DataMember(Name="storageAccountName", EmitDefaultValue=true)]
         public string StorageAccountName { get; set; }
+
+        /// <summary>
+        /// Specifies the list of all tiers for Amazon account.
+        /// </summary>
+        /// <value>Specifies the list of all tiers for Amazon account.</value>
+        [DataMember(Name="tiers", EmitDefaultValue=true)]
+        public List<string> Tiers { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -120,6 +137,11 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.IsWormEnabled == input.IsWormEnabled ||
+                    (this.IsWormEnabled != null &&
+                    this.IsWormEnabled.Equals(input.IsWormEnabled))
+                ) && 
+                (
                     this.StorageAccessKey == input.StorageAccessKey ||
                     (this.StorageAccessKey != null &&
                     this.StorageAccessKey.Equals(input.StorageAccessKey))
@@ -132,6 +154,12 @@ namespace Cohesity.Model
                 (
                     this.TierType == input.TierType ||
                     this.TierType.Equals(input.TierType)
+                ) && 
+                (
+                    this.Tiers == input.Tiers ||
+                    this.Tiers != null &&
+                    input.Tiers != null &&
+                    this.Tiers.Equals(input.Tiers)
                 );
         }
 
@@ -144,11 +172,16 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.IsWormEnabled != null)
+                    hashCode = hashCode * 59 + this.IsWormEnabled.GetHashCode();
                 if (this.StorageAccessKey != null)
                     hashCode = hashCode * 59 + this.StorageAccessKey.GetHashCode();
                 if (this.StorageAccountName != null)
                     hashCode = hashCode * 59 + this.StorageAccountName.GetHashCode();
-                hashCode = hashCode * 59 + this.TierType.GetHashCode();
+                if (this.TierType != null)
+					hashCode = hashCode * 59 + this.TierType.GetHashCode();
+                if (this.Tiers != null)
+                    hashCode = hashCode * 59 + this.Tiers.GetHashCode();
                 return hashCode;
             }
         }

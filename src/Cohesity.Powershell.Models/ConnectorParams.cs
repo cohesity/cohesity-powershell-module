@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -26,41 +28,37 @@ namespace Cohesity.Model
         /// <param name="additionalParams">additionalParams.</param>
         /// <param name="agentEndpoint">For some of the environments connection to endpoint is done through an agent. This captures the agent endpoint information..</param>
         /// <param name="agentPort">Optional agent port to use when connecting to the server. If this is not specified, then environment specific default port will be used..</param>
+        /// <param name="connectorGroupId">&#39;network_realm_id&#39; maintains the collection of connector_group_id. Connector group id for the environment. If it is set, Magneto will fetch the bifrost server based on &lt;network_realm_id, connector_group_id&gt;.  For communication with iris, this field will be deprecated soon and network_realm_info_vec should be used instead..</param>
         /// <param name="credentials">credentials.</param>
         /// <param name="endpoint">The endpoint URL of the environment (such as the address of the vCenter instance for a VMware environment, etc)..</param>
         /// <param name="entity">entity.</param>
         /// <param name="hostType">The host environment type. This is set for kPhysical type environment..</param>
         /// <param name="id">A unique id associated with this connector params. This is a convenience field and is used to maintain an index to different connection params. This is generated at the time when the source is registered with Magneto..</param>
+        /// <param name="networkRealmId">The network-realm id of the tenant through which this source is accessible. This realm could be a collection of hyxes. If this is set(&gt;&#x3D; 0), tenant_id must also be set. Value of &#39;0&#39; has special semantics, refer bifrost/base/constant.cc.  This field should be used only for communication between magneto master and slave. For communication with iris, this field will be deprecated soon and network_realm_info_vec should be used instead..</param>
+        /// <param name="networkRealmInfoVec">The network-realm info vec of the tenant through which this source is accessible. Each realm could be a collection of hyxes. If this is set, tenant_id must also be set. Realm value of &#39;0&#39; has special semantics, refer bifrost/base/constant.cc..</param>
         /// <param name="populateSubnetForAllClusterNodes">If set to true, inter agent communcation will be enabled and for every GetAgentInfo call we will fill subnet information of all the nodes in clustered entity..</param>
         /// <param name="port">Optional port to use when connecting to the server. If this is not specified, then environment specific default port will be used..</param>
         /// <param name="tenantId">The tenant_id for the environment. This is used to remotely access connectors and executors via bifrost..</param>
         /// <param name="type">The type of environment to connect to..</param>
         /// <param name="version">A version that is associated with the params. This is updated anytime any of the params change. This is used to discard older connector params..</param>
-        public ConnectorParams(AdditionalConnectorParams additionalParams = default(AdditionalConnectorParams), string agentEndpoint = default(string), int? agentPort = default(int?), Credentials credentials = default(Credentials), string endpoint = default(string), EntityProto entity = default(EntityProto), int? hostType = default(int?), long? id = default(long?), bool? populateSubnetForAllClusterNodes = default(bool?), int? port = default(int?), string tenantId = default(string), int? type = default(int?), long? version = default(long?))
+        public ConnectorParams(AdditionalConnectorParams additionalParams = default(AdditionalConnectorParams), string agentEndpoint = default(string), int? agentPort = default(int?), long? connectorGroupId = default(long?), Credentials credentials = default(Credentials), string endpoint = default(string), EntityProto entity = default(EntityProto), int? hostType = default(int?), long? id = default(long?), long? networkRealmId = default(long?), List<NetworkRealmInfo> networkRealmInfoVec = default(List<NetworkRealmInfo>), bool? populateSubnetForAllClusterNodes = default(bool?), int? port = default(int?), string tenantId = default(string), int? type = default(int?), long? version = default(long?))
         {
             this.AgentEndpoint = agentEndpoint;
             this.AgentPort = agentPort;
+            this.ConnectorGroupId = connectorGroupId;
             this.Endpoint = endpoint;
             this.HostType = hostType;
             this.Id = id;
+            this.NetworkRealmId = networkRealmId;
+            this.NetworkRealmInfoVec = networkRealmInfoVec;
             this.PopulateSubnetForAllClusterNodes = populateSubnetForAllClusterNodes;
             this.Port = port;
             this.TenantId = tenantId;
             this.Type = type;
             this.Version = version;
             this.AdditionalParams = additionalParams;
-            this.AgentEndpoint = agentEndpoint;
-            this.AgentPort = agentPort;
             this.Credentials = credentials;
-            this.Endpoint = endpoint;
             this.Entity = entity;
-            this.HostType = hostType;
-            this.Id = id;
-            this.PopulateSubnetForAllClusterNodes = populateSubnetForAllClusterNodes;
-            this.Port = port;
-            this.TenantId = tenantId;
-            this.Type = type;
-            this.Version = version;
         }
         
         /// <summary>
@@ -82,6 +80,13 @@ namespace Cohesity.Model
         /// <value>Optional agent port to use when connecting to the server. If this is not specified, then environment specific default port will be used.</value>
         [DataMember(Name="agentPort", EmitDefaultValue=true)]
         public int? AgentPort { get; set; }
+
+        /// <summary>
+        /// &#39;network_realm_id&#39; maintains the collection of connector_group_id. Connector group id for the environment. If it is set, Magneto will fetch the bifrost server based on &lt;network_realm_id, connector_group_id&gt;.  For communication with iris, this field will be deprecated soon and network_realm_info_vec should be used instead.
+        /// </summary>
+        /// <value>&#39;network_realm_id&#39; maintains the collection of connector_group_id. Connector group id for the environment. If it is set, Magneto will fetch the bifrost server based on &lt;network_realm_id, connector_group_id&gt;.  For communication with iris, this field will be deprecated soon and network_realm_info_vec should be used instead.</value>
+        [DataMember(Name="connectorGroupId", EmitDefaultValue=true)]
+        public long? ConnectorGroupId { get; set; }
 
         /// <summary>
         /// Gets or Sets Credentials
@@ -115,6 +120,20 @@ namespace Cohesity.Model
         /// <value>A unique id associated with this connector params. This is a convenience field and is used to maintain an index to different connection params. This is generated at the time when the source is registered with Magneto.</value>
         [DataMember(Name="id", EmitDefaultValue=true)]
         public long? Id { get; set; }
+
+        /// <summary>
+        /// The network-realm id of the tenant through which this source is accessible. This realm could be a collection of hyxes. If this is set(&gt;&#x3D; 0), tenant_id must also be set. Value of &#39;0&#39; has special semantics, refer bifrost/base/constant.cc.  This field should be used only for communication between magneto master and slave. For communication with iris, this field will be deprecated soon and network_realm_info_vec should be used instead.
+        /// </summary>
+        /// <value>The network-realm id of the tenant through which this source is accessible. This realm could be a collection of hyxes. If this is set(&gt;&#x3D; 0), tenant_id must also be set. Value of &#39;0&#39; has special semantics, refer bifrost/base/constant.cc.  This field should be used only for communication between magneto master and slave. For communication with iris, this field will be deprecated soon and network_realm_info_vec should be used instead.</value>
+        [DataMember(Name="networkRealmId", EmitDefaultValue=true)]
+        public long? NetworkRealmId { get; set; }
+
+        /// <summary>
+        /// The network-realm info vec of the tenant through which this source is accessible. Each realm could be a collection of hyxes. If this is set, tenant_id must also be set. Realm value of &#39;0&#39; has special semantics, refer bifrost/base/constant.cc.
+        /// </summary>
+        /// <value>The network-realm info vec of the tenant through which this source is accessible. Each realm could be a collection of hyxes. If this is set, tenant_id must also be set. Realm value of &#39;0&#39; has special semantics, refer bifrost/base/constant.cc.</value>
+        [DataMember(Name="networkRealmInfoVec", EmitDefaultValue=true)]
+        public List<NetworkRealmInfo> NetworkRealmInfoVec { get; set; }
 
         /// <summary>
         /// If set to true, inter agent communcation will be enabled and for every GetAgentInfo call we will fill subnet information of all the nodes in clustered entity.
@@ -203,6 +222,11 @@ namespace Cohesity.Model
                     this.AgentPort.Equals(input.AgentPort))
                 ) && 
                 (
+                    this.ConnectorGroupId == input.ConnectorGroupId ||
+                    (this.ConnectorGroupId != null &&
+                    this.ConnectorGroupId.Equals(input.ConnectorGroupId))
+                ) && 
+                (
                     this.Credentials == input.Credentials ||
                     (this.Credentials != null &&
                     this.Credentials.Equals(input.Credentials))
@@ -226,6 +250,17 @@ namespace Cohesity.Model
                     this.Id == input.Id ||
                     (this.Id != null &&
                     this.Id.Equals(input.Id))
+                ) && 
+                (
+                    this.NetworkRealmId == input.NetworkRealmId ||
+                    (this.NetworkRealmId != null &&
+                    this.NetworkRealmId.Equals(input.NetworkRealmId))
+                ) && 
+                (
+                    this.NetworkRealmInfoVec == input.NetworkRealmInfoVec ||
+                    this.NetworkRealmInfoVec != null &&
+                    input.NetworkRealmInfoVec != null &&
+                    this.NetworkRealmInfoVec.Equals(input.NetworkRealmInfoVec)
                 ) && 
                 (
                     this.PopulateSubnetForAllClusterNodes == input.PopulateSubnetForAllClusterNodes ||
@@ -269,6 +304,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.AgentEndpoint.GetHashCode();
                 if (this.AgentPort != null)
                     hashCode = hashCode * 59 + this.AgentPort.GetHashCode();
+                if (this.ConnectorGroupId != null)
+                    hashCode = hashCode * 59 + this.ConnectorGroupId.GetHashCode();
                 if (this.Credentials != null)
                     hashCode = hashCode * 59 + this.Credentials.GetHashCode();
                 if (this.Endpoint != null)
@@ -279,6 +316,10 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.HostType.GetHashCode();
                 if (this.Id != null)
                     hashCode = hashCode * 59 + this.Id.GetHashCode();
+                if (this.NetworkRealmId != null)
+                    hashCode = hashCode * 59 + this.NetworkRealmId.GetHashCode();
+                if (this.NetworkRealmInfoVec != null)
+                    hashCode = hashCode * 59 + this.NetworkRealmInfoVec.GetHashCode();
                 if (this.PopulateSubnetForAllClusterNodes != null)
                     hashCode = hashCode * 59 + this.PopulateSubnetForAllClusterNodes.GetHashCode();
                 if (this.Port != null)

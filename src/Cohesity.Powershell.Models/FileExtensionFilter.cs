@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -12,6 +13,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
+
 namespace Cohesity.Model
 {
     /// <summary>
@@ -21,9 +23,9 @@ namespace Cohesity.Model
     public partial class FileExtensionFilter :  IEquatable<FileExtensionFilter>
     {
         /// <summary>
-        /// The mode applied to the list of file extensions &#39;kWhitelist&#39; indicates a whitelist extension filter. &#39;kBlacklist&#39; indicates a blacklist extension filter.
+        /// The mode applied to the list of file extensions &#39;kWhitelist&#39; indicates a allowlist extension filter. &#39;kBlacklist&#39; indicates a denylist extension filter.
         /// </summary>
-        /// <value>The mode applied to the list of file extensions &#39;kWhitelist&#39; indicates a whitelist extension filter. &#39;kBlacklist&#39; indicates a blacklist extension filter.</value>
+        /// <value>The mode applied to the list of file extensions &#39;kWhitelist&#39; indicates a allowlist extension filter. &#39;kBlacklist&#39; indicates a denylist extension filter.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum ModeEnum
         {
@@ -42,9 +44,9 @@ namespace Cohesity.Model
         }
 
         /// <summary>
-        /// The mode applied to the list of file extensions &#39;kWhitelist&#39; indicates a whitelist extension filter. &#39;kBlacklist&#39; indicates a blacklist extension filter.
+        /// The mode applied to the list of file extensions &#39;kWhitelist&#39; indicates a allowlist extension filter. &#39;kBlacklist&#39; indicates a denylist extension filter.
         /// </summary>
-        /// <value>The mode applied to the list of file extensions &#39;kWhitelist&#39; indicates a whitelist extension filter. &#39;kBlacklist&#39; indicates a blacklist extension filter.</value>
+        /// <value>The mode applied to the list of file extensions &#39;kWhitelist&#39; indicates a allowlist extension filter. &#39;kBlacklist&#39; indicates a denylist extension filter.</value>
         [DataMember(Name="mode", EmitDefaultValue=true)]
         public ModeEnum? Mode { get; set; }
         /// <summary>
@@ -52,7 +54,7 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="fileExtensionsList">The list of file extensions to apply.</param>
         /// <param name="isEnabled">If set, it enables the file extension filter.</param>
-        /// <param name="mode">The mode applied to the list of file extensions &#39;kWhitelist&#39; indicates a whitelist extension filter. &#39;kBlacklist&#39; indicates a blacklist extension filter..</param>
+        /// <param name="mode">The mode applied to the list of file extensions &#39;kWhitelist&#39; indicates a allowlist extension filter. &#39;kBlacklist&#39; indicates a denylist extension filter..</param>
         public FileExtensionFilter(List<string> fileExtensionsList = default(List<string>), bool? isEnabled = default(bool?), ModeEnum? mode = default(ModeEnum?))
         {
             this.FileExtensionsList = fileExtensionsList;
@@ -117,7 +119,7 @@ namespace Cohesity.Model
                     this.FileExtensionsList == input.FileExtensionsList ||
                     this.FileExtensionsList != null &&
                     input.FileExtensionsList != null &&
-                    this.FileExtensionsList.SequenceEqual(input.FileExtensionsList)
+                    this.FileExtensionsList.Equals(input.FileExtensionsList)
                 ) && 
                 (
                     this.IsEnabled == input.IsEnabled ||

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -85,10 +87,58 @@ namespace Cohesity.Model
             KCluster = 3,
 
             /// <summary>
+            /// Enum KChassis for value: kChassis
+            /// </summary>
+            [EnumMember(Value = "kChassis")]
+            KChassis = 4,
+
+            /// <summary>
+            /// Enum KPowerSupply for value: kPowerSupply
+            /// </summary>
+            [EnumMember(Value = "kPowerSupply")]
+            KPowerSupply = 5,
+
+            /// <summary>
+            /// Enum KCPU for value: kCPU
+            /// </summary>
+            [EnumMember(Value = "kCPU")]
+            KCPU = 6,
+
+            /// <summary>
+            /// Enum KMemory for value: kMemory
+            /// </summary>
+            [EnumMember(Value = "kMemory")]
+            KMemory = 7,
+
+            /// <summary>
+            /// Enum KTemperature for value: kTemperature
+            /// </summary>
+            [EnumMember(Value = "kTemperature")]
+            KTemperature = 8,
+
+            /// <summary>
+            /// Enum KFan for value: kFan
+            /// </summary>
+            [EnumMember(Value = "kFan")]
+            KFan = 9,
+
+            /// <summary>
+            /// Enum KNIC for value: kNIC
+            /// </summary>
+            [EnumMember(Value = "kNIC")]
+            KNIC = 10,
+
+            /// <summary>
+            /// Enum KFirmware for value: kFirmware
+            /// </summary>
+            [EnumMember(Value = "kFirmware")]
+            KFirmware = 11,
+
+            /// <summary>
             /// Enum KNodeHealth for value: kNodeHealth
             /// </summary>
             [EnumMember(Value = "kNodeHealth")]
-            KNodeHealth = 4,
+            KNodeHealth = 12,
 
             /// <summary>
             /// Enum KClusterHealth for value: kClusterHealth
@@ -355,7 +405,7 @@ namespace Cohesity.Model
                     this.AlertDocumentList == input.AlertDocumentList ||
                     this.AlertDocumentList != null &&
                     input.AlertDocumentList != null &&
-                    this.AlertDocumentList.SequenceEqual(input.AlertDocumentList)
+                    this.AlertDocumentList.Equals(input.AlertDocumentList)
                 ) && 
                 (
                     this.AlertTypeBucket == input.AlertTypeBucket ||
@@ -394,13 +444,13 @@ namespace Cohesity.Model
                     this.PrimaryKeyList == input.PrimaryKeyList ||
                     this.PrimaryKeyList != null &&
                     input.PrimaryKeyList != null &&
-                    this.PrimaryKeyList.SequenceEqual(input.PrimaryKeyList)
+                    this.PrimaryKeyList.Equals(input.PrimaryKeyList)
                 ) && 
                 (
                     this.PropertyList == input.PropertyList ||
                     this.PropertyList != null &&
                     input.PropertyList != null &&
-                    this.PropertyList.SequenceEqual(input.PropertyList)
+                    this.PropertyList.Equals(input.PropertyList)
                 ) && 
                 (
                     this.SendSupportNotification == input.SendSupportNotification ||

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -29,10 +31,6 @@ namespace Cohesity.Model
         /// <param name="samAccountNames">Specifies the list of the sam account names of the AD objects..</param>
         public SearchProductionAdObjectsRequest(List<string> distinguishedNames = default(List<string>), List<string> objectGuids = default(List<string>), long? protectionSourceId = default(long?), List<string> samAccountNames = default(List<string>))
         {
-            this.DistinguishedNames = distinguishedNames;
-            this.ObjectGuids = objectGuids;
-            this.ProtectionSourceId = protectionSourceId;
-            this.SamAccountNames = samAccountNames;
             this.DistinguishedNames = distinguishedNames;
             this.ObjectGuids = objectGuids;
             this.ProtectionSourceId = protectionSourceId;
@@ -107,13 +105,13 @@ namespace Cohesity.Model
                     this.DistinguishedNames == input.DistinguishedNames ||
                     this.DistinguishedNames != null &&
                     input.DistinguishedNames != null &&
-                    this.DistinguishedNames.SequenceEqual(input.DistinguishedNames)
+                    this.DistinguishedNames.Equals(input.DistinguishedNames)
                 ) && 
                 (
                     this.ObjectGuids == input.ObjectGuids ||
                     this.ObjectGuids != null &&
                     input.ObjectGuids != null &&
-                    this.ObjectGuids.SequenceEqual(input.ObjectGuids)
+                    this.ObjectGuids.Equals(input.ObjectGuids)
                 ) && 
                 (
                     this.ProtectionSourceId == input.ProtectionSourceId ||
@@ -124,7 +122,7 @@ namespace Cohesity.Model
                     this.SamAccountNames == input.SamAccountNames ||
                     this.SamAccountNames != null &&
                     input.SamAccountNames != null &&
-                    this.SamAccountNames.SequenceEqual(input.SamAccountNames)
+                    this.SamAccountNames.Equals(input.SamAccountNames)
                 );
         }
 

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -33,8 +35,9 @@ namespace Cohesity.Model
         /// <param name="nfsAccess">Whether clients from this subnet can mount using NFS protocol..</param>
         /// <param name="nfsAllSquash">Whether all clients from this subnet can map view with view_all_squash_uid/view_all_squash_gid configured in the view..</param>
         /// <param name="nfsRootSquash">Whether clients from this subnet can mount as root on NFS..</param>
+        /// <param name="s3Access">Whether clients from this subnet can accept requests using S3 protocol..</param>
         /// <param name="smbAccess">Whether clients from this subnet can mount using SMB protocol..</param>
-        public ClusterConfigProtoSubnet(int? component = default(int?), string description = default(string), string gateway = default(string), int? id = default(int?), string ip = default(string), int? netmaskBits = default(int?), string netmaskIp4 = default(string), int? nfsAccess = default(int?), bool? nfsAllSquash = default(bool?), bool? nfsRootSquash = default(bool?), int? smbAccess = default(int?))
+        public ClusterConfigProtoSubnet(int? component = default(int?), string description = default(string), string gateway = default(string), int? id = default(int?), string ip = default(string), int? netmaskBits = default(int?), string netmaskIp4 = default(string), int? nfsAccess = default(int?), bool? nfsAllSquash = default(bool?), bool? nfsRootSquash = default(bool?), int? s3Access = default(int?), int? smbAccess = default(int?))
         {
             this.Component = component;
             this.Description = description;
@@ -46,17 +49,7 @@ namespace Cohesity.Model
             this.NfsAccess = nfsAccess;
             this.NfsAllSquash = nfsAllSquash;
             this.NfsRootSquash = nfsRootSquash;
-            this.SmbAccess = smbAccess;
-            this.Component = component;
-            this.Description = description;
-            this.Gateway = gateway;
-            this.Id = id;
-            this.Ip = ip;
-            this.NetmaskBits = netmaskBits;
-            this.NetmaskIp4 = netmaskIp4;
-            this.NfsAccess = nfsAccess;
-            this.NfsAllSquash = nfsAllSquash;
-            this.NfsRootSquash = nfsRootSquash;
+            this.S3Access = s3Access;
             this.SmbAccess = smbAccess;
         }
         
@@ -127,6 +120,13 @@ namespace Cohesity.Model
         /// <value>Whether clients from this subnet can mount as root on NFS.</value>
         [DataMember(Name="nfsRootSquash", EmitDefaultValue=true)]
         public bool? NfsRootSquash { get; set; }
+
+        /// <summary>
+        /// Whether clients from this subnet can accept requests using S3 protocol.
+        /// </summary>
+        /// <value>Whether clients from this subnet can accept requests using S3 protocol.</value>
+        [DataMember(Name="s3Access", EmitDefaultValue=true)]
+        public int? S3Access { get; set; }
 
         /// <summary>
         /// Whether clients from this subnet can mount using SMB protocol.
@@ -222,6 +222,11 @@ namespace Cohesity.Model
                     this.NfsRootSquash.Equals(input.NfsRootSquash))
                 ) && 
                 (
+                    this.S3Access == input.S3Access ||
+                    (this.S3Access != null &&
+                    this.S3Access.Equals(input.S3Access))
+                ) && 
+                (
                     this.SmbAccess == input.SmbAccess ||
                     (this.SmbAccess != null &&
                     this.SmbAccess.Equals(input.SmbAccess))
@@ -257,6 +262,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.NfsAllSquash.GetHashCode();
                 if (this.NfsRootSquash != null)
                     hashCode = hashCode * 59 + this.NfsRootSquash.GetHashCode();
+                if (this.S3Access != null)
+                    hashCode = hashCode * 59 + this.S3Access.GetHashCode();
                 if (this.SmbAccess != null)
                     hashCode = hashCode * 59 + this.SmbAccess.GetHashCode();
                 return hashCode;
