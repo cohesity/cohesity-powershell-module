@@ -639,6 +639,80 @@
       </ListControl>
     </View>
 
+    <!-- RootNode -->
+    <View>
+      <Name>RootNode.TableView</Name>
+      <ViewSelectedBy>
+        <TypeName>Cohesity.Model.RootNode</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <ScriptBlock>$_.RootNode.Id</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>$_.RootNode.Name</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>$_.RootNode.Environment</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>$_.RegistrationInfo.RefreshTimeUsecs | Convert-CohesityUsecsToDateTime</ScriptBlock>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+        <TableHeaders>
+          <TableColumnHeader>
+            <Label>Id</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+              <Label>Name</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+              <Label>Environment</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>RefreshedTime</Label>
+          </TableColumnHeader>
+        </TableHeaders>
+      </TableControl>
+    </View>
+    <View>
+      <Name>RootNode.ListView</Name>
+      <ViewSelectedBy>
+        <TypeName>Cohesity.Model.RootNode</TypeName>
+      </ViewSelectedBy>
+      <ListControl>
+        <ListEntries>
+          <ListEntry>
+            <ListItems>
+              <ListItem>
+                <Label>Id</Label>
+                <ScriptBlock>$_.RootNode.Id</ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <Label>Name</Label>
+                <ScriptBlock>$_.RootNode.Name</ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <Label>Environment</Label>
+                <ScriptBlock>$_.RootNode.Environment</ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <PropertyName>RootNode</PropertyName>
+              </ListItem>
+              <ListItem>
+                <PropertyName>RegistrationInfo</PropertyName>
+              </ListItem>
+            </ListItems>
+          </ListEntry>
+        </ListEntries>
+      </ListControl>
+    </View>
+
     <!-- StorageDomain -->
     <View>
       <Name>StorageDomain.ListView</Name>
@@ -1578,6 +1652,82 @@
       <Name>System.Object.ProtectionSource.TableView</Name>
       <ViewSelectedBy>
         <TypeName>System.Object#ProtectionSource</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>Id</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Name</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Environment</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>if($_.ParentId){$_.ParentId}else{"-"}</ScriptBlock>
+              </TableColumnItem>
+             </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+        <TableHeaders>
+          <TableColumnHeader/>
+          <TableColumnHeader/>
+          <TableColumnHeader/>
+          <TableColumnHeader>
+            <Label>ParentId</Label>
+          </TableColumnHeader>
+        </TableHeaders>
+      </TableControl>
+    </View>
+    <!--System.Object.RootNode Script based cmdlet -->
+    <View>
+      <Name>System.Object.RootNode.TableView</Name>
+      <ViewSelectedBy>
+        <TypeName>System.Object#RootNode</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <ScriptBlock>$_.RootNode.Id</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>$_.RootNode.Name</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>$_.RootNode.Environment</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>if($_.RegistrationInfo.RefreshTimeUsecs){$_.RegistrationInfo.RefreshTimeUsecs | Convert-CohesityUsecsToDateTime} else {"-"}</ScriptBlock>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+        <TableHeaders>
+          <TableColumnHeader>
+            <Label>Id</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+              <Label>Name</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+              <Label>Environment</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>RefreshedTime</Label>
+          </TableColumnHeader>
+        </TableHeaders>
+      </TableControl>
+    </View>
+    <!-- System.Object.RootNode Script based cmdlet -->
+    <View>
+      <Name>System.Object.RootNode.TableView</Name>
+      <ViewSelectedBy>
+        <TypeName>System.Object#RootNode</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <TableRowEntries>
