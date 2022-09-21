@@ -6,7 +6,7 @@ Gets a list of the registered protection sources filtered by the specified param
 ## SYNTAX
 
 ```
-Get-CohesityProtectionSource [[-Environments] <EnvironmentEnum[]>] [[-Id] <Int64>] [<CommonParameters>]
+Get-CohesityProtectionSource [[-Environments] <EnvironmentEnum[]>] [[-Id] <Int64>] [[-Name] <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
