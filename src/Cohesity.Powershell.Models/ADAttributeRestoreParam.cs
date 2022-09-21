@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -117,13 +119,13 @@ namespace Cohesity.Model
                     this.ExcludedPropertyVec == input.ExcludedPropertyVec ||
                     this.ExcludedPropertyVec != null &&
                     input.ExcludedPropertyVec != null &&
-                    this.ExcludedPropertyVec.SequenceEqual(input.ExcludedPropertyVec)
+                    this.ExcludedPropertyVec.Equals(input.ExcludedPropertyVec)
                 ) && 
                 (
                     this.GuidpairVec == input.GuidpairVec ||
                     this.GuidpairVec != null &&
                     input.GuidpairVec != null &&
-                    this.GuidpairVec.SequenceEqual(input.GuidpairVec)
+                    this.GuidpairVec.Equals(input.GuidpairVec)
                 ) && 
                 (
                     this.OptionFlags == input.OptionFlags ||
@@ -134,7 +136,7 @@ namespace Cohesity.Model
                     this.PropertyVec == input.PropertyVec ||
                     this.PropertyVec != null &&
                     input.PropertyVec != null &&
-                    this.PropertyVec.SequenceEqual(input.PropertyVec)
+                    this.PropertyVec.Equals(input.PropertyVec)
                 ) && 
                 (
                     this.SrcSysvolFolder == input.SrcSysvolFolder ||

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -25,13 +27,14 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="archivalTarget">archivalTarget.</param>
         /// <param name="cloudDeployTarget">cloudDeployTarget.</param>
+        /// <param name="onpremDeployTarget">onpremDeployTarget.</param>
         /// <param name="replicationTarget">replicationTarget.</param>
         /// <param name="type">The type of snapshot target this proto represents..</param>
-        public SnapshotTarget(ArchivalTarget archivalTarget = default(ArchivalTarget), CloudDeployTarget cloudDeployTarget = default(CloudDeployTarget), ReplicationTarget replicationTarget = default(ReplicationTarget), int? type = default(int?))
+        public SnapshotTarget(ArchivalTarget archivalTarget = default(ArchivalTarget), CloudDeployTarget cloudDeployTarget = default(CloudDeployTarget), OnPremDeployTarget onpremDeployTarget = default(OnPremDeployTarget), ReplicationTarget replicationTarget = default(ReplicationTarget), int? type = default(int?))
         {
-            this.Type = type;
             this.ArchivalTarget = archivalTarget;
             this.CloudDeployTarget = cloudDeployTarget;
+            this.OnpremDeployTarget = onpremDeployTarget;
             this.ReplicationTarget = replicationTarget;
             this.Type = type;
         }
@@ -47,6 +50,12 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="cloudDeployTarget", EmitDefaultValue=false)]
         public CloudDeployTarget CloudDeployTarget { get; set; }
+
+        /// <summary>
+        /// Gets or Sets OnpremDeployTarget
+        /// </summary>
+        [DataMember(Name="onpremDeployTarget", EmitDefaultValue=false)]
+        public OnPremDeployTarget OnpremDeployTarget { get; set; }
 
         /// <summary>
         /// Gets or Sets ReplicationTarget
@@ -108,6 +117,11 @@ namespace Cohesity.Model
                     this.CloudDeployTarget.Equals(input.CloudDeployTarget))
                 ) && 
                 (
+                    this.OnpremDeployTarget == input.OnpremDeployTarget ||
+                    (this.OnpremDeployTarget != null &&
+                    this.OnpremDeployTarget.Equals(input.OnpremDeployTarget))
+                ) && 
+                (
                     this.ReplicationTarget == input.ReplicationTarget ||
                     (this.ReplicationTarget != null &&
                     this.ReplicationTarget.Equals(input.ReplicationTarget))
@@ -132,6 +146,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ArchivalTarget.GetHashCode();
                 if (this.CloudDeployTarget != null)
                     hashCode = hashCode * 59 + this.CloudDeployTarget.GetHashCode();
+                if (this.OnpremDeployTarget != null)
+                    hashCode = hashCode * 59 + this.OnpremDeployTarget.GetHashCode();
                 if (this.ReplicationTarget != null)
                     hashCode = hashCode * 59 + this.ReplicationTarget.GetHashCode();
                 if (this.Type != null)

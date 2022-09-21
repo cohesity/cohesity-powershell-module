@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -12,6 +13,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
+
 namespace Cohesity.Model
 {
     /// <summary>
@@ -23,7 +25,7 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="ExchangeRestoreViewParameters" /> class.
         /// </summary>
-        /// <param name="endpoint">Specifies whether we should white-list the restore view for all the IP addresses. If this parameter is set to false, then only the machine on which the view is mounted will be white-listed..</param>
+        /// <param name="endpoint">Specifies whether we should allow all the IP addresses to be part of the allowlist. If this parameter is set to false, then only the machine on which the view is mounted will be allowed..</param>
         /// <param name="mountPoint">Specifies the path of the SMB share..</param>
         /// <param name="viewName">Specifies the view to which the files of an Exchange database has to be cloned..</param>
         public ExchangeRestoreViewParameters(bool? endpoint = default(bool?), string mountPoint = default(string), string viewName = default(string))
@@ -37,9 +39,9 @@ namespace Cohesity.Model
         }
         
         /// <summary>
-        /// Specifies whether we should white-list the restore view for all the IP addresses. If this parameter is set to false, then only the machine on which the view is mounted will be white-listed.
+        /// Specifies whether we should allow all the IP addresses to be part of the allowlist. If this parameter is set to false, then only the machine on which the view is mounted will be allowed.
         /// </summary>
-        /// <value>Specifies whether we should white-list the restore view for all the IP addresses. If this parameter is set to false, then only the machine on which the view is mounted will be white-listed.</value>
+        /// <value>Specifies whether we should allow all the IP addresses to be part of the allowlist. If this parameter is set to false, then only the machine on which the view is mounted will be allowed.</value>
         [DataMember(Name="endpoint", EmitDefaultValue=true)]
         public bool? Endpoint { get; set; }
 

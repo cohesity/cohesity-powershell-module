@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -24,12 +26,12 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="RunNowParameters" /> class.
         /// </summary>
         /// <param name="databaseIds">Specifies the ids of the DB&#39;s to perform run now on..</param>
+        /// <param name="physicalParams">physicalParams.</param>
         /// <param name="sourceId">Specifies the source id of the Databases to perform the Run Now operation on..</param>
-        public RunNowParameters(List<long> databaseIds = default(List<long>), long? sourceId = default(long?))
+        public RunNowParameters(List<long> databaseIds = default(List<long>), RunNowPhysicalParameters physicalParams = default(RunNowPhysicalParameters), long? sourceId = default(long?))
         {
             this.DatabaseIds = databaseIds;
-            this.SourceId = sourceId;
-            this.DatabaseIds = databaseIds;
+            this.PhysicalParams = physicalParams;
             this.SourceId = sourceId;
         }
         
@@ -39,6 +41,12 @@ namespace Cohesity.Model
         /// <value>Specifies the ids of the DB&#39;s to perform run now on.</value>
         [DataMember(Name="databaseIds", EmitDefaultValue=true)]
         public List<long> DatabaseIds { get; set; }
+
+        /// <summary>
+        /// Gets or Sets PhysicalParams
+        /// </summary>
+        [DataMember(Name="physicalParams", EmitDefaultValue=false)]
+        public RunNowPhysicalParameters PhysicalParams { get; set; }
 
         /// <summary>
         /// Specifies the source id of the Databases to perform the Run Now operation on.
@@ -87,7 +95,12 @@ namespace Cohesity.Model
                     this.DatabaseIds == input.DatabaseIds ||
                     this.DatabaseIds != null &&
                     input.DatabaseIds != null &&
-                    this.DatabaseIds.SequenceEqual(input.DatabaseIds)
+                    this.DatabaseIds.Equals(input.DatabaseIds)
+                ) && 
+                (
+                    this.PhysicalParams == input.PhysicalParams ||
+                    (this.PhysicalParams != null &&
+                    this.PhysicalParams.Equals(input.PhysicalParams))
                 ) && 
                 (
                     this.SourceId == input.SourceId ||
@@ -107,6 +120,8 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.DatabaseIds != null)
                     hashCode = hashCode * 59 + this.DatabaseIds.GetHashCode();
+                if (this.PhysicalParams != null)
+                    hashCode = hashCode * 59 + this.PhysicalParams.GetHashCode();
                 if (this.SourceId != null)
                     hashCode = hashCode * 59 + this.SourceId.GetHashCode();
                 return hashCode;

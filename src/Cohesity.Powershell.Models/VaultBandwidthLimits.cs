@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -12,6 +13,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
+
 namespace Cohesity.Model
 {
     /// <summary>
@@ -23,14 +25,30 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="VaultBandwidthLimits" /> class.
         /// </summary>
+        /// <param name="cloudTierDownload">cloudTierDownload.</param>
+        /// <param name="cloudTierUpload">cloudTierUpload.</param>
         /// <param name="download">download.</param>
         /// <param name="upload">upload.</param>
-        public VaultBandwidthLimits(BandwidthLimit download = default(BandwidthLimit), BandwidthLimit upload = default(BandwidthLimit))
+        public VaultBandwidthLimits(BandwidthLimit cloudTierDownload = default(BandwidthLimit), BandwidthLimit cloudTierUpload = default(BandwidthLimit), BandwidthLimit download = default(BandwidthLimit), BandwidthLimit upload = default(BandwidthLimit))
         {
+            this.CloudTierDownload = cloudTierDownload;
+            this.CloudTierUpload = cloudTierUpload;
             this.Download = download;
             this.Upload = upload;
         }
         
+        /// <summary>
+        /// Gets or Sets CloudTierDownload
+        /// </summary>
+        [DataMember(Name="cloudTierDownload", EmitDefaultValue=false)]
+        public BandwidthLimit CloudTierDownload { get; set; }
+
+        /// <summary>
+        /// Gets or Sets CloudTierUpload
+        /// </summary>
+        [DataMember(Name="cloudTierUpload", EmitDefaultValue=false)]
+        public BandwidthLimit CloudTierUpload { get; set; }
+
         /// <summary>
         /// Gets or Sets Download
         /// </summary>
@@ -80,6 +98,16 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.CloudTierDownload == input.CloudTierDownload ||
+                    (this.CloudTierDownload != null &&
+                    this.CloudTierDownload.Equals(input.CloudTierDownload))
+                ) && 
+                (
+                    this.CloudTierUpload == input.CloudTierUpload ||
+                    (this.CloudTierUpload != null &&
+                    this.CloudTierUpload.Equals(input.CloudTierUpload))
+                ) && 
+                (
                     this.Download == input.Download ||
                     (this.Download != null &&
                     this.Download.Equals(input.Download))
@@ -100,6 +128,10 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.CloudTierDownload != null)
+                    hashCode = hashCode * 59 + this.CloudTierDownload.GetHashCode();
+                if (this.CloudTierUpload != null)
+                    hashCode = hashCode * 59 + this.CloudTierUpload.GetHashCode();
                 if (this.Download != null)
                     hashCode = hashCode * 59 + this.Download.GetHashCode();
                 if (this.Upload != null)

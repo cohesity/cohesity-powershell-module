@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -52,16 +54,14 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="hadoopDistribution">Specifies the Hadoop Distribution. Hadoop distribution.  &#39;CDH&#39; indicates Hadoop distribution type Cloudera. &#39;HDP&#39; indicates Hadoop distribution type Hortonworks..</param>
         /// <param name="hadoopVersion">Specifies the Hadoop version.</param>
+        /// <param name="kerberosPrincipal">Specifies the kerberos principal..</param>
         /// <param name="namenode">Specifies the Namenode host or Nameservice..</param>
         /// <param name="port">Specifies the Webhdfs Port.</param>
-        public HdfsConnectParams(HadoopDistributionEnum? hadoopDistribution = default(HadoopDistributionEnum?), string hadoopVersion = default(string), string namenode = default(string), int? port = default(int?))
+        public HdfsConnectParams(HadoopDistributionEnum? hadoopDistribution = default(HadoopDistributionEnum?), string hadoopVersion = default(string), string kerberosPrincipal = default(string), string namenode = default(string), int? port = default(int?))
         {
             this.HadoopDistribution = hadoopDistribution;
             this.HadoopVersion = hadoopVersion;
-            this.Namenode = namenode;
-            this.Port = port;
-            this.HadoopDistribution = hadoopDistribution;
-            this.HadoopVersion = hadoopVersion;
+            this.KerberosPrincipal = kerberosPrincipal;
             this.Namenode = namenode;
             this.Port = port;
         }
@@ -72,6 +72,13 @@ namespace Cohesity.Model
         /// <value>Specifies the Hadoop version</value>
         [DataMember(Name="hadoopVersion", EmitDefaultValue=true)]
         public string HadoopVersion { get; set; }
+
+        /// <summary>
+        /// Specifies the kerberos principal.
+        /// </summary>
+        /// <value>Specifies the kerberos principal.</value>
+        [DataMember(Name="kerberosPrincipal", EmitDefaultValue=true)]
+        public string KerberosPrincipal { get; set; }
 
         /// <summary>
         /// Specifies the Namenode host or Nameservice.
@@ -133,6 +140,11 @@ namespace Cohesity.Model
                     this.HadoopVersion.Equals(input.HadoopVersion))
                 ) && 
                 (
+                    this.KerberosPrincipal == input.KerberosPrincipal ||
+                    (this.KerberosPrincipal != null &&
+                    this.KerberosPrincipal.Equals(input.KerberosPrincipal))
+                ) && 
+                (
                     this.Namenode == input.Namenode ||
                     (this.Namenode != null &&
                     this.Namenode.Equals(input.Namenode))
@@ -156,6 +168,8 @@ namespace Cohesity.Model
                 hashCode = hashCode * 59 + this.HadoopDistribution.GetHashCode();
                 if (this.HadoopVersion != null)
                     hashCode = hashCode * 59 + this.HadoopVersion.GetHashCode();
+                if (this.KerberosPrincipal != null)
+                    hashCode = hashCode * 59 + this.KerberosPrincipal.GetHashCode();
                 if (this.Namenode != null)
                     hashCode = hashCode * 59 + this.Namenode.GetHashCode();
                 if (this.Port != null)

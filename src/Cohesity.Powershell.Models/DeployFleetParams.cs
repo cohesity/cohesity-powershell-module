@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -24,7 +26,7 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="DeployFleetParams" /> class.
         /// </summary>
         /// <param name="awsFleetParams">awsFleetParams.</param>
-        public DeployFleetParams(AWSFleetParams awsFleetParams = default(AWSFleetParams))
+        public DeployFleetParams(AwsFleetParams awsFleetParams = default(AwsFleetParams))
         {
             this.AwsFleetParams = awsFleetParams;
         }
@@ -33,7 +35,7 @@ namespace Cohesity.Model
         /// Gets or Sets AwsFleetParams
         /// </summary>
         [DataMember(Name="awsFleetParams", EmitDefaultValue=false)]
-        public AWSFleetParams AwsFleetParams { get; set; }
+        public AwsFleetParams AwsFleetParams { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object

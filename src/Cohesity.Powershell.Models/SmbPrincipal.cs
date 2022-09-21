@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -29,10 +31,6 @@ namespace Cohesity.Model
         /// <param name="type">Specifies the type. This can be a user or a group..</param>
         public SmbPrincipal(string domain = default(string), string name = default(string), string sid = default(string), string type = default(string))
         {
-            this.Domain = domain;
-            this.Name = name;
-            this.Sid = sid;
-            this.Type = type;
             this.Domain = domain;
             this.Name = name;
             this.Sid = sid;

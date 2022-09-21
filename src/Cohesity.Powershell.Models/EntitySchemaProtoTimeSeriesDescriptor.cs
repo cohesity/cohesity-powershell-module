@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -27,7 +29,7 @@ namespace Cohesity.Model
         /// <param name="metricName">Specifies the name of the metric such as &#39;kUnmorphedUsageBytes&#39;. It should be unique in an entity schema..</param>
         /// <param name="metricUnit">metricUnit.</param>
         /// <param name="rawMetricPublishIntervalHintSecs">Specifies a suggestion for the interval to collect raw data points..</param>
-        /// <param name="timeToLiveSecs">Specifies how long the data point will be stored..</param>
+        /// <param name="timeToLiveSecs">Specifies how long the data point will be stored. Note: In statsv2, as timeseries data of an entity is stored per scribe row with metrics as columns, it is good to have time_to_live_secs per schema(defined below) For existing schemas, we will consider highest time_to_live_secs of all metrics as expiration time for all metrics defined in schema..</param>
         /// <param name="valueType">Specifies the value type for this metric. A metric of type &#39;string\&quot; is not supported, instead use &#39;bytes&#39;. Note that an aggregate metric of type &#39;bytes&#39; is not supported. 0 specifies a value type of Int64. 1 specifies a value type of Double. 2 specifies a value type of String. 3 specifies a value type of Bytes..</param>
         public EntitySchemaProtoTimeSeriesDescriptor(string metricDescriptiveName = default(string), string metricName = default(string), EntitySchemaProtoTimeSeriesDescriptorMetricUnit metricUnit = default(EntitySchemaProtoTimeSeriesDescriptorMetricUnit), int? rawMetricPublishIntervalHintSecs = default(int?), long? timeToLiveSecs = default(long?), int? valueType = default(int?))
         {
@@ -72,9 +74,9 @@ namespace Cohesity.Model
         public int? RawMetricPublishIntervalHintSecs { get; set; }
 
         /// <summary>
-        /// Specifies how long the data point will be stored.
+        /// Specifies how long the data point will be stored. Note: In statsv2, as timeseries data of an entity is stored per scribe row with metrics as columns, it is good to have time_to_live_secs per schema(defined below) For existing schemas, we will consider highest time_to_live_secs of all metrics as expiration time for all metrics defined in schema.
         /// </summary>
-        /// <value>Specifies how long the data point will be stored.</value>
+        /// <value>Specifies how long the data point will be stored. Note: In statsv2, as timeseries data of an entity is stored per scribe row with metrics as columns, it is good to have time_to_live_secs per schema(defined below) For existing schemas, we will consider highest time_to_live_secs of all metrics as expiration time for all metrics defined in schema.</value>
         [DataMember(Name="timeToLiveSecs", EmitDefaultValue=true)]
         public long? TimeToLiveSecs { get; set; }
 

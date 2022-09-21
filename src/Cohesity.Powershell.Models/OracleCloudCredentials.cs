@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -55,18 +57,15 @@ namespace Cohesity.Model
         /// <param name="secretAccessKey">Specifies the secret access key for Oracle S3 Compatible vault account..</param>
         /// <param name="tenant">Specifies the tenant which is part of the REST endpoints for Oracle S3 compatible vaults..</param>
         /// <param name="tierType">Specifies the storage class of Oracle vault. OracleTierType specifies the storage class for Oracle. &#39;kOracleTierStandard&#39; indicates a tier type of Oracle properties that requires fast, immediate and frequent access. &#39;kOracleTierArchive&#39; indicates a tier type of Oracle properties that is rarely accesed and preserved for long times..</param>
-        public OracleCloudCredentials(string accessKeyId = default(string), string region = default(string), string secretAccessKey = default(string), string tenant = default(string), TierTypeEnum? tierType = default(TierTypeEnum?))
+        /// <param name="tiers">Specifies the list of all tiers for Amazon account..</param>
+        public OracleCloudCredentials(string accessKeyId = default(string), string region = default(string), string secretAccessKey = default(string), string tenant = default(string), TierTypeEnum? tierType = default(TierTypeEnum?), List<string> tiers = default(List<string>))
         {
             this.AccessKeyId = accessKeyId;
             this.Region = region;
             this.SecretAccessKey = secretAccessKey;
             this.Tenant = tenant;
             this.TierType = tierType;
-            this.AccessKeyId = accessKeyId;
-            this.Region = region;
-            this.SecretAccessKey = secretAccessKey;
-            this.Tenant = tenant;
-            this.TierType = tierType;
+            this.Tiers = tiers;
         }
         
         /// <summary>
@@ -96,6 +95,13 @@ namespace Cohesity.Model
         /// <value>Specifies the tenant which is part of the REST endpoints for Oracle S3 compatible vaults.</value>
         [DataMember(Name="tenant", EmitDefaultValue=true)]
         public string Tenant { get; set; }
+
+        /// <summary>
+        /// Specifies the list of all tiers for Amazon account.
+        /// </summary>
+        /// <value>Specifies the list of all tiers for Amazon account.</value>
+        [DataMember(Name="tiers", EmitDefaultValue=true)]
+        public List<string> Tiers { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -156,6 +162,12 @@ namespace Cohesity.Model
                 (
                     this.TierType == input.TierType ||
                     this.TierType.Equals(input.TierType)
+                ) && 
+                (
+                    this.Tiers == input.Tiers ||
+                    this.Tiers != null &&
+                    input.Tiers != null &&
+                    this.Tiers.Equals(input.Tiers)
                 );
         }
 
@@ -176,7 +188,10 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.SecretAccessKey.GetHashCode();
                 if (this.Tenant != null)
                     hashCode = hashCode * 59 + this.Tenant.GetHashCode();
-                hashCode = hashCode * 59 + this.TierType.GetHashCode();
+                if (this.TierType != null)
+					hashCode = hashCode * 59 + this.TierType.GetHashCode();
+                if (this.Tiers != null)
+                    hashCode = hashCode * 59 + this.Tiers.GetHashCode();
                 return hashCode;
             }
         }

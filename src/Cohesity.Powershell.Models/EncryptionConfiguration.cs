@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -12,6 +13,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
+
 namespace Cohesity.Model
 {
     /// <summary>
@@ -23,32 +25,38 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="EncryptionConfiguration" /> class.
         /// </summary>
-        /// <param name="enableEncryption">Specifies whether or not to enable encryption. If encryption is enabled, all data on the Cluster will be encrypted. This can only be enabled at Cluster creation time and cannot be disabled later..</param>
-        /// <param name="enableFipsMode">Specifies whether or not to enable FIPS mode. EnableEncryption must be set to true in order to enable FIPS..</param>
+        /// <param name="enableFipsMode">Specifies whether or not to enable FIPS mode. EnableSoftwareEncryption must be set to true in order to enable FIPS..</param>
+        /// <param name="enableHardwareEncryption">Specifies whether or not to enable hardware encryption. If hardware encryption is enabled, all data disks of the Cluster will be encrypted. This can only be enabled at Cluster creation time and cannot be disabled later..</param>
+        /// <param name="enableSoftwareEncryption">Specifies whether or not to enable software encryption. If software encryption is enabled, all data on the Cluster will be encrypted. This can only be enabled at Cluster creation time and cannot be disabled later..</param>
         /// <param name="rotationPeriod">Specifies the rotation period for encryption keys in days..</param>
-        public EncryptionConfiguration(bool? enableEncryption = default(bool?), bool? enableFipsMode = default(bool?), int? rotationPeriod = default(int?))
+        public EncryptionConfiguration(bool? enableFipsMode = default(bool?), bool? enableHardwareEncryption = default(bool?), bool? enableSoftwareEncryption = default(bool?), int? rotationPeriod = default(int?))
         {
-            this.EnableEncryption = enableEncryption;
             this.EnableFipsMode = enableFipsMode;
-            this.RotationPeriod = rotationPeriod;
-            this.EnableEncryption = enableEncryption;
-            this.EnableFipsMode = enableFipsMode;
+            this.EnableHardwareEncryption = enableHardwareEncryption;
+            this.EnableSoftwareEncryption = enableSoftwareEncryption;
             this.RotationPeriod = rotationPeriod;
         }
         
         /// <summary>
-        /// Specifies whether or not to enable encryption. If encryption is enabled, all data on the Cluster will be encrypted. This can only be enabled at Cluster creation time and cannot be disabled later.
+        /// Specifies whether or not to enable FIPS mode. EnableSoftwareEncryption must be set to true in order to enable FIPS.
         /// </summary>
-        /// <value>Specifies whether or not to enable encryption. If encryption is enabled, all data on the Cluster will be encrypted. This can only be enabled at Cluster creation time and cannot be disabled later.</value>
-        [DataMember(Name="enableEncryption", EmitDefaultValue=true)]
-        public bool? EnableEncryption { get; set; }
-
-        /// <summary>
-        /// Specifies whether or not to enable FIPS mode. EnableEncryption must be set to true in order to enable FIPS.
-        /// </summary>
-        /// <value>Specifies whether or not to enable FIPS mode. EnableEncryption must be set to true in order to enable FIPS.</value>
+        /// <value>Specifies whether or not to enable FIPS mode. EnableSoftwareEncryption must be set to true in order to enable FIPS.</value>
         [DataMember(Name="enableFipsMode", EmitDefaultValue=true)]
         public bool? EnableFipsMode { get; set; }
+
+        /// <summary>
+        /// Specifies whether or not to enable hardware encryption. If hardware encryption is enabled, all data disks of the Cluster will be encrypted. This can only be enabled at Cluster creation time and cannot be disabled later.
+        /// </summary>
+        /// <value>Specifies whether or not to enable hardware encryption. If hardware encryption is enabled, all data disks of the Cluster will be encrypted. This can only be enabled at Cluster creation time and cannot be disabled later.</value>
+        [DataMember(Name="enableHardwareEncryption", EmitDefaultValue=true)]
+        public bool? EnableHardwareEncryption { get; set; }
+
+        /// <summary>
+        /// Specifies whether or not to enable software encryption. If software encryption is enabled, all data on the Cluster will be encrypted. This can only be enabled at Cluster creation time and cannot be disabled later.
+        /// </summary>
+        /// <value>Specifies whether or not to enable software encryption. If software encryption is enabled, all data on the Cluster will be encrypted. This can only be enabled at Cluster creation time and cannot be disabled later.</value>
+        [DataMember(Name="enableSoftwareEncryption", EmitDefaultValue=true)]
+        public bool? EnableSoftwareEncryption { get; set; }
 
         /// <summary>
         /// Specifies the rotation period for encryption keys in days.
@@ -94,14 +102,19 @@ namespace Cohesity.Model
 
             return 
                 (
-                    this.EnableEncryption == input.EnableEncryption ||
-                    (this.EnableEncryption != null &&
-                    this.EnableEncryption.Equals(input.EnableEncryption))
-                ) && 
-                (
                     this.EnableFipsMode == input.EnableFipsMode ||
                     (this.EnableFipsMode != null &&
                     this.EnableFipsMode.Equals(input.EnableFipsMode))
+                ) && 
+                (
+                    this.EnableHardwareEncryption == input.EnableHardwareEncryption ||
+                    (this.EnableHardwareEncryption != null &&
+                    this.EnableHardwareEncryption.Equals(input.EnableHardwareEncryption))
+                ) && 
+                (
+                    this.EnableSoftwareEncryption == input.EnableSoftwareEncryption ||
+                    (this.EnableSoftwareEncryption != null &&
+                    this.EnableSoftwareEncryption.Equals(input.EnableSoftwareEncryption))
                 ) && 
                 (
                     this.RotationPeriod == input.RotationPeriod ||
@@ -119,10 +132,12 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                if (this.EnableEncryption != null)
-                    hashCode = hashCode * 59 + this.EnableEncryption.GetHashCode();
                 if (this.EnableFipsMode != null)
                     hashCode = hashCode * 59 + this.EnableFipsMode.GetHashCode();
+                if (this.EnableHardwareEncryption != null)
+                    hashCode = hashCode * 59 + this.EnableHardwareEncryption.GetHashCode();
+                if (this.EnableSoftwareEncryption != null)
+                    hashCode = hashCode * 59 + this.EnableSoftwareEncryption.GetHashCode();
                 if (this.RotationPeriod != null)
                     hashCode = hashCode * 59 + this.RotationPeriod.GetHashCode();
                 return hashCode;

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -25,17 +27,20 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="continuousSchedule">continuousSchedule.</param>
         /// <param name="dailySchedule">dailySchedule.</param>
+        /// <param name="dateSchedule">dateSchedule.</param>
         /// <param name="monthlySchedule">monthlySchedule.</param>
         /// <param name="periodicity">Determines how often the job should be run..</param>
         /// <param name="rpoSchedule">rpoSchedule.</param>
-        public SchedulingPolicyProto(SchedulingPolicyProtoContinuousSchedule continuousSchedule = default(SchedulingPolicyProtoContinuousSchedule), SchedulingPolicyProtoDailySchedule dailySchedule = default(SchedulingPolicyProtoDailySchedule), SchedulingPolicyProtoMonthlySchedule monthlySchedule = default(SchedulingPolicyProtoMonthlySchedule), int? periodicity = default(int?), SchedulingPolicyProtoRPOSchedule rpoSchedule = default(SchedulingPolicyProtoRPOSchedule))
+        /// <param name="yearlySchedule">yearlySchedule.</param>
+        public SchedulingPolicyProto(SchedulingPolicyProtoContinuousSchedule continuousSchedule = default(SchedulingPolicyProtoContinuousSchedule), SchedulingPolicyProtoDailySchedule dailySchedule = default(SchedulingPolicyProtoDailySchedule), SchedulingPolicyProtoDateSchedule dateSchedule = default(SchedulingPolicyProtoDateSchedule), SchedulingPolicyProtoMonthlySchedule monthlySchedule = default(SchedulingPolicyProtoMonthlySchedule), int? periodicity = default(int?), SchedulingPolicyProtoRPOSchedule rpoSchedule = default(SchedulingPolicyProtoRPOSchedule), SchedulingPolicyProtoYearlySchedule yearlySchedule = default(SchedulingPolicyProtoYearlySchedule))
         {
-            this.Periodicity = periodicity;
             this.ContinuousSchedule = continuousSchedule;
             this.DailySchedule = dailySchedule;
+            this.DateSchedule = dateSchedule;
             this.MonthlySchedule = monthlySchedule;
             this.Periodicity = periodicity;
             this.RpoSchedule = rpoSchedule;
+            this.YearlySchedule = yearlySchedule;
         }
         
         /// <summary>
@@ -49,6 +54,12 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="dailySchedule", EmitDefaultValue=false)]
         public SchedulingPolicyProtoDailySchedule DailySchedule { get; set; }
+
+        /// <summary>
+        /// Gets or Sets DateSchedule
+        /// </summary>
+        [DataMember(Name="dateSchedule", EmitDefaultValue=false)]
+        public SchedulingPolicyProtoDateSchedule DateSchedule { get; set; }
 
         /// <summary>
         /// Gets or Sets MonthlySchedule
@@ -68,6 +79,12 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="rpoSchedule", EmitDefaultValue=false)]
         public SchedulingPolicyProtoRPOSchedule RpoSchedule { get; set; }
+
+        /// <summary>
+        /// Gets or Sets YearlySchedule
+        /// </summary>
+        [DataMember(Name="yearlySchedule", EmitDefaultValue=false)]
+        public SchedulingPolicyProtoYearlySchedule YearlySchedule { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -116,6 +133,11 @@ namespace Cohesity.Model
                     this.DailySchedule.Equals(input.DailySchedule))
                 ) && 
                 (
+                    this.DateSchedule == input.DateSchedule ||
+                    (this.DateSchedule != null &&
+                    this.DateSchedule.Equals(input.DateSchedule))
+                ) && 
+                (
                     this.MonthlySchedule == input.MonthlySchedule ||
                     (this.MonthlySchedule != null &&
                     this.MonthlySchedule.Equals(input.MonthlySchedule))
@@ -129,6 +151,11 @@ namespace Cohesity.Model
                     this.RpoSchedule == input.RpoSchedule ||
                     (this.RpoSchedule != null &&
                     this.RpoSchedule.Equals(input.RpoSchedule))
+                ) && 
+                (
+                    this.YearlySchedule == input.YearlySchedule ||
+                    (this.YearlySchedule != null &&
+                    this.YearlySchedule.Equals(input.YearlySchedule))
                 );
         }
 
@@ -145,12 +172,16 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ContinuousSchedule.GetHashCode();
                 if (this.DailySchedule != null)
                     hashCode = hashCode * 59 + this.DailySchedule.GetHashCode();
+                if (this.DateSchedule != null)
+                    hashCode = hashCode * 59 + this.DateSchedule.GetHashCode();
                 if (this.MonthlySchedule != null)
                     hashCode = hashCode * 59 + this.MonthlySchedule.GetHashCode();
                 if (this.Periodicity != null)
                     hashCode = hashCode * 59 + this.Periodicity.GetHashCode();
                 if (this.RpoSchedule != null)
                     hashCode = hashCode * 59 + this.RpoSchedule.GetHashCode();
+                if (this.YearlySchedule != null)
+                    hashCode = hashCode * 59 + this.YearlySchedule.GetHashCode();
                 return hashCode;
             }
         }

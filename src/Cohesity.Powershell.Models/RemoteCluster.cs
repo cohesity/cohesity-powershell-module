@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -39,28 +41,12 @@ namespace Cohesity.Model
         /// <param name="purposeReplication">Whether the remote cluster will be used for replication..</param>
         /// <param name="remoteAccessCredentials">remoteAccessCredentials.</param>
         /// <param name="remoteIps">Array of Remote Node IP Addresses.  Specifies the IP addresses of the Nodes on the remote Cluster to connect with. These IP addresses can also be VIPS. Specifying hostnames is not supported..</param>
+        /// <param name="reverseRegisted">Specifies whether the Rx regiseter the Tx..</param>
         /// <param name="tenantId">Specifies the tenant Id of the organization that created this remote cluster configuration..</param>
         /// <param name="userName">Specifies the Cohesity user name used to connect to the remote Cluster..</param>
         /// <param name="viewBoxPairInfo">Array of Storage Domain (View Box) Pairs.  Specifies pairings between Storage Domains (View Boxes) on the local Cluster with Storage Domains (View Boxes) on a remote Cluster that are used in replication..</param>
-        public RemoteCluster(bool? allEndpointsReachable = default(bool?), bool? autoRegisterTarget = default(bool?), bool? autoRegistration = default(bool?), BandwidthLimit bandwidthLimit = default(BandwidthLimit), long? clusterId = default(long?), long? clusterIncarnationId = default(long?), bool? compressionEnabled = default(bool?), string description = default(string), string encryptionKey = default(string), List<string> localIps = default(List<string>), string name = default(string), string networkInterface = default(string), bool? purposeRemoteAccess = default(bool?), bool? purposeReplication = default(bool?), AccessTokenCredential remoteAccessCredentials = default(AccessTokenCredential), List<string> remoteIps = default(List<string>), string tenantId = default(string), string userName = default(string), List<ViewBoxPairInfo> viewBoxPairInfo = default(List<ViewBoxPairInfo>))
+        public RemoteCluster(bool? allEndpointsReachable = default(bool?), bool? autoRegisterTarget = default(bool?), bool? autoRegistration = default(bool?), BandwidthLimit bandwidthLimit = default(BandwidthLimit), long? clusterId = default(long?), long? clusterIncarnationId = default(long?), bool? compressionEnabled = default(bool?), string description = default(string), string encryptionKey = default(string), List<string> localIps = default(List<string>), string name = default(string), string networkInterface = default(string), bool? purposeRemoteAccess = default(bool?), bool? purposeReplication = default(bool?), AccessTokenCredential remoteAccessCredentials = default(AccessTokenCredential), List<string> remoteIps = default(List<string>), bool? reverseRegisted = default(bool?), string tenantId = default(string), string userName = default(string), List<ViewBoxPairInfo> viewBoxPairInfo = default(List<ViewBoxPairInfo>))
         {
-            this.AllEndpointsReachable = allEndpointsReachable;
-            this.AutoRegisterTarget = autoRegisterTarget;
-            this.AutoRegistration = autoRegistration;
-            this.ClusterId = clusterId;
-            this.ClusterIncarnationId = clusterIncarnationId;
-            this.CompressionEnabled = compressionEnabled;
-            this.Description = description;
-            this.EncryptionKey = encryptionKey;
-            this.LocalIps = localIps;
-            this.Name = name;
-            this.NetworkInterface = networkInterface;
-            this.PurposeRemoteAccess = purposeRemoteAccess;
-            this.PurposeReplication = purposeReplication;
-            this.RemoteIps = remoteIps;
-            this.TenantId = tenantId;
-            this.UserName = userName;
-            this.ViewBoxPairInfo = viewBoxPairInfo;
             this.AllEndpointsReachable = allEndpointsReachable;
             this.AutoRegisterTarget = autoRegisterTarget;
             this.AutoRegistration = autoRegistration;
@@ -77,6 +63,7 @@ namespace Cohesity.Model
             this.PurposeReplication = purposeReplication;
             this.RemoteAccessCredentials = remoteAccessCredentials;
             this.RemoteIps = remoteIps;
+            this.ReverseRegisted = reverseRegisted;
             this.TenantId = tenantId;
             this.UserName = userName;
             this.ViewBoxPairInfo = viewBoxPairInfo;
@@ -193,6 +180,13 @@ namespace Cohesity.Model
         public List<string> RemoteIps { get; set; }
 
         /// <summary>
+        /// Specifies whether the Rx regiseter the Tx.
+        /// </summary>
+        /// <value>Specifies whether the Rx regiseter the Tx.</value>
+        [DataMember(Name="reverseRegisted", EmitDefaultValue=true)]
+        public bool? ReverseRegisted { get; set; }
+
+        /// <summary>
         /// Specifies the tenant Id of the organization that created this remote cluster configuration.
         /// </summary>
         /// <value>Specifies the tenant Id of the organization that created this remote cluster configuration.</value>
@@ -298,7 +292,7 @@ namespace Cohesity.Model
                     this.LocalIps == input.LocalIps ||
                     this.LocalIps != null &&
                     input.LocalIps != null &&
-                    this.LocalIps.SequenceEqual(input.LocalIps)
+                    this.LocalIps.Equals(input.LocalIps)
                 ) && 
                 (
                     this.Name == input.Name ||
@@ -329,7 +323,12 @@ namespace Cohesity.Model
                     this.RemoteIps == input.RemoteIps ||
                     this.RemoteIps != null &&
                     input.RemoteIps != null &&
-                    this.RemoteIps.SequenceEqual(input.RemoteIps)
+                    this.RemoteIps.Equals(input.RemoteIps)
+                ) && 
+                (
+                    this.ReverseRegisted == input.ReverseRegisted ||
+                    (this.ReverseRegisted != null &&
+                    this.ReverseRegisted.Equals(input.ReverseRegisted))
                 ) && 
                 (
                     this.TenantId == input.TenantId ||
@@ -345,7 +344,7 @@ namespace Cohesity.Model
                     this.ViewBoxPairInfo == input.ViewBoxPairInfo ||
                     this.ViewBoxPairInfo != null &&
                     input.ViewBoxPairInfo != null &&
-                    this.ViewBoxPairInfo.SequenceEqual(input.ViewBoxPairInfo)
+                    this.ViewBoxPairInfo.Equals(input.ViewBoxPairInfo)
                 );
         }
 
@@ -390,6 +389,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.RemoteAccessCredentials.GetHashCode();
                 if (this.RemoteIps != null)
                     hashCode = hashCode * 59 + this.RemoteIps.GetHashCode();
+                if (this.ReverseRegisted != null)
+                    hashCode = hashCode * 59 + this.ReverseRegisted.GetHashCode();
                 if (this.TenantId != null)
                     hashCode = hashCode * 59 + this.TenantId.GetHashCode();
                 if (this.UserName != null)

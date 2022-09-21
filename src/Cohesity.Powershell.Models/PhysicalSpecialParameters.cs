@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -26,20 +28,17 @@ namespace Cohesity.Model
         /// <param name="applicationParameters">applicationParameters.</param>
         /// <param name="enableSystemBackup">Specifies whether to allow system backup using 3rd party tools installed on the Protection Host. System backups are used for doing bare metal recovery later. This field is applicable only for System backups..</param>
         /// <param name="filePaths">Array of File Paths to Back Up.  Specifies a list of directories or files to protect in a Physical Server..</param>
+        /// <param name="metadataFilePath">Specifies metadata path on source. This file contains absolute paths of files that needs to be backed up on the same source..</param>
         /// <param name="skipNestedVolumesVec">Specifies mounttypes of nested volumes to be skipped..</param>
         /// <param name="usesSkipNestedVolumesVec">Specifies whether to use SkipNestedVolumes vec to skip nested mounts..</param>
         /// <param name="volumeGuid">Array of Mounted Volumes to Back Up.  Specifies the subset of mounted volumes to protect in a Physical Server. If not specified, all mounted volumes on a Physical Server are protected..</param>
         /// <param name="windowsParameters">windowsParameters.</param>
-        public PhysicalSpecialParameters(ApplicationParameters applicationParameters = default(ApplicationParameters), bool? enableSystemBackup = default(bool?), List<FilePathParameters> filePaths = default(List<FilePathParameters>), List<string> skipNestedVolumesVec = default(List<string>), bool? usesSkipNestedVolumesVec = default(bool?), List<string> volumeGuid = default(List<string>), WindowsHostSnapshotParameters windowsParameters = default(WindowsHostSnapshotParameters))
+        public PhysicalSpecialParameters(ApplicationParameters applicationParameters = default(ApplicationParameters), bool? enableSystemBackup = default(bool?), List<FilePathParameters> filePaths = default(List<FilePathParameters>), string metadataFilePath = default(string), List<string> skipNestedVolumesVec = default(List<string>), bool? usesSkipNestedVolumesVec = default(bool?), List<string> volumeGuid = default(List<string>), WindowsHostSnapshotParameters windowsParameters = default(WindowsHostSnapshotParameters))
         {
-            this.EnableSystemBackup = enableSystemBackup;
-            this.FilePaths = filePaths;
-            this.SkipNestedVolumesVec = skipNestedVolumesVec;
-            this.UsesSkipNestedVolumesVec = usesSkipNestedVolumesVec;
-            this.VolumeGuid = volumeGuid;
             this.ApplicationParameters = applicationParameters;
             this.EnableSystemBackup = enableSystemBackup;
             this.FilePaths = filePaths;
+            this.MetadataFilePath = metadataFilePath;
             this.SkipNestedVolumesVec = skipNestedVolumesVec;
             this.UsesSkipNestedVolumesVec = usesSkipNestedVolumesVec;
             this.VolumeGuid = volumeGuid;
@@ -65,6 +64,13 @@ namespace Cohesity.Model
         /// <value>Array of File Paths to Back Up.  Specifies a list of directories or files to protect in a Physical Server.</value>
         [DataMember(Name="filePaths", EmitDefaultValue=true)]
         public List<FilePathParameters> FilePaths { get; set; }
+
+        /// <summary>
+        /// Specifies metadata path on source. This file contains absolute paths of files that needs to be backed up on the same source.
+        /// </summary>
+        /// <value>Specifies metadata path on source. This file contains absolute paths of files that needs to be backed up on the same source.</value>
+        [DataMember(Name="metadataFilePath", EmitDefaultValue=true)]
+        public string MetadataFilePath { get; set; }
 
         /// <summary>
         /// Specifies mounttypes of nested volumes to be skipped.
@@ -143,13 +149,18 @@ namespace Cohesity.Model
                     this.FilePaths == input.FilePaths ||
                     this.FilePaths != null &&
                     input.FilePaths != null &&
-                    this.FilePaths.SequenceEqual(input.FilePaths)
+                    this.FilePaths.Equals(input.FilePaths)
+                ) && 
+                (
+                    this.MetadataFilePath == input.MetadataFilePath ||
+                    (this.MetadataFilePath != null &&
+                    this.MetadataFilePath.Equals(input.MetadataFilePath))
                 ) && 
                 (
                     this.SkipNestedVolumesVec == input.SkipNestedVolumesVec ||
                     this.SkipNestedVolumesVec != null &&
                     input.SkipNestedVolumesVec != null &&
-                    this.SkipNestedVolumesVec.SequenceEqual(input.SkipNestedVolumesVec)
+                    this.SkipNestedVolumesVec.Equals(input.SkipNestedVolumesVec)
                 ) && 
                 (
                     this.UsesSkipNestedVolumesVec == input.UsesSkipNestedVolumesVec ||
@@ -160,7 +171,7 @@ namespace Cohesity.Model
                     this.VolumeGuid == input.VolumeGuid ||
                     this.VolumeGuid != null &&
                     input.VolumeGuid != null &&
-                    this.VolumeGuid.SequenceEqual(input.VolumeGuid)
+                    this.VolumeGuid.Equals(input.VolumeGuid)
                 ) && 
                 (
                     this.WindowsParameters == input.WindowsParameters ||
@@ -184,6 +195,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.EnableSystemBackup.GetHashCode();
                 if (this.FilePaths != null)
                     hashCode = hashCode * 59 + this.FilePaths.GetHashCode();
+                if (this.MetadataFilePath != null)
+                    hashCode = hashCode * 59 + this.MetadataFilePath.GetHashCode();
                 if (this.SkipNestedVolumesVec != null)
                     hashCode = hashCode * 59 + this.SkipNestedVolumesVec.GetHashCode();
                 if (this.UsesSkipNestedVolumesVec != null)

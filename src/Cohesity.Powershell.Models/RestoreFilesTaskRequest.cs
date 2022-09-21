@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -54,9 +56,9 @@ namespace Cohesity.Model
         [DataMember(Name="fileRecoveryMethod", EmitDefaultValue=true)]
         public FileRecoveryMethodEnum? FileRecoveryMethod { get; set; }
         /// <summary>
-        /// Specifies the target host types to be restored. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kOther&#39; indicates the other types of operating system.
+        /// Specifies the target host types to be restored. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kSapOracle&#39; indicates the Sap Oracle database system developed by SAP SE. &#39;kCockroachDB&#39; indicates the CockroachDB database system. &#39;kMySQL&#39; indicates the MySQL database system. &#39;kOther&#39; indicates the other types of operating system.
         /// </summary>
-        /// <value>Specifies the target host types to be restored. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kOther&#39; indicates the other types of operating system.</value>
+        /// <value>Specifies the target host types to be restored. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kSapOracle&#39; indicates the Sap Oracle database system developed by SAP SE. &#39;kCockroachDB&#39; indicates the CockroachDB database system. &#39;kMySQL&#39; indicates the MySQL database system. &#39;kOther&#39; indicates the other types of operating system.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum TargetHostTypeEnum
         {
@@ -91,17 +93,35 @@ namespace Cohesity.Model
             KSapHana = 5,
 
             /// <summary>
+            /// Enum KSapOracle for value: kSapOracle
+            /// </summary>
+            [EnumMember(Value = "kSapOracle")]
+            KSapOracle = 6,
+
+            /// <summary>
+            /// Enum KCockroachDB for value: kCockroachDB
+            /// </summary>
+            [EnumMember(Value = "kCockroachDB")]
+            KCockroachDB = 7,
+
+            /// <summary>
+            /// Enum KMySQL for value: kMySQL
+            /// </summary>
+            [EnumMember(Value = "kMySQL")]
+            KMySQL = 8,
+
+            /// <summary>
             /// Enum KOther for value: kOther
             /// </summary>
             [EnumMember(Value = "kOther")]
-            KOther = 6
+            KOther = 9
 
         }
 
         /// <summary>
-        /// Specifies the target host types to be restored. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kOther&#39; indicates the other types of operating system.
+        /// Specifies the target host types to be restored. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kSapOracle&#39; indicates the Sap Oracle database system developed by SAP SE. &#39;kCockroachDB&#39; indicates the CockroachDB database system. &#39;kMySQL&#39; indicates the MySQL database system. &#39;kOther&#39; indicates the other types of operating system.
         /// </summary>
-        /// <value>Specifies the target host types to be restored. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kOther&#39; indicates the other types of operating system.</value>
+        /// <value>Specifies the target host types to be restored. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kSapOracle&#39; indicates the Sap Oracle database system developed by SAP SE. &#39;kCockroachDB&#39; indicates the CockroachDB database system. &#39;kMySQL&#39; indicates the MySQL database system. &#39;kOther&#39; indicates the other types of operating system.</value>
         [DataMember(Name="targetHostType", EmitDefaultValue=true)]
         public TargetHostTypeEnum? TargetHostType { get; set; }
         /// <summary>
@@ -110,6 +130,7 @@ namespace Cohesity.Model
         /// <param name="continueOnError">Specifies if the Restore Task should continue even if the copy operation of some files and folders fails. If true, the Cohesity Cluster ignores intermittent errors and recovers as many files and folders as possible. If false, the Restore Task stops recovering when a copy operation fails..</param>
         /// <param name="fileRecoveryMethod">Specifies the type of method to be used to perform file recovery. &#39;kAutoDeploy&#39; indicates that file restore operation wiil be performed using an ephemeral agent. &#39;kUseExistingAgent&#39; indicates that file restore operation wiil be performed using an persistent agent. &#39;kUseHypervisorAPIs&#39; indicates that file restore operation wiil be performed using an hypervisor API&#39;s..</param>
         /// <param name="filenames">Array of Files or Folders.  Specifies the files and folders to recover from the snapshot..</param>
+        /// <param name="filterIpConfig">filterIpConfig.</param>
         /// <param name="isFileBasedVolumeRestore">Specifies whether this is a file based volume restore..</param>
         /// <param name="mountDisksOnVm">Sepcifies whether this will attach disks or mount disks on the VM side OR use Storage Proxy RPCs to stream data.</param>
         /// <param name="name">Specifies the name of the Restore Task. This field must be set and must be a unique name..</param>
@@ -119,33 +140,17 @@ namespace Cohesity.Model
         /// <param name="preserveAttributes">If true, the Restore Tasks preserves the original file and folder attributes. This is the default..</param>
         /// <param name="restoredFileInfoList">Specifies information regarding files and directories..</param>
         /// <param name="sourceObjectInfo">Specifies information about the source object (such as a VM) that contains the files and folders to recover. In addition, it contains information about the Protection Job and Job Run that captured the snapshot to recover from. To specify a particular snapshot, you must specify a jobRunId and a startTimeUsecs. If jobRunId and startTimeUsecs are not specified, the last Job Run of the specified Job is used..</param>
-        /// <param name="targetHostType">Specifies the target host types to be restored. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kOther&#39; indicates the other types of operating system..</param>
+        /// <param name="targetHostType">Specifies the target host types to be restored. &#39;kLinux&#39; indicates the Linux operating system. &#39;kWindows&#39; indicates the Microsoft Windows operating system. &#39;kAix&#39; indicates the IBM AIX operating system. &#39;kSolaris&#39; indicates the Oracle Solaris operating system. &#39;kSapHana&#39; indicates the Sap Hana database system developed by SAP SE. &#39;kSapOracle&#39; indicates the Sap Oracle database system developed by SAP SE. &#39;kCockroachDB&#39; indicates the CockroachDB database system. &#39;kMySQL&#39; indicates the MySQL database system. &#39;kOther&#39; indicates the other types of operating system..</param>
         /// <param name="targetParentSourceId">Specifies the registered source (such as a vCenter Server) that contains the target protection source (such as a VM) where the files and folders are recovered to. This field is not required for a Physical Server..</param>
         /// <param name="targetSourceId">Specifies the id of the target protection source (such as a VM) where the files and folders are recovered to..</param>
         /// <param name="useExistingAgent">Specifies whether this will use an existing agent on the target vm to do restore. Following field is deprecated and shall not be used. Please refer to the FileRecoveryMethod field for more information..</param>
         /// <param name="username">Specifies username to access the target source..</param>
-        public RestoreFilesTaskRequest(bool? continueOnError = default(bool?), FileRecoveryMethodEnum? fileRecoveryMethod = default(FileRecoveryMethodEnum?), List<string> filenames = default(List<string>), bool? isFileBasedVolumeRestore = default(bool?), bool? mountDisksOnVm = default(bool?), string name = default(string), string newBaseDirectory = default(string), bool? overwrite = default(bool?), string password = default(string), bool? preserveAttributes = default(bool?), List<RestoredFileInfoList> restoredFileInfoList = default(List<RestoredFileInfoList>), RestoreObjectDetails sourceObjectInfo = default(RestoreObjectDetails), TargetHostTypeEnum? targetHostType = default(TargetHostTypeEnum?), long? targetParentSourceId = default(long?), long? targetSourceId = default(long?), bool? useExistingAgent = default(bool?), string username = default(string))
+        public RestoreFilesTaskRequest(bool? continueOnError = default(bool?), FileRecoveryMethodEnum? fileRecoveryMethod = default(FileRecoveryMethodEnum?), List<string> filenames = default(List<string>), FilterIpConfig filterIpConfig = default(FilterIpConfig), bool? isFileBasedVolumeRestore = default(bool?), bool? mountDisksOnVm = default(bool?), string name = default(string), string newBaseDirectory = default(string), bool? overwrite = default(bool?), string password = default(string), bool? preserveAttributes = default(bool?), List<RestoredFileInfoList> restoredFileInfoList = default(List<RestoredFileInfoList>), RestoreObjectDetails sourceObjectInfo = default(RestoreObjectDetails), TargetHostTypeEnum? targetHostType = default(TargetHostTypeEnum?), long? targetParentSourceId = default(long?), long? targetSourceId = default(long?), bool? useExistingAgent = default(bool?), string username = default(string))
         {
             this.ContinueOnError = continueOnError;
             this.FileRecoveryMethod = fileRecoveryMethod;
             this.Filenames = filenames;
-            this.IsFileBasedVolumeRestore = isFileBasedVolumeRestore;
-            this.MountDisksOnVm = mountDisksOnVm;
-            this.Name = name;
-            this.NewBaseDirectory = newBaseDirectory;
-            this.Overwrite = overwrite;
-            this.Password = password;
-            this.PreserveAttributes = preserveAttributes;
-            this.RestoredFileInfoList = restoredFileInfoList;
-            this.SourceObjectInfo = sourceObjectInfo;
-            this.TargetHostType = targetHostType;
-            this.TargetParentSourceId = targetParentSourceId;
-            this.TargetSourceId = targetSourceId;
-            this.UseExistingAgent = useExistingAgent;
-            this.Username = username;
-            this.ContinueOnError = continueOnError;
-            this.FileRecoveryMethod = fileRecoveryMethod;
-            this.Filenames = filenames;
+            this.FilterIpConfig = filterIpConfig;
             this.IsFileBasedVolumeRestore = isFileBasedVolumeRestore;
             this.MountDisksOnVm = mountDisksOnVm;
             this.Name = name;
@@ -175,6 +180,12 @@ namespace Cohesity.Model
         /// <value>Array of Files or Folders.  Specifies the files and folders to recover from the snapshot.</value>
         [DataMember(Name="filenames", EmitDefaultValue=true)]
         public List<string> Filenames { get; set; }
+
+        /// <summary>
+        /// Gets or Sets FilterIpConfig
+        /// </summary>
+        [DataMember(Name="filterIpConfig", EmitDefaultValue=false)]
+        public FilterIpConfig FilterIpConfig { get; set; }
 
         /// <summary>
         /// Specifies whether this is a file based volume restore.
@@ -316,7 +327,12 @@ namespace Cohesity.Model
                     this.Filenames == input.Filenames ||
                     this.Filenames != null &&
                     input.Filenames != null &&
-                    this.Filenames.SequenceEqual(input.Filenames)
+                    this.Filenames.Equals(input.Filenames)
+                ) && 
+                (
+                    this.FilterIpConfig == input.FilterIpConfig ||
+                    (this.FilterIpConfig != null &&
+                    this.FilterIpConfig.Equals(input.FilterIpConfig))
                 ) && 
                 (
                     this.IsFileBasedVolumeRestore == input.IsFileBasedVolumeRestore ||
@@ -357,7 +373,7 @@ namespace Cohesity.Model
                     this.RestoredFileInfoList == input.RestoredFileInfoList ||
                     this.RestoredFileInfoList != null &&
                     input.RestoredFileInfoList != null &&
-                    this.RestoredFileInfoList.SequenceEqual(input.RestoredFileInfoList)
+                    this.RestoredFileInfoList.Equals(input.RestoredFileInfoList)
                 ) && 
                 (
                     this.SourceObjectInfo == input.SourceObjectInfo ||
@@ -404,6 +420,8 @@ namespace Cohesity.Model
                 hashCode = hashCode * 59 + this.FileRecoveryMethod.GetHashCode();
                 if (this.Filenames != null)
                     hashCode = hashCode * 59 + this.Filenames.GetHashCode();
+                if (this.FilterIpConfig != null)
+                    hashCode = hashCode * 59 + this.FilterIpConfig.GetHashCode();
                 if (this.IsFileBasedVolumeRestore != null)
                     hashCode = hashCode * 59 + this.IsFileBasedVolumeRestore.GetHashCode();
                 if (this.MountDisksOnVm != null)

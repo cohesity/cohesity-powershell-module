@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -29,19 +31,18 @@ namespace Cohesity.Model
         /// <param name="parentJobUid">Specifies the unique id of the parent Job/task that spawned the indexing and Snapshot restore tasks..</param>
         /// <param name="remoteProtectionJobInformation">remoteProtectionJobInformation.</param>
         /// <param name="searchJobUid">Specifies the unique id of the search Job that searched the remote Vault..</param>
-        public RemoteVaultRestoreTaskStatus(RemoteRestoreIndexingStatus currentIndexingStatus = default(RemoteRestoreIndexingStatus), RemoteRestoreSnapshotStatus currentSnapshotStatus = default(RemoteRestoreSnapshotStatus), UniversalId localProtectionJobUid = default(UniversalId), UniversalId parentJobUid = default(UniversalId), RemoteProtectionJobInformation remoteProtectionJobInformation = default(RemoteProtectionJobInformation), UniversalId searchJobUid = default(UniversalId))
+        /// <param name="vaultId">Vault Id  Specifies the Id of the vault from which the restore is going on..</param>
+        /// <param name="vaultName">Vault Name  Specifies the name of the vault from which the restore is going on..</param>
+        public RemoteVaultRestoreTaskStatus(RemoteRestoreIndexingStatus currentIndexingStatus = default(RemoteRestoreIndexingStatus), RemoteRestoreSnapshotStatus currentSnapshotStatus = default(RemoteRestoreSnapshotStatus), UniversalId localProtectionJobUid = default(UniversalId), UniversalId parentJobUid = default(UniversalId), RemoteProtectionJobInformation remoteProtectionJobInformation = default(RemoteProtectionJobInformation), UniversalId searchJobUid = default(UniversalId), long? vaultId = default(long?), string vaultName = default(string))
         {
-            this.CurrentIndexingStatus = currentIndexingStatus;
-            this.CurrentSnapshotStatus = currentSnapshotStatus;
-            this.LocalProtectionJobUid = localProtectionJobUid;
-            this.ParentJobUid = parentJobUid;
-            this.SearchJobUid = searchJobUid;
             this.CurrentIndexingStatus = currentIndexingStatus;
             this.CurrentSnapshotStatus = currentSnapshotStatus;
             this.LocalProtectionJobUid = localProtectionJobUid;
             this.ParentJobUid = parentJobUid;
             this.RemoteProtectionJobInformation = remoteProtectionJobInformation;
             this.SearchJobUid = searchJobUid;
+            this.VaultId = vaultId;
+            this.VaultName = vaultName;
         }
         
         /// <summary>
@@ -84,6 +85,20 @@ namespace Cohesity.Model
         /// <value>Specifies the unique id of the search Job that searched the remote Vault.</value>
         [DataMember(Name="searchJobUid", EmitDefaultValue=true)]
         public UniversalId SearchJobUid { get; set; }
+
+        /// <summary>
+        /// Vault Id  Specifies the Id of the vault from which the restore is going on.
+        /// </summary>
+        /// <value>Vault Id  Specifies the Id of the vault from which the restore is going on.</value>
+        [DataMember(Name="vaultId", EmitDefaultValue=true)]
+        public long? VaultId { get; set; }
+
+        /// <summary>
+        /// Vault Name  Specifies the name of the vault from which the restore is going on.
+        /// </summary>
+        /// <value>Vault Name  Specifies the name of the vault from which the restore is going on.</value>
+        [DataMember(Name="vaultName", EmitDefaultValue=true)]
+        public string VaultName { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -150,6 +165,16 @@ namespace Cohesity.Model
                     this.SearchJobUid == input.SearchJobUid ||
                     (this.SearchJobUid != null &&
                     this.SearchJobUid.Equals(input.SearchJobUid))
+                ) && 
+                (
+                    this.VaultId == input.VaultId ||
+                    (this.VaultId != null &&
+                    this.VaultId.Equals(input.VaultId))
+                ) && 
+                (
+                    this.VaultName == input.VaultName ||
+                    (this.VaultName != null &&
+                    this.VaultName.Equals(input.VaultName))
                 );
         }
 
@@ -174,6 +199,10 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.RemoteProtectionJobInformation.GetHashCode();
                 if (this.SearchJobUid != null)
                     hashCode = hashCode * 59 + this.SearchJobUid.GetHashCode();
+                if (this.VaultId != null)
+                    hashCode = hashCode * 59 + this.VaultId.GetHashCode();
+                if (this.VaultName != null)
+                    hashCode = hashCode * 59 + this.VaultName.GetHashCode();
                 return hashCode;
             }
         }

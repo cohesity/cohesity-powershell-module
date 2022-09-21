@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -176,6 +178,45 @@ namespace Cohesity.Model
         /// <value>Specifies the list of perferred storage tiers used by Athena for slower storage.</value>
         [DataMember(Name="athenaSlowerIOPreferentialTier", EmitDefaultValue=false)]
         public List<AthenaSlowerIOPreferentialTierEnum> AthenaSlowerIOPreferentialTier { get; set; }
+        /// <summary>
+        /// Defines CloudChunkRepoIOPreferentialTier
+        /// </summary>
+        [JsonConverter(typeof(StringEnumConverter))]
+        public enum CloudChunkRepoIOPreferentialTierEnum
+        {
+            /// <summary>
+            /// Enum KPcieSsd for value: kPcieSsd
+            /// </summary>
+            [EnumMember(Value = "kPcieSsd")]
+            KPcieSsd = 1,
+
+            /// <summary>
+            /// Enum KSataSsd for value: kSataSsd
+            /// </summary>
+            [EnumMember(Value = "kSataSsd")]
+            KSataSsd = 2,
+
+            /// <summary>
+            /// Enum KSataHdd for value: kSataHdd
+            /// </summary>
+            [EnumMember(Value = "kSataHdd")]
+            KSataHdd = 3,
+
+            /// <summary>
+            /// Enum KCloud for value: kCloud
+            /// </summary>
+            [EnumMember(Value = "kCloud")]
+            KCloud = 4
+
+        }
+
+
+        /// <summary>
+        /// Specifies the list of perferred storage tiers used by cloud chunk repository.
+        /// </summary>
+        /// <value>Specifies the list of perferred storage tiers used by cloud chunk repository.</value>
+        [DataMember(Name="cloudChunkRepoIOPreferentialTier", EmitDefaultValue=false)]
+        public List<CloudChunkRepoIOPreferentialTierEnum> CloudChunkRepoIOPreferentialTier { get; set; }
         /// <summary>
         /// Defines GrootIOPreferentialTier
         /// </summary>
@@ -495,6 +536,7 @@ namespace Cohesity.Model
         /// <param name="apolloWalIOPreferentialTier">Specifies the preferred storage tier used by Apollo as its actions WAL..</param>
         /// <param name="athenaIOPreferentialTier">Specifies the list of perferred storage tiers used by Athena..</param>
         /// <param name="athenaSlowerIOPreferentialTier">Specifies the list of perferred storage tiers used by Athena for slower storage..</param>
+        /// <param name="cloudChunkRepoIOPreferentialTier">Specifies the list of perferred storage tiers used by cloud chunk repository..</param>
         /// <param name="downTierUsagePercentThresholds">Specifies the usage percentage thresholds for the correponding storage tier..</param>
         /// <param name="grootIOPreferentialTier">Specifies the preferred storage tier used by Groot as its working directory..</param>
         /// <param name="hydraDowntierIOPreferentialTier">Specifies the list of perferred storage tiers used by Hydra for offloading..</param>
@@ -504,12 +546,13 @@ namespace Cohesity.Model
         /// <param name="scribeIOPreferentialTier">Specifies the list of perferred storage tiers used by Scribe..</param>
         /// <param name="sequentialIOPreferentialTier">Specifies the preferred storage tier for sequential IO operations..</param>
         /// <param name="yodaIOPreferentialTier">Specifies the list of perferred storage tiers used by Yoda..</param>
-        public IoPreferentialTier(List<ApolloIOPreferentialTierEnum> apolloIOPreferentialTier = default(List<ApolloIOPreferentialTierEnum>), List<ApolloWalIOPreferentialTierEnum> apolloWalIOPreferentialTier = default(List<ApolloWalIOPreferentialTierEnum>), List<AthenaIOPreferentialTierEnum> athenaIOPreferentialTier = default(List<AthenaIOPreferentialTierEnum>), List<AthenaSlowerIOPreferentialTierEnum> athenaSlowerIOPreferentialTier = default(List<AthenaSlowerIOPreferentialTierEnum>), List<int> downTierUsagePercentThresholds = default(List<int>), List<GrootIOPreferentialTierEnum> grootIOPreferentialTier = default(List<GrootIOPreferentialTierEnum>), List<HydraDowntierIOPreferentialTierEnum> hydraDowntierIOPreferentialTier = default(List<HydraDowntierIOPreferentialTierEnum>), List<HydraIOPreferentialTierEnum> hydraIOPreferentialTier = default(List<HydraIOPreferentialTierEnum>), List<LibrarianIOPreferentialTierEnum> librarianIOPreferentialTier = default(List<LibrarianIOPreferentialTierEnum>), List<RandomIOPreferentialTierEnum> randomIOPreferentialTier = default(List<RandomIOPreferentialTierEnum>), List<ScribeIOPreferentialTierEnum> scribeIOPreferentialTier = default(List<ScribeIOPreferentialTierEnum>), List<SequentialIOPreferentialTierEnum> sequentialIOPreferentialTier = default(List<SequentialIOPreferentialTierEnum>), List<YodaIOPreferentialTierEnum> yodaIOPreferentialTier = default(List<YodaIOPreferentialTierEnum>))
+        public IoPreferentialTier(List<ApolloIOPreferentialTierEnum> apolloIOPreferentialTier = default(List<ApolloIOPreferentialTierEnum>), List<ApolloWalIOPreferentialTierEnum> apolloWalIOPreferentialTier = default(List<ApolloWalIOPreferentialTierEnum>), List<AthenaIOPreferentialTierEnum> athenaIOPreferentialTier = default(List<AthenaIOPreferentialTierEnum>), List<AthenaSlowerIOPreferentialTierEnum> athenaSlowerIOPreferentialTier = default(List<AthenaSlowerIOPreferentialTierEnum>), List<CloudChunkRepoIOPreferentialTierEnum> cloudChunkRepoIOPreferentialTier = default(List<CloudChunkRepoIOPreferentialTierEnum>), List<int> downTierUsagePercentThresholds = default(List<int>), List<GrootIOPreferentialTierEnum> grootIOPreferentialTier = default(List<GrootIOPreferentialTierEnum>), List<HydraDowntierIOPreferentialTierEnum> hydraDowntierIOPreferentialTier = default(List<HydraDowntierIOPreferentialTierEnum>), List<HydraIOPreferentialTierEnum> hydraIOPreferentialTier = default(List<HydraIOPreferentialTierEnum>), List<LibrarianIOPreferentialTierEnum> librarianIOPreferentialTier = default(List<LibrarianIOPreferentialTierEnum>), List<RandomIOPreferentialTierEnum> randomIOPreferentialTier = default(List<RandomIOPreferentialTierEnum>), List<ScribeIOPreferentialTierEnum> scribeIOPreferentialTier = default(List<ScribeIOPreferentialTierEnum>), List<SequentialIOPreferentialTierEnum> sequentialIOPreferentialTier = default(List<SequentialIOPreferentialTierEnum>), List<YodaIOPreferentialTierEnum> yodaIOPreferentialTier = default(List<YodaIOPreferentialTierEnum>))
         {
             this.ApolloIOPreferentialTier = apolloIOPreferentialTier;
             this.ApolloWalIOPreferentialTier = apolloWalIOPreferentialTier;
             this.AthenaIOPreferentialTier = athenaIOPreferentialTier;
             this.AthenaSlowerIOPreferentialTier = athenaSlowerIOPreferentialTier;
+            this.CloudChunkRepoIOPreferentialTier = cloudChunkRepoIOPreferentialTier;
             this.DownTierUsagePercentThresholds = downTierUsagePercentThresholds;
             this.GrootIOPreferentialTier = grootIOPreferentialTier;
             this.HydraDowntierIOPreferentialTier = hydraDowntierIOPreferentialTier;
@@ -566,57 +609,61 @@ namespace Cohesity.Model
             return 
                 (
                     this.ApolloIOPreferentialTier == input.ApolloIOPreferentialTier ||
-                    this.ApolloIOPreferentialTier.SequenceEqual(input.ApolloIOPreferentialTier)
+                    this.ApolloIOPreferentialTier.Equals(input.ApolloIOPreferentialTier)
                 ) && 
                 (
                     this.ApolloWalIOPreferentialTier == input.ApolloWalIOPreferentialTier ||
-                    this.ApolloWalIOPreferentialTier.SequenceEqual(input.ApolloWalIOPreferentialTier)
+                    this.ApolloWalIOPreferentialTier.Equals(input.ApolloWalIOPreferentialTier)
                 ) && 
                 (
                     this.AthenaIOPreferentialTier == input.AthenaIOPreferentialTier ||
-                    this.AthenaIOPreferentialTier.SequenceEqual(input.AthenaIOPreferentialTier)
+                    this.AthenaIOPreferentialTier.Equals(input.AthenaIOPreferentialTier)
                 ) && 
                 (
                     this.AthenaSlowerIOPreferentialTier == input.AthenaSlowerIOPreferentialTier ||
-                    this.AthenaSlowerIOPreferentialTier.SequenceEqual(input.AthenaSlowerIOPreferentialTier)
+                    this.AthenaSlowerIOPreferentialTier.Equals(input.AthenaSlowerIOPreferentialTier)
+                ) && 
+                (
+                    this.CloudChunkRepoIOPreferentialTier == input.CloudChunkRepoIOPreferentialTier ||
+                    this.CloudChunkRepoIOPreferentialTier.Equals(input.CloudChunkRepoIOPreferentialTier)
                 ) && 
                 (
                     this.DownTierUsagePercentThresholds == input.DownTierUsagePercentThresholds ||
                     this.DownTierUsagePercentThresholds != null &&
                     input.DownTierUsagePercentThresholds != null &&
-                    this.DownTierUsagePercentThresholds.SequenceEqual(input.DownTierUsagePercentThresholds)
+                    this.DownTierUsagePercentThresholds.Equals(input.DownTierUsagePercentThresholds)
                 ) && 
                 (
                     this.GrootIOPreferentialTier == input.GrootIOPreferentialTier ||
-                    this.GrootIOPreferentialTier.SequenceEqual(input.GrootIOPreferentialTier)
+                    this.GrootIOPreferentialTier.Equals(input.GrootIOPreferentialTier)
                 ) && 
                 (
                     this.HydraDowntierIOPreferentialTier == input.HydraDowntierIOPreferentialTier ||
-                    this.HydraDowntierIOPreferentialTier.SequenceEqual(input.HydraDowntierIOPreferentialTier)
+                    this.HydraDowntierIOPreferentialTier.Equals(input.HydraDowntierIOPreferentialTier)
                 ) && 
                 (
                     this.HydraIOPreferentialTier == input.HydraIOPreferentialTier ||
-                    this.HydraIOPreferentialTier.SequenceEqual(input.HydraIOPreferentialTier)
+                    this.HydraIOPreferentialTier.Equals(input.HydraIOPreferentialTier)
                 ) && 
                 (
                     this.LibrarianIOPreferentialTier == input.LibrarianIOPreferentialTier ||
-                    this.LibrarianIOPreferentialTier.SequenceEqual(input.LibrarianIOPreferentialTier)
+                    this.LibrarianIOPreferentialTier.Equals(input.LibrarianIOPreferentialTier)
                 ) && 
                 (
                     this.RandomIOPreferentialTier == input.RandomIOPreferentialTier ||
-                    this.RandomIOPreferentialTier.SequenceEqual(input.RandomIOPreferentialTier)
+                    this.RandomIOPreferentialTier.Equals(input.RandomIOPreferentialTier)
                 ) && 
                 (
                     this.ScribeIOPreferentialTier == input.ScribeIOPreferentialTier ||
-                    this.ScribeIOPreferentialTier.SequenceEqual(input.ScribeIOPreferentialTier)
+                    this.ScribeIOPreferentialTier.Equals(input.ScribeIOPreferentialTier)
                 ) && 
                 (
                     this.SequentialIOPreferentialTier == input.SequentialIOPreferentialTier ||
-                    this.SequentialIOPreferentialTier.SequenceEqual(input.SequentialIOPreferentialTier)
+                    this.SequentialIOPreferentialTier.Equals(input.SequentialIOPreferentialTier)
                 ) && 
                 (
                     this.YodaIOPreferentialTier == input.YodaIOPreferentialTier ||
-                    this.YodaIOPreferentialTier.SequenceEqual(input.YodaIOPreferentialTier)
+                    this.YodaIOPreferentialTier.Equals(input.YodaIOPreferentialTier)
                 );
         }
 
@@ -633,6 +680,7 @@ namespace Cohesity.Model
                 hashCode = hashCode * 59 + this.ApolloWalIOPreferentialTier.GetHashCode();
                 hashCode = hashCode * 59 + this.AthenaIOPreferentialTier.GetHashCode();
                 hashCode = hashCode * 59 + this.AthenaSlowerIOPreferentialTier.GetHashCode();
+                hashCode = hashCode * 59 + this.CloudChunkRepoIOPreferentialTier.GetHashCode();
                 if (this.DownTierUsagePercentThresholds != null)
                     hashCode = hashCode * 59 + this.DownTierUsagePercentThresholds.GetHashCode();
                 hashCode = hashCode * 59 + this.GrootIOPreferentialTier.GetHashCode();

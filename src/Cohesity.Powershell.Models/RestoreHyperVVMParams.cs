@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -29,16 +31,17 @@ namespace Cohesity.Model
         /// <param name="renameRestoredObjectParam">renameRestoredObjectParam.</param>
         /// <param name="resourceEntity">resourceEntity.</param>
         /// <param name="restoredObjectsNetworkConfig">restoredObjectsNetworkConfig.</param>
+        /// <param name="useSmbService">Whether to recover via Cohesity SMB service..</param>
         /// <param name="uuidConfig">uuidConfig.</param>
-        public RestoreHyperVVMParams(bool? copyRecovery = default(bool?), EntityProto datastoreEntity = default(EntityProto), PowerStateConfigProto powerStateConfig = default(PowerStateConfigProto), RenameObjectParamProto renameRestoredObjectParam = default(RenameObjectParamProto), EntityProto resourceEntity = default(EntityProto), RestoredObjectNetworkConfigProto restoredObjectsNetworkConfig = default(RestoredObjectNetworkConfigProto), UuidConfigProto uuidConfig = default(UuidConfigProto))
+        public RestoreHyperVVMParams(bool? copyRecovery = default(bool?), EntityProto datastoreEntity = default(EntityProto), PowerStateConfigProto powerStateConfig = default(PowerStateConfigProto), RenameObjectParamProto renameRestoredObjectParam = default(RenameObjectParamProto), EntityProto resourceEntity = default(EntityProto), RestoredObjectNetworkConfigProto restoredObjectsNetworkConfig = default(RestoredObjectNetworkConfigProto), bool? useSmbService = default(bool?), UuidConfigProto uuidConfig = default(UuidConfigProto))
         {
-            this.CopyRecovery = copyRecovery;
             this.CopyRecovery = copyRecovery;
             this.DatastoreEntity = datastoreEntity;
             this.PowerStateConfig = powerStateConfig;
             this.RenameRestoredObjectParam = renameRestoredObjectParam;
             this.ResourceEntity = resourceEntity;
             this.RestoredObjectsNetworkConfig = restoredObjectsNetworkConfig;
+            this.UseSmbService = useSmbService;
             this.UuidConfig = uuidConfig;
         }
         
@@ -78,6 +81,13 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="restoredObjectsNetworkConfig", EmitDefaultValue=false)]
         public RestoredObjectNetworkConfigProto RestoredObjectsNetworkConfig { get; set; }
+
+        /// <summary>
+        /// Whether to recover via Cohesity SMB service.
+        /// </summary>
+        /// <value>Whether to recover via Cohesity SMB service.</value>
+        [DataMember(Name="useSmbService", EmitDefaultValue=true)]
+        public bool? UseSmbService { get; set; }
 
         /// <summary>
         /// Gets or Sets UuidConfig
@@ -152,6 +162,11 @@ namespace Cohesity.Model
                     this.RestoredObjectsNetworkConfig.Equals(input.RestoredObjectsNetworkConfig))
                 ) && 
                 (
+                    this.UseSmbService == input.UseSmbService ||
+                    (this.UseSmbService != null &&
+                    this.UseSmbService.Equals(input.UseSmbService))
+                ) && 
+                (
                     this.UuidConfig == input.UuidConfig ||
                     (this.UuidConfig != null &&
                     this.UuidConfig.Equals(input.UuidConfig))
@@ -179,6 +194,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ResourceEntity.GetHashCode();
                 if (this.RestoredObjectsNetworkConfig != null)
                     hashCode = hashCode * 59 + this.RestoredObjectsNetworkConfig.GetHashCode();
+                if (this.UseSmbService != null)
+                    hashCode = hashCode * 59 + this.UseSmbService.GetHashCode();
                 if (this.UuidConfig != null)
                     hashCode = hashCode * 59 + this.UuidConfig.GetHashCode();
                 return hashCode;

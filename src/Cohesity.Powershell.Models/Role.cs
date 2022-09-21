@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -34,15 +36,6 @@ namespace Cohesity.Model
         /// <param name="tenantIds">Specifies id of tenants using this role..</param>
         public Role(long? createdTimeMsecs = default(long?), string description = default(string), bool? isCustomRole = default(bool?), string label = default(string), long? lastUpdatedTimeMsecs = default(long?), string name = default(string), List<string> privileges = default(List<string>), string tenantId = default(string), List<string> tenantIds = default(List<string>))
         {
-            this.CreatedTimeMsecs = createdTimeMsecs;
-            this.Description = description;
-            this.IsCustomRole = isCustomRole;
-            this.Label = label;
-            this.LastUpdatedTimeMsecs = lastUpdatedTimeMsecs;
-            this.Name = name;
-            this.Privileges = privileges;
-            this.TenantId = tenantId;
-            this.TenantIds = tenantIds;
             this.CreatedTimeMsecs = createdTimeMsecs;
             this.Description = description;
             this.IsCustomRole = isCustomRole;
@@ -187,7 +180,7 @@ namespace Cohesity.Model
                     this.Privileges == input.Privileges ||
                     this.Privileges != null &&
                     input.Privileges != null &&
-                    this.Privileges.SequenceEqual(input.Privileges)
+                    this.Privileges.Equals(input.Privileges)
                 ) && 
                 (
                     this.TenantId == input.TenantId ||
@@ -198,7 +191,7 @@ namespace Cohesity.Model
                     this.TenantIds == input.TenantIds ||
                     this.TenantIds != null &&
                     input.TenantIds != null &&
-                    this.TenantIds.SequenceEqual(input.TenantIds)
+                    this.TenantIds.Equals(input.TenantIds)
                 );
         }
 

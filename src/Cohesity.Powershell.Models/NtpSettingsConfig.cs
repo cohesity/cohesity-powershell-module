@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -12,6 +13,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
+
 namespace Cohesity.Model
 {
     /// <summary>
@@ -23,13 +25,21 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="NtpSettingsConfig" /> class.
         /// </summary>
+        /// <param name="ntpAuthenticationEnabled">Flag to specify if the cluster is using NTP with authentication..</param>
         /// <param name="ntpServersInternal">Flag to specify if the NTP servers are on internal network or not..</param>
-        public NtpSettingsConfig(bool? ntpServersInternal = default(bool?))
+        public NtpSettingsConfig(bool? ntpAuthenticationEnabled = default(bool?), bool? ntpServersInternal = default(bool?))
         {
-            this.NtpServersInternal = ntpServersInternal;
+            this.NtpAuthenticationEnabled = ntpAuthenticationEnabled;
             this.NtpServersInternal = ntpServersInternal;
         }
         
+        /// <summary>
+        /// Flag to specify if the cluster is using NTP with authentication.
+        /// </summary>
+        /// <value>Flag to specify if the cluster is using NTP with authentication.</value>
+        [DataMember(Name="ntpAuthenticationEnabled", EmitDefaultValue=true)]
+        public bool? NtpAuthenticationEnabled { get; set; }
+
         /// <summary>
         /// Flag to specify if the NTP servers are on internal network or not.
         /// </summary>
@@ -74,6 +84,11 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.NtpAuthenticationEnabled == input.NtpAuthenticationEnabled ||
+                    (this.NtpAuthenticationEnabled != null &&
+                    this.NtpAuthenticationEnabled.Equals(input.NtpAuthenticationEnabled))
+                ) && 
+                (
                     this.NtpServersInternal == input.NtpServersInternal ||
                     (this.NtpServersInternal != null &&
                     this.NtpServersInternal.Equals(input.NtpServersInternal))
@@ -89,6 +104,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.NtpAuthenticationEnabled != null)
+                    hashCode = hashCode * 59 + this.NtpAuthenticationEnabled.GetHashCode();
                 if (this.NtpServersInternal != null)
                     hashCode = hashCode * 59 + this.NtpServersInternal.GetHashCode();
                 return hashCode;

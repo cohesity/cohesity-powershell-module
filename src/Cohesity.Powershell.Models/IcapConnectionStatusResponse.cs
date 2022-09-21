@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -87,13 +89,13 @@ namespace Cohesity.Model
                     this.FailedConnectionStatus == input.FailedConnectionStatus ||
                     this.FailedConnectionStatus != null &&
                     input.FailedConnectionStatus != null &&
-                    this.FailedConnectionStatus.SequenceEqual(input.FailedConnectionStatus)
+                    this.FailedConnectionStatus.Equals(input.FailedConnectionStatus)
                 ) && 
                 (
                     this.SucceededConnectionStatus == input.SucceededConnectionStatus ||
                     this.SucceededConnectionStatus != null &&
                     input.SucceededConnectionStatus != null &&
-                    this.SucceededConnectionStatus.SequenceEqual(input.SucceededConnectionStatus)
+                    this.SucceededConnectionStatus.Equals(input.SucceededConnectionStatus)
                 );
         }
 

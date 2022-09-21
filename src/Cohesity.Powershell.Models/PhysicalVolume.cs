@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -227,7 +229,7 @@ namespace Cohesity.Model
                     this.MountPoints == input.MountPoints ||
                     this.MountPoints != null &&
                     input.MountPoints != null &&
-                    this.MountPoints.SequenceEqual(input.MountPoints)
+                    this.MountPoints.Equals(input.MountPoints)
                 ) && 
                 (
                     this.MountType == input.MountType ||

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -28,7 +30,7 @@ namespace Cohesity.Model
         /// <param name="flushIntervalSecs">Defines the interval used to flush in memory stats to scribe table. During this time if the stats server is down before flushing, it could loose some of the stats. Modules can flush any critical stats via AddEntitiesStats API. But this  should be used very judiciously as it causes lot of overhead for stats..</param>
         /// <param name="isInternalSchema">Specifies if this schema should be displayed in Advanced Diagnostics of the Cohesity Dashboard. If false, the schema is displayed..</param>
         /// <param name="largestFlushIntervalSecs">Use can change the flush interval secs via gflag and this store the largest interval seconds set. This is used to round up the timestamp to this flush interval secs during range scan..</param>
-        /// <param name="name">Specifies a name that uniquely identifies an entity schema such as &#39;kBridgeClusterStats&#39;..</param>
+        /// <param name="name">Specifies a name that uniquely identifies an entity schema such as &#39;kBridgeClusterStats&#39;. Name cannot have &#39;:&#39; as character..</param>
         /// <param name="rollupGranularityVec">rollupGranularityVec.</param>
         /// <param name="schemaDescriptiveName">Specifies the name of the Schema as displayed in Advanced Diagnostics of the Cohesity Dashboard. For example for the &#39;kBridgeClusterStats&#39; Schema, the descriptive name is &#39;Cluster Physical Stats&#39;..</param>
         /// <param name="schemaHelpText">Specifies an optional informational description about the schema..</param>
@@ -97,9 +99,9 @@ namespace Cohesity.Model
         public int? LargestFlushIntervalSecs { get; set; }
 
         /// <summary>
-        /// Specifies a name that uniquely identifies an entity schema such as &#39;kBridgeClusterStats&#39;.
+        /// Specifies a name that uniquely identifies an entity schema such as &#39;kBridgeClusterStats&#39;. Name cannot have &#39;:&#39; as character.
         /// </summary>
-        /// <value>Specifies a name that uniquely identifies an entity schema such as &#39;kBridgeClusterStats&#39;.</value>
+        /// <value>Specifies a name that uniquely identifies an entity schema such as &#39;kBridgeClusterStats&#39;. Name cannot have &#39;:&#39; as character.</value>
         [DataMember(Name="name", EmitDefaultValue=true)]
         public string Name { get; set; }
 
@@ -214,7 +216,7 @@ namespace Cohesity.Model
                     this.RollupGranularityVec == input.RollupGranularityVec ||
                     this.RollupGranularityVec != null &&
                     input.RollupGranularityVec != null &&
-                    this.RollupGranularityVec.SequenceEqual(input.RollupGranularityVec)
+                    this.RollupGranularityVec.Equals(input.RollupGranularityVec)
                 ) && 
                 (
                     this.SchemaDescriptiveName == input.SchemaDescriptiveName ||
@@ -230,7 +232,7 @@ namespace Cohesity.Model
                     this.TimeSeriesDescriptorVec == input.TimeSeriesDescriptorVec ||
                     this.TimeSeriesDescriptorVec != null &&
                     input.TimeSeriesDescriptorVec != null &&
-                    this.TimeSeriesDescriptorVec.SequenceEqual(input.TimeSeriesDescriptorVec)
+                    this.TimeSeriesDescriptorVec.Equals(input.TimeSeriesDescriptorVec)
                 ) && 
                 (
                     this.TimeToLiveSecs == input.TimeToLiveSecs ||

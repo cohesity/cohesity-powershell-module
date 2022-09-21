@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -87,13 +89,13 @@ namespace Cohesity.Model
                     this.DeleteFailedInfectedFiles == input.DeleteFailedInfectedFiles ||
                     this.DeleteFailedInfectedFiles != null &&
                     input.DeleteFailedInfectedFiles != null &&
-                    this.DeleteFailedInfectedFiles.SequenceEqual(input.DeleteFailedInfectedFiles)
+                    this.DeleteFailedInfectedFiles.Equals(input.DeleteFailedInfectedFiles)
                 ) && 
                 (
                     this.DeleteSucceededInfectedFiles == input.DeleteSucceededInfectedFiles ||
                     this.DeleteSucceededInfectedFiles != null &&
                     input.DeleteSucceededInfectedFiles != null &&
-                    this.DeleteSucceededInfectedFiles.SequenceEqual(input.DeleteSucceededInfectedFiles)
+                    this.DeleteSucceededInfectedFiles.Equals(input.DeleteSucceededInfectedFiles)
                 );
         }
 

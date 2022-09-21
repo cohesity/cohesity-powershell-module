@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -97,7 +99,7 @@ namespace Cohesity.Model
                     this.DataPointVec == input.DataPointVec ||
                     this.DataPointVec != null &&
                     input.DataPointVec != null &&
-                    this.DataPointVec.SequenceEqual(input.DataPointVec)
+                    this.DataPointVec.Equals(input.DataPointVec)
                 ) && 
                 (
                     this.MetricName == input.MetricName ||

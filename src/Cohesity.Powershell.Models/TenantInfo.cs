@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -12,6 +13,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
+
 namespace Cohesity.Model
 {
     /// <summary>
@@ -23,16 +25,23 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="TenantInfo" /> class.
         /// </summary>
+        /// <param name="bifrostEnabled">Specifies if this tenant is bifrost enabled or not..</param>
         /// <param name="name">Specifies name of the tenant..</param>
         /// <param name="tenantId">Specifies the unique id of the tenant..</param>
-        public TenantInfo(string name = default(string), string tenantId = default(string))
+        public TenantInfo(bool? bifrostEnabled = default(bool?), string name = default(string), string tenantId = default(string))
         {
-            this.Name = name;
-            this.TenantId = tenantId;
+            this.BifrostEnabled = bifrostEnabled;
             this.Name = name;
             this.TenantId = tenantId;
         }
         
+        /// <summary>
+        /// Specifies if this tenant is bifrost enabled or not.
+        /// </summary>
+        /// <value>Specifies if this tenant is bifrost enabled or not.</value>
+        [DataMember(Name="bifrostEnabled", EmitDefaultValue=true)]
+        public bool? BifrostEnabled { get; set; }
+
         /// <summary>
         /// Specifies name of the tenant.
         /// </summary>
@@ -84,6 +93,11 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.BifrostEnabled == input.BifrostEnabled ||
+                    (this.BifrostEnabled != null &&
+                    this.BifrostEnabled.Equals(input.BifrostEnabled))
+                ) && 
+                (
                     this.Name == input.Name ||
                     (this.Name != null &&
                     this.Name.Equals(input.Name))
@@ -104,6 +118,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.BifrostEnabled != null)
+                    hashCode = hashCode * 59 + this.BifrostEnabled.GetHashCode();
                 if (this.Name != null)
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
                 if (this.TenantId != null)

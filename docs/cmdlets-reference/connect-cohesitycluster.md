@@ -15,6 +15,11 @@ Connect-CohesityCluster -Server <String> [-Port <Int64>] -Credential <PSCredenti
 Connect-CohesityCluster -Server <String> [-Port <Int64>] [-APIKey <String>] [<CommonParameters>]
 ```
 
+### UsingMFA
+```
+Connect-CohesityCluster -Server <String> [-Port <Int64>] [-UseMFA ] [-OtpType <String>] [<CommonParameters>]
+```
+
 ## DESCRIPTION
 You must run this cmdlet with valid Cohesity credentials before any other Cohesity cmdlets.
 The subsequent Cohesity cmdlets will use this connection.
@@ -49,6 +54,13 @@ Connect-CohesityCluster -Server 192.168.1.100 -APIKey "00000000-0000-0000-0000-0
 ```
 
 Connects to a Cohesity Cluster at the address "192.168.1.100" using the API Key (supported 6.5.1d onwards).
+
+### EXAMPLE 5
+```
+Connect-CohesityCluster -Server 192.168.1.100 -UseMFA -OtpType Email
+```
+
+Connects to a Cohesity Cluster at the address "192.168.1.100" using Multi-Factor Authentication(MFA). By default, OtpType will be considered as Totp if not provided. On trying to connect to the cluster using MFA, user will be prompted to provide OTP code.
 
 ## PARAMETERS
 
@@ -109,6 +121,37 @@ Aliases:
 Required: False
 Position: Named
 Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -UseMFA
+Do MFA required ?
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -OtpType
+Specifies OTP type for MFA verification. 'Totp' implies the code is TOTP. 'Email' implies the code is email OTP.
+
+```yaml
+Type: OtpTypeEnum
+Parameter Sets: (All)
+Aliases:
+Accepted values: Totp, Email
+
+Required: False
+Position: Named
+Default value: Totp
 Accept pipeline input: False
 Accept wildcard characters: False
 ```

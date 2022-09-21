@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -73,27 +75,15 @@ namespace Cohesity.Model
         /// <param name="oneDriveDocumentMetadata">oneDriveDocumentMetadata.</param>
         /// <param name="protectionSource">protectionSource.</param>
         /// <param name="registeredSourceId">Specifies the id of the top-level registered source (such as a vCenter Server) where the source object that contains the the file or folder is stored..</param>
+        /// <param name="sharepointDocumentMetadata">sharepointDocumentMetadata.</param>
         /// <param name="snapshotTags">Snapshot tags present on this document.</param>
         /// <param name="sourceId">Specifies the source id of the object that contains the file or folder..</param>
         /// <param name="tags">Tags present on this document..</param>
         /// <param name="tagsToSnapshotsMap">Mapping from snapshot tags to..</param>
         /// <param name="type">Specifies the type of the file document such as KDirectory, kFile, etc..</param>
         /// <param name="viewBoxId">Specifies the id of the Domain (View Box) where the source object that contains the file or folder is stored..</param>
-        public FileSearchResult(AdObjectMetaData adObjectMetaData = default(AdObjectMetaData), string documentType = default(string), EmailMetaData emailMetaData = default(EmailMetaData), List<FileVersion> fileVersions = default(List<FileVersion>), string filename = default(string), bool? isFolder = default(bool?), long? jobId = default(long?), UniversalId jobUid = default(UniversalId), OneDriveDocumentMetadata oneDriveDocumentMetadata = default(OneDriveDocumentMetadata), ProtectionSource protectionSource = default(ProtectionSource), long? registeredSourceId = default(long?), List<string> snapshotTags = default(List<string>), long? sourceId = default(long?), List<string> tags = default(List<string>), Dictionary<string, List<long>> tagsToSnapshotsMap = default(Dictionary<string, List<long>>), TypeEnum? type = default(TypeEnum?), long? viewBoxId = default(long?))
+        public FileSearchResult(AdObjectMetaData adObjectMetaData = default(AdObjectMetaData), string documentType = default(string), EmailMetaData emailMetaData = default(EmailMetaData), List<FileVersion> fileVersions = default(List<FileVersion>), string filename = default(string), bool? isFolder = default(bool?), long? jobId = default(long?), UniversalId jobUid = default(UniversalId), OneDriveDocumentMetadata oneDriveDocumentMetadata = default(OneDriveDocumentMetadata), ProtectionSource protectionSource = default(ProtectionSource), long? registeredSourceId = default(long?), SharepointDocumentMetadata sharepointDocumentMetadata = default(SharepointDocumentMetadata), List<string> snapshotTags = default(List<string>), long? sourceId = default(long?), List<string> tags = default(List<string>), Dictionary<string, List<long>> tagsToSnapshotsMap = default(Dictionary<string, List<long>>), TypeEnum? type = default(TypeEnum?), long? viewBoxId = default(long?))
         {
-            this.DocumentType = documentType;
-            this.FileVersions = fileVersions;
-            this.Filename = filename;
-            this.IsFolder = isFolder;
-            this.JobId = jobId;
-            this.JobUid = jobUid;
-            this.RegisteredSourceId = registeredSourceId;
-            this.SnapshotTags = snapshotTags;
-            this.SourceId = sourceId;
-            this.Tags = tags;
-            this.TagsToSnapshotsMap = tagsToSnapshotsMap;
-            this.Type = type;
-            this.ViewBoxId = viewBoxId;
             this.AdObjectMetaData = adObjectMetaData;
             this.DocumentType = documentType;
             this.EmailMetaData = emailMetaData;
@@ -105,6 +95,7 @@ namespace Cohesity.Model
             this.OneDriveDocumentMetadata = oneDriveDocumentMetadata;
             this.ProtectionSource = protectionSource;
             this.RegisteredSourceId = registeredSourceId;
+            this.SharepointDocumentMetadata = sharepointDocumentMetadata;
             this.SnapshotTags = snapshotTags;
             this.SourceId = sourceId;
             this.Tags = tags;
@@ -185,6 +176,12 @@ namespace Cohesity.Model
         /// <value>Specifies the id of the top-level registered source (such as a vCenter Server) where the source object that contains the the file or folder is stored.</value>
         [DataMember(Name="registeredSourceId", EmitDefaultValue=true)]
         public long? RegisteredSourceId { get; set; }
+
+        /// <summary>
+        /// Gets or Sets SharepointDocumentMetadata
+        /// </summary>
+        [DataMember(Name="sharepointDocumentMetadata", EmitDefaultValue=false)]
+        public SharepointDocumentMetadata SharepointDocumentMetadata { get; set; }
 
         /// <summary>
         /// Snapshot tags present on this document
@@ -276,7 +273,7 @@ namespace Cohesity.Model
                     this.FileVersions == input.FileVersions ||
                     this.FileVersions != null &&
                     input.FileVersions != null &&
-                    this.FileVersions.SequenceEqual(input.FileVersions)
+                    this.FileVersions.Equals(input.FileVersions)
                 ) && 
                 (
                     this.Filename == input.Filename ||
@@ -314,10 +311,15 @@ namespace Cohesity.Model
                     this.RegisteredSourceId.Equals(input.RegisteredSourceId))
                 ) && 
                 (
+                    this.SharepointDocumentMetadata == input.SharepointDocumentMetadata ||
+                    (this.SharepointDocumentMetadata != null &&
+                    this.SharepointDocumentMetadata.Equals(input.SharepointDocumentMetadata))
+                ) && 
+                (
                     this.SnapshotTags == input.SnapshotTags ||
                     this.SnapshotTags != null &&
                     input.SnapshotTags != null &&
-                    this.SnapshotTags.SequenceEqual(input.SnapshotTags)
+                    this.SnapshotTags.Equals(input.SnapshotTags)
                 ) && 
                 (
                     this.SourceId == input.SourceId ||
@@ -328,13 +330,13 @@ namespace Cohesity.Model
                     this.Tags == input.Tags ||
                     this.Tags != null &&
                     input.Tags != null &&
-                    this.Tags.SequenceEqual(input.Tags)
+                    this.Tags.Equals(input.Tags)
                 ) && 
                 (
                     this.TagsToSnapshotsMap == input.TagsToSnapshotsMap ||
                     this.TagsToSnapshotsMap != null &&
                     input.TagsToSnapshotsMap != null &&
-                    this.TagsToSnapshotsMap.SequenceEqual(input.TagsToSnapshotsMap)
+                    this.TagsToSnapshotsMap.Equals(input.TagsToSnapshotsMap)
                 ) && 
                 (
                     this.Type == input.Type ||
@@ -378,6 +380,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ProtectionSource.GetHashCode();
                 if (this.RegisteredSourceId != null)
                     hashCode = hashCode * 59 + this.RegisteredSourceId.GetHashCode();
+                if (this.SharepointDocumentMetadata != null)
+                    hashCode = hashCode * 59 + this.SharepointDocumentMetadata.GetHashCode();
                 if (this.SnapshotTags != null)
                     hashCode = hashCode * 59 + this.SnapshotTags.GetHashCode();
                 if (this.SourceId != null)
@@ -386,7 +390,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Tags.GetHashCode();
                 if (this.TagsToSnapshotsMap != null)
                     hashCode = hashCode * 59 + this.TagsToSnapshotsMap.GetHashCode();
-                hashCode = hashCode * 59 + this.Type.GetHashCode();
+                if (this.Type != null)
+					hashCode = hashCode * 59 + this.Type.GetHashCode();
                 if (this.ViewBoxId != null)
                     hashCode = hashCode * 59 + this.ViewBoxId.GetHashCode();
                 return hashCode;

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -27,6 +29,7 @@ namespace Cohesity.Model
         /// <param name="attachedDiskId">Disk information of where the source file is currently located..</param>
         /// <param name="diskPartitionId">Disk partition to which the file belongs to..</param>
         /// <param name="fsUuid">File system UUID on which file resides..</param>
+        /// <param name="inodeNumber">Inode number of the file. This is needed for snapmirror restore workflow..</param>
         /// <param name="isDirectory">Whether the path points to a directory..</param>
         /// <param name="isNonSimpleLdmVol">This will be set to true for recovery workflows for non-simple volumes on Windows Dynamic Disks. In that case, we will use VolumeInfo instead of some of the details captured here (e.g. virtual_disk_file) for determining disk and volume related details..</param>
         /// <param name="restoreBaseDirectory">This must be set to a directory path if restore_to_original_paths is false and restore task has multiple files which are not desired to be restore to one common location. If this filed is populated, &#39;absolute_path&#39; will be restored under this location. If this field is not populated all files in restore task will be restored to location specified in RestoreFilesPreferences..</param>
@@ -35,24 +38,13 @@ namespace Cohesity.Model
         /// <param name="virtualDiskFile">Virtual disk file to which this file belongs to..</param>
         /// <param name="volumeId">Id of the volume..</param>
         /// <param name="volumePath">Original volume name (or drive letter). This is used while performing the copy to the original paths. E.g.: c:.</param>
-        public RestoredFileInfo(string absolutePath = default(string), int? attachedDiskId = default(int?), int? diskPartitionId = default(int?), string fsUuid = default(string), bool? isDirectory = default(bool?), bool? isNonSimpleLdmVol = default(bool?), string restoreBaseDirectory = default(string), string restoreMountPoint = default(string), long? sizeBytes = default(long?), string virtualDiskFile = default(string), string volumeId = default(string), string volumePath = default(string))
+        public RestoredFileInfo(string absolutePath = default(string), int? attachedDiskId = default(int?), int? diskPartitionId = default(int?), string fsUuid = default(string), long? inodeNumber = default(long?), bool? isDirectory = default(bool?), bool? isNonSimpleLdmVol = default(bool?), string restoreBaseDirectory = default(string), string restoreMountPoint = default(string), long? sizeBytes = default(long?), string virtualDiskFile = default(string), string volumeId = default(string), string volumePath = default(string))
         {
             this.AbsolutePath = absolutePath;
             this.AttachedDiskId = attachedDiskId;
             this.DiskPartitionId = diskPartitionId;
             this.FsUuid = fsUuid;
-            this.IsDirectory = isDirectory;
-            this.IsNonSimpleLdmVol = isNonSimpleLdmVol;
-            this.RestoreBaseDirectory = restoreBaseDirectory;
-            this.RestoreMountPoint = restoreMountPoint;
-            this.SizeBytes = sizeBytes;
-            this.VirtualDiskFile = virtualDiskFile;
-            this.VolumeId = volumeId;
-            this.VolumePath = volumePath;
-            this.AbsolutePath = absolutePath;
-            this.AttachedDiskId = attachedDiskId;
-            this.DiskPartitionId = diskPartitionId;
-            this.FsUuid = fsUuid;
+            this.InodeNumber = inodeNumber;
             this.IsDirectory = isDirectory;
             this.IsNonSimpleLdmVol = isNonSimpleLdmVol;
             this.RestoreBaseDirectory = restoreBaseDirectory;
@@ -90,6 +82,13 @@ namespace Cohesity.Model
         /// <value>File system UUID on which file resides.</value>
         [DataMember(Name="fsUuid", EmitDefaultValue=true)]
         public string FsUuid { get; set; }
+
+        /// <summary>
+        /// Inode number of the file. This is needed for snapmirror restore workflow.
+        /// </summary>
+        /// <value>Inode number of the file. This is needed for snapmirror restore workflow.</value>
+        [DataMember(Name="inodeNumber", EmitDefaultValue=true)]
+        public long? InodeNumber { get; set; }
 
         /// <summary>
         /// Whether the path points to a directory.
@@ -204,6 +203,11 @@ namespace Cohesity.Model
                     this.FsUuid.Equals(input.FsUuid))
                 ) && 
                 (
+                    this.InodeNumber == input.InodeNumber ||
+                    (this.InodeNumber != null &&
+                    this.InodeNumber.Equals(input.InodeNumber))
+                ) && 
+                (
                     this.IsDirectory == input.IsDirectory ||
                     (this.IsDirectory != null &&
                     this.IsDirectory.Equals(input.IsDirectory))
@@ -262,6 +266,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.DiskPartitionId.GetHashCode();
                 if (this.FsUuid != null)
                     hashCode = hashCode * 59 + this.FsUuid.GetHashCode();
+                if (this.InodeNumber != null)
+                    hashCode = hashCode * 59 + this.InodeNumber.GetHashCode();
                 if (this.IsDirectory != null)
                     hashCode = hashCode * 59 + this.IsDirectory.GetHashCode();
                 if (this.IsNonSimpleLdmVol != null)

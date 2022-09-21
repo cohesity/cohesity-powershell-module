@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -76,19 +78,16 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="id">Specified the Id for a snapshot copy policy. This is generated when the policy is created..</param>
         /// <param name="copyPartial">Specifies if Snapshots are copied from the first completely successful Job Run or the first partially successful Job Run occurring at the start of the replication schedule. If true, Snapshots are copied from the first Job Run occurring at the start of the replication schedule, even if first Job Run was not completely successful i.e. Snapshots were not captured for all Objects in the Job. If false, Snapshots are copied from the first Job Run occurring at the start of the replication schedule that was completely successful i.e. Snapshots for all the Objects in the Job were successfully captured..</param>
+        /// <param name="datalockConfig">datalockConfig.</param>
         /// <param name="daysToKeep">Specifies the number of days to retain copied Snapshots on the target..</param>
         /// <param name="multiplier">Specifies a factor to multiply the periodicity by, to determine the copy schedule. For example if set to 2 and the periodicity is hourly, then Snapshots from the first eligible Job Run for every 2 hour period is copied..</param>
         /// <param name="periodicity">Specifies the frequency that Snapshots should be copied to the specified target. Used in combination with multiplier. &#39;kEvery&#39; means that the Snapshot copy occurs after the number of Job Runs equals the number specified in the multiplier. &#39;kHour&#39; means that the Snapshot copy occurs hourly at the frequency set in the multiplier, for example if multiplier is 2, the copy occurs every 2 hours. &#39;kDay&#39; means that the Snapshot copy occurs daily at the frequency set in the multiplier. &#39;kWeek&#39; means that the Snapshot copy occurs weekly at the frequency set in the multiplier. &#39;kMonth&#39; means that the Snapshot copy occurs monthly at the frequency set in the multiplier. &#39;kYear&#39; means that the Snapshot copy occurs yearly at the frequency set in the multiplier..</param>
         /// <param name="target">target.</param>
-        public SnapshotCloudCopyPolicy(string id = default(string), bool? copyPartial = default(bool?), long? daysToKeep = default(long?), int? multiplier = default(int?), PeriodicityEnum? periodicity = default(PeriodicityEnum?), CloudDeployTargetDetails target = default(CloudDeployTargetDetails))
+        public SnapshotCloudCopyPolicy(string id = default(string), bool? copyPartial = default(bool?), DataLockConfig datalockConfig = default(DataLockConfig), long? daysToKeep = default(long?), int? multiplier = default(int?), PeriodicityEnum? periodicity = default(PeriodicityEnum?), CloudDeployTargetDetails target = default(CloudDeployTargetDetails))
         {
             this.Id = id;
             this.CopyPartial = copyPartial;
-            this.DaysToKeep = daysToKeep;
-            this.Multiplier = multiplier;
-            this.Periodicity = periodicity;
-            this.Id = id;
-            this.CopyPartial = copyPartial;
+            this.DatalockConfig = datalockConfig;
             this.DaysToKeep = daysToKeep;
             this.Multiplier = multiplier;
             this.Periodicity = periodicity;
@@ -108,6 +107,12 @@ namespace Cohesity.Model
         /// <value>Specifies if Snapshots are copied from the first completely successful Job Run or the first partially successful Job Run occurring at the start of the replication schedule. If true, Snapshots are copied from the first Job Run occurring at the start of the replication schedule, even if first Job Run was not completely successful i.e. Snapshots were not captured for all Objects in the Job. If false, Snapshots are copied from the first Job Run occurring at the start of the replication schedule that was completely successful i.e. Snapshots for all the Objects in the Job were successfully captured.</value>
         [DataMember(Name="copyPartial", EmitDefaultValue=true)]
         public bool? CopyPartial { get; set; }
+
+        /// <summary>
+        /// Gets or Sets DatalockConfig
+        /// </summary>
+        [DataMember(Name="datalockConfig", EmitDefaultValue=false)]
+        public DataLockConfig DatalockConfig { get; set; }
 
         /// <summary>
         /// Specifies the number of days to retain copied Snapshots on the target.
@@ -176,6 +181,11 @@ namespace Cohesity.Model
                     this.CopyPartial.Equals(input.CopyPartial))
                 ) && 
                 (
+                    this.DatalockConfig == input.DatalockConfig ||
+                    (this.DatalockConfig != null &&
+                    this.DatalockConfig.Equals(input.DatalockConfig))
+                ) && 
+                (
                     this.DaysToKeep == input.DaysToKeep ||
                     (this.DaysToKeep != null &&
                     this.DaysToKeep.Equals(input.DaysToKeep))
@@ -209,6 +219,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Id.GetHashCode();
                 if (this.CopyPartial != null)
                     hashCode = hashCode * 59 + this.CopyPartial.GetHashCode();
+                if (this.DatalockConfig != null)
+                    hashCode = hashCode * 59 + this.DatalockConfig.GetHashCode();
                 if (this.DaysToKeep != null)
                     hashCode = hashCode * 59 + this.DaysToKeep.GetHashCode();
                 if (this.Multiplier != null)

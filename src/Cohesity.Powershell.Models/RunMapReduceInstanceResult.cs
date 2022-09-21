@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -27,7 +29,6 @@ namespace Cohesity.Model
         /// <param name="mapReduceInstanceId">Return the ID of instance..</param>
         public RunMapReduceInstanceResult(ErrorProto error = default(ErrorProto), long? mapReduceInstanceId = default(long?))
         {
-            this.MapReduceInstanceId = mapReduceInstanceId;
             this.Error = error;
             this.MapReduceInstanceId = mapReduceInstanceId;
         }

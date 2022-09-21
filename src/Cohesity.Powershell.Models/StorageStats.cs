@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -30,7 +32,9 @@ namespace Cohesity.Model
         /// <param name="localAvailableBytes">Specifies the local storage currently available on the cluster in bytes..</param>
         /// <param name="localUsageBytes">Specifies the local storage currently in use on the cluster in bytes..</param>
         /// <param name="totalCapacityBytes">Specifies the total capacity of the cluster in bytes..</param>
-        public StorageStats(long? dataProtectionLogicalUsageBytes = default(long?), long? dataProtectionPhysicalUsageBytes = default(long?), long? fileServicesLogicalUsageBytes = default(long?), long? fileServicesPhysicalUsageBytes = default(long?), long? localAvailableBytes = default(long?), long? localUsageBytes = default(long?), long? totalCapacityBytes = default(long?))
+        /// <param name="viewBackupLogicalUsageBytes">Specifies the logical size consumed by the external view backups..</param>
+        /// <param name="viewBackupPhysicalUsageBytes">Specifies the physical size consumed by the external view backups..</param>
+        public StorageStats(long? dataProtectionLogicalUsageBytes = default(long?), long? dataProtectionPhysicalUsageBytes = default(long?), long? fileServicesLogicalUsageBytes = default(long?), long? fileServicesPhysicalUsageBytes = default(long?), long? localAvailableBytes = default(long?), long? localUsageBytes = default(long?), long? totalCapacityBytes = default(long?), long? viewBackupLogicalUsageBytes = default(long?), long? viewBackupPhysicalUsageBytes = default(long?))
         {
             this.DataProtectionLogicalUsageBytes = dataProtectionLogicalUsageBytes;
             this.DataProtectionPhysicalUsageBytes = dataProtectionPhysicalUsageBytes;
@@ -39,13 +43,8 @@ namespace Cohesity.Model
             this.LocalAvailableBytes = localAvailableBytes;
             this.LocalUsageBytes = localUsageBytes;
             this.TotalCapacityBytes = totalCapacityBytes;
-            this.DataProtectionLogicalUsageBytes = dataProtectionLogicalUsageBytes;
-            this.DataProtectionPhysicalUsageBytes = dataProtectionPhysicalUsageBytes;
-            this.FileServicesLogicalUsageBytes = fileServicesLogicalUsageBytes;
-            this.FileServicesPhysicalUsageBytes = fileServicesPhysicalUsageBytes;
-            this.LocalAvailableBytes = localAvailableBytes;
-            this.LocalUsageBytes = localUsageBytes;
-            this.TotalCapacityBytes = totalCapacityBytes;
+            this.ViewBackupLogicalUsageBytes = viewBackupLogicalUsageBytes;
+            this.ViewBackupPhysicalUsageBytes = viewBackupPhysicalUsageBytes;
         }
         
         /// <summary>
@@ -96,6 +95,20 @@ namespace Cohesity.Model
         /// <value>Specifies the total capacity of the cluster in bytes.</value>
         [DataMember(Name="totalCapacityBytes", EmitDefaultValue=true)]
         public long? TotalCapacityBytes { get; set; }
+
+        /// <summary>
+        /// Specifies the logical size consumed by the external view backups.
+        /// </summary>
+        /// <value>Specifies the logical size consumed by the external view backups.</value>
+        [DataMember(Name="viewBackupLogicalUsageBytes", EmitDefaultValue=true)]
+        public long? ViewBackupLogicalUsageBytes { get; set; }
+
+        /// <summary>
+        /// Specifies the physical size consumed by the external view backups.
+        /// </summary>
+        /// <value>Specifies the physical size consumed by the external view backups.</value>
+        [DataMember(Name="viewBackupPhysicalUsageBytes", EmitDefaultValue=true)]
+        public long? ViewBackupPhysicalUsageBytes { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -167,6 +180,16 @@ namespace Cohesity.Model
                     this.TotalCapacityBytes == input.TotalCapacityBytes ||
                     (this.TotalCapacityBytes != null &&
                     this.TotalCapacityBytes.Equals(input.TotalCapacityBytes))
+                ) && 
+                (
+                    this.ViewBackupLogicalUsageBytes == input.ViewBackupLogicalUsageBytes ||
+                    (this.ViewBackupLogicalUsageBytes != null &&
+                    this.ViewBackupLogicalUsageBytes.Equals(input.ViewBackupLogicalUsageBytes))
+                ) && 
+                (
+                    this.ViewBackupPhysicalUsageBytes == input.ViewBackupPhysicalUsageBytes ||
+                    (this.ViewBackupPhysicalUsageBytes != null &&
+                    this.ViewBackupPhysicalUsageBytes.Equals(input.ViewBackupPhysicalUsageBytes))
                 );
         }
 
@@ -193,6 +216,10 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.LocalUsageBytes.GetHashCode();
                 if (this.TotalCapacityBytes != null)
                     hashCode = hashCode * 59 + this.TotalCapacityBytes.GetHashCode();
+                if (this.ViewBackupLogicalUsageBytes != null)
+                    hashCode = hashCode * 59 + this.ViewBackupLogicalUsageBytes.GetHashCode();
+                if (this.ViewBackupPhysicalUsageBytes != null)
+                    hashCode = hashCode * 59 + this.ViewBackupPhysicalUsageBytes.GetHashCode();
                 return hashCode;
             }
         }

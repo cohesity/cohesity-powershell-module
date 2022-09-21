@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -97,13 +99,13 @@ namespace Cohesity.Model
                     this.AllowPrefixes == input.AllowPrefixes ||
                     this.AllowPrefixes != null &&
                     input.AllowPrefixes != null &&
-                    this.AllowPrefixes.SequenceEqual(input.AllowPrefixes)
+                    this.AllowPrefixes.Equals(input.AllowPrefixes)
                 ) && 
                 (
                     this.DenyPrefixes == input.DenyPrefixes ||
                     this.DenyPrefixes != null &&
                     input.DenyPrefixes != null &&
-                    this.DenyPrefixes.SequenceEqual(input.DenyPrefixes)
+                    this.DenyPrefixes.Equals(input.DenyPrefixes)
                 ) && 
                 (
                     this.DisableIndexing == input.DisableIndexing ||

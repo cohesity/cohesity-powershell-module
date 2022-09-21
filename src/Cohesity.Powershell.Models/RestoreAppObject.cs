@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -26,14 +28,17 @@ namespace Cohesity.Model
         /// <param name="additionalParams">additionalParams.</param>
         /// <param name="appEntity">appEntity.</param>
         /// <param name="displayName">The proper display name of this object in the UI, if app_entity is not empty. For example, for SQL databases the name should also include the instance name..</param>
+        /// <param name="entityNodeUid">entityNodeUid.</param>
         /// <param name="restoreParams">restoreParams.</param>
-        public RestoreAppObject(RestoreTaskAdditionalParams additionalParams = default(RestoreTaskAdditionalParams), EntityProto appEntity = default(EntityProto), string displayName = default(string), RestoreAppObjectParams restoreParams = default(RestoreAppObjectParams))
+        /// <param name="taskNodeUid">taskNodeUid.</param>
+        public RestoreAppObject(RestoreTaskAdditionalParams additionalParams = default(RestoreTaskAdditionalParams), EntityProto appEntity = default(EntityProto), string displayName = default(string), UniversalIdProto entityNodeUid = default(UniversalIdProto), RestoreAppObjectParams restoreParams = default(RestoreAppObjectParams), UniversalIdProto taskNodeUid = default(UniversalIdProto))
         {
-            this.DisplayName = displayName;
             this.AdditionalParams = additionalParams;
             this.AppEntity = appEntity;
             this.DisplayName = displayName;
+            this.EntityNodeUid = entityNodeUid;
             this.RestoreParams = restoreParams;
+            this.TaskNodeUid = taskNodeUid;
         }
         
         /// <summary>
@@ -56,10 +61,22 @@ namespace Cohesity.Model
         public string DisplayName { get; set; }
 
         /// <summary>
+        /// Gets or Sets EntityNodeUid
+        /// </summary>
+        [DataMember(Name="entityNodeUid", EmitDefaultValue=false)]
+        public UniversalIdProto EntityNodeUid { get; set; }
+
+        /// <summary>
         /// Gets or Sets RestoreParams
         /// </summary>
         [DataMember(Name="restoreParams", EmitDefaultValue=false)]
         public RestoreAppObjectParams RestoreParams { get; set; }
+
+        /// <summary>
+        /// Gets or Sets TaskNodeUid
+        /// </summary>
+        [DataMember(Name="taskNodeUid", EmitDefaultValue=false)]
+        public UniversalIdProto TaskNodeUid { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -113,9 +130,19 @@ namespace Cohesity.Model
                     this.DisplayName.Equals(input.DisplayName))
                 ) && 
                 (
+                    this.EntityNodeUid == input.EntityNodeUid ||
+                    (this.EntityNodeUid != null &&
+                    this.EntityNodeUid.Equals(input.EntityNodeUid))
+                ) && 
+                (
                     this.RestoreParams == input.RestoreParams ||
                     (this.RestoreParams != null &&
                     this.RestoreParams.Equals(input.RestoreParams))
+                ) && 
+                (
+                    this.TaskNodeUid == input.TaskNodeUid ||
+                    (this.TaskNodeUid != null &&
+                    this.TaskNodeUid.Equals(input.TaskNodeUid))
                 );
         }
 
@@ -134,8 +161,12 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.AppEntity.GetHashCode();
                 if (this.DisplayName != null)
                     hashCode = hashCode * 59 + this.DisplayName.GetHashCode();
+                if (this.EntityNodeUid != null)
+                    hashCode = hashCode * 59 + this.EntityNodeUid.GetHashCode();
                 if (this.RestoreParams != null)
                     hashCode = hashCode * 59 + this.RestoreParams.GetHashCode();
+                if (this.TaskNodeUid != null)
+                    hashCode = hashCode * 59 + this.TaskNodeUid.GetHashCode();
                 return hashCode;
             }
         }

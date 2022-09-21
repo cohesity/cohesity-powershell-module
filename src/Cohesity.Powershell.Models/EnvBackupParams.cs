@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -12,6 +13,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
+
 namespace Cohesity.Model
 {
     /// <summary>
@@ -23,41 +25,67 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="EnvBackupParams" /> class.
         /// </summary>
+        /// <param name="awsNativeEnvParams">awsNativeEnvParams.</param>
         /// <param name="exchangeBackupJobParams">exchangeBackupJobParams.</param>
+        /// <param name="externallyTriggeredJobParams">externallyTriggeredJobParams.</param>
         /// <param name="fileStubbingParams">fileStubbingParams.</param>
         /// <param name="fileUptieringParams">fileUptieringParams.</param>
         /// <param name="hypervBackupParams">hypervBackupParams.</param>
+        /// <param name="isilonEnvParams">isilonEnvParams.</param>
+        /// <param name="kubernetesEnvParams">kubernetesEnvParams.</param>
+        /// <param name="nasAnalysisJobParams">nasAnalysisJobParams.</param>
         /// <param name="nasBackupParams">nasBackupParams.</param>
         /// <param name="nosqlBackupJobParams">nosqlBackupJobParams.</param>
         /// <param name="o365BackupParams">o365BackupParams.</param>
         /// <param name="oracleBackupJobParams">oracleBackupJobParams.</param>
         /// <param name="outlookBackupParams">outlookBackupParams.</param>
         /// <param name="physicalBackupParams">physicalBackupParams.</param>
+        /// <param name="sfdcBackupJobParams">sfdcBackupJobParams.</param>
         /// <param name="snapshotManagerParams">snapshotManagerParams.</param>
         /// <param name="sqlBackupJobParams">sqlBackupJobParams.</param>
+        /// <param name="udaBackupJobParams">udaBackupJobParams.</param>
         /// <param name="vmwareBackupParams">vmwareBackupParams.</param>
-        public EnvBackupParams(ExchangeBackupJobParams exchangeBackupJobParams = default(ExchangeBackupJobParams), FileStubbingParams fileStubbingParams = default(FileStubbingParams), FileUptieringParams fileUptieringParams = default(FileUptieringParams), HyperVBackupEnvParams hypervBackupParams = default(HyperVBackupEnvParams), NasBackupParams nasBackupParams = default(NasBackupParams), NoSqlBackupJobParams nosqlBackupJobParams = default(NoSqlBackupJobParams), O365BackupEnvParams o365BackupParams = default(O365BackupEnvParams), OracleBackupJobParams oracleBackupJobParams = default(OracleBackupJobParams), OutlookBackupEnvParams outlookBackupParams = default(OutlookBackupEnvParams), PhysicalBackupEnvParams physicalBackupParams = default(PhysicalBackupEnvParams), SnapshotManagerParams snapshotManagerParams = default(SnapshotManagerParams), SqlBackupJobParams sqlBackupJobParams = default(SqlBackupJobParams), VMwareBackupEnvParams vmwareBackupParams = default(VMwareBackupEnvParams))
+        public EnvBackupParams(AWSNativeEnvParams awsNativeEnvParams = default(AWSNativeEnvParams), ExchangeBackupJobParams exchangeBackupJobParams = default(ExchangeBackupJobParams), ExternallyTriggeredJobParams externallyTriggeredJobParams = default(ExternallyTriggeredJobParams), FileStubbingParams fileStubbingParams = default(FileStubbingParams), FileUptieringParams fileUptieringParams = default(FileUptieringParams), HyperVBackupEnvParams hypervBackupParams = default(HyperVBackupEnvParams), IsilonEnvParams isilonEnvParams = default(IsilonEnvParams), KubernetesEnvParams kubernetesEnvParams = default(KubernetesEnvParams), NasAnalysisJobParams nasAnalysisJobParams = default(NasAnalysisJobParams), NasBackupParams nasBackupParams = default(NasBackupParams), NoSqlBackupJobParams nosqlBackupJobParams = default(NoSqlBackupJobParams), O365BackupEnvParams o365BackupParams = default(O365BackupEnvParams), OracleBackupJobParams oracleBackupJobParams = default(OracleBackupJobParams), OutlookBackupEnvParams outlookBackupParams = default(OutlookBackupEnvParams), PhysicalBackupEnvParams physicalBackupParams = default(PhysicalBackupEnvParams), SfdcBackupJobParams sfdcBackupJobParams = default(SfdcBackupJobParams), SnapshotManagerParams snapshotManagerParams = default(SnapshotManagerParams), SqlBackupJobParams sqlBackupJobParams = default(SqlBackupJobParams), UdaBackupJobParams udaBackupJobParams = default(UdaBackupJobParams), VMwareBackupEnvParams vmwareBackupParams = default(VMwareBackupEnvParams))
         {
+            this.AwsNativeEnvParams = awsNativeEnvParams;
             this.ExchangeBackupJobParams = exchangeBackupJobParams;
+            this.ExternallyTriggeredJobParams = externallyTriggeredJobParams;
             this.FileStubbingParams = fileStubbingParams;
             this.FileUptieringParams = fileUptieringParams;
             this.HypervBackupParams = hypervBackupParams;
+            this.IsilonEnvParams = isilonEnvParams;
+            this.KubernetesEnvParams = kubernetesEnvParams;
+            this.NasAnalysisJobParams = nasAnalysisJobParams;
             this.NasBackupParams = nasBackupParams;
             this.NosqlBackupJobParams = nosqlBackupJobParams;
             this.O365BackupParams = o365BackupParams;
             this.OracleBackupJobParams = oracleBackupJobParams;
             this.OutlookBackupParams = outlookBackupParams;
             this.PhysicalBackupParams = physicalBackupParams;
+            this.SfdcBackupJobParams = sfdcBackupJobParams;
             this.SnapshotManagerParams = snapshotManagerParams;
             this.SqlBackupJobParams = sqlBackupJobParams;
+            this.UdaBackupJobParams = udaBackupJobParams;
             this.VmwareBackupParams = vmwareBackupParams;
         }
         
+        /// <summary>
+        /// Gets or Sets AwsNativeEnvParams
+        /// </summary>
+        [DataMember(Name="awsNativeEnvParams", EmitDefaultValue=false)]
+        public AWSNativeEnvParams AwsNativeEnvParams { get; set; }
+
         /// <summary>
         /// Gets or Sets ExchangeBackupJobParams
         /// </summary>
         [DataMember(Name="exchangeBackupJobParams", EmitDefaultValue=false)]
         public ExchangeBackupJobParams ExchangeBackupJobParams { get; set; }
+
+        /// <summary>
+        /// Gets or Sets ExternallyTriggeredJobParams
+        /// </summary>
+        [DataMember(Name="externallyTriggeredJobParams", EmitDefaultValue=false)]
+        public ExternallyTriggeredJobParams ExternallyTriggeredJobParams { get; set; }
 
         /// <summary>
         /// Gets or Sets FileStubbingParams
@@ -76,6 +104,24 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="hypervBackupParams", EmitDefaultValue=false)]
         public HyperVBackupEnvParams HypervBackupParams { get; set; }
+
+        /// <summary>
+        /// Gets or Sets IsilonEnvParams
+        /// </summary>
+        [DataMember(Name="isilonEnvParams", EmitDefaultValue=false)]
+        public IsilonEnvParams IsilonEnvParams { get; set; }
+
+        /// <summary>
+        /// Gets or Sets KubernetesEnvParams
+        /// </summary>
+        [DataMember(Name="kubernetesEnvParams", EmitDefaultValue=false)]
+        public KubernetesEnvParams KubernetesEnvParams { get; set; }
+
+        /// <summary>
+        /// Gets or Sets NasAnalysisJobParams
+        /// </summary>
+        [DataMember(Name="nasAnalysisJobParams", EmitDefaultValue=false)]
+        public NasAnalysisJobParams NasAnalysisJobParams { get; set; }
 
         /// <summary>
         /// Gets or Sets NasBackupParams
@@ -114,6 +160,12 @@ namespace Cohesity.Model
         public PhysicalBackupEnvParams PhysicalBackupParams { get; set; }
 
         /// <summary>
+        /// Gets or Sets SfdcBackupJobParams
+        /// </summary>
+        [DataMember(Name="sfdcBackupJobParams", EmitDefaultValue=false)]
+        public SfdcBackupJobParams SfdcBackupJobParams { get; set; }
+
+        /// <summary>
         /// Gets or Sets SnapshotManagerParams
         /// </summary>
         [DataMember(Name="snapshotManagerParams", EmitDefaultValue=false)]
@@ -124,6 +176,12 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="sqlBackupJobParams", EmitDefaultValue=false)]
         public SqlBackupJobParams SqlBackupJobParams { get; set; }
+
+        /// <summary>
+        /// Gets or Sets UdaBackupJobParams
+        /// </summary>
+        [DataMember(Name="udaBackupJobParams", EmitDefaultValue=false)]
+        public UdaBackupJobParams UdaBackupJobParams { get; set; }
 
         /// <summary>
         /// Gets or Sets VmwareBackupParams
@@ -168,9 +226,19 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.AwsNativeEnvParams == input.AwsNativeEnvParams ||
+                    (this.AwsNativeEnvParams != null &&
+                    this.AwsNativeEnvParams.Equals(input.AwsNativeEnvParams))
+                ) && 
+                (
                     this.ExchangeBackupJobParams == input.ExchangeBackupJobParams ||
                     (this.ExchangeBackupJobParams != null &&
                     this.ExchangeBackupJobParams.Equals(input.ExchangeBackupJobParams))
+                ) && 
+                (
+                    this.ExternallyTriggeredJobParams == input.ExternallyTriggeredJobParams ||
+                    (this.ExternallyTriggeredJobParams != null &&
+                    this.ExternallyTriggeredJobParams.Equals(input.ExternallyTriggeredJobParams))
                 ) && 
                 (
                     this.FileStubbingParams == input.FileStubbingParams ||
@@ -186,6 +254,21 @@ namespace Cohesity.Model
                     this.HypervBackupParams == input.HypervBackupParams ||
                     (this.HypervBackupParams != null &&
                     this.HypervBackupParams.Equals(input.HypervBackupParams))
+                ) && 
+                (
+                    this.IsilonEnvParams == input.IsilonEnvParams ||
+                    (this.IsilonEnvParams != null &&
+                    this.IsilonEnvParams.Equals(input.IsilonEnvParams))
+                ) && 
+                (
+                    this.KubernetesEnvParams == input.KubernetesEnvParams ||
+                    (this.KubernetesEnvParams != null &&
+                    this.KubernetesEnvParams.Equals(input.KubernetesEnvParams))
+                ) && 
+                (
+                    this.NasAnalysisJobParams == input.NasAnalysisJobParams ||
+                    (this.NasAnalysisJobParams != null &&
+                    this.NasAnalysisJobParams.Equals(input.NasAnalysisJobParams))
                 ) && 
                 (
                     this.NasBackupParams == input.NasBackupParams ||
@@ -218,6 +301,11 @@ namespace Cohesity.Model
                     this.PhysicalBackupParams.Equals(input.PhysicalBackupParams))
                 ) && 
                 (
+                    this.SfdcBackupJobParams == input.SfdcBackupJobParams ||
+                    (this.SfdcBackupJobParams != null &&
+                    this.SfdcBackupJobParams.Equals(input.SfdcBackupJobParams))
+                ) && 
+                (
                     this.SnapshotManagerParams == input.SnapshotManagerParams ||
                     (this.SnapshotManagerParams != null &&
                     this.SnapshotManagerParams.Equals(input.SnapshotManagerParams))
@@ -226,6 +314,11 @@ namespace Cohesity.Model
                     this.SqlBackupJobParams == input.SqlBackupJobParams ||
                     (this.SqlBackupJobParams != null &&
                     this.SqlBackupJobParams.Equals(input.SqlBackupJobParams))
+                ) && 
+                (
+                    this.UdaBackupJobParams == input.UdaBackupJobParams ||
+                    (this.UdaBackupJobParams != null &&
+                    this.UdaBackupJobParams.Equals(input.UdaBackupJobParams))
                 ) && 
                 (
                     this.VmwareBackupParams == input.VmwareBackupParams ||
@@ -243,14 +336,24 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.AwsNativeEnvParams != null)
+                    hashCode = hashCode * 59 + this.AwsNativeEnvParams.GetHashCode();
                 if (this.ExchangeBackupJobParams != null)
                     hashCode = hashCode * 59 + this.ExchangeBackupJobParams.GetHashCode();
+                if (this.ExternallyTriggeredJobParams != null)
+                    hashCode = hashCode * 59 + this.ExternallyTriggeredJobParams.GetHashCode();
                 if (this.FileStubbingParams != null)
                     hashCode = hashCode * 59 + this.FileStubbingParams.GetHashCode();
                 if (this.FileUptieringParams != null)
                     hashCode = hashCode * 59 + this.FileUptieringParams.GetHashCode();
                 if (this.HypervBackupParams != null)
                     hashCode = hashCode * 59 + this.HypervBackupParams.GetHashCode();
+                if (this.IsilonEnvParams != null)
+                    hashCode = hashCode * 59 + this.IsilonEnvParams.GetHashCode();
+                if (this.KubernetesEnvParams != null)
+                    hashCode = hashCode * 59 + this.KubernetesEnvParams.GetHashCode();
+                if (this.NasAnalysisJobParams != null)
+                    hashCode = hashCode * 59 + this.NasAnalysisJobParams.GetHashCode();
                 if (this.NasBackupParams != null)
                     hashCode = hashCode * 59 + this.NasBackupParams.GetHashCode();
                 if (this.NosqlBackupJobParams != null)
@@ -263,10 +366,14 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.OutlookBackupParams.GetHashCode();
                 if (this.PhysicalBackupParams != null)
                     hashCode = hashCode * 59 + this.PhysicalBackupParams.GetHashCode();
+                if (this.SfdcBackupJobParams != null)
+                    hashCode = hashCode * 59 + this.SfdcBackupJobParams.GetHashCode();
                 if (this.SnapshotManagerParams != null)
                     hashCode = hashCode * 59 + this.SnapshotManagerParams.GetHashCode();
                 if (this.SqlBackupJobParams != null)
                     hashCode = hashCode * 59 + this.SqlBackupJobParams.GetHashCode();
+                if (this.UdaBackupJobParams != null)
+                    hashCode = hashCode * 59 + this.UdaBackupJobParams.GetHashCode();
                 if (this.VmwareBackupParams != null)
                     hashCode = hashCode * 59 + this.VmwareBackupParams.GetHashCode();
                 return hashCode;

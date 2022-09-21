@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -49,7 +51,13 @@ namespace Cohesity.Model
             /// Enum KCloudDeploy for value: kCloudDeploy
             /// </summary>
             [EnumMember(Value = "kCloudDeploy")]
-            KCloudDeploy = 4
+            KCloudDeploy = 4,
+
+            /// <summary>
+            /// Enum KCloudReplication for value: kCloudReplication
+            /// </summary>
+            [EnumMember(Value = "kCloudReplication")]
+            KCloudReplication = 5
 
         }
 

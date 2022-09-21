@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -26,8 +28,10 @@ namespace Cohesity.Model
         /// <param name="cancellationRequested">Whether this task has a pending cancellation request..</param>
         /// <param name="endTimeUsecs">If the restore task has finished, this field contains the end time for the task..</param>
         /// <param name="error">error.</param>
+        /// <param name="isInternal">Whether the restore task is internal. This is currently used by standby restore tasks..</param>
         /// <param name="name">The name of the restore task..</param>
         /// <param name="parentSourceConnectionParams">parentSourceConnectionParams.</param>
+        /// <param name="preprocessingError">preprocessingError.</param>
         /// <param name="publicStatus">Iris-facing task state. This field is stamped during the export..</param>
         /// <param name="refreshStatus">Status of the refresh task..</param>
         /// <param name="restoreVlanParams">restoreVlanParams.</param>
@@ -35,7 +39,8 @@ namespace Cohesity.Model
         /// <param name="scheduledGandalfSessionId">scheduledGandalfSessionId.</param>
         /// <param name="startTimeUsecs">The start time for this restore task..</param>
         /// <param name="status">Status of the restore task..</param>
-        /// <param name="taskId">A globally unique id for this task..</param>
+        /// <param name="taskId">A unique id for this task within the cluster..</param>
+        /// <param name="taskUid">taskUid.</param>
         /// <param name="totalLogicalSizeBytes">Logical size of this restore task. This is the amount of data that needs to be transferred to restore the entity..</param>
         /// <param name="totalPhysicalSizeBytes">Physical size of this restore task. This is the amount of data that was actually transferred to restore the entity..</param>
         /// <param name="type">The type of restore being performed..</param>
@@ -43,29 +48,15 @@ namespace Cohesity.Model
         /// <param name="userInfo">userInfo.</param>
         /// <param name="userMessages">Messages displayed to the user for this task (if any). Only valid if the status of the task is kFinished. This is used for informing the user with additional details when there is not an error..</param>
         /// <param name="warnings">The warnings encountered by this task (if any) during its execution..</param>
-        public RestoreTaskStateBaseProto(bool? cancellationRequested = default(bool?), long? endTimeUsecs = default(long?), ErrorProto error = default(ErrorProto), string name = default(string), ConnectorParams parentSourceConnectionParams = default(ConnectorParams), int? publicStatus = default(int?), int? refreshStatus = default(int?), VlanParams restoreVlanParams = default(VlanParams), long? scheduledConstituentId = default(long?), long? scheduledGandalfSessionId = default(long?), long? startTimeUsecs = default(long?), int? status = default(int?), long? taskId = default(long?), long? totalLogicalSizeBytes = default(long?), long? totalPhysicalSizeBytes = default(long?), int? type = default(int?), string user = default(string), UserInformation userInfo = default(UserInformation), List<string> userMessages = default(List<string>), List<ErrorProto> warnings = default(List<ErrorProto>))
+        public RestoreTaskStateBaseProto(bool? cancellationRequested = default(bool?), long? endTimeUsecs = default(long?), ErrorProto error = default(ErrorProto), bool? isInternal = default(bool?), string name = default(string), ConnectorParams parentSourceConnectionParams = default(ConnectorParams), ErrorProto preprocessingError = default(ErrorProto), int? publicStatus = default(int?), int? refreshStatus = default(int?), VlanParams restoreVlanParams = default(VlanParams), long? scheduledConstituentId = default(long?), long? scheduledGandalfSessionId = default(long?), long? startTimeUsecs = default(long?), int? status = default(int?), long? taskId = default(long?), UniversalIdProto taskUid = default(UniversalIdProto), long? totalLogicalSizeBytes = default(long?), long? totalPhysicalSizeBytes = default(long?), int? type = default(int?), string user = default(string), UserInformation userInfo = default(UserInformation), List<string> userMessages = default(List<string>), List<ErrorProto> warnings = default(List<ErrorProto>))
         {
             this.CancellationRequested = cancellationRequested;
             this.EndTimeUsecs = endTimeUsecs;
-            this.Name = name;
-            this.PublicStatus = publicStatus;
-            this.RefreshStatus = refreshStatus;
-            this.ScheduledConstituentId = scheduledConstituentId;
-            this.ScheduledGandalfSessionId = scheduledGandalfSessionId;
-            this.StartTimeUsecs = startTimeUsecs;
-            this.Status = status;
-            this.TaskId = taskId;
-            this.TotalLogicalSizeBytes = totalLogicalSizeBytes;
-            this.TotalPhysicalSizeBytes = totalPhysicalSizeBytes;
-            this.Type = type;
-            this.User = user;
-            this.UserMessages = userMessages;
-            this.Warnings = warnings;
-            this.CancellationRequested = cancellationRequested;
-            this.EndTimeUsecs = endTimeUsecs;
             this.Error = error;
+            this.IsInternal = isInternal;
             this.Name = name;
             this.ParentSourceConnectionParams = parentSourceConnectionParams;
+            this.PreprocessingError = preprocessingError;
             this.PublicStatus = publicStatus;
             this.RefreshStatus = refreshStatus;
             this.RestoreVlanParams = restoreVlanParams;
@@ -74,6 +65,7 @@ namespace Cohesity.Model
             this.StartTimeUsecs = startTimeUsecs;
             this.Status = status;
             this.TaskId = taskId;
+            this.TaskUid = taskUid;
             this.TotalLogicalSizeBytes = totalLogicalSizeBytes;
             this.TotalPhysicalSizeBytes = totalPhysicalSizeBytes;
             this.Type = type;
@@ -104,6 +96,13 @@ namespace Cohesity.Model
         public ErrorProto Error { get; set; }
 
         /// <summary>
+        /// Whether the restore task is internal. This is currently used by standby restore tasks.
+        /// </summary>
+        /// <value>Whether the restore task is internal. This is currently used by standby restore tasks.</value>
+        [DataMember(Name="isInternal", EmitDefaultValue=true)]
+        public bool? IsInternal { get; set; }
+
+        /// <summary>
         /// The name of the restore task.
         /// </summary>
         /// <value>The name of the restore task.</value>
@@ -115,6 +114,12 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="parentSourceConnectionParams", EmitDefaultValue=false)]
         public ConnectorParams ParentSourceConnectionParams { get; set; }
+
+        /// <summary>
+        /// Gets or Sets PreprocessingError
+        /// </summary>
+        [DataMember(Name="preprocessingError", EmitDefaultValue=false)]
+        public ErrorProto PreprocessingError { get; set; }
 
         /// <summary>
         /// Iris-facing task state. This field is stamped during the export.
@@ -164,11 +169,17 @@ namespace Cohesity.Model
         public int? Status { get; set; }
 
         /// <summary>
-        /// A globally unique id for this task.
+        /// A unique id for this task within the cluster.
         /// </summary>
-        /// <value>A globally unique id for this task.</value>
+        /// <value>A unique id for this task within the cluster.</value>
         [DataMember(Name="taskId", EmitDefaultValue=true)]
         public long? TaskId { get; set; }
+
+        /// <summary>
+        /// Gets or Sets TaskUid
+        /// </summary>
+        [DataMember(Name="taskUid", EmitDefaultValue=false)]
+        public UniversalIdProto TaskUid { get; set; }
 
         /// <summary>
         /// Logical size of this restore task. This is the amount of data that needs to be transferred to restore the entity.
@@ -270,6 +281,11 @@ namespace Cohesity.Model
                     this.Error.Equals(input.Error))
                 ) && 
                 (
+                    this.IsInternal == input.IsInternal ||
+                    (this.IsInternal != null &&
+                    this.IsInternal.Equals(input.IsInternal))
+                ) && 
+                (
                     this.Name == input.Name ||
                     (this.Name != null &&
                     this.Name.Equals(input.Name))
@@ -278,6 +294,11 @@ namespace Cohesity.Model
                     this.ParentSourceConnectionParams == input.ParentSourceConnectionParams ||
                     (this.ParentSourceConnectionParams != null &&
                     this.ParentSourceConnectionParams.Equals(input.ParentSourceConnectionParams))
+                ) && 
+                (
+                    this.PreprocessingError == input.PreprocessingError ||
+                    (this.PreprocessingError != null &&
+                    this.PreprocessingError.Equals(input.PreprocessingError))
                 ) && 
                 (
                     this.PublicStatus == input.PublicStatus ||
@@ -320,6 +341,11 @@ namespace Cohesity.Model
                     this.TaskId.Equals(input.TaskId))
                 ) && 
                 (
+                    this.TaskUid == input.TaskUid ||
+                    (this.TaskUid != null &&
+                    this.TaskUid.Equals(input.TaskUid))
+                ) && 
+                (
                     this.TotalLogicalSizeBytes == input.TotalLogicalSizeBytes ||
                     (this.TotalLogicalSizeBytes != null &&
                     this.TotalLogicalSizeBytes.Equals(input.TotalLogicalSizeBytes))
@@ -348,13 +374,13 @@ namespace Cohesity.Model
                     this.UserMessages == input.UserMessages ||
                     this.UserMessages != null &&
                     input.UserMessages != null &&
-                    this.UserMessages.SequenceEqual(input.UserMessages)
+                    this.UserMessages.Equals(input.UserMessages)
                 ) && 
                 (
                     this.Warnings == input.Warnings ||
                     this.Warnings != null &&
                     input.Warnings != null &&
-                    this.Warnings.SequenceEqual(input.Warnings)
+                    this.Warnings.Equals(input.Warnings)
                 );
         }
 
@@ -373,10 +399,14 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.EndTimeUsecs.GetHashCode();
                 if (this.Error != null)
                     hashCode = hashCode * 59 + this.Error.GetHashCode();
+                if (this.IsInternal != null)
+                    hashCode = hashCode * 59 + this.IsInternal.GetHashCode();
                 if (this.Name != null)
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
                 if (this.ParentSourceConnectionParams != null)
                     hashCode = hashCode * 59 + this.ParentSourceConnectionParams.GetHashCode();
+                if (this.PreprocessingError != null)
+                    hashCode = hashCode * 59 + this.PreprocessingError.GetHashCode();
                 if (this.PublicStatus != null)
                     hashCode = hashCode * 59 + this.PublicStatus.GetHashCode();
                 if (this.RefreshStatus != null)
@@ -393,6 +423,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Status.GetHashCode();
                 if (this.TaskId != null)
                     hashCode = hashCode * 59 + this.TaskId.GetHashCode();
+                if (this.TaskUid != null)
+                    hashCode = hashCode * 59 + this.TaskUid.GetHashCode();
                 if (this.TotalLogicalSizeBytes != null)
                     hashCode = hashCode * 59 + this.TotalLogicalSizeBytes.GetHashCode();
                 if (this.TotalPhysicalSizeBytes != null)

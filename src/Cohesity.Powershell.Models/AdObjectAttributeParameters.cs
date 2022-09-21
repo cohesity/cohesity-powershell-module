@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -107,19 +109,19 @@ namespace Cohesity.Model
                     this.AdGuidPairs == input.AdGuidPairs ||
                     this.AdGuidPairs != null &&
                     input.AdGuidPairs != null &&
-                    this.AdGuidPairs.SequenceEqual(input.AdGuidPairs)
+                    this.AdGuidPairs.Equals(input.AdGuidPairs)
                 ) && 
                 (
                     this.ExcludeLdapProperties == input.ExcludeLdapProperties ||
                     this.ExcludeLdapProperties != null &&
                     input.ExcludeLdapProperties != null &&
-                    this.ExcludeLdapProperties.SequenceEqual(input.ExcludeLdapProperties)
+                    this.ExcludeLdapProperties.Equals(input.ExcludeLdapProperties)
                 ) && 
                 (
                     this.LdapProperties == input.LdapProperties ||
                     this.LdapProperties != null &&
                     input.LdapProperties != null &&
-                    this.LdapProperties.SequenceEqual(input.LdapProperties)
+                    this.LdapProperties.Equals(input.LdapProperties)
                 ) && 
                 (
                     this.MergeMultiValProperties == input.MergeMultiValProperties ||

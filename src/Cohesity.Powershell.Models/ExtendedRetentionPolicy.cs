@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -113,22 +115,35 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="ExtendedRetentionPolicy" /> class.
         /// </summary>
+        /// <param name="id">Specified the Id for a snapshot copy policy. This is generated when the policy is created..</param>
         /// <param name="backupRunType">The backup run type to which this extended retention applies to. If this is not set, the extended retention will be applicable to all non-log backup types. Currently, the only value that can be set here is kFull. &#39;kRegular&#39; indicates a incremental (CBT) backup. Incremental backups utilizing CBT (if supported) are captured of the target protection objects. The first run of a kRegular schedule captures all the blocks. &#39;kFull&#39; indicates a full (no CBT) backup. A complete backup (all blocks) of the target protection objects are always captured and Change Block Tracking (CBT) is not utilized. &#39;kLog&#39; indicates a Database Log backup. Capture the database transaction logs to allow rolling back to a specific point in time. &#39;kSystem&#39; indicates a system backup. System backups are used to do bare metal recovery of the system to a specific point in time..</param>
+        /// <param name="datalockConfig">datalockConfig.</param>
         /// <param name="daysToKeep">Specifies the number of days to retain copied Snapshots on the target..</param>
         /// <param name="multiplier">Specifies a factor to multiply the periodicity by, to determine the copy schedule. For example if set to 2 and the periodicity is hourly, then Snapshots from the first eligible Job Run for every 2 hour period is copied..</param>
         /// <param name="periodicity">Specifies the frequency that Snapshots should be copied to the specified target. Used in combination with multiplier. &#39;kEvery&#39; means that the Snapshot copy occurs after the number of Job Runs equals the number specified in the multiplier. &#39;kHour&#39; means that the Snapshot copy occurs hourly at the frequency set in the multiplier, for example if multiplier is 2, the copy occurs every 2 hours. &#39;kDay&#39; means that the Snapshot copy occurs daily at the frequency set in the multiplier. &#39;kWeek&#39; means that the Snapshot copy occurs weekly at the frequency set in the multiplier. &#39;kMonth&#39; means that the Snapshot copy occurs monthly at the frequency set in the multiplier. &#39;kYear&#39; means that the Snapshot copy occurs yearly at the frequency set in the multiplier..</param>
-        public ExtendedRetentionPolicy(BackupRunTypeEnum? backupRunType = default(BackupRunTypeEnum?), long? daysToKeep = default(long?), int? multiplier = default(int?), PeriodicityEnum? periodicity = default(PeriodicityEnum?))
+        public ExtendedRetentionPolicy(string id = default(string), BackupRunTypeEnum? backupRunType = default(BackupRunTypeEnum?), DataLockConfig datalockConfig = default(DataLockConfig), long? daysToKeep = default(long?), int? multiplier = default(int?), PeriodicityEnum? periodicity = default(PeriodicityEnum?))
         {
+            this.Id = id;
             this.BackupRunType = backupRunType;
-            this.DaysToKeep = daysToKeep;
-            this.Multiplier = multiplier;
-            this.Periodicity = periodicity;
-            this.BackupRunType = backupRunType;
+            this.DatalockConfig = datalockConfig;
             this.DaysToKeep = daysToKeep;
             this.Multiplier = multiplier;
             this.Periodicity = periodicity;
         }
         
+        /// <summary>
+        /// Specified the Id for a snapshot copy policy. This is generated when the policy is created.
+        /// </summary>
+        /// <value>Specified the Id for a snapshot copy policy. This is generated when the policy is created.</value>
+        [DataMember(Name="Id", EmitDefaultValue=true)]
+        public string Id { get; set; }
+
+        /// <summary>
+        /// Gets or Sets DatalockConfig
+        /// </summary>
+        [DataMember(Name="datalockConfig", EmitDefaultValue=false)]
+        public DataLockConfig DatalockConfig { get; set; }
+
         /// <summary>
         /// Specifies the number of days to retain copied Snapshots on the target.
         /// </summary>
@@ -180,8 +195,18 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.Id == input.Id ||
+                    (this.Id != null &&
+                    this.Id.Equals(input.Id))
+                ) && 
+                (
                     this.BackupRunType == input.BackupRunType ||
                     this.BackupRunType.Equals(input.BackupRunType)
+                ) && 
+                (
+                    this.DatalockConfig == input.DatalockConfig ||
+                    (this.DatalockConfig != null &&
+                    this.DatalockConfig.Equals(input.DatalockConfig))
                 ) && 
                 (
                     this.DaysToKeep == input.DaysToKeep ||
@@ -208,12 +233,18 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                hashCode = hashCode * 59 + this.BackupRunType.GetHashCode();
+                if (this.Id != null)
+                    hashCode = hashCode * 59 + this.Id.GetHashCode();
+                if (this.BackupRunType != null)
+					hashCode = hashCode * 59 + this.BackupRunType.GetHashCode();
+                if (this.DatalockConfig != null)
+                    hashCode = hashCode * 59 + this.DatalockConfig.GetHashCode();
                 if (this.DaysToKeep != null)
                     hashCode = hashCode * 59 + this.DaysToKeep.GetHashCode();
                 if (this.Multiplier != null)
                     hashCode = hashCode * 59 + this.Multiplier.GetHashCode();
-                hashCode = hashCode * 59 + this.Periodicity.GetHashCode();
+                if (this.Periodicity != null)
+					hashCode = hashCode * 59 + this.Periodicity.GetHashCode();
                 return hashCode;
             }
         }

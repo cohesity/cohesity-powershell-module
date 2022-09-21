@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -54,27 +56,55 @@ namespace Cohesity.Model
         [DataMember(Name="appsMode", EmitDefaultValue=true)]
         public AppsModeEnum? AppsMode { get; set; }
         /// <summary>
+        /// Specifies the various modes for running marketplace apps. &#39;kDisabled&#39; specifies that marketplace apps are disabled. &#39;kBareMetal&#39; specifies that marketplace apps could only run in containers on the node (no VM). &#39;kVmOnly&#39; specifies that marketplace apps could only run in containers on a VM hosted by the node.
+        /// </summary>
+        /// <value>Specifies the various modes for running marketplace apps. &#39;kDisabled&#39; specifies that marketplace apps are disabled. &#39;kBareMetal&#39; specifies that marketplace apps could only run in containers on the node (no VM). &#39;kVmOnly&#39; specifies that marketplace apps could only run in containers on a VM hosted by the node.</value>
+        [JsonConverter(typeof(StringEnumConverter))]
+        public enum MarketplaceAppsModeEnum
+        {
+            /// <summary>
+            /// Enum KDisabled for value: kDisabled
+            /// </summary>
+            [EnumMember(Value = "kDisabled")]
+            KDisabled = 1,
+
+            /// <summary>
+            /// Enum KBareMetal for value: kBareMetal
+            /// </summary>
+            [EnumMember(Value = "kBareMetal")]
+            KBareMetal = 2,
+
+            /// <summary>
+            /// Enum KVmOnly for value: kVmOnly
+            /// </summary>
+            [EnumMember(Value = "kVmOnly")]
+            KVmOnly = 3
+
+        }
+
+        /// <summary>
+        /// Specifies the various modes for running marketplace apps. &#39;kDisabled&#39; specifies that marketplace apps are disabled. &#39;kBareMetal&#39; specifies that marketplace apps could only run in containers on the node (no VM). &#39;kVmOnly&#39; specifies that marketplace apps could only run in containers on a VM hosted by the node.
+        /// </summary>
+        /// <value>Specifies the various modes for running marketplace apps. &#39;kDisabled&#39; specifies that marketplace apps are disabled. &#39;kBareMetal&#39; specifies that marketplace apps could only run in containers on the node (no VM). &#39;kVmOnly&#39; specifies that marketplace apps could only run in containers on a VM hosted by the node.</value>
+        [DataMember(Name="marketplaceAppsMode", EmitDefaultValue=true)]
+        public MarketplaceAppsModeEnum? MarketplaceAppsMode { get; set; }
+        /// <summary>
         /// Initializes a new instance of the <see cref="AppsConfig" /> class.
         /// </summary>
         /// <param name="allowExternalTraffic">Whether to allow pod external traffic..</param>
         /// <param name="allowUnrestictedViewAccess">Whether to allow apps unrestricted view access..</param>
         /// <param name="appsMode">Specifies the various modes for running apps. &#39;kDisabled&#39; specifies that apps are disabled. &#39;kBareMetal&#39; specifies that apps could only run in containers on the node (no VM). &#39;kVmOnly&#39; specifies that apps could only run in containers on a VM hosted by the node..</param>
         /// <param name="appsSubnet">appsSubnet.</param>
+        /// <param name="marketplaceAppsMode">Specifies the various modes for running marketplace apps. &#39;kDisabled&#39; specifies that marketplace apps are disabled. &#39;kBareMetal&#39; specifies that marketplace apps could only run in containers on the node (no VM). &#39;kVmOnly&#39; specifies that marketplace apps could only run in containers on a VM hosted by the node..</param>
         /// <param name="overcommitMemoryPct">The system memory to overcommit for apps..</param>
         /// <param name="reservedCpuMillicores">The CPU millicores to reserve for apps..</param>
         /// <param name="reservedMemoryPct">The system memory to reserve for apps..</param>
-        public AppsConfig(bool? allowExternalTraffic = default(bool?), bool? allowUnrestictedViewAccess = default(bool?), AppsModeEnum? appsMode = default(AppsModeEnum?), Subnet appsSubnet = default(Subnet), int? overcommitMemoryPct = default(int?), int? reservedCpuMillicores = default(int?), int? reservedMemoryPct = default(int?))
+        public AppsConfig(bool? allowExternalTraffic = default(bool?), bool? allowUnrestictedViewAccess = default(bool?), AppsModeEnum? appsMode = default(AppsModeEnum?), Subnet appsSubnet = default(Subnet), MarketplaceAppsModeEnum? marketplaceAppsMode = default(MarketplaceAppsModeEnum?), int? overcommitMemoryPct = default(int?), int? reservedCpuMillicores = default(int?), int? reservedMemoryPct = default(int?))
         {
             this.AllowExternalTraffic = allowExternalTraffic;
             this.AllowUnrestictedViewAccess = allowUnrestictedViewAccess;
             this.AppsMode = appsMode;
-            this.OvercommitMemoryPct = overcommitMemoryPct;
-            this.ReservedCpuMillicores = reservedCpuMillicores;
-            this.ReservedMemoryPct = reservedMemoryPct;
-            this.AllowExternalTraffic = allowExternalTraffic;
-            this.AllowUnrestictedViewAccess = allowUnrestictedViewAccess;
-            this.AppsMode = appsMode;
-            this.AppsSubnet = appsSubnet;
+            this.MarketplaceAppsMode = marketplaceAppsMode;
             this.OvercommitMemoryPct = overcommitMemoryPct;
             this.ReservedCpuMillicores = reservedCpuMillicores;
             this.ReservedMemoryPct = reservedMemoryPct;
@@ -177,6 +207,10 @@ namespace Cohesity.Model
                     this.AppsSubnet.Equals(input.AppsSubnet))
                 ) && 
                 (
+                    this.MarketplaceAppsMode == input.MarketplaceAppsMode ||
+                    this.MarketplaceAppsMode.Equals(input.MarketplaceAppsMode)
+                ) && 
+                (
                     this.OvercommitMemoryPct == input.OvercommitMemoryPct ||
                     (this.OvercommitMemoryPct != null &&
                     this.OvercommitMemoryPct.Equals(input.OvercommitMemoryPct))
@@ -209,6 +243,8 @@ namespace Cohesity.Model
                 hashCode = hashCode * 59 + this.AppsMode.GetHashCode();
                 if (this.AppsSubnet != null)
                     hashCode = hashCode * 59 + this.AppsSubnet.GetHashCode();
+				if (this.MarketplaceAppsMode != null)
+                	hashCode = hashCode * 59 + this.MarketplaceAppsMode.GetHashCode();
                 if (this.OvercommitMemoryPct != null)
                     hashCode = hashCode * 59 + this.OvercommitMemoryPct.GetHashCode();
                 if (this.ReservedCpuMillicores != null)

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -25,12 +27,12 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="emailAddress">emailAddress.</param>
         /// <param name="locale">Specifies the language in which the emails sent to the above defined mail address should be in..</param>
-        public EmailDeliveryTarget(string emailAddress = default(string), string locale = default(string))
+        /// <param name="recipientType">Specifies the recipient type on how the emails are to received..</param>
+        public EmailDeliveryTarget(string emailAddress = default(string), string locale = default(string), int? recipientType = default(int?))
         {
             this.EmailAddress = emailAddress;
             this.Locale = locale;
-            this.EmailAddress = emailAddress;
-            this.Locale = locale;
+            this.RecipientType = recipientType;
         }
         
         /// <summary>
@@ -45,6 +47,13 @@ namespace Cohesity.Model
         /// <value>Specifies the language in which the emails sent to the above defined mail address should be in.</value>
         [DataMember(Name="locale", EmitDefaultValue=true)]
         public string Locale { get; set; }
+
+        /// <summary>
+        /// Specifies the recipient type on how the emails are to received.
+        /// </summary>
+        /// <value>Specifies the recipient type on how the emails are to received.</value>
+        [DataMember(Name="recipientType", EmitDefaultValue=true)]
+        public int? RecipientType { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -91,6 +100,11 @@ namespace Cohesity.Model
                     this.Locale == input.Locale ||
                     (this.Locale != null &&
                     this.Locale.Equals(input.Locale))
+                ) && 
+                (
+                    this.RecipientType == input.RecipientType ||
+                    (this.RecipientType != null &&
+                    this.RecipientType.Equals(input.RecipientType))
                 );
         }
 
@@ -107,6 +121,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.EmailAddress.GetHashCode();
                 if (this.Locale != null)
                     hashCode = hashCode * 59 + this.Locale.GetHashCode();
+                if (this.RecipientType != null)
+                    hashCode = hashCode * 59 + this.RecipientType.GetHashCode();
                 return hashCode;
             }
         }

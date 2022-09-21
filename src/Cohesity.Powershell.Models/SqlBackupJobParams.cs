@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -32,12 +34,14 @@ namespace Cohesity.Model
         /// <param name="fullBackupType">The type of SQL full backup to be used for this job..</param>
         /// <param name="isCopyOnlyFull">Whether full backups should be copy-only..</param>
         /// <param name="isCopyOnlyLog">Whether log backups should be copy-only..</param>
+        /// <param name="logBackupNumStreams">The number of streams to be used for log backups in native sql backup command. This is only applicable for native sql log backups. If this is not specified, we use the value specified in magneto_sql_num_streams_for_each_db_backup gflag..</param>
+        /// <param name="logBackupWithClause">&#39;with_clause&#39; contains &#39;with clause&#39; to be used for log backups in native sql backup command. This is only applicable for native sql log backup. Here user can specify multiple backup options. Example: \&quot;WITH BUFFERCOUNT &#x3D; 575, MAXTRANSFERSIZE &#x3D; 2097152\&quot;. If this is not specified, we use the value specified in magneto_sql_native_backup_with_clause gflag..</param>
         /// <param name="numDbsPerBatch">The number of databases to be backed up per batch. This is only applicable for file based sql backup. If this is not specified, we use the value specified in magneto_vss_sql_app_file_batch_size gflag..</param>
         /// <param name="numStreams">The number of streams to be used in native sql backup command. This is only applicable for native sql backup. If this is not specified, we use the value specified in magneto_sql_num_streams_for_each_db_backup gflag..</param>
         /// <param name="useAagPreferencesFromSqlServer">Set to true if we should use AAG preferences specified at the SQL server host..</param>
         /// <param name="userDbPreferenceType">Preference type for backing up user databases on the host..</param>
         /// <param name="withClause">&#39;with_clause&#39; contains &#39;with clause&#39; to be used in native sql backup command. This is only applicable for native sql backup. Here user can specify multiple backup options. Example: \&quot;WITH BUFFERCOUNT &#x3D; 575, MAXTRANSFERSIZE &#x3D; 2097152\&quot;. If this is not specified, we use the value specified in magneto_sql_native_backup_with_clause gflag..</param>
-        public SqlBackupJobParams(int? aagBackupPreferenceType = default(int?), bool? backupDatabaseVolumesOnly = default(bool?), bool? backupSystemDbs = default(bool?), bool? continueAfterError = default(bool?), bool? enableChecksum = default(bool?), bool? enableIncrementalBackupAfterRestart = default(bool?), int? fullBackupType = default(int?), bool? isCopyOnlyFull = default(bool?), bool? isCopyOnlyLog = default(bool?), int? numDbsPerBatch = default(int?), int? numStreams = default(int?), bool? useAagPreferencesFromSqlServer = default(bool?), int? userDbPreferenceType = default(int?), string withClause = default(string))
+        public SqlBackupJobParams(int? aagBackupPreferenceType = default(int?), bool? backupDatabaseVolumesOnly = default(bool?), bool? backupSystemDbs = default(bool?), bool? continueAfterError = default(bool?), bool? enableChecksum = default(bool?), bool? enableIncrementalBackupAfterRestart = default(bool?), int? fullBackupType = default(int?), bool? isCopyOnlyFull = default(bool?), bool? isCopyOnlyLog = default(bool?), int? logBackupNumStreams = default(int?), string logBackupWithClause = default(string), int? numDbsPerBatch = default(int?), int? numStreams = default(int?), bool? useAagPreferencesFromSqlServer = default(bool?), int? userDbPreferenceType = default(int?), string withClause = default(string))
         {
             this.AagBackupPreferenceType = aagBackupPreferenceType;
             this.BackupDatabaseVolumesOnly = backupDatabaseVolumesOnly;
@@ -48,20 +52,8 @@ namespace Cohesity.Model
             this.FullBackupType = fullBackupType;
             this.IsCopyOnlyFull = isCopyOnlyFull;
             this.IsCopyOnlyLog = isCopyOnlyLog;
-            this.NumDbsPerBatch = numDbsPerBatch;
-            this.NumStreams = numStreams;
-            this.UseAagPreferencesFromSqlServer = useAagPreferencesFromSqlServer;
-            this.UserDbPreferenceType = userDbPreferenceType;
-            this.WithClause = withClause;
-            this.AagBackupPreferenceType = aagBackupPreferenceType;
-            this.BackupDatabaseVolumesOnly = backupDatabaseVolumesOnly;
-            this.BackupSystemDbs = backupSystemDbs;
-            this.ContinueAfterError = continueAfterError;
-            this.EnableChecksum = enableChecksum;
-            this.EnableIncrementalBackupAfterRestart = enableIncrementalBackupAfterRestart;
-            this.FullBackupType = fullBackupType;
-            this.IsCopyOnlyFull = isCopyOnlyFull;
-            this.IsCopyOnlyLog = isCopyOnlyLog;
+            this.LogBackupNumStreams = logBackupNumStreams;
+            this.LogBackupWithClause = logBackupWithClause;
             this.NumDbsPerBatch = numDbsPerBatch;
             this.NumStreams = numStreams;
             this.UseAagPreferencesFromSqlServer = useAagPreferencesFromSqlServer;
@@ -131,6 +123,20 @@ namespace Cohesity.Model
         /// <value>Whether log backups should be copy-only.</value>
         [DataMember(Name="isCopyOnlyLog", EmitDefaultValue=true)]
         public bool? IsCopyOnlyLog { get; set; }
+
+        /// <summary>
+        /// The number of streams to be used for log backups in native sql backup command. This is only applicable for native sql log backups. If this is not specified, we use the value specified in magneto_sql_num_streams_for_each_db_backup gflag.
+        /// </summary>
+        /// <value>The number of streams to be used for log backups in native sql backup command. This is only applicable for native sql log backups. If this is not specified, we use the value specified in magneto_sql_num_streams_for_each_db_backup gflag.</value>
+        [DataMember(Name="logBackupNumStreams", EmitDefaultValue=true)]
+        public int? LogBackupNumStreams { get; set; }
+
+        /// <summary>
+        /// &#39;with_clause&#39; contains &#39;with clause&#39; to be used for log backups in native sql backup command. This is only applicable for native sql log backup. Here user can specify multiple backup options. Example: \&quot;WITH BUFFERCOUNT &#x3D; 575, MAXTRANSFERSIZE &#x3D; 2097152\&quot;. If this is not specified, we use the value specified in magneto_sql_native_backup_with_clause gflag.
+        /// </summary>
+        /// <value>&#39;with_clause&#39; contains &#39;with clause&#39; to be used for log backups in native sql backup command. This is only applicable for native sql log backup. Here user can specify multiple backup options. Example: \&quot;WITH BUFFERCOUNT &#x3D; 575, MAXTRANSFERSIZE &#x3D; 2097152\&quot;. If this is not specified, we use the value specified in magneto_sql_native_backup_with_clause gflag.</value>
+        [DataMember(Name="logBackupWithClause", EmitDefaultValue=true)]
+        public string LogBackupWithClause { get; set; }
 
         /// <summary>
         /// The number of databases to be backed up per batch. This is only applicable for file based sql backup. If this is not specified, we use the value specified in magneto_vss_sql_app_file_batch_size gflag.
@@ -249,6 +255,16 @@ namespace Cohesity.Model
                     this.IsCopyOnlyLog.Equals(input.IsCopyOnlyLog))
                 ) && 
                 (
+                    this.LogBackupNumStreams == input.LogBackupNumStreams ||
+                    (this.LogBackupNumStreams != null &&
+                    this.LogBackupNumStreams.Equals(input.LogBackupNumStreams))
+                ) && 
+                (
+                    this.LogBackupWithClause == input.LogBackupWithClause ||
+                    (this.LogBackupWithClause != null &&
+                    this.LogBackupWithClause.Equals(input.LogBackupWithClause))
+                ) && 
+                (
                     this.NumDbsPerBatch == input.NumDbsPerBatch ||
                     (this.NumDbsPerBatch != null &&
                     this.NumDbsPerBatch.Equals(input.NumDbsPerBatch))
@@ -302,6 +318,10 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.IsCopyOnlyFull.GetHashCode();
                 if (this.IsCopyOnlyLog != null)
                     hashCode = hashCode * 59 + this.IsCopyOnlyLog.GetHashCode();
+                if (this.LogBackupNumStreams != null)
+                    hashCode = hashCode * 59 + this.LogBackupNumStreams.GetHashCode();
+                if (this.LogBackupWithClause != null)
+                    hashCode = hashCode * 59 + this.LogBackupWithClause.GetHashCode();
                 if (this.NumDbsPerBatch != null)
                     hashCode = hashCode * 59 + this.NumDbsPerBatch.GetHashCode();
                 if (this.NumStreams != null)

@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -12,6 +13,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
+
 namespace Cohesity.Model
 {
     /// <summary>
@@ -23,27 +25,34 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="AWSFleetParamsNetworkParams" /> class.
         /// </summary>
-        /// <param name="subnet">Subnet for the fleet..</param>
-        /// <param name="vpc">VPC for the fleet..</param>
-        public AWSFleetParamsNetworkParams(string subnet = default(string), string vpc = default(string))
+        /// <param name="region">Region for the VM..</param>
+        /// <param name="subnet">Subnet for the VM..</param>
+        /// <param name="vpc">VPC for the VM..</param>
+        public AWSFleetParamsNetworkParams(string region = default(string), string subnet = default(string), string vpc = default(string))
         {
-            this.Subnet = subnet;
-            this.Vpc = vpc;
+            this.Region = region;
             this.Subnet = subnet;
             this.Vpc = vpc;
         }
         
         /// <summary>
-        /// Subnet for the fleet.
+        /// Region for the VM.
         /// </summary>
-        /// <value>Subnet for the fleet.</value>
+        /// <value>Region for the VM.</value>
+        [DataMember(Name="region", EmitDefaultValue=true)]
+        public string Region { get; set; }
+
+        /// <summary>
+        /// Subnet for the VM.
+        /// </summary>
+        /// <value>Subnet for the VM.</value>
         [DataMember(Name="subnet", EmitDefaultValue=true)]
         public string Subnet { get; set; }
 
         /// <summary>
-        /// VPC for the fleet.
+        /// VPC for the VM.
         /// </summary>
-        /// <value>VPC for the fleet.</value>
+        /// <value>VPC for the VM.</value>
         [DataMember(Name="vpc", EmitDefaultValue=true)]
         public string Vpc { get; set; }
 
@@ -84,6 +93,11 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.Region == input.Region ||
+                    (this.Region != null &&
+                    this.Region.Equals(input.Region))
+                ) && 
+                (
                     this.Subnet == input.Subnet ||
                     (this.Subnet != null &&
                     this.Subnet.Equals(input.Subnet))
@@ -104,6 +118,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.Region != null)
+                    hashCode = hashCode * 59 + this.Region.GetHashCode();
                 if (this.Subnet != null)
                     hashCode = hashCode * 59 + this.Subnet.GetHashCode();
                 if (this.Vpc != null)

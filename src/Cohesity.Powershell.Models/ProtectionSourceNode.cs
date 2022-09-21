@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -28,27 +30,26 @@ namespace Cohesity.Model
         /// <param name="entityPermissionInfo">entityPermissionInfo.</param>
         /// <param name="logicalSize">Specifies the logical size of the data in bytes for the Object on this node. Presence of this field indicates this node is a leaf node..</param>
         /// <param name="nodes">Array of Child Nodes.  Specifies children of the current node in the Protection Sources hierarchy. When representing Objects in memory, the entire Object subtree hierarchy is represented. You can use this subtree to navigate down the Object hierarchy..</param>
+        /// <param name="objectProtectionInfo">objectProtectionInfo.</param>
         /// <param name="protectedSourcesSummary">Array of Protected Objects.  Specifies aggregated information about all the child Objects of this node that are currently protected by a Protection Job. There is one entry for each environment that is being backed up. The aggregated information for the Object hierarchy&#39;s environment will be available at the 0th index of the vector..</param>
         /// <param name="protectionSource">Specifies the Protection Source for the current node..</param>
         /// <param name="registrationInfo">Specifies registration information for a root node in a Protection Sources tree. A root node represents a registered Source on the Cohesity Cluster, such as a vCenter Server..</param>
+        /// <param name="totalDowntieredSizeInBytes">Specifies the total bytes downtiered from the source so far..</param>
+        /// <param name="totalUptieredSizeInBytes">Specifies the total bytes uptiered to the source so far..</param>
         /// <param name="unprotectedSourcesSummary">Array of Unprotected Sources.  Specifies aggregated information about all the child Objects of this node that are not protected by any Protection Jobs. The aggregated information for the Objects hierarchy&#39;s environment will be available at the 0th index of the vector. NOTE: This list includes Objects that were protected at some point in the past but are no longer actively protected. Snapshots containing these Objects may even exist on the Cohesity Cluster and be available to recover from..</param>
-        public ProtectionSourceNode(List<ProtectionSourceNode> applicationNodes = default(List<ProtectionSourceNode>), PaginationParameters entityPaginationParameters = default(PaginationParameters), EntityPermissionInformation entityPermissionInfo = default(EntityPermissionInformation), long? logicalSize = default(long?), List<ProtectionSourceNode> nodes = default(List<ProtectionSourceNode>), List<AggregatedSubtreeInfo> protectedSourcesSummary = default(List<AggregatedSubtreeInfo>), ProtectionSource protectionSource = default(ProtectionSource), RegisteredSourceInfo registrationInfo = default(RegisteredSourceInfo), List<AggregatedSubtreeInfo> unprotectedSourcesSummary = default(List<AggregatedSubtreeInfo>))
+        public ProtectionSourceNode(List<ProtectionSourceNode> applicationNodes = default(List<ProtectionSourceNode>), PaginationParameters entityPaginationParameters = default(PaginationParameters), EntityPermissionInformation entityPermissionInfo = default(EntityPermissionInformation), long? logicalSize = default(long?), List<ProtectionSourceNode> nodes = default(List<ProtectionSourceNode>), ObjectProtectionInfo objectProtectionInfo = default(ObjectProtectionInfo), List<AggregatedSubtreeInfo> protectedSourcesSummary = default(List<AggregatedSubtreeInfo>), ProtectionSource protectionSource = default(ProtectionSource), RegisteredSourceInfo registrationInfo = default(RegisteredSourceInfo), long? totalDowntieredSizeInBytes = default(long?), long? totalUptieredSizeInBytes = default(long?), List<AggregatedSubtreeInfo> unprotectedSourcesSummary = default(List<AggregatedSubtreeInfo>))
         {
-            this.ApplicationNodes = applicationNodes;
-            this.LogicalSize = logicalSize;
-            this.Nodes = nodes;
-            this.ProtectedSourcesSummary = protectedSourcesSummary;
-            this.ProtectionSource = protectionSource;
-            this.RegistrationInfo = registrationInfo;
-            this.UnprotectedSourcesSummary = unprotectedSourcesSummary;
             this.ApplicationNodes = applicationNodes;
             this.EntityPaginationParameters = entityPaginationParameters;
             this.EntityPermissionInfo = entityPermissionInfo;
             this.LogicalSize = logicalSize;
             this.Nodes = nodes;
+            this.ObjectProtectionInfo = objectProtectionInfo;
             this.ProtectedSourcesSummary = protectedSourcesSummary;
             this.ProtectionSource = protectionSource;
             this.RegistrationInfo = registrationInfo;
+            this.TotalDowntieredSizeInBytes = totalDowntieredSizeInBytes;
+            this.TotalUptieredSizeInBytes = totalUptieredSizeInBytes;
             this.UnprotectedSourcesSummary = unprotectedSourcesSummary;
         }
         
@@ -86,6 +87,12 @@ namespace Cohesity.Model
         public List<ProtectionSourceNode> Nodes { get; set; }
 
         /// <summary>
+        /// Gets or Sets ObjectProtectionInfo
+        /// </summary>
+        [DataMember(Name="objectProtectionInfo", EmitDefaultValue=false)]
+        public ObjectProtectionInfo ObjectProtectionInfo { get; set; }
+
+        /// <summary>
         /// Array of Protected Objects.  Specifies aggregated information about all the child Objects of this node that are currently protected by a Protection Job. There is one entry for each environment that is being backed up. The aggregated information for the Object hierarchy&#39;s environment will be available at the 0th index of the vector.
         /// </summary>
         /// <value>Array of Protected Objects.  Specifies aggregated information about all the child Objects of this node that are currently protected by a Protection Job. There is one entry for each environment that is being backed up. The aggregated information for the Object hierarchy&#39;s environment will be available at the 0th index of the vector.</value>
@@ -105,6 +112,20 @@ namespace Cohesity.Model
         /// <value>Specifies registration information for a root node in a Protection Sources tree. A root node represents a registered Source on the Cohesity Cluster, such as a vCenter Server.</value>
         [DataMember(Name="registrationInfo", EmitDefaultValue=true)]
         public RegisteredSourceInfo RegistrationInfo { get; set; }
+
+        /// <summary>
+        /// Specifies the total bytes downtiered from the source so far.
+        /// </summary>
+        /// <value>Specifies the total bytes downtiered from the source so far.</value>
+        [DataMember(Name="totalDowntieredSizeInBytes", EmitDefaultValue=true)]
+        public long? TotalDowntieredSizeInBytes { get; set; }
+
+        /// <summary>
+        /// Specifies the total bytes uptiered to the source so far.
+        /// </summary>
+        /// <value>Specifies the total bytes uptiered to the source so far.</value>
+        [DataMember(Name="totalUptieredSizeInBytes", EmitDefaultValue=true)]
+        public long? TotalUptieredSizeInBytes { get; set; }
 
         /// <summary>
         /// Array of Unprotected Sources.  Specifies aggregated information about all the child Objects of this node that are not protected by any Protection Jobs. The aggregated information for the Objects hierarchy&#39;s environment will be available at the 0th index of the vector. NOTE: This list includes Objects that were protected at some point in the past but are no longer actively protected. Snapshots containing these Objects may even exist on the Cohesity Cluster and be available to recover from.
@@ -153,7 +174,7 @@ namespace Cohesity.Model
                     this.ApplicationNodes == input.ApplicationNodes ||
                     this.ApplicationNodes != null &&
                     input.ApplicationNodes != null &&
-                    this.ApplicationNodes.SequenceEqual(input.ApplicationNodes)
+                    this.ApplicationNodes.Equals(input.ApplicationNodes)
                 ) && 
                 (
                     this.EntityPaginationParameters == input.EntityPaginationParameters ||
@@ -174,13 +195,18 @@ namespace Cohesity.Model
                     this.Nodes == input.Nodes ||
                     this.Nodes != null &&
                     input.Nodes != null &&
-                    this.Nodes.SequenceEqual(input.Nodes)
+                    this.Nodes.Equals(input.Nodes)
+                ) && 
+                (
+                    this.ObjectProtectionInfo == input.ObjectProtectionInfo ||
+                    (this.ObjectProtectionInfo != null &&
+                    this.ObjectProtectionInfo.Equals(input.ObjectProtectionInfo))
                 ) && 
                 (
                     this.ProtectedSourcesSummary == input.ProtectedSourcesSummary ||
                     this.ProtectedSourcesSummary != null &&
                     input.ProtectedSourcesSummary != null &&
-                    this.ProtectedSourcesSummary.SequenceEqual(input.ProtectedSourcesSummary)
+                    this.ProtectedSourcesSummary.Equals(input.ProtectedSourcesSummary)
                 ) && 
                 (
                     this.ProtectionSource == input.ProtectionSource ||
@@ -193,10 +219,20 @@ namespace Cohesity.Model
                     this.RegistrationInfo.Equals(input.RegistrationInfo))
                 ) && 
                 (
+                    this.TotalDowntieredSizeInBytes == input.TotalDowntieredSizeInBytes ||
+                    (this.TotalDowntieredSizeInBytes != null &&
+                    this.TotalDowntieredSizeInBytes.Equals(input.TotalDowntieredSizeInBytes))
+                ) && 
+                (
+                    this.TotalUptieredSizeInBytes == input.TotalUptieredSizeInBytes ||
+                    (this.TotalUptieredSizeInBytes != null &&
+                    this.TotalUptieredSizeInBytes.Equals(input.TotalUptieredSizeInBytes))
+                ) && 
+                (
                     this.UnprotectedSourcesSummary == input.UnprotectedSourcesSummary ||
                     this.UnprotectedSourcesSummary != null &&
                     input.UnprotectedSourcesSummary != null &&
-                    this.UnprotectedSourcesSummary.SequenceEqual(input.UnprotectedSourcesSummary)
+                    this.UnprotectedSourcesSummary.Equals(input.UnprotectedSourcesSummary)
                 );
         }
 
@@ -219,12 +255,18 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.LogicalSize.GetHashCode();
                 if (this.Nodes != null)
                     hashCode = hashCode * 59 + this.Nodes.GetHashCode();
+                if (this.ObjectProtectionInfo != null)
+                    hashCode = hashCode * 59 + this.ObjectProtectionInfo.GetHashCode();
                 if (this.ProtectedSourcesSummary != null)
                     hashCode = hashCode * 59 + this.ProtectedSourcesSummary.GetHashCode();
                 if (this.ProtectionSource != null)
                     hashCode = hashCode * 59 + this.ProtectionSource.GetHashCode();
                 if (this.RegistrationInfo != null)
                     hashCode = hashCode * 59 + this.RegistrationInfo.GetHashCode();
+                if (this.TotalDowntieredSizeInBytes != null)
+                    hashCode = hashCode * 59 + this.TotalDowntieredSizeInBytes.GetHashCode();
+                if (this.TotalUptieredSizeInBytes != null)
+                    hashCode = hashCode * 59 + this.TotalUptieredSizeInBytes.GetHashCode();
                 if (this.UnprotectedSourcesSummary != null)
                     hashCode = hashCode * 59 + this.UnprotectedSourcesSummary.GetHashCode();
                 return hashCode;

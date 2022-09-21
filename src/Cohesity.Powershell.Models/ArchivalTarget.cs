@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -12,6 +13,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
+
 namespace Cohesity.Model
 {
     /// <summary>
@@ -23,19 +25,28 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="ArchivalTarget" /> class.
         /// </summary>
+        /// <param name="cloudTierSetting">cloudTierSetting.</param>
         /// <param name="name">The name of the archival target..</param>
+        /// <param name="ownershipContext">OwnershipContext of an archival target..</param>
         /// <param name="type">The type of the archival target..</param>
+        /// <param name="usageType">Usage of the archival target. Regular archival and RPaas archival are potential UsageType. By default it is regular archival. A vault can only be used for one UsageType and UsageType should not be changed once set.  Note: This field will be deprecated in future. Use OwnershipContext instead..</param>
         /// <param name="vaultId">The id of the archival vault..</param>
-        public ArchivalTarget(string name = default(string), int? type = default(int?), long? vaultId = default(long?))
+        public ArchivalTarget(ClusterConfigProtoVaultCloudTierSetting cloudTierSetting = default(ClusterConfigProtoVaultCloudTierSetting), string name = default(string), int? ownershipContext = default(int?), int? type = default(int?), int? usageType = default(int?), long? vaultId = default(long?))
         {
             this.Name = name;
+            this.OwnershipContext = ownershipContext;
             this.Type = type;
+            this.UsageType = usageType;
             this.VaultId = vaultId;
-            this.Name = name;
-            this.Type = type;
-            this.VaultId = vaultId;
+            this.CloudTierSetting = cloudTierSetting;
         }
         
+        /// <summary>
+        /// Gets or Sets CloudTierSetting
+        /// </summary>
+        [DataMember(Name="cloudTierSetting", EmitDefaultValue=false)]
+        public ClusterConfigProtoVaultCloudTierSetting CloudTierSetting { get; set; }
+
         /// <summary>
         /// The name of the archival target.
         /// </summary>
@@ -44,11 +55,25 @@ namespace Cohesity.Model
         public string Name { get; set; }
 
         /// <summary>
+        /// OwnershipContext of an archival target.
+        /// </summary>
+        /// <value>OwnershipContext of an archival target.</value>
+        [DataMember(Name="ownershipContext", EmitDefaultValue=true)]
+        public int? OwnershipContext { get; set; }
+
+        /// <summary>
         /// The type of the archival target.
         /// </summary>
         /// <value>The type of the archival target.</value>
         [DataMember(Name="type", EmitDefaultValue=true)]
         public int? Type { get; set; }
+
+        /// <summary>
+        /// Usage of the archival target. Regular archival and RPaas archival are potential UsageType. By default it is regular archival. A vault can only be used for one UsageType and UsageType should not be changed once set.  Note: This field will be deprecated in future. Use OwnershipContext instead.
+        /// </summary>
+        /// <value>Usage of the archival target. Regular archival and RPaas archival are potential UsageType. By default it is regular archival. A vault can only be used for one UsageType and UsageType should not be changed once set.  Note: This field will be deprecated in future. Use OwnershipContext instead.</value>
+        [DataMember(Name="usageType", EmitDefaultValue=true)]
+        public int? UsageType { get; set; }
 
         /// <summary>
         /// The id of the archival vault.
@@ -94,14 +119,29 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.CloudTierSetting == input.CloudTierSetting ||
+                    (this.CloudTierSetting != null &&
+                    this.CloudTierSetting.Equals(input.CloudTierSetting))
+                ) && 
+                (
                     this.Name == input.Name ||
                     (this.Name != null &&
                     this.Name.Equals(input.Name))
                 ) && 
                 (
+                    this.OwnershipContext == input.OwnershipContext ||
+                    (this.OwnershipContext != null &&
+                    this.OwnershipContext.Equals(input.OwnershipContext))
+                ) && 
+                (
                     this.Type == input.Type ||
                     (this.Type != null &&
                     this.Type.Equals(input.Type))
+                ) && 
+                (
+                    this.UsageType == input.UsageType ||
+                    (this.UsageType != null &&
+                    this.UsageType.Equals(input.UsageType))
                 ) && 
                 (
                     this.VaultId == input.VaultId ||
@@ -119,10 +159,16 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.CloudTierSetting != null)
+                    hashCode = hashCode * 59 + this.CloudTierSetting.GetHashCode();
                 if (this.Name != null)
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
+                if (this.OwnershipContext != null)
+                    hashCode = hashCode * 59 + this.OwnershipContext.GetHashCode();
                 if (this.Type != null)
                     hashCode = hashCode * 59 + this.Type.GetHashCode();
+                if (this.UsageType != null)
+                    hashCode = hashCode * 59 + this.UsageType.GetHashCode();
                 if (this.VaultId != null)
                     hashCode = hashCode * 59 + this.VaultId.GetHashCode();
                 return hashCode;

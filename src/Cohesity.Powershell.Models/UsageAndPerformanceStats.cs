@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -12,6 +13,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
+
 namespace Cohesity.Model
 {
     /// <summary>
@@ -23,18 +25,18 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="UsageAndPerformanceStats" /> class.
         /// </summary>
-        /// <param name="dataInBytes">Data brought into the cluster. This is the usage before data reduction if we ignore the zeroes and effects of cloning..</param>
+        /// <param name="dataInBytes">Specifies the data read from the protected objects by the Cohesity Cluster before any data reduction using deduplication and compression..</param>
         /// <param name="dataInBytesAfterReduction">Morphed Usage before data is replicated to other nodes as per RF or Erasure Coding policy..</param>
         /// <param name="minUsablePhysicalCapacityBytes">Specifies the minimum usable capacity available after erasure coding or RF. This will only be populated for cluster. If a cluster has multiple Domains (View Boxes) with different RF or erasure coding, this metric will be computed using the scheme that will provide least saving..</param>
         /// <param name="numBytesRead">Provides the total number of bytes read in the last 30 seconds..</param>
         /// <param name="numBytesWritten">Provides the total number of bytes written in the last 30 second..</param>
-        /// <param name="physicalCapacityBytes">Provides the total physical capacity in bytes as computed by the Cohesity Cluster..</param>
+        /// <param name="physicalCapacityBytes">Provides the total physical capacity in bytes of all the storage devices, after subtracting space reserved for cluster services.</param>
         /// <param name="readIos">Provides the number of Read IOs that occurred in the last 30 seconds..</param>
         /// <param name="readLatencyMsecs">Provides the Read latency in milliseconds for the Read IOs that occurred during the last 30 seconds..</param>
         /// <param name="systemCapacityBytes">Provides the total available capacity as computed by the Linux &#39;statfs&#39; command..</param>
         /// <param name="systemUsageBytes">Provides the usage of bytes, as computed by the Linux &#39;statfs&#39; command, after the size of the data is reduced by change-block tracking, compression and deduplication..</param>
         /// <param name="totalPhysicalRawUsageBytes">Provides the usage of bytes, as computed by the Cohesity Cluster, before the size of the data is reduced by change-block tracking, compression and deduplication..</param>
-        /// <param name="totalPhysicalUsageBytes">Provides the total capacity, as computed by the Cohesity Cluster, after the size of the data has been reduced by change-block tracking, compression and deduplication..</param>
+        /// <param name="totalPhysicalUsageBytes">Provides the data stored locally, after the data has been reduced by deduplication and compression, including the space required for honoring the resiliency settings (EC/RF)..</param>
         /// <param name="writeIos">Provides the number of Write IOs that occurred in the last 30 seconds..</param>
         /// <param name="writeLatencyMsecs">Provides the Write latency in milliseconds for the Write IOs that occurred during the last 30 seconds..</param>
         public UsageAndPerformanceStats(long? dataInBytes = default(long?), long? dataInBytesAfterReduction = default(long?), long? minUsablePhysicalCapacityBytes = default(long?), long? numBytesRead = default(long?), long? numBytesWritten = default(long?), long? physicalCapacityBytes = default(long?), long? readIos = default(long?), double? readLatencyMsecs = default(double?), long? systemCapacityBytes = default(long?), long? systemUsageBytes = default(long?), long? totalPhysicalRawUsageBytes = default(long?), long? totalPhysicalUsageBytes = default(long?), long? writeIos = default(long?), double? writeLatencyMsecs = default(double?))
@@ -53,26 +55,12 @@ namespace Cohesity.Model
             this.TotalPhysicalUsageBytes = totalPhysicalUsageBytes;
             this.WriteIos = writeIos;
             this.WriteLatencyMsecs = writeLatencyMsecs;
-            this.DataInBytes = dataInBytes;
-            this.DataInBytesAfterReduction = dataInBytesAfterReduction;
-            this.MinUsablePhysicalCapacityBytes = minUsablePhysicalCapacityBytes;
-            this.NumBytesRead = numBytesRead;
-            this.NumBytesWritten = numBytesWritten;
-            this.PhysicalCapacityBytes = physicalCapacityBytes;
-            this.ReadIos = readIos;
-            this.ReadLatencyMsecs = readLatencyMsecs;
-            this.SystemCapacityBytes = systemCapacityBytes;
-            this.SystemUsageBytes = systemUsageBytes;
-            this.TotalPhysicalRawUsageBytes = totalPhysicalRawUsageBytes;
-            this.TotalPhysicalUsageBytes = totalPhysicalUsageBytes;
-            this.WriteIos = writeIos;
-            this.WriteLatencyMsecs = writeLatencyMsecs;
         }
         
         /// <summary>
-        /// Data brought into the cluster. This is the usage before data reduction if we ignore the zeroes and effects of cloning.
+        /// Specifies the data read from the protected objects by the Cohesity Cluster before any data reduction using deduplication and compression.
         /// </summary>
-        /// <value>Data brought into the cluster. This is the usage before data reduction if we ignore the zeroes and effects of cloning.</value>
+        /// <value>Specifies the data read from the protected objects by the Cohesity Cluster before any data reduction using deduplication and compression.</value>
         [DataMember(Name="dataInBytes", EmitDefaultValue=true)]
         public long? DataInBytes { get; set; }
 
@@ -105,9 +93,9 @@ namespace Cohesity.Model
         public long? NumBytesWritten { get; set; }
 
         /// <summary>
-        /// Provides the total physical capacity in bytes as computed by the Cohesity Cluster.
+        /// Provides the total physical capacity in bytes of all the storage devices, after subtracting space reserved for cluster services
         /// </summary>
-        /// <value>Provides the total physical capacity in bytes as computed by the Cohesity Cluster.</value>
+        /// <value>Provides the total physical capacity in bytes of all the storage devices, after subtracting space reserved for cluster services</value>
         [DataMember(Name="physicalCapacityBytes", EmitDefaultValue=true)]
         public long? PhysicalCapacityBytes { get; set; }
 
@@ -147,9 +135,9 @@ namespace Cohesity.Model
         public long? TotalPhysicalRawUsageBytes { get; set; }
 
         /// <summary>
-        /// Provides the total capacity, as computed by the Cohesity Cluster, after the size of the data has been reduced by change-block tracking, compression and deduplication.
+        /// Provides the data stored locally, after the data has been reduced by deduplication and compression, including the space required for honoring the resiliency settings (EC/RF).
         /// </summary>
-        /// <value>Provides the total capacity, as computed by the Cohesity Cluster, after the size of the data has been reduced by change-block tracking, compression and deduplication.</value>
+        /// <value>Provides the data stored locally, after the data has been reduced by deduplication and compression, including the space required for honoring the resiliency settings (EC/RF).</value>
         [DataMember(Name="totalPhysicalUsageBytes", EmitDefaultValue=true)]
         public long? TotalPhysicalUsageBytes { get; set; }
 

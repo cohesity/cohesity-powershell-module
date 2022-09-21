@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -12,6 +13,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
+
 namespace Cohesity.Model
 {
     /// <summary>
@@ -23,16 +25,23 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="FleetNetworkParams" /> class.
         /// </summary>
+        /// <param name="region">Specifies the region for the fleet..</param>
         /// <param name="subnet">Specifies the subnet for the fleet..</param>
         /// <param name="vpc">Specifies the vpc for the fleet..</param>
-        public FleetNetworkParams(string subnet = default(string), string vpc = default(string))
+        public FleetNetworkParams(string region = default(string), string subnet = default(string), string vpc = default(string))
         {
-            this.Subnet = subnet;
-            this.Vpc = vpc;
+            this.Region = region;
             this.Subnet = subnet;
             this.Vpc = vpc;
         }
         
+        /// <summary>
+        /// Specifies the region for the fleet.
+        /// </summary>
+        /// <value>Specifies the region for the fleet.</value>
+        [DataMember(Name="region", EmitDefaultValue=true)]
+        public string Region { get; set; }
+
         /// <summary>
         /// Specifies the subnet for the fleet.
         /// </summary>
@@ -84,6 +93,11 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.Region == input.Region ||
+                    (this.Region != null &&
+                    this.Region.Equals(input.Region))
+                ) && 
+                (
                     this.Subnet == input.Subnet ||
                     (this.Subnet != null &&
                     this.Subnet.Equals(input.Subnet))
@@ -104,6 +118,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.Region != null)
+                    hashCode = hashCode * 59 + this.Region.GetHashCode();
                 if (this.Subnet != null)
                     hashCode = hashCode * 59 + this.Subnet.GetHashCode();
                 if (this.Vpc != null)

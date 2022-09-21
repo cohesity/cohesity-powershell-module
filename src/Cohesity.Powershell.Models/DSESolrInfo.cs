@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -87,7 +89,7 @@ namespace Cohesity.Model
                     this.SolrNodeVec == input.SolrNodeVec ||
                     this.SolrNodeVec != null &&
                     input.SolrNodeVec != null &&
-                    this.SolrNodeVec.SequenceEqual(input.SolrNodeVec)
+                    this.SolrNodeVec.Equals(input.SolrNodeVec)
                 ) && 
                 (
                     this.SolrPort == input.SolrPort ||

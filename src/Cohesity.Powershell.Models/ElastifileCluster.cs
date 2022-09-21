@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -117,7 +119,7 @@ namespace Cohesity.Model
                     this.EnodeIpAddressVec == input.EnodeIpAddressVec ||
                     this.EnodeIpAddressVec != null &&
                     input.EnodeIpAddressVec != null &&
-                    this.EnodeIpAddressVec.SequenceEqual(input.EnodeIpAddressVec)
+                    this.EnodeIpAddressVec.Equals(input.EnodeIpAddressVec)
                 ) && 
                 (
                     this.LoadBalancerVip == input.LoadBalancerVip ||

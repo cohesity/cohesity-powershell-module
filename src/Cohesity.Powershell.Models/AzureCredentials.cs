@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -12,6 +13,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
+
 namespace Cohesity.Model
 {
     /// <summary>
@@ -21,9 +23,9 @@ namespace Cohesity.Model
     public partial class AzureCredentials :  IEquatable<AzureCredentials>
     {
         /// <summary>
-        /// Specifies the entity type such as &#39;kSubscription&#39; if the environment is kAzure. Specifies the type of an Azure source entity. &#39;kSubscription&#39; indicates a billing unit within Azure account. &#39;kResourceGroup&#39; indicates a container that holds related resources. &#39;kVirtualMachine&#39; indicates a Virtual Machine in Azure environment. &#39;kStorageAccount&#39; represents a collection of storage containers. &#39;kStorageKey&#39; indicates a key required to access the storage account. &#39;kStorageContainer&#39; represents a storage container within a storage account. &#39;kStorageBlob&#39; represents a storage blog within a storage container. &#39;kStorageResourceGroup&#39; indicates a container that holds related storage resources. &#39;kNetworkSecurityGroup&#39; represents a network security group. &#39;kVirtualNetwork&#39; represents a virtual network. &#39;kNetworkResourceGroup&#39; indicates a container that holds related network resources. &#39;kSubnet&#39; represents a subnet within the virtual network. &#39;kComputeOptions&#39; indicates the number of CPU cores and memory size available for a type of a Virtual Machine.
+        /// Specifies the entity type such as &#39;kSubscription&#39; if the environment is kAzure. Specifies the type of an Azure source entity. &#39;kSubscription&#39; indicates a billing unit within Azure account. &#39;kResourceGroup&#39; indicates a container that holds related resources. &#39;kVirtualMachine&#39; indicates a Virtual Machine in Azure environment. &#39;kStorageAccount&#39; represents a collection of storage containers. &#39;kStorageKey&#39; indicates a key required to access the storage account. &#39;kStorageContainer&#39; represents a storage container within a storage account. &#39;kStorageBlob&#39; represents a storage blog within a storage container. &#39;kStorageResourceGroup&#39; indicates a container that holds related storage resources. &#39;kNetworkSecurityGroup&#39; represents a network security group. &#39;kVirtualNetwork&#39; represents a virtual network. &#39;kNetworkResourceGroup&#39; indicates a container that holds related network resources. &#39;kSubnet&#39; represents a subnet within the virtual network. &#39;kComputeOptions&#39; indicates the number of CPU cores and memory size available for a type of a Virtual Machine. &#39;kAvailabilitySet&#39; indicates the availability set.
         /// </summary>
-        /// <value>Specifies the entity type such as &#39;kSubscription&#39; if the environment is kAzure. Specifies the type of an Azure source entity. &#39;kSubscription&#39; indicates a billing unit within Azure account. &#39;kResourceGroup&#39; indicates a container that holds related resources. &#39;kVirtualMachine&#39; indicates a Virtual Machine in Azure environment. &#39;kStorageAccount&#39; represents a collection of storage containers. &#39;kStorageKey&#39; indicates a key required to access the storage account. &#39;kStorageContainer&#39; represents a storage container within a storage account. &#39;kStorageBlob&#39; represents a storage blog within a storage container. &#39;kStorageResourceGroup&#39; indicates a container that holds related storage resources. &#39;kNetworkSecurityGroup&#39; represents a network security group. &#39;kVirtualNetwork&#39; represents a virtual network. &#39;kNetworkResourceGroup&#39; indicates a container that holds related network resources. &#39;kSubnet&#39; represents a subnet within the virtual network. &#39;kComputeOptions&#39; indicates the number of CPU cores and memory size available for a type of a Virtual Machine.</value>
+        /// <value>Specifies the entity type such as &#39;kSubscription&#39; if the environment is kAzure. Specifies the type of an Azure source entity. &#39;kSubscription&#39; indicates a billing unit within Azure account. &#39;kResourceGroup&#39; indicates a container that holds related resources. &#39;kVirtualMachine&#39; indicates a Virtual Machine in Azure environment. &#39;kStorageAccount&#39; represents a collection of storage containers. &#39;kStorageKey&#39; indicates a key required to access the storage account. &#39;kStorageContainer&#39; represents a storage container within a storage account. &#39;kStorageBlob&#39; represents a storage blog within a storage container. &#39;kStorageResourceGroup&#39; indicates a container that holds related storage resources. &#39;kNetworkSecurityGroup&#39; represents a network security group. &#39;kVirtualNetwork&#39; represents a virtual network. &#39;kNetworkResourceGroup&#39; indicates a container that holds related network resources. &#39;kSubnet&#39; represents a subnet within the virtual network. &#39;kComputeOptions&#39; indicates the number of CPU cores and memory size available for a type of a Virtual Machine. &#39;kAvailabilitySet&#39; indicates the availability set.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum AzureTypeEnum
         {
@@ -103,20 +105,26 @@ namespace Cohesity.Model
             /// Enum KComputeOptions for value: kComputeOptions
             /// </summary>
             [EnumMember(Value = "kComputeOptions")]
-            KComputeOptions = 13
+            KComputeOptions = 13,
+
+            /// <summary>
+            /// Enum KAvailabilitySet for value: kAvailabilitySet
+            /// </summary>
+            [EnumMember(Value = "kAvailabilitySet")]
+            KAvailabilitySet = 14
 
         }
 
         /// <summary>
-        /// Specifies the entity type such as &#39;kSubscription&#39; if the environment is kAzure. Specifies the type of an Azure source entity. &#39;kSubscription&#39; indicates a billing unit within Azure account. &#39;kResourceGroup&#39; indicates a container that holds related resources. &#39;kVirtualMachine&#39; indicates a Virtual Machine in Azure environment. &#39;kStorageAccount&#39; represents a collection of storage containers. &#39;kStorageKey&#39; indicates a key required to access the storage account. &#39;kStorageContainer&#39; represents a storage container within a storage account. &#39;kStorageBlob&#39; represents a storage blog within a storage container. &#39;kStorageResourceGroup&#39; indicates a container that holds related storage resources. &#39;kNetworkSecurityGroup&#39; represents a network security group. &#39;kVirtualNetwork&#39; represents a virtual network. &#39;kNetworkResourceGroup&#39; indicates a container that holds related network resources. &#39;kSubnet&#39; represents a subnet within the virtual network. &#39;kComputeOptions&#39; indicates the number of CPU cores and memory size available for a type of a Virtual Machine.
+        /// Specifies the entity type such as &#39;kSubscription&#39; if the environment is kAzure. Specifies the type of an Azure source entity. &#39;kSubscription&#39; indicates a billing unit within Azure account. &#39;kResourceGroup&#39; indicates a container that holds related resources. &#39;kVirtualMachine&#39; indicates a Virtual Machine in Azure environment. &#39;kStorageAccount&#39; represents a collection of storage containers. &#39;kStorageKey&#39; indicates a key required to access the storage account. &#39;kStorageContainer&#39; represents a storage container within a storage account. &#39;kStorageBlob&#39; represents a storage blog within a storage container. &#39;kStorageResourceGroup&#39; indicates a container that holds related storage resources. &#39;kNetworkSecurityGroup&#39; represents a network security group. &#39;kVirtualNetwork&#39; represents a virtual network. &#39;kNetworkResourceGroup&#39; indicates a container that holds related network resources. &#39;kSubnet&#39; represents a subnet within the virtual network. &#39;kComputeOptions&#39; indicates the number of CPU cores and memory size available for a type of a Virtual Machine. &#39;kAvailabilitySet&#39; indicates the availability set.
         /// </summary>
-        /// <value>Specifies the entity type such as &#39;kSubscription&#39; if the environment is kAzure. Specifies the type of an Azure source entity. &#39;kSubscription&#39; indicates a billing unit within Azure account. &#39;kResourceGroup&#39; indicates a container that holds related resources. &#39;kVirtualMachine&#39; indicates a Virtual Machine in Azure environment. &#39;kStorageAccount&#39; represents a collection of storage containers. &#39;kStorageKey&#39; indicates a key required to access the storage account. &#39;kStorageContainer&#39; represents a storage container within a storage account. &#39;kStorageBlob&#39; represents a storage blog within a storage container. &#39;kStorageResourceGroup&#39; indicates a container that holds related storage resources. &#39;kNetworkSecurityGroup&#39; represents a network security group. &#39;kVirtualNetwork&#39; represents a virtual network. &#39;kNetworkResourceGroup&#39; indicates a container that holds related network resources. &#39;kSubnet&#39; represents a subnet within the virtual network. &#39;kComputeOptions&#39; indicates the number of CPU cores and memory size available for a type of a Virtual Machine.</value>
+        /// <value>Specifies the entity type such as &#39;kSubscription&#39; if the environment is kAzure. Specifies the type of an Azure source entity. &#39;kSubscription&#39; indicates a billing unit within Azure account. &#39;kResourceGroup&#39; indicates a container that holds related resources. &#39;kVirtualMachine&#39; indicates a Virtual Machine in Azure environment. &#39;kStorageAccount&#39; represents a collection of storage containers. &#39;kStorageKey&#39; indicates a key required to access the storage account. &#39;kStorageContainer&#39; represents a storage container within a storage account. &#39;kStorageBlob&#39; represents a storage blog within a storage container. &#39;kStorageResourceGroup&#39; indicates a container that holds related storage resources. &#39;kNetworkSecurityGroup&#39; represents a network security group. &#39;kVirtualNetwork&#39; represents a virtual network. &#39;kNetworkResourceGroup&#39; indicates a container that holds related network resources. &#39;kSubnet&#39; represents a subnet within the virtual network. &#39;kComputeOptions&#39; indicates the number of CPU cores and memory size available for a type of a Virtual Machine. &#39;kAvailabilitySet&#39; indicates the availability set.</value>
         [DataMember(Name="azureType", EmitDefaultValue=true)]
         public AzureTypeEnum? AzureType { get; set; }
         /// <summary>
-        /// Specifies the subscription type of Azure such as &#39;kAzureCommercial&#39; or &#39;kAzureGovCloud&#39;. Specifies the subscription type of an Azure source entity. &#39;kAzureCommercial&#39; indicates a standard Azure subscription. &#39;kAzureGovCloud&#39; indicates a govt Azure subscription.
+        /// Specifies the subscription type of Azure such as &#39;kAzureCommercial&#39;, &#39;kAzureGovCloud&#39;, &#39;kAzureStackCommercial&#39; or &#39;kAzureStackADFS&#39;. Specifies the subscription type of an Azure source entity. &#39;kAzureCommercial&#39; indicates a standard Azure subscription. &#39;kAzureGovCloud&#39; indicates a govt Azure subscription. &#39;kAzureStackCommercial&#39; indicates a stack commercial Azure subscription. &#39;kAzureStackADFS&#39; indicates a ADFS Azure subbscription.
         /// </summary>
-        /// <value>Specifies the subscription type of Azure such as &#39;kAzureCommercial&#39; or &#39;kAzureGovCloud&#39;. Specifies the subscription type of an Azure source entity. &#39;kAzureCommercial&#39; indicates a standard Azure subscription. &#39;kAzureGovCloud&#39; indicates a govt Azure subscription.</value>
+        /// <value>Specifies the subscription type of Azure such as &#39;kAzureCommercial&#39;, &#39;kAzureGovCloud&#39;, &#39;kAzureStackCommercial&#39; or &#39;kAzureStackADFS&#39;. Specifies the subscription type of an Azure source entity. &#39;kAzureCommercial&#39; indicates a standard Azure subscription. &#39;kAzureGovCloud&#39; indicates a govt Azure subscription. &#39;kAzureStackCommercial&#39; indicates a stack commercial Azure subscription. &#39;kAzureStackADFS&#39; indicates a ADFS Azure subbscription.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum SubscriptionTypeEnum
         {
@@ -130,14 +138,26 @@ namespace Cohesity.Model
             /// Enum KAzureGovCloud for value: kAzureGovCloud
             /// </summary>
             [EnumMember(Value = "kAzureGovCloud")]
-            KAzureGovCloud = 2
+            KAzureGovCloud = 2,
+
+            /// <summary>
+            /// Enum KAzureStackCommercial for value: kAzureStackCommercial
+            /// </summary>
+            [EnumMember(Value = "kAzureStackCommercial")]
+            KAzureStackCommercial = 3,
+
+            /// <summary>
+            /// Enum KAzureStackADFS for value: kAzureStackADFS
+            /// </summary>
+            [EnumMember(Value = "kAzureStackADFS")]
+            KAzureStackADFS = 4
 
         }
 
         /// <summary>
-        /// Specifies the subscription type of Azure such as &#39;kAzureCommercial&#39; or &#39;kAzureGovCloud&#39;. Specifies the subscription type of an Azure source entity. &#39;kAzureCommercial&#39; indicates a standard Azure subscription. &#39;kAzureGovCloud&#39; indicates a govt Azure subscription.
+        /// Specifies the subscription type of Azure such as &#39;kAzureCommercial&#39;, &#39;kAzureGovCloud&#39;, &#39;kAzureStackCommercial&#39; or &#39;kAzureStackADFS&#39;. Specifies the subscription type of an Azure source entity. &#39;kAzureCommercial&#39; indicates a standard Azure subscription. &#39;kAzureGovCloud&#39; indicates a govt Azure subscription. &#39;kAzureStackCommercial&#39; indicates a stack commercial Azure subscription. &#39;kAzureStackADFS&#39; indicates a ADFS Azure subbscription.
         /// </summary>
-        /// <value>Specifies the subscription type of Azure such as &#39;kAzureCommercial&#39; or &#39;kAzureGovCloud&#39;. Specifies the subscription type of an Azure source entity. &#39;kAzureCommercial&#39; indicates a standard Azure subscription. &#39;kAzureGovCloud&#39; indicates a govt Azure subscription.</value>
+        /// <value>Specifies the subscription type of Azure such as &#39;kAzureCommercial&#39;, &#39;kAzureGovCloud&#39;, &#39;kAzureStackCommercial&#39; or &#39;kAzureStackADFS&#39;. Specifies the subscription type of an Azure source entity. &#39;kAzureCommercial&#39; indicates a standard Azure subscription. &#39;kAzureGovCloud&#39; indicates a govt Azure subscription. &#39;kAzureStackCommercial&#39; indicates a stack commercial Azure subscription. &#39;kAzureStackADFS&#39; indicates a ADFS Azure subbscription.</value>
         [DataMember(Name="subscriptionType", EmitDefaultValue=true)]
         public SubscriptionTypeEnum? SubscriptionType { get; set; }
         /// <summary>
@@ -145,21 +165,19 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="applicationId">Specifies Application Id of the active directory of Azure account..</param>
         /// <param name="applicationKey">Specifies Application key of the active directory of Azure account..</param>
-        /// <param name="azureType">Specifies the entity type such as &#39;kSubscription&#39; if the environment is kAzure. Specifies the type of an Azure source entity. &#39;kSubscription&#39; indicates a billing unit within Azure account. &#39;kResourceGroup&#39; indicates a container that holds related resources. &#39;kVirtualMachine&#39; indicates a Virtual Machine in Azure environment. &#39;kStorageAccount&#39; represents a collection of storage containers. &#39;kStorageKey&#39; indicates a key required to access the storage account. &#39;kStorageContainer&#39; represents a storage container within a storage account. &#39;kStorageBlob&#39; represents a storage blog within a storage container. &#39;kStorageResourceGroup&#39; indicates a container that holds related storage resources. &#39;kNetworkSecurityGroup&#39; represents a network security group. &#39;kVirtualNetwork&#39; represents a virtual network. &#39;kNetworkResourceGroup&#39; indicates a container that holds related network resources. &#39;kSubnet&#39; represents a subnet within the virtual network. &#39;kComputeOptions&#39; indicates the number of CPU cores and memory size available for a type of a Virtual Machine..</param>
+        /// <param name="azureType">Specifies the entity type such as &#39;kSubscription&#39; if the environment is kAzure. Specifies the type of an Azure source entity. &#39;kSubscription&#39; indicates a billing unit within Azure account. &#39;kResourceGroup&#39; indicates a container that holds related resources. &#39;kVirtualMachine&#39; indicates a Virtual Machine in Azure environment. &#39;kStorageAccount&#39; represents a collection of storage containers. &#39;kStorageKey&#39; indicates a key required to access the storage account. &#39;kStorageContainer&#39; represents a storage container within a storage account. &#39;kStorageBlob&#39; represents a storage blog within a storage container. &#39;kStorageResourceGroup&#39; indicates a container that holds related storage resources. &#39;kNetworkSecurityGroup&#39; represents a network security group. &#39;kVirtualNetwork&#39; represents a virtual network. &#39;kNetworkResourceGroup&#39; indicates a container that holds related network resources. &#39;kSubnet&#39; represents a subnet within the virtual network. &#39;kComputeOptions&#39; indicates the number of CPU cores and memory size available for a type of a Virtual Machine. &#39;kAvailabilitySet&#39; indicates the availability set..</param>
+        /// <param name="domainName">Specifies Azure stack hub domain name for where the given subscription is present..</param>
+        /// <param name="region">Specifies the region in which the Azure Stack will be registered..</param>
         /// <param name="subscriptionId">Specifies Subscription id inside a customer&#39;s Azure account. It represents sub-section within the Azure account where a customer allows us to create VMs, storage account etc..</param>
-        /// <param name="subscriptionType">Specifies the subscription type of Azure such as &#39;kAzureCommercial&#39; or &#39;kAzureGovCloud&#39;. Specifies the subscription type of an Azure source entity. &#39;kAzureCommercial&#39; indicates a standard Azure subscription. &#39;kAzureGovCloud&#39; indicates a govt Azure subscription..</param>
+        /// <param name="subscriptionType">Specifies the subscription type of Azure such as &#39;kAzureCommercial&#39;, &#39;kAzureGovCloud&#39;, &#39;kAzureStackCommercial&#39; or &#39;kAzureStackADFS&#39;. Specifies the subscription type of an Azure source entity. &#39;kAzureCommercial&#39; indicates a standard Azure subscription. &#39;kAzureGovCloud&#39; indicates a govt Azure subscription. &#39;kAzureStackCommercial&#39; indicates a stack commercial Azure subscription. &#39;kAzureStackADFS&#39; indicates a ADFS Azure subbscription..</param>
         /// <param name="tenantId">Specifies Tenant Id of the active directory of Azure account..</param>
-        public AzureCredentials(string applicationId = default(string), string applicationKey = default(string), AzureTypeEnum? azureType = default(AzureTypeEnum?), string subscriptionId = default(string), SubscriptionTypeEnum? subscriptionType = default(SubscriptionTypeEnum?), string tenantId = default(string))
+        public AzureCredentials(string applicationId = default(string), string applicationKey = default(string), AzureTypeEnum? azureType = default(AzureTypeEnum?), string domainName = default(string), string region = default(string), string subscriptionId = default(string), SubscriptionTypeEnum? subscriptionType = default(SubscriptionTypeEnum?), string tenantId = default(string))
         {
             this.ApplicationId = applicationId;
             this.ApplicationKey = applicationKey;
             this.AzureType = azureType;
-            this.SubscriptionId = subscriptionId;
-            this.SubscriptionType = subscriptionType;
-            this.TenantId = tenantId;
-            this.ApplicationId = applicationId;
-            this.ApplicationKey = applicationKey;
-            this.AzureType = azureType;
+            this.DomainName = domainName;
+            this.Region = region;
             this.SubscriptionId = subscriptionId;
             this.SubscriptionType = subscriptionType;
             this.TenantId = tenantId;
@@ -178,6 +196,20 @@ namespace Cohesity.Model
         /// <value>Specifies Application key of the active directory of Azure account.</value>
         [DataMember(Name="applicationKey", EmitDefaultValue=true)]
         public string ApplicationKey { get; set; }
+
+        /// <summary>
+        /// Specifies Azure stack hub domain name for where the given subscription is present.
+        /// </summary>
+        /// <value>Specifies Azure stack hub domain name for where the given subscription is present.</value>
+        [DataMember(Name="domainName", EmitDefaultValue=true)]
+        public string DomainName { get; set; }
+
+        /// <summary>
+        /// Specifies the region in which the Azure Stack will be registered.
+        /// </summary>
+        /// <value>Specifies the region in which the Azure Stack will be registered.</value>
+        [DataMember(Name="region", EmitDefaultValue=true)]
+        public string Region { get; set; }
 
         /// <summary>
         /// Specifies Subscription id inside a customer&#39;s Azure account. It represents sub-section within the Azure account where a customer allows us to create VMs, storage account etc.
@@ -244,6 +276,16 @@ namespace Cohesity.Model
                     this.AzureType.Equals(input.AzureType)
                 ) && 
                 (
+                    this.DomainName == input.DomainName ||
+                    (this.DomainName != null &&
+                    this.DomainName.Equals(input.DomainName))
+                ) && 
+                (
+                    this.Region == input.Region ||
+                    (this.Region != null &&
+                    this.Region.Equals(input.Region))
+                ) && 
+                (
                     this.SubscriptionId == input.SubscriptionId ||
                     (this.SubscriptionId != null &&
                     this.SubscriptionId.Equals(input.SubscriptionId))
@@ -272,10 +314,16 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ApplicationId.GetHashCode();
                 if (this.ApplicationKey != null)
                     hashCode = hashCode * 59 + this.ApplicationKey.GetHashCode();
-                hashCode = hashCode * 59 + this.AzureType.GetHashCode();
+                if (this.AzureType != null)
+					hashCode = hashCode * 59 + this.AzureType.GetHashCode();
+                if (this.DomainName != null)
+                    hashCode = hashCode * 59 + this.DomainName.GetHashCode();
+                if (this.Region != null)
+                    hashCode = hashCode * 59 + this.Region.GetHashCode();
                 if (this.SubscriptionId != null)
                     hashCode = hashCode * 59 + this.SubscriptionId.GetHashCode();
-                hashCode = hashCode * 59 + this.SubscriptionType.GetHashCode();
+                if (this.SubscriptionType != null)
+					hashCode = hashCode * 59 + this.SubscriptionType.GetHashCode();
                 if (this.TenantId != null)
                     hashCode = hashCode * 59 + this.TenantId.GetHashCode();
                 return hashCode;

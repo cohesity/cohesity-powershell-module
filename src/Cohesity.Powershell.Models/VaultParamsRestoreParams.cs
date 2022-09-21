@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -12,6 +13,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
+
 namespace Cohesity.Model
 {
     /// <summary>
@@ -23,12 +25,20 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="VaultParamsRestoreParams" /> class.
         /// </summary>
+        /// <param name="allowMarkedForRemoval">allowMarkedForRemoval.</param>
         /// <param name="glacier">glacier.</param>
-        public VaultParamsRestoreParams(VaultParamsRestoreParamsGlacier glacier = default(VaultParamsRestoreParamsGlacier))
+        public VaultParamsRestoreParams(bool? allowMarkedForRemoval = default(bool?), VaultParamsRestoreParamsGlacier glacier = default(VaultParamsRestoreParamsGlacier))
         {
+            this.AllowMarkedForRemoval = allowMarkedForRemoval;
             this.Glacier = glacier;
         }
         
+        /// <summary>
+        /// Gets or Sets AllowMarkedForRemoval
+        /// </summary>
+        [DataMember(Name="allowMarkedForRemoval", EmitDefaultValue=true)]
+        public bool? AllowMarkedForRemoval { get; set; }
+
         /// <summary>
         /// Gets or Sets Glacier
         /// </summary>
@@ -72,6 +82,11 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.AllowMarkedForRemoval == input.AllowMarkedForRemoval ||
+                    (this.AllowMarkedForRemoval != null &&
+                    this.AllowMarkedForRemoval.Equals(input.AllowMarkedForRemoval))
+                ) && 
+                (
                     this.Glacier == input.Glacier ||
                     (this.Glacier != null &&
                     this.Glacier.Equals(input.Glacier))
@@ -87,6 +102,8 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.AllowMarkedForRemoval != null)
+                    hashCode = hashCode * 59 + this.AllowMarkedForRemoval.GetHashCode();
                 if (this.Glacier != null)
                     hashCode = hashCode * 59 + this.Glacier.GetHashCode();
                 return hashCode;

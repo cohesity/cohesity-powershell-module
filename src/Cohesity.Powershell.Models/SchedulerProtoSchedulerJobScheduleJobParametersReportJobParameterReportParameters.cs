@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -342,13 +344,13 @@ namespace Cohesity.Model
                     this.HealthStatus == input.HealthStatus ||
                     this.HealthStatus != null &&
                     input.HealthStatus != null &&
-                    this.HealthStatus.SequenceEqual(input.HealthStatus)
+                    this.HealthStatus.Equals(input.HealthStatus)
                 ) && 
                 (
                     this.HostOsType == input.HostOsType ||
                     this.HostOsType != null &&
                     input.HostOsType != null &&
-                    this.HostOsType.SequenceEqual(input.HostOsType)
+                    this.HostOsType.Equals(input.HostOsType)
                 ) && 
                 (
                     this.JobId == input.JobId ||
@@ -369,7 +371,7 @@ namespace Cohesity.Model
                     this.ObjectIds == input.ObjectIds ||
                     this.ObjectIds != null &&
                     input.ObjectIds != null &&
-                    this.ObjectIds.SequenceEqual(input.ObjectIds)
+                    this.ObjectIds.Equals(input.ObjectIds)
                 ) && 
                 (
                     this.ObjectType == input.ObjectType ||
@@ -385,7 +387,7 @@ namespace Cohesity.Model
                     this.RegisteredSourceIds == input.RegisteredSourceIds ||
                     this.RegisteredSourceIds != null &&
                     input.RegisteredSourceIds != null &&
-                    this.RegisteredSourceIds.SequenceEqual(input.RegisteredSourceIds)
+                    this.RegisteredSourceIds.Equals(input.RegisteredSourceIds)
                 ) && 
                 (
                     this.Rollup == input.Rollup ||
@@ -396,7 +398,7 @@ namespace Cohesity.Model
                     this.RunStatus == input.RunStatus ||
                     this.RunStatus != null &&
                     input.RunStatus != null &&
-                    this.RunStatus.SequenceEqual(input.RunStatus)
+                    this.RunStatus.Equals(input.RunStatus)
                 ) && 
                 (
                     this.Sid == input.Sid ||
@@ -407,7 +409,7 @@ namespace Cohesity.Model
                     this.TenantIdVec == input.TenantIdVec ||
                     this.TenantIdVec != null &&
                     input.TenantIdVec != null &&
-                    this.TenantIdVec.SequenceEqual(input.TenantIdVec)
+                    this.TenantIdVec.Equals(input.TenantIdVec)
                 ) && 
                 (
                     this.Timezone == input.Timezone ||
@@ -423,7 +425,7 @@ namespace Cohesity.Model
                     this.VaultIds == input.VaultIds ||
                     this.VaultIds != null &&
                     input.VaultIds != null &&
-                    this.VaultIds.SequenceEqual(input.VaultIds)
+                    this.VaultIds.Equals(input.VaultIds)
                 ) && 
                 (
                     this.ViewBoxId == input.ViewBoxId ||
@@ -439,7 +441,7 @@ namespace Cohesity.Model
                     this.ViewboxIds == input.ViewboxIds ||
                     this.ViewboxIds != null &&
                     input.ViewboxIds != null &&
-                    this.ViewboxIds.SequenceEqual(input.ViewboxIds)
+                    this.ViewboxIds.Equals(input.ViewboxIds)
                 ) && 
                 (
                     this.VmName == input.VmName ||

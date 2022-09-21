@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -12,6 +13,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
+
 namespace Cohesity.Model
 {
     /// <summary>
@@ -23,19 +25,45 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="WormRetentionProto" /> class.
         /// </summary>
+        /// <param name="enableWormOnExternalTarget">Whether objects in the external target associated with this policy need to be made immutable..</param>
         /// <param name="policyType">The type of WORM policy set on this run. This field is irrelevant while objects are on legal hold. Objects put on legal hold automatically raise the WORM level on the object behaviorally to the strictest level i.e. kCompliance..</param>
-        public WormRetentionProto(int? policyType = default(int?))
+        /// <param name="retentionSecs">Retention time for datalock in seconds. This will be always relative time..</param>
+        /// <param name="version">Version number for this proto..</param>
+        public WormRetentionProto(bool? enableWormOnExternalTarget = default(bool?), int? policyType = default(int?), long? retentionSecs = default(long?), int? version = default(int?))
         {
+            this.EnableWormOnExternalTarget = enableWormOnExternalTarget;
             this.PolicyType = policyType;
-            this.PolicyType = policyType;
+            this.RetentionSecs = retentionSecs;
+            this.Version = version;
         }
         
+        /// <summary>
+        /// Whether objects in the external target associated with this policy need to be made immutable.
+        /// </summary>
+        /// <value>Whether objects in the external target associated with this policy need to be made immutable.</value>
+        [DataMember(Name="enableWormOnExternalTarget", EmitDefaultValue=true)]
+        public bool? EnableWormOnExternalTarget { get; set; }
+
         /// <summary>
         /// The type of WORM policy set on this run. This field is irrelevant while objects are on legal hold. Objects put on legal hold automatically raise the WORM level on the object behaviorally to the strictest level i.e. kCompliance.
         /// </summary>
         /// <value>The type of WORM policy set on this run. This field is irrelevant while objects are on legal hold. Objects put on legal hold automatically raise the WORM level on the object behaviorally to the strictest level i.e. kCompliance.</value>
         [DataMember(Name="policyType", EmitDefaultValue=true)]
         public int? PolicyType { get; set; }
+
+        /// <summary>
+        /// Retention time for datalock in seconds. This will be always relative time.
+        /// </summary>
+        /// <value>Retention time for datalock in seconds. This will be always relative time.</value>
+        [DataMember(Name="retentionSecs", EmitDefaultValue=true)]
+        public long? RetentionSecs { get; set; }
+
+        /// <summary>
+        /// Version number for this proto.
+        /// </summary>
+        /// <value>Version number for this proto.</value>
+        [DataMember(Name="version", EmitDefaultValue=true)]
+        public int? Version { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -74,9 +102,24 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.EnableWormOnExternalTarget == input.EnableWormOnExternalTarget ||
+                    (this.EnableWormOnExternalTarget != null &&
+                    this.EnableWormOnExternalTarget.Equals(input.EnableWormOnExternalTarget))
+                ) && 
+                (
                     this.PolicyType == input.PolicyType ||
                     (this.PolicyType != null &&
                     this.PolicyType.Equals(input.PolicyType))
+                ) && 
+                (
+                    this.RetentionSecs == input.RetentionSecs ||
+                    (this.RetentionSecs != null &&
+                    this.RetentionSecs.Equals(input.RetentionSecs))
+                ) && 
+                (
+                    this.Version == input.Version ||
+                    (this.Version != null &&
+                    this.Version.Equals(input.Version))
                 );
         }
 
@@ -89,8 +132,14 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.EnableWormOnExternalTarget != null)
+                    hashCode = hashCode * 59 + this.EnableWormOnExternalTarget.GetHashCode();
                 if (this.PolicyType != null)
                     hashCode = hashCode * 59 + this.PolicyType.GetHashCode();
+                if (this.RetentionSecs != null)
+                    hashCode = hashCode * 59 + this.RetentionSecs.GetHashCode();
+                if (this.Version != null)
+                    hashCode = hashCode * 59 + this.Version.GetHashCode();
                 return hashCode;
             }
         }

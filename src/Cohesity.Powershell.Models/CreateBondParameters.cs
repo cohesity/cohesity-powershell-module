@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -57,13 +59,12 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="bondingMode">Specifies the bonding mode to use for this bond. If not specified, this value will default to &#39;kActiveBackup&#39;. &#39;kActiveBackup&#39; indicates active backup bonding mode. &#39;k802_3ad&#39; indicates 802.3ad bonding mode..</param>
         /// <param name="name">Specifies a unique name to identify the bond being created. (required).</param>
-        /// <param name="slaves">Specifies the names of the slaves of this bond. (required).</param>
+        /// <param name="slaves">Specifies the names of the secondaries of this bond. (required).</param>
         public CreateBondParameters(BondingModeEnum? bondingMode = default(BondingModeEnum?), string name = default(string), List<string> slaves = default(List<string>))
         {
             this.BondingMode = bondingMode;
             this.Name = name;
             this.Slaves = slaves;
-            this.BondingMode = bondingMode;
         }
         
         /// <summary>
@@ -74,9 +75,9 @@ namespace Cohesity.Model
         public string Name { get; set; }
 
         /// <summary>
-        /// Specifies the names of the slaves of this bond.
+        /// Specifies the names of the secondaries of this bond.
         /// </summary>
-        /// <value>Specifies the names of the slaves of this bond.</value>
+        /// <value>Specifies the names of the secondaries of this bond.</value>
         [DataMember(Name="slaves", EmitDefaultValue=true)]
         public List<string> Slaves { get; set; }
 
@@ -129,7 +130,7 @@ namespace Cohesity.Model
                     this.Slaves == input.Slaves ||
                     this.Slaves != null &&
                     input.Slaves != null &&
-                    this.Slaves.SequenceEqual(input.Slaves)
+                    this.Slaves.Equals(input.Slaves)
                 );
         }
 

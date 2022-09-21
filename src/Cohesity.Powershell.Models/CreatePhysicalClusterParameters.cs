@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -28,16 +30,23 @@ namespace Cohesity.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="CreatePhysicalClusterParameters" /> class.
         /// </summary>
+        /// <param name="allowApiBasedFetch">Specifies if API based GET should be enabled for cluster destroy params..</param>
+        /// <param name="clusterDestroyHmacKey">Specifies HMAC secret key that will be used to validate OTP used for destroy request. This is b32 format of the HMAC key. This should only be set/modified during cluster creation..</param>
         /// <param name="clusterName">Specifies the name of the new Cluster. (required).</param>
+        /// <param name="enableClusterDestroy">Specifies if cluster destroy op is enabled on this cluster. This should only be set/modified during cluster creation..</param>
         /// <param name="encryptionConfig">encryptionConfig.</param>
         /// <param name="ipPreference">Specifies IP preference..</param>
         /// <param name="ipmiConfig">ipmiConfig (required).</param>
         /// <param name="metadataFaultTolerance">Specifies the metadata fault tolerance..</param>
         /// <param name="networkConfig">networkConfig (required).</param>
         /// <param name="nodeConfigs">Specifies the configuration for the nodes in the new cluster. (required).</param>
-        public CreatePhysicalClusterParameters(string clusterName = default(string), EncryptionConfiguration encryptionConfig = default(EncryptionConfiguration), int? ipPreference = default(int?), IpmiConfiguration ipmiConfig = default(IpmiConfiguration), int? metadataFaultTolerance = default(int?), NetworkConfiguration networkConfig = default(NetworkConfiguration), List<PhysicalNodeConfiguration> nodeConfigs = default(List<PhysicalNodeConfiguration>))
+        /// <param name="trustDomain">Specifies Trust Domain used for Service Identity..</param>
+        public CreatePhysicalClusterParameters(bool? allowApiBasedFetch = default(bool?), string clusterDestroyHmacKey = default(string), string clusterName = default(string), bool? enableClusterDestroy = default(bool?), EncryptionConfiguration encryptionConfig = default(EncryptionConfiguration), int? ipPreference = default(int?), IpmiConfiguration ipmiConfig = default(IpmiConfiguration), int? metadataFaultTolerance = default(int?), NetworkConfiguration networkConfig = default(NetworkConfiguration), List<PhysicalNodeConfiguration> nodeConfigs = default(List<PhysicalNodeConfiguration>), string trustDomain = default(string))
         {
+            this.AllowApiBasedFetch = allowApiBasedFetch;
+            this.ClusterDestroyHmacKey = clusterDestroyHmacKey;
             this.ClusterName = clusterName;
+            this.EnableClusterDestroy = enableClusterDestroy;
             this.IpPreference = ipPreference;
             // to ensure "ipmiConfig" is required (not null)
             if (ipmiConfig == null)
@@ -62,16 +71,36 @@ namespace Cohesity.Model
 
             this.NodeConfigs = nodeConfigs;
             this.EncryptionConfig = encryptionConfig;
-            this.IpPreference = ipPreference;
-            this.MetadataFaultTolerance = metadataFaultTolerance;
+            this.TrustDomain = trustDomain;
         }
         
+        /// <summary>
+        /// Specifies if API based GET should be enabled for cluster destroy params.
+        /// </summary>
+        /// <value>Specifies if API based GET should be enabled for cluster destroy params.</value>
+        [DataMember(Name="allowApiBasedFetch", EmitDefaultValue=true)]
+        public bool? AllowApiBasedFetch { get; set; }
+
+        /// <summary>
+        /// Specifies HMAC secret key that will be used to validate OTP used for destroy request. This is b32 format of the HMAC key. This should only be set/modified during cluster creation.
+        /// </summary>
+        /// <value>Specifies HMAC secret key that will be used to validate OTP used for destroy request. This is b32 format of the HMAC key. This should only be set/modified during cluster creation.</value>
+        [DataMember(Name="clusterDestroyHmacKey", EmitDefaultValue=true)]
+        public string ClusterDestroyHmacKey { get; set; }
+
         /// <summary>
         /// Specifies the name of the new Cluster.
         /// </summary>
         /// <value>Specifies the name of the new Cluster.</value>
         [DataMember(Name="clusterName", EmitDefaultValue=true)]
         public string ClusterName { get; set; }
+
+        /// <summary>
+        /// Specifies if cluster destroy op is enabled on this cluster. This should only be set/modified during cluster creation.
+        /// </summary>
+        /// <value>Specifies if cluster destroy op is enabled on this cluster. This should only be set/modified during cluster creation.</value>
+        [DataMember(Name="enableClusterDestroy", EmitDefaultValue=true)]
+        public bool? EnableClusterDestroy { get; set; }
 
         /// <summary>
         /// Gets or Sets EncryptionConfig
@@ -113,6 +142,13 @@ namespace Cohesity.Model
         public List<PhysicalNodeConfiguration> NodeConfigs { get; set; }
 
         /// <summary>
+        /// Specifies Trust Domain used for Service Identity.
+        /// </summary>
+        /// <value>Specifies Trust Domain used for Service Identity.</value>
+        [DataMember(Name="trustDomain", EmitDefaultValue=true)]
+        public string TrustDomain { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -149,9 +185,24 @@ namespace Cohesity.Model
 
             return 
                 (
+                    this.AllowApiBasedFetch == input.AllowApiBasedFetch ||
+                    (this.AllowApiBasedFetch != null &&
+                    this.AllowApiBasedFetch.Equals(input.AllowApiBasedFetch))
+                ) && 
+                (
+                    this.ClusterDestroyHmacKey == input.ClusterDestroyHmacKey ||
+                    (this.ClusterDestroyHmacKey != null &&
+                    this.ClusterDestroyHmacKey.Equals(input.ClusterDestroyHmacKey))
+                ) && 
+                (
                     this.ClusterName == input.ClusterName ||
                     (this.ClusterName != null &&
                     this.ClusterName.Equals(input.ClusterName))
+                ) && 
+                (
+                    this.EnableClusterDestroy == input.EnableClusterDestroy ||
+                    (this.EnableClusterDestroy != null &&
+                    this.EnableClusterDestroy.Equals(input.EnableClusterDestroy))
                 ) && 
                 (
                     this.EncryptionConfig == input.EncryptionConfig ||
@@ -182,7 +233,12 @@ namespace Cohesity.Model
                     this.NodeConfigs == input.NodeConfigs ||
                     this.NodeConfigs != null &&
                     input.NodeConfigs != null &&
-                    this.NodeConfigs.SequenceEqual(input.NodeConfigs)
+                    this.NodeConfigs.Equals(input.NodeConfigs)
+                ) && 
+                (
+                    this.TrustDomain == input.TrustDomain ||
+                    (this.TrustDomain != null &&
+                    this.TrustDomain.Equals(input.TrustDomain))
                 );
         }
 
@@ -195,8 +251,14 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.AllowApiBasedFetch != null)
+                    hashCode = hashCode * 59 + this.AllowApiBasedFetch.GetHashCode();
+                if (this.ClusterDestroyHmacKey != null)
+                    hashCode = hashCode * 59 + this.ClusterDestroyHmacKey.GetHashCode();
                 if (this.ClusterName != null)
                     hashCode = hashCode * 59 + this.ClusterName.GetHashCode();
+                if (this.EnableClusterDestroy != null)
+                    hashCode = hashCode * 59 + this.EnableClusterDestroy.GetHashCode();
                 if (this.EncryptionConfig != null)
                     hashCode = hashCode * 59 + this.EncryptionConfig.GetHashCode();
                 if (this.IpPreference != null)
@@ -209,6 +271,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.NetworkConfig.GetHashCode();
                 if (this.NodeConfigs != null)
                     hashCode = hashCode * 59 + this.NodeConfigs.GetHashCode();
+                if (this.TrustDomain != null)
+                    hashCode = hashCode * 59 + this.TrustDomain.GetHashCode();
                 return hashCode;
             }
         }

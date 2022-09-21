@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -81,7 +83,7 @@ namespace Cohesity.Model
                     this.NodeIps == input.NodeIps ||
                     this.NodeIps != null &&
                     input.NodeIps != null &&
-                    this.NodeIps.SequenceEqual(input.NodeIps)
+                    this.NodeIps.Equals(input.NodeIps)
                 );
         }
 

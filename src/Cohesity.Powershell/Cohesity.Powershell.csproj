@@ -37,13 +37,13 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <net451Target>$(BuildDir)bin\Debug\net451\</net451Target>
+    <net451Target>$(BuildDir)bin\Debug\net451</net451Target>
     <netcoreapp20Target>$(BuildDir)bin\Debug\netcoreapp2.0\</netcoreapp20Target>
     <DocumentationFile>bin\Debug\netcoreapp2.0\Cohesity.Powershell.xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <net451Target>$(BuildDir)bin\Release\net451\</net451Target>
+    <net451Target>$(BuildDir)bin\Release\net451</net451Target>
     <netcoreapp20Target>$(BuildDir)bin\Release\netcoreapp2.0\</netcoreapp20Target>
     <DocumentationFile>bin\Release\netcoreapp2.0\Cohesity.Powershell.xml</DocumentationFile>
   </PropertyGroup>

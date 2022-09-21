@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -305,7 +307,7 @@ namespace Cohesity.Model
                     this.ActiveDirectories == input.ActiveDirectories ||
                     this.ActiveDirectories != null &&
                     input.ActiveDirectories != null &&
-                    this.ActiveDirectories.SequenceEqual(input.ActiveDirectories)
+                    this.ActiveDirectories.Equals(input.ActiveDirectories)
                 ) && 
                 (
                     this.BifrostEnabled == input.BifrostEnabled ||
@@ -321,7 +323,7 @@ namespace Cohesity.Model
                     this.ClusterIps == input.ClusterIps ||
                     this.ClusterIps != null &&
                     input.ClusterIps != null &&
-                    this.ClusterIps.SequenceEqual(input.ClusterIps)
+                    this.ClusterIps.Equals(input.ClusterIps)
                 ) && 
                 (
                     this.CreatedTimeMsecs == input.CreatedTimeMsecs ||
@@ -347,7 +349,7 @@ namespace Cohesity.Model
                     this.DeletionInfoVec == input.DeletionInfoVec ||
                     this.DeletionInfoVec != null &&
                     input.DeletionInfoVec != null &&
-                    this.DeletionInfoVec.SequenceEqual(input.DeletionInfoVec)
+                    this.DeletionInfoVec.Equals(input.DeletionInfoVec)
                 ) && 
                 (
                     this.Description == input.Description ||
@@ -358,7 +360,7 @@ namespace Cohesity.Model
                     this.EntityIds == input.EntityIds ||
                     this.EntityIds != null &&
                     input.EntityIds != null &&
-                    this.EntityIds.SequenceEqual(input.EntityIds)
+                    this.EntityIds.Equals(input.EntityIds)
                 ) && 
                 (
                     this.LastUpdatedTimeMsecs == input.LastUpdatedTimeMsecs ||
@@ -369,7 +371,7 @@ namespace Cohesity.Model
                     this.LdapProviders == input.LdapProviders ||
                     this.LdapProviders != null &&
                     input.LdapProviders != null &&
-                    this.LdapProviders.SequenceEqual(input.LdapProviders)
+                    this.LdapProviders.Equals(input.LdapProviders)
                 ) && 
                 (
                     this.Name == input.Name ||
@@ -390,13 +392,13 @@ namespace Cohesity.Model
                     this.PolicyIds == input.PolicyIds ||
                     this.PolicyIds != null &&
                     input.PolicyIds != null &&
-                    this.PolicyIds.SequenceEqual(input.PolicyIds)
+                    this.PolicyIds.Equals(input.PolicyIds)
                 ) && 
                 (
                     this.ProtectionJobs == input.ProtectionJobs ||
                     this.ProtectionJobs != null &&
                     input.ProtectionJobs != null &&
-                    this.ProtectionJobs.SequenceEqual(input.ProtectionJobs)
+                    this.ProtectionJobs.Equals(input.ProtectionJobs)
                 ) && 
                 (
                     this.SubscribeToAlertEmails == input.SubscribeToAlertEmails ||
@@ -417,19 +419,19 @@ namespace Cohesity.Model
                     this.ViewBoxIds == input.ViewBoxIds ||
                     this.ViewBoxIds != null &&
                     input.ViewBoxIds != null &&
-                    this.ViewBoxIds.SequenceEqual(input.ViewBoxIds)
+                    this.ViewBoxIds.Equals(input.ViewBoxIds)
                 ) && 
                 (
                     this.Views == input.Views ||
                     this.Views != null &&
                     input.Views != null &&
-                    this.Views.SequenceEqual(input.Views)
+                    this.Views.Equals(input.Views)
                 ) && 
                 (
                     this.VlanIfaceNames == input.VlanIfaceNames ||
                     this.VlanIfaceNames != null &&
                     input.VlanIfaceNames != null &&
-                    this.VlanIfaceNames.SequenceEqual(input.VlanIfaceNames)
+                    this.VlanIfaceNames.Equals(input.VlanIfaceNames)
                 );
         }
 

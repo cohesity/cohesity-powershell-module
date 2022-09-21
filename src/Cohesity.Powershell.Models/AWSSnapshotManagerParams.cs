@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -26,14 +28,13 @@ namespace Cohesity.Model
         /// <param name="amiCreationFrequency">The frequency of AMI creation. This should be set if the option to create AMI is set. A value of n creates an AMI from the snapshots after every n runs. eg. n &#x3D; 2 implies every alternate backup run starting from the first will create an AMI..</param>
         /// <param name="createAmiForRun">Whether we need to create an AMI for this run..</param>
         /// <param name="shouldCreateAmi">Whether we need to create an AMI after taking snapshots of the instance..</param>
-        public AWSSnapshotManagerParams(int? amiCreationFrequency = default(int?), bool? createAmiForRun = default(bool?), bool? shouldCreateAmi = default(bool?))
+        /// <param name="volumeExclusionParams">volumeExclusionParams.</param>
+        public AWSSnapshotManagerParams(int? amiCreationFrequency = default(int?), bool? createAmiForRun = default(bool?), bool? shouldCreateAmi = default(bool?), EBSVolumeExclusionParams volumeExclusionParams = default(EBSVolumeExclusionParams))
         {
             this.AmiCreationFrequency = amiCreationFrequency;
             this.CreateAmiForRun = createAmiForRun;
             this.ShouldCreateAmi = shouldCreateAmi;
-            this.AmiCreationFrequency = amiCreationFrequency;
-            this.CreateAmiForRun = createAmiForRun;
-            this.ShouldCreateAmi = shouldCreateAmi;
+            this.VolumeExclusionParams = volumeExclusionParams;
         }
         
         /// <summary>
@@ -56,6 +57,12 @@ namespace Cohesity.Model
         /// <value>Whether we need to create an AMI after taking snapshots of the instance.</value>
         [DataMember(Name="shouldCreateAmi", EmitDefaultValue=true)]
         public bool? ShouldCreateAmi { get; set; }
+
+        /// <summary>
+        /// Gets or Sets VolumeExclusionParams
+        /// </summary>
+        [DataMember(Name="volumeExclusionParams", EmitDefaultValue=false)]
+        public EBSVolumeExclusionParams VolumeExclusionParams { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -107,6 +114,11 @@ namespace Cohesity.Model
                     this.ShouldCreateAmi == input.ShouldCreateAmi ||
                     (this.ShouldCreateAmi != null &&
                     this.ShouldCreateAmi.Equals(input.ShouldCreateAmi))
+                ) && 
+                (
+                    this.VolumeExclusionParams == input.VolumeExclusionParams ||
+                    (this.VolumeExclusionParams != null &&
+                    this.VolumeExclusionParams.Equals(input.VolumeExclusionParams))
                 );
         }
 
@@ -125,6 +137,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.CreateAmiForRun.GetHashCode();
                 if (this.ShouldCreateAmi != null)
                     hashCode = hashCode * 59 + this.ShouldCreateAmi.GetHashCode();
+                if (this.VolumeExclusionParams != null)
+                    hashCode = hashCode * 59 + this.VolumeExclusionParams.GetHashCode();
                 return hashCode;
             }
         }

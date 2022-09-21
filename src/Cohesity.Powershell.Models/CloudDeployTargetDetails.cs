@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -12,6 +13,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
+
 namespace Cohesity.Model
 {
     /// <summary>
@@ -21,9 +23,9 @@ namespace Cohesity.Model
     public partial class CloudDeployTargetDetails :  IEquatable<CloudDeployTargetDetails>
     {
         /// <summary>
-        /// Specifies the type of the CloudDeploy target. &#39;kAzure&#39; indicates that Azure as a cloud deploy target type. &#39;kAws&#39; indicates that AWS as a cloud deploy target type. &#39;kGcp&#39; indicates that GCP as a cloud deploy target type.
+        /// Specifies the type of the CloudDeploy target. &#39;kAzure&#39; indicates that Azure as a cloud deploy target type. &#39;kAWS&#39; indicates that AWS as a cloud deploy target type. &#39;kGCP&#39; indicates that GCP as a cloud deploy target type.
         /// </summary>
-        /// <value>Specifies the type of the CloudDeploy target. &#39;kAzure&#39; indicates that Azure as a cloud deploy target type. &#39;kAws&#39; indicates that AWS as a cloud deploy target type. &#39;kGcp&#39; indicates that GCP as a cloud deploy target type.</value>
+        /// <value>Specifies the type of the CloudDeploy target. &#39;kAzure&#39; indicates that Azure as a cloud deploy target type. &#39;kAWS&#39; indicates that AWS as a cloud deploy target type. &#39;kGCP&#39; indicates that GCP as a cloud deploy target type.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum TypeEnum
         {
@@ -34,23 +36,23 @@ namespace Cohesity.Model
             KAzure = 1,
 
             /// <summary>
-            /// Enum KAws for value: kAws
+            /// Enum KAWS for value: kAWS
             /// </summary>
-            [EnumMember(Value = "kAws")]
-            KAws = 2,
+            [EnumMember(Value = "kAWS")]
+            KAWS = 2,
 
             /// <summary>
-            /// Enum KGcp for value: kGcp
+            /// Enum KGCP for value: kGCP
             /// </summary>
-            [EnumMember(Value = "kGcp")]
-            KGcp = 3
+            [EnumMember(Value = "kGCP")]
+            KGCP = 3
 
         }
 
         /// <summary>
-        /// Specifies the type of the CloudDeploy target. &#39;kAzure&#39; indicates that Azure as a cloud deploy target type. &#39;kAws&#39; indicates that AWS as a cloud deploy target type. &#39;kGcp&#39; indicates that GCP as a cloud deploy target type.
+        /// Specifies the type of the CloudDeploy target. &#39;kAzure&#39; indicates that Azure as a cloud deploy target type. &#39;kAWS&#39; indicates that AWS as a cloud deploy target type. &#39;kGCP&#39; indicates that GCP as a cloud deploy target type.
         /// </summary>
-        /// <value>Specifies the type of the CloudDeploy target. &#39;kAzure&#39; indicates that Azure as a cloud deploy target type. &#39;kAws&#39; indicates that AWS as a cloud deploy target type. &#39;kGcp&#39; indicates that GCP as a cloud deploy target type.</value>
+        /// <value>Specifies the type of the CloudDeploy target. &#39;kAzure&#39; indicates that Azure as a cloud deploy target type. &#39;kAWS&#39; indicates that AWS as a cloud deploy target type. &#39;kGCP&#39; indicates that GCP as a cloud deploy target type.</value>
         [DataMember(Name="type", EmitDefaultValue=true)]
         public TypeEnum? Type { get; set; }
         /// <summary>
@@ -61,7 +63,7 @@ namespace Cohesity.Model
         /// <param name="gcpParams">gcpParams.</param>
         /// <param name="id">Entity corresponding to the cloud deploy target.  Specifies the id field inside the EntityProto..</param>
         /// <param name="name">Specifies the inner object&#39;s name or a human-readable string made off the salient attributes. This is only plumbed when Entity objects are exposed to Iris BE or to Yoda..</param>
-        /// <param name="type">Specifies the type of the CloudDeploy target. &#39;kAzure&#39; indicates that Azure as a cloud deploy target type. &#39;kAws&#39; indicates that AWS as a cloud deploy target type. &#39;kGcp&#39; indicates that GCP as a cloud deploy target type..</param>
+        /// <param name="type">Specifies the type of the CloudDeploy target. &#39;kAzure&#39; indicates that Azure as a cloud deploy target type. &#39;kAWS&#39; indicates that AWS as a cloud deploy target type. &#39;kGCP&#39; indicates that GCP as a cloud deploy target type..</param>
         public CloudDeployTargetDetails(AwsParams awsParams = default(AwsParams), AzureParams azureParams = default(AzureParams), GcpParams gcpParams = default(GcpParams), long? id = default(long?), string name = default(string), TypeEnum? type = default(TypeEnum?))
         {
             this.Id = id;
@@ -70,9 +72,6 @@ namespace Cohesity.Model
             this.AwsParams = awsParams;
             this.AzureParams = azureParams;
             this.GcpParams = gcpParams;
-            this.Id = id;
-            this.Name = name;
-            this.Type = type;
         }
         
         /// <summary>

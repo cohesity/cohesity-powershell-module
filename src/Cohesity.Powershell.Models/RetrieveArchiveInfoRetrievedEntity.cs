@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -33,16 +35,9 @@ namespace Cohesity.Model
         /// <param name="relativeSnapshotDir">The path relative to the root of the file system where the snapshot of this entity was retrieved/copied to..</param>
         /// <param name="startTimestampUsecs">Time in microseconds when retrieve of this entity started..</param>
         /// <param name="status">The retrieval status of this entity..</param>
-        public RetrieveArchiveInfoRetrievedEntity(long? bytesTransferred = default(long?), long? endTimestampUsecs = default(long?), EntityProto entity = default(EntityProto), ErrorProto error = default(ErrorProto), long? logicalBytesTransferred = default(long?), long? logicalSizeBytes = default(long?), string progressMonitorTaskPath = default(string), string relativeSnapshotDir = default(string), long? startTimestampUsecs = default(long?), int? status = default(int?))
+        /// <param name="uptierExpiryTimestampUsecs">If this is part of an uptier restore task, this will denote how much time the retrieved entity is present in the hot-tiers..</param>
+        public RetrieveArchiveInfoRetrievedEntity(long? bytesTransferred = default(long?), long? endTimestampUsecs = default(long?), EntityProto entity = default(EntityProto), ErrorProto error = default(ErrorProto), long? logicalBytesTransferred = default(long?), long? logicalSizeBytes = default(long?), string progressMonitorTaskPath = default(string), string relativeSnapshotDir = default(string), long? startTimestampUsecs = default(long?), int? status = default(int?), long? uptierExpiryTimestampUsecs = default(long?))
         {
-            this.BytesTransferred = bytesTransferred;
-            this.EndTimestampUsecs = endTimestampUsecs;
-            this.LogicalBytesTransferred = logicalBytesTransferred;
-            this.LogicalSizeBytes = logicalSizeBytes;
-            this.ProgressMonitorTaskPath = progressMonitorTaskPath;
-            this.RelativeSnapshotDir = relativeSnapshotDir;
-            this.StartTimestampUsecs = startTimestampUsecs;
-            this.Status = status;
             this.BytesTransferred = bytesTransferred;
             this.EndTimestampUsecs = endTimestampUsecs;
             this.Entity = entity;
@@ -53,6 +48,7 @@ namespace Cohesity.Model
             this.RelativeSnapshotDir = relativeSnapshotDir;
             this.StartTimestampUsecs = startTimestampUsecs;
             this.Status = status;
+            this.UptierExpiryTimestampUsecs = uptierExpiryTimestampUsecs;
         }
         
         /// <summary>
@@ -122,6 +118,13 @@ namespace Cohesity.Model
         /// <value>The retrieval status of this entity.</value>
         [DataMember(Name="status", EmitDefaultValue=true)]
         public int? Status { get; set; }
+
+        /// <summary>
+        /// If this is part of an uptier restore task, this will denote how much time the retrieved entity is present in the hot-tiers.
+        /// </summary>
+        /// <value>If this is part of an uptier restore task, this will denote how much time the retrieved entity is present in the hot-tiers.</value>
+        [DataMember(Name="uptierExpiryTimestampUsecs", EmitDefaultValue=true)]
+        public long? UptierExpiryTimestampUsecs { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -208,6 +211,11 @@ namespace Cohesity.Model
                     this.Status == input.Status ||
                     (this.Status != null &&
                     this.Status.Equals(input.Status))
+                ) && 
+                (
+                    this.UptierExpiryTimestampUsecs == input.UptierExpiryTimestampUsecs ||
+                    (this.UptierExpiryTimestampUsecs != null &&
+                    this.UptierExpiryTimestampUsecs.Equals(input.UptierExpiryTimestampUsecs))
                 );
         }
 
@@ -240,6 +248,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.StartTimestampUsecs.GetHashCode();
                 if (this.Status != null)
                     hashCode = hashCode * 59 + this.Status.GetHashCode();
+                if (this.UptierExpiryTimestampUsecs != null)
+                    hashCode = hashCode * 59 + this.UptierExpiryTimestampUsecs.GetHashCode();
                 return hashCode;
             }
         }

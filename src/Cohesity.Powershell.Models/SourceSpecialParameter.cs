@@ -1,5 +1,6 @@
 // Copyright 2019 Cohesity Inc.
 
+
 using System;
 using System.Linq;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 
 namespace Cohesity.Model
 {
@@ -35,10 +37,6 @@ namespace Cohesity.Model
         /// <param name="vmwareSpecialParameters">vmwareSpecialParameters.</param>
         public SourceSpecialParameter(ApplicationSpecialParameters adSpecialParameters = default(ApplicationSpecialParameters), ApplicationSpecialParameters exchangeSpecialParameters = default(ApplicationSpecialParameters), OracleSpecialParameters oracleSpecialParameters = default(OracleSpecialParameters), PhysicalSpecialParameters physicalSpecialParameters = default(PhysicalSpecialParameters), bool? skipIndexing = default(bool?), long? sourceId = default(long?), ApplicationSpecialParameters sqlSpecialParameters = default(ApplicationSpecialParameters), bool? truncateExchangeLog = default(bool?), Credentials vmCredentials = default(Credentials), VmwareSpecialParameters vmwareSpecialParameters = default(VmwareSpecialParameters))
         {
-            this.SkipIndexing = skipIndexing;
-            this.SourceId = sourceId;
-            this.TruncateExchangeLog = truncateExchangeLog;
-            this.VmCredentials = vmCredentials;
             this.AdSpecialParameters = adSpecialParameters;
             this.ExchangeSpecialParameters = exchangeSpecialParameters;
             this.OracleSpecialParameters = oracleSpecialParameters;
