@@ -44,21 +44,27 @@ function Get-CohesityProtectionSource {
             # tagging reponse for display format ( configured in Cohesity.format.ps1xml )
             @($resp | Add-Member -TypeName 'System.Object#ProtectionSource' -PassThru)
         } elseif ($Name) {
-            $PSObjectUrl = '/irisservices/api/v1/public/protectionSources/objects'
+            $PSObjectUrl = '/irisservices/api/v1/public/protectionSources/registrationInfo'
+
+            if ($Environments) {
+                $envList = @()
+                foreach ($item in $Environments) {
+                    # converting KVMware to kVMware
+                    $envText = $item.ToString()
+                    $envList += $envText.SubString(0, 1).ToLower() + $envText.SubString(1, $envText.Length - 1)
+                }
+                $PSObjectUrl += "?environments=" + ($envList -join ",")
+            }
+
             $PSObjectResp = Invoke-RestApi -Method Get -Uri $PSObjectUrl
 
-            if ($PSObjectResp) {
-                # Skip kView, kAgent, kPuppeteer environment types and group nodes themselves
-                $PSObjectResp = @($PSObjectResp | where-object {
-                    $_.environment -ne "kAgent" `
-                    -and $_.environment -ne "kView" `
-                    -and $_.environment -ne "kPuppeteer"
-                })
+            if ($PSObjectResp -and $PSObjectResp.rootNodes -and $PSObjectResp.rootNodes.Length -ne 0) {
+                $PSObjectResp = $PSObjectResp.rootNodes
 
-                $PSObject = @($PSObjectResp | where-object { $Name -eq $_.name })
+                $PSObject = @($PSObjectResp | where-object { $Name -eq $_.rootNode.name })
 
                 # tagging reponse for display format ( configured in Cohesity.format.ps1xml )
-                @($PSObject | Add-Member -TypeName 'System.Object#ProtectionSource' -PassThru)
+                @($PSObject | Add-Member -TypeName 'System.Object#RootNode' -PassThru)
             }
         } else {
             $rootNodeUrl = '/irisservices/api/v1/public/protectionSources/rootNodes'
