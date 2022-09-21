@@ -44,7 +44,7 @@ function Set-CohesityProtectionJob {
         }
 
         if ($PSCmdlet.ShouldProcess($protectionJobName)) {
-            if ($ProtectionJob.Environment -eq "kPhysicalFiles" -and -not $ProtectionJob.SourceSpecialParameters) {
+            if ($ProtectionJob.Environment -eq "kPhysicalFiles") {
                 $job = Get-CohesityProtectionJob -Ids $ProtectionJob.Id
                 if ($job) {
                     if ($job.SourceSpecialParameters) {
