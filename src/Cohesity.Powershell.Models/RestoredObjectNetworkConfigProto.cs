@@ -32,7 +32,7 @@ namespace Cohesity.Model
         /// <param name="preserveMacAddressOnNewNetwork">If this is true and we are attaching to a new network entity, then the VM&#39;s MAC address will be preserved on the new network..</param>
         /// <param name="vcdNetwork">vcdNetwork.</param>
         /// <param name="vnicEntity">vnicEntity.</param>
-        public RestoredObjectNetworkConfigProto(bool? detachNetwork = default(bool?), bool? disableNetwork = default(bool?), List<NetworkMappingProto> mappings = default(List<NetworkMappingProto>), EntityProto networkEntity = default(EntityProto), bool? preserveMacAddressOnNewNetwork = default(bool?), OrgVDCNetwork vcdNetwork = default(OrgVDCNetwork), EntityProto vnicEntity = default(EntityProto))
+        public RestoredObjectNetworkConfigProto(bool? detachNetwork = default(bool?), bool? disableNetwork = default(bool?), List<NetworkMappingProto> mappings = default(List<NetworkMappingProto>), EntityProto networkEntity = default(EntityProto), bool? preserveMacAddressOnNewNetwork = default(bool?), OrgVdcNetwork vcdNetwork = default(OrgVdcNetwork), EntityProto vnicEntity = default(EntityProto))
         {
             this.DetachNetwork = detachNetwork;
             this.DisableNetwork = disableNetwork;
@@ -81,7 +81,7 @@ namespace Cohesity.Model
         /// Gets or Sets VcdNetwork
         /// </summary>
         [DataMember(Name="vcdNetwork", EmitDefaultValue=false)]
-        public OrgVDCNetwork VcdNetwork { get; set; }
+        public OrgVdcNetwork VcdNetwork { get; set; }
 
         /// <summary>
         /// Gets or Sets VnicEntity

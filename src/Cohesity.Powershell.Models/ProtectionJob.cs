@@ -336,7 +336,7 @@ namespace Cohesity.Model
             /// Enum KO365PublicFolders for value: kO365PublicFolders
             /// </summary>
             [EnumMember(Value = "kO365PublicFolders")]
-            KO365PublicFolders = 46
+            KO365PublicFolders = 46,
 
 			/// Enum KAWSSnapshotManager for kAWSSnapshotManager
             /// </summary>

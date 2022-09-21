@@ -49,6 +49,13 @@ namespace Cohesity.Model
         public bool? AllowCrashConsistentSnapshot { get; set; }
 
         /// <summary>
+        /// Whether to fallback to use NBDSSL transport for backup in case using SAN transport backup fails.
+        /// </summary>
+        /// <value>Whether to fallback to use NBDSSL transport for backup in case using SAN transport backup fails.</value>
+        [DataMember(Name="allowNbdsslTransportFallback", EmitDefaultValue=true)]
+        public bool? AllowNbdsslTransportFallback { get; set; }
+
+        /// <summary>
         /// Physical RDM disks cannot be backed up using VADP. By default the backups of such VMs will fail. If this is set to true, then such VMs in this backup job will be backed up by excluding the physical RDM disks.
         /// </summary>
         /// <value>Physical RDM disks cannot be backed up using VADP. By default the backups of such VMs will fail. If this is set to true, then such VMs in this backup job will be backed up by excluding the physical RDM disks.</value>

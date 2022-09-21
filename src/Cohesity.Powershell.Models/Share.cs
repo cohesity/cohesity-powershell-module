@@ -67,6 +67,13 @@ namespace Cohesity.Model
         public List<string> AllSmbMountPaths { get; set; }
 
         /// <summary>
+        /// Specifies whether to enable filer audit log on this view alias.
+        /// </summary>
+        /// <value>Specifies whether to enable filer audit log on this view alias.</value>
+        [DataMember(Name="enableFilerAuditLog", EmitDefaultValue=true)]
+        public bool? EnableFilerAuditLog { get; set; }
+
+        /// <summary>
         /// Specifies the SMB encryption for the View Alias. If set, it enables the SMB encryption for the View Alias. Encryption is supported only by SMB 3.x dialects. Dialects that do not support would still access data in unencrypted format.
         /// </summary>
         /// <value>Specifies the SMB encryption for the View Alias. If set, it enables the SMB encryption for the View Alias. Encryption is supported only by SMB 3.x dialects. Dialects that do not support would still access data in unencrypted format.</value>

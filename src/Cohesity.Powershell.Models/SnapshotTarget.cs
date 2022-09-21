@@ -52,6 +52,12 @@ namespace Cohesity.Model
         public CloudDeployTarget CloudDeployTarget { get; set; }
 
         /// <summary>
+        /// Gets or Sets OnpremDeployTarget
+        /// </summary>
+        [DataMember(Name="onpremDeployTarget", EmitDefaultValue=false)]
+        public OnPremDeployTarget OnpremDeployTarget { get; set; }
+
+        /// <summary>
         /// Gets or Sets ReplicationTarget
         /// </summary>
         [DataMember(Name="replicationTarget", EmitDefaultValue=false)]

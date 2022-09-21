@@ -31,8 +31,6 @@ namespace Cohesity.Model
         {
             this.ApplicationServer = applicationServer;
             this.RegisteredProtectionSource = registeredProtectionSource;
-            this.ApplicationServer = applicationServer;
-            this.RegisteredProtectionSource = registeredProtectionSource;
         }
         
         /// <summary>

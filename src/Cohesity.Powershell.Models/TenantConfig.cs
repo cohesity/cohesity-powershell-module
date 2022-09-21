@@ -40,6 +40,13 @@ namespace Cohesity.Model
         }
         
         /// <summary>
+        /// Specifies if this tenant is bifrost enabled or not.
+        /// </summary>
+        /// <value>Specifies if this tenant is bifrost enabled or not.</value>
+        [DataMember(Name="bifrostEnabled", EmitDefaultValue=true)]
+        public bool? BifrostEnabled { get; set; }
+
+        /// <summary>
         /// Specifies name of the tenant.
         /// </summary>
         /// <value>Specifies name of the tenant.</value>

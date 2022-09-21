@@ -61,6 +61,13 @@ namespace Cohesity.Model
         public string Filename { get; set; }
 
         /// <summary>
+        /// Virtual disk size.
+        /// </summary>
+        /// <value>Virtual disk size.</value>
+        [DataMember(Name="logicalSizeBytes", EmitDefaultValue=true)]
+        public long? LogicalSizeBytes { get; set; }
+
+        /// <summary>
         /// Specifies the disk file name. This is the VMDK name and not the flat file name.
         /// </summary>
         /// <value>Specifies the disk file name. This is the VMDK name and not the flat file name.</value>

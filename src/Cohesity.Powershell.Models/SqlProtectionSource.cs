@@ -496,7 +496,7 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.OwnerId.GetHashCode();
                 if (this.RecoveryModel != null)
 					hashCode = hashCode * 59 + this.RecoveryModel.GetHashCode();
-                if (this.SqlServeSqlServerDbStaterInstanceVersion != null)
+                if (this.SqlServerDbState != null)
 					hashCode = hashCode * 59 + this.SqlServerDbState.GetHashCode();
                 if (this.SqlServerInstanceVersion != null)
                     hashCode = hashCode * 59 + this.SqlServerInstanceVersion.GetHashCode();

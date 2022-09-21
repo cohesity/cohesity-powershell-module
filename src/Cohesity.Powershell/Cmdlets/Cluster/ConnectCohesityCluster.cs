@@ -55,6 +55,15 @@ namespace Cohesity.Powershell.Cmdlets.Cluster
     ///   Connects to a Cohesity Cluster at the address "192.168.1.100" using the API Key (supported 6.5.1d onwards).
     ///   </para>
     /// </example>
+    /// <example>
+    ///   <para>PS&gt;</para>
+    ///   <code>
+    ///   Connect-CohesityCluster -Server 192.168.1.100 -UseMFA -OtpType Email
+    ///   </code>
+    ///   <para>
+    ///   Connects to a Cohesity Cluster at the address "192.168.1.100" using Multi-Factor Authentication(MFA). By default, OtpType will be considered as Totp if not provided. On trying to connect to the cluster using MFA, user will be prompted to provide OTP code.
+    ///   </para>
+    /// </example>
     [Cmdlet(VerbsCommunications.Connect, "CohesityCluster", DefaultParameterSetName = "UsingCreds")]
     public class ConnectCohesityCluster : PSCmdlet
     {

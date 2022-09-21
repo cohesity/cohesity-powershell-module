@@ -327,7 +327,7 @@ namespace Cohesity.Model
         /// <param name="password">Specifies password of the username to access the target source..</param>
         /// <param name="protectionSourceId">Specifies the Id of the Protection Source that contains one or more Application Servers running on it..</param>
         /// <param name="username">Specifies username to access the target source..</param>
-        public UpdateApplicationServerParameters(List<ApplicationsEnum> applications = default(List<ApplicationsEnum>), bool? hasPersistentAgent = default(bool?), string password = default(string), long? protectionSourceId = default(long?), string username = default(string))
+        public UpdateApplicationServerParameters(List<ApplicationsEnum> applications = default(List<ApplicationsEnum>), string encryptionKey = default(string), bool? hasPersistentAgent = default(bool?), bool? isInternalEncrypted = default(bool?), string password = default(string), long? protectionSourceId = default(long?), string username = default(string))
         {
             this.Applications = applications;
             this.EncryptionKey = encryptionKey;
