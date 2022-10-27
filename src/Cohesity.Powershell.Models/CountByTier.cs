@@ -32,25 +32,25 @@ namespace Cohesity.Model
             /// <summary>
             /// Enum KPCIeSSD for value: kPCIeSSD
             /// </summary>
-            [EnumMember(Value = "kPCIeSSD")]
+            [EnumMember(Value = "PCIeSSD")]
             KPCIeSSD = 1,
 
             /// <summary>
             /// Enum KSATASSD for value: kSATASSD
             /// </summary>
-            [EnumMember(Value = "kSATASSD")]
+            [EnumMember(Value = "SATA-SSD")]
             KSATASSD = 2,
 
             /// <summary>
             /// Enum KSATAHDD for value: kSATAHDD
             /// </summary>
-            [EnumMember(Value = "kSATAHDD")]
+            [EnumMember(Value = "SATA-HDD")]
             KSATAHDD = 3,
 
             /// <summary>
             /// Enum KCLOUD for value: kCLOUD
             /// </summary>
-            [EnumMember(Value = "kCLOUD")]
+            [EnumMember(Value = "CLOUD")]
             KCLOUD = 4
 
         }
@@ -68,8 +68,6 @@ namespace Cohesity.Model
         /// <param name="storageTier">StorageTier is the type of StorageTier. StorageTierType represents the various values for the Storage Tier. &#39;kPCIeSSD&#39; indicates storage tier type of Pci Solid State Drive. &#39;kSATAHDD&#39; indicates storage tier type of SATA Solid State Drive. &#39;kSATAHDD&#39; indicates storage tier type of SATA Hard Disk Drive. &#39;kCLOUD&#39; indicates storage tier type of Cloud..</param>
         public CountByTier(long? diskCount = default(long?), StorageTierEnum? storageTier = default(StorageTierEnum?))
         {
-            this.DiskCount = diskCount;
-            this.StorageTier = storageTier;
             this.DiskCount = diskCount;
             this.StorageTier = storageTier;
         }
@@ -139,7 +137,8 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.DiskCount != null)
                     hashCode = hashCode * 59 + this.DiskCount.GetHashCode();
-                hashCode = hashCode * 59 + this.StorageTier.GetHashCode();
+                if (this.StorageTier != null)
+                    hashCode = hashCode * 59 + this.StorageTier.GetHashCode();
                 return hashCode;
             }
         }

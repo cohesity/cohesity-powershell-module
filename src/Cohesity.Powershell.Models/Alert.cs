@@ -428,6 +428,7 @@ namespace Cohesity.Model
         {
             this.AlertCategory = alertCategory;
             this.AlertCode = alertCode;
+            this.AlertDocument = alertDocument;
             this.AlertState = alertState;
             this.AlertType = alertType;
             this.AlertTypeBucket = alertTypeBucket;
@@ -441,6 +442,7 @@ namespace Cohesity.Model
             this.LatestTimestampUsecs = latestTimestampUsecs;
             this.PropertyList = propertyList;
             this.RegionId = regionId;
+            this.ResolutionDetails = resolutionDetails;
             this.ResolvedTimestampUsecs = resolvedTimestampUsecs;
             this.Severity = severity;
             this.SuppressionId = suppressionId;
