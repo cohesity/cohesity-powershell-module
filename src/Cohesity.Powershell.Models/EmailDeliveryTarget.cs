@@ -28,7 +28,7 @@ namespace Cohesity.Model
         /// <param name="emailAddress">emailAddress.</param>
         /// <param name="locale">Specifies the language in which the emails sent to the above defined mail address should be in..</param>
         /// <param name="recipientType">Specifies the recipient type on how the emails are to received..</param>
-        public EmailDeliveryTarget(string emailAddress = default(string), string locale = default(string), int? recipientType = default(int?))
+        public EmailDeliveryTarget(string emailAddress = default(string), string locale = default(string), string recipientType = default(string))
         {
             this.EmailAddress = emailAddress;
             this.Locale = locale;
@@ -53,7 +53,7 @@ namespace Cohesity.Model
         /// </summary>
         /// <value>Specifies the recipient type on how the emails are to received.</value>
         [DataMember(Name="recipientType", EmitDefaultValue=true)]
-        public int? RecipientType { get; set; }
+        public string RecipientType { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
