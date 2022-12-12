@@ -210,6 +210,69 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
         [Parameter(Mandatory = false)]
         public SwitchParameter EnableIndexing { get; set; }
 
+        /// <summary>
+        /// <para type="description">
+        /// Specifies if the Protection Job is paused, which means that no new Job Runs are started but any existing Job Runs continue to execute.
+        /// </para>
+        /// </summary>
+        [Parameter(Mandatory = false)]
+        public SwitchParameter PauseFutureRuns { get; set; }
+
+        /// <summary>
+        /// <para type="description">
+        /// Specifies the epoch time (in microseconds) after which the Protection Job becomes dormant.
+        /// </para>
+        /// </summary>
+        [Parameter(Mandatory = false)]
+        public long? EndTimeUsecs { get; set; }
+
+        /// <summary>
+        /// <para type="description">
+        /// Specifies the QoS policy type to use for this Protection Job.
+        /// 'kBackupHDD' indicates the Cohesity Cluster writes data directly to the HDD tier for this Protection Job. This is the recommended setting.
+        /// 'kBackupSSD' indicates the Cohesity Cluster writes data directly to the SSD tier for this Protection Job. Only specify this policy if you need fast ingest speed for a small number of Protection Jobs.
+        /// 'kTestAndDevHigh' indicated the test and dev workload.
+        /// 'kBackupAll' indicates the Cohesity Cluster writes data directly to the HDD tier and the SSD tier for this Protection Job.
+        /// Default is kBackupHDD.
+        /// </para>
+        /// </summary>
+        [Parameter(Mandatory = false)]
+        public Model.ProtectionJob.QosTypeEnum? QosType { get; set; }
+
+        /// <summary>
+        /// <para type="description">
+        /// Specifies the priority of execution for a Protection Job. Cohesity supports concurrent backups but if the number of Jobs exceeds the ability to process Jobs, the specified priority determines the execution Job priority. This field also specifies the replication priority.
+        /// 'kLow' indicates lowest execution priority for a Protection job.
+        /// 'kMedium' indicates medium execution priority for a Protection job.
+        /// 'kHigh' indicates highest execution priority for a Protection job.
+        /// Default is kMedium.
+        /// </para>
+        /// </summary>
+        [Parameter(Mandatory = false)]
+        public Model.ProtectionJob.PriorityEnum? Priority { get; set; }
+
+        /// <summary>
+        /// <para type="description">
+        /// Array of Job Events. During Job Runs, the following Job Events are generated:
+        /// 1) Job succeeds 2) Job fails 3) Job violates the SLA
+        /// These Job Events can cause Alerts to be generated.
+        /// 'kSuccess' means the Protection Job succeeded.
+        /// 'kFailure' means the Protection Job failed.
+        /// 'kSlaViolation' means the Protection Job took longer than the time period specified in the SLA.
+        /// Default is kFailure.
+        /// </para>
+        /// </summary>
+        [Parameter(Mandatory = false)]
+        public Model.ProtectionJob.AlertingPolicyEnum[] AlertOn { get; set; }
+
+        /// <summary>
+        /// <para type="description">
+        /// Specifies additional email addresses where alert notifications (configured in the AlertingPolicy) must be sent.
+        /// </para>
+        /// </summary>
+        [Parameter(Mandatory = false)]
+        public string[] EmailAddress { get; set; }
+
         protected override void BeginProcessing()
         {
             base.BeginProcessing();
@@ -290,6 +353,40 @@ namespace Cohesity.Powershell.Cmdlets.ProtectionJob
                 newProtectionJob.IndexingPolicy = new IndexingPolicy();
                 newProtectionJob.IndexingPolicy.DisableIndexing = false;
                 newProtectionJob.IndexingPolicy.AllowPrefixes = new List<string>() { "/" };
+            }
+
+            if (PauseFutureRuns.IsPresent)
+            {
+                newProtectionJob.IsPaused = true;
+            }
+
+            if (EndTimeUsecs != null)
+                newProtectionJob.EndTimeUsecs = EndTimeUsecs;
+
+            if (QosType != null)
+                newProtectionJob.QosType = QosType;
+
+            if (Priority != null)
+                newProtectionJob.Priority = Priority;
+
+            if (AlertOn != null && AlertOn.Any())
+                newProtectionJob.AlertingPolicy = AlertOn.ToList();
+
+            if (EmailAddress != null && EmailAddress.Any())
+            {
+                var EmailAddressList = EmailAddress.ToList();
+                newProtectionJob.AlertingConfig = new Model.AlertingConfig();
+                newProtectionJob.AlertingConfig.EmailDeliveryTargets = new List<Model.EmailDeliveryTarget>();
+
+                foreach (var EmailAdd in EmailAddressList)
+                {
+                    var EmailDeliveryTarget = new Model.EmailDeliveryTarget
+                    {
+                        EmailAddress = EmailAdd,
+                        RecipientType = "kTo"
+                    };
+                    newProtectionJob.AlertingConfig.EmailDeliveryTargets.Add(EmailDeliveryTarget);
+                }
             }
 
             var preparedUrl = $"/public/protectionJobs";
