@@ -25,7 +25,8 @@ function Get-CohesityAgentStatus {
             Write-Output "No agent details found in the cluster."
             return
         }
-        $agents | Format-Table
+        # $agents | Format-Table
+        $agents
     }
 
     End {
