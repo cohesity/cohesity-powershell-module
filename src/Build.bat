@@ -1,4 +1,4 @@
-git pull
+@REM git pull
 call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\Tools\VsDevCmd.bat"
 dotnet clean --configuration Release
 dotnet build --configuration Release
