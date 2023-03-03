@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -321,7 +319,7 @@ namespace Cohesity.Model
                     this.Appsips == input.Appsips ||
                     this.Appsips != null &&
                     input.Appsips != null &&
-                    this.Appsips.Equals(input.Appsips)
+                    this.Appsips.SequenceEqual(input.Appsips)
                 ) && 
                 (
                     this.Description == input.Description ||
@@ -332,7 +330,7 @@ namespace Cohesity.Model
                     this.DnsDelegationZones == input.DnsDelegationZones ||
                     this.DnsDelegationZones != null &&
                     input.DnsDelegationZones != null &&
-                    this.DnsDelegationZones.Equals(input.DnsDelegationZones)
+                    this.DnsDelegationZones.SequenceEqual(input.DnsDelegationZones)
                 ) && 
                 (
                     this.EcmpEnabled == input.EcmpEnabled ||
@@ -383,7 +381,7 @@ namespace Cohesity.Model
                     this.IpPoolMap == input.IpPoolMap ||
                     this.IpPoolMap != null &&
                     input.IpPoolMap != null &&
-                    this.IpPoolMap.Equals(input.IpPoolMap)
+                    this.IpPoolMap.SequenceEqual(input.IpPoolMap)
                 ) && 
                 (
                     this.IpRange == input.IpRange ||
@@ -394,13 +392,13 @@ namespace Cohesity.Model
                     this.IpRanges == input.IpRanges ||
                     this.IpRanges != null &&
                     input.IpRanges != null &&
-                    this.IpRanges.Equals(input.IpRanges)
+                    this.IpRanges.SequenceEqual(input.IpRanges)
                 ) && 
                 (
                     this.Ips == input.Ips ||
                     this.Ips != null &&
                     input.Ips != null &&
-                    this.Ips.Equals(input.Ips)
+                    this.Ips.SequenceEqual(input.Ips)
                 ) && 
                 (
                     this.Mtu == input.Mtu ||

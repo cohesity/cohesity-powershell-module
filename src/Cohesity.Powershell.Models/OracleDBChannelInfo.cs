@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -36,6 +34,14 @@ namespace Cohesity.Model
         /// <param name="rmanBackupType">Type of Oracle RMAN backup rquested (i.e ImageCopy, BackupSets)..</param>
         public OracleDBChannelInfo(int? archivelogKeepDays = default(int?), Credentials credentials = default(Credentials), string dbUniqueName = default(string), string dbUuid = default(string), bool? enableDgPrimaryBackup = default(bool?), List<OracleDBChannelInfoHostInfo> hostInfoVec = default(List<OracleDBChannelInfoHostInfo>), int? maxNumHost = default(int?), int? numChannels = default(int?), int? rmanBackupType = default(int?))
         {
+            this.ArchivelogKeepDays = archivelogKeepDays;
+            this.DbUniqueName = dbUniqueName;
+            this.DbUuid = dbUuid;
+            this.EnableDgPrimaryBackup = enableDgPrimaryBackup;
+            this.HostInfoVec = hostInfoVec;
+            this.MaxNumHost = maxNumHost;
+            this.NumChannels = numChannels;
+            this.RmanBackupType = rmanBackupType;
             this.ArchivelogKeepDays = archivelogKeepDays;
             this.Credentials = credentials;
             this.DbUniqueName = dbUniqueName;
@@ -174,7 +180,7 @@ namespace Cohesity.Model
                     this.HostInfoVec == input.HostInfoVec ||
                     this.HostInfoVec != null &&
                     input.HostInfoVec != null &&
-                    this.HostInfoVec.Equals(input.HostInfoVec)
+                    this.HostInfoVec.SequenceEqual(input.HostInfoVec)
                 ) && 
                 (
                     this.MaxNumHost == input.MaxNumHost ||

@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -135,7 +133,7 @@ namespace Cohesity.Model
                     this.ClientSubnetWhitelistVec == input.ClientSubnetWhitelistVec ||
                     this.ClientSubnetWhitelistVec != null &&
                     input.ClientSubnetWhitelistVec != null &&
-                    this.ClientSubnetWhitelistVec.Equals(input.ClientSubnetWhitelistVec)
+                    this.ClientSubnetWhitelistVec.SequenceEqual(input.ClientSubnetWhitelistVec)
                 ) && 
                 (
                     this.DisableNfsAccess == input.DisableNfsAccess ||
@@ -151,7 +149,7 @@ namespace Cohesity.Model
                     this.QosMappingVec == input.QosMappingVec ||
                     this.QosMappingVec != null &&
                     input.QosMappingVec != null &&
-                    this.QosMappingVec.Equals(input.QosMappingVec)
+                    this.QosMappingVec.SequenceEqual(input.QosMappingVec)
                 ) && 
                 (
                     this.StoragePolicyOverride == input.StoragePolicyOverride ||

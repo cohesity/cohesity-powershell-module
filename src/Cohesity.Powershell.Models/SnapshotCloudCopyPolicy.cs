@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -85,6 +83,11 @@ namespace Cohesity.Model
         /// <param name="target">target.</param>
         public SnapshotCloudCopyPolicy(string id = default(string), bool? copyPartial = default(bool?), DataLockConfig datalockConfig = default(DataLockConfig), long? daysToKeep = default(long?), int? multiplier = default(int?), PeriodicityEnum? periodicity = default(PeriodicityEnum?), CloudDeployTargetDetails target = default(CloudDeployTargetDetails))
         {
+            this.Id = id;
+            this.CopyPartial = copyPartial;
+            this.DaysToKeep = daysToKeep;
+            this.Multiplier = multiplier;
+            this.Periodicity = periodicity;
             this.Id = id;
             this.CopyPartial = copyPartial;
             this.DatalockConfig = datalockConfig;

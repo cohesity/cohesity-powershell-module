@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -892,7 +890,7 @@ namespace Cohesity.Model
                     this.BackupSourceParams == input.BackupSourceParams ||
                     this.BackupSourceParams != null &&
                     input.BackupSourceParams != null &&
-                    this.BackupSourceParams.Equals(input.BackupSourceParams)
+                    this.BackupSourceParams.SequenceEqual(input.BackupSourceParams)
                 ) && 
                 (
                     this.ContinueOnQuiesceFailure == input.ContinueOnQuiesceFailure ||
@@ -913,7 +911,7 @@ namespace Cohesity.Model
                     this.DedupDisabledSourceIdVec == input.DedupDisabledSourceIdVec ||
                     this.DedupDisabledSourceIdVec != null &&
                     input.DedupDisabledSourceIdVec != null &&
-                    this.DedupDisabledSourceIdVec.Equals(input.DedupDisabledSourceIdVec)
+                    this.DedupDisabledSourceIdVec.SequenceEqual(input.DedupDisabledSourceIdVec)
                 ) && 
                 (
                     this.DeletionStatus == input.DeletionStatus ||
@@ -949,19 +947,19 @@ namespace Cohesity.Model
                     this.ExcludeSources == input.ExcludeSources ||
                     this.ExcludeSources != null &&
                     input.ExcludeSources != null &&
-                    this.ExcludeSources.Equals(input.ExcludeSources)
+                    this.ExcludeSources.SequenceEqual(input.ExcludeSources)
                 ) && 
                 (
                     this.ExcludeSourcesDEPRECATED == input.ExcludeSourcesDEPRECATED ||
                     this.ExcludeSourcesDEPRECATED != null &&
                     input.ExcludeSourcesDEPRECATED != null &&
-                    this.ExcludeSourcesDEPRECATED.Equals(input.ExcludeSourcesDEPRECATED)
+                    this.ExcludeSourcesDEPRECATED.SequenceEqual(input.ExcludeSourcesDEPRECATED)
                 ) && 
                 (
                     this.ExclusionRanges == input.ExclusionRanges ||
                     this.ExclusionRanges != null &&
                     input.ExclusionRanges != null &&
-                    this.ExclusionRanges.Equals(input.ExclusionRanges)
+                    this.ExclusionRanges.SequenceEqual(input.ExclusionRanges)
                 ) && 
                 (
                     this.FullBackupJobPolicy == input.FullBackupJobPolicy ||
@@ -982,7 +980,7 @@ namespace Cohesity.Model
                     this.IgnorableErrorsInErrorDb == input.IgnorableErrorsInErrorDb ||
                     this.IgnorableErrorsInErrorDb != null &&
                     input.IgnorableErrorsInErrorDb != null &&
-                    this.IgnorableErrorsInErrorDb.Equals(input.IgnorableErrorsInErrorDb)
+                    this.IgnorableErrorsInErrorDb.SequenceEqual(input.IgnorableErrorsInErrorDb)
                 ) && 
                 (
                     this.IndexingPolicy == input.IndexingPolicy ||
@@ -1043,7 +1041,7 @@ namespace Cohesity.Model
                     this.IsSourcePausedMap == input.IsSourcePausedMap ||
                     this.IsSourcePausedMap != null &&
                     input.IsSourcePausedMap != null &&
-                    this.IsSourcePausedMap.Equals(input.IsSourcePausedMap)
+                    this.IsSourcePausedMap.SequenceEqual(input.IsSourcePausedMap)
                 ) && 
                 (
                     this.JobCreationTimeUsecs == input.JobCreationTimeUsecs ||
@@ -1199,7 +1197,7 @@ namespace Cohesity.Model
                     this.RemoteJobUids == input.RemoteJobUids ||
                     this.RemoteJobUids != null &&
                     input.RemoteJobUids != null &&
-                    this.RemoteJobUids.Equals(input.RemoteJobUids)
+                    this.RemoteJobUids.SequenceEqual(input.RemoteJobUids)
                 ) && 
                 (
                     this.RemoteViewName == input.RemoteViewName ||
@@ -1215,7 +1213,7 @@ namespace Cohesity.Model
                     this.RequiredFeatureVec == input.RequiredFeatureVec ||
                     this.RequiredFeatureVec != null &&
                     input.RequiredFeatureVec != null &&
-                    this.RequiredFeatureVec.Equals(input.RequiredFeatureVec)
+                    this.RequiredFeatureVec.SequenceEqual(input.RequiredFeatureVec)
                 ) && 
                 (
                     this.SkipRigelForBackup == input.SkipRigelForBackup ||
@@ -1241,13 +1239,13 @@ namespace Cohesity.Model
                     this.Sources == input.Sources ||
                     this.Sources != null &&
                     input.Sources != null &&
-                    this.Sources.Equals(input.Sources)
+                    this.Sources.SequenceEqual(input.Sources)
                 ) && 
                 (
                     this.StandbyResourceVec == input.StandbyResourceVec ||
                     this.StandbyResourceVec != null &&
                     input.StandbyResourceVec != null &&
-                    this.StandbyResourceVec.Equals(input.StandbyResourceVec)
+                    this.StandbyResourceVec.SequenceEqual(input.StandbyResourceVec)
                 ) && 
                 (
                     this.StartTime == input.StartTime ||
@@ -1268,7 +1266,7 @@ namespace Cohesity.Model
                     this.TagVec == input.TagVec ||
                     this.TagVec != null &&
                     input.TagVec != null &&
-                    this.TagVec.Equals(input.TagVec)
+                    this.TagVec.SequenceEqual(input.TagVec)
                 ) && 
                 (
                     this.Timezone == input.Timezone ||

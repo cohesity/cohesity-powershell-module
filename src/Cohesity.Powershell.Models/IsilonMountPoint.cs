@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -150,13 +148,13 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.Protocols == input.Protocols ||
-                    this.Protocols.Equals(input.Protocols)
+                    this.Protocols.SequenceEqual(input.Protocols)
                 ) && 
                 (
                     this.SmbMountPoints == input.SmbMountPoints ||
                     this.SmbMountPoints != null &&
                     input.SmbMountPoints != null &&
-                    this.SmbMountPoints.Equals(input.SmbMountPoints)
+                    this.SmbMountPoints.SequenceEqual(input.SmbMountPoints)
                 );
         }
 

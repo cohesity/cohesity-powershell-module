@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -41,6 +39,19 @@ namespace Cohesity.Model
         /// <param name="userActionRequiredMsg">Message to display in the UI if any manual intervention is needed to make forward progress for the retrieve from archive task. This message is mainly relevant for tape based retrieve from archive tasks where a backup admin might be asked to load new media when the tape library does not have the relevant media to retrieve the archive from..</param>
         public RetrieveArchiveInfo(long? avgLogicalTransferRateBps = default(long?), long? bytesTransferred = default(long?), long? endTimeUsecs = default(long?), ErrorProto error = default(ErrorProto), long? logicalBytesTransferred = default(long?), long? logicalSizeBytes = default(long?), string progressMonitorTaskPath = default(string), List<RetrieveArchiveInfoRetrievedEntity> retrievedEntityVec = default(List<RetrieveArchiveInfoRetrievedEntity>), bool? skipCloningView = default(bool?), long? startTimeUsecs = default(long?), string stubViewName = default(string), string stubViewRelativeDirName = default(string), string targetViewName = default(string), string userActionRequiredMsg = default(string))
         {
+            this.AvgLogicalTransferRateBps = avgLogicalTransferRateBps;
+            this.BytesTransferred = bytesTransferred;
+            this.EndTimeUsecs = endTimeUsecs;
+            this.LogicalBytesTransferred = logicalBytesTransferred;
+            this.LogicalSizeBytes = logicalSizeBytes;
+            this.ProgressMonitorTaskPath = progressMonitorTaskPath;
+            this.RetrievedEntityVec = retrievedEntityVec;
+            this.SkipCloningView = skipCloningView;
+            this.StartTimeUsecs = startTimeUsecs;
+            this.StubViewName = stubViewName;
+            this.StubViewRelativeDirName = stubViewRelativeDirName;
+            this.TargetViewName = targetViewName;
+            this.UserActionRequiredMsg = userActionRequiredMsg;
             this.AvgLogicalTransferRateBps = avgLogicalTransferRateBps;
             this.BytesTransferred = bytesTransferred;
             this.EndTimeUsecs = endTimeUsecs;
@@ -229,7 +240,7 @@ namespace Cohesity.Model
                     this.RetrievedEntityVec == input.RetrievedEntityVec ||
                     this.RetrievedEntityVec != null &&
                     input.RetrievedEntityVec != null &&
-                    this.RetrievedEntityVec.Equals(input.RetrievedEntityVec)
+                    this.RetrievedEntityVec.SequenceEqual(input.RetrievedEntityVec)
                 ) && 
                 (
                     this.SkipCloningView == input.SkipCloningView ||

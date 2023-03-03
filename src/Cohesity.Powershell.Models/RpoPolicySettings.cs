@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -105,6 +103,9 @@ namespace Cohesity.Model
         /// <param name="storageDomainId">Specifies the Storage Domain to which data will be written..</param>
         public RpoPolicySettings(AlertingConfig alertingConfig = default(AlertingConfig), List<AlertingPolicyEnum> alertingPolicy = default(List<AlertingPolicyEnum>), EnvironmentTypeJobParameters environmentTypeJobParams = default(EnvironmentTypeJobParameters), IndexingPolicy indexingPolicy = default(IndexingPolicy), QosTypeEnum? qosType = default(QosTypeEnum?), long? storageDomainId = default(long?))
         {
+            this.AlertingPolicy = alertingPolicy;
+            this.QosType = qosType;
+            this.StorageDomainId = storageDomainId;
             this.AlertingConfig = alertingConfig;
             this.AlertingPolicy = alertingPolicy;
             this.EnvironmentTypeJobParams = environmentTypeJobParams;
@@ -181,7 +182,7 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.AlertingPolicy == input.AlertingPolicy ||
-                    this.AlertingPolicy.Equals(input.AlertingPolicy)
+                    this.AlertingPolicy.SequenceEqual(input.AlertingPolicy)
                 ) && 
                 (
                     this.EnvironmentTypeJobParams == input.EnvironmentTypeJobParams ||

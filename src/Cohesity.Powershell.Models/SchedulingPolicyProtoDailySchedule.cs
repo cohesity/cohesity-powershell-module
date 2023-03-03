@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -29,6 +27,8 @@ namespace Cohesity.Model
         /// <param name="frequency">This is set only for every-n-day schedules..</param>
         public SchedulingPolicyProtoDailySchedule(List<int> days = default(List<int>), long? frequency = default(long?))
         {
+            this.Days = days;
+            this.Frequency = frequency;
             this.Days = days;
             this.Frequency = frequency;
         }
@@ -87,7 +87,7 @@ namespace Cohesity.Model
                     this.Days == input.Days ||
                     this.Days != null &&
                     input.Days != null &&
-                    this.Days.Equals(input.Days)
+                    this.Days.SequenceEqual(input.Days)
                 ) && 
                 (
                     this.Frequency == input.Frequency ||

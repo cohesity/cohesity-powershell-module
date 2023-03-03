@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -33,6 +31,7 @@ namespace Cohesity.Model
         /// <param name="taskNodeUid">taskNodeUid.</param>
         public RestoreAppObject(RestoreTaskAdditionalParams additionalParams = default(RestoreTaskAdditionalParams), EntityProto appEntity = default(EntityProto), string displayName = default(string), UniversalIdProto entityNodeUid = default(UniversalIdProto), RestoreAppObjectParams restoreParams = default(RestoreAppObjectParams), UniversalIdProto taskNodeUid = default(UniversalIdProto))
         {
+            this.DisplayName = displayName;
             this.AdditionalParams = additionalParams;
             this.AppEntity = appEntity;
             this.DisplayName = displayName;

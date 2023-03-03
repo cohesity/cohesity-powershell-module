@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -36,6 +34,8 @@ namespace Cohesity.Model
         /// <param name="vdcEntity">vdcEntity.</param>
         public RestoredObjectVCDConfigProto(bool? isVapp = default(bool?), bool? isVappTemplate = default(bool?), EntityProto restoredVappInfo = default(EntityProto), RestoreObject restoredVappObject = default(RestoreObject), EntityProto restoredVappTemplateInfo = default(EntityProto), RestoreObject restoredVappTemplateObject = default(RestoreObject), EntityProto vappEntity = default(EntityProto), ConnectorParams vcenterConnectorParams = default(ConnectorParams), EntityProto vdcEntity = default(EntityProto))
         {
+            this.IsVapp = isVapp;
+            this.IsVappTemplate = isVappTemplate;
             this.IsVapp = isVapp;
             this.IsVappTemplate = isVappTemplate;
             this.RestoredVappInfo = restoredVappInfo;

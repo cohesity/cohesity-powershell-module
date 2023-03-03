@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -61,6 +59,13 @@ namespace Cohesity.Model
         /// <param name="username">Specifies the login name of the Cohesity user..</param>
         public AccessTokenCredential(string certificate = default(string), string domain = default(string), string otpCode = default(string), OtpTypeEnum? otpType = default(OtpTypeEnum?), string password = default(string), string privateKey = default(string), string username = default(string))
         {
+            this.Certificate = certificate;
+            this.Domain = domain;
+            this.OtpCode = otpCode;
+            this.OtpType = otpType;
+            this.Password = password;
+            this.PrivateKey = privateKey;
+            this.Username = username;
             this.Certificate = certificate;
             this.Domain = domain;
             this.OtpCode = otpCode;
@@ -152,31 +157,31 @@ namespace Cohesity.Model
                     this.Certificate == input.Certificate ||
                     (this.Certificate != null &&
                     this.Certificate.Equals(input.Certificate))
-                ) &&
+                ) && 
                 (
                     this.Domain == input.Domain ||
                     (this.Domain != null &&
                     this.Domain.Equals(input.Domain))
-                ) &&
+                ) && 
                 (
                     this.OtpCode == input.OtpCode ||
                     (this.OtpCode != null &&
                     this.OtpCode.Equals(input.OtpCode))
-                ) &&
+                ) && 
                 (
                     this.OtpType == input.OtpType ||
                     this.OtpType.Equals(input.OtpType)
-                ) &&
+                ) && 
                 (
                     this.Password == input.Password ||
                     (this.Password != null &&
                     this.Password.Equals(input.Password))
-                ) &&
+                ) && 
                 (
                     this.PrivateKey == input.PrivateKey ||
                     (this.PrivateKey != null &&
                     this.PrivateKey.Equals(input.PrivateKey))
-                ) &&
+                ) && 
                 (
                     this.Username == input.Username ||
                     (this.Username != null &&
@@ -199,8 +204,7 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Domain.GetHashCode();
                 if (this.OtpCode != null)
                     hashCode = hashCode * 59 + this.OtpCode.GetHashCode();
-                if (this.OtpType != null)
-                    hashCode = hashCode * 59 + this.OtpType.GetHashCode();
+                hashCode = hashCode * 59 + this.OtpType.GetHashCode();
                 if (this.Password != null)
                     hashCode = hashCode * 59 + this.Password.GetHashCode();
                 if (this.PrivateKey != null)
@@ -214,3 +218,4 @@ namespace Cohesity.Model
     }
 
 }
+

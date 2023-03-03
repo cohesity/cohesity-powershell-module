@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -35,6 +33,14 @@ namespace Cohesity.Model
         /// <param name="tenantId">Tenant who has been assigned this target. This field is not populated within AlertsDataProto persisted in Gandalf. This is a convenience field and is populated on the fly by the Alerts component for delivery targets in the delivery_target_list within AlertProto. This field is utilized by NotificationDeliveryHelper to group delivery targets so that we could send out a single email to all the email addresses registered with the same locale by a given tenant or by the SP admin. Another approach could have been to use an internal object, but since the AlertProto contains a list of type DeliveryTarget, this field has been added to make it convenient to pass around an AlertProto object..</param>
         public DeliveryRuleProtoDeliveryTarget(string emailAddress = default(string), int? emailRecipientType = default(int?), string externalApiCurlOptions = default(string), string externalApiUrl = default(string), string locale = default(string), bool? snmpNotification = default(bool?), bool? syslogNotification = default(bool?), string tenantId = default(string))
         {
+            this.EmailAddress = emailAddress;
+            this.EmailRecipientType = emailRecipientType;
+            this.ExternalApiCurlOptions = externalApiCurlOptions;
+            this.ExternalApiUrl = externalApiUrl;
+            this.Locale = locale;
+            this.SnmpNotification = snmpNotification;
+            this.SyslogNotification = syslogNotification;
+            this.TenantId = tenantId;
             this.EmailAddress = emailAddress;
             this.EmailRecipientType = emailRecipientType;
             this.ExternalApiCurlOptions = externalApiCurlOptions;

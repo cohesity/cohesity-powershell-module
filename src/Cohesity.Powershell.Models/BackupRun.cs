@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -174,147 +172,136 @@ namespace Cohesity.Model
             KAWSNative = 24,
 
             /// <summary>
-            /// Enum KVCD for value: kVCD
-            /// </summary>
-            [EnumMember(Value = "kVCD")]
-            KVCD = 25,
-
-            /// <summary>
             /// Enum KO365 for value: kO365
             /// </summary>
             [EnumMember(Value = "kO365")]
-            KO365 = 26,
+            KO365 = 25,
 
             /// <summary>
             /// Enum KO365Outlook for value: kO365Outlook
             /// </summary>
             [EnumMember(Value = "kO365Outlook")]
-            KO365Outlook = 27,
+            KO365Outlook = 26,
 
             /// <summary>
             /// Enum KHyperFlex for value: kHyperFlex
             /// </summary>
             [EnumMember(Value = "kHyperFlex")]
-            KHyperFlex = 28,
+            KHyperFlex = 27,
 
             /// <summary>
             /// Enum KGCPNative for value: kGCPNative
             /// </summary>
             [EnumMember(Value = "kGCPNative")]
-            KGCPNative = 29,
+            KGCPNative = 28,
 
             /// <summary>
             /// Enum KAzureNative for value: kAzureNative
             /// </summary>
             [EnumMember(Value = "kAzureNative")]
-            KAzureNative = 30,
+            KAzureNative = 29,
 
             /// <summary>
             /// Enum KKubernetes for value: kKubernetes
             /// </summary>
             [EnumMember(Value = "kKubernetes")]
-            KKubernetes = 31,
+            KKubernetes = 30,
 
             /// <summary>
             /// Enum KElastifile for value: kElastifile
             /// </summary>
             [EnumMember(Value = "kElastifile")]
-            KElastifile = 32,
+            KElastifile = 31,
 
             /// <summary>
             /// Enum KAD for value: kAD
             /// </summary>
             [EnumMember(Value = "kAD")]
-            KAD = 33,
+            KAD = 32,
 
             /// <summary>
-            /// Enum KRDSSnapshotManager for kRDSSnapshotManager
+            /// Enum KRDSSnapshotManager for value: kRDSSnapshotManager
             /// </summary>
             [EnumMember(Value = "kRDSSnapshotManager")]
-            KRDSSnapshotManager = 34,
+            KRDSSnapshotManager = 33,
 
             /// <summary>
             /// Enum KCassandra for value: kCassandra
             /// </summary>
             [EnumMember(Value = "kCassandra")]
-            KCassandra = 35,
+            KCassandra = 34,
 
             /// <summary>
             /// Enum KMongoDB for value: kMongoDB
             /// </summary>
             [EnumMember(Value = "kMongoDB")]
-            KMongoDB = 36,
+            KMongoDB = 35,
 
             /// <summary>
             /// Enum KCouchbase for value: kCouchbase
             /// </summary>
             [EnumMember(Value = "kCouchbase")]
-            KCouchbase = 37,
+            KCouchbase = 36,
 
             /// <summary>
             /// Enum KHdfs for value: kHdfs
             /// </summary>
             [EnumMember(Value = "kHdfs")]
-            KHdfs = 38,
+            KHdfs = 37,
 
             /// <summary>
             /// Enum KHive for value: kHive
             /// </summary>
             [EnumMember(Value = "kHive")]
-            KHive = 39,
+            KHive = 38,
 
             /// <summary>
             /// Enum KHBase for value: kHBase
             /// </summary>
             [EnumMember(Value = "kHBase")]
-            KHBase = 40,
+            KHBase = 39,
 
             /// <summary>
             /// Enum KUDA for value: kUDA
             /// </summary>
             [EnumMember(Value = "kUDA")]
-            KUDA = 41,
+            KUDA = 40,
 
             /// <summary>
             /// Enum KO365Teams for value: kO365Teams
             /// </summary>
             [EnumMember(Value = "kO365Teams")]
-            KO365Teams = 42,
+            KO365Teams = 41,
 
             /// <summary>
             /// Enum KO365Group for value: kO365Group
             /// </summary>
             [EnumMember(Value = "kO365Group")]
-            KO365Group = 43,
+            KO365Group = 42,
 
             /// <summary>
             /// Enum KO365Exchange for value: kO365Exchange
             /// </summary>
             [EnumMember(Value = "kO365Exchange")]
-            KO365Exchange = 44,
+            KO365Exchange = 43,
 
             /// <summary>
             /// Enum KO365OneDrive for value: kO365OneDrive
             /// </summary>
             [EnumMember(Value = "kO365OneDrive")]
-            KO365OneDrive = 45,
+            KO365OneDrive = 44,
 
             /// <summary>
             /// Enum KO365Sharepoint for value: kO365Sharepoint
             /// </summary>
             [EnumMember(Value = "kO365Sharepoint")]
-            KO365Sharepoint = 46,
+            KO365Sharepoint = 45,
 
             /// <summary>
             /// Enum KO365PublicFolders for value: kO365PublicFolders
             /// </summary>
             [EnumMember(Value = "kO365PublicFolders")]
-            KO365PublicFolders = 47,
-
-			/// Enum KAWSSnapshotManager for kAWSSnapshotManager
-            /// </summary>
-            [EnumMember(Value = "kAWSSnapshotManager")]
-            KAWSSnapshotManager = 48
+            KO365PublicFolders = 46
 
         }
 
@@ -364,9 +351,9 @@ namespace Cohesity.Model
         [DataMember(Name="runType", EmitDefaultValue=true)]
         public RunTypeEnum? RunType { get; set; }
         /// <summary>
-        /// Specifies the status of Backup task such as &#39;kRunning&#39;, &#39;kSuccess&#39;, &#39;kFailure&#39; etc. &#39;kAccepted&#39; indicates the task is queued to run but not yet running. &#39;kRunning&#39; indicates the task is running. &#39;kCanceling&#39; indicates a request to cancel the task has occurred but the task is not yet canceled. &#39;kCanceled&#39; indicates the task has been canceled. &#39;kSuccess&#39; indicates the task was successful. &#39;kFailure&#39; indicates the task failed. &#39;kWarning&#39; indicates the task has finished with warning. &#39;kOnHold&#39; indicates the task is kept onHold. &#39;kMissed&#39; indicates the task is missed. &#39;Finalizing&#39; indicates the task is finalizing. kOnHold,kMissed,kFinalizing
+        /// Specifies the status of Backup task such as &#39;kRunning&#39;, &#39;kSuccess&#39;, &#39;kFailure&#39; etc. kWarning, kOnHold, kMissed, kFinalizing, kWaitingToRetry.
         /// </summary>
-        /// <value>Specifies the status of Backup task such as &#39;kRunning&#39;, &#39;kSuccess&#39;, &#39;kFailure&#39; etc. &#39;kAccepted&#39; indicates the task is queued to run but not yet running. &#39;kRunning&#39; indicates the task is running. &#39;kCanceling&#39; indicates a request to cancel the task has occurred but the task is not yet canceled. &#39;kCanceled&#39; indicates the task has been canceled. &#39;kSuccess&#39; indicates the task was successful. &#39;kFailure&#39; indicates the task failed. &#39;kWarning&#39; indicates the task has finished with warning. &#39;kOnHold&#39; indicates the task is kept onHold. &#39;kMissed&#39; indicates the task is missed. &#39;Finalizing&#39; indicates the task is finalizing. kOnHold,kMissed,kFinalizing</value>
+        /// <value>Specifies the status of Backup task such as &#39;kRunning&#39;, &#39;kSuccess&#39;, &#39;kFailure&#39; etc. kWarning, kOnHold, kMissed, kFinalizing, kWaitingToRetry.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum StatusEnum
         {
@@ -404,20 +391,14 @@ namespace Cohesity.Model
             /// Enum KFailure for value: kFailure
             /// </summary>
             [EnumMember(Value = "kFailure")]
-            KFailure = 6,
-
-            /// <summary>
-            /// Enum KWarning for value: kWarning
-            /// </summary>
-            [EnumMember(Value = "kWarning")]
-            KWarning = 7
+            KFailure = 6
 
         }
 
         /// <summary>
-        /// Specifies the status of Backup task such as &#39;kRunning&#39;, &#39;kSuccess&#39;, &#39;kFailure&#39; etc. &#39;kAccepted&#39; indicates the task is queued to run but not yet running. &#39;kRunning&#39; indicates the task is running. &#39;kCanceling&#39; indicates a request to cancel the task has occurred but the task is not yet canceled. &#39;kCanceled&#39; indicates the task has been canceled. &#39;kSuccess&#39; indicates the task was successful. &#39;kFailure&#39; indicates the task failed. &#39;kWarning&#39; indicates the task has finished with warning. &#39;kOnHold&#39; indicates the task is kept onHold. &#39;kMissed&#39; indicates the task is missed. &#39;Finalizing&#39; indicates the task is finalizing. kOnHold,kMissed,kFinalizing
+        /// Specifies the status of Backup task such as &#39;kRunning&#39;, &#39;kSuccess&#39;, &#39;kFailure&#39; etc. kWarning, kOnHold, kMissed, kFinalizing, kWaitingToRetry.
         /// </summary>
-        /// <value>Specifies the status of Backup task such as &#39;kRunning&#39;, &#39;kSuccess&#39;, &#39;kFailure&#39; etc. &#39;kAccepted&#39; indicates the task is queued to run but not yet running. &#39;kRunning&#39; indicates the task is running. &#39;kCanceling&#39; indicates a request to cancel the task has occurred but the task is not yet canceled. &#39;kCanceled&#39; indicates the task has been canceled. &#39;kSuccess&#39; indicates the task was successful. &#39;kFailure&#39; indicates the task failed. &#39;kWarning&#39; indicates the task has finished with warning. &#39;kOnHold&#39; indicates the task is kept onHold. &#39;kMissed&#39; indicates the task is missed. &#39;Finalizing&#39; indicates the task is finalizing. kOnHold,kMissed,kFinalizing</value>
+        /// <value>Specifies the status of Backup task such as &#39;kRunning&#39;, &#39;kSuccess&#39;, &#39;kFailure&#39; etc. kWarning, kOnHold, kMissed, kFinalizing, kWaitingToRetry.</value>
         [DataMember(Name="status", EmitDefaultValue=true)]
         public StatusEnum? Status { get; set; }
         /// <summary>
@@ -468,7 +449,7 @@ namespace Cohesity.Model
         /// <param name="snapshotsDeletedTimeUsecs">Specifies if backup snapshots associated with this Job Run have been marked for deletion because of the retention settings in the Policy or if they were manually deleted from the Cohesity Dashboard..</param>
         /// <param name="sourceBackupStatus">Array of Source Object Backup Status.  Specifies the status of backing up each source objects (such as VMs) associated with the job..</param>
         /// <param name="stats">stats.</param>
-        /// <param name="status">Specifies the status of Backup task such as &#39;kRunning&#39;, &#39;kSuccess&#39;, &#39;kFailure&#39; etc. &#39;kAccepted&#39; indicates the task is queued to run but not yet running. &#39;kRunning&#39; indicates the task is running. &#39;kCanceling&#39; indicates a request to cancel the task has occurred but the task is not yet canceled. &#39;kCanceled&#39; indicates the task has been canceled. &#39;kSuccess&#39; indicates the task was successful. &#39;kFailure&#39; indicates the task failed. &#39;kWarning&#39; indicates the task has finished with warning. &#39;kOnHold&#39; indicates the task is kept onHold. &#39;kMissed&#39; indicates the task is missed. &#39;Finalizing&#39; indicates the task is finalizing. kOnHold,kMissed,kFinalizing.</param>
+        /// <param name="status">Specifies the status of Backup task such as &#39;kRunning&#39;, &#39;kSuccess&#39;, &#39;kFailure&#39; etc. kWarning, kOnHold, kMissed, kFinalizing, kWaitingToRetry..</param>
         /// <param name="warnings">Array of Warnings.  Specifies the warnings that occurred (if any) while running this task..</param>
         /// <param name="wormRetentionType">Specifies WORM retention type for the snapshot as given by the policy. When a WORM retention type is specified, the snapshot will be kept until the maximum of the snapshot retention time. During that time, the snapshot cannot be deleted. &#39;kNone&#39; implies there is no WORM retention set. &#39;kCompliance&#39; implies WORM retention is set for compliance reason. &#39;kAdministrative&#39; implies WORM retention is set for administrative purposes..</param>
         public BackupRun(EnvironmentEnum? environment = default(EnvironmentEnum?), string error = default(string), long? jobRunId = default(long?), string message = default(string), bool? metadataDeleted = default(bool?), bool? quiesced = default(bool?), RunTypeEnum? runType = default(RunTypeEnum?), bool? slaViolated = default(bool?), bool? snapshotsDeleted = default(bool?), long? snapshotsDeletedTimeUsecs = default(long?), List<SourceBackupStatus> sourceBackupStatus = default(List<SourceBackupStatus>), ProtectionJobRunStats stats = default(ProtectionJobRunStats), StatusEnum? status = default(StatusEnum?), List<string> warnings = default(List<string>), WormRetentionTypeEnum? wormRetentionType = default(WormRetentionTypeEnum?))
@@ -668,7 +649,7 @@ namespace Cohesity.Model
                     this.SourceBackupStatus == input.SourceBackupStatus ||
                     this.SourceBackupStatus != null &&
                     input.SourceBackupStatus != null &&
-                    this.SourceBackupStatus.Equals(input.SourceBackupStatus)
+                    this.SourceBackupStatus.SequenceEqual(input.SourceBackupStatus)
                 ) && 
                 (
                     this.Stats == input.Stats ||
@@ -683,7 +664,7 @@ namespace Cohesity.Model
                     this.Warnings == input.Warnings ||
                     this.Warnings != null &&
                     input.Warnings != null &&
-                    this.Warnings.Equals(input.Warnings)
+                    this.Warnings.SequenceEqual(input.Warnings)
                 ) && 
                 (
                     this.WormRetentionType == input.WormRetentionType ||

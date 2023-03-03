@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -32,6 +30,11 @@ namespace Cohesity.Model
         /// <param name="usesSkipNestedVolumesVec">Specifies whether to use skip_nested_volumes_vec to skip nested mounts. Before 6.4, BackupPathInfo.skip_nested_volumes boolean was used to skip nested volumes. So we use this boolean to support older jobs..</param>
         public PhysicalFileBackupParams(List<PhysicalFileBackupParamsBackupPathInfo> backupPathInfoVec = default(List<PhysicalFileBackupParamsBackupPathInfo>), string metadataFilePath = default(string), List<string> skipNestedVolumesVec = default(List<string>), bool? symlinkFollowNasTarget = default(bool?), bool? usesSkipNestedVolumesVec = default(bool?))
         {
+            this.BackupPathInfoVec = backupPathInfoVec;
+            this.MetadataFilePath = metadataFilePath;
+            this.SkipNestedVolumesVec = skipNestedVolumesVec;
+            this.SymlinkFollowNasTarget = symlinkFollowNasTarget;
+            this.UsesSkipNestedVolumesVec = usesSkipNestedVolumesVec;
             this.BackupPathInfoVec = backupPathInfoVec;
             this.MetadataFilePath = metadataFilePath;
             this.SkipNestedVolumesVec = skipNestedVolumesVec;
@@ -114,7 +117,7 @@ namespace Cohesity.Model
                     this.BackupPathInfoVec == input.BackupPathInfoVec ||
                     this.BackupPathInfoVec != null &&
                     input.BackupPathInfoVec != null &&
-                    this.BackupPathInfoVec.Equals(input.BackupPathInfoVec)
+                    this.BackupPathInfoVec.SequenceEqual(input.BackupPathInfoVec)
                 ) && 
                 (
                     this.MetadataFilePath == input.MetadataFilePath ||
@@ -125,7 +128,7 @@ namespace Cohesity.Model
                     this.SkipNestedVolumesVec == input.SkipNestedVolumesVec ||
                     this.SkipNestedVolumesVec != null &&
                     input.SkipNestedVolumesVec != null &&
-                    this.SkipNestedVolumesVec.Equals(input.SkipNestedVolumesVec)
+                    this.SkipNestedVolumesVec.SequenceEqual(input.SkipNestedVolumesVec)
                 ) && 
                 (
                     this.SymlinkFollowNasTarget == input.SymlinkFollowNasTarget ||

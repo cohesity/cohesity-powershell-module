@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -60,6 +58,12 @@ namespace Cohesity.Model
         /// <param name="tiers">Specifies the list of all tiers for Amazon account..</param>
         public OracleCloudCredentials(string accessKeyId = default(string), string region = default(string), string secretAccessKey = default(string), string tenant = default(string), TierTypeEnum? tierType = default(TierTypeEnum?), List<string> tiers = default(List<string>))
         {
+            this.AccessKeyId = accessKeyId;
+            this.Region = region;
+            this.SecretAccessKey = secretAccessKey;
+            this.Tenant = tenant;
+            this.TierType = tierType;
+            this.Tiers = tiers;
             this.AccessKeyId = accessKeyId;
             this.Region = region;
             this.SecretAccessKey = secretAccessKey;
@@ -167,7 +171,7 @@ namespace Cohesity.Model
                     this.Tiers == input.Tiers ||
                     this.Tiers != null &&
                     input.Tiers != null &&
-                    this.Tiers.Equals(input.Tiers)
+                    this.Tiers.SequenceEqual(input.Tiers)
                 );
         }
 
@@ -188,8 +192,7 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.SecretAccessKey.GetHashCode();
                 if (this.Tenant != null)
                     hashCode = hashCode * 59 + this.Tenant.GetHashCode();
-                if (this.TierType != null)
-					hashCode = hashCode * 59 + this.TierType.GetHashCode();
+                hashCode = hashCode * 59 + this.TierType.GetHashCode();
                 if (this.Tiers != null)
                     hashCode = hashCode * 59 + this.Tiers.GetHashCode();
                 return hashCode;

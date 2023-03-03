@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -29,6 +27,8 @@ namespace Cohesity.Model
         /// <param name="hdfsProtectPattern">Any path/Glob pattern from HDFS that is to protected..</param>
         public HdfsBackupJobParams(List<string> hdfsExcludePattern = default(List<string>), List<string> hdfsProtectPattern = default(List<string>))
         {
+            this.HdfsExcludePattern = hdfsExcludePattern;
+            this.HdfsProtectPattern = hdfsProtectPattern;
             this.HdfsExcludePattern = hdfsExcludePattern;
             this.HdfsProtectPattern = hdfsProtectPattern;
         }
@@ -87,13 +87,13 @@ namespace Cohesity.Model
                     this.HdfsExcludePattern == input.HdfsExcludePattern ||
                     this.HdfsExcludePattern != null &&
                     input.HdfsExcludePattern != null &&
-                    this.HdfsExcludePattern.Equals(input.HdfsExcludePattern)
+                    this.HdfsExcludePattern.SequenceEqual(input.HdfsExcludePattern)
                 ) && 
                 (
                     this.HdfsProtectPattern == input.HdfsProtectPattern ||
                     this.HdfsProtectPattern != null &&
                     input.HdfsProtectPattern != null &&
-                    this.HdfsProtectPattern.Equals(input.HdfsProtectPattern)
+                    this.HdfsProtectPattern.SequenceEqual(input.HdfsProtectPattern)
                 );
         }
 

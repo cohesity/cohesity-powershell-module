@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -36,6 +34,15 @@ namespace Cohesity.Model
         /// <param name="viewBackupPhysicalUsageBytes">Specifies the physical size consumed by the external view backups..</param>
         public StorageStats(long? dataProtectionLogicalUsageBytes = default(long?), long? dataProtectionPhysicalUsageBytes = default(long?), long? fileServicesLogicalUsageBytes = default(long?), long? fileServicesPhysicalUsageBytes = default(long?), long? localAvailableBytes = default(long?), long? localUsageBytes = default(long?), long? totalCapacityBytes = default(long?), long? viewBackupLogicalUsageBytes = default(long?), long? viewBackupPhysicalUsageBytes = default(long?))
         {
+            this.DataProtectionLogicalUsageBytes = dataProtectionLogicalUsageBytes;
+            this.DataProtectionPhysicalUsageBytes = dataProtectionPhysicalUsageBytes;
+            this.FileServicesLogicalUsageBytes = fileServicesLogicalUsageBytes;
+            this.FileServicesPhysicalUsageBytes = fileServicesPhysicalUsageBytes;
+            this.LocalAvailableBytes = localAvailableBytes;
+            this.LocalUsageBytes = localUsageBytes;
+            this.TotalCapacityBytes = totalCapacityBytes;
+            this.ViewBackupLogicalUsageBytes = viewBackupLogicalUsageBytes;
+            this.ViewBackupPhysicalUsageBytes = viewBackupPhysicalUsageBytes;
             this.DataProtectionLogicalUsageBytes = dataProtectionLogicalUsageBytes;
             this.DataProtectionPhysicalUsageBytes = dataProtectionPhysicalUsageBytes;
             this.FileServicesLogicalUsageBytes = fileServicesLogicalUsageBytes;

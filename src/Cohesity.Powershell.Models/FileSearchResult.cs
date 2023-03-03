@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -84,6 +82,19 @@ namespace Cohesity.Model
         /// <param name="viewBoxId">Specifies the id of the Domain (View Box) where the source object that contains the file or folder is stored..</param>
         public FileSearchResult(AdObjectMetaData adObjectMetaData = default(AdObjectMetaData), string documentType = default(string), EmailMetaData emailMetaData = default(EmailMetaData), List<FileVersion> fileVersions = default(List<FileVersion>), string filename = default(string), bool? isFolder = default(bool?), long? jobId = default(long?), UniversalId jobUid = default(UniversalId), OneDriveDocumentMetadata oneDriveDocumentMetadata = default(OneDriveDocumentMetadata), ProtectionSource protectionSource = default(ProtectionSource), long? registeredSourceId = default(long?), SharepointDocumentMetadata sharepointDocumentMetadata = default(SharepointDocumentMetadata), List<string> snapshotTags = default(List<string>), long? sourceId = default(long?), List<string> tags = default(List<string>), Dictionary<string, List<long>> tagsToSnapshotsMap = default(Dictionary<string, List<long>>), TypeEnum? type = default(TypeEnum?), long? viewBoxId = default(long?))
         {
+            this.DocumentType = documentType;
+            this.FileVersions = fileVersions;
+            this.Filename = filename;
+            this.IsFolder = isFolder;
+            this.JobId = jobId;
+            this.JobUid = jobUid;
+            this.RegisteredSourceId = registeredSourceId;
+            this.SnapshotTags = snapshotTags;
+            this.SourceId = sourceId;
+            this.Tags = tags;
+            this.TagsToSnapshotsMap = tagsToSnapshotsMap;
+            this.Type = type;
+            this.ViewBoxId = viewBoxId;
             this.AdObjectMetaData = adObjectMetaData;
             this.DocumentType = documentType;
             this.EmailMetaData = emailMetaData;
@@ -273,7 +284,7 @@ namespace Cohesity.Model
                     this.FileVersions == input.FileVersions ||
                     this.FileVersions != null &&
                     input.FileVersions != null &&
-                    this.FileVersions.Equals(input.FileVersions)
+                    this.FileVersions.SequenceEqual(input.FileVersions)
                 ) && 
                 (
                     this.Filename == input.Filename ||
@@ -319,7 +330,7 @@ namespace Cohesity.Model
                     this.SnapshotTags == input.SnapshotTags ||
                     this.SnapshotTags != null &&
                     input.SnapshotTags != null &&
-                    this.SnapshotTags.Equals(input.SnapshotTags)
+                    this.SnapshotTags.SequenceEqual(input.SnapshotTags)
                 ) && 
                 (
                     this.SourceId == input.SourceId ||
@@ -330,13 +341,13 @@ namespace Cohesity.Model
                     this.Tags == input.Tags ||
                     this.Tags != null &&
                     input.Tags != null &&
-                    this.Tags.Equals(input.Tags)
+                    this.Tags.SequenceEqual(input.Tags)
                 ) && 
                 (
                     this.TagsToSnapshotsMap == input.TagsToSnapshotsMap ||
                     this.TagsToSnapshotsMap != null &&
                     input.TagsToSnapshotsMap != null &&
-                    this.TagsToSnapshotsMap.Equals(input.TagsToSnapshotsMap)
+                    this.TagsToSnapshotsMap.SequenceEqual(input.TagsToSnapshotsMap)
                 ) && 
                 (
                     this.Type == input.Type ||
@@ -390,8 +401,7 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Tags.GetHashCode();
                 if (this.TagsToSnapshotsMap != null)
                     hashCode = hashCode * 59 + this.TagsToSnapshotsMap.GetHashCode();
-                if (this.Type != null)
-					hashCode = hashCode * 59 + this.Type.GetHashCode();
+                hashCode = hashCode * 59 + this.Type.GetHashCode();
                 if (this.ViewBoxId != null)
                     hashCode = hashCode * 59 + this.ViewBoxId.GetHashCode();
                 return hashCode;

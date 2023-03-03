@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -250,7 +248,7 @@ namespace Cohesity.Model
                     this.Hosts == input.Hosts ||
                     this.Hosts != null &&
                     input.Hosts != null &&
-                    this.Hosts.Equals(input.Hosts)
+                    this.Hosts.SequenceEqual(input.Hosts)
                 ) && 
                 (
                     this.LocalMountDir == input.LocalMountDir ||
@@ -271,7 +269,7 @@ namespace Cohesity.Model
                     this.PreferredControlNodes == input.PreferredControlNodes ||
                     this.PreferredControlNodes != null &&
                     input.PreferredControlNodes != null &&
-                    this.PreferredControlNodes.Equals(input.PreferredControlNodes)
+                    this.PreferredControlNodes.SequenceEqual(input.PreferredControlNodes)
                 ) && 
                 (
                     this.RestoreArgs == input.RestoreArgs ||
@@ -282,7 +280,7 @@ namespace Cohesity.Model
                     this.RestoreJobArgumentsMap == input.RestoreJobArgumentsMap ||
                     this.RestoreJobArgumentsMap != null &&
                     input.RestoreJobArgumentsMap != null &&
-                    this.RestoreJobArgumentsMap.Equals(input.RestoreJobArgumentsMap)
+                    this.RestoreJobArgumentsMap.SequenceEqual(input.RestoreJobArgumentsMap)
                 ) && 
                 (
                     this.RunStartTimeUsecs == input.RunStartTimeUsecs ||
@@ -303,7 +301,7 @@ namespace Cohesity.Model
                     this.SourceArgumentsMap == input.SourceArgumentsMap ||
                     this.SourceArgumentsMap != null &&
                     input.SourceArgumentsMap != null &&
-                    this.SourceArgumentsMap.Equals(input.SourceArgumentsMap)
+                    this.SourceArgumentsMap.SequenceEqual(input.SourceArgumentsMap)
                 ) && 
                 (
                     this.SourceType == input.SourceType ||

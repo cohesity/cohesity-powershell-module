@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -177,6 +175,13 @@ namespace Cohesity.Model
             this.StartTimeUsecs = startTimeUsecs;
             this.Type = type;
             this.Username = username;
+            this.DatastoreId = datastoreId;
+            this.FileRestoreInfo = fileRestoreInfo;
+            this.Objects = objects;
+            this.ProtectionSourceName = protectionSourceName;
+            this.StartTimeUsecs = startTimeUsecs;
+            this.Type = type;
+            this.Username = username;
         }
         
         /// <summary>
@@ -273,7 +278,7 @@ namespace Cohesity.Model
                     this.FileRestoreInfo == input.FileRestoreInfo ||
                     this.FileRestoreInfo != null &&
                     input.FileRestoreInfo != null &&
-                    this.FileRestoreInfo.Equals(input.FileRestoreInfo)
+                    this.FileRestoreInfo.SequenceEqual(input.FileRestoreInfo)
                 ) && 
                 (
                     this.Name == input.Name ||
@@ -284,7 +289,7 @@ namespace Cohesity.Model
                     this.Objects == input.Objects ||
                     this.Objects != null &&
                     input.Objects != null &&
-                    this.Objects.Equals(input.Objects)
+                    this.Objects.SequenceEqual(input.Objects)
                 ) && 
                 (
                     this.ProtectionSourceName == input.ProtectionSourceName ||
@@ -328,8 +333,7 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ProtectionSourceName.GetHashCode();
                 if (this.StartTimeUsecs != null)
                     hashCode = hashCode * 59 + this.StartTimeUsecs.GetHashCode();
-                if (this.Type != null)
-					hashCode = hashCode * 59 + this.Type.GetHashCode();
+                hashCode = hashCode * 59 + this.Type.GetHashCode();
                 if (this.Username != null)
                     hashCode = hashCode * 59 + this.Username.GetHashCode();
                 return hashCode;

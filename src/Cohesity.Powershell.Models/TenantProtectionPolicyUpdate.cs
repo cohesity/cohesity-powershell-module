@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -29,6 +27,8 @@ namespace Cohesity.Model
         /// <param name="tenantId">Specifies the unique id of the tenant..</param>
         public TenantProtectionPolicyUpdate(List<string> policyIds = default(List<string>), string tenantId = default(string))
         {
+            this.PolicyIds = policyIds;
+            this.TenantId = tenantId;
             this.PolicyIds = policyIds;
             this.TenantId = tenantId;
         }
@@ -87,7 +87,7 @@ namespace Cohesity.Model
                     this.PolicyIds == input.PolicyIds ||
                     this.PolicyIds != null &&
                     input.PolicyIds != null &&
-                    this.PolicyIds.Equals(input.PolicyIds)
+                    this.PolicyIds.SequenceEqual(input.PolicyIds)
                 ) && 
                 (
                     this.TenantId == input.TenantId ||

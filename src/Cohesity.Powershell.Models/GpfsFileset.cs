@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -59,6 +57,11 @@ namespace Cohesity.Model
         /// <param name="protocols">Specifies GPFS supported Protocol information enabled on GPFS File System &#39;kNfs&#39; indicates NFS exports in a GPFS fileset. &#39;kSmb&#39; indicates CIFS/SMB Shares in a GPFS fileset..</param>
         public GpfsFileset(int? id = default(int?), bool? isIndependentFileset = default(bool?), string name = default(string), string path = default(string), List<ProtocolsEnum> protocols = default(List<ProtocolsEnum>))
         {
+            this.Id = id;
+            this.IsIndependentFileset = isIndependentFileset;
+            this.Name = name;
+            this.Path = path;
+            this.Protocols = protocols;
             this.Id = id;
             this.IsIndependentFileset = isIndependentFileset;
             this.Name = name;
@@ -152,7 +155,7 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.Protocols == input.Protocols ||
-                    this.Protocols.Equals(input.Protocols)
+                    this.Protocols.SequenceEqual(input.Protocols)
                 );
         }
 
@@ -173,8 +176,7 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
                 if (this.Path != null)
                     hashCode = hashCode * 59 + this.Path.GetHashCode();
-                if (this.Protocols != null)
-					hashCode = hashCode * 59 + this.Protocols.GetHashCode();
+                hashCode = hashCode * 59 + this.Protocols.GetHashCode();
                 return hashCode;
             }
         }

@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -13,7 +12,6 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
 namespace Cohesity.Model
 {
     /// <summary>
@@ -23,9 +21,9 @@ namespace Cohesity.Model
     public partial class CloudArchivalInfo :  IEquatable<CloudArchivalInfo>
     {
         /// <summary>
-        /// Specifies the public status type. &#39;kAccepted&#39; indicates the task is queued to run but not yet running. &#39;kRunning&#39; indicates the task is running. &#39;kCanceling&#39; indicates a request to cancel the task has occurred but the task is not yet canceled. &#39;kCanceled&#39; indicates the task has been canceled. &#39;kSuccess&#39; indicates the task was successful. &#39;kFailure&#39; indicates the task failed. &#39;kWarning&#39; indicates the task has finished with warning. &#39;kOnHold&#39; indicates the task is kept onHold. &#39;kMissed&#39; indicates the task is missed. &#39;Finalizing&#39; indicates the task is finalizing. kOnHold,kMissed,kFinalizing
+        /// Specifies the public status type. &#39;kAccepted&#39; indicates the task is queued to run but not yet running. &#39;kRunning&#39; indicates the task is running. &#39;kCanceling&#39; indicates a request to cancel the task has occurred but the task is not yet canceled. &#39;kCanceled&#39; indicates the task has been canceled. &#39;kSuccess&#39; indicates the task was successful. &#39;kFailure&#39; indicates the task failed. &#39;kWarning&#39; indicates the task has finished with warning. &#39;kOnHold&#39; indicates the task is kept onHold. &#39;kMissed&#39; indicates the task is missed. &#39;Finalizing&#39; indicates the task is finalizing.
         /// </summary>
-        /// <value>Specifies the public status type. &#39;kAccepted&#39; indicates the task is queued to run but not yet running. &#39;kRunning&#39; indicates the task is running. &#39;kCanceling&#39; indicates a request to cancel the task has occurred but the task is not yet canceled. &#39;kCanceled&#39; indicates the task has been canceled. &#39;kSuccess&#39; indicates the task was successful. &#39;kFailure&#39; indicates the task failed. &#39;kWarning&#39; indicates the task has finished with warning. &#39;kOnHold&#39; indicates the task is kept onHold. &#39;kMissed&#39; indicates the task is missed. &#39;Finalizing&#39; indicates the task is finalizing. kOnHold,kMissed,kFinalizing</value>
+        /// <value>Specifies the public status type. &#39;kAccepted&#39; indicates the task is queued to run but not yet running. &#39;kRunning&#39; indicates the task is running. &#39;kCanceling&#39; indicates a request to cancel the task has occurred but the task is not yet canceled. &#39;kCanceled&#39; indicates the task has been canceled. &#39;kSuccess&#39; indicates the task was successful. &#39;kFailure&#39; indicates the task failed. &#39;kWarning&#39; indicates the task has finished with warning. &#39;kOnHold&#39; indicates the task is kept onHold. &#39;kMissed&#39; indicates the task is missed. &#39;Finalizing&#39; indicates the task is finalizing.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum PublicStatusEnum
         {
@@ -69,20 +67,38 @@ namespace Cohesity.Model
             /// Enum KWarning for value: kWarning
             /// </summary>
             [EnumMember(Value = "kWarning")]
-            KWarning = 7
+            KWarning = 7,
+
+            /// <summary>
+            /// Enum KOnHold for value: kOnHold
+            /// </summary>
+            [EnumMember(Value = "kOnHold")]
+            KOnHold = 8,
+
+            /// <summary>
+            /// Enum KMissed for value: kMissed
+            /// </summary>
+            [EnumMember(Value = "kMissed")]
+            KMissed = 9,
+
+            /// <summary>
+            /// Enum KFinalizing for value: kFinalizing
+            /// </summary>
+            [EnumMember(Value = "kFinalizing")]
+            KFinalizing = 10
 
         }
 
         /// <summary>
-        /// Specifies the public status type. &#39;kAccepted&#39; indicates the task is queued to run but not yet running. &#39;kRunning&#39; indicates the task is running. &#39;kCanceling&#39; indicates a request to cancel the task has occurred but the task is not yet canceled. &#39;kCanceled&#39; indicates the task has been canceled. &#39;kSuccess&#39; indicates the task was successful. &#39;kFailure&#39; indicates the task failed. &#39;kWarning&#39; indicates the task has finished with warning. &#39;kOnHold&#39; indicates the task is kept onHold. &#39;kMissed&#39; indicates the task is missed. &#39;Finalizing&#39; indicates the task is finalizing. kOnHold,kMissed,kFinalizing
+        /// Specifies the public status type. &#39;kAccepted&#39; indicates the task is queued to run but not yet running. &#39;kRunning&#39; indicates the task is running. &#39;kCanceling&#39; indicates a request to cancel the task has occurred but the task is not yet canceled. &#39;kCanceled&#39; indicates the task has been canceled. &#39;kSuccess&#39; indicates the task was successful. &#39;kFailure&#39; indicates the task failed. &#39;kWarning&#39; indicates the task has finished with warning. &#39;kOnHold&#39; indicates the task is kept onHold. &#39;kMissed&#39; indicates the task is missed. &#39;Finalizing&#39; indicates the task is finalizing.
         /// </summary>
-        /// <value>Specifies the public status type. &#39;kAccepted&#39; indicates the task is queued to run but not yet running. &#39;kRunning&#39; indicates the task is running. &#39;kCanceling&#39; indicates a request to cancel the task has occurred but the task is not yet canceled. &#39;kCanceled&#39; indicates the task has been canceled. &#39;kSuccess&#39; indicates the task was successful. &#39;kFailure&#39; indicates the task failed. &#39;kWarning&#39; indicates the task has finished with warning. &#39;kOnHold&#39; indicates the task is kept onHold. &#39;kMissed&#39; indicates the task is missed. &#39;Finalizing&#39; indicates the task is finalizing. kOnHold,kMissed,kFinalizing</value>
+        /// <value>Specifies the public status type. &#39;kAccepted&#39; indicates the task is queued to run but not yet running. &#39;kRunning&#39; indicates the task is running. &#39;kCanceling&#39; indicates a request to cancel the task has occurred but the task is not yet canceled. &#39;kCanceled&#39; indicates the task has been canceled. &#39;kSuccess&#39; indicates the task was successful. &#39;kFailure&#39; indicates the task failed. &#39;kWarning&#39; indicates the task has finished with warning. &#39;kOnHold&#39; indicates the task is kept onHold. &#39;kMissed&#39; indicates the task is missed. &#39;Finalizing&#39; indicates the task is finalizing.</value>
         [DataMember(Name="publicStatus", EmitDefaultValue=true)]
         public PublicStatusEnum? PublicStatus { get; set; }
         /// <summary>
-        /// Specifies the status type. &#39;kAccepted&#39; indicates the task is queued to run but not yet running. &#39;kRunning&#39; indicates the task is running. &#39;kCanceling&#39; indicates a request to cancel the task has occurred but the task is not yet canceled. &#39;kCanceled&#39; indicates the task has been canceled. &#39;kSuccess&#39; indicates the task was successful. &#39;kFailure&#39; indicates the task failed. &#39;kWarning&#39; indicates the task has finished with warning. &#39;kOnHold&#39; indicates the task is kept onHold. &#39;kMissed&#39; indicates the task is missed. &#39;Finalizing&#39; indicates the task is finalizing. kOnHold,kMissed,kFinalizing
+        /// Specifies the status type. &#39;kAccepted&#39; indicates the task is queued to run but not yet running. &#39;kRunning&#39; indicates the task is running. &#39;kCanceling&#39; indicates a request to cancel the task has occurred but the task is not yet canceled. &#39;kCanceled&#39; indicates the task has been canceled. &#39;kSuccess&#39; indicates the task was successful. &#39;kFailure&#39; indicates the task failed. &#39;kWarning&#39; indicates the task has finished with warning. &#39;kOnHold&#39; indicates the task is kept onHold. &#39;kMissed&#39; indicates the task is missed. &#39;Finalizing&#39; indicates the task is finalizing.
         /// </summary>
-        /// <value>Specifies the status type. &#39;kAccepted&#39; indicates the task is queued to run but not yet running. &#39;kRunning&#39; indicates the task is running. &#39;kCanceling&#39; indicates a request to cancel the task has occurred but the task is not yet canceled. &#39;kCanceled&#39; indicates the task has been canceled. &#39;kSuccess&#39; indicates the task was successful. &#39;kFailure&#39; indicates the task failed. &#39;kWarning&#39; indicates the task has finished with warning. &#39;kOnHold&#39; indicates the task is kept onHold. &#39;kMissed&#39; indicates the task is missed. &#39;Finalizing&#39; indicates the task is finalizing. kOnHold,kMissed,kFinalizing</value>
+        /// <value>Specifies the status type. &#39;kAccepted&#39; indicates the task is queued to run but not yet running. &#39;kRunning&#39; indicates the task is running. &#39;kCanceling&#39; indicates a request to cancel the task has occurred but the task is not yet canceled. &#39;kCanceled&#39; indicates the task has been canceled. &#39;kSuccess&#39; indicates the task was successful. &#39;kFailure&#39; indicates the task failed. &#39;kWarning&#39; indicates the task has finished with warning. &#39;kOnHold&#39; indicates the task is kept onHold. &#39;kMissed&#39; indicates the task is missed. &#39;Finalizing&#39; indicates the task is finalizing.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum StatusEnum
         {
@@ -126,14 +142,32 @@ namespace Cohesity.Model
             /// Enum KWarning for value: kWarning
             /// </summary>
             [EnumMember(Value = "kWarning")]
-            KWarning = 7
+            KWarning = 7,
+
+            /// <summary>
+            /// Enum KOnHold for value: kOnHold
+            /// </summary>
+            [EnumMember(Value = "kOnHold")]
+            KOnHold = 8,
+
+            /// <summary>
+            /// Enum KMissed for value: kMissed
+            /// </summary>
+            [EnumMember(Value = "kMissed")]
+            KMissed = 9,
+
+            /// <summary>
+            /// Enum KFinalizing for value: kFinalizing
+            /// </summary>
+            [EnumMember(Value = "kFinalizing")]
+            KFinalizing = 10
 
         }
 
         /// <summary>
-        /// Specifies the status type. &#39;kAccepted&#39; indicates the task is queued to run but not yet running. &#39;kRunning&#39; indicates the task is running. &#39;kCanceling&#39; indicates a request to cancel the task has occurred but the task is not yet canceled. &#39;kCanceled&#39; indicates the task has been canceled. &#39;kSuccess&#39; indicates the task was successful. &#39;kFailure&#39; indicates the task failed. &#39;kWarning&#39; indicates the task has finished with warning. &#39;kOnHold&#39; indicates the task is kept onHold. &#39;kMissed&#39; indicates the task is missed. &#39;Finalizing&#39; indicates the task is finalizing. kOnHold,kMissed,kFinalizing
+        /// Specifies the status type. &#39;kAccepted&#39; indicates the task is queued to run but not yet running. &#39;kRunning&#39; indicates the task is running. &#39;kCanceling&#39; indicates a request to cancel the task has occurred but the task is not yet canceled. &#39;kCanceled&#39; indicates the task has been canceled. &#39;kSuccess&#39; indicates the task was successful. &#39;kFailure&#39; indicates the task failed. &#39;kWarning&#39; indicates the task has finished with warning. &#39;kOnHold&#39; indicates the task is kept onHold. &#39;kMissed&#39; indicates the task is missed. &#39;Finalizing&#39; indicates the task is finalizing.
         /// </summary>
-        /// <value>Specifies the status type. &#39;kAccepted&#39; indicates the task is queued to run but not yet running. &#39;kRunning&#39; indicates the task is running. &#39;kCanceling&#39; indicates a request to cancel the task has occurred but the task is not yet canceled. &#39;kCanceled&#39; indicates the task has been canceled. &#39;kSuccess&#39; indicates the task was successful. &#39;kFailure&#39; indicates the task failed. &#39;kWarning&#39; indicates the task has finished with warning. &#39;kOnHold&#39; indicates the task is kept onHold. &#39;kMissed&#39; indicates the task is missed. &#39;Finalizing&#39; indicates the task is finalizing. kOnHold,kMissed,kFinalizing</value>
+        /// <value>Specifies the status type. &#39;kAccepted&#39; indicates the task is queued to run but not yet running. &#39;kRunning&#39; indicates the task is running. &#39;kCanceling&#39; indicates a request to cancel the task has occurred but the task is not yet canceled. &#39;kCanceled&#39; indicates the task has been canceled. &#39;kSuccess&#39; indicates the task was successful. &#39;kFailure&#39; indicates the task failed. &#39;kWarning&#39; indicates the task has finished with warning. &#39;kOnHold&#39; indicates the task is kept onHold. &#39;kMissed&#39; indicates the task is missed. &#39;Finalizing&#39; indicates the task is finalizing.</value>
         [DataMember(Name="status", EmitDefaultValue=true)]
         public StatusEnum? Status { get; set; }
         /// <summary>
@@ -173,8 +207,8 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="CloudArchivalInfo" /> class.
         /// </summary>
         /// <param name="isActiveTask">Specifies if the task if active or finished..</param>
-        /// <param name="publicStatus">Specifies the public status type. &#39;kAccepted&#39; indicates the task is queued to run but not yet running. &#39;kRunning&#39; indicates the task is running. &#39;kCanceling&#39; indicates a request to cancel the task has occurred but the task is not yet canceled. &#39;kCanceled&#39; indicates the task has been canceled. &#39;kSuccess&#39; indicates the task was successful. &#39;kFailure&#39; indicates the task failed. &#39;kWarning&#39; indicates the task has finished with warning. &#39;kOnHold&#39; indicates the task is kept onHold. &#39;kMissed&#39; indicates the task is missed. &#39;Finalizing&#39; indicates the task is finalizing. kOnHold,kMissed,kFinalizing.</param>
-        /// <param name="status">Specifies the status type. &#39;kAccepted&#39; indicates the task is queued to run but not yet running. &#39;kRunning&#39; indicates the task is running. &#39;kCanceling&#39; indicates a request to cancel the task has occurred but the task is not yet canceled. &#39;kCanceled&#39; indicates the task has been canceled. &#39;kSuccess&#39; indicates the task was successful. &#39;kFailure&#39; indicates the task failed. &#39;kWarning&#39; indicates the task has finished with warning. &#39;kOnHold&#39; indicates the task is kept onHold. &#39;kMissed&#39; indicates the task is missed. &#39;Finalizing&#39; indicates the task is finalizing. kOnHold,kMissed,kFinalizing.</param>
+        /// <param name="publicStatus">Specifies the public status type. &#39;kAccepted&#39; indicates the task is queued to run but not yet running. &#39;kRunning&#39; indicates the task is running. &#39;kCanceling&#39; indicates a request to cancel the task has occurred but the task is not yet canceled. &#39;kCanceled&#39; indicates the task has been canceled. &#39;kSuccess&#39; indicates the task was successful. &#39;kFailure&#39; indicates the task failed. &#39;kWarning&#39; indicates the task has finished with warning. &#39;kOnHold&#39; indicates the task is kept onHold. &#39;kMissed&#39; indicates the task is missed. &#39;Finalizing&#39; indicates the task is finalizing..</param>
+        /// <param name="status">Specifies the status type. &#39;kAccepted&#39; indicates the task is queued to run but not yet running. &#39;kRunning&#39; indicates the task is running. &#39;kCanceling&#39; indicates a request to cancel the task has occurred but the task is not yet canceled. &#39;kCanceled&#39; indicates the task has been canceled. &#39;kSuccess&#39; indicates the task was successful. &#39;kFailure&#39; indicates the task failed. &#39;kWarning&#39; indicates the task has finished with warning. &#39;kOnHold&#39; indicates the task is kept onHold. &#39;kMissed&#39; indicates the task is missed. &#39;Finalizing&#39; indicates the task is finalizing..</param>
         /// <param name="vaultId">Specifies the id of Archival Vault assigned by the Cohesity Cluster..</param>
         /// <param name="vaultName">Name of the Archival Vault..</param>
         /// <param name="vaultType">Specifies the type of the Archival External Target such as &#39;kCloud&#39;, &#39;kTape&#39; or &#39;kNas&#39;. &#39;kCloud&#39; indicates the archival location as Cloud. &#39;kTape&#39; indicates the archival location as Tape. &#39;kNas&#39; indicates the archival location as Network Attached Storage (Nas)..</param>

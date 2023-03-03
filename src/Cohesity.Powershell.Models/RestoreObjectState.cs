@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -76,6 +74,12 @@ namespace Cohesity.Model
             /// </summary>
             [EnumMember(Value = "kInProgress")]
             KInProgress = 8
+
+            /// <summary>
+            /// Enum KCancelled for value: kCancelled
+            /// </summary>
+            [EnumMember(Value = "kCancelled")]
+            KCancelled = 9
 
         }
 

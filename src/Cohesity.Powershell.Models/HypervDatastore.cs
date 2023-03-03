@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -56,7 +54,7 @@ namespace Cohesity.Model
         /// <param name="freeSpace">Specifies the available space on the datastore in bytes..</param>
         /// <param name="mountPoints">Specifies the available mount points on the datastore..</param>
         /// <param name="type">Specifies the type of the datastore object like kFileShare or kVolume. overrideDescription: true Specifies the type of a HyperV datastore object. &#39;kFileShare&#39; indicates SMB file share datastore. &#39;kVolume&#39; indicates a volume which can a LUN..</param>
-        public HypervDatastore(ulong? capacity = default(ulong?), ulong? freeSpace = default(ulong?), List<string> mountPoints = default(List<string>), TypeEnum? type = default(TypeEnum?))
+        public HypervDatastore(int? capacity = default(int?), int? freeSpace = default(int?), List<string> mountPoints = default(List<string>), TypeEnum? type = default(TypeEnum?))
         {
             this.Capacity = capacity;
             this.FreeSpace = freeSpace;
@@ -73,14 +71,14 @@ namespace Cohesity.Model
         /// </summary>
         /// <value>Specifies the capacity of the datastore in bytes.</value>
         [DataMember(Name="capacity", EmitDefaultValue=true)]
-        public ulong? Capacity { get; set; }
+        public int? Capacity { get; set; }
 
         /// <summary>
         /// Specifies the available space on the datastore in bytes.
         /// </summary>
         /// <value>Specifies the available space on the datastore in bytes.</value>
         [DataMember(Name="freeSpace", EmitDefaultValue=true)]
-        public ulong? FreeSpace { get; set; }
+        public int? FreeSpace { get; set; }
 
         /// <summary>
         /// Specifies the available mount points on the datastore.
@@ -139,7 +137,7 @@ namespace Cohesity.Model
                     this.MountPoints == input.MountPoints ||
                     this.MountPoints != null &&
                     input.MountPoints != null &&
-                    this.MountPoints.Equals(input.MountPoints)
+                    this.MountPoints.SequenceEqual(input.MountPoints)
                 ) && 
                 (
                     this.Type == input.Type ||

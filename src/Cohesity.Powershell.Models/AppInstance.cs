@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -133,6 +131,32 @@ namespace Cohesity.Model
             this.UiClusterIPSvcAddr = uiClusterIPSvcAddr;
             this.UiClusterIPSvcPort = uiClusterIPSvcPort;
             this.UpgradableNewerVersionPresent = upgradableNewerVersionPresent;
+            this.VmGroups = vmGroups;
+            this.AppAccessToken = appAccessToken;
+            this.AppInstanceId = appInstanceId;
+            this.AppName = appName;
+            this.AppUid = appUid;
+            this.AppVersion = appVersion;
+            this.CreatedTimeUsecs = createdTimeUsecs;
+            this.CreationUid = creationUid;
+            this.DeploymentParameters = deploymentParameters;
+            this.Description = description;
+            this.DevVersion = devVersion;
+            this.DurationUsecs = durationUsecs;
+            this.ExposedNodePorts = exposedNodePorts;
+            this.HealthDetail = healthDetail;
+            this.HealthStatus = healthStatus;
+            this.HttpsUi = httpsUi;
+            this.Namespace = _namespace;
+            this.NodeIp = nodeIp;
+            this.NodePort = nodePort;
+            this.Settings = settings;
+            this.State = state;
+            this.StateDetail = stateDetail;
+            this.UiClusterIPSvcAddr = uiClusterIPSvcAddr;
+            this.UiClusterIPSvcPort = uiClusterIPSvcPort;
+            this.UpgradableNewerVersionPresent = upgradableNewerVersionPresent;
+            this.UserSshKey = userSshKey;
             this.VmGroups = vmGroups;
         }
         
@@ -403,7 +427,7 @@ namespace Cohesity.Model
                     this.ExposedNodePorts == input.ExposedNodePorts ||
                     this.ExposedNodePorts != null &&
                     input.ExposedNodePorts != null &&
-                    this.ExposedNodePorts.Equals(input.ExposedNodePorts)
+                    this.ExposedNodePorts.SequenceEqual(input.ExposedNodePorts)
                 ) && 
                 (
                     this.HealthDetail == input.HealthDetail ||
@@ -473,7 +497,7 @@ namespace Cohesity.Model
                     this.VmGroups == input.VmGroups ||
                     this.VmGroups != null &&
                     input.VmGroups != null &&
-                    this.VmGroups.Equals(input.VmGroups)
+                    this.VmGroups.SequenceEqual(input.VmGroups)
                 );
         }
 

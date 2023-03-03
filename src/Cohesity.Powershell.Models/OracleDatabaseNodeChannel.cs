@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -35,6 +33,14 @@ namespace Cohesity.Model
         /// <param name="rmanBackupType">Specifies the type of Oracle RMAN backup..</param>
         public OracleDatabaseNodeChannel(int? archiveLogKeepDays = default(int?), List<OracleDatabaseNode> databaseNodeList = default(List<OracleDatabaseNode>), string databaseUniqueName = default(string), string databaseUuid = default(string), int? defaultChannelCount = default(int?), bool? enableDgPrimaryBackup = default(bool?), int? maxNodeCount = default(int?), int? rmanBackupType = default(int?))
         {
+            this.ArchiveLogKeepDays = archiveLogKeepDays;
+            this.DatabaseNodeList = databaseNodeList;
+            this.DatabaseUniqueName = databaseUniqueName;
+            this.DatabaseUuid = databaseUuid;
+            this.DefaultChannelCount = defaultChannelCount;
+            this.EnableDgPrimaryBackup = enableDgPrimaryBackup;
+            this.MaxNodeCount = maxNodeCount;
+            this.RmanBackupType = rmanBackupType;
             this.ArchiveLogKeepDays = archiveLogKeepDays;
             this.DatabaseNodeList = databaseNodeList;
             this.DatabaseUniqueName = databaseUniqueName;
@@ -146,7 +152,7 @@ namespace Cohesity.Model
                     this.DatabaseNodeList == input.DatabaseNodeList ||
                     this.DatabaseNodeList != null &&
                     input.DatabaseNodeList != null &&
-                    this.DatabaseNodeList.Equals(input.DatabaseNodeList)
+                    this.DatabaseNodeList.SequenceEqual(input.DatabaseNodeList)
                 ) && 
                 (
                     this.DatabaseUniqueName == input.DatabaseUniqueName ||

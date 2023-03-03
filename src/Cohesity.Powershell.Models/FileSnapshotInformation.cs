@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -34,6 +32,12 @@ namespace Cohesity.Model
         /// <param name="snapshot">snapshot.</param>
         public FileSnapshotInformation(bool? hasArchivalCopy = default(bool?), bool? hasLocalCopy = default(bool?), bool? hasRemoteCopy = default(bool?), long? modifiedTimeUsecs = default(long?), List<ReplicaInfo> replicaInfoList = default(List<ReplicaInfo>), long? sizeBytes = default(long?), SnapshotAttempt snapshot = default(SnapshotAttempt))
         {
+            this.HasArchivalCopy = hasArchivalCopy;
+            this.HasLocalCopy = hasLocalCopy;
+            this.HasRemoteCopy = hasRemoteCopy;
+            this.ModifiedTimeUsecs = modifiedTimeUsecs;
+            this.ReplicaInfoList = replicaInfoList;
+            this.SizeBytes = sizeBytes;
             this.HasArchivalCopy = hasArchivalCopy;
             this.HasLocalCopy = hasLocalCopy;
             this.HasRemoteCopy = hasRemoteCopy;
@@ -151,7 +155,7 @@ namespace Cohesity.Model
                     this.ReplicaInfoList == input.ReplicaInfoList ||
                     this.ReplicaInfoList != null &&
                     input.ReplicaInfoList != null &&
-                    this.ReplicaInfoList.Equals(input.ReplicaInfoList)
+                    this.ReplicaInfoList.SequenceEqual(input.ReplicaInfoList)
                 ) && 
                 (
                     this.SizeBytes == input.SizeBytes ||

@@ -24,35 +24,46 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="CassandraConnectParams" /> class.
         /// </summary>
         /// <param name="cassandraPortsInfo">cassandraPortsInfo.</param>
+        /// <param name="cassandraSecurityInfo">cassandraSecurityInfo.</param>
+        /// <param name="cassandraVersion">Cassandra version.</param>
+        /// <param name="commitLogBackupLocation">Specifies the commit log archival location for cassandra node.</param>
         /// <param name="configDirectory">Specifies the Directory path containing Config YAML for discovery..</param>
         /// <param name="dataCenters">Specifies the List of all physical data center or virtual data center. In most cases, the data centers will be listed after discovery operation however, if they are not listed, you must manually type the data center names. Leaving the field blank will disallow data center-specific backup or restore. Entering a subset of all data centers may cause problems in data movement..</param>
         /// <param name="dseConfigDirectory">Specifies the Directory from where DSE specific configuration can be read..</param>
         /// <param name="isDseAuthenticator">Specifies whether this cluster has DSE Authenticator..</param>
         /// <param name="isDseTieredStorage">Specifies whether this cluster has DSE tiered storage..</param>
-        /// <param name="jaasConfigPath">Specifies the Path to the JAAS Config file on the Imanis node..</param>
+        /// <param name="isJmxAuthEnable">Specifies if JMX Authentication enabled in this cluster..</param>
+        /// <param name="kerberosPrincipal">Specifies the Kerberos Principal for Kerberos connection.</param>
         /// <param name="primaryHost">Specifies the Primary Host for the Cassandra cluster..</param>
         /// <param name="seeds">Specifies the Seed nodes of this Cassandra cluster..</param>
         /// <param name="solrNodes">Specifies the Solr node IP Addresses.</param>
         /// <param name="solrPort">Specifies the Solr node Port..</param>
-        public CassandraConnectParams(CassandraPortsInfo cassandraPortsInfo = default(CassandraPortsInfo), string configDirectory = default(string), List<string> dataCenters = default(List<string>), string dseConfigDirectory = default(string), bool? isDseAuthenticator = default(bool?), bool? isDseTieredStorage = default(bool?), string jaasConfigPath = default(string), string primaryHost = default(string), List<string> seeds = default(List<string>), List<string> solrNodes = default(List<string>), int? solrPort = default(int?))
+        public CassandraConnectParams(CassandraPortsInfo cassandraPortsInfo = default(CassandraPortsInfo), CassandraSecurityInfo cassandraSecurityInfo = default(CassandraSecurityInfo), string cassandraVersion = default(string), string commitLogBackupLocation = default(string), string configDirectory = default(string), List<string> dataCenters = default(List<string>), string dseConfigDirectory = default(string), bool? isDseAuthenticator = default(bool?), bool? isDseTieredStorage = default(bool?), bool? isJmxAuthEnable = default(bool?), string kerberosPrincipal = default(string), string primaryHost = default(string), List<string> seeds = default(List<string>), List<string> solrNodes = default(List<string>), int? solrPort = default(int?))
         {
+            this.CassandraVersion = cassandraVersion;
+            this.CommitLogBackupLocation = commitLogBackupLocation;
             this.ConfigDirectory = configDirectory;
             this.DataCenters = dataCenters;
             this.DseConfigDirectory = dseConfigDirectory;
             this.IsDseAuthenticator = isDseAuthenticator;
             this.IsDseTieredStorage = isDseTieredStorage;
-            this.JaasConfigPath = jaasConfigPath;
+            this.IsJmxAuthEnable = isJmxAuthEnable;
+            this.KerberosPrincipal = kerberosPrincipal;
             this.PrimaryHost = primaryHost;
             this.Seeds = seeds;
             this.SolrNodes = solrNodes;
             this.SolrPort = solrPort;
             this.CassandraPortsInfo = cassandraPortsInfo;
+            this.CassandraSecurityInfo = cassandraSecurityInfo;
+            this.CassandraVersion = cassandraVersion;
+            this.CommitLogBackupLocation = commitLogBackupLocation;
             this.ConfigDirectory = configDirectory;
             this.DataCenters = dataCenters;
             this.DseConfigDirectory = dseConfigDirectory;
             this.IsDseAuthenticator = isDseAuthenticator;
             this.IsDseTieredStorage = isDseTieredStorage;
-            this.JaasConfigPath = jaasConfigPath;
+            this.IsJmxAuthEnable = isJmxAuthEnable;
+            this.KerberosPrincipal = kerberosPrincipal;
             this.PrimaryHost = primaryHost;
             this.Seeds = seeds;
             this.SolrNodes = solrNodes;
@@ -64,6 +75,26 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="cassandraPortsInfo", EmitDefaultValue=false)]
         public CassandraPortsInfo CassandraPortsInfo { get; set; }
+
+        /// <summary>
+        /// Gets or Sets CassandraSecurityInfo
+        /// </summary>
+        [DataMember(Name="cassandraSecurityInfo", EmitDefaultValue=false)]
+        public CassandraSecurityInfo CassandraSecurityInfo { get; set; }
+
+        /// <summary>
+        /// Cassandra version
+        /// </summary>
+        /// <value>Cassandra version</value>
+        [DataMember(Name="cassandraVersion", EmitDefaultValue=true)]
+        public string CassandraVersion { get; set; }
+
+        /// <summary>
+        /// Specifies the commit log archival location for cassandra node
+        /// </summary>
+        /// <value>Specifies the commit log archival location for cassandra node</value>
+        [DataMember(Name="commitLogBackupLocation", EmitDefaultValue=true)]
+        public string CommitLogBackupLocation { get; set; }
 
         /// <summary>
         /// Specifies the Directory path containing Config YAML for discovery.
@@ -101,11 +132,18 @@ namespace Cohesity.Model
         public bool? IsDseTieredStorage { get; set; }
 
         /// <summary>
-        /// Specifies the Path to the JAAS Config file on the Imanis node.
+        /// Specifies if JMX Authentication enabled in this cluster.
         /// </summary>
-        /// <value>Specifies the Path to the JAAS Config file on the Imanis node.</value>
-        [DataMember(Name="jaasConfigPath", EmitDefaultValue=true)]
-        public string JaasConfigPath { get; set; }
+        /// <value>Specifies if JMX Authentication enabled in this cluster.</value>
+        [DataMember(Name="isJmxAuthEnable", EmitDefaultValue=true)]
+        public bool? IsJmxAuthEnable { get; set; }
+
+        /// <summary>
+        /// Specifies the Kerberos Principal for Kerberos connection
+        /// </summary>
+        /// <value>Specifies the Kerberos Principal for Kerberos connection</value>
+        [DataMember(Name="kerberosPrincipal", EmitDefaultValue=true)]
+        public string KerberosPrincipal { get; set; }
 
         /// <summary>
         /// Specifies the Primary Host for the Cassandra cluster.
@@ -177,6 +215,21 @@ namespace Cohesity.Model
                     this.CassandraPortsInfo.Equals(input.CassandraPortsInfo))
                 ) && 
                 (
+                    this.CassandraSecurityInfo == input.CassandraSecurityInfo ||
+                    (this.CassandraSecurityInfo != null &&
+                    this.CassandraSecurityInfo.Equals(input.CassandraSecurityInfo))
+                ) && 
+                (
+                    this.CassandraVersion == input.CassandraVersion ||
+                    (this.CassandraVersion != null &&
+                    this.CassandraVersion.Equals(input.CassandraVersion))
+                ) && 
+                (
+                    this.CommitLogBackupLocation == input.CommitLogBackupLocation ||
+                    (this.CommitLogBackupLocation != null &&
+                    this.CommitLogBackupLocation.Equals(input.CommitLogBackupLocation))
+                ) && 
+                (
                     this.ConfigDirectory == input.ConfigDirectory ||
                     (this.ConfigDirectory != null &&
                     this.ConfigDirectory.Equals(input.ConfigDirectory))
@@ -203,9 +256,14 @@ namespace Cohesity.Model
                     this.IsDseTieredStorage.Equals(input.IsDseTieredStorage))
                 ) && 
                 (
-                    this.JaasConfigPath == input.JaasConfigPath ||
-                    (this.JaasConfigPath != null &&
-                    this.JaasConfigPath.Equals(input.JaasConfigPath))
+                    this.IsJmxAuthEnable == input.IsJmxAuthEnable ||
+                    (this.IsJmxAuthEnable != null &&
+                    this.IsJmxAuthEnable.Equals(input.IsJmxAuthEnable))
+                ) && 
+                (
+                    this.KerberosPrincipal == input.KerberosPrincipal ||
+                    (this.KerberosPrincipal != null &&
+                    this.KerberosPrincipal.Equals(input.KerberosPrincipal))
                 ) && 
                 (
                     this.PrimaryHost == input.PrimaryHost ||
@@ -242,6 +300,12 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.CassandraPortsInfo != null)
                     hashCode = hashCode * 59 + this.CassandraPortsInfo.GetHashCode();
+                if (this.CassandraSecurityInfo != null)
+                    hashCode = hashCode * 59 + this.CassandraSecurityInfo.GetHashCode();
+                if (this.CassandraVersion != null)
+                    hashCode = hashCode * 59 + this.CassandraVersion.GetHashCode();
+                if (this.CommitLogBackupLocation != null)
+                    hashCode = hashCode * 59 + this.CommitLogBackupLocation.GetHashCode();
                 if (this.ConfigDirectory != null)
                     hashCode = hashCode * 59 + this.ConfigDirectory.GetHashCode();
                 if (this.DataCenters != null)
@@ -252,8 +316,10 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.IsDseAuthenticator.GetHashCode();
                 if (this.IsDseTieredStorage != null)
                     hashCode = hashCode * 59 + this.IsDseTieredStorage.GetHashCode();
-                if (this.JaasConfigPath != null)
-                    hashCode = hashCode * 59 + this.JaasConfigPath.GetHashCode();
+                if (this.IsJmxAuthEnable != null)
+                    hashCode = hashCode * 59 + this.IsJmxAuthEnable.GetHashCode();
+                if (this.KerberosPrincipal != null)
+                    hashCode = hashCode * 59 + this.KerberosPrincipal.GetHashCode();
                 if (this.PrimaryHost != null)
                     hashCode = hashCode * 59 + this.PrimaryHost.GetHashCode();
                 if (this.Seeds != null)

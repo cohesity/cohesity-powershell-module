@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -32,6 +30,11 @@ namespace Cohesity.Model
         /// <param name="versionString">Specifies the version string..</param>
         public SQLServerInstanceVersion(int? build = default(int?), int? majorVersion = default(int?), int? minorVersion = default(int?), int? revision = default(int?), string versionString = default(string))
         {
+            this.Build = build;
+            this.MajorVersion = majorVersion;
+            this.MinorVersion = minorVersion;
+            this.Revision = revision;
+            this.VersionString = versionString;
             this.Build = build;
             this.MajorVersion = majorVersion;
             this.MinorVersion = minorVersion;

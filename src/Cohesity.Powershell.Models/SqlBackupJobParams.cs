@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -43,6 +41,22 @@ namespace Cohesity.Model
         /// <param name="withClause">&#39;with_clause&#39; contains &#39;with clause&#39; to be used in native sql backup command. This is only applicable for native sql backup. Here user can specify multiple backup options. Example: \&quot;WITH BUFFERCOUNT &#x3D; 575, MAXTRANSFERSIZE &#x3D; 2097152\&quot;. If this is not specified, we use the value specified in magneto_sql_native_backup_with_clause gflag..</param>
         public SqlBackupJobParams(int? aagBackupPreferenceType = default(int?), bool? backupDatabaseVolumesOnly = default(bool?), bool? backupSystemDbs = default(bool?), bool? continueAfterError = default(bool?), bool? enableChecksum = default(bool?), bool? enableIncrementalBackupAfterRestart = default(bool?), int? fullBackupType = default(int?), bool? isCopyOnlyFull = default(bool?), bool? isCopyOnlyLog = default(bool?), int? logBackupNumStreams = default(int?), string logBackupWithClause = default(string), int? numDbsPerBatch = default(int?), int? numStreams = default(int?), bool? useAagPreferencesFromSqlServer = default(bool?), int? userDbPreferenceType = default(int?), string withClause = default(string))
         {
+            this.AagBackupPreferenceType = aagBackupPreferenceType;
+            this.BackupDatabaseVolumesOnly = backupDatabaseVolumesOnly;
+            this.BackupSystemDbs = backupSystemDbs;
+            this.ContinueAfterError = continueAfterError;
+            this.EnableChecksum = enableChecksum;
+            this.EnableIncrementalBackupAfterRestart = enableIncrementalBackupAfterRestart;
+            this.FullBackupType = fullBackupType;
+            this.IsCopyOnlyFull = isCopyOnlyFull;
+            this.IsCopyOnlyLog = isCopyOnlyLog;
+            this.LogBackupNumStreams = logBackupNumStreams;
+            this.LogBackupWithClause = logBackupWithClause;
+            this.NumDbsPerBatch = numDbsPerBatch;
+            this.NumStreams = numStreams;
+            this.UseAagPreferencesFromSqlServer = useAagPreferencesFromSqlServer;
+            this.UserDbPreferenceType = userDbPreferenceType;
+            this.WithClause = withClause;
             this.AagBackupPreferenceType = aagBackupPreferenceType;
             this.BackupDatabaseVolumesOnly = backupDatabaseVolumesOnly;
             this.BackupSystemDbs = backupSystemDbs;

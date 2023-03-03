@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -32,6 +30,11 @@ namespace Cohesity.Model
         /// <param name="rackId">Rack is the rack within which this chassis lives..</param>
         public ChassisInfo(long? chassisId = default(long?), string chassisName = default(string), string chassisSerial = default(string), string location = default(string), long? rackId = default(long?))
         {
+            this.ChassisId = chassisId;
+            this.ChassisName = chassisName;
+            this.ChassisSerial = chassisSerial;
+            this.Location = location;
+            this.RackId = rackId;
             this.ChassisId = chassisId;
             this.ChassisName = chassisName;
             this.ChassisSerial = chassisSerial;

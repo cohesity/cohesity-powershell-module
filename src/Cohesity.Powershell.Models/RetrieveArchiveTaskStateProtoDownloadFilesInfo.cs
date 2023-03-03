@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -33,6 +31,10 @@ namespace Cohesity.Model
         /// <param name="targetViewName">Target view name where the downloaded files will be placed..</param>
         public RetrieveArchiveTaskStateProtoDownloadFilesInfo(List<string> filePathVec = default(List<string>), MagnetoInstanceId magnetoInstanceId = default(MagnetoInstanceId), MagnetoObjectId objectId = default(MagnetoObjectId), bool? skipRestoreInStubView = default(bool?), string targetDirPath = default(string), string targetViewName = default(string))
         {
+            this.FilePathVec = filePathVec;
+            this.SkipRestoreInStubView = skipRestoreInStubView;
+            this.TargetDirPath = targetDirPath;
+            this.TargetViewName = targetViewName;
             this.FilePathVec = filePathVec;
             this.MagnetoInstanceId = magnetoInstanceId;
             this.ObjectId = objectId;
@@ -121,7 +123,7 @@ namespace Cohesity.Model
                     this.FilePathVec == input.FilePathVec ||
                     this.FilePathVec != null &&
                     input.FilePathVec != null &&
-                    this.FilePathVec.Equals(input.FilePathVec)
+                    this.FilePathVec.SequenceEqual(input.FilePathVec)
                 ) && 
                 (
                     this.MagnetoInstanceId == input.MagnetoInstanceId ||

@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -90,6 +88,11 @@ namespace Cohesity.Model
         /// <param name="vserverInfo">vserverInfo.</param>
         public NetappProtectionSource(NetappClusterInfo clusterInfo = default(NetappClusterInfo), bool? isTopLevel = default(bool?), List<LicenseTypesEnum> licenseTypes = default(List<LicenseTypesEnum>), string name = default(string), TypeEnum? type = default(TypeEnum?), string uuid = default(string), NetappVersionTuple versionTuple = default(NetappVersionTuple), NetappVolumeInfo volumeInfo = default(NetappVolumeInfo), NetappVserverInfo vserverInfo = default(NetappVserverInfo))
         {
+            this.IsTopLevel = isTopLevel;
+            this.LicenseTypes = licenseTypes;
+            this.Name = name;
+            this.Type = type;
+            this.Uuid = uuid;
             this.ClusterInfo = clusterInfo;
             this.IsTopLevel = isTopLevel;
             this.LicenseTypes = licenseTypes;
@@ -194,7 +197,7 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.LicenseTypes == input.LicenseTypes ||
-                    this.LicenseTypes.Equals(input.LicenseTypes)
+                    this.LicenseTypes.SequenceEqual(input.LicenseTypes)
                 ) && 
                 (
                     this.Name == input.Name ||
@@ -240,12 +243,10 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ClusterInfo.GetHashCode();
                 if (this.IsTopLevel != null)
                     hashCode = hashCode * 59 + this.IsTopLevel.GetHashCode();
-                if (this.LicenseTypes != null)
-					hashCode = hashCode * 59 + this.LicenseTypes.GetHashCode();
+                hashCode = hashCode * 59 + this.LicenseTypes.GetHashCode();
                 if (this.Name != null)
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
-                if (this.Type != null)
-					hashCode = hashCode * 59 + this.Type.GetHashCode();
+                hashCode = hashCode * 59 + this.Type.GetHashCode();
                 if (this.Uuid != null)
                     hashCode = hashCode * 59 + this.Uuid.GetHashCode();
                 if (this.VersionTuple != null)

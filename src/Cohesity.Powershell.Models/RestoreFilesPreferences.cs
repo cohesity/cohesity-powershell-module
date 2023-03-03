@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -33,10 +31,11 @@ namespace Cohesity.Model
         /// <param name="preserveAcls">Whether to preserve the ACLs of the original file..</param>
         /// <param name="preserveAttributes">Whether to preserve the original attributes..</param>
         /// <param name="preserveTimestamps">Whether to preserve the original time stamps..</param>
+        /// <param name="restoreEntities">Option to select whether to restore everything or ACLs only..</param>
         /// <param name="restoreToOriginalPaths">If this is true, then files will be restored to original paths..</param>
         /// <param name="saveSuccessFiles">Whether to save success files for FLR..</param>
         /// <param name="skipEstimation">Whether to skip the estimation step..</param>
-        public RestoreFilesPreferences(string alternateRestoreBaseDirectory = default(string), bool? continueOnError = default(bool?), bool? encryptionEnabled = default(bool?), bool? generateSshKeys = default(bool?), bool? overrideOriginals = default(bool?), bool? preserveAcls = default(bool?), bool? preserveAttributes = default(bool?), bool? preserveTimestamps = default(bool?), bool? restoreToOriginalPaths = default(bool?), bool? saveSuccessFiles = default(bool?), bool? skipEstimation = default(bool?))
+        public RestoreFilesPreferences(string alternateRestoreBaseDirectory = default(string), bool? continueOnError = default(bool?), bool? encryptionEnabled = default(bool?), bool? generateSshKeys = default(bool?), bool? overrideOriginals = default(bool?), bool? preserveAcls = default(bool?), bool? preserveAttributes = default(bool?), bool? preserveTimestamps = default(bool?), int? restoreEntities = default(int?), bool? restoreToOriginalPaths = default(bool?), bool? saveSuccessFiles = default(bool?), bool? skipEstimation = default(bool?))
         {
             this.AlternateRestoreBaseDirectory = alternateRestoreBaseDirectory;
             this.ContinueOnError = continueOnError;
@@ -46,6 +45,19 @@ namespace Cohesity.Model
             this.PreserveAcls = preserveAcls;
             this.PreserveAttributes = preserveAttributes;
             this.PreserveTimestamps = preserveTimestamps;
+            this.RestoreEntities = restoreEntities;
+            this.RestoreToOriginalPaths = restoreToOriginalPaths;
+            this.SaveSuccessFiles = saveSuccessFiles;
+            this.SkipEstimation = skipEstimation;
+            this.AlternateRestoreBaseDirectory = alternateRestoreBaseDirectory;
+            this.ContinueOnError = continueOnError;
+            this.EncryptionEnabled = encryptionEnabled;
+            this.GenerateSshKeys = generateSshKeys;
+            this.OverrideOriginals = overrideOriginals;
+            this.PreserveAcls = preserveAcls;
+            this.PreserveAttributes = preserveAttributes;
+            this.PreserveTimestamps = preserveTimestamps;
+            this.RestoreEntities = restoreEntities;
             this.RestoreToOriginalPaths = restoreToOriginalPaths;
             this.SaveSuccessFiles = saveSuccessFiles;
             this.SkipEstimation = skipEstimation;
@@ -106,6 +118,13 @@ namespace Cohesity.Model
         /// <value>Whether to preserve the original time stamps.</value>
         [DataMember(Name="preserveTimestamps", EmitDefaultValue=true)]
         public bool? PreserveTimestamps { get; set; }
+
+        /// <summary>
+        /// Option to select whether to restore everything or ACLs only.
+        /// </summary>
+        /// <value>Option to select whether to restore everything or ACLs only.</value>
+        [DataMember(Name="restoreEntities", EmitDefaultValue=true)]
+        public int? RestoreEntities { get; set; }
 
         /// <summary>
         /// If this is true, then files will be restored to original paths.
@@ -205,6 +224,11 @@ namespace Cohesity.Model
                     this.PreserveTimestamps.Equals(input.PreserveTimestamps))
                 ) && 
                 (
+                    this.RestoreEntities == input.RestoreEntities ||
+                    (this.RestoreEntities != null &&
+                    this.RestoreEntities.Equals(input.RestoreEntities))
+                ) && 
+                (
                     this.RestoreToOriginalPaths == input.RestoreToOriginalPaths ||
                     (this.RestoreToOriginalPaths != null &&
                     this.RestoreToOriginalPaths.Equals(input.RestoreToOriginalPaths))
@@ -246,6 +270,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.PreserveAttributes.GetHashCode();
                 if (this.PreserveTimestamps != null)
                     hashCode = hashCode * 59 + this.PreserveTimestamps.GetHashCode();
+                if (this.RestoreEntities != null)
+                    hashCode = hashCode * 59 + this.RestoreEntities.GetHashCode();
                 if (this.RestoreToOriginalPaths != null)
                     hashCode = hashCode * 59 + this.RestoreToOriginalPaths.GetHashCode();
                 if (this.SaveSuccessFiles != null)

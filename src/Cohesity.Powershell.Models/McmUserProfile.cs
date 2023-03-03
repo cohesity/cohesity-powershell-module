@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -159,7 +157,7 @@ namespace Cohesity.Model
                     this.ClusterIdentifiers == input.ClusterIdentifiers ||
                     this.ClusterIdentifiers != null &&
                     input.ClusterIdentifiers != null &&
-                    this.ClusterIdentifiers.Equals(input.ClusterIdentifiers)
+                    this.ClusterIdentifiers.SequenceEqual(input.ClusterIdentifiers)
                 ) && 
                 (
                     this.IsActive == input.IsActive ||
@@ -175,7 +173,7 @@ namespace Cohesity.Model
                     this.RegionIds == input.RegionIds ||
                     this.RegionIds != null &&
                     input.RegionIds != null &&
-                    this.RegionIds.Equals(input.RegionIds)
+                    this.RegionIds.SequenceEqual(input.RegionIds)
                 ) && 
                 (
                     this.TenantId == input.TenantId ||

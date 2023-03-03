@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -31,6 +29,10 @@ namespace Cohesity.Model
         /// <param name="userName">Specifies user name of the user..</param>
         public UserInfo(string domain = default(string), string sid = default(string), string tenantId = default(string), string userName = default(string))
         {
+            this.Domain = domain;
+            this.Sid = sid;
+            this.TenantId = tenantId;
+            this.UserName = userName;
             this.Domain = domain;
             this.Sid = sid;
             this.TenantId = tenantId;

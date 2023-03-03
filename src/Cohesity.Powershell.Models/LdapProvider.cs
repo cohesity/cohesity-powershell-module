@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -72,6 +70,24 @@ namespace Cohesity.Model
         /// <param name="userPassword">Specifies the user password that is used for LDAP authentication..</param>
         public LdapProvider(string adDomainName = default(string), string attributeCommonName = default(string), string attributeGid = default(string), string attributeMemberOf = default(string), string attributeUid = default(string), string attributeUserName = default(string), AuthTypeEnum? authType = default(AuthTypeEnum?), string baseDistinguishedName = default(string), string domainName = default(string), string name = default(string), string objectClassGroup = default(string), string objectClassUser = default(string), int? port = default(int?), List<string> preferredLdapServerList = default(List<string>), string tenantId = default(string), bool? useSsl = default(bool?), string userDistinguishedName = default(string), string userPassword = default(string))
         {
+            this.AdDomainName = adDomainName;
+            this.AttributeCommonName = attributeCommonName;
+            this.AttributeGid = attributeGid;
+            this.AttributeMemberOf = attributeMemberOf;
+            this.AttributeUid = attributeUid;
+            this.AttributeUserName = attributeUserName;
+            this.AuthType = authType;
+            this.BaseDistinguishedName = baseDistinguishedName;
+            this.DomainName = domainName;
+            this.Name = name;
+            this.ObjectClassGroup = objectClassGroup;
+            this.ObjectClassUser = objectClassUser;
+            this.Port = port;
+            this.PreferredLdapServerList = preferredLdapServerList;
+            this.TenantId = tenantId;
+            this.UseSsl = useSsl;
+            this.UserDistinguishedName = userDistinguishedName;
+            this.UserPassword = userPassword;
             this.AdDomainName = adDomainName;
             this.AttributeCommonName = attributeCommonName;
             this.AttributeGid = attributeGid;
@@ -315,7 +331,7 @@ namespace Cohesity.Model
                     this.PreferredLdapServerList == input.PreferredLdapServerList ||
                     this.PreferredLdapServerList != null &&
                     input.PreferredLdapServerList != null &&
-                    this.PreferredLdapServerList.Equals(input.PreferredLdapServerList)
+                    this.PreferredLdapServerList.SequenceEqual(input.PreferredLdapServerList)
                 ) && 
                 (
                     this.TenantId == input.TenantId ||
@@ -360,8 +376,7 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.AttributeUid.GetHashCode();
                 if (this.AttributeUserName != null)
                     hashCode = hashCode * 59 + this.AttributeUserName.GetHashCode();
-                if (this.AuthType != null)
-					hashCode = hashCode * 59 + this.AuthType.GetHashCode();
+                hashCode = hashCode * 59 + this.AuthType.GetHashCode();
                 if (this.BaseDistinguishedName != null)
                     hashCode = hashCode * 59 + this.BaseDistinguishedName.GetHashCode();
                 if (this.DomainName != null)

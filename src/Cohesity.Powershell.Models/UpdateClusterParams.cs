@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -59,7 +57,6 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="UpdateClusterParams" /> class.
         /// </summary>
         /// <param name="amqpTargetConfig">amqpTargetConfig.</param>
-		/// <param name="appsSettings">appsSettings.</param>
         /// <param name="appsSubnet">appsSubnet.</param>
         /// <param name="bannerEnabled">Specifies whether UI banner is enabled on the cluster or not. When banner is enabled, UI will make an additional API call to fetch the banner and show at the login page..</param>
         /// <param name="clusterAuditLogConfig">clusterAuditLogConfig.</param>
@@ -96,10 +93,40 @@ namespace Cohesity.Model
         /// <param name="timezone">Specifies the timezone to use for showing time in emails, reports, filer audit logs, etc..</param>
         /// <param name="turboMode">Specifies if the cluster is in Turbo mode..</param>
         /// <param name="useHeimdall">Specifies whether to enable Heimdall which tells whether services should use temporary fleet instances to mount disks by talking to Heimdall..</param>
-        public UpdateClusterParams(AMQPTargetConfig amqpTargetConfig = default(AMQPTargetConfig), AppsConfig appsSettings = default(AppsConfig), Subnet appsSubnet = default(Subnet), bool? bannerEnabled = default(bool?), ClusterAuditLogConfiguration clusterAuditLogConfig = default(ClusterAuditLogConfiguration), List<string> dnsServerIps = default(List<string>), List<string> domainNames = default(List<string>), bool? enableActiveMonitoring = default(bool?), bool? enablePatchesDownload = default(bool?), bool? enableUpgradePkgPolling = default(bool?), long? encryptionKeyRotationPeriodSecs = default(long?), FaultToleranceLevelEnum? faultToleranceLevel = default(FaultToleranceLevelEnum?), FilerAuditLogConfiguration filerAuditLogConfig = default(FilerAuditLogConfiguration), string gateway = default(string), bool? googleAnalyticsEnabled = default(bool?), bool? isDocumentationLocal = default(bool?), long? kmsServerId = default(long?), string languageLocale = default(string), string localAuthDomainName = default(string), bool? localGroupsEnabled = default(bool?), int? metadataFaultToleranceFactor = default(int?), bool? multiTenancyEnabled = default(bool?), string name = default(string), NtpSettingsConfig ntpSettings = default(NtpSettingsConfig), int? pcieSsdTierRebalanceDelaySecs = default(int?), bool? protoRpcEncryptionEnabled = default(bool?), bool? reverseTunnelEnabled = default(bool?), long? reverseTunnelEndTimeMsecs = default(long?), bool? securityModeDod = default(bool?), bool? smbAdDisabled = default(bool?), bool? smbMultichannelEnabled = default(bool?), bool? stigMode = default(bool?), List<OldSyslogServer> syslogServers = default(List<OldSyslogServer>), bool? tenantViewboxSharingEnabled = default(bool?), TieringAuditLogConfiguration tieringAuditLogConfig = default(TieringAuditLogConfiguration), string timezone = default(string), bool? turboMode = default(bool?), bool? useHeimdall = default(bool?))
+        public UpdateClusterParams(AMQPTargetConfig amqpTargetConfig = default(AMQPTargetConfig), Subnet appsSubnet = default(Subnet), bool? bannerEnabled = default(bool?), ClusterAuditLogConfiguration clusterAuditLogConfig = default(ClusterAuditLogConfiguration), List<string> dnsServerIps = default(List<string>), List<string> domainNames = default(List<string>), bool? enableActiveMonitoring = default(bool?), bool? enablePatchesDownload = default(bool?), bool? enableUpgradePkgPolling = default(bool?), long? encryptionKeyRotationPeriodSecs = default(long?), FaultToleranceLevelEnum? faultToleranceLevel = default(FaultToleranceLevelEnum?), FilerAuditLogConfiguration filerAuditLogConfig = default(FilerAuditLogConfiguration), string gateway = default(string), bool? googleAnalyticsEnabled = default(bool?), bool? isDocumentationLocal = default(bool?), long? kmsServerId = default(long?), string languageLocale = default(string), string localAuthDomainName = default(string), bool? localGroupsEnabled = default(bool?), int? metadataFaultToleranceFactor = default(int?), bool? multiTenancyEnabled = default(bool?), string name = default(string), NtpSettingsConfig ntpSettings = default(NtpSettingsConfig), int? pcieSsdTierRebalanceDelaySecs = default(int?), bool? protoRpcEncryptionEnabled = default(bool?), bool? reverseTunnelEnabled = default(bool?), long? reverseTunnelEndTimeMsecs = default(long?), bool? securityModeDod = default(bool?), bool? smbAdDisabled = default(bool?), bool? smbMultichannelEnabled = default(bool?), bool? stigMode = default(bool?), List<OldSyslogServer> syslogServers = default(List<OldSyslogServer>), bool? tenantViewboxSharingEnabled = default(bool?), TieringAuditLogConfiguration tieringAuditLogConfig = default(TieringAuditLogConfiguration), string timezone = default(string), bool? turboMode = default(bool?), bool? useHeimdall = default(bool?))
         {
+            this.BannerEnabled = bannerEnabled;
+            this.DnsServerIps = dnsServerIps;
+            this.DomainNames = domainNames;
+            this.EnableActiveMonitoring = enableActiveMonitoring;
+            this.EnablePatchesDownload = enablePatchesDownload;
+            this.EnableUpgradePkgPolling = enableUpgradePkgPolling;
+            this.EncryptionKeyRotationPeriodSecs = encryptionKeyRotationPeriodSecs;
+            this.FaultToleranceLevel = faultToleranceLevel;
+            this.Gateway = gateway;
+            this.GoogleAnalyticsEnabled = googleAnalyticsEnabled;
+            this.IsDocumentationLocal = isDocumentationLocal;
+            this.KmsServerId = kmsServerId;
+            this.LanguageLocale = languageLocale;
+            this.LocalAuthDomainName = localAuthDomainName;
+            this.LocalGroupsEnabled = localGroupsEnabled;
+            this.MetadataFaultToleranceFactor = metadataFaultToleranceFactor;
+            this.MultiTenancyEnabled = multiTenancyEnabled;
+            this.Name = name;
+            this.PcieSsdTierRebalanceDelaySecs = pcieSsdTierRebalanceDelaySecs;
+            this.ProtoRpcEncryptionEnabled = protoRpcEncryptionEnabled;
+            this.ReverseTunnelEnabled = reverseTunnelEnabled;
+            this.ReverseTunnelEndTimeMsecs = reverseTunnelEndTimeMsecs;
+            this.SecurityModeDod = securityModeDod;
+            this.SmbAdDisabled = smbAdDisabled;
+            this.SmbMultichannelEnabled = smbMultichannelEnabled;
+            this.StigMode = stigMode;
+            this.SyslogServers = syslogServers;
+            this.TenantViewboxSharingEnabled = tenantViewboxSharingEnabled;
+            this.Timezone = timezone;
+            this.TurboMode = turboMode;
+            this.UseHeimdall = useHeimdall;
             this.AmqpTargetConfig = amqpTargetConfig;
-			this.AppsSettings = appsSettings;
             this.AppsSubnet = appsSubnet;
             this.BannerEnabled = bannerEnabled;
             this.ClusterAuditLogConfig = clusterAuditLogConfig;
@@ -143,11 +170,6 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="amqpTargetConfig", EmitDefaultValue=false)]
         public AMQPTargetConfig AmqpTargetConfig { get; set; }
-
-		/// Gets or Sets AppsSettings
-        /// </summary>
-        [DataMember(Name="appsSettings", EmitDefaultValue=false)]
-        public AppsConfig AppsSettings { get; set; }
 
         /// <summary>
         /// Gets or Sets AppsSubnet
@@ -430,11 +452,6 @@ namespace Cohesity.Model
                     (this.AmqpTargetConfig != null &&
                     this.AmqpTargetConfig.Equals(input.AmqpTargetConfig))
                 ) && 
-				(
-                    this.AppsSettings == input.AppsSettings ||
-                    (this.AppsSettings != null &&
-                    this.AppsSettings.Equals(input.AppsSettings))
-                ) && 
                 (
                     this.AppsSubnet == input.AppsSubnet ||
                     (this.AppsSubnet != null &&
@@ -454,13 +471,13 @@ namespace Cohesity.Model
                     this.DnsServerIps == input.DnsServerIps ||
                     this.DnsServerIps != null &&
                     input.DnsServerIps != null &&
-                    this.DnsServerIps.Equals(input.DnsServerIps)
+                    this.DnsServerIps.SequenceEqual(input.DnsServerIps)
                 ) && 
                 (
                     this.DomainNames == input.DomainNames ||
                     this.DomainNames != null &&
                     input.DomainNames != null &&
-                    this.DomainNames.Equals(input.DomainNames)
+                    this.DomainNames.SequenceEqual(input.DomainNames)
                 ) && 
                 (
                     this.EnableActiveMonitoring == input.EnableActiveMonitoring ||
@@ -590,7 +607,7 @@ namespace Cohesity.Model
                     this.SyslogServers == input.SyslogServers ||
                     this.SyslogServers != null &&
                     input.SyslogServers != null &&
-                    this.SyslogServers.Equals(input.SyslogServers)
+                    this.SyslogServers.SequenceEqual(input.SyslogServers)
                 ) && 
                 (
                     this.TenantViewboxSharingEnabled == input.TenantViewboxSharingEnabled ||
@@ -630,8 +647,6 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.AmqpTargetConfig != null)
                     hashCode = hashCode * 59 + this.AmqpTargetConfig.GetHashCode();
-				if (this.AppsSettings != null)
-                    hashCode = hashCode * 59 + this.AppsSettings.GetHashCode();
                 if (this.AppsSubnet != null)
                     hashCode = hashCode * 59 + this.AppsSubnet.GetHashCode();
                 if (this.BannerEnabled != null)

@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -59,6 +57,11 @@ namespace Cohesity.Model
         /// <param name="port">Specifies the Webhdfs Port.</param>
         public HdfsConnectParams(HadoopDistributionEnum? hadoopDistribution = default(HadoopDistributionEnum?), string hadoopVersion = default(string), string kerberosPrincipal = default(string), string namenode = default(string), int? port = default(int?))
         {
+            this.HadoopDistribution = hadoopDistribution;
+            this.HadoopVersion = hadoopVersion;
+            this.KerberosPrincipal = kerberosPrincipal;
+            this.Namenode = namenode;
+            this.Port = port;
             this.HadoopDistribution = hadoopDistribution;
             this.HadoopVersion = hadoopVersion;
             this.KerberosPrincipal = kerberosPrincipal;

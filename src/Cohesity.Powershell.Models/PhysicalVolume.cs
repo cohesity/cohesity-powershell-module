@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -37,7 +35,7 @@ namespace Cohesity.Model
         /// <param name="mountType">Specifies mount type of volume e.g. nfs, autofs, ext4 etc..</param>
         /// <param name="networkPath">Specifies the full path to connect to the network attached volume. For example, (IP or hostname):/path/to/share for NFS volumes)..</param>
         /// <param name="usedSizeBytes">Specifies the size used by the volume in bytes..</param>
-        public PhysicalVolume(string devicePath = default(string), string guid = default(string), bool? isBootVolume = default(bool?), bool? isExtendedAttributesSupported = default(bool?), bool? isProtected = default(bool?), bool? isSharedVolume = default(bool?), string label = default(string), ulong? logicalSizeBytes = default(ulong?), List<string> mountPoints = default(List<string>), string mountType = default(string), string networkPath = default(string), ulong? usedSizeBytes = default(ulong?))
+        public PhysicalVolume(string devicePath = default(string), string guid = default(string), bool? isBootVolume = default(bool?), bool? isExtendedAttributesSupported = default(bool?), bool? isProtected = default(bool?), bool? isSharedVolume = default(bool?), string label = default(string), int? logicalSizeBytes = default(int?), List<string> mountPoints = default(List<string>), string mountType = default(string), string networkPath = default(string), int? usedSizeBytes = default(int?))
         {
             this.DevicePath = devicePath;
             this.Guid = guid;
@@ -119,7 +117,7 @@ namespace Cohesity.Model
         /// </summary>
         /// <value>Specifies the logical size of the volume in bytes that is not reduced by change-block tracking, compression and deduplication.</value>
         [DataMember(Name="logicalSizeBytes", EmitDefaultValue=true)]
-        public ulong? LogicalSizeBytes { get; set; }
+        public int? LogicalSizeBytes { get; set; }
 
         /// <summary>
         /// Array of Mount Points.  Specifies the mount points where the volume is mounted, for example: &#39;C:\\&#39;, &#39;/mnt/foo&#39; etc.
@@ -147,7 +145,7 @@ namespace Cohesity.Model
         /// </summary>
         /// <value>Specifies the size used by the volume in bytes.</value>
         [DataMember(Name="usedSizeBytes", EmitDefaultValue=true)]
-        public ulong? UsedSizeBytes { get; set; }
+        public int? UsedSizeBytes { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -229,7 +227,7 @@ namespace Cohesity.Model
                     this.MountPoints == input.MountPoints ||
                     this.MountPoints != null &&
                     input.MountPoints != null &&
-                    this.MountPoints.Equals(input.MountPoints)
+                    this.MountPoints.SequenceEqual(input.MountPoints)
                 ) && 
                 (
                     this.MountType == input.MountType ||

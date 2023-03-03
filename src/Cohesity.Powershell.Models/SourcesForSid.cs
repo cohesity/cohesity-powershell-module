@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -30,6 +28,9 @@ namespace Cohesity.Model
         /// <param name="views">Array of View Names.  Specifies the names of the Views that the specified principal has permissions to access..</param>
         public SourcesForSid(List<ProtectionSource> protectionSources = default(List<ProtectionSource>), string sid = default(string), List<View> views = default(List<View>))
         {
+            this.ProtectionSources = protectionSources;
+            this.Sid = sid;
+            this.Views = views;
             this.ProtectionSources = protectionSources;
             this.Sid = sid;
             this.Views = views;
@@ -96,7 +97,7 @@ namespace Cohesity.Model
                     this.ProtectionSources == input.ProtectionSources ||
                     this.ProtectionSources != null &&
                     input.ProtectionSources != null &&
-                    this.ProtectionSources.Equals(input.ProtectionSources)
+                    this.ProtectionSources.SequenceEqual(input.ProtectionSources)
                 ) && 
                 (
                     this.Sid == input.Sid ||
@@ -107,7 +108,7 @@ namespace Cohesity.Model
                     this.Views == input.Views ||
                     this.Views != null &&
                     input.Views != null &&
-                    this.Views.Equals(input.Views)
+                    this.Views.SequenceEqual(input.Views)
                 );
         }
 

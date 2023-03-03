@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -209,19 +207,19 @@ namespace Cohesity.Model
                     this.SharePermissions == input.SharePermissions ||
                     this.SharePermissions != null &&
                     input.SharePermissions != null &&
-                    this.SharePermissions.Equals(input.SharePermissions)
+                    this.SharePermissions.SequenceEqual(input.SharePermissions)
                 ) && 
                 (
                     this.SubnetWhitelist == input.SubnetWhitelist ||
                     this.SubnetWhitelist != null &&
                     input.SubnetWhitelist != null &&
-                    this.SubnetWhitelist.Equals(input.SubnetWhitelist)
+                    this.SubnetWhitelist.SequenceEqual(input.SubnetWhitelist)
                 ) && 
                 (
                     this.SuperUserSids == input.SuperUserSids ||
                     this.SuperUserSids != null &&
                     input.SuperUserSids != null &&
-                    this.SuperUserSids.Equals(input.SuperUserSids)
+                    this.SuperUserSids.SequenceEqual(input.SuperUserSids)
                 ) && 
                 (
                     this.ViewName == input.ViewName ||

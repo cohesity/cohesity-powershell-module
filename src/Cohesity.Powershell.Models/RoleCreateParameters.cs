@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -30,6 +28,9 @@ namespace Cohesity.Model
         /// <param name="privileges">Array of Privileges.  Specifies the list of privileges to assign to the role..</param>
         public RoleCreateParameters(string description = default(string), string name = default(string), List<string> privileges = default(List<string>))
         {
+            this.Description = description;
+            this.Name = name;
+            this.Privileges = privileges;
             this.Description = description;
             this.Name = name;
             this.Privileges = privileges;
@@ -106,7 +107,7 @@ namespace Cohesity.Model
                     this.Privileges == input.Privileges ||
                     this.Privileges != null &&
                     input.Privileges != null &&
-                    this.Privileges.Equals(input.Privileges)
+                    this.Privileges.SequenceEqual(input.Privileges)
                 );
         }
 

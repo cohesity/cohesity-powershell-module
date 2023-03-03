@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -34,6 +32,7 @@ namespace Cohesity.Model
         /// <param name="yearlySchedule">yearlySchedule.</param>
         public SchedulingPolicyProto(SchedulingPolicyProtoContinuousSchedule continuousSchedule = default(SchedulingPolicyProtoContinuousSchedule), SchedulingPolicyProtoDailySchedule dailySchedule = default(SchedulingPolicyProtoDailySchedule), SchedulingPolicyProtoDateSchedule dateSchedule = default(SchedulingPolicyProtoDateSchedule), SchedulingPolicyProtoMonthlySchedule monthlySchedule = default(SchedulingPolicyProtoMonthlySchedule), int? periodicity = default(int?), SchedulingPolicyProtoRPOSchedule rpoSchedule = default(SchedulingPolicyProtoRPOSchedule), SchedulingPolicyProtoYearlySchedule yearlySchedule = default(SchedulingPolicyProtoYearlySchedule))
         {
+            this.Periodicity = periodicity;
             this.ContinuousSchedule = continuousSchedule;
             this.DailySchedule = dailySchedule;
             this.DateSchedule = dateSchedule;

@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -31,6 +29,10 @@ namespace Cohesity.Model
         /// <param name="tenantIds">Specifies the tenants to which the group belongs to..</param>
         public GroupInfo(string domain = default(string), string groupName = default(string), string sid = default(string), List<string> tenantIds = default(List<string>))
         {
+            this.Domain = domain;
+            this.GroupName = groupName;
+            this.Sid = sid;
+            this.TenantIds = tenantIds;
             this.Domain = domain;
             this.GroupName = groupName;
             this.Sid = sid;
@@ -120,7 +122,7 @@ namespace Cohesity.Model
                     this.TenantIds == input.TenantIds ||
                     this.TenantIds != null &&
                     input.TenantIds != null &&
-                    this.TenantIds.Equals(input.TenantIds)
+                    this.TenantIds.SequenceEqual(input.TenantIds)
                 );
         }
 

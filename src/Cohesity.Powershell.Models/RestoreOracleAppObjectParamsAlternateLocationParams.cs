@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -35,6 +33,13 @@ namespace Cohesity.Model
         /// <param name="oracleDbConfig">oracleDbConfig.</param>
         public RestoreOracleAppObjectParamsAlternateLocationParams(string baseDir = default(string), string databaseFileDestination = default(string), string homeDir = default(string), string newDatabaseName = default(string), string newSidDeprecated = default(string), string newnameClause = default(string), bool? nofilenamecheck = default(bool?), OracleDBConfig oracleDbConfig = default(OracleDBConfig))
         {
+            this.BaseDir = baseDir;
+            this.DatabaseFileDestination = databaseFileDestination;
+            this.HomeDir = homeDir;
+            this.NewDatabaseName = newDatabaseName;
+            this.NewSidDeprecated = newSidDeprecated;
+            this.NewnameClause = newnameClause;
+            this.Nofilenamecheck = nofilenamecheck;
             this.BaseDir = baseDir;
             this.DatabaseFileDestination = databaseFileDestination;
             this.HomeDir = homeDir;

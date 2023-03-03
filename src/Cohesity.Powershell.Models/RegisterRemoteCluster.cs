@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -48,6 +46,25 @@ namespace Cohesity.Model
         /// <param name="viewBoxPairInfo">Array of Storage Domain (View Box) Pairs.  Specifies pairings between Storage Domains (View Boxes) on the local Cluster with Storage Domains (View Boxes) on a remote Cluster that are used in replication..</param>
         public RegisterRemoteCluster(bool? allEndpointsReachable = default(bool?), bool? autoRegisterTarget = default(bool?), bool? autoRegistration = default(bool?), BandwidthLimit bandwidthLimit = default(BandwidthLimit), long? clusterId = default(long?), long? clusterIncarnationId = default(long?), bool? compressionEnabled = default(bool?), string description = default(string), string encryptionKey = default(string), string name = default(string), string networkInterface = default(string), string password = default(string), bool? purposeRemoteAccess = default(bool?), bool? purposeReplication = default(bool?), AccessTokenCredential remoteAccessCredentials = default(AccessTokenCredential), List<string> remoteIps = default(List<string>), List<long> remoteIrisPorts = default(List<long>), bool? reverseRegisted = default(bool?), string userName = default(string), bool? validateOnly = default(bool?), List<ViewBoxPairInfo> viewBoxPairInfo = default(List<ViewBoxPairInfo>))
         {
+            this.AllEndpointsReachable = allEndpointsReachable;
+            this.AutoRegisterTarget = autoRegisterTarget;
+            this.AutoRegistration = autoRegistration;
+            this.ClusterId = clusterId;
+            this.ClusterIncarnationId = clusterIncarnationId;
+            this.CompressionEnabled = compressionEnabled;
+            this.Description = description;
+            this.EncryptionKey = encryptionKey;
+            this.Name = name;
+            this.NetworkInterface = networkInterface;
+            this.Password = password;
+            this.PurposeRemoteAccess = purposeRemoteAccess;
+            this.PurposeReplication = purposeReplication;
+            this.RemoteIps = remoteIps;
+            this.RemoteIrisPorts = remoteIrisPorts;
+            this.ReverseRegisted = reverseRegisted;
+            this.UserName = userName;
+            this.ValidateOnly = validateOnly;
+            this.ViewBoxPairInfo = viewBoxPairInfo;
             this.AllEndpointsReachable = allEndpointsReachable;
             this.AutoRegisterTarget = autoRegisterTarget;
             this.AutoRegistration = autoRegistration;
@@ -331,13 +348,13 @@ namespace Cohesity.Model
                     this.RemoteIps == input.RemoteIps ||
                     this.RemoteIps != null &&
                     input.RemoteIps != null &&
-                    this.RemoteIps.Equals(input.RemoteIps)
+                    this.RemoteIps.SequenceEqual(input.RemoteIps)
                 ) && 
                 (
                     this.RemoteIrisPorts == input.RemoteIrisPorts ||
                     this.RemoteIrisPorts != null &&
                     input.RemoteIrisPorts != null &&
-                    this.RemoteIrisPorts.Equals(input.RemoteIrisPorts)
+                    this.RemoteIrisPorts.SequenceEqual(input.RemoteIrisPorts)
                 ) && 
                 (
                     this.ReverseRegisted == input.ReverseRegisted ||
@@ -358,7 +375,7 @@ namespace Cohesity.Model
                     this.ViewBoxPairInfo == input.ViewBoxPairInfo ||
                     this.ViewBoxPairInfo != null &&
                     input.ViewBoxPairInfo != null &&
-                    this.ViewBoxPairInfo.Equals(input.ViewBoxPairInfo)
+                    this.ViewBoxPairInfo.SequenceEqual(input.ViewBoxPairInfo)
                 );
         }
 

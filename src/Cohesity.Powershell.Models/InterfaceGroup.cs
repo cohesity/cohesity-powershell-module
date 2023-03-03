@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -33,6 +31,11 @@ namespace Cohesity.Model
         /// <param name="nodeInterfacePairs">Specifies the node IDs and interface lists..</param>
         public InterfaceGroup(int? groupType = default(int?), int? id = default(int?), List<ProductModelInterfaceTuple> modelInterfaceLists = default(List<ProductModelInterfaceTuple>), string name = default(string), NetworkParams networkParams = default(NetworkParams), List<NodeInterfacePair> nodeInterfacePairs = default(List<NodeInterfacePair>))
         {
+            this.GroupType = groupType;
+            this.Id = id;
+            this.ModelInterfaceLists = modelInterfaceLists;
+            this.Name = name;
+            this.NodeInterfacePairs = nodeInterfacePairs;
             this.GroupType = groupType;
             this.Id = id;
             this.ModelInterfaceLists = modelInterfaceLists;
@@ -132,7 +135,7 @@ namespace Cohesity.Model
                     this.ModelInterfaceLists == input.ModelInterfaceLists ||
                     this.ModelInterfaceLists != null &&
                     input.ModelInterfaceLists != null &&
-                    this.ModelInterfaceLists.Equals(input.ModelInterfaceLists)
+                    this.ModelInterfaceLists.SequenceEqual(input.ModelInterfaceLists)
                 ) && 
                 (
                     this.Name == input.Name ||
@@ -148,7 +151,7 @@ namespace Cohesity.Model
                     this.NodeInterfacePairs == input.NodeInterfacePairs ||
                     this.NodeInterfacePairs != null &&
                     input.NodeInterfacePairs != null &&
-                    this.NodeInterfacePairs.Equals(input.NodeInterfacePairs)
+                    this.NodeInterfacePairs.SequenceEqual(input.NodeInterfacePairs)
                 );
         }
 

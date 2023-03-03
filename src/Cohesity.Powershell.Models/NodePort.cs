@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -70,6 +68,10 @@ namespace Cohesity.Model
         /// <param name="tag">Specifies use of the nodeport kDefault - No specific service. kHttp - HTTP server. kHttps -  Secure HTTP server. kSsh - Secure shell server..</param>
         public NodePort(bool? isUiPort = default(bool?), int? port = default(int?), string serviceName = default(string), TagEnum? tag = default(TagEnum?))
         {
+            this.IsUiPort = isUiPort;
+            this.Port = port;
+            this.ServiceName = serviceName;
+            this.Tag = tag;
             this.IsUiPort = isUiPort;
             this.Port = port;
             this.ServiceName = serviceName;
@@ -166,8 +168,7 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Port.GetHashCode();
                 if (this.ServiceName != null)
                     hashCode = hashCode * 59 + this.ServiceName.GetHashCode();
-                if (this.Tag != null)
-					hashCode = hashCode * 59 + this.Tag.GetHashCode();
+                hashCode = hashCode * 59 + this.Tag.GetHashCode();
                 return hashCode;
             }
         }

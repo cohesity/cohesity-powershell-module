@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -33,14 +31,15 @@ namespace Cohesity.Model
         /// <param name="name">Specifies name of the gflag. (required).</param>
         /// <param name="productModel">Specifies product model this gflag set on..</param>
         /// <param name="reason">Specifies reason for setting the gflag..</param>
-        /// <param name="timestamp">Specifies timestamp when gflag was set..</param>
         /// <param name="value">Specifies value of the gflag..</param>
-        public Gflag(string name = default(string), string productModel = default(string), string reason = default(string), long? timestamp = default(long?), string value = default(string))
+        public Gflag(string name = default(string), string productModel = default(string), string reason = default(string), string value = default(string))
         {
             this.Name = name;
             this.ProductModel = productModel;
             this.Reason = reason;
-            this.Timestamp = timestamp;
+            this.Value = value;
+            this.ProductModel = productModel;
+            this.Reason = reason;
             this.Value = value;
         }
         
@@ -70,7 +69,7 @@ namespace Cohesity.Model
         /// </summary>
         /// <value>Specifies timestamp when gflag was set.</value>
         [DataMember(Name="timestamp", EmitDefaultValue=true)]
-        public long? Timestamp { get; set; }
+        public long? Timestamp { get; private set; }
 
         /// <summary>
         /// Specifies value of the gflag.

@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -34,6 +32,13 @@ namespace Cohesity.Model
         /// <param name="username">Specifies the account name used to access the QStar host..</param>
         public QStarServerCredentials(string host = default(string), List<string> integralVolumeNames = default(List<string>), string password = default(string), int? port = default(int?), string shareType = default(string), bool? useHttps = default(bool?), string username = default(string))
         {
+            this.Host = host;
+            this.IntegralVolumeNames = integralVolumeNames;
+            this.Password = password;
+            this.Port = port;
+            this.ShareType = shareType;
+            this.UseHttps = useHttps;
+            this.Username = username;
             this.Host = host;
             this.IntegralVolumeNames = integralVolumeNames;
             this.Password = password;
@@ -137,7 +142,7 @@ namespace Cohesity.Model
                     this.IntegralVolumeNames == input.IntegralVolumeNames ||
                     this.IntegralVolumeNames != null &&
                     input.IntegralVolumeNames != null &&
-                    this.IntegralVolumeNames.Equals(input.IntegralVolumeNames)
+                    this.IntegralVolumeNames.SequenceEqual(input.IntegralVolumeNames)
                 ) && 
                 (
                     this.Password == input.Password ||

@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -35,6 +33,14 @@ namespace Cohesity.Model
         /// <param name="tags">Tags are list of tags that will be operated on to corresponding objects. This is deprecated. Use tagIds instead. deprecated: true.</param>
         public TagsOperationParameters(long? clusterId = default(long?), long? clusterIncarnationId = default(long?), List<string> documentIds = default(List<string>), long? entityId = default(long?), long? jobId = default(long?), List<long> jobInstanceIds = default(List<long>), List<string> tagIds = default(List<string>), List<string> tags = default(List<string>))
         {
+            this.ClusterId = clusterId;
+            this.ClusterIncarnationId = clusterIncarnationId;
+            this.DocumentIds = documentIds;
+            this.EntityId = entityId;
+            this.JobId = jobId;
+            this.JobInstanceIds = jobInstanceIds;
+            this.TagIds = tagIds;
+            this.Tags = tags;
             this.ClusterId = clusterId;
             this.ClusterIncarnationId = clusterIncarnationId;
             this.DocumentIds = documentIds;
@@ -151,7 +157,7 @@ namespace Cohesity.Model
                     this.DocumentIds == input.DocumentIds ||
                     this.DocumentIds != null &&
                     input.DocumentIds != null &&
-                    this.DocumentIds.Equals(input.DocumentIds)
+                    this.DocumentIds.SequenceEqual(input.DocumentIds)
                 ) && 
                 (
                     this.EntityId == input.EntityId ||
@@ -167,19 +173,19 @@ namespace Cohesity.Model
                     this.JobInstanceIds == input.JobInstanceIds ||
                     this.JobInstanceIds != null &&
                     input.JobInstanceIds != null &&
-                    this.JobInstanceIds.Equals(input.JobInstanceIds)
+                    this.JobInstanceIds.SequenceEqual(input.JobInstanceIds)
                 ) && 
                 (
                     this.TagIds == input.TagIds ||
                     this.TagIds != null &&
                     input.TagIds != null &&
-                    this.TagIds.Equals(input.TagIds)
+                    this.TagIds.SequenceEqual(input.TagIds)
                 ) && 
                 (
                     this.Tags == input.Tags ||
                     this.Tags != null &&
                     input.Tags != null &&
-                    this.Tags.Equals(input.Tags)
+                    this.Tags.SequenceEqual(input.Tags)
                 );
         }
 

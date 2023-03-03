@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -28,8 +26,11 @@ namespace Cohesity.Model
         /// <param name="emailAddress">emailAddress.</param>
         /// <param name="locale">Specifies the language in which the emails sent to the above defined mail address should be in..</param>
         /// <param name="recipientType">Specifies the recipient type on how the emails are to received..</param>
-        public EmailDeliveryTarget(string emailAddress = default(string), string locale = default(string), string recipientType = default(string))
+        public EmailDeliveryTarget(string emailAddress = default(string), string locale = default(string), int? recipientType = default(int?))
         {
+            this.EmailAddress = emailAddress;
+            this.Locale = locale;
+            this.RecipientType = recipientType;
             this.EmailAddress = emailAddress;
             this.Locale = locale;
             this.RecipientType = recipientType;
@@ -53,7 +54,7 @@ namespace Cohesity.Model
         /// </summary>
         /// <value>Specifies the recipient type on how the emails are to received.</value>
         [DataMember(Name="recipientType", EmitDefaultValue=true)]
-        public string RecipientType { get; set; }
+        public int? RecipientType { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object

@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -32,6 +30,11 @@ namespace Cohesity.Model
         /// <param name="tenantId">Specifies the unique id of the tenant..</param>
         public TenantConfig(bool? bifrostEnabled = default(bool?), string name = default(string), bool? restricted = default(bool?), List<string> roles = default(List<string>), string tenantId = default(string))
         {
+            this.BifrostEnabled = bifrostEnabled;
+            this.Name = name;
+            this.Restricted = restricted;
+            this.Roles = roles;
+            this.TenantId = tenantId;
             this.BifrostEnabled = bifrostEnabled;
             this.Name = name;
             this.Restricted = restricted;
@@ -129,7 +132,7 @@ namespace Cohesity.Model
                     this.Roles == input.Roles ||
                     this.Roles != null &&
                     input.Roles != null &&
-                    this.Roles.Equals(input.Roles)
+                    this.Roles.SequenceEqual(input.Roles)
                 ) && 
                 (
                     this.TenantId == input.TenantId ||

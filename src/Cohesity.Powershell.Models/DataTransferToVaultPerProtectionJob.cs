@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -31,6 +29,10 @@ namespace Cohesity.Model
         /// <param name="storageConsumed">Specifies the total number of storage bytes consumed that are transferred from this Cohesity Cluster to this vault for this Protection Job..</param>
         public DataTransferToVaultPerProtectionJob(long? numLogicalBytesTransferred = default(long?), long? numPhysicalBytesTransferred = default(long?), string protectionJobName = default(string), long? storageConsumed = default(long?))
         {
+            this.NumLogicalBytesTransferred = numLogicalBytesTransferred;
+            this.NumPhysicalBytesTransferred = numPhysicalBytesTransferred;
+            this.ProtectionJobName = protectionJobName;
+            this.StorageConsumed = storageConsumed;
             this.NumLogicalBytesTransferred = numLogicalBytesTransferred;
             this.NumPhysicalBytesTransferred = numPhysicalBytesTransferred;
             this.ProtectionJobName = protectionJobName;

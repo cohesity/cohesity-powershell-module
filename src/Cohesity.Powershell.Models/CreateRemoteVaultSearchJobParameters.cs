@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -50,6 +48,13 @@ namespace Cohesity.Model
             this.SearchJobName = searchJobName;
             this.StartTimeUsecs = startTimeUsecs;
             this.VaultId = vaultId;
+            this.JobUids = jobUids;
+            this.ClusterId = clusterId;
+            this.ClusterMatchString = clusterMatchString;
+            this.EncryptionKeys = encryptionKeys;
+            this.EndTimeUsecs = endTimeUsecs;
+            this.JobMatchString = jobMatchString;
+            this.StartTimeUsecs = startTimeUsecs;
         }
         
         /// <summary>
@@ -155,7 +160,7 @@ namespace Cohesity.Model
                     this.JobUids == input.JobUids ||
                     this.JobUids != null &&
                     input.JobUids != null &&
-                    this.JobUids.Equals(input.JobUids)
+                    this.JobUids.SequenceEqual(input.JobUids)
                 ) && 
                 (
                     this.ClusterId == input.ClusterId ||
@@ -171,7 +176,7 @@ namespace Cohesity.Model
                     this.EncryptionKeys == input.EncryptionKeys ||
                     this.EncryptionKeys != null &&
                     input.EncryptionKeys != null &&
-                    this.EncryptionKeys.Equals(input.EncryptionKeys)
+                    this.EncryptionKeys.SequenceEqual(input.EncryptionKeys)
                 ) && 
                 (
                     this.EndTimeUsecs == input.EndTimeUsecs ||

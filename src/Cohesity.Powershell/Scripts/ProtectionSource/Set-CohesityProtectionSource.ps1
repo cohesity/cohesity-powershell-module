@@ -14,8 +14,15 @@ function Set-CohesityProtectionSource {
         .EXAMPLE
         $protecionSource = Get-CohesityProtectionSource -Id 121
         $protecionSource.Name = "UpdatedName"
+        $protecionSource.Name = "UpdatedName"
         $protecionSource | Set-CohesityProtectionSource
         Returns updated registered protection sources when the object is piped.
+        .EXAMPLE
+        Update the credentials of a VMware Protection Source.
+        $protecionSource = Get-CohesityProtectionSource -Id 1
+        $protecionSource |Add-Member -Name username  -Value "Administrator" -Type NoteProperty
+        $protecionSource |Add-Member -Name password  -Value "cohesity" -Type NoteProperty
+        $protecionSource | Set-CohesityProtectionSource
     #>
     [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = "High")]
     Param(

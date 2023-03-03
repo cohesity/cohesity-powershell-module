@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -32,6 +30,11 @@ namespace Cohesity.Model
         /// <param name="sourceIds">Ids of the Protection Sources. If this is specified, retention time will only be updated for the sources specified..</param>
         public UpdateProtectionJobRun(List<RunJobSnapshotTarget> copyRunTargets = default(List<RunJobSnapshotTarget>), UniversalId jobUid = default(UniversalId), long? runStartTimeUsecs = default(long?), string runType = default(string), List<long> sourceIds = default(List<long>))
         {
+            this.CopyRunTargets = copyRunTargets;
+            this.JobUid = jobUid;
+            this.RunStartTimeUsecs = runStartTimeUsecs;
+            this.RunType = runType;
+            this.SourceIds = sourceIds;
             this.CopyRunTargets = copyRunTargets;
             this.JobUid = jobUid;
             this.RunStartTimeUsecs = runStartTimeUsecs;
@@ -114,7 +117,7 @@ namespace Cohesity.Model
                     this.CopyRunTargets == input.CopyRunTargets ||
                     this.CopyRunTargets != null &&
                     input.CopyRunTargets != null &&
-                    this.CopyRunTargets.Equals(input.CopyRunTargets)
+                    this.CopyRunTargets.SequenceEqual(input.CopyRunTargets)
                 ) && 
                 (
                     this.JobUid == input.JobUid ||
@@ -135,7 +138,7 @@ namespace Cohesity.Model
                     this.SourceIds == input.SourceIds ||
                     this.SourceIds != null &&
                     input.SourceIds != null &&
-                    this.SourceIds.Equals(input.SourceIds)
+                    this.SourceIds.SequenceEqual(input.SourceIds)
                 );
         }
 

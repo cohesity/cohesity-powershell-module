@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -45,6 +43,17 @@ namespace Cohesity.Model
         /// <param name="useScnForRestore">Whether database recovery should be performed using the SCN value or time value. Currently this is applicable only during overwrite restore and clone workflow. In case of alternate restore we cannot use it since we cannot set until scn clause if we don&#39;t catalog the backup view..</param>
         public RestoreOracleAppObjectParams(RestoreOracleAppObjectParamsAlternateLocationParams alternateLocationParams = default(RestoreOracleAppObjectParamsAlternateLocationParams), bool? attemptCompleteRecovery = default(bool?), GranularRestoreInfo granularRestoreInfo = default(GranularRestoreInfo), bool? isMultiStageRestore = default(bool?), bool? noOpenMode = default(bool?), OracleArchiveLogInfo oracleArchiveLogRestoreInfo = default(OracleArchiveLogInfo), List<CloneAppViewParams> oracleCloneAppViewParamsVec = default(List<CloneAppViewParams>), OracleRecoveryValidationInfo oracleRecoveryValidationInfo = default(OracleRecoveryValidationInfo), OracleSourceParams oracleTargetParams = default(OracleSourceParams), OracleUpdateRestoreTaskOptions oracleUpdateRestoreOptions = default(OracleUpdateRestoreTaskOptions), bool? parallelOpEnabled = default(bool?), RestoreSpfileOrPfileInfo restoreSpfileOrPfileInfo = default(RestoreSpfileOrPfileInfo), long? restoreTimeSecs = default(long?), List<string> rollForwardLogPathVec = default(List<string>), long? rollForwardTimeMsecs = default(long?), List<RestoreOracleAppObjectParamsKeyValuePair> shellEnvironmentVec = default(List<RestoreOracleAppObjectParamsKeyValuePair>), bool? skipCloneNid = default(bool?), bool? useScnForRestore = default(bool?))
         {
+            this.AttemptCompleteRecovery = attemptCompleteRecovery;
+            this.IsMultiStageRestore = isMultiStageRestore;
+            this.NoOpenMode = noOpenMode;
+            this.OracleCloneAppViewParamsVec = oracleCloneAppViewParamsVec;
+            this.ParallelOpEnabled = parallelOpEnabled;
+            this.RestoreTimeSecs = restoreTimeSecs;
+            this.RollForwardLogPathVec = rollForwardLogPathVec;
+            this.RollForwardTimeMsecs = rollForwardTimeMsecs;
+            this.ShellEnvironmentVec = shellEnvironmentVec;
+            this.SkipCloneNid = skipCloneNid;
+            this.UseScnForRestore = useScnForRestore;
             this.AlternateLocationParams = alternateLocationParams;
             this.AttemptCompleteRecovery = attemptCompleteRecovery;
             this.GranularRestoreInfo = granularRestoreInfo;
@@ -253,7 +262,7 @@ namespace Cohesity.Model
                     this.OracleCloneAppViewParamsVec == input.OracleCloneAppViewParamsVec ||
                     this.OracleCloneAppViewParamsVec != null &&
                     input.OracleCloneAppViewParamsVec != null &&
-                    this.OracleCloneAppViewParamsVec.Equals(input.OracleCloneAppViewParamsVec)
+                    this.OracleCloneAppViewParamsVec.SequenceEqual(input.OracleCloneAppViewParamsVec)
                 ) && 
                 (
                     this.OracleRecoveryValidationInfo == input.OracleRecoveryValidationInfo ||
@@ -289,7 +298,7 @@ namespace Cohesity.Model
                     this.RollForwardLogPathVec == input.RollForwardLogPathVec ||
                     this.RollForwardLogPathVec != null &&
                     input.RollForwardLogPathVec != null &&
-                    this.RollForwardLogPathVec.Equals(input.RollForwardLogPathVec)
+                    this.RollForwardLogPathVec.SequenceEqual(input.RollForwardLogPathVec)
                 ) && 
                 (
                     this.RollForwardTimeMsecs == input.RollForwardTimeMsecs ||
@@ -300,7 +309,7 @@ namespace Cohesity.Model
                     this.ShellEnvironmentVec == input.ShellEnvironmentVec ||
                     this.ShellEnvironmentVec != null &&
                     input.ShellEnvironmentVec != null &&
-                    this.ShellEnvironmentVec.Equals(input.ShellEnvironmentVec)
+                    this.ShellEnvironmentVec.SequenceEqual(input.ShellEnvironmentVec)
                 ) && 
                 (
                     this.SkipCloneNid == input.SkipCloneNid ||

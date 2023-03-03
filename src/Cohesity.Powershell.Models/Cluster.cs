@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -206,8 +204,7 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="Cluster" /> class.
         /// </summary>
         /// <param name="amqpTargetConfig">amqpTargetConfig.</param>
-        /// <param name="appsSettings">appsSettings.</param>
-		/// <param name="appsSubnet">appsSubnet.</param>
+        /// <param name="appsSubnet">appsSubnet.</param>
         /// <param name="assignedRacksCount">Specifies the number of racks in cluster with at least one rack assigned..</param>
         /// <param name="availableMetadataSpace">Information about storage available for metadata.</param>
         /// <param name="bannerEnabled">Specifies whether UI banner is enabled on the cluster or not. When banner is enabled, UI will make an additional API call to fetch the banner and show at the login page..</param>
@@ -220,7 +217,6 @@ namespace Cohesity.Model
         /// <param name="currentOpScheduledTimeSecs">Specifies the time scheduled by the Cohesity Cluster to start the current running operation..</param>
         /// <param name="currentOperation">Specifies the current Cluster-level operation in progress. &#39;kUpgrade&#39; indicates the Cohesity Cluster is upgrading to a new release. &#39;kRemoveNode&#39; indicates the Cohesity Cluster is removing a Node from the Cluster. &#39;kNone&#39; indicates no action is occurring on the Cohesity Cluster. &#39;kDestroy&#39; indicates the Cohesity Cluster is getting destoryed. &#39;kClean&#39; indicates the Cohesity Cluster is getting cleaned. &#39;kRestartServices&#39; indicates the Cohesity Cluster is restarting the services. &#39;kRestartSystemServices&#39; indicates the Cohesity Cluster is restarting the system services..</param>
         /// <param name="currentTimeMsecs">Specifies the current system time on the Cohesity Cluster. This value is specified as a Unix epoch Timestamp (in microseconds)..</param>
-        /// <param name="diskCountByTier">Specifies the number of disks on the cluster by Storage Tier..</param>
         /// <param name="dnsServerIps">Array of IP Addresses of DNS Servers.  Specifies the IP addresses of the DNS Servers used by the Cohesity Cluster..</param>
         /// <param name="domainNames">Array of Domain Names.  The first domain name specified in the array is the fully qualified domain name assigned to the Cohesity Cluster. Any additional domain names specified are used for the domain search list for hostname look-up..</param>
         /// <param name="enableActiveMonitoring">Specifies if Cohesity can receive monitoring information from the Cohesity Cluster. If &#39;true&#39;, remote monitoring of the Cohesity Cluster is allowed..</param>
@@ -276,7 +272,7 @@ namespace Cohesity.Model
         /// <param name="turboMode">Specifies if the cluster is in Turbo mode..</param>
         /// <param name="useHeimdall">Specifies whether to enable Heimdall which tells whether services should use temporary fleet instances to mount disks by talking to Heimdall..</param>
         /// <param name="usedMetadataSpacePct">UsedMetadataSpacePct measures the percentage about storage used for metadata over the total storage available for metadata.</param>
-        public Cluster(AMQPTargetConfig amqpTargetConfig = default(AMQPTargetConfig), Subnet appsSubnet = default(Subnet), AppsConfig appsSettings = default(AppsConfig), int? assignedRacksCount = default(int?), long? availableMetadataSpace = default(long?), bool? bannerEnabled = default(bool?), int? chassisCount = default(int?), ClusterAuditLogConfiguration clusterAuditLogConfig = default(ClusterAuditLogConfiguration), ClusterSizeEnum? clusterSize = default(ClusterSizeEnum?), string clusterSoftwareVersion = default(string), ClusterTypeEnum? clusterType = default(ClusterTypeEnum?), long? createdTimeMsecs = default(long?), long? currentOpScheduledTimeSecs = default(long?), CurrentOperationEnum? currentOperation = default(CurrentOperationEnum?), long? currentTimeMsecs = default(long?), List<CountByTier> diskCountByTier = default(List<CountByTier>), List<string> dnsServerIps = default(List<string>), List<string> domainNames = default(List<string>), bool? enableActiveMonitoring = default(bool?), bool? enablePatchesDownload = default(bool?), bool? enableUpgradePkgPolling = default(bool?), bool? encryptionEnabled = default(bool?), long? encryptionKeyRotationPeriodSecs = default(long?), EulaConfig eulaConfig = default(EulaConfig), FaultToleranceLevelEnum? faultToleranceLevel = default(FaultToleranceLevelEnum?), FilerAuditLogConfiguration filerAuditLogConfig = default(FilerAuditLogConfiguration), bool? fipsModeEnabled = default(bool?), string gateway = default(string), bool? googleAnalyticsEnabled = default(bool?), bool? hardwareEncryptionEnabled = default(bool?), ClusterHardwareInfo hardwareInfo = default(ClusterHardwareInfo), long? id = default(long?), long? incarnationId = default(long?), int? ipPreference = default(int?), bool? isAthenaSubnetClash = default(bool?), bool? isClusterMfaEnabled = default(bool?), bool? isDocumentationLocal = default(bool?), long? kmsServerId = default(long?), string languageLocale = default(string), LicenseState licenseState = default(LicenseState), string localAuthDomainName = default(string), bool? localGroupsEnabled = default(bool?), int? metadataFaultToleranceFactor = default(int?), int? minimumFailureDomainsNeeded = default(int?), bool? multiTenancyEnabled = default(bool?), string name = default(string), long? nodeCount = default(long?), string nodeIps = default(string), NtpSettingsConfig ntpSettings = default(NtpSettingsConfig), string patchVersion = default(string), int? pcieSsdTierRebalanceDelaySecs = default(int?), bool? protoRpcEncryptionEnabled = default(bool?), string proxyVMSubnet = default(string), bool? reverseTunnelEnabled = default(bool?), long? reverseTunnelEndTimeMsecs = default(long?), List<SchemaInfo> schemaInfoList = default(List<SchemaInfo>), bool? securityModeDod = default(bool?), bool? smbAdDisabled = default(bool?), bool? smbMultichannelEnabled = default(bool?), ClusterStats stats = default(ClusterStats), bool? stigMode = default(bool?), SupportedConfig supportedConfig = default(SupportedConfig), List<OldSyslogServer> syslogServers = default(List<OldSyslogServer>), string targetSoftwareVersion = default(string), bool? tenantViewboxSharingEnabled = default(bool?), TieringAuditLogConfiguration tieringAuditLogConfig = default(TieringAuditLogConfiguration), string timezone = default(string), string trustDomain = default(string), bool? turboMode = default(bool?), bool? useHeimdall = default(bool?), double? usedMetadataSpacePct = default(double?))
+        public Cluster(AMQPTargetConfig amqpTargetConfig = default(AMQPTargetConfig), Subnet appsSubnet = default(Subnet), int? assignedRacksCount = default(int?), long? availableMetadataSpace = default(long?), bool? bannerEnabled = default(bool?), int? chassisCount = default(int?), ClusterAuditLogConfiguration clusterAuditLogConfig = default(ClusterAuditLogConfiguration), ClusterSizeEnum? clusterSize = default(ClusterSizeEnum?), string clusterSoftwareVersion = default(string), ClusterTypeEnum? clusterType = default(ClusterTypeEnum?), long? createdTimeMsecs = default(long?), long? currentOpScheduledTimeSecs = default(long?), CurrentOperationEnum? currentOperation = default(CurrentOperationEnum?), long? currentTimeMsecs = default(long?), List<string> dnsServerIps = default(List<string>), List<string> domainNames = default(List<string>), bool? enableActiveMonitoring = default(bool?), bool? enablePatchesDownload = default(bool?), bool? enableUpgradePkgPolling = default(bool?), bool? encryptionEnabled = default(bool?), long? encryptionKeyRotationPeriodSecs = default(long?), EulaConfig eulaConfig = default(EulaConfig), FaultToleranceLevelEnum? faultToleranceLevel = default(FaultToleranceLevelEnum?), FilerAuditLogConfiguration filerAuditLogConfig = default(FilerAuditLogConfiguration), bool? fipsModeEnabled = default(bool?), string gateway = default(string), bool? googleAnalyticsEnabled = default(bool?), bool? hardwareEncryptionEnabled = default(bool?), ClusterHardwareInfo hardwareInfo = default(ClusterHardwareInfo), long? id = default(long?), long? incarnationId = default(long?), int? ipPreference = default(int?), bool? isAthenaSubnetClash = default(bool?), bool? isClusterMfaEnabled = default(bool?), bool? isDocumentationLocal = default(bool?), long? kmsServerId = default(long?), string languageLocale = default(string), LicenseState licenseState = default(LicenseState), string localAuthDomainName = default(string), bool? localGroupsEnabled = default(bool?), int? metadataFaultToleranceFactor = default(int?), int? minimumFailureDomainsNeeded = default(int?), bool? multiTenancyEnabled = default(bool?), string name = default(string), long? nodeCount = default(long?), string nodeIps = default(string), NtpSettingsConfig ntpSettings = default(NtpSettingsConfig), string patchVersion = default(string), int? pcieSsdTierRebalanceDelaySecs = default(int?), bool? protoRpcEncryptionEnabled = default(bool?), string proxyVMSubnet = default(string), bool? reverseTunnelEnabled = default(bool?), long? reverseTunnelEndTimeMsecs = default(long?), List<SchemaInfo> schemaInfoList = default(List<SchemaInfo>), bool? securityModeDod = default(bool?), bool? smbAdDisabled = default(bool?), bool? smbMultichannelEnabled = default(bool?), ClusterStats stats = default(ClusterStats), bool? stigMode = default(bool?), SupportedConfig supportedConfig = default(SupportedConfig), List<OldSyslogServer> syslogServers = default(List<OldSyslogServer>), string targetSoftwareVersion = default(string), bool? tenantViewboxSharingEnabled = default(bool?), TieringAuditLogConfiguration tieringAuditLogConfig = default(TieringAuditLogConfiguration), string timezone = default(string), string trustDomain = default(string), bool? turboMode = default(bool?), bool? useHeimdall = default(bool?), double? usedMetadataSpacePct = default(double?))
         {
             this.AssignedRacksCount = assignedRacksCount;
             this.AvailableMetadataSpace = availableMetadataSpace;
@@ -289,7 +285,6 @@ namespace Cohesity.Model
             this.CurrentOpScheduledTimeSecs = currentOpScheduledTimeSecs;
             this.CurrentOperation = currentOperation;
             this.CurrentTimeMsecs = currentTimeMsecs;
-            this.DiskCountByTier = diskCountByTier;
             this.DnsServerIps = dnsServerIps;
             this.DomainNames = domainNames;
             this.EnableActiveMonitoring = enableActiveMonitoring;
@@ -340,7 +335,6 @@ namespace Cohesity.Model
             this.UseHeimdall = useHeimdall;
             this.UsedMetadataSpacePct = usedMetadataSpacePct;
             this.AmqpTargetConfig = amqpTargetConfig;
-			this.AppsSettings = appsSettings;
             this.AppsSubnet = appsSubnet;
             this.AssignedRacksCount = assignedRacksCount;
             this.AvailableMetadataSpace = availableMetadataSpace;
@@ -416,11 +410,6 @@ namespace Cohesity.Model
         /// </summary>
         [DataMember(Name="amqpTargetConfig", EmitDefaultValue=false)]
         public AMQPTargetConfig AmqpTargetConfig { get; set; }
-
-		/// Gets or Sets AppsSettings
-        /// </summary>
-        [DataMember(Name="appsSettings", EmitDefaultValue=false)]
-        public AppsConfig AppsSettings { get; set; }
 
         /// <summary>
         /// Gets or Sets AppsSubnet
@@ -909,17 +898,12 @@ namespace Cohesity.Model
                     this.AmqpTargetConfig == input.AmqpTargetConfig ||
                     (this.AmqpTargetConfig != null &&
                     this.AmqpTargetConfig.Equals(input.AmqpTargetConfig))
-                ) &&
-				(
-                    this.AppsSettings == input.AppsSettings ||
-                    (this.AppsSettings != null &&
-                    this.AppsSettings.Equals(input.AppsSettings))
-                ) &&
+                ) && 
                 (
                     this.AppsSubnet == input.AppsSubnet ||
                     (this.AppsSubnet != null &&
                     this.AppsSubnet.Equals(input.AppsSubnet))
-                ) &&
+                ) && 
                 (
                     this.AssignedRacksCount == input.AssignedRacksCount ||
                     (this.AssignedRacksCount != null &&
@@ -981,19 +965,19 @@ namespace Cohesity.Model
                     this.DiskCountByTier == input.DiskCountByTier ||
                     this.DiskCountByTier != null &&
                     input.DiskCountByTier != null &&
-                    this.DiskCountByTier.Equals(input.DiskCountByTier)
+                    this.DiskCountByTier.SequenceEqual(input.DiskCountByTier)
                 ) && 
                 (
                     this.DnsServerIps == input.DnsServerIps ||
                     this.DnsServerIps != null &&
                     input.DnsServerIps != null &&
-                    this.DnsServerIps.Equals(input.DnsServerIps)
+                    this.DnsServerIps.SequenceEqual(input.DnsServerIps)
                 ) && 
                 (
                     this.DomainNames == input.DomainNames ||
                     this.DomainNames != null &&
                     input.DomainNames != null &&
-                    this.DomainNames.Equals(input.DomainNames)
+                    this.DomainNames.SequenceEqual(input.DomainNames)
                 ) && 
                 (
                     this.EnableActiveMonitoring == input.EnableActiveMonitoring ||
@@ -1183,7 +1167,7 @@ namespace Cohesity.Model
                     this.SchemaInfoList == input.SchemaInfoList ||
                     this.SchemaInfoList != null &&
                     input.SchemaInfoList != null &&
-                    this.SchemaInfoList.Equals(input.SchemaInfoList)
+                    this.SchemaInfoList.SequenceEqual(input.SchemaInfoList)
                 ) && 
                 (
                     this.SecurityModeDod == input.SecurityModeDod ||
@@ -1219,7 +1203,7 @@ namespace Cohesity.Model
                     this.SyslogServers == input.SyslogServers ||
                     this.SyslogServers != null &&
                     input.SyslogServers != null &&
-                    this.SyslogServers.Equals(input.SyslogServers)
+                    this.SyslogServers.SequenceEqual(input.SyslogServers)
                 ) && 
                 (
                     this.TargetSoftwareVersion == input.TargetSoftwareVersion ||
@@ -1274,8 +1258,6 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.AmqpTargetConfig != null)
                     hashCode = hashCode * 59 + this.AmqpTargetConfig.GetHashCode();
-				if (this.AppsSettings != null)
-                    hashCode = hashCode * 59 + this.AppsSettings.GetHashCode();
                 if (this.AppsSubnet != null)
                     hashCode = hashCode * 59 + this.AppsSubnet.GetHashCode();
                 if (this.AssignedRacksCount != null)
@@ -1288,8 +1270,7 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ChassisCount.GetHashCode();
                 if (this.ClusterAuditLogConfig != null)
                     hashCode = hashCode * 59 + this.ClusterAuditLogConfig.GetHashCode();
-                if (this.ClusterSize != null)
-					hashCode = hashCode * 59 + this.ClusterSize.GetHashCode();
+                hashCode = hashCode * 59 + this.ClusterSize.GetHashCode();
                 if (this.ClusterSoftwareVersion != null)
                     hashCode = hashCode * 59 + this.ClusterSoftwareVersion.GetHashCode();
                 hashCode = hashCode * 59 + this.ClusterType.GetHashCode();
@@ -1318,8 +1299,7 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.EncryptionKeyRotationPeriodSecs.GetHashCode();
                 if (this.EulaConfig != null)
                     hashCode = hashCode * 59 + this.EulaConfig.GetHashCode();
-                if (this.FaultToleranceLevel != null)
-					hashCode = hashCode * 59 + this.FaultToleranceLevel.GetHashCode();
+                hashCode = hashCode * 59 + this.FaultToleranceLevel.GetHashCode();
                 if (this.FilerAuditLogConfig != null)
                     hashCode = hashCode * 59 + this.FilerAuditLogConfig.GetHashCode();
                 if (this.FipsModeEnabled != null)

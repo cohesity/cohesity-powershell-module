@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -42,6 +40,20 @@ namespace Cohesity.Model
         /// <param name="tieringGoal">Tiering Goal, i.e. the maximum amount of data that should be present on source after downtiering..</param>
         public FileStubbingParams(long? coldFileWindow = default(long?), bool? deleteOrphanData = default(bool?), bool? enableAuditLogging = default(bool?), bool? enableChecksumVerification = default(bool?), int? fileSelectPolicy = default(int?), long? fileSize = default(long?), int? fileSizePolicy = default(int?), FilteringPolicyProto filteringPolicy = default(FilteringPolicyProto), bool? migrateWithoutStub = default(bool?), string nfsMountPath = default(string), string nfsMountPathPrefix = default(string), List<FileStubbingParamsTargetViewMapEntry> targetViewMap = default(List<FileStubbingParamsTargetViewMapEntry>), string targetViewName = default(string), string targetViewPrefix = default(string), long? tieringGoal = default(long?))
         {
+            this.ColdFileWindow = coldFileWindow;
+            this.DeleteOrphanData = deleteOrphanData;
+            this.EnableAuditLogging = enableAuditLogging;
+            this.EnableChecksumVerification = enableChecksumVerification;
+            this.FileSelectPolicy = fileSelectPolicy;
+            this.FileSize = fileSize;
+            this.FileSizePolicy = fileSizePolicy;
+            this.MigrateWithoutStub = migrateWithoutStub;
+            this.NfsMountPath = nfsMountPath;
+            this.NfsMountPathPrefix = nfsMountPathPrefix;
+            this.TargetViewMap = targetViewMap;
+            this.TargetViewName = targetViewName;
+            this.TargetViewPrefix = targetViewPrefix;
+            this.TieringGoal = tieringGoal;
             this.ColdFileWindow = coldFileWindow;
             this.DeleteOrphanData = deleteOrphanData;
             this.EnableAuditLogging = enableAuditLogging;
@@ -258,7 +270,7 @@ namespace Cohesity.Model
                     this.TargetViewMap == input.TargetViewMap ||
                     this.TargetViewMap != null &&
                     input.TargetViewMap != null &&
-                    this.TargetViewMap.Equals(input.TargetViewMap)
+                    this.TargetViewMap.SequenceEqual(input.TargetViewMap)
                 ) && 
                 (
                     this.TargetViewName == input.TargetViewName ||

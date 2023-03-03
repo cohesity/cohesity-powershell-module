@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -30,6 +28,9 @@ namespace Cohesity.Model
         /// <param name="overusedVm">Number of overused VM spinned..</param>
         public Overusage(string featureName = default(string), long? overusedGiB = default(long?), long? overusedVm = default(long?))
         {
+            this.FeatureName = featureName;
+            this.OverusedGiB = overusedGiB;
+            this.OverusedVm = overusedVm;
             this.FeatureName = featureName;
             this.OverusedGiB = overusedGiB;
             this.OverusedVm = overusedVm;

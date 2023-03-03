@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -31,6 +29,10 @@ namespace Cohesity.Model
         /// <param name="zookeeperQuorum">Specifies the HBase zookeeper quorum..</param>
         public HBaseConnectParams(long? hdfsEntityId = default(long?), string kerberosPrincipal = default(string), string rootDataDirectory = default(string), List<string> zookeeperQuorum = default(List<string>))
         {
+            this.HdfsEntityId = hdfsEntityId;
+            this.KerberosPrincipal = kerberosPrincipal;
+            this.RootDataDirectory = rootDataDirectory;
+            this.ZookeeperQuorum = zookeeperQuorum;
             this.HdfsEntityId = hdfsEntityId;
             this.KerberosPrincipal = kerberosPrincipal;
             this.RootDataDirectory = rootDataDirectory;
@@ -120,7 +122,7 @@ namespace Cohesity.Model
                     this.ZookeeperQuorum == input.ZookeeperQuorum ||
                     this.ZookeeperQuorum != null &&
                     input.ZookeeperQuorum != null &&
-                    this.ZookeeperQuorum.Equals(input.ZookeeperQuorum)
+                    this.ZookeeperQuorum.SequenceEqual(input.ZookeeperQuorum)
                 );
         }
 

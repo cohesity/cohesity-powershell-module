@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -225,7 +223,7 @@ namespace Cohesity.Model
                     this.DiskBlocks == input.DiskBlocks ||
                     this.DiskBlocks != null &&
                     input.DiskBlocks != null &&
-                    this.DiskBlocks.Equals(input.DiskBlocks)
+                    this.DiskBlocks.SequenceEqual(input.DiskBlocks)
                 ) && 
                 (
                     this.DiskFormat == input.DiskFormat ||
@@ -235,7 +233,7 @@ namespace Cohesity.Model
                     this.DiskPartitions == input.DiskPartitions ||
                     this.DiskPartitions != null &&
                     input.DiskPartitions != null &&
-                    this.DiskPartitions.Equals(input.DiskPartitions)
+                    this.DiskPartitions.SequenceEqual(input.DiskPartitions)
                 ) && 
                 (
                     this.PartitionTableFormat == input.PartitionTableFormat ||

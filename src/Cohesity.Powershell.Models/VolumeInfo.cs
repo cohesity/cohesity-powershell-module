@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -41,6 +39,18 @@ namespace Cohesity.Model
         /// <param name="volumeType">Whether this volume is simple, lvm or ldm..</param>
         public VolumeInfo(List<VolumeInfoDiskInfo> diskVec = default(List<VolumeInfoDiskInfo>), string displayName = default(string), string filesystemType = default(string), string fsLabel = default(string), string fsUuid = default(string), bool? isBootable = default(bool?), bool? isDedup = default(bool?), bool? isSupported = default(bool?), VolumeInfoLogicalVolumeInfo lvInfo = default(VolumeInfoLogicalVolumeInfo), VolumeInfoSubVolumeInfo subvolInfo = default(VolumeInfoSubVolumeInfo), string volumeGuid = default(string), int? volumeIdentifier = default(int?), int? volumeSourceType = default(int?), int? volumeType = default(int?))
         {
+            this.DiskVec = diskVec;
+            this.DisplayName = displayName;
+            this.FilesystemType = filesystemType;
+            this.FsLabel = fsLabel;
+            this.FsUuid = fsUuid;
+            this.IsBootable = isBootable;
+            this.IsDedup = isDedup;
+            this.IsSupported = isSupported;
+            this.VolumeGuid = volumeGuid;
+            this.VolumeIdentifier = volumeIdentifier;
+            this.VolumeSourceType = volumeSourceType;
+            this.VolumeType = volumeType;
             this.DiskVec = diskVec;
             this.DisplayName = displayName;
             this.FilesystemType = filesystemType;
@@ -193,7 +203,7 @@ namespace Cohesity.Model
                     this.DiskVec == input.DiskVec ||
                     this.DiskVec != null &&
                     input.DiskVec != null &&
-                    this.DiskVec.Equals(input.DiskVec)
+                    this.DiskVec.SequenceEqual(input.DiskVec)
                 ) && 
                 (
                     this.DisplayName == input.DisplayName ||

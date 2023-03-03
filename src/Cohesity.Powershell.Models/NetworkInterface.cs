@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -52,6 +50,30 @@ namespace Cohesity.Model
         /// <param name="virtualIp">Specifies the virtual IP of the interface..</param>
         public NetworkInterface(string activeBondSlave = default(string), List<string> bondSlaveSlotTypes = default(List<string>), List<string> bondSlaves = default(List<string>), List<BondSlaveInfo> bondSlavesDetails = default(List<BondSlaveInfo>), int? bondingMode = default(int?), string gateway = default(string), string gateway6 = default(string), string group = default(string), long? id = default(long?), bool? isConnected = default(bool?), bool? isDefaultRoute = default(bool?), bool? isUp = default(bool?), string macAddress = default(string), int? mtu = default(int?), string name = default(string), string role = default(string), List<string> services = default(List<string>), string speed = default(string), string staticIp = default(string), string staticIp6 = default(string), InterfaceStats stats = default(InterfaceStats), string subnet = default(string), string subnet6 = default(string), int? type = default(int?), string virtualIp = default(string))
         {
+            this.ActiveBondSlave = activeBondSlave;
+            this.BondSlaveSlotTypes = bondSlaveSlotTypes;
+            this.BondSlaves = bondSlaves;
+            this.BondSlavesDetails = bondSlavesDetails;
+            this.BondingMode = bondingMode;
+            this.Gateway = gateway;
+            this.Gateway6 = gateway6;
+            this.Group = group;
+            this.Id = id;
+            this.IsConnected = isConnected;
+            this.IsDefaultRoute = isDefaultRoute;
+            this.IsUp = isUp;
+            this.MacAddress = macAddress;
+            this.Mtu = mtu;
+            this.Name = name;
+            this.Role = role;
+            this.Services = services;
+            this.Speed = speed;
+            this.StaticIp = staticIp;
+            this.StaticIp6 = staticIp6;
+            this.Subnet = subnet;
+            this.Subnet6 = subnet6;
+            this.Type = type;
+            this.VirtualIp = virtualIp;
             this.ActiveBondSlave = activeBondSlave;
             this.BondSlaveSlotTypes = bondSlaveSlotTypes;
             this.BondSlaves = bondSlaves;
@@ -298,19 +320,19 @@ namespace Cohesity.Model
                     this.BondSlaveSlotTypes == input.BondSlaveSlotTypes ||
                     this.BondSlaveSlotTypes != null &&
                     input.BondSlaveSlotTypes != null &&
-                    this.BondSlaveSlotTypes.Equals(input.BondSlaveSlotTypes)
+                    this.BondSlaveSlotTypes.SequenceEqual(input.BondSlaveSlotTypes)
                 ) && 
                 (
                     this.BondSlaves == input.BondSlaves ||
                     this.BondSlaves != null &&
                     input.BondSlaves != null &&
-                    this.BondSlaves.Equals(input.BondSlaves)
+                    this.BondSlaves.SequenceEqual(input.BondSlaves)
                 ) && 
                 (
                     this.BondSlavesDetails == input.BondSlavesDetails ||
                     this.BondSlavesDetails != null &&
                     input.BondSlavesDetails != null &&
-                    this.BondSlavesDetails.Equals(input.BondSlavesDetails)
+                    this.BondSlavesDetails.SequenceEqual(input.BondSlavesDetails)
                 ) && 
                 (
                     this.BondingMode == input.BondingMode ||
@@ -376,7 +398,7 @@ namespace Cohesity.Model
                     this.Services == input.Services ||
                     this.Services != null &&
                     input.Services != null &&
-                    this.Services.Equals(input.Services)
+                    this.Services.SequenceEqual(input.Services)
                 ) && 
                 (
                     this.Speed == input.Speed ||

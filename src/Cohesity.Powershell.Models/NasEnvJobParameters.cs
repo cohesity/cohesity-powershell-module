@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -296,10 +294,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.FilePathFilters.GetHashCode();
                 if (this.FilterIpConfig != null)
                     hashCode = hashCode * 59 + this.FilterIpConfig.GetHashCode();
-                if (this.NasProtocol != null)
-					hashCode = hashCode * 59 + this.NasProtocol.GetHashCode();
-                if (this.NfsVersionPreference != null)
-					hashCode = hashCode * 59 + this.NfsVersionPreference.GetHashCode();
+                hashCode = hashCode * 59 + this.NasProtocol.GetHashCode();
+                hashCode = hashCode * 59 + this.NfsVersionPreference.GetHashCode();
                 if (this.SnapshotLabel != null)
                     hashCode = hashCode * 59 + this.SnapshotLabel.GetHashCode();
                 if (this.ThrottlingConfig != null)

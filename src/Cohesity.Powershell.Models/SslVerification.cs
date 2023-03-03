@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -29,6 +27,8 @@ namespace Cohesity.Model
         /// <param name="isEnabled">Whether SSL verification should be performed..</param>
         public SslVerification(string caCertificate = default(string), bool? isEnabled = default(bool?))
         {
+            this.CaCertificate = caCertificate;
+            this.IsEnabled = isEnabled;
             this.CaCertificate = caCertificate;
             this.IsEnabled = isEnabled;
         }

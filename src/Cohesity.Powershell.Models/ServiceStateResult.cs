@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -69,151 +67,7 @@ namespace Cohesity.Model
             /// Enum KIrisProxy for value: kIrisProxy
             /// </summary>
             [EnumMember(Value = "kIrisProxy")]
-            KIrisProxy = 7,
-
-            /// <summary>
-            /// Enum KScribe for value: kScribe
-            /// </summary>
-            [EnumMember(Value = "kScribe")]
-            KScribe = 8,
-
-            /// <summary>
-            /// Enum KStats for value: kStats
-            /// </summary>
-            [EnumMember(Value = "kStats")]
-            KStats = 9,
-
-            /// <summary>
-            /// Enum KYoda for value: kYoda
-            /// </summary>
-            [EnumMember(Value = "kYoda")]
-            KYoda = 10,
-
-            /// <summary>
-            /// Enum KAlerts for value: kAlerts
-            /// </summary>
-            [EnumMember(Value = "kAlerts")]
-            KAlerts = 11,
-
-            /// <summary>
-            /// Enum KKeychain for value: kKeychain
-            /// </summary>
-            [EnumMember(Value = "kKeychain")]
-            KKeychain = 12,
-
-            /// <summary>
-            /// Enum KLogWatcher for value: kLogWatcher
-            /// </summary>
-            [EnumMember(Value = "kLogWatcher")]
-            KLogWatcher = 13,
-
-            /// <summary>
-            /// Enum KStatsCollecter for value: kStatsCollecter
-            /// </summary>
-            [EnumMember(Value = "kStatsCollecter")]
-            KStatsCollecter = 14,
-
-            /// <summary>
-            /// Enum KGandalf for value: kGandalf
-            /// </summary>
-            [EnumMember(Value = "kGandalf")]
-            KGandalf = 15,
-
-            /// <summary>
-            /// Enum KNexus for value: kNexus
-            /// </summary>
-            [EnumMember(Value = "kNexus")]
-            KNexus = 16,
-
-            /// <summary>
-            /// Enum KNexusProxy for value: kNexusProxy
-            /// </summary>
-            [EnumMember(Value = "kNexusProxy")]
-            KNexusProxy = 17,
-
-            /// <summary>
-            /// Enum KStorageProxy for value: kStorageProxy
-            /// </summary>
-            [EnumMember(Value = "kStorageProxy")]
-            KStorageProxy = 18,
-
-            /// <summary>
-            /// Enum KTricorder for value: kTricorder
-            /// </summary>
-            [EnumMember(Value = "kTricorder")]
-            KTricorder = 19,
-
-            /// <summary>
-            /// Enum KRtClient for value: kRtClient
-            /// </summary>
-            [EnumMember(Value = "kRtClient")]
-            KRtClient = 20,
-
-            /// <summary>
-            /// Enum KVaultProxy for value: kVaultProxy
-            /// </summary>
-            [EnumMember(Value = "kVaultProxy")]
-            KVaultProxy = 21,
-
-            /// <summary>
-            /// Enum KSmbProxy for value: kSmbProxy
-            /// </summary>
-            [EnumMember(Value = "kSmbProxy")]
-            KSmbProxy = 22,
-
-            /// <summary>
-            /// Enum KBridgeProxy for value: kBridgeProxy
-            /// </summary>
-            [EnumMember(Value = "kBridgeProxy")]
-            KBridgeProxy = 23,
-
-            /// <summary>
-            /// Enum KLibrarian for value: kLibrarian
-            /// </summary>
-            [EnumMember(Value = "kLibrarian")]
-            KLibrarian = 24,
-
-            /// <summary>
-            /// Enum KGroot for value: kGroot
-            /// </summary>
-            [EnumMember(Value = "kGroot")]
-            KGroot = 25,
-
-            /// <summary>
-            /// Enum KEagleAgent for value: kEagleAgent
-            /// </summary>
-            [EnumMember(Value = "kEagleAgent")]
-            KEagleAgent = 26,
-
-            /// <summary>
-            /// Enum KAthena for value: kAthena
-            /// </summary>
-            [EnumMember(Value = "kAthena")]
-            KAthena = 27,
-
-            /// <summary>
-            /// Enum KBifrostBroker for value: kBifrostBroker
-            /// </summary>
-            [EnumMember(Value = "kBifrostBroker")]
-            KBifrostBroker = 28,
-
-            /// <summary>
-            /// Enum KSmb2Proxy for value: kSmb2Proxy
-            /// </summary>
-            [EnumMember(Value = "kSmb2Proxy")]
-            KSmb2Proxy = 29,
-
-            /// <summary>
-            /// Enum KOs for value: kOs
-            /// </summary>
-            [EnumMember(Value = "kOs")]
-            KOs = 30,
-
-            /// <summary>
-            /// Enum KAtom for value: kAtom
-            /// </summary>
-            [EnumMember(Value = "kAtom")]
-            KAtom = 31
+            KIrisProxy = 7
 
         }
 
@@ -263,6 +117,8 @@ namespace Cohesity.Model
         /// <param name="state">Specifies the state of the service. &#39;kServiceStopped&#39; indicates that the service has been stopped. &#39;kServiceRunning&#39; indicates that the service is currently running. &#39;kServiceRestarting&#39; indicates that the service is in the queue to be restarted..</param>
         public ServiceStateResult(ServiceEnum? service = default(ServiceEnum?), StateEnum? state = default(StateEnum?))
         {
+            this.Service = service;
+            this.State = state;
             this.Service = service;
             this.State = state;
         }

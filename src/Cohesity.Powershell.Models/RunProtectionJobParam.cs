@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -71,6 +69,11 @@ namespace Cohesity.Model
         /// <param name="usePolicyDefaults">Specifies if default policy settings should be used interanally to copy snapshots to external targets already configured in policy. This field will only apply if \&quot;CopyRunTargets\&quot; is empty..</param>
         public RunProtectionJobParam(List<RunJobSnapshotTarget> copyRunTargets = default(List<RunJobSnapshotTarget>), List<RunNowParameters> runNowParameters = default(List<RunNowParameters>), RunTypeEnum? runType = default(RunTypeEnum?), List<long> sourceIds = default(List<long>), bool? usePolicyDefaults = default(bool?))
         {
+            this.CopyRunTargets = copyRunTargets;
+            this.RunNowParameters = runNowParameters;
+            this.RunType = runType;
+            this.SourceIds = sourceIds;
+            this.UsePolicyDefaults = usePolicyDefaults;
             this.CopyRunTargets = copyRunTargets;
             this.RunNowParameters = runNowParameters;
             this.RunType = runType;
@@ -146,13 +149,13 @@ namespace Cohesity.Model
                     this.CopyRunTargets == input.CopyRunTargets ||
                     this.CopyRunTargets != null &&
                     input.CopyRunTargets != null &&
-                    this.CopyRunTargets.Equals(input.CopyRunTargets)
+                    this.CopyRunTargets.SequenceEqual(input.CopyRunTargets)
                 ) && 
                 (
                     this.RunNowParameters == input.RunNowParameters ||
                     this.RunNowParameters != null &&
                     input.RunNowParameters != null &&
-                    this.RunNowParameters.Equals(input.RunNowParameters)
+                    this.RunNowParameters.SequenceEqual(input.RunNowParameters)
                 ) && 
                 (
                     this.RunType == input.RunType ||
@@ -162,7 +165,7 @@ namespace Cohesity.Model
                     this.SourceIds == input.SourceIds ||
                     this.SourceIds != null &&
                     input.SourceIds != null &&
-                    this.SourceIds.Equals(input.SourceIds)
+                    this.SourceIds.SequenceEqual(input.SourceIds)
                 ) && 
                 (
                     this.UsePolicyDefaults == input.UsePolicyDefaults ||
@@ -184,8 +187,7 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.CopyRunTargets.GetHashCode();
                 if (this.RunNowParameters != null)
                     hashCode = hashCode * 59 + this.RunNowParameters.GetHashCode();
-                if (this.RunType != null)
-					hashCode = hashCode * 59 + this.RunType.GetHashCode();
+                hashCode = hashCode * 59 + this.RunType.GetHashCode();
                 if (this.SourceIds != null)
                     hashCode = hashCode * 59 + this.SourceIds.GetHashCode();
                 if (this.UsePolicyDefaults != null)

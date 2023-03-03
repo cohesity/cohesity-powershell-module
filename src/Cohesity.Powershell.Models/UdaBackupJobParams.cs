@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -167,7 +165,7 @@ namespace Cohesity.Model
                     this.BackupJobArgumentsMap == input.BackupJobArgumentsMap ||
                     this.BackupJobArgumentsMap != null &&
                     input.BackupJobArgumentsMap != null &&
-                    this.BackupJobArgumentsMap.Equals(input.BackupJobArgumentsMap)
+                    this.BackupJobArgumentsMap.SequenceEqual(input.BackupJobArgumentsMap)
                 ) && 
                 (
                     this.Concurrency == input.Concurrency ||
@@ -208,7 +206,7 @@ namespace Cohesity.Model
                     this.UdaObjects == input.UdaObjects ||
                     this.UdaObjects != null &&
                     input.UdaObjects != null &&
-                    this.UdaObjects.Equals(input.UdaObjects)
+                    this.UdaObjects.SequenceEqual(input.UdaObjects)
                 ) && 
                 (
                     this.UdaS3ViewBackupProperties == input.UdaS3ViewBackupProperties ||

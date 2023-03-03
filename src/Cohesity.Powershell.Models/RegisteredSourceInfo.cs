@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -341,12 +339,7 @@ namespace Cohesity.Model
             /// Enum KO365PublicFolders for value: kO365PublicFolders
             /// </summary>
             [EnumMember(Value = "kO365PublicFolders")]
-            KO365PublicFolders = 46,
-
-			/// Enum KVCD for value: kVCD
-            /// </summary>
-            [EnumMember(Value = "kVCD")]
-            KVCD = 47
+            KO365PublicFolders = 46
 
         }
 
@@ -759,7 +752,7 @@ namespace Cohesity.Model
                     this.AllowedIpAddresses == input.AllowedIpAddresses ||
                     this.AllowedIpAddresses != null &&
                     input.AllowedIpAddresses != null &&
-                    this.AllowedIpAddresses.Equals(input.AllowedIpAddresses)
+                    this.AllowedIpAddresses.SequenceEqual(input.AllowedIpAddresses)
                 ) && 
                 (
                     this.AuthenticationErrorMessage == input.AuthenticationErrorMessage ||
@@ -774,7 +767,7 @@ namespace Cohesity.Model
                     this.BlacklistedIpAddresses == input.BlacklistedIpAddresses ||
                     this.BlacklistedIpAddresses != null &&
                     input.BlacklistedIpAddresses != null &&
-                    this.BlacklistedIpAddresses.Equals(input.BlacklistedIpAddresses)
+                    this.BlacklistedIpAddresses.SequenceEqual(input.BlacklistedIpAddresses)
                 ) && 
                 (
                     this.CassandraParams == input.CassandraParams ||
@@ -790,11 +783,11 @@ namespace Cohesity.Model
                     this.DeniedIpAddresses == input.DeniedIpAddresses ||
                     this.DeniedIpAddresses != null &&
                     input.DeniedIpAddresses != null &&
-                    this.DeniedIpAddresses.Equals(input.DeniedIpAddresses)
+                    this.DeniedIpAddresses.SequenceEqual(input.DeniedIpAddresses)
                 ) && 
                 (
                     this.Environments == input.Environments ||
-                    this.Environments.Equals(input.Environments)
+                    this.Environments.SequenceEqual(input.Environments)
                 ) && 
                 (
                     this.HbaseParams == input.HbaseParams ||
@@ -850,7 +843,7 @@ namespace Cohesity.Model
                     this.Office365CredentialsList == input.Office365CredentialsList ||
                     this.Office365CredentialsList != null &&
                     input.Office365CredentialsList != null &&
-                    this.Office365CredentialsList.Equals(input.Office365CredentialsList)
+                    this.Office365CredentialsList.SequenceEqual(input.Office365CredentialsList)
                 ) && 
                 (
                     this.Office365Region == input.Office365Region ||
@@ -861,7 +854,7 @@ namespace Cohesity.Model
                     this.Office365ServiceAccountCredentialsList == input.Office365ServiceAccountCredentialsList ||
                     this.Office365ServiceAccountCredentialsList != null &&
                     input.Office365ServiceAccountCredentialsList != null &&
-                    this.Office365ServiceAccountCredentialsList.Equals(input.Office365ServiceAccountCredentialsList)
+                    this.Office365ServiceAccountCredentialsList.SequenceEqual(input.Office365ServiceAccountCredentialsList)
                 ) && 
                 (
                     this.Password == input.Password ||
@@ -892,7 +885,7 @@ namespace Cohesity.Model
                     this.RegisteredAppsInfo == input.RegisteredAppsInfo ||
                     this.RegisteredAppsInfo != null &&
                     input.RegisteredAppsInfo != null &&
-                    this.RegisteredAppsInfo.Equals(input.RegisteredAppsInfo)
+                    this.RegisteredAppsInfo.SequenceEqual(input.RegisteredAppsInfo)
                 ) && 
                 (
                     this.RegistrationTimeUsecs == input.RegistrationTimeUsecs ||
@@ -903,7 +896,7 @@ namespace Cohesity.Model
                     this.Subnets == input.Subnets ||
                     this.Subnets != null &&
                     input.Subnets != null &&
-                    this.Subnets.Equals(input.Subnets)
+                    this.Subnets.SequenceEqual(input.Subnets)
                 ) && 
                 (
                     this.ThrottlingPolicy == input.ThrottlingPolicy ||
@@ -914,7 +907,7 @@ namespace Cohesity.Model
                     this.ThrottlingPolicyOverrides == input.ThrottlingPolicyOverrides ||
                     this.ThrottlingPolicyOverrides != null &&
                     input.ThrottlingPolicyOverrides != null &&
-                    this.ThrottlingPolicyOverrides.Equals(input.ThrottlingPolicyOverrides)
+                    this.ThrottlingPolicyOverrides.SequenceEqual(input.ThrottlingPolicyOverrides)
                 ) && 
                 (
                     this.UdaParams == input.UdaParams ||
@@ -935,7 +928,7 @@ namespace Cohesity.Model
                     this.UserMessages == input.UserMessages ||
                     this.UserMessages != null &&
                     input.UserMessages != null &&
-                    this.UserMessages.Equals(input.UserMessages)
+                    this.UserMessages.SequenceEqual(input.UserMessages)
                 ) && 
                 (
                     this.Username == input.Username ||
@@ -951,7 +944,7 @@ namespace Cohesity.Model
                     this.WarningMessages == input.WarningMessages ||
                     this.WarningMessages != null &&
                     input.WarningMessages != null &&
-                    this.WarningMessages.Equals(input.WarningMessages)
+                    this.WarningMessages.SequenceEqual(input.WarningMessages)
                 );
         }
 
@@ -970,8 +963,7 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.AllowedIpAddresses.GetHashCode();
                 if (this.AuthenticationErrorMessage != null)
                     hashCode = hashCode * 59 + this.AuthenticationErrorMessage.GetHashCode();
-                if (this.AuthenticationStatus != null)
-					hashCode = hashCode * 59 + this.AuthenticationStatus.GetHashCode();
+                hashCode = hashCode * 59 + this.AuthenticationStatus.GetHashCode();
                 if (this.BlacklistedIpAddresses != null)
                     hashCode = hashCode * 59 + this.BlacklistedIpAddresses.GetHashCode();
                 if (this.CassandraParams != null)
@@ -980,8 +972,7 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.CouchbaseParams.GetHashCode();
                 if (this.DeniedIpAddresses != null)
                     hashCode = hashCode * 59 + this.DeniedIpAddresses.GetHashCode();
-                if (this.Environments != null)
-					hashCode = hashCode * 59 + this.Environments.GetHashCode();
+                hashCode = hashCode * 59 + this.Environments.GetHashCode();
                 if (this.HbaseParams != null)
                     hashCode = hashCode * 59 + this.HbaseParams.GetHashCode();
                 if (this.HdfsParams != null)

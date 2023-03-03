@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -427,7 +425,7 @@ namespace Cohesity.Model
                     this.CapacityByTier == input.CapacityByTier ||
                     this.CapacityByTier != null &&
                     input.CapacityByTier != null &&
-                    this.CapacityByTier.Equals(input.CapacityByTier)
+                    this.CapacityByTier.SequenceEqual(input.CapacityByTier)
                 ) && 
                 (
                     this.ChassisInfo == input.ChassisInfo ||
@@ -458,7 +456,7 @@ namespace Cohesity.Model
                     this.DiskCountByTier == input.DiskCountByTier ||
                     this.DiskCountByTier != null &&
                     input.DiskCountByTier != null &&
-                    this.DiskCountByTier.Equals(input.DiskCountByTier)
+                    this.DiskCountByTier.SequenceEqual(input.DiskCountByTier)
                 ) && 
                 (
                     this.HostName == input.HostName ||
@@ -524,7 +522,7 @@ namespace Cohesity.Model
                     this.OfflineMountPathsOfDisks == input.OfflineMountPathsOfDisks ||
                     this.OfflineMountPathsOfDisks != null &&
                     input.OfflineMountPathsOfDisks != null &&
-                    this.OfflineMountPathsOfDisks.Equals(input.OfflineMountPathsOfDisks)
+                    this.OfflineMountPathsOfDisks.SequenceEqual(input.OfflineMountPathsOfDisks)
                 ) && 
                 (
                     this.ProductModel == input.ProductModel ||
@@ -535,11 +533,11 @@ namespace Cohesity.Model
                     this.RemovalProgressList == input.RemovalProgressList ||
                     this.RemovalProgressList != null &&
                     input.RemovalProgressList != null &&
-                    this.RemovalProgressList.Equals(input.RemovalProgressList)
+                    this.RemovalProgressList.SequenceEqual(input.RemovalProgressList)
                 ) && 
                 (
                     this.RemovalReason == input.RemovalReason ||
-                    this.RemovalReason.Equals(input.RemovalReason)
+                    this.RemovalReason.SequenceEqual(input.RemovalReason)
                 ) && 
                 (
                     this.RemovalState == input.RemovalState ||
@@ -549,7 +547,7 @@ namespace Cohesity.Model
                     this.ServicesAckedList == input.ServicesAckedList ||
                     this.ServicesAckedList != null &&
                     input.ServicesAckedList != null &&
-                    this.ServicesAckedList.Equals(input.ServicesAckedList)
+                    this.ServicesAckedList.SequenceEqual(input.ServicesAckedList)
                 ) && 
                 (
                     this.ServicesNotAcked == input.ServicesNotAcked ||
@@ -560,7 +558,7 @@ namespace Cohesity.Model
                     this.ServicesNotAckedList == input.ServicesNotAckedList ||
                     this.ServicesNotAckedList != null &&
                     input.ServicesNotAckedList != null &&
-                    this.ServicesNotAckedList.Equals(input.ServicesNotAckedList)
+                    this.ServicesNotAckedList.SequenceEqual(input.ServicesNotAckedList)
                 ) && 
                 (
                     this.SlotNumber == input.SlotNumber ||
@@ -576,7 +574,7 @@ namespace Cohesity.Model
                     this.SystemDisks == input.SystemDisks ||
                     this.SystemDisks != null &&
                     input.SystemDisks != null &&
-                    this.SystemDisks.Equals(input.SystemDisks)
+                    this.SystemDisks.SequenceEqual(input.SystemDisks)
                 );
         }
 

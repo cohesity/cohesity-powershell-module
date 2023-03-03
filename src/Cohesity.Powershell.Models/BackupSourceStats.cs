@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -39,6 +37,7 @@ namespace Cohesity.Model
         /// <param name="totalSourceSizeBytes">Specifies the size of the source object (such as a VM) protected by this task on the primary storage before the snapshot is taken. The logical size of the data on the source if the data is fully hydrated or expanded and not reduced by change-block tracking, compression and deduplication..</param>
         public BackupSourceStats(long? totalBytesTiered = default(long?), long? admittedTimeUsecs = default(long?), long? endTimeUsecs = default(long?), long? permitGrantTimeUsecs = default(long?), long? queueDurationUsecs = default(long?), long? startTimeUsecs = default(long?), long? timeTakenUsecs = default(long?), long? totalBytesReadFromSource = default(long?), long? totalBytesToReadFromSource = default(long?), long? totalLogicalBackupSizeBytes = default(long?), long? totalPhysicalBackupSizeBytes = default(long?), long? totalSourceSizeBytes = default(long?))
         {
+            this.TotalBytesTiered = totalBytesTiered;
             this.AdmittedTimeUsecs = admittedTimeUsecs;
             this.EndTimeUsecs = endTimeUsecs;
             this.PermitGrantTimeUsecs = permitGrantTimeUsecs;
@@ -51,6 +50,17 @@ namespace Cohesity.Model
             this.TotalPhysicalBackupSizeBytes = totalPhysicalBackupSizeBytes;
             this.TotalSourceSizeBytes = totalSourceSizeBytes;
             this.TotalBytesTiered = totalBytesTiered;
+            this.AdmittedTimeUsecs = admittedTimeUsecs;
+            this.EndTimeUsecs = endTimeUsecs;
+            this.PermitGrantTimeUsecs = permitGrantTimeUsecs;
+            this.QueueDurationUsecs = queueDurationUsecs;
+            this.StartTimeUsecs = startTimeUsecs;
+            this.TimeTakenUsecs = timeTakenUsecs;
+            this.TotalBytesReadFromSource = totalBytesReadFromSource;
+            this.TotalBytesToReadFromSource = totalBytesToReadFromSource;
+            this.TotalLogicalBackupSizeBytes = totalLogicalBackupSizeBytes;
+            this.TotalPhysicalBackupSizeBytes = totalPhysicalBackupSizeBytes;
+            this.TotalSourceSizeBytes = totalSourceSizeBytes;
         }
         
         /// <summary>

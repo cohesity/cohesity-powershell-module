@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -44,6 +42,19 @@ namespace Cohesity.Model
         /// <param name="whitelistedIpAddrs">Job level list of IP addresses that should be used exclusively..</param>
         public NasBackupParams(bool? backupExistingSnapshot = default(bool?), List<string> blacklistedIpAddrs = default(List<string>), bool? continueOnError = default(bool?), bool? encryptionEnabled = default(bool?), FilteringPolicyProto filteringPolicy = default(FilteringPolicyProto), ViewIdMappingProtoFileLevelDataLockConfig fldConfig = default(ViewIdMappingProtoFileLevelDataLockConfig), string fullBackupSnapshotLabel = default(string), string incrementalBackupSnapshotLabel = default(string), bool? isSourceInitiatedBackup = default(bool?), int? mixedModePreference = default(int?), bool? modifySourcePermissions = default(bool?), int? nfsVersionPreference = default(int?), S3ViewBackupProperties s3Viewbackupproperties = default(S3ViewBackupProperties), string sharedViewName = default(string), bool? snapshotChangeEnabled = default(bool?), NasThrottlingParams throttlingParams = default(NasThrottlingParams), List<string> whitelistedIpAddrs = default(List<string>))
         {
+            this.BackupExistingSnapshot = backupExistingSnapshot;
+            this.BlacklistedIpAddrs = blacklistedIpAddrs;
+            this.ContinueOnError = continueOnError;
+            this.EncryptionEnabled = encryptionEnabled;
+            this.FullBackupSnapshotLabel = fullBackupSnapshotLabel;
+            this.IncrementalBackupSnapshotLabel = incrementalBackupSnapshotLabel;
+            this.IsSourceInitiatedBackup = isSourceInitiatedBackup;
+            this.MixedModePreference = mixedModePreference;
+            this.ModifySourcePermissions = modifySourcePermissions;
+            this.NfsVersionPreference = nfsVersionPreference;
+            this.SharedViewName = sharedViewName;
+            this.SnapshotChangeEnabled = snapshotChangeEnabled;
+            this.WhitelistedIpAddrs = whitelistedIpAddrs;
             this.BackupExistingSnapshot = backupExistingSnapshot;
             this.BlacklistedIpAddrs = blacklistedIpAddrs;
             this.ContinueOnError = continueOnError;
@@ -223,7 +234,7 @@ namespace Cohesity.Model
                     this.BlacklistedIpAddrs == input.BlacklistedIpAddrs ||
                     this.BlacklistedIpAddrs != null &&
                     input.BlacklistedIpAddrs != null &&
-                    this.BlacklistedIpAddrs.Equals(input.BlacklistedIpAddrs)
+                    this.BlacklistedIpAddrs.SequenceEqual(input.BlacklistedIpAddrs)
                 ) && 
                 (
                     this.ContinueOnError == input.ContinueOnError ||
@@ -299,7 +310,7 @@ namespace Cohesity.Model
                     this.WhitelistedIpAddrs == input.WhitelistedIpAddrs ||
                     this.WhitelistedIpAddrs != null &&
                     input.WhitelistedIpAddrs != null &&
-                    this.WhitelistedIpAddrs.Equals(input.WhitelistedIpAddrs)
+                    this.WhitelistedIpAddrs.SequenceEqual(input.WhitelistedIpAddrs)
                 );
         }
 

@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -71,6 +69,27 @@ namespace Cohesity.Model
         /// <param name="warnings">Populate warnings on the job if any. The warning messages are propagated from the child restore tasks upon completion of the task..</param>
         public PerformRestoreJobStateProto(long? admittedTimeUsecs = default(long?), bool? cancellationRequested = default(bool?), bool? continueRestoreOnError = default(bool?), DeployVMsToCloudTaskStateProto deployVmsToCloudTaskState = default(DeployVMsToCloudTaskStateProto), long? endTimeUsecs = default(long?), ErrorProto error = default(ErrorProto), string name = default(string), NoSqlConnectParams nosqlConnectParams = default(NoSqlConnectParams), NoSqlRecoverJobParams nosqlRecoverJobParams = default(NoSqlRecoverJobParams), List<RestoreObject> objects = default(List<RestoreObject>), ConnectorParams parentSourceConnectionParams = default(ConnectorParams), bool? physicalFlrParallelRestore = default(bool?), PowerStateConfigProto powerStateConfig = default(PowerStateConfigProto), bool? preserveTags = default(bool?), string progressMonitorTaskPath = default(string), RenameObjectParamProto renameRestoredObjectParam = default(RenameObjectParamProto), RenameObjectParamProto renameRestoredVappParam = default(RenameObjectParamProto), RestoreAcropolisVMsParams restoreAcropolisVmsParams = default(RestoreAcropolisVMsParams), RestoreO365GroupsParams restoreGroupsParams = default(RestoreO365GroupsParams), long? restoreJobId = default(long?), UniversalIdProto restoreJobUid = default(UniversalIdProto), RestoreKubernetesNamespacesParams restoreKubernetesNamespacesParams = default(RestoreKubernetesNamespacesParams), RestoreKVMVMsParams restoreKvmVmsParams = default(RestoreKVMVMsParams), EntityProto restoreParentSource = default(EntityProto), RestoreO365PublicFoldersParams restorePublicFoldersParams = default(RestoreO365PublicFoldersParams), RestoreSiteParams restoreSiteParams = default(RestoreSiteParams), PerformRestoreTaskStateProto restoreTaskStateProtoTmpl = default(PerformRestoreTaskStateProto), List<PerformRestoreJobStateProtoRestoreTask> restoreTaskVec = default(List<PerformRestoreJobStateProtoRestoreTask>), RestoreO365TeamsParams restoreTeamsParams = default(RestoreO365TeamsParams), RestoreVMwareVMParams restoreVmwareVmParams = default(RestoreVMwareVMParams), RestoredObjectNetworkConfigProto restoredObjectsNetworkConfig = default(RestoredObjectNetworkConfigProto), bool? restoredToDifferentSource = default(bool?), bool? skipImageDeploy = default(bool?), bool? skipRigelForRestore = default(bool?), long? startTimeUsecs = default(long?), int? status = default(int?), string targetViewName = default(string), int? type = default(int?), string user = default(string), UserInformation userInfo = default(UserInformation), RestoredObjectVCDConfigProto vcdConfig = default(RestoredObjectVCDConfigProto), long? viewBoxId = default(long?), ViewParams viewParams = default(ViewParams), List<ErrorProto> warnings = default(List<ErrorProto>))
         {
+            this.AdmittedTimeUsecs = admittedTimeUsecs;
+            this.CancellationRequested = cancellationRequested;
+            this.ContinueRestoreOnError = continueRestoreOnError;
+            this.EndTimeUsecs = endTimeUsecs;
+            this.Name = name;
+            this.Objects = objects;
+            this.PhysicalFlrParallelRestore = physicalFlrParallelRestore;
+            this.PreserveTags = preserveTags;
+            this.ProgressMonitorTaskPath = progressMonitorTaskPath;
+            this.RestoreJobId = restoreJobId;
+            this.RestoreTaskVec = restoreTaskVec;
+            this.RestoredToDifferentSource = restoredToDifferentSource;
+            this.SkipImageDeploy = skipImageDeploy;
+            this.SkipRigelForRestore = skipRigelForRestore;
+            this.StartTimeUsecs = startTimeUsecs;
+            this.Status = status;
+            this.TargetViewName = targetViewName;
+            this.Type = type;
+            this.User = user;
+            this.ViewBoxId = viewBoxId;
+            this.Warnings = warnings;
             this.AdmittedTimeUsecs = admittedTimeUsecs;
             this.CancellationRequested = cancellationRequested;
             this.ContinueRestoreOnError = continueRestoreOnError;
@@ -487,7 +506,7 @@ namespace Cohesity.Model
                     this.Objects == input.Objects ||
                     this.Objects != null &&
                     input.Objects != null &&
-                    this.Objects.Equals(input.Objects)
+                    this.Objects.SequenceEqual(input.Objects)
                 ) && 
                 (
                     this.ParentSourceConnectionParams == input.ParentSourceConnectionParams ||
@@ -578,7 +597,7 @@ namespace Cohesity.Model
                     this.RestoreTaskVec == input.RestoreTaskVec ||
                     this.RestoreTaskVec != null &&
                     input.RestoreTaskVec != null &&
-                    this.RestoreTaskVec.Equals(input.RestoreTaskVec)
+                    this.RestoreTaskVec.SequenceEqual(input.RestoreTaskVec)
                 ) && 
                 (
                     this.RestoreTeamsParams == input.RestoreTeamsParams ||
@@ -659,7 +678,7 @@ namespace Cohesity.Model
                     this.Warnings == input.Warnings ||
                     this.Warnings != null &&
                     input.Warnings != null &&
-                    this.Warnings.Equals(input.Warnings)
+                    this.Warnings.SequenceEqual(input.Warnings)
                 );
         }
 

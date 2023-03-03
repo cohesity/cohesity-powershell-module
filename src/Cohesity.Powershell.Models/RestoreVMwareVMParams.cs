@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -43,6 +41,19 @@ namespace Cohesity.Model
         /// <param name="targetVmFolder">targetVmFolder.</param>
         public RestoreVMwareVMParams(bool? attemptDifferentialRestore = default(bool?), string catalogUuid = default(string), bool? copyRecovery = default(bool?), List<EntityProto> datastoreEntityVec = default(List<EntityProto>), bool? isOnPremDeploy = default(bool?), string orgVdcNetworkName = default(string), string orgVdcNetworkVcdUuid = default(string), bool? overwriteExistingVm = default(bool?), bool? powerOffAndRenameExistingVm = default(bool?), bool? preserveCustomAttributesDuringClone = default(bool?), bool? preserveTagsDuringClone = default(bool?), EntityProto resourcePoolEntity = default(EntityProto), string storageProfileName = default(string), string storageProfileVcdUuid = default(string), EntityProto targetDatastoreFolder = default(EntityProto), EntityProto targetVmFolder = default(EntityProto))
         {
+            this.AttemptDifferentialRestore = attemptDifferentialRestore;
+            this.CatalogUuid = catalogUuid;
+            this.CopyRecovery = copyRecovery;
+            this.DatastoreEntityVec = datastoreEntityVec;
+            this.IsOnPremDeploy = isOnPremDeploy;
+            this.OrgVdcNetworkName = orgVdcNetworkName;
+            this.OrgVdcNetworkVcdUuid = orgVdcNetworkVcdUuid;
+            this.OverwriteExistingVm = overwriteExistingVm;
+            this.PowerOffAndRenameExistingVm = powerOffAndRenameExistingVm;
+            this.PreserveCustomAttributesDuringClone = preserveCustomAttributesDuringClone;
+            this.PreserveTagsDuringClone = preserveTagsDuringClone;
+            this.StorageProfileName = storageProfileName;
+            this.StorageProfileVcdUuid = storageProfileVcdUuid;
             this.AttemptDifferentialRestore = attemptDifferentialRestore;
             this.CatalogUuid = catalogUuid;
             this.CopyRecovery = copyRecovery;
@@ -225,7 +236,7 @@ namespace Cohesity.Model
                     this.DatastoreEntityVec == input.DatastoreEntityVec ||
                     this.DatastoreEntityVec != null &&
                     input.DatastoreEntityVec != null &&
-                    this.DatastoreEntityVec.Equals(input.DatastoreEntityVec)
+                    this.DatastoreEntityVec.SequenceEqual(input.DatastoreEntityVec)
                 ) && 
                 (
                     this.IsOnPremDeploy == input.IsOnPremDeploy ||

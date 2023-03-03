@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -32,6 +30,11 @@ namespace Cohesity.Model
         /// <param name="timeoutSecs">Timeout of the script. The script will be killed if it exceeds this value. &#39;-1&#39; indicates that the timeout is not set for the script..</param>
         public ScriptPathAndParams(bool? continueOnError = default(bool?), bool? isActive = default(bool?), string scriptParams = default(string), string scriptPath = default(string), int? timeoutSecs = default(int?))
         {
+            this.ContinueOnError = continueOnError;
+            this.IsActive = isActive;
+            this.ScriptParams = scriptParams;
+            this.ScriptPath = scriptPath;
+            this.TimeoutSecs = timeoutSecs;
             this.ContinueOnError = continueOnError;
             this.IsActive = isActive;
             this.ScriptParams = scriptParams;

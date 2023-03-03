@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -63,6 +61,9 @@ namespace Cohesity.Model
         /// <param name="replicationStrategy">Replication stragegy for the keyspace. Specifies the type of an Cassandra source entity..</param>
         public CassandraKeyspace(int? childrenCount = default(int?), List<string> dcList = default(List<string>), ReplicationStrategyEnum? replicationStrategy = default(ReplicationStrategyEnum?))
         {
+            this.ChildrenCount = childrenCount;
+            this.DcList = dcList;
+            this.ReplicationStrategy = replicationStrategy;
             this.ChildrenCount = childrenCount;
             this.DcList = dcList;
             this.ReplicationStrategy = replicationStrategy;
@@ -127,7 +128,7 @@ namespace Cohesity.Model
                     this.DcList == input.DcList ||
                     this.DcList != null &&
                     input.DcList != null &&
-                    this.DcList.Equals(input.DcList)
+                    this.DcList.SequenceEqual(input.DcList)
                 ) && 
                 (
                     this.ReplicationStrategy == input.ReplicationStrategy ||
@@ -148,8 +149,7 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ChildrenCount.GetHashCode();
                 if (this.DcList != null)
                     hashCode = hashCode * 59 + this.DcList.GetHashCode();
-                if (this.DcList != null)
-					hashCode = hashCode * 59 + this.ReplicationStrategy.GetHashCode();
+                hashCode = hashCode * 59 + this.ReplicationStrategy.GetHashCode();
                 return hashCode;
             }
         }

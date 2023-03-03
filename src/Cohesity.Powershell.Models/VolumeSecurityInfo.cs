@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -54,27 +52,28 @@ namespace Cohesity.Model
             KUnified = 4,
 
             /// <summary>
-            /// Enum kDataProtection for value: kDataProtection
-            /// </summary>
-            [EnumMember(Value = "kDataProtection")]
-            kDataProtection = 5,
-
-            /// <summary>
-            /// Enum kDataCache for value: kDataCache
-            /// </summary>
-            [EnumMember(Value = "kDataCache")]
-            kDataCache = 6,
-
-            /// <summary>
-            /// Enum kLoadSharing for value: kLoadSharing
-            /// </summary>
-            [EnumMember(Value = "kLoadSharing")]
-            kLoadSharing = 7,
-			
-			/// Enum KUnknown for value: kUnknown
+            /// Enum KUnknown for value: kUnknown
             /// </summary>
             [EnumMember(Value = "kUnknown")]
-            KUnknown = 8
+            KUnknown = 5,
+
+            /// <summary>
+            /// Enum KDataProtection for value: kDataProtection
+            /// </summary>
+            [EnumMember(Value = "kDataProtection")]
+            KDataProtection = 6,
+
+            /// <summary>
+            /// Enum KDataCache for value: kUnknown
+            /// </summary>
+            [EnumMember(Value = "kDataCache")]
+            KDataCache = 7,
+
+            /// <summary>
+            /// Enum KLoadSharing for value: kLoadSharing
+            /// </summary>
+            [EnumMember(Value = "kLoadSharing")]
+            KLoadSharing = 8
 
         }
 
@@ -93,6 +92,10 @@ namespace Cohesity.Model
         /// <param name="userId">Specifies the Unix user id for this volume. 0 indicates the root id..</param>
         public VolumeSecurityInfo(int? groupId = default(int?), string permissions = default(string), StyleEnum? style = default(StyleEnum?), int? userId = default(int?))
         {
+            this.GroupId = groupId;
+            this.Permissions = permissions;
+            this.Style = style;
+            this.UserId = userId;
             this.GroupId = groupId;
             this.Permissions = permissions;
             this.Style = style;

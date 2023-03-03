@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -142,6 +140,16 @@ namespace Cohesity.Model
         /// <param name="withClause">With clause is used for setting clauese in native sql backup..</param>
         public SqlEnvJobParameters(AagPreferenceEnum? aagPreference = default(AagPreferenceEnum?), bool? aagPreferenceFromSqlServer = default(bool?), bool? backupSystemDatabases = default(bool?), BackupTypeEnum? backupType = default(BackupTypeEnum?), bool? backupVolumesOnly = default(bool?), bool? incrementalSnapshotUponRestart = default(bool?), bool? isCopyOnlyFull = default(bool?), int? numStreams = default(int?), UserDatabasePreferenceEnum? userDatabasePreference = default(UserDatabasePreferenceEnum?), string withClause = default(string))
         {
+            this.AagPreference = aagPreference;
+            this.AagPreferenceFromSqlServer = aagPreferenceFromSqlServer;
+            this.BackupSystemDatabases = backupSystemDatabases;
+            this.BackupType = backupType;
+            this.BackupVolumesOnly = backupVolumesOnly;
+            this.IncrementalSnapshotUponRestart = incrementalSnapshotUponRestart;
+            this.IsCopyOnlyFull = isCopyOnlyFull;
+            this.NumStreams = numStreams;
+            this.UserDatabasePreference = userDatabasePreference;
+            this.WithClause = withClause;
             this.AagPreference = aagPreference;
             this.AagPreferenceFromSqlServer = aagPreferenceFromSqlServer;
             this.BackupSystemDatabases = backupSystemDatabases;

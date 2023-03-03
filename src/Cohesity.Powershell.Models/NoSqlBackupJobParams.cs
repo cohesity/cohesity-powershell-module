@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -42,6 +40,15 @@ namespace Cohesity.Model
         /// <param name="previousProtectedEntityIdsVec">List of Magneto entity Ids for the entities that were protected in the previous run..</param>
         public NoSqlBackupJobParams(long? bandwidthBytesPerSecond = default(long?), CassandraBackupJobParams cassandraBackupJobParams = default(CassandraBackupJobParams), long? compactionJobIntervalSecs = default(long?), int? concurrency = default(int?), Object couchbaseBackupJobParams = default(Object), long? gcJobIntervalSecs = default(long?), int? gcRetentionPeriodDays = default(int?), HBaseBackupJobParams hbaseBackupJobParams = default(HBaseBackupJobParams), HdfsBackupJobParams hdfsBackupJobParams = default(HdfsBackupJobParams), HiveBackupJobParams hiveBackupJobParams = default(HiveBackupJobParams), List<NoSqlBackupJobParamsImmediateAncestorMapEntry> immediateAncestorMap = default(List<NoSqlBackupJobParamsImmediateAncestorMapEntry>), long? lastCompactionRunTimeUsecs = default(long?), long? lastGcRunTimeUsecs = default(long?), MongoDBBackupJobParams mongodbBackupJobParams = default(MongoDBBackupJobParams), List<long> previousProtectedEntityIdsVec = default(List<long>))
         {
+            this.BandwidthBytesPerSecond = bandwidthBytesPerSecond;
+            this.CompactionJobIntervalSecs = compactionJobIntervalSecs;
+            this.Concurrency = concurrency;
+            this.GcJobIntervalSecs = gcJobIntervalSecs;
+            this.GcRetentionPeriodDays = gcRetentionPeriodDays;
+            this.ImmediateAncestorMap = immediateAncestorMap;
+            this.LastCompactionRunTimeUsecs = lastCompactionRunTimeUsecs;
+            this.LastGcRunTimeUsecs = lastGcRunTimeUsecs;
+            this.PreviousProtectedEntityIdsVec = previousProtectedEntityIdsVec;
             this.BandwidthBytesPerSecond = bandwidthBytesPerSecond;
             this.CassandraBackupJobParams = cassandraBackupJobParams;
             this.CompactionJobIntervalSecs = compactionJobIntervalSecs;
@@ -249,7 +256,7 @@ namespace Cohesity.Model
                     this.ImmediateAncestorMap == input.ImmediateAncestorMap ||
                     this.ImmediateAncestorMap != null &&
                     input.ImmediateAncestorMap != null &&
-                    this.ImmediateAncestorMap.Equals(input.ImmediateAncestorMap)
+                    this.ImmediateAncestorMap.SequenceEqual(input.ImmediateAncestorMap)
                 ) && 
                 (
                     this.LastCompactionRunTimeUsecs == input.LastCompactionRunTimeUsecs ||
@@ -270,7 +277,7 @@ namespace Cohesity.Model
                     this.PreviousProtectedEntityIdsVec == input.PreviousProtectedEntityIdsVec ||
                     this.PreviousProtectedEntityIdsVec != null &&
                     input.PreviousProtectedEntityIdsVec != null &&
-                    this.PreviousProtectedEntityIdsVec.Equals(input.PreviousProtectedEntityIdsVec)
+                    this.PreviousProtectedEntityIdsVec.SequenceEqual(input.PreviousProtectedEntityIdsVec)
                 );
         }
 

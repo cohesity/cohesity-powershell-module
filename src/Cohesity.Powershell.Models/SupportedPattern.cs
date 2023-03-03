@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -58,6 +56,10 @@ namespace Cohesity.Model
         /// <param name="patternType">Specifies the Pattern type. &#39;REGULAR&#39; indicates that the pattern contains a regular expression. &#39;TEMPLATE&#39; indicates that the pattern has a pre defined input pattern such as date of the form &#39;DD-MM-YYYY&#39;..</param>
         public SupportedPattern(bool? isSystemDefined = default(bool?), string name = default(string), string pattern = default(string), PatternTypeEnum? patternType = default(PatternTypeEnum?))
         {
+            this.IsSystemDefined = isSystemDefined;
+            this.Name = name;
+            this.Pattern = pattern;
+            this.PatternType = patternType;
             this.IsSystemDefined = isSystemDefined;
             this.Name = name;
             this.Pattern = pattern;

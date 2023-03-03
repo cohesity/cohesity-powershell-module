@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -50,6 +48,23 @@ namespace Cohesity.Model
         /// <param name="warnings">The warnings encountered by this task (if any) during its execution..</param>
         public RestoreTaskStateBaseProto(bool? cancellationRequested = default(bool?), long? endTimeUsecs = default(long?), ErrorProto error = default(ErrorProto), bool? isInternal = default(bool?), string name = default(string), ConnectorParams parentSourceConnectionParams = default(ConnectorParams), ErrorProto preprocessingError = default(ErrorProto), int? publicStatus = default(int?), int? refreshStatus = default(int?), VlanParams restoreVlanParams = default(VlanParams), long? scheduledConstituentId = default(long?), long? scheduledGandalfSessionId = default(long?), long? startTimeUsecs = default(long?), int? status = default(int?), long? taskId = default(long?), UniversalIdProto taskUid = default(UniversalIdProto), long? totalLogicalSizeBytes = default(long?), long? totalPhysicalSizeBytes = default(long?), int? type = default(int?), string user = default(string), UserInformation userInfo = default(UserInformation), List<string> userMessages = default(List<string>), List<ErrorProto> warnings = default(List<ErrorProto>))
         {
+            this.CancellationRequested = cancellationRequested;
+            this.EndTimeUsecs = endTimeUsecs;
+            this.IsInternal = isInternal;
+            this.Name = name;
+            this.PublicStatus = publicStatus;
+            this.RefreshStatus = refreshStatus;
+            this.ScheduledConstituentId = scheduledConstituentId;
+            this.ScheduledGandalfSessionId = scheduledGandalfSessionId;
+            this.StartTimeUsecs = startTimeUsecs;
+            this.Status = status;
+            this.TaskId = taskId;
+            this.TotalLogicalSizeBytes = totalLogicalSizeBytes;
+            this.TotalPhysicalSizeBytes = totalPhysicalSizeBytes;
+            this.Type = type;
+            this.User = user;
+            this.UserMessages = userMessages;
+            this.Warnings = warnings;
             this.CancellationRequested = cancellationRequested;
             this.EndTimeUsecs = endTimeUsecs;
             this.Error = error;
@@ -374,13 +389,13 @@ namespace Cohesity.Model
                     this.UserMessages == input.UserMessages ||
                     this.UserMessages != null &&
                     input.UserMessages != null &&
-                    this.UserMessages.Equals(input.UserMessages)
+                    this.UserMessages.SequenceEqual(input.UserMessages)
                 ) && 
                 (
                     this.Warnings == input.Warnings ||
                     this.Warnings != null &&
                     input.Warnings != null &&
-                    this.Warnings.Equals(input.Warnings)
+                    this.Warnings.SequenceEqual(input.Warnings)
                 );
         }
 

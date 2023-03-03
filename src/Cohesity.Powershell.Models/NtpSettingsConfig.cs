@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -29,6 +27,8 @@ namespace Cohesity.Model
         /// <param name="ntpServersInternal">Flag to specify if the NTP servers are on internal network or not..</param>
         public NtpSettingsConfig(bool? ntpAuthenticationEnabled = default(bool?), bool? ntpServersInternal = default(bool?))
         {
+            this.NtpAuthenticationEnabled = ntpAuthenticationEnabled;
+            this.NtpServersInternal = ntpServersInternal;
             this.NtpAuthenticationEnabled = ntpAuthenticationEnabled;
             this.NtpServersInternal = ntpServersInternal;
         }

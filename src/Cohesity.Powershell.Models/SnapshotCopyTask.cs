@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -31,6 +29,9 @@ namespace Cohesity.Model
         /// <param name="snapshotTarget">snapshotTarget.</param>
         public SnapshotCopyTask(string copyStatus = default(string), long? expiryTimeUsecs = default(long?), string message = default(string), SnapshotTargetSettings snapshotTarget = default(SnapshotTargetSettings))
         {
+            this.CopyStatus = copyStatus;
+            this.ExpiryTimeUsecs = expiryTimeUsecs;
+            this.Message = message;
             this.CopyStatus = copyStatus;
             this.ExpiryTimeUsecs = expiryTimeUsecs;
             this.Message = message;

@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -35,6 +33,14 @@ namespace Cohesity.Model
         /// <param name="superUserSids">Specifies a list of user sids who have Superuser access to this alias..</param>
         public UpdateViewAliasParam(string aliasName = default(string), bool? enableFilerAuditLog = default(bool?), bool? enableSmbEncryption = default(bool?), bool? enableSmbViewDiscovery = default(bool?), bool? enforceSmbEncryption = default(bool?), List<SmbPermission> sharePermissions = default(List<SmbPermission>), List<Subnet> subnetWhitelist = default(List<Subnet>), List<string> superUserSids = default(List<string>))
         {
+            this.AliasName = aliasName;
+            this.EnableFilerAuditLog = enableFilerAuditLog;
+            this.EnableSmbEncryption = enableSmbEncryption;
+            this.EnableSmbViewDiscovery = enableSmbViewDiscovery;
+            this.EnforceSmbEncryption = enforceSmbEncryption;
+            this.SharePermissions = sharePermissions;
+            this.SubnetWhitelist = subnetWhitelist;
+            this.SuperUserSids = superUserSids;
             this.AliasName = aliasName;
             this.EnableFilerAuditLog = enableFilerAuditLog;
             this.EnableSmbEncryption = enableSmbEncryption;
@@ -166,19 +172,19 @@ namespace Cohesity.Model
                     this.SharePermissions == input.SharePermissions ||
                     this.SharePermissions != null &&
                     input.SharePermissions != null &&
-                    this.SharePermissions.Equals(input.SharePermissions)
+                    this.SharePermissions.SequenceEqual(input.SharePermissions)
                 ) && 
                 (
                     this.SubnetWhitelist == input.SubnetWhitelist ||
                     this.SubnetWhitelist != null &&
                     input.SubnetWhitelist != null &&
-                    this.SubnetWhitelist.Equals(input.SubnetWhitelist)
+                    this.SubnetWhitelist.SequenceEqual(input.SubnetWhitelist)
                 ) && 
                 (
                     this.SuperUserSids == input.SuperUserSids ||
                     this.SuperUserSids != null &&
                     input.SuperUserSids != null &&
-                    this.SuperUserSids.Equals(input.SuperUserSids)
+                    this.SuperUserSids.SequenceEqual(input.SuperUserSids)
                 );
         }
 

@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -245,13 +243,13 @@ namespace Cohesity.Model
                     this.SelectedDataCenterVec == input.SelectedDataCenterVec ||
                     this.SelectedDataCenterVec != null &&
                     input.SelectedDataCenterVec != null &&
-                    this.SelectedDataCenterVec.Equals(input.SelectedDataCenterVec)
+                    this.SelectedDataCenterVec.SequenceEqual(input.SelectedDataCenterVec)
                 ) && 
                 (
                     this.StagingDirectoryVec == input.StagingDirectoryVec ||
                     this.StagingDirectoryVec != null &&
                     input.StagingDirectoryVec != null &&
-                    this.StagingDirectoryVec.Equals(input.StagingDirectoryVec)
+                    this.StagingDirectoryVec.SequenceEqual(input.StagingDirectoryVec)
                 ) && 
                 (
                     this.Suffix == input.Suffix ||

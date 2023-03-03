@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -107,7 +105,7 @@ namespace Cohesity.Model
                     this.BackupFileVec == input.BackupFileVec ||
                     this.BackupFileVec != null &&
                     input.BackupFileVec != null &&
-                    this.BackupFileVec.Equals(input.BackupFileVec)
+                    this.BackupFileVec.SequenceEqual(input.BackupFileVec)
                 ) && 
                 (
                     this.OptionFlags == input.OptionFlags ||
@@ -123,7 +121,7 @@ namespace Cohesity.Model
                     this.WarningVec == input.WarningVec ||
                     this.WarningVec != null &&
                     input.WarningVec != null &&
-                    this.WarningVec.Equals(input.WarningVec)
+                    this.WarningVec.SequenceEqual(input.WarningVec)
                 );
         }
 

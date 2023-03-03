@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -34,6 +32,12 @@ namespace Cohesity.Model
         /// <param name="warnings">Warnings if any. These warnings will be propogated to the UI by master..</param>
         public CloudDeployInfoProto(List<CloudDeployInfoProtoCloudDeployEntity> cloudDeployEntityVec = default(List<CloudDeployInfoProtoCloudDeployEntity>), bool? isIncremental = default(bool?), RestoreInfoProto restoreInfo = default(RestoreInfoProto), int? targetType = default(int?), long? totalBytesTransferredToSource = default(long?), int? type = default(int?), List<ErrorProto> warnings = default(List<ErrorProto>))
         {
+            this.CloudDeployEntityVec = cloudDeployEntityVec;
+            this.IsIncremental = isIncremental;
+            this.TargetType = targetType;
+            this.TotalBytesTransferredToSource = totalBytesTransferredToSource;
+            this.Type = type;
+            this.Warnings = warnings;
             this.CloudDeployEntityVec = cloudDeployEntityVec;
             this.IsIncremental = isIncremental;
             this.RestoreInfo = restoreInfo;
@@ -131,7 +135,7 @@ namespace Cohesity.Model
                     this.CloudDeployEntityVec == input.CloudDeployEntityVec ||
                     this.CloudDeployEntityVec != null &&
                     input.CloudDeployEntityVec != null &&
-                    this.CloudDeployEntityVec.Equals(input.CloudDeployEntityVec)
+                    this.CloudDeployEntityVec.SequenceEqual(input.CloudDeployEntityVec)
                 ) && 
                 (
                     this.IsIncremental == input.IsIncremental ||
@@ -162,7 +166,7 @@ namespace Cohesity.Model
                     this.Warnings == input.Warnings ||
                     this.Warnings != null &&
                     input.Warnings != null &&
-                    this.Warnings.Equals(input.Warnings)
+                    this.Warnings.SequenceEqual(input.Warnings)
                 );
         }
 

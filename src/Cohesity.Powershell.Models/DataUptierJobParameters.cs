@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -30,35 +28,29 @@ namespace Cohesity.Model
         public enum FileSelectionPolicyEnum
         {
             /// <summary>
-            /// Enum KOlderThan for value: kOlderThan
-            /// </summary>
-            [EnumMember(Value = "kOlderThan")]
-            KOlderThan = 1,
-
-            /// <summary>
             /// Enum KLastAccessed for value: kLastAccessed
             /// </summary>
             [EnumMember(Value = "kLastAccessed")]
-            KLastAccessed = 2,
+            KLastAccessed = 1,
 
             /// <summary>
             /// Enum KLastModified for value: kLastModified
             /// </summary>
             [EnumMember(Value = "kLastModified")]
-            KLastModified = 3
+            KLastModified = 2
 
         }
 
         /// <summary>
-        /// Specifies policy to select a file to uptier based on file access or modification time. eg. A file can be selected to uptier if it has been accessed in the HotFileWindow or it is modified. enum: kLastAccessed, kLastModified. Specifies policy for file selection in data migration jobs based on time. &#39;kOlderThan&#39;: Migrate the files that are older than cold file window. &#39;kLastAccessed&#39;: Migrate the files that are not accessed in cold file window. &#39;kLastModified&#39;: Migrate the files that have not been modified in cold file window.
+        /// Specifies policy to select a file to uptier based on file access or modification time. eg. A file can be selected to uptier if it has been accessed in the HotFileWindow or it is modified. enum: kLastAccessed, kLastModified. Specifies policy for file selection in data uptier jobs. &#39;kLastAccessed&#39;: Uptier the files which are accessed for at least num_file_access in hot_file_window. &#39;kLastModified&#39;: Uptier the files which are modified.
         /// </summary>
-        /// <value>Specifies policy to select a file to uptier based on file access or modification time. eg. A file can be selected to uptier if it has been accessed in the HotFileWindow or it is modified. enum: kLastAccessed, kLastModified. Specifies policy for file selection in data migration jobs based on time. &#39;kOlderThan&#39;: Migrate the files that are older than cold file window. &#39;kLastAccessed&#39;: Migrate the files that are not accessed in cold file window. &#39;kLastModified&#39;: Migrate the files that have not been modified in cold file window.</value>
+        /// <value>Specifies policy to select a file to uptier based on file access or modification time. eg. A file can be selected to uptier if it has been accessed in the HotFileWindow or it is modified. enum: kLastAccessed, kLastModified. Specifies policy for file selection in data uptier jobs. &#39;kLastAccessed&#39;: Uptier the files which are accessed for at least num_file_access in hot_file_window. &#39;kLastModified&#39;: Uptier the files which are modified.</value>
         [DataMember(Name="fileSelectionPolicy", EmitDefaultValue=true)]
         public FileSelectionPolicyEnum? FileSelectionPolicy { get; set; }
         /// <summary>
-        /// Specifies policy to select a file to uptier based on its size. eg. A file can be selected to uptier if its size is greater than or smaller than the FileSizeBytes. enum: kGreaterThan, kSmallerThan. Specifies policy for file selection in data migration jobs based on file size. &#39;kGreaterThan&#39;: Migrate the files whose size are greater than specified file size. &#39;kSmallerThan&#39;: Migrate the files whose size are smaller than specified file size.
+        /// Specifies policy to select a file to uptier based on its size. eg. A file can be selected to uptier if its size is greater than or smaller than the FileSizeBytes. enum: kGreaterThan, kSmallerThan. Specifies policy for file selection in data uptier jobs based on file size. &#39;kGreaterThan&#39;: Uptier the files having size greater than file_size. &#39;kSmallerThan&#39;: Uptier the files having size smaller than file_size.
         /// </summary>
-        /// <value>Specifies policy to select a file to uptier based on its size. eg. A file can be selected to uptier if its size is greater than or smaller than the FileSizeBytes. enum: kGreaterThan, kSmallerThan. Specifies policy for file selection in data migration jobs based on file size. &#39;kGreaterThan&#39;: Migrate the files whose size are greater than specified file size. &#39;kSmallerThan&#39;: Migrate the files whose size are smaller than specified file size.</value>
+        /// <value>Specifies policy to select a file to uptier based on its size. eg. A file can be selected to uptier if its size is greater than or smaller than the FileSizeBytes. enum: kGreaterThan, kSmallerThan. Specifies policy for file selection in data uptier jobs based on file size. &#39;kGreaterThan&#39;: Uptier the files having size greater than file_size. &#39;kSmallerThan&#39;: Uptier the files having size smaller than file_size.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum FileSizePolicyEnum
         {
@@ -77,9 +69,9 @@ namespace Cohesity.Model
         }
 
         /// <summary>
-        /// Specifies policy to select a file to uptier based on its size. eg. A file can be selected to uptier if its size is greater than or smaller than the FileSizeBytes. enum: kGreaterThan, kSmallerThan. Specifies policy for file selection in data migration jobs based on file size. &#39;kGreaterThan&#39;: Migrate the files whose size are greater than specified file size. &#39;kSmallerThan&#39;: Migrate the files whose size are smaller than specified file size.
+        /// Specifies policy to select a file to uptier based on its size. eg. A file can be selected to uptier if its size is greater than or smaller than the FileSizeBytes. enum: kGreaterThan, kSmallerThan. Specifies policy for file selection in data uptier jobs based on file size. &#39;kGreaterThan&#39;: Uptier the files having size greater than file_size. &#39;kSmallerThan&#39;: Uptier the files having size smaller than file_size.
         /// </summary>
-        /// <value>Specifies policy to select a file to uptier based on its size. eg. A file can be selected to uptier if its size is greater than or smaller than the FileSizeBytes. enum: kGreaterThan, kSmallerThan. Specifies policy for file selection in data migration jobs based on file size. &#39;kGreaterThan&#39;: Migrate the files whose size are greater than specified file size. &#39;kSmallerThan&#39;: Migrate the files whose size are smaller than specified file size.</value>
+        /// <value>Specifies policy to select a file to uptier based on its size. eg. A file can be selected to uptier if its size is greater than or smaller than the FileSizeBytes. enum: kGreaterThan, kSmallerThan. Specifies policy for file selection in data uptier jobs based on file size. &#39;kGreaterThan&#39;: Uptier the files having size greater than file_size. &#39;kSmallerThan&#39;: Uptier the files having size smaller than file_size.</value>
         [DataMember(Name="fileSizePolicy", EmitDefaultValue=true)]
         public FileSizePolicyEnum? FileSizePolicy { get; set; }
         /// <summary>
@@ -95,6 +87,14 @@ namespace Cohesity.Model
         /// <param name="sourceViewName">The source view name from which the data will be uptiered..</param>
         public DataUptierJobParameters(FileSelectionPolicyEnum? fileSelectionPolicy = default(FileSelectionPolicyEnum?), long? fileSizeBytes = default(long?), FileSizePolicyEnum? fileSizePolicy = default(FileSizePolicyEnum?), long? hotFileWindow = default(long?), bool? includeAllFiles = default(bool?), string nfsMountPath = default(string), int? numFileAccess = default(int?), string sourceViewName = default(string))
         {
+            this.FileSelectionPolicy = fileSelectionPolicy;
+            this.FileSizeBytes = fileSizeBytes;
+            this.FileSizePolicy = fileSizePolicy;
+            this.HotFileWindow = hotFileWindow;
+            this.IncludeAllFiles = includeAllFiles;
+            this.NfsMountPath = nfsMountPath;
+            this.NumFileAccess = numFileAccess;
+            this.SourceViewName = sourceViewName;
             this.FileSelectionPolicy = fileSelectionPolicy;
             this.FileSizeBytes = fileSizeBytes;
             this.FileSizePolicy = fileSizePolicy;
@@ -232,8 +232,7 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                if (this.FileSelectionPolicy != null)
-					hashCode = hashCode * 59 + this.FileSelectionPolicy.GetHashCode();
+                hashCode = hashCode * 59 + this.FileSelectionPolicy.GetHashCode();
                 if (this.FileSizeBytes != null)
                     hashCode = hashCode * 59 + this.FileSizeBytes.GetHashCode();
                 hashCode = hashCode * 59 + this.FileSizePolicy.GetHashCode();

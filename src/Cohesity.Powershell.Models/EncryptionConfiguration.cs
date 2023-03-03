@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -31,6 +29,10 @@ namespace Cohesity.Model
         /// <param name="rotationPeriod">Specifies the rotation period for encryption keys in days..</param>
         public EncryptionConfiguration(bool? enableFipsMode = default(bool?), bool? enableHardwareEncryption = default(bool?), bool? enableSoftwareEncryption = default(bool?), int? rotationPeriod = default(int?))
         {
+            this.EnableFipsMode = enableFipsMode;
+            this.EnableHardwareEncryption = enableHardwareEncryption;
+            this.EnableSoftwareEncryption = enableSoftwareEncryption;
+            this.RotationPeriod = rotationPeriod;
             this.EnableFipsMode = enableFipsMode;
             this.EnableHardwareEncryption = enableHardwareEncryption;
             this.EnableSoftwareEncryption = enableSoftwareEncryption;

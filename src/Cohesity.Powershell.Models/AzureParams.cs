@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -109,6 +107,22 @@ namespace Cohesity.Model
         /// <param name="virtualNetworkId">Specifies Id of the Virtual Network..</param>
         public AzureParams(long? availabilitySetId = default(long?), DataDiskTypeEnum? dataDiskType = default(DataDiskTypeEnum?), long? instanceId = default(long?), long? networkResourceGroupId = default(long?), OsDiskTypeEnum? osDiskType = default(OsDiskTypeEnum?), long? resourceGroup = default(long?), long? storageAccount = default(long?), long? storageContainer = default(long?), long? storageResourceGroupId = default(long?), long? subnetId = default(long?), long? tempVmResourceGroupId = default(long?), long? tempVmStorageAccountId = default(long?), long? tempVmStorageContainerId = default(long?), long? tempVmSubnetId = default(long?), long? tempVmVirtualNetworkId = default(long?), long? virtualNetworkId = default(long?))
         {
+            this.AvailabilitySetId = availabilitySetId;
+            this.DataDiskType = dataDiskType;
+            this.InstanceId = instanceId;
+            this.NetworkResourceGroupId = networkResourceGroupId;
+            this.OsDiskType = osDiskType;
+            this.ResourceGroup = resourceGroup;
+            this.StorageAccount = storageAccount;
+            this.StorageContainer = storageContainer;
+            this.StorageResourceGroupId = storageResourceGroupId;
+            this.SubnetId = subnetId;
+            this.TempVmResourceGroupId = tempVmResourceGroupId;
+            this.TempVmStorageAccountId = tempVmStorageAccountId;
+            this.TempVmStorageContainerId = tempVmStorageContainerId;
+            this.TempVmSubnetId = tempVmSubnetId;
+            this.TempVmVirtualNetworkId = tempVmVirtualNetworkId;
+            this.VirtualNetworkId = virtualNetworkId;
             this.AvailabilitySetId = availabilitySetId;
             this.DataDiskType = dataDiskType;
             this.InstanceId = instanceId;
@@ -352,14 +366,12 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.AvailabilitySetId != null)
                     hashCode = hashCode * 59 + this.AvailabilitySetId.GetHashCode();
-                if (this.DataDiskType != null)
-					hashCode = hashCode * 59 + this.DataDiskType.GetHashCode();
+                hashCode = hashCode * 59 + this.DataDiskType.GetHashCode();
                 if (this.InstanceId != null)
                     hashCode = hashCode * 59 + this.InstanceId.GetHashCode();
                 if (this.NetworkResourceGroupId != null)
                     hashCode = hashCode * 59 + this.NetworkResourceGroupId.GetHashCode();
-                if (this.OsDiskType != null)
-					hashCode = hashCode * 59 + this.OsDiskType.GetHashCode();
+                hashCode = hashCode * 59 + this.OsDiskType.GetHashCode();
                 if (this.ResourceGroup != null)
                     hashCode = hashCode * 59 + this.ResourceGroup.GetHashCode();
                 if (this.StorageAccount != null)

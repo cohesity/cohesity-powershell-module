@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -13,7 +12,6 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
 namespace Cohesity.Model
 {
     /// <summary>
@@ -23,6 +21,45 @@ namespace Cohesity.Model
     public partial class RemoteProtectionJobRunInstance :  IEquatable<RemoteProtectionJobRunInstance>
     {
         /// <summary>
+        /// Specifies the run type. &#39;kRegular&#39; indicates a incremental (CBT) backup. Incremental backups utilizing CBT (if supported) are captured of the target protection objects. The first run of a kRegular schedule captures all the blocks. &#39;kFull&#39; indicates a full (no CBT) backup. A complete backup (all blocks) of the target protection objects are always captured and Change Block Tracking (CBT) is not utilized. &#39;kLog&#39; indicates a Database Log backup. Capture the database transaction logs to allow rolling back to a specific point in time. &#39;kSystem&#39; indicates a system backup. System backups are used to do bare metal recovery of the system to a specific point in time.
+        /// </summary>
+        /// <value>Specifies the run type. &#39;kRegular&#39; indicates a incremental (CBT) backup. Incremental backups utilizing CBT (if supported) are captured of the target protection objects. The first run of a kRegular schedule captures all the blocks. &#39;kFull&#39; indicates a full (no CBT) backup. A complete backup (all blocks) of the target protection objects are always captured and Change Block Tracking (CBT) is not utilized. &#39;kLog&#39; indicates a Database Log backup. Capture the database transaction logs to allow rolling back to a specific point in time. &#39;kSystem&#39; indicates a system backup. System backups are used to do bare metal recovery of the system to a specific point in time.</value>
+        [JsonConverter(typeof(StringEnumConverter))]
+        public enum RunTypeEnum
+        {
+            /// <summary>
+            /// Enum KRegular for value: kRegular
+            /// </summary>
+            [EnumMember(Value = "kRegular")]
+            KRegular = 1,
+
+            /// <summary>
+            /// Enum KFull for value: kFull
+            /// </summary>
+            [EnumMember(Value = "kFull")]
+            KFull = 2,
+
+            /// <summary>
+            /// Enum KLog for value: kLog
+            /// </summary>
+            [EnumMember(Value = "kLog")]
+            KLog = 3,
+
+            /// <summary>
+            /// Enum KSystem for value: kSystem
+            /// </summary>
+            [EnumMember(Value = "kSystem")]
+            KSystem = 4
+
+        }
+
+        /// <summary>
+        /// Specifies the run type. &#39;kRegular&#39; indicates a incremental (CBT) backup. Incremental backups utilizing CBT (if supported) are captured of the target protection objects. The first run of a kRegular schedule captures all the blocks. &#39;kFull&#39; indicates a full (no CBT) backup. A complete backup (all blocks) of the target protection objects are always captured and Change Block Tracking (CBT) is not utilized. &#39;kLog&#39; indicates a Database Log backup. Capture the database transaction logs to allow rolling back to a specific point in time. &#39;kSystem&#39; indicates a system backup. System backups are used to do bare metal recovery of the system to a specific point in time.
+        /// </summary>
+        /// <value>Specifies the run type. &#39;kRegular&#39; indicates a incremental (CBT) backup. Incremental backups utilizing CBT (if supported) are captured of the target protection objects. The first run of a kRegular schedule captures all the blocks. &#39;kFull&#39; indicates a full (no CBT) backup. A complete backup (all blocks) of the target protection objects are always captured and Change Block Tracking (CBT) is not utilized. &#39;kLog&#39; indicates a Database Log backup. Capture the database transaction logs to allow rolling back to a specific point in time. &#39;kSystem&#39; indicates a system backup. System backups are used to do bare metal recovery of the system to a specific point in time.</value>
+        [DataMember(Name="runType", EmitDefaultValue=true)]
+        public RunTypeEnum? RunType { get; set; }
+        /// <summary>
         /// Initializes a new instance of the <see cref="RemoteProtectionJobRunInstance" /> class.
         /// </summary>
         /// <param name="archiveTaskUid">Specifies the globally unique id of the archival task that archived the Snapshot to the Vault..</param>
@@ -31,8 +68,9 @@ namespace Cohesity.Model
         /// <param name="indexSizeBytes">Specifies the size of the index for the archive..</param>
         /// <param name="jobRunId">Specifies the instance id of the Job Run task capturing the Snapshot..</param>
         /// <param name="metadataComplete">Specifies whether a full set of metadata is available now..</param>
+        /// <param name="runType">Specifies the run type. &#39;kRegular&#39; indicates a incremental (CBT) backup. Incremental backups utilizing CBT (if supported) are captured of the target protection objects. The first run of a kRegular schedule captures all the blocks. &#39;kFull&#39; indicates a full (no CBT) backup. A complete backup (all blocks) of the target protection objects are always captured and Change Block Tracking (CBT) is not utilized. &#39;kLog&#39; indicates a Database Log backup. Capture the database transaction logs to allow rolling back to a specific point in time. &#39;kSystem&#39; indicates a system backup. System backups are used to do bare metal recovery of the system to a specific point in time..</param>
         /// <param name="snapshotTimeUsecs">Specify the time the Snapshot was captured as a Unix epoch Timestamp (in microseconds)..</param>
-        public RemoteProtectionJobRunInstance(UniversalId archiveTaskUid = default(UniversalId), int? archiveVersion = default(int?), long? expiryTimeUsecs = default(long?), long? indexSizeBytes = default(long?), long? jobRunId = default(long?), bool? metadataComplete = default(bool?), long? snapshotTimeUsecs = default(long?))
+        public RemoteProtectionJobRunInstance(UniversalId archiveTaskUid = default(UniversalId), int? archiveVersion = default(int?), long? expiryTimeUsecs = default(long?), long? indexSizeBytes = default(long?), long? jobRunId = default(long?), bool? metadataComplete = default(bool?), RunTypeEnum? runType = default(RunTypeEnum?), long? snapshotTimeUsecs = default(long?))
         {
             this.ArchiveTaskUid = archiveTaskUid;
             this.ArchiveVersion = archiveVersion;
@@ -40,6 +78,7 @@ namespace Cohesity.Model
             this.IndexSizeBytes = indexSizeBytes;
             this.JobRunId = jobRunId;
             this.MetadataComplete = metadataComplete;
+            this.RunType = runType;
             this.SnapshotTimeUsecs = snapshotTimeUsecs;
             this.ArchiveTaskUid = archiveTaskUid;
             this.ArchiveVersion = archiveVersion;
@@ -47,6 +86,7 @@ namespace Cohesity.Model
             this.IndexSizeBytes = indexSizeBytes;
             this.JobRunId = jobRunId;
             this.MetadataComplete = metadataComplete;
+            this.RunType = runType;
             this.SnapshotTimeUsecs = snapshotTimeUsecs;
         }
         
@@ -166,6 +206,10 @@ namespace Cohesity.Model
                     this.MetadataComplete.Equals(input.MetadataComplete))
                 ) && 
                 (
+                    this.RunType == input.RunType ||
+                    this.RunType.Equals(input.RunType)
+                ) && 
+                (
                     this.SnapshotTimeUsecs == input.SnapshotTimeUsecs ||
                     (this.SnapshotTimeUsecs != null &&
                     this.SnapshotTimeUsecs.Equals(input.SnapshotTimeUsecs))
@@ -193,6 +237,7 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.JobRunId.GetHashCode();
                 if (this.MetadataComplete != null)
                     hashCode = hashCode * 59 + this.MetadataComplete.GetHashCode();
+                hashCode = hashCode * 59 + this.RunType.GetHashCode();
                 if (this.SnapshotTimeUsecs != null)
                     hashCode = hashCode * 59 + this.SnapshotTimeUsecs.GetHashCode();
                 return hashCode;

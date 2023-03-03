@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -169,7 +167,7 @@ namespace Cohesity.Model
                     this.LastDayAlerts == input.LastDayAlerts ||
                     this.LastDayAlerts != null &&
                     input.LastDayAlerts != null &&
-                    this.LastDayAlerts.Equals(input.LastDayAlerts)
+                    this.LastDayAlerts.SequenceEqual(input.LastDayAlerts)
                 ) && 
                 (
                     this.LastDayNumCriticals == input.LastDayNumCriticals ||

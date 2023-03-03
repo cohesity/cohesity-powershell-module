@@ -12,7 +12,6 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
 namespace Cohesity.Model
 {
     /// <summary>
@@ -89,6 +88,18 @@ namespace Cohesity.Model
         /// <param name="startedTimeUsecs">Specifies the time when the Job Run starts capturing a snapshot. Specified as a Unix epoch Timestamp (in microseconds)..</param>
         public SnapshotVersion(long? attemptNumber = default(long?), long? deltaSizeBytes = default(long?), IndexingStatusEnum? indexingStatus = default(IndexingStatusEnum?), bool? isAppConsistent = default(bool?), bool? isFullBackup = default(bool?), long? jobRunId = default(long?), string localMountPath = default(string), long? logicalSizeBytes = default(long?), long? physicalSizeBytes = default(long?), long? primaryPhysicalSizeBytes = default(long?), List<ReplicaInfo> replicaInfoList = default(List<ReplicaInfo>), long? startedTimeUsecs = default(long?))
         {
+            this.AttemptNumber = attemptNumber;
+            this.DeltaSizeBytes = deltaSizeBytes;
+            this.IndexingStatus = indexingStatus;
+            this.IsAppConsistent = isAppConsistent;
+            this.IsFullBackup = isFullBackup;
+            this.JobRunId = jobRunId;
+            this.LocalMountPath = localMountPath;
+            this.LogicalSizeBytes = logicalSizeBytes;
+            this.PhysicalSizeBytes = physicalSizeBytes;
+            this.PrimaryPhysicalSizeBytes = primaryPhysicalSizeBytes;
+            this.ReplicaInfoList = replicaInfoList;
+            this.StartedTimeUsecs = startedTimeUsecs;
             this.AttemptNumber = attemptNumber;
             this.DeltaSizeBytes = deltaSizeBytes;
             this.IndexingStatus = indexingStatus;
@@ -269,7 +280,7 @@ namespace Cohesity.Model
                     this.ReplicaInfoList == input.ReplicaInfoList ||
                     this.ReplicaInfoList != null &&
                     input.ReplicaInfoList != null &&
-                    this.ReplicaInfoList.Equals(input.ReplicaInfoList)
+                    this.ReplicaInfoList.SequenceEqual(input.ReplicaInfoList)
                 ) && 
                 (
                     this.StartedTimeUsecs == input.StartedTimeUsecs ||
@@ -291,8 +302,7 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.AttemptNumber.GetHashCode();
                 if (this.DeltaSizeBytes != null)
                     hashCode = hashCode * 59 + this.DeltaSizeBytes.GetHashCode();
-                if (this.IndexingStatus != null)
-					hashCode = hashCode * 59 + this.IndexingStatus.GetHashCode();
+                hashCode = hashCode * 59 + this.IndexingStatus.GetHashCode();
                 if (this.IsAppConsistent != null)
                     hashCode = hashCode * 59 + this.IsAppConsistent.GetHashCode();
                 if (this.IsFullBackup != null)

@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -101,6 +99,14 @@ namespace Cohesity.Model
         /// <param name="username">Specifies a username to use for mounting the NAS..</param>
         public NasMountCredentialParams(string domain = default(string), string domainController = default(string), bool? managePasswordByCohesity = default(bool?), NasProtocolEnum? nasProtocol = default(NasProtocolEnum?), NasTypeEnum? nasType = default(NasTypeEnum?), string password = default(string), bool? skipValidation = default(bool?), string username = default(string))
         {
+            this.Domain = domain;
+            this.DomainController = domainController;
+            this.ManagePasswordByCohesity = managePasswordByCohesity;
+            this.NasProtocol = nasProtocol;
+            this.NasType = nasType;
+            this.Password = password;
+            this.SkipValidation = skipValidation;
+            this.Username = username;
             this.Domain = domain;
             this.DomainController = domainController;
             this.ManagePasswordByCohesity = managePasswordByCohesity;

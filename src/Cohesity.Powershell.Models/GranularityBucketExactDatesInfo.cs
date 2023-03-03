@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -26,7 +24,7 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="GranularityBucketExactDatesInfo" /> class.
         /// </summary>
         /// <param name="datesVec">datesVec.</param>
-        public GranularityBucketExactDatesInfo(List<DateTimeOffset> datesVec = default(List<DateTimeOffset>))
+        public GranularityBucketExactDatesInfo(List<DateTime> datesVec = default(List<DateTime>))
         {
             this.DatesVec = datesVec;
             this.DatesVec = datesVec;
@@ -36,7 +34,7 @@ namespace Cohesity.Model
         /// Gets or Sets DatesVec
         /// </summary>
         [DataMember(Name="datesVec", EmitDefaultValue=true)]
-        public List<DateTimeOffset> DatesVec { get; set; }
+        public List<DateTime> DatesVec { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -78,7 +76,7 @@ namespace Cohesity.Model
                     this.DatesVec == input.DatesVec ||
                     this.DatesVec != null &&
                     input.DatesVec != null &&
-                    this.DatesVec.Equals(input.DatesVec)
+                    this.DatesVec.SequenceEqual(input.DatesVec)
                 );
         }
 

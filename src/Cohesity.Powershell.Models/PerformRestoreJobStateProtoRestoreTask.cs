@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -31,6 +29,8 @@ namespace Cohesity.Model
         /// <param name="taskId">Id of the task tracking the restore of the above &#39;object&#39;..</param>
         public PerformRestoreJobStateProtoRestoreTask(RestoreObject _object = default(RestoreObject), string objectProgressMonitorTaskPath = default(string), ErrorProto preprocessingError = default(ErrorProto), long? taskId = default(long?))
         {
+            this.ObjectProgressMonitorTaskPath = objectProgressMonitorTaskPath;
+            this.TaskId = taskId;
             this.Object = _object;
             this.ObjectProgressMonitorTaskPath = objectProgressMonitorTaskPath;
             this.PreprocessingError = preprocessingError;

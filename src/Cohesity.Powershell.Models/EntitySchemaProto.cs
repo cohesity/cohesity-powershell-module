@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -216,7 +214,7 @@ namespace Cohesity.Model
                     this.RollupGranularityVec == input.RollupGranularityVec ||
                     this.RollupGranularityVec != null &&
                     input.RollupGranularityVec != null &&
-                    this.RollupGranularityVec.Equals(input.RollupGranularityVec)
+                    this.RollupGranularityVec.SequenceEqual(input.RollupGranularityVec)
                 ) && 
                 (
                     this.SchemaDescriptiveName == input.SchemaDescriptiveName ||
@@ -232,7 +230,7 @@ namespace Cohesity.Model
                     this.TimeSeriesDescriptorVec == input.TimeSeriesDescriptorVec ||
                     this.TimeSeriesDescriptorVec != null &&
                     input.TimeSeriesDescriptorVec != null &&
-                    this.TimeSeriesDescriptorVec.Equals(input.TimeSeriesDescriptorVec)
+                    this.TimeSeriesDescriptorVec.SequenceEqual(input.TimeSeriesDescriptorVec)
                 ) && 
                 (
                     this.TimeToLiveSecs == input.TimeToLiveSecs ||

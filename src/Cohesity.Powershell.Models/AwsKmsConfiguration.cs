@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -70,6 +68,16 @@ namespace Cohesity.Model
         /// <param name="verifySSL">Specify whether to verify SSL when connect with AWS KMS. Default is true..</param>
         public AwsKmsConfiguration(string accessKeyId = default(string), AuthMethodEnum? authMethod = default(AuthMethodEnum?), string caCertificate = default(string), string cmkAlias = default(string), string cmkArn = default(string), string cmkKeyId = default(string), string iamRoleArn = default(string), string region = default(string), string secretAccessKey = default(string), bool? verifySSL = default(bool?))
         {
+            this.AccessKeyId = accessKeyId;
+            this.AuthMethod = authMethod;
+            this.CaCertificate = caCertificate;
+            this.CmkAlias = cmkAlias;
+            this.CmkArn = cmkArn;
+            this.CmkKeyId = cmkKeyId;
+            this.IamRoleArn = iamRoleArn;
+            this.Region = region;
+            this.SecretAccessKey = secretAccessKey;
+            this.VerifySSL = verifySSL;
             this.AccessKeyId = accessKeyId;
             this.AuthMethod = authMethod;
             this.CaCertificate = caCertificate;
@@ -243,8 +251,7 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.AccessKeyId != null)
                     hashCode = hashCode * 59 + this.AccessKeyId.GetHashCode();
-				if (this.AuthMethod != null)
-                	hashCode = hashCode * 59 + this.AuthMethod.GetHashCode();
+                hashCode = hashCode * 59 + this.AuthMethod.GetHashCode();
                 if (this.CaCertificate != null)
                     hashCode = hashCode * 59 + this.CaCertificate.GetHashCode();
                 if (this.CmkAlias != null)

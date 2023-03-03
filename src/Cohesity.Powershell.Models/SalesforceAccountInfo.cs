@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -36,6 +34,15 @@ namespace Cohesity.Model
         /// <param name="userId">Specifies the User Id assigned by Salesforce..</param>
         public SalesforceAccountInfo(string accountId = default(string), string heliosAccessGrantStatus = default(string), bool? isDGaaSUser = default(bool?), bool? isDMaaSUser = default(bool?), bool? isDRaaSUser = default(bool?), bool? isRPaaSUser = default(bool?), bool? isSalesUser = default(bool?), bool? isSupportUser = default(bool?), string userId = default(string))
         {
+            this.AccountId = accountId;
+            this.HeliosAccessGrantStatus = heliosAccessGrantStatus;
+            this.IsDGaaSUser = isDGaaSUser;
+            this.IsDMaaSUser = isDMaaSUser;
+            this.IsDRaaSUser = isDRaaSUser;
+            this.IsRPaaSUser = isRPaaSUser;
+            this.IsSalesUser = isSalesUser;
+            this.IsSupportUser = isSupportUser;
+            this.UserId = userId;
             this.AccountId = accountId;
             this.HeliosAccessGrantStatus = heliosAccessGrantStatus;
             this.IsDGaaSUser = isDGaaSUser;

@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -119,7 +117,7 @@ namespace Cohesity.Model
                     this.AttributeRestoreInfo == input.AttributeRestoreInfo ||
                     this.AttributeRestoreInfo != null &&
                     input.AttributeRestoreInfo != null &&
-                    this.AttributeRestoreInfo.Equals(input.AttributeRestoreInfo)
+                    this.AttributeRestoreInfo.SequenceEqual(input.AttributeRestoreInfo)
                 ) && 
                 (
                     this.ErrorMessage == input.ErrorMessage ||

@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -38,6 +36,8 @@ namespace Cohesity.Model
         /// <param name="vpc">vpc.</param>
         public DeployVMsToAWSParams(DeployDBInstancesToRDSParams auroraParams = default(DeployDBInstancesToRDSParams), List<CustomTag> customTagVec = default(List<CustomTag>), EntityProto instanceType = default(EntityProto), EntityProto keyPairName = default(EntityProto), List<EntityProto> networkSecurityGroups = default(List<EntityProto>), EntityProto proxyVmSubnet = default(EntityProto), EntityProto proxyVmVpc = default(EntityProto), DeployDBInstancesToRDSParams rdsParams = default(DeployDBInstancesToRDSParams), EntityProto region = default(EntityProto), EntityProto subnet = default(EntityProto), EntityProto vpc = default(EntityProto))
         {
+            this.CustomTagVec = customTagVec;
+            this.NetworkSecurityGroups = networkSecurityGroups;
             this.AuroraParams = auroraParams;
             this.CustomTagVec = customTagVec;
             this.InstanceType = instanceType;
@@ -164,7 +164,7 @@ namespace Cohesity.Model
                     this.CustomTagVec == input.CustomTagVec ||
                     this.CustomTagVec != null &&
                     input.CustomTagVec != null &&
-                    this.CustomTagVec.Equals(input.CustomTagVec)
+                    this.CustomTagVec.SequenceEqual(input.CustomTagVec)
                 ) && 
                 (
                     this.InstanceType == input.InstanceType ||
@@ -180,7 +180,7 @@ namespace Cohesity.Model
                     this.NetworkSecurityGroups == input.NetworkSecurityGroups ||
                     this.NetworkSecurityGroups != null &&
                     input.NetworkSecurityGroups != null &&
-                    this.NetworkSecurityGroups.Equals(input.NetworkSecurityGroups)
+                    this.NetworkSecurityGroups.SequenceEqual(input.NetworkSecurityGroups)
                 ) && 
                 (
                     this.ProxyVmSubnet == input.ProxyVmSubnet ||

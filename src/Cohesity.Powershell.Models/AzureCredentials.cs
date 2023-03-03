@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -181,6 +179,14 @@ namespace Cohesity.Model
             this.SubscriptionId = subscriptionId;
             this.SubscriptionType = subscriptionType;
             this.TenantId = tenantId;
+            this.ApplicationId = applicationId;
+            this.ApplicationKey = applicationKey;
+            this.AzureType = azureType;
+            this.DomainName = domainName;
+            this.Region = region;
+            this.SubscriptionId = subscriptionId;
+            this.SubscriptionType = subscriptionType;
+            this.TenantId = tenantId;
         }
         
         /// <summary>
@@ -314,16 +320,14 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ApplicationId.GetHashCode();
                 if (this.ApplicationKey != null)
                     hashCode = hashCode * 59 + this.ApplicationKey.GetHashCode();
-                if (this.AzureType != null)
-					hashCode = hashCode * 59 + this.AzureType.GetHashCode();
+                hashCode = hashCode * 59 + this.AzureType.GetHashCode();
                 if (this.DomainName != null)
                     hashCode = hashCode * 59 + this.DomainName.GetHashCode();
                 if (this.Region != null)
                     hashCode = hashCode * 59 + this.Region.GetHashCode();
                 if (this.SubscriptionId != null)
                     hashCode = hashCode * 59 + this.SubscriptionId.GetHashCode();
-                if (this.SubscriptionType != null)
-					hashCode = hashCode * 59 + this.SubscriptionType.GetHashCode();
+                hashCode = hashCode * 59 + this.SubscriptionType.GetHashCode();
                 if (this.TenantId != null)
                     hashCode = hashCode * 59 + this.TenantId.GetHashCode();
                 return hashCode;

@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -302,12 +300,7 @@ namespace Cohesity.Model
             /// Enum KO365PublicFolders for value: kO365PublicFolders
             /// </summary>
             [EnumMember(Value = "kO365PublicFolders")]
-            KO365PublicFolders = 46,
-			
-			/// Enum KVCD for value: kVCD
-            /// </summary>
-            [EnumMember(Value = "kVCD")]
-            KVCD = 47
+            KO365PublicFolders = 46
 
         }
 
@@ -366,7 +359,7 @@ namespace Cohesity.Model
             return 
                 (
                     this.Applications == input.Applications ||
-                    this.Applications.Equals(input.Applications)
+                    this.Applications.SequenceEqual(input.Applications)
                 );
         }
 

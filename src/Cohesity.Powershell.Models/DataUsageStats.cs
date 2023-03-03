@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -69,6 +67,48 @@ namespace Cohesity.Model
         /// <param name="uniquePhysicalDataBytes">Specifies the unique physical data usage in bytes..</param>
         public DataUsageStats(long? cloudDataWrittenBytes = default(long?), long? cloudDataWrittenBytesTimestampUsec = default(long?), long? cloudTotalPhysicalUsageBytes = default(long?), long? cloudTotalPhysicalUsageBytesTimestampUsec = default(long?), long? dataInBytes = default(long?), long? dataInBytesAfterDedup = default(long?), long? dataInBytesAfterDedupTimestampUsec = default(long?), long? dataInBytesPrev = default(long?), long? dataInBytesPrevTimestampUsec = default(long?), long? dataInBytesTimestampUsec = default(long?), long? dataProtectLogicalUsageBytes = default(long?), long? dataProtectLogicalUsageBytesTimestampUsec = default(long?), long? dataProtectPhysicalUsageBytes = default(long?), long? dataProtectPhysicalUsageBytesTimestampUsec = default(long?), long? dataWrittenBytes = default(long?), long? dataWrittenBytesPrev = default(long?), long? dataWrittenBytesPrevTimestampUsec = default(long?), long? dataWrittenBytesTimestampUsec = default(long?), long? fileServicesLogicalUsageBytes = default(long?), long? fileServicesLogicalUsageBytesTimestampUsec = default(long?), long? fileServicesPhysicalUsageBytes = default(long?), long? fileServicesPhysicalUsageBytesTimestampUsec = default(long?), long? localDataWrittenBytes = default(long?), long? localDataWrittenBytesTimestampUsec = default(long?), long? localTierResiliencyImpactBytes = default(long?), long? localTierResiliencyImpactBytesPrev = default(long?), long? localTierResiliencyImpactBytesPrevTimestampUsec = default(long?), long? localTierResiliencyImpactBytesTimestampUsec = default(long?), long? localTotalPhysicalUsageBytes = default(long?), long? localTotalPhysicalUsageBytesTimestampUsec = default(long?), long? numDirectories = default(long?), long? numDirectoriesPrev = default(long?), long? numFiles = default(long?), long? numFilesPrev = default(long?), long? outdatedLogicalUsageBytesTimestampUsec = default(long?), long? storageConsumedBytes = default(long?), long? storageConsumedBytesPrev = default(long?), long? storageConsumedBytesPrevTimestampUsec = default(long?), long? storageConsumedBytesTimestampUsec = default(long?), long? totalLogicalUsageBytes = default(long?), long? totalLogicalUsageBytesTimestampUsec = default(long?), long? uniquePhysicalDataBytes = default(long?))
         {
+            this.CloudDataWrittenBytes = cloudDataWrittenBytes;
+            this.CloudDataWrittenBytesTimestampUsec = cloudDataWrittenBytesTimestampUsec;
+            this.CloudTotalPhysicalUsageBytes = cloudTotalPhysicalUsageBytes;
+            this.CloudTotalPhysicalUsageBytesTimestampUsec = cloudTotalPhysicalUsageBytesTimestampUsec;
+            this.DataInBytes = dataInBytes;
+            this.DataInBytesAfterDedup = dataInBytesAfterDedup;
+            this.DataInBytesAfterDedupTimestampUsec = dataInBytesAfterDedupTimestampUsec;
+            this.DataInBytesPrev = dataInBytesPrev;
+            this.DataInBytesPrevTimestampUsec = dataInBytesPrevTimestampUsec;
+            this.DataInBytesTimestampUsec = dataInBytesTimestampUsec;
+            this.DataProtectLogicalUsageBytes = dataProtectLogicalUsageBytes;
+            this.DataProtectLogicalUsageBytesTimestampUsec = dataProtectLogicalUsageBytesTimestampUsec;
+            this.DataProtectPhysicalUsageBytes = dataProtectPhysicalUsageBytes;
+            this.DataProtectPhysicalUsageBytesTimestampUsec = dataProtectPhysicalUsageBytesTimestampUsec;
+            this.DataWrittenBytes = dataWrittenBytes;
+            this.DataWrittenBytesPrev = dataWrittenBytesPrev;
+            this.DataWrittenBytesPrevTimestampUsec = dataWrittenBytesPrevTimestampUsec;
+            this.DataWrittenBytesTimestampUsec = dataWrittenBytesTimestampUsec;
+            this.FileServicesLogicalUsageBytes = fileServicesLogicalUsageBytes;
+            this.FileServicesLogicalUsageBytesTimestampUsec = fileServicesLogicalUsageBytesTimestampUsec;
+            this.FileServicesPhysicalUsageBytes = fileServicesPhysicalUsageBytes;
+            this.FileServicesPhysicalUsageBytesTimestampUsec = fileServicesPhysicalUsageBytesTimestampUsec;
+            this.LocalDataWrittenBytes = localDataWrittenBytes;
+            this.LocalDataWrittenBytesTimestampUsec = localDataWrittenBytesTimestampUsec;
+            this.LocalTierResiliencyImpactBytes = localTierResiliencyImpactBytes;
+            this.LocalTierResiliencyImpactBytesPrev = localTierResiliencyImpactBytesPrev;
+            this.LocalTierResiliencyImpactBytesPrevTimestampUsec = localTierResiliencyImpactBytesPrevTimestampUsec;
+            this.LocalTierResiliencyImpactBytesTimestampUsec = localTierResiliencyImpactBytesTimestampUsec;
+            this.LocalTotalPhysicalUsageBytes = localTotalPhysicalUsageBytes;
+            this.LocalTotalPhysicalUsageBytesTimestampUsec = localTotalPhysicalUsageBytesTimestampUsec;
+            this.NumDirectories = numDirectories;
+            this.NumDirectoriesPrev = numDirectoriesPrev;
+            this.NumFiles = numFiles;
+            this.NumFilesPrev = numFilesPrev;
+            this.OutdatedLogicalUsageBytesTimestampUsec = outdatedLogicalUsageBytesTimestampUsec;
+            this.StorageConsumedBytes = storageConsumedBytes;
+            this.StorageConsumedBytesPrev = storageConsumedBytesPrev;
+            this.StorageConsumedBytesPrevTimestampUsec = storageConsumedBytesPrevTimestampUsec;
+            this.StorageConsumedBytesTimestampUsec = storageConsumedBytesTimestampUsec;
+            this.TotalLogicalUsageBytes = totalLogicalUsageBytes;
+            this.TotalLogicalUsageBytesTimestampUsec = totalLogicalUsageBytesTimestampUsec;
+            this.UniquePhysicalDataBytes = uniquePhysicalDataBytes;
             this.CloudDataWrittenBytes = cloudDataWrittenBytes;
             this.CloudDataWrittenBytesTimestampUsec = cloudDataWrittenBytesTimestampUsec;
             this.CloudTotalPhysicalUsageBytes = cloudTotalPhysicalUsageBytes;

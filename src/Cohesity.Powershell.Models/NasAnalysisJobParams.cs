@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -109,25 +107,25 @@ namespace Cohesity.Model
                     this.AccessTimeBuckets == input.AccessTimeBuckets ||
                     this.AccessTimeBuckets != null &&
                     input.AccessTimeBuckets != null &&
-                    this.AccessTimeBuckets.Equals(input.AccessTimeBuckets)
+                    this.AccessTimeBuckets.SequenceEqual(input.AccessTimeBuckets)
                 ) && 
                 (
                     this.FileSizeBuckets == input.FileSizeBuckets ||
                     this.FileSizeBuckets != null &&
                     input.FileSizeBuckets != null &&
-                    this.FileSizeBuckets.Equals(input.FileSizeBuckets)
+                    this.FileSizeBuckets.SequenceEqual(input.FileSizeBuckets)
                 ) && 
                 (
                     this.FileTypeBuckets == input.FileTypeBuckets ||
                     this.FileTypeBuckets != null &&
                     input.FileTypeBuckets != null &&
-                    this.FileTypeBuckets.Equals(input.FileTypeBuckets)
+                    this.FileTypeBuckets.SequenceEqual(input.FileTypeBuckets)
                 ) && 
                 (
                     this.ModTimeBuckets == input.ModTimeBuckets ||
                     this.ModTimeBuckets != null &&
                     input.ModTimeBuckets != null &&
-                    this.ModTimeBuckets.Equals(input.ModTimeBuckets)
+                    this.ModTimeBuckets.SequenceEqual(input.ModTimeBuckets)
                 );
         }
 

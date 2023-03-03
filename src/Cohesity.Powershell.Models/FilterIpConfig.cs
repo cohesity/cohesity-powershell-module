@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -89,13 +87,13 @@ namespace Cohesity.Model
                     this.AllowedIpAddresses == input.AllowedIpAddresses ||
                     this.AllowedIpAddresses != null &&
                     input.AllowedIpAddresses != null &&
-                    this.AllowedIpAddresses.Equals(input.AllowedIpAddresses)
+                    this.AllowedIpAddresses.SequenceEqual(input.AllowedIpAddresses)
                 ) && 
                 (
                     this.DeniedIpAddresses == input.DeniedIpAddresses ||
                     this.DeniedIpAddresses != null &&
                     input.DeniedIpAddresses != null &&
-                    this.DeniedIpAddresses.Equals(input.DeniedIpAddresses)
+                    this.DeniedIpAddresses.SequenceEqual(input.DeniedIpAddresses)
                 );
         }
 

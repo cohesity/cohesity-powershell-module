@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -30,6 +28,9 @@ namespace Cohesity.Model
         /// <param name="vpc">Specifies the vpc for the fleet..</param>
         public FleetNetworkParams(string region = default(string), string subnet = default(string), string vpc = default(string))
         {
+            this.Region = region;
+            this.Subnet = subnet;
+            this.Vpc = vpc;
             this.Region = region;
             this.Subnet = subnet;
             this.Vpc = vpc;

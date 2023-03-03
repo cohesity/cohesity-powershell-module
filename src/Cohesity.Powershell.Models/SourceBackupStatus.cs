@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -13,7 +12,6 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
 namespace Cohesity.Model
 {
     /// <summary>
@@ -23,9 +21,9 @@ namespace Cohesity.Model
     public partial class SourceBackupStatus :  IEquatable<SourceBackupStatus>
     {
         /// <summary>
-        /// Specifies the status of the source object being protected. &#39;kAccepted&#39; indicates the task is queued to run but not yet running. &#39;kRunning&#39; indicates the task is running. &#39;kCanceling&#39; indicates a request to cancel the task has occurred but the task is not yet canceled. &#39;kCanceled&#39; indicates the task has been canceled. &#39;kSuccess&#39; indicates the task was successful. &#39;kFailure&#39; indicates the task failed. &#39;kWarning&#39; indicates the task has finished with warning. &#39;kOnHold&#39; indicates the task is kept onHold. &#39;kMissed&#39; indicates the task is missed. &#39;Finalizing&#39; indicates the task is finalizing. kOnHold,kMissed,kFinalizing
+        /// Specifies the status of the source object being protected. &#39;kAccepted&#39; indicates the task is queued to run but not yet running. &#39;kRunning&#39; indicates the task is running. &#39;kCanceling&#39; indicates a request to cancel the task has occurred but the task is not yet canceled. &#39;kCanceled&#39; indicates the task has been canceled. &#39;kSuccess&#39; indicates the task was successful. &#39;kFailure&#39; indicates the task failed. &#39;kWarning&#39; indicates the task has finished with warning. &#39;kOnHold&#39; indicates the task is kept onHold. &#39;kMissed&#39; indicates the task is missed. &#39;Finalizing&#39; indicates the task is finalizing.
         /// </summary>
-        /// <value>Specifies the status of the source object being protected. &#39;kAccepted&#39; indicates the task is queued to run but not yet running. &#39;kRunning&#39; indicates the task is running. &#39;kCanceling&#39; indicates a request to cancel the task has occurred but the task is not yet canceled. &#39;kCanceled&#39; indicates the task has been canceled. &#39;kSuccess&#39; indicates the task was successful. &#39;kFailure&#39; indicates the task failed. &#39;kWarning&#39; indicates the task has finished with warning. &#39;kOnHold&#39; indicates the task is kept onHold. &#39;kMissed&#39; indicates the task is missed. &#39;Finalizing&#39; indicates the task is finalizing. kOnHold,kMissed,kFinalizing</value>
+        /// <value>Specifies the status of the source object being protected. &#39;kAccepted&#39; indicates the task is queued to run but not yet running. &#39;kRunning&#39; indicates the task is running. &#39;kCanceling&#39; indicates a request to cancel the task has occurred but the task is not yet canceled. &#39;kCanceled&#39; indicates the task has been canceled. &#39;kSuccess&#39; indicates the task was successful. &#39;kFailure&#39; indicates the task failed. &#39;kWarning&#39; indicates the task has finished with warning. &#39;kOnHold&#39; indicates the task is kept onHold. &#39;kMissed&#39; indicates the task is missed. &#39;Finalizing&#39; indicates the task is finalizing.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum StatusEnum
         {
@@ -69,14 +67,32 @@ namespace Cohesity.Model
             /// Enum KWarning for value: kWarning
             /// </summary>
             [EnumMember(Value = "kWarning")]
-            KWarning = 7
+            KWarning = 7,
+
+            /// <summary>
+            /// Enum KOnHold for value: kOnHold
+            /// </summary>
+            [EnumMember(Value = "kOnHold")]
+            KOnHold = 8,
+
+            /// <summary>
+            /// Enum KMissed for value: kMissed
+            /// </summary>
+            [EnumMember(Value = "kMissed")]
+            KMissed = 9,
+
+            /// <summary>
+            /// Enum KFinalizing for value: kFinalizing
+            /// </summary>
+            [EnumMember(Value = "kFinalizing")]
+            KFinalizing = 10
 
         }
 
         /// <summary>
-        /// Specifies the status of the source object being protected. &#39;kAccepted&#39; indicates the task is queued to run but not yet running. &#39;kRunning&#39; indicates the task is running. &#39;kCanceling&#39; indicates a request to cancel the task has occurred but the task is not yet canceled. &#39;kCanceled&#39; indicates the task has been canceled. &#39;kSuccess&#39; indicates the task was successful. &#39;kFailure&#39; indicates the task failed. &#39;kWarning&#39; indicates the task has finished with warning. &#39;kOnHold&#39; indicates the task is kept onHold. &#39;kMissed&#39; indicates the task is missed. &#39;Finalizing&#39; indicates the task is finalizing. kOnHold,kMissed,kFinalizing
+        /// Specifies the status of the source object being protected. &#39;kAccepted&#39; indicates the task is queued to run but not yet running. &#39;kRunning&#39; indicates the task is running. &#39;kCanceling&#39; indicates a request to cancel the task has occurred but the task is not yet canceled. &#39;kCanceled&#39; indicates the task has been canceled. &#39;kSuccess&#39; indicates the task was successful. &#39;kFailure&#39; indicates the task failed. &#39;kWarning&#39; indicates the task has finished with warning. &#39;kOnHold&#39; indicates the task is kept onHold. &#39;kMissed&#39; indicates the task is missed. &#39;Finalizing&#39; indicates the task is finalizing.
         /// </summary>
-        /// <value>Specifies the status of the source object being protected. &#39;kAccepted&#39; indicates the task is queued to run but not yet running. &#39;kRunning&#39; indicates the task is running. &#39;kCanceling&#39; indicates a request to cancel the task has occurred but the task is not yet canceled. &#39;kCanceled&#39; indicates the task has been canceled. &#39;kSuccess&#39; indicates the task was successful. &#39;kFailure&#39; indicates the task failed. &#39;kWarning&#39; indicates the task has finished with warning. &#39;kOnHold&#39; indicates the task is kept onHold. &#39;kMissed&#39; indicates the task is missed. &#39;Finalizing&#39; indicates the task is finalizing. kOnHold,kMissed,kFinalizing</value>
+        /// <value>Specifies the status of the source object being protected. &#39;kAccepted&#39; indicates the task is queued to run but not yet running. &#39;kRunning&#39; indicates the task is running. &#39;kCanceling&#39; indicates a request to cancel the task has occurred but the task is not yet canceled. &#39;kCanceled&#39; indicates the task has been canceled. &#39;kSuccess&#39; indicates the task was successful. &#39;kFailure&#39; indicates the task failed. &#39;kWarning&#39; indicates the task has finished with warning. &#39;kOnHold&#39; indicates the task is kept onHold. &#39;kMissed&#39; indicates the task is missed. &#39;Finalizing&#39; indicates the task is finalizing.</value>
         [DataMember(Name="status", EmitDefaultValue=true)]
         public StatusEnum? Status { get; set; }
         /// <summary>
@@ -93,10 +109,20 @@ namespace Cohesity.Model
         /// <param name="slaViolated">Specifies if the SLA was violated for the Job Run. This field is set to true, if time to complete the Job Run is longer than the SLA specified. This field is populated when the status is set to &#39;kSuccess&#39; or &#39;kFailure&#39;..</param>
         /// <param name="source">source.</param>
         /// <param name="stats">stats.</param>
-        /// <param name="status">Specifies the status of the source object being protected. &#39;kAccepted&#39; indicates the task is queued to run but not yet running. &#39;kRunning&#39; indicates the task is running. &#39;kCanceling&#39; indicates a request to cancel the task has occurred but the task is not yet canceled. &#39;kCanceled&#39; indicates the task has been canceled. &#39;kSuccess&#39; indicates the task was successful. &#39;kFailure&#39; indicates the task failed. &#39;kWarning&#39; indicates the task has finished with warning. &#39;kOnHold&#39; indicates the task is kept onHold. &#39;kMissed&#39; indicates the task is missed. &#39;Finalizing&#39; indicates the task is finalizing. kOnHold,kMissed,kFinalizing.</param>
+        /// <param name="status">Specifies the status of the source object being protected. &#39;kAccepted&#39; indicates the task is queued to run but not yet running. &#39;kRunning&#39; indicates the task is running. &#39;kCanceling&#39; indicates a request to cancel the task has occurred but the task is not yet canceled. &#39;kCanceled&#39; indicates the task has been canceled. &#39;kSuccess&#39; indicates the task was successful. &#39;kFailure&#39; indicates the task failed. &#39;kWarning&#39; indicates the task has finished with warning. &#39;kOnHold&#39; indicates the task is kept onHold. &#39;kMissed&#39; indicates the task is missed. &#39;Finalizing&#39; indicates the task is finalizing..</param>
         /// <param name="warnings">Array of Warnings.  Specifies the warnings that occurred (if any) while running this task..</param>
         public SourceBackupStatus(List<AppEntityBackupStatusInfo> appsBackupStatus = default(List<AppEntityBackupStatusInfo>), SnapshotInfo currentSnapshotInfo = default(SnapshotInfo), string error = default(string), bool? isFullBackup = default(bool?), int? numRestarts = default(int?), long? parentSourceId = default(long?), string progressMonitorTaskPath = default(string), bool? quiesced = default(bool?), bool? slaViolated = default(bool?), ProtectionSource source = default(ProtectionSource), BackupSourceStats stats = default(BackupSourceStats), StatusEnum? status = default(StatusEnum?), List<string> warnings = default(List<string>))
         {
+            this.AppsBackupStatus = appsBackupStatus;
+            this.Error = error;
+            this.IsFullBackup = isFullBackup;
+            this.NumRestarts = numRestarts;
+            this.ParentSourceId = parentSourceId;
+            this.ProgressMonitorTaskPath = progressMonitorTaskPath;
+            this.Quiesced = quiesced;
+            this.SlaViolated = slaViolated;
+            this.Status = status;
+            this.Warnings = warnings;
             this.AppsBackupStatus = appsBackupStatus;
             this.CurrentSnapshotInfo = currentSnapshotInfo;
             this.Error = error;
@@ -233,7 +259,7 @@ namespace Cohesity.Model
                     this.AppsBackupStatus == input.AppsBackupStatus ||
                     this.AppsBackupStatus != null &&
                     input.AppsBackupStatus != null &&
-                    this.AppsBackupStatus.Equals(input.AppsBackupStatus)
+                    this.AppsBackupStatus.SequenceEqual(input.AppsBackupStatus)
                 ) && 
                 (
                     this.CurrentSnapshotInfo == input.CurrentSnapshotInfo ||
@@ -293,7 +319,7 @@ namespace Cohesity.Model
                     this.Warnings == input.Warnings ||
                     this.Warnings != null &&
                     input.Warnings != null &&
-                    this.Warnings.Equals(input.Warnings)
+                    this.Warnings.SequenceEqual(input.Warnings)
                 );
         }
 
@@ -328,8 +354,7 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Source.GetHashCode();
                 if (this.Stats != null)
                     hashCode = hashCode * 59 + this.Stats.GetHashCode();
-                if (this.Status != null)
-					hashCode = hashCode * 59 + this.Status.GetHashCode();
+                hashCode = hashCode * 59 + this.Status.GetHashCode();
                 if (this.Warnings != null)
                     hashCode = hashCode * 59 + this.Warnings.GetHashCode();
                 return hashCode;

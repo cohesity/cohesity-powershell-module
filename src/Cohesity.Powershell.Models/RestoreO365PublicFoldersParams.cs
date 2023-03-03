@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -96,7 +94,7 @@ namespace Cohesity.Model
                     this.RootPublicFolderVec == input.RootPublicFolderVec ||
                     this.RootPublicFolderVec != null &&
                     input.RootPublicFolderVec != null &&
-                    this.RootPublicFolderVec.Equals(input.RootPublicFolderVec)
+                    this.RootPublicFolderVec.SequenceEqual(input.RootPublicFolderVec)
                 ) && 
                 (
                     this.TargetFolderPath == input.TargetFolderPath ||

@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -66,6 +64,23 @@ namespace Cohesity.Model
             this.KmsServerId = kmsServerId;
             this.LdapProviderId = ldapProviderId;
             this.Name = name;
+            this.NisDomainNameVec = nisDomainNameVec;
+            this.PhysicalQuota = physicalQuota;
+            this.S3BucketsAllowed = s3BucketsAllowed;
+            this.TenantIdVec = tenantIdVec;
+            this.UpdatedBrickSize = updatedBrickSize;
+            this.AdDomainName = adDomainName;
+            this.BrickSize = brickSize;
+            this.ClientSubnetWhiteList = clientSubnetWhiteList;
+            this.CloudDownWaterfallThresholdPct = cloudDownWaterfallThresholdPct;
+            this.CloudDownWaterfallThresholdSecs = cloudDownWaterfallThresholdSecs;
+            this.DefaultUserQuotaPolicy = defaultUserQuotaPolicy;
+            this.DefaultViewQuotaPolicy = defaultViewQuotaPolicy;
+            this.DekRotationEnabled = dekRotationEnabled;
+            this.DirectArchiveEnabled = directArchiveEnabled;
+            this.KerberosRealmName = kerberosRealmName;
+            this.KmsServerId = kmsServerId;
+            this.LdapProviderId = ldapProviderId;
             this.NisDomainNameVec = nisDomainNameVec;
             this.PhysicalQuota = physicalQuota;
             this.S3BucketsAllowed = s3BucketsAllowed;
@@ -263,7 +278,7 @@ namespace Cohesity.Model
                     this.ClientSubnetWhiteList == input.ClientSubnetWhiteList ||
                     this.ClientSubnetWhiteList != null &&
                     input.ClientSubnetWhiteList != null &&
-                    this.ClientSubnetWhiteList.Equals(input.ClientSubnetWhiteList)
+                    this.ClientSubnetWhiteList.SequenceEqual(input.ClientSubnetWhiteList)
                 ) && 
                 (
                     this.CloudDownWaterfallThresholdPct == input.CloudDownWaterfallThresholdPct ||
@@ -324,7 +339,7 @@ namespace Cohesity.Model
                     this.NisDomainNameVec == input.NisDomainNameVec ||
                     this.NisDomainNameVec != null &&
                     input.NisDomainNameVec != null &&
-                    this.NisDomainNameVec.Equals(input.NisDomainNameVec)
+                    this.NisDomainNameVec.SequenceEqual(input.NisDomainNameVec)
                 ) && 
                 (
                     this.PhysicalQuota == input.PhysicalQuota ||
@@ -345,7 +360,7 @@ namespace Cohesity.Model
                     this.TenantIdVec == input.TenantIdVec ||
                     this.TenantIdVec != null &&
                     input.TenantIdVec != null &&
-                    this.TenantIdVec.Equals(input.TenantIdVec)
+                    this.TenantIdVec.SequenceEqual(input.TenantIdVec)
                 ) && 
                 (
                     this.UpdatedBrickSize == input.UpdatedBrickSize ||

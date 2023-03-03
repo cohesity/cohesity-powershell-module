@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -246,6 +244,18 @@ namespace Cohesity.Model
         /// <param name="volCbtInfo">volCbtInfo.</param>
         public AgentInformation(string cbmrVersion = default(string), CbtInfo fileCbtInfo = default(CbtInfo), HostTypeEnum? hostType = default(HostTypeEnum?), long? id = default(long?), string name = default(string), bool? oracleMultiNodeChannelSupported = default(bool?), RegisteredSourceInfo registrationInfo = default(RegisteredSourceInfo), bool? sourceSideDedupEnabled = default(bool?), StatusEnum? status = default(StatusEnum?), string statusMessage = default(string), UpgradabilityEnum? upgradability = default(UpgradabilityEnum?), UpgradeStatusEnum? upgradeStatus = default(UpgradeStatusEnum?), string upgradeStatusMessage = default(string), string version = default(string), CbtInfo volCbtInfo = default(CbtInfo))
         {
+            this.CbmrVersion = cbmrVersion;
+            this.HostType = hostType;
+            this.Id = id;
+            this.Name = name;
+            this.OracleMultiNodeChannelSupported = oracleMultiNodeChannelSupported;
+            this.SourceSideDedupEnabled = sourceSideDedupEnabled;
+            this.Status = status;
+            this.StatusMessage = statusMessage;
+            this.Upgradability = upgradability;
+            this.UpgradeStatus = upgradeStatus;
+            this.UpgradeStatusMessage = upgradeStatusMessage;
+            this.Version = version;
             this.CbmrVersion = cbmrVersion;
             this.FileCbtInfo = fileCbtInfo;
             this.HostType = hostType;

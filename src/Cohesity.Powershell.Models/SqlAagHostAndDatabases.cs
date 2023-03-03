@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -32,6 +30,10 @@ namespace Cohesity.Model
         /// <param name="unknownHostName">Specifies the name of the host that is not registered as an SQL server on Cohesity Cluser..</param>
         public SqlAagHostAndDatabases(List<AagAndDatabases> aagDatabases = default(List<AagAndDatabases>), ProtectionSourceNode applicationNode = default(ProtectionSourceNode), List<ProtectionSource> databases = default(List<ProtectionSource>), string errorMessage = default(string), string unknownHostName = default(string))
         {
+            this.AagDatabases = aagDatabases;
+            this.Databases = databases;
+            this.ErrorMessage = errorMessage;
+            this.UnknownHostName = unknownHostName;
             this.AagDatabases = aagDatabases;
             this.ApplicationNode = applicationNode;
             this.Databases = databases;
@@ -113,7 +115,7 @@ namespace Cohesity.Model
                     this.AagDatabases == input.AagDatabases ||
                     this.AagDatabases != null &&
                     input.AagDatabases != null &&
-                    this.AagDatabases.Equals(input.AagDatabases)
+                    this.AagDatabases.SequenceEqual(input.AagDatabases)
                 ) && 
                 (
                     this.ApplicationNode == input.ApplicationNode ||
@@ -124,7 +126,7 @@ namespace Cohesity.Model
                     this.Databases == input.Databases ||
                     this.Databases != null &&
                     input.Databases != null &&
-                    this.Databases.Equals(input.Databases)
+                    this.Databases.SequenceEqual(input.Databases)
                 ) && 
                 (
                     this.ErrorMessage == input.ErrorMessage ||

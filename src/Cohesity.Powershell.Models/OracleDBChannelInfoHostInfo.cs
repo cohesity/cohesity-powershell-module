@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -31,6 +29,9 @@ namespace Cohesity.Model
         /// <param name="sbtHostParams">sbtHostParams.</param>
         public OracleDBChannelInfoHostInfo(string host = default(string), int? numChannels = default(int?), long? portnum = default(long?), OracleSbtHostParams sbtHostParams = default(OracleSbtHostParams))
         {
+            this.Host = host;
+            this.NumChannels = numChannels;
+            this.Portnum = portnum;
             this.Host = host;
             this.NumChannels = numChannels;
             this.Portnum = portnum;

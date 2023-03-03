@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -302,12 +300,7 @@ namespace Cohesity.Model
             /// Enum KO365PublicFolders for value: kO365PublicFolders
             /// </summary>
             [EnumMember(Value = "kO365PublicFolders")]
-            KO365PublicFolders = 46,
-
-			/// Enum KVCD for value: kVCD
-            /// </summary>
-            [EnumMember(Value = "kVCD")]
-            KVCD = 47
+            KO365PublicFolders = 46
 
         }
 
@@ -330,6 +323,13 @@ namespace Cohesity.Model
         /// <param name="username">Specifies username to access the target source..</param>
         public RegisterApplicationServersParameters(List<ApplicationsEnum> applications = default(List<ApplicationsEnum>), string encryptionKey = default(string), bool? hasPersistentAgent = default(bool?), bool? isInternalEncrypted = default(bool?), string password = default(string), long? protectionSourceId = default(long?), string username = default(string))
         {
+            this.Applications = applications;
+            this.EncryptionKey = encryptionKey;
+            this.HasPersistentAgent = hasPersistentAgent;
+            this.IsInternalEncrypted = isInternalEncrypted;
+            this.Password = password;
+            this.ProtectionSourceId = protectionSourceId;
+            this.Username = username;
             this.Applications = applications;
             this.EncryptionKey = encryptionKey;
             this.HasPersistentAgent = hasPersistentAgent;
@@ -419,7 +419,7 @@ namespace Cohesity.Model
             return 
                 (
                     this.Applications == input.Applications ||
-                    this.Applications.Equals(input.Applications)
+                    this.Applications.SequenceEqual(input.Applications)
                 ) && 
                 (
                     this.EncryptionKey == input.EncryptionKey ||
@@ -462,8 +462,7 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-				if (this.Applications != null)
-                	hashCode = hashCode * 59 + this.Applications.GetHashCode();
+                hashCode = hashCode * 59 + this.Applications.GetHashCode();
                 if (this.EncryptionKey != null)
                     hashCode = hashCode * 59 + this.EncryptionKey.GetHashCode();
                 if (this.HasPersistentAgent != null)

@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -134,6 +132,15 @@ namespace Cohesity.Model
         /// <param name="visitedTimeSecs">Timestamp at which user visited this notification event..</param>
         public TaskNotification(AgentUpgradeTaskInfo agentUpgradeTask = default(AgentUpgradeTaskInfo), AnalysisTaskInfo analysisTask = default(AnalysisTaskInfo), BackupTaskInfo backupTask = default(BackupTaskInfo), BulkInstallAppTaskInfo bulkInstallAppTask = default(BulkInstallAppTaskInfo), CloneTaskInfo cloneTask = default(CloneTaskInfo), long? createdTimeSecs = default(long?), string description = default(string), bool? dismissed = default(bool?), long? dismissedTimeSecs = default(long?), BasicTaskInfo fieldMessageTask = default(BasicTaskInfo), string id = default(string), RecoveryTaskInfo recoveryTask = default(RecoveryTaskInfo), StatusEnum? status = default(StatusEnum?), TaskTypeEnum? taskType = default(TaskTypeEnum?), TieringTaskInfo tieringTask = default(TieringTaskInfo), bool? visited = default(bool?), long? visitedTimeSecs = default(long?))
         {
+            this.CreatedTimeSecs = createdTimeSecs;
+            this.Description = description;
+            this.Dismissed = dismissed;
+            this.DismissedTimeSecs = dismissedTimeSecs;
+            this.Id = id;
+            this.Status = status;
+            this.TaskType = taskType;
+            this.Visited = visited;
+            this.VisitedTimeSecs = visitedTimeSecs;
             this.AgentUpgradeTask = agentUpgradeTask;
             this.AnalysisTask = analysisTask;
             this.BackupTask = backupTask;
@@ -404,10 +411,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Id.GetHashCode();
                 if (this.RecoveryTask != null)
                     hashCode = hashCode * 59 + this.RecoveryTask.GetHashCode();
-                if (this.Status != null)
-					hashCode = hashCode * 59 + this.Status.GetHashCode();
-                if (this.TaskType != null)
-					hashCode = hashCode * 59 + this.TaskType.GetHashCode();
+                hashCode = hashCode * 59 + this.Status.GetHashCode();
+                hashCode = hashCode * 59 + this.TaskType.GetHashCode();
                 if (this.TieringTask != null)
                     hashCode = hashCode * 59 + this.TieringTask.GetHashCode();
                 if (this.Visited != null)

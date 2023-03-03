@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -29,6 +27,8 @@ namespace Cohesity.Model
         /// <param name="permissions">Array of SMB Permissions.  Specifies a list of SMB permissions..</param>
         public SmbPermissionsInfo(string ownerSid = default(string), List<SmbPermission> permissions = default(List<SmbPermission>))
         {
+            this.OwnerSid = ownerSid;
+            this.Permissions = permissions;
             this.OwnerSid = ownerSid;
             this.Permissions = permissions;
         }
@@ -92,7 +92,7 @@ namespace Cohesity.Model
                     this.Permissions == input.Permissions ||
                     this.Permissions != null &&
                     input.Permissions != null &&
-                    this.Permissions.Equals(input.Permissions)
+                    this.Permissions.SequenceEqual(input.Permissions)
                 );
         }
 

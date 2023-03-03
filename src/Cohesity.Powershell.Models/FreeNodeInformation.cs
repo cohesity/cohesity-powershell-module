@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -40,6 +38,19 @@ namespace Cohesity.Model
         /// <param name="softwareVersion">Specifies the version of the software installed on the Node..</param>
         public FreeNodeInformation(string chassisSerial = default(string), bool? connectedTo = default(bool?), string hostname = default(string), long? id = default(long?), string ip = default(string), string ipmiIp = default(string), List<string> ips = default(List<string>), string nodeSerial = default(string), string nodeUiSlot = default(string), int? numSlotsInChassis = default(int?), string productModel = default(string), string slotNumber = default(string), string softwareVersion = default(string))
         {
+            this.ChassisSerial = chassisSerial;
+            this.ConnectedTo = connectedTo;
+            this.Hostname = hostname;
+            this.Id = id;
+            this.Ip = ip;
+            this.IpmiIp = ipmiIp;
+            this.Ips = ips;
+            this.NodeSerial = nodeSerial;
+            this.NodeUiSlot = nodeUiSlot;
+            this.NumSlotsInChassis = numSlotsInChassis;
+            this.ProductModel = productModel;
+            this.SlotNumber = slotNumber;
+            this.SoftwareVersion = softwareVersion;
             this.ChassisSerial = chassisSerial;
             this.ConnectedTo = connectedTo;
             this.Hostname = hostname;
@@ -216,7 +227,7 @@ namespace Cohesity.Model
                     this.Ips == input.Ips ||
                     this.Ips != null &&
                     input.Ips != null &&
-                    this.Ips.Equals(input.Ips)
+                    this.Ips.SequenceEqual(input.Ips)
                 ) && 
                 (
                     this.NodeSerial == input.NodeSerial ||

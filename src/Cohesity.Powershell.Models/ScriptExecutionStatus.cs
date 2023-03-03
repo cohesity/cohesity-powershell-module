@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -31,6 +29,9 @@ namespace Cohesity.Model
         /// <param name="state">Execution state of the script..</param>
         public ScriptExecutionStatus(ErrorProto error = default(ErrorProto), bool? executing = default(bool?), int? exitCode = default(int?), int? state = default(int?))
         {
+            this.Executing = executing;
+            this.ExitCode = exitCode;
+            this.State = state;
             this.Error = error;
             this.Executing = executing;
             this.ExitCode = exitCode;

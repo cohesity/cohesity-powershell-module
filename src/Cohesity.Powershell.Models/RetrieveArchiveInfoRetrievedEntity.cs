@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -38,6 +36,15 @@ namespace Cohesity.Model
         /// <param name="uptierExpiryTimestampUsecs">If this is part of an uptier restore task, this will denote how much time the retrieved entity is present in the hot-tiers..</param>
         public RetrieveArchiveInfoRetrievedEntity(long? bytesTransferred = default(long?), long? endTimestampUsecs = default(long?), EntityProto entity = default(EntityProto), ErrorProto error = default(ErrorProto), long? logicalBytesTransferred = default(long?), long? logicalSizeBytes = default(long?), string progressMonitorTaskPath = default(string), string relativeSnapshotDir = default(string), long? startTimestampUsecs = default(long?), int? status = default(int?), long? uptierExpiryTimestampUsecs = default(long?))
         {
+            this.BytesTransferred = bytesTransferred;
+            this.EndTimestampUsecs = endTimestampUsecs;
+            this.LogicalBytesTransferred = logicalBytesTransferred;
+            this.LogicalSizeBytes = logicalSizeBytes;
+            this.ProgressMonitorTaskPath = progressMonitorTaskPath;
+            this.RelativeSnapshotDir = relativeSnapshotDir;
+            this.StartTimestampUsecs = startTimestampUsecs;
+            this.Status = status;
+            this.UptierExpiryTimestampUsecs = uptierExpiryTimestampUsecs;
             this.BytesTransferred = bytesTransferred;
             this.EndTimestampUsecs = endTimestampUsecs;
             this.Entity = entity;

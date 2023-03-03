@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -77,6 +75,11 @@ namespace Cohesity.Model
         /// <param name="sid">Specifies the unique Security id (SID) of the principal..</param>
         public Principal(string domain = default(string), string fullName = default(string), ObjectClassEnum? objectClass = default(ObjectClassEnum?), string principalName = default(string), string sid = default(string))
         {
+            this.Domain = domain;
+            this.FullName = fullName;
+            this.ObjectClass = objectClass;
+            this.PrincipalName = principalName;
+            this.Sid = sid;
             this.Domain = domain;
             this.FullName = fullName;
             this.ObjectClass = objectClass;

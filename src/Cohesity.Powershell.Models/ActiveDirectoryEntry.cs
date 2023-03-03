@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -58,6 +56,24 @@ namespace Cohesity.Model
             this.TenantId = tenantId;
             this.TrustedDomainsEnabled = trustedDomainsEnabled;
             this.UnixRootSid = unixRootSid;
+            this.UserName = userName;
+            this.WhitelistedDomains = whitelistedDomains;
+            this.Workgroup = workgroup;
+            this.DomainName = domainName;
+            this.FallbackUserIdMappingInfo = fallbackUserIdMappingInfo;
+            this.ForceRemove = forceRemove;
+            this.IgnoredTrustedDomains = ignoredTrustedDomains;
+            this.LdapProviderId = ldapProviderId;
+            this.MachineAccounts = machineAccounts;
+            this.OnlyUseWhitelistedDomains = onlyUseWhitelistedDomains;
+            this.OuName = ouName;
+            this.Password = password;
+            this.PreferredDomainControllers = preferredDomainControllers;
+            this.TaskPath = taskPath;
+            this.TenantId = tenantId;
+            this.TrustedDomainsEnabled = trustedDomainsEnabled;
+            this.UnixRootSid = unixRootSid;
+            this.UserIdMappingInfo = userIdMappingInfo;
             this.UserName = userName;
             this.WhitelistedDomains = whitelistedDomains;
             this.Workgroup = workgroup;
@@ -249,7 +265,7 @@ namespace Cohesity.Model
                     this.IgnoredTrustedDomains == input.IgnoredTrustedDomains ||
                     this.IgnoredTrustedDomains != null &&
                     input.IgnoredTrustedDomains != null &&
-                    this.IgnoredTrustedDomains.Equals(input.IgnoredTrustedDomains)
+                    this.IgnoredTrustedDomains.SequenceEqual(input.IgnoredTrustedDomains)
                 ) && 
                 (
                     this.LdapProviderId == input.LdapProviderId ||
@@ -260,7 +276,7 @@ namespace Cohesity.Model
                     this.MachineAccounts == input.MachineAccounts ||
                     this.MachineAccounts != null &&
                     input.MachineAccounts != null &&
-                    this.MachineAccounts.Equals(input.MachineAccounts)
+                    this.MachineAccounts.SequenceEqual(input.MachineAccounts)
                 ) && 
                 (
                     this.OnlyUseWhitelistedDomains == input.OnlyUseWhitelistedDomains ||
@@ -281,7 +297,7 @@ namespace Cohesity.Model
                     this.PreferredDomainControllers == input.PreferredDomainControllers ||
                     this.PreferredDomainControllers != null &&
                     input.PreferredDomainControllers != null &&
-                    this.PreferredDomainControllers.Equals(input.PreferredDomainControllers)
+                    this.PreferredDomainControllers.SequenceEqual(input.PreferredDomainControllers)
                 ) && 
                 (
                     this.TaskPath == input.TaskPath ||
@@ -297,7 +313,7 @@ namespace Cohesity.Model
                     this.TrustedDomains == input.TrustedDomains ||
                     this.TrustedDomains != null &&
                     input.TrustedDomains != null &&
-                    this.TrustedDomains.Equals(input.TrustedDomains)
+                    this.TrustedDomains.SequenceEqual(input.TrustedDomains)
                 ) && 
                 (
                     this.TrustedDomainsEnabled == input.TrustedDomainsEnabled ||
@@ -323,7 +339,7 @@ namespace Cohesity.Model
                     this.WhitelistedDomains == input.WhitelistedDomains ||
                     this.WhitelistedDomains != null &&
                     input.WhitelistedDomains != null &&
-                    this.WhitelistedDomains.Equals(input.WhitelistedDomains)
+                    this.WhitelistedDomains.SequenceEqual(input.WhitelistedDomains)
                 ) && 
                 (
                     this.Workgroup == input.Workgroup ||

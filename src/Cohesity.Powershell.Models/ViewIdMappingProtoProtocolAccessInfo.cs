@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -33,6 +31,12 @@ namespace Cohesity.Model
         /// <param name="swiftAccess">Access control for Swift protocol for this view..</param>
         public ViewIdMappingProtoProtocolAccessInfo(int? iscsiAccess = default(int?), int? nfs4Access = default(int?), int? nfsAccess = default(int?), int? s3Access = default(int?), int? smbAccess = default(int?), int? swiftAccess = default(int?))
         {
+            this.IscsiAccess = iscsiAccess;
+            this.Nfs4Access = nfs4Access;
+            this.NfsAccess = nfsAccess;
+            this.S3Access = s3Access;
+            this.SmbAccess = smbAccess;
+            this.SwiftAccess = swiftAccess;
             this.IscsiAccess = iscsiAccess;
             this.Nfs4Access = nfs4Access;
             this.NfsAccess = nfsAccess;

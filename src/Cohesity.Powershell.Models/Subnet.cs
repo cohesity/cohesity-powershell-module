@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -138,6 +136,18 @@ namespace Cohesity.Model
         /// <param name="tenantId">Specifies the unique id of the tenant..</param>
         public Subnet(string component = default(string), string description = default(string), int? id = default(int?), string ip = default(string), int? netmaskBits = default(int?), string netmaskIp4 = default(string), NfsAccessEnum? nfsAccess = default(NfsAccessEnum?), bool? nfsAllSquash = default(bool?), bool? nfsRootSquash = default(bool?), S3AccessEnum? s3Access = default(S3AccessEnum?), SmbAccessEnum? smbAccess = default(SmbAccessEnum?), string tenantId = default(string))
         {
+            this.Component = component;
+            this.Description = description;
+            this.Id = id;
+            this.Ip = ip;
+            this.NetmaskBits = netmaskBits;
+            this.NetmaskIp4 = netmaskIp4;
+            this.NfsAccess = nfsAccess;
+            this.NfsAllSquash = nfsAllSquash;
+            this.NfsRootSquash = nfsRootSquash;
+            this.S3Access = s3Access;
+            this.SmbAccess = smbAccess;
+            this.TenantId = tenantId;
             this.Component = component;
             this.Description = description;
             this.Id = id;
@@ -331,16 +341,13 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.NetmaskBits.GetHashCode();
                 if (this.NetmaskIp4 != null)
                     hashCode = hashCode * 59 + this.NetmaskIp4.GetHashCode();
-                if (this.NfsAccess != null)
-					hashCode = hashCode * 59 + this.NfsAccess.GetHashCode();
+                hashCode = hashCode * 59 + this.NfsAccess.GetHashCode();
                 if (this.NfsAllSquash != null)
                     hashCode = hashCode * 59 + this.NfsAllSquash.GetHashCode();
                 if (this.NfsRootSquash != null)
                     hashCode = hashCode * 59 + this.NfsRootSquash.GetHashCode();
-                if (this.S3Access != null)
-					hashCode = hashCode * 59 + this.S3Access.GetHashCode();
-                if (this.SmbAccess != null)
-					hashCode = hashCode * 59 + this.SmbAccess.GetHashCode();
+                hashCode = hashCode * 59 + this.S3Access.GetHashCode();
+                hashCode = hashCode * 59 + this.SmbAccess.GetHashCode();
                 if (this.TenantId != null)
                     hashCode = hashCode * 59 + this.TenantId.GetHashCode();
                 return hashCode;

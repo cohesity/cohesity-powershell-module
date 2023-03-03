@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -303,12 +301,7 @@ namespace Cohesity.Model
             /// Enum KO365PublicFolders for value: kO365PublicFolders
             /// </summary>
             [EnumMember(Value = "kO365PublicFolders")]
-            KO365PublicFolders = 46,
-
-			/// Enum KVCD for value: kVCD
-            /// </summary>
-            [EnumMember(Value = "kVCD")]
-            KVCD = 47
+            KO365PublicFolders = 46
 
         }
 
@@ -328,6 +321,11 @@ namespace Cohesity.Model
         /// <param name="protectionJobRuns">Array of Protection Job Run Details.  Specifies the list of Protection Job Runs (Snapshot) details for a Protection Job archived to a Vault..</param>
         public RemoteProtectionJobRunInformation(string clusterName = default(string), EnvironmentEnum? environment = default(EnvironmentEnum?), string jobName = default(string), UniversalId jobUid = default(UniversalId), List<RemoteProtectionJobRunInstance> protectionJobRuns = default(List<RemoteProtectionJobRunInstance>))
         {
+            this.ClusterName = clusterName;
+            this.Environment = environment;
+            this.JobName = jobName;
+            this.JobUid = jobUid;
+            this.ProtectionJobRuns = protectionJobRuns;
             this.ClusterName = clusterName;
             this.Environment = environment;
             this.JobName = jobName;
@@ -422,7 +420,7 @@ namespace Cohesity.Model
                     this.ProtectionJobRuns == input.ProtectionJobRuns ||
                     this.ProtectionJobRuns != null &&
                     input.ProtectionJobRuns != null &&
-                    this.ProtectionJobRuns.Equals(input.ProtectionJobRuns)
+                    this.ProtectionJobRuns.SequenceEqual(input.ProtectionJobRuns)
                 );
         }
 

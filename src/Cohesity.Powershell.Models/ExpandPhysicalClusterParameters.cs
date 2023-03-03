@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -37,6 +35,8 @@ namespace Cohesity.Model
         {
             this.ChassisSerialToRackIdMap = chassisSerialToRackIdMap;
             this.NodeConfigs = nodeConfigs;
+            this.Vips = vips;
+            this.ChassisSerialToRackIdMap = chassisSerialToRackIdMap;
             this.Vips = vips;
         }
         
@@ -101,19 +101,19 @@ namespace Cohesity.Model
                     this.ChassisSerialToRackIdMap == input.ChassisSerialToRackIdMap ||
                     this.ChassisSerialToRackIdMap != null &&
                     input.ChassisSerialToRackIdMap != null &&
-                    this.ChassisSerialToRackIdMap.Equals(input.ChassisSerialToRackIdMap)
+                    this.ChassisSerialToRackIdMap.SequenceEqual(input.ChassisSerialToRackIdMap)
                 ) && 
                 (
                     this.NodeConfigs == input.NodeConfigs ||
                     this.NodeConfigs != null &&
                     input.NodeConfigs != null &&
-                    this.NodeConfigs.Equals(input.NodeConfigs)
+                    this.NodeConfigs.SequenceEqual(input.NodeConfigs)
                 ) && 
                 (
                     this.Vips == input.Vips ||
                     this.Vips != null &&
                     input.Vips != null &&
-                    this.Vips.Equals(input.Vips)
+                    this.Vips.SequenceEqual(input.Vips)
                 );
         }
 

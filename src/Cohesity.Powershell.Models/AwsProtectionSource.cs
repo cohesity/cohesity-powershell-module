@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -170,7 +168,7 @@ namespace Cohesity.Model
             [EnumMember(Value = "kAuroraCluster")]
             KAuroraCluster = 18,
 
-			/// <summary>
+            /// <summary>
             /// Enum KRDSSecurityGroup for value: kRDSSecurityGroup
             /// </summary>
             [EnumMember(Value = "kRDSSecurityGroup")]
@@ -395,7 +393,7 @@ namespace Cohesity.Model
             [EnumMember(Value = "kAuroraCluster")]
             KAuroraCluster = 18,
 
-			/// <summary>
+            /// <summary>
             /// Enum KRDSSecurityGroup for value: kRDSSecurityGroup
             /// </summary>
             [EnumMember(Value = "kRDSSecurityGroup")]
@@ -438,7 +436,27 @@ namespace Cohesity.Model
         /// <param name="volumes">Specified the list of EBS volumes attached to the entity if the entity is an EC2 instance..</param>
         public AwsProtectionSource(string accessKey = default(string), string amazonResourceName = default(string), AuthMethodEnum? authMethod = default(AuthMethodEnum?), AwsFleetParams awsFleetParams = default(AwsFleetParams), AwsTypeEnum? awsType = default(AwsTypeEnum?), C2SServerInfo c2sServerInfo = default(C2SServerInfo), FleetNetworkParams clusterNetworkInfo = default(FleetNetworkParams), string dbEngineId = default(string), HostTypeEnum? hostType = default(HostTypeEnum?), string iamRoleArn = default(string), string ipAddresses = default(string), string name = default(string), string ownerId = default(string), long? physicalSourceId = default(long?), string regionId = default(string), string resourceId = default(string), long? restoreTaskId = default(long?), string secretAccessKey = default(string), SubscriptionTypeEnum? subscriptionType = default(SubscriptionTypeEnum?), List<TagAttribute> tagAttributes = default(List<TagAttribute>), TypeEnum? type = default(TypeEnum?), string userAccountId = default(string), string userResourceName = default(string), List<EbsVolumeInfo> volumes = default(List<EbsVolumeInfo>))
         {
-            
+            this.AccessKey = accessKey;
+            this.AmazonResourceName = amazonResourceName;
+            this.AuthMethod = authMethod;
+            this.AwsType = awsType;
+            this.DbEngineId = dbEngineId;
+            this.HostType = hostType;
+            this.IamRoleArn = iamRoleArn;
+            this.IpAddresses = ipAddresses;
+            this.Name = name;
+            this.OwnerId = ownerId;
+            this.PhysicalSourceId = physicalSourceId;
+            this.RegionId = regionId;
+            this.ResourceId = resourceId;
+            this.RestoreTaskId = restoreTaskId;
+            this.SecretAccessKey = secretAccessKey;
+            this.SubscriptionType = subscriptionType;
+            this.TagAttributes = tagAttributes;
+            this.Type = type;
+            this.UserAccountId = userAccountId;
+            this.UserResourceName = userResourceName;
+            this.Volumes = volumes;
             this.AccessKey = accessKey;
             this.AmazonResourceName = amazonResourceName;
             this.AuthMethod = authMethod;
@@ -726,7 +744,7 @@ namespace Cohesity.Model
                     this.TagAttributes == input.TagAttributes ||
                     this.TagAttributes != null &&
                     input.TagAttributes != null &&
-                    this.TagAttributes.Equals(input.TagAttributes)
+                    this.TagAttributes.SequenceEqual(input.TagAttributes)
                 ) && 
                 (
                     this.Type == input.Type ||
@@ -746,7 +764,7 @@ namespace Cohesity.Model
                     this.Volumes == input.Volumes ||
                     this.Volumes != null &&
                     input.Volumes != null &&
-                    this.Volumes.Equals(input.Volumes)
+                    this.Volumes.SequenceEqual(input.Volumes)
                 );
         }
 
@@ -763,20 +781,17 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.AccessKey.GetHashCode();
                 if (this.AmazonResourceName != null)
                     hashCode = hashCode * 59 + this.AmazonResourceName.GetHashCode();
-				if (this.AuthMethod != null)
-                	hashCode = hashCode * 59 + this.AuthMethod.GetHashCode();
+                hashCode = hashCode * 59 + this.AuthMethod.GetHashCode();
                 if (this.AwsFleetParams != null)
                     hashCode = hashCode * 59 + this.AwsFleetParams.GetHashCode();
-                if (this.AwsType != null)
-					hashCode = hashCode * 59 + this.AwsType.GetHashCode();
+                hashCode = hashCode * 59 + this.AwsType.GetHashCode();
                 if (this.C2sServerInfo != null)
                     hashCode = hashCode * 59 + this.C2sServerInfo.GetHashCode();
                 if (this.ClusterNetworkInfo != null)
                     hashCode = hashCode * 59 + this.ClusterNetworkInfo.GetHashCode();
                 if (this.DbEngineId != null)
                     hashCode = hashCode * 59 + this.DbEngineId.GetHashCode();
-                if (this.HostType != null)
-					hashCode = hashCode * 59 + this.HostType.GetHashCode();
+                hashCode = hashCode * 59 + this.HostType.GetHashCode();
                 if (this.IamRoleArn != null)
                     hashCode = hashCode * 59 + this.IamRoleArn.GetHashCode();
                 if (this.IpAddresses != null)
@@ -795,12 +810,10 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.RestoreTaskId.GetHashCode();
                 if (this.SecretAccessKey != null)
                     hashCode = hashCode * 59 + this.SecretAccessKey.GetHashCode();
-                if (this.SubscriptionType != null)
-					hashCode = hashCode * 59 + this.SubscriptionType.GetHashCode();
+                hashCode = hashCode * 59 + this.SubscriptionType.GetHashCode();
                 if (this.TagAttributes != null)
                     hashCode = hashCode * 59 + this.TagAttributes.GetHashCode();
-                if (this.Type != null)
-					hashCode = hashCode * 59 + this.Type.GetHashCode();
+                hashCode = hashCode * 59 + this.Type.GetHashCode();
                 if (this.UserAccountId != null)
                     hashCode = hashCode * 59 + this.UserAccountId.GetHashCode();
                 if (this.UserResourceName != null)

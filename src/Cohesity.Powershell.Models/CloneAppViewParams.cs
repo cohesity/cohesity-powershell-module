@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -29,6 +27,8 @@ namespace Cohesity.Model
         /// <param name="readOnlyViewExpose">Read only view expose param, if this is set, the expose view will be mounted with read only..</param>
         public CloneAppViewParams(string mountPathIdentifier = default(string), bool? readOnlyViewExpose = default(bool?))
         {
+            this.MountPathIdentifier = mountPathIdentifier;
+            this.ReadOnlyViewExpose = readOnlyViewExpose;
             this.MountPathIdentifier = mountPathIdentifier;
             this.ReadOnlyViewExpose = readOnlyViewExpose;
         }

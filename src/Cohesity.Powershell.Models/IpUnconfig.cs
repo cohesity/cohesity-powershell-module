@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -30,6 +28,9 @@ namespace Cohesity.Model
         /// <param name="nodeIds">Node ids..</param>
         public IpUnconfig(string interfaceName = default(string), int? ipFamily = default(int?), List<long> nodeIds = default(List<long>))
         {
+            this.InterfaceName = interfaceName;
+            this.IpFamily = ipFamily;
+            this.NodeIds = nodeIds;
             this.InterfaceName = interfaceName;
             this.IpFamily = ipFamily;
             this.NodeIds = nodeIds;
@@ -106,7 +107,7 @@ namespace Cohesity.Model
                     this.NodeIds == input.NodeIds ||
                     this.NodeIds != null &&
                     input.NodeIds != null &&
-                    this.NodeIds.Equals(input.NodeIds)
+                    this.NodeIds.SequenceEqual(input.NodeIds)
                 );
         }
 

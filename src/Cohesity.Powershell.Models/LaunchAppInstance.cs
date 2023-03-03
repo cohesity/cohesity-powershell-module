@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -33,6 +31,11 @@ namespace Cohesity.Model
         /// <param name="settings">settings.</param>
         public LaunchAppInstance(long? appUid = default(long?), long? appVersion = default(long?), string creationUid = default(string), string deploymentParameters = default(string), string description = default(string), AppInstanceSettings settings = default(AppInstanceSettings))
         {
+            this.AppUid = appUid;
+            this.AppVersion = appVersion;
+            this.CreationUid = creationUid;
+            this.DeploymentParameters = deploymentParameters;
+            this.Description = description;
             this.AppUid = appUid;
             this.AppVersion = appVersion;
             this.CreationUid = creationUid;

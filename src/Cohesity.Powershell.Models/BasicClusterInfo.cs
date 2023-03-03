@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -118,6 +116,19 @@ namespace Cohesity.Model
         /// <param name="name">Specifies the name of the Cohesity Cluster..</param>
         public BasicClusterInfo(AuthenticationTypeEnum? authenticationType = default(AuthenticationTypeEnum?), bool? bannerEnabled = default(bool?), List<Domain> clusterDomains = default(List<Domain>), string clusterSoftwareVersion = default(string), ClusterTypeEnum? clusterType = default(ClusterTypeEnum?), List<string> domains = default(List<string>), bool? idpConfigured = default(bool?), bool? idpTenantExists = default(bool?), string languageLocale = default(string), bool? mcmMode = default(bool?), bool? mcmOnPremMode = default(bool?), bool? multiTenancyEnabled = default(bool?), string name = default(string))
         {
+            this.AuthenticationType = authenticationType;
+            this.BannerEnabled = bannerEnabled;
+            this.ClusterDomains = clusterDomains;
+            this.ClusterSoftwareVersion = clusterSoftwareVersion;
+            this.ClusterType = clusterType;
+            this.Domains = domains;
+            this.IdpConfigured = idpConfigured;
+            this.IdpTenantExists = idpTenantExists;
+            this.LanguageLocale = languageLocale;
+            this.McmMode = mcmMode;
+            this.McmOnPremMode = mcmOnPremMode;
+            this.MultiTenancyEnabled = multiTenancyEnabled;
+            this.Name = name;
             this.AuthenticationType = authenticationType;
             this.BannerEnabled = bannerEnabled;
             this.ClusterDomains = clusterDomains;
@@ -259,7 +270,7 @@ namespace Cohesity.Model
                     this.ClusterDomains == input.ClusterDomains ||
                     this.ClusterDomains != null &&
                     input.ClusterDomains != null &&
-                    this.ClusterDomains.Equals(input.ClusterDomains)
+                    this.ClusterDomains.SequenceEqual(input.ClusterDomains)
                 ) && 
                 (
                     this.ClusterSoftwareVersion == input.ClusterSoftwareVersion ||
@@ -274,7 +285,7 @@ namespace Cohesity.Model
                     this.Domains == input.Domains ||
                     this.Domains != null &&
                     input.Domains != null &&
-                    this.Domains.Equals(input.Domains)
+                    this.Domains.SequenceEqual(input.Domains)
                 ) && 
                 (
                     this.IdpConfigured == input.IdpConfigured ||
@@ -329,8 +340,7 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ClusterDomains.GetHashCode();
                 if (this.ClusterSoftwareVersion != null)
                     hashCode = hashCode * 59 + this.ClusterSoftwareVersion.GetHashCode();
-                if (this.ClusterType != null)
-					hashCode = hashCode * 59 + this.ClusterType.GetHashCode();
+                hashCode = hashCode * 59 + this.ClusterType.GetHashCode();
                 if (this.Domains != null)
                     hashCode = hashCode * 59 + this.Domains.GetHashCode();
                 if (this.IdpConfigured != null)

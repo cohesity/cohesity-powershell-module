@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -99,13 +97,13 @@ namespace Cohesity.Model
                     this.HdfsExcludePattern == input.HdfsExcludePattern ||
                     this.HdfsExcludePattern != null &&
                     input.HdfsExcludePattern != null &&
-                    this.HdfsExcludePattern.Equals(input.HdfsExcludePattern)
+                    this.HdfsExcludePattern.SequenceEqual(input.HdfsExcludePattern)
                 ) && 
                 (
                     this.HdfsRecoverPattern == input.HdfsRecoverPattern ||
                     this.HdfsRecoverPattern != null &&
                     input.HdfsRecoverPattern != null &&
-                    this.HdfsRecoverPattern.Equals(input.HdfsRecoverPattern)
+                    this.HdfsRecoverPattern.SequenceEqual(input.HdfsRecoverPattern)
                 ) && 
                 (
                     this.TargetDirectory == input.TargetDirectory ||

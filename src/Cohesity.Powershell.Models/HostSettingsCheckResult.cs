@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -69,13 +67,8 @@ namespace Cohesity.Model
             /// Enum KCheckSQLDiskSpace for value: kCheckSQLDiskSpace
             /// </summary>
             [EnumMember(Value = "kCheckSQLDiskSpace")]
-            KCheckSQLDiskSpace = 7,
+            KCheckSQLDiskSpace = 7
 
-            /// <summary>
-            /// Enum KIsSQLWriterRunningCheck for value: kIsSQLWriterRunningCheck
-            /// <summary>
-            [EnumMember(Value = "kIsSQLWriterRunningCheck")]
-            KIsSQLWriterRunningCheck = 8
         }
 
         /// <summary>

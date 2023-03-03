@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -32,6 +30,11 @@ namespace Cohesity.Model
         /// <param name="verifySSL">Specify whether to verify SSL when connect with AWS KMS. Default is true..</param>
         public AwsKmsUpdateParams(string accessKeyId = default(string), string caCertificatePath = default(string), string iamRoleArn = default(string), string secretAccessKey = default(string), bool? verifySSL = default(bool?))
         {
+            this.AccessKeyId = accessKeyId;
+            this.CaCertificatePath = caCertificatePath;
+            this.IamRoleArn = iamRoleArn;
+            this.SecretAccessKey = secretAccessKey;
+            this.VerifySSL = verifySSL;
             this.AccessKeyId = accessKeyId;
             this.CaCertificatePath = caCertificatePath;
             this.IamRoleArn = iamRoleArn;

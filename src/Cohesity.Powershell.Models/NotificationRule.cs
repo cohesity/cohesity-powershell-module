@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -101,96 +99,144 @@ namespace Cohesity.Model
             KNodeHealth = 12,
 
             /// <summary>
-            /// Enum KClusterHealth for value: kClusterHealth
+            /// Enum KOperatingSystem for value: kOperatingSystem
             /// </summary>
-            [EnumMember(Value = "kClusterHealth")]
-            KClusterHealth = 5,
+            [EnumMember(Value = "kOperatingSystem")]
+            KOperatingSystem = 13,
 
             /// <summary>
-            /// Enum KBackupRestore for value: kBackupRestore
+            /// Enum KDataPath for value: kDataPath
             /// </summary>
-            [EnumMember(Value = "kBackupRestore")]
-            KBackupRestore = 6,
+            [EnumMember(Value = "kDataPath")]
+            KDataPath = 14,
 
             /// <summary>
-            /// Enum KEncryption for value: kEncryption
+            /// Enum KMetadata for value: kMetadata
             /// </summary>
-            [EnumMember(Value = "kEncryption")]
-            KEncryption = 7,
+            [EnumMember(Value = "kMetadata")]
+            KMetadata = 15,
 
             /// <summary>
-            /// Enum KArchivalRestore for value: kArchivalRestore
+            /// Enum KIndexing for value: kIndexing
             /// </summary>
-            [EnumMember(Value = "kArchivalRestore")]
-            KArchivalRestore = 8,
+            [EnumMember(Value = "kIndexing")]
+            KIndexing = 16,
 
             /// <summary>
-            /// Enum KRemoteReplication for value: kRemoteReplication
+            /// Enum KHelios for value: kHelios
             /// </summary>
-            [EnumMember(Value = "kRemoteReplication")]
-            KRemoteReplication = 9,
+            [EnumMember(Value = "kHelios")]
+            KHelios = 17,
 
             /// <summary>
-            /// Enum KQuota for value: kQuota
+            /// Enum KAppMarketPlace for value: kAppMarketPlace
             /// </summary>
-            [EnumMember(Value = "kQuota")]
-            KQuota = 10,
+            [EnumMember(Value = "kAppMarketPlace")]
+            KAppMarketPlace = 18,
 
             /// <summary>
             /// Enum KLicense for value: kLicense
             /// </summary>
             [EnumMember(Value = "kLicense")]
-            KLicense = 11,
-
-            /// <summary>
-            /// Enum KHeliosProActiveWellness for value: kHeliosProActiveWellness
-            /// </summary>
-            [EnumMember(Value = "kHeliosProActiveWellness")]
-            KHeliosProActiveWellness = 12,
-
-            /// <summary>
-            /// Enum KHeliosAnalyticsJobs for value: kHeliosAnalyticsJobs
-            /// </summary>
-            [EnumMember(Value = "kHeliosAnalyticsJobs")]
-            KHeliosAnalyticsJobs = 13,
-
-            /// <summary>
-            /// Enum KHeliosSignatureJobs for value: kHeliosSignatureJobs
-            /// </summary>
-            [EnumMember(Value = "kHeliosSignatureJobs")]
-            KHeliosSignatureJobs = 14,
+            KLicense = 19,
 
             /// <summary>
             /// Enum KSecurity for value: kSecurity
             /// </summary>
             [EnumMember(Value = "kSecurity")]
-            KSecurity = 15,
+            KSecurity = 20,
 
             /// <summary>
-            /// Enum KAppsInfra for value: kAppsInfra
+            /// Enum KUpgrade for value: kUpgrade
             /// </summary>
-            [EnumMember(Value = "kAppsInfra")]
-            KAppsInfra = 16,
+            [EnumMember(Value = "kUpgrade")]
+            KUpgrade = 21,
 
             /// <summary>
-            /// Enum KAntivirus for value: kAntivirus
+            /// Enum KClusterManagement for value: kClusterManagement
             /// </summary>
-            [EnumMember(Value = "kAntivirus")]
-            KAntivirus = 17,
+            [EnumMember(Value = "kClusterManagement")]
+            KClusterManagement = 22,
 
             /// <summary>
-            /// Enum KArchivalCopy for value: kArchivalCopy
+            /// Enum KAuditLog for value: kAuditLog
             /// </summary>
-            [EnumMember(Value = "kArchivalCopy")]
-            KArchivalCopy = 18
+            [EnumMember(Value = "kAuditLog")]
+            KAuditLog = 23,
+
+            /// <summary>
+            /// Enum KNetworking for value: kNetworking
+            /// </summary>
+            [EnumMember(Value = "kNetworking")]
+            KNetworking = 24,
+
+            /// <summary>
+            /// Enum KConfiguration for value: kConfiguration
+            /// </summary>
+            [EnumMember(Value = "kConfiguration")]
+            KConfiguration = 25,
+
+            /// <summary>
+            /// Enum KStorageUsage for value: kStorageUsage
+            /// </summary>
+            [EnumMember(Value = "kStorageUsage")]
+            KStorageUsage = 26,
+
+            /// <summary>
+            /// Enum KFaultTolerance for value: kFaultTolerance
+            /// </summary>
+            [EnumMember(Value = "kFaultTolerance")]
+            KFaultTolerance = 27,
+
+            /// <summary>
+            /// Enum KBackupRestore for value: kBackupRestore
+            /// </summary>
+            [EnumMember(Value = "kBackupRestore")]
+            KBackupRestore = 28,
+
+            /// <summary>
+            /// Enum KArchivalRestore for value: kArchivalRestore
+            /// </summary>
+            [EnumMember(Value = "kArchivalRestore")]
+            KArchivalRestore = 29,
+
+            /// <summary>
+            /// Enum KRemoteReplication for value: kRemoteReplication
+            /// </summary>
+            [EnumMember(Value = "kRemoteReplication")]
+            KRemoteReplication = 30,
+
+            /// <summary>
+            /// Enum KQuota for value: kQuota
+            /// </summary>
+            [EnumMember(Value = "kQuota")]
+            KQuota = 31,
+
+            /// <summary>
+            /// Enum KCDP for value: kCDP
+            /// </summary>
+            [EnumMember(Value = "kCDP")]
+            KCDP = 32,
+
+            /// <summary>
+            /// Enum KViewFailover for value: kViewFailover
+            /// </summary>
+            [EnumMember(Value = "kViewFailover")]
+            KViewFailover = 33,
+
+            /// <summary>
+            /// Enum KDisasterRecovery for value: kDisasterRecovery
+            /// </summary>
+            [EnumMember(Value = "kDisasterRecovery")]
+            KDisasterRecovery = 34
 
         }
 
 
         /// <summary>
-        /// Specifies alert categories this rule is applicable to. Specifies the category of an Alert. kDisk - Alerts that are related to Disk. kNode - Alerts that are related to Node. kCluster - Alerts that are related to Cluster. kNodeHealth - Alerts that are related to Node Health. kClusterHealth - Alerts that are related to Cluster Health. kBackupRestore - Alerts that are related to Backup/Restore. kEncryption - Alerts that are related to Encryption. kArchivalRestore - Alerts that are related to Archival/Restore. kRemoteReplication - Alerts that are related to Remote Replication. kQuota - Alerts that are related to Quota. kLicense - Alerts that are related to License. kHeliosProActiveWellness - Alerts that are related to Helios ProActive Wellness. kHeliosAnalyticsJobs - Alerts that are related to Helios Analytics Jobs. kHeliosSignatureJobs - Alerts that are related to Helios Signature Jobs. kSecurity - Alerts that are related to Security. kAppsInfra - Alerts that are related to applications infra. kAntivirus - Alerts that are related to antivirus. kArchivalCopy - Alerts that are related to archival copies.
+        /// Specifies alert categories this rule is applicable to. Specifies the category of an Alert. kDisk - Alert associated with the disk. kNode - Alert associated with general hardware on a specific node. kCluster - Alert associated with general hardware in cluster level. kChassis - Alert associated with the Chassis. kPowerSupply - Alert associated with the power supply. kCPU - Alert associated with the CPU usage. kMemory - Alert associated with the RAM/Memory. kTemperature - Alert associated with the temperature. kFan - Alert associated with the fan. kNIC - Alert associated with network chips and interfaces. kFirmware - Alert associated with the firmware. kNodeHealth - Alert associated with node health status. kOperatingSystem - Alert associated with operating systems. kDataPath - Alert associated with data management in the cluster. kMetadata - Alert associated with metadata management. kIndexing - Alert associated with indexing services. kHelios - Alert associated with Helios. kAppMarketPlace - Alert associated with App MarketPlace. kLicense - Alert associated with licensing. kSecurity - Alert associated with security. kUpgrade - Alert associated with upgrade activities. kClusterManagement - Alert associated with cluster management activities. kAuditLog - Alert associated with audit log events. kNetworking - Alert associated with networking issue. kConfiguration - Alert associated with cluster or system configurations. kStorageUsage - Alert associated with the disk/domain/cluster storage usage. kFaultTolerance - Alert associated with the fault tolerance in different levels. kBackupRestore - Alert associated with Backup-Restore job. kArchivalRestore - Alert associated with Archival-Restore job. kRemoteReplication - Alert associated with Replication job. kQuota - Alert associated with Quotas. kCDP - Alert associated with Continuous Data Protection. kViewFailover - Alert associated with view Failover. kDisasterRecovery - Alert associated with Disaster Recovery.
         /// </summary>
-        /// <value>Specifies alert categories this rule is applicable to. Specifies the category of an Alert. kDisk - Alerts that are related to Disk. kNode - Alerts that are related to Node. kCluster - Alerts that are related to Cluster. kNodeHealth - Alerts that are related to Node Health. kClusterHealth - Alerts that are related to Cluster Health. kBackupRestore - Alerts that are related to Backup/Restore. kEncryption - Alerts that are related to Encryption. kArchivalRestore - Alerts that are related to Archival/Restore. kRemoteReplication - Alerts that are related to Remote Replication. kQuota - Alerts that are related to Quota. kLicense - Alerts that are related to License. kHeliosProActiveWellness - Alerts that are related to Helios ProActive Wellness. kHeliosAnalyticsJobs - Alerts that are related to Helios Analytics Jobs. kHeliosSignatureJobs - Alerts that are related to Helios Signature Jobs. kSecurity - Alerts that are related to Security. kAppsInfra - Alerts that are related to applications infra. kAntivirus - Alerts that are related to antivirus. kArchivalCopy - Alerts that are related to archival copies.</value>
+        /// <value>Specifies alert categories this rule is applicable to. Specifies the category of an Alert. kDisk - Alert associated with the disk. kNode - Alert associated with general hardware on a specific node. kCluster - Alert associated with general hardware in cluster level. kChassis - Alert associated with the Chassis. kPowerSupply - Alert associated with the power supply. kCPU - Alert associated with the CPU usage. kMemory - Alert associated with the RAM/Memory. kTemperature - Alert associated with the temperature. kFan - Alert associated with the fan. kNIC - Alert associated with network chips and interfaces. kFirmware - Alert associated with the firmware. kNodeHealth - Alert associated with node health status. kOperatingSystem - Alert associated with operating systems. kDataPath - Alert associated with data management in the cluster. kMetadata - Alert associated with metadata management. kIndexing - Alert associated with indexing services. kHelios - Alert associated with Helios. kAppMarketPlace - Alert associated with App MarketPlace. kLicense - Alert associated with licensing. kSecurity - Alert associated with security. kUpgrade - Alert associated with upgrade activities. kClusterManagement - Alert associated with cluster management activities. kAuditLog - Alert associated with audit log events. kNetworking - Alert associated with networking issue. kConfiguration - Alert associated with cluster or system configurations. kStorageUsage - Alert associated with the disk/domain/cluster storage usage. kFaultTolerance - Alert associated with the fault tolerance in different levels. kBackupRestore - Alert associated with Backup-Restore job. kArchivalRestore - Alert associated with Archival-Restore job. kRemoteReplication - Alert associated with Replication job. kQuota - Alert associated with Quotas. kCDP - Alert associated with Continuous Data Protection. kViewFailover - Alert associated with view Failover. kDisasterRecovery - Alert associated with Disaster Recovery.</value>
         [DataMember(Name="categories", EmitDefaultValue=true)]
         public List<CategoriesEnum> Categories { get; set; }
         /// <summary>
@@ -230,7 +276,7 @@ namespace Cohesity.Model
         /// Initializes a new instance of the <see cref="NotificationRule" /> class.
         /// </summary>
         /// <param name="alertTypeList">Specifies alert types this rule is applicable to..</param>
-        /// <param name="categories">Specifies alert categories this rule is applicable to. Specifies the category of an Alert. kDisk - Alerts that are related to Disk. kNode - Alerts that are related to Node. kCluster - Alerts that are related to Cluster. kNodeHealth - Alerts that are related to Node Health. kClusterHealth - Alerts that are related to Cluster Health. kBackupRestore - Alerts that are related to Backup/Restore. kEncryption - Alerts that are related to Encryption. kArchivalRestore - Alerts that are related to Archival/Restore. kRemoteReplication - Alerts that are related to Remote Replication. kQuota - Alerts that are related to Quota. kLicense - Alerts that are related to License. kHeliosProActiveWellness - Alerts that are related to Helios ProActive Wellness. kHeliosAnalyticsJobs - Alerts that are related to Helios Analytics Jobs. kHeliosSignatureJobs - Alerts that are related to Helios Signature Jobs. kSecurity - Alerts that are related to Security. kAppsInfra - Alerts that are related to applications infra. kAntivirus - Alerts that are related to antivirus. kArchivalCopy - Alerts that are related to archival copies..</param>
+        /// <param name="categories">Specifies alert categories this rule is applicable to. Specifies the category of an Alert. kDisk - Alert associated with the disk. kNode - Alert associated with general hardware on a specific node. kCluster - Alert associated with general hardware in cluster level. kChassis - Alert associated with the Chassis. kPowerSupply - Alert associated with the power supply. kCPU - Alert associated with the CPU usage. kMemory - Alert associated with the RAM/Memory. kTemperature - Alert associated with the temperature. kFan - Alert associated with the fan. kNIC - Alert associated with network chips and interfaces. kFirmware - Alert associated with the firmware. kNodeHealth - Alert associated with node health status. kOperatingSystem - Alert associated with operating systems. kDataPath - Alert associated with data management in the cluster. kMetadata - Alert associated with metadata management. kIndexing - Alert associated with indexing services. kHelios - Alert associated with Helios. kAppMarketPlace - Alert associated with App MarketPlace. kLicense - Alert associated with licensing. kSecurity - Alert associated with security. kUpgrade - Alert associated with upgrade activities. kClusterManagement - Alert associated with cluster management activities. kAuditLog - Alert associated with audit log events. kNetworking - Alert associated with networking issue. kConfiguration - Alert associated with cluster or system configurations. kStorageUsage - Alert associated with the disk/domain/cluster storage usage. kFaultTolerance - Alert associated with the fault tolerance in different levels. kBackupRestore - Alert associated with Backup-Restore job. kArchivalRestore - Alert associated with Archival-Restore job. kRemoteReplication - Alert associated with Replication job. kQuota - Alert associated with Quotas. kCDP - Alert associated with Continuous Data Protection. kViewFailover - Alert associated with view Failover. kDisasterRecovery - Alert associated with Disaster Recovery..</param>
         /// <param name="emailDeliveryTargets">Specifies email addresses to be notified when an alert matching this rule is generated..</param>
         /// <param name="ruleId">Specifies id of the alert delivery rule..</param>
         /// <param name="ruleName">Specifies name of the alert delivery rule..</param>
@@ -241,6 +287,16 @@ namespace Cohesity.Model
         /// <param name="webHookDeliveryTargets">Specifies external api urls to be invoked when an alert matching this rule is generated..</param>
         public NotificationRule(List<int> alertTypeList = default(List<int>), List<CategoriesEnum> categories = default(List<CategoriesEnum>), List<EmailDeliveryTarget> emailDeliveryTargets = default(List<EmailDeliveryTarget>), long? ruleId = default(long?), string ruleName = default(string), List<SeveritiesEnum> severities = default(List<SeveritiesEnum>), bool? snmpEnabled = default(bool?), bool? syslogEnabled = default(bool?), string tenantId = default(string), List<WebHookDeliveryTarget> webHookDeliveryTargets = default(List<WebHookDeliveryTarget>))
         {
+            this.AlertTypeList = alertTypeList;
+            this.Categories = categories;
+            this.EmailDeliveryTargets = emailDeliveryTargets;
+            this.RuleId = ruleId;
+            this.RuleName = ruleName;
+            this.Severities = severities;
+            this.SnmpEnabled = snmpEnabled;
+            this.SyslogEnabled = syslogEnabled;
+            this.TenantId = tenantId;
+            this.WebHookDeliveryTargets = webHookDeliveryTargets;
             this.AlertTypeList = alertTypeList;
             this.Categories = categories;
             this.EmailDeliveryTargets = emailDeliveryTargets;
@@ -349,17 +405,17 @@ namespace Cohesity.Model
                     this.AlertTypeList == input.AlertTypeList ||
                     this.AlertTypeList != null &&
                     input.AlertTypeList != null &&
-                    this.AlertTypeList.Equals(input.AlertTypeList)
+                    this.AlertTypeList.SequenceEqual(input.AlertTypeList)
                 ) && 
                 (
                     this.Categories == input.Categories ||
-                    this.Categories.Equals(input.Categories)
+                    this.Categories.SequenceEqual(input.Categories)
                 ) && 
                 (
                     this.EmailDeliveryTargets == input.EmailDeliveryTargets ||
                     this.EmailDeliveryTargets != null &&
                     input.EmailDeliveryTargets != null &&
-                    this.EmailDeliveryTargets.Equals(input.EmailDeliveryTargets)
+                    this.EmailDeliveryTargets.SequenceEqual(input.EmailDeliveryTargets)
                 ) && 
                 (
                     this.RuleId == input.RuleId ||
@@ -373,7 +429,7 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.Severities == input.Severities ||
-                    this.Severities.Equals(input.Severities)
+                    this.Severities.SequenceEqual(input.Severities)
                 ) && 
                 (
                     this.SnmpEnabled == input.SnmpEnabled ||
@@ -394,7 +450,7 @@ namespace Cohesity.Model
                     this.WebHookDeliveryTargets == input.WebHookDeliveryTargets ||
                     this.WebHookDeliveryTargets != null &&
                     input.WebHookDeliveryTargets != null &&
-                    this.WebHookDeliveryTargets.Equals(input.WebHookDeliveryTargets)
+                    this.WebHookDeliveryTargets.SequenceEqual(input.WebHookDeliveryTargets)
                 );
         }
 

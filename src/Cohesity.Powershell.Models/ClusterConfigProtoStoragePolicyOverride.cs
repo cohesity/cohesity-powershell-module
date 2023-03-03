@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -29,6 +27,8 @@ namespace Cohesity.Model
         /// <param name="disableInlineDedupAndCompression">If this is set to true, we will not do inline dedup and compression even if deduplicate_compress_delay_secs is set to 0 in the view box&#39;s storage policy..</param>
         public ClusterConfigProtoStoragePolicyOverride(bool? disableDedup = default(bool?), bool? disableInlineDedupAndCompression = default(bool?))
         {
+            this.DisableDedup = disableDedup;
+            this.DisableInlineDedupAndCompression = disableInlineDedupAndCompression;
             this.DisableDedup = disableDedup;
             this.DisableInlineDedupAndCompression = disableInlineDedupAndCompression;
         }

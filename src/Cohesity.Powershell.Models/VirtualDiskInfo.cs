@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -32,6 +30,11 @@ namespace Cohesity.Model
         /// <param name="unitNumber">Specifies the disk file name. This is the VMDK name and not the flat file name..</param>
         public VirtualDiskInfo(long? busNumber = default(long?), string controllerType = default(string), string filename = default(string), long? logicalSizeBytes = default(long?), long? unitNumber = default(long?))
         {
+            this.BusNumber = busNumber;
+            this.ControllerType = controllerType;
+            this.Filename = filename;
+            this.LogicalSizeBytes = logicalSizeBytes;
+            this.UnitNumber = unitNumber;
             this.BusNumber = busNumber;
             this.ControllerType = controllerType;
             this.Filename = filename;

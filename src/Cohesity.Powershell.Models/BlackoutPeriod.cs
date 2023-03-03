@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -88,6 +86,10 @@ namespace Cohesity.Model
         /// <param name="startTime">Specifies the start time of the QuietTime time range..</param>
         public BlackoutPeriod(string id = default(string), DayEnum? day = default(DayEnum?), TimeOfDay endTime = default(TimeOfDay), TimeOfDay startTime = default(TimeOfDay))
         {
+            this.Id = id;
+            this.Day = day;
+            this.EndTime = endTime;
+            this.StartTime = startTime;
             this.Id = id;
             this.Day = day;
             this.EndTime = endTime;
@@ -183,8 +185,7 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.Id != null)
                     hashCode = hashCode * 59 + this.Id.GetHashCode();
-                if (this.Day != null)
-					hashCode = hashCode * 59 + this.Day.GetHashCode();
+                hashCode = hashCode * 59 + this.Day.GetHashCode();
                 if (this.EndTime != null)
                     hashCode = hashCode * 59 + this.EndTime.GetHashCode();
                 if (this.StartTime != null)

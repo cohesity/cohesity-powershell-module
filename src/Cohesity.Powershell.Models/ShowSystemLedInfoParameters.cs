@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -28,6 +26,7 @@ namespace Cohesity.Model
         /// <param name="nodeIp">Optional field. If Node IP is not specified, LED info for the current node is displayed..</param>
         public ShowSystemLedInfoParameters(string nodeIp = default(string))
         {
+            this.NodeIp = nodeIp;
             this.NodeIp = nodeIp;
         }
         

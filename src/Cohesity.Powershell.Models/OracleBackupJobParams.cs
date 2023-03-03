@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -32,6 +30,10 @@ namespace Cohesity.Model
         /// <param name="vlanParams">vlanParams.</param>
         public OracleBackupJobParams(long? fullAutoKillTimeoutSecs = default(long?), long? incrAutoKillTimeoutSecs = default(long?), long? logAutoKillTimeoutSecs = default(long?), bool? persistMountpoints = default(bool?), VlanParams vlanParams = default(VlanParams))
         {
+            this.FullAutoKillTimeoutSecs = fullAutoKillTimeoutSecs;
+            this.IncrAutoKillTimeoutSecs = incrAutoKillTimeoutSecs;
+            this.LogAutoKillTimeoutSecs = logAutoKillTimeoutSecs;
+            this.PersistMountpoints = persistMountpoints;
             this.FullAutoKillTimeoutSecs = fullAutoKillTimeoutSecs;
             this.IncrAutoKillTimeoutSecs = incrAutoKillTimeoutSecs;
             this.LogAutoKillTimeoutSecs = logAutoKillTimeoutSecs;

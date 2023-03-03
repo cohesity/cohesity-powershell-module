@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -412,6 +410,16 @@ namespace Cohesity.Model
         /// <param name="name">Specifies the Cluster name for the privilege such as PRINCIPAL_VIEW..</param>
         public PrivilegeInfo(PrivilegeIdEnum? privilegeId = default(PrivilegeIdEnum?), string category = default(string), string description = default(string), bool? isAvailableOnHelios = default(bool?), bool? isCustomRoleDefault = default(bool?), bool? isSaaSOnly = default(bool?), bool? isSpecial = default(bool?), bool? isViewOnly = default(bool?), string label = default(string), string name = default(string))
         {
+            this.PrivilegeId = privilegeId;
+            this.Category = category;
+            this.Description = description;
+            this.IsAvailableOnHelios = isAvailableOnHelios;
+            this.IsCustomRoleDefault = isCustomRoleDefault;
+            this.IsSaaSOnly = isSaaSOnly;
+            this.IsSpecial = isSpecial;
+            this.IsViewOnly = isViewOnly;
+            this.Label = label;
+            this.Name = name;
             this.PrivilegeId = privilegeId;
             this.Category = category;
             this.Description = description;

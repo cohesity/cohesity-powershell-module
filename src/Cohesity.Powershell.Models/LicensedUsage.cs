@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -34,6 +32,13 @@ namespace Cohesity.Model
         /// <param name="productInfo">Short description of entitlement.</param>
         public LicensedUsage(long? capacityGiB = default(long?), long? expiryTime = default(long?), string featureName = default(string), string licenseType = default(string), long? numVm = default(long?), string productDescription = default(string), string productInfo = default(string))
         {
+            this.CapacityGiB = capacityGiB;
+            this.ExpiryTime = expiryTime;
+            this.FeatureName = featureName;
+            this.LicenseType = licenseType;
+            this.NumVm = numVm;
+            this.ProductDescription = productDescription;
+            this.ProductInfo = productInfo;
             this.CapacityGiB = capacityGiB;
             this.ExpiryTime = expiryTime;
             this.FeatureName = featureName;

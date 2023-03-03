@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -147,6 +145,23 @@ namespace Cohesity.Model
         /// <param name="username">Specifies username to access the target source..</param>
         public RestoreFilesTaskRequest(bool? continueOnError = default(bool?), FileRecoveryMethodEnum? fileRecoveryMethod = default(FileRecoveryMethodEnum?), List<string> filenames = default(List<string>), FilterIpConfig filterIpConfig = default(FilterIpConfig), bool? isFileBasedVolumeRestore = default(bool?), bool? mountDisksOnVm = default(bool?), string name = default(string), string newBaseDirectory = default(string), bool? overwrite = default(bool?), string password = default(string), bool? preserveAttributes = default(bool?), List<RestoredFileInfoList> restoredFileInfoList = default(List<RestoredFileInfoList>), RestoreObjectDetails sourceObjectInfo = default(RestoreObjectDetails), TargetHostTypeEnum? targetHostType = default(TargetHostTypeEnum?), long? targetParentSourceId = default(long?), long? targetSourceId = default(long?), bool? useExistingAgent = default(bool?), string username = default(string))
         {
+            this.ContinueOnError = continueOnError;
+            this.FileRecoveryMethod = fileRecoveryMethod;
+            this.Filenames = filenames;
+            this.IsFileBasedVolumeRestore = isFileBasedVolumeRestore;
+            this.MountDisksOnVm = mountDisksOnVm;
+            this.Name = name;
+            this.NewBaseDirectory = newBaseDirectory;
+            this.Overwrite = overwrite;
+            this.Password = password;
+            this.PreserveAttributes = preserveAttributes;
+            this.RestoredFileInfoList = restoredFileInfoList;
+            this.SourceObjectInfo = sourceObjectInfo;
+            this.TargetHostType = targetHostType;
+            this.TargetParentSourceId = targetParentSourceId;
+            this.TargetSourceId = targetSourceId;
+            this.UseExistingAgent = useExistingAgent;
+            this.Username = username;
             this.ContinueOnError = continueOnError;
             this.FileRecoveryMethod = fileRecoveryMethod;
             this.Filenames = filenames;
@@ -327,7 +342,7 @@ namespace Cohesity.Model
                     this.Filenames == input.Filenames ||
                     this.Filenames != null &&
                     input.Filenames != null &&
-                    this.Filenames.Equals(input.Filenames)
+                    this.Filenames.SequenceEqual(input.Filenames)
                 ) && 
                 (
                     this.FilterIpConfig == input.FilterIpConfig ||
@@ -373,7 +388,7 @@ namespace Cohesity.Model
                     this.RestoredFileInfoList == input.RestoredFileInfoList ||
                     this.RestoredFileInfoList != null &&
                     input.RestoredFileInfoList != null &&
-                    this.RestoredFileInfoList.Equals(input.RestoredFileInfoList)
+                    this.RestoredFileInfoList.SequenceEqual(input.RestoredFileInfoList)
                 ) && 
                 (
                     this.SourceObjectInfo == input.SourceObjectInfo ||

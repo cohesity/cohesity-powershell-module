@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -31,6 +29,10 @@ namespace Cohesity.Model
         /// <param name="type">The type of this entity. This field will not be populated for ReadDir results, since the DirEntry already contains the type information..</param>
         public FileStatInfo(long? backupSourceInodeId = default(long?), long? mtimeUsecs = default(long?), long? size = default(long?), int? type = default(int?))
         {
+            this.BackupSourceInodeId = backupSourceInodeId;
+            this.MtimeUsecs = mtimeUsecs;
+            this.Size = size;
+            this.Type = type;
             this.BackupSourceInodeId = backupSourceInodeId;
             this.MtimeUsecs = mtimeUsecs;
             this.Size = size;

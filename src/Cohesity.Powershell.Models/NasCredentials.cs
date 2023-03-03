@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -104,6 +102,14 @@ namespace Cohesity.Model
         /// <param name="username">If using the CIFS protocol, you can optional specify a username to use when mounting..</param>
         public NasCredentials(string host = default(string), string kerberosRealmName = default(string), string mountPath = default(string), NfsSecurityTypeEnum? nfsSecurityType = default(NfsSecurityTypeEnum?), NfsVersionNumberEnum? nfsVersionNumber = default(NfsVersionNumberEnum?), string password = default(string), ShareTypeEnum? shareType = default(ShareTypeEnum?), string username = default(string))
         {
+            this.Host = host;
+            this.KerberosRealmName = kerberosRealmName;
+            this.MountPath = mountPath;
+            this.NfsSecurityType = nfsSecurityType;
+            this.NfsVersionNumber = nfsVersionNumber;
+            this.Password = password;
+            this.ShareType = shareType;
+            this.Username = username;
             this.Host = host;
             this.KerberosRealmName = kerberosRealmName;
             this.MountPath = mountPath;
@@ -239,14 +245,11 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.KerberosRealmName.GetHashCode();
                 if (this.MountPath != null)
                     hashCode = hashCode * 59 + this.MountPath.GetHashCode();
-                if (this.NfsSecurityType != null)
-					hashCode = hashCode * 59 + this.NfsSecurityType.GetHashCode();
-                if (this.NfsVersionNumber != null)
-					hashCode = hashCode * 59 + this.NfsVersionNumber.GetHashCode();
+                hashCode = hashCode * 59 + this.NfsSecurityType.GetHashCode();
+                hashCode = hashCode * 59 + this.NfsVersionNumber.GetHashCode();
                 if (this.Password != null)
                     hashCode = hashCode * 59 + this.Password.GetHashCode();
-                if (this.ShareType != null)
-					hashCode = hashCode * 59 + this.ShareType.GetHashCode();
+                hashCode = hashCode * 59 + this.ShareType.GetHashCode();
                 if (this.Username != null)
                     hashCode = hashCode * 59 + this.Username.GetHashCode();
                 return hashCode;

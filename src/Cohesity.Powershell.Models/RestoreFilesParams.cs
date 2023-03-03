@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -365,7 +363,7 @@ namespace Cohesity.Model
                     this.BlacklistedIpAddrs == input.BlacklistedIpAddrs ||
                     this.BlacklistedIpAddrs != null &&
                     input.BlacklistedIpAddrs != null &&
-                    this.BlacklistedIpAddrs.Equals(input.BlacklistedIpAddrs)
+                    this.BlacklistedIpAddrs.SequenceEqual(input.BlacklistedIpAddrs)
                 ) && 
                 (
                     this.DestinationEpUuid == input.DestinationEpUuid ||
@@ -376,7 +374,7 @@ namespace Cohesity.Model
                     this.DirectoryNameSecurityStyleMap == input.DirectoryNameSecurityStyleMap ||
                     this.DirectoryNameSecurityStyleMap != null &&
                     input.DirectoryNameSecurityStyleMap != null &&
-                    this.DirectoryNameSecurityStyleMap.Equals(input.DirectoryNameSecurityStyleMap)
+                    this.DirectoryNameSecurityStyleMap.SequenceEqual(input.DirectoryNameSecurityStyleMap)
                 ) && 
                 (
                     this.GlacierFlrRestoreOption == input.GlacierFlrRestoreOption ||
@@ -422,7 +420,7 @@ namespace Cohesity.Model
                     this.NasProtocolTypeVec == input.NasProtocolTypeVec ||
                     this.NasProtocolTypeVec != null &&
                     input.NasProtocolTypeVec != null &&
-                    this.NasProtocolTypeVec.Equals(input.NasProtocolTypeVec)
+                    this.NasProtocolTypeVec.SequenceEqual(input.NasProtocolTypeVec)
                 ) && 
                 (
                     this.ObjectstoreConfigName == input.ObjectstoreConfigName ||
@@ -458,7 +456,7 @@ namespace Cohesity.Model
                     this.RestoredFileInfoVec == input.RestoredFileInfoVec ||
                     this.RestoredFileInfoVec != null &&
                     input.RestoredFileInfoVec != null &&
-                    this.RestoredFileInfoVec.Equals(input.RestoredFileInfoVec)
+                    this.RestoredFileInfoVec.SequenceEqual(input.RestoredFileInfoVec)
                 ) && 
                 (
                     this.S3Viewbackupproperties == input.S3Viewbackupproperties ||
@@ -524,7 +522,7 @@ namespace Cohesity.Model
                     this.WhitelistedIpAddrs == input.WhitelistedIpAddrs ||
                     this.WhitelistedIpAddrs != null &&
                     input.WhitelistedIpAddrs != null &&
-                    this.WhitelistedIpAddrs.Equals(input.WhitelistedIpAddrs)
+                    this.WhitelistedIpAddrs.SequenceEqual(input.WhitelistedIpAddrs)
                 );
         }
 

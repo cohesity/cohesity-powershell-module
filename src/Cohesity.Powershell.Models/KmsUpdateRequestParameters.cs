@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -34,6 +32,11 @@ namespace Cohesity.Model
         /// <param name="viewBoxIdList">Specifies the list of View Box Ids..</param>
         public KmsUpdateRequestParameters(AwsKmsUpdateParams awsKms = default(AwsKmsUpdateParams), CryptsoftKmsUpdateParams cryptsoftKms = default(CryptsoftKmsUpdateParams), long? id = default(long?), string keyName = default(string), string serverName = default(string), List<long> vaultIdList = default(List<long>), List<long> viewBoxIdList = default(List<long>))
         {
+            this.Id = id;
+            this.KeyName = keyName;
+            this.ServerName = serverName;
+            this.VaultIdList = vaultIdList;
+            this.ViewBoxIdList = viewBoxIdList;
             this.AwsKms = awsKms;
             this.CryptsoftKms = cryptsoftKms;
             this.Id = id;
@@ -155,13 +158,13 @@ namespace Cohesity.Model
                     this.VaultIdList == input.VaultIdList ||
                     this.VaultIdList != null &&
                     input.VaultIdList != null &&
-                    this.VaultIdList.Equals(input.VaultIdList)
+                    this.VaultIdList.SequenceEqual(input.VaultIdList)
                 ) && 
                 (
                     this.ViewBoxIdList == input.ViewBoxIdList ||
                     this.ViewBoxIdList != null &&
                     input.ViewBoxIdList != null &&
-                    this.ViewBoxIdList.Equals(input.ViewBoxIdList)
+                    this.ViewBoxIdList.SequenceEqual(input.ViewBoxIdList)
                 );
         }
 

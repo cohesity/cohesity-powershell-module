@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -29,6 +27,7 @@ namespace Cohesity.Model
         /// <param name="compactVersion">Specifies the Cohesity Agent software version..</param>
         /// <param name="consecutiveFailures">Specifies the number of consecutive failures..</param>
         /// <param name="environment">Specifies the Environment for the entity being protected..</param>
+        /// <param name="excludeUsersWithinAlertThreshold">User Quotas: Only the list of users who has exceeded the alert threshold will be returned..</param>
         /// <param name="groupBy">Specifies if the report should be grouped by any field..</param>
         /// <param name="healthStatus">Specifies the Cohesity Agent health status..</param>
         /// <param name="hostOsType">Specifies the OS type on which Cohesity Agent is installed..</param>
@@ -50,12 +49,13 @@ namespace Cohesity.Model
         /// <param name="viewName">Specifies the view name for which the report is required..</param>
         /// <param name="viewboxIds">Specifies the viewbox ids to filter by..</param>
         /// <param name="vmName">Specifies the VM name for which to get the report data..</param>
-        public SchedulerProtoSchedulerJobScheduleJobParametersReportJobParameterReportParameters(bool? allUnderHierarchy = default(bool?), string compactVersion = default(string), int? consecutiveFailures = default(int?), string environment = default(string), int? groupBy = default(int?), List<string> healthStatus = default(List<string>), List<string> hostOsType = default(List<string>), long? jobId = default(long?), string jobName = default(string), int? lastNDays = default(int?), List<long> objectIds = default(List<long>), string objectType = default(string), long? registeredSourceId = default(long?), List<long> registeredSourceIds = default(List<long>), string rollup = default(string), List<string> runStatus = default(List<string>), string sid = default(string), List<string> tenantIdVec = default(List<string>), string timezone = default(string), int? unixUid = default(int?), List<long> vaultIds = default(List<long>), long? viewBoxId = default(long?), string viewName = default(string), List<long> viewboxIds = default(List<long>), string vmName = default(string))
+        public SchedulerProtoSchedulerJobScheduleJobParametersReportJobParameterReportParameters(bool? allUnderHierarchy = default(bool?), string compactVersion = default(string), int? consecutiveFailures = default(int?), string environment = default(string), bool? excludeUsersWithinAlertThreshold = default(bool?), int? groupBy = default(int?), List<string> healthStatus = default(List<string>), List<string> hostOsType = default(List<string>), long? jobId = default(long?), string jobName = default(string), int? lastNDays = default(int?), List<long> objectIds = default(List<long>), string objectType = default(string), long? registeredSourceId = default(long?), List<long> registeredSourceIds = default(List<long>), string rollup = default(string), List<string> runStatus = default(List<string>), string sid = default(string), List<string> tenantIdVec = default(List<string>), string timezone = default(string), int? unixUid = default(int?), List<long> vaultIds = default(List<long>), long? viewBoxId = default(long?), string viewName = default(string), List<long> viewboxIds = default(List<long>), string vmName = default(string))
         {
             this.AllUnderHierarchy = allUnderHierarchy;
             this.CompactVersion = compactVersion;
             this.ConsecutiveFailures = consecutiveFailures;
             this.Environment = environment;
+            this.ExcludeUsersWithinAlertThreshold = excludeUsersWithinAlertThreshold;
             this.GroupBy = groupBy;
             this.HealthStatus = healthStatus;
             this.HostOsType = hostOsType;
@@ -81,6 +81,7 @@ namespace Cohesity.Model
             this.CompactVersion = compactVersion;
             this.ConsecutiveFailures = consecutiveFailures;
             this.Environment = environment;
+            this.ExcludeUsersWithinAlertThreshold = excludeUsersWithinAlertThreshold;
             this.GroupBy = groupBy;
             this.HealthStatus = healthStatus;
             this.HostOsType = hostOsType;
@@ -131,6 +132,13 @@ namespace Cohesity.Model
         /// <value>Specifies the Environment for the entity being protected.</value>
         [DataMember(Name="environment", EmitDefaultValue=true)]
         public string Environment { get; set; }
+
+        /// <summary>
+        /// User Quotas: Only the list of users who has exceeded the alert threshold will be returned.
+        /// </summary>
+        /// <value>User Quotas: Only the list of users who has exceeded the alert threshold will be returned.</value>
+        [DataMember(Name="excludeUsersWithinAlertThreshold", EmitDefaultValue=true)]
+        public bool? ExcludeUsersWithinAlertThreshold { get; set; }
 
         /// <summary>
         /// Specifies if the report should be grouped by any field.
@@ -336,6 +344,11 @@ namespace Cohesity.Model
                     this.Environment.Equals(input.Environment))
                 ) && 
                 (
+                    this.ExcludeUsersWithinAlertThreshold == input.ExcludeUsersWithinAlertThreshold ||
+                    (this.ExcludeUsersWithinAlertThreshold != null &&
+                    this.ExcludeUsersWithinAlertThreshold.Equals(input.ExcludeUsersWithinAlertThreshold))
+                ) && 
+                (
                     this.GroupBy == input.GroupBy ||
                     (this.GroupBy != null &&
                     this.GroupBy.Equals(input.GroupBy))
@@ -344,13 +357,13 @@ namespace Cohesity.Model
                     this.HealthStatus == input.HealthStatus ||
                     this.HealthStatus != null &&
                     input.HealthStatus != null &&
-                    this.HealthStatus.Equals(input.HealthStatus)
+                    this.HealthStatus.SequenceEqual(input.HealthStatus)
                 ) && 
                 (
                     this.HostOsType == input.HostOsType ||
                     this.HostOsType != null &&
                     input.HostOsType != null &&
-                    this.HostOsType.Equals(input.HostOsType)
+                    this.HostOsType.SequenceEqual(input.HostOsType)
                 ) && 
                 (
                     this.JobId == input.JobId ||
@@ -371,7 +384,7 @@ namespace Cohesity.Model
                     this.ObjectIds == input.ObjectIds ||
                     this.ObjectIds != null &&
                     input.ObjectIds != null &&
-                    this.ObjectIds.Equals(input.ObjectIds)
+                    this.ObjectIds.SequenceEqual(input.ObjectIds)
                 ) && 
                 (
                     this.ObjectType == input.ObjectType ||
@@ -387,7 +400,7 @@ namespace Cohesity.Model
                     this.RegisteredSourceIds == input.RegisteredSourceIds ||
                     this.RegisteredSourceIds != null &&
                     input.RegisteredSourceIds != null &&
-                    this.RegisteredSourceIds.Equals(input.RegisteredSourceIds)
+                    this.RegisteredSourceIds.SequenceEqual(input.RegisteredSourceIds)
                 ) && 
                 (
                     this.Rollup == input.Rollup ||
@@ -398,7 +411,7 @@ namespace Cohesity.Model
                     this.RunStatus == input.RunStatus ||
                     this.RunStatus != null &&
                     input.RunStatus != null &&
-                    this.RunStatus.Equals(input.RunStatus)
+                    this.RunStatus.SequenceEqual(input.RunStatus)
                 ) && 
                 (
                     this.Sid == input.Sid ||
@@ -409,7 +422,7 @@ namespace Cohesity.Model
                     this.TenantIdVec == input.TenantIdVec ||
                     this.TenantIdVec != null &&
                     input.TenantIdVec != null &&
-                    this.TenantIdVec.Equals(input.TenantIdVec)
+                    this.TenantIdVec.SequenceEqual(input.TenantIdVec)
                 ) && 
                 (
                     this.Timezone == input.Timezone ||
@@ -425,7 +438,7 @@ namespace Cohesity.Model
                     this.VaultIds == input.VaultIds ||
                     this.VaultIds != null &&
                     input.VaultIds != null &&
-                    this.VaultIds.Equals(input.VaultIds)
+                    this.VaultIds.SequenceEqual(input.VaultIds)
                 ) && 
                 (
                     this.ViewBoxId == input.ViewBoxId ||
@@ -441,7 +454,7 @@ namespace Cohesity.Model
                     this.ViewboxIds == input.ViewboxIds ||
                     this.ViewboxIds != null &&
                     input.ViewboxIds != null &&
-                    this.ViewboxIds.Equals(input.ViewboxIds)
+                    this.ViewboxIds.SequenceEqual(input.ViewboxIds)
                 ) && 
                 (
                     this.VmName == input.VmName ||
@@ -467,6 +480,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ConsecutiveFailures.GetHashCode();
                 if (this.Environment != null)
                     hashCode = hashCode * 59 + this.Environment.GetHashCode();
+                if (this.ExcludeUsersWithinAlertThreshold != null)
+                    hashCode = hashCode * 59 + this.ExcludeUsersWithinAlertThreshold.GetHashCode();
                 if (this.GroupBy != null)
                     hashCode = hashCode * 59 + this.GroupBy.GetHashCode();
                 if (this.HealthStatus != null)

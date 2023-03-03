@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -77,6 +75,11 @@ namespace Cohesity.Model
         /// <param name="rpoSchedule">Specifies an RPO backup schedule. Set if periodicity is kContinuousRPO..</param>
         public SchedulingPolicy(ContinuousSchedule continuousSchedule = default(ContinuousSchedule), DailySchedule dailySchedule = default(DailySchedule), MonthlySchedule monthlySchedule = default(MonthlySchedule), PeriodicityEnum? periodicity = default(PeriodicityEnum?), RpoSchedule rpoSchedule = default(RpoSchedule))
         {
+            this.ContinuousSchedule = continuousSchedule;
+            this.DailySchedule = dailySchedule;
+            this.MonthlySchedule = monthlySchedule;
+            this.Periodicity = periodicity;
+            this.RpoSchedule = rpoSchedule;
             this.ContinuousSchedule = continuousSchedule;
             this.DailySchedule = dailySchedule;
             this.MonthlySchedule = monthlySchedule;

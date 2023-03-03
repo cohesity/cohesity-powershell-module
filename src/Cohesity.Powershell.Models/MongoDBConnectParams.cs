@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -66,16 +64,20 @@ namespace Cohesity.Model
         /// </summary>
         /// <param name="authType">Specifies whether authentication is configured on this MongoDB cluster. Specifies the type of an MongoDB source entity. &#39;SCRAM&#39; &#39;LDAP&#39; &#39;NONE&#39; &#39;KERBEROS&#39;.</param>
         /// <param name="authenticatingDatabaseName">Specifies the Authenticating Database for this MongoDB cluster..</param>
-        /// <param name="hasAuthentication">Specifies whether authentication is configured on this MongoDB cluster..</param>
         /// <param name="requiresSsl">Specifies whether connection is allowed through SSL only in this cluster..</param>
         /// <param name="secondaryNodeTag">MongoDB Secondary node tag. Required only if &#39;useSecondaryForBackup&#39; is true. The system will use this to identify the secondary nodes for reading backup data..</param>
         /// <param name="seeds">Specifies the seeds of this MongoDB Cluster..</param>
         /// <param name="useSecondaryForBackup">Set this to true if you want the system to peform backups from secondary nodes..</param>
-        public MongoDBConnectParams(AuthTypeEnum? authType = default(AuthTypeEnum?), string authenticatingDatabaseName = default(string), bool? hasAuthentication = default(bool?), bool? requiresSsl = default(bool?), string secondaryNodeTag = default(string), List<string> seeds = default(List<string>), bool? useSecondaryForBackup = default(bool?))
+        public MongoDBConnectParams(AuthTypeEnum? authType = default(AuthTypeEnum?), string authenticatingDatabaseName = default(string), bool? requiresSsl = default(bool?), string secondaryNodeTag = default(string), List<string> seeds = default(List<string>), bool? useSecondaryForBackup = default(bool?))
         {
             this.AuthType = authType;
             this.AuthenticatingDatabaseName = authenticatingDatabaseName;
-            this.HasAuthentication = hasAuthentication;
+            this.RequiresSsl = requiresSsl;
+            this.SecondaryNodeTag = secondaryNodeTag;
+            this.Seeds = seeds;
+            this.UseSecondaryForBackup = useSecondaryForBackup;
+            this.AuthType = authType;
+            this.AuthenticatingDatabaseName = authenticatingDatabaseName;
             this.RequiresSsl = requiresSsl;
             this.SecondaryNodeTag = secondaryNodeTag;
             this.Seeds = seeds;
@@ -88,13 +90,6 @@ namespace Cohesity.Model
         /// <value>Specifies the Authenticating Database for this MongoDB cluster.</value>
         [DataMember(Name="authenticatingDatabaseName", EmitDefaultValue=true)]
         public string AuthenticatingDatabaseName { get; set; }
-
-        /// <summary>
-        /// Specifies whether authentication is configured on this MongoDB cluster.
-        /// </summary>
-        /// <value>Specifies whether authentication is configured on this MongoDB cluster.</value>
-        [DataMember(Name="hasAuthentication", EmitDefaultValue=true)]
-        public bool? HasAuthentication { get; set; }
 
         /// <summary>
         /// Specifies whether connection is allowed through SSL only in this cluster.
@@ -170,11 +165,6 @@ namespace Cohesity.Model
                     this.AuthenticatingDatabaseName.Equals(input.AuthenticatingDatabaseName))
                 ) && 
                 (
-                    this.HasAuthentication == input.HasAuthentication ||
-                    (this.HasAuthentication != null &&
-                    this.HasAuthentication.Equals(input.HasAuthentication))
-                ) && 
-                (
                     this.RequiresSsl == input.RequiresSsl ||
                     (this.RequiresSsl != null &&
                     this.RequiresSsl.Equals(input.RequiresSsl))
@@ -188,7 +178,7 @@ namespace Cohesity.Model
                     this.Seeds == input.Seeds ||
                     this.Seeds != null &&
                     input.Seeds != null &&
-                    this.Seeds.Equals(input.Seeds)
+                    this.Seeds.SequenceEqual(input.Seeds)
                 ) && 
                 (
                     this.UseSecondaryForBackup == input.UseSecondaryForBackup ||
@@ -206,12 +196,9 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                if (this.AuthType != null)
-					hashCode = hashCode * 59 + this.AuthType.GetHashCode();
+                hashCode = hashCode * 59 + this.AuthType.GetHashCode();
                 if (this.AuthenticatingDatabaseName != null)
                     hashCode = hashCode * 59 + this.AuthenticatingDatabaseName.GetHashCode();
-                if (this.HasAuthentication != null)
-                    hashCode = hashCode * 59 + this.HasAuthentication.GetHashCode();
                 if (this.RequiresSsl != null)
                     hashCode = hashCode * 59 + this.RequiresSsl.GetHashCode();
                 if (this.SecondaryNodeTag != null)

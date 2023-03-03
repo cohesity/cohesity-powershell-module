@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -31,6 +29,10 @@ namespace Cohesity.Model
         /// <param name="version">Specifies the version of the proxy..</param>
         public TenantProxy(long? constituentId = default(long?), string ipAddress = default(string), string tenantId = default(string), string version = default(string))
         {
+            this.ConstituentId = constituentId;
+            this.IpAddress = ipAddress;
+            this.TenantId = tenantId;
+            this.Version = version;
             this.ConstituentId = constituentId;
             this.IpAddress = ipAddress;
             this.TenantId = tenantId;
@@ -138,6 +140,8 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.IpAddress.GetHashCode();
                 if (this.TenantId != null)
                     hashCode = hashCode * 59 + this.TenantId.GetHashCode();
+                if (this.Version != null)
+                    hashCode = hashCode * 59 + this.Version.GetHashCode();
                 return hashCode;
             }
         }

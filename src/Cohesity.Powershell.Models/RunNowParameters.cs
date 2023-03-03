@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -30,6 +28,8 @@ namespace Cohesity.Model
         /// <param name="sourceId">Specifies the source id of the Databases to perform the Run Now operation on..</param>
         public RunNowParameters(List<long> databaseIds = default(List<long>), RunNowPhysicalParameters physicalParams = default(RunNowPhysicalParameters), long? sourceId = default(long?))
         {
+            this.DatabaseIds = databaseIds;
+            this.SourceId = sourceId;
             this.DatabaseIds = databaseIds;
             this.PhysicalParams = physicalParams;
             this.SourceId = sourceId;
@@ -95,7 +95,7 @@ namespace Cohesity.Model
                     this.DatabaseIds == input.DatabaseIds ||
                     this.DatabaseIds != null &&
                     input.DatabaseIds != null &&
-                    this.DatabaseIds.Equals(input.DatabaseIds)
+                    this.DatabaseIds.SequenceEqual(input.DatabaseIds)
                 ) && 
                 (
                     this.PhysicalParams == input.PhysicalParams ||

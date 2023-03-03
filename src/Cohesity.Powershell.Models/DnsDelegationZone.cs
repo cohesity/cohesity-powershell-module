@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -104,13 +102,13 @@ namespace Cohesity.Model
                     this.DnsZoneResolvedVips == input.DnsZoneResolvedVips ||
                     this.DnsZoneResolvedVips != null &&
                     input.DnsZoneResolvedVips != null &&
-                    this.DnsZoneResolvedVips.Equals(input.DnsZoneResolvedVips)
+                    this.DnsZoneResolvedVips.SequenceEqual(input.DnsZoneResolvedVips)
                 ) && 
                 (
                     this.DnsZoneVips == input.DnsZoneVips ||
                     this.DnsZoneVips != null &&
                     input.DnsZoneVips != null &&
-                    this.DnsZoneVips.Equals(input.DnsZoneVips)
+                    this.DnsZoneVips.SequenceEqual(input.DnsZoneVips)
                 );
         }
 

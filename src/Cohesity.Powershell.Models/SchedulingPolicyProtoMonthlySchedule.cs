@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -30,6 +28,9 @@ namespace Cohesity.Model
         /// <param name="dayOfMonth">Specific date of the month on which to perform the backup..</param>
         public SchedulingPolicyProtoMonthlySchedule(int? count = default(int?), int? day = default(int?), int? dayOfMonth = default(int?))
         {
+            this.Count = count;
+            this.Day = day;
+            this.DayOfMonth = dayOfMonth;
             this.Count = count;
             this.Day = day;
             this.DayOfMonth = dayOfMonth;

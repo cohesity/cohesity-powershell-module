@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -34,6 +32,12 @@ namespace Cohesity.Model
         /// <param name="virtualPrivateCloudId">Specifies id of the Virtual Private Cloud to chose for the instance type..</param>
         public AwsParams(List<CustomTagParams> customTagList = default(List<CustomTagParams>), long? instanceId = default(long?), List<long> networkSecurityGroupIds = default(List<long>), RdsParams rdsParams = default(RdsParams), long? region = default(long?), long? subnetId = default(long?), long? virtualPrivateCloudId = default(long?))
         {
+            this.CustomTagList = customTagList;
+            this.InstanceId = instanceId;
+            this.NetworkSecurityGroupIds = networkSecurityGroupIds;
+            this.Region = region;
+            this.SubnetId = subnetId;
+            this.VirtualPrivateCloudId = virtualPrivateCloudId;
             this.CustomTagList = customTagList;
             this.InstanceId = instanceId;
             this.NetworkSecurityGroupIds = networkSecurityGroupIds;
@@ -131,7 +135,7 @@ namespace Cohesity.Model
                     this.CustomTagList == input.CustomTagList ||
                     this.CustomTagList != null &&
                     input.CustomTagList != null &&
-                    this.CustomTagList.Equals(input.CustomTagList)
+                    this.CustomTagList.SequenceEqual(input.CustomTagList)
                 ) && 
                 (
                     this.InstanceId == input.InstanceId ||
@@ -142,7 +146,7 @@ namespace Cohesity.Model
                     this.NetworkSecurityGroupIds == input.NetworkSecurityGroupIds ||
                     this.NetworkSecurityGroupIds != null &&
                     input.NetworkSecurityGroupIds != null &&
-                    this.NetworkSecurityGroupIds.Equals(input.NetworkSecurityGroupIds)
+                    this.NetworkSecurityGroupIds.SequenceEqual(input.NetworkSecurityGroupIds)
                 ) && 
                 (
                     this.RdsParams == input.RdsParams ||

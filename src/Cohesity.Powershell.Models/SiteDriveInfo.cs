@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -114,7 +112,7 @@ namespace Cohesity.Model
                     this.DriveItemList == input.DriveItemList ||
                     this.DriveItemList != null &&
                     input.DriveItemList != null &&
-                    this.DriveItemList.Equals(input.DriveItemList)
+                    this.DriveItemList.SequenceEqual(input.DriveItemList)
                 ) && 
                 (
                     this.DriveName == input.DriveName ||

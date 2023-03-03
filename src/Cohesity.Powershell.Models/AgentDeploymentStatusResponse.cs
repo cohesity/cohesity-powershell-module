@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -239,6 +237,14 @@ namespace Cohesity.Model
         /// <param name="version">Specifies the Cohesity software version of the agent. For example: 6.0.1-release-YYYYMMDD_&lt;hash&gt;.</param>
         public AgentDeploymentStatusResponse(string compactVersion = default(string), HealthStatusEnum? healthStatus = default(HealthStatusEnum?), string hostIp = default(string), HostOsTypeEnum? hostOsType = default(HostOsTypeEnum?), LastUpgradeStatusEnum? lastUpgradeStatus = default(LastUpgradeStatusEnum?), UpgradabilityEnum? upgradability = default(UpgradabilityEnum?), string upgradeStatusMessage = default(string), string version = default(string))
         {
+            this.CompactVersion = compactVersion;
+            this.HealthStatus = healthStatus;
+            this.HostIp = hostIp;
+            this.HostOsType = hostOsType;
+            this.LastUpgradeStatus = lastUpgradeStatus;
+            this.Upgradability = upgradability;
+            this.UpgradeStatusMessage = upgradeStatusMessage;
+            this.Version = version;
             this.CompactVersion = compactVersion;
             this.HealthStatus = healthStatus;
             this.HostIp = hostIp;

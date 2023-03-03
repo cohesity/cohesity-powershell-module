@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -86,6 +84,12 @@ namespace Cohesity.Model
         /// <param name="target">Specifies the replication target to copy the Snapshots to..</param>
         public SnapshotReplicationCopyPolicy(string id = default(string), CloudDeployTargetDetails cloudTarget = default(CloudDeployTargetDetails), bool? copyPartial = default(bool?), DataLockConfig datalockConfig = default(DataLockConfig), long? daysToKeep = default(long?), int? multiplier = default(int?), PeriodicityEnum? periodicity = default(PeriodicityEnum?), ReplicationTargetSettings target = default(ReplicationTargetSettings))
         {
+            this.Id = id;
+            this.CopyPartial = copyPartial;
+            this.DaysToKeep = daysToKeep;
+            this.Multiplier = multiplier;
+            this.Periodicity = periodicity;
+            this.Target = target;
             this.Id = id;
             this.CloudTarget = cloudTarget;
             this.CopyPartial = copyPartial;
@@ -241,8 +245,7 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.DaysToKeep.GetHashCode();
                 if (this.Multiplier != null)
                     hashCode = hashCode * 59 + this.Multiplier.GetHashCode();
-                if (this.Periodicity != null)
-					hashCode = hashCode * 59 + this.Periodicity.GetHashCode();
+                hashCode = hashCode * 59 + this.Periodicity.GetHashCode();
                 if (this.Target != null)
                     hashCode = hashCode * 59 + this.Target.GetHashCode();
                 return hashCode;

@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -31,6 +29,10 @@ namespace Cohesity.Model
         /// <param name="thriftPort">Specifies the Hive metastore thrift Port.</param>
         public HiveConnectParams(long? hdfsEntityId = default(long?), string kerberosPrincipal = default(string), string metastore = default(string), int? thriftPort = default(int?))
         {
+            this.HdfsEntityId = hdfsEntityId;
+            this.KerberosPrincipal = kerberosPrincipal;
+            this.Metastore = metastore;
+            this.ThriftPort = thriftPort;
             this.HdfsEntityId = hdfsEntityId;
             this.KerberosPrincipal = kerberosPrincipal;
             this.Metastore = metastore;

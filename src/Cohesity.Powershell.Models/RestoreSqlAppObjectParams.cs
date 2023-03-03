@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -55,6 +53,24 @@ namespace Cohesity.Model
             this.IsMultiStageRestore = isMultiStageRestore;
             this.KeepCdc = keepCdc;
             this.LogFileDestination = logFileDestination;
+            this.NewDatabaseName = newDatabaseName;
+            this.RestoreTimeSecs = restoreTimeSecs;
+            this.ResumeRestore = resumeRestore;
+            this.SecondaryDataFileDestination = secondaryDataFileDestination;
+            this.SecondaryDataFileDestinationVec = secondaryDataFileDestinationVec;
+            this.WithClause = withClause;
+            this.WithNoRecovery = withNoRecovery;
+            this.CaptureTailLogs = captureTailLogs;
+            this.ContinueAfterError = continueAfterError;
+            this.DataFileDestination = dataFileDestination;
+            this.DbRestoreOverwritePolicy = dbRestoreOverwritePolicy;
+            this.EnableChecksum = enableChecksum;
+            this.InstanceName = instanceName;
+            this.IsAutoSyncEnabled = isAutoSyncEnabled;
+            this.IsMultiStageRestore = isMultiStageRestore;
+            this.KeepCdc = keepCdc;
+            this.LogFileDestination = logFileDestination;
+            this.MultiStageRestoreOptions = multiStageRestoreOptions;
             this.NewDatabaseName = newDatabaseName;
             this.RestoreTimeSecs = restoreTimeSecs;
             this.ResumeRestore = resumeRestore;
@@ -304,7 +320,7 @@ namespace Cohesity.Model
                     this.SecondaryDataFileDestinationVec == input.SecondaryDataFileDestinationVec ||
                     this.SecondaryDataFileDestinationVec != null &&
                     input.SecondaryDataFileDestinationVec != null &&
-                    this.SecondaryDataFileDestinationVec.Equals(input.SecondaryDataFileDestinationVec)
+                    this.SecondaryDataFileDestinationVec.SequenceEqual(input.SecondaryDataFileDestinationVec)
                 ) && 
                 (
                     this.WithClause == input.WithClause ||

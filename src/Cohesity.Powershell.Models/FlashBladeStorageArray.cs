@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -139,7 +137,7 @@ namespace Cohesity.Model
                     this.Networks == input.Networks ||
                     this.Networks != null &&
                     input.Networks != null &&
-                    this.Networks.Equals(input.Networks)
+                    this.Networks.SequenceEqual(input.Networks)
                 ) && 
                 (
                     this.PhysicalUsedBytes == input.PhysicalUsedBytes ||

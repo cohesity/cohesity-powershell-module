@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -231,7 +229,7 @@ namespace Cohesity.Model
                 ) && 
                 (
                     this.Changes == input.Changes ||
-                    this.Changes.Equals(input.Changes)
+                    this.Changes.SequenceEqual(input.Changes)
                 );
         }
 

@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -37,6 +35,14 @@ namespace Cohesity.Model
         /// <param name="s3AccountId">S3 account ID that was used to register the source..</param>
         public RestoreKubernetesNamespacesParams(long? backupClusterId = default(long?), string backupJobName = default(string), EntityProto clusterEntity = default(EntityProto), string clusterSoftwareVersion = default(string), string initContainerImage = default(string), bool? isProtectionUsingDatamoverEnabled = default(bool?), string managementNamespace = default(string), List<PodMetadata> podMetadataVec = default(List<PodMetadata>), RenameObjectParamProto renameRestoredObjectParam = default(RenameObjectParamProto), string s3AccountId = default(string))
         {
+            this.BackupClusterId = backupClusterId;
+            this.BackupJobName = backupJobName;
+            this.ClusterSoftwareVersion = clusterSoftwareVersion;
+            this.InitContainerImage = initContainerImage;
+            this.IsProtectionUsingDatamoverEnabled = isProtectionUsingDatamoverEnabled;
+            this.ManagementNamespace = managementNamespace;
+            this.PodMetadataVec = podMetadataVec;
+            this.S3AccountId = s3AccountId;
             this.BackupClusterId = backupClusterId;
             this.BackupJobName = backupJobName;
             this.ClusterEntity = clusterEntity;
@@ -192,7 +198,7 @@ namespace Cohesity.Model
                     this.PodMetadataVec == input.PodMetadataVec ||
                     this.PodMetadataVec != null &&
                     input.PodMetadataVec != null &&
-                    this.PodMetadataVec.Equals(input.PodMetadataVec)
+                    this.PodMetadataVec.SequenceEqual(input.PodMetadataVec)
                 ) && 
                 (
                     this.RenameRestoredObjectParam == input.RenameRestoredObjectParam ||

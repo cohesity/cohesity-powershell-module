@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -77,6 +75,11 @@ namespace Cohesity.Model
         /// <param name="roles">Array of Roles.  Specifies the Cohesity roles to associate with this user or group such as &#39;Admin&#39;, &#39;Ops&#39; or &#39;View&#39;. The Cohesity roles determine privileges on the Cohesity Cluster for this group or user. For example if the &#39;joe&#39; user is added for the Active Directory &#39;joe&#39; user principal and is associated with the Cohesity &#39;View&#39; role, &#39;joe&#39; can log in to the Cohesity Dashboard and has a read-only view of the data on the Cohesity Cluster..</param>
         public IdpPrincipalsAddParameters(string domain = default(string), ObjectClassEnum? objectClass = default(ObjectClassEnum?), string principalName = default(string), bool? restricted = default(bool?), List<string> roles = default(List<string>))
         {
+            this.Domain = domain;
+            this.ObjectClass = objectClass;
+            this.PrincipalName = principalName;
+            this.Restricted = restricted;
+            this.Roles = roles;
             this.Domain = domain;
             this.ObjectClass = objectClass;
             this.PrincipalName = principalName;
@@ -171,7 +174,7 @@ namespace Cohesity.Model
                     this.Roles == input.Roles ||
                     this.Roles != null &&
                     input.Roles != null &&
-                    this.Roles.Equals(input.Roles)
+                    this.Roles.SequenceEqual(input.Roles)
                 );
         }
 

@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -34,6 +32,10 @@ namespace Cohesity.Model
         /// <param name="snapshotTarget">snapshotTarget.</param>
         public SnapshotTargetPolicyProto(bool? copyPartiallySuccessfulRun = default(bool?), List<ExtendedRetentionPolicyProto> extendedRetentionPolicyVec = default(List<ExtendedRetentionPolicyProto>), GranularityBucket granularityBucket = default(GranularityBucket), string id = default(string), long? numDaysToKeep = default(long?), RetentionPolicyProto retentionPolicy = default(RetentionPolicyProto), SnapshotTarget snapshotTarget = default(SnapshotTarget))
         {
+            this.CopyPartiallySuccessfulRun = copyPartiallySuccessfulRun;
+            this.ExtendedRetentionPolicyVec = extendedRetentionPolicyVec;
+            this.Id = id;
+            this.NumDaysToKeep = numDaysToKeep;
             this.CopyPartiallySuccessfulRun = copyPartiallySuccessfulRun;
             this.ExtendedRetentionPolicyVec = extendedRetentionPolicyVec;
             this.GranularityBucket = granularityBucket;
@@ -134,7 +136,7 @@ namespace Cohesity.Model
                     this.ExtendedRetentionPolicyVec == input.ExtendedRetentionPolicyVec ||
                     this.ExtendedRetentionPolicyVec != null &&
                     input.ExtendedRetentionPolicyVec != null &&
-                    this.ExtendedRetentionPolicyVec.Equals(input.ExtendedRetentionPolicyVec)
+                    this.ExtendedRetentionPolicyVec.SequenceEqual(input.ExtendedRetentionPolicyVec)
                 ) && 
                 (
                     this.GranularityBucket == input.GranularityBucket ||

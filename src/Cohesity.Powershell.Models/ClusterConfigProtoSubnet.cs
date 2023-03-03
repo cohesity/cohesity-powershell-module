@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -39,6 +37,18 @@ namespace Cohesity.Model
         /// <param name="smbAccess">Whether clients from this subnet can mount using SMB protocol..</param>
         public ClusterConfigProtoSubnet(int? component = default(int?), string description = default(string), string gateway = default(string), int? id = default(int?), string ip = default(string), int? netmaskBits = default(int?), string netmaskIp4 = default(string), int? nfsAccess = default(int?), bool? nfsAllSquash = default(bool?), bool? nfsRootSquash = default(bool?), int? s3Access = default(int?), int? smbAccess = default(int?))
         {
+            this.Component = component;
+            this.Description = description;
+            this.Gateway = gateway;
+            this.Id = id;
+            this.Ip = ip;
+            this.NetmaskBits = netmaskBits;
+            this.NetmaskIp4 = netmaskIp4;
+            this.NfsAccess = nfsAccess;
+            this.NfsAllSquash = nfsAllSquash;
+            this.NfsRootSquash = nfsRootSquash;
+            this.S3Access = s3Access;
+            this.SmbAccess = smbAccess;
             this.Component = component;
             this.Description = description;
             this.Gateway = gateway;

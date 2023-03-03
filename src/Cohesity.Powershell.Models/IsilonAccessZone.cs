@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -32,6 +30,11 @@ namespace Cohesity.Model
         /// <param name="path">Specifies the path of the access zone in ifs. This should include the leading \&quot;/ifs/\&quot;..</param>
         public IsilonAccessZone(string groupnet = default(string), long? id = default(long?), string name = default(string), List<NetworkPool> networkPools = default(List<NetworkPool>), string path = default(string))
         {
+            this.Groupnet = groupnet;
+            this.Id = id;
+            this.Name = name;
+            this.NetworkPools = networkPools;
+            this.Path = path;
             this.Groupnet = groupnet;
             this.Id = id;
             this.Name = name;
@@ -129,7 +132,7 @@ namespace Cohesity.Model
                     this.NetworkPools == input.NetworkPools ||
                     this.NetworkPools != null &&
                     input.NetworkPools != null &&
-                    this.NetworkPools.Equals(input.NetworkPools)
+                    this.NetworkPools.SequenceEqual(input.NetworkPools)
                 ) && 
                 (
                     this.Path == input.Path ||

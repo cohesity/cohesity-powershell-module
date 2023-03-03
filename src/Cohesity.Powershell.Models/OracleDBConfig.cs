@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -50,6 +48,19 @@ namespace Cohesity.Model
             this.FraSizeMb = fraSizeMb;
             this.NumTempfiles = numTempfiles;
             this.PfileParameterMap = pfileParameterMap;
+            this.SgaTargetSize = sgaTargetSize;
+            this.SharedPoolSize = sharedPoolSize;
+            this.AuditLogDest = auditLogDest;
+            this.BctFilePath = bctFilePath;
+            this.ControlFilePathVec = controlFilePathVec;
+            this.DbConfigFilePath = dbConfigFilePath;
+            this.DiagDest = diagDest;
+            this.EnableArchiveLogMode = enableArchiveLogMode;
+            this.FraDest = fraDest;
+            this.FraSizeMb = fraSizeMb;
+            this.NumTempfiles = numTempfiles;
+            this.PfileParameterMap = pfileParameterMap;
+            this.RedoLogConf = redoLogConf;
             this.SgaTargetSize = sgaTargetSize;
             this.SharedPoolSize = sharedPoolSize;
         }
@@ -194,7 +205,7 @@ namespace Cohesity.Model
                     this.ControlFilePathVec == input.ControlFilePathVec ||
                     this.ControlFilePathVec != null &&
                     input.ControlFilePathVec != null &&
-                    this.ControlFilePathVec.Equals(input.ControlFilePathVec)
+                    this.ControlFilePathVec.SequenceEqual(input.ControlFilePathVec)
                 ) && 
                 (
                     this.DbConfigFilePath == input.DbConfigFilePath ||
@@ -230,7 +241,7 @@ namespace Cohesity.Model
                     this.PfileParameterMap == input.PfileParameterMap ||
                     this.PfileParameterMap != null &&
                     input.PfileParameterMap != null &&
-                    this.PfileParameterMap.Equals(input.PfileParameterMap)
+                    this.PfileParameterMap.SequenceEqual(input.PfileParameterMap)
                 ) && 
                 (
                     this.RedoLogConf == input.RedoLogConf ||

@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -87,7 +85,7 @@ namespace Cohesity.Model
                     this._DailyEntitlement == input._DailyEntitlement ||
                     this._DailyEntitlement != null &&
                     input._DailyEntitlement != null &&
-                    this._DailyEntitlement.Equals(input._DailyEntitlement)
+                    this._DailyEntitlement.SequenceEqual(input._DailyEntitlement)
                 ) && 
                 (
                     this.FeatureName == input.FeatureName ||

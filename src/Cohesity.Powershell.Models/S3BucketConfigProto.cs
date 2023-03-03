@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -226,7 +224,7 @@ namespace Cohesity.Model
                     this.TagMap == input.TagMap ||
                     this.TagMap != null &&
                     input.TagMap != null &&
-                    this.TagMap.Equals(input.TagMap)
+                    this.TagMap.SequenceEqual(input.TagMap)
                 ) && 
                 (
                     this.VersioningState == input.VersioningState ||

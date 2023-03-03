@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -30,6 +28,9 @@ namespace Cohesity.Model
         /// <param name="tenantId">Specifies the unique id of the tenant..</param>
         public TenantInfo(bool? bifrostEnabled = default(bool?), string name = default(string), string tenantId = default(string))
         {
+            this.BifrostEnabled = bifrostEnabled;
+            this.Name = name;
+            this.TenantId = tenantId;
             this.BifrostEnabled = bifrostEnabled;
             this.Name = name;
             this.TenantId = tenantId;

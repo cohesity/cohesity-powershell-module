@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -209,6 +207,24 @@ namespace Cohesity.Model
             this.OwnerId = ownerId;
             this.RecoveryModel = recoveryModel;
             this.SqlServerDbState = sqlServerDbState;
+            this.Type = type;
+            this.IsAvailableForVssBackup = isAvailableForVssBackup;
+            this.CreatedTimestamp = createdTimestamp;
+            this.DatabaseName = databaseName;
+            this.DbAagEntityId = dbAagEntityId;
+            this.DbAagName = dbAagName;
+            this.DbCompatibilityLevel = dbCompatibilityLevel;
+            this.DbFileGroups = dbFileGroups;
+            this.DbFiles = dbFiles;
+            this.DbOwnerUsername = dbOwnerUsername;
+            this.DefaultDatabaseLocation = defaultDatabaseLocation;
+            this.DefaultLogLocation = defaultLogLocation;
+            this.Id = id;
+            this.IsEncrypted = isEncrypted;
+            this.Name = name;
+            this.OwnerId = ownerId;
+            this.RecoveryModel = recoveryModel;
+            this.SqlServerDbState = sqlServerDbState;
             this.SqlServerInstanceVersion = sqlServerInstanceVersion;
             this.Type = type;
         }
@@ -393,13 +409,13 @@ namespace Cohesity.Model
                     this.DbFileGroups == input.DbFileGroups ||
                     this.DbFileGroups != null &&
                     input.DbFileGroups != null &&
-                    this.DbFileGroups.Equals(input.DbFileGroups)
+                    this.DbFileGroups.SequenceEqual(input.DbFileGroups)
                 ) && 
                 (
                     this.DbFiles == input.DbFiles ||
                     this.DbFiles != null &&
                     input.DbFiles != null &&
-                    this.DbFiles.Equals(input.DbFiles)
+                    this.DbFiles.SequenceEqual(input.DbFiles)
                 ) && 
                 (
                     this.DbOwnerUsername == input.DbOwnerUsername ||
@@ -494,14 +510,11 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
                 if (this.OwnerId != null)
                     hashCode = hashCode * 59 + this.OwnerId.GetHashCode();
-                if (this.RecoveryModel != null)
-					hashCode = hashCode * 59 + this.RecoveryModel.GetHashCode();
-                if (this.SqlServerDbState != null)
-					hashCode = hashCode * 59 + this.SqlServerDbState.GetHashCode();
+                hashCode = hashCode * 59 + this.RecoveryModel.GetHashCode();
+                hashCode = hashCode * 59 + this.SqlServerDbState.GetHashCode();
                 if (this.SqlServerInstanceVersion != null)
                     hashCode = hashCode * 59 + this.SqlServerInstanceVersion.GetHashCode();
-                if (this.Type != null)
-					hashCode = hashCode * 59 + this.Type.GetHashCode();
+                hashCode = hashCode * 59 + this.Type.GetHashCode();
                 return hashCode;
             }
         }

@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -31,6 +29,9 @@ namespace Cohesity.Model
         /// <param name="volumeExclusionParams">volumeExclusionParams.</param>
         public AWSSnapshotManagerParams(int? amiCreationFrequency = default(int?), bool? createAmiForRun = default(bool?), bool? shouldCreateAmi = default(bool?), EBSVolumeExclusionParams volumeExclusionParams = default(EBSVolumeExclusionParams))
         {
+            this.AmiCreationFrequency = amiCreationFrequency;
+            this.CreateAmiForRun = createAmiForRun;
+            this.ShouldCreateAmi = shouldCreateAmi;
             this.AmiCreationFrequency = amiCreationFrequency;
             this.CreateAmiForRun = createAmiForRun;
             this.ShouldCreateAmi = shouldCreateAmi;

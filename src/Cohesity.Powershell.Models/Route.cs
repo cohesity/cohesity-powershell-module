@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -35,6 +33,14 @@ namespace Cohesity.Model
         /// <param name="nodeGroupName">Specifies the network node group to represent a group of nodes..</param>
         public Route(int? advmss = default(int?), string description = default(string), string destNetwork = default(string), string ifName = default(string), string ifaceGroupName = default(string), int? mtu = default(int?), string nextHop = default(string), string nodeGroupName = default(string))
         {
+            this.Advmss = advmss;
+            this.Description = description;
+            this.DestNetwork = destNetwork;
+            this.IfName = ifName;
+            this.IfaceGroupName = ifaceGroupName;
+            this.Mtu = mtu;
+            this.NextHop = nextHop;
+            this.NodeGroupName = nodeGroupName;
             this.Advmss = advmss;
             this.Description = description;
             this.DestNetwork = destNetwork;

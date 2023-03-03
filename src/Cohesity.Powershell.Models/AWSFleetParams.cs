@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -63,6 +61,9 @@ namespace Cohesity.Model
         /// <param name="networkParamsList">Specifies the list of network params for the fleet..</param>
         public AwsFleetParams(FleetSubnetTypeEnum? fleetSubnetType = default(FleetSubnetTypeEnum?), List<FleetTag> fleetTags = default(List<FleetTag>), List<FleetNetworkParams> networkParamsList = default(List<FleetNetworkParams>))
         {
+            this.FleetSubnetType = fleetSubnetType;
+            this.FleetTags = fleetTags;
+            this.NetworkParamsList = networkParamsList;
             this.FleetSubnetType = fleetSubnetType;
             this.FleetTags = fleetTags;
             this.NetworkParamsList = networkParamsList;
@@ -126,13 +127,13 @@ namespace Cohesity.Model
                     this.FleetTags == input.FleetTags ||
                     this.FleetTags != null &&
                     input.FleetTags != null &&
-                    this.FleetTags.Equals(input.FleetTags)
+                    this.FleetTags.SequenceEqual(input.FleetTags)
                 ) && 
                 (
                     this.NetworkParamsList == input.NetworkParamsList ||
                     this.NetworkParamsList != null &&
                     input.NetworkParamsList != null &&
-                    this.NetworkParamsList.Equals(input.NetworkParamsList)
+                    this.NetworkParamsList.SequenceEqual(input.NetworkParamsList)
                 );
         }
 
@@ -145,8 +146,7 @@ namespace Cohesity.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-				if (this.FleetSubnetType != null)
-	                hashCode = hashCode * 59 + this.FleetSubnetType.GetHashCode();
+                hashCode = hashCode * 59 + this.FleetSubnetType.GetHashCode();
                 if (this.FleetTags != null)
                     hashCode = hashCode * 59 + this.FleetTags.GetHashCode();
                 if (this.NetworkParamsList != null)

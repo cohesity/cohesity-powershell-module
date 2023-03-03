@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -57,8 +55,21 @@ namespace Cohesity.Model
             this.Type = type;
             this.Version = version;
             this.AdditionalParams = additionalParams;
+            this.AgentEndpoint = agentEndpoint;
+            this.AgentPort = agentPort;
+            this.ConnectorGroupId = connectorGroupId;
             this.Credentials = credentials;
+            this.Endpoint = endpoint;
             this.Entity = entity;
+            this.HostType = hostType;
+            this.Id = id;
+            this.NetworkRealmId = networkRealmId;
+            this.NetworkRealmInfoVec = networkRealmInfoVec;
+            this.PopulateSubnetForAllClusterNodes = populateSubnetForAllClusterNodes;
+            this.Port = port;
+            this.TenantId = tenantId;
+            this.Type = type;
+            this.Version = version;
         }
         
         /// <summary>
@@ -260,7 +271,7 @@ namespace Cohesity.Model
                     this.NetworkRealmInfoVec == input.NetworkRealmInfoVec ||
                     this.NetworkRealmInfoVec != null &&
                     input.NetworkRealmInfoVec != null &&
-                    this.NetworkRealmInfoVec.Equals(input.NetworkRealmInfoVec)
+                    this.NetworkRealmInfoVec.SequenceEqual(input.NetworkRealmInfoVec)
                 ) && 
                 (
                     this.PopulateSubnetForAllClusterNodes == input.PopulateSubnetForAllClusterNodes ||

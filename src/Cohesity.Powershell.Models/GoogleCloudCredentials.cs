@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -77,6 +75,11 @@ namespace Cohesity.Model
         /// <param name="tiers">Specifies the list of all tiers for Google account..</param>
         public GoogleCloudCredentials(string clientEmailAddress = default(string), string clientPrivateKey = default(string), string projectId = default(string), TierTypeEnum? tierType = default(TierTypeEnum?), List<string> tiers = default(List<string>))
         {
+            this.ClientEmailAddress = clientEmailAddress;
+            this.ClientPrivateKey = clientPrivateKey;
+            this.ProjectId = projectId;
+            this.TierType = tierType;
+            this.Tiers = tiers;
             this.ClientEmailAddress = clientEmailAddress;
             this.ClientPrivateKey = clientPrivateKey;
             this.ProjectId = projectId;
@@ -171,7 +174,7 @@ namespace Cohesity.Model
                     this.Tiers == input.Tiers ||
                     this.Tiers != null &&
                     input.Tiers != null &&
-                    this.Tiers.Equals(input.Tiers)
+                    this.Tiers.SequenceEqual(input.Tiers)
                 );
         }
 
@@ -190,8 +193,7 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.ClientPrivateKey.GetHashCode();
                 if (this.ProjectId != null)
                     hashCode = hashCode * 59 + this.ProjectId.GetHashCode();
-                if (this.TierType != null)
-					hashCode = hashCode * 59 + this.TierType.GetHashCode();
+                hashCode = hashCode * 59 + this.TierType.GetHashCode();
                 if (this.Tiers != null)
                     hashCode = hashCode * 59 + this.Tiers.GetHashCode();
                 return hashCode;

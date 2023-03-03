@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -75,6 +73,26 @@ namespace Cohesity.Model
         /// <param name="vmFolderId">Specifies a folder where the VMs should be restored. This is applicable only when the VMs are being restored to an alternate location or if clone is being performed..</param>
         public VmwareCloneParameters(bool? attemptDifferentialRestore = default(bool?), long? datastoreFolderId = default(long?), bool? detachNetwork = default(bool?), bool? disableNetwork = default(bool?), long? networkId = default(long?), List<NetworkMapping> networkMappings = default(List<NetworkMapping>), OrgVdcNetwork orgVdcNetwork = default(OrgVdcNetwork), bool? overwriteExistingVm = default(bool?), bool? powerOffAndRenameExistingVm = default(bool?), bool? poweredOn = default(bool?), string prefix = default(string), bool? preserveCustomAttributesDuringClone = default(bool?), bool? preserveTags = default(bool?), RecoveryProcessTypeEnum? recoveryProcessType = default(RecoveryProcessTypeEnum?), long? resourcePoolId = default(long?), string storageProfileName = default(string), string storageProfileVcdUuid = default(string), string suffix = default(string), long? vAppId = default(long?), long? vdcId = default(long?), long? vmFolderId = default(long?))
         {
+            this.AttemptDifferentialRestore = attemptDifferentialRestore;
+            this.DatastoreFolderId = datastoreFolderId;
+            this.DetachNetwork = detachNetwork;
+            this.DisableNetwork = disableNetwork;
+            this.NetworkId = networkId;
+            this.NetworkMappings = networkMappings;
+            this.OverwriteExistingVm = overwriteExistingVm;
+            this.PowerOffAndRenameExistingVm = powerOffAndRenameExistingVm;
+            this.PoweredOn = poweredOn;
+            this.Prefix = prefix;
+            this.PreserveCustomAttributesDuringClone = preserveCustomAttributesDuringClone;
+            this.PreserveTags = preserveTags;
+            this.RecoveryProcessType = recoveryProcessType;
+            this.ResourcePoolId = resourcePoolId;
+            this.StorageProfileName = storageProfileName;
+            this.StorageProfileVcdUuid = storageProfileVcdUuid;
+            this.Suffix = suffix;
+            this.VAppId = vAppId;
+            this.VdcId = vdcId;
+            this.VmFolderId = vmFolderId;
             this.AttemptDifferentialRestore = attemptDifferentialRestore;
             this.DatastoreFolderId = datastoreFolderId;
             this.DetachNetwork = detachNetwork;
@@ -302,7 +320,7 @@ namespace Cohesity.Model
                     this.NetworkMappings == input.NetworkMappings ||
                     this.NetworkMappings != null &&
                     input.NetworkMappings != null &&
-                    this.NetworkMappings.Equals(input.NetworkMappings)
+                    this.NetworkMappings.SequenceEqual(input.NetworkMappings)
                 ) && 
                 (
                     this.OrgVdcNetwork == input.OrgVdcNetwork ||
@@ -415,8 +433,7 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.PreserveCustomAttributesDuringClone.GetHashCode();
                 if (this.PreserveTags != null)
                     hashCode = hashCode * 59 + this.PreserveTags.GetHashCode();
-                if (this.RecoveryProcessType != null)
-					hashCode = hashCode * 59 + this.RecoveryProcessType.GetHashCode();
+                hashCode = hashCode * 59 + this.RecoveryProcessType.GetHashCode();
                 if (this.ResourcePoolId != null)
                     hashCode = hashCode * 59 + this.ResourcePoolId.GetHashCode();
                 if (this.StorageProfileName != null)

@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -35,6 +33,8 @@ namespace Cohesity.Model
         /// <param name="uuidConfig">uuidConfig.</param>
         public RestoreHyperVVMParams(bool? copyRecovery = default(bool?), EntityProto datastoreEntity = default(EntityProto), PowerStateConfigProto powerStateConfig = default(PowerStateConfigProto), RenameObjectParamProto renameRestoredObjectParam = default(RenameObjectParamProto), EntityProto resourceEntity = default(EntityProto), RestoredObjectNetworkConfigProto restoredObjectsNetworkConfig = default(RestoredObjectNetworkConfigProto), bool? useSmbService = default(bool?), UuidConfigProto uuidConfig = default(UuidConfigProto))
         {
+            this.CopyRecovery = copyRecovery;
+            this.UseSmbService = useSmbService;
             this.CopyRecovery = copyRecovery;
             this.DatastoreEntity = datastoreEntity;
             this.PowerStateConfig = powerStateConfig;

@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -36,6 +34,14 @@ namespace Cohesity.Model
         /// <param name="totalUptieredSizeInBytes">Specifies the total bytes uptiered to the source so far..</param>
         public ProtectionSourceTreeInfo(List<ApplicationInfo> applications = default(List<ApplicationInfo>), EntityPermissionInformation entityPermissionInfo = default(EntityPermissionInformation), long? logicalSizeBytes = default(long?), RegisteredSourceInfo registrationInfo = default(RegisteredSourceInfo), ProtectionSource rootNode = default(ProtectionSource), ProtectionSummary stats = default(ProtectionSummary), List<ProtectionSummaryByEnv> statsByEnv = default(List<ProtectionSummaryByEnv>), long? totalDowntieredSizeInBytes = default(long?), long? totalUptieredSizeInBytes = default(long?))
         {
+            this.Applications = applications;
+            this.LogicalSizeBytes = logicalSizeBytes;
+            this.RegistrationInfo = registrationInfo;
+            this.RootNode = rootNode;
+            this.Stats = stats;
+            this.StatsByEnv = statsByEnv;
+            this.TotalDowntieredSizeInBytes = totalDowntieredSizeInBytes;
+            this.TotalUptieredSizeInBytes = totalUptieredSizeInBytes;
             this.Applications = applications;
             this.EntityPermissionInfo = entityPermissionInfo;
             this.LogicalSizeBytes = logicalSizeBytes;
@@ -149,7 +155,7 @@ namespace Cohesity.Model
                     this.Applications == input.Applications ||
                     this.Applications != null &&
                     input.Applications != null &&
-                    this.Applications.Equals(input.Applications)
+                    this.Applications.SequenceEqual(input.Applications)
                 ) && 
                 (
                     this.EntityPermissionInfo == input.EntityPermissionInfo ||
@@ -180,7 +186,7 @@ namespace Cohesity.Model
                     this.StatsByEnv == input.StatsByEnv ||
                     this.StatsByEnv != null &&
                     input.StatsByEnv != null &&
-                    this.StatsByEnv.Equals(input.StatsByEnv)
+                    this.StatsByEnv.SequenceEqual(input.StatsByEnv)
                 ) && 
                 (
                     this.TotalDowntieredSizeInBytes == input.TotalDowntieredSizeInBytes ||

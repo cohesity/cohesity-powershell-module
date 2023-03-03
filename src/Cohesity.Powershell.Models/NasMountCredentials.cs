@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -154,7 +152,7 @@ namespace Cohesity.Model
                     this.EncryptedPassword == input.EncryptedPassword ||
                     this.EncryptedPassword != null &&
                     input.EncryptedPassword != null &&
-                    this.EncryptedPassword.Equals(input.EncryptedPassword)
+                    this.EncryptedPassword.SequenceEqual(input.EncryptedPassword)
                 ) && 
                 (
                     this.Password == input.Password ||

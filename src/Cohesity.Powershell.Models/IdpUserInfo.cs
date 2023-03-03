@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -34,6 +32,13 @@ namespace Cohesity.Model
         /// <param name="vendor">Specifies the vendor providing the IdP service..</param>
         public IdpUserInfo(List<string> groupSids = default(List<string>), List<string> groups = default(List<string>), long? idpId = default(long?), bool? isFloatingUser = default(bool?), string issuerId = default(string), string userId = default(string), string vendor = default(string))
         {
+            this.GroupSids = groupSids;
+            this.Groups = groups;
+            this.IdpId = idpId;
+            this.IsFloatingUser = isFloatingUser;
+            this.IssuerId = issuerId;
+            this.UserId = userId;
+            this.Vendor = vendor;
             this.GroupSids = groupSids;
             this.Groups = groups;
             this.IdpId = idpId;
@@ -132,13 +137,13 @@ namespace Cohesity.Model
                     this.GroupSids == input.GroupSids ||
                     this.GroupSids != null &&
                     input.GroupSids != null &&
-                    this.GroupSids.Equals(input.GroupSids)
+                    this.GroupSids.SequenceEqual(input.GroupSids)
                 ) && 
                 (
                     this.Groups == input.Groups ||
                     this.Groups != null &&
                     input.Groups != null &&
-                    this.Groups.Equals(input.Groups)
+                    this.Groups.SequenceEqual(input.Groups)
                 ) && 
                 (
                     this.IdpId == input.IdpId ||

@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -35,6 +33,14 @@ namespace Cohesity.Model
         /// <param name="name">Specifies name of the app..</param>
         public AppMetadata(string author = default(string), string createdDate = default(string), string deploymentParameters = default(string), string description = default(string), string devVersion = default(string), string iconImage = default(string), string lastModifiedDate = default(string), string name = default(string))
         {
+            this.Author = author;
+            this.CreatedDate = createdDate;
+            this.DeploymentParameters = deploymentParameters;
+            this.Description = description;
+            this.DevVersion = devVersion;
+            this.IconImage = iconImage;
+            this.LastModifiedDate = lastModifiedDate;
+            this.Name = name;
             this.Author = author;
             this.CreatedDate = createdDate;
             this.DeploymentParameters = deploymentParameters;

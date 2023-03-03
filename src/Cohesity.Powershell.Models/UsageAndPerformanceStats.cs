@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -41,6 +39,20 @@ namespace Cohesity.Model
         /// <param name="writeLatencyMsecs">Provides the Write latency in milliseconds for the Write IOs that occurred during the last 30 seconds..</param>
         public UsageAndPerformanceStats(long? dataInBytes = default(long?), long? dataInBytesAfterReduction = default(long?), long? minUsablePhysicalCapacityBytes = default(long?), long? numBytesRead = default(long?), long? numBytesWritten = default(long?), long? physicalCapacityBytes = default(long?), long? readIos = default(long?), double? readLatencyMsecs = default(double?), long? systemCapacityBytes = default(long?), long? systemUsageBytes = default(long?), long? totalPhysicalRawUsageBytes = default(long?), long? totalPhysicalUsageBytes = default(long?), long? writeIos = default(long?), double? writeLatencyMsecs = default(double?))
         {
+            this.DataInBytes = dataInBytes;
+            this.DataInBytesAfterReduction = dataInBytesAfterReduction;
+            this.MinUsablePhysicalCapacityBytes = minUsablePhysicalCapacityBytes;
+            this.NumBytesRead = numBytesRead;
+            this.NumBytesWritten = numBytesWritten;
+            this.PhysicalCapacityBytes = physicalCapacityBytes;
+            this.ReadIos = readIos;
+            this.ReadLatencyMsecs = readLatencyMsecs;
+            this.SystemCapacityBytes = systemCapacityBytes;
+            this.SystemUsageBytes = systemUsageBytes;
+            this.TotalPhysicalRawUsageBytes = totalPhysicalRawUsageBytes;
+            this.TotalPhysicalUsageBytes = totalPhysicalUsageBytes;
+            this.WriteIos = writeIos;
+            this.WriteLatencyMsecs = writeLatencyMsecs;
             this.DataInBytes = dataInBytes;
             this.DataInBytesAfterReduction = dataInBytesAfterReduction;
             this.MinUsablePhysicalCapacityBytes = minUsablePhysicalCapacityBytes;

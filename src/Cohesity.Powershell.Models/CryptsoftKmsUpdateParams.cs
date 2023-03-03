@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -33,6 +31,12 @@ namespace Cohesity.Model
         /// <param name="serverPort">Specifies port on which the server is listening. Default port is 5696..</param>
         public CryptsoftKmsUpdateParams(string caCertificate = default(string), string clientCertificate = default(string), string clientKey = default(string), string kmipProtocolVersion = default(string), string serverIp = default(string), int? serverPort = default(int?))
         {
+            this.CaCertificate = caCertificate;
+            this.ClientCertificate = clientCertificate;
+            this.ClientKey = clientKey;
+            this.KmipProtocolVersion = kmipProtocolVersion;
+            this.ServerIp = serverIp;
+            this.ServerPort = serverPort;
             this.CaCertificate = caCertificate;
             this.ClientCertificate = clientCertificate;
             this.ClientKey = clientKey;

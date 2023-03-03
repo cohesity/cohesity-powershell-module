@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -32,6 +30,10 @@ namespace Cohesity.Model
         /// <param name="statsByEnv">Specifies the last Protection Run stats by environment..</param>
         public LastProtectionRunStats(long? numObjectsFailed = default(long?), long? numRunsFailed = default(long?), long? numRunsFailedSla = default(long?), long? numRunsMetSla = default(long?), List<LastProtectionRunStatsByEnv> statsByEnv = default(List<LastProtectionRunStatsByEnv>))
         {
+            this.NumObjectsFailed = numObjectsFailed;
+            this.NumRunsFailed = numRunsFailed;
+            this.NumRunsFailedSla = numRunsFailedSla;
+            this.NumRunsMetSla = numRunsMetSla;
             this.NumObjectsFailed = numObjectsFailed;
             this.NumRunsFailed = numRunsFailed;
             this.NumRunsFailedSla = numRunsFailedSla;
@@ -134,7 +136,7 @@ namespace Cohesity.Model
                     this.StatsByEnv == input.StatsByEnv ||
                     this.StatsByEnv != null &&
                     input.StatsByEnv != null &&
-                    this.StatsByEnv.Equals(input.StatsByEnv)
+                    this.StatsByEnv.SequenceEqual(input.StatsByEnv)
                 );
         }
 

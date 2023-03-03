@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -33,6 +31,12 @@ namespace Cohesity.Model
         /// <param name="vmwareDiskExclusionInfo">List of Virtual Disk(s) to be excluded from the backup job. These disks will be excluded for all VMs in this environment unless overriden by the disk exclusion list from BackupSourceParams.VMwareBackupSourceParams..</param>
         public VMwareBackupEnvParams(bool? allowCrashConsistentSnapshot = default(bool?), bool? allowNbdsslTransportFallback = default(bool?), bool? allowVmsWithPhysicalRdmDisks = default(bool?), bool? enableCbtAllowed = default(bool?), List<VMwareBackupEnvParamsVAppChildVMsList> vappsToVmsList = default(List<VMwareBackupEnvParamsVAppChildVMsList>), List<VMwareDiskExclusionProto> vmwareDiskExclusionInfo = default(List<VMwareDiskExclusionProto>))
         {
+            this.AllowCrashConsistentSnapshot = allowCrashConsistentSnapshot;
+            this.AllowNbdsslTransportFallback = allowNbdsslTransportFallback;
+            this.AllowVmsWithPhysicalRdmDisks = allowVmsWithPhysicalRdmDisks;
+            this.EnableCbtAllowed = enableCbtAllowed;
+            this.VappsToVmsList = vappsToVmsList;
+            this.VmwareDiskExclusionInfo = vmwareDiskExclusionInfo;
             this.AllowCrashConsistentSnapshot = allowCrashConsistentSnapshot;
             this.AllowNbdsslTransportFallback = allowNbdsslTransportFallback;
             this.AllowVmsWithPhysicalRdmDisks = allowVmsWithPhysicalRdmDisks;
@@ -143,13 +147,13 @@ namespace Cohesity.Model
                     this.VappsToVmsList == input.VappsToVmsList ||
                     this.VappsToVmsList != null &&
                     input.VappsToVmsList != null &&
-                    this.VappsToVmsList.Equals(input.VappsToVmsList)
+                    this.VappsToVmsList.SequenceEqual(input.VappsToVmsList)
                 ) && 
                 (
                     this.VmwareDiskExclusionInfo == input.VmwareDiskExclusionInfo ||
                     this.VmwareDiskExclusionInfo != null &&
                     input.VmwareDiskExclusionInfo != null &&
-                    this.VmwareDiskExclusionInfo.Equals(input.VmwareDiskExclusionInfo)
+                    this.VmwareDiskExclusionInfo.SequenceEqual(input.VmwareDiskExclusionInfo)
                 );
         }
 

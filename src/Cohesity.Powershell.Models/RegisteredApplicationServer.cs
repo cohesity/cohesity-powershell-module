@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -29,6 +27,8 @@ namespace Cohesity.Model
         /// <param name="registeredProtectionSource">Specifies the Protection Source like a VM or Physical Server that registered the Application Server..</param>
         public RegisteredApplicationServer(ProtectionSourceNode applicationServer = default(ProtectionSourceNode), ProtectionSource registeredProtectionSource = default(ProtectionSource))
         {
+            this.ApplicationServer = applicationServer;
+            this.RegisteredProtectionSource = registeredProtectionSource;
             this.ApplicationServer = applicationServer;
             this.RegisteredProtectionSource = registeredProtectionSource;
         }

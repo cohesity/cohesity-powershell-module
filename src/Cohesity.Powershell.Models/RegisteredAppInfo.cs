@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -367,6 +365,11 @@ namespace Cohesity.Model
             this.Environment = environment;
             this.HostSettingsCheckResults = hostSettingsCheckResults;
             this.RefreshErrorMessage = refreshErrorMessage;
+            this.AuthenticationErrorMessage = authenticationErrorMessage;
+            this.AuthenticationStatus = authenticationStatus;
+            this.Environment = environment;
+            this.HostSettingsCheckResults = hostSettingsCheckResults;
+            this.RefreshErrorMessage = refreshErrorMessage;
         }
         
         /// <summary>
@@ -443,7 +446,7 @@ namespace Cohesity.Model
                     this.HostSettingsCheckResults == input.HostSettingsCheckResults ||
                     this.HostSettingsCheckResults != null &&
                     input.HostSettingsCheckResults != null &&
-                    this.HostSettingsCheckResults.Equals(input.HostSettingsCheckResults)
+                    this.HostSettingsCheckResults.SequenceEqual(input.HostSettingsCheckResults)
                 ) && 
                 (
                     this.RefreshErrorMessage == input.RefreshErrorMessage ||
@@ -463,10 +466,8 @@ namespace Cohesity.Model
                 int hashCode = 41;
                 if (this.AuthenticationErrorMessage != null)
                     hashCode = hashCode * 59 + this.AuthenticationErrorMessage.GetHashCode();
-                if (this.AuthenticationStatus != null)
-					hashCode = hashCode * 59 + this.AuthenticationStatus.GetHashCode();
-                if (this.Environment != null)
-					hashCode = hashCode * 59 + this.Environment.GetHashCode();
+                hashCode = hashCode * 59 + this.AuthenticationStatus.GetHashCode();
+                hashCode = hashCode * 59 + this.Environment.GetHashCode();
                 if (this.HostSettingsCheckResults != null)
                     hashCode = hashCode * 59 + this.HostSettingsCheckResults.GetHashCode();
                 if (this.RefreshErrorMessage != null)

@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -72,6 +70,9 @@ namespace Cohesity.Model
             this.AwsParams = awsParams;
             this.AzureParams = azureParams;
             this.GcpParams = gcpParams;
+            this.Id = id;
+            this.Name = name;
+            this.Type = type;
         }
         
         /// <summary>

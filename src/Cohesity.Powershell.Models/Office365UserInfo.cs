@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -65,6 +63,17 @@ namespace Cohesity.Model
         /// <param name="oneDriveSize">Specifies the size of the OneDrive associated with this Office365 entity..</param>
         public Office365UserInfo(string city = default(string), string country = default(string), string department = default(string), string designation = default(string), string graphUuid = default(string), bool? isMailboxEnabled = default(bool?), bool? isOneDriveEnabled = default(bool?), long? mailboxSize = default(long?), MailboxTypeEnum? mailboxType = default(MailboxTypeEnum?), string oneDriveId = default(string), long? oneDriveSize = default(long?))
         {
+            this.City = city;
+            this.Country = country;
+            this.Department = department;
+            this.Designation = designation;
+            this.GraphUuid = graphUuid;
+            this.IsMailboxEnabled = isMailboxEnabled;
+            this.IsOneDriveEnabled = isOneDriveEnabled;
+            this.MailboxSize = mailboxSize;
+            this.MailboxType = mailboxType;
+            this.OneDriveId = oneDriveId;
+            this.OneDriveSize = oneDriveSize;
             this.City = city;
             this.Country = country;
             this.Department = department;
@@ -265,8 +274,7 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.IsOneDriveEnabled.GetHashCode();
                 if (this.MailboxSize != null)
                     hashCode = hashCode * 59 + this.MailboxSize.GetHashCode();
-                if (this.MailboxType != null)
-					hashCode = hashCode * 59 + this.MailboxType.GetHashCode();
+                hashCode = hashCode * 59 + this.MailboxType.GetHashCode();
                 if (this.OneDriveId != null)
                     hashCode = hashCode * 59 + this.OneDriveId.GetHashCode();
                 if (this.OneDriveSize != null)

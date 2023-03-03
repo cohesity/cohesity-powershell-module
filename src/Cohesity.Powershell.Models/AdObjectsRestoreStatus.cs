@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -31,6 +29,10 @@ namespace Cohesity.Model
         /// <param name="numObjectsSucceeded">Specifies the number of AD Objects whose restore is successfull..</param>
         public AdObjectsRestoreStatus(List<AdObjectRestoreInformation> adObjectsRestoreInfo = default(List<AdObjectRestoreInformation>), int? numObjectsFailed = default(int?), int? numObjectsRunning = default(int?), int? numObjectsSucceeded = default(int?))
         {
+            this.AdObjectsRestoreInfo = adObjectsRestoreInfo;
+            this.NumObjectsFailed = numObjectsFailed;
+            this.NumObjectsRunning = numObjectsRunning;
+            this.NumObjectsSucceeded = numObjectsSucceeded;
             this.AdObjectsRestoreInfo = adObjectsRestoreInfo;
             this.NumObjectsFailed = numObjectsFailed;
             this.NumObjectsRunning = numObjectsRunning;
@@ -105,7 +107,7 @@ namespace Cohesity.Model
                     this.AdObjectsRestoreInfo == input.AdObjectsRestoreInfo ||
                     this.AdObjectsRestoreInfo != null &&
                     input.AdObjectsRestoreInfo != null &&
-                    this.AdObjectsRestoreInfo.Equals(input.AdObjectsRestoreInfo)
+                    this.AdObjectsRestoreInfo.SequenceEqual(input.AdObjectsRestoreInfo)
                 ) && 
                 (
                     this.NumObjectsFailed == input.NumObjectsFailed ||

@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -41,6 +39,20 @@ namespace Cohesity.Model
         /// <param name="storageReductionSamples">Specifies the samples for storage reduction ratio in ascending order of time..</param>
         public StorageEfficiencyTile(long? dataInBytes = default(long?), List<Sample> dataInBytesSamples = default(List<Sample>), long? dataInDedupedBytes = default(long?), List<Sample> dataInDedupedBytesSamples = default(List<Sample>), double? dedupeRatio = default(double?), List<Sample> dedupeRatioSamples = default(List<Sample>), int? durationDays = default(int?), int? intervalSeconds = default(int?), long? logicalUsedBytes = default(long?), List<Sample> logicalUsedBytesSamples = default(List<Sample>), long? physicalUsedBytes = default(long?), List<Sample> physicalUsedBytesSamples = default(List<Sample>), double? storageReductionRatio = default(double?), List<Sample> storageReductionSamples = default(List<Sample>))
         {
+            this.DataInBytes = dataInBytes;
+            this.DataInBytesSamples = dataInBytesSamples;
+            this.DataInDedupedBytes = dataInDedupedBytes;
+            this.DataInDedupedBytesSamples = dataInDedupedBytesSamples;
+            this.DedupeRatio = dedupeRatio;
+            this.DedupeRatioSamples = dedupeRatioSamples;
+            this.DurationDays = durationDays;
+            this.IntervalSeconds = intervalSeconds;
+            this.LogicalUsedBytes = logicalUsedBytes;
+            this.LogicalUsedBytesSamples = logicalUsedBytesSamples;
+            this.PhysicalUsedBytes = physicalUsedBytes;
+            this.PhysicalUsedBytesSamples = physicalUsedBytesSamples;
+            this.StorageReductionRatio = storageReductionRatio;
+            this.StorageReductionSamples = storageReductionSamples;
             this.DataInBytes = dataInBytes;
             this.DataInBytesSamples = dataInBytesSamples;
             this.DataInDedupedBytes = dataInDedupedBytes;
@@ -200,7 +212,7 @@ namespace Cohesity.Model
                     this.DataInBytesSamples == input.DataInBytesSamples ||
                     this.DataInBytesSamples != null &&
                     input.DataInBytesSamples != null &&
-                    this.DataInBytesSamples.Equals(input.DataInBytesSamples)
+                    this.DataInBytesSamples.SequenceEqual(input.DataInBytesSamples)
                 ) && 
                 (
                     this.DataInDedupedBytes == input.DataInDedupedBytes ||
@@ -211,7 +223,7 @@ namespace Cohesity.Model
                     this.DataInDedupedBytesSamples == input.DataInDedupedBytesSamples ||
                     this.DataInDedupedBytesSamples != null &&
                     input.DataInDedupedBytesSamples != null &&
-                    this.DataInDedupedBytesSamples.Equals(input.DataInDedupedBytesSamples)
+                    this.DataInDedupedBytesSamples.SequenceEqual(input.DataInDedupedBytesSamples)
                 ) && 
                 (
                     this.DedupeRatio == input.DedupeRatio ||
@@ -222,7 +234,7 @@ namespace Cohesity.Model
                     this.DedupeRatioSamples == input.DedupeRatioSamples ||
                     this.DedupeRatioSamples != null &&
                     input.DedupeRatioSamples != null &&
-                    this.DedupeRatioSamples.Equals(input.DedupeRatioSamples)
+                    this.DedupeRatioSamples.SequenceEqual(input.DedupeRatioSamples)
                 ) && 
                 (
                     this.DurationDays == input.DurationDays ||
@@ -243,7 +255,7 @@ namespace Cohesity.Model
                     this.LogicalUsedBytesSamples == input.LogicalUsedBytesSamples ||
                     this.LogicalUsedBytesSamples != null &&
                     input.LogicalUsedBytesSamples != null &&
-                    this.LogicalUsedBytesSamples.Equals(input.LogicalUsedBytesSamples)
+                    this.LogicalUsedBytesSamples.SequenceEqual(input.LogicalUsedBytesSamples)
                 ) && 
                 (
                     this.PhysicalUsedBytes == input.PhysicalUsedBytes ||
@@ -254,7 +266,7 @@ namespace Cohesity.Model
                     this.PhysicalUsedBytesSamples == input.PhysicalUsedBytesSamples ||
                     this.PhysicalUsedBytesSamples != null &&
                     input.PhysicalUsedBytesSamples != null &&
-                    this.PhysicalUsedBytesSamples.Equals(input.PhysicalUsedBytesSamples)
+                    this.PhysicalUsedBytesSamples.SequenceEqual(input.PhysicalUsedBytesSamples)
                 ) && 
                 (
                     this.StorageReductionRatio == input.StorageReductionRatio ||
@@ -265,7 +277,7 @@ namespace Cohesity.Model
                     this.StorageReductionSamples == input.StorageReductionSamples ||
                     this.StorageReductionSamples != null &&
                     input.StorageReductionSamples != null &&
-                    this.StorageReductionSamples.Equals(input.StorageReductionSamples)
+                    this.StorageReductionSamples.SequenceEqual(input.StorageReductionSamples)
                 );
         }
 

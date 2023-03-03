@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -104,6 +102,14 @@ namespace Cohesity.Model
             this.AllowExternalTraffic = allowExternalTraffic;
             this.AllowUnrestictedViewAccess = allowUnrestictedViewAccess;
             this.AppsMode = appsMode;
+            this.MarketplaceAppsMode = marketplaceAppsMode;
+            this.OvercommitMemoryPct = overcommitMemoryPct;
+            this.ReservedCpuMillicores = reservedCpuMillicores;
+            this.ReservedMemoryPct = reservedMemoryPct;
+            this.AllowExternalTraffic = allowExternalTraffic;
+            this.AllowUnrestictedViewAccess = allowUnrestictedViewAccess;
+            this.AppsMode = appsMode;
+            this.AppsSubnet = appsSubnet;
             this.MarketplaceAppsMode = marketplaceAppsMode;
             this.OvercommitMemoryPct = overcommitMemoryPct;
             this.ReservedCpuMillicores = reservedCpuMillicores;
@@ -243,8 +249,7 @@ namespace Cohesity.Model
                 hashCode = hashCode * 59 + this.AppsMode.GetHashCode();
                 if (this.AppsSubnet != null)
                     hashCode = hashCode * 59 + this.AppsSubnet.GetHashCode();
-				if (this.MarketplaceAppsMode != null)
-                	hashCode = hashCode * 59 + this.MarketplaceAppsMode.GetHashCode();
+                hashCode = hashCode * 59 + this.MarketplaceAppsMode.GetHashCode();
                 if (this.OvercommitMemoryPct != null)
                     hashCode = hashCode * 59 + this.OvercommitMemoryPct.GetHashCode();
                 if (this.ReservedCpuMillicores != null)

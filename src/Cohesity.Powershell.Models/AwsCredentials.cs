@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -225,6 +223,14 @@ namespace Cohesity.Model
             this.IamRoleArn = iamRoleArn;
             this.SecretAccessKey = secretAccessKey;
             this.SubscriptionType = subscriptionType;
+            this.AccessKey = accessKey;
+            this.AmazonResourceName = amazonResourceName;
+            this.AuthMethod = authMethod;
+            this.AwsType = awsType;
+            this.C2sServerInfo = c2sServerInfo;
+            this.IamRoleArn = iamRoleArn;
+            this.SecretAccessKey = secretAccessKey;
+            this.SubscriptionType = subscriptionType;
         }
         
         /// <summary>
@@ -349,18 +355,15 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.AccessKey.GetHashCode();
                 if (this.AmazonResourceName != null)
                     hashCode = hashCode * 59 + this.AmazonResourceName.GetHashCode();
-				if (this.AuthMethod != null)
-                	hashCode = hashCode * 59 + this.AuthMethod.GetHashCode();
-				if (this.AwsType != null)
-                	hashCode = hashCode * 59 + this.AwsType.GetHashCode();
+                hashCode = hashCode * 59 + this.AuthMethod.GetHashCode();
+                hashCode = hashCode * 59 + this.AwsType.GetHashCode();
                 if (this.C2sServerInfo != null)
                     hashCode = hashCode * 59 + this.C2sServerInfo.GetHashCode();
                 if (this.IamRoleArn != null)
                     hashCode = hashCode * 59 + this.IamRoleArn.GetHashCode();
                 if (this.SecretAccessKey != null)
                     hashCode = hashCode * 59 + this.SecretAccessKey.GetHashCode();
-				if (this.SubscriptionType != null)
-	                hashCode = hashCode * 59 + this.SubscriptionType.GetHashCode();
+                hashCode = hashCode * 59 + this.SubscriptionType.GetHashCode();
                 return hashCode;
             }
         }

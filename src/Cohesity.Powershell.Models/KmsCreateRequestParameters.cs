@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -124,6 +122,14 @@ namespace Cohesity.Model
         /// <param name="viewBoxIdList">Specifies the list of View Box Ids..</param>
         public KmsCreateRequestParameters(AwsKmsConfiguration awsKms = default(AwsKmsConfiguration), CryptsoftKmsConfiguration cryptsoftKms = default(CryptsoftKmsConfiguration), long? id = default(long?), string keyName = default(string), OwnershipContextEnum? ownershipContext = default(OwnershipContextEnum?), string serverName = default(string), ServerTypeEnum? serverType = default(ServerTypeEnum?), UsageTypeEnum? usageType = default(UsageTypeEnum?), List<long> vaultIdList = default(List<long>), List<long> viewBoxIdList = default(List<long>))
         {
+            this.Id = id;
+            this.KeyName = keyName;
+            this.OwnershipContext = ownershipContext;
+            this.ServerName = serverName;
+            this.ServerType = serverType;
+            this.UsageType = usageType;
+            this.VaultIdList = vaultIdList;
+            this.ViewBoxIdList = viewBoxIdList;
             this.AwsKms = awsKms;
             this.CryptsoftKms = cryptsoftKms;
             this.Id = id;
@@ -260,13 +266,13 @@ namespace Cohesity.Model
                     this.VaultIdList == input.VaultIdList ||
                     this.VaultIdList != null &&
                     input.VaultIdList != null &&
-                    this.VaultIdList.Equals(input.VaultIdList)
+                    this.VaultIdList.SequenceEqual(input.VaultIdList)
                 ) && 
                 (
                     this.ViewBoxIdList == input.ViewBoxIdList ||
                     this.ViewBoxIdList != null &&
                     input.ViewBoxIdList != null &&
-                    this.ViewBoxIdList.Equals(input.ViewBoxIdList)
+                    this.ViewBoxIdList.SequenceEqual(input.ViewBoxIdList)
                 );
         }
 
@@ -287,14 +293,11 @@ namespace Cohesity.Model
                     hashCode = hashCode * 59 + this.Id.GetHashCode();
                 if (this.KeyName != null)
                     hashCode = hashCode * 59 + this.KeyName.GetHashCode();
-                if (this.OwnershipContext != null)
-					hashCode = hashCode * 59 + this.OwnershipContext.GetHashCode();
+                hashCode = hashCode * 59 + this.OwnershipContext.GetHashCode();
                 if (this.ServerName != null)
                     hashCode = hashCode * 59 + this.ServerName.GetHashCode();
-                if (this.ServerType != null)
-					hashCode = hashCode * 59 + this.ServerType.GetHashCode();
-                if (this.UsageType != null)
-					hashCode = hashCode * 59 + this.UsageType.GetHashCode();
+                hashCode = hashCode * 59 + this.ServerType.GetHashCode();
+                hashCode = hashCode * 59 + this.UsageType.GetHashCode();
                 if (this.VaultIdList != null)
                     hashCode = hashCode * 59 + this.VaultIdList.GetHashCode();
                 if (this.ViewBoxIdList != null)

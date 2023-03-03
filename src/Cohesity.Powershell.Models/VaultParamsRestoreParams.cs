@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -29,6 +27,7 @@ namespace Cohesity.Model
         /// <param name="glacier">glacier.</param>
         public VaultParamsRestoreParams(bool? allowMarkedForRemoval = default(bool?), VaultParamsRestoreParamsGlacier glacier = default(VaultParamsRestoreParamsGlacier))
         {
+            this.AllowMarkedForRemoval = allowMarkedForRemoval;
             this.AllowMarkedForRemoval = allowMarkedForRemoval;
             this.Glacier = glacier;
         }

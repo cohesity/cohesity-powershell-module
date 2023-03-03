@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -42,6 +40,21 @@ namespace Cohesity.Model
         /// <param name="viewName">Specifies the view name this share belongs to..</param>
         public Share(List<string> allSmbMountPaths = default(List<string>), bool? enableFilerAuditLog = default(bool?), bool? enableSmbEncryption = default(bool?), bool? enableSmbViewDiscovery = default(bool?), bool? enforceSmbEncryption = default(bool?), string nfsMountPath = default(string), string path = default(string), string s3AccessPath = default(string), string shareName = default(string), List<SmbPermission> sharePermissions = default(List<SmbPermission>), string smbMountPath = default(string), List<Subnet> subnetWhitelist = default(List<Subnet>), List<string> superUserSids = default(List<string>), string tenantId = default(string), string viewName = default(string))
         {
+            this.AllSmbMountPaths = allSmbMountPaths;
+            this.EnableFilerAuditLog = enableFilerAuditLog;
+            this.EnableSmbEncryption = enableSmbEncryption;
+            this.EnableSmbViewDiscovery = enableSmbViewDiscovery;
+            this.EnforceSmbEncryption = enforceSmbEncryption;
+            this.NfsMountPath = nfsMountPath;
+            this.Path = path;
+            this.S3AccessPath = s3AccessPath;
+            this.ShareName = shareName;
+            this.SharePermissions = sharePermissions;
+            this.SmbMountPath = smbMountPath;
+            this.SubnetWhitelist = subnetWhitelist;
+            this.SuperUserSids = superUserSids;
+            this.TenantId = tenantId;
+            this.ViewName = viewName;
             this.AllSmbMountPaths = allSmbMountPaths;
             this.EnableFilerAuditLog = enableFilerAuditLog;
             this.EnableSmbEncryption = enableSmbEncryption;
@@ -204,7 +217,7 @@ namespace Cohesity.Model
                     this.AllSmbMountPaths == input.AllSmbMountPaths ||
                     this.AllSmbMountPaths != null &&
                     input.AllSmbMountPaths != null &&
-                    this.AllSmbMountPaths.Equals(input.AllSmbMountPaths)
+                    this.AllSmbMountPaths.SequenceEqual(input.AllSmbMountPaths)
                 ) && 
                 (
                     this.EnableFilerAuditLog == input.EnableFilerAuditLog ||
@@ -250,7 +263,7 @@ namespace Cohesity.Model
                     this.SharePermissions == input.SharePermissions ||
                     this.SharePermissions != null &&
                     input.SharePermissions != null &&
-                    this.SharePermissions.Equals(input.SharePermissions)
+                    this.SharePermissions.SequenceEqual(input.SharePermissions)
                 ) && 
                 (
                     this.SmbMountPath == input.SmbMountPath ||
@@ -261,13 +274,13 @@ namespace Cohesity.Model
                     this.SubnetWhitelist == input.SubnetWhitelist ||
                     this.SubnetWhitelist != null &&
                     input.SubnetWhitelist != null &&
-                    this.SubnetWhitelist.Equals(input.SubnetWhitelist)
+                    this.SubnetWhitelist.SequenceEqual(input.SubnetWhitelist)
                 ) && 
                 (
                     this.SuperUserSids == input.SuperUserSids ||
                     this.SuperUserSids != null &&
                     input.SuperUserSids != null &&
-                    this.SuperUserSids.Equals(input.SuperUserSids)
+                    this.SuperUserSids.SequenceEqual(input.SuperUserSids)
                 ) && 
                 (
                     this.TenantId == input.TenantId ||

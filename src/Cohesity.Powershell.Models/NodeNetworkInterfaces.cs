@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -33,6 +31,12 @@ namespace Cohesity.Model
         /// <param name="slot">Specifies the slot number the Node is located in..</param>
         public NodeNetworkInterfaces(string chassisSerial = default(string), List<NetworkInterface> interfaces = default(List<NetworkInterface>), string message = default(string), long? nodeId = default(long?), string nodeIp = default(string), long? slot = default(long?))
         {
+            this.ChassisSerial = chassisSerial;
+            this.Interfaces = interfaces;
+            this.Message = message;
+            this.NodeId = nodeId;
+            this.NodeIp = nodeIp;
+            this.Slot = slot;
             this.ChassisSerial = chassisSerial;
             this.Interfaces = interfaces;
             this.Message = message;
@@ -128,7 +132,7 @@ namespace Cohesity.Model
                     this.Interfaces == input.Interfaces ||
                     this.Interfaces != null &&
                     input.Interfaces != null &&
-                    this.Interfaces.Equals(input.Interfaces)
+                    this.Interfaces.SequenceEqual(input.Interfaces)
                 ) && 
                 (
                     this.Message == input.Message ||

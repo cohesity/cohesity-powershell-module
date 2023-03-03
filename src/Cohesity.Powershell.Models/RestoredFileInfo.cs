@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -40,6 +38,19 @@ namespace Cohesity.Model
         /// <param name="volumePath">Original volume name (or drive letter). This is used while performing the copy to the original paths. E.g.: c:.</param>
         public RestoredFileInfo(string absolutePath = default(string), int? attachedDiskId = default(int?), int? diskPartitionId = default(int?), string fsUuid = default(string), long? inodeNumber = default(long?), bool? isDirectory = default(bool?), bool? isNonSimpleLdmVol = default(bool?), string restoreBaseDirectory = default(string), string restoreMountPoint = default(string), long? sizeBytes = default(long?), string virtualDiskFile = default(string), string volumeId = default(string), string volumePath = default(string))
         {
+            this.AbsolutePath = absolutePath;
+            this.AttachedDiskId = attachedDiskId;
+            this.DiskPartitionId = diskPartitionId;
+            this.FsUuid = fsUuid;
+            this.InodeNumber = inodeNumber;
+            this.IsDirectory = isDirectory;
+            this.IsNonSimpleLdmVol = isNonSimpleLdmVol;
+            this.RestoreBaseDirectory = restoreBaseDirectory;
+            this.RestoreMountPoint = restoreMountPoint;
+            this.SizeBytes = sizeBytes;
+            this.VirtualDiskFile = virtualDiskFile;
+            this.VolumeId = volumeId;
+            this.VolumePath = volumePath;
             this.AbsolutePath = absolutePath;
             this.AttachedDiskId = attachedDiskId;
             this.DiskPartitionId = diskPartitionId;

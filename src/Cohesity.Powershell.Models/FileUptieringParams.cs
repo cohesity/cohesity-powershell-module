@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -37,6 +35,16 @@ namespace Cohesity.Model
         /// <param name="uptierAllFiles">If set, all files in the view will be uptiered regardless of file_select_policy, num_file_access, hot_file_window, file_size constraints..</param>
         public FileUptieringParams(bool? enableAuditLogging = default(bool?), int? fileSelectPolicy = default(int?), long? fileSize = default(long?), int? fileSizePolicy = default(int?), long? hotFileWindow = default(long?), string nfsMountPath = default(string), int? numFileAccess = default(int?), List<FileUptieringParamsSourceViewMapEntry> sourceViewMap = default(List<FileUptieringParamsSourceViewMapEntry>), string sourceViewName = default(string), bool? uptierAllFiles = default(bool?))
         {
+            this.EnableAuditLogging = enableAuditLogging;
+            this.FileSelectPolicy = fileSelectPolicy;
+            this.FileSize = fileSize;
+            this.FileSizePolicy = fileSizePolicy;
+            this.HotFileWindow = hotFileWindow;
+            this.NfsMountPath = nfsMountPath;
+            this.NumFileAccess = numFileAccess;
+            this.SourceViewMap = sourceViewMap;
+            this.SourceViewName = sourceViewName;
+            this.UptierAllFiles = uptierAllFiles;
             this.EnableAuditLogging = enableAuditLogging;
             this.FileSelectPolicy = fileSelectPolicy;
             this.FileSize = fileSize;
@@ -194,7 +202,7 @@ namespace Cohesity.Model
                     this.SourceViewMap == input.SourceViewMap ||
                     this.SourceViewMap != null &&
                     input.SourceViewMap != null &&
-                    this.SourceViewMap.Equals(input.SourceViewMap)
+                    this.SourceViewMap.SequenceEqual(input.SourceViewMap)
                 ) && 
                 (
                     this.SourceViewName == input.SourceViewName ||

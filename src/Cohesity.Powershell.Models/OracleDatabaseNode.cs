@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -31,6 +29,9 @@ namespace Cohesity.Model
         /// <param name="sbtHostParams">sbtHostParams.</param>
         public OracleDatabaseNode(int? channelCount = default(int?), string node = default(string), long? port = default(long?), OracleSbtHostParams sbtHostParams = default(OracleSbtHostParams))
         {
+            this.ChannelCount = channelCount;
+            this.Node = node;
+            this.Port = port;
             this.ChannelCount = channelCount;
             this.Node = node;
             this.Port = port;

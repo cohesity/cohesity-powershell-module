@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -129,7 +127,7 @@ namespace Cohesity.Model
                     this.DeviceNameVec == input.DeviceNameVec ||
                     this.DeviceNameVec != null &&
                     input.DeviceNameVec != null &&
-                    this.DeviceNameVec.Equals(input.DeviceNameVec)
+                    this.DeviceNameVec.SequenceEqual(input.DeviceNameVec)
                 ) && 
                 (
                     this.MaxVolumeSizeBytes == input.MaxVolumeSizeBytes ||
@@ -145,19 +143,19 @@ namespace Cohesity.Model
                     this.TagParamsVec == input.TagParamsVec ||
                     this.TagParamsVec != null &&
                     input.TagParamsVec != null &&
-                    this.TagParamsVec.Equals(input.TagParamsVec)
+                    this.TagParamsVec.SequenceEqual(input.TagParamsVec)
                 ) && 
                 (
                     this.VolumeIdVec == input.VolumeIdVec ||
                     this.VolumeIdVec != null &&
                     input.VolumeIdVec != null &&
-                    this.VolumeIdVec.Equals(input.VolumeIdVec)
+                    this.VolumeIdVec.SequenceEqual(input.VolumeIdVec)
                 ) && 
                 (
                     this.VolumeTypeVec == input.VolumeTypeVec ||
                     this.VolumeTypeVec != null &&
                     input.VolumeTypeVec != null &&
-                    this.VolumeTypeVec.Equals(input.VolumeTypeVec)
+                    this.VolumeTypeVec.SequenceEqual(input.VolumeTypeVec)
                 );
         }
 

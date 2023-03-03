@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -13,7 +12,6 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-
 namespace Cohesity.Model
 {
     /// <summary>
@@ -23,9 +21,9 @@ namespace Cohesity.Model
     public partial class RecoverTaskRequest :  IEquatable<RecoverTaskRequest>
     {
         /// <summary>
-        /// Specifies the way data needs to be retrieved from the external target. This information will be filled in by Iris and Magneto will pass it along to the Icebox as it is to support bulk retrieval from Glacier. Specifies the type of Restore Task.  &#39;kStandard&#39; specifies retrievals that allow to access any of your archives within several hours. Standard retrievals typically complete within 3â€“5 hours. This is the default option for retrieval requests that do not specify the retrieval option. &#39;kBulk&#39; specifies retrievals that are Glacierâ€™s lowest-cost retrieval option, which can be used to retrieve large amounts, even petabytes, of data inexpensively in a day. Bulk retrieval typically complete within 5â€“12 hours. &#39;kExpedited&#39; specifies retrievals that allows to quickly access your data when occasional urgent requests for a subset of archives are required. For all but the largest archives (250 MB+), data accessed using Expedited retrievals are typically made available within 1â€“5 minutes.
+        /// Specifies the way data needs to be retrieved from the external target. This information will be filled in by Iris and Magneto will pass it along to the Icebox as it is to support bulk retrieval from Glacier. Specifies the type of Restore Task.  &#39;kStandard&#39; specifies retrievals that allow to access any of your archives within several hours. Standard retrievals typically complete within 3–5 hours. This is the default option for retrieval requests that do not specify the retrieval option. &#39;kBulk&#39; specifies retrievals that are Glacier’s lowest-cost retrieval option, which can be used to retrieve large amounts, even petabytes, of data inexpensively in a day. Bulk retrieval typically complete within 5–12 hours. &#39;kExpedited&#39; specifies retrievals that allows to quickly access your data when occasional urgent requests for a subset of archives are required. For all but the largest archives (250 MB+), data accessed using Expedited retrievals are typically made available within 1–5 minutes.
         /// </summary>
-        /// <value>Specifies the way data needs to be retrieved from the external target. This information will be filled in by Iris and Magneto will pass it along to the Icebox as it is to support bulk retrieval from Glacier. Specifies the type of Restore Task.  &#39;kStandard&#39; specifies retrievals that allow to access any of your archives within several hours. Standard retrievals typically complete within 3â€“5 hours. This is the default option for retrieval requests that do not specify the retrieval option. &#39;kBulk&#39; specifies retrievals that are Glacierâ€™s lowest-cost retrieval option, which can be used to retrieve large amounts, even petabytes, of data inexpensively in a day. Bulk retrieval typically complete within 5â€“12 hours. &#39;kExpedited&#39; specifies retrievals that allows to quickly access your data when occasional urgent requests for a subset of archives are required. For all but the largest archives (250 MB+), data accessed using Expedited retrievals are typically made available within 1â€“5 minutes.</value>
+        /// <value>Specifies the way data needs to be retrieved from the external target. This information will be filled in by Iris and Magneto will pass it along to the Icebox as it is to support bulk retrieval from Glacier. Specifies the type of Restore Task.  &#39;kStandard&#39; specifies retrievals that allow to access any of your archives within several hours. Standard retrievals typically complete within 3–5 hours. This is the default option for retrieval requests that do not specify the retrieval option. &#39;kBulk&#39; specifies retrievals that are Glacier’s lowest-cost retrieval option, which can be used to retrieve large amounts, even petabytes, of data inexpensively in a day. Bulk retrieval typically complete within 5–12 hours. &#39;kExpedited&#39; specifies retrievals that allows to quickly access your data when occasional urgent requests for a subset of archives are required. For all but the largest archives (250 MB+), data accessed using Expedited retrievals are typically made available within 1–5 minutes.</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum GlacierRetrievalTypeEnum
         {
@@ -50,9 +48,9 @@ namespace Cohesity.Model
         }
 
         /// <summary>
-        /// Specifies the way data needs to be retrieved from the external target. This information will be filled in by Iris and Magneto will pass it along to the Icebox as it is to support bulk retrieval from Glacier. Specifies the type of Restore Task.  &#39;kStandard&#39; specifies retrievals that allow to access any of your archives within several hours. Standard retrievals typically complete within 3â€“5 hours. This is the default option for retrieval requests that do not specify the retrieval option. &#39;kBulk&#39; specifies retrievals that are Glacierâ€™s lowest-cost retrieval option, which can be used to retrieve large amounts, even petabytes, of data inexpensively in a day. Bulk retrieval typically complete within 5â€“12 hours. &#39;kExpedited&#39; specifies retrievals that allows to quickly access your data when occasional urgent requests for a subset of archives are required. For all but the largest archives (250 MB+), data accessed using Expedited retrievals are typically made available within 1â€“5 minutes.
+        /// Specifies the way data needs to be retrieved from the external target. This information will be filled in by Iris and Magneto will pass it along to the Icebox as it is to support bulk retrieval from Glacier. Specifies the type of Restore Task.  &#39;kStandard&#39; specifies retrievals that allow to access any of your archives within several hours. Standard retrievals typically complete within 3–5 hours. This is the default option for retrieval requests that do not specify the retrieval option. &#39;kBulk&#39; specifies retrievals that are Glacier’s lowest-cost retrieval option, which can be used to retrieve large amounts, even petabytes, of data inexpensively in a day. Bulk retrieval typically complete within 5–12 hours. &#39;kExpedited&#39; specifies retrievals that allows to quickly access your data when occasional urgent requests for a subset of archives are required. For all but the largest archives (250 MB+), data accessed using Expedited retrievals are typically made available within 1–5 minutes.
         /// </summary>
-        /// <value>Specifies the way data needs to be retrieved from the external target. This information will be filled in by Iris and Magneto will pass it along to the Icebox as it is to support bulk retrieval from Glacier. Specifies the type of Restore Task.  &#39;kStandard&#39; specifies retrievals that allow to access any of your archives within several hours. Standard retrievals typically complete within 3â€“5 hours. This is the default option for retrieval requests that do not specify the retrieval option. &#39;kBulk&#39; specifies retrievals that are Glacierâ€™s lowest-cost retrieval option, which can be used to retrieve large amounts, even petabytes, of data inexpensively in a day. Bulk retrieval typically complete within 5â€“12 hours. &#39;kExpedited&#39; specifies retrievals that allows to quickly access your data when occasional urgent requests for a subset of archives are required. For all but the largest archives (250 MB+), data accessed using Expedited retrievals are typically made available within 1â€“5 minutes.</value>
+        /// <value>Specifies the way data needs to be retrieved from the external target. This information will be filled in by Iris and Magneto will pass it along to the Icebox as it is to support bulk retrieval from Glacier. Specifies the type of Restore Task.  &#39;kStandard&#39; specifies retrievals that allow to access any of your archives within several hours. Standard retrievals typically complete within 3–5 hours. This is the default option for retrieval requests that do not specify the retrieval option. &#39;kBulk&#39; specifies retrievals that are Glacier’s lowest-cost retrieval option, which can be used to retrieve large amounts, even petabytes, of data inexpensively in a day. Bulk retrieval typically complete within 5–12 hours. &#39;kExpedited&#39; specifies retrievals that allows to quickly access your data when occasional urgent requests for a subset of archives are required. For all but the largest archives (250 MB+), data accessed using Expedited retrievals are typically made available within 1–5 minutes.</value>
         [DataMember(Name="glacierRetrievalType", EmitDefaultValue=true)]
         public GlacierRetrievalTypeEnum? GlacierRetrievalType { get; set; }
         /// <summary>
@@ -106,7 +104,7 @@ namespace Cohesity.Model
         /// <param name="acropolisParameters">acropolisParameters.</param>
         /// <param name="continueOnError">Specifies if the Restore Task should continue when some operations on some objects fail. If true, the Cohesity Cluster ignores intermittent errors and restores as many objects as possible..</param>
         /// <param name="deployVmsToCloud">deployVmsToCloud.</param>
-        /// <param name="glacierRetrievalType">Specifies the way data needs to be retrieved from the external target. This information will be filled in by Iris and Magneto will pass it along to the Icebox as it is to support bulk retrieval from Glacier. Specifies the type of Restore Task.  &#39;kStandard&#39; specifies retrievals that allow to access any of your archives within several hours. Standard retrievals typically complete within 3â€“5 hours. This is the default option for retrieval requests that do not specify the retrieval option. &#39;kBulk&#39; specifies retrievals that are Glacierâ€™s lowest-cost retrieval option, which can be used to retrieve large amounts, even petabytes, of data inexpensively in a day. Bulk retrieval typically complete within 5â€“12 hours. &#39;kExpedited&#39; specifies retrievals that allows to quickly access your data when occasional urgent requests for a subset of archives are required. For all but the largest archives (250 MB+), data accessed using Expedited retrievals are typically made available within 1â€“5 minutes..</param>
+        /// <param name="glacierRetrievalType">Specifies the way data needs to be retrieved from the external target. This information will be filled in by Iris and Magneto will pass it along to the Icebox as it is to support bulk retrieval from Glacier. Specifies the type of Restore Task.  &#39;kStandard&#39; specifies retrievals that allow to access any of your archives within several hours. Standard retrievals typically complete within 3–5 hours. This is the default option for retrieval requests that do not specify the retrieval option. &#39;kBulk&#39; specifies retrievals that are Glacier’s lowest-cost retrieval option, which can be used to retrieve large amounts, even petabytes, of data inexpensively in a day. Bulk retrieval typically complete within 5–12 hours. &#39;kExpedited&#39; specifies retrievals that allows to quickly access your data when occasional urgent requests for a subset of archives are required. For all but the largest archives (250 MB+), data accessed using Expedited retrievals are typically made available within 1–5 minutes..</param>
         /// <param name="hypervParameters">hypervParameters.</param>
         /// <param name="kubernetesParameters">kubernetesParameters.</param>
         /// <param name="mountParameters">mountParameters.</param>
@@ -124,6 +122,13 @@ namespace Cohesity.Model
         /// <param name="vmwareParameters">vmwareParameters.</param>
         public RecoverTaskRequest(PublicFoldersRestoreParameters publicFoldersParameters = default(PublicFoldersRestoreParameters), AcropolisRestoreParameters acropolisParameters = default(AcropolisRestoreParameters), bool? continueOnError = default(bool?), DeployVmsToCloud deployVmsToCloud = default(DeployVmsToCloud), GlacierRetrievalTypeEnum? glacierRetrievalType = default(GlacierRetrievalTypeEnum?), HypervRestoreParameters hypervParameters = default(HypervRestoreParameters), KubernetesRestoreParameters kubernetesParameters = default(KubernetesRestoreParameters), MountVolumesParameters mountParameters = default(MountVolumesParameters), string name = default(string), long? newParentId = default(long?), List<RestoreObjectDetails> objects = default(List<RestoreObjectDetails>), OneDriveRestoreParameters oneDriveParameters = default(OneDriveRestoreParameters), OutlookRestoreParameters outlookParameters = default(OutlookRestoreParameters), UpdateViewParam restoreViewParameters = default(UpdateViewParam), SharePointRestoreParameters sharePointParameters = default(SharePointRestoreParameters), TypeEnum type = default(TypeEnum), string viewName = default(string), VirtualDiskRestoreParameters virtualDiskRestoreParameters = default(VirtualDiskRestoreParameters), VlanParameters vlanParameters = default(VlanParameters), VmwareRestoreParameters vmwareParameters = default(VmwareRestoreParameters))
         {
+            this.ContinueOnError = continueOnError;
+            this.GlacierRetrievalType = glacierRetrievalType;
+            this.Name = name;
+            this.NewParentId = newParentId;
+            this.Objects = objects;
+            this.Type = type;
+            this.ViewName = viewName;
             this.PublicFoldersParameters = publicFoldersParameters;
             this.AcropolisParameters = acropolisParameters;
             this.ContinueOnError = continueOnError;
@@ -132,14 +137,12 @@ namespace Cohesity.Model
             this.HypervParameters = hypervParameters;
             this.KubernetesParameters = kubernetesParameters;
             this.MountParameters = mountParameters;
-            this.Name = name;
             this.NewParentId = newParentId;
             this.Objects = objects;
             this.OneDriveParameters = oneDriveParameters;
             this.OutlookParameters = outlookParameters;
             this.RestoreViewParameters = restoreViewParameters;
             this.SharePointParameters = sharePointParameters;
-            this.Type = type;
             this.ViewName = viewName;
             this.VirtualDiskRestoreParameters = virtualDiskRestoreParameters;
             this.VlanParameters = vlanParameters;
@@ -348,7 +351,7 @@ namespace Cohesity.Model
                     this.Objects == input.Objects ||
                     this.Objects != null &&
                     input.Objects != null &&
-                    this.Objects.Equals(input.Objects)
+                    this.Objects.SequenceEqual(input.Objects)
                 ) && 
                 (
                     this.OneDriveParameters == input.OneDriveParameters ||

@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -35,6 +33,13 @@ namespace Cohesity.Model
         /// <param name="vaultName">Vault Name  Specifies the name of the vault from which the restore is going on..</param>
         public RemoteVaultRestoreTaskStatus(RemoteRestoreIndexingStatus currentIndexingStatus = default(RemoteRestoreIndexingStatus), RemoteRestoreSnapshotStatus currentSnapshotStatus = default(RemoteRestoreSnapshotStatus), UniversalId localProtectionJobUid = default(UniversalId), UniversalId parentJobUid = default(UniversalId), RemoteProtectionJobInformation remoteProtectionJobInformation = default(RemoteProtectionJobInformation), UniversalId searchJobUid = default(UniversalId), long? vaultId = default(long?), string vaultName = default(string))
         {
+            this.CurrentIndexingStatus = currentIndexingStatus;
+            this.CurrentSnapshotStatus = currentSnapshotStatus;
+            this.LocalProtectionJobUid = localProtectionJobUid;
+            this.ParentJobUid = parentJobUid;
+            this.SearchJobUid = searchJobUid;
+            this.VaultId = vaultId;
+            this.VaultName = vaultName;
             this.CurrentIndexingStatus = currentIndexingStatus;
             this.CurrentSnapshotStatus = currentSnapshotStatus;
             this.LocalProtectionJobUid = localProtectionJobUid;

@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -35,6 +33,11 @@ namespace Cohesity.Model
         /// <param name="storageArraySnapshotConfig">storageArraySnapshotConfig.</param>
         public ThrottlingPolicyParameters(bool? enforceMaxStreams = default(bool?), bool? enforceRegisteredSourceMaxBackups = default(bool?), bool? isEnabled = default(bool?), LatencyThresholds latencyThresholds = default(LatencyThresholds), int? maxConcurrentStreams = default(int?), NasSourceThrottlingParams nasSourceParams = default(NasSourceThrottlingParams), int? registeredSourceMaxConcurrentBackups = default(int?), StorageArraySnapshotConfigParams storageArraySnapshotConfig = default(StorageArraySnapshotConfigParams))
         {
+            this.EnforceMaxStreams = enforceMaxStreams;
+            this.EnforceRegisteredSourceMaxBackups = enforceRegisteredSourceMaxBackups;
+            this.IsEnabled = isEnabled;
+            this.MaxConcurrentStreams = maxConcurrentStreams;
+            this.RegisteredSourceMaxConcurrentBackups = registeredSourceMaxConcurrentBackups;
             this.EnforceMaxStreams = enforceMaxStreams;
             this.EnforceRegisteredSourceMaxBackups = enforceRegisteredSourceMaxBackups;
             this.IsEnabled = isEnabled;

@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -30,6 +28,9 @@ namespace Cohesity.Model
         /// <param name="hardLimitBytes">Specifies an optional quota limit on the usage allowed for this resource. This limit is specified in bytes. If no value is specified, there is no limit..</param>
         public QuotaPolicy(long? alertLimitBytes = default(long?), long? alertThresholdPercentage = default(long?), long? hardLimitBytes = default(long?))
         {
+            this.AlertLimitBytes = alertLimitBytes;
+            this.AlertThresholdPercentage = alertThresholdPercentage;
+            this.HardLimitBytes = hardLimitBytes;
             this.AlertLimitBytes = alertLimitBytes;
             this.AlertThresholdPercentage = alertThresholdPercentage;
             this.HardLimitBytes = hardLimitBytes;

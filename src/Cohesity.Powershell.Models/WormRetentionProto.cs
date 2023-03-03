@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -31,6 +29,10 @@ namespace Cohesity.Model
         /// <param name="version">Version number for this proto..</param>
         public WormRetentionProto(bool? enableWormOnExternalTarget = default(bool?), int? policyType = default(int?), long? retentionSecs = default(long?), int? version = default(int?))
         {
+            this.EnableWormOnExternalTarget = enableWormOnExternalTarget;
+            this.PolicyType = policyType;
+            this.RetentionSecs = retentionSecs;
+            this.Version = version;
             this.EnableWormOnExternalTarget = enableWormOnExternalTarget;
             this.PolicyType = policyType;
             this.RetentionSecs = retentionSecs;

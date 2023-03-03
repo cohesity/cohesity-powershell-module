@@ -1,6 +1,5 @@
 // Copyright 2019 Cohesity Inc.
 
-
 using System;
 using System.Linq;
 using System.IO;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
 
 namespace Cohesity.Model
 {
@@ -609,61 +607,61 @@ namespace Cohesity.Model
             return 
                 (
                     this.ApolloIOPreferentialTier == input.ApolloIOPreferentialTier ||
-                    this.ApolloIOPreferentialTier.Equals(input.ApolloIOPreferentialTier)
+                    this.ApolloIOPreferentialTier.SequenceEqual(input.ApolloIOPreferentialTier)
                 ) && 
                 (
                     this.ApolloWalIOPreferentialTier == input.ApolloWalIOPreferentialTier ||
-                    this.ApolloWalIOPreferentialTier.Equals(input.ApolloWalIOPreferentialTier)
+                    this.ApolloWalIOPreferentialTier.SequenceEqual(input.ApolloWalIOPreferentialTier)
                 ) && 
                 (
                     this.AthenaIOPreferentialTier == input.AthenaIOPreferentialTier ||
-                    this.AthenaIOPreferentialTier.Equals(input.AthenaIOPreferentialTier)
+                    this.AthenaIOPreferentialTier.SequenceEqual(input.AthenaIOPreferentialTier)
                 ) && 
                 (
                     this.AthenaSlowerIOPreferentialTier == input.AthenaSlowerIOPreferentialTier ||
-                    this.AthenaSlowerIOPreferentialTier.Equals(input.AthenaSlowerIOPreferentialTier)
+                    this.AthenaSlowerIOPreferentialTier.SequenceEqual(input.AthenaSlowerIOPreferentialTier)
                 ) && 
                 (
                     this.CloudChunkRepoIOPreferentialTier == input.CloudChunkRepoIOPreferentialTier ||
-                    this.CloudChunkRepoIOPreferentialTier.Equals(input.CloudChunkRepoIOPreferentialTier)
+                    this.CloudChunkRepoIOPreferentialTier.SequenceEqual(input.CloudChunkRepoIOPreferentialTier)
                 ) && 
                 (
                     this.DownTierUsagePercentThresholds == input.DownTierUsagePercentThresholds ||
                     this.DownTierUsagePercentThresholds != null &&
                     input.DownTierUsagePercentThresholds != null &&
-                    this.DownTierUsagePercentThresholds.Equals(input.DownTierUsagePercentThresholds)
+                    this.DownTierUsagePercentThresholds.SequenceEqual(input.DownTierUsagePercentThresholds)
                 ) && 
                 (
                     this.GrootIOPreferentialTier == input.GrootIOPreferentialTier ||
-                    this.GrootIOPreferentialTier.Equals(input.GrootIOPreferentialTier)
+                    this.GrootIOPreferentialTier.SequenceEqual(input.GrootIOPreferentialTier)
                 ) && 
                 (
                     this.HydraDowntierIOPreferentialTier == input.HydraDowntierIOPreferentialTier ||
-                    this.HydraDowntierIOPreferentialTier.Equals(input.HydraDowntierIOPreferentialTier)
+                    this.HydraDowntierIOPreferentialTier.SequenceEqual(input.HydraDowntierIOPreferentialTier)
                 ) && 
                 (
                     this.HydraIOPreferentialTier == input.HydraIOPreferentialTier ||
-                    this.HydraIOPreferentialTier.Equals(input.HydraIOPreferentialTier)
+                    this.HydraIOPreferentialTier.SequenceEqual(input.HydraIOPreferentialTier)
                 ) && 
                 (
                     this.LibrarianIOPreferentialTier == input.LibrarianIOPreferentialTier ||
-                    this.LibrarianIOPreferentialTier.Equals(input.LibrarianIOPreferentialTier)
+                    this.LibrarianIOPreferentialTier.SequenceEqual(input.LibrarianIOPreferentialTier)
                 ) && 
                 (
                     this.RandomIOPreferentialTier == input.RandomIOPreferentialTier ||
-                    this.RandomIOPreferentialTier.Equals(input.RandomIOPreferentialTier)
+                    this.RandomIOPreferentialTier.SequenceEqual(input.RandomIOPreferentialTier)
                 ) && 
                 (
                     this.ScribeIOPreferentialTier == input.ScribeIOPreferentialTier ||
-                    this.ScribeIOPreferentialTier.Equals(input.ScribeIOPreferentialTier)
+                    this.ScribeIOPreferentialTier.SequenceEqual(input.ScribeIOPreferentialTier)
                 ) && 
                 (
                     this.SequentialIOPreferentialTier == input.SequentialIOPreferentialTier ||
-                    this.SequentialIOPreferentialTier.Equals(input.SequentialIOPreferentialTier)
+                    this.SequentialIOPreferentialTier.SequenceEqual(input.SequentialIOPreferentialTier)
                 ) && 
                 (
                     this.YodaIOPreferentialTier == input.YodaIOPreferentialTier ||
-                    this.YodaIOPreferentialTier.Equals(input.YodaIOPreferentialTier)
+                    this.YodaIOPreferentialTier.SequenceEqual(input.YodaIOPreferentialTier)
                 );
         }
 
